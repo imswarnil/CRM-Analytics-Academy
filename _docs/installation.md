@@ -9,7 +9,7 @@ comments: true
 
 Welcome, fellow Salesforce enthusiasts! Whether you're a complete newcomer or already familiar with Salesforce, you've come to the right place. Salesforce Passport is your gateway to exploring and mastering the world of Salesforce, step by step.
 
-![Salesforce Passport](/uploads/Salesforce-Passport.gif)
+![Salesforce Passport](/uploads/project/Zostel.png)
 
 ## Introduction
 
