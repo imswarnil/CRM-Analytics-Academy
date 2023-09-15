@@ -1,13 +1,10 @@
 ---
-title: Theme installation
-subtitle: This document covers the setup and options of theme feature described in the doc title
+title: Let's Start 
+subtitle: Your Salesforce learning journey begins here. Explore, learn, and build with Salesforce Passport. 🚀🌐
 author: sara
-tags: [setup]
+tags: [introduction]
 comments: true
-
 ---
-
-
 # Welcome to Salesforce Passport 🌟
 
 ![Salesforce Passport](/uploads/Salesforce-Passport.gif)
