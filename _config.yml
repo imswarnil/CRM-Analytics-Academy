@@ -22,6 +22,10 @@ authors:
       name:         John Brown
       title:        Support     
       avatar:       avatar-john.png
+    john:
+      name:         Swarnil Singhai
+      title:        Admin     
+      avatar:       swarnil-passport.png
     evan:
       name:         Evan Wells
       title:        Support    
