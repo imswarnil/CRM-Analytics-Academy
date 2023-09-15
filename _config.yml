@@ -2,32 +2,20 @@
 # This config file is meant for settings that affect Job Seekers Guide Project.
 
 # Site title and description
-title :        Job Seekers Guide
-description:      
+title :       Salesforce Passport
+description:  Your Passport to Salesforce Learning & Adventure    
 lang:               en
-
-# Site subpath, e.g. /blog
 baseurl:            ""
-
-# Permalink URLs structure, for permalink style options see: https://jekyllrb.com/docs/permalinks/
 permalink:          /:title/
-
-# Site base hostname & protocol, e.g. http://example.com
-url:                "https://job.imswarnil.com/"
-
-# Site logo # e.g. logo.png, upload logo image file to /uploads/ folder
-logo: /bjsg.gif
-
+url:                "https://sfdc.imswarnil.com/"
+logo: /Salesforce-Passport.gif
 navbar:
     sticky:         true
     search:         true
-  
-# Default author settings
 author:
     name:           Swarnil Singhai
-    title:          Lead Developer  
-    avatar:         avatar-tom.png
-
+    title:          Project Ow
+    avatar:         avatar-tom.png   
 # Author settings, displayed on post and doc pages if front matter references author name e.g. author: peter
 authors:
     john:
