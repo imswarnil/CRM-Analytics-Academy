@@ -3,7 +3,7 @@ layout: page
 width: expand
 hero:
     title: Your Passport to Salesforce Learning & Adventure 
-    subtitle: Follow Swarnil's path to succeed in Bangalore with job search, relocation guidance, and valuable articles and videos tailored for Bangalore job seekers.
+    subtitle: The Passport that launches your Salesforce learning journey. Learn Salesforce concepts while building a Backpacker Travel Hostel app using Salesforce. This passport is your ticket to a career-ready flight—the only one that takes off your salesforce career using just a passport.
     image: knowledge.svg
     search: true
 ---
