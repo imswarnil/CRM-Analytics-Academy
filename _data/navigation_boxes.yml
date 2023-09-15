@@ -1,8 +1,8 @@
 # Boxes include navigation
 
-- title: Getting Started
-  desc: Get started fast with installation and theme setup instructions
-  icon: cog
+- title: Start 
+  desc: Start Your Journey From Scratch To Learn Salesforce 
+  icon: hashtag
   doc: installation
 
 - title: Theme Features
