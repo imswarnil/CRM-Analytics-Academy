@@ -25,7 +25,7 @@ authors:
     john:
       name:         Swarnil Singhai
       title:        Admin     
-      avatar:       swarnil-passport.png
+      avatar:       users/swarnil-passport.png
     evan:
       name:         Evan Wells
       title:        Support    
