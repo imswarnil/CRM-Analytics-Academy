@@ -2,7 +2,7 @@
 layout: page
 width: expand
 hero:
-    title:✈️ Your Passport to Salesforce Learning & Adventure 🌄
+    title: ✈️ Your Passport to Salesforce Learning & Adventure 🌄
     subtitle: 🚀 The Passport that launches your Salesforce learning journey. Learn Salesforce concepts while building a Backpacker Travel Hostel app using Salesforce. This passport is your ticket to a career-ready flight—the only one that takes off your Salesforce career using just a passport. ✈️🌐🎒
     image: traveller.svg
     search: true
