@@ -19,6 +19,8 @@ In this project, I'm considering everyone as a newbie in Salesforce, just like I
 
 The name "Salesforce Passport" reflects my love for traveling and the idea that learning Salesforce is like embarking on a thrilling journey. Just as you need a passport to explore new countries, you'll need your Salesforce Passport to explore the Salesforce ecosystem and build something amazing.
 
+{% include ad.html type="article" %}
+
 ## What We'll Build
 
 In this project, we'll be creating a Travel Hostel Management App using Salesforce. Along the way, you'll learn:
