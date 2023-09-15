@@ -1,0 +1,61 @@
+<div class="uk-section">
+    <div class="uk-container uk-container-small">
+
+        {% if include.title %}
+            <h2 class="uk-h1 uk-text-center">{{ include.title }}</h2>
+        {% endif %}
+
+        {% if include.subtitle %}
+            <p class="uk-text-center uk-text-lead">{{ include.subtitle | escape }}</p>
+        {% endif %}
+
+        {% if include.category %}
+            {% assign faqs = site.faqs | where: "categories", include.category %}
+        {% else %}
+            {% assign faqs = site.faqs %}
+        {% endif %}
+
+        <ul class="uk-margin-medium-top" data-uk-accordion{% if include.multiple %}="multiple: true"{% endif %}>
+            {% for faq in faqs %}
+                <li>
+                    <a class="uk-accordion-title uk-box-shadow-hover-small" href="#">{{ faq.title }}</a>
+                    <div class="article-content uk-accordion-content link-primary">{{ faq.content }}</div>                
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for faq in faqs %}
+      {
+        "@type": "Question",
+        "name": "{{ faq.title | escape }}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{ faq.content | strip_html | strip_newlines | escape }}"
+        }
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "headline": "{{ include.title | escape }}",
+  "description": "{{ include.subtitle | escape }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.logo | absolute_url }}"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.owner }}"
+  }
+}
+</script>

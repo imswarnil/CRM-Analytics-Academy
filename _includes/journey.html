@@ -1,0 +1,27 @@
+<div class="tm-timeline uk-margin-large-top">
+    {% for version in site.data.journey %}
+      <div class="tm-timeline-entry">
+        <div class="tm-timeline-time">
+          <h5>{{ version.date }}</h5>
+          {% include ad.html type="skyscraper" %}
+        </div>
+        <div class="tm-timeline-body">
+          <h3 class="uk-flex uk-flex-middle">{{ version.title }}{% if version.label %}<span class="uk-label uk-margin-small-left">{{ version.label }}</span>{% endif %}</h3>
+          {% if version.video_id %}
+            <div class="uk-card uk-card-default uk-card-body uk-card-small uk-box-shadow-medium">
+              <div class="uk-responsive-width">
+                <iframe src="https://www.youtube-nocookie.com/embed/{{ version.video_id }}?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1&amp;playsinline=1" width="1920" height="1080" allowfullscreen uk-responsive></iframe>
+              </div>
+            </div>
+          {% endif %}
+          <ul class="uk-list">
+            {% for item in version.list %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          {% include ad.html type="button" %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  

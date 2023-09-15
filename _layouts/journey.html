@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+<div class="uk-section">
+    <div class="uk-container container-xxsmall">
+
+        <h1 class="uk-article-title">{{ page.title | escape }}</h1>
+
+        <div class="article-content">
+            {{ content }}
+        </div>
+
+        {% assign journeys = (site.journeys | sort: 'date') | reverse %}
+        {% for journey in journeys %}
+            <article class="uk-article uk-margin-medium-top">
+                <hr class="uk-margin-medium-bottom">
+                <div class="uk-position-relative">
+                    <h2>{{ journey.title }}</h2>
+                    <div class="uk-position-center-left-out uk-position-large uk-visible@m uk-text-small uk-text-muted">
+                        {% if journey.date %}
+                        <time datetime="{{ journey.date | date_to_xmlschema }}" itemprop="datePublished">
+                            {% assign date_format = site.date_format | default: "%b %-d, %Y" %}
+                            {{ journey.date | date: date_format }}
+                        </time>
+                        {% endif %}
+                    </div>
+                    <div class="uk-hidden@m uk-text-small uk-text-muted uk-margin-bottom">
+                        {% if journey.date %}
+                        <time datetime="{{ journey.date | date_to_xmlschema }}" itemprop="datePublished">
+                            {% assign date_format = site.date_format | default: "%b %-d, %Y" %}
+                            {{ journey.date | date: date_format }}
+                        </time>
+                        {% endif %}
+                    </div>
+                </div> 
+                <div class="article-content">{{ journey.content }}</div>
+            </article>
+        {% endfor %}
+
+    </div>
+</div>
