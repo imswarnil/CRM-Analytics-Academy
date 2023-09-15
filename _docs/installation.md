@@ -1,7 +1,7 @@
 ---
 title: Let's Start 
 subtitle: Your Salesforce learning journey begins here. Explore, learn, and build with Salesforce Passport. 🚀🌐
-author: sara
+author: Swarnil
 tags: [introduction]
 comments: true
 ---

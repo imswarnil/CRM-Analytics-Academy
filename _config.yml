@@ -13,9 +13,9 @@ navbar:
     sticky:         true
     search:         true
 author:
-    name:           Swarnil Singhai
+    name:           Swarnil 
     title:          Salesforce CRM Analytics Engineer 
-    avatar:         swarnil-passport.png
+    avatar:         Swarnil.gif
 # Author settings, displayed on post and doc pages if front matter references author name e.g. author: peter
 authors:
     john:
@@ -25,7 +25,7 @@ authors:
     john:
       name:         Swarnil Singhai
       title:        Admin     
-      avatar:       users/swarnil-passport.png
+      avatar:       users/Swarnil.gif
     evan:
       name:         Evan Wells
       title:        Support    
