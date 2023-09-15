@@ -6,6 +6,45 @@ tags: [setup]
 comments: true
 
 ---
+
+
+# Welcome to Salesforce Passport 🌟
+
+![Salesforce Passport](/uploads/Salesforce-Passport.gif)
+
+## Introduction
+
+Welcome, fellow Salesforce enthusiasts! Whether you're a complete newcomer or already familiar with Salesforce, you've come to the right place. Salesforce Passport is your gateway to exploring and mastering the world of Salesforce, step by step.
+
+In this project, I'm considering everyone as a newbie in Salesforce, just like I was when I began this incredible journey. I've curated a collection of resources, links to Trailhead modules, courses, blogs, and more, to help you understand Salesforce better. You're not alone on this adventure; we're in it together!
+
+### Why "Salesforce Passport"?
+
+The name "Salesforce Passport" reflects my love for traveling and the idea that learning Salesforce is like embarking on a thrilling journey. Just as you need a passport to explore new countries, you'll need your Salesforce Passport to explore the Salesforce ecosystem and build something amazing.
+
+## What We'll Build
+
+In this project, we'll be creating a Travel Hostel Management App using Salesforce. Along the way, you'll learn:
+
+- The basics of creating an app in Salesforce
+- Creating custom objects and defining their relationships
+- Setting up users and permissions
+- Customization and configuration
+- And much more!
+
+But before we dive into building our app, let's start with the fundamentals and understand what Salesforce is.
+
+## What is Salesforce?
+
+Salesforce is a powerful and versatile Customer Relationship Management (CRM) platform. It empowers organizations to manage their customers, prospects, sales, and much more, all in one place. Salesforce is highly customizable, making it suitable for a wide range of industries and use cases.
+
+Salesforce is all about simplifying complex business processes, improving customer relationships, and driving growth. It's a tool that businesses around the world rely on to streamline their operations and achieve success.
+
+Are you ready to embark on this exciting Salesforce journey? Let's get started!
+
+![Salesforce Logo](insert_salesforce_logo_image_url_here)
+
+
 <iframe width="358" height="637" src="https://www.youtube.com/embed/ZOrvVyRufBg" title="Visited Goa With Friends - Travel - 1 #travel #goa #friends #softwareengineer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
   {% include ad.html type="small-leaderboard" %}
