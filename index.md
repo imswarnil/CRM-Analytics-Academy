@@ -2,7 +2,7 @@
 layout: page
 width: expand
 hero:
-    title: Your Passport to Salesforce Learning and Nomadic Adventure 
+    title: Your Passport to Salesforce Learning & Adventure 
     subtitle: Follow Swarnil's path to succeed in Bangalore with job search, relocation guidance, and valuable articles and videos tailored for Bangalore job seekers.
     image: knowledge.svg
     search: true
