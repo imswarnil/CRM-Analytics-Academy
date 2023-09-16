@@ -78,8 +78,8 @@ footer:
 disqus:
     shortname:  bangalore-job-seekers-guide
 
-# Google analytics code, get your code here https://www.google.com/analytics/
-google_analytics: G-67CK71YPKN
+# Google analytics code
+google_analytics: G-JM1NJY5MEK
 
 # Number of posts displayed on blog page
 paginate:           10
