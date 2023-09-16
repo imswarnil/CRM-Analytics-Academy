@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown and Redirect</title>
+    <script>
+        // Function to update the countdown and redirect
+        function countdown() {
+            const countdownElement = document.getElementById('countdown');
+            let seconds = 5; // Set the countdown duration in seconds
+
+            function updateCountdown() {
+                countdownElement.innerText = seconds;
+                if (seconds === 0) {
+                    window.location.href = 'https://www.google.com'; // Redirect to Google
+                } else {
+                    seconds--;
+                    setTimeout(updateCountdown, 1000); // Update countdown every second
+                }
+            }
+
+            updateCountdown();
+        }
+    </script>
+</head>
+<body onload="countdown()">
+    <h1>Redirecting to Google in <span id="countdown">5</span> seconds...</h1>
+</body>
+</html>
