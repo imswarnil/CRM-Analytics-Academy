@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Centered YouTube Video</title>
+    <!-- Include UI Kit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/css/uikit.min.css" />
+
+    <style>
+        /* Customize the appearance of your elements here */
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        .video-details {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .leaderboard {
+            background-color: #f0f0f0;
+            height: 90px;
+            text-align: center;
+            line-height: 90px;
+            font-size: 18px;
+        }
+
+        .skyscraper {
+            background-color: #f0f0f0;
+            width: 120px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+        }
+
+        .left-skyscraper {
+            left: 0;
+        }
+
+        .right-skyscraper {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Leaderboard -->
+    <div class="leaderboard">Leaderboard Ad</div>
+
+    <!-- Video Container -->
+    <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- Skyscrapers -->
+    <div class="skyscraper left-skyscraper">Left Skyscraper Ad</div>
+    <div class="skyscraper right-skyscraper">Right Skyscraper Ad</div>
+
+    <!-- Video Details -->
+    <div class="video-details">
+        <h1>Video Title</h1>
+        <p>Video Description</p>
+        <button class="uk-button uk-button-primary">Watch Now</button>
+    </div>
+
+    <!-- Include UI Kit JavaScript at the bottom of the body -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.3/js/uikit-icons.min.js"></script>
+</body>
+</html>
