@@ -7,47 +7,36 @@ layout: default
 
         <h1 class="uk-article-title">{{ page.title | escape }}</h1>
 
-        <!-- Add Toggle Option -->
-        <div class="changelog-toggle">
-            <label for="toggle-checkbox">Show:</label>
-            <input type="checkbox" id="toggle-checkbox" class="toggle-checkbox" checked>
-            <span class="toggle-label">Most Recent First</span>
-        </div>
-
         <div class="article-content">
             {{ content }}
         </div>
 
-        {% assign changelogs = (site.changelogs | sort: 'date') %}
-        
-        <!-- Add JavaScript to Toggle Order -->
-        <script>
-            const toggleCheckbox = document.getElementById('toggle-checkbox');
-            const toggleLabel = document.querySelector('.toggle-label');
+        {% assign changelogs = (site.changelogs | sort: 'date') | reverse %}
+        {% for changelog in changelogs %}
+            <article class="uk-article uk-margin-medium-top">
+                <hr class="uk-margin-medium-bottom">
+                <div class="uk-position-relative">
+                    <h2>{{ changelog.title }}</h2>
+                    <div class="uk-position-center-left-out uk-position-large uk-visible@m uk-text-small uk-text-muted">
+                        {% if changelog.date %}
+                        <time datetime="{{ changelog.date | date_to_xmlschema }}" itemprop="datePublished">
+                            {% assign date_format = site.date_format | default: "%b %-d, %Y" %}
+                            {{ changelog.date | date: date_format }}
+                        </time>
+                        {% endif %}
+                    </div>
+                    <div class="uk-hidden@m uk-text-small uk-text-muted uk-margin-bottom">
+                        {% if changelog.date %}
+                        <time datetime="{{ changelog.date | date_to_xmlschema }}" itemprop="datePublished">
+                            {% assign date_format = site.date_format | default: "%b %-d, %Y" %}
+                            {{ changelog.date | date: date_format }}
+                        </time>
+                        {% endif %}
+                    </div>
+                </div> 
+                <div class="article-content">{{ changelog.content }}</div>
+            </article>
+        {% endfor %}
 
-            toggleCheckbox.addEventListener('change', function () {
-                const changelogContainer = document.querySelector('.changelog-container');
-                if (this.checked) {
-                    changelogContainer.innerHTML = '';
-                    const reversedChangelogs = [...changelogs].reverse();
-                    reversedChangelogs.forEach(changelog => {
-                        appendChangelog(changelog);
-                    });
-                    toggleLabel.textContent = 'Most Recent First';
-                } else {
-                    changelogContainer.innerHTML = '';
-                    changelogs.forEach(changelog => {
-                        appendChangelog(changelog);
-                    });
-                    toggleLabel.textContent = 'Most Oldest First';
-                }
-            });
-
-            // Function to append a changelog
-            function appendChangelog(changelog) {
-                // Your existing code to append changelogs here
-            }
-        </script>
-        
     </div>
 </div>
