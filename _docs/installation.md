@@ -5,7 +5,6 @@ author: swarnil
 tags: [introduction]
 comments: true
 ---
-{:.no_toc}
 * TOC
 {:toc}
 
