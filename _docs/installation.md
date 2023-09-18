@@ -12,11 +12,15 @@ comments: true
 
 Welcome, fellow Salesforce enthusiasts! Whether you're a complete newcomer or already familiar with Salesforce, you've come to the right place. Salesforce Passport is your gateway to exploring and mastering the world of Salesforce, step by step.
 
-![Salesforce Passport](/uploads/project/Zostel.png)
+![Salesforce Passport](/uploads/project/Zostel-1.png)
+
 
 ## Introduction
 
 In this project, I'm considering everyone as a newbie in Salesforce, just like I was when I began this incredible journey. I've curated a collection of resources, links to Trailhead modules, courses, blogs, and more, to help you understand Salesforce better. You're not alone on this adventure; we're in it together!
+
+
+![Salesforce Passport](/uploads/project/Zostel.png)
 
 ### Why "Salesforce Passport"?
 
