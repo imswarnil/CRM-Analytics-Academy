@@ -7,13 +7,12 @@ comments: true
 ---
 * TOC
 {:toc}
-
 # Welcome to Salesforce Passport 🌟
 
 Welcome, fellow Salesforce enthusiasts! Whether you're a complete newcomer or already familiar with Salesforce, you've come to the right place. Salesforce Passport is your gateway to exploring and mastering the world of Salesforce, step by step.
 
-![Salesforce Passport](/uploads/project/Zostel-1.png)
 
+![Salesforce Passport](/uploads/project/Zostel-1.png)
 
 ## Introduction
 
