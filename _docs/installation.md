@@ -21,7 +21,7 @@ In this project, I'm considering everyone as a newbie in Salesforce, just like I
 
 # Video Example
 
-{% include video.html
+{% include vidstack.html
   title="Sprite Fight"
   src="https://stream.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/low.mp4"
   poster="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=980"
