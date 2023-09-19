@@ -18,6 +18,31 @@ Welcome, fellow Salesforce enthusiasts! Whether you're a complete newcomer or al
 
 In this project, I'm considering everyone as a newbie in Salesforce, just like I was when I began this incredible journey. I've curated a collection of resources, links to Trailhead modules, courses, blogs, and more, to help you understand Salesforce better. You're not alone on this adventure; we're in it together!
 
+---
+layout: default
+title: Video Page
+---
+
+# Video Example
+
+{% include video.html
+  title="Sprite Fight"
+  src="https://stream.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/low.mp4"
+  poster="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=980"
+  thumbnails="https://media-files.vidstack.io/sprite-fight/thumbnails.vtt"
+  aspect_ratio="16/9"
+  crossorigin
+  poster_alt="Girl walks into sprite gnomes around her friend on a campfire in danger!"
+  subtitles="https://media-files.vidstack.io/sprite-fight/subs/english.vtt"
+  subtitles_label="English"
+  subtitles_srclang="en-US"
+  subtitles_default="true"
+  chapters="https://media-files.vidstack.io/sprite-fight/chapters.vtt"
+  chapters_srclang="en-US"
+  chapters_default="true"
+%}
+
+
 
 ![Salesforce Passport](/uploads/project/Zostel.png)
 
