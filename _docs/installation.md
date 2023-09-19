@@ -18,10 +18,6 @@ Welcome, fellow Salesforce enthusiasts! Whether you're a complete newcomer or al
 
 In this project, I'm considering everyone as a newbie in Salesforce, just like I was when I began this incredible journey. I've curated a collection of resources, links to Trailhead modules, courses, blogs, and more, to help you understand Salesforce better. You're not alone on this adventure; we're in it together!
 
----
-layout: default
-title: Video Page
----
 
 # Video Example
 
