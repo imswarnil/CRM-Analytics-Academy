@@ -1,31 +1,82 @@
-<!-- video.html -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vidstack/styles/defaults.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vidstack/styles/community-skin/video.min.css" />
 <script type="module" src="https://cdn.jsdelivr.net/npm/vidstack/dist/cdn/prod.js"></script>
+<style>
+media-community-skin[data-video] {
+--video-brand: #f15824;
+--video-font-family: sans-serif;
+--video-controls-color: #f15824;
+--video-border: 5px solid #f15824);
+--video-focus-ring: 0 0 0 3px #f15824;
+
+--video-title-color: #f15824;
+--video-title-font-size: 16px;
+--video-title-font-weight: 500;
+--video-title-font-family: sans-serif;
+--video-fullscreen-title-font-size: 16px;
+
+--video-mobile-button-size: 32px;
+--video-volume-slider-max-width: 72px;
+--video-gesture-seek-width: 20%;
+
+--video-scrim-bg: rgb(0 0 0 / 0.3);
+--video-scrim-in-transition: opacity 0.15s ease-in;
+--video-scrim-out-transition: opacity 0.15s ease-out;
+
+--video-controls-in-transition: opacity 0.2s ease-in;
+--video-controls-out-transition: opacity 0.2s ease-out;
+
+--video-captions-transition: bottom 0.15s linear;
+--video-captions-offset: 72px;
+--video-mobile-captions-offset: 48px;
+--video-large-fullscreen-captions-offset: 54px;
+
+--video-time-divider-color: #f15824;
+--video-fullscreen-time-font-size: 16px;
+
+--video-mobile-play-button-bg: #f15824;
+--video-mobile-play-button-size: 40px;
+--video-mobile-play-button-size: 40px;
+--video-mobile-play-button-transform: translateY(25%);
+
+--video-mobile-start-duration-padding: 3px 6px;
+--video-mobile-start-duration-color: var(--video-controls-color);
+--video-mobile-start-duration-bg: rgb(0 0 0 / 0.64);
+}
+
+</style>
 
 <media-player
-  title='{{ include.param }}'
-  src='{{ include.src }}'
-  poster='{{ include.poster }}'
-  thumbnails='{{ include.thumbnails }}'
-  aspect-ratio='{{ include.aspect_ratio }}'
-  {% if include.crossorigin %} crossorigin {% endif %}
+title="Sprite Fight"
+src="https://stream.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/low.mp4"
+poster="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=980"
+thumbnails="https://media-files.vidstack.io/sprite-fight/thumbnails.vtt"
+aspect-ratio="16/9"
+crossorigin
 >
-  <media-outlet>
-    <media-poster alt='{{ include.poster_alt }}'></media-poster>
-    <track
-      src='{{ include.subtitles }}'
-      label='{{ include.subtitles_label }}'
-      srclang='{{ include.subtitles_srclang }}'
-      kind='subtitles'
-      {% if include.subtitles_default %} default {% endif %}
-    />
-    <track
-      src='{{ include.chapters }}'
-      srclang='{{ include.chapters_srclang }}'
-      kind='chapters'
-      {% if include.chapters_default %} default {% endif %}
-    />
-  </media-outlet>
-  <media-community-skin></media-community-skin>
+<media-outlet>
+<media-poster
+  alt="Girl walks into sprite gnomes around her friend on a campfire in danger!"
+></media-poster>
+<track
+  src="https://media-files.vidstack.io/sprite-fight/subs/english.vtt"
+  label="English"
+  srclang="en-US"
+  kind="subtitles"
+  default
+/>
+<track
+  src="https://media-files.vidstack.io/sprite-fight/chapters.vtt"
+  srclang="en-US"
+  kind="chapters"
+  default
+/>
+<h2><media-player>
+<media-time type="current"></media-time>
+<media-time type="buffered"></media-time>
+<media-time type="duration"></media-time>
+<media-time type="current" remainder></media-time>
+</media-player></h2>
+</media-outlet>
+<media-community-skin></media-community-skin>
 </media-player>
