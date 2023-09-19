@@ -4,26 +4,26 @@
 <script type="module" src="https://cdn.jsdelivr.net/npm/vidstack/dist/cdn/prod.js"></script>
 
 <media-player
-  title="{{ include.title }}"
-  src="{{ include.src }}"
-  poster="{{ include.poster }}"
-  thumbnails="{{ include.thumbnails }}"
-  aspect-ratio="{{ include.aspect_ratio }}"
+  title='{{ include.param }}'
+  src='{{ include.src }}'
+  poster='{{ include.poster }}'
+  thumbnails='{{ include.thumbnails }}'
+  aspect-ratio='{{ include.aspect_ratio }}'
   {% if include.crossorigin %} crossorigin {% endif %}
 >
   <media-outlet>
-    <media-poster alt="{{ include.poster_alt }}"></media-poster>
+    <media-poster alt='{{ include.poster_alt }}'></media-poster>
     <track
-      src="{{ include.subtitles }}"
-      label="{{ include.subtitles_label }}"
-      srclang="{{ include.subtitles_srclang }}"
-      kind="subtitles"
+      src='{{ include.subtitles }}'
+      label='{{ include.subtitles_label }}'
+      srclang='{{ include.subtitles_srclang }}'
+      kind='subtitles'
       {% if include.subtitles_default %} default {% endif %}
     />
     <track
-      src="{{ include.chapters }}"
-      srclang="{{ include.chapters_srclang }}"
-      kind="chapters"
+      src='{{ include.chapters }}'
+      srclang='{{ include.chapters_srclang }}'
+      kind='chapters'
       {% if include.chapters_default %} default {% endif %}
     />
   </media-outlet>
