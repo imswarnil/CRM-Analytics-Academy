@@ -1,6 +1,6 @@
 ---
 title: Swarnil Update
-date: 2018-11-11
+date: 2018-11-11 00:00:00 Z
 ---
 
 {% include tag.html tag="fixed" %}

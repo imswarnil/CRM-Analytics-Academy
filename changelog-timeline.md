@@ -1,6 +1,6 @@
 ---
-layout: page
 title: Changelog timeline
+layout: page
 width: small
 ---
 

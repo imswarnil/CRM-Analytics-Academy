@@ -1,6 +1,6 @@
 ---
-layout: page
 title: Journey timeline
+layout: page
 width: small
 ---
 

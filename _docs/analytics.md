@@ -1,9 +1,9 @@
 ---
-layout: doc
 title: Google Analytics
-categories: [Features]
+categories:
+- Features
+layout: doc
 author: evan
-tags: 
 ---
 
 To enable Google Anaytics, add the following lines to your Jekyll site:

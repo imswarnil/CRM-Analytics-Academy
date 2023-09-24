@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Bangalore Job Seekers WhatsApp Group Link
-permalink: /whatsapp-link/
+permalink: "/whatsapp-link/"
+layout: page
 width: small
 ---
 

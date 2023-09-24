@@ -1,6 +1,7 @@
 ---
 title: Can I extend or renew my item support?
-categories: [presale]
+categories:
+- presale
 ---
 
 #### Item support option

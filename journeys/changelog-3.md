@@ -1,6 +1,6 @@
 ---
 title: February Updates
-date: 2019-02-02
+date: 2019-02-02 00:00:00 Z
 ---
 
 February updates across our stack, the main focus for this month in regards to what was released is around:

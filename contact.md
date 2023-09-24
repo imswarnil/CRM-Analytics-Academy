@@ -1,8 +1,8 @@
 ---
+title: Got Any Questions
+permalink: "/contact/"
 layout: page
 width: xsmall
-title: Got Any Questions
-permalink: /contact/
 ---
 
 ##### Morbi varius in accumsan blandit, elit ligula velit, luctus mattis ante nulla nulla.

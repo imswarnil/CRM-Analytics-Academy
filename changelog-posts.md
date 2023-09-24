@@ -1,6 +1,6 @@
 ---
-layout: changelog
 title: Changelog posts
-permalink: /changelog-posts/
+permalink: "/changelog-posts/"
+layout: changelog
 ---
 

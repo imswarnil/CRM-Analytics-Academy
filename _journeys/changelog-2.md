@@ -1,6 +1,6 @@
 ---
-title: 🚧 January Updates v1.0.5
-date: 2019-01-17
+title: "\U0001F6A7 January Updates v1.0.5"
+date: 2019-01-17 00:00:00 Z
 ---
 
 Create your own labels, set text and color:

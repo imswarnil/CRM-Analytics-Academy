@@ -1,8 +1,10 @@
 ---
 title: Basic theme setup
-subtitle: This document covers the setup and options of theme feature described in the doc title
+tags:
+- setup
+subtitle: This document covers the setup and options of theme feature described in
+  the doc title
 author: sara
-tags: [setup]
 ---
 
 ### Site and author details

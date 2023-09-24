@@ -1,8 +1,10 @@
 ---
 title: Navigation bar
-subtitle: This document covers the setup and options of theme feature described in the doc title
+tags:
+- setup
+subtitle: This document covers the setup and options of theme feature described in
+  the doc title
 author: sara
-tags: [setup]
 ---
 
 Set in the main navigation links in `_data/navigation_header.yml`:

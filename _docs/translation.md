@@ -1,7 +1,9 @@
 ---
 title: Translation
-subtitle: Cras at dolor eget urna varius faucibus tempus in elit. Cras a dui imperdiet, tempus metus quis, pharetra turpis.
-tags: [customize]
+tags:
+- customize
+subtitle: Cras at dolor eget urna varius faucibus tempus in elit. Cras a dui imperdiet,
+  tempus metus quis, pharetra turpis.
 author: evan
 ---
 

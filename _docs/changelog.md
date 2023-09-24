@@ -1,7 +1,9 @@
 ---
 title: Creating a changelog
-subtitle: Cras at dolor eget urna varius faucibus tempus in elit. Cras a dui imperdiet, tempus metus quis, pharetra turpis.
-tags: [setup]
+tags:
+- setup
+subtitle: Cras at dolor eget urna varius faucibus tempus in elit. Cras a dui imperdiet,
+  tempus metus quis, pharetra turpis.
 author: evan
 ---
 

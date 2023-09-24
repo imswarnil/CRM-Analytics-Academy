@@ -1,7 +1,9 @@
 ---
 title: Hero page header
-subtitle: Cras at dolor eget urna varius faucibus tempus in elit. Cras a dui imperdiet, tempus metus quis, pharetra turpis.
-tags: [features]
+tags:
+- features
+subtitle: Cras at dolor eget urna varius faucibus tempus in elit. Cras a dui imperdiet,
+  tempus metus quis, pharetra turpis.
 author: john
 ---
 

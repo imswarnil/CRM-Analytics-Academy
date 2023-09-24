@@ -1,10 +1,13 @@
 ---
-title: Let's Start 
-subtitle: Your Salesforce learning journey begins here. Explore, learn, and build with Salesforce Passport. 🚀🌐
+title: Let's Start
+tags:
+- introduction
+subtitle: "Your Salesforce learning journey begins here. Explore, learn, and build
+  with Salesforce Passport. \U0001F680\U0001F310"
 author: swarnil
-tags: [introduction]
 comments: true
 ---
+
 * TOC
 {:toc}
 # Welcome to Salesforce Passport 🌟

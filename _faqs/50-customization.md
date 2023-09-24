@@ -1,6 +1,7 @@
 ---
 title: Do you provide customization services for your items?
-categories: [presale]
+categories:
+- presale
 ---
 
 Item support does not include services to modify or extend the item beyond the original features, style and functionality described on the item page. 

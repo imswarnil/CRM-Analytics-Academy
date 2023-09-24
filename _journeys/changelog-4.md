@@ -1,6 +1,6 @@
 ---
-title: 🚀 April Updates
-date: 2019-04-22
+title: "\U0001F680 April Updates"
+date: 2019-04-22 00:00:00 Z
 ---
 
 April comes with a whole bunch of updates across our stack, the main focus for this month in regards to what was released is around:
