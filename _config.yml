@@ -33,7 +33,7 @@ lang: en
 baseurl: 
 permalink: "/:title/"
 url: https://salesforce.imswarnil.com/
-logo: "/Salesforce-Passport.gif"
+logo: "/uploads/Salesforce-Passport.gif"
 navbar:
   sticky: true
   search: true
