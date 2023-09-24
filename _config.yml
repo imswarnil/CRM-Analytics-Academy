@@ -30,7 +30,7 @@ defaults:
     layout: doc
 description: Your Passport to Salesforce Learning & Adventure
 lang: en
-baseurl: ''
+baseurl: 
 permalink: "/:title/"
 url: https://salesforce.imswarnil.com/
 logo: "/Salesforce-Passport.gif"
