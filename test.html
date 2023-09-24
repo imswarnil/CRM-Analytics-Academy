@@ -1,49 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Quote</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.css">
-    <style>
-        body {
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .quote-container {
-            text-align: center;
-            padding: 20px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .quote {
-            font-size: 24px;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-
-        .author {
-            font-size: 18px;
-        }
-    </style>
-</head>
-<body>
-    <div class="quote-container">
-        <div class="quote">
-            "Adventure is worthwhile in itself."
-        </div>
-        <div class="author">
-            - Amelia Earhart
-        </div>
-    </div>
-
+    <title>Countdown & Redirect</title>
     <script>
         // Function to update the countdown and redirect
         function countdown() {
@@ -63,5 +22,8 @@
             updateCountdown();
         }
     </script>
+</head>
+<body onload="countdown()">
+    <h1>Redirecting to Google in <span id="countdown">5</span> seconds...</h1>
 </body>
 </html>
