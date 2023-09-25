@@ -11,11 +11,9 @@ hero:
   search: false
 ---
 
-<div class="uk-height-viewport uk-flex uk-flex-center uk-flex-middle">
-        <div>
-            <iframe src="https://www.youtube.com/embed/zFVoiuVWx5s?autoplay=1&mute=0&controls=0" width="100%" height="50%" frameborder="0" allowfullscreen uk-video="automute: false"></iframe>
-        </div>
-    </div>
+<iframe src="https://www.youtube-nocookie.com/embed/zFVoiuVWx5s?modestbranding=1&autoplay=true&enablejsapi=1&rel=0" width="1920" height="1080" allowfullscreen uk-responsive uk-video="autoplay: true"></iframe>
+
+
 
 {% include ad.html type="top-leaderboard" %}
 
