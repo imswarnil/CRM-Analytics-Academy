@@ -11,6 +11,12 @@ hero:
   search: false
 ---
 
+<div class="uk-height-viewport uk-flex uk-flex-center uk-flex-middle">
+        <div>
+            <iframe src="https://www.youtube.com/embed/zFVoiuVWx5s?autoplay=1&mute=0&controls=0" width="100%" height="50%" frameborder="0" allowfullscreen uk-video="automute: false"></iframe>
+        </div>
+    </div>
+
 {% include ad.html type="top-leaderboard" %}
 
 {% include boxes.html columns="3" title="Browse Topics" subtitle="Chose an option that you need help with or search above" %}

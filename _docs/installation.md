@@ -26,9 +26,6 @@ In this project, I'm considering everyone as a newbie in Salesforce, just like I
 
   {% include vidstack.html  %}
 
-
-
-
 ![Salesforce Passport](/uploads/project/Zostel.png)
 
 ### Why "Salesforce Passport"?
