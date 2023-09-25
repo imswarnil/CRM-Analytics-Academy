@@ -17,7 +17,7 @@ hero:
 
 {% include ad.html type="top-leaderboard" %}
 
-{% include boxes.html columns="4" title="Browse Topics" subtitle="Chose an option that you need help with or search above" %}
+{% include boxes.html columns="3" title="Browse Topics" subtitle="Chose an option that you need help with or search above" %}
 
 {% include ad.html type="large-leaderboard" %}
 
