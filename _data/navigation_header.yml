@@ -27,14 +27,6 @@ left:
 
 right:
 
-  - title: More Guides
-    dropdown:
-
-      - title: Software Engineer
-        url: https://imswarnil.com
-
-      - title: Post Style
-        url: /changelog-posts/
   - title: Changelog
     url: /changelog-timeline/
     button: primary-outline
