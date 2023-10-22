@@ -3,39 +3,37 @@ layout: default
 ---
 
 {% include ad.html type="top-leaderboard" %}
-<div class="uk-section">
-    <div class="uk-container">
-        <div class="uk-grid-large" data-uk-grid>
-            <div class="sidebar-fixed-width uk-visible@m">
-                <div class="sidebar-docs uk-margin-top">
-                    {% for section in site.data.navigation_docs %}
-                    <h5>{{ section.title }}</h5>
-                    <ul class="uk-nav uk-nav-default doc-nav">
-                        {% for doc in section.docs %}
-                        {% assign doc_url = doc | prepend:"/docs/" | append:"/" %}
-                        {% assign p = site.docs | where:"url", doc_url | first %}
-                        <li class="{% if doc_url == page.url %}uk-active{% endif %}">
-                            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
-                        </li>
+
+<div class="bg-gray-100">
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <aside class="md:w-1/5 md:block hidden">
+                <div class="fixed top-4">
+                    <div class="mb-4">
+                        {% for section in site.data.navigation_docs %}
+                        <h5>{{ section.title }}</h5>
+                        <ul class="uk-nav uk-nav-default doc-nav">
+                            {% for doc in section.docs %}
+                            {% assign doc_url = doc | prepend: "/docs/" | append: "/" %}
+                            {% assign p = site.docs | where: "url", doc_url | first %}
+                            <li class="{% if doc_url == page.url %}uk-active{% endif %}">
+                                <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <!-- Add Square Ad -->
+                        {% include ad.html type="square" %}
                         {% endfor %}
-                    </ul>
-                    <!-- Add Square Ad -->
-                    {% include ad.html type="square" %}
-                    {% endfor %}
-                </div>
-                
-            </div>
-
-            <div class="uk-width-1-1 uk-width-expand@m">
-                <article class="uk-article">
-                    <h1 class="uk-article-title">{{ page.title | escape }}</h1>
-                    {% if page.subtitle %}<p class="uk-text-lead uk-text-muted">{{ page.subtitle }}</p>{% endif %}
-
-                    <div class="uk-article-meta uk-margin-top uk-margin-medium-bottom uk-flex uk-flex-middle">
-                        {% include post-meta.html %}
                     </div>
+                </div>
+            </aside>
 
-                    <div class="article-content link-primary">
+            <div class="md:w-4/5">
+                <article class="prose lg:prose-xl text-gray-800">
+                    <h1 class="text-4xl font-bold">{{ page.title | escape }}</h1>
+                    {% if page.subtitle %}<p class="text-xl text-gray-600">{{ page.subtitle }}</p>{% endif %}
+
+                    <div class="mt-4 article-content">
                         {{ content }}
                         {% if site.share.doc %}
                             {% include share.html %}
@@ -44,9 +42,9 @@ layout: default
 
                     {% include hook-post-content-doc.html %}
 
-                    <hr class="uk-margin-medium">
+                    <hr class="my-8">
 
-                    {% include paginate-doc.html %}
+                    {% include paginate-doc.html %>
 
                     {% include related-docs.html %}
 
@@ -57,63 +55,53 @@ layout: default
 
                 <script>
                     // Table of contents scroll to
-                    UIkit.scroll('#markdown-toc a', {
-                        duration: 400,
-                        offset: 120
-                    });
+                    // Replace with your scroll script if needed.
                 </script>
-
             </div>
+        </div>
     </div>
-  </div>
 </div>
 
 {% include ad.html type="top-leaderboard" %}
 
-<footer class="uk-section uk-section-primary uk-margin-medium-top">
-    <div class="uk-container uk-container-large">
-        <div data-uk-grid class="uk-child-width-1-4@l uk-child-width-1-2@s uk-child-width-1-1">
-            <!-- Column 1: Project Description -->
-            <div>
-                <h3>{{ site.title }}</h3>
-                <p>{{ site.description }}</p>
-            </div>
-            <!-- Column 2: Quick Links -->
-            <div>
-                <h3>Quick Links</h3>
-                <ul class="uk-list uk-list-bullet">
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                </ul>
-            </div>
-            <!-- Column 3: Responsive Autoplay Video -->
-            <div>
-                <h3>Watch My Story</h3>
-                <div class="uk-position-relative uk-inline uk-light">
-                    <video controls playsinline loop muted autoplay poster="your-poster-image.jpg">
-                        <source src="https://ik.imagekit.io/ikmedia/videos/woman-walking.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="uk-position-center uk-overlay uk-overlay-default">
-                        <p><a href="#">Read My Story</a></p>
-                    </div>
+<footer class="bg-primary mt-8 py-12">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Column 1: Project Description -->
+        <div>
+            <h3 class="text-2xl font-semibold text-white">{{ site.title }}</h3>
+            <p class="text-white">{{ site.description }}</p>
+        </div>
+        <!-- Column 2: Quick Links -->
+        <div>
+            <h3 class="text-2xl font-semibold text-white">Quick Links</h3>
+            <ul class="list-disc list-inside text-white">
+                <li><a href="#" class="text-white">Link 1</a></li>
+                <li><a href="#" class="text-white">Link 2</a></li>
+                <li><a href="#" class="text-white">Link 3</a></li>
+            </ul>
+        </div>
+        <!-- Column 3: Responsive Autoplay Video -->
+        <div>
+            <h3 class="text-2xl font-semibold text-white">Watch My Story</h3>
+            <div class="relative inline-block">
+                <video controls playsinline loop muted autoplay poster="your-poster-image.jpg">
+                    <source src="https://ik.imagekit.io/ikmedia/videos/woman-walking.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="absolute inset-0 flex items-center justify-center bg-opacity-75 bg-black text-white">
+                    <p><a href="#" class="text-white">Read My Story</a></p>
                 </div>
             </div>
-            <!-- Column 4: Square AdSense Ad -->
-            <div>
-                <h3>Advertisements</h3>
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540"
-                    crossorigin="anonymous"></script>
-                <!-- Square (250 * 250) -->
-                <ins class="adsbygoogle"
-                    style="display:inline-block;width:250px;height:250px"
-                    data-ad-client="ca-pub-1291242080282540"
-                    data-ad-slot="6066270853"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
+        </div>
+        <!-- Column 4: Square AdSense Ad -->
+        <div>
+            <h3 class="text-2xl font-semibold text-white">Advertisements</h3>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540" crossorigin="anonymous"></script>
+            <!-- Square (250 * 250) -->
+            <ins class="adsbygoogle" style="display:inline-block;width:250px;height:250px" data-ad-client="ca-pub-1291242080282540" data-ad-slot="6066270853"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 </footer>
