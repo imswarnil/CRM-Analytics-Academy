@@ -2,34 +2,45 @@
 layout: default
 ---
 
-<div class="bg-gray-100">
-    <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+<div class="uk-section">
+    <div class="uk-container uk-container-expand">
+        <div class="uk-grid" uk-grid>
 
             <!-- Left Sidebar (Sticky, Hidden on Mobile) -->
-            <aside class="md:w-1/5 hidden md:block">
-                <div class="sticky top-4">
+            <aside class="uk-width-1-5@m uk-visible@m">
+                <div class="uk-sticky" uk-sticky="offset: 100; bottom: true;">
                     <!-- Skyscraper Ad (Replace with your AdSense code) -->
-                    <div class="mb-4">
-                        <!-- Replace this with your ad code -->
+                    <div class="uk-margin-bottom">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-1291242080282540"
+                             data-ad-slot="YOUR_SKYSCRAPER_AD_SLOT"
+                             data-ad-format="auto"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
                 </div>
             </aside>
 
             <!-- Main Content -->
-            <div class="md:w-4/5">
-                <article class="prose lg:prose-xl text-gray-800">
+            <div class="uk-width-expand@m">
+                <article class="uk-article">
 
-                    <h1 class="text-4xl font-bold">{{ page.title | escape }}</h1>
+                    <h1 class="uk-article-title">{{ page.title | escape }}</h1>
 
-                    <div class="article-content text-primary">
+                    <div class="uk-article-meta uk-margin-top uk-margin-medium-bottom uk-flex uk-flex-middle">
+                        {% include post-meta.html %}
+                    </div>
+
+                    <div class="article-content link-primary">
                         {{ content }}
                         {% if site.share.post %}
                             {% include share.html %}
                         {% endif %}
                     </div>
 
-                    <hr class="my-8">
+                    <hr class="uk-margin-medium">
 
                     {% include paginate-post.html %}
 
@@ -42,38 +53,35 @@ layout: default
 
                 <script>
                     // Table of contents scroll to
-                    // You can add your table of contents scroll script here if needed.
+                    UIkit.scroll('#markdown-toc a', {
+                        duration: 400,
+                        offset: 120
+                    });
                 </script>
             </div>
 
             <!-- Right Sidebar (Sticky) -->
-            <aside class="md:w-1/4">
-                <div class="card">
-                    <div class="mb-4">
+            <aside class="uk-width-1-4@m">
+                <div class="uk-card uk-card-default uk-card-small uk-card-body uk-sticky" uk-sticky="offset: 100; bottom: true;">
+                    <div class="uk-margin-bottom">
                         <!-- Dummy Profile Card -->
-                        <div class="card">
-                            <img src="https://via.placeholder.com/150" alt="Author Image" class="rounded-full mb-2">
-                            <h3 class="text-lg font-semibold">Author Name</h3>
+                        <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                            <img src="https://via.placeholder.com/150" alt="Author Image" class="uk-border-circle uk-margin-small-bottom">
+                            <h3 class="uk-card-title">Author Name</h3>
                             <p>Description of the author.</p>
                             <!-- Social Media Links -->
-                            <div class="mt-4">
-                                <a href="#" class="text-blue-500 mr-2">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#" class="text-blue-500 mr-2">
-                                    <i class="fab fa-facebook"></i>
-                                </a>
-                                <a href="#" class="text-blue-500">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
+                            <div class="uk-margin-top">
+                                <a href="#" class="uk-icon-link uk-margin-small-right" uk-icon="icon: twitter"></a>
+                                <a href="#" class="uk-icon-link uk-margin-small-right" uk-icon="icon: facebook"></a>
+                                <a href="#" class="uk-icon-link" uk-icon="icon: instagram"></a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Categories -->
-                    <div class="mb-4">
+                    <div class="uk-margin-bottom">
                         <h4>Categories</h4>
-                        <ul class="list-disc list-inside">
+                        <ul class="uk-list">
                             <li><a href="#">Category 1</a></li>
                             <li><a href="#">Category 2</a></li>
                             <li><a href="#">Category 3</a></li>
@@ -81,9 +89,9 @@ layout: default
                     </div>
 
                     <!-- Quick Start Guide -->
-                    <div class="mb-4">
+                    <div class="uk-margin-bottom">
                         <h4>Quick Start Guide</h4>
-                        <ul class="list-disc list-inside">
+                        <ul class="uk-list">
                             <li><a href="#">Step 1</a></li>
                             <li><a href="#">Step 2</a></li>
                             <li><a href="#">Step 3</a></li>
@@ -91,9 +99,9 @@ layout: default
                     </div>
 
                     <!-- Important Pages -->
-                    <div class="mb-4">
+                    <div class="uk-margin-bottom">
                         <h4>Important Pages</h4>
-                        <ul class="list-disc list-inside">
+                        <ul class="uk-list">
                             <li><a href="#">Page 1</a></li>
                             <li><a href="#">Page 2</a></li>
                             <li><a href="#">Page 3</a></li>
@@ -101,8 +109,8 @@ layout: default
                     </div>
 
                     <!-- Donate Button -->
-                    <div class="text-center">
-                        <a href="#" class="btn btn-primary btn-sm">Donate</a>
+                    <div class="uk-text-center">
+                        <a href="#" class="uk-button uk-button-primary uk-button-small">Donate</a>
                     </div>
                 </div>
             </aside>

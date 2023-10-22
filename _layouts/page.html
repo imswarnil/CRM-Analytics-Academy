@@ -2,19 +2,17 @@
 layout: default
 ---
 
-{% assign container_class = page.width | prepend: 'max-w-' | append: '-xl' %}
-
 {% if page.width == 'expand' %}
     {{ content }}
 {% else %}
-<div class="bg-gray-100">
-    <div class="container mx-auto {{ container_class }}">
+<div class="uk-section">
+    <div class="uk-container{% if page.width %} uk-container-{{page.width}}{% endif %}">
 
-        <article class="prose lg:prose-xl text-gray-800">
+        <article class="uk-article">
 
-            <h1 class="text-4xl font-bold">{{ page.title | escape }}</h1>
+            <h1 class="uk-article-title">{{ page.title | escape }}</h1>
 
-            <div class="article-content text-primary">
+            <div class="article-content link-primary">
                 {{ content }}
             </div>
 

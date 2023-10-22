@@ -2,39 +2,41 @@
 layout: default
 ---
 
-<div class="bg-gray-100">
-    <div class="container mx-auto">
-        <h1 class="text-4xl font-bold mb-8">{{ page.title | escape }}</h1>
+<div class="uk-section">
+    <div class="uk-container container-xxsmall">
+
+        <h1 class="uk-article-title">{{ page.title | escape }}</h1>
 
         <div class="article-content">
             {{ content }}
         </div>
 
         {% assign journeys = (site.journeys | sort: 'date') | reverse %}
-        <ul class="timeline">
-            {% for journey in journeys %}
-                <li class="py-4 px-4">
-                    <hr class="my-4 border-t-2 border-gray-300">
-                    <div class="relative">
-                        <h2 class="text-xl font-semibold mb-2">{{ journey.title }}</h2>
-                        <div class="text-sm text-gray-600 hidden md:block">
-                            {% if journey.date %}
-                                <time datetime="{{ journey.date | date_to_xmlschema }}" itemprop="datePublished">
-                                    {{ journey.date | date: site.date_format | default: "%b %-d, %Y" }}
-                                </time>
-                            {% endif %}
-                        </div>
-                        <div class="text-sm text-gray-600 md:hidden mb-4">
-                            {% if journey.date %}
-                                <time datetime="{{ journey.date | date_to_xmlschema }}" itemprop="datePublished">
-                                    {{ journey.date | date: site.date_format | default: "%b %-d, %Y" }}
-                                </time>
-                            {% endif %}
-                        </div>
+        {% for journey in journeys %}
+            <article class="uk-article uk-margin-medium-top">
+                <hr class="uk-margin-medium-bottom">
+                <div class="uk-position-relative">
+                    <h2>{{ journey.title }}</h2>
+                    <div class="uk-position-center-left-out uk-position-large uk-visible@m uk-text-small uk-text-muted">
+                        {% if journey.date %}
+                        <time datetime="{{ journey.date | date_to_xmlschema }}" itemprop="datePublished">
+                            {% assign date_format = site.date_format | default: "%b %-d, %Y" %}
+                            {{ journey.date | date: date_format }}
+                        </time>
+                        {% endif %}
                     </div>
-                    <div class="article-content mt-4">{{ journey.content }}</div>
-                </li>
-            {% endfor %}
-        </ul>
+                    <div class="uk-hidden@m uk-text-small uk-text-muted uk-margin-bottom">
+                        {% if journey.date %}
+                        <time datetime="{{ journey.date | date_to_xmlschema }}" itemprop="datePublished">
+                            {% assign date_format = site.date_format | default: "%b %-d, %Y" %}
+                            {{ journey.date | date: date_format }}
+                        </time>
+                        {% endif %}
+                    </div>
+                </div> 
+                <div class="article-content">{{ journey.content }}</div>
+            </article>
+        {% endfor %}
+
     </div>
 </div>
