@@ -7,7 +7,7 @@ description:  Your Passport to Salesforce Learning & Adventure
 lang:               en
 baseurl:            ""
 permalink:          /:title/
-url:                "https://salesforce.imswarnil.com/"
+url:                "https://crmanalytics.imswarnil.com/"
 logo: /Salesforce-Passport.gif
 navbar:
     sticky:         true
