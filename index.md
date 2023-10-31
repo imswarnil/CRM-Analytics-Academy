@@ -2,15 +2,13 @@
 layout: page
 width: expand
 hero:
-  title: "👋 Hi, welcome to CRM Analytics 🏢 Academy 🤓 by Swarnil 💻"
+  title: "👋 Welcome to CRM Analytics Academy"
   subtitle: "🚀 Start Learning CRM Analytics with us, led by Swarnil. Dive into essential concepts like Dataflow, SAQL, Binding, and Data Preparation, and immediately apply your knowledge by building projects. 📊 Begin your journey on CRMA Academy today!"
   image: study.svg
   search: false
 ---
 
 <iframe src="https://www.youtube-nocookie.com/embed/zFVoiuVWx5s?modestbranding=1&autoplay=true&enablejsapi=1&rel=0" width="1920" height="1080" allowfullscreen uk-responsive uk-video="autoplay: true"></iframe>
-
-
 
 {% include ad.html type="top-leaderboard" %}
 
