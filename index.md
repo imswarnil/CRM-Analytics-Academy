@@ -2,11 +2,8 @@
 layout: page
 width: expand
 hero:
-  title: "✈️ Your Passport to Salesforce Learning & Adventure \U0001F304"
-  subtitle: "\U0001F680 The Passport that launches your Salesforce learning journey.
-    Learn Salesforce concepts while building a Backpacker Travel Hostel app using
-    Salesforce. This passport is your ticket to a career-ready flight—the only one
-    that takes off your Salesforce career using just a passport. ✈️\U0001F310\U0001F392"
+  title: "👋 Hi, welcome to CRM Analytics 🏢 Academy 🤓 by Swarnil 💻"
+  subtitle: "🚀 Start Learning CRM Analytics with us, led by Swarnil. Dive into essential concepts like Dataflow, SAQL, Binding, and Data Preparation, and immediately apply your knowledge by building projects. 📊 Begin your journey on CRMA Academy today!""
   image: traveller.svg
   search: false
 ---
