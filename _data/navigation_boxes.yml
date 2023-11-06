@@ -7,10 +7,10 @@
 
 - title: Theme Features
   desc: Lean about all the theme options, features and how to use them
-  icon: settings
+  icon: /uploads/icons/start-journey.png
   doc: hero
 
 - title: Customization
   desc: Get help or tailor the theme to your specific requirements
-  icon: code
+  icon: uploads/icons/start-journey.png
   doc: customize
