@@ -7,8 +7,11 @@ author: swarnil
 comments: true
 ---
 
-* TOC
-{:toc}
+Welcome Everyone 
+
+<!-- * TOC
+{:toc} -->
+
 # Welcome to Salesforce Passport 🌟
 
 Welcome, fellow Salesforce enthusiasts! Whether you're a complete newcomer or already familiar with Salesforce, you've come to the right place. Salesforce Passport is your gateway to exploring and mastering the world of Salesforce, step by step.
@@ -22,8 +25,6 @@ In this project, I'm considering everyone as a newbie in Salesforce, just like I
 
 
 # Video Example
-
-  {% include vidstack.html  %}
 
 ![Salesforce Passport](/uploads/project/Zostel.png)
 
@@ -72,17 +73,6 @@ Run the following to generate your site:
 ```bash
 bundle exec jekyll serve
 ```
-
-<mux-player
-  stream-type="on-demand"
-  playback-id="hgeHZVD6JCv4CGEKx7ubvIMXBeHaN95qH2alSlu022dU"
-  metadata-video-title="Video - 1"
-  metadata-viewer-user-id="Video - 1"
-  primary-color="#fff"
-  secondary-color="#E53935"
-  poster= "https://img.freepik.com/premium-vector/best-attractive-colorful-youtube-thumbnail-design_672856-124.jpg"
-  title = "my first video"
-start-time="13"></mux-player>
 
 You can find more on [Deployment Methods](https://jekyllrb.com/docs/deployment-methods/) page on Jekyll website.
 

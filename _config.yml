@@ -4,7 +4,7 @@ lang:               en
 baseurl:            ""
 permalink:          /:title/
 url:                "https://crmanalytics.imswarnil.com/"
-logo:             /CRM-Analytics-Academy.gif
+logo:               /CRM-Analytics-Academy.gif
 navbar:
     sticky:         true
     search:         true
