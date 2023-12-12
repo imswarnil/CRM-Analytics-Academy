@@ -1,130 +1,114 @@
-title :       CRM Analytics Academy
-description:  Your Passport to Salesforce Learning & Adventure    
-lang:               en
-baseurl:            ""
-permalink:          /:title/
-url:                "https://crmanalytics.imswarnil.com/"
-logo:               /CRM-Analytics-Academy.gif
-navbar:
-    sticky:         true
-    search:         true
-author:
-    name:           Swarnil 
-    title:          Salesforce CRM Analytics Engineer 
-    avatar:         Swarnil.gif
-# Author settings, displayed on post and doc pages if front matter references author name e.g. author: peter
-authors:
-    john:
-      name:         John Brown
-      title:        Support     
-      avatar:       avatar-john.png
-    swarnil:
-      name:         Swarnil Singhai
-      title:        Admin     
-      avatar:       users/Swarnil.gif
-    evan:
-      name:         Evan Wells
-      title:        Support    
-      avatar:       avatar-evan.png
-    sara:
-      name:         Sara Galen
-      title:        Lead Developer     
-      avatar:       avatar-sara.png
-    alex:
-      name:         Alex Koch
-      title:        Design Engineer     
-      avatar:       avatar-alex.png
-    daniel:
-      name:         Daniel Shultz
-      title:        Developer      
-      avatar:       avatar-daniel.png
-    tom:
-      name:         Tom Farrell
-      title:        Developer     
-      avatar:       avatar-tom.png
-
-# Social icons displayed in footer
-social:
-    email:
-    website:
-    facebook:       https://www.facebook.com/
-    flickr:
-    dribbble:
-    github:
-    googleplus:
-    instagram:      https://www.instagram.com/
-    linkedin:
-    pinterest:
-    twitter:        https://twitter.com/
-    vimeo:          https://vimeo.com/
-    youtube:
-
-# Share button
-share:
-    post:           true # Display share buttons on a post page
-    doc:            true # Display share buttons on a doc page
-    twitter:        username # Enable by adding Twitter handle 
-    facebook:       true # Enable by setting true (Facebook handle not required)
-
-# Default footer image settings
-footer:
-    copyright:      Made by <a href="https://unbound.studio/">Unbound Studio</a> in Cleveland.
-
-# Disqus comments shortname, requires Disqus account https://disqus.com/
-disqus:
-    shortname:  bangalore-job-seekers-guide
-
-# Google analytics code
-google_analytics: G-JM1NJY5MEK
-
-# Number of posts displayed on blog page
-paginate:           10
-
-# Blog path
-paginate_path:      "/blog/:num/"
-
-# Path to post content assets directory i.e post images, pdfs etc
-uploads:            /uploads/
-
-# Build settings
-markdown:           kramdown
-highlighter:        rouge
-
-data-ad-client: ca-pub-1291242080282540
-
-gems:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-gist
-  - jekyll-avatar
-  - jekyll-sitemap
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-
-sass:
-  style:            compressed
-
+---
+title: CRM Analytics Academy
+timezone: UTC
 collections:
-  docs:
-    output:         true
-  faqs:
-    output:         false
   changelogs:
-    output:         false
-
-# Defaults
+    title: Changelogs
+    output: false
+  docs:
+    title: Docs
+    output: true
+  faqs:
+    title: Faqs
+    output: false
+  posts:
+    title: Posts
+    output: true
+  uploads:
+    title: Uploads
+    output: true
 defaults:
-  # _posts
-  - scope:
-      path:         ""
-      type:         posts
-    values:
-      layout:       post
-  # _docs
-  - scope:
-      path:         ""
-      type:         docs
-    values:
-      layout:       doc
+- scope:
+    path: ''
+    type: posts
+  values:
+    layout: post
+- scope:
+    path: ''
+    type: docs
+  values:
+    layout: doc
+description: Your Passport to Salesforce Learning & Adventure
+lang: en
+baseurl: ''
+permalink: "/:title/"
+url: https://crmanalytics.imswarnil.com/
+logo: "/CRM-Analytics-Academy.gif"
+navbar:
+  sticky: true
+  search: true
+author:
+  name: Swarnil
+  title: Salesforce CRM Analytics Engineer
+  avatar: Swarnil.gif
+authors:
+  john:
+    name: John Brown
+    title: Support
+    avatar: avatar-john.png
+  swarnil:
+    name: Swarnil Singhai
+    title: Admin
+    avatar: users/Swarnil.gif
+  evan:
+    name: Evan Wells
+    title: Support
+    avatar: avatar-evan.png
+  sara:
+    name: Sara Galen
+    title: Lead Developer
+    avatar: avatar-sara.png
+  alex:
+    name: Alex Koch
+    title: Design Engineer
+    avatar: avatar-alex.png
+  daniel:
+    name: Daniel Shultz
+    title: Developer
+    avatar: avatar-daniel.png
+  tom:
+    name: Tom Farrell
+    title: Developer
+    avatar: avatar-tom.png
+social:
+  email: 
+  website: 
+  facebook: https://www.facebook.com/
+  flickr: 
+  dribbble: 
+  github: 
+  googleplus: 
+  instagram: https://www.instagram.com/
+  linkedin: 
+  pinterest: 
+  twitter: https://twitter.com/
+  vimeo: https://vimeo.com/
+  youtube: 
+share:
+  post: true
+  doc: true
+  twitter: username
+  facebook: true
+footer:
+  copyright: Made by <a href="https://unbound.studio/">Unbound Studio</a> in Cleveland.
+disqus:
+  shortname: bangalore-job-seekers-guide
+google_analytics: G-JM1NJY5MEK
+paginate: 10
+paginate_path: "/blog/:num/"
+uploads: "/uploads/"
+markdown: kramdown
+highlighter: rouge
+data-ad-client: ca-pub-1291242080282540
+gems:
+- jekyll-feed
+- jekyll-seo-tag
+- jekyll-gist
+- jekyll-avatar
+- jekyll-sitemap
+exclude:
+- Gemfile
+- Gemfile.lock
+- node_modules
+sass:
+  style: compressed
