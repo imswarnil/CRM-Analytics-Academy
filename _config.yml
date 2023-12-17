@@ -30,7 +30,7 @@ defaults:
     layout: doc
 description: Your Passport to Salesforce Learning & Adventure
 lang: en
-url: "https://crmanalytics.imswarnil.com"
+url: https://crmanalytics.imswarnil.com
 permalink: "/:title/"
 logo: "/CRM-Analytics-Academy.gif"
 navbar:
