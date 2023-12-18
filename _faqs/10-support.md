@@ -1,37 +1,32 @@
 ---
-title: Do you provide customer support?
+title: Why is my CRM Analytics data not Refreshing/Updating
+date: 2023-12-18 02:19:00 Z
 categories:
-- presale
+- Data Refresh
+- Caching
+tags:
+- Analytics Troubleshooting
 ---
 
-Having support for your purchased item means that we will be available to you to iron out any potential issues you have in using the item.
+One of the common issues users face in CRM analytics is the persistence of stale data in dashboards. Despite confirming the existence of updated information in the data source, users encounter delays in visualizing the refreshed data in tables or charts. Even when the underlying data seems up-to-date, the dashboard doesn't reflect the changes promptly. Let's explore the issue and discover effective solutions.
 
-\
-Yes Sometimes
+#  Unraveling the Mystery of Data Not Refreshing in CRM Analytics
 
-#### The item support period
+## Probable Root Causes:
 
-The item includes support for 6 months from the purchase date. If you’re about to purchase the item, you’ll have the option to purchase extended item support, increasing the item support period up to a maximum of 12 months from the date of purchase.
+1. **Browser Cache Settings:** Ensure that secure and persistent browser caching is enabled in your CRM setup. Navigate to Setup -> Session Settings -> Enable secure and persistent browser caching to optimize performance.  
+2. **Account Switching Dynamics:** In scenarios involving dynamic user interactions, such as account switching on a portal, the cached memory might not promptly reflect the updated field values.  
+3. **Dataset Misalignment:** Verify that you are referencing the correct dataset. Sometimes, discrepancies arise when users unintentionally connect dashboards to outdated or incorrect datasets.
 
-#### What else is included?
+## Simple Solutions:
 
-Answering questions about how to use the item
-Answering technical questions about the item (and included third party assets)
-Help with defects in the item or included third-party assets
-Item updates to ensure ongoing compatibility and to resolve security vulnerabilities
-Updates to ensure the item works as described and is protected against major security concerns
-Included version updates for all items
+1. **Optimize Browser Settings:** Uncheck the "Enable secure and persistent browser caching" option in Setup -> Session Settings to enhance data retrieval performance.
 
-#### What's not included in item support?
+2. **Refine Entity Switching Logic:** If account/any object data based on user properties switch triggers data updates, consider optimizing the logic to ensure that the cached information aligns with the most recent field values.
 
-Item support does not include services to modify or extend the item beyond the original features, style and functionality described on the item page. For customization services that will help you tailor the item to your specific requirements, we recommend contacting us to see if we privately offer paid customization service.
+3. **Validate Dataset Selection:** Double-check that the dashboard is connected to the appropriate dataset. Mistakenly referencing an outdated dataset can lead to data stagnation.
 
-* Installation of the item
+## Conclusion and Feedback
 
-* Hosting, server environment, or software
+Your feedback matters! If any of these solutions worked for you or if you have additional insights into overcoming caching hurdles, please share your experiences in the comments below. Moreover, consider checking the underlying dataset – sometimes, the simplest oversight can lead to unexpected issues. Let's build a collaborative space for tackling CRM analytics challenges together! 🚀
 
-* Help from authors of included third-party assets
-
-#### Contacting support
-
-Support is provided Mon - Fri through item [support](https://themeforest.net/item/docs-responsive-documentation-manual-jekyll-theme/21131076/support) page.
