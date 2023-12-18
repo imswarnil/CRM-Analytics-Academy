@@ -16,4 +16,39 @@
   {% if jekyll.environment == 'production' and site.google_analytics %}
     {% include google-analytics.html %}
   {% endif %} 
+  <script>
+    // install.js
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  event.preventDefault();
+
+  // Stash the event so it can be triggered later
+  window.deferredPrompt = event;
+
+  // Optionally, you can show a custom install button
+  // Example: Show a button to the user to install the PWA
+  const installButton = document.getElementById('install-button');
+  if (installButton) {
+    installButton.style.display = 'block';
+    installButton.addEventListener('click', () => {
+      // Trigger the deferred prompt
+      const deferredPrompt = window.deferredPrompt;
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          // Reset the deferred prompt
+          window.deferredPrompt = null;
+        });
+      }
+    });
+  }
+});
+
+  </script>
 </head>
