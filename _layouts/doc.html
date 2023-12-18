@@ -6,8 +6,7 @@ layout: default
 <div class="uk-section">
     <div class="uk-container">
         <div class="uk-grid-large" data-uk-grid>
-            <!-- Doc Menu Nav Sidebar -->
-            <div class="uk-width-1-4@m uk-visible@m">
+            <div class="sidebar-fixed-width uk-visible@m">
                 <div class="sidebar-docs uk-margin-top">
                     {% for section in site.data.navigation_docs %}
                     <h5>{{ section.title }}</h5>
@@ -24,10 +23,10 @@ layout: default
                     {% include ad.html type="square" %}
                     {% endfor %}
                 </div>
+                
             </div>
 
-            <!-- Main Content -->
-            <div class="uk-width-1-2@m">
+            <div class="uk-width-1-1 uk-width-expand@m">
                 <article class="uk-article">
                     <h1 class="uk-article-title">{{ page.title | escape }}</h1>
                     {% if page.subtitle %}<p class="uk-text-lead uk-text-muted">{{ page.subtitle }}</p>{% endif %}
@@ -55,20 +54,18 @@ layout: default
                         {% include disqus_comments.html %}
                     {% endif %}
                 </article>
-            </div>
 
-            <!-- TOC (Table of Contents) Sidebar -->
-            <div class="uk-width-1-4@m uk-visible@m">
-                <div class="uk-sticky" uk-sticky="offset: 120; bottom: #top">
-                    <div class="uk-card uk-card-default uk-card-body">
-                        * TOC
-                        {:toc}
-                        
-                    </div>
-                </div>
+                <script>
+                    // Table of contents scroll to
+                    UIkit.scroll('#markdown-toc a', {
+                        duration: 400,
+                        offset: 120
+                    });
+                </script>
+
             </div>
-        </div>
     </div>
+  </div>
 </div>
 
 {% include ad.html type="top-leaderboard" %}
@@ -97,4 +94,26 @@ layout: default
                     <video controls playsinline loop muted autoplay poster="your-poster-image.jpg">
                         <source src="https://ik.imagekit.io/ikmedia/videos/woman-walking.mp4" type="video/mp4">
                         Your browser does not support the video tag.
-         
+                    </video>
+                    <div class="uk-position-center uk-overlay uk-overlay-default">
+                        <p><a href="#">Read My Story</a></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Column 4: Square AdSense Ad -->
+            <div>
+                <h3>Advertisements</h3>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540"
+                    crossorigin="anonymous"></script>
+                <!-- Square (250 * 250) -->
+                <ins class="adsbygoogle"
+                    style="display:inline-block;width:250px;height:250px"
+                    data-ad-client="ca-pub-1291242080282540"
+                    data-ad-slot="6066270853"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </div>
+</footer>
