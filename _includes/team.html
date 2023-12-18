@@ -32,7 +32,7 @@
                             {% assign domain = site.uploads | absolute_url %}
                         {% endif %}
 
-                        <img class="uk-border-circle" src="{{ item.avatar }}" alt="{{ item.name }}">
+                        <img class="uk-border-circle" src="{{ domain }}{{ item.avatar }}" alt="{{ item.name }}">
                     {% endif %}
                     <h5 class="uk-margin-remove-bottom uk-margin-top">{{ item.name }}</h5>
                     <p class="uk-article-meta uk-margin-remove-bottom uk-margin-small-top">{{ item.title }}</p>

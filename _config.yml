@@ -15,7 +15,7 @@ collections:
     title: Posts
     output: true
   uploads:
-    title: Uploads
+    title: uploads
     output: true
 defaults:
 - scope:
