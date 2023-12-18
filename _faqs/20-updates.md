@@ -1,11 +1,28 @@
 ---
-title: Are updates and bug fixes included in the cost of the item?
+title: Why do I get a 'Field is not available' error in CRM Analytics in dataflow
+  ?
+date: 2023-12-18 02:52:00 Z
 categories:
-- presale
+- Dataflow/Recipie Errors
+tags:
+- Permisson & Access
 ---
 
-Regardless of whether you have support or not:
+If you're seeing the 'Field is not available' error in CRM Analytics, it's likely due to the Integration User lacking visibility for a specific field. Here's what you can do:
 
-- When we release an update, it will be available for you to download for free
-- You can report bugs
-- You can expect us to keep the item in good working order, working as described and protected against major security issues
+# Resolution:
+
+## Determine the related Object:
+* For data sync, check the node_name, e.g., syncOpportunity.
+In dataflows, locate the sfdcDigest node in the dataflow editor.
+## Confirm Field Level Security settings:
+* Review Field Level Security for the object in the Analytics Cloud Integration User profile.
+Ensure the profile has Read Access on the field(s) mentioned in the error.
+## Check Managed Package access: 
+* If fields are part of a managed package, ensure Integration User has permissions/licenses.
+
+If access can't be granted, consider removing the field from data sync or dataflow.
+if field is not visible in data sync that means you also dont have access or field was deleted you can remove field reference by editing dataflow json file.
+
+Restart Dataflow:
+After making updates, rerun the data sync, dataflow, or recipe
