@@ -28,7 +28,9 @@ defaults:
     type: docs
   values:
     layout: doc
-description: Your Passport to Salesforce Learning & Adventure
+description: "Start Learning CRM Analytics with Swarnil. Dive into essential concepts
+  like Dataflow, SAQL, Binding, and Data Preparation, and immediately apply your knowledge
+  by building projects. \U0001F4CA Begin your journey on CRMA Academy."
 lang: en
 url: https://crmanalytics.imswarnil.com
 permalink: "/:title/"
