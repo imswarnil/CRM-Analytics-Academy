@@ -41,36 +41,36 @@ navbar:
 author:
   name: Swarnil
   title: Salesforce CRM Analytics Engineer
-  avatar: /uploads/Swarnil.gif
+  avatar: "/uploads/Swarnil.gif"
 authors:
   john:
     name: Mark Tossel
     title: Support
-    avatar: /uploads/avatar-john.png
+    avatar: "/uploads/avatar-john.png"
   swarnil:
     name: Swarnil Singhai
     title: Admin
-    avatar: /uploads/users/Swarnil.gif
+    avatar: "/uploads/users/Swarnil.gif"
   evan:
     name: Evan Wells
     title: Support
-    avatar: /uploads/avatar-evan.png
+    avatar: "/uploads/avatar-evan.png"
   sara:
     name: Sara Galen
     title: Lead Developer
-    avatar: /uploads/avatar-sara.png
+    avatar: "/uploads/avatar-sara.png"
   alex:
     name: Alex Koch
     title: Design Engineer
-    avatar: /uploads/avatar-alex.png
+    avatar: "/uploads/avatar-alex.png"
   daniel:
     name: Daniel Shultz
     title: Developer
-    avatar: /uploads/avatar-daniel.png
+    avatar: "/uploads/avatar-daniel.png"
   tom:
     name: Tom Farrell
     title: Developer
-    avatar: /uploads/avatar-tom.png
+    avatar: "/uploads/avatar-tom.png"
 social:
   email: 
   website: 
