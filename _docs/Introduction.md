@@ -10,8 +10,6 @@ toc: true
 
 Welcome Everyone 
 
-* TOC
-{:toc}
 
 # Welcome to Salesforce Passport 🌟
 
