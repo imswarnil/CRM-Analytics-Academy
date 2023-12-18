@@ -9,8 +9,8 @@ comments: true
 
 Welcome Everyone 
 
-<!-- * TOC
-{:toc} -->
+* TOC
+{:toc}
 
 # Welcome to Salesforce Passport 🌟
 
