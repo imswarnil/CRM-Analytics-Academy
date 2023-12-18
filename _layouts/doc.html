@@ -6,6 +6,8 @@ layout: default
 <div class="uk-section">
     <div class="uk-container">
         <div class="uk-grid-large" data-uk-grid>
+            {% if page.toc %}
+            <!-- Sidebar -->
             <div class="sidebar-fixed-width uk-visible@m">
                 <div class="sidebar-docs uk-margin-top">
                     {% for section in site.data.navigation_docs %}
@@ -23,10 +25,11 @@ layout: default
                     {% include ad.html type="square" %}
                     {% endfor %}
                 </div>
-                
             </div>
+            {% endif %}
 
-            <div class="uk-width-1-1 uk-width-expand@m">
+            <!-- Main Content -->
+            <div class="{% if page.toc %}uk-width-3-4{% else %}uk-width-1-1{% endif %} uk-width-expand@m">
                 <article class="uk-article">
                     <h1 class="uk-article-title">{{ page.title | escape }}</h1>
                     {% if page.subtitle %}<p class="uk-text-lead uk-text-muted">{{ page.subtitle }}</p>{% endif %}
@@ -54,18 +57,9 @@ layout: default
                         {% include disqus_comments.html %}
                     {% endif %}
                 </article>
-
-                <script>
-                    // Table of contents scroll to
-                    UIkit.scroll('#markdown-toc a', {
-                        duration: 400,
-                        offset: 120
-                    });
-                </script>
-
             </div>
+        </div>
     </div>
-  </div>
 </div>
 
 {% include ad.html type="top-leaderboard" %}
@@ -117,3 +111,14 @@ layout: default
         </div>
     </div>
 </footer>
+
+{% if page.toc %}
+<!-- TOC Script -->
+<script>
+    // Table of contents scroll to
+    UIkit.scroll('#markdown-toc a', {
+        duration: 400,
+        offset: 120
+    });
+</script>
+{% endif %}
