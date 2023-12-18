@@ -21,7 +21,7 @@ hero:
 
 {% include videos.html columns="2" title="Video Tutorials" subtitle="Watch screencasts to get you started fast with Jekyll" %}
 
-{% include faqs.html multiple="true" title="Frequently asked questions" category="presale" subtitle="Find quicke answers to frequent pre-sale questions asked by customers" %}
+{% include faqs.html multiple="true" title="Frequently asked questions" category="Data Refresh" subtitle="Find Answers To Most Frequently Occuring errors & issues of CRM Analytics" %}
 
 {% include ad.html type="top-leaderboard" %}
 

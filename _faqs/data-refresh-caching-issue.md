@@ -3,9 +3,8 @@ title: Why is my CRM Analytics data not Refreshing/Updating
 date: 2023-12-18 02:19:00 Z
 categories:
 - Data Refresh
-- Caching
 tags:
-- Analytics Troubleshooting
+- Analytics Troubleshooting,Caching
 ---
 
 One of the common issues users face in CRM analytics is the persistence of stale data in dashboards. Despite confirming the existence of updated information in the data source, users encounter delays in visualizing the refreshed data in tables or charts. Even when the underlying data seems up-to-date, the dashboard doesn't reflect the changes promptly. Let's explore the issue and discover effective solutions.
