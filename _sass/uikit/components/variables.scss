@@ -32,9 +32,8 @@ $breakpoint-large-max:                          ($breakpoint-xlarge - 1) !defaul
 // Typography
 //
 
-@import url('https://fonts.googleapis.com/css2?family=Public+Sans&display=swap');
 
-$global-font-family:                             "Public Sans",-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+$global-font-family:                             Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",  "Helvetica Neue", Arial, sans-serif !default;
 $global-font-size:                               16px !default;
 $global-line-height:                             1.5 !default;      // 24px
 
