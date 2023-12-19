@@ -61,7 +61,7 @@
                     </ul>
                 </div>
                 <div class="uk-navbar-center uk-hidden@m">
-                    <a class="uk-navbar-item uk-logo" href="{{ "/" | relative_url }}">{% if site.logo %}<img src="{{  absolute_url | site.uploads }}{{ site.logo }}" alt="{{ site.title | escape }}" style="height: 40px;max-width: fit-content;" >{% else %}{{ site.title | escape }}{% endif %}</a>
+                    <a class="uk-navbar-item uk-logo" href="{{ "/" | relative_url }}">{% if site.logo %}<img src="{{  site.baseurl }}/uploads/{{ site.logo }}" alt="{{ site.title | escape }}" style="height: 40px;max-width: fit-content;" >{% else %}{{ site.title | escape }}{% endif %}</a>
                 </div>
                 <div class="uk-navbar-right">
                     {% if site.navbar.search %}
