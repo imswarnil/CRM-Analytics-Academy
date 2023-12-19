@@ -7,7 +7,7 @@ hero:
     into essential concepts like Dataflow, SAQL, Binding, and Data Preparation, and
     immediately apply your knowledge by building projects. \U0001F4CA Begin your journey
     on CRMA Academy today!"
-  image: uploads/study.svg
+  image: study.svg
   search: true
 ---
 
