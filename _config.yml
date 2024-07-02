@@ -72,6 +72,9 @@ collections:
   training:
     output: true
     permalink: /:title/
+  tutorials:
+    output: true
+    permalink: /tutorials/:path/
 
 # 6. Jekyll collections settings
 defaults:
@@ -92,6 +95,12 @@ defaults:
       type: "pages"
     values:
       layout: page # Set the default layout for pages
+  -
+    scope:
+      path: ""
+      type: "tutorials"
+    values:
+      layout: tutorials # Set the default layout for pages
 
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right

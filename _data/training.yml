@@ -1,0 +1,26 @@
+course_name: "Salesforce Training"
+course_description: "A comprehensive Salesforce training course."
+course_image: "https://via.placeholder.com/800x400"
+course_level: "Beginner"
+course_duration: "1 Hour"
+course_last_updated: "May 15, 2024"
+course_enrolled: "7 Total Enrolled"
+course_author: "Admin"
+course_author_image: "https://namastesalesforce.com/wp-content/litespeed/avatar/25fe46c993efce870036b2cb94df4064.jpg?ver=1718713637"
+course_material:
+  Study: "Video Lectures"
+  Resource: "Hands-on Exercises"
+  Note: "Course Notes"
+  Community: "Community Access"
+  Certificate: "Certificate of Completion"
+course_requirements:
+  - "Basic Understanding of Salesforce"
+  - "Access to Salesforce Org"
+  - "Desire to Learn"
+course_tags: ["apex", "basics", "developer"]
+course_audience:
+  - "Aspiring Salesforce Developers"
+  - "New Programmers"
+  - "Salesforce Admins"
+  - "IT Professionals"
+  - "Tech Enthusiasts"
