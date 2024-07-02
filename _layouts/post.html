@@ -2,8 +2,6 @@
 layout: default
 ---
 
-{% include site-header.html %}
-
 <div class="my-5">
   <div class="container">
     <div class="columns mt-5">
@@ -44,22 +42,24 @@ layout: default
           </div>
 
           <!-- Social Media Share Links -->
-          <div class="buttons has-addons is-centered">
-            <a class="button is-link" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;">
-              <span class="icon"><i class="fab fa-twitter"></i></span>
-            </a>
+          <div class="buttons is-centered">
+            <a class="button is-link " href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;">
+              <span class="icon mr-1"><i class="fab fa-twitter"></i> </span>
+          Tweet It  </a>
             <a class="button is-link" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-              <span class="icon"><i class="fab fa-facebook"></i></span>
-            </a>
+              <span class="icon mr-2"><i class="fab fa-facebook"></i></span>
+           Share It On Facebook </a>
             <a class="button is-link" href="whatsapp://send?text={{ page.title }} - {{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on WhatsApp">
-              <span class="icon"><i class="fab fa-whatsapp"></i></span>
-            </a>
+              <span class="icon mr-1"><i class="fab fa-whatsapp"></i></span>
+              Share On Whatsapp </a>
             <a class="button is-link" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on LinkedIn">
-              <span class="icon"><i class="fab fa-linkedin"></i></span>
-            </a>
-            <button class="button is-link" onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" title="Copy URL">
-              <span class="icon"><i class="fas fa-copy"></i></span>
-            </button>
+              <span class="icon mr-1"><i class="fab fa-linkedin"></i></span>
+           Linkedin </a>
+           <button id="copyButton" class="button is-link" onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" title="Copy URL">
+            <span id="copyIcon" class="icon mr-1"><i class="fas fa-copy"></i></span>
+            <span id="copyText">Copy The URL</span>
+            <span id="checkIcon" class="icon mr-1" style="display:none;"><i class="fas fa-check"></i></span>
+          </button>
           </div>
           <script>
             function copyToClipboard(text) {
@@ -69,10 +69,26 @@ layout: default
               textArea.select();
               document.execCommand('copy');
               document.body.removeChild(textArea);
-              alert("URL copied to clipboard: " + text);
+              showConfirmation();
             }
-          </script>
-
+          
+            function showConfirmation() {
+              var copyButton = document.getElementById('copyButton');
+              var copyIcon = document.getElementById('copyIcon');
+              var copyText = document.getElementById('copyText');
+              var checkIcon = document.getElementById('checkIcon');
+              
+              copyIcon.style.display = 'none';
+              copyText.innerText = 'Copied!';
+              checkIcon.style.display = 'inline-block';
+              
+              setTimeout(function() {
+                copyIcon.style.display = 'inline-block';
+                copyText.innerText = 'Copy The URL';
+                checkIcon.style.display = 'none';
+              }, 2000); // Reset to original state after 2 seconds
+            }
+          </script> 
           <!-- Author Details -->
           <div class="box mt-6">
             <div class="media">

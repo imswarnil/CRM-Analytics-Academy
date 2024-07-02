@@ -1,16 +1,6 @@
 <aside class="aside typeset aside--{{ include.align | default: 'right' }}">
   {% if page.layout == "post" %}
-    <div class="section section--related-posts">
-      {% include post-related.html %}
-      <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1291242080282540"
-     data-ad-slot="7663977887"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+      {% include post/aside.html %}
     </div>
   {% elsif page.layout == "page" or page.layout == "home" or page.layout == "blog" %}
     <div class="section section--description">
