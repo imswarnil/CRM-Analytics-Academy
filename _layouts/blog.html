@@ -4,26 +4,57 @@ layout: default
 
 {% include site-header.html %}
 
-<main class="section">
-  <div class="container">
-    <div class="columns">
-      <div class="column">
-        <article class="article">
-          <h1 class="title is-1">{{ page.title }}</h1>
-          <div class="content">
-            {{ content }}
+<div class="hero is-small mt-4">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-7">
+          <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
+          <h2 class="subtitle is-4">{{ page.description }}</h2>
+        </div>
+        <div class="column is-5">
+          <div class="notification is-primary has-text-centered">
+            Ad Placeholder (300x250)
           </div>
-        </article>
-        {% include post-list.html %}
+        </div>
       </div>
-      {% if page.aside == true %}
-      <div class="column">
-        {% include site-aside.html %}
-      </div>
-      {% endif %}
-
     </div>
   </div>
-</main>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8">
+        {% include post-list.html %}
+      </div>
+
+      {% if page.aside == true %}
+      <div class="column is-4">
+        <!-- Square Ad Placeholder -->
+        <div class="notification is-info has-text-centered mb-4">
+          Square Ad Placeholder (300x250)
+        </div>
+
+        {% include site-aside.html %}
+
+        <!-- Additional Square Ad Placeholder -->
+        <div class="notification is-info has-text-centered mt-4">
+          Square Ad Placeholder (300x250)
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Full Width Ad Placeholder at the End -->
+<section class="section">
+  <div class="container">
+    <div class="notification is-warning has-text-centered">
+      Full Width Ad Placeholder (970x250)
+    </div>
+  </div>
+</section>
 
 {% include site-footer.html %}

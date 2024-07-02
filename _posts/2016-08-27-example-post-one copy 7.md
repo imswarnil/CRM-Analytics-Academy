@@ -1,20 +1,12 @@
 ---
-title: Introduction to Python Programming
-categories:
-  - Training Videos
-description: |
-  Learn the basics of Python programming language in this introductory video tutorial.
-video_id: rPbPDgBdqTk
-thumbnail: "https://img.youtube.com/vi/rPbPDgBdqTk/maxresdefault.jpg"
-icon: "fab fa-python"
-lesson_number: 1
+id: 1
+title: "Introduction to Swarnil Programming"
+categories: ["Training Videos"]
+description: "Learn the basics of Python programming language in this introductory video tutorial."
+image: "https://img.youtube.com/vi/rPbPDgBdqTk/maxresdefault.jpg"
+date: 2024-01-01
+author: "John Doe"
+author_bio: "John Doe is a software engineer with over 10 years of experience in Python development."
+tags: ["Python", "Programming", "Tutorial"]
+aside : true
 ---
-
-In this video, you will get an overview of Python programming, including basic syntax, data types, and control structures.
-
-<!-- more -->
-
-Continue your journey into Python programming with this informative video.
-
-_Originally from [Introduction to Python Programming](https://www.youtube.com/watch?v=abc123xyz)_
-

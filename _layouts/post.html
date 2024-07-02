@@ -8,89 +8,167 @@ layout: default
   <div class="container">
     <div class="columns mt-5">
       <div class="column is-8">
-        <!-- Video Embed with Aspect Ratio -->
-        <figure class="image is-16by9">
-          <iframe class="has-ratio"
-                  width="640"
-                  height="360"
-                  src="https://www.youtube.com/embed/{{ page.video_id }}"
-                  allowfullscreen></iframe>
-        </figure>
-        <!-- Lesson Details Section -->
-      </div>
-      <div class="column is-4 ">
-        <aside class="menu">
-          <p class="title mb-5 is-4 ml-5 course-content-button button is-primary" onclick="toggleTimeline()">Course Content</p>
-          <div class="timeline">
-            {% for post in site.posts %}
-              {% assign active_class = "" %}
-              {% if page.url == post.url %}
-                {% assign active_class = "active" %}
-              {% endif %}
-              <div class="timeline-item">
-                <div class="timeline-circle {{ active_class }}">{{ forloop.index }}</div>
-                <a href="{{ post.url }}" class="has-text-dark {{ active_class }}">{{ post.title }}</a>
+        <!-- Blog Post Content -->
+        <article class="content">
+          <h1 class="title is-2 has-text-primary" itemprop="headline">{{ page.title }}</h1>
+          <p class="subtitle is-4" itemprop="description">{{ page.description }}</p>
+          <figure class="image is-16by9">
+            <img src="{{ page.image | default: "https://via.placeholder.com/640x360" }}" alt="{{ page.title }}" itemprop="image">
+          </figure>
+
+          <div class="content-meta mb-6">
+            <div class="media">
+              <figure class="media-left">
+                <p class="image is-48x48">
+                  <img class="is-rounded" src="avatar-alex.png" alt="{{ page.author }}">
+                </p>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>Written by 
+                    <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                      <span itemprop="name">{{ page.author }}</span>
+                    </span>
+                    <br>
+                    <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                      {{ page.date | date: "%B %d, %Y" }}
+                    </time>
+                  </p>
+                </div>
               </div>
-            {% endfor %}
+            </div>
           </div>
-        </aside>
-        <script>
-          function toggleTimeline() {
-            const timeline = document.querySelector('.timeline');
-            const items = document.querySelectorAll('.timeline-item');
-            const timelineLine = timeline.querySelector('::before');
-      
-            if (timeline.style.display === 'none' || timeline.style.display === '') {
-              timeline.classList.remove('hide-line');
-              timeline.style.display = 'block';
-              timeline.style.opacity = '1';
-              items.forEach((item, index) => {
-                setTimeout(() => {
-                  item.style.opacity = '1';
-                  item.style.transform = 'translateY(0)';
-                }, index * 100); // delay each item
-              });
-            } else {
-              items.forEach((item, index) => {
-                setTimeout(() => {
-                  item.style.opacity = '0';
-                  item.style.transform = 'translateY(-20px)';
-                  if (index === items.length - 1) {
-                    setTimeout(() => {
-                      timeline.style.opacity = '0';
-                      timeline.classList.add('hide-line');
-                      setTimeout(() => {
-                        timeline.style.display = 'none';
-                      }, 500); // delay hiding the timeline
-                    }, 300); // delay hiding the timeline items
-                  }
-                }, (items.length - 1 - index) * 100); // delay each item, starting from the last
-              });
+
+          <div class="content" itemprop="articleBody">
+            {{ content }}
+          </div>
+
+          <!-- Social Media Share Links -->
+          <div class="buttons has-addons is-centered">
+            <a class="button is-link" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;">
+              <span class="icon"><i class="fab fa-twitter"></i></span>
+            </a>
+            <a class="button is-link" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+              <span class="icon"><i class="fab fa-facebook"></i></span>
+            </a>
+            <a class="button is-link" href="whatsapp://send?text={{ page.title }} - {{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on WhatsApp">
+              <span class="icon"><i class="fab fa-whatsapp"></i></span>
+            </a>
+            <a class="button is-link" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on LinkedIn">
+              <span class="icon"><i class="fab fa-linkedin"></i></span>
+            </a>
+            <button class="button is-link" onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" title="Copy URL">
+              <span class="icon"><i class="fas fa-copy"></i></span>
+            </button>
+          </div>
+          <script>
+            function copyToClipboard(text) {
+              var textArea = document.createElement("textarea");
+              textArea.value = text;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textArea);
+              alert("URL copied to clipboard: " + text);
             }
+          </script>
+
+          <!-- Author Details -->
+          <div class="box mt-6">
+            <div class="media">
+              <figure class="media-left">
+                <p class="image is-128x128">
+                  <img class="is-rounded" src="avatar-alex.png" alt="{{ page.author }}">
+                </p>
+              </figure>
+              <div class="media-content">
+                <h3 class="title is-4">{{ page.author }}</h3>
+                <p>{{ page.author_bio }}</p>
+                <div class="mt-4">
+                  <a href="#" class="icon mr-2">🐦</a>
+                  <a href="#" class="icon mr-2">📘</a>
+                  <a href="#" class="icon">📸</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Next/Previous Post Pagination -->
+          <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            <div class="pagination-previous">
+              {% if page.previous %}
+                <a href="{{ page.previous.url }}">← {{ page.previous.title }}</a>
+              {% endif %}
+            </div>
+            <div class="pagination-next">
+              {% if page.next %}
+                <a href="{{ page.next.url }}">{{ page.next.title }} →</a>
+              {% endif %}
+            </div>
+          </nav>
+
+          <!-- Related Posts from the Same Category -->
+          <div class="section">
+            <h3 class="title is-4">Related Posts</h3>
+            <ul class="list has-text-link">
+              {% assign related_posts = site.posts | where: "categories", page.categories[0] | where_exp: "post", "post.id != page.id" | limit: 3 %}
+              {% for post in related_posts %}
+                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Most Recent Posts -->
+          <div class="section">
+            <h3 class="title is-4">Most Recent Posts</h3>
+            <ul class="list has-text-link">
+              {% assign recent_posts = site.posts | limit: 3 %}
+              {% for post in recent_posts %}
+                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- JSON-LD Schema -->
+          <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "{{ site.url }}{{ page.url }}"
+            },
+            "headline": "{{ page.title }}",
+            "description": "{{ page.description | escape }}",
+            "image": "{{ page.image | default: "https://via.placeholder.com/640x360" }}",
+            "author": {
+              "@type": "Person",
+              "name": "{{ page.author }}",
+              "description": "{{ page.author_bio }}"
+            },
+            "datePublished": "{{ page.date | date_to_xmlschema }}",
+            "dateModified": "{{ page.date | date_to_xmlschema }}",
+            "publisher": {
+              "@type": "Organization",
+              "name": "{{ site.title }}",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "{{ site.logo }}"
+              }
+            },
+            "identifier": "{{ page.id }}",
+            "keywords": "{% for tag in page.tags %}{{ tag }}{% unless forloop.last %}, {% endunless %}{% endfor %}"
           }
-        </script>
+          </script>
+        </article>
       </div>
-    </div>
-    <div class="section">
-      <div class="">
-        <div class="content">
-          <h2 class="title is-4">{{ page.title }}</h2>
-          <p class="mb-4"><i class="{{ page.icon }} mr-2"></i> Lesson {{ page.lesson_number }}</p>
-          <p>{{ content }}</p>
-        </div>
-      </div>
-      <!-- Course Content Menu -->
-      <div class="column is-4">
-      
-      </div>
-    </div>
 
+      <!-- Sidebar -->
       {% if page.aside == true %}
-        <aside class="column is-4">
-          {% include site-aside.html %}
-        </aside>
+      <div class="column is-4">
+        {% include site-aside.html %}
+      </div>
       {% endif %}
-
     </div>
   </div>
 </div>

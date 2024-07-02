@@ -1,18 +1,54 @@
-<div class="form  form--search">
-  <form id="contact-form" action="">
-    <label class="label" for="search">Search term:</label>
-    <input class="input" id="search" type="search" name="search" placeholder="e.g. About us" autocomplete="off" />
+<section class="section">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Search</a></li>
+      </ul>
+    </nav>
 
-    <ul class="list  list--results" id="list">
-        <!-- results go here -->
-    </ul>
-  </form>
-</div>
+    <div class="columns">
+      <div class="column is-8">
+        <div class="form form--search">
+          <form id="contact-form" action="">
+            <div class="field">
+              <label class="label" for="search">Search term:</label>
+              <div class="control has-icons-left">
+                <input class="input" id="search" type="search" name="search" placeholder="e.g. About us" autocomplete="off" />
+                <span class="icon is-left">
+                  <i class="fas fa-search"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <ul class="list list--results" id="list">
+                  <!-- results go here -->
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="column is-4">
+        <aside class="menu">
+          <p class="menu-label">
+            Sitemap
+          </p>
+          <ul class="menu-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
 
 <script type="text/javascript" src="{{ "/assets/scripts/fetch.js" | relative_url }}"></script>
 <script type="text/javascript">
   const endpoint = '{{ "/assets/search.json" | relative_url }}';
-
   const pages = [];
 
   fetch(endpoint)
@@ -30,9 +66,9 @@
     const resultsArray = findResults(this.value, pages);
     const html = resultsArray.map(item => {
       return `
-        <li class="item  item--result">
-          <article class="article  typeset">
-            <h4><a href="${item.url}">${item.title}</a></h4>
+        <li class="item item--result">
+          <article class="article">
+            <h4 class="title is-4"><a href="${item.url}">${item.title}</a></h4>
             <p>${item.description}</p>
           </article>
         </li>`;

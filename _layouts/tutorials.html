@@ -1,0 +1,98 @@
+---
+layout: default
+---
+
+{% include site-header.html %}
+
+<div class="my-5">
+  <div class="container">
+    <div class="columns mt-5">
+      <div class="column is-8">
+        <!-- Video Embed with Aspect Ratio -->
+        <figure class="image is-16by9">
+          <iframe class="has-ratio"
+                  width="640"
+                  height="360"
+                  src="https://www.youtube.com/embed/{{ page.video_id }}"
+                  allowfullscreen></iframe>
+        </figure>
+        <!-- Lesson Details Section -->
+      </div>
+      <div class="column is-4 ">
+        <aside class="menu">
+          <p class="title mb-5 is-4 ml-5 course-content-button button is-primary" onclick="toggleTimeline()">Course Content</p>
+          <div class="timeline">
+            {% for post in site.posts %}
+              {% assign active_class = "" %}
+              {% if page.url == post.url %}
+                {% assign active_class = "active" %}
+              {% endif %}
+              <div class="timeline-item">
+                <div class="timeline-circle {{ active_class }}">{{ forloop.index }}</div>
+                <a href="{{ post.url }}" class="has-text-dark {{ active_class }}">{{ post.title }}</a>
+              </div>
+            {% endfor %}
+          </div>
+        </aside>
+        <script>
+          function toggleTimeline() {
+            const timeline = document.querySelector('.timeline');
+            const items = document.querySelectorAll('.timeline-item');
+            const timelineLine = timeline.querySelector('::before');
+      
+            if (timeline.style.display === 'none' || timeline.style.display === '') {
+              timeline.classList.remove('hide-line');
+              timeline.style.display = 'block';
+              timeline.style.opacity = '1';
+              items.forEach((item, index) => {
+                setTimeout(() => {
+                  item.style.opacity = '1';
+                  item.style.transform = 'translateY(0)';
+                }, index * 100); // delay each item
+              });
+            } else {
+              items.forEach((item, index) => {
+                setTimeout(() => {
+                  item.style.opacity = '0';
+                  item.style.transform = 'translateY(-20px)';
+                  if (index === items.length - 1) {
+                    setTimeout(() => {
+                      timeline.style.opacity = '0';
+                      timeline.classList.add('hide-line');
+                      setTimeout(() => {
+                        timeline.style.display = 'none';
+                      }, 500); // delay hiding the timeline
+                    }, 300); // delay hiding the timeline items
+                  }
+                }, (items.length - 1 - index) * 100); // delay each item, starting from the last
+              });
+            }
+          }
+        </script>
+      </div>
+    </div>
+    <div class="section">
+      <div class="">
+        <div class="content">
+          <h2 class="title is-4">{{ page.title }}</h2>
+          <p class="mb-4"><i class="{{ page.icon }} mr-2"></i> Lesson {{ page.lesson_number }}</p>
+          <p>{{ content }}</p>
+        </div>
+      </div>
+      <!-- Course Content Menu -->
+      <div class="column is-4">
+      
+      </div>
+    </div>
+
+      {% if page.aside == true %}
+        <aside class="column is-4">
+          {% include site-aside.html %}
+        </aside>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% include site-footer.html %}

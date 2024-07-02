@@ -39,7 +39,6 @@
 </head>
 <body class="layout-{{ page.layout | default: 'default' }}{% if page.title %} {{ page.title | slugify }}{% endif %}">
   <div class="container">
-    {% include site-header.html %}
     {{ content }}
   </div>
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}

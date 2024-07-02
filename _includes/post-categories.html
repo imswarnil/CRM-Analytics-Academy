@@ -1,25 +1,35 @@
 {% for category in site.categories %}
   {% assign category_name = category | first %}
-  <section class="section  typeset">
-    <h2 id="{{ category_name | slugify }}">{{ category_name }}</h2>
-    <ul class="list  list--posts">
-      {% for page in site.categories[category_name] %}
-        {% assign has_categories = true %}
-        <li class="item  item--post">
-          <article class="article  article--post  typeset">
-            <h3><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></h3>
-            {% include post-meta.html %}
-            {{ page.description | truncatewords: 60 | markdownify }}
-          </article>
-        </li>
-      {% endfor %}
-    </ul>
-    {% unless forloop.last %}<hr/>{% endunless %}
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-3" id="{{ category_name | slugify }}">{{ category_name }}</h2>
+      <ul class="list">
+        {% for page in site.categories[category_name] %}
+          {% assign has_categories = true %}
+          <li class="item">
+            <article class="media">
+              <div class="media-content">
+                <div class="content">
+                  <h3 class="title is-4"><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></h3>
+                  {% include post-meta.html %}
+                  <p>{{ page.description | truncatewords: 60 | markdownify }}</p>
+                </div>
+              </div>
+            </article>
+          </li>
+        {% endfor %}
+      </ul>
+      {% unless forloop.last %}
+        <hr/>
+      {% endunless %}
+    </div>
   </section>
 {% endfor %}
 
 {% if has_categories != true %}
-  <section class="section  typeset">
-    <p>There are no categorised posts</p>
+  <section class="section">
+    <div class="container">
+      <p>There are no categorised posts</p>
+    </div>
   </section>
 {% endif %}

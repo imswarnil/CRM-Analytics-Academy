@@ -1,13 +1,24 @@
-<section class="section typeset">
-  <div class="container">
+<div class="container">
   <ul class="columns is-multiline">
     {% if paginator.posts %}
       {% for post in paginator.posts %}
         <li class="column is-4">
-          <article class="card">
+          <article class="card" id="post-{{ post.id }}">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ post.image }}" alt="{{ post.title }}">
+              </figure>
+            </div>
             <div class="card-content">
               <h2 class="title is-4"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-              {% include post-meta.html %}
+              <div class="post-meta">
+                <p>By {{ post.author }} | {{ post.date | date: "%B %d, %Y" }}</p>
+                <p>Categories: 
+                  {% for category in post.categories %}
+                    <span>{{ category }}</span>{% unless forloop.last %}, {% endunless %}
+                  {% endfor %}
+                </p>
+              </div>
               <div class="content">
                 <p>{{ post.description | markdownify | truncatewords: 30 }}</p>
                 <p><a href="{{ post.url }}">Read more</a></p>
@@ -16,23 +27,35 @@
           </article>
         </li>
       {% endfor %}
-    </div>
-      {% include post-pagination.html %}
-    {% else %}
-      {% for post in site.posts %}
-        <li class="column is-4">
-          <article class="card">
-            <div class="card-content">
-              <h2 class="title is-4"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-              {% include post-meta.html %}
-              <div class="content">
-                <p>{{ post.description | markdownify | truncatewords: 30 }}</p>
-                <p><a href="{{ post.url }}">Read more</a></p>
-              </div>
+    </ul>
+    {% include post-pagination.html %}
+  {% else %}
+    {% for post in site.posts %}
+      <li class="column is-4">
+        <article class="card" id="post-{{ post.id }}">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="{{ post.image }}" alt="{{ post.title }}">
+            </figure>
+          </div>
+          <div class="card-content">
+            <h2 class="title is-4"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+            <div class="post-meta">
+              <p>By {{ post.author }} | {{ post.date | date: "%B %d, %Y" }}</p>
+              <p>Categories: 
+                {% for category in post.categories %}
+                  <span>{{ category }}</span>{% unless forloop.last %}, {% endunless %}
+                {% endfor %}
+              </p>
             </div>
-          </article>
-        </li>
-      {% endfor %}
-    {% endif %}
-  </ul>
-</section>
+            <div class="content">
+              <p>{{ post.description | markdownify | truncatewords: 30 }}</p>
+              <p><a href="{{ post.url }}">Read more</a></p>
+            </div>
+          </div>
+        </article>
+      </li>
+    {% endfor %}
+  {% endif %}
+</ul>
+</div>

@@ -4,25 +4,57 @@ layout: default
 
 {% include site-header.html %}
 
-<main class="main section">
+<main class="section">
   <div class="container">
     <div class="columns">
       <div class="column is-8">
-        <article class="article typeset">
-          <h1 class="title">{{ page.title }}</h1>
-          {% if page.image %}
-            <figure class="image">
-              <img src="{{ page.image }}" alt="{{ page.title }}">
-            </figure>
-          {% endif %}
-          {{ content }}
-        </article>
+        {% for category in site.categories %}
+          {% assign category_name = category | first %}
+          <section class="section">
+            <div class="container">
+              <h2 class="title is-3" id="{{ category_name | slugify }}">{{ category_name }}</h2>
+              <ul class="list">
+                {% for page in site.categories[category_name] %}
+                  {% assign has_categories = true %}
+                  <li class="item">
+                    <article class="media">
+                      {% if page.image %}
+                        <figure class="media-left">
+                          <p class="image is-128x128">
+                            <img src="{{ page.image }}" alt="{{ page.title }}">
+                          </p>
+                        </figure>
+                      {% endif %}
+                      <div class="media-content">
+                        <div class="content">
+                          <h3 class="title is-4"><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></h3>
+                          {% include post-meta.html %}
+                          <p>{{ page.description | truncatewords: 60 | markdownify }}</p>
+                        </div>
+                      </div>
+                    </article>
+                  </li>
+                {% endfor %}
+              </ul>
+              {% unless forloop.last %}
+                <hr/>
+              {% endunless %}
+            </div>
+          </section>
+        {% endfor %}
 
-        {% include post-categories.html %}
+        {% if has_categories != true %}
+          <section class="section">
+            <div class="container">
+              <p>There are no categorised posts</p>
+            </div>
+          </section>
+        {% endif %}
       </div>
-
       {% if page.aside == true %}
-        {% include site-aside.html align="left" %}
+        <div class="column is-4">
+          {% include site-aside.html align="left" %}
+        </div>
       {% endif %}
     </div>
   </div>
