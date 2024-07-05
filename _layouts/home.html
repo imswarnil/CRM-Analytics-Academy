@@ -35,7 +35,11 @@
 
 <body>
   {% include site-header.html %}
-  
+  <div id="installPopup" style="display: none; position: fixed; bottom: 10px; left: 10px; background: white; border: 1px solid black; padding: 10px; z-index: 1000;">
+    <p>Install this app on your device for a better experience.</p>
+    <button id="installButton">Install</button>
+    <button onclick="hideInstallPromotion()">Close</button>
+  </div>
   {% include home/hero.html %}
   {% include home/get-started.html %}
   {% include home/features.html %}
