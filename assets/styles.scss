@@ -1,6 +1,5 @@
 ---
 ---
-
 @import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;500;700&family=Anton&display=swap');
 
 // Define colors
@@ -9,8 +8,8 @@ $secondary: #ff6347;
 $background: #ffffff;
 $text-color: #333333;
 $accent-color: #ff6347;
-$shadow-color: rgba(0, 0, 0, 0.8);
-$card-background: #f4f4f4;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$card-background: #f9f9f9;
 $card-border: #e0e0e0;
 
 // Fonts
@@ -28,8 +27,8 @@ $button-background-color: $primary;
 $button-color: $background;
 $button-hover-background-color: darken($primary, 10%);
 $button-hover-color: $background;
-$button-border-radius: 0;
-$button-box-shadow: 4px 4px 0px 0px $shadow-color;
+$button-border-radius: 4px;
+$button-box-shadow: 2px 2px 0px 0px $shadow-color;
 
 // Body styles
 body {
@@ -56,7 +55,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $family-secondary;
   color: $primary;
   text-transform: uppercase;
-  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
   line-height: 1.2;
 }
 
@@ -108,7 +106,7 @@ p {
   &:hover {
     background-color: $button-hover-background-color;
     color: $button-hover-color;
-    box-shadow: 6px 6px 0px 0px $shadow-color;
+    box-shadow: 4px 4px 0px 0px $shadow-color;
   }
 }
 
@@ -116,7 +114,7 @@ p {
 .card {
   background-color: $card-background;
   border: 2px solid $card-border;
-  box-shadow: 6px 6px 0px 0px $shadow-color;
+  box-shadow: 2px 2px 0px 0px $shadow-color;
   border-radius: 8px;
   .card-header {
     background-color: $primary;
@@ -124,7 +122,7 @@ p {
     text-transform: uppercase;
   }
   .card-content {
-    background-color: $background;
+    background-color: $card-background;
   }
 }
 
@@ -133,26 +131,23 @@ p {
   background-color: $background;
   color: $text-color;
   border: 2px solid $primary;
-  border-radius: 8px;
-  box-shadow: 4px 4px 0px 0px $shadow-color;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0px 0px $shadow-color;
   &:focus {
-    box-shadow: 6px 6px 0px 0px $shadow-color;
+    box-shadow: 4px 4px 0px 0px $shadow-color;
   }
 }
 
 // Columns
 .columns {
   align-items: flex-start;
-  background-color: $card-background;
-  border-radius: 8px;
-  box-shadow: 4px 4px 0px 0px $shadow-color;
 }
 
 .column {
-  background-color: $background;
+  background-color: $card-background;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 4px 4px 0px 0px $shadow-color;
+  box-shadow: 2px 2px 0px 0px $shadow-color;
 }
 
 // Sticky aside
