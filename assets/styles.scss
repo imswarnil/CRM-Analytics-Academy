@@ -3,22 +3,92 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 $primary: #0176d3;
-$link : $primary;
+$link: $primary;
 $family-sans-serif: "Roboto", "Arial", sans-serif !default;
 $family-monospace: "Roboto Mono", monospace !default;
 $render-mode: optimizeLegibility !default;
 
-// Ensure columns inside the main content are aligned properly
-.columns {
-    align-items: flex-start; // Adjust alignment as needed
-  }
-  
-  // Sticky behavior for the aside when page scrolls
-  aside {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 20px; // Adjust top spacing as needed
-  }
+$body-background-color: #f0f0f0;
+$navbar-background-color: #ffffff;
+$navbar-item-color: $primary;
+$navbar-item-hover-background-color: #e0e0e0;
+$navbar-item-hover-color: $primary;
+$button-border-radius: 0;
+$button-box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
 
-// Import custom resume extensions
+// Override Bulma's default styles
+body {
+  background-color: $body-background-color;
+  font-family: $family-sans-serif;
+}
+
+.navbar {
+  background-color: $navbar-background-color;
+  .navbar-item {
+    color: $navbar-item-color;
+    &:hover {
+      background-color: $navbar-item-hover-background-color;
+      color: $navbar-item-hover-color;
+    }
+  }
+}
+
+.button {
+  border-radius: $button-border-radius;
+  box-shadow: $button-box-shadow;
+  &:hover {
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  }
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: $family-sans-serif;
+  color: $primary;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  font-family: $family-sans-serif;
+  color: #333;
+}
+
+// Card styling
+.card {
+  border: 2px solid $primary;
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  border-radius: 0;
+  .card-header {
+    background-color: $primary;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .card-content {
+    background-color: #fff;
+  }
+}
+
+// Form styling
+.input, .textarea, .select, .checkbox {
+  border-radius: 0;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  &:focus {
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  }
+}
+
+// Column alignment
+.columns {
+  align-items: flex-start;
+}
+
+// Sticky aside
+aside {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
+}
+
+// Custom resume extensions
 @import "main";
