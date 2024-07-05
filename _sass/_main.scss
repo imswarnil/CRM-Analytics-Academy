@@ -1,11 +1,36 @@
 
-// Import Bulmaswatch Variables 
-@import "bulmaswatch/variable";
 // Import Bulma
 @import "../node_modules/bulma/sass/index";
 
-@import "bulmaswatch/override";
+// Navbar styles
+.navbar {
 
+  .navbar-item {
+    font-weight:inherit;
+
+    &:hover {
+      background-color: transparent;
+      color: $primary;
+    }
+
+    &.is-active {
+      background-color: transparent;
+      color: $primary;
+      font-weight:500;
+    }
+  }
+
+  .navbar-burger {
+    &:hover {
+      background-color: transparent;
+      color: $primary;
+    }
+  }
+}
+
+// Import custom resume extensions
+@import "../_sass/theme/index";
+// Custom styles and overrides
 html {
   scroll-behavior: smooth;
 }
