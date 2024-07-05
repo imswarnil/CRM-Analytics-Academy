@@ -2,26 +2,39 @@
 ---
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-$primary: #0176d3;
-$link: $primary;
+// Define colors
+$primary: #ff5a5f;
+$secondary: #00a699;
+$background: #333333;
+$text-light: #f4f4f4;
+$text-dark: #333333;
+
+// Fonts
 $family-sans-serif: "Roboto", "Arial", sans-serif !default;
-$family-monospace: "Roboto Mono", monospace !default;
 $render-mode: optimizeLegibility !default;
 
-$body-background-color: #f0f0f0;
-$navbar-background-color: #ffffff;
-$navbar-item-color: $primary;
-$navbar-item-hover-background-color: #e0e0e0;
-$navbar-item-hover-color: $primary;
-$button-border-radius: 0;
-$button-box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+// Override Bulma variables
+$navbar-background-color: $background;
+$navbar-item-color: $text-light;
+$navbar-item-hover-background-color: $secondary;
+$navbar-item-hover-color: $text-light;
 
-// Override Bulma's default styles
+$button-background-color: $primary;
+$button-color: $text-light;
+$button-hover-background-color: darken($primary, 10%);
+$button-hover-color: $text-light;
+$button-border-radius: 0;
+$button-box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+
+// Body styles
 body {
-  background-color: $body-background-color;
+  background-color: $background;
   font-family: $family-sans-serif;
+  color: $text-light;
+  line-height: 1.6;
 }
 
+// Navbar styles
 .navbar {
   background-color: $navbar-background-color;
   .navbar-item {
@@ -33,52 +46,96 @@ body {
   }
 }
 
-.button {
-  border-radius: $button-border-radius;
-  box-shadow: $button-box-shadow;
-  &:hover {
-    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
-  }
-}
-
 // Typography
 h1, h2, h3, h4, h5, h6 {
   font-family: $family-sans-serif;
   color: $primary;
   text-transform: uppercase;
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.75rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.25rem;
 }
 
 p {
   font-family: $family-sans-serif;
-  color: #333;
+  color: $text-light;
 }
 
-// Card styling
+// Hero styles
+.hero {
+  background-color: $primary;
+  color: $text-light;
+  padding: 3rem 1.5rem;
+  .hero-body {
+    padding: 3rem 1.5rem;
+  }
+}
+
+// Button styles
+.button {
+  background-color: $button-background-color;
+  color: $button-color;
+  border-radius: $button-border-radius;
+  box-shadow: $button-box-shadow;
+  &:hover {
+    background-color: $button-hover-background-color;
+    color: $button-hover-color;
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.8);
+  }
+}
+
+// Card styles
 .card {
+  background-color: $background;
   border: 2px solid $primary;
-  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.8);
   border-radius: 0;
   .card-header {
     background-color: $primary;
-    color: #fff;
+    color: $text-light;
     text-transform: uppercase;
   }
   .card-content {
-    background-color: #fff;
+    background-color: $background;
   }
 }
 
-// Form styling
+// Form styles
 .input, .textarea, .select, .checkbox {
+  background-color: $background;
+  color: $text-light;
+  border: 2px solid $primary;
   border-radius: 0;
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
   &:focus {
-    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.8);
   }
 }
 
-// Column alignment
+// Columns
 .columns {
   align-items: flex-start;
 }
