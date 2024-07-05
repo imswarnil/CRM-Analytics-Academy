@@ -3,7 +3,6 @@ permalink: "/sw.js"
 layout: null
 sitemap: false
 ---
-
 const version = '{{ site.time | date: '%Y%m%d%H%M%S' }}';
 const cacheName = `static::${version}`;
 
@@ -18,8 +17,8 @@ const buildContentBlob = () => {
       {%- endunless -%}
     {%- endfor -%}
       "{{ site.logo | relative_url }}", "{{ site.baseurl }}/assets/default-offline-image.png", "{{ site.baseurl }}/assets/scripts/fetch.js"
-  ]
-}
+  ];
+};
 
 const updateStaticCache = () => {
   return caches.open(cacheName).then(cache => {
@@ -29,7 +28,6 @@ const updateStaticCache = () => {
 
 const clearOldCache = () => {
   return caches.keys().then(keys => {
-    // Remove caches whose name is no longer valid.
     return Promise.all(
       keys
         .filter(key => {
@@ -59,26 +57,21 @@ self.addEventListener("fetch", event => {
   let request = event.request;
   let url = new URL(request.url);
 
-  // Only deal with requests from the same domain.
   if (url.origin !== location.origin) {
     return;
   }
 
-  // Always fetch non-GET requests from the network.
   if (request.method !== "GET") {
     event.respondWith(fetch(request));
     return;
   }
 
-  // Default url returned if page isn't cached
   let offlineAsset = "/offline/";
 
   if (request.url.match(/\.(jpe?g|png|gif|svg)$/)) {
-    // If url requested is an image and isn't cached, return default offline image
     offlineAsset = "{{ site.baseurl }}/assets/default-offline-image.png";
   }
 
-  // For all urls request image from network, then fallback to cache, then fallback to offline page
   event.respondWith(
     fetch(request).catch(async () => {
       return (await caches.match(request)) || caches.match(offlineAsset);

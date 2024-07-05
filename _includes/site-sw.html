@@ -1,20 +1,51 @@
-<script type="text/javascript">
-(() => {
-  const registerServiceWorker = () => {
-    if (!navigator.serviceWorker) {
-      return;
+  <!-- Include your PWA install prompt script here -->
+  <script type="text/javascript">
+    (() => {
+      const registerServiceWorker = () => {
+        if (!navigator.serviceWorker) {
+          return;
+        }
+
+        navigator.serviceWorker
+          .register("{{ "/sw.js" | relative_url }}")
+          .then(registration => {
+            console.log("Service Worker: registered");
+          })
+          .catch(err => {
+            console.log("Service Worker: registration failed ", err);
+          });
+      };
+
+      registerServiceWorker();
+    })();
+
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallPromotion();
+    });
+
+    function showInstallPromotion() {
+      const installPopup = document.getElementById('installPopup');
+      installPopup.style.display = 'block';
     }
 
-    navigator.serviceWorker
-      .register("{{ "/sw.js" | relative_url }}")
-      .then(registration => {
-        console.log("Service Worker: registered");
-      })
-      .catch(err => {
-        console.log("Service Worker: registration failed ", err);
-      });
-  };
+    function hideInstallPromotion() {
+      const installPopup = document.getElementById('installPopup');
+      installPopup.style.display = 'none';
+    }
 
-  registerServiceWorker();
-})();
-</script>
+    document.getElementById('installButton').addEventListener('click', async () => {
+      hideInstallPromotion();
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      deferredPrompt = null;
+    });
+  </script>
