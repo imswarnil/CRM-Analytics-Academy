@@ -1,36 +1,41 @@
 ---
 ---
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;500;700&family=Anton&display=swap');
 
 // Define colors
-$primary: #ff5a5f;
-$secondary: #00a699;
-$background: #333333;
-$text-light: #f4f4f4;
-$text-dark: #333333;
+$primary: #0176d3;
+$secondary: #ff6347;
+$background: #ffffff;
+$text-color: #333333;
+$accent-color: #ff6347;
+$shadow-color: rgba(0, 0, 0, 0.8);
+$card-background: #f4f4f4;
+$card-border: #e0e0e0;
 
 // Fonts
-$family-sans-serif: "Roboto", "Arial", sans-serif !default;
+$family-sans-serif: 'Darker Grotesque', 'Arial', sans-serif !default;
+$family-secondary: 'Anton', 'Arial', sans-serif;
 $render-mode: optimizeLegibility !default;
 
 // Override Bulma variables
 $navbar-background-color: $background;
-$navbar-item-color: $text-light;
-$navbar-item-hover-background-color: $secondary;
-$navbar-item-hover-color: $text-light;
+$navbar-item-color: $text-color;
+$navbar-item-hover-background-color: $primary;
+$navbar-item-hover-color: $background;
 
 $button-background-color: $primary;
-$button-color: $text-light;
+$button-color: $background;
 $button-hover-background-color: darken($primary, 10%);
-$button-hover-color: $text-light;
+$button-hover-color: $background;
 $button-border-radius: 0;
-$button-box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+$button-box-shadow: 4px 4px 0px 0px $shadow-color;
 
 // Body styles
 body {
   background-color: $background;
   font-family: $family-sans-serif;
-  color: $text-light;
+  color: $text-color;
   line-height: 1.6;
 }
 
@@ -48,7 +53,7 @@ body {
 
 // Typography
 h1, h2, h3, h4, h5, h6 {
-  font-family: $family-sans-serif;
+  font-family: $family-secondary;
   color: $primary;
   text-transform: uppercase;
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
@@ -81,13 +86,13 @@ h6 {
 
 p {
   font-family: $family-sans-serif;
-  color: $text-light;
+  color: $text-color;
 }
 
 // Hero styles
 .hero {
   background-color: $primary;
-  color: $text-light;
+  color: $background;
   padding: 3rem 1.5rem;
   .hero-body {
     padding: 3rem 1.5rem;
@@ -103,19 +108,19 @@ p {
   &:hover {
     background-color: $button-hover-background-color;
     color: $button-hover-color;
-    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 6px 6px 0px 0px $shadow-color;
   }
 }
 
 // Card styles
 .card {
-  background-color: $background;
-  border: 2px solid $primary;
-  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.8);
-  border-radius: 0;
+  background-color: $card-background;
+  border: 2px solid $card-border;
+  box-shadow: 6px 6px 0px 0px $shadow-color;
+  border-radius: 8px;
   .card-header {
     background-color: $primary;
-    color: $text-light;
+    color: $background;
     text-transform: uppercase;
   }
   .card-content {
@@ -126,18 +131,28 @@ p {
 // Form styles
 .input, .textarea, .select, .checkbox {
   background-color: $background;
-  color: $text-light;
+  color: $text-color;
   border: 2px solid $primary;
-  border-radius: 0;
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px 0px $shadow-color;
   &:focus {
-    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 6px 6px 0px 0px $shadow-color;
   }
 }
 
 // Columns
 .columns {
   align-items: flex-start;
+  background-color: $card-background;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px 0px $shadow-color;
+}
+
+.column {
+  background-color: $background;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px 0px $shadow-color;
 }
 
 // Sticky aside
