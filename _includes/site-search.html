@@ -7,32 +7,34 @@
       </ul>
     </nav>
 
-    <div class="columns">
+    <div class="columns is-variable is-8">
+      <!-- Search Form Section -->
       <div class="column is-8">
-        <div class="form form--search">
-          <form id="contact-form" action="">
+        <div class="box shadow-box">
+          <h1 class="title is-3 has-text-centered">Search</h1>
+          <form id="search-form">
             <div class="field">
               <label class="label" for="search">Search term:</label>
               <div class="control has-icons-left">
-                <input class="input" id="search" type="search" name="search" placeholder="e.g. About us" autocomplete="off" />
+                <input class="input is-medium" id="search" type="search" name="search" placeholder="e.g. About us" autocomplete="off" />
                 <span class="icon is-left">
                   <i class="fas fa-search"></i>
                 </span>
               </div>
             </div>
             <div class="field">
-              <ul class="list list--results" id="list">
-                  <!-- results go here -->
+              <ul class="list" id="list">
+                <!-- Results will be displayed here -->
               </ul>
             </div>
           </form>
         </div>
       </div>
+
+      <!-- Sitemap Section -->
       <div class="column is-4">
         <aside class="menu">
-          <p class="menu-label">
-            Sitemap
-          </p>
+          <p class="menu-label has-text-weight-bold has-text-primary">Sitemap</p>
           <ul class="menu-list">
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
@@ -46,7 +48,7 @@
   </div>
 </section>
 
-<script type="text/javascript" src="{{ "/assets/scripts/fetch.js" | relative_url }}"></script>
+<script type="text/javascript" src="{{ '/assets/scripts/fetch.js' | relative_url }}"></script>
 <script type="text/javascript">
   const endpoint = '{{ "/assets/search.json" | relative_url }}';
   const pages = [];
@@ -74,7 +76,7 @@
         </li>`;
     }).join('');
     if ((resultsArray.length == 0) || (this.value == '')) {
-      resultsList.innerHTML = `<p>Sorry, nothing was found</p>`;
+      resultsList.innerHTML = `<p class="has-text-centered">Sorry, nothing was found</p>`;
     } else {
       resultsList.innerHTML = html;
     }
@@ -91,4 +93,83 @@
     }
   });
 </script>
+
 <noscript>Please enable JavaScript to use the search form.</noscript>
+
+<style>
+  /* Custom Styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+  }
+
+  .breadcrumb {
+    margin-bottom: 20px;
+  }
+
+  .box {
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .input {
+    border-radius: 30px;
+    padding-left: 40px;
+  }
+
+  .icon.is-left {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .menu-list a {
+    font-weight: 600;
+    color: #4a4a4a;
+    transition: color 0.3s ease;
+  }
+
+  .menu-list a:hover {
+    color: #3273dc;
+  }
+
+  .item--result {
+    background-color: #f9fafb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .item--result:hover {
+    background-color: #e9f1ff;
+    transform: translateX(5px);
+  }
+
+  .item--result .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .item--result p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .menu-label {
+    font-weight: 700;
+  }
+</style>
