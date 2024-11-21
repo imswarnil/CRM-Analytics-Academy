@@ -1,62 +1,101 @@
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item title is-size-5">
-          <i class="fa-solid fa-book-open has-text-white fa-xl mr-2 "></i> {{ site.data.course_navigation.name }}
+  <div class="navbar-brand">
+    <a class="navbar-item title is-size-5">
+      <i class="fa-solid fa-book-open has-text-white fa-xl mr-2"></i> {{ site.data.course_navigation.name }}
+    </a>
+    <button class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div id="navbarMenu" class="navbar-menu">
+    <div class="navbar-start is-align-items-center is-flex-grow-1">
+      <div class="navbar-item is-flex-grow-1">
+        <div class="progress-container is-flex-grow-1">
+          <p class="has-text-white is-size-7 mb-1">Course Progress</p>
+          <progress class="progress is-info is-small" value="75" max="100" style="width: 100%;"></progress>
+          <span class="has-text-white is-size-7">75% Completed</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <!-- Support Project -->
+      <div class="navbar-item">
+        <a href="https://support-link" target="_blank" class="button is-success is-light">
+          <span class="icon is-small"><i class="fas fa-heart"></i></span>
+          <span>Support</span>
         </a>
-        <button class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+      </div>
+
+      <!-- GitHub Star -->
+      <div class="navbar-item">
+        <a href="https://github.com/your-repo-link" target="_blank" class="button is-link is-light">
+          <span class="icon is-small"><i class="fab fa-github"></i></span>
+          <span>Star on GitHub</span>
+        </a>
+      </div>
+
+      <!-- Close Button -->
+      <div class="navbar-item">
+        <button class="button is-light is-hidden-touch" onclick="window.history.back()">
+          <span class="icon is-small"><i class="fas fa-times"></i></span>
         </button>
       </div>
-  
-      <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-start">
-                
-        </div>
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <button class="button is-light is-hidden-touch" onclick="window.history.back()">
-                <span class="icon is-small"><i class="fas fa-times"></i></span>
-              </button>
-          </div>
-        </div>
-      </div>
-  </nav>
-  
-  <style>
-    .navbar-item:hover {
-      background-color: var(--bulma-primary) !important; /* Primary hover background color */
-      color: var(--bulma-primary-dark) !important; /* White text color on hover */
-    }
-    .button.is-light:hover {
-      background-color: var(--bulma-primary-dark) !important; /* Primary hover background color for button */
-      color: #ffffff !important; /* White text color for button */
-    }
-    .button.is-light:hover .icon {
-      color: #ffffff !important; /* White icon color for button */
-    }
-    .progress {
-      margin-left: 10px;
-      margin-right: 10px;
-      width: 100%; /* Full width */
-    }
-  </style>
-  
-  <script>
-    // Toggle navbar burger on click
-    document.addEventListener('DOMContentLoaded', function () {
-      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-      if ($navbarBurgers.length > 0) {
-        $navbarBurgers.forEach(function ($el) {
-          $el.addEventListener('click', function () {
-            const target = $el.dataset.target;
-            const $target = document.getElementById(target);
-            $el.classList.toggle('is-active');
-            $target.classList.toggle('is-active');
-          });
+    </div>
+  </div>
+</nav>
+
+---
+
+### Custom Styles
+```html
+<style>
+  /* Progress Bar Styling */
+  .progress-container {
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .progress {
+    margin-bottom: 0;
+    width: 100%; /* Full-width progress bar */
+  }
+
+  /* Navbar Item Hover Effects */
+  .navbar-item:hover {
+    background-color: var(--bulma-primary-dark) !important;
+    color: white !important;
+  }
+
+  .button.is-light:hover {
+    background-color: var(--bulma-primary-dark) !important;
+    color: #ffffff !important;
+  }
+
+  .button.is-light:hover .icon {
+    color: #ffffff !important;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach(function ($el) {
+        $el.addEventListener('click', function () {
+          const target = $el.dataset.target;
+          const $target = document.getElementById(target);
+          $el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
         });
-      }
-    });
-  </script>
-  
+      });
+    }
+  });
+</script>
+
