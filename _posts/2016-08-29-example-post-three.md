@@ -1,5 +1,5 @@
 ---
-title: Description of a Pot Still
+title: Description of a Pot Still Swarnil
 categories:
 - General
 description: |
@@ -9,6 +9,7 @@ feature_text: |
   The modern pot still is a descendant of the alembic, an earlier distillation device
 feature_image: "https://picsum.photos/2560/600?image=733"
 image: "https://picsum.photos/2560/600?image=733"
+aside : true
 ---
 
 A pot still is a type of still used in distilling spirits such as whisky or brandy. Heat is applied directly to the pot containing the wash (for whisky) or wine (for brandy). This is called a batch distillation (as opposed to a continuous distillation).
