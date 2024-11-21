@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer has-background-light py-6">
   <div class="container">
     <div class="columns is-multiline">
       {% if site.navigation_footer %}
@@ -6,6 +6,7 @@
         {% for column in (0..3) %}
           <div class="column is-one-quarter">
             <nav class="menu">
+              <p class="menu-label has-text-weight-bold has-text-primary">Section {{ column | plus: 1 }}</p>
               <ul class="menu-list">
                 {% for item in site.navigation_footer offset: column | times: items_per_column limit: items_per_column %}
                   {% if item.url contains '://' %}
@@ -15,7 +16,7 @@
                   {% endif %}
                   <li>
                     <a 
-                      class="has-text-weight-semibold has-text-link" 
+                      class="has-text-weight-medium has-text-link" 
                       href="{{ url }}">
                       {{ item.title }}
                     </a>
@@ -30,6 +31,13 @@
           {% include nav-default.html %}
         </div>
       {% endif %}
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="has-text-centered pt-4">
+      <p class="is-size-7 has-text-grey">
+        &copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.
+      </p>
     </div>
   </div>
 </footer>
