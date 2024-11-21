@@ -46,6 +46,70 @@
   {% include home/lessons.html %}
 
 
+  <style>
+    .signup-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #f0f0f0;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+    .signup-section:hover {
+        transform: scale(1.02);
+    }
+    .training-details {
+        flex: 1;
+        padding-right: 20px;
+    }
+    .training-image {
+        width: 300px; /* Fixed width for the image */
+        height: auto;
+        overflow: hidden;
+    }
+    .training-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    .price {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 10px 0;
+        color: #3273dc; /* Bulma primary color */
+    }
+    .button.is-fullwidth {
+        margin-top: 10px;
+    }
+</style>
+<section class="section">
+    <div class="container">
+        <div class="signup-section">
+            <div class="training-details">
+                <h2 class="title is-4">Sign Up for Our Exclusive Training!</h2>
+                <p class="subtitle is-6">Join our expert-led training sessions and unlock your potential. Here’s what you’ll get:</p>
+                <ul>
+                    <li>✔️ In-depth training materials</li>
+                    <li>✔️ Personalized feedback and support</li>
+                    <li>✔️ Networking opportunities with professionals</li>
+                    <li>✔️ Certification upon completion</li>
+                </ul>
+                <div class="price">$199</div>
+                <a href="#" class="button is-link is-fullwidth">Register Now</a>
+                <a href="#" class="button is-info is-fullwidth">Learn More</a>
+            </div>
+            <div class="training-image">
+                <img src="https://via.placeholder.com/300" alt="Training Image">
+            </div>
+        </div>
+    </div>
+</section>
+
   
 <footer class="pt-6 pb-6">
   <div class="container">
