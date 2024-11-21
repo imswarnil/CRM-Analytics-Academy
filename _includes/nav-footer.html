@@ -1,18 +1,35 @@
-{% if site.navigation_footer %}
-<nav class="nav nav--footer">
-  <ul class="list list--nav">
-    {% for item in site.navigation_footer %}
-      {% if item.url contains '://' %}
-        {% assign url = item.url %}
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-multiline">
+      {% if site.navigation_footer %}
+        {% assign items_per_column = site.navigation_footer | size | divided_by: 4 | ceil %}
+        {% for column in (0..3) %}
+          <div class="column is-one-quarter">
+            <nav class="menu">
+              <ul class="menu-list">
+                {% for item in site.navigation_footer offset: column | times: items_per_column limit: items_per_column %}
+                  {% if item.url contains '://' %}
+                    {% assign url = item.url %}
+                  {% else %}
+                    {% assign url = item.url | relative_url %}
+                  {% endif %}
+                  <li>
+                    <a 
+                      class="has-text-weight-semibold has-text-link" 
+                      href="{{ url }}">
+                      {{ item.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </nav>
+          </div>
+        {% endfor %}
       {% else %}
-        {% assign url = item.url | relative_url %}
+        <div class="column">
+          {% include nav-default.html %}
+        </div>
       {% endif %}
-      <li class="item item--nav{% if item.url == page.url %} item--current{% endif %}">
-        <a href="{{ url }}">{{ item.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-</nav>
-{% else %}
-  {% include nav-default.html %}
-{% endif %}
+    </div>
+  </div>
+</footer>
