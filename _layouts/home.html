@@ -110,48 +110,114 @@
     </div>
 </section>
 
-  
-<footer class="pt-6 pb-6">
-  <div class="container">
+<footer class="footer has-background-dark has-text-light">
+    <div class="container">
       <div class="columns is-multiline">
-          <div class="column is-full">
-              <div class="content">
-                  <h3 class="title is-4">Sign up for our newsletter.</h3>
-                  <p>Sign up for our newsletter to stay updated on the latest news. Don't miss out, join our newsletter today!</p>
-                  <form class="mt-4 is-flex">
-                      <div class="field has-addons">
-                          <div class="control has-icons-left is-expanded">
-                              <input class="input" type="email" placeholder="Enter your email">
-                              <span class="icon is-small is-left">
-                                ✉️
-                              </span>
-                          </div>
-                          <div class="control">
-                              <button class="button is-primary">Subscribe</button>
-                          </div>
-                      </div>
-                  </form>
-              </div>
+        
+        <!-- Logo and About Section -->
+        <div class="column is-one-quarter">
+          <div class="mb-4">
+            <img src="https://via.placeholder.com/150x50?text=LOGO" alt="Logo" class="mb-3">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae justo eget libero fermentum dapibus.
+            </p>
+            <button class="button is-primary is-small mt-3">
+              Learn More
+            </button>
           </div>
-          <div class="column is-full mt-5">
-              <div class="content">
-                  <ul class="is-flex is-flex-wrap-wrap">
-                      <li class="mr-4">
-                          <a href="/#features">Features</a>
-                      </li>
-                      <li class="mr-4">
-                          <a href="/tutorials/cs50">Lessons</a>
-                      </li>
-                      <li>
-                          <a href="/#pricing">Pricing</a>
-                      </li>
-                  </ul>
-                  <p class="mt-3">© 2023 IO Academy. All rights reserved.</p>
-              </div>
+        </div>
+  
+        <!-- Quick Links -->
+        <div class="column is-one-quarter">
+          <h3 class="title is-5 has-text-light">Quick Links</h3>
+          <ul class="menu-list">
+            <li><a href="#" class="has-text-light">About Us</a></li>
+            <li><a href="#" class="has-text-light">Services</a></li>
+            <li><a href="#" class="has-text-light">Careers</a></li>
+            <li><a href="#" class="has-text-light">Contact Us</a></li>
+          </ul>
+        </div>
+  
+        <!-- Newsletter Subscription -->
+        <div class="column is-one-quarter">
+          <h3 class="title is-5 has-text-light">Newsletter</h3>
+          <p>Subscribe to get the latest updates and offers.</p>
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <input 
+                class="input is-light" 
+                type="email" 
+                placeholder="Enter your email">
+            </div>
+            <div class="control">
+              <button class="button is-primary">
+                Subscribe
+              </button>
+            </div>
           </div>
+        </div>
+  
+        <!-- Social Media Links -->
+        <div class="column is-one-quarter">
+          <h3 class="title is-5 has-text-light">Follow Us</h3>
+          <p>Stay connected through our social media platforms:</p>
+          <div class="buttons">
+            <a class="button is-light is-rounded">
+              <span class="icon">
+                <i class="fab fa-facebook"></i>
+              </span>
+              <span>Facebook</span>
+            </a>
+            <a class="button is-light is-rounded">
+              <span class="icon">
+                <i class="fab fa-twitter"></i>
+              </span>
+              <span>Twitter</span>
+            </a>
+            <a class="button is-light is-rounded">
+              <span class="icon">
+                <i class="fab fa-instagram"></i>
+              </span>
+              <span>Instagram</span>
+            </a>
+          </div>
+        </div>
       </div>
-  </div>
-</footer>
+  
+      <!-- Footer Bottom -->
+      <div class="has-text-centered mt-5">
+        <p class="is-size-7 has-text-grey">
+          &copy; 2024 Company Name. All rights reserved. | <a href="#" class="has-text-grey-light">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  
+  <style>
+    .footer {
+      padding: 2rem 1.5rem;
+    }
+    .footer .menu-list a:hover {
+      color: #00d1b2; /* Bulma primary color */
+      text-decoration: underline;
+    }
+    .footer button:hover {
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+    
+
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}
 </body>
