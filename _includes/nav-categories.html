@@ -1,15 +1,12 @@
-<nav class="navbar is-light is-spaced is-rounded my-4" aria-label="Category navigation">
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <ul class="menu-list">
-        {% for item in site.categories %}
-          <li>
-            <a class="navbar-item has-text-weight-semibold is-size-5 has-text-link" href="#{{ item | first | slugify }}">
-              {{ item | first | capitalize }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</nav>
+<aside class="menu my-4">
+  <p class="menu-label has-text-primary has-text-weight-bold">Categories</p>
+  <ul class="menu-list">
+    {% for item in site.categories %}
+      <li>
+        <a class="has-text-link has-text-weight-semibold" href="#{{ item | first | slugify }}">
+          {{ item | first | capitalize }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</aside>
