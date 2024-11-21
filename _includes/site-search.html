@@ -1,49 +1,23 @@
 <section class="section">
   <div class="container">
-    <nav class="breadcrumb" aria-label="breadcrumbs">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li class="is-active"><a href="#" aria-current="page">Search</a></li>
-      </ul>
-    </nav>
-
-    <div class="columns is-variable is-8">
-      <!-- Search Form Section -->
-      <div class="column is-8">
-        <div class="box shadow-box">
-          <h1 class="title is-3 has-text-centered">Search</h1>
-          <form id="search-form">
-            <div class="field">
-              <label class="label" for="search">Search term:</label>
-              <div class="control has-icons-left">
-                <input class="input is-medium" id="search" type="search" name="search" placeholder="e.g. About us" autocomplete="off" />
-                <span class="icon is-left">
-                  <i class="fas fa-search"></i>
-                </span>
-              </div>
-            </div>
-            <div class="field">
-              <ul class="list" id="list">
-                <!-- Results will be displayed here -->
-              </ul>
-            </div>
-          </form>
+    <h1 class="title is-3 has-text-centered">Search</h1>
+    <!-- Search Form Section -->
+    <div class="box">
+      <form id="search-form">
+        <div class="field">
+          <div class="control has-icons-left">
+            <input class="input is-medium is-fullwidth" id="search" type="search" name="search" placeholder="Search for content..." autocomplete="off" />
+            <span class="icon is-left">
+              <i class="fas fa-search"></i>
+            </span>
+          </div>
         </div>
-      </div>
-
-      <!-- Sitemap Section -->
-      <div class="column is-4">
-        <aside class="menu">
-          <p class="menu-label has-text-weight-bold has-text-primary">Sitemap</p>
-          <ul class="menu-list">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/faq">FAQ</a></li>
+        <div class="field">
+          <ul class="list" id="list">
+            <!-- Results will be displayed here -->
           </ul>
-        </aside>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </section>
@@ -104,7 +78,6 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     margin-bottom: 40px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .box:hover {
@@ -122,16 +95,6 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-  }
-
-  .menu-list a {
-    font-weight: 600;
-    color: #4a4a4a;
-    transition: color 0.3s ease;
-  }
-
-  .menu-list a:hover {
-    color: #3273dc;
   }
 
   .item--result {
@@ -157,9 +120,5 @@
     color: #666;
     font-size: 0.95rem;
     line-height: 1.5;
-  }
-
-  .menu-label {
-    font-weight: 700;
   }
 </style>
