@@ -12,10 +12,6 @@ lesson_number: 1
 layout: training
 ---
 
-# Basic Terms
-
-In this lesson, you will learn about the basic terms used in Tableau CRM.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ page.video_id }}?start={{ page.start_time }}&end={{ page.end_time }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <script type="application/ld+json">
 {
