@@ -1,510 +1,296 @@
-
 // Import Bulma
 @import "../node_modules/bulma/sass/index";
 
-// Override Bulma button styles to resemble SLDS
+// --- Override Bulma Variables ---
+// Colors for Brutalism
+$primary: #f44336; // Bright red (for bold contrasts)
+$secondary: #00bcd4; // Cyan
+$background-color: #eeeeee; // Light grey background
+$white: #ffffff; // White
+$black: #212121; // Dark grey/black text
+$border-color: #212121; // Border color for emphasis
 
-// Set up SLDS-like colors
-$primary: #0070d2; // SLDS Blue
-$success: #2e8540; // SLDS Green
-$warning: #f6a400; // SLDS Orange
-$danger: #d32f2f; // SLDS Red
-$info: #0288d1; // SLDS Cyan
+// Fonts (using rough font families for Neo-Brutalism)
+$family-primary: 'Arial', sans-serif; // Strong, raw sans-serif
+$family-secondary: 'Courier New', Courier, monospace; // Rough monospace for contrast
 
-// Button Base Styles
-$button-border-radius: 0.25rem; // SLDS radius
-$button-padding-vertical: 0.6rem;
-$button-padding-horizontal: 1.2rem;
-$button-border-width: 1px;
-$button-font-weight: 600;
+// Button Styles
+$button-border-radius: 0px; // Square edges for buttons
+$button-padding-vertical: 1rem; // Taller buttons
+$button-padding-horizontal: 2rem; // Wider buttons
+$button-font-weight: bold;
+$button-text-transform: uppercase;
 
-// Set default button colors for all button types
-.button {
-  border-radius: $button-border-radius;
-  border-width: $button-border-width;
-  font-weight: $button-font-weight;
-  padding: $button-padding-vertical $button-padding-horizontal;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  
-  // Default style for Bulma primary button
-  &.is-primary {
-    background-color: $primary;
-    border-color: $primary;
-    color: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+// Input and Form Styles
+$input-border-radius: 0px; // Square inputs
+$input-padding: 1rem;
 
-    &:hover {
-      background-color: darken($primary, 10%);
-      border-color: darken($primary, 10%);
-    }
+// Shadows
+$box: none; // Remove box shadows, brutalism doesn't rely on soft shadows
 
-    &:focus,
-    &:active {
-      background-color: $primary;
-      border-color: $primary;
-      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-    }
-  }
+// --- Override General Styles ---
 
-  // Success Button
-  &.is-success {
-    background-color: $success;
-    border-color: $success;
-    color: white;
-
-    &:hover {
-      background-color: darken($success, 10%);
-      border-color: darken($success, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $success;
-      border-color: $success;
-      box-shadow: 0 0 0 0.25rem rgba($success, 0.25);
-    }
-  }
-
-  // Danger Button
-  &.is-danger {
-    background-color: $danger;
-    border-color: $danger;
-    color: white;
-
-    &:hover {
-      background-color: darken($danger, 10%);
-      border-color: darken($danger, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $danger;
-      border-color: $danger;
-      box-shadow: 0 0 0 0.25rem rgba($danger, 0.25);
-    }
-  }
-
-  // Warning Button
-  &.is-warning {
-    background-color: $warning;
-    border-color: $warning;
-    color: white;
-
-    &:hover {
-      background-color: darken($warning, 10%);
-      border-color: darken($warning, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $warning;
-      border-color: $warning;
-      box-shadow: 0 0 0 0.25rem rgba($warning, 0.25);
-    }
-  }
-
-  // Info Button
-  &.is-info {
-    background-color: $info;
-    border-color: $info;
-    color: white;
-
-    &:hover {
-      background-color: darken($info, 10%);
-      border-color: darken($info, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $info;
-      border-color: $info;
-      box-shadow: 0 0 0 0.25rem rgba($info, 0.25);
-    }
-  }
-
-  // Link-style button
-  &.is-link {
-    background-color: transparent;
-    border-color: transparent;
-    color: $primary;
-    font-weight: normal;
-
-    &:hover {
-      background-color: transparent;
-      color: darken($primary, 10%);
-    }
-
-    &:focus,
-    &:active {
-      color: $primary;
-      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-    }
-  }
-
-  // Outline-style button (SLDS-style)
-  &.is-outlined {
-    background-color: transparent;
-    color: $primary;
-    border: 1px solid $primary;
-
-    &:hover {
-      background-color: $primary;
-      color: white;
-    }
-
-    &:focus,
-    &:active {
-      background-color: $primary;
-      color: white;
-      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-    }
-  }
-
-  // Full-width button
-  &.is-fullwidth {
-    width: 100%;
-  }
+// Body & Background
+body {
+  background-color: $background-color;
+  color: $black;
+  font-family: $family-primary;
+  line-height: 1.5;
 }
 
-// Disable button styles
-.button:disabled,
-.button.is-disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-// Navbar styles
-.navbar {
-
-  .navbar-item {
-    font-weight:inherit;
-
-    &:hover {
-      background-color: transparent;
-      color: $primary;
-    }
-
-    &.is-active {
-      background-color: transparent;
-      color: $primary;
-      font-weight:500;
-    }
-  }
-
-  .navbar-burger {
-    &:hover {
-      background-color: transparent;
-      color: $primary;
-    }
-  }
-}
-
-// Override Bulma variables (if necessary)
-// Set up SLDS-like colors
-$primary: #0070d2; // SLDS Blue
-$success: #2e8540; // SLDS Green
-$warning: #f6a400; // SLDS Orange
-$danger: #d32f2f; // SLDS Red
-$info: #0288d1; // SLDS Cyan
-
-$grey-light: #f4f6f9; // Light Grey
-$grey-dark: #4a4a4a; // Darker Greys
-$black: #1d1d1d; // Near Black
-
-// General Typography
-$font-family-primary: "Salesforce Sans", Arial, sans-serif;
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-bold: 600;
-
-// Card customization to resemble SLDS
-// Card Styles
-.card {
-  background-color: white;
-  border-radius: 0.25rem; // Slightly rounded corners like SLDS
-  box-shadow: 0 1px 3px rgba($black, 0.1), 0 1px 2px rgba($black, 0.24); // Soft shadow
-
-  // Card Header
-  .card-header {
-    background-color: $primary;
-    color: white;
-    padding: 1rem;
-    font-size: 1.125rem;
-    font-weight: $font-weight-bold;
-    border-radius: 0.25rem 0.25rem 0 0;
-
-    .card-header-title {
-      color: white;
-    }
-  }
-
-  // Card Body
-  .card-content {
-    padding: 1.5rem;
-    color: $grey-dark;
-    font-family: $font-family-primary;
-  }
-
-  // Card Footer (optional)
-  .card-footer {
-    border-top: 1px solid $grey-light;
-    background-color: $grey-light;
-    padding: 0.75rem;
-    text-align: center;
-
-    .card-footer-item {
-      color: $primary;
-      &:hover {
-        color: darken($primary, 10%);
-      }
-    }
-  }
-}
-
-// Card Buttons (inside card)
-.card .button {
-  background-color: $primary;
-  border-color: $primary;
-  color: white;
-  border-radius: 0.25rem;
-  font-weight: $font-weight-medium;
-  padding: 0.75rem 1.5rem;
-
-  &:hover {
-    background-color: darken($primary, 10%);
-    border-color: darken($primary, 10%);
-  }
-
-  &:focus,
-  &:active {
-    background-color: $primary;
-    border-color: $primary;
-    box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-  }
-}
-
-// Typography Styles (SLDS-like)
+// Typography
 h1, h2, h3, h4, h5, h6 {
-  font-family: $font-family-primary;
-  font-weight: $font-weight-bold;
+  font-family: $family-secondary;
+  font-weight: bold;
+  text-transform: uppercase;
   color: $black;
 }
 
 h1 {
-  font-size: 2.25rem; // 36px
+  font-size: 3rem;
 }
 
 h2 {
-  font-size: 1.75rem; // 28px
+  font-size: 2.5rem;
 }
 
 h3 {
-  font-size: 1.5rem; // 24px
+  font-size: 2rem;
 }
 
 h4 {
-  font-size: 1.25rem; // 20px
+  font-size: 1.75rem;
 }
 
 h5 {
-  font-size: 1.125rem; // 18px
+  font-size: 1.5rem;
 }
 
 h6 {
-  font-size: 1rem; // 16px
+  font-size: 1.25rem;
 }
 
 p {
-  font-family: $font-family-primary;
-  color: $grey-dark;
-  font-weight: $font-weight-regular;
-  line-height: 1.5;
+  font-family: $family-primary;
+  color: $black;
+  font-size: 1rem;
   margin-bottom: 1.5rem;
 }
 
-// Border Customizations (similar to SLDS)
-.border-rounded {
-  border-radius: 0.25rem; // Rounded borders similar to SLDS
+// Headers and Links (strong contrasts)
+a {
+  color: $primary;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    color: $secondary;
+    text-decoration: underline;
+  }
 }
 
-.border-dashed {
-  border: 1px dashed $grey-light;
+// --- Navbar Styles ---
+.navbar {
+  background-color: $white;
+  border-bottom: 4px solid $border-color;
+
+  .navbar-item {
+    font-weight: bold;
+    color: $black;
+
+    &:hover {
+      background-color: $primary;
+      color: $white;
+    }
+
+    &.is-active {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+
+  .navbar-burger {
+    color: $black;
+
+    &:hover {
+      color: $primary;
+    }
+  }
 }
 
-.border-solid {
-  border: 1px solid $grey-light;
+// --- Section Styles ---
+section {
+  padding: 2rem;
+  margin-bottom: 3rem;
+  background-color: $white;
+  border-radius: 0;
+  border: 4px solid $border-color;
+
+  &.hero {
+    padding: 5rem 0;
+    background-color: $primary;
+    color: $white;
+
+    h1, h2, h3 {
+      text-transform: uppercase;
+    }
+  }
 }
 
-.border-primary {
-  border: 1px solid $primary;
+// --- Container, Row, Columns ---
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-// Input fields to match SLDS design
-.input, .textarea, .select {
-  background-color: $grey-light;
-  border-radius: 0.25rem;
-  border: 1px solid $grey-light;
-  padding: 0.75rem;
-  font-family: $font-family-primary;
+.columns {
+  display: flex;
+  gap: 2rem;
+}
+
+.column {
+  flex: 1;
+  padding: 2rem;
+  border: 2px solid $border-color;
+  margin: 1rem;
+}
+
+// --- Card Styles ---
+.card {
+  background-color: $white;
+  border: 3px solid $border-color;
+  border-radius: 0;
+  box-shadow: none;
+
+  .card-header {
+    background-color: $primary;
+    color: $white;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem;
+    border-bottom: 2px solid $border-color;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    font-family: $family-primary;
+    color: $black;
+  }
+
+  .card-footer {
+    background-color: $border-color;
+    text-align: center;
+    padding: 1rem;
+  }
+}
+
+// --- Buttons ---
+// Default Button (Square and bold)
+.button {
+  background-color: $primary;
+  border: 2px solid $primary;
+  color: $white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  border-radius: 0;
+
+  &:hover {
+    background-color: $secondary;
+    border-color: $secondary;
+  }
+
+  &:focus, &:active {
+    background-color: $primary;
+    border-color: $primary;
+    box-shadow: none;
+  }
+
+  &.is-outlined {
+    background-color: transparent;
+    border: 2px solid $primary;
+    color: $primary;
+
+    &:hover {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+}
+
+// --- Divider Line ---
+.divider {
+  border-top: 2px solid $border-color;
+  margin: 2rem 0;
+}
+
+// --- Footer Styles ---
+.footer {
+  background-color: $black;
+  color: $white;
+  padding: 2rem;
+  text-align: center;
+  font-family: $family-secondary;
+  font-weight: bold;
+
+  a {
+    color: $primary;
+    text-decoration: none;
+
+    &:hover {
+      color: $secondary;
+    }
+  }
+}
+
+// --- Image Styles ---
+// Rough bordered images, no soft shadows
+.image {
+  border: 5px solid $border-color;
+  max-width: 100%;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+// --- Forms (Inputs and Textareas) ---
+.input, .textarea {
+  background-color: $white;
+  border: 2px solid $border-color;
+  padding: 1rem;
+  font-family: $family-primary;
+  border-radius: 0;
   color: $black;
 
   &:focus {
     border-color: $primary;
-    box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+    box-shadow: none;
   }
 }
 
-// Custom Bulma Button Variants (for Card buttons, inputs, etc.)
-.button {
-  border-radius: 0.25rem;
-  padding: 0.75rem 1.5rem;
-  font-weight: $font-weight-medium;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-
-  // Default (Primary button)
-  &.is-primary {
-    background-color: $primary;
-    border-color: $primary;
-    color: white;
-    box-shadow: 0 1px 3px rgba($black, 0.1), 0 1px 2px rgba($black, 0.24);
-
-    &:hover {
-      background-color: darken($primary, 10%);
-      border-color: darken($primary, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $primary;
-      border-color: $primary;
-      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-    }
+// --- Custom Breakpoints ---
+// Override breakpoints for Brutalism design (large and bold for mobile)
+@media screen and (max-width: 768px) {
+  .column {
+    flex: 1 1 100%;
+    margin: 0.5rem;
   }
 
-  // Secondary Button
-  &.is-secondary {
-    background-color: transparent;
-    border: 1px solid $primary;
-    color: $primary;
-
-    &:hover {
-      background-color: $primary;
-      color: white;
-    }
-
-    &:focus,
-    &:active {
-      background-color: $primary;
-      color: white;
-      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-    }
-  }
-
-  // Outline Button
-  &.is-outlined {
-    background-color: transparent;
-    border-color: $primary;
-    color: $primary;
-
-    &:hover {
-      background-color: $primary;
-      color: white;
-    }
-
-    &:focus,
-    &:active {
-      background-color: $primary;
-      color: white;
-      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-    }
-  }
-
-  // Success, Danger, Warning, etc.
-  &.is-success {
-    background-color: $success;
-    border-color: $success;
-    color: white;
-
-    &:hover {
-      background-color: darken($success, 10%);
-      border-color: darken($success, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $success;
-      border-color: $success;
-      box-shadow: 0 0 0 0.25rem rgba($success, 0.25);
-    }
-  }
-
-  &.is-danger {
-    background-color: $danger;
-    border-color: $danger;
-    color: white;
-
-    &:hover {
-      background-color: darken($danger, 10%);
-      border-color: darken($danger, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $danger;
-      border-color: $danger;
-      box-shadow: 0 0 0 0.25rem rgba($danger, 0.25);
-    }
-  }
-
-  &.is-warning {
-    background-color: $warning;
-    border-color: $warning;
-    color: white;
-
-    &:hover {
-      background-color: darken($warning, 10%);
-      border-color: darken($warning, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $warning;
-      border-color: $warning;
-      box-shadow: 0 0 0 0.25rem rgba($warning, 0.25);
-    }
-  }
-
-  &.is-info {
-    background-color: $info;
-    border-color: $info;
-    color: white;
-
-    &:hover {
-      background-color: darken($info, 10%);
-      border-color: darken($info, 10%);
-    }
-
-    &:focus,
-    &:active {
-      background-color: $info;
-      border-color: $info;
-      box-shadow: 0 0 0 0.25rem rgba($info, 0.25);
-    }
+  .container {
+    padding: 1rem;
   }
 }
 
-// Card Hover Effect (Optional)
-.card:hover {
-  box-shadow: 0 4px 6px rgba($black, 0.1), 0 1px 3px rgba($black, 0.24);
-  transition: box-shadow 0.3s ease;
-}
+@media screen and (max-width: 480px) {
+  .navbar {
+    .navbar-item {
+      font-size: 1rem;
+      padding: 0.5rem;
+    }
+  }
 
-// Import custom resume extensions
-@import "../_sass/theme/index";
-// Custom styles and overrides
-html {
-  scroll-behavior: smooth;
+  section {
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
 }
