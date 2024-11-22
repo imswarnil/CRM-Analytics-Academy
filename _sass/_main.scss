@@ -1,98 +1,119 @@
 // --- Import Bulma ---
 @import "../node_modules/bulma/sass/index";
 
-// --- Color Scheme (Educational & Professional) ---
-$primary: #1e73be; // Primary blue (professional but vibrant)
-$secondary: #009cde; // Light blue for call-to-actions
-$accent: #00aaff; // Cyan accent color for interactivity
-$neutral-light: #f9f9f9; // Background color for light content
-$neutral-dark: #1e1e1e; // Dark text for readability
-$neutral-grey: #d1d1d1; // Subtle greys for borders and dividers
-$white: #ffffff; // White for clean space
-$black: #333333; // Dark text
+// --- Global Styles & Variables ---
+$primary: #0070d2; // Bright Blue
+$secondary: #ff8a00; // Bright Orange
+$accent: #0293d4; // Cyan
+$background-light: #f4f6f9; // Light background
+$background-dark: #1e1e1e; // Dark background
+$border-color: #e0e0e0; // Light border color
+$black: #333; // Dark text
+$white: #ffffff; // White background
+$grey: #888; // Grey color for secondary text
 
-// --- Typography (Professional and Legible) ---
-$family-primary: "Helvetica Neue", Arial, sans-serif;
-$family-secondary: "Roboto", sans-serif; // Monospace for certain text like headers
+// --- Typography ---
+$font-family-primary: "Helvetica Neue", Arial, sans-serif;
+$font-family-secondary: "Roboto", sans-serif; // Used for headings, titles
+$font-size-base: 1.125rem; // Base font size for body
+$font-size-lg: 1.5rem; // Larger font size for titles and headings
+$font-size-sm: 1rem; // Small font size for secondary text
 
-$heading-font-weight: 600;
-$body-font-weight: 400;
+$heading-font-weight: 600; // Weight for headings
+$body-font-weight: 400; // Weight for body text
 
-$heading-font-size: 2.25rem; // Larger headings for impact
-$body-font-size: 1.125rem; // Legible body text
+// --- Spacing & Layout ---
+$container-max-width: 1200px;
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
 
-// --- Buttons ---
-$button-border-radius: 4px; // Slightly rounded edges for modern feel
-$button-padding-vertical: 0.75rem; // Vertical padding for comfort
-$button-padding-horizontal: 1.5rem; // Wider horizontal padding
-$button-font-weight: 600; // Bold text for clarity
+$radius: 0.375rem; // Small border radius for rounded corners
+
+// --- Buttons & Interactivity ---
+$button-padding-horizontal: 1.25rem;
+$button-padding-vertical: 0.75rem;
+$button-border-radius: $radius;
+$button-font-weight: 600;
 
 $button-primary-bg: $primary;
 $button-primary-border: $primary;
 $button-primary-color: $white;
 $button-primary-hover-bg: darken($primary, 5%);
 $button-primary-hover-border: darken($primary, 10%);
+$button-secondary-bg: $secondary;
+$button-secondary-hover-bg: darken($secondary, 10%);
 
-// --- Card and Content Styling ---
-$card-background: $white;
-$card-border: 1px solid $neutral-grey;
-$card-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); // Soft shadow for cards
-$card-radius: 8px; // Rounded corners for modern design
+// --- Shadows & Hover Effects ---
+$box-shadow-light: 0 1px 5px rgba(0, 0, 0, 0.1);
+$box-shadow-heavy: 0 5px 15px rgba(0, 0, 0, 0.2);
+$hover-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 
-$card-title-font-size: 1.25rem; // Slightly larger title size
-$card-content-font-size: 1rem; // Comfortable content size
-
-// --- Form and Inputs ---
-$input-border-radius: 4px;
-$input-border-color: $neutral-grey;
+// --- Inputs & Forms ---
+$input-border-radius: $radius;
+$input-border-color: $border-color;
 $input-focus-border-color: $primary;
+$input-padding: 0.75rem;
 
-$textarea-border-radius: 4px;
-$textarea-border-color: $neutral-grey;
+$textarea-border-radius: $radius;
+$textarea-border-color: $border-color;
 $textarea-focus-border-color: $primary;
 
-// --- Spacing ---
-$spacing-small: 0.5rem;
-$spacing-medium: 1rem;
-$spacing-large: 2rem;
-
-$container-max-width: 1200px; // Maximum container width for large screens
-$column-gap: 1.5rem; // Column gap for flex and grid layouts
-
-// --- Custom Box Shadows ---
-$box-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
-$box-shadow-hover: 0 4px 15px rgba(0, 0, 0, 0.15);
-
-// --- Breakpoints for Responsive Design ---
-$mobile-breakpoint: 768px;
-$tablet-breakpoint: 1024px;
-$desktop-breakpoint: 1200px;
-
-// --- Import Bulma after variables ---
-@import "../node_modules/bulma/sass/index";
-
-// --- Global Styles ---
-body {
-  background-color: $neutral-light;
-  color: $neutral-dark;
-  font-family: $family-primary;
-  line-height: 1.6;
+// --- Custom Scrollbars ---
+html {
+  scroll-behavior: smooth;
 }
 
+// --- Global Font Styles ---
+body {
+  font-family: $font-family-primary;
+  background-color: $background-light;
+  color: $black;
+  line-height: 1.6;
+  font-size: $font-size-base;
+}
+
+// --- Spacing Utilities ---
+.mt-1 { margin-top: $spacing-sm; }
+.mt-2 { margin-top: $spacing-md; }
+.mt-3 { margin-top: $spacing-lg; }
+.mb-1 { margin-bottom: $spacing-sm; }
+.mb-2 { margin-bottom: $spacing-md; }
+.mb-3 { margin-bottom: $spacing-lg; }
+
+.pt-1 { padding-top: $spacing-sm; }
+.pt-2 { padding-top: $spacing-md; }
+.pt-3 { padding-top: $spacing-lg; }
+.pb-1 { padding-bottom: $spacing-sm; }
+.pb-2 { padding-bottom: $spacing-md; }
+.pb-3 { padding-bottom: $spacing-lg; }
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: $family-secondary;
+  font-family: $font-family-secondary;
   font-weight: $heading-font-weight;
-  color: $neutral-dark;
+  color: $black;
 }
 
 h1 {
-  font-size: $heading-font-size;
-  margin-bottom: $spacing-large;
+  font-size: 2.5rem;
+  margin-bottom: $spacing-lg;
 }
 
 h2 {
   font-size: 2rem;
-  margin-bottom: $spacing-medium;
+  margin-bottom: $spacing-md;
+}
+
+h3 {
+  font-size: 1.75rem;
+  margin-bottom: $spacing-sm;
+}
+
+p {
+  font-size: $font-size-base;
+  margin-bottom: $spacing-md;
 }
 
 // --- Button Styles ---
@@ -101,7 +122,7 @@ h2 {
   padding: $button-padding-vertical $button-padding-horizontal;
   border-radius: $button-border-radius;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
 
   &.is-primary {
@@ -112,7 +133,18 @@ h2 {
     &:hover {
       background-color: $button-primary-hover-bg;
       border-color: $button-primary-hover-border;
-      box-shadow: $box-shadow-hover;
+      box-shadow: $box-shadow-light;
+    }
+  }
+
+  &.is-secondary {
+    background-color: $button-secondary-bg;
+    border: 2px solid $button-secondary-bg;
+    color: $white;
+
+    &:hover {
+      background-color: $button-secondary-hover-bg;
+      box-shadow: $box-shadow-light;
     }
   }
 
@@ -124,147 +156,202 @@ h2 {
     &:hover {
       background-color: $primary;
       color: $white;
-      box-shadow: $box-shadow-hover;
+      box-shadow: $box-shadow-light;
     }
   }
 }
 
-// --- Navbar Styling ---
-.navbar {
-  background-color: $white;
-  box-shadow: $box-shadow-light;
-  padding: $spacing-medium;
-
-  .navbar-item {
-    font-weight: $body-font-weight;
-    color: $neutral-dark;
-    padding: $spacing-small;
-    transition: all 0.3s ease;
-
-    &:hover {
-      color: $primary;
-      background-color: $neutral-light;
-      box-shadow: $box-shadow-hover;
-    }
-
-    &.is-active {
-      color: $primary;
-      font-weight: 600;
-    }
-  }
-
-  .navbar-burger {
-    color: $primary;
-
-    &:hover {
-      color: $secondary;
-    }
-  }
-}
-
-// --- Card Component Styling ---
+// --- Card Component Styles ---
 .card {
-  background-color: $card-background;
-  border: $card-border;
-  border-radius: $card-radius;
-  box-shadow: $card-shadow;
+  background-color: $white;
+  border-radius: $radius;
+  border: 1px solid $border-color;
+  box-shadow: $box-shadow-light;
   transition: all 0.3s ease;
-  margin-bottom: $spacing-large;
 
   &:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: $box-shadow-heavy;
   }
 
   .card-header {
     background-color: $primary;
     color: $white;
-    font-size: 1.25rem;
-    padding: $spacing-small;
-    border-bottom: 1px solid $neutral-grey;
+    padding: $spacing-sm;
+    border-radius: $radius $radius 0 0;
   }
 
   .card-content {
-    padding: $spacing-medium;
-    font-size: $card-content-font-size;
+    padding: $spacing-md;
+  }
+
+  .card-footer {
+    background-color: $background-light;
+    padding: $spacing-sm;
+    border-top: 1px solid $border-color;
   }
 }
 
-// --- Grid Layout for Responsive Design ---
-.container {
-  max-width: $container-max-width;
-  margin: 0 auto;
-  padding: $spacing-medium;
-}
+// --- Input and Textarea Styles ---
+.input, .textarea {
+  font-family: $font-family-primary;
+  padding: $input-padding;
+  font-size: $font-size-base;
+  border-radius: $input-border-radius;
+  border: 1px solid $input-border-color;
+  color: $black;
+  transition: all 0.3s ease;
 
-.columns {
-  display: flex;
-  gap: $column-gap;
+  &:focus {
+    border-color: $input-focus-border-color;
+    box-shadow: 0 0 5px rgba($primary, 0.5);
+  }
 
-  .column {
-    flex: 1;
-    padding: $spacing-medium;
+  &::placeholder {
+    color: $grey;
   }
 }
 
-// --- Section Styling ---
-section {
-  padding: $spacing-large 0;
-  background-color: $white;
-  border-top: 5px solid $primary;
-  border-bottom: 5px solid $neutral-grey;
-}
+// --- Modal Styles ---
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
 
-section.hero {
-  background-color: $primary;
-  color: $white;
-  padding: $spacing-large 0;
-  text-align: center;
-
-  h1 {
-    font-size: 3rem;
-    font-weight: bold;
+  &.is-active {
+    display: flex;
   }
 
-  p {
-    font-size: 1.25rem;
-    margin-top: $spacing-small;
+  .modal-content {
+    background-color: $white;
+    padding: $spacing-lg;
+    border-radius: $radius;
+    box-shadow: $box-shadow-heavy;
   }
 }
 
-// --- Footer Styling ---
-.footer {
-  background-color: $neutral-dark;
-  color: $white;
-  padding: $spacing-large;
-  text-align: center;
-  font-family: $family-secondary;
-  font-weight: 500;
-  border-top: 2px solid $neutral-grey;
+// --- Dropdown Styles ---
+.dropdown {
+  position: relative;
 
-  a {
-    color: $secondary;
-    text-decoration: none;
-    padding: $spacing-small;
+  &.is-active {
+    .dropdown-menu {
+      display: block;
+    }
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: $white;
+    box-shadow: $box-shadow-light;
+    border-radius: $radius;
+    width: 200px;
+    padding: $spacing-sm;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-item {
+    padding: $spacing-sm;
+    color: $black;
 
     &:hover {
+      background-color: $background-light;
       color: $primary;
-      box-shadow: $box-shadow-hover;
+      box-shadow: $hover-shadow;
     }
   }
 }
 
-// --- Forms and Inputs ---
-.input, .textarea {
-  font-family: $family-primary;
-  padding: $spacing-medium;
-  font-size: $body-font-size;
-  border-radius: $input-border-radius;
-  border: 1px solid $neutral-grey;
-  color: $neutral-dark;
-  transition: border-color 0.3s ease;
+// --- Navbar Styles ---
+.navbar {
+  .navbar-item {
+    font-weight: inherit;
 
-  &:focus {
-    border-color: $primary;
+    &:hover {
+      background-color: transparent;
+      color: $primary;
+    }
+
+    &.is-active {
+      background-color: transparent;
+      color: $primary;
+      font-weight: 500;
+    }
+  }
+
+  .navbar-burger {
+    &:hover {
+      background-color: transparent;
+      color: $primary;
+    }
   }
 }
 
+// --- Footer Styles ---
+.footer {
+  background-color: $background-dark;
+  color: $white;
+  padding: $spacing-lg 0;
+
+  a {
+    color: $primary;
+    text-decoration: none;
+
+    &:hover {
+      color: $secondary;
+    }
+  }
+
+  .footer-links {
+    display: flex;
+    gap: $spacing-md;
+
+    .footer-item {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+// --- Hero Section Styles ---
+.hero {
+  background-color: $primary;
+  color: $white;
+  padding: $spacing-xl 0;
+  text-align: center;
+  
+  .hero-body {
+    font-size: $font-size-lg;
+    font-weight: $body-font-weight;
+  }
+
+  .button {
+    margin-top: $spacing-md;
+  }
+}
+
+// --- Section Styles ---
+.section {
+  padding: $spacing-lg 0;
+
+  .container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+
+  .columns {
+    margin-top: $spacing-md;
+
+    .column {
+      padding: $spacing-sm;
+    }
+  }
+}
