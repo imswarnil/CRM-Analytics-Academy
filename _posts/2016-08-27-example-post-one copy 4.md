@@ -8,6 +8,7 @@ video_id: aPwndqsmaGk
 thumbnail: "https://img.youtube.com/vi/rPbPDgBdqTk/maxresdefault.jpg"
 icon: "fab fa-salesforce"
 lesson_number: 1
+icon : /hellp
 ---
 
 Some Data
