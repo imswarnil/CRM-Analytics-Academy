@@ -1,9 +1,10 @@
-/* Home Hero Section */
 .home-hero {
-    background-color: #f8f9fa;
+    background-color: rgba(248, 249, 250, 0.8); /* Slightly faded background */
     padding: 3rem 1.5rem;
     position: relative;
+    overflow: hidden; /* Ensures the shapes are contained within the section */
   }
+  
   
   /* Content Layout */
   .home-hero .hero-content {
@@ -121,4 +122,5 @@
       margin-left: 0;
     }
   }
+  
   
