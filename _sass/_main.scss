@@ -3,30 +3,34 @@
 
 // --- Override Bulma Variables ---
 // Colors for Brutalism
-$primary: #f44336; // Bright red (for bold contrasts)
+$primary: #0070d2; // Blue primary color (darker shade)
 $secondary: #00bcd4; // Cyan
-$background-color: #eeeeee; // Light grey background
+$background-color: #f4f6f9; // Light grey background (but still very clean)
 $white: #ffffff; // White
 $black: #212121; // Dark grey/black text
-$border-color: #212121; // Border color for emphasis
+$border-color: #212121; // Darker border color for emphasis
+$blue-shade-light: #e0f7fa; // Light blue for backgrounds
 
-// Fonts (using rough font families for Neo-Brutalism)
-$family-primary: 'Arial', sans-serif; // Strong, raw sans-serif
-$family-secondary: 'Courier New', Courier, monospace; // Rough monospace for contrast
+// Fonts (using raw fonts for Neo-Brutalism)
+$family-primary: 'Arial', sans-serif;
+$family-secondary: 'Courier New', Courier, monospace; // Monospace font for headers and strong contrast
 
-// Button Styles
-$button-border-radius: 0px; // Square edges for buttons
-$button-padding-vertical: 1rem; // Taller buttons
-$button-padding-horizontal: 2rem; // Wider buttons
+// Button Styles (Square, bold, and rough)
+$button-border-radius: 0px;
+$button-padding-vertical: 1rem;
+$button-padding-horizontal: 2rem;
 $button-font-weight: bold;
 $button-text-transform: uppercase;
+$button-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3); // Solid shadow for buttons
 
 // Input and Form Styles
-$input-border-radius: 0px; // Square inputs
+$input-border-radius: 0px;
 $input-padding: 1rem;
+$input-border-color: $border-color;
+$input-focus-border-color: $primary;
 
-// Shadows
-$box: none; // Remove box shadows, brutalism doesn't rely on soft shadows
+// Shadows (Solid, strong hover effect)
+$box: 0 2px 5px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.15); // Clean shadows
 
 // --- Override General Styles ---
 
@@ -44,6 +48,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   text-transform: uppercase;
   color: $black;
+  letter-spacing: 1px;
+  line-height: 1.2;
 }
 
 h1 {
@@ -77,35 +83,41 @@ p {
   margin-bottom: 1.5rem;
 }
 
-// Headers and Links (strong contrasts)
+// Links and Hover Effects
 a {
   color: $primary;
   text-decoration: none;
   font-weight: bold;
+  text-transform: uppercase;
 
   &:hover {
     color: $secondary;
     text-decoration: underline;
+    box-shadow: 0px 4px 8px rgba($primary, 0.5);
   }
 }
 
 // --- Navbar Styles ---
 .navbar {
   background-color: $white;
-  border-bottom: 4px solid $border-color;
+  border-bottom: 3px solid $border-color;
+  padding: 1rem;
 
   .navbar-item {
     font-weight: bold;
     color: $black;
+    text-transform: uppercase;
 
     &:hover {
-      background-color: $primary;
-      color: $white;
+      background-color: transparent;
+      color: $primary;
+      box-shadow: 0 2px 5px rgba($primary, 0.4);
     }
 
     &.is-active {
-      background-color: $primary;
-      color: $white;
+      background-color: transparent;
+      color: $primary;
+      font-weight: bold;
     }
   }
 
@@ -114,30 +126,42 @@ a {
 
     &:hover {
       color: $primary;
+      box-shadow: 0 2px 5px rgba($primary, 0.4);
     }
   }
 }
 
 // --- Section Styles ---
-section {
-  padding: 2rem;
-  margin-bottom: 3rem;
-  background-color: $white;
+// Hero Section with shapes in background
+section.hero {
+  padding: 5rem 0;
+  background-color: $primary;
+  color: $white;
+  position: relative;
   border-radius: 0;
-  border: 4px solid $border-color;
 
-  &.hero {
-    padding: 5rem 0;
-    background-color: $primary;
-    color: $white;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 0.3) 60%);
+    z-index: -1;
+    opacity: 0.15;
+  }
 
-    h1, h2, h3 {
-      text-transform: uppercase;
-    }
+  h1, h2, h3 {
+    font-family: $family-secondary;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 }
 
-// --- Container, Row, Columns ---
+// --- Container and Row Styles ---
+// Adding background shapes and padding for sections
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -152,16 +176,20 @@ section {
 .column {
   flex: 1;
   padding: 2rem;
-  border: 2px solid $border-color;
-  margin: 1rem;
+  background: $blue-shade-light;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 // --- Card Styles ---
+// Cards with sharp edges and solid shadows
 .card {
   background-color: $white;
   border: 3px solid $border-color;
   border-radius: 0;
-  box-shadow: none;
+  box-shadow: 0 2px 5px rgba($border-color, 0.3);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
 
   .card-header {
     background-color: $primary;
@@ -169,7 +197,7 @@ section {
     font-weight: bold;
     text-transform: uppercase;
     padding: 1rem;
-    border-bottom: 2px solid $border-color;
+    border-bottom: 3px solid $border-color;
   }
 
   .card-content {
@@ -183,10 +211,14 @@ section {
     text-align: center;
     padding: 1rem;
   }
+
+  &:hover {
+    box-shadow: 0 4px 15px rgba($primary, 0.3);
+  }
 }
 
 // --- Buttons ---
-// Default Button (Square and bold)
+// Square buttons with solid drop shadow on hover
 .button {
   background-color: $primary;
   border: 2px solid $primary;
@@ -195,16 +227,19 @@ section {
   text-transform: uppercase;
   padding: 1rem 2rem;
   border-radius: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
   &:hover {
     background-color: $secondary;
     border-color: $secondary;
+    box-shadow: 0 4px 12px rgba($primary, 0.4);
   }
 
   &:focus, &:active {
     background-color: $primary;
     border-color: $primary;
-    box-shadow: none;
+    box-shadow: 0 4px 10px rgba($primary, 0.4);
   }
 
   &.is-outlined {
@@ -245,12 +280,18 @@ section {
 }
 
 // --- Image Styles ---
-// Rough bordered images, no soft shadows
+// Images with rough borders, and clean modern feel
 .image {
-  border: 5px solid $border-color;
+  border: 4px solid $border-color;
   max-width: 100%;
   display: block;
   margin-bottom: 1rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba($primary, 0.3);
+  }
 }
 
 // --- Forms (Inputs and Textareas) ---
@@ -261,36 +302,29 @@ section {
   font-family: $family-primary;
   border-radius: 0;
   color: $black;
+  transition: all 0.3s ease;
 
   &:focus {
     border-color: $primary;
-    box-shadow: none;
+    box-shadow: 0 4px 10px rgba($primary, 0.4);
   }
 }
 
 // --- Custom Breakpoints ---
-// Override breakpoints for Brutalism design (large and bold for mobile)
+// Adjustments for mobile-friendly Neo-Brutalism style
 @media screen and (max-width: 768px) {
-  .column {
-    flex: 1 1 100%;
-    margin: 0.5rem;
-  }
-
   .container {
     padding: 1rem;
   }
-}
 
-@media screen and (max-width: 480px) {
-  .navbar {
-    .navbar-item {
-      font-size: 1rem;
-      padding: 0.5rem;
-    }
+  .column {
+    flex: 1 1 100%;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
   }
 
   section {
-    padding: 1rem;
+    padding: 2rem 0;
     margin-bottom: 2rem;
   }
 }
