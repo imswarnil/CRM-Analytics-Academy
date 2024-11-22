@@ -1,65 +1,22 @@
+
 // Import Bulma
 @import "../node_modules/bulma/sass/index";
 
-// Override Bulma Variables to match SLDS design
-$primary: #0070d2; // SLDS blue
-$link: $primary;
-$link-hover: darken($primary, 10%);
-$success: #2e8540; // SLDS green
-$info: #0288d1; // SLDS cyan
-$warning: #f6a400; // SLDS orange
-$danger: #d32f2f; // SLDS red
-
-$grey-lighter: #f4f6f9; // Light grey background
-$grey-light: #d8dde6; // Border greys
-$grey-dark: #4a4a4a; // Darker greys
-$black: #1d1d1d; // Near black
-$radius: 0.25rem; // Rounded corners closer to SLDS
-
-// Fonts
-$family-primary: "Salesforce Sans", Arial, sans-serif; // SLDS primary font
-$body-background-color: $grey-lighter;
-$body-color: $black;
-
-// Buttons
-$button-border-radius: $radius;
-$button-padding-vertical: 0.6rem; // Adjust SLDS button padding
-$button-padding-horizontal: 1.2rem;
-
-// Inputs and Form Controls
-$input-border-radius: $radius;
-$input-border-color: $grey-light;
-$input-focus-border-color: $primary;
-
-// Box Shadows
-$box: 0 1px 3px rgba($black, 0.12), 0 1px 2px rgba($black, 0.24); // SLDS-like shadow
-
-// Import Bulma after variable overrides
-@import "../node_modules/bulma/sass/index";
-
-// Custom styles and overrides
-html {
-  scroll-behavior: smooth;
-}
-
-// Navbar styles (SLDS-like)
+// Navbar styles
 .navbar {
-  background-color: $primary;
-  color: white;
 
   .navbar-item {
-    font-weight: inherit;
-    color: white;
+    font-weight:inherit;
 
     &:hover {
       background-color: transparent;
-      color: $link-hover;
+      color: $primary;
     }
 
     &.is-active {
       background-color: transparent;
-      color: $link-hover;
-      font-weight: 500;
+      color: $primary;
+      font-weight:500;
     }
   }
 
@@ -69,181 +26,11 @@ html {
       color: $primary;
     }
   }
-
-  .navbar-dropdown {
-    background-color: $grey-lighter;
-    box-shadow: $box;
-    color: $grey-dark;
-
-    .navbar-link {
-      color: $grey-dark;
-
-      &:hover {
-        background-color: $primary;
-        color: white;
-      }
-    }
-
-    .navbar-item {
-      color: $grey-dark;
-
-      &:hover {
-        background-color: $primary;
-        color: white;
-      }
-    }
-  }
-}
-
-// Buttons (SLDS-like)
-.button {
-  &.is-primary {
-    background-color: $primary;
-    border-color: $primary;
-    color: white;
-
-    &:hover {
-      background-color: $link-hover;
-      border-color: $link-hover;
-    }
-
-    &:focus,
-    &:active {
-      background-color: $primary;
-      border-color: $primary;
-      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-    }
-  }
-
-  &.is-success {
-    background-color: $success;
-    border-color: $success;
-    color: white;
-
-    &:hover {
-      background-color: darken($success, 10%);
-      border-color: darken($success, 10%);
-    }
-  }
-
-  &.is-danger {
-    background-color: $danger;
-    border-color: $danger;
-    color: white;
-
-    &:hover {
-      background-color: darken($danger, 10%);
-      border-color: darken($danger, 10%);
-    }
-  }
-
-  &.is-warning {
-    background-color: $warning;
-    border-color: $warning;
-    color: white;
-
-    &:hover {
-      background-color: darken($warning, 10%);
-      border-color: darken($warning, 10%);
-    }
-  }
-
-  &.is-info {
-    background-color: $info;
-    border-color: $info;
-    color: white;
-
-    &:hover {
-      background-color: darken($info, 10%);
-      border-color: darken($info, 10%);
-    }
-  }
-}
-
-// Form Inputs (SLDS-like)
-.input,
-.select,
-.textarea {
-  border-radius: $input-border-radius;
-  border: 1px solid $input-border-color;
-  padding: $button-padding-vertical $button-padding-horizontal;
-
-  &:focus {
-    border-color: $input-focus-border-color;
-    box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
-  }
-
-  &.is-success {
-    border-color: $success;
-    &:focus {
-      border-color: $success;
-    }
-  }
-
-  &.is-danger {
-    border-color: $danger;
-    &:focus {
-      border-color: $danger;
-    }
-  }
-}
-
-// Card (SLDS-like)
-.card {
-  border-radius: $radius;
-  box-shadow: $box;
-  border: 1px solid $grey-light;
-  background-color: white;
-
-  .card-header {
-    background-color: $primary;
-    color: white;
-
-    .card-header-title {
-      font-weight: 600;
-    }
-  }
-
-  .card-footer {
-    background-color: $grey-light;
-    color: $grey-dark;
-  }
-
-  .card-content {
-    color: $grey-dark;
-  }
-}
-
-// Tooltip (SLDS-like)
-.tooltip {
-  background-color: $primary;
-  color: white;
-  border-radius: $radius;
-  box-shadow: $box;
-  padding: 0.5rem;
-}
-
-// Modal and Dropdown Customization
-.modal-card {
-  border-radius: $radius;
-  box-shadow: $box;
-}
-
-.dropdown-content {
-  background-color: $grey-lighter;
-  box-shadow: $box;
-  color: $grey-dark;
-  border-radius: $radius;
-
-  .dropdown-item {
-    color: $grey-dark;
-
-    &:hover {
-      background-color: $primary;
-      color: white;
-    }
-  }
 }
 
 // Import custom resume extensions
 @import "../_sass/theme/index";
+// Custom styles and overrides
+html {
+  scroll-behavior: smooth;
+}
