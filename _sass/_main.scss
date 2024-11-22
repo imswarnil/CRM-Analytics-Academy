@@ -2,6 +2,179 @@
 // Import Bulma
 @import "../node_modules/bulma/sass/index";
 
+// Override Bulma button styles to resemble SLDS
+
+// Set up SLDS-like colors
+$primary: #0070d2; // SLDS Blue
+$success: #2e8540; // SLDS Green
+$warning: #f6a400; // SLDS Orange
+$danger: #d32f2f; // SLDS Red
+$info: #0288d1; // SLDS Cyan
+
+// Button Base Styles
+$button-border-radius: 0.25rem; // SLDS radius
+$button-padding-vertical: 0.6rem;
+$button-padding-horizontal: 1.2rem;
+$button-border-width: 1px;
+$button-font-weight: 600;
+
+// Set default button colors for all button types
+.button {
+  border-radius: $button-border-radius;
+  border-width: $button-border-width;
+  font-weight: $button-font-weight;
+  padding: $button-padding-vertical $button-padding-horizontal;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  
+  // Default style for Bulma primary button
+  &.is-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background-color: darken($primary, 10%);
+      border-color: darken($primary, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $primary;
+      border-color: $primary;
+      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+    }
+  }
+
+  // Success Button
+  &.is-success {
+    background-color: $success;
+    border-color: $success;
+    color: white;
+
+    &:hover {
+      background-color: darken($success, 10%);
+      border-color: darken($success, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $success;
+      border-color: $success;
+      box-shadow: 0 0 0 0.25rem rgba($success, 0.25);
+    }
+  }
+
+  // Danger Button
+  &.is-danger {
+    background-color: $danger;
+    border-color: $danger;
+    color: white;
+
+    &:hover {
+      background-color: darken($danger, 10%);
+      border-color: darken($danger, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $danger;
+      border-color: $danger;
+      box-shadow: 0 0 0 0.25rem rgba($danger, 0.25);
+    }
+  }
+
+  // Warning Button
+  &.is-warning {
+    background-color: $warning;
+    border-color: $warning;
+    color: white;
+
+    &:hover {
+      background-color: darken($warning, 10%);
+      border-color: darken($warning, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $warning;
+      border-color: $warning;
+      box-shadow: 0 0 0 0.25rem rgba($warning, 0.25);
+    }
+  }
+
+  // Info Button
+  &.is-info {
+    background-color: $info;
+    border-color: $info;
+    color: white;
+
+    &:hover {
+      background-color: darken($info, 10%);
+      border-color: darken($info, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $info;
+      border-color: $info;
+      box-shadow: 0 0 0 0.25rem rgba($info, 0.25);
+    }
+  }
+
+  // Link-style button
+  &.is-link {
+    background-color: transparent;
+    border-color: transparent;
+    color: $primary;
+    font-weight: normal;
+
+    &:hover {
+      background-color: transparent;
+      color: darken($primary, 10%);
+    }
+
+    &:focus,
+    &:active {
+      color: $primary;
+      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+    }
+  }
+
+  // Outline-style button (SLDS-style)
+  &.is-outlined {
+    background-color: transparent;
+    color: $primary;
+    border: 1px solid $primary;
+
+    &:hover {
+      background-color: $primary;
+      color: white;
+    }
+
+    &:focus,
+    &:active {
+      background-color: $primary;
+      color: white;
+      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+    }
+  }
+
+  // Full-width button
+  &.is-fullwidth {
+    width: 100%;
+  }
+}
+
+// Disable button styles
+.button:disabled,
+.button.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 // Navbar styles
 .navbar {
 
