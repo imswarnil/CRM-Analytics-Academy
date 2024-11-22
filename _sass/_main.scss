@@ -201,6 +201,307 @@ $button-font-weight: 600;
   }
 }
 
+// Override Bulma variables (if necessary)
+// Set up SLDS-like colors
+$primary: #0070d2; // SLDS Blue
+$success: #2e8540; // SLDS Green
+$warning: #f6a400; // SLDS Orange
+$danger: #d32f2f; // SLDS Red
+$info: #0288d1; // SLDS Cyan
+
+$grey-light: #f4f6f9; // Light Grey
+$grey-dark: #4a4a4a; // Darker Greys
+$black: #1d1d1d; // Near Black
+
+// General Typography
+$font-family-primary: "Salesforce Sans", Arial, sans-serif;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
+// Card customization to resemble SLDS
+// Card Styles
+.card {
+  background-color: white;
+  border-radius: 0.25rem; // Slightly rounded corners like SLDS
+  box-shadow: 0 1px 3px rgba($black, 0.1), 0 1px 2px rgba($black, 0.24); // Soft shadow
+
+  // Card Header
+  .card-header {
+    background-color: $primary;
+    color: white;
+    padding: 1rem;
+    font-size: 1.125rem;
+    font-weight: $font-weight-bold;
+    border-radius: 0.25rem 0.25rem 0 0;
+
+    .card-header-title {
+      color: white;
+    }
+  }
+
+  // Card Body
+  .card-content {
+    padding: 1.5rem;
+    color: $grey-dark;
+    font-family: $font-family-primary;
+  }
+
+  // Card Footer (optional)
+  .card-footer {
+    border-top: 1px solid $grey-light;
+    background-color: $grey-light;
+    padding: 0.75rem;
+    text-align: center;
+
+    .card-footer-item {
+      color: $primary;
+      &:hover {
+        color: darken($primary, 10%);
+      }
+    }
+  }
+}
+
+// Card Buttons (inside card)
+.card .button {
+  background-color: $primary;
+  border-color: $primary;
+  color: white;
+  border-radius: 0.25rem;
+  font-weight: $font-weight-medium;
+  padding: 0.75rem 1.5rem;
+
+  &:hover {
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 10%);
+  }
+
+  &:focus,
+  &:active {
+    background-color: $primary;
+    border-color: $primary;
+    box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+  }
+}
+
+// Typography Styles (SLDS-like)
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-bold;
+  color: $black;
+}
+
+h1 {
+  font-size: 2.25rem; // 36px
+}
+
+h2 {
+  font-size: 1.75rem; // 28px
+}
+
+h3 {
+  font-size: 1.5rem; // 24px
+}
+
+h4 {
+  font-size: 1.25rem; // 20px
+}
+
+h5 {
+  font-size: 1.125rem; // 18px
+}
+
+h6 {
+  font-size: 1rem; // 16px
+}
+
+p {
+  font-family: $font-family-primary;
+  color: $grey-dark;
+  font-weight: $font-weight-regular;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+// Border Customizations (similar to SLDS)
+.border-rounded {
+  border-radius: 0.25rem; // Rounded borders similar to SLDS
+}
+
+.border-dashed {
+  border: 1px dashed $grey-light;
+}
+
+.border-solid {
+  border: 1px solid $grey-light;
+}
+
+.border-primary {
+  border: 1px solid $primary;
+}
+
+// Input fields to match SLDS design
+.input, .textarea, .select {
+  background-color: $grey-light;
+  border-radius: 0.25rem;
+  border: 1px solid $grey-light;
+  padding: 0.75rem;
+  font-family: $font-family-primary;
+  color: $black;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+  }
+}
+
+// Custom Bulma Button Variants (for Card buttons, inputs, etc.)
+.button {
+  border-radius: 0.25rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  // Default (Primary button)
+  &.is-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: white;
+    box-shadow: 0 1px 3px rgba($black, 0.1), 0 1px 2px rgba($black, 0.24);
+
+    &:hover {
+      background-color: darken($primary, 10%);
+      border-color: darken($primary, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $primary;
+      border-color: $primary;
+      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+    }
+  }
+
+  // Secondary Button
+  &.is-secondary {
+    background-color: transparent;
+    border: 1px solid $primary;
+    color: $primary;
+
+    &:hover {
+      background-color: $primary;
+      color: white;
+    }
+
+    &:focus,
+    &:active {
+      background-color: $primary;
+      color: white;
+      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+    }
+  }
+
+  // Outline Button
+  &.is-outlined {
+    background-color: transparent;
+    border-color: $primary;
+    color: $primary;
+
+    &:hover {
+      background-color: $primary;
+      color: white;
+    }
+
+    &:focus,
+    &:active {
+      background-color: $primary;
+      color: white;
+      box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+    }
+  }
+
+  // Success, Danger, Warning, etc.
+  &.is-success {
+    background-color: $success;
+    border-color: $success;
+    color: white;
+
+    &:hover {
+      background-color: darken($success, 10%);
+      border-color: darken($success, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $success;
+      border-color: $success;
+      box-shadow: 0 0 0 0.25rem rgba($success, 0.25);
+    }
+  }
+
+  &.is-danger {
+    background-color: $danger;
+    border-color: $danger;
+    color: white;
+
+    &:hover {
+      background-color: darken($danger, 10%);
+      border-color: darken($danger, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $danger;
+      border-color: $danger;
+      box-shadow: 0 0 0 0.25rem rgba($danger, 0.25);
+    }
+  }
+
+  &.is-warning {
+    background-color: $warning;
+    border-color: $warning;
+    color: white;
+
+    &:hover {
+      background-color: darken($warning, 10%);
+      border-color: darken($warning, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $warning;
+      border-color: $warning;
+      box-shadow: 0 0 0 0.25rem rgba($warning, 0.25);
+    }
+  }
+
+  &.is-info {
+    background-color: $info;
+    border-color: $info;
+    color: white;
+
+    &:hover {
+      background-color: darken($info, 10%);
+      border-color: darken($info, 10%);
+    }
+
+    &:focus,
+    &:active {
+      background-color: $info;
+      border-color: $info;
+      box-shadow: 0 0 0 0.25rem rgba($info, 0.25);
+    }
+  }
+}
+
+// Card Hover Effect (Optional)
+.card:hover {
+  box-shadow: 0 4px 6px rgba($black, 0.1), 0 1px 3px rgba($black, 0.24);
+  transition: box-shadow 0.3s ease;
+}
+
 // Import custom resume extensions
 @import "../_sass/theme/index";
 // Custom styles and overrides
