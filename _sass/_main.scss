@@ -1,245 +1,119 @@
-// Import Bulma
+// --- Import Bulma ---
 @import "../node_modules/bulma/sass/index";
 
-// --- Override Bulma Variables ---
-// Colors for Brutalism
-$primary: #0070d2; // Blue primary color (darker shade)
-$secondary: #00bcd4; // Cyan
-$background-color: #f4f6f9; // Light grey background (but still very clean)
-$white: #ffffff; // White
-$black: #212121; // Dark grey/black text
-$border-color: #212121; // Darker border color for emphasis
-$blue-shade-light: #e0f7fa; // Light blue for backgrounds
+// --- Color Scheme (Educational & Professional) ---
+$primary: #1e73be; // Primary blue (professional but vibrant)
+$secondary: #009cde; // Light blue for call-to-actions
+$accent: #00aaff; // Cyan accent color for interactivity
+$neutral-light: #f9f9f9; // Background color for light content
+$neutral-dark: #1e1e1e; // Dark text for readability
+$neutral-grey: #d1d1d1; // Subtle greys for borders and dividers
+$white: #ffffff; // White for clean space
+$black: #333333; // Dark text
 
-// Fonts (using raw fonts for Neo-Brutalism)
-$family-primary: 'Arial', sans-serif;
-$family-secondary: 'Courier New', Courier, monospace; // Monospace font for headers and strong contrast
+// --- Typography (Professional and Legible) ---
+$family-primary: "Helvetica Neue", Arial, sans-serif;
+$family-secondary: "Roboto", sans-serif; // Monospace for certain text like headers
 
-// Button Styles (Square, bold, and rough)
-$button-border-radius: 0px;
-$button-padding-vertical: 1rem;
-$button-padding-horizontal: 2rem;
-$button-font-weight: bold;
-$button-text-transform: uppercase;
-$button-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3); // Solid shadow for buttons
+$heading-font-weight: 600;
+$body-font-weight: 400;
 
-// Input and Form Styles
-$input-border-radius: 0px;
-$input-padding: 1rem;
-$input-border-color: $border-color;
+$heading-font-size: 2.25rem; // Larger headings for impact
+$body-font-size: 1.125rem; // Legible body text
+
+// --- Buttons ---
+$button-border-radius: 4px; // Slightly rounded edges for modern feel
+$button-padding-vertical: 0.75rem; // Vertical padding for comfort
+$button-padding-horizontal: 1.5rem; // Wider horizontal padding
+$button-font-weight: 600; // Bold text for clarity
+
+$button-primary-bg: $primary;
+$button-primary-border: $primary;
+$button-primary-color: $white;
+$button-primary-hover-bg: darken($primary, 5%);
+$button-primary-hover-border: darken($primary, 10%);
+
+// --- Card and Content Styling ---
+$card-background: $white;
+$card-border: 1px solid $neutral-grey;
+$card-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); // Soft shadow for cards
+$card-radius: 8px; // Rounded corners for modern design
+
+$card-title-font-size: 1.25rem; // Slightly larger title size
+$card-content-font-size: 1rem; // Comfortable content size
+
+// --- Form and Inputs ---
+$input-border-radius: 4px;
+$input-border-color: $neutral-grey;
 $input-focus-border-color: $primary;
 
-// Shadows (Solid, strong hover effect)
-$box: 0 2px 5px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.15); // Clean shadows
+$textarea-border-radius: 4px;
+$textarea-border-color: $neutral-grey;
+$textarea-focus-border-color: $primary;
 
-// --- Override General Styles ---
+// --- Spacing ---
+$spacing-small: 0.5rem;
+$spacing-medium: 1rem;
+$spacing-large: 2rem;
 
-// Body & Background
+$container-max-width: 1200px; // Maximum container width for large screens
+$column-gap: 1.5rem; // Column gap for flex and grid layouts
+
+// --- Custom Box Shadows ---
+$box-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+$box-shadow-hover: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+// --- Breakpoints for Responsive Design ---
+$mobile-breakpoint: 768px;
+$tablet-breakpoint: 1024px;
+$desktop-breakpoint: 1200px;
+
+// --- Import Bulma after variables ---
+@import "../node_modules/bulma/sass/index";
+
+// --- Global Styles ---
 body {
-  background-color: $background-color;
-  color: $black;
+  background-color: $neutral-light;
+  color: $neutral-dark;
   font-family: $family-primary;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-// Typography
 h1, h2, h3, h4, h5, h6 {
   font-family: $family-secondary;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: $black;
-  letter-spacing: 1px;
-  line-height: 1.2;
+  font-weight: $heading-font-weight;
+  color: $neutral-dark;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: $heading-font-size;
+  margin-bottom: $spacing-large;
 }
 
 h2 {
-  font-size: 2.5rem;
-}
-
-h3 {
   font-size: 2rem;
+  margin-bottom: $spacing-medium;
 }
 
-h4 {
-  font-size: 1.75rem;
-}
-
-h5 {
-  font-size: 1.5rem;
-}
-
-h6 {
-  font-size: 1.25rem;
-}
-
-p {
-  font-family: $family-primary;
-  color: $black;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-// Links and Hover Effects
-a {
-  color: $primary;
-  text-decoration: none;
-  font-weight: bold;
-  text-transform: uppercase;
-
-  &:hover {
-    color: $secondary;
-    text-decoration: underline;
-    box-shadow: 0px 4px 8px rgba($primary, 0.5);
-  }
-}
-
-// --- Navbar Styles ---
-.navbar {
-  background-color: $white;
-  border-bottom: 3px solid $border-color;
-  padding: 1rem;
-
-  .navbar-item {
-    font-weight: bold;
-    color: $black;
-    text-transform: uppercase;
-
-    &:hover {
-      background-color: transparent;
-      color: $primary;
-      box-shadow: 0 2px 5px rgba($primary, 0.4);
-    }
-
-    &.is-active {
-      background-color: transparent;
-      color: $primary;
-      font-weight: bold;
-    }
-  }
-
-  .navbar-burger {
-    color: $black;
-
-    &:hover {
-      color: $primary;
-      box-shadow: 0 2px 5px rgba($primary, 0.4);
-    }
-  }
-}
-
-// --- Section Styles ---
-// Hero Section with shapes in background
-section.hero {
-  padding: 5rem 0;
-  background-color: $primary;
-  color: $white;
-  position: relative;
-  border-radius: 0;
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 0.3) 60%);
-    z-index: -1;
-    opacity: 0.15;
-  }
-
-  h1, h2, h3 {
-    font-family: $family-secondary;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-}
-
-// --- Container and Row Styles ---
-// Adding background shapes and padding for sections
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.columns {
-  display: flex;
-  gap: 2rem;
-}
-
-.column {
-  flex: 1;
-  padding: 2rem;
-  background: $blue-shade-light;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-// --- Card Styles ---
-// Cards with sharp edges and solid shadows
-.card {
-  background-color: $white;
-  border: 3px solid $border-color;
-  border-radius: 0;
-  box-shadow: 0 2px 5px rgba($border-color, 0.3);
-  margin-bottom: 2rem;
-  transition: all 0.3s ease;
-
-  .card-header {
-    background-color: $primary;
-    color: $white;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 1rem;
-    border-bottom: 3px solid $border-color;
-  }
-
-  .card-content {
-    padding: 1.5rem;
-    font-family: $family-primary;
-    color: $black;
-  }
-
-  .card-footer {
-    background-color: $border-color;
-    text-align: center;
-    padding: 1rem;
-  }
-
-  &:hover {
-    box-shadow: 0 4px 15px rgba($primary, 0.3);
-  }
-}
-
-// --- Buttons ---
-// Square buttons with solid drop shadow on hover
+// --- Button Styles ---
 .button {
-  background-color: $primary;
-  border: 2px solid $primary;
-  color: $white;
-  font-weight: bold;
+  font-weight: $button-font-weight;
+  padding: $button-padding-vertical $button-padding-horizontal;
+  border-radius: $button-border-radius;
   text-transform: uppercase;
-  padding: 1rem 2rem;
-  border-radius: 0;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
-  &:hover {
-    background-color: $secondary;
-    border-color: $secondary;
-    box-shadow: 0 4px 12px rgba($primary, 0.4);
-  }
+  &.is-primary {
+    background-color: $button-primary-bg;
+    border: 2px solid $button-primary-border;
+    color: $button-primary-color;
 
-  &:focus, &:active {
-    background-color: $primary;
-    border-color: $primary;
-    box-shadow: 0 4px 10px rgba($primary, 0.4);
+    &:hover {
+      background-color: $button-primary-hover-bg;
+      border-color: $button-primary-hover-border;
+      box-shadow: $box-shadow-hover;
+    }
   }
 
   &.is-outlined {
@@ -250,28 +124,37 @@ section.hero {
     &:hover {
       background-color: $primary;
       color: $white;
+      box-shadow: $box-shadow-hover;
     }
   }
 }
 
-// --- Divider Line ---
-.divider {
-  border-top: 2px solid $border-color;
-  margin: 2rem 0;
-}
+// --- Navbar Styling ---
+.navbar {
+  background-color: $white;
+  box-shadow: $box-shadow-light;
+  padding: $spacing-medium;
 
-// --- Footer Styles ---
-.footer {
-  background-color: $black;
-  color: $white;
-  padding: 2rem;
-  text-align: center;
-  font-family: $family-secondary;
-  font-weight: bold;
+  .navbar-item {
+    font-weight: $body-font-weight;
+    color: $neutral-dark;
+    padding: $spacing-small;
+    transition: all 0.3s ease;
 
-  a {
+    &:hover {
+      color: $primary;
+      background-color: $neutral-light;
+      box-shadow: $box-shadow-hover;
+    }
+
+    &.is-active {
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+
+  .navbar-burger {
     color: $primary;
-    text-decoration: none;
 
     &:hover {
       color: $secondary;
@@ -279,52 +162,109 @@ section.hero {
   }
 }
 
-// --- Image Styles ---
-// Images with rough borders, and clean modern feel
-.image {
-  border: 4px solid $border-color;
-  max-width: 100%;
-  display: block;
-  margin-bottom: 1rem;
+// --- Card Component Styling ---
+.card {
+  background-color: $card-background;
+  border: $card-border;
+  border-radius: $card-radius;
+  box-shadow: $card-shadow;
   transition: all 0.3s ease;
+  margin-bottom: $spacing-large;
 
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba($primary, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    background-color: $primary;
+    color: $white;
+    font-size: 1.25rem;
+    padding: $spacing-small;
+    border-bottom: 1px solid $neutral-grey;
+  }
+
+  .card-content {
+    padding: $spacing-medium;
+    font-size: $card-content-font-size;
   }
 }
 
-// --- Forms (Inputs and Textareas) ---
-.input, .textarea {
+// --- Grid Layout for Responsive Design ---
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: $spacing-medium;
+}
+
+.columns {
+  display: flex;
+  gap: $column-gap;
+
+  .column {
+    flex: 1;
+    padding: $spacing-medium;
+  }
+}
+
+// --- Section Styling ---
+section {
+  padding: $spacing-large 0;
   background-color: $white;
-  border: 2px solid $border-color;
-  padding: 1rem;
+  border-top: 5px solid $primary;
+  border-bottom: 5px solid $neutral-grey;
+}
+
+section.hero {
+  background-color: $primary;
+  color: $white;
+  padding: $spacing-large 0;
+  text-align: center;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin-top: $spacing-small;
+  }
+}
+
+// --- Footer Styling ---
+.footer {
+  background-color: $neutral-dark;
+  color: $white;
+  padding: $spacing-large;
+  text-align: center;
+  font-family: $family-secondary;
+  font-weight: 500;
+  border-top: 2px solid $neutral-grey;
+
+  a {
+    color: $secondary;
+    text-decoration: none;
+    padding: $spacing-small;
+
+    &:hover {
+      color: $primary;
+      box-shadow: $box-shadow-hover;
+    }
+  }
+}
+
+// --- Forms and Inputs ---
+.input, .textarea {
   font-family: $family-primary;
-  border-radius: 0;
-  color: $black;
-  transition: all 0.3s ease;
+  padding: $spacing-medium;
+  font-size: $body-font-size;
+  border-radius: $input-border-radius;
+  border: 1px solid $neutral-grey;
+  color: $neutral-dark;
+  transition: border-color 0.3s ease;
 
   &:focus {
     border-color: $primary;
-    box-shadow: 0 4px 10px rgba($primary, 0.4);
   }
 }
 
-// --- Custom Breakpoints ---
-// Adjustments for mobile-friendly Neo-Brutalism style
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
-
-  .column {
-    flex: 1 1 100%;
-    margin-bottom: 1rem;
-    padding: 1.5rem;
-  }
-
-  section {
-    padding: 2rem 0;
-    margin-bottom: 2rem;
-  }
-}
