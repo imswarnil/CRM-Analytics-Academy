@@ -36,6 +36,55 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540"
      crossorigin="anonymous"></script>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <script>
+      document.addEventListener('DOMContentLoaded', function () {
+  // Select all code blocks with language-specific classes
+  const codeBlocks = document.querySelectorAll('.highlight pre');
+
+  // Iterate over each code block
+  codeBlocks.forEach(function (codeBlock) {
+    // Detect the language from the class (e.g., language-js, language-css)
+    const language = codeBlock.classList.contains('language-js') ? 'JavaScript' :
+                     codeBlock.classList.contains('language-css') ? 'CSS' :
+                     codeBlock.classList.contains('language-html') ? 'HTML' : 'Other';
+
+    // Create the language badge element
+    const languageBadge = document.createElement('span');
+    languageBadge.classList.add('language-badge');
+    languageBadge.textContent = language;
+
+    // Create the copy button wrapper
+    const copyBtnWrapper = document.createElement('div');
+    copyBtnWrapper.classList.add('copy-btn-wrapper');
+
+    // Create the copy button
+    const copyBtn = document.createElement('button');
+    copyBtn.classList.add('copy-btn');
+    copyBtn.textContent = 'Copy';
+    copyBtn.addEventListener('click', function () {
+      // Create a temporary textarea to copy the code
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = codeBlock.querySelector('code').innerText;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      // Change button text for feedback
+      copyBtn.textContent = 'Copied!';
+      setTimeout(function () {
+        copyBtn.textContent = 'Copy';
+      }, 2000);
+    });
+
+    // Append the language badge and the copy button to the pre element
+    copyBtnWrapper.appendChild(copyBtn);
+    codeBlock.appendChild(languageBadge);
+    codeBlock.appendChild(copyBtnWrapper);
+  });
+});
+
+     </script>
 </head>
 
 <body class="layout-{{ page.layout | default: 'default' }}{% if page.title %} {{ page.title | slugify }}{% endif %}">
