@@ -9,16 +9,19 @@ layout: default
         <!-- Blog Post Content -->
         <article class="content">
           <h1 class="title is-2 has-text-primary" itemprop="headline">{{ page.title }}</h1>
-          <p class="subtitle is-4" itemprop="description">{{ page.description }}</p>
+          <p class="subtitle is-4 has-text-grey-light" itemprop="description">{{ page.description }}</p>
+
+          <!-- Thumbnail -->
           <figure class="image is-16by9">
-            <img src="{{ page.image | default: "https://via.placeholder.com/640x360" }}" alt="{{ page.title }}" itemprop="image">
+            <img src="{{ page.thumbnail | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}" itemprop="image">
           </figure>
 
-          <div class="content-meta mb-6">
+          <!-- Content Meta Information -->
+          <div class="content-meta my-6">
             <div class="media">
               <figure class="media-left">
                 <p class="image is-48x48">
-                  <img class="is-rounded" src="avatar-alex.png" alt="{{ page.author }}">
+                  <img class="is-rounded" src="{{ page.author_avatar | default: 'avatar-alex.png' }}" alt="{{ page.author }}">
                 </p>
               </figure>
               <div class="media-content">
@@ -37,73 +40,47 @@ layout: default
             </div>
           </div>
 
+          <!-- Main Content -->
           <div class="content" itemprop="articleBody">
             {{ content }}
           </div>
 
           <!-- Social Media Share Links -->
-          <div class="buttons is-centered">
-            <a class="button is-link " href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;">
-              <span class="icon mr-1"><i class="fab fa-twitter"></i> </span>
-          Tweet It  </a>
-            <a class="button is-link" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-              <span class="icon mr-2"><i class="fab fa-facebook"></i></span>
-           Share It On Facebook </a>
-            <a class="button is-link" href="whatsapp://send?text={{ page.title }} - {{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on WhatsApp">
-              <span class="icon mr-1"><i class="fab fa-whatsapp"></i></span>
-              Share On Whatsapp </a>
-            <a class="button is-link" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on LinkedIn">
-              <span class="icon mr-1"><i class="fab fa-linkedin"></i></span>
-           Linkedin </a>
-           <button id="copyButton" class="button is-link" onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" title="Copy URL">
-            <span id="copyIcon" class="icon mr-1"><i class="fas fa-copy"></i></span>
-            <span id="copyText">Copy The URL</span>
-            <span id="checkIcon" class="icon mr-1" style="display:none;"><i class="fas fa-check"></i></span>
-          </button>
+          <div class="buttons is-centered my-4">
+            <a class="button is-link is-light" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter">
+              <span class="icon mr-1"><i class="fab fa-twitter"></i> </span> Tweet It
+            </a>
+            <a class="button is-link is-light" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">
+              <span class="icon mr-1"><i class="fab fa-facebook"></i></span> Share It On Facebook
+            </a>
+            <a class="button is-link is-light" href="whatsapp://send?text={{ page.title }} - {{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on WhatsApp">
+              <span class="icon mr-1"><i class="fab fa-whatsapp"></i></span> Share On Whatsapp
+            </a>
+            <a class="button is-link is-light" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on LinkedIn">
+              <span class="icon mr-1"><i class="fab fa-linkedin"></i></span> LinkedIn
+            </a>
+            <button id="copyButton" class="button is-link is-light" onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" title="Copy URL">
+              <span id="copyIcon" class="icon mr-1"><i class="fas fa-copy"></i></span>
+              <span id="copyText">Copy The URL</span>
+              <span id="checkIcon" class="icon mr-1" style="display:none;"><i class="fas fa-check"></i></span>
+            </button>
           </div>
-          <script>
-            function copyToClipboard(text) {
-              var textArea = document.createElement("textarea");
-              textArea.value = text;
-              document.body.appendChild(textArea);
-              textArea.select();
-              document.execCommand('copy');
-              document.body.removeChild(textArea);
-              showConfirmation();
-            }
-          
-            function showConfirmation() {
-              var copyButton = document.getElementById('copyButton');
-              var copyIcon = document.getElementById('copyIcon');
-              var copyText = document.getElementById('copyText');
-              var checkIcon = document.getElementById('checkIcon');
-              
-              copyIcon.style.display = 'none';
-              copyText.innerText = 'Copied!';
-              checkIcon.style.display = 'inline-block';
-              
-              setTimeout(function() {
-                copyIcon.style.display = 'inline-block';
-                copyText.innerText = 'Copy The URL';
-                checkIcon.style.display = 'none';
-              }, 2000); // Reset to original state after 2 seconds
-            }
-          </script> 
+
           <!-- Author Details -->
           <div class="box mt-6">
             <div class="media">
               <figure class="media-left">
                 <p class="image is-128x128">
-                  <img class="is-rounded" src="avatar-alex.png" alt="{{ page.author }}">
+                  <img class="is-rounded" src="{{ page.author_avatar | default: 'avatar-alex.png' }}" alt="{{ page.author }}">
                 </p>
               </figure>
               <div class="media-content">
                 <h3 class="title is-4">{{ page.author }}</h3>
                 <p>{{ page.author_bio }}</p>
                 <div class="mt-4">
-                  <a href="#" class="icon mr-2">🐦</a>
-                  <a href="#" class="icon mr-2">📘</a>
-                  <a href="#" class="icon">📸</a>
+                  <a href="#" class="icon mr-2"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="icon mr-2"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
                 </div>
               </div>
             </div>
@@ -156,7 +133,7 @@ layout: default
             },
             "headline": "{{ page.title }}",
             "description": "{{ page.description | escape }}",
-            "image": "{{ page.image | default: "https://via.placeholder.com/640x360" }}",
+            "image": "{{ page.thumbnail | default: 'https://via.placeholder.com/640x360' }}",
             "author": {
               "@type": "Person",
               "name": "{{ page.author }}",
@@ -179,7 +156,7 @@ layout: default
         </article>
       </div>
 
-      <!-- Sidebar -->
+      <!-- Sidebar (If Active) -->
       {% if page.aside == true %}
       <div class="column is-4">
         {% include site-aside.html %}
