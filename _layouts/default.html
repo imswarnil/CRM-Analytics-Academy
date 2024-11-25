@@ -44,14 +44,13 @@
   // Iterate over each code block
   codeBlocks.forEach(function (codeBlock) {
     // Detect the language from the class (e.g., language-js, language-css)
-    const language = codeBlock.classList.contains('language-js') ? 'JavaScript' :
-                     codeBlock.classList.contains('language-css') ? 'CSS' :
-                     codeBlock.classList.contains('language-html') ? 'HTML' : 'Other';
+    const languageClass = codeBlock.classList.toString().match(/language-(\S+)/);
+    const language = languageClass ? languageClass[1] : 'Other';
 
     // Create the language badge element
     const languageBadge = document.createElement('span');
     languageBadge.classList.add('language-badge');
-    languageBadge.textContent = language;
+    languageBadge.textContent = language.charAt(0).toUpperCase() + language.slice(1);
 
     // Create the copy button wrapper
     const copyBtnWrapper = document.createElement('div');
@@ -83,7 +82,7 @@
     codeBlock.appendChild(copyBtnWrapper);
   });
 });
-
+a
      </script>
 </head>
 
