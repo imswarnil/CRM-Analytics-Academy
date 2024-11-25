@@ -37,52 +37,41 @@
      crossorigin="anonymous"></script>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      <script>
-      document.addEventListener('DOMContentLoaded', function () {
-  // Select all code blocks with language-specific classes
-  const codeBlocks = document.querySelectorAll('.highlight pre');
+      document.addEventListener("DOMContentLoaded", function() {
+  const codeBlocks = document.querySelectorAll('pre code');
 
-  // Iterate over each code block
-  codeBlocks.forEach(function (codeBlock) {
-    // Detect the language from the class (e.g., language-js, language-css)
-    const languageClass = codeBlock.classList.toString().match(/language-(\S+)/);
-    const language = languageClass ? languageClass[1] : 'Other';
+  codeBlocks.forEach(function(codeBlock) {
+    const parent = codeBlock.closest('.highlighter-rouge');
+    if (parent) {
+      // Create a language badge dynamically based on the language class (e.g., language-js)
+      const language = parent.classList.contains('language-js') ? 'js' : 'other';
+      const languageBadge = document.createElement('span');
+      languageBadge.classList.add('language-badge');
+      languageBadge.textContent = language;
 
-    // Create the language badge element
-    const languageBadge = document.createElement('span');
-    languageBadge.classList.add('language-badge');
-    languageBadge.textContent = language.charAt(0).toUpperCase() + language.slice(1);
+      // Create the copy button
+      const copyButtonWrapper = document.createElement('div');
+      copyButtonWrapper.classList.add('copy-btn-wrapper');
 
-    // Create the copy button wrapper
-    const copyBtnWrapper = document.createElement('div');
-    copyBtnWrapper.classList.add('copy-btn-wrapper');
+      const copyButton = document.createElement('button');
+      copyButton.classList.add('copy-btn');
+      copyButton.textContent = 'Copy';
+      copyButton.addEventListener('click', function() {
+        const range = document.createRange();
+        range.selectNode(codeBlock);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        alert('Code copied!');
+      });
 
-    // Create the copy button
-    const copyBtn = document.createElement('button');
-    copyBtn.classList.add('copy-btn');
-    copyBtn.textContent = 'Copy';
-    copyBtn.addEventListener('click', function () {
-      // Create a temporary textarea to copy the code
-      const tempTextArea = document.createElement('textarea');
-      tempTextArea.value = codeBlock.querySelector('code').innerText;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempTextArea);
-
-      // Change button text for feedback
-      copyBtn.textContent = 'Copied!';
-      setTimeout(function () {
-        copyBtn.textContent = 'Copy';
-      }, 2000);
-    });
-
-    // Append the language badge and the copy button to the pre element
-    copyBtnWrapper.appendChild(copyBtn);
-    codeBlock.appendChild(languageBadge);
-    codeBlock.appendChild(copyBtnWrapper);
+      copyButtonWrapper.appendChild(copyButton);
+      parent.appendChild(languageBadge);
+      parent.appendChild(copyButtonWrapper);
+    }
   });
 });
-a
+
      </script>
 </head>
 
