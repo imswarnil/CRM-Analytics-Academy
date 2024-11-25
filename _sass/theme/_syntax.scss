@@ -145,4 +145,69 @@ pre {
   .language-ruby .nb { color: hsl(206, 50%, 30%); } /* Built-ins */
   
   /* Add additional language rules as needed (Python, PHP, etc.) */
+  /* General styles for the code block */
+.highlight pre {
+    position: relative;
+    background-color: #f4f8fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .highlight pre:hover {
+    transform: scale(1.02); /* Zoom on hover for better interaction */
+  }
+  
+  /* Language badge (left-top corner) */
+  .highlight pre .language-badge {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    background-color: #1967d2; /* Salesforce blue */
+    color: white;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  
+  /* Copy button (right-top corner) */
+  .highlight pre .copy-btn-wrapper {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  .highlight pre .copy-btn {
+    background-color: #1967d2; /* Salesforce blue */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s, background-color 0.3s ease-in-out;
+  }
+  
+  .highlight pre .copy-btn:hover {
+    opacity: 1;
+    background-color: darken(#1967d2, 10%);
+  }
+  
+  .highlight pre .copy-btn:active {
+    background-color: lighten(#1967d2, 10%);
+  }
+  
+  .highlight pre .copy-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
   
