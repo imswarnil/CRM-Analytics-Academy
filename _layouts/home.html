@@ -43,6 +43,80 @@
   {% include home/hero.html %}
   {% include home/get-started.html %}
   {% include home/features.html %}
+  <footer class="footer has-background-dark has-text-white">
+    <div class="container">
+        <div class="columns is-mobile is-multiline">
+
+            <!-- First Column: Logo, Project Details, Social Media Links -->
+            <div class="column is-12-mobile is-4-tablet is-3-desktop">
+                <div class="content">
+                    <!-- Logo Section -->
+                    <img src="/path/to/your/logo.png" alt="CRM Analytics Academy Logo" class="mb-4">
+                    
+                    <!-- Project Details -->
+                    <p><strong>CRM Analytics Academy</strong></p>
+                    <p>Learn Salesforce CRM Analytics from scratch. A comprehensive platform to enhance your CRM analytics skills.</p>
+
+                    <!-- Social Media Links -->
+                    <div class="mt-4">
+                        <a href="https://github.com/yourusername/crm-analytics-academy" target="_blank" class="icon is-small is-link mr-3">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/yourchannel" target="_blank" class="icon is-small is-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Column: Quick Links -->
+            <div class="column is-12-mobile is-4-tablet is-3-desktop">
+                <h4 class="title is-5">Quick Links</h4>
+                <ul>
+                    {% for link in site.navigation_header %}
+                        <li><a href="{{ link.url }}" class="has-text-white">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Third Column: Footer Navigation (links, icons) -->
+            <div class="column is-12-mobile is-4-tablet is-3-desktop">
+                <h4 class="title is-5">Navigation</h4>
+                <ul>
+                    {% for link in site.navigation_footer %}
+                        <li><a href="{{ link.url }}" class="has-text-white">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Fourth Column: Subscribe and Notification Form -->
+            <div class="column is-12-mobile is-4-tablet is-3-desktop">
+                <h4 class="title is-5">Subscribe</h4>
+                <form action="/subscribe" method="post">
+                    <div class="field">
+                        <label class="label" for="email">Email Address</label>
+                        <div class="control">
+                            <input class="input" type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">Subscribe</button>
+                    </div>
+                </form>
+
+                <h5 class="title is-6 mt-4">Push Notifications</h5>
+                <p>Get notified about the latest updates and releases.</p>
+                <button class="button is-link is-small">Enable Notifications</button>
+            </div>
+
+        </div>
+
+        <div class="footer-strip has-background-dark has-text-white has-text-centered py-3">
+            <p>&copy; 2024 CRM Analytics Academy. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
 
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}
