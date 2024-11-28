@@ -4,6 +4,7 @@ feature_text: A demo of Markdown and HTML includes
 feature_image: "https://picsum.photos/2560/600?image=873"
 description: "A demo of Markdown and HTML includes"
 permalink : /about
+layout : default
 ---
 <main>
     <section class="py-6 has-background-white">
