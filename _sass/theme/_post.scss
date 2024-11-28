@@ -1,145 +1,67 @@
-/* Blog Header */
-.layout-post .post-hero {
+/* Hero Section */
+.post-hero {
     position: relative;
-    background-size: cover;
-    background-position: center center;
-    color: #ffffff;
+    background: #3273dc;
+    padding: 50px 0;
+    overflow: hidden;
+  }
   
-    .hero-body {
-      padding: 3rem 1.5rem; // Default padding
-    }
+  /* Circles in the Background */
+  .post-hero::before,
+  .post-hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    z-index: 1;
+  }
   
-    &.is-small .hero-body {
-      padding: 2rem 1rem;
-    }
+  /* Top Left Circle */
+  .post-hero::before {
+    width: 200px;
+    height: 200px;
+    top: -50px;  /* Adjust this value for positioning */
+    left: -50px; /* Adjust this value for positioning */
+    background-color: rgba(255, 255, 255, 0.3); /* Light white color */
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3); /* Subtle glow effect */
+  }
   
-    &.is-medium .hero-body {
-      padding: 4rem 1.5rem;
-    }
+  /* Bottom Circle */
+  .post-hero::after {
+    width: 300px;
+    height: 300px;
+    bottom: -100px; /* Adjust this value for positioning */
+    right: -100px; /* Adjust this value for positioning */
+    background-color: rgba(255, 255, 255, 0.2); /* Light white color */
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3); /* Subtle glow effect */
+  }
   
-    &.is-large .hero-body {
-      padding: 6rem 2rem;
-    }
+  /* Content Styling */
+  .blog-header-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+  }
   
+  .blog-header-subtitle {
+    font-size: 1.2rem;
+    color: #f0f0f0;
+    margin-top: 10px;
+  }
+  
+  /* Mobile Adjustments */
+  @media (max-width: 768px) {
     .blog-header-heading {
-      font-size: 2.5rem;
-      font-weight: bold;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+      font-size: 2rem;
     }
   
     .blog-header-subtitle {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
     }
   
-    // Breadcrumb
-    .breadcrumb {
-      margin-bottom: 20px;
-  
-      .breadcrumb-item {
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.8);
-  
-        &:hover {
-          color: #3273dc;
-        }
-  
-        &.is-active {
-          color: #f39c12;
-        }
-      }
-    }
-  
-    // Post Metadata
-    .post-meta {
-      margin-top: 1rem;
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-  
-      .tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-        font-size: 0.875rem;
-        background-color: rgba(255, 255, 255, 0.2);
-        color: #ffffff;
-        padding: 0.3rem 0.6rem;
-        border-radius: 4px;
-  
-        i {
-          font-size: 0.9rem;
-        }
-      }
-  
-      .reading-time {
-        font-size: 0.875rem;
-        color: #ffffff;
-  
-        i {
-          margin-right: 0.3rem;
-        }
-  
-        strong {
-          font-weight: bold;
-        }
-      }
-    }
-  
-    // Post ID Card
     .post-id-card {
-      background: rgba(0, 0, 0, 0.7); // Transparent overlay
-      padding: 1.5rem;
-      border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      color: #ffffff;
-  
-      .post-id {
-        font-size: 2rem;
-        font-weight: bold;
-      }
-    }
-  }
-  
-  /* Blog Image */
-  .layout-post .blog-image {
-    margin-top: 2rem;
-    max-width: 100%;
-    border-radius: 8px;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .layout-post .post-hero {
-      text-align: center;
-  
-      .hero-body {
-        padding: 2rem 1rem;
-      }
-  
-      .columns {
-        flex-direction: column-reverse;
-  
-        .column {
-          margin-bottom: 1rem;
-        }
-      }
-  
-      .post-meta {
-        justify-content: center;
-      }
-  
-      .post-id-card {
-        margin-top: 1rem;
-      }
-    }
-  
-    .layout-post .blog-image {
-      width: 100%;
+      margin-top: 20px;
     }
   }
   
