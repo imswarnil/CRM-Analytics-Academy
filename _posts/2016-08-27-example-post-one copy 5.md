@@ -10,6 +10,7 @@ author: john-doe
 image: "/assets/what-is-salesforce.png"
 canonical_url: "https://www.yoursite.com/blog/crm-analytics-history"
 reading_time: 5
+hero_size : is-small
 keywords: "CRM, Salesforce, Analytics, History of CRM, CRM Evolution, Data Insights"
 ---
 

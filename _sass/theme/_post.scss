@@ -15,7 +15,7 @@
     }
   
     &.is-primary {
-      background-color: #00d1b2; // Bulma's primary color
+      background-color: $primary; // Bulma's primary color
       color: white;
   
       h1,
