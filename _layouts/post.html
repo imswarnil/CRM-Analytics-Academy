@@ -5,7 +5,7 @@ layout: default
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
-        <!-- Left Column: Blog Title, Subtitle, Categories/Tags -->
+        <!-- Left Column: Blog Title, Subtitle, Categories/Tags, Read Time -->
         <div class="column is-8">
           <!-- Breadcrumb -->
           <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -22,16 +22,27 @@ layout: default
           <!-- Subtitle -->
           <p class="subtitle is-4 blog-header-subtitle">{{ page.excerpt }}</p>
 
-          <!-- Categories/Tags -->
+          <!-- Categories/Tags with Icons -->
           <div class="tags blog-header-tags">
             {% for category in page.categories %}
-              <span class="tag is-link">{{ category }}</span>
+              <span class="tag is-rounded is-info"><i class="fas fa-folder"></i> {{ category }}</span>
             {% endfor %}
             {% for tag in page.tags %}
-              <span class="tag is-info">{{ tag }}</span>
+              <span class="tag is-rounded is-link"><i class="fas fa-tag"></i> {{ tag }}</span>
             {% endfor %}
-            <span class="tag is-warning">{{ page.reading_time }} min read</span>
           </div>
+
+          <!-- Read Time with Icon -->
+          <div class="read-time">
+            <i class="fas fa-clock"></i> <span>{{ page.reading_time }} min read</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Image -->
+        <div class="column is-4">
+          <figure class="image is-4by3">
+            <img src="https://via.placeholder.com/300x200" alt="Blog post image" />
+          </figure>
         </div>
       </div>
     </div>
