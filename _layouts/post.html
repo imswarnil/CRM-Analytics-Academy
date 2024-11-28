@@ -28,10 +28,18 @@ layout: default
       <div class="column is-8">
         <!-- Blog Post Article -->
         <article class="content post-article">
-          <!-- Thumbnail -->
-          <figure class="image is-16by9 post-thumbnail">
-            <img src="{{ page.image | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}">
-          </figure>
+          <!-- Thumbnail with Carousel Structure -->
+          <div class="carousel-container">
+            <div class="carousel">
+              <div class="carousel-item">
+                <img src="{{ page.image | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}">
+              </div>
+              <!-- Additional Images can be added -->
+              <div class="carousel-item">
+                <img src="https://via.placeholder.com/640x360?text=Image+2" alt="Additional Image">
+              </div>
+            </div>
+          </div>
 
           <!-- Content Meta Information -->
           <div class="content-meta my-6 post-meta">
@@ -58,6 +66,21 @@ layout: default
             {{ content }}
           </div>
 
+          <!-- Ordered List and Unordered List Styling -->
+          <div class="post-lists">
+            <ul class="custom-list">
+              <li>CRM Analytics Overview</li>
+              <li>Salesforce Cloud Features</li>
+              <li>Impact of AI on CRM</li>
+            </ul>
+
+            <ol class="custom-ordered-list">
+              <li>Collect Customer Data</li>
+              <li>Analyze the Data</li>
+              <li>Predict Future Trends</li>
+            </ol>
+          </div>
+
           <!-- Social Media Share Links -->
           <div class="buttons is-centered my-4 post-social-share">
             <a class="button is-link is-light" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" target="_blank">
@@ -65,6 +88,12 @@ layout: default
             </a>
             <a class="button is-link is-light" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" target="_blank">
               <span class="icon mr-1"><i class="fab fa-facebook"></i></span> Share It On Facebook
+            </a>
+            <a class="button is-link is-light" href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}" target="_blank">
+              <span class="icon mr-1"><i class="fab fa-linkedin"></i></span> Share On LinkedIn
+            </a>
+            <a class="button is-link is-light" href="javascript:void(0)" id="copy-url">
+              <span class="icon mr-1"><i class="fas fa-link"></i></span> Copy URL
             </a>
           </div>
 
@@ -87,37 +116,37 @@ layout: default
             </div>
           </div>
 
-          <!-- JSON-LD Schema -->
-          <script type="application/ld+json">
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "{{ site.url }}{{ page.url }}"
-            },
-            "headline": "{{ page.title }}",
-            "description": "{{ page.excerpt }}",
-            "image": "{{ page.image | default: 'https://via.placeholder.com/640x360' }}",
-            "author": {
-              "@type": "Person",
-              "name": "{{ site.data.authors[page.author].name }}",
-              "bio": "{{ site.data.authors[page.author].bio }}",
-              "url": "https://github.com/{{ site.data.authors[page.author].github }}"
-            },
-            "datePublished": "{{ page.date | date_to_xmlschema }}",
-            "dateModified": "{{ page.date | date_to_xmlschema }}",
-            "publisher": {
-              "@type": "Organization",
-              "name": "{{ site.title }}",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "{{ site.logo }}"
-              }
-            },
-            "keywords": "{{ page.keywords }}"
-          }
-          </script>
+          <!-- Comment Section -->
+          <div id="comments" class="comments-section">
+            <h2>Leave a Comment</h2>
+            <div class="comments-list">
+              <div class="comment-item">
+                <div class="media">
+                  <figure class="media-left">
+                    <p class="image is-48x48">
+                      <img class="is-rounded" src="https://via.placeholder.com/48" alt="User">
+                    </p>
+                  </figure>
+                  <div class="media-content">
+                    <p><strong>John Doe</strong><br>Great article! Thanks for sharing!</p>
+                  </div>
+                </div>
+              </div>
+              <div class="comment-item">
+                <div class="media">
+                  <figure class="media-left">
+                    <p class="image is-48x48">
+                      <img class="is-rounded" src="https://via.placeholder.com/48" alt="User">
+                    </p>
+                  </figure>
+                  <div class="media-content">
+                    <p><strong>Jane Smith</strong><br>This is very informative. Appreciate the insights!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </article>
       </div>
     </div>
@@ -126,103 +155,135 @@ layout: default
 
 {% include site-footer.html %}
 
-<style>/* General Post Page Styling */
-  .blog-header {
-      text-align: center;
-      margin-top: 40px;
-      margin-bottom: 20px;
-  }
-  
+<!-- Back to Top Button -->
+<button id="back-to-top" class="button is-primary is-rounded is-medium">
+  <span class="icon"><i class="fas fa-arrow-up"></i></span>
+</button>
+
+<script>
+  // Copy URL functionality
+  document.getElementById('copy-url').addEventListener('click', function() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+      alert('URL copied to clipboard!');
+    }, function() {
+      alert('Failed to copy URL.');
+    });
+  });
+
+  // Back to top button functionality
+  const backToTopButton = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 200) {
+      backToTopButton.classList.add('is-active');
+    } else {
+      backToTopButton.classList.remove('is-active');
+    }
+  });
+
+  backToTopButton.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+<style>
+  /* General Styling */
   .post-title {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #2a3d66;
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #2a3d66;
   }
-  
+
   .post-subtitle {
-      font-size: 1.25rem;
-      font-weight: normal;
-      color: #4a4a4a;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #4a4a4a;
   }
-  
+
   .post-content {
-      margin-top: 30px;
+    margin-top: 30px;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #333;
   }
-  
-  .post-article .post-thumbnail img {
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* Carousel Styling */
+  .carousel-container {
+    position: relative;
+    margin-bottom: 30px;
   }
-  
-  .post-meta {
-      background-color: #f9f9f9;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+  .carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
   }
-  
-  .post-meta .author-name {
-      font-weight: bold;
-      color: #2a3d66;
+
+  .carousel-item img {
+    max-width: 100%;
+    border-radius: 8px;
   }
-  
-  .published-date {
-      font-size: 0.875rem;
-      color: #777;
+
+  /* Custom List Styling */
+  .custom-list {
+    list-style-type: square;
+    padding-left: 20px;
   }
-  
-  .post-main-content {
-      margin-top: 30px;
-      font-size: 1.125rem;
-      line-height: 1.8;
-      color: #333;
+
+  .custom-ordered-list {
+    list-style-type: decimal;
+    padding-left: 20px;
   }
-  
+
+  /* Social Media Share Button Styling */
   .post-social-share .button {
-      background-color: #0073e6;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 50px;
+    background-color: #0073e6;
+    color: white;
+    font-weight: bold;
+    margin: 5px;
   }
-  
+
   .post-social-share .button:hover {
-      background-color: #005bb5;
+    background-color: #005bb5;
   }
-  
-  .post-author-details .media-left .image {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
+
+  /* Comment Section Styling */
+  .comments-list .comment-item {
+    margin-bottom: 20px;
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 8px;
   }
-  
-  .post-author-details .media-content h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
+
+  /* Back to Top Button Styling */
+  #back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
   }
-  
-  .post-author-details .icon {
-      color: #0073e6;
+
+  #back-to-top.is-active {
+    display: block;
   }
-  
-  .post-author-details .icon:hover {
-      color: #005bb5;
-  }
-  
+
   /* Mobile Responsiveness */
   @media (max-width: 768px) {
-      .post-title {
-          font-size: 2rem;
-      }
-  
-      .post-subtitle {
-          font-size: 1.125rem;
-      }
-  
-      .post-author-details .media-left .image {
-          width: 80px;
-          height: 80px;
-      }
-  }
-  
+    .post-title {
+      font-size: 2rem;
+    }
 
+    .post-subtitle {
+      font-size: 1.125rem;
+    }
+
+    .carousel {
+      flex-direction: column;
+    }
+
+    .carousel-item img {
+      max-height: 300px;
+    }
+  }
 </style>

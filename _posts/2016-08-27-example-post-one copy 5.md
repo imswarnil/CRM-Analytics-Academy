@@ -1,4 +1,5 @@
 ---
+id : 1
 title: "A Brief History of CRM Analytics: Salesforce’s Role"
 excerpt: "Explore the role of Salesforce in revolutionizing CRM analytics, from early systems to today’s AI-driven platforms."
 categories: [Analytics, CRM, Salesforce]
