@@ -1,0 +1,12 @@
+site-owner:
+  name: "Site Owner"
+  bio: "Passionate educator and developer."
+  twitter: "site_owner"
+  avatar: "/assets/images/authors/site-owner.jpg"
+
+john-doe:
+  name: "John Doe"
+  bio: "Data Analyst with expertise in Salesforce CRM."
+  twitter: "john_doe"
+  github: "johndoe"
+  avatar: "/assets/images/authors/john-doe.jpg"

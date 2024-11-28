@@ -9,11 +9,11 @@ layout: default
         <!-- Blog Post Content -->
         <article class="content">
           <h1 class="title is-2 has-text-primary" itemprop="headline">{{ page.title }}</h1>
-          <p class="subtitle is-4 has-text-grey-light" itemprop="description">{{ page.description }}</p>
+          <p class="subtitle is-4 has-text-grey-light" itemprop="description">{{ page.excerpt }}</p>
 
           <!-- Thumbnail -->
           <figure class="image is-16by9">
-            <img src="{{ page.thumbnail | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}" itemprop="image">
+            <img src="{{ page.image | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}" itemprop="image">
           </figure>
 
           <!-- Content Meta Information -->
@@ -21,14 +21,14 @@ layout: default
             <div class="media">
               <figure class="media-left">
                 <p class="image is-48x48">
-                  <img class="is-rounded" src="{{ page.author_avatar | default: 'avatar-alex.png' }}" alt="{{ page.author }}">
+                  <img class="is-rounded" src="{{ site.data.authors[page.author].avatar | default: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png' }}" alt="{{ site.data.authors[page.author].name }}">
                 </p>
               </figure>
               <div class="media-content">
                 <div class="content">
                   <p>Written by 
                     <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                      <span itemprop="name">{{ page.author }}</span>
+                      <span itemprop="name">{{ site.data.authors[page.author].name }}</span>
                     </span>
                     <br>
                     <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
@@ -71,19 +71,28 @@ layout: default
             <div class="media">
               <figure class="media-left">
                 <p class="image is-128x128">
-                  <img class="is-rounded" src="{{ page.author_avatar | default: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.pngas' }}" alt="{{ page.author }}">
+                  <img class="is-rounded" src="{{ site.data.authors[page.author].avatar | default: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png' }}" alt="{{ site.data.authors[page.author].name }}">
                 </p>
               </figure>
               <div class="media-content">
-                <h3 class="title is-4">{{ page.author }}</h3>
-                <p>{{ page.author_bio }}</p>
+                <h3 class="title is-4">{{ site.data.authors[page.author].name }}</h3>
+                <p>{{ site.data.authors[page.author].bio }}</p>
                 <div class="mt-4">
-                  <a href="#" class="icon mr-2"><i class="fab fa-twitter"></i></a>
-                  <a href="#" class="icon mr-2"><i class="fab fa-facebook"></i></a>
-                  <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+                  {% if site.data.authors[page.author].twitter %}
+                    <a href="https://twitter.com/{{ site.data.authors[page.author].twitter }}" class="icon mr-2" target="_blank"><i class="fab fa-twitter"></i></a>
+                  {% endif %}
+                  {% if site.data.authors[page.author].github %}
+                    <a href="https://github.com/{{ site.data.authors[page.author].github }}" class="icon mr-2" target="_blank"><i class="fab fa-github"></i></a>
+                  {% endif %}
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Last Modified -->
+          <div class="content-meta my-4">
+            <p><strong>Last Modified:</strong> <time datetime="{{ page.last_modified_date | date_to_xmlschema }}">{{ page.last_modified_date | date: "%B %d, %Y" }}</time></p>
+            <a href="{{ site.repo }}/commits/main/_posts/{{ page.path | uri_encode }}" class="button is-small" target="_blank">View on GitHub</a>
           </div>
 
           <!-- Next/Previous Post Pagination -->
@@ -121,38 +130,6 @@ layout: default
               {% endfor %}
             </ul>
           </div>
-
-          <!-- JSON-LD Schema -->
-          <script type="application/ld+json">
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "{{ site.url }}{{ page.url }}"
-            },
-            "headline": "{{ page.title }}",
-            "description": "{{ page.description | escape }}",
-            "image": "{{ page.thumbnail | default: 'https://via.placeholder.com/640x360' }}",
-            "author": {
-              "@type": "Person",
-              "name": "{{ page.author }}",
-              "description": "{{ page.author_bio }}"
-            },
-            "datePublished": "{{ page.date | date_to_xmlschema }}",
-            "dateModified": "{{ page.date | date_to_xmlschema }}",
-            "publisher": {
-              "@type": "Organization",
-              "name": "{{ site.title }}",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "{{ site.logo }}"
-              }
-            },
-            "identifier": "{{ page.id }}",
-            "keywords": "{% for tag in page.tags %}{{ tag }}{% unless forloop.last %}, {% endunless %}{% endfor %}"
-          }
-          </script>
         </article>
       </div>
 
