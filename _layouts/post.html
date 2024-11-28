@@ -1,8 +1,9 @@
 ---
 layout: default
---- 
+---
+
 <!-- Hero Section -->
- <section data-ad-format="none" class="hero {{ page.size }} is-primary post-hero";">
+<section data-ad-format="none" class="hero {{ page.size }} is-primary post-hero">
   <div class="hero-body">
     <div class="container">
       <!-- Breadcrumb -->
@@ -35,9 +36,9 @@ layout: default
         <div class="column is-4">
           <div class="post-id-card">
             <!-- Blog Image -->
-<figure class="image is-16by9 blog-image">
-  <img src="{{ page.image }}" alt="{{ page.title }}">
-</figure>
+            <figure class="image is-16by9 blog-image">
+              <img src="{{ page.image }}" alt="{{ page.title }}">
+            </figure>
             <p class="post-id">ID: <strong>{{ page.id }}</strong></p>
           </div>
         </div>
@@ -46,14 +47,11 @@ layout: default
   </div>
 </section>
 
-
-
 <!-- Content Section -->
 <section class="section">
   <div class="container">
     {{ content }}
   </div>
 </section>
-
 
 {% include site-footer.html %}
