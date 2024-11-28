@@ -8,7 +8,6 @@ date: 2024-11-28
 layout: post
 author: john-doe
 image: "/assets/what-is-salesforce.png"
-image_alt: "A chart showing the evolution of CRM analytics over time."
 canonical_url: "https://www.yoursite.com/blog/crm-analytics-history"
 reading_time: 5
 keywords: "CRM, Salesforce, Analytics, History of CRM, CRM Evolution, Data Insights"
