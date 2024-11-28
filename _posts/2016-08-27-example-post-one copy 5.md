@@ -5,6 +5,7 @@ categories: [Analytics, CRM, Salesforce]
 tags: [CRM, Salesforce, Data Analytics, History]
 date: 2024-11-28
 layout: post
+author: john-doe
 image: "/assets/images/crm-analytics-history.jpg"
 image_alt: "A chart showing the evolution of CRM analytics over time."
 canonical_url: "https://www.yoursite.com/blog/crm-analytics-history"

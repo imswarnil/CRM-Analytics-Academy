@@ -8,12 +8,12 @@ layout: default
       <div class="column is-8">
         <!-- Blog Post Content -->
         <article class="content">
-          <h1 class="title is-2 has-text-primary" itemprop="headline">{{ page.title }}</h1>
-          <p class="subtitle is-4 has-text-grey-light" itemprop="description">{{ page.excerpt }}</p>
+          <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
+          <p class="subtitle is-4 has-text-grey-light">{{ page.excerpt }}</p>
 
           <!-- Thumbnail -->
           <figure class="image is-16by9">
-            <img src="{{ page.image | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}" itemprop="image">
+            <img src="{{ page.image | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}">
           </figure>
 
           <!-- Content Meta Information -->
@@ -27,13 +27,9 @@ layout: default
               <div class="media-content">
                 <div class="content">
                   <p>Written by 
-                    <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                      <span itemprop="name">{{ site.data.authors[page.author].name }}</span>
-                    </span>
+                    <span>{{ site.data.authors[page.author].name | default: "Unknown" }}</span>
                     <br>
-                    <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-                      {{ page.date | date: "%B %d, %Y" }}
-                    </time>
+                    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
                   </p>
                 </div>
               </div>
@@ -41,29 +37,18 @@ layout: default
           </div>
 
           <!-- Main Content -->
-          <div class="content" itemprop="articleBody">
+          <div class="content">
             {{ content }}
           </div>
 
           <!-- Social Media Share Links -->
           <div class="buttons is-centered my-4">
-            <a class="button is-link is-light" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter">
-              <span class="icon mr-1"><i class="fab fa-twitter"></i> </span> Tweet It
+            <a class="button is-link is-light" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" target="_blank">
+              <span class="icon mr-1"><i class="fab fa-twitter"></i></span> Tweet It
             </a>
-            <a class="button is-link is-light" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">
+            <a class="button is-link is-light" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" target="_blank">
               <span class="icon mr-1"><i class="fab fa-facebook"></i></span> Share It On Facebook
             </a>
-            <a class="button is-link is-light" href="whatsapp://send?text={{ page.title }} - {{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on WhatsApp">
-              <span class="icon mr-1"><i class="fab fa-whatsapp"></i></span> Share On Whatsapp
-            </a>
-            <a class="button is-link is-light" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on LinkedIn">
-              <span class="icon mr-1"><i class="fab fa-linkedin"></i></span> LinkedIn
-            </a>
-            <button id="copyButton" class="button is-link is-light" onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" title="Copy URL">
-              <span id="copyIcon" class="icon mr-1"><i class="fas fa-copy"></i></span>
-              <span id="copyText">Copy The URL</span>
-              <span id="checkIcon" class="icon mr-1" style="display:none;"><i class="fas fa-check"></i></span>
-            </button>
           </div>
 
           <!-- Author Details -->
@@ -78,67 +63,46 @@ layout: default
                 <h3 class="title is-4">{{ site.data.authors[page.author].name }}</h3>
                 <p>{{ site.data.authors[page.author].bio }}</p>
                 <div class="mt-4">
-                  {% if site.data.authors[page.author].twitter %}
-                    <a href="https://twitter.com/{{ site.data.authors[page.author].twitter }}" class="icon mr-2" target="_blank"><i class="fab fa-twitter"></i></a>
-                  {% endif %}
-                  {% if site.data.authors[page.author].github %}
-                    <a href="https://github.com/{{ site.data.authors[page.author].github }}" class="icon mr-2" target="_blank"><i class="fab fa-github"></i></a>
-                  {% endif %}
+                  <a href="https://twitter.com/{{ site.data.authors[page.author].twitter }}" class="icon mr-2"><i class="fab fa-twitter"></i></a>
+                  <a href="https://github.com/{{ site.data.authors[page.author].github }}" class="icon mr-2"><i class="fab fa-github"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Last Modified -->
-          <div class="content-meta my-4">
-            <p><strong>Last Modified:</strong> <time datetime="{{ page.last_modified_date | date_to_xmlschema }}">{{ page.last_modified_date | date: "%B %d, %Y" }}</time></p>
-            <a href="{{ site.repo }}/commits/main/_posts/{{ page.path | uri_encode }}" class="button is-small" target="_blank">View on GitHub</a>
-          </div>
-
-          <!-- Next/Previous Post Pagination -->
-          <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-            <div class="pagination-previous">
-              {% if page.previous %}
-                <a href="{{ page.previous.url }}">← {{ page.previous.title }}</a>
-              {% endif %}
-            </div>
-            <div class="pagination-next">
-              {% if page.next %}
-                <a href="{{ page.next.url }}">{{ page.next.title }} →</a>
-              {% endif %}
-            </div>
-          </nav>
-
-          <!-- Related Posts from the Same Category -->
-          <div class="section">
-            <h3 class="title is-4">Related Posts</h3>
-            <ul class="list has-text-link">
-              {% assign related_posts = site.posts | where: "categories", page.categories[0] | where_exp: "post", "post.id != page.id" | limit: 3 %}
-              {% for post in related_posts %}
-                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
-
-          <!-- Most Recent Posts -->
-          <div class="section">
-            <h3 class="title is-4">Most Recent Posts</h3>
-            <ul class="list has-text-link">
-              {% assign recent_posts = site.posts | limit: 3 %}
-              {% for post in recent_posts %}
-                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
+          <!-- JSON-LD Schema -->
+          <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "{{ site.url }}{{ page.url }}"
+            },
+            "headline": "{{ page.title }}",
+            "description": "{{ page.excerpt }}",
+            "image": "{{ page.image | default: 'https://via.placeholder.com/640x360' }}",
+            "author": {
+              "@type": "Person",
+              "name": "{{ site.data.authors[page.author].name }}",
+              "bio": "{{ site.data.authors[page.author].bio }}",
+              "url": "https://github.com/{{ site.data.authors[page.author].github }}"
+            },
+            "datePublished": "{{ page.date | date_to_xmlschema }}",
+            "dateModified": "{{ page.date | date_to_xmlschema }}",
+            "publisher": {
+              "@type": "Organization",
+              "name": "{{ site.title }}",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "{{ site.logo }}"
+              }
+            },
+            "keywords": "{{ page.keywords }}"
+          }
+          </script>
         </article>
       </div>
-
-      <!-- Sidebar (If Active) -->
-      {% if page.aside == true %}
-      <div class="column is-4">
-        {% include site-aside.html %}
-      </div>
-      {% endif %}
     </div>
   </div>
 </div>

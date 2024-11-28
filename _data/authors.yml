@@ -3,6 +3,7 @@ site-owner:
   bio: "Passionate educator and developer."
   twitter: "site_owner"
   avatar: "/assets/images/authors/site-owner.jpg"
+  github: "siteowner"
 
 john-doe:
   name: "John Doe"
