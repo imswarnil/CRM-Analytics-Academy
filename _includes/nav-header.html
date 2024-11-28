@@ -1,9 +1,12 @@
-
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
         <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i> {{ site.title }}
+      </a>
+      <!-- Mobile Start Button -->
+      <a href="/start" class="navbar-item is-hidden-desktop">
+        <button class="button is-primary">Start</button>
       </a>
       <button class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
         <span aria-hidden="true"></span>
@@ -13,23 +16,40 @@
       </button>
     </div>
     <div id="navbarMenu" class="navbar-menu">
-      <div class="navbar-end">
+      <div class="navbar-start">
         {% for item in site.navigation_header %}
-          {% if item.url contains '://' %}
-            {% assign url = item.url %}
-          {% else %}
-            {% assign url = item.url | relative_url %}
-          {% endif %}
-          <a class="navbar-item {% if item.url == page.url %} is-active{% endif %}" href="{{ url }}">
-            {{ item.title }}
-          </a>
+          {% assign url = item.url contains '://' ? item.url : item.url | relative_url %}
+          <div class="navbar-item {% if item.children %} has-dropdown is-hoverable {% endif %}">
+            <a class="navbar-link {% if item.url == page.url %} is-active{% endif %}" href="{{ url }}">
+              {% if item.icon %}
+                <span class="icon"><i class="{{ item.icon }}"></i></span>
+              {% endif %}
+              {{ item.title }}
+              <span class="dot {% if item.url == page.url %}is-active{% endif %}"></span>
+            </a>
+            {% if item.children %}
+              <div class="navbar-dropdown">
+                {% for child in item.children %}
+                  {% assign child_url = child.url contains '://' ? child.url : child.url | relative_url %}
+                  <a class="navbar-item" href="{{ child_url }}">
+                    {% if child.icon %}
+                      <span class="icon"><i class="{{ child.icon }}"></i></span>
+                    {% endif %}
+                    {{ child.title }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
         {% endfor %}
       </div>
       <div class="navbar-end">
+        <!-- Desktop Start Button -->
+        <a href="/start" class="navbar-item is-hidden-touch">
+          <button class="button is-primary">Start</button>
+        </a>
         <div class="navbar-item">
-            <a href="/search"><span class="icon">
-              <i class="fas fa-search"></i>
-            </a>
+          <a href="/search"><span class="icon"><i class="fas fa-search"></i></span></a>
         </div>
       </div>
     </div>
@@ -39,21 +59,43 @@
 <script>
   // Toggle navbar burger on click
   document.addEventListener('DOMContentLoaded', function () {
-    // Get all "navbar-burger" elements
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-    // Check if there are any navbar burgers
-    if ($navbarBurgers.length > 0) {
-      // Add a click event on each of them
-      $navbarBurgers.forEach(function ($el) {
-        $el.addEventListener('click', function () {
-          // Get the target from the "data-target" attribute
-          const target = $el.dataset.target;
-          const $target = document.getElementById(target);
-          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-          $el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
-        });
+    const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
+    $navbarBurgers.forEach(function ($el) {
+      $el.addEventListener('click', function () {
+        const target = $el.dataset.target;
+        const $target = document.getElementById(target);
+        $el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
       });
-    }
+    });
   });
 </script>
+<style>
+  .navbar-item {
+  position: relative;
+}
+
+.navbar-item .dot {
+  display: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-item:hover .dot,
+.navbar-item.is-active .dot {
+  display: inline-block;
+  background-color: #3273dc; /* Adjust active color */
+}
+
+.navbar-link.is-active {
+  font-weight: bold;
+  color: #3273dc !important;
+}
+
+</style>
