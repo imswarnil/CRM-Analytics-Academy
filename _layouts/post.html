@@ -2,22 +2,39 @@
 layout: default
 ---
 
-<div class="my-5">
+<!-- Blog Header -->
+<header class="blog-header my-5">
+  <div class="container">
+    <h1 class="title is-2 post-title has-text-primary">{{ page.title }}</h1>
+    <p class="subtitle is-4 post-subtitle has-text-grey-light">{{ page.excerpt }}</p>
+  </div>
+</header>
+
+<!-- Breadcrumbs for Navigation -->
+<nav class="breadcrumb is-small" aria-label="breadcrumbs">
+  <div class="container">
+    <ul>
+      <li><a href="{{ site.url }}">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li class="is-active"><a href="#" aria-current="page">{{ page.title }}</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Blog Post Content -->
+<div class="post-content my-5">
   <div class="container">
     <div class="columns mt-5">
       <div class="column is-8">
-        <!-- Blog Post Content -->
-        <article class="content">
-          <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
-          <p class="subtitle is-4 has-text-grey-light">{{ page.excerpt }}</p>
-
+        <!-- Blog Post Article -->
+        <article class="content post-article">
           <!-- Thumbnail -->
-          <figure class="image is-16by9">
+          <figure class="image is-16by9 post-thumbnail">
             <img src="{{ page.image | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}">
           </figure>
 
           <!-- Content Meta Information -->
-          <div class="content-meta my-6">
+          <div class="content-meta my-6 post-meta">
             <div class="media">
               <figure class="media-left">
                 <p class="image is-48x48">
@@ -26,10 +43,10 @@ layout: default
               </figure>
               <div class="media-content">
                 <div class="content">
-                  <p>Written by 
-                    <span>{{ site.data.authors[page.author].name | default: "Unknown" }}</span>
+                  <p>Written by
+                    <span class="author-name">{{ site.data.authors[page.author].name | default: "Unknown" }}</span>
                     <br>
-                    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+                    <time datetime="{{ page.date | date_to_xmlschema }}" class="published-date">{{ page.date | date: "%B %d, %Y" }}</time>
                   </p>
                 </div>
               </div>
@@ -37,12 +54,12 @@ layout: default
           </div>
 
           <!-- Main Content -->
-          <div class="content">
+          <div class="content post-main-content">
             {{ content }}
           </div>
 
           <!-- Social Media Share Links -->
-          <div class="buttons is-centered my-4">
+          <div class="buttons is-centered my-4 post-social-share">
             <a class="button is-link is-light" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" target="_blank">
               <span class="icon mr-1"><i class="fab fa-twitter"></i></span> Tweet It
             </a>
@@ -52,7 +69,7 @@ layout: default
           </div>
 
           <!-- Author Details -->
-          <div class="box mt-6">
+          <div class="box mt-6 post-author-details">
             <div class="media">
               <figure class="media-left">
                 <p class="image is-128x128">
@@ -108,3 +125,104 @@ layout: default
 </div>
 
 {% include site-footer.html %}
+
+<style>/* General Post Page Styling */
+  .blog-header {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 20px;
+  }
+  
+  .post-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #2a3d66;
+  }
+  
+  .post-subtitle {
+      font-size: 1.25rem;
+      font-weight: normal;
+      color: #4a4a4a;
+  }
+  
+  .post-content {
+      margin-top: 30px;
+  }
+  
+  .post-article .post-thumbnail img {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-meta {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .post-meta .author-name {
+      font-weight: bold;
+      color: #2a3d66;
+  }
+  
+  .published-date {
+      font-size: 0.875rem;
+      color: #777;
+  }
+  
+  .post-main-content {
+      margin-top: 30px;
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: #333;
+  }
+  
+  .post-social-share .button {
+      background-color: #0073e6;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 50px;
+  }
+  
+  .post-social-share .button:hover {
+      background-color: #005bb5;
+  }
+  
+  .post-author-details .media-left .image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+  }
+  
+  .post-author-details .media-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+  }
+  
+  .post-author-details .icon {
+      color: #0073e6;
+  }
+  
+  .post-author-details .icon:hover {
+      color: #005bb5;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+      .post-title {
+          font-size: 2rem;
+      }
+  
+      .post-subtitle {
+          font-size: 1.125rem;
+      }
+  
+      .post-author-details .media-left .image {
+          width: 80px;
+          height: 80px;
+      }
+  }
+  
+
+</style>
