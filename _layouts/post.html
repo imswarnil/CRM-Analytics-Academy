@@ -34,6 +34,10 @@ layout: default
         <!-- Right Column (Post ID with Overlay) -->
         <div class="column is-4">
           <div class="post-id-card">
+            <!-- Blog Image -->
+<figure class="image is-16by9 blog-image">
+  <img src="{{ page.image }}" alt="{{ page.title }}">
+</figure>
             <p class="post-id">ID: <strong>{{ page.id }}</strong></p>
           </div>
         </div>
@@ -42,10 +46,7 @@ layout: default
   </div>
 </section>
 
-<!-- Blog Image -->
-<figure class="image is-16by9 blog-image">
-  <img src="{{ page.image }}" alt="{{ page.title }}">
-</figure>
+
 
 <!-- Content Section -->
 <section class="section">
