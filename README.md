@@ -147,7 +147,6 @@ You can customize individual pages and posts with the following options:
 - `aside: true`: Adds a sidebar to the page or post
 - `comments: false`: Disables comments for that post
 - `feature_image: "/uploads/feature-image.jpg"`: Adds a feature image to the page
-- `feature_text: "Welcome to the course!"`: Adds text to the top of the page with a solid color background
 
 ## Credits
 
