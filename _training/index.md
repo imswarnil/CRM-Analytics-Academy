@@ -3,7 +3,5 @@ layout: default
 title: "Training Home"
 description: "Welcome to the CRM Analytics Academy Training"
 permalink: /training
-aside: false
 ---
 
-Some Data

@@ -4,5 +4,47 @@ layout: base
 
 {% include site-header.html %}
 
-
+<section class="py-lg-8 py-7 bg-white">
+    <div class="container my-lg-8">
+      <!-- Hero Section -->
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12">
+          <div class="mb-4 mb-xl-0 text-center text-md-start">
+            <!-- Caption -->
+            <h1 class="display-2 fw-bold mb-3 ls-sm">{{ page.title }}</h1>
+            <p class="mb-4 lead">{{ page.description }}</p>
+            <!-- List -->
+            <div class="mb-6 mb-0">
+              <ul class="list-unstyled fs-4">
+                <li class="mb-2">
+                  <span class="me-2"><i class="fe fe-clock text-warning"></i></span>
+                  <span class="align-text-top">4 Hours</span>
+                </li>
+                <li class="mb-2">
+                  <span class="me-2"><i class="fe fe-video text-warning"></i></span>
+                  <span class="align-text-top">12 Videos</span>
+                </li>
+                <li class="mb-2">
+                  <span class="me-2"><i class="fe fe-users text-warning"></i></span>
+                  <span class="align-text-top">10,234+ Enrolled</span>
+                </li>
+              </ul>
+            </div>
+            <a href="https://www.youtube.com/watch?v=aPwndqsmaGk&t=141s" class="glightbox btn btn-success btn-lg fs-4">Watch Preview</a>
+          </div>
+        </div>
+        <div class="offset-xxl-1 col-xxl-5 col-lg-6 col-md-12">
+          <!-- YouTube Video Embed -->
+          <div class="card smooth-shadow-md" style="z-index: 1">
+            <div class="card-body p-xl-6">
+              <h2 class="h3 fw-bold">Watch Intro Video</h2>
+              <div class="ratio ratio-16x9">
+                <iframe src="https://www.youtube.com/embed/aPwndqsmaGk?start=141" title="YouTube video" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% include site-footer.html %}
