@@ -140,6 +140,7 @@ collections:
     permalink: /:title/
   resources:
     output: true
+    layout : page
 
 # 6. Jekyll collections settings
 defaults:
