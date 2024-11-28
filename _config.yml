@@ -50,7 +50,6 @@ navigation_header:
     url: /training
     icon: fas fa-chalkboard-teacher
   - title: Resources
-    icon : fas screwdriver-wrench
     submenu:
       - title: Books
         url: /resources/books
@@ -61,6 +60,7 @@ navigation_header:
       - title: Tools
         url: /resources/tools
         icon: fas fa-tools
+    icon : fas screwdriver-wrench
   - title: Blog
     url: /blog
     icon: fas fa-rss
