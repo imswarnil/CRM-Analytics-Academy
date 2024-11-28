@@ -1,82 +1,58 @@
-/* Blog Header Styles */
+/* Hero Section Background Circles */
 .blog-header {
     position: relative;
-    background-color: #f7f7f7; /* Light background for hero section */
-    padding-top: 4rem; /* Adjust as needed */
+    background-color: #f7f7f7;
+    padding-top: 4rem;
     padding-bottom: 2rem;
+    overflow: hidden; /* Hide any part of the circle that goes outside the container */
   }
   
-  .blog-header .hero-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* Large Circle (Top Left) */
+  .blog-header .circle.large {
+    position: absolute;
+    top: -50px; /* Adjust positioning as needed */
+    left: -100px; /* Adjust positioning as needed */
+    width: 300px;
+    height: 300px;
+    background-color: rgba(0, 123, 255, 0.3); /* Light blue color with transparency */
+    border-radius: 50%;
+    z-index: -1;
   }
   
-  .blog-header-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+  /* Small Circle (Top Right) - Half hidden */
+  .blog-header .circle.small {
+    position: absolute;
+    top: -50px; /* Adjust positioning as needed */
+    right: -50px; /* Adjust positioning as needed */
+    width: 150px;
+    height: 150px;
+    background-color: rgba(0, 123, 255, 0.5); /* Medium blue color */
+    border-radius: 50%;
+    z-index: -1;
   }
   
-  .blog-header-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    color: #666;
+  /* Bottom Left Circle */
+  .blog-header .circle.bottom-left {
+    position: absolute;
+    bottom: -60px; /* Adjust positioning as needed */
+    left: -80px; /* Adjust positioning as needed */
+    width: 200px;
+    height: 200px;
+    background-color: rgba(0, 123, 255, 0.6); /* Darker blue color */
+    border-radius: 50%;
+    z-index: -1;
   }
   
-  .blog-header-tags .tag {
-    margin-right: 0.5rem;
-    font-size: 1rem;
+  /* Blending Effect on Circles */
+  .blog-header .circle.large {
+    mix-blend-mode: screen; /* Blend with background */
   }
   
-  .blog-header-tags .tag i {
-    margin-right: 0.5rem;
+  .blog-header .circle.small {
+    mix-blend-mode: multiply; /* Blend with background */
   }
   
-  .read-time {
-    font-size: 1rem;
-    margin-top: 1rem;
-    color: #888;
-  }
-  
-  .read-time i {
-    margin-right: 0.5rem;
-  }
-  
-  .column.is-4 {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .column.is-4 .image img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .blog-header .columns {
-      flex-direction: column;
-    }
-  
-    .column.is-8 {
-      margin-bottom: 2rem;
-    }
-  
-    .blog-header-title {
-      font-size: 2rem;
-    }
-  
-    .blog-header-subtitle {
-      font-size: 1rem;
-    }
-  
-    .read-time {
-      font-size: 0.9rem;
-    }
-  
-    .column.is-4 {
-      margin-top: 2rem;
-    }
+  .blog-header .circle.bottom-left {
+    mix-blend-mode: overlay; /* Blend with background */
   }
   
