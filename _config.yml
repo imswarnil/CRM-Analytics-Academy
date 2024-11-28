@@ -138,6 +138,8 @@ collections:
   training:
     output: true
     permalink: /:title/
+  resources:
+    output: true
 
 # 6. Jekyll collections settings
 defaults:
