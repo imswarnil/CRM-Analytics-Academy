@@ -1,269 +1,58 @@
 ---
 layout: default
 ---
-
-<div class="my-5">
-  <div class="container">
-    <div class="columns mt-5">
-      <div class="column is-8">
-        <!-- Blog Post Content -->
-        <article class="content post-detail">
-          <h1 class="title is-2 has-text-primary" itemprop="headline">{{ page.title }}</h1>
-          <p class="subtitle is-4 has-text-grey-light" itemprop="description">{{ page.description }}</p>
-
-          <!-- Thumbnail -->
-          <figure class="image is-16by9 post-thumbnail">
-            <img src="{{ page.thumbnail | default: 'https://via.placeholder.com/640x360' }}" alt="{{ page.title }}" itemprop="image">
-          </figure>
-
-          <!-- Content Meta Information -->
-          <div class="content-meta my-6">
-            <div class="media">
-              <figure class="media-left">
-                <p class="image is-48x48">
-                  <img class="is-rounded" src="{{ page.author_avatar | default: 'avatar-alex.png' }}" alt="{{ page.author }}">
-                </p>
-              </figure>
-              <div class="media-content">
-                <div class="content">
-                  <p>Written by 
-                    <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                      <span itemprop="name">{{ page.author }}</span>
-                    </span>
-                    <br>
-                    <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-                      {{ page.date | date: "%B %d, %Y" }}
-                    </time>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Main Content -->
-          <div class="content" itemprop="articleBody">
-            {{ content }}
-          </div>
-
-          <!-- Estimated Reading Time -->
-          <p class="reading-time has-text-grey">Estimated reading time: <strong>{{ page.content | split: " " | size | divided_by: 200 | round }} min</strong></p>
-
-          <!-- Social Media Share Links -->
-          <div class="buttons is-centered my-4 post-share-buttons">
-            <a class="button is-link is-light" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter">
-              <span class="icon mr-1"><i class="fab fa-twitter"></i> </span> Tweet It
-            </a>
-            <a class="button is-link is-light" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">
-              <span class="icon mr-1"><i class="fab fa-facebook"></i></span> Share It On Facebook
-            </a>
-            <a class="button is-link is-light" href="whatsapp://send?text={{ page.title }} - {{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on WhatsApp">
-              <span class="icon mr-1"><i class="fab fa-whatsapp"></i></span> Share On Whatsapp
-            </a>
-            <a class="button is-link is-light" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on LinkedIn">
-              <span class="icon mr-1"><i class="fab fa-linkedin"></i></span> LinkedIn
-            </a>
-            <button id="copyButton" class="button is-link is-light" onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" title="Copy URL">
-              <span id="copyIcon" class="icon mr-1"><i class="fas fa-copy"></i></span>
-              <span id="copyText">Copy The URL</span>
-              <span id="checkIcon" class="icon mr-1" style="display:none;"><i class="fas fa-check"></i></span>
-            </button>
-          </div>
-
-          <!-- GitHub Edit Link -->
-          <div class="buttons is-centered my-4">
-            <a href="https://github.com/{{ site.github.repository }}/edit/main/{{ page.path }}" class="button is-info is-light" target="_blank">
-              <span class="icon"><i class="fas fa-edit"></i></span> Edit on GitHub
-            </a>
-          </div>
-
-          <!-- Author Details -->
-          <div class="box mt-6 author-details">
-            <div class="media">
-              <figure class="media-left">
-                <p class="image is-128x128">
-                  <img class="is-rounded" src="{{ page.author_avatar | default: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png' }}" alt="{{ page.author }}">
-                </p>
-              </figure>
-              <div class="media-content">
-                <h3 class="title is-4">{{ page.author }}</h3>
-                <p>{{ page.author_bio }}</p>
-                <div class="mt-4">
-                  <a href="#" class="icon mr-2"><i class="fab fa-twitter"></i></a>
-                  <a href="#" class="icon mr-2"><i class="fab fa-facebook"></i></a>
-                  <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Pagination -->
-          <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-            <div class="pagination-previous">
-              {% if page.previous %}
-                <a href="{{ page.previous.url }}">← {{ page.previous.title }}</a>
-              {% endif %}
-            </div>
-            <div class="pagination-next">
-              {% if page.next %}
-                <a href="{{ page.next.url }}">{{ page.next.title }} →</a>
-              {% endif %}
-            </div>
+<div class="hero is-medium is-fullheight blog-header">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <!-- Left Column: Breadcrumb, Title, Subtitle, Category/Tags, Reading Time, Post ID -->
+        <div class="column is-8">
+          <!-- Breadcrumb -->
+          <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+              <li><a href="/" class="has-text-primary"><i class="fas fa-home"></i> Home</a></li>
+              <li><a href="/blog" class="has-text-primary">Blog</a></li>
+              <li class="is-active"><a href="#" aria-current="page" class="has-text-muted">{{ page.title }}</a></li>
+            </ul>
           </nav>
 
-          <!-- Related Posts -->
-          <div class="section">
-            <h3 class="title is-4">Related Posts</h3>
-            <ul class="list has-text-link">
-              {% assign related_posts = site.posts | where: "categories", page.categories[0] | where_exp: "post", "post.id != page.id" | limit: 3 %}
-              {% for post in related_posts %}
-                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-              {% endfor %}
-            </ul>
+          <!-- Title -->
+          <h1 class="title is-2 blog-header-title">{{ page.title }}</h1>
+
+          <!-- Subtitle -->
+          <p class="subtitle is-4 blog-header-subtitle">{{ page.excerpt }}</p>
+
+          <!-- Categories/Tags -->
+          <div class="tags blog-header-tags">
+            <span class="tag is-link">{{ page.categories[0] }}</span>
+            <span class="tag is-info">{{ page.tags[0] }}</span>
+            <span class="tag is-warning">{{ page.reading_time }} min read</span>
           </div>
 
-          <!-- Most Recent Posts -->
-          <div class="section">
-            <h3 class="title is-4">Most Recent Posts</h3>
-            <ul class="list has-text-link">
-              {% assign recent_posts = site.posts | limit: 3 %}
-              {% for post in recent_posts %}
-                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-              {% endfor %}
+          <!-- Post ID -->
+          <div class="post-id-overlay">
+            <span class="post-id-text">{{ page.id }}</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Table of Contents -->
+        <div class="column is-4">
+          <div class="table-of-contents">
+            <h3 class="title is-4">Table of Contents</h3>
+            <ul class="toc-list">
+              <!-- Add dynamically generated TOC items here -->
+              <li><a href="#section1">Introduction</a></li>
+              <li><a href="#section2">Salesforce Evolution</a></li>
+              <li><a href="#section3">AI in CRM Analytics</a></li>
             </ul>
           </div>
-
-        </article>
+        </div>
       </div>
-
-      <!-- Sidebar (If Active) -->
-      {% if page.aside == true %}
-      <div class="column is-4">
-        {% include site-aside.html %}
-      </div>
-      {% endif %}
     </div>
   </div>
+  
+  <!-- Post Image -->
+  <figure class="image is-16by9 blog-header-image">
+    <img src="{{ page.image }}" alt="{{ page.title }}">
+  </figure>
 </div>
-
-{% include site-footer.html %}
-<style>
-  /* General Styles for the Post */
-.post-detail {
-  margin-bottom: 30px;
-}
-
-/* Thumbnail */
-.post-thumbnail img {
-  border-radius: 5px;
-}
-
-/* Social Share Buttons */
-.post-share-buttons .button {
-  margin-right: 5px;
-}
-
-/* Copy Button */
-#copyButton {
-  display: inline-flex;
-  align-items: center;
-}
-
-#copyButton .icon {
-  margin-right: 5px;
-}
-
-#copyButton:focus {
-  outline: none;
-}
-
-#copyButton .is-light {
-  background-color: #f0f0f0;
-}
-
-#copyButton .is-link {
-  color: #3273dc;
-}
-
-/* GitHub Edit Link Button */
-.buttons.is-info.is-light {
-  margin-top: 20px;
-}
-
-/* Estimated Reading Time */
-.reading-time {
-  margin-top: 20px;
-  font-size: 1.1rem;
-}
-
-/* Author Details */
-.author-details {
-  margin-top: 40px;
-}
-
-.author-details .media-left {
-  margin-right: 20px;
-}
-
-.author-details .media-content {
-  padding-left: 10px;
-}
-
-.author-details .title {
-  margin-bottom: 10px;
-}
-
-/* Related and Recent Posts Section */
-.section h3 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-
-/* Scroll to Top Button (Fixed) */
-#scrollTopButton {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #3273dc;
-  color: white;
-  border-radius: 50%;
-  padding: 15px;
-  display: none;
-  font-size: 24px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 100;
-}
-
-#scrollTopButton:hover {
-  background-color: #1d5f9d;
-}
-
-/* Pagination Buttons */
-.pagination {
-  margin-top: 40px;
-}
-
-.pagination-previous a, .pagination-next a {
-  color: #3273dc;
-}
-
-.pagination-previous a:hover, .pagination-next a:hover {
-  text-decoration: underline;
-}
-
-</style>
-<script>
-  // Scroll-to-Top Button Logic
-window.onscroll = function() {
-  let button = document.getElementById("scrollTopButton");
-  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-    button.style.display = "block";
-  } else {
-    button.style.display = "none";
-  }
-};
-
-document.getElementById("scrollTopButton").addEventListener("click", function() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-</script>
