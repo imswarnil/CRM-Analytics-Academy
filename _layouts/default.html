@@ -94,7 +94,7 @@
     </script>    
 </head>
 
-<body class="layout-{{ page.layout | default: 'default' }}{% if page.title %} {{ page.title | slugify }}{% endif %}">
+<body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
    <!-- Custom install promotion popup -->
    <div id="installPopup" style="display: none; position: fixed; bottom: 10px; left: 10px; background: white; border: 1px solid black; padding: 10px; z-index: 1000;">

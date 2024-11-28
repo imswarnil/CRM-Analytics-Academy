@@ -3,6 +3,7 @@
     position: relative;
     background-color: #f7f7f7; /* Light background for hero section */
     padding-top: 4rem; /* Adjust as needed */
+    padding-bottom: 2rem;
   }
   
   .blog-header .hero-body {
@@ -28,6 +29,31 @@
     font-size: 1rem;
   }
   
+  .blog-header-tags .tag i {
+    margin-right: 0.5rem;
+  }
+  
+  .read-time {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #888;
+  }
+  
+  .read-time i {
+    margin-right: 0.5rem;
+  }
+  
+  .column.is-4 {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .column.is-4 .image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
   @media screen and (max-width: 768px) {
     .blog-header .columns {
       flex-direction: column;
@@ -43,6 +69,14 @@
   
     .blog-header-subtitle {
       font-size: 1rem;
+    }
+  
+    .read-time {
+      font-size: 0.9rem;
+    }
+  
+    .column.is-4 {
+      margin-top: 2rem;
     }
   }
   
