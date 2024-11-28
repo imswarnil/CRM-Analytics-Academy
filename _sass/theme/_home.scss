@@ -1,6 +1,6 @@
 /* Home Hero Section Styling */
 .home-hero {
-  background-color: rgba(248, 249, 250, 0.8); /* Slightly faded background */
+  background-color: var(--bulma-primary-95);
   padding: 3rem 1.5rem;
   position: relative;
   overflow: hidden; /* Ensures the shapes are contained within the section */
