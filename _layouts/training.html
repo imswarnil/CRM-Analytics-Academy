@@ -1,50 +1,75 @@
 ---
-layout: base
+layout: default
 ---
 
-{% include site-header.html %}
+<section class="hero is-fullheight is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-6">
+          <h1 class="title is-1">{{ page.title }}</h1>
+          <p class="subtitle is-4">{{ page.description }}</p>
 
-<section class="py-lg-8 py-7 bg-white">
-    <div class="container my-lg-8">
-      <!-- Hero Section -->
-      <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12">
-          <div class="mb-4 mb-xl-0 text-center text-md-start">
-            <!-- Caption -->
-            <h1 class="display-2 fw-bold mb-3 ls-sm">{{ page.title }}</h1>
-            <p class="mb-4 lead">{{ page.description }}</p>
-            <!-- List -->
-            <div class="mb-6 mb-0">
-              <ul class="list-unstyled fs-4">
-                <li class="mb-2">
-                  <span class="me-2"><i class="fe fe-clock text-warning"></i></span>
-                  <span class="align-text-top">4 Hours</span>
-                </li>
-                <li class="mb-2">
-                  <span class="me-2"><i class="fe fe-video text-warning"></i></span>
-                  <span class="align-text-top">12 Videos</span>
-                </li>
-                <li class="mb-2">
-                  <span class="me-2"><i class="fe fe-users text-warning"></i></span>
-                  <span class="align-text-top">10,234+ Enrolled</span>
-                </li>
-              </ul>
-            </div>
-            <a href="https://www.youtube.com/watch?v=aPwndqsmaGk&t=141s" class="glightbox btn btn-success btn-lg fs-4">Watch Preview</a>
+          <!-- Stats List -->
+          <div class="mb-6">
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <span class="icon is-small"><i class="fe fe-clock text-warning"></i></span>
+                <span>4 Hours</span>
+              </li>
+              <li class="mb-2">
+                <span class="icon is-small"><i class="fe fe-video text-warning"></i></span>
+                <span>12 Videos</span>
+              </li>
+              <li class="mb-2">
+                <span class="icon is-small"><i class="fe fe-users text-warning"></i></span>
+                <span>10,234+ Enrolled</span>
+              </li>
+            </ul>
           </div>
+          
+          <!-- Call-to-Action Button -->
+          <a href="https://www.youtube.com/watch?v=aPwndqsmaGk&t=141s" class="button is-success is-large">
+            Watch Preview
+          </a>
         </div>
-        <div class="offset-xxl-1 col-xxl-5 col-lg-6 col-md-12">
-          <!-- YouTube Video Embed -->
-          <div class="card smooth-shadow-md" style="z-index: 1">
-            <div class="card-body p-xl-6">
-              <h2 class="h3 fw-bold">Watch Intro Video</h2>
-              <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/aPwndqsmaGk?start=141" title="YouTube video" allowfullscreen></iframe>
+
+        <!-- YouTube Video Embed Section -->
+        <div class="column is-6">
+          <div class="card">
+            <div class="card-content">
+              <h2 class="title is-4">Watch Intro Video</h2>
+              <div class="video-container">
+                <iframe class="iframe" width="100%" height="315" src="https://www.youtube.com/embed/aPwndqsmaGk?start=141" title="CRM Analytics Training Intro" allowfullscreen></iframe>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-{% include site-footer.html %}
+  </div>
+</section>
+
+<!-- JSON-LD Schema for YouTube Video -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "CRM Analytics Training - Introduction",
+  "description": "Learn the basics of CRM Analytics and get introduced to the course structure.",
+  "thumbnailUrl": "https://img.youtube.com/vi/aPwndqsmaGk/hqdefault.jpg",
+  "uploadDate": "2024-11-29",
+  "duration": "PT30M",
+  "contentUrl": "https://www.youtube.com/watch?v=aPwndqsmaGk",
+  "embedUrl": "https://www.youtube.com/embed/aPwndqsmaGk?start=141",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CRM Analytics Academy",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://crmanalytics.imswarnil.com/logo.png"
+    }
+  }
+}
+</script>
+
