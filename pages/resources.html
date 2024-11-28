@@ -1,0 +1,53 @@
+---
+layout: default
+title: "CRM Analytics Resources"
+permalink: /resources
+---
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">CRM Analytics Resources</h1>
+
+    <!-- Filters -->
+    <div class="buttons mb-4">
+      <button class="button is-info" onclick="filterResources('Book')">Books</button>
+      <button class="button is-info" onclick="filterResources('Blog')">Blogs</button>
+      <button class="button is-info" onclick="filterResources('Video')">Videos</button>
+      <button class="button is-info" onclick="filterResources('Tutorial')">Tutorials</button>
+      <button class="button is-info" onclick="filterResources('Case Study')">Case Studies</button>
+    </div>
+
+    <!-- Resource List -->
+    <div id="resource-list" class="columns is-multiline">
+      {% for resource in site.resources %}
+        <div class="column is-4" data-type="{{ resource.type }}">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{ resource.image }}" alt="{{ resource.title }}">
+              </figure>
+            </div>
+            <div class="card-content">
+              <h2 class="title is-4">{{ resource.title }}</h2>
+              <p>{{ resource.summary }}</p>
+              <a href="{{ resource.url }}" class="button is-primary">Read More</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  function filterResources(type) {
+    const resources = document.querySelectorAll('.column');
+    resources.forEach(resource => {
+      if (resource.getAttribute('data-type') === type || type === 'All') {
+        resource.style.display = 'block';
+      } else {
+        resource.style.display = 'none';
+      }
+    });
+  }
+</script>
