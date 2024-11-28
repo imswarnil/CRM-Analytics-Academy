@@ -15,7 +15,7 @@
       <div class="navbar-end">
         {% for item in site.navigation_header %}
           {% assign url = item.url contains '://' ? item.url : item.url | relative_url %}
-          <div class="navbar-item {% if item.children %} has-dropdown is-hoverable {% endif %}">
+          <div class="navbar-item {% if item.children %} is-hoverable {% endif %}">
             <a class="{% if item.url == page.url %} is-active{% endif %}" href="{{ url }}">
               {% if item.icon %}
                 <span class="icon ml-1"><i class="{{ item.icon }}"></i></span>
@@ -23,7 +23,7 @@
               {{ item.title }}
             </a>
             {% if item.children %}
-              <div class="navbar-dropdown">
+              <div class="navbar-dropdown has-dropdown ">
                 {% for child in item.children %}
                   {% assign child_url = child.url contains '://' ? child.url : child.url | relative_url %}
                   <a class="navbar-item" href="{{ child_url }}">
