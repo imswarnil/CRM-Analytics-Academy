@@ -1,58 +1,84 @@
-/* Hero Section Background Circles */
-.blog-header {
+.layout-post .post-hero {
     position: relative;
-    background-color: #f7f7f7;
-    padding-top: 4rem;
-    padding-bottom: 2rem;
-    overflow: hidden; /* Hide any part of the circle that goes outside the container */
-  }
+    padding: 3rem 1.5rem;
   
-  /* Large Circle (Top Left) */
-  .blog-header .circle.large {
-    position: absolute;
-    top: -50px; /* Adjust positioning as needed */
-    left: -100px; /* Adjust positioning as needed */
-    width: 300px;
-    height: 300px;
-    background-color: rgba(0, 123, 255, 0.3); /* Light blue color with transparency */
-    border-radius: 50%;
-    z-index: -1;
-  }
+    &.is-small {
+      padding: 2rem 1.5rem;
+    }
   
-  /* Small Circle (Top Right) - Half hidden */
-  .blog-header .circle.small {
-    position: absolute;
-    top: -50px; /* Adjust positioning as needed */
-    right: -50px; /* Adjust positioning as needed */
-    width: 150px;
-    height: 150px;
-    background-color: rgba(0, 123, 255, 0.5); /* Medium blue color */
-    border-radius: 50%;
-    z-index: -1;
-  }
+    &.is-medium {
+      padding: 4rem 1.5rem;
+    }
   
-  /* Bottom Left Circle */
-  .blog-header .circle.bottom-left {
-    position: absolute;
-    bottom: -60px; /* Adjust positioning as needed */
-    left: -80px; /* Adjust positioning as needed */
-    width: 200px;
-    height: 200px;
-    background-color: rgba(0, 123, 255, 0.6); /* Darker blue color */
-    border-radius: 50%;
-    z-index: -1;
-  }
+    &.is-large {
+      padding: 6rem 1.5rem;
+    }
   
-  /* Blending Effect on Circles */
-  .blog-header .circle.large {
-    mix-blend-mode: screen; /* Blend with background */
-  }
+    &.is-primary {
+      background-color: #00d1b2; // Bulma's primary color
+      color: white;
   
-  .blog-header .circle.small {
-    mix-blend-mode: multiply; /* Blend with background */
-  }
+      h1,
+      p,
+      .metadata .tag {
+        color: white;
+      }
+    }
   
-  .blog-header .circle.bottom-left {
-    mix-blend-mode: overlay; /* Blend with background */
+    &.is-dark {
+      background-color: #363636; // Bulma's dark color
+      color: #f5f5f5;
+  
+      h1,
+      p,
+      .metadata .tag {
+        color: #f5f5f5;
+      }
+    }
+  
+    &.is-light {
+      background-color: #f5f5f5; // Bulma's light color
+      color: #363636;
+  
+      h1,
+      p,
+      .metadata .tag {
+        color: #363636;
+      }
+    }
+  }
+
+  .layout-post .post-hero .metadata {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+  
+      i {
+        font-size: 0.9em;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .layout-post .post-hero {
+      text-align: center;
+  
+      .columns {
+        flex-direction: column-reverse;
+  
+        .column {
+          margin-bottom: 1rem;
+        }
+      }
+  
+      .metadata {
+        justify-content: center;
+      }
+    }
   }
   

@@ -1,58 +1,46 @@
 ---
 layout: default
 ---
-<div class="hero is-medium is-fullwidth blog-header">
-  <!-- Background Circles -->
-  <div class="circle large"></div>
-  <div class="circle small"></div>
-  <div class="circle bottom-left"></div>
-
+<div class="hero post-hero {{ page.hero_size | default: 'is-medium' }} {{ page.hero_color | default: 'is-primary' }}">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
-        <!-- Left Column: Blog Title, Subtitle, Categories/Tags, Read Time -->
-        <div class="column is-8">
-          <!-- Breadcrumb -->
-          <nav class="breadcrumb" aria-label="breadcrumbs">
-            <ul>
-              <li><a href="/" class="has-text-primary"><i class="fas fa-home"></i> Home</a></li>
-              <li><a href="/blog" class="has-text-primary">Blog</a></li>
-              <li class="is-active"><a href="#" aria-current="page" class="has-text-muted">{{ page.title }}</a></li>
-            </ul>
-          </nav>
-
-          <!-- Title -->
-          <h1 class="title is-2 blog-header-title">{{ page.title }}</h1>
-
-          <!-- Subtitle -->
-          <p class="subtitle is-4 blog-header-subtitle">{{ page.excerpt }}</p>
-
-          <!-- Categories/Tags with Icons -->
-          <div class="tags blog-header-tags">
-            {% for category in page.categories %}
-              <span class="tag is-rounded is-info"><i class="fas fa-folder"></i> {{ category }}</span>
-            {% endfor %}
+        <!-- Left Content -->
+        <div class="column is-7">
+          <h1 class="title is-1">{{ page.title }}</h1>
+          <div class="metadata mt-3">
+            <span class="tag is-info">
+              <i class="fas fa-folder"></i> {{ page.category | capitalize }}
+            </span>
             {% for tag in page.tags %}
-              <span class="tag is-rounded is-link"><i class="fas fa-tag"></i> {{ tag }}</span>
+            <span class="tag is-light">
+              <i class="fas fa-tag"></i> {{ tag }}
+            </span>
             {% endfor %}
           </div>
-
-          <!-- Read Time with Icon -->
-          <div class="read-time">
-            <i class="fas fa-clock"></i> <span>{{ page.reading_time }} min read</span>
+          <div class="mt-3">
+            <p>
+              <i class="fas fa-clock"></i> {{ page.read_time | default: '5' }} min read
+            </p>
           </div>
         </div>
-
-        <!-- Right Column: Image -->
-        <div class="column is-4">
-          <figure class="image is-4by3">
-            <img src="https://via.placeholder.com/300x200" alt="Blog post image" />
+        <!-- Right Image -->
+        <div class="column is-5">
+          <figure class="image is-square">
+            <img src="{{ page.hero_image | default: 'https://via.placeholder.com/400' }}" alt="Post Image">
           </figure>
         </div>
       </div>
     </div>
   </div>
+  <!-- Decorative Circles -->
+  <div class="background-decorations">
+    <div class="circle is-large"></div>
+    <div class="circle is-small is-right"></div>
+    <div class="circle is-blend"></div>
+  </div>
 </div>
+
 
 
 {% include site-footer.html %}
