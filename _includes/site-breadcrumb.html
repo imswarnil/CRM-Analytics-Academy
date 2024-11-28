@@ -1,0 +1,54 @@
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      {% assign url_parts = page.url | split: '/' %}
+      {% assign breadcrumb_url = "" %}
+  
+      <!-- Home Link -->
+      <li>
+        <a href="{{ site.url }}/">Home</a>
+      </li>
+  
+      <!-- Generate Breadcrumbs Dynamically -->
+      {% for part in url_parts %}
+        {% if part != "" and forloop.last == false %}
+          {% assign breadcrumb_url = breadcrumb_url | append: "/" | append: part %}
+          <li>
+            <a href="{{ site.url }}{{ breadcrumb_url }}">{{ part | capitalize }}</a>
+          </li>
+        {% endif %}
+        {% if forloop.last %}
+          <li class="is-active">
+            <a href="#" aria-current="page">{{ part | capitalize }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {% assign url_parts = page.url | split: '/' %}
+        {% assign breadcrumb_url = "" %}
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "{{ site.url }}/"
+        }
+        {% for part in url_parts %}
+          {% if part != "" %}
+            {% assign breadcrumb_url = breadcrumb_url | append: "/" | append: part %}
+            ,{
+              "@type": "ListItem",
+              "position": {{ forloop.index0 | plus: 2 }},
+              "name": "{{ part | capitalize }}",
+              "item": "{{ site.url }}{{ breadcrumb_url }}"
+            }
+          {% endif %}
+        {% endfor %}
+      ]
+    }
+    </script>
+    
