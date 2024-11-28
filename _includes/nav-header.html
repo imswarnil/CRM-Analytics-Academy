@@ -14,50 +14,63 @@
     <div id="navbarMenu" class="navbar-menu">
       <div class="navbar-end">
         {% for item in site.navigation_header %}
-          {% assign url = item.url contains '://' ? item.url : item.url | relative_url %}
-          <div class="navbar-item {% if item.children %} is-hoverable {% endif %}">
-            <a class="{% if item.url == page.url %} is-active{% endif %}" href="{{ url }}">
-              {% if item.icon %}
-                <span class="icon ml-1"><i class="{{ item.icon }}"></i></span>
-              {% endif %}
-              {{ item.title }}
-            </a>
-            {% if item.children %}
-              <div class="navbar-dropdown has-dropdown ">
-                {% for child in item.children %}
-                  {% assign child_url = child.url contains '://' ? child.url : child.url | relative_url %}
-                  <a class="navbar-item" href="{{ child_url }}">
-                    {% if child.icon %}
-                      <span class="icon"><i class="{{ child.icon }}"></i></span>
-                    {% endif %}
-                    {{ child.title }}
+          {% if item.title == 'Resources' %}
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link" href="#">
+                <span class="icon"><i class="fas fa-folder"></i></span> {{ item.title }}
+              </a>
+              <div class="navbar-dropdown">
+                {% for subitem in item.submenu %}
+                  <a class="navbar-item" href="{{ subitem.url | relative_url }}">
+                    <span class="icon"><i class="{{ subitem.icon }}"></i></span> {{ subitem.title }}
                   </a>
                 {% endfor %}
               </div>
+            </div>
+          {% else %}
+            {% if item.url contains '://' %}
+              {% assign url = item.url %}
+            {% else %}
+              {% assign url = item.url | relative_url %}
             {% endif %}
-          </div>
+            <a class="navbar-item {% if item.url == page.url %} is-active{% endif %}" href="{{ url }}">
+              <span class="icon"><i class="{{ item.icon }}"></i></span> {{ item.title }}
+            </a>
+          {% endif %}
         {% endfor %}
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
-          <a href="/search"><span class="icon"><i class="fas fa-search"></i></span></a>
+          <a href="https://github.com/yourproject" class="button is-primary" target="_blank">
+            <span class="icon"><i class="fas fa-star"></i></span>
+            <span>Star on GitHub</span>
+          </a>
+        </div>
+        <div class="navbar-item">
+          <button id="darkModeToggle" class="button is-light">
+            <span class="icon"><i class="fas fa-moon"></i></span>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </nav>
-
 <script>
-  // Toggle navbar burger on click
-  document.addEventListener('DOMContentLoaded', function () {
-    const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
-    $navbarBurgers.forEach(function ($el) {
-      $el.addEventListener('click', function () {
-        const target = $el.dataset.target;
-        const $target = document.getElementById(target);
-        $el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
-      });
+  document.addEventListener('DOMContentLoaded', () => {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('has-dark-mode');
     });
   });
 </script>
+<style>
+  :root.has-dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+:root.has-dark-mode .navbar {
+  background-color: #222;
+}
+
+</style>

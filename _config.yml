@@ -40,40 +40,36 @@ favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
 
 # 9. Site navigation
 navigation_header:
-- title: Home
-  url: /
-  icon: fas fa-home
-- title: About
-  url: /about
-  icon: fas fa-info-circle
-- title: Training
-  url: /training
-  icon: fas fa-chalkboard-teacher
-- title: Elements
-  url: /elements
-  icon: fas fa-puzzle-piece
-- title: Blog
-  url: /blog
-  icon: fas fa-blog
-- title: Resources
-  url: #
-  icon: fas fa-book
-  children:
-    - title: Books
-      url: /resources/books
-      icon: fas fa-book-open
-    - title: Blogs
-      url: /resources/blogs
-      icon: fas fa-pen
-    - title: Tutorials
-      url: /resources/tutorials
-      icon: fas fa-video
-- title: Search
-  url: /search
-  icon: fas fa-search
-- title: Fork Alembic
-  url: https://github.com/daviddarnes/alembic
-  icon: fas fa-code-branch
+  - title: Home
+    url: /
+    icon: fas fa-home
+  - title: About
+    url: /about
+    icon: fas fa-info-circle
+  - title: Training
+    url: /training
+    icon: fas fa-chalkboard-teacher
+  - title: Resources
+    submenu:
+      - title: Books
+        url: /resources/books
+        icon: fas fa-book
+      - title: Blogs
+        url: /resources/blogs
+        icon: fas fa-blog
+      - title: Tools
+        url: /resources/tools
+        icon: fas fa-tools
+  - title: Blog
+    url: /blog
+    icon: fas fa-rss
+  - title: Search
+    url: /search
+    icon: fas fa-search
+  - title: Fork Alembic
+    url: https://github.com/daviddarnes/alembic
+    icon: fas fa-code-branch
+
 
 
 navigation_footer:
