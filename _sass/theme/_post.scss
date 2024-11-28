@@ -1,7 +1,6 @@
 /* Hero Section */
 .post-hero {
     position: relative;
-    background: #3273dc;
     padding: 50px 0;
     overflow: hidden;
   }
@@ -23,7 +22,6 @@
     top: -50px;  /* Adjust this value for positioning */
     left: -50px; /* Adjust this value for positioning */
     background-color: rgba(255, 255, 255, 0.3); /* Light white color */
-    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3); /* Subtle glow effect */
   }
   
   /* Bottom Circle */
@@ -33,7 +31,6 @@
     bottom: -100px; /* Adjust this value for positioning */
     right: -100px; /* Adjust this value for positioning */
     background-color: rgba(255, 255, 255, 0.2); /* Light white color */
-    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3); /* Subtle glow effect */
   }
   
   /* Content Styling */
