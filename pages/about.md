@@ -27,32 +27,32 @@ permalink : /about
             <div class="columns is-multiline">
                 <div class="column is-4">
                     <figure class="image">
-                        <img src="../assets/images/about/geeksui-img-1.jpg" alt="Gallery image 1" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 1" class="is-rounded">
                     </figure>
                 </div>
                 <div class="column is-4">
                     <figure class="image">
-                        <img src="../assets/images/about/geeksui-img-2.jpg" alt="Gallery image 2" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 2" class="is-rounded">
                     </figure>
                 </div>
                 <div class="column is-4">
                     <figure class="image">
-                        <img src="../assets/images/about/geeksui-img-3.jpg" alt="Gallery image 3" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 3" class="is-rounded">
                     </figure>
                 </div>
                 <div class="column is-4">
                     <figure class="image">
-                        <img src="../assets/images/about/geeksui-img-4.jpg" alt="Gallery image 4" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 4" class="is-rounded">
                     </figure>
                 </div>
                 <div class="column is-4">
                     <figure class="image">
-                        <img src="../assets/images/about/geeksui-img-5.jpg" alt="Gallery image 5" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 5" class="is-rounded">
                     </figure>
                 </div>
                 <div class="column is-4">
                     <figure class="image">
-                        <img src="../assets/images/about/geeksui-img-6.jpg" alt="Gallery image 6" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 6" class="is-rounded">
                     </figure>
                 </div>
             </div>
