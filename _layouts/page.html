@@ -8,6 +8,29 @@ layout: default
       <div class="column is-8">
         <article class="article content animated intensifies">
           <h1 class="title animated intensifies">{{ page.title }}</h1>
+          <section class="recent-collections">
+            <div class="container">
+                <h2 class="title is-3">Most Recent from Our Collections</h2>
+                <div class="columns is-multiline">
+                     {% for collection in site.collections %}
+                        {% assign collection_name = collection[0] %}
+                        {% assign collection_items = collection[1].docs %}
+                        
+                        {% if collection_items.size > 0 %}
+                            {% assign recent_item = collection_items | sort: 'date' | last %}
+                            
+                            <div class="column is-4">
+                                <div class="box">
+                                    <h3 class="title is-4">{{ recent_item.title }}</h3>
+                                    <p class="content">{{ recent_item.excerpt | truncatewords: 20 }}</p>
+                                    <a href="{{ recent_item.url }}" class="button is-link">Read More</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
           {{ content }}
         </article>
       </div>

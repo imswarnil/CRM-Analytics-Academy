@@ -1,38 +1,11 @@
 ---
 title: Elements
-feature_text: |
-  A demo of Markdown and HTML includes
+feature_text: A demo of Markdown and HTML includes
 feature_image: "https://picsum.photos/2560/600?image=873"
 description: "A demo of Markdown and HTML includes"
 aside: true
 sidebar_type: right  # Optional, defaults to 'right' if aside is true
 ---
-
-<section class="recent-collections">
-    <div class="container">
-        <h2 class="title is-3">Most Recent from Our Collections</h2>
-        
-        <div class="columns is-multiline">
-            {% for collection in site.collections %}
-                {% assign collection_name = collection[0] %}
-                {% assign collection_items = collection[1].docs %}
-                
-                {% if collection_items.size > 0 %}
-                    {% assign recent_item = collection_items | sort: 'date' | last %}
-                    
-                    <div class="column is-4">
-                        <div class="box">
-                            <h3 class="title is-4">{{ recent_item.title }}</h3>
-                            <p class="content">{{ recent_item.excerpt | truncatewords: 20 }}</p>
-                            <a href="{{ recent_item.url }}" class="button is-link">Read More</a>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
 
 <!-- _includes/lessons.html -->
 {% assign posts = site.posts | where_exp: "post", "post.categories contains 'Training Videos'" %}
