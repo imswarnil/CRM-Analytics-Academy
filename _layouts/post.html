@@ -1,11 +1,11 @@
 ---
 layout: default
 ---
-<div class="hero is-medium is-fullheight blog-header">
+<div class="hero is-medium is-fullwidth blog-header">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
-        <!-- Left Column: Breadcrumb, Title, Subtitle, Category/Tags, Reading Time, Post ID -->
+        <!-- Left Column: Blog Title, Subtitle, Categories/Tags -->
         <div class="column is-8">
           <!-- Breadcrumb -->
           <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -24,35 +24,18 @@ layout: default
 
           <!-- Categories/Tags -->
           <div class="tags blog-header-tags">
-            <span class="tag is-link">{{ page.categories[0] }}</span>
-            <span class="tag is-info">{{ page.tags[0] }}</span>
+            {% for category in page.categories %}
+              <span class="tag is-link">{{ category }}</span>
+            {% endfor %}
+            {% for tag in page.tags %}
+              <span class="tag is-info">{{ tag }}</span>
+            {% endfor %}
             <span class="tag is-warning">{{ page.reading_time }} min read</span>
-          </div>
-
-          <!-- Post ID -->
-          <div class="post-id-overlay">
-            <span class="post-id-text">{{ page.id }}</span>
-          </div>
-        </div>
-
-        <!-- Right Column: Table of Contents -->
-        <div class="column is-4">
-          <div class="table-of-contents">
-            <h3 class="title is-4">Table of Contents</h3>
-            <ul class="toc-list">
-              <!-- Add dynamically generated TOC items here -->
-              <li><a href="#section1">Introduction</a></li>
-              <li><a href="#section2">Salesforce Evolution</a></li>
-              <li><a href="#section3">AI in CRM Analytics</a></li>
-            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- Post Image -->
-  <figure class="image is-16by9 blog-header-image">
-    <img src="{{ page.image }}" alt="{{ page.title }}">
-  </figure>
 </div>
+
+{% include site-footer.html %}
