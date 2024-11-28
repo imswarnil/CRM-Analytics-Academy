@@ -1,174 +1,172 @@
+/* Home Hero Section Styling */
 .home-hero {
-    background-color: rgba(248, 249, 250, 0.8); /* Slightly faded background */
-    padding: 3rem 1.5rem;
-    position: relative;
-    overflow: hidden; /* Ensures the shapes are contained within the section */
-  }
+  background-color: rgba(248, 249, 250, 0.8); /* Slightly faded background */
+  padding: 3rem 1.5rem;
+  position: relative;
+  overflow: hidden; /* Ensures the shapes are contained within the section */
+}
 
-  /* Decorative Dotted Background */
-  .home-hero::before {
-    content: '';
-    position: absolute;
-    top: 10%;
-    left: -10%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, transparent 70%, #e0e0e0 70%) 0 0 / 10px 10px;
-    transform: rotate(45deg);
-    opacity: 0.4;
-    z-index: 0;
-  }
-  .home-hero::after {
-    content: '';
-    position: absolute;
-    bottom: -10%;
-    right: -10%;
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, transparent 70%, #e0e0e0 70%) 0 0 / 10px 10px;
-    opacity: 0.4;
-    z-index: 0;
-  }
+/* Decorative Circle Background */
+.home-hero::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: -10%;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(224, 224, 224, 0.5); /* Light gray circle */
+  border-radius: 50%;
+  transform: scale(1.2); /* Slight enlargement */
+  animation: circleFloat 8s infinite ease-in-out; /* Add floating animation */
+  z-index: 0;
+}
 
-  /* Decorative Dotted Background */
-   .hero-section::before {
-    content: '';
-    position: absolute;
-    top: 10%;
-    left: -10%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, transparent 70%, #e0e0e0 70%) 0 0 / 10px 10px;
-    transform: rotate(45deg);
-    opacity: 0.4;
-    z-index: 0;
+.home-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  right: -10%;
+  width: 250px;
+  height: 250px;
+  background-color: rgba(224, 224, 224, 0.5); /* Light gray circle */
+  border-radius: 50%;
+  transform: scale(1);
+  animation: circleFloatReverse 8s infinite ease-in-out; /* Reverse floating animation */
+  z-index: 0;
+}
+
+/* Circle Floating Animation */
+@keyframes circleFloat {
+  0%, 100% {
+    transform: scale(1.2) translateY(0px);
   }
-  .hero-section::after {
-    content: '';
-    position: absolute;
-    bottom: -10%;
-    right: -10%;
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, transparent 70%, #e0e0e0 70%) 0 0 / 10px 10px;
-    opacity: 0.4;
-    z-index: 0;
+  50% {
+    transform: scale(1.2) translateY(-20px); /* Float up slightly */
   }
-  /* Content Layout */
-  .home-hero .hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+}
+
+@keyframes circleFloatReverse {
+  0%, 100% {
+    transform: scale(1) translateY(0px);
   }
-  
-  /* Title */
+  50% {
+    transform: scale(1) translateY(20px); /* Float down slightly */
+  }
+}
+
+/* Content Layout */
+.home-hero .hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Title */
+.home-hero .hero-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4a4e69;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.home-hero .hero-title:hover {
+  color: #2d2d54; /* Change color on hover */
+  text-decoration: underline;
+  text-decoration-color: #4a4e69; /* Add underline effect */
+  text-underline-position: under;
+}
+
+/* Subtitle */
+.home-hero .hero-subtitle {
+  font-size: 1.25rem;
+  color: #7c7c7c;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.home-hero .hero-subtitle:hover {
+  color: #4a4e69; /* Change color on hover */
+}
+
+/* Call-to-Action Buttons */
+.home-hero .hero-buttons .button {
+  margin: 0.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.home-hero .hero-buttons .button:hover {
+  background-color: #2d2d54; /* Change background on hover */
+  color: white; /* Change text color */
+}
+
+/* Student Avatars Styling */
+.home-hero .student-avatars {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.home-hero .student-avatar {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  margin-left: -15px; /* Stack avatars */
+  transition: all 0.3s ease-in-out;
+}
+
+.home-hero .student-avatar:hover {
+  border-color: #2d2d54; /* Change border color on hover */
+  transform: scale(1.1); /* Slight scale-up effect */
+}
+
+.home-hero .students-text {
+  margin-left: 1rem;
+  color: #7c7c7c;
+  font-size: 1.25rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.home-hero .students-text:hover {
+  color: #4a4e69; /* Change color on hover */
+}
+
+/* Image Styling */
+.home-hero .hero-image {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.home-hero .hero-image:hover {
+  border: 2px solid #2d2d54; /* Add border on hover */
+  transform: scale(1.05); /* Slight zoom-in effect */
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
   .home-hero .hero-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #4a4e69;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease-in-out;
+    font-size: 2rem;
   }
-  
-  .home-hero .hero-title:hover {
-    color: #2d2d54; /* Change color on hover */
-    text-decoration: underline;
-    text-decoration-color: #4a4e69; /* Add underline effect */
-    text-underline-position: under;
-  }
-  
-  /* Subtitle */
+
   .home-hero .hero-subtitle {
-    font-size: 1.25rem;
-    color: #7c7c7c;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease-in-out;
+    font-size: 1.125rem;
   }
-  
-  .home-hero .hero-subtitle:hover {
-    color: #4a4e69; /* Change color on hover */
-  }
-  
-  /* Call-to-Action Buttons */
-  .home-hero .hero-buttons .button {
-    margin: 0.5rem;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .hero-buttons .button:hover {
-    background-color: #2d2d54; /* Change background on hover */
-    color: white; /* Change text color */
-  }
-  
-  /* Student Avatars Styling */
+
   .home-hero .student-avatars {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 2rem;
-    position: relative;
+    justify-content: center;
+    margin-top: 1rem;
   }
-  
-  .home-hero .student-avatar {
-    width: 50px;
-    height: 50px;
-    border: 2px solid #ffffff;
-    border-radius: 50%;
-    margin-left: -15px; /* Stack avatars */
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .student-avatar:hover {
-    border-color: #2d2d54; /* Change border color on hover */
-    transform: scale(1.1); /* Slight scale-up effect */
-  }
-  
+
   .home-hero .students-text {
-    margin-left: 1rem;
-    color: #7c7c7c;
-    font-size: 1.25rem;
-    transition: all 0.3s ease-in-out;
+    font-size: 1rem;
+    text-align: center;
+    margin-left: 0;
   }
-  
-  .home-hero .students-text:hover {
-    color: #4a4e69; /* Change color on hover */
-  }
-  
-  /* Image Styling */
-  .home-hero .hero-image {
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .hero-image:hover {
-    border: 2px solid #2d2d54; /* Add border on hover */
-    transform: scale(1.05); /* Slight zoom-in effect */
-  }
-  
-  /* Mobile Responsiveness */
-  @media screen and (max-width: 768px) {
-    .home-hero .hero-title {
-      font-size: 2rem;
-    }
-  
-    .home-hero .hero-subtitle {
-      font-size: 1.125rem;
-    }
-  
-    .home-hero .student-avatars {
-      justify-content: center;
-      margin-top: 1rem;
-    }
-  
-    .home-hero .students-text {
-      font-size: 1rem;
-      text-align: center;
-      margin-left: 0;
-    }
-  }
-  
-  
+}
