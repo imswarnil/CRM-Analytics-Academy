@@ -14,6 +14,10 @@ hero_size : is-small
 keywords: "CRM, Salesforce, Analytics, History of CRM, CRM Evolution, Data Insights"
 ---
 
+
+<h2>Latest Videos from My YouTube Channel</h2>
+
+{% youtube_videos channel_id="UCRkqSGyfZkhOzZIHjlgBXcQ" %}
 *Posted on November 28, 2024*  
 *Categories: Analytics, CRM, Salesforce*  
 *Tags: CRM, Salesforce, Data Analytics, History*
