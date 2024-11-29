@@ -6,15 +6,50 @@
 >
     <div class="hero-body {% if page.hero_darken %} hero-darken {% endif %}">
         <div class="container">
-            <h1 class="title is-2">{{ page.title }}</h1>
-            <p class="subtitle is-3">{{ page.description }}</p>
-            {% if page.hero_link %}
-                <div class="my-4">
-                    <a href="{{ page.hero_link | relative_url }}" class="button is-info is-medium">
-                        {{- page.hero_link_text -}}
-                    </a>
+            <div class="columns">
+                <!-- Breadcrumbs Section -->
+                <div class="column is-full">
+                    <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="{{ page.url | relative_url }}">{{ page.title }}</a></li>
+                        </ul>
+                    </nav>
                 </div>
-            {% endif %}
+
+                <!-- Hero Content Section -->
+                <div class="column is-5">
+                    <h1 class="title is-5">{{ page.title }}</h1>
+                    <p class="subtitle is-3">{{ page.description }}</p>
+                    {% if page.hero_link %}
+                        <div class="my-4">
+                            <a href="{{ page.hero_link | relative_url }}" class="button is-info is-medium">
+                                {{- page.hero_link_text -}}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Hero Image/Video/Ads Section -->
+                <div class="column is-7">
+                    {% if page.hero_image %}
+                        <!-- Image -->
+                        <figure class="image is-4by3">
+                            <img src="{{ page.hero_image | relative_url }}" alt="Hero Image">
+                        </figure>
+                    {% elsif page.hero_video %}
+                        <!-- Video (e.g., YouTube) -->
+                        <div class="embed-container">
+                            <iframe width="100%" height="315" src="{{ page.hero_video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    {% elsif page.hero_ads %}
+                        <!-- Ads (replace with your adsense or other ad content) -->
+                        <div class="ads-container">
+                            <p>Ad content goes here</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </section>
