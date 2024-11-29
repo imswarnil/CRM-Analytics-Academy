@@ -28,11 +28,62 @@
   <link rel="stylesheet" href="{{ "/assets/styles.css" | relative_url }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
   {% if site.favicons or site.avatarurl %}{% include site-favicons.html %}{% endif %}
   {% if site.google_analytics %}{% include site-analytics.html %}{% endif %}
   {% include site-fonts.html %}
-  {% include site-before-start.html %}   
+  {% include site-before-start.html %} 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  // Lazy load images
+  const lazyImages = document.querySelectorAll("img[data-src]");
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.removeAttribute("data-src");
+        imageObserver.unobserve(img);
+      }
+    });
+  });
+
+  lazyImages.forEach((img) => imageObserver.observe(img));
+
+  // Lazy load YouTube videos
+  const youtubePlaceholders = document.querySelectorAll(".youtube-placeholder");
+  youtubePlaceholders.forEach((placeholder) => {
+    placeholder.addEventListener("click", function () {
+      const videoId = placeholder.dataset.videoId;
+      const iframe = document.createElement("iframe");
+      iframe.setAttribute("src", `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
+      iframe.setAttribute("allowfullscreen", "true");
+      placeholder.innerHTML = "";
+      placeholder.appendChild(iframe);
+    });
+  });
+
+  // Lazy load AdSense ads
+  const adPlaceholders = document.querySelectorAll(".ad-placeholder");
+  const adObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const ad = entry.target;
+        ad.innerHTML = `<ins class="adsbygoogle" 
+                          style="display:block"
+                          data-ad-client="${ad.dataset.adClient}" 
+                          data-ad-slot="${ad.dataset.adSlot}"></ins>`;
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        adObserver.unobserve(ad);
+      }
+    });
+  });
+
+  adPlaceholders.forEach((ad) => adObserver.observe(ad));
+});
+
+  </script>  
 </head>
 
 <body class="layout-{{ page.layout | default: 'default' }}">
