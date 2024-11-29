@@ -14,8 +14,7 @@ hero_size : is-small
 keywords: "CRM, Salesforce, Analytics, History of CRM, CRM Evolution, Data Insights"
 ---
 
-{% youtube_videos UCRkqSGyfZkhOzZIHjlgBXcQ %}
-
+{% youtube_videos %}
 
 *Posted on November 28, 2024*  
 *Categories: Analytics, CRM, Salesforce*  
