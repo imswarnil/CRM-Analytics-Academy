@@ -10,17 +10,25 @@
                 <!-- Breadcrumbs Section -->
                 <div class="column is-full">
                     <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
-                        <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="{{ page.url | relative_url }}">{{ page.title }}</a></li>
+                        <ul class="breadcrumb-list">
+                            <li>
+                                <a href="/" class="breadcrumb-item">
+                                    <i class="fas fa-home"></i> Home
+                                </a>
+                            </li>
+                            <li>
+                                <span class="breadcrumb-item">
+                                    <i class="fas fa-chevron-right"></i> {{ page.title }}
+                                </span>
+                            </li>
                         </ul>
                     </nav>
                 </div>
 
                 <!-- Hero Content Section -->
-                <div class="column is-5">
-                    <h1 class="title is-5">{{ page.title }}</h1>
-                    <p class="subtitle is-3">{{ page.description }}</p>
+                <div class="column is-12 is-laptop-5 is-tablet-6 is-mobile-12">
+                    <h1 class="title is-5 hero-title">{{ page.title }}</h1>
+                    <p class="subtitle is-3 hero-description">{{ page.description }}</p>
                     {% if page.hero_link %}
                         <div class="my-4">
                             <a href="{{ page.hero_link | relative_url }}" class="button is-info is-medium">
@@ -30,20 +38,20 @@
                     {% endif %}
                 </div>
 
-                <!-- Hero Image/Video/Ads Section -->
-                <div class="column is-7">
+                <!-- Hero Media Section (Image/Video/Ads) -->
+                <div class="column is-12 is-laptop-7 is-tablet-6 is-mobile-12">
                     {% if page.hero_image %}
                         <!-- Image -->
                         <figure class="image is-4by3">
                             <img src="{{ page.hero_image | relative_url }}" alt="Hero Image">
                         </figure>
                     {% elsif page.hero_video %}
-                        <!-- Video (e.g., YouTube) -->
+                        <!-- Video -->
                         <div class="embed-container">
                             <iframe width="100%" height="315" src="{{ page.hero_video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     {% elsif page.hero_ads %}
-                        <!-- Ads (replace with your adsense or other ad content) -->
+                        <!-- Ads -->
                         <div class="ads-container">
                             <p>Ad content goes here</p>
                         </div>
@@ -53,3 +61,134 @@
         </div>
     </div>
 </section>
+
+<!-- Custom Styling and Parallax Effect -->
+<style>
+    .hero {
+        position: relative;
+    }
+
+    .hero-body {
+        position: relative;
+        z-index: 10;
+    }
+
+    .breadcrumb-list {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+    }
+
+    .breadcrumb-item {
+        color: white;
+        font-size: 1.2rem;
+        margin-right: 10px;
+    }
+
+    .breadcrumb-item i {
+        margin-right: 5px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        color: white;
+        font-weight: 700;
+        line-height: 1.4;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .hero-description {
+        font-size: 1.2rem;
+        color: white;
+        text-align: center;
+        line-height: 1.6;
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .embed-container iframe {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Parallax Effect */
+    .breadcrumb, .hero-title {
+        position: relative;
+        transition: transform 0.2s ease-out;
+    }
+
+    .hero-body {
+        overflow: hidden;
+    }
+
+    .breadcrumb, .hero-title {
+        z-index: 20;
+    }
+
+    /* Ensure the background scrolls at different speed */
+    .hero.is-primary {
+        background-position: center center !important;
+        background-attachment: fixed;
+    }
+
+    .breadcrumb-list li {
+        font-size: 1rem;
+    }
+
+    /* Responsive Classes */
+    @media screen and (max-width: 1024px) {
+        .is-laptop-5 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+        .is-laptop-7 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .is-tablet-6 {
+            flex: 0 0 60%;
+            max-width: 60%;
+        }
+        .is-tablet-6.is-mobile-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .is-mobile-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .breadcrumb-list {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<!-- Scroll Event for Parallax Effect -->
+<script>
+    window.addEventListener('scroll', function() {
+        var scrollY = window.scrollY;
+        var breadcrumbs = document.querySelector('.breadcrumb');
+        var title = document.querySelector('.hero-title');
+
+        // Parallax scroll effect
+        if (breadcrumbs) {
+            breadcrumbs.style.transform = 'translateY(' + scrollY * 0.2 + 'px)';
+        }
+
+        if (title) {
+            title.style.transform = 'translateY(' + scrollY * 0.1 + 'px)';
+        }
+    });
+</script>
