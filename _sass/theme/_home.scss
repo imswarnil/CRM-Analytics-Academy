@@ -1,6 +1,5 @@
 /* Home Hero Section Styling */
 .home-hero {
-  background-color: var(--bulma-primary-95);
   padding: 3rem 1.5rem;
   position: relative;
   overflow: hidden; /* Ensures the shapes are contained within the section */
@@ -68,13 +67,6 @@
   color: #4a4e69;
   margin-bottom: 1rem;
   transition: all 0.3s ease-in-out;
-}
-
-.home-hero .hero-title:hover {
-  color: #2d2d54; /* Change color on hover */
-  text-decoration: underline;
-  text-decoration-color: #4a4e69; /* Add underline effect */
-  text-underline-position: under;
 }
 
 /* Subtitle */
