@@ -13,7 +13,12 @@ module Jekyll
     def fetch_videos
       url = URI.parse("https://www.googleapis.com/youtube/v3/search?key=#{API_KEY}&channelId=#{CHANNEL_ID}&order=date&part=snippet&type=video")
       response = Net::HTTP.get_response(url)
-      JSON.parse(response.body)
+      json_response = JSON.parse(response.body)
+      
+      # Debugging: Output raw response for inspection
+      puts "API Response: #{json_response.inspect}"
+
+      json_response
     end
 
     # Render the YouTube videos as iframes
@@ -50,6 +55,7 @@ module Jekyll
     def render(context)
       videos_data = fetch_videos
 
+      # Debugging: Check for video items
       if videos_data["items"].nil? || videos_data["items"].empty?
         return "No videos found."
       else
