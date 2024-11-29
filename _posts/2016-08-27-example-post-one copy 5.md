@@ -20,6 +20,8 @@ keywords: "CRM, Salesforce, Analytics, History of CRM, CRM Evolution, Data Insig
 
 # A Brief History of CRM Analytics: Salesforce’s Role
 
+![What is Salesforce](assets/what-is-salesforce.png)
+
 Customer Relationship Management (CRM) is an essential part of modern business, helping companies track and manage interactions with potential and existing customers. However, CRM has evolved far beyond simple contact management, and analytics has played a significant role in shaping the landscape of CRM.
 
 ### The Early Days of CRM Analytics
