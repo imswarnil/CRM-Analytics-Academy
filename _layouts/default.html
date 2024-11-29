@@ -88,6 +88,9 @@
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
+  {% unless page.hide_hero %}
+            {% include site-hero.html %}
+   {% endunless %}
   <div class="container">
     {{ content }}
   </div>
