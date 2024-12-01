@@ -1,0 +1,135 @@
+    .hero {
+        position: relative;
+        overflow: hidden;
+        background-color: #d4e7fb; /* Light blue background (exact match to image) */
+        color: #2c3e50; /* Text color */
+    }
+
+    /* Top-left circles */
+    .circle-top-large,
+    .circle-top-small {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 1;
+        mix-blend-mode: multiply; /* Blend effect */
+        transition: all 0.4s ease; /* Smooth transitions */
+    }
+
+    .circle-top-large {
+        width: 400px;
+        height: 400px;
+        top: -200px;
+        left: -200px;
+        background-color: rgba(42, 84, 192, 0.4); /* Exact blue shade */
+    }
+
+    .circle-top-small {
+        width: 225px;
+        height: 225px;
+        top: -150px;
+        left: 125px;
+        background-color: rgba(72, 105, 240, 0.3); /* Exact lighter blue shade */
+    }
+
+    /* Bottom-right circle */
+    .circle-bottom {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 1;
+        width: 400px;
+        height: 400px;
+        bottom: -150px;
+        right: -150px;
+        background-color: rgba(33, 62, 150, 0.4); /* Exact darker blue */
+        mix-blend-mode: multiply; /* Blend effect */
+        transition: all 0.4s ease; /* Smooth transitions */
+    }
+
+    /* Ensure text is above circles */
+    .hero-body {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Text alignment and style */
+    .hero .title {
+        color: #223344; /* Darker text color for contrast */
+        text-align: center;
+        font-size: 2rem; /* Responsive text */
+        transition: font-size 0.3s ease; /* Smooth transitions */
+    }
+
+    .hero .subtitle {
+        text-align: center;
+        color: #3c4a5d;
+        font-size: 1.2rem; /* Responsive text */
+        transition: font-size 0.3s ease; /* Smooth transitions */
+    }
+
+    /* Mobile responsiveness */
+    @media screen and (max-width: 768px) {
+        /* Adjust top-left circles */
+        .circle-top-large {
+            width: 200px;
+            height: 200px;
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle-top-small {
+            width: 100px;
+            height: 100px;
+            top: -60px;
+            left: 70px;
+        }
+
+        /* Adjust bottom-right circle */
+        .circle-bottom {
+            width: 175px;
+            height: 175px;
+            bottom: -100px;
+            right: -100px;
+        }
+
+        /* Adjust text size */
+        .hero .title {
+            font-size: 1.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1rem;
+        }
+    }
+
+    /* Tablet responsiveness */
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+        .circle-top-large {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+
+        .circle-top-small {
+            width: 150px;
+            height: 150px;
+            top: -100px;
+            left: 80px;
+        }
+
+        .circle-bottom {
+            width: 250px;
+            height: 250px;
+            bottom: -50px;
+            right: -100px;
+        }
+
+        /* Adjust text size */
+        .hero .title {
+            font-size: 1.8rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+        }
+    }
