@@ -1,22 +1,14 @@
 
-<!-- Home Hero Section -->
 <section class="home-hero">
   <div class="container hero-content">
     <div class="columns is-vcentered">
-      <!-- Left Content -->
       <div class="column is-half">
-        <h1 class="hero-title">Master CRM Analytics</h1>
-        <p class="hero-subtitle">
-          Your journey to becoming a CRM Analytics expert starts here. Learn how to analyze, automate, and enhance customer data with our tailored courses.
-        </p>
-
-        <!-- Call-to-Action Buttons -->
+        <h1 class="hero-title">{page.title}</h1>
+        <p class="hero-subtitle">{{ page.description }}</p>
         <div class="hero-buttons is-justify-content-start">
-          <button class="button is-primary">Join Now</button>
-          <button class="button is-light">Free Trial</button>
+          <a href="{{ page.button_primary_link }}" class="button is-primary">{{ page.button_primary_text }}</a>
+          <a href="{{ page.button_secondary_link }}" class="button is-light is-outlined">{{ page.button_secondary_text }} </a>
         </div>
-
-        <!-- Student Avatars -->
         <div class="student-avatars">
           <img src="https://via.placeholder.com/50" alt="Student 1" class="student-avatar">
           <img src="https://via.placeholder.com/50" alt="Student 2" class="student-avatar">
@@ -25,10 +17,7 @@
           <span class="students-text">Join 1,000+ Students Enrolled</span>
         </div>
       </div>
-
-      <!-- Right Content -->
       <div class="column is-half has-text-centered">
-        <!-- Hero Image -->
         <figure>
           <img src="https://i.ytimg.com/vi/aPwndqsmaGk/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDlmEDJ43p7vz_pPaw4RVQyke5NDQ" alt="CRM Analytics" class="hero-image">
         </figure>
