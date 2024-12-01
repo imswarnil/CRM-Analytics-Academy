@@ -1,8 +1,6 @@
     .hero {
         position: relative;
         overflow: hidden;
-        background-color: #d4e7fb; /* Light blue background (exact match to image) */
-        color: #2c3e50; /* Text color */
     }
 
     /* Top-left circles */
@@ -16,11 +14,11 @@
     }
 
     .circle-top-large {
-        width: 400px;
-        height: 400px;
+        width: 350px;
+        height: 350px;
         top: -200px;
         left: -200px;
-        background-color: rgba(42, 84, 192, 0.4); /* Exact blue shade */
+        background-color: var(--bulma-primary-35);
     }
 
     .circle-top-small {
@@ -28,7 +26,7 @@
         height: 225px;
         top: -150px;
         left: 125px;
-        background-color: rgba(72, 105, 240, 0.3); /* Exact lighter blue shade */
+        background-color: var(--bulma-primary-10-invert);
     }
 
     /* Bottom-right circle */
@@ -36,8 +34,8 @@
         position: absolute;
         border-radius: 50%;
         z-index: 1;
-        width: 350px;
-        height: 350px;
+        width: 300px;
+        height: 300px;
         bottom: -150px;
         right: -150px;
         background-color: var(--bulma-primary-100-invert);
@@ -53,16 +51,10 @@
 
     /* Text alignment and style */
     .hero .title {
-        color: #223344; /* Darker text color for contrast */
-        text-align: center;
-        font-size: 2rem; /* Responsive text */
         transition: font-size 0.3s ease; /* Smooth transitions */
     }
 
     .hero .subtitle {
-        text-align: center;
-        color: #3c4a5d;
-        font-size: 1.2rem; /* Responsive text */
         transition: font-size 0.3s ease; /* Smooth transitions */
     }
 
@@ -91,14 +83,7 @@
             right: -100px;
         }
 
-        /* Adjust text size */
-        .hero .title {
-            font-size: 1.5rem;
-        }
-
-        .hero .subtitle {
-            font-size: 1rem;
-        }
+      h
     }
 
     /* Tablet responsiveness */
