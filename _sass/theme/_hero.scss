@@ -36,11 +36,11 @@
         position: absolute;
         border-radius: 50%;
         z-index: 1;
-        width: 400px;
-        height: 400px;
+        width: 350px;
+        height: 350px;
         bottom: -150px;
         right: -150px;
-        background-color: rgba(33, 62, 150, 0.4); /* Exact darker blue */
+        background-color: var(--bulma-primary-100-invert);
         mix-blend-mode: multiply; /* Blend effect */
         transition: all 0.4s ease; /* Smooth transitions */
     }
