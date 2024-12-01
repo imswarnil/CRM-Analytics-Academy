@@ -3,7 +3,7 @@
   <div class="container hero-content">
     <div class="columns is-vcentered">
       <div class="column is-half">
-        <h1 class="hero-title">{page.title}</h1>
+        <h1 class="hero-title">{{page.title}}</h1>
         <p class="hero-subtitle">{{ page.description }}</p>
         <div class="hero-buttons is-justify-content-start">
           <a href="{{ page.button_primary_link }}" class="button is-primary">{{ page.button_primary_text }}</a>
@@ -19,7 +19,7 @@
       </div>
       <div class="column is-half has-text-centered">
         <figure>
-          <img src="https://i.ytimg.com/vi/aPwndqsmaGk/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDlmEDJ43p7vz_pPaw4RVQyke5NDQ" alt="CRM Analytics" class="hero-image">
+          <img src="{{ page.image }}" alt="{{page.title}}" class="hero-image">
         </figure>
       </div>
     </div>

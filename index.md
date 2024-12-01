@@ -5,6 +5,6 @@ button_primary_text: "Start Your Training"
 button_primary_link: "/training"
 button_secondary_text: "Know More"
 button_secondary_link: "/about"
-hero_image: "https://i.ytimg.com/vi/aPwndqsmaGk/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDlmEDJ43p7vz_pPaw4RVQyke5NDQ"
+image: "https://i.ytimg.com/vi/aPwndqsmaGk/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDlmEDJ43p7vz_pPaw4RVQyke5NDQ"
 layout: home
 ---
