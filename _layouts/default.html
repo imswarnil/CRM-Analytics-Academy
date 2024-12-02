@@ -59,7 +59,7 @@
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
-  <div id="lazy-ad-top-leaderboard" style="max-height: 90px;">
+  <div id="lazy-ad-top-leaderboard" style="max-height: 90px; padding: 30px;">
     {% lazy_adsense top-leaderboard %}
   </div>
   {% unless page.hide_hero %}
