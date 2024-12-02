@@ -1,6 +1,7 @@
 <section
   class="hero {% if page.layout == 'home' %} home-hero {% elsif page.height %} {{ page.height }} {% else if page.height == 'default' %} is-small {% endif %} 
-    {% if page.extra %} {{ page.extra }} {% endif %}"
+    {% if page.page_bg %} {{ page.hero_bg | default: 'has-background-primary-light' }}
+    {% endif %}"
   {% if page.image %}
     style="background: url('{{ page.image }}') no-repeat center center; background-size: cover;"
   {% endif %}

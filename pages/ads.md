@@ -7,6 +7,7 @@ title: "Default Hero"
 subtitle: "A versatile and dynamic hero section."
 hero_height: is-medium
 left: is-4
+page_bg : has-background-primary
 right: is-8
 hero_right_content: "<strong>Your Ad Content Here</strong>"
 ---
