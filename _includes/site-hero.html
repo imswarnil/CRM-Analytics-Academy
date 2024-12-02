@@ -10,16 +10,24 @@
           <!-- Left Column (if applicable) -->
           {% if page.layout == 'home' %}
           <div class="column is-half">
-            <h1 class="title">{{ page.title }}</h1>
-            <p class="subtitle">{{ page.description }}</p>
-            <div class="buttons">
-              {% if page.primarylink and page.primarytext %}
-              <a href="{{ page.primarylink }}" class="button is-primary">{{ page.primarytext }}</a>
+            <h1 class="hero-title">{{ page.title }}</h1>
+            <p class="hero-subtitle">{{ page.description }}</p>
+            <div class="hero-buttons is-justify-content-start">
+              {% if page.button_primary_link and page.button_primary_text %}
+              <a href="{{ page.button_primary_link }}" class="button is-primary">{{ page.button_primary_text }}</a>
               {% endif %}
-              {% if page.secondarylink and page.secondarytext %}
-              <a href="{{ page.secondarylink }}" class="button is-light is-outlined">{{ page.secondarytext }}</a>
+              {% if page.button_secondary_link and page.button_secondary_text %}
+              <a href="{{ page.button_secondary_link }}" class="button is-light is-outlined">{{ page.button_secondary_text }}</a>
               {% endif %}
             </div>
+            {% if page.show_students %}
+            <div class="student-avatars">
+              {% for avatar in page.student_avatars %}
+              <img src="{{ avatar.src }}" alt="{{ avatar.alt }}" class="student-avatar">
+              {% endfor %}
+              <span class="students-text">{{ page.student_text }}</span>
+            </div>
+            {% endif %}
           </div>
           {% endif %}
   
