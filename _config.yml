@@ -123,7 +123,7 @@ collections:
   posts:
     title: Posts # Needed for Siteleaf
     output: true
-    description: "My thoughts and ideas" # The post list page content
+    description: "CRM Analytics Tutorials" # The post list page content
   training:
     output: true
     permalink: :path/:title/
