@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Player</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    /* General Styles */
+    .sidebar {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      border-right: 1px solid #ddd;
+      height: 100vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .lesson-card {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .lesson-icon {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #00d1b2;
+      color: white;
+      border-radius: 50%;
+      font-size: 1rem;
+      margin-right: 0.75rem;
+    }
+
+    .lesson-content {
+      display: flex;
+      justify-content: space-between;
+      flex-grow: 1;
+      align-items: center;
+    }
+
+    .lesson-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .lesson-meta {
+      font-size: 0.8rem;
+      color: #757575;
+      margin-left: auto;
+    }
+
+    .active-lesson {
+      background-color: #00d1b2;
+      color: white;
+    }
+
+    .active-lesson .lesson-icon {
+      background-color: white;
+      color: #00d1b2;
+    }
+
+    .player-content {
+      padding: 1.5rem;
+    }
+
+    .video-frame {
+      width: 100%;
+      height: 300px;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    /* Mobile Navigation Button */
+    .mobile-nav-btn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background-color: #00d1b2;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile-nav-btn:hover {
+      background-color: #00b89c;
+    }
+
+    /* Sidebar Modal for Mobile */
+    .mobile-sidebar {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      z-index: 2000;
+      padding: 1rem;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-sidebar.active {
+      transform: translateY(0);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #757575;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    .lesson-list {
+      display: none;
+      padding-left: 1rem;
+    }
+
+    .lesson-list.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      .mobile-nav-btn {
+        display: block;
+      }
+
+      .player-content {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Fixed Button for Mobile -->
+<button id="mobileNavBtn" class="mobile-nav-btn">Lessons</button>
+
+<!-- Sidebar Modal for Mobile -->
+<div id="mobileSidebar" class="mobile-sidebar">
+  <button id="closeBtn" class="close-btn">&times;</button>
+  <h2 class="title is-5">Course Sections</h2>
+
+  <!-- Sections List -->
+  <div id="overview" class="section-title">Course Overview</div>
+  <div id="lessons" class="section-title">Lessons</div>
+
+  <!-- Lessons List for Mobile -->
+  <div id="lessonsList" class="lesson-list">
+    <div class="box lesson-card active-lesson">
+      <div class="lesson-icon">
+        <i class="fas fa-play-circle"></i>
+      </div>
+      <div class="lesson-content">
+        <span class="lesson-title">Lesson 1: Introduction</span>
+        <span class="lesson-meta">10 min</span>
+      </div>
+    </div>
+    <div class="box lesson-card">
+      <div class="lesson-icon">
+        <i class="fas fa-book"></i>
+      </div>
+      <div class="lesson-content">
+        <span class="lesson-title">Lesson 2: Basics</span>
+        <span class="lesson-meta">15 min</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="columns is-gapless">
+  <!-- Sidebar for Desktop -->
+  <aside class="column is-3 sidebar">
+    <h2 class="title is-5">Course Sections</h2>
+
+    <!-- Sections -->
+    <div id="overviewDesktop" class="section-title">Course Overview</div>
+    <div id="lessonsDesktop" class="section-title">Lessons</div>
+
+    <!-- Lessons List for Desktop -->
+    <div id="lessonsListDesktop" class="lesson-list">
+      <div class="box lesson-card active-lesson">
+        <div class="lesson-icon">
+          <i class="fas fa-play-circle"></i>
+        </div>
+        <div class="lesson-content">
+          <span class="lesson-title">Lesson 1: Introduction</span>
+          <span class="lesson-meta">10 min</span>
+        </div>
+      </div>
+      <div class="box lesson-card">
+        <div class="lesson-icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="lesson-content">
+          <span class="lesson-title">Lesson 2: Basics</span>
+          <span class="lesson-meta">15 min</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Player Section -->
+  <main class="column is-9 player-content">
+    <h1 class="title">Lesson 1: Introduction</h1>
+    <div class="video-frame">
+      <p>Video Placeholder</p>
+    </div>
+    <div class="content mt-5">
+      <h2 class="subtitle">Lesson Description</h2>
+      <p>Welcome to the first lesson! Explore the basics of this course.</p>
+    </div>
+  </main>
+</div>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- Script for Modal and Section Toggle -->
+<script>
+  const mobileNavBtn = document.getElementById('mobileNavBtn');
+  const mobileSidebar = document.getElementById('mobileSidebar');
+  const closeBtn = document.getElementById('closeBtn');
+  const lessonsSection = document.getElementById('lessons');
+  const lessonsList = document.getElementById('lessonsList');
+  const lessonsDesktop = document.getElementById('lessonsDesktop');
+  const lessonsListDesktop = document.getElementById('lessonsListDesktop');
+  
+  // Mobile Button: Open Sidebar
+  mobileNavBtn.addEventListener('click', () => {
+    mobileSidebar.classList.add('active');
+  });
+
+  // Mobile Close Button
+  closeBtn.addEventListener('click', () => {
+    mobileSidebar.classList.remove('active');
+  });
+
+  // Mobile: Toggle Lessons
+  lessonsSection.addEventListener('click', () => {
+    lessonsList.classList.toggle('active');
+  });
+
+  // Desktop: Toggle Lessons
+  lessonsDesktop.addEventListener('click', () => {
+    lessonsListDesktop.classList.toggle('active');
+  });
+</script>
+
+</body>
+</html>

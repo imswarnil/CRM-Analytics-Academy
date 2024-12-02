@@ -1,0 +1,39 @@
+/* Placeholder for ads */
+.ad-placeholder {
+    background-color: #f5f5f5;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .ad-placeholder .icon {
+    color: #ccc;
+  }
+  
+  /* Lazy loaded images */
+  .lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .lazy-image[src] {
+    opacity: 1;
+  }
+  
+  /* YouTube Placeholder */
+  .youtube-placeholder {
+    cursor: pointer;
+    position: relative;
+  }
+  .youtube-placeholder .youtube-thumbnail {
+    width: 100%;
+    border-radius: 5px;
+  }
+  .youtube-placeholder .youtube-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+  

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rounded Card Layout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .card-item {
+            margin-bottom: 1.5em;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #f5f5f5;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card-content {
+            display: flex;
+            align-items: center;
+            padding: 1.5em;
+            background-color: white;
+        }
+        .card-number {
+            font-size: 4em;
+            font-weight: bold;
+            color: #00d1b2;
+            margin-right: 1em;
+            line-height: 1;
+        }
+        .card-info {
+           
+            flex-direction: column;
+            
+        }
+        @media screen and (max-width: 768px) {
+            .card-item {
+                
+            }
+        }
+        @media screen and (max-width: 480px) {
+            .card-item {
+               
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Dinâmica e Compressão em Masterização</h1>
+            <div class="card-container">
+                <div class="card-item">
+                    <img src="https://via.placeholder.com/400x300" alt="Course Image" class="image">
+                    <div class="card-content">
+                        <div class="card-number has-text-primary">1</div>
+                        <div class="card-info">
+                            <div class="card-title has-text-weight-bold">Dinâmica e Compressão na...</div>
+                            <div class="card-meta has-text-grey">2024 · Produção musical</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <img src="https://via.placeholder.com/400x300" alt="Course Image" class="image">
+                    <div class="card-content">
+                        <div class="card-number has-text-primary">2</div>
+                        <div class="card-info">
+                            <div class="card-title has-text-weight-bold">Aplicação de Compressão...</div>
+                            <div class="card-meta has-text-grey">2024 · Produção musical</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <img src="https://via.placeholder.com/400x300" alt="Course Image" class="image">
+                    <div class="card-content">
+                        <div class="card-number has-text-primary">3</div>
+                        <div class="card-info">
+                            <div class="card-title has-text-weight-bold">Técnicas de Limitação em...</div>
+                            <div class="card-meta has-text-grey">2024 · Produção musical</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <img src="https://via.placeholder.com/400x300" alt="Course Image" class="image">
+                    <div class="card-content">
+                        <div class="card-number has-text-primary">4</div>
+                        <div class="card-info">
+                            <div class="card-title has-text-weight-bold">Paralel Compression para Im...</div>
+                            <div class="card-meta has-text-grey">2024 · Produção musical</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

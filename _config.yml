@@ -84,41 +84,27 @@ social_links: # Appears in sidebar. Set the urls then uncomment and comment out 
 
 ads:
   enable: true
-  client: "ca-pub-1291242080282540"
+  client: "ca-pub-1291242080282540" # Your AdSense Client ID
   types:
     leaderboard:
       slot: "1864856299"
       style: "display:inline-block;width:728px;height:90px"
-    skyscraper:
+    square:
+      slot: "6066270853"
+      style: "display:inline-block;width:250px;height:250px"
+    vertical:
       slot: "3487917390"
-      style: "display:block"
-      format: "auto"
-    in_article:
-      slot: "6501428979"
-      style: "display:block; text-align:center;"
-      layout: "in-article"
-      format: "fluid"
-    multiplex:
-      slot: "3375031396"
-      style: "display:inline-block;width:900px;height:250px"
-    responsive_square:
-      slot: "7663977887"
-      style: "display:block"
-      format: "auto"
-      full_width: true
-    horizontal_responsive:
+      style: "display:block;width:300px;height:600px"
+    horizontal:
       slot: "8939839370"
-      style: "display:block"
-      format: "auto"
-      full_width: true
-    vertical_responsive:
-      slot: "3487917390"
-      style: "display:block"
-      format: "auto"
-      full_width: true
-    button_ad:
-      slot: "3836856744"
-      style: "display:inline-block;width:300px;height:60px"
+      style: "display:block;width:100%;height:auto"
+    in_article:
+      slot: "9319873281"
+      style: "display:block;width:100%;height:auto"
+    footer:
+      slot: "7190175242"
+      style: "display:block;width:100%;height:auto"
+
 
 # TIP: Try to keep the number of urls as low to reduce the performance cost
 #      If multiple fonts can be requested in a single url opt for this
