@@ -62,7 +62,7 @@
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
-  <div id="lazy-ad-top-leaderboard">
+  <div id="lazy-ad-top-leaderboard" class="container is-12">
     {% lazy_adsense top-leaderboard %}
   </div>
   {% unless page.hide_hero %}
