@@ -30,7 +30,6 @@
             {% endif %}
           </div>
           {% endif %}
-  
           <!-- Right Column (if applicable) -->
           {% if page.layout == 'home' %}
           <div class="column is-half has-text-centered">
@@ -44,7 +43,7 @@
   
           <!-- Post Layout Section -->
           {% if page.layout == 'post' %}
-          <div class="column is-8">
+          <div class="column is-5">
             <h1 class="title is-2 blog-header-heading">{{ page.title }}</h1>
             <h2 class="subtitle is-4 blog-header-subtitle">{{ page.description }}</h2>
   
@@ -57,7 +56,7 @@
           </div>
   
           <!-- Right Column (Post Image & ID) -->
-          <div class="column is-4">
+          <div class="column is-7">
             <div class="post-id-card">
               <figure class="image is-16by9 blog-image">
                 <img src="{{ page.image }}" alt="{{ page.title }}">
