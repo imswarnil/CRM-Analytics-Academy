@@ -1,31 +1,34 @@
 <section
-  class="hero {% if page.layout == 'home' %} home-hero {% elsif page.hero_height %} {{ page.hero_height }} {% else %} is-small {% endif %} 
-    {% if page.hero_class %} {{ page.hero_class }} {% endif %}"
-  {% if page.hero_image %}
-    style="background: url('{{ page.hero_image }}') no-repeat center center; background-size: cover;"
+  class="hero {% if page.layout == 'home' %} home-hero {% elsif page.height %} {{ page.height }} {% else if page.height == 'default' %} is-small {% endif %} 
+    {% if page.extra %} {{ page.extra }} {% endif %}"
+  {% if page.image %}
+    style="background: url('{{ page.image }}') no-repeat center center; background-size: cover;"
   {% endif %}
 >
   {% if page.layout == 'home' %}
   <!-- Home-specific Hero Layout -->
-  <div class="container hero-content">
+  <div class=" hero-body container hero-content">
+    <div class="circle-top-large"></div>
+    <div class="circle-top-small"></div>
+    <div class="circle-bottom"></div>
     <div class="columns is-vcentered">
       <div class="column is-half">
         <h1 class="hero-title">{{ page.title }}</h1>
         <p class="hero-subtitle">{{ page.description }}</p>
         <div class="hero-buttons is-justify-content-start">
-          {% if page.button_primary_link and page.button_primary_text %}
-          <a href="{{ page.button_primary_link }}" class="button is-primary">{{ page.button_primary_text }}</a>
+          {% if page.primarylink and page.primarytext %}
+          <a href="{{ page.primarylink }}" class="button is-primary">{{ page.primarytext }}</a>
           {% endif %}
-          {% if page.button_secondary_link and page.button_secondary_text %}
-          <a href="{{ page.button_secondary_link }}" class="button is-light is-outlined">{{ page.button_secondary_text }}</a>
+          {% if page.secondarylink and page.secondarytext %}
+          <a href="{{ page.secondarylink }}" class="button is-light is-outlined">{{ page.secondarytext }}</a>
           {% endif %}
         </div>
-        {% if page.show_students %}
+        {% if page.students %}
         <div class="student-avatars">
-          {% for avatar in page.student_avatars %}
+          {% for avatar in page.avatars %}
           <img src="{{ avatar.src }}" alt="{{ avatar.alt }}" class="student-avatar">
           {% endfor %}
-          <span class="students-text">{{ page.student_text }}</span>
+          <span class="students-text">{{ page.studenttext }}</span>
         </div>
         {% endif %}
       </div>
@@ -39,19 +42,38 @@
     </div>
   </div>
 
-  {% else %}
+  {% else if page.layout == 'default' %}
+  <!-- Version 2 Hero Layout -->
+  <div class="circle-top-large"></div>
+  <div class="circle-top-small"></div>
+  <div class="circle-bottom"></div>
+   <div class="hero-body">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column">
+        <h1 class="title">{{ page.title }}</h1>
+        <p class="subtitle">{{ page.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  {% else if page.layout == 'page' %}
   <!-- Default Hero Layout -->
-  <div class="hero-body {% if page.hero_darken %} hero-darken {% endif %}">
+  <div class="circle-top-large"></div>
+  <div class="circle-top-small"></div>
+  <div class="circle-bottom"></div>
+  <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
-        <div class="column {% if page.column_left %} {{ page.column_left }} {% else %} is-4 {% endif %}">
-          <h1 class="title is-2">{{ page.title }}</h1>
-          <p class="subtitle is-3">{{ page.subtitle }}</p>
+        <div class="column {% if page.left %} {{ page.left }} {% else %} is-4 {% endif %}">
+          <h1 class="title">{{ page.title }}</h1>
+          <p class="subtitle">{{ page.subtitle }}</p>
         </div>
-        <div class="column {% if page.column_right %} {{ page.column_right }} {% else %} is-auto {% endif %}">
-          {% if page.hero_right_content %}
+        <div class="column {% if page.right %} {{ page.right }} {% else %} is-auto {% endif %}">
+          {% if page.rightcontent %}
           <div style="width:100%; height: 90px; border: 1px dashed #ccc; background-color: #f5f5f5;">
-            {{ page.hero_right_content }}
+            {{ page.rightcontent }}
           </div>
           {% endif %}
         </div>
