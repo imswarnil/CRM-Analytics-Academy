@@ -30,13 +30,16 @@
 
   {% if site.favicons or site.avatarurl %}{% include site-favicons.html %}{% endif %}
   {% if site.google_analytics %}{% include site-analytics.html %}{% endif %}
+  {% if site.ads.enable %}<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.ads.client }}"
+  crossorigin="anonymous"></script>{% endif %}
+
   {% include site-fonts.html %}
   {% include site-before-start.html %} 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
   // Lazy load images
   const lazyImages = document.querySelectorAll("img[data-src]");
-  const imageObserver = new IntersectionObserver((entries, observer) => {
+  const imageObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const img = entry.target;
@@ -55,10 +58,10 @@
     placeholder.addEventListener("click", function () {
       const videoId = placeholder.dataset.videoId;
       const iframe = document.createElement("iframe");
-      iframe.setAttribute("src", `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-      iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
-      iframe.setAttribute("allowfullscreen", "true");
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      iframe.frameBorder = "0";
+      iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
       placeholder.innerHTML = "";
       placeholder.appendChild(iframe);
     });
@@ -66,14 +69,24 @@
 
   // Lazy load AdSense ads
   const adPlaceholders = document.querySelectorAll(".ad-placeholder");
-  const adObserver = new IntersectionObserver((entries, observer) => {
+  const adObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const ad = entry.target;
-        ad.innerHTML = `<ins class="adsbygoogle" 
-                          style="display:block"
-                          data-ad-client="${ad.dataset.adClient}" 
-                          data-ad-slot="${ad.dataset.adSlot}"></ins>`;
+        const ins = document.createElement("ins");
+        ins.className = "adsbygoogle";
+        ins.style = ad.dataset.adStyle;
+        ins.setAttribute("data-ad-client", ad.dataset.adClient);
+        ins.setAttribute("data-ad-slot", ad.dataset.adSlot);
+
+        if (ad.dataset.adFormat) {
+          ins.setAttribute("data-ad-format", ad.dataset.adFormat);
+        }
+        if (ad.dataset.adLayout) {
+          ins.setAttribute("data-ad-layout", ad.dataset.adLayout);
+        }
+
+        ad.appendChild(ins);
         (adsbygoogle = window.adsbygoogle || []).push({});
         adObserver.unobserve(ad);
       }
@@ -83,17 +96,19 @@
   adPlaceholders.forEach((ad) => adObserver.observe(ad));
 });
 
-  </script>  
+  </script>
 </head>
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
   {% unless page.hide_hero %}
             {% include site-hero.html %}
+            {% include ad.html type="leaderboard" %}
    {% endunless %}
   <div class="container">
     {{ content }}
   </div>
+  {% include ad.html type="leaderboard" %}
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}
 </body>

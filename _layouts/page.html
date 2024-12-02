@@ -4,6 +4,7 @@ layout: default
 <main class="main section">
   <div class="container">
     <div class="columns">
+      {% include ad.html type="leaderboard" %}
       <!-- Main Content -->
       <div class="column is-8">
         <article class="content">
@@ -17,6 +18,7 @@ layout: default
         <!-- Aside Content -->
         <aside class="column is-4">
           {% include site-aside.html %}
+          {% include ad.html type="square" %}
         </aside>
       {% endif %}
     </div>

@@ -13,7 +13,6 @@ layout: default
           <li class="is-active"><a href="#" class="breadcrumb-item" aria-current="page">{{ page.title }}</a></li>
         </ul>
       </nav>
-
       <div class="columns is-vcentered">
         <!-- Left Column -->
         <div class="column is-8">
@@ -45,6 +44,8 @@ layout: default
     </div>
   </div>
 </section>
+{% include ad.html type="leaderboard" %}
+
 
 <!-- Content Section -->
 <section class="section">
@@ -52,5 +53,8 @@ layout: default
     {{ content | add_lazy_loading }}
   </div>
 </section>
+
+{% include ad.html type="leaderboard" %}
+
 
 {% include site-footer.html %}

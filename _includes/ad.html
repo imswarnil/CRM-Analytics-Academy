@@ -1,0 +1,10 @@
+{% if site.ads.enable %}
+<div class="ad-placeholder"
+     data-ad-client="{{ site.ads.client }}"
+     data-ad-slot="{{ site.ads.types[include.type].slot }}"
+     data-ad-style="{{ site.ads.types[include.type].style }}"
+     data-ad-format="{{ site.ads.types[include.type].format | default: '' }}"
+     data-ad-layout="{{ site.ads.types[include.type].layout | default: '' }}"
+     data-ad-full-width="{{ site.ads.types[include.type].full_width | default: '' }}">
+</div>
+{% endif %}
