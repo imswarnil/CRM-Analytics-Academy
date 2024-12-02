@@ -6,7 +6,7 @@ primarylink: "/get-started"
 primarytext: "Get Started"
 secondarylink: "/learn-more"
 secondarytext: "Learn More"
-image: "/assets/img/hero-home.png"
+image: "https://i.ytimg.com/vi/aPwndqsmaGk/maxresdefault.jpg"
 students: true
 avatars:
   - src: "https://via.placeholder.com/50"
