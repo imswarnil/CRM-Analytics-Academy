@@ -4,6 +4,10 @@ description: "A demo of Markdown and HTML includes"
 layout : page
 permalink : /about
 aside : true
+left_col: is-6
+right_col: is-6
+right_content: |
+  <p>Contact us for more details or visit our services page.</p>
 ---
 <main>
     <section class="py-6 has-background-white">
