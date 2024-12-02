@@ -114,7 +114,7 @@ jekyll-mentions: https://twitter.com # jekyll-mentions > service used when @repl
 # 4. Jekyll settings
 sass:
   style: compressed # Style compression
-permalink: :path/:title  # Permalink style /:categories/:title:output_ext
+permalink: /:title  # Permalink style /:categories/:title:output_ext
 description_separator: <!-- more --> # Marks end of description in posts
 timezone: Europe/London # Timezone for blog posts and alike
 
@@ -126,7 +126,7 @@ collections:
     description: "My thoughts and ideas" # The post list page content
   training:
     output: true
-    permalink: /:title/
+    permalink: :path/:title/
   resources:
     output: true
     layout : page
