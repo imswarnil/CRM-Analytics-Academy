@@ -19,6 +19,7 @@
     top: -200px;
     left: -200px;
     background-color: var(--bulma-primary-35);
+    animation: pulse 6s infinite ease-in-out;
   }
   
   .circle-top-small {
@@ -27,6 +28,7 @@
     top: -140px;
     left: 25px;
     background-color: var(--bulma-primary-10-invert);
+    animation: pulse 6s infinite ease-in-out;
   }
   
   .circle-bottom {
@@ -35,6 +37,19 @@
     bottom: -100px;
     right: -100px;
     background-color: var(--bulma-primary-100-invert);
+    animation: pulse 6s infinite ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
   
   .hero .breadcrumb {
@@ -77,12 +92,14 @@
       top: -90px;
       left: -90px;
     }
+  
     .circle-top-small {
       width: 90px;
       height: 90px;
       top: -70px;
       left: 25px;
     }
+  
     .circle-bottom {
       width: 150px;
       height: 150px;
@@ -91,11 +108,10 @@
     }
   }
   
-  /* Home Hero Section Styling */
-.home-hero {
+  .home-hero {
     padding: 3rem 1.5rem;
     position: relative;
-    overflow: hidden; /* Ensures the shapes are contained within the section */
+    overflow: hidden;
   }
   
   /* Content Layout */
@@ -182,29 +198,7 @@
   }
   
   .home-hero .hero-image:hover {
-    border: 2px solid #2d2d54; /* Add border on hover */
-    transform: scale(1.05); /* Slight zoom-in effect */
-  }
-  
-  /* Mobile Responsiveness */
-  @media screen and (max-width: 768px) {
-    .home-hero .hero-title {
-      font-size: 2rem;
-    }
-  
-    .home-hero .hero-subtitle {
-      font-size: 1.125rem;
-    }
-  
-    .home-hero .student-avatars {
-      justify-content: center;
-      margin-top: 1rem;
-    }
-  
-    .home-hero .students-text {
-      font-size: 1rem;
-      text-align: center;
-      margin-left: 0;
-    }
+    border: 2px solid #4a4e69; /* Add border on hover */
+    transform: scale(1.05); /* Slight zoom effect */
   }
   
