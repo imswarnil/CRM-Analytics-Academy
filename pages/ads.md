@@ -1,7 +1,7 @@
 ---
 title: Elements
 description: "A demo of Markdown and HTML includes"
-layout : ads
+layout : page
 permalink : /ads
 title: "Default Hero"
 subtitle: "A versatile and dynamic hero section."
@@ -13,7 +13,6 @@ hero_right_content: "<strong>Your Ad Content Here</strong>"
 {% include ad.html type="top-leaderboard" %}
 {% include ad.html type="skyscraper" %}
 {% include ad.html type="button" %}
-
 
 <h1 class="title is-3 has-text-centered">Test Page with Lazy Loading</h1>
 
