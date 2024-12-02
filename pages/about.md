@@ -1,9 +1,10 @@
 ---
 title: Elements
 description: "A demo of Markdown and HTML includes"
-layout : default
+layout : page
 hero_image : https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg
 permalink : /about
+aside : true
 ---
 <main>
     <section class="py-6 has-background-white">
