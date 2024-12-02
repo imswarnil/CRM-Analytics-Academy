@@ -1,206 +1,58 @@
 {%- case include.type -%}
-    {%- when 'square' -%}
-        <!-- Square Ad (Responsive) -->
-        <div class="columns is-centered is-vcentered">
-            <div class="column is-one-third has-text-centered">
-                <ins class="adsbygoogle square"
-                    data-ad-client="{{ site.data.ads.client }}"
-                    data-ad-slot="{{ site.data.ads.slots.square }}">
-                </ins>
-            </div>
-        </div>
-        <style>
-            .square {
-                width: auto;
-                height: 250px;
-            }
+  {%- when 'square' -%}
+    <div class="columns is-centered">
+      <div class="column is-one-third has-text-centered">
+        <ins class="adsbygoogle square" data-ad-client="{{ site.adsense.data-ad-client }}" data-ad-slot="7663977887"></ins>
+      </div>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-            @media (max-width: 799px) {
-                .square {
-                    width: 300px;
-                    height: 250px;
-                }
-            }
+  {%- when 'button' -%}
+    <div class="columns is-centered">
+      <div class="column is-narrow has-text-centered">
+        <ins class="adsbygoogle button" data-ad-client="{{ site.adsense.data-ad-client }}" data-ad-slot="3836856744"></ins>
+      </div>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-            @media (max-width: 499px) {
-                .square {
-                    width: 250px;
-                    height: 250px;
-                }
-            }
-        </style>
+  {%- when 'top-leaderboard' -%}
+    <div class="container has-text-centered">
+      <ins class="adsbygoogle top-leaderboard" data-ad-client="{{ site.adsense.data-ad-client }}" data-ad-slot="3487917390"></ins>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-    {%- when 'button' -%}
-        <!-- Button Ad (Responsive) -->
-        <div class="columns is-centered is-vcentered">
-            <div class="column is-narrow has-text-centered">
-                <ins class="adsbygoogle button"
-                    data-ad-client="{{ site.data.ads.client }}"
-                    data-ad-slot="{{ site.data.ads.slots.button }}">
-                </ins>
-            </div>
-        </div>
-        <style>
-            .button {
-                width: auto;
-                height: 60px;
-            }
-        </style>
+  {%- when 'small-leaderboard' -%}
+    <div class="columns is-centered">
+      <div class="column is-narrow has-text-centered">
+        <ins class="adsbygoogle small-leaderboard" data-ad-client="{{ site.adsense.data-ad-client }}" data-ad-slot="3487917390"></ins>
+      </div>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-    {%- when 'top-leaderboard' -%}
-        <!-- Top Leaderboard Ad -->
-        <div class="container has-text-centered">
-            <ins class="adsbygoogle top-leaderboard"
-                data-ad-client="{{ site.data.ads.client }}"
-                data-ad-slot="{{ site.data.ads.slots.top-leaderboard }}">
-            </ins>
-        </div>
-        <style>
-            .top-leaderboard {
-                height: 90px;
-                width: 100%;
-            }
+  {%- when 'large-leaderboard' -%}
+    <div class="columns is-centered">
+      <div class="column is-one-third has-text-centered">
+        <ins class="adsbygoogle large-leaderboard" data-ad-client="{{ site.adsense.data-ad-client }}" data-ad-slot="3487917390"></ins>
+      </div>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-            @media (max-width: 499px) {
-                .top-leaderboard {
-                    height: 60px;
-                }
-            }
-        </style>
+  {%- when 'skyscraper' -%}
+    <div class="columns is-centered">
+      <div class="column is-narrow has-text-centered">
+        <ins class="adsbygoogle skyscraper" data-ad-client="{{ site.adsense.data-ad-client }}" data-ad-slot="8939839370"></ins>
+      </div>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-    {%- when 'small-leaderboard' -%}
-        <!-- Small Leaderboard Ad -->
-        <div class="columns is-centered is-vcentered">
-            <div class="column is-narrow has-text-centered">
-                <ins class="adsbygoogle small-leaderboard"
-                    data-ad-client="{{ site.data.ads.client }}"
-                    data-ad-slot="{{ site.data.ads.slots.small-leaderboard }}">
-                </ins>
-            </div>
-        </div>
-        <style>
-            .small-leaderboard {
-                width: 100%;
-                height: 90px;
-            }
+  {%- when 'article' -%}
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <ins class="adsbygoogle article" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="{{ site.adsense.data-ad-client }}" data-ad-slot="6501428979"></ins>
+      </div>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-            @media (max-width: 500px) {
-                .small-leaderboard {
-                    height: 90px;
-                }
-            }
-
-            @media (max-width: 800px) {
-                .small-leaderboard {
-                    height: 50px;
-                }
-            }
-        </style>
-
-    {%- when 'large-leaderboard' -%}
-        <!-- Large Leaderboard Ad -->
-        <div class="columns is-centered is-vcentered">
-            <div class="column is-one-third has-text-centered">
-                <ins class="adsbygoogle large-leaderboard"
-                    data-ad-client="{{ site.data.ads.client }}"
-                    data-ad-slot="{{ site.data.ads.slots.large-leaderboard }}">
-                </ins>
-            </div>
-        </div>
-        <style>
-            .large-leaderboard {
-                width: auto;
-                height: 250px;
-            }
-
-            @media (max-width: 500px) {
-                .large-leaderboard {
-                    width: auto;
-                    height: 250px;
-                }
-            }
-
-            @media (max-width: 800px) {
-                .large-leaderboard {
-                    width: 300px;
-                    height: 100px;
-                }
-            }
-        </style>
-
-    {%- when 'skyscraper' -%}
-        <!-- Skyscraper Ad -->
-        <div class="columns is-centered is-vcentered">
-            <div class="column is-narrow has-text-centered">
-                <ins class="adsbygoogle skyscraper"
-                    data-ad-client="{{ site.data.ads.client }}"
-                    data-ad-slot="{{ site.data.ads.slots.skyscraper }}">
-                </ins>
-            </div>
-        </div>
-        <style>
-            .skyscraper {
-                width: 250px;
-                height: 250px;
-            }
-
-            @media (min-width: 500px) {
-                .skyscraper {
-                    width: 320px;
-                    height: 480px;
-                }
-            }
-
-            @media (min-width: 800px) {
-                .skyscraper {
-                    width: 300px;
-                    height: 900px;
-                }
-            }
-
-            @media (min-width: 1200px) {
-                .skyscraper {
-                    width: 300px;
-                    height: 1050px;
-                }
-            }
-        </style>
-
-    {%- when 'article' -%}
-        <!-- In-Article Ad -->
-        <div class="columns is-centered">
-            <div class="column is-full has-text-centered">
-                <ins class="adsbygoogle article"
-                    data-ad-layout="in-article"
-                    data-ad-format="fluid"
-                    data-ad-client="{{ site.data.ads.client }}"
-                    data-ad-slot="{{ site.data.ads.slots.article }}">
-                </ins>
-            </div>
-        </div>
-        <style>
-            .article {
-                border-radius: 10px;
-                background-color: #f7f7f7;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin: 2em auto;
-                text-align: center;
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-            }
-        </style>
-
-    {%- when 'multiplex' -%}
-        <!-- Multiplex Ad -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-format="autorelaxed"
-            data-ad-client="{{ site.data.ads.client }}"
-            data-ad-slot="{{ site.data.ads.slots.multiplex }}">
-        </ins>
-
-    {%- else -%}
-        <!-- Invalid ad type -->
-        <p>Invalid ad type specified.</p>
+  {%- else -%}
+    <!-- Invalid ad type -->
 {%- endcase -%}

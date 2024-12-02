@@ -30,9 +30,10 @@
 
   {% if site.favicons or site.avatarurl %}{% include site-favicons.html %}{% endif %}
   {% if site.google_analytics %}{% include site-analytics.html %}{% endif %}
-  {% if site.ads_enabled != false and page.ads != false %}
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client }}" crossorigin="anonymous"></script>
-{% endif %}
+  {%- if site.adsense.enabled -%}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.data-ad-client }}" crossorigin="anonymous"></script>
+{%- endif -%}
+
   {% include site-fonts.html %}
   {% include site-before-start.html %} 
 </head>

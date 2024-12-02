@@ -1,7 +1,7 @@
 ---
 title: Elements
 description: "A demo of Markdown and HTML includes"
-layout : page
+layout : ads
 permalink : /ads
 ---
 

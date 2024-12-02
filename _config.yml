@@ -83,8 +83,9 @@ social_links: # Appears in sidebar. Set the urls then uncomment and comment out 
 
 
 adsense:
-  client: "ca-pub-1291242080282540"
-ads_enabled: true  # Globally enable or disable ads
+  enabled: true   # Set to false to disable all ads globally
+  data-ad-client: 'ca-pub-1291242080282540'  # Your Adsense client ID
+
 
 
 # TIP: Try to keep the number of urls as low to reduce the performance cost
