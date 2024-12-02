@@ -17,6 +17,6 @@ student_avatars:
     alt: "Student 3"
 student_text: "Join 1,000+ Students Enrolled"
 bg: "has-background-primary-light"  # Optional: Add background color class
-height: "is-large"  # Optional: Adjust height (is-medium, is-large, etc.)
+height: "is-medium"  # Optional: Adjust height (is-medium, is-large, etc.)
 align: "center"  # Optional: Alignment (center, left, right)
 ---
