@@ -36,56 +36,7 @@
   {% include site-fonts.html %}
   {% include site-before-start.html %} 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-  // Lazy load images
-  const lazyImages = document.querySelectorAll("img[data-src]");
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        img.removeAttribute("data-src");
-        imageObserver.unobserve(img);
-      }
-    });
-  });
-
-  lazyImages.forEach((img) => imageObserver.observe(img));
-
-  // Lazy load YouTube videos
-  const youtubePlaceholders = document.querySelectorAll(".youtube-placeholder");
-  youtubePlaceholders.forEach((placeholder) => {
-    placeholder.addEventListener("click", function () {
-      const videoId = placeholder.dataset.videoId;
-      const iframe = document.createElement("iframe");
-      iframe.setAttribute("src", `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-      iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
-      iframe.setAttribute("allowfullscreen", "true");
-      placeholder.innerHTML = "";
-      placeholder.appendChild(iframe);
-    });
-  });
-
-  // Lazy load AdSense ads
-  const adPlaceholders = document.querySelectorAll(".ad-placeholder");
-  const adObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const ad = entry.target;
-        ad.innerHTML = `<ins class="adsbygoogle" 
-                          style="display:block"
-                          data-ad-client="${ad.dataset.adClient}" 
-                          data-ad-slot="${ad.dataset.adSlot}"></ins>`;
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        adObserver.unobserve(ad);
-      }
-    });
-  });
-
-  adPlaceholders.forEach((ad) => adObserver.observe(ad));
-});
-
+    
   </script>
 </head>
 

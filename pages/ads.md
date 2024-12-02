@@ -5,6 +5,36 @@ layout : ads
 permalink : /ads
 ---
 
+<h1 class="title is-3 has-text-centered">Test Page with Lazy Loading</h1>
+
+<!-- Dummy Image with Lazy Loading -->
+<div class="ad-container box has-text-centered my-6">
+  <h2 class="subtitle is-4">Lazy Load Image</h2>
+  <img 
+    class="lazyload" 
+    data-src="https://via.placeholder.com/728x90.png?text=Dummy+Image" 
+    alt="Dummy Image" 
+    width="728" 
+    height="90" 
+  />
+</div>
+
+<!-- Dummy Video with Lazy Loading -->
+<div class="youtube-placeholder box has-text-centered my-6" data-video-id="dQw4w9WgXcQ">
+  <h2 class="subtitle is-4">Click to Load Video</h2>
+  <div class="has-background-light p-4">
+    <p>Click to watch a dummy video.</p>
+  </div>
+</div>
+
+<!-- Dummy AdSense Placeholder -->
+<div class="ad-placeholder box has-text-centered my-6">
+  <h2 class="subtitle is-4">Lazy Load Ad</h2>
+  <div class="ad-placeholder-content">
+    <p>Ad will load when it comes into view.</p>
+  </div>
+</div>
+
 Welcome to the example ad layout post. Here, you’ll see different types of ads placed in various sections of the page.
 
 ### The Birth of CRM Analytics
