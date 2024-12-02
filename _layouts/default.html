@@ -33,6 +33,28 @@
   {% include site-fonts.html %}
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540"
     crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const ads = document.querySelectorAll('.ads-container');
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const ad = entry.target.querySelector('.adsbygoogle');
+              if (ad && !ad.hasAttribute('data-loaded')) {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                ad.setAttribute('data-loaded', 'true');
+                observer.unobserve(entry.target);
+              }
+            }
+          });
+        });
+    
+        ads.forEach(ad => {
+          observer.observe(ad);
+        });
+      });
+    </script>
+    
   {% include site-before-start.html %} 
 </head>
 
