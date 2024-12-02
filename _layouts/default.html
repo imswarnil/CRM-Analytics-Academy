@@ -68,7 +68,9 @@
   });
 
   // Lazy load AdSense ads
-  const adPlaceholders = document.querySelectorAll(".ad-placeholder");
+  document.addEventListener("DOMContentLoaded", function () {
+  const adPlaceholders = document.querySelectorAll(".ad-container");
+
   const adObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -86,7 +88,7 @@
           ins.setAttribute("data-ad-layout", ad.dataset.adLayout);
         }
 
-        ad.appendChild(ins);
+        ad.parentElement.replaceChild(ins, ad);
         (adsbygoogle = window.adsbygoogle || []).push({});
         adObserver.unobserve(ad);
       }
@@ -97,6 +99,13 @@
 });
 
   </script>
+  <style>
+    .ad-placeholder {
+  background-color: #f5f5f5;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+}
+</style>
 </head>
 
 <body class="layout-{{ page.layout | default: 'default' }}">
