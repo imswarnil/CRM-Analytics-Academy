@@ -40,7 +40,9 @@
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
+
   {% include ad.html type="top-leaderboard" %}
+  
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
