@@ -1,39 +1,38 @@
-/* Placeholder for ads */
+/* General Ad Placeholder Styling */
 .ad-placeholder {
-    background-color: #f5f5f5;
-    border: 2px dashed #ccc;
+    background-color: #f9f9f9;
+    border: 2px dashed #ddd;
     border-radius: 5px;
     padding: 20px;
     text-align: center;
+    margin: 20px 0;
   }
   
   .ad-placeholder .icon {
-    color: #ccc;
+    color: #aaa;
   }
   
-  /* Lazy loaded images */
-  .lazy-image {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-  .lazy-image[src] {
-    opacity: 1;
+  .ad-placeholder p {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
   }
   
-  /* YouTube Placeholder */
-  .youtube-placeholder {
-    cursor: pointer;
-    position: relative;
+  /* Leaderboard Ad Specific Styles */
+  .ad-placeholder[data-ad-style*="width:728px"] {
+    max-width: 728px;
+    margin: 0 auto;
   }
-  .youtube-placeholder .youtube-thumbnail {
-    width: 100%;
-    border-radius: 5px;
+  
+  /* Square Ad Specific Styles */
+  .ad-placeholder[data-ad-style*="width:250px"] {
+    max-width: 250px;
+    margin: 0 auto;
   }
-  .youtube-placeholder .youtube-play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
+  
+  /* Vertical Ad Specific Styles */
+  .ad-placeholder[data-ad-style*="width:300px"] {
+    max-width: 300px;
+    margin: 0 auto;
   }
   
