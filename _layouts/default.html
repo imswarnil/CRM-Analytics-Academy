@@ -30,33 +30,10 @@
 
   {% if site.favicons or site.avatarurl %}{% include site-favicons.html %}{% endif %}
   {% if site.google_analytics %}{% include site-analytics.html %}{% endif %}
-  {%- if site.adsense.enabled -%}
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.data-ad-client }}" crossorigin="anonymous"></script>
-{%- endif -%}
   {% include site-fonts.html %}
-  {% include site-before-start.html %}
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const ads = document.querySelectorAll('.ads-container');
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const ad = entry.target.querySelector('.adsbygoogle');
-            if (ad && !ad.hasAttribute('data-loaded')) {
-              (adsbygoogle = window.adsbygoogle || []).push({});
-              ad.setAttribute('data-loaded', 'true');
-              observer.unobserve(entry.target);
-            }
-          }
-        });
-      });
-  
-      ads.forEach(ad => {
-        observer.observe(ad);
-      });
-    });
-  </script>
-   
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540"
+    crossorigin="anonymous"></script>
+  {% include site-before-start.html %} 
 </head>
 
 <body class="layout-{{ page.layout | default: 'default' }}">
