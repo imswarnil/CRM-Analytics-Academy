@@ -1,17 +1,19 @@
 ---
 layout: home
-title: "Learn CRM Analytics"
-description : "Master Salesforce CRM Analytics today."
+title: "Welcome to CRM Analytics Academy"
+description: "Learn Salesforce CRM Analytics."
 primarylink: "/get-started"
 primarytext: "Get Started"
-secondarylink: "/learn-more"
+secondarylink: "/about"
 secondarytext: "Learn More"
+bg: "has-background-info"
 image: "https://i.ytimg.com/vi/aPwndqsmaGk/maxresdefault.jpg"
 students: true
 avatars:
-  - src: "https://via.placeholder.com/50"
+  - src: "/images/avatar1.png"
     alt: "Student 1"
-  - src: "https://via.placeholder.com/50"
+  - src: "/images/avatar2.png"
     alt: "Student 2"
 studenttext: "Join 1,000+ Students"
+
 ---
