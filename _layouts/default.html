@@ -35,42 +35,16 @@
 {% endif %}
   {% include site-fonts.html %}
   {% include site-before-start.html %} 
-    <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const lazyAds = document.querySelectorAll('[id^="lazy-ad-"]');
-    
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const adElement = entry.target;
-          adElement.querySelector('.adsbygoogle').classList.remove('adsbygoogle');
-          (adsbygoogle = window.adsbygoogle || []).push({});
-          observer.unobserve(adElement);
-        }
-      });
-    });
-
-    lazyAds.forEach(ad => {
-      observer.observe(ad);
-    });
-  });
-</script>
 </head>
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
-  <div id="lazy-ad-top-leaderboard" style="max-height: 90px; height: 90px; padding: 30px;">
-    {% lazy_adsense top-leaderboard %}
-  </div>
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
    
   <div class="container">
     {{ content }}
-  </div>
-  <div id="lazy-ad-top-leaderboard">
-    {% lazy_adsense top-leaderboard %}
   </div>
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}

@@ -4,7 +4,6 @@ layout: default
 <main class="main section">
   <div class="container">
     <div class="columns">
-      {% include ad.html type="leaderboard" %}
       <!-- Main Content -->
       <div class="column is-8">
         <article class="content">
@@ -13,14 +12,10 @@ layout: default
           </div>
         </article>
       </div>
-      
       {% if page.aside == true %}
         <!-- Aside Content -->
         <aside class="column is-4">
           {% include site-aside.html %}
-          <div id="lazy-ad-square">
-            {% lazy_adsense square %}
-          </div>
         </aside>
       {% endif %}
     </div>

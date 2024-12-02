@@ -1,18 +1,13 @@
 <aside class="aside typeset aside--{{ include.align | default: 'right' }}">
   {% if page.layout == "post" %}
       {% include post/aside.html %}
-      <div id="lazy-ad-square">
-        {% lazy_adsense square %}
-      </div>
     </div>
   {% elsif page.layout == "page" or page.layout == "home" or page.layout == "blog" %}
     <div class="section section--description">
       <h3 class="title is-3 mb-2">About this site</h3>
       <p>{{ site.description }}</p>
       {% include nav-social.html %}
-      <div id="lazy-ad-square">
-        {% lazy_adsense square %}
-      </div>
+      
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>

@@ -17,7 +17,7 @@ aside: true
           <div class="columns is-vcentered">
             <div class="column is-4">
               <a href="{{ post.url }}">
-                <img src="{{ post.thumbnail }}" alt="{{ post.title }}" class="image is-rounded" loading="lazy">
+                <img src="{{ post.thumbnail }}" alt="{{ post.title }}" class="image is-rounded" >
               </a>
             </div>
             <div class="column">
