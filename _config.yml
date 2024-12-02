@@ -16,15 +16,18 @@ title: "CRM Analytics Academy" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/logos/logo.svg" # Site logo, also used in jekyll-seo-tag
 description: "Alembic is a starting point for Jekyll projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately" # Site description and default description, also used in jekyll-seo-tag
 url: 'https://crmanalytics.imswarnil.com' # Site URL, also used in jekyll-seo-tag
-repo: "https://github.com/imswarnil/CRM-Analytics-Academy"
 
+# 1.1 Author settings
+repo: "https://github.com/imswarnil/CRM-Analytics-Academy"
+author: "Swarnil Singhai" # Author name
+author_bio: "Founder of CRM Analytics Academy, passionate about helping learners master CRM Analytics with hands-on tutorials, certification, and free resources."
 email: "contact@imswarnil.com"
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
 # date_format: "%-d %B %Y" # Blog post date formatting using placeholder formatting
-# google_analytics: ""
+google_analytics: "G-VJD486Z7WT"
 # google_analytics_anonymize_ip: ""
 service_worker: false # Will turn off the service worker if set to false
-# short_name: "Al" # The web application short name, defaults to the site title
+short_name: "CRMA" # The web application short name, defaults to the site title
 css_inline: true # Will insert all styles into a single <style> block in the <head> element and remove the style <link> reference
 
 # 8. Site favicons & manifest icons
@@ -70,19 +73,14 @@ navigation_footer:
   url: https://darn.es
 
 social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
-  Twitter: https://twitter.com/DavidDarnes
-  LinkedIn: https://www.linkedin.com/in/daviddarnes
-  GitHub: https://github.com/daviddarnes
-  link: https://darn.es
+  Youtube: https://www.youtube.com/@swarnil
+  Twitter: https://twitter.com/imswarnil
+  Instagram : https://instagram.com/imswarnil
+  LinkedIn: https://www.linkedin.com/in/imswarnil
+  GitHub: https://github.com/imswarnil
+  link: https://imswarnil.com
   RSS: /feed.xml
 
-sharing_links: # Appear at the bottom of single blog posts, add as desired. The value can be 'true' or the desired button colour
-  Twitter: "#0d94e7"
-  facebook: "#3B5998"
-  Email: true
-
-# Load custom fonts from fonts.google.com etc
-#
 # TIP: Try to keep the number of urls as low to reduce the performance cost
 #      If multiple fonts can be requested in a single url opt for this
 fonts:
