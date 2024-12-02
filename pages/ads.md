@@ -8,9 +8,6 @@ permalink : /ads
 {% include ad.html type="skyscraper" %}
 {% include ad.html type="button" %}
 
-{% include ad.html type="multiplex" %}
-
-{% include ad.html type="vertical" %}
 
 <h1 class="title is-3 has-text-centered">Test Page with Lazy Loading</h1>
 
