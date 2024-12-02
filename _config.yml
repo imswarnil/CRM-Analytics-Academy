@@ -83,27 +83,18 @@ social_links: # Appears in sidebar. Set the urls then uncomment and comment out 
 
 
 ads:
-  enable: true  # Enable or disable ads site-wide
-  client: "ca-pub-1291242080282540"  # Your AdSense Client ID
-  types:
-    leaderboard:
-      slot: "1864856299"
-      style: "is-8"  # Bulma class for the ad size
-    square:
-      slot: "6066270853"
-      style: "is-4"  # Bulma class for the ad size
-    vertical:
-      slot: "3487917390"
-      style: "is-3"  # Bulma class for the ad size
-    horizontal:
-      slot: "8939839370"
-      style: "is-12"  # Full-width ad
-    in_article:
-      slot: "9319873281"
-      style: "is-6"  # Medium-sized ad
-    button:
-      slot: "7190175242"
-      style: "is-3"  # Small button ad
+  enable : true
+  client: "ca-pub-1234567890123456"  # Replace with your actual AdSense client ID
+  slots:
+    square: "7663977887"
+    button: "3836856744"
+    top-leaderboard: "3487917390"
+    small-leaderboard: "3487917390"
+    large-leaderboard: "3487917390"
+    skyscraper: "8939839370"
+    small-skyscraper: "3487917390"
+    article: "6501428979"
+    multiplex: "6808134701"
 
 
 # TIP: Try to keep the number of urls as low to reduce the performance cost
