@@ -4,11 +4,11 @@ description: "A demo of Markdown and HTML includes"
 layout : ads
 permalink : /ads
 ---
-{% include ads.html type="top-leaderboard" %}
-{% include ads.html type="skyscraper" %}
-{% include ads.html type="button" %}
+{% include ad.html type="top-leaderboard" %}
+{% include ad.html type="skyscraper" %}
+{% include ad.html type="button" %}
 
-{% include ads.html type="multiplex" %}
+{% include ad.html type="multiplex" %}
 
 {% include ad.html type="vertical" %}
 

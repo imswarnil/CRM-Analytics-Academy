@@ -82,11 +82,11 @@
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
-   {% include ads.html type="top-leaderboard" %}
+   {% include ad.html type="top-leaderboard" %}
   <div class="container">
     {{ content }}
   </div>
-  {% include ads.html type="top-leaderboard" %}
+  {% include ad.html type="top-leaderboard" %}
 
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}
