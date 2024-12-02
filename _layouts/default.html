@@ -46,40 +46,27 @@
         const img = entry.target;
         img.src = img.dataset.src;
         img.removeAttribute("data-src");
-        imageObserver.unobserve(img);
+        observer.unobserve(img);
       }
     });
   });
 
   lazyImages.forEach((img) => imageObserver.observe(img));
 
-  // Lazy load YouTube videos
-  const youtubePlaceholders = document.querySelectorAll(".youtube-placeholder");
-  youtubePlaceholders.forEach((placeholder) => {
-    placeholder.addEventListener("click", function () {
-      const videoId = placeholder.dataset.videoId;
-      const iframe = document.createElement("iframe");
-      iframe.setAttribute("src", `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-      iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
-      iframe.setAttribute("allowfullscreen", "true");
-      placeholder.innerHTML = "";
-      placeholder.appendChild(iframe);
-    });
-  });
-
-  // Lazy load AdSense ads
+  // Lazy load ads
   const adPlaceholders = document.querySelectorAll(".ad-placeholder");
   const adObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const ad = entry.target;
+        const adClient = ad.dataset.adClient;
+        const adSlot = ad.dataset.adSlot;
         ad.innerHTML = `<ins class="adsbygoogle" 
                           style="display:block"
-                          data-ad-client="${ad.dataset.adClient}" 
-                          data-ad-slot="${ad.dataset.adSlot}"></ins>`;
+                          data-ad-client="${adClient}" 
+                          data-ad-slot="${adSlot}"></ins>`;
         (adsbygoogle = window.adsbygoogle || []).push({});
-        adObserver.unobserve(ad);
+        observer.unobserve(ad);
       }
     });
   });

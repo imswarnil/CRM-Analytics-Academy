@@ -83,7 +83,7 @@ social_links: # Appears in sidebar. Set the urls then uncomment and comment out 
 
 
 ads:
-  enable: true  # Enable/Disable ads site-wide
+  enable: true  # Enable or disable ads site-wide
   client: "ca-pub-1291242080282540"  # Your AdSense Client ID
   types:
     leaderboard:
