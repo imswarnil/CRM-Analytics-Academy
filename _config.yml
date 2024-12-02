@@ -127,9 +127,6 @@ collections:
   training:
     output: true
     permalink: :path/:title/
-  resources:
-    output: true
-    layout : page
 
 # 6. Jekyll collections settings
 defaults:
