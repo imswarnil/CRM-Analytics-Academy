@@ -1,95 +1,65 @@
-<section
-  class="hero {% if page.layout == 'home' %}home-hero{% else %}page-hero{% endif %}
-  {% if page.height %} {{ page.height }}{% else %} is-medium{% endif %}
-  {% if page.bg %} {{ page.bg }}{% else %} has-background-primary-light{% endif %}">
-
-  <!-- Decorative Circles -->
-  <div class="circle-top-large"></div>
-  <div class="circle-top-small"></div>
-  <div class="circle-bottom"></div>
-
-  <div class="hero-body">
-    <div class="container">
-      {% unless page.layout == 'home' %}
-      <!-- Breadcrumb -->
-      <nav class="tags are-medium mb-4" aria-label="breadcrumbs">
-        <ul>
-          <li class="tag is-primary is-light">
-            <a href="/">
-              <span class="icon is-small">
-                <i class="fas fa-home" aria-hidden="true"></i>
-              </span>
-              <span>Home</span>
-            </a>
-          </li>
-          {% if page.collection %}
-          <li class="tag is-primary is-light">
-            <a href="/{{ page.collection }}">
-              <span class="icon is-small">
-                <i class="fas fa-folder" aria-hidden="true"></i>
-              </span>
-              <span>{{ page.collection | capitalize }}</span>
-            </a>
-          </li>
+<section class="hero {% if page.layout == 'home' %}home-hero{% elsif page.layout == 'post' %}post-hero{% endif %} {% if page.bg %}{{ page.bg }}{% else %}has-background-primary-light{% endif %} {% if page.height %}{{ page.height }}{% else %}is-medium{% endif %}">
+    <!-- Decorative Circles -->
+    <div class="circle-top-large"></div>
+    <div class="circle-top-small"></div>
+    <div class="circle-bottom"></div>
+  
+    <div class="hero-body">
+      <div class="container {% if page.align == 'center' %}has-text-centered{% elsif page.align == 'left' %}has-text-left{% elsif page.align == 'right' %}has-text-right{% endif %}">
+        <div class="columns is-vcentered">
+          <!-- Left Column (if applicable) -->
+          {% if page.layout == 'home' %}
+          <div class="column is-half">
+            <h1 class="title">{{ page.title }}</h1>
+            <p class="subtitle">{{ page.description }}</p>
+            <div class="buttons">
+              {% if page.primarylink and page.primarytext %}
+              <a href="{{ page.primarylink }}" class="button is-primary">{{ page.primarytext }}</a>
+              {% endif %}
+              {% if page.secondarylink and page.secondarytext %}
+              <a href="{{ page.secondarylink }}" class="button is-light is-outlined">{{ page.secondarytext }}</a>
+              {% endif %}
+            </div>
+          </div>
           {% endif %}
-          <li class="is-active tag is-primary is-light">
-            <a href="#" aria-current="page">
-              <span class="icon is-small">
-                <i class="fas fa-file-alt" aria-hidden="true"></i>
-              </span>
-              <span>{{ page.title }}</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      {% endunless %}
-
-      {% if page.layout == 'home' %}
-      <!-- Home-specific Layout -->
-      <div class="columns is-vcentered">
-        <div class="column is-half">
-          <h1 class="title">{{ page.title }}</h1>
-          <p class="hero-subtitle">{{ page.description }}</p>
-          <div class="hero-buttons">
-            {% if page.primarylink and page.primarytext %}
-            <a href="{{ page.primarylink }}" class="button is-primary">{{ page.primarytext }}</a>
-            {% endif %}
-            {% if page.secondarylink and page.secondarytext %}
-            <a href="{{ page.secondarylink }}" class="button is-light is-outlined">{{ page.secondarytext }}</a>
+  
+          <!-- Right Column (if applicable) -->
+          {% if page.layout == 'home' %}
+          <div class="column is-half has-text-centered">
+            {% if page.image %}
+            <figure>
+              <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
+            </figure>
             {% endif %}
           </div>
-        </div>
-        <div class="column is-half has-text-centered">
-          {% if page.image %}
-          <figure>
-            <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
-          </figure>
+          {% endif %}
+  
+          <!-- Post Layout Section -->
+          {% if page.layout == 'post' %}
+          <div class="column is-8">
+            <h1 class="title is-2 blog-header-heading">{{ page.title }}</h1>
+            <h2 class="subtitle is-4 blog-header-subtitle">{{ page.description }}</h2>
+  
+            <div class="post-meta">
+              {% for tag in page.tags %}
+                <span class="tag is-info"><i class="fas fa-tag"></i> {{ tag }}</span>
+              {% endfor %}
+              <span class="reading-time"><i class="fas fa-clock"></i> <strong>Reading Time:</strong> {{ page.reading_time }} min</span>
+            </div>
+          </div>
+  
+          <!-- Right Column (Post Image & ID) -->
+          <div class="column is-4">
+            <div class="post-id-card">
+              <figure class="image is-16by9 blog-image">
+                <img src="{{ page.image }}" alt="{{ page.title }}">
+              </figure>
+              <p class="post-id">ID: <strong>{{ page.id }}</strong></p>
+            </div>
+          </div>
           {% endif %}
         </div>
       </div>
-      {% else %}
-      <!-- Post Page Layout -->
-      <div class="columns is-vcentered">
-        <div class="column is-2 has-text-centered">
-          {% if page.icon %}
-          <figure>
-            <img src="{{ page.icon }}" alt="Icon" class="post-icon">
-          </figure>
-          {% endif %}
-        </div>
-        <div class="column is-6">
-          <h1 class="title">{{ page.title }}</h1>
-          <p class="subtitle">{{ page.description }}</p>
-        </div>
-        <div class="column is-4 has-text-centered">
-          {% if page.image %}
-          <figure>
-            <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
-          </figure>
-          {% endif %}
-        </div>
-      </div>
-      {% endif %}
     </div>
-  </div>
-</section>
+  </section>
+  

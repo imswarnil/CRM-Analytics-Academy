@@ -1,17 +1,20 @@
 ---
 layout: home
-title: "Welcome to CRM Analytics Academy"
-description: "Learn Salesforce CRM Analytics with us."
-primarylink: "/get-started"
-primarytext: "Get Started"
-secondarylink: "/about"
-secondarytext: "Learn More"
-avatars:
-  - src: "/images/student1.jpg"
+title: "Learn Salesforce CRM Analytics"
+description: "Master CRM Analytics with expert-led training."
+button_primary_link: "/traini"
+button_primary_text: "Get Started"
+button_secondary_link: "/learn-more"
+button_secondary_text: "Learn More"
+image: "/assets/images/hero-image.png"
+show_students: true
+student_avatars:
+  - src: "https://via.placeholder.com/50"
     alt: "Student 1"
-  - src: "/images/student2.jpg"
+  - src: "https://via.placeholder.com/50"
     alt: "Student 2"
-studenttext: "Join 1,000+ students!"
-bg: "has-background-info"
+  - src: "https://via.placeholder.com/50"
+    alt: "Student 3"
+student_text: "Join 1,000+ Students Enrolled"
 
 ---
