@@ -1,0 +1,50 @@
+---
+layout: default
+title: "Ads Layout"
+---
+
+<!-- Leaderboard Ad - Top Section -->
+<div class="ad-container box has-text-centered">
+  <h2 class="title is-4">Leaderboard Ad (Top)</h2>
+  {% include ad.html type="leaderboard" %}
+</div>
+
+<div class="columns">
+  <!-- Sidebar Section with Square Ad -->
+  <div class="column is-3">
+    <div class="ad-container box has-text-centered">
+      <h2 class="title is-4">Square Ad (Sidebar)</h2>
+      {% include ad.html type="square" %}
+    </div>
+  </div>
+
+  <!-- Main Content Section -->
+  <div class="column is-9">
+    <div class="content-section">
+      <h2 class="title is-4">Content Section</h2>
+      <!-- Small Leaderboard Ad -->
+      <div class="ad-container box has-text-centered">
+        <h3 class="subtitle is-5">Small Leaderboard Ad</h3>
+        {% include ad.html type="horizontal" %}
+      </div>
+
+      <!-- Article Ad -->
+      <div class="ad-container box has-text-centered">
+        <h3 class="subtitle is-5">Article Ad</h3>
+        {% include ad.html type="in_article" %}
+      </div>
+
+      <!-- Skyscraper Ad -->
+      <div class="ad-container box has-text-centered">
+        <h3 class="subtitle is-5">Skyscraper Ad</h3>
+        {% include ad.html type="vertical" %}
+      </div>
+
+      <!-- Footer Ad -->
+      <div class="ad-container box has-text-centered">
+        <h3 class="subtitle is-5">Footer Ad</h3>
+        {% include ad.html type="footer" %}
+      </div>
+    </div>
+  </div>
+</div>

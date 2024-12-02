@@ -1,5 +1,5 @@
 /* General Ad Placeholder Styling */
-.ad-placeholder {
+.ad-container {
     background-color: #f9f9f9;
     border: 2px dashed #ddd;
     border-radius: 5px;
@@ -8,8 +8,10 @@
     margin: 20px 0;
   }
   
-  .ad-placeholder .icon {
-    color: #aaa;
+  .ad-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .ad-placeholder p {
@@ -18,21 +20,20 @@
     margin-top: 10px;
   }
   
-  /* Leaderboard Ad Specific Styles */
-  .ad-placeholder[data-ad-style*="width:728px"] {
-    max-width: 728px;
-    margin: 0 auto;
+  /* Bulma specific styling for ads */
+  .ad-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px;
   }
   
-  /* Square Ad Specific Styles */
-  .ad-placeholder[data-ad-style*="width:250px"] {
-    max-width: 250px;
-    margin: 0 auto;
+  .ad-container .icon {
+    color: #bbb;
   }
   
-  /* Vertical Ad Specific Styles */
-  .ad-placeholder[data-ad-style*="width:300px"] {
-    max-width: 300px;
-    margin: 0 auto;
+  @media (max-width: 768px) {
+    .ad-container {
+      width: 100%;
+    }
   }
   

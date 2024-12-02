@@ -84,7 +84,7 @@ social_links: # Appears in sidebar. Set the urls then uncomment and comment out 
 
 ads:
   enable: true
-  client: "ca-pub-1291242080282540" # Your AdSense Client ID
+  client: "ca-pub-1291242080282540"  # Your AdSense Client ID
   types:
     leaderboard:
       slot: "1864856299"
@@ -101,7 +101,7 @@ ads:
     in_article:
       slot: "9319873281"
       style: "display:block;width:100%;height:auto"
-    footer:
+    button:
       slot: "7190175242"
       style: "display:block;width:100%;height:auto"
 

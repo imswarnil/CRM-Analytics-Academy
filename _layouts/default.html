@@ -38,7 +38,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
   // Lazy load images
-  const lazyImages = document.querySelectorAll("img.lazy-image");
+  const lazyImages = document.querySelectorAll("img[data-src]");
   const imageObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -49,6 +49,7 @@
       }
     });
   });
+
   lazyImages.forEach((img) => imageObserver.observe(img));
 
   // Lazy load YouTube videos
@@ -72,19 +73,19 @@
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const ad = entry.target;
-        const ins = document.createElement("ins");
-        ins.className = "adsbygoogle";
-        ins.style = ad.dataset.adStyle;
-        ins.setAttribute("data-ad-client", ad.dataset.adClient);
-        ins.setAttribute("data-ad-slot", ad.dataset.adSlot);
-        ad.parentElement.replaceChild(ins, ad);
+        ad.innerHTML = `<ins class="adsbygoogle" 
+                          style="display:block"
+                          data-ad-client="${ad.dataset.adClient}" 
+                          data-ad-slot="${ad.dataset.adSlot}"></ins>`;
         (adsbygoogle = window.adsbygoogle || []).push({});
         adObserver.unobserve(ad);
       }
     });
   });
+
   adPlaceholders.forEach((ad) => adObserver.observe(ad));
 });
+
   </script>
 </head>
 
