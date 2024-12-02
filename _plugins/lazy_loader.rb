@@ -13,13 +13,8 @@ module Jekyll
     def process_content(item)
       return unless item.output_ext == ".html" && item.output
 
-      # Lazy load images
       item.output = lazy_load_images(item.output)
-      
-      # Lazy load YouTube videos
       item.output = lazy_load_youtube(item.output)
-      
-      # Lazy load Ads
       item.output = lazy_load_ads(item.output)
     end
 
@@ -30,7 +25,7 @@ module Jekyll
       end
     end
 
-    # Lazy load YouTube videos by replacing iframe with a placeholder
+    # Lazy load YouTube iframes by replacing them with a placeholder
     def lazy_load_youtube(content)
       content.gsub(/<iframe([^>]*)src=["']https:\/\/www\.youtube\.com\/embed\/([^"']*)["']([^>]*)><\/iframe>/i) do
         %(
@@ -42,13 +37,11 @@ module Jekyll
       end
     end
 
-    # Lazy load AdSense ads by replacing them with placeholders
+    # Lazy load AdSense ads by replacing them with a placeholder
     def lazy_load_ads(content)
-      content.gsub(/<div class="ad-container"([^>]*)data-ad-client=["']([^"']*)["']([^>]*)><\/div>/i) do
+      content.gsub(/<ins class="adsbygoogle"([^>]*)><\/ins>/i) do
         %(
-          <div class="ad-placeholder" data-ad-client="#{$2}" data-ad-slot="#{$3}" data-ad-style="#{$4}">
-            <p>Loading ad...</p>
-          </div>
+          <div class="ad-placeholder" data-ad-client="ca-pub-{{ site.ads.client }}" data-ad-slot="{{ site.ads.types['leaderboard'].slot }}"></div>
         )
       end
     end

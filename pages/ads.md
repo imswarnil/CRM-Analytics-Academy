@@ -4,6 +4,10 @@ description: "A demo of Markdown and HTML includes"
 layout : ads
 permalink : /ads
 ---
+{% include ad.html type="leaderboard" %}
+{% include ad.html type="square" %}
+{% include ad.html type="vertical" %}
+
 
 <h1 class="title is-3 has-text-centered">Test Page with Lazy Loading</h1>
 
