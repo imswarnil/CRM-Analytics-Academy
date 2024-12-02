@@ -5,54 +5,6 @@
   overflow: hidden; /* Ensures the shapes are contained within the section */
 }
 
-/* Decorative Circle Background */
-.home-hero::before {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: -10%;
-  width: 200px;
-  height: 200px;
-  background-color: rgba(224, 224, 224, 0.5); /* Light gray circle */
-  border-radius: 50%;
-  transform: scale(1.2); /* Slight enlargement */
-  animation: circleFloat 8s infinite ease-in-out; /* Add floating animation */
-  z-index: 0;
-}
-
-.home-hero::after {
-  content: '';
-  position: absolute;
-  bottom: -10%;
-  right: -10%;
-  width: 250px;
-  height: 250px;
-  background-color: rgba(224, 224, 224, 0.5); /* Light gray circle */
-  border-radius: 50%;
-  transform: scale(1);
-  animation: circleFloatReverse 8s infinite ease-in-out; /* Reverse floating animation */
-  z-index: 0;
-}
-
-/* Circle Floating Animation */
-@keyframes circleFloat {
-  0%, 100% {
-    transform: scale(1.2) translateY(0px);
-  }
-  50% {
-    transform: scale(1.2) translateY(-20px); /* Float up slightly */
-  }
-}
-
-@keyframes circleFloatReverse {
-  0%, 100% {
-    transform: scale(1) translateY(0px);
-  }
-  50% {
-    transform: scale(1) translateY(20px); /* Float down slightly */
-  }
-}
-
 /* Content Layout */
 .home-hero .hero-content {
   display: flex;
