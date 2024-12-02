@@ -1,4 +1,4 @@
-<section class="hero {% if page.layout == 'home' %}home-hero{% elsif page.layout == 'post' %}post-hero{% endif %} {% if page.bg %}{{ page.bg }}{% else %}has-background-primary-light{% endif %} {% if page.height %}{{ page.height }}{% else %}is-medium{% endif %}">
+<section class="hero {% if page.layout == 'home' %}home-hero{% elsif page.layout == 'post' %}post-hero{% elsif page.layout == 'page' %}page-hero{% endif %} {% if page.bg %}{{ page.bg }}{% else %}has-background-primary-light{% endif %} {% if page.height %}{{ page.height }}{% else %}is-medium{% endif %}">
     <!-- Decorative Circles -->
     <div class="circle-top-large"></div>
     <div class="circle-top-small"></div>
@@ -7,7 +7,7 @@
     <div class="hero-body">
       <div class="container {% if page.align == 'center' %}has-text-centered{% elsif page.align == 'left' %}has-text-left{% elsif page.align == 'right' %}has-text-right{% endif %}">
         <div class="columns is-vcentered">
-          <!-- Left Column (if applicable) -->
+          <!-- Home Layout Section -->
           {% if page.layout == 'home' %}
           <div class="column is-half">
             <h1 class="hero-title">{{ page.title }}</h1>
@@ -29,9 +29,6 @@
             </div>
             {% endif %}
           </div>
-          {% endif %}
-          <!-- Right Column (if applicable) -->
-          {% if page.layout == 'home' %}
           <div class="column is-half has-text-centered">
             {% if page.image %}
             <figure>
@@ -46,7 +43,6 @@
           <div class="column is-5">
             <h1 class="title is-2 blog-header-heading">{{ page.title }}</h1>
             <h2 class="subtitle is-4 blog-header-subtitle">{{ page.description }}</h2>
-  
             <div class="post-meta">
               {% for tag in page.tags %}
                 <span class="tag is-info"><i class="fas fa-tag"></i> {{ tag }}</span>
@@ -65,6 +61,18 @@
             </div>
           </div>
           {% endif %}
+  
+          <!-- Page Layout Section -->
+          {% if page.layout == 'page' %}
+          <div class="column is-4">
+            <h1 class="title is-2 page-header-title">{{ page.title }}</h1>
+            <p class="subtitle is-4 page-header-subtitle">{{ page.description }}</p>
+          </div>
+          <div class="column is-12">
+            <div> <h1> Adsense Ad</h1></div>
+          </div>
+          {% endif %}
+          
         </div>
       </div>
     </div>
