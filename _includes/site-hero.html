@@ -64,12 +64,14 @@
   
           <!-- Page Layout Section -->
           {% if page.layout == 'page' %}
-          <div class="column is-4">
-            <h1 class="title is-2 page-header-title">{{ page.title }}</h1>
-            <p class="subtitle is-4 page-header-subtitle">{{ page.description }}</p>
-          </div>
-          <div class="column is-8">  {% include ad.html type="small-leaderboard" %}
-          </div>
+                  <div class="column is-4">
+                    <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
+                    <h2 class="subtitle is-4">{{ page.description }}</h2>
+                  </div>
+                  <div class="column is-8">
+                    <div class="notification is-primary has-text-centered">
+                      {% include ad.html type="small-leaderboard" %}
+                    </div>
           {% endif %}
         </div>
       </div>
