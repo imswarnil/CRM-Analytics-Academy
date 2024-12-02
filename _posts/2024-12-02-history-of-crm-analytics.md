@@ -7,7 +7,9 @@ tags: [CRM, Salesforce, History, AI, Evolution]
 date: 2024-11-28
 layout: post
 author: swarnil-singhai
-image: "/assets/salesforce-crm-analytics-history.png"
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwE74gH66vR4U2PJWE__56B-qwEgeuEBhd_g&s"
+background_color: "#FFD7C2" # Pastel color
+icon_svg: "/assets/icons/history.svg" # SVG path
 canonical_url: "https://crmanalytics.imswarnil.com/blog/salesforce-crm-analytics-history"
 reading_time: 6
 hero_size: is-small
