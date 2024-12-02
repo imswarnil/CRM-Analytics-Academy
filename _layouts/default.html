@@ -35,7 +35,6 @@
 {% endif %}
   {% include site-fonts.html %}
   {% include site-before-start.html %} 
-  <script>
     <script>
   document.addEventListener("DOMContentLoaded", function() {
     const lazyAds = document.querySelectorAll('[id^="lazy-ad-"]');
@@ -56,18 +55,17 @@
     });
   });
 </script>
-
-  </script>
 </head>
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
-  <div id="lazy-ad-top-leaderboard" class="container is-12">
+  <div id="lazy-ad-top-leaderboard">
     {% lazy_adsense top-leaderboard %}
   </div>
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
+   
   <div class="container">
     {{ content }}
   </div>
