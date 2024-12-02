@@ -30,55 +30,41 @@
 
   {% if site.favicons or site.avatarurl %}{% include site-favicons.html %}{% endif %}
   {% if site.google_analytics %}{% include site-analytics.html %}{% endif %}
-  {% if site.ads.enable %}
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.ads.client }}" crossorigin="anonymous"></script>
-  {% endif %}
-
+  {% if site.ads_enabled != false and page.ads != false %}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client }}" crossorigin="anonymous"></script>
+{% endif %}
   {% include site-fonts.html %}
   {% include site-before-start.html %} 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-  // Lazy load images
-  const lazyImages = document.querySelectorAll("img[data-src]");
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        img.removeAttribute("data-src");
-        observer.unobserve(img);
-      }
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const lazyAds = document.querySelectorAll('[id^="lazy-ad-"]');
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const adElement = entry.target;
+          adElement.querySelector('.adsbygoogle').classList.remove('adsbygoogle');
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          observer.unobserve(adElement);
+        }
+      });
+    });
+
+    lazyAds.forEach(ad => {
+      observer.observe(ad);
     });
   });
-
-  lazyImages.forEach((img) => imageObserver.observe(img));
-
-  // Lazy load ads
-  const adPlaceholders = document.querySelectorAll(".ad-placeholder");
-  const adObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const ad = entry.target;
-        const adClient = ad.dataset.adClient;
-        const adSlot = ad.dataset.adSlot;
-        ad.innerHTML = `<ins class="adsbygoogle" 
-                          style="display:block"
-                          data-ad-client="${adClient}" 
-                          data-ad-slot="${adSlot}"></ins>`;
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        observer.unobserve(ad);
-      }
-    });
-  });
-
-  adPlaceholders.forEach((ad) => adObserver.observe(ad));
-});
+</script>
 
   </script>
 </head>
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
+  <div id="lazy-ad-top-leaderboard">
+    {% lazy_adsense top-leaderboard %}
+  </div>
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
@@ -96,8 +82,9 @@
   <div class="container">
     {{ content }}
   </div>
-  {% include ad.html type="top-leaderboard" %}
-
+  <div id="lazy-ad-top-leaderboard">
+    {% lazy_adsense top-leaderboard %}
+  </div>
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}
 </body>

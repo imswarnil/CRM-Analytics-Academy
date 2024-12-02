@@ -44,17 +44,13 @@ layout: default
     </div>
   </div>
 </section>
-{% include ad.html type="leaderboard" %}
 
 
 <!-- Content Section -->
 <section class="section">
   <div class="container">
-    {{ content | add_lazy_loading }}
+    {{ content }}
   </div>
 </section>
-
-{% include ad.html type="leaderboard" %}
-
 
 {% include site-footer.html %}

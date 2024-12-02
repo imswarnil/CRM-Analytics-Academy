@@ -82,19 +82,9 @@ social_links: # Appears in sidebar. Set the urls then uncomment and comment out 
   RSS: /feed.xml
 
 
-ads:
-  enable : true
-  client: "ca-pub-1234567890123456"  # Replace with your actual AdSense client ID
-  slots:
-    square: "7663977887"
-    button: "3836856744"
-    top-leaderboard: "3487917390"
-    small-leaderboard: "3487917390"
-    large-leaderboard: "3487917390"
-    skyscraper: "8939839370"
-    small-skyscraper: "3487917390"
-    article: "6501428979"
-    multiplex: "6808134701"
+adsense:
+  client: "ca-pub-1291242080282540"
+ads_enabled: true  # Globally enable or disable ads
 
 
 # TIP: Try to keep the number of urls as low to reduce the performance cost

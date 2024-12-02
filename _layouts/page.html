@@ -18,7 +18,9 @@ layout: default
         <!-- Aside Content -->
         <aside class="column is-4">
           {% include site-aside.html %}
-          {% include ad.html type="square" %}
+          <div id="lazy-ad-square">
+            {% lazy_adsense square %}
+          </div>
         </aside>
       {% endif %}
     </div>
