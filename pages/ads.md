@@ -8,7 +8,6 @@ permalink : /ads
 {% include ad.html type="square" %}
 {% include ad.html type="vertical" %}
 
-
 <h1 class="title is-3 has-text-centered">Test Page with Lazy Loading</h1>
 
 <!-- Dummy Image with Lazy Loading -->

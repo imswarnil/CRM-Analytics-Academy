@@ -1,7 +1,6 @@
 {% if site.ads.enable %}
-  <div class="ad-container has-text-centered" style="margin: 20px 0;">
+  <div class="box has-text-centered" style="margin: 20px 0;">
     {% assign ad_type = include.type %}
-    
     {% if site.ads.types[ad_type] %}
       <div class="ad-placeholder" 
            data-ad-client="{{ site.ads.client }}" 
