@@ -1,9 +1,7 @@
 <section
   class="hero {% if page.layout == 'home' %} home-hero {% elsif page.height %} {{ page.height }} {% else if page.height == 'default' %} is-small {% endif %} 
-    {% if page.page_bg %} {{ page.hero_bg | default: 'has-background-primary-light' }}
-    {% endif %}"
+  {% if page.bg %}{{ page.bg }}{% else %}has-background-primary-light{% endif %}"
   {% if page.image %}
-    style="background: url('{{ page.image }}') no-repeat center center; background-size: cover;"
   {% endif %}
 >
   {% if page.layout == 'home' %}
@@ -34,7 +32,7 @@
         {% endif %}
       </div>
       <div class="column is-half has-text-centered">
-        {% if page.image %}
+        {% if page.im %}
         <figure>
           <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
         </figure>
