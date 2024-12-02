@@ -2,47 +2,57 @@
   class="hero {% if page.layout == 'home' %}home-hero{% else %}page-hero{% endif %}
   {% if page.height %} {{ page.height }}{% else %} is-medium{% endif %}
   {% if page.bg %} {{ page.bg }}{% else %} has-background-primary-light{% endif %}">
-  
-  {% if page.image %}
-  <div class="hero-background" style="background-image: url('{{ page.image }}'); background-size: cover; background-position: center;"></div>
-  {% endif %}
 
   <!-- Decorative Circles -->
   <div class="circle-top-large"></div>
   <div class="circle-top-small"></div>
   <div class="circle-bottom"></div>
 
-  <!-- Breadcrumb -->
-  {% if page.layout != 'home' %}
-  <nav class="breadcrumb is-small is-spaced" aria-label="breadcrumbs">
-    <ul>
-      <li>
-        <a href="/">
-          <span class="icon"><i class="fas fa-home"></i></span>
-          <span>Home</span>
-        </a>
-      </li>
-      {% if page.collection %}
-      <li>
-        <a href="/{{ page.collection }}">
-          <span>{{ page.collection | capitalize }}</span>
-        </a>
-      </li>
-      {% endif %}
-      <li class="is-active">
-        <a href="#" aria-current="page">{{ page.title }}</a>
-      </li>
-    </ul>
-  </nav>
-  {% endif %}
-
   <div class="hero-body">
     <div class="container">
+      {% if page.layout != 'home' %}
+      <!-- Breadcrumb and Title -->
+      <div class="columns is-vcentered mb-3">
+        <div class="column">
+          <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+              <li>
+                <a href="/">
+                  <span class="icon is-small">
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  </span>
+                  <span>Home</span>
+                </a>
+              </li>
+              {% if page.collection %}
+              <li>
+                <a href="/{{ page.collection }}">
+                  <span class="icon is-small">
+                    <i class="fas fa-folder" aria-hidden="true"></i>
+                  </span>
+                  <span>{{ page.collection | capitalize }}</span>
+                </a>
+              </li>
+              {% endif %}
+              <li class="is-active">
+                <a href="#" aria-current="page">
+                  <span class="icon is-small">
+                    <i class="fas fa-file-alt" aria-hidden="true"></i>
+                  </span>
+                  <span>{{ page.title }}</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      {% endif %}
+
       {% if page.layout == 'home' %}
       <!-- Home-specific layout -->
       <div class="columns is-vcentered">
-        <div class="column is-half">
-          <h1 class="hero-title">{{ page.title }}</h1>
+        <div class="column {% if page.left_col %} {{ page.left_col }}{% else %}is-half{% endif %}">
+          <h1 class="title">{{ page.title }}</h1>
           <p class="hero-subtitle">{{ page.description }}</p>
           <div class="hero-buttons">
             {% if page.primarylink and page.primarytext %}
@@ -52,54 +62,29 @@
             <a href="{{ page.secondarylink }}" class="button is-light is-outlined">{{ page.secondarytext }}</a>
             {% endif %}
           </div>
-          {% if page.students %}
-          <div class="student-avatars">
-            {% for avatar in page.avatars %}
-            <img src="{{ avatar.src }}" alt="{{ avatar.alt }}" class="student-avatar">
-            {% endfor %}
-            <span class="students-text">{{ page.studenttext }}</span>
-          </div>
-          {% endif %}
         </div>
-        <div class="column is-half has-text-centered">
+        <div class="column {% if page.right_col %} {{ page.right_col }}{% else %}is-half{% endif %}">
           {% if page.image %}
           <figure>
             <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
           </figure>
-          {% endif %}
-        </div>
-      </div>
-      {% elsif page.layout == 'post' %}
-      <!-- Blog Post-specific layout -->
-      <div class="columns">
-        <div class="column is-2">
-          <img src="{{ page.icon }}" alt="Post Icon" class="post-icon">
-        </div>
-        <div class="column is-6">
-          <h1 class="title">{{ page.title }}</h1>
-          <p class="subtitle">{{ page.description }}</p>
-          <p class="meta">
-            <strong>{{ page.author }}</strong> &middot; {{ page.date | date: "%B %d, %Y" }} &middot; {{ page.reading_time }} min read
-          </p>
-        </div>
-        <div class="column is-4">
-          {% if page.image %}
-          <figure>
-            <img src="{{ page.image }}" alt="{{ page.title }}" class="post-hero-image">
-          </figure>
           {% else %}
-          <div class="ad-placeholder">Ad Space</div>
+          {% if page.ad_content %}
+          <div class="ad-placeholder">
+            {{ page.ad_content }}
+          </div>
+          {% endif %}
           {% endif %}
         </div>
       </div>
       {% else %}
-      <!-- Default page layout -->
+      <!-- General Page Layout -->
       <div class="columns is-vcentered">
-        <div class="column is-4">
+        <div class="column {% if page.left_col %} {{ page.left_col }}{% else %}is-4{% endif %}">
           <h1 class="title">{{ page.title }}</h1>
           <p class="subtitle">{{ page.description }}</p>
         </div>
-        <div class="column is-8">
+        <div class="column {% if page.right_col %} {{ page.right_col }}{% else %}is-8{% endif %}">
           {% if page.right_content %}
           <div class="right-content">
             {{ page.right_content }}
