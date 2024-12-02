@@ -40,13 +40,7 @@
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
-
-  {% include ad.html type="square" %}
-{% include ad.html type="button" %}
-{% include ad.html type="top-leaderboard" %}
-{% include ad.html type="skyscraper" %}
-{% include ad.html type="article" %}
-
+  {% adsense top-leaderboard %}  
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
@@ -54,8 +48,7 @@
   <div class="container">
     {{ content }}
   </div>
-
-  {% include ad.html type="top-leaderboard" %}
+  {% adsense top-leaderboard %}
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}
 </body>
