@@ -6,9 +6,9 @@ permalink : /ads
 title: "Default Hero"
 subtitle: "A versatile and dynamic hero section."
 hero_height: is-medium
-left: is-4
-bg : has-background-primary
-right: is-8
+left: is-5
+bg : has-background-dark
+right: is-7
 hero_right_content: "<strong>Your Ad Content Here</strong>"
 ---
 {% include ad.html type="top-leaderboard" %}
