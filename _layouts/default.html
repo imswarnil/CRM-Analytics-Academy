@@ -81,12 +81,13 @@
   {% include site-header.html %}
   {% unless page.hide_hero %}
             {% include site-hero.html %}
-            {% include ad.html type="leaderboard" %}
    {% endunless %}
+   {% include ads.html type="top-leaderboard" %}
   <div class="container">
     {{ content }}
   </div>
-  {% include ad.html type="leaderboard" %}
+  {% include ads.html type="top-leaderboard" %}
+
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}
 </body>
