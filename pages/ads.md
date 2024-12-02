@@ -3,6 +3,12 @@ title: Elements
 description: "A demo of Markdown and HTML includes"
 layout : ads
 permalink : /ads
+title: "Default Hero"
+subtitle: "A versatile and dynamic hero section."
+hero_height: is-medium
+column_left: is-5
+column_right: is-7
+hero_right_content: "<strong>Your Ad Content Here</strong>"
 ---
 {% include ad.html type="top-leaderboard" %}
 {% include ad.html type="skyscraper" %}

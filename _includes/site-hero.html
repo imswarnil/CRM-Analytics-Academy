@@ -1,23 +1,62 @@
 <section
-    class="hero {% if page.hero_height %} {{ page.hero_height }} {% else %} is-small {% endif %} is-bold has-background-primary-light"
-    {% if page.hero_image %}
-        style="background: url('{{ page.hero_image }}') no-repeat center center; background-size: cover;"
-    {% endif %}
+  class="hero {% if page.layout == 'home' %} home-hero {% elsif page.hero_height %} {{ page.hero_height }} {% else %} is-small {% endif %} 
+    {% if page.hero_class %} {{ page.hero_class }} {% endif %}"
+  {% if page.hero_image %}
+    style="background: url('{{ page.hero_image }}') no-repeat center center; background-size: cover;"
+  {% endif %}
 >
-    <div class="circle-top-large"></div>
-    <div class="circle-top-small"></div>
-    <div class="circle-bottom"></div>
-    <div class="hero-body {% if page.hero_darken %} hero-darken {% endif %}">
-        <div class="container">
-            <h1 class="title is-3">{{ page.title }}</h1>
-            <p class="subtitle is-5">{{ page.description }}</p>
-            {% if page.hero_link %}
-                <div class="my-4">
-                    <a href="{{ page.hero_link | relative_url }}" class="button is-info is-large">
-                        {{- page.hero_link_text -}}
-                    </a>
-                </div>
-            {% endif %}
+  {% if page.layout == 'home' %}
+  <!-- Home-specific Hero Layout -->
+  <div class="container hero-content">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <h1 class="hero-title">{{ page.title }}</h1>
+        <p class="hero-subtitle">{{ page.description }}</p>
+        <div class="hero-buttons is-justify-content-start">
+          {% if page.button_primary_link and page.button_primary_text %}
+          <a href="{{ page.button_primary_link }}" class="button is-primary">{{ page.button_primary_text }}</a>
+          {% endif %}
+          {% if page.button_secondary_link and page.button_secondary_text %}
+          <a href="{{ page.button_secondary_link }}" class="button is-light is-outlined">{{ page.button_secondary_text }}</a>
+          {% endif %}
         </div>
+        {% if page.show_students %}
+        <div class="student-avatars">
+          {% for avatar in page.student_avatars %}
+          <img src="{{ avatar.src }}" alt="{{ avatar.alt }}" class="student-avatar">
+          {% endfor %}
+          <span class="students-text">{{ page.student_text }}</span>
+        </div>
+        {% endif %}
+      </div>
+      <div class="column is-half has-text-centered">
+        {% if page.image %}
+        <figure>
+          <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
+        </figure>
+        {% endif %}
+      </div>
     </div>
+  </div>
+
+  {% else %}
+  <!-- Default Hero Layout -->
+  <div class="hero-body {% if page.hero_darken %} hero-darken {% endif %}">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column {% if page.column_left %} {{ page.column_left }} {% else %} is-4 {% endif %}">
+          <h1 class="title is-2">{{ page.title }}</h1>
+          <p class="subtitle is-3">{{ page.subtitle }}</p>
+        </div>
+        <div class="column {% if page.column_right %} {{ page.column_right }} {% else %} is-auto {% endif %}">
+          {% if page.hero_right_content %}
+          <div style="width:100%; height: 90px; border: 1px dashed #ccc; background-color: #f5f5f5;">
+            {{ page.hero_right_content }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </section>
