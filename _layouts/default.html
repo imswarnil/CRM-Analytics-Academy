@@ -40,6 +40,7 @@
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
+  {% include adsense.html type="top-leaderboard" %}
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
@@ -47,6 +48,12 @@
   <div class="container">
     {{ content }}
   </div>
+
+  {% include adsense.html type="top-leaderboard" %}
+
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   {% include site-before-end.html %}
 </body>
