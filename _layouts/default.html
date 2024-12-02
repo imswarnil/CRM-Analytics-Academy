@@ -41,8 +41,12 @@
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
 
-  {% include ad.html type="top-leaderboard" %}
-  
+  {% include ad.html type="square" %}
+{% include ad.html type="button" %}
+{% include ad.html type="top-leaderboard" %}
+{% include ad.html type="skyscraper" %}
+{% include ad.html type="article" %}
+
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
