@@ -1,204 +1,69 @@
 .hero {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-body {
+  position: relative;
+  z-index: 2;
+}
+
+.home-hero, .post-hero, .page-hero, .training-hero {
+  padding: 3rem 1.5rem;
+}
+
+.home-hero .hero-title, .post-hero .hero-title, .page-hero .hero-title, .training-hero .hero-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4a4e69;
+  margin-bottom: 1rem;
+}
+
+.home-hero .hero-subtitle, .post-hero .hero-subtitle, .page-hero .hero-subtitle, .training-hero .hero-subtitle {
+  font-size: 1.25rem;
+  color: #7c7c7c;
+  margin-bottom: 1.5rem;
+}
+
+.home-hero .hero-buttons .button {
+  margin: 0.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.student-avatars {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.student-avatar {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  margin-left: -15px;
+}
+
+.hero-image {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem; /* Mobile Title Size */
   }
   
-  .circle-top-large,
-  .circle-top-small,
-  .circle-bottom {
-    position: absolute;
-    border-radius: 50%;
-    z-index: 1;
-    mix-blend-mode: multiply;
-    transition: all 0.4s ease;
+  .hero-subtitle {
+    font-size: 1rem; /* Mobile Subtitle Size */
   }
-  
-  .circle-top-large {
-    width: 300px;
-    height: 300px;
-    top: -200px;
-    left: -200px;
-    background-color: var(--bulma-primary-35);
-    animation: pulse 6s infinite ease-in-out;
+
+  .student-avatar {
+    width: 40px;
+    height: 40px;
   }
-  
-  .circle-top-small {
-    width: 175px;
-    height: 175px;
-    top: -140px;
-    left: 25px;
-    background-color: var(--bulma-primary-10-invert);
-    animation: pulse 6s infinite ease-in-out;
-  }
-  
-  .circle-bottom {
-    width: 200px;
-    height: 200px;
-    bottom: -100px;
-    right: -100px;
-    background-color: var(--bulma-primary-100-invert);
-    animation: pulse 6s infinite ease-in-out;
-  }
-  
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  .hero .breadcrumb {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 1rem;
-  }
-  
-  .hero-body {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .post-icon {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .post-hero-image {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .ad-placeholder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f5f5f5;
-    border: 1px dashed #ccc;
-    height: 150px;
-    color: #888;
-    font-size: 14px;
-    font-style: italic;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .circle-top-large {
-      width: 150px;
-      height: 150px;
-      top: -90px;
-      left: -90px;
-    }
-  
-    .circle-top-small {
-      width: 90px;
-      height: 90px;
-      top: -70px;
-      left: 25px;
-    }
-  
-    .circle-bottom {
-      width: 150px;
-      height: 150px;
-      bottom: -80px;
-      right: -80px;
-    }
-  }
-  
-  .home-hero {
-    padding: 3rem 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Content Layout */
-  .home-hero .hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  /* Title */
-  .home-hero .hero-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #4a4e69;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  /* Subtitle */
-  .home-hero .hero-subtitle {
-    font-size: 1.25rem;
-    color: #7c7c7c;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .hero-subtitle:hover {
-    color: #4a4e69; /* Change color on hover */
-  }
-  
-  /* Call-to-Action Buttons */
-  .home-hero .hero-buttons .button {
-    margin: 0.5rem;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .hero-buttons .button:hover {
-    background-color: #2d2d54; /* Change background on hover */
-    color: white; /* Change text color */
-  }
-  
-  /* Student Avatars Styling */
-  .home-hero .student-avatars {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 2rem;
-    position: relative;
-  }
-  
-  .home-hero .student-avatar {
-    width: 50px;
-    height: 50px;
-    border: 2px solid #ffffff;
-    border-radius: 50%;
-    margin-left: -15px; /* Stack avatars */
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .student-avatar:hover {
-    border-color: #2d2d54; /* Change border color on hover */
-    transform: scale(1.1); /* Slight scale-up effect */
-  }
-  
-  .home-hero .students-text {
-    margin-left: 1rem;
-    color: #7c7c7c;
-    font-size: 1.25rem;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .students-text:hover {
-    color: #4a4e69; /* Change color on hover */
-  }
-  
-  /* Image Styling */
-  .home-hero .hero-image {
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .hero-image:hover {
-    border: 2px solid #4a4e69; /* Add border on hover */
-    transform: scale(1.05); /* Slight zoom effect */
-  }
-  
+}
