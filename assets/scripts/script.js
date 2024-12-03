@@ -53,3 +53,23 @@
                 }
                 });
     });
+    // Lazy Load Adsense
+    document.addEventListener("DOMContentLoaded", function () {
+        const ads = document.querySelectorAll('.ads-container');
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const ad = entry.target.querySelector('.adsbygoogle');
+              if (ad && !ad.hasAttribute('data-loaded')) {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                ad.setAttribute('data-loaded', 'true');
+                observer.unobserve(entry.target);
+              }
+            }
+          });
+        });
+    
+        ads.forEach(ad => {
+          observer.observe(ad);
+        });
+      });
