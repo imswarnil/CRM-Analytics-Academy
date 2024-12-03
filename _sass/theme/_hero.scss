@@ -1,6 +1,9 @@
 .hero {
   position: relative;
   overflow: hidden;
+  background-color: #fff;  /* Default white background */
+  border-top: 4px solid #f1f1f1; /* Top border */
+  border-bottom: 4px solid #f1f1f1; /* Bottom border */
 }
 
 .hero-body {
@@ -68,13 +71,13 @@
   }
 
   /* Reverse columns for page layout */
-  .page-hero .columns {
+  .page-hero .columns, .post-hero .columns {
     flex-direction: column-reverse;
   }
 
-  /* Reverse columns for post layout */
-  .post-hero .columns {
-    flex-direction: column-reverse;
+  /* Reduce padding for mobile */
+  .hero-body {
+    padding: 1rem;
   }
 
   .student-avatar {
@@ -85,5 +88,11 @@
   /* Adjust hero image */
   .hero-image {
     max-width: 80%; /* Resize image for mobile */
+  }
+
+  /* Adjust button size for mobile */
+  .home-hero .hero-buttons .button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
   }
 }
