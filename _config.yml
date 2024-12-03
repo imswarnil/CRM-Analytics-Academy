@@ -133,6 +133,9 @@ collections:
   training:
     output: true
     permalink: :path/:title/
+  courses:
+    output: true
+    permalink: /courses/:name/
 
 # 6. Jekyll collections settings
 defaults:
