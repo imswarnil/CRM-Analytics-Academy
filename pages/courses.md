@@ -25,3 +25,10 @@ permalink: /courses
     {% endfor %}
   </div>
 </div>
+<style>/* Styling for course list */
+.course-box {
+  margin-bottom: 30px;
+}
+.course-box .button {
+  margin-top: 10px;
+} </style>
