@@ -15,10 +15,13 @@
 .home-hero .hero-title, .post-hero .hero-title, .page-hero .hero-title, .training-hero .hero-title {
   font-size: 2.5rem;
   font-weight: bold;
+  color: #4a4e69;
+  margin-bottom: 1rem;
 }
 
 .home-hero .hero-subtitle, .post-hero .hero-subtitle, .page-hero .hero-subtitle, .training-hero .hero-subtitle {
   font-size: 1.25rem;
+  color: #7c7c7c;
   margin-bottom: 1.5rem;
 }
 
@@ -52,6 +55,8 @@
 
 .last-modified {
   margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #4a4e69;
 }
 
 .last-modified a {
@@ -61,6 +66,10 @@
 
 .last-modified a:hover {
   text-decoration: underline;
+}
+
+.post-id-card {
+  margin-top: 1.5rem;
 }
 
 @media screen and (max-width: 768px) {

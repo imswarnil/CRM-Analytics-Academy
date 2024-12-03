@@ -2,7 +2,7 @@
   <div class="hero-body">
     <div class="container {% if page.align == 'center' %}has-text-centered{% elsif page.align == 'left' %}has-text-left{% elsif page.align == 'right' %}has-text-right{% endif %}">
       <div class="columns is-vcentered">
-        
+
         {% if page.layout == 'home' %}
         <!-- Home Layout -->
         <div class="column is-half">
@@ -16,6 +16,14 @@
             <a href="{{ page.button_secondary_link }}" class="button is-light is-outlined">{{ page.button_secondary_text }}</a>
             {% endif %}
           </div>
+
+          {% if page.student_avatars %}
+          <div class="student-avatars">
+            {% for avatar in page.student_avatars %}
+            <img src="{{ avatar.src }}" alt="{{ avatar.alt }}" class="student-avatar">
+            {% endfor %}
+          </div>
+          {% endif %}
         </div>
         <div class="column is-half has-text-centered">
           {% if page.image %}
@@ -48,15 +56,15 @@
             <p class="post-id">ID: <strong>{{ page.id }}</strong></p>
           </div>
           <p class="last-modified">
-            <i class="fas fa-history"></i> Last Modified: <a href="{{ site.repo }}/commits/main/_posts/{{ page.date | date: '%Y-%m-%d' }}-{{ page.slug }}.md" target="_blank">History</a>
+            <i class="fas fa-history"></i> Last Modified: <a href="https://github.com/{{ site.github_user }}/CRM-Analytics-Academy/commits/main/_posts/{{ page.date | date: '%Y-%m-%d' }}-{{ page.slug }}.md" target="_blank">History</a>
           </p>
-          <a href="{{ site.repo }}/edit/main/_posts/{{ page.date | date: '%Y-%m-%d' }}-{{ page.slug }}.md" class="button is-inverted" target="_blank">Improve this Page</a>
+          <a href="https://github.com/{{ site.github_user }}/CRM-Analytics-Academy/edit/main/_posts/{{ page.date | date: '%Y-%m-%d' }}-{{ page.slug }}.md" class="button is-light is-outlined" target="_blank">Improve this Page</a>
         </div>
         {% endif %}
 
         {% if page.layout == 'page' %}
         <!-- Page Layout -->
-        <div class="column is-one-third">
+        <div class="column is-narrow">
           <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
           <h2 class="subtitle is-4 has-text-dark">{{ page.description }}</h2>
         </div>
