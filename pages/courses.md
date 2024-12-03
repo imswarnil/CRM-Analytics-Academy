@@ -1,4 +1,3 @@
----
 layout: page
 title: "Courses"
 permalink: /courses/
@@ -30,8 +29,8 @@ permalink: /courses/
             </div>
           </div>
 
-<!-- Free/Paid Filter -->
- <div class="field">
+ <!-- Free/Paid Filter -->
+  <div class="field">
             <label class="label">Price</label>
             <div class="control">
               <div class="select is-fullwidth">
@@ -47,11 +46,12 @@ permalink: /courses/
       </div>
     </div>
 
-    <!-- Course List -->
- <div id="course-list" class="columns is-multiline">
-      {% assign courses = site.data.courses %}
-      {% for course in courses %}
-        <div class="column is-12-mobile is-6-tablet is-4-desktop course-card" data-provider="{{ course.course_provider }}" data-price="{{ course.is_free }}">
+<!-- Course List -->
+<div id="course-list" class="columns is-multiline">
+      {% for course in site.courses %}
+        <div class="column is-12-mobile is-6-tablet is-4-desktop course-card" 
+             data-provider="{{ course.course_provider | downcase }}" 
+             data-price="{{ course.is_free }}">
           <div class="card">
             <div class="card-content">
               <p class="title">{{ course.title }}</p>
