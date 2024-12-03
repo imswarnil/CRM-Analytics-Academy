@@ -63,14 +63,8 @@
   
           <!-- Page Layout Section -->
           {% if page.layout == 'page' %}
-          <div class="column is-12-mobile is-6-tablet is-4-desktop has-text-centered-mobile">
-            <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
-            <h2 class="subtitle is-4 has-text-dark">{{ page.description }}</h2>
-          </div>
-          <div class="column is-12-mobile is-6-tablet is-8-desktop">
-            <div class="has-text-centered-mobile">
-              {% adsense top-leaderboard %}
-            </div>
+          <div class="column is-12 has-text-centered">
+            {% adsense top-leaderboard %}
           </div>
           {% endif %}
         </div>
