@@ -21,6 +21,7 @@ url: 'https://crmanalytics.imswarnil.com' # Site URL, also used in jekyll-seo-ta
 # 1.1 Author settings
 repo: "https://github.com/imswarnil/CRM-Analytics-Academy"
 author: "Swarnil Singhai" # Author name
+author_image : 
 author_bio: "Founder of CRM Analytics Academy, passionate about helping learners master CRM Analytics with hands-on tutorials, certification, and free resources."
 email: "contact@imswarnil.com"
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account

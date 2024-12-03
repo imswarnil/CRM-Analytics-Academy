@@ -50,6 +50,12 @@
               <img src="{{ page.image }}" alt="{{ page.title }}">
             </figure>
             <p class="post-id">ID: <strong>{{ page.id }}</strong></p>
+            <div class="created-updated">
+              <p><strong>Created:</strong> {{ page.date | date: "%B %d, %Y" }}</p>
+              {% if page.last_modified_at %}
+              <p><strong>Last Modified:</strong> {{ page.last_modified_at | date: "%B %d, %Y" }}</p>
+              {% endif %}
+            </div>
           </div>
         </div>
         {% endif %}
@@ -71,6 +77,11 @@
         </div>
         {% endif %}
       </div>
+      {% if page.github_link %}
+      <div class="github-link">
+        <a href="{{ page.github_link }}" class="button is-dark is-outlined">View on GitHub</a>
+      </div>
+      {% endif %}
     </div>
   </div>
 </section>

@@ -12,20 +12,24 @@
   padding: 2rem 1rem;
 }
 
-.home-hero .hero-title, .post-hero .hero-title, .page-hero .hero-title, .training-hero .hero-title {
+.hero-title, .hero-subtitle {
+  transition: all 0.3s ease-in-out;
+}
+
+.hero-title {
   font-size: 2.5rem;
   font-weight: bold;
   color: #4a4e69;
   margin-bottom: 1rem;
 }
 
-.home-hero .hero-subtitle, .post-hero .hero-subtitle, .page-hero .hero-subtitle, .training-hero .hero-subtitle {
+.hero-subtitle {
   font-size: 1.25rem;
   color: #7c7c7c;
   margin-bottom: 1.5rem;
 }
 
-.home-hero .hero-buttons .button {
+.hero-buttons .button {
   margin: 0.5rem;
   border-radius: 8px;
   font-weight: bold;
@@ -53,7 +57,22 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+.created-updated p {
+  font-size: 0.9rem;
+  color: #7c7c7c;
+  margin: 0.2rem 0;
+}
+
+.github-link {
+  margin-top: 2rem;
+  text-align: center;
+}
+
 @media screen and (max-width: 768px) {
+  .home-hero, .post-hero, .page-hero, .training-hero {
+    padding: 1.5rem 0.5rem;
+  }
+
   .hero-title {
     font-size: 2rem; /* Mobile Title Size */
   }
@@ -66,4 +85,29 @@
     width: 40px;
     height: 40px;
   }
+}
+
+.hero-title {
+  font-size: 2.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+}
+
+.hero-buttons .button {
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.github-link a {
+  font-size: 1rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.github-link a:hover {
+  background-color: #333;
+  color: white;
 }
