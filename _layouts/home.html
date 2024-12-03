@@ -1,11 +1,18 @@
 ---
 layout: default
 ---
-<main class="main section">
-    {% include home/get-started.html %}
+ 
+{% include sections/content-card-1.html
+    background="has-background-dark"
+    caption="Discover CRM Analytics"
+    title="Learn Salesforce CRM Analytics"
+    description="Master dashboards, data, and analytics with our free training."
+    features=features
+  %}
+  
+{% include home/get-started.html %}
     {% include home/features.html %}
 {% include home/team.html %}
-</main>
 
 
 <article class="content">

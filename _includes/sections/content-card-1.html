@@ -1,0 +1,43 @@
+<section class="py-6 {{ background | default: '' }}">
+    <div class="container mb-6">
+      <div class="columns is-centered mb-6">
+        <div class="column is-8 has-text-centered">
+          <!-- caption -->
+          <span 
+            class="mb-3 is-uppercase has-text-weight-semibold is-size-6 
+            {{ background_contains_dark ? 'has-text-light' : 'has-text-primary' }}">
+            {{ caption | default: "Why Learn with CRM Academy" }}
+          </span>
+          <h2 class="mb-2 is-size-3 has-text-weight-bold {{ background_contains_dark ? 'has-text-light' : '' }}">
+            {{ title | default: "Master Salesforce CRM Analytics" }}
+          </h2>
+          <p class="is-size-5 mb-0 {{ background_contains_dark ? 'has-text-light' : '' }}">
+            {{ description | default: "Learn Salesforce CRM Analytics (formerly Einstein Analytics) from scratch. Gain insights, build dashboards, and drive analytics for your career or organization." }}
+          </p>
+        </div>
+      </div>
+      <!-- Features Row -->
+      <div class="columns is-multiline">
+        {% for feature in features %}
+        <div class="column is-12-mobile is-6-tablet is-3-desktop">
+          <div class="box has-text-centered {{ background_contains_dark ? 'has-background-dark' : '' }}">
+            <!-- Icon -->
+            <div class="is-size-3 {{ background_contains_dark ? 'has-text-light' : 'has-text-primary' }}">
+              <i class="{{ feature.icon }}"></i>
+            </div>
+            <!-- Content -->
+            <div class="mt-4">
+              <h3 class="is-size-5 has-text-weight-semibold {{ background_contains_dark ? 'has-text-light' : '' }}">
+                {{ feature.title }}
+              </h3>
+              <p class="is-size-6 mb-0 {{ background_contains_dark ? 'has-text-light' : '' }}">
+                {{ feature.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  

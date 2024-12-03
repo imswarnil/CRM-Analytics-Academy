@@ -19,4 +19,18 @@ student_avatars:
     alt: "Student 4"
 student_text: "Join 1,000+ Students Enrolled"
 bg: "has-background-primary-light"  # Optional: Add background color class
+features:
+  - icon: "fas fa-chart-line"
+    title: "Build Advanced Dashboards"
+    description: "Master creating advanced dashboards and visualizations in CRM Analytics."
+  - icon: "fas fa-database"
+    title: "Data Preparation Skills"
+    description: "Learn how to prep, transform, and model data effectively for analytics."
+  - icon: "fas fa-code"
+    title: "Hands-on Practical Training"
+    description: "Get hands-on experience with CRM Analytics tools and use cases."
+  - icon: "fas fa-award"
+    title: "Earn Certification Guidance"
+    description: "Step-by-step guidance to prepare for Salesforce CRM Analytics certification."
+
 ---
