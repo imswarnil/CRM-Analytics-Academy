@@ -1,0 +1,74 @@
+<div class="section">
+    <div class="container">
+      <div class="columns">
+        <!-- Course Details Column -->
+        <div class="column is-8">
+          <h1 class="title is-2">{{ page.title }}</h1>
+          <p class="subtitle is-4">{{ page.author }} | {{ page.course_provider }}</p>
+          <p class="has-text-weight-semibold">{{ page.duration }} | Price: {{ page.price }}</p>
+          <p class="has-text-weight-semibold">
+            <a href="{{ page.link }}" target="_blank" class="button is-link is-outlined">Take the Course</a>
+          </p>
+  
+          <!-- Course Description -->
+          <div class="content">
+            <h2 class="title is-4">Course Description</h2>
+            <p>{{ page.description }}</p>
+          </div>
+  
+          <!-- What You Will Learn -->
+          <div class="content">
+            <h2 class="title is-4">What You Will Learn</h2>
+            <ul>
+              {% for item in page.what_you_will_learn %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+  
+          <!-- Lessons -->
+          <div class="content">
+            <h2 class="title is-4">Course Lessons</h2>
+            {% for section in page.lessons %}
+              <h3 class="subtitle is-5">{{ section.section }}</h3>
+              <ul>
+                {% for lesson in section.lessons %}
+                  <li>{{ lesson }}</li>
+                {% endfor %}
+              </ul>
+            {% endfor %}
+          </div>
+  
+          <!-- What's Included in the Course -->
+          <div class="content">
+            <h2 class="title is-4">What's Included in the Course</h2>
+            <ul>
+              {% for item in page.included_in_course %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Sidebar Column -->
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-content">
+              <p class="title is-5">Course Provider: <i class="fa {{ page.platform_icon }}"></i></p>
+              <p class="subtitle is-6">Target Audience: {{ page.target_audience }}</p>
+              <p class="is-size-6">Price: {{ page.is_free | default: false ? 'Paid' : 'Free' }}</p>
+              <a href="{{ page.link }}" target="_blank" class="button is-primary">Enroll Now</a>
+            </div>
+          </div>
+          <div class="card mt-4">
+            <div class="card-content">
+              <p class="has-text-centered is-size-7">
+                <strong>Disclaimer:</strong> Prices and course availability may vary. Ensure to check the course provider's page for up-to-date details.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

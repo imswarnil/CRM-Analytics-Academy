@@ -30,3 +30,5 @@ included_in_course:
   - "24/7 support"
   - "Downloadable resources"
 ---
+
+{% include course-detail.html %}
