@@ -2,8 +2,8 @@
   position: relative;
   overflow: hidden;
   background-color: #fff;  /* Default white background */
-  border-top: 4px solid #f1f1f1; /* Top border */
-  border-bottom: 4px solid #f1f1f1; /* Bottom border */
+  background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px); /* Dotted pattern */
+  background-size: 30px 30px;  /* Smaller, thin dots with more space */
 }
 
 .hero-body {
@@ -16,14 +16,14 @@
 }
 
 .home-hero .hero-title, .post-hero .hero-title, .page-hero .hero-title, .training-hero .hero-title {
-  font-size: 2.5rem;
+  font-size: 1.75rem;  /* Smaller Title Size */
   font-weight: bold;
   color: #4a4e69;
   margin-bottom: 1rem;
 }
 
 .home-hero .hero-subtitle, .post-hero .hero-subtitle, .page-hero .hero-subtitle, .training-hero .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: 1rem;  /* Smaller Subtitle Size */
   color: #7c7c7c;
   margin-bottom: 1.5rem;
 }
@@ -63,11 +63,11 @@
   }
 
   .home-hero .hero-title, .post-hero .hero-title, .page-hero .hero-title, .training-hero .hero-title {
-    font-size: 1; /* Smaller Title Size */
+    font-size: 1.25rem;  /* Smaller Title Size for Mobile */
   }
 
   .home-hero .hero-subtitle, .post-hero .hero-subtitle, .page-hero .hero-subtitle, .training-hero .hero-subtitle {
-    font-size: 0.65rem; /* Smaller Subtitle Size */
+    font-size: 0.85rem;  /* Smaller Subtitle Size for Mobile */
   }
 
   /* Reverse columns for page layout */
