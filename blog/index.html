@@ -1,21 +1,21 @@
 ---
 layout: page
-description : My Blogs etc 
+description: My Blogs etc
 collectionpage: posts
-title : Blog
+title: Blog
 ---
 
 <div class="hero is-small mt-4">
   <div class="hero-body">
     <div class="container">
-      <div class="columns">
-        <div class="column is-3">
+      <div class="columns is-variable is-3">
+        <div class="column is-12-mobile is-4-tablet is-3-desktop">
           <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
           <h2 class="subtitle is-4">{{ page.description }}</h2>
         </div>
-        <div class="column is-9">
-          <div class=" has-text-centered">
-            {% adsense small-leaderboard %}
+        <div class="column is-12-mobile is-8-tablet is-9-desktop">
+          <div class="has-text-centered">
+            {% adsense large-leaderboard %}
           </div>
         </div>
       </div>
@@ -25,13 +25,13 @@ title : Blog
 
 <section class="section">
   <div class="container">
-    <div class="columns">
-      <div class="column is-8">
+    <div class="columns is-variable is-4">
+      <div class="column is-12-mobile is-8-tablet is-9-desktop">
         {% include post-list.html %}
       </div>
 
       {% if page.aside == true %}
-      <div class="column is-4">
+      <div class="column is-12-mobile is-4-tablet is-3-desktop">
         <!-- Square Ad Placeholder -->
         <div class="notification is-info has-text-centered mb-4">
           {% adsense skyscraper %}
