@@ -40,6 +40,19 @@
   {% unless page.hide_hero %}
             {% include site-hero.html %}
    {% endunless %}
+   <!-- _includes/adsense-section.html -->
+<section class="section is-paddingless">
+  <div class="container is-centered has-text-centered">
+    <div class="columns">
+      <div class="column is-12">
+        <!-- AdSense Placeholder -->
+        <div class="box p-4 m-4">
+          {% adsense square %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
   <div class="container">
     {{ content }}
   </div>
