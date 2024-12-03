@@ -1,5 +1,7 @@
 ---
 title: "Master Salesforce CRM Analytics"
+description : learn CRM Analytics
+layout : page
 author: "John Doe"
 platform: "Udemy"
 price: "$99.99"
