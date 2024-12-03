@@ -1,6 +1,6 @@
 
 content_card_1:
-  background: "has-background-dark"
+  background: "has-background-light"
   caption: "Why Learn with CRM Academy"
   title: "Master Salesforce CRM Analytics"
   description: "Learn Salesforce CRM Analytics (formerly Einstein Analytics) from scratch. Gain insights, build dashboards, and drive analytics for your career or organization."
