@@ -1,34 +1,104 @@
 ---
 layout: page
 title: "Courses"
-description : All CRM Analytics Courses
-permalink: /courses
+permalink: /courses/
 ---
 
-<div class="container">
-  <h1 class="title">Our Courses</h1>
-  <p>Explore our curated collection of Salesforce CRM Analytics courses to help you learn and grow in your career.</p>
+<section class="section">
+  <div class="container">
+    <h1 class="title has-text-centered">Courses</h1>
 
-  <div class="columns is-multiline">
-    {% for course in site.courses %}
-      <div class="column is-12-mobile is-6-tablet is-4-desktop">
-        <div class="box">
-          <h2 class="subtitle is-size-4">{{ course.title }}</h2>
-          <p><strong>Instructor:</strong> {{ course.author }}</p>
-          <p><strong>Platform:</strong> {{ course.platform }}</p>
-          <p><strong>Price:</strong> {{ course.price }}</p>
-          <p><strong>Duration:</strong> {{ course.duration }}</p>
-          <p><strong>Lessons:</strong> {{ course.lessons }}</p>
-          <a href="{{ course.link }}" class="button is-primary" target="_blank">Enroll Now</a>
+<!-- Filter Section -->
+<div class="filters">
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Filter by</label>
+        </div>
+        <div class="field-body">
+          <!-- Course Provider Filter -->
+          <div class="field">
+            <label class="label">Provider</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="provider-filter">
+                  <option value="">All Providers</option>
+                  <option value="Udemy">Udemy</option>
+                  <option value="Coursera">Coursera</option>
+                  <option value="LinkedIn Learning">LinkedIn Learning</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+<!-- Free/Paid Filter -->
+ <div class="field">
+            <label class="label">Price</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="price-filter">
+                  <option value="">All Prices</option>
+                  <option value="true">Free</option>
+                  <option value="false">Paid</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    {% endfor %}
+    </div>
+
+    <!-- Course List -->
+ <div id="course-list" class="columns is-multiline">
+      {% assign courses = site.data.courses %}
+      {% for course in courses %}
+        <div class="column is-12-mobile is-6-tablet is-4-desktop course-card" data-provider="{{ course.course_provider }}" data-price="{{ course.is_free }}">
+          <div class="card">
+            <div class="card-content">
+              <p class="title">{{ course.title }}</p>
+              <p class="subtitle">{{ course.course_provider }}</p>
+              <p>{{ course.description }}</p>
+              <p class="has-text-weight-semibold">{{ course.price }} | Duration: {{ course.duration }}</p>
+              <a href="{{ course.link }}" class="button is-primary" target="_blank">Take the Course</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-</div>
-<style>/* Styling for course list */
-.course-box {
-  margin-bottom: 30px;
-}
-.course-box .button {
-  margin-top: 10px;
-} </style>
+</section>
+
+<!-- Add the JavaScript for Filtering -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const providerFilter = document.getElementById('provider-filter');
+    const priceFilter = document.getElementById('price-filter');
+    const courseList = document.getElementById('course-list');
+    const courses = document.querySelectorAll('.course-card');
+
+    // Function to filter courses
+    function filterCourses() {
+      const provider = providerFilter.value.toLowerCase();
+      const price = priceFilter.value;
+
+      courses.forEach(course => {
+        const courseProvider = course.getAttribute('data-provider').toLowerCase();
+        const isFree = course.getAttribute('data-price') === 'true';
+
+        // Show or hide the course based on the filter values
+        if ((provider === "" || courseProvider.includes(provider)) &&
+            (price === "" || (price === "true" && isFree) || (price === "false" && !isFree))) {
+          course.style.display = 'block';
+        } else {
+          course.style.display = 'none';
+        }
+      });
+    }
+
+    // Event listeners for filter changes
+    providerFilter.addEventListener('change', filterCourses);
+    priceFilter.addEventListener('change', filterCourses);
+
+    // Initial filtering
+    filterCourses();
+  });
+</script>
