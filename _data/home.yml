@@ -1,0 +1,19 @@
+
+content_card_1:
+  background: "has-background-dark"
+  caption: "Why Learn with CRM Academy"
+  title: "Master Salesforce CRM Analytics"
+  description: "Learn Salesforce CRM Analytics (formerly Einstein Analytics) from scratch. Gain insights, build dashboards, and drive analytics for your career or organization."
+  features:
+    - icon: "fas fa-cogs"
+      title: "Learn the latest skills"
+      description: "Master the skills that are shaping the future of analytics."
+    - icon: "fas fa-user"
+      title: "Get ready for a career"
+      description: "Prepare yourself for an exciting career in Salesforce CRM Analytics."
+    - icon: "fas fa-trophy"
+      title: "Earn a Certificate"
+      description: "Get certified in Salesforce CRM Analytics and showcase your expertise."
+    - icon: "fas fa-users"
+      title: "Upskill your organization"
+      description: "Enhance your team's analytics skills to drive business success."

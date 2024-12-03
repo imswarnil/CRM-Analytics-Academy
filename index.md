@@ -2,6 +2,7 @@
 layout: home
 title: "Learn Salesforce CRM Analytics"
 description: "Master CRM Analytics with expert-led training."
+database: home.yml
 button_primary_link: "/traini"
 button_primary_text: "Get Started"
 button_secondary_link: "/learn-more"

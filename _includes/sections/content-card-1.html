@@ -1,43 +1,47 @@
-<section class="py-6 {{ include.background | default: '' }}">
+<section class="py-6 {{ site.data.home.content_card_1.background | default: '' }}">
     <div class="container mb-6">
       <div class="columns is-centered mb-6">
         <div class="column is-8 has-text-centered">
           <!-- Caption -->
           <span class="mb-3 is-uppercase has-text-weight-semibold is-size-6
-            {{ include.background contains 'dark' ? 'has-text-light' : 'has-text-primary' }}">
-            {{ include.caption | default: "Why Learn with CRM Academy" }}
+            {% if site.data.home.content_card_1.background contains 'dark' %}has-text-light{% else %}has-text-primary{% endif %}">
+            {{ site.data.home.content_card_1.caption | default: "Why Learn with CRM Academy" }}
           </span>
           <h2 class="mb-2 is-size-3 has-text-weight-bold 
-            {{ include.background contains 'dark' ? 'has-text-light' : '' }}">
-            {{ include.title | default: "Master Salesforce CRM Analytics" }}
+            {% if site.data.home.content_card_1.background contains 'dark' %}has-text-light{% endif %}">
+            {{ site.data.home.content_card_1.title | default: "Master Salesforce CRM Analytics" }}
           </h2>
-          <p class="is-size-5 mb-0 {{ include.background contains 'dark' ? 'has-text-light' : '' }}">
-            {{ include.description | default: "Learn Salesforce CRM Analytics (formerly Einstein Analytics) from scratch. Gain insights, build dashboards, and drive analytics for your career or organization." }}
+          <p class="is-size-5 mb-0 
+            {% if site.data.home.content_card_1.background contains 'dark' %}has-text-light{% endif %}">
+            {{ site.data.home.content_card_1.description | default: "Learn Salesforce CRM Analytics (formerly Einstein Analytics) from scratch. Gain insights, build dashboards, and drive analytics for your career or organization." }}
           </p>
         </div>
       </div>
   
       <!-- Features Row -->
       <div class="columns is-multiline">
-        {% assign features = include.features | parse_json %}
-        {% for feature in features %}
-          <div class="column is-12-mobile is-6-tablet is-3-desktop">
-            <div class="box has-text-centered {{ include.background contains 'dark' ? 'has-background-dark' : '' }}">
-              <!-- Icon -->
-              <div class="is-size-3 {{ include.background contains 'dark' ? 'has-text-light' : 'has-text-primary' }}">
-                <i class="{{ feature.icon }}"></i>
-              </div>
-              <!-- Content -->
-              <div class="mt-4">
-                <h3 class="is-size-5 has-text-weight-semibold {{ include.background contains 'dark' ? 'has-text-light' : '' }}">
-                  {{ feature.title }}
-                </h3>
-                <p class="is-size-6 mb-0 {{ include.background contains 'dark' ? 'has-text-light' : '' }}">
-                  {{ feature.description }}
-                </p>
-              </div>
+        {% for feature in site.data.home.content_card_1.features %}
+        <div class="column is-12-mobile is-6-tablet is-3-desktop">
+          <div class="box has-text-centered 
+            {% if site.data.home.content_card_1.background contains 'dark' %}has-background-dark{% endif %}">
+            <!-- Icon -->
+            <div class="is-size-3 
+              {% if site.data.home.content_card_1.background contains 'dark' %}has-text-light{% else %}has-text-primary{% endif %}">
+              <i class="{{ feature.icon }}"></i>
+            </div>
+            <!-- Content -->
+            <div class="mt-4">
+              <h3 class="is-size-5 has-text-weight-semibold 
+                {% if site.data.home.content_card_1.background contains 'dark' %}has-text-light{% endif %}">
+                {{ feature.title }}
+              </h3>
+              <p class="is-size-6 mb-0 
+                {% if site.data.home.content_card_1.background contains 'dark' %}has-text-light{% endif %}">
+                {{ feature.description }}
+              </p>
             </div>
           </div>
+        </div>
         {% endfor %}
       </div>
     </div>
