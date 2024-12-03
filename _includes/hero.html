@@ -36,7 +36,7 @@
 
         {% if page.layout == 'post' %}
         <!-- Post Layout -->
-        <div class="column is-5">
+        <div class="column is-7">
           <h1 class="title is-2 blog-header-heading">{{ page.title }}</h1>
           <h2 class="subtitle is-4 blog-header-subtitle">{{ page.description }}</h2>
           <div class="post-meta">
@@ -48,7 +48,7 @@
           </div>
         </div>
         
-        <div class="column is-7">
+        <div class="column is-5">
           <div class="post-id-card">
             <figure class="image is-16by9 blog-image">
               <img src="{{ page.image }}" alt="{{ page.title }}">
@@ -56,9 +56,9 @@
             <p class="post-id">ID: <strong>{{ page.id }}</strong></p>
           </div>
           <p class="last-modified">
-            <i class="fas fa-history"></i> Last Modified: <a href="https://github.com/{{ site.github_user }}/CRM-Analytics-Academy/commits/main/_posts/{{ page.date | date: '%Y-%m-%d' }}-{{ page.slug }}.md" target="_blank">History</a>
+            <i class="fas fa-history"></i> Last Modified: <a href="{{ site.repo }}/commits/main/_posts/{{ page.date | date: '%Y-%m-%d' }}-{{ page.slug }}.md" target="_blank">History</a>
           </p>
-          <a href="https://github.com/{{ site.github_user }}/CRM-Analytics-Academy/edit/main/_posts/{{ page.date | date: '%Y-%m-%d' }}-{{ page.slug }}.md" class="button is-light is-outlined" target="_blank">Improve this Page</a>
+          <a href="{{ site.repo }}/edit/main/_posts/{{ page.date | date: '%Y-%m-%d' }}-{{ page.slug }}.md" class="button is-light is-outlined" target="_blank">Improve this Page</a>
         </div>
         {% endif %}
 
