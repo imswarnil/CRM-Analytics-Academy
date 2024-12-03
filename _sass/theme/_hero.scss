@@ -53,32 +53,28 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.last-modified {
-  margin-top: 1rem;
-  font-size: 1.1rem;
-  color: #4a4e69;
-}
-
-.last-modified a {
-  color: #3273dc;
-  text-decoration: none;
-}
-
-.last-modified a:hover {
-  text-decoration: underline;
-}
-
-.post-id-card {
-  margin-top: 1.5rem;
-}
-
 @media screen and (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem; /* Mobile Title Size */
+  /* Adjust hero height and font sizes for mobile */
+  .home-hero, .post-hero, .page-hero, .training-hero {
+    padding: 1rem 0.5rem;
   }
-  
-  .hero-subtitle {
-    font-size: 1rem; /* Mobile Subtitle Size */
+
+  .home-hero .hero-title, .post-hero .hero-title, .page-hero .hero-title, .training-hero .hero-title {
+    font-size: 1.75rem; /* Smaller Title Size */
+  }
+
+  .home-hero .hero-subtitle, .post-hero .hero-subtitle, .page-hero .hero-subtitle, .training-hero .hero-subtitle {
+    font-size: 1rem; /* Smaller Subtitle Size */
+  }
+
+  /* Reverse columns for page layout */
+  .page-hero .columns {
+    flex-direction: column-reverse;
+  }
+
+  /* Reverse columns for post layout */
+  .post-hero .columns {
+    flex-direction: column-reverse;
   }
 
   .student-avatar {
@@ -86,7 +82,8 @@
     height: 40px;
   }
 
-  .columns {
-    flex-direction: column-reverse; /* Reverse columns in mobile for page layout */
+  /* Adjust hero image */
+  .hero-image {
+    max-width: 80%; /* Resize image for mobile */
   }
 }
