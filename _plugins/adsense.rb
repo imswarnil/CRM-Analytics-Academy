@@ -24,6 +24,8 @@ module Jekyll
         ad_html = generate_small_leaderboard_ad(client_id)
       when "large-leaderboard"
         ad_html = generate_large_leaderboard_ad(client_id)
+      when "leaderboard" # Updated leaderboard case
+        ad_html = generate_leaderboard_ad(client_id)
       when "skyscraper"
         ad_html = generate_skyscraper_ad(client_id)
       when "skyscraper-small"
@@ -41,13 +43,13 @@ module Jekyll
       else
         ad_html = "<p>Invalid ad type: #{@ad_type}</p>"
       end
-      
 
       ad_html
     end
 
     private
 
+    # Square Ads
     def generate_square_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-square">
@@ -58,6 +60,7 @@ module Jekyll
       HTML
     end
     
+    # Small Square Ads
     def generate_small_square_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-small-square">
@@ -68,6 +71,7 @@ module Jekyll
       HTML
     end
     
+    # Medium Square Ads
     def generate_medium_square_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-medium-square">
@@ -78,6 +82,7 @@ module Jekyll
       HTML
     end
     
+    # Large Square Ads
     def generate_large_square_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-large-square">
@@ -87,7 +92,8 @@ module Jekyll
         </div>
       HTML
     end
-    
+
+    # Small Leaderboard Ads
     def generate_small_leaderboard_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-small-leaderboard">
@@ -98,6 +104,7 @@ module Jekyll
       HTML
     end
     
+    # Large Leaderboard Ads
     def generate_large_leaderboard_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-large-leaderboard">
@@ -107,7 +114,19 @@ module Jekyll
         </div>
       HTML
     end
-    
+
+    # Leaderboard Ads (Updated with correct data)
+    def generate_leaderboard_ad(client_id)
+      <<-HTML
+        <div class="ads-container is-adsense" id="lazy-ad-leaderboard">
+          <ins class="adsbygoogle leaderboard"
+               data-ad-client="#{client_id}"
+               data-ad-slot="1864856299"></ins>
+        </div>
+      HTML
+    end
+
+    # Skyscraper Ads
     def generate_skyscraper_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-skyscraper">
@@ -118,6 +137,7 @@ module Jekyll
       HTML
     end
     
+    # Skyscraper Small Ads
     def generate_skyscraper_small_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-skyscraper-small">
@@ -128,6 +148,7 @@ module Jekyll
       HTML
     end
 
+    # Medium Skyscraper Ads
     def generate_medium_skyscraper_ad(client_id)
       <<-HTML
         <div class="ads-container" id="lazy-ad-medium-skyscraper">
@@ -138,7 +159,7 @@ module Jekyll
       HTML
     end
     
-    
+    # Large Skyscraper Ads
     def generate_large_skyscraper_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-large-skyscraper">
@@ -149,6 +170,7 @@ module Jekyll
       HTML
     end
     
+    # Article Ads
     def generate_article_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-article">
@@ -161,6 +183,7 @@ module Jekyll
       HTML
     end
     
+    # Multiplex Ads
     def generate_multiplex_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-multiplex">
@@ -171,6 +194,7 @@ module Jekyll
       HTML
     end
     
+    # Infeed Ads
     def generate_infeed_ad(client_id)
       <<-HTML
         <div class="ads-container is-adsense" id="lazy-ad-infeed">
