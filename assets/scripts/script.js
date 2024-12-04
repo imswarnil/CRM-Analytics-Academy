@@ -55,28 +55,21 @@
     });
     // Lazy Load Adsense
     document.addEventListener("DOMContentLoaded", function () {
-      var ads = document.querySelectorAll('.is-adsense ins.adsbygoogle');
-    
-      if ('IntersectionObserver' in window) {
+        const ads = document.querySelectorAll('.is-adsense');
         const observer = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              // When the ad comes into the viewport, load the AdSense script
-              if (!entry.target.hasAttribute('data-loaded')) {
+              const ad = entry.target.querySelector('.adsbygoogle');
+              if (ad && !ad.hasAttribute('data-loaded')) {
                 (adsbygoogle = window.adsbygoogle || []).push({});
-                entry.target.setAttribute('data-loaded', 'true');
+                ad.setAttribute('data-loaded', 'true');
+                observer.unobserve(entry.target);
               }
-              observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.1 });
+        });
     
         ads.forEach(ad => {
           observer.observe(ad);
         });
-      } else {
-        // Fallback: Load all ads immediately if IntersectionObserver isn't supported
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      }
-    });
-    
+      });
