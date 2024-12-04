@@ -2,7 +2,9 @@
   <div class="hero-head">
     {% if page.layout == 'page' or page.layout == 'post' %}
     <div class="container is-hidden-tablet">
-      <div class="ad-placeholder" style="width: 100%; height: 90px;">Mobile Ad (320x90)</div>
+      <div class="ad-placeholder" style="width: 100%; height: 90px;">
+        {% adsense top-leaderboard %}
+      </div>
     </div>
     {% endif %}
   </div>
@@ -59,17 +61,19 @@
           </div>
         </div>
         <div class="column is-4">
-          <div class="ad-placeholder" style="width: 300px; height: 250px;">Desktop Ad (300x250)</div>
+          <div class="ad-placeholder"> {% adsense top-leaderboard %}</div>
         </div>
         {% endif %}
 
         {% if page.layout == 'page' %}
         <div class="column is-8">
-          <h1 class="title is-2 has-text-primary mb-2">{{ page.title }}</h1>
-          <h2 class="subtitle is-4 has-text-dark mb-4">{{ page.description }}</h2>
+          <div class="ad-placeholder">
+            {% adsense top-leaderboard %}
+          </div>
         </div>
         <div class="column is-4">
-          <div class="ad-placeholder" style="width: 300px; height: 250px;">Desktop Ad (300x250)</div>
+          <h1 class="title is-2 has-text-primary mb-2">{{ page.title }}</h1>
+          <h2 class="subtitle is-4 has-text-dark mb-4">{{ page.description }}</h2>
         </div>
         {% endif %}
 
