@@ -5,9 +5,9 @@ layout: default
   <div class="container">
     <div class="columns">
         <!-- Fixed Ad Sidebar -->
-        <div class="column is-2 is-hidden-mobile">
+        <div class="column is-auto is-hidden-mobile">
           {% adsense square %}
-          <div style="position: sticky; top:0;">
+          <div>
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540"
             crossorigin="anonymous"></script>
        <!-- Skyscraper (160×600) -->
@@ -21,7 +21,7 @@ layout: default
           </div>
         </div>
       <!-- Main Content -->
-      <div class="column is-7">
+      <div class="column is-8">
         <article class="content">
           <div class="content-body">
             {{ content }}
@@ -31,7 +31,7 @@ layout: default
 
       {% if page.aside == true %}
         <!-- Aside Content -->
-        <aside class="column is-3 is-hidden-mobile">
+        <aside class="column is-auto is-hidden-mobile">
           {% include site-aside.html %}
         </aside>
       {% endif %}
