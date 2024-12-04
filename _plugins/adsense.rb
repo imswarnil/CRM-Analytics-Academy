@@ -142,4 +142,4 @@ module Jekyll
 end
 
 # Register the tag in Liquid
-Liquid::Template.register_tag('lazy_adsense', Jekyll::LazyAdsenseTag)
+Liquid::Template.register_tag('adsense', Jekyll::LazyAdsenseTag)
