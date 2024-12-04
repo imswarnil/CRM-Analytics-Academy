@@ -33,6 +33,9 @@
         {% endif %}
 
         {% if page.layout == 'post' %}
+        <div class="column is-4">
+          {% adsense square %}
+        </div>
         <div class="column is-8">
           <nav class="breadcrumb mb-2" aria-label="breadcrumbs">
             <ul>
@@ -49,9 +52,6 @@
             {% endfor %}
             <span class="tag is-light"><i class="fas fa-clock"></i> {{ page.reading_time }} min</span>
           </div>
-        </div>
-        <div class="column is-4">
-          {% adsense small-leaderboard %}
         </div>
         {% endif %}
 
