@@ -48,11 +48,9 @@ module Jekyll
       <<-HTML
       <div class="adsense">
         <ins class="adsbygoogle #{ad_class}"
-            style="display:block"
             data-ad-client="#{ad_client}"
             data-ad-slot="#{slot}"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
+      ></ins>
       </div>
       <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
