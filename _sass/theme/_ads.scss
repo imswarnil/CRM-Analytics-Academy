@@ -1,0 +1,273 @@
+/* Base styles for ads */
+.adsense .adsbygoogle {
+    display: block;
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .adsense .advertisement-text {
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  /* Square Ad */
+  .adsense .square {
+    width: 250px;
+    height: 250px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .square {
+      width: 200px;
+      height: 200px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .square {
+      width: 180px;
+      height: 180px;
+    }
+  }
+  
+  /* Small Square Ad */
+  .adsense .small-square {
+    width: 200px;
+    height: 200px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .small-square {
+      width: 180px;
+      height: 180px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .small-square {
+      width: 160px;
+      height: 160px;
+    }
+  }
+  
+  /* Medium Square Ad */
+  .adsense .medium-square {
+    width: 300px;
+    height: 250px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .medium-square {
+      width: 250px;
+      height: 250px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .medium-square {
+      width: 240px;
+      height: 200px;
+    }
+  }
+  
+  /* Large Square Ad */
+  .adsense .large-square {
+    width: 336px;
+    height: 280px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .large-square {
+      width: 300px;
+      height: 250px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .large-square {
+      width: 280px;
+      height: 230px;
+    }
+  }
+  
+  /* Leaderboard Ad */
+  .adsense .leaderboard {
+    width: 728px;
+    height: 90px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .leaderboard {
+      width: 600px;
+      height: 90px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .leaderboard {
+      width: 480px;
+      height: 60px;
+    }
+  }
+  
+  /* Small Leaderboard Ad */
+  .adsense .small-leaderboard {
+    width: 320px;
+    height: 50px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .small-leaderboard {
+      width: 300px;
+      height: 50px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .small-leaderboard {
+      width: 280px;
+      height: 40px;
+    }
+  }
+  
+  /* Skyscraper Ad */
+  .adsense .skyscraper {
+    width: 160px;
+    height: 600px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .skyscraper {
+      width: 120px;
+      height: 500px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .skyscraper {
+      width: 100px;
+      height: 400px;
+    }
+  }
+  
+  /* Small Skyscraper Ad */
+  .adsense .small-skyscraper {
+    width: 120px;
+    height: 240px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .small-skyscraper {
+      width: 100px;
+      height: 200px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .small-skyscraper {
+      width: 80px;
+      height: 180px;
+    }
+  }
+  
+  /* Medium Skyscraper Ad */
+  .adsense .medium-skyscraper {
+    width: 300px;
+    height: 600px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .medium-skyscraper {
+      width: 250px;
+      height: 500px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .medium-skyscraper {
+      width: 230px;
+      height: 400px;
+    }
+  }
+  
+  /* Large Skyscraper Ad */
+  .adsense .large-skyscraper {
+    width: 300px;
+    height: 1050px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .large-skyscraper {
+      width: 250px;
+      height: 900px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .large-skyscraper {
+      width: 220px;
+      height: 750px;
+    }
+  }
+  
+  /* Billboard Ad */
+  .adsense .billboard {
+    width: 970px;
+    height: 250px;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .billboard {
+      width: 900px;
+      height: 250px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .billboard {
+      width: 760px;
+      height: 230px;
+    }
+  }
+  
+  /* In-feed Ad */
+  .adsense .infeed {
+    width: 100%;
+    height: auto;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .infeed {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .infeed {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  /* Article Ad */
+  .adsense .article {
+    width: 100%;
+    height: auto;
+  }
+  
+  @media (max-width: 1024px) {
+    .adsense .article {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .adsense .article {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
