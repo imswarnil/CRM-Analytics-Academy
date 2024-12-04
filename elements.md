@@ -215,13 +215,22 @@ aside: true
 
 # Heading 1
 
+ {% adsense square %}
+ 
+
 ## Heading 2
 
+ {% adsense button %}
+
 ### Heading 3
+ {% adsense small-leaderboard %}
 
 #### Heading 4
 
+ {% adsense large-leaderboard %}
 ##### Heading 5
+
+ {% adsense multiplex %}
 
 ###### Heading 6
 
@@ -231,6 +240,9 @@ aside: true
 
 Lorem ipsum dolor sit amet, consectetur adip* isicing elit, sed do eiusmod *tempor incididunt ut labore et dolore magna aliqua.
 
+
+ {% adsense article %}
+
 Duis aute irure dolor in [A link](https://david.darn.es "A link") reprehenderit in voluptate velit esse cillum **bold text** dolore eu fugiat nulla pariatur. Excepteur span element sint occaecat cupidatat non proident, sunt _italicised text_ in culpa qui officia deserunt mollit anim id `some code` est laborum.
 
 * An item
@@ -238,6 +250,8 @@ Duis aute irure dolor in [A link](https://david.darn.es "A link") reprehenderit 
 * An item
 * An item
 * An item
+
+ {% adsense article %}
 
 1. Item one
 2. Item two
@@ -310,6 +324,9 @@ blockquote.innerHTML = bolden("Mr. Sullivan", blockquote.innerHTML)
 {% raw %}{% include button.html text="A button" link="https://david.darn.es" %}
 {% include button.html text="A button with icon" link="https://twitter.com/daviddarnes" icon="twitter" %}{% endraw %}
 ```
+
+
+ {% adsense article %}
 
 ### Icon include
 
