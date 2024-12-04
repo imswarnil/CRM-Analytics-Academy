@@ -38,30 +38,53 @@
   {% unless page.hide_hero %}
             {% include hero.html %}
    {% endunless %}
-<h1>New Ads</h1>
-{% adsense square %}
-{% adsense leaderboard %}
-{% adsense skyscraper %}
-{% adsense small-square %}
-{% adsense medium-square %}
-{% adsense large-square %}
-{% adsense small-leaderboard %}
-{% adsense medium-leaderboard %}
-{% adsense large-leaderboard %}
-{% adsense small-skyscraper %}
-{% adsense medium-skyscraper %}
-{% adsense large-skyscraper %}
-{% adsense billboard %}
-{% adsense infeed %}
-{% adsense article %}
+
 
    <hr>
+
+
+<!-- Square Ads -->
+<div class="ads-container">
+  {% adsense square %}
+  {% adsense small-square %}
+  {% adsense medium-square %}
+  {% adsense large-square %}
+</div>
+
+<!-- Leaderboard Ads -->
+<div class="ads-container">
+  {% adsense leaderboard %}
+  {% adsense small-leaderboard %}
+  {% adsense medium-leaderboard %}
+  {% adsense large-leaderboard %}
+</div>
+
+<!-- Skyscraper Ads -->
+<div class="ads-container">
+  {% adsense skyscraper %}
+  {% adsense small-skyscraper %}
+</div>
+
+<!-- Billboard Ads -->
+<div class="ads-container">
+  {% adsense billboard %}
+</div>
+
+<!-- In-Article (Infeed) Ads -->
+<div class="ads-container">
+  {% adsense in-article %}
+</div>
+
+<!-- Multiplex Ads -->
+<div class="ads-container">
+  {% adsense multiplex %}
+</div>
 
   <div class="container is-centered has-text-centered">
     <div class="columns">
       <div class="column is-12">
         <div class="p-3 m-3">
-          {% adsense large-leaderboard %}
+          {% adsense top-leaderboard %}
         </div>
       </div>
     </div>
@@ -71,7 +94,7 @@
     <div class="columns">
       <div class="column is-12">
         <div class="p-3 m-3">
-        {% adsense small-leaderboard %}
+          {% adsense small-leaderboard %}
         </div>
       </div>
     </div>
@@ -130,7 +153,7 @@
   <div>
     {{ content }}
   </div>
-  {% adsense large-leaderboard %}
+  {% adsense top-leaderboard %}
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   <script src="{{ '/assets/scripts/script.js' | relative_url }}"></script>
   {% include site-before-end.html %}
