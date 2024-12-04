@@ -55,30 +55,21 @@
     });
     // Lazy Load Adsense
     document.addEventListener("DOMContentLoaded", function () {
-      const ads = document.querySelectorAll('.adsbygoogle'); // Target ads
-    
+      const ads = document.querySelectorAll('.ads-container');
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            const ad = entry.target;
-            // Ensure that ad is not already loaded by checking if it has the 'data-loaded' attribute
+            const ad = entry.target.querySelector('.adsbygoogle');
             if (ad && !ad.hasAttribute('data-loaded')) {
-              console.log("Lazy loading ad: ", ad); // Log to console when ad is lazy loaded
-    
-              // Only push if the ad is not loaded yet
-              if (typeof window.adsbygoogle !== "undefined") {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-              }
-    
-              ad.setAttribute('data-loaded', 'true'); // Mark as loaded
-              observer.unobserve(ad); // Stop observing this ad
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              ad.setAttribute('data-loaded', 'true');
+              observer.unobserve(entry.target);
             }
           }
         });
-      }, { threshold: 0.5 }); // Trigger when 50% of the ad is visible
-    
-      ads.forEach(ad => {
-        observer.observe(ad); // Start observing each ad
       });
-    });
-    
+  
+      ads.forEach(ad => {
+        observer.observe(ad);
+      });
+    }); 
