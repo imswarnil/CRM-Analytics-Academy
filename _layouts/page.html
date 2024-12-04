@@ -5,15 +5,14 @@ layout: default
   <div class="container">
     <div class="columns">
         <!-- Fixed Ad Sidebar -->
-        <div class="column is-2 is-hidden-mobile fixed-sidebar">
-          <div class="ad-placeholder">
+        <div class="column is-2 is-narrow is-hidden-mobile">
+          <div class="ad-placeholder" style="position: sticky; top:0;">
             <!-- Ad Content -->
-            <p class="has-text-centered">Ad Placeholder</p>
             {% adsense skyscraper %}
           </div>
         </div>
       <!-- Main Content -->
-      <div class="column is-8">
+      <div class="column is-7">
         <article class="content">
           <div class="content-body">
             {{ content }}
@@ -23,7 +22,7 @@ layout: default
 
       {% if page.aside == true %}
         <!-- Aside Content -->
-        <aside class="column is-2 is-hidden-mobile">
+        <aside class="column is-3 is-hidden-mobile">
           {% include site-aside.html %}
         </aside>
       {% endif %}
