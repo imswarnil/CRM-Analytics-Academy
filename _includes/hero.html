@@ -3,9 +3,9 @@
     <div class="container {% if page.align == 'center' %}has-text-centered{% elsif page.align == 'left' %}has-text-left{% elsif page.align == 'right' %}has-text-right{% endif %}">
       <div class="columns is-vcentered {% if page.layout == 'page' or page.layout == 'post' %}is-flex-direction-row-reverse{% endif %}">
         {% if page.layout == 'home' %}
-        <div class="column is-half">
-          <h1 class="title is-4 mb-2">{{ page.title }}</h1>
-          <p class="subtitle is-5 mb-4">{{ page.description }}</p>
+        <div class="column is-5">
+          <h1 class="title is-3 p-1">{{ page.title }}</h1>
+          <p class="subtitle is-5">{{ page.description }}</p>
           <div class="buttons">
             {% if page.button_primary_link and page.button_primary_text %}
             <a href="{{ page.button_primary_link }}" class="button is-primary is-rounded">{{ page.button_primary_text }}</a>
@@ -23,7 +23,7 @@
           </div>
           {% endif %}
         </div>
-        <div class="column is-half has-text-centered">
+        <div class="column is-auto has-text-centered">
           {% if page.image %}
           <figure>
             <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
