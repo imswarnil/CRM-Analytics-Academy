@@ -98,7 +98,7 @@ module Jekyll
       <<-HTML
         <div class="ads-container" id="lazy-ad-skyscraper">
           <ins class="adsbygoogle"
-               style="display:block;width:250px;height:250px;"
+               style="display:block;width:auto;height:250px;"
                data-ad-client="#{client_id}"
                data-ad-slot="8939839370"></ins>
         </div>

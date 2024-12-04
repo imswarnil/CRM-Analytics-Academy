@@ -1,9 +1,17 @@
 ---
 layout: default
 ---
-<main class="main section">
+<main class="section">
   <div class="container">
     <div class="columns">
+        <!-- Fixed Ad Sidebar -->
+        <div class="column is-2 is-hidden-mobile fixed-sidebar">
+          <div class="ad-placeholder">
+            <!-- Ad Content -->
+            <p class="has-text-centered">Ad Placeholder</p>
+            {% adsense skyscraper %}
+          </div>
+        </div>
       <!-- Main Content -->
       <div class="column is-8">
         <article class="content">
@@ -12,9 +20,10 @@ layout: default
           </div>
         </article>
       </div>
+
       {% if page.aside == true %}
         <!-- Aside Content -->
-        <aside class="column is-4">
+        <aside class="column is-2 is-hidden-mobile">
           {% include site-aside.html %}
         </aside>
       {% endif %}
