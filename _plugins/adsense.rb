@@ -1,145 +1,187 @@
 module Jekyll
-  class LazyAdsenseTag < Liquid::Tag
+  class AdsenseTag < Liquid::Tag
     def initialize(tag_name, text, tokens)
       super
       @ad_type = text.strip
     end
 
     def render(context)
-      # Default class for lazy-loaded ads
-      container_class = 'is-adsense lazy-load'
+      # Define your AdSense client ID (this will be passed from the site's config)
+      client_id = context.registers[:site].config['adsense']['data-ad-client']
 
-      # Determine ad code based on the ad type
-      ad_html = case @ad_type
-                when "square"
-                  ad_code("square")
-                when "small-square"
-                  ad_code("small-square")
-                when "medium-square"
-                  ad_code("medium-square")
-                when "large-square"
-                  ad_code("large-square")
-                when "leaderboard"
-                  ad_code("leaderboard")
-                when "small-leaderboard"
-                  ad_code("small-leaderboard")
-                when "medium-leaderboard"
-                  ad_code("medium-leaderboard")
-                when "large-leaderboard"
-                  ad_code("large-leaderboard")
-                when "skyscraper"
-                  ad_code("skyscraper")
-                when "small-skyscraper"
-                  ad_code("small-skyscraper")
-                when "medium-skyscraper"
-                  ad_code("medium-skyscraper")
-                when "large-skyscraper"
-                  ad_code("large-skyscraper")
-                when "billboard"
-                  ad_code("billboard")
-                when "small-billboard"
-                  ad_code("small-billboard")
-                when "medium-billboard"
-                  ad_code("medium-billboard")
-                when "large-billboard"
-                  ad_code("large-billboard")
-                when "multiplex"
-                  ad_code("multiplex")
-                when "infeed"
-                  ad_code("infeed")
-                when "article"
-                  ad_code("article")
-                else
-                  ad_code("leaderboard")  # Default to leaderboard if none specified
-                end
+      ad_html = ""
 
-      # HTML for the ad block with lazy load functionality and advertisement text
-      "<div class=\"#{container_class}\" data-ad-type=\"#{@ad_type}\" style=\"display:block; margin:0 auto; text-align:center;\">" +
-        "<ins class=\"adsbygoogle lazy-load\" data-ad-client=\"ca-pub-1291242080282540\" data-ad-slot=\"#{ad_slot(@ad_type)}\" data-ad-format=\"auto\"></ins>" +
-        "<div class=\"ad-label\" style=\"font-size: 14px; color: #888; margin-top: 5px;\">Advertisement</div>" +
-      "</div>"
+      case @ad_type
+      when "square"
+        ad_html = generate_square_ad(client_id)
+      when "small-square"
+        ad_html = generate_small_square_ad(client_id)
+      when "medium-square"
+        ad_html = generate_medium_square_ad(client_id)
+      when "large-square"
+        ad_html = generate_large_square_ad(client_id)
+      when "button"
+        ad_html = generate_button_ad(client_id)
+      when "top-leaderboard"
+        ad_html = generate_top_leaderboard_ad(client_id)
+      when "small-leaderboard"
+        ad_html = generate_small_leaderboard_ad(client_id)
+      when "medium-leaderboard"
+        ad_html = generate_medium_leaderboard_ad(client_id)
+      when "large-leaderboard"
+        ad_html = generate_large_leaderboard_ad(client_id)
+      when "skyscraper"
+        ad_html = generate_skyscraper_ad(client_id)
+      when "small-skyscraper"
+        ad_html = generate_small_skyscraper_ad(client_id)
+      when "medium-skyscraper"
+        ad_html = generate_medium_skyscraper_ad(client_id)
+      when "large-skyscraper"
+        ad_html = generate_large_skyscraper_ad(client_id)
+      when "billboard"
+        ad_html = generate_billboard_ad(client_id)
+      when "article"
+        ad_html = generate_article_ad(client_id)
+      when "multiplex"
+        ad_html = generate_multiplex_ad(client_id)
+      else
+        ad_html = "<p>Invalid ad type: #{@ad_type}</p>"
+      end
+
+      ad_html
     end
 
-    def ad_code(type)
-      case type
-      when "square"
-        "square"
-      when "small-square"
-        "small-square"
-      when "medium-square"
-        "medium-square"
-      when "large-square"
-        "large-square"
-      when "leaderboard"
-        "leaderboard"
-      when "small-leaderboard"
-        "small-leaderboard"
-      when "medium-leaderboard"
-        "medium-leaderboard"
-      when "large-leaderboard"
-        "large-leaderboard"
-      when "skyscraper"
-        "skyscraper"
-      when "small-skyscraper"
-        "small-skyscraper"
-      when "medium-skyscraper"
-        "medium-skyscraper"
-      when "large-skyscraper"
-        "large-skyscraper"
-      when "billboard"
-        "billboard"
-      when "multiplex"
-        "multiplex"
-      when "infeed"
-        "infeed"
-      when "article"
-        "article"
-      else
-        "leaderboard" # Default
-      end
+    private
+
+    def generate_square_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-square">
+          <ins class="adsbygoogle square" data-ad-client="#{client_id}" data-ad-slot="7663977887"></ins>
+        </div>
+      HTML
     end
 
-    def ad_slot(ad_type)
-      # Return the correct ad slot based on the ad type
-      case ad_type
-      when "square"
-        "7663977887"
-      when "small-square"
-        "6066270853"
-      when "medium-square"
-        "9619442326"
-      when "large-square"
-        "1684851337"
-      when "leaderboard"
-        "1864856299"
-      when "small-leaderboard"
-        "8939839370"
-      when "medium-leaderboard"
-        "8539588233"
-      when "large-leaderboard"
-        "8539588233"
-      when "skyscraper"
-        "4394096538"
-      when "small-skyscraper"
-        "4394096538"
-      when "medium-skyscraper"
-        "9488965956"
-      when "large-skyscraper"
-        "2712169578"
-      when "billboard"
-        "4921873558"
-      when "multiplex"
-        "3375031396"
-      when "infeed"
-        "9130894804"
-      when "article"
-        "6501428979"
-      else
-        "1864856299" # Default to leaderboard
-      end
+    def generate_small_square_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-small-square">
+          <ins class="adsbygoogle small-square" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_medium_square_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-medium-square">
+          <ins class="adsbygoogle medium-square" data-ad-client="#{client_id}" data-ad-slot="1234567890"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_large_square_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-large-square">
+          <ins class="adsbygoogle large-square" data-ad-client="#{client_id}" data-ad-slot="9876543210"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_button_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-button">
+          <ins class="adsbygoogle button" data-ad-client="#{client_id}" data-ad-slot="3836856744"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_top_leaderboard_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-top-leaderboard">
+          <ins class="adsbygoogle top-leaderboard" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_small_leaderboard_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-small-leaderboard">
+          <ins class="adsbygoogle small-leaderboard" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_medium_leaderboard_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-medium-leaderboard">
+          <ins class="adsbygoogle medium-leaderboard" data-ad-client="#{client_id}" data-ad-slot="5678901234"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_large_leaderboard_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-large-leaderboard">
+          <ins class="adsbygoogle large-leaderboard" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_skyscraper_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-skyscraper">
+          <ins class="adsbygoogle skyscraper" data-ad-client="#{client_id}" data-ad-slot="8939839370"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_small_skyscraper_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-small-skyscraper">
+          <ins class="adsbygoogle small-skyscraper" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_medium_skyscraper_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-medium-skyscraper">
+          <ins class="adsbygoogle medium-skyscraper" data-ad-client="#{client_id}" data-ad-slot="4321098765"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_large_skyscraper_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-large-skyscraper">
+          <ins class="adsbygoogle large-skyscraper" data-ad-client="#{client_id}" data-ad-slot="7654321098"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_billboard_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-billboard">
+          <ins class="adsbygoogle billboard" data-ad-client="#{client_id}" data-ad-slot="1234567890"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_article_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-article">
+          <ins class="adsbygoogle article" data-ad-client="#{client_id}" data-ad-slot="6501428979" data-ad-format="fluid"></ins>
+        </div>
+      HTML
+    end
+
+    def generate_multiplex_ad(client_id)
+      <<-HTML
+        <div class="is-adsense" id="lazy-ad-multiplex">
+          <ins class="adsbygoogle multiplex" data-ad-client="#{client_id}" data-ad-slot="6808134701"></ins>
+        </div>
+      HTML
     end
   end
 end
 
-# Register the tag in Liquid
-Liquid::Template.register_tag('adsense', Jekyll::LazyAdsenseTag)
+# Register the tag
+Liquid::Template.register_tag('adsense', Jekyll::AdsenseTag)

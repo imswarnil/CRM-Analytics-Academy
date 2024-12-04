@@ -53,29 +53,30 @@
                 }
                 });
     });
-
-   // Lazy Load Adsense Ads
-document.addEventListener("DOMContentLoaded", function() {
-  const ads = document.querySelectorAll('.lazy-load');
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          const ad = entry.target;
-          (adsbygoogle = window.adsbygoogle || []).push({});
-          observer.unobserve(ad);
-        }
-      });
-    }, { threshold: 0.5 }); // Trigger when 50% of the ad is in the viewport
-
-    ads.forEach(function(ad) {
-      observer.observe(ad);
+    // Lazy Load Adsense
+    document.addEventListener("DOMContentLoaded", function () {
+      var ads = document.querySelectorAll('.is-adsense ins.adsbygoogle');
+    
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // When the ad comes into the viewport, load the AdSense script
+              if (!entry.target.hasAttribute('data-loaded')) {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                entry.target.setAttribute('data-loaded', 'true');
+              }
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+    
+        ads.forEach(ad => {
+          observer.observe(ad);
+        });
+      } else {
+        // Fallback: Load all ads immediately if IntersectionObserver isn't supported
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      }
     });
-  } else {
-    // Fallback for browsers that don't support IntersectionObserver
-    ads.forEach(function(ad) {
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    });
-  }
-});
+    
