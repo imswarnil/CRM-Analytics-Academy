@@ -61,7 +61,7 @@
     <div class="columns">
       <div class="column is-12">
         <div class="p-3 m-3">
-          {% adsense top-leaderboard %}
+          {% adsense large-leaderboard %}
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@
     <div class="columns">
       <div class="column is-12">
         <div class="p-3 m-3">
-          {% adsense small-leaderboard %}
+        {% adsense small-leaderboard %}
         </div>
       </div>
     </div>
@@ -130,7 +130,7 @@
   <div>
     {{ content }}
   </div>
-  {% adsense top-leaderboard %}
+  {% adsense large-leaderboard %}
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   <script src="{{ '/assets/scripts/script.js' | relative_url }}"></script>
   {% include site-before-end.html %}
