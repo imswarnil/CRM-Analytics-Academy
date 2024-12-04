@@ -127,6 +127,17 @@ module Jekyll
         </div>
       HTML
     end
+
+    def generate_medium_skyscraper_ad(client_id)
+      <<-HTML
+        <div class="ads-container" id="lazy-ad-medium-skyscraper">
+          <ins class="adsbygoogle medium-skyscraper"
+               data-ad-client="#{client_id}"
+               data-ad-slot="9488965956"></ins>
+        </div>
+      HTML
+    end
+    
     
     def generate_large_skyscraper_ad(client_id)
       <<-HTML
