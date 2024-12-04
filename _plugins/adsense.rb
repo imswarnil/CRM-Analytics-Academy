@@ -6,182 +6,91 @@ module Jekyll
     end
 
     def render(context)
-      # Define your AdSense client ID (this will be passed from the site's config)
-      client_id = context.registers[:site].config['adsense']['data-ad-client']
-
       ad_html = ""
+      ad_client = context.registers[:site].config['adsense']['data-ad-client'] # Get from config.yml
 
       case @ad_type
       when "square"
-        ad_html = generate_square_ad(client_id)
+        ad_html = generate_ad("square", "7663977887", ad_client)
       when "small-square"
-        ad_html = generate_small_square_ad(client_id)
+        ad_html = generate_ad("small-square", "2345678901", ad_client)
       when "medium-square"
-        ad_html = generate_medium_square_ad(client_id)
+        ad_html = generate_ad("medium-square", "3456789012", ad_client)
       when "large-square"
-        ad_html = generate_large_square_ad(client_id)
-      when "button"
-        ad_html = generate_button_ad(client_id)
-      when "top-leaderboard"
-        ad_html = generate_top_leaderboard_ad(client_id)
+        ad_html = generate_ad("large-square", "4567890123", ad_client)
+      when "leaderboard"
+        ad_html = generate_ad("leaderboard", "5678901234", ad_client)
       when "small-leaderboard"
-        ad_html = generate_small_leaderboard_ad(client_id)
-      when "medium-leaderboard"
-        ad_html = generate_medium_leaderboard_ad(client_id)
-      when "large-leaderboard"
-        ad_html = generate_large_leaderboard_ad(client_id)
+        ad_html = generate_ad("small-leaderboard", "6789012345", ad_client)
       when "skyscraper"
-        ad_html = generate_skyscraper_ad(client_id)
+        ad_html = generate_ad("skyscraper", "8901234567", ad_client)
       when "small-skyscraper"
-        ad_html = generate_small_skyscraper_ad(client_id)
+        ad_html = generate_ad("small-skyscraper", "9012345678", ad_client)
       when "medium-skyscraper"
-        ad_html = generate_medium_skyscraper_ad(client_id)
+        ad_html = generate_ad("medium-skyscraper", "1234567890", ad_client)
       when "large-skyscraper"
-        ad_html = generate_large_skyscraper_ad(client_id)
+        ad_html = generate_ad("large-skyscraper", "2345678901", ad_client)
       when "billboard"
-        ad_html = generate_billboard_ad(client_id)
+        ad_html = generate_ad("billboard", "3456789012", ad_client)
+      when "infeed"
+        ad_html = generate_infeed_ad("5678901234", ad_client)
       when "article"
-        ad_html = generate_article_ad(client_id)
-      when "multiplex"
-        ad_html = generate_multiplex_ad(client_id)
+        ad_html = generate_article_ad("6789012345", ad_client)
       else
-        ad_html = "<p>Invalid ad type: #{@ad_type}</p>"
+        ad_html = "<p>Invalid ad type provided</p>"
       end
-
       ad_html
     end
 
     private
 
-    def generate_square_ad(client_id)
+    def generate_ad(ad_class, slot, ad_client)
       <<-HTML
-        <div class="is-adsense" id="lazy-ad-square">
-          <ins class="adsbygoogle square" data-ad-client="#{client_id}" data-ad-slot="7663977887"></ins>
-        </div>
+      <div class="adsense">
+        <ins class="adsbygoogle #{ad_class}"
+            style="display:block"
+            data-ad-client="#{ad_client}"
+            data-ad-slot="#{slot}"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+      </div>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
       HTML
     end
 
-    def generate_small_square_ad(client_id)
+    def generate_infeed_ad(slot, ad_client)
       <<-HTML
-        <div class="is-adsense" id="lazy-ad-small-square">
-          <ins class="adsbygoogle small-square" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
-        </div>
+      <div class="adsense">
+        <ins class="adsbygoogle infeed-ad"
+            style="display:block;"
+            data-ad-format="fluid"
+            data-ad-client="#{ad_client}"
+            data-ad-slot="#{slot}"></ins>
+      </div>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
       HTML
     end
 
-    def generate_medium_square_ad(client_id)
+    def generate_article_ad(slot, ad_client)
       <<-HTML
-        <div class="is-adsense" id="lazy-ad-medium-square">
-          <ins class="adsbygoogle medium-square" data-ad-client="#{client_id}" data-ad-slot="1234567890"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_large_square_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-large-square">
-          <ins class="adsbygoogle large-square" data-ad-client="#{client_id}" data-ad-slot="9876543210"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_button_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-button">
-          <ins class="adsbygoogle button" data-ad-client="#{client_id}" data-ad-slot="3836856744"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_top_leaderboard_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-top-leaderboard">
-          <ins class="adsbygoogle top-leaderboard" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_small_leaderboard_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-small-leaderboard">
-          <ins class="adsbygoogle small-leaderboard" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_medium_leaderboard_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-medium-leaderboard">
-          <ins class="adsbygoogle medium-leaderboard" data-ad-client="#{client_id}" data-ad-slot="5678901234"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_large_leaderboard_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-large-leaderboard">
-          <ins class="adsbygoogle large-leaderboard" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_skyscraper_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-skyscraper">
-          <ins class="adsbygoogle skyscraper" data-ad-client="#{client_id}" data-ad-slot="8939839370"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_small_skyscraper_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-small-skyscraper">
-          <ins class="adsbygoogle small-skyscraper" data-ad-client="#{client_id}" data-ad-slot="3487917390"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_medium_skyscraper_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-medium-skyscraper">
-          <ins class="adsbygoogle medium-skyscraper" data-ad-client="#{client_id}" data-ad-slot="4321098765"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_large_skyscraper_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-large-skyscraper">
-          <ins class="adsbygoogle large-skyscraper" data-ad-client="#{client_id}" data-ad-slot="7654321098"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_billboard_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-billboard">
-          <ins class="adsbygoogle billboard" data-ad-client="#{client_id}" data-ad-slot="1234567890"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_article_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-article">
-          <ins class="adsbygoogle article" data-ad-client="#{client_id}" data-ad-slot="6501428979" data-ad-format="fluid"></ins>
-        </div>
-      HTML
-    end
-
-    def generate_multiplex_ad(client_id)
-      <<-HTML
-        <div class="is-adsense" id="lazy-ad-multiplex">
-          <ins class="adsbygoogle multiplex" data-ad-client="#{client_id}" data-ad-slot="6808134701"></ins>
-        </div>
+      <div class="adsense">
+        <ins class="adsbygoogle article-ad"
+            style="display:block; text-align:center;"
+            data-ad-layout="in-article"
+            data-ad-format="fluid"
+            data-ad-client="#{ad_client}"
+            data-ad-slot="#{slot}"></ins>
+      </div>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
       HTML
     end
   end
 end
 
-# Register the tag
 Liquid::Template.register_tag('adsense', Jekyll::AdsenseTag)
