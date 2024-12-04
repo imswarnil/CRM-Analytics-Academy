@@ -40,6 +40,20 @@
    {% endunless %}
 
    <div>
+    <!-- Preload Ad Container (Hidden Initially) -->
+    <div id="preloadAdContainer" style="position:absolute; left:-9999px; top:-9999px;">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-1291242080282540"
+           data-ad-slot="7663977887"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  
     <!-- Modal Container -->
     <div id="adModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000;">
       <div style="position:relative; max-width:500px; margin:10% auto; background:white; border-radius:8px; overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.3);">
@@ -50,18 +64,7 @@
         </button>
   
         <!-- Ad Content -->
-        <div style="padding:20px; text-align:center;">
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540" crossorigin="anonymous"></script>
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-1291242080282540"
-               data-ad-slot="7663977887"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
+        <div id="adContainer" style="padding:20px; text-align:center;"></div>
   
         <!-- Typing Effect -->
         <div id="typingText" style="padding:20px; font-family:Arial, sans-serif; font-size:18px; text-align:center; color:#333; display:none;">
@@ -78,6 +81,10 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // Preload Ad
+      const preloadAdContainer = document.getElementById("preloadAdContainer");
+      const adContainer = document.getElementById("adContainer");
+  
       // Show Modal after 5 seconds
       setTimeout(function () {
         const modal = document.getElementById("adModal");
@@ -86,6 +93,9 @@
         const smileyFace = document.getElementById("smileyFace");
         const typingContent = "Content for you was free because of these ads.";
         const typingSpan = typingText.querySelector("span");
+  
+        // Move preloaded ad into the modal
+        adContainer.innerHTML = preloadAdContainer.innerHTML;
   
         // Show Modal
         modal.style.display = "block";
