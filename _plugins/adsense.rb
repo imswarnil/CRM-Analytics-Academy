@@ -20,8 +20,6 @@ module Jekyll
         ad_html = generate_medium_square_ad(client_id)
       when "large-square"
         ad_html = generate_large_square_ad(client_id)
-      when "top-leaderboard"
-        ad_html = generate_top_leaderboard_ad(client_id)
       when "small-leaderboard"
         ad_html = generate_small_leaderboard_ad(client_id)
       when "large-leaderboard"
