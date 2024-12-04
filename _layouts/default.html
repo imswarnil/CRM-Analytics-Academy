@@ -38,101 +38,46 @@
   {% unless page.hide_hero %}
             {% include hero.html %}
    {% endunless %}
-
-
    <hr>
 
+<h2>Square Ad</h2>
+{% adsense square %}
 
-<!-- Square Ads -->
-<div class="ads-container">
-  {% adsense square %}
-  {% adsense small-square %}
-  {% adsense medium-square %}
-  {% adsense large-square %}
-</div>
+<h2>Small Square Ad</h2>
+{% adsense small-square %}
 
-<!-- Leaderboard Ads -->
-<div class="ads-container">
-  {% adsense leaderboard %}
-  {% adsense small-leaderboard %}
-  {% adsense medium-leaderboard %}
-  {% adsense large-leaderboard %}
-</div>
+<h2>Medium Square Ad</h2>
+{% adsense medium-square %}
 
-<!-- Skyscraper Ads -->
-<div class="ads-container">
-  {% adsense skyscraper %}
-  {% adsense small-skyscraper %}
-</div>
+<h2>Large Square Ad</h2>
+{% adsense large-square %}
 
-<!-- Billboard Ads -->
-<div class="ads-container">
-  {% adsense billboard %}
-</div>
+<h2>Leaderboard Ad</h2>
+{% adsense leaderboard %}
 
-<!-- In-Article (Infeed) Ads -->
-<div class="ads-container">
-  {% adsense article %}
-</div>
+<h2>Small Leaderboard Ad</h2>
+{% adsense small-leaderboard %}
 
-<!-- Multiplex Ads -->
-<div class="ads-container">
-  {% adsense multiplex %}
-</div>
+<h2>Skyscraper Ad</h2>
+{% adsense skyscraper %}
 
-  <div class="container is-centered has-text-centered">
-    <div class="columns">
-      <div class="column is-12">
-        <div class="p-3 m-3">
-          {% adsense top-leaderboard %}
-        </div>
-      </div>
-    </div>
-  </div>
+<h2>Small Skyscraper Ad</h2>
+{% adsense small-skyscraper %}
 
-  <div class="container is-centered has-text-centered is-centered">
-    <div class="columns">
-      <div class="column is-12">
-        <div class="p-3 m-3">
-          {% adsense small-leaderboard %}
-        </div>
-      </div>
-    </div>
-  </div>
+<h2>Medium Skyscraper Ad</h2>
+{% adsense medium-skyscraper %}
 
-  <div class="container is-centered has-text-centered is-centered">
-    <div class="columns">
-      <div class="column is-12">
-        <div class="p-3 m-3">
-          {% adsense large-leaderboard %}
-        </div>
-      </div>
-    </div>
-  </div>
+<h2>Large Skyscraper Ad</h2>
+{% adsense large-skyscraper %}
 
+<h2>Billboard Ad</h2>
+{% adsense billboard %}
 
-  <div class="container is-centered has-text-centered is-centered">
-    <div class="columns">
-      <div class="column is-12">
-        <div class="p-3 m-3">
-          {% adsense skyscraper %}
-        </div>
-      </div>
-    </div>
-  </div>
+<h2>Infeed Ad</h2>
+{% adsense infeed %}
 
-
-
-  <div class="container is-centered has-text-centered is-centered">
-    <div class="columns">
-      <div class="column is-12">
-        <div class="p-3 m-3">
-          {% adsense multiplex %}
-        </div>
-      </div>
-    </div>
-  </div>
-
+<h2>Article Ad</h2>
+{% adsense article %}
   <div>
     {{ content }}
   </div>
