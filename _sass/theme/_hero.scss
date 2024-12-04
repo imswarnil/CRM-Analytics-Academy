@@ -1,85 +1,58 @@
 .hero {
   position: relative;
   overflow: hidden;
-  background-color: #fff;  /* Default white background */
-  background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px); /* Dotted pattern */
-  background-size: 30px 30px;  /* Smaller, thin dots with more space */
+  background-color: #fff;
+  background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
 .hero-body {
-  position: relative;
-  z-index: 2;
-}
-
-.home-hero, .post-hero, .page-hero, .training-hero {
   padding: 2rem 1rem;
 }
 
-.home-hero .hero-buttons .button {
+.hero .buttons .button {
   margin: 0.5rem;
-  border-radius: 8px;
-  font-weight: bold;
   transition: all 0.3s ease-in-out;
 }
 
 .student-avatars {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .student-avatar {
   width: 50px;
   height: 50px;
-  border: 2px solid #ffffff;
   border-radius: 50%;
-  margin-left: -15px;
+  border: 2px solid white;
 }
 
 .hero-image {
   max-width: 100%;
   border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ad-placeholder {
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+  font-size: 1rem;
+  border: 1px dashed #ccc;
 }
 
 @media screen and (max-width: 768px) {
-  /* Adjust hero height and font sizes for mobile */
-  .home-hero, .post-hero, .page-hero, .training-hero {
-    padding: 1rem 0.5rem;
-  }
-
-  .home-hero .hero-title, .post-hero .hero-title, .page-hero .hero-title, .training-hero .hero-title {
-    font-size: 1.25rem;  /* Smaller Title Size for Mobile */
-  }
-
-  .home-hero .hero-subtitle, .post-hero .hero-subtitle, .page-hero .hero-subtitle, .training-hero .hero-subtitle {
-    font-size: 0.85rem;  /* Smaller Subtitle Size for Mobile */
-  }
-
-  /* Reverse columns for page layout */
-  .page-hero .columns, .post-hero .columns {
+  .columns {
     flex-direction: column-reverse;
   }
-
-  /* Reduce padding for mobile */
-  .hero-body {
-    padding: 1rem;
+  .hero-image {
+    max-width: 80%;
   }
-
   .student-avatar {
     width: 40px;
     height: 40px;
-  }
-
-  /* Adjust hero image */
-  .hero-image {
-    max-width: 80%; /* Resize image for mobile */
-  }
-
-  /* Adjust button size for mobile */
-  .home-hero .hero-buttons .button {
-    font-size: 0.9rem;
-    padding: 0.6rem 1rem;
   }
 }
