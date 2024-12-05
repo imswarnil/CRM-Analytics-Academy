@@ -94,7 +94,7 @@
   // Leaderboard Ads
   .leaderboard {
     width: 100%;
-    height: 60px;
+    height: 90px;
   }
   
   .small-leaderboard {
@@ -103,6 +103,7 @@
   }
   
   .large-leaderboard {
+    max-width: 100%;
     width: 980px;
     height: 90px;
   }
