@@ -7,14 +7,28 @@
   .adsbygoogle {
     display: block;
     margin: 0 auto;
-    border-left: 5px solid var(--bulma-primary) ;
-    border-right: 5px solid var(--bulma-primary) ;
+    border-left: 5px solid var(--bulma-primary);
+    border-right: 5px solid var(--bulma-primary);
     border-radius: 10px;
+    position: relative; // For adding the border below
+    padding-bottom: 5px; // Ensure spacing for border
+  }
+  
+  .adsbygoogle:after {
+    content: "";
+    display: block;
+    height: 4px;
+    width: 33%;
+    background-color: var(--bulma-primary);
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 33%; // Centered relative to the ad
   }
   
   // Square Ads
   .square {
-    width: 250px;
+    width: auto;
     height: 250px;
   }
   
@@ -56,9 +70,14 @@
   }
   
   // Leaderboard Ads
+  .leaderboard {
+    width: auto;
+    height: auto;
+  }
+  
   .small-leaderboard {
-    width: 320px;
-    height: 50px;
+    width:  728px;
+    height: 90px;
   }
   
   .large-leaderboard {
@@ -67,6 +86,11 @@
   }
   
   @media (max-width: 767px) {
+    .leaderboard {
+      width: 100%;
+      height: 50px;
+    }
+  
     .small-leaderboard {
       width: 320px;
       height: 50px;
@@ -80,13 +104,18 @@
   
   // Skyscraper Ads
   .skyscraper {
+    width: auto;
+    height: 100%;
+  }
+  
+  .small-skyscraper {
     width: 160px;
     height: 600px;
   }
   
-  .small-skyscraper {
-    width: 120px;
-    height: 240px;
+  .medium-skyscraper {
+    width: 300px;
+    height: 600px;
   }
   
   .large-skyscraper {
@@ -103,6 +132,11 @@
     .small-skyscraper {
       width: 120px;
       height: 240px;
+    }
+  
+    .medium-skyscraper {
+      width: 100%;
+      height: auto;
     }
   
     .large-skyscraper {
@@ -153,5 +187,4 @@
     margin-top: 10px;
     font-style: italic;
   }
-  
   
