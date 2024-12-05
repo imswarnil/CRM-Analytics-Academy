@@ -8,9 +8,9 @@
         <div>
           <div>
             <span class="has-text-primary has-text-weight-bold is-size-5">{{ site.brandname | default: 'CRM Analytics' }}</span>
-            <span class="is-size-6 has-text-grey ml-1">{{ site.academy_suffix | default: 'Academy' }}</span>
+            <span class="is-size-6 has-text-dark ml-1">{{ site.academy_suffix | default: 'Academy' }}</span>
           </div>
-          <div class="is-size-7 has-text-grey-light mt-1">
+          <div class="is-size-7 has-text-grey-light">
             {{ site.tagline | default: 'Learn Salesforce CRM Analytics Online' }}
           </div>
         </div>
@@ -20,7 +20,18 @@
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
-    </div>    
+    </div>
+<style>
+  .navbar-brand div div {
+  line-height: 1; /* Tightens spacing between lines */
+}
+.navbar-item {
+  display: flex;
+  align-items: center;
+  height: 64px; /* Match logo height */
+}
+
+</style>    
 
     <div id="navbarMenu" class="navbar-menu">
       <div class="navbar-end">

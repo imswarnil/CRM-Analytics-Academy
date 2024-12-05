@@ -44,8 +44,9 @@ favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
 
 # 8. Navbar
 
-brandname : CRM Analytics Academy
-tagline : Learn Salesforce CRM Analytics Online"
+focus_keyword : CRM Analytics
+site_type  : Academy
+tagline : Learn Salesforce CRM Analytics Online Free
 
 # 9. Site navigation
 navigation_header:
