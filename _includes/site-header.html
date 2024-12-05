@@ -4,14 +4,23 @@
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i> {{ site.title }}
+        <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i>
+        <div>
+          <div>
+            <span class="has-text-primary has-text-weight-bold is-size-5">{{ site.brandname | default: 'CRM Analytics' }}</span>
+            <span class="is-size-6 has-text-grey ml-1">{{ site.academy_suffix | default: 'Academy' }}</span>
+          </div>
+          <div class="is-size-7 has-text-grey-light mt-1">
+            {{ site.tagline | default: 'Learn Salesforce CRM Analytics Online' }}
+          </div>
+        </div>
       </a>
       <button class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
-    </div>
+    </div>    
 
     <div id="navbarMenu" class="navbar-menu">
       <div class="navbar-end">
