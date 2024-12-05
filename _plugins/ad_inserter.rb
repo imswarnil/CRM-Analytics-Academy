@@ -1,4 +1,3 @@
-# _plugins/adsense_insert_in_post.rb
 module Jekyll
     class AdsenseInsert < Jekyll::Generator
       safe true
@@ -37,6 +36,7 @@ module Jekyll
       end
   
       def adsense_code
+        # Using the raw HTML format
         <<-HTML
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540"
            crossorigin="anonymous"></script>
