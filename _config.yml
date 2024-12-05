@@ -16,6 +16,11 @@ title: "CRM Analytics Academy | Learn Salesforce CRM Analytics Online" # Site na
 description: "Master Salesforce CRM Analytics FKA Einstein Analytics ( Tableau CRM/ Wave Analytics ) with CRM Analytics Academy. Explore CRM Analytics Course, tutorials, hands-on training, Blogs and Certification to boost your Salesforce analytics skills." # Site description and default description, also used in jekyll-seo-tag
 logo: "/assets/logos/logo.svg" # Site logo, also used in jekyll-seo-tag
 url: 'https://crmanalytics.imswarnil.com' # Site URL, also used in jekyll-seo-tag
+website_social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
+  Youtube: https://www.youtube.com/CRMA
+  Instagram : https://instagram.com/imswarnil
+  GitHub: https://github.com/imswarnil/CRM-Analytics-Academy
+  RSS: /feed.xml
 
 # 1.1 Author settings
 repo: "https://github.com/imswarnil/CRM-Analytics-Academy"
@@ -23,6 +28,13 @@ author: "Swarnil Singhai" # Author name
 author_image : 
 author_bio: "Founder of CRM Analytics Academy, passionate about helping learners master CRM Analytics with hands-on tutorials, certification, and free resources."
 email: "contact@imswarnil.com"
+author_social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
+  Youtube: https://www.youtube.com/@swarnil
+  Twitter: https://twitter.com/imswarnil
+  Instagram : https://instagram.com/imswarnil
+  LinkedIn: https://www.linkedin.com/in/imswarnil
+  GitHub: https://github.com/imswarnil
+  website : https://imswarnil.com
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
 # date_format: "%-d %B %Y" # Blog post date formatting using placeholder formatting
 google_analytics: "G-VJD486Z7WT"
@@ -80,16 +92,9 @@ navigation_header:
 
 navigation_footer:
 - title: Created by Swarnil Singhai
-  url: https://darn.es
+  url: https://imswarnil.com
 
-social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
-  Youtube: https://www.youtube.com/@swarnil
-  Twitter: https://twitter.com/imswarnil
-  Instagram : https://instagram.com/imswarnil
-  LinkedIn: https://www.linkedin.com/in/imswarnil
-  GitHub: https://github.com/imswarnil
-  link: https://imswarnil.com
-  RSS: /feed.xml
+
 
 adsense:
   data-ad-client: "ca-pub-1291242080282540"
