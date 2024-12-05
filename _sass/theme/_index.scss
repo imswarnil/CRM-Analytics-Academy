@@ -6,3 +6,96 @@
 @import "./ads";
 @import "./hero";
 @import "./post";
+
+// Navbar Styles
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Shadow effect
+    transition: top 0.3s ease; // Smooth transition for sliding effect
+  
+    .navbar-item {
+      font-weight: inherit;
+      transition: color 0.3s ease; // Smooth hover transition
+      &:hover {
+        background-color: transparent;
+        color: $primary;
+      }
+  
+      &.is-active {
+        background-color: transparent;
+        color: $primary;
+        font-weight: 500;
+      }
+    }
+  
+    .navbar-burger {
+      &:hover {
+        background-color: transparent;
+        color: $primary;
+      }
+    }
+  
+    .navbar-menu {
+      transition: max-height 0.3s ease-out;
+      overflow: hidden;
+    }
+  
+    .navbar-end {
+      display: flex;
+      align-items: center;
+    }
+  
+    .navbar-item.has-dropdown.is-hoverable .navbar-dropdown {
+      display: none;
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+  
+    .navbar-item.has-dropdown.is-hoverable:hover .navbar-dropdown {
+      display: block;
+      opacity: 1;
+      transform: translateY(5px); // Slide-down effect
+    }
+  
+    // Adjust for mobile devices
+    @media (max-width: 768px) {
+      .navbar-burger {
+        display: block;
+      }
+  
+      .navbar-menu {
+        display: none;
+        &.is-active {
+          display: block;
+        }
+      }
+  
+      .navbar-item {
+        text-align: center;
+        padding: 1rem;
+      }
+    }
+  }
+  
+  // Divider below Hero
+  .hero + .section {
+    margin-top: -1rem; // Slightly negative margin to pull the section closer
+    border-top: 2px solid #f0f0f0; // Light divider line
+    padding-top: 1rem;
+  }
+  
+  // Scroll Effect for Navbar
+  .navbar-scrolled-up {
+    top: -80px; // Hide navbar when scrolling down
+  }
+  
+  .navbar-scrolled-down {
+    top: 0; // Show navbar when scrolling up
+  }
+  

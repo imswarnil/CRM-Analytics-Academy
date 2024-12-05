@@ -75,3 +75,38 @@
     }
   });
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  // Navbar Burger Menu
+  const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
+  if ($navbarBurgers.length > 0) {
+    $navbarBurgers.forEach(function ($el) {
+      $el.addEventListener('click', function () {
+        const target = $el.dataset.target;
+        const $target = document.getElementById(target);
+        $el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+      });
+    });
+  }
+
+  // Scroll-based Navbar Slide Up/Down
+  let lastScrollTop = 0;
+  const navbar = document.querySelector('.navbar');
+
+  window.addEventListener('scroll', function () {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+      navbar.classList.add('navbar-scrolled-up');
+      navbar.classList.remove('navbar-scrolled-down');
+    } else {
+      navbar.classList.add('navbar-scrolled-down');
+      navbar.classList.remove('navbar-scrolled-up');
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative scroll
+  });
+});
+
+</script>
