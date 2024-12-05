@@ -319,21 +319,20 @@ layout: default
   </footer>
 
 
-
-  <!-- JSON-LD for rich snippets -->
-  <script type="application/ld+json">
- {
+ <!-- JSON-LD for rich snippets -->
+ <script type="application/ld+json">
+    {
       "@context": "https://schema.org",
       "@type": "Website",
       "url": "{{ site.url }}",
       "name": "{{ site.title }}",
       "description": "{{ site.description }}",
-      "logo": "{{ site.logo }}",
+      "logo": "{{ site.url }}{{ site.logo }}",  <!-- Full URL for the logo -->
       "publisher": {
         "@type": "Organization",
         "name": "{{ site.title }}",
         "url": "{{ site.url }}",
-        "logo": "{{ site.logo }}",
+        "logo": "{{ site.url }}{{ site.logo }}",  <!-- Full URL for the logo -->
         "sameAs": [
           "{{ site.website_social_links.Youtube }}",
           "{{ site.website_social_links.Instagram }}",
@@ -405,8 +404,7 @@ layout: default
       "sitemap": {
         "@type": "SiteNavigationElement",
         "url": "{{ site.url }}",
-        "name": "{{ site.title }}",
-        "url": "{{ site.url }}/home"
+        "name": "{{ site.title }}"
       },
       "address": {
         "@type": "PostalAddress",
