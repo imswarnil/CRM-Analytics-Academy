@@ -83,22 +83,6 @@
 
 </style>    
 
-<script>
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const navbar = document.querySelector('.navbar-item');
-    window.addEventListener('scroll', function () {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 100) {  // When the page is scrolled 100px from the top
-        navbar.classList.add('visible');
-      } else {
-        navbar.classList.remove('visible');
-      }
-    });
-  });
-</script>
-
-</script>
     <div id="navbarMenu" class="navbar-menu">
       <div class="navbar-end">
         {% for item in site.navigation_header %}
