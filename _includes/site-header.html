@@ -2,15 +2,15 @@
   <div class="container">
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="container">
-    <div class="navbar-brand">
+    <div class="navbar-brand animated-navbar">
       <a class="navbar-item" href="/">
         <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i>
         <div>
-          <div>
+          <div class="navbar-title">
             <span class="has-text-primary has-text-weight-bold is-size-5">{{ site.brandname | default: 'CRM Analytics' }}</span>
             <span class="is-size-6 has-text-dark ml-1">{{ site.academy_suffix | default: 'Academy' }}</span>
           </div>
-          <div class="is-size-7 has-text-grey-light">
+          <div class="is-size-7 has-text-grey-light tagline">
             {{ site.tagline | default: 'Learn Salesforce CRM Analytics Online' }}
           </div>
         </div>
@@ -20,8 +20,85 @@
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
-    </div> 
+    </div>
+<style>
+  /* Navbar Enhancement */
+.navbar-item {
+  display: flex;
+  align-items: center;
+  height: 64px; /* Match the height of the logo */
+  padding: 0;
+}
 
+.navbar-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+.navbar-title span {
+  margin-right: 5px; /* Tightens the space between the brand and the suffix */
+}
+
+.tagline {
+  margin-top: 4px;
+}
+
+/* Animation on Load */
+.animated-navbar {
+  animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade in on scroll */
+.navbar-item {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.navbar-item.visible {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .navbar-title {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar-title span {
+    margin-right: 0;
+  }
+}
+
+</style>    
+
+<script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navbar = document.querySelector('.navbar-item');
+    window.addEventListener('scroll', function () {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 100) {  // When the page is scrolled 100px from the top
+        navbar.classList.add('visible');
+      } else {
+        navbar.classList.remove('visible');
+      }
+    });
+  });
+</script>
+
+</script>
     <div id="navbarMenu" class="navbar-menu">
       <div class="navbar-end">
         {% for item in site.navigation_header %}
