@@ -38,8 +38,14 @@
   {% unless page.hide_hero %}
             {% include hero.html %}
    {% endunless %}
-   <hr>
-
+   <section class="section is-centered">
+    <div class="columns is-centered is-12">
+      <div class="column is-12">
+        {% adsense large-leaderboard %}
+      </div>
+    </div>
+  </section>
+  
   <div>
     {{ content }}
   </div>
