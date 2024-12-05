@@ -5,50 +5,8 @@
     max-width: 100%;
   }
   
-  .adsbygoogle {
-    display: block;
-    margin: 0 auto;
-    padding: 2px;
-    background-color: var(--bulma-primary);
-    color: #fff;
-    border-radius: 8px;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    position: relative;
-    box-shadow: 8px 8px 0 var(--bulma-primary-dark),
-                -4px -4px 0 var(--bulma-primary-light);
-    border: 2px solid var(--bulma-primary-dark);
-  }
-  
-  .adsbygoogle:before {
-    content: "Ad";
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    background-color: var(--bulma-primary-dark);
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 0.8rem;
-    font-weight: normal;
-    text-transform: uppercase;
-    border-radius: 4px;
-    box-shadow: 3px 3px 0 var(--bulma-primary);
-  }
-  
-  .adsbygoogle:after {
-    content: "";
-    display: block;
-    height: 4px;
-    width: 100%;
-    background-color: var(--bulma-primary-dark);
-    margin-top: 10px;
-    border-radius: 2px;
-  }
-  
-  
+
+
   // Square Ads
   .square {
     width: auto;
