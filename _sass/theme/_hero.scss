@@ -6,7 +6,6 @@
   background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px); /* Grid pattern for subtle texture */
   background-size: 30px 30px;
   padding: 3rem 1rem; /* Add space for content */
-  text-align: center; /* Center-align text for a cleaner look */
 }
 
 /* Hero Body Padding */
@@ -17,7 +16,7 @@
 /* Title & Description */
 .home-hero h1.title, 
 .home-hero .subtitle {
-  color: #333; /* Dark text color for good contrast */
+  color : var(--bulma-primary-dark);
 }
 
 .home-hero h1.title {
