@@ -147,3 +147,17 @@
     height: 150px; /* Smaller ad placeholder on mobile */
   }
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-hero {
+  animation: fadeIn 1s ease-out;
+}
