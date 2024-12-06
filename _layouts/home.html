@@ -318,3 +318,123 @@ layout: default
     </div>
   </footer>
 
+ <!-- JSON-LD for rich snippets -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Website",
+      "url": "{{ site.url }}",
+      "name": "{{ site.title }}",
+      "description": "{{ site.description }}",
+      "logo": "{{ site.url }}{{ site.logo }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.title }}",
+        "url": "{{ site.url }}",
+        "logo": "{{ site.url }}{{ site.logo }}",
+        "sameAs": [
+          "{{ site.website_social_links.Youtube }}",
+          "{{ site.website_social_links.Instagram }}",
+          "{{ site.website_social_links.GitHub }}",
+          "{{ site.website_social_links.RSS }}"
+        ]
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ site.url }}"
+      },
+      "educationalOrganization": {
+        "@type": "EducationalOrganization",
+        "name": "{{ site.title }}",
+        "url": "{{ site.url }}",
+        "provider": {
+          "@type": "Organization",
+          "name": "{{ site.title }}",
+          "url": "{{ site.url }}",
+          "sameAs": "{{ site.url }}/about"
+        },
+        "educationalAlignment": {
+          "@type": "DefinedTerm",
+          "name": "Salesforce CRM Analytics Competency",
+          "url": "{{ site.url }}/crm-analytics-certification"
+        }
+      },
+      "learningResourceType": {
+        "@type": "DefinedTerm",
+        "name": "CRM Analytics Learning Resource",
+        "url": "{{ site.url }}/training"
+      },
+      "learningResource": {
+        "@type": "LearningResource",
+        "name": "CRM Analytics Mastery Program",
+        "description": "A comprehensive learning program to master Salesforce CRM Analytics and earn certification.",
+        "provider": {
+          "@type": "Organization",
+          "name": "{{ site.title }}",
+          "url": "{{ site.url }}"
+        },
+        "educationalAlignment": {
+          "@type": "DefinedTerm",
+          "name": "Salesforce CRM Analytics Proficiency",
+          "url": "{{ site.url }}/training"
+        },
+        "courseMode": "Online",
+        "educationalCredentialLevel": "Advanced",
+        "educationalCredentialType": "Certification",
+        "educationalCredentialCategory": "Salesforce CRM Analytics"
+      },
+      "potentialAction": [
+        {
+          "@type": "Action",
+          "name": "Enroll Now",
+          "target": "{{ site.url }}/training"
+        },
+        {
+          "@type": "Action",
+          "name": "Start Learning",
+          "target": "{{ site.url }}/training"
+        },
+        {
+          "@type": "Action",
+          "name": "Become a Sponsor",
+          "target": "{{ site.url }}/donate"
+        }
+      ],
+      "sitemap": {
+        "@type": "SiteNavigationElement",
+        "url": "{{ site.url }}",
+        "name": "{{ site.title }}"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 CRM Analytics Lane",
+        "addressLocality": "Mahroni",
+        "addressRegion": "Uttar Pradesh",
+        "postalCode": "202164",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-123-456-7890",
+        "contactType": "Customer Service",
+        "areaServed": "IN",
+        "availableLanguage": "English"
+      },
+      "navigation": [
+        {% for item in site.navigation_header %}
+          {
+            "@type": "SiteNavigationElement",
+            "name": "{{ item.title }}",
+            "url": "{{ item.url }}",
+            "icon": "{{ item.icon }}"{% if forloop.last == false %},{% endif %}
+          }{% if forloop.last == false %},{% endif %}
+        {% endfor %}
+      ],
+      "sameAs": [
+        "{{ site.website_social_links.Youtube }}",
+        "{{ site.website_social_links.Instagram }}",
+        "{{ site.website_social_links.GitHub }}",
+        "{{ site.website_social_links.RSS }}"
+      ]
+    }
+  </script>
