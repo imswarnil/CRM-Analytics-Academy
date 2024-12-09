@@ -319,10 +319,10 @@ layout: default
   </footer>
 
  <!-- JSON-LD for rich snippets -->
-  <script type="application/ld+json">
+ <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Website",
+      "@type": "WebSite",
       "url": "{{ site.url }}",
       "name": "{{ site.title }}",
       "description": "{{ site.description }}",
@@ -400,11 +400,6 @@ layout: default
           "target": "{{ site.url }}/donate"
         }
       ],
-      "sitemap": {
-        "@type": "SiteNavigationElement",
-        "url": "{{ site.url }}",
-        "name": "{{ site.title }}"
-      },
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "123 CRM Analytics Lane",
@@ -422,12 +417,12 @@ layout: default
       },
       "navigation": [
         {% for item in site.navigation_header %}
-          {
-            "@type": "SiteNavigationElement",
-            "name": "{{ item.title }}",
-            "url": "{{ item.url }}",
-            "icon": "{{ item.icon }}"{% if forloop.last == false %},{% endif %}
-          }{% if forloop.last == false %},{% endif %}
+        {
+          "@type": "SiteNavigationElement",
+          "name": "{{ item.title }}",
+          "url": "{{ item.url }}",
+          "icon": "{{ item.icon }}"
+        }{% if forloop.last == false %},{% endif %}
         {% endfor %}
       ],
       "sameAs": [
@@ -437,4 +432,5 @@ layout: default
         "{{ site.website_social_links.RSS }}"
       ]
     }
-  </script>
+    </script>
+    
