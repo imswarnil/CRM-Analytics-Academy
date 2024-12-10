@@ -1,5 +1,5 @@
 <header class="header">
-  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top is-white has-shadow" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
@@ -15,35 +15,43 @@
       </div>
 
       <div id="navbarMenu" class="navbar-menu">
+        <!-- Navbar Start -->
         <div class="navbar-start">
           {% for item in site.navigation_header %}
             {% if item.submenu %}
               <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link" href="{{ item.url | relative_url }}">
-                  <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
+                  <i class="{{ item.icon }} mr-2"></i> {{ item.title }}
                 </a>
-                <div class="navbar-dropdown">
+                <div class="navbar-dropdown is-boxed">
                   {% for subitem in item.submenu %}
                     <a class="navbar-item" href="{{ subitem.url | relative_url }}">
-                      <span class="icon mr-2"><i class="{{ subitem.icon }}"></i></span> {{ subitem.title }}
+                      <i class="{{ subitem.icon }} mr-2"></i> {{ subitem.title }}
                     </a>
                   {% endfor %}
                 </div>
               </div>
             {% else %}
-              <a class="navbar-item" href="{{ item.url | relative_url }}">
-                <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
+              <a class="navbar-item {% if item.url == page.url %} is-active {% endif %}" href="{{ item.url | relative_url }}">
+                <i class="{{ item.icon }} mr-2"></i> {{ item.title }}
               </a>
             {% endif %}
           {% endfor %}
         </div>
 
+        <!-- Navbar End -->
         <div class="navbar-end">
-          <a class="navbar-item" href="/search"><span class="icon"><i class="fas fa-search"></i></span></a>
-          <a class="navbar-item" href="/support"><span class="icon"><i class="fas fa-hands-helping"></i></span></a>
-          <a class="navbar-item" href="/donate"><span class="icon"><i class="fas fa-donate"></i></span></a>
-          <a class="navbar-item" href="https://github.com/daviddarnes/alembic" target="_blank">
-            <span class="icon"><i class="fab fa-github"></i></span> Star on GitHub
+          <a class="navbar-item" href="/search">
+            <i class="fas fa-search mr-2"></i> Search
+          </a>
+          <a class="navbar-item" href="/support">
+            <i class="fas fa-hands-helping mr-2"></i> Support
+          </a>
+          <a class="navbar-item" href="/donate">
+            <i class="fas fa-donate mr-2"></i> Donate
+          </a>
+          <a class="navbar-item" href="https://github.com/imswarnil/CRM-Analytics-Academy" target="_blank">
+            <i class="fab fa-github mr-2"></i> Star on GitHub
           </a>
         </div>
       </div>
@@ -51,74 +59,10 @@
   </nav>
 </header>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-  // Handle navbar burger toggle
-  const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
-  $navbarBurgers.forEach(($el) => {
-    $el.addEventListener('click', () => {
-      const target = $el.dataset.target;
-      const $target = document.getElementById(target);
-
-      $el.classList.toggle('is-active');
-      $target.classList.toggle('is-active');
-      document.body.classList.toggle('has-navbar-open');
-    });
-  });
-});
-
-</script>
-
-<style>
-/* Navbar Styles */
-.navbar {
-  box-shadow: none;
-  transition: top 0.3s ease, background-color 0.3s ease;
-}
-
-.navbar-menu {
-  transition: transform 0.3s ease-out;
-}
-
-.navbar-menu.is-active {
-  transform: translateY(0);
-}
-
-.navbar-burger {
-  cursor: pointer;
-}
-
-.hero {
-  margin-top: 70px; /* Add margin to avoid overlapping */
-}
-
-/* Fullscreen Mobile Dropdown */
-@media (max-width: 768px) {
-  .navbar-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 56px); /* Fullscreen dropdown */
-    background: white;
-    overflow-y: auto;
-    transform: translateY(-100%);
-    z-index: 1;
-  }
-
-  .navbar-menu.is-active {
-    transform: translateY(0);
-  }
-
-  .navbar-item {
-    padding: 1.5rem;
-    text-align: center;
-  }
-}
-
-/* Prevent body scroll when the navbar is open */
-body.has-navbar-open {
-  overflow: hidden;
-}
-
-</style>
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Your Hero Content Here</h1>
+    </div>
+  </div>
+</section>
