@@ -80,3 +80,28 @@
     }
   });
 </script>
+
+<style>
+  .navbar-item {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover state */
+.navbar-item:hover {
+  background-color: transparent;
+  color: var(--primary);
+}
+
+/* Active state */
+.navbar-item.is-active {
+  background-color: transparent;
+  color: var(--bulma-primary);
+}
+
+/* Optional: Override Bulma default for navbar-link in dropdowns */
+.navbar-item.has-dropdown:hover > .navbar-link {
+  background-color: transparent;
+  color: var(--bulma-primary);
+}
+
+</style>
