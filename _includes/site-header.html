@@ -50,3 +50,75 @@
     </div>
   </nav>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  // Handle navbar burger toggle
+  const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
+  $navbarBurgers.forEach(($el) => {
+    $el.addEventListener('click', () => {
+      const target = $el.dataset.target;
+      const $target = document.getElementById(target);
+
+      $el.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
+      document.body.classList.toggle('has-navbar-open');
+    });
+  });
+});
+
+</script>
+
+<style>
+/* Navbar Styles */
+.navbar {
+  box-shadow: none;
+  transition: top 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar-menu {
+  transition: transform 0.3s ease-out;
+}
+
+.navbar-menu.is-active {
+  transform: translateY(0);
+}
+
+.navbar-burger {
+  cursor: pointer;
+}
+
+.hero {
+  margin-top: 70px; /* Add margin to avoid overlapping */
+}
+
+/* Fullscreen Mobile Dropdown */
+@media (max-width: 768px) {
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 56px); /* Fullscreen dropdown */
+    background: white;
+    overflow-y: auto;
+    transform: translateY(-100%);
+    z-index: 1;
+  }
+
+  .navbar-menu.is-active {
+    transform: translateY(0);
+  }
+
+  .navbar-item {
+    padding: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* Prevent body scroll when the navbar is open */
+body.has-navbar-open {
+  overflow: hidden;
+}
+
+</style>
