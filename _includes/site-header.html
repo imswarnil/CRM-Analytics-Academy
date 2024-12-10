@@ -2,6 +2,7 @@
   <div class="container">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container">
+        <!-- Navbar Brand -->
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
             <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i>
@@ -15,6 +16,7 @@
           </button>
         </div>
 
+        <!-- Navbar Menu -->
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-end">
             {% for item in site.navigation_header %}
@@ -39,7 +41,7 @@
             {% endfor %}
           </div>
 
-          <!-- Icons: Support, Donate, Search -->
+          <!-- Navbar Icons -->
           <div class="navbar-end">
             <a class="navbar-item" href="/search">
               <span class="icon"><i class="fas fa-search"></i></span>
@@ -50,7 +52,6 @@
             <a class="navbar-item" href="/donate">
               <span class="icon"><i class="fas fa-donate"></i></span>
             </a>
-            <!-- GitHub Star Button -->
             <a class="navbar-item" href="https://github.com/daviddarnes/alembic" target="_blank">
               <span class="icon"><i class="fab fa-github"></i></span> Star on GitHub
             </a>
@@ -61,3 +62,21 @@
   </div>
 </header>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
+
+    if (navbarBurgers.length > 0) {
+      navbarBurgers.forEach(burger => {
+        burger.addEventListener('click', () => {
+          const targetId = burger.dataset.target;
+          const target = document.getElementById(targetId);
+
+          // Toggle burger and menu
+          burger.classList.toggle('is-active');
+          target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
