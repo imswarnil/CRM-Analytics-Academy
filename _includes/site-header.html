@@ -7,6 +7,23 @@
           <span class="has-text-primary has-text-weight-bold">{{ site.brandname | default: 'CRM Analytics' }}</span>
           <span class="is-size-6 has-text-dark ml-1">{{ site.site_type | default: 'Academy' }}</span>
         </a>
+        
+        <!-- Small Dropdown for User Profile / Settings (optional) -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon"><i class="fas fa-user-circle"></i></span> 
+            <span>Account</span>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="/profile">
+              <span class="icon"><i class="fas fa-cogs"></i></span> Profile
+            </a>
+            <a class="navbar-item" href="/logout">
+              <span class="icon"><i class="fas fa-sign-out-alt"></i></span> Logout
+            </a>
+          </div>
+        </div>
+        
         <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -14,47 +31,56 @@
         </button>
       </div>
 
+      <!-- Navbar Menu (centered items) -->
       <div id="navbarMenu" class="navbar-menu">
-        <!-- Navbar Start -->
         <div class="navbar-start">
           {% for item in site.navigation_header %}
             {% if item.submenu %}
               <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link" href="{{ item.url | relative_url }}">
-                  <i class="{{ item.icon }} mr-2"></i> {{ item.title }}
+                  <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
                 </a>
-                <div class="navbar-dropdown is-boxed">
+                <div class="navbar-dropdown">
                   {% for subitem in item.submenu %}
                     <a class="navbar-item" href="{{ subitem.url | relative_url }}">
-                      <i class="{{ subitem.icon }} mr-2"></i> {{ subitem.title }}
+                      <span class="icon mr-2"><i class="{{ subitem.icon }}"></i></span> {{ subitem.title }}
                     </a>
                   {% endfor %}
                 </div>
               </div>
             {% else %}
               <a class="navbar-item {% if item.url == page.url %} is-active {% endif %}" href="{{ item.url | relative_url }}">
-                <i class="{{ item.icon }} mr-2"></i> {{ item.title }}
+                <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
               </a>
             {% endif %}
           {% endfor %}
         </div>
 
-        <!-- Navbar End -->
+        <!-- Icons aligned to the right -->
         <div class="navbar-end">
           <a class="navbar-item" href="/search">
-            <i class="fas fa-search mr-2"></i> Search
+            <span class="icon"><i class="fas fa-search"></i></span>
           </a>
           <a class="navbar-item" href="/support">
-            <i class="fas fa-hands-helping mr-2"></i> Support
+            <span class="icon"><i class="fas fa-hands-helping"></i></span>
           </a>
           <a class="navbar-item" href="/donate">
-            <i class="fas fa-donate mr-2"></i> Donate
+            <span class="icon"><i class="fas fa-donate"></i></span>
           </a>
           <a class="navbar-item" href="https://github.com/imswarnil/CRM-Analytics-Academy" target="_blank">
-            <i class="fab fa-github mr-2"></i> Star on GitHub
+            <span class="icon"><i class="fab fa-github"></i></span> Star on GitHub
           </a>
         </div>
       </div>
     </div>
   </nav>
 </header>
+
+<!-- Hero Section -->
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Your Hero Content Here</h1>
+    </div>
+  </div>
+</section>
