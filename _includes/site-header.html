@@ -1,167 +1,52 @@
 <header class="header">
-  <div class="container">
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i>
-            <span class="has-text-primary has-text-weight-bold">{{ site.brandname | default: 'CRM Analytics' }}</span>
-            <span class="is-size-6 has-text-dark ml-1">{{ site.site_type | default: 'Academy' }}</span>
-          </a>
-          <button class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </button>
-        </div>
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i>
+          <span class="has-text-primary has-text-weight-bold">{{ site.brandname | default: 'CRM Analytics' }}</span>
+          <span class="is-size-6 has-text-dark ml-1">{{ site.site_type | default: 'Academy' }}</span>
+        </a>
+        <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
 
-        <div id="navbarMenu" class="navbar-menu">
-          <div class="navbar-end">
-            {% for item in site.navigation_header %}
-              {% if item.submenu %}
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link" href="{{ item.url | relative_url }}">
-                    <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
-                  </a>
-                  <div class="navbar-dropdown">
-                    {% for subitem in item.submenu %}
-                      <a class="navbar-item" href="{{ subitem.url | relative_url }}">
-                        <span class="icon mr-2"><i class="{{ subitem.icon }}"></i></span> {{ subitem.title }}
-                      </a>
-                    {% endfor %}
-                  </div>
-                </div>
-              {% else %}
-                <a class="navbar-item {% if item.url == page.url %} is-active{% endif %}" href="{{ item.url | relative_url }}">
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-start">
+          {% for item in site.navigation_header %}
+            {% if item.submenu %}
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="{{ item.url | relative_url }}">
                   <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
                 </a>
-              {% endif %}
-            {% endfor %}
-          </div>
+                <div class="navbar-dropdown">
+                  {% for subitem in item.submenu %}
+                    <a class="navbar-item" href="{{ subitem.url | relative_url }}">
+                      <span class="icon mr-2"><i class="{{ subitem.icon }}"></i></span> {{ subitem.title }}
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+            {% else %}
+              <a class="navbar-item" href="{{ item.url | relative_url }}">
+                <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
 
-          <div class="navbar-end">
-            <a class="navbar-item" href="/search">
-              <span class="icon"><i class="fas fa-search"></i></span>
-            </a>
-            <a class="navbar-item" href="/support">
-              <span class="icon"><i class="fas fa-hands-helping"></i></span>
-            </a>
-            <a class="navbar-item" href="/donate">
-              <span class="icon"><i class="fas fa-donate"></i></span>
-            </a>
-            <a class="navbar-item" href="https://github.com/daviddarnes/alembic" target="_blank">
-              <span class="icon"><i class="fab fa-github"></i></span> Star on GitHub
-            </a>
-          </div>
+        <div class="navbar-end">
+          <a class="navbar-item" href="/search"><span class="icon"><i class="fas fa-search"></i></span></a>
+          <a class="navbar-item" href="/support"><span class="icon"><i class="fas fa-hands-helping"></i></span></a>
+          <a class="navbar-item" href="/donate"><span class="icon"><i class="fas fa-donate"></i></span></a>
+          <a class="navbar-item" href="https://github.com/daviddarnes/alembic" target="_blank">
+            <span class="icon"><i class="fab fa-github"></i></span> Star on GitHub
+          </a>
         </div>
       </div>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">Your Hero Content Here</h1>
     </div>
-  </div>
-</section>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-  // Navbar Burger Menu Toggle
-  const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
-  $navbarBurgers.forEach(function ($el) {
-    $el.addEventListener('click', function () {
-      const target = $el.dataset.target;
-      const $target = document.getElementById(target);
-      $el.classList.toggle('is-active');
-      $target.classList.toggle('is-active');
-      document.body.classList.toggle('has-navbar-open');
-    });
-  });
-
-  // Scroll-based Navbar Slide Up/Down
-  let lastScrollTop = 0;
-  const navbar = document.querySelector('.navbar');
-
-  window.addEventListener('scroll', function () {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (scrollTop > lastScrollTop) {
-      navbar.classList.add('navbar-scrolled-up');
-      navbar.classList.remove('navbar-scrolled-down');
-    } else {
-      navbar.classList.add('navbar-scrolled-down');
-      navbar.classList.remove('navbar-scrolled-up');
-    }
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative scroll
-  });
-});
-
-</script>
-<style>
-  /* General Styles */
-.navbar {
-  box-shadow: none;
-  background-color: transparent; /* No background color */
-  transition: top 0.3s ease;
-}
-
-.navbar-menu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.navbar-menu.is-active {
-  max-height: 500px;
-}
-
-/* Full-Screen Dropdown for Mobile */
-.navbar-burger.is-active + .navbar-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: #fff;
-  overflow-y: auto;
-  transform: translateY(-20px);
-  animation: slideIn 0.3s ease forwards;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-body.has-navbar-open {
-  overflow: hidden; /* Prevent scrolling when the navbar is open */
-}
-
-.navbar-item {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-}
-
-.hero {
-  margin-top: 60px; /* Adjust for navbar height */
-}
-
-/* Scroll Effect for Navbar */
-.navbar-scrolled-up {
-  top: -80px;
-}
-
-.navbar-scrolled-down {
-  top: 0;
-}
-
-</style>
+  </nav>
+</header>
