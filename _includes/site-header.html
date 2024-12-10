@@ -1,86 +1,40 @@
-<header class="header">
-  <nav class="navbar is-fixed-top is-white has-shadow" role="navigation" aria-label="main navigation">
-    <div class="container">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i>
-          <span class="has-text-primary has-text-weight-bold">{{ site.brandname | default: 'CRM Analytics' }}</span>
-          <span class="is-size-6 has-text-dark ml-1">{{ site.site_type | default: 'Academy' }}</span>
-        </a>
-        
-        <!-- Small Dropdown for User Profile / Settings (optional) -->
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            <span class="icon"><i class="fas fa-user-circle"></i></span> 
-            <span>Account</span>
-          </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="/profile">
-              <span class="icon"><i class="fas fa-cogs"></i></span> Profile
-            </a>
-            <a class="navbar-item" href="/logout">
-              <span class="icon"><i class="fas fa-sign-out-alt"></i></span> Logout
-            </a>
-          </div>
-        </div>
-        
-        <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
+<div class="navbar-start is-centered">
+  <a class="navbar-item is-active" href="/">
+    <span class="icon mr-2"><i class="fas fa-home"></i></span> Home
+  </a>
 
-      <!-- Navbar Menu (centered items) -->
-      <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-start">
-          {% for item in site.navigation_header %}
-            {% if item.submenu %}
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link" href="{{ item.url | relative_url }}">
-                  <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
-                </a>
-                <div class="navbar-dropdown">
-                  {% for subitem in item.submenu %}
-                    <a class="navbar-item" href="{{ subitem.url | relative_url }}">
-                      <span class="icon mr-2"><i class="{{ subitem.icon }}"></i></span> {{ subitem.title }}
-                    </a>
-                  {% endfor %}
-                </div>
-              </div>
-            {% else %}
-              <a class="navbar-item {% if item.url == page.url %} is-active {% endif %}" href="{{ item.url | relative_url }}">
-                <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
-              </a>
-            {% endif %}
-          {% endfor %}
-        </div>
+  <a class="navbar-item" href="/about">
+    <span class="icon mr-2"><i class="fas fa-info-circle"></i></span> About
+  </a>
 
-        <!-- Icons aligned to the right -->
-        <div class="navbar-end">
-          <a class="navbar-item" href="/search">
-            <span class="icon"><i class="fas fa-search"></i></span>
-          </a>
-          <a class="navbar-item" href="/support">
-            <span class="icon"><i class="fas fa-hands-helping"></i></span>
-          </a>
-          <a class="navbar-item" href="/donate">
-            <span class="icon"><i class="fas fa-donate"></i></span>
-          </a>
-          <a class="navbar-item" href="https://github.com/imswarnil/CRM-Analytics-Academy" target="_blank">
-            <span class="icon"><i class="fab fa-github"></i></span> Star on GitHub
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-</header>
+  <a class="navbar-item" href="/training">
+    <span class="icon mr-2"><i class="fas fa-chalkboard-teacher"></i></span> Training
+  </a>
 
-<!-- Hero Section -->
-<section class="hero is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">Your Hero Content Here</h1>
+  <a class="navbar-item" href="/course">
+    <span class="icon mr-2"><i class="fas fa-home"></i></span> Course
+  </a>
+
+  <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link" href="">
+      <span class="icon mr-2"><i class="fas fa-tools"></i></span> Resources
+    </a>
+    <div class="navbar-dropdown">
+      <a class="navbar-item" href="/resources/books">
+        <span class="icon mr-2"><i class="fas fa-book"></i></span> Books
+      </a>
+
+      <a class="navbar-item" href="/resources/blogs">
+        <span class="icon mr-2"><i class="fas fa-blog"></i></span> Blogs
+      </a>
+
+      <a class="navbar-item" href="/resources/tools">
+        <span class="icon mr-2"><i class="fas fa-tools"></i></span> Tools
+      </a>
     </div>
   </div>
-</section>
+
+  <a class="navbar-item" href="/blog">
+    <span class="icon mr-2"><i class="fas fa-rss"></i></span> Blog
+  </a>
+</div>
