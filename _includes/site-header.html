@@ -103,35 +103,18 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: top 0.3s ease;
+    border-bottom: 1px solid lightsteelblue;
   }
 
-  .navbar-item {
-    font-weight: inherit;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin: 0 5px;
-    display: inline-flex;
-    align-items: center;
-  }
 
   .navbar-item:hover {
-    background-color: rgba(0, 123, 255, 0.1); /* Light background on hover */
-    color: #007bff; /* Bulma primary color on hover */
+    color: var(--bulma-primary);
     text-decoration: none;
   }
 
   .navbar-item.is-active {
-    background-color: #007bff; /* Primary color background when active */
-    color: white; /* White text when active */
-  }
-
-  .navbar-burger {
-    display: none;
-    cursor: pointer;
+    color: var(--bulma-primary);
   }
 
   .navbar-menu {
