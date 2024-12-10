@@ -2,11 +2,13 @@
   <div class="container">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
+        <!-- Logo and App Name -->
         <a class="navbar-item" href="/" aria-label="Home">
-          <i class="fa-solid fa-person-chalkboard fa-xl mr-2" aria-hidden="true"></i>
-          <span class="has-text-weight-bold">{{ site.brandname | default: 'CRM Analytics' }}</span>
-          <span class="is-size-6">{{ site.site_type | default: 'Academy' }}</span>
+          <i class="fa-solid fa-person-chalkboard fa-xl"></i>
+          <span class="app-name">{{ site.brandname | default: 'CRM Analytics' }}</span>
         </a>
+
+        <!-- Burger Menu for Mobile -->
         <button class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -14,9 +16,10 @@
         </button>
       </div>
 
+      <!-- Main Navigation -->
       <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-end">
-          <!-- Navigation Items -->
+        <div class="navbar-start">
+          <!-- Main Nav Items for Web -->
           {% for item in site.navigation_header %}
             {% if item.submenu %}
               <div class="navbar-item has-dropdown is-hoverable">
@@ -38,8 +41,8 @@
             {% endif %}
           {% endfor %}
         </div>
-
-        <!-- Icons: Support, Donate, Search -->
+        
+        <!-- Icons: Search, Support, Donate -->
         <div class="navbar-end">
           <a class="navbar-item" href="/search" aria-label="Search">
             <span class="icon"><i class="fas fa-search"></i></span>
@@ -50,17 +53,23 @@
           <a class="navbar-item" href="/donate" aria-label="Donate">
             <span class="icon"><i class="fas fa-donate"></i></span>
           </a>
-          <a class="navbar-item" href="https://github.com/daviddarnes/alembic" target="_blank" aria-label="Star on GitHub">
-            <span class="icon"><i class="fab fa-github"></i></span> Star on GitHub
-          </a>
         </div>
       </div>
     </nav>
   </div>
 </header>
 
+<!-- Mobile Bottom Tab Bar -->
+<div class="mobile-tab-bar">
+  <a href="/home" class="tab-item"><i class="fa-solid fa-house"></i></a>
+  <a href="/search" class="tab-item"><i class="fas fa-search"></i></a>
+  <a href="/support" class="tab-item"><i class="fas fa-hands-helping"></i></a>
+  <a href="/donate" class="tab-item"><i class="fas fa-donate"></i></a>
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // Burger Menu Toggle
     const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
     if ($navbarBurgers.length > 0) {
       $navbarBurgers.forEach(function ($el) {
@@ -103,51 +112,43 @@
   }
 
   .navbar-item {
-    padding: 10px 15px;
-    margin: 0 5px;
+    font-weight: 600;
+    padding: 8px 12px;
     display: inline-flex;
     align-items: center;
-    border-radius: 5px;
-  }
-
-  .navbar-item:hover {
-    background-color: rgba(0, 123, 255, 0.1); /* Light background on hover */
-    color: #007bff; /* Bulma primary color on hover */
-    text-decoration: none;
+    transition: background-color 0.3s ease;
   }
 
   .navbar-item.is-active {
-    background-color: #007bff;
-    color: white;
+    font-weight: bold;
+    color: #007bff;
   }
 
-  .navbar-burger {
+  /* Mobile Bottom Tab Bar */
+  .mobile-tab-bar {
     display: none;
-    cursor: pointer;
-  }
-
-  .navbar-menu {
-    transition: max-height 0.3s ease-out;
-    overflow: hidden;
-  }
-
-  .navbar-end {
-    display: flex;
-    align-items: center;
-  }
-
-  .navbar-item.has-dropdown.is-hoverable .navbar-dropdown {
-    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000;
   }
 
-  .navbar-item.has-dropdown.is-hoverable:hover .navbar-dropdown {
-    display: block;
-    opacity: 1;
-    transform: translateY(5px);
+  .tab-item {
+    display: inline-block;
+    width: 25%;
+    padding: 10px;
+    font-size: 24px;
   }
 
+  .tab-item:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* Media Queries */
   @media (max-width: 768px) {
     .navbar-burger {
       display: block;
@@ -161,9 +162,22 @@
       display: block;
     }
 
-    .navbar-item {
+    .mobile-tab-bar {
+      display: block;
+    }
+
+    .navbar-brand {
       text-align: center;
-      padding: 1rem;
+    }
+
+    .navbar-end {
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-tab-bar {
+      display: none;
     }
   }
 
