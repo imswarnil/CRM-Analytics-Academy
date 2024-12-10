@@ -1,6 +1,6 @@
 <header class="header">
   <div class="container">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <!-- Logo and App Name -->
         <a class="navbar-item" href="/" aria-label="Home">
@@ -18,7 +18,7 @@
 
       <!-- Main Navigation -->
       <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-start">
+        <div class="navbar-start is-flex-grow-1">
           <!-- Main Nav Items for Web -->
           {% for item in site.navigation_header %}
             {% if item.submenu %}
@@ -41,7 +41,7 @@
             {% endif %}
           {% endfor %}
         </div>
-        
+
         <!-- Icons: Search, Support, Donate -->
         <div class="navbar-end">
           <a class="navbar-item" href="/search" aria-label="Search">
@@ -109,6 +109,7 @@
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: top 0.3s ease;
+    background-color: #fff;
   }
 
   .navbar-item {
@@ -116,12 +117,17 @@
     padding: 8px 12px;
     display: inline-flex;
     align-items: center;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   .navbar-item.is-active {
     font-weight: bold;
-    color: #007bff;
+    color: var(--bulma-primary);
+  }
+
+  .navbar-item:hover {
+    background-color: var(--bulma-primary-light);
+    color: var(--bulma-primary);
   }
 
   /* Mobile Bottom Tab Bar */
