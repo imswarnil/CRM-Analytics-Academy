@@ -106,50 +106,6 @@
     transition: top 0.3s ease;
     border-bottom: 1px solid lightsteelblue;
   }
-
-  .navbar-menu {
-    transition: max-height 0.3s ease-out;
-    overflow: hidden;
-  }
- 
-
-  .navbar-end {
-    display: flex;
-    align-items: center;
-  }
-
-  .navbar-item.has-dropdown.is-hoverable .navbar-dropdown {
-    display: none;
-    background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .navbar-item.has-dropdown.is-hoverable:hover .navbar-dropdown {
-    display: block;
-    opacity: 1;
-    transform: translateY(5px);
-  }
-
-  /* Adjust for mobile devices */
-  @media (max-width: 768px) {
-    .navbar-burger {
-      display: block;
-    }
-
-    .navbar-menu {
-      display: none;
-      &.is-active {
-        display: block;
-      }
-    }
-
-    .navbar-item {
-      text-align: center;
-      padding: 1rem;
-    }
-  }
-
   /* Scroll Effect for Navbar */
   .navbar-scrolled-up {
     top: -80px;
