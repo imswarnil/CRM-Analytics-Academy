@@ -1,75 +1,69 @@
 <header class="header">
   <div class="container">
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <!-- Logo and App Name -->
-        <a class="navbar-item" href="/" aria-label="Home">
-          <i class="fa-solid fa-person-chalkboard fa-xl"></i>
-          <span class="app-name">{{ site.brandname | default: 'CRM Analytics' }}</span>
-        </a>
-
-        <!-- Burger Menu for Mobile -->
-        <button class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
-
-      <!-- Main Navigation -->
-      <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-start is-flex-grow-1">
-          <!-- Main Nav Items for Web -->
-          {% for item in site.navigation_header %}
-            {% if item.submenu %}
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link" href="{{ item.url | relative_url }}">
-                  <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
-                </a>
-                <div class="navbar-dropdown">
-                  {% for subitem in item.submenu %}
-                    <a class="navbar-item" href="{{ subitem.url | relative_url }}">
-                      <span class="icon mr-2"><i class="{{ subitem.icon }}"></i></span> {{ subitem.title }}
-                    </a>
-                  {% endfor %}
-                </div>
-              </div>
-            {% else %}
-              <a class="navbar-item {% if item.url == page.url %} is-active{% endif %}" href="{{ item.url | relative_url }}">
-                <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
-              </a>
-            {% endif %}
-          {% endfor %}
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <i class="fa-solid fa-person-chalkboard has-text-primary fa-xl mr-2"></i>
+            <span class="has-text-primary has-text-weight-bold">{{ site.brandname | default: 'CRM Analytics' }}</span>
+            <span class="is-size-6 has-text-dark ml-1">{{ site.site_type | default: 'Academy' }}</span>
+          </a>
+          <button class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
         </div>
 
-        <!-- Icons: Search, Support, Donate -->
-        <div class="navbar-end">
-          <a class="navbar-item" href="/search" aria-label="Search">
-            <span class="icon"><i class="fas fa-search"></i></span>
-          </a>
-          <a class="navbar-item" href="/support" aria-label="Support">
-            <span class="icon"><i class="fas fa-hands-helping"></i></span>
-          </a>
-          <a class="navbar-item" href="/donate" aria-label="Donate">
-            <span class="icon"><i class="fas fa-donate"></i></span>
-          </a>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-end">
+            {% for item in site.navigation_header %}
+              {% if item.submenu %}
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" href="{{ item.url | relative_url }}">
+                    <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
+                  </a>
+                  <div class="navbar-dropdown">
+                    {% for subitem in item.submenu %}
+                      <a class="navbar-item" href="{{ subitem.url | relative_url }}">
+                        <span class="icon mr-2"><i class="{{ subitem.icon }}"></i></span> {{ subitem.title }}
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% else %}
+                <a class="navbar-item {% if item.url == page.url %} is-active{% endif %}" href="{{ item.url | relative_url }}">
+                  <span class="icon mr-2"><i class="{{ item.icon }}"></i></span> {{ item.title }}
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <!-- Icons: Support, Donate, Search -->
+          <div class="navbar-end">
+            <a class="navbar-item" href="/search">
+              <span class="icon"><i class="fas fa-search"></i></span>
+            </a>
+            <a class="navbar-item" href="/support">
+              <span class="icon"><i class="fas fa-hands-helping"></i></span>
+            </a>
+            <a class="navbar-item" href="/donate">
+              <span class="icon"><i class="fas fa-donate"></i></span>
+            </a>
+            <!-- GitHub Star Button -->
+            <a class="navbar-item" href="https://github.com/daviddarnes/alembic" target="_blank">
+              <span class="icon"><i class="fab fa-github"></i></span> Star on GitHub
+            </a>
+          </div>
         </div>
       </div>
     </nav>
   </div>
 </header>
 
-<!-- Mobile Bottom Tab Bar -->
-<div class="mobile-tab-bar">
-  <a href="/home" class="tab-item"><i class="fa-solid fa-house"></i></a>
-  <a href="/search" class="tab-item"><i class="fas fa-search"></i></a>
-  <a href="/support" class="tab-item"><i class="fas fa-hands-helping"></i></a>
-  <a href="/donate" class="tab-item"><i class="fas fa-donate"></i></a>
-</div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Burger Menu Toggle
+    // Navbar Burger Menu Toggle
     const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
     if ($navbarBurgers.length > 0) {
       $navbarBurgers.forEach(function ($el) {
@@ -82,11 +76,13 @@
       });
     }
 
+    // Scroll-based Navbar Slide Up/Down
     let lastScrollTop = 0;
     const navbar = document.querySelector('.navbar');
 
     window.addEventListener('scroll', function () {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
       if (scrollTop > lastScrollTop) {
         navbar.classList.add('navbar-scrolled-up');
         navbar.classList.remove('navbar-scrolled-down');
@@ -94,7 +90,7 @@
         navbar.classList.add('navbar-scrolled-down');
         navbar.classList.remove('navbar-scrolled-up');
       }
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative scroll
     });
   });
 </script>
@@ -107,54 +103,61 @@
     left: 0;
     width: 100%;
     z-index: 1000;
+    background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: top 0.3s ease;
-    background-color: #fff;
   }
 
   .navbar-item {
-    font-weight: 600;
-    padding: 8px 12px;
+    font-weight: inherit;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 0 5px;
     display: inline-flex;
     align-items: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  .navbar-item.is-active {
-    font-weight: bold;
-    color: var(--bulma-primary);
   }
 
   .navbar-item:hover {
-    background-color: var(--bulma-primary-light);
-    color: var(--bulma-primary);
+    background-color: rgba(0, 123, 255, 0.1); /* Light background on hover */
+    color: #007bff; /* Bulma primary color on hover */
+    text-decoration: none;
   }
 
-  /* Mobile Bottom Tab Bar */
-  .mobile-tab-bar {
+  .navbar-item.is-active {
+    background-color: #007bff; /* Primary color background when active */
+    color: white; /* White text when active */
+  }
+
+  .navbar-burger {
     display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    cursor: pointer;
+  }
+
+  .navbar-menu {
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+  }
+
+  .navbar-end {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-item.has-dropdown.is-hoverable .navbar-dropdown {
+    display: none;
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    z-index: 1000;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
-  .tab-item {
-    display: inline-block;
-    width: 25%;
-    padding: 10px;
-    font-size: 24px;
+  .navbar-item.has-dropdown.is-hoverable:hover .navbar-dropdown {
+    display: block;
+    opacity: 1;
+    transform: translateY(5px);
   }
 
-  .tab-item:hover {
-    background-color: #f1f1f1;
-  }
-
-  /* Media Queries */
+  /* Adjust for mobile devices */
   @media (max-width: 768px) {
     .navbar-burger {
       display: block;
@@ -162,28 +165,14 @@
 
     .navbar-menu {
       display: none;
+      &.is-active {
+        display: block;
+      }
     }
 
-    .navbar-menu.is-active {
-      display: block;
-    }
-
-    .mobile-tab-bar {
-      display: block;
-    }
-
-    .navbar-brand {
+    .navbar-item {
       text-align: center;
-    }
-
-    .navbar-end {
-      display: none;
-    }
-  }
-
-  @media (min-width: 769px) {
-    .mobile-tab-bar {
-      display: none;
+      padding: 1rem;
     }
   }
 
