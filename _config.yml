@@ -71,13 +71,18 @@ navigation_header:
   - title: Training
     url: /training
     icon: fas fa-chalkboard-teacher
-  - title: course
-    url: /course
-    icon: fas fa-home
   - title: Resources
     submenu:
       - title: Books
         url: /resources/books
+        title: Resources
+        submenu:
+          - title: Books
+            url: /resources/books
+           icon: fas fa-book
+          - title: Blogs
+            url: /resources/blogs
+            icon: fas fa-blog
         icon: fas fa-book
       - title: Blogs
         url: /resources/blogs
