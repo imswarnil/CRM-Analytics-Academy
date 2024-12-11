@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search - CRM Analytics Academy</title>
-</head>
-<body>
   <!-- Hero Section -->
   <section class="hero is-medium is-light">
     <div class="hero-body">
@@ -62,8 +54,6 @@
     </div>
   </section>
 
-  <noscript>Please enable JavaScript to use the search functionality.</noscript>
-
   <!-- JavaScript -->
   <script>
     const endpoint = '{{ "/assets/search.json" | relative_url }}';
@@ -90,17 +80,17 @@
       const resultsGrid = document.querySelector('#results');
 
       // Display suggestions
-      const suggestionsHtml = resultsArray
-        .slice(0, 5)
-        .map(
-          (item) =>
-            `<li>
-              <a href="${item.url}" class="has-text-link">${item.title}</a>
-            </li>`
-        )
-        .join('');
-      suggestionsList.innerHTML = suggestionsHtml;
-      suggestionsList.classList.toggle('is-hidden', query === '' || resultsArray.length === 0);
+      // const suggestionsHtml = resultsArray
+      //   .slice(0, 5)
+      //   .map(
+      //     (item) =>
+      //       `<li>
+      //         <a href="${item.url}" class="has-text-link">${item.title}</a>
+      //       </li>`
+      //   )
+      //   .join('');
+      // suggestionsList.innerHTML = suggestionsHtml;
+      // suggestionsList.classList.toggle('is-hidden', query === '' || resultsArray.length === 0);
 
       // Display results in a grid
       const resultsHtml = resultsArray
