@@ -35,7 +35,7 @@ layout: default
  <section class="section py-6">
   <div class="container">
     <div class="columns is-centered">
-      <div class="column is-6">
+      <div class="column is-6 has-text-centered">
         <h2 class="title is-3">
           {{ site.data.home.intro.title }}
           <span class="has-text-primary">in {{ site.data.home.intro.stepper | size }} steps</span>
@@ -46,33 +46,24 @@ layout: default
       </div>
     </div>
 
-    <div class="columns is-multiline is-mobile">
+    <div class="columns is-flex is-justify-content-center is-align-items-center">
       {% for step in site.data.home.intro.stepper %}
-      <div class="column is-4-desktop is-6-mobile">
-        <div class="box has-text-centered">
-          <div class="is-flex is-justify-content-center is-align-items-center mb-4">
-            <div
-              class="icon is-large has-background-primary has-text-white is-rounded is-size-4 has-text-weight-bold">
-              {{ step.step }}
-            </div>
-            {% if forloop.last %}
-            <span class="icon ml-4 is-size-4 has-text-success">
-              <i class="fas fa-check-circle"></i>
-            </span>
-            {% else %}
-            <span class="icon ml-4 is-size-4 has-text-grey">
-              <i class="fas fa-arrow-right"></i>
-            </span>
-            {% endif %}
-          </div>
-          <h3 class="title is-5">
-            {{ step.title }}
-          </h3>
-          <p class="subtitle is-6">
-            {{ step.description }}
-          </p>
+      <div class="has-text-centered mx-3">
+        <div class="icon is-large has-background-primary has-text-white is-rounded is-size-4 has-text-weight-bold">
+          {{ step.step }}
         </div>
+        <h3 class="title is-5 mt-2">
+          {{ step.title }}
+        </h3>
+        <p class="subtitle is-6">
+          {{ step.description }}
+        </p>
       </div>
+      {% if forloop.last == false %}
+      <div class="icon mx-3 is-size-4 has-text-grey">
+        <i class="fas fa-arrow-right"></i>
+      </div>
+      {% endif %}
       {% endfor %}
     </div>
 
