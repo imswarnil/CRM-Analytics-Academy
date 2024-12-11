@@ -32,21 +32,23 @@ layout: default
 </section>
  <!-- Adsense Ad Ends -->
 
- <section class="section py-1">
+
+ <section class="section py-6">
   <div class="container">
-    <div class="columns py-3">
-      <div class="column is-6 has-text-left">
+    <div class="columns is-centered">
+      <div class="column is-6 has-text-centered">
         <h2 class="title is-3">
-            Become Master In CRM Analytics By Following These 5 Steps
-          <span class="subtitle is-5 has-text-primary">Lorem ipsum, dolor sit amet cons alias architectoorum iste ad natus voluptas?</span>
-        </h2>
+          Become Master In CRM Analytics By Following These 5 Steps
+        <span class="subtitle is-5 has-text-primary">Lorem ipsum, dolor sit amet cons alias architectoorum iste ad natus voluptas?</span>
+      </h2>
+  
       </div>
     </div>
 
-    <div class="columns is-flex is-justify-content-center is-align-items-center">
+    <div class="columns is-flex is-justify-content-center is-align-items-center steps">
       {% for step in site.data.home.intro.stepper %}
-      <div class="has-text-centered mx-3">
-        <div class="icon is-large has-background-primary has-text-white is-rounded is-size-4 has-text-weight-bold">
+      <div class="step has-text-centered mx-3">
+        <div class="step-icon icon is-large">
           {{ step.step }}
         </div>
         <h3 class="title is-5 mt-2">
@@ -57,7 +59,7 @@ layout: default
         </p>
       </div>
       {% if forloop.last == false %}
-      <div class="icon mx-3 is-size-4 has-text-grey">
+      <div class="icon is-size-4 step-arrow">
         <i class="fas fa-arrow-right"></i>
       </div>
       {% endif %}
@@ -70,8 +72,89 @@ layout: default
       </div>
     </div>
   </div>
-</section>
 
+  <style>
+    .steps {
+      gap: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .step {
+      position: relative;
+      text-align: center;
+      flex: none;
+    }
+
+    .step-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--primary-color, #485fc7);
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin: 0 auto;
+      border: 4px solid rgba(72, 95, 199, 0.3);
+    }
+
+    .step-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b5b5b5;
+    }
+
+    .step h3 {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .step p {
+      margin-top: 0.5rem;
+      color: #6b6b6b;
+    }
+
+    .steps .icon {
+      font-size: 2rem;
+    }
+
+    /* Responsive Adjustments */
+    @media screen and (max-width: 768px) {
+      .steps {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .step {
+        flex: 0 1 calc(100% - 20px);
+        margin-bottom: 1rem;
+      }
+
+      .step-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+      }
+
+      .step h3 {
+        font-size: 1rem;
+      }
+
+      .step p {
+        font-size: 0.9rem;
+      }
+
+      .step-arrow {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</section>
 
  <section class="py-6 has-background-light">
   <div class="container mb-6">
