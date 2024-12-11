@@ -2,6 +2,79 @@
 layout: default
 ---
 
+---
+layout: page
+description: My Blogs etc
+collectionpage: posts
+title: Blog
+aside: true
+---
+
+<!-- Hero Section -->
+<div class="hero is-small mt-4">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-variable is-3">
+        <!-- Left Column: Title & Description -->
+        <div class="column is-12-mobile is-4-tablet is-3-desktop">
+          <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
+          <h2 class="subtitle is-4">{{ page.description }}</h2>
+        </div>
+        <!-- Right Column: Ads -->
+        <div class="column is-12-mobile is-8-tablet is-9-desktop">
+          <div class="has-text-centered">
+            {% adsense large-leaderboard %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Section -->
+<section class="section">
+  <div class="container">
+    <div class="columns is-variable is-4">
+      <!-- Left Column: Blog Posts List -->
+      <div class="column is-12-mobile is-8-tablet is-9-desktop">
+        <div class="post-list">
+          {% include post-list.html %}
+        </div>
+      </div>
+
+      <!-- Right Column: Sidebar with Ads and Additional Info -->
+      {% if page.aside == true %}
+      <div class="column is-12-mobile is-4-tablet is-3-desktop">
+        <aside class="sidebar">
+          <!-- Square Ad Placeholder -->
+          <div class="notification is-info has-text-centered mb-4">
+            {% adsense skyscraper %}
+          </div>
+
+          <!-- Sidebar Content (Optional) -->
+          {% include site-aside.html %}
+          
+          <!-- Additional Square Ad Placeholder -->
+          <div class="notification is-info has-text-centered mt-4">
+            {% adsense multiplex %}
+          </div>
+        </aside>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Full Width Ad Placeholder at the End -->
+<section class="section">
+  <div class="container">
+    <div class="notification is-warning has-text-centered">
+      Full Width Ad Placeholder (970x250)
+    </div>
+  </div>
+</section>
+
+
 {% include home/get-started.html %}
 {% include home/team.html %}
 
