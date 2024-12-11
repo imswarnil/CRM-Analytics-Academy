@@ -11,8 +11,8 @@ type: webpage
     <div class="columns">
        <!-- Left Sidebar -->
       {% if page.left_sidebar and page.sidebar %}
-      {% include sidebar/left.html %}
         <div class="column is-2">
+          {% include sidebar/left.html %}
           {% adsense square %}
           <div>
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540" crossorigin="anonymous"></script>
@@ -26,7 +26,6 @@ type: webpage
           </div>
         </div>
       {% endif %}
-       <!-- Left Sidebar Ends -->
 
       <div class="column {% if page.sidebar and page.left_sidebar %}is-7{% elsif page.sidebar %}is-8{% else %}is-12{% endif %}">
         <!-- Hero Section -->
