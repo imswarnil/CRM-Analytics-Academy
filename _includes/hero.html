@@ -1,38 +1,46 @@
-<section class="hero {% if page.layout == 'home' %}home-hero{% elsif page.layout == 'post' %}post-hero{% elsif page.layout == 'page' %}page-hero{% elsif page.layout == 'training' %}training-hero{% endif %} {% if page.bg %}{{ page.bg }}{% else %}has-background-white{% endif %} {% if page.height %}{{ page.height }}{% else %}is-small{% endif %}">
+<section class="hero {% if page.layout == 'home' %}is-primary is-bold position-relative home-hero{% elsif page.layout == 'post' %}is-primary is-bold position-relative post-hero{% elsif page.layout == 'page' %}is-primary is-bold position-relative page-hero{% elsif page.layout == 'training' %}is-white is-normal training-hero{% endif %} {% if page.background_color %}has-background-{{ page.background_color }}{% else %}has-background-white{% endif %} {% if page.hero_size %}{{ page.hero_size }}{% else %}is-small{% endif %}">
   <div class="hero-body">
-    <div class="container {% if page.align == 'center' %}has-text-centered{% elsif page.align == 'left' %}has-text-left{% elsif page.align == 'right' %}has-text-right{% endif %}">
-      <div class="columns is-vcentered {% if page.layout == 'page' or page.layout == 'post' %}is-flex-direction-row-reverse{% endif %}">
+    <div class="container">
+      <div class="columns is-vcentered">
+        
         {% if page.layout == 'home' %}
-        <div class="column is-5">
-          <h1 class="title is-3 p-1">{{ page.title }}</h1>
-          <p class="subtitle is-5">{{ page.description }}</p>
-          <div class="buttons">
-            {% if page.button_primary_link and page.button_primary_text %}
-            <a href="{{ page.button_primary_link }}" class="button is-primary is-rounded">{{ page.button_primary_text }}</a>
-            {% endif %}
-            {% if page.button_secondary_link and page.button_secondary_text %}
-            <a href="{{ page.button_secondary_link }}" class="button is-light is-rounded">{{ page.button_secondary_text }}</a>
+        <!-- Home Hero -->
+        <div class="column is-5 is-offset-1 post-caption">
+          <p class="text-uppercase">
+            <span class="taglist">
+              {% if page.categories %}
+              {% for category in page.categories %}
+              <a class="has-text-warning has-text-weight-bold is-uppercase p-category" href="/topics/{{ category | slugify }}/">{{ category }}</a>
+              {% endfor %}
+              {% endif %}
+            </span>
+          </p>
+          <div class="divider"></div>
+          <h1 class="title is-2 is-light is-semibold is-spaced main-title p-name">{{ page.title }}</h1>
+          <h2 class="subtitle p-summary">{{ page.excerpt }}</h2>
+          <div class="author-block">
+            {% if page.author %}
+            <div class="image is-64x64">
+              <img src="{{ page.author.avatar }}" alt="{{ page.author.name }}">
+            </div>
+            <div class="author-name">
+              <span class="p-author h-card">{{ page.author.name }}</span>
+              <span>{{ page.date | date: "%b %d, %Y" }} · {{ page.reading_time }} min read</span>
+            </div>
             {% endif %}
           </div>
-          {% if page.show_students %}
-          <div class="student-avatars mt-4 is-flex">
-            {% for avatar in page.student_avatars %}
-            <img src="{{ avatar.src }}" alt="{{ avatar.alt }}" class="student-avatar mr-1">
-            {% endfor %}
-            <span class="ml-2 has-text-grey">{{ page.student_text }}</span>
-          </div>
-          {% endif %}
         </div>
-        <div class="column is-auto has-text-centered">
+        <div class="column is-5">
           {% if page.image %}
-          <figure>
-            <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
+          <figure class="image is-4by3 blog-featured">
+            <img src="{{ page.image }}" alt="{{ page.title }}">
           </figure>
           {% endif %}
         </div>
         {% endif %}
-
+        
         {% if page.layout == 'post' %}
+        <!-- Post Hero -->
         <div class="column is-4">
           {% adsense square %}
         </div>
@@ -45,7 +53,7 @@
             </ul>
           </nav>
           <h1 class="title is-2">{{ page.title }}</h1>
-          <p class="subtitle is-4">{{ page.description }}</p>
+          <p class="subtitle is-4">{{ page.excerpt }}</p>
           <div class="tags">
             {% for tag in page.tags %}
             <span class="tag is-info"><i class="fas fa-tag"></i> {{ tag }}</span>
@@ -54,23 +62,28 @@
           </div>
         </div>
         {% endif %}
-
+        
         {% if page.layout == 'page' %}
-        <div class="column is-9">
-            {% adsense leaderboard %}
+        <!-- Page Hero -->
+        <div class="column is-two-thirds">
+          <h1 class="title">{{ page.title }}</h1>
+          <h2 class="subtitle">{{ page.excerpt }}</h2>
         </div>
-        <div class="column is-3">
-          <h1 class="title is-2 has-text-primary mb-2">{{ page.title }}</h1>
-          <h2 class="subtitle is-4 has-text-dark mb-4">{{ page.description }}</h2>
+        {% if page.icon_svg %}
+        <div class="column is-one-third">
+          <img src="{{ page.icon_svg }}" alt="{{ page.title }}" class="page-icon">
         </div>
         {% endif %}
-
+        {% endif %}
+        
         {% if page.layout == 'training' %}
+        <!-- Training Hero -->
         <div class="column is-12">
-          <h1 class="title is-2">{{ page.title }}</h1>
-          <p class="subtitle is-4">{{ page.description }}</p>
+          <h1 class="title is-2">{{ page.title }} <sup><span class="tag is-success is-normal has-text-weight-bold">New</span></sup></h1>
+          <h2 class="subtitle is-3">{{ page.excerpt }}</h2>
         </div>
         {% endif %}
+        
       </div>
     </div>
   </div>
