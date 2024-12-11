@@ -1,4 +1,4 @@
-<section class="hero {% if page.layout == 'home' %}home-hero{% elsif page.layout == 'post' %}post-hero{% elsif page.layout == 'page' %}page-hero{% elsif page.layout == 'training' %}training-hero{% endif %} {% if page.bg %}{{ page.bg }}{% else %}has-background-white{% endif %} {% if page.height %}{{ page.height }}{% else %}is-small{% endif %}">
+<section class="hero {% if page.layout == 'home' %}home-hero{% elsif page.layout == 'post' %}post-hero{% elsif page.layout == 'page' %}page-hero{% elsif page.layout == 'training' %}training-hero{% endif %} {% if page.bg %}{{ page.bg }}{% else %}is-primary{% endif %} {% if page.height %}{{ page.height }}{% else %}is-small{% endif %}">
   <div class="hero-body">
     <div class="container {% if page.align == 'center' %}has-text-centered{% elsif page.align == 'left' %}has-text-left{% elsif page.align == 'right' %}has-text-right{% endif %}">
       <div class="columns is-vcentered {% if page.layout == 'page' or page.layout == 'post' %}is-flex-direction-row-reverse{% endif %}">
