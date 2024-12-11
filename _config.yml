@@ -118,7 +118,6 @@ plugins:
 - jekyll-redirect-from
 - jekyll-feed
 - jekyll-commonmark
-- jekyll-include-cache
 - jemoji
 
 # 3. Gem settings
@@ -189,4 +188,3 @@ exclude:
 - Gemfile
 - Gemfile.lock
 - alembic-jekyll-theme.gemspec
-- .jekyll-cache
