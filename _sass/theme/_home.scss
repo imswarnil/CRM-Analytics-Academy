@@ -1,150 +1,63 @@
-/* Home Hero Styling */
+/* Custom Styles for Hero Section */
 .home-hero {
-    position: relative;
-    overflow: hidden;
-    background-color: #f9fafb; /* Soft background color */
-    background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px); /* Grid pattern for subtle texture */
-    background-size: 30px 30px;
-    padding: 3rem 1rem; /* Add space for content */
+  background-color: #4A90E2;
+  padding: 2rem 0;
+}
+
+.home-hero .hero-body {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.home-hero .hero-image {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Custom Styles for Intro Section */
+.home-intro {
+  padding: 4rem 0;
+  background-color: #f9f9f9;
+}
+
+.home-intro .key-features {
+  margin-top: 3rem;
+}
+
+.home-intro .key-features .feature-box {
+  padding: 1.5rem;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.home-intro .stepper {
+  margin-top: 2rem;
+}
+
+.home-intro .step-item {
+  background-color: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.home-intro .step-item h4 {
+  margin-bottom: 0.5rem;
+  color: #4A90E2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-intro .columns {
+    flex-direction: column;
   }
-  
-  /* Hero Body Padding */
-  .home-hero .hero-body {
-    padding: 3rem 1rem; /* Increase padding for more spacious feel */
-  }
-  
-  /* Title & Description */
-  .home-hero h1.title, 
-  .home-hero .subtitle {
-    color : var(--bulma-primary-dark);
-  }
-  
-  .home-hero h1.title {
-    font-size: 2.5rem; /* Larger title for prominence */
-    font-weight: bold;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  
-  .home-hero .subtitle {
-    font-size: 1.25rem;
-    color: #555;
+  .home-intro .column.is-6 {
     margin-bottom: 2rem;
-    line-height: 1.4;
   }
-  
-  /* Buttons */
-  .home-hero .buttons .button {
-    margin: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    border-radius: 50px; /* Rounded button edges */
-    font-size: 1rem;
-    transition: all 0.3s ease-in-out;
+  .home-intro .stepper .step-item {
+    padding: 1rem;
   }
-  
-  .home-hero .buttons .button.is-primary {
-    background-color: #3498db; /* Primary button color */
-    border: none;
-  }
-  
-  .home-hero .buttons .button.is-light {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ddd;
-  }
-  
-  .home-hero .buttons .button:hover {
-    transform: scale(1.05); /* Slight hover effect */
-  }
-  
-  /* Student Avatars Section */
-  .home-hero .student-avatars {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center avatars horizontally */
-    margin-top: 2rem;
-  }
-  
-  .home-hero .student-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    object-fit: cover;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-    margin-right: 1rem;
-  }
-  
-  .home-hero .student-avatar:hover {
-    transform: translateY(-5px); /* Hover effect to lift avatar */
-  }
-  
-  /* Text for Students */
-  .home-hero .student-avatars span {
-    color: #777;
-    font-size: 1rem;
-    font-style: italic;
-  }
-  
-  /* Hero Image */
-  .home-hero .hero-image {
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .home-hero .hero-image:hover {
-    transform: scale(1.05); /* Subtle zoom-in effect on hover */
-  }
-  
-  /* Mobile Responsiveness */
-  @media screen and (max-width: 768px) {
-    .home-hero .columns {
-      flex-direction: column-reverse; /* Stack content for mobile */
-    }
-  
-    .home-hero h1.title {
-      font-size: 2rem; /* Adjust title size for smaller screens */
-    }
-  
-    .home-hero .subtitle {
-      font-size: 1.1rem; /* Smaller subtitle for mobile */
-    }
-  
-    .home-hero .student-avatars {
-      flex-direction: column;
-      margin-top: 1.5rem;
-    }
-  
-    .home-hero .student-avatar {
-      width: 50px;
-      height: 50px;
-      margin-right: 0;
-      margin-bottom: 1rem; /* Vertical spacing for mobile */
-    }
-  
-    .home-hero .hero-image {
-      max-width: 90%; /* Image takes up more width on mobile */
-    }
-  
-    .home-hero .ad-placeholder {
-      height: 150px; /* Smaller ad placeholder on mobile */
-    }
-  }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .home-hero {
-    animation: fadeIn 1s ease-out;
-  }
-  
+}

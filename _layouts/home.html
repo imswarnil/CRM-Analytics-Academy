@@ -3,39 +3,38 @@ layout: default
 ---
 
 <!-- Hero Home Section-->
-
-<section class="hero home-hero is-primary is-small">
+<section class="hero home-hero is-primary is-medium">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
 
         <!-- Left Column (Text Content) -->
-        <div class="column is-5">
-          <h1 class="title is-3 p-1">{{ site.data.home.intro.title }}</h1>
-          <p class="subtitle is-5">{{ site.data.home.intro.description }}</p>
+        <div class="column is-6">
+          <h1 class="title is-2 has-text-white">{{ site.data.home.hero.title }}</h1>
+          <p class="subtitle is-5 has-text-light">{{ site.data.home.hero.description }}</p>
           <div class="buttons">
-            <a href="{{ site.data.home.intro.button_primary_link }}" class="button is-primary is-rounded">
-              {{ site.data.home.intro.button_primary_text }}
+            <a href="{{ site.data.home.hero.button_primary_link }}" class="button is-primary is-rounded">
+              {{ site.data.home.hero.button_primary_text }}
             </a>
-            <a href="{{ site.data.home.intro.button_secondary_link }}" class="button is-light is-rounded">
-              {{ site.data.home.intro.button_secondary_text }}
+            <a href="{{ site.data.home.hero.button_secondary_link }}" class="button is-light is-rounded">
+              {{ site.data.home.hero.button_secondary_text }}
             </a>
           </div>
 
-          {% if site.data.home.intro.show_students %}
+          {% if site.data.home.hero.show_students %}
           <div class="student-avatars mt-4 is-flex">
-            {% for student in site.data.home.intro.student_avatars %}
+            {% for student in site.data.home.hero.student_avatars %}
               <img src="{{ student.src }}" alt="{{ student.alt }}" class="student-avatar mr-1">
             {% endfor %}
-            <span class="ml-2 has-text-grey">{{ site.data.home.intro.student_text }}</span>
+            <span class="ml-2 has-text-grey">{{ site.data.home.hero.student_text }}</span>
           </div>
           {% endif %}
         </div>
 
         <!-- Right Column (Hero Image) -->
-        <div class="column is-auto has-text-centered">
+        <div class="column is-6 has-text-centered">
           <figure>
-            <img src="{{ site.data.home.intro.image }}" alt="{{ site.data.home.intro.title }}" class="hero-image">
+            <img src="{{ site.data.home.hero.image }}" alt="{{ site.data.home.hero.title }}" class="hero-image">
           </figure>
         </div>
 
@@ -45,52 +44,52 @@ layout: default
 </section>
 
 <!-- Hero Home Section Done -->
-
-
 {% adsense large-leaderboard %}
 <section class="section home-intro">
   <div class="container">
-    <!-- Hero Section -->
     <div class="columns is-vcentered">
-      <div class="column is-7">
-        <h2 class="title is-3 mb-3">{{ site.data.home.intro.title }}</h2>
-        <p>{{ site.data.home.intro.description }}</p>
-      </div>
-      <div class="column is-5">
-        <div class="video-container">
-          <iframe width="100%" height="315" src="{{ site.data.home.intro.video_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
+      <div class="column is-6">
+        <h2 class="title is-3">{{ site.data.home.intro.title }}</h2>
+        <p class="subtitle is-5">{{ site.data.home.intro.description }}</p>
 
-    <!-- Key Features -->
-    <div class="columns is-multiline">
-      {% for feature in site.data.home.intro.key_features %}
-        <div class="column is-6-mobile is-4-tablet is-3-desktop">
-          <div class="feature-box">
-            <h3 class="title is-5">{{ feature.title }}</h3>
-            <p>{{ feature.description }}</p>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-
-    <!-- Stepper (Learning Steps) -->
-    <div class="steps-container">
-      <div class="steps is-vertical">
-        {% for step in site.data.home.intro.stepper %}
-          <div class="step">
-            <div class="step-header">
-              <span class="step-number">{{ step.step }}</span>
-              <h4 class="step-title">{{ step.title }}</h4>
+        <div class="key-features">
+          <h3 class="subtitle is-4">Key Features</h3>
+          <div class="columns is-multiline">
+            {% for feature in site.data.home.intro.key_features %}
+            <div class="column is-4">
+              <div class="feature-box">
+                <h4 class="has-text-weight-bold">{{ feature.title }}</h4>
+                <p>{{ feature.description }}</p>
+              </div>
             </div>
-            <p class="step-description">{{ step.description }}</p>
+            {% endfor %}
           </div>
-        {% endfor %}
+        </div>
+
+        {% if site.data.home.intro.video_url %}
+        <div class="video-section mt-5">
+          <h4 class="subtitle is-4">Watch Introduction</h4>
+          <iframe width="100%" height="315" src="{{ site.data.home.intro.video_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+
+      </div>
+
+      <div class="column is-6">
+        <h3 class="title is-4">Step-by-Step Learning Path</h3>
+        <div class="stepper">
+          {% for step in site.data.home.intro.stepper %}
+          <div class="step-item">
+            <h4 class="has-text-weight-bold">{{ step.step }}. {{ step.title }}</h4>
+            <p>{{ step.description }}</p>
+          </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <style>
   .home-intro {
