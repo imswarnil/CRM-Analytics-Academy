@@ -1,6 +1,9 @@
 ---
 layout: default
 ---
+
+<!-- Hero Home Section-->
+
 <section class="hero home-hero is-primary is-small">
   <div class="hero-body">
     <div class="container">
@@ -8,23 +11,23 @@ layout: default
 
         <!-- Left Column (Text Content) -->
         <div class="column is-5">
-          <h1 class="title is-3 p-1">{{ site.hero.title }}</h1>
-          <p class="subtitle is-5">{{ site.hero.description }}</p>
+          <h1 class="title is-3 p-1">{{ site.data.home.intro.title }}</h1>
+          <p class="subtitle is-5">{{ site.data.home.intro.description }}</p>
           <div class="buttons">
-            <a href="{{ site.hero.button_primary_link }}" class="button is-primary is-rounded">
-              {{ site.hero.button_primary_text }}
+            <a href="{{ site.data.home.intro.button_primary_link }}" class="button is-primary is-rounded">
+              {{ site.data.home.intro.button_primary_text }}
             </a>
-            <a href="{{ site.hero.button_secondary_link }}" class="button is-light is-rounded">
-              {{ site.hero.button_secondary_text }}
+            <a href="{{ site.data.home.intro.button_secondary_link }}" class="button is-light is-rounded">
+              {{ site.data.home.intro.button_secondary_text }}
             </a>
           </div>
 
-          {% if site.hero.show_students %}
+          {% if site.data.home.intro.show_students %}
           <div class="student-avatars mt-4 is-flex">
-            {% for student in site.hero.student_avatars %}
+            {% for student in site.data.home.intro.student_avatars %}
               <img src="{{ student.src }}" alt="{{ student.alt }}" class="student-avatar mr-1">
             {% endfor %}
-            <span class="ml-2 has-text-grey">{{ site.hero.student_text }}</span>
+            <span class="ml-2 has-text-grey">{{ site.data.home.intro.student_text }}</span>
           </div>
           {% endif %}
         </div>
@@ -32,7 +35,7 @@ layout: default
         <!-- Right Column (Hero Image) -->
         <div class="column is-auto has-text-centered">
           <figure>
-            <img src="{{ site.hero.image }}" alt="{{ site.hero.title }}" class="hero-image">
+            <img src="{{ site.data.home.intro.image }}" alt="{{ site.data.home.intro.title }}" class="hero-image">
           </figure>
         </div>
 
@@ -40,6 +43,10 @@ layout: default
     </div>
   </div>
 </section>
+
+<!-- Hero Home Section Done -->
+
+
 {% adsense large-leaderboard %}
 <section class="section home-intro">
   <div class="container">
