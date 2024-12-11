@@ -4,6 +4,7 @@ description: "This page demonstrates the layout with both sidebars."
 image: "https://placehold.co/600x400/000000/FFFFFF/png"
 sidebar: true
 left_sidebar: true
+permalink : /both
 ---
 
 # BOTH THE PAGES AND CONTENT HERE
