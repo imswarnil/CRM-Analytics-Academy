@@ -58,3 +58,186 @@ aside: true
     </div>
   </div>
 </section>
+<style>
+  /* Hero Section */
+.hero.is-small {
+  background-color: #f9f9f9; /* Light background for hero */
+  padding: 2rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-body {
+  padding: 2rem 0;
+}
+
+.hero .title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--bulma-primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.hero .subtitle {
+  font-size: 1.25rem;
+  color: #666;
+}
+
+.hero .column.is-12-mobile.is-4-tablet.is-3-desktop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ads */
+.hero .has-text-centered {
+  margin-top: 2rem;
+}
+
+.notification.is-info {
+  background-color: #f1f5f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* Post List Section */
+.section {
+  background-color: #fff;
+  padding: 3rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.columns.is-variable {
+  gap: 2rem;
+}
+
+.column.is-12-mobile.is-8-tablet.is-9-desktop {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.column.is-12-mobile.is-4-tablet.is-3-desktop {
+  padding: 1rem;
+}
+
+h1.title {
+  font-size: 2.5rem;
+  color: var(--bulma-primary-dark);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+h2.subtitle {
+  font-size: 1.25rem;
+  color: #444;
+  margin-bottom: 2rem;
+}
+
+/* Post List Styles */
+.post-list-item {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1.5rem;
+}
+
+.post-list-item h3.title {
+  font-size: 2rem;
+  color: var(--bulma-primary-dark);
+}
+
+.post-list-item p.subtitle {
+  font-size: 1.1rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.post-list-item a {
+  color: var(--bulma-primary);
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.post-list-item a:hover {
+  color: var(--bulma-primary-dark);
+}
+
+.post-list-item .tags {
+  margin-top: 1rem;
+}
+
+.post-list-item .tag {
+  margin-right: 0.5rem;
+}
+
+.post-list-item .tag.is-info {
+  background-color: #3498db;
+  color: white;
+}
+
+.post-list-item .tag.is-light {
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+/* Sidebar */
+.site-aside {
+  margin-top: 3rem;
+}
+
+.site-aside h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.site-aside ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.site-aside ul li {
+  margin-bottom: 1rem;
+}
+
+.site-aside ul li a {
+  color: #3498db;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.site-aside ul li a:hover {
+  color: #2980b9;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .hero .columns {
+    flex-direction: column;
+  }
+
+  .column.is-12-mobile.is-4-tablet.is-3-desktop {
+    text-align: center;
+  }
+
+  .column.is-12-mobile.is-8-tablet.is-9-desktop {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .post-list-item h3.title {
+    font-size: 1.5rem;
+  }
+
+  .post-list-item p.subtitle {
+    font-size: 1rem;
+  }
+}
+
+</style>

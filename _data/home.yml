@@ -1,19 +1,181 @@
+# 1. Hero Section (Above the Fold)
+hero:
+  title: "Learn Salesforce CRM Analytics – Master Analytics Skills Online"
+  description: "Join CRM Analytics Academy to master Salesforce CRM Analytics with expert-led training, real-world projects, and certifications."
+  database: "home"
+  button_primary_link: "/traini"
+  button_primary_text: "Start Learning Now"
+  button_secondary_link: "/learn-more"
+  button_secondary_text: "Explore Tutorials"
+  image: "https://i.ytimg.com/vi/aPwndqsmaGk/maxresdefault.jpg"
+  show_students: true
+  student_avatars:
+    - src: "assets/students/student-1-crm-analytic-academy.jpg"
+      alt: "Student 1 - Learn Salesforce CRM Analytics"
+    - src: "assets/students/student-2-crm-analytic-academy.jpg"
+      alt: "Student 2 - CRM Analytics Expert"
+    - src: "assets/students/student-3-crm-analytic-academy.jpg"
+      alt: "Student 3 - Analytics Training"
+    - src: "assets/students/student-4-crm-analytic-academy.jpg"
+      alt: "Student 4 - CRM Certification"
+  student_text: "Join 1,000+ Students Excelling in CRM Analytics"
 
-content_card_1:
-  background: "has-background-light"
-  caption: "Why Learn with CRM Academy"
-  title: "Master Salesforce CRM Analytics"
-  description: "Learn Salesforce CRM Analytics (formerly Einstein Analytics) from scratch. Gain insights, build dashboards, and drive analytics for your career or organization."
-  features:
-    - icon: "fas fa-cogs"
-      title: "Learn the latest skills"
-      description: "Master the skills that are shaping the future of analytics."
-    - icon: "fas fa-user"
-      title: "Get ready for a career"
-      description: "Prepare yourself for an exciting career in Salesforce CRM Analytics."
-    - icon: "fas fa-trophy"
-      title: "Earn a Certificate"
-      description: "Get certified in Salesforce CRM Analytics and showcase your expertise."
-    - icon: "fas fa-users"
-      title: "Upskill your organization"
-      description: "Enhance your team's analytics skills to drive business success."
+# 2. Introduction to the Skill
+intro:
+  title: "Why Learn Salesforce CRM Analytics?"
+  description: "Salesforce CRM Analytics (formerly Einstein Analytics) is a powerful platform for creating data-driven insights. Whether you're looking to improve your skills or boost your career, mastering this tool is essential in today's data-driven world."
+  key_features:
+    - title: "Unlock Career Opportunities"
+      description: "Develop in-demand skills that are highly valued in the job market."
+    - title: "Enhance Your Business Insights"
+      description: "Make data-driven decisions and improve business performance."
+    - title: "Certified Expertise"
+      description: "Earn a certificate and validate your skills in Salesforce CRM Analytics."
+  video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"  # Optional intro video URL
+
+# 3. How It Works (Step-by-Step Process)
+how_it_works:
+  title: "How It Works"
+  steps:
+    - icon: "fas fa-search"
+      title: "Choose a Course"
+      description: "Browse through our expertly designed courses and select the best path for your learning journey."
+    - icon: "fas fa-play"
+      title: "Start Learning"
+      description: "Gain access to high-quality lessons and hands-on projects that will help you master CRM Analytics."
+    - icon: "fas fa-certificate"
+      title: "Get Certified"
+      description: "Upon completion, earn a certificate that showcases your expertise in CRM Analytics."
+
+# 4. Syllabus Details
+syllabus:
+  title: "Our Syllabus"
+  description: "Our comprehensive syllabus covers every aspect of CRM Analytics to ensure you are fully prepared for the certification and your future career."
+  sections:
+    - title: "Introduction to CRM Analytics"
+      lessons:
+        - "What is CRM Analytics?"
+        - "Setting up Salesforce CRM Analytics"
+        - "Basic Navigation"
+    - title: "Data Management & Integration"
+      lessons:
+        - "Data Import Techniques"
+        - "Data Transformation and Cleansing"
+        - "Connecting External Data Sources"
+    - title: "Building Dashboards and Reports"
+      lessons:
+        - "Creating Dashboards"
+        - "Designing Interactive Reports"
+        - "Data Visualizations Best Practices"
+    - title: "Advanced Analytics & Insights"
+      lessons:
+        - "Predictive Analytics"
+        - "AI Integration in CRM Analytics"
+        - "Custom Reports and Automations"
+    - title: "Certification Preparation"
+      lessons:
+        - "Review of Key Concepts"
+        - "Sample Exam Questions"
+        - "Tips for Passing the Certification Exam"
+
+# 5. Learning Content
+learning_content:
+  title: "Learning Pathways"
+  description: "Our platform provides a flexible learning path, whether you're a beginner or looking to refine your advanced skills."
+  content:
+    - path: "Beginner"
+      description: "Start with the basics of CRM Analytics and learn essential tools and techniques."
+      button_link: "/beginner-path"
+      button_text: "Start Beginner Path"
+    - path: "Intermediate"
+      description: "Dive deeper into CRM Analytics with advanced techniques for reporting and data management."
+      button_link: "/intermediate-path"
+      button_text: "Start Intermediate Path"
+    - path: "Expert"
+      description: "Master advanced CRM Analytics concepts and unlock the potential of AI-driven insights."
+      button_link: "/expert-path"
+      button_text: "Start Expert Path"
+
+# 6. Our Sponsors
+sponsors:
+  title: "Our Sponsors"
+  description: "We are proud to collaborate with leading organizations in the field of CRM Analytics to bring top-notch training to our students."
+  list:
+    - name: "Salesforce"
+      logo: "assets/sponsors/salesforce-logo.png"
+      link: "https://www.salesforce.com"
+    - name: "Tableau"
+      logo: "assets/sponsors/tableau-logo.png"
+      link: "https://www.tableau.com"
+    - name: "Domo"
+      logo: "assets/sponsors/domo-logo.png"
+      link: "https://www.domo.com"
+    - name: "AWS"
+      logo: "assets/sponsors/aws-logo.png"
+      link: "https://aws.amazon.com"
+
+# 7. Sponsor Us Section
+sponsor_us:
+  title: "Sponsor Us"
+  description: "Become a sponsor and help us expand access to CRM Analytics education for learners worldwide."
+  contact_email: "sponsor@crmanalyticsacademy.com"
+  stats:
+    total_students: "1,500+"
+    courses_offered: "15+"
+    countries_reached: "20+"
+    total_certifications: "1,000+"
+  button_text: "Become a Sponsor"
+  button_link: "/sponsor"
+
+# 8. Author Details
+author:
+  name: "Swarnil Singhai"
+  title: "Founder of CRM Analytics Academy"
+  bio: "Swarnil is a passionate CRM Analytics expert with years of experience in Salesforce products and a vision to make learning accessible to everyone. As the founder of CRM Analytics Academy, he aims to empower learners with the tools and knowledge they need to succeed in the rapidly evolving analytics space."
+  image: "assets/authors/swarnil-singhai.jpg"
+  social_media:
+    - platform: "LinkedIn"
+      link: "https://www.linkedin.com/in/imswarnil"
+    - platform: "Twitter"
+      link: "https://twitter.com/imswarnil"
+    - platform: "GitHub"
+      link: "https://github.com/imswarnil"
+    - platform: "YouTube"
+      link: "https://www.youtube.com/c/crmanalyticsacademy"
+
+# 9. Testimonials or Success Stories
+testimonials:
+  title: "What Our Students Say"
+  testimonials_list:
+    - name: "Mark Johnson"
+      course: "CRM Analytics for Beginners"
+      testimonial: "This course helped me get my first job as a CRM Analyst. The hands-on projects were invaluable!"
+    - name: "Sara Lee"
+      course: "Advanced CRM Analytics Techniques"
+      testimonial: "I advanced my career by mastering CRM Analytics. The course was detailed, and the instructor was amazing."
+    - name: "Tom Richards"
+      course: "Mastering Dashboards and Reports"
+      testimonial: "The skills I learned in this course have allowed me to create insightful dashboards that impressed my boss."
+
+# 10. Pricing Plans or Enrollment Options
+pricing:
+  title: "Choose Your Plan"
+  description: "We offer flexible pricing options to suit your learning goals and budget."
+  plans:
+    - name: "Basic"
+      price: "$99"
+      features:
+        - "Access to all beginner courses"
+        - "Certificate of Completion"
+    - name: "Pro"
+      price: "$199"
+      features:
+        - "Access to all courses"
+        - "Certificate of Completion"
+        - "One-on-one mentorship"
+    - name: "Premium"
+      price: "$299"
+      features:
+        - "All Pro features"
+        - "Lifetime Access"
+        - "Priority Support"
