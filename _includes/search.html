@@ -1,20 +1,36 @@
 <section class="section">
   <div class="container">
     <h1 class="title is-3 has-text-centered">Search</h1>
+
     <!-- Search Form Section -->
-    <div class="box">
+    <div class="box has-shadow">
       <form id="search-form">
-        <div class="field">
-          <div class="control has-icons-left">
-            <input class="input is-medium is-fullwidth" id="search" type="search" name="search" placeholder="Search for content..." autocomplete="off" />
+        <!-- Search Input Field -->
+        <div class="field has-addons">
+          <div class="control has-icons-left is-expanded">
+            <input
+              class="input is-medium"
+              id="search"
+              type="search"
+              name="search"
+              placeholder="Search for content..."
+              autocomplete="off"
+            />
             <span class="icon is-left">
               <i class="fas fa-search"></i>
             </span>
           </div>
+          <div class="control">
+            <button type="button" class="button is-medium is-primary">
+              Search
+            </button>
+          </div>
         </div>
+
+        <!-- Results List -->
         <div class="field">
           <ul class="list" id="list">
-            <!-- Results will be displayed here -->
+            <!-- Results will be dynamically rendered here -->
           </ul>
         </div>
       </form>
@@ -28,40 +44,51 @@
   const pages = [];
 
   fetch(endpoint)
-    .then(blob => blob.json())
-    .then(data => pages.push(...data))
+    .then((response) => response.json())
+    .then((data) => pages.push(...data));
 
   function findResults(termToMatch, pages) {
-    return pages.filter(item => {
+    return pages.filter((item) => {
       const regex = new RegExp(termToMatch, 'gi');
       return item.title.match(regex) || item.content.match(regex);
     });
   }
 
   function displayResults() {
-    const resultsArray = findResults(this.value, pages);
-    const html = resultsArray.map(item => {
-      return `
-        <li class="item item--result">
-          <article class="article">
-            <h4 class="title is-4"><a href="${item.url}">${item.title}</a></h4>
-            <p>${item.description}</p>
-          </article>
-        </li>`;
-    }).join('');
-    if ((resultsArray.length == 0) || (this.value == '')) {
-      resultsList.innerHTML = `<p class="has-text-centered">Sorry, nothing was found</p>`;
-    } else {
-      resultsList.innerHTML = html;
-    }
+    const term = this.value;
+    const resultsArray = findResults(term, pages);
+    const html = resultsArray
+      .map(
+        (item) => `
+          <li class="item item--result">
+            <article class="media box">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <img src="${item.image}" alt="${item.title}" />
+                </p>
+              </figure>
+              <div class="media-content">
+                <h4 class="title is-5">
+                  <a href="${item.url}" class="has-text-link">${item.title}</a>
+                </h4>
+                <p class="content">${item.description}</p>
+              </div>
+            </article>
+          </li>`
+      )
+      .join('');
+
+    resultsList.innerHTML =
+      resultsArray.length === 0 || term === ''
+        ? '<p class="has-text-centered has-text-grey">Sorry, nothing was found</p>'
+        : html;
   }
 
   const field = document.querySelector('#search');
   const resultsList = document.querySelector('#list');
 
   field.addEventListener('keyup', displayResults);
-
-  field.addEventListener('keydown', function(event) {
+  field.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
     }
@@ -73,20 +100,17 @@
 <style>
   /* Custom Styles */
   .box {
-    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    margin-bottom: 40px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
 
   .box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
 
   .input {
-    border-radius: 30px;
+    border-radius: 25px;
     padding-left: 40px;
   }
 
@@ -98,27 +122,35 @@
   }
 
   .item--result {
-    background-color: #f9fafb;
-    border-radius: 5px;
     margin-bottom: 20px;
-    padding: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: background-color 0.3s ease, transform 0.3s ease;
   }
 
-  .item--result:hover {
-    background-color: #e9f1ff;
-    transform: translateX(5px);
+  .item--result .media {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .item--result .media-left {
+    margin-right: 15px;
+  }
+
+  .item--result .media-content {
+    flex-grow: 1;
+  }
+
+  .item--result img {
+    border-radius: 8px;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
   }
 
   .item--result .title {
-    font-size: 1.25rem;
     font-weight: bold;
   }
 
-  .item--result p {
+  .item--result .content {
     color: #666;
     font-size: 0.95rem;
-    line-height: 1.5;
   }
 </style>
