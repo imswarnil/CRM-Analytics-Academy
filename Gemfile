@@ -7,7 +7,6 @@ gem "jekyll-seo-tag", "~> 2.7.1"
 gem "jekyll-redirect-from", "~> 0.16"
 gem "jekyll-feed", "~> 0.15"
 gem "jekyll-commonmark", "~> 1.3.1"
-gem "jekyll-include-cache", "~> 0.2"
 gem "jemoji", "~> 0.12"
 gem 'tzinfo-data'
 gem 'wdm', '>= 0.1.0'
