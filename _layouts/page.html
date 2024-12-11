@@ -7,7 +7,7 @@ layout: default
     <div class="columns">
       <!-- Left Sidebar -->
       {% if page.left_sidebar %}
-        <div class="column {% if page.sidebar %}is-2{% else %}is-4{% endif %}">
+        <div class="column {% if page.sidebar %}is-2{% else %}is-3{% endif %}">
           {% include sidebar/left.html %}
           <div>
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540" crossorigin="anonymous"></script>
@@ -26,7 +26,7 @@ layout: default
       <div class="column 
         {% if page.left_sidebar and page.sidebar %}is-7
         {% elsif page.sidebar %}is-8
-        {% elsif page.left_sidebar %}is-8
+        {% elsif page.left_sidebar %}is-9
         {% else %}is-12{% endif %}">
         <!-- Hero Section -->
         {% unless page.hero == false %}
