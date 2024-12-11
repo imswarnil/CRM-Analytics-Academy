@@ -1,5 +1,7 @@
 /* === 1. Hero Section (Above the Fold) === */
 
+/* === 1. Hero Section (Above the Fold) === */
+
 /* Start CSS for Hero Section */
 .home-hero {
   position: relative;
@@ -14,6 +16,7 @@
   z-index: 2;
   color: white;
   padding: 4rem 2rem;
+  text-align: left;
 }
 
 .hero-body .title,
@@ -58,6 +61,94 @@
   }
 }
 /* End CSS for Hero Section */
+
+/* === 2. Intro Section (Below the Fold) === */
+
+/* Start CSS for Intro Section */
+.home-intro {
+  background-color: #f5f5f5;
+  padding: 5rem 0;
+}
+
+.home-intro .title,
+.home-intro .subtitle {
+  color: #333;
+}
+
+.home-intro .key-features {
+  margin-top: 3rem;
+}
+
+.home-intro .feature-box {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.home-intro .feature-box:hover {
+  transform: translateY(-5px);
+}
+
+.home-intro .feature-box h4 {
+  margin-bottom: 1rem;
+  color: #4A90E2;
+  font-size: 1.25rem;
+}
+
+.home-intro .stepper .step-item {
+  background-color: #fff;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.home-intro .step-item:hover {
+  transform: translateY(-5px);
+}
+
+.home-intro .step-item h4 {
+  color: #4A90E2;
+  margin-bottom: 1rem;
+}
+
+.home-intro .video-section iframe {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.home-intro .video-section iframe:hover {
+  transform: scale(1.05);
+}
+
+/* Media Queries for Intro Section */
+@media (max-width: 768px) {
+  .home-intro {
+    padding: 3rem 0;
+  }
+
+  .home-intro .columns {
+    flex-direction: column;
+  }
+
+  .home-intro .column.is-6 {
+    margin-bottom: 2rem;
+  }
+
+  .home-intro .feature-box {
+    padding: 1.5rem;
+  }
+
+  .home-intro .step-item {
+    padding: 1.5rem;
+  }
+}
+/* End CSS for Intro Section */
+
 
 /* === 2. Intro Section (Below the Fold) === */
 

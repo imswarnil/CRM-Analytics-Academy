@@ -13,7 +13,8 @@ sitemap: false
         "title": {{ doc.title | jsonify }},
         "description": {{ doc.description | markdownify | strip_html | jsonify }},
         "content": {{ doc.content | markdownify | strip_html | jsonify }},
-        "url": {{ site.baseurl | append: doc.url | jsonify }}
+        "url": {{ site.baseurl | append: doc.url | jsonify }},
+        "image": {% if doc.image %}{{ site.baseurl | append: doc.image | jsonify }}{% else %}null{% endif %}
       },
     {% endfor %}
   {% endfor %}
@@ -23,7 +24,8 @@ sitemap: false
     "title": {{ page.title | jsonify }},
     "description": {{ page.description | markdownify | strip_html | jsonify }},
     "content": {{ page.content | markdownify | strip_html | jsonify }},
-    "url": {{ site.baseurl | append: page.url | jsonify }}
+    "url": {{ site.baseurl | append: page.url | jsonify }},
+    "image": {% if page.image %}{{ site.baseurl | append: page.image | jsonify }}{% else %}null{% endif %}
   }{% unless forloop.last %},{% endunless %}
   {% endfor %}
 ]
