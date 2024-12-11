@@ -72,17 +72,10 @@ navigation_header:
     url: /training
     icon: fas fa-chalkboard-teacher
   - title: Resources
+    icon: fas fa-tools
     submenu:
       - title: Books
         url: /resources/books
-        title: Resources
-        submenu:
-          - title: Books
-            url: /resources/books
-           icon: fas fa-book
-          - title: Blogs
-            url: /resources/blogs
-            icon: fas fa-blog
         icon: fas fa-book
       - title: Blogs
         url: /resources/blogs
@@ -90,10 +83,19 @@ navigation_header:
       - title: Tools
         url: /resources/tools
         icon: fas fa-tools
-    icon : fas fa-tools
+      - title: More Resources
+        icon: fas fa-folder
+        submenu:
+          - title: Case Studies
+            url: /resources/case-studies
+            icon: fas fa-file-alt
+          - title: Whitepapers
+            url: /resources/whitepapers
+            icon: fas fa-file
   - title: Blog
     url: /blog
     icon: fas fa-rss
+
 
 navigation_footer:
 - title: Created by Swarnil Singhai
