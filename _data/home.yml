@@ -37,27 +37,7 @@ intro:
     - title: "Data-Driven Decision Making"
       description: "Master data visualization tools to gain insights that guide your decisions."
       icon: "fa-user-tie"
-    - title: "Cloud-Based Analytics"
-      description: "Work seamlessly with Salesforce's cloud infrastructure to access data anywhere."
-      icon: "fa-user-tie"
   video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"  # Optional intro video URL
-  stepper:
-    - step: 1
-      title: "Getting Started with Salesforce CRM Analytics"
-      description: "Introduction to Salesforce CRM Analytics, navigating the interface, and setting up your first dashboard."
-    - step: 2
-      title: "Data Integration and Preparation"
-      description: "Learn how to integrate various data sources and prepare them for analysis."
-    - step: 3
-      title: "Creating Powerful Dashboards"
-      description: "Design and build interactive, data-driven dashboards to visualize business insights."
-    - step: 4
-      title: "Advanced Analytics Techniques"
-      description: "Apply advanced analytics techniques like predictive modeling and machine learning to enhance insights."
-    - step: 5
-      title: "Achieving Certification"
-      description: "Prepare for the Salesforce CRM Analytics certification exam and earn your credential."
-
 
 # 4. Syllabus Details
 syllabus:
