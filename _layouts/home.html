@@ -55,9 +55,9 @@ layout: default
       {% for feature in site.data.home.intro.key_features %}
       <div class="column is-6-mobile is-6-tablet is-3-desktop">
         <div class="has-text-centered">
-          <!-- Icon Placeholder -->
-          <div class="is-size-2 has-text-primary">
-            <i class="fas {{ feature.icon }} "></i>
+          <!-- Dynamic Icon -->
+          <div class="is-size-3 has-text-primary">
+            <i class="fas {{ feature.icon }}"></i>
           </div>
           <div class="mt-4">
             <h3 class="is-size-5 has-text-weight-semibold">
@@ -88,8 +88,35 @@ layout: default
       </div>
     </div>
     {% endif %}
+
+    <!-- Stepper Section -->
+    <div class="columns is-centered mt-6">
+      <div class="column is-8">
+        <h3 class="title is-4 has-text-centered">Step-by-Step Learning Path</h3>
+        <div class="stepper">
+          {% for step in site.data.home.intro.stepper %}
+          <div class="step-item mb-5">
+            <div class="is-flex">
+              <div class="step-number is-size-4 has-text-primary has-text-weight-bold">
+                {{ step.step }}.
+              </div>
+              <div class="step-content ml-4">
+                <h4 class="is-size-5 has-text-weight-semibold">
+                  {{ step.title }}
+                </h4>
+                <p class="is-size-6">
+                  {{ step.description }}
+                </p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 
 <footer class="footer has-background-white pt-5">
