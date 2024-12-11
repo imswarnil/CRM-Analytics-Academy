@@ -3,21 +3,21 @@ layout: default
 ---
 
 <!-- Hero Section -->
-<section class="hero is-large" style="background-image: url('{{ site.baseurl }}{{ site.data.home.hero.image }}');">
+<section class="hero home-hero is-large" style="background-image: url('{{ site.baseurl }}{{ site.data.home.hero.image }}');">
   <div class="hero-body">
-    <div class="container">
+    <div class="container has-text-centered">
       <h1 class="title">{{ site.data.home.hero.title }}</h1>
       <p class="subtitle">{{ site.data.home.hero.description }}</p>
       <div class="buttons">
-        <a class="button is-primary" href="{{ site.data.home.hero.button_primary_link }}">{{ site.data.home.hero.button_primary_text }}</a>
-        <a class="button is-link" href="{{ site.data.home.hero.button_secondary_link }}">{{ site.data.home.hero.button_secondary_text }}</a>
+        <a class="button is-primary is-large" href="{{ site.data.home.hero.button_primary_link }}">{{ site.data.home.hero.button_primary_text }}</a>
+        <a class="button is-link is-large" href="{{ site.data.home.hero.button_secondary_link }}">{{ site.data.home.hero.button_secondary_text }}</a>
       </div>
       {% if site.data.home.hero.show_students %}
-        <div class="student-avatars">
+        <div class="student-avatars home-student-avatars">
           {% for student in site.data.home.hero.student_avatars %}
             <img src="{{ student.src }}" alt="{{ student.alt }}" class="avatar">
           {% endfor %}
-          <p>{{ site.data.home.hero.student_text }}</p>
+          <p class="home-student-text">{{ site.data.home.hero.student_text }}</p>
         </div>
       {% endif %}
     </div>
@@ -25,14 +25,14 @@ layout: default
 </section>
 
 <!-- Introduction Section -->
-<section class="section">
+<section class="section home-intro has-padding">
   <div class="container">
     <h2 class="title">{{ site.data.home.intro.title }}</h2>
     <p>{{ site.data.home.intro.description }}</p>
-    <div class="columns">
+    <div class="columns is-multiline">
       {% for feature in site.data.home.intro.key_features %}
         <div class="column is-4">
-          <div class="box">
+          <div class="box home-feature-box">
             <h3 class="title is-4">{{ feature.title }}</h3>
             <p>{{ feature.description }}</p>
           </div>
@@ -40,7 +40,7 @@ layout: default
       {% endfor %}
     </div>
     {% if site.data.home.intro.video_url %}
-      <div class="video-container">
+      <div class="video-container home-video-container">
         <iframe src="{{ site.data.home.intro.video_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     {% endif %}
@@ -48,7 +48,7 @@ layout: default
 </section>
 
 <!-- Syllabus Section -->
-<section class="section">
+<section class="section home-syllabus has-padding">
   <div class="container">
     <h2 class="title">{{ site.data.home.syllabus.title }}</h2>
     <p>{{ site.data.home.syllabus.description }}</p>
@@ -68,14 +68,14 @@ layout: default
 </section>
 
 <!-- Learning Content Section -->
-<section class="section">
+<section class="section home-learning-content has-padding">
   <div class="container">
     <h2 class="title">{{ site.data.home.learning_content.title }}</h2>
     <p>{{ site.data.home.learning_content.description }}</p>
-    <div class="columns">
+    <div class="columns is-multiline">
       {% for content in site.data.home.learning_content.content %}
         <div class="column is-4">
-          <div class="box">
+          <div class="box home-content-box">
             <h3 class="title is-4">{{ content.path }}</h3>
             <p>{{ content.description }}</p>
             <a href="{{ content.button_link }}" class="button is-primary">{{ content.button_text }}</a>
@@ -87,11 +87,11 @@ layout: default
 </section>
 
 <!-- Our Sponsors Section -->
-<section class="section">
+<section class="section home-sponsors has-padding">
   <div class="container">
     <h2 class="title">{{ site.data.home.sponsors.title }}</h2>
     <p>{{ site.data.home.sponsors.description }}</p>
-    <div class="columns">
+    <div class="columns is-multiline">
       {% for sponsor in site.data.home.sponsors.list %}
         <div class="column is-3">
           <a href="{{ sponsor.link }}" target="_blank">
@@ -104,7 +104,7 @@ layout: default
 </section>
 
 <!-- Sponsor Us Section -->
-<section class="section">
+<section class="section home-sponsor-us has-padding">
   <div class="container">
     <h2 class="title">{{ site.data.home.sponsor_us.title }}</h2>
     <p>{{ site.data.home.sponsor_us.description }}</p>
@@ -117,7 +117,7 @@ layout: default
 </section>
 
 <!-- Author Section -->
-<section class="section">
+<section class="section home-author has-padding">
   <div class="container">
     <h2 class="title">{{ site.data.home.author.name }}</h2>
     <p>{{ site.data.home.author.title }}</p>
@@ -138,13 +138,13 @@ layout: default
 </section>
 
 <!-- Testimonials Section -->
-<section class="section">
+<section class="section home-testimonials has-padding">
   <div class="container">
     <h2 class="title">{{ site.data.home.testimonials.title }}</h2>
     <div class="columns is-multiline">
       {% for testimonial in site.data.home.testimonials.testimonials_list %}
         <div class="column is-4">
-          <div class="box">
+          <div class="box home-testimonial-box">
             <h3 class="subtitle">{{ testimonial.name }}</h3>
             <p><strong>{{ testimonial.course }}</strong></p>
             <p>{{ testimonial.testimonial }}</p>
@@ -156,14 +156,14 @@ layout: default
 </section>
 
 <!-- Pricing Section -->
-<section class="section">
+<section class="section home-pricing has-padding">
   <div class="container">
     <h2 class="title">{{ site.data.home.pricing.title }}</h2>
     <p>{{ site.data.home.pricing.description }}</p>
     <div class="columns">
       {% for plan in site.data.home.pricing.plans %}
         <div class="column is-4">
-          <div class="box">
+          <div class="box home-plan-box">
             <h3 class="title is-4">{{ plan.name }}</h3>
             <p>Price: {{ plan.price }}</p>
             <ul>
