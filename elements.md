@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "Both Sidebars"
 left_sidebar: true
 sidebar: true
