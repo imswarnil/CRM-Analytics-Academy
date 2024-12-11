@@ -1,6 +1,8 @@
 ---
-title: Elements
-description: "A demo of Markdown and HTML includes"
+layout: default
+title: "Both Sidebars"
+left_sidebar: true
+sidebar: true
 ---
 
 <!-- _includes/lessons.html -->
