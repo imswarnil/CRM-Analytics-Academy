@@ -1,162 +1,91 @@
-/* Home Hero Styling */
-.home-hero {
+// Base styles for all hero sections
+.hero {
   position: relative;
-  overflow: hidden;
-  background-color: #f9fafb; /* Soft background color */
-  background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px); /* Grid pattern for subtle texture */
-  background-size: 30px 30px;
-  padding: 3rem 1rem; /* Add space for content */
-}
+  overflow: hidden; // Ensures the background effects stay inside the section
+  padding: 2rem 1.5rem;
 
-/* Hero Body Padding */
-.home-hero .hero-body {
-  padding: 3rem 1rem; /* Increase padding for more spacious feel */
-}
-
-/* Title & Description */
-.home-hero h1.title, 
-.home-hero .subtitle {
-  color : var(--bulma-primary-dark);
-}
-
-.home-hero h1.title {
-  font-size: 2.5rem; /* Larger title for prominence */
-  font-weight: bold;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-}
-
-.home-hero .subtitle {
-  font-size: 1.25rem;
-  color: #555;
-  margin-bottom: 2rem;
-  line-height: 1.4;
-}
-
-/* Buttons */
-.home-hero .buttons .button {
-  margin: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 50px; /* Rounded button edges */
-  font-size: 1rem;
-  transition: all 0.3s ease-in-out;
-}
-
-.home-hero .buttons .button.is-primary {
-  background-color: #3498db; /* Primary button color */
-  border: none;
-}
-
-.home-hero .buttons .button.is-light {
-  background-color: #f0f0f0;
-  color: #333;
-  border: 1px solid #ddd;
-}
-
-.home-hero .buttons .button:hover {
-  transform: scale(1.05); /* Slight hover effect */
-}
-
-/* Student Avatars Section */
-.home-hero .student-avatars {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center avatars horizontally */
-  margin-top: 2rem;
-}
-
-.home-hero .student-avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 3px solid #fff;
-  object-fit: cover;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-  margin-right: 1rem;
-}
-
-.home-hero .student-avatar:hover {
-  transform: translateY(-5px); /* Hover effect to lift avatar */
-}
-
-/* Text for Students */
-.home-hero .student-avatars span {
-  color: #777;
-  font-size: 1rem;
-  font-style: italic;
-}
-
-/* Hero Image */
-.home-hero .hero-image {
-  max-width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-}
-
-.home-hero .hero-image:hover {
-  transform: scale(1.05); /* Subtle zoom-in effect on hover */
-}
-
-/* Ad Placeholder */
-.home-hero .ad-placeholder {
-  background-color: #e0e0e0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #555;
-  font-size: 1rem;
-  border: 1px dashed #ccc;
-  height: 200px;
-  margin-top: 2rem;
-}
-
-/* Mobile Responsiveness */
-@media screen and (max-width: 768px) {
-  .home-hero .columns {
-    flex-direction: column-reverse; /* Stack content for mobile */
+  // Default white background with subtle gradient
+  &.has-background-white {
+    background: linear-gradient(to bottom right, #ffffff, #f8f8f8);
   }
 
-  .home-hero h1.title {
-    font-size: 2rem; /* Adjust title size for smaller screens */
+  // Background with a dotted pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+    background-size: 15px 15px;
+    opacity: 0.3; // Keeps the pattern subtle
+    z-index: 0; // Ensures it stays behind the content
   }
 
-  .home-hero .subtitle {
-    font-size: 1.1rem; /* Smaller subtitle for mobile */
-  }
-
-  .home-hero .student-avatars {
-    flex-direction: column;
-    margin-top: 1.5rem;
-  }
-
-  .home-hero .student-avatar {
-    width: 50px;
-    height: 50px;
-    margin-right: 0;
-    margin-bottom: 1rem; /* Vertical spacing for mobile */
-  }
-
-  .home-hero .hero-image {
-    max-width: 90%; /* Image takes up more width on mobile */
-  }
-
-  .home-hero .ad-placeholder {
-    height: 150px; /* Smaller ad placeholder on mobile */
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  // Styling for hero-body to keep content on top
+  .hero-body {
+    position: relative;
+    z-index: 1; // Ensures content stays above the background effects
   }
 }
 
+// Specific layout customizations
 .home-hero {
-  animation: fadeIn 1s ease-out;
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #7957d5; // Primary color for the home layout
+  }
+
+  .subtitle {
+    color: #4a4a4a;
+    margin-bottom: 1rem;
+  }
+
+  .buttons .button {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .student-avatars {
+    img {
+      border-radius: 50%;
+      border: 2px solid #ddd;
+    }
+  }
+}
+
+.post-hero {
+  background: linear-gradient(to bottom right, #f0f4ff, #e9e9f0);
+  .title {
+    color: #333;
+  }
+  .breadcrumb a {
+    color: #7957d5;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .tags .tag {
+    background-color: #7957d5;
+    color: #fff;
+    font-size: 0.85rem;
+    i {
+      margin-right: 5px;
+    }
+  }
+}
+
+.page-hero {
+  background: linear-gradient(to bottom right, #f9f9f9, #eeeeee);
+  .title {
+    color: #4a90e2;
+  }
+}
+
+.training-hero {
+  background: linear-gradient(135deg, #e3ffe7, #d9e7ff);
+  .title {
+    color: #31708f;
+  }
 }
