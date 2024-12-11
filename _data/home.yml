@@ -20,10 +20,10 @@ hero:
       alt: "Student 4 - CRM Certification"
   student_text: "Join 1,000+ Students Excelling in CRM Analytics"
 
-# 2. Introduction to the Skill
 intro:
   title: "Why Learn Salesforce CRM Analytics?"
-  description: "Salesforce CRM Analytics (formerly Einstein Analytics) is a powerful platform for creating data-driven insights. Whether you're looking to improve your skills or boost your career, mastering this tool is essential in today's data-driven world."
+  description: |
+    Salesforce CRM Analytics (formerly Einstein Analytics) is a powerful platform for creating data-driven insights. Whether you're looking to improve your skills or boost your career, mastering this tool is essential in today's data-driven world. By learning Salesforce CRM Analytics, you'll have the tools to unlock actionable insights, build data visualizations, and make informed business decisions that drive success.
   key_features:
     - title: "Unlock Career Opportunities"
       description: "Develop in-demand skills that are highly valued in the job market."
@@ -31,21 +31,28 @@ intro:
       description: "Make data-driven decisions and improve business performance."
     - title: "Certified Expertise"
       description: "Earn a certificate and validate your skills in Salesforce CRM Analytics."
+    - title: "Data-Driven Decision Making"
+      description: "Master data visualization tools to gain insights that guide your decisions."
+    - title: "Cloud-Based Analytics"
+      description: "Work seamlessly with Salesforce's cloud infrastructure to access data anywhere."
   video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"  # Optional intro video URL
+  stepper:
+    - step: 1
+      title: "Getting Started with Salesforce CRM Analytics"
+      description: "Introduction to Salesforce CRM Analytics, navigating the interface, and setting up your first dashboard."
+    - step: 2
+      title: "Data Integration and Preparation"
+      description: "Learn how to integrate various data sources and prepare them for analysis."
+    - step: 3
+      title: "Creating Powerful Dashboards"
+      description: "Design and build interactive, data-driven dashboards to visualize business insights."
+    - step: 4
+      title: "Advanced Analytics Techniques"
+      description: "Apply advanced analytics techniques like predictive modeling and machine learning to enhance insights."
+    - step: 5
+      title: "Achieving Certification"
+      description: "Prepare for the Salesforce CRM Analytics certification exam and earn your credential."
 
-# 3. How It Works (Step-by-Step Process)
-how_it_works:
-  title: "How It Works"
-  steps:
-    - icon: "fas fa-search"
-      title: "Choose a Course"
-      description: "Browse through our expertly designed courses and select the best path for your learning journey."
-    - icon: "fas fa-play"
-      title: "Start Learning"
-      description: "Gain access to high-quality lessons and hands-on projects that will help you master CRM Analytics."
-    - icon: "fas fa-certificate"
-      title: "Get Certified"
-      description: "Upon completion, earn a certificate that showcases your expertise in CRM Analytics."
 
 # 4. Syllabus Details
 syllabus:
