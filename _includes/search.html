@@ -61,11 +61,18 @@
       .map(
         (item) => `
           <li class="item item--result">
-            <article class="box">
-              <h4 class="title is-5">
-                <a href="${item.url}" class="has-text-link">${item.title}</a>
-              </h4>
-              <p class="content">${item.description}</p>
+            <article class="media box">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <img src="${item.image}" alt="${item.title}" />
+                </p>
+              </figure>
+              <div class="media-content">
+                <h4 class="title is-5">
+                  <a href="${item.url}" class="has-text-link">${item.title}</a>
+                </h4>
+                <p class="content">${item.description}</p>
+              </div>
             </article>
           </li>`
       )
@@ -118,14 +125,24 @@
     margin-bottom: 20px;
   }
 
-  .item--result .box {
-    background-color: #f9fafb;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+  .item--result .media {
+    display: flex;
+    align-items: flex-start;
   }
 
-  .item--result .box:hover {
-    background-color: #e9f1ff;
-    transform: translateX(5px);
+  .item--result .media-left {
+    margin-right: 15px;
+  }
+
+  .item--result .media-content {
+    flex-grow: 1;
+  }
+
+  .item--result img {
+    border-radius: 8px;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
   }
 
   .item--result .title {
