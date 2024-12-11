@@ -1,91 +1,88 @@
-// Base styles for all hero sections
+// Hero Section Enhancements
 .hero {
   position: relative;
-  overflow: hidden; // Ensures the background effects stay inside the section
-  padding: 2rem 1.5rem;
 
-  // Default white background with subtle gradient
-  &.has-background-white {
-    background: linear-gradient(to bottom right, #ffffff, #f8f8f8);
+  // Common styles for hero images
+  .hero-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px; // Rounded edges for a modern look
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+    transition: transform 0.3s ease, box-shadow 0.3s ease; // Add hover effects
+    margin: auto; // Center the image horizontally
+
+    &:hover {
+      transform: scale(1.05); // Slight zoom effect on hover
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
   }
 
-  // Background with a dotted pattern
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
-    background-size: 15px 15px;
-    opacity: 0.3; // Keeps the pattern subtle
-    z-index: 0; // Ensures it stays behind the content
+  // Avatar container styles
+  .student-avatars {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 50px; // Consistent size for avatars
+      height: 50px;
+      border-radius: 50%; // Perfectly circular avatars
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border: 2px solid #ddd; // Light border for separation
+      margin-right: 0.5rem; // Space between avatars
+      transition: transform 0.3s ease, border-color 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px); // Slight lift on hover
+        border-color: var(--bulma-primary); // Highlight border
+      }
+    }
+
+    // Text next to avatars
+    span {
+      font-size: 0.9rem;
+      color: #666; // Muted color for text
+    }
   }
 
-  // Styling for hero-body to keep content on top
-  .hero-body {
-    position: relative;
-    z-index: 1; // Ensures content stays above the background effects
+  // Styling for images in columns
+  .column img {
+    display: block;
+    margin: 0 auto; // Center within column
   }
 }
 
-// Specific layout customizations
+// Specific Layout Customizations
 .home-hero {
-  .title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--bulma-primary); // Primary color for the home layout
-  }
-
-  .subtitle {
-    color: #4a4a4a;
-    margin-bottom: 1rem;
-  }
-
-  .buttons .button {
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  .hero-image {
+    max-width: 80%; // Scale down the image for balance
+    border-radius: 15px;
   }
 
   .student-avatars {
-    img {
-      border-radius: 50%;
-      border: 2px solid #ddd;
-    }
+    justify-content: center; // Center align avatars
   }
 }
 
 .post-hero {
-  background: linear-gradient(to bottom right, #f0f4ff, #e9e9f0);
-  .title {
-    color: #333;
+  .hero-image {
+    max-width: 70%; // Smaller image for blog posts
+    border-radius: 10px;
   }
-  .breadcrumb a {
-    color: #7957d5;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  .tags .tag {
-    background-color: #7957d5;
-    color: #fff;
-    font-size: 0.85rem;
-    i {
-      margin-right: 5px;
+
+  .tags {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    .tag {
+      margin: 0.25rem;
     }
   }
 }
 
 .page-hero {
-  background: linear-gradient(to bottom right, #f9f9f9, #eeeeee);
-  .title {
-    color: #4a90e2;
-  }
-}
-
-.training-hero {
-  background: linear-gradient(135deg, #e3ffe7, #d9e7ff);
-  .title {
-    color: #31708f;
+  .hero-image {
+    max-width: 85%; // Bigger image for pages
+    margin-bottom: 1rem; // Space between image and content
   }
 }
