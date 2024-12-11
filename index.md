@@ -19,5 +19,4 @@ student_avatars:
   - src: "assets/students/student-4-crm-analytic-academy.jpg"
     alt: "Student 4 - CRM Certification"
 student_text: "Join 1,000+ Students Excelling in CRM Analytics"
-bg: "has-background-primary-light"
 ---
