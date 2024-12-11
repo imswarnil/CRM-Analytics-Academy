@@ -38,7 +38,7 @@ title: Blog
       </div>
 
       <!-- Right Column: Sidebar with Ads and Additional Info -->
-      {% if page.aside == true %}
+      {% if page.sidebar == true %}
       <div class="column is-12-mobile is-4-tablet is-3-desktop">
         <aside class="sidebar">
           <!-- Square Ad Placeholder -->
@@ -47,7 +47,7 @@ title: Blog
           </div>
 
           <!-- Sidebar Content (Optional) -->
-          {% include site-aside.html %}
+          {% include sidebar.html %}
           
           <!-- Additional Square Ad Placeholder -->
           <div class="notification is-info has-text-centered mt-4">

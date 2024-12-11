@@ -1,7 +1,7 @@
 ---
 title: Elements
 description: "A demo of Markdown and HTML includes"
-aside: true
+sidebar : true
 ---
 
 <!-- _includes/lessons.html -->
