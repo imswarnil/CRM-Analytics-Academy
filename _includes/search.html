@@ -1,230 +1,124 @@
-
-  <!-- Hero Section -->
-  <section class="hero is-medium is-light">
-    <div class="hero-body">
-      <div class="container">
-        <h2 class="subtitle has-text-centered">
-          Search hundreds of resources and tutorials for mastering CRM Analytics.
-        </h2>
-        <h1 class="title is-size-2 has-text-centered">Find What You’re Looking For.</h1>
-
-        <!-- Search Form -->
-        <div class="columns is-centered mt-5">
-          <div class="column is-7">
-            <div class="search-form">
-              <form id="search-form">
-                <div class="field has-addons has-shadow-field">
-                  <div class="control has-icons-left is-expanded">
-                    <input
-                      type="text"
-                      id="mainSearch"
-                      placeholder="Search tutorials, blogs, or tools..."
-                      class="input is-large"
-                    />
-                    <span class="icon is-small is-left">
-                      <i class="fas fa-search"></i>
-                    </span>
-                  </div>
-                  <div class="control">
-                    <button type="button" class="button is-large is-primary">
-                      <span class="has-text-weight-semibold">Go!</span>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3 has-text-centered">Search</h1>
+    <!-- Search Form Section -->
+    <div class="box">
+      <form id="search-form">
+        <div class="field">
+          <div class="control has-icons-left">
+            <input class="input is-medium is-fullwidth" id="search" type="search" name="search" placeholder="Search for content..." autocomplete="off" />
+            <span class="icon is-left">
+              <i class="fas fa-search"></i>
+            </span>
           </div>
         </div>
-
-        <!-- Search Suggestions -->
-        <div class="container mt-4">
-          <ul class="list suggestions-list is-hidden" id="suggestions">
-            <!-- Dynamic Suggestions Appear Here -->
+        <div class="field">
+          <ul class="list" id="list">
+            <!-- Results will be displayed here -->
           </ul>
         </div>
-      </div>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Search Results Section -->
-  <section class="section">
-    <div class="container">
-      <div class="columns is-multiline" id="results">
-        <!-- Search Results Will Be Dynamically Rendered Here -->
-      </div>
-    </div>
-  </section>
-  <!-- JavaScript -->
-<script>
-    const endpoint = '{{ "/assets/search.json" | relative_url }}';
-    const pages = [];
+<script type="text/javascript" src="{{ '/assets/scripts/fetch.js' | relative_url }}"></script>
+<script type="text/javascript">
+  const endpoint = '{{ "/assets/search.json" | relative_url }}';
+  const pages = [];
 
-    // Fetch search data
-    fetch(endpoint)
-      .then((response) => response.json())
-      .then((data) => pages.push(...data));
+  fetch(endpoint)
+    .then(blob => blob.json())
+    .then(data => pages.push(...data))
 
-    // Find matches based on the search query
-    function findMatches(query, pages) {
-      return pages.filter((item) => {
-        const regex = new RegExp(query, 'gi');
-        return item.title.match(regex) || item.content.match(regex);
-      });
-    }
-
-    // Display search results dynamically
-    function displayResults() {
-      const query = this.value;
-      const resultsArray = findMatches(query, pages);
-      const suggestionsList = document.querySelector('#suggestions');
-      const resultsGrid = document.querySelector('#results');
-
-      // Display suggestions
-      const suggestionsHtml = resultsArray
-        .slice(0, 5)
-        .map(
-          (item) =>
-            `<li>
-              <a href="${item.url}" class="has-text-link">${item.title}</a>
-            </li>`
-        )
-        .join('');
-      suggestionsList.innerHTML = suggestionsHtml;
-      suggestionsList.classList.toggle('is-hidden', query === '' || resultsArray.length === 0);
-
-      // Display results in a grid
-      const resultsHtml = resultsArray
-        .map(
-          (item) =>
-            `<div class="column is-3">
-              <div class="card">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img src="${item.image}" alt="${item.title}">
-                  </figure>
-                </div>
-                <div class="card-content">
-                  <h4 class="title is-5">
-                    <a href="${item.url}" class="has-text-link">${item.title}</a>
-                  </h4>
-                  <p class="content">${item.description}</p>
-                </div>
-              </div>
-            </div>`
-        )
-        .join('');
-      resultsGrid.innerHTML =
-        resultsArray.length === 0 || query === ''
-          ? '<p class="has-text-centered has-text-grey">No results found.</p>'
-          : resultsHtml;
-    }
-
-    // Event listeners for dynamic search functionality
-    const searchInput = document.querySelector('#mainSearch');
-    searchInput.addEventListener('keyup', displayResults);
-    searchInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') event.preventDefault();
+  function findResults(termToMatch, pages) {
+    return pages.filter(item => {
+      const regex = new RegExp(termToMatch, 'gi');
+      return item.title.match(regex) || item.content.match(regex);
     });
- </script>
+  }
 
-  <!-- CSS -->
-  <style>
-    /* Hero Section for Search */
-    .hero.is-light {
-      background-color: #f9f9f9;
-      padding: 5rem 2rem;
+  function displayResults() {
+    const resultsArray = findResults(this.value, pages);
+    const html = resultsArray.map(item => {
+      return `
+        <li class="item item--result">
+          <article class="article">
+            <h4 class="title is-4"><a href="${item.url}">${item.title}</a></h4>
+            <p>${item.description}</p>
+          </article>
+        </li>`;
+    }).join('');
+    if ((resultsArray.length == 0) || (this.value == '')) {
+      resultsList.innerHTML = `<p class="has-text-centered">Sorry, nothing was found</p>`;
+    } else {
+      resultsList.innerHTML = html;
     }
+  }
 
-    .hero-body .title,
-    .hero-body .subtitle {
-      color: #4a4a4a;
+  const field = document.querySelector('#search');
+  const resultsList = document.querySelector('#list');
+
+  field.addEventListener('keyup', displayResults);
+
+  field.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
     }
+  });
+</script>
 
-    .search-form {
-      position: relative;
-      margin: 0 auto;
-    }
+<noscript>Please enable JavaScript to use the search form.</noscript>
 
-    .search-form .input {
-      border-radius: 50px;
-      padding-left: 40px;
-      font-size: 1.2rem;
-    }
+<style>
+  /* Custom Styles */
+  .box {
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 40px;
+  }
 
-    .search-form .button {
-      border-radius: 50px;
-      padding: 0 2rem;
-    }
+  .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
 
-    .search-form .icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #b3b3b3;
-    }
+  .input {
+    border-radius: 30px;
+    padding-left: 40px;
+  }
 
-    /* Suggestions List */
-    .suggestions-list {
-      background: #ffffff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      list-style: none;
-      padding: 10px;
-      margin-top: 10px;
-    }
+  .icon.is-left {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-    .suggestions-list li {
-      padding: 10px 15px;
-      cursor: pointer;
-    }
+  .item--result {
+    background-color: #f9fafb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
 
-    .suggestions-list li:hover {
-      background: #f0f0f0;
-    }
+  .item--result:hover {
+    background-color: #e9f1ff;
+    transform: translateX(5px);
+  }
 
-    /* Search Results Grid */
-    #results .card {
-      border-radius: 12px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+  .item--result .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
 
-    #results .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    #results .card-image img {
-      border-radius: 12px 12px 0 0;
-    }
-
-    #results .card-content .title {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    #results .card-content .content {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .search-form .input {
-        font-size: 1rem;
-      }
-
-      #results .column.is-3 {
-        flex: 0 0 50%;
-        max-width: 50%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      #results .column.is-3 {
-        flex: 0 0 100%;
-        max-width: 100%;
-      }
-    }
-  </style>
-
+  .item--result p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+</style>
