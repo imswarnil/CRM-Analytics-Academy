@@ -178,3 +178,120 @@ layout: default
     </div>
   </div>
 </section>
+
+<style>
+
+// Hero Section Styles
+.home-hero {
+  background-size: cover;
+  background-position: center;
+  color: white;
+  .hero-body {
+    text-align: center;
+    h1.title {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    p.subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .buttons .button {
+      margin-right: 1rem;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+    }
+  }
+  .home-student-avatars {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+    .home-student-text {
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+  }
+}
+
+// General Section Styles
+.section {
+  background-color: $background-color;
+  padding: 3rem 0;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  .subtitle {
+    font-size: 1.5rem;
+    color: $text-color;
+    margin-bottom: 2rem;
+  }
+  .box {
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+  }
+}
+
+// Pricing Plan Styles
+.home-plan-box {
+  border: 2px solid $primary-color;
+  padding: 2rem;
+  text-align: center;
+  .title.is-4 {
+    margin-bottom: 1rem;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+  .button {
+    margin-top: 2rem;
+  }
+}
+
+// Responsive Styles
+@media screen and (max-width: 768px) {
+  .home-hero {
+    background-position: top;
+    .hero-body {
+      h1.title {
+        font-size: 2rem;
+      }
+      p.subtitle {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .home-intro, .home-syllabus, .home-learning-content {
+    .columns {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  .home-author, .home-sponsors, .home-testimonials, .home-pricing {
+    .columns {
+      flex-direction: column;
+    }
+  }
+}
+
+</style>
