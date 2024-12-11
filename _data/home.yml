@@ -41,6 +41,8 @@ intro:
       icon: "fa-user-tie"
   video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"  # Optional intro video URL
   stepper:
+   title : Learn How you Can Become Salesforce Expert In 90 Days
+   description : description: Salesforce CRM Analytics (formerly Einstein Analytics) is a powerful platform for creating data-driven insights. Whether you're looking to improve your skills or boost your career, mastering this tool is essential in today's data-driven world. By learning Salesforce CRM Analytics, you'll have the tools to unlock actionable insights, build data visualizations, and make informed business decisions that drive success.
     - step: 1
       title: "Getting Started with Salesforce CRM Analytics"
       description: "Introduction to Salesforce CRM Analytics, navigating the interface, and setting up your first dashboard."
