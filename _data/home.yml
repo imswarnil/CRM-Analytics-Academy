@@ -29,12 +29,16 @@ intro:
       description: "Develop in-demand skills that are highly valued in the job market."
     - title: "Enhance Your Business Insights"
       description: "Make data-driven decisions and improve business performance."
+      icon: "fa-user-tie"
     - title: "Certified Expertise"
       description: "Earn a certificate and validate your skills in Salesforce CRM Analytics."
+      icon: "fa-user-tie"
     - title: "Data-Driven Decision Making"
       description: "Master data visualization tools to gain insights that guide your decisions."
+      icon: "fa-user-tie"
     - title: "Cloud-Based Analytics"
       description: "Work seamlessly with Salesforce's cloud infrastructure to access data anywhere."
+      icon: "fa-user-tie"
   video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"  # Optional intro video URL
   stepper:
     - step: 1
