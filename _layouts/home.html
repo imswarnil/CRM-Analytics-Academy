@@ -2,296 +2,42 @@
 layout: default
 ---
 
-<!-- Hero Section -->
-<section class="hero home-hero is-large" style="background-image: url('{{ site.baseurl }}{{ site.data.home.hero.image }}');">
+<section class="hero home-hero is-primary is-small">
   <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title">{{ site.data.home.hero.title }}</h1>
-      <p class="subtitle">{{ site.data.home.hero.description }}</p>
-      <div class="buttons">
-        <a class="button is-primary is-large" href="{{ site.data.home.hero.button_primary_link }}">{{ site.data.home.hero.button_primary_text }}</a>
-        <a class="button is-link is-large" href="{{ site.data.home.hero.button_secondary_link }}">{{ site.data.home.hero.button_secondary_text }}</a>
-      </div>
-      {% if site.data.home.hero.show_students %}
-        <div class="student-avatars home-student-avatars">
-          {% for student in site.data.home.hero.student_avatars %}
-            <img src="{{ student.src }}" alt="{{ student.alt }}" class="avatar">
-          {% endfor %}
-          <p class="home-student-text">{{ site.data.home.hero.student_text }}</p>
-        </div>
-      {% endif %}
-    </div>
-  </div>
-</section>
+    <div class="container">
+      <div class="columns is-vcentered">
 
-<!-- Introduction Section -->
-<section class="section home-intro has-padding">
-  <div class="container">
-    <h2 class="title">{{ site.data.home.intro.title }}</h2>
-    <p>{{ site.data.home.intro.description }}</p>
-    <div class="columns is-multiline">
-      {% for feature in site.data.home.intro.key_features %}
-        <div class="column is-4">
-          <div class="box home-feature-box">
-            <h3 class="title is-4">{{ feature.title }}</h3>
-            <p>{{ feature.description }}</p>
+        <!-- Left Column (Text Content) -->
+        <div class="column is-5">
+          <h1 class="title is-3 p-1">{{ site.hero.title }}</h1>
+          <p class="subtitle is-5">{{ site.hero.description }}</p>
+          <div class="buttons">
+            <a href="{{ site.hero.button_primary_link }}" class="button is-primary is-rounded">
+              {{ site.hero.button_primary_text }}
+            </a>
+            <a href="{{ site.hero.button_secondary_link }}" class="button is-light is-rounded">
+              {{ site.hero.button_secondary_text }}
+            </a>
           </div>
-        </div>
-      {% endfor %}
-    </div>
-    {% if site.data.home.intro.video_url %}
-      <div class="video-container home-video-container">
-        <iframe src="{{ site.data.home.intro.video_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    {% endif %}
-  </div>
-</section>
 
-<!-- Syllabus Section -->
-<section class="section home-syllabus has-padding">
-  <div class="container">
-    <h2 class="title">{{ site.data.home.syllabus.title }}</h2>
-    <p>{{ site.data.home.syllabus.description }}</p>
-    <div class="columns is-multiline">
-      {% for section in site.data.home.syllabus.sections %}
-        <div class="column is-6">
-          <h3 class="subtitle">{{ section.title }}</h3>
-          <ul>
-            {% for lesson in section.lessons %}
-              <li>{{ lesson }}</li>
+          {% if site.hero.show_students %}
+          <div class="student-avatars mt-4 is-flex">
+            {% for student in site.hero.student_avatars %}
+              <img src="{{ student.src }}" alt="{{ student.alt }}" class="student-avatar mr-1">
             {% endfor %}
-          </ul>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- Learning Content Section -->
-<section class="section home-learning-content has-padding">
-  <div class="container">
-    <h2 class="title">{{ site.data.home.learning_content.title }}</h2>
-    <p>{{ site.data.home.learning_content.description }}</p>
-    <div class="columns is-multiline">
-      {% for content in site.data.home.learning_content.content %}
-        <div class="column is-4">
-          <div class="box home-content-box">
-            <h3 class="title is-4">{{ content.path }}</h3>
-            <p>{{ content.description }}</p>
-            <a href="{{ content.button_link }}" class="button is-primary">{{ content.button_text }}</a>
+            <span class="ml-2 has-text-grey">{{ site.hero.student_text }}</span>
           </div>
+          {% endif %}
         </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
 
-<!-- Our Sponsors Section -->
-<section class="section home-sponsors has-padding">
-  <div class="container">
-    <h2 class="title">{{ site.data.home.sponsors.title }}</h2>
-    <p>{{ site.data.home.sponsors.description }}</p>
-    <div class="columns is-multiline">
-      {% for sponsor in site.data.home.sponsors.list %}
-        <div class="column is-3">
-          <a href="{{ sponsor.link }}" target="_blank">
-            <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }} logo" class="sponsor-logo">
-          </a>
+        <!-- Right Column (Hero Image) -->
+        <div class="column is-auto has-text-centered">
+          <figure>
+            <img src="{{ site.hero.image }}" alt="{{ site.hero.title }}" class="hero-image">
+          </figure>
         </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
 
-<!-- Sponsor Us Section -->
-<section class="section home-sponsor-us has-padding">
-  <div class="container">
-    <h2 class="title">{{ site.data.home.sponsor_us.title }}</h2>
-    <p>{{ site.data.home.sponsor_us.description }}</p>
-    <p>Total Students: {{ site.data.home.sponsor_us.stats.total_students }}</p>
-    <p>Courses Offered: {{ site.data.home.sponsor_us.stats.courses_offered }}</p>
-    <p>Countries Reached: {{ site.data.home.sponsor_us.stats.countries_reached }}</p>
-    <p>Total Certifications: {{ site.data.home.sponsor_us.stats.total_certifications }}</p>
-    <a href="{{ site.data.home.sponsor_us.button_link }}" class="button is-primary">{{ site.data.home.sponsor_us.button_text }}</a>
-  </div>
-</section>
-
-<!-- Author Section -->
-<section class="section home-author has-padding">
-  <div class="container">
-    <h2 class="title">{{ site.data.home.author.name }}</h2>
-    <p>{{ site.data.home.author.title }}</p>
-    <p>{{ site.data.home.author.bio }}</p>
-    <div class="columns">
-      <div class="column is-3">
-        <img src="{{ site.data.home.author.image }}" alt="{{ site.data.home.author.name }}" class="author-img">
-      </div>
-      <div class="column is-9">
-        <div class="social-media">
-          {% for platform in site.data.home.author.social_media %}
-            <a href="{{ platform.link }}" class="button is-light">{{ platform.platform }}</a>
-          {% endfor %}
-        </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Testimonials Section -->
-<section class="section home-testimonials has-padding">
-  <div class="container">
-    <h2 class="title">{{ site.data.home.testimonials.title }}</h2>
-    <div class="columns is-multiline">
-      {% for testimonial in site.data.home.testimonials.testimonials_list %}
-        <div class="column is-4">
-          <div class="box home-testimonial-box">
-            <h3 class="subtitle">{{ testimonial.name }}</h3>
-            <p><strong>{{ testimonial.course }}</strong></p>
-            <p>{{ testimonial.testimonial }}</p>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- Pricing Section -->
-<section class="section home-pricing has-padding">
-  <div class="container">
-    <h2 class="title">{{ site.data.home.pricing.title }}</h2>
-    <p>{{ site.data.home.pricing.description }}</p>
-    <div class="columns">
-      {% for plan in site.data.home.pricing.plans %}
-        <div class="column is-4">
-          <div class="box home-plan-box">
-            <h3 class="title is-4">{{ plan.name }}</h3>
-            <p>Price: {{ plan.price }}</p>
-            <ul>
-              {% for feature in plan.features %}
-                <li>{{ feature }}</li>
-              {% endfor %}
-            </ul>
-            <a href="#" class="button is-primary">Choose Plan</a>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<style>
-
-// Hero Section Styles
-.home-hero {
-  background-size: cover;
-  background-position: center;
-  color: white;
-  .hero-body {
-    text-align: center;
-    h1.title {
-      font-size: 3rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
-    p.subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .buttons .button {
-      margin-right: 1rem;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-    }
-  }
-  .home-student-avatars {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    .avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-    }
-    .home-student-text {
-      font-size: 1rem;
-      margin-top: 1rem;
-    }
-  }
-}
-
-// General Section Styles
-.section {
-  background-color: $background-color;
-  padding: 3rem 0;
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-  }
-  .subtitle {
-    font-size: 1.5rem;
-    color: $text-color;
-    margin-bottom: 2rem;
-  }
-  .box {
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: white;
-  }
-}
-
-// Pricing Plan Styles
-.home-plan-box {
-  border: 2px solid $primary-color;
-  padding: 2rem;
-  text-align: center;
-  .title.is-4 {
-    margin-bottom: 1rem;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-    li {
-      margin-bottom: 1rem;
-    }
-  }
-  .button {
-    margin-top: 2rem;
-  }
-}
-
-// Responsive Styles
-@media screen and (max-width: 768px) {
-  .home-hero {
-    background-position: top;
-    .hero-body {
-      h1.title {
-        font-size: 2rem;
-      }
-      p.subtitle {
-        font-size: 1.2rem;
-      }
-    }
-  }
-
-  .home-intro, .home-syllabus, .home-learning-content {
-    .columns {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  
-  .home-author, .home-sponsors, .home-testimonials, .home-pricing {
-    .columns {
-      flex-direction: column;
-    }
-  }
-}
-
-</style>
