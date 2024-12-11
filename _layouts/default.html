@@ -36,9 +36,6 @@
 
 <body class="layout-{{ page.layout | default: 'default' }}">
   {% include site-header.html %}
-  {% unless page.hide_hero %}
-            {% include hero.html %}
-   {% endunless %}
    <section class="section is-centered">
     <div class="columns is-centered is-12">
       <div class="column is-12">
@@ -46,7 +43,6 @@
       </div>
     </div>
   </section>
-  
   <main>
     {{ content }}
   </main>

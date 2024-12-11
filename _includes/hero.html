@@ -1,19 +1,21 @@
-<section class="hero {% if page.layout == 'home' %}home-hero{% elsif page.layout == 'post' %}post-hero{% elsif page.layout == 'page' %}page-hero{% elsif page.layout == 'training' %}training-hero{% endif %} {% if page.bg %}{{ page.bg }}{% else %}is-primary{% endif %} {% if page.height %}{{ page.height }}{% else %}is-small{% endif %}">
+<section class="hero {% if page.bg %}{{ page.bg }}{% else %}is-primary{% endif %} {% if page.height %}{{ page.height }}{% else %}is-small{% endif %}">
   <div class="hero-body">
     <div class="container {% if page.align == 'center' %}has-text-centered{% elsif page.align == 'left' %}has-text-left{% elsif page.align == 'right' %}has-text-right{% endif %}">
       <div class="columns is-vcentered {% if page.layout == 'page' or page.layout == 'post' %}is-flex-direction-row-reverse{% endif %}">
-        {% if page.layout == 'home' %}
-        <div class="column is-5">
-          <h1 class="title is-3 p-1">{{ page.title }}</h1>
-          <p class="subtitle is-5">{{ page.description }}</p>
-          <div class="buttons">
-            {% if page.button_primary_link and page.button_primary_text %}
+        <!-- Left Column (Title, Description, Buttons, Student Avatars) -->
+        <div class="column {% if page.layout == 'post' %}is-8{% else %}is-12-mobile{% endif %}">
+          <h1 class="title {% if page.layout == 'post' %}is-2{% else %}is-3{% endif %} p-1">{{ page.title }}</h1>
+          <p class="subtitle {% if page.layout == 'post' %}is-4{% else %}is-5{% endif %}">{{ page.description }}</p>
+
+          {% if page.button_primary_link and page.button_primary_text %}
+          <div class="buttons mt-4">
             <a href="{{ page.button_primary_link }}" class="button is-primary is-rounded">{{ page.button_primary_text }}</a>
-            {% endif %}
             {% if page.button_secondary_link and page.button_secondary_text %}
             <a href="{{ page.button_secondary_link }}" class="button is-light is-rounded">{{ page.button_secondary_text }}</a>
             {% endif %}
           </div>
+          {% endif %}
+
           {% if page.show_students %}
           <div class="student-avatars mt-4 is-flex">
             {% for avatar in page.student_avatars %}
@@ -23,20 +25,13 @@
           </div>
           {% endif %}
         </div>
-        <div class="column is-auto has-text-centered">
-          {% if page.image %}
-          <figure>
-            <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
-          </figure>
-          {% endif %}
-        </div>
-        {% endif %}
 
-        {% if page.layout == 'post' %}
-        <div class="column is-4">
-          {% adsense square %}
-        </div>
-        <div class="column is-8">
+        <!-- Right Column (Image, Ads, Breadcrumbs, etc.) -->
+        <div class="column {% if page.layout == 'post' %}is-4{% else %}is-auto{% endif %} has-text-centered">
+          {% if page.layout == 'post' %}
+          <div class="column is-4">
+            {% adsense square %}
+          </div>
           <nav class="breadcrumb mb-2" aria-label="breadcrumbs">
             <ul>
               <li><a href="/">Home</a></li>
@@ -44,33 +39,14 @@
               <li class="is-active"><a href="#" aria-current="page">{{ page.title }}</a></li>
             </ul>
           </nav>
-          <h1 class="title is-2">{{ page.title }}</h1>
-          <p class="subtitle is-4">{{ page.description }}</p>
-          <div class="tags">
-            {% for tag in page.tags %}
-            <span class="tag is-info"><i class="fas fa-tag"></i> {{ tag }}</span>
-            {% endfor %}
-            <span class="tag is-light"><i class="fas fa-clock"></i> {{ page.reading_time }} min</span>
-          </div>
-        </div>
-        {% endif %}
+          {% endif %}
 
-        {% if page.layout == 'page' %}
-        <div class="column is-9">
-            {% adsense leaderboard %}
+          {% if page.image %}
+          <figure>
+            <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-image">
+          </figure>
+          {% endif %}
         </div>
-        <div class="column is-3">
-          <h1 class="title is-2 has-text-primary mb-2">{{ page.title }}</h1>
-          <h2 class="subtitle is-4 has-text-dark mb-4">{{ page.description }}</h2>
-        </div>
-        {% endif %}
-
-        {% if page.layout == 'training' %}
-        <div class="column is-12">
-          <h1 class="title is-2">{{ page.title }}</h1>
-          <p class="subtitle is-4">{{ page.description }}</p>
-        </div>
-        {% endif %}
       </div>
     </div>
   </div>
