@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<!-- Hero Home Section Start-->
+<!-- Hero Home Section Start -->
 <section class="hero home-hero is-small">
   <div class="hero-body">
     <div class="container">
@@ -36,17 +36,12 @@ layout: default
             <img src="{{ site.data.home.hero.image }}" alt="{{ site.data.home.hero.title }}" class="hero-image">
           </figure>
         </div>
-
       </div>
     </div>
   </div>
-  <div class="video-background">
-    <iframe class="video-iframe" src="https://www.youtube.com/embed/{{ site.data.home.hero.background_video | split: 'v=' | last }}?autoplay=1&mute=1&controls=0&loop=1&playlist={{ site.data.home.hero.background_video | split: 'v=' | last }}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-    <div class="overlay"></div>
-  </div>
 </section>
-
 <!-- Hero Home Section End -->
+
 {% adsense large-leaderboard %}
 <section class="section home-intro">
   <div class="container">
