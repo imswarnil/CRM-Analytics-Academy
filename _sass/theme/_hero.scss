@@ -2,41 +2,43 @@
 .home-hero {
   position: relative;
   overflow: hidden;
-  background-color: #f9fafb; /* Soft background color */
-  background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px); /* Grid pattern for subtle texture */
-  background-size: 30px 30px;
-  padding: 3rem 1rem; /* Add space for content */
+  background-color: #f7f7f7; /* Light cream color */
+  background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px); /* Subtle dotted pattern */
+  background-size: 20px 20px; /* Adjusted to make the dots smaller */
+  padding: 4rem 2rem; /* Increased padding for more space */
+  border-radius: 12px; /* Rounded corners for the hero */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Light shadow around the hero */
 }
 
 /* Hero Body Padding */
 .home-hero .hero-body {
-  padding: 3rem 1rem; /* Increase padding for more spacious feel */
+  padding: 4rem 2rem; /* Increased padding for a spacious feel */
 }
 
 /* Title & Description */
 .home-hero h1.title, 
 .home-hero .subtitle {
-  color : var(--bulma-primary-dark);
+  color: var(--bulma-primary-dark);
 }
 
 .home-hero h1.title {
-  font-size: 2.5rem; /* Larger title for prominence */
+  font-size: 3rem; /* Larger title for prominence */
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   line-height: 1.2;
 }
 
 .home-hero .subtitle {
-  font-size: 1.25rem;
-  color: #555;
+  font-size: 1.5rem;
+  color: #666; /* Lighter text color */
   margin-bottom: 2rem;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* Buttons */
 .home-hero .buttons .button {
   margin: 0.5rem;
-  padding: 0.75rem 1.25rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 50px; /* Rounded button edges */
   font-size: 1rem;
   transition: all 0.3s ease-in-out;
@@ -48,13 +50,13 @@
 }
 
 .home-hero .buttons .button.is-light {
-  background-color: #f0f0f0;
+  background-color: #f7f7f7; /* Light background for secondary button */
   color: #333;
   border: 1px solid #ddd;
 }
 
 .home-hero .buttons .button:hover {
-  transform: scale(1.05); /* Slight hover effect */
+  transform: scale(1.1); /* Slight hover effect */
 }
 
 /* Student Avatars Section */
@@ -66,14 +68,14 @@
 }
 
 .home-hero .student-avatar {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   border: 3px solid #fff;
   object-fit: cover;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
-  margin-right: 1rem;
+  margin-right: 1.2rem;
 }
 
 .home-hero .student-avatar:hover {
@@ -83,20 +85,20 @@
 /* Text for Students */
 .home-hero .student-avatars span {
   color: #777;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-style: italic;
 }
 
 /* Hero Image */
 .home-hero .hero-image {
   max-width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
 }
 
 .home-hero .hero-image:hover {
-  transform: scale(1.05); /* Subtle zoom-in effect on hover */
+  transform: scale(1.08); /* Subtle zoom-in effect on hover */
 }
 
 /* Ad Placeholder */
@@ -106,9 +108,9 @@
   justify-content: center;
   align-items: center;
   color: #555;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border: 1px dashed #ccc;
-  height: 200px;
+  height: 220px;
   margin-top: 2rem;
 }
 
@@ -119,11 +121,11 @@
   }
 
   .home-hero h1.title {
-    font-size: 2rem; /* Adjust title size for smaller screens */
+    font-size: 2.2rem; /* Adjust title size for smaller screens */
   }
 
   .home-hero .subtitle {
-    font-size: 1.1rem; /* Smaller subtitle for mobile */
+    font-size: 1.2rem; /* Smaller subtitle for mobile */
   }
 
   .home-hero .student-avatars {
@@ -132,8 +134,8 @@
   }
 
   .home-hero .student-avatar {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     margin-right: 0;
     margin-bottom: 1rem; /* Vertical spacing for mobile */
   }
@@ -143,13 +145,15 @@
   }
 
   .home-hero .ad-placeholder {
-    height: 150px; /* Smaller ad placeholder on mobile */
+    height: 180px; /* Smaller ad placeholder on mobile */
   }
 }
+
+/* Animation for Hero */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
