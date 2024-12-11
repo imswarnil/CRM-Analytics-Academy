@@ -104,8 +104,6 @@ navigation_footer:
 adsense:
   data-ad-client: "ca-pub-1291242080282540"
 
-
-
 # TIP: Try to keep the number of urls as low to reduce the performance cost
 #      If multiple fonts can be requested in a single url opt for this
 fonts:
