@@ -7,7 +7,7 @@ layout: default
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
-
+        
         <!-- Left Column (Text Content) -->
         <div class="column is-6">
           <h1 class="title is-2 has-text-white">{{ site.data.home.hero.title }}</h1>
@@ -41,7 +41,12 @@ layout: default
       </div>
     </div>
   </div>
+  <div class="video-background">
+    <iframe class="video-iframe" src="https://www.youtube.com/embed/{{ site.data.home.hero.background_video | split: 'v=' | last }}?autoplay=1&mute=1&controls=0&loop=1&playlist={{ site.data.home.hero.background_video | split: 'v=' | last }}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <div class="overlay"></div>
+  </div>
 </section>
+
 <!-- Hero Home Section End -->
 {% adsense large-leaderboard %}
 <section class="section home-intro">

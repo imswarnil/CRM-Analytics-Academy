@@ -2,7 +2,7 @@
 hero:
   title: "Learn Salesforce CRM Analytics – Master Analytics Skills Online"
   description: "Join CRM Analytics Academy to master Salesforce CRM Analytics with expert-led training, real-world projects, and certifications."
-  database: "home"
+  background_video : https://www.youtube.com/watch?v=0Zix22sB4JU
   button_primary_link: "/traini"
   button_primary_text: "Start Learning Now"
   button_secondary_link: "/learn-more"
