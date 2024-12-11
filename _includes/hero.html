@@ -46,9 +46,33 @@
             </ul>
           </nav>
           <h1 class="title is-2">{{ page.title }}</h1>
-          <p class="subtitle is-4">{{ page.subtitle }}</p>
+          <p class="subtitle is-4">{{ page.description }}</p>
+          <div class="tags">
+            {% for tag in page.tags %}
+            <span class="tag is-info"><i class="fas fa-tag"></i> {{ tag }}</span>
+            {% endfor %}
+            <span class="tag is-light"><i class="fas fa-clock"></i> {{ page.reading_time }} min</span>
+          </div>
         </div>
         {% endif %}
+
+        {% if page.layout == 'page' %}
+        <div class="column is-9">
+          {% adsense leaderboard %}
+        </div>
+        <div class="column is-3">
+          <h1 class="title is-2 has-text-primary mb-2">{{ page.title }}</h1>
+          <h2 class="subtitle is-4 has-text-dark mb-4">{{ page.description }}</h2>
+        </div>
+        {% endif %}
+
+        {% if page.layout == 'training' %}
+        <div class="column is-12">
+          <h1 class="title is-2">{{ page.title }}</h1>
+          <p class="subtitle is-4">{{ page.description }}</p>
+        </div>
+        {% endif %}
+
       </div>
     </div>
   </div>

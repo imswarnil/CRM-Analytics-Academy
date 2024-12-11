@@ -11,15 +11,56 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 12px;
+  z-index: 1;
 }
 
+/* Floating Dotted Patterns */
+.hero::before, .hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  animation: floating-dots 6s infinite ease-in-out;
+  z-index: 0;
+}
+
+.hero::before {
+  width: 120px;
+  height: 120px;
+  top: 5%;
+  left: 5%;
+  animation-duration: 6s;
+}
+
+.hero::after {
+  width: 180px;
+  height: 180px;
+  bottom: 10%;
+  right: 10%;
+  animation-duration: 8s;
+}
+
+/* Floating Animation */
+@keyframes floating-dots {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(25px, 25px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Hero Section Styling */
 .hero-body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
-  position: relative;
 }
 
 .hero h1,
