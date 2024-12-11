@@ -1,7 +1,6 @@
 --- 
 layout: default 
 --- 
-
 <!-- Hero Home Section Start --> 
 <section class="hero home-hero is-small">
    <div class="hero-body">
@@ -32,6 +31,59 @@ layout: default
   </div>
 </section>
  <!-- Adsense Ad Ends -->
+
+ <section class="section py-6">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <h2 class="title is-3">
+          {{ site.data.home.intro.title }}
+          <span class="has-text-primary">in {{ site.data.home.intro.stepper | size }} steps</span>
+        </h2>
+        <p class="subtitle is-5">
+          {{ site.data.home.intro.description }}
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-multiline is-mobile">
+      {% for step in site.data.home.intro.stepper %}
+      <div class="column is-4-desktop is-6-mobile">
+        <div class="box has-text-centered">
+          <div class="is-flex is-justify-content-center is-align-items-center mb-4">
+            <div
+              class="icon is-large has-background-primary has-text-white is-rounded is-size-4 has-text-weight-bold">
+              {{ step.step }}
+            </div>
+            {% if forloop.last %}
+            <span class="icon ml-4 is-size-4 has-text-success">
+              <i class="fas fa-check-circle"></i>
+            </span>
+            {% else %}
+            <span class="icon ml-4 is-size-4 has-text-grey">
+              <i class="fas fa-arrow-right"></i>
+            </span>
+            {% endif %}
+          </div>
+          <h3 class="title is-5">
+            {{ step.title }}
+          </h3>
+          <p class="subtitle is-6">
+            {{ step.description }}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="columns">
+      <div class="column has-text-centered">
+        <a href="#" class="button is-outlined is-primary">Open an Account</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
  <section class="py-6 has-background-light">
   <div class="container mb-6">
