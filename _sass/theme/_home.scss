@@ -1,4 +1,6 @@
-/* Hero Section Styles */
+/* === 1. Hero Section (Above the Fold) === */
+
+/* Start CSS for Hero Section */
 .home-hero {
   position: relative;
   overflow: hidden;
@@ -40,45 +42,6 @@
   margin-right: 10px;
 }
 
-/* YouTube Video Background */
-.video-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.video-iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
-  transform: translate(-50%, -50%); /* Center the video */
-  object-fit: cover; /* Ensures video covers entire container */
-  pointer-events: none; /* Disable interactions with the video */
-  z-index: 1;
-  opacity: 1;
-}
-
-/* Overlay for Effect */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Black overlay with opacity */
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(255, 255, 255, 0.2) 1px, rgba(255, 255, 255, 0.2) 2px);
-  background-size: 100% 10px;
-  pointer-events: none; /* Make overlay non-interactive */
-  z-index: 2;
-}
-
-/* Hero Image Styles */
 .hero-image {
   width: 100%;
   max-width: 500px;
@@ -86,15 +49,17 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Media Queries for Responsiveness */
+/* Media Queries for Hero Section */
 @media (max-width: 768px) {
   .home-hero .hero-body {
     text-align: center;
   }
 }
+/* End CSS for Hero Section */
 
+/* === 2. Intro Section (Below the Fold) === */
 
-/* Enhanced Styles for Intro Section */
+/* Start CSS for Intro Section */
 .home-intro {
   background-color: #f5f5f5;
   padding: 5rem 0;
@@ -155,12 +120,8 @@
   transform: scale(1.05);
 }
 
-/* Responsive Design */
+/* Media Queries for Intro Section */
 @media (max-width: 768px) {
-  .home-hero {
-    padding: 3rem 0;
-  }
-
   .home-intro {
     padding: 3rem 0;
   }
@@ -181,3 +142,4 @@
     padding: 1.5rem;
   }
 }
+/* End CSS for Intro Section */
