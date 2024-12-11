@@ -1,89 +1,132 @@
----
-layout: default
----
+--- 
+layout: default 
+--- 
 
-<!-- Hero Home Section Start -->
+<!-- Hero Home Section Start --> 
 <section class="hero home-hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-vcentered">
-        <!-- Left Column (Text Content) -->
-        <div class="column is-6">
-          <h1 class="title is-2 has-text-white">{{ site.data.home.hero.title }}</h1>
-          <p class="subtitle is-5 has-text-light">{{ site.data.home.hero.description }}</p>
-          <div class="buttons">
-            <a href="{{ site.data.home.hero.button_primary_link }}" class="button is-primary is-rounded hero-button">
-              {{ site.data.home.hero.button_primary_text }}
-            </a>
-            <a href="{{ site.data.home.hero.button_secondary_link }}" class="button is-light is-rounded hero-button">
-              {{ site.data.home.hero.button_secondary_text }}
-            </a>
-          </div>
-
-          {% if site.data.home.hero.show_students %}
-          <div class="student-avatars mt-4 is-flex">
-            {% for student in site.data.home.hero.student_avatars %}
-              <img src="{{ student.src }}" alt="{{ student.alt }}" class="student-avatar mr-1">
-            {% endfor %}
-            <span class="ml-2 has-text-grey">{{ site.data.home.hero.student_text }}</span>
-          </div>
-          {% endif %}
-        </div>
-
-        <!-- Right Column (Hero Image) -->
-        <div class="column is-6 has-text-centered">
-          <figure>
-            <img src="{{ site.data.home.hero.image }}" alt="{{ site.data.home.hero.title }}" class="hero-image">
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Hero Home Section End -->
-
-{% adsense large-leaderboard %}
-<section class="section home-intro">
-  <div class="container">
-    <div class="columns is-vcentered">
-      <div class="column is-6">
-        <h2 class="title is-3">{{ site.data.home.intro.title }}</h2>
-        <p class="subtitle is-5">{{ site.data.home.intro.description }}</p>
-
-        <div class="key-features">
-          <h3 class="subtitle is-4">Key Features</h3>
-          <div class="columns is-multiline">
-            {% for feature in site.data.home.intro.key_features %}
-            <div class="column is-4">
-              <div class="feature-box">
-                <h4 class="has-text-weight-bold">{{ feature.title }}</h4>
-                <p>{{ feature.description }}</p>
-              </div>
+   <div class="hero-body">
+      <div class="container">
+         <div class="columns is-vcentered">
+            <!-- Left Column (Text Content) --> 
+            <div class="column is-6">
+               <h1 class="title is-2 has-text-white">{{ site.data.home.hero.title }}</h1>
+               <p class="subtitle is-5 has-text-light">{{ site.data.home.hero.description }}</p>
+               <div class="buttons"> <a href="{{ site.data.home.hero.button_primary_link }}" class="button is-primary is-rounded hero-button"> {{ site.data.home.hero.button_primary_text }} </a> <a href="{{ site.data.home.hero.button_secondary_link }}" class="button is-light is-rounded hero-button"> {{ site.data.home.hero.button_secondary_text }} </a> </div>
+               {% if site.data.home.hero.show_students %} 
+               <div class="student-avatars mt-4 is-flex"> {% for student in site.data.home.hero.student_avatars %} <img src="{{ student.src }}" alt="{{ student.alt }}" class="student-avatar mr-1"> {% endfor %} <span class="ml-2 has-text-grey">{{ site.data.home.hero.student_text }}</span> </div>
+               {% endif %} 
             </div>
-            {% endfor %}
-          </div>
-        </div>
-
-        {% if site.data.home.intro.video_url %}
-        <div class="video-section mt-5">
-          <h4 class="subtitle is-4">Watch Introduction</h4>
-          <iframe width="100%" height="315" src="{{ site.data.home.intro.video_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        {% endif %}
-
+            <!-- Right Column (Hero Image) --> 
+            <div class="column is-6 has-text-centered">
+               <figure> <img src="{{ site.data.home.hero.image }}" alt="{{ site.data.home.hero.title }}" class="hero-image"> </figure>
+            </div>
+         </div>
       </div>
-
-      <div class="column is-6">
-        <h3 class="title is-4">Step-by-Step Learning Path</h3>
-        <div class="stepper">
-          {% for step in site.data.home.intro.stepper %}
-          <div class="step-item">
-            <h4 class="has-text-weight-bold">{{ step.step }}. {{ step.title }}</h4>
-            <p>{{ step.description }}</p>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
+   </div>
 </section>
+<!-- Hero Home Section End --> {% adsense large-leaderboard %} 
+<section class="section home-intro">
+   <div class="container">
+      <div class="columns is-vcentered">
+         <div class="column is-6">
+            <h2 class="title is-3">{{ site.data.home.intro.title }}</h2>
+            <p class="subtitle is-5">{{ site.data.home.intro.description }}</p>
+            <div class="key-features">
+               <h3 class="subtitle is-4">Key Features</h3>
+               <div class="columns is-multiline">
+                  {% for feature in site.data.home.intro.key_features %} 
+                  <div class="column is-4">
+                     <div class="feature-box">
+                        <h4 class="has-text-weight-bold">{{ feature.title }}</h4>
+                        <p>{{ feature.description }}</p>
+                     </div>
+                  </div>
+                  {% endfor %} 
+               </div>
+            </div>
+            {% if site.data.home.intro.video_url %} 
+            <div class="video-section mt-5">
+               <h4 class="subtitle is-4">Watch Introduction</h4>
+               <iframe width="100%" height="315" src="{{ site.data.home.intro.video_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+            </div>
+            {% endif %} 
+         </div>
+         <div class="column is-6">
+            <h3 class="title is-4">Step-by-Step Learning Path</h3>
+            <div class="stepper">
+               {% for step in site.data.home.intro.stepper %} 
+               <div class="step-item">
+                  <h4 class="has-text-weight-bold">{{ step.step }}. {{ step.title }}</h4>
+                  <p>{{ step.description }}</p>
+               </div>
+               {% endfor %} 
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+
+<footer class="footer has-background-white pt-5">
+  <div class="container">
+     <!-- Top Section --> 
+     <div class="columns is-multiline">
+        <!-- About Company --> 
+        <div class="column is-4">
+           <div class="mb-4">
+              <img src="../../assets/images/brand/logo/logo.svg" alt="Geeks" class="image"> 
+              <p class="mt-4"> Geek is feature-rich components and beautifully Bulma-based UIKit for developers, built with a responsive framework. </p>
+              <!-- Social Media Links --> 
+              <div class="is-flex mt-4 is-align-items-center"> <a href="#" class="icon mr-3"> <i class="fab fa-facebook"></i> </a> <a href="#" class="icon mr-3"> <i class="fab fa-twitter"></i> </a> <a href="#" class="icon"> <i class="fab fa-instagram"></i> </a> </div>
+           </div>
+        </div>
+        <!-- Company Links --> 
+        <div class="column is-2">
+           <div class="mb-4">
+              <h3 class="title is-5 mb-3">Company</h3>
+              <ul>
+                 <li><a href="#" class="has-text-dark">About</a></li>
+                 <li><a href="#" class="has-text-dark">Pricing</a></li>
+                 <li><a href="#" class="has-text-dark">Blog</a></li>
+                 <li><a href="#" class="has-text-dark">Careers</a></li>
+                 <li><a href="#" class="has-text-dark">Contact</a></li>
+              </ul>
+           </div>
+        </div>
+        <!-- Support Links --> 
+        <div class="column is-2">
+           <div class="mb-4">
+              <h3 class="title is-5 mb-3">Support</h3>
+              <ul>
+                 <li><a href="#" class="has-text-dark">Help and Support</a></li>
+                 <li><a href="#" class="has-text-dark">Become Instructor</a></li>
+                 <li><a href="#" class="has-text-dark">Get the app</a></li>
+                 <li><a href="#" class="has-text-dark">FAQ’s</a></li>
+                 <li><a href="#" class="has-text-dark">Tutorial</a></li>
+              </ul>
+           </div>
+        </div>
+        <!-- Contact Info --> 
+        <div class="column is-3">
+           <div class="mb-4">
+              <h3 class="title is-5 mb-3">Get in Touch</h3>
+              <p>339 McDermott Points Hettingerhaven, NV 15283</p>
+              <p> Email: <a href="mailto:support@geeksui.com" class="has-text-dark">support@geeksui.com</a> </p>
+              <p> Phone: <span class="has-text-dark has-text-weight-semibold">(000) 123 456 789</span> </p>
+           </div>
+        </div>
+     </div>
+     <!-- Bottom Section --> 
+     <div class="columns is-vcentered mt-6 pt-4 border-top">
+        <!-- CopyRight --> 
+        <div class="column is-4">
+           <p> © <span id="copyright"></span> Geeks-UI, Inc. All Rights Reserved </p>
+           <script> document.getElementById("copyright").textContent = new Date().getFullYear(); </script> 
+        </div>
+        <!-- Footer Links --> 
+        <div class="column is-8 has-text-right">
+           <nav class="level"> <a href="#" class="level-item has-text-dark">Privacy Policy</a> <a href="#" class="level-item has-text-dark">Cookie Notice</a> <a href="#" class="level-item has-text-dark">Terms of Use</a> </nav>
+        </div>
+     </div>
+  </div>
+</footer>
