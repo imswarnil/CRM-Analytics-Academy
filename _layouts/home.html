@@ -32,35 +32,41 @@ layout: default
 </section>
  <!-- Adsense Ad Ends -->
 
-
  <section class="section py-6">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-6 has-text-centered">
         <h2 class="title is-3">
           Become Master In CRM Analytics By Following These 5 Steps
-        <span class="subtitle is-5 has-text-primary">Lorem ipsum, dolor sit amet cons alias architectoorum iste ad natus voluptas?</span>
+        <h3 class="subtitle is-5 has-text-primary">Lorem ipsum, dolor sit amet cons alias architectoorum iste ad natus voluptas?</h3>
       </h2>
-  
       </div>
     </div>
 
-    <div class="columns is-flex is-justify-content-center is-align-items-center steps">
+    <div class="columns is-multiline is-variable is-justify-content-center">
       {% for step in site.data.home.intro.stepper %}
-      <div class="step has-text-centered mx-3">
-        <div class="step-icon icon is-large">
-          {{ step.step }}
+      <div class="column is-2-desktop is-6-mobile">
+        <div class="card has-text-centered step-card">
+          <header class="card-header">
+            <p class="card-header-title step-icon">
+              {{ step.step }}
+            </p>
+          </header>
+          <div class="card-content">
+            <h3 class="title is-6">
+              {{ step.title }}
+            </h3>
+            <p class="subtitle is-7">
+              {{ step.description }}
+            </p>
+          </div>
         </div>
-        <h3 class="title is-5 mt-2">
-          {{ step.title }}
-        </h3>
-        <p class="subtitle is-6">
-          {{ step.description }}
-        </p>
       </div>
       {% if forloop.last == false %}
-      <div class="icon is-size-4 step-arrow">
-        <i class="fas fa-arrow-right"></i>
+      <div class="column is-narrow step-connector">
+        <span class="icon is-medium has-text-primary">
+          <i class="fas fa-arrow-right"></i>
+        </span>
       </div>
       {% endif %}
       {% endfor %}
@@ -74,83 +80,44 @@ layout: default
   </div>
 
   <style>
-    .steps {
-      gap: 20px;
-      display: flex;
-      align-items: center;
-    }
-
-    .step {
-      position: relative;
-      text-align: center;
-      flex: none;
+    .step-card {
+      border: 2px solid var(--primary-color, #485fc7);
+      border-radius: 8px;
+      padding: 1rem;
+      background-color: #f9f9f9;
     }
 
     .step-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
       background-color: var(--primary-color, #485fc7);
       color: white;
-      font-weight: bold;
-      font-size: 1.5rem;
-      margin: 0 auto;
-      border: 4px solid rgba(72, 95, 199, 0.3);
-    }
-
-    .step-arrow {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #b5b5b5;
-    }
-
-    .step h3 {
-      margin-top: 1rem;
-      font-size: 1.25rem;
       font-weight: bold;
+      font-size: 1.25rem;
+      margin: 0 auto;
     }
 
-    .step p {
-      margin-top: 0.5rem;
-      color: #6b6b6b;
+    .step-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .steps .icon {
-      font-size: 2rem;
+    .step-connector .icon {
+      font-size: 1.5rem;
     }
 
-    /* Responsive Adjustments */
     @media screen and (max-width: 768px) {
-      .steps {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .step {
-        flex: 0 1 calc(100% - 20px);
+      .step-card {
         margin-bottom: 1rem;
       }
 
-      .step-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.25rem;
-      }
-
-      .step h3 {
-        font-size: 1rem;
-      }
-
-      .step p {
-        font-size: 0.9rem;
-      }
-
-      .step-arrow {
-        font-size: 1.5rem;
+      .step-connector {
+        display: none;
       }
     }
   </style>
