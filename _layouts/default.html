@@ -15,6 +15,7 @@
   <meta name="description" content="{{ collectiondata.description }}">
   <meta property="og:description" content="{{ collectiondata.description }}">
   {% else %}
+  {% seo %}
   {% endif %}
   {% if site.fonts.preconnect_urls %}
   {% for url in site.fonts.preconnect_urls %}
