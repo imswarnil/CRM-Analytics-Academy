@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<!-- Hero Home Section-->
+<!-- Hero Home Section Start-->
 <section class="hero home-hero is-primary is-medium">
   <div class="hero-body">
     <div class="container">
@@ -13,10 +13,10 @@ layout: default
           <h1 class="title is-2 has-text-white">{{ site.data.home.hero.title }}</h1>
           <p class="subtitle is-5 has-text-light">{{ site.data.home.hero.description }}</p>
           <div class="buttons">
-            <a href="{{ site.data.home.hero.button_primary_link }}" class="button is-primary is-rounded">
+            <a href="{{ site.data.home.hero.button_primary_link }}" class="button is-primary is-rounded hero-button">
               {{ site.data.home.hero.button_primary_text }}
             </a>
-            <a href="{{ site.data.home.hero.button_secondary_link }}" class="button is-light is-rounded">
+            <a href="{{ site.data.home.hero.button_secondary_link }}" class="button is-light is-rounded hero-button">
               {{ site.data.home.hero.button_secondary_text }}
             </a>
           </div>
@@ -42,8 +42,7 @@ layout: default
     </div>
   </div>
 </section>
-
-<!-- Hero Home Section Done -->
+<!-- Hero Home Section End -->
 {% adsense large-leaderboard %}
 <section class="section home-intro">
   <div class="container">
@@ -89,60 +88,3 @@ layout: default
     </div>
   </div>
 </section>
-
-
-<style>
-  .home-intro {
-  background-color: #f9f9f9;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-.home-intro .title {
-  color: #333;
-}
-
-.home-intro-feature {
-  padding: 2rem;
-  text-align: center;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.home-intro-feature:hover {
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
-
-.home-intro-video {
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.home-intro-stepper {
-  padding: 1.5rem;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.home-intro-stepper:hover {
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
-
-.home-intro-stepper-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #4a90e2;
-}
-
-@media screen and (max-width: 768px) {
-  .home-intro .title {
-    font-size: 1.5rem;
-  }
-}
-
-</style>
