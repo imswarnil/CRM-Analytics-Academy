@@ -1,181 +1,71 @@
 ---
-layout: default
-title: "Learn Salesforce CRM Analytics"
+layout: page
+description: My Blogs etc
+collectionpage: posts
+title: Blog
+aside: true
 ---
 
 <!-- Hero Section -->
-<section class="hero is-large" style="background-image: url('{{ site.baseurl }}{{ site.hero.image }}');">
+<div class="hero is-small mt-4">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">{{ site.hero.title }}</h1>
-      <p class="subtitle">{{ site.hero.description }}</p>
-      <div class="buttons">
-        <a class="button is-primary" href="{{ site.hero.button_primary_link }}">{{ site.hero.button_primary_text }}</a>
-        <a class="button is-link" href="{{ site.hero.button_secondary_link }}">{{ site.hero.button_secondary_text }}</a>
-      </div>
-      {% if site.hero.show_students %}
-        <div class="student-avatars">
-          {% for student in site.hero.student_avatars %}
-            <img src="{{ student.src }}" alt="{{ student.alt }}" class="avatar">
-          {% endfor %}
-          <p>{{ site.hero.student_text }}</p>
+      <div class="columns is-variable is-3">
+        <!-- Left Column: Title & Description -->
+        <div class="column is-12-mobile is-4-tablet is-3-desktop">
+          <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
+          <h2 class="subtitle is-4">{{ page.description }}</h2>
         </div>
+        <!-- Right Column: Ads -->
+        <div class="column is-12-mobile is-8-tablet is-9-desktop">
+          <div class="has-text-centered">
+            {% adsense large-leaderboard %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Section -->
+<section class="section">
+  <div class="container">
+    <div class="columns is-variable is-4">
+      <!-- Left Column: Blog Posts List -->
+      <div class="column is-12-mobile is-8-tablet is-9-desktop">
+        <div class="post-list">
+          {% include post-list.html %}
+        </div>
+      </div>
+
+      <!-- Right Column: Sidebar with Ads and Additional Info -->
+      {% if page.aside == true %}
+      <div class="column is-12-mobile is-4-tablet is-3-desktop">
+        <aside class="sidebar">
+          <!-- Square Ad Placeholder -->
+          <div class="notification is-info has-text-centered mb-4">
+            {% adsense skyscraper %}
+          </div>
+
+          <!-- Sidebar Content (Optional) -->
+          {% include site-aside.html %}
+          
+          <!-- Additional Square Ad Placeholder -->
+          <div class="notification is-info has-text-centered mt-4">
+            {% adsense multiplex %}
+          </div>
+        </aside>
+      </div>
       {% endif %}
     </div>
   </div>
 </section>
 
-<!-- Introduction Section -->
+<!-- Full Width Ad Placeholder at the End -->
 <section class="section">
   <div class="container">
-    <h2 class="title">{{ site.intro.title }}</h2>
-    <p>{{ site.intro.description }}</p>
-    <div class="columns">
-      {% for feature in site.intro.key_features %}
-        <div class="column is-4">
-          <div class="box">
-            <h3 class="title is-4">{{ feature.title }}</h3>
-            <p>{{ feature.description }}</p>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-    {% if site.intro.video_url %}
-      <div class="video-container">
-        <iframe src="{{ site.intro.video_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    {% endif %}
-  </div>
-</section>
-
-<!-- Syllabus Section -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ site.syllabus.title }}</h2>
-    <p>{{ site.syllabus.description }}</p>
-    <div class="columns is-multiline">
-      {% for section in site.syllabus.sections %}
-        <div class="column is-6">
-          <h3 class="subtitle">{{ section.title }}</h3>
-          <ul>
-            {% for lesson in section.lessons %}
-              <li>{{ lesson }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- Learning Content Section -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ site.learning_content.title }}</h2>
-    <p>{{ site.learning_content.description }}</p>
-    <div class="columns">
-      {% for content in site.learning_content.content %}
-        <div class="column is-4">
-          <div class="box">
-            <h3 class="title is-4">{{ content.path }}</h3>
-            <p>{{ content.description }}</p>
-            <a href="{{ content.button_link }}" class="button is-primary">{{ content.button_text }}</a>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- Our Sponsors Section -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ site.sponsors.title }}</h2>
-    <p>{{ site.sponsors.description }}</p>
-    <div class="columns">
-      {% for sponsor in site.sponsors.list %}
-        <div class="column is-3">
-          <a href="{{ sponsor.link }}" target="_blank">
-            <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }} logo" class="sponsor-logo">
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- Sponsor Us Section -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ site.sponsor_us.title }}</h2>
-    <p>{{ site.sponsor_us.description }}</p>
-    <p>Total Students: {{ site.sponsor_us.stats.total_students }}</p>
-    <p>Courses Offered: {{ site.sponsor_us.stats.courses_offered }}</p>
-    <p>Countries Reached: {{ site.sponsor_us.stats.countries_reached }}</p>
-    <p>Total Certifications: {{ site.sponsor_us.stats.total_certifications }}</p>
-    <a href="{{ site.sponsor_us.button_link }}" class="button is-primary">{{ site.sponsor_us.button_text }}</a>
-  </div>
-</section>
-
-<!-- Author Section -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ site.author.name }}</h2>
-    <p>{{ site.author.title }}</p>
-    <p>{{ site.author.bio }}</p>
-    <div class="columns">
-      <div class="column is-3">
-        <img src="{{ site.author.image }}" alt="{{ site.author.name }}" class="author-img">
-      </div>
-      <div class="column is-9">
-        <div class="social-media">
-          {% for platform in site.author.social_media %}
-            <a href="{{ platform.link }}" class="button is-light">{{ platform.platform }}</a>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ site.testimonials.title }}</h2>
-    <div class="columns is-multiline">
-      {% for testimonial in site.testimonials.testimonials_list %}
-        <div class="column is-4">
-          <div class="box">
-            <h3 class="subtitle">{{ testimonial.name }}</h3>
-            <p><strong>{{ testimonial.course }}</strong></p>
-            <p>{{ testimonial.testimonial }}</p>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- Pricing Section -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ site.pricing.title }}</h2>
-    <p>{{ site.pricing.description }}</p>
-    <div class="columns">
-      {% for plan in site.pricing.plans %}
-        <div class="column is-4">
-          <div class="box">
-            <h3 class="title is-4">{{ plan.name }}</h3>
-            <p>Price: {{ plan.price }}</p>
-            <ul>
-              {% for feature in plan.features %}
-                <li>{{ feature }}</li>
-              {% endfor %}
-            </ul>
-            <a href="#" class="button is-primary">Choose Plan</a>
-          </div>
-        </div>
-      {% endfor %}
+    <div class="notification is-warning has-text-centered">
+      Full Width Ad Placeholder (970x250)
     </div>
   </div>
 </section>
