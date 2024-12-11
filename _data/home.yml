@@ -27,6 +27,7 @@ intro:
   key_features:
     - title: "Unlock Career Opportunities"
       description: "Develop in-demand skills that are highly valued in the job market."
+      icon: "fa-user-money"
     - title: "Enhance Your Business Insights"
       description: "Make data-driven decisions and improve business performance."
       icon: "fa-user-tie"
