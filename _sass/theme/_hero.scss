@@ -1,128 +1,229 @@
 /* General Hero Styles */
 .hero {
   position: relative;
+  color: #fff;
   background-size: cover;
   background-position: center;
-  padding: 3rem 1.5rem;
-  color: #fff;
+  padding: 5rem 1.5rem;
+  box-sizing: border-box;
   text-align: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero-body {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  z-index: 1;
+  position: relative;
 }
 
 .hero h1,
 .hero h2 {
   font-weight: bold;
+  line-height: 1.2;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #fff;
   margin-bottom: 1rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.hero h2 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 2rem;
 }
 
 .hero p {
   font-size: 1.25rem;
-  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hero .buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.hero .button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 3px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero .button:hover {
+  transform: translateY(-5px);
+}
+
+.hero .hero-image {
+  max-width: 100%;
+  border-radius: 12px;
 }
 
 /* Home Hero */
 .home-hero {
-  background-color: #1a202c; /* Dark background for home */
+  background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ page.image }}');
+  background-position: center;
+  background-size: cover;
 }
 
 .home-hero .title {
-  font-size: 3rem;
+  font-size: 4rem;
 }
 
 .home-hero .subtitle {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+}
+
+.home-hero .buttons .button {
+  font-weight: bold;
+}
+
+.home-hero .student-avatars {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.5rem;
 }
 
 /* Post Hero */
 .post-hero {
-  background-color: #f8fafc; /* Light background for posts */
+  background: url('{{ page.image }}') no-repeat center center/cover;
+  background-blur: 10px;
+  position: relative;
+  padding: 6rem 2rem;
+}
+
+.post-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
 }
 
 .post-hero .title {
-  font-size: 2.5rem;
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
 .post-hero .subtitle {
   font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.post-hero .breadcrumb {
+  background: transparent;
+  margin-bottom: 1rem;
+}
+
+.post-hero .breadcrumb a {
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.3s ease;
+}
+
+.post-hero .breadcrumb a:hover {
+  color: #00d1b2;
 }
 
 /* Page Hero */
 .page-hero {
-  background-color: #e2e8f0; /* Light background for pages */
+  background-color: #f7fafc;
+  padding: 4rem 1.5rem;
 }
 
 .page-hero .title {
-  font-size: 2.5rem;
+  font-size: 3rem;
+  color: #333;
 }
 
 .page-hero .subtitle {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.page-hero .buttons .button {
+  font-size: 1rem;
+  background-color: #00d1b2;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.page-hero .buttons .button:hover {
+  background-color: #00b59d;
 }
 
 /* Training Hero */
 .training-hero {
-  background-color: #4a5568; /* Medium dark background for training */
+  background: url('{{ page.image }}') no-repeat center center/cover;
+  background-blur: 12px;
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-size: cover;
+}
+
+.training-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
 }
 
 .training-hero .title {
-  font-size: 2.5rem;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 2px;
 }
 
 .training-hero .subtitle {
   font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Image Style */
-.hero-image {
-  max-width: 100%;
-  border-radius: 8px;
+.training-hero .buttons .button {
+  background-color: #ff7f50;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* Avatar Styling */
-.student-avatars {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
+.training-hero .buttons .button:hover {
+  background-color: #ff6347;
+  transform: translateY(-5px);
 }
 
-.student-avatar {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-}
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 1rem;
+  }
 
-/* Buttons */
-.button {
-  margin-top: 1rem;
-}
+  .hero h1 {
+    font-size: 2.5rem;
+  }
 
-.buttons .button {
-  margin-right: 1rem;
-}
+  .hero .buttons {
+    flex-direction: column;
+  }
 
-/* Flex Reversal for Page/Post Layouts */
-.is-flex-direction-row-reverse {
-  flex-direction: row-reverse;
-}
-
-/* Breadcrumb Styling for Post */
-.breadcrumb {
-  background-color: transparent;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.breadcrumb a {
-  color: #4a90e2;
-}
-
-.breadcrumb a:hover {
-  color: #0070f3;
+  .post-hero .breadcrumb {
+    margin-bottom: 1rem;
+  }
 }
