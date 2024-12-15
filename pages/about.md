@@ -3,7 +3,7 @@ title: Elements
 description: "A demo of Markdown and HTML includes"
 layout : page
 permalink : /about
-aside : true
+sidebar : true
 ---
 <main>
     <section class="py-6 has-background-white">
