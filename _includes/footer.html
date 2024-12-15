@@ -12,11 +12,22 @@
             <p class="mt-4">{{ site.description }}</p>
             <!-- Social Media Links -->
             <div class="is-flex mt-4 is-align-items-center">
-              {% for key in site.website_social_links %}
-                <a href="{{ site.website_social_links[key] }}" class="icon mr-3" title="{{ key }}">
-                  <i class="fab fa-{{ key | downcase }}"></i>
-                </a>
-              {% endfor %}
+              <div class="is-flex mt-4 is-align-items-center">
+                {% assign social_icons = site.website_social_links | map: "key" %}
+                {% for key, url in site.website_social_links %}
+                  <a href="{{ url }}" class="icon mr-3">
+                    {% case key %}
+                    {% when "Youtube" %}<i class="fab fa-youtube"></i>{% endcase %}
+                    {% when "Instagram" %}<i class="fab fa-instagram"></i>{% endcase %}
+                    {% when "Twitter" %}<i class="fab fa-twitter"></i>{% endcase %}
+                    {% when "Facebook" %}<i class="fab fa-facebook"></i>{% endcase %}
+                    {% when "LinkedIn" %}<i class="fab fa-linkedin"></i>{% endcase %}
+                    {% when "GitHub" %}<i class="fab fa-github"></i>{% endcase %}
+                    {% else %}<i class="fas fa-link"></i>{% endcase %}
+                  </a>
+                {% endfor %}
+              </div>
+              
             </div>
           </div>
         </div>
