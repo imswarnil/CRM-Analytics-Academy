@@ -1,0 +1,89 @@
+{% assign footer_type = page.footer_type | default: "default" %}
+
+<footer class="footer has-background-white pt-5">
+  <div class="container">
+    {% if footer_type == "default" %}
+      <!-- Top Section -->
+      <div class="columns is-multiline">
+        <!-- About Site -->
+        <div class="column is-4">
+          <div class="mb-4">
+            <img src="{{ site.logo }}" alt="{{ site.title }}" class="image"> 
+            <p class="mt-4">{{ site.description }}</p>
+            <!-- Social Media Links -->
+            <div class="is-flex mt-4 is-align-items-center">
+              {% for key, url in site.website_social_links %}
+                <a href="{{ url }}" class="icon mr-3" title="{{ key }}">
+                  <i class="fab fa-{{ key | downcase }}"></i>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Menus -->
+        {% if site.footer_menu %}
+          {% for menu in site.footer_menu %}
+            <div class="column is-2">
+              <div class="mb-4">
+                <h3 class="title is-5 mb-3">{{ menu.title }}</h3>
+                <ul>
+                  {% for item in menu.links %}
+                    <li>
+                      <a href="{{ item.url }}" class="has-text-dark">{{ item.name }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <!-- Contact Info -->
+        <div class="column is-3">
+          <div class="mb-4">
+            <h3 class="title is-5 mb-3">Get in Touch</h3>
+            <p>{{ site.author_bio }}</p>
+            <p>Email: <a href="mailto:{{ site.email }}" class="has-text-dark">{{ site.email }}</a></p>
+            <p>GitHub: <a href="{{ site.repo }}" class="has-text-dark">{{ site.repo }}</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="columns is-vcentered mt-6 pt-4 border-top">
+        <!-- Copyright -->
+        <div class="column is-4">
+          <p>&copy; {{ "now" | date: "%Y" }} {{ site.title }}, All Rights Reserved. License: MIT</p>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="column is-8 has-text-right">
+          <nav class="level">
+            {% for item in site.navigation_footer %}
+              <a href="{{ item.url }}" class="level-item has-text-dark">{{ item.title }}</a>
+            {% endfor %}
+          </nav>
+          <a href="{{ site.repo }}/edit/main/" class="button is-link mt-3">Improve this Page</a>
+        </div>
+      </div>
+    {% else %}
+      <!-- Simplified Footer for Posts/Pages -->
+      <div class="content has-text-centered">
+        <p>&copy; {{ "now" | date: "%Y" }} {{ site.title }}. License: MIT</p>
+        <a href="{{ site.repo }}/edit/main/" class="button is-link mt-3">Improve this Page</a>
+      </div>
+    {% endif %}
+  </div>
+</footer>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="copyright typeset">
+      <small class="small">&copy; {{ site.title }} {{ site.time | date: '%Y' }}</small>
+    </div>
+
+    {% include nav-footer.html %}
+  </div>
+</footer>
