@@ -12,8 +12,8 @@
             <p class="mt-4">{{ site.description }}</p>
             <!-- Social Media Links -->
             <div class="is-flex mt-4 is-align-items-center">
-              {% for key, url in site.website_social_links %}
-                <a href="{{ url }}" class="icon mr-3" title="{{ key }}">
+              {% for key in site.website_social_links %}
+                <a href="{{ site.website_social_links[key] }}" class="icon mr-3" title="{{ key }}">
                   <i class="fab fa-{{ key | downcase }}"></i>
                 </a>
               {% endfor %}
@@ -74,16 +74,5 @@
         <a href="{{ site.repo }}/edit/main/" class="button is-link mt-3">Improve this Page</a>
       </div>
     {% endif %}
-  </div>
-</footer>
-
-
-<footer class="footer">
-  <div class="container">
-    <div class="copyright typeset">
-      <small class="small">&copy; {{ site.title }} {{ site.time | date: '%Y' }}</small>
-    </div>
-
-    {% include nav-footer.html %}
   </div>
 </footer>
