@@ -12,8 +12,8 @@
             <p class="mt-4">{{ site.description }}</p>
             <!-- Social Media Links -->
             <div class="is-flex mt-4 is-align-items-center">
-              {% for key, url in site.website_social_links %}
-                <a href="{{ url }}" class="icon mr-3">
+              {% for key in site.website_social_links %}
+                <a href="{{ site.website_social_links[key] }}" class="icon mr-3">
                   {% case key | downcase %}
                   {% when "youtube" %}<i class="fab fa-youtube"></i>{% endcase %}
                   {% when "instagram" %}<i class="fab fa-instagram"></i>{% endcase %}
