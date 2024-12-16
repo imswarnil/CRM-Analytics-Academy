@@ -1,6 +1,6 @@
 ---
 layout: training-overview
-title: "Salesforce CRM Analytics Training"
+title: "Salesforce CRM Analytics Training - Overview "
 ---
 
-Overviw
+Overvi
