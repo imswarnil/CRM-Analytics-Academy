@@ -96,31 +96,6 @@ navigation_header:
     url: /blog
     icon: fas fa-rss
 
-footer_menu:
-  - title: "Company"
-    links:
-      - name: "About"
-        url: "/about"
-      - name: "Pricing"
-        url: "/pricing"
-      - name: "Blog"
-        url: "/blog"
-      - name: "Careers"
-        url: "/careers"
-      - name: "Contact"
-        url: "/contact"
-  - title: "Support"
-    links:
-      - name: "Help and Support"
-        url: "/help"
-      - name: "Become Instructor"
-        url: "/instructor"
-      - name: "Get the app"
-        url: "/app"
-      - name: "FAQ’s"
-        url: "/faq"
-      - name: "Tutorial"
-        url: "/tutorial"
 
 navigation_footer:
 - title: Created by Swarnil Singhai
@@ -175,7 +150,7 @@ collections:
     description: "CRM Analytics Tutorials" # The post list page content
   training:
     output: true
-     permalink: /training/:path/
+    permalink: :path/:title/
   courses:
     output: true
     permalink: /courses/:name/
