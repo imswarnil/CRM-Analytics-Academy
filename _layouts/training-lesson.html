@@ -1,0 +1,98 @@
+---
+layout: default
+---
+
+<section class="section">
+  <div class="container">
+    <!-- Lesson Header -->
+    <div class="content has-text-centered">
+      <h1 class="title">{{ page.title }}</h1>
+      <p class="subtitle">{{ page.description }}</p>
+    </div>
+    
+    <!-- Video Section -->
+    <div class="box">
+      <div class="video-container">
+        <iframe
+          class="has-ratio"
+          width="640"
+          height="360"
+          src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+    
+    <!-- Lesson Details -->
+    <div class="content">
+      <h2 class="subtitle">Lesson Details</h2>
+      <table class="table is-fullwidth is-bordered">
+        <tbody>
+          <tr>
+            <th>Section</th>
+            <td>{{ page.section }}</td>
+          </tr>
+          <tr>
+            <th>Lesson</th>
+            <td>{{ page.lesson }}</td>
+          </tr>
+          <tr>
+            <th>Video Duration</th>
+            <td>{{ page.end_time | minus: page.start_time }} seconds</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Navigation -->
+    <div class="content">
+      <div class="buttons is-centered">
+        {% if page.previous %}
+          <a href="{{ page.previous }}" class="button is-link is-light">Previous Lesson</a>
+        {% endif %}
+        <a href="/training/" class="button is-primary">Back to Sections</a>
+        {% if page.next %}
+          <a href="{{ page.next }}" class="button is-link is-light">Next Lesson</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningVideo",
+  "name": "{{ page.title }}",
+  "description": "{{ page.description }}",
+  "educationalLevel": "Beginner",
+  "contentUrl": "{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}",
+  "learningResourceType": "Video",
+  "timeRequired": "{{ page.end_time | minus: page.start_time }} seconds",
+  "educationalUse": "Self-study",
+  "provider": {
+    "@type": "Organization",
+    "name": "Salesforce",
+    "url": "https://www.salesforce.com/"
+  }
+}
+</script>
+
+<style>
+    .video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+</style>
