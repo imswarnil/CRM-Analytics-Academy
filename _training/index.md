@@ -2,6 +2,7 @@
 layout: default
 title: "Salesforce CRM Analytics Training - Free"
 description: "Master Salesforce CRM Analytics with this comprehensive training series."
+permalink : /training
 ---
 
 <section class="section">

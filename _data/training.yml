@@ -1,12 +1,27 @@
-- title: "Salesforce CRM Analytics Training"
-  url: "/training"
-  description: "Comprehensive CRM Analytics training to help you master the skills required for Salesforce Analytics and certification."
-  duration: "4 weeks"
-  course_format: "Online"
-  price: "Free"
-  instructor: "Swarnil Singhai"
-  syllabus:
-    - "Introduction to CRM Analytics"
-    - "Salesforce Data Model"
-    - "Data Visualization Techniques"
-    - "Hands-on Project"
+sections:
+  - title: "Section 1: Introduction"
+    number: 1
+    lessons:
+      - lesson: 1.1
+        title: "Welcome to the Training"
+        start_time: 19
+        end_time: 95
+        video_url: "https://www.youtube.com/embed/aPwndqsmaGk"
+      - lesson: 1.2
+        title: "Setting Up Your Training Environment"
+        start_time: 95
+        end_time: 265
+        video_url: "https://www.youtube.com/embed/aPwndqsmaGk"
+  - title: "Section 2: Getting Started"
+    number: 2
+    lessons:
+      - lesson: 2.1
+        title: "Basic Concepts of Tableau CRM"
+        start_time: 312
+        end_time: 508
+        video_url: "https://www.youtube.com/embed/aPwndqsmaGk"
+      - lesson: 2.2
+        title: "Architecture Overview"
+        start_time: 508
+        end_time: 629
+        video_url: "https://www.youtube.com/embed/aPwndqsmaGk"
