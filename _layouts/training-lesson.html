@@ -2,63 +2,80 @@
 layout: default
 ---
 
-<section class="section">
-  <div class="container">
-    <!-- Lesson Header -->
-    <div class="content has-text-centered">
-      <h1 class="title">{{ page.title }}</h1>
-      <p class="subtitle">{{ page.description }}</p>
-    </div>
-    
-    <!-- Video Section -->
-    <div class="box">
-      <div class="video-container">
-        <iframe
-          class="has-ratio"
-          width="640"
-          height="360"
-          src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}"
-          frameborder="0"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-    
-    <!-- Lesson Details -->
-    <div class="content">
-      <h2 class="subtitle">Lesson Details</h2>
-      <table class="table is-fullwidth is-bordered">
-        <tbody>
-          <tr>
-            <th>Section</th>
-            <td>{{ page.section }}</td>
-          </tr>
-          <tr>
-            <th>Lesson</th>
-            <td>{{ page.lesson }}</td>
-          </tr>
-          <tr>
-            <th>Video Duration</th>
-            <td>{{ page.end_time | minus: page.start_time }} seconds</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="columns is-gapless">
+  <!-- Video Section -->
+  <div class="column">
+    <figure class="image is-16by9">
+      <iframe
+        class="has-ratio"
+        width="640"
+        height="360"
+        src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </figure>
 
-    <!-- Navigation -->
-    <div class="content">
-      <div class="buttons is-centered">
-        {% if page.previous %}
-          <a href="{{ page.previous }}" class="button is-link is-light">Previous Lesson</a>
-        {% endif %}
-        <a href="/training/" class="button is-primary">Back to Sections</a>
-        {% if page.next %}
-          <a href="{{ page.next }}" class="button is-link is-light">Next Lesson</a>
-        {% endif %}
-      </div>
+    <div class="tabs">
+      <ul>
+        <li class="is-active"><a>Overview</a></li>
+        <li><a>Q&A</a></li>
+        <li><a>Notes</a></li>
+        <li><a>Announcements</a></li>
+      </ul>
     </div>
   </div>
-</section>
+
+  <!-- Course Navigation -->
+  <div class="column is-one-quarter is-scroll-column left-shadowed">
+    <div class="card">
+      {% for section in site.data.training.sections %}
+      <header class="card-header">
+        <p class="card-header-title">
+          {{ section.title }}
+        </p>
+        <button class="button is-medium is-white" aria-label="toggle menu">
+          <span class="icon">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </header>
+      <div class="card-content">
+        <nav class="panel">
+          {% for lesson in section.lessons %}
+          <a href="/training/section{{ section.number }}/lesson-{{ lesson.lesson | replace: '.', '-' }}/" class="panel-block">
+            <span class="panel-icon">
+              {% if page.lesson == lesson.lesson %}
+              <i class="fas fa-check-circle"></i>
+              {% else %}
+              <i class="far fa-circle"></i>
+              {% endif %}
+            </span>
+            {{ lesson.title }}
+          </a>
+          {% endfor %}
+        </nav>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="buttons is-centered">
+    {% assign current_lesson = page.lesson %}
+    {% assign section_index = site.data.training.sections | where: "number", page.section | first %}
+    {% for lesson in section_index.lessons %}
+      {% if lesson.lesson == current_lesson %}
+        {% if forloop.first == false %}
+          <a href="/training/section{{ page.section }}/lesson-{{ section_index.lessons[forloop.index0].lesson | replace: '.', '-' }}/" class="button is-link is-light">Previous Lesson</a>
+        {% endif %}
+        {% if forloop.last == false %}
+          <a href="/training/section{{ page.section }}/lesson-{{ section_index.lessons[forloop.index].lesson | replace: '.', '-' }}/" class="button is-link is-light">Next Lesson</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  
 
 <script type="application/ld+json">
 {
@@ -66,33 +83,9 @@ layout: default
   "@type": "LearningVideo",
   "name": "{{ page.title }}",
   "description": "{{ page.description }}",
-  "educationalLevel": "Beginner",
-  "contentUrl": "{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}",
-  "learningResourceType": "Video",
+  "contentUrl": "{{ page.video_url }}",
   "timeRequired": "{{ page.end_time | minus: page.start_time }} seconds",
-  "educationalUse": "Self-study",
-  "provider": {
-    "@type": "Organization",
-    "name": "Salesforce",
-    "url": "https://www.salesforce.com/"
-  }
+  "educationalLevel": "Beginner",
+  "educationalUse": "Self-study"
 }
 </script>
-
-<style>
-    .video-container {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-  height: 0;
-  overflow: hidden;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-</style>

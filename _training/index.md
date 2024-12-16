@@ -1,23 +1,33 @@
 ---
 layout: default
-title: "Salesforce CRM Analytics Training - Free"
-description: "Master Salesforce CRM Analytics with this comprehensive training series."
+title: "Salesforce CRM Analytics Training"
 permalink : /training
 ---
 
 <section class="section">
   <div class="container">
     <h1 class="title">{{ page.title }}</h1>
-    <p class="subtitle">{{ page.description }}</p>
-    
     <div class="content">
-      <h2>Sections</h2>
-      {% for section in site.data.training.sections %}
-        <div class="box">
-          <h3 class="title is-4"><a href="/training/{{ section.number }}/">{{ section.title }}</a></h3>
-          <p>{{ section.description }}</p>
-        </div>
-      {% endfor %}
+      <ul>
+        {% for section in site.data.training.sections %}
+        <li>
+          <a href="/training/section{{ section.number }}/">
+            {{ section.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 </section>
+<style>
+  .is-scroll-column {
+  overflow-y: auto;
+  max-height: calc(100vh - 4rem);
+  padding: 1rem;
+}
+.left-shadowed {
+  box-shadow: inset -4px 0px 6px -4px rgba(0, 0, 0, 0.2);
+}
+
+  </style>

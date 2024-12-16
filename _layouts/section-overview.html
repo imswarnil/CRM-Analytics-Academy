@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">{{ page.title }}</h1>
+    <p class="subtitle">{{ page.description }}</p>
+    <div class="content">
+      <ul>
+        {% for lesson in site.data.training.sections[page.section].lessons %}
+        <li>
+          <a href="/training/section{{ page.section }}/lesson-{{ lesson.lesson | replace: '.', '-' }}/">
+            {{ lesson.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
