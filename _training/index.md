@@ -1,14 +1,22 @@
 ---
-layout: training-home
+layout: default
 title: "Salesforce CRM Analytics Training - Free"
-description: "Comprehensive training to master Salesforce CRM Analytics (Tableau CRM). Start with basics and move to advanced features."
+description: "Master Salesforce CRM Analytics with this comprehensive training series."
 ---
 
-# Salesforce CRM Analytics Training - Free
-
-Welcome to the free training course on Salesforce CRM Analytics (formerly Tableau CRM). Dive into the lessons below:
-
-## Sections
-- [Introduction](introduction/)
-- [Getting Started with Insights](insights/)
-- [Advanced Techniques](advanced/)
+<section class="section">
+  <div class="container">
+    <h1 class="title">{{ page.title }}</h1>
+    <p class="subtitle">{{ page.description }}</p>
+    
+    <div class="content">
+      <h2>Sections</h2>
+      {% for section in site.data.training.sections %}
+        <div class="box">
+          <h3 class="title is-4"><a href="/training/{{ section.number }}/">{{ section.title }}</a></h3>
+          <p>{{ section.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
