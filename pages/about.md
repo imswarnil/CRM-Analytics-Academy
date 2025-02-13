@@ -6,10 +6,9 @@ permalink : /about
 sidebar : true
 hero : false
 ---
-<main>
-    <section class="py-6 has-background-white">
-        <div class="container my-6">
-            <div class="columns is-centered">
+
+ <div class="container my-6">
+            <div class="columns">
                 <div class="column is-8">
                     <h1 class="title is-2 has-text-weight-bold mb-3">
                         Hi there, we’re
@@ -141,8 +140,6 @@ hero : false
                 </div>
             </div>
         </div>
-    </section>
-</main>
 
 <!-- _includes/lessons.html -->
 {% assign posts = site.posts | where_exp: "post", "post.categories contains 'Training Videos'" %}
