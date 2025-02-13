@@ -11,12 +11,12 @@ title: Blog
     <div class="container">
       <div class="columns is-variable is-3">
         <!-- Left Column: Title & Description -->
-        <div class="column is-12-mobile is-4-tablet is-3-desktop">
+        <div class="column is-12-mobile is-6-tablet is-6-desktop">
           <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
-          <h2 class="subtitle is-4">{{ page.description }}</h2>
+          <h2 class="subtitle is-5 has-text-grey">{{ page.description }}</h2>
         </div>
-        <!-- Right Column: Ads -->
-        <div class="column is-12-mobile is-8-tablet is-9-desktop">
+        <!-- Right Column: Ads (if necessary) -->
+        <div class="column is-12-mobile is-6-tablet is-6-desktop">
           <div class="has-text-centered">
             {% adsense large-leaderboard %}
           </div>
@@ -31,7 +31,7 @@ title: Blog
   <div class="container">
     <div class="columns is-variable is-4">
       <!-- Left Column: Blog Posts List -->
-      <div class="column is-12-mobile is-8-tablet is-9-desktop">
+      <div class="column is-12-mobile is-8-tablet is-8-desktop">
         <div class="post-list">
           {% include post-list.html %}
         </div>
@@ -39,19 +39,23 @@ title: Blog
 
       <!-- Right Column: Sidebar with Ads and Additional Info -->
       {% if page.sidebar == true %}
-      <div class="column is-12-mobile is-4-tablet is-3-desktop">
+      <div class="column is-12-mobile is-4-tablet is-4-desktop">
         <aside class="sidebar">
-          <!-- Square Ad Placeholder -->
-          <div class="notification is-info has-text-centered mb-4">
-            {% adsense skyscraper %}
+          <!-- Ads and Sidebar Content -->
+          <div class="mb-4">
+            <div class="notification is-info has-text-centered">
+              {% adsense skyscraper %}
+            </div>
           </div>
 
-          <!-- Sidebar Content (Optional) -->
-          {% include sidebar.html %}
-          
-          <!-- Additional Square Ad Placeholder -->
-          <div class="notification is-info has-text-centered mt-4">
-            {% adsense multiplex %}
+          <div class="sidebar-content">
+            {% include sidebar.html %}
+          </div>
+
+          <div class="mt-4">
+            <div class="notification is-info has-text-centered">
+              {% adsense multiplex %}
+            </div>
           </div>
         </aside>
       </div>
