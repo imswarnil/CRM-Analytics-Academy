@@ -5,57 +5,85 @@ collectionpage: posts
 title: Blog
 ---
 
-<!-- Hero Section -->
-<div class="hero is-small mt-4">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-variable is-3">
-        <!-- Left Column: Title & Description -->
-        <div class="column is-12-mobile is-6-tablet is-6-desktop">
-          <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
-          <h2 class="subtitle is-5 has-text-grey">{{ page.description }}</h2>
+<!-- Header Section with Container and Grid Layout -->
+<header class="header mt-4">
+  <div class="container">
+    <div class="columns is-variable is-3">
+      <!-- Left Column: Title & Description -->
+      <div class="column is-12-mobile is-8-tablet is-9-desktop">
+        <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
+        <h2 class="subtitle is-4 has-text-grey">{{ page.description }}</h2>
+      </div>
+      <!-- Right Column: Ads Placeholder (Optional) -->
+      <div class="column is-12-mobile is-4-tablet is-3-desktop">
+        <div class="has-text-centered">
+          {% adsense large-leaderboard %}
         </div>
-        <!-- Right Column: Ads (if necessary) -->
-        <div class="column is-12-mobile is-6-tablet is-6-desktop">
-          <div class="has-text-centered">
-            {% adsense large-leaderboard %}
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Filters Section (Year & Category Filters) -->
+<section class="section">
+  <div class="container">
+    <div class="filters">
+      <div class="columns is-variable is-4">
+        <!-- Year Filter -->
+        <div class="column is-6-mobile is-3-tablet is-2-desktop">
+          <div class="select">
+            <select id="year-filter" onchange="filterPosts()">
+              <option value="">Select Year</option>
+              {% assign years = site.posts | map: 'date' | map: 'year' | uniq %}
+              {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <!-- Category Filter -->
+        <div class="column is-6-mobile is-3-tablet is-2-desktop">
+          <div class="select">
+            <select id="category-filter" onchange="filterPosts()">
+              <option value="">Select Category</option>
+              {% assign categories = site.categories %}
+              {% for category in categories %}
+                <option value="{{ category[0] }}">{{ category[0] }}</option>
+              {% endfor %}
+            </select>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Main Content Section -->
+<!-- Main Content Section (Blog Post List) -->
 <section class="section">
   <div class="container">
     <div class="columns is-variable is-4">
       <!-- Left Column: Blog Posts List -->
       <div class="column is-12-mobile is-8-tablet is-8-desktop">
-        <div class="post-list">
+        <div id="post-list">
           {% include post-list.html %}
         </div>
       </div>
 
-      <!-- Right Column: Sidebar with Ads and Additional Info -->
+      <!-- Right Column: Sidebar with Ads (Optional) -->
       {% if page.sidebar == true %}
       <div class="column is-12-mobile is-4-tablet is-4-desktop">
         <aside class="sidebar">
-          <!-- Ads and Sidebar Content -->
-          <div class="mb-4">
-            <div class="notification is-info has-text-centered">
-              {% adsense skyscraper %}
-            </div>
+          <!-- Sidebar Ads or Content -->
+          <div class="notification is-info has-text-centered mb-4">
+            {% adsense skyscraper %}
           </div>
-
+          
           <div class="sidebar-content">
             {% include sidebar.html %}
           </div>
 
-          <div class="mt-4">
-            <div class="notification is-info has-text-centered">
-              {% adsense multiplex %}
-            </div>
+          <div class="notification is-info has-text-centered mt-4">
+            {% adsense multiplex %}
           </div>
         </aside>
       </div>
@@ -72,3 +100,23 @@ title: Blog
     </div>
   </div>
 </section>
+
+<!-- Javascript for Filters -->
+<script>
+  function filterPosts() {
+    var year = document.getElementById('year-filter').value;
+    var category = document.getElementById('category-filter').value;
+
+    var url = '/posts/'; // Adjust according to your site's URL structure
+
+    // Add year and category to the filter query
+    if (year) {
+      url += '?year=' + year;
+    }
+    if (category) {
+      url += (url.includes('?') ? '&' : '?') + 'category=' + category;
+    }
+
+    window.location.href = url; // Redirect to filtered posts
+  }
+</script>
