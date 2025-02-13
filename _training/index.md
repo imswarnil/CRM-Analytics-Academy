@@ -3,7 +3,6 @@ layout: default
 title: "Salesforce CRM Analytics Training"
 permalink : /training
 ---
-
 <!-- Header Section -->
 <section class="training-header">
   <div class="container">
@@ -12,10 +11,11 @@ permalink : /training
       <div class="column is-8">
         <h1 class="title is-2">Salesforce CRM Analytics Training</h1>
         <h2 class="subtitle is-4">Master Salesforce CRM Analytics from beginner to advanced with hands-on lessons, quizzes, and more.</h2>
-        <div class="buttons">
+        <div class="buttons mt-5">
           <a href="#start-now" class="button is-primary is-large">Start Now</a>
         </div>
       </div>
+
       <!-- Right Column: Image / YouTube Embed -->
       <div class="column is-4">
         <div class="training-image">
@@ -27,6 +27,28 @@ permalink : /training
     </div>
   </div>
 </section>
+
+<!-- Sidebar Section -->
+<aside class="sidebar is-sticky">
+  <div class="container">
+    <div class="card">
+      <div class="card-content">
+        <h3 class="title is-5">Share This Training</h3>
+        <div class="buttons">
+          <a href="https://twitter.com/share?url={{ page.url }}" class="button is-link">Twitter</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url }}" class="button is-link">Facebook</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-5">
+      <div class="card-content">
+        <h3 class="title is-5">Get Started Now</h3>
+        <a href="#start-now" class="button is-primary is-fullwidth">Start Training</a>
+      </div>
+    </div>
+  </div>
+</aside>
 
 <!-- Training Description Section -->
 <section class="training-description section">
@@ -139,7 +161,7 @@ permalink : /training
               </div>
             </div>
           </div>
-        </div> 
+        </div>        
         <!-- Lesson 4 -->
         <div class="card lesson-card">
           <div class="card-content">
@@ -199,3 +221,22 @@ permalink : /training
     </div>
   </div>
 </section>
+
+<!-- CSS for Sidebar -->
+<style>
+  .sidebar {
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+  }
+  .sidebar .card {
+    margin-bottom: 20px;
+  }
+  .section-header .emoji {
+    font-size: 2rem;
+    margin-right: 10px;
+  }
+  .lesson-card .card-content {
+    padding: 20px;
+  }
+</style>
