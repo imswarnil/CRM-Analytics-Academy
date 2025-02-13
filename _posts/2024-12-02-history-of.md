@@ -23,7 +23,6 @@ keywords: "CRM, Salesforce, Analytics, History of CRM, Salesforce CRM, CRM Evolu
 
 # Salesforce CRM Analytics History
 
-![Salesforce CRM Analytics History](assets/salesforce-crm-analytics-history.png)
 
 Customer Relationship Management (CRM) systems have transformed how businesses manage relationships with customers. What began as a simple tool for tracking customer interactions has evolved into a robust platform for data-driven insights and business growth. The evolution of CRM Analytics, especially through Salesforce, has reshaped the industry, making powerful analytics accessible to businesses of all sizes.
 
