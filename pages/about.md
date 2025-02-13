@@ -9,7 +9,7 @@ hero : false
 
  <div class="container my-6">
             <div class="columns">
-                <div class="column is-8">
+                <div class="column is-12">
                     <h1 class="title is-2 has-text-weight-bold mb-3">
                         Hi there, we’re
                         <span class="has-text-primary">Geeks</span>
@@ -22,21 +22,20 @@ hero : false
                     </p>
                 </div>
             </div>
- <!-- gallery -->
             <div class="columns is-multiline">
-                <div class="column is-4">
+                <div class="column is-3">
                     <figure class="image">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 1" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 1">
                     </figure>
                 </div>
-                <div class="column is-4">
+                <div class="column is-3">
                     <figure class="image">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 2" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 2">
                     </figure>
                 </div>
-                <div class="column is-4">
+                <div class="column is-3">
                     <figure class="image">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 3" class="is-rounded">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt33LyzTF08Z_qsv2NvdBb7PVlOcz51qu-XA&s" alt="Gallery image 3">
                     </figure>
                 </div>
                 <div class="column is-4">
