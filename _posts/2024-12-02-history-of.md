@@ -6,6 +6,7 @@ categories: [Analytics, CRM]
 tags: [CRM, Salesforce, History, AI, Evolution]
 date: 2024-11-28
 layout: post
+sidebar : true
 author: swarnil-singhai
 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwE74gH66vR4U2PJWE__56B-qwEgeuEBhd_g&s"
 background_color: "#FFD7C2" # Pastel color
