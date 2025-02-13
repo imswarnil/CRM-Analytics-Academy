@@ -5,7 +5,7 @@ permalink : /training
 ---
 
 <!-- Header Section with Full Height -->
-<section class="hero is-fullheight is-primary">
+<section class="hero is-primary">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
