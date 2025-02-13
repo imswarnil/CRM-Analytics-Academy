@@ -1,122 +1,133 @@
 ---
 layout: page
-description: My Blogs etc
-collectionpage: posts
 title: Blog
+collectionpage: posts
+description: "Explore the latest posts, insights, and news."
 ---
 
-<!-- Header Section with Container and Grid Layout -->
-<header class="header mt-4">
-  <div class="container">
-    <div class="columns is-variable is-3">
-      <!-- Left Column: Title & Description -->
-      <div class="column is-12-mobile is-8-tablet is-9-desktop">
-        <h1 class="title is-2 has-text-primary">{{ page.title }}</h1>
-        <h2 class="subtitle is-4 has-text-grey">{{ page.description }}</h2>
-      </div>
-      <!-- Right Column: Ads Placeholder (Optional) -->
-      <div class="column is-12-mobile is-4-tablet is-3-desktop">
-        <div class="has-text-centered">
-          {% adsense large-leaderboard %}
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- Filters Section (Year & Category Filters) -->
-<section class="section">
-  <div class="container">
-    <div class="filters">
-      <div class="columns is-variable is-4">
-        <!-- Year Filter -->
-        <div class="column is-6-mobile is-3-tablet is-2-desktop">
-          <div class="select">
-            <select id="year-filter" onchange="filterPosts()">
-              <option value="">Select Year</option>
-              {% assign years = site.posts | map: 'date' | map: 'year' | uniq %}
-              {% for year in years %}
-                <option value="{{ year }}">{{ year }}</option>
-              {% endfor %}
-            </select>
-          </div>
-        </div>
-        <!-- Category Filter -->
-        <div class="column is-6-mobile is-3-tablet is-2-desktop">
-          <div class="select">
-            <select id="category-filter" onchange="filterPosts()">
-              <option value="">Select Category</option>
-              {% assign categories = site.categories %}
-              {% for category in categories %}
-                <option value="{{ category[0] }}">{{ category[0] }}</option>
-              {% endfor %}
-            </select>
-          </div>
-        </div>
-      </div>
+<!-- Hero Section -->
+<section class="hero is-primary is-medium">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">Welcome to Our Blog</h1>
+      <h2 class="subtitle">Stay updated with the latest trends and insights in our industry.</h2>
     </div>
   </div>
 </section>
 
-<!-- Main Content Section (Blog Post List) -->
+<!-- Filters Section -->
 <section class="section">
   <div class="container">
     <div class="columns is-variable is-4">
-      <!-- Left Column: Blog Posts List -->
-      <div class="column is-12-mobile is-8-tablet is-8-desktop">
-        <div id="post-list">
-          {% include post-list.html %}
+      <!-- Category Filter -->
+      <div class="column is-12-mobile is-4-tablet is-3-desktop">
+        <div class="select is-fullwidth">
+          <select id="category-filter" onchange="filterPosts()">
+            <option value="">Select Category</option>
+            {% assign categories = site.categories %}
+            {% for category in categories %}
+              <option value="{{ category[0] }}">{{ category[0] }}</option>
+            {% endfor %}
+          </select>
         </div>
       </div>
 
-      <!-- Right Column: Sidebar with Ads (Optional) -->
-      {% if page.sidebar == true %}
-      <div class="column is-12-mobile is-4-tablet is-4-desktop">
-        <aside class="sidebar">
-          <!-- Sidebar Ads or Content -->
-          <div class="notification is-info has-text-centered mb-4">
-            {% adsense skyscraper %}
-          </div>
-          
-          <div class="sidebar-content">
-            {% include sidebar.html %}
-          </div>
-
-          <div class="notification is-info has-text-centered mt-4">
-            {% adsense multiplex %}
-          </div>
-        </aside>
+      <!-- Year Filter -->
+      <div class="column is-12-mobile is-4-tablet is-3-desktop">
+        <div class="select is-fullwidth">
+          <select id="year-filter" onchange="filterPosts()">
+            <option value="">Select Year</option>
+            {% assign years = site.posts | map: 'date' | map: 'year' | uniq %}
+            {% for year in years %}
+              <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
-      {% endif %}
     </div>
   </div>
 </section>
 
-<!-- Full Width Ad Placeholder at the End -->
+<!-- Blog Posts List -->
 <section class="section">
   <div class="container">
-    <div class="notification is-warning has-text-centered">
-      Full Width Ad Placeholder (970x250)
+    <div class="columns is-multiline is-variable is-4">
+      {% for post in site.posts %}
+      <div class="column is-12-mobile is-6-tablet is-4-desktop">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="{{ post.image }}" alt="{{ post.title }}">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-32x32">
+                  <img src="{{ site.url }}/assets/images/author-placeholder.jpg" alt="{{ post.author }}">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">{{ post.title }}</p>
+                <p class="subtitle is-6">By {{ post.author }} | {{ post.date | date: "%B %d, %Y" }}</p>
+              </div>
+            </div>
+
+            <div class="content">
+              {{ post.excerpt | strip_html | truncatewords: 25 }} 
+              <a href="{{ post.url }}" class="has-text-link">Read more...</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
-<!-- Javascript for Filters -->
+<!-- Pagination -->
+<section class="section">
+  <div class="container has-text-centered">
+    <nav class="pagination" role="navigation" aria-label="pagination">
+      <a class="pagination-previous" href="#">&larr; Previous</a>
+      <a class="pagination-next" href="#">Next &rarr;</a>
+      <ul class="pagination-list">
+        <li><a class="pagination-link" href="#">1</a></li>
+        <li><a class="pagination-link" href="#">2</a></li>
+        <li><a class="pagination-link is-current" href="#">3</a></li>
+        <li><a class="pagination-link" href="#">4</a></li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<!-- Footer Section -->
+<footer class="footer has-background-dark has-text-white-ter">
+  <div class="content has-text-centered">
+    <p>
+      <strong>My Blog</strong> &copy; 2025. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<!-- JavaScript for Filters -->
 <script>
   function filterPosts() {
-    var year = document.getElementById('year-filter').value;
     var category = document.getElementById('category-filter').value;
+    var year = document.getElementById('year-filter').value;
 
     var url = '/posts/'; // Adjust according to your site's URL structure
 
     // Add year and category to the filter query
-    if (year) {
-      url += '?year=' + year;
-    }
     if (category) {
-      url += (url.includes('?') ? '&' : '?') + 'category=' + category;
+      url += '?category=' + category;
+    }
+    if (year) {
+      url += (url.includes('?') ? '&' : '?') + 'year=' + year;
     }
 
     window.location.href = url; // Redirect to filtered posts
   }
 </script>
+
+
