@@ -1,133 +1,65 @@
 ---
 layout: page
 title: Blog
-collectionpage: posts
 description: "Explore the latest posts, insights, and news."
 ---
 
-<!-- Hero Section -->
-<section class="hero is-primary is-medium">
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title">Welcome to Our Blog</h1>
-      <h2 class="subtitle">Stay updated with the latest trends and insights in our industry.</h2>
-    </div>
-  </div>
-</section>
-
-<!-- Filters Section -->
-<section class="section">
+<section class="blog-posts">
   <div class="container">
-    <div class="columns is-variable is-4">
-      <!-- Category Filter -->
-      <div class="column is-12-mobile is-4-tablet is-3-desktop">
-        <div class="select is-fullwidth">
-          <select id="category-filter" onchange="filterPosts()">
-            <option value="">Select Category</option>
-            {% assign categories = site.categories %}
-            {% for category in categories %}
-              <option value="{{ category[0] }}">{{ category[0] }}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-
-      <!-- Year Filter -->
-      <div class="column is-12-mobile is-4-tablet is-3-desktop">
-        <div class="select is-fullwidth">
-          <select id="year-filter" onchange="filterPosts()">
-            <option value="">Select Year</option>
-            {% assign years = site.posts | map: 'date' | map: 'year' | uniq %}
-            {% for year in years %}
-              <option value="{{ year }}">{{ year }}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Blog Posts List -->
-<section class="section">
-  <div class="container">
-    <div class="columns is-multiline is-variable is-4">
-      {% for post in site.posts %}
-      <div class="column is-12-mobile is-6-tablet is-4-desktop">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="{{ post.image }}" alt="{{ post.title }}">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-32x32">
-                  <img src="{{ site.url }}/assets/images/author-placeholder.jpg" alt="{{ post.author }}">
-                </figure>
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        
+        <!-- Featured Post -->
+        <div class="columns featured-post is-multiline">
+          <div class="column is-12 post">
+            <article class="columns featured">
+              <div class="column is-7 post-img">
+                <img src="{{ site.posts[0].image }}" alt="{{ site.posts[0].title }}">
               </div>
-              <div class="media-content">
-                <p class="title is-5">{{ post.title }}</p>
-                <p class="subtitle is-6">By {{ post.author }} | {{ post.date | date: "%B %d, %Y" }}</p>
+              <div class="column is-5 featured-content va">
+                <div>
+                  <h3 class="heading post-category">
+                    {% for category in site.posts[0].categories %}
+                      <span>{{ category }}</span>{% if forloop.last == false %}, {% endif %}
+                    {% endfor %}
+                  </h3>
+                  <h1 class="title post-title">{{ site.posts[0].title }}</h1>
+                  <p class="post-excerpt">{{ site.posts[0].excerpt | truncatewords: 30 }}</p>
+                  <br>
+                  <a href="{{ site.posts[0].url }}" class="button is-primary">Read More</a>
+                </div>
               </div>
-            </div>
-
-            <div class="content">
-              {{ post.excerpt | strip_html | truncatewords: 25 }} 
-              <a href="{{ post.url }}" class="has-text-link">Read more...</a>
-            </div>
+            </article>
           </div>
         </div>
+        
+        <hr>
+
+        <!-- Regular Posts Grid -->
+        <div class="columns is-multiline">
+          {% for post in site.posts offset: 1 %}
+          <div class="column post is-6-tablet is-4-desktop">
+            <article class="columns is-multiline">
+              <div class="column is-12 post-img">
+                <img src="{{ post.image }}" alt="{{ post.title }}">
+              </div>
+              <div class="column is-12 featured-content">
+                <h3 class="heading post-category">
+                  {% for category in post.categories %}
+                    <span>{{ category }}</span>{% if forloop.last == false %}, {% endif %}
+                  {% endfor %}
+                </h3>
+                <h1 class="title post-title">{{ post.title }}</h1>
+                <p class="post-excerpt">{{ post.excerpt | truncatewords: 20 }}</p>
+                <br>
+                <a href="{{ post.url }}" class="button is-primary">Read More</a>
+              </div>
+            </article>
+          </div>
+          {% endfor %}
+        </div>
+        
       </div>
-      {% endfor %}
     </div>
   </div>
 </section>
-
-<!-- Pagination -->
-<section class="section">
-  <div class="container has-text-centered">
-    <nav class="pagination" role="navigation" aria-label="pagination">
-      <a class="pagination-previous" href="#">&larr; Previous</a>
-      <a class="pagination-next" href="#">Next &rarr;</a>
-      <ul class="pagination-list">
-        <li><a class="pagination-link" href="#">1</a></li>
-        <li><a class="pagination-link" href="#">2</a></li>
-        <li><a class="pagination-link is-current" href="#">3</a></li>
-        <li><a class="pagination-link" href="#">4</a></li>
-      </ul>
-    </nav>
-  </div>
-</section>
-
-<!-- Footer Section -->
-<footer class="footer has-background-dark has-text-white-ter">
-  <div class="content has-text-centered">
-    <p>
-      <strong>My Blog</strong> &copy; 2025. All rights reserved.
-    </p>
-  </div>
-</footer>
-
-<!-- JavaScript for Filters -->
-<script>
-  function filterPosts() {
-    var category = document.getElementById('category-filter').value;
-    var year = document.getElementById('year-filter').value;
-
-    var url = '/posts/'; // Adjust according to your site's URL structure
-
-    // Add year and category to the filter query
-    if (category) {
-      url += '?category=' + category;
-    }
-    if (year) {
-      url += (url.includes('?') ? '&' : '?') + 'year=' + year;
-    }
-
-    window.location.href = url; // Redirect to filtered posts
-  }
-</script>
-
-
