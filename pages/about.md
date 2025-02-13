@@ -4,6 +4,7 @@ description: "A demo of Markdown and HTML includes"
 layout : page
 permalink : /about
 sidebar : true
+hero : false
 ---
 <main>
     <section class="py-6 has-background-white">
