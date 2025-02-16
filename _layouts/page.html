@@ -14,7 +14,6 @@ layout: default
         <div class="column {% if page.sidebar %}is-2{% else %}is-3{% endif %}">
           {% include sidebar/left.html %}
           <div>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540" crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
                  style="display:inline-block;width:160px;height:600px"
                  data-ad-client="ca-pub-1291242080282540"
@@ -34,7 +33,7 @@ layout: default
         {% else %}is-12{% endif %}">
         <!-- Hero Section -->
         {% unless page.hero == false %}
-          <section class="hero is-light">
+          <section class="hero is-primary">
             <div class="hero-body">
               <div class="content">
                 <h1 class="title">{{ page.title | default: site.title }}</h1>
