@@ -1,11 +1,19 @@
 ---
 ---
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+
+.geist-mono {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
 
 $primary: #0176d3;
 $link : $primary;
-$family-sans-serif: "Roboto", "Arial", sans-serif !default;
-$family-monospace: "Roboto Mono", monospace !default;
+$family-sans-serif: "Geist", "Arial", sans-serif !default;
+$family-monospace: "geist-mono", monospace !default;
 $render-mode: optimizeLegibility !default;
 
 // Ensure columns inside the main content are aligned properly
