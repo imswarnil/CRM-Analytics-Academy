@@ -1,0 +1,117 @@
+---
+layout: default
+---
+<main class="section">
+  <div class="container">
+    <div class="columns">
+        <div class="column is-2">
+          <!-- {% include sidebar/left.html %} -->
+          <div>
+           <h1>Here Profile Author Card</h1>
+          </div>
+        </div>
+
+      <!-- Main About Content Column -->
+      <div class="column is-7">
+        {% comment %} 
+  Jekyll component to dynamically display section content using front matter data.
+  Ensure your page's front matter includes:
+  title, subtitle, description, gallery_images (array), stats (array), core_values (array)
+{% endcomment %}
+
+<div class="container my-6">
+    <div class="columns">
+        <div class="column is-12">
+            <h1 class="title is-2 has-text-weight-bold mb-3">
+                Hi there, we’re
+                <span class="has-text-primary">{{ page.title }}</span>
+            </h1>
+            <p class="subtitle is-3 mb-3">{{ page.subtitle }}</p>
+            <p class="mb-0 is-4 has-text-grey-dark">{{ page.description }}</p>
+        </div>
+    </div>
+
+    <div class="columns is-multiline">
+        {% for image in page.gallery_images %}
+        <div class="column is-3">
+            <figure class="image">
+                <img src="{{ image.src }}" alt="{{ image.alt }}" class="{{ image.class }}">
+            </figure>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="columns is-multiline">
+        <div class="column is-6">
+            <h1 class="title is-3 has-text-weight-bold mb-3">Our global reach</h1>
+            <p class="subtitle is-4">{{ page.stats_description }}</p>
+        </div>
+        {% for stat in page.stats %}
+        <div class="column is-3">
+            <div class="box has-text-centered">
+                <h1 class="title is-2 has-text-weight-bold mb-0">{{ stat.value }}</h1>
+                <p class="has-text-uppercase">{{ stat.label }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Core Values Section -->
+<section class="py-6">
+<div class="container my-6">
+    <div class="columns">
+        <div class="column is-6">
+            <h2 class="title is-3 has-text-weight-bold mb-3">Our core values</h2>
+            <p class="subtitle is-4">{{ page.core_values_description }}</p>
+        </div>
+    </div>
+    <div class="columns is-multiline">
+        {% for value in page.core_values %}
+        <div class="column is-4">
+            <div class="card">
+                <div class="card-content">
+                    <div class="icon mb-3">{{ value.icon | raw }}</div>
+                    <h3 class="is-5 has-text-weight-bold">{{ value.title }}</h3>
+                    <p>{{ value.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</section>
+        <article class="content">
+          <div class="content-body">
+            {{ content }}
+          </div>
+
+          <!-- Ads within content -->
+          <div class="ads-in-content">
+            {% adsense large-leaderboard %}
+            {% adsense article %}
+            {% adsense infeed %}
+          </div>
+        </article>
+      </div>
+
+      <!-- Right Sidebar -->
+
+        <aside class="column is-3 is-hidden-mobile">
+          {% include sidebar.html %}
+          <!-- Additional Ads -->
+          {% adsense skyscraper %}
+          {% adsense medium-square %}
+        </aside>
+      {% endif %}
+    </div>
+    <!-- Footer Ads -->
+    <div class="footer-ads">
+      {% adsense leaderboard %}
+      {% adsense multiplex %}
+    </div>
+  </div>
+</main>
+
+{% include footer.html %}
