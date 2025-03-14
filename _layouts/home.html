@@ -54,34 +54,40 @@ layout: default
        color: #444;
    }
 </style>
-
+</head>
+<body>
 
 <div class="welcome-container">
    <h1>Welcome to My Website</h1>
    <p>Enjoy your stay!</p>
 </div>
 
-<audio id="background-audio" autoplay>
-   <source src="welcome.mp3" type="audio/mp3">
-   Your browser does not support the audio element.
-</audio>
-
 <script>
-   document.addEventListener("DOMContentLoaded", function () {
-       let audio = document.getElementById("background-audio");
+   function speakText(text) {
+       const speech = new SpeechSynthesisUtterance(text);
+       speech.lang = "en-US"; // Set language
+       speech.volume = 1; // Set volume (0 to 1)
+       speech.rate = 1; // Set speed (0.1 to 10)
+       speech.pitch = 1; // Set pitch (0 to 2)
+       
+       // Ensure speech starts only when voices are loaded
+       speechSynthesis.onvoiceschanged = () => {
+           speech.voice = speechSynthesis.getVoices()[0]; // Use first available voice
+           speechSynthesis.speak(speech);
+       };
 
-       if (audio) {
-           audio.play().then(() => {
-               console.log("Audio autoplayed successfully.");
-           }).catch(error => {
-               console.warn("Autoplay blocked. Trying to unmute and play...");
-               audio.muted = false;
-               audio.play();
-           });
+       // Fallback if voices are already loaded
+       if (speechSynthesis.getVoices().length > 0) {
+           speech.voice = speechSynthesis.getVoices()[0];
+           speechSynthesis.speak(speech);
        }
+   }
+
+   // Trigger speech when page loads
+   document.addEventListener("DOMContentLoaded", function () {
+       speakText("Welcome to my website");
    });
 </script>
-
 
  <!-- Adsense Ad Ends -->
 
