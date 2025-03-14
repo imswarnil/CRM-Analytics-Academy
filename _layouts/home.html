@@ -30,6 +30,63 @@ layout: default
     {% adsense large-leaderboard %}
   </div>
 </section>
+
+<style>
+   body {
+       font-family: Arial, sans-serif;
+       text-align: center;
+       background-color: #f5f5f5;
+       margin: 0;
+       padding: 0;
+   }
+   .welcome-container {
+       height: 100vh;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+   }
+   h1 {
+       font-size: 2.5rem;
+       color: #3273dc;
+   }
+   p {
+       font-size: 1.2rem;
+       color: #444;
+   }
+</style>
+
+
+<div class="welcome-container">
+   <h1>Welcome to My Website</h1>
+   <p>Enjoy your stay!</p>
+</div>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+       let audio = new Audio('welcome.mp3'); // Load the MP3 file
+       
+       function playAudio() {
+           audio.play().then(() => {
+               console.log("Audio autoplayed successfully.");
+           }).catch(error => {
+               console.warn("Autoplay blocked by browser. Waiting for user interaction...");
+               document.addEventListener('click', playOnInteraction, { once: true });
+           });
+       }
+
+       function playOnInteraction() {
+           audio.play().then(() => {
+               console.log("Audio played after user interaction.");
+           }).catch(error => {
+               console.error("Error playing audio:", error);
+           });
+       }
+
+       playAudio(); // Attempt to autoplay
+   });
+</script>
+
  <!-- Adsense Ad Ends -->
 
 <footer class="footer has-background-white pt-5">
