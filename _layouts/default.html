@@ -37,6 +37,45 @@
   {% include site-header.html %}
   <main>
     {{ content }}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .content {
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+
+    <div class="content">
+        <h1>Welcome to the Sound and Text-to-Speech Demo!</h1>
+    </div>
+
+    <!-- Audio file to play -->
+    <audio id="audio" src="your-audio-file.mp3" preload="auto"></audio>
+
+    <script>
+        // Play audio when the page loads
+        window.onload = () => {
+            const audio = document.getElementById('audio');
+            audio.play().catch(error => {
+                console.log("Autoplay is blocked. User interaction may be required.");
+            });
+
+            // Text-to-speech functionality
+            const utterance = new SpeechSynthesisUtterance("Hello, welcome to the website!");
+            window.speechSynthesis.speak(utterance);
+        };
+    </script>
+
   </main>
   {% adsense large-leaderboard %}
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
