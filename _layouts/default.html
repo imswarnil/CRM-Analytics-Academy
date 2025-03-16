@@ -38,59 +38,83 @@
   <style>
     body {
         font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #f5f5f5;
-        margin: 0;
-        padding: 0;
     }
-    .welcome-container {
-        height: 100vh;
+    .navbar-menu {
+        justify-content: flex-end;
+    }
+    .course-container {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+        height: 100vh;
     }
-    h1 {
-        font-size: 2.5rem;
-        color: #3273dc;
+    .course-content {
+        flex: 3;
+        padding: 20px;
     }
-    p {
-        font-size: 1.2rem;
-        color: #444;
+    .course-menu {
+        flex: 1;
+        background: #f5f5f5;
+        padding: 20px;
+        overflow-y: auto;
     }
 </style>
-
-<div class="welcome-container">
-    <h1>Welcome to My Website</h1>
-    <p>Enjoy your stay!</p>
+<nav class="navbar is-light">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+            <img src="logo.png" alt="Namaste Salesforce">
+            <strong>Namaste</strong> <span style="color: #409eff;">Salesforce</span>
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+    <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+            <a class="navbar-item" href="#">Home</a>
+            <a class="navbar-item" href="#">About</a>
+            <a class="navbar-item" href="#">All Products</a>
+            <a class="navbar-item" href="#">My Products</a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">Swarnil Singhai</a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="#">Profile</a>
+                    <a class="navbar-item" href="#">Settings</a>
+                    <a class="navbar-item" href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="course-container">
+    <div class="course-content">
+        <h1 class="title">The Myths of Being a Creator</h1>
+        <figure class="image is-16by9">
+            <iframe class="has-ratio" width="100%" height="500" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+        </figure>
+        <h2 class="subtitle">Key Takeaways:</h2>
+        <ul>
+            <li>Understanding myths around creators.</li>
+            <li>Overcoming mental barriers.</li>
+            <li>Setting realistic expectations.</li>
+        </ul>
+    </div>
+    <div class="course-menu">
+        <h3 class="title is-4">Course Menu</h3>
+        <aside class="menu">
+            <ul class="menu-list">
+                <li><a href="#">Welcome (2:31)</a></li>
+                <li><a href="#" class="is-active">The myths of being a creator (2:13)</a></li>
+                <li><a href="#">Developing the right mindset (4:51)</a></li>
+                <li><a href="#">Finding your why (3:30)</a></li>
+                <li><a href="#">Making money as you grow (11:18)</a></li>
+                <li><a href="#">The power and platform for knowledge (1:40)</a></li>
+                <li><a href="#">Putting it all together (2:08)</a></li>
+                <li><a href="#">What's next?</a></li>
+            </ul>
+        </aside>
+    </div>
 </div>
-
-<script>
-    function speakText(text) {
-        const speech = new SpeechSynthesisUtterance(text);
-        speech.lang = "en-US"; // Set language
-        speech.volume = 1; // Set volume (0 to 1)
-        speech.rate = 1; // Set speed (0.1 to 10)
-        speech.pitch = 1; // Set pitch (0 to 2)
-        
-        // Ensure speech starts only when voices are loaded
-        speechSynthesis.onvoiceschanged = () => {
-            speech.voice = speechSynthesis.getVoices()[0]; // Use first available voice
-            speechSynthesis.speak(speech);
-        };
-
-        // Fallback if voices are already loaded
-        if (speechSynthesis.getVoices().length > 0) {
-            speech.voice = speechSynthesis.getVoices()[0];
-            speechSynthesis.speak(speech);
-        }
-    }
-
-    // Trigger speech when page loads
-    document.addEventListener("DOMContentLoaded", function () {
-        speakText("Welcome to my website");
-    });
-</script>
   <main>
     {{ content }}
   </main>
