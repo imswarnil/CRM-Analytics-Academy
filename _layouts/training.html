@@ -22,7 +22,7 @@ layout: default
   <!-- Course Navigation -->
   <aside class="menu column is-one-quarter">
     <div class="menu-label">
-      <a href="/training/" class="section-toggle {% if page.url == '/training/' %}is-active{% endif %}">
+      <a href="/training" class="section-toggle {% if page.url == '/training/' %}is-active{% endif %}">
         <i class="{{ site.data.training.training.home.icon }}"></i> {{ site.data.training.training.home.title }}
       </a>
       <p class="menu-description">{{ site.data.training.training.home.description }}</p>
@@ -31,7 +31,7 @@ layout: default
     {% assign sorted_sections = site.data.training.training.sections | sort: "order" %}
     {% for section in sorted_sections %}
       <div class="menu-label">
-        <a href="/training/{{ section.id }}/" class="section-toggle {% if page.url contains section.id %}is-active{% endif %}">
+        <a href="/training/{{ section.title }}/" class="section-toggle {% if page.url contains section.id %}is-active{% endif %}">
           <i class="{{ section.icon }}"></i> {{ section.title }}
         </a>
         <p class="menu-description">{{ section.description }}</p>
@@ -41,7 +41,7 @@ layout: default
         {% assign sorted_lessons = section.lessons | sort: "order" %}
         {% for lesson in sorted_lessons %}
           <li>
-            <a href="/training/{{ section.id }}/{{ lesson.id }}/" class="{% if page.url contains lesson.id %}is-active{% endif %}">
+            <a href="/training/{{ section.title }}/{{ lesson.title }}/" class="{% if page.url contains lesson.title %}is-active{% endif %}">
               <span class="lesson-type lesson-{{ lesson.type }}">{{ lesson.type | capitalize }}</span> {{ lesson.title }}
             </a>
           </li>
