@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 <div class="container is-fullhd">
   <div class="columns">
     <!-- Main Content Area -->
@@ -12,8 +11,8 @@ layout: default
         <div class="columns">
           <!-- Section Title & Description -->
           <div class="column">
-            <h1 class="title is-size-2 is-size-3-tablet is-size-4-mobile">{{ page.title }}</h1>
-            <p class="subtitle is-size-5 is-size-6-tablet is-size-7-mobile">{{ page.description }}</p>
+            <h1 class="title">{{ page.title }}</h1>
+            <p class="subtitle">{{ page.description }}</p>
           </div>
           <!-- Lessons Count -->
           <div class="column is-narrow">
@@ -41,12 +40,12 @@ layout: default
 
           <!-- Lesson Details -->
           <div class="column">
-            <p class="title is-5 is-size-6-tablet is-size-7-mobile mb-1">
+            <p class="title is-5 mb-1">
               <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
             </p>
-            <p class="subtitle is-6 is-size-7-tablet is-size-7-mobile has-text-grey mb-2">{{ lesson.description }}</p>
+            <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
 
-            <!-- Author -->
+            <!-- Author (Appears Below Title) -->
             {% if lesson.author %}
             <div class="media is-align-items-center mt-2">
               <div class="media-left">
@@ -91,76 +90,84 @@ layout: default
 
       {% else %}
       <!-- Lesson Page -->
-      <h1 class="title is-size-2 is-size-3-tablet is-size-4-mobile">{{ page.title }}</h1>
-      <p class="subtitle is-size-5 is-size-6-tablet is-size-7-mobile">{{ page.description }}</p>
+      <h1 class="title">{{ page.title }}</h1>
+      <p class="subtitle">{{ page.description }}</p>
       <div class="content">{{ content }}</div>
       {% endif %}
 
       <!-- Pagination -->
-      <nav class="pagination is-centered mt-4">
-        {% assign sections = site.training | where: "type", "section" | sort: "order" %}
-        {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent and item.order != 0" | sort: "order" %}
+       <!-- Pagination -->
+<nav class="pagination is-centered mt-4">
+  {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+  {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent and item.order != 0" | sort: "order" %}
 
-        {% assign prev_page = nil %}
-        {% assign next_page = nil %}
+  {% assign prev_page = nil %}
+  {% assign next_page = nil %}
 
-        {% if page.type == "section" and page.order != 0 %}
-          {% assign first_lesson = lessons_sorted | first %}
-          {% if first_lesson %}
-            {% assign next_page = first_lesson %}
-          {% endif %}
+  {% if page.type == "section" and page.order != 0 %}
+    <!-- Section Page: 'Next' goes to first lesson -->
+    {% assign first_lesson = lessons_sorted | first %}
+    {% if first_lesson %}
+      {% assign next_page = first_lesson %}
+    {% endif %}
 
-          <!-- Find Previous Section -->
-          {% for section in sections %}
-            {% if section.url == page.url %}
-              {% assign prev_index = forloop.index0 | minus: 1 %}
-              {% if prev_index >= 0 and sections[prev_index].order != 0 %}
-                {% assign prev_page = sections[prev_index] %}
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        {% else %}
-          <!-- Lesson Page -->
-          {% for lesson in lessons_sorted %}
-            {% if lesson.url == page.url %}
-              {% assign prev_index = forloop.index0 | minus: 1 %}
-              {% assign next_index = forloop.index0 | plus: 1 %}
-            {% endif %}
-          {% endfor %}
-
-          {% if prev_index >= 0 %}
-            {% assign prev_page = lessons_sorted[prev_index] %}
-          {% else %}
-            {% assign prev_section = sections | where: "title", page.parent | first %}
-            {% if prev_section and prev_section.order != 0 %}
-              {% assign prev_page = prev_section %}
-            {% endif %}
-          {% endif %}
-
-          {% if next_index < lessons_sorted.size %}
-            {% assign next_page = lessons_sorted[next_index] %}
-          {% else %}
-            {% for section in sections %}
-              {% if section.title == page.parent %}
-                {% assign next_section_index = forloop.index0 | plus: 1 %}
-              {% endif %}
-            {% endfor %}
-            {% assign next_section = sections[next_section_index] %}
-            {% if next_section and next_section.order != 0 %}
-              {% assign next_lessons = site.training | where_exp: "item", "item.parent == next_section.title and item.order != 0" | sort: "order" %}
-              {% assign next_page = next_lessons | first %}
-            {% endif %}
-          {% endif %}
+    <!-- Find Previous Section -->
+    {% for section in sections %}
+      {% if section.url == page.url %}
+        {% assign prev_index = forloop.index0 | minus: 1 %}
+        {% if prev_index >= 0 and sections[prev_index].order != 0 %}
+          {% assign prev_page = sections[prev_index] %}
         {% endif %}
+      {% endif %}
+    {% endfor %}
 
-        {% if prev_page %}
-          <a class="pagination-previous" href="{{ prev_page.url | relative_url }}">← Previous</a>
-        {% endif %}
+  {% else %}
+    <!-- Lesson Page -->
+    {% for lesson in lessons_sorted %}
+      {% if lesson.url == page.url %}
+        {% assign prev_index = forloop.index0 | minus: 1 %}
+        {% assign next_index = forloop.index0 | plus: 1 %}
+      {% endif %}
+    {% endfor %}
 
-        {% if next_page %}
-          <a class="pagination-next" href="{{ next_page.url | relative_url }}">Next →</a>
+    {% if prev_index >= 0 %}
+      {% assign prev_page = lessons_sorted[prev_index] %}
+    {% else %}
+      <!-- If first lesson, 'Previous' should go to section page -->
+      {% assign prev_section = sections | where: "title", page.parent | first %}
+      {% if prev_section and prev_section.order != 0 %}
+        {% assign prev_page = prev_section %}
+      {% endif %}
+    {% endif %}
+
+    {% if next_index < lessons_sorted.size %}
+      {% assign next_page = lessons_sorted[next_index] %}
+    {% else %}
+      <!-- If last lesson, 'Next' should go to first lesson of next section -->
+      {% for section in sections %}
+        {% if section.title == page.parent %}
+          {% assign next_section_index = forloop.index0 | plus: 1 %}
         {% endif %}
-      </nav>
+      {% endfor %}
+      {% assign next_section = sections[next_section_index] %}
+      {% if next_section and next_section.order != 0 %}
+        {% assign next_lessons = site.training | where_exp: "item", "item.parent == next_section.title and item.order != 0" | sort: "order" %}
+        {% assign next_page = next_lessons | first %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if prev_page %}
+    <a class="pagination-previous" href="{{ prev_page.url | relative_url }}">← Previous</a>
+  {% endif %}
+
+  {% if next_page %}
+    <a class="pagination-next" href="{{ next_page.url | relative_url }}">Next →</a>
+  {% endif %}
+</nav>
+
+
+
     </div>
 
     <!-- Sidebar -->
@@ -180,15 +187,38 @@ layout: default
             <li>
               <a href="{{ section.url | relative_url }}">
                 <span class="icon">
-                  <i class="fas fa-book"></i>
+                  <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
                 </span>
                 {{ section.title }}
               </a>
+
+              {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+              {% if lessons.size > 0 %}
+                <ul>
+                  {% for lesson in lessons %}
+                    <li>
+                      <a href="{{ lesson.url | relative_url }}">
+                        <span class="icon is-small">
+                          {% if lesson.type == "article" %}
+                            <i class="fas fa-file-alt"></i>
+                          {% elsif lesson.type == "video" %}
+                            <i class="fas fa-play-circle"></i>
+                          {% else %}
+                            <i class="fas fa-file"></i>
+                          {% endif %}
+                        </span>
+                        {{ lesson.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>
       </div>
     </aside>
+
   </div>
 </div>
 
