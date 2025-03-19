@@ -5,7 +5,8 @@ layout: training
 icon : /assets/icons/history.svg
 order: 1
 type: article
-author:
+author : Raja Swarnil
+author :
   name: Swarnil Singhai
   image: /assets/students/student-1-crm-analytic-academy.jpg
 ---
