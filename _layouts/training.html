@@ -1,36 +1,45 @@
 ---
 layout: default
 ---
-  <div class="container is-fullhd">
-    <div class="columns">
-      <!-- Main Content Area -->
-      <div class="column is-three-quarters">
-        <div class="box">
-          <h1 class="title">{{ page.title }}</h1>
-          {% if page.overview %}
-            <p class="subtitle">{{ page.overview }}</p>
-            <h2 class="has-text-weight-bold mt-4">Lessons in this Section</h2>
-            <ul class="lesson-list">
-              {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
-              {% for lesson in lessons %}
-                <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            {% if page.type == "article" %}
-              <div class="content">{{ content }}</div>
-            {% elsif page.type == "video" %}
-              <div class="video-container">
-                <iframe width="560" height="315" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
-              </div>
-              <div class="content">{{ content }}</div>
-            {% elsif page.type == "quiz" %}
-              <div class="box quiz-content">{{ content }}</div>
-            {% endif %}
-          {% endif %}
-        </div>
 
-        <!-- Pagination -->
+<div class="container is-fullhd">
+  <div class="columns is-gapless">
+    <!-- Sidebar Navigation -->
+    <div class="column is-one-quarter">
+      <button class="button is-primary is-fullwidth" onclick="toggleMenu()">Course Menu</button>
+      <div id="course-menu" class="box" style="display: none;">
+        <h2 class="title is-5">Lessons</h2>
+        <ul class="lesson-list">
+          {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
+          {% for lesson in lessons %}
+            <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Main Content Area -->
+    <div class="column">
+      <div class="box">
+        <h1 class="title">{{ page.title }}</h1>
+        {% if page.overview %}
+          <p class="subtitle">{{ page.overview }}</p>
+        {% else %}
+          {% if page.type == "article" %}
+            <div class="content">{{ content }}</div>
+          {% elsif page.type == "video" %}
+            <div class="video-container">
+              <iframe class="responsive-video" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="content">{{ content }}</div>
+          {% elsif page.type == "quiz" %}
+            <div class="box quiz-content">{{ content }}</div>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      {% unless page.overview %}
+        <!-- Pagination for Lessons -->
         <nav class="pagination is-centered mt-4">
           {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
           {% for lesson in lessons_sorted %}
@@ -41,41 +50,28 @@ layout: default
           {% endfor %}
 
           {% if prev_index >= 0 %}
-            <a class="pagination-previous" href="{{ lessons_sorted[prev_index].url | relative_url }}">← Previous</a>
+            <a class="button is-link is-light" href="{{ lessons_sorted[prev_index].url | relative_url }}">← Previous</a>
           {% endif %}
 
           {% if next_index < lessons_sorted.size %}
-            <a class="pagination-next" href="{{ lessons_sorted[next_index].url | relative_url }}">Next →</a>
+            <a class="button is-link is-light" href="{{ lessons_sorted[next_index].url | relative_url }}">Next →</a>
           {% endif %}
         </nav>
-      </div>
-
-      <!-- Sidebar Navigation -->
-      <aside class="column is-one-quarter">
-        <div class="menu">
-          <h2 class="subtitle has-text-weight-bold mb-2">Course Navigation</h2>
-          {% assign sections = site.training | map: "parent" | uniq | compact %}
-
-          <ul class="menu-list">
-            {% for section_name in sections %}
-              {% assign section_page = site.training | where: "title", section_name | first %}
-              {% if section_page %}
-                <li>
-                  <a class="menu-label has-text-weight-bold" href="{{ section_page.url | relative_url }}">{{ section_name }}</a>
-                  <ul>
-                    {% assign lessons = site.training | where_exp: "item", "item.parent == section_name" | sort: "order" %}
-                    {% for lesson in lessons %}
-                      <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-                    {% endfor %}
-                  </ul>
-                </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </aside>
+      {% endunless %}
     </div>
   </div>
+</div>
+
+<script>
+  function toggleMenu() {
+    var menu = document.getElementById("course-menu");
+    if (menu.style.display === "none") {
+      menu.style.display = "block";
+    } else {
+      menu.style.display = "none";
+    }
+  }
+</script>
 
 <style>
   .lesson-list {
@@ -83,47 +79,45 @@ layout: default
     padding: 0;
     margin-top: 10px;
   }
-
   .lesson-list li {
     margin-bottom: 8px;
   }
-
   .lesson-list a {
     color: #3273dc;
     text-decoration: none;
     font-weight: bold;
   }
-
   .lesson-list a:hover {
     text-decoration: underline;
   }
-
   .video-container {
     margin-top: 20px;
     text-align: center;
   }
-
+  .responsive-video {
+    width: 100%;
+    height: 315px;
+  }
   .quiz-content {
     background: #f5f5f5;
     padding: 15px;
     border-radius: 5px;
   }
-
   .pagination {
     display: flex;
     justify-content: space-between;
   }
-
-  .menu-list {
-    padding-left: 0;
-  }
-
-  .menu-label {
-    font-size: 1.1rem;
-    padding: 5px 0;
-  }
-
-  .menu-list li {
-    list-style: none;
+  @media (max-width: 768px) {
+    .pagination {
+      flex-direction: column;
+      align-items: center;
+    }
+    .pagination a {
+      margin-bottom: 10px;
+    }
+    #course-menu {
+      width: 100%;
+      text-align: center;
+    }
   }
 </style>
