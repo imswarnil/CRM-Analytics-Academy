@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 <div class="container is-fullhd">
   <div class="columns">
     <!-- Main Content Area -->
@@ -15,7 +14,6 @@ layout: default
             <h1 class="title is-size-2 is-size-5-mobile">{{ page.title }}</h1>
             <p class="subtitle is-size-4 is-size-4-mobile">{{ page.description }}</p>
           </div>
-
           <!-- Lessons Count -->
           <div class="column is-narrow">
             {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
@@ -26,19 +24,10 @@ layout: default
           </div>
         </div>
       </div>
-
-      <!-- Section Progress -->
-      <div class="box">
-        <p class="title is-5">Section Progress</p>
-        <progress class="progress is-primary" value="0" max="100" id="section-progress"></progress>
-        <p class="is-size-6 has-text-grey" id="section-progress-text">0% Completed</p>
-      </div>
-
       <!-- Start Lesson Button -->
       <div class="has-text-centered my-5">
         <a href="{{ lessons.first.url | relative_url }}" class="button is-primary is-medium">Start First Lesson</a>
       </div>
-
       <!-- Lessons List -->
       <section>
         {{ content }}
@@ -71,24 +60,14 @@ layout: default
       {% else %}
       <!-- Lesson Page -->
       <div class="section">
-        <h1 class="title">{{ page.title }}</h1>
-        <p class="subtitle">{{ page.description }}</p>
-        <div class="content">{{ content }}</div>
+      <h1 class="title">{{ page.title }}</h1>
+      <p class="subtitle">{{ page.description }}</p>
+      <div class="content">{{ content }}</div>
       </div>
       {% endif %}
     </div>
-
-    <!-- Sidebar -->
     <aside class="menu px-3 py-4">
       <div id="sidebar-content" class="mt-3">
-        
-        <!-- Overall Training Progress -->
-        <div class="box">
-          <p class="title is-5">Overall Training Progress</p>
-          <progress class="progress is-success" value="0" max="100" id="overall-training-progress"></progress>
-          <p class="is-size-6 has-text-grey" id="overall-progress-text">0% Completed</p>
-        </div>
-
         <p class="menu-label">Training Schedule</p>
         {% assign sections = site.training | where: "type", "section" | sort: "order" %}
         <ul class="menu-list">
@@ -101,26 +80,24 @@ layout: default
                 </span>
                 {{ section.title }}
               </a>
-
-              <!-- Section Progress Bar -->
+              
+              <!-- Progress Bar -->
               <div class="progress-container">
                 <progress class="progress is-primary" value="0" max="100" data-section="{{ section.title }}"></progress>
                 <span class="progress-text" data-section-text="{{ section.title }}">0%</span>
               </div>
-
+            
               <span class="icon toggle-lessons" onclick="toggleLessons(event, this)">
                 <i class="fas fa-chevron-down"></i>
               </span>
             </div>
-
+            
+    
             {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
             <ul class="lesson-list {% if section.title == page.parent %}is-expanded{% else %}is-collapsed{% endif %}">
               {% for lesson in lessons %}
               <li>
-                <a href="{{ lesson.url | relative_url }}" 
-                   class="lesson-link {% if lesson.url == page.url %}is-active{% endif %}" 
-                   data-section="{{ section.title }}" 
-                   data-lesson="{{ lesson.title }}">
+                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
                   <span class="icon is-small">
                     {% if lesson.type == "article" %}
                     <i class="fas fa-file-alt"></i>
@@ -131,7 +108,6 @@ layout: default
                     {% endif %}
                   </span>
                   {{ lesson.title }}
-                  <span class="completed-icon" style="display:none;">✅</span>
                 </a>
               </li>
               {% endfor %}
@@ -141,67 +117,44 @@ layout: default
         </ul>
       </div>
     </aside>
+    
+    <!-- Sidebar Toggle Script -->
+    <script>
+      function toggleLessons(event, icon) {
+        event.stopPropagation(); // Prevent clicking from navigating to the section page
+        let lessonList = icon.closest(".section-header").nextElementSibling;
+        icon.classList.toggle("fa-rotate-180");
+        lessonList.classList.toggle("is-collapsed");
+        lessonList.classList.toggle("is-expanded");
+      }
+    </script>
+    
+    <!-- Smooth Collapse Styles -->
+    <style>
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .lesson-list {
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+      }
+      .is-expanded {
+        max-height: 500px;
+      }
+      .is-collapsed {
+        max-height: 0;
+      }
+      .is-active {
+        font-weight: bold;
+        color: #3273dc;
+      }
+      .fa-rotate-180 {
+        transform: rotate(180deg);
+        transition: transform 0.3s ease-in-out;
+      }
+    </style>
+    
   </div>
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    updateProgressBars();
-
-    document.querySelectorAll(".lesson-link").forEach(link => {
-      link.addEventListener("click", function () {
-        let section = this.getAttribute("data-section");
-        let lesson = this.getAttribute("data-lesson");
-        markLessonAsCompleted(section, lesson);
-      });
-    });
-  });
-
-  function markLessonAsCompleted(section, lesson) {
-    let progressData = JSON.parse(localStorage.getItem("trainingProgress")) || {};
-
-    if (!progressData[section]) {
-      progressData[section] = [];
-    }
-
-    if (!progressData[section].includes(lesson)) {
-      progressData[section].push(lesson);
-    }
-
-    localStorage.setItem("trainingProgress", JSON.stringify(progressData));
-    updateProgressBars();
-  }
-
-  function updateProgressBars() {
-    let progressData = JSON.parse(localStorage.getItem("trainingProgress")) || {};
-    let sections = document.querySelectorAll(".progress");
-
-    let totalLessons = 0;
-    let completedLessons = 0;
-
-    sections.forEach(progressBar => {
-      let sectionTitle = progressBar.getAttribute("data-section");
-      let lessonsInSection = document.querySelectorAll(`[data-section="${sectionTitle}"]`).length;
-      let completedInSection = progressData[sectionTitle] ? progressData[sectionTitle].length : 0;
-
-      totalLessons += lessonsInSection;
-      completedLessons += completedInSection;
-
-      let progress = (completedInSection / lessonsInSection) * 100 || 0;
-      progressBar.value = progress;
-
-      let progressText = document.querySelector(`[data-section-text="${sectionTitle}"]`);
-      if (progressText) progressText.textContent = `${Math.round(progress)}%`;
-
-      document.querySelectorAll(`[data-section="${sectionTitle}"]`).forEach(link => {
-        if (progressData[sectionTitle]?.includes(link.getAttribute("data-lesson"))) {
-          link.querySelector(".completed-icon").style.display = "inline";
-        }
-      });
-    });
-
-    let overallProgress = (completedLessons / totalLessons) * 100 || 0;
-    document.getElementById("overall-training-progress").value = overallProgress;
-    document.getElementById("overall-progress-text").textContent = `${Math.round(overallProgress)}% Completed`;
-  }
-</script>
