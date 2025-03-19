@@ -2,93 +2,100 @@
 layout: default
 ---
 
-<section class="section">
+<div class="container is-fullhd">
   <div class="columns is-gapless">
-    <!-- Sidebar Navigation -->
-    <aside class="column is-2 has-background-light p-4 is-fullheight is-flex is-flex-direction-column">
-      <h2 class="title is-5">Course Navigation</h2>
-      {% assign sections = site.training | map: "parent" | uniq | compact %}
-      <aside class="menu">
-        <ul class="menu-list">
-          {% for section_name in sections %}
-            {% assign section_page = site.training | where: "title", section_name | first %}
-            {% if section_page %}
-              <li>
-                <a class="is-size-6 has-text-weight-semibold collapsible" data-target="section-{{ forloop.index }}">{{ section_name }}</a>
-                <ul id="section-{{ forloop.index }}" class="is-hidden">
-                  {% assign lessons = site.training | where_exp: "item", "item.parent == section_name" | sort: "order" %}
-                  {% for lesson in lessons %}
-                    <li><a class="is-size-7" href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-                  {% endfor %}
-                </ul>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </aside>
-    </aside>
-
     <!-- Main Content Area -->
-    <div class="column is-8 p-5">
+    <div class="column">
       <div class="box">
-        <h1 class="title is-4">{{ page.title }}</h1>
-        {% if page.type == "video" %}
-          <div class="video-container has-text-centered">
-            <iframe class="has-ratio" width="100%" height="500" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
-          </div>
+        <h1 class="title">{{ page.title }}</h1>
+        {% if page.overview %}
+          <p class="subtitle">{{ page.overview }}</p>
+          <h2 class="has-text-weight-bold mt-4">Lessons in this Section</h2>
+          <ul class="lesson-list">
+            {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
+            {% for lesson in lessons %}
+              <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          {% if page.type == "article" %}
+            <div class="content">{{ content }}</div>
+          {% elsif page.type == "video" %}
+            <div class="video-container">
+              <iframe class="responsive-video" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="content">{{ content }}</div>
+          {% elsif page.type == "quiz" %}
+            <div class="box quiz-content">{{ content }}</div>
+          {% endif %}
         {% endif %}
-        <div class="content">{{ content }}</div>
       </div>
 
-      <!-- Ad Placeholder -->
-      <div class="notification is-light has-text-centered">ADVERTISEMENT</div>
+      {% unless page.overview %}
+        <!-- Pagination for Lessons -->
+        <nav class="pagination is-centered mt-4">
+          {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
+          {% for lesson in lessons_sorted %}
+            {% if lesson.url == page.url %}
+              {% assign prev_index = forloop.index0 | minus: 1 %}
+              {% assign next_index = forloop.index0 | plus: 1 %}
+            {% endif %}
+          {% endfor %}
 
-      <!-- Pagination -->
-      <nav class="pagination is-flex is-justify-content-space-between mt-4">
-        {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
-        {% assign current_index = lessons_sorted | map: "url" | index: page.url %}
-
-        {% if current_index > 0 %}
-          <a class="button is-link is-light" href="{{ lessons_sorted[current_index - 1].url | relative_url }}">← Previous</a>
-        {% else %}
-          {% assign prev_section = site.training | where_exp: "item", "item.parent < page.parent" | last %}
-          {% if prev_section %}
-            <a class="button is-link is-light" href="{{ prev_section.url | relative_url }}">← Previous Section</a>
+          {% if prev_index >= 0 %}
+            <a class="button is-link is-light" href="{{ lessons_sorted[prev_index].url | relative_url }}">← Previous</a>
           {% endif %}
-        {% endif %}
 
-        {% if current_index < lessons_sorted.size - 1 %}
-          <a class="button is-link is-light" href="{{ lessons_sorted[current_index + 1].url | relative_url }}">Next →</a>
-        {% else %}
-          {% assign next_section = site.training | where_exp: "item", "item.parent > page.parent" | first %}
-          {% if next_section %}
-            <a class="button is-link is-light" href="{{ next_section.url | relative_url }}">Next Section →</a>
+          {% if next_index < lessons_sorted.size %}
+            <a class="button is-link is-light" href="{{ lessons_sorted[next_index].url | relative_url }}">Next →</a>
           {% endif %}
-        {% endif %}
-      </nav>
+        </nav>
+      {% endunless %}
     </div>
-
-    <!-- Ad Sidebar -->
-    <aside class="column is-2 has-background-light p-4 is-flex is-align-items-center is-justify-content-center">
-      <div class="notification is-light has-text-centered">ADVERTISEMENT</div>
-    </aside>
   </div>
-</section>
+</div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const collapsibleLabels = document.querySelectorAll(".collapsible");
-    collapsibleLabels.forEach(label => {
-      label.addEventListener("click", function () {
-        const targetId = this.getAttribute("data-target");
-        const targetMenu = document.getElementById(targetId);
-        document.querySelectorAll(".menu-list ul").forEach(menu => {
-          if (menu.id !== targetId) {
-            menu.classList.add("is-hidden");
-          }
-        });
-        targetMenu.classList.toggle("is-hidden");
-      });
-    });
-  });
-</script>
+<style>
+  .lesson-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  .lesson-list li {
+    margin-bottom: 8px;
+  }
+  .lesson-list a {
+    color: #3273dc;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .lesson-list a:hover {
+    text-decoration: underline;
+  }
+  .video-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .responsive-video {
+    width: 100%;
+    height: 315px;
+  }
+  .quiz-content {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    .pagination {
+      flex-direction: column;
+      align-items: center;
+    }
+    .pagination a {
+      margin-bottom: 10px;
+    }
+  }
+</style>
