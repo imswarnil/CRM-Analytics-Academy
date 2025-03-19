@@ -27,37 +27,38 @@ layout: default
   </div>
 
   <!-- Course Navigation -->
-  <aside class="menu is-sticky has-shadow p-3">
-    <!-- Training Home -->
-    <p class="menu-label">
-      <i class="{{ site.training.home.icon }}"></i> 
-      <a href="{{ site.baseurl }}/training">{{ site.training.home.title }}</a>
-    </p>
-  
-    {% for section in site.training.sections | sort: "order" %}
-      {% assign section_page = site.training | where: "name", section.title | first %}
-      <p class="menu-label">
-        <i class="{{ section.icon }}"></i> 
-        <a href="{{ section_page.url }}">{{ section.title }}</a>
-        <span class="toggle-arrow" onclick="toggleSection('{{ section.title | slugify }}')">▶</span>
-      </p>
-  
-      <ul class="menu-list" id="section-{{ section.title | slugify }}" style="display: none;">
-        {% for lesson in section.lessons | sort: "order" %}
-          {% assign lesson_page = site.training | where: "name", lesson.title | first %}
-          <li>
-            <a href="{{ lesson_page.url }}" class="lesson-link {% if page.url contains lesson_page.url %}is-active{% endif %}">
-              <span class="lesson-type {{ lesson.type }}">
-                <i class="{% if lesson.type == 'article' %}fas fa-file-alt{% elsif lesson.type == 'video' %}fas fa-video{% elsif lesson.type == 'quiz' %}fas fa-question{% elsif lesson.type == 'exercise' %}fas fa-dumbbell{% elsif lesson.type == 'assignment' %}fas fa-tasks{% endif %}"></i>
-              </span>
-              {{ lesson.title }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endfor %}
-  </aside>
-  
+  <div class="column is-one-quarter is-scroll-column left-shadowed">
+    <div class="card">
+      {% for section in site.data.training.sections %}
+      <header class="card-header">
+        <p class="card-header-title">
+          {{ section.title }}
+        </p>
+        <button class="button is-medium is-white" aria-label="toggle menu">
+          <span class="icon">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </header>
+      <div class="card-content">
+        <nav class="panel">
+          {% for lesson in section.lessons %}
+          <a href="/training/section{{ section.number }}/lesson-{{ lesson.lesson | replace: '.', '-' }}/" class="panel-block">
+            <span class="panel-icon">
+              {% if page.lesson == lesson.lesson %}
+              <i class="fas fa-check-circle"></i>
+              {% else %}
+              <i class="far fa-circle"></i>
+              {% endif %}
+            </span>
+            {{ lesson.title }}
+          </a>
+          {% endfor %}
+        </nav>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
   

@@ -150,7 +150,6 @@ collections:
   training:
     output: true
     layout : training
-    permalink : :collection/:path
   courses:
     output: true
     permalink: /courses/:name/
