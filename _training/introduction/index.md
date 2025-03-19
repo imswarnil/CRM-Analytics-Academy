@@ -1,6 +1,5 @@
 ---
-layout: lesson-overview
+layout: lesson
 title: "Salesforce CRM Analytics Training - Overview "
 ---
 
-Overvi

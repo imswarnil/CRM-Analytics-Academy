@@ -1,5 +1,5 @@
 ---
-layout: training-lesson
+layout: training
 title: "Setting Up Your Training Environment"
 description: "Learn how to set up your training environment for Salesforce CRM Analytics."
 section: 1

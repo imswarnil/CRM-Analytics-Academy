@@ -1,5 +1,5 @@
 ---
-layout: training-lesson
+layout: training
 title: "Welcome to the Training"
 description: "An introduction to the Salesforce CRM Analytics training course, covering the structure and objectives."
 section: 1
