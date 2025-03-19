@@ -3,7 +3,7 @@ title: "Introduction to Salesforce"
 parent: "Getting Started"
 layout: training
 icon : /assets/icons/history.svg
-order: 1
+order: 2
 type: article
 author : Raja Swarnil
 author :

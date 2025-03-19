@@ -2,7 +2,7 @@
 type : section
 title: "Section - 2"
 description: "Learn the basics of Salesforce from scratch."
-order: 2
+order: 10
 permalink: /section-2/
 ---
 

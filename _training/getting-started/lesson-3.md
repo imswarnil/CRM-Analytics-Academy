@@ -2,7 +2,7 @@
 title: "Getting Started Quiz"
 parent: "Getting Started"
 layout: training
-order: 3
+order: 4
 icon : /assets/training/training.svg
 type: quiz
 ---
