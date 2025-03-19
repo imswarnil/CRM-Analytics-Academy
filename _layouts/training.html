@@ -9,72 +9,62 @@ layout: default
         <iframe class="has-ratio" width="640" height="360" src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}" frameborder="0" allowfullscreen></iframe>
       </figure>
     {% else %}
-      <article>
-        <h1>{{ page.title }}</h1>
+      <article class="content p-4">
+        <h1 class="title">{{ page.title }}</h1>
         <p>{{ content }}</p>
       </article>
     {% endif %}
     
     <!-- Ad Placeholder 1 -->
-    <div class="ad-placeholder">Ad Space 1</div>
+    <div class="box has-text-centered">Ad Space 1</div>
   </div>
   
   <!-- Course Navigation -->
-  <div class="column is-one-quarter is-scroll-column left-shadowed">
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">
-          <h1>Course Sections</h1>
-        </p>
-        <button class="button is-medium is-white" id="menu-toggle">
-          <span class="icon"><i class="fas fa-angle-down"></i></span>
-        </button>
-      </header>
-      
-      <div class="card-content">
-        <nav class="panel">
-          {% assign sorted_pages = site.training | sort: 'id' %}
-          {% assign sections = sorted_pages | group_by: 'section' %}
-          
-          {% for section in sections %}
-            {% assign section_index = section.items | first %}
-            <p class="panel-heading">
-              <a href="{{ section_index.url }}">
-                {% if section_index.icon %} {{ section_index.icon }} {% endif %} 
-                {{ section_index.title }}
-              </a>
-            </p>
-            
-            {% for lesson in section.items %}
-              {% if lesson.id contains '.' %}
-                <a href="{{ lesson.url }}" class="panel-block {% if page.url == lesson.url %} is-active {% endif %}">
-                  <span class="panel-icon">
-                    {% if lesson.video_url %} 🎥 {% else %} 📄 {% endif %}
-                  </span>
-                  {{ lesson.title }}
-                </a>
-              {% endif %}
-            {% endfor %}
-          {% endfor %}
-        </nav>
-      </div>
-    </div>
+  <div class="column is-one-quarter is-scroll-column left-shadowed p-2">
+    <aside class="menu">
+      <p class="menu-label">Course Sections</p>
+      <ul class="menu-list">
+        {% assign sorted_pages = site.training | sort: 'id' %}
+        {% assign sections = sorted_pages | group_by: "section" %}
+        
+        {% for section in sections %}
+          <li>
+            <a href="{{ section.items.first.url }}">
+              <span class="icon">{{ section.items.first.icon }}</span>
+              {{ section.name }}
+            </a>
+            <ul>
+              {% for lesson in section.items %}
+                <li>
+                  <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
+                    <span class="icon">
+                      {% if lesson.video_url %} 🎥 {% else %} 📄 {% endif %}
+                    </span>
+                    {{ lesson.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </aside>
     
     <!-- Ad Placeholder 2 -->
-    <div class="ad-placeholder">Ad Space 2</div>
+    <div class="box has-text-centered">Ad Space 2</div>
   </div>
 </div>
 
 <!-- Mobile Navigation Button -->
-<button id="mobile-nav" class="button is-fullwidth">Show Course Menu</button>
+<button id="mobile-nav" class="button is-fullwidth is-primary">Show Course Menu</button>
 
 <!-- Ad Placeholders -->
-<div class="ad-placeholder">Ad Space 3</div>
-<div class="ad-placeholder">Ad Space 4</div>
-<div class="ad-placeholder">Ad Space 5</div>
+<div class="box has-text-centered">Ad Space 3</div>
+<div class="box has-text-centered">Ad Space 4</div>
+<div class="box has-text-centered">Ad Space 5</div>
 
 <!-- Pagination -->
-<nav class="pagination">
+<nav class="pagination is-centered mt-4">
   {% assign all_pages = site.training | sort: 'id' %}
   {% for lesson in all_pages %}
     {% if lesson.url == page.url %}
@@ -93,10 +83,6 @@ layout: default
 </nav>
 
 <script>
-  document.getElementById('menu-toggle').addEventListener('click', function() {
-    document.querySelector('.card-content').classList.toggle('is-hidden');
-  });
-  
   document.getElementById('mobile-nav').addEventListener('click', function() {
     document.querySelector('.column.is-one-quarter').classList.toggle('is-hidden');
   });
