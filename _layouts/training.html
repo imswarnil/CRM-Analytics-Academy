@@ -25,16 +25,18 @@ layout: default
       <p class="menu-label">Course Sections</p>
       <ul class="menu-list">
         {% assign sorted_pages = site.training | sort: 'id' %}
-        {% assign sections = sorted_pages | group_by: "section" %}
+        {% assign sections = sorted_pages | group_by_exp: "item", "item.id | split: '.' | first" %}
         
         {% for section in sections %}
+          {% assign section_id = section.name | plus: 0 %}
+          {% assign lessons = section.items | sort: 'id' %}
           <li>
-            <a href="{{ section.items.first.url }}">
-              <span class="icon">{{ section.items.first.icon }}</span>
-              {{ section.name }}
+            <a href="{{ lessons.first.url }}">
+              <span class="icon">{{ lessons.first.icon }}</span>
+              {{ lessons.first.section }}
             </a>
             <ul>
-              {% for lesson in section.items %}
+              {% for lesson in lessons %}
                 <li>
                   <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
                     <span class="icon">
