@@ -1,11 +1,8 @@
 ---
-layout: training
-title: "Lesson 2.1"
-description: "An introduction to the Salesforce CRM Analytics training course, covering the structure and objectives."
-type : video
-start_time: 19
-end_time: 95
-video_url: "https://www.youtube.com/embed/aPwndqsmaGk"
+title: "Salesforce Setup Guide- 2"
+type: "video"
+order: 2
+parent: "configuration"
+video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
 ---
-
-Some Data Here
+This is a **video** lesson.
