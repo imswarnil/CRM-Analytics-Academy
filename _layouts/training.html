@@ -4,7 +4,7 @@ layout: default
 <div class="container is-fullhd">
   <div class="columns">
     <!-- Main Content Area -->
-    <div class="column is-three-quarters page-content">
+    <div class="column is-three-quarters ">
       {% if page.type == "section" %}
       <!-- Course Section Layout -->
       <div class="container is-fluid my-5">
@@ -151,73 +151,46 @@ layout: default
         transform: rotate(180deg);
         transition: transform 0.3s ease-in-out;
       }
-    /* General Page Transition Setup */
-.page-content {
+/* Hides content initially to prevent flicker */
+h1.title, p.subtitle, .content {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+h1.title.typed, p.subtitle.typed, .content.typed {
   opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.4s ease, transform 0.5s ease-in-out;
 }
-
-/* Exit Animation - Page Turns into Bar Chart */
-@keyframes collapseToBars {
-  0% { opacity: 1; transform: scale(1); }
-  30% { opacity: 0.8; transform: scale(0.95); }
-  70% { opacity: 0.5; transform: scale(0.8); }
-  100% { opacity: 0; transform: scale(0.5); }
-}
-
-.page-exit {
-  animation: collapseToBars 0.5s ease-in forwards;
-}
-
-/* Entry Animation - Morph from Play Icon to Full Page */
-@keyframes playIconMorph {
-  0% { clip-path: polygon(30% 10%, 90% 50%, 30% 90%, 30% 10%); opacity: 0; }
-  30% { clip-path: polygon(10% 5%, 95% 50%, 10% 95%, 10% 5%); opacity: 0.5; }
-  70% { clip-path: circle(50% at center); opacity: 0.9; }
-  100% { clip-path: circle(100% at center); opacity: 1; }
-}
-
-.page-enter {
-  animation: playIconMorph 0.8s ease-out forwards;
-}
-
 
     </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+  function typeEffect(element, speed) {
+    let text = element.innerHTML;
+    element.innerHTML = "";
+    let i = 0;
+    
+    function type() {
+      if (i < text.length) {
+        element.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      }
+    }
+    
+    type();
+  }
+
+  // Apply to Page Titles, Descriptions, and Content
+  const title = document.querySelector("h1.title");
+  const subtitle = document.querySelector("p.subtitle");
+  const content = document.querySelector(".content");
+
+  if (title) typeEffect(title, 20); // Super fast typing effect
+  if (subtitle) typeEffect(subtitle, 15);
+  if (content) typeEffect(content, 10);
+});
+
+    </script>
     
   </div>
 </div>
-
-<script>
- document.addEventListener("DOMContentLoaded", function () {
-  const links = document.querySelectorAll("a[href]");
-  const pageContent = document.querySelector(".page-content");
-
-  // Play entry animation when page loads
-  pageContent.classList.add("page-enter");
-
-  links.forEach((link) => {
-    link.addEventListener("click", function (event) {
-      if (
-        link.target === "_blank" ||
-        link.href.includes("#") ||
-        link.href.includes("javascript:") ||
-        link.getAttribute("download")
-      ) {
-        return;
-      }
-
-      event.preventDefault();
-
-      // Play exit animation (collapsing into bar chart)
-      pageContent.classList.add("page-exit");
-
-      setTimeout(() => {
-        window.location.href = link.href;
-      }, 500); // Matches animation duration
-    });
-  });
-});
-
-
-</script>
