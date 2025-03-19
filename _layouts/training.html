@@ -200,15 +200,3 @@ layout: default
     
   </div>
 </div>
-
-<!-- Sidebar Toggle & Collapse Script -->
-<script>
-  document.querySelectorAll('.toggle-section').forEach(item => {
-    item.addEventListener('click', event => {
-      let lessonList = item.nextElementSibling;
-      let icon = item.querySelector('.fa-chevron-down');
-      lessonList.style.display = lessonList.style.display === "none" ? "block" : "none";
-      icon.classList.toggle('fa-rotate-180');
-    });
-  });
-</script>
