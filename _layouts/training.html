@@ -67,10 +67,10 @@ layout: default
     {% for lesson in section_index.lessons %}
       {% if lesson.lesson == current_lesson %}
         {% if forloop.first == false %}
-          <a href="/training/section{{ page.section }}/lesson-{{ section_index.lessons[forloop.index0].lesson | replace: '.', '-' }}/" class="button is-link is-light">Previous Lesson</a>
+          <a href="/training/{{ page.section }}/{{ section_index.lessons[forloop.index0].lesson | replace: '.', '-' }}/" class="button is-link is-light">Previous Lesson</a>
         {% endif %}
         {% if forloop.last == false %}
-          <a href="/training/section{{ page.section }}/lesson-{{ section_index.lessons[forloop.index].lesson | replace: '.', '-' }}/" class="button is-link is-light">Next Lesson</a>
+          <a href="/training/{{ page.section }}/{{ section_index.lessons[forloop.index].lesson | replace: '.', '-' }}/" class="button is-link is-light">Next Lesson</a>
         {% endif %}
       {% endif %}
     {% endfor %}
