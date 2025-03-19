@@ -2,7 +2,6 @@
 layout: training
 title: "Lesson 2.1"
 description: "Learn how to set up your training environment for Salesforce CRM Analytics."
-id : 2.1
 type : article
 ---
 ## Overview
