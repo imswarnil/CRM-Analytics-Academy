@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 <div class="columns is-gapless">
   <!-- Video/Article Section -->
   <div class="column">
@@ -35,17 +34,27 @@ layout: default
       <div class="card-content">
         <nav class="panel">
           {% assign sorted_pages = site.training | sort: 'id' %}
-          {% for lesson in sorted_pages %}
-            <a href="{{ lesson.url }}" class="panel-block {% if page.url == lesson.url %} is-active {% endif %}">
-              <span class="panel-icon">
-                {% if lesson.video_url %}
-                  🎥
-                {% else %}
-                  📄
-                {% endif %}
-              </span>
-              {{ lesson.title }}
-            </a>
+          {% assign sections = sorted_pages | group_by: 'section' %}
+          
+          {% for section in sections %}
+            {% assign section_index = section.items | first %}
+            <p class="panel-heading">
+              <a href="{{ section_index.url }}">
+                {% if section_index.icon %} {{ section_index.icon }} {% endif %} 
+                {{ section_index.title }}
+              </a>
+            </p>
+            
+            {% for lesson in section.items %}
+              {% if lesson.id contains '.' %}
+                <a href="{{ lesson.url }}" class="panel-block {% if page.url == lesson.url %} is-active {% endif %}">
+                  <span class="panel-icon">
+                    {% if lesson.video_url %} 🎥 {% else %} 📄 {% endif %}
+                  </span>
+                  {{ lesson.title }}
+                </a>
+              {% endif %}
+            {% endfor %}
           {% endfor %}
         </nav>
       </div>
