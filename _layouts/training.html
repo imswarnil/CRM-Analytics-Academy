@@ -151,43 +151,28 @@ layout: default
         transform: rotate(180deg);
         transition: transform 0.3s ease-in-out;
       }
-/* Hides content initially to prevent flicker */
-h1.title, p.subtitle, .content {
+      /* Content transition effect */
+.content {
   opacity: 0;
-  transition: opacity 0.3s ease-in;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-h1.title.typed, p.subtitle.typed, .content.typed {
+.content.show {
   opacity: 1;
+  transform: translateY(0);
 }
 
     </style>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-  function typeEffect(element, speed) {
-    let text = element.innerHTML;
-    element.innerHTML = "";
-    let i = 0;
-    
-    function type() {
-      if (i < text.length) {
-        element.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(type, speed);
-      }
-    }
-    
-    type();
-  }
-
-  // Apply to Page Titles, Descriptions, and Content
-  const title = document.querySelector("h1.title");
-  const subtitle = document.querySelector("p.subtitle");
   const content = document.querySelector(".content");
-
-  if (title) typeEffect(title, 20); // Super fast typing effect
-  if (subtitle) typeEffect(subtitle, 15);
-  if (content) typeEffect(content, 10);
+  
+  if (content) {
+    setTimeout(() => {
+      content.classList.add("show");
+    }, 100); // Slight delay for smooth effect
+  }
 });
 
     </script>
