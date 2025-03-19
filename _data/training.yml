@@ -6,22 +6,22 @@ home:
 sections:
   - title: "Introduction"
     description: "Introduction to the course and prerequisites."
-    slug: "introduction"
+    slug: "Introduction"
     lessons:
-      - title: "Basics Terms"
+      - title: "Introduction"
         description: "An overview of what you'll learn."
-        slug: "basic-terms"
+        slug: "introduction"
       - title: "Course Setup"
         description: "Setting up your environment."
         slug: "course-setup"
-
+sections:
   - title: "Configuration"
     description: "Learn how to configure settings."
     slug: "configuration"
     lessons:
-      - title: "navigation"
+      - title: "System Overview"
         description: "Understanding the basics of system configuration."
-        slug: "navigation"
+        slug: "system-overview"
       - title: "Best Practices"
         description: "Key recommendations for setup."
         slug: "best-practices"
