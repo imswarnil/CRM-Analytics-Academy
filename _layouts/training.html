@@ -5,45 +5,100 @@ layout: default
     <div class="columns">
       <!-- Main Content Area -->
       <div class="column is-three-quarters">
-        <div class="box">
-          <h1 class="title">{{ page.title }}</h1>
-          {% if page.type %}
-             <!-- Hero Section -->
-<section class="hero is-primary">
-  <div class="hero-body">
-    <div class="container">
+         <!-- Section Page Start -->
+        {% if page.type == "section" %}
+<div class="container is-fluid">
+  <div class="columns">
+    
+    <!-- Left Column: Section Title & Description -->
+    <div class="column is-half">
       <h1 class="title">{{ page.title }}</h1>
       <p class="subtitle">{{ page.description }}</p>
     </div>
+
+    <!-- Right Column: Lessons Summary -->
+    <div class="column is-half">
+      {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
+      {% assign lesson_count = lessons | size %}
+
+      <div class="box has-text-centered">
+        <p class="title is-4">{{ lesson_count }}</p>
+        <p class="subtitle is-6">Total Lessons</p>
+      </div>
+
+      <div class="columns is-multiline">
+        {% for lesson in lessons %}
+        <div class="column is-half">
+          <div class="card">
+            <div class="card-content">
+              <div class="media">
+                <!-- Lesson Icon -->
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img src="{{ lesson.icon | relative_url }}" alt="Lesson Icon">
+                  </figure>
+                </div>
+
+                <!-- Lesson Details -->
+                <div class="media-content">
+                  <p class="title is-5">
+                    <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
+                  </p>
+                  <p class="subtitle is-6">{{ lesson.parent }}</p>
+                </div>
+              </div>
+
+              <!-- Lesson Type Badge -->
+              <div class="tags">
+                <span class="tag is-info is-light">{{ lesson.type | capitalize }}</span>
+              </div>
+
+              <!-- Author Avatar (Replace 'author.avatar' with the actual field used for author images) -->
+              {% if lesson.author_avatar %}
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-32x32">
+                    <img class="is-rounded" src="{{ lesson.author_img| relative_url }}" alt="Author Avatar">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="is-size-7 has-text-grey">By {{ lesson.author }}</p>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
   </div>
-</section>
+</div>
+ <!-- Section Page Start -->
 
-{% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
-{% assign lesson_count = lessons | size %}
+  <!-- Lesson Page Start -->
 
-<p class="has-text-weight-bold">Total Lessons in this Section: {{ lesson_count }}</p>
 
-<ul>
-  {% for lesson in lessons %}
-    <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-  {% endfor %}
-</ul>
-
-            </ul>
           {% else %}
             {% if page.type == "article" %}
+            <h1 class="title">{{ page.title }}</h1>
+<p class="subtitle">{{ page.description }}</p>
               <div class="content">{{ content }}</div>
             {% elsif page.type == "video" %}
+            <h1 class="title">{{ page.title }}</h1>
+<p class="subtitle">{{ page.description }}</p>
               <div class="video-container">
                 <iframe width="560" height="315" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
               </div>
               <div class="content">{{ content }}</div>
             {% elsif page.type == "quiz" %}
+            <h1 class="title">{{ page.title }}</h1>
+<p class="subtitle">{{ page.description }}</p>
               <div class="box quiz-content">{{ content }}</div>
             {% endif %}
           {% endif %}
-        </div>
-
+       
         <!-- Pagination -->
         <nav class="pagination is-centered mt-4">
           {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
