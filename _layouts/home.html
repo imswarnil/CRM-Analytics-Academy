@@ -30,67 +30,8 @@ layout: default
     {% adsense large-leaderboard %}
   </div>
 </section>
-<style>
-   body {
-       font-family: Arial, sans-serif;
-       text-align: center;
-       background-color: #f5f5f5;
-       margin: 0;
-       padding: 0;
-   }
-   .welcome-container {
-       height: 100vh;
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       flex-direction: column;
-   }
-   h1 {
-       font-size: 2.5rem;
-       color: #3273dc;
-   }
-   p {
-       font-size: 1.2rem;
-       color: #444;
-   }
-</style>
 </head>
 <body>
-
-<div class="welcome-container">
-   <h1>Welcome to My Website</h1>
-   <p>Enjoy your stay!</p>
-</div>
-
-<script>
-   function speakText(text) {
-       const speech = new SpeechSynthesisUtterance(text);
-       speech.lang = "en-US"; // Set language
-       speech.volume = 1; // Set volume (0 to 1)
-       speech.rate = 1; // Set speed (0.1 to 10)
-       speech.pitch = 1; // Set pitch (0 to 2)
-       
-       // Ensure speech starts only when voices are loaded
-       speechSynthesis.onvoiceschanged = () => {
-           speech.voice = speechSynthesis.getVoices()[0]; // Use first available voice
-           speechSynthesis.speak(speech);
-       };
-
-       // Fallback if voices are already loaded
-       if (speechSynthesis.getVoices().length > 0) {
-           speech.voice = speechSynthesis.getVoices()[0];
-           speechSynthesis.speak(speech);
-       }
-   }
-
-   // Trigger speech when page loads
-   document.addEventListener("DOMContentLoaded", function () {
-       speakText("Welcome to my website");
-   });
-</script>
-
- <!-- Adsense Ad Ends -->
-
 <footer class="footer has-background-white pt-5">
   <div class="container">
      <!-- Top Section --> 
