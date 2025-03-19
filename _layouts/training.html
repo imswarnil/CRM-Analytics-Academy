@@ -1,129 +1,130 @@
 ---
 layout: default
 ---
-  <div class="container is-fullhd">
-    <div class="columns">
-      <!-- Main Content Area -->
-      <div class="column is-three-quarters">
-        <div class="box">
-          <h1 class="title">{{ page.title }}</h1>
-          {% if page.overview %}
-            <p class="subtitle">{{ page.overview }}</p>
-            <h2 class="has-text-weight-bold mt-4">Lessons in this Section</h2>
-            <ul class="lesson-list">
-              {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
-              {% for lesson in lessons %}
-                <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            {% if page.type == "article" %}
-              <div class="content">{{ content }}</div>
-            {% elsif page.type == "video" %}
-              <div class="video-container">
-                <iframe width="560" height="315" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
-              </div>
-              <div class="content">{{ content }}</div>
-            {% elsif page.type == "quiz" %}
-              <div class="box quiz-content">{{ content }}</div>
-            {% endif %}
-          {% endif %}
-        </div>
 
-        <!-- Pagination -->
-        <nav class="pagination is-centered mt-4">
-          {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
-          {% for lesson in lessons_sorted %}
-            {% if lesson.url == page.url %}
-              {% assign prev_index = forloop.index0 | minus: 1 %}
-              {% assign next_index = forloop.index0 | plus: 1 %}
+<section class="course-player">
+  <div class="columns is-gapless">
+    <!-- Sidebar Navigation -->
+    <aside class="column is-2 sidebar">
+      <div class="menu">
+        <h2 class="menu-title">Course Navigation</h2>
+        {% assign sections = site.training | map: "parent" | uniq | compact %}
+        <ul class="menu-list">
+          {% for section_name in sections %}
+            {% assign section_page = site.training | where: "title", section_name | first %}
+            {% if section_page %}
+              <li>
+                <a class="menu-label collapsible" data-target="section-{{ forloop.index }}">{{ section_name }}</a>
+                <ul id="section-{{ forloop.index }}" class="lesson-items is-hidden">
+                  {% assign lessons = site.training | where_exp: "item", "item.parent == section_name" | sort: "order" %}
+                  {% for lesson in lessons %}
+                    <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
             {% endif %}
           {% endfor %}
+        </ul>
+      </div>
+    </aside>
 
-          {% if prev_index >= 0 %}
-            <a class="pagination-previous" href="{{ lessons_sorted[prev_index].url | relative_url }}">← Previous</a>
-          {% endif %}
-
-          {% if next_index < lessons_sorted.size %}
-            <a class="pagination-next" href="{{ lessons_sorted[next_index].url | relative_url }}">Next →</a>
-          {% endif %}
-        </nav>
+    <!-- Main Content Area -->
+    <div class="column is-8 content-area">
+      <div class="box">
+        <h1 class="title">{{ page.title }}</h1>
+        {% if page.type == "video" %}
+          <div class="video-container">
+            <iframe width="100%" height="500" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
+          </div>
+        {% endif %}
+        <div class="content">{{ content }}</div>
       </div>
 
-      <!-- Sidebar Navigation -->
-      <aside class="column is-one-quarter">
-        <div class="menu">
-          <h2 class="subtitle has-text-weight-bold mb-2">Course Navigation</h2>
-          {% assign sections = site.training | map: "parent" | uniq | compact %}
+      <!-- Ad Placeholder -->
+      <div class="ad-placeholder">ADVERTISEMENT</div>
 
-          <ul class="menu-list">
-            {% for section_name in sections %}
-              {% assign section_page = site.training | where: "title", section_name | first %}
-              {% if section_page %}
-                <li>
-                  <a class="menu-label has-text-weight-bold" href="{{ section_page.url | relative_url }}">{{ section_name }}</a>
-                  <ul>
-                    {% assign lessons = site.training | where_exp: "item", "item.parent == section_name" | sort: "order" %}
-                    {% for lesson in lessons %}
-                      <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-                    {% endfor %}
-                  </ul>
-                </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </aside>
+      <!-- Pagination -->
+      <nav class="pagination mt-4">
+        {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
+        {% assign current_index = lessons_sorted | map: "url" | index: page.url %}
+
+        {% if current_index > 0 %}
+          <a class="pagination-previous" href="{{ lessons_sorted[current_index - 1].url | relative_url }}">← Previous</a>
+        {% else %}
+          {% assign prev_section = site.training | where_exp: "item", "item.parent < page.parent" | last %}
+          {% if prev_section %}
+            <a class="pagination-previous" href="{{ prev_section.url | relative_url }}">← Previous Section</a>
+          {% endif %}
+        {% endif %}
+
+        {% if current_index < lessons_sorted.size - 1 %}
+          <a class="pagination-next" href="{{ lessons_sorted[current_index + 1].url | relative_url }}">Next →</a>
+        {% else %}
+          {% assign next_section = site.training | where_exp: "item", "item.parent > page.parent" | first %}
+          {% if next_section %}
+            <a class="pagination-next" href="{{ next_section.url | relative_url }}">Next Section →</a>
+          {% endif %}
+        {% endif %}
+      </nav>
     </div>
+
+    <!-- Ad Sidebar -->
+    <aside class="column is-2 ad-sidebar">
+      <div class="ad-placeholder">ADVERTISEMENT</div>
+    </aside>
   </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const collapsibleLabels = document.querySelectorAll(".menu-label.collapsible");
+    collapsibleLabels.forEach(label => {
+      label.addEventListener("click", function () {
+        const targetId = this.getAttribute("data-target");
+        const targetMenu = document.getElementById(targetId);
+        document.querySelectorAll(".lesson-items").forEach(menu => {
+          if (menu.id !== targetId) {
+            menu.classList.add("is-hidden");
+          }
+        });
+        targetMenu.classList.toggle("is-hidden");
+      });
+    });
+  });
+</script>
 
 <style>
-  .lesson-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
+  .course-player {
+    height: 100vh;
+    display: flex;
   }
-
-  .lesson-list li {
-    margin-bottom: 8px;
+  .sidebar {
+    background: #f8f8f8;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
   }
-
-  .lesson-list a {
-    color: #3273dc;
-    text-decoration: none;
-    font-weight: bold;
+  .content-area {
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
   }
-
-  .lesson-list a:hover {
-    text-decoration: underline;
+  .ad-sidebar {
+    background: #f8f8f8;
+    padding: 20px;
+    height: 100vh;
   }
-
+  .ad-placeholder {
+    background: #ddd;
+    padding: 30px;
+    text-align: center;
+    margin: 20px 0;
+  }
   .video-container {
-    margin-top: 20px;
     text-align: center;
   }
-
-  .quiz-content {
-    background: #f5f5f5;
-    padding: 15px;
-    border-radius: 5px;
-  }
-
   .pagination {
     display: flex;
     justify-content: space-between;
-  }
-
-  .menu-list {
-    padding-left: 0;
-  }
-
-  .menu-label {
-    font-size: 1.1rem;
-    padding: 5px 0;
-  }
-
-  .menu-list li {
-    list-style: none;
   }
 </style>
