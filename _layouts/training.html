@@ -8,38 +8,44 @@ layout: default
          <!-- Section Page Start -->
         {% if page.type == "section" %}
         <div class="container is-fluid">
-          
           <!-- Section Header with Two-Column Layout -->
           <div class="columns">
-            
             <!-- Left Column: Section Title & Description -->
-            <div class="column is-half">
+            <div class="column is-three-quarters">
               <h1 class="title">{{ page.title }}</h1>
               <p class="subtitle">{{ page.description }}</p>
             </div>
-        
             <!-- Right Column: Lesson Summary -->
-            <div class="column is-half">
+            <div class="column is-auto">
               {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
               {% assign lesson_count = lessons | size %}
-        
-              <div class="box has-text-centered">
+
+              <nav class="level">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Tweets <span class="icon"><i class="fas fa-book"></i></span></p>
+                    <p class="title">3,456</p>
+                  </div>
+                </div>
+              </nav>
+
+              <div class="has-text-centered">
                 <p class="title is-4">{{ lesson_count }}</p>
                 <p class="subtitle is-6">Total Lessons</p>
               </div>
             </div>
-        
+          </div>
+
+           <!-- Leaderboard Ad Placeholder -->
+           <div class="box has-text-centered">
+            <p class="is-size-6 has-text-grey">Leaderboard Ad Placeholder</p>
           </div>
         
           <!-- Full-Width Content Before Lessons (Ad & Placeholder) -->
           <div class="content">
             {{ content }}
           </div>
-        
-          <!-- Leaderboard Ad Placeholder -->
-          <div class="box has-text-centered">
-            <p class="is-size-6 has-text-grey">Leaderboard Ad Placeholder</p>
-          </div>
+      
         
           <!-- Full-Width Lesson Cards -->
           <div class="columns is-multiline">
@@ -76,7 +82,7 @@ layout: default
                   <div class="media">
                     <div class="media-left">
                       <figure class="image is-32x32">
-                        <img class="is-rounded" src="{{ lesson.author_avatar | relative_url }}" alt="Author Avatar">
+                        <img class="is-rounded" src="{{ lesson.author_img | relative_url }}" alt="Author Avatar">
                       </figure>
                     </div>
                     <div class="media-content">
