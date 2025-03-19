@@ -24,48 +24,31 @@ layout: default
     {% assign sorted_pages = site.training | sort: "id" %}
     {% assign sections = "" | split: "," %}
   
-    <!-- Extract Unique Section Numbers -->
+    <!-- Identify Unique Section IDs -->
     {% for lesson in sorted_pages %}
-      {% assign section_id = lesson.id | split: "." | first %}
-      {% unless sections contains section_id %}
-        {% assign sections = sections | push: section_id %}
-      {% endunless %}
+      {% assign id_parts = lesson.id | split: "." %}
+      {% if id_parts.size == 1 %}
+        {% assign sections = sections | push: lesson %}
+      {% endif %}
     {% endfor %}
   
-    <!-- Render Sections and Nested Lessons -->
+    <!-- Render Sections with Nested Lessons -->
     {% for section in sections %}
-      <p class="menu-label">{{ sorted_pages | where: "id", section | first | default: section }}</p>
+      <p class="menu-label">{{ section.title }}</p>
       <ul class="menu-list">
         {% for lesson in sorted_pages %}
-          {% assign lesson_section = lesson.id | split: "." | first %}
-          {% assign lesson_id_parts = lesson.id | split: "." %}
-          
-          {% if lesson_section == section and lesson_id_parts.size == 1 %}
+          {% assign lesson_parts = lesson.id | split: "." %}
+          {% if lesson_parts.size > 1 and lesson_parts.first == section.id %}
             <li>
               <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
                 {{ lesson.title }}
               </a>
-              <ul>
-                {% for sublesson in sorted_pages %}
-                  {% assign sub_section = sublesson.id | split: "." | first %}
-                  {% assign sub_id_parts = sublesson.id | split: "." %}
-                  
-                  {% if sub_section == section and sub_id_parts.size > 1 %}
-                    <li>
-                      <a href="{{ sublesson.url }}" class="{% if page.url == sublesson.url %}is-active{% endif %}">
-                        {{ sublesson.title }}
-                      </a>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
             </li>
           {% endif %}
         {% endfor %}
       </ul>
     {% endfor %}
   </aside>
-  
   
 </div>
 
