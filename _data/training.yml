@@ -1,36 +1,41 @@
-training:
-  home:
-    title: "Training Home"
-    description: "Welcome to Namaste Salesforce Training. Learn everything step by step."
-    icon: "fas fa-home"
+home:
+  title: "Training Home"
+  description: "Welcome to Namaste Salesforce Training. Learn everything step by step."
+  icon: "fas fa-home"
 
-  sections:
-    - id: "1"
-      order: 1
-      title: "Introduction"
-      description: "Understand what Salesforce is and why it matters."
-      icon: "fas fa-book-open"
-      lessons:
-        - id: "1.1"
-          order: 1
-          title: "Basic Terms?"
-          type: "article"
-        - id: "1.2"
-          order: 2
-          title: "Why Learn Salesforce?"
-          type: "video"
+sections:
+  - order: 1
+    title: "Getting Started"
+    description: "Learn the basics of Salesforce and why it matters."
+    icon: "fas fa-book"
+    lessons:
+      - order: 1
+        title: "Introduction"
+        type: "article"
+        seo:
+          keywords: "Salesforce introduction, CRM basics"
+          description: "Learn the fundamentals of Salesforce and its ecosystem."
+      - order: 2
+        title: "Why Learn Salesforce?"
+        type: "video"
+        seo:
+          keywords: "Salesforce benefits, career opportunities"
+          description: "Explore why Salesforce is a leading CRM and how it can boost your career."
 
-    - id: "2"
-      order: 2
-      title: "Setup & Configuration"
-      description: "Get started with installing and setting up Salesforce."
-      icon: "fas fa-tools"
-      lessons:
-        - id: "2.1"
-          order: 1
-          title: "Installing Salesforce"
-          type: "exercise"
-        - id: "2.2"
-          order: 2
-          title: "Setting Up Developer Org"
-          type: "assignment"
+  - order: 2
+    title: "Setup & Configuration"
+    description: "Get started with installing and setting up Salesforce."
+    icon: "fas fa-cogs"
+    lessons:
+      - order: 1
+        title: "Installing Salesforce"
+        type: "exercise"
+        seo:
+          keywords: "Salesforce installation, setup guide"
+          description: "Step-by-step guide to installing Salesforce."
+      - order: 2
+        title: "Setting Up Developer Org"
+        type: "assignment"
+        seo:
+          keywords: "Salesforce developer org, setup tutorial"
+          description: "Learn how to set up your Salesforce developer environment."
