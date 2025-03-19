@@ -3,120 +3,75 @@ layout: default
 ---
 
 <div class="columns is-gapless">
-  <!-- Main Content -->
+  <!-- Video Section -->
   <div class="column">
-    {% if page.type == "video" %}
-      <figure class="image is-16by9">
-        <iframe class="has-ratio" width="640" height="360" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
-      </figure>
-    {% else %}
-      <article class="content p-4">
-        <h1 class="title">{{ page.title }}</h1>
-        <p>{{ content }}</p>
-      </article>
-    {% endif %}
+    <figure class="image is-16by9">
+      <iframe
+        class="has-ratio"
+        width="640"
+        height="360"
+        src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </figure>
+
+    <div class="tabs">
+      <ul>
+        <li class="is-active"><a>Overview</a></li>
+        <li><a>Q&A</a></li>
+        <li><a>Notes</a></li>
+        <li><a>Announcements</a></li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Sticky Sidebar -->
-  <aside class="menu is-sticky has-shadow p-3">
-    <!-- Training Home -->
-    <p class="menu-label">
-      <i class="{{ site.training.home.icon }}"></i> 
-      <a href="{{ site.training.home.url }}">{{ site.training.home.title }}</a>
-    </p>
-  
-    {% for section in site.training.sections | sort: "order" %}
-      <p class="menu-label">
-        <i class="{{ section.icon }}"></i> {{ section.title }}
-        <span class="toggle-arrow" onclick="toggleSection('{{ section.order }}')">▶</span>
-      </p>
-  
-      <ul class="menu-list" id="section-{{ section.order }}" style="display: none;">
-        {% for lesson in section.lessons | sort: "order" %}
-          <li>
-            <a href="{{ lesson.url }}" class="lesson-link {% if page.url == lesson.url %}is-active{% endif %}">
-              <span class="lesson-type {{ lesson.type }}">
-                <i class="{% if lesson.type == 'article' %}fas fa-file-alt{% elsif lesson.type == 'video' %}fas fa-video{% elsif lesson.type == 'quiz' %}fas fa-question{% elsif lesson.type == 'exercise' %}fas fa-dumbbell{% elsif lesson.type == 'assignment' %}fas fa-tasks{% endif %}"></i>
-              </span>
-              {{ lesson.title }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endfor %}
-  </aside>
-  
-  <script>
-    function toggleSection(id) {
-      let section = document.getElementById('section-' + id);
-      let arrow = section.previousElementSibling.querySelector('.toggle-arrow');
-      if (section.style.display === 'none') {
-        section.style.display = 'block';
-        arrow.innerHTML = '▼';
-      } else {
-        section.style.display = 'none';
-        arrow.innerHTML = '▶';
-      }
-    }
-  </script>
-  
-  <style>
-    .menu { max-height: 80vh; overflow-y: auto; position: sticky; top: 20px; }
-    .toggle-arrow { float: right; cursor: pointer; font-size: 14px; }
-    .lesson-link { display: flex; align-items: center; }
-    .lesson-type { margin-right: 8px; }
-    .is-active { font-weight: bold; color: #3273dc; }
-  </style>
-  
+  <!-- Course Navigation -->
+  <div class="column is-one-quarter is-scroll-column left-shadowed">
+    <div class="card">
+      {% for section in site.data.training.sections %}
+      <header class="card-header">
+        <p class="card-header-title">
+          {{ section.title }}
+        </p>
+        <button class="button is-medium is-white" aria-label="toggle menu">
+          <span class="icon">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </header>
+      <div class="card-content">
+        <nav class="panel">
+          {% for lesson in section.lessons %}
+          <a href="/training/section{{ section.number }}/lesson-{{ lesson.lesson | replace: '.', '-' }}/" class="panel-block">
+            <span class="panel-icon">
+              {% if page.lesson == lesson.lesson %}
+              <i class="fas fa-check-circle"></i>
+              {% else %}
+              <i class="far fa-circle"></i>
+              {% endif %}
+            </span>
+            {{ lesson.title }}
+          </a>
+          {% endfor %}
+        </nav>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
-<!-- Pagination -->
-<nav class="pagination is-centered mt-4">
-  {% assign all_lessons = site.training | map: "lessons" | flatten | sort: "order" %}
-  {% for lesson in all_lessons %}
-    {% assign lesson_path = "/training/" | append: lesson.slug | append: "/" %}
-    {% if lesson_path == page.url %}
-      {% assign prev_index = forloop.index0 | minus: 1 %}
-      {% assign next_index = forloop.index0 | plus: 1 %}
-      {% if prev_index >= 0 %}
-        <a href="{{ all_lessons[prev_index].url }}" class="button">← Previous</a>
-      {% endif %}
-      {% if next_index < all_lessons.size %}
-        <a href="{{ all_lessons[next_index].url }}" class="button">Next →</a>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-</nav>
+  
 
-<!-- Expand/Collapse Script -->
-<script>
-  document.querySelectorAll('.section-toggle').forEach(toggle => {
-    toggle.addEventListener('click', function(e) {
-      e.preventDefault();
-      let section = document.getElementById('section-' + this.textContent.trim().replace(/\s+/g, '-'));
-      let arrow = this.querySelector('.arrow');
-      
-      if (section.style.display === "none") {
-        section.style.display = "block";
-        arrow.innerHTML = "▼";
-      } else {
-        section.style.display = "none";
-        arrow.innerHTML = "▶";
-      }
-    });
-  });
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningVideo",
+  "name": "{{ page.title }}",
+  "description": "{{ page.description }}",
+  "contentUrl": "{{ page.video_url }}",
+  "timeRequired": "{{ page.end_time | minus: page.start_time }} seconds",
+  "educationalLevel": "Beginner",
+  "educationalUse": "Self-study"
+}
 </script>
-
-<style>
-  .is-sticky {
-    position: sticky;
-    top: 20px;
-    max-height: 80vh;
-    overflow-y: auto;
-    background: #f8f8f8;
-    padding: 10px;
-  }
-  .arrow {
-    float: right;
-  }
-</style>
