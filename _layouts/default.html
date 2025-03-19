@@ -39,6 +39,7 @@
   <main>
     {{ content }}
   </main>
+  {% include ad-popup.html %}
   {% adsense large-leaderboard %}
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   <script src="{{ '/assets/scripts/script.js' | relative_url }}"></script>
