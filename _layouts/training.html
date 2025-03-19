@@ -3,11 +3,11 @@ layout: default
 ---
 
 <div class="columns is-gapless">
-  <!-- Video/Article Section -->
+  <!-- Main Content -->
   <div class="column">
-    {% if page.video_url %}
+    {% if page.type == "video" %}
       <figure class="image is-16by9">
-        <iframe class="has-ratio" width="640" height="360" src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}" frameborder="0" allowfullscreen></iframe>
+        <iframe class="has-ratio" width="640" height="360" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
       </figure>
     {% else %}
       <article class="content p-4">
@@ -15,35 +15,40 @@ layout: default
         <p>{{ content }}</p>
       </article>
     {% endif %}
-    
-    <div class="box has-text-centered">Ad Space 1</div>
   </div>
-  
-  <!-- Course Navigation -->
-  <aside class="menu column is-one-quarter">
+
+  <!-- Sticky Sidebar -->
+  <aside class="menu column is-one-quarter is-sticky">
     <div class="menu-label">
-      <a href="/training" class="section-toggle {% if page.url == '/training/' %}is-active{% endif %}">
-        <i class="{{ site.data.training.training.home.icon }}"></i> {{ site.data.training.training.home.title }}
+      <a href="/training/" class="section-toggle is-active">
+        <i class="fas fa-home"></i> Training Home
       </a>
-      <p class="menu-description">{{ site.data.training.training.home.description }}</p>
     </div>
 
-    {% assign sorted_sections = site.data.training.training.sections | sort: "order" %}
+    {% assign sorted_sections = site.training | sort: "order" %}
     {% for section in sorted_sections %}
       <div class="menu-label">
-        <a href="/training/{{ section.title }}/" class="section-toggle {% if page.url contains section.id %}is-active{% endif %}">
+        <a href="/training/{{ section.slug }}/" class="section-toggle">
           <i class="{{ section.icon }}"></i> {{ section.title }}
+          <span class="arrow">▶</span>
         </a>
-        <p class="menu-description">{{ section.description }}</p>
       </div>
 
-      <ul class="menu-list" id="section-{{ section.id }}" style="display: none;">
+      <ul class="menu-list" id="section-{{ section.slug }}" style="display: none;">
         {% assign sorted_lessons = section.lessons | sort: "order" %}
         {% for lesson in sorted_lessons %}
           <li>
-            <a href="/training/{{ section.title }}/{{ lesson.title }}/" class="{% if page.url contains lesson.title %}is-active{% endif %}">
-              <span class="lesson-type lesson-{{ lesson.type }}">{{ lesson.type | capitalize }}</span> {{ lesson.title }}
+            <a href="/training/{{ section.slug }}/{{ lesson.slug }}/">
+              <span class="lesson-type lesson-{{ lesson.type }}">{{ lesson.type | capitalize }}</span>
+              {{ lesson.title }}
             </a>
+            {% if lesson.lessons %}
+              <ul>
+                {% for sublesson in lesson.lessons %}
+                  <li><a href="/training/{{ section.slug }}/{{ lesson.slug }}/{{ sublesson.slug }}/">{{ sublesson.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
           </li>
         {% endfor %}
       </ul>
@@ -51,38 +56,53 @@ layout: default
   </aside>
 </div>
 
-<!-- Mobile Navigation Button -->
-<button id="mobile-nav" class="button is-fullwidth is-primary">Show Course Menu</button>
-
-<div class="box has-text-centered">Ad Space 3</div>
-<div class="box has-text-centered">Ad Space 4</div>
-<div class="box has-text-centered">Ad Space 5</div>
-
 <!-- Pagination -->
 <nav class="pagination is-centered mt-4">
-  {% assign all_sections = site.data.training.training.sections | sort: 'order' %}
-  {% for section in all_sections %}
-    {% for lesson in section.lessons %}
-      {% assign lesson_path = "/training/" | append: section.id | append: "/" | append: lesson.id | append: "/" %}
-      {% if lesson_path == page.url %}
-        {% assign prev_index = forloop.index0 | minus: 1 %}
-        {% assign next_index = forloop.index0 | plus: 1 %}
-        
-        {% if prev_index >= 0 %}
-          <a href="{{ all_sections[prev_index].url }}" class="button">← Previous</a>
-        {% endif %}
-        
-        {% if next_index < all_sections.size %}
-          <a href="{{ all_sections[next_index].url }}" class="button">Next →</a>
-        {% endif %}
+  {% assign all_lessons = site.training | map: "lessons" | flatten | sort: "order" %}
+  {% for lesson in all_lessons %}
+    {% assign lesson_path = "/training/" | append: lesson.slug | append: "/" %}
+    {% if lesson_path == page.url %}
+      {% assign prev_index = forloop.index0 | minus: 1 %}
+      {% assign next_index = forloop.index0 | plus: 1 %}
+      {% if prev_index >= 0 %}
+        <a href="{{ all_lessons[prev_index].url }}" class="button">← Previous</a>
       {% endif %}
-    {% endfor %}
+      {% if next_index < all_lessons.size %}
+        <a href="{{ all_lessons[next_index].url }}" class="button">Next →</a>
+      {% endif %}
+    {% endif %}
   {% endfor %}
 </nav>
 
-<!-- Mobile Navigation Script -->
+<!-- Expand/Collapse Script -->
 <script>
-  document.getElementById('mobile-nav').addEventListener('click', function() {
-    document.querySelector('.column.is-one-quarter').classList.toggle('is-hidden');
+  document.querySelectorAll('.section-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      let section = document.getElementById('section-' + this.textContent.trim().replace(/\s+/g, '-'));
+      let arrow = this.querySelector('.arrow');
+      
+      if (section.style.display === "none") {
+        section.style.display = "block";
+        arrow.innerHTML = "▼";
+      } else {
+        section.style.display = "none";
+        arrow.innerHTML = "▶";
+      }
+    });
   });
 </script>
+
+<style>
+  .is-sticky {
+    position: sticky;
+    top: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #f8f8f8;
+    padding: 10px;
+  }
+  .arrow {
+    float: right;
+  }
+</style>
