@@ -17,61 +17,44 @@ layout: default
     </figure>
   </div>
 
-  <!-- Course Navigation -->
-  <div class="column is-one-quarter is-scroll-column left-shadowed">
-    <div class="card">
-      {% for section in site.data.training.sections %}
-      <header class="card-header">
-        <p class="card-header-title">
-          {{ section.title }}
-        </p>
-        <button class="button is-medium is-white" aria-label="toggle menu">
-          <span class="icon">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </header>
-      <div class="card-content">
-        <nav class="panel">
-          {% for lesson in section.lessons %}
-          <a href="/training/section{{ section.number }}/lesson-{{ lesson.lesson | replace: '.', '-' }}/" class="panel-block">
+<!-- Course Navigation -->
+<div class="column is-one-quarter is-scroll-column left-shadowed">
+  <div class="card">
+    {% for section in site.data.training.sections %}
+    <header class="card-header">
+      <p class="card-header-title">
+        {{ section.title }}
+      </p>
+      <button class="button is-medium is-white" aria-label="toggle menu">
+        <span class="icon">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </button>
+    </header>
+    <div class="card-content">
+      <nav class="panel">
+        {% for lesson in section.lessons %}
+          {% assign lesson_path = lesson.slug | prepend: page.dir %}
+          <a href="{{ site.baseurl }}{{ lesson_path }}/" 
+             class="panel-block {% if page.url == lesson_path %} is-active {% endif %}">
             <span class="panel-icon">
-              {% if page.lesson == lesson.lesson %}
-              <i class="fas fa-check-circle"></i>
+              {% if page.url == lesson_path %}
+                <i class="fas fa-check-circle"></i> <!-- Current Page -->
               {% else %}
-              <i class="far fa-circle"></i>
+                <i class="far fa-circle"></i>
               {% endif %}
             </span>
             {{ lesson.title }}
           </a>
-          {% endfor %}
-        </nav>
-      </div>
-      {% endfor %}
+        {% endfor %}
+      </nav>
     </div>
+    {% endfor %}
   </div>
 </div>
 
-<div class="buttons is-centered">
-  {% assign current_lesson = page.path | split: '/' | last | replace: '.md', '' %}
-  {% assign current_section = page.dir | split: '/' | last %}
 
-  {% assign section_index = site.training | where: "dir", page.dir | first %}
-
-  {% for lesson in section_index.docs %}
-      {% assign lesson_slug = lesson.path | split: '/' | last | replace: '.md', '' %}
-      {% if lesson_slug == current_lesson %}
-          {% if forloop.first == false %}
-              <a href="{{ site.baseurl }}{{ section_index.docs[forloop.index0].url }}" class="button is-link is-light">Previous Lesson</a>
-          {% endif %}
-          {% if forloop.last == false %}
-              <a href="{{ site.baseurl }}{{ section_index.docs[forloop.index].url }}" class="button is-link is-light">Next Lesson</a>
-          {% endif %}
-      {% endif %}
-  {% endfor %}
 </div>
-
-
 
   
 
