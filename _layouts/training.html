@@ -61,9 +61,11 @@ layout: default
 
       {% else %}
       <!-- Lesson Page -->
+      <div class="section">
       <h1 class="title">{{ page.title }}</h1>
       <p class="subtitle">{{ page.description }}</p>
       <div class="content">{{ content }}</div>
+      </div>
 
       <!-- Pagination (Next & Previous Lesson) -->
       {% assign lessons = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
@@ -113,11 +115,6 @@ layout: default
     </div>
 
     <aside class="menu px-3 py-4">
-      <button class="button is-fullwidth is-info is-light is-hidden-desktop" onclick="toggleSidebar()">
-        <span class="icon"><i class="fas fa-bars"></i></span>
-        <span>Menu</span>
-      </button>
-    
       <div id="sidebar-content" class="mt-3">
         {% assign sections = site.training | where: "type", "section" | sort: "order" %}
         <ul class="menu-list">
