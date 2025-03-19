@@ -5,16 +5,38 @@ layout: default
   <!-- Main Content -->
   <div class="course-content">
     <h1>{{ page.title }}</h1>
-    <div class="lesson-content">
-      {{ content }}
-    </div>
+
+    {% if page.overview %}
+      <p>{{ page.overview }}</p>
+      <h2>Lessons in this Section</h2>
+      <ul>
+        {% assign lessons = site.training | where: "parent", page.title | sort: "order" %}
+        {% for lesson in lessons %}
+          <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {% if page.type == "article" %}
+        <div class="lesson-content">
+          {{ content }}
+        </div>
+      {% elsif page.type == "video" %}
+        <iframe width="560" height="315" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
+        <p>{{ content }}</p>
+      {% elsif page.type == "quiz" %}
+        <div class="quiz-content">
+          {{ content }}
+        </div>
+      {% endif %}
+    {% endif %}
   </div>
 
   <!-- Sidebar Navigation -->
   <aside class="course-sidebar">
     <h2>Course Navigation</h2>
     {% assign lessons = site.training | sort: "order" %}
-    {% assign grouped_lessons = lessons | group_by: "section" %}
+    {% assign grouped_lessons = lessons | group_by: "parent" %}
+
     <ul class="course-nav">
       {% for section in grouped_lessons %}
         <li class="section-title">{{ section.name }}</li>
@@ -28,8 +50,27 @@ layout: default
       {% endfor %}
     </ul>
   </aside>
-  <style>
-    .course-container {
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+  {% assign lessons_sorted = site.training | where: "parent", page.parent | sort: "order" %}
+  {% for lesson in lessons_sorted %}
+    {% if lesson.url == page.url %}
+      {% assign prev_index = forloop.index0 | minus: 1 %}
+      {% assign next_index = forloop.index0 | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+
+  {% if prev_index >= 0 %}
+    <a class="prev" href="{{ lessons_sorted[prev_index].url | relative_url }}">← Previous</a>
+  {% endif %}
+
+  {% if next_index < lessons_sorted.size %}
+    <a class="next" href="{{ lessons_sorted[next_index].url | relative_url }}">Next →</a>
+  {% endif %}
+</div><style>
+  .course-container {
   display: flex;
   max-width: 1200px;
   margin: auto;
@@ -68,4 +109,22 @@ layout: default
   background: #ddd;
 }
 
-  </style>
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.pagination a {
+  text-decoration: none;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover {
+  background: #0056b3;
+}
+
+</style>

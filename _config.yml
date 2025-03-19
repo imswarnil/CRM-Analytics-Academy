@@ -149,8 +149,7 @@ collections:
     description: "CRM Analytics Tutorials" # The post list page content
   training:
     output: true
-    layout: training
-    Permalink : /training/:path
+    permalink: /training/:path/
   courses:
     output: true
     permalink: /courses/:name/
@@ -176,10 +175,9 @@ defaults:
       layout: page # Set the default layout for pages
   -
     scope:
-      path: ""
-      type: "tutorials"
+      path: "_training"
     values:
-      layout: tutorials # Set the default layout for pages
+      layout: "training"
 
 
 # 1. Files excluded from Jekyll builds
