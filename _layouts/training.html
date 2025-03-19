@@ -15,15 +15,6 @@ layout: default
         allowfullscreen>
       </iframe>
     </figure>
-
-    <div class="tabs">
-      <ul>
-        <li class="is-active"><a>Overview</a></li>
-        <li><a>Q&A</a></li>
-        <li><a>Notes</a></li>
-        <li><a>Announcements</a></li>
-      </ul>
-    </div>
   </div>
 
   <!-- Course Navigation -->
@@ -65,19 +56,21 @@ layout: default
   {% assign current_lesson = page.path | split: '/' | last | replace: '.md', '' %}
   {% assign current_section = page.dir | split: '/' | last %}
 
-  {% assign section_index = site.data.training.sections | where: "slug", current_section | first %}
+  {% assign section_index = site.training | where: "dir", page.dir | first %}
 
-  {% for lesson in section_index.lessons %}
-      {% if lesson.slug == current_lesson %}
+  {% for lesson in section_index.docs %}
+      {% assign lesson_slug = lesson.path | split: '/' | last | replace: '.md', '' %}
+      {% if lesson_slug == current_lesson %}
           {% if forloop.first == false %}
-              <a href="{{ site.baseurl }}{{ page.dir }}{{ section_index.lessons[forloop.index0].slug }}/" class="button is-link is-light">Previous Lesson</a>
+              <a href="{{ site.baseurl }}{{ section_index.docs[forloop.index0].url }}" class="button is-link is-light">Previous Lesson</a>
           {% endif %}
           {% if forloop.last == false %}
-              <a href="{{ site.baseurl }}{{ page.dir }}{{ section_index.lessons[forloop.index].slug }}/" class="button is-link is-light">Next Lesson</a>
+              <a href="{{ site.baseurl }}{{ section_index.docs[forloop.index].url }}" class="button is-link is-light">Next Lesson</a>
           {% endif %}
       {% endif %}
   {% endfor %}
 </div>
+
 
 
   
