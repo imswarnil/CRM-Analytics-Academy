@@ -18,12 +18,17 @@ layout: default
   </div>
 </section>
 
-            <h2 class="has-text-weight-bold mt-4">Lessons in this Section</h2>
-            <ul class="lesson-list">
-              {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
-              {% for lesson in lessons %}
-                <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-              {% endfor %}
+{% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
+{% assign lesson_count = lessons | size %}
+
+<p class="has-text-weight-bold">Total Lessons in this Section: {{ lesson_count }}</p>
+
+<ul>
+  {% for lesson in lessons %}
+    <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
+  {% endfor %}
+</ul>
+
             </ul>
           {% else %}
             {% if page.type == "article" %}
