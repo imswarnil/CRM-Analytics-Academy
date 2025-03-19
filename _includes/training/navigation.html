@@ -13,7 +13,7 @@
     <div class="card-content">
       <nav class="panel">
         {% for lesson in section.lessons %}
-        <a href="{{ site.baseurl }}/training/{{ section.slug }}/{{ lesson.slug }}/" class="panel-block {% if page.url contains lesson.slug %}is-active{% endif %}">
+        <a href="{{ site.baseurl }}/training/{{ section.slug }}/{{ lesson.slug }}" class="panel-block {% if page.url contains lesson.slug %}is-active{% endif %}">
           <span class="panel-icon">
             {% if page.url contains lesson.slug %}
             <i class="fas fa-check-circle"></i>
