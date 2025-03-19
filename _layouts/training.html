@@ -4,7 +4,7 @@ layout: default
 
 <section class="section">
   <div class="container">
-    <div class="columns">
+    <div class="columns is-gapless">
       <!-- Main Content Area -->
       <div class="column is-three-quarters">
         <div class="box">
@@ -64,8 +64,8 @@ layout: default
               {% assign section_page = site.training | where: "title", section_name | first %}
               {% if section_page %}
                 <li>
-                  <a class="menu-label has-text-weight-bold" href="{{ section_page.url | relative_url }}">{{ section_name }}</a>
-                  <ul>
+                  <a class="menu-label has-text-weight-bold collapsible" data-target="section-{{ forloop.index }}">{{ section_name }}</a>
+                  <ul id="section-{{ forloop.index }}" class="lesson-items is-hidden">
                     {% assign lessons = site.training | where_exp: "item", "item.parent == section_name" | sort: "order" %}
                     {% for lesson in lessons %}
                       <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
@@ -80,6 +80,30 @@ layout: default
     </div>
   </div>
 </section>
+
+<!-- JavaScript for Collapsible Sidebar -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const collapsibleLabels = document.querySelectorAll(".menu-label.collapsible");
+
+    collapsibleLabels.forEach(label => {
+      label.addEventListener("click", function () {
+        const targetId = this.getAttribute("data-target");
+        const targetMenu = document.getElementById(targetId);
+
+        // Collapse all other sections
+        document.querySelectorAll(".lesson-items").forEach(menu => {
+          if (menu.id !== targetId) {
+            menu.classList.add("is-hidden");
+          }
+        });
+
+        // Toggle the clicked section
+        targetMenu.classList.toggle("is-hidden");
+      });
+    });
+  });
+</script>
 
 <style>
   .lesson-list {
@@ -124,10 +148,24 @@ layout: default
 
   .menu-label {
     font-size: 1.1rem;
-    padding: 5px 0;
+    padding: 8px;
+    cursor: pointer;
+    display: block;
+    background: #eee;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: background 0.3s;
   }
 
-  .menu-list li {
-    list-style: none;
+  .menu-label:hover {
+    background: #ddd;
+  }
+
+  .lesson-items {
+    padding-left: 15px;
+  }
+
+  .is-hidden {
+    display: none;
   }
 </style>
