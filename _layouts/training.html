@@ -20,39 +20,41 @@ layout: default
   </div>
   
   <!-- Course Navigation -->
-  <aside class="menu column is-one-quarter">
-    {% assign sorted_pages = site.training | sort: "id" %}
-    {% assign sections = "" | split: "," %}
+ <!-- Course Navigation -->
+<aside class="menu column is-one-quarter">
+  {% assign sorted_pages = site.training | sort: "id" %}
+  {% assign sections = "" | split: "," %}
 
-    <!-- Identify Sections (Index.md files OR Whole Number ID) -->
-    {% for lesson in sorted_pages %}
-      {% assign id_parts = lesson.id | split: "." %}
-      {% if id_parts.size == 1 or lesson.url contains "/index" %}
-        {% assign sections = sections | push: lesson %}
-      {% endif %}
-    {% endfor %}
+  <!-- Identify Sections (Index.md files OR Whole Number ID) -->
+  {% for lesson in sorted_pages %}
+    {% assign id_parts = lesson.id | split: "." %}
+    {% if id_parts.size == 1 or lesson.url contains "/index" %}
+      {% assign sections = sections | push: lesson %}
+    {% endif %}
+  {% endfor %}
 
-    <!-- Render Sections & Lessons -->
-    {% for section in sections %}
-      <p class="menu-label">
-        <a href="{{ section.url }}" class="{% if page.url == section.url %}is-active{% endif %}">
-          {{ section.title }}
-        </a>
-      </p>
-      <ul class="menu-list">
-        {% for lesson in sorted_pages %}
-          {% assign lesson_parts = lesson.id | split: "." %}
-          {% if lesson_parts.size > 1 and lesson_parts.first == section.id and lesson.url != section.url %}
-            <li>
-              <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
-                {{ lesson.title }}
-              </a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    {% endfor %}
-  </aside>
+  <!-- Render Sections & Lessons -->
+  {% for section in sections %}
+    <div class="menu-label">
+      <a href="{{ section.url }}" class="section-toggle {% if page.url == section.url %}is-active{% endif %}" data-section="{{ section.id }}">
+        {{ section.title }}
+      </a>
+    </div>
+    <ul class="menu-list" id="section-{{ section.id }}" style="display: none;">
+      {% for lesson in sorted_pages %}
+        {% assign lesson_parts = lesson.id | split: "." %}
+        {% if lesson_parts.size > 1 and lesson_parts.first == section.id and lesson.url != section.url %}
+          <li>
+            <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
+              {{ lesson.title }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</aside>
+
 </div>
 
 <!-- Mobile Navigation Button -->
