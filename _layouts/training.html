@@ -22,18 +22,18 @@ layout: default
   <!-- Course Navigation -->
   <div class="column is-one-quarter is-scroll-column left-shadowed p-2">
     <aside class="menu">
-      <p class="menu-label">Course Sections</p>
-      <ul class="menu-list">
-        {% assign sorted_pages = site.training | sort: 'id' %}
-        {% assign sections = sorted_pages | group_by_exp: "item", "item.id | split: '.' | first" %}
-        
-        {% for section in sections %}
-          {% assign section_id = section.name | plus: 0 %}
-          {% assign lessons = section.items | sort: 'id' %}
+      {% assign sorted_pages = site.training | sort: 'id' %}
+      {% assign sections = sorted_pages | group_by_exp: "item", "item.id | split: '.' | first" %}
+      
+      {% for section in sections %}
+        {% assign section_id = section.name | plus: 0 %}
+        {% assign lessons = section.items | sort: 'id' %}
+        <p class="menu-label">{{ lessons.first.section }}</p>
+        <ul class="menu-list">
           <li>
             <a href="{{ lessons.first.url }}">
-              <span class="icon">{{ lessons.first.icon }}</span>
-              {{ lessons.first.section }}
+              <span class="icon">📂</span>
+              {{ lessons.first.section }} Overview
             </a>
             <ul>
               {% for lesson in lessons %}
@@ -48,8 +48,8 @@ layout: default
               {% endfor %}
             </ul>
           </li>
-        {% endfor %}
-      </ul>
+        </ul>
+      {% endfor %}
     </aside>
     
     <!-- Ad Placeholder 2 -->
