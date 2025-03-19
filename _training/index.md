@@ -52,72 +52,178 @@ order : 0
 
    {% include training/stats.html %}
 
----
-layout: default
-title: Training Schedule
----
-
 <div class="container is-fullhd">
-  <h1 class="title is-size-2">Training Schedule</h1>
-  <p class="subtitle is-size-4">Browse through all available courses and their lessons.</p>
-
-  <div class="columns is-multiline">
-    {% assign sections = site.training | where: "type", "section" | sort: "order" %}
-    {% for section in sections %}
-    <div class="column is-full">
-      <div class="box">
-        <!-- Section Title & Description -->
+  <div class="columns">
+    <!-- Sticky Sidebar -->
+    <aside class="menu px-3 py-4 column is-4 is-hidden-mobile">
+      <div id="sticky-sidebar">
+        <p class="menu-label">Training Schedule</p>
+        <ul class="menu-list">
+          {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+          {% for section in sections %}
+          <li>
+            <div class="section-header">
+              <a href="{{ section.url | relative_url }}" class="is-active">
+                <span class="icon">
+                  <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
+                </span>
+                {{ section.title }}
+              </a>
+              <span class="icon toggle-lessons" onclick="toggleLessons(event, this)">
+                <i class="fas fa-chevron-down"></i>
+              </span>
+            </div>
+            {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+            <ul class="lesson-list is-collapsed">
+              {% for lesson in lessons %}
+              <li>
+                <a href="{{ lesson.url | relative_url }}">
+                  <span class="icon is-small">
+                    {% if lesson.type == "article" %}
+                    <i class="fas fa-file-alt"></i>
+                    {% elsif lesson.type == "video" %}
+                    <i class="fas fa-play-circle"></i>
+                    {% else %}
+                    <i class="fas fa-file"></i>
+                    {% endif %}
+                  </span>
+                  {{ lesson.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </aside>
+    <!-- Main Content Area -->
+    <div class="column is-8">
+      <h1 class="title is-2">Training Curriculum</h1>
+      <p class="subtitle is-5 has-text-grey">Explore the complete training schedule</p>
+ {% for section in sections %}
+      <div class="box my-5">
         <div class="columns is-vcentered">
           <div class="column is-narrow">
             <figure class="image is-64x64">
-              <img src="{{ section.icon | relative_url }}" alt="{{ section.title }} Icon">
+              <img src="{{ section.icon | relative_url }}" alt="Section Icon">
             </figure>
           </div>
           <div class="column">
-            <h2 class="title is-4">
+            <h2 class="title is-4 mb-2">
               <a href="{{ section.url | relative_url }}">{{ section.title }}</a>
             </h2>
-            <p class="subtitle is-6">{{ section.description }}</p>
+            <p class="subtitle is-6 has-text-grey">{{ section.description }}</p>
           </div>
           <div class="column is-narrow">
             <span class="tag is-info is-light">{{ section.lessons | size }} Lessons</span>
           </div>
         </div>
-        <!-- Lessons List -->
+        <hr>
         {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-        <ul>
-          {% for lesson in lessons %}
-          <li class="box my-2">
-            <div class="columns is-vcentered">
-              <div class="column is-narrow">
-                <figure class="image is-48x48">
-                  <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
-                </figure>
-              </div>
-              <div class="column">
-                <p class="title is-5 mb-1">
-                  <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
-                </p>
-                <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
-              </div>
-              <div class="column is-narrow">
-                <span class="tag is-info is-light">{{ lesson.type | capitalize }}</span>
-              </div>
-              <div class="column is-narrow">
-                <a href="{{ lesson.url | relative_url }}" class="icon">
-                  <i class="fas fa-link"></i>
-                </a>
-              </div>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
+        {% for lesson in lessons %}
+        <div class="columns is-vcentered is-mobile py-2">
+          <div class="column is-narrow">
+            <figure class="image is-48x48">
+              <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
+            </figure>
+          </div>
+          <div class="column">
+            <p class="title is-5 mb-1">
+              <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
+            </p>
+            <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
+          </div>
+          <div class="column is-narrow">
+            <span class="tag is-info is-light is-size-7">{{ lesson.type | capitalize }}</span>
+          </div>
+          <div class="column is-narrow">
+            <a href="{{ lesson.url | relative_url }}" class="icon">
+              <i class="fas fa-link"></i>
+            </a>
+          </div>
+        </div>
+        <hr class="my-2">
+        {% endfor %}
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 
+<!-- Sidebar Sticky & Toggle Scripts -->
+<script>
+  function toggleLessons(event, icon) {
+    event.stopPropagation();
+    let lessonList = icon.closest(".section-header").nextElementSibling;
+    icon.classList.toggle("fa-rotate-180");
+    lessonList.classList.toggle("is-collapsed");
+    lessonList.classList.toggle("is-expanded");
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    let sidebar = document.getElementById("sticky-sidebar");
+    let offset = sidebar.offsetTop;
+
+    window.addEventListener("scroll", function () {
+      if (window.pageYOffset > offset) {
+        sidebar.classList.add("is-sticky");
+      } else {
+        sidebar.classList.remove("is-sticky");
+      }
+    });
+  });
+</script>
+
+<!-- Styles for Sidebar & Collapse -->
+<style>
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .lesson-list {
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .is-expanded {
+    max-height: 500px;
+  }
+
+  .is-collapsed {
+    max-height: 0;
+  }
+
+  .is-active {
+    font-weight: bold;
+    color: #3273dc;
+  }
+
+  .fa-rotate-180 {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Sticky Sidebar */
+  .is-sticky {
+    position: fixed;
+    top: 10px;
+    width: 20%;
+  }
+
+  .box {
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon img {
+    border-radius: 50%;
+    border: 1px solid #ddd;
+  }
+</style>
 
 <!-- Sticky Sidebar Styles -->
 <style>
