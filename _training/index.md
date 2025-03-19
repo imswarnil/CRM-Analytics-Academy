@@ -1,7 +1,6 @@
 ---
 layout: default
-title: "Salesforce CRM Analytics Training"
-permalink : /training
+title: "Salesforce CRM Analytics Training" 
 ---
 
 <section class="hero is-primary">
