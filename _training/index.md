@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Section - 0" 
+title: "Free CRMA Training" 
 order : 0 
 ---
 <section class="hero is-primary">
