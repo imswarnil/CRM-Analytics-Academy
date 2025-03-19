@@ -1,0 +1,41 @@
+{% assign total_lessons = site.training | size %}
+{% assign article_count = 0 %}
+{% assign video_count = 0 %}
+{% assign quiz_count = 0 %}
+{% for lesson in site.training %}
+  {% if lesson.type == "article" %}
+    {% assign article_count = article_count | plus: 1 %}
+  {% elsif lesson.type == "video" %}
+    {% assign video_count = video_count | plus: 1 %}
+  {% elsif lesson.type == "quiz" %}
+    {% assign quiz_count = quiz_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+<section class="section">
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Total Lessons</p>
+      <p class="title">{{ total_lessons }}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Articles</p>
+      <p class="title">{{ article_count }}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Videos</p>
+      <p class="title">{{ video_count }}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Quizzes</p>
+      <p class="title">{{ quiz_count }}</p>
+    </div>
+  </div>
+</nav>
+</section>
