@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 <div class="columns is-gapless">
   <!-- Video Section -->
   <div class="column">
@@ -17,38 +18,65 @@ layout: default
 
     <div class="tabs">
       <ul>
-        <li class="is-active"><a href="#">Overview</a></li>
-        <li><a href="#">Q&A</a></li>
-        <li><a href="#">Notes</a></li>
-        <li><a href="#">Announcements</a></li>
+        <li class="is-active"><a>Overview</a></li>
+        <li><a>Q&A</a></li>
+        <li><a>Notes</a></li>
+        <li><a>Announcements</a></li>
       </ul>
     </div>
   </div>
 
   <!-- Course Navigation -->
   <div class="column is-one-quarter is-scroll-column left-shadowed">
-    {% include training/navigation.html %}
+    <div class="card">
+      {% for section in site.data.training.sections %}
+      <header class="card-header">
+        <p class="card-header-title">
+          {{ section.title }}
+        </p>
+        <button class="button is-medium is-white" aria-label="toggle menu">
+          <span class="icon">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </header>
+      <div class="card-content">
+        <nav class="panel">
+          {% for lesson in section.lessons %}
+          <a href="/training/section{{ section.number }}/lesson-{{ lesson.lesson | replace: '.', '-' }}/" class="panel-block">
+            <span class="panel-icon">
+              {% if page.lesson == lesson.lesson %}
+              <i class="fas fa-check-circle"></i>
+              {% else %}
+              <i class="far fa-circle"></i>
+              {% endif %}
+            </span>
+            {{ lesson.title }}
+          </a>
+          {% endfor %}
+        </nav>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 
-<!-- Next and Previous Lesson Buttons -->
 <div class="buttons is-centered">
-  {% assign current_lesson = page.slug %}
-  {% assign section_index = site.data.training.sections | where: "slug", page.section | first %}
+    {% assign current_lesson = page.lesson %}
+    {% assign section_index = site.data.training.sections | where: "number", page.section | first %}
+    {% for lesson in section_index.lessons %}
+      {% if lesson.lesson == current_lesson %}
+        {% if forloop.first == false %}
+          <a href="/training/section{{ page.section }}/lesson-{{ section_index.lessons[forloop.index0].lesson | replace: '.', '-' }}/" class="button is-link is-light">Previous Lesson</a>
+        {% endif %}
+        {% if forloop.last == false %}
+          <a href="/training/section{{ page.section }}/lesson-{{ section_index.lessons[forloop.index].lesson | replace: '.', '-' }}/" class="button is-link is-light">Next Lesson</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
   
-  {% for lesson in section_index.lessons %}
-    {% if lesson.slug == current_lesson %}
-      {% if forloop.first == false %}
-        <a href="{{ site.baseurl }}/training/{{ page.section }}/{{ section_index.lessons[forloop.index0].slug }}/" class="button is-link is-light">Previous Lesson</a>
-      {% endif %}
-      {% if forloop.last == false %}
-        <a href="{{ site.baseurl }}/training/{{ page.section }}/{{ section_index.lessons[forloop.index].slug }}/" class="button is-link is-light">Next Lesson</a>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-</div>
 
-<!-- SEO Schema for Search Engines -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
