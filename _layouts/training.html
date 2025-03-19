@@ -113,9 +113,9 @@ layout: default
       </div>
       {% endif %}
     </div>
-
     <aside class="menu px-3 py-4">
       <div id="sidebar-content" class="mt-3">
+        <p class="menu-label">Training Schedule</p>
         {% assign sections = site.training | where: "type", "section" | sort: "order" %}
         <ul class="menu-list">
           {% for section in sections %}

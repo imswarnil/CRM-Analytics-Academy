@@ -115,43 +115,9 @@ order : 0
     <!-- Sticky Sidebar -->
     <aside class="menu px-3 py-4 column is-4 is-hidden-mobile">
       <div id="sticky-sidebar">
-        <p class="menu-label">Training Schedule</p>
-        <ul class="menu-list">
-          {% for section in sections %}
-          <li>
-            <div class="section-header">
-              <a href="{{ section.url | relative_url }}" class="is-active">
-                <span class="icon">
-                  <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
-                </span>
-                {{ section.title }}
-              </a>
-              <span class="icon toggle-lessons" onclick="toggleLessons(event, this)">
-                <i class="fas fa-chevron-down"></i>
-              </span>
-            </div>
-            {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-            <ul class="lesson-list is-collapsed">
-              {% for lesson in lessons %}
-              <li>
-                <a href="{{ lesson.url | relative_url }}">
-                  <span class="icon is-small">
-                    {% if lesson.type == "article" %}
-                    <i class="fas fa-file-alt"></i>
-                    {% elsif lesson.type == "video" %}
-                    <i class="fas fa-play-circle"></i>
-                    {% else %}
-                    <i class="fas fa-file"></i>
-                    {% endif %}
-                  </span>
-                  {{ lesson.title }}
-                </a>
-              </li>
-              {% endfor %}
-            </ul>
-          </li>
-          {% endfor %}
-        </ul>
+         {% adsense square %}
+          <hr>
+           {% adsense skyscraper %}
       </div>
     </aside>
   </div>
