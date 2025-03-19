@@ -2,71 +2,94 @@
 layout: default
 ---
 
+
 <div class="columns is-gapless">
-  <!-- Video Section -->
+  <!-- Video/Article Section -->
   <div class="column">
-    <figure class="image is-16by9">
-      <iframe
-        class="has-ratio"
-        width="640"
-        height="360"
-        src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-    </figure>
+    {% if page.video_url %}
+      <figure class="image is-16by9">
+        <iframe class="has-ratio" width="640" height="360" src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}" frameborder="0" allowfullscreen></iframe>
+      </figure>
+    {% else %}
+      <article>
+        <h1>{{ page.title }}</h1>
+        <p>{{ content }}</p>
+      </article>
+    {% endif %}
+    
+    <!-- Ad Placeholder 1 -->
+    <div class="ad-placeholder">Ad Space 1</div>
   </div>
-
-<!-- Course Navigation -->
-<div class="column is-one-quarter is-scroll-column left-shadowed">
-  <div class="card">
-    {% for section in site.data.training.sections %}
-    <header class="card-header">
-      <p class="card-header-title">
-        {{ section.title }}
-      </p>
-      <button class="button is-medium is-white" aria-label="toggle menu">
-        <span class="icon">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </button>
-    </header>
-    <div class="card-content">
-      <nav class="panel">
-        {% for lesson in section.lessons %}
-          {% assign lesson_path = lesson.slug | prepend: page.dir %}
-          <a href="{{ site.baseurl }}{{ lesson_path }}/" 
-             class="panel-block {% if page.url == lesson_path %} is-active {% endif %}">
-            <span class="panel-icon">
-              {% if page.url == lesson_path %}
-                <i class="fas fa-check-circle"></i> <!-- Current Page -->
-              {% else %}
-                <i class="far fa-circle"></i>
-              {% endif %}
-            </span>
-            {{ lesson.title }}
-          </a>
-        {% endfor %}
-      </nav>
-    </div>
-    {% endfor %}
-  </div>
-</div>
-
-
-</div>
-
   
+  <!-- Course Navigation -->
+  <div class="column is-one-quarter is-scroll-column left-shadowed">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <h1>Course Sections</h1>
+        </p>
+        <button class="button is-medium is-white" id="menu-toggle">
+          <span class="icon"><i class="fas fa-angle-down"></i></span>
+        </button>
+      </header>
+      
+      <div class="card-content">
+        <nav class="panel">
+          {% assign sorted_pages = site.training | sort: 'id' %}
+          {% for lesson in sorted_pages %}
+            <a href="{{ lesson.url }}" class="panel-block {% if page.url == lesson.url %} is-active {% endif %}">
+              <span class="panel-icon">
+                {% if lesson.video_url %}
+                  🎥
+                {% else %}
+                  📄
+                {% endif %}
+              </span>
+              {{ lesson.title }}
+            </a>
+          {% endfor %}
+        </nav>
+      </div>
+    </div>
+    
+    <!-- Ad Placeholder 2 -->
+    <div class="ad-placeholder">Ad Space 2</div>
+  </div>
+</div>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LearningVideo",
-  "name": "{{ page.title }}",
-  "description": "{{ page.description }}",
-  "contentUrl": "{{ page.video_url }}",
-  "timeRequired": "{{ page.end_time | minus: page.start_time }} seconds",
-  "educationalLevel": "Beginner",
-  "educationalUse": "Self-study"
-}
+<!-- Mobile Navigation Button -->
+<button id="mobile-nav" class="button is-fullwidth">Show Course Menu</button>
+
+<!-- Ad Placeholders -->
+<div class="ad-placeholder">Ad Space 3</div>
+<div class="ad-placeholder">Ad Space 4</div>
+<div class="ad-placeholder">Ad Space 5</div>
+
+<!-- Pagination -->
+<nav class="pagination">
+  {% assign all_pages = site.training | sort: 'id' %}
+  {% for lesson in all_pages %}
+    {% if lesson.url == page.url %}
+      {% assign prev_index = forloop.index0 | minus: 1 %}
+      {% assign next_index = forloop.index0 | plus: 1 %}
+      
+      {% if prev_index >= 0 %}
+        <a href="{{ all_pages[prev_index].url }}" class="button">← Previous</a>
+      {% endif %}
+      
+      {% if next_index < all_pages.size %}
+        <a href="{{ all_pages[next_index].url }}" class="button">Next →</a>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</nav>
+
+<script>
+  document.getElementById('menu-toggle').addEventListener('click', function() {
+    document.querySelector('.card-content').classList.toggle('is-hidden');
+  });
+  
+  document.getElementById('mobile-nav').addEventListener('click', function() {
+    document.querySelector('.column.is-one-quarter').classList.toggle('is-hidden');
+  });
 </script>

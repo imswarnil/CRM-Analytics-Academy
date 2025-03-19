@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Salesforce CRM Analytics Training" 
+id : 0
 ---
 
 <section class="hero is-primary">
