@@ -2,7 +2,7 @@
 type : section
 title: "Getting Started"
 description : "Learn the basics of Salesforce from scratch."
-order: 1
+order: 01
 icon : /assets/training/book.svg
 permalink: /getting-started/
 ---
