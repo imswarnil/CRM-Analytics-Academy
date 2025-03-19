@@ -7,8 +7,17 @@ layout: default
       <div class="column is-three-quarters">
         <div class="box">
           <h1 class="title">{{ page.title }}</h1>
-          {% if page.overview %}
-            <p class="subtitle">{{ page.overview }}</p>
+          {% if page.section %}
+             <!-- Hero Section -->
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">{{ page.title }}</h1>
+        <p class="subtitle">{{ page.description }}</p>
+      </div>
+    </div>
+  </section>
+  {{content}}
             <h2 class="has-text-weight-bold mt-4">Lessons in this Section</h2>
             <ul class="lesson-list">
               {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
