@@ -7,97 +7,88 @@ layout: default
       <div class="column is-three-quarters">
          <!-- Section Page Start -->
         {% if page.type == "section" %}
-        <div class="section">
-          <!-- Section Header with Two-Column Layout -->
+        <div class="container is-fluid">
           <div class="columns">
+            
             <!-- Left Column: Section Title & Description -->
             <div class="column is-half">
               <h1 class="title">{{ page.title }}</h1>
               <p class="subtitle">{{ page.description }}</p>
             </div>
-            <!-- Right Column: Lesson Summary -->
-            <div class="column is-auto">
+        
+            <!-- Right Column: Lessons Summary -->
+            <div class="column is-half">
               {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
               {% assign lesson_count = lessons | size %}
-
-              <nav class="level">
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading"> Content Count <span class="icon"><i class="fas fa-book"></i>+ <span class="icon"><i class="fas fa-video"></i></span></p>
-                    <p class="title">{{ lesson_count }}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading"> Time  <span class="ml-3 icon"><i class="fas fa-book"></i>+ <span class="icon"><i class="fas fa-video"></i></span></p>
-                    <p class="title"> 1 Hour</p>
-                  </div>
-                </div>
-              </nav>
+        
+              <div class="box has-text-centered">
+                <p class="title is-4">{{ lesson_count }}</p>
+                <p class="subtitle is-6">Total Lessons</p>
+              </div>
             </div>
           </div>
-
-           <!-- Leaderboard Ad Placeholder -->
-           <div class="box has-text-centered my-2">
-            <p class="is-size-6 has-text-grey">Leaderboard Ad Placeholder</p>
-          </div>
         
-          <!-- Full-Width Content Before Lessons (Ad & Placeholder) -->
-          <div class="content my-2">
-            {{ content }}
-          </div>
-      
+          <!-- Full-Width Lessons List -->
+          <section>
+            {{ content }} <!-- Placeholder for content before the lessons -->
         
-          <!-- Full-Width Lesson Cards -->
-          <div class="columns is-multiline">
-            {% for lesson in lessons %}
-            <div class="column is-full">
-              <div class="card">
-                <div class="card-content">
-                  <div class="media">
-                    <!-- Lesson Icon -->
-                    <div class="media-left">
-                      <figure class="image is-48x48">
-                        <img src="{{ lesson.icon | relative_url }}" alt="Lesson Icon">
-                      </figure>
-                    </div>
-                    <!-- Lesson Details -->
-                    <div class="media-content">
-                      <p class="title is-5">
-                        <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
-                      </p>
-                      <p class="subtitle is-6">{{ lesson.parent }}</p>
-                    </div>
-                  </div>
-                  <!-- Lesson Type Badge -->
-                  <div class="tags">
-                    <span class="tag is-info is-light">{{ lesson.type | capitalize }}</span>
-                  </div>
-                  <!-- Author Avatar (If available) -->
-                  {% if lesson.author %}
-                  <div class="media">
+            <div class="container">
+              {% for lesson in lessons %}
+              <div class="columns is-vcentered py-4">
+                
+                <!-- Lesson Icon -->
+                <div class="column is-narrow">
+                  <figure class="image is-48x48">
+                    <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
+                  </figure>
+                </div>
+        
+                <!-- Lesson Details -->
+                <div class="column">
+                  <p class="title is-5 mb-1">
+                    <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
+                  </p>
+                  <p class="subtitle is-6 has-text-grey">{{ lesson.parent }}</p>
+                </div>
+        
+                <!-- Lesson Type Badge -->
+                <div class="column is-narrow">
+                  <span class="tag is-info is-light">{{ lesson.type | capitalize }}</span>
+                </div>
+        
+                <!-- Author Section (Vertically Centered) -->
+                {% if lesson.author %}
+                <div class="column is-narrow">
+                  <div class="media is-align-items-center">
                     <div class="media-left">
                       <figure class="image is-32x32">
-                        {% if lesson.author.image %}
-                          <img class="is-rounded" src="{{ lesson.author.image | relative_url }}" alt="Author Avatar">
-                        {% else %}
-                          <img class="is-rounded" src="/assets/images/default-avatar.png" alt="Default Author Avatar">
-                        {% endif %}
+                        <img class="is-rounded" src="{{ lesson.author.image | default: '/assets/images/default-avatar.png' | relative_url }}" alt="Author Avatar">
                       </figure>
                     </div>
                     <div class="media-content">
                       <p class="is-size-7 has-text-grey">By {{ lesson.author.name }}</p>
                     </div>
                   </div>
+                </div>
                 {% endif %}
-                
-                  
+        
+                <!-- External Link Icon -->
+                <div class="column is-narrow">
+                  <a href="{{ lesson.url | relative_url }}" class="icon" target="_blank">
+                    <span class="icon">
+                      <i class="fas fa-external-link-alt"></i>
+                    </span>
+                  </a>
                 </div>
               </div>
+        
+              <!-- Divider After Each Lesson -->
+              <hr class="my-2">
+              {% endfor %}
             </div>
-            {% endfor %}
-          </div>
+          </section>
         </div>
+        
         
  <!-- Section Page Start -->
 
