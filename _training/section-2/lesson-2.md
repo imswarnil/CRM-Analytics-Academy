@@ -1,8 +1,8 @@
 ---
-title: "Salesforce Section - 2"
+title: "Salesforce Section -"
 parent: "Section - 2"
 layout: training
-order: 12
+order: 2
 type: video
 video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
 ---

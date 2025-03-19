@@ -1,9 +1,9 @@
 ---
 title: "Salesforce Setup"
 parent: "Getting Started"
-description : some data here
+description : Some Data
 layout: training
-order: 03
+order: 2
 icon : /assets/training/book.svg
 type: video
 video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"

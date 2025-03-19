@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Section - 0" 
-order : 00 
+order : 0 
 ---
 <section class="hero is-primary">
   <div class="hero-body">
