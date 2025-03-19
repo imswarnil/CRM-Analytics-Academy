@@ -34,12 +34,12 @@
   {% include site-before-start.html %} 
 </head>
 <body class="layout-{{ page.layout | default: 'default' }}">
+  {% include pwa-prompt.html %}
   {% include site-header.html %}
   <main>
     {{ content }}
   </main>
   {% adsense large-leaderboard %}
-  {% include pwa-prompt.html %}
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   <script src="{{ '/assets/scripts/script.js' | relative_url }}"></script>
   {% include site-before-end.html %}
