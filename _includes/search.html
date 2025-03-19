@@ -1,75 +1,38 @@
 <section class="section">
   <div class="container">
-    <div class="columns is-multiline">
-      
-      <!-- Search Section -->
-      <div class="column is-8">
-        <div class="box has-shadow">
-          <form id="search-form">
-            <div class="field has-addons">
-              <div class="control has-icons-left is-expanded">
-                <input
-                  class="input is-medium"
-                  id="search"
-                  type="search"
-                  name="search"
-                  placeholder="Search for content..."
-                  autocomplete="off"
-                />
-                <span class="icon is-left">
-                  <i class="fas fa-search"></i>
-                </span>
-              </div>
-              <div class="control">
-                <button type="button" class="button is-medium is-primary">
-                  Search
-                </button>
-              </div>
-            </div>
-            <div class="field">
-              <ul class="list" id="list">
-                <!-- Search results -->
-              </ul>
-            </div>
-          </form>
-        </div>
-      </div>
 
-      <!-- Ad Placeholder 1 -->
-      <div class="column is-4">
-        <div class="box has-text-centered">
-          <p class="has-text-grey">[Ad Space 1]</p>
+    <!-- Search Form Section -->
+    <div class="box has-shadow">
+      <form id="search-form">
+        <!-- Search Input Field -->
+        <div class="field has-addons">
+          <div class="control has-icons-left is-expanded">
+            <input
+              class="input is-medium"
+              id="search"
+              type="search"
+              name="search"
+              placeholder="Search for content..."
+              autocomplete="off"
+            />
+            <span class="icon is-left">
+              <i class="fas fa-search"></i>
+            </span>
+          </div>
+          <div class="control">
+            <button type="button" class="button is-medium is-primary">
+              Search
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- Ad Placeholder 2 -->
-      <div class="column is-4">
-        <div class="box has-text-centered">
-          <p class="has-text-grey">[Ad Space 2]</p>
-        </div>
-      </div>
-
-      <!-- Navigation / Sitemap -->
-      <div class="column is-8">
-        <div class="box">
-          <h2 class="title is-5">Navigation</h2>
-          <ul>
-            {% for page in site.pages %}
-              {% if page.title %}
-                <li><a href="{{ page.url | relative_url }}">{{ page.title }}</a></li>
-              {% endif %}
-            {% endfor %}
+        <!-- Results List -->
+        <div class="field">
+          <ul class="list" id="list">
+            <!-- Results will be dynamically rendered here -->
           </ul>
         </div>
-      </div>
-
-      <!-- Ad Placeholder 3 -->
-      <div class="column is-12">
-        <div class="box has-text-centered">
-          <p class="has-text-grey">[Ad Space 3]</p>
-        </div>
-      </div>
-
+      </form>
     </div>
   </div>
 </section>
@@ -132,3 +95,61 @@
 </script>
 
 <noscript>Please enable JavaScript to use the search form.</noscript>
+
+<style>
+  /* Custom Styles */
+  .box {
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .input {
+    border-radius: 25px;
+    padding-left: 40px;
+  }
+
+  .icon.is-left {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .item--result {
+    margin-bottom: 20px;
+  }
+
+  .item--result .media {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .item--result .media-left {
+    margin-right: 15px;
+  }
+
+  .item--result .media-content {
+    flex-grow: 1;
+  }
+
+  .item--result img {
+    border-radius: 8px;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+  }
+
+  .item--result .title {
+    font-weight: bold;
+  }
+
+  .item--result .content {
+    color: #666;
+    font-size: 0.95rem;
+  }
+</style>
