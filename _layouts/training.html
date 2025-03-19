@@ -23,35 +23,42 @@ layout: default
   <div class="column is-one-quarter is-scroll-column left-shadowed p-2">
     <aside class="menu">
       {% assign sorted_pages = site.training | sort: 'id' %}
-      {% assign current_section = "" %}
+      {% assign grouped_lessons = sorted_pages | group_by_exp: "lesson", "lesson.id | split: '.' | first" %}
       
-      {% for lesson in sorted_pages %}
-        {% assign section_id = lesson.id | split: '.' | first %}
+      {% for section in grouped_lessons %}
+        {% assign section_lessons = section.items %}
         
-        {% if current_section != section_id %}
-          {% if current_section != "" %}
-            <hr>
-          {% endif %}
-          <p class="menu-label">{{ lesson.section }}</p>
+        {% assign section_index = section_lessons | where: "index", true | first %}
+        {% assign non_index_lessons = section_lessons | where_exp: "lesson", "lesson.index != true" %}
+        
+        {% if section_index %}
+          <p class="menu-label">{{ section_index.title }}</p>
           <ul class="menu-list">
-          {% assign current_section = section_id %}
+            <li>
+              <a href="{{ section_index.url }}" class="{% if page.url == section_index.url %}is-active{% endif %}">
+                <span class="icon">📂</span> {{ section_index.title }}
+              </a>
+            </li>
+            
+            {% for lesson in non_index_lessons %}
+              <li>
+                <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
+                  <span class="icon">
+                    {% if lesson.video_url %} 🎥 {% else %} 📄 {% endif %}
+                  </span> {{ lesson.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         {% endif %}
         
-        <li>
-          <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
-            <span class="icon">
-              {% if lesson.video_url %} 🎥 {% else %} 📄 {% endif %}
-            </span>
-            {{ lesson.title }}
-          </a>
-        </li>
       {% endfor %}
-      </ul>
     </aside>
-    
+  
     <!-- Ad Placeholder 2 -->
     <div class="box has-text-centered">Ad Space 2</div>
   </div>
+  
 </div>
 
 <!-- Mobile Navigation Button -->
