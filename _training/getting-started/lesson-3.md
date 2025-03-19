@@ -1,10 +1,11 @@
 ---
-title: "Quiz: Salesforce Basics"
-type: "quiz"
+title: "Getting Started Quiz"
+parent: "Getting Started"
+layout: training
 order: 3
-parent: "getting-started"
+type: quiz
 ---
-**Question 1:** What is Salesforce?  
-- A) A CRM  
-- B) A Database  
-- C) A Social Media Platform  
+**Q1:** What is Salesforce?  
+- A) CRM  
+- B) Database  
+- C) Programming Language  

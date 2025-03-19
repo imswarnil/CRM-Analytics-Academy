@@ -1,9 +1,8 @@
 ---
 title: "Introduction to Salesforce"
-description: "Learn what Salesforce is and why it's so powerful."
-parent: "getting started"
-type: "article"
-order: 1
+parent: "Getting Started"
 layout: training
+order: 1
+type: article
 ---
-Lesson content here...
+This is the first lesson in Getting Started.

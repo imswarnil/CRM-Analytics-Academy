@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 <section class="section">
   <div class="container">
     <div class="columns">
@@ -13,7 +14,7 @@ layout: default
             <p class="subtitle">{{ page.overview }}</p>
             <h2 class="has-text-weight-bold mt-4">Lessons in this Section</h2>
             <ul class="lesson-list">
-              {% assign lessons = site.training | where: "parent", page.title | sort: "order" %}
+              {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
               {% for lesson in lessons %}
                 <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
               {% endfor %}
@@ -34,7 +35,7 @@ layout: default
 
         <!-- Pagination -->
         <nav class="pagination is-centered mt-4">
-          {% assign lessons_sorted = site.training | where: "parent", page.parent | sort: "order" %}
+          {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
           {% for lesson in lessons_sorted %}
             {% if lesson.url == page.url %}
               {% assign prev_index = forloop.index0 | minus: 1 %}
@@ -56,16 +57,16 @@ layout: default
       <aside class="column is-one-quarter">
         <div class="box">
           <h2 class="subtitle has-text-weight-bold">Course Navigation</h2>
-          {% assign sections = site.training | map: "parent" | uniq %}
-          
+          {% assign sections = site.training | map: "parent" | uniq | compact %}
+
           <ul class="menu-list">
             {% for section_name in sections %}
-              {% assign section_page = site.pages | where: "title", section_name | first %}
+              {% assign section_page = site.training | where: "title", section_name | first %}
               {% if section_page %}
                 <li>
                   <a class="menu-label has-text-weight-bold" href="{{ section_page.url | relative_url }}">{{ section_name }}</a>
                   <ul>
-                    {% assign lessons = site.training | where: "parent", section_name | sort: "order" %}
+                    {% assign lessons = site.training | where_exp: "item", "item.parent == section_name" | sort: "order" %}
                     {% for lesson in lessons %}
                       <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
                     {% endfor %}
@@ -76,60 +77,57 @@ layout: default
           </ul>
         </div>
       </aside>
-      
-      
-
     </div>
   </div>
 </section>
+
 <style>
   .lesson-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 10px;
-}
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
 
-.lesson-list li {
-  margin-bottom: 8px;
-}
+  .lesson-list li {
+    margin-bottom: 8px;
+  }
 
-.lesson-list a {
-  color: #3273dc;
-  text-decoration: none;
-  font-weight: bold;
-}
+  .lesson-list a {
+    color: #3273dc;
+    text-decoration: none;
+    font-weight: bold;
+  }
 
-.lesson-list a:hover {
-  text-decoration: underline;
-}
+  .lesson-list a:hover {
+    text-decoration: underline;
+  }
 
-.video-container {
-  margin-top: 20px;
-  text-align: center;
-}
+  .video-container {
+    margin-top: 20px;
+    text-align: center;
+  }
 
-.quiz-content {
-  background: #f5f5f5;
-  padding: 15px;
-  border-radius: 5px;
-}
+  .quiz-content {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+  }
 
-.pagination {
-  display: flex;
-  justify-content: space-between;
-}
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+  }
 
-.menu-list {
-  padding-left: 0;
-}
+  .menu-list {
+    padding-left: 0;
+  }
 
-.menu-label {
-  font-size: 1.1rem;
-  padding: 5px 0;
-}
+  .menu-label {
+    font-size: 1.1rem;
+    padding: 5px 0;
+  }
 
-.menu-list li {
-  list-style: none;
-}
-
+  .menu-list li {
+    list-style: none;
+  }
 </style>

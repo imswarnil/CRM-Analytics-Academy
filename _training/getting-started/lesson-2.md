@@ -1,8 +1,9 @@
 ---
-title: "Salesforce Setup Guide"
-type: "video"
+title: "Salesforce Setup"
+parent: "Getting Started"
+layout: training
 order: 2
-parent: "getting-started"
+type: video
 video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
 ---
-This is a **video** lesson.
+Watch this video to understand how to set up Salesforce.
