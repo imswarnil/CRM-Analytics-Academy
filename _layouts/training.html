@@ -60,20 +60,23 @@ layout: default
           
           <ul class="menu-list">
             {% for section_name in sections %}
-              {% assign section_page = site.training | where: "title", section_name | first %}
-              <li>
-                <a class="menu-label has-text-weight-bold" href="{{ section_page.url | relative_url }}">{{ section_name }}</a>
-                <ul>
-                  {% assign lessons = site.training | where: "parent", section_name | sort: "order" %}
-                  {% for lesson in lessons %}
-                    <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-                  {% endfor %}
-                </ul>
-              </li>
+              {% assign section_page = site.pages | where: "title", section_name | first %}
+              {% if section_page %}
+                <li>
+                  <a class="menu-label has-text-weight-bold" href="{{ section_page.url | relative_url }}">{{ section_name }}</a>
+                  <ul>
+                    {% assign lessons = site.training | where: "parent", section_name | sort: "order" %}
+                    {% for lesson in lessons %}
+                      <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
             {% endfor %}
           </ul>
         </div>
       </aside>
+      
       
 
     </div>
