@@ -151,14 +151,14 @@ layout: default
         transform: rotate(180deg);
         transition: transform 0.3s ease-in-out;
       }
-      /* Content transition effect */
-.content {
+      /* Page content transition effect */
+.page-content {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-.content.show {
+.page-content.show {
   opacity: 1;
   transform: translateY(0);
 }
@@ -166,12 +166,12 @@ layout: default
     </style>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-  const content = document.querySelector(".content");
+  const pageContent = document.querySelector(".page-content");
   
-  if (content) {
+  if (pageContent) {
     setTimeout(() => {
-      content.classList.add("show");
-    }, 100); // Slight delay for smooth effect
+      pageContent.classList.add("show");
+    }, 100); // Slight delay for a smoother effect
   }
 });
 
