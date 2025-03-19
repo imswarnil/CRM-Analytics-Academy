@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 <div class="columns is-gapless">
   <!-- Video/Article Section -->
   <div class="column">
@@ -14,23 +15,22 @@ layout: default
         <p>{{ content }}</p>
       </article>
     {% endif %}
-    
+
     <!-- Ad Placeholder 1 -->
     <div class="box has-text-centered">Ad Space 1</div>
   </div>
-  
+
   <!-- Course Navigation -->
   <div class="column is-one-quarter is-scroll-column left-shadowed p-2">
     <aside class="menu">
       {% assign sorted_pages = site.training | sort: 'id' %}
       {% assign grouped_lessons = sorted_pages | group_by_exp: "lesson", "lesson.id | split: '.' | first" %}
-      
+
       {% for section in grouped_lessons %}
         {% assign section_lessons = section.items %}
-        
         {% assign section_index = section_lessons | where: "index", true | first %}
         {% assign non_index_lessons = section_lessons | where_exp: "lesson", "lesson.index != true" %}
-        
+
         {% if section_index %}
           <p class="menu-label">{{ section_index.title }}</p>
           <ul class="menu-list">
@@ -39,7 +39,7 @@ layout: default
                 <span class="icon">📂</span> {{ section_index.title }}
               </a>
             </li>
-            
+
             {% for lesson in non_index_lessons %}
               <li>
                 <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
@@ -51,14 +51,12 @@ layout: default
             {% endfor %}
           </ul>
         {% endif %}
-        
       {% endfor %}
     </aside>
-  
+
     <!-- Ad Placeholder 2 -->
     <div class="box has-text-centered">Ad Space 2</div>
   </div>
-  
 </div>
 
 <!-- Mobile Navigation Button -->
@@ -76,11 +74,11 @@ layout: default
     {% if lesson.url == page.url %}
       {% assign prev_index = forloop.index0 | minus: 1 %}
       {% assign next_index = forloop.index0 | plus: 1 %}
-      
+
       {% if prev_index >= 0 %}
         <a href="{{ all_pages[prev_index].url }}" class="button">← Previous</a>
       {% endif %}
-      
+
       {% if next_index < all_pages.size %}
         <a href="{{ all_pages[next_index].url }}" class="button">Next →</a>
       {% endif %}
