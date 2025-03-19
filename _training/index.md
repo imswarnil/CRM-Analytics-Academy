@@ -52,6 +52,73 @@ order : 0
 
    {% include training/stats.html %}
 
+---
+layout: default
+title: Training Schedule
+---
+
+<div class="container is-fullhd">
+  <h1 class="title is-size-2">Training Schedule</h1>
+  <p class="subtitle is-size-4">Browse through all available courses and their lessons.</p>
+
+  <div class="columns is-multiline">
+    {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+    {% for section in sections %}
+    <div class="column is-full">
+      <div class="box">
+        <!-- Section Title & Description -->
+        <div class="columns is-vcentered">
+          <div class="column is-narrow">
+            <figure class="image is-64x64">
+              <img src="{{ section.icon | relative_url }}" alt="{{ section.title }} Icon">
+            </figure>
+          </div>
+          <div class="column">
+            <h2 class="title is-4">
+              <a href="{{ section.url | relative_url }}">{{ section.title }}</a>
+            </h2>
+            <p class="subtitle is-6">{{ section.description }}</p>
+          </div>
+          <div class="column is-narrow">
+            <span class="tag is-info is-light">{{ section.lessons | size }} Lessons</span>
+          </div>
+        </div>
+        <!-- Lessons List -->
+        {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+        <ul>
+          {% for lesson in lessons %}
+          <li class="box my-2">
+            <div class="columns is-vcentered">
+              <div class="column is-narrow">
+                <figure class="image is-48x48">
+                  <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
+                </figure>
+              </div>
+              <div class="column">
+                <p class="title is-5 mb-1">
+                  <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
+                </p>
+                <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
+              </div>
+              <div class="column is-narrow">
+                <span class="tag is-info is-light">{{ lesson.type | capitalize }}</span>
+              </div>
+              <div class="column is-narrow">
+                <a href="{{ lesson.url | relative_url }}" class="icon">
+                  <i class="fas fa-link"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
 <!-- Sticky Sidebar Styles -->
 <style>
   .sticky-training-card {
