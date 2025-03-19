@@ -17,7 +17,7 @@ order : 0
           <!-- CTA Buttons -->
           <div class="buttons mt-5">
             <a href="/_training/getting-started/index.md" class="button is-primary is-large">Start Now</a>
-            <a href="#learn-more" class="button is-light is-large">Learn More</a>
+            <a href="#" class="button is-light is-large">Learn More</a>
           </div>
         </div>
         <!-- Right Column: Sticky Training Card Section -->

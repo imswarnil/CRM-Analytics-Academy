@@ -80,27 +80,39 @@ layout: default
                 </span>
                 {{ section.title }}
               </a>
+              
+              <!-- Progress Bar -->
+              <div class="progress-container">
+                <progress class="progress is-primary" value="0" max="100" data-section="{{ section.title }}"></progress>
+                <span class="progress-text" data-section-text="{{ section.title }}">0%</span>
+              </div>
+            
               <span class="icon toggle-lessons" onclick="toggleLessons(event, this)">
                 <i class="fas fa-chevron-down"></i>
               </span>
             </div>
+            
     
             {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
             <ul class="lesson-list {% if section.title == page.parent %}is-expanded{% else %}is-collapsed{% endif %}">
               {% for lesson in lessons %}
               <li>
-                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
-                  <span class="icon is-small">
-                    {% if lesson.type == "article" %}
-                    <i class="fas fa-file-alt"></i>
-                    {% elsif lesson.type == "video" %}
-                    <i class="fas fa-play-circle"></i>
-                    {% else %}
-                    <i class="fas fa-file"></i>
-                    {% endif %}
-                  </span>
-                  {{ lesson.title }}
-                </a>
+                <a href="{{ lesson.url | relative_url }}" 
+                class="lesson-link {% if lesson.url == page.url %}is-active{% endif %}" 
+                data-section="{{ section.title }}" 
+                data-lesson="{{ lesson.title }}">
+               <span class="icon is-small">
+                 {% if lesson.type == "article" %}
+                 <i class="fas fa-file-alt"></i>
+                 {% elsif lesson.type == "video" %}
+                 <i class="fas fa-play-circle"></i>
+                 {% else %}
+                 <i class="fas fa-file"></i>
+                 {% endif %}
+               </span>
+               {{ lesson.title }}
+             </a>
+             
               </li>
               {% endfor %}
             </ul>
@@ -150,3 +162,75 @@ layout: default
     
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Load progress on page load
+    updateProgressBars();
+
+    // Track lesson completion when a link is clicked
+    const lessonLinks = document.querySelectorAll(".lesson-link");
+    lessonLinks.forEach(link => {
+      link.addEventListener("click", function () {
+        let section = this.getAttribute("data-section");
+        let lesson = this.getAttribute("data-lesson");
+        markLessonAsCompleted(section, lesson);
+      });
+    });
+  });
+
+  function markLessonAsCompleted(section, lesson) {
+    let progressData = JSON.parse(localStorage.getItem("trainingProgress")) || {};
+    
+    if (!progressData[section]) {
+      progressData[section] = [];
+    }
+
+    if (!progressData[section].includes(lesson)) {
+      progressData[section].push(lesson);
+    }
+
+    localStorage.setItem("trainingProgress", JSON.stringify(progressData));
+    updateProgressBars();
+  }
+
+  function updateProgressBars() {
+    let progressData = JSON.parse(localStorage.getItem("trainingProgress")) || {};
+    let sections = document.querySelectorAll(".progress");
+
+    sections.forEach(progressBar => {
+      let sectionTitle = progressBar.getAttribute("data-section");
+      let totalLessons = document.querySelectorAll(`[data-section="${sectionTitle}"]`).length;
+      let completedLessons = progressData[sectionTitle] ? progressData[sectionTitle].length : 0;
+
+      let progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+      progressBar.value = progress;
+
+      let progressText = document.querySelector(`[data-section-text="${sectionTitle}"]`);
+      if (progressText) {
+        progressText.textContent = `${Math.round(progress)}%`;
+      }
+    });
+  }
+</script>
+<style>
+  .progress-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .progress {
+    flex: 1;
+    height: 6px;
+    border-radius: 5px;
+  }
+
+  .progress-text {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #3273dc;
+  }
+</style>
