@@ -16,7 +16,7 @@ order : 0
           </div>
           <!-- CTA Buttons -->
           <div class="buttons mt-5">
-            <a href="#start-now" class="button is-primary is-large">Start Now</a>
+            <a href="/_training/getting-started/index.md" class="button is-primary is-large">Start Now</a>
             <a href="#learn-more" class="button is-light is-large">Learn More</a>
           </div>
         </div>
