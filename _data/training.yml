@@ -1,0 +1,36 @@
+training:
+  home:
+    title: "Training Home"
+    description: "Welcome to Namaste Salesforce Training. Learn everything step by step."
+    icon: "fas fa-home"
+
+  sections:
+    - id: "1"
+      order: 1
+      title: "Introduction"
+      description: "Understand what Salesforce is and why it matters."
+      icon: "fas fa-book-open"
+      lessons:
+        - id: "1.1"
+          order: 1
+          title: "What is Salesforce?"
+          type: "article"
+        - id: "1.2"
+          order: 2
+          title: "Why Learn Salesforce?"
+          type: "video"
+
+    - id: "2"
+      order: 2
+      title: "Setup & Configuration"
+      description: "Get started with installing and setting up Salesforce."
+      icon: "fas fa-tools"
+      lessons:
+        - id: "2.1"
+          order: 1
+          title: "Installing Salesforce"
+          type: "exercise"
+        - id: "2.2"
+          order: 2
+          title: "Setting Up Developer Org"
+          type: "assignment"

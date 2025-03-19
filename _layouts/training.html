@@ -20,100 +20,35 @@ layout: default
   </div>
   
   <!-- Course Navigation -->
-<!-- Course Navigation -->
-<aside class="menu column is-one-quarter">
-  {% assign sorted_pages = site.training | sort: "id" %}
-  {% assign sections = "" | split: "," %}
-
-  <!-- Identify Sections (Index.md files OR Whole Number ID) -->
-  {% for lesson in sorted_pages %}
-    {% assign id_parts = lesson.id | split: "." %}
-    {% if id_parts.size == 1 or lesson.url contains "/index" %}
-      {% assign sections = sections | push: lesson %}
-    {% endif %}
-  {% endfor %}
-
-  <!-- Render Sections & Lessons -->
-  {% for section in sections %}
+  <aside class="menu column is-one-quarter">
     <div class="menu-label">
-      <a href="{{ section.url }}" class="section-toggle {% if page.url == section.url %}is-active{% endif %}" data-section="{{ section.id }}">
-        {{ section.title }}
+      <a href="/training/" class="section-toggle {% if page.url == '/training/' %}is-active{% endif %}">
+        <i class="{{ site.data.training.training.home.icon }}"></i> {{ site.data.training.training.home.title }}
       </a>
+      <p class="menu-description">{{ site.data.training.training.home.description }}</p>
     </div>
-    <ul class="menu-list" id="section-{{ section.id }}" style="display: none;">
-      {% for lesson in sorted_pages %}
-        {% assign lesson_parts = lesson.id | split: "." %}
-        {% if lesson_parts.size > 1 and lesson_parts.first == section.id and lesson.url != section.url %}
+
+    {% assign sorted_sections = site.data.training.training.sections | sort: "order" %}
+    {% for section in sorted_sections %}
+      <div class="menu-label">
+        <a href="/training/{{ section.id }}/" class="section-toggle {% if page.url contains section.id %}is-active{% endif %}">
+          <i class="{{ section.icon }}"></i> {{ section.title }}
+        </a>
+        <p class="menu-description">{{ section.description }}</p>
+      </div>
+
+      <ul class="menu-list" id="section-{{ section.id }}" style="display: none;">
+        {% assign sorted_lessons = section.lessons | sort: "order" %}
+        {% for lesson in sorted_lessons %}
           <li>
-            <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
-              {{ lesson.title }}
+            <a href="/training/{{ section.id }}/{{ lesson.id }}/" class="{% if page.url contains lesson.id %}is-active{% endif %}">
+              <span class="lesson-type lesson-{{ lesson.type }}">{{ lesson.type | capitalize }}</span> {{ lesson.title }}
             </a>
           </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  {% endfor %}
-</aside>
-<style>
-  .menu-label a {
-  display: block;
-  padding: 8px;
-  font-weight: bold;
-  color: #4a4a4a;
-  text-decoration: none;
-}
-
-.menu-label a:hover, .menu-label a.is-active {
-  color: #3273dc;
-}
-
-.menu-list {
-  padding-left: 15px;
-}
-
-.menu-list a {
-  display: block;
-  padding: 5px 10px;
-  color: #636363;
-  text-decoration: none;
-}
-
-.menu-list a:hover, .menu-list a.is-active {
-  color: #3273dc;
-  font-weight: bold;
-}
-
-</style>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const sectionToggles = document.querySelectorAll(".section-toggle");
-
-    sectionToggles.forEach(toggle => {
-      toggle.addEventListener("click", function(event) {
-        event.preventDefault();
-        const sectionId = this.getAttribute("data-section");
-        const sectionList = document.getElementById("section-" + sectionId);
-
-        // Toggle visibility
-        if (sectionList.style.display === "none") {
-          sectionList.style.display = "block";
-        } else {
-          sectionList.style.display = "none";
-        }
-      });
-    });
-
-    // Auto-expand the section containing the active page
-    const activeLesson = document.querySelector(".menu-list a.is-active");
-    if (activeLesson) {
-      const parentSection = activeLesson.closest(".menu-list");
-      if (parentSection) {
-        parentSection.style.display = "block";
-      }
-    }
-  });
-</script>
-
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </aside>
 </div>
 
 <!-- Mobile Navigation Button -->
@@ -125,20 +60,23 @@ layout: default
 
 <!-- Pagination -->
 <nav class="pagination is-centered mt-4">
-  {% assign all_pages = site.training | sort: 'id' %}
-  {% for lesson in all_pages %}
-    {% if lesson.url == page.url %}
-      {% assign prev_index = forloop.index0 | minus: 1 %}
-      {% assign next_index = forloop.index0 | plus: 1 %}
-      
-      {% if prev_index >= 0 %}
-        <a href="{{ all_pages[prev_index].url }}" class="button">← Previous</a>
+  {% assign all_sections = site.data.training.training.sections | sort: 'order' %}
+  {% for section in all_sections %}
+    {% for lesson in section.lessons %}
+      {% assign lesson_path = "/training/" | append: section.id | append: "/" | append: lesson.id | append: "/" %}
+      {% if lesson_path == page.url %}
+        {% assign prev_index = forloop.index0 | minus: 1 %}
+        {% assign next_index = forloop.index0 | plus: 1 %}
+        
+        {% if prev_index >= 0 %}
+          <a href="{{ all_sections[prev_index].url }}" class="button">← Previous</a>
+        {% endif %}
+        
+        {% if next_index < all_sections.size %}
+          <a href="{{ all_sections[next_index].url }}" class="button">Next →</a>
+        {% endif %}
       {% endif %}
-      
-      {% if next_index < all_pages.size %}
-        <a href="{{ all_pages[next_index].url }}" class="button">Next →</a>
-      {% endif %}
-    {% endif %}
+    {% endfor %}
   {% endfor %}
 </nav>
 
