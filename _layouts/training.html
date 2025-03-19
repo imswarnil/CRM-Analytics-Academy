@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 <div class="columns is-gapless">
   <!-- Video Section -->
   <div class="column">
@@ -64,20 +63,7 @@ layout: default
   </div>
 </div>
 
-<div class="buttons is-centered">
-    {% assign current_lesson = page.lesson %}
-    {% assign section_index = site.data.training.sections | where: "number", page.section | first %}
-    {% for lesson in section_index.lessons %}
-      {% if lesson.lesson == current_lesson %}
-        {% if forloop.first == false %}
-          <a href="/training/section{{ page.section }}/lesson-{{ section_index.lessons[forloop.index0].lesson | replace: '.', '-' }}/" class="button is-link is-light">Previous Lesson</a>
-        {% endif %}
-        {% if forloop.last == false %}
-          <a href="/training/section{{ page.section }}/lesson-{{ section_index.lessons[forloop.index].lesson | replace: '.', '-' }}/" class="button is-link is-light">Next Lesson</a>
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-  </div>
+
   
 
 <script type="application/ld+json">
