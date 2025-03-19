@@ -62,19 +62,24 @@ layout: default
 </div>
 
 <div class="buttons is-centered">
-    {% assign current_lesson = page.lesson %}
-    {% assign section_index = site.data.training.sections | where: "number", page.section | first %}
-    {% for lesson in section_index.lessons %}
-      {% if lesson.lesson == current_lesson %}
-        {% if forloop.first == false %}
-          <a href="/training/{{ page.section }}/{{ section_index.lessons[forloop.index0].lesson | replace: '.', '-' }}/" class="button is-link is-light">Previous Lesson</a>
-        {% endif %}
-        {% if forloop.last == false %}
-          <a href="/training/{{ page.section }}/{{ section_index.lessons[forloop.index].lesson | replace: '.', '-' }}/" class="button is-link is-light">Next Lesson</a>
-        {% endif %}
+  {% assign current_lesson = page.lesson %}
+  {% assign current_path_parts = page.path | split: '/' %}
+  {% assign current_section = current_path_parts[1] %}  <!-- Extracts the folder name after 'training' -->
+
+  {% assign section_index = site.data.training.sections | where: "slug", current_section | first %}
+
+  {% for lesson in section_index.lessons %}
+      {% if lesson.slug == current_lesson %}
+          {% if forloop.first == false %}
+              <a href="{{ site.baseurl }}/{{ page.dir }}{{ section_index.lessons[forloop.index0].slug }}/" class="button is-link is-light">Previous Lesson</a>
+          {% endif %}
+          {% if forloop.last == false %}
+              <a href="{{ site.baseurl }}/{{ page.dir }}{{ section_index.lessons[forloop.index].slug }}/" class="button is-link is-light">Next Lesson</a>
+          {% endif %}
       {% endif %}
-    {% endfor %}
-  </div>
+  {% endfor %}
+</div>
+
   
 
 <script type="application/ld+json">
