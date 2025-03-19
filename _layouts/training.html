@@ -56,15 +56,16 @@ layout: default
       <aside class="column is-one-quarter">
         <div class="box">
           <h2 class="subtitle has-text-weight-bold">Course Navigation</h2>
-          {% assign lessons = site.training | sort: "order" %}
-          {% assign grouped_lessons = lessons | group_by: "parent" %}
-
+          {% assign sections = site.training | map: "parent" | uniq %}
+          
           <ul class="menu-list">
-            {% for section in grouped_lessons %}
+            {% for section_name in sections %}
+              {% assign section_page = site.training | where: "title", section_name | first %}
               <li>
-                <span class="menu-label has-text-weight-bold">{{ section.name }}</span>
+                <a class="menu-label has-text-weight-bold" href="{{ section_page.url | relative_url }}">{{ section_name }}</a>
                 <ul>
-                  {% for lesson in section.items %}
+                  {% assign lessons = site.training | where: "parent", section_name | sort: "order" %}
+                  {% for lesson in lessons %}
                     <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
                   {% endfor %}
                 </ul>
@@ -73,6 +74,7 @@ layout: default
           </ul>
         </div>
       </aside>
+      
 
     </div>
   </div>
