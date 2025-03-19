@@ -98,23 +98,75 @@ layout: default
       {% endif %}
 
       <!-- Pagination -->
-      <nav class="pagination is-centered mt-4">
-        {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
-        {% for lesson in lessons_sorted %}
-          {% if lesson.url == page.url %}
-            {% assign prev_index = forloop.index0 | minus: 1 %}
-            {% assign next_index = forloop.index0 | plus: 1 %}
-          {% endif %}
-        {% endfor %}
+   <!-- Pagination -->
+<nav class="pagination is-centered mt-4">
+  {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
+  {% assign sections = site.training | where: "type", "section" | sort: "order" %}
 
+  {% assign prev_page = nil %}
+  {% assign next_page = nil %}
+
+  {% if page.type == "section" %}
+    <!-- If on a section page, 'Next' should go to first lesson -->
+    {% assign first_lesson = lessons_sorted | first %}
+    {% if first_lesson %}
+      {% assign next_page = first_lesson %}
+    {% endif %}
+    
+    <!-- Find previous section -->
+    {% for section in sections %}
+      {% if section.url == page.url %}
+        {% assign prev_index = forloop.index0 | minus: 1 %}
         {% if prev_index >= 0 %}
-          <a class="pagination-previous" href="{{ lessons_sorted[prev_index].url | relative_url }}">← Previous</a>
+          {% assign prev_page = sections[prev_index] %}
         {% endif %}
+      {% endif %}
+    {% endfor %}
 
-        {% if next_index < lessons_sorted.size %}
-          <a class="pagination-next" href="{{ lessons_sorted[next_index].url | relative_url }}">Next →</a>
+  {% else %}
+    <!-- If on a lesson page, find previous and next lesson -->
+    {% for lesson in lessons_sorted %}
+      {% if lesson.url == page.url %}
+        {% assign prev_index = forloop.index0 | minus: 1 %}
+        {% assign next_index = forloop.index0 | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+
+    {% if prev_index >= 0 %}
+      {% assign prev_page = lessons_sorted[prev_index] %}
+    {% else %}
+      <!-- If it's the first lesson, previous should go to section page -->
+      {% assign prev_section = sections | where: "title", page.parent | first %}
+      {% if prev_section %}
+        {% assign prev_page = prev_section %}
+      {% endif %}
+    {% endif %}
+
+    {% if next_index < lessons_sorted.size %}
+      {% assign next_page = lessons_sorted[next_index] %}
+    {% else %}
+      <!-- If it's the last lesson, 'Next' should go to next section -->
+      {% for section in sections %}
+        {% if section.title == page.parent %}
+          {% assign next_section_index = forloop.index0 | plus: 1 %}
         {% endif %}
-      </nav>
+      {% endfor %}
+      {% assign next_section = sections[next_section_index] %}
+      {% if next_section %}
+        {% assign next_page = next_section %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if prev_page %}
+    <a class="pagination-previous" href="{{ prev_page.url | relative_url }}">← Previous</a>
+  {% endif %}
+
+  {% if next_page %}
+    <a class="pagination-next" href="{{ next_page.url | relative_url }}">Next →</a>
+  {% endif %}
+</nav>
+
     </div>
 
     <!-- Sidebar -->
