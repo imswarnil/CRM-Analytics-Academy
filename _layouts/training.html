@@ -20,39 +20,63 @@ layout: default
   </div>
   
   <!-- Course Navigation -->
-  <div class="column is-one-quarter is-scroll-column left-shadowed p-2">
-    <aside class="menu">
-      {% assign sorted_pages = site.training | sort: 'id' %}
-      {% assign current_section = "" %}
-      
-      {% for lesson in sorted_pages %}
-        {% if lesson.id %}
-          {% assign section_id = lesson.id | split: '.' | first %}
-          
-          {% if current_section != section_id %}
-            {% if current_section != "" %}
-              <hr>
-            {% endif %}
-            <p class="menu-label">{{ lesson.section }}</p>
-            <ul class="menu-list">
-            {% assign current_section = section_id %}
-          {% endif %}
-          
-          <li>
-            <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
-              <span class="icon">
-                {% if lesson.video_url %} 🎥 {% else %} 📄 {% endif %}
-              </span>
-              {{ lesson.title }}
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
-      </ul>
-    </aside>
+  <aside class="menu">
+    {% assign sorted_pages = site.training | sort: "id" %}
+    {% assign sections = "" | split: "," %}
     
-    <div class="box has-text-centered">Ad Space 2</div>
-  </div>
+    <!-- Extract Unique Section Numbers -->
+    {% for lesson in sorted_pages %}
+      {% assign section_id = lesson.id | split: "." | first %}
+      {% unless sections contains section_id %}
+        {% assign sections = sections | push: section_id %}
+      {% endunless %}
+    {% endfor %}
+  
+    <!-- Render Sections and Lessons -->
+    {% for section in sections %}
+      <p class="menu-label">Section {{ section }}</p>
+      <ul class="menu-list">
+        {% for lesson in sorted_pages %}
+          {% assign lesson_section = lesson.id | split: "." | first %}
+          
+          {% if lesson_section == section %}
+            {% assign lesson_id_parts = lesson.id | split: "." %}
+            
+            {% if lesson_id_parts.size == 1 %}
+              <!-- Whole Number IDs (Main Section) -->
+              <li>
+                <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
+                  {{ lesson.title }}
+                </a>
+              </li>
+            {% else %}
+              <!-- Decimal IDs (Nested Lessons) -->
+              <li>
+                <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
+                  {{ lesson.title }}
+                </a>
+                <ul>
+                  {% for sublesson in sorted_pages %}
+                    {% assign sub_section = sublesson.id | split: "." | first %}
+                    {% assign sub_id_parts = sublesson.id | split: "." %}
+                    
+                    {% if sub_section == section and sub_id_parts.size > 1 and sublesson.id > lesson.id and sublesson.id < section | plus: 1 %}
+                      <li>
+                        <a href="{{ sublesson.url }}" class="{% if page.url == sublesson.url %}is-active{% endif %}">
+                          {{ sublesson.title }}
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </aside>
+  
 </div>
 
 <button id="mobile-nav" class="button is-fullwidth is-primary">Show Course Menu</button>
