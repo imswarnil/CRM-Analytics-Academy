@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Salesforce CRM Analytics Training" 
+title: "Training - Home" 
 id : 0
 ---
 

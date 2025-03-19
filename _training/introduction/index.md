@@ -1,6 +1,6 @@
 ---
 layout: training
-title: "Salesforce CRM Analytics Training - Overview "
+title: "Section - 1 "
 id : 1
 ---
 

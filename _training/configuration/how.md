@@ -1,8 +1,8 @@
 ---
 layout: training
-title: "Welcome to the Training - 1"
+title: "How To"
 description: "An introduction to the Salesforce CRM Analytics training course, covering the structure and objectives."
-id : 1.1 
+id : 2.1 
 type : video
 start_time: 19
 end_time: 95
