@@ -1,123 +1,105 @@
 <section class="section">
   <div class="container">
+    <!-- Leaderboard Ad Placeholder -->
+    <div class="box has-text-centered mb-5">
+      <p class="has-text-grey-light">[Leaderboard Ad]</p>
+    </div>
+
     <!-- Search Form Section -->
-    <div class="box has-shadow p-5">
+    <div class="box has-shadow">
       <form id="search-form">
-        <!-- Search Input Field -->
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
-            <input
-              class="input is-medium is-rounded"
-              id="search"
-              type="search"
-              name="search"
-              placeholder="Search for content..."
-              autocomplete="off"
-            />
-            <span class="icon is-left">
-              <i class="fas fa-search"></i>
-            </span>
+            <input class="input is-medium" id="search" type="search" name="search" placeholder="Search for content..." autocomplete="off" />
+            <span class="icon is-left"><i class="fas fa-search"></i></span>
           </div>
           <div class="control">
-            <button type="button" class="button is-medium is-primary is-rounded">
-              Search
-            </button>
+            <button type="button" class="button is-medium is-primary">Search</button>
           </div>
         </div>
-
-        <!-- Results List -->
-        <div class="field mt-4">
-          <div class="bento-grid" id="list">
-            <!-- Results will be dynamically rendered here -->
-          </div>
+        <div class="field">
+          <ul class="list" id="list"></ul>
         </div>
       </form>
+    </div>
+
+    <!-- Bento Grid Sitemap -->
+    <div class="bento-grid mt-6">
+      <div class="bento-card box" style="background: #f5f5f5;">
+        <h3 class="title is-5">Category 1</h3>
+        <p>Explore detailed content</p>
+      </div>
+      <div class="bento-card box" style="background: #fafafa;">
+        <h3 class="title is-5">Category 2</h3>
+        <p>Guides & tutorials</p>
+      </div>
+      <div class="bento-card box" style="background: #ececec;">
+        <h3 class="title is-5">Category 3</h3>
+        <p>Latest updates</p>
+      </div>
+      <div class="bento-card box ad-placeholder">
+        <p class="has-text-grey-light">[Ad Placeholder]</p>
+      </div>
     </div>
   </div>
 </section>
 
-<script type="text/javascript">
+<script>
   const endpoint = '{{ "/assets/search.json" | relative_url }}';
   const pages = [];
 
   fetch(endpoint)
-    .then((response) => response.json())
-    .then((data) => pages.push(...data));
+    .then(response => response.json())
+    .then(data => pages.push(...data));
 
   function findResults(termToMatch, pages) {
-    return pages.filter((item) => {
-      const regex = new RegExp(termToMatch, 'gi');
-      return item.title.match(regex) || item.content.match(regex);
-    });
+    return pages.filter(item => new RegExp(termToMatch, 'gi').test(item.title + item.content));
   }
 
   function displayResults() {
     const term = this.value;
     const resultsArray = findResults(term, pages);
-    const html = resultsArray
-      .map(
-        (item) => `
-          <div class="bento-item box">
-            <figure class="image is-128x128">
-              <img src="${item.image}" alt="${item.title}" class="bento-img"/>
-            </figure>
-            <div class="content">
-              <h4 class="title is-5">
-                <a href="${item.url}" class="has-text-link">${item.title}</a>
-              </h4>
-              <p>${item.description}</p>
-            </div>
-          </div>`
-      )
-      .join('');
-
-    resultsList.innerHTML =
-      resultsArray.length === 0 || term === ''
-        ? '<p class="has-text-centered has-text-grey">No results found</p>'
-        : html;
+    const html = resultsArray.map(item => `
+      <li class="item item--result">
+        <article class="media box">
+          <figure class="media-left">
+            <p class="image is-64x64"><img src="${item.image}" alt="${item.title}" /></p>
+          </figure>
+          <div class="media-content">
+            <h4 class="title is-5">
+              <a href="${item.url}" class="has-text-link">${item.title}</a>
+            </h4>
+            <p class="content">${item.description}</p>
+          </div>
+        </article>
+      </li>`).join('');
+    resultsList.innerHTML = resultsArray.length ? html : '<p class="has-text-centered has-text-grey">No results found</p>';
   }
 
-  const field = document.querySelector('#search');
-  const resultsList = document.querySelector('#list');
-
-  field.addEventListener('keyup', displayResults);
-  field.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-    }
-  });
+  document.querySelector('#search').addEventListener('keyup', displayResults);
 </script>
 
 <style>
-  /* Bento Grid Layout */
   .bento-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
   }
-
-  .bento-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
+  .bento-card {
+    padding: 1.5rem;
     border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
   }
-
-  .bento-item:hover {
+  .bento-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
   }
-
-  .bento-img {
-    border-radius: 10px;
-    width: 100px;
+  .ad-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100px;
-    object-fit: cover;
-  }
-
-  .title {
-    text-align: center;
+    background: #f8f8f8;
+    border: dashed 2px #ccc;
   }
 </style>
