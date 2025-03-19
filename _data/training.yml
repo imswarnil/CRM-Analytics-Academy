@@ -4,38 +4,24 @@ home:
   icon: "fas fa-home"
 
 sections:
-  - order: 1
-    title: "Getting Started"
-    description: "Learn the basics of Salesforce and why it matters."
-    icon: "fas fa-book"
+  - title: "Getting Started"
+    description: "Introduction to the course and prerequisites."
+    slug: "getting-started"
     lessons:
-      - order: 1
-        title: "Introduction"
-        type: "article"
-        seo:
-          keywords: "Salesforce introduction, CRM basics"
-          description: "Learn the fundamentals of Salesforce and its ecosystem."
-      - order: 2
-        title: "Why Learn Salesforce?"
-        type: "video"
-        seo:
-          keywords: "Salesforce benefits, career opportunities"
-          description: "Explore why Salesforce is a leading CRM and how it can boost your career."
+      - title: "Introduction"
+        description: "An overview of what you'll learn."
+        slug: "introduction"
+      - title: "Course Setup"
+        description: "Setting up your environment."
+        slug: "course-setup"
 
-  - order: 2
-    title: "Setup & Configuration"
-    description: "Get started with installing and setting up Salesforce."
-    icon: "fas fa-cogs"
+  - title: "Configuration"
+    description: "Learn how to configure settings."
+    slug: "configuration"
     lessons:
-      - order: 1
-        title: "Installing Salesforce"
-        type: "exercise"
-        seo:
-          keywords: "Salesforce installation, setup guide"
-          description: "Step-by-step guide to installing Salesforce."
-      - order: 2
-        title: "Setting Up Developer Org"
-        type: "assignment"
-        seo:
-          keywords: "Salesforce developer org, setup tutorial"
-          description: "Learn how to set up your Salesforce developer environment."
+      - title: "System Overview"
+        description: "Understanding the basics of system configuration."
+        slug: "system-overview"
+      - title: "Best Practices"
+        description: "Key recommendations for setup."
+        slug: "best-practices"
