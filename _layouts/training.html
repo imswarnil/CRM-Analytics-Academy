@@ -1,198 +1,173 @@
 ---
 layout: default
 ---
-  <div class="container is-fullhd">
-    <div class="columns">
-      <!-- Main Content Area -->
-      <div class="column is-three-quarters">
-         <!-- Section Page Start -->
-        {% if page.type == "section" %}
-       
-        <div class="container is-fluid">
-          <div class="columns">
-            
-            <!-- Left Column: Section Title & Description -->
-            <div class="column is-half">
-              <h1 class="title">{{ page.title }}</h1>
-              <p class="subtitle">{{ page.description }}</p>
-            </div>
-        
-            <!-- Right Column: Lessons Summary -->
-            <div class="column is-half">
-              {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
-              {% assign lesson_count = lessons | size %}
-        
-              <div class="box has-text-centered">
-                <p class="title is-4">{{ lesson_count }}</p>
-                <p class="subtitle is-6">Total Lessons</p>
-              </div>
+<div class="container is-fullhd">
+  <div class="columns">
+    
+    <!-- Main Content Area -->
+    <div class="column is-three-quarters">
+      
+      {% if page.type == "section" %}
+      <!-- Section Header -->
+      <div class="container is-fluid">
+        <div class="columns">
+          <!-- Section Title & Description -->
+          <div class="column">
+            <h1 class="title">{{ page.title }}</h1>
+            <p class="subtitle">{{ page.description }}</p>
+          </div>
+          <!-- Lessons Count -->
+          <div class="column is-narrow">
+            {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
+            <div class="box has-text-centered">
+              <p class="title is-4">{{ lessons.size }}</p>
+              <p class="subtitle is-6">Total Lessons</p>
             </div>
           </div>
-        
-          <!-- Full-Width Lessons List -->
-          <section>
-            {{ content }} <!-- Placeholder for content before the lessons -->
-        
-            <div class="container">
-              {% for lesson in lessons %}
-              <div class="columns is-vcentered is-mobile py-4">
-        
-                <!-- Lesson Icon (Left) -->
-                <div class="column is-narrow">
-                  <figure class="image is-48x48">
-                    <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
-                  </figure>
-                </div>
-        
-                <!-- Lesson Details -->
-                <div class="column">
-                  <p class="title is-5 mb-1">
-                    <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
-                  </p>
-                  <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
-        
-                  <!-- Author (Appears Below Title for Better Alignment) -->
-                  {% if lesson.author %}
-                  <div class="media is-align-items-center mt-2">
-                    <div class="media-left">
-                      <figure class="image is-16x16 is-square">
-                        <img class="is-rounded" src="{{ lesson.author.image | default: '/assets/images/default-avatar.png' | relative_url }}" alt="Author Avatar">
-                      </figure>
-                    </div>
-                    <div class="media-content">
-                      <p class="is-size-7 has-text-grey">By {{ lesson.author.name }}</p>
-                    </div>
-                  </div>
-                  {% endif %}
-                </div>
-        
-                <!-- Lesson Type Badge -->
-                <div class="column is-narrow">
-                  <span class="tag is-info is-light is-size-7">{{ lesson.type | capitalize }}</span>
-                </div>
-        
-                <!-- External Link Icon (Opens in Same Tab) -->
-                <div class="column is-narrow">
-                  <a href="{{ lesson.url | relative_url }}" class="icon">
-                    <span class="icon">
-                      <i class="fas fa-link"></i>
-                    </span>
-                  </a>
-                </div>
-        
-              </div>
-        
-              <!-- Divider -->
-              <hr class="my-3">
-        
-              <!-- Ad Placeholder Every 3 Lessons -->
-              {% if forloop.index == 3 or forloop.index == 6 or forloop.index == 9 %}
-              <div class="box has-text-centered my-4">
-                <p class="has-text-grey-light is-size-7">[Ad Placeholder - Insert Ad Code Here]</p>
-              </div>
-              {% endif %}
-        
-              {% endfor %}
-            </div>
-          </section>
         </div>
-        
-        
- <!-- Section Page Start -->
-
-  <!-- Lesson Starts Page Start -->
-
-
-          {% else %}
-            {% if page.type == "article" %}
-            <h1 class="title">{{ page.title }}</h1>
-<p class="subtitle">{{ page.description }}</p>
-              <div class="content">{{ content }}</div>
-            {% elsif page.type == "video" %}
-            <h1 class="title">{{ page.title }}</h1>
-<p class="subtitle">{{ page.description }}</p>
-              <div class="video-container">
-                <iframe width="560" height="315" src="{{ page.video_url }}" frameborder="0" allowfullscreen></iframe>
-              </div>
-              <div class="content">{{ content }}</div>
-            {% elsif page.type == "quiz" %}
-            <h1 class="title">{{ page.title }}</h1>
-<p class="subtitle">{{ page.description }}</p>
-              <div class="box quiz-content">{{ content }}</div>
-            {% endif %}
-          {% endif %}
-       
-        <!-- Pagination -->
-        <nav class="pagination is-centered mt-4">
-          {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
-          {% for lesson in lessons_sorted %}
-            {% if lesson.url == page.url %}
-              {% assign prev_index = forloop.index0 | minus: 1 %}
-              {% assign next_index = forloop.index0 | plus: 1 %}
-            {% endif %}
-          {% endfor %}
-
-          {% if prev_index >= 0 %}
-            <a class="pagination-previous" href="{{ lessons_sorted[prev_index].url | relative_url }}">← Previous</a>
-          {% endif %}
-
-          {% if next_index < lessons_sorted.size %}
-            <a class="pagination-next" href="{{ lessons_sorted[next_index].url | relative_url }}">Next →</a>
-          {% endif %}
-        </nav>
       </div>
 
-      <!-- Sidebar Navigation -->
-    <!-- Sidebar Container -->
-<aside class="menu px-3 py-4">
-  
-  <!-- Mobile Sidebar Toggle -->
-  <button class="button is-fullwidth is-info is-light is-hidden-desktop" onclick="toggleSidebar()">
-    <span class="icon">
-      <i class="fas fa-bars"></i>
-    </span>
-    <span>Menu</span>
-  </button>
+      <!-- Lessons List -->
+      <section>
+        {{ content }}
 
-  <div id="sidebar-content" class="mt-3">
-    {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+        {% for lesson in lessons %}
+        <div class="columns is-vcentered is-mobile py-4">
+          <!-- Lesson Icon -->
+          <div class="column is-narrow">
+            <figure class="image is-48x48">
+              <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
+            </figure>
+          </div>
 
-    <ul class="menu-list">
-      {% for section in sections %}
-        <li>
-          <a href="{{ section.url | relative_url }}">
-            <span class="icon">
-              <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
-            </span>
-            {{ section.title }}
-          </a>
+          <!-- Lesson Details -->
+          <div class="column">
+            <p class="title is-5 mb-1">
+              <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
+            </p>
+            <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
 
-          {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-          {% if lessons.size > 0 %}
-            <ul>
-              {% for lesson in lessons %}
-                <li>
-                  <a href="{{ lesson.url | relative_url }}">
-                    <span class="icon is-small">
-                      {% if lesson.type == "article" %}
-                        <i class="fas fa-file-alt"></i>
-                      {% elsif lesson.type == "video" %}
-                        <i class="fas fa-play-circle"></i>
-                      {% else %}
-                        <i class="fas fa-file"></i>
-                      {% endif %}
-                    </span>
-                    {{ lesson.title }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
+            <!-- Author (Appears Below Title) -->
+            {% if lesson.author %}
+            <div class="media is-align-items-center mt-2">
+              <div class="media-left">
+                <figure class="image is-16x16 is-square">
+                  <img class="is-rounded" src="{{ lesson.author.image | default: '/assets/images/default-avatar.png' | relative_url }}" alt="Author">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="is-size-7 has-text-grey">By {{ lesson.author.name }}</p>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Lesson Type Badge -->
+          <div class="column is-narrow">
+            <span class="tag is-info is-light is-size-7">{{ lesson.type | capitalize }}</span>
+          </div>
+
+          <!-- External Link -->
+          <div class="column is-narrow">
+            <a href="{{ lesson.url | relative_url }}" class="icon">
+              <span class="icon">
+                <i class="fas fa-link"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="my-3">
+
+        <!-- Ad Placeholder -->
+        {% if forloop.index == 3 or forloop.index == 6 or forloop.index == 9 %}
+        <div class="box has-text-centered my-4">
+          <p class="has-text-grey-light is-size-7">[Ad Placeholder - Insert Ad Code Here]</p>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+      </section>
+
+      {% else %}
+      <!-- Lesson Page -->
+      <h1 class="title">{{ page.title }}</h1>
+      <p class="subtitle">{{ page.description }}</p>
+      <div class="content">{{ content }}</div>
+      {% endif %}
+
+      <!-- Pagination -->
+      <nav class="pagination is-centered mt-4">
+        {% assign lessons_sorted = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
+        {% for lesson in lessons_sorted %}
+          {% if lesson.url == page.url %}
+            {% assign prev_index = forloop.index0 | minus: 1 %}
+            {% assign next_index = forloop.index0 | plus: 1 %}
           {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
+        {% endfor %}
+
+        {% if prev_index >= 0 %}
+          <a class="pagination-previous" href="{{ lessons_sorted[prev_index].url | relative_url }}">← Previous</a>
+        {% endif %}
+
+        {% if next_index < lessons_sorted.size %}
+          <a class="pagination-next" href="{{ lessons_sorted[next_index].url | relative_url }}">Next →</a>
+        {% endif %}
+      </nav>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="menu px-3 py-4">
+      <!-- Mobile Sidebar Toggle -->
+      <button class="button is-fullwidth is-info is-light is-hidden-desktop" onclick="toggleSidebar()">
+        <span class="icon">
+          <i class="fas fa-bars"></i>
+        </span>
+        <span>Menu</span>
+      </button>
+
+      <div id="sidebar-content" class="mt-3">
+        {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+        <ul class="menu-list">
+          {% for section in sections %}
+            <li>
+              <a href="{{ section.url | relative_url }}">
+                <span class="icon">
+                  <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
+                </span>
+                {{ section.title }}
+              </a>
+
+              {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+              {% if lessons.size > 0 %}
+                <ul>
+                  {% for lesson in lessons %}
+                    <li>
+                      <a href="{{ lesson.url | relative_url }}">
+                        <span class="icon is-small">
+                          {% if lesson.type == "article" %}
+                            <i class="fas fa-file-alt"></i>
+                          {% elsif lesson.type == "video" %}
+                            <i class="fas fa-play-circle"></i>
+                          {% else %}
+                            <i class="fas fa-file"></i>
+                          {% endif %}
+                        </span>
+                        {{ lesson.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </aside>
+
   </div>
-</aside>
+</div>
 
 <!-- Sidebar Toggle Script -->
 <script>
@@ -201,6 +176,3 @@ layout: default
     sidebar.classList.toggle('is-hidden');
   }
 </script>
-
-    </div>
-  </div>
