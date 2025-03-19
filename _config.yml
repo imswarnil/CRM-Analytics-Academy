@@ -149,7 +149,6 @@ collections:
     description: "CRM Analytics Tutorials" # The post list page content
   training:
     output: true
-    permalink: /training/:path/
   courses:
     output: true
     permalink: /courses/:name/
