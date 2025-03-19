@@ -2,6 +2,28 @@
 layout: training
 title: This is Section - 1
 ---
+<div class="columns is-multiline">
+  {% assign lessons = site.training | where: "parent", page.title | sort: "order" %}
+  {% for lesson in lessons %}
+    <div class="column is-half">
+      <div class="card">
+        <div class="card-content">
+          <p class="title is-5">{{ lesson.title }}</p>
+          {% if lesson.type == "video" %}
+            <span class="tag is-primary">🎥 Video</span>
+          {% elsif lesson.type == "quiz" %}
+            <span class="tag is-warning">📝 Quiz</span>
+          {% else %}
+            <span class="tag is-info">📖 Article</span>
+          {% endif %}
+          <p class="subtitle is-6 mt-2">{{ lesson.description }}</p>
+          <a href="{{ lesson.url | relative_url }}" class="button is-link mt-3">Start Lesson</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
 
 This is Section -1 
 
