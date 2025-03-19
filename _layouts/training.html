@@ -80,18 +80,10 @@ layout: default
                 </span>
                 {{ section.title }}
               </a>
-              
-              <!-- Progress Bar -->
-              <div class="progress-container">
-                <progress class="progress is-primary" value="0" max="100" data-section="{{ section.title }}"></progress>
-                <span class="progress-text" data-section-text="{{ section.title }}">0%</span>
-              </div>
-            
               <span class="icon toggle-lessons" onclick="toggleLessons(event, this)">
                 <i class="fas fa-chevron-down"></i>
               </span>
             </div>
-            
     
             {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
             <ul class="lesson-list {% if section.title == page.parent %}is-expanded{% else %}is-collapsed{% endif %}">
@@ -145,6 +137,10 @@ layout: default
       }
       .is-collapsed {
         max-height: 0;
+      }
+      .is-active {
+        font-weight: bold;
+        color: #3273dc;
       }
       .fa-rotate-180 {
         transform: rotate(180deg);
