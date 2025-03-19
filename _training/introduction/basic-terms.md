@@ -7,8 +7,6 @@ lesson: 1.1
 start_time: 19
 end_time: 95
 video_url: "https://www.youtube.com/embed/aPwndqsmaGk"
-previous: 
-next: "/training/introduction/lesson-1.2/"
 ---
 
 Some Data Here

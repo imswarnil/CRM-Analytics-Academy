@@ -7,8 +7,6 @@ lesson: 1.2
 start_time: 95
 end_time: 265
 video_url: "https://www.youtube.com/embed/aPwndqsmaGk"
-previous: "/training/introduction/lesson-1.1/"
-next: 
 ---
 
 Some Dat Here Too
