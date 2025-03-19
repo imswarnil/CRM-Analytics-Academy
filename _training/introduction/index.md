@@ -1,6 +1,6 @@
 ---
 layout: training
-title: "Section - 1 "
+title: "Section-1"
 id : 1
 ---
 

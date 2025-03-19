@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Training - Home" 
+title: "Section - 0" 
 id : 0
 ---
 

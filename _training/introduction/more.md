@@ -1,8 +1,8 @@
 ---
 layout: training
-title: "Lesson - 1.1"
+title: "more - 1.3"
 description: "An introduction to the Salesforce CRM Analytics training course, covering the structure and objectives."
-id : 1.1 
+id : 1.3
 type : video
 start_time: 19
 end_time: 95
