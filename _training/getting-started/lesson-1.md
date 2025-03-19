@@ -1,7 +1,9 @@
 ---
-title: "Introduction to Swarnil"
+title: "Introduction to Salesforce"
+description: "Learn what Salesforce is and why it's so powerful."
+parent: "getting started"
 type: "article"
 order: 1
-parent: "getting-started"
+layout: training
 ---
-This is an **article** lesson.
+Lesson content here...
