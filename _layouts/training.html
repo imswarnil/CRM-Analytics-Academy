@@ -62,23 +62,23 @@ layout: default
 </div>
 
 <div class="buttons is-centered">
-  {% assign current_lesson = page.lesson %}
-  {% assign current_path_parts = page.path | split: '/' %}
-  {% assign current_section = current_path_parts[1] %}  <!-- Extracts the folder name after 'training' -->
+  {% assign current_lesson = page.path | split: '/' | last | replace: '.md', '' %}
+  {% assign current_section = page.dir | split: '/' | last %}
 
   {% assign section_index = site.data.training.sections | where: "slug", current_section | first %}
 
   {% for lesson in section_index.lessons %}
       {% if lesson.slug == current_lesson %}
           {% if forloop.first == false %}
-              <a href="{{ site.baseurl }}/{{ page.dir }}{{ section_index.lessons[forloop.index0].slug }}/" class="button is-link is-light">Previous Lesson</a>
+              <a href="{{ site.baseurl }}{{ page.dir }}{{ section_index.lessons[forloop.index0].slug }}/" class="button is-link is-light">Previous Lesson</a>
           {% endif %}
           {% if forloop.last == false %}
-              <a href="{{ site.baseurl }}/{{ page.dir }}{{ section_index.lessons[forloop.index].slug }}/" class="button is-link is-light">Next Lesson</a>
+              <a href="{{ site.baseurl }}{{ page.dir }}{{ section_index.lessons[forloop.index].slug }}/" class="button is-link is-light">Next Lesson</a>
           {% endif %}
       {% endif %}
   {% endfor %}
 </div>
+
 
   
 
