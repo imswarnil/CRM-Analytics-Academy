@@ -14,13 +14,9 @@ layout: default
             <h1 class="title is-size-2 is-size-5-mobile">{{ page.title }}</h1>
             <p class="subtitle is-size-4 is-size-4-mobile">{{ page.description }}</p>
           </div>
-          <!-- Lessons Count -->
-          <div class="column is-narrow">
-            {% assign lessons = site.training | where_exp: "item", "item.parent == page.title" | sort: "order" %}
-            <div class="box has-text-centered">
-              <p class="title is-4">{{ lessons.size }}</p>
-              <p class="subtitle is-6">Total Lessons</p>
-            </div>
+          <!-- Author Info (Restored) -->
+          <div class="column is-narrow has-text-right">
+            <p class="is-size-6">By: {{ page.author | default: "Namaste Salesforce" }}</p>
           </div>
         </div>
       </div>
@@ -33,30 +29,6 @@ layout: default
       <!-- Lessons List -->
       <section>
         {{ content }}
-        {% for lesson in lessons %}
-        <div class="columns is-vcentered is-mobile py-4">
-          <div class="column is-narrow">
-            <figure class="image is-48x48">
-              <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
-            </figure>
-          </div>
-          <div class="column">
-            <p class="title is-5 mb-1">
-              <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
-            </p>
-            <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
-          </div>
-          <div class="column is-narrow">
-            <span class="tag is-info is-light is-size-7">{{ lesson.type | capitalize }}</span>
-          </div>
-          <div class="column is-narrow">
-            <a href="{{ lesson.url | relative_url }}" class="icon">
-              <i class="fas fa-link"></i>
-            </a>
-          </div>
-        </div>
-        <hr class="my-3">
-        {% endfor %}
       </section>
 
       {% else %}
@@ -64,51 +36,6 @@ layout: default
       <h1 class="title">{{ page.title }}</h1>
       <p class="subtitle">{{ page.description }}</p>
       <div class="content">{{ content }}</div>
-
-      <!-- Pagination (Next & Previous Lesson) -->
-      {% assign lessons = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
-      {% for lesson in lessons %}
-        {% if lesson.url == page.url %}
-          {% assign prev_index = forloop.index0 | minus: 1 %}
-          {% assign next_index = forloop.index0 | plus: 1 %}
-          {% assign prev_lesson = lessons[prev_index] %}
-          {% assign next_lesson = lessons[next_index] %}
-        {% endif %}
-      {% endfor %}
-
-      <div class="columns my-5">
-        <div class="column has-text-left">
-          {% if prev_lesson %}
-          <a href="{{ prev_lesson.url | relative_url }}" class="button is-light">
-            <span class="icon"><i class="fas fa-arrow-left"></i></span>
-            <span>{{ prev_lesson.title }}</span>
-          </a>
-          {% endif %}
-        </div>
-
-        <div class="column has-text-right">
-          {% if next_lesson %}
-          <a href="{{ next_lesson.url | relative_url }}" class="button is-primary">
-            <span>{{ next_lesson.title }}</span>
-            <span class="icon"><i class="fas fa-arrow-right"></i></span>
-          </a>
-          {% else %}
-            {% assign sections = site.training | where: "type", "section" | sort: "order" %}
-            {% for section in sections %}
-              {% if section.title == page.parent %}
-                {% assign next_section_index = forloop.index0 | plus: 1 %}
-                {% assign next_section = sections[next_section_index] %}
-              {% endif %}
-            {% endfor %}
-            {% if next_section %}
-            <a href="{{ next_section.url | relative_url }}" class="button is-primary">
-              <span>Next Section: {{ next_section.title }}</span>
-              <span class="icon"><i class="fas fa-arrow-right"></i></span>
-            </a>
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
       {% endif %}
     </div>
 
@@ -124,7 +51,7 @@ layout: default
         <ul class="menu-list">
           {% for section in sections %}
           <li>
-            <a href="{{ section.url | relative_url }}" class="toggle-section">
+            <a href="{{ section.url | relative_url }}" class="toggle-section {% if section.title == page.parent or section.url == page.url %}is-active{% endif %}">
               <span class="icon">
                 <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
               </span>
@@ -135,10 +62,10 @@ layout: default
             </a>
 
             {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-            <ul class="lesson-list" {% if section.title == page.parent %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+            <ul class="lesson-list {% if section.title == page.parent %}is-expanded{% else %}is-collapsed{% endif %}">
               {% for lesson in lessons %}
               <li>
-                <a href="{{ lesson.url | relative_url }}">
+                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
                   <span class="icon is-small">
                     {% if lesson.type == "article" %}
                     <i class="fas fa-file-alt"></i>
@@ -163,12 +90,43 @@ layout: default
 
 <!-- Sidebar Toggle & Collapse Script -->
 <script>
-  document.querySelectorAll('.toggle-section').forEach(item => {
-    item.addEventListener('click', event => {
-      let lessonList = item.nextElementSibling;
-      let icon = item.querySelector('.fa-chevron-down');
-      lessonList.style.display = lessonList.style.display === "none" ? "block" : "none";
-      icon.classList.toggle('fa-rotate-180');
+  document.addEventListener("DOMContentLoaded", function () {
+    const sectionLinks = document.querySelectorAll(".toggle-section");
+    sectionLinks.forEach((link) => {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        let lessonList = this.nextElementSibling;
+        let icon = this.querySelector(".fa-chevron-down");
+
+        // Toggle visibility
+        lessonList.classList.toggle("is-collapsed");
+        lessonList.classList.toggle("is-expanded");
+
+        // Rotate arrow
+        icon.classList.toggle("fa-rotate-180");
+      });
     });
   });
 </script>
+
+<!-- Styles for Smooth Transitions -->
+<style>
+  .lesson-list {
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+  .is-expanded {
+    max-height: 500px;
+  }
+  .is-collapsed {
+    max-height: 0;
+  }
+  .is-active {
+    font-weight: bold;
+    color: #3273dc;
+  }
+  .fa-rotate-180 {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+  }
+</style>
