@@ -151,22 +151,34 @@ layout: default
         transform: rotate(180deg);
         transition: transform 0.3s ease-in-out;
       }
-      /* Fade-in Animation */
-@keyframes fadeIn {
+    /* Container holding the page content */
+.page-content {
+  opacity: 1;
+  transform: scale(1) rotateY(0);
+  transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Exit Animation - Scramble and Throw Away */
+.page-exit {
+  opacity: 0;
+  transform: rotateY(90deg) scale(0.8) translateX(100px);
+}
+
+/* Enter Animation - New Page Pops In */
+@keyframes popIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: rotateY(-90deg) scale(0.8) translateX(-100px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: rotateY(0) scale(1) translateX(0);
   }
 }
-
-.page-content {
-  opacity: 0; /* Initially hide content */
-  animation: fadeIn 0.5s ease-out forwards;
+.page-enter {
+  animation: popIn 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
+
 
     </style>
     
@@ -174,8 +186,12 @@ layout: default
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () {
   const links = document.querySelectorAll("a[href]");
+  const pageContent = document.querySelector(".page-content");
+
+  // Apply pop-in animation on page load
+  pageContent.classList.add("page-enter");
 
   links.forEach((link) => {
     link.addEventListener("click", function (event) {
@@ -183,21 +199,22 @@ layout: default
         link.target === "_blank" || // Ignore new tab links
         link.href.includes("#") || // Ignore anchor links
         link.href.includes("javascript:") || // Ignore JS links
-        link.getAttribute("download") // Ignore download links
+        link.getAttribute("download") // Ignore downloads
       ) {
         return;
       }
 
       event.preventDefault(); // Prevent default navigation
 
-      // Add fade-out effect before navigating
-      document.querySelector(".page-content").style.opacity = 0;
+      // Apply exit animation
+      pageContent.classList.add("page-exit");
 
       setTimeout(() => {
         window.location.href = link.href;
-      }, 300); // Adjust timing to match fade-out animation
+      }, 600); // Matches the transition duration
     });
   });
 });
+
 
 </script>
