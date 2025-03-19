@@ -2,90 +2,87 @@
 layout: default
 ---
 <div class="columns is-gapless">
-  <!-- Video/Article Section -->
-  <div class="column">
-    {% if page.video_url %}
-      <figure class="image is-16by9">
-        <iframe class="has-ratio" width="640" height="360" src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}" frameborder="0" allowfullscreen></iframe>
-      </figure>
-    {% else %}
-      <article class="content p-4">
-        <h1 class="title">{{ page.title }}</h1>
-        <p>{{ content }}</p>
-      </article>
-    {% endif %}
+    <!-- Video/Article Section -->
+    <div class="column">
+      {% if page.video_url %}
+        <figure class="image is-16by9">
+          <iframe class="has-ratio" width="640" height="360" src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}" frameborder="0" allowfullscreen></iframe>
+        </figure>
+      {% else %}
+        <article class="content p-4">
+          <h1 class="title">{{ page.title }}</h1>
+          <p>{{ content }}</p>
+        </article>
+      {% endif %}
+      
+      <!-- Ad Placeholder 1 -->
+      <div class="box has-text-centered">Ad Space 1</div>
+    </div>
     
-    <!-- Ad Placeholder 1 -->
-    <div class="box has-text-centered">Ad Space 1</div>
+    <!-- Course Navigation -->
+    <div class="column is-one-quarter is-scroll-column left-shadowed p-2">
+      <aside class="menu">
+        {% assign sorted_pages = site.training | sort: 'id' %}
+        {% assign current_section = "" %}
+        
+        {% for lesson in sorted_pages %}
+          {% assign section_id = lesson.id | split: '.' | first %}
+          {% if section_id != current_section %}
+            {% if current_section != "" %}
+              </ul>
+            {% endif %}
+            <p class="menu-label">Section {{ section_id }}</p>
+            <ul class="menu-list">
+            {% assign current_section = section_id %}
+          {% endif %}
+          <li>
+            <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
+              <span class="icon">
+                {% if lesson.video_url %} 🎥 {% else %} 📄 {% endif %}
+              </span>
+              {{ lesson.title }}
+            </a>
+          </li>
+        {% endfor %}
+        </ul>
+      </aside>
+      
+      <!-- Ad Placeholder 2 -->
+      <div class="box has-text-centered">Ad Space 2</div>
+    </div>
   </div>
   
-  <!-- Course Navigation -->
-  <div class="column is-one-quarter is-scroll-column left-shadowed p-2">
-    <aside class="menu">
-      {% assign sorted_pages = site.training | sort: 'id' %}
-      {% assign sections = sorted_pages | group_by_exp: "item", "item.id | split: '.' | first" %}
-      
-      {% for section in sections %}
-        {% assign section_id = section.name | plus: 0 %}
-        {% assign lessons = section.items | sort: 'id' %}
-        <p class="menu-label">{{ lessons.first.section }}</p>
-        <ul class="menu-list">
-          <li>
-            <a href="{{ lessons.first.url }}">
-              <span class="icon">📂</span>
-              {{ lessons.first.section }} Overview
-            </a>
-            <ul>
-              {% for lesson in lessons %}
-                <li>
-                  <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">
-                    <span class="icon">
-                      {% if lesson.video_url %} 🎥 {% else %} 📄 {% endif %}
-                    </span>
-                    {{ lesson.title }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
-      {% endfor %}
-    </aside>
-    
-    <!-- Ad Placeholder 2 -->
-    <div class="box has-text-centered">Ad Space 2</div>
-  </div>
-</div>
-
-<!-- Mobile Navigation Button -->
-<button id="mobile-nav" class="button is-fullwidth is-primary">Show Course Menu</button>
-
-<!-- Ad Placeholders -->
-<div class="box has-text-centered">Ad Space 3</div>
-<div class="box has-text-centered">Ad Space 4</div>
-<div class="box has-text-centered">Ad Space 5</div>
-
-<!-- Pagination -->
-<nav class="pagination is-centered mt-4">
-  {% assign all_pages = site.training | sort: 'id' %}
-  {% for lesson in all_pages %}
-    {% if lesson.url == page.url %}
-      {% assign prev_index = forloop.index0 | minus: 1 %}
-      {% assign next_index = forloop.index0 | plus: 1 %}
-      
-      {% if prev_index >= 0 %}
-        <a href="{{ all_pages[prev_index].url }}" class="button">← Previous</a>
+  <!-- Mobile Navigation Button -->
+  <button id="mobile-nav" class="button is-fullwidth is-primary">Show Course Menu</button>
+  
+  <!-- Ad Placeholders -->
+  <div class="box has-text-centered">Ad Space 3</div>
+  <div class="box has-text-centered">Ad Space 4</div>
+  <div class="box has-text-centered">Ad Space 5</div>
+  
+  <!-- Pagination -->
+  <nav class="pagination is-centered mt-4">
+    {% assign all_pages = site.training | sort: 'id' %}
+    {% for lesson in all_pages %}
+      {% if lesson.url == page.url %}
+        {% assign prev_index = forloop.index0 | minus: 1 %}
+        {% assign next_index = forloop.index0 | plus: 1 %}
+        
+        {% if prev_index >= 0 %}
+          <a href="{{ all_pages[prev_index].url }}" class="button">← Previous</a>
+        {% endif %}
+        
+        {% if next_index < all_pages.size %}
+          <a href="{{ all_pages[next_index].url }}" class="button">Next →</a>
+        {% endif %}
       {% endif %}
-      
-      {% if next_index < all_pages.size %}
-        <a href="{{ all_pages[next_index].url }}" class="button">Next →</a>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-</nav>
+    {% endfor %}
+  </nav>
 
-<script>
-  document.getElementById('mobile-nav').addEventListener('click', function() {
-    document.querySelector('.column.is-one-quarter').classList.toggle('is-hidden');
-  });
-</script>
+  <script>
+    document.getElementById('mobile-nav').addEventListener('click', function() {
+      document.querySelector('.column.is-one-quarter').classList.toggle('is-hidden');
+    });
+  </script>
+</body>
+</html>
