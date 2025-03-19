@@ -19,6 +19,7 @@ layout: default
     <div class="box has-text-centered">Ad Space 1</div>
   </div>
   
+  <!-- Course Navigation -->
   <aside class="menu">
     {% assign sorted_pages = site.training | sort: "id" %}
     {% assign sections = "" | split: "," %}
@@ -64,6 +65,7 @@ layout: default
       </ul>
     {% endfor %}
   </aside>
+  
   
 </div>
 
