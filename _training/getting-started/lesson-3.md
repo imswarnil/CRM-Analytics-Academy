@@ -3,6 +3,7 @@ title: "Getting Started Quiz"
 parent: "Getting Started"
 layout: training
 order: 3
+icon : /assets/training/training.svg
 type: quiz
 ---
 **Q1:** What is Salesforce?  
