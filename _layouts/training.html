@@ -151,32 +151,67 @@ layout: default
         transform: rotate(180deg);
         transition: transform 0.3s ease-in-out;
       }
-    /* Container holding the page content */
+    /* Initial Page State */
 .page-content {
   opacity: 1;
-  transform: scale(1) rotateY(0);
-  transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: scale(1);
+  transition: opacity 0.5s ease, transform 0.6s ease-in-out;
 }
 
-/* Exit Animation - Scramble and Throw Away */
-.page-exit {
-  opacity: 0;
-  transform: rotateY(90deg) scale(0.8) translateX(100px);
-}
-
-/* Enter Animation - New Page Pops In */
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: rotateY(-90deg) scale(0.8) translateX(-100px);
-  }
-  to {
+/* Exit Effect - Page Explodes and Gets Sucked into a Vortex */
+@keyframes explodeAndVanish {
+  0% {
     opacity: 1;
-    transform: rotateY(0) scale(1) translateX(0);
+    transform: scale(1) rotate(0);
+    filter: blur(0px);
+  }
+  30% {
+    opacity: 0.8;
+    transform: scale(1.2) rotate(5deg);
+    filter: blur(2px);
+  }
+  60% {
+    opacity: 0.4;
+    transform: scale(0.6) rotate(-15deg);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(720deg);
+    filter: blur(10px);
   }
 }
+
+.page-exit {
+  animation: explodeAndVanish 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* Entry Effect - Page Materializes Like Sci-Fi Particles */
+@keyframes materializeFromVoid {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-720deg);
+    filter: blur(20px);
+  }
+  40% {
+    opacity: 0.4;
+    transform: scale(0.5) rotate(-30deg);
+    filter: blur(5px);
+  }
+  70% {
+    opacity: 0.8;
+    transform: scale(1.1) rotate(5deg);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    filter: blur(0px);
+  }
+}
+
 .page-enter {
-  animation: popIn 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  animation: materializeFromVoid 0.8s ease-out forwards;
 }
 
 
@@ -186,32 +221,32 @@ layout: default
 </div>
 
 <script>
- document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function () {
   const links = document.querySelectorAll("a[href]");
   const pageContent = document.querySelector(".page-content");
 
-  // Apply pop-in animation on page load
+  // Play entry animation when the page loads
   pageContent.classList.add("page-enter");
 
   links.forEach((link) => {
     link.addEventListener("click", function (event) {
       if (
-        link.target === "_blank" || // Ignore new tab links
-        link.href.includes("#") || // Ignore anchor links
-        link.href.includes("javascript:") || // Ignore JS links
-        link.getAttribute("download") // Ignore downloads
+        link.target === "_blank" || 
+        link.href.includes("#") || 
+        link.href.includes("javascript:") || 
+        link.getAttribute("download")
       ) {
         return;
       }
 
-      event.preventDefault(); // Prevent default navigation
+      event.preventDefault(); 
 
-      // Apply exit animation
+      // Play exit animation (explode and vanish)
       pageContent.classList.add("page-exit");
 
       setTimeout(() => {
         window.location.href = link.href;
-      }, 600); // Matches the transition duration
+      }, 700); // Matches animation duration
     });
   });
 });
