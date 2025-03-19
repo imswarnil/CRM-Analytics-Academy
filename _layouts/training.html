@@ -11,7 +11,7 @@ layout: default
           <!-- Section Header with Two-Column Layout -->
           <div class="columns">
             <!-- Left Column: Section Title & Description -->
-            <div class="column is-three-quarters">
+            <div class="column is-half">
               <h1 class="title">{{ page.title }}</h1>
               <p class="subtitle">{{ page.description }}</p>
             </div>
@@ -29,7 +29,7 @@ layout: default
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading"> Time To Complete <span class="icon"><i class="fas fa-book"></i>+ <span class="icon"><i class="fas fa-video"></i></span></p>
+                    <p class="heading"> Time  <span class="ml-3 icon"><i class="fas fa-book"></i>+ <span class="icon"><i class="fas fa-video"></i></span></p>
                     <p class="title"> 1 Hour</p>
                   </div>
                 </div>
@@ -55,14 +55,12 @@ layout: default
               <div class="card">
                 <div class="card-content">
                   <div class="media">
-                    
                     <!-- Lesson Icon -->
                     <div class="media-left">
                       <figure class="image is-48x48">
                         <img src="{{ lesson.icon | relative_url }}" alt="Lesson Icon">
                       </figure>
                     </div>
-        
                     <!-- Lesson Details -->
                     <div class="media-content">
                       <p class="title is-5">
@@ -70,27 +68,29 @@ layout: default
                       </p>
                       <p class="subtitle is-6">{{ lesson.parent }}</p>
                     </div>
-        
                   </div>
-        
                   <!-- Lesson Type Badge -->
                   <div class="tags">
                     <span class="tag is-info is-light">{{ lesson.type | capitalize }}</span>
                   </div>
-        
                   <!-- Author Avatar (If available) -->
-                  {% if lesson.author_avatar %}
+                  {% if lesson.author %}
                   <div class="media">
                     <div class="media-left">
                       <figure class="image is-32x32">
-                        <img class="is-rounded" src="{{ lesson.author_img | relative_url }}" alt="Author Avatar">
+                        {% if lesson.author.image %}
+                          <img class="is-rounded" src="{{ lesson.author.image | relative_url }}" alt="Author Avatar">
+                        {% else %}
+                          <img class="is-rounded" src="/assets/images/default-avatar.png" alt="Default Author Avatar">
+                        {% endif %}
                       </figure>
                     </div>
                     <div class="media-content">
-                      <p class="is-size-7 has-text-grey">By {{ lesson.author }}</p>
+                      <p class="is-size-7 has-text-grey">By {{ lesson.author.name }}</p>
                     </div>
                   </div>
-                  {% endif %}
+                {% endif %}
+                
                   
                 </div>
               </div>
