@@ -39,7 +39,7 @@ layout: default
         
                 <!-- Lesson Icon (Left) -->
                 <div class="column is-narrow">
-                  <figure class="image is-40x40">
+                  <figure class="image is-48x48">
                     <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
                   </figure>
                 </div>
@@ -49,13 +49,13 @@ layout: default
                   <p class="title is-5 mb-1">
                     <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
                   </p>
-                  <p class="subtitle is-6 has-text-grey">{{ lesson.parent }}</p>
+                  <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
         
                   <!-- Author (Appears Below Title for Better Alignment) -->
                   {% if lesson.author %}
                   <div class="media is-align-items-center mt-2">
                     <div class="media-left">
-                      <figure class="image is-24x24">
+                      <figure class="image is-16x16 is-square">
                         <img class="is-rounded" src="{{ lesson.author.image | default: '/assets/images/default-avatar.png' | relative_url }}" alt="Author Avatar">
                       </figure>
                     </div>
@@ -143,28 +143,67 @@ layout: default
       </div>
 
       <!-- Sidebar Navigation -->
-      <aside class="column is-one-quarter">
-        <div class="menu">
-          <h2 class="subtitle has-text-weight-bold mb-2">Course Navigation</h2>
-          {% assign sections = site.training | map: "parent" | uniq | compact %}
+    <!-- Sidebar Container -->
+<aside class="menu px-3 py-4">
+  
+  <!-- Mobile Sidebar Toggle -->
+  <button class="button is-fullwidth is-info is-light is-hidden-desktop" onclick="toggleSidebar()">
+    <span class="icon">
+      <i class="fas fa-bars"></i>
+    </span>
+    <span>Menu</span>
+  </button>
 
-          <ul class="menu-list">
-            {% for section_name in sections %}
-              {% assign section_page = site.training | where: "title", section_name | first %}
-              {% if section_page %}
+  <div id="sidebar-content" class="mt-3">
+    {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+
+    <ul class="menu-list">
+      {% for section in sections %}
+        {% assign is_active_section = section.url == page.url %}
+
+        <li>
+          <a href="{{ section.url | relative_url }}" class="{% if is_active_section %}is-active has-text-weight-bold{% endif %}">
+            <span class="icon">
+              <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
+            </span>
+            {{ section.title }}
+          </a>
+
+          {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+          {% if lessons.size > 0 %}
+            <ul>
+              {% for lesson in lessons %}
+                {% assign is_active_lesson = lesson.url == page.url %}
                 <li>
-                  <a class="menu-label has-text-weight-bold" href="{{ section_page.url | relative_url }}">{{ section_name }}</a>
-                  <ul>
-                    {% assign lessons = site.training | where_exp: "item", "item.parent == section_name" | sort: "order" %}
-                    {% for lesson in lessons %}
-                      <li><a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a></li>
-                    {% endfor %}
-                  </ul>
+                  <a href="{{ lesson.url | relative_url }}" class="{% if is_active_lesson %}is-active has-text-weight-bold{% endif %}">
+                    <span class="icon is-small">
+                      {% if lesson.type == "article" %}
+                        <i class="fas fa-file-alt"></i>
+                      {% elsif lesson.type == "video" %}
+                        <i class="fas fa-play-circle"></i>
+                      {% else %}
+                        <i class="fas fa-file"></i>
+                      {% endif %}
+                    </span>
+                    {{ lesson.title }}
+                  </a>
                 </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </aside>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</aside>
+
+<!-- Sidebar Toggle Script -->
+<script>
+  function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar-content');
+    sidebar.classList.toggle('is-hidden');
+  }
+</script>
+
     </div>
   </div>
