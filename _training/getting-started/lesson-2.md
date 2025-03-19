@@ -1,6 +1,7 @@
 ---
 title: "Salesforce Setup"
 parent: "Getting Started"
+description : some data here
 layout: training
 order: 2
 icon : /assets/training/book.svg
