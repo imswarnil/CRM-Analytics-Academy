@@ -6,7 +6,7 @@ layout: default
     <!-- Main Content Area -->
     <div class="column is-three-quarters">
       {% if page.type == "section" %}
-      <!-- Section Header -->
+      <!-- Course Section Layout  -->
       <div class="container is-fluid my-5">
         <div class="columns">
           <!-- Section Title & Description -->
@@ -28,7 +28,6 @@ layout: default
       <!-- Lessons List -->
       <section>
         {{ content }}
-
         {% for lesson in lessons %}
         <div class="columns is-vcentered is-mobile py-4">
           <!-- Lesson Icon -->
@@ -37,7 +36,6 @@ layout: default
               <img src="{{ lesson.icon | default: '/assets/icons/default.svg' | relative_url }}" alt="Lesson Icon">
             </figure>
           </div>
-
           <!-- Lesson Details -->
           <div class="column">
             <p class="title is-5 mb-1">
@@ -45,7 +43,7 @@ layout: default
             </p>
             <p class="subtitle is-6 has-text-grey mb-2">{{ lesson.description }}</p>
 
-            <!-- Author (Appears Below Title) -->
+            <!-- Author -->
             {% if lesson.author %}
             <div class="media is-align-items-center mt-2">
               <div class="media-left">
@@ -86,11 +84,58 @@ layout: default
         {% endif %}
         {% endfor %}
       </section>
+
+      <!-- Button to Start First Lesson -->
+      {% if lessons.size > 0 %}
+      <div class="has-text-centered my-5">
+        <a href="{{ lessons.first.url | relative_url }}" class="button is-medium is-info">Start First Lesson</a>
+      </div>
+      {% endif %}
+
+      <!-- Course Section Layout Ends -->
       {% else %}
-      <!-- Lesson Page -->
+      <!-- Lessons Page Layout -->
       <h1 class="title">{{ page.title }}</h1>
       <p class="subtitle">{{ page.description }}</p>
       <div class="content">{{ content }}</div>
+
+      <!-- Pagination for Lessons -->
+      {% assign lessons = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
+      {% assign current_index = lessons | map: "url" | index: page.url %}
+
+      <div class="columns mt-5">
+        <div class="column has-text-left">
+          {% if current_index > 0 %}
+          {% assign prev_lesson = lessons[current_index | minus: 1] %}
+          <a href="{{ prev_lesson.url | relative_url }}" class="button is-light">
+            <span class="icon"><i class="fas fa-arrow-left"></i></span>
+            <span>Previous Lesson</span>
+          </a>
+          {% endif %}
+        </div>
+
+        <div class="column has-text-right">
+          {% if current_index < lessons.size | minus: 1 %}
+          {% assign next_lesson = lessons[current_index | plus: 1] %}
+          <a href="{{ next_lesson.url | relative_url }}" class="button is-info">
+            <span>Next Lesson</span>
+            <span class="icon"><i class="fas fa-arrow-right"></i></span>
+          </a>
+          {% else %}
+          {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+          {% assign current_section_index = sections | map: "title" | index: page.parent %}
+          
+          {% if current_section_index < sections.size | minus: 1 %}
+          {% assign next_section = sections[current_section_index | plus: 1] %}
+          <a href="{{ next_section.url | relative_url }}" class="button is-medium is-success">
+            <span>Next Section: {{ next_section.title }}</span>
+            <span class="icon"><i class="fas fa-arrow-right"></i></span>
+          </a>
+          {% endif %}
+          {% endif %}
+        </div>
+      </div>
+      <!-- Lessons Page Layout Ends -->
       {% endif %}
     </div>
 
@@ -142,7 +187,6 @@ layout: default
         </ul>
       </div>
     </aside>
-
   </div>
 </div>
 
