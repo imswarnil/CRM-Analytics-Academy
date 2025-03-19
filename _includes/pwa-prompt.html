@@ -1,0 +1,56 @@
+<div id="pwa-install-prompt" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <section class="modal-card-body has-text-centered">
+        <figure class="image is-64x64 is-inline-block">
+          <img src="/assets/icons/pwa-icon.png" alt="App Icon">
+        </figure>
+        <h2 class="title is-5 mt-3">Install Our App</h2>
+        <p class="subtitle is-6">Get a fast, app-like experience. Add to your home screen now!</p>
+        <div class="buttons is-centered mt-3">
+          <button id="install-btn" class="button is-primary is-rounded">Install</button>
+          <button id="dismiss-btn" class="button is-light is-rounded">Maybe Later</button>
+        </div>
+      </section>
+    </div>
+  </div>
+<style>
+    
+</style>  
+<script>
+    let deferredPrompt; // Store the install event
+
+// Detect PWA install event
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+// Show the PWA prompt after 4 seconds on navigation
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("pwa-dismissed")) return; // Don't show if dismissed before
+
+  setTimeout(() => {
+    document.getElementById("pwa-install-prompt").classList.add("is-active");
+  }, 4000);
+});
+
+// Install PWA when user clicks the install button
+document.getElementById("install-btn").addEventListener("click", async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const choice = await deferredPrompt.userChoice;
+    if (choice.outcome === "accepted") {
+      document.getElementById("pwa-install-prompt").classList.remove("is-active");
+    }
+    deferredPrompt = null;
+  }
+});
+
+// Dismiss prompt and remember user choice
+document.getElementById("dismiss-btn").addEventListener("click", () => {
+  document.getElementById("pwa-install-prompt").classList.remove("is-active");
+  localStorage.setItem("pwa-dismissed", "true"); // Save user preference
+});
+
+</script>

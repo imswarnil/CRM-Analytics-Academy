@@ -39,6 +39,7 @@
     {{ content }}
   </main>
   {% adsense large-leaderboard %}
+  {% include pwa-prompt.html %}
   {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
   <script src="{{ '/assets/scripts/script.js' | relative_url }}"></script>
   {% include site-before-end.html %}
