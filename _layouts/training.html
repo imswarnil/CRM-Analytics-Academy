@@ -15,7 +15,6 @@ layout: default
     <h2>Course Navigation</h2>
     {% assign lessons = site.training | sort: "order" %}
     {% assign grouped_lessons = lessons | group_by: "section" %}
-
     <ul class="course-nav">
       {% for section in grouped_lessons %}
         <li class="section-title">{{ section.name }}</li>
@@ -29,3 +28,44 @@ layout: default
       {% endfor %}
     </ul>
   </aside>
+  <style>
+    .course-container {
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.course-content {
+  flex: 3;
+  padding: 20px;
+}
+
+.course-sidebar {
+  flex: 1;
+  padding: 20px;
+  background: #f8f8f8;
+  border-left: 2px solid #ddd;
+}
+
+.course-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.course-nav .section-title {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.course-nav a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 5px;
+}
+
+.course-nav a:hover {
+  background: #ddd;
+}
+
+  </style>
