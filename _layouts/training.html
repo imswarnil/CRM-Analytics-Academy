@@ -171,9 +171,8 @@ layout: default
           {% if lessons.size > 0 %}
             <ul>
               {% for lesson in lessons %}
-                {% assign is_active_lesson = lesson.url == page.url %}
                 <li>
-                  <a href="{{ lesson.url | relative_url }}" class="{% if is_active_lesson %}is-active has-text-weight-bold{% endif %}">
+                  <a href="{{ lesson.url | relative_url }}">
                     <span class="icon is-small">
                       {% if lesson.type == "article" %}
                         <i class="fas fa-file-alt"></i>
