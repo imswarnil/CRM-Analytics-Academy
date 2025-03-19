@@ -1,13 +1,13 @@
 <section class="section">
   <div class="container">
     <!-- Search Form Section -->
-    <div class="box has-shadow p-5">
+    <div class="box has-shadow">
       <form id="search-form">
         <!-- Search Input Field -->
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
             <input
-              class="input is-medium is-rounded"
+              class="input is-medium"
               id="search"
               type="search"
               name="search"
@@ -19,23 +19,24 @@
             </span>
           </div>
           <div class="control">
-            <button type="button" class="button is-medium is-primary is-rounded">
+            <button type="button" class="button is-medium is-primary">
               Search
             </button>
           </div>
         </div>
 
         <!-- Results List -->
-        <div class="field mt-4">
-          <div class="bento-grid" id="list">
+        <div class="field">
+          <ul class="list" id="list">
             <!-- Results will be dynamically rendered here -->
-          </div>
+          </ul>
         </div>
       </form>
     </div>
   </div>
 </section>
 
+<script type="text/javascript" src="{{ '/assets/scripts/fetch.js' | relative_url }}"></script>
 <script type="text/javascript">
   const endpoint = '{{ "/assets/search.json" | relative_url }}';
   const pages = [];
@@ -57,23 +58,27 @@
     const html = resultsArray
       .map(
         (item) => `
-          <div class="bento-item box">
-            <figure class="image is-128x128">
-              <img src="${item.image}" alt="${item.title}" class="bento-img"/>
-            </figure>
-            <div class="content">
-              <h4 class="title is-5">
-                <a href="${item.url}" class="has-text-link">${item.title}</a>
-              </h4>
-              <p>${item.description}</p>
-            </div>
-          </div>`
+          <li class="item item--result">
+            <article class="media box">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <img src="${item.image}" alt="${item.title}" />
+                </p>
+              </figure>
+              <div class="media-content">
+                <h4 class="title is-5">
+                  <a href="${item.url}" class="has-text-link">${item.title}</a>
+                </h4>
+                <p class="content">${item.description}</p>
+              </div>
+            </article>
+          </li>`
       )
       .join('');
 
     resultsList.innerHTML =
       resultsArray.length === 0 || term === ''
-        ? '<p class="has-text-centered has-text-grey">No results found</p>'
+        ? '<p class="has-text-centered has-text-grey">Sorry, nothing was found</p>'
         : html;
   }
 
@@ -88,36 +93,62 @@
   });
 </script>
 
+<noscript>Please enable JavaScript to use the search form.</noscript>
+
 <style>
-  /* Bento Grid Layout */
-  .bento-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 16px;
+  /* Custom Styles */
+  .box {
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
 
-  .bento-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .bento-item:hover {
+  .box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
 
-  .bento-img {
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
+  .input {
+    border-radius: 25px;
+    padding-left: 40px;
+  }
+
+  .icon.is-left {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .item--result {
+    margin-bottom: 20px;
+  }
+
+  .item--result .media {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .item--result .media-left {
+    margin-right: 15px;
+  }
+
+  .item--result .media-content {
+    flex-grow: 1;
+  }
+
+  .item--result img {
+    border-radius: 8px;
+    width: 64px;
+    height: 64px;
     object-fit: cover;
   }
 
-  .title {
-    text-align: center;
+  .item--result .title {
+    font-weight: bold;
+  }
+
+  .item--result .content {
+    color: #666;
+    font-size: 0.95rem;
   }
 </style>
