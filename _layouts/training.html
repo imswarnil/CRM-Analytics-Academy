@@ -18,42 +18,56 @@ layout: default
   </div>
 
   <!-- Sticky Sidebar -->
-  <aside class="menu column is-one-quarter is-sticky">
-    <div class="menu-label">
-      <a href="/training/" class="section-toggle is-active">
-        <i class="fas fa-home"></i> Training Home
-      </a>
-    </div>
-
-    {% assign sorted_sections = site.training | sort: "order" %}
-    {% for section in sorted_sections %}
-      <div class="menu-label">
-        <a href="/training/{{ section.slug }}/" class="section-toggle">
-          <i class="{{ section.icon }}"></i> {{ section.title }}
-          <span class="arrow">▶</span>
-        </a>
-      </div>
-
-      <ul class="menu-list" id="section-{{ section.slug }}" style="display: none;">
-        {% assign sorted_lessons = section.lessons | sort: "order" %}
-        {% for lesson in sorted_lessons %}
+  <aside class="menu is-sticky has-shadow p-3">
+    <!-- Training Home -->
+    <p class="menu-label">
+      <i class="{{ site.training.home.icon }}"></i> 
+      <a href="{{ site.training.home.url }}">{{ site.training.home.title }}</a>
+    </p>
+  
+    {% for section in site.training.sections | sort: "order" %}
+      <p class="menu-label">
+        <i class="{{ section.icon }}"></i> {{ section.title }}
+        <span class="toggle-arrow" onclick="toggleSection('{{ section.order }}')">▶</span>
+      </p>
+  
+      <ul class="menu-list" id="section-{{ section.order }}" style="display: none;">
+        {% for lesson in section.lessons | sort: "order" %}
           <li>
-            <a href="/training/{{ section.slug }}/{{ lesson.slug }}/">
-              <span class="lesson-type lesson-{{ lesson.type }}">{{ lesson.type | capitalize }}</span>
+            <a href="{{ lesson.url }}" class="lesson-link {% if page.url == lesson.url %}is-active{% endif %}">
+              <span class="lesson-type {{ lesson.type }}">
+                <i class="{% if lesson.type == 'article' %}fas fa-file-alt{% elsif lesson.type == 'video' %}fas fa-video{% elsif lesson.type == 'quiz' %}fas fa-question{% elsif lesson.type == 'exercise' %}fas fa-dumbbell{% elsif lesson.type == 'assignment' %}fas fa-tasks{% endif %}"></i>
+              </span>
               {{ lesson.title }}
             </a>
-            {% if lesson.lessons %}
-              <ul>
-                {% for sublesson in lesson.lessons %}
-                  <li><a href="/training/{{ section.slug }}/{{ lesson.slug }}/{{ sublesson.slug }}/">{{ sublesson.title }}</a></li>
-                {% endfor %}
-              </ul>
-            {% endif %}
           </li>
         {% endfor %}
       </ul>
     {% endfor %}
   </aside>
+  
+  <script>
+    function toggleSection(id) {
+      let section = document.getElementById('section-' + id);
+      let arrow = section.previousElementSibling.querySelector('.toggle-arrow');
+      if (section.style.display === 'none') {
+        section.style.display = 'block';
+        arrow.innerHTML = '▼';
+      } else {
+        section.style.display = 'none';
+        arrow.innerHTML = '▶';
+      }
+    }
+  </script>
+  
+  <style>
+    .menu { max-height: 80vh; overflow-y: auto; position: sticky; top: 20px; }
+    .toggle-arrow { float: right; cursor: pointer; font-size: 14px; }
+    .lesson-link { display: flex; align-items: center; }
+    .lesson-type { margin-right: 8px; }
+    .is-active { font-weight: bold; color: #3273dc; }
+  </style>
+  
 </div>
 
 <!-- Pagination -->
