@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "Section - 0" 
-id : 0
 ---
 
 <section class="hero is-primary">
