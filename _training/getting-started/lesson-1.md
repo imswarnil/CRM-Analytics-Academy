@@ -1,5 +1,5 @@
 ---
-title: "Welcome to CRM Analytics: Your First Step into Data Mastery"
+title: "Welcome to CRM Analytics Training"
 parent: "Getting Started"
 layout: training
 icon: /assets/icons/history.svg
