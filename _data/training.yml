@@ -4,16 +4,19 @@ home:
   icon: "fas fa-home"
 
 sections:
-  - title: "Getting Started"
+  - title: "Introduction"
     description: "Introduction to the course and prerequisites."
-    slug: "getting-started"
+    slug: "introduction"
     lessons:
-      - title: "Introduction"
+      - title: "Home"
         description: "An overview of what you'll learn."
-        slug: "introduction"
-      - title: "Course Setup"
+        slug: "index"
+      - title: "Getting Started"
         description: "Setting up your environment."
-        slug: "course-setup"
+        slug: "getting-started"
+      - title: "Introduction"
+        description: "Setting up your environment."
+        slug: "Introduction"
 
   - title: "Configuration"
     description: "Learn how to configure settings."
