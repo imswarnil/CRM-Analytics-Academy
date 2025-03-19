@@ -159,10 +159,8 @@ layout: default
 
     <ul class="menu-list">
       {% for section in sections %}
-        {% assign is_active_section = section.url == page.url %}
-
         <li>
-          <a href="{{ section.url | relative_url }}" class="{% if is_active_section %}is-active has-text-weight-bold{% endif %}">
+          <a href="{{ section.url | relative_url }}">
             <span class="icon">
               <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
             </span>
