@@ -1,65 +1,31 @@
 ---
 layout: default
 ---
-
-<div class="columns is-gapless">
-  <!-- Video Section -->
-  <div class="column">
-    <figure class="image is-16by9">
-      <iframe
-        class="has-ratio"
-        width="640"
-        height="360"
-        src="{{ page.video_url }}?start={{ page.start_time }}&end={{ page.end_time }}"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-    </figure>
-
-    <div class="tabs">
-      <ul>
-        <li class="is-active"><a>Overview</a></li>
-        <li><a>Q&A</a></li>
-        <li><a>Notes</a></li>
-        <li><a>Announcements</a></li>
-      </ul>
+<div class="course-container">
+  <!-- Main Content -->
+  <div class="course-content">
+    <h1>{{ page.title }}</h1>
+    <div class="lesson-content">
+      {{ content }}
     </div>
   </div>
 
-  <!-- Course Navigation -->
-  <div class="column is-one-quarter is-scroll-column left-shadowed">
-    <div class="card">
-      {% for section in site.data.training.sections %}
-      <header class="card-header">
-        <p class="card-header-title">
-          {{ section.title }}
-          <p>Debug: Section count = {{ site.data.training.sections | size }}</p>
-        </p>
-        <button class="button is-medium is-white" aria-label="toggle menu">
-          <span class="icon">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </header>
-      <div class="card-content">
-        <nav class="panel">
-          {% for lesson in section.lessons %}
-          <a href="/training/{{ section.slug }}/{{ lesson.slug | replace: '.', '-' }}" class="panel-block">
-            <span class="panel-icon">
-              {% if page.lesson == lesson.lesson %}
-              <i class="fas fa-check-circle"></i>
-              {% else %}
-              <i class="far fa-circle"></i>
-              {% endif %}
-            </span>
-            {{ lesson.title }}
-          </a>
+  <!-- Sidebar Navigation -->
+  <aside class="course-sidebar">
+    <h2>Course Navigation</h2>
+    {% assign lessons = site.training | sort: "order" %}
+    {% assign grouped_lessons = lessons | group_by: "section" %}
+
+    <ul class="course-nav">
+      {% for section in grouped_lessons %}
+        <li class="section-title">{{ section.name }}</li>
+        <ul>
+          {% for lesson in section.items %}
+            <li>
+              <a href="{{ lesson.url | relative_url }}">{{ lesson.title }}</a>
+            </li>
           {% endfor %}
-        </nav>
-      </div>
+        </ul>
       {% endfor %}
-    </div>
-  </div>
-</div>
-
-
+    </ul>
+  </aside>
