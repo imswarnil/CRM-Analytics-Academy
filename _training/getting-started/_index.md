@@ -1,8 +1,8 @@
 ---
-title: "Some Other Started"
+title: "Getting Started"
 overview: "Learn the basics of Salesforce from scratch."
-order: 0
-layout : training
+layout: training
+order: 1
 ---
 
  {% include training/section.html %}
