@@ -1,0 +1,44 @@
+ <!-- Pagination (Next & Previous Lesson) -->
+ {% assign lessons = site.training | where_exp: "item", "item.parent == page.parent" | sort: "order" %}
+ {% for lesson in lessons %}
+   {% if lesson.url == page.url %}
+     {% assign prev_index = forloop.index0 | minus: 1 %}
+     {% assign next_index = forloop.index0 | plus: 1 %}
+     {% assign prev_lesson = lessons[prev_index] %}
+     {% assign next_lesson = lessons[next_index] %}
+   {% endif %}
+ {% endfor %}
+
+ <div class="columns my-5">
+   <div class="column has-text-left">
+     {% if prev_lesson %}
+     <a href="{{ prev_lesson.url | relative_url }}" class="button is-light">
+       <span class="icon"><i class="fas fa-arrow-left"></i></span>
+       <span>{{ prev_lesson.title }}</span>
+     </a>
+     {% endif %}
+   </div>
+
+   <div class="column has-text-right">
+     {% if next_lesson %}
+     <a href="{{ next_lesson.url | relative_url }}" class="button is-primary">
+       <span>{{ next_lesson.title }}</span>
+       <span class="icon"><i class="fas fa-arrow-right"></i></span>
+     </a>
+     {% else %}
+       {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+       {% for section in sections %}
+         {% if section.title == page.parent %}
+           {% assign next_section_index = forloop.index0 | plus: 1 %}
+           {% assign next_section = sections[next_section_index] %}
+         {% endif %}
+       {% endfor %}
+       {% if next_section %}
+       <a href="{{ next_section.url | relative_url }}" class="button is-primary">
+         <span>Next Section: {{ next_section.title }}</span>
+         <span class="icon"><i class="fas fa-arrow-right"></i></span>
+       </a>
+       {% endif %}
+     {% endif %}
+   </div>
+ </div>
