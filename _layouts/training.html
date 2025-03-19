@@ -43,7 +43,7 @@ layout: default
       <div class="card-content">
         <nav class="panel">
           {% for lesson in section.lessons %}
-          <a href="/training/{{ section.slug }}/lesson-{{ lesson.slug | replace: '.', '-' }}/" class="panel-block">
+          <a href="/training/{{ section.slug }}/{{ lesson.slug | replace: '.', '-' }}/" class="panel-block">
             <span class="panel-icon">
               {% if page.lesson == lesson.lesson %}
               <i class="fas fa-check-circle"></i>
