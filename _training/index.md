@@ -49,6 +49,8 @@ title: "Section - 0"
   </div>
 </section>
 
+   {% include training/stats.html %}
+
 <!-- Sticky Sidebar Styles -->
 <style>
   .sticky-training-card {
