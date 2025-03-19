@@ -20,7 +20,7 @@ layout: default
   </div>
   
   <!-- Course Navigation -->
- <!-- Course Navigation -->
+<!-- Course Navigation -->
 <aside class="menu column is-one-quarter">
   {% assign sorted_pages = site.training | sort: "id" %}
   {% assign sections = "" | split: "," %}
@@ -54,6 +54,65 @@ layout: default
     </ul>
   {% endfor %}
 </aside>
+<style>
+  .menu-label a {
+  display: block;
+  padding: 8px;
+  font-weight: bold;
+  color: #4a4a4a;
+  text-decoration: none;
+}
+
+.menu-label a:hover, .menu-label a.is-active {
+  color: #3273dc;
+}
+
+.menu-list {
+  padding-left: 15px;
+}
+
+.menu-list a {
+  display: block;
+  padding: 5px 10px;
+  color: #636363;
+  text-decoration: none;
+}
+
+.menu-list a:hover, .menu-list a.is-active {
+  color: #3273dc;
+  font-weight: bold;
+}
+
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const sectionToggles = document.querySelectorAll(".section-toggle");
+
+    sectionToggles.forEach(toggle => {
+      toggle.addEventListener("click", function(event) {
+        event.preventDefault();
+        const sectionId = this.getAttribute("data-section");
+        const sectionList = document.getElementById("section-" + sectionId);
+
+        // Toggle visibility
+        if (sectionList.style.display === "none") {
+          sectionList.style.display = "block";
+        } else {
+          sectionList.style.display = "none";
+        }
+      });
+    });
+
+    // Auto-expand the section containing the active page
+    const activeLesson = document.querySelector(".menu-list a.is-active");
+    if (activeLesson) {
+      const parentSection = activeLesson.closest(".menu-list");
+      if (parentSection) {
+        parentSection.style.display = "block";
+      }
+    }
+  });
+</script>
 
 </div>
 
