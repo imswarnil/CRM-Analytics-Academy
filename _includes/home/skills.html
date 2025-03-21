@@ -1,73 +1,73 @@
-<div class="skill-card-home-container">
-    {% for card in include.cards %}
-    <a href="{{ card.url }}" class="skill-card-home">
-      <span class="skill-card-home-icon"><i class="{{ card.icon }}"></i></span>
-      <div class="skill-card-home-content">
-        <div class="skill-card-home-title">{{ card.title }}</div>
-        <div class="skill-card-home-desc">{{ card.description }}</div>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-  
-  <style>
-    .skill-card-home-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
+<div class="skills-card-home-container">
+  {% for skill in include.skill-cards %}
+  <a href="{{ skill.url }}" class="skills-card-home">
+    <span class="skills-card-home-icon"><i class="{{ skill.icon }}"></i></span>
+    <div class="skills-card-home-content">
+      <div class="skills-card-home-title has-text-primary">{{ skill.title }}</div>
+      <div class="skills-card-home-desc">{{ skill.description }}</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<style>
+  .skills-card-home-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .skills-card-home {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--bulma-border-color, #dbdbdb);
+    padding: 1rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(20px);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .skills-card-home:hover {
+    background-color: var(--bulma-hover-background, #f5f5f5);
+    transform: scale(1.05);
+  }
+
+  .skills-card-home.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .skills-card-home-icon {
+    font-size: 2rem;
+    margin-right: 10px;
+  }
+
+  .skills-card-home-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .skills-card-home-desc {
+    font-size: 0.9rem;
+    color: var(--bulma-text-light, #4a4a4a);
+  }
+
+  @media (max-width: 768px) {
+    .skills-card-home-container {
+      grid-template-columns: repeat(2, 1fr);
     }
-  
-    .skill-card-home {
-      display: flex;
-      align-items: center;
-      border: 2px solid #ddd;
-      padding: 1rem;
-      border-radius: 8px;
-      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-      opacity: 0;
-      transform: translateY(20px);
-      text-decoration: none;
-      color: inherit;
-    }
-  
-    .skill-card-home:hover {
-      background-color: #f8f8f8;
-      transform: scale(1.05);
-    }
-  
-    .skill-card-home.fade-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  
-    .skill-card-home-icon {
-      font-size: 2rem;
-      margin-right: 10px;
-    }
-  
-    .skill-card-home-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-  
-    .skill-card-home-desc {
-      font-size: 0.9rem;
-    }
-  
-    @media (max-width: 768px) {
-      .skill-card-home-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
-  
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".skill-card-home").forEach((card, index) => {
-        setTimeout(() => {
-          card.classList.add("fade-in");
-        }, index * 150);
-      });
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".skills-card-home").forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add("fade-in");
+      }, index * 150);
     });
-  </script>
-  
+  });
+</script>

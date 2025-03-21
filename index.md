@@ -19,17 +19,21 @@ student_avatars:
   - src: "assets/students/student-4-crm-analytic-academy.jpg"
     alt: "Student 4 - CRM Certification"
 student_text: "Join 1,000+ Students Excelling in CRM Analytics"
-cards:
+skill-cards:
   - title: "Development"
     description: "Build modern apps efficiently."
     icon: "fas fa-code"
+    url: "/development"
   - title: "Design"
     description: "Craft stunning user experiences."
     icon: "fas fa-paint-brush"
+    url: "/design"
   - title: "Marketing"
     description: "Grow your audience smartly."
     icon: "fas fa-chart-line"
+    url: "/marketing"
   - title: "Security"
     description: "Keep your data protected."
     icon: "fas fa-shield-alt"
+    url: "/security"
 ---
