@@ -1,31 +1,35 @@
 <section class="section">
   <div class="container">
-    <!-- Heading -->
-    <div class="block">
-      <h2 class="title is-4 has-text-primary">CRM Analytics</h2>
-      <p class="subtitle is-6">What do you want to learn?</p>
+    
+    <!-- Header Section with Floating Button -->
+    <div class="columns is-vcentered is-mobile">
+      <div class="column">
+        <h2 class="title is-3 has-text-primary">CRM Analytics</h2>
+        <p class="subtitle is-5">What do you want to learn?</p>
+      </div>
+      <div class="column is-narrow">
+        <a href="/random" class="button is-primary is-outlined">
+          <span class="icon"><i class="fas fa-random"></i></span>
+          <span>Learn Something New</span>
+        </a>
+      </div>
     </div>
 
-    <!-- Cards -->
+    <!-- Cards Grid -->
     <div class="columns is-multiline">
       {% for skill in include.skill-cards %}
       <div class="column is-half-mobile is-half-tablet is-one-quarter-desktop">
         <a href="{{ skill.url }}" class="box has-background-light has-text-dark is-flex is-align-items-center is-gap-3 has-border has-radius fade-in">
           <span class="icon is-large has-text-primary"><i class="{{ skill.icon }}"></i></span>
           <div>
-            <p class="title is-6 has-text-primary">{{ skill.title }}</p>
-            <p class="subtitle is-7">{{ skill.description }}</p>
+            <p class="title is-5 has-text-primary">{{ skill.title }}</p>
+            <p class="subtitle is-6">{{ skill.description }}</p>
           </div>
         </a>
       </div>
       {% endfor %}
     </div>
-
-    <!-- Floating Random Post Button -->
-    <a href="/random" class="button is-primary is-medium floating-button">
-      <span class="icon"><i class="fas fa-random"></i></span>
-      <span>Learn Something New</span>
-    </a>
+    
   </div>
 </section>
 
@@ -43,9 +47,9 @@
     });
 
     // Random post redirection
-    document.querySelector(".floating-button").addEventListener("click", function(event) {
+    document.querySelector(".button.is-outlined").addEventListener("click", function(event) {
       event.preventDefault();
-      fetch("/sitemap.xml") // Assuming you have a sitemap
+      fetch("/sitemap.xml") 
         .then(response => response.text())
         .then(data => {
           let parser = new DOMParser();
@@ -58,17 +62,3 @@
     });
   });
 </script>
-
-<style>
-  /* Floating button styling */
-  .floating-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    border-radius: 50px;
-    padding: 12px 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-</style>
