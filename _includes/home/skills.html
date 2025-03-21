@@ -15,11 +15,11 @@
       </div>
     </div>
 
-    <!-- Cards Grid -->
+    <!-- Skills Grid -->
     <div class="columns is-multiline">
       {% for skill in include.skill-cards %}
       <div class="column is-half-mobile is-half-tablet is-one-quarter-desktop">
-        <a href="{{ skill.url }}" class="column is-flex is-align-items-center is-gap-3 has-border has-radius fade-in">
+        <a href="{{ skill.url }}" class="home-skills-card is-flex is-align-items-center is-gap-3">
           <span class="icon is-large has-text-primary"><i class="{{ skill.icon }}"></i></span>
           <div>
             <p class="title is-5 has-text-primary">{{ skill.title }}</p>
@@ -35,7 +35,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".fade-in").forEach((card, index) => {
+    document.querySelectorAll(".home-skills-card").forEach((card, index) => {
       card.style.opacity = "0";
       card.style.transform = "translateY(20px)";
       card.style.transition = "opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
@@ -47,3 +47,17 @@
     });
   });
 </script>
+<style>
+  .home-skills-card {
+  border: 2px solid var(--bulma-primary);
+  border-radius: 8px;
+  padding: 12px;
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--bulma-primary-light);
+    transform: scale(1.05);
+  }
+}
+
+</style>
