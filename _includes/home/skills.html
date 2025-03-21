@@ -1,21 +1,29 @@
-<div class="skills-card-home-container">
-  {% for skill in include.skill-cards %}
-  <a href="{{ skill.url }}" class="skills-card-home">
-    <span class="skills-card-home-icon"><i class="{{ skill.icon }}"></i></span>
-    <div class="skills-card-home-content">
-      <div class="skills-card-home-title has-text-primary">{{ skill.title }}</div>
-      <div class="skills-card-home-desc">{{ skill.description }}</div>
+<section class="section">
+  <div class="columns is-multiline">
+    {% for skill in include.skill-cards %}
+    <div class="column is-half-mobile is-half-tablet is-one-quarter-desktop">
+      <a href="{{ skill.url }}" class="box has-background-light has-text-dark is-flex is-align-items-center is-gap-3 has-border has-radius fade-in">
+        <span class="icon is-large has-text-primary"><i class="{{ skill.icon }}"></i></span>
+        <div>
+          <p class="title is-6 has-text-primary">{{ skill.title }}</p>
+          <p class="subtitle is-7">{{ skill.description }}</p>
+        </div>
+      </a>
     </div>
-  </a>
-  {% endfor %}
-</div>
-
+    {% endfor %}
+  </div>
+</section>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".skills-card-home").forEach((card, index) => {
+    document.querySelectorAll(".fade-in").forEach((card, index) => {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(20px)";
+      card.style.transition = "opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
+      
       setTimeout(() => {
-        card.classList.add("fade-in");
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
       }, index * 150);
     });
   });
