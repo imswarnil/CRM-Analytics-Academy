@@ -8,7 +8,7 @@
         <p class="subtitle is-5">What do you want to learn?</p>
       </div>
       <div class="column is-narrow">
-        <a href="/random" class="button is-primary is-outlined">
+        <a href="#" class="button is-primary is-outlined">
           <span class="icon"><i class="fas fa-random"></i></span>
           <span>Learn Something New</span>
         </a>
@@ -19,7 +19,7 @@
     <div class="columns is-multiline">
       {% for skill in include.skill-cards %}
       <div class="column is-half-mobile is-half-tablet is-one-quarter-desktop">
-        <a href="{{ skill.url }}" class="box has-background-light has-text-dark is-flex is-align-items-center is-gap-3 has-border has-radius fade-in">
+        <a href="{{ skill.url }}" class="column is-flex is-align-items-center is-gap-3 has-border has-radius fade-in">
           <span class="icon is-large has-text-primary"><i class="{{ skill.icon }}"></i></span>
           <div>
             <p class="title is-5 has-text-primary">{{ skill.title }}</p>
@@ -29,7 +29,7 @@
       </div>
       {% endfor %}
     </div>
-    
+
   </div>
 </section>
 
@@ -44,21 +44,6 @@
         card.style.opacity = "1";
         card.style.transform = "translateY(0)";
       }, index * 150);
-    });
-
-    // Random post redirection
-    document.querySelector(".button.is-outlined").addEventListener("click", function(event) {
-      event.preventDefault();
-      fetch("/sitemap.xml") 
-        .then(response => response.text())
-        .then(data => {
-          let parser = new DOMParser();
-          let xml = parser.parseFromString(data, "text/xml");
-          let urls = Array.from(xml.querySelectorAll("url loc")).map(loc => loc.textContent);
-          let randomUrl = urls[Math.floor(Math.random() * urls.length)];
-          window.location.href = randomUrl;
-        })
-        .catch(() => window.location.href = "/blog");
     });
   });
 </script>
