@@ -1,0 +1,73 @@
+<div class="paths-container">
+    {% for card in include.cards %}
+    <div class="path-card-home">
+      <span class="icon"><i class="{{ card.icon }}"></i></span>
+      <div class="path-card-content">
+        <div class="path-card-title">{{ card.title }}</div>
+        <div class="path-card-desc">{{ card.description }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  <style>
+    .paths-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+  
+    .path-card-home {
+      display: flex;
+      align-items: center;
+      border: 2px solid #ddd;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  
+    .path-card-home:hover {
+      background-color: #f8f8f8;
+      transform: scale(1.05);
+    }
+  
+    .path-card-home.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  
+    .path-card-home .icon {
+      font-size: 2rem;
+      margin-right: 10px;
+      color: #3273dc;
+    }
+  
+    .path-card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  
+    .path-card-desc {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  
+    @media (max-width: 768px) {
+      .paths-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".path-card-home").forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add("fade-in");
+        }, index * 150);
+      });
+    });
+  </script>
+  
