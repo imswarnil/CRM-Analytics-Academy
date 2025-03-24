@@ -147,8 +147,10 @@ layout: default
  
  <footer class="footer has-background-white pt-5">
    <div class="container">
+     
      <!-- Top Section -->
      <div class="columns is-multiline">
+       
        <!-- About Company -->
        <div class="column is-4">
          <div class="mb-4">
@@ -156,59 +158,69 @@ layout: default
              <img alt="CRM Analytics Academy Logo" src="{{ site.logo | default: 'https://placehold.co/64x64' }}">
            </figure>
            <p class="mt-4"> {{ site.description }} </p>
+ 
            <!-- Social Media Links -->
            <div class="is-flex mt-4 is-align-items-center">
-             {% if site.social_links.Youtube %}<a href="{{ site.social_links.Youtube }}" class="icon mr-3"> <i class="fab fa-youtube"></i> </a>{% endif %}
-             {% if site.social_links.Instagram %}<a href="{{ site.social_links.Instagram }}" class="icon mr-3"> <i class="fab fa-instagram"></i> </a>{% endif %}
-             {% if site.social_links.GitHub %}<a href="{{ site.social_links.GitHub }}" class="icon mr-3"> <i class="fab fa-github"></i> </a>{% endif %}
-             {% if site.social_links.Twitter %}<a href="{{ site.social_links.Twitter }}" class="icon mr-3"> <i class="fab fa-twitter"></i> </a>{% endif %}
+             {% if site.social_links %}
+               {% for platform in site.social_links %}
+                 {% assign platform_name = platform[0] %}
+                 {% assign platform_url = platform[1] %}
+                 {% if platform_url %}
+                   <a href="{{ platform_url }}" class="icon mr-3" target="_blank" rel="noopener">
+                     <i class="fab fa-{{ platform_name | downcase }}"></i>
+                   </a>
+                 {% endif %}
+               {% endfor %}
+             {% endif %}
            </div>
+ 
          </div>
        </div>
  
        <!-- Company Links -->
        <div class="column is-2">
-         <div class="mb-4">
-           <h3 class="title is-5 mb-3">Company</h3>
-           <ul>
-             <li><a href="/about" class="has-text-dark">About</a></li>
-             <li><a href="/pricing" class="has-text-dark">Pricing</a></li>
-             <li><a href="/blog" class="has-text-dark">Blog</a></li>
-             <li><a href="/careers" class="has-text-dark">Careers</a></li>
-             <li><a href="/contact" class="has-text-dark">Contact</a></li>
-           </ul>
-         </div>
+         <h3 class="title is-5 mb-3">Company</h3>
+         <ul>
+           <li><a href="/about" class="has-text-dark">About</a></li>
+           <li><a href="/pricing" class="has-text-dark">Pricing</a></li>
+           <li><a href="/blog" class="has-text-dark">Blog</a></li>
+           <li><a href="/careers" class="has-text-dark">Careers</a></li>
+           <li><a href="/contact" class="has-text-dark">Contact</a></li>
+         </ul>
        </div>
  
        <!-- Support Links -->
        <div class="column is-2">
-         <div class="mb-4">
-           <h3 class="title is-5 mb-3">Support</h3>
-           <ul>
-             <li><a href="/help" class="has-text-dark">Help & Support</a></li>
-             <li><a href="/instructor" class="has-text-dark">Become an Instructor</a></li>
-             <li><a href="/app" class="has-text-dark">Get the App</a></li>
-             <li><a href="/faq" class="has-text-dark">FAQ’s</a></li>
-             <li><a href="/tutorials" class="has-text-dark">Tutorials</a></li>
-           </ul>
-         </div>
+         <h3 class="title is-5 mb-3">Support</h3>
+         <ul>
+           <li><a href="/help" class="has-text-dark">Help & Support</a></li>
+           <li><a href="/instructor" class="has-text-dark">Become an Instructor</a></li>
+           <li><a href="/app" class="has-text-dark">Get the App</a></li>
+           <li><a href="/faq" class="has-text-dark">FAQ’s</a></li>
+           <li><a href="/tutorials" class="has-text-dark">Tutorials</a></li>
+         </ul>
        </div>
  
-       <!-- Featured Course Card -->
-       <div class="column is-3">
-         <div class="card">
-           <div class="card-image">
-             <figure class="image is-4by3">
-               <img src="/assets/images/crm-analytics-course.jpg" alt="Master CRM Analytics Course">
-             </figure>
+       <!-- Featured Courses (Horizontal List) -->
+       <div class="column is-4">
+         <h3 class="title is-5 mb-3">Featured Courses</h3>
+         {% assign courses = site.courses | slice: 0, 2 %}
+         {% for course in courses %}
+         <a href="{{ course.url }}" class="course-item is-flex is-align-items-center mb-3">
+           <figure class="image is-90x90 mr-3">
+             <img src="{{ course.image }}" alt="{{ course.title }}" class="is-rounded">
+           </figure>
+           <div class="course-info">
+             <p class="title is-6 mb-1">{{ course.title }}</p>
+             <p class="subtitle is-7">{{ course.description | truncate: 50 }}</p>
            </div>
-           <div class="card-content">
-             <p class="title is-5">Master CRM Analytics</p>
-             <p class="subtitle is-6">Learn Salesforce CRM Analytics with hands-on training, blogs, and certification guides.</p>
-             <a href="/courses/crm-analytics" class="button is-primary is-fullwidth">Enroll Now</a>
-           </div>
-         </div>
+           <span class="icon ml-auto">
+             <i class="fas fa-arrow-right"></i>
+           </span>
+         </a>
+         {% endfor %}
        </div>
+ 
      </div>
  
      <!-- Bottom Section -->
@@ -227,6 +239,8 @@ layout: default
          </nav>
        </div>
      </div>
+ 
    </div>
  </footer>
+ 
  
