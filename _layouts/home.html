@@ -151,13 +151,13 @@ layout: default
      <!-- Top Section -->
      <div class="columns is-multiline">
        
-       <!-- About Company -->
+       <!-- About & Social -->
        <div class="column is-4">
          <div class="mb-4">
            <figure class="image is-64x64">
              <img alt="CRM Analytics Academy Logo" src="{{ site.logo | default: 'https://placehold.co/64x64' }}">
            </figure>
-           <p class="mt-4"> {{ site.description }} </p>
+           <p class="mt-4">{{ site.description }}</p>
  
            <!-- Social Media Links -->
            <div class="is-flex mt-4 is-align-items-center">
@@ -177,55 +177,69 @@ layout: default
          </div>
        </div>
  
-       <!-- Company Links -->
+       <!-- Quick Links -->
        <div class="column is-2">
-         <h3 class="title is-5 mb-3">Company</h3>
+         <h3 class="title is-5 mb-3">Quick Links</h3>
          <ul>
-           <li><a href="/about" class="has-text-dark">About</a></li>
-           <li><a href="/pricing" class="has-text-dark">Pricing</a></li>
-           <li><a href="/blog" class="has-text-dark">Blog</a></li>
-           <li><a href="/careers" class="has-text-dark">Careers</a></li>
-           <li><a href="/contact" class="has-text-dark">Contact</a></li>
+           {% for item in site.navigation_header %}
+             {% if item.url %}
+               <li><a href="{{ item.url }}" class="has-text-dark">{{ item.title }}</a></li>
+             {% endif %}
+           {% endfor %}
          </ul>
        </div>
  
-       <!-- Support Links -->
+       <!-- Resources -->
        <div class="column is-2">
-         <h3 class="title is-5 mb-3">Support</h3>
+         <h3 class="title is-5 mb-3">Resources</h3>
          <ul>
-           <li><a href="/help" class="has-text-dark">Help & Support</a></li>
-           <li><a href="/instructor" class="has-text-dark">Become an Instructor</a></li>
-           <li><a href="/app" class="has-text-dark">Get the App</a></li>
-           <li><a href="/faq" class="has-text-dark">FAQ’s</a></li>
-           <li><a href="/tutorials" class="has-text-dark">Tutorials</a></li>
+           {% for item in site.navigation_header %}
+             {% if item.submenu %}
+               {% for sub in item.submenu %}
+                 <li><a href="{{ sub.url | default: '#' }}" class="has-text-dark">{{ sub.title }}</a></li>
+               {% endfor %}
+             {% endif %}
+           {% endfor %}
          </ul>
        </div>
  
-       <!-- Featured Courses (Horizontal List) -->
+       <!-- Featured Courses (Hardcoded) -->
        <div class="column is-4">
          <h3 class="title is-5 mb-3">Featured Courses</h3>
-         {% assign courses = site.courses | slice: 0, 2 %}
-         {% for course in courses %}
-         <a href="{{ course.url }}" class="course-item is-flex is-align-items-center mb-3">
+ 
+         <a href="#" class="course-item is-flex is-align-items-center mb-3">
            <figure class="image is-90x90 mr-3">
-             <img src="{{ course.image }}" alt="{{ course.title }}" class="is-rounded">
+             <img src="https://placehold.co/90x90" alt="Salesforce Basics" class="is-rounded">
            </figure>
            <div class="course-info">
-             <p class="title is-6 mb-1">{{ course.title }}</p>
-             <p class="subtitle is-7">{{ course.description | truncate: 50 }}</p>
+             <p class="title is-6 mb-1">Salesforce Basics</p>
+             <p class="subtitle is-7">Learn the fundamentals of Salesforce with hands-on examples.</p>
            </div>
            <span class="icon ml-auto">
              <i class="fas fa-arrow-right"></i>
            </span>
          </a>
-         {% endfor %}
+ 
+         <a href="#" class="course-item is-flex is-align-items-center">
+           <figure class="image is-90x90 mr-3">
+             <img src="https://placehold.co/90x90" alt="Advanced CRM Analytics" class="is-rounded">
+           </figure>
+           <div class="course-info">
+             <p class="title is-6 mb-1">Advanced CRM Analytics</p>
+             <p class="subtitle is-7">Master CRM analytics and data visualization.</p>
+           </div>
+           <span class="icon ml-auto">
+             <i class="fas fa-arrow-right"></i>
+           </span>
+         </a>
+ 
        </div>
  
      </div>
  
      <!-- Bottom Section -->
      <div class="columns is-vcentered mt-6 pt-4 border-top">
-       <!-- CopyRight -->
+       <!-- Copyright -->
        <div class="column is-4">
          <p>© <span id="copyright"></span> CRM Analytics Academy. All Rights Reserved.</p>
          <script> document.getElementById("copyright").textContent = new Date().getFullYear(); </script>
@@ -233,14 +247,13 @@ layout: default
        <!-- Footer Links -->
        <div class="column is-8 has-text-right">
          <nav class="level">
-           <a href="/privacy-policy" class="level-item has-text-dark">Privacy Policy</a>
-           <a href="/cookie-notice" class="level-item has-text-dark">Cookie Notice</a>
-           <a href="/terms-of-use" class="level-item has-text-dark">Terms of Use</a>
+           {% for item in site.navigation_footer %}
+             <a href="{{ item.url }}" class="level-item has-text-dark">{{ item.title }}</a>
+           {% endfor %}
          </nav>
        </div>
      </div>
  
    </div>
  </footer>
- 
  
