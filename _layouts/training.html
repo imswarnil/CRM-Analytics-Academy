@@ -69,7 +69,7 @@ layout: default
           {% assign sections = site.training | where: "type", "section" | sort: "order" %}
           {% for section in sections %}
           <li>
-            <a href="{{ section.url | relative_url }}" class="{% if section.title == page.parent or section.url == page.url %}is-active{% endif %}">
+            <a href="{{ section.url | relative_url }}" class="{% if section.url == page.url %}is-active{% endif %}">
               <span class="icon">
                 <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
               </span>
