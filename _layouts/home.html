@@ -53,33 +53,35 @@ layout: default
    <div class="container">
      <h2 class="title is-3 has-text-centered mb-6">Explore Our Courses</h2>
  
-     <div class="content">
+     <div class="columns is-multiline">
        {% assign sections = site.training | where: "type", "section" | sort: "order" %}
        {% for section in sections %}
-       
-       <!-- Section Card -->
-       <div class="box">
-         <div class="columns is-vcentered">
+       <div class="column is-6">
+         <div class="box course-section">
            
-           <!-- Section Icon and Details -->
-           <div class="column is-3 has-text-centered">
-             <div class="circle-icon mb-3">
+           <!-- Section Header -->
+           <div class="course-header">
+             <div class="circle-icon">
                <i class="{{ section.icon_class | default: 'fas fa-book' }} is-size-1 has-text-primary"></i>
              </div>
-             <p class="is-size-4 has-text-weight-bold">{{ forloop.index }}. {{ section.title }}</p>
-             <p class="has-text-grey">{{ section.description }}</p>
-             <span class="tag is-primary is-rounded has-text-weight-semibold">{{ section.difficulty | default: "Beginner" }}</span>
-             <span class="tag is-info is-light is-rounded has-text-weight-semibold">
-               {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-               {{ lessons.size }} Lessons
-             </span>
+             <div>
+               <h3 class="title is-4">{{ forloop.index }}. {{ section.title }}</h3>
+               <p class="has-text-grey">{{ section.description }}</p>
+               <div class="tags">
+                 <span class="tag is-primary is-rounded">{{ section.difficulty | default: "Beginner" }}</span>
+                 <span class="tag is-info is-light is-rounded">
+                   {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+                   {{ lessons.size }} Lessons
+                 </span>
+               </div>
+             </div>
            </div>
  
-           <!-- Lessons List -->
-           <div class="column is-9">
-             <ul class="content">
+           <!-- Lessons List (Initially Collapsed) -->
+           <div class="lesson-list is-hidden">
+             <ul>
                {% for lesson in lessons %}
-               <li class="mb-2">
+               <li class="lesson-item">
                  <a href="{{ lesson.url | relative_url }}" class="has-text-dark has-text-weight-semibold">
                    {{ forloop.index }}. {{ lesson.title }}
                  </a>
@@ -87,10 +89,12 @@ layout: default
                {% endfor %}
              </ul>
            </div>
-           
+ 
+           <!-- Toggle Button -->
+           <button class="button is-light is-fullwidth toggle-lessons">View Lessons</button>
+ 
          </div>
        </div>
- 
        {% endfor %}
      </div>
  
@@ -104,6 +108,43 @@ layout: default
  
    </div>
  </section>
+ 
+ <!-- JavaScript for Toggle -->
+ <script>
+   document.querySelectorAll(".toggle-lessons").forEach(button => {
+     button.addEventListener("click", function() {
+       const lessonList = this.previousElementSibling;
+       lessonList.classList.toggle("is-hidden");
+       this.textContent = lessonList.classList.contains("is-hidden") ? "View Lessons" : "Hide Lessons";
+     });
+   });
+ </script>
+ 
+ <!-- CSS Enhancements -->
+ <style>
+   .course-section {
+     transition: box-shadow 0.3s ease-in-out;
+   }
+   .course-section:hover {
+     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+   }
+   .course-header {
+     display: flex;
+     align-items: center;
+     gap: 15px;
+   }
+   .lesson-item {
+     padding: 8px 0;
+     border-bottom: 1px solid #ddd;
+   }
+   .lesson-item:last-child {
+     border-bottom: none;
+   }
+   .toggle-lessons {
+     margin-top: 10px;
+   }
+ </style>
+ 
  
  <footer class="footer has-background-white pt-5">
    <div class="container">
