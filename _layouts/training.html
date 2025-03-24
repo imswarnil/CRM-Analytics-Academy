@@ -67,58 +67,46 @@ layout: default
         <p class="menu-label">Training Schedule</p>
         <ul class="menu-list">
           {% assign sections = site.training | where: "type", "section" | sort: "order" %}
-          
           {% for section in sections %}
-            {% unless section.parent %}
-              <li>
-                <a href="{{ section.url | relative_url }}" class="{% if section.url == page.url %}is-active{% endif %}">
-                  <span class="icon">
-                    <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
-                  </span>
-                  {{ section.title }}
-                </a>
+          <li>
+            <a href="{{ section.url | relative_url }}" class="{% if section.url == page.url %}is-active{% endif %}">
+              <span class="icon">
+                <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
+              </span>
+              {{ section.title }}
+            </a>
+            <ul>
+              {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+              {% if lessons.size > 0 %}
+                <!-- PROGRESS BAR -->
+                <div class="progress-container">
+                  <div class="progress-line"></div>
+                  {% for lesson in lessons %}
+                    <div class="progress-node {% if lesson.url == page.url %}active{% endif %}">
+                      <a href="{{ lesson.url | relative_url }}" title="{{ lesson.title }}"></a>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
     
-                <!-- Get Subsections -->
-                {% assign subsections = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-                {% if subsections.size > 0 %}
-                  <ul>
-                    {% for subsection in subsections %}
-                      <li>
-                        <a href="{{ subsection.url | relative_url }}" class="{% if subsection.url == page.url %}is-active{% endif %}">
-                          <span class="icon">
-                            <i class="fas fa-folder"></i>
-                          </span>
-                          {{ subsection.title }}
-                        </a>
-                        
-                        <!-- Get Lessons under Subsection -->
-                        {% assign lessons = site.training | where_exp: "item", "item.parent == subsection.title" | sort: "order" %}
-                        {% if lessons.size > 0 %}
-                          <ul>
-                            {% for lesson in lessons %}
-                              <li>
-                                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
-                                  <span class="icon is-small">
-                                    {% if lesson.type == "article" %}
-                                      <i class="fas fa-file-alt"></i>
-                                    {% elsif lesson.type == "video" %}
-                                      <i class="fas fa-play-circle"></i>
-                                    {% else %}
-                                      <i class="fas fa-file"></i>
-                                    {% endif %}
-                                  </span>
-                                  {{ lesson.title }}
-                                </a>
-                              </li>
-                            {% endfor %}
-                          </ul>
-                        {% endif %}
-                      </li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
+              {% for lesson in lessons %}
+              <li>
+                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
+                  <span class="icon is-small">
+                    {% if lesson.type == "article" %}
+                      <i class="fas fa-file-alt"></i>
+                    {% elsif lesson.type == "video" %}
+                      <i class="fas fa-play-circle"></i>
+                    {% else %}
+                      <i class="fas fa-file"></i>
+                    {% endif %}
+                  </span>
+                  {{ lesson.title }}
+                </a>
               </li>
-            {% endunless %}
+              {% endfor %}
+            </ul>
+          </li>
           {% endfor %}
         </ul>
         <hr>
@@ -128,7 +116,49 @@ layout: default
         </div>
       </div>
     </aside>
-    
+<style>
+  .progress-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 10px 0;
+}
+
+.progress-line {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: #ccc;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.progress-node {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: #ccc;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.progress-node a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  text-indent: -9999px; /* Hide text */
+}
+
+.progress-node.active {
+  background: #3273dc; /* Bulma primary color */
+  border: 3px solid white;
+  box-shadow: 0 0 10px #3273dc;
+}
+
+</style>    
   </div>
 </div>
 
