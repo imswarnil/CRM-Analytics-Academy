@@ -81,24 +81,34 @@ layout: default
 
 <section class="section">
    <div class="container">
-     <h2 class="title is-3 has-text-centered">Explore Our Courses</h2>
-     <div class="columns is-multiline">
+     <h2 class="title is-3 has-text-centered mb-6">Explore Our Courses</h2>
+     
+     <div class="columns is-multiline is-centered">
        {% assign sections = site.training | where: "type", "section" | sort: "order" %}
        {% for section in sections %}
-       {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-       <div class="column is-4">
+       <div class="column is-12-mobile is-6-tablet is-4-desktop">
          <a href="{{ section.url | relative_url }}" class="card-link">
            <div class="card h-100">
-             <div class="card-content">
-               <div class="circle-icon">
-                 <i class="fas {{ section.icon }}"></i>
+             <div class="card-content p-5 is-flex is-flex-direction-column is-align-items-center">
+               <!-- Section Icon -->
+               <div class="circle-icon mb-4">
+                 <i class="{{ section.icon_class | default: 'fas fa-book' }} is-size-1 has-text-primary"></i>
                </div>
+ 
+               <!-- Title -->
                <h3 class="title is-4 has-text-centered">{{ section.title }}</h3>
+ 
+               <!-- Description -->
                <p class="has-text-centered mb-4">{{ section.description }}</p>
+ 
+               <!-- Lesson Count -->
+               {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
                <div class="tags are-medium is-centered mb-3">
-                 <span class="tag is-primary">{{ section.difficulty | default: "Beginner" }}</span>
-                 <span class="tag is-info">{{ lessons.size }} Lessons</span>
+                 <span class="tag is-primary is-rounded has-text-weight-semibold">{{ section.difficulty | default: "Beginner" }}</span>
+                 <span class="tag is-info is-light is-rounded has-text-weight-semibold">{{ lessons.size }} Lessons</span>
                </div>
+ 
+               <!-- Start Button -->
                <button class="button is-primary is-fullwidth">Start Learning</button>
              </div>
            </div>
@@ -109,8 +119,6 @@ layout: default
    </div>
  </section>
  
-
-
 <footer class="footer has-background-white pt-5">
   <div class="container">
      <!-- Top Section --> 
