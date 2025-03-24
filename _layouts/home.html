@@ -3,33 +3,37 @@ layout: default
 --- 
 
 
-<section class="hero is-primary is-medium home-hero">
-   <div class="home-hero-video-container">
-     <iframe 
-       class="home-hero-video"
-       src="https://www.youtube.com/embed/J-FMTNeMs_U?autoplay=1&mute=1&loop=1&playlist=J-FMTNeMs_U&controls=0&showinfo=0&modestbranding=1&rel=0"
-       frameborder="0"
-       allow="autoplay; encrypted-media"
-       allowfullscreen>
-     </iframe>
-   </div>
+<section class="hero is-primary is-medium home-hero">  
+   <!-- Gradient Overlay (Now Shows Primary Background) -->
    <div class="home-hero-overlay"></div>
-   
+ 
    <div class="hero-body">
      <div class="container">
        <div class="columns is-vcentered">
+         <!-- Left Content -->
          <div class="column is-6">
-           <h1 class="title is-1 is-spaced">Learn Salesforce CRM Analytics For Free</h1>
-           <p class="subtitle is-4 mb-5">Step-by-step training with official resources, curated by the community</p>
+           <h1 class="title is-1 is-spaced has-text-white">
+             Learn Salesforce CRM Analytics For Free
+           </h1>
+           <p class="subtitle is-4 has-text-light mb-6">
+             Step-by-step training with official resources, curated by the community
+           </p>
            <div class="buttons">
              <a href="/courses" class="button is-white is-outlined is-large">Start Learning</a>
              <a href="/about" class="button is-light is-large">About This Project</a>
            </div>
          </div>
+ 
+         <!-- Right Image -->
          <div class="column is-6">
            <div class="has-text-centered">
-             <img alt="CRM Analytics Training" width="600" height="400" decoding="async" data-nimg="1"
-               class="hero-image" src="/placeholder.svg?height=400&amp;width=600" style="color: transparent;">
+            <iframe
+            class="home-hero-video"
+            src="https://www.youtube.com/embed/J-FMTNeMs_U?autoplay=1&mute=1&loop=1&playlist=J-FMTNeMs_U&controls=0&showinfo=0&modestbranding=1&rel=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
            </div>
          </div>
        </div>
@@ -38,39 +42,49 @@ layout: default
  </section>
  
  <style>
-   /* Video Background */
-   .home-hero {
-     position: relative;
-     overflow: hidden;
-   }
+ /* Hero Section Tweaks */
+ .home-hero {
+   position: relative;
+   overflow: hidden;
+ }
  
-   .home-hero-video-container {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     z-index: -2;
-   }
+ /* Video Background (Now Blends with Primary Background) */
+ .home-hero-video-container {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: -2;
+   background: #3273dc; /* Primary Blue */
+ }
  
-   .home-hero-video {
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     pointer-events: none;
-   }
+ .home-hero-video {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   opacity: 0.6; /* Blend with primary background */
+   pointer-events: none;
+ }
  
-   /* Gradient Overlay */
-   .home-hero-overlay {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
-     z-index: -1;
-   }
+ /* Semi-Transparent Gradient Overlay */
+ .home-hero-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(50, 115, 220, 0.5)); /* Dark to Primary Blue */
+   z-index: -1;
+ }
+ 
+ /* Hero Image */
+ .hero-image {
+   max-width: 100%;
+   height: auto;
+ }
  </style>
+ 
  
 
 <section class="section">
