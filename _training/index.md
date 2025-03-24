@@ -3,8 +3,8 @@ layout: default
 title: "Free CRMA Training" 
 order : 0 
 ---
-<section class="hero is-primary">
-  <div class="hero-body">
+
+<div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
         <!-- Left Column: Training Content -->
@@ -51,15 +51,8 @@ order : 0
 </section>
 {% include training/stats.html %}
 
-<div class="container is-fullhd">
-  <!-- Leaderboard Ad -->
-  <div class="has-text-centered my-4">
-    <div class="box has-background-light">
-      <p class="has-text-grey">Ad Placeholder - Leaderboard (728x90)</p>
-    </div>
-  </div>
 
-  <div class="columns">
+<div class="columns">
     <!-- Main Content Area -->
     <div class="column is-8">
       <h1 class="title is-2">Training Curriculum</h1>
@@ -122,12 +115,3 @@ order : 0
     </aside>
   </div>
 </div>
-
-<style>
-  #sticky-sidebar {
-    position: sticky;
-    top: 100px; /* Distance from leaderboard ad */
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-</style>
