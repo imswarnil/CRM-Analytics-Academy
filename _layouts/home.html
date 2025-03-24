@@ -72,15 +72,45 @@ layout: default
    }
  </style>
  
+
 <section class="section">
   <div class="container has-text-centered">
     {% adsense large-leaderboard %}
   </div>
 </section>
 
+<section class="section">
+   <div class="container">
+     <h2 class="title is-3 has-text-centered">Explore Our Courses</h2>
+     <div class="columns is-multiline">
+       {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+       {% for section in sections %}
+       {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+       <div class="column is-4">
+         <a href="{{ section.url | relative_url }}" class="card-link">
+           <div class="card h-100">
+             <div class="card-content">
+               <div class="circle-icon">
+                 <i class="fas {{ section.icon }}"></i>
+               </div>
+               <h3 class="title is-4 has-text-centered">{{ section.title }}</h3>
+               <p class="has-text-centered mb-4">{{ section.description }}</p>
+               <div class="tags are-medium is-centered mb-3">
+                 <span class="tag is-primary">{{ section.difficulty | default: "Beginner" }}</span>
+                 <span class="tag is-info">{{ lessons.size }} Lessons</span>
+               </div>
+               <button class="button is-primary is-fullwidth">Start Learning</button>
+             </div>
+           </div>
+         </a>
+       </div>
+       {% endfor %}
+     </div>
+   </div>
+ </section>
+ 
 
-</head>
-<body>
+
 <footer class="footer has-background-white pt-5">
   <div class="container">
      <!-- Top Section --> 
