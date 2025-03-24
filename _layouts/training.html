@@ -65,43 +65,38 @@ layout: default
       <button class="button is-fullwidth is-primary is-hidden-desktop" onclick="toggleMenu()">📖 Course Navigation</button>
       <div id="sidebar-menu" class="mt-3 is-hidden-mobile">
         <p class="menu-label">Training Schedule</p>
-        <div class="progress-sidebar">
-          <div class="progress-line"></div>
-          <ul class="menu-list">
-            {% assign sections = site.training | where: "type", "section" | sort: "order" %}
-            {% for section in sections %}
-            <li class="progress-item">
-              <div class="progress-node section-node {% if section.url == page.url %}active{% endif %}"></div>
-              <a href="{{ section.url | relative_url }}" class="{% if section.url == page.url %}is-active{% endif %}">
-                <span class="icon">
-                  <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
-                </span>
-                {{ section.title }}
-              </a>
-              <ul>
-                {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-                {% for lesson in lessons %}
-                <li class="progress-item">
-                  <div class="progress-node lesson-node {% if lesson.url == page.url %}active{% endif %}"></div>
-                  <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
-                    <span class="icon is-small">
-                      {% if lesson.type == "article" %}
-                        <i class="fas fa-file-alt"></i>
-                      {% elsif lesson.type == "video" %}
-                        <i class="fas fa-play-circle"></i>
-                      {% else %}
-                        <i class="fas fa-file"></i>
-                      {% endif %}
-                    </span>
-                    {{ lesson.title }}
-                  </a>
-                </li>
-                {% endfor %}
-              </ul>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
+        <ul class="menu-list">
+          {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+          {% for section in sections %}
+          <li>
+            <a href="{{ section.url | relative_url }}" class="{% if section.url == page.url %}is-active{% endif %}">
+              <span class="icon">
+                <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
+              </span>
+              {{ section.title }}
+            </a>
+            <ul>
+              {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+              {% for lesson in lessons %}
+              <li>
+                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
+                  <span class="icon is-small">
+                    {% if lesson.type == "article" %}
+                    <i class="fas fa-file-alt"></i>
+                    {% elsif lesson.type == "video" %}
+                    <i class="fas fa-play-circle"></i>
+                    {% else %}
+                    <i class="fas fa-file"></i>
+                    {% endif %}
+                  </span>
+                  {{ lesson.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
         <hr>
         <div class="ad-section mt-4">
           <h4 class="title is-6">Ads</h4>
@@ -109,54 +104,6 @@ layout: default
         </div>
       </div>
     </aside>
-<style>
-  .progress-sidebar {
-  position: relative;
-  padding-left: 20px; /* Space for the vertical line */
-}
-
-.progress-line {
-  position: absolute;
-  left: 10px;
-  top: 0;
-  width: 4px;
-  height: 100%;
-  background: #ccc;
-  border-radius: 2px;
-}
-
-.progress-item {
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.progress-node {
-  position: absolute;
-  left: 2px; /* Align with the progress line */
-  width: 12px;
-  height: 12px;
-  background: #ccc;
-  border-radius: 50%;
-  transition: 0.3s;
-}
-
-.section-node {
-  width: 16px;
-  height: 16px;
-  background: #666;
-}
-
-.lesson-node {
-  width: 12px;
-  height: 12px;
-}
-
-.progress-node.active {
-  background: #3273dc; /* Bulma primary color */
-  box-shadow: 0 0 10px #3273dc;
-}
-
-</style>    
   </div>
 </div>
 
