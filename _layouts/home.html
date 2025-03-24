@@ -2,8 +2,76 @@
 layout: default 
 --- 
 
-<section class="hero is-primary is-medium"><div class="hero-body"><div class="container"><div class="columns is-vcentered"><div class="column is-6"><h1 class="title is-1 is-spaced">Learn Salesforce CRM Analytics For Free</h1><p class="subtitle is-4 mb-5">Step-by-step training with official resources, curated by the community</p><div class="buttons"><a href="/courses" class="button is-white is-outlined is-large">Start Learning</a><a href="/about" class="button is-light is-large">About This Project</a></div></div><div class="column is-6"><div class="has-text-centered"><img alt="CRM Analytics Training" width="600" height="400" decoding="async" data-nimg="1" class="hero-image" src="/placeholder.svg?height=400&amp;width=600" style="color: transparent;"></div></div></div></div></div></section>
 
+<section class="hero is-primary is-medium home-hero">
+   <div class="home-hero-video-container">
+     <iframe 
+       class="home-hero-video"
+       src="https://www.youtube.com/embed/J-FMTNeMs_U?autoplay=1&mute=1&loop=1&playlist=J-FMTNeMs_U&controls=0&showinfo=0&modestbranding=1&rel=0"
+       frameborder="0"
+       allow="autoplay; encrypted-media"
+       allowfullscreen>
+     </iframe>
+   </div>
+   <div class="home-hero-overlay"></div>
+   
+   <div class="hero-body">
+     <div class="container">
+       <div class="columns is-vcentered">
+         <div class="column is-6">
+           <h1 class="title is-1 is-spaced">Learn Salesforce CRM Analytics For Free</h1>
+           <p class="subtitle is-4 mb-5">Step-by-step training with official resources, curated by the community</p>
+           <div class="buttons">
+             <a href="/courses" class="button is-white is-outlined is-large">Start Learning</a>
+             <a href="/about" class="button is-light is-large">About This Project</a>
+           </div>
+         </div>
+         <div class="column is-6">
+           <div class="has-text-centered">
+             <img alt="CRM Analytics Training" width="600" height="400" decoding="async" data-nimg="1"
+               class="hero-image" src="/placeholder.svg?height=400&amp;width=600" style="color: transparent;">
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ 
+ <style>
+   /* Video Background */
+   .home-hero {
+     position: relative;
+     overflow: hidden;
+   }
+ 
+   .home-hero-video-container {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: -2;
+   }
+ 
+   .home-hero-video {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     pointer-events: none;
+   }
+ 
+   /* Gradient Overlay */
+   .home-hero-overlay {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+     z-index: -1;
+   }
+ </style>
+ 
 <section class="section">
   <div class="container has-text-centered">
     {% adsense large-leaderboard %}
