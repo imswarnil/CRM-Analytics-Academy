@@ -50,8 +50,50 @@ layout: default
         </div>
         {% endfor %}
       </section>
+      <aside class="column is-one-quarter menu px-3 py-4">
+        <p class="menu-label">Training Schedule</p>
+        <ul class="menu-list">
+          {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+          {% for section in sections %}
+          <li>
+            <a href="{{ section.url | relative_url }}" class="{% if section.title == page.parent or section.url == page.url %}is-active{% endif %}">
+              <span class="icon">
+                <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
+              </span>
+              {{ section.title }}
+            </a>
+            <ul>
+              {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+              {% for lesson in lessons %}
+              <li>
+                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
+                  <span class="icon is-small">
+                    {% if lesson.type == "article" %}
+                    <i class="fas fa-file-alt"></i>
+                    {% elsif lesson.type == "video" %}
+                    <i class="fas fa-play-circle"></i>
+                    {% else %}
+                    <i class="fas fa-file"></i>
+                    {% endif %}
+                  </span>
+                  {{ lesson.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+        <hr>
+        <div class="ad-section mt-4">
+          <h4 class="title is-6">Ads</h4>
+          {% adsense square %}
+        </div>
+      </aside>
+    </div>
       {% else %}
       <!-- Lesson Page -->
+      <div class="column is-three-quarters page-content">
       <div class="section">
         <h1 class="title">{{ page.title }}</h1>
         <p class="subtitle">{{ page.description }}</p>
@@ -66,7 +108,7 @@ layout: default
         {% assign sections = site.training | where: "type", "section" | sort: "order" %}
         {% for section in sections %}
         <li>
-          <a href="{{ section.url | relative_url }}" class="{% if section.title == page.parent  %}is-active{% endif %}">
+          <a href="{{ section.url | relative_url }}" class="{% if section.title == page.parent or section.url == page.url %}is-active{% endif %}">
             <span class="icon">
               <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
             </span>
