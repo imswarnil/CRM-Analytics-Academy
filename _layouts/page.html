@@ -4,28 +4,8 @@ layout: default
 <main class="section">
   <div class="container">
     <div class="columns">
-      <!-- Left Sidebar -->
-      {% if page.left_sidebar %}
-        <div class="column {% if page.sidebar %}is-2{% else %}is-3{% endif %}">
-          {% include sidebar/left.html %}
-          <div>
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:160px;height:600px"
-                 data-ad-client="ca-pub-1291242080282540"
-                 data-ad-slot="1234567890"></ins>
-            <script>
-              (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-          </div>
-        </div>
-      {% endif %}
-
       <!-- Main Content Column -->
-      <div class="column 
-        {% if page.left_sidebar and page.sidebar %}is-7
-        {% elsif page.sidebar %}is-8
-        {% elsif page.left_sidebar %}is-9
-        {% else %}is-12{% endif %}">
+      <div class="column is-12">
         <!-- Hero Section -->
         {% unless page.hero == false %}
         <section class="section">
