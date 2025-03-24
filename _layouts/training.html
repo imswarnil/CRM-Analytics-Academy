@@ -67,34 +67,58 @@ layout: default
         <p class="menu-label">Training Schedule</p>
         <ul class="menu-list">
           {% assign sections = site.training | where: "type", "section" | sort: "order" %}
+          
           {% for section in sections %}
-          <li>
-            <a href="{{ section.url | relative_url }}" class="{% if section.url == page.url %}is-active{% endif %}">
-              <span class="icon">
-                <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
-              </span>
-              {{ section.title }}
-            </a>
-            <ul>
-              {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-              {% for lesson in lessons %}
+            {% unless section.parent %}
               <li>
-                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
-                  <span class="icon is-small">
-                    {% if lesson.type == "article" %}
-                    <i class="fas fa-file-alt"></i>
-                    {% elsif lesson.type == "video" %}
-                    <i class="fas fa-play-circle"></i>
-                    {% else %}
-                    <i class="fas fa-file"></i>
-                    {% endif %}
+                <a href="{{ section.url | relative_url }}" class="{% if section.url == page.url %}is-active{% endif %}">
+                  <span class="icon">
+                    <img src="{{ section.icon | relative_url }}" alt="Section Icon" class="image is-16x16">
                   </span>
-                  {{ lesson.title }}
+                  {{ section.title }}
                 </a>
+    
+                <!-- Get Subsections -->
+                {% assign subsections = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+                {% if subsections.size > 0 %}
+                  <ul>
+                    {% for subsection in subsections %}
+                      <li>
+                        <a href="{{ subsection.url | relative_url }}" class="{% if subsection.url == page.url %}is-active{% endif %}">
+                          <span class="icon">
+                            <i class="fas fa-folder"></i>
+                          </span>
+                          {{ subsection.title }}
+                        </a>
+                        
+                        <!-- Get Lessons under Subsection -->
+                        {% assign lessons = site.training | where_exp: "item", "item.parent == subsection.title" | sort: "order" %}
+                        {% if lessons.size > 0 %}
+                          <ul>
+                            {% for lesson in lessons %}
+                              <li>
+                                <a href="{{ lesson.url | relative_url }}" class="{% if lesson.url == page.url %}is-active{% endif %}">
+                                  <span class="icon is-small">
+                                    {% if lesson.type == "article" %}
+                                      <i class="fas fa-file-alt"></i>
+                                    {% elsif lesson.type == "video" %}
+                                      <i class="fas fa-play-circle"></i>
+                                    {% else %}
+                                      <i class="fas fa-file"></i>
+                                    {% endif %}
+                                  </span>
+                                  {{ lesson.title }}
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
               </li>
-              {% endfor %}
-            </ul>
-          </li>
+            {% endunless %}
           {% endfor %}
         </ul>
         <hr>
@@ -104,6 +128,7 @@ layout: default
         </div>
       </div>
     </aside>
+    
   </div>
 </div>
 
