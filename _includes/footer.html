@@ -1,84 +1,72 @@
+{% assign footer_type = page.footer_type | default: "default" %}
+
 <footer class="footer has-background-white pt-5">
   <div class="container">
-    <!-- Top Section -->
-    <div class="columns is-multiline">
-      <!-- About Company -->
-      <div class="column is-4">
-        <div class="mb-4">
-          <figure class="image is-64x64 is-skeleton">
-            <img alt="{{ site.title | default: 'Company Logo' }}" src="{{ site.logo | default: 'https://placehold.co/64x64' }}">
-          </figure>
-          <p class="mt-4">
-            {{ site.description | default: "A feature-rich UI and development platform with responsive design." }}
-          </p>
-          <!-- Social Media Links -->
-          <div class="is-flex mt-4 is-align-items-center">
-            {% for name, link in site.website_social_links %}
-            <a href="{{ link }}" class="icon mr-3" target="_blank" rel="noopener">
-              <i class="fab fa-{{ name | downcase }}"></i>
-            </a>
-            {% endfor %}
+    {% if footer_type == "default" %}
+      <!-- Top Section -->
+      <div class="columns is-multiline">
+        <!-- About Site -->
+        <div class="column is-4">
+          <div class="mb-4">
+            <img src="{{ site.logo }}" alt="{{ site.title }}" class="image"> 
+            <p class="mt-4">{{ site.description }}</p>
+            <!-- Social Media Links -->
+            <div class="is-flex mt-4 is-align-items-center"> <a href="#" class="icon mr-3"> <i class="fab fa-facebook"></i> </a> <a href="#" class="icon mr-3"> <i class="fab fa-twitter"></i> </a> <a href="#" class="icon"> <i class="fab fa-instagram"></i> </a> </div>
+          </div>
+        </div>
+
+        <!-- Footer Menus -->
+        {% if site.footer_menu %}
+          {% for menu in site.footer_menu %}
+            <div class="column is-2">
+              <div class="mb-4">
+                <h3 class="title is-5 mb-3">{{ menu.title }}</h3>
+                <ul>
+                  {% for item in menu.links %}
+                    <li>
+                      <a href="{{ item.url }}" class="has-text-dark">{{ item.name }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <!-- Contact Info -->
+        <div class="column is-3">
+          <div class="mb-4">
+            <h3 class="title is-5 mb-3">Get in Touch</h3>
+            <p>{{ site.author_bio }}</p>
+            <p>Email: <a href="mailto:{{ site.email }}" class="has-text-dark">{{ site.email }}</a></p>
+            <p>GitHub: <a href="{{ site.repo }}" class="has-text-dark">{{ site.repo }}</a></p>
           </div>
         </div>
       </div>
 
-      <!-- Company Links -->
-      <div class="column is-2">
-        <div class="mb-4">
-          <h3 class="title is-5 mb-3">Company</h3>
-          <ul>
-            <li><a href="/about" class="has-text-dark">About</a></li>
-            <li><a href="/pricing" class="has-text-dark">Pricing</a></li>
-            <li><a href="/blog" class="has-text-dark">Blog</a></li>
-            <li><a href="/careers" class="has-text-dark">Careers</a></li>
-            <li><a href="/contact" class="has-text-dark">Contact</a></li>
-          </ul>
+      <!-- Bottom Section -->
+      <div class="columns is-vcentered mt-6 pt-4 border-top">
+        <!-- Copyright -->
+        <div class="column is-4">
+          <p>&copy; {{ "now" | date: "%Y" }} {{ site.title }}, All Rights Reserved. License: MIT</p>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="column is-8 has-text-right">
+          <nav class="level">
+            {% for item in site.navigation_footer %}
+              <a href="{{ item.url }}" class="level-item has-text-dark">{{ item.title }}</a>
+            {% endfor %}
+          </nav>
+          <a href="{{ site.repo }}/edit/main/" class="button is-link mt-3">Improve this Page</a>
         </div>
       </div>
-
-      <!-- Support Links -->
-      <div class="column is-2">
-        <div class="mb-4">
-          <h3 class="title is-5 mb-3">Support</h3>
-          <ul>
-            <li><a href="/support" class="has-text-dark">Help & Support</a></li>
-            <li><a href="/instructor" class="has-text-dark">Become Instructor</a></li>
-            <li><a href="/app" class="has-text-dark">Get the App</a></li>
-            <li><a href="/faq" class="has-text-dark">FAQ’s</a></li>
-            <li><a href="/tutorials" class="has-text-dark">Tutorials</a></li>
-          </ul>
-        </div>
+    {% else %}
+      <!-- Simplified Footer for Posts/Pages -->
+      <div class="content has-text-centered">
+        <p>&copy; {{ "now" | date: "%Y" }} {{ site.title }}. License: MIT</p>
+        <a href="{{ site.repo }}/edit/main/" class="button is-link mt-3">Improve this Page</a>
       </div>
-
-      <!-- Contact Info -->
-      <div class="column is-3">
-        <div class="mb-4">
-          <h3 class="title is-5 mb-3">Get in Touch</h3>
-          <p> 339 McDermott Points, Hettingerhaven, NV 15283 </p>
-          <p>Email: <a href="mailto:{{ site.email | default: 'contact@example.com' }}" class="has-text-dark">
-            {{ site.email | default: 'contact@example.com' }}</a>
-          </p>
-          <p>Phone: <span class="has-text-dark has-text-weight-semibold">(000) 123 456 789</span></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom Section -->
-    <div class="columns is-vcentered mt-6 pt-4 border-top">
-      <!-- Copyright -->
-      <div class="column is-4">
-        <p>© <span id="copyright"></span> {{ site.title | default: 'Company Name' }}, Inc. All Rights Reserved</p>
-        <script> document.getElementById("copyright").textContent = new Date().getFullYear(); </script>
-      </div>
-
-      <!-- Footer Links -->
-      <div class="column is-8 has-text-right">
-        <nav class="level">
-          <a href="/privacy-policy" class="level-item has-text-dark">Privacy Policy</a>
-          <a href="/cookie-notice" class="level-item has-text-dark">Cookie Notice</a>
-          <a href="/terms-of-use" class="level-item has-text-dark">Terms of Use</a>
-        </nav>
-      </div>
-    </div>
+    {% endif %}
   </div>
 </footer>
