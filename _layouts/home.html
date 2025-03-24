@@ -41,51 +41,6 @@ layout: default
    </div>
  </section>
  
- <style>
- /* Hero Section Tweaks */
- .home-hero {
-   position: relative;
-   overflow: hidden;
- }
- 
- /* Video Background (Now Blends with Primary Background) */
- .home-hero-video-container {
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   z-index: -2;
-   background: #3273dc; /* Primary Blue */
- }
- 
- .home-hero-video {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-   opacity: 0.6; /* Blend with primary background */
-   pointer-events: none;
- }
- 
- /* Semi-Transparent Gradient Overlay */
- .home-hero-overlay {
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(50, 115, 220, 0.5)); /* Dark to Primary Blue */
-   z-index: -1;
- }
- 
- /* Hero Image */
- .hero-image {
-   max-width: 100%;
-   height: auto;
- }
- </style>
- 
- 
 
 <section class="section">
   <div class="container has-text-centered">
@@ -96,42 +51,59 @@ layout: default
 <section class="section">
    <div class="container">
      <h2 class="title is-3 has-text-centered mb-6">Explore Our Courses</h2>
-     
-     <div class="columns is-multiline is-centered">
+ 
+     <div class="content">
        {% assign sections = site.training | where: "type", "section" | sort: "order" %}
        {% for section in sections %}
-       <div class="column is-12-mobile is-6-tablet is-4-desktop">
-         <a href="{{ section.url | relative_url }}" class="card-link">
-           <div class="card h-100">
-             <div class="card-content p-5 is-flex is-flex-direction-column is-align-items-center">
-               <!-- Section Icon -->
-               <div class="circle-icon mb-4">
-                 <i class="{{ section.icon_class | default: 'fas fa-book' }} is-size-1 has-text-primary"></i>
-               </div>
- 
-               <!-- Title -->
-               <h3 class="title is-4 has-text-centered">{{ section.title }}</h3>
- 
-               <!-- Description -->
-               <p class="has-text-centered mb-4">{{ section.description }}</p>
- 
-               <!-- Lesson Count -->
-               {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-               <div class="tags are-medium is-centered mb-3">
-                 <span class="tag is-primary is-rounded has-text-weight-semibold">{{ section.difficulty | default: "Beginner" }}</span>
-                 <span class="tag is-info is-light is-rounded has-text-weight-semibold">{{ lessons.size }} Lessons</span>
-               </div>
- 
-               <!-- Start Button -->
-               <button class="button is-primary is-fullwidth">Start Learning</button>
+       
+       <!-- Section Card -->
+       <div class="box">
+         <div class="columns is-vcentered">
+           
+           <!-- Section Icon and Details -->
+           <div class="column is-3 has-text-centered">
+             <div class="circle-icon mb-3">
+               <i class="{{ section.icon_class | default: 'fas fa-book' }} is-size-1 has-text-primary"></i>
              </div>
+             <p class="is-size-4 has-text-weight-bold">{{ forloop.index }}. {{ section.title }}</p>
+             <p class="has-text-grey">{{ section.description }}</p>
+             <span class="tag is-primary is-rounded has-text-weight-semibold">{{ section.difficulty | default: "Beginner" }}</span>
+             <span class="tag is-info is-light is-rounded has-text-weight-semibold">
+               {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+               {{ lessons.size }} Lessons
+             </span>
            </div>
-         </a>
+ 
+           <!-- Lessons List -->
+           <div class="column is-9">
+             <ul class="content">
+               {% for lesson in lessons %}
+               <li class="mb-2">
+                 <a href="{{ lesson.url | relative_url }}" class="has-text-dark has-text-weight-semibold">
+                   {{ forloop.index }}. {{ lesson.title }}
+                 </a>
+               </li>
+               {% endfor %}
+             </ul>
+           </div>
+           
+         </div>
        </div>
+ 
        {% endfor %}
      </div>
+ 
+     <!-- Full Curriculum Button -->
+     <div class="has-text-centered mt-6">
+       <a href="/curriculum" class="button is-large is-primary is-light is-rounded px-6">
+         <span class="icon"><i class="fas fa-book-open"></i></span>
+         <span>View Full Curriculum</span>
+       </a>
+     </div>
+ 
    </div>
  </section>
+ 
  
 <footer class="footer has-background-white pt-5">
   <div class="container">
