@@ -6,3 +6,8 @@ $family-sans-serif: "Roboto", "Oxygen", "Ubuntu","Inter", "SF Pro", "Segoe UI",
 $family-monospace: "Roboto Mono", "Inconsolata", "Hack", "SF Mono", 
   "Source Code Pro", "Ubuntu Mono", monospace !default;
 $render-mode: optimizeLegibility !default;
+
+.hero-body .title, .hero-body .subtitle
+{
+  text-shadow: none;
+}
