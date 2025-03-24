@@ -56,46 +56,54 @@ layout: default
      <div class="columns is-multiline">
        {% assign sections = site.training | where: "type", "section" | sort: "order" %}
        {% for section in sections %}
-       <div class="column is-6">
-         <div class="box">
-           <!-- Section Header -->
-           <div class="media">
-             <div class="media-left">
-               <span class="icon is-large has-text-primary">
-                 <i class="{{ section.icon_class | default: 'fas fa-book' }} is-size-1"></i>
+       <div class="column is-12">
+         <div class="columns is-vcentered is-mobile">
+           <!-- Left Side: Icon -->
+           <div class="column is-narrow has-text-centered">
+             <span class="icon is-large has-text-primary">
+               <i class="{{ section.icon_class | default: 'fas fa-book' }} is-size-1"></i>
+             </span>
+           </div>
+ 
+           <!-- Right Side: Content -->
+           <div class="column">
+             <h3 id="section-{{ forloop.index }}" class="title is-5">
+               {{ forloop.index }}. {{ section.title }}
+             </h3>
+             <p class="has-text-grey">{{ section.description }}</p>
+             <div class="tags">
+               <span class="tag is-primary is-rounded">{{ section.difficulty | default: "Beginner" }}</span>
+               <span class="tag is-info is-light is-rounded">
+                 {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
+                 {{ lessons.size }} Lessons
                </span>
              </div>
-             <div class="media-content">
-               <h3 id="section-{{ forloop.index }}" class="title is-4">
-                 {{ forloop.index }}. {{ section.title }}
-               </h3>
-               <p class="has-text-grey">{{ section.description }}</p>
-               <div class="tags">
-                 <span class="tag is-primary is-rounded">{{ section.difficulty | default: "Beginner" }}</span>
-                 <span class="tag is-info is-light is-rounded">
-                   {% assign lessons = site.training | where_exp: "item", "item.parent == section.title" | sort: "order" %}
-                   {{ lessons.size }} Lessons
-                 </span>
-               </div>
+ 
+             <!-- Toggle Button -->
+             <button class="button is-light is-small mt-2 toggle-lessons">View Lessons</button>
+ 
+             <!-- Lessons List (Initially Collapsed) -->
+             <div class="content is-hidden mt-2">
+               <ul>
+                 {% for lesson in lessons %}
+                 <li>
+                   <a href="{{ lesson.url | relative_url }}" class="has-text-dark has-text-weight-semibold">
+                     {{ forloop.index }}. {{ lesson.title }}
+                   </a>
+                 </li>
+                 {% endfor %}
+               </ul>
              </div>
            </div>
  
-           <!-- Lessons List (Initially Collapsed) -->
-           <div class="content is-hidden">
-             <ul>
-               {% for lesson in lessons %}
-               <li>
-                 <a href="{{ lesson.url | relative_url }}" class="has-text-dark has-text-weight-semibold">
-                   {{ forloop.index }}. {{ lesson.title }}
-                 </a>
-               </li>
-               {% endfor %}
-             </ul>
+           <!-- Right Arrow -->
+           <div class="column is-narrow">
+             <a href="#section-{{ forloop.index }}" class="icon has-text-grey-light">
+               <i class="fas fa-arrow-right"></i>
+             </a>
            </div>
- 
-           <!-- Toggle Button -->
-           <button class="button is-light is-fullwidth toggle-lessons">View Lessons</button>
          </div>
+         <hr>
        </div>
        {% endfor %}
      </div>
@@ -115,7 +123,7 @@ layout: default
  <script>
    document.querySelectorAll(".toggle-lessons").forEach(button => {
      button.addEventListener("click", function() {
-       const lessonList = this.previousElementSibling;
+       const lessonList = this.nextElementSibling;
        lessonList.classList.toggle("is-hidden");
        this.textContent = lessonList.classList.contains("is-hidden") ? "View Lessons" : "Hide Lessons";
      });
