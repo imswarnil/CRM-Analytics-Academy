@@ -28,7 +28,7 @@ author: "Swarnil Singhai" # Author name
 author_image : 
 author_bio: "Founder of CRM Analytics Academy, passionate about helping learners master CRM Analytics with hands-on tutorials, certification, and free resources."
 email: "contact@imswarnil.com"
-author_social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
+social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
   Youtube: https://www.youtube.com/@swarnil
   Twitter: https://twitter.com/imswarnil
   Instagram : https://instagram.com/imswarnil

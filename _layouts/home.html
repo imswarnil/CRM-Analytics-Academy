@@ -26,15 +26,16 @@ layout: default
  
          <!-- Right Image -->
          <div class="column is-6">
-           <div class="has-text-centered">
-            <iframe
-            class="home-hero-video"
-            src="https://www.youtube.com/embed/J-FMTNeMs_U?autoplay=1&mute=1&loop=1&playlist=J-FMTNeMs_U&controls=0&showinfo=0&modestbranding=1&rel=0"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-          </iframe>
-           </div>
+            <figure class="image is-16by9">
+               <iframe
+                 class="has-ratio"
+                 width="640"
+                 height="360"
+                 src="https://www.youtube.com/embed/J-FMTNeMs_U?autoplay=1&mute=1&loop=1&playlist=J-FMTNeMs_U&controls=0&showinfo=0&modestbranding=1&rel=0"
+                 frameborder="0"
+                 allowfullscreen
+               ></iframe>
+             </figure>
          </div>
        </div>
      </div>
@@ -104,69 +105,88 @@ layout: default
    </div>
  </section>
  
- 
-<footer class="footer has-background-white pt-5">
-  <div class="container">
-     <!-- Top Section --> 
+ <footer class="footer has-background-white pt-5">
+   <div class="container">
+     <!-- Top Section -->
      <div class="columns is-multiline">
-        <!-- About Company --> 
-        <div class="column is-4">
-           <div class="mb-4">
-            <figure class="image is-64x64 is-skeleton">
-               <img alt="Placeholder" src="https://placehold.co/64x64">
+       <!-- About Company -->
+       <div class="column is-4">
+         <div class="mb-4">
+           <figure class="image is-64x64">
+             <img alt="CRM Analytics Academy Logo" src="{{ site.logo | default: 'https://placehold.co/64x64' }}">
+           </figure>
+           <p class="mt-4"> {{ site.description }} </p>
+           <!-- Social Media Links -->
+           <div class="is-flex mt-4 is-align-items-center">
+             {% if site.social_links.Youtube %}<a href="{{ site.social_links.Youtube }}" class="icon mr-3"> <i class="fab fa-youtube"></i> </a>{% endif %}
+             {% if site.social_links.Instagram %}<a href="{{ site.social_links.Instagram }}" class="icon mr-3"> <i class="fab fa-instagram"></i> </a>{% endif %}
+             {% if site.social_links.GitHub %}<a href="{{ site.social_links.GitHub }}" class="icon mr-3"> <i class="fab fa-github"></i> </a>{% endif %}
+             {% if site.social_links.Twitter %}<a href="{{ site.social_links.Twitter }}" class="icon mr-3"> <i class="fab fa-twitter"></i> </a>{% endif %}
+           </div>
+         </div>
+       </div>
+ 
+       <!-- Company Links -->
+       <div class="column is-2">
+         <div class="mb-4">
+           <h3 class="title is-5 mb-3">Company</h3>
+           <ul>
+             <li><a href="/about" class="has-text-dark">About</a></li>
+             <li><a href="/pricing" class="has-text-dark">Pricing</a></li>
+             <li><a href="/blog" class="has-text-dark">Blog</a></li>
+             <li><a href="/careers" class="has-text-dark">Careers</a></li>
+             <li><a href="/contact" class="has-text-dark">Contact</a></li>
+           </ul>
+         </div>
+       </div>
+ 
+       <!-- Support Links -->
+       <div class="column is-2">
+         <div class="mb-4">
+           <h3 class="title is-5 mb-3">Support</h3>
+           <ul>
+             <li><a href="/help" class="has-text-dark">Help & Support</a></li>
+             <li><a href="/instructor" class="has-text-dark">Become an Instructor</a></li>
+             <li><a href="/app" class="has-text-dark">Get the App</a></li>
+             <li><a href="/faq" class="has-text-dark">FAQ’s</a></li>
+             <li><a href="/tutorials" class="has-text-dark">Tutorials</a></li>
+           </ul>
+         </div>
+       </div>
+ 
+       <!-- Featured Course Card -->
+       <div class="column is-3">
+         <div class="card">
+           <div class="card-image">
+             <figure class="image is-4by3">
+               <img src="/assets/images/crm-analytics-course.jpg" alt="Master CRM Analytics Course">
              </figure>
-              <p class="mt-4"> Geek is feature-rich components and beautifully Bulma-based UIKit for developers, built with a responsive framework. </p>
-              <!-- Social Media Links --> 
-              <div class="is-flex mt-4 is-align-items-center"> <a href="#" class="icon mr-3"> <i class="fab fa-facebook"></i> </a> <a href="#" class="icon mr-3"> <i class="fab fa-twitter"></i> </a> <a href="#" class="icon"> <i class="fab fa-instagram"></i> </a> </div>
            </div>
-        </div>
-        <!-- Company Links --> 
-        <div class="column is-2">
-           <div class="mb-4">
-              <h3 class="title is-5 mb-3">Company</h3>
-              <ul>
-                 <li><a href="#" class="has-text-dark">About</a></li>
-                 <li><a href="#" class="has-text-dark">Pricing</a></li>
-                 <li><a href="#" class="has-text-dark">Blog</a></li>
-                 <li><a href="#" class="has-text-dark">Careers</a></li>
-                 <li><a href="#" class="has-text-dark">Contact</a></li>
-              </ul>
+           <div class="card-content">
+             <p class="title is-5">Master CRM Analytics</p>
+             <p class="subtitle is-6">Learn Salesforce CRM Analytics with hands-on training, blogs, and certification guides.</p>
+             <a href="/courses/crm-analytics" class="button is-primary is-fullwidth">Enroll Now</a>
            </div>
-        </div>
-        <!-- Support Links --> 
-        <div class="column is-2">
-           <div class="mb-4">
-              <h3 class="title is-5 mb-3">Support</h3>
-              <ul>
-                 <li><a href="#" class="has-text-dark">Help and Support</a></li>
-                 <li><a href="#" class="has-text-dark">Become Instructor</a></li>
-                 <li><a href="#" class="has-text-dark">Get the app</a></li>
-                 <li><a href="#" class="has-text-dark">FAQ’s</a></li>
-                 <li><a href="#" class="has-text-dark">Tutorial</a></li>
-              </ul>
-           </div>
-        </div>
-        <!-- Contact Info --> 
-        <div class="column is-3">
-           <div class="mb-4">
-              <h3 class="title is-5 mb-3">Get in Touch</h3>
-              <p>339 McDermott Points Hettingerhaven, NV 15283</p>
-              <p> Email: <a href="mailto:support@geeksui.com" class="has-text-dark">support@geeksui.com</a> </p>
-              <p> Phone: <span class="has-text-dark has-text-weight-semibold">(000) 123 456 789</span> </p>
-           </div>
-        </div>
+         </div>
+       </div>
      </div>
-     <!-- Bottom Section --> 
+ 
+     <!-- Bottom Section -->
      <div class="columns is-vcentered mt-6 pt-4 border-top">
-        <!-- CopyRight --> 
-        <div class="column is-4">
-           <p> © <span id="copyright"></span> Geeks-UI, Inc. All Rights Reserved </p>
-           <script> document.getElementById("copyright").textContent = new Date().getFullYear(); </script> 
-        </div>
-        <!-- Footer Links --> 
-        <div class="column is-8 has-text-right">
-           <nav class="level"> <a href="#" class="level-item has-text-dark">Privacy Policy</a> <a href="#" class="level-item has-text-dark">Cookie Notice</a> <a href="#" class="level-item has-text-dark">Terms of Use</a> </nav>
-        </div>
+       <!-- CopyRight -->
+       <div class="column is-4">
+         <p>© <span id="copyright"></span> CRM Analytics Academy. All Rights Reserved.</p>
+         <script> document.getElementById("copyright").textContent = new Date().getFullYear(); </script>
+       </div>
+       <!-- Footer Links -->
+       <div class="column is-8 has-text-right">
+         <nav class="level">
+           <a href="/privacy-policy" class="level-item has-text-dark">Privacy Policy</a>
+           <a href="/cookie-notice" class="level-item has-text-dark">Cookie Notice</a>
+           <a href="/terms-of-use" class="level-item has-text-dark">Terms of Use</a>
+         </nav>
+       </div>
      </div>
-  </div>
-</footer>
+   </div>
+ </footer>
+ 
