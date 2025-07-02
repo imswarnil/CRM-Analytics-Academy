@@ -1,0 +1,124 @@
+{% assign newer_post = page.previous %}
+{% assign older_post = page.next %}
+
+{% if newer_post or older_post %}
+<section class="section is-medium post-navigation-beautified pt-5 pb-6">
+    <div class="container">
+        <hr class="mb-6">
+        <div class="columns is-variable is-1-mobile is-2-tablet is-3-desktop">
+
+            <div class="column">
+                {% if newer_post %}
+                    <a href="{{ newer_post.url | relative_url }}" class="post-nav-link is-block" title="Newer Post: {{ newer_post.title | escape }}">
+                        <div class="box is-fullheight is-flex is-flex-direction-column has-hover-shadow">
+                            <p class="heading is-size-7 has-text-grey mb-3">
+                                <span class="icon-text">
+                                    <span class="icon is-small"><i class="ph-bold ph-arrow-left"></i></span>
+                                    <span>Newer Post</span>
+                                </span>
+                            </p>
+                            {% if newer_post.image %}
+                                <figure class="image {% if newer_post.category == 'video' %}is-16by9{% else %}is-3by2{% endif %} mb-3">
+                                    {% if newer_post.category == "video" and newer_post.VideoId %}
+                                        <img src="https://i.ytimg.com/vi/{{ newer_post.VideoId }}/mqdefault.jpg" alt="" style="object-fit: cover; border-radius: 4px;">
+                                    {% else %}
+                                        <img src="{{ newer_post.image | relative_url }}" alt="" style="object-fit: cover; border-radius: 4px;">
+                                    {% endif %}
+                                </figure>
+                            {% endif %}
+                            <div class="content is-flex-grow-1">
+                                <h4 class="title is-6 mb-1 post-nav-title">{{ newer_post.title | escape }}</h4>
+                                <p class="is-size-7 has-text-grey post-nav-excerpt mb-2">
+                                    {% if newer_post.excerpt %}{{ newer_post.excerpt | strip_html | truncatewords: 12 }}{% else %}{{ newer_post.content | strip_html | truncatewords: 12 }}{% endif %}
+                                </p>
+                                {% if newer_post.category %}
+                                    {% assign newer_category_slug = newer_post.category | slugify %}
+                                    <div class="tags are-small">
+                                        <span class="tag is-rounded
+                                            {% if newer_category_slug == 'video' %}is-danger{% endif %}
+                                            {% if newer_category_slug == 'course' %}is-success{% endif %}
+                                            {% if newer_category_slug == 'project' %}is-primary{% endif %}
+                                            {% if newer_category_slug == 'journal' %}is-warning{% endif %}
+                                            {% if newer_category_slug == 'blog' or newer_category_slug == 'post' %}is-info{% endif %}
+                                            is-light">
+                                            <span class="icon is-small mr-1"><i class="ph-bold ph-tag"></i></span>
+                                            {{ newer_post.category | capitalize }}
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                {% else %}
+                    <div class="box is-fullheight is-flex is-flex-direction-column is-justify-content-center has-text-centered post-nav-disabled">
+                        <p class="heading is-size-7 has-text-grey-light mb-1">
+                            <span class="icon is-small"><i class="ph-bold ph-arrow-left"></i></span>
+                            Newer Post
+                        </p>
+                        <p class="title is-6 has-text-grey-light">No newer posts</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="column is-narrow is-hidden-mobile is-flex is-align-items-center is-justify-content-center">
+                <a href="{{ '/archive/' | relative_url }}" class="button is-light is-rounded" title="Back to Archive">
+                    <span class="icon"><i class="ph-bold ph-squares-four"></i></span>
+                </a>
+            </div>
+
+            <div class="column">
+                {% if older_post %}
+                    <a href="{{ older_post.url | relative_url }}" class="post-nav-link is-block" title="Older Post: {{ older_post.title | escape }}">
+                        <div class="box is-fullheight is-flex is-flex-direction-column has-hover-shadow">
+                            <p class="heading is-size-7 has-text-grey mb-3 has-text-right">
+                                <span class="icon-text">
+                                    <span>Older Post</span>
+                                    <span class="icon is-small"><i class="ph-bold ph-arrow-right"></i></span>
+                                </span>
+                            </p>
+                            {% if older_post.image %}
+                                <figure class="image {% if older_post.category == 'video' %}is-16by9{% else %}is-3by2{% endif %} mb-3">
+                                     {% if older_post.category == "video" and older_post.VideoId %}
+                                        <img src="https://i.ytimg.com/vi/{{ older_post.VideoId }}/mqdefault.jpg" alt="" style="object-fit: cover; border-radius: 4px;">
+                                    {% else %}
+                                        <img src="{{ older_post.image | relative_url }}" alt="" style="object-fit: cover; border-radius: 4px;">
+                                    {% endif %}
+                                </figure>
+                            {% endif %}
+                            <div class="content is-flex-grow-1 has-text-right">
+                                <h4 class="title is-6 mb-1 post-nav-title">{{ older_post.title | escape }}</h4>
+                                <p class="is-size-7 has-text-grey post-nav-excerpt mb-2">
+                                   {% if older_post.excerpt %}{{ older_post.excerpt | strip_html | truncatewords: 12 }}{% else %}{{ older_post.content | strip_html | truncatewords: 12 }}{% endif %}
+                                </p>
+                                {% if older_post.category %}
+                                    {% assign older_category_slug = older_post.category | slugify %}
+                                    <div class="tags are-small is-justify-content-flex-end">
+                                        <span class="tag is-rounded
+                                            {% if older_category_slug == 'video' %}is-danger{% endif %}
+                                            {% if older_category_slug == 'course' %}is-success{% endif %}
+                                            {% if older_category_slug == 'project' %}is-primary{% endif %}
+                                            {% if older_category_slug == 'journal' %}is-warning{% endif %}
+                                            {% if older_category_slug == 'blog' or older_category_slug == 'post' %}is-info{% endif %}
+                                            is-light">
+                                            <span class="icon is-small mr-1"><i class="ph-bold ph-tag"></i></span>
+                                            {{ older_post.category | capitalize }}
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                {% else %}
+                    <div class="box is-fullheight is-flex is-flex-direction-column is-justify-content-center has-text-centered post-nav-disabled">
+                        <p class="heading is-size-7 has-text-grey-light mb-1 has-text-right">
+                            Older Post
+                            <span class="icon is-small"><i class="ph-bold ph-arrow-right"></i></span>
+                        </p>
+                        <p class="title is-6 has-text-grey-light">No older posts</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

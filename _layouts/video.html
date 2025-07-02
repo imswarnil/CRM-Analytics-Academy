@@ -1,0 +1,583 @@
+---
+layout: default
+---
+
+<!-- Main Content Container -->
+<div class="video-content-container">
+  <div class="columns is-gapless">
+    <!-- Main Content Column -->
+    <div class="column is-8">
+      <div class="video-content">
+        <!-- Full Width Video Player -->
+<div class="video-hero">
+    <div class="video-container">
+      <iframe 
+        id="mainVideo"
+        src="https://www.youtube.com/embed/{{ page.VideoId }}?autoplay=1"
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+        <!-- Video Title and Info -->
+        <div class="video-header">
+          <h1 class="video-title">{{ page.title }}</h1>
+          <h3 class="video-title subtitle">{{ page.description }}</h1>
+          <div class="video-stats">
+            <span><i class="fas fa-eye"></i> 254K views</span>
+            <span><i class="far fa-calendar-alt"></i> {{ page.date | date: "%B %d, %Y" }}</span>
+            <span><i class="fas fa-thumbs-up"></i> 12K</span>
+          </div>
+        </div>
+
+        <!-- Author Section -->
+        <div class="author-section">
+          <div class="author-info">
+            <img src="https://via.placeholder.com/48" alt="{{ page.author }}" class="author-avatar">
+            <div>
+              <h3>{{ page.author }}</h3>
+              <p>15K subscribers</p>
+            </div>
+          </div>
+          <button class="subscribe-button">Subscribe</button>
+        </div>
+
+        <!-- Video Description -->
+        <div class="video-description">
+          <div class="description-content">
+            {{ content }}
+            <div class="video-tags">
+              {% for tag in page.tags %}
+                <span>#{{ tag }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Column -->
+    <div class="column is-4">
+      <div class="video-sidebar">
+        <!-- Timestamps - Desktop -->
+        <div class="timestamps-desktop">
+          <h3><i class="far fa-clock"></i> Timestamps</h3>
+          <div class="timestamps-list">
+            {% for timestamp in page.timestamps %}
+              <div class="timestamp" onclick="seekToTime('{{ timestamp.time }}')">
+                <span class="timestamp-time">{{ timestamp.time }}</span>
+                <span class="timestamp-title">{{ timestamp.title }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <!-- Related Videos -->
+        <div class="related-videos">
+          <h3><i class="fas fa-play-circle"></i> More Videos</h3>
+          {% assign related_videos = site.videos | where_exp:"video", "video.VideoId != page.VideoId" | sample: 3 %}
+          {% for video in related_videos %}
+            <a href="{{ video.url | relative_url }}" class="related-video">
+              <img src="https://img.youtube.com/vi/{{ video.VideoId }}/mqdefault.jpg" alt="{{ video.title }}">
+              <div class="video-info">
+                <h4>{{ video.title | truncate: 50 }}</h4>
+                <p>{{ video.author }}</p>
+                <span>{{ video.views | default: "0" }} views</span>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Timestamps - Mobile (Fixed Bottom) -->
+<div class="timestamps-mobile">
+  <button class="timestamps-toggle">
+    <i class="far fa-clock"></i> Jump To
+  </button>
+  <div class="timestamps-list-mobile">
+    {% for timestamp in page.timestamps %}
+      <div class="timestamp" onclick="seekToTime('{{ timestamp.time }}')">
+        <span class="timestamp-time">{{ timestamp.time }}</span>
+        <span class="timestamp-title">{{ timestamp.title }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+<style>
+/* Base Styles */
+:root {
+  --primary-color: var(--bulma-primary);
+  --text-color: #333;
+  --light-text: #666;
+  --border-color: #eee;
+  --bg-color: #f9f9f9;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* Full Width Video Hero */
+.video-hero {
+  width: 100%;
+  background: #000;
+  position: relative;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Main Content Container */
+.video-content-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Video Header */
+.video-header {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.video-title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.video-stats {
+  display: flex;
+  gap: 20px;
+  color: var(--light-text);
+  font-size: 0.9rem;
+}
+
+.video-stats i {
+  margin-right: 5px;
+}
+
+/* Author Section */
+.author-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.author-info p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  color: var(--light-text);
+}
+
+.subscribe-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.subscribe-button:hover {
+  background: #cc0000;
+  transform: translateY(-2px);
+}
+
+/* Video Description */
+.video-description {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.description-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.description-toggle h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.description-toggle i {
+  margin-left: 10px;
+  transition: transform 0.3s;
+}
+
+.description-content {
+  line-height: 1.6;
+}
+
+.video-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.video-tags span {
+  color: #065fd4;
+  font-size: 0.9rem;
+}
+
+/* Sidebar Styles */
+.video-sidebar {
+  padding-left: 20px;
+}
+
+.timestamps-desktop h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timestamps-list {
+  max-height: 400px;
+  overflow-y: auto;
+  background: var(--bg-color);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.timestamp {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  margin-bottom: 5px;
+}
+
+.timestamp:hover {
+  background: #e5e5e5;
+}
+
+.timestamp-time {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-right: 10px;
+}
+
+.timestamp-title {
+  color: var(--text-color);
+}
+
+.related-videos h3 {
+  font-size: 1.2rem;
+  margin: 20px 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.related-video {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.related-video img {
+  width: 120px;
+  height: 68px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.video-info h4 {
+  margin: 0 0 5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.video-info p {
+  margin: 0 0 5px;
+  font-size: 0.8rem;
+  color: var(--light-text);
+}
+
+.video-info span {
+  font-size: 0.7rem;
+  color: var(--light-text);
+}
+
+.sponsor-sidebar {
+  background: var(--bg-color);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.sponsor-sidebar h3 {
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sponsor-sidebar img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.sponsor-sidebar p {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+}
+
+.sponsor-sidebar button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Mobile Timestamps */
+.timestamps-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  display: none;
+  z-index: 100;
+}
+
+.timestamps-toggle {
+  width: 100%;
+  padding: 15px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.timestamps-list-mobile {
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  display: none;
+}
+
+/* Share Modal */
+.share-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  display: none;
+}
+
+.share-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+}
+
+.share-content h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.share-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.share-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.2rem;
+  margin: 0 auto;
+}
+
+.facebook { background: #3b5998; }
+.twitter { background: #1da1f2; }
+.linkedin { background: #0077b5; }
+.whatsapp { background: #25d366; }
+.reddit { background: #ff5700; }
+.telegram { background: #0088cc; }
+.copy-link { background: #666; }
+
+.close-share {
+  display: block;
+  margin: 0 auto;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Suggestions Button */
+.suggestions-button {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .video-content-container {
+    padding: 0;
+  }
+  
+  .video-content {
+    padding: 15px;
+  }
+  
+  .video-sidebar {
+    padding: 15px;
+  }
+  
+  .columns.is-gapless {
+    flex-direction: column;
+  }
+  
+  .column.is-8, .column.is-4 {
+    width: 100%;
+  }
+  
+  .timestamps-desktop {
+    display: none;
+  }
+  
+  .timestamps-mobile {
+    display: block;
+  }
+  
+  .suggestions-button {
+    bottom: 140px;
+  }
+}
+
+/* Timestamp Click Functionality */
+.timestamp.active {
+  background: #ffebee;
+}
+</style>
+
+<script>
+// Simple timestamp navigation without YouTube API
+function seekToTime(timestamp) {
+  const iframe = document.getElementById('mainVideo');
+  const timeParts = timestamp.split(':');
+  let seconds = 0;
+  
+  if (timeParts.length === 2) {
+    // MM:SS format
+    seconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+  } else if (timeParts.length === 3) {
+    // HH:MM:SS format
+    seconds = parseInt(timeParts[0]) * 3600 + parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
+  }
+  
+  // Update iframe src with new time
+  const currentSrc = iframe.src.split('?')[0];
+  iframe.src = `${currentSrc}?autoplay=1&start=${seconds}`;
+  
+  // Highlight the clicked timestamp
+  document.querySelectorAll('.timestamp').forEach(item => {
+    item.classList.remove('active');
+  });
+  event.currentTarget.classList.add('active');
+}
+// Toggle mobile timestamps
+document.querySelector('.timestamps-toggle').addEventListener('click', function() {
+  const list = document.querySelector('.timestamps-list-mobile');
+  if (list.style.display === 'block') {
+    list.style.display = 'none';
+  } else {
+    list.style.display = 'block';
+  }
+});
+</script>

@@ -1,0 +1,40 @@
+{% assign edu = site.data.resume.education %}
+<div class="education mt-5">
+    <div class="title is-size-5 has-text-primary has-text-weight-bold">
+        {% if edu.icon_class %}<i class="ph mr-1 {{ edu.icon_class }}"></i>{% endif %} {{ edu.title }}
+    </div>
+    <hr class="has-background-primary" style="height: 2px; margin-top: 0.5rem;">
+    <div class="table-container">
+        <table class="table is-fullwidth is-hoverable is-narrow">
+            <tbody>
+                {% for item in edu.items %}
+                    <tr>
+                        {% if item.university_logo %}
+                        <td style="width: 96px;">
+                            <img src="{{ item.university_logo | relative_url }}" alt="{{ item.university_name }} Logo" width="64" height="64">
+                        </td>
+                        {% else %}
+                        <td style="width: 96px;"></td> <!-- Empty cell if no logo -->
+                        {% endif %}
+                        <td class="has-text-weight-semibold">
+                            <div class="content">
+                                <p>
+                                    <strong>{{ item.university_name }}</strong><br>
+                                    <span class="has-text-weight-semibold">{{ item.degree }}</span><br>
+                                    {{ item.location }}
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="content">
+                                <p class="mb-2">{{ item.major }}</p>
+                                {% if item.cgpa %}<p class="tag is-primary is-light">{{ item.cgpa }}</p>{% endif %}
+                            </div>
+                        </td>
+                        <td class="has-text-weight-semibold">{{ item.date_range }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

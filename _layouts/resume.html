@@ -1,0 +1,92 @@
+---
+layout: default
+---
+
+<div id="resume-content">
+{% include resume/header.html %}
+
+<section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-7 p-2">
+                    {% include resume/summary.html %}
+                    {% include resume/experience.html %}
+                    {% include resume/education.html %}
+                    {% include resume/achievements.html %}
+                </div>
+                <div class="column is-5 ml-0 ml-5-tablet"> <!-- Adjusted margin for responsiveness -->
+                    {% include resume/projects.html %}
+                    {% include resume/skills.html %}
+                    {% include resume/tools.html %}
+                    {% include resume/languages.html %}
+                </div>
+            </div>
+        </div>
+    </section>
+  </div>
+
+    {% include resume/button.html %}
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    const downloadButton = document.getElementById('downloadPdfButton');
+    const resumeContentElement = document.getElementById('resume-content');
+
+    if (!downloadButton) {
+        console.error("Download button with ID 'downloadPdfButton' not found!");
+        return;
+    }
+    if (!resumeContentElement) {
+        console.error("Content element with ID 'resume-content' not found!");
+        return;
+    }
+
+    downloadButton.addEventListener('click', () => {
+        console.log("Download button clicked. Trying to generate PDF...");
+        downloadButton.style.display = 'none'; // Hide button
+
+        // Check if libraries are loaded
+        if (typeof html2canvas === 'undefined') {
+            console.error('html2canvas is not loaded!');
+            alert('Error: html2canvas library not loaded.');
+            downloadButton.style.display = ''; // Show button
+            return;
+        }
+        if (typeof window.jspdf === 'undefined' || typeof window.jspdf.jsPDF === 'undefined') {
+            console.error('jsPDF is not loaded!');
+            alert('Error: jsPDF library not loaded.');
+            downloadButton.style.display = ''; // Show button
+            return;
+        }
+
+        const { jsPDF } = window.jspdf;
+
+        html2canvas(resumeContentElement, {
+            scale: 1, // Start with scale 1 for simplicity
+            useCORS: true,
+            logging: true
+        }).then(canvas => {
+            console.log("html2canvas success. Canvas created.");
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF(); // Simplest jsPDF instantiation
+
+            // Simple single page for now
+            const imgProps= pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            if (pdfHeight > pdf.internal.pageSize.getHeight()) {
+                console.warn("Content is taller than a single PDF page with current scaling. Will be truncated in this simple test.");
+            }
+
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('test_resume.pdf');
+            console.log("PDF should be saved.");
+            downloadButton.style.display = ''; // Show button
+        }).catch(error => {
+            console.error("Error during PDF generation:", error);
+            alert("An error occurred while generating the PDF. Check the console.");
+            downloadButton.style.display = ''; // Show button
+        });
+    });
+});
+    </script>

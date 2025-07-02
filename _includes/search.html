@@ -1,0 +1,506 @@
+
+<section class="section search-section-bulma"> {/* Scoped class for clarity, but no custom CSS for it */}
+  <div class="container">
+    <!-- Search Form -->
+    <div class="columns is-centered">
+      <div class="column is-half-desktop is-two-thirds-tablet">
+        <form id="search-form" onsubmit="event.preventDefault(); performFullSearch(); return false;">
+          <div class="field has-addons">
+            <div class="control is-expanded has-icons-left">
+              <input class="input is-medium is-rounded" type="text" placeholder="Search posts, videos, pages..." name="q" id="search-input" autocomplete="off">
+              <span class="icon is-left is-medium"><i class="ph-bold ph-magnifying-glass"></i></span>
+              <div class="dropdown" id="search-suggestions" style="position: absolute; width: 100%; z-index: 20;">
+                <div class="dropdown-menu" id="dropdown-menu-suggestions" role="menu" style="width: 100%; display: none;">
+                  <div class="dropdown-content" id="suggestions-content">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="control">
+              <button type="submit" id="search-submit-button" class="button is-primary is-medium is-rounded">
+                <span class="icon search-button-icon"><i class="ph-bold ph-magnifying-glass"></i></span>
+                <span class="search-button-text is-hidden-mobile">Search</span>
+                <span class="search-button-loading" style="display: none;"><span class="icon"><i class="ph-bold ph-spinner fa-pulse"></i></span></span>
+              </button>
+            </div>
+          </div>
+        </form>
+        <p class="help is-size-7 has-text-centered mt-2">Type for instant results or press Enter/click Search</p>
+      </div>
+    </div>
+
+    <!-- Search Results Section -->
+    <div id="search-results" class="mt-5" style="display: none;">
+       <div class="level is-mobile mb-4">
+         <div class="level-left"><h2 class="title is-4">Search Results</h2></div>
+         <div class="level-right"><p class="has-text-grey is-size-7" id="results-count"></p></div>
+       </div>
+       <div>
+           <div class="columns is-multiline" id="results-container">
+           </div>
+       </div>
+       <div id="search-loading-spinner" class="has-text-centered mt-5 py-6" style="display: none;">
+         <button class="button is-loading is-large is-primary is-outlined" disabled>Loading</button>
+         <p class="has-text-grey mt-3">Searching...</p>
+       </div>
+       <div id="no-results" class="has-text-centered mt-5" style="display: none;">
+          <div class="box content has-text-centered">
+            <p><span class="icon is-large has-text-grey-light"><i class="ph-bold ph-binoculars is-size-1"></i></span></p>
+            <h3 class="title is-5 mt-4">No results found</h3>
+            <p class="subtitle is-6 has-text-grey">Try different keywords or check your spelling.</p>
+          </div>
+        </div>
+       <div id="search-error" class="mt-5" style="display: none;">
+       </div>
+     </div>
+  </div>
+</section>
+
+<!-- JavaScript (with modifications for Bulma-only styling) -->
+<script>
+  var fallbackImageHtml; // Make it global for onerror
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const siteBaseUrl = '{{ site.baseurl | default: "" }}';
+    const endpoint = '{{ "/assets/search.json" | relative_url }}';
+    const iconMap = { // Using Phosphor Icons
+        'blog': 'ph-bold ph-article',
+        'post': 'ph-bold ph-article',
+        'video': 'ph-bold ph-youtube-logo',
+        'project': 'ph-bold ph-git-branch',
+        'course': 'ph-bold ph-graduation-cap',
+        'journal': 'ph-bold ph-notebook',
+        'page': 'ph-bold ph-file',
+        'default': 'ph-bold ph-file-text'
+    };
+    const FIBONACCI_AD_POSITIONS = [2, 4, 7, 12]; // 1-based index for display
+
+    let pages = [];
+    let currentSearchTerm = '';
+    let searchInputDebounceTimer;
+    let fullSearchDebounceTimer;
+    let isSearchLoading = false;
+
+    const searchInput = document.getElementById('search-input');
+    const searchSubmitButton = document.getElementById('search-submit-button');
+    const suggestionsContent = document.getElementById('suggestions-content');
+    const resultsContainer = document.getElementById('results-container');
+    const searchResultsDiv = document.getElementById('search-results'); // Renamed to avoid conflict
+    const searchSuggestionsDropdown = document.getElementById('search-suggestions');
+    const suggestionsDropdownMenu = document.getElementById('dropdown-menu-suggestions');
+    const noResultsDiv = document.getElementById('no-results');
+    const resultsCountP = document.getElementById('results-count');
+    const searchLoadingSpinnerDiv = document.getElementById('search-loading-spinner');
+    const searchErrorDiv = document.getElementById('search-error');
+    const searchForm = document.getElementById('search-form');
+
+    fallbackImageHtml = function(categoryName, itemTitle) {
+        const categoryKey = (categoryName || 'default').toLowerCase().replace(/\s+/g, '-');
+        const iconClass = iconMap[categoryKey] || iconMap.default;
+        const safeTitle = (itemTitle || '').replace(/'/g, "\\'").replace(/"/g, '"');
+        // Use Bulma classes for a placeholder within the card-image structure
+        return `<div class="card-image">
+                    <figure class="image is-4by3 has-background-light is-flex is-align-items-center is-justify-content-center" data-fallback-for="${safeTitle}" style="height: 180px;">
+                        <span class="icon is-large has-text-grey-lighter">
+                            <i class="${iconClass}" style="font-size: 3rem;"></i>
+                        </span>
+                    </figure>
+                </div>`;
+    };
+
+    function getItemIconClass(item) {
+        const categoryKey = (item.category || 'default').toLowerCase().replace(/\s+/g, '-');
+        return iconMap[categoryKey] || iconMap.default;
+    }
+
+    function getItemImage(item) {
+        let imageUrl = null;
+        if (item.image && typeof item.image === 'string' && item.image.trim() !== '') {
+            imageUrl = item.image.trim();
+            if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://') && !imageUrl.startsWith('/')) {
+                imageUrl = '/' + imageUrl;
+            }
+            if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+                 imageUrl = siteBaseUrl + (imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl);
+            }
+        }
+        const categoryForFallback = item.category || 'default';
+        const safeTitle = (item.title || '').replace(/'/g, "\\'").replace(/"/g, '"');
+        if (imageUrl) {
+            return `<div class="card-image">
+                        <figure class="image is-16by9"> {/* Or is-4by3 based on image type if known */}
+                            <img src="${imageUrl}" alt="${safeTitle}" loading="lazy"
+                                 onerror="this.onerror=null; console.error('Image failed to load:', this.src); this.closest('.card-image').innerHTML = fallbackImageHtml('${categoryForFallback}', '${safeTitle}');"
+                                 style="object-fit: cover; width: 100%; height: 100%;">
+                        </figure>
+                    </div>`;
+        }
+        return fallbackImageHtml(categoryForFallback, item.title);
+    }
+
+    function highlightText(text, terms) {
+        if (!text || !terms || terms.length === 0) return text;
+        let escapedText = String(text).replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+        let highlighted = escapedText;
+        terms.sort((a, b) => b.length - a.length).forEach(term => {
+            const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            try {
+                const regex = new RegExp(`(${escapedTerm})`, 'gi');
+                highlighted = highlighted.replace(regex, '<mark class="p-0 has-background-warning-light">$1</mark>');
+            } catch (e) { console.warn(`Regex error for term "${term}": ${e}`); }
+        });
+        return highlighted;
+    }
+
+    function showLoading(show) {
+        if (show) {
+            resultsContainer.innerHTML = '';
+            noResultsDiv.style.display = 'none';
+            searchErrorDiv.style.display = 'none';
+            searchLoadingSpinnerDiv.style.display = 'block';
+            searchResultsDiv.style.display = 'block';
+        } else {
+            searchLoadingSpinnerDiv.style.display = 'none';
+            // resultsContainer will be shown if it has content by displayResults
+        }
+    }
+
+    function showError(message) {
+        showLoading(false);
+        resultsContainer.innerHTML = '';
+        resultsCountP.textContent = '';
+        noResultsDiv.style.display = 'none';
+        searchErrorDiv.innerHTML = `<div class="notification is-danger mt-4"><button class="delete"></button><span class="icon mr-2"><i class="ph-bold ph-warning-circle"></i></span>${message}</div>`;
+        searchErrorDiv.style.display = 'block';
+        searchResultsDiv.style.display = 'block';
+        // Add event listener for the new delete button
+        const deleteButton = searchErrorDiv.querySelector('.delete');
+        if (deleteButton) {
+            deleteButton.onclick = () => { searchErrorDiv.style.display = 'none'; };
+        }
+    }
+
+    function hideSuggestions() {
+        if (searchSuggestionsDropdown) searchSuggestionsDropdown.classList.remove('is-active');
+        if (suggestionsDropdownMenu) suggestionsDropdownMenu.style.display = 'none';
+    }
+
+    function findResults(termToMatch, dataToSearch) {
+        // ... (search logic remains the same, ensure item.category is used)
+        if (!termToMatch) return [];
+        const terms = termToMatch.toLowerCase().split(' ').filter(term => term.length > 1);
+        if (terms.length === 0) return [];
+
+        return dataToSearch.map(item => {
+            let score = 0;
+            const itemTitle = item.title || '';
+            const itemContent = item.content || '';
+            const itemDesc = item.description || '';
+            const itemTags = item.tags || [];
+            const itemCategory = item.category || 'page'; // Use category
+            const itemUrl = item.url || '#';
+
+            const itemTitleLower = itemTitle.toLowerCase();
+            const itemContentLower = itemContent.toLowerCase();
+            const itemDescLower = itemDesc.toLowerCase();
+            const itemCategoryLower = itemCategory.toLowerCase();
+            const itemTagsString = Array.isArray(itemTags) ? itemTags.join(' ').toLowerCase() : '';
+            let exactMatch = false;
+
+            terms.forEach(term => {
+                const termRegex = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                if (itemTitleLower === term) { score += 60; exactMatch = true; }
+                const titleMatch = itemTitleLower.match(termRegex);
+                if (titleMatch) { score += 12 * titleMatch.length; if (itemTitleLower.startsWith(term)) score += 20; }
+                const descMatch = itemDescLower.match(termRegex);
+                if (descMatch) score += 4 * descMatch.length;
+                const tagMatch = itemTagsString.match(termRegex);
+                if (tagMatch) score += 6 * tagMatch.length;
+                const categoryMatch = itemCategoryLower.match(termRegex);
+                if (categoryMatch) score += 8 * categoryMatch.length;
+                const contentMatch = itemContentLower.match(termRegex);
+                if (contentMatch) score += 1 * contentMatch.length;
+            });
+            return { ...item, title: itemTitle, category: itemCategory, url: itemUrl, tags: itemTags, score, exactMatch };
+        }).filter(item => item.score > 0).sort((a, b) => {
+            if (a.exactMatch !== b.exactMatch) return a.exactMatch ? -1 : 1;
+            return b.score - a.score;
+        });
+    }
+
+    function generateStatsHtml(results) {
+        // ... (stats generation remains the same, ensure item.category is used)
+        if (!results || results.length === 0) { return 'No results found.'; }
+        const total = results.length;
+        const stats = results.reduce((acc, item) => {
+            const categoryName = (item.category || 'page').toLowerCase().replace(/\s+/g, '-');
+            acc[categoryName] = (acc[categoryName] || 0) + 1;
+            return acc;
+        }, {});
+        const statsString = Object.entries(stats).map(([category, count]) => {
+            const prettyCategory = category.replace(/-/g, ' ');
+            return `${count} ${prettyCategory}${count > 1 ? 's' : ''}`;
+        }).join(', ');
+        return `${total} ${total === 1 ? 'result' : 'results'} found <span class="is-hidden-mobile">(${statsString})</span>`;
+    }
+
+    const adPlaceholderHtml = `
+        <div class="column is-one-third-desktop is-half-tablet is-full-mobile">
+          <div class="box is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: 100%; min-height: 250px; border-style: dashed;">
+             <span class="icon is-large has-text-grey-lighter"><i class="ph-bold ph-megaphone" style="font-size: 2.5rem;"></i></span>
+             <p class="has-text-grey-light is-size-7 mt-2">Advertisement</p>
+          </div>
+        </div>`;
+
+    function displaySuggestions(results, searchTerm) {
+        if (!searchTerm || results.length === 0) { hideSuggestions(); return; }
+        const terms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
+        suggestionsContent.innerHTML = results.map(item => {
+            const itemUrl = (item.url && item.url.startsWith('/')) ? siteBaseUrl + item.url : item.url || '#';
+            const displayTitle = item.title || 'Untitled';
+            const categoryKey = (item.category || 'default').toLowerCase().replace(/\s+/g, '-');
+            const iconClass = iconMap[categoryKey] || iconMap.default;
+            const categoryName = item.category || 'Page';
+
+            // Determine tag color based on category
+            let tagColorClass = 'is-info'; // Default
+            if (categoryKey === 'video') tagColorClass = 'is-danger';
+            else if (categoryKey === 'course') tagColorClass = 'is-success';
+            else if (categoryKey === 'project') tagColorClass = 'is-primary';
+            else if (categoryKey === 'journal') tagColorClass = 'is-warning';
+
+            return `<a href="${itemUrl}" class="dropdown-item">
+                        <span class="icon is-small mr-1"><i class="${iconClass}"></i></span>
+                        ${highlightText(displayTitle, terms)}
+                        <span class="tag ${tagColorClass} is-light is-pulled-right is-capitalized is-rounded">${categoryName}</span>
+                    </a>`;
+        }).join('');
+        if (searchSuggestionsDropdown) searchSuggestionsDropdown.classList.add('is-active');
+        if (suggestionsDropdownMenu) suggestionsDropdownMenu.style.display = 'block';
+    }
+
+    function displayResults(results, searchTerm) {
+        searchErrorDiv.style.display = 'none';
+        if (!searchTerm && results.length === 0) {
+            searchResultsDiv.style.display = 'none'; resultsContainer.innerHTML = ''; resultsCountP.innerHTML = ''; noResultsDiv.style.display = 'none'; hideSuggestions(); return;
+        }
+        const terms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
+        displaySuggestions(results.slice(0, 5), searchTerm); // Show top 5 suggestions
+        resultsCountP.innerHTML = generateStatsHtml(results);
+
+        if (results.length > 0) {
+            let resultsHtml = '';
+            let displayPosition = 1;
+
+            results.forEach(item => {
+                const itemUrl = (item.url && item.url.startsWith('/')) ? siteBaseUrl + item.url : (item.url || '#');
+                const displayTitle = item.title || 'Untitled';
+                const categoryName = item.category || 'Default';
+                const categorySlug = categoryName.toLowerCase().replace(/\s+/g, '-');
+                const descMaxLength = 80; // Shorter excerpt for cleaner cards
+                const descriptionSnippet = item.description ?
+                    highlightText(String(item.description).substring(0, descMaxLength) + (String(item.description).length > descMaxLength ? '...' : ''), terms) :
+                    (item.content ? highlightText(String(item.content).substring(0, descMaxLength) + (String(item.content).length > descMaxLength ? '...' : ''), terms) : '');
+
+                const tagsHtml = Array.isArray(item.tags) ?
+                    item.tags.slice(0, 2).map(tag => `<span class="tag is-light is-rounded mr-1 mb-1">${highlightText(tag, terms)}</span>`).join('') : '';
+
+                const iconClass = getItemIconClass(item);
+                let tagColorClass = 'is-info'; // Default tag color
+                if (categorySlug === 'video') tagColorClass = 'is-danger';
+                else if (categorySlug === 'course') tagColorClass = 'is-success';
+                else if (categorySlug === 'project') tagColorClass = 'is-primary';
+                else if (categorySlug === 'journal') tagColorClass = 'is-warning';
+
+                // Card structure using Bulma classes
+                let cardHtml = `
+                    <div class="column is-one-third-desktop is-half-tablet is-full-mobile">
+                      <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+                        ${getItemImage(item)}
+                        <div class="card-content" style="flex-grow: 1;">
+                          <div class="media mb-2">
+                            <div class="media-left">
+                               <span class="tag ${tagColorClass} is-medium is-rounded">
+                                  <span class="icon"><i class="${iconClass}"></i></span>
+                               </span>
+                            </div>
+                            <div class="media-content">
+                               <p class="title is-6 mb-0"><a href="${itemUrl}">${highlightText(displayTitle, terms)}</a></p>
+                               <p class="subtitle is-7 has-text-grey is-capitalized">${categoryName}</p>
+                            </div>
+                          </div>
+                          <div class="content is-small">
+                            ${descriptionSnippet ? `<p class="mb-2">${descriptionSnippet}</p>` : ''}
+                            ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ''}
+                          </div>
+                        </div>
+                        <footer class="card-footer" style="margin-top: auto;">
+                          <a href="${itemUrl}" class="card-footer-item is-size-7 has-text-weight-medium">
+                            View <span class="icon is-small ml-1"><i class="ph-bold ph-arrow-right"></i></span>
+                          </a>
+                        </footer>
+                      </div>
+                    </div>`;
+
+                resultsHtml += cardHtml;
+                displayPosition++;
+                if (FIBONACCI_AD_POSITIONS.includes(displayPosition - 1)) {
+                    resultsHtml += adPlaceholderHtml;
+                    displayPosition++;
+                }
+            });
+            resultsContainer.innerHTML = resultsHtml;
+            noResultsDiv.style.display = 'none';
+        } else {
+            resultsContainer.innerHTML = '';
+            const safeSearchTerm = searchTerm.replace(/</g, "<").replace(/>/g, ">");
+            noResultsDiv.innerHTML = `<div class="box content has-text-centered">
+                                     <p><span class="icon is-large has-text-grey-light"><i class="ph-bold ph-binoculars is-size-1"></i></span></p>
+                                     <h3 class="title is-5 mt-4">No results found for "${safeSearchTerm}"</h3>
+                                     <p class="has-text-grey">Try different keywords or check your spelling.</p>
+                                   </div>`;
+            noResultsDiv.style.display = 'block';
+        }
+        searchResultsDiv.style.display = 'block';
+    }
+
+    function setButtonLoading(isLoading) {
+        if (!searchSubmitButton) return;
+        isSearchLoading = isLoading;
+        const textSpan = searchSubmitButton.querySelector('.search-button-text');
+        const iconSpan = searchSubmitButton.querySelector('.search-button-icon');
+        const loadingSpan = searchSubmitButton.querySelector('.search-button-loading');
+
+        if (isLoading) {
+            searchSubmitButton.classList.add('is-loading');
+            searchSubmitButton.disabled = true;
+            if(textSpan) textSpan.style.display = 'none';
+            if(iconSpan) iconSpan.style.display = 'none';
+            if(loadingSpan) loadingSpan.style.display = 'inline-flex';
+        } else {
+            searchSubmitButton.classList.remove('is-loading');
+            searchSubmitButton.disabled = false;
+            if(textSpan) textSpan.style.display = 'inline';
+            if(iconSpan) iconSpan.style.display = 'inline-flex';
+            if(loadingSpan) loadingSpan.style.display = 'none';
+        }
+    }
+
+    function handleSearchInput() {
+        clearTimeout(searchInputDebounceTimer); clearTimeout(fullSearchDebounceTimer);
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm === currentSearchTerm && searchTerm !== "") return; // Avoid re-searching same term from debounce
+
+        currentSearchTerm = searchTerm;
+        if (searchTerm === '') {
+            hideSuggestions();
+            // Optionally clear main results too, or leave them
+            // resultsContainer.innerHTML = '';
+            // searchResultsDiv.style.display = 'none';
+            // resultsCountP.innerHTML = '';
+            return;
+        }
+        if (searchTerm.length > 0) { // Show suggestions even for 1 char
+            searchInputDebounceTimer = setTimeout(() => {
+                if (currentSearchTerm === searchTerm) {
+                    const r = findResults(currentSearchTerm, pages);
+                    displaySuggestions(r.slice(0, 5), currentSearchTerm);
+                }
+            }, 200);
+        }
+        if (searchTerm.length > 1) { // Require 2+ chars for full result update on type
+            fullSearchDebounceTimer = setTimeout(() => {
+                if (currentSearchTerm === searchTerm && !isSearchLoading) {
+                    showLoading(true);
+                    try { const r = findResults(currentSearchTerm, pages); displayResults(r, currentSearchTerm); }
+                    catch (e) { console.error("Error during debounced search:", e); showError("An error occurred while searching."); }
+                    finally { showLoading(false); }
+                }
+            }, 400); // Slightly faster full search update
+        }
+    }
+
+    function handleSearchFocus() {
+        if (searchInput.value.trim() !== '' && suggestionsContent.children.length > 0) {
+             if (searchSuggestionsDropdown) searchSuggestionsDropdown.classList.add('is-active');
+             if (suggestionsDropdownMenu) suggestionsDropdownMenu.style.display = 'block';
+        } else {
+            hideSuggestions();
+        }
+    }
+    function performFullSearch() {
+        if (isSearchLoading) return;
+        clearTimeout(searchInputDebounceTimer); clearTimeout(fullSearchDebounceTimer);
+        const term = searchInput.value.trim();
+        currentSearchTerm = term; // Update currentSearchTerm here
+        if (term.length > 0) { // Allow search for any length on explicit action
+            setButtonLoading(true); showLoading(true); hideSuggestions();
+            setTimeout(() => {
+                try { const r = findResults(term, pages); displayResults(r, term); }
+                catch (e) { console.error("Error during search execution:", e); showError("An error occurred while performing the search."); }
+                finally { showLoading(false); setButtonLoading(false);
+                    if (resultsContainer.children.length > 0) {
+                        searchResultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }, 50); // Very short delay for explicit search
+        } else {
+            hideSuggestions();
+            resultsContainer.innerHTML = '';
+            resultsCountP.innerHTML = '';
+            noResultsDiv.style.display = 'none';
+            // searchResultsDiv.style.display = 'none'; // Keep section visible to show "no input" state if desired
+        }
+    }
+
+    function initSearch() {
+        if (!searchInput || !resultsContainer || !searchErrorDiv || !searchSubmitButton || !searchForm) {
+            console.error("Essential search UI elements are missing from the DOM!");
+            if(searchErrorDiv) searchErrorDiv.innerHTML = `<div class="notification is-danger">Search UI missing. Contact support.</div>`;
+            return;
+        }
+        fetch(endpoint)
+            .then(response => {
+                if (!response.ok) { throw new Error(`HTTP error! status: ${response.status} while fetching ${endpoint}`); }
+                return response.json();
+            })
+            .then(data => {
+                if (!Array.isArray(data)) { throw new Error("Search data is not a valid JSON array."); }
+                pages = data;
+                const urlParams = new URLSearchParams(window.location.search);
+                const query = urlParams.get('q');
+                if (query) {
+                    searchInput.value = decodeURIComponent(query);
+                    performFullSearch(); // Perform search if query param exists
+                }
+                setupEventListeners();
+            })
+            .catch(e => {
+                console.error('Search Initialization Error:', e);
+                showError(`Failed to load search data. ${e.message}`);
+            });
+    }
+
+    function setupEventListeners() {
+        searchInput.addEventListener('input', handleSearchInput);
+        searchInput.addEventListener('focus', handleSearchFocus);
+        // searchForm.addEventListener('submit', performFullSearch); // onsubmit in HTML handles Enter
+        searchSubmitButton.addEventListener('click', performFullSearch);
+        document.addEventListener('click', (e) => { // Hide suggestions on click outside
+            if (searchSuggestionsDropdown && !searchForm.contains(e.target)) {
+                hideSuggestions();
+            }
+        });
+    }
+    initSearch();
+});
+</script>
+
+<noscript>
+  <div class="container mt-4">
+    <div class="notification is-warning">
+      <span class="icon"><i class="ph-bold ph-warning"></i></span>
+      Please enable JavaScript to use the search functionality.
+    </div>
+  </div>
+</noscript>

@@ -1,0 +1,73 @@
+# _data/about.yml
+
+name: "Swarnil Singhai" # Your Name
+tagline: "Salesforce CRM Analytics Developer & Content Creator"
+avatar: "/assets/images/your-photo.jpg" # Path to your photo
+
+# Hero section bio (Markdown enabled in layout)
+hero_bio: |
+  I'm a **Salesforce CRM Analytics Developer** with over **5 years of experience** in the tech industry. I specialize in building data-driven solutions that help businesses make better decisions.
+
+  My journey in tech began with web development, where I learned the fundamentals of programming and user experience design. Over time, I developed a passion for data analytics and visualization, which led me to specialize in Salesforce CRM Analytics (formerly Einstein Analytics).
+
+  When I'm not coding or creating content, you can find me hiking, reading, or experimenting with new technologies. I'm passionate about sharing knowledge and helping others grow in their tech careers.
+
+# "What I Do" Section
+what_i_do_title: "What I Do"
+what_i_do_items:
+  - icon: "fas fa-code"
+    title: "Software Development"
+    description: "I build custom solutions using Salesforce, JavaScript, and other technologies to solve complex business problems."
+  - icon: "fas fa-chart-bar"
+    title: "Data Analytics"
+    description: "I create insightful dashboards and visualizations that help businesses understand their data and make better decisions."
+  - icon: "fas fa-laptop-code"
+    title: "Content Creation"
+    description: "I share my knowledge through tutorials, blogs, videos, and podcasts to help others learn and grow in their tech careers."
+
+# "Journey" Section
+journey_title: "My Journey"
+journey_items:
+  - date: "2021 - Present"
+    title: "Senior Salesforce CRM Analytics Developer"
+    description: "Leading the development of advanced analytics solutions and mentoring junior developers. Creating content to share knowledge with the community."
+  - date: "2018 - 2021"
+    title: "Salesforce Developer"
+    description: "Developed custom Salesforce solutions and began specializing in Salesforce Analytics. Started creating tutorials and blog posts."
+  - date: "2016 - 2018"
+    title: "Web Developer"
+    description: "Built responsive web applications and learned the fundamentals of software development. Discovered my passion for data visualization."
+  - date: "2012 - 2016"
+    title: "Computer Science Student"
+    description: "Studied Computer Science and began my journey in the tech world. Participated in hackathons and coding competitions."
+
+# "Fun Facts" Section
+fun_facts_title: "Fun Facts"
+fun_facts_items:
+  - icon: "fas fa-mountain"
+    title: "Avid Hiker"
+    description: "I've hiked over 20 different trails across the country. Nature is where I find inspiration and clarity."
+  - icon: "fas fa-book"
+    title: "Bookworm"
+    description: "I read at least 30 books a year, mostly non-fiction on technology, psychology, and business."
+  - icon: "fas fa-coffee"
+    title: "Coffee Enthusiast"
+    description: "I'm a home barista who enjoys experimenting with different brewing methods and beans from around the world."
+  - icon: "fas fa-gamepad"
+    title: "Casual Gamer"
+    description: "I enjoy strategy and puzzle games that challenge my problem-solving skills and creativity."
+
+# "Connect" Section
+connect_title: "Let's Connect"
+connect_subtitle: "I'm always open to new opportunities, collaborations, or just a friendly chat."
+connect_primary_button:
+  text: "Get in Touch"
+  url: "/contact/" # Replace with your contact page URL
+connect_secondary_button:
+  text: "View My Portfolio"
+  url: "/portfolio/" # Replace with your portfolio page URL
+
+# Data for SEO Schema (used in layout)
+website: "https://www.yourwebsite.com" # Replace
+location: "San Francisco, CA" # Replace
+email: "swarnil@example.com" # Replace

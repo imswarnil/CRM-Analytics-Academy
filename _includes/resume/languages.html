@@ -1,0 +1,48 @@
+{% assign langs = site.data.resume.languages %}
+<div class="languages mt-5">
+    <div class="title is-size-5 has-text-primary has-text-weight-bold">
+        {% if langs.icon_class %}<i class="ph mr-1 {{ langs.icon_class }}"></i>{% endif %} {{ langs.title }}
+    </div>
+    <hr class="has-background-primary" style="height: 2px; margin-top: 0.5rem;">
+
+    <div class="table-container mt-3">
+        <table class="table is-fullwidth is-hoverable is-narrow"> <!-- is-narrow -->
+            <thead>
+                <tr>
+                    <th>Language</th>
+                    <th class="has-text-centered">Read</th>
+                    <th class="has-text-centered">Write</th>
+                    <th class="has-text-centered">Speak</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in langs.items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td class="has-text-centered">
+                            {% if item.read %}
+                                <span class="ph icon has-text-success">
+                                    <i class="ph-check"></i>
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="has-text-centered">
+                            {% if item.write %}
+                                <span class="ph icon has-text-success">
+                                    <i class="ph-check"></i>
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="has-text-centered">
+                            {% if item.speak %}
+                                <span class="ph icon has-text-success">
+                                    <i class="ph-check"></i>
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

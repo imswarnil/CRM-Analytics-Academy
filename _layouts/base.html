@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}" class=" {% if site.fixed_navbar %} has-navbar-fixed-top {% endif %}" >
+{% include im-head.html %}
+<body class="layout-{{ page.layout | default: 'default'}}">
+            {{ content }} 
+   {% include site-before-end.html %}
+   {% include head/sw.html %}
+</body>
+</html>

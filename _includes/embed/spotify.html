@@ -1,0 +1,27 @@
+<div class="columns my-5 p-5 is-multiline">
+    <!-- Column for Spotify icon -->
+    <div class="column is-1 has-text-centered">
+      <span class="icon is-large has-text-primary">
+        <i class="fab fa-spotify fa-2x"></i>
+      </span>
+    </div>
+    <div class="column is-11">
+        <p class="title is-4" style="color: var(--bulma-primary);">{{ include.custom_title }}</p>
+        <p class="subtitle is-6">Shared by @{{ include.user_handle }}</p>
+        <!-- Spotify Embed -->
+      </div>
+      <div class="column is-12">
+        <!-- Column for Custom Title and User Handle -->
+        <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/track/{{ include.id }}?utm_source=generator&theme={{ include.theme | default: '1' }}" 
+        width="100%" 
+        height="{{ include.height | default: '152' }}" 
+        frameBorder="0" 
+        allowfullscreen="" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy">
+      </iframe>
+    </div>
+</div>
+
+  

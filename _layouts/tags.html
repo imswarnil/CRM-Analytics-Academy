@@ -1,0 +1,361 @@
+---
+layout: default
+title: "Explore Content by Category, Tag & Collection"
+---
+
+{% assign initial_display_limit = 6 %}
+{% assign ad_in_grid_interval = 9 %} 
+{% assign ad_after_section_interval = 2 %}
+
+<section class="section">
+  <div class="columns">
+    <!-- Sidebar -->
+    <div class="column is-one-quarter">
+      <aside class="menu">
+        <p class="menu-label">
+          All Collections
+        </p>
+        <ul class="menu-list">
+          {% assign sorted_collections = site.collections | sort: "label" %}
+          {% for collection in sorted_collections %}
+            {% unless collection.label == "posts" %}
+              <li>
+                <a href="#collection-{{ collection.label | slugify }}" class="collection-link is-flex is-align-items-center">
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fas fa-{% if collection.label == 'projects' %}project-diagram{% else %}folder{% endif %}"></i>
+                    </span>
+                    <span>{{ collection.label | capitalize }}</span>
+                  </span>
+                </a>
+              </li>
+            {% endunless %}
+          {% endfor %}
+        </ul>
+
+        {% assign all_categories_for_sidebar = "" | split: "" %}
+        {% for c_item in site.collections %}{% for doc_item in c_item.docs %}{% if doc_item.category %}{% unless all_categories_for_sidebar contains doc_item.category %}{% assign all_categories_for_sidebar = all_categories_for_sidebar | push: doc_item.category %}{% endunless %}{% endif %}{% endfor %}{% endfor %}
+        {% assign sorted_categories_for_sidebar = all_categories_for_sidebar | sort_natural %}
+
+        {% if sorted_categories_for_sidebar.size > 0 %}
+        <p class="menu-label mt-5">All Categories</p>
+        <ul class="menu-list">
+          {% for category_name in sorted_categories_for_sidebar %}
+            <li>
+              <a href="#category-{{ category_name | slugify }}" class="category-link is-flex is-align-items-center">
+                <span class="icon-text">
+                  <span class="icon">
+                    {% if category_name == 'video' %} <i class="fas fa-video"></i>
+                    {% elsif category_name == 'journal' %} <i class="fas fa-book-open"></i>
+                    {% elsif category_name == 'project' %} <i class="fab fa-github"></i>
+                    {% else %} <i class="fas fa-shapes"></i> {% endif %}
+                  </span>
+                  <span>{{ category_name | capitalize }}</span>
+                </span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        <p class="menu-label mt-5">All Tags</p>
+        <ul class="menu-list">
+          {% assign all_tags_for_sidebar = "" | split: "" %}{% for c_item in site.collections %}{% for doc_item in c_item.docs %}{% for tag in doc_item.tags %}{% unless all_tags_for_sidebar contains tag %}{% assign all_tags_for_sidebar = all_tags_for_sidebar | push: tag %}{% endunless %}{% endfor %}{% endfor %}{% endfor %}
+          {% assign sorted_tags_for_sidebar = all_tags_for_sidebar | sort_natural %}
+          {% for tag in sorted_tags_for_sidebar %}
+            <li>
+              <a href="#tag-{{ tag | slugify }}" class="tag-link is-flex is-align-items-center">
+                <span class="icon-text"><span class="icon"><i class="fas fa-tag"></i></span><span>{{ tag }}</span></span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="mt-5 ad-placeholder ad-placeholder-sidebar box has-text-centered">
+          <p class="is-size-7 has-text-grey">Advertisement</p><p>Sidebar Ad (300x250)</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Main content -->
+    <div class="column">
+      <h1 class="title is-1 has-text-centered mb-6">Explore All Content</h1>
+      {% assign main_section_counter = 0 %}
+
+      <!-- Collections Section -->
+      {% for collection in sorted_collections %}
+        {% unless collection.label == "posts" %}
+          <div class="box mb-6 scroll-target" id="collection-{{ collection.label | slugify }}">
+            <h2 class="title is-3">
+              <span class="icon-text"><span class="icon"><i class="fas fa-{% if collection.label == 'projects' %}project-diagram{% else %}folder{% endif %}"></i></span><span>{{ collection.label | capitalize }}</span></span>
+              <span class="has-text-grey is-size-5 ml-2">({{ collection.docs.size }} item{% if collection.docs.size != 1 %}s{% endif %})</span>
+            </h2>
+            {% if collection.docs.size > 0 %}
+              <div class="columns is-multiline items-container-visible">
+                {% for doc in collection.docs limit: initial_display_limit %}
+                  <div class="column is-one-third">
+                    {% assign item_category = doc.category | default: "generic" | downcase %}
+                    <div class="card card-{{ item_category }}">
+                      {% if item_category == "video" %}
+                        {% if doc.image %}<div class="card-image"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}><figure class="image is-16by9"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a>{% if doc.duration %}<span class="video-duration">{{ doc.duration }}</span>{% endif %}</div>{% endif %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                      {% elsif item_category == "journal" %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="journal-date is-size-6 mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%B %-d, %Y" }}</time></p>{% endif %}<p class="is-size-7"> {{ doc.content | strip_html | truncatewords: 20 }} </p>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                      {% elsif item_category == "project" %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a>{% if doc.repo_url %}<a href="{{ doc.repo_url }}" target="_blank" rel="noopener noreferrer" class="project-repo-link is-pulled-right" title="View Repository"><span class="icon is-small"><i class="fab fa-github"></i></span></a>{% endif %}</h3><div class="content">{% if doc.description %}<p class="project-description">{{ doc.description | strip_html | truncatewords: 25 }}</p>{% endif %}{% if doc.language_tags and doc.language_tags.size > 0 %}<div class="language-tags tags are-small mb-2">{% for lang_tag in doc.language_tags %}<span class="tag is-light">{{ lang_tag }}</span>{% endfor %}</div>{% endif %}<div class="project-meta">{% if doc.date %}<span class="is-size-7 has-text-grey"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></span>{% endif %}</div>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                      {% else %}
+                        {% if doc.image %}<div class="card-image"><a href="{{ doc.url | relative_url }}"><figure class="image is-4by3"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a></div>{% endif %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t_item in doc.tags %}<a href="#tag-{{ t_item | slugify }}" class="tag is-light tag-link-inline">{{t_item}}</a>{% endfor %}</div>{% endif %}</div></div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% assign item_index_in_loop = forloop.index0 %}{% if ad_in_grid_interval > 0 and item_index_in_loop | plus:1 | modulo: ad_in_grid_interval == 0 and forloop.last == false %}<div class="column is-one-third ad-placeholder-wrapper"><div class="ad-placeholder ad-placeholder-grid box has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>In-Grid Ad</p></div></div>{% endif %}
+                {% endfor %}
+              </div>
+              {% if collection.docs.size > initial_display_limit %}
+                <div class="hidden-items" id="hidden-items-coll-{{ collection.label | slugify }}" style="display: none;">
+                  <div class="columns is-multiline">
+                    {% for doc in collection.docs offset: initial_display_limit %}
+                      <div class="column is-one-third">
+                        {% assign item_category = doc.category | default: "generic" | downcase %}
+                        <div class="card card-{{ item_category }}">
+                          {% if item_category == "video" %}{% if doc.image %}<div class="card-image"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}><figure class="image is-16by9"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a>{% if doc.duration %}<span class="video-duration">{{ doc.duration }}</span>{% endif %}</div>{% endif %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                          {% elsif item_category == "journal" %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="journal-date is-size-6 mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%B %-d, %Y" }}</time></p>{% endif %}<p class="is-size-7"> {{ doc.content | strip_html | truncatewords: 20 }} </p>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                          {% elsif item_category == "project" %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a>{% if doc.repo_url %}<a href="{{ doc.repo_url }}" target="_blank" rel="noopener noreferrer" class="project-repo-link is-pulled-right" title="View Repository"><span class="icon is-small"><i class="fab fa-github"></i></span></a>{% endif %}</h3><div class="content">{% if doc.description %}<p class="project-description">{{ doc.description | strip_html | truncatewords: 25 }}</p>{% endif %}{% if doc.language_tags and doc.language_tags.size > 0 %}<div class="language-tags tags are-small mb-2">{% for lang_tag in doc.language_tags %}<span class="tag is-light">{{ lang_tag }}</span>{% endfor %}</div>{% endif %}<div class="project-meta">{% if doc.date %}<span class="is-size-7 has-text-grey"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></span>{% endif %}</div>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                          {% else %}{% if doc.image %}<div class="card-image"><a href="{{ doc.url | relative_url }}"><figure class="image is-4by3"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a></div>{% endif %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t_item in doc.tags %}<a href="#tag-{{ t_item | slugify }}" class="tag is-light tag-link-inline">{{t_item}}</a>{% endfor %}</div>{% endif %}</div></div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      {% assign item_index_in_loop = forloop.index0 | plus: initial_display_limit %}{% if ad_in_grid_interval > 0 and item_index_in_loop | plus:1 | modulo: ad_in_grid_interval == 0 and forloop.last == false %}<div class="column is-one-third ad-placeholder-wrapper"><div class="ad-placeholder ad-placeholder-grid box has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>In-Grid Ad</p></div></div>{% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+                <button class="button is-small is-light show-more-button mt-4" data-target-id="hidden-items-coll-{{ collection.label | slugify }}" data-total-items="{{ collection.docs.size }}">Show all {{ collection.docs.size }} items</button>
+              {% endif %}
+            {% else %}<p><em>No items in this collection yet.</em></p>{% endif %}
+          </div>
+          {% assign main_section_counter = main_section_counter | plus: 1 %}{% if ad_after_section_interval > 0 and main_section_counter | modulo: ad_after_section_interval == 0 %}<div class="box mb-6 ad-placeholder ad-placeholder-section has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>Section Ad (e.g., 728x90)</p></div>{% endif %}
+        {% endunless %}
+      {% endfor %}
+      
+      <!-- Categories Section -->
+      {% assign all_categories_for_main = "" | split: "" %}{% for c_item in site.collections %}{% for doc_item in c_item.docs %}{% if doc_item.category %}{% unless all_categories_for_main contains doc_item.category %}{% assign all_categories_for_main = all_categories_for_main | push: doc_item.category %}{% endunless %}{% endif %}{% endfor %}{% endfor %}{% assign sorted_categories_for_main = all_categories_for_main | sort_natural %}
+      {% if sorted_categories_for_main.size > 0 %}
+        <div class="box mb-6">
+          <h2 class="title is-3"><span class="icon-text"><span class="icon"><i class="fas fa-shapes"></i></span><span>Browse by Category</span></span></h2>
+          {% for category_name in sorted_categories_for_main %}
+            {% assign categorized_docs = "" | split: "" %}{% for c_item in site.collections %}{% for doc_item in c_item.docs %}{% if doc_item.category == category_name %}{% assign categorized_docs = categorized_docs | push: doc_item %}{% endif %}{% endfor %}{% endfor %}
+            {% assign current_category_item_count = categorized_docs.size %}
+            {% if current_category_item_count > 0 %}
+            <div class="mb-6 scroll-target" id="category-{{ category_name | slugify }}">
+              <h3 class="title is-4 is-flex is-align-items-center"><span class="icon is-medium mr-2">{% if category_name == 'video' %}<i class="fas fa-video"></i>{% elsif category_name == 'journal' %}<i class="fas fa-book-open"></i>{% elsif category_name == 'project' %}<i class="fab fa-github"></i>{% else %}<i class="fas fa-shapes"></i>{% endif %}</span><span class="tag is-info is-medium">{{ category_name | capitalize }}</span><span class="has-text-grey is-size-5 ml-2">({{ current_category_item_count }} item{% if current_category_item_count != 1 %}s{% endif %})</span></h3>
+              <div class="columns is-multiline items-container-visible">
+                {% for doc in categorized_docs limit: initial_display_limit %}
+                  <div class="column is-one-third">
+                    {% assign item_category = doc.category | default: "generic" | downcase %}
+                    <div class="card card-{{ item_category }}">
+                      {% if item_category == "video" %}
+                        {% if doc.image %}<div class="card-image"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}><figure class="image is-16by9"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a>{% if doc.duration %}<span class="video-duration">{{ doc.duration }}</span>{% endif %}</div>{% endif %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}<span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span></div></div>
+                      {% elsif item_category == "journal" %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="journal-date is-size-6 mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%B %-d, %Y" }}</time></p>{% endif %}<p class="is-size-7"> {{ doc.content | strip_html | truncatewords: 20 }} </p>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}<span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span></div></div>
+                      {% elsif item_category == "project" %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a>{% if doc.repo_url %}<a href="{{ doc.repo_url }}" target="_blank" rel="noopener noreferrer" class="project-repo-link is-pulled-right" title="View Repository"><span class="icon is-small"><i class="fab fa-github"></i></span></a>{% endif %}</h3><div class="content">{% if doc.description %}<p class="project-description">{{ doc.description | strip_html | truncatewords: 25 }}</p>{% endif %}{% if doc.language_tags and doc.language_tags.size > 0 %}<div class="language-tags tags are-small mb-2">{% for lang_tag in doc.language_tags %}<span class="tag is-light">{{ lang_tag }}</span>{% endfor %}</div>{% endif %}<div class="project-meta">{% if doc.date %}<span class="is-size-7 has-text-grey"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></span>{% endif %}<span class="tag is-info is-light is-small">{{ doc.collection | capitalize }}</span></div>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                      {% else %}
+                        {% if doc.image %}<div class="card-image"><a href="{{ doc.url | relative_url }}"><figure class="image is-4by3"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a></div>{% endif %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content"><span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span>{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t_item in doc.tags %}<a href="#tag-{{ t_item | slugify }}" class="tag is-light tag-link-inline">{{t_item}}</a>{% endfor %}</div>{% endif %}</div></div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% assign item_index_in_loop = forloop.index0 %}{% if ad_in_grid_interval > 0 and item_index_in_loop | plus:1 | modulo: ad_in_grid_interval == 0 and forloop.last == false %}<div class="column is-one-third ad-placeholder-wrapper"><div class="ad-placeholder ad-placeholder-grid box has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>In-Grid Ad</p></div></div>{% endif %}
+                {% endfor %}
+              </div>
+              {% if current_category_item_count > initial_display_limit %}
+                <div class="hidden-items" id="hidden-items-cat-{{ category_name | slugify }}" style="display: none;">
+                  <div class="columns is-multiline">
+                    {% for doc in categorized_docs offset: initial_display_limit %}
+                      <div class="column is-one-third">
+                        {% assign item_category = doc.category | default: "generic" | downcase %}
+                        <div class="card card-{{ item_category }}">
+                          {% if item_category == "video" %}{% if doc.image %}<div class="card-image"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}><figure class="image is-16by9"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a>{% if doc.duration %}<span class="video-duration">{{ doc.duration }}</span>{% endif %}</div>{% endif %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}<span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span></div></div>
+                          {% elsif item_category == "journal" %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="journal-date is-size-6 mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%B %-d, %Y" }}</time></p>{% endif %}<p class="is-size-7"> {{ doc.content | strip_html | truncatewords: 20 }} </p>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}<span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span></div></div>
+                          {% elsif item_category == "project" %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a>{% if doc.repo_url %}<a href="{{ doc.repo_url }}" target="_blank" rel="noopener noreferrer" class="project-repo-link is-pulled-right" title="View Repository"><span class="icon is-small"><i class="fab fa-github"></i></span></a>{% endif %}</h3><div class="content">{% if doc.description %}<p class="project-description">{{ doc.description | strip_html | truncatewords: 25 }}</p>{% endif %}{% if doc.language_tags and doc.language_tags.size > 0 %}<div class="language-tags tags are-small mb-2">{% for lang_tag in doc.language_tags %}<span class="tag is-light">{{ lang_tag }}</span>{% endfor %}</div>{% endif %}<div class="project-meta">{% if doc.date %}<span class="is-size-7 has-text-grey"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></span>{% endif %}<span class="tag is-info is-light is-small">{{ doc.collection | capitalize }}</span></div>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                          {% else %}{% if doc.image %}<div class="card-image"><a href="{{ doc.url | relative_url }}"><figure class="image is-4by3"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a></div>{% endif %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content"><span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span>{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t_item in doc.tags %}<a href="#tag-{{ t_item | slugify }}" class="tag is-light tag-link-inline">{{t_item}}</a>{% endfor %}</div>{% endif %}</div></div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      {% assign item_index_in_loop = forloop.index0 | plus: initial_display_limit %}{% if ad_in_grid_interval > 0 and item_index_in_loop | plus:1 | modulo: ad_in_grid_interval == 0 and forloop.last == false %}<div class="column is-one-third ad-placeholder-wrapper"><div class="ad-placeholder ad-placeholder-grid box has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>In-Grid Ad</p></div></div>{% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+                <button class="button is-small is-light show-more-button mt-4" data-target-id="hidden-items-cat-{{ category_name | slugify }}" data-total-items="{{ current_category_item_count }}" data-text-category="{{ category_name | capitalize }}">Show all {{ current_category_item_count }} {{ category_name | capitalize }} items</button>
+              {% endif %}
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% assign main_section_counter = main_section_counter | plus: 1 %}{% if ad_after_section_interval > 0 and main_section_counter | modulo: ad_after_section_interval == 0 %}<div class="box mb-6 ad-placeholder ad-placeholder-section has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>Section Ad (e.g., 728x90)</p></div>{% endif %}
+      {% endif %}
+
+      <!-- Tags Section -->
+      {% assign all_tags_for_main = "" | split: "" %}{% for c_item in site.collections %}{% for doc_item_tag_main in c_item.docs %}{% for tag in doc_item_tag_main.tags %}{% unless all_tags_for_main contains tag %}{% assign all_tags_for_main = all_tags_for_main | push: tag %}{% endunless %}{% endfor %}{% endfor %}{% endfor %}{% assign sorted_tags_for_main = all_tags_for_main | sort_natural %}
+      {% if sorted_tags_for_main.size > 0 %}
+      <div class="box mb-6">
+        <h2 class="title is-3"><span class="icon-text"><span class="icon"><i class="fas fa-tags"></i></span><span>Browse by Tag</span></span></h2>
+        {% assign all_docs_for_tags_section = "" | split: "" %}{% for c_item in site.collections %}{% assign all_docs_for_tags_section = all_docs_for_tags_section | concat: c_item.docs %}{% endfor %}
+        {% for tag_name in sorted_tags_for_main %}
+          {% assign tagged_docs_for_this_tag = "" | split: "" %}{% for doc_item in all_docs_for_tags_section %}{% if doc_item.tags contains tag_name %}{% assign tagged_docs_for_this_tag = tagged_docs_for_this_tag | push: doc_item %}{% endif %}{% endfor %}
+          {% assign current_tag_item_count = tagged_docs_for_this_tag.size %}
+          {% if current_tag_item_count > 0 %}
+            <div class="mb-6 scroll-target" id="tag-{{ tag_name | slugify }}">
+              <h3 class="title is-4 is-flex is-align-items-center"><span class="icon is-medium mr-2"><i class="fas fa-tag"></i></span><span class="tag is-primary is-medium">{{ tag_name }}</span><span class="has-text-grey is-size-5 ml-2">({{ current_tag_item_count }} item{% if current_tag_item_count != 1 %}s{% endif %})</span></h3>
+              <div class="columns is-multiline items-container-visible">
+                {% for doc in tagged_docs_for_this_tag limit: initial_display_limit %}
+                  <div class="column is-one-third">
+                    {% assign item_category = doc.category | default: "generic" | downcase %}
+                    <div class="card card-{{ item_category }}">
+                      {% if item_category == "video" %}
+                        {% if doc.image %}<div class="card-image"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}><figure class="image is-16by9"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a>{% if doc.duration %}<span class="video-duration">{{ doc.duration }}</span>{% endif %}</div>{% endif %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}<span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span></div></div>
+                      {% elsif item_category == "journal" %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="journal-date is-size-6 mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%B %-d, %Y" }}</time></p>{% endif %}<p class="is-size-7"> {{ doc.content | strip_html | truncatewords: 20 }} </p>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}<span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span></div></div>
+                      {% elsif item_category == "project" %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a>{% if doc.repo_url %}<a href="{{ doc.repo_url }}" target="_blank" rel="noopener noreferrer" class="project-repo-link is-pulled-right" title="View Repository"><span class="icon is-small"><i class="fab fa-github"></i></span></a>{% endif %}</h3><div class="content">{% if doc.description %}<p class="project-description">{{ doc.description | strip_html | truncatewords: 25 }}</p>{% endif %}{% if doc.language_tags and doc.language_tags.size > 0 %}<div class="language-tags tags are-small mb-2">{% for lang_tag in doc.language_tags %}<span class="tag is-light">{{ lang_tag }}</span>{% endfor %}</div>{% endif %}<div class="project-meta">{% if doc.date %}<span class="is-size-7 has-text-grey"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></span>{% endif %}<span class="tag is-info is-light is-small">{{ doc.collection | capitalize }}</span></div>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                      {% else %}
+                        {% if doc.image %}<div class="card-image"><a href="{{ doc.url | relative_url }}"><figure class="image is-4by3"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a></div>{% endif %}
+                        <div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content"><span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span>{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t_item in doc.tags %}<a href="#tag-{{ t_item | slugify }}" class="tag is-light tag-link-inline">{{t_item}}</a>{% endfor %}</div>{% endif %}</div></div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% assign item_index_in_loop = forloop.index0 %}{% if ad_in_grid_interval > 0 and item_index_in_loop | plus:1 | modulo: ad_in_grid_interval == 0 and forloop.last == false %}<div class="column is-one-third ad-placeholder-wrapper"><div class="ad-placeholder ad-placeholder-grid box has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>In-Grid Ad</p></div></div>{% endif %}
+                {% endfor %}
+              </div>
+              {% if current_tag_item_count > initial_display_limit %}
+                <div class="hidden-items" id="hidden-items-tag-{{ tag_name | slugify }}" style="display: none;">
+                  <div class="columns is-multiline">
+                    {% for doc in tagged_docs_for_this_tag offset: initial_display_limit %}
+                      <div class="column is-one-third">
+                        {% assign item_category = doc.category | default: "generic" | downcase %}
+                        <div class="card card-{{ item_category }}">
+                          {% if item_category == "video" %}{% if doc.image %}<div class="card-image"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}><figure class="image is-16by9"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a>{% if doc.duration %}<span class="video-duration">{{ doc.duration }}</span>{% endif %}</div>{% endif %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.video_url | default: doc.url | relative_url }}" {% if doc.video_url %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}<span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span></div></div>
+                          {% elsif item_category == "journal" %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content">{% if doc.date %}<p class="journal-date is-size-6 mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%B %-d, %Y" }}</time></p>{% endif %}<p class="is-size-7"> {{ doc.content | strip_html | truncatewords: 20 }} </p>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}<span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span></div></div>
+                          {% elsif item_category == "project" %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a>{% if doc.repo_url %}<a href="{{ doc.repo_url }}" target="_blank" rel="noopener noreferrer" class="project-repo-link is-pulled-right" title="View Repository"><span class="icon is-small"><i class="fab fa-github"></i></span></a>{% endif %}</h3><div class="content">{% if doc.description %}<p class="project-description">{{ doc.description | strip_html | truncatewords: 25 }}</p>{% endif %}{% if doc.language_tags and doc.language_tags.size > 0 %}<div class="language-tags tags are-small mb-2">{% for lang_tag in doc.language_tags %}<span class="tag is-light">{{ lang_tag }}</span>{% endfor %}</div>{% endif %}<div class="project-meta">{% if doc.date %}<span class="is-size-7 has-text-grey"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></span>{% endif %}<span class="tag is-info is-light is-small">{{ doc.collection | capitalize }}</span></div>{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small mt-2">{% for t in doc.tags %}<a href="#tag-{{ t | slugify }}" class="tag is-light tag-link-inline">{{t}}</a>{% endfor %}</div>{% endif %}</div></div>
+                          {% else %}{% if doc.image %}<div class="card-image"><a href="{{ doc.url | relative_url }}"><figure class="image is-4by3"><img src="{{ doc.image | relative_url }}" alt="{{ doc.title | escape }}" loading="lazy"></figure></a></div>{% endif %}<div class="card-content"><h3 class="title is-5"><a href="{{ doc.url | relative_url }}">{{ doc.title | escape }}</a></h3><div class="content"><span class="tag is-info is-light is-pulled-right is-small">{{ doc.collection | capitalize }}</span>{% if doc.date %}<p class="is-size-7 has-text-grey mb-2"><time datetime="{{ doc.date | date_to_xmlschema }}">{{ doc.date | date: "%b %-d, %Y" }}</time></p>{% endif %}{% if doc.tags and doc.tags.size > 0 %}<div class="tags are-small">{% for t_item in doc.tags %}<a href="#tag-{{ t_item | slugify }}" class="tag is-light tag-link-inline">{{t_item}}</a>{% endfor %}</div>{% endif %}</div></div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      {% assign item_index_in_loop = forloop.index0 | plus: initial_display_limit %}{% if ad_in_grid_interval > 0 and item_index_in_loop | plus:1 | modulo: ad_in_grid_interval == 0 and forloop.last == false %}<div class="column is-one-third ad-placeholder-wrapper"><div class="ad-placeholder ad-placeholder-grid box has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>In-Grid Ad</p></div></div>{% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+                <button class="button is-small is-light show-more-button mt-4" data-target-id="hidden-items-tag-{{ tag_name | slugify }}" data-total-items="{{ current_tag_item_count }}" data-text-tag-name="{{tag_name}}">Show all {{ current_tag_item_count }} items for tag "{{ tag_name }}"</button>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% assign main_section_counter = main_section_counter | plus: 1 %}{% if ad_after_section_interval > 0 and main_section_counter | modulo: ad_after_section_interval == 0 %}<div class="box mb-6 ad-placeholder ad-placeholder-section has-text-centered"><p class="is-size-7 has-text-grey">Advertisement</p><p>Section Ad (e.g., 728x90)</p></div>{% endif %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tag-link, .collection-link, .category-link { transition: all 0.2s ease-in-out; padding: 0.5em 0.75em; border-radius: 4px; width: 100%; }
+  .tag-link:hover, .collection-link:hover, .category-link:hover,
+  .tag-link.is-active, .collection-link.is-active, .category-link.is-active { background-color: hsl(0, 0%, 96%); color: hsl(0, 0%, 21%); transform: translateX(3px); }
+  .card { height: 100%; display: flex; flex-direction: column; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; border: 1px solid hsl(0, 0%, 86%); overflow: hidden; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 8px 15px rgba(0,0,0,0.08); }
+  .card-content { flex-grow: 1; }
+  .menu { position: sticky; top: 1.5rem; max-height: calc(100vh - 3rem); overflow-y: auto; padding-right: 0.75rem; }
+  .is-flex.is-align-items-center .icon-text .icon { display: inline-flex; align-items: center; }
+  .scroll-target { transition: box-shadow 0.5s ease-out; }
+  .scroll-target-active { box-shadow: 0 0 0 3px hsl(217, 71%, 53%) !important; border-radius: 6px; }
+  .tags.are-small .tag { margin-bottom: 0.25rem; }
+  .tag-link-inline:hover { background-color: hsl(0, 0%, 86%); }
+  .menu::-webkit-scrollbar { width: 8px; }
+  .menu::-webkit-scrollbar-track { background: hsl(0, 0%, 96%); border-radius: 10px; }
+  .menu::-webkit-scrollbar-thumb { background: hsl(0, 0%, 86%); border-radius: 10px; }
+  .menu::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 71%); }
+  .show-more-button { display: block; margin-left: auto; margin-right: auto; }
+  .tag.is-pulled-right { margin-left: 0.5em; }
+  .ad-placeholder { background-color: hsl(0, 0%, 98%); border: 1px dashed hsl(0, 0%, 80%); padding: 1rem; min-height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ad-placeholder-sidebar { min-height: 250px; }
+  .ad-placeholder-grid { min-height: 150px; height: 100%; } 
+  .ad-placeholder-wrapper { display: flex; } 
+  .card.card-video .card-image { position: relative; }
+  .card.card-video .card-image::after { content: '\f144'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: rgba(255,255,255,0.8); text-shadow: 0 0 10px rgba(0,0,0,0.5); pointer-events: none; }
+  .card.card-video .video-duration { position: absolute; bottom: 8px; right: 8px; background-color: rgba(0,0,0,0.7); color: white; padding: 0.2em 0.5em; border-radius: 3px; font-size: 0.75rem; }
+  .card.card-journal { border-left: 5px solid hsl(48, 100%, 67%); }
+  .card.card-journal .card-content .title { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .card.card-journal .journal-date { font-weight: bold; color: hsl(0, 0%, 48%); }
+  .card.card-journal .card-image { display: none; }
+  .card.card-project { border-top: 5px solid hsl(204, 86%, 53%); }
+  .card.card-project .card-image { display: none; }
+  .card.card-project .project-description { font-size: 0.9rem; margin-bottom: 0.75rem; max-height: 4.5em; overflow: hidden; text-overflow: ellipsis; }
+  .card.card-project .project-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;}
+  .card.card-project .project-repo-link .icon { margin-right: 0.3em; }
+  .card.card-project .language-tags .tag { font-size: 0.7rem; margin-right: 0.3em; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const OFFSET_TOP = 80; 
+  function smoothScrollTo(targetElement) {
+    if (targetElement) {
+      const topPos = targetElement.getBoundingClientRect().top + window.pageYOffset - OFFSET_TOP;
+      window.scrollTo({ top: topPos, behavior: 'smooth' });
+      document.querySelectorAll('.scroll-target-active').forEach(activeEl => activeEl.classList.remove('scroll-target-active'));
+      targetElement.classList.add('scroll-target-active');
+      setTimeout(() => { targetElement.classList.remove('scroll-target-active'); }, 1500);
+    }
+  }
+  document.querySelectorAll('a.collection-link, a.category-link, a.tag-link, a.tag-link-inline').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        smoothScrollTo(targetElement);
+        if (history.pushState) { history.pushState(null, null, targetId); } else { window.location.hash = targetId; }
+      }
+    });
+  });
+  function scrollToHash() {
+    if (window.location.hash) {
+      setTimeout(() => {
+        const targetElement = document.querySelector(window.location.hash);
+        if (targetElement) {
+          smoothScrollTo(targetElement);
+          let parentHidden = targetElement.closest('.hidden-items');
+          if (parentHidden && parentHidden.style.display === 'none') {
+            const button = document.querySelector(`.show-more-button[data-target-id="${parentHidden.id}"]`);
+            if (button) button.click();
+          }
+        }
+      }, 100);
+    }
+  }
+  scrollToHash();
+  window.addEventListener('hashchange', scrollToHash, false);
+  document.querySelectorAll('.show-more-button').forEach(button => {
+    button.addEventListener('click', function() {
+      const targetId = this.dataset.targetId;
+      const hiddenItemsDiv = document.getElementById(targetId);
+      const totalItems = parseInt(this.dataset.totalItems);
+      const categoryName = this.dataset.textCategory;
+      const tagName = this.dataset.textTagName;
+      if (hiddenItemsDiv) {
+        if (hiddenItemsDiv.style.display === 'none') {
+          hiddenItemsDiv.style.display = 'block'; this.textContent = 'Show fewer';
+        } else {
+          hiddenItemsDiv.style.display = 'none';
+          let buttonText = `Show all ${totalItems} items`;
+          if (categoryName) { buttonText = `Show all ${totalItems} ${categoryName} items`; }
+          else if (tagName) { buttonText = `Show all ${totalItems} items for tag "${tagName}"`; }
+          this.textContent = buttonText;
+        }
+      }
+    });
+  });
+});
+</script>

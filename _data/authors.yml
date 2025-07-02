@@ -1,0 +1,34 @@
+swarnil:
+  name: "Swarnil"
+  short_name: "Swarnil"
+  image: "/assets/authors/swarnil.jpg"
+  description: "A passionate Salesforce developer and content creator."
+  titles:
+    - "Salesforce Architect"
+    - "Blogger"
+  hobbies:
+    - "Coding"
+    - "Content Creation"
+    - "Traveling"
+  social:
+    twitter: "https://twitter.com/swarnil"
+    linkedin: "https://linkedin.com/in/swarnil"
+    github: "https://github.com/swarnil"
+    website: "https://swarnil.com"
+
+johndoe:
+  name: "John Doe"
+  short_name: "JD"
+  image: "/assets/authors/johndoe.jpg"
+  description: "A passionate developer and content creator."
+  titles:
+    - "Software Engineer"
+    - "Freelancer"
+  hobbies:
+    - "Coding"
+    - "Blogging"
+  social:
+    twitter: "https://twitter.com/johndoe"
+    linkedin: "https://linkedin.com/in/johndoe"
+    github: "https://github.com/johndoe"
+    website: "https://johndoe.com"

@@ -1,0 +1,8 @@
+<a class="button {% if include.color %} 
+is-{{ include.color }}
+{% endif %} {% if include.size %} 
+is-{{ include.size }}{% endif %}
+ {% if include.fullwidth %}
+  is-fullwidth{% endif %}
+   {% if include.outlined %} 
+   is-outlined{% endif %}{% if include.inverted %} is-inverted{% endif %} {% if include.rounded %} is-rounded{% endif %} {% if include.hovered %} is-hovered{% endif %} {% if include.active %} is-active{% endif %}" href="{{ include.link | default: '#' }}"{% if include.custom_style %} style="{{ include.custom_style }}"{% endif %}>{% if include.icon %}<span class="icon is-small"><i class="fas fa-{{ include.icon }}"></i> </span>   {% endif %}<span>{{ include.text | default: "Button" }}</span></a>

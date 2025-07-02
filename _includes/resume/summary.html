@@ -1,0 +1,11 @@
+{% assign summary = site.data.resume.summary %}
+<div class="summary">
+    <div class="title is-size-4 has-text-primary has-text-weight-bold">
+        {% if summary.icon_class %}<i class="mr-1 ph {{ summary.icon_class }}"></i>{% endif %}
+        {{ summary.title }}
+        <hr class="has-background-primary" style="height: 2px; margin-top: 0.5rem;">
+    </div>
+    <div class="wrapper">
+        <p>{{ summary.text | markdownify }}</p>
+    </div>
+</div>

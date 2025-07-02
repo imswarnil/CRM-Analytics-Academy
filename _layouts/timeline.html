@@ -1,0 +1,357 @@
+---
+layout: default # Or your base layout
+---
+<style>
+/* CSS remains the same as the working version */
+.timeline {
+  position: relative;
+  margin: 2rem auto;
+  padding: 2rem 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #dbdbdb;
+  border-radius: 2px;
+}
+.timeline-year-separator {
+  text-align: center;
+  margin: 40px 0 20px;
+  position: relative;
+  z-index: 1;
+}
+.timeline-year-separator .year-tag {
+  background-color: #3273dc;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 15px;
+  font-size: 1.5em;
+  font-weight: bold;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+  width: 50%;
+}
+.timeline-item:nth-child(odd) {
+  left: 0;
+  padding-right: 30px;
+  text-align: right;
+}
+.timeline-item:nth-child(even) {
+  left: 50%;
+  padding-left: 30px;
+  text-align: left;
+}
+.timeline-marker {
+  position: absolute;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  border: 4px solid #3273dc;
+  z-index: 10;
+}
+.timeline-item:nth-child(odd) .timeline-marker {
+  right: -10px;
+  transform: translateX(0%);
+}
+.timeline-item:nth-child(even) .timeline-marker {
+  left: -10px;
+  transform: translateX(0%);
+}
+.timeline-item-date {
+  display: block;
+  font-size: 0.9em;
+  color: #7a7a7a;
+  margin-bottom: 8px;
+}
+.timeline-item:nth-child(odd) .timeline-item-date { text-align: right; }
+.timeline-item:nth-child(even) .timeline-item-date { text-align: left; }
+.timeline-content {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  position: relative;
+}
+.timeline-item:nth-child(odd) .timeline-content { text-align: left; }
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.timeline-item:nth-child(odd) .timeline-content::before {
+  right: -10px;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent #fff;
+}
+.timeline-item:nth-child(even) .timeline-content::before {
+  left: -10px;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #fff transparent transparent;
+}
+.timeline-content .card-header-title { justify-content: inherit; }
+
+/* Milestone specific styling */
+.milestone-content {
+  padding: 15px; /* Match card padding for consistency */
+}
+.milestone-content .title {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline::before {
+    left: 10px;
+    transform: translateX(0);
+  }
+  .timeline-item {
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 0;
+    text-align: left !important;
+    left: 0 !important;
+  }
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    left: 0;
+    padding-left: 40px;
+    padding-right: 0;
+    text-align: left !important;
+  }
+  .timeline-item:nth-child(odd) .timeline-content { text-align: left; }
+  .timeline-marker {
+    left: 0px !important;
+    transform: translateX(0%) !important;
+  }
+  .timeline-item:nth-child(odd) .timeline-marker,
+  .timeline-item:nth-child(even) .timeline-marker { left: 0px !important; }
+  .timeline-content::before {
+    left: -10px !important;
+    right: auto !important;
+    border-width: 10px 10px 10px 0 !important;
+    border-color: transparent #fff transparent transparent !important;
+  }
+  .timeline-year-separator .year-tag { font-size: 1.2em; }
+}
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin-top: 10px;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.youtube-thumbnail {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+</style>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title has-text-centered is-1">{{ page.title | default: "My Timeline" }}</h1>
+    {% if page.description %}
+    <p class="subtitle has-text-centered">{{ page.description }}</p>
+    {% endif %}
+
+    <div class="timeline">
+      {%- comment -%} --- Data Preparation --- {%- endcomment -%}
+      {%- assign temp_timeline_items = "" | split: "" -%}
+
+      {%- comment -%} Define Static Milestones - Using simple assigns to create "pseudo objects" {%- endcomment -%}
+      {%- assign birthday_object = "" | split: "|" -%}
+      {%- assign birthday_object = birthday_object | push: "date:1990-01-01T00:00:00Z" -%}
+      {%- assign birthday_object = birthday_object | push: "title:Born This Day!" -%}
+      {%- assign birthday_object = birthday_object | push: "description:The journey began." -%}
+      {%- assign birthday_object = birthday_object | push: "type:Milestone" -%}
+      {%- assign birthday_object = birthday_object | push: "icon:fas fa-birthday-cake" -%}
+      {%- assign temp_timeline_items = temp_timeline_items | push: birthday_object -%}
+
+      {%- assign graduation_object = "" | split: "|" -%}
+      {%- assign graduation_object = graduation_object | push: "date:2012-06-15T00:00:00Z" -%}
+      {%- assign graduation_object = graduation_object | push: "title:Graduated University" -%}
+      {%- assign graduation_object = graduation_object | push: "description:Completed my Bachelor's degree." -%}
+      {%- assign graduation_object = graduation_object | push: "type:Milestone" -%}
+      {%- assign graduation_object = graduation_object | push: "icon:fas fa-graduation-cap" -%}
+      {%- assign temp_timeline_items = temp_timeline_items | push: graduation_object -%}
+
+      {%- comment -%} Add Posts {%- endcomment -%}
+      {%- for post in site.posts -%}
+        {%- if post.timeline == true -%}
+          {%- assign item_icon = "fas fa-file-alt" -%}
+          {%- if post.type == "YouTube" -%}
+            {%- assign item_icon = "fab fa-youtube" -%}
+          {%- elsif post.category == "video" -%}
+            {%- assign item_icon = "fas fa-video" -%}
+          {%- endif -%}
+
+          {%- assign post_object = "" | split: "|" -%}
+          {%- assign post_date_iso = post.date | date_to_xmlschema -%}
+          {%- assign post_object = post_object | push: "date:" | append: post_date_iso -%}
+          {%- assign post_object = post_object | push: "title:" | append: post.title | replace: '"', '\"' -%}
+          {%- assign post_description = post.description | default: "" | strip_html -%}
+          {%- assign post_object = post_object | push: "description:" | append: post_description | replace: '"', '\"' -%}
+          {%- assign post_object = post_object | push: "type:" | append: post.type -%}
+          {%- assign post_object = post_object | push: "category:" | append: post.category -%}
+          {%- assign post_object = post_object | push: "VideoId:" | append: post.VideoId -%}
+          {%- assign post_url_rel = post.url | relative_url -%}
+          {%- assign post_object = post_object | push: "url:" | append: post_url_rel -%}
+          {%- assign post_object = post_object | push: "author:" | append: post.author -%}
+          {%- assign post_object = post_object | push: "icon:" | append: item_icon -%}
+          {%- assign temp_timeline_items = temp_timeline_items | push: post_object -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- comment -%} Sort all items by date. The date must be the first element after splitting by '|' and be in ISO format for string sort to work. {%- endcomment -%}
+      {%- assign timeline_items_sorted = temp_timeline_items | sort_natural -%} 
+      {%- comment -%} Using sort_natural in case dates cause issues with regular sort; normally sort would work on ISO dates.
+          We need to extract the date part for sorting correctly.
+          This is the tricky part with "pseudo objects". We need a reliable way to sort.
+          Let's try sorting by the full string, assuming "date:YYYY-MM-DD" is first.
+      {%- endcomment -%}
+      
+      {%- assign timeline_items = "" | split: "" -%}
+      {%- for item_arr_str in timeline_items_sorted -%}
+        {% assign item_obj = "" | split: "" %}
+        {% for prop_val_str in item_arr_str %}
+          {% assign prop_val_pair = prop_val_str | split: ":" %}
+          {% assign prop_key = prop_val_pair[0] %}
+          {% assign prop_value = prop_val_pair[1] %}
+          {% if prop_val_pair.size > 2 %}{% assign prop_value = prop_val_pair | shift | join: ":" %}{% endif %} 
+          {% capture item_obj %}{{ item_obj }}{{ prop_key }}:{{ prop_value }}|{% endcapture %}
+        {% endfor %}
+         {% assign item_hash = item_obj | split: "|" %}
+        {% assign timeline_items = timeline_items | push: item_hash %}
+      {% endfor %}
+      {% assign timeline_items = timeline_items | reverse %}
+
+
+      {%- assign current_year = "" -%}
+      {%- for item_props_array in timeline_items -%}
+        {%- comment -%} Reconstruct item properties from the array {%- endcomment -%}
+        {%- assign item_date = "" -%}
+        {%- assign item_title = "" -%}
+        {%- assign item_description = "" -%}
+        {%- assign item_type = "" -%}
+        {%- assign item_icon = "fas fa-calendar-alt" -%}
+        {%- assign item_video_id = "" -%}
+        {%- assign item_url = "" -%}
+        {%- assign item_author = "" -%}
+
+        {%- for prop_pair_str in item_props_array -%}
+          {%- assign prop_parts = prop_pair_str | split: ":" -%}
+          {%- assign key = prop_parts[0] -%}
+          {%- assign value = prop_parts[1] -%}
+          {%- if prop_parts.size > 2 %}{% assign value = prop_parts | shift | join: ":" %}{% endif %}
+
+
+          {%- if key == "date" %}{%- assign item_date = value | date_to_xmlschema -%}{%- endif -%}
+          {%- if key == "title" %}{%- assign item_title = value -%}{%- endif -%}
+          {%- if key == "description" %}{%- assign item_description = value -%}{%- endif -%}
+          {%- if key == "type" %}{%- assign item_type = value -%}{%- endif -%}
+          {%- if key == "icon" %}{%- assign item_icon = value -%}{%- endif -%}
+          {%- if key == "VideoId" %}{%- assign item_video_id = value -%}{%- endif -%}
+          {%- if key == "url" %}{%- assign item_url = value -%}{%- endif -%}
+          {%- if key == "author" %}{%- assign item_author = value -%}{%- endif -%}
+        {%- endfor -%}
+
+        {%- if item_date == "" %}{% continue %}{% endif %}
+
+        {%- assign item_year = item_date | date: "%Y" -%}
+        {%- if item_year != current_year -%}
+          <div class="timeline-year-separator">
+            <span class="year-tag">{{ item_year }}</span>
+          </div>
+          {%- assign current_year = item_year -%}
+        {%- endif -%}
+
+        <div class="timeline-item">
+          <div class="timeline-marker is-icon">
+            <i class="{{ item_icon }}"></i>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-item-date">{{ item_date | date: "%B %d, %Y" }}</span>
+            
+            {%- if item_type == "YouTube" and item_video_id != "" -%}
+              <div class="card">
+                {%- if item_video_id -%}
+                <div class="card-image">
+                  <figure class="image is-16by9">
+                    <img src="https://img.youtube.com/vi/{{ item_video_id }}/hqdefault.jpg" alt="{{ item_title | escape }} thumbnail" class="youtube-thumbnail">
+                  </figure>
+                </div>
+                {%- endif -%}
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <p class="title is-4">
+                        {% if item_url and item_url != "" %}<a href="{{ item_url }}">{% endif %}
+                        {{ item_title | escape }}
+                        {% if item_url and item_url != "" %}</a>{% endif %}
+                      </p>
+                      {% if item_author and item_author != "" %}<p class="subtitle is-6">By {{ item_author | escape }}</p>{% endif %}
+                    </div>
+                  </div>
+                  <div class="content">
+                    {{ item_description | truncatewords: 25 }}
+                    <div class="video-container mt-3">
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ item_video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- elsif item_type == "Milestone" -%}
+              <div class="milestone-content">
+                <h3 class="title is-4">{{ item_title | escape }}</h3>
+                <p class="is-size-6">{{ item_description }}</p>
+              </div>
+            {%- else -%} {# Assumed to be a blog post or generic item from site.posts #}
+              <div class="card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                       <p class="title is-4">
+                        {% if item_url and item_url != "" %}<a href="{{ item_url }}">{% endif %}
+                        {{ item_title | escape }}
+                        {% if item_url and item_url != "" %}</a>{% endif %}
+                      </p>
+                      {% if item_author and item_author != "" %}<p class="subtitle is-6">By {{ item_author | escape }}</p>{% endif %}
+                    </div>
+                  </div>
+                  <div class="content">
+                    {{ item_description | truncatewords: 30 }}
+                    {% if item_url and item_url != "" %}
+                      <br><a href="{{ item_url }}" class="button is-link is-outlined is-small mt-2">Read More</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>

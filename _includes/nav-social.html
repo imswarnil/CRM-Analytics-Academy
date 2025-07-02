@@ -1,0 +1,44 @@
+<div class="social-icons has-text-centered">
+  {% for handle in site.social_media.handles %}
+    {% assign handle_name = handle[0] %}
+    {% assign handle_data = handle[1] %}
+    <a class="button is-light social-icon" href="{{ handle_data.url }}" target="_blank" rel="noopener noreferrer" data-tooltip="{{ handle_data.description }}">
+      <span class="icon is-large">
+        <i class="fa-brands fa-{{ handle_name }}" aria-hidden="true"></i>
+      </span>
+    </a>
+  {% endfor %}
+</div>
+
+<style>
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .social-icon {
+    position: relative;
+  }
+
+  .social-icon[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%; /* Position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4a4a4a;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+
+  .social-icon::after {
+    content: '';
+    opacity: 0;
+  }
+</style>

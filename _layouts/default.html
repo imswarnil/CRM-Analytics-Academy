@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+{% include im-head.html %}
+<body class="layout-{{ page.layout | default: 'default'}} im-main-content-area">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMWVNGD8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    {% include im-navbar.html %}
+    <div class="content"> 
+        {{ content }} 
+    </div>
+   {% include site-before-end.html %}
+   {% include head/sw.html %}
+</body>
+</html>

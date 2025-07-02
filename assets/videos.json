@@ -1,0 +1,11 @@
+---
+layout: null
+---
+[
+  {% for video in site.videos %}
+  {
+    "title": "{{ video.title | escape }}",
+    "url": "{{ video.url | relative_url }}"
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]

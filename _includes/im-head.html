@@ -1,0 +1,26 @@
+<head>
+    <!-- General meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include head/robots.html %}    
+    {% include head/meta.html %} 
+    {% include head/jsonld.html %}  
+    {% include head/fonts.html %} 
+    {% include head/style.html %}  
+    {% include head/icons.html %}
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ site.url }}/sitemap.xml">
+    <link rel="manifest" href="{{ "/manifest.json" | relative_url }}">
+    <link rel="canonical" href="{{ site.url }}{{ page.url | replace:'index.html','' }}">
+    {% include head/favicons.html %}
+    {% include head/google-analytics.html %}
+    {% include head/adsense.html %}
+    {% include head/scripts.html %} 
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PMWVNGD8');</script>
+<!-- End Google Tag Manager -->
+    
+    </head>

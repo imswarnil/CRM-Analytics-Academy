@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /ads.txt
+---
+google.com, {{ site.adsense.publisher.id }}, {{ site.adsense.publisher.direct }}, {{ site.adsense.publisher.verification_id }}
+

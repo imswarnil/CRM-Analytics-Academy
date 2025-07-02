@@ -1,0 +1,92 @@
+<aside class="sidebar is-sticky" style="top: 3rem;">
+   <!-- Table of Contents -->
+   {% if page.toc != false %}
+   <div class="box mb-6">
+     <h3 class="title is-4 mb-4">Table of Contents</h3>
+     {% assign contentsTitle = page.toc_title | default: 'Jump to Section' %}
+     {% include utility/toc.html html=content class='menu-list' h_min=2 h_max=3 contents_title=contentsTitle %}
+   </div>
+   {% endif %}
+  {% if page.layout == "post" %}
+    <!-- Post Layout Sidebar -->
+    {% include card/profile.html %}
+    <!-- Popular Posts -->
+    <div class="box mb-6">
+      <h3 class="title is-4 mb-4">Popular Articles</h3>
+      <div class="content">
+        {% for post in site.posts limit:5 %}
+        <article class="media">
+          <div class="media-content">
+            <h4 class="title is-5 mb-2"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+            <p class="subtitle is-6 has-text-grey">{{ post.date | date: "%b %d, %Y" }}</p>
+          </div>
+        </article>
+        {% unless forloop.last %}<hr class="is-marginless my-3">{% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Sidebar Ad -->
+    <div class="box has-background-light mb-6">
+      <div class="content has-text-centered">
+        <p class="is-size-7 has-text-grey mb-2">ADVERTISEMENT</p>
+        <div class="ad-placeholder" style="min-height: 250px; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+          <span class="has-text-grey">Sidebar Ad Placeholder</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter Widget -->
+    <div class="box">
+      <h3 class="title is-4 mb-4">Stay Updated</h3>
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium" type="email" placeholder="Your email address">
+        </div>
+      </div>
+      <button class="button is-primary is-medium is-fullwidth">Subscribe</button>
+      <p class="help mt-2">No spam. Unsubscribe anytime.</p>
+    </div>
+
+  {% elsif page.layout == "home" or page.layout == "blog" %}
+    <!-- Home/Blog Layout Sidebar -->
+    <div class="box mb-6">
+      <h3 class="title is-3 mb-4">About This Site</h3>
+      <p class="content is-medium mb-5">{{ site.description }}</p>
+      {% include nav-social.html %}
+      
+      {% if content %}
+      <div class="mt-5">
+        <h4 class="title is-4 mb-3">Contents</h4>
+        {% include utility/toc.html html=content class='menu-list' h_min=2 h_max=3 %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Categories -->
+    <div class="box">
+      <h3 class="title is-4 mb-4">Browse Categories</h3>
+      {% include nav-categories.html %}
+    </div>
+
+  {% elsif page.layout == "page" %}
+    <!-- Page Layout Sidebar -->
+    <div class="box mb-6">
+      {% include card/profile.html %}
+    </div>
+    
+    {% if content %}
+    <div class="box">
+      <h3 class="title is-4 mb-3">Page Contents</h3>
+      {% include utility/toc.html html=content class='menu-list' h_min=2 h_max=3 %}
+    </div>
+    {% endif %}
+
+  {% elsif page.layout == "categories" %}
+    <!-- Categories Layout Sidebar -->
+    <div class="box">
+      <h3 class="title is-3 mb-4">Site Index</h3>
+      {% include nav-categories.html %}
+    </div>
+  {% endif %}
+</aside>

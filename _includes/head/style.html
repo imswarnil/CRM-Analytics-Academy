@@ -1,0 +1,5 @@
+{% if site.css_inline == true %}
+{% include head/styles.html %}
+{% else %}
+<link rel="stylesheet" href="{{ "/assets/styles.css" | relative_url }}">
+{% endif %}

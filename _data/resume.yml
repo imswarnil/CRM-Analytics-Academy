@@ -1,0 +1,154 @@
+personal_info:
+  first_name: Prachi
+  last_name: Jain
+  profile_image: https://via.placeholder.com/150 # Or a local path like /assets/images/profile.jpg
+  job_title: Software Engineer for React Js
+  company_location: India # e.g., Remote or a specific city if preferred for this line
+  details:
+    address: "Bangalore, India" # Changed from Indonesia to match job_title location
+    phone: "(+91) 987-654-3210" # Example Indian number
+    email: your-email@domain.com
+    website_url: https://example.com
+    website_text: https://example.com
+  social_media:
+    - platform: Facebook
+      username: loremjain
+      url: https://web.facebook.com/loremjain
+      icon_class: ph-facebook-logo # Phosphor icon
+    - platform: Twitter
+      username: lorem_jain
+      url: https://twitter.com/lorem_jain
+      icon_class: ph-twitter-logo
+    - platform: LinkedIn
+      username: lorem-jain
+      url: https://www.linkedin.com/in/lorem-jain
+      icon_class: ph-linkedin-logo
+    - platform: GitHub
+      username: loremjain
+      url: https://github.com/loremjain
+      icon_class: ph-github-logo
+
+summary:
+  title: SUMMARY
+  icon_class: ph-house # Phosphor icon
+  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat risus sit amet enim consectetur, a condimentum lectus convallis. Nam id aliquam sapien. Nulla facilisi. Sed imperdiet dolor nec mauris luctus, vel maximus risus eleifend. Donec eget lacus sed orci convallis maximus. Nam nec orci arcu. Duis vitae quam vitae orci condimentum accumsan. In hac habitasse platea dictumst."
+
+experience:
+  title: EXPERIENCE
+  icon_class: ph-briefcase # Phosphor icon
+  items:
+    - company_name: Example Company
+      company_logo: https://via.placeholder.com/150 # Or local path
+      location: Jakarta, Indonesia
+      role: Software Engineer
+      date_range: January 2020 - Present
+      responsibilities:
+        - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        - Mauris et velit ac ligula efficitur rutrum.
+        - Suspendisse cursus mauris id justo convallis, vitae posuere arcu ultrices.
+        - Vestibulum quis lectus sit amet est tincidunt tempus.
+    - company_name: Another Tech Corp
+      company_logo: https://via.placeholder.com/150
+      location: Bangalore, India
+      role: Junior Developer
+      date_range: June 2018 - December 2019
+      responsibilities:
+        - Developed and maintained web application features.
+        - Collaborated with senior developers on various projects.
+
+education:
+  title: EDUCATION
+  icon_class: ph-student # Phosphor icon (or ph-graduation-cap)
+  items:
+    - university_logo: https://via.placeholder.com/150 # Or local path
+      university_name: Lorem Ipsum University
+      degree: Bachelor of Technology
+      location: Ipsum City, Ipsum
+      major: Computer Science Engineering
+      cgpa: "CGPA: 8.5"
+      date_range: 2014 - 2018
+
+achievements:
+  title: ACHIEVEMENTS
+  icon_class: ph-award # Phosphor icon
+  items:
+    - icon_image: https://via.placeholder.com/150 # Or local, or use a Phosphor icon class
+      # icon_class_item: ph-trophy # Example if you want a phosphor icon per item
+      title: Outstanding Performance Award
+      subtitle: Project Management
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    - icon_image: https://via.placeholder.com/150
+      title: Innovation Excellence Award
+      subtitle: Cloud Infrastructure
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+projects:
+  title: PROJECTS
+  icon_class: ph-tree-structure # Phosphor icon (or ph-kanban, ph-archive-box)
+  items:
+    - logo: https://via.placeholder.com/150 # Or local path
+      name: Project A
+      date_range: January 2019 - December 2019
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat risus sit amet enim consectetur, a condimentum lectus convallis."
+    - logo: https://via.placeholder.com/150
+      name: Project B
+      date_range: January 2018 - December 2018
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat risus sit amet enim consectetur, a condimentum lectus convallis."
+
+skills:
+  title: SKILLS
+  icon_class: ph-brain # Phosphor icon (was fa-graduation-cap, ph-brain seems more fitting for skills)
+  items:
+    - name: HTML
+      icon_class: ph-file-html
+    - name: CSS
+      icon_class: ph-file-css
+    - name: JavaScript
+      icon_class: ph-file-js
+    - name: Front-end Development
+      icon_class: ph-code # Generic code icon
+    - name: React
+      icon_class: ph-react-logo
+    - name: Vue.js
+      icon_class: ph-vue-logo
+
+tools:
+  title: TOOLS
+  icon_class: ph-wrench # Phosphor icon (or ph-toolbox)
+  items:
+    - name: Adobe Photoshop
+      icon_class: ph-paint-brush # Example
+    - name: Figma
+      icon_class: ph-figma-logo # Figma has its own
+    - name: Sketch
+      icon_class: ph-sketch-logo # Sketch has its own
+    - name: Adobe Illustrator
+      icon_class: ph-pen-nib # Example
+    - name: InVision
+      icon_class: ph-eye # Example
+    - name: Zeplin
+      icon_class: ph-selection-background # Example
+    - name: Axure RP
+      icon_class: ph-bounding-box # Example
+
+languages:
+  title: LANGUAGES I KNOW
+  icon_class: ph-translate # Phosphor icon
+  items:
+    - name: English
+      read: true
+      write: true
+      speak: true
+    - name: French
+      read: true
+      write: false
+      speak: true
+    - name: Spanish
+      read: true
+      write: true
+      speak: true
+
+# PDF Button Configuration
+pdf_button:
+  text: Download PDF
+  icon_class: ph-download-simple

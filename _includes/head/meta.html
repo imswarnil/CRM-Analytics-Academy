@@ -1,0 +1,116 @@
+
+
+<title>{{ page.title | default: site.title }}</title>
+
+
+<meta name="description" content="{{ page.description | default: site.description }}">
+<meta name="keywords" content="{{ page.keywords | default: site.keywords | join: ', ' }}">
+{% if page.author %}
+  <meta name="author" content="{{ page.author }}">
+  {% else %}
+  <meta name="author" content="{{ site.author.name }}">
+{% endif %}
+<meta name="theme-color" content="{{ site.primary_color | default: '#E53935' }}"/>
+<meta property="og:logo" content="{{ site.url }}{{ site.logo }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:locale" content="{{ site.locale }}">
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{% case page.layout %}
+    {% when 'post' %}article
+    {% when 'video' %}video.other
+    {% when 'podcast' %}music.song
+    {% when 'movie' %}video.movie
+    {% when 'series' %}video.tv_show
+    {% when 'episode' %}video.episode
+    {% else %}website
+{% endcase %}">
+
+
+<meta property="og:title" content="{{ page.title | default: site.title }}">
+<meta property="og:description" content="{{ page.description | default: site.description }}">
+<meta property="og:image" content="{% if page.layout == 'video' and page.source == 'YouTube' %}https://img.youtube.com/vi/{{ page.VideoId }}/maxresdefault.jpg
+{% else %}{{ site.url }}{{ page.image | default: site.logo }}{% endif %}">
+<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+
+
+{% if page.layout == "post" %}
+    <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+    <meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">
+    {% if page.tags %}
+        {% for tag in page.tags %}
+            <meta property="article:tag" content="{{ tag }}">
+        {% endfor %}
+    {% endif %}
+    {% if page.author %}
+        <meta property="article:author" content="{{ page.author }}">
+    {% endif %}
+{% endif %}
+
+{% if page.layout == "video" %}
+    {% if page.source == "YouTube" %}
+        <meta property="og:video" content="https://www.youtube.com/watch?v={{ page.VideoId }}">
+        <meta property="og:video:secure_url" content="https://www.youtube.com/watch?v={{ page.VideoId }}">
+        <meta property="og:video:type" content="video/mp4">
+        <meta property="og:video:width" content="{{ page.video_width | default: '1280' }}">
+        <meta property="og:video:height" content="{{ page.video_height | default: '720' }}">
+    {% endif %}
+{% endif %}
+
+
+{% if page.layout == "podcast" %}
+    <meta property="og:audio" content="{{ page.audio_url }}">
+    <meta property="og:audio:secure_url" content="{{ page.audio_url }}">
+    <meta property="og:audio:type" content="{{ page.audio_type | default: 'audio/mpeg' }}">
+{% endif %}
+
+{% if page.layout == "movie" or page.layout == "episode" %}
+    {% if page.actors %}
+        {% for actor in page.actors %}
+            <meta property="video:actor" content="{{ actor }}">
+        {% endfor %}
+    {% endif %}
+    {% if page.directors %}
+        {% for director in page.directors %}
+            <meta property="video:director" content="{{ director }}">
+        {% endfor %}
+    {% endif %}
+    {% if page.writers %}
+        {% for writer in page.writers %}
+            <meta property="video:writer" content="{{ writer }}">
+        {% endfor %}
+    {% endif %}
+    <meta property="video:duration" content="{{ page.duration }}">
+    <meta property="video:release_date" content="{{ page.date | date_to_xmlschema }}">
+    {% if page.tags %}
+        {% for tag in page.tags %}
+            <meta property="video:tag" content="{{ tag }}">
+        {% endfor %}
+    {% endif %}
+    {% if page.layout == "episode" %}
+        <meta property="video:series" content="{{ page.series }}">
+    {% endif %}
+{% endif %}
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="{% if page.layout == 'video' %}player{% elsif page.layout == 'podcast' %}player{% else %}summary_large_image{% endif %}">
+<meta name="twitter:title" content="{{ page.title | default: site.title }}">
+<meta name="twitter:description" content="{{ page.description | default: site.description }}">
+
+{% if page.layout == "video" %}
+    <meta name="twitter:player" content="{{ page.video_url }}">
+    <meta name="twitter:player:stream" content="{{ page.video_url }}">
+    <meta name="twitter:player:stream:content_type" content="{{ page.video_type | default: 'video/mp4' }}">
+    <meta name="twitter:player:width" content="{{ page.video_width | default: '1280' }}">
+    <meta name="twitter:player:height" content="{{ page.video_height | default: '720' }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ page.image | default: site.logo }}">
+{% elsif page.layout == "podcast" %}
+    <meta name="twitter:player" content="{{ page.audio_url }}">
+    <meta name="twitter:player:stream" content="{{ page.audio_url }}">
+    <meta name="twitter:player:stream:content_type" content="{{ page.audio_type | default: 'audio/mpeg' }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ page.image | default: site.logo }}">
+{% else %}
+    <meta name="twitter:image" content="{{ site.url }}{{ page.image | default: site.logo }}">
+{% endif %}
+
+<meta name="twitter:site" content="@{{ site.author.social.twitter }}">
+<meta name="twitter:creator" content="@{{ page.twitter_creator | default: site.author.social.twitter }}">

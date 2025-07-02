@@ -1,0 +1,581 @@
+# Site configuration
+# 1. Site Settings
+  # 1.1. Site Logo,Favicons,Manifest and Icons
+  # 1.2. Site Url, Links & Github Repo
+  # 1.3. Site Colors & Typography
+
+# 3. Gem settings
+# 4. Jekyll settings
+# 5. Collections
+# 6. Jekyll collections settings
+# 7. Site setting
+# 8. Resume 
+# 9. Installed Gems
+# 10. Files excluded from Jekyll builds
+
+# 1. Site Settings
+#################################################################################################
+
+# 1.1. Site Logo,Favicons,Manifest and Icons
+# -------------------------------------------
+encoding: utf-8 # Make sure the encoding is right
+lang: en # Set the site language
+locale : en-IN
+title: "Imswarnil" # Site name or title
+description: "Personal website and portfolio of Swarnil Singhai, a Software Engineer at Twilio specializing in CRM Analytics, Salesforce, and web technologies. Based in Bangalore, India." # Site description
+keywords: ["Swarnil Singhai", "Salesforce", "CRM Analytics", "Tableau CRM", "Einstein Analytics", "Apex", "LWC", "Software Engineer", "Twilio", "Bangalore", "Resume", "Portfolio"]
+timezone: Asia/Kolkata # Timezone for blog posts and alike
+short_name: "Swarnil" # The web application short name
+logo: "/assets/logos/logo.svg" # Site logo
+favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
+  16: '/assets/logos/logo@16px.png'
+  32: '/assets/logos/logo@32px.png'
+  96: '/assets/logos/logo@96px.png'
+  120: '/assets/logos/logo@120px.png'
+  144: '/assets/logos/logo@144px.png'
+  180: '/assets/logos/logo@180px.png'
+  512: '/assets/logos/logo@512px.png'
+  1024: '/assets/logos/logo@1024px.png'
+
+# Author Configuration (imswarnil.yml or in _config.yml)
+#################################################################################################
+author:
+  name: "Swarnil Singhai"
+  tagline: "Cinematic chaos meets code."
+  image: "/assets/images/swarnil.gif" # Path to your main profile image
+  bio: >
+   I'm not just a guy with a camera and a keyboard — I'm a man on a mission. From engineering dashboards to editing timelines, 
+   I breathe narrative into numbers and soul into scripts. With 3 years in the Salesforce ecosystem, deep dives into data, 
+    and a passion for storytelling, I create both products and perspectives. This site is my playground — part resume, part 
+    portfolio, part personal logbook. Expect code, chaos, camera gear breakdowns, and stories straight from Bangalore's caffeinated streets.
+  dob: "1996-07-15" # Date of Birth (YYYY-MM-DD)
+  pronouns: "he/him"
+  native : Mahroni, Uttar Pradesh
+  country : India
+  state : Karnataka
+  city : Bangalore
+  nationality: "Indian"
+  email: "contact@imswarnil.com"
+  website: "https://imswarnil.com"
+
+# Social Media Links
+#################################################################################################
+social_media: # This remains a top-level section for clarity
+  - name: "X (Twitter)"
+    icon : "x-twitter" # (e.g., Simple Icons slug or your custom SVG name)
+    url: "https://twitter.com/imswarnil"
+    cta: "Follow me on X"
+  - name: "LinkedIn"
+    icon : "linkedin-in" # (e.g., fab fa-linkedin-in for Font Awesome)
+    url: "https://linkedin.com/in/imswarnil"
+    cta: "Connect on LinkedIn"
+  - name: "GitHub"
+    icon: "github" # (e.g., fab fa-github)
+    url: "https://github.com/imswarnil"
+    cta: "Follow on GitHub"
+  - name: "YouTube"
+    icon: "youtube" # (e.g., fab fa-youtube)
+    url: "https://youtube.com/@imswarnil"
+    cta: "Subscribe on YouTube"
+  - name: "Instagram"
+    icon: "instagram" # (e.g., fab fa-instagram)
+    url: "https://instagram.com/imswarnil"
+    cta: "Follow on Instagram"
+
+# Skills (Top-Level Section)
+#################################################################################################
+skills:
+  section_title: "Technical & Creative Skills"
+  # Introduction: "A snapshot of my key capabilities..."
+  categories:
+    - name: "CRM & Analytics"
+      items:
+        - name: "Tableau CRM (Einstein Analytics)"
+          icon: "chart-bar" # fas fa-chart-bar
+          # level: 95 # Optional proficiency
+        - name: "Salesforce Development (Apex, LWC, SOQL)"
+          icon: "cloud" # fas fa-cloud
+    - name: "Web Development"
+      items:
+        - name: "JavaScript (ES6+)"
+          icon: "js-square" # fab fa-js-square
+        - name: "HTML / CSS / SCSS"
+          icon: "html5" # fab fa-html5
+        - name: "Jekyll"
+          icon: "gem" # fas fa-gem (generic for Ruby/Jekyll) or custom
+    - name: "Filmmaking & Creative"
+      items:
+        - name: "Video Editing (Final Cut Pro)"
+          icon: "film" # fas fa-film
+        - name: "Storytelling & Scriptwriting"
+          icon: "book-open" # fas fa-book-open
+    - name: "Dev Tools & Soft Skills"
+      items:
+        - name: "Git & GitHub"
+          icon: "git-alt" # fab fa-git-alt
+        - name: "Public Speaking"
+          icon: "microphone" # fas fa-microphone
+
+# Work Experience (Top-Level Section)
+#################################################################################################
+work_experience:
+  enabled: true # Set to false to hide this section if needed
+  section_title: "Professional Journey" # Title for this section when displayed
+  jobs:
+    - company: "Twilio"
+      company_logo: "https://www.svgrepo.com/show/354472/twilio-icon.svg" # Replace with actual path to Twilio logo
+      company_url: "https://www.twilio.com/"
+      role: "Tableau CRM Engineer"
+      location: "Bangalore, India"
+      start_date: "2021-12-23" # YYYY-MM-DD
+      end_date: null # Set to null or omit if current
+      current: true
+      # Duration can be calculated in Liquid template: (Current Date - Start Date)
+      description:
+        - "Architect, develop, and maintain complex Tableau CRM (Einstein Analytics) dashboards, datasets, and dataflows, providing critical business insights for global sales, marketing, and support stakeholders."
+        - "Lead requirement gathering sessions and technical design workshops with diverse business users, translating ambiguous needs into robust, scalable analytics solutions."
+        - "Proactively optimize and troubleshoot existing Tableau CRM assets, significantly enhancing performance, data accuracy, and user experience for thousands of users."
+        - "Champion data governance, security best practices, and innovative visualization techniques within the CRM analytics domain, contributing to the overall data strategy and roadmap."
+        - "Collaborate cross-functionally with Salesforce administrators, developers, and data engineers to ensure seamless data integration and alignment with broader system architecture."
+        - "Mentor junior team members and conduct knowledge-sharing sessions on Tableau CRM development, SAQL, and Salesforce data principles."
+      technologies_used:
+        - "Tableau CRM (Einstein Analytics)"
+        - "Salesforce Sales Cloud & Service Cloud"
+        - "SAQL (Salesforce Analytics Query Language)"
+        - "JSON (for Dataflows & Dashboards)"
+        - "Data Integration Tools"
+        - "SQL"
+        - "Git & GitHub"
+        - "JIRA / Agile Methodologies"
+
+    - company: "Cognizant"
+      company_logo: "https://companieslogo.com/img/orig/CTSH-82a8444b.png?t=1720244491" # Replace with actual path
+      company_url: "https://www.cognizant.com/"
+      role: "Project Associate (Tableau CRM)"
+      location: "Bangalore, India"
+      start_date: "2021-03-23"
+      end_date: "2021-12-22"
+      duration: "9 Months" # Manually added, or can be calculated
+      description:
+        - "Delivered end-to-end Tableau CRM solutions for multiple enterprise clients across various industries, including requirements gathering, data modeling, dashboard development, and security implementation."
+        - "Successfully translated complex client business requirements into impactful and user-friendly analytics solutions, enabling data-driven decision-making and KPI tracking."
+        - "Gained comprehensive hands-on experience with the full lifecycle of CRM Analytics projects, from initial discovery and solution design to deployment, UAT, and post-go-live support."
+        - "Collaborated effectively within project teams, adhering to agile methodologies and ensuring timely delivery of high-quality analytics assets."
+      technologies_used:
+        - "Tableau CRM (Einstein Analytics)"
+        - "Salesforce Platform"
+        - "Dataflows & Datasets"
+        - "SAQL"
+        - "Dashboard Design"
+        - "Security Predicates"
+        - "Client Communication"
+
+    - company: "Accenture"
+      company_logo: "https://companieslogo.com/img/orig/ACN-cce5b411.png?t=1720244490" # Replace with actual path
+      company_url: "https://www.accenture.com/"
+      role: "Software Engineer"
+      previous_role: "Associate Software Engineer" # Optional: to show progression
+      location: "Bangalore, India"
+      start_date: "2018-03-23"
+      end_date: "2021-03-22"
+      duration: "3 Years" # Manually added, or can be calculated
+      description:
+        - "Promoted from Associate Software Engineer to Software Engineer based on consistent high performance, technical expertise, and leadership potential within Salesforce projects."
+        - "Specialized in Salesforce Einstein Analytics, designing and developing complex dataflows, predictive models, and interactive dashboards for large-scale enterprise clients."
+        - "Underwent extensive training and achieved proficiency in various Salesforce technologies including Apex, Lightning Web Components (LWC), Visualforce, and SOQL/SOSL."
+        - "Played a key role in multiple Salesforce implementation, customization, and enhancement projects, contributing to solution architecture, custom development, and system integration."
+        - "Contributed to code reviews, unit testing, and deployment processes, ensuring adherence to best practices and quality standards."
+      technologies_used:
+        - "Salesforce Einstein Analytics"
+        - "Apex"
+        - "Lightning Web Components (LWC)"
+        - "Visualforce"
+        - "SOQL & SOSL"
+        - "Salesforce Administration & Configuration"
+        - "SQL"
+        - "Agile / Scrum"
+
+    - company: "Kenscio Digital Marketing"
+      company_logo: "/assets/images/logos/kenscio-logo.png" # Replace with actual path (if available)
+      company_url: "https://www.kenscio.com/" # Verify URL
+      role: "Web Developer (Internship)"
+      location: "Bangalore, India"
+      start_date: "2018-01-15"
+      end_date: "2018-04-14"
+      duration: "3 Months" # Manually added, or can be calculated
+      description:
+        - "Developed and maintained client websites and landing pages using HTML5, CSS3, JavaScript (jQuery), and PHP in a dynamic, fast-paced digital marketing agency environment."
+        - "Acquired foundational experience in full-stack web development practices, responsive design principles, cross-browser compatibility, and version control (Git)."
+        - "Collaborated with designers and marketing teams to translate mockups and requirements into functional web solutions."
+        - "Assisted in troubleshooting and debugging existing web applications and performing updates as required."
+      technologies_used:
+        - "HTML5"
+        - "CSS3"
+        - "JavaScript (jQuery)"
+        - "PHP"
+        - "MySQL"
+        - "Git"
+        - "Responsive Web Design"
+
+# Other top-level sections like 'author', 'skills', 'education', etc. would follow here.
+
+# Education (Top-Level Section)
+#################################################################################################
+education:
+  section_title: "Academic Background"
+  degrees:
+    - degree: "Bachelor of Engineering in Computer Science"
+      institution: "Visvesvaraya Technological University (VTU)" # Example
+      graduation_year: "2017"
+      # ... more details
+
+# Certifications (Top-Level Section)
+#################################################################################################
+certifications:
+  section_title: "Certifications & Credentials"
+  items:
+    - name: "Salesforce Certified Tableau CRM and Einstein Discovery Consultant"
+      issuer: "Salesforce"
+      date_obtained: "2022-08"
+      # ... more details
+
+# Projects (Top-Level Section)
+#################################################################################################
+projects:
+  section_title: "Featured Creations"
+  items:
+    - title: "Personal Portfolio Website (This site!)"
+      description: "Built with Jekyll, Bulma CSS..."
+      tags: ["Jekyll", "Web Development"]
+      # ... more details
+
+
+    
+# My Gear, Software & Services Setup (with Affiliate Link Capability)
+#################################################################################################
+uses:
+  section_title: "My Gear, Software & Setup" # Title for this page/section
+  introduction: > # Optional intro text for the "Uses" page
+    Here's a curated list of the hardware, software, and services I rely on daily to code, create,
+    and (try to) stay organized. Some of these links might be affiliate links, meaning I may earn a
+    small commission if you purchase through them, at no extra cost to you. This helps support my work!
+  categories:
+    - name: "Computer & Desk Hardware"
+      items:
+        - name: "MacBook Pro M2 (16GB RAM)"
+          description: "My primary workhorse for development, video editing, and everything in between."
+          image: "/assets/images/uses/macbook-pro-m2.jpg" # Example path
+          icon: "laptop-code" # Example icon class (e.g., for Font Awesome: fas fa-laptop-code)
+          affiliate_link: "https://www.amazon.com/your-affiliate-link-macbook-pro-m2" # Replace
+          official_url: "https://www.apple.com/macbook-pro/"
+        - name: "Keychron K2 Pro (Brown Switches)"
+          description: "My go-to mechanical keyboard for a satisfying typing experience."
+          image: "/assets/images/uses/keychron-k2-pro.jpg"
+          icon: "keyboard" # fas fa-keyboard
+          affiliate_link: "https://www.keychron.com/your-affiliate-link-k2-pro"
+          official_url: "https://www.keychron.com/products/keychron-k2-pro-qmk-via-wireless-custom-mechanical-keyboard"
+        - name: "Logitech MX Master 3S Mouse"
+          description: "Ergonomic and precise, perfect for long coding and editing sessions."
+          icon: "mouse" # fas fa-mouse
+          affiliate_link: "https://www.amazon.com/your-affiliate-link-mx-master-3s"
+          official_url: "https://www.logitech.com/en-us/products/mice/mx-master-3s.html"
+        - name: "LG UltraFine 27-inch 4K Monitor"
+          description: "Primary display for sharp visuals and ample screen real estate."
+          # image: "/assets/images/uses/lg-ultrafine.jpg"
+          icon: "desktop" # fas fa-desktop
+          affiliate_link: "https://www.amazon.com/your-affiliate-link-lg-monitor"
+
+    - name: "Software & Development Tools"
+      items:
+        - name: "VS Code"
+          description: "My code editor of choice, packed with extensions for Salesforce and web development."
+          icon: "vscode" # Custom SVG or simple-icon name, e.g., "devicon-vscode-plain"
+          official_url: "https://code.visualstudio.com/"
+        - name: "iTerm2 (with Rosé Pine Theme)"
+          description: "A powerful and aesthetically pleasing terminal for macOS."
+          icon: "terminal" # fas fa-terminal
+          official_url: "https://iterm2.com/"
+        - name: "Arc Browser"
+          description: "A refreshing and productive browsing experience."
+          icon: "arc-browser-logo" # Custom logo
+          official_url: "https://arc.net/"
+        - name: "GitHub Desktop & CLI"
+          description: "For version control and managing my code repositories."
+          icon: "github" # fab fa-github
+          official_url: "https://desktop.github.com/"
+        - name: "Raycast"
+          description: "Supercharges my productivity with quick commands and workflows."
+          icon: "raycast-logo" # Custom logo
+          official_url: "https://www.raycast.com/"
+          affiliate_link: "https://raycast.com/hey/your-referral-code" # If they have one
+
+    - name: "Filmmaking & Creative Gear"
+      items:
+        - name: "Sony ZV-E10 Camera"
+          description: "My main vlogging and YouTube camera. Compact and versatile."
+          image: "/assets/images/uses/sony-zve10.jpg"
+          icon: "camera-retro" # fas fa-camera-retro
+          affiliate_link: "https://www.amazon.com/your-affiliate-link-sony-zve10"
+        - name: "Sigma 16mm f/1.4 DC DN Lens"
+          description: "Fantastic wide-angle lens for crisp video and great bokeh."
+          # image: "/assets/images/uses/sigma-16mm.jpg"
+          icon: "video" # fas fa-video -> generic, or a lens icon if available
+          affiliate_link: "https://www.amazon.com/your-affiliate-link-sigma-16mm"
+        - name: "iPhone 14 Pro"
+          description: "Excellent for quick cinematic shots and mobile editing."
+          icon: "mobile-alt" # fas fa-mobile-alt
+          # affiliate_link: # Usually bought from Apple directly
+        - name: "Rode Wireless Go II Microphone System"
+          description: "Reliable wireless audio for clear voiceovers and interviews."
+          icon: "microphone-alt" # fas fa-microphone-alt
+          affiliate_link: "https://www.amazon.com/your-affiliate-link-rode-wireless-go-ii"
+        - name: "Final Cut Pro"
+          description: "My preferred video editing software on macOS."
+          icon: "film" # fas fa-film
+          official_url: "https://www.apple.com/final-cut-pro/"
+        - name: "Canva Pro"
+          description: "For quick graphics, thumbnails, and social media content."
+          icon: "palette" # fas fa-palette
+          affiliate_link: "https://partner.canva.com/your-affiliate-id"
+          official_url: "https://www.canva.com/"
+        - name: "Figma"
+          description: "For UI/UX design and more complex vector graphics."
+          icon: "figma-logo" # fab fa-figma
+          official_url: "https://www.figma.com/"
+
+    - name: "Productivity & Lifestyle Services"
+      items:
+        - name: "Notion"
+          description: "My second brain for project management, note-taking, and life organization."
+          icon: "notion-logo" # Custom or simple-icon
+          affiliate_link: "https://affiliate.notion.so/your-link"
+          official_url: "https://www.notion.so/"
+        - name: "Obsidian"
+          description: "For personal knowledge management and interconnected notes."
+          icon: "obsidian-logo" # Custom or simple-icon
+          official_url: "https://obsidian.md/"
+        - name: "Cron Calendar"
+          description: "A beautifully designed and functional calendar app."
+          icon: "calendar-alt" # far fa-calendar-alt
+          official_url: "https://cron.com/"
+        - name: "Spotify Premium"
+          description: "Fuel for coding sessions: Lo-fi, Hans Zimmer, AR Rahman."
+          icon: "spotify" # fab fa-spotify
+          official_url: "https://www.spotify.com/premium/"
+        - name: "Google Drive (Google One)"
+          description: "Cloud storage and backup for important files."
+          icon: "google-drive" # fab fa-google-drive
+          official_url: "https://one.google.com/"
+
+
+
+fun_facts:
+    - "I once edited a video for 14 hours straight. No caffeine. Just vibes."
+    - "I treat Notion like it's a second brain. And maybe it is."
+    - "My aesthetic is somewhere between minimal monk and maximal meme lord."
+    - "I believe even error messages can have personality."
+    - "Half my YouTube videos start with: ‘So, here’s what happened…’"
+
+
+
+
+social_media:
+  - name: "twitter"
+    icon : x-logo # (or fab fa-x-twitter)
+    url: "https://twitter.com/imswarnil"
+    cta: "Follow me on X"
+  - name: "linkedin"
+    icon : linkedin-logo # (or fab fa-linkedin)
+    url: "https://linkedin.com/in/imswarnil" # General LinkedIn profile
+    cta: "Connect on LinkedIn"
+  - name: "github"
+    icon: fab fa-github # Assuming Font Awesome
+    url: "https://github.com/imswarnil"
+    cta: "Follow on GitHub"
+  - name: "youtube"
+    icon: fab fa-youtube # Assuming Font Awesome
+    url: "https://youtube.com/@imswarnil" # Or /imswarnil
+    cta: "Subscribe on YouTube"
+  - name: "instagram"
+    icon: fab fa-instagram # Assuming Font Awesome
+    url: "https://instagram.com/imswarnil"
+    cta: "Follow on Instagram"
+
+# --------------------------------------------
+ # 1.2. Site Url, Links & Github Repo
+ #----------------------------------------------------------------------------------------------
+baseurl : '/'
+url: 'https://imswarnil.github.io' # Site URL
+permalink: /:title  # Permalink style
+repo: "https://github.com/imswarnil/" # Your main GitHub profile
+email: "contact@imswarnil.com" # General contact email for the site
+description_separator: <!-- more -->
+
+# 1.3. CSS, Site Colors & Typography
+#------------------------------------------------------------------------------------------------
+css_inline: true
+sass:
+  style: compressed
+icon_style: duotone # Options: regular, thin, light, bold, fill, duotone  
+theme_color : '#fff'
+fonts:
+  preconnect_urls:
+    - https://fonts.gstatic.com
+  font_urls:
+    - https://fonts.googleapis.com/css2?family=Geist:wght@100&display=swap
+    - https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap
+    - https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap
+
+# Robots And Indexing Settings
+indexing: true
+robots:
+  bots:
+    "*":
+      disallow:
+        - /404
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: true
+  startings: [head, body]
+
+# Service Worker Configuration
+service_worker: true
+
+
+
+google_analytics: "G-GGHMLZR4YQ"
+adsense:
+  enabled: true
+  publisher:
+    id: "ca-pub-1291242080282540"
+    direct: "DIRECT"
+    verification_id: "f08c47fec0942fa0"
+  ads:
+    - name: "Square Ad"
+      width: 300
+      height: 250
+      ad_id: "1234567890"
+      type: "display"
+    - name: "Leaderboard Ad"
+      width: 728
+      height: 90
+      ad_id: "0987654321"
+      type: "display"
+    - name: "Responsive Ad"
+      width: "auto"
+      height: "auto"
+      ad_id: "5678901234"
+      type: "auto"
+
+include:
+  - _pages
+
+# 3. Gem settings
+paginate: 3
+paginate_path: "/archive/page:num/"
+
+
+# 5. Collections
+collections:
+  posts:
+    title: Posts
+    output: true
+    description: "My thoughts, articles, and ideas on technology, Salesforce, and development."
+    image: "https://picsum.photos/2560/600?image=866"
+    permalink: /:categories/:title
+
+# 6. Jekyll collections settings
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      image: "/assets/default-social-image.png"
+      author: "Swarnil Singhai" 
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: page
+
+# 9. Site navigation (unchanged from your original for now, can be updated if needed)
+fixed_navbar: true
+navbar:
+  - name: Home
+    link: /
+    icon: house
+  - name: About # This could link to a page that uses resume data
+    link: /about/
+    icon: identification-card
+    icon: "file-text" # e.g., ph-file-text or similar
+  - name: Elements
+    link: /elements/
+    icon: puzzle-piece
+  - name: Layouts
+    link: /#
+    icon: "layout"
+    dropdown:
+      - name: Post Layouts
+        link: /#
+        icon: article
+      - name: Video Layout
+        link: /videos/
+        icon: play-circle
+  - name: Categories
+    link: /categories/
+    icon: tag
+  - name: Example Pages
+    link: /#
+    icon: "sparkle"
+    dropdown:
+      - name: Landing Page
+        link: /landing/
+        icon: rocket-launch
+      - name: Sponsors Page
+        link: /sponsors/
+        icon: handshake
+      - name: Image Gallery
+        link: /gallery/
+        icon: image
+      - name: Products
+        link: /products/
+        icon: package
+      - name: Recipe Page
+        link: /example-recipe/
+        image : "https://yt3.googleusercontent.com/bUPnDYABdzOveHZUSC-0745utTub-SQ76iuOjvYVUEeQrsA1fBMTgXbAsZ1SigmXd6BbtkqnwA=s900-c-k-c0x00ffffff-no-rj"
+      - name: Showcase
+        link: /showcase/
+        icon: star
+
+# 8. Installed Gems
+plugins:
+- jekyll-sitemap
+- jekyll-paginate
+- jekyll-redirect-from
+- jekyll-feed
+- jekyll-commonmark
+- jekyll-include-cache
+- jemoji
+
+
+# 9. Files excluded from Jekyll builds
+exclude:
+- README.md
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+- screenshot.png
+- LICENSE
+- CNAME
+- Gemfile
+- Gemfile.lock
+- .jekyll-cache

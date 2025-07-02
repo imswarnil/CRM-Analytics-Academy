@@ -1,0 +1,65 @@
+{%- comment -%}
+  Jekyll Include for Disqus Comments with Bulma styling.
+
+  Usage:
+  1. Configure `disqus.enabled` and `disqus.shortname` in `_config.yml`.
+  2. Set `comments: true` in the front matter of pages/posts where you want comments.
+  3. Include this file in your layout: `{% include disqus_comments.html %}`
+
+  Requires Bulma CSS to be loaded on your site.
+{%- endcomment -%}
+
+{%- if site.disqus.enabled and site.disqus.shortname and page.comments -%}
+<section class="section disqus-section">
+  <div class="container">
+    <div class="box disqus-box">
+      <h2 class="title is-4 has-text-centered disqus-title">Comments</h2>
+      <hr class="disqus-hr">
+      <div id="disqus_thread"></div>
+      <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+          */
+          var disqus_config = function () {
+              this.page.url = "{{ page.url | absolute_url }}";  // Uses Jekyll's absolute_url filter
+              this.page.identifier = "{{ page.id }}"; // Uses Jekyll's unique page ID
+              // You could also use:
+              // this.page.identifier = "{{ page.path }}"; // Path of the page
+              // this.page.identifier = "{{ page.url | relative_url }}"; // Relative URL as identifier
+          };
+
+          (function() { // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+              s.src = 'https://{{ site.disqus.shortname }}.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>
+        <div class="notification is-warning">
+          Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </div>
+      </noscript>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{%- comment -%}
+  Optional: Add some custom CSS for finer control, e.g., in your main SASS/CSS file.
+  .disqus-section {
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+  }
+  .disqus-box {
+    background-color: #f9f9f9; // Or your preferred subtle background
+  }
+  .disqus-title {
+    margin-bottom: 1rem;
+  }
+  .disqus-hr {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+{%- endcomment -%}
