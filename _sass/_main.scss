@@ -4,6 +4,10 @@ $primary: #e53935;
 $link : $primary;
 $family-sans-serif: "Figtree", "Arial", sans-serif !default;
 $family-monospace: "Roboto Mono", monospace !default;
+
+@import "./theme/variable";
+@import "./theme/override";
+
 @import "../node_modules/bulma/sass/index";
 
 @import "./theme/icon";
