@@ -8,15 +8,23 @@ $family-monospace: "Roboto Mono", monospace !default;
 
 @import "./theme/icon";
 
+/* ==========================================================================
+   ASPECT THEME - BULMA OVERRIDE
+   ==========================================================================
+   Description: A comprehensive stylesheet to make a Bulma website look
+                like the provided "Aspect" theme.
+   Instructions: Load this file *after* the main Bulma stylesheet.
+   ========================================================================== */
 
 /* ==========================================================================
-   1. THEME VARIABLES (Copied from your theme)
+   1. THEME VARIABLES & COLOR SCHEME SETUP
    ========================================================================== */
 
 :root {
-    /* Set the accent color. Bulma's .is-primary will use this. */
-    --ghost-accent-color: #348f3f; /* Using the theme's success color as a default accent */
+    /* Main Accent Color (used for .is-primary) */
+    --ghost-accent-color: #3e68ff; /* A nice blue as a default primary */
 
+    /* Colors */
     --color-contrast: #000;
     --color-background: #fff;
     --color-background-100: #f3f3f3;
@@ -29,11 +37,16 @@ $family-monospace: "Roboto Mono", monospace !default;
     --color-mute: #b2b2b2;
     --color-success: #348f3f;
     --color-error: #c34d4d;
+    --color-warning: #f5a623;
+    --color-info: #3e68ff;
     --color-white: #fff;
     --color-black: #000;
-    --font-family-headings: "Geist", sans-serif;
-    --font-family-body: "Geist", sans-serif;
-    --font-family-button: "Geist", sans-serif;
+
+    /* Typography */
+    --font-family-headings: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --font-family-body: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --font-family-button: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --font-x-small: 0.75rem;
     --font-small: 0.875rem;
     --font-large: 1.125rem;
@@ -42,6 +55,8 @@ $family-monospace: "Roboto Mono", monospace !default;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
+
+    /* Spacing & Layout */
     --spacing-1: 0.125rem;
     --spacing-2: 0.25rem;
     --spacing-3: 0.375rem;
@@ -51,18 +66,29 @@ $family-monospace: "Roboto Mono", monospace !default;
     --spacing-7: 1rem;
     --spacing-8: 1.25rem;
     --spacing-9: 1.875rem;
-    --spacing-10: 5rem;
+    --layout--padding: clamp(16px, 11.25px + 1.25vw, 30px);
+    --layout--gap: clamp(60px, 53.2143px + 1.7857vw, 80px);
+    --navbar--height: 58px;
+
+    /* Radius */
     --radius-1: 6px;
     --radius-2: 8px;
     --radius-3: 10px;
     --radius-4: 14px;
+    --radius-5: 16px;
+
+    /* Containers */
     --container--width: 700px;
     --container-wide--width: 1100px;
+
+    /* Shadow */
+    --shadow: 0 20px 60px -10px hsla(0,4%,68%,.24), 0 4px 20px -8px rgba(0,0,0,.24);
+
     color-scheme: light;
 }
 
 :root[data-color-scheme="dark"] {
-    --ghost-accent-color: #50b35e; /* A slightly brighter green for dark mode */
+    --ghost-accent-color: #5d82ff;
     --color-accent-foreground: #fff;
     --color-contrast: #fff;
     --color-background: #0f0f0f;
@@ -73,12 +99,17 @@ $family-monospace: "Roboto Mono", monospace !default;
     --color-secondary: grey;
     --color-mute: #666;
     --color-border: hsla(0,0%,60%,.3);
+    --color-success: #4caf50;
+    --color-error: #e57373;
+    --color-warning: #ffb74d;
+    --color-info: #5d82ff;
+    --shadow: 0 20px 60px -10px rgba(0,0,0,.7), 0 4px 20px -8px rgba(0,0,0,.7);
     color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
     :root:not([data-color-scheme="light"]) {
-        --ghost-accent-color: #50b35e;
+        --ghost-accent-color: #5d82ff;
         --color-accent-foreground: #fff;
         --color-contrast: #fff;
         --color-background: #0f0f0f;
@@ -89,19 +120,25 @@ $family-monospace: "Roboto Mono", monospace !default;
         --color-secondary: grey;
         --color-mute: #666;
         --color-border: hsla(0,0%,60%,.3);
+        --color-success: #4caf50;
+        --color-error: #e57373;
+        --color-warning: #ffb74d;
+        --color-info: #5d82ff;
+        --shadow: 0 20px 60px -10px rgba(0,0,0,.7), 0 4px 20px -8px rgba(0,0,0,.7);
         color-scheme: dark;
     }
 }
 
 
 /* ==========================================================================
-   2. GLOBAL & BODY STYLES
+   2. GLOBAL & BASE STYLES
    ========================================================================== */
 
 html, body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-family-body);
+    font-size: 16px;
     font-weight: var(--font-weight-regular);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -112,50 +149,32 @@ a {
     color: var(--color-contrast);
     text-decoration: underline;
     text-decoration-color: currentcolor;
-    text-decoration-thickness: 0.075em;
-    text-underline-offset: 0.15em;
+    text-decoration-thickness: .075em;
+    text-underline-offset: .15em;
     transition: color .1s ease, text-decoration-color .1s ease;
 }
-
 a:hover {
     color: var(--ghost-accent-color);
     text-decoration-color: transparent;
 }
 
-hr, .hr {
-    background-color: var(--color-border);
+strong, b {
+    color: var(--color-contrast);
+    font-weight: var(--font-weight-semibold);
+}
+
+hr.is-divider {
+    border-top: 1px solid var(--color-border);
+    background: none;
     height: 1px;
-    border: none;
-    margin: 25px 0;
+    margin: 2rem 0;
 }
 
 
 /* ==========================================================================
-   3. BULMA COMPONENT OVERRIDES
+   3. LAYOUT & CONTAINER OVERRIDES
    ========================================================================== */
 
-/* --- Typography --- */
-.title {
-    color: var(--color-contrast);
-    font-family: var(--font-family-headings);
-    font-weight: var(--font-weight-semibold);
-    line-height: 1.1;
-}
-
-.subtitle {
-    color: var(--color-secondary);
-    font-family: var(--font-family-body);
-    font-weight: var(--font-weight-regular);
-}
-
-.title.is-1 { font-size: 1.75rem; }
-.title.is-2 { font-size: 1.375rem; }
-.title.is-3 { font-size: 1.25rem; }
-.title.is-4 { font-size: 1.188rem; }
-.title.is-5 { font-size: 1.125rem; }
-.title.is-6 { font-size: 1rem; }
-
-/* --- Layout --- */
 .container {
     max-width: var(--container-wide--width) !important;
 }
@@ -164,15 +183,65 @@ hr, .hr {
 }
 
 .section {
-    padding: 3rem 1.5rem;
+    padding: var(--layout--gap) var(--layout--padding);
 }
 
-/* --- Buttons --- */
+.hero {
+    background-color: transparent;
+}
+.hero-body {
+    padding: var(--layout--gap) var(--layout--padding);
+}
+.hero.is-primary {
+    background-color: var(--ghost-accent-color);
+}
+.hero.is-primary .title, .hero.is-primary .subtitle {
+    color: var(--color-accent-foreground, #fff);
+}
+
+.footer {
+    background-color: var(--color-background-100);
+    color: var(--color-foreground);
+    padding: 3rem 1.5rem 3rem;
+    border-top: 1px solid var(--color-border);
+}
+
+
+/* ==========================================================================
+   4. TYPOGRAPHY OVERRIDES
+   ========================================================================== */
+
+.title, .subtitle {
+    font-family: var(--font-family-headings);
+    word-break: break-word;
+}
+.title {
+    color: var(--color-contrast);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.1;
+}
+.subtitle {
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-regular);
+}
+.title.is-1 { font-size: 1.75rem; }
+.title.is-2 { font-size: 1.375rem; }
+.title.is-3 { font-size: 1.25rem; }
+.title.is-4 { font-size: 1.188rem; }
+.title.is-5 { font-size: 1.125rem; }
+.title.is-6 { font-size: 1rem; }
+
+
+/* ==========================================================================
+   5. ELEMENT OVERRIDES
+   ========================================================================== */
+
+/* --- Button --- */
 .button {
     background-color: var(--ghost-accent-color);
     color: var(--color-accent-foreground, #fff);
     border: none;
-    border-radius: 2.5rem; /* Pill shape */
+    border-radius: 2rem;
     font-family: var(--font-family-button);
     font-size: var(--font-small);
     font-weight: var(--font-weight-semibold);
@@ -180,70 +249,116 @@ hr, .hr {
     padding: var(--spacing-4) var(--spacing-8);
     transition: opacity .15s, background-color .15s, color .15s;
     text-decoration: none;
+    line-height: 1.5;
+    height: auto;
 }
-
 .button:hover, .button:focus {
     background-color: var(--color-contrast);
     color: var(--color-background);
     opacity: 0.8;
 }
+.button:active { opacity: 1; }
+.button:focus:not(:active) { box-shadow: 0 0 0 2px var(--color-border); }
 
-.button:active {
+/* Contextual Buttons */
+.button.is-primary { background-color: var(--ghost-accent-color); color: var(--color-accent-foreground, #fff); }
+.button.is-primary:hover, .button.is-primary:focus { background-color: var(--color-contrast); color: var(--color-background); }
+
+.button.is-light { background-color: var(--color-background-200); color: var(--color-contrast); }
+.button.is-light:hover, .button.is-light:focus { background-color: var(--color-background-300); color: var(--color-contrast); opacity: 1; }
+
+.button.is-dark { background-color: var(--color-contrast); color: var(--color-background); }
+.button.is-dark:hover, .button.is-dark:focus { background-color: var(--color-contrast); color: var(--color-background); opacity: 0.8; }
+
+.button.is-white { background-color: var(--color-white); color: var(--color-black); }
+.button.is-black { background-color: var(--color-black); color: var(--color-white); }
+
+.button.is-success { background-color: var(--color-success); color: #fff; }
+.button.is-danger { background-color: var(--color-error); color: #fff; }
+.button.is-warning { background-color: var(--color-warning); color: #fff; }
+.button.is-info { background-color: var(--color-info); color: #fff; }
+
+.button.is-outlined {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-contrast);
+}
+.button.is-outlined:hover, .button.is-outlined:focus {
+    background-color: var(--color-background-100);
+    border-color: var(--color-border);
+    color: var(--color-contrast);
     opacity: 1;
 }
 
-.button.is-primary {
-    background-color: var(--ghost-accent-color);
-    color: var(--color-accent-foreground, #fff);
-}
-
-.button.is-primary:hover, .button.is-primary:focus {
-    background-color: var(--color-contrast);
-    color: var(--color-background);
-}
-
-.button.is-light {
+/* --- Notification / Message --- */
+.notification, .message {
     background-color: var(--color-background-100);
-    color: var(--color-contrast);
+    color: var(--color-foreground);
+    border-radius: var(--radius-4);
+    padding: var(--spacing-8);
 }
+.notification a:not(.button), .message a:not(.button) { color: var(--color-contrast); }
+.notification a:not(.button):hover, .message a:not(.button):hover { color: var(--ghost-accent-color); }
+.notification .delete, .message .delete { background-color: var(--color-mute); }
 
-.button.is-light:hover, .button.is-light:focus {
+.message-header {
     background-color: var(--color-background-200);
     color: var(--color-contrast);
-    opacity: 1;
-}
-
-.button.is-dark {
-    background-color: var(--color-contrast);
-    color: var(--color-background);
-}
-.button.is-dark:hover, .button.is-dark:focus {
-    background-color: var(--color-contrast);
-    color: var(--color-background);
-    opacity: 0.8;
-}
-
-/* --- Forms --- */
-.input, .textarea, .select select {
-    background-color: var(--color-background-100);
-    border: none;
-    border-radius: 1.5rem;
-    color: var(--color-contrast);
-    font-size: var(--font-small);
     font-weight: var(--font-weight-medium);
-    min-height: 3rem;
-    padding: var(--spacing-6) var(--spacing-8);
-    box-shadow: none;
+    border-radius: var(--radius-4) var(--radius-4) 0 0;
+}
+.message-body {
+    border: none;
+    color: var(--color-foreground);
+    border-radius: 0 0 var(--radius-4) var(--radius-4);
+}
+.message.is-primary .message-header { background-color: var(--ghost-accent-color); color: #fff; }
+.message.is-success .message-header { background-color: var(--color-success); color: #fff; }
+.message.is-danger .message-header { background-color: var(--color-error); color: #fff; }
+
+/* --- Tag --- */
+.tag:not(body) {
+    background-color: var(--color-background-200);
+    color: var(--color-contrast);
+    border-radius: var(--radius-1);
+    font-weight: var(--font-weight-medium);
+    padding: var(--spacing-1) var(--spacing-5);
+    height: 1.625rem;
+}
+.tags .tag { margin-bottom: var(--spacing-3); }
+.tags.are-medium .tag { font-size: var(--font-small); }
+
+/* --- Table --- */
+.table {
+    background-color: transparent;
+    color: var(--color-foreground);
+}
+.table td, .table th {
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-5) var(--spacing-7);
+    vertical-align: middle;
+}
+.table th {
+    color: var(--color-contrast);
+    font-weight: var(--font-weight-medium);
+}
+.table thead td, .table thead th {
+    border-width: 0 0 1px 0;
+    border-color: var(--color-border);
+    color: var(--color-contrast);
+}
+.table tfoot td, .table tfoot th {
+    border-width: 1px 0 0 0;
+    border-color: var(--color-border);
+}
+.table tr:not(.is-selected):hover {
+    background-color: var(--color-background-100);
 }
 
-.input:hover, .textarea:hover, .select select:hover {
-    border-color: transparent;
-}
 
-.input:focus, .textarea:focus, .select select:focus {
-    border-color: var(--ghost-accent-color) !important;
-    box-shadow: 0 0 0 2px var(--ghost-accent-color) !important;
-}
+/* ==========================================================================
+   6. FORM OVERRIDES
+   ========================================================================== */
 
 .label {
     color: var(--color-contrast);
@@ -251,10 +366,30 @@ hr, .hr {
     font-weight: var(--font-weight-medium);
 }
 
+.input, .textarea, .select select {
+    background-color: var(--color-background-100);
+    border: 1px solid transparent;
+    border-radius: 1.5rem;
+    color: var(--color-contrast);
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-medium);
+    min-height: 3rem;
+    padding: var(--spacing-6) var(--spacing-8);
+    box-shadow: none;
+    transition: border-color .15s, box-shadow .15s;
+}
+.input:hover, .textarea:hover, .select select:hover {
+    border-color: var(--color-border);
+}
+.input:focus, .textarea:focus, .select select:focus,
+.input.is-focused, .textarea.is-focused {
+    border-color: var(--ghost-accent-color) !important;
+    box-shadow: 0 0 0 2px var(--ghost-accent-color) !important;
+}
+.textarea { padding: var(--spacing-6) var(--spacing-8); min-height: 140px; }
+
 .select {
     border-radius: 1.5rem;
-}
-.select:not(:multiple) {
     height: 3rem;
 }
 .select:not(:multiple)::after {
@@ -263,46 +398,78 @@ hr, .hr {
     top: 55%;
 }
 
+.checkbox, .radio {
+    margin-right: .5rem;
+}
+.checkbox input[type="checkbox"], .radio input[type="radio"] {
+    display: none;
+}
+.checkbox:before, .radio:before {
+    content: "";
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: .5rem;
+    vertical-align: -0.325em;
+    background-color: var(--color-background-200);
+    position: relative;
+    transition: background-color .1s ease, border-color .1s ease;
+}
+.checkbox:before {
+    border-radius: var(--radius-1);
+}
+.radio:before {
+    border-radius: 50%;
+}
+.checkbox input:checked + span:before {
+    background-color: var(--color-contrast);
+    background-image: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.3333 4L5.99996 11.3333L2.66663 8" stroke="white" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70%;
+}
+.radio input:checked + span:before {
+    background-color: var(--color-contrast);
+    background-image: radial-gradient(var(--color-background) 30%, transparent 35%);
+}
+
+.file-cta, .file-name {
+    border-color: var(--color-border);
+}
+.file-cta {
+    background-color: var(--color-background-200);
+    color: var(--color-contrast);
+}
+
+
+/* ==========================================================================
+   7. COMPONENT OVERRIDES
+   ========================================================================== */
+
 /* --- Card --- */
 .card {
     background-color: var(--color-background-100);
     border-radius: var(--radius-4);
     box-shadow: none;
     transition: background-color .2s ease;
+    overflow: hidden;
 }
-.card:hover {
-    background-color: var(--color-background-200);
-}
-
-.card-header {
-    background-color: transparent;
-    box-shadow: none;
-}
-.card-header-title {
-    color: var(--color-contrast);
-    font-family: var(--font-family-headings);
-    font-weight: var(--font-weight-semibold);
-}
-.card-content {
-    color: var(--color-foreground);
-    padding: 1.5rem;
-}
-.card-footer {
-    border-top: 1px solid var(--color-border);
-}
-.card-footer-item {
-    color: var(--color-contrast);
-}
-.card-footer-item:hover {
-    color: var(--ghost-accent-color);
-}
-
+.card:hover { background-color: var(--color-background-200); }
+.card-header { background-color: transparent; box-shadow: none; border-bottom: 1px solid var(--color-border); }
+.card-header-title { color: var(--color-contrast); font-family: var(--font-family-headings); font-weight: var(--font-weight-semibold); }
+.card-image img { border-radius: var(--radius-4) var(--radius-4) 0 0; }
+.card-content { color: var(--color-foreground); padding: var(--spacing-8); }
+.card-footer { border-top: 1px solid var(--color-border); }
+.card-footer-item { color: var(--color-contrast); }
+.card-footer-item:hover { color: var(--ghost-accent-color); }
 
 /* --- Navbar --- */
 .navbar {
-    background-color: rgba(var(--color-background-rgb, 255, 255, 255), 0.9); /* Requires JS to set --color-background-rgb */
+    background-color: rgba(var(--color-background-rgb, 255, 255, 255), 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    min-height: var(--navbar--height);
+    box-shadow: none;
 }
 :root[data-color-scheme="dark"] .navbar {
     background-color: rgba(var(--color-background-rgb, 15, 15, 15), 0.9);
@@ -316,77 +483,89 @@ hr, .hr {
     color: var(--color-contrast);
     font-weight: var(--font-weight-medium);
     text-decoration: none;
+    border-radius: var(--radius-2);
 }
-.navbar-item:hover, .navbar-link:hover, .navbar-item.is-active {
+.navbar-item:hover, .navbar-link:hover, .navbar-item.is-active, .navbar-link.is-active {
     background-color: var(--color-background-200);
     color: var(--color-contrast);
 }
-.navbar-link::after {
-    border-color: var(--color-contrast);
-}
+.navbar-link::after { border-color: var(--color-contrast); }
 .navbar-dropdown {
     background-color: var(--color-background);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-3);
+    box-shadow: var(--shadow);
+    padding-bottom: 0;
+    padding-top: 0;
 }
+.navbar-divider { background-color: var(--color-border); }
 
-/* --- Message / Notifications --- */
-.message {
-    background-color: var(--color-background-100);
-    border-radius: var(--radius-3);
+/* --- Menu (Sidebar) --- */
+.menu-label {
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-semibold);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: var(--font-x-small);
 }
-.message-header {
-    background-color: var(--color-background-200);
+.menu-list a {
     color: var(--color-contrast);
     font-weight: var(--font-weight-medium);
-}
-.message-body {
-    border: none;
-    color: var(--color-foreground);
-}
-.message.is-primary .message-header { background-color: var(--ghost-accent-color); color: #fff; }
-.message.is-danger .message-header { background-color: var(--color-error); color: #fff; }
-.message.is-success .message-header { background-color: var(--color-success); color: #fff; }
-
-.notification {
-    background-color: var(--color-background-100);
-    color: var(--color-foreground);
     border-radius: var(--radius-3);
+    padding: var(--spacing-4) var(--spacing-6);
 }
-.notification.is-primary {
-    background-color: var(--ghost-accent-color);
-    color: #fff;
+.menu-list a:hover {
+    background-color: var(--color-background-200);
+    color: var(--color-contrast);
+}
+.menu-list a.is-active {
+    background-color: var(--color-background-200);
+    color: var(--color-contrast);
+}
+
+/* --- Tabs --- */
+.tabs a {
+    color: var(--color-secondary);
+    border-bottom-color: var(--color-border);
+    padding: 0.75em 1em;
+}
+.tabs a:hover {
+    color: var(--color-contrast);
+    border-bottom-color: var(--color-mute);
+}
+.tabs li.is-active a {
+    color: var(--color-contrast);
+    border-bottom-color: var(--color-contrast);
+    font-weight: var(--font-weight-semibold);
 }
 
 
 /* ==========================================================================
-   4. CONTENT STYLES (for Bulma's .content class)
+   8. CONTENT CLASS OVERRIDE
    ========================================================================== */
+
+.content {
+    line-height: 1.5;
+    word-break: break-word;
+}
+.content p {
+    color: var(--color-foreground);
+    margin-bottom: var(--spacing-7);
+}
 .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
     color: var(--color-contrast);
     font-family: var(--font-family-headings);
     font-weight: var(--font-weight-semibold);
+    margin-top: calc(1.5 * var(--spacing-7));
+    margin-bottom: var(--spacing-7);
 }
-
-.content h1 { font-size: 1.75rem; line-height: 1.1; }
-.content h2 { font-size: 1.375rem; line-height: 1.2; }
-.content h3 { font-size: 1.25rem; line-height: 1.2; }
-.content h4 { font-size: 1.188rem; line-height: 1.2; }
-.content h5 { font-size: 1.125rem; line-height: 1.2; }
-.content h6 { font-size: 1rem; line-height: 1.2; }
-
-.content p {
-    color: var(--color-foreground);
-}
-
 .content blockquote {
     background-color: transparent;
     border-left: 2px solid var(--ghost-accent-color);
     color: var(--color-contrast);
     font-weight: var(--font-weight-medium);
-    padding: 0.5em 1rem;
+    padding: 0.5em var(--spacing-7);
 }
-
 .content ul {
     list-style: none;
     padding-left: 0;
@@ -394,6 +573,7 @@ hr, .hr {
 .content ul li {
     padding-left: var(--spacing-8);
     position: relative;
+    margin-bottom: 0.5em;
 }
 .content ul li::before {
     content: "";
@@ -405,7 +585,6 @@ hr, .hr {
     left: 0.25rem;
     top: 0.65em;
 }
-
 .content ol {
     padding-left: var(--spacing-8);
 }
@@ -413,7 +592,6 @@ hr, .hr {
     font-size: .938em;
     font-weight: var(--font-weight-medium);
 }
-
 .content pre {
     background-color: var(--color-background-100);
     box-shadow: inset 0 0 0 1px var(--color-border);
@@ -422,8 +600,8 @@ hr, .hr {
     padding: var(--spacing-6) var(--spacing-7);
     white-space: pre-wrap;
     word-break: break-all;
+    font-family: var(--font-family-mono);
 }
-
 .content code {
     background-color: var(--color-background-100);
     box-shadow: inset 0 0 0 1px var(--color-border);
@@ -431,27 +609,11 @@ hr, .hr {
     border-radius: var(--radius-1);
     font-size: 0.875em;
     padding: var(--spacing-2) var(--spacing-3);
+    font-family: var(--font-family-mono);
 }
-
 .content pre code {
     padding: 0;
     box-shadow: none;
     background: transparent;
-}
-
-.content table {
-    background-color: transparent;
-    width: 100%;
-}
-.content td, .content th {
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-5) var(--spacing-7);
-    color: var(--color-foreground);
-}
-.content th {
-    color: var(--color-contrast);
-    font-weight: var(--font-weight-medium);
-}
-.content thead td, .content thead th {
-    border-bottom-width: 2px;
+    color: inherit;
 }
