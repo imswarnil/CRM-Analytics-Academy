@@ -8,3 +8,450 @@ $family-monospace: "Roboto Mono", monospace !default;
 
 @import "./theme/icon";
 
+
+/* ==========================================================================
+   1. THEME VARIABLES (Copied from your theme)
+   ========================================================================== */
+
+:root {
+    /* Set the accent color. Bulma's .is-primary will use this. */
+    --ghost-accent-color: #348f3f; /* Using the theme's success color as a default accent */
+
+    --color-contrast: #000;
+    --color-background: #fff;
+    --color-background-100: #f3f3f3;
+    --color-background-200: #ededed;
+    --color-background-300: #dadada;
+    --color-border: hsla(0,0%,50%,.2);
+    --color-overlay: rgba(5,5,5,.7);
+    --color-foreground: #4d4d4d;
+    --color-secondary: #757575;
+    --color-mute: #b2b2b2;
+    --color-success: #348f3f;
+    --color-error: #c34d4d;
+    --color-white: #fff;
+    --color-black: #000;
+    --font-family-headings: "Geist", sans-serif;
+    --font-family-body: "Geist", sans-serif;
+    --font-family-button: "Geist", sans-serif;
+    --font-x-small: 0.75rem;
+    --font-small: 0.875rem;
+    --font-large: 1.125rem;
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --spacing-1: 0.125rem;
+    --spacing-2: 0.25rem;
+    --spacing-3: 0.375rem;
+    --spacing-4: 0.5rem;
+    --spacing-5: 0.625rem;
+    --spacing-6: 0.75rem;
+    --spacing-7: 1rem;
+    --spacing-8: 1.25rem;
+    --spacing-9: 1.875rem;
+    --spacing-10: 5rem;
+    --radius-1: 6px;
+    --radius-2: 8px;
+    --radius-3: 10px;
+    --radius-4: 14px;
+    --container--width: 700px;
+    --container-wide--width: 1100px;
+    color-scheme: light;
+}
+
+:root[data-color-scheme="dark"] {
+    --ghost-accent-color: #50b35e; /* A slightly brighter green for dark mode */
+    --color-accent-foreground: #fff;
+    --color-contrast: #fff;
+    --color-background: #0f0f0f;
+    --color-background-100: #212121;
+    --color-background-200: #282828;
+    --color-background-300: #3f3f3f;
+    --color-foreground: #aaa;
+    --color-secondary: grey;
+    --color-mute: #666;
+    --color-border: hsla(0,0%,60%,.3);
+    color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-color-scheme="light"]) {
+        --ghost-accent-color: #50b35e;
+        --color-accent-foreground: #fff;
+        --color-contrast: #fff;
+        --color-background: #0f0f0f;
+        --color-background-100: #212121;
+        --color-background-200: #282828;
+        --color-background-300: #3f3f3f;
+        --color-foreground: #aaa;
+        --color-secondary: grey;
+        --color-mute: #666;
+        --color-border: hsla(0,0%,60%,.3);
+        color-scheme: dark;
+    }
+}
+
+
+/* ==========================================================================
+   2. GLOBAL & BODY STYLES
+   ========================================================================== */
+
+html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-regular);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: var(--color-contrast);
+    text-decoration: underline;
+    text-decoration-color: currentcolor;
+    text-decoration-thickness: 0.075em;
+    text-underline-offset: 0.15em;
+    transition: color .1s ease, text-decoration-color .1s ease;
+}
+
+a:hover {
+    color: var(--ghost-accent-color);
+    text-decoration-color: transparent;
+}
+
+hr, .hr {
+    background-color: var(--color-border);
+    height: 1px;
+    border: none;
+    margin: 25px 0;
+}
+
+
+/* ==========================================================================
+   3. BULMA COMPONENT OVERRIDES
+   ========================================================================== */
+
+/* --- Typography --- */
+.title {
+    color: var(--color-contrast);
+    font-family: var(--font-family-headings);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.1;
+}
+
+.subtitle {
+    color: var(--color-secondary);
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-regular);
+}
+
+.title.is-1 { font-size: 1.75rem; }
+.title.is-2 { font-size: 1.375rem; }
+.title.is-3 { font-size: 1.25rem; }
+.title.is-4 { font-size: 1.188rem; }
+.title.is-5 { font-size: 1.125rem; }
+.title.is-6 { font-size: 1rem; }
+
+/* --- Layout --- */
+.container {
+    max-width: var(--container-wide--width) !important;
+}
+.container.is-narrow {
+    max-width: var(--container--width) !important;
+}
+
+.section {
+    padding: 3rem 1.5rem;
+}
+
+/* --- Buttons --- */
+.button {
+    background-color: var(--ghost-accent-color);
+    color: var(--color-accent-foreground, #fff);
+    border: none;
+    border-radius: 2.5rem; /* Pill shape */
+    font-family: var(--font-family-button);
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-semibold);
+    min-height: 2.5rem;
+    padding: var(--spacing-4) var(--spacing-8);
+    transition: opacity .15s, background-color .15s, color .15s;
+    text-decoration: none;
+}
+
+.button:hover, .button:focus {
+    background-color: var(--color-contrast);
+    color: var(--color-background);
+    opacity: 0.8;
+}
+
+.button:active {
+    opacity: 1;
+}
+
+.button.is-primary {
+    background-color: var(--ghost-accent-color);
+    color: var(--color-accent-foreground, #fff);
+}
+
+.button.is-primary:hover, .button.is-primary:focus {
+    background-color: var(--color-contrast);
+    color: var(--color-background);
+}
+
+.button.is-light {
+    background-color: var(--color-background-100);
+    color: var(--color-contrast);
+}
+
+.button.is-light:hover, .button.is-light:focus {
+    background-color: var(--color-background-200);
+    color: var(--color-contrast);
+    opacity: 1;
+}
+
+.button.is-dark {
+    background-color: var(--color-contrast);
+    color: var(--color-background);
+}
+.button.is-dark:hover, .button.is-dark:focus {
+    background-color: var(--color-contrast);
+    color: var(--color-background);
+    opacity: 0.8;
+}
+
+/* --- Forms --- */
+.input, .textarea, .select select {
+    background-color: var(--color-background-100);
+    border: none;
+    border-radius: 1.5rem;
+    color: var(--color-contrast);
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-medium);
+    min-height: 3rem;
+    padding: var(--spacing-6) var(--spacing-8);
+    box-shadow: none;
+}
+
+.input:hover, .textarea:hover, .select select:hover {
+    border-color: transparent;
+}
+
+.input:focus, .textarea:focus, .select select:focus {
+    border-color: var(--ghost-accent-color) !important;
+    box-shadow: 0 0 0 2px var(--ghost-accent-color) !important;
+}
+
+.label {
+    color: var(--color-contrast);
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-medium);
+}
+
+.select {
+    border-radius: 1.5rem;
+}
+.select:not(:multiple) {
+    height: 3rem;
+}
+.select:not(:multiple)::after {
+    border-color: var(--color-secondary);
+    right: 1.5em;
+    top: 55%;
+}
+
+/* --- Card --- */
+.card {
+    background-color: var(--color-background-100);
+    border-radius: var(--radius-4);
+    box-shadow: none;
+    transition: background-color .2s ease;
+}
+.card:hover {
+    background-color: var(--color-background-200);
+}
+
+.card-header {
+    background-color: transparent;
+    box-shadow: none;
+}
+.card-header-title {
+    color: var(--color-contrast);
+    font-family: var(--font-family-headings);
+    font-weight: var(--font-weight-semibold);
+}
+.card-content {
+    color: var(--color-foreground);
+    padding: 1.5rem;
+}
+.card-footer {
+    border-top: 1px solid var(--color-border);
+}
+.card-footer-item {
+    color: var(--color-contrast);
+}
+.card-footer-item:hover {
+    color: var(--ghost-accent-color);
+}
+
+
+/* --- Navbar --- */
+.navbar {
+    background-color: rgba(var(--color-background-rgb, 255, 255, 255), 0.9); /* Requires JS to set --color-background-rgb */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+:root[data-color-scheme="dark"] .navbar {
+    background-color: rgba(var(--color-background-rgb, 15, 15, 15), 0.9);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-color-scheme="light"]) .navbar {
+        background-color: rgba(var(--color-background-rgb, 15, 15, 15), 0.9);
+    }
+}
+.navbar-item, .navbar-link {
+    color: var(--color-contrast);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+}
+.navbar-item:hover, .navbar-link:hover, .navbar-item.is-active {
+    background-color: var(--color-background-200);
+    color: var(--color-contrast);
+}
+.navbar-link::after {
+    border-color: var(--color-contrast);
+}
+.navbar-dropdown {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-3);
+}
+
+/* --- Message / Notifications --- */
+.message {
+    background-color: var(--color-background-100);
+    border-radius: var(--radius-3);
+}
+.message-header {
+    background-color: var(--color-background-200);
+    color: var(--color-contrast);
+    font-weight: var(--font-weight-medium);
+}
+.message-body {
+    border: none;
+    color: var(--color-foreground);
+}
+.message.is-primary .message-header { background-color: var(--ghost-accent-color); color: #fff; }
+.message.is-danger .message-header { background-color: var(--color-error); color: #fff; }
+.message.is-success .message-header { background-color: var(--color-success); color: #fff; }
+
+.notification {
+    background-color: var(--color-background-100);
+    color: var(--color-foreground);
+    border-radius: var(--radius-3);
+}
+.notification.is-primary {
+    background-color: var(--ghost-accent-color);
+    color: #fff;
+}
+
+
+/* ==========================================================================
+   4. CONTENT STYLES (for Bulma's .content class)
+   ========================================================================== */
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+    color: var(--color-contrast);
+    font-family: var(--font-family-headings);
+    font-weight: var(--font-weight-semibold);
+}
+
+.content h1 { font-size: 1.75rem; line-height: 1.1; }
+.content h2 { font-size: 1.375rem; line-height: 1.2; }
+.content h3 { font-size: 1.25rem; line-height: 1.2; }
+.content h4 { font-size: 1.188rem; line-height: 1.2; }
+.content h5 { font-size: 1.125rem; line-height: 1.2; }
+.content h6 { font-size: 1rem; line-height: 1.2; }
+
+.content p {
+    color: var(--color-foreground);
+}
+
+.content blockquote {
+    background-color: transparent;
+    border-left: 2px solid var(--ghost-accent-color);
+    color: var(--color-contrast);
+    font-weight: var(--font-weight-medium);
+    padding: 0.5em 1rem;
+}
+
+.content ul {
+    list-style: none;
+    padding-left: 0;
+}
+.content ul li {
+    padding-left: var(--spacing-8);
+    position: relative;
+}
+.content ul li::before {
+    content: "";
+    background-color: currentColor;
+    border-radius: 50%;
+    height: 0.25rem;
+    width: 0.25rem;
+    position: absolute;
+    left: 0.25rem;
+    top: 0.65em;
+}
+
+.content ol {
+    padding-left: var(--spacing-8);
+}
+.content ol li::marker {
+    font-size: .938em;
+    font-weight: var(--font-weight-medium);
+}
+
+.content pre {
+    background-color: var(--color-background-100);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+    color: var(--color-contrast);
+    border-radius: var(--radius-2);
+    padding: var(--spacing-6) var(--spacing-7);
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.content code {
+    background-color: var(--color-background-100);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+    color: var(--color-contrast);
+    border-radius: var(--radius-1);
+    font-size: 0.875em;
+    padding: var(--spacing-2) var(--spacing-3);
+}
+
+.content pre code {
+    padding: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+.content table {
+    background-color: transparent;
+    width: 100%;
+}
+.content td, .content th {
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-5) var(--spacing-7);
+    color: var(--color-foreground);
+}
+.content th {
+    color: var(--color-contrast);
+    font-weight: var(--font-weight-medium);
+}
+.content thead td, .content thead th {
+    border-bottom-width: 2px;
+}
