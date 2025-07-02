@@ -1,135 +1,209 @@
 // =========================================================================
-// HOMEPAGE-SPECIFIC STYLES
+// CREATIVE HOMEPAGE STYLES
 // =========================================================================
 
-// --- Hero Section ---
-.homepage-hero {
-  background-color: $color-background-100;
-  border-bottom: 1px solid $color-border;
+// --- 1. Creative Hero Section ---
+.homepage-hero-creative {
+    color: white;
+    position: relative;
+    overflow: hidden;
 
-  .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: $weight-bold;
-    color: $color-contrast;
-  }
+    // Animated gradient background
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(135deg, darken($primary, 15%), lighten($primary, 15%), lighten($info, 10%));
+        background-size: 400% 400%;
+        animation: gradient-animation 15s ease infinite;
+        z-index: 0;
+    }
+
+    .hero-body {
+        position: relative;
+        z-index: 1;
+        background: rgba(0,0,0,0.2); // Darkens the gradient slightly for text readability
+    }
+
+    .hero-eyebrow {
+        color: rgba(255, 255, 255, 0.8);
+        letter-spacing: 0.1em;
+    }
+
+    .hero-title {
+        color: white;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: $weight-bold;
+        text-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
   
-  .hero-subtitle {
-    color: $color-secondary;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-  }
-
-  .button.is-primary.is-large {
-    padding: 1.25rem 2.5rem;
-    font-size: 1.1rem;
-    font-weight: $weight-semibold;
-    box-shadow: 0 10px 25px rgba($primary, 0.2);
-    
-    .icon {
-        transition: transform 0.3s ease;
-    }
-
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 14px 30px rgba($primary, 0.25);
-        .icon {
-            transform: translateX(5px);
-        }
-    }
-  }
-}
-
-// --- Features Section ---
-.feature-box {
-    padding: 2rem 1.5rem;
-    
-    .icon.is-large svg {
-        width: 48px;
-        height: 48px;
-    }
-
-    h3.title {
-        color: $color-contrast;
-    }
-    
-    p {
-        color: $color-secondary;
+    .hero-subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
         line-height: 1.7;
     }
+
+    .hero-button-primary {
+        padding: 1.25rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: $weight-semibold;
+        box-shadow: 0 10px 25px rgba(0,0,0, 0.2);
+        border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    .hero-button-secondary {
+        padding: 1.25rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: $weight-semibold;
+        background-color: rgba(255,255,255,0.1);
+        color: white;
+        border: 2px solid rgba(255,255,255,0.3);
+        backdrop-filter: blur(5px);
+    }
 }
 
-// --- Course Listing Section ---
-.course-card {
-    transition: all 0.3s ease;
-    height: 100%; // Makes cards in a row equal height
-    display: flex;
-    flex-direction: column;
+@keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-    .card-image img {
-        transition: transform 0.4s ease;
+// --- 2. Social Proof Section ---
+.social-proof-section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: $color-background-100;
+    border-bottom: 1px solid $color-border;
+    img {
+        max-height: 25px;
+        width: auto;
+        filter: grayscale(100%);
+        opacity: 0.6;
+        transition: all 0.3s ease;
+        &:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+    }
+}
+
+// --- 3. Creative Course Card ---
+.course-listing-section {
+    background-color: $color-background-100;
+}
+.course-card-creative {
+    border-radius: $radius-large;
+    overflow: hidden;
+    background: $color-background;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease-out;
+    height: 100%;
+
+    .course-card-link {
+        display: block;
+        color: inherit;
+        text-decoration: none !important;
+    }
+
+    .card-image {
+        position: relative;
+        .course-card-overlay {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+        img {
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
     }
 
     .card-content {
-        // Pushes the button to the bottom
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        .content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            .button {
-                margin-top: auto; // The magic to align buttons
-            }
-        }
+        padding: 1.5rem;
     }
 
-    .title.is-4 a {
+    .course-title {
         color: $color-contrast;
-        &:hover {
-            color: $primary;
-        }
+        line-height: 1.3;
+        transition: color 0.3s ease;
     }
 
     &:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
         .card-image img {
-            transform: scale(1.05);
+            transform: scale(1.1);
+        }
+        .course-title {
+            color: $primary;
         }
     }
 }
 
-// --- Final Call to Action ---
-.final-cta {
-    background-color: $color-contrast;
-    padding: 3rem;
+// --- 4. Testimonial Section ---
+.testimonial-section {
+    background-color: $color-background;
+    .is-size-5 {
+      color: $color-secondary;
+    }
+}
+.testimonial-box {
+    background-color: $color-background-100;
+    padding: 2.5rem;
     border-radius: $radius-large;
+    position: relative;
+
+    &::before { // Quotation mark pseudo-element
+        content: '“';
+        font-family: serif;
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        font-size: 8rem;
+        color: $color-border;
+        z-index: 0;
+        line-height: 1;
+    }
+
+    .testimonial-quote {
+        font-size: 1.25rem;
+        line-height: 1.7;
+        font-weight: $weight-medium;
+        color: $color-contrast;
+        position: relative;
+        z-index: 1;
+    }
+
+    .media-content .title {
+        color: $color-contrast;
+    }
+    .media-content .subtitle {
+        color: $color-secondary;
+    }
+}
+
+// --- 5. Final CTA / Newsletter ---
+.final-cta-section {
+    background: $color-background-100;
+}
+.final-cta-box {
+    background: $color-contrast;
+    padding: clamp(2rem, 5vw, 4rem);
 
     .title, .subtitle {
         color: $color-background;
     }
-    
     .subtitle {
-        color: rgba($color-background, 0.8);
+        opacity: 0.8;
     }
-    
-    .button {
-        box-shadow: none;
-        &:hover {
-            background-color: lighten($primary, 5%);
-        }
+    .input {
+        border-radius: $radius-rounded 0 0 $radius-rounded;
+        height: 3rem;
+        border: 1px solid $color-border;
     }
-}
-
-@media screen and (max-width: 768px) {
-    .final-cta {
-        text-align: center;
-        .column.is-4 {
-            text-align: center !important;
-            margin-top: 1.5rem;
-        }
+    .button.is-primary {
+        border-radius: 0 $radius-rounded $radius-rounded 0;
+        height: 3rem;
     }
 }

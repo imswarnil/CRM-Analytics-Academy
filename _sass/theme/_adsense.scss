@@ -1,0 +1,50 @@
+// =========================================================================
+// AD CONTAINER STYLES
+// =========================================================================
+
+.ad-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: $color-background-100;
+    border: 1px dashed $color-border;
+    border-radius: $radius-medium;
+    min-height: 90px; // Ensure container has height even if ad fails to load
+
+    // The actual ad unit from Google
+    .adsbygoogle {
+        text-align: center;
+    }
+
+    // A small label to identify ads, improving user trust
+    .ad-label {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: $color-background-200;
+        color: $color-mute;
+        font-size: 0.65rem;
+        font-weight: $weight-bold;
+        padding: 2px 8px;
+        border-radius: $radius-small;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        z-index: 1;
+    }
+}
+
+// Specific format adjustments
+.ad-leaderboard,
+.ad-leaderboard-large,
+.ad-billboard {
+    max-width: 980px;
+}
+
+// For responsive ads, we want the container to be flexible
+.ad-responsive {
+    width: 100%;
+}
