@@ -1,0 +1,135 @@
+// =========================================================================
+// HOMEPAGE-SPECIFIC STYLES
+// =========================================================================
+
+// --- Hero Section ---
+.homepage-hero {
+  background-color: $color-background-100;
+  border-bottom: 1px solid $color-border;
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: $weight-bold;
+    color: $color-contrast;
+  }
+  
+  .hero-subtitle {
+    color: $color-secondary;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .button.is-primary.is-large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: $weight-semibold;
+    box-shadow: 0 10px 25px rgba($primary, 0.2);
+    
+    .icon {
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba($primary, 0.25);
+        .icon {
+            transform: translateX(5px);
+        }
+    }
+  }
+}
+
+// --- Features Section ---
+.feature-box {
+    padding: 2rem 1.5rem;
+    
+    .icon.is-large svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    h3.title {
+        color: $color-contrast;
+    }
+    
+    p {
+        color: $color-secondary;
+        line-height: 1.7;
+    }
+}
+
+// --- Course Listing Section ---
+.course-card {
+    transition: all 0.3s ease;
+    height: 100%; // Makes cards in a row equal height
+    display: flex;
+    flex-direction: column;
+
+    .card-image img {
+        transition: transform 0.4s ease;
+    }
+
+    .card-content {
+        // Pushes the button to the bottom
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            .button {
+                margin-top: auto; // The magic to align buttons
+            }
+        }
+    }
+
+    .title.is-4 a {
+        color: $color-contrast;
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        .card-image img {
+            transform: scale(1.05);
+        }
+    }
+}
+
+// --- Final Call to Action ---
+.final-cta {
+    background-color: $color-contrast;
+    padding: 3rem;
+    border-radius: $radius-large;
+
+    .title, .subtitle {
+        color: $color-background;
+    }
+    
+    .subtitle {
+        color: rgba($color-background, 0.8);
+    }
+    
+    .button {
+        box-shadow: none;
+        &:hover {
+            background-color: lighten($primary, 5%);
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .final-cta {
+        text-align: center;
+        .column.is-4 {
+            text-align: center !important;
+            margin-top: 1.5rem;
+        }
+    }
+}
