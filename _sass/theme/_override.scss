@@ -1,6 +1,8 @@
 // =========================================================================
-// BULMA COMPONENT & ELEMENT OVERRIDES
+// BULMA COMPONENT & ELEMENT HARD OVERRIDES
+// Styles that go beyond what variables can control.
 // =========================================================================
+@use "sass:math";
 
 // --- 1. Base & Helpers ---
 html, body {
@@ -22,57 +24,52 @@ a {
     }
 }
 
+hr {
+    background-color: $color-border;
+    height: 1px;
+    border: none;
+    margin: 2rem 0;
+}
+
 // --- 2. Typography ---
 .title, .subtitle {
-    font-family: $family-sans-serif;
+    font-family: $title-family;
     word-break: break-word;
 }
 .title {
-    color: $color-contrast;
-    font-weight: $weight-semibold;
-    line-height: 1.1;
     strong { color: inherit; font-weight: $weight-bold; }
 }
-.subtitle {
-    color: $color-secondary;
-    font-weight: $weight-normal;
-    line-height: 1.5;
-}
+// FIX: Use math.div for Sass deprecation warning
 @for $i from 1 through 6 {
     .title.is-#{$i} {
-        font-size: 1rem + (1.75 - 1) / 5 * (6 - $i);
+        font-size: 1rem + math.div(1.75rem - 1rem, 5) * (6 - $i);
     }
     .subtitle.is-#{$i} {
-        font-size: 1rem + (1.25 - 1) / 5 * (6 - $i);
+        font-size: 0.85rem + math.div(1.25rem - 0.85rem, 5) * (6 - $i);
     }
 }
 
 // --- 3. Layout ---
 .section {
-    padding: $layout--gap $layout--padding;
+    padding: $layout-gap $layout-padding;
 }
 .hero-body {
-    padding: $layout--gap $layout--padding;
+    padding: $layout-gap $layout-padding;
 }
 .footer {
     background-color: $color-background-100;
     border-top: 1px solid $color-border;
     color: $color-secondary;
     padding: 3rem 1.5rem;
-    .title {
-        color: $color-contrast;
-    }
+    .title { color: $color-contrast; }
 }
 
 // --- 4. Elements ---
 
 // Box
 .box {
-    border-radius: $box-radius;
-    box-shadow: $box-shadow;
-    background-color: $box-background-color;
     color: $color-foreground;
-    padding: $box-padding;
+    padding: 1.5rem;
 }
 
 // Button
@@ -80,15 +77,17 @@ a {
     min-height: 2.5rem;
     height: auto;
     line-height: 1.5;
-    padding-top: $button-padding-vertical;
-    padding-bottom: $button-padding-vertical;
+    padding-top: 0.65em;
+    padding-bottom: 0.65em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
     transition: all .2s ease;
 
     &:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 10px rgba($primary, 0.2);
     }
-    &:focus {
+    &:focus:not(:active) {
         box-shadow: 0 0 0 3px rgba($primary, 0.25);
     }
     &:active {
@@ -96,92 +95,16 @@ a {
         box-shadow: 0 2px 5px rgba($primary, 0.2);
     }
 
-    // Contextual Colors
-    &.is-primary {
-        background-color: $primary;
-        color: white;
-        &:hover { background-color: darken($primary, 5%); }
-    }
-    &.is-light {
-        background-color: $color-background-200;
-        color: $color-contrast;
-        &:hover { background-color: $color-background-300; }
-    }
-    &.is-white {
-        background-color: white;
-        color: $color-contrast;
-        border: 1px solid $color-border;
-        &:hover { background-color: $color-background-100; }
-    }
-    &.is-dark {
-        background-color: $color-contrast;
-        color: $color-background;
-        &:hover { opacity: 0.9; }
-    }
-    &.is-black {
-        background-color: black;
-        color: white;
-        &:hover { opacity: 0.9; }
-    }
-    &.is-success {
-      background-color: $success;
-      color: white;
-       &:hover { background-color: darken($success, 5%); }
-    }
-    &.is-danger {
-      background-color: $danger;
-      color: white;
-       &:hover { background-color: darken($danger, 5%); }
-    }
-    &.is-warning {
-      background-color: $warning;
-      color: black;
-       &:hover { background-color: darken($warning, 5%); }
-    }
-    &.is-info {
-      background-color: $info;
-      color: white;
-       &:hover { background-color: darken($info, 5%); }
-    }
-    
-    // Outlined
-    &.is-outlined {
-        background-color: transparent;
-        border-width: 1px;
-        &:hover {
-          transform: none;
-          box-shadow: none;
-        }
-    }
-    @each $name, $pair in $colors {
-        $color: nth($pair, 1);
-        &.is-#{$name}.is-outlined {
-            border-color: $color;
-            color: $color;
-            &:hover, &:focus {
-                background-color: rgba($color, 0.05);
-                border-color: $color;
-                color: $color;
-            }
-        }
-    }
-    
     // States
     &.is-loading {
         &::after {
-            border-color: transparent transparent $color-background $color-background !important;
+            border-color: transparent transparent white white !important;
         }
     }
 }
-.buttons .button { margin-bottom: $spacing-4; }
 
 // Content
 .content {
-    h1, h2, h3, h4, h5, h6 {
-        font-family: $family-sans-serif;
-        color: $color-contrast;
-        font-weight: $weight-semibold;
-    }
     blockquote {
         background-color: transparent;
         border-left: 2px solid $primary;
@@ -225,48 +148,18 @@ a {
     }
 }
 
-// Table
-.table {
-    th {
-        font-weight: $weight-semibold;
-    }
-    &.is-bordered {
-        td, th { border-width: 1px; }
-    }
-    &.is-striped {
-        tbody tr:not(.is-selected):nth-child(even) {
-            background-color: $color-background-100;
-        }
-    }
-}
-
-// Tag
-.tag {
-    font-weight: $weight-medium;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
 // Progress
 .progress {
     height: 0.5rem;
-    border-radius: $radius-rounded;
     &::-webkit-progress-bar { background-color: $color-background-200; }
-    &::-webkit-progress-value { background-color: $primary; }
     &::-moz-progress-bar { background-color: $primary; }
 }
 
 // --- 5. Forms ---
-.label {
-    font-size: $font-small;
-    font-weight: $weight-semibold;
-}
 .input, .textarea, .select select {
-    box-shadow: none;
     height: 3rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-    &:hover { border-color: $input-hover-border-color; }
     &::placeholder { color: $color-mute; }
 }
 .textarea {
@@ -282,41 +175,18 @@ a {
         right: 1.25em;
     }
 }
-.checkbox, .radio {
-    &:hover { color: $color-contrast; }
-}
 .file {
+    .file-cta, .file-name {
+        border-color: $color-border;
+        border-radius: $radius;
+    }
     .file-cta {
         background-color: $color-background-200;
-        border-color: $color-border;
         color: $color-contrast;
-        border-radius: $radius 0 0 $radius;
-    }
-    .file-name {
-        border-color: $color-border;
-        border-radius: 0 $radius $radius 0;
-    }
-    &.is-boxed .file-cta {
-      border-radius: $radius;
     }
 }
 
 // --- 6. Components ---
-
-// Breadcrumb
-.breadcrumb {
-    a {
-        font-weight: $weight-medium;
-        &:hover {
-            color: $primary;
-        }
-    }
-    li.is-active a {
-        color: $color-contrast;
-        font-weight: $weight-semibold;
-    }
-}
-
 // Card
 .card-header-title {
     font-size: 1.125rem;
@@ -336,17 +206,17 @@ a {
 // Dropdown
 .dropdown-menu {
     border-radius: $radius-medium;
-    box-shadow: $shadow;
+    box-shadow: 0 20px 60px -10px hsla(0, 4%, 68%, .24), 0 4px 20px -8px rgba(0,0,0,.24);
     border: 1px solid $color-border;
 }
 .dropdown-content {
     background-color: $color-background;
-    padding: $spacing-4;
+    padding: 0.5rem;
 }
 .dropdown-item {
     border-radius: $radius;
     font-weight: $weight-medium;
-    padding: $spacing-4 $spacing-6;
+    padding: 0.75rem 1rem;
     &:hover {
         background-color: $color-background-100;
         color: $color-contrast;
@@ -355,7 +225,7 @@ a {
 .dropdown-divider {
     background-color: $color-border;
     height: 1px;
-    margin: $spacing-4 0;
+    margin: 0.5rem 0;
 }
 
 // Menu
@@ -363,7 +233,6 @@ a {
     font-size: 0.75rem;
     font-weight: $weight-bold;
     letter-spacing: 0.05em;
-    color: $color-secondary;
 }
 .menu-list a {
     padding: 0.75em 1em;
@@ -372,8 +241,6 @@ a {
         font-weight: $weight-semibold;
     }
     &.is-active {
-        background-color: $color-background-200;
-        color: $color-contrast;
         font-weight: $weight-semibold;
     }
 }
@@ -393,25 +260,11 @@ a {
         color: $color-foreground;
         border-radius: 0 0 $radius-medium $radius-medium;
     }
-    @each $name, $pair in $colors {
-        $color: nth($pair, 1);
-        $color-invert: nth($pair, 2);
-        &.is-#{$name} {
-            .message-header {
-                background-color: $color;
-                color: $color-invert;
-            }
-            .message-body {
-                border-color: $color;
-                color: $text;
-            }
-        }
-    }
 }
 
 // Modal
 .modal-background {
-    background-color: rgba(10, 10, 10, 0.7); // From theme
+    background-color: rgba(10, 10, 10, 0.7);
 }
 .modal-card {
     border-radius: $radius-large;
@@ -439,30 +292,13 @@ a {
     }
     .navbar-dropdown {
         border-top-width: 0;
+        border-radius: $radius-large;
     }
 }
 @media screen and (max-width: 1023px) {
     .navbar-menu {
         background-color: $color-background;
         box-shadow: 0 8px 16px rgba(10,10,10,.1);
-    }
-}
-
-
-// Pagination
-.pagination-link, .pagination-previous, .pagination-next {
-    font-weight: $weight-medium;
-    border-color: $color-border;
-    color: $color-foreground;
-    &:hover {
-        border-color: $color-border-hover;
-        color: $color-contrast;
-    }
-    &.is-current {
-        background-color: $primary;
-        border-color: $primary;
-        color: white;
-        font-weight: $weight-semibold;
     }
 }
 
@@ -478,9 +314,6 @@ a {
     font-weight: $weight-semibold;
     border-radius: $radius-medium $radius-medium 0 0;
 }
-.panel-block, .panel-tabs {
-    border-color: $color-border;
-}
 
 // Tabs
 .tabs {
@@ -492,32 +325,14 @@ a {
         font-weight: $weight-semibold;
     }
     &.is-boxed {
-        a {
-            border-radius: $radius $radius 0 0;
-        }
         li.is-active a {
             background-color: $color-background;
-            border-color: $color-border;
             border-bottom-color: transparent !important;
         }
     }
     &.is-toggle {
-        a {
-            border-style: solid;
-            border-width: 1px;
-            border-color: $color-border;
-            margin-bottom: 0;
-            &:hover {
-                background-color: $color-background-100;
-            }
-        }
         li.is-active a {
-            background-color: $primary;
-            border-color: $primary;
-            color: white;
             font-weight: $weight-semibold;
         }
-        li:first-child a { border-radius: $radius 0 0 $radius; }
-        li:last-child a { border-radius: 0 $radius $radius 0; }
     }
 }

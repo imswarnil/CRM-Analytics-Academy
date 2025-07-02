@@ -1,13 +1,35 @@
 
+@charset "utf-8";
 
-$primary: #e53935;
-$link : $primary;
-$family-sans-serif: "Figtree", "Arial", sans-serif !default;
-$family-monospace: "Roboto Mono", monospace !default;
+// 1. Import sass:math to enable math.div() globally.
+@use "sass:math";
 
-@import "./theme/variable";
+// 2. Import Bulma's core functions and initial variables.
+// This allows us to use them and then override them.
+@import "../node_modules/bulma/sass/utilities/initial-variables.scss";
+@import "../node_modules/bulma/sass/utilities/functions.scss";
+
+// 3. Import OUR custom variables. These will now override Bulma's defaults.
 @import "./theme/override";
 
+// 4. Import the rest of the Bulma framework.
+// It will now be built using our custom variables.
 @import "../node_modules/bulma/sass/index";
 
-@import "./theme/icon";
+// 5. Import our final set of hard overrides.
+// These are for styles that variables cannot change.
+@import "./theme/override";
+
+
+
+// $primary: #e53935;
+// $link : $primary;
+// $family-sans-serif: "Figtree", "Arial", sans-serif !default;
+// $family-monospace: "Roboto Mono", monospace !default;
+
+// @import "./theme/variable";
+// @import "./theme/override";
+
+// @import "../node_modules/bulma/sass/index";
+
+// @import "./theme/icon";
