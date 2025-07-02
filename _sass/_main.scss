@@ -10,7 +10,7 @@
 @import "../node_modules/bulma/sass/utilities/functions.scss";
 
 // 3. Import OUR custom variables. These will now override Bulma's defaults.
-@import "./theme/override";
+@import "./theme/variable";
 
 // 4. Import the rest of the Bulma framework.
 // It will now be built using our custom variables.
