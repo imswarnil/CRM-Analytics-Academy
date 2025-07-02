@@ -1,23 +1,13 @@
 // =========================================================================
-// THEME VARIABLES (Your Site's Complete Design System)
-// File: _sass/theme/_variables.scss
+// THEME VARIABLES (Single Source of Truth)
 // =========================================================================
-@use "sass:math";
 
-// --- FONT SETUP ---
+// --- Base Colors & Fonts ---
+$primary: #e53935;
 $family-sans-serif: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 $family-monospace: "Roboto Mono", monospace;
 
-// --- PRIMARY BRAND COLOR ---
-$primary: #e53935;
-// CORRECTED: Bulma's function will automatically calculate the best inverted color (usually white).
-// We don't need to manually set $primary-invert.
-
-// =========================================================================
-// DIRECT TRANSLATION OF REFERENCE THEME'S DESIGN TOKENS
-// =========================================================================
-
-// --- CORE PALETTE ---
+// --- Ported Theme Variables ---
 $color-contrast: #000;
 $color-background: #fff;
 $color-background-100: #f3f3f3;
@@ -29,81 +19,73 @@ $color-foreground: #4d4d4d;
 $color-secondary: #757575;
 $color-mute: #b2b2b2;
 
-// --- SEMANTIC COLORS ---
-$success: #348f3f;
-$danger: #c34d4d;
-$warning: #f7b239;
-$info: #3e68ff;
-$white: #fff;
-$black: #000;
+// --- Spacing & Layout SCSS Variables ---
+// These fix the "Undefined variable" error
+$layout-padding: clamp(16px, 11.25px + 1.25vw, 30px);
+$layout-gap: clamp(60px, 53.2143px + 1.7857vw, 80px);
 
-// --- TYPOGRAPHY ---
-$font-family-headings: $family-sans-serif;
-$font-family-body: $family-sans-serif;
-$font-family-button: $family-sans-serif;
-$font-x-small: 0.75rem;
-$font-small: 0.875rem;
-$font-large: 1.125rem;
+// --- Typography Weights ---
+// This is the fix for your "light font" problem.
 $weight-light: 300;
-$weight-normal: 400; // Standard readable weight
+$weight-normal: 400; // Default body weight
 $weight-medium: 500;
 $weight-semibold: 600;
 $weight-bold: 700;
 
-// --- SIZING, SPACING, RADIUS ---
-$spacing-4: 0.5rem;
-$spacing-6: 0.75rem;
-$spacing-7: 1rem;
-$spacing-8: 1.25rem;
-$spacing-9: 1.875rem;
-$vertical-rhythm: 1.5rem;
-$radius-small: 6px;
-$radius-medium: 8px;
-$radius-large: 14px;
-$radius-pill: 9999px;
-
-// --- LAYOUT ---
-$navbar-height: 58px;
-$container-max-width: 1100px;
-$gap: 32px;
-$shadow: 0 20px 60px -10px hsla(0, 4%, 68%, .24), 0 4px 20px -8px rgba(0, 0, 0, .24);
-
 // =========================================================================
 // BULMA VARIABLE OVERRIDES
+// This is the standard way to customize Bulma.
 // =========================================================================
+
+// --- General Overrides ---
 $body-background-color: $color-background;
 $body-color: $color-foreground;
 $body-family: $family-sans-serif;
 $body-weight: $weight-normal;
 $body-line-height: 1.6;
 
+// --- Color Mapping ---
 $link: $primary;
 $link-hover: $color-contrast;
+$success: #348f3f;
+$danger: #c34d4d;
+$warning: #f7b239;
+$info: #3e68ff;
 $text: $color-foreground;
 $text-light: $color-secondary;
 $text-strong: $color-contrast;
 
-$title-family: $font-family-headings;
+// --- Typography Overrides ---
+$title-family: $family-sans-serif;
 $title-color: $color-contrast;
 $title-weight: $weight-semibold;
+$subtitle-family: $family-sans-serif;
 $subtitle-color: $color-secondary;
 $subtitle-weight: $weight-normal;
+$strong-color: $color-contrast;
+$strong-weight: $weight-bold;
 
+// --- Sizing & Radius ---
+$radius-small: 4px;
+$radius: 6px;
+$radius-medium: 8px;
+$radius-large: 14px;
+$radius-rounded: 2rem;
+
+// --- Component Variable Overrides ---
 $box-background-color: $color-background-100;
 $box-radius: $radius-large;
 $box-shadow: none;
+$box-padding: 1.5rem;
 
-$button-family: $font-family-button;
+$button-family: $family-sans-serif;
 $button-weight: $weight-semibold;
-$button-border-width: 1px;
-$button-radius: $radius-pill;
-$button-text-hover-background-color: $color-background-100;
-$button-padding-vertical: calc(0.75em - #{$button-border-width});
-$button-padding-horizontal: 1.5em;
+$button-border-width: 0px;
+$button-radius: $radius-rounded;
 
-$card-background-color: $color-background;
+$card-background-color: $color-background-100;
 $card-radius: $radius-large;
-$card-shadow: 0 5px 20px rgba($black, 0.05);
+$card-shadow: none;
 $card-header-background-color: transparent;
 $card-header-color: $color-contrast;
 $card-header-weight: $weight-semibold;
@@ -112,35 +94,39 @@ $card-footer-border-top: 1px solid $color-border;
 $input-family: $family-sans-serif;
 $input-background-color: $color-background-100;
 $input-color: $color-contrast;
-$input-border-color: $color-border;
-$input-hover-border-color: $color-border-hover;
+$input-border-color: transparent;
+$input-hover-border-color: $color-border;
 $input-focus-border-color: $primary;
-$input-focus-box-shadow-size: 0 0 0 3px;
-$input-radius: $radius-2;
+$input-focus-box-shadow-size: 0 0 0 2px;
+$input-radius: $radius-rounded;
 $input-shadow: none;
 
-$navbar-background-color: rgba($color-background, 0.85);
-$navbar-height: $navbar-height;
+$navbar-background-color: rgba($color-background, 0.9);
 $navbar-item-color: $color-contrast;
-$navbar-item-hover-color: $primary;
-$navbar-item-hover-background-color: $color-background-100;
-$navbar-item-active-color: $primary;
-$navbar-item-active-background-color: $color-background-100;
+$navbar-item-hover-color: $color-contrast;
+$navbar-item-hover-background-color: $color-background-200;
+$navbar-item-active-background-color: $color-background-200;
 $navbar-dropdown-background-color: $color-background;
-$navbar-dropdown-border-top: 2px solid $primary;
+$navbar-dropdown-border-top: 1px solid $color-border;
 $navbar-divider-background-color: $color-border;
 
+$table-color: $color-foreground;
+$table-background-color: transparent;
 $table-cell-border: 1px solid $color-border;
 $table-head-cell-color: $color-contrast;
 $table-row-hover-background-color: $color-background-100;
 
-$tag-background-color: rgba($primary, 0.1);
-$tag-color: $primary;
-$tag-radius: $radius-pill;
+$tag-background-color: $color-background-200;
+$tag-color: $color-contrast;
+$tag-radius: $radius;
 
-$menu-item-color: $color-foreground;
-$menu-item-radius: $radius-2;
-$menu-item-hover-background-color: $color-background-100;
-$menu-item-active-background-color: $primary;
-$menu-item-active-color: white;
-$menu-label-color: $color-mute;
+$menu-item-color: $color-contrast;
+$menu-item-radius: $radius;
+$menu-item-hover-background-color: $color-background-200;
+$menu-item-active-background-color: $color-background-200;
+$menu-label-color: $color-secondary;
+
+$tabs-link-color: $color-secondary;
+$tabs-link-hover-color: $color-contrast;
+$tabs-link-active-color: $color-contrast;
+$tabs-link-active-border-bottom-color: $color-contrast;
