@@ -1,131 +1,132 @@
 // =========================================================================
-// NEW BLUE THEME - VARIABLES
-// File: _sass/theme/_variables.scss
-// Description: This file defines the new design system based on the
-//              blue presentation slide.
+// THEME VARIABLES (Single Source of Truth)
 // =========================================================================
 
-// --- FONT SETUP (Keeping yours as requested) ---
+// --- Base Colors & Fonts ---
+$primary: #e53935;
 $family-sans-serif: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 $family-monospace: "Roboto Mono", monospace;
 
-// =========================================================================
-// NEW COLOR PALETTE (Derived from your image)
-// =========================================================================
-$theme-primary: #00529B;      // Dark, rich blue for text and accents
-$theme-primary-light: #0072C6; // A slightly lighter, vibrant blue
-$theme-background: #AED6F1;   // The main light blue background
-$theme-background-soft: #D6EAF8; // A softer version for cards/boxes
-$theme-text: #0D47A1;         // A dark blue for primary text, better contrast than pure black
-$theme-text-secondary: #5499C7; // A lighter blue for subtitles and secondary text
+// --- Ported Theme Variables ---
+$color-contrast: #000;
+$color-background: #fff;
+$color-background-100: #f3f3f3;
+$color-background-200: #ededed;
+$color-background-300: #dadada;
+$color-border: hsla(0, 0%, 50%, .2);
+$color-border-hover: hsla(0, 0%, 50%, .4);
+$color-foreground: #4d4d4d;
+$color-secondary: #757575;
+$color-mute: #b2b2b2;
 
-// =========================================================================
-// MAPPING NEW THEME TO BULMA & CUSTOM VARIABLES
-// =========================================================================
-$primary: $theme-primary;
+// --- Spacing & Layout SCSS Variables ---
+// These fix the "Undefined variable" error
+$layout-padding: clamp(16px, 11.25px + 1.25vw, 30px);
+$layout-gap: clamp(60px, 53.2143px + 1.7857vw, 80px);
 
-// --- Core Palette ---
-$color-contrast: $theme-text;
-$color-background: $theme-background;
-$color-background-100: $theme-background-soft;
-$color-background-200: lighten($theme-background-soft, 2%);
-$color-background-300: darken($theme-background-soft, 2%);
-$color-border: rgba($theme-primary, 0.2);
-$color-border-hover: rgba($theme-primary, 0.4);
-$color-foreground: $theme-text;
-$color-secondary: $theme-text-secondary;
-$color-mute: lighten($theme-text-secondary, 10%);
-
-// --- Semantic Colors (updated for the new theme) ---
-$success: #27AE60;
-$danger: #E74C3C;
-$warning: #F39C12;
-$info: $theme-primary-light;
-
-// --- Typography ---
-$weight-normal: 400;
+// --- Typography Weights ---
+// This is the fix for your "light font" problem.
+$weight-light: 300;
+$weight-normal: 400; // Default body weight
 $weight-medium: 500;
 $weight-semibold: 600;
 $weight-bold: 700;
 
-// --- Sizing & Radius ---
-$radius-small: 6px;
-$radius: 8px;
-$radius-medium: 12px;
-$radius-large: 16px;
-$radius-rounded: 9999px; // Pill shape
-
 // =========================================================================
-// BULMA VARIABLE OVERRIDES (Configuring Bulma with the new theme)
+// BULMA VARIABLE OVERRIDES
+// This is the standard way to customize Bulma.
 // =========================================================================
 
+// --- General Overrides ---
 $body-background-color: $color-background;
 $body-color: $color-foreground;
 $body-family: $family-sans-serif;
 $body-weight: $weight-normal;
 $body-line-height: 1.6;
 
-$link: $theme-primary-light;
-$link-hover: $theme-primary;
+// --- Color Mapping ---
+$link: $primary;
+$link-hover: $color-contrast;
+$success: #348f3f;
+$danger: #c34d4d;
+$warning: #f7b239;
+$info: #3e68ff;
 $text: $color-foreground;
 $text-light: $color-secondary;
 $text-strong: $color-contrast;
 
+// --- Typography Overrides ---
 $title-family: $family-sans-serif;
 $title-color: $color-contrast;
-$title-weight: $weight-bold;
+$title-weight: $weight-semibold;
+$subtitle-family: $family-sans-serif;
 $subtitle-color: $color-secondary;
 $subtitle-weight: $weight-normal;
+$strong-color: $color-contrast;
+$strong-weight: $weight-bold;
 
+// --- Sizing & Radius ---
+$radius-small: 4px;
+$radius: 6px;
+$radius-medium: 8px;
+$radius-large: 14px;
+$radius-rounded: 2rem;
+
+// --- Component Variable Overrides ---
 $box-background-color: $color-background-100;
 $box-radius: $radius-large;
-$box-shadow: 0 10px 30px -15px rgba($theme-primary, 0.1);
+$box-shadow: none;
+$box-padding: 1.5rem;
 
 $button-family: $family-sans-serif;
 $button-weight: $weight-semibold;
 $button-border-width: 0px;
 $button-radius: $radius-rounded;
-$button-text-hover-background-color: $color-background-100;
 
-$card-background-color: $white;
+$card-background-color: $color-background-100;
 $card-radius: $radius-large;
-$card-shadow: 0 15px 40px -10px rgba($theme-primary, 0.1);
+$card-shadow: none;
 $card-header-background-color: transparent;
 $card-header-color: $color-contrast;
-$card-header-weight: $weight-bold;
+$card-header-weight: $weight-semibold;
 $card-footer-border-top: 1px solid $color-border;
 
 $input-family: $family-sans-serif;
 $input-background-color: $color-background-100;
 $input-color: $color-contrast;
-$input-border-color: $color-border;
-$input-hover-border-color: $primary;
+$input-border-color: transparent;
+$input-hover-border-color: $color-border;
 $input-focus-border-color: $primary;
-$input-focus-box-shadow-size: 0 0 0 3px;
-$input-radius: $radius-medium;
+$input-focus-box-shadow-size: 0 0 0 2px;
+$input-radius: $radius-rounded;
 $input-shadow: none;
 
-$navbar-background-color: rgba($color-background, 0.8);
+$navbar-background-color: rgba($color-background, 0.9);
 $navbar-item-color: $color-contrast;
-$navbar-item-hover-color: $primary;
-$navbar-item-hover-background-color: $color-background-100;
-$navbar-item-active-color: $primary;
-$navbar-item-active-background-color: rgba($primary, 0.1);
-$navbar-dropdown-background-color: $white;
-$navbar-dropdown-border-top: 2px solid $primary;
+$navbar-item-hover-color: $color-contrast;
+$navbar-item-hover-background-color: $color-background-200;
+$navbar-item-active-background-color: $color-background-200;
+$navbar-dropdown-background-color: $color-background;
+$navbar-dropdown-border-top: 1px solid $color-border;
 $navbar-divider-background-color: $color-border;
 
+$table-color: $color-foreground;
+$table-background-color: transparent;
 $table-cell-border: 1px solid $color-border;
 $table-head-cell-color: $color-contrast;
 $table-row-hover-background-color: $color-background-100;
 
-$tag-background-color: rgba($primary, 0.1);
-$tag-color: $primary;
-$tag-radius: $radius-rounded;
+$tag-background-color: $color-background-200;
+$tag-color: $color-contrast;
+$tag-radius: $radius;
 
-$menu-item-color: $color-foreground;
-$menu-item-radius: $radius-medium;
-$menu-item-hover-background-color: $color-background-100;
-$menu-item-active-background-color: $primary;
-$menu-item-active-color: white;
-$menu-label-color: $color-mute;
+$menu-item-color: $color-contrast;
+$menu-item-radius: $radius;
+$menu-item-hover-background-color: $color-background-200;
+$menu-item-active-background-color: $color-background-200;
+$menu-label-color: $color-secondary;
+
+$tabs-link-color: $color-secondary;
+$tabs-link-hover-color: $color-contrast;
+$tabs-link-active-color: $color-contrast;
+$tabs-link-active-border-bottom-color: $color-contrast;
