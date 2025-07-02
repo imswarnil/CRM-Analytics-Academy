@@ -405,7 +405,7 @@ social_media:
  # 1.2. Site Url, Links & Github Repo
  #----------------------------------------------------------------------------------------------
 baseurl : '/'
-url: 'https://imswarnil.github.io' # Site URL
+url: 'https://crmanalytics.imswarnil.com' # Site URL
 permalink: /:title  # Permalink style
 repo: "https://github.com/imswarnil/" # Your main GitHub profile
 email: "contact@imswarnil.com" # General contact email for the site
