@@ -1,79 +1,138 @@
 // =========================================================================
-// METICULOUS BULMA OVERRIDES
-// File: _sass/theme/_overrides.scss
+// BULMA COMPONENT & ELEMENT HARD OVERRIDES
+// Styles that go beyond what variables can control.
 // =========================================================================
 @use "sass:math";
 
-// --- 1. Base & Global Styles ---
+// --- 1. Base & Helpers ---
 html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scroll-behavior: smooth;
 }
 
 a {
     font-weight: $weight-medium;
-    text-decoration: underline;
-    text-decoration-color: rgba($primary, 0.4);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
-    transition: all .2s ease-out;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: .075em;
+    text-underline-offset: .15em;
+    transition: color .15s ease, text-decoration-color .15s ease, font-weight .15s ease;
 
     &:hover {
-        text-decoration-color: $primary;
-        color: $link-hover;
+        font-weight: $weight-semibold; // Increase weight on hover
+        text-decoration-color: transparent;
     }
 }
 
-hr, .is-divider {
+hr {
     background-color: $color-border;
     height: 1px;
     border: none;
-    margin: 2.5rem 0;
+    margin: 2rem 0;
 }
 
-// --- 2. Typography & Content ---
+// --- 2. Typography ---
+.title, .subtitle {
+    font-family: $title-family;
+    word-break: break-word;
+}
 .title {
-    line-height: 1.2;
+    strong { color: inherit; font-weight: $weight-bold; }
 }
-.subtitle {
-    line-height: 1.6;
-}
-.content {
-    h1, h2, h3, h4, h5, h6 {
-        font-family: $family-sans-serif;
-        color: $color-contrast;
-        font-weight: $weight-semibold;
+// FIX: Use math.div for Sass deprecation warning
+@for $i from 1 through 6 {
+    .title.is-#{$i} {
+        font-size: 1rem + math.div(1.75rem - 1rem, 5) * (6 - $i);
     }
+    .subtitle.is-#{$i} {
+        font-size: 0.85rem + math.div(1.25rem - 0.85rem, 5) * (6 - $i);
+    }
+}
+
+// --- 3. Layout ---
+.section {
+    padding: $layout-gap $layout-padding;
+}
+.hero-body {
+    padding: $layout-gap $layout-padding;
+}
+.footer {
+    background-color: $color-background-100;
+    border-top: 1px solid $color-border;
+    color: $color-secondary;
+    padding: 3rem 1.5rem;
+    .title { color: $color-contrast; }
+}
+
+// --- 4. Elements ---
+
+// Box
+.box {
+    color: $color-foreground;
+    padding: 1.5rem;
+}
+
+// Button
+.button {
+    min-height: 2.5rem;
+    height: auto;
+    line-height: 1.5;
+    padding-top: 0.65em;
+    padding-bottom: 0.65em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    transition: all .2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba($primary, 0.2);
+    }
+    &:focus:not(:active) {
+        box-shadow: 0 0 0 3px rgba($primary, 0.25);
+    }
+    &:active {
+        transform: translateY(0px);
+        box-shadow: 0 2px 5px rgba($primary, 0.2);
+    }
+
+    // States
+    &.is-loading {
+        &::after {
+            border-color: transparent transparent white white !important;
+        }
+    }
+}
+
+// Content
+.content {
     blockquote {
-        background-color: $color-background-100;
-        border-left: 3px solid $primary;
-        padding: 1.5em 2em;
-        border-radius: $radius;
+        background-color: transparent;
+        border-left: 2px solid $primary;
+        padding: 0.5em 1.5em;
+        color: $color-contrast;
     }
     ul {
         list-style: none;
         padding-left: 0;
         li {
-            padding-left: 1.75em;
+            padding-left: 1.5em;
             position: relative;
-            line-height: 1.7;
             &::before {
-                content: '›';
+                content: "";
                 position: absolute;
                 left: 0.25em;
-                top: 0;
-                font-size: 1.2em;
-                font-weight: $weight-bold;
-                color: $primary;
+                top: 0.6em;
+                width: 0.25rem;
+                height: 0.25rem;
+                background-color: $color-mute;
+                border-radius: 50%;
             }
         }
     }
     pre {
-        background-color: lighten($color-background-100, 2%);
+        background-color: $color-background-100;
         border: 1px solid $color-border;
         border-radius: $radius-medium;
-        padding: 1.5em;
+        padding: 1.25em 1.5em;
         font-family: $family-monospace;
         white-space: pre-wrap;
         word-break: break-all;
@@ -81,202 +140,198 @@ hr, .is-divider {
     code {
         background-color: $color-background-100;
         border-radius: $radius-small;
-        color: $danger;
+        color: $primary;
+        font-weight: $weight-normal;
+        padding: 0.2em 0.4em;
         font-family: $family-monospace;
-        padding: 0.2em 0.5em;
     }
 }
 
-// --- 3. Layout Components ---
-.section {
-    padding: clamp(3rem, 8vw, 6rem) 1.5rem;
-}
-.footer {
-    background-color: $color-background-100;
-    border-top: 1px solid $color-border;
+// Progress
+.progress {
+    height: 0.5rem;
+    &::-webkit-progress-bar { background-color: $color-background-200; }
+    &::-moz-progress-bar { background-color: $primary; }
 }
 
-// --- 4. Form Elements ---
-.label {
-    font-size: 0.9rem;
-    font-weight: $weight-semibold;
-    color: $color-contrast;
-}
+// --- 5. Forms ---
 .input, .textarea, .select select {
     height: 3rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    transition: all 0.2s ease;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
     &::placeholder { color: $color-mute; }
 }
 .textarea {
-    min-height: 150px;
     height: auto;
-    border-radius: $radius-large;
+    min-height: 120px;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 .select {
     height: 3rem;
     &:not(:multiple)::after {
         border-color: $color-secondary;
-        right: 1.5em;
+        right: 1.25em;
     }
 }
 .file {
+    .file-cta, .file-name {
+        border-color: $color-border;
+        border-radius: $radius;
+    }
     .file-cta {
         background-color: $color-background-200;
         color: $color-contrast;
-        border-radius: $radius-pill 0 0 $radius-pill;
-        border-color: $color-border;
-    }
-    .file-name {
-        border-color: $color-border;
-        border-radius: 0 $radius-pill $radius-pill 0;
     }
 }
 
-// --- 5. Core Components ---
-
-// Button (Meticulous Override)
-.button {
-    min-height: 3rem;
-    height: auto;
-    line-height: 1.5;
-    padding: 0.75rem 1.75rem;
-    text-decoration: none !important;
-    transition: all .25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
+// --- 6. Components ---
+// Card
+.card-header-title {
+    font-size: 1.125rem;
+}
+.card-image img {
+    border-radius: $card-radius $card-radius 0 0;
+}
+.card-footer-item {
+    font-weight: $weight-medium;
+    transition: color 0.2s;
     &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 15px rgba($primary, 0.2);
-    }
-    &:focus:not(:active) {
-        box-shadow: 0 0 0 3px rgba($primary, 0.3);
-    }
-    &:active {
-        transform: translateY(0);
-        box-shadow: 0 4px 8px rgba($primary, 0.2);
-    }
-
-    &.is-light:hover {
-        box-shadow: 0 8px 15px rgba(0,0,0, 0.1);
-    }
-    &.is-outlined {
-      &:hover {
-        transform: none;
-        box-shadow: none;
-      }
+        color: $primary;
+        background: transparent;
     }
 }
 
-// Card (Meticulous Override)
-.card {
-    box-shadow: $card-shadow;
+// Dropdown
+.dropdown-menu {
+    border-radius: $radius-medium;
+    box-shadow: 0 20px 60px -10px hsla(0, 4%, 68%, .24), 0 4px 20px -8px rgba(0,0,0,.24);
     border: 1px solid $color-border;
-    transition: all 0.3s ease-in-out;
-    height: 100%;
-
+}
+.dropdown-content {
+    background-color: $color-background;
+    padding: 0.5rem;
+}
+.dropdown-item {
+    border-radius: $radius;
+    font-weight: $weight-medium;
+    padding: 0.75rem 1rem;
     &:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.1), 0 18px 36px -18px rgba(0, 0, 0, 0.15);
-        border-color: $color-border-hover;
-    }
-    .card-header-title {
-        padding: 1.25rem 1.5rem;
-    }
-    .card-footer-item {
-        transition: color 0.2s ease, background-color 0.2s ease;
-        &:hover { background-color: $color-background-100; }
+        background-color: $color-background-100;
+        color: $color-contrast;
     }
 }
+.dropdown-divider {
+    background-color: $color-border;
+    height: 1px;
+    margin: 0.5rem 0;
+}
 
-// Navbar (Meticulous Override)
-.navbar {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid $color-border;
-    padding: 0.5rem 1rem;
-    
-    .navbar-item, .navbar-link {
+// Menu
+.menu-label {
+    font-size: 0.75rem;
+    font-weight: $weight-bold;
+    letter-spacing: 0.05em;
+}
+.menu-list a {
+    padding: 0.75em 1em;
+    font-weight: $weight-medium;
+    &:hover {
         font-weight: $weight-semibold;
-        transition: all .2s ease;
-        padding: 0.5rem 1rem;
-        border-radius: $radius;
     }
-    .navbar-link::after {
-        border-color: $color-mute;
-        transition: transform .2s ease;
-    }
-    .navbar-link:hover::after {
-        transform: rotate(135deg);
-    }
-    .navbar-dropdown {
-        border: 1px solid $color-border;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        border-radius: $radius-medium;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-    .navbar-brand .navbar-item {
-        font-size: 1.25rem;
-        font-weight: $weight-bold;
-        &:hover { background: transparent !important; }
+    &.is-active {
+        font-weight: $weight-semibold;
     }
 }
 
 // Message
 .message {
-    border-left: 4px solid;
-    border-radius: $radius;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    border-radius: $radius-medium;
+    background-color: $color-background-100;
     .message-header {
-        background-color: transparent;
-        font-weight: $weight-bold;
-        padding-left: 1.25rem;
+        background-color: $color-background-200;
+        color: $color-contrast;
+        font-weight: $weight-semibold;
+        border-radius: $radius-medium $radius-medium 0 0;
     }
     .message-body {
-        border-color: transparent;
-        padding: 1.25rem 1.5rem;
+        border: none;
+        color: $color-foreground;
+        border-radius: 0 0 $radius-medium $radius-medium;
     }
-
-    &.is-primary { border-color: $primary; .message-header { color: $primary; } }
-    &.is-info { border-color: $info; .message-header { color: $info; } }
-    &.is-success { border-color: $success; .message-header { color: $success; } }
-    &.is-warning { border-color: $warning; .message-header { color: $warning; } }
-    &.is-danger { border-color: $danger; .message-header { color: $danger; } }
 }
 
 // Modal
+.modal-background {
+    background-color: rgba(10, 10, 10, 0.7);
+}
 .modal-card {
     border-radius: $radius-large;
     .modal-card-head, .modal-card-foot {
-        background-color: $color-background;
+        background-color: $color-background-100;
         border-color: $color-border;
     }
     .modal-card-title {
         color: $color-contrast;
+        font-weight: $weight-semibold;
     }
-    .modal-card-foot .button:not(:last-child) {
-        margin-right: 0.75rem;
+    .modal-card-body {
+        background-color: $color-background;
     }
 }
 
-// And so on for every other component...
-// This is where you would add thousands of lines for .tabs, .panel, .pagination, etc.
-// For brevity, I'll demonstrate with a few more key ones.
+// Navbar
+.navbar {
+    border-bottom: 1px solid $color-border;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
-.tabs {
-    &.is-toggle a:hover {
-        background-color: $color-background-100;
-        border-color: $color-border;
+    .navbar-brand .navbar-item {
+        font-weight: $weight-bold;
+    }
+    .navbar-dropdown {
+        border-top-width: 0;
+        border-radius: $radius-large;
     }
 }
+@media screen and (max-width: 1023px) {
+    .navbar-menu {
+        background-color: $color-background;
+        box-shadow: 0 8px 16px rgba(10,10,10,.1);
+    }
+}
+
+// Panel
 .panel {
-    border-radius: $radius;
-    border: 1px solid $color-border;
+    border-radius: $radius-medium;
     box-shadow: none;
-    .panel-heading {
-        background: $color-background-100;
-        border-bottom: 1px solid $color-border;
-        border-radius: $radius $radius 0 0;
+    border: 1px solid $color-border;
+}
+.panel-heading {
+    background-color: $color-background-100;
+    color: $color-contrast;
+    font-weight: $weight-semibold;
+    border-radius: $radius-medium $radius-medium 0 0;
+}
+
+// Tabs
+.tabs {
+    a {
+        padding-bottom: calc(0.75em - 1px);
+        transition: color .2s, border-color .2s;
+    }
+    li.is-active a {
+        font-weight: $weight-semibold;
+    }
+    &.is-boxed {
+        li.is-active a {
+            background-color: $color-background;
+            border-bottom-color: transparent !important;
+        }
+    }
+    &.is-toggle {
+        li.is-active a {
+            font-weight: $weight-semibold;
+        }
     }
 }

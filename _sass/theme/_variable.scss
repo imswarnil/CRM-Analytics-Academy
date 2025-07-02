@@ -1,14 +1,13 @@
 // =========================================================================
-// THEME VARIABLES (Your Site's Design System)
-// File: _sass/theme/_variables.scss
+// THEME VARIABLES (Single Source of Truth)
 // =========================================================================
 
 // --- Base Colors & Fonts ---
-$primary: #e53935; // Your brand color
+$primary: #e53935;
 $family-sans-serif: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 $family-monospace: "Roboto Mono", monospace;
 
-// --- Ported Theme Variables (SCSS Version) ---
+// --- Ported Theme Variables ---
 $color-contrast: #000;
 $color-background: #fff;
 $color-background-100: #f3f3f3;
@@ -20,22 +19,22 @@ $color-foreground: #4d4d4d;
 $color-secondary: #757575;
 $color-mute: #b2b2b2;
 
+// --- Spacing & Layout SCSS Variables ---
+// These fix the "Undefined variable" error
+$layout-padding: clamp(16px, 11.25px + 1.25vw, 30px);
+$layout-gap: clamp(60px, 53.2143px + 1.7857vw, 80px);
+
 // --- Typography Weights ---
+// This is the fix for your "light font" problem.
 $weight-light: 300;
-$weight-normal: 400; // Readable default body weight
+$weight-normal: 400; // Default body weight
 $weight-medium: 500;
 $weight-semibold: 600;
 $weight-bold: 700;
 
-// --- Sizing & Radius ---
-$radius-small: 6px;
-$radius: 8px;
-$radius-medium: 10px;
-$radius-large: 14px;
-$radius-pill: 9999px; // For pill-shaped buttons
-
 // =========================================================================
-// BULMA VARIABLE OVERRIDES (The Standard Customization Method)
+// BULMA VARIABLE OVERRIDES
+// This is the standard way to customize Bulma.
 // =========================================================================
 
 // --- General Overrides ---
@@ -60,9 +59,18 @@ $text-strong: $color-contrast;
 $title-family: $family-sans-serif;
 $title-color: $color-contrast;
 $title-weight: $weight-semibold;
+$subtitle-family: $family-sans-serif;
 $subtitle-color: $color-secondary;
 $subtitle-weight: $weight-normal;
+$strong-color: $color-contrast;
 $strong-weight: $weight-bold;
+
+// --- Sizing & Radius ---
+$radius-small: 4px;
+$radius: 6px;
+$radius-medium: 8px;
+$radius-large: 14px;
+$radius-rounded: 2rem;
 
 // --- Component Variable Overrides ---
 $box-background-color: $color-background-100;
@@ -73,11 +81,11 @@ $box-padding: 1.5rem;
 $button-family: $family-sans-serif;
 $button-weight: $weight-semibold;
 $button-border-width: 0px;
-$button-radius: $radius-pill; // Pill shape
+$button-radius: $radius-rounded;
 
-$card-background-color: $color-background;
+$card-background-color: $color-background-100;
 $card-radius: $radius-large;
-$card-shadow: 0 5px 20px rgba(0,0,0,0.05);
+$card-shadow: none;
 $card-header-background-color: transparent;
 $card-header-color: $color-contrast;
 $card-header-weight: $weight-semibold;
@@ -86,34 +94,39 @@ $card-footer-border-top: 1px solid $color-border;
 $input-family: $family-sans-serif;
 $input-background-color: $color-background-100;
 $input-color: $color-contrast;
-$input-border-color: $color-border;
-$input-hover-border-color: $color-border-hover;
+$input-border-color: transparent;
+$input-hover-border-color: $color-border;
 $input-focus-border-color: $primary;
 $input-focus-box-shadow-size: 0 0 0 2px;
-$input-radius: $radius-pill;
+$input-radius: $radius-rounded;
 $input-shadow: none;
 
-$navbar-background-color: rgba($color-background, 0.8);
+$navbar-background-color: rgba($color-background, 0.9);
 $navbar-item-color: $color-contrast;
-$navbar-item-hover-color: $primary;
-$navbar-item-hover-background-color: transparent;
-$navbar-item-active-color: $primary;
-$navbar-item-active-background-color: transparent;
+$navbar-item-hover-color: $color-contrast;
+$navbar-item-hover-background-color: $color-background-200;
+$navbar-item-active-background-color: $color-background-200;
 $navbar-dropdown-background-color: $color-background;
-$navbar-dropdown-border-top: 2px solid $primary;
+$navbar-dropdown-border-top: 1px solid $color-border;
 $navbar-divider-background-color: $color-border;
 
+$table-color: $color-foreground;
+$table-background-color: transparent;
 $table-cell-border: 1px solid $color-border;
 $table-head-cell-color: $color-contrast;
 $table-row-hover-background-color: $color-background-100;
 
-$tag-background-color: rgba($primary, 0.1);
-$tag-color: $primary;
-$tag-radius: $radius-pill;
+$tag-background-color: $color-background-200;
+$tag-color: $color-contrast;
+$tag-radius: $radius;
 
-$menu-item-color: $color-foreground;
+$menu-item-color: $color-contrast;
 $menu-item-radius: $radius;
-$menu-item-hover-background-color: $color-background-100;
-$menu-item-active-background-color: $primary;
-$menu-item-active-color: white;
-$menu-label-color: $color-mute;
+$menu-item-hover-background-color: $color-background-200;
+$menu-item-active-background-color: $color-background-200;
+$menu-label-color: $color-secondary;
+
+$tabs-link-color: $color-secondary;
+$tabs-link-hover-color: $color-contrast;
+$tabs-link-active-color: $color-contrast;
+$tabs-link-active-border-bottom-color: $color-contrast;
