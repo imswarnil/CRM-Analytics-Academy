@@ -16,30 +16,29 @@ layout: default
 
           <!-- Video Player Section -->
           {% if page.type == "video" and page.format == "youtube" %}
-            <div class="plyr-wrapper" id="plyr-container">
-
-              <!-- 1. The Dynamic Thumbnail -->
-              <div class="custom-plyr-poster" id="custom-poster">
+            <!-- ✨ Lazy-Loading YouTube Player Wrapper ✨ -->
+            <div class="youtube-player-wrapper" 
+                 id="youtube-player-container"
+                 data-videoid="{{ page.videoid }}"
+                 data-start="{{ page.start_time | default: 0 }}"
+                 data-end="{{ page.end_time }}">
+              
+              <!-- 1. The Custom Thumbnail (Visible by default) -->
+              <div class="custom-youtube-poster" id="custom-youtube-poster">
                 <div class="shape-1"></div>
                 <div class="shape-2"></div>
-                <div class="poster-content">
-                  <div class="poster-text">
-                    <p class="poster-category-text">{{ page.category | upcase }}</p>
-                    <h2 class="poster-title-text">{{ page.title }}</h2>
-                  </div>
-                  <div class="poster-icon">
-                    <!-- ✅ GRACEFUL DEFAULT: Only shows icon if it exists -->
-                    {% if page.icon %}
-                      <i class="ph-fill ph-{{ page.icon }}"></i>
-                    {% endif %}
-                  </div>
+                
+                <div class="poster-text-content">
+                  <p class="poster-chapter">{{ page.category | upcase }}</p>
+                  <h2 class="poster-title">{{ page.title }}</h2>
                 </div>
-                <div class="play-icon-overlay"><i class="ph-fill ph-play-circle"></i></div>
-                <div class="completed-badge"><i class="ph-fill ph-check-circle"></i><span>Completed</span></div>
+
+                <div class="play-icon-overlay"><i class="ph-fill ph-play"></i></div>
+                <div class="completed-badge"><i class="ph-fill ph-check-circle"></i><span>Lesson Complete</span></div>
               </div>
 
-              <!-- 2. The Video Element for Plyr -->
-              <div id="player" class="plyr__video-embed" data-plyr-provider="youtube" data-plyr-embed-id="{{ page.videoid }}"></div>
+              <!-- 2. The YouTube Iframe will be created here by JS -->
+              <div id="youtube-iframe-target"></div>
             </div>
 
             <div class="my-5">
@@ -54,6 +53,7 @@ layout: default
       <!-- 📌 Sidebar Navigation -->
       <aside class="column is-3">
         <nav class="menu is-sticky">
+            <!-- Your sidebar code here... -->
             <p class="menu-label">Learning Path</p>
             <ul class="menu-list">
               {% assign sorted_lessons = site.posts | sort: "order" %}
@@ -86,93 +86,122 @@ layout: default
 <!-- CSS & JAVASCRIPT FOR THE PLAYER -->
 <style>
   .menu.is-sticky { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; padding-left: 1rem; }
-  .plyr-wrapper { position: relative; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; background: #000; }
-  .custom-plyr-poster { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; cursor: pointer; background-color: #dbeafe; display: flex; justify-content: center; align-items: center; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; transition: opacity 0.3s ease-in-out; overflow: hidden; }
-  .custom-plyr-poster.hidden { opacity: 0; pointer-events: none; }
-  .custom-plyr-poster .shape-1, .custom-plyr-poster .shape-2 { position: absolute; border-radius: 50%; }
-  .shape-1 { width: 35%; height: 60%; background: #38bdf8; top: -15%; left: -5%; }
-  .shape-2 { width: 35%; height: 60%; background: #0284c7; top: -10%; left: 5%; }
-  .poster-content { position: relative; z-index: 2; width: 90%; display: flex; justify-content: space-between; align-items: center; }
-  .poster-text { color: #075985; flex-basis: 60%; }
-  .poster-icon { flex-basis: 30%; text-align: center; }
-  .poster-category-text { font-size: 1.2vw; font-weight: 600; letter-spacing: 1px; color: #0c4a6e; margin-bottom: 0.5rem; }
-  .poster-title-text { font-size: 2.5vw; font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; }
-  .poster-icon i { font-size: 8vw; color: #0284c7; opacity: 0.6; }
-  .play-icon-overlay { position: absolute; z-index: 11; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; opacity: 0.9; transition: all 0.2s ease; }
-  .play-icon-overlay i { font-size: 6rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
-  .custom-plyr-poster:hover .play-icon-overlay { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-  .completed-badge { position: absolute; z-index: 12; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(22, 163, 74, 0.85); color: white; padding: 1rem 2rem; border-radius: 50px; display: none; align-items: center; font-size: 1.5rem; font-weight: 600; }
-  .completed-badge i { font-size: 2rem; margin-right: 0.75rem; }
-  .custom-plyr-poster.completed { cursor: default; }
-  .custom-plyr-poster.completed .play-icon-overlay, .custom-plyr-poster.completed .poster-content { display: none; }
-  .custom-plyr-poster.completed .completed-badge { display: flex; }
-  @media (max-width: 1200px) { .poster-category-text { font-size: 14px; } .poster-title-text { font-size: 30px; } .poster-icon i { font-size: 96px; } }
-  @media (max-width: 768px) { .poster-content { flex-direction: column-reverse; text-align: center; } .poster-icon { margin-bottom: 1.5rem; } .poster-title-text { font-size: 24px; } }
+  .youtube-player-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background-color: #000; border-radius: 8px; margin-bottom: 1.5rem; }
+  .youtube-player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  
+  /* --- Custom Thumbnail Design --- */
+  .custom-youtube-poster {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 10; cursor: pointer; background-color: #cde7f8; /* Light Blue BG */
+    display: flex; justify-content: center; align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    transition: opacity 0.3s ease-in-out; overflow: hidden;
+  }
+  .custom-youtube-poster.hidden { display: none; }
+
+  /* Decorative Shapes */
+  .custom-youtube-poster .shape-1, .custom-youtube-poster .shape-2 { position: absolute; border-radius: 50%; }
+  .shape-1 { width: 45%; height: 70%; background: #25a1e8; top: -20%; left: -10%; }
+  .shape-2 { width: 40%; height: 60%; background: #004a8f; bottom: -25%; right: -15%; }
+
+  /* Text Content */
+  .poster-text-content { position: relative; z-index: 2; text-align: center; color: #003362; }
+  .poster-chapter { font-size: 1.5vw; font-weight: 700; letter-spacing: 4px; opacity: 0.9; }
+  .poster-title { font-size: 3vw; font-weight: 400; line-height: 1.2; margin-top: 0.5rem; }
+  
+  /* Play Icon */
+  .play-icon-overlay {
+    position: absolute; z-index: 3; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); color: #ffffff;
+    background: rgba(26, 115, 232, 0.85); /* Google Blue */
+    width: 64px; height: 64px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    transition: all 0.2s ease;
+  }
+  .play-icon-overlay i { font-size: 36px; margin-left: 4px; }
+  .custom-youtube-poster:hover .play-icon-overlay { transform: translate(-50%, -50%) scale(1.1); background: #1a73e8; }
+  
+  /* Completed Badge */
+  .completed-badge { position: absolute; z-index: 12; display: none; /* ... same as before */ }
+  .custom-youtube-poster.completed { cursor: default; }
+  .custom-youtube-poster.completed .play-icon-overlay,
+  .custom-youtube-poster.completed .poster-text-content { display: none; }
+  .custom-youtube-poster.completed .completed-badge {
+      display: flex; align-items: center; transform: translate(-50%, -50%);
+      top: 50%; left: 50%; background: rgba(30, 30, 30, 0.8);
+      color: white; padding: 1rem 2rem; border-radius: 50px;
+      font-size: 1.5rem; font-weight: 600; backdrop-filter: blur(5px);
+  }
+  .completed-badge i { font-size: 2rem; margin-right: 0.75rem; color: #34c759; }
+
+  @media (max-width: 1200px) { .poster-chapter { font-size: 18px; } .poster-title { font-size: 36px; } }
+  @media (max-width: 768px) { .poster-chapter { font-size: 14px; } .poster-title { font-size: 28px; } }
 </style>
 
-<!-- ✅ PERFECTED JAVASCRIPT -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('plyr-container');
-    const poster = document.getElementById('custom-poster');
-    const playerElement = document.getElementById('player');
-    if (!container || !poster || !playerElement) return;
+  // This function will be called by the YouTube API script
+  function onYouTubeIframeAPIReady() {
+    // Find all players on the page that need to be initialized
+    const playersToInit = document.querySelectorAll('.youtube-player-wrapper[data-init-player="true"]');
+    playersToInit.forEach(container => {
+      // Remove the attribute to prevent re-initialization
+      container.removeAttribute('data-init-player');
+      
+      const videoId = container.dataset.videoid;
+      const startTime = parseInt(container.dataset.start, 10);
+      const endTime = container.dataset.end ? parseInt(container.dataset.end, 10) : null;
+      let player;
+      let progressChecker;
 
-    let player;
-    // Get start/end times directly from Liquid, with safe defaults.
-    const startTime = {{ page.start_time | default: 0 }};
-    const endTime = {{ page.end_time | default: null }};
-
-    function initializePlayer() {
-        player = new Plyr(playerElement, {
-            // ✅ FIXED: Pass start time to Plyr's YouTube config.
-            youtube: {
-                start: startTime,
-                noCookie: true
-            }
-        });
-        
-        // This event fires once the player API is ready.
-        player.on('ready', () => {
-            player.play();
-        });
-
-        // This event fires when the video reaches its natural end.
-        player.on('ended', () => {
-            showCompletedState();
-        });
-        
-        // ✅ FIXED: Robust handling for custom end_time.
-        // We use 'timeupdate' for precision, as it fires continuously during playback.
-        if (endTime) {
-            player.on('timeupdate', event => {
-                const currentTime = event.detail.currentTime;
-                // Check if we've passed the custom end time.
-                if (currentTime >= endTime) {
-                    player.stop(); // Immediately stop playback.
-                    showCompletedState(); // Trigger the cleanup and show "Completed".
-                }
-            });
+      function cleanupPlayer() {
+        clearInterval(progressChecker);
+        if (player && typeof player.destroy === 'function') {
+          player.destroy();
         }
-    }
-    
-    function showCompletedState() {
-        // Prevent this function from running multiple times
-        if (!player || !player.source) return;
-
-        player.destroy();
-        playerElement.innerHTML = ''; // Clear the div to prevent Plyr from re-attaching
-        
+        const poster = container.querySelector('.custom-youtube-poster');
         poster.classList.remove('hidden');
         poster.classList.add('completed');
-    }
+      }
+
+      player = new YT.Player(container.querySelector('#youtube-iframe-target'), {
+        videoId: videoId,
+        playerVars: { 'autoplay': 1, 'controls': 1, 'rel': 0, 'start': startTime },
+        events: {
+          'onStateChange': (event) => {
+            if (event.data === YT.PlayerState.PLAYING && endTime) {
+              progressChecker = setInterval(() => {
+                if (player.getCurrentTime() >= endTime) cleanupPlayer();
+              }, 1000);
+            } else if (event.data === YT.PlayerState.ENDED) {
+              cleanupPlayer();
+            } else {
+              clearInterval(progressChecker);
+            }
+          }
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const playerContainer = document.getElementById('youtube-player-container');
+    const poster = document.getElementById('custom-youtube-poster');
+    if (!playerContainer || !poster) return;
 
     poster.addEventListener('click', () => {
-        // Prevent restarting the video if it's already completed.
-        if (poster.classList.contains('completed')) return;
-        
-        poster.classList.add('hidden');
-        initializePlayer();
+      if (poster.classList.contains('completed')) return;
+      
+      poster.classList.add('hidden');
+      playerContainer.setAttribute('data-init-player', 'true');
+      
+      if (typeof(YT) == 'undefined' || typeof(YT.Player) == 'undefined') {
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      } else {
+        onYouTubeIframeAPIReady();
+      }
     });
-});
+  });
 </script>

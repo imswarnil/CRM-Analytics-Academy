@@ -23,7 +23,7 @@ layout: page
                                 {% if post.category == "video" and post.VideoId %}
                                     <div class="card-image">
                                         <figure class="image is-16by9">
-                                            <img src="https://i.ytimg.com/vi/{{ post.VideoId }}/hqdefault.jpg" alt="{{ post.title | escape }}">
+                                            <img src="https://i.ytimg.com/vi/{{ post.videoId }}/hqdefault.jpg" alt="{{ post.title | escape }}">
                                             <div class="is-overlay is-flex is-align-items-center is-justify-content-center" style="background-color: rgba(0,0,0,0.1);">
                                                 <span class="icon is-large has-text-white">
                                                     <i class="ph-fill ph-play-circle" style="font-size: 3.5rem; opacity: 0.7;"></i>
