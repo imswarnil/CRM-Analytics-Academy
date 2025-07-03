@@ -47,19 +47,11 @@ layout: default
 
           {% if page.type == "video" and page.format == "youtube" %}
             <div class="video-container mb-5">
-            {% if page.type == "video" and page.format == "youtube" %}
-  <div class="video-container mb-5">
-    <div class="plyr__video-embed" id="plyr-video">
-      <iframe
-        src="https://www.youtube.com/embed/{{ page.videoid }}?start={{ page.start_time | default: 0 }}&rel=0&modestbranding=1&enablejsapi=1"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-        title="{{ page.title }}">
-      </iframe>
-    </div>
-  </div>
-{% endif %}
-
+              <iframe
+                width="100%" height="400"
+                src="https://www.youtube.com/embed/{{ page.videoid }}?start={{ page.start_time | default: 0 }}&end={{ page.end_time }}"
+                frameborder="0" allowfullscreen>
+              </iframe>
             </div>
           {% endif %}
 
