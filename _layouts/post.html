@@ -22,13 +22,6 @@ layout: default
 
           {% if page.type == "video" and page.format == "youtube" %}
             <!-- ✨ Vidstack Player -->
-
-            <media-player title="Sprite Fight" src="youtube/{{ page.videoid }}?start={{ page.start_time | default: 0 }}{% if page.end_time %}&end={{ page.end_time }}{% endif %}" >
-  <media-provider></media-provider>
-  <media-video-layout thumbnails="https://i.ytimg.com/vi/{{ page.videoid }}/maxresdefault.jpg"></media-video-layout>
-</media-player>
-
-
             <media-player
               class="mb-5"
               title="{{ page.title }}"
