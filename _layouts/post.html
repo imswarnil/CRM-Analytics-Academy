@@ -9,6 +9,15 @@ layout: default
       <!-- 📘 Main Lesson Content -->
       <div class="column is-8-desktop is-12-tablet">
         <div class="content">
+          <!-- ✅ BREADCRUMBS -->
+          <nav class="breadcrumb post-breadcrumbs" aria-label="breadcrumbs">
+            <ul>
+              <li><a href="{{ site.baseurl }}/">Home</a></li>
+              <li><a href="#">Learning</a></li>
+              <li class="is-active"><a href="#" aria-current="page">{{ page.title }}</a></li>
+            </ul>
+          </nav>
+          
           <h1 class="title is-2">{{ page.title }}</h1>
           {% if page.description %}
             <p class="subtitle is-4 has-text-grey">{{ page.description }}</p>
@@ -18,10 +27,7 @@ layout: default
           {% if page.type == "video" and page.format == "youtube" %}
             <div class="youtube-player-wrapper" id="youtube-player-container" data-videoid="{{ page.videoid }}" data-start="{{ page.start_time | default: 0 }}" data-end="{{ page.end_time }}">
               <div class="custom-youtube-poster" id="custom-youtube-poster">
-                <div class="shape-1"></div><div class="shape-2"></div>
-                <div class="poster-text-content"><p class="poster-chapter">{{ page.category | upcase }}</p><h2 class="poster-title">{{ page.title }}</h2></div>
-                <div class="play-icon-overlay"><i class="ph-fill ph-play"></i></div>
-                <div class="completed-badge"><i class="ph-fill ph-check-circle"></i><span>Lesson Complete</span></div>
+                <div class="shape-1"></div><div class="shape-2"></div><div class="poster-text-content"><p class="poster-chapter">{{ page.category | upcase }}</p><h2 class="poster-title">{{ page.title }}</h2></div><div class="play-icon-overlay"><i class="ph-fill ph-play"></i></div><div class="completed-badge"><i class="ph-fill ph-check-circle"></i><span>Lesson Complete</span></div>
               </div>
               <div id="youtube-iframe-target"></div>
             </div>
@@ -29,59 +35,39 @@ layout: default
 
           {{ content }}
           
-          <!-- ✅ PAGINATION -->
-          {% if page.previous or page.next %}
-            <nav class="post-section columns is-variable is-2-mobile is-4-tablet" role="navigation" aria-label="pagination">
-              <div class="column">
-                {% if page.previous %}
-                  <a href="{{ page.previous.url }}" class="pagination-link is-previous">
-                    <span class="label">PREVIOUS LESSON</span>
-                    <span class="title is-6">{{ page.previous.title }}</span>
-                  </a>
-                {% endif %}
-              </div>
-              <div class="column">
-                {% if page.next %}
-                  <a href="{{ page.next.url }}" class="pagination-link is-next">
-                    <span class="label">NEXT LESSON</span>
-                    <span class="title is-6">{{ page.next.title }}</span>
-                  </a>
-                {% endif %}
-              </div>
-            </nav>
-          {% endif %}
-          
-          <!-- ✅ AUTHOR CARD (ADAPTED FOR YOUR CONFIG) -->
-          <div class="post-section author-section">
+          <!-- ✅ AUTHOR & SHARE SECTION -->
+          <div class="post-section author-share-section">
             <div class="author-card">
-              <div class="author-avatar">
-                <img src="{{ site.author.image | relative_url }}" alt="{{ site.author.name }}">
-              </div>
+              <div class="author-avatar"><img src="{{ site.author.image | relative_url }}" alt="{{ site.author.name }}"></div>
               <div class="author-meta">
-                <p class="menu-label">About the Author</p>
-                <h3 class="author-name">{{ site.author.name }}</h3>
-                <p class="author-bio">{{ site.author.bio | markdownify | remove: '<p>' | remove: '</p>' }}</p>
-                <div class="author-links">
-                  {% for social in site.social_media %}
-                    <a href="{{ social.url }}" target="_blank" rel="noopener" aria-label="{{ social.name | capitalize }}">
-                      <!-- This handles both Phosphor icons and Font Awesome classes from your config -->
-                      <i class="{{ social.icon }}"></i>
-                    </a>
-                  {% endfor %}
-                </div>
+                <p class="author-name">{{ site.author.name }}</p>
+                <p class="author-tagline">{{ site.author.tagline }}</p>
+              </div>
+            </div>
+            <div class="social-share">
+              <p class="menu-label">SHARE THIS LESSON</p>
+              <div class="buttons has-addons">
+                <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url }}" target="_blank" class="button"><i class="ph ph-twitter-logo"></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url }}" target="_blank" class="button"><i class="ph ph-linkedin-logo"></i></a>
+                <a href="mailto:?subject={{ page.title | url_encode }}&body=Check out this lesson: {{ page.url | absolute_url }}" target="_blank" class="button"><i class="ph ph-envelope"></i></a>
               </div>
             </div>
           </div>
 
+          <!-- ✅ PAGINATION -->
+          {% if page.previous or page.next %}
+            <nav class="post-section columns is-variable is-2-mobile is-4-tablet" role="navigation">
+              <div class="column">{% if page.previous %}<a href="{{ page.previous.url }}" class="pagination-link is-previous"><span class="label">PREVIOUS LESSON</span><span class="title is-6">{{ page.previous.title }}</span></a>{% endif %}</div>
+              <div class="column">{% if page.next %}<a href="{{ page.next.url }}" class="pagination-link is-next"><span class="label">NEXT LESSON</span><span class="title is-6">{{ page.next.title }}</span></a>{% endif %}</div>
+            </nav>
+          {% endif %}
+
           <!-- ✅ SUPPORT SECTION -->
           <div class="post-section support-section">
             <div class="support-box">
-              <h3 class="support-title">Enjoying the Content?</h3>
-              <p class="support-text">Your support helps me create more high-quality tutorials and learning materials for everyone.</p>
-              <div class="buttons is-centered">
-                <a href="https://github.com/sponsors/imswarnil" class="button is-primary is-medium">Sponsor on GitHub</a>
-                <a href="#" class="button is-medium">Buy Me a Coffee</a>
-              </div>
+              <h3 class="support-title">Found This Useful?</h3>
+              <p class="support-text">Your support allows me to dedicate more time to creating high-quality, free learning materials for the community.</p>
+              <div class="buttons is-centered"><a href="https://github.com/sponsors/imswarnil" class="button is-primary is-medium">Sponsor on GitHub</a><a href="#" class="button is-medium">Buy Me a Coffee</a></div>
             </div>
           </div>
         </div>
@@ -93,11 +79,15 @@ layout: default
             <p class="menu-label">Learning Path</p>
             <ul class="menu-list">
               {% assign sorted_lessons = site.posts | sort: "order" %}
-              {% for lesson in sorted_lessons %}
-                <li>
-                  <a href="{{ lesson.url }}" class="lesson-link {% if page.url == lesson.url %}is-active{% endif %}">
-                    {{ lesson.title }}
-                  </a>
+              {% assign grouped_by_section = sorted_lessons | group_by: "category" %}
+              {% for section in grouped_by_section %}
+                <li class="section-container">
+                  <strong class="section-title">{{ section.name }}</strong>
+                  <ul>
+                    {% for lesson in section.items %}
+                      <li><a href="{{ lesson.url }}" class="lesson-link {% if page.url == lesson.url %}is-active{% endif %}">{{ lesson.title }}</a></li>
+                    {% endfor %}
+                  </ul>
                 </li>
               {% endfor %}
             </ul>
@@ -115,8 +105,15 @@ layout: default
       <p class="menu-label">Learning Path</p>
       <ul class="menu-list">
         {% assign sorted_lessons = site.posts | sort: "order" %}
-        {% for lesson in sorted_lessons %}
-          <li><a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">{{ lesson.title }}</a></li>
+        {% assign grouped_by_section = sorted_lessons | group_by: "category" %}
+        {% for section in grouped_by_section %}
+          <li><strong>{{ section.name }}</strong>
+            <ul>
+              {% for lesson in section.items %}
+                <li><a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">{{ lesson.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
         {% endfor %}
       </ul>
     </nav>
@@ -124,6 +121,6 @@ layout: default
 </div>
 
 <script>
-// --- YouTube Player & Mobile Panel Scripts ---
+// --- Minified YouTube Player & Mobile Panel Scripts ---
 function onYouTubeIframeAPIReady(){const e=document.querySelectorAll('.youtube-player-wrapper[data-init-player="true"]');e.forEach(e=>{e.removeAttribute("data-init-player");const t=e.dataset.videoid,n=parseInt(e.dataset.start,10),a=e.dataset.end?parseInt(e.dataset.end,10):null;let r,l;function o(){clearInterval(l),r&&"function"==typeof r.destroy&&r.destroy();const t=e.querySelector(".custom-youtube-poster");t.classList.remove("hidden"),t.classList.add("completed")}r=new YT.Player(e.querySelector("#youtube-iframe-target"),{videoId:t,playerVars:{autoplay:1,controls:1,rel:0,start:n},events:{onStateChange:e=>{e.data===YT.PlayerState.PLAYING&&a?l=setInterval(()=>{r.getCurrentTime()>=a&&o()},1e3):e.data===YT.PlayerState.ENDED?o():clearInterval(l)}}})})}document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("youtube-player-container"),t=document.getElementById("custom-youtube-poster");if(e&&t&&t.addEventListener("click",function(){if(this.classList.contains("completed"))return;this.classList.add("hidden"),e.setAttribute("data-init-player","true"),"undefined"==typeof YT||"undefined"==typeof YT.Player?(()=>{const e=document.createElement("script");e.src="https://www.youtube.com/iframe_api";const t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})():onYouTubeIframeAPIReady()}),(e=>{const t=document.getElementById("mobile-path-trigger"),n=document.getElementById("mobile-path-panel");t&&n&&t.addEventListener("click",()=>{document.body.classList.toggle("is-learning-path-open")})})()});
 </script>
