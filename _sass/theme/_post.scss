@@ -1,0 +1,124 @@
+// =========================================================================
+// POST LAYOUT STYLES
+// These styles power the enhanced post.html layout
+// =========================================================================
+@use "sass:math";
+
+// --- Main Post Layout & YouTube Player ---
+.post-layout-wrapper {
+  max-width: 1200px; // Controls readability on large fluid screens
+  margin: 0 auto;
+}
+.youtube-player-wrapper {
+  box-shadow: 0 15px 50px -10px rgba($primary, 0.1), 0 8px 20px -8px rgba(0,0,0,0.1);
+  border: 1px solid $color-border;
+}
+
+// --- Desktop Timeline Sidebar ---
+.learning-path-timeline {
+  position: sticky;
+  top: 4rem; // More space from the top
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding-left: 1.5rem;
+  .menu-list {
+    position: relative;
+    padding-left: 25px;
+    &::before {
+      content: ''; position: absolute; left: 7px; top: 10px;
+      bottom: 10px; width: 2px; background-color: $color-background-200;
+    }
+  }
+  li { position: relative; }
+  .lesson-link {
+    &::before {
+      content: ''; position: absolute; left: -24px; top: 50%;
+      transform: translateY(-50%); width: 16px; height: 16px;
+      border: 2px solid $color-background-300; background-color: $color-background;
+      border-radius: 50%; transition: all 0.2s ease;
+    }
+    &:hover::before { border-color: $primary; }
+    &.is-active::before {
+      background-color: $primary; border-color: $primary;
+      box-shadow: 0 0 0 4px rgba($primary, 0.2);
+    }
+  }
+}
+
+// --- Mobile Learning Path (Button & Panel) ---
+.mobile-learning-path-trigger, .mobile-learning-path-panel {
+  display: none; // Hidden on desktop
+}
+@media screen and (max-width: 1023px) {
+  .learning-path-timeline { display: none; }
+  .mobile-learning-path-trigger {
+    display: flex; align-items: center; justify-content: center;
+    position: fixed; bottom: 1.5rem; left: 50%;
+    transform: translateX(-50%); z-index: 100;
+    width: 60px; height: 60px; border-radius: 50%;
+    background-color: $primary; color: white; border: none;
+    box-shadow: 0 8px 25px rgba($primary, 0.35); cursor: pointer;
+    transition: all 0.3s ease;
+    i { font-size: 28px; }
+  }
+  .mobile-learning-path-panel {
+    display: block; position: fixed; bottom: 0; left: 0;
+    width: 100%; z-index: 99; background-color: $color-background;
+    border-top: 1px solid $color-border;
+    border-radius: $radius-large $radius-large 0 0;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+    transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    max-height: 75vh; overflow-y: auto;
+    padding: 1.5rem 1.5rem 7rem 1.5rem;
+  }
+  body.is-learning-path-open {
+    .mobile-learning-path-panel { transform: translateY(0); }
+    .mobile-learning-path-trigger { transform: translateX(-50%) scale(0.9); box-shadow: none; }
+  }
+}
+
+// --- Post-Content Sections ---
+.post-section {
+  padding: 3rem 0;
+  border-top: 1px solid $color-border;
+  margin-top: 3rem;
+}
+.pagination-link.is-previous, .pagination-link.is-next {
+  display: block; padding: 1.5rem; border: 1px solid $color-border;
+  border-radius: $radius-medium; transition: all .2s ease;
+  .label { font-size: 0.8rem; letter-spacing: 0.5px; color: $color-secondary; }
+  .title { font-size: 1.1rem; color: $color-contrast; }
+  &:hover {
+    border-color: $primary; transform: translateY(-4px);
+    box-shadow: 0 8px 25px -5px rgba(0,0,0,0.05);
+  }
+  &.is-next { text-align: right; }
+}
+
+// Author Card
+.author-card {
+  display: flex; align-items: flex-start; gap: 1.5rem;
+  background-color: transparent; padding: 0;
+  .author-avatar img { width: 80px; height: 80px; border-radius: 50%; }
+  .author-meta { flex-grow: 1; }
+  .author-name { font-size: 1.25rem; font-weight: $weight-bold; color: $color-contrast; }
+  .author-bio { color: $color-secondary; margin: 0.5rem 0 1rem 0; }
+  .author-links a {
+    display: inline-block; color: $color-secondary; margin-right: 1.25rem;
+    &:hover { color: $primary; }
+    i, .icon { font-size: 1.5rem; } // Support both <i> and FontAwesome's <svg>
+  }
+  @media screen and (max-width: 768px) {
+    flex-direction: column; text-align: center;
+    align-items: center;
+    .author-links { text-align: center; }
+  }
+}
+
+// Support Section
+.support-box {
+  text-align: center; background-color: $color-background-100;
+  padding: 2.5rem; border-radius: $radius-large;
+  .support-title { font-size: 1.5rem; font-weight: $weight-bold; color: $color-contrast; }
+  .support-text { color: $color-secondary; margin: 1rem auto 1.5rem auto; max-width: 450px; }
+}

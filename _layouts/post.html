@@ -2,206 +2,128 @@
 layout: default
 ---
 
-<section class="section">
-  <div class="container">
-    <div class="columns">
+<div class="container is-fluid">
+  <div class="section">
+    <div class="columns is-centered post-layout-wrapper">
 
       <!-- 📘 Main Lesson Content -->
-      <div class="column is-9">
+      <div class="column is-8-desktop is-12-tablet">
         <div class="content">
-          <h1 class="title">{{ page.title }}</h1>
+          <h1 class="title is-2">{{ page.title }}</h1>
           {% if page.description %}
-            <p class="subtitle has-text-grey">{{ page.description }}</p>
+            <p class="subtitle is-4 has-text-grey">{{ page.description }}</p>
           {% endif %}
 
-          <!-- Video Player Section -->
+          <!-- Video Player -->
           {% if page.type == "video" and page.format == "youtube" %}
-            <!-- ✨ Lazy-Loading YouTube Player Wrapper ✨ -->
-            <div class="youtube-player-wrapper" 
-                 id="youtube-player-container"
-                 data-videoid="{{ page.videoid }}"
-                 data-start="{{ page.start_time | default: 0 }}"
-                 data-end="{{ page.end_time }}">
-              
-              <!-- 1. The Custom Thumbnail (Visible by default) -->
+            <div class="youtube-player-wrapper" id="youtube-player-container" data-videoid="{{ page.videoid }}" data-start="{{ page.start_time | default: 0 }}" data-end="{{ page.end_time }}">
               <div class="custom-youtube-poster" id="custom-youtube-poster">
-                <div class="shape-1"></div>
-                <div class="shape-2"></div>
-                
-                <div class="poster-text-content">
-                  <p class="poster-chapter">{{ page.category | upcase }}</p>
-                  <h2 class="poster-title">{{ page.title }}</h2>
-                </div>
-
+                <div class="shape-1"></div><div class="shape-2"></div>
+                <div class="poster-text-content"><p class="poster-chapter">{{ page.category | upcase }}</p><h2 class="poster-title">{{ page.title }}</h2></div>
                 <div class="play-icon-overlay"><i class="ph-fill ph-play"></i></div>
                 <div class="completed-badge"><i class="ph-fill ph-check-circle"></i><span>Lesson Complete</span></div>
               </div>
-
-              <!-- 2. The YouTube Iframe will be created here by JS -->
               <div id="youtube-iframe-target"></div>
-            </div>
-
-            <div class="my-5">
-              {% include adsense.html format="horizontal" %}
             </div>
           {% endif %}
 
           {{ content }}
+          
+          <!-- ✅ PAGINATION -->
+          {% if page.previous or page.next %}
+            <nav class="post-section columns is-variable is-2-mobile is-4-tablet" role="navigation" aria-label="pagination">
+              <div class="column">
+                {% if page.previous %}
+                  <a href="{{ page.previous.url }}" class="pagination-link is-previous">
+                    <span class="label">PREVIOUS LESSON</span>
+                    <span class="title is-6">{{ page.previous.title }}</span>
+                  </a>
+                {% endif %}
+              </div>
+              <div class="column">
+                {% if page.next %}
+                  <a href="{{ page.next.url }}" class="pagination-link is-next">
+                    <span class="label">NEXT LESSON</span>
+                    <span class="title is-6">{{ page.next.title }}</span>
+                  </a>
+                {% endif %}
+              </div>
+            </nav>
+          {% endif %}
+          
+          <!-- ✅ AUTHOR CARD (ADAPTED FOR YOUR CONFIG) -->
+          <div class="post-section author-section">
+            <div class="author-card">
+              <div class="author-avatar">
+                <img src="{{ site.author.image | relative_url }}" alt="{{ site.author.name }}">
+              </div>
+              <div class="author-meta">
+                <p class="menu-label">About the Author</p>
+                <h3 class="author-name">{{ site.author.name }}</h3>
+                <p class="author-bio">{{ site.author.bio | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+                <div class="author-links">
+                  {% for social in site.social_media %}
+                    <a href="{{ social.url }}" target="_blank" rel="noopener" aria-label="{{ social.name | capitalize }}">
+                      <!-- This handles both Phosphor icons and Font Awesome classes from your config -->
+                      <i class="{{ social.icon }}"></i>
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ✅ SUPPORT SECTION -->
+          <div class="post-section support-section">
+            <div class="support-box">
+              <h3 class="support-title">Enjoying the Content?</h3>
+              <p class="support-text">Your support helps me create more high-quality tutorials and learning materials for everyone.</p>
+              <div class="buttons is-centered">
+                <a href="https://github.com/sponsors/imswarnil" class="button is-primary is-medium">Sponsor on GitHub</a>
+                <a href="#" class="button is-medium">Buy Me a Coffee</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- 📌 Sidebar Navigation -->
-      <aside class="column is-3">
-        <nav class="menu is-sticky">
-            <!-- Your sidebar code here... -->
+      <!-- 📌 Desktop Timeline Sidebar -->
+      <aside class="column is-3 is-offset-1 is-hidden-touch">
+        <nav class="menu learning-path-timeline">
             <p class="menu-label">Learning Path</p>
             <ul class="menu-list">
               {% assign sorted_lessons = site.posts | sort: "order" %}
-              {% assign grouped_by_section = sorted_lessons | group_by: "category" %}
-              {% for section in grouped_by_section %}
+              {% for lesson in sorted_lessons %}
                 <li>
-                  <strong>{{ section.name }}</strong>
-                  <ul>
-                    {% for lesson in section.items %}
-                      <li>
-                        <a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active has-text-weight-bold{% else %}has-text-grey-dark{% endif %}">
-                          {{ lesson.order }} - {{ lesson.title }}
-                        </a>
-                      </li>
-                    {% endfor %}
-                  </ul>
+                  <a href="{{ lesson.url }}" class="lesson-link {% if page.url == lesson.url %}is-active{% endif %}">
+                    {{ lesson.title }}
+                  </a>
                 </li>
               {% endfor %}
             </ul>
-            <div class="mt-5">
-              {% include adsense.html format="skyscraper" %}
-            </div>
         </nav>
       </aside>
-
     </div>
   </div>
-</section>
+</div>
 
-<!-- CSS & JAVASCRIPT FOR THE PLAYER -->
-<style>
-  .menu.is-sticky { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; padding-left: 1rem; }
-  .youtube-player-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background-color: #000; border-radius: 8px; margin-bottom: 1.5rem; }
-  .youtube-player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-  
-  /* --- Custom Thumbnail Design --- */
-  .custom-youtube-poster {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 10; cursor: pointer; background-color: #cde7f8; /* Light Blue BG */
-    display: flex; justify-content: center; align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    transition: opacity 0.3s ease-in-out; overflow: hidden;
-  }
-  .custom-youtube-poster.hidden { display: none; }
-
-  /* Decorative Shapes */
-  .custom-youtube-poster .shape-1, .custom-youtube-poster .shape-2 { position: absolute; border-radius: 50%; }
-  .shape-1 { width: 45%; height: 70%; background: #25a1e8; top: -20%; left: -10%; }
-  .shape-2 { width: 40%; height: 60%; background: #004a8f; bottom: -25%; right: -15%; }
-
-  /* Text Content */
-  .poster-text-content { position: relative; z-index: 2; text-align: center; color: #003362; }
-  .poster-chapter { font-size: 1.5vw; font-weight: 700; letter-spacing: 4px; opacity: 0.9; }
-  .poster-title { font-size: 3vw; font-weight: 400; line-height: 1.2; margin-top: 0.5rem; }
-  
-  /* Play Icon */
-  .play-icon-overlay {
-    position: absolute; z-index: 3; top: 50%; left: 50%;
-    transform: translate(-50%, -50%); color: #ffffff;
-    background: rgba(26, 115, 232, 0.85); /* Google Blue */
-    width: 64px; height: 64px; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    transition: all 0.2s ease;
-  }
-  .play-icon-overlay i { font-size: 36px; margin-left: 4px; }
-  .custom-youtube-poster:hover .play-icon-overlay { transform: translate(-50%, -50%) scale(1.1); background: #1a73e8; }
-  
-  /* Completed Badge */
-  .completed-badge { position: absolute; z-index: 12; display: none; /* ... same as before */ }
-  .custom-youtube-poster.completed { cursor: default; }
-  .custom-youtube-poster.completed .play-icon-overlay,
-  .custom-youtube-poster.completed .poster-text-content { display: none; }
-  .custom-youtube-poster.completed .completed-badge {
-      display: flex; align-items: center; transform: translate(-50%, -50%);
-      top: 50%; left: 50%; background: rgba(30, 30, 30, 0.8);
-      color: white; padding: 1rem 2rem; border-radius: 50px;
-      font-size: 1.5rem; font-weight: 600; backdrop-filter: blur(5px);
-  }
-  .completed-badge i { font-size: 2rem; margin-right: 0.75rem; color: #34c759; }
-
-  @media (max-width: 1200px) { .poster-chapter { font-size: 18px; } .poster-title { font-size: 36px; } }
-  @media (max-width: 768px) { .poster-chapter { font-size: 14px; } .poster-title { font-size: 28px; } }
-</style>
+<!-- ✅ Mobile Learning Path Panel & Trigger -->
+<div class="mobile-learning-path is-hidden-desktop">
+  <button class="mobile-learning-path-trigger" id="mobile-path-trigger" aria-label="Open Learning Path"><i class="ph-fill ph-list"></i></button>
+  <div class="mobile-learning-path-panel" id="mobile-path-panel">
+    <nav class="menu">
+      <p class="menu-label">Learning Path</p>
+      <ul class="menu-list">
+        {% assign sorted_lessons = site.posts | sort: "order" %}
+        {% for lesson in sorted_lessons %}
+          <li><a href="{{ lesson.url }}" class="{% if page.url == lesson.url %}is-active{% endif %}">{{ lesson.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</div>
 
 <script>
-  // This function will be called by the YouTube API script
-  function onYouTubeIframeAPIReady() {
-    // Find all players on the page that need to be initialized
-    const playersToInit = document.querySelectorAll('.youtube-player-wrapper[data-init-player="true"]');
-    playersToInit.forEach(container => {
-      // Remove the attribute to prevent re-initialization
-      container.removeAttribute('data-init-player');
-      
-      const videoId = container.dataset.videoid;
-      const startTime = parseInt(container.dataset.start, 10);
-      const endTime = container.dataset.end ? parseInt(container.dataset.end, 10) : null;
-      let player;
-      let progressChecker;
-
-      function cleanupPlayer() {
-        clearInterval(progressChecker);
-        if (player && typeof player.destroy === 'function') {
-          player.destroy();
-        }
-        const poster = container.querySelector('.custom-youtube-poster');
-        poster.classList.remove('hidden');
-        poster.classList.add('completed');
-      }
-
-      player = new YT.Player(container.querySelector('#youtube-iframe-target'), {
-        videoId: videoId,
-        playerVars: { 'autoplay': 1, 'controls': 1, 'rel': 0, 'start': startTime },
-        events: {
-          'onStateChange': (event) => {
-            if (event.data === YT.PlayerState.PLAYING && endTime) {
-              progressChecker = setInterval(() => {
-                if (player.getCurrentTime() >= endTime) cleanupPlayer();
-              }, 1000);
-            } else if (event.data === YT.PlayerState.ENDED) {
-              cleanupPlayer();
-            } else {
-              clearInterval(progressChecker);
-            }
-          }
-        }
-      });
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const playerContainer = document.getElementById('youtube-player-container');
-    const poster = document.getElementById('custom-youtube-poster');
-    if (!playerContainer || !poster) return;
-
-    poster.addEventListener('click', () => {
-      if (poster.classList.contains('completed')) return;
-      
-      poster.classList.add('hidden');
-      playerContainer.setAttribute('data-init-player', 'true');
-      
-      if (typeof(YT) == 'undefined' || typeof(YT.Player) == 'undefined') {
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      } else {
-        onYouTubeIframeAPIReady();
-      }
-    });
-  });
+// --- YouTube Player & Mobile Panel Scripts ---
+function onYouTubeIframeAPIReady(){const e=document.querySelectorAll('.youtube-player-wrapper[data-init-player="true"]');e.forEach(e=>{e.removeAttribute("data-init-player");const t=e.dataset.videoid,n=parseInt(e.dataset.start,10),a=e.dataset.end?parseInt(e.dataset.end,10):null;let r,l;function o(){clearInterval(l),r&&"function"==typeof r.destroy&&r.destroy();const t=e.querySelector(".custom-youtube-poster");t.classList.remove("hidden"),t.classList.add("completed")}r=new YT.Player(e.querySelector("#youtube-iframe-target"),{videoId:t,playerVars:{autoplay:1,controls:1,rel:0,start:n},events:{onStateChange:e=>{e.data===YT.PlayerState.PLAYING&&a?l=setInterval(()=>{r.getCurrentTime()>=a&&o()},1e3):e.data===YT.PlayerState.ENDED?o():clearInterval(l)}}})})}document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("youtube-player-container"),t=document.getElementById("custom-youtube-poster");if(e&&t&&t.addEventListener("click",function(){if(this.classList.contains("completed"))return;this.classList.add("hidden"),e.setAttribute("data-init-player","true"),"undefined"==typeof YT||"undefined"==typeof YT.Player?(()=>{const e=document.createElement("script");e.src="https://www.youtube.com/iframe_api";const t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})():onYouTubeIframeAPIReady()}),(e=>{const t=document.getElementById("mobile-path-trigger"),n=document.getElementById("mobile-path-panel");t&&n&&t.addEventListener("click",()=>{document.body.classList.toggle("is-learning-path-open")})})()});
 </script>
