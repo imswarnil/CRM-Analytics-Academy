@@ -16,7 +16,6 @@ layout: default
 
           <!-- Video Player Section -->
           {% if page.type == "video" and page.format == "youtube" %}
-            <!-- ✨ Plyr.io Player Wrapper ✨ -->
             <div class="plyr-wrapper" id="plyr-container">
 
               <!-- 1. The Dynamic Thumbnail -->
@@ -29,14 +28,17 @@ layout: default
                     <h2 class="poster-title-text">{{ page.title }}</h2>
                   </div>
                   <div class="poster-icon">
-                    <i class="ph-fill ph-{{ page.icon }}"></i>
+                    <!-- ✅ GRACEFUL DEFAULT: Only shows icon if it exists -->
+                    {% if page.icon %}
+                      <i class="ph-fill ph-{{ page.icon }}"></i>
+                    {% endif %}
                   </div>
                 </div>
                 <div class="play-icon-overlay"><i class="ph-fill ph-play-circle"></i></div>
                 <div class="completed-badge"><i class="ph-fill ph-check-circle"></i><span>Completed</span></div>
               </div>
 
-              <!-- 2. The Video Element for Plyr to attach to -->
+              <!-- 2. The Video Element for Plyr -->
               <div id="player" class="plyr__video-embed" data-plyr-provider="youtube" data-plyr-embed-id="{{ page.videoid }}"></div>
             </div>
 
@@ -108,39 +110,67 @@ layout: default
   @media (max-width: 768px) { .poster-content { flex-direction: column-reverse; text-align: center; } .poster-icon { margin-bottom: 1.5rem; } .poster-title-text { font-size: 24px; } }
 </style>
 
+<!-- ✅ PERFECTED JAVASCRIPT -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('plyr-container');
     const poster = document.getElementById('custom-poster');
     const playerElement = document.getElementById('player');
     if (!container || !poster || !playerElement) return;
+
     let player;
+    // Get start/end times directly from Liquid, with safe defaults.
+    const startTime = {{ page.start_time | default: 0 }};
     const endTime = {{ page.end_time | default: null }};
+
     function initializePlayer() {
         player = new Plyr(playerElement, {
-            youtube: { start: {{ page.start_time | default: 0 }} }
+            // ✅ FIXED: Pass start time to Plyr's YouTube config.
+            youtube: {
+                start: startTime,
+                noCookie: true
+            }
         });
-        player.on('ready', () => player.play());
-        player.on('ended', () => showCompletedState());
+        
+        // This event fires once the player API is ready.
+        player.on('ready', () => {
+            player.play();
+        });
+
+        // This event fires when the video reaches its natural end.
+        player.on('ended', () => {
+            showCompletedState();
+        });
+        
+        // ✅ FIXED: Robust handling for custom end_time.
+        // We use 'timeupdate' for precision, as it fires continuously during playback.
         if (endTime) {
             player.on('timeupdate', event => {
-                if (event.detail.currentTime >= endTime) {
-                    player.stop();
-                    showCompletedState();
+                const currentTime = event.detail.currentTime;
+                // Check if we've passed the custom end time.
+                if (currentTime >= endTime) {
+                    player.stop(); // Immediately stop playback.
+                    showCompletedState(); // Trigger the cleanup and show "Completed".
                 }
             });
         }
     }
+    
     function showCompletedState() {
-        if (player) {
-            player.destroy();
-            playerElement.innerHTML = '';
-        }
+        // Prevent this function from running multiple times
+        if (!player || !player.source) return;
+
+        player.destroy();
+        playerElement.innerHTML = ''; // Clear the div to prevent Plyr from re-attaching
+        
         poster.classList.remove('hidden');
         poster.classList.add('completed');
     }
+
     poster.addEventListener('click', () => {
+        // Prevent restarting the video if it's already completed.
         if (poster.classList.contains('completed')) return;
+        
         poster.classList.add('hidden');
         initializePlayer();
     });
