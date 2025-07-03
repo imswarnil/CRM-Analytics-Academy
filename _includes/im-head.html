@@ -22,29 +22,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PMWVNGD8');</script>
 <!-- End Google Tag Manager -->
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-<!-- Plyr JS -->
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const player = new Plyr('#plyr-video', {
-      youtube: {
-        noCookie: true,
-        rel: 0,             // no suggested videos
-        modestbranding: 1
-      }
-    });
-
-    // Optional: Stop video at end_time
-    const endTime = {{ page.end_time | default: 0 }};
-    if (endTime > 0) {
-      player.on('timeupdate', () => {
-        if (player.currentTime >= endTime) {
-          player.pause();
-        }
-      });
-    }
-  });
-</script>
-
+    <!-- In your <head> tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vidstack@^1.0.0/player/styles/default/theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vidstack@^1.0.0/player/styles/default/layouts/video.css" />
+<script type="module" src="https://cdn.jsdelivr.net/npm/vidstack@^1.0.0/player/wc.js"></script>
     </head>

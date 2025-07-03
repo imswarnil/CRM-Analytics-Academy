@@ -6,7 +6,45 @@ layout: default
   <div class="container">
     <div class="columns">
 
-      <!-- 📌 Sidebar Navigation -->
+      <!-- 📘 Main Lesson Content -->
+      <div class="column is-9">
+        <div class="content">
+          <h1 class="title">{{ page.title }}</h1>
+          {% if page.description %}
+            <p class="subtitle has-text-grey">{{ page.description }}</p>
+          {% endif %}
+
+          {% if page.icon %}
+            <span class="icon is-large mb-3">
+              <i class="ph ph-{{ page.icon }} fa-2x"></i>
+            </span>
+          {% endif %}
+
+          {% if page.type == "video" and page.format == "youtube" %}
+            <!-- ✨ Vidstack Player -->
+            <media-player
+              class="mb-5"
+              title="{{ page.title }}"
+              src="youtube/{{ page.videoid }}?start={{ page.start_time | default: 0 }}{% if page.end_time %}&end={{ page.end_time }}{% endif %}"
+              poster="https://i.ytimg.com/vi/{{ page.videoid }}/maxresdefault.jpg"
+              aspect-ratio="16/9"
+            >
+              <media-provider></media-provider>
+              <media-video-layout></media-video-layout>
+            </media-player>
+
+            <!-- 💰 AdSense Ad below video -->
+            <div class="my-5">
+              {% include adsense.html format="horizontal" %}
+            </div>
+          {% endif %}
+
+          {{ content }}
+
+        </div>
+      </div>
+
+      <!-- 📌 Sidebar Navigation (now on the right) -->
       <aside class="column is-3">
         <nav class="menu is-sticky">
           <p class="menu-label">Learning Path</p>
@@ -28,37 +66,13 @@ layout: default
               </li>
             {% endfor %}
           </ul>
+
+          <!-- 💰 AdSense Ad in the sidebar -->
+          <div class="mt-5">
+            {% include adsense.html format="skyscraper" %}
+          </div>
         </nav>
       </aside>
-
-      <!-- 📘 Main Lesson Content -->
-      <div class="column is-9">
-        <div class="content">
-          <h1 class="title">{{ page.title }}</h1>
-          {% if page.description %}
-            <p class="subtitle has-text-grey">{{ page.description }}</p>
-          {% endif %}
-
-          {% if page.icon %}
-            <span class="icon is-large mb-3">
-              <i class="ph ph-{{ page.icon }} fa-2x"></i>
-            </span>
-          {% endif %}
-
-          {% if page.type == "video" and page.format == "youtube" %}
-            <div class="video-container mb-5">
-              <iframe
-                width="100%" height="400"
-                src="https://www.youtube.com/embed/{{ page.videoid }}?start={{ page.start_time | default: 0 }}&end={{ page.end_time }}"
-                frameborder="0" allowfullscreen>
-              </iframe>
-            </div>
-          {% endif %}
-
-          {{ content }}
-
-        </div>
-      </div>
 
     </div>
   </div>
@@ -70,19 +84,13 @@ layout: default
   top: 2rem;
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
-  padding-right: 1rem;
+  /* Swapped padding from right to left as sidebar is now on the right */
+  padding-left: 1rem; 
 }
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-}
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+
+/* 
+  The old .video-container CSS is no longer needed
+  as Vidstack handles its own aspect ratio and responsiveness
+  when you provide the `aspect-ratio` attribute.
+*/
 </style>
