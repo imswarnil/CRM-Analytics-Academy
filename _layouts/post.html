@@ -1,4 +1,5 @@
 ---
+# This layout uses the 'default' layout as its base.
 layout: default
 ---
 
@@ -9,7 +10,6 @@ layout: default
       <!-- 📘 Main Lesson Content -->
       <div class="column is-9">
         <div class="content">
-          <!-- Post Header -->
           <h1 class="title">{{ page.title }}</h1>
           {% if page.description %}
             <p class="subtitle has-text-grey">{{ page.description }}</p>
@@ -17,17 +17,16 @@ layout: default
 
           <!-- Video Player Section -->
           {% if page.type == "video" and page.format == "youtube" %}
-            <!-- ✨ Custom YouTube Player Wrapper ✨ -->
             <div class="custom-player-wrapper" 
                  id="custom-youtube-player"
                  data-videoid="{{ page.videoid }}"
                  data-start="{{ page.start_time | default: 0 }}"
                  data-end="{{ page.end_time }}">
               
-              <!-- 1. The Custom Thumbnail (Visible by default) -->
               <div class="custom-thumbnail-container" id="custom-thumbnail">
                 <div class="shape shape-1"></div>
                 <div class="shape shape-2"></div>
+                
                 <div class="thumbnail-content">
                   <div class="text-block">
                     <p class="category-text">{{ page.category | upcase }}</p>
@@ -37,16 +36,22 @@ layout: default
                     {% if page.icon %}<i class="ph-fill ph-{{ page.icon }}"></i>{% endif %}
                   </div>
                 </div>
+
+                <!-- ✨ Play Icon - Centered & Visible -->
                 <div class="play-icon-overlay">
                   <i class="ph-fill ph-play-circle"></i>
                 </div>
+                
+                <!-- ✨ "Completed" Badge - Hidden by default -->
+                <div class="completed-badge">
+                  <i class="ph-fill ph-check-circle"></i>
+                  <span>Completed</span>
+                </div>
               </div>
 
-              <!-- 2. The YouTube Iframe will be injected here -->
               <div id="youtube-iframe-container"></div>
             </div>
 
-            <!-- 💰 AdSense Ad below video -->
             <div class="my-5">
               {% include adsense.html format="horizontal" %}
             </div>
@@ -91,126 +96,177 @@ layout: default
 <!-- CSS & JAVASCRIPT FOR THE CUSTOM PLAYER -->
 <style>
 .menu.is-sticky {
-  position: sticky;
-  top: 2rem;
-  max-height: calc(100vh - 4rem);
-  overflow-y: auto;
-  padding-left: 1rem;
+  position: sticky; top: 2rem; max-height: calc(100vh - 4rem);
+  overflow-y: auto; padding-left: 1rem;
 }
 
 /* --- Custom Player Styles --- */
 .custom-player-wrapper {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
-  height: 0;
-  overflow: hidden;
-  background-color: #000;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+  position: relative; padding-bottom: 56.25%; height: 0;
+  overflow: hidden; background-color: #000;
+  border-radius: 8px; margin-bottom: 1.5rem;
 }
 .custom-player-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; border: 0;
 }
+
+/* Thumbnail Container */
 .custom-thumbnail-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background-color: #e0f2fe;
-  color: #0c4a6e;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  overflow: hidden;
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; background-color: #e0f2fe; color: #0c4a6e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden; transition: opacity 0.3s ease-out;
 }
-.custom-thumbnail-container .shape { position: absolute; border-radius: 50%; z-index: 1; }
+.custom-thumbnail-container.hidden {
+  opacity: 0; pointer-events: none;
+}
+.custom-thumbnail-container .shape {
+  position: absolute; border-radius: 50%; z-index: 1;
+}
 .shape-1 { width: 300px; height: 300px; background-color: #7dd3fc; top: -100px; left: -80px; }
 .shape-2 { width: 400px; height: 400px; background-color: #0ea5e9; top: -150px; left: -50px; }
-.thumbnail-content { position: relative; z-index: 2; display: flex; width: 90%; justify-content: space-between; align-items: center; }
+.thumbnail-content {
+  position: relative; z-index: 2; display: flex; width: 90%;
+  justify-content: space-between; align-items: center;
+}
 .text-block { flex-basis: 60%; }
 .category-text { font-size: 1.1rem; font-weight: 600; letter-spacing: 2px; opacity: 0.8; margin-bottom: 0.5rem; }
 .title-text { font-size: 2.5rem; font-weight: 700; line-height: 1.2; color: #075985; }
 .icon-block { flex-basis: 30%; text-align: center; }
 .icon-block i { font-size: 8rem; color: #0ea5e9; opacity: 0.5; }
 
-/* -- Play Icon is now VISIBLE by default -- */
+/* ✅ Play Icon Overlay - Centered and Visible */
 .play-icon-overlay {
-  position: absolute;
-  z-index: 3;
-  color: white;
-  opacity: 0.8; /* Visible by default */
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3; color: white; opacity: 0.85;
+  transition: all 0.2s ease-in-out;
 }
 .play-icon-overlay i {
-  font-size: 6rem;
-  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+  font-size: 6.5rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
 }
 .custom-thumbnail-container:hover .play-icon-overlay {
-  opacity: 1;
-  transform: scale(1.1); /* Add a nice hover effect */
+  opacity: 1; transform: translate(-50%, -50%) scale(1.1);
 }
+
+/* ✅ "Completed" Badge Styles */
+.completed-badge {
+  position: absolute; z-index: 4;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(22, 163, 74, 0.85); /* Green with transparency */
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  backdrop-filter: blur(5px);
+  display: none; /* Hidden by default */
+}
+.completed-badge i {
+  font-size: 2rem; margin-right: 0.75rem;
+}
+
+/* ✅ Styles for when the video is completed */
+.custom-thumbnail-container.completed {
+  cursor: default;
+}
+.custom-thumbnail-container.completed .play-icon-overlay {
+  display: none; /* Hide play button */
+}
+.custom-thumbnail-container.completed .completed-badge {
+  display: flex; /* Show completed badge */
+}
+
 @media (max-width: 768px) {
   .title-text { font-size: 1.8rem; }
   .icon-block i { font-size: 6rem; }
   .thumbnail-content { flex-direction: column; text-align: center; }
   .icon-block { margin-top: 1rem; }
+  .completed-badge { font-size: 1.2rem; padding: 0.8rem 1.5rem; }
 }
 </style>
 
-<!-- ✅ NEW, WORKING JAVASCRIPT ✅ -->
+<!-- ✅ ENHANCED JAVASCRIPT -->
 <script>
-  // This function will be called by the YouTube API script once it's loaded
-  function onYouTubeIframeAPIReady() {
-    const playerWrapper = document.getElementById('custom-youtube-player');
-    if (!playerWrapper) return;
+document.addEventListener('DOMContentLoaded', function() {
+  const playerWrapper = document.getElementById('custom-youtube-player');
+  const thumbnail = document.getElementById('custom-thumbnail');
+  
+  if (!playerWrapper || !thumbnail) return;
 
-    // Create the player
-    new YT.Player('youtube-iframe-container', {
+  const videoId = playerWrapper.dataset.videoid;
+  const startTime = parseInt(playerWrapper.dataset.start, 10);
+  const endTime = playerWrapper.dataset.end ? parseInt(playerWrapper.dataset.end, 10) : null;
+  
+  let player;
+  let progressChecker; // To hold our interval ID
+
+  function createPlayer() {
+    player = new YT.Player('youtube-iframe-container', {
       height: '100%',
       width: '100%',
-      videoId: playerWrapper.dataset.videoid,
+      videoId: videoId,
       playerVars: {
-        'autoplay': 1,
-        'controls': 1,
-        'rel': 0,
-        'showinfo': 0,
-        'modestbranding': 1,
-        'start': playerWrapper.dataset.start,
-        'end': playerWrapper.dataset.end
+        'autoplay': 1, 'controls': 1, 'rel': 0,
+        'showinfo': 0, 'modestbranding': 1, 'start': startTime,
+        'end': endTime // Use YouTube's end parameter to stop playback
+      },
+      events: {
+        'onStateChange': onPlayerStateChange
       }
     });
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const thumbnail = document.getElementById('custom-thumbnail');
-    if (!thumbnail) return;
+  function onPlayerStateChange(event) {
+    // When the video ends (state 0) or is playing (state 1) and we have a custom end time
+    if (event.data == YT.PlayerState.PLAYING && endTime) {
+        progressChecker = setInterval(() => {
+            if (player.getCurrentTime() >= endTime) {
+                cleanupPlayer();
+            }
+        }, 1000);
+    } else if (event.data == YT.PlayerState.ENDED) {
+        // This handles cases where the video ends naturally
+        cleanupPlayer();
+    } else {
+        // Clear interval if video is paused, buffering etc.
+        clearInterval(progressChecker);
+    }
+  }
+  
+  function cleanupPlayer() {
+    clearInterval(progressChecker);
+    if(player && typeof player.destroy === 'function') {
+      player.destroy();
+    }
+    thumbnail.classList.remove('hidden');
+    thumbnail.classList.add('completed');
+  }
 
-    // Listen for a click on the thumbnail
-    thumbnail.addEventListener('click', function() {
-      // 1. Hide the thumbnail
-      this.style.display = 'none';
+  function loadYouTubeAPI() {
+    if (typeof(YT) == 'undefined' || typeof(YT.Player) == 'undefined') {
+      const tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      window.onYouTubeIframeAPIReady = createPlayer;
+    } else {
+      createPlayer();
+    }
+  }
 
-      // 2. Load the YouTube IFrame API
-      // This will check if the script is already loaded.
-      // If not, it creates it. Once loaded, it will automatically
-      // call the global onYouTubeIframeAPIReady() function.
-      if (typeof(YT) == 'undefined' || typeof(YT.Player) == 'undefined') {
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      } else {
-        // If API is already present, just create the player
-        onYouTubeIframeAPIReady();
-      }
-    });
+  thumbnail.addEventListener('click', function() {
+    // Do not restart video if it's already completed
+    if (this.classList.contains('completed')) {
+      return;
+    }
+    this.classList.add('hidden');
+    loadYouTubeAPI();
   });
+});
 </script>
