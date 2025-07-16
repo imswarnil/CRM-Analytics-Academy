@@ -1,0 +1,199 @@
+---
+layout: default
+---
+
+<!-- 
+================================================================================
+// 1. EMBEDDED STYLES for the category page and lesson cards.
+// Using a <style> tag to keep everything in this one file.
+================================================================================
+-->
+<style>
+  /* --- Filter Tabs --- */
+  #category-filters .tabs a {
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* --- Category Group Title --- */
+  .category-group-title {
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #dbdbdb; /* Bulma's default border color */
+    margin-bottom: 2rem;
+  }
+  
+  /* First category group has less top margin for better spacing */
+  .category-group:first-child .category-group-title {
+    margin-top: 1rem;
+  }
+
+  /* --- Lesson Card Styling --- */
+  .card-link {
+    display: block; /* Makes the entire card area clickable */
+    height: 100%;
+    color: inherit; /* Prevents default blue anchor color */
+  }
+
+  .lesson-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .lesson-card .card-content {
+    /* Ensures cards in the same row stretch to the same height */
+    flex-grow: 1; 
+  }
+
+  .lesson-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.08);
+  }
+  
+  /* Utility to properly hide elements for the filter */
+  .category-group[hidden] {
+    display: none;
+  }
+</style>
+
+
+<section class="section">
+    <div class="container">
+        
+        <!-- ================================================================================
+        // 2. PAGE HEADER and introduction content from the markdown file.
+        ================================================================================ -->
+        <h1 class="title is-2 has-text-centered">{{ page.title }}</h1>
+        {% if page.content %}
+        <div class="content is-medium has-text-centered mb-6">
+            {{ content }}
+        </div>
+        {% endif %}
+
+
+        <!-- ================================================================================
+        // 3. CATEGORY FILTER TABS rendered dynamically from your posts.
+        ================================================================================ -->
+        {%- assign categories = site.posts | map: "category" | uniq | sort -%}
+        <div id="category-filters" class="tabs is-centered is-boxed">
+            <ul>
+                <li class="is-active" data-category="all"><a>All Lessons</a></li>
+                {% for category in categories %}
+                <li data-category="{{ category | slugify }}">
+                    <a>
+                      <!-- This assumes you have Font Awesome. Add an icon if you want! -->
+                      <!-- <span class="icon is-small"><i class="fas fa-book"></i></span> -->
+                      <span>{{ category }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        <!-- ================================================================================
+        // 4. LESSONS CONTAINER where posts are grouped and rendered as cards.
+        ================================================================================ -->
+        <div class="lessons-container">
+            {% assign posts_grouped = site.posts | group_by: "category" | sort: "name" %}
+            {% for group in posts_grouped %}
+
+            <!-- A. Category Group: This entire block is a filterable unit -->
+            <div class="category-group" data-group="{{ group.name | slugify }}">
+                <h2 class="title is-3 category-group-title">{{ group.name }}</h2>
+                <div class="columns is-multiline">
+                    
+                    {% assign sorted_posts = group.items | sort: "order" %}
+                    {% for post in sorted_posts %}
+
+                    <!-- B. Lesson Card Column -->
+                    <div class="column is-one-third">
+                        
+                        <!-- ================== INLINED LESSON CARD ================== -->
+                        <a href="{{ post.url | relative_url }}" class="card-link">
+                        <div class="card lesson-card">
+                          <div class="card-content">
+                            <div class="media">
+                              {% if post.icon %}
+                              <div class="media-left">
+                                <figure class="image is-48x48">
+                                  <!-- This assumes Font Awesome. Change class for other icon sets. -->
+                                  <span class="icon is-large has-text-primary">
+                                    <i class="fas fa-2x fa-{{ post.icon }}"></i>
+                                  </span>
+                                </figure>
+                              </div>
+                              {% endif %}
+                              <div class="media-content">
+                                <p class="title is-5">{{ post.title }}</p>
+                                <p class="subtitle is-6">
+                                    {% if post.difficulty %}<span class="tag is-light">{{ post.difficulty }}</span>{% endif %}
+                                    <time datetime="{{ post.date | date_to_xmlschema }}" class="is-size-7 has-text-grey">{{ post.date | date: "%b %d, %Y" }}</time>
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="content">
+                              {{ post.description }}
+                              {% if post.tags and post.tags.size > 0 %}
+                                <div class="tags mt-3">
+                                  {% for tag in post.tags %}
+                                    <span class="tag is-info is-light">{{ tag }}</span>
+                                  {% endfor %}
+                                </div>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                        </a>
+                        <!-- ================= END INLINED LESSON CARD ================= -->
+                    </div> <!-- End Column -->
+                    {% endfor %} 
+                </div> <!-- End Columns -->
+            </div> <!-- End Category Group -->
+            {% endfor %}
+        </div> <!-- End Lessons Container -->
+    </div> <!-- End Container -->
+</section>
+
+
+<!-- 
+================================================================================
+// 5. EMBEDDED JAVASCRIPT for filtering functionality.
+// This script powers the tabs at the top of the page.
+================================================================================
+-->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Find all the filter tabs and the content groups
+    const filters = document.querySelectorAll('#category-filters li');
+    const categoryGroups = document.querySelectorAll('.category-group');
+
+    if (!filters.length || !categoryGroups.length) {
+        // Do nothing if the required elements are not on the page
+        return;
+    }
+
+    filters.forEach(filter => {
+        filter.addEventListener('click', function() {
+            // Get the category to filter by from the data-attribute
+            const targetCategory = this.dataset.category;
+
+            // Update the 'is-active' state on the filter tabs
+            filters.forEach(f => f.classList.remove('is-active'));
+            this.classList.add('is-active');
+
+            // Loop through each category group and show or hide it
+            categoryGroups.forEach(group => {
+                // If the user clicked "All" OR the group's data attribute matches the filter
+                if (targetCategory === 'all' || group.dataset.group === targetCategory) {
+                    group.hidden = false; // Show the group
+                } else {
+                    group.hidden = true; // Hide the group
+                }
+            });
+        });
+    });
+});
+</script>
