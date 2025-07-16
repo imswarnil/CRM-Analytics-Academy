@@ -138,7 +138,7 @@ include:
   - _pages
 
 # 3. Gem settings
-paginate: 3
+paginate: 2
 paginate_path: "/archive/page:num/"
 
 
