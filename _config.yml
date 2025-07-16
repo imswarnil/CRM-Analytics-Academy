@@ -1,27 +1,7 @@
-# Site configuration
-# 1. Site Settings
-  # 1.1. Site Logo,Favicons,Manifest and Icons
-  # 1.2. Site Url, Links & Github Repo
-  # 1.3. Site Colors & Typography
-
-# 3. Gem settings
-# 4. Jekyll settings
-# 5. Collections
-# 6. Jekyll collections settings
-# 7. Site setting
-# 8. Resume 
-# 9. Installed Gems
-# 10. Files excluded from Jekyll builds
-
-# 1. Site Settings
-#################################################################################################
-
-# 1.1. Site Logo,Favicons,Manifest and Icons
-# -------------------------------------------
 encoding: utf-8 # Make sure the encoding is right
 lang: en # Set the site language
 locale : en-IN
-title: "Imswarnil" # Site name or title
+title: "CRM Analytics Academy" # Site name or title
 description: "Personal website and portfolio of Swarnil Singhai, a Software Engineer at Twilio specializing in CRM Analytics, Salesforce, and web technologies. Based in Bangalore, India." # Site description
 keywords: ["Swarnil Singhai", "Salesforce", "CRM Analytics", "Tableau CRM", "Einstein Analytics", "Apex", "LWC", "Software Engineer", "Twilio", "Bangalore", "Resume", "Portfolio"]
 timezone: Asia/Kolkata # Timezone for blog posts and alike
