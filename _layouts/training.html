@@ -1,0 +1,309 @@
+---
+layout: default
+---
+
+<!-- 
+================================================================================
+// 1. EMBEDDED STYLES for the training homepage components.
+================================================================================
+-->
+<style>
+  /* --- Hero Section --- */
+  .training-hero .title {
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+
+  /* --- Key Metrics Section --- */
+  .key-metrics .level-item .title {
+    font-size: 3rem;
+  }
+  
+  /* --- Shared Section Title Style --- */
+  .course-section-title {
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #f5f5f5; /* Bulma's background color */
+  }
+
+  /* --- Ad Placeholder --- */
+  .ad-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    background-color: #fafafa;
+    border: 2px dashed #dbdbdb;
+    border-radius: 6px;
+    color: #7a7a7a;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2rem 0;
+  }
+
+  /* --- Lesson Card Styling (reused from previous request) --- */
+  .card-link { display: block; height: 100%; color: inherit; }
+  .lesson-card { height: 100%; display: flex; flex-direction: column; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+  .lesson-card .card-content { flex-grow: 1; }
+  .lesson-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.08); }
+
+  /* --- Testimonials --- */
+  .testimonial-box {
+    background-color: #fff;
+  }
+  .testimonial-box blockquote {
+    border-left: 3px solid #485fc7; /* Bulma primary color */
+    background-color: transparent;
+    padding: 1rem 1.5rem;
+  }
+
+  /* --- Final CTA Section --- */
+  .final-cta {
+    border-radius: 8px;
+  }
+</style>
+
+
+<!-- 
+================================================================================
+// 2. HERO SECTION
+// Pulls title, subtitle, and button text from the page's front matter.
+================================================================================
+-->
+<section class="hero is-primary is-medium training-hero">
+  <div class="hero-body has-text-centered">
+    <div class="container">
+      <p class="title is-1">{{ page.title | default: "Training Course Homepage" }}</p>
+      <p class="subtitle is-3">{{ page.subtitle | default: "Your journey to mastery starts here." }}</p>
+      <a href="{{ page.cta_button_url | default: '#course-content' }}" class="button is-large is-light is-outlined">
+        <span>{{ page.cta_button_text | default: "Start Learning Now" }}</span>
+        <span class="icon"><i class="fas fa-arrow-down"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<div class="container">
+<div class="columns">
+<div class="column is-three-quarters">
+<!-- Main Content Column -->
+
+  <!-- 
+  ================================================================================
+  // 3. KEY METRICS SECTION
+  // Numbers will be animated by the script at the bottom.
+  ================================================================================
+  -->
+  <section class="section key-metrics">
+    <nav class="level is-mobile">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Lessons</p>
+          <p class="title" data-count="{{ site.posts.size }}">0</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Categories</p>
+          {% assign categories = site.posts | map: "category" | uniq %}
+          <p class="title" data-count="{{ categories.size }}">0</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Projects</p>
+          <p class="title" data-count="{{ page.key_metrics.projects | default: '3' }}">0</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Skill Level</p>
+          <p class="title is-4" style="line-height: 2.5rem;">{{ page.key_metrics.skill_level | default: "All Levels" }}</p>
+        </div>
+      </div>
+    </nav>
+  </section>
+
+  <!-- 
+  ================================================================================
+  // 4. COURSE CONTENT (The Lessons)
+  // All lessons grouped by category and displayed as cards.
+  ================================================================================
+  -->
+  <section id="course-content" class="section">
+    <h2 class="title is-2 course-section-title">Course Curriculum</h2>
+    {% assign posts_grouped = site.posts | group_by: "category" | sort: "name" %}
+    {% for group in posts_grouped %}
+    <div class="category-group mb-6">
+      <h3 class="title is-4">{{ group.name }}</h3>
+      <div class="columns is-multiline">
+        {% assign sorted_posts = group.items | sort: "order" %}
+        {% for post in sorted_posts %}
+        <div class="column is-half">
+          <!-- INLINED LESSON CARD -->
+          <a href="{{ post.url | relative_url }}" class="card-link">
+          <div class="card lesson-card">
+            <div class="card-content">
+              <div class="media">
+                {% if post.icon %}
+                <div class="media-left">
+                  <figure class="image is-32x32">
+                    <span class="icon is-medium has-text-link"><i class="fas fa-lg fa-{{ post.icon }}"></i></span>
+                  </figure>
+                </div>
+                {% endif %}
+                <div class="media-content">
+                  <p class="title is-5">{{ post.title }}</p>
+                  <p class="subtitle is-6">
+                    {% if post.difficulty %}<span class="tag is-light">{{ post.difficulty }}</span>{% endif %}
+                  </p>
+                </div>
+              </div>
+              <div class="content is-small">{{ post.description | truncatewords: 15 }}</div>
+            </div>
+          </div>
+          </a>
+          <!-- END INLINED LESSON CARD -->
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <!-- 
+  ================================================================================
+  // 5. TESTIMONIALS SECTION
+  // Hardcoded for simplicity. You can move this to a data file later.
+  ================================================================================
+  -->
+  <section class="section">
+    <h2 class="title is-2 course-section-title">What Students Are Saying</h2>
+    <div class="columns">
+      <div class="column">
+        <div class="box testimonial-box">
+          <blockquote>This course was a game-changer. I went from zero to building complex dashboards in just a few weeks. Highly recommended!</blockquote>
+          <p class="has-text-right has-text-weight-bold mt-3">- Alex Johnson</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box testimonial-box">
+          <blockquote>The instructor explains everything so clearly. The hands-on projects made all the concepts stick. Best CRM Analytics training online.</blockquote>
+          <p class="has-text-right has-text-weight-bold mt-3">- Maria Garcia</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- End Main Content Column -->
+
+<div class="column is-one-quarter">
+<!-- Sidebar Column -->
+<div style="position: sticky; top: 20px;">
+
+  <!-- 
+  ================================================================================
+  // 6. LEARNING OBJECTIVES & PREREQUISITES
+  // Pulls list data from the page's front matter.
+  ================================================================================
+  -->
+  <aside class="menu mt-6">
+    {% if page.objectives %}
+    <p class="menu-label">What You'll Learn</p>
+    <ul class="menu-list">
+      {% for item in page.objectives %}
+      <li><a><span class="icon is-small has-text-success"><i class="fas fa-check"></i></span> {{ item }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if page.prerequisites %}
+    <p class="menu-label mt-5">Tools & Prerequisites</p>
+    <ul class="menu-list">
+      {% for item in page.prerequisites %}
+      <li><a><span class="icon is-small has-text-info"><i class="fas fa-wrench"></i></span> {{ item }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </aside>
+
+  <!-- 
+  ================================================================================
+  // 7. ADVERTISEMENT PLACEHOLDER
+  // A visually distinct block for placing ads.
+  ================================================================================
+  -->
+  <div class="ad-placeholder">
+    <span>Ad Placeholder (300x250)</span>
+  </div>
+
+  <!-- 
+  ================================================================================
+  // 8. FINAL CALL TO ACTION (SIDEBAR)
+  ================================================================================
+  -->
+  <div class="card final-cta has-background-light p-4 has-text-centered">
+    <h4 class="title is-4">Ready to Begin?</h4>
+    <p class="subtitle is-6">Enroll today and take the first step towards mastering CRM Analytics.</p>
+    <a href="{{ page.cta_button_url | default: '#course-content' }}" class="button is-primary is-fullwidth is-medium">
+      <strong>Get Started</strong>
+    </a>
+  </div>
+
+</div>
+</div><!-- End Sidebar Column -->
+
+</div><!-- End Top Level Columns -->
+</div><!-- End Top Level Container -->
+
+
+<!-- 
+================================================================================
+// 9. EMBEDDED JAVASCRIPT for animations.
+// This script animates the numbers in the Key Metrics section.
+================================================================================
+-->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.key-metrics .title[data-count]');
+    
+    if (!counters.length) return;
+
+    const animateCounter = (counter) => {
+        const target = +counter.getAttribute('data-count');
+        const duration = 1500; // Animation duration in milliseconds
+        const stepTime = 20; // Time between each step
+        const totalSteps = duration / stepTime;
+        const increment = target / totalSteps;
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                counter.innerText = target;
+                clearInterval(timer);
+            } else {
+                counter.innerText = Math.ceil(current);
+            }
+        }, stepTime);
+        
+        // Ensure the data attribute is removed to prevent re-animation
+        counter.removeAttribute('data-count');
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // If the element is visible and still has the data-count attribute
+            if (entry.isIntersecting && entry.target.hasAttribute('data-count')) {
+                animateCounter(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.7 // Trigger when 70% of the element is visible
+    });
+
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+});
+</script>
