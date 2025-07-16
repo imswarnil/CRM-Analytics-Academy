@@ -139,7 +139,7 @@ include:
 
 # 3. Gem settings
 paginate: 2
-paginate_path: "/archive/page:num/"
+paginate_path: "/week/page:num/"
 
 
 # 5. Collections
