@@ -4,15 +4,6 @@ description: "Follow our weekly training program to master new skills."
 layout: page
 ---
 
-{% comment %} 
-  We calculate the base day number for the current page.
-  Page 1: (1 - 1) * 7 = 0
-  Page 2: (2 - 1) * 7 = 7
-  Page 3: (3 - 1) * 7 = 14
-  This allows us to show Day 8, Day 9, etc., on the second page.
-{% endcomment %}
-{% assign week_start_day = paginator.page | minus: 1 | times: site.paginate %}
-
 <section class="hero is-primary">
   <div class="hero-body">
     <div class="container has-text-centered">
