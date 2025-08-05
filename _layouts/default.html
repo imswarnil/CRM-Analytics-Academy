@@ -22,40 +22,6 @@
 {% endif %}
   </div>
   <!-- Scripts -->
-   <script>
-    // File: assets/js/lazy-ads.js
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Use a more specific selector to avoid conflicts
-  const adElementsToLoad = document.querySelectorAll('ins.adsbygoogle.lazy-ad');
-
-  if (adElementsToLoad.length === 0) {
-    return; // No ads marked for lazy loading on this page.
-  }
-
-  const adObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      // When an ad element is about to enter the viewport...
-      if (entry.isIntersecting) {
-        // ...push the ad request to Google's queue.
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-          console.error("AdSense push failed for element:", entry.target, e);
-        }
-        // An ad should only be loaded once, so we stop observing it.
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { 
-    // Start loading when the ad is 200px away from the bottom of the screen.
-    rootMargin: '0px 0px 200px 0px' 
-  });
-
-  // Start observing each ad element.
-  adElementsToLoad.forEach(ad => adObserver.observe(ad));
-});
-   </script>
   <script src="{{ '/assets/js/theme-change-assets.js' | relative_url }}" defer="defer"></script>
   <script src="{{ '/assets/js/navigation.js' | relative_url }}" defer="defer"></script>
   <script src="{{ '/assets/js/theme-switcher.js' | relative_url }}" defer="defer"></script>
