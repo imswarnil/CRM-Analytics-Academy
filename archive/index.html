@@ -3,193 +3,379 @@ title: Archive
 description: "Browse through all our posts"
 layout: default
 ---
+<style>
+    // =============================================================================
+// PAGE-SPECIFIC STYLES: ARCHIVE
+// =============================================================================
 
+.archive-header {
+  text-align: center;
+  margin-block-end: 3rem;
+}
+
+// Re-using the l-card layout for our post grid
+// We just need to define the columns for different screen sizes.
+.l-card {
+  --columns: 1; // Mobile-first: 1 column
+
+  @media(min-width: 48em) { // Tablet: 2 columns
+    --columns: 2;
+  }
+
+  @media(min-width: 80em) { // Desktop: 3 columns
+    --columns: 3;
+  }
+}
+
+// --- The Post Card Component ---
+.post-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; // Ensures cards in a row have the same height
+  background-color: var(--spruce-card-color-background);
+  border: 1px solid var(--spruce-base-color-border);
+  border-radius: var(--spruce-border-radius-lg);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--spruce-box-shadow);
+  }
+}
+
+// Card Image container
+.post-card__image {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background-color: var(--spruce-footer-color-background);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Video-specific overlays
+.post-card__video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(0deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.3) 100%);
+  
+  .icon {
+    color: #fff;
+    font-size: 3.5rem;
+    opacity: 0.8;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  }
+}
+
+.post-card__duration-badge {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background-color: hsla(0, 0%, 10%, 0.7);
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: var(--spruce-border-radius-sm);
+  backdrop-filter: blur(2px);
+}
+
+// Placeholder for posts without an image
+.post-card__placeholder-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--spruce-base-color-border);
+  font-size: 3rem;
+}
+
+// Card Content
+.post-card__content {
+  padding: 1.5rem;
+  flex-grow: 1; // Allows content to fill space, pushing footer down
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.post-card__category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 50px;
+  line-height: 1;
+  text-transform: capitalize;
+
+  // Default color
+  background-color: hsla(var(--spruce-base-color-primary), 0.1);
+  color: var(--spruce-base-color-primary);
+
+  // Category-specific overrides
+  &[data-category="video"] { background-color: hsla(0, 71%, 51%, 0.1); color: hsl(0, 71%, 51%); }
+  &[data-category="course"] { background-color: hsla(150, 100%, 33%, 0.1); color: hsl(150, 100%, 33%); }
+  &[data-category="project"] { background-color: hsla(262, 71%, 49%, 0.1); color: hsl(262, 71%, 49%); }
+  &[data-category="journal"] { background-color: hsla(48, 89%, 55%, 0.1); color: hsl(48, 89%, 55%); }
+
+  .icon { font-size: 1em; }
+}
+
+.post-card__date {
+  font-size: 0.8rem;
+  color: var(--spruce-base-color-text);
+}
+
+.post-card__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-card__excerpt {
+  color: var(--spruce-base-color-text);
+  line-height: var(--spruce-line-height-md);
+  margin-top: auto; // Pushes the excerpt down if content is short
+}
+
+// Card Footer
+.post-card__footer {
+  border-top: 1px solid var(--spruce-base-color-border);
+  padding: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+
+  &--links {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &--tags {
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .tag {
+      font-size: 0.75rem;
+      background-color: var(--spruce-base-color-border);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--spruce-border-radius-sm);
+    }
+  }
+}
+
+// --- Special Cards (Ads & Newsletter) ---
+.special-card {
+  height: 100%;
+  border-radius: var(--spruce-border-radius-lg);
+  border: 1px solid var(--spruce-base-color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+
+  &--ad {
+    .ad-placeholder {
+      width: 100%;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed var(--spruce-base-color-border);
+      border-radius: var(--spruce-border-radius);
+      min-height: 200px;
+      color: var(--spruce-base-color-border);
+      font-size: 3rem;
+    }
+  }
+
+  &--newsletter {
+    background-color: var(--spruce-footer-color-background);
+    h3 { font-size: 1.25rem; }
+    p { color: var(--spruce-base-color-text); }
+    .icon { font-size: 2.5rem; color: var(--spruce-base-color-primary); margin-bottom: 1rem; }
+  }
+}
+
+// --- Pagination ---
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+}
+.pagination__list {
+  display: inline-flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
+}
+.pagination__item,
+.pagination__prev,
+.pagination__next {
+  text-decoration: none;
+}
+.pagination__item[aria-current="page"] {
+  background-color: var(--spruce-base-color-primary);
+  color: var(--spruce-btn-color-primary-foreground);
+  font-weight: 700;
+}
+</style>
 <section class="section"> 
     <div class="container">
-        <h1 class="title is-2 has-text-centered mb-6">All Posts</h1>
-        <div id="post-list" class="columns is-multiline">
+        <div class="archive-header">
+            <h1 class="post-heading__title">All Posts</h1>
+            <p class="post-heading__description">Browse through all our articles, tutorials, and project case studies.</p>
+        </div>
+
+        <div class="l-card">
             {% if paginator.posts.size == 0 %}
-                <div class="column is-full">
-                    <p class="has-text-centered is-size-4 has-text-grey">No posts found.</p>
-                </div>
+                <p>No posts found.</p>
             {% else %}
                 {% assign posts_processed_count = 0 %}
                 {% for post in paginator.posts %}
                     {% assign posts_processed_count = posts_processed_count | plus: 1 %}
 
-                    <div class="column is-one-third-desktop is-half-tablet is-full-mobile">
-                        <div class="card is-flex is-flex-direction-column" style="height: 100%;"> 
-                            <a href="{{ post.url | relative_url }}" class="is-flex is-flex-direction-column is-flex-grow-1" style="text-decoration: none; color: inherit;">
-                                {% if post.category == "video" and post.VideoId %}
-                                    <div class="card-image">
-                                        <figure class="image is-16by9">
-                                            <img src="https://i.ytimg.com/vi/{{ post.VideoId }}/hqdefault.jpg" alt="{{ post.title | escape }}">
-                                            <div class="is-overlay is-flex is-align-items-center is-justify-content-center" style="background-color: rgba(0,0,0,0.1);">
-                                                <span class="icon is-large has-text-white">
-                                                    <i class="ph-fill ph-play-circle" style="font-size: 3.5rem; opacity: 0.7;"></i>
-                                                </span>
-                                            </div>
-                                            {% if post.duration %}
-                                            <div class="is-overlay is-flex is-align-items-flex-end is-justify-content-flex-end p-1">
-                                                <span class="tag is-dark is-rounded is-small">{{ post.duration }}</span>
-                                            </div>
-                                            {% endif %}
-                                        </figure>
+                    <!-- Post Card -->
+                    <article class="post-card">
+                        <a href="{{ post.url | relative_url }}" class="post-card__link" aria-label="{{ post.title | escape }}">
+                            <div class="post-card__image">
+                                {% if post.type == "video" and post.videoid %}
+                                    <img src="https://i.ytimg.com/vi/{{ post.videoid }}/hqdefault.jpg" alt="{{ post.title | escape }}" loading="lazy">
+                                    <div class="post-card__video-overlay">
+                                        <span class="icon"><i class="ph-fill ph-play-circle"></i></span>
                                     </div>
+                                    {% if post.duration %}
+                                    <div class="post-card__duration-badge">{{ post.duration }}</div>
+                                    {% endif %}
                                 {% elsif post.image %}
-                                    <div class="card-image">
-                                        <figure class="image is-4by3">
-                                            <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" style="object-fit: cover;">
-                                        </figure>
-                                    </div>
+                                    <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
                                 {% else %}
-                                     <div class="card-image">
-                                        <figure class="image is-4by3 has-background-light is-flex is-align-items-center is-justify-content-center">
-                                            <span class="icon is-large has-text-grey-lighter">
-                                                <i class="ph-bold ph-image" style="font-size: 3rem;"></i>
-                                            </span>
-                                        </figure>
-                                     </div>
-                                {% endif %}
-
-                                <div class="card-content is-flex-grow-1">
-                                    <div class="content">
-                                        <div class="level is-mobile is-marginless mb-3">
-                                            <div class="level-left">
-                                                <div class="level-item">
-                                                    {% assign category_slug = post.category | default: "blog" | slugify %}
-                                                    <span class="tag is-rounded is-capitalized
-                                                        {% if category_slug == 'video' %}is-danger{% endif %}
-                                                        {% if category_slug == 'course' %}is-success{% endif %}
-                                                        {% if category_slug == 'project' %}is-primary{% endif %}
-                                                        {% if category_slug == 'journal' %}is-warning{% endif %}
-                                                        {% if category_slug == 'blog' or category_slug == 'post' or category_slug == '' %}is-info{% endif %}
-                                                        is-light">
-                                                        <span class="icon is-small mr-1">
-                                                            {% if category_slug == "video" %}<i class="ph-bold ph-youtube-logo"></i>
-                                                            {% elsif category_slug == "course" %}<i class="ph-bold ph-graduation-cap"></i>
-                                                            {% elsif category_slug == "project" %}<i class="ph-bold ph-git-branch"></i>
-                                                            {% elsif category_slug == "journal" %}<i class="ph-bold ph-notebook"></i>
-                                                            {% else %}<i class="ph-bold ph-article"></i>
-                                                            {% endif %}
-                                                        </span>
-                                                        {{ post.category | default: "Blog" }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="level-right">
-                                                <p class="level-item is-size-7 has-text-grey">
-                                                    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, '%y" }}</time>
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <h3 class="title is-5 mb-2">{{ post.title | escape }}</h3>
-                                        <p class="is-size-6">
-                                            {% if post.excerpt %}{{ post.excerpt | strip_html | truncatewords: 20 }}{% else %}{{ post.content | strip_html | truncatewords: 20 }}{% endif %}
-                                        </p>
-
-                                        {% if post.TLTR %}
-                                        <div class="message is-small mt-3 {% if post.category == 'journal' %}is-warning{% else %}is-info{% endif %}">
-                                            <div class="message-body p-2">
-                                                <strong>TL;DR:</strong> {{ post.TLTR }}
-                                            </div>
-                                        </div>
-                                        {% endif %}
+                                    <div class="post-card__placeholder-image">
+                                        <span class="icon"><i class="ph-bold ph-image"></i></span>
                                     </div>
-                                </div>
+                                {% endif %}
+                            </div>
+                        </a>
+
+                        <div class="post-card__content">
+                            <div class="post-card__meta">
+                                {% assign category_slug = post.category | default: "blog" | slugify %}
+                                <span class="post-card__category-tag" data-category="{{ category_slug }}">
+                                    <span class="icon">
+                                        {% if category_slug == "video" %}<i class="ph-bold ph-youtube-logo"></i>
+                                        {% elsif category_slug == "course" %}<i class="ph-bold ph-graduation-cap"></i>
+                                        {% elsif category_slug == "project" %}<i class="ph-bold ph-git-branch"></i>
+                                        {% elsif category_slug == "journal" %}<i class="ph-bold ph-notebook"></i>
+                                        {% else %}<i class="ph-bold ph-article"></i>
+                                        {% endif %}
+                                    </span>
+                                    {{ post.category | default: "Blog" }}
+                                </span>
+                                <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, '%y" }}</time>
+                            </div>
+
+                            <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: inherit;">
+                                <h3 class="post-card__title h4">{{ post.title | escape }}</h3>
                             </a>
-                            {% if post.category == "project" and (post.live_url or post.repo_url) %}
-                            <footer class="card-footer">
-                                {% if post.live_url %}
-                                <a href="{{ post.live_url }}" class="card-footer-item button is-primary is-light is-small" target="_blank" rel="noopener">
-                                    <span class="icon is-small"><i class="ph-bold ph-monitor-play"></i></span>
-                                    <span>Demo</span>
-                                </a>
-                                {% endif %}
-                                {% if post.repo_url %}
-                                <a href="{{ post.repo_url }}" class="card-footer-item button is-dark is-light is-small" target="_blank" rel="noopener">
-                                    <span class="icon is-small"><i class="ph-bold ph-code"></i></span>
-                                    <span>Code</span>
-                                </a>
-                                {% endif %}
-                            </footer>
+
+                            <p class="post-card__excerpt">
+                                {% if post.excerpt %}{{ post.excerpt | strip_html | truncatewords: 20 }}{% else %}{{ post.content | strip_html | truncatewords: 20 }}{% endif %}
+                            </p>
+                        </div>
+
+                        {% if post.tags or (post.category == 'project' and (post.live_url or post.repo_url)) %}
+                        <footer class="post-card__footer 
+                            {% if post.category == 'project' %}post-card__footer--links{% else %}post-card__footer--tags{% endif %}">
+                            {% if post.category == 'project' and (post.live_url or post.repo_url) %}
+                                {% if post.live_url %}<a href="{{ post.live_url }}" class="btn btn--primary btn--sm" target="_blank" rel="noopener">Demo</a>{% endif %}
+                                {% if post.repo_url %}<a href="{{ post.repo_url }}" class="btn btn--outline-primary btn--sm" target="_blank" rel="noopener">Code</a>{% endif %}
                             {% elsif post.tags %}
-                                 <div class="tags card-footer-item is-justify-content-center" style="padding: 0.5rem;">
+                                <div class="tags">
                                     {% for tag_item in post.tags limit:3 %}
-                                    <span class="tag is-light is-rounded">{{ tag_item }}</span>
+                                        <span class="tag">{{ tag_item }}</span>
                                     {% endfor %}
                                 </div>
-                            </footer>
                             {% endif %}
+                        </footer>
+                        {% endif %}
+                    </article>
+
+                    <!-- Ad Slot -->
+                    {% if posts_processed_count == 1 and paginator.posts.size > 1 %}
+                    <div class="special-card special-card--ad">
+                        <p style="font-size: 0.7rem; color: var(--spruce-base-color-text); opacity: 0.7;">Advertisement</p>
+                        <div class="ad-placeholder">
+                            <span class="icon"><i class="ph-bold ph-megaphone"></i></span>
                         </div>
                     </div>
+                    {% endif %}
 
-                    {% comment %} --- Ad and Newsletter Slots --- {% endcomment %}
-                    {% if posts_processed_count == 1 and paginator.posts.size > 1 %}
-                        <div class="column is-one-third-desktop is-half-tablet is-full-mobile">
-                             <div class="box is-flex is-flex-direction-column is-justify-content-center is-align-items-center" style="height: 100%;">
-                                <p class="is-size-7 has-text-grey-light mb-2 has-text-centered">Advertisement</p>
-                                {% if ad_include_output == "" or ad_include_output == nil %}
-                                <div class="is-flex is-align-items-center is-justify-content-center has-background-white-ter" style="width: 100%; flex-grow: 1; border: 1px dashed #dbdbdb; border-radius: 4px; min-height: 200px;">
-                                    <span class="icon is-large has-text-grey-lighter"><i class="ph-bold ph-megaphone"></i></span>
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% elsif posts_processed_count == 3 and paginator.posts.size > 3 %}
-                     <div class="column is-one-third-desktop is-half-tablet is-full-mobile">
-                        <div class="box has-background-info-light is-flex is-flex-direction-column is-justify-content-center" style="height: 100%;">
-                            <div class="has-text-centered">
-                                 <span class="icon is-large has-text-info mb-3"><i class="ph-bold ph-envelope-simple-open"></i></span>
-                                <p class="title is-5 has-text-info-dark">Stay Updated!</p>
-                                <p class="subtitle is-6 has-text-grey-darker">Subscribe for the latest posts & news.</p>
-                                <form action="YOUR_NEWSLETTER_FORM_ACTION_URL" method="post" target="_blank" class="mt-4">
-                                    <div class="field">
-                                        <div class="control">
-                                            <input class="input is-rounded" type="email" name="EMAIL" placeholder="your.email@example.com" required>
-                                        </div>
-                                    </div>
-                                    <div class="field mt-3">
-                                        <button class="button is-info is-rounded is-fullwidth" type="submit">Subscribe</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <!-- Newsletter Slot -->
+                    {% if posts_processed_count == 3 and paginator.posts.size > 3 %}
+                    <div class="special-card special-card--newsletter">
+                        <span class="icon"><i class="ph-bold ph-envelope-simple-open"></i></span>
+                        <h3>Stay Updated!</h3>
+                        <p>Subscribe for the latest posts & news.</p>
+                        <form action="YOUR_NEWSLETTER_FORM_ACTION_URL" method="post" target="_blank" class="group" style="width: 100%; margin-top: 1.5rem;">
+                            <input class="form-control" type="email" name="EMAIL" placeholder="your.email@example.com" required>
+                            <button class="btn btn--primary btn--block" type="submit" style="margin-top: 0.5rem;">Subscribe</button>
+                        </form>
                     </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
         </div>
 
-        {% comment %} --- Bulma Styled Pagination Controls (Your working Liquid logic) --- {% endcomment %}
+        <!-- Pagination -->
         {% if paginator.total_pages > 1 %}
-        <nav class="pagination is-centered is-rounded mt-6" role="navigation" aria-label="pagination">
+        <nav class="pagination" role="navigation" aria-label="pagination">
             {% if paginator.previous_page %}
-                <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-previous button">« Prev</a>
+                <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__prev btn btn--outline-primary btn--sm">« Prev</a>
             {% else %}
-                <a class="pagination-previous button" disabled>« Prev</a>
+                <a class="pagination__prev btn btn--outline-primary btn--sm" disabled>« Prev</a>
             {% endif %}
+
+            <ul class="pagination__list">
+                {% for page_num in (1..paginator.total_pages) %}
+                    <li>
+                        {% if page_num == paginator.page %}
+                            <span class="pagination__item btn btn--primary btn--sm" aria-current="page">{{ page_num }}</span>
+                        {% else %}
+                            <a href="{{ site.paginate_path | relative_url | replace: ':num', page_num }}" class="pagination__item btn btn--outline-primary btn--sm" aria-label="Goto page {{ page_num }}">{{ page_num }}</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
 
             {% if paginator.next_page %}
-                <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-next button">Next »</a>
+                <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__next btn btn--outline-primary btn--sm">Next »</a>
             {% else %}
-                <a class="pagination-next button" disabled>Next »</a>
+                <a class="pagination__next btn btn--outline-primary btn--sm" disabled>Next »</a>
             {% endif %}
-
-            <ul class="pagination-list">
-            {% for page_num in (1..paginator.total_pages) %}
-                {% if page_num == paginator.page %}
-                    <li><a class="pagination-link is-current" aria-label="Page {{ page_num }}" aria-current="page">{{ page_num }}</a></li>
-                {% elsif page_num == 1 %}
-                    <li><a href="{{ site.paginate_path | relative_url | replace: 'page:num/', '' | default: '/archive/' | relative_url }}" class="pagination-link" aria-label="Goto page {{ page_num }}">{{ page_num }}</a></li>
-                {% else %}
-                    <li><a href="{{ site.paginate_path | relative_url | replace: ':num', page_num }}" class="pagination-link" aria-label="Goto page {{ page_num }}">{{ page_num }}</a></li>
-                {% endif %}
-            {% endfor %}
-            </ul>
         </nav>
         {% endif %}
     </div>
 </section>
-
