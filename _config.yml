@@ -1,0 +1,242 @@
+# Site configuration
+# 1. Site Settings
+  # 1.1. Site Logo,Favicons,Manifest and Icons
+  # 1.2. Site Url, Links & Github Repo
+  # 1.3. Site Colors & Typography
+
+# 3. Gem settings
+# 4. Jekyll settings
+# 5. Collections
+# 6. Jekyll collections settings
+# 7. Site setting
+# 8. Resume 
+# 9. Installed Gems
+# 10. Files excluded from Jekyll builds
+
+# 1. Site Settings
+#################################################################################################
+
+# 1.1. Site Logo,Favicons,Manifest and Icons
+# -------------------------------------------
+encoding: utf-8 # Make sure the encoding is right
+lang: en # Set the site language
+locale : en-IN
+title: "Bangalore Job Seekers Guide" # Site name or title
+description: "Struggling to get a job after college? Bangalore Job Seekers Guide shares real steps, practical advice, and lessons learned by Swarnil Singhai—who went from no campus placement to landing his first job. A survival guide for freshers, graduates & job seekers in Bangalore." # Site description
+keywords: ["Swarnil Singhai", "Salesforce", "CRM Analytics", "Tableau CRM", "Einstein Analytics", "Apex", "LWC", "Software Engineer", "Twilio", "Bangalore", "Resume", "Portfolio"]
+timezone: Asia/Kolkata # Timezone for blog posts and alike
+short_name: "BJSG" # The web application short name
+logo: "/assets/logos/logo.svg" # Site logo
+favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
+  16: '/assets/logos/logo@16px.png'
+  32: '/assets/logos/logo@32px.png'
+  96: '/assets/logos/logo@96px.png'
+  120: '/assets/logos/logo@120px.png'
+  144: '/assets/logos/logo@144px.png'
+  180: '/assets/logos/logo@180px.png'
+  512: '/assets/logos/logo@512px.png'
+  1024: '/assets/logos/logo@1024px.png'
+
+# Author Configuration (imswarnil.yml or in _config.yml)
+#################################################################################################
+author:
+  name: "Swarnil Singhai"
+  tagline: "Cinematic chaos meets code."
+  image: "/assets/images/swarnil.gif" # Path to your main profile image
+  bio: >
+   I'm not just a guy with a camera and a keyboard — I'm a man on a mission. From engineering dashboards to editing timelines, 
+   I breathe narrative into numbers and soul into scripts. With 3 years in the Salesforce ecosystem, deep dives into data, 
+    and a passion for storytelling, I create both products and perspectives. This site is my playground — part resume, part 
+    portfolio, part personal logbook. Expect code, chaos, camera gear breakdowns, and stories straight from Bangalore's caffeinated streets.
+  dob: "1996-07-15" # Date of Birth (YYYY-MM-DD)
+  pronouns: "he/him"
+  native : Mahroni, Uttar Pradesh
+  country : India
+  state : Karnataka
+  city : Bangalore
+  nationality: "Indian"
+  email: "contact@imswarnil.com"
+  website: "https://imswarnil.com"
+
+
+
+# Social Media Links
+#################################################################################################
+social_media: # This remains a top-level section for clarity
+  - name: "X (Twitter)"
+    icon : "x-twitter" # (e.g., Simple Icons slug or your custom SVG name)
+    url: "https://twitter.com/imswarnil"
+    cta: "Follow me on X"
+  - name: "LinkedIn"
+    icon : "linkedin-in" # (e.g., fab fa-linkedin-in for Font Awesome)
+    url: "https://linkedin.com/in/imswarnil"
+    cta: "Connect on LinkedIn"
+  - name: "GitHub"
+    icon: "github" # (e.g., fab fa-github)
+    url: "https://github.com/imswarnil"
+    cta: "Follow on GitHub"
+  - name: "YouTube"
+    icon: "youtube" # (e.g., fab fa-youtube)
+    url: "https://youtube.com/@imswarnil"
+    cta: "Subscribe on YouTube"
+  - name: "Instagram"
+    icon: "instagram" # (e.g., fab fa-instagram)
+    url: "https://instagram.com/imswarnil"
+    cta: "Follow on Instagram"
+
+
+# --------------------------------------------
+ # 1.2. Site Url, Links & Github Repo
+ #----------------------------------------------------------------------------------------------
+baseurl : '/'
+url: 'https://https://jobseekers.imswarnil.com' # Site URL
+permalink: /:title  # Permalink style
+repo: "https://github.com/imswarnil/" # Your main GitHub profile
+email: "contact@imswarnil.com" # General contact email for the site
+description_separator: <!-- more -->
+
+# 1.3. CSS, Site Colors & Typography
+#------------------------------------------------------------------------------------------------
+css_inline: true
+sass:
+  style: compressed
+theme_color : '#fff'
+fonts:
+  preconnect_urls:
+    - https://fonts.gstatic.com
+  font_urls:
+    - https://fonts.googleapis.com/css2?family=Geist:wght@100&display=swap
+    - https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap
+    - https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap
+
+# Robots And Indexing Settings
+indexing: true
+robots:
+  bots:
+    "*":
+      disallow:
+        - /404
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: true
+  startings: [head, body]
+
+# Service Worker Configuration
+service_worker: true
+
+
+
+google_analytics: "G-GGHMLZR4YQ"
+# In _config.yml
+
+adsense:
+  enabled: true
+  publisher_id: "ca-pub-1291242080282540"
+  verification_id: "f08c47fec0942fa0" # For ads.txt or site verification
+
+  # A clean list of all ad units, uniquely identified by 'type'.
+  # Our plugin will find the correct slot_id and attributes based on the 'type'.
+  units:
+    - type: "square"
+      slot_id: "7663977887"
+      
+    - type: "horizontal"
+      slot_id: "8939839370"
+
+    - type: "vertical"
+      slot_id: "3487917390"
+
+    - type: "in-feed"
+      slot_id: "9130894804"
+      format: "fluid"
+      layout_key: "-6v+f0-19-44+c6"
+
+    - type: "in-article"
+      slot_id: "6501428979"
+      format: "fluid"
+      layout: "in-article"
+
+    - type: "multiplex"
+      slot_id: "6808134701"
+      format: "autorelaxed"
+
+include:
+  - _pages
+
+# 3. Gem settings
+paginate: 3
+paginate_path: "/archive/page:num/"
+
+
+# 5. Collections
+collections:
+  posts:
+    title: Posts
+    output: true
+    description: "My thoughts, articles, and ideas on technology, Salesforce, and development."
+    image: "https://picsum.photos/2560/600?image=866"
+    permalink: /:title
+
+# 6. Jekyll collections settings
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      image: "/assets/default-social-image.png"
+      author: "Swarnil Singhai" 
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: page
+
+# 9. Site navigation (unchanged from your original for now, can be updated if needed)
+navbar:
+  - name: Home
+    link: /
+    icon: house
+  - name: About # This could link to a page that uses resume data
+    link: https://www.google.com
+    icon: identification-card
+    icon: "file-text" # e.g., ph-file-text or similar
+  - name: Elements
+    link: /elements/
+    icon: puzzle-piece
+  - name: Categories
+    link: /categories/
+    icon: tag
+    
+
+# 8. Installed Gems
+plugins:
+- jekyll-sitemap
+- jekyll-paginate
+- jekyll-redirect-from
+- jekyll-feed
+- jekyll-commonmark
+- jekyll-include-cache
+- jemoji
+
+
+# 9. Files excluded from Jekyll builds
+exclude:
+- README.md
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+- screenshot.png
+- LICENSE
+- CNAME
+- Gemfile
+- Gemfile.lock
+- .jekyll-cache

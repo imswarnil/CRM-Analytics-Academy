@@ -1,0 +1,513 @@
+---
+layout: default
+---
+
+<style>
+    /* Custom styles for this specific homepage layout */
+    .section {
+        padding-block: clamp(4rem, 8vw, 6rem);
+    }
+    .section-title {
+        text-align: center;
+        max-width: 55ch;
+        margin-inline: auto;
+        margin-block-end: 3rem;
+    }
+
+    /* Hero Section Styles */
+    .hero-grid {
+        display: grid;
+        align-items: center;
+        gap: 3rem;
+        grid-template-columns: 1fr; /* Mobile first */
+    }
+    @media (min-width: 64em) {
+        .hero-grid {
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); /* Give text slightly more space */
+            text-align: left;
+        }
+        .hero-grid .post-heading__actions {
+            justify-content: flex-start;
+        }
+    }
+    .hero-image-wrapper {
+       
+    }
+    @media (min-width: 64em) {
+        .hero-image-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image-wrapper img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    /* Category Cards Section */
+    .category-grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .category-card {
+        background-color: var(--spruce-card-color-background);
+        border: 1px solid var(--spruce-base-color-border);
+        border-radius: var(--spruce-border-radius-lg);
+        padding: 2rem;
+        text-decoration: none;
+        display: block;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--spruce-box-shadow);
+    }
+    .category-card__name {
+        font-family: var(--spruce-font-family-heading);
+        font-weight: 700;
+        color: var(--spruce-base-color-primary);
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    .category-card__count {
+        font-size: var(--spruce-font-size-sm);
+        color: var(--spruce-base-color-text);
+    }
+    
+    /* Timeline Section */
+    .timeline {
+        position: relative;
+        max-width: 750px;
+        margin: 0 auto;
+        padding: 2rem 0;
+    }
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 3px;
+        background-color: var(--spruce-base-color-border);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -1.5px;
+    }
+    .timeline-container {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+    }
+    .timeline-container.left {
+        left: 0;
+    }
+    .timeline-container.right {
+        left: 50%;
+    }
+    .timeline-container::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        right: -12.5px;
+        background-color: var(--spruce-base-color-background);
+        border: 4px solid var(--spruce-base-color-primary);
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .timeline-container.right::after {
+        left: -12.5px;
+    }
+    .timeline-content {
+        padding: 20px 30px;
+        background-color: var(--spruce-footer-color-background);
+        position: relative;
+        border-radius: var(--spruce-border-radius);
+        border: 1px solid var(--spruce-base-color-border);
+    }
+    @media screen and (max-width: 600px) {
+      .timeline::after {
+        left: 31px;
+      }
+      .timeline-container {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      .timeline-container.right {
+        left: 0%;
+      }
+      .timeline-container.left::after, 
+      .timeline-container.right::after {
+        left: 18px;
+      }
+    }
+
+</style>
+
+<main id="content">
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="post-heading">
+                    <span class="post-heading__headline">For Every Job Seeker Who Feels Lost</span>
+                    <h1 class="post-heading__title">Your Degree is in Hand. Your Future Isn't.</h1>
+                    <p class="post-heading__description">
+                        This is not just another job portal. It’s a real, honest guide built on the experience of failure, for every student and graduate in India who feels stuck, confused, and alone on their career journey.
+                    </p>
+                    <div class="post-heading__actions">
+                        <a href="{{ '/categories/the-beginning/' | relative_url }}" class="btn btn--primary btn--lg btn--primary-shadow">Start My Story</a>
+                        <a href="{{ '/categories/' | relative_url }}" class="btn btn--outline-primary btn--lg">Explore All Guides</a>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper">
+                    <img src="{{ '/assets/hero.svg' | relative_url }}" alt="Illustration of a person looking at a road map for their career.">
+                </div>
+            </div>
+        </section>
+   </main>
+
+  <!--
+============================================================
+PART 1: THE ADVANCED CSS
+Handles the precise layout, synchronized animations, and interactive tooltips.
+============================================================
+-->
+<style>
+  .journey-section-final {
+    padding-block: clamp(4rem, 8vw, 6rem);
+    background-color: var(--spruce-footer-color-background, #f8f9fa);
+    overflow-x: hidden;
+  }
+
+  .journey-wrapper {
+    position: relative;
+    max-width: 64rem;
+    margin: 4rem auto;
+  }
+
+  /* --- The Track and Progress Bar --- */
+  .journey-track-base,
+  .journey-track-progress {
+    position: absolute;
+    top: 24px; /* Vertically center with the 48px node */
+    height: 4px;
+    z-index: 1;
+  }
+
+  .journey-track-base {
+    background-color: var(--spruce-base-color-border, #e0e0e0);
+    /* **THE FIX**: Start and end exactly at the node centers */
+    left: 0;
+    width: 100%;
+  }
+
+  .journey-track-progress {
+    background-color: var(--spruce-base-color-primary, #e53935);
+    left: 0;
+    width: 0; /* JS will control this */
+  }
+  
+  /* --- The Milestones and their Content --- */
+  .journey-milestones {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  .journey-milestone {
+    position: absolute; /* Positioned precisely along the track */
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+    transform: translateX(-50%);
+    cursor: default;
+  }
+
+  .journey-milestone__node {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--spruce-base-color-background, #fff);
+    border: 4px solid var(--spruce-base-color-border, #e0e0e0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* Sits above the track */
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .journey-milestone__icon {
+    font-size: 1.5rem;
+    color: var(--spruce-base-color-text, #555);
+    transition: color 0.3s ease;
+  }
+
+  .journey-milestone__title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--spruce-base-color-text);
+    margin-top: 0.75rem;
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* --- Refined Tooltip Styles --- */
+  .journey-milestone__tooltip {
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 1rem;
+    width: 180px;
+    background-color: var(--spruce-base-color-heading, #111);
+    color: var(--spruce-base-color-background, #fff);
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--spruce-border-radius, 8px);
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    opacity: 0; /* Hidden by default */
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+  }
+  
+  /* Tooltip arrow */
+  .journey-milestone__tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%; margin-left: -8px;
+    border: 8px solid transparent;
+    border-top-color: var(--spruce-base-color-heading, #111);
+  }
+  
+  /* --- ACTIVE STATE STYLES (Toggled by JS) --- */
+  .journey-milestone.is-active .journey-milestone__node {
+    border-color: var(--spruce-base-color-primary, #e53935);
+    transform: scale(1.1);
+  }
+  .journey-milestone.is-active .journey-milestone__icon {
+    color: var(--spruce-base-color-primary, #e53935);
+  }
+  .journey-milestone.is-active .journey-milestone__title {
+    opacity: 1;
+  }
+  .journey-milestone.is-active .journey-milestone__tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* --- Duration markers between nodes --- */
+  .journey-duration {
+    position: absolute;
+    top: 52px; /* Position below the track */
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--spruce-base-color-text);
+    background-color: var(--spruce-footer-color-background, #f8f9fa);
+    padding: 0.1rem 0.5rem;
+  }
+
+  /* --- Responsive Styles --- */
+  @media (max-width: 992px) {
+    .journey-wrapper { display: flex; }
+    .journey-track-container { width: 48px; }
+    .journey-track-base, .journey-track-progress {
+      top: 0; left: 50%; right: auto; width: 4px; height: 100%;
+    }
+    .journey-milestones { flex-direction: column; width: 100%; }
+    .journey-milestone {
+      flex-direction: row; align-items: center; width: auto;
+      transform: none; padding: 0 0 6rem 1.5rem;
+      position: absolute; left: 0;
+    }
+    .journey-milestone:last-child { padding-bottom: 0; }
+    .journey-milestone__node { margin-right: 1.5rem; }
+    .journey-milestone__title { text-align: left; }
+    .journey-milestone__tooltip {
+      left: 100%; top: 50%; transform: translateY(-50%) translateX(10px); margin: 0 0 0 1rem;
+    }
+    .journey-milestone__tooltip::after {
+      top: 50%; left: -16px; transform: translateY(-50%);
+      border-color: transparent var(--spruce-base-color-heading, #111) transparent transparent;
+    }
+    .journey-duration {
+      top: 50%; left: -25px; transform: translate(-100%, -50%);
+    }
+  }
+</style>
+
+
+<!--
+============================================================
+PART 2: THE HTML STRUCTURE
+Data attributes now control positioning for perfect sync.
+============================================================
+-->
+<div class="section journey-section-final">
+  <div class="container">
+    <div class="section-title">
+      <h2 class="h2">My Journey: The Story Behind the Guide</h2>
+      <p class="lead">From a clueless graduate to a professional at a global firm—this is the path that inspired this project.</p>
+    </div>
+
+    <div id="journey-wrapper" class="journey-wrapper">
+      <div class="journey-track-container">
+        <div class="journey-track-base"></div>
+        <div id="journey-progress" class="journey-track-progress"></div>
+      </div>
+      
+      <div id="journey-milestones" class="journey-milestones">
+        <!-- Milestone 1 -->
+        <div class="journey-milestone" data-position="0">
+          <div class="journey-milestone__node"><span class="journey-milestone__icon"><i class="ph-duotone ph-flag"></i></span></div>
+          <h3 class="journey-milestone__title">Journey Begins</h3>
+          <div class="journey-milestone__tooltip"><p>Graduated in 2017, jobless and unsure of the next step.</p></div>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="journey-milestone" data-position="25">
+          <div class="journey-milestone__node"><span class="journey-milestone__icon"><i class="ph-duotone ph-buildings"></i></span></div>
+          <h3 class="journey-milestone__title">Bangalore</h3>
+          <div class="journey-milestone__tooltip"><p>Took a leap of faith to immerse myself in India's tech hub.</p></div>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="journey-milestone" data-position="50">
+          <div class="journey-milestone__node"><span class="journey-milestone__icon"><i class="ph-duotone ph-code"></i></span></div>
+          <h3 class="journey-milestone__title">JSpiders</h3>
+          <div class="journey-milestone__tooltip"><p>Began intensive training in Core Java and SQL.</p></div>
+        </div>
+
+        <!-- Milestone 4 -->
+        <div class="journey-milestone" data-position="75">
+          <div class="journey-milestone__node"><span class="journey-milestone__icon"><i class="ph-duotone ph-rocket-launch"></i></span></div>
+          <h3 class="journey-milestone__title">First Job</h3>
+          <div class="journey-milestone__tooltip"><p>Secured my first role at a startup. A crucial start.</p></div>
+        </div>
+
+        <!-- Milestone 5 -->
+        <div class="journey-milestone" data-position="100">
+          <div class="journey-milestone__node"><span class="journey-milestone__icon"><i class="ph-duotone ph-seal-check"></i></span></div>
+          <h3 class="journey-milestone__title">Goal Achieved!</h3>
+          <div class="journey-milestone__tooltip"><p>Joined Accenture in March 2023, inspiring this guide.</p></div>
+        </div>
+      </div>
+
+      <!-- Duration markers are now generated by JavaScript -->
+      <div id="journey-durations" class="journey-durations"></div>
+    </div>
+  </div>
+</div>
+
+
+<!--
+============================================================
+PART 3: THE JAVASCRIPT CONTROLLER
+This script powers the animation and triggers the tooltips in perfect sync.
+============================================================
+-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const journeyWrapper = document.getElementById('journey-wrapper');
+  if (!journeyWrapper) return;
+
+  const progressBar = document.getElementById('journey-progress');
+  const milestones = Array.from(document.querySelectorAll('.journey-milestone'));
+  const durationsContainer = document.getElementById('journey-durations');
+  
+  let animationFrameId;
+  let hasAnimated = false;
+  const totalAnimationTime = 10; // seconds for one full loop
+
+  // --- Setup Function ---
+  const setupJourney = () => {
+    const durations = [4, 6, 4, 54]; // Months between steps
+    let cumulativePosition = 0;
+
+    milestones.forEach((ms, index) => {
+        const position = parseInt(ms.dataset.position, 10);
+        const isVertical = window.innerWidth <= 992;
+        
+        // Position milestone nodes
+        ms.style[isVertical ? 'top' : 'left'] = `${position}%`;
+
+        // Create and position duration markers
+        if (index < durations.length) {
+            const nextPosition = parseInt(milestones[index + 1].dataset.position, 10);
+            const midPoint = position + (nextPosition - position) / 2;
+            
+            const durationEl = document.createElement('div');
+            durationEl.className = 'journey-duration';
+            durationEl.textContent = `+${durations[index]} Months`;
+            durationEl.style[isVertical ? 'top' : 'left'] = `${midPoint}%`;
+            durationsContainer.appendChild(durationEl);
+        }
+    });
+  };
+
+
+  // --- Animation Controller ---
+  const animateJourney = () => {
+    let startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsedTime = (timestamp - startTime) / 1000;
+      let progress = (elapsedTime / totalAnimationTime) * 100;
+
+      if (progress >= 100) {
+        progress = 100;
+        setTimeout(() => {
+          startTime = null;
+          milestones.forEach(ms => ms.classList.remove('is-active'));
+          if (hasAnimated) requestAnimationFrame(step);
+        }, 2000);
+      } else {
+        animationFrameId = requestAnimationFrame(step);
+      }
+      
+      const isVertical = window.innerWidth <= 992;
+      const progressProperty = isVertical ? 'height' : 'width';
+      progressBar.style[progressProperty] = `${progress}%`;
+      
+      milestones.forEach(ms => {
+        const milestonePosition = parseInt(ms.dataset.position, 10);
+        if (progress >= milestonePosition) {
+          ms.classList.add('is-active');
+        } else {
+          ms.classList.remove('is-active');
+        }
+      });
+    }
+    
+    animationFrameId = requestAnimationFrame(step);
+  };
+
+  // --- Initialization ---
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasAnimated) {
+        hasAnimated = true;
+        animateJourney();
+        observer.unobserve(journeyWrapper);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  setupJourney(); // Position elements correctly on load
+  observer.observe(journeyWrapper);
+  window.addEventListener('resize', () => {
+      durationsContainer.innerHTML = ''; // Clear old durations
+      setupJourney(); // Recalculate positions on resize
+  });
+});
+</script>

@@ -1,0 +1,19 @@
+---
+layout: null
+permalink: /robots.txt
+---
+{% if site.indexing == false %}
+User-agent: *
+Disallow: /
+{% else %}
+User-agent: *
+Allow: /
+{% if site.robots.bots["*"].disallow %}
+{% for path in site.robots.bots["*"].disallow %}
+Disallow: {{ path }}
+{% endfor %}
+{% endif %}
+{% if site.url %}
+Sitemap: {{ site.url }}/sitemap.xml
+{% endif %}
+{% endif %}

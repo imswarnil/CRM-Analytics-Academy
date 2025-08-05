@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+{% include head.html %}
+<body>
+   <div class="site-wrapper">
+  <a class="btn btn--primary skip-link" href="#content">Skip to content</a>
+  <div class="container container--wide">
+      {% include header.html %} 
+  <main id="content">
+    {{ content }}
+  </main>
+</div>
+
+  <script src="{{ '/assets/js/theme-change-assets.js' | relative_url }}" defer="defer"></script>
+  <script src="{{ '/assets/js/navigation.js' | relative_url }}" defer="defer"></script>
+  <script src="{{ '/assets/js/theme-switcher.js' | relative_url }}" defer="defer"></script>
+  <script src="{{ '/assets/js/accordion-card.js' | relative_url }}" defer="defer"></script>
+</body>
+</html>

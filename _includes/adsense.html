@@ -1,0 +1,57 @@
+{%- assign ad_type = include.type | default: 'square' -%}
+{%- assign publisher_id = "ca-pub-1291242080282540" -%}
+
+{%- case ad_type -%}
+
+  {%- when "square" -%}
+    <div class="ad square">
+      <ins class="adsbygoogle"
+           data-ad-client="{{ publisher_id }}"
+           data-ad-slot="7663977887"
+           data-ad-format="auto"></ins>
+    </div>
+
+  {%- when "leaderboard" -%}
+    <div class="ad leaderboard">
+      <ins class="adsbygoogle"
+           data-ad-client="{{ publisher_id }}"
+           data-ad-slot="1864856299"></ins>
+    </div>
+
+  {%- when "article" -%}
+    <div class="ad article">
+      <ins class="adsbygoogle"
+           data-ad-client="{{ publisher_id }}"
+           data-ad-slot="6501428979"
+           data-ad-format="fluid"
+           data-ad-layout="in-article"></ins>
+    </div>
+
+  {%- when "multiplex" -%}
+    <div class="ad multiplex">
+      <ins class="adsbygoogle"
+           data-ad-client="{{ publisher_id }}"
+           data-ad-slot="6808134701"
+           data-ad-format="autorelaxed"></ins>
+    </div>
+
+  {%- when "skyscraper" -%}
+    <div class="ad skyscraper">
+      <ins class="adsbygoogle"
+           data-ad-client="{{ publisher_id }}"
+           data-ad-slot="5882506557"></ins>
+    </div>
+
+  {%- else -%}
+    <div class="ad square">
+      <ins class="adsbygoogle"
+           data-ad-client="{{ publisher_id }}"
+           data-ad-slot="7663977887"
+           data-ad-format="auto"></ins>
+    </div>
+
+{%- endcase -%}
+
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

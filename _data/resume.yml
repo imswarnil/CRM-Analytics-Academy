@@ -1,0 +1,58 @@
+# _data/resume.yml
+
+# --- Header Information ---
+name: "Alex Doe"
+title: "Computer Science Graduate & Aspiring Software Engineer"
+image_url: "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=400&auto=format&fit=crop"
+
+# --- Contact & Socials ---
+contact:
+  location: "San Francisco, CA"
+  phone: "555-123-4567"
+  email: "alex.doe@email.com"
+  website: "alexdoe.dev" # Optional
+
+socials:
+  - name: "LinkedIn"
+    url: "https://linkedin.com/in/alexdoe"
+    icon_svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>'
+  - name: "GitHub"
+    url: "https://github.com/alexdoe"
+    icon_svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-4.466 19.59c-.405.078-.534-.171-.534-.386 0-.194.007-.692.01-1.355 0-.718-.357-1.045-.924-1.045-2.902 0-3.462 2.16-3.462 2.16-.364.924-.945 1.169-1.169 1.169-.924 0-1.045-.692-1.045-.692-.801-1.355.01-1.668.01-1.668.932-.07 1.403.924 1.403.924.818 1.355 2.161 1.001 2.712.746.074-.587.318-.924.572-1.141-2.073-.234-4.244-.924-4.244-4.572 0-1.045.356-1.897.942-2.572-.094-.234-.406-1.217.09-2.523 0 0 .789-.245 2.572.924.746-.208 1.559-.311 2.369-.311.809 0 1.623.103 2.369.311 1.782-1.169 2.572-.924 2.572-.924.498 1.306.186 2.289.09 2.523.588.674.942 1.527.942 2.572 0 3.648-2.173 4.338-4.256 4.572.327.282.617.85.617 1.71 0 1.232-.01 2.226-.01 2.523 0 .216-.129.466-.534.386z"/></svg>'
+
+# --- Main Content ---
+summary: "A recent and enthusiastic Computer Science graduate from Stanford University with a strong foundation in software development, algorithms, and data structures. Eager to apply my skills in a challenging role, with a particular interest in front-end technologies and creating intuitive user experiences. Proven ability to learn quickly and collaborate on complex academic projects."
+
+education:
+  degree: "Bachelor of Science in Computer Science"
+  university: "Stanford University"
+  graduation_date: "June 2024"
+  gpa: "3.8 / 4.0"
+  notes: "Minor in Human-Computer Interaction. Relevant Coursework: Data Structures & Algorithms, Web Applications, Database Systems, Artificial Intelligence."
+
+# For a fresher, "Projects" are the new "Experience"
+projects:
+  - title: "Chirp - A Social Media App"
+    description: "Developed a full-stack social media web application where users can post short messages, follow other users, and see a real-time feed. Implemented the front-end using React and the back-end with Node.js and a RESTful API."
+    tech_stack: ["React", "Node.js", "Express", "MongoDB", "CSS"]
+    url: "https://github.com/alexdoe/chirp"
+  - title: "Pathfinder - A-Star Visualization"
+    description: "Created an interactive web tool to visualize the A* pathfinding algorithm on a grid. Built with plain JavaScript and HTML Canvas to demonstrate a deep understanding of core algorithms."
+    tech_stack: ["JavaScript", "HTML5", "CSS3", "Algorithms"]
+    url: "https://github.com/alexdoe/pathfinder"
+
+skills:
+  - category: "Languages"
+    items: ["JavaScript (ES6+)", "Python", "Java", "HTML5", "CSS3/Sass"]
+  - category: "Frameworks & Libraries"
+    items: ["React", "Node.js", "Express.js", "Jest", "React Testing Library"]
+  - category: "Tools & Platforms"
+    items: ["Git & GitHub", "Docker", "REST APIs", "Figma", "Webpack"]
+  - category: "Databases"
+    items: ["MongoDB", "PostgreSQL", "SQL"]
+
+achievements:
+  - title: "Dean's List"
+    description: "Awarded for academic excellence for 6 consecutive semesters."
+  - title: "1st Place, Stanford Hackathon 2023"
+    description: "Led a team of four to build a prize-winning mobile app for campus event discovery."

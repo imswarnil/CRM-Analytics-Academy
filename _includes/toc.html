@@ -1,0 +1,107 @@
+{%- comment -%} This is the logic part, which we will keep. {%- endcomment -%}
+{% capture tocWorkspace %}
+    {% capture my_toc %}{% endcapture %}
+    {% assign minHeader = include.h_min | default: 1 %}
+    {% assign maxHeader = include.h_max | default: 6 %}
+    {% assign nodes = include.html | split: '<h' %}
+    {% assign firstHeader = true %}
+
+    {% for node in nodes %}
+        {% if node == "" %}{% continue %}{% endif %}
+
+        {% assign headerLevel = node | replace: '"', '' | slice: 0, 1 | times: 1 %}
+
+        {% if headerLevel < minHeader or headerLevel > maxHeader %}{% continue %}{% endif %}
+
+        {% if firstHeader %}
+            {% assign firstHeader = false %}
+            {% assign minHeader = headerLevel %}
+        {% endif %}
+
+        {% assign _workspace = node | split: '</h' %}
+        {% assign _idWorkspace = _workspace[0] | split: 'id="' %}
+        {% assign _idWorkspace = _idWorkspace[1] | split: '"' %}
+        {% assign html_id = _idWorkspace[0] %}
+
+        {% assign _classWorkspace = _workspace[0] | split: 'class="' %}
+        {% assign _classWorkspace = _classWorkspace[1] | split: '"' %}
+        {% assign html_class = _classWorkspace[0] %}
+
+        {% if html_class contains "no_toc" %}{% continue %}{% endif %}
+
+        {% capture _hAttrToStrip %}{{ _workspace[0] | split: '>' | first }}>{% endcapture %}
+        {% assign header = _workspace[0] | replace: _hAttrToStrip, '' %}
+        {% capture heading_body %}{% if include.sanitize %}{{ header | strip_html }}{% else %}{{ header }}{% endif %}{% endcapture %}
+
+        {% comment %}
+        CHANGE 1: This line is modified to generate a raw HTML list item directly.
+        We are no longer creating Markdown.
+        {% endcomment %}
+        {% capture my_toc %}{{ my_toc }}<li><a href="#{{ html_id }}">{{ heading_body | replace: "|", "\|" | strip_html }}</a></li>{% endcapture %}
+    {% endfor %}
+{% endcapture -%}
+{%- assign tocWorkspace = '' -%}
+
+{%- comment -%}
+CHANGE 2: This entire output block is replaced with your desired HTML structure.
+We will wrap the generated list items `{{ my_toc }}` in an `<ol>` tag.
+We no longer need `markdownify`.
+{%- endcomment -%}
+<section class="toc" aria-labelledby="toc-title">
+  {% include adsense.html type="square" %}
+
+    {% include adsense.html type="square-small" %}
+  <h3 class="toc__title" id="toc-title">On this page</h3>
+  <nav class="toc__navigation">
+    <nav class="toc">
+      <ol>
+        {{- my_toc -}}
+      </ol>
+    </nav>
+  </nav>
+  {% include adsense.html type="skyscraper" %}
+</section>
+
+{%- comment -%}
+NOTE: The <script> tag from the original include has been removed.
+It is better to place this JavaScript in a single, global JS file
+or at the bottom of your `_layouts/default.html` to avoid duplication.
+{%- endcomment -%}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Function to add 'is-active' class to the current section link in the TOC
+      const spyScroll = () => {
+          const sections = document.querySelectorAll('h2[id], h3[id]');
+          const tocLinks = document.querySelectorAll('.menu-list a');
+  
+          let currentSection = "none";
+  
+          sections.forEach(section => {
+              const sectionTop = section.offsetTop;
+              if (scrollY >= sectionTop - 200) { // 200px offset for activation before reaching the section
+                  currentSection = section.getAttribute('id');
+              }
+          });
+  
+          tocLinks.forEach(link => {
+              link.classList.remove('is-active');
+              if (link.getAttribute('href').includes(currentSection)) {
+                  link.classList.add('is-active');
+              }
+          });
+      };
+  
+      // Initial call and event listener on scroll
+      spyScroll();
+      document.addEventListener('scroll', spyScroll);
+  
+      // Toggleable feature for TOC
+      const tocToggle = document.querySelector('.toc-toggle');
+      const tocMenu = document.querySelector('.contents');
+  
+      tocToggle.addEventListener('click', () => {
+          tocMenu.classList.toggle('is-hidden');
+      });
+  });
+  
+  </script>

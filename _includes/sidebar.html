@@ -1,0 +1,55 @@
+<aside class="sidebar l-main__sidebar">
+  <div class="sidebar__body">
+    <div class="sidebar-section sidebar-section--navigation">
+      <h3 class="sidebar-section__title">Navigation</h3>
+      <nav class="sidebar-section__navigation">
+        <ul>
+          <!-- We can reuse the same loop from your header for consistency -->
+          {% for item in site.navbar %}
+            <li>
+              {% if item.link contains '://' %}
+                <!-- Handle External Links -->
+                <a href="{{ item.link }}" target="_blank" rel="noopener">
+                  {{ item.name }} <span class="sr-only">Open in new window</span>
+                  <svg aria-hidden="true" focusable="false" role="img" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="fill:currentColor" width="24" height="24" class="btn__icon"><path d="M1.111,1.907c0,1.049 0.858,1.908 1.907,1.908l14.478,-0l-16.938,16.938c-0.744,0.744 -0.744,1.945 -0,2.689c0.744,0.744 1.945,0.744 2.689,0l16.938,-16.938l0,14.478c0,1.049 0.859,1.907 1.908,1.907c1.049,-0 1.907,-0.858 1.907,-1.907l0,-19.075c0,-1.049 -0.858,-1.907 -1.907,-1.907l-19.075,0c-1.049,0 -1.907,0.858 -1.907,1.907Z"></path></svg>
+                </a>
+              {% else %}
+                <!-- Handle Internal Links -->
+                <a href="{{ item.link | relative_url }}" {% if page.url == item.link %}aria-current="page"{% endif %}>
+                  {{ item.name }}
+                </a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+    
+    {% assign posts_by_category = site.posts | group_by: "category" %}
+    {% for category_group in posts_by_category %}
+      <div class="sidebar-section">
+        <h3 class="sidebar-section__title">{{ category_group.name }}</h3>
+        <nav class="sidebar-section__navigation">
+          <ul>
+            <!-- 
+              By REMOVING '| reverse', posts are now sorted from NEWEST to OLDEST,
+              which is the default for Jekyll.
+            -->
+            {% for post in category_group.items %}
+              <li>
+                <a href="{{ post.url | relative_url }}" {% if page.url == post.url %}aria-current="page"{% endif %}>
+                  {{ post.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+    {% endfor %}
+    {% include adsense.html type="square-small" %}
+  </div>
+
+  <div class="sidebar__footer">
+    © Some rights reserved.
+  </div>
+</aside>

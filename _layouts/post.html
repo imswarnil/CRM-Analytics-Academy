@@ -1,0 +1,34 @@
+---
+layout: default 
+---
+
+{% include adsense.html type="leaderboard" %}
+
+<article class="l-post">
+    <div class="post-heading">
+    <!-- Breadcrumbs can be made dynamic later with a plugin, for now we can simulate it -->
+    <ol class="breadcrumb-list post-heading__breadcrumb">
+      <li><a href="{{ '/' | relative_url }}">Home</a></li>
+      <li><a href="#">{{ page.category }}</a></li>
+      <li><span aria-current="page">{{ page.title }}</span></li>
+    </ol>
+    <h1 class="post-heading__title">{{ page.title }}</h1>
+  </div>
+<!-- ============================================= -->
+  <!-- 2. TABLE OF CONTENTS (TOC) - Placeholder      -->
+  <!-- ============================================= -->
+  <div class="l-post__toc toc" aria-labelledby="toc-title">
+   {% include toc.html html=content h_min=2 h_max=3 %}
+  </div>
+  
+  <div class="l-post__content post-content">
+    {% include adsense.html type="article" %}
+
+    {{ content }}
+    {% include post-comments.html %}
+
+  </div>
+
+</article>
+{% include adsense.html type="multiplex" %}
+{% include post-paginate.html %}

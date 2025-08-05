@@ -1,0 +1,210 @@
+---
+layout: default
+---
+
+<div>
+  <style>
+    /* Main Layout */
+    .resume-wrapper {
+      padding-block: clamp(2rem, 5vw, 4rem);
+    }
+    .resume-layout {
+      display: grid;
+      gap: 2rem 3rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 64em) {
+      .resume-layout {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      }
+    }
+    /* Header */
+    .resume-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+      padding: 2rem;
+      background-color: var(--spruce-footer-color-background);
+      border-radius: var(--spruce-border-radius-lg);
+      border: 1px solid var(--spruce-base-color-border);
+      margin-bottom: 2.5rem;
+    }
+    @media (min-width: 48em) {
+      .resume-header {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+    .resume-header__image img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--spruce-base-color-primary);
+    }
+    .resume-header__info { flex-grow: 1; }
+    .resume-header__name {
+      color: var(--spruce-base-color-heading);
+      margin: 0;
+    }
+    .resume-header__title {
+      color: var(--spruce-base-color-primary);
+      font-weight: 700;
+      font-size: var(--spruce-font-size-lead);
+      margin: 0.25rem 0 0.75rem;
+    }
+    .resume-header__contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      font-size: var(--spruce-font-size-sm);
+      justify-content: center;
+    }
+    @media (min-width: 48em) {
+      .resume-header__contact { justify-content: flex-start; }
+    }
+    .resume-header__contact span { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+    /* General Section Styling */
+    .resume-section { margin-bottom: 2.5rem; }
+    .resume-section__title {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: var(--spruce-font-family-heading);
+      font-size: 1.5rem; color: var(--spruce-base-color-heading);
+      border-bottom: 2px solid var(--spruce-base-color-primary);
+      padding-bottom: 0.5rem; margin-bottom: 1.5rem;
+    }
+    .resume-section__title svg { width: 1.5rem; height: 1.5rem; color: var(--spruce-base-color-primary); }
+
+    /* Item Styling (Projects, Education) */
+    .resume-item + .resume-item { margin-top: 2rem; }
+    .resume-item__header {
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: baseline; gap: 0.25rem 1rem;
+    }
+    .resume-item__title { font-size: 1.2rem; margin: 0; color: var(--spruce-base-color-heading); }
+    .resume-item__meta {
+      color: var(--spruce-base-color-primary);
+      font-size: var(--spruce-font-size-sm);
+      font-weight: 700; flex-shrink: 0;
+    }
+    .resume-item__subheader { color: var(--spruce-base-color-text); font-style: italic; margin-block: 0.1rem 0.5rem; }
+    .resume-item__description { margin-top: 0.5rem; }
+    .resume-item__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .resume-item__tag {
+      background-color: var(--spruce-base-color-code-background);
+      color: var(--spruce-base-color-text);
+      padding: 0.25em 0.75em; border-radius: var(--spruce-border-radius);
+      font-size: 0.75rem; font-weight: 600;
+    }
+
+    /* Skills section */
+    .skills-group + .skills-group { margin-top: 1.5rem; }
+    .skills-group__title { font-weight: 700; color: var(--spruce-base-color-heading); margin-bottom: 0.75rem; }
+    .skills-list {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      padding: 0; list-style: none; margin: 0;
+    }
+    .skills-list li {
+      background-color: var(--spruce-footer-color-background);
+      border: 1px solid var(--spruce-base-color-border);
+      color: var(--spruce-base-color-text);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--spruce-border-radius);
+      font-size: var(--spruce-font-size-sm);
+    }
+  </style>
+
+  <div class="resume-wrapper container">
+    <!-- Header -->
+    <header class="resume-header">
+      <div class="resume-header__image">
+        <img src="{{ site.data.resume.image_url }}" alt="Profile photo of {{ site.data.resume.name }}">
+      </div>
+      <div class="resume-header__info">
+        <h1 class="resume-header__name h1">{{ site.data.resume.name }}</h1>
+        <p class="resume-header__title">{{ site.data.resume.title }}</p>
+        <div class="resume-header__contact">
+          <span><i class="ph ph-map-pin"></i> {{ site.data.resume.contact.location }}</span>
+          <span><i class="ph ph-envelope"></i> <a href="mailto:{{ site.data.resume.contact.email }}">{{ site.data.resume.contact.email }}</a></span>
+          {% if site.data.resume.contact.website %}
+            <span><i class="ph ph-globe"></i> <a href="https://{{ site.data.resume.contact.website }}" target="_blank">{{ site.data.resume.contact.website }}</a></span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="resume-header__socials">
+        {% for social in site.data.resume.socials %}
+          <a href="{{ social.url }}" class="btn btn--outline-primary btn--sm btn--icon" aria-label="{{ social.name }}" target="_blank" rel="noopener">{{ social.icon_svg }}</a>
+        {% endfor %}
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <div class="resume-layout">
+      <!-- Left Column -->
+      <main class="resume-main-content">
+        <section class="resume-section">
+          <h2 class="resume-section__title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Profile</h2>
+          <p>{{ site.data.resume.summary }}</p>
+        </section>
+
+        <section class="resume-section">
+          <h2 class="resume-section__title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3 1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>Education</h2>
+          <div class="resume-item">
+            <div class="resume-item__header">
+              <h3 class="resume-item__title">{{ site.data.resume.education.university }}</h3>
+              <span class="resume-item__meta">{{ site.data.resume.education.graduation_date }}</span>
+            </div>
+            <p class="resume-item__subheader">{{ site.data.resume.education.degree }} (GPA: {{ site.data.resume.education.gpa }})</p>
+            <p class="resume-item__description">{{ site.data.resume.education.notes }}</p>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <h2 class="resume-section__title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zM12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>Projects</h2>
+          {% for project in site.data.resume.projects %}
+          <div class="resume-item">
+            <div class="resume-item__header">
+              <h3 class="resume-item__title"><a href="{{ project.url }}" target="_blank">{{ project.title }}</a></h3>
+            </div>
+            <p class="resume-item__description">{{ project.description }}</p>
+            <div class="resume-item__tags">
+              {% for tech in project.tech_stack %}
+                <span class="resume-item__tag">{{ tech }}</span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </section>
+      </main>
+
+      <!-- Right Column -->
+      <aside class="resume-sidebar">
+        <section class="resume-section">
+          <h2 class="resume-section__title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Skills</h2>
+          {% for group in site.data.resume.skills %}
+          <div class="skills-group">
+            <h4 class="skills-group__title">{{ group.category }}</h4>
+            <ul class="skills-list">
+              {% for skill in group.items %}
+                <li>{{ skill }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </section>
+
+        <section class="resume-section">
+          <h2 class="resume-section__title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 6c-2.29 0-4.46.9-6.08 2.52l1.42 1.42C8.59 8.69 10.21 8 12 8s3.41.69 4.66 1.94l1.42-1.42C16.46 6.9 14.29 6 12 6zm6.36 3.64L16.95 11c-1.1-1.1-2.58-1.76-4.2-1.76s-3.1.65-4.2 1.76l-1.41-1.41C8.4 8.36 10.12 7.5 12 7.5s3.6.86 4.88 2.14zm-1.41 1.41c-.6-.6-1.4-1.05-2.47-1.05s-1.87.45-2.47 1.05l2.47 2.47 2.47-2.47zM3 18.5c0 1.38 1.12 2.5 2.5 2.5h13c1.38 0 2.5-1.12 2.5-2.5v-7c0-1.38-1.12-2.5-2.5-2.5H18v5h2v-5h-2v2h-2v-2H8v2H6v-2H5.5c-1.38 0-2.5 1.12-2.5 2.5v7z"/></svg>Achievements</h2>
+          {% for achievement in site.data.resume.achievements %}
+          <div class="resume-item">
+            <h3 class="resume-item__title">{{ achievement.title }}</h3>
+            <p class="resume-item__description" style="margin-top: 0.25rem;">{{ achievement.description }}</p>
+          </div>
+          {% endfor %}
+        </section>
+      </aside>
+    </div>
+  </div>
+</div>
