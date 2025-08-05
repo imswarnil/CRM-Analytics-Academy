@@ -1,0 +1,134 @@
+---
+layout: post
+title: "Video Post"
+description: "My story doesn't start with success. It starts on the day I got my degree but had no job, no plan, and no idea what to do next. This is the real story behind the Bangalore Job Seekers Guide."
+date: 2024-05-21
+tags: [engineering-life, jobless, indian-student, career-story, personal-journey, motivation, bangalore-jobs, vision]
+author: Swarnil
+image: /assets/images/project/the-start.jpg
+excerpt: "(Video-style post) My story begins where most success stories end: with failure. This is the unfiltered truth about what happened after I graduated without a job, and how that led to this project."
+TLDR: "A direct-to-camera style post starting from the moment I graduated jobless. It explains my backstory and introduces the Bangalore Job Seekers Guide as a project born from that struggle."
+comments: true
+sidebar: true
+keywords: ["indian engineering student story", "life after B.Tech without job", "campus placement failure", "bangalore job seekers guide", "real story of a student", "what to do after engineering in India"]
+canonical_url: https://www.your-domain.com/project/graduated-and-jobless
+category: "Getting Started"
+order: 1.1
+type: video
+videoid: aPwndqsmaGk
+start_time: 0
+end_time: 69 
+---
+
+**(The scene opens. You, SWARNIL, are sitting in a simple room. You look directly into the camera. Your expression is serious but open.)**
+
+### My Story Starts at The End
+
+Hey everyone. Swarnil here.
+
+Most stories you hear start at the beginning—the dream, the hard work, the struggle. My story... my *real* story... starts at what felt like the end.
+
+It starts on July 1st, 2017. The day I officially became a graduate. An engineer.
+
+It was also the day I was officially, completely, jobless.
+
+I had the degree in my hand, but I had no offer letter. No career path. No idea what to do next. I was lost. And this feeling—this feeling of being lost after your education is complete—is the exact reason why I'm sitting here, talking to you today. This is the origin story of my new project.
+
+---
+### **Part 1: How Did I Get Here? (The Backstory)**
+
+**(You lean back slightly, as if recalling a distant memory.)**
+
+So, how does someone end up with a B.Tech degree but no job? Let me give you the quick version.
+
+
+It involves a place called Kota. Like millions of other students, I went there to prepare for engineering entrance exams. I joined Allen, and honestly, at first, I loved the focused environment and I studied very hard.
+
+But the intense competition wasn't for me. I didn't get the top ranks. My only good score was in the state-level MPPET exam. That score got me into LNCT, a private engineering college in Bhopal.
+
+
+My family was relieved. My elder brother, who also studied there, was confident I would get a job through campus placements. The path seemed set.
+
+![A visual of a simple flowchart: Kota -> Engineering College -> Job. The last arrow is broken.](/assets/images/project/broken-flowchart.jpg)
+*The plan was simple. The execution... not so much.*
+
+
+
+---
+
+### **Part 2: The College Years: Where Things Went Wrong**
+
+Here's the truth. In college, I got distracted. Big time.
+
+I was in Computer Science, but I never liked coding. It felt difficult and boring. So, instead of facing the challenge, I avoided it.
+
+What did I do with my time?
+- I played a lot of snooker.
+- I spent countless hours roaming around with my friends, usually late at night.
+- I basically treated my degree like a side quest.
+
+Then, in my third year, I found something I was genuinely passionate about.
+
+YouTube.
+
+![A GIF of a person's eyes lighting up with an idea.](/assets/images/project/idea-gif.gif)
+
+I fell in love with making videos. The creativity, the storytelling, the editing—it was exciting. I started a channel, and it started to grow. This became my entire world. My focus shifted 100% from my engineering studies to my YouTube channel.
+
+I was happy. I felt like I had found my purpose. But I was living in a bubble, and that bubble was about to pop.
+
+---
+
+### **Part 3: The Reality Check**
+
+**(You lean forward, your tone becoming more direct and serious.)**
+
+Final year. Placement season.
+
+This is the moment of truth for every engineering student. It's when companies like Wipro, Cognizant, Tata, and Amdocs come to hire you.
+
+And I was completely unprepared.
+
+While my friends were practicing for technical interviews, I was busy with my videos. I sat for the placements, but it was just for show. I couldn't answer the questions. I didn't have the skills.
+
+The rejections came fast. One after another.
+
+The season ended. My friends were celebrating their new jobs. I was left with nothing but the consequence of my own choices. I was a graduate with no job.
+
+---
+
+### **Part 4: The Aftermath and a New Mission**
+
+Going home was tough. The period that followed was the darkest of my life. I felt sad, ashamed, and like a complete failure. I knew my family was poor and had invested so much in my education. The feeling of letting them down was heavy.
+
+I was lost. And I felt completely alone.
+
+**(You pause, letting the weight of that statement land. Then, your expression changes. It's no longer about sadness; it's about determination.)**
+
+But it was in that feeling of being completely lost that I found something new. A purpose.
+
+I started thinking... How many other people are out there, feeling this exact same way? How many others have a degree but no direction? How many are sitting at home right now, feeling like a failure?
+
+That thought changed everything. My failure wasn't just my story anymore. It was a shared experience. And it gave me a mission.
+
+---
+
+### **Introducing: The Bangalore Job Seekers Guide**
+
+This is why I'm here. This is why this project exists. Welcome to the **Bangalore Job Seekers Guide**.
+
+This is not just another website with job-hunting tips. This is a support system. This is a community. This is a movement for everyone who feels stuck.
+
+**What is our mission?**
+
+1.  **To Build an Honest Guide:** This project starts with me. I am User Zero. I will document my entire journey—my move to Bangalore to find a job, my interview attempts, my rejections, my learnings. Everything will be transparent and real.
+2.  **To Create a Real Community:** This is a place where you can be honest. Ask your questions. Share your fears. Connect with people who actually understand what you're going through. And I make this promise to you: no question posted here will ever go unanswered.
+3.  **To Provide Real Support:** We will focus on the things nobody talks about. How to deal with rejection. How to stay motivated when you feel like giving up. How to find a career path that actually makes sense for you, not just what society expects.
+
+My story doesn't end with failure. That failure was just the beginning. It gave me a new mission.
+
+I'm not here as some expert who has everything figured out. I'm here as a fellow traveler, someone who knows what it feels like to be lost. And I'm determined to build a map for all of us.
+
+So if you're out there and you feel lost, you've found the right place.
+
+Let's start this journey. Together.
