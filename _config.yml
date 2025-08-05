@@ -21,7 +21,7 @@
 encoding: utf-8 # Make sure the encoding is right
 lang: en # Set the site language
 locale : en-IN
-title: "Bangalore Job Seekers Guide" # Site name or title
+title: "CRM Analytics Academy" # Site name or title
 description: "Struggling to get a job after college? Bangalore Job Seekers Guide shares real steps, practical advice, and lessons learned by Swarnil Singhai—who went from no campus placement to landing his first job. A survival guide for freshers, graduates & job seekers in Bangalore." # Site description
 keywords: ["Swarnil Singhai", "Salesforce", "CRM Analytics", "Tableau CRM", "Einstein Analytics", "Apex", "LWC", "Software Engineer", "Twilio", "Bangalore", "Resume", "Portfolio"]
 timezone: Asia/Kolkata # Timezone for blog posts and alike
@@ -88,8 +88,8 @@ social_media: # This remains a top-level section for clarity
 # --------------------------------------------
  # 1.2. Site Url, Links & Github Repo
  #----------------------------------------------------------------------------------------------
-baseurl : '/'
-url: 'https://https://jobseekers.imswarnil.com' # Site URL
+baseurl : ''
+url: 'https://https://crmanalytics.imswarnil.com' # Site URL
 permalink: /:title  # Permalink style
 repo: "https://github.com/imswarnil/" # Your main GitHub profile
 email: "contact@imswarnil.com" # General contact email for the site
