@@ -206,6 +206,9 @@ navbar:
   - name: Home
     link: /
     icon: house
+  - name: Start Here
+    link: /start
+    icon: house
   - name: About # This could link to a page that uses resume data
     link: https://www.google.com
     icon: identification-card
