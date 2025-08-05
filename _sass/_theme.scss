@@ -229,25 +229,25 @@ template {
 
 :root {
     --spruce-base-color-background: hsl(0, 0%, 100%);
-    --spruce-base-color-blockquote-border: hsl(355, 77%, 56%);
+    --spruce-base-color-blockquote-border: hsl(197, 100%, 44%);
     --spruce-base-color-border: hsla(0, 0%, 0%, 0.05);
     --spruce-base-color-code-background: hsl(224, 94%, 97%);
     --spruce-base-color-code-foreground: hsl(245, 31%, 21%);
     --spruce-base-color-heading: hsl(232, 68%, 11%);
-    --spruce-base-color-link: hsl(355, 77%, 56%);
-    --spruce-base-color-link-hover: hsl(355, 87%, 52%);
+    --spruce-base-color-link: hsl(197, 100%, 44%);
+    --spruce-base-color-link-hover: hsl(210, 87%, 52%);
     --spruce-base-color-mark-background: hsl(50, 100%, 80%);
     --spruce-base-color-mark-foreground: hsl(245, 31%, 21%);
-    --spruce-base-color-marker: hsl(355, 77%, 56%);
-    --spruce-base-color-primary: hsl(355, 77%, 56%);
+    --spruce-base-color-marker: hsl(197, 100%, 44%);
+    --spruce-base-color-primary: hsl(197, 100%, 44%);
     --spruce-base-color-secondary: hsl(186, 100%, 60%);
     --spruce-base-color-strong: hsl(245, 31%, 21%);
     --spruce-base-color-text: hsl(208, 21%, 39%)
 }
 
 :root {
-    --spruce-btn-color-primary-background: hsl(355, 77%, 56%);
-    --spruce-btn-color-primary-background-hover: hsl(355, 92%, 47%);;
+    --spruce-btn-color-primary-background: hsl(197, 100%, 44%);
+    --spruce-btn-color-primary-background-hover: hsl(355, 92%, 47%);
     --spruce-btn-color-primary-foreground: hsl(0, 0%, 100%);
     --spruce-btn-color-primary-shadow: hsl(355, 57%, 77%);
     --spruce-btn-color-secondary-background: hsl(186, 100%, 60%);
@@ -261,9 +261,9 @@ template {
     --spruce-form-color-background-disabled: hsl(0, 0%, 95%);
     --spruce-form-color-border: hsl(260, 4%, 70%);
     --spruce-form-color-border-disabled: hsl(215, 63%, 93%);
-    --spruce-form-color-border-focus: hsl(355, 77%, 56%);
-    --spruce-form-color-check-background: hsl(355, 77%, 56%);
-    --spruce-form-color-check-focus-ring: hsl(355, 77%, 56%);
+    --spruce-form-color-border-focus: hsl(197, 100%, 44%);
+    --spruce-form-color-check-background: hsl(197, 100%, 44%);
+    --spruce-form-color-check-focus-ring: hsl(197, 100%, 44%);
     --spruce-form-color-check-foreground: hsl(0, 0%, 100%);
     --spruce-form-color-group-label-background: hsl(210, 60%, 98%);
     --spruce-form-color-group-label-foreground: hsl(208, 9%, 42%);
@@ -272,8 +272,8 @@ template {
     --spruce-form-color-label: hsl(245, 31%, 21%);
     --spruce-form-color-legend: hsl(245, 31%, 21%);
     --spruce-form-color-placeholder: hsl(208, 7%, 40%);
-    --spruce-form-color-range-thumb-background: hsl(355, 77%, 56%);
-    --spruce-form-color-range-thumb-focus-ring: hsl(355, 77%, 56%);
+    --spruce-form-color-range-thumb-background: hsl(197, 100%, 44%);
+    --spruce-form-color-range-thumb-focus-ring: hsl(197, 100%, 44%);
     --spruce-form-color-range-track-background: hsl(215, 63%, 93%);
     --spruce-form-color-ring-focus: rgba(0, 9, 255, 0.25);
     --spruce-form-color-select-foreground: hsl(245, 31%, 21%);
@@ -317,8 +317,8 @@ template {
 :root {
     --spruce-navigation-color-arrow: hsla(0, 0%, 0%, 0.15);
     --spruce-navigation-color-icon-background: hsl(224, 94%, 98%);
-    --spruce-navigation-color-icon-background-hover: hsl(355, 77%, 56%);
-    --spruce-navigation-color-icon-foreground: hsl(355, 77%, 56%);
+    --spruce-navigation-color-icon-background-hover: hsl(197, 100%, 44%);
+    --spruce-navigation-color-icon-foreground: hsl(197, 100%, 44%);
     --spruce-navigation-color-icon-foreground-hover: hsl(0, 0%, 100%)
 }
 
