@@ -6,16 +6,11 @@
   <a class="btn btn--primary skip-link" href="#content">Skip to content</a>
   <div class="container container--wide">
       {% include header.html %} 
-      {% if page.layout == "home" or page.layout == "resume" %}
+  {% if page.layout == "home" or page.layout == "resume" %}
   <main id="content">
     {{ content }}
   </main>
-  
-{% else %}
-
-  <!-- =================================== -->
-  <!-- LAYOUT FOR ALL OTHER PAGES (with Sidebar) -->
-  <!-- =================================== -->
+  {% else %}
   <div class="l-main">
     {% include sidebar.html %}
     <div class="l-main__body">
