@@ -15,15 +15,15 @@
   --spruce-base-color-border: hsla(0, 0%, 0%, 0.05);
   --spruce-base-color-heading: hsl(232, 68%, 11%);
   --spruce-base-color-text: hsl(208, 21%, 39%);
-  --spruce-base-color-primary: hsl(197, 100%, 44%);
-  --spruce-base-color-secondary: hsl(186, 100%, 60%);
-  --spruce-base-color-link: hsl(197, 100%, 44%);
-  --spruce-base-color-link-hover: hsl(210, 87%, 52%);
+  --spruce-base-color-primary: hsl(203, 96%, 79%); /* light blue */
+  --spruce-base-color-secondary: hsl(203, 96%, 79%); /* medium blue */
+  --spruce-base-color-link: hsl(203, 96%, 79%);
+  --spruce-base-color-link-hover: hsl(208, 80%, 36%); /* dark blue */
   --spruce-base-color-strong: hsl(245, 31%, 21%);
 
   // Element-specific Colors
-  --spruce-base-color-blockquote-border: hsl(197, 100%, 44%);
-  --spruce-base-color-marker: hsl(197, 100%, 44%);
+  --spruce-base-color-blockquote-border: hsl(203, 96%, 79%);
+  --spruce-base-color-marker: hsl(203, 96%, 79%);
   --spruce-base-color-code-background: hsl(224, 94%, 97%);
   --spruce-base-color-code-foreground: hsl(245, 31%, 21%);
   --spruce-base-color-mark-background: hsl(50, 100%, 80%);
@@ -36,12 +36,12 @@
   --spruce-alert-color-warning: hsl(48, 89%, 55%);
 
   // Component Colors: Buttons
-  --spruce-btn-color-primary-background: hsl(197, 100%, 44%);
-  --spruce-btn-color-primary-background-hover: hsl(355, 92%, 47%);
+  --spruce-btn-color-primary-background: hsl(203, 96%, 79%);
+  --spruce-btn-color-primary-background-hover: hsl(208, 80%, 36%);
   --spruce-btn-color-primary-foreground: hsl(0, 0%, 100%);
-  --spruce-btn-color-primary-shadow: hsl(355, 57%, 77%);
-  --spruce-btn-color-secondary-background: hsl(186, 100%, 60%);
-  --spruce-btn-color-secondary-background-hover: #00e6ff;
+  --spruce-btn-color-primary-shadow: hsl(203, 96%, 79%);
+  --spruce-btn-color-secondary-background: hsl(203, 96%, 79%);
+  --spruce-btn-color-secondary-background-hover: hsl(208, 80%, 36%);
   --spruce-btn-color-secondary-foreground: #002e33;
   --spruce-btn-color-secondary-shadow: #99f5ff;
 
@@ -50,9 +50,9 @@
   --spruce-form-color-background-disabled: hsl(0, 0%, 95%);
   --spruce-form-color-border: hsl(260, 4%, 70%);
   --spruce-form-color-border-disabled: hsl(215, 63%, 93%);
-  --spruce-form-color-border-focus: hsl(197, 100%, 44%);
-  --spruce-form-color-check-background: hsl(197, 100%, 44%);
-  --spruce-form-color-check-focus-ring: hsl(197, 100%, 44%);
+  --spruce-form-color-border-focus: hsl(203, 96%, 79%);
+  --spruce-form-color-check-background: hsl(203, 96%, 79%);
+  --spruce-form-color-check-focus-ring: hsl(203, 96%, 79%);
   --spruce-form-color-check-foreground: hsl(0, 0%, 100%);
   --spruce-form-color-group-label-background: hsl(210, 60%, 98%);
   --spruce-form-color-group-label-foreground: hsl(208, 9%, 42%);
@@ -61,8 +61,8 @@
   --spruce-form-color-label: hsl(245, 31%, 21%);
   --spruce-form-color-legend: hsl(245, 31%, 21%);
   --spruce-form-color-placeholder: hsl(208, 7%, 40%);
-  --spruce-form-color-range-thumb-background: hsl(197, 100%, 44%);
-  --spruce-form-color-range-thumb-focus-ring: hsl(197, 100%, 44%);
+  --spruce-form-color-range-thumb-background: hsl(203, 96%, 79%);
+  --spruce-form-color-range-thumb-focus-ring: hsl(203, 96%, 79%);
   --spruce-form-color-range-track-background: hsl(215, 63%, 93%);
   --spruce-form-color-ring-focus: rgba(0, 9, 255, 0.25);
   --spruce-form-color-select-foreground: hsl(245, 31%, 21%);
@@ -84,11 +84,11 @@
   --spruce-footer-color-background: hsl(224, 94%, 98%);
   --spruce-navigation-color-arrow: hsla(0, 0%, 0%, 0.15);
   --spruce-navigation-color-icon-background: hsl(224, 94%, 98%);
-  --spruce-navigation-color-icon-background-hover: hsl(197, 100%, 44%);
-  --spruce-navigation-color-icon-foreground: hsl(197, 100%, 44%);
+  --spruce-navigation-color-icon-background-hover: hsl(203, 96%, 79%);
+  --spruce-navigation-color-icon-foreground: hsl(203, 96%, 79%);
   --spruce-navigation-color-icon-foreground-hover: hsl(0, 0%, 100%);
   --spruce-search-color-icon: hsla(229, 26%, 48%, 0.25);
-  --spruce-selection-color-background: hsl(238, 100%, 50%);
+  --spruce-selection-color-background: hsl(208, 80%, 36%);
   --spruce-selection-color-foreground: hsl(0, 0%, 100%);
   --spruce-scrollbar-color-thumb-background: hsla(229, 26%, 48%, 0.15);
   --spruce-scrollbar-color-thumb-background-hover: hsla(0, 0%, 0%, 0.25);
@@ -107,10 +107,6 @@
   --spruce-prism-color-class-name: hsl(0, 0%, 7%);
   --spruce-prism-color-regex: hsl(1, 48%, 59%);
 
-  //
-  // --- TYPOGRAPHY & SIZING ---
-  //
-
   // Font Families
   --spruce-font-family-base: "Open Sans", sans-serif;
   --spruce-font-family-heading: "Manrope", sans-serif;
@@ -123,7 +119,7 @@
   --spruce-font-size-lead: clamp(1.1rem, 2vw, 1.25rem);
   --spruce-font-size-ratio: 1.25;
   --spruce-font-weight-heading: 700;
-  
+
   // Line Heights
   --spruce-line-height-base: 1.8;
   --spruce-line-height-sm: 1.2;
@@ -131,123 +127,21 @@
   --spruce-line-height-lg: 1.8;
   --spruce-line-height-heading: calc(2px + 2ex + 2px);
 
-  //
-  // --- LAYOUT & SPACING ---
-  //
-
-  // Borders & Shadows
+  // Layout Sizing
   --spruce-border-radius: 0.425rem;
   --spruce-border-radius-sm: 0.425rem;
   --spruce-border-radius-lg: 0.925rem;
   --spruce-box-shadow: 0 0.75rem 1.25rem hsla(0, 0%, 0%, 0.05);
 
-  // Layout Sizing
   --spruce-container-inline-size: 84rem;
   --spruce-max-content-inline-size: 70rem;
   --spruce-container-gap: clamp(1.5rem, 5vw, 3rem);
   --spruce-section-gap: clamp(5rem, 7vw, 7rem);
 
-  // Misc
   --spruce-inline-padding: 0.1em 0.3em;
   --spruce-page-margin: 2cm;
   --spruce-hidden-elements: header, footer, aside, nav, form, iframe, [class^="aspect-ratio"];
-}
 
-
-// -----------------------------------------------------------------------------
-// Dark Theme
-// -----------------------------------------------------------------------------
-
-:root[data-theme-mode="dark"] {
-  color-scheme: dark;
-
-  // Base Colors (Dark Mode)
-  --spruce-base-color-background: hsl(245, 38%, 11%);
-  --spruce-base-color-border: hsla(0, 0%, 100%, 0.08);
-  --spruce-base-color-heading: hsl(0, 0%, 95%);
-  --spruce-base-color-text: hsl(0, 0%, 97%);
-  --spruce-base-color-primary: hsl(186, 100%, 60%);
-  --spruce-base-color-secondary: hsl(227, 92%, 55%);
-  --spruce-base-color-link: hsl(186, 100%, 60%);
-  --spruce-base-color-link-hover: #47edff;
-
-  // Element-specific Colors (Dark Mode)
-  --spruce-base-color-blockquote-border: hsl(186, 100%, 60%);
-  --spruce-base-color-marker: hsl(186, 100%, 60%);
-  --spruce-base-color-code-background: hsl(207, 64%, 21%);
-  --spruce-base-color-code-foreground: hsl(0, 0%, 95%);
-  --spruce-base-color-mark-background: hsl(50, 100%, 80%);
-  --spruce-base-color-mark-foreground: hsl(245, 38%, 11%);
-
-  // Component Colors: Buttons (Dark Mode)
-  --spruce-btn-color-primary-background: hsl(186, 100%, 60%);
-  --spruce-btn-color-primary-background-hover: hsl(186, 100%, 45%);
-  --spruce-btn-color-primary-foreground: hsl(186, 100%, 5%);
-  --spruce-btn-color-primary-shadow: hsl(186, 100%, 25%);
-  --spruce-btn-color-secondary-background: hsl(227, 92%, 55%);
-  --spruce-btn-color-secondary-background-hover: #3b64f7;
-  --spruce-btn-color-secondary-foreground: hsl(0, 0%, 95%);
-  --spruce-btn-color-secondary-shadow: #072bab;
-
-  // Component Colors: Forms (Dark Mode)
-  --spruce-form-color-background: #1b1836;
-  --spruce-form-color-background-disabled: hsl(245, 38%, 11%);
-  --spruce-form-color-border: hsla(0, 0%, 100%, 0.08);
-  --spruce-form-color-border-disabled: hsla(0, 0%, 100%, 0.08);
-  --spruce-form-color-border-focus: hsl(186, 100%, 60%);
-  --spruce-form-color-check-background: hsl(186, 100%, 60%);
-  --spruce-form-color-check-foreground: hsl(245, 38%, 11%);
-  --spruce-form-color-ring-focus: rgba(51, 235, 255, 0.25);
-  --spruce-form-color-label: hsl(0, 0%, 95%);
-  --spruce-form-color-legend: hsl(0, 0%, 95%);
-  --spruce-form-color-placeholder: hsl(0, 0%, 60%);
-  --spruce-form-color-select-foreground: hsl(0, 0%, 100%);
-  --spruce-form-color-text: hsl(0, 0%, 97%);
-
-  // Component Colors: Other (Dark Mode)
-  --spruce-card-color-background: hsl(245, 38%, 11%);
-  --spruce-container-color-background: hsl(207, 92%, 12%);
-  --spruce-footer-color-background: hsl(245, 38%, 10%);
-  --spruce-navigation-color-arrow: hsla(0, 0%, 100%, 0.15);
-  --spruce-navigation-color-icon-background: hsl(245, 38%, 10%);
-  --spruce-navigation-color-icon-background-hover: hsl(186, 100%, 60%);
-  --spruce-navigation-color-icon-foreground: hsl(186, 100%, 60%);
-  --spruce-navigation-color-icon-foreground-hover: hsl(186, 100%, 5%);
-  --spruce-table-color-border: hsla(0, 0%, 100%, 0.08);
-  --spruce-table-color-caption: hsl(0, 0%, 97%);
-  --spruce-table-color-heading: hsl(0, 0%, 95%);
-  --spruce-table-color-hover: hsla(0, 0%, 100%, 0.05);
-  --spruce-table-color-stripe: hsla(0, 0%, 100%, 0.025);
-  --spruce-table-color-text: hsl(0, 0%, 97%);
-  --spruce-selection-color-background: hsl(186, 100%, 60%);
-  --spruce-selection-color-foreground: hsl(186, 100%, 5%);
-  --spruce-search-color-icon: hsla(0, 0%, 100%, 0.25);
-  --spruce-scrollbar-color-thumb-background: hsla(0, 0%, 100%, 0.15);
-  --spruce-scrollbar-color-thumb-background-hover: hsla(0, 0%, 100%, 0.25);
-  --spruce-scrollbar-color-track-background: hsla(0, 0%, 100%, 0.05);
-
-  // Component Colors: Prism (Dark Mode)
-  --spruce-prism-color-background: hsl(245, 38%, 7%);
-  --spruce-prism-color-color: hsl(217, 34%, 88%);
-  --spruce-prism-color-comment: hsl(180, 9%, 55%);
-  --spruce-prism-color-punctuation: hsl(276, 68%, 75%);
-  --spruce-prism-color-namespace: hsl(197, 31%, 77%);
-  --spruce-prism-color-deleted: hsla(1, 83%, 63%, 0.56);
-  --spruce-prism-color-boolean: hsl(350, 100%, 67%);
-  --spruce-prism-color-number: hsl(14, 90%, 70%);
-  --spruce-prism-color-constant: hsl(221, 100%, 75%);
-  --spruce-prism-color-class-name: hsl(33, 100%, 77%);
-  --spruce-prism-color-regex: hsl(217, 34%, 88%);
-}
-
-
-//
-// --- ANIMATION ---
-//
-
-@media (prefers-reduced-motion: no-preference) {
-  :root {
-    --spruce-duration: 0.15s;
-    --spruce-timing-function: ease-in-out;
-  }
+  --spruce-duration: 0.15s;
+  --spruce-timing-function: ease-in-out;
 }
