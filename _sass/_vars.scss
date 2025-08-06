@@ -10,19 +10,27 @@
 
 :root {
 
-  // --- SALESFORCE BLUE PALETTE ---
-  // Primary (Bright Blue for CTAs, links)
-  --brand-primary: hsl(197, 88%, 45%); // #0D9DDA
-  // Secondary (Slightly Lighter Blue for accents)
-  --brand-secondary: hsl(200, 89%, 55%); // #28B6F2
-  // Darkest Blue (For headings and strong text)
-  --brand-darkest: hsl(197, 89%, 15%); // #04354A
-  // Dark Blue (For body text)
-  --brand-dark: hsl(197, 88%, 25%); // #07587A
-  // Medium Blue (For hover states)
-  --brand-medium: hsl(197, 88%, 29%); // #0A7AAA
-  // Light Blue (For backgrounds, borders)
-  --brand-light: hsl(200, 60%, 95%); // A very light, cool gray
+  // --- SALESFORCE BLUE PALETTE (with #0176D3 as Primary) ---
+  :root {
+    /* Primary (Main CTA / Links) */
+    --brand-primary: hsl(207, 99%, 41%); /* #0176D3 */
+  
+    /* Secondary (Lighter Accent Blue) */
+    --brand-secondary: hsl(207, 90%, 55%); /* #2FA9F8 */
+  
+    /* Darkest Blue (Strong headings, contrast text) */
+    --brand-darkest: hsl(207, 100%, 15%); /* #002E4D */
+  
+    /* Dark Blue (Body Text, Subheadings) */
+    --brand-dark: hsl(207, 95%, 25%); /* #004B87 */
+  
+    /* Medium Blue (Hover states) */
+    --brand-medium: hsl(207, 96%, 33%); /* #006EC0 */
+  
+    /* Light Blue (Backgrounds, borders) */
+    --brand-light: hsl(207, 80%, 95%); /* #E7F4FC */
+  }
+  
   
   // Base Colors (Light Mode)
   --spruce-base-color-background: hsl(0, 0%, 100%);
