@@ -127,7 +127,7 @@ and a hover texture effect, all built on SpruceCSS.
             <div class="l-card">
                 <!-- Getting Started Card -->
                 <div class="post-card">
-                    <i class="ph-rocket-launch post-card__icon"></i>
+                <i class="ph-bold ph-airplane-takeoff"></i>
                     <span class="post-card__serial-number"></span>
                     <h2 class="post-card__title">Getting Started</h2>
                     <p>Start here and get to know this minimalistic Eleventy theme.</p>
