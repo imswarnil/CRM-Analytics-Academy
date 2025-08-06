@@ -291,3 +291,216 @@ description: "An open-source Jekyll theme crafted using the Bulma CSS framework.
             </div>
         </section>
     </div>
+
+<!-- =============================================================================
+// COMPONENT: PROFESSIONAL LEARNING PATH
+// A responsive, grid-based component showcasing a structured course curriculum.
+// ============================================================================= -->
+
+<style>
+    /* --- Main Section Wrapper --- */
+    .learning-path-section {
+        background-color: var(--spruce-footer-color-background);
+        border-top: 1px solid var(--spruce-base-color-border);
+        border-bottom: 1px solid var(--spruce-base-color-border);
+    }
+
+    /* --- Grid Layout --- */
+    .learning-path-grid {
+        --columns: 1; /* Mobile First */
+        display: grid;
+        gap: clamp(1.5rem, 3vw, 2rem);
+        grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    }
+    @media(min-width: 48em) { .learning-path-grid { --columns: 2; } }
+    @media(min-width: 80em) { .learning-path-grid { --columns: 3; } }
+
+    /* --- The Learning Card --- */
+    .learning-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        background-color: var(--spruce-card-color-background);
+        border: 1px solid var(--spruce-base-color-border);
+        border-radius: var(--spruce-border-radius-lg);
+        box-shadow: 0 4px 10px hsla(200, 30%, 20%, 0.03);
+        transition: transform var(--spruce-duration) var(--spruce-timing-function),
+                    box-shadow var(--spruce-duration) var(--spruce-timing-function);
+        animation: card-fade-in 0.5s var(--spruce-timing-function) both;
+    }
+    .learning-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--spruce-box-shadow);
+    }
+    
+    /* Staggered Animation Delay */
+    .learning-path-grid > :nth-child(2) { animation-delay: 0.1s; }
+    .learning-path-grid > :nth-child(3) { animation-delay: 0.2s; }
+
+    @keyframes card-fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Decorative Background Icon */
+    .learning-card__bg-icon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 7rem;
+        line-height: 1;
+        color: var(--spruce-base-color-border);
+        opacity: 0.8;
+        pointer-events: none;
+        transform: translate(25%, 25%) rotate(10deg);
+        transition: transform 0.4s ease, color 0.4s ease;
+        z-index: 1;
+    }
+    .learning-card:hover .learning-card__bg-icon {
+        color: var(--spruce-base-color-primary);
+        transform: translate(15%, 15%) rotate(-5deg);
+    }
+
+    /* Content inside the card */
+    .learning-card__content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 2;
+    }
+    .learning-card__number {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--spruce-base-color-text);
+        background-color: var(--spruce-footer-color-background);
+        border: 1px solid var(--spruce-base-color-border);
+        border-radius: 50px;
+        line-height: 1;
+        padding: 0.35rem 0.65rem;
+    }
+
+    .learning-card__title {
+        font-size: 1.3rem;
+        margin-block: 0 0.5rem;
+    }
+    .learning-card__description {
+        color: var(--spruce-base-color-text);
+        line-height: var(--spruce-line-height-md);
+        margin-block-end: 1.5rem;
+    }
+    
+    /* Meta Information Bar */
+    .learning-card__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-block: 1rem;
+        margin-top: auto; /* Pushes meta bar to the bottom */
+        border-top: 1px solid var(--spruce-base-color-border);
+        font-size: 0.8rem;
+        color: var(--spruce-base-color-text);
+    }
+    .learning-card__meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    .learning-card__meta-item i {
+        font-size: 1.1em;
+        color: var(--spruce-base-color-primary);
+    }
+</style>
+
+<section class="section learning-path-section">
+    <div class="container">
+        <div class="section-title">
+            <h2 class="h1">The Complete Learning Path</h2>
+            <p class="lead">Follow our structured curriculum to master CRM Analytics, from the absolute basics to advanced, real-world applications.</p>
+        </div>
+        <div class="learning-path-grid l-card">
+            <!-- Card 1: Foundations -->
+            <article class="learning-card">
+                <i class="ph-bold ph-flag-checkered learning-card__bg-icon"></i>
+                <div class="learning-card__content">
+                    <span class="learning-card__number">01</span>
+                    <h3 class="learning-card__title">Analytics Foundations</h3>
+                    <p class="learning-card__description">Start with the core concepts, navigate the platform, and build your first powerful dashboard from scratch.</p>
+                    <div class="learning-card__meta">
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-video"></i> 12 Lessons</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-clock"></i> ~1.5 Hours</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-student"></i> Beginner</span>
+                    </div>
+                </div>
+            </article>
+            <!-- Card 2: Data Integration -->
+            <article class="learning-card">
+                <i class="ph-bold ph-arrows-clockwise learning-card__bg-icon"></i>
+                <div class="learning-card__content">
+                    <span class="learning-card__number">02</span>
+                    <h3 class="learning-card__title">Data Integration & Prep</h3>
+                    <p class="learning-card__description">Learn to connect and transform data from multiple sources using Data Manager and Recipes.</p>
+                    <div class="learning-card__meta">
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-video"></i> 15 Lessons</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-clock"></i> ~2 Hours</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-student"></i> Intermediate</span>
+                    </div>
+                </div>
+            </article>
+            <!-- Card 3: Advanced Dashboards -->
+            <article class="learning-card">
+                <i class="ph-bold ph-chart-line-up learning-card__bg-icon"></i>
+                <div class="learning-card__content">
+                    <span class="learning-card__number">03</span>
+                    <h3 class="learning-card__title">Advanced Dashboards</h3>
+                    <p class="learning-card__description">Master complex queries (SAQL), bindings, and interactive components to create dynamic analytics.</p>
+                    <div class="learning-card__meta">
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-video"></i> 18 Lessons</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-clock"></i> ~3 Hours</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-student"></i> Advanced</span>
+                    </div>
+                </div>
+            </article>
+            <!-- Ad Placeholder Card -->
+            <div class="special-card special-card--ad">
+                 <span class="icon"><i class="ph-bold ph-megaphone" style="color: var(--spruce-base-color-border);"></i></span>
+                 <h3 class="h5" style="color: var(--spruce-base-color-text);">Our Sponsors</h3>
+                 <p style="font-size: 0.9rem; color: var(--spruce-base-color-text);">Advertisements help keep this content free for everyone.</p>
+            </div>
+            <!-- Card 4: AI & Predictive -->
+             <article class="learning-card">
+                <i class="ph-bold ph-brain learning-card__bg-icon"></i>
+                <div class="learning-card__content">
+                    <span class="learning-card__number">04</span>
+                    <h3 class="learning-card__title">AI & Predictive Insights</h3>
+                    <p class="learning-card__description">Explore Einstein Discovery to uncover patterns and make powerful predictions directly within your data.</p>
+                    <div class="learning-card__meta">
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-video"></i> 10 Lessons</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-clock"></i> ~2.5 Hours</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-student"></i> Advanced</span>
+                    </div>
+                </div>
+            </article>
+            <!-- Card 5: Final Project -->
+             <article class="learning-card">
+                <i class="ph-bold ph-medal learning-card__bg-icon"></i>
+                <div class="learning-card__content">
+                    <span class="learning-card__number">05</span>
+                    <h3 class="learning-card__title">Capstone Project</h3>
+                    <p class="learning-card__description">Apply everything you've learned by building a comprehensive, end-to-end analytics solution for a real-world business case.</p>
+                    <div class="learning-card__meta">
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-folder"></i> 1 Project</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-clock"></i> ~5 Hours</span>
+                        <span class="learning-card__meta-item"><i class="ph-bold ph-student"></i> Expert</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
