@@ -11,7 +11,6 @@
 :root {
 
   // --- SALESFORCE BLUE PALETTE (with #0176D3 as Primary) ---
-  :root {
     /* Primary (Main CTA / Links) */
     --brand-primary: hsl(207, 99%, 41%); /* #0176D3 */
   
@@ -29,8 +28,7 @@
   
     /* Light Blue (Backgrounds, borders) */
     --brand-light: hsl(207, 80%, 95%); /* #E7F4FC */
-  }
-  
+
   
   // Base Colors (Light Mode)
   --spruce-base-color-background: hsl(0, 0%, 100%);
