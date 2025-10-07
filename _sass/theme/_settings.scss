@@ -1,0 +1,71 @@
+// ============================================
+// SETTINGS & VARIABLES
+// ============================================
+
+// ---------------------------------------
+// Layout & Dimensions
+// ---------------------------------------
+$header-height: 64px;
+$sidebar-left-width: 260px;
+$sidebar-right-width: 240px;
+$radius: 0.75rem;
+$transition-speed: 0.2s;
+
+// ---------------------------------------
+// Typography
+// ---------------------------------------
+$font-sans: 'Montserrat', sans-serif;
+
+// ---------------------------------------
+// Breakpoints
+// ---------------------------------------
+$breakpoints: (
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+// ---------------------------------------
+// Colors: Light Theme (Default)
+// ---------------------------------------
+$background: hsl(0, 0%, 100%);
+$foreground: hsl(215, 100%, 15%);
+$card: hsl(0, 0%, 100%);
+$primary: hsl(212, 100%, 32%);
+$primary-foreground: hsl(0, 0%, 100%);
+$secondary: hsl(210, 50%, 96%);
+$secondary-foreground: hsl(220.9, 39.3%, 11%);
+$muted: hsl(210, 50%, 96%);
+$muted-foreground: hsl(214, 20%, 55%);
+$accent: hsl(210, 50%, 92%);
+$border: hsl(210, 30%, 90%);
+
+// Light Theme Specifics
+$hero-bg: hsl(205, 84%, 73%);
+$hero-foreground: hsl(215, 100%, 15%);
+$hero-accent: hsl(212, 100%, 32%);
+$code-bg: hsl(220, 40%, 96%);
+$code-token-tag: hsl(212, 100%, 32%);
+$code-token-attr: hsl(25, 80%, 45%);
+$code-token-value: hsl(340, 70%, 45%);
+
+// ---------------------------------------
+// Colors: Dark Theme
+// ---------------------------------------
+$dark-background: hsl(216, 43%, 12%);
+$dark-foreground: hsl(210, 33%, 90%);
+$dark-card: hsl(215, 40%, 15%);
+$dark-primary: hsl(205, 84%, 73%);
+$dark-primary-foreground: hsl(215, 100%, 15%);
+$dark-secondary: hsl(216, 35%, 18%);
+$dark-secondary-foreground: hsl(210, 33%, 90%);
+$dark-muted: hsl(216, 35%, 18%);
+$dark-muted-foreground: hsl(214, 15%, 55%);
+$dark-accent: hsl(216, 35%, 22%);
+$dark-border: hsl(216, 30%, 25%);
+
+// Dark Theme Specifics
+$dark-code-bg: hsl(220, 25%, 18%);
+$dark-code-token-tag: hsl(205, 84%, 73%);
+$dark-code-token-attr: hsl(30, 80%, 70%);
+$dark-code-token-value: hsl(340, 80%, 75%);

@@ -1,29 +1,48 @@
-// 1. Variables & Theming
-@import 'theme/variables';
 
-// 2. Base Styles (Reset, Typography, etc.)
-@import 'theme/base';
-
-// 3. Core Layout Structure
-@import 'theme/layout';
-@import 'theme/home';
-
-// 4. Page Sections
-@import 'theme/header';
-@import 'theme/hero';
-@import 'theme/adsense';
-@import 'theme/footer';
-@import 'theme/modal';
-
-@import 'theme/sitemap';
-@import 'theme/tutorials';
-@import 'theme/search';
+// 1. Settings & Theme
+@import "settings";
+@import "theme";
 
 
 
-// 5. Reusable Components
-@import 'theme/components';
-@import 'theme/sidebar';
+
+
+
+
+
+
+
+
+
+
+
+
+// // 1. Variables & Theming
+// @import 'theme/variables';
+
+// // 2. Base Styles (Reset, Typography, etc.)
+// @import 'theme/base';
+
+// // 3. Core Layout Structure
+// @import 'theme/layout';
+// @import 'theme/home';
+
+// // 4. Page Sections
+// @import 'theme/header';
+// @import 'theme/hero';
+// @import 'theme/adsense';
+// @import 'theme/footer';
+// @import 'theme/modal';
+
+// @import 'theme/sitemap';
+// @import 'theme/tutorials';
+// @import 'theme/search';
+
+
+
+// // 5. Reusable Components
+// @import 'theme/components';
+// @import 'theme/sidebar';
 
 
 
