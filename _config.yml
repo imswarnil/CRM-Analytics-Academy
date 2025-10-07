@@ -59,6 +59,11 @@ sass:
 permalink: "/:slug/"
 excerpt_separator: <!-- more --> # Marks end of excerpt in posts
 timezone: Europe/London # Timezone for blog posts and alike
+github_url: "https://github.com/username/your-repo"
+
+# URL to your changelog page or release notes.
+# If you remove or comment out this line, the "Changelog" button will not appear.
+changelog_url: "/changelog/"
 
 # 5. Collections
 collections:
