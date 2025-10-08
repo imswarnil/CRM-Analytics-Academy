@@ -1,48 +1,31 @@
-<!-- _includes/header.html -->
 <header class="header">
   <div class="header-left">
-    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
-      <i class="ph-duotone ph-list" style="font-size: 1.5rem;"></i>
-    </button>
-    
-    <a href="{{ "/" | relative_url }}" class="logo" aria-label="Homepage">
-      <i class="ph-duotone ph-chart-bar"></i>
-      <span>{{ site.title | default: "CourseDocs" }}</span>
-    </a>
-  </div>
-
-  <div class="header-center">
-    <button class="search-trigger-button" id="search-trigger">
-      <i class="ph-duotone ph-magnifying-glass"></i>
-      <span>Search...</span>
-      <span class="kbd">⌘K</span>
-    </button>
-  </div>
-
-  <div class="header-right">
-    <button class="action-button" id="search-trigger-mobile" aria-label="Search">
-      <i class="ph-duotone ph-magnifying-glass"></i>
-    </button>
-
-    {%- comment -%}
-      Show a "Changelog" button if the URL is defined in _config.yml
-    {%- endcomment -%}
-    {% if site.changelog_url %}
-      <a href="{{ site.changelog_url | relative_url }}" class="action-button cta" aria-label="Changelog">Changelog</a>
-    {% endif %}
-
-    {%- comment -%}
-      Show a "Star on GitHub" button if the URL is defined in _config.yml
-    {%- endcomment -%}
-    {% if site.github_url %}
-      <a href="{{ site.github_url }}" class="action-button cta" aria-label="Star on GitHub" target="_blank" rel="noopener noreferrer">
-        <i class="ph-duotone ph-github-logo"></i>
-        <span>Star</span>
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
+          <i class="ph-duotone ph-list" style="font-size: 1.5rem;"></i>
+      </button>
+      <a href="#" class="logo">
+          <i class="ph-duotone ph-chart-bar"></i>
+          <span>CourseDocs</span>
       </a>
-    {% endif %}
-
-    <button class="cta action-button" id="theme-toggle" aria-label="Toggle dark mode">
-      <i class="ph-duotone ph-sun"></i>
-    </button>
+  </div>
+  <div class="header-center">
+      <button class="search-trigger-button" id="search-trigger">
+          <i class="ph-duotone ph-magnifying-glass"></i>
+          <span>Search...</span>
+          <span class="kbd">⌘K</span>
+      </button>
+  </div>
+  <div class="header-right">
+      <button class="action-button" id="search-trigger-mobile" aria-label="Search">
+          <i class="ph-duotone ph-magnifying-glass"></i>
+      </button>
+      <a href="#" class="action-button cta" aria-label="Changelog">Changelog</a>
+      <a href="#" class="action-button cta" aria-label="Star on GitHub">
+          <i class="ph-duotone ph-github-logo"></i>
+          <span>Star</span>
+      </a>
+      <button class="action-button" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="ph-duotone ph-sun"></i>
+      </button>
   </div>
 </header>

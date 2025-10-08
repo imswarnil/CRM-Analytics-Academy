@@ -1,0 +1,24 @@
+
+/* ============================================
+   THEME & VARIABLES
+============================================ */
+:root {
+    --docs-header-height: 64px; --docs-sidebar-left-width: 260px; --docs-sidebar-right-width: 240px; --docs-radius: 0.75rem; --docs-transition-speed: 0.2s;
+    --docs-font-sans: 'Montserrat', sans-serif;
+    
+    /* Light Theme */
+    --docs-background: hsl(0, 0%, 100%); --docs-foreground: hsl(215, 100%, 15%); --docs-card: hsl(0, 0%, 100%); --docs-primary: hsl(212, 100%, 32%);
+    --docs-primary-foreground: hsl(0, 0%, 100%); --docs-secondary: hsl(210, 50%, 96%); --docs-secondary-foreground: hsl(220.9, 39.3%, 11%);
+    --docs-muted: hsl(210, 50%, 96%); --docs-muted-foreground: hsl(214, 20%, 55%); --docs-accent: hsl(210, 50%, 92%); --docs-border: hsl(210, 30%, 90%);
+    --docs-code-bg: hsl(220, 40%, 96%); --docs-code-token-tag: hsl(212, 100%, 32%); --docs-code-token-attr: hsl(25, 80%, 45%); --docs-code-token-value: hsl(340, 70%, 45%);
+    
+    /* Hero Specific */
+    --docs-hero-bg: hsl(205, 84%, 73%); --docs-hero-foreground: hsl(215, 100%, 15%); --docs-hero-accent: hsl(212, 100%, 32%);
+}
+
+html.dark {
+    --docs-background: hsl(216, 43%, 12%); --docs-foreground: hsl(210, 33%, 90%); --docs-card: hsl(215, 40%, 15%); --docs-primary: hsl(205, 84%, 73%); 
+    --docs-primary-foreground: hsl(215, 100%, 15%); --docs-secondary: hsl(216, 35%, 18%); --docs-secondary-foreground: hsl(210, 33%, 90%);
+    --docs-muted: hsl(216, 35%, 18%); --docs-muted-foreground: hsl(214, 15%, 55%); --docs-accent: hsl(216, 35%, 22%); --docs-border: hsl(216, 30%, 25%);
+    --docs-code-bg: hsl(220, 25%, 18%); --docs-code-token-tag: hsl(205, 84%, 73%); --docs-code-token-attr: hsl(30, 80%, 70%); --docs-code-token-value: hsl(340, 80%, 75%);
+}
