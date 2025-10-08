@@ -4,53 +4,12 @@
   <body>
     <div class="page-wrapper">
       {% include header.html %}
-        <aside class="sidebar-left" id="sidebar-left">
-            <div class="sidebar-left-content">
-                <nav class="sidebar-nav">
-                    <ul class="main-nav">
-                        <li class="nav-link"><a href="#"><i class="ph-duotone ph-house"></i>Home</a></li>
-                        <li class="nav-link"><a href="#"><i class="ph-duotone ph-books"></i>Courses</a></li>
-                    </ul>
-                    <ul>
-                        <li class="nav-category">Getting Started</li>
-                        <li class="nav-link"><a href="#"><i class="ph-duotone ph-rocket-launch"></i>Introduction</a></li>
-                        <li class="nav-link"><a href="#"><i class="ph-duotone ph-download-simple"></i>Installation</a></li>
-                        <li class="nav-category">Core Concepts</li>
-                        <li class="nav-link active"><a href="#"><i class="ph-duotone ph-palette"></i>Theming</a></li>
-                        <li class="nav-link"><a href="#"><i class="ph-duotone ph-layout"></i>Layout</a></li>
-                        <li class="nav-link"><a href="#"><i class="ph-duotone ph-puzzle-piece"></i>Components</a></li>
-                    </ul>
-                </nav>
-                <div class="sponsor-card" style="margin-top: 2rem;">
-                    <div style="font-size: 0.7rem; color: var(--docs-muted-foreground);">Ad</div>
-                    <div style="font-weight: 600; margin: 0.5rem 0;">Sponsored Training</div>
-                    <p style="font-size: 0.875rem; color: var(--docs-muted-foreground); margin: 0;">Learn advanced CRM techniques with our new course.</p>
-                </div>
-            </div>
-            <div class="attribution-card" style="margin-top: 1rem;">
-                <p>Created by <strong>Salesforce Release</strong>.</p>
-            </div>
-        </aside>
-
+      {% include sidebar.html %}
         <div class="main-content-area">
-            <div class="hero-banner">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <p class="tableau-logo"><span>++</span>+ a b l e a u</p>
-                        <h1>TABLEAU CRM<br>TRAINING</h1>
-                    </div>
-                </div>
-                <img src="https://i.ibb.co/L5rK5Y5/einstein-character.png" alt="Einstein character" class="hero-character">
-            </div>
-
+          {% include sidebar.html %}
+          {% include hero.html %}
             <main class="content-wrapper">
-                <nav class="breadcrumbs" aria-label="Breadcrumb">
-                    <a href="#"><i class="ph-duotone ph-house"></i></a><span>&rsaquo;</span>
-                    <a href="#">Courses</a><span>&rsaquo;</span>
-                    <a href="#">Core Concepts</a><span>&rsaquo;</span>
-                    <span>Theming</span>
-                </nav>
-
+              {% include breadcrumbs.html %}
                 <article>
                     <h2 id="components-title">Reusable Components</h2>
                     <p>This theme includes a rich set of pre-styled components to help you build beautiful content pages quickly and consistently.</p>

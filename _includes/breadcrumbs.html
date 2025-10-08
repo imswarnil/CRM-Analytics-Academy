@@ -1,57 +1,6 @@
-{%- comment -%}
-Renders breadcrumbs for all pages except home.
-Usage:  {% include breadcrumbs.html %}
-Options (optional):
-  - label_home: override the Home label (defaults to icon only)
-  - root_url:   override the home URL (defaults to site.baseurl or "/")
-  - last_title: override the last crumb title (defaults to page.title)
-{%- endcomment -%}
-
-{%- assign is_home =
-    page.url == '/' or
-    page.url == site.baseurl or
-    page.permalink == '/' -%}
-
-{%- if is_home -%}
-  {%- comment -%} Do not render on home. {%- endcomment -%}
-{%- else -%}
-  {%- assign root = include.root_url | default: site.baseurl | default: '/' -%}
-  {%- assign url  = page.url | to_s | replace:'index.html','' -%}
-  {%- assign parts_raw = url | split:'/' -%}
-
-  {%- comment -%} Build a filtered list of non-empty segments {%- endcomment -%}
-  {%- assign parts_join = '' -%}
-  {%- for p in parts_raw -%}
-    {%- unless p == '' -%}
-      {%- assign parts_join = parts_join | append:p | append:'|' -%}
-    {%- endunless -%}
-  {%- endfor -%}
-  {%- assign parts = parts_join | split:'|' -%}
-
-  {%- if parts.size > 0 -%}
-  <nav class="breadcrumbs" aria-label="Breadcrumb">
-    <a href="{{ root | relative_url }}"><i class="ph-duotone ph-house"></i>
-      {%- if include.label_home -%}<span>{{ include.label_home }}</span>{%- endif -%}
-    </a>
-
-    {%- assign path = '' -%}
-    {%- for seg in parts -%}
-      {%- assign is_last = forloop.last -%}
-      {%- assign path = path | append:'/' | append:seg -%}
-
-      <span aria-hidden="true">›</span>
-
-      {%- assign pretty =
-          seg | replace:'-',' ' | replace:'%20',' ' | strip | capitalize -%}
-
-      {%- if is_last -%}
-        <span class="current">
-          {{ include.last_title | default: page.breadcrumb_title | default: page.title | default: pretty }}
-        </span>
-      {%- else -%}
-        <a href="{{ root | append:path | relative_url }}">{{ pretty }}</a>
-      {%- endif -%}
-    {%- endfor -%}
-  </nav>
-  {%- endif -%}
-{%- endif -%}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <a href="#"><i class="ph-duotone ph-house"></i></a><span>&rsaquo;</span>
+  <a href="#">Courses</a><span>&rsaquo;</span>
+  <a href="#">Core Concepts</a><span>&rsaquo;</span>
+  <span>Theming</span>
+</nav>
