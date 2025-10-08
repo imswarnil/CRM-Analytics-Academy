@@ -28,17 +28,7 @@
                     <p>Easily embed images, carousels, and videos that adapt to any screen size.</p>
                     <img src="https://i.pravatar.cc/800x400?u=responsive-image" alt="Placeholder image" class="responsive-img">
 
-                    <div class="carousel" id="image-carousel">
-                        <div class="carousel-slides">
-                            <div class="carousel-slide"><img src="https://i.pravatar.cc/800x450?u=carousel-1" alt="Slide 1"><div class="carousel-caption"><h4>First Image</h4><p>Description for the first image.</p></div></div>
-                            <div class="carousel-slide"><img src="https://i.pravatar.cc/800x450?u=carousel-2" alt="Slide 2"><div class="carousel-caption"><h4>Second Image</h4><p>Description for the second image.</p></div></div>
-                            <div class="carousel-slide"><img src="https://i.pravatar.cc/800x450?u=carousel-3" alt="Slide 3"><div class="carousel-caption"><h4>Third Image</h4><p>Description for the third image.</p></div></div>
-                        </div>
-                        <div class="carousel-nav">
-                            <button class="carousel-button prev" aria-label="Previous Slide"><i class="ph-duotone ph-caret-left"></i></button>
-                            <button class="carousel-button next" aria-label="Next Slide"><i class="ph-duotone ph-caret-right"></i></button>
-                        </div>
-                    </div>
+
                     
                     <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -327,40 +317,7 @@
                 }
             }
         });
-        
-        // ============================================
-        // MODULE: IMAGE CAROUSEL
-        // Basic functionality for the image carousel component.
-        // ============================================
-        const carousel = document.getElementById('image-carousel');
-        if (carousel) {
-            const slidesContainer = carousel.querySelector('.carousel-slides');
-            const slides = carousel.querySelectorAll('.carousel-slide');
-            const prevButton = carousel.querySelector('.carousel-button.prev');
-            const nextButton = carousel.querySelector('.carousel-button.next');
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-
-            const goToSlide = (slideIndex) => {
-                slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
-                currentSlide = slideIndex;
-            };
-
-            prevButton.addEventListener('click', () => {
-                const newSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                goToSlide(newSlide);
-            });
-            
-            nextButton.addEventListener('click', () => {
-                const newSlide = (currentSlide + 1) % totalSlides;
-                goToSlide(newSlide);
-            });
-        }
-    });
-})();
+      })();
 </script>
-
 </body>
-
-
 </html>
