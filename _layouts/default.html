@@ -12,18 +12,7 @@
       </footer>
     </div>
   
-    <div class="mobile-overlay" id="mobile-overlay"></div>
-    <div id="search-modal">
-      <div class="search-overlay"></div>
-      <div class="search-container">
-        <div class="search-header">
-          <i class="ph-duotone ph-magnifying-glass"></i>
-          <input type="text" id="search-input" placeholder="Search documentation...">
-        </div>
-        <div class="search-results"></div>
-      </div>
-    </div>
-
+    {% include search.html %}
     {% if site.service_worker != false %}{% include site-sw.html %}{% endif %}
     {% include site-before-end.html %}
   </body>

@@ -1,10 +1,11 @@
+<!-- _includes/header.html -->
 <header class="header">
   <div class="header-left">
     <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
       <i class="ph-duotone ph-list" style="font-size: 1.5rem;"></i>
     </button>
     
-    <a href="{{ site.baseurl | default: '' }}/" class="logo" aria-label="Homepage">
+    <a href="{{ "/" | relative_url }}" class="logo" aria-label="Homepage">
       <i class="ph-duotone ph-chart-bar"></i>
       <span>{{ site.title | default: "CourseDocs" }}</span>
     </a>
@@ -14,7 +15,7 @@
     <button class="search-trigger-button" id="search-trigger">
       <i class="ph-duotone ph-magnifying-glass"></i>
       <span>Search...</span>
-      <kbd>⌘K</kbd>
+      <span class="kbd">⌘K</span>
     </button>
   </div>
 
@@ -27,66 +28,21 @@
       Show a "Changelog" button if the URL is defined in _config.yml
     {%- endcomment -%}
     {% if site.changelog_url %}
-      <a href="{{ site.changelog_url | relative_url }}" class="action-button cta">Changelog</a>
+      <a href="{{ site.changelog_url | relative_url }}" class="action-button cta" aria-label="Changelog">Changelog</a>
     {% endif %}
 
     {%- comment -%}
       Show a "Star on GitHub" button if the URL is defined in _config.yml
     {%- endcomment -%}
     {% if site.github_url %}
-      <a href="{{ site.github_url }}" class="action-button cta" target="_blank" rel="noopener noreferrer">
+      <a href="{{ site.github_url }}" class="action-button cta" aria-label="Star on GitHub" target="_blank" rel="noopener noreferrer">
         <i class="ph-duotone ph-github-logo"></i>
         <span>Star</span>
       </a>
     {% endif %}
 
-    <button class="action-button" id="theme-toggle" aria-label="Toggle dark mode">
+    <button class="cta action-button" id="theme-toggle" aria-label="Toggle dark mode">
       <i class="ph-duotone ph-sun"></i>
     </button>
   </div>
 </header>
-
-<!-- <div class="header-left">
-  <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
-    <i class="ph-duotone ph-list" style="font-size: 1.5rem;"></i>
-  </button>
-
-  <a href="{{ site.baseurl | default: '' }}/" class="logo">
-    {{ site.title | default: "CourseDocs" }}
-  </a>
-
-  <nav class="header-nav" aria-label="Site">
-    {%- assign nav_items = site.navigation_header | default: site.data.navigation_header -%}
-    {%- assign current = page.url | to_s -%}
-    {%- for item in nav_items -%}
-      {%- assign item_url = item.url | to_s -%}
-      {%- assign normalized = item_url | relative_url -%}
-      {%- assign is_home = item_url == '/' -%}
-      {%- assign is_active = (current == item_url) or (current == normalized) or (is_home and (current == '/' or current == site.baseurl)) -%}
-      <a href="{{ item_url | relative_url }}"
-         class="{% if is_active %}active{% endif %}"
-         {% if is_active %}aria-current="page"{% endif %}>
-        {{ item.title }}
-      </a>
-    {%- endfor -%}
-  </nav>
-  
-</div>
-
-<div class="header-right">
-  <button class="search-trigger-button" id="search-trigger">
-    <i class="ph-duotone ph-magnifying-glass"></i>
-    <span>Search...</span>
-    <kbd>⌘K</kbd>
-  </button>
-
-  {% if site.github_url %}
-    <a href="{{ site.github_url }}" class="action-button github-link" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
-      <i class="ph-duotone ph-github-logo"></i>
-    </a>
-  {% endif %}
-
-  <button class="action-button" id="theme-toggle" aria-label="Toggle dark mode">
-    <i class="ph-duotone ph-sun"></i>
-  </button>
-</div> -->

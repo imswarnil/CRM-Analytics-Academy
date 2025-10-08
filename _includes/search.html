@@ -1,0 +1,136 @@
+<!-- _includes/search.html -->
+<div id="search-modal">
+  <div class="search-overlay"></div>
+  <div class="search-container">
+    <div class="search-header">
+      <i class="ph-duotone ph-magnifying-glass"></i>
+      <input type="text" id="search-input" placeholder="Search lessons, components..." autocomplete="off">
+    </div>
+    <div class="search-results">
+        <!-- Search results will be populated here by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+    // Check if the search modal exists on the page
+    const searchModal = document.getElementById('search-modal');
+    if (!searchModal) return;
+
+    // --- CONFIGURATION ---
+    const baseurl = "{{ site.baseurl }}";
+    let searchData = [];
+
+    // --- FETCH SEARCH DATA ---
+    // Fetch the pre-built search index from the Jekyll site
+    fetch(`${baseurl}/assets/js/search.json`)
+        .then(response => response.json())
+        .then(data => { searchData = data; })
+        .catch(error => console.error('Error fetching search data:', error));
+
+    // --- DOM ELEMENTS ---
+    const searchTriggers = document.querySelectorAll('#search-trigger, #search-trigger-mobile');
+    const searchOverlay = searchModal.querySelector('.search-overlay');
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = searchModal.querySelector('.search-results');
+    let activeResultIndex = -1;
+
+    // --- CORE FUNCTIONS ---
+    const openSearch = () => {
+        searchModal.classList.add('is-open');
+        document.body.classList.add('modal-open');
+        setTimeout(() => searchInput.focus(), 50);
+        renderResults(''); // Initially show empty state or recent searches
+    };
+
+    const closeSearch = () => {
+        searchModal.classList.remove('is-open');
+        document.body.classList.remove('modal-open');
+        searchInput.value = '';
+    };
+
+    const renderResults = (query) => {
+        const term = query.trim().toLowerCase();
+        let results = [];
+        
+        if (term.length > 1) { // Only search for terms longer than 1 character
+            results = searchData.filter(item => 
+                item.title.toLowerCase().includes(term) || 
+                item.content.toLowerCase().includes(term)
+            );
+        }
+        
+        resultsContainer.innerHTML = '';
+        activeResultIndex = -1;
+
+        if (term.length > 1 && results.length === 0) {
+            resultsContainer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--docs-muted-foreground);">No results found.</div>';
+            return;
+        }
+
+        if (results.length > 0) {
+            const ul = document.createElement('ul');
+            results.slice(0, 15).forEach((item, index) => { // Limit to 15 results
+                const li = document.createElement('li');
+                li.className = 'search-result-item';
+                li.dataset.index = index;
+                li.innerHTML = `<a href="${baseurl}${item.url}">
+                    <div style="flex-shrink: 0; width: 32px; text-align: center;"><i class="ph-duotone ph-file-text"></i></div>
+                    <div style="flex-grow: 1;">
+                        <div style="font-weight:600;">${item.title}</div>
+                        <div style="font-size: 0.875rem; color: var(--docs-muted-foreground);">${item.excerpt}</div>
+                    </div>
+                </a>`;
+                ul.appendChild(li);
+            });
+            resultsContainer.appendChild(ul);
+        }
+    };
+
+    const updateActiveResult = (newIndex) => {
+        const items = resultsContainer.querySelectorAll('.search-result-item');
+        if (items.length === 0) return;
+        
+        // Remove active class from previous item
+        if (activeResultIndex > -1 && items[activeResultIndex]) {
+            items[activeResultIndex].classList.remove('active');
+        }
+        
+        // Handle wrapping
+        if (newIndex >= items.length) newIndex = 0;
+        if (newIndex < 0) newIndex = items.length - 1;
+        
+        // Add active class to new item and scroll into view
+        if (items[newIndex]) {
+            items[newIndex].classList.add('active');
+            items[newIndex].scrollIntoView({ block: 'nearest' });
+        }
+        activeResultIndex = newIndex;
+    };
+
+    // --- EVENT LISTENERS ---
+    searchTriggers.forEach(trigger => trigger.addEventListener('click', openSearch));
+    searchOverlay.addEventListener('click', closeSearch);
+    searchInput.addEventListener('input', () => renderResults(searchInput.value));
+    
+    document.addEventListener('keydown', e => {
+        // Open with Command+K or Control+K
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            openSearch();
+        }
+
+        // Handle interactions only when the modal is open
+        if (searchModal.classList.contains('is-open')) {
+            if (e.key === 'Escape') closeSearch();
+            if (e.key === 'ArrowDown') { e.preventDefault(); updateActiveResult(activeResultIndex + 1); }
+            if (e.key === 'ArrowUp') { e.preventDefault(); updateActiveResult(activeResultIndex - 1); }
+            if (e.key === 'Enter') {
+                const activeLink = resultsContainer.querySelector('.search-result-item.active a');
+                if (activeLink) activeLink.click();
+            }
+        }
+    });
+})();
+</script>

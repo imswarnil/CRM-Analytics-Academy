@@ -1,7 +1,9 @@
 
 // 1. Settings & Theme
-@import "theme/settings";
-@import "theme/theme";
+@import "settings/variables";
+@import "main/base";
+@import "components/header";
+
 
 
 

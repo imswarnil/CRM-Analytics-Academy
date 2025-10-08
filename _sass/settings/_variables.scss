@@ -1,0 +1,73 @@
+// _sass/_variables.scss
+
+// ============================================
+// FONTS & TYPOGRAPHY
+// ============================================
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap');
+$font-sans: 'Montserrat', sans-serif;
+
+
+// ============================================
+// LAYOUT & SIZING
+// ============================================
+$header-height: 64px;
+$sidebar-left-width: 260px;
+$sidebar-right-width: 240px;
+
+
+// ============================================
+// BORDERS & TRANSITIONS
+// ============================================
+$radius: 0.75rem;
+$transition-speed: 0.2s;
+
+
+// ============================================
+// THEME COLORS (MAPS)
+// ============================================
+
+// We define colors in maps to easily manage themes.
+// This makes it simple to add new themes in the future.
+
+$light-theme: (
+    "background": hsl(0, 0%, 100%),
+    "foreground": hsl(215, 100%, 15%),
+    "card": hsl(0, 0%, 100%),
+    "primary": hsl(212, 100%, 32%),
+    "primary-foreground": hsl(0, 0%, 100%),
+    "secondary": hsl(210, 50%, 96%),
+    "secondary-foreground": hsl(220.9, 39.3%, 11%),
+    "muted": hsl(210, 50%, 96%),
+    "muted-foreground": hsl(214, 20%, 55%),
+    "accent": hsl(210, 50%, 92%),
+    "border": hsl(210, 30%, 90%),
+    "code-bg": hsl(220, 40%, 96%),
+    "code-token-tag": hsl(212, 100%, 32%),
+    "code-token-attr": hsl(25, 80%, 45%),
+    "code-token-value": hsl(340, 70%, 45%),
+    "hero-bg": hsl(205, 84%, 73%),
+    "hero-foreground": hsl(215, 100%, 15%),
+    "hero-accent": hsl(212, 100%, 32%)
+);
+
+$dark-theme: (
+    "background": hsl(216, 43%, 12%),
+    "foreground": hsl(210, 33%, 90%),
+    "card": hsl(215, 40%, 15%),
+    "primary": hsl(205, 84%, 73%),
+    "primary-foreground": hsl(215, 100%, 15%),
+    "secondary": hsl(216, 35%, 18%),
+    "secondary-foreground": hsl(210, 33%, 90%),
+    "muted": hsl(216, 35%, 18%),
+    "muted-foreground": hsl(214, 15%, 55%),
+    "accent": hsl(216, 35%, 22%),
+    "border": hsl(216, 30%, 25%),
+    "code-bg": hsl(220, 25%, 18%),
+    "code-token-tag": hsl(205, 84%, 73%),
+    "code-token-attr": hsl(30, 80%, 70%),
+    "code-token-value": hsl(340, 80%, 75%),
+    // Hero colors are the same in the original CSS, but we can override if needed
+    "hero-bg": hsl(205, 84%, 73%),
+    "hero-foreground": hsl(215, 100%, 15%),
+    "hero-accent": hsl(212, 100%, 32%)
+);
