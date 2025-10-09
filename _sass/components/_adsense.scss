@@ -16,6 +16,8 @@
   background: var(--ad-bg);
   display: grid;
   gap: .5rem;
+  grid-column: 1/-1;
+
 }
 
 .ad__label {
