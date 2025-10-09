@@ -1,14 +1,3 @@
-{%- comment -%}
-Simple AdSense include (type + optional size)
-Usage:
-  {% include adsense.html type="leaderboard" size="small"  %}
-  {% include adsense.html type="leaderboard" size="medium" %}
-  {% include adsense.html type="leaderboard" size="large"  %}
-  {% include adsense.html type="vertical"    size="small"  %}
-  {% include adsense.html type="square"      size="large"  %}
-  {% include adsense.html type="article" %}
-  {% include adsense.html type="feed" %}
-  {% include adsense.html type="multiplex" %}
 
 {%- assign t = include.type | downcase | default: 'square' -%}
 {%- assign s = include.size | downcase | default: 'medium' -%}
