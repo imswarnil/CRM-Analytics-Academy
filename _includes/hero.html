@@ -1,3 +1,114 @@
+{%- comment -%}
+    This is a conditional hero component. It changes its appearance based on the page's `layout` front matter.
+    - layout: home      -> Displays a large, interactive marketing hero with a video modal.
+    - layout: post      -> Displays a metadata-rich hero for blog posts (title, author, date).
+    - default (any other) -> Displays a simple, clean hero with just a title and optional subtitle.
+{%- endcomment -%}
+
+{%- if page.layout == 'home' -%}
+    <!-- ============================================
+       1. HOME LAYOUT HERO
+    ============================================ -->
+    <section class="hero-banner-lms">
+        <div class="hero-container">
+            <div class="hero-lms-grid">
+                <div class="hero-lms-col">
+                    <div class="hero-lms-text">
+                        {%- if page.hero_kicker -%}
+                            <p class="tableau-logo">{{ page.hero_kicker }}</p>
+                        {%- endif -%}
+                        <h1>{{ page.title | default: "Welcome" }}</h1>
+                        {%- if page.hero_subtitle -%}
+                            <p class="hero-subtitle">{{ page.hero_subtitle }}</p>
+                        {%- endif -%}
+                        
+                        <div class="hero-meta">
+                            {%- if page.hero_meta_1 -%}<div class="meta-item">{{ page.hero_meta_1 }}</div>{%- endif -%}
+                            {%- if page.hero_meta_2 -%}<div class="meta-item">{{ page.hero_meta_2 }}</div>{%- endif -%}
+                            {%- if page.hero_meta_3 -%}<div class="meta-item">{{ page.hero_meta_3 }}</div>{%- endif -%}
+                        </div>
+
+                        <div class="hero-cta">
+                            {%- if page.hero_cta_primary_text -%}
+                                <a href="{{ page.hero_cta_primary_url | default: '#' }}" class="btn btn--primary btn--lg">{{ page.hero_cta_primary_text }}</a>
+                            {%- endif -%}
+                            {%- if page.hero_cta_secondary_text -%}
+                                <button class="btn btn--inverse-outline btn--lg" id="play-video-trigger">
+                                    <i class="ph-duotone ph-play-circle"></i>
+                                    <span>{{ page.hero_cta_secondary_text }}</span>
+                                </button>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-lms-col">
+                    <div class="hero-visual">
+                        <img src="{{ page.hero_image | default: 'https://i.pravatar.cc/800x800?u=hero-visual' }}" alt="{{ page.title }} hero image">
+                        {%- if page.hero_cta_secondary_text -%}
+                            <button class="video-play-button" id="play-video-trigger-visual" aria-label="Play Video">
+                                <i class="ph-duotone ph-play"></i>
+                            </button>
+                        {%- endif -%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Video Modal (only for home layout) -->
+    <div class="video-modal" id="video-modal">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Close video player">&times;</button>
+            <div class="video-container">
+                <iframe id="course-video-iframe" src="{{ page.hero_video_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+{%- elsif page.layout == 'post' -%}
+    <!-- ============================================
+       2. POST LAYOUT HERO
+    ============================================ -->
+    <section class="hero-banner-post">
+        <div class="container">
+            <nav class="breadcrumbs">
+                <a href="{{ "/" | relative_url }}">Home</a><span>&rsaquo;</span>
+                <a href="/blog/">Blog</a><span>&rsaquo;</span>
+                <span>{{ page.title }}</span>
+            </nav>
+            <h1>{{ page.title }}</h1>
+            <div class="post-meta">
+                <div class="meta-item">
+                    <i class="ph-duotone ph-user-circle"></i>
+                    <span>{{ page.author | default: site.author }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="ph-duotone ph-calendar"></i>
+                    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+                </div>
+                <div class="meta-item">
+                    <i class="ph-duotone ph-clock"></i>
+                    <span>{{ page.content | number_of_words | divided_by: 180 | plus: 1 }} min read</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{%- else -%}
+    <!-- ============================================
+       3. GENERIC / DEFAULT HERO
+    ============================================ -->
+    <section class="hero-banner-generic">
+        <div class="container">
+            <h1>{{ page.title | default: "Page" }}</h1>
+            {%- if page.subtitle -%}
+                <p class="generic-subtitle">{{ page.subtitle }}</p>
+            {%- endif -%}
+        </div>
+    </section>
+{%- endif -%}
+
 <div class="hero-banner">
     <div class="hero-content">
         <div class="hero-text">

@@ -1,0 +1,82 @@
+/* ============================================
+   HERO COMPONENT STYLES
+============================================ */
+
+/* --- Base Container --- */
+.hero-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- 1. HOME HERO --- */
+.hero-banner-lms {
+    background-color: var(--docs-hero-bg);
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--docs-border);
+}
+.hero-banner-lms::before, .hero-banner-lms::after { content: ''; position: absolute; background-color: var(--docs-hero-accent); border-radius: 50%; z-index: 0; opacity: 0.8; }
+.hero-banner-lms::before { width: 300px; height: 300px; bottom: -150px; left: -80px; }
+.hero-banner-lms::after { width: 200px; height: 200px; top: -120px; right: 100px; opacity: 0.6; }
+
+.hero-lms-grid { display: flex; flex-wrap: wrap; align-items: center; margin: 0 -1.5rem; }
+.hero-lms-col { width: 100%; padding: 0 1.5rem; }
+@media (min-width: 992px) { .hero-lms-col { flex: 0 0 50%; max-width: 50%; } }
+
+.hero-lms-text .tableau-logo { font-size: 1rem; font-weight: 600; letter-spacing: 2px; color: var(--docs-hero-foreground); opacity: 0.9; margin-bottom: 1rem; }
+.hero-lms-text h1 { font-size: clamp(2.25rem, 5vw, 3.25rem); color: var(--docs-hero-foreground); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.hero-subtitle { font-size: 1.1rem; margin: 1.5rem 0; color: var(--docs-hero-foreground); opacity: 0.9; line-height: 1.6; max-width: 50ch; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 2rem 0; }
+.meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 500; color: var(--docs-hero-foreground); }
+.meta-item i { font-size: 1.25rem; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+.hero-visual { position: relative; margin-top: 3rem; }
+@media (min-width: 992px) { .hero-visual { margin-top: 0; } }
+.hero-visual img { width: 100%; border-radius: var(--docs-radius); box-shadow: 0 20px 40px -15px hsla(212, 50%, 30%, 0.3); }
+.video-play-button { /* styles from previous response */ }
+
+/* --- 2. POST HERO --- */
+.hero-banner-post {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--docs-border);
+    background-color: var(--docs-secondary);
+}
+.hero-banner-post h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 800;
+    margin-top: 1rem;
+}
+.post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1rem;
+    color: var(--docs-muted-foreground);
+    font-size: 0.9rem;
+}
+.breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--docs-muted-foreground); flex-wrap: wrap; }
+.breadcrumbs a:hover { text-decoration: underline; }
+
+/* --- 3. GENERIC HERO --- */
+.hero-banner-generic {
+    padding: 3rem 0;
+    text-align: center;
+    border-bottom: 1px solid var(--docs-border);
+}
+.hero-banner-generic h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 800;
+}
+.generic-subtitle {
+    font-size: 1.1rem;
+    color: var(--docs-muted-foreground);
+    margin-top: 0.5rem;
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+}
