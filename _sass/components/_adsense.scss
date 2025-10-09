@@ -1,82 +1,122 @@
 /* ============================================
-   AdSense Component Styles (adsense.scss)
+   AdSense (simple, CLS-safe, theme-styled)
 ============================================ */
-
 .ad {
-  // A general container for ad units to provide spacing and a subtle background.
-  position: relative;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: var(--docs-muted);
-  border-radius: var(--docs-radius);
-  border: 1px dashed var(--docs-border);
-  min-height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  --ad-radius: var(--docs-radius, 0.75rem);
+  --ad-border: var(--docs-border, hsl(210 30% 90%));
+  --ad-muted: var(--docs-muted, hsl(210 50% 96%));
+  --ad-muted-foreground: var(--docs-muted-foreground, hsl(214 20% 55%));
+  --ad-bg: var(--docs-card, #fff);
 
-  // The "Advertisement" label.
-  &__label {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--docs-muted-foreground);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.75rem;
-  }
+  margin: 1.75rem 0;
+  padding: 0.75rem;
+  border: 1px dashed var(--ad-border);
+  border-radius: var(--ad-radius);
+  background: var(--ad-bg);
+  display: grid;
+  gap: .5rem;
 }
 
-// Ensure the AdSense element fills its container.
-.adsbygoogle {
+.ad__label {
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--ad-muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.ad__frame {
+  /* reserve space to prevent layout shift */
   width: 100%;
-  height: 100%;
-  min-height: 90px; // Default min-height for horizontal ads.
+  max-width: 100%;
+  margin-inline: auto;
+  border-radius: calc(var(--ad-radius) - 2px);
+  overflow: hidden;
+  background: color-mix(in oklab, var(--ad-bg) 88%, var(--ad-border));
+  border: 1px solid color-mix(in oklab, var(--ad-border) 70%, transparent);
+  display: grid;
+  place-items: center;
 }
 
-/* --- Specific Ad Type Adjustments --- */
+/* The ad itself fills the frame */
+.adsbygoogle { width: 100%; height: 100%; }
 
-// For the square ad in the sidebar.
-// Remove extra margin/padding as the sidebar already has it.
-.sidebar-right .ad--square {
-  margin: 0;
-  padding: 0.5rem;
-  min-height: 250px;
+/* -------------------------------------------------
+   Size presets by TYPE using real-world earners:
+   Desktop ≥1024px, Tablet 640–1023px, Mobile <640px
+   Heights chosen to match common units so Google
+   can render nicely inside the reserved frame.
+--------------------------------------------------*/
+
+/* LEADERBOARD (desktop 970x90 or 728x90; mobile 320x100) */
+.ad--leaderboard .ad__frame {
+  height: 90px;
+  max-width: 970px; /* allow 970x90 on wide screens */
 }
-
-// For the vertical ads in the skyscrapers.
-.skyscraper-ad-left,
-.skyscraper-ad-right {
-  padding: 1rem;
-  .adsbygoogle {
-    min-height: 600px;
+@media (max-width: 1279.98px) {
+  .ad--leaderboard .ad__frame { max-width: 728px; } /* tablet / small desktop */
+}
+@media (max-width: 639.98px) {
+  .ad--leaderboard .ad__frame {
+    height: 100px;     /* 320x100 (or 320x50); use 100 for better CPM */
+    max-width: 320px;
   }
 }
 
-// For the In-Feed ad, make it look like one of the other cards.
-.related-tutorials-grid .ad--feed-item {
-  // Inherit card styles but override ad-specific styles.
-  margin: 0; 
-  padding: 0;
-  border: none;
-  background-color: transparent;
+/* SQUARE / RECTANGLE (desktop 336x280; tablet/mobile 300x250) */
+.ad--square .ad__frame {
+  height: 280px;
+  max-width: 336px;
+}
+@media (max-width: 1023.98px) {
+  .ad--square .ad__frame { height: 250px; max-width: 300px; }
+}
+@media (max-width: 639.98px) {
+  .ad--square .ad__frame { height: 250px; max-width: 300px; }
+}
 
-  // The ad itself will be wrapped in a card-like structure.
-  .ad {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    border-style: solid;
-    transition: all var(--docs-transition-speed);
-    
-    &:hover {
-      border-color: var(--docs-primary);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px hsla(212, 100%, 32%, 0.08);
-    }
-  }
+/* VERTICAL / SKYSCRAPER (desktop 300x600; tablet 160x600; mobile falls back) */
+.ad--vertical .ad__frame {
+  height: 600px;
+  max-width: 300px;
+}
+@media (max-width: 1023.98px) {
+  .ad--vertical .ad__frame { height: 600px; max-width: 160px; } /* 160x600 */
+}
+@media (max-width: 639.98px) {
+  .ad--vertical .ad__frame { height: 250px; max-width: 300px; } /* mobile fallback */
+}
+
+/* IN-ARTICLE (fluid) – give it breathing room */
+.ad--article .ad__frame {
+  min-height: 240px;
+  max-width: 680px;
+}
+@media (max-width: 1023.98px) {
+  .ad--article .ad__frame { max-width: 560px; min-height: 220px; }
+}
+@media (max-width: 639.98px) {
+  .ad--article .ad__frame { max-width: 100%; min-height: 200px; }
+}
+
+/* MULTIPLEX (fluid card grid) */
+.ad--multiplex .ad__frame {
+  min-height: 260px;
+  max-width: 100%;
+}
+
+/* IN-FEED (fluid) */
+.ad--feed .ad__frame {
+  min-height: 240px;
+  max-width: 100%;
+}
+
+/* Optional: tighter style for sidebar placements */
+.sidebar-right .ad { margin: 1rem 0; padding: .5rem; }
+
+/* Dark mode polish */
+html.dark .ad__frame {
+  background: color-mix(in oklab, var(--ad-bg) 92%, var(--ad-border));
+  border-color: color-mix(in oklab, var(--ad-border) 70%, transparent);
 }
