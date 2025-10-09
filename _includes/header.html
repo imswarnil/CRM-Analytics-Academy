@@ -1,31 +1,174 @@
 <header class="header">
-  <div class="header-left">
-      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
-          <i class="ph-duotone ph-list" style="font-size: 1.5rem;"></i>
-      </button>
-      <a href="#" class="logo">
-          <i class="ph-duotone ph-chart-bar"></i>
-          <span>CourseDocs</span>
-      </a>
-  </div>
-  <div class="header-center">
-      <button class="search-trigger-button" id="search-trigger">
-          <i class="ph-duotone ph-magnifying-glass"></i>
-          <span>Search...</span>
-          <span class="kbd">⌘K</span>
-      </button>
-  </div>
-  <div class="header-right">
-      <button class="action-button" id="search-trigger-mobile" aria-label="Search">
-          <i class="ph-duotone ph-magnifying-glass"></i>
-      </button>
-      <a href="#" class="action-button cta" aria-label="Changelog">Changelog</a>
-      <a href="#" class="action-button cta" aria-label="Star on GitHub">
-          <i class="ph-duotone ph-github-logo"></i>
-          <span>Star</span>
-      </a>
-      <button class="action-button" id="theme-toggle" aria-label="Toggle dark mode">
-          <i class="ph-duotone ph-sun"></i>
-      </button>
-  </div>
-</header>
+    <div class="header-left">
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
+            <i class="ph-duotone ph-list" style="font-size: 1.5rem;"></i>
+        </button>
+  
+        <a href="{{ "/" | relative_url }}" class="logo">
+            <i class="ph-duotone ph-chart-bar"></i>
+            <span>{{ site.title | default: "CourseDocs" }}</span>
+        </a>
+    </div>
+  
+    <div class="header-center">
+        <button class="search-trigger-button" id="search-trigger">
+            <i class="ph-duotone ph-magnifying-glass"></i>
+            <span>Search...</span>
+            <span class="kbd">⌘K</span>
+        </button>
+    </div>
+  
+    <div class="header-right">
+        <button class="action-button" id="search-trigger-mobile" aria-label="Search">
+            <i class="ph-duotone ph-magnifying-glass"></i>
+        </button>
+  
+        {%- comment -%}
+          The Changelog button will only appear if 'changelog_url' is set in _config.yml
+        {%- endcomment -%}
+        {% if site.changelog_url %}
+          <a href="{{ site.changelog_url | relative_url }}" class="action-button cta" aria-label="Changelog">Changelog</a>
+        {% endif %}
+  
+        {%- comment -%}
+          The GitHub button will only appear if 'github_url' is set in _config.yml
+        {%- endcomment -%}
+        {% if site.github_url %}
+          <a href="{{ site.github_url }}" class="action-button cta" aria-label="Star on GitHub" target="_blank" rel="noopener">
+              <i class="ph-duotone ph-github-logo"></i>
+              <span>Star</span>
+          </a>
+        {% endif %}
+  
+        <button class="action-button" id="theme-toggle" aria-label="Toggle dark mode">
+            <i class="ph-duotone ph-sun"></i>
+        </button>
+    </div>
+  </header>
+  <script>
+    // ============================================
+// MODULE: SEARCH MODAL
+// Handles opening, closing, and interaction with the search modal.
+// ============================================
+(function() {
+    const searchModal = document.getElementById('search-modal');
+    if (!searchModal) return; // Don't run if the modal isn't on the page
+
+    // --- Configuration & Elements ---
+    let searchData = [];
+    const baseurl = "{{ site.baseurl | default: '' }}";
+    const searchTriggers = document.querySelectorAll('#search-trigger, #search-trigger-mobile');
+    const searchOverlay = searchModal.querySelector('.search-overlay');
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = searchModal.querySelector('.search-results');
+    let activeResultIndex = -1;
+
+    // --- Fetch Jekyll's Search Data ---
+    fetch(`${baseurl}/search.json`)
+        .then(response => response.json())
+        .then(data => {
+            searchData = data;
+        })
+        .catch(error => {
+            console.error("Error fetching search data:", error);
+            resultsContainer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--docs-muted-foreground);">Failed to load search index.</div>';
+        });
+
+    // --- Core Functions ---
+    const openSearch = () => {
+        searchModal.classList.add('is-open');
+        document.body.classList.add('modal-open');
+        setTimeout(() => searchInput.focus(), 50);
+        renderResults('');
+    };
+
+    const closeSearch = () => {
+        searchModal.classList.remove('is-open');
+        document.body.classList.remove('modal-open');
+        searchInput.value = '';
+    };
+
+    const renderResults = (query) => {
+        const term = query.trim().toLowerCase();
+        let filtered = [];
+
+        if (term.length > 1) { // Only start searching after 1 character
+            filtered = searchData.filter(item =>
+                item.title.toLowerCase().includes(term) ||
+                item.content.toLowerCase().includes(term)
+            );
+        }
+        
+        resultsContainer.innerHTML = '';
+        activeResultIndex = -1;
+
+        if (term.length > 1 && filtered.length === 0) {
+            resultsContainer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--docs-muted-foreground);">No results found.</div>';
+            return;
+        }
+
+        const ul = document.createElement('ul');
+        filtered.slice(0, 10).forEach((item, index) => { // Show top 10 results
+            const li = document.createElement('li');
+            li.className = 'search-result-item';
+            li.dataset.index = index;
+            // Using a default post icon 'ph-file-text' for all results
+            li.innerHTML = `
+                <a href="${item.url}">
+                    <div style="flex-shrink: 0; width: 32px; text-align: center;">
+                        <i class="ph-duotone ph-file-text"></i>
+                    </div>
+                    <div style="flex-grow: 1; min-width: 0;">
+                        <div style="font-weight:600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.title}</div>
+                        <div style="font-size: 0.875rem; color: var(--docs-muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.excerpt}</div>
+                    </div>
+                </a>`;
+            ul.appendChild(li);
+        });
+        resultsContainer.appendChild(ul);
+    };
+
+    const updateActiveResult = (newIndex) => {
+        const items = resultsContainer.querySelectorAll('.search-result-item');
+        if (items.length === 0) return;
+
+        if (activeResultIndex > -1 && items[activeResultIndex]) {
+            items[activeResultIndex].classList.remove('active');
+        }
+        
+        // Handle wrapping around the list
+        if (newIndex >= items.length) newIndex = 0;
+        if (newIndex < 0) newIndex = items.length - 1;
+        
+        if (items[newIndex]) {
+            items[newIndex].classList.add('active');
+            items[newIndex].scrollIntoView({ block: 'nearest' });
+        }
+        activeResultIndex = newIndex;
+    };
+
+    // --- Event Listeners ---
+    searchTriggers.forEach(trigger => trigger.addEventListener('click', openSearch));
+    searchOverlay.addEventListener('click', closeSearch);
+    searchInput.addEventListener('input', () => renderResults(searchInput.value));
+    
+    document.addEventListener('keydown', e => {
+        // Keyboard shortcut to open: Command+K or Control+K
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            openSearch();
+        }
+
+        // Interactions while modal is open
+        if (searchModal.classList.contains('is-open')) {
+            if (e.key === 'Escape') closeSearch();
+            if (e.key === 'ArrowDown') { e.preventDefault(); updateActiveResult(activeResultIndex + 1); }
+            if (e.key === 'ArrowUp') { e.preventDefault(); updateActiveResult(activeResultIndex - 1); }
+            if (e.key === 'Enter') {
+                const activeLink = resultsContainer.querySelector('.search-result-item.active a');
+                if (activeLink) activeLink.click();
+            }
+        }
+    });
+})();
+  </script>
