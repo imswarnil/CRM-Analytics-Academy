@@ -94,7 +94,19 @@
                     </div>
                 </div>
             </main>
-            {% include right-sidebar.html %}
+
+            <aside class="sidebar-right">
+                <h3>On This Page</h3>
+                <div class="desktop-toc-container">
+                    <a href="#components-title" class="toc-link active">Reusable Components</a>
+                    <a href="#syntax-highlighting" class="toc-link">Syntax Highlighting</a>
+                    <a href="#media-elements" class="toc-link">Responsive Media</a>
+                </div>
+                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--docs-border);">
+                    <a href="#" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem; font-size: 0.875rem; color: var(--docs-muted-foreground);"><i class="ph-duotone ph-pencil-simple"></i>Edit this page</a>
+                </div>
+                <div style="height:250px; margin-top: 2rem; display:flex; align-items:center; justify-content:center; background:var(--docs-muted); border:1px dashed var(--docs-border); color:var(--docs-muted-foreground); font-size:0.8rem; border-radius:var(--docs-radius);">Square Ad (250x250)</div>
+            </aside>
         </div>
 
         <footer class="main-footer">
@@ -305,7 +317,40 @@
                 }
             }
         });
-      })();
+        
+        // ============================================
+        // MODULE: IMAGE CAROUSEL
+        // Basic functionality for the image carousel component.
+        // ============================================
+        const carousel = document.getElementById('image-carousel');
+        if (carousel) {
+            const slidesContainer = carousel.querySelector('.carousel-slides');
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const prevButton = carousel.querySelector('.carousel-button.prev');
+            const nextButton = carousel.querySelector('.carousel-button.next');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            const goToSlide = (slideIndex) => {
+                slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+                currentSlide = slideIndex;
+            };
+
+            prevButton.addEventListener('click', () => {
+                const newSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                goToSlide(newSlide);
+            });
+            
+            nextButton.addEventListener('click', () => {
+                const newSlide = (currentSlide + 1) % totalSlides;
+                goToSlide(newSlide);
+            });
+        }
+    });
+})();
 </script>
+
 </body>
+
+
 </html>
