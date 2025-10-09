@@ -1,22 +1,23 @@
 {% comment %}
-  Clean TOC → matches your example sidebar markup
-  - Renders: <aside class="sidebar-right"> … </aside>
-  - Title from include.contents_title (defaults to "On This Page")
-  - Links: flat list of anchors inside .desktop-toc-container
-  - Supports h_min / h_max (e.g., h2–h3)
-  - Optional: include.edit_url to show "Edit this page" row
-  - Optional: include.show_ad (true/false) to show the 250x250 ad box
-  - Adds .toc-link and level classes (e.g., level-2 / level-3) for styling/indent
+TOC → Right Sidebar (JS-friendly)
+- Outputs a hidden #toc-source (anchors) for your scrollspy JS to clone
+- Visible list goes into .desktop-toc-container
+- Honors include.h_min / include.h_max (e.g., 2..3)
+- Optional: include.contents_title (default "On This Page")
+- Optional: include.edit_url
+- Optional: include.show_ad (true/false; default true)
 {% endcomment %}
 
-{%- assign orderedList = include.ordered | default: false -%}
 {%- assign minHeader = include.h_min | default: 1 -%}
 {%- assign maxHeader = include.h_max | default: 6 -%}
 {%- assign nodes = include.html | split: '<h' -%}
 {%- assign firstHeader = true -%}
 {%- capture contents_title -%}{{ include.contents_title | default: 'On This Page' }}{%- endcapture -%}
+{%- assign show_ad = include.show_ad -%}
+{%- if show_ad == nil -%}{%- assign show_ad = true -%}{%- endif -%}
 
 {%- capture toc_links -%}{%- endcapture -%}
+{%- assign found_any = false -%}
 
 {%- for node in nodes -%}
   {%- if node == "" -%}{% continue %}{%- endif -%}
@@ -31,18 +32,15 @@
 
   {%- assign _workspace = node | split: '</h' -%}
 
-  {%- comment %} id="" extraction {% endcomment -%}
   {%- assign _idWorkspace = _workspace[0] | split: 'id="' -%}
   {%- assign _idWorkspace = _idWorkspace[1] | split: '"' -%}
   {%- assign html_id = _idWorkspace[0] -%}
 
-  {%- comment %} class="" extraction (to skip .no_toc) {% endcomment -%}
   {%- assign _classWorkspace = _workspace[0] | split: 'class="' -%}
   {%- assign _classWorkspace = _classWorkspace[1] | split: '"' -%}
   {%- assign html_class = _classWorkspace[0] -%}
   {%- if html_class contains "no_toc" -%}{% continue %}{%- endif -%}
 
-  {%- comment %} strip the tag + attrs to get heading inner HTML {% endcomment -%}
   {%- capture _hAttrToStrip -%}{{ _workspace[0] | split: '>' | first }}>{%- endcapture -%}
   {%- assign header_html = _workspace[0] | replace: _hAttrToStrip, '' -%}
 
@@ -50,28 +48,90 @@
     {%- if include.sanitize -%}{{ header_html | strip_html }}{%- else -%}{{ header_html }}{%- endif -%}
   {%- endcapture -%}
 
-  {%- capture toc_links -%}
-    {{ toc_links }}
-    <a href="#{{ html_id }}" class="toc-link level-{{ headerLevel }}">{{ heading_body | replace: "|", "\|" }}</a>
-  {%- endcapture -%}
+  {%- if html_id and html_id != '' -%}
+    {%- assign found_any = true -%}
+    {%- capture toc_links -%}
+      {{ toc_links }}
+      <a href="#{{ html_id }}" class="toc-link level-{{ headerLevel }}">{{ heading_body | replace: "|", "\|" }}</a>
+    {%- endcapture -%}
+  {%- endif -%}
 {%- endfor -%}
 
 <aside class="sidebar-right">
   <h3>{{ contents_title }}</h3>
 
+  <!-- Visible container your JS will fill -->
   <div class="desktop-toc-container">
+    {# intentionally empty; your JS clones from #toc-source #}
+  </div>
+
+  <!-- Hidden source for your scrollspy script -->
+  <div id="toc-source" style="display:none;">
     {{ toc_links | strip }}
   </div>
 
   {%- if include.edit_url and include.edit_url != '' -%}
-  <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--docs-border);">
-    <a href="{{ include.edit_url }}" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem; font-size:0.875rem; color:var(--docs-muted-foreground);">
-      <i class="ph-duotone ph-pencil-simple"></i>Edit this page
-    </a>
-  </div>
+    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--docs-border);">
+      <a href="{{ include.edit_url }}" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem; font-size:0.875rem; color:var(--docs-muted-foreground);">
+        <i class="ph-duotone ph-pencil-simple"></i>Edit this page
+      </a>
+    </div>
   {%- endif -%}
 
-  <div style="height:250px; margin-top:2rem; display:flex; align-items:center; justify-content:center; background:var(--docs-muted); border:1px dashed var(--docs-border); color:var(--docs-muted-foreground); font-size:0.8rem; border-radius:var(--docs-radius);">
-    Square Ad (250x250)
-  </div>
+  {%- if show_ad -%}
+    <div style="height:250px; margin-top:2rem; display:flex; align-items:center; justify-content:center; background:var(--docs-muted); border:1px dashed var(--docs-border); color:var(--docs-muted-foreground); font-size:0.8rem; border-radius:var(--docs-radius);">
+      Square Ad (250x250)
+    </div>
+  {%- endif -%}
+
+  {%- if found_any == false -%}
+    <div style="margin-top: 0.75rem; color: var(--docs-muted-foreground); font-size: 0.85rem;">
+      No sections on this page.
+    </div>
+  {%- endif -%}
 </aside>
+<script>
+    // ============================================
+// MODULE: TABLE OF CONTENTS & SCROLLSPY
+// ============================================
+const tocSource = document.getElementById('toc-source');
+const desktopToc = document.querySelector('.desktop-toc-container');
+const headings = document.querySelectorAll('article h2, article h3'); // include h3 too
+
+if (tocSource && desktopToc && headings.length > 0) {
+  desktopToc.innerHTML = '';
+  tocSource.querySelectorAll('a').forEach(link => {
+    const dt = link.cloneNode(true);
+    dt.classList.add('toc-link');
+    desktopToc.appendChild(dt);
+  });
+
+  const links = Array.from(desktopToc.querySelectorAll('.toc-link'));
+
+  // Set the first item active on load (optional)
+  if (links.length) {
+    links.forEach(l => l.classList.remove('active'));
+    links[0].classList.add('active');
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const link = desktopToc.querySelector(`.toc-link[href="#${CSS.escape(id)}"]`);
+      if (entry.isIntersecting && link) {
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-100px 0px -50% 0px', threshold: 0.1 });
+
+  headings.forEach(h => {
+    // Ensure headings have ids (kramdown usually does)
+    if (!h.id) {
+      h.id = h.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
+    }
+    observer.observe(h);
+  });
+}
+
+</script>
