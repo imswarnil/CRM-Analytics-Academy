@@ -1,136 +1,191 @@
-<!-- _includes/search.html -->
+<!-- ============================================
+SEARCH MODAL COMPONENT
+============================================ -->
 <div id="search-modal">
-  <div class="search-overlay"></div>
-  <div class="search-container">
-    <div class="search-header">
-      <i class="ph-duotone ph-magnifying-glass"></i>
-      <input type="text" id="search-input" placeholder="Search lessons, components..." autocomplete="off">
-    </div>
-    <div class="search-results">
-        <!-- Search results will be populated here by JavaScript -->
-    </div>
-  </div>
+ <div class="search-overlay"></div>
+ <div class="search-container">
+     <div class="search-header">
+         <i class="ph-duotone ph-magnifying-glass"></i>
+         <!-- This input ID matches the new script -->
+         <input type="text" id="search-input" placeholder="Search lessons, components..." autocomplete="off">
+     </div>
+     <!-- This div is the target for search results -->
+     <div class="search-results"></div>
+ </div>
 </div>
 
 <script>
 (function() {
-    // Check if the search modal exists on the page
-    const searchModal = document.getElementById('search-modal');
-    if (!searchModal) return;
+ const searchModal = document.getElementById('search-modal');
+ if (!searchModal) return; // Exit if modal isn't on the page
 
-    // --- CONFIGURATION ---
-    const baseurl = "{{ site.baseurl }}";
-    let searchData = [];
+ // ============================================
+ // 1. CONFIGURATION & DATA FETCHING
+ // ============================================
+ let searchData = [];
+ const baseurl = "{{ site.baseurl | default: '' }}";
+ const endpoint = `${baseurl}/assets/search.json`; // Using your search.json path
 
-    // --- FETCH SEARCH DATA ---
-    // Fetch the pre-built search index from the Jekyll site
-    fetch(`${baseurl}/assets/js/search.json`)
-        .then(response => response.json())
-        .then(data => { searchData = data; })
-        .catch(error => console.error('Error fetching search data:', error));
+ // Fetch the search data from your Jekyll site
+ fetch(endpoint)
+     .then(blob => blob.json())
+     .then(data => searchData.push(...data))
+     .catch(error => {
+         console.error("Error fetching search data:", error);
+         resultsContainer.innerHTML = '<div class="search-error">Failed to load search index.</div>';
+     });
 
-    // --- DOM ELEMENTS ---
-    const searchTriggers = document.querySelectorAll('#search-trigger, #search-trigger-mobile');
-    const searchOverlay = searchModal.querySelector('.search-overlay');
-    const searchInput = document.getElementById('search-input');
-    const resultsContainer = searchModal.querySelector('.search-results');
-    let activeResultIndex = -1;
+ // ============================================
+ // 2. DOM ELEMENTS
+ // ============================================
+ const searchTriggers = document.querySelectorAll('#search-trigger, #search-trigger-mobile');
+ const searchOverlay = searchModal.querySelector('.search-overlay');
+ const searchInput = document.getElementById('search-input');
+ const resultsContainer = searchModal.querySelector('.search-results');
+ let activeResultIndex = -1;
 
-    // --- CORE FUNCTIONS ---
-    const openSearch = () => {
-        searchModal.classList.add('is-open');
-        document.body.classList.add('modal-open');
-        setTimeout(() => searchInput.focus(), 50);
-        renderResults(''); // Initially show empty state or recent searches
-    };
+ // ============================================
+ // 3. CORE FUNCTIONS
+ // ============================================
 
-    const closeSearch = () => {
-        searchModal.classList.remove('is-open');
-        document.body.classList.remove('modal-open');
-        searchInput.value = '';
-    };
+ // --- Open/Close Modal ---
+ const openSearch = () => {
+     searchModal.classList.add('is-open');
+     document.body.classList.add('modal-open');
+     setTimeout(() => searchInput.focus(), 50);
+     renderResults(''); // Show empty state initially
+ };
 
-    const renderResults = (query) => {
-        const term = query.trim().toLowerCase();
-        let results = [];
-        
-        if (term.length > 1) { // Only search for terms longer than 1 character
-            results = searchData.filter(item => 
-                item.title.toLowerCase().includes(term) || 
-                item.content.toLowerCase().includes(term)
-            );
-        }
-        
-        resultsContainer.innerHTML = '';
-        activeResultIndex = -1;
+ const closeSearch = () => {
+     searchModal.classList.remove('is-open');
+     document.body.classList.remove('modal-open');
+     searchInput.value = '';
+ };
 
-        if (term.length > 1 && results.length === 0) {
-            resultsContainer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--docs-muted-foreground);">No results found.</div>';
-            return;
-        }
+ // --- Render Search Results (Adapted from your old logic) ---
+ const renderResults = () => {
+     const query = searchInput.value;
+     const termToMatch = query.trim().toLowerCase();
+     let resultsArray = [];
 
-        if (results.length > 0) {
-            const ul = document.createElement('ul');
-            results.slice(0, 15).forEach((item, index) => { // Limit to 15 results
-                const li = document.createElement('li');
-                li.className = 'search-result-item';
-                li.dataset.index = index;
-                li.innerHTML = `<a href="${baseurl}${item.url}">
-                    <div style="flex-shrink: 0; width: 32px; text-align: center;"><i class="ph-duotone ph-file-text"></i></div>
-                    <div style="flex-grow: 1;">
-                        <div style="font-weight:600;">${item.title}</div>
-                        <div style="font-size: 0.875rem; color: var(--docs-muted-foreground);">${item.excerpt}</div>
-                    </div>
-                </a>`;
-                ul.appendChild(li);
-            });
-            resultsContainer.appendChild(ul);
-        }
-    };
+     // Use your filtering logic
+     if (termToMatch.length > 1) { // Only search for terms longer than 1 character
+         resultsArray = searchData.filter(item => {
+             const regex = new RegExp(termToMatch, 'gi');
+             return item.title.match(regex) || item.content.match(regex);
+         });
+     }
+     
+     resultsContainer.innerHTML = '';
+     activeResultIndex = -1;
 
-    const updateActiveResult = (newIndex) => {
-        const items = resultsContainer.querySelectorAll('.search-result-item');
-        if (items.length === 0) return;
-        
-        // Remove active class from previous item
-        if (activeResultIndex > -1 && items[activeResultIndex]) {
-            items[activeResultIndex].classList.remove('active');
-        }
-        
-        // Handle wrapping
-        if (newIndex >= items.length) newIndex = 0;
-        if (newIndex < 0) newIndex = items.length - 1;
-        
-        // Add active class to new item and scroll into view
-        if (items[newIndex]) {
-            items[newIndex].classList.add('active');
-            items[newIndex].scrollIntoView({ block: 'nearest' });
-        }
-        activeResultIndex = newIndex;
-    };
+     if (termToMatch.length > 1 && resultsArray.length === 0) {
+         resultsContainer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--docs-muted-foreground);">Sorry, nothing was found.</div>';
+         return;
+     }
 
-    // --- EVENT LISTENERS ---
-    searchTriggers.forEach(trigger => trigger.addEventListener('click', openSearch));
-    searchOverlay.addEventListener('click', closeSearch);
-    searchInput.addEventListener('input', () => renderResults(searchInput.value));
-    
-    document.addEventListener('keydown', e => {
-        // Open with Command+K or Control+K
-        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-            e.preventDefault();
-            openSearch();
-        }
+     // Use your HTML mapping logic, adapted for the new modal style
+     const html = resultsArray.slice(0, 10).map(item => { // Show top 10 results
+         return `
+             <li class="search-result-item">
+                 <a href="${item.url}">
+                     <div class="result-icon">
+                         <i class="ph-duotone ph-file-text"></i>
+                     </div>
+                     <div class="result-content">
+                         <div class="result-title">${item.title}</div>
+                         <div class="result-excerpt">${item.excerpt}</div>
+                     </div>
+                 </a>
+             </li>`;
+     }).join('');
 
-        // Handle interactions only when the modal is open
-        if (searchModal.classList.contains('is-open')) {
-            if (e.key === 'Escape') closeSearch();
-            if (e.key === 'ArrowDown') { e.preventDefault(); updateActiveResult(activeResultIndex + 1); }
-            if (e.key === 'ArrowUp') { e.preventDefault(); updateActiveResult(activeResultIndex - 1); }
-            if (e.key === 'Enter') {
-                const activeLink = resultsContainer.querySelector('.search-result-item.active a');
-                if (activeLink) activeLink.click();
-            }
-        }
-    });
+     resultsContainer.innerHTML = `<ul>${html}</ul>`;
+ };
+
+ // --- Keyboard Navigation ---
+ const updateActiveResult = (newIndex) => {
+     const items = resultsContainer.querySelectorAll('.search-result-item');
+     if (items.length === 0) return;
+
+     if (activeResultIndex > -1 && items[activeResultIndex]) {
+         items[activeResultIndex].classList.remove('active');
+     }
+     
+     if (newIndex >= items.length) newIndex = 0;
+     if (newIndex < 0) newIndex = items.length - 1;
+     
+     if (items[newIndex]) {
+         items[newIndex].classList.add('active');
+         items[newIndex].scrollIntoView({ block: 'nearest' });
+     }
+     activeResultIndex = newIndex;
+ };
+
+ // ============================================
+ // 4. EVENT LISTENERS
+ // ============================================
+ searchTriggers.forEach(trigger => trigger.addEventListener('click', openSearch));
+ searchOverlay.addEventListener('click', closeSearch);
+ document.getElementById('modal-close')?.addEventListener('click', closeSearch); // If you add a close button
+
+ // Use 'input' for real-time results as the user types
+ searchInput.addEventListener('input', renderResults);
+ 
+ document.addEventListener('keydown', e => {
+     // Keyboard shortcut to open: Command+K or Control+K
+     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+         e.preventDefault();
+         openSearch();
+     }
+
+     // Interactions while modal is open
+     if (searchModal.classList.contains('is-open')) {
+         if (e.key === 'Escape') closeSearch();
+         if (e.key === 'ArrowDown') { e.preventDefault(); updateActiveResult(activeResultIndex + 1); }
+         if (e.key === 'ArrowUp') { e.preventDefault(); updateActiveResult(activeResultIndex - 1); }
+         if (e.key === 'Enter') {
+             e.preventDefault(); // Stop form submission
+             const activeLink = resultsContainer.querySelector('.search-result-item.active a');
+             if (activeLink) {
+                 activeLink.click(); // Navigate to the selected item
+             }
+         }
+     }
+ });
 })();
 </script>
+
+<!-- Add some basic styling for the new result structure if it's not already in your main CSS -->
+<style>
+ .search-result-item a {
+     display: flex;
+     align-items: center;
+     gap: 1rem;
+     padding: 0.75rem;
+     border-radius: var(--docs-radius);
+ }
+ .result-icon {
+     flex-shrink: 0;
+     width: 32px;
+     text-align: center;
+     font-size: 1.25rem;
+ }
+ .result-content {
+     flex-grow: 1;
+     min-width: 0; /* Important for text truncation */
+ }
+ .result-title {
+     font-weight: 600;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+ .result-excerpt {
+     font-size: 0.875rem;
+     color: var(--docs-muted-foreground);
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+</style>
