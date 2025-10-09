@@ -1,19 +1,26 @@
 {%- comment -%}
-Simple AdSense include
+Simple AdSense include (type + optional size)
 Usage:
-  {% include ad.html type="leaderboard" %}
-  {% include ad.html type="square" %}
-  {% include ad.html type="vertical" %}
-  {% include ad.html type="article" %}
-  {% include ad.html type="multiplex" %}
-  {% include ad.html type="feed" %}
+  {% include adsense.html type="leaderboard" size="small"  %}
+  {% include adsense.html type="leaderboard" size="medium" %}
+  {% include adsense.html type="leaderboard" size="large"  %}
+  {% include adsense.html type="vertical"    size="small"  %}
+  {% include adsense.html type="square"      size="large"  %}
+  {% include adsense.html type="article" %}
+  {% include adsense.html type="feed" %}
+  {% include adsense.html type="multiplex" %}
+
+Note: load AdSense script once in your layout:
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540" crossorigin="anonymous"></script>
 {%- endcomment -%}
 
 {%- assign t = include.type | downcase | default: 'square' -%}
+{%- assign s = include.size | downcase | default: 'medium' -%}
 
-<div class="ad ad--{{ t }}" role="complementary" aria-label="Advertisement">
+<div class="ad ad--{{ t }} ad--size-{{ s }}" role="complementary" aria-label="Advertisement">
   <span class="ad__label">Advertisement</span>
-  <!-- Size frame reserves fixed width/height per device to avoid CLS -->
+
+  <!-- CLS-safe frame (sizing comes from CSS by type+size) -->
   <div class="ad__frame">
     {%- case t -%}
 
@@ -56,7 +63,7 @@ Usage:
            data-ad-client="ca-pub-1291242080282540"
            data-ad-slot="9130894804"></ins>
 
-      {%- else -%} {# square #}
+      {%- else -%} {# square / rectangle #}
       <ins class="adsbygoogle"
            style="display:block;width:100%;height:100%;"
            data-ad-client="ca-pub-1291242080282540"

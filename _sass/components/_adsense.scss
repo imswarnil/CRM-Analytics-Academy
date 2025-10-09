@@ -1,12 +1,13 @@
 /* ============================================
-   AdSense (simple, CLS-safe, theme-styled)
+   AdSense (type + size), CLS-safe, theme-styled
+   Uses your tokens from :root / html.dark
 ============================================ */
+
 .ad {
   --ad-radius: var(--docs-radius, 0.75rem);
   --ad-border: var(--docs-border, hsl(210 30% 90%));
-  --ad-muted: var(--docs-muted, hsl(210 50% 96%));
-  --ad-muted-foreground: var(--docs-muted-foreground, hsl(214 20% 55%));
   --ad-bg: var(--docs-card, #fff);
+  --ad-fg-muted: var(--docs-muted-foreground, hsl(214 20% 55%));
 
   margin: 1.75rem 0;
   padding: 0.75rem;
@@ -19,104 +20,102 @@
 
 .ad__label {
   text-align: center;
+  font-family: var(--docs-font-sans, Montserrat, system-ui, sans-serif);
   font-size: .72rem;
-  font-weight: 600;
-  color: var(--ad-muted-foreground);
+  font-weight: 700;
+  color: var(--ad-fg-muted);
   text-transform: uppercase;
   letter-spacing: .04em;
 }
 
 .ad__frame {
-  /* reserve space to prevent layout shift */
   width: 100%;
   max-width: 100%;
   margin-inline: auto;
   border-radius: calc(var(--ad-radius) - 2px);
   overflow: hidden;
-  background: color-mix(in oklab, var(--ad-bg) 88%, var(--ad-border));
+  background: color-mix(in oklab, var(--docs-background) 88%, var(--docs-border));
   border: 1px solid color-mix(in oklab, var(--ad-border) 70%, transparent);
   display: grid;
   place-items: center;
 }
 
-/* The ad itself fills the frame */
 .adsbygoogle { width: 100%; height: 100%; }
 
-/* -------------------------------------------------
-   Size presets by TYPE using real-world earners:
-   Desktop ≥1024px, Tablet 640–1023px, Mobile <640px
-   Heights chosen to match common units so Google
-   can render nicely inside the reserved frame.
---------------------------------------------------*/
+/* --------------------------
+   SIZE MAPS (Desktop first)
+   Mobile fallback sizes kick in under 640px.
+   Tablet tweaks where needed.
+---------------------------*/
 
-/* LEADERBOARD (desktop 970x90 or 728x90; mobile 320x100) */
-.ad--leaderboard .ad__frame {
-  height: 90px;
-  max-width: 970px; /* allow 970x90 on wide screens */
-}
-@media (max-width: 1279.98px) {
-  .ad--leaderboard .ad__frame { max-width: 728px; } /* tablet / small desktop */
-}
-@media (max-width: 639.98px) {
-  .ad--leaderboard .ad__frame {
-    height: 100px;     /* 320x100 (or 320x50); use 100 for better CPM */
-    max-width: 320px;
-  }
-}
+/* ========== LEADERBOARD ========== */
+/* small  -> desktop 468x60,  tablet 468x60,  mobile 320x100 */
+/* medium -> desktop 728x90,  tablet 728x90,  mobile 320x100 */
+/* large  -> desktop 970x90,  tablet 728x90,  mobile 320x100 */
 
-/* SQUARE / RECTANGLE (desktop 336x280; tablet/mobile 300x250) */
-.ad--square .ad__frame {
-  height: 280px;
-  max-width: 336px;
-}
+.ad--leaderboard.ad--size-small  .ad__frame { max-width: 468px; height: 60px; }
+.ad--leaderboard.ad--size-medium .ad__frame { max-width: 728px; height: 90px; }
+.ad--leaderboard.ad--size-large  .ad__frame { max-width: 970px; height: 90px; }
+
 @media (max-width: 1023.98px) {
-  .ad--square .ad__frame { height: 250px; max-width: 300px; }
-}
-@media (max-width: 639.98px) {
-  .ad--square .ad__frame { height: 250px; max-width: 300px; }
+  /* tablet */
+  .ad--leaderboard.ad--size-large  .ad__frame { max-width: 728px; height: 90px; }
 }
 
-/* VERTICAL / SKYSCRAPER (desktop 300x600; tablet 160x600; mobile falls back) */
-.ad--vertical .ad__frame {
-  height: 600px;
-  max-width: 300px;
+@media (max-width: 639.98px) {
+  /* mobile */
+  .ad--leaderboard .ad__frame { max-width: 320px; height: 100px; }
 }
+
+/* ========== VERTICAL / SKYSCRAPER ========== */
+/* small  -> desktop 160x600, mobile 300x250 */
+/* medium -> desktop 300x600, mobile 300x250 */
+/* large  -> desktop 300x600 (safe high-earner), mobile 300x250 */
+
+.ad--vertical.ad--size-small  .ad__frame { max-width: 160px; height: 600px; }
+.ad--vertical.ad--size-medium .ad__frame { max-width: 300px; height: 600px; }
+.ad--vertical.ad--size-large  .ad__frame { max-width: 300px; height: 600px; }
+
+@media (max-width: 639.98px) {
+  .ad--vertical .ad__frame { max-width: 300px; height: 250px; } /* mobile fallback */
+}
+
+/* ========== SQUARE / RECTANGLE ========== */
+/* small  -> desktop 200x200, mobile 300x250 (better fill) */
+/* medium -> desktop 300x250 */
+/* large  -> desktop 336x280 */
+
+.ad--square.ad--size-small  .ad__frame { max-width: 200px; height: 200px; }
+.ad--square.ad--size-medium .ad__frame { max-width: 300px; height: 250px; }
+.ad--square.ad--size-large  .ad__frame { max-width: 336px; height: 280px; }
+
+@media (max-width: 639.98px) {
+  .ad--square.ad--size-small  .ad__frame { max-width: 300px; height: 250px; } /* mobile upgrade for fill */
+}
+
+/* ========== FLUID TYPES (ignore size) ========== */
+.ad--article   .ad__frame { min-height: 220px; max-width: 680px; }
+.ad--multiplex .ad__frame { min-height: 260px; max-width: 100%;   }
+.ad--feed      .ad__frame { min-height: 220px; max-width: 100%;   }
+
 @media (max-width: 1023.98px) {
-  .ad--vertical .ad__frame { height: 600px; max-width: 160px; } /* 160x600 */
+  .ad--article .ad__frame { max-width: 560px; }
 }
 @media (max-width: 639.98px) {
-  .ad--vertical .ad__frame { height: 250px; max-width: 300px; } /* mobile fallback */
+  .ad--article .ad__frame { max-width: 100%; }
 }
 
-/* IN-ARTICLE (fluid) – give it breathing room */
-.ad--article .ad__frame {
-  min-height: 240px;
-  max-width: 680px;
-}
-@media (max-width: 1023.98px) {
-  .ad--article .ad__frame { max-width: 560px; min-height: 220px; }
-}
-@media (max-width: 639.98px) {
-  .ad--article .ad__frame { max-width: 100%; min-height: 200px; }
-}
-
-/* MULTIPLEX (fluid card grid) */
-.ad--multiplex .ad__frame {
-  min-height: 260px;
-  max-width: 100%;
-}
-
-/* IN-FEED (fluid) */
-.ad--feed .ad__frame {
-  min-height: 240px;
-  max-width: 100%;
-}
-
-/* Optional: tighter style for sidebar placements */
+/* Sidebar niceties */
 .sidebar-right .ad { margin: 1rem 0; padding: .5rem; }
 
 /* Dark mode polish */
 html.dark .ad__frame {
-  background: color-mix(in oklab, var(--ad-bg) 92%, var(--ad-border));
-  border-color: color-mix(in oklab, var(--ad-border) 70%, transparent);
+  background: color-mix(in oklab, var(--docs-card) 92%, var(--docs-border));
+  border-color: color-mix(in oklab, var(--docs-border) 70%, transparent);
 }
+
+/* Optional utilities (if you ever want them) */
+@media (min-width: 1024px) {
+  .force-728-desktop .ad--leaderboard .ad__frame { max-width: 728px; height: 90px; }
+}
+.ad
