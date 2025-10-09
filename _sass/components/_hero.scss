@@ -1,8 +1,8 @@
 /* ============================================
-   HERO COMPONENT STYLES
+   HERO COMPONENT
 ============================================ */
 
-/* --- Base Container --- */
+/* --- 1. Base Container (Used by all heroes) --- */
 .hero-container {
     max-width: 1200px;
     width: 100%;
@@ -12,218 +12,233 @@
     z-index: 1;
 }
 
-/* --- 1. HOME HERO --- */
-.hero-banner-lms {
-    background-color: var(--docs-hero-bg);
-    padding: 4rem 0;
+/* --- 2. Base Banner (Shared styles for all hero types) --- */
+.hero-banner {
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid var(--docs-border);
+    padding: 4rem 0;
 }
-.hero-banner-lms::before, .hero-banner-lms::after { content: ''; position: absolute; background-color: var(--docs-hero-accent); border-radius: 50%; z-index: 0; opacity: 0.8; }
-.hero-banner-lms::before { width: 300px; height: 300px; bottom: -150px; left: -80px; }
-.hero-banner-lms::after { width: 200px; height: 200px; top: -120px; right: 100px; opacity: 0.6; }
 
-.hero-lms-grid { display: flex; flex-wrap: wrap; align-items: center; margin: 0 -1.5rem; }
-.hero-lms-col { width: 100%; padding: 0 1.5rem; }
-@media (min-width: 992px) { .hero-lms-col { flex: 0 0 50%; max-width: 50%; } }
 
-.hero-lms-text .tableau-logo { font-size: 1rem; font-weight: 600; letter-spacing: 2px; color: var(--docs-hero-foreground); opacity: 0.9; margin-bottom: 1rem; }
-.hero-lms-text h1 { font-size: clamp(2.25rem, 5vw, 3.25rem); color: var(--docs-hero-foreground); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
-.hero-subtitle { font-size: 1.1rem; margin: 1.5rem 0; color: var(--docs-hero-foreground); opacity: 0.9; line-height: 1.6; max-width: 50ch; }
-.hero-meta { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 2rem 0; }
-.meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 500; color: var(--docs-hero-foreground); }
-.meta-item i { font-size: 1.25rem; }
-.hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
-.hero-visual { position: relative; margin-top: 3rem; }
-@media (min-width: 992px) { .hero-visual { margin-top: 0; } }
-.hero-visual img { width: 100%; border-radius: var(--docs-radius); box-shadow: 0 20px 40px -15px hsla(212, 50%, 30%, 0.3); }
-.video-play-button { /* styles from previous response */ }
+/* --- 3. LMS / Home Hero Variation --- */
+.hero-banner--lms {
+    background-color: var(--docs-hero-bg);
+    
+    .hero-lms-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 0 -1.5rem;
+    }
+    
+    .hero-lms-col {
+        width: 100%;
+        padding: 0 1.5rem;
+    }
+    
+    @media (min-width: 992px) {
+        .hero-lms-col {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
 
-/* --- 2. POST HERO --- */
-.hero-banner-post {
+    .tableau-logo {
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        color: var(--docs-hero-foreground);
+        opacity: 0.9;
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        font-size: clamp(2.25rem, 5vw, 3.25rem);
+        color: var(--docs-hero-foreground);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin: 1.5rem 0;
+        color: var(--docs-hero-foreground);
+        opacity: 0.9;
+        line-height: 1.6;
+        max-width: 50ch;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 2rem;
+        margin: 2rem 0;
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--docs-hero-foreground);
+            
+            i {
+                font-size: 1.25rem;
+            }
+        }
+    }
+    
+    .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .hero-visual {
+        position: relative;
+        margin-top: 3rem;
+        
+        @media (min-width: 992px) {
+            margin-top: 0;
+        }
+
+        img {
+            width: 100%;
+            border-radius: var(--docs-radius);
+            box-shadow: 0 20px 40px -15px hsla(212, 50%, 30%, 0.3);
+        }
+    }
+    
+    .video-play-button {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px; height: 80px;
+        background-color: hsla(0, 0%, 100%, 0.8);
+        backdrop-filter: blur(10px);
+        border: none;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0.5);
+        animation: pulse 2s infinite;
+
+        i {
+            font-size: 2.5rem;
+            color: var(--docs-primary);
+        }
+
+        &:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            animation: none;
+        }
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0.5); }
+        70% { box-shadow: 0 0 0 20px hsla(0, 0%, 100%, 0); }
+        100% { box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0); }
+    }
+}
+
+
+/* --- 4. POST HERO Variation --- */
+.hero-banner--post {
     padding: 3rem 0;
-    border-bottom: 1px solid var(--docs-border);
     background-color: var(--docs-secondary);
-}
-.hero-banner-post h1 {
-    font-size: clamp(2rem, 6vw, 3rem);
-    font-weight: 800;
-    margin-top: 1rem;
-}
-.post-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    margin-top: 1rem;
-    color: var(--docs-muted-foreground);
-    font-size: 0.9rem;
-}
-.breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--docs-muted-foreground); flex-wrap: wrap; }
-.breadcrumbs a:hover { text-decoration: underline; }
 
-/* --- 3. GENERIC HERO --- */
-.hero-banner-generic {
+    h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        font-weight: 800;
+        margin-top: 1rem;
+    }
+    
+    .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+        margin-top: 1rem;
+        color: var(--docs-muted-foreground);
+        font-size: 0.9rem;
+    }
+    
+    .breadcrumbs {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--docs-muted-foreground);
+        flex-wrap: wrap;
+        a:hover { text-decoration: underline; }
+    }
+}
+
+
+/* --- 5. GENERIC HERO Variation --- */
+.hero-banner--generic {
     padding: 3rem 0;
     text-align: center;
-    border-bottom: 1px solid var(--docs-border);
-}
-.hero-banner-generic h1 {
-    font-size: clamp(2rem, 6vw, 3rem);
-    font-weight: 800;
-}
-.generic-subtitle {
-    font-size: 1.1rem;
-    color: var(--docs-muted-foreground);
-    margin-top: 0.5rem;
-    max-width: 60ch;
-    margin-left: auto;
-    margin-right: auto;
+    
+    h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        font-weight: 800;
+    }
+    
+    .generic-subtitle {
+        font-size: 1.1rem;
+        color: var(--docs-muted-foreground);
+        margin-top: 0.5rem;
+        max-width: 60ch;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
-/* ============================================
-   DYNAMIC HERO BUBBLE BACKGROUNDS
-============================================ */
 
-/* --- 1. Base Styles (Required for all variations) --- */
+/* --- 6. DYNAMIC BUBBLE BACKGROUNDS --- */
 .hero-banner {
-    position: relative;
-    overflow: hidden; /* This is crucial to contain the bubbles */
-}
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        background-color: var(--docs-hero-accent);
+        border-radius: 50%;
+        z-index: 0;
+        opacity: 0; /* Hidden by default */
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    /* V1: Top-Right (Recommended) */
+    &--bubbles-top-right::before { width: 280px; height: 280px; top: -140px; right: -120px; opacity: 0.8; }
+    &--bubbles-top-right::after { width: 120px; height: 120px; top: 80px; right: 60px; opacity: 0.6; }
 
-.hero-banner::before,
-.hero-banner::after {
-    content: '';
-    position: absolute;
-    background-color: var(--docs-hero-accent); /* Color of the bubbles */
-    border-radius: 50%;
-    z-index: 0; /* Places bubbles behind the content */
-    opacity: 0.8;
-    transition: all 0.5s ease-out; /* Smooth transition for hover effects */
-}
+    /* V2: Bottom-Right */
+    &--bubbles-bottom-right::before { width: 320px; height: 320px; bottom: -180px; right: -150px; opacity: 0.8; }
+    &--bubbles-bottom-right::after { width: 150px; height: 150px; bottom: 40px; right: 40px; opacity: 0.5; }
 
-/* Optional: Add a subtle animation/hover effect to all bubbles */
-.hero-banner:hover::before,
-.hero-banner:hover::after {
-    transform: scale(1.1);
-    opacity: 0.9;
-}
+    /* V3: Center-Right */
+    &--bubbles-center-right::before { width: 250px; height: 250px; top: 50%; transform: translateY(-50%); right: -150px; opacity: 0.8; }
+    &--bubbles-center-right::after { width: 100px; height: 100px; top: 60%; right: 50px; opacity: 0.7; }
 
+    /* V4: Full-Right */
+    &--bubbles-full-right::before { width: 200px; height: 200px; top: -80px; right: -80px; opacity: 0.8; }
+    &--bubbles-full-right::after { width: 220px; height: 220px; bottom: -100px; right: -50px; opacity: 0.7; }
 
-/* --- 2. Modifier Classes (The 10 Variations) --- */
-/* Add one of these classes to your .hero-banner element */
+    /* V5: Stacked-Right */
+    &--bubbles-stacked-right::before { width: 200px; height: 200px; bottom: -80px; right: -80px; opacity: 0.9; }
+    &--bubbles-stacked-right::after { width: 300px; height: 300px; bottom: -120px; right: -120px; opacity: 0.5; }
+    
+    /* V6: Float-Right */
+    &--bubbles-float-right::before { width: 100px; height: 100px; top: 15%; right: 20%; opacity: 0.6; }
+    &--bubbles-float-right::after { width: 200px; height: 200px; bottom: 10%; right: 5%; opacity: 0.7; }
 
-/* Version 1: Default Bottom-Left (Your original style) */
-.hero--bubbles-default::before {
-    width: 300px; height: 300px;
-    bottom: -150px; left: -80px;
-}
-.hero--bubbles-default::after {
-    width: 200px; height: 200px;
-    bottom: -120px; left: 100px;
-    opacity: 0.6;
-}
-
-/* Version 2: Top-Right Corner */
-.hero--bubbles-top-right::before {
-    width: 250px; height: 250px;
-    top: -120px; right: -100px;
-}
-.hero--bubbles-top-right::after {
-    width: 150px; height: 150px;
-    top: 50px; right: 50px;
-    opacity: 0.5;
-}
-
-/* Version 3: Centered Vertical (Left Edge) */
-.hero--bubbles-center-left::before {
-    width: 200px; height: 200px;
-    top: 50%; transform: translateY(-50%);
-    left: -120px;
-}
-.hero--bubbles-center-left::after {
-    width: 100px; height: 100px;
-    top: 20%;
-    left: -30px;
-    opacity: 0.7;
-}
-
-/* Version 4: Bottom-Right Corner */
-.hero--bubbles-bottom-right::before {
-    width: 350px; height: 350px;
-    bottom: -200px; right: -150px;
-}
-.hero--bubbles-bottom-right::after {
-    width: 180px; height: 180px;
-    bottom: -50px; right: 80px;
-    opacity: 0.6;
-}
-
-/* Version 5: Top-Left Corner */
-.hero--bubbles-top-left::before {
-    width: 280px; height: 280px;
-    top: -180px; left: -100px;
-}
-.hero--bubbles-top-left::after {
-    width: 160px; height: 160px;
-    top: 20px; left: 120px;
-    opacity: 0.5;
-}
-
-/* Version 6: Full Top Edge */
-.hero--bubbles-top-full::before {
-    width: 300px; height: 300px;
-    top: -200px; left: 10%;
-}
-.hero--bubbles-top-full::after {
-    width: 250px; height: 250px;
-    top: -150px; right: 15%;
-    opacity: 0.7;
-}
-
-/* Version 7: Full Bottom Edge */
-.hero--bubbles-bottom-full::before {
-    width: 400px; height: 400px;
-    bottom: -280px; right: 5%;
-}
-.hero--bubbles-bottom-full::after {
-    width: 220px; height: 220px;
-    bottom: -150px; left: 10%;
-    opacity: 0.6;
-}
-
-/* Version 8: Diagonal (Top-Left to Bottom-Right) */
-.hero--bubbles-diagonal-down::before {
-    width: 200px; height: 200px;
-    top: -100px; left: -80px;
-}
-.hero--bubbles-diagonal-down::after {
-    width: 250px; height: 250px;
-    bottom: -140px; right: -100px;
-    opacity: 0.7;
-}
-
-/* Version 9: Diagonal (Top-Right to Bottom-Left) */
-.hero--bubbles-diagonal-up::before {
-    width: 200px; height: 200px;
-    top: -110px; right: -90px;
-}
-.hero--bubbles-diagonal-up::after {
-    width: 220px; height: 220px;
-    bottom: -150px; left: -80px;
-    opacity: 0.7;
-}
-
-/* Version 10: Concentric / Layered (Center) */
-.hero--bubbles-concentric::before {
-    width: 500px; height: 500px;
-    bottom: -350px; left: 50%;
-    transform: translateX(-50%);
-    opacity: 0.4;
-}
-.hero--bubbles-concentric::after {
-    width: 350px; height: 350px;
-    bottom: -280px; left: 50%;
-    transform: translateX(-50%);
-    opacity: 0.6;
+    /* Hover effect for bubbles */
+    &:hover {
+        &::before, &::after {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+    }
 }
