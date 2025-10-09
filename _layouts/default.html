@@ -97,6 +97,8 @@
 
             <aside class="sidebar-right">
                 <h3>On This Page</h3>
+                {% assign contentsTitle = page.toc_title | default: 'Contents' %}
+                {% include toc.html html=content class='menu-list' h_min=2 h_max=3 contents_title=contentsTitle %}
                 <div class="desktop-toc-container">
                     <a href="#components-title" class="toc-link active">Reusable Components</a>
                     <a href="#syntax-highlighting" class="toc-link">Syntax Highlighting</a>
