@@ -11,19 +11,22 @@
                   <i class="ph-duotone ph-house"></i>Home
                 </a>
               </li>
-              <li class="nav-link {% if page.url startswith "/courses/" %}active{% endif %}">
+              
+              {%- comment -%}
+                FIXED: Replaced 'startswith' with the 'slice' filter.
+                This checks if the first 9 characters of the URL are "/courses/".
+              {%- endcomment -%}
+              {% assign url_prefix = page.url | slice: 0, 9 %}
+              <li class="nav-link {% if url_prefix == "/courses/" %}active{% endif %}">
                 <a href="{{ "/courses/" | relative_url }}">
                   <i class="ph-duotone ph-books"></i>Courses
                 </a>
               </li>
           </ul>
 
-          <!-- ============================================ -->
-          <!-- NEW: AdSense Unit for Sidebar                -->
-          <!-- ============================================ -->
+          <!-- AdSense Unit for Sidebar -->
           <div class="ad ad--sidebar-square">
               <span class="ad__label" aria-label="Advertisement">Advertisement</span>
-          
               <!-- Square (Responsive) -->
               <ins class="adsbygoogle"
                    style="display:block"
@@ -31,14 +34,10 @@
                    data-ad-slot="7663977887"
                    data-ad-format="auto"
                    data-full-width-responsive="true"></ins>
-          
               <script>
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
               </script>
           </div>
-          <!-- ============================================ -->
-          <!-- End AdSense Unit                             -->
-          <!-- ============================================ -->
 
           {%- comment -%}
             DYNAMIC POST NAVIGATION
