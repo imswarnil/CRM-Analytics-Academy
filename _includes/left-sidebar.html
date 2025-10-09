@@ -4,16 +4,13 @@
           
           {%- comment -%}
             STATIC MAIN NAVIGATION
-            This part remains hardcoded for primary site links.
           {%- endcomment -%}
           <ul class="main-nav">
-              <!-- UPDATED: Added a condition to check for the homepage URL -->
               <li class="nav-link {% if page.url == "/" %}active{% endif %}">
                 <a href="{{ "/" | relative_url }}">
                   <i class="ph-duotone ph-house"></i>Home
                 </a>
               </li>
-              <!-- UPDATED: Added a condition to check if the URL starts with /courses/ -->
               <li class="nav-link {% if page.url startswith "/courses/" %}active{% endif %}">
                 <a href="{{ "/courses/" | relative_url }}">
                   <i class="ph-duotone ph-books"></i>Courses
@@ -21,52 +18,51 @@
               </li>
           </ul>
 
+          <!-- ============================================ -->
+          <!-- NEW: AdSense Unit for Sidebar                -->
+          <!-- ============================================ -->
+          <div class="ad ad--sidebar-square">
+              <span class="ad__label" aria-label="Advertisement">Advertisement</span>
+          
+              <!-- Square (Responsive) -->
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-1291242080282540"
+                   data-ad-slot="7663977887"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+          
+              <script>
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+          </div>
+          <!-- ============================================ -->
+          <!-- End AdSense Unit                             -->
+          <!-- ============================================ -->
+
           {%- comment -%}
             DYNAMIC POST NAVIGATION
-            This part will be automatically generated from your blog posts.
           {%- endcomment -%}
           <ul>
-              {%- comment -%}
-                Step 1: Group all posts by their 'category' front matter.
-              {%- endcomment -%}
               {% assign posts_by_category = site.posts | group_by: "category" %}
-
-              {%- comment -%}
-                Step 2: Loop through each category group.
-              {%- endcomment -%}
               {% for category in posts_by_category %}
                 <li class="nav-category">
                   {{ category.name }}
                 </li>
 
-                {%- comment -%}
-                  Step 3: Sort the posts within this category by their date, oldest first.
-                {%- endcomment -%}
                 {% assign sorted_posts = category.items | sort: "date" %}
-
-                {%- comment -%}
-                  Step 4: Loop through the sorted posts and create a link for each.
-                {%- endcomment -%}
                 {% for post in sorted_posts %}
                   <li class="nav-link {% if page.url == post.url %}active{% endif %}">
                       <a href="{{ post.url | relative_url }}">
-                          
-                          {%- comment -%}
-                            Use an icon from the post's front matter, or a default one.
-                          {%- endcomment -%}
                           <i class="ph-duotone {{ post.icon | default: 'ph-article' }}"></i>
                           {{ post.title }}
                       </a>
                   </li>
                 {% endfor %}
-              
               {% endfor %}
           </ul>
       </nav>
 
-      {%- comment -%}
-        OPTIONAL: You can make these cards dynamic too using site variables from _config.yml
-      {%- endcomment -%}
       {% if site.sidebar_ad_title %}
         <div class="sponsor-card">
             <div class="ad-label">Ad</div>
