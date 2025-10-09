@@ -1,55 +1,74 @@
 {% comment %}
-Sidebar: Group posts by FIRST category; list oldest → newest.
-Works on GitHub Pages (Liquid 4 + Jekyll 3.9/4.x).
+Left Sidebar (Config-light)
+- Top menu from _config.yml > navigation_header (icons: simple phosphor names)
+- Sections = FIRST category of each post
+- Posts inside a section sorted by date ASC (oldest → newest)
+- Robust "active" state via URL normalization (handles /, //, index.html, querystrings)
 {% endcomment %}
 
 <aside class="sidebar-left" id="sidebar-left">
   <div class="sidebar-left-content">
     <nav class="sidebar-nav">
 
-      <!-- TOP NAV from _config.yml (optional) -->
-      {% if site.navigation_header %}
+      {%- comment -%} Normalize current page URL for reliable comparisons {%- endcomment -%}
+      {%- capture current_url -%}
+        {{ page.url | relative_url | split:"?" | first | replace:"index.html","" | replace:"//","/" }}
+      {%- endcapture -%}
+      {%- assign current_url = current_url | strip -%}
+      {%- if current_url != "/" and current_url != "" and current_url contains "/" -%}
+        {%- assign current_url = current_url | append:"/" | replace:"//","/" -%}
+      {%- endif -%}
+
+      {%- comment -%} TOP NAV from _config.yml (optional) {%- endcomment -%}
+      {%- if site.navigation_header -%}
       <ul class="main-nav">
-        {% for item in site.navigation_header %}
-          {% assign is_active = page.url == item.url %}
+        {%- for item in site.navigation_header -%}
+          {%- assign item_url = item.url | relative_url | split:"?" | first | replace:"index.html","" | replace:"//","/" | strip -%}
+          {%- if item_url != "/" and item_url != "" and item_url contains "/" -%}
+            {%- assign item_url = item_url | append:"/" | replace:"//","/" -%}
+          {%- endif -%}
+          {%- assign is_active = (current_url == item_url) -%}
           <li class="nav-link{% if is_active %} active{% endif %}">
             <a href="{{ item.url | relative_url }}">
               <i class="ph-duotone ph-{{ item.icon | default: 'house' }}"></i>{{ item.title }}
             </a>
           </li>
-        {% endfor %}
+        {%- endfor -%}
       </ul>
-      {% endif %}
+      {%- endif -%}
 
-      {% comment %}
-      Group posts by first category.
-      Then remove blank/undefined groups.
-      Finally, sort sections alphabetically.
-      {% endcomment %}
-      {% assign grouped = site.posts | group_by_exp: 'p', 'p.categories | first' %}
-      {% assign clean_groups = "" | split: "" %}
-      {% for g in grouped %}
-        {% if g.name and g.name != "" %}
-          {% assign clean_groups = clean_groups | push: g %}
-        {% endif %}
-      {% endfor %}
-      {% assign clean_groups = clean_groups | sort: 'name' %}
+      {%- comment -%}
+      Build sections from posts' FIRST category
+      - Remove blank category groups
+      - Sort sections alphabetically
+      {%- endcomment -%}
+      {%- assign grouped = site.posts | group_by_exp: 'p', 'p.categories | first' -%}
+      {%- assign clean_groups = "" | split: "" -%}
+      {%- for g in grouped -%}
+        {%- if g.name and g.name != "" -%}
+          {%- assign clean_groups = clean_groups | push: g -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign clean_groups = clean_groups | sort: 'name' -%}
 
       <ul>
-        {% for group in clean_groups %}
+        {%- for group in clean_groups -%}
           <li class="nav-category">{{ group.name }}</li>
 
-          {% comment %}
-          Oldest → newest inside each section
-          {% endcomment %}
-          {% assign items_sorted = group.items | sort: 'date' %}
-          {% for post in items_sorted %}
-            {% assign is_active = page.url == post.url %}
-            <li class="nav-link{% if is_active %} active{% endif %}">
+          {%- comment -%} Oldest → newest inside each section {%- endcomment -%}
+          {%- assign items_sorted = group.items | sort: 'date' -%}
+
+          {%- for post in items_sorted -%}
+            {%- assign post_url = post.url | relative_url | split:"?" | first | replace:"index.html","" | replace:"//","/" | strip -%}
+            {%- if post_url != "/" and post_url != "" and post_url contains "/" -%}
+              {%- assign post_url = post_url | append:"/" | replace:"//","/" -%}
+            {%- endif -%}
+            {%- assign is_active_post = (current_url == post_url) -%}
+            <li class="nav-link{% if is_active_post %} active{% endif %}">
               <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
             </li>
-          {% endfor %}
-        {% endfor %}
+          {%- endfor -%}
+        {%- endfor -%}
       </ul>
 
     </nav>
