@@ -144,7 +144,7 @@
         <a href="#syntax-highlighting">Syntax Highlighting</a>
         <a href="#media-elements">Responsive Media</a>
     </div>
-<!-- 
+
 <script>
 (function() {
     // ============================================
@@ -317,38 +317,9 @@
                 }
             }
         });
-        
-        // ============================================
-        // MODULE: IMAGE CAROUSEL
-        // Basic functionality for the image carousel component.
-        // ============================================
-        const carousel = document.getElementById('image-carousel');
-        if (carousel) {
-            const slidesContainer = carousel.querySelector('.carousel-slides');
-            const slides = carousel.querySelectorAll('.carousel-slide');
-            const prevButton = carousel.querySelector('.carousel-button.prev');
-            const nextButton = carousel.querySelector('.carousel-button.next');
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-
-            const goToSlide = (slideIndex) => {
-                slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
-                currentSlide = slideIndex;
-            };
-
-            prevButton.addEventListener('click', () => {
-                const newSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                goToSlide(newSlide);
-            });
-            
-            nextButton.addEventListener('click', () => {
-                const newSlide = (currentSlide + 1) % totalSlides;
-                goToSlide(newSlide);
-            });
-        }
     });
 })();
-</script> -->
+</script>
 
 </body>
 
