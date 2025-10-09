@@ -1,115 +1,82 @@
 /* ============================================
    AdSense Component Styles (adsense.scss)
-   - Keeps your theme vibe
-   - Adds size presets per TYPE
-   - Responsive aspect ratios (CLS-safe)
 ============================================ */
 
 .ad {
-  --ad-radius: var(--docs-radius, 0.75rem);
-  --ad-border: var(--docs-border, hsl(210 30% 90%));
-  --ad-muted: var(--docs-muted, hsl(210 50% 96%));
-  --ad-muted-foreground: var(--docs-muted-foreground, hsl(214 20% 55%));
-  --ad-bg: var(--docs-card, #fff);
-  --ad-min: 90px; /* base guard */
-
+  // A general container for ad units to provide spacing and a subtle background.
   position: relative;
   margin: 2rem auto;
   padding: 1rem;
-  background-color: var(--ad-bg);
-  border-radius: var(--ad-radius);
-  border: 1px dashed var(--ad-border);
+  background-color: var(--docs-muted);
+  border-radius: var(--docs-radius);
+  border: 1px dashed var(--docs-border);
+  min-height: 100px;
   display: flex;
   flex-direction: column;
-  gap: .75rem;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+
+  // The "Advertisement" label.
+  &__label {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--docs-muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+  }
 }
 
-.ad--bordered { border-style: solid; }
-.ad--muted    { background: var(--ad-muted); }
-
-.ad__label {
-  text-align: center;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--ad-muted-foreground);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+// Ensure the AdSense element fills its container.
+.adsbygoogle {
+  width: 100%;
+  height: 100%;
+  min-height: 90px; // Default min-height for horizontal ads.
 }
 
-/* CLS guard: reserve aspect-ratio space */
-.ad__slot {
-  display: grid;
-  place-items: center;
-  background: color-mix(in oklab, var(--ad-bg) 88%, var(--ad-border));
-  border: 1px dashed color-mix(in oklab, var(--ad-border) 80%, transparent);
-  border-radius: calc(var(--ad-radius) - 2px);
-  min-height: var(--ad-min);
-  overflow: hidden;
+/* --- Specific Ad Type Adjustments --- */
+
+// For the square ad in the sidebar.
+// Remove extra margin/padding as the sidebar already has it.
+.sidebar-right .ad--square {
+  margin: 0;
+  padding: 0.5rem;
+  min-height: 250px;
 }
 
-/* Alignment */
-.ad--align-center { text-align: center; }
-.ad--align-left   { text-align: left; }
-.ad--align-right  { text-align: right; }
-
-/* Aspect ratio utilities (desktop default) */
-.ad--ratio-1x1    .ad__slot { aspect-ratio: 1 / 1; }
-.ad--ratio-3x2    .ad__slot { aspect-ratio: 3 / 2; }
-.ad--ratio-4x1    .ad__slot { aspect-ratio: 4 / 1; }
-.ad--ratio-6x1    .ad__slot { aspect-ratio: 6 / 1; }
-.ad--ratio-8x1    .ad__slot { aspect-ratio: 8 / 1; }
-.ad--ratio-16x9   .ad__slot { aspect-ratio: 16 / 9; }
-.ad--ratio-9x16   .ad__slot { aspect-ratio: 9 / 16; }
-.ad--ratio-1x3    .ad__slot { aspect-ratio: 1 / 3; }
-.ad--ratio-1x4    .ad__slot { aspect-ratio: 1 / 4; }
-.ad--ratio-2x7\\.5 .ad__slot { aspect-ratio: 2 / 7.5; } /* escape dot */
-
-/* Device overrides via class */
-@media (max-width: 639.98px) {
-  [class*="ad--ratio-mobile-1x1"]    .ad__slot { aspect-ratio: 1 / 1; }
-  [class*="ad--ratio-mobile-3x2"]    .ad__slot { aspect-ratio: 3 / 2; }
-  [class*="ad--ratio-mobile-4x1"]    .ad__slot { aspect-ratio: 4 / 1; }
-  [class*="ad--ratio-mobile-6x1"]    .ad__slot { aspect-ratio: 6 / 1; }
-  [class*="ad--ratio-mobile-8x1"]    .ad__slot { aspect-ratio: 8 / 1; }
-  [class*="ad--ratio-mobile-16x9"]   .ad__slot { aspect-ratio: 16 / 9; }
-  [class*="ad--ratio-mobile-9x16"]   .ad__slot { aspect-ratio: 9 / 16; }
-  [class*="ad--ratio-mobile-1x3"]    .ad__slot { aspect-ratio: 1 / 3; }
-  [class*="ad--ratio-mobile-1x4"]    .ad__slot { aspect-ratio: 1 / 4; }
-  [class*="ad--ratio-mobile-2x7\\.5"] .ad__slot { aspect-ratio: 2 / 7.5; }
-}
-@media (min-width: 640px) and (max-width: 1023.98px) {
-  [class*="ad--ratio-tablet-1x1"]    .ad__slot { aspect-ratio: 1 / 1; }
-  [class*="ad--ratio-tablet-3x2"]    .ad__slot { aspect-ratio: 3 / 2; }
-  [class*="ad--ratio-tablet-4x1"]    .ad__slot { aspect-ratio: 4 / 1; }
-  [class*="ad--ratio-tablet-6x1"]    .ad__slot { aspect-ratio: 6 / 1; }
-  [class*="ad--ratio-tablet-8x1"]    .ad__slot { aspect-ratio: 8 / 1; }
-  [class*="ad--ratio-tablet-16x9"]   .ad__slot { aspect-ratio: 16 / 9; }
-  [class*="ad--ratio-tablet-9x16"]   .ad__slot { aspect-ratio: 9 / 16; }
-  [class*="ad--ratio-tablet-1x3"]    .ad__slot { aspect-ratio: 1 / 3; }
-  [class*="ad--ratio-tablet-1x4"]    .ad__slot { aspect-ratio: 1 / 4; }
-  [class*="ad--ratio-tablet-2x7\\.5"] .ad__slot { aspect-ratio: 2 / 7.5; }
+// For the vertical ads in the skyscrapers.
+.skyscraper-ad-left,
+.skyscraper-ad-right {
+  padding: 1rem;
+  .adsbygoogle {
+    min-height: 600px;
+  }
 }
 
-/* Type+Size min-heights (guard rails for real Google sizes) */
-.ad--leaderboard.ad--size-small  { --ad-min: 50px; }  /* 320x50 feel */
-.ad--leaderboard.ad--size-medium { --ad-min: 90px; }  /* 728x90 feel */
-.ad--leaderboard.ad--size-large  { --ad-min: 120px; } /* roomy banners */
+// For the In-Feed ad, make it look like one of the other cards.
+.related-tutorials-grid .ad--feed-item {
+  // Inherit card styles but override ad-specific styles.
+  margin: 0; 
+  padding: 0;
+  border: none;
+  background-color: transparent;
 
-.ad--square.ad--size-small       { --ad-min: 180px; }
-.ad--square.ad--size-medium      { --ad-min: 250px; }
-.ad--square.ad--size-large       { --ad-min: 336px; } /* classic 336x280 vibe */
-
-.ad--vertical.ad--size-small     { --ad-min: 300px; }
-.ad--vertical.ad--size-medium    { --ad-min: 600px; } /* 160x600 vibe */
-.ad--vertical.ad--size-large     { --ad-min: 800px; }
-
-/* Sidebar tweaks you already had */
-.sidebar-right .ad--square { margin: 0; padding: 0.5rem; }
-
-/* Dark mode subtleties */
-html.dark .ad__slot {
-  background: color-mix(in oklab, var(--ad-bg) 92%, var(--ad-border));
-  border-color: color-mix(in oklab, var(--ad-border) 70%, transparent);
+  // The ad itself will be wrapped in a card-like structure.
+  .ad {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border-style: solid;
+    transition: all var(--docs-transition-speed);
+    
+    &:hover {
+      border-color: var(--docs-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px hsla(212, 100%, 32%, 0.08);
+    }
+  }
 }

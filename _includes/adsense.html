@@ -1,122 +1,64 @@
-{%- comment -%}
-Universal AdSense include (theme-styled + responsive + CLS-safe)
+{%- assign t = include.type | downcase | default: 'square' -%}
+{%- assign layout_key = include.layout_key | default: '-6v+f0-19-44+c6' -%}
+{%- assign label = include.label | default: 'Advertisement' -%}
+{%- assign extra = include.class | default: '' -%}
 
-Params:
-- type:   square | leaderboard | vertical | article | multiplex | feed
-- size:   small | medium | large           <-- NEW (per-type presets)
-- label, class, align: left|center|right (default center)
-- bordered: true|false (default true)
-- muted:    true|false (default false)
-- ratio / ratio_mobile / ratio_tablet: override aspect ratios (optional)
-- layout_key: for 'feed'
-NOTE: Load the AdSense script once in the layout (production only).
-{%- endcomment -%}
+<div class="ad {{ extra }}">
+  <span class="ad__label" aria-label="Advertisement">{{ label }}</span>
 
-{%- assign t           = include.type        | downcase | default: 'square' -%}
-{%- assign size        = include.size        | downcase | default: 'medium' -%}
-{%- assign layout_key  = include.layout_key  | default: '-6v+f0-19-44+c6' -%}
-{%- assign label       = include.label       | default: 'Advertisement' -%}
-{%- assign extra       = include.class       | default: '' -%}
-{%- assign align       = include.align       | default: 'center' -%}
-{%- assign bordered    = include.bordered    | default: true -%}
-{%- assign muted       = include.muted       | default: false -%}
+  {%- if t == 'square' -%}
+    <!-- Square (Responsive) -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1291242080282540"
+         data-ad-slot="7663977887"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
 
-{%- comment -%}
-1) Default aspect ratio per TYPE+SIZE (desktop), with smart mobile/tablet fallbacks.
-You can still override with ratio=/ratio_mobile=/ratio_tablet= if needed.
-{%- endcomment -%}
-{%- capture computed_ratio -%}
-  {%- case t -%}
-    {%- when 'leaderboard' -%}
-      {%- case size -%}
-        {%- when 'small'  -%} 6x1
-        {%- when 'large'  -%} 8x1
-        {%- else          -%} 4x1
-      {%- endcase -%}
-    {%- when 'vertical' -%}
-      {%- case size -%}
-        {%- when 'small'  -%} 1x3
-        {%- when 'large'  -%} 2x7.5
-        {%- else          -%} 1x4
-      {%- endcase -%}
-    {%- when 'article' -%}    3x2
-    {%- when 'multiplex' -%}  3x2
-    {%- when 'feed' -%}       3x2
-    {%- else -%}              {# square #}
-      {%- case size -%}
-        {%- when 'small'  -%} 1x1
-        {%- when 'large'  -%} 4x3
-        {%- else          -%} 3x2
-      {%- endcase -%}
-  {%- endcase -%}
-{%- endcapture -%}
+  {%- elsif t == 'leaderboard' -%}
+    <!-- Horizontal (Responsive) -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1291242080282540"
+         data-ad-slot="8939839370"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
 
-{%- assign ratio         = include.ratio         | default: computed_ratio | downcase -%}
-{%- assign ratio_mobile  = include.ratio_mobile  | downcase -%}
-{%- assign ratio_tablet  = include.ratio_tablet  | downcase -%}
+  {%- elsif t == 'article' -%}
+    <!-- In-Article (Fluid) -->
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-1291242080282540"
+         data-ad-slot="6501428979"></ins>
 
-{%- comment -%}
-2) Build class list for styling and responsive sizing.
-{%- endcomment -%}
-{%- assign classes = 'ad' -%}
-{%- assign classes = classes | append: ' ad--' | append: t -%}
-{%- assign classes = classes | append: ' ad--size-' | append: size -%}
-{%- assign classes = classes | append: ' ad--align-' | append: align -%}
-{%- assign classes = classes | append: ' ad--ratio-' | append: ratio -%}
-{%- if ratio_mobile -%}{%- assign classes = classes | append: ' ad--ratio-mobile-' | append: ratio_mobile -%}{%- endif -%}
-{%- if ratio_tablet -%}{%- assign classes = classes | append: ' ad--ratio-tablet-' | append: ratio_tablet -%}{%- endif -%}
-{%- if bordered == true or bordered == 'true' -%}{%- assign classes = classes | append: ' ad--bordered' -%}{%- endif -%}
-{%- if muted == true or muted == 'true' -%}{%- assign classes = classes | append: ' ad--muted' -%}{%- endif -%}
-{%- if extra != '' -%}{%- assign classes = classes | append: ' ' | append: extra -%}{%- endif -%}
+  {%- elsif t == 'multiplex' -%}
+    <!-- Multiplex (Auto-relaxed) -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-format="autorelaxed"
+         data-ad-client="ca-pub-1291242080282540"
+         data-ad-slot="6808134701"></ins>
 
-<div class="{{ classes }}" role="complementary" aria-label="{{ label }}">
-  <span class="ad__label">{{ label }}</span>
+  {%- elsif t == 'feed' -%}
+    <!-- In-Feed (Fluid) -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-format="fluid"
+         data-ad-layout-key="{{ layout_key }}"
+         data-ad-client="ca-pub-1291242080282540"
+         data-ad-slot="9130894804"></ins>
 
-  <!-- CLS-safe wrapper: reserves space via aspect-ratio -->
-  <div class="ad__slot">
-    {%- case t -%}
-      {%- when 'square' -%}
-        <ins class="adsbygoogle" style="display:block"
-             data-ad-client="ca-pub-1291242080282540"
-             data-ad-slot="7663977887"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-
-      {%- when 'leaderboard' -%}
-        <ins class="adsbygoogle" style="display:block"
-             data-ad-client="ca-pub-1291242080282540"
-             data-ad-slot="8939839370"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-
-      {%- when 'article' -%}
-        <ins class="adsbygoogle" style="display:block; text-align:center;"
-             data-ad-layout="in-article"
-             data-ad-format="fluid"
-             data-ad-client="ca-pub-1291242080282540"
-             data-ad-slot="6501428979"></ins>
-
-      {%- when 'multiplex' -%}
-        <ins class="adsbygoogle" style="display:block"
-             data-ad-format="autorelaxed"
-             data-ad-client="ca-pub-1291242080282540"
-             data-ad-slot="6808134701"></ins>
-
-      {%- when 'feed' -%}
-        <ins class="adsbygoogle" style="display:block"
-             data-ad-format="fluid"
-             data-ad-layout-key="{{ layout_key }}"
-             data-ad-client="ca-pub-1291242080282540"
-             data-ad-slot="9130894804"></ins>
-
-      {%- when 'vertical' -%}
-        <ins class="adsbygoogle" style="display:block"
-             data-ad-client="ca-pub-1291242080282540"
-             data-ad-slot="3487917390"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-    {%- endcase -%}
-  </div>
-
-  <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+  {%- elsif t == 'vertical' -%}
+    <!-- Vertical (Responsive) -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1291242080282540"
+         data-ad-slot="3487917390"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  {%- endif -%}
 </div>
+
+<script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
