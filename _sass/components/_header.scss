@@ -3,6 +3,7 @@
 ============================================ */
 .header { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; border-bottom: 1px solid var(--docs-border); background-color: var(--docs-background); position: sticky; top: 0; z-index: 50; }
 .header-left { display: flex; align-items: center; gap: 0.75rem; } 
+@media (max-width: 767px) {.header-left { min-width: 0; } /* Allows the element to shrink below its content size */}
 .logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800; color: var(--docs-foreground); }
 .mobile-menu-toggle { background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--docs-foreground); } 
 .header-center { flex-grow: 1; display: flex; justify-content: center; padding: 0 1rem; }
