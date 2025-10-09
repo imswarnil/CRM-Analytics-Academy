@@ -1,27 +1,83 @@
 <aside class="sidebar-left" id="sidebar-left">
-  <div class="sidebar-left-content">
-      <nav class="sidebar-nav">
-          <ul class="main-nav">
-              <li class="nav-link"><a href="#"><i class="ph-duotone ph-house"></i>Home</a></li>
-              <li class="nav-link"><a href="#"><i class="ph-duotone ph-books"></i>Courses</a></li>
-          </ul>
-          <ul>
-              <li class="nav-category">Getting Started</li>
-              <li class="nav-link"><a href="#"><i class="ph-duotone ph-rocket-launch"></i>Introduction</a></li>
-              <li class="nav-link"><a href="#"><i class="ph-duotone ph-download-simple"></i>Installation</a></li>
-              <li class="nav-category">Core Concepts</li>
-              <li class="nav-link active"><a href="#"><i class="ph-duotone ph-palette"></i>Theming</a></li>
-              <li class="nav-link"><a href="#"><i class="ph-duotone ph-layout"></i>Layout</a></li>
-              <li class="nav-link"><a href="#"><i class="ph-duotone ph-puzzle-piece"></i>Components</a></li>
-          </ul>
-      </nav>
-      <div class="sponsor-card" style="margin-top: 2rem;">
-          <div style="font-size: 0.7rem; color: var(--docs-muted-foreground);">Ad</div>
-          <div style="font-weight: 600; margin: 0.5rem 0;">Sponsored Training</div>
-          <p style="font-size: 0.875rem; color: var(--docs-muted-foreground); margin: 0;">Learn advanced CRM techniques with our new course.</p>
+    <div class="sidebar-left-content">
+        <nav class="sidebar-nav">
+            
+            {%- comment -%}
+              STATIC MAIN NAVIGATION
+              This part remains hardcoded for primary site links.
+            {%- endcomment -%}
+            <ul class="main-nav">
+                <li class="nav-link">
+                  <a href="{{ "/" | relative_url }}">
+                    <i class="ph-duotone ph-house"></i>Home
+                  </a>
+                </li>
+                <li class="nav-link">
+                  <a href="{{ "/courses/" | relative_url }}">
+                    <i class="ph-duotone ph-books"></i>Courses
+                  </a>
+                </li>
+            </ul>
+  
+            {%- comment -%}
+              DYNAMIC POST NAVIGATION
+              This part will be automatically generated from your blog posts.
+            {%- endcomment -%}
+            <ul>
+                {%- comment -%}
+                  Step 1: Group all posts by their 'category' front matter.
+                {%- endcomment -%}
+                {% assign posts_by_category = site.posts | group_by: "category" %}
+  
+                {%- comment -%}
+                  Step 2: Loop through each category group.
+                {%- endcomment -%}
+                {% for category in posts_by_category %}
+                  <li class="nav-category">
+                    {{ category.name }}
+                  </li>
+  
+                  {%- comment -%}
+                    Step 3: Sort the posts within this category by their date, oldest first.
+                  {%- endcomment -%}
+                  {% assign sorted_posts = category.items | sort: "date" %}
+  
+                  {%- comment -%}
+                    Step 4: Loop through the sorted posts and create a link for each.
+                  {%- endcomment -%}
+                  {% for post in sorted_posts %}
+                    <li class="nav-link {% if page.url == post.url %}active{% endif %}">
+                        <a href="{{ post.url | relative_url }}">
+                            
+                            {%- comment -%}
+                              Use an icon from the post's front matter, or a default one.
+                            {%- endcomment -%}
+                            <i class="ph-duotone {{ post.icon | default: 'ph-article' }}"></i>
+                            {{ post.title }}
+                        </a>
+                    </li>
+                  {% endfor %}
+                
+                {% endfor %}
+            </ul>
+        </nav>
+  
+        {%- comment -%}
+          OPTIONAL: You can make these cards dynamic too using site variables from _config.yml
+        {%- endcomment -%}
+        {% if site.sidebar_ad_title %}
+          <div class="sponsor-card">
+              <div class="ad-label">Ad</div>
+              <div class="sponsor-title">{{ site.sidebar_ad_title }}</div>
+              <p class="sponsor-desc">{{ site.sidebar_ad_desc }}</p>
+          </div>
+        {% endif %}
+  
+    </div>
+  
+    {% if site.author %}
+      <div class="attribution-card">
+          <p>Created by <strong>{{ site.author }}</strong>.</p>
       </div>
-  </div>
-  <div class="attribution-card" style="margin-top: 1rem;">
-      <p>Created by <strong>Salesforce Release</strong>.</p>
-  </div>
-</aside>
+    {% endif %}
+  </aside>
