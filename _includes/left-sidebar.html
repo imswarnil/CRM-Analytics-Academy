@@ -24,14 +24,11 @@
               </li>
           </ul>
 
-          <!-- AdSense Unit for Sidebar -->
-          {% include adsense
-            type="square"
-            align="center"
-            ratio="1x1"
-            ratio_mobile="3x2"
-            bordered=true
-            muted=true %}
+          {% include adsense.html type="square" %}
+
+          {%- comment -%}
+            DYNAMIC POST NAVIGATION
+          {%- endcomment -%}
           <ul>
               {% assign posts_by_category = site.posts | group_by: "category" %}
               {% for category in posts_by_category %}
