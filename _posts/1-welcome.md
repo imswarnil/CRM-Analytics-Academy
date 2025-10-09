@@ -3,6 +3,7 @@ title: "What is CRM Analytics? (Formerly Einstein Analytics & Tableau CRM)"
 description: "A beginner-friendly introduction to Salesforce CRM Analytics — what it is, why it matters, and how it evolved from Einstein Analytics and Tableau CRM."
 slug: "what-is-crm-analytics"
 author: "Swarnil Singhai"
+layout : post
 date: 2025-10-03
 categories: ["CRM Analytics", "Salesforce", "Business Intelligence"]
 tags: ["CRM Analytics", "Einstein Analytics", "Tableau CRM", "Salesforce", "Analytics"]
