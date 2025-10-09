@@ -1,0 +1,177 @@
+/* ============================================
+   BUTTONS COMPONENT
+============================================ */
+
+/* --- 1. Base Button (.btn) --- */
+/* This is the foundation for ALL button variations. */
+
+.btn {
+    /* Layout & Box Model */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px; /* Default (medium) height */
+    padding: 0 1.25rem;
+    border: 1px solid transparent;
+    border-radius: var(--docs-radius);
+    
+    /* Typography */
+    font-family: var(--docs-font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    
+    /* Interaction */
+    cursor: pointer;
+    transition: all var(--docs-transition-speed) ease;
+    
+    /* Icon Support */
+    gap: 0.5rem;
+}
+
+/* Base Hover & Active States */
+.btn:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.08);
+}
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+html.dark .btn:hover {
+    box-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.2);
+}
+
+
+/* --- 2. Style & Color Modifiers --- */
+
+/* Primary Button (Main CTA) */
+.btn--primary {
+    background-color: var(--docs-primary);
+    color: var(--docs-primary-foreground);
+    border-color: var(--docs-primary);
+}
+.btn--primary:hover {
+    background-color: var(--docs-primary); /* Keep color on hover */
+    filter: brightness(90%);
+}
+
+/* Secondary / Outlined Button */
+.btn--secondary {
+    background-color: transparent;
+    color: var(--docs-primary);
+    border-color: var(--docs-primary);
+}
+.btn--secondary:hover {
+    background-color: var(--docs-primary);
+    color: var(--docs-primary-foreground);
+    box-shadow: 0 4px 12px hsla(212, 100%, 32%, 0.2);
+}
+html.dark .btn--secondary:hover {
+    box-shadow: 0 4px 12px hsla(205, 84%, 73%, 0.2);
+}
+
+/* Ghost Button (Subtle Action, used in header) */
+.btn--ghost {
+    background-color: transparent;
+    color: var(--docs-muted-foreground);
+    border-color: var(--docs-border);
+}
+.btn--ghost:hover {
+    background-color: var(--docs-accent);
+    color: var(--docs-foreground);
+    border-color: var(--docs-accent);
+}
+
+/* Inverse Button (For dark/colored backgrounds like the hero) */
+.btn--inverse {
+    background-color: var(--docs-primary-foreground);
+    color: var(--docs-primary);
+    border-color: var(--docs-primary-foreground);
+}
+.btn--inverse:hover {
+    background-color: hsla(0, 0%, 100%, 0.85);
+}
+.btn--inverse-outline {
+    background-color: transparent;
+    color: var(--docs-primary-foreground);
+    border-color: var(--docs-primary-foreground);
+}
+.btn--inverse-outline:hover {
+    background-color: var(--docs-primary-foreground);
+    color: var(--docs-primary);
+}
+
+/* Color Variations */
+.btn--success {
+    background-color: var(--docs-success);
+    color: var(--docs-success-foreground);
+    border-color: var(--docs-success);
+}
+.btn--success:hover {
+    background-color: var(--docs-success);
+    filter: brightness(90%);
+}
+
+.btn--danger {
+    background-color: var(--docs-danger);
+    color: var(--docs-danger-foreground);
+    border-color: var(--docs-danger);
+}
+.btn--danger:hover {
+    background-color: var(--docs-danger);
+    filter: brightness(90%);
+}
+
+
+/* --- 3. Size Modifiers --- */
+
+/* Small Button */
+.btn--sm {
+    height: 32px;
+    padding: 0 0.75rem;
+    font-size: 0.8rem;
+}
+
+/* Large Button */
+.btn--lg {
+    height: 48px;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+}
+
+
+/* --- 4. Structural Modifiers --- */
+
+/* Full Width Button */
+.btn--full-width {
+    display: flex; /* Overrides inline-flex */
+    width: 100%;
+}
+
+/* Icon-Only Button */
+.btn--icon {
+    width: 40px; /* Match default height */
+    padding: 0;
+}
+.btn--icon.btn--sm { width: 32px; }
+.btn--icon.btn--lg { width: 48px; }
+
+/* Icon buttons usually don't need a lift effect */
+.btn--icon:hover {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+/* --- 5. Icon Styling --- */
+
+/* Controls the size of icons inside buttons */
+.btn i {
+    font-size: 1.2rem;
+}
+.btn--sm i { font-size: 1rem; }
+.btn--lg i { font-size: 1.4rem; }

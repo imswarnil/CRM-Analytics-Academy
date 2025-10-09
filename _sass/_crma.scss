@@ -183,8 +183,8 @@ pre code { color: var(--docs-foreground); }
 .mobile-overlay.is-active { opacity: 1; visibility: visible; }
 
 
-// // 1. Variables & Theming
-// @import 'theme/variables';
+
+@import 'elements/buttons';
 
 // // 2. Base Styles (Reset, Typography, etc.)
 // @import 'theme/base';

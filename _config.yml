@@ -145,9 +145,6 @@ navigation_header:
   - title: Elements
     url: /elements/
     icon: squares-four
-  - title: Blog
-    url: /blog/
-    icon: article
 
 
 navigation_footer:
