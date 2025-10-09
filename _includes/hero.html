@@ -41,6 +41,10 @@ Usage: {% include hero.html %}
 {%- endif -%}
 
 <section class="{{ hero_classes }}" role="region" aria-label="Page hero">
+  <div class="hero-bubbles is-{{ bubbles_side }}">
+    <span class="bubble bubble--a"></span>
+    <span class="bubble bubble--b"></span>
+  </div>
   <div class="hero-container">
 
     {%- if page.layout == 'home' -%}

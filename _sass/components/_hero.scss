@@ -127,3 +127,47 @@
 .hero-banner--generic { padding: 3rem 0; text-align: center; }
 .hero-banner--generic h1 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; text-wrap: balance; }
 .hero-banner--generic .generic-subtitle { font-size: 1.1rem; color: var(--docs-muted-foreground); margin-top: 0.5rem; max-width: 60ch; margin-left: auto; margin-right: auto; text-wrap: pretty; }
+
+
+/* =============================================================
+   4) DECORATIVE, LOOPED, BEZIER-STYLE BUBBLES (bottom for all)
+   - Two overlapping circles with mix-blend-mode for a soft blend
+   - Gently looping motion using cubic-bezier easing
+   - Applies to home, post, and generic (positioned at bottom)
+============================================================= */
+.hero-banner { position: relative; }
+.hero-bubbles { position: absolute; pointer-events: none; z-index: 0; }
+.hero-bubbles.is-right { right: -120px; left: auto; bottom: -120px; }
+.hero-bubbles.is-left  { left: -120px;  right: auto; bottom: -120px; }
+
+.hero-bubbles .bubble { position: absolute; border-radius: 50%; mix-blend-mode: multiply; filter: saturate(110%); will-change: transform; }
+.hero-bubbles .bubble--a { width: 280px; height: 280px; background: var(--docs-hero-accent); opacity: .65; animation: float-a 12s cubic-bezier(.25,1,.5,1) infinite alternate; }
+.hero-bubbles .bubble--b { width: 180px; height: 180px; background: var(--docs-primary);      opacity: .45; animation: float-b 16s cubic-bezier(.25,1,.5,1) infinite alternate; }
+
+/* Start positions relative to chosen side */
+.hero-bubbles.is-right .bubble--a { bottom: 40px;  right: 0; }
+.hero-bubbles.is-right .bubble--b { bottom: -20px; right: 140px; }
+.hero-bubbles.is-left  .bubble--a { bottom: 40px;  left: 0; }
+.hero-bubbles.is-left  .bubble--b { bottom: -20px; left: 140px; }
+
+/* Looped, bezier-flavored drifts */
+@keyframes float-a {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  40%  { transform: translate3d(-12px,-8px,0) scale(1.03); }
+  70%  { transform: translate3d(10px,6px,0)   scale(1.06); }
+  100% { transform: translate3d(-8px,4px,0)   scale(1.02); }
+}
+@keyframes float-b {
+  0%   { transform: translate3d(0,0,0)  scale(1); }
+  50%  { transform: translate3d(16px,-12px,0) scale(1.05); }
+  100% { transform: translate3d(-10px,10px,0) scale(1.08); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bubbles .bubble { animation: none; }
+}
+
+/* Disable legacy ::before/::after bubbles on LMS so the new system owns it */
+.hero-banner--lms::before,
+.hero-banner--lms::after { content: none !important; }
