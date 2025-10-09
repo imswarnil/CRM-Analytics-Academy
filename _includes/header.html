@@ -1,7 +1,8 @@
 <header class="header">
     <div class="header-left">
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
-            <i class="ph-duotone ph-list" style="font-size: 1.5rem;"></i>
+        <!-- UPDATED: Added .btn classes for consistent styling -->
+        <button class="btn btn--ghost btn--icon mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
+            <i class="ph-duotone ph-list"></i>
         </button>
   
         <a href="{{ "/" | relative_url }}" class="logo">
@@ -19,30 +20,27 @@
     </div>
   
     <div class="header-right">
-        <button class="action-button" id="search-trigger-mobile" aria-label="Search">
+        <!-- UPDATED: Added .btn classes for consistent styling -->
+        <button class="btn btn--ghost btn--icon" id="search-trigger-mobile" aria-label="Search">
             <i class="ph-duotone ph-magnifying-glass"></i>
         </button>
   
-        {%- comment -%}
-          The Changelog button will only appear if 'changelog_url' is set in _config.yml
-        {%- endcomment -%}
         {% if site.changelog_url %}
-          <a href="{{ site.changelog_url | relative_url }}" class="action-button cta" aria-label="Changelog">Changelog</a>
+          <!-- UPDATED: Replaced .action-button.cta with .btn.btn--ghost -->
+          <a href="{{ site.changelog_url | relative_url }}" class="btn btn--ghost" aria-label="Changelog">Changelog</a>
         {% endif %}
   
-        {%- comment -%}
-          The GitHub button will only appear if 'github_url' is set in _config.yml
-        {%- endcomment -%}
         {% if site.github_url %}
-          <a href="{{ site.github_url }}" class="action-button cta" aria-label="Star on GitHub" target="_blank" rel="noopener">
+          <!-- UPDATED: Replaced .action-button.cta with .btn.btn--ghost -->
+          <a href="{{ site.github_url }}" class="btn btn--ghost" aria-label="Star on GitHub" target="_blank" rel="noopener">
               <i class="ph-duotone ph-github-logo"></i>
               <span>Star</span>
           </a>
         {% endif %}
   
-        <button class="action-button" id="theme-toggle" aria-label="Toggle dark mode">
+        <!-- UPDATED: Added .btn classes for consistent styling -->
+        <button class="btn btn--ghost btn--icon" id="theme-toggle" aria-label="Toggle dark mode">
             <i class="ph-duotone ph-sun"></i>
         </button>
     </div>
-  </header>
-  
+</header>

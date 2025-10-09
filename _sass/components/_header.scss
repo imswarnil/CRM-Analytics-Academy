@@ -1,32 +1,138 @@
 /* ============================================
-   HEADER
+   HEADER (REVISED & IMPROVED)
 ============================================ */
-.header { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; border-bottom: 1px solid var(--docs-border); background-color: var(--docs-background); position: sticky; top: 0; z-index: 50; }
-.header-left { display: flex; align-items: center; gap: 0.75rem; } 
-@media (max-width: 767px) {.header-left { min-width: 0; } /* Allows the element to shrink below its content size */}
-.logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800; color: var(--docs-foreground); }
-.mobile-menu-toggle { background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--docs-foreground); } 
-.header-center { flex-grow: 1; display: flex; justify-content: center; padding: 0 1rem; }
-.header-right { display: flex; align-items: center; gap: 0.5rem; justify-content: flex-end; }
-.search-trigger-button { display: none; align-items: center; justify-content: space-between; height: 40px; background-color: var(--docs-secondary); border: 1px solid var(--docs-border); border-radius: var(--docs-radius); padding: 0 0.75rem; font-size: 0.9rem; color: var(--docs-muted-foreground); text-align: left; cursor: pointer; transition: all var(--docs-transition-speed); width: 100%; max-width: 400px; }
-.search-trigger-button:hover { border-color: var(--docs-primary); }
-.search-trigger-button .kbd { font-family: monospace; background: var(--docs-background); border: 1px solid var(--docs-border); padding: 2px 6px; border-radius: 4px; font-size: 0.8em; }
-.action-button { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: 1px solid transparent; border-radius: var(--docs-radius); color: var(--docs-muted-foreground); cursor: pointer; transition: all var(--docs-transition-speed); flex-shrink: 0; }
-.action-button:hover { color: var(--docs-foreground); background-color: var(--docs-accent); }
-.action-button.cta { background-color: var(--docs-secondary); color: var(--docs-secondary-foreground); font-size: 0.8rem; font-weight: 600; width: auto; padding: 0 0.75rem; gap: 0.5rem; }
-.action-button.cta:hover { background-color: var(--docs-accent); }
 
-@media (max-width: 767px) { 
-    .header-center { display: none; }
-    .header-left { flex-grow: 1; }
-    .action-button.cta { display: none; }
-    #search-trigger-mobile { display: flex; }
+.header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--docs-header-height); /* Explicit height for better consistency */
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--docs-border);
+    background-color: var(--docs-background);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Reduced gap for mobile view */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem; /* Default size for desktop */
+    font-weight: 800;
+    color: var(--docs-foreground);
+    /* NEW: Add transition for smooth font-size change */
+    transition: font-size var(--docs-transition-speed) ease;
+}
+
+.header-center {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Consistent gap between buttons */
+    justify-content: flex-end;
+}
+
+/* --- Search Trigger Button (Desktop) --- */
+.search-trigger-button {
+    display: none; /* Hidden by default, shown in media query */
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    background-color: var(--docs-secondary);
+    border: 1px solid var(--docs-border);
+    border-radius: var(--docs-radius);
+    padding: 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--docs-muted-foreground);
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--docs-transition-speed);
+    width: 100%;
+    max-width: 400px;
+}
+.search-trigger-button:hover {
+    border-color: var(--docs-primary);
+}
+.search-trigger-button .kbd {
+    font-family: monospace;
+    background: var(--docs-background);
+    border: 1px solid var(--docs-border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+/* --- REMOVED --- */
+/* .action-button, .mobile-menu-toggle, and .action-button.cta styles are no longer needed.
+   They have been replaced by applying classes from your .btn component system for consistency. */
+
+
+/* ============================================
+   HEADER RESPONSIVENESS
+============================================ */
+
+/* --- Mobile View (up to 767px) --- */
+@media (max-width: 767px) {
+    .header-left {
+        flex-grow: 1;
+    }
+    
+    /* FIX: Reduce logo size on mobile devices */
+    .logo {
+        font-size: 1.25rem;
+    }
+    .logo i {
+        font-size: 1.5rem; /* Ensure icon doesn't shrink too much */
+    }
+
+    .header-center {
+        display: none;
+    }
+
+    /* Hide text-based buttons on mobile */
+    .header-right .btn:not(.btn--icon) {
+        display: none;
+    }
+
+    /* Ensure mobile search icon is visible */
+    #search-trigger-mobile {
+        display: inline-flex;
+    }
+}
+
+/* --- Tablet & Desktop View (768px and up) --- */
 @media (min-width: 768px) {
-    .search-trigger-button { display: flex; }
-    #search-trigger-mobile { display: none; }
-    .mobile-menu-toggle { display: block; }
+    .search-trigger-button {
+        display: flex;
+    }
+    #search-trigger-mobile {
+        display: none;
+    }
 }
-@media (min-width: 1024px) { 
-    .mobile-menu-toggle { display: none; } 
+
+/* --- Hide mobile menu toggle on large screens --- */
+@media (min-width: 1024px) {
+    /* We use visibility instead of display:none to prevent layout shifts */
+    .mobile-menu-toggle {
+        visibility: hidden;
+        opacity: 0;
+        width: 0;
+        padding: 0;
+        margin: 0;
+    }
 }
