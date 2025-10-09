@@ -1,127 +1,47 @@
 {% comment %}
-Config-driven Sidebar (no per-page front matter)
-- Top menu from site.navigation_header (icon = "ph-duotone ph-{{icon}}")
-- Sections from site.sidebar.categories (order asc)
-- Docs from each section.docs (order asc)
-- Each doc key resolves to a page/post by slug; else used as URL
+Right Sidebar: Categories → Posts (oldest first)
+- Sections = FIRST category of each post
+- Inside each section: posts sorted by date ASC (oldest → newest)
+- No config.yml mapping, no per-post front matter beyond categories/title/date
+- Active link gets .active when page.url matches
 {% endcomment %}
 
-<aside class="sidebar-left" id="sidebar-left">
-  <div class="sidebar-left-content">
+<aside class="sidebar-right" id="sidebar-right">
+  <div class="sidebar-right-content">
     <nav class="sidebar-nav">
 
-      <!-- MAIN NAV from _config.yml -->
-      <ul class="main-nav">
-        {% assign nav_items = site.navigation_header | default: empty %}
-        {% if nav_items and nav_items.size > 0 %}
-          {% for item in nav_items %}
-            {% assign is_active = page.url == item.url %}
-            <li class="nav-link{% if is_active %} active{% endif %}">
-              <a href="{{ item.url | relative_url }}">
-                <i class="ph-duotone ph-{{ item.icon | default: 'house' }}"></i>{{ item.title }}
-              </a>
-            </li>
-          {% endfor %}
-        {% else %}
-          <li class="nav-link{% if page.url == '/' %} active{% endif %}">
-            <a href="{{ '/' | relative_url }}"><i class="ph-duotone ph-house"></i>Home</a>
-          </li>
-        {% endif %}
-      </ul>
+      {%- assign posts_with_cat = site.posts | where_exp: "p", "p.categories and p.categories.size > 0" -%}
+      {%- if posts_with_cat.size > 0 -%}
 
-      {% assign cfg = site.sidebar | default: empty %}
-      {% assign cats = cfg.categories | default: empty %}
-      {% if cats and cats.size > 0 %}
-        {% comment %} sort sections by numeric order {% endcomment %}
-        {% assign packed_sections = "" | split: "" %}
-        {% for c in cats %}
-          {% assign s_pack = c.order | default: 999 | append: "||" | append: c.name | append: "||" | append: c.icon | append: "||" | append: forloop.index0 %}
-          {% assign packed_sections = packed_sections | push: s_pack %}
-        {% endfor %}
-        {% assign packed_sections = packed_sections | sort %}
+        {%- comment -%} Group by first category and sort sections alphabetically {%- endcomment -%}
+        {%- assign grouped = posts_with_cat | group_by_exp: "p", "p.categories | first" -%}
+        {%- assign grouped = grouped | sort: "name" -%}
 
-        <ul>
-          {% for row in packed_sections %}
-            {% assign s_parts = row | split: "||" %}
-            {% assign s_name = s_parts[1] %}
-            {% assign s_icon = s_parts[2] %}
-            {% assign s_idx  = s_parts[3] | plus: 0 %}
-            {% assign section = cats[s_idx] %}
+        <ul class="category-groups">
+          {%- for group in grouped -%}
+            <li class="nav-category">{{ group.name }}</li>
 
-            <li class="nav-category">{{ s_name }}</li>
+            {%- comment -%} Oldest → newest inside the section {%- endcomment -%}
+            {%- assign items = group.items | sort: "date" -%}
 
-            {% comment %} sort docs by order {% endcomment %}
-            {% assign docs = section.docs | default: empty %}
-            {% assign packed_docs = "" | split: "" %}
-            {% for d in docs %}
-              {% assign d_order = d.order | default: 999 %}
-              {% assign d_title = d.title | default: "" %}
-              {% assign d_key   = d.key | default: "" %}
-              {% assign d_icon  = d.icon | default: "" %}
-              {% assign d_pack  = d_order | append: "||" | append: d_key | append: "||" | append: d_title | append: "||" | append: d_icon %}
-              {% assign packed_docs = packed_docs | push: d_pack %}
-            {% endfor %}
-            {% assign packed_docs = packed_docs | sort %}
-
-            {% for drow in packed_docs %}
-              {% assign dp = drow | split: "||" %}
-              {% assign d_key = dp[1] %}
-              {% assign d_title_override = dp[2] %}
-              {% assign d_icon = dp[3] %}
-
-              {% comment %}
-              Resolve key:
-              1) Try to find page by slug == key in site.pages
-              2) Try to find post by slug == key in site.posts
-              3) Else treat key as URL
-              {% endcomment %}
-
-              {% assign found_url = nil %}
-              {% assign found_title = nil %}
-
-              {% for p in site.pages %}
-                {% if p.slug == d_key %}
-                  {% assign found_url = p.url | relative_url %}
-                  {% assign found_title = p.title %}
-                  {% break %}
-                {% endif %}
-              {% endfor %}
-
-              {% if found_url == nil %}
-                {% for p in site.posts %}
-                  {% if p.slug == d_key %}
-                    {% assign found_url = p.url | relative_url %}
-                    {% assign found_title = p.title %}
-                    {% break %}
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-
-              {% if found_url == nil %}
-                {% assign found_url = d_key | relative_url %}
-                {% assign found_title = d_title_override | default: d_key %}
-              {% else %}
-                {% assign found_title = d_title_override | default: found_title %}
-              {% endif %}
-
-              {% if d_icon == "" or d_icon == nil %}
-                {% assign d_icon = s_icon | default: 'file-text' %}
-              {% endif %}
-
-              {% assign is_active = page.url == found_url %}
+            {%- for post in items -%}
+              {%- assign is_active = page.url == post.url -%}
               <li class="nav-link{% if is_active %} active{% endif %}">
-                <a href="{{ found_url }}">
-                  <i class="ph-duotone ph-{{ d_icon }}"></i>{{ found_title }}
+                <a href="{{ post.url | relative_url }}">
+                  {{ post.title }}
                 </a>
+                {%- comment -%}
+                Optional tiny date (uncomment if you want it):
+                <small class="post-date">{{ post.date | date: "%Y-%m-%d" }}</small>
+                {%- endcomment -%}
               </li>
-            {% endfor %}
-          {% endfor %}
+            {%- endfor -%}
+          {%- endfor -%}
         </ul>
-      {% endif %}
-    </nav>
-  </div>
 
-  <div class="attribution-card" style="margin-top: 1rem;">
-    <p>Created by <strong>Salesforce Release</strong>.</p>
+      {%- else -%}
+        <p class="empty-state">No posts found with categories.</p>
+      {%- endif -%}
+    </nav>
   </div>
 </aside>
