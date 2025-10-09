@@ -118,4 +118,5 @@ html.dark .ad__frame {
 @media (min-width: 1024px) {
   .force-728-desktop .ad--leaderboard .ad__frame { max-width: 728px; height: 90px; }
 }
-.ad
+.ad-fullbleed { margin-inline: calc(50% - 50vw); padding-inline: 1rem; }
+@media (min-width: 1024px) { .ad-fullbleed { padding-inline: 2rem; } }
