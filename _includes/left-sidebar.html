@@ -1,21 +1,12 @@
 <aside class="sidebar-left" id="sidebar-left">
   <div class="sidebar-left-content">
       <nav class="sidebar-nav">
-          
-          {%- comment -%}
-            STATIC MAIN NAVIGATION
-          {%- endcomment -%}
           <ul class="main-nav">
               <li class="nav-link {% if page.url == "/" %}active{% endif %}">
                 <a href="{{ "/" | relative_url }}">
                   <i class="ph-duotone ph-house"></i>Home
                 </a>
               </li>
-              
-              {%- comment -%}
-                FIXED: Replaced 'startswith' with the 'slice' filter.
-                This checks if the first 9 characters of the URL are "/courses/".
-              {%- endcomment -%}
               {% assign url_prefix = page.url | slice: 0, 9 %}
               <li class="nav-link {% if url_prefix == "/courses/" %}active{% endif %}">
                 <a href="{{ "/courses/" | relative_url }}">
@@ -23,12 +14,7 @@
                 </a>
               </li>
           </ul>
-
           {% include adsense.html type="square" size="small"  %}
-
-          {%- comment -%}
-            DYNAMIC POST NAVIGATION
-          {%- endcomment -%}
           <ul>
               {% assign posts_by_category = site.posts | group_by: "category" %}
               {% for category in posts_by_category %}
