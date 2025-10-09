@@ -4,8 +4,8 @@ title: "The Complete CRM Analytics Bootcamp"
 description: "Go from Zero to Hero. The only course you need to master data transformation, dashboarding, and predictive insights with Tableau CRM & Einstein Discovery."
 hero_kicker: "++ a b l e a u"
 
-# You can still have specific meta image for sharing if needed
-image: "/assets/social-share-image.png"
+# This `image` will be used by the Jekyll SEO Tag for social sharing.
+image: "/assets/images/social-share-card.jpg"
 
 # Hero Metadata
 hero_meta_1: '<i class="ph-duotone ph-stack"></i> 4 Modules'

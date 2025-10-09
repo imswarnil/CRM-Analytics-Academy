@@ -1,63 +1,65 @@
 {%- comment -%}
     This is a conditional hero component. It changes its appearance based on the page's `layout` front matter.
-    - layout: home      -> Displays a large, interactive marketing hero with a video modal.
-    - layout: post      -> Displays a metadata-rich hero for blog posts (title, author, date).
-    - default (any other) -> Displays a simple, clean hero with just a title and optional subtitle.
+    - layout: home      -> Displays a large, interactive marketing hero with an animated SVG.
+    - layout: post      -> Displays a metadata-rich hero for blog posts.
+    - default (any other) -> Displays a simple, clean hero with just a title.
 {%- endcomment -%}
 
 {%- if page.layout == 'home' -%}
-
-<section class="hero-banner hero-banner--lms hero-banner--bubbles-right">
-    <div class="hero-container">
-         <div class="hero-lms-grid">
-            <div class="hero-lms-col">
-                <div class="hero-lms-text">
-                    {%- if page.hero_kicker -%}
-                        <p class="tableau-logo">{{ page.hero_kicker }}</p>
-                    {%- endif -%}
-                    <h1>{{ page.title }}</h1>
-                    {%- if page.description -%}
-                        <p class="hero-subtitle">{{ page.description }}</p>
-                    {%- endif -%}
-                    
-                    <div class="hero-meta">
-                        {%- if page.hero_meta_1 -%}<div class="meta-item">{{ page.hero_meta_1 }}</div>{%- endif -%}
-                        {%- if page.hero_meta_2 -%}<div class="meta-item">{{ page.hero_meta_2 }}</div>{%- endif -%}
-                        {%- if page.hero_meta_3 -%}<div class="meta-item">{{ page.hero_meta_3 }}</div>{%- endif -%}
-                    </div>
-
-                    <div class="hero-cta">
-                        {%- if page.hero_cta_primary_text -%}
-                            <a href="{{ page.hero_cta_primary_url | relative_url }}" class="btn btn--primary btn--lg">{{ page.hero_cta_primary_text }}</a>
+    <!-- ============================================
+       1. HOME LAYOUT HERO
+    ============================================ -->
+    <section class="hero-banner hero-banner--lms">
+        <div class="hero-container">
+             <div class="hero-lms-grid">
+                <div class="hero-lms-col">
+                    <div class="hero-lms-text">
+                        {%- if page.hero_kicker -%}
+                            <p class="tableau-logo">{{ page.hero_kicker }}</p>
                         {%- endif -%}
-                        {%- if page.hero_cta_secondary_text -%}
-                            <a href="{{ page.hero_cta_secondary_url | relative_url }}" class="btn btn--inverse-outline btn--lg">{{ page.hero_cta_secondary_text }}</a>
+                        <h1>{{ page.title }}</h1>
+                        {%- if page.description -%}
+                            <p class="hero-subtitle">{{ page.description }}</p>
                         {%- endif -%}
+                        
+                        <div class="hero-meta">
+                            {%- if page.hero_meta_1 -%}<div class="meta-item">{{ page.hero_meta_1 }}</div>{%- endif -%}
+                            {%- if page.hero_meta_2 -%}<div class="meta-item">{{ page.hero_meta_2 }}</div>{%- endif -%}
+                            {%- if page.hero_meta_3 -%}<div class="meta-item">{{ page.hero_meta_3 }}</div>{%- endif -%}
+                        </div>
+
+                        <div class="hero-cta">
+                            {%- if page.hero_cta_primary_text -%}
+                                <a href="{{ page.hero_cta_primary_url | relative_url }}" class="btn btn--primary btn--lg">{{ page.hero_cta_primary_text }}</a>
+                            {%- endif -%}
+                            {%- if page.hero_cta_secondary_text -%}
+                                <a href="{{ page.hero_cta_secondary_url | relative_url }}" class="btn btn--inverse-outline btn--lg">{{ page.hero_cta_secondary_text }}</a>
+                            {%- endif -%}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="hero-lms-col">
-                <div class="hero-visual">
-                   <img src="/assets/crm-analytics-hero.svg">
-                  
+                <div class="hero-lms-col">
+                    <div class="hero-visual">
+                        {%- comment -%}
+                            Directly including the SVG to allow CSS to target it for animation.
+                            Ensure your SVG is at `_includes/crm-analytics-hero.svg` or adjust the path.
+                            Inside your SVG, add classes like .svg-fade-in or .svg-slide-up and IDs
+                            like #element-1, #element-2 to the groups/paths you want to animate.
+                        {%- endcomment -%}
+                        <img src="/assets/crm-analytics-hero.svg">
+                    </div>
                 </div>
-            </div>
-         </div>
-    </div>
-</section>
-   
+             </div>
+        </div>
+    </section>
 
 {%- elsif page.layout == 'post' -%}
     <!-- ============================================
        2. POST LAYOUT HERO
     ============================================ -->
     <section class="hero-banner hero-banner--post">
-        <div class="container">
-            <nav class="breadcrumbs">
-                <a href="{{ "/" | relative_url }}">Home</a><span>&rsaquo;</span>
-                <a href="/blog/">Blog</a><span>&rsaquo;</span>
-                <span>{{ page.title }}</span>
-            </nav>
+        <div class="hero-container">
+            {%- comment -%} You can add breadcrumbs here if you have a breadcrumb include file {%- endcomment -%}
             <h1>{{ page.title }}</h1>
             <div class="post-meta">
                 <div class="meta-item">
@@ -81,7 +83,7 @@
        3. GENERIC / DEFAULT HERO
     ============================================ -->
     <section class="hero-banner hero-banner--generic">
-        <div class="container">
+        <div class="hero-container">
             <h1>{{ page.title | default: "Page" }}</h1>
             {%- if page.subtitle -%}
                 <p class="generic-subtitle">{{ page.subtitle }}</p>
@@ -89,13 +91,3 @@
         </div>
     </section>
 {%- endif -%}
-
-<!-- <div class="hero-banner">
-    <div class="hero-content">
-        <div class="hero-text">
-            <p class="tableau-logo"><span>++</span>+ a b l e a u</p>
-            <h1>TABLEAU CRM<br>TRAINING</h1>
-        </div>
-    </div>
-    <img src="https://i.ibb.co/L5rK5Y5/einstein-character.png" alt="Einstein character" class="hero-character">
-</div> -->

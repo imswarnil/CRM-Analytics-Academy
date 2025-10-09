@@ -1,5 +1,5 @@
 /* ============================================
-   HERO COMPONENT (Complete)
+   HERO COMPONENT (Complete & Corrected)
 ============================================ */
 
 /* --- 1. Base Container (Used by all heroes) --- */
@@ -12,7 +12,7 @@
     z-index: 1;
 }
 
-/* --- 2. Base Banner (Shared styles for all hero types) --- */
+/* --- 2. Base Banner (Shared styles) --- */
 .hero-banner {
     position: relative;
     overflow: hidden;
@@ -25,6 +25,41 @@
 .hero-banner--lms {
     background-color: var(--docs-hero-bg);
     
+    /* Bubble 1: Top Right (Hardcoded for LMS hero) */
+    &::before {
+        content: '';
+        position: absolute;
+        background-color: var(--docs-hero-accent);
+        mix-blend-mode: multiply;
+        border-radius: 50%;
+        z-index: 0;
+        width: 280px; height: 280px;
+        top: -140px; right: -120px;
+        opacity: 0.6;
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    /* Bubble 2: Bottom Right (Hardcoded for LMS hero) */
+    &::after {
+        content: '';
+        position: absolute;
+        background-color: var(--docs-primary);
+        mix-blend-mode: multiply;
+        border-radius: 50%;
+        z-index: 0;
+        width: 180px; height: 180px;
+        bottom: -90px; right: 40px;
+        opacity: 0.4;
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* Hover effect for bubbles */
+    &:hover {
+        &::before, &::after {
+            transform: scale(1.1);
+        }
+    }
+
     .hero-lms-grid {
         display: flex;
         flex-wrap: wrap;
@@ -59,7 +94,7 @@
         font-weight: 800;
         line-height: 1.1;
         letter-spacing: -0.02em;
-        text-wrap: balance; /* Improves headline wrapping */
+        text-wrap: balance;
     }
     
     .hero-subtitle {
@@ -69,7 +104,7 @@
         opacity: 0.9;
         line-height: 1.6;
         max-width: 50ch;
-        text-wrap: pretty; /* Improves paragraph wrapping */
+        text-wrap: pretty;
     }
 
     .hero-meta {
@@ -86,9 +121,7 @@
             font-weight: 500;
             color: var(--docs-hero-foreground);
             
-            i {
-                font-size: 1.25rem;
-            }
+            i { font-size: 1.25rem; }
         }
     }
     
@@ -128,16 +161,11 @@
     }
     
     @keyframes svg-fade-in { to { opacity: 1; } }
-    @keyframes svg-slide-up {
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
+    @keyframes svg-slide-up { to { transform: translateY(0); opacity: 1; } }
 }
 
 
-/* --- 4. POST HERO Variation --- */
+/* --- 4. POST HERO Variation (Clean Background) --- */
 .hero-banner--post {
     padding: 3rem 0;
     background-color: var(--docs-secondary);
@@ -186,7 +214,7 @@
 }
 
 
-/* --- 5. GENERIC HERO Variation --- */
+/* --- 5. GENERIC HERO Variation (Clean Background) --- */
 .hero-banner--generic {
     padding: 3rem 0;
     text-align: center;
@@ -205,51 +233,5 @@
         margin-left: auto;
         margin-right: auto;
         text-wrap: pretty;
-    }
-}
-
-
-/* --- 6. DYNAMIC BLENDED BUBBLE BACKGROUNDS --- */
-.hero-banner {
-    /* Bubble 1 (::before) */
-    &::before {
-        content: '';
-        position: absolute;
-        background-color: var(--docs-hero-accent); /* Main bubble color */
-        border-radius: 50%;
-        z-index: 0;
-        opacity: 0; /* Hidden by default, activated by modifier */
-        mix-blend-mode: multiply; /* Creates beautiful color blending */
-        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-    /* Bubble 2 (::after) */
-    &::after {
-        content: '';
-        position: absolute;
-        background-color: var(--docs-primary); /* DIFFERENT color for second bubble */
-        border-radius: 50%;
-        z-index: 0;
-        opacity: 0; /* Hidden by default */
-        mix-blend-mode: multiply; /* Creates beautiful color blending */
-        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-    
-    /* Modifier class to activate and position bubbles */
-    &--bubbles-right::before {
-        width: 280px; height: 280px;
-        top: -140px; right: -120px;
-        opacity: 0.6;
-    }
-    &--bubbles-right::after {
-        width: 120px; height: 120px;
-        top: 80px; right: 60px;
-        opacity: 0.4;
-    }
-
-    /* Optional: subtle hover effect */
-    &:hover {
-        &::before, &::after {
-            transform: scale(1.1);
-        }
     }
 }
