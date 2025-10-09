@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
-  {% include headsense %}
+  {% include head.html %}
   <body>
     <div class="page-wrapper">
       {% include header.html %}
       {% include left-sidebar.html %}
         <div class="main-content-area">
+            {% include adsense.html
+                type="leaderboard"
+                align="center"
+                ratio="1x1"
+                ratio_mobile="3x2"
+                bordered=true
+                muted=true %}
          {% include hero.html %}
          <main class="content-wrapper">
             {{content}}
