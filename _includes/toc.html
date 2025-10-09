@@ -1,81 +1,79 @@
-{% capture tocWorkspace %}
-    {% comment %}
-        Version 1.0.8
-          https://github.com/allejo/jekyll-toc
-    {% endcomment %}
+{% comment %}
+  Clean TOC → matches your example sidebar markup
+  - Renders: <aside class="sidebar-right"> … </aside>
+  - Title from include.contents_title (defaults to "On This Page")
+  - Links: flat list of anchors inside .desktop-toc-container
+  - Supports h_min / h_max (e.g., h2–h3)
+  - Optional: include.edit_url to show "Edit this page" row
+  - Optional: include.show_ad (true/false) to show the 250x250 ad box
+  - Adds .toc-link and level classes (e.g., level-2 / level-3) for styling/indent
+{% endcomment %}
 
-    {% capture my_toc %}{% endcapture %}
-    {% assign orderedList = include.ordered | default: false %}
-    {% assign minHeader = include.h_min | default: 1 %}
-    {% assign maxHeader = include.h_max | default: 6 %}
-    {% assign nodes = include.html | split: '<h' %}
-    {% assign firstHeader = true %}
+{%- assign orderedList = include.ordered | default: false -%}
+{%- assign minHeader = include.h_min | default: 1 -%}
+{%- assign maxHeader = include.h_max | default: 6 -%}
+{%- assign nodes = include.html | split: '<h' -%}
+{%- assign firstHeader = true -%}
+{%- capture contents_title -%}{{ include.contents_title | default: 'On This Page' }}{%- endcapture -%}
 
-    {% capture listModifier %}{% if orderedList %}1.{% else %}-{% endif %}{% endcapture %}
+{%- capture toc_links -%}{%- endcapture -%}
 
-    {% for node in nodes %}
-        {% if node == "" %}
-            {% continue %}
-        {% endif %}
+{%- for node in nodes -%}
+  {%- if node == "" -%}{% continue %}{%- endif -%}
 
-        {% assign headerLevel = node | replace: '"', '' | slice: 0, 1 | times: 1 %}
+  {%- assign headerLevel = node | replace: '"','' | slice: 0, 1 | times: 1 -%}
+  {%- if headerLevel < minHeader or headerLevel > maxHeader -%}{% continue %}{%- endif -%}
 
-        {% if headerLevel < minHeader or headerLevel > maxHeader %}
-            {% continue %}
-        {% endif %}
+  {%- if firstHeader -%}
+    {%- assign firstHeader = false -%}
+    {%- assign minHeader = headerLevel -%}
+  {%- endif -%}
 
-        {% if firstHeader %}
-            {% assign firstHeader = false %}
-            {% assign minHeader = headerLevel %}
-        {% endif %}
+  {%- assign _workspace = node | split: '</h' -%}
 
-        {% assign indentAmount = headerLevel | minus: minHeader %}
-        {% assign _workspace = node | split: '</h' %}
+  {%- comment %} id="" extraction {% endcomment -%}
+  {%- assign _idWorkspace = _workspace[0] | split: 'id="' -%}
+  {%- assign _idWorkspace = _idWorkspace[1] | split: '"' -%}
+  {%- assign html_id = _idWorkspace[0] -%}
 
-        {% assign _idWorkspace = _workspace[0] | split: 'id="' %}
-        {% assign _idWorkspace = _idWorkspace[1] | split: '"' %}
-        {% assign html_id = _idWorkspace[0] %}
+  {%- comment %} class="" extraction (to skip .no_toc) {% endcomment -%}
+  {%- assign _classWorkspace = _workspace[0] | split: 'class="' -%}
+  {%- assign _classWorkspace = _classWorkspace[1] | split: '"' -%}
+  {%- assign html_class = _classWorkspace[0] -%}
+  {%- if html_class contains "no_toc" -%}{% continue %}{%- endif -%}
 
-        {% assign _classWorkspace = _workspace[0] | split: 'class="' %}
-        {% assign _classWorkspace = _classWorkspace[1] | split: '"' %}
-        {% assign html_class = _classWorkspace[0] %}
+  {%- comment %} strip the tag + attrs to get heading inner HTML {% endcomment -%}
+  {%- capture _hAttrToStrip -%}{{ _workspace[0] | split: '>' | first }}>{%- endcapture -%}
+  {%- assign header_html = _workspace[0] | replace: _hAttrToStrip, '' -%}
 
-        {% if html_class contains "no_toc" %}
-            {% continue %}
-        {% endif %}
+  {%- capture heading_body -%}
+    {%- if include.sanitize -%}{{ header_html | strip_html }}{%- else -%}{{ header_html }}{%- endif -%}
+  {%- endcapture -%}
 
-        {% capture _hAttrToStrip %}{{ _workspace[0] | split: '>' | first }}>{% endcapture %}
-        {% assign header = _workspace[0] | replace: _hAttrToStrip, '' %}
+  {%- capture toc_links -%}
+    {{ toc_links }}
+    <a href="#{{ html_id }}" class="toc-link level-{{ headerLevel }}">{{ heading_body | replace: "|", "\|" }}</a>
+  {%- endcapture -%}
+{%- endfor -%}
 
-        {% assign space = '' %}
-        {% for i in (1..indentAmount) %}
-            {% assign space = space | prepend: '    ' %}
-        {% endfor %}
+<aside class="sidebar-right">
+  <h3>{{ contents_title }}</h3>
 
-        {% unless include.item_class == blank %}
-            {% capture listItemClass %}{:.{{ include.item_class | replace: '%level%', headerLevel }}}{% endcapture %}
-        {% endunless %}
+  <div class="desktop-toc-container">
+    {{ toc_links | strip }}
+  </div>
 
-        {% capture heading_body %}{% if include.sanitize %}{{ header | strip_html }}{% else %}{{ header }}{% endif %}{% endcapture %}
-        {% capture my_toc %}{{ my_toc }}
-{{ space }}{{ listModifier }} {{ listItemClass }} [{{ heading_body | replace: "|", "\|" }}]({% if include.baseurl %}{{ include.baseurl }}{% endif %}#{{ html_id }}){% if include.anchor_class %}{:.{{ include.anchor_class }}}{% endif %}{% endcapture %}
-    {% endfor %}
+  {%- if include.edit_url and include.edit_url != '' -%}
+  <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--docs-border);">
+    <a href="{{ include.edit_url }}" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem; font-size:0.875rem; color:var(--docs-muted-foreground);">
+      <i class="ph-duotone ph-pencil-simple"></i>Edit this page
+    </a>
+  </div>
+  {%- endif -%}
 
-    {% if include.class %}
-        {% capture my_toc %}{:.{{ include.class }}}
-{{ my_toc | lstrip }}{% endcapture %}
-    {% endif %}
-
-    {% if include.id %}
-        {% capture my_toc %}{: #{{ include.id }}}
-{{ my_toc | lstrip }}{% endcapture %}
-    {% endif %}
-{% endcapture -%}
-{%- assign tocWorkspace = '' %}
-
-<div class="contents">
-    <div class="menu">
-        <p class="menu-label">{{ include.contents_title }}</p>
-        {{ my_toc | markdownify | strip }}
-    </div>
-</div>
+  {%- if include.show_ad -%}
+  <div style="height:250px; margin-top:2rem; display:flex; align-items:center; justify-content:center; background:var(--docs-muted); border:1px dashed var(--docs-border); color:var(--docs-muted-foreground); font-size:0.8rem; border-radius:var(--docs-radius);">
+    Square Ad (250x250)
+  </div>
+  {%- endif -%}
+</aside>
