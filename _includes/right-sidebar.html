@@ -1,9 +1,9 @@
 <aside class="sidebar-right">
-{% assign contentsTitle = page.toc_title | default: 'Contents' %}
+{% assign contentsTitle = page.toc_title | default: 'On This Page' %}
 {% include toc.html html=content class='menu-list' h_min=2 h_max=3 contents_title=contentsTitle %}
     <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--docs-border);">
         <a href="#" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem; font-size: 0.875rem; color: var(--docs-muted-foreground);"><i class="ph-duotone ph-pencil-simple"></i>Edit this page</a>
     </div>
-    <div style="height:250px; margin-top: 2rem; display:flex; align-items:center; justify-content:center; background:var(--docs-muted); border:1px dashed var(--docs-border); color:var(--docs-muted-foreground); font-size:0.8rem; border-radius:var(--docs-radius);">Square Ad (250x250)</div>
+    {% include adsense.html type="square" %}
 </aside>
 
