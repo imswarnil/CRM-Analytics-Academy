@@ -1,89 +1,95 @@
-/* ============================================
-   AdSense Component Styles (adsense.scss)
-============================================ */
-
+/* ===========================
+   AD BLOCK (theme-styled)
+=========================== */
 .ad {
-  // A general container for ad units to provide spacing and a subtle background.
+  --ad-radius: var(--docs-radius, 0.75rem);
+  --ad-border: var(--docs-border, hsl(210 30% 90%));
+  --ad-muted: var(--docs-muted, hsl(210 50% 96%));
+  --ad-muted-foreground: var(--docs-muted-foreground, hsl(214 20% 55%));
+  --ad-foreground: var(--docs-foreground, hsl(215 100% 15%));
+  --ad-bg: var(--docs-card, #fff);
+
   position: relative;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: var(--docs-muted);
-  border-radius: var(--docs-radius);
-  border: 1px dashed var(--docs-border);
-  min-height: 100px;
-  display: flex;
-  flex-direction: column;
+  margin: 1.5rem 0;
+  padding: 0.75rem;
+  border-radius: var(--ad-radius);
+  background: var(--ad-bg);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ad--bordered {
+  border: 1px solid var(--ad-border);
+}
+.ad--muted {
+  background: var(--ad-muted);
+}
+
+.ad__label {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: .4rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ad-muted-foreground);
+  border: 1px solid var(--ad-border);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ad-bg) 80%, var(--ad-border));
+  width: max-content;
+}
+
+/* Alignment helpers */
+.ad--align-center { text-align: center; }
+.ad--align-left   { text-align: left; }
+.ad--align-right  { text-align: right; }
+
+/* CLS guard: reserve space with aspect-ratio on the slot wrapper
+   We *don’t* force the <ins>; we size the wrapper and let auto formats fill it. */
+.ad__slot {
+  border-radius: calc(var(--ad-radius) - 2px);
   overflow: hidden;
-
-  // The "Advertisement" label.
-  &__label {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--docs-muted-foreground);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.75rem;
-  }
+  display: grid;
+  place-items: center;
+  /* Default safety min-height in case aspect-ratio is overridden later */
+  min-height: 120px;
 }
 
-// Ensure the AdSense element fills its container.
-.adsbygoogle {
-  width: 100%;
-  height: 100%;
-  min-height: 90px; // Default min-height for horizontal ads.
+/* Aspect ratio presets (desktop default) */
+.ad--ratio-1x1    .ad__slot { aspect-ratio: 1 / 1; }
+.ad--ratio-3x2    .ad__slot { aspect-ratio: 3 / 2; }
+.ad--ratio-4x1    .ad__slot { aspect-ratio: 4 / 1; }
+.ad--ratio-16x9   .ad__slot { aspect-ratio: 16 / 9; }
+.ad--ratio-9x16   .ad__slot { aspect-ratio: 9 / 16; }
+
+/* Device overrides:
+   -mobile applies under 640px
+   -tablet applies 640–1024px (tweak as you like) */
+@media (max-width: 639.98px) {
+  [class*="ad--ratio-mobile-1x1"]  .ad__slot { aspect-ratio: 1 / 1; }
+  [class*="ad--ratio-mobile-3x2"]  .ad__slot { aspect-ratio: 3 / 2; }
+  [class*="ad--ratio-mobile-4x1"]  .ad__slot { aspect-ratio: 4 / 1; }
+  [class*="ad--ratio-mobile-16x9"] .ad__slot { aspect-ratio: 16 / 9; }
+  [class*="ad--ratio-mobile-9x16"] .ad__slot { aspect-ratio: 9 / 16; }
 }
 
-.square
-{  max-width: 250px;
-    max-height: 250px;
-    height: 250px;
-    width: 250px;
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  [class*="ad--ratio-tablet-1x1"]  .ad__slot { aspect-ratio: 1 / 1; }
+  [class*="ad--ratio-tablet-3x2"]  .ad__slot { aspect-ratio: 3 / 2; }
+  [class*="ad--ratio-tablet-4x1"]  .ad__slot { aspect-ratio: 4 / 1; }
+  [class*="ad--ratio-tablet-16x9"] .ad__slot { aspect-ratio: 16 / 9; }
+  [class*="ad--ratio-tablet-9x16"] .ad__slot { aspect-ratio: 9 / 16; }
 }
 
-/* --- Specific Ad Type Adjustments --- */
-
-// For the square ad in the sidebar.
-// Remove extra margin/padding as the sidebar already has it.
-.sidebar-right .ad--square {
-  margin: 0;
-  padding: 0.5rem;
-  min-height: 250px;
+/* Subtle chrome so it blends with your docs theme */
+.ad__slot {
+  background: color-mix(in oklab, var(--ad-bg) 88%, var(--ad-border));
+  border: 1px dashed color-mix(in oklab, var(--ad-border) 80%, transparent);
 }
 
-// For the vertical ads in the skyscrapers.
-.skyscraper-ad-left,
-.skyscraper-ad-right {
-  padding: 1rem;
-  .adsbygoogle {
-    min-height: 600px;
-  }
-}
-
-// For the In-Feed ad, make it look like one of the other cards.
-.related-tutorials-grid .ad--feed-item {
-  // Inherit card styles but override ad-specific styles.
-  margin: 0; 
-  padding: 0;
-  border: none;
-  background-color: transparent;
-
-  // The ad itself will be wrapped in a card-like structure.
-  .ad {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    border-style: solid;
-    transition: all var(--docs-transition-speed);
-    
-    &:hover {
-      border-color: var(--docs-primary);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px hsla(212, 100%, 32%, 0.08);
-    }
-  }
+/* Dark mode nudge */
+html.dark .ad__slot {
+  background: color-mix(in oklab, var(--ad-bg) 92%, var(--ad-border));
+  border-color: color-mix(in oklab, var(--ad-border) 70%, transparent);
 }
