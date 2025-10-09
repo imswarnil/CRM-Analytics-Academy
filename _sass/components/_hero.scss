@@ -1,5 +1,5 @@
 /* ============================================
-   HERO COMPONENT
+   HERO COMPONENT (Complete)
 ============================================ */
 
 /* --- 1. Base Container (Used by all heroes) --- */
@@ -59,6 +59,7 @@
         font-weight: 800;
         line-height: 1.1;
         letter-spacing: -0.02em;
+        text-wrap: balance; /* Improves headline wrapping */
     }
     
     .hero-subtitle {
@@ -68,6 +69,7 @@
         opacity: 0.9;
         line-height: 1.6;
         max-width: 50ch;
+        text-wrap: pretty; /* Improves paragraph wrapping */
     }
 
     .hero-meta {
@@ -104,43 +106,33 @@
             margin-top: 0;
         }
 
-        img {
+        /* SVG Animation */
+        svg {
             width: 100%;
-            border-radius: var(--docs-radius);
-            box-shadow: 0 20px 40px -15px hsla(212, 50%, 30%, 0.3);
+            height: auto;
+            .svg-fade-in {
+                opacity: 0;
+                animation: svg-fade-in 0.8s ease-out forwards;
+            }
+            .svg-slide-up {
+                transform: translateY(20px);
+                opacity: 0;
+                animation: svg-slide-up 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            }
+            
+            /* Staggered animation delays */
+            #element-1 { animation-delay: 0.2s; }
+            #element-2 { animation-delay: 0.4s; }
+            #element-3 { animation-delay: 0.6s; }
         }
     }
     
-    .video-play-button {
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80px; height: 80px;
-        background-color: hsla(0, 0%, 100%, 0.8);
-        backdrop-filter: blur(10px);
-        border: none;
-        border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0.5);
-        animation: pulse 2s infinite;
-
-        i {
-            font-size: 2.5rem;
-            color: var(--docs-primary);
+    @keyframes svg-fade-in { to { opacity: 1; } }
+    @keyframes svg-slide-up {
+        to {
+            transform: translateY(0);
+            opacity: 1;
         }
-
-        &:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            animation: none;
-        }
-    }
-
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0.5); }
-        70% { box-shadow: 0 0 0 20px hsla(0, 0%, 100%, 0); }
-        100% { box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0); }
     }
 }
 
@@ -154,15 +146,22 @@
         font-size: clamp(2rem, 6vw, 3rem);
         font-weight: 800;
         margin-top: 1rem;
+        text-wrap: balance;
     }
     
     .post-meta {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem 1.5rem;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
         color: var(--docs-muted-foreground);
         font-size: 0.9rem;
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
     }
     
     .breadcrumbs {
@@ -172,7 +171,17 @@
         font-size: 0.875rem;
         color: var(--docs-muted-foreground);
         flex-wrap: wrap;
-        a:hover { text-decoration: underline; }
+        
+        a {
+            color: var(--docs-muted-foreground);
+            &:hover { 
+                color: var(--docs-primary);
+                text-decoration: underline; 
+            }
+        }
+        span {
+            color: var(--docs-border);
+        }
     }
 }
 
@@ -185,6 +194,7 @@
     h1 {
         font-size: clamp(2rem, 6vw, 3rem);
         font-weight: 800;
+        text-wrap: balance;
     }
     
     .generic-subtitle {
@@ -194,51 +204,52 @@
         max-width: 60ch;
         margin-left: auto;
         margin-right: auto;
+        text-wrap: pretty;
     }
 }
 
 
-/* --- 6. DYNAMIC BUBBLE BACKGROUNDS --- */
+/* --- 6. DYNAMIC BLENDED BUBBLE BACKGROUNDS --- */
 .hero-banner {
-    &::before, &::after {
+    /* Bubble 1 (::before) */
+    &::before {
         content: '';
         position: absolute;
-        background-color: var(--docs-hero-accent);
+        background-color: var(--docs-hero-accent); /* Main bubble color */
+        border-radius: 50%;
+        z-index: 0;
+        opacity: 0; /* Hidden by default, activated by modifier */
+        mix-blend-mode: multiply; /* Creates beautiful color blending */
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    /* Bubble 2 (::after) */
+    &::after {
+        content: '';
+        position: absolute;
+        background-color: var(--docs-primary); /* DIFFERENT color for second bubble */
         border-radius: 50%;
         z-index: 0;
         opacity: 0; /* Hidden by default */
+        mix-blend-mode: multiply; /* Creates beautiful color blending */
         transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
     
-    /* V1: Top-Right (Recommended) */
-    &--bubbles-top-right::before { width: 280px; height: 280px; top: -140px; right: -120px; opacity: 0.8; }
-    &--bubbles-top-right::after { width: 120px; height: 120px; top: 80px; right: 60px; opacity: 0.6; }
+    /* Modifier class to activate and position bubbles */
+    &--bubbles-right::before {
+        width: 280px; height: 280px;
+        top: -140px; right: -120px;
+        opacity: 0.6;
+    }
+    &--bubbles-right::after {
+        width: 120px; height: 120px;
+        top: 80px; right: 60px;
+        opacity: 0.4;
+    }
 
-    /* V2: Bottom-Right */
-    &--bubbles-bottom-right::before { width: 320px; height: 320px; bottom: -180px; right: -150px; opacity: 0.8; }
-    &--bubbles-bottom-right::after { width: 150px; height: 150px; bottom: 40px; right: 40px; opacity: 0.5; }
-
-    /* V3: Center-Right */
-    &--bubbles-center-right::before { width: 250px; height: 250px; top: 50%; transform: translateY(-50%); right: -150px; opacity: 0.8; }
-    &--bubbles-center-right::after { width: 100px; height: 100px; top: 60%; right: 50px; opacity: 0.7; }
-
-    /* V4: Full-Right */
-    &--bubbles-full-right::before { width: 200px; height: 200px; top: -80px; right: -80px; opacity: 0.8; }
-    &--bubbles-full-right::after { width: 220px; height: 220px; bottom: -100px; right: -50px; opacity: 0.7; }
-
-    /* V5: Stacked-Right */
-    &--bubbles-stacked-right::before { width: 200px; height: 200px; bottom: -80px; right: -80px; opacity: 0.9; }
-    &--bubbles-stacked-right::after { width: 300px; height: 300px; bottom: -120px; right: -120px; opacity: 0.5; }
-    
-    /* V6: Float-Right */
-    &--bubbles-float-right::before { width: 100px; height: 100px; top: 15%; right: 20%; opacity: 0.6; }
-    &--bubbles-float-right::after { width: 200px; height: 200px; bottom: 10%; right: 5%; opacity: 0.7; }
-
-    /* Hover effect for bubbles */
+    /* Optional: subtle hover effect */
     &:hover {
         &::before, &::after {
             transform: scale(1.1);
-            opacity: 1;
         }
     }
 }
