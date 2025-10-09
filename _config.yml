@@ -145,6 +145,32 @@ navigation_header:
   - title: Elements
     url: /elements/
     icon: squares-four
+  
+# Sidebar Navigation (all control here — no front matter needed)
+sidebar:
+  categories:
+    - name: Getting Started
+      order: 1
+      icon: rocket-launch
+      docs:
+        # key can be a slug (preferred) OR a URL. Title is optional override.
+        - key: what-is-crm-analytics   # resolves to your post’s slug
+          title: Introduction
+          order: 1
+        - key: installation            # another post/page slug
+          order: 2
+
+    - name: Core Concepts
+      order: 2
+      icon: puzzle-piece
+      docs:
+        - key: theming
+          order: 1
+        - key: layout
+          order: 2
+        - key: components
+          order: 3
+
 
 
 navigation_footer:
