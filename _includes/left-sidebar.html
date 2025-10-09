@@ -1,46 +1,27 @@
-{%- capture current_url -%}
-  {{ page.url | relative_url | split:"?" | first | replace:"index.html","" | replace:"//","/" }}
-{%- endcapture -%}
-{%- assign current_url = current_url | strip -%}
-{%- if current_url != "/" and current_url != "" and current_url contains "/" -%}
-  {%- assign current_url = current_url | append:"/" | replace:"//","/" -%}
-{%- endif -%}
-
-<ul class="main-nav">
-  {%- for item in site.navigation_header -%}
-    {%- assign item_url = item.url | relative_url | split:"?" | first | replace:"index.html","" | replace:"//","/" | strip -%}
-    {%- if item_url != "/" and item_url != "" and item_url contains "/" -%}
-      {%- assign item_url = item_url | append:"/" | replace:"//","/" -%}
-    {%- endif -%}
-    <li class="nav-link{% if current_url == item_url %} active{% endif %}">
-      <a href="{{ item.url | relative_url }}">
-        <i class="ph-duotone ph-{{ item.icon | default: 'house' }}"></i>{{ item.title }}
-      </a>
-    </li>
-  {%- endfor -%}
-</ul>
-
-{%- assign grouped = site.posts | group_by_exp: 'p', 'p.categories | first' -%}
-{%- assign clean_groups = "" | split: "" -%}
-{%- for g in grouped -%}
-  {%- if g.name and g.name != "" -%}
-    {%- assign clean_groups = clean_groups | push: g -%}
-  {%- endif -%}
-{%- endfor -%}
-{%- assign clean_groups = clean_groups | sort: 'name' -%}
-
-<ul>
-  {%- for group in clean_groups -%}
-    <li class="nav-category">{{ group.name }}</li>
-    {%- assign items_sorted = group.items | sort: 'date' -%}
-    {%- for post in items_sorted -%}
-      {%- assign post_url = post.url | relative_url | split:"?" | first | replace:"index.html","" | replace:"//","/" | strip -%}
-      {%- if post_url != "/" and post_url != "" and post_url contains "/" -%}
-        {%- assign post_url = post_url | append:"/" | replace:"//","/" -%}
-      {%- endif -%}
-      <li class="nav-link{% if current_url == post_url %} active{% endif %}">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      </li>
-    {%- endfor -%}
-  {%- endfor -%}
-</ul>
+<aside class="sidebar-left" id="sidebar-left">
+  <div class="sidebar-left-content">
+      <nav class="sidebar-nav">
+          <ul class="main-nav">
+              <li class="nav-link"><a href="#"><i class="ph-duotone ph-house"></i>Home</a></li>
+              <li class="nav-link"><a href="#"><i class="ph-duotone ph-books"></i>Courses</a></li>
+          </ul>
+          <ul>
+              <li class="nav-category">Getting Started</li>
+              <li class="nav-link"><a href="#"><i class="ph-duotone ph-rocket-launch"></i>Introduction</a></li>
+              <li class="nav-link"><a href="#"><i class="ph-duotone ph-download-simple"></i>Installation</a></li>
+              <li class="nav-category">Core Concepts</li>
+              <li class="nav-link active"><a href="#"><i class="ph-duotone ph-palette"></i>Theming</a></li>
+              <li class="nav-link"><a href="#"><i class="ph-duotone ph-layout"></i>Layout</a></li>
+              <li class="nav-link"><a href="#"><i class="ph-duotone ph-puzzle-piece"></i>Components</a></li>
+          </ul>
+      </nav>
+      <div class="sponsor-card" style="margin-top: 2rem;">
+          <div style="font-size: 0.7rem; color: var(--docs-muted-foreground);">Ad</div>
+          <div style="font-weight: 600; margin: 0.5rem 0;">Sponsored Training</div>
+          <p style="font-size: 0.875rem; color: var(--docs-muted-foreground); margin: 0;">Learn advanced CRM techniques with our new course.</p>
+      </div>
+  </div>
+  <div class="attribution-card" style="margin-top: 1rem;">
+      <p>Created by <strong>Salesforce Release</strong>.</p>
+  </div>
+</aside>
