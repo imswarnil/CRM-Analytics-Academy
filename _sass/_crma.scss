@@ -196,3 +196,190 @@ pre code { color: var(--docs-foreground); }
 
 
 
+/* ============================================
+   HOMEPAGE STYLES (home.scss)
+============================================ */
+
+// --- 1. General Section & Container Styling ---
+.home-section {
+    padding: 4rem 1.5rem; // Use clamp for fluid padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+    
+    // Add a subtle separator line between sections
+    &:not(:last-child) {
+        border-bottom: 1px solid var(--docs-border);
+    }
+}
+
+.home-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.home-section__title {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.home-section__subtitle {
+    font-size: 1.1rem;
+    color: var(--docs-muted-foreground);
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 3rem auto;
+}
+
+
+// --- 2. Features Section ---
+.home-features__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.home-features__item {
+    background-color: var(--docs-secondary);
+    padding: 2rem;
+    border-radius: var(--docs-radius);
+    
+    i {
+        font-size: 2.5rem;
+        color: var(--docs-primary);
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        color: var(--docs-muted-foreground);
+        line-height: 1.6;
+    }
+}
+
+
+// --- 3. Curriculum Section ---
+.home-curriculum {
+    background-color: var(--docs-secondary);
+}
+
+.home-curriculum__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.home-curriculum__card {
+    background-color: var(--docs-background);
+    padding: 1.5rem;
+    border: 1px solid var(--docs-border);
+    border-radius: var(--docs-radius);
+    text-align: left;
+    transition: all var(--docs-transition-speed) ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        border-color: var(--docs-primary);
+        box-shadow: 0 6px 20px hsla(212, 100%, 32%, 0.1);
+    }
+
+    i {
+        font-size: 1.8rem;
+        color: var(--docs-primary);
+    }
+
+    h4 {
+        font-size: 1.1rem;
+        margin: 0.75rem 0 0.25rem;
+    }
+    
+    p {
+        font-size: 0.9rem;
+        color: var(--docs-muted-foreground);
+    }
+}
+
+
+// --- 4. Testimonials Section ---
+.home-testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.home-testimonial {
+    background-color: var(--docs-secondary);
+    padding: 2rem;
+    border-radius: var(--docs-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &__avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid var(--docs-background);
+        box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.1);
+        margin-bottom: 1rem;
+    }
+
+    blockquote {
+        font-size: 1.1rem;
+        font-style: italic;
+        color: var(--docs-foreground);
+        border: none;
+        padding: 0;
+        margin: 0 0 1rem 0;
+    }
+
+    cite {
+        font-style: normal;
+    }
+
+    &__name {
+        display: block;
+        font-weight: 600;
+    }
+
+    &__role {
+        font-size: 0.9rem;
+        color: var(--docs-muted-foreground);
+    }
+}
+
+
+// --- 5. FAQ Section ---
+.home-faq__accordion {
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+
+// --- 6. Final CTA Section ---
+.home-cta {
+    background-color: var(--docs-secondary);
+    text-align: center;
+    border-bottom: none; // Remove the border from the last section
+
+    &__title {
+        font-size: clamp(2rem, 6vw, 2.8rem);
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        color: var(--docs-muted-foreground);
+        margin-bottom: 2rem;
+    }
+}
