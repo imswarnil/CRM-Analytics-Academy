@@ -61,21 +61,13 @@ TOC → Right Sidebar (JS-friendly)
 
   <!-- Visible container your JS will fill -->
   <div class="desktop-toc-container">
-    {% include ad.html type="square" %}
+    {% include adsense.html type="square" %}
   </div>
 
   <!-- Hidden source for your scrollspy script -->
   <div id="toc-source" style="display:none;">
     {{ toc_links | strip }}
   </div>
-
-  {%- if include.edit_url and include.edit_url != '' -%}
-    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--docs-border);">
-      <a href="{{ include.edit_url }}" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem; font-size:0.875rem; color:var(--docs-muted-foreground);">
-        <i class="ph-duotone ph-pencil-simple"></i>Edit this page
-      </a>
-    </div>
-  {%- endif -%}
 
 <script>
     // ============================================
