@@ -145,144 +145,7 @@
         <a href="#media-elements">Responsive Media</a>
     </div>
 
-    <script>
-        (function() {
-            document.addEventListener('DOMContentLoaded', function () {
-                
-                // ============================================
-                // MODULE: COPY CODE BUTTON
-                // ============================================
-                // ... (Your existing copy code button logic remains here) ...
-        
-                // ============================================
-                // MODULE: TABLE OF CONTENTS & SCROLLSPY
-                // ============================================
-                // ... (Your existing scrollspy logic remains here) ...
-        
-                // ============================================
-                // MODULE: MOBILE SIDENAV
-                // ============================================
-                // ... (Your existing mobile sidenav logic remains here) ...
-        
-                // ============================================
-                // MODULE: DARK MODE THEME TOGGLE
-                // ============================================
-                // ... (Your existing dark mode logic remains here) ...
-        
-                // ============================================
-                // MODULE: DYNAMIC JEKYLL SEARCH MODAL
-                // ============================================
-                const searchModal = document.getElementById('search-modal');
-                if (searchModal) {
-                    let searchData = [];
-                    const baseurl = "{{ site.baseurl | default: '' }}";
-                    
-                    // --- Fetch the Jekyll-generated search data ---
-                    fetch(`${baseurl}/search.json`)
-                        .then(response => response.json())
-                        .then(data => { searchData = data; })
-                        .catch(error => console.error("Error fetching search data:", error));
-        
-                    const searchTriggers = document.querySelectorAll('#search-trigger, #search-trigger-mobile');
-                    const searchOverlay = searchModal.querySelector('.search-overlay');
-                    const searchInput = document.getElementById('search-input');
-                    const resultsContainer = searchModal.querySelector('.search-results');
-                    let activeResultIndex = -1;
-        
-                    const openSearch = () => {
-                        searchModal.classList.add('is-open');
-                        document.body.classList.add('modal-open');
-                        setTimeout(() => searchInput.focus(), 50);
-                        renderResults('');
-                    };
-        
-                    const closeSearch = () => {
-                        searchModal.classList.remove('is-open');
-                        document.body.classList.remove('modal-open');
-                        searchInput.value = '';
-                    };
-        
-                    const renderResults = (query) => {
-                        const term = query.trim().toLowerCase();
-                        let filtered = [];
-        
-                        if (term.length > 1 && searchData.length > 0) {
-                            filtered = searchData.filter(item => 
-                                item.title.toLowerCase().includes(term) || 
-                                item.content.toLowerCase().includes(term)
-                            );
-                        }
-        
-                        resultsContainer.innerHTML = '';
-                        activeResultIndex = -1;
-        
-                        if (term.length > 1 && filtered.length === 0) {
-                            resultsContainer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--docs-muted-foreground);">No results found.</div>';
-                            return;
-                        }
-        
-                        const ul = document.createElement('ul');
-                        filtered.slice(0, 10).forEach((item, index) => { // Show top 10 results
-                            const li = document.createElement('li');
-                            li.className = 'search-result-item';
-                            li.dataset.index = index;
-                            li.innerHTML = `
-                                <a href="${item.url}">
-                                    <div style="flex-shrink: 0; width: 32px; text-align: center;">
-                                        <i class="ph-duotone ${item.icon}"></i>
-                                    </div>
-                                    <div style="flex-grow: 1; min-width: 0;">
-                                        <div style="font-weight:600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.title}</div>
-                                        <div style="font-size: 0.875rem; color: var(--docs-muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            ${item.content.substring(0, 70)}...
-                                        </div>
-                                    </div>
-                                    <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--docs-muted-foreground); background-color: var(--docs-secondary); padding: 0.1rem 0.4rem; border-radius: 0.25rem;">
-                                        ${item.category}
-                                    </div>
-                                </a>`;
-                            ul.appendChild(li);
-                        });
-                        resultsContainer.appendChild(ul);
-                    };
-                    
-                    const updateActiveResult = (newIndex) => {
-                        const items = resultsContainer.querySelectorAll('.search-result-item');
-                        if (items.length === 0) return;
-                        if (activeResultIndex > -1 && items[activeResultIndex]) items[activeResultIndex].classList.remove('active');
-                        
-                        if (newIndex >= items.length) newIndex = 0;
-                        if (newIndex < 0) newIndex = items.length - 1;
-                        
-                        if (items[newIndex]) {
-                            items[newIndex].classList.add('active');
-                            items[newIndex].scrollIntoView({ block: 'nearest' });
-                        }
-                        activeResultIndex = newIndex;
-                    };
-        
-                    searchTriggers.forEach(trigger => trigger.addEventListener('click', openSearch));
-                    searchOverlay.addEventListener('click', closeSearch);
-                    searchInput.addEventListener('input', () => renderResults(searchInput.value));
-                    
-                    document.addEventListener('keydown', e => {
-                        if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
-                        if (searchModal.classList.contains('is-open')) {
-                            if (e.key === 'Escape') closeSearch();
-                            if (e.key === 'ArrowDown') { e.preventDefault(); updateActiveResult(activeResultIndex + 1); }
-                            if (e.key === 'ArrowUp') { e.preventDefault(); updateActiveResult(activeResultIndex - 1); }
-                            if (e.key === 'Enter') {
-                                const activeLink = resultsContainer.querySelector('.search-result-item.active a');
-                                if (activeLink) activeLink.click();
-                            }
-                        }
-                    });
-                }
-            });
-        })();
-        </script>
-
-<!-- <script>
+<script>
 (function() {
     // ============================================
     // DYNAMIC DATA
@@ -456,7 +319,7 @@
         });
     });
 })();
-</script> -->
+</script>
 
 </body>
 
