@@ -1,237 +1,133 @@
-/* ============================================
-   HERO COMPONENT (Complete & Corrected)
-============================================ */
+<!-- =====================================================================
+     SCSS (save as _sass/components/_hero.scss and import in main .scss)
+======================================================================== -->
 
-/* --- 1. Base Container (Used by all heroes) --- */
+/***** HERO COMPONENT (Complete) *****/
 .hero-container {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    position: relative;
-    z-index: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
-/* --- 2. Base Banner (Shared styles) --- */
 .hero-banner {
-    position: relative;
-    overflow: hidden;
-    border-bottom: 1px solid var(--docs-border);
-    padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--docs-border);
+  padding: 4rem 0;
 }
 
+/* --- Bubbles baseline (off by default; defined in variants) --- */
+.hero-banner::before,
+.hero-banner::after { content: none; }
+.hero-banner--no-bubbles::before,
+.hero-banner--no-bubbles::after { content: none !important; }
 
-/* --- 3. LMS / Home Hero Variation --- */
+/* =============================================================
+   1) LMS / HOME VARIANT
+============================================================= */
 .hero-banner--lms {
-    background-color: var(--docs-hero-bg);
-    
-    /* Bubble 1: Top Right (Hardcoded for LMS hero) */
-    &::before {
-        content: '';
-        position: absolute;
-        background-color: var(--docs-hero-accent);
-        mix-blend-mode: multiply;
-        border-radius: 50%;
-        z-index: 0;
-        width: 280px; height: 280px;
-        top: -140px; right: -120px;
-        opacity: 0.6;
-        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-    
-    /* Bubble 2: Bottom Right (Hardcoded for LMS hero) */
-    &::after {
-        content: '';
-        position: absolute;
-        background-color: var(--docs-primary);
-        mix-blend-mode: multiply;
-        border-radius: 50%;
-        z-index: 0;
-        width: 180px; height: 180px;
-        bottom: -90px; right: 40px;
-        opacity: 0.4;
-        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    }
+  background-color: var(--docs-hero-bg);
 
-    /* Hover effect for bubbles */
-    &:hover {
-        &::before, &::after {
-            transform: scale(1.1);
-        }
-    }
+  /* Bubble 1 */
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: var(--docs-hero-accent);
+    mix-blend-mode: multiply;
+    border-radius: 50%;
+    z-index: 0;
+    width: 280px; height: 280px;
+    top: -140px; left: -120px; /* default left-side */
+    opacity: 0.6;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
 
-    .hero-lms-grid {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        margin: 0 -1.5rem;
-    }
-    
-    .hero-lms-col {
-        width: 100%;
-        padding: 0 1.5rem;
-    }
-    
-    @media (min-width: 992px) {
-        .hero-lms-col {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-    }
+  /* Bubble 2 */
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: var(--docs-primary);
+    mix-blend-mode: multiply;
+    border-radius: 50%;
+    z-index: 0;
+    width: 180px; height: 180px;
+    bottom: -90px; left: 40px; /* default left-side */
+    opacity: 0.4;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
 
-    .tableau-logo {
-        font-size: 1rem;
-        font-weight: 600;
-        letter-spacing: 2px;
-        color: var(--docs-hero-foreground);
-        opacity: 0.9;
-        margin-bottom: 1rem;
-    }
+  &:hover { &::before, &::after { transform: scale(1.08); } }
 
-    h1 {
-        font-size: clamp(2.25rem, 5vw, 3.25rem);
-        color: var(--docs-hero-foreground);
-        font-weight: 800;
-        line-height: 1.1;
-        letter-spacing: -0.02em;
-        text-wrap: balance;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.1rem;
-        margin: 1.5rem 0;
-        color: var(--docs-hero-foreground);
-        opacity: 0.9;
-        line-height: 1.6;
-        max-width: 50ch;
-        text-wrap: pretty;
-    }
+  .hero-lms-grid { display: flex; flex-wrap: wrap; align-items: center; margin: 0 -1.5rem; }
+  .hero-lms-col { width: 100%; padding: 0 1.5rem; }
+  @media (min-width: 992px) { .hero-lms-col { flex: 0 0 50%; max-width: 50%; } }
 
-    .hero-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem 2rem;
-        margin: 2rem 0;
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--docs-hero-foreground);
-            
-            i { font-size: 1.25rem; }
-        }
-    }
-    
-    .hero-cta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
+  .tableau-logo {
+    font-size: 1rem; font-weight: 600; letter-spacing: 2px;
+    color: var(--docs-hero-foreground); opacity: 0.9; margin-bottom: 1rem;
+  }
 
-    .hero-visual {
-        position: relative;
-        margin-top: 3rem;
-        
-        @media (min-width: 992px) {
-            margin-top: 0;
-        }
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    color: var(--docs-hero-foreground);
+    font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; text-wrap: balance;
+  }
 
-        /* SVG Animation */
-        svg {
-            width: 100%;
-            height: auto;
-            .svg-fade-in {
-                opacity: 0;
-                animation: svg-fade-in 0.8s ease-out forwards;
-            }
-            .svg-slide-up {
-                transform: translateY(20px);
-                opacity: 0;
-                animation: svg-slide-up 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            }
-            
-            /* Staggered animation delays */
-            #element-1 { animation-delay: 0.2s; }
-            #element-2 { animation-delay: 0.4s; }
-            #element-3 { animation-delay: 0.6s; }
-        }
-    }
-    
-    @keyframes svg-fade-in { to { opacity: 1; } }
-    @keyframes svg-slide-up { to { transform: translateY(0); opacity: 1; } }
+  .hero-subtitle {
+    font-size: 1.1rem; margin: 1.5rem 0; color: var(--docs-hero-foreground);
+    opacity: 0.9; line-height: 1.6; max-width: 50ch; text-wrap: pretty;
+  }
+
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 2rem 0; }
+  .hero-meta .meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 500; color: var(--docs-hero-foreground); }
+  .hero-meta .meta-item i { font-size: 1.25rem; }
+
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  .hero-visual { position: relative; margin-top: 3rem; }
+  @media (min-width: 992px) { .hero-visual { margin-top: 0; } }
+
+  /* Inline SVG animation hooks */
+  .hero-visual svg { width: 100%; height: auto; }
+  .hero-visual svg .svg-fade-in { opacity: 0; animation: svg-fade-in 0.8s ease-out forwards; }
+  .hero-visual svg .svg-slide-up { transform: translateY(20px); opacity: 0; animation: svg-slide-up 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+  .hero-visual svg #element-1 { animation-delay: 0.2s; }
+  .hero-visual svg #element-2 { animation-delay: 0.4s; }
+  .hero-visual svg #element-3 { animation-delay: 0.6s; }
 }
 
+@keyframes svg-fade-in { to { opacity: 1; } }
+@keyframes svg-slide-up { to { transform: translateY(0); opacity: 1; } }
 
-/* --- 4. POST HERO Variation (Clean Background) --- */
+/* Bubble side modifiers */
+.hero-banner--bubbles-right::before { left: auto; right: -120px; top: -140px; }
+.hero-banner--bubbles-right::after  { left: auto; right: 40px;   bottom: -90px; }
+.hero-banner--bubbles-left::before  { left: -120px; right: auto; top: -140px; }
+.hero-banner--bubbles-left::after   { left: 40px;   right: auto; bottom: -90px; }
+
+/* =============================================================
+   2) POST VARIANT
+============================================================= */
 .hero-banner--post {
-    padding: 3rem 0;
-    background-color: var(--docs-secondary);
-
-    h1 {
-        font-size: clamp(2rem, 6vw, 3rem);
-        font-weight: 800;
-        margin-top: 1rem;
-        text-wrap: balance;
-    }
-    
-    .post-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem 1.5rem;
-        margin-top: 1.5rem;
-        color: var(--docs-muted-foreground);
-        font-size: 0.9rem;
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-    }
-    
-    .breadcrumbs {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.875rem;
-        color: var(--docs-muted-foreground);
-        flex-wrap: wrap;
-        
-        a {
-            color: var(--docs-muted-foreground);
-            &:hover { 
-                color: var(--docs-primary);
-                text-decoration: underline; 
-            }
-        }
-        span {
-            color: var(--docs-border);
-        }
-    }
+  padding: 3rem 0;
+  background-color: var(--docs-secondary);
 }
+.hero-banner--post h1 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; margin-top: 1rem; text-wrap: balance; }
+.hero-banner--post .post-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1.5rem; color: var(--docs-muted-foreground); font-size: 0.9rem; }
+.hero-banner--post .post-meta .meta-item { display: flex; align-items: center; gap: 0.5rem; }
 
+/* Optional breadcrumbs block if included above title */
+.hero-banner--post .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--docs-muted-foreground); flex-wrap: wrap; }
+.hero-banner--post .breadcrumbs a { color: var(--docs-muted-foreground); }
+.hero-banner--post .breadcrumbs a:hover { color: var(--docs-primary); text-decoration: underline; }
+.hero-banner--post .breadcrumbs span { color: var(--docs-border); }
 
-/* --- 5. GENERIC HERO Variation (Clean Background) --- */
-.hero-banner--generic {
-    padding: 3rem 0;
-    text-align: center;
-    
-    h1 {
-        font-size: clamp(2rem, 6vw, 3rem);
-        font-weight: 800;
-        text-wrap: balance;
-    }
-    
-    .generic-subtitle {
-        font-size: 1.1rem;
-        color: var(--docs-muted-foreground);
-        margin-top: 0.5rem;
-        max-width: 60ch;
-        margin-left: auto;
-        margin-right: auto;
-        text-wrap: pretty;
-    }
-}
+/* =============================================================
+   3) GENERIC VARIANT
+============================================================= */
+.hero-banner--generic { padding: 3rem 0; text-align: center; }
+.hero-banner--generic h1 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; text-wrap: balance; }
+.hero-banner--generic .generic-subtitle { font-size: 1.1rem; color: var(--docs-muted-foreground); margin-top: 0.5rem; max-width: 60ch; margin-left: auto; margin-right: auto; text-wrap: pretty; }

@@ -1,93 +1,130 @@
-{%- comment -%}
-    This is a conditional hero component. It changes its appearance based on the page's `layout` front matter.
-    - layout: home      -> Displays a large, interactive marketing hero with an animated SVG.
-    - layout: post      -> Displays a metadata-rich hero for blog posts.
-    - default (any other) -> Displays a simple, clean hero with just a title.
-{%- endcomment -%}
+{% comment %}
+============================================================================
+_includes/hero.html
+Conditional hero component for Jekyll.
+- layout: home  -> Marketing/LMS hero (two-column, bubbles, optional SVG/img)
+- layout: post  -> Post hero (title + metadata + optional breadcrumbs)
+- default       -> Generic hero (centered title + subtitle)
 
+Configuration via page front matter:
+- title: "..."
+- description: "..."                      # used on home
+- subtitle: "..."                         # optional for generic
+- hero_kicker: "++ a b l e a u"           # small label above title (home)
+- hero_meta_1..3: "<i class=...></i> ..." # bullets under description (home)
+- hero_cta_primary_text / hero_cta_primary_url
+- hero_cta_secondary_text / hero_cta_secondary_url
+- hero_visual_svg_include: "crm-analytics-hero.svg"   # file under _includes/ (inline)
+- hero_visual_img: "/assets/crm-analytics-hero.svg"   # external/asset path (img)
+- hero_bubbles: right|left|none                        # bubble placement
+- breadcrumbs_include: "breadcrumbs.html"             # optional include path
+
+Usage: {% include hero.html %}
+============================================================================
+{% endcomment %}
+
+{%- assign bubbles_side = page.hero_bubbles | default: 'right' -%}
+{%- assign hero_classes = 'hero-banner' -%}
 {%- if page.layout == 'home' -%}
-    <!-- ============================================
-       1. HOME LAYOUT HERO
-    ============================================ -->
-    <section class="hero-banner hero-banner--lms">
-        <div class="hero-container">
-             <div class="hero-lms-grid">
-                <div class="hero-lms-col">
-                    <div class="hero-lms-text">
-                        {%- if page.hero_kicker -%}
-                            <p class="tableau-logo">{{ page.hero_kicker }}</p>
-                        {%- endif -%}
-                        <h1>{{ page.title }}</h1>
-                        {%- if page.description -%}
-                            <p class="hero-subtitle">{{ page.description }}</p>
-                        {%- endif -%}
-                        
-                        <div class="hero-meta">
-                            {%- if page.hero_meta_1 -%}<div class="meta-item">{{ page.hero_meta_1 }}</div>{%- endif -%}
-                            {%- if page.hero_meta_2 -%}<div class="meta-item">{{ page.hero_meta_2 }}</div>{%- endif -%}
-                            {%- if page.hero_meta_3 -%}<div class="meta-item">{{ page.hero_meta_3 }}</div>{%- endif -%}
-                        </div>
-
-                        <div class="hero-cta">
-                            {%- if page.hero_cta_primary_text -%}
-                                <a href="{{ page.hero_cta_primary_url | relative_url }}" class="btn btn--primary btn--lg">{{ page.hero_cta_primary_text }}</a>
-                            {%- endif -%}
-                            {%- if page.hero_cta_secondary_text -%}
-                                <a href="{{ page.hero_cta_secondary_url | relative_url }}" class="btn btn--inverse-outline btn--lg">{{ page.hero_cta_secondary_text }}</a>
-                            {%- endif -%}
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-lms-col">
-                    <div class="hero-visual">
-                        {%- comment -%}
-                            Directly including the SVG to allow CSS to target it for animation.
-                            Ensure your SVG is at `_includes/crm-analytics-hero.svg` or adjust the path.
-                            Inside your SVG, add classes like .svg-fade-in or .svg-slide-up and IDs
-                            like #element-1, #element-2 to the groups/paths you want to animate.
-                        {%- endcomment -%}
-                        <img src="/assets/crm-analytics-hero.svg">
-                    </div>
-                </div>
-             </div>
-        </div>
-    </section>
-
+  {%- assign hero_classes = hero_classes | append: ' hero-banner--lms' -%}
 {%- elsif page.layout == 'post' -%}
-    <!-- ============================================
-       2. POST LAYOUT HERO
-    ============================================ -->
-    <section class="hero-banner hero-banner--post">
-        <div class="hero-container">
-            {%- comment -%} You can add breadcrumbs here if you have a breadcrumb include file {%- endcomment -%}
-            <h1>{{ page.title }}</h1>
-            <div class="post-meta">
-                <div class="meta-item">
-                    <i class="ph-duotone ph-user-circle"></i>
-                    <span>{{ page.author | default: site.author }}</span>
-                </div>
-                <div class="meta-item">
-                    <i class="ph-duotone ph-calendar"></i>
-                    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-                </div>
-                <div class="meta-item">
-                    <i class="ph-duotone ph-clock"></i>
-                    <span>{{ page.content | number_of_words | divided_by: 180 | plus: 1 }} min read</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
+  {%- assign hero_classes = hero_classes | append: ' hero-banner--post' -%}
 {%- else -%}
-    <!-- ============================================
-       3. GENERIC / DEFAULT HERO
-    ============================================ -->
-    <section class="hero-banner hero-banner--generic">
-        <div class="hero-container">
-            <h1>{{ page.title | default: "Page" }}</h1>
-            {%- if page.subtitle -%}
-                <p class="generic-subtitle">{{ page.subtitle }}</p>
-            {%- endif -%}
-        </div>
-    </section>
+  {%- assign hero_classes = hero_classes | append: ' hero-banner--generic' -%}
 {%- endif -%}
+{%- if bubbles_side == 'right' -%}
+  {%- assign hero_classes = hero_classes | append: ' hero-banner--bubbles-right' -%}
+{%- elsif bubbles_side == 'left' -%}
+  {%- assign hero_classes = hero_classes | append: ' hero-banner--bubbles-left' -%}
+{%- elsif bubbles_side == 'none' -%}
+  {%- assign hero_classes = hero_classes | append: ' hero-banner--no-bubbles' -%}
+{%- endif -%}
+
+<section class="{{ hero_classes }}" role="region" aria-label="Page hero">
+  <div class="hero-container">
+
+    {%- if page.layout == 'home' -%}
+      <!-- ============================================
+           1) HOME / LMS HERO
+      ============================================ -->
+      <div class="hero-lms-grid">
+        <div class="hero-lms-col">
+          <div class="hero-lms-text">
+            {%- if page.hero_kicker -%}
+              <p class="tableau-logo">{{ page.hero_kicker }}</p>
+            {%- endif -%}
+            <h1>{{ page.title }}</h1>
+            {%- if page.description -%}
+              <p class="hero-subtitle">{{ page.description }}</p>
+            {%- endif -%}
+
+            <div class="hero-meta">
+              {%- if page.hero_meta_1 -%}<div class="meta-item">{{ page.hero_meta_1 }}</div>{%- endif -%}
+              {%- if page.hero_meta_2 -%}<div class="meta-item">{{ page.hero_meta_2 }}</div>{%- endif -%}
+              {%- if page.hero_meta_3 -%}<div class="meta-item">{{ page.hero_meta_3 }}</div>{%- endif -%}
+            </div>
+
+            <div class="hero-cta">
+              {%- if page.hero_cta_primary_text and page.hero_cta_primary_url -%}
+                <a href="{{ page.hero_cta_primary_url | relative_url }}" class="btn btn--primary btn--lg">{{ page.hero_cta_primary_text }}</a>
+              {%- endif -%}
+              {%- if page.hero_cta_secondary_text and page.hero_cta_secondary_url -%}
+                <a href="{{ page.hero_cta_secondary_url | relative_url }}" class="btn btn--inverse-outline btn--lg">{{ page.hero_cta_secondary_text }}</a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+        <div class="hero-lms-col">
+          <div class="hero-visual">
+            {%- comment -%}
+              Prefer inline SVG so we can animate nodes via CSS.
+              If hero_visual_svg_include is set, we'll inline it from _includes/.
+              Otherwise fall back to hero_visual_img path.
+            {%- endcomment -%}
+            {%- if page.hero_visual_svg_include -%}
+              {%- include {{ page.hero_visual_svg_include }} -%}
+            {%- elsif page.hero_visual_img -%}
+              <img src="{{ page.hero_visual_img | relative_url }}" alt="Hero visual" loading="eager" decoding="async">
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+    {%- elsif page.layout == 'post' -%}
+      <!-- ============================================
+           2) POST HERO
+      ============================================ -->
+      {%- if page.breadcrumbs_include -%}
+        {%- include {{ page.breadcrumbs_include }} -%}
+      {%- endif -%}
+
+      <h1>{{ page.title }}</h1>
+      <div class="post-meta">
+        <div class="meta-item">
+          <i class="ph-duotone ph-user-circle" aria-hidden="true"></i>
+          <span>{{ page.author | default: site.author }}</span>
+        </div>
+        <div class="meta-item">
+          <i class="ph-duotone ph-calendar" aria-hidden="true"></i>
+          <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+        </div>
+        <div class="meta-item">
+          <i class="ph-duotone ph-clock" aria-hidden="true"></i>
+          <span>{{ page.content | number_of_words | divided_by: 180 | plus: 1 }} min read</span>
+        </div>
+      </div>
+
+    {%- else -%}
+      <!-- ============================================
+           3) GENERIC / DEFAULT HERO
+      ============================================ -->
+      <h1>{{ page.title | default: "Page" }}</h1>
+      {%- if page.subtitle -%}
+        <p class="generic-subtitle">{{ page.subtitle }}</p>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</section>
+
+
