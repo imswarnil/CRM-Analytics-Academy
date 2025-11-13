@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import { Analytics } from '@vercel/analytics/nuxt'
 const colorMode = useColorMode()
-
 const color = computed(() => colorMode.value === 'dark' ? '#020618' : 'white')
-
 useHead({
   meta: [
     { charset: 'utf-8' },
@@ -59,6 +58,7 @@ provide('navigation', navigation)
 </script>
 
 <template>
+    <Analytics/>
   <UApp>
     <NuxtLoadingIndicator />
 
