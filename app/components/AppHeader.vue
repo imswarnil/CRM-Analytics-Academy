@@ -33,6 +33,7 @@ const items = computed(() => [{
 
     <template #right>
       <UColorModeButton />
+
       <UButton
         icon="i-lucide-log-in"
         color="neutral"
