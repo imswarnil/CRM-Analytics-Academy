@@ -22,8 +22,8 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
                 highlight
               />
             </UPageAside>
+             <ClientOnly><GoogleAd variant="square" /></ClientOnly>
           </template>
-
           <slot />
         </UPage>
       </UContainer>

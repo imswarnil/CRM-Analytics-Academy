@@ -53,6 +53,7 @@ defineOgImageComponent('Saas')
       #right
     >
       <UContentToc :links="page.body.toc.links" />
+       <ClientOnly><GoogleAd variant="square" /></ClientOnly>
     </template>
   </UPage>
     <ClientOnly><GoogleAd variant="leaderboard" /></ClientOnly>
