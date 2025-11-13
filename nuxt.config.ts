@@ -10,16 +10,7 @@ export default defineNuxtConfig({
     'nuxt-og-image',
     'nuxt-studio'
   ],
-
-  studio: {
-    route: '/_studio', 
-    repository: {
-      provider: 'github', // only GitHub is currently supported
-      owner: 'imswarnil', // your GitHub username or organization
-      repo: 'CRM-Analytics-Academy', // your repository name
-      branch: 'main', // the branch to commit to (default: main)
-    }
-  },
+  
 
   devtools: {
     enabled: true

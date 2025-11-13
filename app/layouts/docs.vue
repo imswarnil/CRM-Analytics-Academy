@@ -8,7 +8,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
   <div>
     <AppHeader />
 
-    <UMain class="docs">
+    <UMain>
       <UContainer>
         <UPage>
           <template #left>
