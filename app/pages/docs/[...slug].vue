@@ -51,7 +51,7 @@ defineOgImageComponent('Saas')
     <template #bottom>
       <USeparator v-if="page.body?.toc?.links?.length" type="dashed" />
 
-      <UPageLinks title="Community" :links="communityLinks" />
+      <!-- <UPageLinks title="Community" :links="communityLinks" /> -->
 
       <USeparator type="dashed" />
 

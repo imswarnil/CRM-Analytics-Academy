@@ -1,16 +1,24 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/ui',
     '@nuxt/content',
-    'nuxt-studio',
+    'nuxt-studio',      // ✅ keep this once
     '@vueuse/nuxt',
-    'nuxt-og-image',
-    'nuxt-studio'
+    'nuxt-og-image'
   ],
-  
+
+  studio: {
+    route: '/_studio',
+    repository: {
+      provider: 'github',
+      owner: 'imswarnil',              // your GitHub username
+      repo: 'CRM-Analytics-Academy',   // your repo
+      branch: 'main',                  // you want main
+      // rootDir: ''                   // optional, app at repo root so you can omit
+    }
+  },
 
   devtools: {
     enabled: true
@@ -26,9 +34,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: [
-        '/'
-      ],
+      routes: ['/'],
       crawlLinks: true
     }
   },
