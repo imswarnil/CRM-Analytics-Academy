@@ -23,6 +23,9 @@ importers:
       '@nuxt/ui':
         specifier: ^4.1.0
         version: 4.1.0(@babel/parser@7.28.5)(change-case@5.4.4)(db0@0.3.4(better-sqlite3@12.4.1))(embla-carousel@8.6.0)(ioredis@5.8.2)(magicast@0.5.1)(typescript@5.9.3)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.24(typescript@5.9.3)))(vue@3.5.24(typescript@5.9.3))(zod@4.1.12)
+      '@nuxtjs/sitemap':
+        specifier: 7.4.7
+        version: 7.4.7(h3@1.15.4)(magicast@0.5.1)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       '@standard-schema/spec':
         specifier: ^1.0.0
         version: 1.0.0
@@ -913,6 +916,10 @@ packages:
 
   '@nuxtjs/mdc@0.18.3':
     resolution: {integrity: sha512-Fl64a9OZBH3J7ZpqzSWkrS64oFmLLvledZMcnYH3UzVtgFPo/GaICdJN3Ml83NSs/J9At6HHaP0k3+nrxu2qJw==}
+
+  '@nuxtjs/sitemap@7.4.7':
+    resolution: {integrity: sha512-DUhX92lnCJD6tpghUmfmRIsSIoiXMS2SQ2Yd9Tg1+SnZskiKX+DGwLeAeHX8r0/9Pl/bTDpmYhs1snWcCoIkXA==}
+    engines: {node: '>=18.0.0'}
 
   '@opentelemetry/api@1.9.0':
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
@@ -2413,6 +2420,10 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
+  chalk@5.6.2:
+    resolution: {integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
   change-case@5.4.4:
     resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
 
@@ -3107,6 +3118,10 @@ packages:
   fast-npm-meta@0.4.7:
     resolution: {integrity: sha512-aZU3i3eRcSb2NCq8i6N6IlyiTyF6vqAqzBGl2NBF6ngNx/GIqfYbkLDIKZ4z4P0o/RmtsFnVqHwdrSm13o4tnQ==}
 
+  fast-xml-parser@5.3.1:
+    resolution: {integrity: sha512-jbNkWiv2Ec1A7wuuxk0br0d0aTMUtQ4IkL+l/i1r9PRf6pLXjDgsBsWwO+UyczmQlnehi4Tbc8/KIvxGQe+I/A==}
+    hasBin: true
+
   fastq@1.19.1:
     resolution: {integrity: sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==}
 
@@ -3290,6 +3305,11 @@ packages:
   gzip-size@7.0.0:
     resolution: {integrity: sha512-O1Ld7Dr+nqPnmGpdhzLmMTQ4vAsD+rHwMm1NLUmoUFFymBOMKxCCrtDxqdBRYXdeEPEi3SyoR4TizJLQrnKBNA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  h3-compression@0.3.2:
+    resolution: {integrity: sha512-B+yCKyDRnO0BXSfjAP4tCXJgJwmnKp3GyH5Yh66mY9KuOCrrGQSPk/gBFG2TgH7OyB/6mvqNZ1X0XNVuy0qRsw==}
+    peerDependencies:
+      h3: ^1.6.0
 
   h3@1.15.4:
     resolution: {integrity: sha512-z5cFQWDffyOe4vQ9xIqNfCZdV4p//vy6fBnr8Q1AWnVZ0teurKMG66rLj++TKwKPUP3u7iMUvrvKaEUiQw2QWQ==}
@@ -5007,6 +5027,9 @@ packages:
 
   strip-literal@3.1.0:
     resolution: {integrity: sha512-8r3mkIM/2+PpjHoOtiAW8Rg3jJLHaV7xPwG+YRGrv6FP0wwk/toTpATxWYOW0BKdWwl82VT2tFYi5DlROa0Mxg==}
+
+  strnum@2.1.1:
+    resolution: {integrity: sha512-7ZvoFTiCnGxBtDqJ//Cu6fWtZtc7Y3x+QOirG15wztbdngGSkht27o2pyGWrVy0b4WAy3jbKmnoK6g5VlVNUUw==}
 
   structured-clone-es@1.0.0:
     resolution: {integrity: sha512-FL8EeKFFyNQv5cMnXI31CIMCsFarSVI2bF0U0ImeNE3g/F1IvJQyqzOXxPBRXiwQfyBTlbNe88jh1jFW0O/jiQ==}
@@ -7147,6 +7170,30 @@ snapshots:
       - magicast
       - supports-color
 
+  '@nuxtjs/sitemap@7.4.7(h3@1.15.4)(magicast@0.5.1)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))':
+    dependencies:
+      '@nuxt/devtools-kit': 2.7.0(magicast@0.5.1)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.1))
+      '@nuxt/kit': 4.2.1(magicast@0.5.1)
+      chalk: 5.6.2
+      defu: 6.1.4
+      fast-xml-parser: 5.3.1
+      h3-compression: 0.3.2(h3@1.15.4)
+      nuxt-site-config: 3.2.11(h3@1.15.4)(magicast@0.5.1)(vue@3.5.24(typescript@5.9.3))
+      ofetch: 1.5.1
+      pathe: 2.0.3
+      pkg-types: 2.3.0
+      radix3: 1.1.2
+      semver: 7.7.3
+      sirv: 3.0.2
+      std-env: 3.10.0
+      ufo: 1.6.1
+      ultrahtml: 1.6.0
+    transitivePeerDependencies:
+      - h3
+      - magicast
+      - vite
+      - vue
+
   '@opentelemetry/api@1.9.0': {}
 
   '@oxc-minify/binding-android-arm64@0.96.0':
@@ -8442,6 +8489,8 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
+  chalk@5.6.2: {}
+
   change-case@5.4.4: {}
 
   char-regex@1.0.2: {}
@@ -9153,6 +9202,10 @@ snapshots:
 
   fast-npm-meta@0.4.7: {}
 
+  fast-xml-parser@5.3.1:
+    dependencies:
+      strnum: 2.1.1
+
   fastq@1.19.1:
     dependencies:
       reusify: 1.1.0
@@ -9335,6 +9388,10 @@ snapshots:
   gzip-size@7.0.0:
     dependencies:
       duplexer: 0.1.2
+
+  h3-compression@0.3.2(h3@1.15.4):
+    dependencies:
+      h3: 1.15.4
 
   h3@1.15.4:
     dependencies:
@@ -11744,6 +11801,8 @@ snapshots:
   strip-literal@3.1.0:
     dependencies:
       js-tokens: 9.0.1
+
+  strnum@2.1.1: {}
 
   structured-clone-es@1.0.0: {}
 

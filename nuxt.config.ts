@@ -4,9 +4,11 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/ui',
     '@nuxt/content',
-    'nuxt-studio',      // ✅ keep this once
+    // ✅ keep this once
+    'nuxt-studio',
     '@vueuse/nuxt',
-    'nuxt-og-image'
+    'nuxt-og-image',
+    '@nuxtjs/sitemap'
   ],
 
   studio: {
