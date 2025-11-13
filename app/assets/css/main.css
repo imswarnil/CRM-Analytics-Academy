@@ -25,3 +25,14 @@
   --ui-bg-elevated: var(--ui-color-neutral-900);
   --ui-bg-accented: var(--ui-color-neutral-800);
 }
+
+
+/* Your dashed border utility */
+@utility ad-border-dashed {
+  border-width: 1px;
+  border-style: dashed;
+  border-color: var(--ui-border-muted);
+  border-radius: var(--ui-radius-xl);
+  padding: var(--ui-space-4);
+  background-color: var(--ui-bg-muted);
+}

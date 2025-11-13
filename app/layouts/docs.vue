@@ -15,14 +15,13 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
             <UPageAside>
               <template #top>
                 <UContentSearchButton :collapsed="false" />
+                <ClientOnly><GoogleAd variant="rectangle" class="ad-border-dashed" /></ClientOnly>
               </template>
-
               <UContentNavigation
                 :navigation="navigation"
                 highlight
               />
             </UPageAside>
-             <ClientOnly><GoogleAd variant="square" /></ClientOnly>
           </template>
           <slot />
         </UPage>

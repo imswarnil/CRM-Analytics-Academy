@@ -93,7 +93,5 @@ useSeoMeta({
     >
       <LazyStarsBg />
     </UPageCTA>
-
-    
   </div>
 </template>

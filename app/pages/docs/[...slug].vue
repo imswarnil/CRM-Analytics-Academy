@@ -42,7 +42,6 @@ defineOgImageComponent('Saas')
         v-if="page.body"
         :value="page"
       />
-
       <USeparator v-if="surround?.length" />
 
       <UContentSurround :surround="surround" />
@@ -51,10 +50,11 @@ defineOgImageComponent('Saas')
     <template
       v-if="page?.body?.toc?.links?.length"
       #right
-    >
+    >  
       <UContentToc :links="page.body.toc.links" />
-       <ClientOnly><GoogleAd variant="square" /></ClientOnly>
     </template>
   </UPage>
-    <ClientOnly><GoogleAd variant="leaderboard" /></ClientOnly>
+ <ClientOnly>
+  <GoogleAd variant="leaderboard" class="ad-border-dashed" />
+</ClientOnly>
 </template>
