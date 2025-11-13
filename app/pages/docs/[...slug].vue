@@ -30,6 +30,7 @@ defineOgImageComponent('Saas')
 </script>
 
 <template>
+    <ClientOnly><GoogleAd variant="leaderboard" /></ClientOnly>
   <UPage v-if="page">
     <UPageHeader
       :title="page.title"
@@ -54,4 +55,5 @@ defineOgImageComponent('Saas')
       <UContentToc :links="page.body.toc.links" />
     </template>
   </UPage>
+    <ClientOnly><GoogleAd variant="leaderboard" /></ClientOnly>
 </template>
