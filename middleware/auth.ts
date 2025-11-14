@@ -3,7 +3,7 @@ export default defineNuxtRouteMiddleware((to) => {
   const user = useSupabaseUser()
 
   // public routes
-  const publicRoutes = ['/', '/login', '/signup', '/auth/callback', '/docs']
+  const publicRoutes = ['/', '/login', '/signup', '/auth/callback']
 
   if (publicRoutes.some(path => to.path === path || to.path.startsWith(path))) {
     return
