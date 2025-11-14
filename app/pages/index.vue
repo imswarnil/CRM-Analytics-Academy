@@ -19,7 +19,7 @@ useSeoMeta({
       :title="page.title"
       :description="page.description"
       :links="page.hero.links"
-       :styles="page.styles"
+      :orientation="page.hero.orientation"
     >
       <template #top>
         <HeroBackground />

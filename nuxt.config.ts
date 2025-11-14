@@ -29,7 +29,7 @@ export default defineNuxtConfig({
         '/',                       // public
         '/login',
         '/signup',
-        '/docs/**'                 // whatever docs are public
+        '/docs/**'
       ]
     }
   },

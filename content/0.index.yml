@@ -13,9 +13,9 @@ seo:
     to help you get job-ready.
 
 navigation: false
-styles: horizontal
 
 hero:
+  orientation : horizontal
   links:
     - label: Start learning
       icon: i-lucide-arrow-right
@@ -111,7 +111,7 @@ features:
       description: >
         A clear beginner-to-advanced roadmap covering datasets, lenses, dashboards, SAQL,
         bindings, Recipes/Dataflows, security and embedding.
-      icon: i-lucide-roadmap
+      icon: i-lucide-route
     - title: Hands-On Tutorials & Labs
       description: >
         Step-by-step tutorials with copy-paste snippets, exercises and mini-projects that mirror
