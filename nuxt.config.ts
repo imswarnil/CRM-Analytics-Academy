@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       provider: 'github',
       owner: 'imswarnil',              // your GitHub username
       repo: 'CRM-Analytics-Academy',   // your repo
-      branch: 'process.env.main',        
+      branch: 'main',        
     }
   },
 

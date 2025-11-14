@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, nextTick, ref, watch } from 'vue'
+import { onMounted, nextTick, ref, watch, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 defineOptions({ name: 'GoogleAd' })
@@ -10,222 +10,213 @@ type Variant =
   | 'horizontal' | 'vertical' | 'square'
   | 'in-article' | 'in-feed' | 'multiplex'
 
-interface Props {
+const props = withDefaults(defineProps<{
   variant?: Variant
   adClient?: string
   adSlot?: string
   adLayout?: string
   adLayoutKey?: string
   adTest?: 'on' | 'off'
-  className?: string
   autoRefresh?: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
+}>(), {
   variant: 'horizontal',
   adClient: 'ca-pub-1291242080282540',
-  adTest: 'off',
-  className: '',
   autoRefresh: true
 })
 
 const route = useRoute()
 const hostRef = ref<HTMLDivElement | null>(null)
-const isLoading = ref(false)
-const error = ref<string | null>(null)
-const adInstance = ref<any>(null)
+const adRendered = ref(false)
 
-// Ad slot mapping for different variants
-const adSlots: Record<Variant, string> = {
-  'large-leaderboard': '8939839370',
-  'leaderboard': '8939839370',
-  'small-leaderboard': '8939839370',
-  'wide-skyscraper': '3487917390',
-  'skyscraper': '3487917390',
-  'rectangle': '7663977887',
-  'square-fixed': '7663977887',
-  'horizontal': '8939839370',
-  'vertical': '3487917390',
-  'square': '7663977887',
-  'in-article': '6501428979',
-  'in-feed': '9130894804',
-  'multiplex': '6808134701'
-}
+/* -------- Load AdSense once (non-async) -------- */
+function ensureScript(): Promise<void> {
+  return new Promise<void>((resolve) => {
+    // @ts-ignore
+    if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) return resolve()
 
-// Ad layout mapping
-const adLayouts: Partial<Record<Variant, string>> = {
-  'in-article': 'in-article'
-}
-
-// Ad layout key mapping
-const adLayoutKeys: Partial<Record<Variant, string>> = {
-  'in-feed': '-6v+f0-19-44+c6'
-}
-
-/* -------- Check if AdSense is loaded -------- */
-function isAdSenseLoaded(): boolean {
-  return !!(window as any).adsbygoogle
-}
-
-/* -------- Wait for AdSense to load -------- */
-function waitForAdSense(): Promise<void> {
-  return new Promise((resolve) => {
-    if (isAdSenseLoaded()) {
+    let s = document.getElementById('adsbygoogle-js') as HTMLScriptElement | null
+    if (!s) {
+      s = document.createElement('script')
+      s.id = 'adsbygoogle-js'
+      s.async = false
+      s.crossOrigin = 'anonymous'
+      s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.adClient}`
+      document.head.appendChild(s)
+      s.addEventListener('load', () => resolve())
+      s.addEventListener('error', () => resolve())
+    } else {
       resolve()
-      return
     }
-
-    const checkInterval = setInterval(() => {
-      if (isAdSenseLoaded()) {
-        clearInterval(checkInterval)
-        resolve()
-      }
-    }, 100)
-
-    // Timeout after 5 seconds
-    setTimeout(() => {
-      clearInterval(checkInterval)
-      resolve()
-    }, 5000)
   })
 }
 
 /* -------- Variant → attributes -------- */
 function attrsForVariant() {
-  const a: Record<string, string> = { 
-    'data-ad-client': props.adClient!,
-    'data-ad-format': 'auto'
-  }
+  const a: Record<string, string> = { 'data-ad-client': props.adClient! }
 
-  // Use provided adSlot or fallback to default for variant
-  a['data-ad-slot'] = props.adSlot || adSlots[props.variant]
+  switch (props.variant) {
+    // Responsive (auto)
+    case 'horizontal':
+      a['data-ad-slot'] = props.adSlot || '8939839370'
+      a['data-ad-format'] = 'auto'
+      a['data-full-width-responsive'] = 'true'
+      break
+    case 'vertical':
+      a['data-ad-slot'] = props.adSlot || '3487917390'
+      a['data-ad-format'] = 'auto'
+      a['data-full-width-responsive'] = 'true'
+      break
+    case 'square':
+      a['data-ad-slot'] = props.adSlot || '7663977887'
+      a['data-ad-format'] = 'auto'
+      a['data-full-width-responsive'] = 'true'
+      break
 
-  // Handle responsive variants
-  if (['horizontal', 'vertical', 'square'].includes(props.variant)) {
-    a['data-full-width-responsive'] = 'true'
-  }
+    // Fluid
+    case 'in-article':
+      a['data-ad-slot'] = props.adSlot || '6501428979'
+      a['data-ad-layout'] = props.adLayout || 'in-article'
+      a['data-ad-format'] = 'fluid'
+      break
+    case 'in-feed':
+      a['data-ad-slot'] = props.adSlot || '9130894804'
+      a['data-ad-format'] = 'fluid'
+      a['data-ad-layout-key'] = props.adLayoutKey || '-6v+f0-19-44+c6'
+      break
+    case 'multiplex':
+      a['data-ad-slot'] = props.adSlot || '6808134701'
+      a['data-ad-format'] = 'autorelaxed'
+      break
 
-  // Handle fluid layouts
-  if (props.variant === 'in-article') {
-    a['data-ad-layout'] = props.adLayout || adLayouts[props.variant] || ''
-    a['data-ad-format'] = 'fluid'
-  }
-
-  if (props.variant === 'in-feed') {
-    a['data-ad-layout-key'] = props.adLayoutKey || adLayoutKeys[props.variant] || ''
-    a['data-ad-format'] = 'fluid'
-  }
-
-  if (props.variant === 'multiplex') {
-    a['data-ad-format'] = 'autorelaxed'
+    // Fixed sizes
+    case 'large-leaderboard':
+    case 'leaderboard':
+    case 'small-leaderboard':
+      a['data-ad-slot'] = props.adSlot || '8939839370'
+      break
+    case 'wide-skyscraper':
+    case 'skyscraper':
+      a['data-ad-slot'] = props.adSlot || '3487917390'
+      break
+    case 'rectangle':
+    case 'square-fixed':
+      a['data-ad-slot'] = props.adSlot || '7663977887'
+      break
   }
 
   if (props.adTest) a['data-adtest'] = props.adTest
   return a
 }
 
-/* -------- Inline style for <ins> -------- */
+/* -------- Inline style for <ins> (only fixed sizes need strict w/h) -------- */
 function insStyleForVariant() {
-  // For responsive ads, let Google handle sizing
-  if (['horizontal', 'vertical', 'square', 'in-article', 'in-feed', 'multiplex'].includes(props.variant)) {
-    return 'display:block;'
-  }
-
-  // Fixed sizes for non-responsive ads
   switch (props.variant) {
-    case 'large-leaderboard': return 'display:inline-block;width:970px;height:90px'
-    case 'leaderboard':       return 'display:inline-block;width:728px;height:90px'
-    case 'small-leaderboard': return 'display:inline-block;width:320px;height:50px'
+    case 'large-leaderboard': return 'display:inline-block;width:100%;height:90px'
+    case 'leaderboard':       return 'display:inline-block;width:100%;height:90px'
+    case 'small-leaderboard': return 'display:inline-block;width:100%;height:50px'
     case 'wide-skyscraper':   return 'display:inline-block;width:300px;height:600px'
     case 'skyscraper':        return 'display:inline-block;width:160px;height:600px'
     case 'rectangle':         return 'display:inline-block;width:300px;height:250px'
     case 'square-fixed':      return 'display:inline-block;width:250px;height:250px'
-    default:                  return 'display:block'
+    default:                  return 'display:block' // responsive/fluid
   }
 }
 
-/* -------- Container classes per-variant -------- */
-function containerClasses(): string {
-  const baseClasses = [
-    'w-full', 'flex', 'justify-center', 'items-center',
-    'border', 'border-dashed', 'rounded-xl', 'p-4',
+/* -------- Tailwind classes per-variant (frame box) -------- */
+function frameClassesForVariant(): string[] {
+  // Base frame styles (kept consistent with your previous look)
+  const base = [
+    // container look
+    'border', 'border-dashed', 'rounded-xl', 'p-2',
     'bg-white', 'border-neutral-200',
     'dark:bg-neutral-900', 'dark:border-neutral-800',
-    'overflow-hidden', props.className
-  ].join(' ')
+    // layout
+    'flex', 'justify-center', 'items-center',
+    // prevent overflow + reserve some height so CLS is reduced
+    'overflow-hidden'
+  ]
 
-  // Responsive width constraints
-  const widthClasses = {
-    'large-leaderboard': 'max-w-[970px] min-h-[90px]',
-    'leaderboard': 'max-w-[728px] min-h-[90px]',
-    'small-leaderboard': 'max-w-[320px] min-h-[50px]',
-    'wide-skyscraper': 'max-w-[300px] min-h-[600px]',
-    'skyscraper': 'max-w-[160px] min-h-[600px]',
-    'rectangle': 'max-w-[300px] min-h-[250px]',
-    'square-fixed': 'max-w-[250px] min-h-[250px]',
-    'horizontal': 'max-w-full min-h-[90px] md:min-h-[120px]',
-    'vertical': 'max-w-full min-h-[250px] md:min-h-[300px]',
-    'square': 'max-w-[336px] min-h-[280px]',
-    'in-article': 'max-w-full min-h-[250px]',
-    'in-feed': 'max-w-full min-h-[200px]',
-    'multiplex': 'max-w-full min-h-[250px]'
+  // Width clamps + min-h to hint layout (for responsive we use w-full)
+  switch (props.variant) {
+    // Responsive / fluid
+    case 'horizontal':
+      return [...base, 'w-full', 'max-w-full', 'min-h-[70px]', 'sm:min-h-[80px]']
+    case 'vertical':
+      return [...base, 'w-full', 'max-w-full', 'min-h-[200px]']
+    case 'square':
+      return [...base, 'w-full', 'max-w-[250px]', 'min-h-[200px]']
+
+    case 'in-article':
+      return [...base, 'w-full', 'max-w-full', 'min-h-[160px]']
+    case 'in-feed':
+      return [...base, 'w-full', 'max-w-full', 'min-h-[160px]']
+    case 'multiplex':
+      return [...base, 'w-full', 'max-w-full', 'min-h-[200px]']
+
+    // Fixed sizes (clamp via max-w so they never overflow container)
+    case 'large-leaderboard':
+      return [...base, 'w-full', 'max-w-[970px]', 'min-h-[90px]']
+    case 'leaderboard':
+      return [...base, 'w-full', 'max-w-[728px]', 'min-h-[90px]']
+    case 'small-leaderboard':
+      return [...base, 'w-full', 'max-w-[320px]', 'min-h-[50px]']
+    case 'wide-skyscraper':
+      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[600px]']
+    case 'skyscraper':
+      return [...base, 'w-full', 'max-w-[160px]', 'min-h-[600px]']
+    case 'rectangle':
+      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[250px]']
+    case 'square-fixed':
+      return [...base, 'w-full', 'max-w-[250px]', 'min-h-[250px]']
   }
-
-  return `${baseClasses} ${widthClasses[props.variant]}`
-}
-
-/* -------- Destroy existing ad -------- */
-function destroyAd() {
-  if (hostRef.value) {
-    hostRef.value.innerHTML = ''
-  }
-  adInstance.value = null
 }
 
 /* -------- Mount / render -------- */
 async function renderAd() {
-  if (!hostRef.value) return
+  const host = hostRef.value
+  if (!host) return
   
-  // Destroy existing ad first
-  destroyAd()
+  // Clear existing content
+  host.innerHTML = ''
+
+  const ins = document.createElement('ins')
+  ins.className = 'adsbygoogle'
+  ins.setAttribute('style', insStyleForVariant())
+
+  const attrs = attrsForVariant()
+  Object.entries(attrs).forEach(([k, v]) => ins.setAttribute(k, v))
+
+  host.appendChild(ins)
+
+  // @ts-ignore
+  const q = (window.adsbygoogle = window.adsbygoogle || [])
+  try { 
+    q.push({}) 
+    adRendered.value = true
+  } catch (e) {
+    console.error('AdSense error:', e)
+  }
+}
+
+/* -------- Refresh ad -------- */
+async function refreshAd() {
+  if (!adRendered.value) return
   
-  isLoading.value = true
-  error.value = null
-  
-  try {
-    await waitForAdSense()
-    
-    const host = hostRef.value
-
-    const ins = document.createElement('ins')
-    ins.className = 'adsbygoogle'
-    ins.setAttribute('style', insStyleForVariant())
-
-    const attrs = attrsForVariant()
-    Object.entries(attrs).forEach(([k, v]) => ins.setAttribute(k, v))
-
-    host.appendChild(ins)
-
-    // Push to adsbygoogle queue
-    (window as any).adsbygoogle = (window as any).adsbygoogle || []
-    const queue = (window as any).adsbygoogle
-    
-    adInstance.value = {}
-    queue.push(adInstance.value)
-    
-    // Small delay to ensure ad is rendered
-    await new Promise(resolve => setTimeout(resolve, 300))
-    
-  } catch (err) {
-    error.value = 'Failed to render advertisement'
-    console.error('Ad rendering error:', err)
-  } finally {
-    isLoading.value = false
+  // @ts-ignore
+  const q = window.adsbygoogle
+  if (q && q.length) {
+    try {
+      // Force refresh by pushing empty config
+      q.push({})
+    } catch (e) {
+      console.error('AdSense refresh error:', e)
+    }
   }
 }
 
 onMounted(async () => {
   await nextTick()
+  await ensureScript()
   await renderAd()
 })
 
@@ -235,10 +226,10 @@ watch(
   async (newPath, oldPath) => {
     if (props.autoRefresh && newPath !== oldPath) {
       await nextTick()
-      // Small delay to ensure page transition is complete
+      // Small delay to ensure DOM is ready
       setTimeout(() => {
-        renderAd()
-      }, 500)
+        refreshAd()
+      }, 100)
     }
   }
 )
@@ -252,25 +243,19 @@ watch(
   }
 )
 
-// Cleanup on unmount
+// Cleanup
 onUnmounted(() => {
-  destroyAd()
+  if (hostRef.value) {
+    hostRef.value.innerHTML = ''
+  }
 })
 </script>
 
 <template>
-  <div :class="containerClasses()">
-    <div 
-      ref="hostRef" 
-      class="w-full h-full flex items-center justify-center"
-      :class="{ 'min-h-[50px]': isLoading }"
-    >
-      <div v-if="isLoading" class="text-sm text-neutral-500 dark:text-neutral-400">
-        Loading advertisement...
-      </div>
-      <div v-else-if="error" class="text-sm text-red-500 dark:text-red-400">
-        {{ error }}
-      </div>
+  <!-- Outer wrapper keeps ad centered and spaced -->
+  <div class="w-full my-6 flex justify-center">
+    <div :class="frameClassesForVariant()">
+      <div ref="hostRef" class="w-full h-auto overflow-hidden leading-none" />
     </div>
   </div>
 </template>
