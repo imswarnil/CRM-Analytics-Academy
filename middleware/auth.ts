@@ -1,13 +1,6 @@
 // middleware/auth.ts
-export default defineNuxtRouteMiddleware((to) => {
+export default defineNuxtRouteMiddleware(() => {
   const user = useSupabaseUser()
-
-  // public routes
-  const publicRoutes = ['/', '/login', '/signup', '/auth/callback']
-
-  if (publicRoutes.some(path => to.path === path || to.path.startsWith(path))) {
-    return
-  }
 
   if (!user.value) {
     return navigateTo('/login')
