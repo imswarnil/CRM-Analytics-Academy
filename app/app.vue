@@ -21,7 +21,15 @@ useHead({
     async: true,
     src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540',
     crossorigin: 'anonymous'
-  }]
+  }],
+  script: [
+    {
+      src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540`,
+      async: true,
+      crossorigin: 'anonymous',
+      'data-ad-client': 'ca-pub-1291242080282540'
+    }
+  ]
 })
 
 useSeoMeta({
