@@ -4,10 +4,10 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/ui',
     '@nuxt/content',
-    // ✅ keep this once
     'nuxt-studio',
     '@vueuse/nuxt',
     'nuxt-og-image',
+    'nuxt-jsonld',
     '@nuxtjs/sitemap'
   ],
 
@@ -17,8 +17,7 @@ export default defineNuxtConfig({
       provider: 'github',
       owner: 'imswarnil',              // your GitHub username
       repo: 'CRM-Analytics-Academy',   // your repo
-      branch: 'process.env.main',
-      rootDir: '',             
+      branch: 'process.env.main',        
     }
   },
 

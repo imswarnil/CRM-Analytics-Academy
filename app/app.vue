@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/nuxt'
 import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 const colorMode = useColorMode()
 const color = computed(() => colorMode.value === 'dark' ? '#020618' : 'white')
+
 useHead({
   meta: [
     { charset: 'utf-8' },
@@ -29,6 +30,13 @@ useSeoMeta({
   twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/saas-light.png',
   twitterCard: 'summary_large_image'
 })
+
+useJsonld({
+  '@context': 'https://schema.org',
+  '@type': 'Thing',
+  name: 'static json',
+});
+
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'), {
   transform: data => data.find(item => item.path === '/docs')?.children || []
