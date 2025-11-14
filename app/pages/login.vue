@@ -211,23 +211,23 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     </template>
 
     <template #password-hint>
-      <ULink
+      <!-- <ULink
         to="/forgot-password"
         class="text-primary font-medium"
         tabindex="-1"
       >
         Forgot password?
-      </ULink>
+      </ULink> -->
     </template>
 
     <template #footer>
       By signing in, you agree to our
-      <ULink
+      <!-- <ULink
         to="/terms"
         class="text-primary font-medium"
       >
         Terms of Service
-      </ULink>.
+      </ULink>. -->
     </template>
   </UAuthForm>
 </template>

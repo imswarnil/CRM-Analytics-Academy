@@ -17,14 +17,15 @@ export default defineNuxtConfig({
       provider: 'github',
       owner: 'imswarnil',              // your GitHub username
       repo: 'CRM-Analytics-Academy',   // your repo
-      branch: 'main',        
+      branch: process.env.STUDIO_GITHUB_BRANCH,
+      rootDir: ''      
     }
   },
 
   supabase: {
     url: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_URL,
     key: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_ANON_KEY,
-    redirect: false,
+    redirect: true,
     redirectOptions: {
       login: '/login',
       callback: '/auth/callback',  // we'll create this route (simple)

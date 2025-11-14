@@ -181,12 +181,12 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
 
     <template #footer>
       By signing up, you agree to our
-      <ULink
+      <!-- <ULink
         to="/terms"
         class="text-primary font-medium"
       >
         Terms of Service
-      </ULink>.
+      </ULink>. -->
     </template>
   </UAuthForm>
 </template>
