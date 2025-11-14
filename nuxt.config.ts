@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-og-image',
     '@nuxtjs/sitemap',
-    'nuxt-jsonld',
+    // 'nuxt-jsonld',
     '@nuxtjs/supabase'
   ],
 
