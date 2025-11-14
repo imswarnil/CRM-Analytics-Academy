@@ -7,8 +7,8 @@ export default defineNuxtConfig({
     'nuxt-studio',
     '@vueuse/nuxt',
     'nuxt-og-image',
-    'nuxt-jsonld',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/supabase'
   ],
 
   studio: {
@@ -18,6 +18,19 @@ export default defineNuxtConfig({
       owner: 'imswarnil',              // your GitHub username
       repo: 'CRM-Analytics-Academy',   // your repo
       branch: 'process.env.main',        
+    }
+  },
+
+  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/auth/callback',  // we'll create this route (simple)
+      exclude: [
+        '/',                       // public
+        '/login',
+        '/signup',
+        '/docs/**'                 // whatever docs are public
+      ]
     }
   },
 

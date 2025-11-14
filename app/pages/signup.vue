@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
@@ -78,6 +78,115 @@ function onSubmit(payload: FormSubmitEvent<Schema>) {
         to="/"
         class="text-primary font-medium"
       >Terms of Service</ULink>.
+    </template>
+  </UAuthForm>
+</template> -->
+
+
+
+<script setup lang="ts">
+import * as z from 'zod'
+import type { FormSubmitEvent } from '@nuxt/ui'
+
+definePageMeta({
+  layout: 'auth'
+})
+
+useSeoMeta({
+  title: 'Sign up',
+  description: 'Create your CRM Analytics Academy account'
+})
+
+const toast = useToast()
+const supabase = useSupabaseClient()
+const router = useRouter()
+
+const fields = [{
+  name: 'email',
+  type: 'text' as const,
+  label: 'Email',
+  placeholder: 'Enter your email',
+  required: true
+}, {
+  name: 'password',
+  label: 'Password',
+  type: 'password' as const,
+  placeholder: 'Create a password',
+  required: true
+}]
+
+const schema = z.object({
+  email: z.string().email('Invalid email'),
+  password: z.string().min(8, 'Must be at least 8 characters')
+})
+
+type Schema = z.output<typeof schema>
+
+async function onSubmit (event: FormSubmitEvent<Schema>) {
+  const { email, password } = event.data
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: window.location.origin + '/auth/callback'
+    }
+  })
+
+  if (error) {
+    toast.add({
+      title: 'Sign up failed',
+      description: error.message,
+      color: 'red'
+    })
+    return
+  }
+
+  // Behaviour depends on email confirmation setting in Supabase
+  if (data.user && !data.session) {
+    toast.add({
+      title: 'Confirm your email',
+      description: 'We sent you a confirmation link. Please check your inbox.',
+      color: 'blue'
+    })
+    router.push('/login')
+  } else {
+    toast.add({
+      title: 'Account created 🎉',
+      description: `Welcome, ${data.user?.email}`,
+      color: 'green'
+    })
+    router.push('/dashboard')
+  }
+}
+</script>
+
+<template>
+  <UAuthForm
+    :fields="fields"
+    :schema="schema"
+    title="Create your account"
+    icon="i-lucide-user-plus"
+    @submit="onSubmit"
+  >
+    <template #description>
+      Already have an account?
+      <ULink
+        to="/login"
+        class="text-primary font-medium"
+      >
+        Log in
+      </ULink>.
+    </template>
+
+    <template #footer>
+      By signing up, you agree to our
+      <ULink
+        to="/terms"
+        class="text-primary font-medium"
+      >
+        Terms of Service
+      </ULink>.
     </template>
   </UAuthForm>
 </template>
