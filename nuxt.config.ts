@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-og-image',
     '@nuxtjs/sitemap',
+    'nuxt-jsonld',
     '@nuxtjs/supabase'
   ],
 
@@ -18,14 +19,14 @@ export default defineNuxtConfig({
       owner: 'imswarnil',              // your GitHub username
       repo: 'CRM-Analytics-Academy',   // your repo
       branch: process.env.STUDIO_GITHUB_BRANCH,
-      rootDir: '/app'      
+      rootDir: '/content'      
     }
   },
 
   supabase: {
     url: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_URL,
     key: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_ANON_KEY,
-    redirect: true,
+    redirect: false,
     redirectOptions: {
       login: '/login',
       callback: '/auth/callback',  // we'll create this route (simple)
@@ -34,7 +35,8 @@ export default defineNuxtConfig({
         '/login',
         '/signup',
         '/docs/**',
-        '/changelog'
+        '/changelog',
+        '/blog/**'
       ]
     }
   },
