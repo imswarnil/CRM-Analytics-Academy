@@ -19,6 +19,7 @@ useSeoMeta({
       :title="page.title"
       :description="page.description"
       :links="page.hero.links"
+       :styles="page.styles"
     >
       <template #top>
         <HeroBackground />
@@ -30,7 +31,6 @@ useSeoMeta({
           unwrap="p"
         />
       </template>
-
       <PromotionalVideo />
     </UPageHero>
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Analytics } from '@vercel/analytics/nuxt'
+import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 const colorMode = useColorMode()
 const color = computed(() => colorMode.value === 'dark' ? '#020618' : 'white')
 useHead({
@@ -59,6 +60,7 @@ provide('navigation', navigation)
 
 <template>
     <Analytics/>
+    <SpeedInsights/> 
   <UApp>
     <NuxtLoadingIndicator />
 

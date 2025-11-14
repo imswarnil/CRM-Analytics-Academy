@@ -4,6 +4,7 @@ seo:
   title: Nuxt UI SaaS Template
   description: Create stunning, fast and production-ready SaaS applications with Nuxt UI. 100+ Vue components, authentication, dark mode, and enterprise features built on Tailwind CSS.
 navigation: false
+styles : horizontal
 hero:
   links:
     - label: Get started
