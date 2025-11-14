@@ -52,6 +52,8 @@ defineOgImageComponent('Saas')
       <USeparator v-if="page.body?.toc?.links?.length" type="dashed" />
 
       <!-- <UPageLinks title="Community" :links="communityLinks" /> -->
+           <GoogleAd variant="square" />
+
 
       <USeparator type="dashed" />
 
