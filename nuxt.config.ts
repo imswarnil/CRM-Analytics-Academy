@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-og-image',
     '@nuxtjs/sitemap',
-    // 'nuxt-jsonld',
     '@nuxtjs/supabase'
   ],
 
@@ -19,7 +18,6 @@ export default defineNuxtConfig({
       owner: 'imswarnil',              // your GitHub username
       repo: 'CRM-Analytics-Academy',   // your repo
       branch: process.env.STUDIO_GITHUB_BRANCH,
-      rootDir: '/content'      
     }
   },
 
