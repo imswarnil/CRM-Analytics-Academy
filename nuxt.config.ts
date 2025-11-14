@@ -18,7 +18,7 @@ export default defineNuxtConfig({
       owner: 'imswarnil',              // your GitHub username
       repo: 'CRM-Analytics-Academy',   // your repo
       branch: process.env.STUDIO_GITHUB_BRANCH,
-      rootDir: ''      
+      rootDir: '/app'      
     }
   },
 
