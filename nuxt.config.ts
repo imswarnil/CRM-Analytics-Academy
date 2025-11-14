@@ -35,8 +35,7 @@ export default defineNuxtConfig({
         '/login',
         '/signup',
         '/docs/**',
-        '/changelog',
-        '/blog/**'
+        '/changelog'
       ]
     }
   },
