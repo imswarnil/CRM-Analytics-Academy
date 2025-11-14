@@ -20,7 +20,7 @@ hero:
     - label: Start learning
       icon: i-lucide-arrow-right
       trailing: true
-      to: /training/getting-started
+      to: /docs/getting-started
       size: xl
     - label: View full curriculum
       icon: i-lucide-list-checks
@@ -201,7 +201,7 @@ cta:
     real projects and grow into a Salesforce CRM Analytics expert.
   links:
     - label: Start learning
-      to: "/training/getting-started"
+      to: "/docs/getting-started"
       trailingIcon: i-lucide-arrow-right
     - label: Browse all modules
       to: "#"
