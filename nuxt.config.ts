@@ -57,7 +57,7 @@ export default defineNuxtConfig({
       crawlLinks: true
     }
   },
-a
+
   eslint: {
     config: {
       stylistic: {
