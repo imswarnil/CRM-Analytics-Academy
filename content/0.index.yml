@@ -1,209 +1,150 @@
-title: "Learn [Salesforce CRM Analytics]{class='text-primary'} From Scratch"
-description: >
-  Learn Salesforce CRM Analytics (formerly Einstein Analytics / Tableau CRM) from zero to advanced.
-  Connect data, build Recipes/Dataflows, create datasets, lenses, dashboards and apps, then master
-  SAQL, bindings, row-level security, and Lightning embedding to become job-ready.
-
+title: Ship Your [SaaS]{class="text-primary"} at light speed
+description: Build production-ready SaaS applications with Nuxt UI's powerful components, authentication flows, and enterprise features. The same component library trusted by the entire Nuxt ecosystem.
 seo:
-  title: "Learn Salesforce CRM Analytics From Scratch | Free Training, Tutorials & Course"
-  description: >
-    Free Salesforce CRM Analytics (Einstein Analytics / Tableau CRM) training platform. Start from
-    scratch and learn datasets, lenses, dashboards, SAQL, bindings, dataflows/recipes, row-level
-    security, Einstein Discovery, and Lightning embedding. Beginner to advanced CRM Analytics course
-    to help you get job-ready.
-
+  title: Nuxt UI SaaS Template
+  description: Create stunning, fast and production-ready SaaS applications with Nuxt UI. 100+ Vue components, authentication, dark mode, and enterprise features built on Tailwind CSS.
 navigation: false
-
 hero:
-  orientation : horizontal
   links:
-    - label: Start learning
+    - label: Get started
       icon: i-lucide-arrow-right
       trailing: true
-      to: /docs/getting-started
+      to: https://ui.nuxt.com/docs/getting-started/installation/nuxt
+      target: _blank
       size: xl
-    - label: View full curriculum
-      icon: i-lucide-list-checks
+    - label: Use this template
+      icon: i-simple-icons-github
       size: xl
       color: neutral
       variant: subtle
-      to: "#"
-
+      to: https://github.com/nuxt-ui-templates/saas
+      target: _blank
 sections:
-  - title: Learn Salesforce CRM Analytics from Zero
-    description: >
-      A practical, open learning hub for Salesforce CRM Analytics (formerly Einstein Analytics /
-      Tableau CRM). Start with platform basics and end with production-ready dashboards in your
-      Salesforce org.
-    id: foundations
+  - title: Powered by Nuxt UI Components
+    description: Access the complete Nuxt UI component library with 100+ beautifully styled, accessible, and customizable Vue components. Everything you need to build professional SaaS applications.
+    id: features
     orientation: horizontal
     features:
-      - name: Beginner → Advanced Path
-        description: >
-          Start from scratch, understand core concepts and terminology, then move into real-world
-          datasets, lenses, dashboards, SAQL and advanced features at your own pace.
-        icon: i-lucide-rocket
-      - name: Built for All Salesforce Roles
-        description: >
-          Ideal for Salesforce Admins, Business Analysts, Developers and Architects who want to
-          design, build and maintain CRM Analytics solutions in real orgs.
-        icon: i-lucide-users
-      - name: Learn on Real Use Cases
-        description: >
-          Work with realistic scenarios like sales pipeline dashboards, CS health views, revenue
-          analytics, and executive KPI boards instead of toy sample data.
-        icon: i-lucide-presentation
-
-  - title: What You’ll Learn in CRM Analytics
-    description: >
-      Follow a structured curriculum that covers everything from connecting data to building
-      interactive dashboards with SAQL and bindings.
-    id: curriculum
+      - name: 100+ UI Components
+        description: From buttons to modals, data tables to forms - all styled with Tailwind CSS and accessible out of the box.
+        icon: i-lucide-package
+      - name: Authentication Ready
+        description: Pre-built login, signup, and password reset flows. Just connect your backend and start onboarding users.
+        icon: i-lucide-shield
+      - name: TypeScript First
+        description: Full TypeScript support with auto-completion, type safety, and IntelliSense for every component and composable.
+        icon: i-lucide-code-2
+  - title: Built for Modern SaaS
+    description: Everything you need to launch and scale your SaaS. From beautiful marketing pages to complex dashboards, ship faster with production-ready patterns.
     orientation: horizontal
     reverse: true
     features:
-      - name: Platform & Data Foundations
-        description: >
-          Understand what Salesforce CRM Analytics is, how it evolved from Einstein Analytics /
-          Tableau CRM, set up your org, licenses, and get your first dataset and lens running.
-        icon: i-lucide-database
-      - name: Dashboards, Lenses & UX
-        description: >
-          Build interactive lenses and dashboards, choose the right charts, and design layouts that
-          answer real business questions for sales, service and leadership teams.
-        icon: i-lucide-layout-dashboard
-      - name: SAQL & Bindings
-        description: >
-          Learn Salesforce Analytics Query Language (SAQL) and bindings step by step to create
-          custom calculations, compare tables, dynamic filters and truly interactive dashboards.
-        icon: i-lucide-code-2
-
-  - title: Recipes, Security & AI
-    description: >
-      Go beyond basics with data preparation, governance, and Einstein Discovery so your dashboards
-      stay correct, secure and insightful at scale.
-    id: advanced
-    orientation: horizontal
-    features:
-      - name: Recipes & Dataflows
-        description: >
-          Design Recipes and Dataflows for clean, reliable datasets. Handle joins, transforms,
-          incremental loads and refresh schedules like a pro.
-        icon: i-lucide-repeat
-      - name: Row-Level Security & Governance
-        description: >
-          Implement security predicates and user-based filters so each person only sees the data
-          they should, aligned with Salesforce roles and sharing.
-        icon: i-lucide-shield
-      - name: Einstein Discovery & AI Insights
-        description: >
-          Add predictions and explanations to your analytics with Einstein Discovery and surface
-          those insights directly inside CRM Analytics dashboards.
-        icon: i-lucide-sparkles
-
+      - name: Edge Performance
+        description: Optimized for Core Web Vitals with automatic code splitting, lazy loading, and SSR/SSG support.
+        icon: i-lucide-zap
+      - name: Dark Mode Ready
+        description: Automatic theme switching with smooth transitions. Respects system preferences and remembers user choice.
+        icon: i-lucide-moon
+      - name: Global Ready
+        description: Built-in i18n support for 50+ languages with RTL/LTR layouts and @nuxt/fonts integration.
+        icon: i-lucide-globe
 features:
-  title: Everything You Need to Master CRM Analytics
-  description: >
-    Stop hunting random tutorials. Follow one structured, practical path that takes you from your
-    first CRM Analytics dataset to dashboards that stakeholders actually use.
+  title: Everything You Need to Ship
+  description: Stop building from scratch. Focus on your unique features while Nuxt UI handles the foundations with battle-tested components and patterns.
   items:
-    - title: Structured Learning Path
-      description: >
-        A clear beginner-to-advanced roadmap covering datasets, lenses, dashboards, SAQL,
-        bindings, Recipes/Dataflows, security and embedding.
-      icon: i-lucide-route
-    - title: Hands-On Tutorials & Labs
-      description: >
-        Step-by-step tutorials with copy-paste snippets, exercises and mini-projects that mirror
-        real Salesforce CRM Analytics implementations.
-      icon: i-lucide-mouse-pointer-2
-    - title: Real Salesforce Examples
-      description: >
-        Examples based on common Salesforce objects and scenarios—Opportunities, Accounts, Cases,
-        CPQ revenue dashboards and executive KPI views.
-      icon: i-lucide-orbit
-    - title: SEO-Friendly Docs & Blog
-      description: >
-        Fast, searchable documentation and blog articles so you can quickly look up SAQL patterns,
-        bindings tricks, Recipe tips and dashboard best practices.
+    - title: Beautiful Design System
+      description: Semantic color aliases, comprehensive design tokens, and Tailwind Variants for consistent, customizable styling.
+      icon: i-lucide-palette
+    - title: Accessible by Default
+      description: Built on Reka UI for robust accessibility. WCAG compliant components that work for everyone, everywhere.
+      icon: i-lucide-accessibility
+    - title: Developer Experience
+      description: Auto-imports, hot module replacement, and comprehensive documentation. Build faster with less friction.
+      icon: i-lucide-terminal
+    - title: SEO Optimized
+      description: Server-side rendering, automatic meta tags, sitemap generation, and Open Graph images out of the box.
       icon: i-lucide-search
-    - title: Open & Up-to-Date
-      description: >
-        Content that evolves with Salesforce releases and CRM Analytics features, so your skills
-        stay current as the platform changes.
-      icon: i-lucide-refresh-ccw
-    - title: Career & Certification Focus
-      description: >
-        Guidance aligned with Salesforce CRM Analytics / Einstein Discovery certifications, plus
-        portfolio ideas to help you become job-ready.
-      icon: i-lucide-briefcase
-
+    - title: Production Ready
+      description: Error handling, loading states, form validation, and security best practices built into every component.
+      icon: i-lucide-check-circle
+    - title: Infinitely Customizable
+      description: Override any style with the ui prop, customize globally with AppConfig, or use Tailwind classes directly.
+      icon: i-lucide-settings
 testimonials:
-  headline: Loved by Salesforce Learners
-  title: Join Professionals Leveling Up with CRM Analytics
-  description: >
-    From admins starting fresh to experienced consultants, learners worldwide use this platform to
-    understand SAQL, bindings, Recipes/Dataflows and real dashboard design.
+  headline: Trusted by Developers
+  title: Join Thousands Building with Nuxt UI
+  description: See why developers choose Nuxt UI to ship their SaaS applications faster and with more confidence.
   items:
-    - quote: >
-        I finally understood how SAQL and bindings actually work in real dashboards. The examples
-        and step-by-step explanations saved me weeks of trial and error.
+    - quote: Nuxt UI transformed how we build. The component quality is exceptional - everything just works with perfect TypeScript support, accessibility, and dark mode built in.
       user:
-        name: Ananya Gupta
-        description: Salesforce Admin
+        name: Sarah Chen
+        description: CTO at TechScale Solutions
         avatar:
-          src: https://i.pravatar.cc/120?img=15
-    - quote: >
-        Using this CRM Analytics training, I built a full sales performance dashboard that my
-        leadership team uses every day. It became the centerpiece of our revenue reviews.
+          src: https://i.pravatar.cc/120?img=1
+    - quote: We shipped our MVP in 2 weeks instead of 2 months. The authentication flows and form components saved us countless hours of development time.
       user:
-        name: Daniel Lee
-        description: Revenue Operations Analyst
+        name: Marcus Rodriguez
+        description: VP of Engineering at DataFlow
         avatar:
-          src: https://i.pravatar.cc/120?img=16
-    - quote: >
-        The modules on Recipes, security predicates and performance tuning feel like learning from
-        someone who has already made all the mistakes for you.
+          src: https://i.pravatar.cc/120?img=7
+    - quote: The design system with AppConfig is brilliant. We maintain brand consistency across all our products while leveraging the full component library.
       user:
-        name: Priya Nair
-        description: CRM Analytics Consultant
+        name: David Kumar
+        description: Security Director at SecureStack
         avatar:
-          src: https://i.pravatar.cc/120?img=17
-    - quote: >
-        I used the labs as portfolio pieces in interviews and landed a Salesforce Analytics-focused
-        role. The structure from fundamentals to advanced topics is spot on.
+          src: https://i.pravatar.cc/120?img=3
+    - quote: Perfect Lighthouse scores out of the box. Our Core Web Vitals improved dramatically just by switching to Nuxt UI components.
       user:
-        name: Miguel Santos
-        description: Business Analyst
+        name: Emily Zhang
+        description: Lead Architect at ScaleForce
         avatar:
-          src: https://i.pravatar.cc/120?img=18
-    - quote: >
-        As a developer, the JSON, SAQL and Lightning embedding sections were gold. I finally know
-        how to wire dashboards cleanly into custom Salesforce apps.
+          src: https://i.pravatar.cc/120?img=5
+    - quote: The Tailwind Variants system makes customization so intuitive. We can override any component style while keeping the functionality intact.
       user:
-        name: Harsh Verma
-        description: Salesforce Developer
+        name: James Wilson
+        description: DevOps Lead at CloudPro
         avatar:
-          src: https://i.pravatar.cc/120?img=19
-    - quote: >
-        This feels like documentation, course and playbook in one place. It’s now our internal
-        go-to resource whenever we start a new CRM Analytics project.
+          src: https://i.pravatar.cc/120?img=8
+    - quote: From the SaaS template to production in days. The pre-built layouts, navigation, and content structure accelerated our launch.
       user:
-        name: Olivia Smith
-        description: Analytics Lead
+        name: Lisa Patel
+        description: CEO at AutoScale
         avatar:
-          src: https://i.pravatar.cc/120?img=20
-
+          src: https://i.pravatar.cc/120?img=9
+    - quote: Reka UI foundation means accessibility is never an afterthought. We achieved WCAG compliance without any custom work.
+      user:
+        name: Michael Torres
+        description: Frontend Lead at AccessFirst
+        avatar:
+          src: https://i.pravatar.cc/120?img=11
+    - quote: The documentation is outstanding. Every component has clear examples, and the community on Discord is incredibly helpful.
+      user:
+        name: Rachel Kim
+        description: Performance Engineer at APIHub
+        avatar:
+          src: https://i.pravatar.cc/120?img=10
+    - quote: We replaced three different UI libraries with Nuxt UI. The consistency and quality across all components is unmatched.
+      user:
+        name: Thomas Weber
+        description: UI Architecture Lead at DesignScale
+        avatar:
+          src: https://i.pravatar.cc/120?img=12
+    - quote: The integration with Nuxt modules is seamless. Color mode, fonts, icons - everything works together perfectly.
+      user:
+        name: Sophia Martinez
+        description: Integration Specialist at TechFlow
+        avatar:
+          src: https://i.pravatar.cc/120?img=14
 cta:
-  title: Ready to Start Learning Salesforce CRM Analytics?
-  description: >
-    Begin your journey from first dataset to production dashboards. Follow the guided path, build
-    real projects and grow into a Salesforce CRM Analytics expert.
+  title: Ready to build an amazing SaaS?
+  description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
   links:
-    - label: Start learning
-      to: "/docs/getting-started"
+    - label: Start building
+      to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt'
+      target: _blank
       trailingIcon: i-lucide-arrow-right
-    - label: Browse all modules
-      to: "#"
+    - label: View on GitHub
+      to: 'https://github.com/nuxt-ui-templates/saas'
+      target: _blank
       variant: subtle
-      icon: i-lucide-book-open
+      icon: i-simple-icons-github

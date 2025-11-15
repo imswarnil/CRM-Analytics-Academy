@@ -1,15 +1,18 @@
+/* assets/css/main.css */
 @import "tailwindcss";
 @import "@nuxt/ui";
 
 @source "../../../content/**/*";
 
-/* Tailwind / Nuxt UI design tokens */
+/* ================================
+   Nuxt UI / Tailwind theme tokens
+   ================================ */
+
 @theme static {
   /* Salesforce-ish font stack */
   --font-sans: "Salesforce Sans", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
-  /* (Optional) mono font if needed */
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
 
@@ -30,18 +33,21 @@
   --container-8xl: 85rem;
 }
 
-/* Light theme: Salesforce Lightning-style surfaces */
+/* =========================================
+   Light / dark app tokens (Salesforce-ish)
+   ========================================= */
+
 :root {
-  /* Use Salesforce blue as Nuxt UI primary token */
+  /* Primary brand */
   --ui-primary: var(--color-sf-600);
 
-  /* Page + surfaces – SLDS-style greys */
-  --ui-bg: #f3f2f2;           /* app background */
+  /* Backgrounds */
+  --ui-bg: #f3f2f2;           /* app background (grey) */
   --ui-bg-muted: #ffffff;     /* cards, panels */
   --ui-bg-elevated: #ffffff;
   --ui-bg-accented: #e5f3ff;  /* subtle info/accent */
 
-  /* Inverted (for badges/pills on blue) */
+  /* Inverted (for pills on blue etc.) */
   --ui-bg-inverted: #032d60;
 
   /* Borders like SLDS cards/inputs */
@@ -49,21 +55,23 @@
   --ui-border-muted: #e5e5e5;
   --ui-border-strong: #c9c7c5;
 
-  /* Text colors close to SLDS tokens */
+  /* Text colours */
   --ui-text: #080707;
   --ui-text-muted: #514f4d;
   --ui-text-soft: #706e6b;
   --ui-text-inverted: #ffffff;
 
-  /* Compact radius like Lightning cards & inputs (~4px) */
+  /* Compact radius like Lightning (~4px) */
   --ui-radius: 0.25rem;
 
   /* Layout */
   --ui-container: var(--container-8xl);
-  --ui-header-height: --spacing(16);
+  --ui-header-height: 3.5rem;
+
+  /* Docs width (you can tweak this) */
+  --ui-docs-width: 70rem;
 }
 
-/* Dark mode – not “official SLDS” but still on-brand-ish */
 .dark {
   --ui-bg: #101629;
   --ui-bg-muted: #141b33;
@@ -76,8 +84,335 @@
   --ui-text: #f4f6fb;
   --ui-text-muted: #c9d3ea;
 
-  /* Slightly lighter blue for contrast on dark */
   --ui-primary: var(--color-sf-400);
 
   --ui-bg-inverted: #f3f2f2;
+}
+
+/* ========================
+   Global layout + typography
+   ======================== */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--ui-bg);
+  color: var(--ui-text);
+  font-family: var(--font-sans);
+}
+
+/* App shell similar to Salesforce Lightning */
+.sf-app {
+  min-height: 100vh;
+  background-color: var(--ui-bg);
+}
+
+/* Top navigation bar (like the blue Salesforce bar) */
+.sf-app-header {
+  height: var(--ui-header-height);
+  display: flex;
+  align-items: center;
+  padding-inline: 1.5rem;
+  background: linear-gradient(90deg, var(--color-sf-700), var(--color-sf-600));
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+}
+
+.sf-app-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.sf-app-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: 2rem;
+  font-size: 0.85rem;
+}
+
+.sf-app-header__nav a {
+  color: #e5f3ff;
+  text-decoration: none;
+  padding-block: 0.25rem;
+  border-bottom: 2px solid transparent;
+}
+
+.sf-app-header__nav a:hover {
+  border-bottom-color: #e5f3ff;
+}
+
+.sf-app-header__nav a.is-active {
+  border-bottom-color: #fff;
+  color: #fff;
+}
+
+/* Main content wrapper */
+.sf-main {
+  max-width: var(--ui-container);
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 2.5rem;
+}
+
+/* ===================================
+   Cards, page headers, utility styles
+   =================================== */
+
+/* Generic card similar to SLDS tile/card */
+.sf-card {
+  background-color: var(--ui-bg-muted);
+  border-radius: var(--ui-radius);
+  border: 1px solid var(--ui-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.sf-card--hoverable {
+  transition: box-shadow 150ms ease, transform 150ms ease;
+}
+
+.sf-card--hoverable:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+  transform: translateY(-1px);
+}
+
+.sf-card__header {
+  padding: 0.75rem 1rem 0.25rem;
+  border-bottom: 1px solid var(--ui-border-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sf-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ui-text);
+}
+
+.sf-card__body {
+  padding: 0.75rem 1rem 1rem;
+  font-size: 0.85rem;
+  color: var(--ui-text-soft);
+}
+
+/* Page header (record view header style) */
+.sf-page-header {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--ui-radius);
+  background-color: var(--ui-bg-muted);
+  border: 1px solid var(--ui-border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sf-page-header__title-group {
+  min-width: 0;
+}
+
+.sf-page-header__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ui-text-soft);
+}
+
+.sf-page-header__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ui-text);
+}
+
+.sf-page-header__meta {
+  font-size: 0.8rem;
+  color: var(--ui-text-muted);
+}
+
+/* Buttons styled like Lightning brand buttons */
+.sf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sf-button--brand {
+  background-color: var(--color-sf-600);
+  border-color: var(--color-sf-600);
+  color: #fff;
+}
+
+.sf-button--brand:hover {
+  background-color: var(--color-sf-700);
+  border-color: var(--color-sf-700);
+}
+
+.sf-button--neutral {
+  background-color: #fff;
+  border-color: var(--ui-border);
+  color: var(--ui-text-soft);
+}
+
+.sf-button--neutral:hover {
+  background-color: #f3f2f2;
+}
+
+/* Inputs like SLDS */
+.sf-input {
+  display: block;
+  width: 100%;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--ui-border);
+  background-color: #fff;
+  font-size: 0.8rem;
+  color: var(--ui-text);
+}
+
+.sf-input:focus {
+  outline: none;
+  border-color: var(--color-sf-600);
+  box-shadow: 0 0 0 1px var(--color-sf-600);
+}
+
+/* Record "path" (stage bar) */
+.sf-path {
+  display: flex;
+  align-items: stretch;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--ui-border);
+  background-color: #fff;
+  font-size: 0.75rem;
+}
+
+.sf-path__step {
+  flex: 1 1 0;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  color: var(--ui-text-soft);
+  background-color: #fff;
+  border-right: 1px solid var(--ui-border-muted);
+}
+
+.sf-path__step:last-child {
+  border-right: none;
+}
+
+.sf-path__step--current {
+  background-color: var(--color-sf-50);
+  color: var(--color-sf-700);
+  font-weight: 600;
+}
+
+.sf-path__step--completed {
+  background-color: var(--color-sf-600);
+  color: #fff;
+}
+
+/* Tabs (Activity / Details / Chatter style) */
+.sf-tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--ui-border);
+  margin-bottom: 0.75rem;
+}
+
+.sf-tabs__tab {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  color: var(--ui-text-soft);
+  border-radius: 0.25rem 0.25rem 0 0;
+  border: 1px solid transparent;
+  border-bottom: none;
+  cursor: pointer;
+}
+
+.sf-tabs__tab:hover {
+  background-color: #f3f2f2;
+}
+
+.sf-tabs__tab--active {
+  background-color: #fff;
+  color: var(--ui-text);
+  border-color: var(--ui-border);
+  border-bottom-color: #fff;
+}
+
+/* ==========================
+   Docs / prose width + tweaks
+   ========================== */
+
+/* Nuxt UI prose / docs content – make it wider and more "record-detail" */
+.prose,
+.docs-prose {
+  max-width: var(--ui-docs-width);
+}
+
+/* Give docs content subtle card look */
+.docs-main,
+.docs-content,
+.u-page-body,
+.UPageBody {
+  /* fallback in case classes differ */
+  background-color: transparent;
+}
+
+.docs-prose-wrapper,
+.docs-page,
+.sf-docs-shell {
+  max-width: var(--ui-docs-width);
+  margin-inline: auto;
+}
+
+/* Code blocks and tables inside docs */
+.prose pre {
+  border-radius: 0.25rem;
+  border: 1px solid var(--ui-border-muted);
+}
+
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.prose table th,
+.prose table td {
+  border: 1px solid var(--ui-border-muted);
+  padding: 0.45rem 0.6rem;
+}
+
+/* Small helper spacing to look like Salesforce sections */
+.sf-section {
+  margin-bottom: 1rem;
+}
+
+.sf-section__header {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ui-text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
 }
