@@ -18,6 +18,7 @@ export default defineNuxtConfig({
       owner: 'imswarnil',              // your GitHub username
       repo: 'CRM-Analytics-Academy',   // your repo
       branch: process.env.STUDIO_GITHUB_BRANCH,
+      rootDir: ''
     }
   },
 
@@ -53,11 +54,10 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: ['/'],
-      crawlLinks: true,
-      failOnError: false,
+      crawlLinks: true
     }
   },
-
+a
   eslint: {
     config: {
       stylistic: {
