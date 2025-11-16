@@ -1,8 +1,5 @@
 <script setup lang="ts">
 const route = useRoute()
-const user = useSupabaseUser()
-const supabase = useSupabaseClient()
-const toast = useToast()
 
 const items = computed(() => [{
   label: 'Docs',
@@ -18,26 +15,6 @@ const items = computed(() => [{
   label: 'Changelog',
   to: '/changelog'
 }])
-
-const handleLogout = async () => {
-  const { error } = await supabase.auth.signOut()
-
-  if (error) {
-    toast.add({
-      title: 'Logout failed',
-      description: error.message,
-      color: 'red'
-    })
-    return
-  }
-
-  toast.add({
-    title: 'Signed out',
-    color: 'green'
-  })
-
-  await navigateTo('/')
-}
 </script>
 
 <template>
@@ -57,64 +34,29 @@ const handleLogout = async () => {
     <template #right>
       <UColorModeButton />
 
-      <!-- Not logged in -->
-      <template v-if="!user">
-        <UButton
-          icon="i-lucide-log-in"
-          color="neutral"
-          variant="ghost"
-          to="/login"
-          class="lg:hidden"
-        />
+      <UButton
+        icon="i-lucide-log-in"
+        color="neutral"
+        variant="ghost"
+        to="/login"
+        class="lg:hidden"
+      />
 
-        <UButton
-          label="Sign in"
-          color="neutral"
-          variant="outline"
-          to="/login"
-          class="hidden lg:inline-flex"
-        />
+      <UButton
+        label="Sign in"
+        color="neutral"
+        variant="outline"
+        to="/login"
+        class="hidden lg:inline-flex"
+      />
 
-        <UButton
-          label="Sign up"
-          color="neutral"
-          trailing-icon="i-lucide-arrow-right"
-          class="hidden lg:inline-flex"
-          to="/signup"
-        />
-      </template>
-
-      <!-- Logged in -->
-      <template v-else>
-        <UButton
-          label="Dashboard"
-          color="neutral"
-          variant="ghost"
-          to="/dashboard"
-          class="hidden lg:inline-flex"
-        />
-
-        <UDropdown
-          :items="[
-            [
-              { label: user.email || 'Account', disabled: true }
-            ],
-            [
-              {
-                label: 'Sign out',
-                icon: 'i-lucide-log-out',
-                click: handleLogout
-              }
-            ]
-          ]"
-        >
-          <UButton
-            icon="i-lucide-user"
-            color="neutral"
-            variant="outline"
-          />
-        </UDropdown>
-      </template>
+      <UButton
+        label="Sign up"
+        color="neutral"
+        trailing-icon="i-lucide-arrow-right"
+        class="hidden lg:inline-flex"
+        to="/signup"
+      />
     </template>
 
     <template #body>
@@ -126,39 +68,20 @@ const handleLogout = async () => {
 
       <USeparator class="my-6" />
 
-      <template v-if="!user">
-        <UButton
-          label="Sign in"
-          color="neutral"
-          variant="subtle"
-          to="/login"
-          block
-          class="mb-3"
-        />
-        <UButton
-          label="Sign up"
-          color="neutral"
-          to="/signup"
-          block
-        />
-      </template>
-
-      <template v-else>
-        <UButton
-          label="Dashboard"
-          color="neutral"
-          to="/dashboard"
-          block
-          class="mb-3"
-        />
-        <UButton
-          label="Sign out"
-          color="neutral"
-          variant="subtle"
-          block
-          @click="handleLogout"
-        />
-      </template>
+      <UButton
+        label="Sign in"
+        color="neutral"
+        variant="subtle"
+        to="/login"
+        block
+        class="mb-3"
+      />
+      <UButton
+        label="Sign up"
+        color="neutral"
+        to="/signup"
+        block
+      />
     </template>
   </UHeader>
 </template>

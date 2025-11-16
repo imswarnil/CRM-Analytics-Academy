@@ -1,4 +1,3 @@
-<!-- app/layouts/auth.vue -->
 <template>
   <div class="h-screen flex items-center justify-center px-4">
     <UButton
