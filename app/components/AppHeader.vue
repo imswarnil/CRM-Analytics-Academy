@@ -21,11 +21,21 @@ const items = computed(() => [{
 
 const handleLogout = async () => {
   const { error } = await supabase.auth.signOut()
+
   if (error) {
-    toast.add({ title: 'Logout failed', description: error.message, color: 'red' })
+    toast.add({
+      title: 'Logout failed',
+      description: error.message,
+      color: 'red'
+    })
     return
   }
-  toast.add({ title: 'Signed out', color: 'green' })
+
+  toast.add({
+    title: 'Signed out',
+    color: 'green'
+  })
+
   await navigateTo('/')
 }
 </script>
@@ -47,7 +57,7 @@ const handleLogout = async () => {
     <template #right>
       <UColorModeButton />
 
-      <!-- If not logged in: show Sign in / Sign up -->
+      <!-- Not logged in -->
       <template v-if="!user">
         <UButton
           icon="i-lucide-log-in"
@@ -74,7 +84,7 @@ const handleLogout = async () => {
         />
       </template>
 
-      <!-- If logged in: show Dashboard + menu -->
+      <!-- Logged in -->
       <template v-else>
         <UButton
           label="Dashboard"
@@ -85,7 +95,18 @@ const handleLogout = async () => {
         />
 
         <UDropdown
-          :items="[[{ label: user.email || 'Account' }], [{ label: 'Sign out', icon: 'i-lucide-log-out', click: handleLogout }]]"
+          :items="[
+            [
+              { label: user.email || 'Account', disabled: true }
+            ],
+            [
+              {
+                label: 'Sign out',
+                icon: 'i-lucide-log-out',
+                click: handleLogout
+              }
+            ]
+          ]"
         >
           <UButton
             icon="i-lucide-user"

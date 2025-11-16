@@ -10,15 +10,17 @@ useSeoMeta({
 
 const user = useSupabaseUser()
 
-onMounted(async () => {
-  // Supabase will already have set the session if everything went well.
-  // Just wait a bit for the client to hydrate and redirect.
-  const stop = watch(user, async (val) => {
-    if (val) {
-      stop()
-      await navigateTo('/dashboard')
-    }
-  }, { immediate: true })
+onMounted(() => {
+  const stop = watch(
+    user,
+    async (val) => {
+      if (val) {
+        stop()
+        await navigateTo('/dashboard')
+      }
+    },
+    { immediate: true }
+  )
 })
 </script>
 

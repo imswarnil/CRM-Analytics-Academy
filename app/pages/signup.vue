@@ -58,8 +58,13 @@ const providers = [{
       provider: 'google',
       options: { redirectTo: getRedirectUrl() }
     })
+
     if (error) {
-      toast.add({ title: 'Google signup failed', description: error.message, color: 'red' })
+      toast.add({
+        title: 'Google signup failed',
+        description: error.message,
+        color: 'red'
+      })
     }
   }
 }, {
@@ -70,8 +75,13 @@ const providers = [{
       provider: 'github',
       options: { redirectTo: getRedirectUrl() }
     })
+
     if (error) {
-      toast.add({ title: 'GitHub signup failed', description: error.message, color: 'red' })
+      toast.add({
+        title: 'GitHub signup failed',
+        description: error.message,
+        color: 'red'
+      })
     }
   }
 }]
@@ -94,7 +104,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   loading.value = false
 
   if (error) {
-    toast.add({ title: 'Sign up failed', description: error.message, color: 'red' })
+    toast.add({
+      title: 'Sign up failed',
+      description: error.message,
+      color: 'red'
+    })
     return
   }
 

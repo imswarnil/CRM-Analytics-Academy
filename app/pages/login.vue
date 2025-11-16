@@ -51,8 +51,13 @@ const providers = [{
       provider: 'google',
       options: { redirectTo: getRedirectUrl() }
     })
+
     if (error) {
-      toast.add({ title: 'Google login failed', description: error.message, color: 'red' })
+      toast.add({
+        title: 'Google login failed',
+        description: error.message,
+        color: 'red'
+      })
     }
   }
 }, {
@@ -63,8 +68,13 @@ const providers = [{
       provider: 'github',
       options: { redirectTo: getRedirectUrl() }
     })
+
     if (error) {
-      toast.add({ title: 'GitHub login failed', description: error.message, color: 'red' })
+      toast.add({
+        title: 'GitHub login failed',
+        description: error.message,
+        color: 'red'
+      })
     }
   }
 }]
@@ -78,11 +88,19 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   loading.value = false
 
   if (error) {
-    toast.add({ title: 'Login failed', description: error.message, color: 'red' })
+    toast.add({
+      title: 'Login failed',
+      description: error.message,
+      color: 'red'
+    })
     return
   }
 
-  toast.add({ title: 'Welcome back 👋', color: 'green' })
+  toast.add({
+    title: 'Welcome back 👋',
+    color: 'green'
+  })
+
   await navigateTo('/dashboard')
 }
 </script>

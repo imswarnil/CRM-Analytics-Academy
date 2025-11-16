@@ -2,7 +2,7 @@
 export default defineNuxtRouteMiddleware((to) => {
   const user = useSupabaseUser()
 
-  // Public pages – everything else will require auth
+  // Public routes. Everything else will require authentication.
   const publicRoutes = [
     '/',
     '/login',
@@ -16,11 +16,12 @@ export default defineNuxtRouteMiddleware((to) => {
     '/changelog'
   ]
 
-  // Allow nested docs etc.
+  // Allow nested paths like /docs/getting-started
   if (publicRoutes.some(path => to.path === path || to.path.startsWith(path))) {
     return
   }
 
+  // If user not logged in → send to login
   if (!user.value) {
     return navigateTo('/login')
   }

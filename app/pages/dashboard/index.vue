@@ -3,8 +3,8 @@ import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 definePageMeta({
-  middleware: ['auth'],
-  layout: 'default', // or whatever your main layout is
+  middleware: ['auth']
+  // layout: 'default' // optional, uses default layout
 })
 
 useSeoMeta({
@@ -18,21 +18,18 @@ const toast = useToast()
 const loading = ref(false)
 
 const schema = z.object({
-  fullName: z.string().min(1, 'Name is required').optional().or(z.literal('')),
+  fullName: z.string().optional()
 })
 
 type Schema = z.output<typeof schema>
 
-const initialFullName = computed(() => {
-  return (user.value?.user_metadata as any)?.full_name || ''
+const state = reactive<{ fullName: string | undefined }>({
+  fullName: undefined
 })
 
-const fields = [{
-  name: 'fullName',
-  type: 'text' as const,
-  label: 'Full name',
-  placeholder: 'Update your name'
-}]
+watchEffect(() => {
+  state.fullName = (user.value?.user_metadata as any)?.full_name || ''
+})
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   const { fullName } = event.data
@@ -47,11 +44,18 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   loading.value = false
 
   if (error) {
-    toast.add({ title: 'Update failed', description: error.message, color: 'red' })
+    toast.add({
+      title: 'Update failed',
+      description: error.message,
+      color: 'red'
+    })
     return
   }
 
-  toast.add({ title: 'Profile updated', color: 'green' })
+  toast.add({
+    title: 'Profile updated',
+    color: 'green'
+  })
 }
 </script>
 
@@ -76,14 +80,17 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
         <UForm
           :schema="schema"
-          :state="{ fullName: initialFullName }"
+          :state="state"
           @submit="onSubmit"
         >
           <UFormGroup
             label="Full name"
             name="fullName"
           >
-            <UInput name="fullName" />
+            <UInput
+              name="fullName"
+              v-model="state.fullName"
+            />
           </UFormGroup>
 
           <div class="mt-4 flex justify-end">

@@ -47,7 +47,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   loading.value = false
 
   if (error) {
-    toast.add({ title: 'Reset failed', description: error.message, color: 'red' })
+    toast.add({
+      title: 'Reset failed',
+      description: error.message,
+      color: 'red'
+    })
     return
   }
 
