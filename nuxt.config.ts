@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/ui',
+    '@nuxtjs/seo',
     '@nuxt/content',
     '@vueuse/nuxt',
     'nuxt-og-image',
@@ -37,6 +38,7 @@ export default defineNuxtConfig({
     }
   },
 
+
   devtools: {
     enabled: true
   },
@@ -65,5 +67,3 @@ export default defineNuxtConfig({
     }
   }
 })
-
-

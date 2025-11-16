@@ -10,7 +10,6 @@
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
     "clean-reset": "rm -rf node_modules pnpm-lock.yaml .nuxt .nitro .output && pnpm store prune && npm cache clean --force"
-
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.73",
@@ -18,6 +17,7 @@
     "@nuxt/content": "^3.8.2",
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.1.0",
+    "@nuxtjs/seo": "3.2.2",
     "@nuxtjs/supabase": "^2.0.1",
     "@standard-schema/spec": "^1.0.0",
     "@vercel/analytics": "^1.5.0",
