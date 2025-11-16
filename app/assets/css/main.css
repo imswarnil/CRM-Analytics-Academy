@@ -3,15 +3,13 @@
 
 @source "../../../content/**/*";
 
-/* ================================
-   Tailwind / Nuxt UI design tokens
-   ================================ */
-
+/* Tailwind / Nuxt UI design tokens */
 @theme static {
   /* Salesforce-ish font stack */
   --font-sans: "Salesforce Sans", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
+  /* (Optional) mono font if needed */
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
 
@@ -28,97 +26,44 @@
   --color-sf-900: #032d60;
   --color-sf-950: #021734;
 
-  /* Map Salesforce palette onto Tailwind primary */
-  --color-primary-50:  var(--color-sf-50);
-  --color-primary-100: var(--color-sf-100);
-  --color-primary-200: var(--color-sf-200);
-  --color-primary-300: var(--color-sf-300);
-  --color-primary-400: var(--color-sf-400);
-  --color-primary-500: var(--color-sf-500);
-  --color-primary-600: var(--color-sf-600);
-  --color-primary-700: var(--color-sf-700);
-  --color-primary-800: var(--color-sf-800);
-  --color-primary-900: var(--color-sf-900);
-
-  /* Neutral greys tuned to SLDS feel */
-  --color-neutral-50:  #f3f2f2;
-  --color-neutral-100: #e5e5e5;
-  --color-neutral-200: #dddbda;
-  --color-neutral-300: #c9c7c5;
-  --color-neutral-400: #b0adab;
-  --color-neutral-500: #969492;
-  --color-neutral-600: #706e6b;
-  --color-neutral-700: #514f4d;
-  --color-neutral-800: #3e3d3c;
-  --color-neutral-900: #181818;
-
-  /* Border radius – compact like Lightning (inputs/cards) */
-  --radius-none: 0;
-  --radius-sm: 0.125rem;
-  --radius-md: 0.25rem;
-  --radius-lg: 0.25rem;
-  --radius-xl: 0.5rem;
-  --radius-2xl: 0.75rem;
-  --radius-full: 9999px;
-
-  /* Shadows – light & crisp */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.16);
-
-  /* Container widths (Nuxt UI uses these for layouts) */
-  --container-3xl: 56rem;
-  --container-4xl: 64rem;
-  --container-5xl: 64rem; /* leave docs default-ish */
-  --container-6xl: 72rem;
-  --container-7xl: 80rem;
-  --container-8xl: 88rem;
+  /* Container width a bit more “app” than “marketing site” */
+  --container-8xl: 85rem;
 }
 
-/* =========================================
-   UI tokens Nuxt UI components read from
-   ========================================= */
-
+/* Light theme: Salesforce Lightning-style surfaces */
 :root {
-  /* Brand */
+  /* Use Salesforce blue as Nuxt UI primary token */
   --ui-primary: var(--color-sf-600);
-  --ui-primary-soft: var(--color-sf-50);
 
-  /* Backgrounds – Lightning-style */
-  --ui-bg: #f3f2f2;           /* page background */
+  /* Page + surfaces – SLDS-style greys */
+  --ui-bg: #f3f2f2;           /* app background */
   --ui-bg-muted: #ffffff;     /* cards, panels */
   --ui-bg-elevated: #ffffff;
   --ui-bg-accented: #e5f3ff;  /* subtle info/accent */
-  --ui-bg-inverted: #032d60;  /* blue bar / badges */
 
-  /* Borders & outlines like SLDS */
+  /* Inverted (for badges/pills on blue) */
+  --ui-bg-inverted: #032d60;
+
+  /* Borders like SLDS cards/inputs */
   --ui-border: #dddbda;
   --ui-border-muted: #e5e5e5;
   --ui-border-strong: #c9c7c5;
 
-  /* Text colours */
+  /* Text colors close to SLDS tokens */
   --ui-text: #080707;
   --ui-text-muted: #514f4d;
   --ui-text-soft: #706e6b;
   --ui-text-inverted: #ffffff;
 
-  /* Radius + shadow fed into Nuxt UI */
+  /* Compact radius like Lightning cards & inputs (~4px) */
   --ui-radius: 0.25rem;
-  --ui-radius-sm: 0.125rem;
-  --ui-radius-lg: 0.5rem;
-
-  --ui-shadow-sm: var(--shadow-sm);
-  --ui-shadow-md: var(--shadow-md);
 
   /* Layout */
   --ui-container: var(--container-8xl);
-  --ui-header-height: 3.5rem;
-
-  /* Focus / ring – Salesforce-ish blue */
-  --ui-ring: var(--color-sf-600);
+  --ui-header-height: --spacing(16);
 }
 
-/* Dark mode – still Salesforce-y but usable */
+/* Dark mode – not “official SLDS” but still on-brand-ish */
 .dark {
   --ui-bg: #101629;
   --ui-bg-muted: #141b33;
@@ -127,90 +72,12 @@
 
   --ui-border: #27344d;
   --ui-border-muted: #1e2740;
-  --ui-border-strong: #324165;
 
   --ui-text: #f4f6fb;
   --ui-text-muted: #c9d3ea;
-  --ui-text-soft: #a5b4d4;
-  --ui-text-inverted: #101629;
 
+  /* Slightly lighter blue for contrast on dark */
   --ui-primary: var(--color-sf-400);
-  --ui-primary-soft: rgba(126, 166, 229, 0.18);
 
   --ui-bg-inverted: #f3f2f2;
-
-  --ui-ring: var(--color-sf-400);
-}
-
-/* ========================
-   Global element styling
-   (no custom class names)
-   ======================== */
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-}
-
-body {
-  background-color: var(--ui-bg);
-  color: var(--ui-text);
-  font-family: var(--font-sans);
-}
-
-/* Buttons – make default HTML buttons feel like Lightning
-   Nuxt UI buttons already use tokens, this just helps bare <button> */
-button {
-  font-family: inherit;
-  font-size: 0.875rem;
-  border-radius: var(--ui-radius);
-}
-
-/* Inputs / textareas – SLDS-like borders + focus */
-input,
-textarea,
-select {
-  font-family: inherit;
-  font-size: 0.875rem;
-  border-radius: var(--ui-radius);
-  border: 1px solid var(--ui-border);
-  background-color: #ffffff;
-  color: var(--ui-text);
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: var(--ui-ring);
-  box-shadow: 0 0 0 1px var(--ui-ring);
-}
-
-/* Basic card-ish feel for generic <fieldset>, <details> etc if used */
-fieldset,
-details {
-  border-radius: var(--ui-radius);
-  border: 1px solid var(--ui-border-muted);
-  background-color: var(--ui-bg-muted);
-}
-
-/* Prose text / docs typography inherit the SLDS fonts & colours */
-.prose {
-  color: var(--ui-text);
-  font-family: var(--font-sans);
-}
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4 {
-  color: var(--ui-text);
-  font-weight: 600;
-}
-.prose a {
-  color: var(--ui-primary);
-}
-.prose a:hover {
-  text-decoration: underline;
 }

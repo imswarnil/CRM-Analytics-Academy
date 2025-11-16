@@ -4,27 +4,31 @@ definePageMeta({
 })
 
 useSeoMeta({
-  title: 'Signing you in...',
-  description: 'Completing authentication'
+  title: 'Signing you in…',
+  description: 'Finishing authentication'
 })
 
-const router = useRouter()
 const user = useSupabaseUser()
 
-watch(
-  user,
-  (val) => {
+onMounted(async () => {
+  // Supabase will already have set the session if everything went well.
+  // Just wait a bit for the client to hydrate and redirect.
+  const stop = watch(user, async (val) => {
     if (val) {
-      router.push('/dashboard')   // or wherever you want after OAuth/email confirm
+      stop()
+      await navigateTo('/dashboard')
     }
-  },
-  { immediate: true }
-)
+  }, { immediate: true })
+})
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-4 py-16">
-    <span class="i-lucide-loader-2 animate-spin text-3xl" />
-    <p>Completing sign-in, please wait...</p>
+  <div class="flex flex-col items-center justify-center gap-4">
+    <div class="animate-pulse text-lg font-medium">
+      Finishing sign-in…
+    </div>
+    <p class="text-sm text-neutral-500">
+      You will be redirected in a moment.
+    </p>
   </div>
 </template>
