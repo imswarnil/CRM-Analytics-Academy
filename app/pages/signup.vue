@@ -66,8 +66,8 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     return
   }
 
-  // Behaviour depends on Supabase email confirmation settings
   if (data.user && !data.session) {
+    // email confirmation required
     toast.add({
       title: 'Confirm your email',
       description: 'We sent you a confirmation link. Please check your inbox.',
@@ -75,6 +75,7 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     })
     await navigateTo('/login')
   } else {
+    // auto-logged in
     toast.add({
       title: 'Account created 🎉',
       description: `Welcome, ${data.user?.email}`,

@@ -2,7 +2,7 @@
 export default defineNuxtRouteMiddleware((to) => {
   const user = useSupabaseUser()
 
-  // Public routes that do NOT require auth
+  // Public routes (no auth required)
   const publicRoutes = [
     '/',
     '/login',
@@ -16,12 +16,10 @@ export default defineNuxtRouteMiddleware((to) => {
     '/changelog'
   ]
 
-  // Allow nested routes like /docs/getting-started
   if (publicRoutes.some(path => to.path === path || to.path.startsWith(path))) {
     return
   }
 
-  // If there is no user, send them to login
   if (!user.value) {
     return navigateTo('/login')
   }

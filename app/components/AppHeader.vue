@@ -71,7 +71,7 @@ const handleLogout = async () => {
     <template #right>
       <UColorModeButton />
 
-      <!-- If NOT logged in -->
+      <!-- Not logged in -->
       <template v-if="!user">
         <UButton
           icon="i-lucide-log-in"
@@ -98,7 +98,7 @@ const handleLogout = async () => {
         />
       </template>
 
-      <!-- If logged in -->
+      <!-- Logged in -->
       <template v-else>
         <UButton
           label="Dashboard"
