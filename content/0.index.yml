@@ -6,7 +6,6 @@ seo:
 navigation: false
 
 hero:
-  orientation : horizontal
   links:
     - label: Start Learning
       icon: i-lucide-arrow-right
