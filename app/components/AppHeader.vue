@@ -4,20 +4,31 @@ const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 const toast = useToast()
 
-const items = computed(() => [{
-  label: 'Docs',
-  to: '/docs',
-  active: route.path.startsWith('/docs')
-}, {
-  label: 'Pricing',
-  to: '/pricing'
-}, {
-  label: 'Blog',
-  to: '/blog'
-}, {
-  label: 'Changelog',
-  to: '/changelog'
-}])
+const items = computed(() => [
+  {
+    label: 'Home',
+    to: '/',
+    icon: 'i-lucide-home',
+    active: route.path === '/'
+  },
+  {
+    label: 'Docs',
+    to: '/docs',
+    active: route.path.startsWith('/docs')
+  },
+  {
+    label: 'Pricing',
+    to: '/pricing'
+  },
+  {
+    label: 'Blog',
+    to: '/blog'
+  },
+  {
+    label: 'Changelog',
+    to: '/changelog'
+  }
+])
 
 const userEmail = computed(() => user.value?.email ?? '')
 const userName = computed(() => {
