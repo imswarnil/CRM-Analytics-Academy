@@ -10,14 +10,14 @@ hero:
     - label: Start free course
       icon: i-lucide-arrow-right
       trailing: true
-      to: /docs/getting-started/installation
+      to: '/docs/getting-started/installation'
       size: xl
     - label: View full curriculum
       icon: i-lucide-list-checks
       size: xl
       color: neutral
       variant: subtle
-      to: /docs/getting-started
+      to: '/docs/getting-started/installation'
 sections:
   - title: Learn by Building Real Dashboards
     description: No boring theory-first videos. You’ll learn CRM Analytics by actually creating datasets, lenses, dashboards, and SAQL step by step – just like you would in a real Salesforce project.
@@ -143,11 +143,11 @@ cta:
   description: Start learning Salesforce CRM Analytics from scratch with a structured, hands-on curriculum. Build dashboards, write SAQL, and ship analytics that leaders actually use.
   links:
     - label: Start learning now
-      to: '/docs/getting-started/introduction'
+      to: '/docs/getting-started/installation'
       target: _self
       trailingIcon: i-lucide-arrow-right
     - label: Explore all modules
-      to: '/docs/getting-started
+      to: '/docs/getting-started/installation'
       target: _self
       variant: subtle
       icon: i-lucide-book-open
