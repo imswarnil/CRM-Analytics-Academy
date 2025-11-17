@@ -81,3 +81,16 @@
 
   --ui-bg-inverted: #f3f2f2;
 }
+
+
+@layer components {
+  /* Subtle hover effect on all nav icons in the main header nav */
+  .app-main-nav .ui-navigation-menu-link-icon {
+    transition: transform 0.15s ease-out;
+  }
+
+  .app-main-nav a:hover .ui-navigation-menu-link-icon,
+  .app-main-nav button:hover .ui-navigation-menu-link-icon {
+    transform: translateY(-1px) scale(1.06);
+  }
+}

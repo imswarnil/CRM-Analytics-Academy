@@ -19,7 +19,6 @@ useSeoMeta({
       :title="page.title"
       :description="page.description"
       :links="page.hero.links"
-      :orientation="page.hero.orientation"
     >
       <template #top>
         <HeroBackground />
@@ -31,8 +30,60 @@ useSeoMeta({
           unwrap="p"
         />
       </template>
+
       <PromotionalVideo />
     </UPageHero>
+
+        <UPageHero
+      :title="page.title"
+      :description="page.description"
+      :links="page.hero.links"
+    >
+      <template #top>
+        <HeroBackground />
+      </template>
+
+      <template #title>
+        <MDC
+          :value="page.title"
+          unwrap="p"
+        />
+      </template>
+
+      <PromotionalVideo />
+    </UPageHero>
+
+    <!-- 🔹 NEW: Stepper section -->
+    <UPageSection
+      v-if="page.stepper"
+      :title="page.stepper.title"
+      :description="page.stepper.description"
+    >
+      <UStepper
+        :items="page.stepper.items"
+        class="w-full"
+      >
+        <template #content="{ item }">
+          <ImagePlaceholder class="aspect-video">
+            This is the {{ item.title }} step.
+          </ImagePlaceholder>
+        </template>
+      </UStepper>
+    </UPageSection>
+
+    <UPageSection
+      v-for="(section, index) in page.sections"
+      :key="index"
+      :title="section.title"
+      :description="section.description"
+      :orientation="section.orientation"
+      :reverse="section.reverse"
+      :features="section.features"
+    >
+      <ImagePlaceholder />
+    </UPageSection>
+
+    
 
     <UPageSection
       v-for="(section, index) in page.sections"

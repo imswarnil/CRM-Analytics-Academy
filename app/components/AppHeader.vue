@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import type { DropdownMenuItem } from '@nuxt/ui'
+
 const route = useRoute()
 const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 const toast = useToast()
+const url = useRequestURL()
 
 const items = computed(() => [
   {
@@ -12,23 +15,51 @@ const items = computed(() => [
     active: route.path === '/'
   },
   {
-    label: 'Docs',
+    label: 'Training',               // was: Docs
     to: '/docs',
+    icon: 'i-lucide-book-open',
     active: route.path.startsWith('/docs')
   },
   {
-    label: 'Pricing',
-    to: '/pricing'
+    label: 'Subscription',           // was: Pricing
+    to: '/pricing',
+    icon: 'i-lucide-tags',
+    active: route.path.startsWith('/pricing')
   },
   {
     label: 'Blog',
-    to: '/blog'
+    to: '/blog',
+    icon: 'i-lucide-newspaper',
+    active: route.path.startsWith('/blog')
   },
   {
     label: 'Changelog',
-    to: '/changelog'
+    to: '/changelog',
+    icon: 'i-lucide-history',
+    active: route.path.startsWith('/changelog')
   }
 ])
+
+/** 🔹 JSON-LD for navigation (SiteNavigationElement) */
+const origin = computed(() => `${url.protocol}//${url.host}`)
+
+const navJsonLd = computed(() => ({
+  '@context': 'https://schema.org',
+  '@graph': items.value.map(link => ({
+    '@type': 'SiteNavigationElement',
+    name: link.label,
+    url: origin.value + link.to
+  }))
+}))
+
+useHead(() => ({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify(navJsonLd.value)
+    }
+  ]
+}))
 
 const userEmail = computed(() => user.value?.email ?? '')
 const userName = computed(() => {
@@ -63,6 +94,27 @@ const handleLogout = async () => {
 
   await navigateTo('/login')
 }
+
+// Nuxt UI v4 dropdown items
+const userMenuItems = computed<DropdownMenuItem[][]>(() => [
+  [
+    {
+      label: userName.value || 'Account',
+      type: 'label'
+    },
+    {
+      label: userEmail.value || '',
+      type: 'label'
+    }
+  ],
+  [
+    {
+      label: 'Sign out',
+      icon: 'i-lucide-log-out',
+      onSelect: handleLogout
+    }
+  ]
+])
 </script>
 
 <template>
@@ -74,9 +126,11 @@ const handleLogout = async () => {
       <TemplateMenu />
     </template>
 
+    <!-- Main navigation -->
     <UNavigationMenu
       :items="items"
       variant="link"
+      class="app-main-nav"
     />
 
     <template #right>
@@ -119,26 +173,9 @@ const handleLogout = async () => {
           class="hidden lg:inline-flex"
         />
 
-        <UDropdown
-          :items="[
-            [
-              {
-                label: userName || 'Account',
-                disabled: true
-              },
-              {
-                label: userEmail,
-                disabled: true
-              }
-            ],
-            [
-              {
-                label: 'Sign out',
-                icon: 'i-lucide-log-out',
-                click: handleLogout
-              }
-            ]
-          ]"
+        <UDropdownMenu
+          :items="userMenuItems"
+          :content="{ align: 'end' }"
         >
           <UButton
             color="neutral"
@@ -158,15 +195,16 @@ const handleLogout = async () => {
               class="w-4 h-4"
             />
           </UButton>
-        </UDropdown>
+        </UDropdownMenu>
       </template>
     </template>
 
+    <!-- Mobile nav -->
     <template #body>
       <UNavigationMenu
         :items="items"
         orientation="vertical"
-        class="-mx-2.5"
+        class="app-main-nav -mx-2.5"
       />
 
       <USeparator class="my-6" />
@@ -207,3 +245,4 @@ const handleLogout = async () => {
     </template>
   </UHeader>
 </template>
+
