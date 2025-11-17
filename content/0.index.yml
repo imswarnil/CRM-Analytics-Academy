@@ -1,268 +1,160 @@
-title: Master [Salesforce CRM Analytics]{class="text-primary"} from Scratch
-description: Learn Salesforce CRM Analytics (formerly Einstein Analytics / Tableau CRM) step by step. Start from zero, understand the platform, build real dashboards, and master SAQL, dataflows, security, and Einstein Discovery with practical, project-based lessons.
+title: Learn [Salesforce CRM Analytics]{class="text-primary"} From Scratch
+description: Learn Salesforce CRM Analytics (formerly Einstein Analytics / Tableau CRM / Wave) step-by-step with real Salesforce org examples. Start from zero, build production-ready dashboards, and master SAQL, dataflows, bindings, and security for your CRM.
 seo:
-  title: Salesforce CRM Analytics Training – Free Course (Beginner to Advanced)
-  description: Learn Salesforce CRM Analytics from scratch with a structured, hands-on curriculum. Build datasets, lenses, dashboards, SAQL, dataflows/recipes, row-level security, Einstein Discovery, and embedded analytics using real-world examples.
+  title: Learn Salesforce CRM Analytics From Scratch (Beginner to Advanced)
+  description: Free, open-source Salesforce CRM Analytics training. Learn datasets, lenses, dashboards, SAQL, dataflows/recipes, row-level security, bindings, Einstein Discovery, and Lightning embedding with real-world projects and step-by-step modules.
 navigation: false
 
 hero:
-  orientation: horizontal
+  orientation : horizontal
   links:
-    - label: Start free course
+    - label: Start Learning
       icon: i-lucide-arrow-right
       trailing: true
-      to: '/docs/getting-started/installation'
+      to: /docs/getting-started
       size: xl
-    - label: View full curriculum
-      icon: i-lucide-list-checks
+    - label: View All Modules
+      icon: i-lucide-layout-dashboard
       size: xl
       color: neutral
       variant: subtle
-      to: '/docs/getting-started/installation'
+      to: /docs
+    - label: GitHub Project
+      icon: i-simple-icons-github
+      size: xl
+      color: neutral
+      variant: ghost
+      to: https://github.com/imswarnil/crm-analytics-academy
+      target: _blank
 
 sections:
-  - title: Learn by Building Real Dashboards
-    description: No boring theory-first videos. You’ll learn CRM Analytics by actually creating datasets, lenses, dashboards, and SAQL step by step – just like you would in a real Salesforce project.
-    id: learn-by-doing
+  - title: Master Salesforce CRM Analytics End-to-End
+    description: Go from “What is CRM Analytics?” to shipping live, trusted dashboards inside your Salesforce org. Learn the complete workflow: connect data, model it, explore it, and deliver dashboards that leaders actually use.
+    id: features
     orientation: horizontal
     features:
-      - name: Start from Zero
-        description: Understand org setup, licenses, terminology, and the CRM Analytics workspace so you don’t feel lost on day one.
-        icon: i-lucide-rocket
+      - name: Start From Zero
+        description: Understand what Salesforce CRM Analytics is, how it fits with Salesforce data, licenses, user access, and basic terminology before touching any dashboard.
+        icon: i-lucide-compass
       - name: Datasets, Lenses & Dashboards
-        description: Learn how to design data models, create lenses for exploration, and build interactive dashboards your business users actually use.
-        icon: i-lucide-layout-dashboard
-      - name: SAQL & JSON
-        description: Go beyond the UI. Write SAQL, tweak dashboard JSON, and unlock advanced customizations and performance optimizations.
+        description: Learn how to design datasets, explore data with lenses, and build interactive dashboards that answer real sales, service, and revenue questions.
+        icon: i-lucide-bar-chart-3
+      - name: SAQL Without Fear
+        description: Build confidence with SAQL step-by-step so you can go beyond clicks, write powerful queries, and implement custom calculations that business teams ask for.
         icon: i-lucide-code-2
 
-  - title: From Fundamentals to Enterprise-Ready Analytics
-    description: Move from basics to advanced topics like dataflows, recipes, security, and Einstein Discovery – the skills that make you valuable on real client projects.
+  - title: Built for Salesforce Admins, Analysts & Developers
+    description: This academy is crafted for people working in real Salesforce orgs. Every lesson is based on practical use cases—pipelines, forecasts, CSAT, usage analytics, adoption, and executive reporting.
     orientation: horizontal
     reverse: true
     features:
       - name: Dataflows & Recipes
-        description: Learn when to use dataflows vs recipes, how to schedule them, handle failures, and design scalable data pipelines.
-        icon: i-lucide-home
-      - name: Row-Level Security & Governance
-        description: Implement row-level security, sharing inheritance, and governance best practices so the right people see the right data.
+        description: Learn when to use dataflows vs recipes, how to join multiple Salesforce objects, transform data, and schedule refreshes that don’t break the night before a go-live.
+        icon: i-lucide-sparkles
+      - name: Row-Level Security & Bindings
+        description: Implement secure, dynamic dashboards using row-level security, sharing inheritance, and bindings so every user only sees what they’re supposed to see.
         icon: i-lucide-shield-check
-      - name: Einstein Discovery & Embedding
-        description: Build predictions, surface insights, and embed dashboards inside Lightning apps and record pages for real business impact.
-        icon: i-lucide-brain-circuit
+      - name: Einstein Discovery & Lightning Embeds
+        description: Explore Einstein Discovery, predictions and explanations, and learn how to embed dashboards directly into Lightning pages and apps for maximum adoption.
+        icon: i-lucide-orbit
 
 features:
-  title: Everything You Need to Become a CRM Analytics Pro
-  description: Stop hunting random YouTube videos. Follow a single, structured path from beginner to advanced with a focus on real Salesforce project work.
+  title: Everything You Need To Become a CRM Analytics Pro
+  description: This is a practical, project-driven learning path. You’ll build dashboards, design dataflows, write SAQL, and solve real-world reporting gaps inside Salesforce.
   items:
-    - title: Structured Curriculum
-      description: A clear, module-based path from platform basics to advanced SAQL, security, and Einstein – no fluff, no confusion.
-      icon: i-lucide-layers
-    - title: Real-World Scenarios
-      description: Lessons inspired by actual implementation use cases – sales, service, leadership dashboards, and operations analytics.
-      icon: i-lucide-briefcase
-    - title: Hands-on Practice
-      description: Build along with exercises, mini-projects, and dashboard challenges you can showcase in your portfolio.
-      icon: i-lucide-hand-heart
-    - title: Updated for Salesforce
-      description: Content aligned with the latest Salesforce CRM Analytics naming, UI, and best practices.
-      icon: i-lucide-refresh-ccw
-    - title: Career-Focused
-      description: Learn the skills recruiters and clients actually ask for – not just button-clicking, but thinking like an Analytics Consultant.
-      icon: i-lucide-stars
-    - title: Open-Source Learning
-      description: Transparent, community-friendly learning experience created by Swarnil – designed to stay free and accessible.
-      icon: i-lucide-globe-2
-
-modules:
-  headline: Curriculum Overview
-  title: From First Login to Production Dashboards
-  description: A module-based path you can follow at your own pace. Each module builds on the previous one with focused lessons and hands-on exercises.
-  items:
-    - title: Module 0 – Setup & Platform Basics
-      slug: module-0-setup-basics
-      level: Beginner
-      duration: 1–2 hours
-      icon: i-lucide-settings-2
-      summary: Get access to a Salesforce org, enable CRM Analytics, understand licenses, terminology, and the overall architecture.
-      tags:
-        - Org setup
-        - Licenses
-        - Navigation
-      to: ''
-
-    - title: Module 1 – Datasets & Data Manager
-      slug: module-1-datasets
-      level: Beginner
-      duration: 3–4 hours
-      icon: i-lucide-database
-      summary: Connect data, design datasets, join Salesforce objects, and understand grain, measures, and dimensions.
-      tags:
-        - Datasets
-        - Data manager
-        - Data modeling
-      to: ''
-
-    - title: Module 2 – Lenses & Exploration
-      slug: module-2-lenses
-      level: Beginner–Intermediate
-      duration: 3 hours
-      icon: i-lucide-search
-      summary: Build lenses to slice, dice, and explore data. Learn filters, groupings, compare tables, and chart best practices.
-      tags:
-        - Lenses
-        - Exploration
-        - Charts
-      to: ''
-
-    - title: Module 3 – Dashboards & Interactions
-      slug: module-3-dashboards
-      level: Intermediate
-      duration: 4–5 hours
-      icon: i-lucide-layout-panel-left
-      summary: Create dashboards with selectors, bindings, and interactions that answer real business questions.
-      tags:
-        - Dashboards
-        - Bindings
-        - UX
-      to: ''
-
-    - title: Module 4 – Dataflows & Recipes
-      slug: module-4-dataflows-recipes
-      level: Intermediate
-      duration: 4–5 hours
-      icon: i-lucide-home
-      summary: Build data pipelines using dataflows and recipes, handle scheduling, monitor errors, and follow design best practices.
-      tags:
-        - Dataflows
-        - Recipes
-        - Pipelines
-      to: ''
-
-    - title: Module 5 – SAQL & JSON Deep Dive
-      slug: module-5-saql-json
-      level: Advanced
-      duration: 5+ hours
-      icon: i-lucide-code
-      summary: Write SAQL queries, customize dashboard JSON, tune performance, and create advanced calculations.
-      tags:
-        - SAQL
-        - JSON
-        - Performance
-      to: ''
-
-    - title: Module 6 – Security & Governance
-      slug: module-6-security
-      level: Advanced
-      duration: 3–4 hours
-      icon: i-lucide-shield
-      summary: Implement row-level security, sharing inheritance, and governance patterns for enterprise orgs.
-      tags:
-        - RLS
-        - Governance
-        - Compliance
-      to: ''
-
-    - title: Module 7 – Einstein Discovery & AI
-      slug: module-7-einstein
-      level: Advanced
-      duration: 3–4 hours
-      icon: i-lucide-brain
-      summary: Build prediction models, interpret insights, and bring Einstein Discovery into dashboards and Lightning pages.
-      tags:
-        - Einstein Discovery
-        - Predictions
-        - Insights
-      to: ''
-
-    - title: Module 8 – Real-World Projects & Portfolio
-      slug: module-8-projects
-      level: All levels
-      duration: Project-based
-      icon: i-lucide-briefcase-business
-      summary: Work on full end-to-end projects and learn how to present your dashboards and architecture in interviews.
-      tags:
-        - Projects
-        - Portfolio
-        - Interviews
-      to: ''
+    - title: Platform Fundamentals
+      description: Learn how to enable CRM Analytics, manage licenses and permissions, set up templates, and structure apps for different teams in your org.
+      icon: i-lucide-badge-check
+    - title: Real-World Dashboards
+      description: Build sales, pipeline, adoption, support, and executive dashboards that answer “so what?” instead of just showing pretty charts.
+      icon: i-lucide-layout-dashboard
+    - title: SAQL & Advanced Queries
+      description: Use SAQL to create custom measures, running totals, period-over-period comparisons, and advanced filters that go beyond standard UI options.
+      icon: i-lucide-terminal
+    - title: Dataflows, Recipes & Automation
+      description: Design robust, reusable dataflows and recipes to clean, join, and enrich Salesforce and external data sources for analytics.
+      icon: i-lucide-repeat-2
+    - title: Security, Governance & Performance
+      description: Apply best practices for row-level security, sharing, performance tuning, and org-ready governance so stakeholders trust your dashboards.
+      icon: i-lucide-lock
+    - title: Open-Source & Community Driven
+      description: Learn from open-source examples, JSON snippets, and dashboard configs you can clone, adapt, and extend for your own Salesforce projects.
+      icon: i-lucide-users
 
 testimonials:
   headline: Loved by Salesforce Professionals
-  title: Learn from Someone Who’s Actually Using CRM Analytics
-  description: Hear from admins, consultants, and developers leveling up their careers with CRM Analytics.
+  title: Helping Admins, Analysts & Developers Level Up in CRM Analytics
+  description: Hear from people who used Salesforce CRM Analytics to ship better dashboards, cleaner data pipelines, and more confident decisions.
   items:
-    - quote: This course finally connected all the dots. Datasets, dataflows, SAQL, and security now feel like one clear story instead of random features.
+    - quote: I spent months being confused by CRM Analytics docs. This academy finally connected the dots between datasets, lenses, and dashboards in a way that made sense for real Salesforce work.
       user:
-        name: Ananya Gupta
-        description: Salesforce Consultant, Mumbai
+        name: Ananya Rao
+        description: Salesforce Admin at a SaaS Startup
         avatar:
-          src: https://i.pravatar.cc/120?img=21
-    - quote: I used the dashboards I built in this academy in my interviews. It directly helped me move into a dedicated CRM Analytics role.
+          src: https://i.pravatar.cc/120?img=1
+    - quote: The SAQL and bindings sections alone saved my project. I can now build dashboards that respond to user context instead of static one-size-fits-all views.
       user:
-        name: Rahul Sharma
-        description: CRM Analytics Developer, Bangalore
+        name: Jonathan Lee
+        description: Revenue Operations Analyst
         avatar:
-          src: https://i.pravatar.cc/120?img=22
-    - quote: The way complex topics like row-level security and SAQL are explained is amazing – simple language, but still technically deep.
+          src: https://i.pravatar.cc/120?img=7
+    - quote: I rebuilt our entire analytics pipeline using the dataflow and recipe patterns in this course. Refresh jobs are stable, and business users finally trust the numbers they see.
       user:
-        name: Priya Mehta
-        description: Senior Salesforce Admin, Pune
+        name: Priya Sharma
+        description: Salesforce Consultant
         avatar:
-          src: https://i.pravatar.cc/120?img=23
-    - quote: Finally a resource that treats CRM Analytics like a serious analytics platform, not just 'dashboards inside Salesforce'.
+          src: https://i.pravatar.cc/120?img=3
+    - quote: The Lightning embedding examples helped us bring dashboards into the exact Salesforce pages our teams live in. Dashboard adoption shot up immediately.
       user:
-        name: Daniel Rodriguez
-        description: Data & Analytics Lead, Madrid
+        name: Miguel Santos
+        description: Sales Cloud Architect
         avatar:
-          src: https://i.pravatar.cc/120?img=24
-    - quote: The real-world style dashboards and exercises made it easy to apply what I learned directly in my client projects.
+          src: https://i.pravatar.cc/120?img=5
+    - quote: As a developer, I loved the JSON, SAQL, and performance tips. It treats CRM Analytics like a real dev surface—not just a drag-and-drop toy.
       user:
-        name: Kavya Iyer
-        description: Salesforce Freelance Consultant
+        name: Elena Petrova
+        description: Salesforce Developer
         avatar:
-          src: https://i.pravatar.cc/120?img=25
-    - quote: I had zero experience with CRM Analytics. This academy gave me the confidence to say “yes” when my manager asked for analytics ownership.
+          src: https://i.pravatar.cc/120?img=8
+    - quote: The course feels like it was written by someone who has actually implemented dashboards for clients, not just copied Salesforce help articles.
       user:
-        name: Mohammed Ali
-        description: Salesforce Admin, Dubai
+        name: Arjun Mehta
+        description: Freelance Salesforce Consultant
         avatar:
-          src: https://i.pravatar.cc/120?img=26
-    - quote: The step-by-step flow from datasets to Einstein Discovery is exactly what I wish I had when I started with Tableau CRM.
+          src: https://i.pravatar.cc/120?img=9
+    - quote: I finally understand row-level security in CRM Analytics and how it relates to Salesforce sharing. That alone fixed years of confusion in our org.
       user:
-        name: Emily Chen
-        description: Analytics Consultant, Singapore
+        name: Emily Carter
+        description: Salesforce Admin & Business Analyst
         avatar:
-          src: https://i.pravatar.cc/120?img=27
-    - quote: The examples feel like real orgs: messy data, multiple objects, real business questions – not toy examples.
+          src: https://i.pravatar.cc/120?img=11
+    - quote: The open-source angle is perfect. I can take an example, tweak it for my org, and deliver dashboards in days instead of weeks.
       user:
-        name: Arjun Patel
-        description: Salesforce Technical Architect, London
+        name: Harsh Patel
+        description: Analytics Lead
         avatar:
-          src: https://i.pravatar.cc/120?img=28
-    - quote: I’ve recommended this academy to every junior admin and analyst in my team. It’s now our unofficial onboarding resource.
+          src: https://i.pravatar.cc/120?img=10
+    - quote: We now use this academy as our internal onboarding material for anyone new to CRM Analytics. It speeds up ramp time dramatically.
       user:
-        name: Sarah Johnson
-        description: Analytics Manager, US
+        name: Laura Becker
+        description: Head of Business Intelligence
         avatar:
-          src: https://i.pravatar.cc/120?img=29
-    - quote: The open-source approach and transparent roadmap make it feel like a community, not just a course.
+          src: https://i.pravatar.cc/120?img=12
+    - quote: Clean explanations, Salesforce-focused examples, and practical tips make this the best starting point for CRM Analytics I’ve found online.
       user:
-        name: Lucas Weber
-        description: Salesforce Enthusiast, Berlin
+        name: Daniel Kim
+        description: Salesforce Solution Architect
         avatar:
-          src: https://i.pravatar.cc/120?img=30
+          src: https://i.pravatar.cc/120?img=14
 
 cta:
-  title: Ready to Level Up Your Salesforce Analytics Skills?
-  description: Start learning Salesforce CRM Analytics from scratch with a structured, hands-on curriculum. Build dashboards, write SAQL, and ship analytics that leaders actually use.
+  title: Ready to Learn Salesforce CRM Analytics?
+  description: Start from the basics, build real dashboards, and master SAQL, dataflows, bindings, and security—step-by-step, in your own Salesforce org.
   links:
-    - label: Start learning now
-      to: '/docs/getting-started/installation'
-      target: _self
+    - label: Start the Course
+      to: '/docs/getting-started'
       trailingIcon: i-lucide-arrow-right
-    - label: Explore all modules
-      to: '/docs/getting-started/installation'
-      target: _self
+    - label: Browse All Modules
+      to: '/docs'
       variant: subtle
       icon: i-lucide-book-open

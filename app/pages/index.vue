@@ -15,51 +15,6 @@ useSeoMeta({
 
 <template>
   <div v-if="page">
-    <UPageSection
-  v-if="page.modules"
-  :headline="page.modules.headline"
-  :title="page.modules.title"
-  :description="page.modules.description"
->
-  <UPageGrid>
-    <UPageCard
-      v-for="(mod, index) in page.modules.items"
-      :key="mod.slug || index"
-      :title="mod.title"
-      :description="mod.summary"
-      :icon="mod.icon"
-      :to="mod.to || undefined"
-      spotlight
-    >
-      <template #description>
-        <p class="mb-2">
-          {{ mod.summary }}
-        </p>
-
-        <div class="flex flex-wrap gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <span>{{ mod.level }}</span>
-          <span>•</span>
-          <span>{{ mod.duration }}</span>
-        </div>
-
-        <div
-          v-if="mod.tags?.length"
-          class="mt-3 flex flex-wrap gap-2"
-        >
-          <UBadge
-            v-for="tag in mod.tags"
-            :key="tag"
-            size="xs"
-            color="gray"
-            variant="soft"
-          >
-            {{ tag }}
-          </UBadge>
-        </div>
-      </template>
-    </UPageCard>
-  </UPageGrid>
-</UPageSection>
     <UPageHero
       :title="page.title"
       :description="page.description"
@@ -138,7 +93,5 @@ useSeoMeta({
     >
       <LazyStarsBg />
     </UPageCTA>
-
-    
   </div>
 </template>
