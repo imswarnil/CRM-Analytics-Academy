@@ -10,16 +10,16 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase'
   ],
 
-  // studio: {
-  //   route: '/_studio',
-  //   repository: {
-  //     provider: 'github',
-  //     owner: 'imswarnil',              // your GitHub username
-  //     repo: 'CRM-Analytics-Academy',   // your repo
-  //     branch: process.env.STUDIO_GITHUB_BRANCH,
-  //     rootDir: ''
-  //   }
-  // },
+  studio: {
+    route: '/_studio',
+    repository: {
+      provider: 'github',
+      owner: 'imswarnil',              // your GitHub username
+      repo: 'CRM-Analytics-Academy',   // your repo
+      branch: process.env.STUDIO_GITHUB_BRANCH,
+      rootDir: ''
+    }
+  },
 
   supabase: {
     url: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_URL,
