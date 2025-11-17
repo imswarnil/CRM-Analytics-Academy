@@ -13,7 +13,7 @@ importers:
         version: 1.2.73
       '@iconify-json/simple-icons':
         specifier: ^1.2.58
-        version: 1.2.58
+        version: 1.2.59
       '@nuxt/content':
         specifier: ^3.8.2
         version: 3.8.2(better-sqlite3@12.4.1)(magicast@0.5.1)
@@ -522,11 +522,11 @@ packages:
   '@iconify-json/lucide@1.2.73':
     resolution: {integrity: sha512-++HFkqDNu4jqG5+vYT+OcVj9OiuPCw9wQuh8G5QWQnBRSJ9eKwSStiU8ORgOoK07xJsm/0VIHySMniXUUXP9Gw==}
 
-  '@iconify-json/simple-icons@1.2.58':
-    resolution: {integrity: sha512-XtXEoRALqztdNc9ujYBj2tTCPKdIPKJBdLNDebFF46VV1aOAwTbAYMgNsK5GMCpTJupLCmpBWDn+gX5SpECorQ==}
+  '@iconify-json/simple-icons@1.2.59':
+    resolution: {integrity: sha512-fYx/InyQsWFW4wVxWka3CGDJ6m/fXoTqWBSl+oA3FBXO5RhPAb6S3Y5bRgCPnrYevErH8VjAL0TZevIqlN2PhQ==}
 
-  '@iconify/collections@1.0.618':
-    resolution: {integrity: sha512-G0pOVenguqtHC3mV07JFqNHJnZl0Mq+Jc8Uksx6tVrq4KktenM5s9yih83FK7PCCCEHccvS/SkD06cfZOvd0Yw==}
+  '@iconify/collections@1.0.619':
+    resolution: {integrity: sha512-F39tuS46A7IyupfRysxPA1QaFq1AIDK3NLl6mdXqDUtVcdpW9z65n9dc8/4Ze/ap/bL2NE+nyWxxHgvuLmYdnw==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -6318,11 +6318,11 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.58':
+  '@iconify-json/simple-icons@1.2.59':
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/collections@1.0.618':
+  '@iconify/collections@1.0.619':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -6832,7 +6832,7 @@ snapshots:
 
   '@nuxt/icon@2.1.0(magicast@0.5.1)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))':
     dependencies:
-      '@iconify/collections': 1.0.618
+      '@iconify/collections': 1.0.619
       '@iconify/types': 2.0.0
       '@iconify/utils': 3.0.2
       '@iconify/vue': 5.0.0(vue@3.5.24(typescript@5.9.3))
