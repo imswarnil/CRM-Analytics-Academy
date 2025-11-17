@@ -148,23 +148,3 @@ cta:
       target: _blank
       variant: subtle
       icon: i-simple-icons-github
-
-stepper:
-  title: Your CRM Analytics Learning Path
-  description: Follow these four stages to go from zero to production-ready dashboards.
-  items:
-    - title: Get set up
-      description: Get your Salesforce org ready, enable CRM Analytics, and understand the basics.
-      icon: i-lucide-rocket
-
-    - title: Learn the fundamentals
-      description: Build datasets, lenses, and your first dashboards with real use cases.
-      icon: i-lucide-layout-dashboard
-
-    - title: Go deeper with SAQL
-      description: Write SAQL, tweak JSON, and unlock advanced calculations and interactions.
-      icon: i-lucide-code-2
-
-    - title: Ship real projects
-      description: Apply everything in end-to-end projects you can show in your portfolio.
-      icon: i-lucide-briefcase-business
