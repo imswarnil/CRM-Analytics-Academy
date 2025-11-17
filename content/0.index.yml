@@ -151,3 +151,117 @@ cta:
       target: _self
       variant: subtle
       icon: i-lucide-book-open
+
+modules:
+  headline: Curriculum Overview
+  title: From First Login to Production Dashboards
+  description: A module-based path you can follow at your own pace. Each module builds on the previous one with focused lessons and hands-on exercises.
+  items:
+    - title: Module 0 – Setup & Platform Basics
+      slug: module-0-setup-basics
+      level: Beginner
+      duration: 1–2 hours
+      icon: i-lucide-settings-2
+      summary: Get access to a Salesforce org, enable CRM Analytics, understand licenses, terminology, and the overall architecture.
+      tags:
+        - Org setup
+        - Licenses
+        - Navigation
+      to: ''
+
+    - title: Module 1 – Datasets & Data Manager
+      slug: module-1-datasets
+      level: Beginner
+      duration: 3–4 hours
+      icon: i-lucide-database
+      summary: Connect data, design datasets, join Salesforce objects, and understand grain, measures, and dimensions.
+      tags:
+        - Datasets
+        - Data manager
+        - Data modeling
+      to: ''
+
+    - title: Module 2 – Lenses & Exploration
+      slug: module-2-lenses
+      level: Beginner–Intermediate
+      duration: 3 hours
+      icon: i-lucide-search
+      summary: Build lenses to slice, dice, and explore data. Learn filters, groupings, compare tables, and chart best practices.
+      tags:
+        - Lenses
+        - Exploration
+        - Charts
+      to: ''
+
+    - title: Module 3 – Dashboards & Interactions
+      slug: module-3-dashboards
+      level: Intermediate
+      duration: 4–5 hours
+      icon: i-lucide-layout-panel-left
+      summary: Create dashboards with selectors, bindings, and interactions that answer real business questions.
+      tags:
+        - Dashboards
+        - Bindings
+        - UX
+      to: ''
+
+    - title: Module 4 – Dataflows & Recipes
+      slug: module-4-dataflows-recipes
+      level: Intermediate
+      duration: 4–5 hours
+      icon: i-lucide-flowchart
+      summary: Build data pipelines using dataflows and recipes, handle scheduling, monitor errors, and follow design best practices.
+      tags:
+        - Dataflows
+        - Recipes
+        - Pipelines
+      to: ''
+
+    - title: Module 5 – SAQL & JSON Deep Dive
+      slug: module-5-saql-json
+      level: Advanced
+      duration: 5+ hours
+      icon: i-lucide-code
+      summary: Write SAQL queries, customize dashboard JSON, tune performance, and create advanced calculations.
+      tags:
+        - SAQL
+        - JSON
+        - Performance
+      to: ''
+
+    - title: Module 6 – Security & Governance
+      slug: module-6-security
+      level: Advanced
+      duration: 3–4 hours
+      icon: i-lucide-shield
+      summary: Implement row-level security, sharing inheritance, and governance patterns for enterprise orgs.
+      tags:
+        - RLS
+        - Governance
+        - Compliance
+      to: ''
+
+    - title: Module 7 – Einstein Discovery & AI
+      slug: module-7-einstein
+      level: Advanced
+      duration: 3–4 hours
+      icon: i-lucide-brain
+      summary: Build prediction models, interpret insights, and bring Einstein Discovery into dashboards and Lightning pages.
+      tags:
+        - Einstein Discovery
+        - Predictions
+        - Insights
+      to: ''
+
+    - title: Module 8 – Real-World Projects & Portfolio
+      slug: module-8-projects
+      level: All levels
+      duration: Project-based
+      icon: i-lucide-briefcase-business
+      summary: Work on full end-to-end projects and learn how to present your dashboards and architecture in interviews.
+      tags:
+        - Projects
+        - Portfolio
+        - Interviews
+      to: ''
+
