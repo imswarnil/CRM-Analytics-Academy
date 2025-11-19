@@ -5,10 +5,9 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     'nuxt-jsonld',
-    '@nuxtjs/google-adsense',
     '@vueuse/nuxt',
     'nuxt-og-image',
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
   ],
 
   studio: {
@@ -37,13 +36,6 @@ export default defineNuxtConfig({
         '/changelog'
       ]
     }
-  },
-
-   googleAdsense: {
-    id: 'ca-pub-1291242080282540', // ✅ YOUR publisher ID
-    test: false,                   // true = test mode, no real ads
-    onPageLoad: true,              // auto trigger on route changes (SPA)
-    pageLevelAds: true             // optional, for auto ads
   },
 
 
