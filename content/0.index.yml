@@ -1,23 +1,24 @@
-title: Ship Your [SaaS]{class="text-primary"} at light speed
-description: Build production-ready SaaS applications with Nuxt UI's powerful components, authentication flows, and enterprise features. The same component library trusted by the entire Nuxt ecosystem.
+title: Learn [Salesforce CRM Analytics]{class="text-primary"} from Scratch
+description: Learn Salesforce CRM Analytics (formerly Einstein Analytics / Tableau CRM / Wave) from scratch with real org examples, production-ready dashboards, and hands-on projects designed for admins, consultants, and analysts.
 seo:
-  title: Nuxt UI SaaS Template
-  description: Create stunning, fast and production-ready SaaS applications with Nuxt UI. 100+ Vue components, authentication, dark mode, and enterprise features built on Tailwind CSS.
+  title: Salesforce CRM Analytics Training (Beginner to Advanced)
+  description: Learn Salesforce CRM Analytics from zero. Build datasets, dataflows/recipes, lenses, dashboards, SAQL queries, bindings, row-level security, Einstein Discovery stories, and Lightning-embedded analytics with real-world projects.
 navigation: false
 hero:
+  orientation : horizontal
   links:
-    - label: Get started
+    - label: Start Learning
       icon: i-lucide-arrow-right
       trailing: true
-      to: https://ui.nuxt.com/docs/getting-started/installation/nuxt
+      to: https://crm-analytics-academy.com
       target: _blank
       size: xl
-    - label: Use this template
+    - label: View full syllabus
       icon: i-simple-icons-github
       size: xl
       color: neutral
       variant: subtle
-      to: https://github.com/nuxt-ui-templates/saas
+      to: https://github.com/imswarnil/crm-analytics-academy
       target: _blank
 sections:
   - title: Powered by Nuxt UI Components
