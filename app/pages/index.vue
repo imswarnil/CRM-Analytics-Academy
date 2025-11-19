@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed } from 'vue'
 import type { StepperItem } from '@nuxt/ui'
 
 const { data: page } = await useAsyncData('index', () =>
@@ -9,38 +9,17 @@ const { data: page } = await useAsyncData('index', () =>
 const title = page.value?.seo?.title || page.value?.title
 const description = page.value?.seo?.description || page.value?.description
 
-const stepperItems = ref<StepperItem[]>([
-  {
-    title: '1. Get Your Org Ready',
-    description: 'Enable CRM Analytics, assign licenses, and explore Analytics Studio.',
-    icon: 'i-lucide-rocket'
-  },
-  {
-    title: '2. Create Datasets',
-    description: 'Connect Salesforce objects, upload CSVs, and design clean datasets.',
-    icon: 'i-lucide-database'
-  },
-  {
-    title: '3. Build Dashboards',
-    description: 'Create lenses, dashboards, and tweak JSON layouts.',
-    icon: 'i-lucide-layout-dashboard'
-  },
-  {
-    title: '4. Dataflows & Recipes',
-    description: 'Automate transforms, schedule refreshes, and monitor data jobs.',
-    icon: 'i-lucide-flowchart'
-  },
-  {
-    title: '5. SAQL & Bindings',
-    description: 'Write SAQL, add bindings, and implement row-level security.',
-    icon: 'i-lucide-code-2'
-  },
-  {
-    title: '6. Einstein & Embedding',
-    description: 'Use Einstein Discovery and embed analytics into Lightning pages.',
-    icon: 'i-lucide-brain'
-  }
-])
+// ✅ Derive stepper items from YAML, but keep the same shape as our working code
+const stepperItems = computed<StepperItem[]>(() => {
+  const rawItems = page.value?.stepper?.items || []
+
+  // Shallow clone into plain objects so Nuxt UI gets a clean array
+  return rawItems.map((item: any) => ({
+    title: item.title,
+    description: item.description,
+    icon: item.icon
+  }))
+})
 
 useSeoMeta({
   titleTemplate: '',
@@ -74,11 +53,12 @@ useSeoMeta({
       <PromotionalVideo />
     </UPageHero>
 
-    <!-- STEPPER: Learning Path (hard-coded items) -->
+    <!-- STEPPER: Learning Path (now powered by YAML) -->
     <UPageSection
+      v-if="stepperItems.length"
       id="learning-path"
-      title="Your Salesforce CRM Analytics Learning Path"
-      description="Follow these stages from zero to production-ready CRM Analytics dashboards."
+      :title="page.stepper.title"
+      :description="page.stepper.description"
     >
       <UStepper
         :items="stepperItems"

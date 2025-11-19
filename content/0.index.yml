@@ -21,6 +21,28 @@ hero:
       variant: subtle
       to: https://github.com/imswarnil/crm-analytics-academy
       target: _blank
+stepper:
+  title: Your Salesforce CRM Analytics Learning Path
+  description: Follow this guided path from zero to production-ready dashboards in a real Salesforce org.
+  items:
+    - title: 1. Get Your Org Ready
+      description: Enable CRM Analytics, assign licenses, and explore Analytics Studio.
+      icon: i-lucide-rocket
+    - title: 2. Create Datasets
+      description: Connect Salesforce objects, upload CSVs, and design clean datasets.
+      icon: i-lucide-database
+    - title: 3. Build Dashboards
+      description: Create lenses, dashboards, and tweak JSON layouts.
+      icon: i-lucide-layout-dashboard
+    - title: 4. Dataflows & Recipes
+      description: Automate transforms, schedule refreshes, and monitor data jobs.
+      icon: i-lucide-flowchart
+    - title: 5. SAQL & Bindings
+      description: Write SAQL, add bindings, and implement row-level security.
+      icon: i-lucide-code-2
+    - title: 6. Einstein & Embedding
+      description: Use Einstein Discovery and embed analytics into Lightning pages.
+      icon: i-lucide-brain
 
 sections:
   - title: Powered by Nuxt UI Components

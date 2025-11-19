@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-adsense',
     '@vueuse/nuxt',
     'nuxt-og-image',
-    '@nuxtjs/supabase',
+    '@nuxtjs/supabase'
   ],
 
   studio: {
@@ -44,7 +44,7 @@ export default defineNuxtConfig({
     test: false,                   // true = test mode, no real ads
     onPageLoad: true,              // auto trigger on route changes (SPA)
     pageLevelAds: true             // optional, for auto ads
-  }
+  },
 
 
   devtools: {
