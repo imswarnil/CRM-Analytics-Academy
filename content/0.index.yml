@@ -1,7 +1,7 @@
 title: Learn [Salesforce CRM Analytics]{class="text-primary"} from Scratch
 description: Learn Salesforce CRM Analytics (formerly Einstein Analytics / Tableau CRM / Wave) from scratch with real org examples, production-ready dashboards, and hands-on projects designed for admins, consultants, and analysts.
 seo:
-  title: Salesforce CRM Analytics Training (Beginner to Advanced)
+  title: Salesforce CRM Analytics Training (Beginner to Advanced) 
   description: Learn Salesforce CRM Analytics from zero. Build datasets, dataflows/recipes, lenses, dashboards, SAQL queries, bindings, row-level security, Einstein Discovery stories, and Lightning-embedded analytics with real-world projects.
 navigation: false
 hero:
