@@ -1,8 +1,46 @@
 <script setup lang="ts">
-const { data: page } = await useAsyncData('index', () => queryCollection('index').first())
+import { ref } from 'vue'
+import type { StepperItem } from '@nuxt/ui'
+
+const { data: page } = await useAsyncData('index', () =>
+  queryCollection('index').first()
+)
 
 const title = page.value?.seo?.title || page.value?.title
 const description = page.value?.seo?.description || page.value?.description
+
+const stepperItems = ref<StepperItem[]>([
+  {
+    title: '1. Get Your Org Ready',
+    description: 'Enable CRM Analytics, assign licenses, and explore Analytics Studio.',
+    icon: 'i-lucide-rocket'
+  },
+  {
+    title: '2. Create Datasets',
+    description: 'Connect Salesforce objects, upload CSVs, and design clean datasets.',
+    icon: 'i-lucide-database'
+  },
+  {
+    title: '3. Build Dashboards',
+    description: 'Create lenses, dashboards, and tweak JSON layouts.',
+    icon: 'i-lucide-layout-dashboard'
+  },
+  {
+    title: '4. Dataflows & Recipes',
+    description: 'Automate transforms, schedule refreshes, and monitor data jobs.',
+    icon: 'i-lucide-flowchart'
+  },
+  {
+    title: '5. SAQL & Bindings',
+    description: 'Write SAQL, add bindings, and implement row-level security.',
+    icon: 'i-lucide-code-2'
+  },
+  {
+    title: '6. Einstein & Embedding',
+    description: 'Use Einstein Discovery and embed analytics into Lightning pages.',
+    icon: 'i-lucide-brain'
+  }
+])
 
 useSeoMeta({
   titleTemplate: '',
@@ -15,6 +53,7 @@ useSeoMeta({
 
 <template>
   <div v-if="page">
+    <!-- HERO -->
     <UPageHero
       :title="page.title"
       :description="page.description"
@@ -35,6 +74,21 @@ useSeoMeta({
       <PromotionalVideo />
     </UPageHero>
 
+    <!-- STEPPER: Learning Path (hard-coded items) -->
+    <UPageSection
+      id="learning-path"
+      title="Your Salesforce CRM Analytics Learning Path"
+      description="Follow these stages from zero to production-ready CRM Analytics dashboards."
+    >
+      <UStepper
+        :items="stepperItems"
+        size="lg"
+        color="primary"
+        class="w-full max-w-4xl mx-auto"
+      />
+    </UPageSection>
+
+    <!-- SECTIONS -->
     <UPageSection
       v-for="(section, index) in page.sections"
       :key="index"
@@ -42,11 +96,13 @@ useSeoMeta({
       :description="section.description"
       :orientation="section.orientation"
       :reverse="section.reverse"
+      :id="section.id"
       :features="section.features"
     >
       <ImagePlaceholder />
     </UPageSection>
 
+    <!-- FEATURE GRID -->
     <UPageSection
       :title="page.features.title"
       :description="page.features.description"
@@ -61,6 +117,7 @@ useSeoMeta({
       </UPageGrid>
     </UPageSection>
 
+    <!-- TESTIMONIALS -->
     <UPageSection
       id="testimonials"
       :headline="page.testimonials.headline"
@@ -87,6 +144,7 @@ useSeoMeta({
 
     <USeparator />
 
+    <!-- CTA -->
     <UPageCTA
       v-bind="page.cta"
       variant="naked"

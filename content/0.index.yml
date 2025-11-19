@@ -4,8 +4,9 @@ seo:
   title: Salesforce CRM Analytics Training (Beginner to Advanced)
   description: Learn Salesforce CRM Analytics from zero. Build datasets, dataflows/recipes, lenses, dashboards, SAQL queries, bindings, row-level security, Einstein Discovery stories, and Lightning-embedded analytics with real-world projects.
 navigation: false
+
 hero:
-  orientation : horizontal
+  orientation: horizontal
   links:
     - label: Start Learning
       icon: i-lucide-arrow-right
@@ -20,6 +21,7 @@ hero:
       variant: subtle
       to: https://github.com/imswarnil/crm-analytics-academy
       target: _blank
+
 sections:
   - title: Powered by Nuxt UI Components
     description: Access the complete Nuxt UI component library with 100+ beautifully styled, accessible, and customizable Vue components. Everything you need to build professional SaaS applications.
@@ -35,6 +37,7 @@ sections:
       - name: TypeScript First
         description: Full TypeScript support with auto-completion, type safety, and IntelliSense for every component and composable.
         icon: i-lucide-code-2
+
   - title: Built for Modern SaaS
     description: Everything you need to launch and scale your SaaS. From beautiful marketing pages to complex dashboards, ship faster with production-ready patterns.
     orientation: horizontal
@@ -49,6 +52,7 @@ sections:
       - name: Global Ready
         description: Built-in i18n support for 50+ languages with RTL/LTR layouts and @nuxt/fonts integration.
         icon: i-lucide-globe
+
 features:
   title: Everything You Need to Ship
   description: Stop building from scratch. Focus on your unique features while Nuxt UI handles the foundations with battle-tested components and patterns.
@@ -71,6 +75,7 @@ features:
     - title: Infinitely Customizable
       description: Override any style with the ui prop, customize globally with AppConfig, or use Tailwind classes directly.
       icon: i-lucide-settings
+
 testimonials:
   headline: Trusted by Developers
   title: Join Thousands Building with Nuxt UI
@@ -136,6 +141,7 @@ testimonials:
         description: Integration Specialist at TechFlow
         avatar:
           src: https://i.pravatar.cc/120?img=14
+
 cta:
   title: Ready to build an amazing SaaS?
   description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
