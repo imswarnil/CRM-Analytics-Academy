@@ -71,8 +71,8 @@ export const collections = {
       })
     })
   }),
-  docs: defineCollection({
-    source: '1.docs/**/*',
+  training: defineCollection({
+    source: '3.trainings/**/*',
     type: 'page'
   }),
   pricing: defineCollection({

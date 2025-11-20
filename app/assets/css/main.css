@@ -3,513 +3,120 @@
 
 @source "../../../content/**/*";
 
-/* ────────────────────────────────────────────────
-   🎨 SALESFORCE-ish PALETTE + TAILWIND OVERRIDES
-   ──────────────────────────────────────────────── */
+/* Salesforce-style marketing theme, but with square(-ish) corners */
 @theme static {
-  /* Base font stack */
+  /* ---------- Typography ---------- */
   --font-sans: "Salesforce Sans", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
 
-  /* Salesforce blues */
-  --sf-blue-50:  #f4f6fb;
-  --sf-blue-100: #e5ecf9;
-  --sf-blue-200: #cbd9f4;
-  --sf-blue-300: #a7c0f0;
-  --sf-blue-400: #7ea6e5;
-  --sf-blue-500: #1b96ff; /* lighter primary */
-  --sf-blue-600: #0176d3; /* classic Salesforce blue */
-  --sf-blue-700: #0b5cab;
-  --sf-blue-800: #032d60;
-  --sf-blue-900: #001639;
+  /* ---------- Brand palette (Salesforce-ish blues) ---------- */
+  --color-sf-50:  #f5f8fc;
+  --color-sf-100: #e5ecf9;
+  --color-sf-200: #cbd9f4;
+  --color-sf-300: #a7c0f0;
+  --color-sf-400: #7ea6e5;
+  --color-sf-500: #1b96ff;
+  --color-sf-600: #0176d3; /* main brand */
+  --color-sf-700: #0159a8;
+  --color-sf-800: #013a73;
+  --color-sf-900: #021f3f;
 
-  /* Salesforce neutrals */
-  --sf-gray-50:  #f3f2f2;
-  --sf-gray-100: #ecebea;
-  --sf-gray-200: #dddbda;
-  --sf-gray-300: #c9c7c5;
-  --sf-gray-400: #b0adab;
-  --sf-gray-500: #807f7d;
-  --sf-gray-600: #514f4d;
-  --sf-gray-700: #3e3e3c;
-  --sf-gray-800: #2b2826;
-  --sf-gray-900: #181818;
+  /* Map to Tailwind / Nuxt UI primary */
+  --color-primary-50:  var(--color-sf-50);
+  --color-primary-100: var(--color-sf-100);
+  --color-primary-200: var(--color-sf-200);
+  --color-primary-300: var(--color-sf-300);
+  --color-primary-400: var(--color-sf-400);
+  --color-primary-500: var(--color-sf-500);
+  --color-primary-600: var(--color-sf-600);
+  --color-primary-700: var(--color-sf-700);
+  --color-primary-800: var(--color-sf-800);
+  --color-primary-900: var(--color-sf-900);
 
-  /* Salesforce success / error-ish */
-  --sf-green-500: #2e844a;
-  --sf-red-500:   #ba0517;
-  --sf-yellow-500:#ffb75d;
-
-  /* Tailwind palette remap → Salesforce tones
-     (so bg-slate-*, text-gray-*, etc all become SF-style) */
-
-  /* neutral families */
-  --color-slate-50:  var(--sf-gray-50);
-  --color-slate-100: var(--sf-gray-100);
-  --color-slate-200: var(--sf-gray-200);
-  --color-slate-300: var(--sf-gray-300);
-  --color-slate-400: var(--sf-gray-400);
-  --color-slate-500: var(--sf-gray-500);
-  --color-slate-600: var(--sf-gray-600);
-  --color-slate-700: var(--sf-gray-700);
-  --color-slate-800: var(--sf-gray-800);
-  --color-slate-900: var(--sf-gray-900);
-
-  --color-gray-50:   var(--sf-gray-50);
-  --color-gray-100:  var(--sf-gray-100);
-  --color-gray-200:  var(--sf-gray-200);
-  --color-gray-300:  var(--sf-gray-300);
-  --color-gray-400:  var(--sf-gray-400);
-  --color-gray-500:  var(--sf-gray-500);
-  --color-gray-600:  var(--sf-gray-600);
-  --color-gray-700:  var(--sf-gray-700);
-  --color-gray-800:  var(--sf-gray-800);
-  --color-gray-900:  var(--sf-gray-900);
-
-  --color-zinc-50:   var(--sf-gray-50);
-  --color-zinc-100:  var(--sf-gray-100);
-  --color-zinc-200:  var(--sf-gray-200);
-  --color-zinc-300:  var(--sf-gray-300);
-  --color-zinc-400:  var(--sf-gray-400);
-  --color-zinc-500:  var(--sf-gray-500);
-  --color-zinc-600:  var(--sf-gray-600);
-  --color-zinc-700:  var(--sf-gray-700);
-  --color-zinc-800:  var(--sf-gray-800);
-  --color-zinc-900:  var(--sf-gray-900);
-
-  --color-neutral-50:  var(--sf-gray-50);
-  --color-neutral-100: var(--sf-gray-100);
-  --color-neutral-200: var(--sf-gray-200);
-  --color-neutral-300: var(--sf-gray-300);
-  --color-neutral-400: var(--sf-gray-400);
-  --color-neutral-500: var(--sf-gray-500);
-  --color-neutral-600: var(--sf-gray-600);
-  --color-neutral-700: var(--sf-gray-700);
-  --color-neutral-800: var(--sf-gray-800);
-  --color-neutral-900: var(--sf-gray-900);
-
-  /* blue-ish families */
-  --color-sky-50:   var(--sf-blue-50);
-  --color-sky-100:  var(--sf-blue-100);
-  --color-sky-200:  var(--sf-blue-200);
-  --color-sky-300:  var(--sf-blue-300);
-  --color-sky-400:  var(--sf-blue-400);
-  --color-sky-500:  var(--sf-blue-500);
-  --color-sky-600:  var(--sf-blue-600);
-  --color-sky-700:  var(--sf-blue-700);
-  --color-sky-800:  var(--sf-blue-800);
-  --color-sky-900:  var(--sf-blue-900);
-
-  --color-blue-50:   var(--sf-blue-50);
-  --color-blue-100:  var(--sf-blue-100);
-  --color-blue-200:  var(--sf-blue-200);
-  --color-blue-300:  var(--sf-blue-300);
-  --color-blue-400:  var(--sf-blue-400);
-  --color-blue-500:  var(--sf-blue-600);
-  --color-blue-600:  var(--sf-blue-700);
-  --color-blue-700:  var(--sf-blue-800);
-  --color-blue-800:  var(--sf-blue-900);
-  --color-blue-900:  var(--sf-blue-900);
-
-  /* success / danger */
-  --color-emerald-500: var(--sf-green-500);
-  --color-red-500:     var(--sf-red-500);
-  --color-amber-500:   var(--sf-yellow-500);
-
-  /* core tokens Tailwind / component libs use (Shadcn-like) */
-  --radius-sm: 0.125rem;
-  --radius-md: 0.25rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-full: 9999px;
-
-  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.12);
-  --shadow-md:   0 2px 4px rgba(0, 0, 0, 0.16);
-
-  /* fallback white/black */
-  --color-white: #ffffff;
-  --color-black: #000000;
-}
-
-/* ────────────────────────────────────────────────
-   🌞 LIGHT MODE → GLOBAL + NUXT UI TOKENS
-   ──────────────────────────────────────────────── */
-:root {
-  /* global app tokens */
-  --color-background: var(--sf-gray-50);
-  --color-foreground: var(--sf-gray-900);
-
-  --color-card:       #ffffff;
-  --color-card-foreground: var(--sf-gray-900);
-
-  --color-popover:    #ffffff;
-  --color-popover-foreground: var(--sf-gray-900);
-
-  --color-muted:      var(--sf-gray-100);
-  --color-muted-foreground: var(--sf-gray-700);
-
-  --color-accent:     var(--sf-blue-50);
-  --color-accent-foreground: var(--sf-blue-800);
-
-  --color-border:     var(--sf-gray-300);
-  --color-input:      var(--sf-gray-300);
-  --color-ring:       var(--sf-blue-600);
-
-  --color-primary:            var(--sf-blue-600);
-  --color-primary-soft:       var(--sf-blue-50);
+  --color-primary:            var(--color-sf-600);
   --color-primary-foreground: #ffffff;
 
-  --color-success:            var(--sf-green-500);
-  --color-error:              var(--sf-red-500);
+  /* Supporting colors (chips, status, etc.) */
+  --color-success:   #2e844a;
+  --color-warning:   #ffb75d;
+  --color-danger:    #ba0517;
+  --color-info:      #2b9aff;
 
-  /* Nuxt UI bridge */
-  --ui-font-sans: var(--font-sans);
-  --ui-font-mono: var(--font-mono);
+  /* ---------- Neutrals / surfaces ---------- */
+  --color-surface-0:   #f4f6f9;  /* page background */
+  --color-surface-1:   #ffffff;  /* cards, panels */
+  --color-surface-2:   #f0f4fa;  /* subtle blocks */
+  --color-border-subtle: #d8dde6;
 
-  --ui-bg:           var(--color-background);
-  --ui-bg-muted:     #ffffff;
-  --ui-bg-elevated:  #ffffff;
-  --ui-bg-accented:  var(--color-accent);
+  --color-foreground:        #1a1b2b;
+  --color-foreground-muted:  #4e5665;
+  --color-foreground-softer: #7b8497;
 
-  --ui-border:       var(--color-border);
-  --ui-border-soft:  var(--sf-gray-200);
-  --ui-border-strong:var(--sf-gray-600);
-  --ui-ring:         var(--color-ring);
+  /* Tie into Tailwind “background / foreground / muted” */
+  --color-background:        var(--color-surface-0);
+  --color-muted:             var(--color-surface-2);
+  --color-muted-foreground:  var(--color-foreground-softer);
+  --color-border:            var(--color-border-subtle);
 
-  --ui-text:             var(--color-foreground);
-  --ui-text-muted:       var(--sf-gray-700);
-  --ui-text-soft:        var(--sf-gray-600);
-  --ui-text-inverted:    #ffffff;
-  --ui-text-highlighted: var(--sf-blue-800);
+  /* ---------- Radii (NO big rounded pills) ---------- */
+  /* Keep everything fairly straight; just tiny easing on corners */
+  --radius-none: 0;
+  --radius-xs:   2px;
+  --radius-sm:   3px;
+  --radius-md:   4px;
+  --radius-lg:   6px;
+  --radius-xl:   8px;
+  --radius-full: 9999px; /* only used where Nuxt UI really needs pills */
 
-  --ui-primary:              var(--color-primary);
-  --ui-primary-soft:         var(--color-primary-soft);
-  --ui-primary-foreground:   var(--color-primary-foreground);
-  --ui-primary-soft-foreground: var(--sf-blue-800);
+  /* Nuxt UI defaults */
+  --ui-radius:          var(--radius-md);
+  --ui-radius-card:     var(--radius-lg);
+  --ui-radius-input:    var(--radius-md);
+  --ui-radius-button:   var(--radius-md);
+  --ui-radius-tooltip:  var(--radius-sm);
+  --ui-radius-popover:  var(--radius-md);
 
-  --ui-radius-sm: var(--radius-sm);
-  --ui-radius-md: var(--radius-md);
-  --ui-radius-lg: var(--radius-lg);
-  --ui-radius-xl: var(--radius-xl);
-  --ui-radius-full: var(--radius-full);
+  /* ---------- Shadows (clean SF marketing style) ---------- */
+  --shadow-sm: 0 1px 2px rgba(1, 63, 128, 0.10);
+  --shadow-md: 0 4px 12px rgba(1, 63, 128, 0.14);
+  --shadow-lg: 0 12px 30px rgba(1, 63, 128, 0.18);
 
-  --ui-shadow-soft: var(--shadow-soft);
-  --ui-shadow-md:   var(--shadow-md);
+  /* ---------- Layout ---------- */
+  /* Slightly wider, like marketing pages */
+  --ui-container: 72rem; /* ~1150px */
 
-  /* layout */
-  --ui-container: 90rem; /* ~1152px */
+  /* Gaps / padding feel more “air-y” like Salesforce sites */
+  --spacing-4:  1rem;
+  --spacing-6:  1.5rem;
+  --spacing-8:  2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
 }
 
-/* ────────────────────────────────────────────────
-   🌙 DARK MODE → GLOBAL + NUXT UI TOKENS
-   ──────────────────────────────────────────────── */
-html.dark,
-.dark {
-  --color-background: #0f1722;    /* deep navy-ish */
-  --color-foreground: #f3f2f2;
+/* ---------- Light / Dark surface tuning (no rounded changes here) ---------- */
 
-  --color-card:       #151b28;
-  --color-card-foreground: #f3f2f2;
-
-  --color-popover:    #151b28;
-  --color-popover-foreground: #f3f2f2;
-
-  --color-muted:      #1c2230;
-  --color-muted-foreground: #c9c7c5;
-
-  --color-accent:     #032d60;
-  --color-accent-foreground: #e5f3ff;
-
-  --color-border:     #2a3142;
-  --color-input:      #2a3142;
-  --color-ring:       #5b9dff;
-
-  --color-primary:            #5b9dff;
-  --color-primary-soft:       #032d60;
-  --color-primary-foreground: #0b1020;
-
-  --color-success:            #4caf50;
-  --color-error:              #ff5d5d;
-
-  --ui-bg:           var(--color-background);
-  --ui-bg-muted:     #151b28;
-  --ui-bg-elevated:  #151b28;
-  --ui-bg-accented:  var(--color-accent);
-
-  --ui-border:       var(--color-border);
-  --ui-border-soft:  #222938;
-  --ui-border-strong:#dde4f0;
-  --ui-ring:         var(--color-ring);
-
-  --ui-text:             var(--color-foreground);
-  --ui-text-muted:       #c9c7c5;
-  --ui-text-soft:        #b0adab;
-  --ui-text-inverted:    #0b1730;
-  --ui-text-highlighted: #e5f3ff;
-
-  --ui-primary:              var(--color-primary);
-  --ui-primary-soft:         var(--color-primary-soft);
-  --ui-primary-foreground:   var(--color-primary-foreground);
-  --ui-primary-soft-foreground: #e5f3ff;
+:root {
+  color-scheme: light;
+  background-color: var(--color-surface-0);
+  color: var(--color-foreground);
 }
 
-/* ────────────────────────────────────────────────
-   🧱 BASE LAYER – REAL WORLD OVERRIDES
-   ──────────────────────────────────────────────── */
-@layer base {
-  html, body, #__nuxt {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--ui-font-sans);
-  }
+/* If you’re using `.dark` on html/body for dark mode */
+:root.dark {
+  color-scheme: dark;
 
-  body {
-    min-height: 100vh;
-  }
+  --color-background:       #020716;
+  --color-surface-0:        #020716;
+  --color-surface-1:        #050b1f;
+  --color-surface-2:        #0b1027;
+  --color-border-subtle:    #1a2138;
 
-  main {
-    background-color: transparent;
-  }
+  --color-foreground:       #f3f6ff;
+  --color-foreground-muted: #c3cae7;
+  --color-foreground-softer:#8f9ac5;
 
-  /* unified container width */
-  .container {
-    max-width: var(--ui-container);
-    margin-inline: auto;
-    padding-inline: 1.5rem;
-  }
-
-  /* kill random white blocks – map to card / muted */
-  .bg-white {
-    background-color: var(--color-card) !important;
-  }
-  .dark .bg-white {
-    background-color: var(--color-card) !important;
-  }
-
-  .bg-gray-50,
-  .bg-slate-50,
-  .bg-neutral-50,
-  .bg-zinc-50 {
-    background-color: var(--color-muted) !important;
-  }
-
-  .dark .bg-gray-50,
-  .dark .bg-slate-50,
-  .dark .bg-neutral-50,
-  .dark .bg-zinc-50 {
-    background-color: var(--color-muted) !important;
-  }
-
-  /* basic text color mapping */
-  .text-gray-900,
-  .text-slate-900,
-  .text-neutral-900 {
-    color: var(--color-foreground) !important;
-  }
-  .text-gray-500,
-  .text-slate-500,
-  .text-neutral-500 {
-    color: var(--ui-text-soft) !important;
-  }
-
-  .text-primary {
-    color: var(--color-primary) !important;
-  }
-
-  /* header / top nav like SLDS global header */
-  header[data-slot="root"] {
-    background-color: rgba(243, 242, 242, 0.96) !important;
-    border-bottom: 1px solid var(--color-border);
-    backdrop-filter: blur(16px);
-  }
-  html.dark header[data-slot="root"],
-  .dark header[data-slot="root"] {
-    background-color: rgba(15, 23, 34, 0.94) !important;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  /* cards / panels */
-  .ring,
-  .border {
-    border-color: var(--color-border);
-  }
-
-  .rounded-md { border-radius: var(--ui-radius-md); }
-  .rounded-lg { border-radius: var(--ui-radius-lg); }
-  .rounded-xl,
-  .rounded-2xl { border-radius: var(--ui-radius-xl); }
-
-  /* Nuxt UI cards (PageCard etc) */
-  [data-slot="root"].bg-default,
-  [data-slot="root"].bg-elevated,
-  .bg-default,
-  .bg-elevated {
-    background-color: var(--color-card) !important;
-    border: 1px solid var(--color-border);
-    box-shadow: var(--ui-shadow-soft);
-  }
-
-  html.dark [data-slot="root"].bg-default,
-  html.dark [data-slot="root"].bg-elevated,
-  .dark .bg-default,
-  .dark .bg-elevated {
-    background-color: var(--color-card) !important;
-    border-color: var(--color-border);
-    box-shadow: none;
-  }
-
-  /* ─────────────────────────────
-     🔘 BUTTONS – Salesforce feel
-     ───────────────────────────── */
-
-  /* primary buttons – Nuxt UI root */
-  [data-slot="base"].bg-primary {
-    background-color: var(--color-primary) !important;
-    color: var(--color-primary-foreground) !important;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--color-primary) 85%, #000 15%);
-    box-shadow: var(--shadow-soft);
-    transition:
-      background-color 120ms ease,
-      border-color 120ms ease,
-      box-shadow 120ms ease,
-      transform 80ms ease;
-  }
-
-  [data-slot="base"].bg-primary:hover {
-    background-color: color-mix(in srgb, var(--color-primary) 90%, #000 10%) !important;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-0.5px);
-  }
-
-  [data-slot="base"].bg-primary:active {
-    background-color: color-mix(in srgb, var(--color-primary) 80%, #000 20%) !important;
-    box-shadow: none;
-    transform: translateY(0.5px);
-  }
-
-  [data-slot="base"].bg-primary:focus-visible {
-    outline: none;
-    box-shadow:
-      0 0 0 1px #ffffff,
-      0 0 0 3px rgba(1, 118, 211, 0.8);
-  }
-
-  /* subtle / outline buttons – Nuxt UI uses ring/background */
-  [data-slot="base"].ring {
-    border-radius: var(--radius-md);
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-border);
-    background-color: var(--color-card) !important;
-    color: var(--color-foreground) !important;
-    box-shadow: none;
-    transition:
-      background-color 120ms ease,
-      border-color 120ms ease,
-      box-shadow 120ms ease;
-  }
-
-  [data-slot="base"].ring:hover {
-    background-color: var(--color-muted) !important;
-    border-color: var(--sf-gray-400);
-    box-shadow: var(--shadow-soft);
-  }
-
-  [data-slot="base"].ring:active {
-    background-color: var(--sf-gray-200) !important;
-    border-color: var(--sf-gray-500);
-  }
-
-  [data-slot="base"].ring:focus-visible {
-    outline: none;
-    box-shadow:
-      0 0 0 1px #ffffff,
-      0 0 0 3px rgba(1, 118, 211, 0.7);
-  }
-
-  /* chips/pills */
-  .rounded-full.bg-elevated,
-  .rounded-full.bg-default {
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-soft);
-  }
-
-  /* ─────────────────────────────
-     📝 INPUTS / SELECTS / TEXTAREAS
-     ───────────────────────────── */
-
-  input,
-  textarea,
-  select {
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-input);
-    background-color: #ffffff;
-    color: var(--color-foreground);
-    padding: 0.35rem 0.6rem;
-    font-size: 0.875rem;
-    line-height: 1.3;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
-    outline: none;
-    transition:
-      border-color 120ms ease,
-      box-shadow 120ms ease,
-      background-color 120ms ease;
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: var(--sf-gray-500);
-  }
-
-  input:hover,
-  textarea:hover,
-  select:hover {
-    border-color: var(--sf-gray-400);
-  }
-
-  input:focus-visible,
-  textarea:focus-visible,
-  select:focus-visible {
-    border-color: var(--color-ring);
-    box-shadow:
-      0 0 0 1px var(--color-ring),
-      0 0 0 4px color-mix(in srgb, var(--color-ring) 40%, transparent 60%);
-    background-color: #ffffff;
-  }
-
-  html.dark input,
-  html.dark textarea,
-  html.dark select,
-  .dark input,
-  .dark textarea,
-  .dark select {
-    background-color: #151b28;
-    border-color: var(--color-input);
-    color: var(--color-foreground);
-    box-shadow: none;
-  }
-
-  html.dark input:hover,
-  html.dark textarea:hover,
-  html.dark select:hover,
-  .dark input:hover,
-  .dark textarea:hover,
-  .dark select:hover {
-    border-color: #3b4457;
-  }
-
-  html.dark input:focus-visible,
-  html.dark textarea:focus-visible,
-  html.dark select:focus-visible,
-  .dark input:focus-visible,
-  .dark textarea:focus-visible,
-  .dark select:focus-visible {
-    border-color: var(--color-ring);
-    box-shadow:
-      0 0 0 1px var(--color-ring),
-      0 0 0 4px color-mix(in srgb, var(--color-ring) 45%, transparent 55%);
-  }
+  /* Keep brand blue bright for CTAs on dark bg */
+  --color-primary-500: #1b96ff;
+  --color-primary-600: #1b96ff;
+  --color-primary:     #1b96ff;
 }
