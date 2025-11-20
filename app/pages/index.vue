@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { StepperItem } from '@nuxt/ui'
 
 const { data: page } = await useAsyncData('index', () =>
   queryCollection('index').first()

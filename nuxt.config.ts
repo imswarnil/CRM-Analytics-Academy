@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/ui',
+    '@nuxtjs/seo',
     '@nuxt/content',
     'nuxt-jsonld',
     '@vueuse/nuxt',
