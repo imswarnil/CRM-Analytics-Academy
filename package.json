@@ -8,26 +8,19 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "typecheck": "nuxt typecheck",
-    "clean-reset": "rm -rf node_modules pnpm-lock.yaml .nuxt .nitro .output && pnpm store prune && npm cache clean --force"
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.73",
     "@iconify-json/simple-icons": "^1.2.58",
-    "@nuxt/content": "^3.8.2",
+    "@nuxt/content": "^3.8.0",
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.1.0",
-    "@nuxtjs/seo": "^3.2.2",
-    "@nuxtjs/supabase": "^2.0.1",
     "@standard-schema/spec": "^1.0.0",
-    "@vercel/analytics": "^1.5.0",
-    "@vercel/speed-insights": "^1.2.0",
-    "@vueuse/nuxt": "^14.0.0",
+    "@vueuse/nuxt": "^13.9.0",
     "better-sqlite3": "^12.4.1",
     "nuxt": "^4.2.1",
-    "nuxt-jsonld": "^2.2.1",
     "nuxt-og-image": "^5.1.12",
-    "pnpm": "^10.22.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {
@@ -36,5 +29,5 @@
     "typescript": "^5.9.3",
     "vue-tsc": "^3.1.3"
   },
-  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c"
+  "packageManager": "pnpm@10.21.0"
 }

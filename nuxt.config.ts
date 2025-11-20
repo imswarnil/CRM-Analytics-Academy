@@ -1,28 +1,16 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/ui',
-    '@nuxtjs/seo',
     '@nuxt/content',
-    'nuxt-jsonld',
     '@vueuse/nuxt',
     'nuxt-og-image',
-    '@nuxtjs/supabase',
+    '@nuxt'
   ],
 
-  studio: {
-    route: '/_studio',
-    repository: {
-      provider: 'github',
-      owner: 'imswarnil',              // your GitHub username
-      repo: 'CRM-Analytics-Academy',   // your repo
-      branch: process.env.STUDIO_GITHUB_BRANCH,
-      rootDir: ''
-    }
-  },
-
-  supabase: {
+    supabase: {
     url: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_URL,
     key: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_ANON_KEY,
     redirect: false,
@@ -39,7 +27,6 @@ export default defineNuxtConfig({
     }
   },
 
-
   devtools: {
     enabled: true
   },
@@ -54,7 +41,9 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: ['/'],
+      routes: [
+        '/'
+      ],
       crawlLinks: true
     }
   },
