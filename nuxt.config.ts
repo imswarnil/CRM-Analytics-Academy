@@ -45,7 +45,7 @@ export default defineNuxtConfig({
         '/'
       ],
       crawlLinks: true,
-      preset: 'vercel'
+      failOnError: false
     }
   },
 
