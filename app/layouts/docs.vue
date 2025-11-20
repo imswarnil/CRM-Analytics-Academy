@@ -6,10 +6,9 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 <template>
   <div>
-    <AppHeader />
-
-    <UMain>
-      <UContainer>
+    <AppHeader /> 
+      <UMain>
+      <UContainer class="w-full max-w-none">
         <UPage>
           <template #left>
             <UPageAside>
@@ -26,7 +25,6 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
         </UPage>
       </UContainer>
     </UMain>
-
     <AppFooter />
   </div>
 </template>

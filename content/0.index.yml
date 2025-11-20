@@ -88,7 +88,7 @@ features:
       icon: i-lucide-layout-dashboard
     - title: Dataflows & Recipes
       description: Use dataflows and recipes to transform, join, aggregate, and schedule data refreshes without breaking your org.
-      icon: i-lucide-flowchart
+      icon: i-lucide-home
     - title: SAQL & Advanced Bindings
       description: Go beyond clicks with SAQL, bindings, dynamic filters, and interactions that make dashboards truly interactive.
       icon: i-lucide-code-2
