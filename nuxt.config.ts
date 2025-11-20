@@ -47,7 +47,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   routeRules: {
-    '/docs': { redirect: '/training/getting-started', prerender: false }
+    '/docs': { redirect: '/docs/getting-started', prerender: false }
   },
 
   compatibilityDate: '2024-07-11',
