@@ -26,7 +26,8 @@ export default defineNuxtConfig({
       routes: [
         '/'
       ],
-      crawlLinks: true
+      crawlLinks: true,
+      compatibilityDate: '2025-07-15'
     }
   },
 
