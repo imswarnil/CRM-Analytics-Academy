@@ -72,7 +72,7 @@ export const collections = {
     })
   }),
   training: defineCollection({
-    source: '3.trainings/**/*',
+    source: '1.trainings/**/*',
     type: 'page'
   }),
   pricing: defineCollection({
