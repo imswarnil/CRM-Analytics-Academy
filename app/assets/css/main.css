@@ -3,212 +3,389 @@
 
 @source "../../../content/**/*";
 
-/* 🎨 SLDS-ish Design Tokens */
+/* ────────────────────────────────────────────────
+   🎨 SALESFORCE-ish PALETTE + TAILWIND OVERRIDES
+   ──────────────────────────────────────────────── */
 @theme static {
+  /* Base font stack */
   --font-sans: "Salesforce Sans", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
 
-  --color-sf-blue-50:  #e5f3ff;
-  --color-sf-blue-100: #cfe9ff;
-  --color-sf-blue-200: #9bc8ff;
-  --color-sf-blue-300: #5b9dff;
-  --color-sf-blue-400: #1b96ff;
-  --color-sf-blue-500: #0176d3; /* brand */
-  --color-sf-blue-600: #0b5cab;
-  --color-sf-blue-700: #032d60;
-  --color-sf-blue-800: #001639;
-  --color-sf-blue-900: #00102b;
+  /* Salesforce blues */
+  --sf-blue-50:  #f4f6fb;
+  --sf-blue-100: #e5ecf9;
+  --sf-blue-200: #cbd9f4;
+  --sf-blue-300: #a7c0f0;
+  --sf-blue-400: #7ea6e5;
+  --sf-blue-500: #1b96ff; /* lighter primary */
+  --sf-blue-600: #0176d3; /* classic Salesforce blue */
+  --sf-blue-700: #0b5cab;
+  --sf-blue-800: #032d60;
+  --sf-blue-900: #001639;
 
-  --color-sf-gray-50:  #f3f2f2;
-  --color-sf-gray-100: #ecebea;
-  --color-sf-gray-200: #dddbda;
-  --color-sf-gray-300: #c9c7c5;
-  --color-sf-gray-400: #b0adab;
-  --color-sf-gray-500: #807f7d;
-  --color-sf-gray-600: #514f4d;
-  --color-sf-gray-700: #3e3e3c;
-  --color-sf-gray-800: #2b2826;
-  --color-sf-gray-900: #181818;
+  /* Salesforce neutrals */
+  --sf-gray-50:  #f3f2f2;
+  --sf-gray-100: #ecebea;
+  --sf-gray-200: #dddbda;
+  --sf-gray-300: #c9c7c5;
+  --sf-gray-400: #b0adab;
+  --sf-gray-500: #807f7d;
+  --sf-gray-600: #514f4d;
+  --sf-gray-700: #3e3e3c;
+  --sf-gray-800: #2b2826;
+  --sf-gray-900: #181818;
 
-  --color-sf-green-50:  #e3f9e5;
-  --color-sf-green-100: #c1f2c7;
-  --color-sf-green-200: #91e697;
-  --color-sf-green-300: #51ca58;
-  --color-sf-green-400: #31b237;
-  --color-sf-green-500: #18981d;
-  --color-sf-green-600: #0f8613;
-  --color-sf-green-700: #0e7817;
-  --color-sf-green-800: #07600e;
-  --color-sf-green-900: #014807;
+  /* Salesforce success / error-ish */
+  --sf-green-500: #2e844a;
+  --sf-red-500:   #ba0517;
+  --sf-yellow-500:#ffb75d;
+
+  /* Tailwind palette remap → Salesforce tones
+     (so bg-slate-*, text-gray-*, etc all become SF-style) */
+
+  /* neutral families */
+  --color-slate-50:  var(--sf-gray-50);
+  --color-slate-100: var(--sf-gray-100);
+  --color-slate-200: var(--sf-gray-200);
+  --color-slate-300: var(--sf-gray-300);
+  --color-slate-400: var(--sf-gray-400);
+  --color-slate-500: var(--sf-gray-500);
+  --color-slate-600: var(--sf-gray-600);
+  --color-slate-700: var(--sf-gray-700);
+  --color-slate-800: var(--sf-gray-800);
+  --color-slate-900: var(--sf-gray-900);
+
+  --color-gray-50:   var(--sf-gray-50);
+  --color-gray-100:  var(--sf-gray-100);
+  --color-gray-200:  var(--sf-gray-200);
+  --color-gray-300:  var(--sf-gray-300);
+  --color-gray-400:  var(--sf-gray-400);
+  --color-gray-500:  var(--sf-gray-500);
+  --color-gray-600:  var(--sf-gray-600);
+  --color-gray-700:  var(--sf-gray-700);
+  --color-gray-800:  var(--sf-gray-800);
+  --color-gray-900:  var(--sf-gray-900);
+
+  --color-zinc-50:   var(--sf-gray-50);
+  --color-zinc-100:  var(--sf-gray-100);
+  --color-zinc-200:  var(--sf-gray-200);
+  --color-zinc-300:  var(--sf-gray-300);
+  --color-zinc-400:  var(--sf-gray-400);
+  --color-zinc-500:  var(--sf-gray-500);
+  --color-zinc-600:  var(--sf-gray-600);
+  --color-zinc-700:  var(--sf-gray-700);
+  --color-zinc-800:  var(--sf-gray-800);
+  --color-zinc-900:  var(--sf-gray-900);
+
+  --color-neutral-50:  var(--sf-gray-50);
+  --color-neutral-100: var(--sf-gray-100);
+  --color-neutral-200: var(--sf-gray-200);
+  --color-neutral-300: var(--sf-gray-300);
+  --color-neutral-400: var(--sf-gray-400);
+  --color-neutral-500: var(--sf-gray-500);
+  --color-neutral-600: var(--sf-gray-600);
+  --color-neutral-700: var(--sf-gray-700);
+  --color-neutral-800: var(--sf-gray-800);
+  --color-neutral-900: var(--sf-gray-900);
+
+  /* blue-ish families */
+  --color-sky-50:   var(--sf-blue-50);
+  --color-sky-100:  var(--sf-blue-100);
+  --color-sky-200:  var(--sf-blue-200);
+  --color-sky-300:  var(--sf-blue-300);
+  --color-sky-400:  var(--sf-blue-400);
+  --color-sky-500:  var(--sf-blue-500);
+  --color-sky-600:  var(--sf-blue-600);
+  --color-sky-700:  var(--sf-blue-700);
+  --color-sky-800:  var(--sf-blue-800);
+  --color-sky-900:  var(--sf-blue-900);
+
+  --color-blue-50:   var(--sf-blue-50);
+  --color-blue-100:  var(--sf-blue-100);
+  --color-blue-200:  var(--sf-blue-200);
+  --color-blue-300:  var(--sf-blue-300);
+  --color-blue-400:  var(--sf-blue-400);
+  --color-blue-500:  var(--sf-blue-600);
+  --color-blue-600:  var(--sf-blue-700);
+  --color-blue-700:  var(--sf-blue-800);
+  --color-blue-800:  var(--sf-blue-900);
+  --color-blue-900:  var(--sf-blue-900);
+
+  /* success / danger */
+  --color-emerald-500: var(--sf-green-500);
+  --color-red-500:     var(--sf-red-500);
+  --color-amber-500:   var(--sf-yellow-500);
+
+  /* core tokens Tailwind / component libs use (Shadcn-like) */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.12);
+  --shadow-md:   0 2px 4px rgba(0, 0, 0, 0.16);
+
+  /* fallback white/black */
+  --color-white: #ffffff;
+  --color-black: #000000;
 }
 
-/* 🌞 LIGHT MODE TOKENS → Nuxt UI */
+/* ────────────────────────────────────────────────
+   🌞 LIGHT MODE → GLOBAL + NUXT UI TOKENS
+   ──────────────────────────────────────────────── */
 :root {
+  /* global app tokens */
+  --color-background: var(--sf-gray-50);
+  --color-foreground: var(--sf-gray-900);
+
+  --color-card:       #ffffff;
+  --color-card-foreground: var(--sf-gray-900);
+
+  --color-popover:    #ffffff;
+  --color-popover-foreground: var(--sf-gray-900);
+
+  --color-muted:      var(--sf-gray-100);
+  --color-muted-foreground: var(--sf-gray-700);
+
+  --color-accent:     var(--sf-blue-50);
+  --color-accent-foreground: var(--sf-blue-800);
+
+  --color-border:     var(--sf-gray-300);
+  --color-input:      var(--sf-gray-300);
+  --color-ring:       var(--sf-blue-600);
+
+  --color-primary:            var(--sf-blue-600);
+  --color-primary-soft:       var(--sf-blue-50);
+  --color-primary-foreground: #ffffff;
+
+  --color-success:            var(--sf-green-500);
+  --color-error:              var(--sf-red-500);
+
+  /* Nuxt UI bridge */
   --ui-font-sans: var(--font-sans);
   --ui-font-mono: var(--font-mono);
 
-  --ui-primary: var(--color-sf-blue-500);
-  --ui-primary-foreground: #ffffff;
-  --ui-primary-soft: var(--color-sf-blue-50);
-  --ui-primary-soft-foreground: var(--color-sf-blue-700);
+  --ui-bg:           var(--color-background);
+  --ui-bg-muted:     #ffffff;
+  --ui-bg-elevated:  #ffffff;
+  --ui-bg-accented:  var(--color-accent);
 
-  --ui-bg: var(--color-sf-gray-50);
-  --ui-bg-muted: #ffffff;
-  --ui-bg-elevated: #ffffff;
-  --ui-bg-accented: var(--color-sf-blue-50);
+  --ui-border:       var(--color-border);
+  --ui-border-soft:  var(--sf-gray-200);
+  --ui-border-strong:var(--sf-gray-600);
+  --ui-ring:         var(--color-ring);
 
-  --ui-border: var(--color-sf-gray-300);
-  --ui-border-soft: var(--color-sf-gray-200);
-  --ui-border-strong: var(--color-sf-gray-600);
-  --ui-ring: var(--color-sf-blue-500);
+  --ui-text:             var(--color-foreground);
+  --ui-text-muted:       var(--sf-gray-700);
+  --ui-text-soft:        var(--sf-gray-600);
+  --ui-text-inverted:    #ffffff;
+  --ui-text-highlighted: var(--sf-blue-800);
 
-  --ui-text: var(--color-sf-gray-900);
-  --ui-text-muted: var(--color-sf-gray-700);
-  --ui-text-soft: var(--color-sf-gray-600);
-  --ui-text-inverted: #ffffff;
-  --ui-text-highlighted: var(--color-sf-blue-800);
+  --ui-primary:              var(--color-primary);
+  --ui-primary-soft:         var(--color-primary-soft);
+  --ui-primary-foreground:   var(--color-primary-foreground);
+  --ui-primary-soft-foreground: var(--sf-blue-800);
 
-  /* radii */
-  --ui-radius-sm: 0.125rem;
-  --ui-radius-md: 0.25rem;
-  --ui-radius-lg: 0.5rem;
-  --ui-radius-xl: 0.75rem;
-  --ui-radius-full: 9999px;
+  --ui-radius-sm: var(--radius-sm);
+  --ui-radius-md: var(--radius-md);
+  --ui-radius-lg: var(--radius-lg);
+  --ui-radius-xl: var(--radius-xl);
+  --ui-radius-full: var(--radius-full);
 
-  --ui-shadow-soft: 0 2px 2px rgba(0, 0, 0, 0.08);
-  --ui-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.16);
+  --ui-shadow-soft: var(--shadow-soft);
+  --ui-shadow-md:   var(--shadow-md);
 
-  /* 🔧 layout / container */
-  --ui-container: 90rem; /* ~1152px, SLDS-style content width */
+  /* layout */
+  --ui-container: 90rem; /* ~1152px */
 }
 
-/* 🌙 DARK MODE */
+/* ────────────────────────────────────────────────
+   🌙 DARK MODE → GLOBAL + NUXT UI TOKENS
+   ──────────────────────────────────────────────── */
+html.dark,
 .dark {
-  --ui-bg: #181818;
-  --ui-bg-muted: #1f2125;
-  --ui-bg-elevated: #24272c;
-  --ui-bg-accented: #032d60;
+  --color-background: #0f1722;    /* deep navy-ish */
+  --color-foreground: #f3f2f2;
 
-  --ui-border: #3b3e45;
-  --ui-border-soft: #2a2d33;
-  --ui-border-strong: #dde4f0;
-  --ui-ring: #5b9dff;
+  --color-card:       #151b28;
+  --color-card-foreground: #f3f2f2;
 
-  --ui-text: #f3f3f3;
-  --ui-text-muted: #c9c7c5;
-  --ui-text-soft: #b0adab;
-  --ui-text-inverted: #0b2440;
+  --color-popover:    #151b28;
+  --color-popover-foreground: #f3f2f2;
+
+  --color-muted:      #1c2230;
+  --color-muted-foreground: #c9c7c5;
+
+  --color-accent:     #032d60;
+  --color-accent-foreground: #e5f3ff;
+
+  --color-border:     #2a3142;
+  --color-input:      #2a3142;
+  --color-ring:       #5b9dff;
+
+  --color-primary:            #5b9dff;
+  --color-primary-soft:       #032d60;
+  --color-primary-foreground: #0b1020;
+
+  --color-success:            #4caf50;
+  --color-error:              #ff5d5d;
+
+  --ui-bg:           var(--color-background);
+  --ui-bg-muted:     #151b28;
+  --ui-bg-elevated:  #151b28;
+  --ui-bg-accented:  var(--color-accent);
+
+  --ui-border:       var(--color-border);
+  --ui-border-soft:  #222938;
+  --ui-border-strong:#dde4f0;
+  --ui-ring:         var(--color-ring);
+
+  --ui-text:             var(--color-foreground);
+  --ui-text-muted:       #c9c7c5;
+  --ui-text-soft:        #b0adab;
+  --ui-text-inverted:    #0b1730;
   --ui-text-highlighted: #e5f3ff;
 
-  --ui-primary: #5b9dff;
-  --ui-primary-foreground: #0b1f3b;
-  --ui-primary-soft: #032d60;
+  --ui-primary:              var(--color-primary);
+  --ui-primary-soft:         var(--color-primary-soft);
+  --ui-primary-foreground:   var(--color-primary-foreground);
   --ui-primary-soft-foreground: #e5f3ff;
 }
 
+/* ────────────────────────────────────────────────
+   🧱 BASE LAYER – REAL WORLD OVERRIDES
+   ──────────────────────────────────────────────── */
 @layer base {
-  body {
-    background-color: var(--ui-bg);
-    color: var(--ui-text);
+  html, body, #__nuxt {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
     font-family: var(--ui-font-sans);
   }
 
-  /* 🔲 container width */
+  body {
+    min-height: 100vh;
+  }
+
+  main {
+    background-color: transparent;
+  }
+
+  /* unified container width */
   .container {
     max-width: var(--ui-container);
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
 
-  /* Top bar */
-  header[data-slot="root"] {
-    background-color: rgba(243, 242, 242, 0.96) !important;
-    border-bottom: 1px solid var(--ui-border);
-    backdrop-filter: blur(16px);
+  /* kill random white blocks – map to card / muted */
+  .bg-white {
+    background-color: var(--color-card) !important;
+  }
+  .dark .bg-white {
+    background-color: var(--color-card) !important;
   }
 
-  /* Semantic bg/text helpers */
-  .bg-default {
-    background-color: var(--ui-bg-muted) !important;
-  }
-  .bg-elevated {
-    background-color: var(--ui-bg-elevated) !important;
-  }
-  .bg-accented {
-    background-color: var(--ui-bg-accented) !important;
+  .bg-gray-50,
+  .bg-slate-50,
+  .bg-neutral-50,
+  .bg-zinc-50 {
+    background-color: var(--color-muted) !important;
   }
 
-  .text-default {
-    color: var(--ui-text) !important;
+  .dark .bg-gray-50,
+  .dark .bg-slate-50,
+  .dark .bg-neutral-50,
+  .dark .bg-zinc-50 {
+    background-color: var(--color-muted) !important;
   }
-  .text-muted {
+
+  /* basic text color mapping */
+  .text-gray-900,
+  .text-slate-900,
+  .text-neutral-900 {
+    color: var(--color-foreground) !important;
+  }
+  .text-gray-500,
+  .text-slate-500,
+  .text-neutral-500 {
     color: var(--ui-text-soft) !important;
-  }
-  .text-toned {
-    color: var(--ui-text-muted) !important;
-  }
-  .text-highlighted {
-    color: var(--ui-text-highlighted) !important;
   }
 
   .text-primary {
-    color: var(--ui-primary) !important;
-  }
-  .bg-primary {
-    background-color: var(--ui-primary) !important;
+    color: var(--color-primary) !important;
   }
 
-  .ring-primary {
-    --tw-ring-color: var(--ui-ring) !important;
+  /* header / top nav like SLDS global header */
+  header[data-slot="root"] {
+    background-color: rgba(243, 242, 242, 0.96) !important;
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(16px);
   }
-  .ring-default {
-    --tw-ring-color: var(--ui-border) !important;
-  }
-  .border-default {
-    border-color: var(--ui-border) !important;
+  html.dark header[data-slot="root"],
+  .dark header[data-slot="root"] {
+    background-color: rgba(15, 23, 34, 0.94) !important;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  /* Radii mapping */
-  .rounded-sm { border-radius: var(--ui-radius-sm) !important; }
-  .rounded-md { border-radius: var(--ui-radius-md) !important; }
-  .rounded-lg { border-radius: var(--ui-radius-lg) !important; }
+  /* cards / panels */
+  .ring,
+  .border {
+    border-color: var(--color-border);
+  }
+
+  .rounded-md { border-radius: var(--ui-radius-md); }
+  .rounded-lg { border-radius: var(--ui-radius-lg); }
   .rounded-xl,
-  .rounded-2xl { border-radius: var(--ui-radius-xl) !important; }
+  .rounded-2xl { border-radius: var(--ui-radius-xl); }
 
-  /* Cards look like SLDS panels */
-  .ring-default.bg-default,
-  .ring-default.bg-elevated,
-  .ring-default.bg-accented {
+  /* Nuxt UI cards (PageCard etc) */
+  [data-slot="root"].bg-default,
+  [data-slot="root"].bg-elevated,
+  .bg-default,
+  .bg-elevated {
+    background-color: var(--color-card) !important;
+    border: 1px solid var(--color-border);
     box-shadow: var(--ui-shadow-soft);
   }
 
-  /* 🔘 PRIMARY BUTTONS (Nuxt UI base slot) */
+  html.dark [data-slot="root"].bg-default,
+  html.dark [data-slot="root"].bg-elevated,
+  .dark .bg-default,
+  .dark .bg-elevated {
+    background-color: var(--color-card) !important;
+    border-color: var(--color-border);
+    box-shadow: none;
+  }
+
+  /* ─────────────────────────────
+     🔘 BUTTONS – Salesforce feel
+     ───────────────────────────── */
+
+  /* primary buttons – Nuxt UI root */
   [data-slot="base"].bg-primary {
-    background-color: var(--color-sf-blue-500) !important;
-    color: var(--ui-primary-foreground) !important;
-    border-radius: var(--ui-radius-md);
-    border: 1px solid var(--color-sf-blue-600);
-    box-shadow: var(--ui-shadow-soft);
+    background-color: var(--color-primary) !important;
+    color: var(--color-primary-foreground) !important;
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 85%, #000 15%);
+    box-shadow: var(--shadow-soft);
     transition:
-      background-color 150ms ease,
-      box-shadow 150ms ease,
-      transform 100ms ease,
-      border-color 150ms ease;
+      background-color 120ms ease,
+      border-color 120ms ease,
+      box-shadow 120ms ease,
+      transform 80ms ease;
   }
 
   [data-slot="base"].bg-primary:hover {
-    background-color: var(--color-sf-blue-600) !important;
-    border-color: var(--color-sf-blue-700);
-    box-shadow: var(--ui-shadow-md);
+    background-color: color-mix(in srgb, var(--color-primary) 90%, #000 10%) !important;
+    box-shadow: var(--shadow-md);
     transform: translateY(-0.5px);
   }
 
   [data-slot="base"].bg-primary:active {
-    background-color: var(--color-sf-blue-700) !important;
-    border-color: var(--color-sf-blue-800);
+    background-color: color-mix(in srgb, var(--color-primary) 80%, #000 20%) !important;
     box-shadow: none;
     transform: translateY(0.5px);
   }
@@ -217,33 +394,33 @@
     outline: none;
     box-shadow:
       0 0 0 1px #ffffff,
-      0 0 0 3px rgba(1, 118, 211, 0.75);
+      0 0 0 3px rgba(1, 118, 211, 0.8);
   }
 
-  /* 🧊 OUTLINE / SUBTLE BUTTONS (secondary CTAs) */
+  /* subtle / outline buttons – Nuxt UI uses ring/background */
   [data-slot="base"].ring {
-    border-radius: var(--ui-radius-md);
+    border-radius: var(--radius-md);
     border-width: 1px;
     border-style: solid;
-    border-color: var(--ui-border);
-    background-color: var(--ui-bg-muted) !important;
-    color: var(--ui-text) !important;
+    border-color: var(--color-border);
+    background-color: var(--color-card) !important;
+    color: var(--color-foreground) !important;
     box-shadow: none;
     transition:
-      background-color 150ms ease,
-      border-color 150ms ease,
-      box-shadow 150ms ease;
+      background-color 120ms ease,
+      border-color 120ms ease,
+      box-shadow 120ms ease;
   }
 
   [data-slot="base"].ring:hover {
-    background-color: var(--color-sf-gray-50) !important;
-    border-color: var(--color-sf-gray-400);
-    box-shadow: var(--ui-shadow-soft);
+    background-color: var(--color-muted) !important;
+    border-color: var(--sf-gray-400);
+    box-shadow: var(--shadow-soft);
   }
 
   [data-slot="base"].ring:active {
-    background-color: var(--color-sf-gray-100) !important;
-    border-color: var(--color-sf-gray-500);
+    background-color: var(--sf-gray-200) !important;
+    border-color: var(--sf-gray-500);
   }
 
   [data-slot="base"].ring:focus-visible {
@@ -253,23 +430,24 @@
       0 0 0 3px rgba(1, 118, 211, 0.7);
   }
 
-  /* Pills / chips (badges, small counters) */
-  .rounded-full.bg-elevated {
-    border: 1px solid var(--ui-border-soft);
-    box-shadow: var(--ui-shadow-soft);
+  /* chips/pills */
+  .rounded-full.bg-elevated,
+  .rounded-full.bg-default {
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
   }
 
-  /* ────────────────────────────────
-     📝 FORM CONTROLS (inputs, selects, textareas)
-     ──────────────────────────────── */
+  /* ─────────────────────────────
+     📝 INPUTS / SELECTS / TEXTAREAS
+     ───────────────────────────── */
 
   input,
   textarea,
   select {
-    border-radius: var(--ui-radius-md);
-    border: 1px solid var(--color-sf-gray-300);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-input);
     background-color: #ffffff;
-    color: var(--ui-text);
+    color: var(--color-foreground);
     padding: 0.35rem 0.6rem;
     font-size: 0.875rem;
     line-height: 1.3;
@@ -283,52 +461,55 @@
 
   input::placeholder,
   textarea::placeholder {
-    color: var(--color-sf-gray-500);
+    color: var(--sf-gray-500);
   }
 
   input:hover,
   textarea:hover,
   select:hover {
-    border-color: var(--color-sf-gray-400);
+    border-color: var(--sf-gray-400);
   }
 
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible {
-    border-color: var(--color-sf-blue-500);
+    border-color: var(--color-ring);
     box-shadow:
-      0 0 0 1px var(--color-sf-blue-500),
-      0 0 0 4px rgba(1, 118, 211, 0.18);
+      0 0 0 1px var(--color-ring),
+      0 0 0 4px color-mix(in srgb, var(--color-ring) 40%, transparent 60%);
     background-color: #ffffff;
   }
 
-  /* Dark mode form fields */
+  html.dark input,
+  html.dark textarea,
+  html.dark select,
   .dark input,
   .dark textarea,
   .dark select {
-    background-color: #1f2125;
-    border-color: #3b3e45;
-    color: #f3f3f3;
+    background-color: #151b28;
+    border-color: var(--color-input);
+    color: var(--color-foreground);
     box-shadow: none;
   }
 
+  html.dark input:hover,
+  html.dark textarea:hover,
+  html.dark select:hover,
   .dark input:hover,
   .dark textarea:hover,
   .dark select:hover {
-    border-color: #5b5f66;
+    border-color: #3b4457;
   }
 
+  html.dark input:focus-visible,
+  html.dark textarea:focus-visible,
+  html.dark select:focus-visible,
   .dark input:focus-visible,
   .dark textarea:focus-visible,
   .dark select:focus-visible {
-    border-color: #5b9dff;
+    border-color: var(--color-ring);
     box-shadow:
-      0 0 0 1px #5b9dff,
-      0 0 0 4px rgba(91, 157, 255, 0.3);
-  }
-
-  /* Section separators */
-  [role="separator"][data-slot="root"] .border-default {
-    border-color: var(--ui-border) !important;
+      0 0 0 1px var(--color-ring),
+      0 0 0 4px color-mix(in srgb, var(--color-ring) 45%, transparent 55%);
   }
 }
