@@ -10,7 +10,7 @@ export default defineNuxtRouteMiddleware((to) => {
     '/auth/callback',
     '/forgot-password',
     '/reset-password',
-    '/training',
+    '/docs',
     '/pricing',
     '/blog',
     '/changelog'

@@ -19,17 +19,17 @@ useSeoMeta({
   description: 'We are sorry but this page could not be found.'
 })
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('training'), {
-  transform: data => data.find(item => item.path === '/training')?.children || []
+const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'), {
+  transform: data => data.find(item => item.path === '/docs')?.children || []
 })
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('training'), {
+const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
   server: false
 })
 
 const links = [{
   label: 'Docs',
   icon: 'i-lucide-book',
-  to: '/training/getting-started'
+  to: '/docs/getting-started'
 }, {
   label: 'Pricing',
   icon: 'i-lucide-credit-card',

@@ -33,8 +33,8 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('training'), {
-  transform: data => data.find(item => item.path === '/training')?.children || []
+const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'), {
+  transform: data => data.find(item => item.path === '/docs')?.children || []
 })
 const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
   server: false
@@ -43,7 +43,7 @@ const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSe
 const links = [{
   label: 'Docs',
   icon: 'i-lucide-book',
-  to: '/training/getting-started'
+  to: '/docs/getting-started'
 }, {
   label: 'Pricing',
   icon: 'i-lucide-credit-card',

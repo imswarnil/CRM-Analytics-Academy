@@ -3,20 +3,31 @@
 
 @source "../../../content/**/*";
 
-/* Salesforce-style marketing theme, but with square(-ish) corners */
+/* =========================================================
+   SALESFORCE-STYLE LMS THEME (TOKENS ONLY)
+   ========================================================= */
 @theme static {
-  /* ---------- Typography ---------- */
-  --font-sans: "Salesforce Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  /* ---------------- Typography ---------------- */
+  --font-sans: "Salesforce Sans", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
-  /* ---------- Brand palette (Salesforce-ish blues) ---------- */
-  --color-sf-50:  #f5f8fc;
-  --color-sf-100: #e5ecf9;
-  --color-sf-200: #cbd9f4;
-  --color-sf-300: #a7c0f0;
-  --color-sf-400: #7ea6e5;
+  /* Slightly calmer text scale for long-form learning content */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 0.95rem;
+  --text-lg: 1.1rem;
+  --text-xl: 1.35rem;
+  --text-2xl: 1.7rem;
+  --text-3xl: 2.1rem;
+
+  /* ---------------- Brand palette (Salesforce-ish) ---------------- */
+  --color-sf-50:  #f4f6fb;
+  --color-sf-100: #e3ecff;
+  --color-sf-200: #c5dafb;
+  --color-sf-300: #a3c4f5;
+  --color-sf-400: #74a4ed;
   --color-sf-500: #1b96ff;
-  --color-sf-600: #0176d3; /* main brand */
+  --color-sf-600: #0176d3;  /* primary */
   --color-sf-700: #0159a8;
   --color-sf-800: #013a73;
   --color-sf-900: #021f3f;
@@ -36,72 +47,84 @@
   --color-primary:            var(--color-sf-600);
   --color-primary-foreground: #ffffff;
 
-  /* Supporting colors (chips, status, etc.) */
-  --color-success:   #2e844a;
-  --color-warning:   #ffb75d;
-  --color-danger:    #ba0517;
-  --color-info:      #2b9aff;
+  /* LMS accent colors (tags, progress, lesson states) */
+  --color-accent-teal:   #1ab0b2;
+  --color-accent-violet: #7065f0;
+  --color-success:       #2e844a;
+  --color-warning:       #ffb75d;
+  --color-danger:        #ba0517;
+  --color-info:          #2b9aff;
 
-  /* ---------- Neutrals / surfaces ---------- */
-  --color-surface-0:   #f4f6f9;  /* page background */
-  --color-surface-1:   #ffffff;  /* cards, panels */
-  --color-surface-2:   #f0f4fa;  /* subtle blocks */
-  --color-border-subtle: #d8dde6;
+  /* ---------------- Neutrals & surfaces ---------------- */
+  --color-surface-0:         #f4f6fb;  /* page bg */
+  --color-surface-1:         #ffffff;  /* main cards */
+  --color-surface-2:         #f0f4fa;  /* side panels / subtle blocks */
+  --color-surface-3:         #e3ebf7;  /* section headers */
+  --color-border-subtle:     #d8dde6;
 
-  --color-foreground:        #1a1b2b;
+  --color-foreground:        #181b29;
   --color-foreground-muted:  #4e5665;
   --color-foreground-softer: #7b8497;
 
-  /* Tie into Tailwind “background / foreground / muted” */
+  /* Map to Nuxt UI semantic tokens */
   --color-background:        var(--color-surface-0);
   --color-muted:             var(--color-surface-2);
   --color-muted-foreground:  var(--color-foreground-softer);
   --color-border:            var(--color-border-subtle);
 
-  /* ---------- Radii (NO big rounded pills) ---------- */
-  /* Keep everything fairly straight; just tiny easing on corners */
+  /* ---------------- Radii (no pill nonsense) ---------------- */
   --radius-none: 0;
   --radius-xs:   2px;
-  --radius-sm:   3px;
-  --radius-md:   4px;
-  --radius-lg:   6px;
-  --radius-xl:   8px;
-  --radius-full: 9999px; /* only used where Nuxt UI really needs pills */
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   10px;
+  --radius-2xl:  12px;
+  --radius-full: 9999px;
 
-  /* Nuxt UI defaults */
+  /* Nuxt UI usage */
   --ui-radius:          var(--radius-md);
-  --ui-radius-card:     var(--radius-lg);
+  --ui-radius-card:     var(--radius-xl);
   --ui-radius-input:    var(--radius-md);
   --ui-radius-button:   var(--radius-md);
   --ui-radius-tooltip:  var(--radius-sm);
-  --ui-radius-popover:  var(--radius-md);
+  --ui-radius-popover:  var(--radius-lg);
 
-  /* ---------- Shadows (clean SF marketing style) ---------- */
-  --shadow-sm: 0 1px 2px rgba(1, 63, 128, 0.10);
-  --shadow-md: 0 4px 12px rgba(1, 63, 128, 0.14);
-  --shadow-lg: 0 12px 30px rgba(1, 63, 128, 0.18);
+  /* ---------------- Shadows (clean, LMS-friendly) ---------------- */
+  --shadow-xs: 0 1px 2px rgba(1, 63, 128, 0.06);
+  --shadow-sm: 0 2px 6px rgba(1, 63, 128, 0.08);
+  --shadow-md: 0 6px 18px rgba(1, 63, 128, 0.12);
+  --shadow-lg: 0 14px 40px rgba(1, 63, 128, 0.16);
 
-  /* ---------- Layout ---------- */
-  /* Slightly wider, like marketing pages */
-  --ui-container: 72rem; /* ~1150px */
+  --ui-shadow-card: var(--shadow-md);
 
-  /* Gaps / padding feel more “air-y” like Salesforce sites */
-  --spacing-4:  1rem;
-  --spacing-6:  1.5rem;
-  --spacing-8:  2rem;
+  /* ---------------- Layout tokens ---------------- */
+  --ui-container: 70rem; /* comfortable reading width for LMS */
+  --ui-border-width: 1px;
+
+  /* Vertical rhythm – a bit airy for learning content */
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
   --spacing-10: 2.5rem;
   --spacing-12: 3rem;
+
+  /* ---------------- Focus & rings ---------------- */
+  --ui-ring-width: 2px;
+  --ui-ring-color: rgba(1, 118, 211, 0.65);
 }
 
-/* ---------- Light / Dark surface tuning (no rounded changes here) ---------- */
-
+/* =========================================================
+   LIGHT / DARK SURFACE TUNING
+   ========================================================= */
 :root {
   color-scheme: light;
   background-color: var(--color-surface-0);
   color: var(--color-foreground);
 }
 
-/* If you’re using `.dark` on html/body for dark mode */
+/* If you’re using `.dark` on html/body */
 :root.dark {
   color-scheme: dark;
 
@@ -109,13 +132,14 @@
   --color-surface-0:        #020716;
   --color-surface-1:        #050b1f;
   --color-surface-2:        #0b1027;
+  --color-surface-3:        #101632;
   --color-border-subtle:    #1a2138;
 
-  --color-foreground:       #f3f6ff;
+  --color-foreground:       #f4f7ff;
   --color-foreground-muted: #c3cae7;
   --color-foreground-softer:#8f9ac5;
 
-  /* Keep brand blue bright for CTAs on dark bg */
+  /* Keep primary bright in dark mode for CTAs */
   --color-primary-500: #1b96ff;
   --color-primary-600: #1b96ff;
   --color-primary:     #1b96ff;
