@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase'
   ],
 
-    supabase: {
+  supabase: {
     url: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_URL,
     key: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_ANON_KEY,
     redirect: false,
