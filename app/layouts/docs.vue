@@ -6,8 +6,9 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 <template>
   <div>
-    <AppHeader /> 
-      <UMain>
+    <AppHeader />
+
+    <UMain>
       <UContainer>
         <UPage>
           <template #left>
@@ -15,16 +16,19 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
               <template #top>
                 <UContentSearchButton :collapsed="false" />
               </template>
+
               <UContentNavigation
                 :navigation="navigation"
                 highlight
               />
             </UPageAside>
           </template>
+
           <slot />
         </UPage>
       </UContainer>
     </UMain>
+
     <AppFooter />
   </div>
 </template>
