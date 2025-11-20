@@ -12,8 +12,6 @@ useSeoMeta({
 })
 
 const toast = useToast()
-const supabase = useSupabaseClient()
-const loading = ref(false)
 
 const fields = [{
   name: 'email',
@@ -25,94 +23,36 @@ const fields = [{
   name: 'password',
   label: 'Password',
   type: 'password' as const,
-  placeholder: 'Enter your password',
-  required: true
+  placeholder: 'Enter your password'
 }, {
   name: 'remember',
   label: 'Remember me',
   type: 'checkbox' as const
 }]
 
-const schema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Must be at least 8 characters'),
-  remember: z.boolean().optional()
-})
-
-type Schema = z.output<typeof schema>
-
-const getRedirectUrl = () => {
-  if (process.client) {
-    return `${window.location.origin}/auth/callback`
-  }
-  return '/auth/callback'
-}
-
 const providers = [{
   label: 'Google',
   icon: 'i-simple-icons-google',
-  onClick: async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: getRedirectUrl()
-      }
-    })
-    if (error) {
-      toast.add({
-        title: 'Google login failed',
-        description: error.message,
-        color: 'red'
-      })
-    }
+  onClick: () => {
+    toast.add({ title: 'Google', description: 'Login with Google' })
   }
 }, {
   label: 'GitHub',
   icon: 'i-simple-icons-github',
-  onClick: async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
-      options: {
-        redirectTo: getRedirectUrl()
-      }
-    })
-    if (error) {
-      toast.add({
-        title: 'GitHub login failed',
-        description: error.message,
-        color: 'red'
-      })
-    }
+  onClick: () => {
+    toast.add({ title: 'GitHub', description: 'Login with GitHub' })
   }
 }]
 
-async function onSubmit (event: FormSubmitEvent<Schema>) {
-  const { email, password } = event.data
-  loading.value = true
+const schema = z.object({
+  email: z.string().email('Invalid email'),
+  password: z.string().min(8, 'Must be at least 8 characters')
+})
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  })
+type Schema = z.output<typeof schema>
 
-  loading.value = false
-
-  if (error) {
-    toast.add({
-      title: 'Login failed',
-      description: error.message,
-      color: 'red'
-    })
-    return
-  }
-
-  toast.add({
-    title: 'Welcome back 👋',
-    description: `Logged in as ${data.user?.email}`,
-    color: 'green'
-  })
-
-  await navigateTo('/dashboard')
+function onSubmit(payload: FormSubmitEvent<Schema>) {
+  console.log('Submitted', payload)
 }
 </script>
 
@@ -123,41 +63,28 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     :providers="providers"
     title="Welcome back"
     icon="i-lucide-lock"
-    :loading="loading"
     @submit="onSubmit"
   >
     <template #description>
-      Don't have an account?
-      <ULink
+      Don't have an account? <ULink
         to="/signup"
         class="text-primary font-medium"
-      >
-        Sign up
-      </ULink>.
+      >Sign up</ULink>.
     </template>
 
     <template #password-hint>
-      <!--
       <ULink
-        to="/forgot-password"
+        to="/"
         class="text-primary font-medium"
         tabindex="-1"
-      >
-        Forgot password?
-      </ULink>
-      -->
+      >Forgot password?</ULink>
     </template>
 
     <template #footer>
-      By signing in, you agree to our
-      <!--
-      <ULink
-        to="/terms"
+      By signing in, you agree to our <ULink
+        to="/"
         class="text-primary font-medium"
-      >
-        Terms of Service
-      </ULink>.
-      -->
+      >Terms of Service</ULink>.
     </template>
   </UAuthForm>
 </template>
