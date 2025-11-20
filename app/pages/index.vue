@@ -18,7 +18,8 @@ useSeoMeta({
     <UPageHero
       :title="page.title"
       :description="page.description"
-      :links="page.hero.links"
+      :links="page.hero.links" 
+      :orientation="page.hero.orientation" 
     >
       <template #top>
         <HeroBackground />
@@ -30,9 +31,10 @@ useSeoMeta({
           unwrap="p"
         />
       </template>
-
       <PromotionalVideo />
     </UPageHero>
+
+    
 
     <UPageSection
       v-for="(section, index) in page.sections"

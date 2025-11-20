@@ -5,6 +5,7 @@ seo:
   description: Create stunning, fast and production-ready SaaS applications with Nuxt UI. 100+ Vue components, authentication, dark mode, and enterprise features built on Tailwind CSS.
 navigation: false
 hero:
+  orientation: horizontal
   links:
     - label: Get started
       icon: i-lucide-arrow-right
