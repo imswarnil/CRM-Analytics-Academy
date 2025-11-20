@@ -1,8 +1,8 @@
-title: Ship Your [SaaS]{class="text-primary"} at light speed
-description: Build production-ready SaaS applications with Nuxt UI's powerful components, authentication flows, and enterprise features. The same component library trusted by the entire Nuxt ecosystem.
+title: Learn [Salesforce CRM Analytics]{class="text-primary"} from Scratch
+description: Learn Salesforce CRM Analytics (Tableau CRM / Einstein Analytics) with real org examples, production-ready dashboards, and hands-on projects designed for admins, analysts, and consultants.
 seo:
-  title: Nuxt UI SaaS Template
-  description: Create stunning, fast and production-ready SaaS applications with Nuxt UI. 100+ Vue components, authentication, dark mode, and enterprise features built on Tailwind CSS.
+  title: Salesforce CRM Analytics Training – Learn Tableau CRM / Einstein Analytics
+  description: Master Salesforce CRM Analytics (formerly Tableau CRM / Einstein Analytics) from scratch with real Salesforce org demos, end-to-end dashboards, data prep, SAQL, and hands-on projects to level up your Salesforce career.
 navigation: false
 hero:
   orientation: horizontal
@@ -20,131 +20,136 @@ hero:
       variant: subtle
       to: https://github.com/nuxt-ui-templates/saas
       target: _blank
+
 sections:
-  - title: Powered by Nuxt UI Components
-    description: Access the complete Nuxt UI component library with 100+ beautifully styled, accessible, and customizable Vue components. Everything you need to build professional SaaS applications.
+  - title: Built for Salesforce CRM Analytics Learners
+    description: Go beyond theory. Learn Salesforce CRM Analytics using real Salesforce org examples, production-style dashboards, and business use cases that AEs, admins, and analysts actually use.
     id: features
     orientation: horizontal
     features:
-      - name: 100+ UI Components
-        description: From buttons to modals, data tables to forms - all styled with Tailwind CSS and accessible out of the box.
-        icon: i-lucide-package
-      - name: Authentication Ready
-        description: Pre-built login, signup, and password reset flows. Just connect your backend and start onboarding users.
-        icon: i-lucide-shield
-      - name: TypeScript First
-        description: Full TypeScript support with auto-completion, type safety, and IntelliSense for every component and composable.
+      - name: Real Org Dashboards
+        description: Learn by breaking down real opportunity, pipeline, and revenue dashboards used in live Salesforce environments.
+        icon: i-lucide-bar-chart-3
+      - name: End-to-End Data Prep
+        description: Understand Data Manager, recipes, dataflows, and joins so your dashboards are fast, reliable, and easy to maintain.
+        icon: i-lucide-database
+      - name: SAQL & Query Skills
+        description: Learn SAQL step by step so you can unlock advanced calculations, cohort analysis, and complex business metrics.
         icon: i-lucide-code-2
-  - title: Built for Modern SaaS
-    description: Everything you need to launch and scale your SaaS. From beautiful marketing pages to complex dashboards, ship faster with production-ready patterns.
+
+  - title: From Beginner to Production Dashboards
+    description: Start from zero and reach “production-ready.” Learn how to design, build, and ship CRM Analytics dashboards that your stakeholders love and actually use.
     orientation: horizontal
     reverse: true
     features:
-      - name: Edge Performance
-        description: Optimized for Core Web Vitals with automatic code splitting, lazy loading, and SSR/SSG support.
-        icon: i-lucide-zap
-      - name: Dark Mode Ready
-        description: Automatic theme switching with smooth transitions. Respects system preferences and remembers user choice.
-        icon: i-lucide-moon
-      - name: Global Ready
-        description: Built-in i18n support for 50+ languages with RTL/LTR layouts and @nuxt/fonts integration.
-        icon: i-lucide-globe
+      - name: Role-Based Learning Paths
+        description: Tailored guidance whether you are a Salesforce admin, business analyst, consultant, or developer.
+        icon: i-lucide-users
+      - name: Dashboard UX & Storytelling
+        description: Learn layout best practices, filters, bindings, and interactions that turn reports into decision-making dashboards.
+        icon: i-lucide-layout-dashboard
+      - name: Real Projects & Assignments
+        description: Work on guided projects like Sales Performance, Pipeline Health, and Executive Summary dashboards.
+        icon: i-lucide-clipboard-list
+
 features:
-  title: Everything You Need to Ship
-  description: Stop building from scratch. Focus on your unique features while Nuxt UI handles the foundations with battle-tested components and patterns.
+  title: Everything You Need to Master CRM Analytics
+  description: Stop getting lost in random docs and YouTube videos. Follow a structured Salesforce CRM Analytics roadmap with real examples, templates, and hands-on practice.
   items:
-    - title: Beautiful Design System
-      description: Semantic color aliases, comprehensive design tokens, and Tailwind Variants for consistent, customizable styling.
-      icon: i-lucide-palette
-    - title: Accessible by Default
-      description: Built on Reka UI for robust accessibility. WCAG compliant components that work for everyone, everywhere.
-      icon: i-lucide-accessibility
-    - title: Developer Experience
-      description: Auto-imports, hot module replacement, and comprehensive documentation. Build faster with less friction.
+    - title: Complete CRM Analytics Fundamentals
+      description: Understand lenses, dashboards, datasets, dataflows, recipes, and bindings with clear, practical examples.
+      icon: i-lucide-layers
+    - title: Salesforce-First Best Practices
+      description: Learn naming conventions, folder structure, security, and packaging so your analytics scales inside Salesforce.
+      icon: i-lucide-shield-check
+    - title: Hands-On Projects
+      description: Build real dashboards for Sales, RevOps, forecasting, and customer success with guided step-by-step labs.
+      icon: i-lucide-hammer
+    - title: SAQL & Advanced Analytics
+      description: Go beyond the UI with SAQL, windowing functions, custom measures, and advanced aggregations for power users.
       icon: i-lucide-terminal
-    - title: SEO Optimized
-      description: Server-side rendering, automatic meta tags, sitemap generation, and Open Graph images out of the box.
-      icon: i-lucide-search
-    - title: Production Ready
-      description: Error handling, loading states, form validation, and security best practices built into every component.
-      icon: i-lucide-check-circle
-    - title: Infinitely Customizable
-      description: Override any style with the ui prop, customize globally with AppConfig, or use Tailwind classes directly.
-      icon: i-lucide-settings
+    - title: Performance & Governance
+      description: Learn how to optimize queries, caching, and data model design to keep dashboards fast and reliable at scale.
+      icon: i-lucide-activity
+    - title: Career-Focused Learning
+      description: Build a portfolio of CRM Analytics dashboards you can showcase in interviews and on your Salesforce profile.
+      icon: i-lucide-briefcase
+
 testimonials:
-  headline: Trusted by Developers
-  title: Join Thousands Building with Nuxt UI
-  description: See why developers choose Nuxt UI to ship their SaaS applications faster and with more confidence.
+  headline: Trusted by Salesforce Professionals
+  title: Join Learners Growing with CRM Analytics
+  description: See how focused Salesforce CRM Analytics training helps admins, analysts, and consultants deliver dashboards that leaders trust.
   items:
-    - quote: Nuxt UI transformed how we build. The component quality is exceptional - everything just works with perfect TypeScript support, accessibility, and dark mode built in.
+    - quote: This training finally connected the dots between Salesforce data, CRM Analytics, and real business dashboards. I could apply what I learned directly in my org.
       user:
         name: Sarah Chen
-        description: CTO at TechScale Solutions
+        description: Senior Salesforce Admin at TechScale Solutions
         avatar:
           src: https://i.pravatar.cc/120?img=1
-    - quote: We shipped our MVP in 2 weeks instead of 2 months. The authentication flows and form components saved us countless hours of development time.
+    - quote: The real-org examples and projects were game changers. I built a full sales performance dashboard I now demo to stakeholders every week.
       user:
         name: Marcus Rodriguez
-        description: VP of Engineering at DataFlow
+        description: Salesforce Business Analyst at DataFlow
         avatar:
           src: https://i.pravatar.cc/120?img=7
-    - quote: The design system with AppConfig is brilliant. We maintain brand consistency across all our products while leveraging the full component library.
+    - quote: The way SAQL is explained is brilliant. I went from avoiding SAQL to confidently writing queries for complex KPIs and executive dashboards.
       user:
         name: David Kumar
-        description: Security Director at SecureStack
+        description: Analytics Consultant at SecureStack
         avatar:
           src: https://i.pravatar.cc/120?img=3
-    - quote: Perfect Lighthouse scores out of the box. Our Core Web Vitals improved dramatically just by switching to Nuxt UI components.
+    - quote: Our leadership finally trusts the numbers. The course showed exactly how to design dashboards for clarity, speed, and Salesforce adoption.
       user:
         name: Emily Zhang
-        description: Lead Architect at ScaleForce
+        description: RevOps Lead at ScaleForce
         avatar:
           src: https://i.pravatar.cc/120?img=5
-    - quote: The Tailwind Variants system makes customization so intuitive. We can override any component style while keeping the functionality intact.
+    - quote: The focus on Salesforce-specific patterns, security, and performance is what sets this apart from generic BI training.
       user:
         name: James Wilson
-        description: DevOps Lead at CloudPro
+        description: Solution Architect at CloudPro
         avatar:
           src: https://i.pravatar.cc/120?img=8
-    - quote: From the SaaS template to production in days. The pre-built layouts, navigation, and content structure accelerated our launch.
+    - quote: I used the projects from this training as a portfolio in my interviews and landed a CRM Analytics-focused role in under two months.
       user:
         name: Lisa Patel
-        description: CEO at AutoScale
+        description: CRM Analytics Specialist at AutoScale
         avatar:
           src: https://i.pravatar.cc/120?img=9
-    - quote: Reka UI foundation means accessibility is never an afterthought. We achieved WCAG compliance without any custom work.
+    - quote: The governance and performance sections helped us clean up years of messy dashboards and standardize our analytics across teams.
       user:
         name: Michael Torres
-        description: Frontend Lead at AccessFirst
+        description: Salesforce Platform Owner at AccessFirst
         avatar:
           src: https://i.pravatar.cc/120?img=11
-    - quote: The documentation is outstanding. Every component has clear examples, and the community on Discord is incredibly helpful.
+    - quote: Perfect mix of theory and practice. The checklists, patterns, and templates are exactly what our team needed to standardize CRM Analytics work.
       user:
         name: Rachel Kim
         description: Performance Engineer at APIHub
         avatar:
           src: https://i.pravatar.cc/120?img=10
-    - quote: We replaced three different UI libraries with Nuxt UI. The consistency and quality across all components is unmatched.
+    - quote: I replaced scattered notes and YouTube playlists with this single structured path. It saved me months of trial and error.
       user:
         name: Thomas Weber
-        description: UI Architecture Lead at DesignScale
+        description: Analytics Lead at DesignScale
         avatar:
           src: https://i.pravatar.cc/120?img=12
-    - quote: The integration with Nuxt modules is seamless. Color mode, fonts, icons - everything works together perfectly.
+    - quote: The training fits perfectly into the wider Salesforce ecosystem – reports, dashboards, CRM Analytics, and integrations all explained together.
       user:
         name: Sophia Martinez
-        description: Integration Specialist at TechFlow
+        description: Salesforce Integration Specialist at TechFlow
         avatar:
           src: https://i.pravatar.cc/120?img=14
+
 cta:
-  title: Ready to build an amazing SaaS?
-  description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
+  title: Ready to master Salesforce CRM Analytics?
+  description: Start your Salesforce CRM Analytics journey today. Follow a structured path, build real dashboards, and create a portfolio that showcases your skills.
   links:
-    - label: Start building
+    - label: Start learning
       to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt'
       target: _blank
       trailingIcon: i-lucide-arrow-right
-    - label: View on GitHub
+    - label: View template on GitHub
       to: 'https://github.com/nuxt-ui-templates/saas'
       target: _blank
       variant: subtle
