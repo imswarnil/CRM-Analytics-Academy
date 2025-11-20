@@ -1,2 +1,4 @@
-title: Changelog
-navigation.icon: i-lucide-rocket
+title: Salesforce Release Changelog
+description: Stay up to date with Salesforce release highlights for CRM Analytics and the wider platform. Concise summaries of new features, important changes, and what actually matters for your dashboards and org.
+navigation:
+  icon: i-lucide-rocket

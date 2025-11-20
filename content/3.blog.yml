@@ -1,3 +1,4 @@
-title: Blog
-description: Discover the latest insights, tutorials, and updates from our team. Stay informed about web development trends, best practices, and innovative solutions.
-navigation.icon: i-lucide-newspaper
+title: CRM Analytics Blog
+description: Deep dives, tutorials, and real-world lessons on Salesforce CRM Analytics (Tableau CRM / Einstein Analytics). Learn dashboards, data prep, SAQL, and best practices from real Salesforce org use cases.
+navigation:
+  icon: i-lucide-newspaper
