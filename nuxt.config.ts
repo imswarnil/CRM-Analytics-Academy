@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -6,26 +5,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     '@vueuse/nuxt',
-    'nuxt-og-image',
     '@nuxtjs/supabase'
   ],
-
-  supabase: {
-    url: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_URL,
-    key: process.env.CRM_ANALYTICS_ACADEMY_NUXT_PUBLIC_SITE_URLSUPABASE_ANON_KEY,
-    redirect: false,
-    redirectOptions: {
-      login: '/login',
-      callback: '/auth/callback',  // we'll create this route (simple)
-      exclude: [
-        '/',                       // public
-        '/login',
-        '/signup',
-        '/docs/**',
-        '/changelog'
-      ]
-    }
-  },
 
   devtools: {
     enabled: true
@@ -44,8 +25,7 @@ export default defineNuxtConfig({
       routes: [
         '/'
       ],
-      crawlLinks: true,
-      failOnError: false
+      crawlLinks: true
     }
   },
 

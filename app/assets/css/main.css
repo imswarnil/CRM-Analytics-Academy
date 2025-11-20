@@ -3,97 +3,25 @@
 
 @source "../../../content/**/*";
 
-/* Tailwind / Nuxt UI design tokens */
 @theme static {
-  /* Salesforce-ish font stack */
-  --font-sans: "Salesforce Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: 'Public Sans', sans-serif;
 
-  /* (Optional) mono font if needed */
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-
-  /* Salesforce-like brand blue palette */
-  --color-sf-50:  #f4f6fb;
-  --color-sf-100: #e5ecf9;
-  --color-sf-200: #cbd9f4;
-  --color-sf-300: #a7c0f0;
-  --color-sf-400: #7ea6e5;
-  --color-sf-500: #1b96ff;
-  --color-sf-600: #0176d3; /* classic Salesforce blue */
-  --color-sf-700: #0b5cab;
-  --color-sf-800: #014486;
-  --color-sf-900: #032d60;
-  --color-sf-950: #021734;
-
-  /* Container width a bit more “app” than “marketing site” */
-  --container-8xl: 85rem;
+  --color-green-50: #EFFDF5;
+  --color-green-100: #D9FBE8;
+  --color-green-200: #B3F5D1;
+  --color-green-300: #75EDAE;
+  --color-green-400: #00DC82;
+  --color-green-500: #00C16A;
+  --color-green-600: #00A155;
+  --color-green-700: #007F45;
+  --color-green-800: #016538;
+  --color-green-900: #0A5331;
+  --color-green-950: #052E16;
 }
 
-/* Light theme: Salesforce Lightning-style surfaces */
-:root {
-  /* Use Salesforce blue as Nuxt UI primary token */
-  --ui-primary: var(--color-sf-600);
-
-  /* Page + surfaces – SLDS-style greys */
-  --ui-bg: #f3f2f2;           /* app background */
-  --ui-bg-muted: #ffffff;     /* cards, panels */
-  --ui-bg-elevated: #ffffff;
-  --ui-bg-accented: #e5f3ff;  /* subtle info/accent */
-
-  /* Inverted (for badges/pills on blue) */
-  --ui-bg-inverted: #032d60;
-
-  /* Borders like SLDS cards/inputs */
-  --ui-border: #dddbda;
-  --ui-border-muted: #e5e5e5;
-  --ui-border-strong: #c9c7c5;
-
-  /* Text colors close to SLDS tokens */
-  --ui-text: #080707;
-  --ui-text-muted: #514f4d;
-  --ui-text-soft: #706e6b;
-  --ui-text-inverted: #ffffff;
-
-  /* Compact radius like Lightning cards & inputs (~4px) */
-  --ui-radius: 0.25rem;
-
-  /* Layout */
-  --ui-container: var(--container-8xl);
-  --ui-header-height: --spacing(16);
-}
-
-/* Dark mode – not “official SLDS” but still on-brand-ish */
 .dark {
-  --ui-bg: #101629;
-  --ui-bg-muted: #141b33;
-  --ui-bg-elevated: #161f3a;
-  --ui-bg-accented: #0b2f63;
-
-  --ui-border: #27344d;
-  --ui-border-muted: #1e2740;
-
-  --ui-text: #f4f6fb;
-  --ui-text-muted: #c9d3ea;
-
-  /* Slightly lighter blue for contrast on dark */
-  --ui-primary: var(--color-sf-400);
-
-  --ui-bg-inverted: #f3f2f2;
+  --ui-bg: var(--ui-color-neutral-950);
+  --ui-bg-muted: var(--ui-color-neutral-900);
+  --ui-bg-elevated: var(--ui-color-neutral-900);
+  --ui-bg-accented: var(--ui-color-neutral-800);
 }
-
-
-@layer components {
-  /* Subtle hover effect on all nav icons in the main header nav */
-  .app-main-nav .ui-navigation-menu-link-icon {
-    transition: transform 0.15s ease-out;
-  }
-
-  .app-main-nav a:hover .ui-navigation-menu-link-icon,
-  .app-main-nav button:hover .ui-navigation-menu-link-icon {
-    transform: translateY(-1px) scale(1.06);
-  }
-}
-
-
-
