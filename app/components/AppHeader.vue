@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import type { ContentNavigationItem } from '@nuxt/content'
+
 const route = useRoute()
+
+// Inject docs navigation from app.vue (you already provide('navigation', navigation))
+const navigation = inject<Ref<ContentNavigationItem[]> | null>('navigation', null)
 
 const items = computed(() => [
   {
     label: 'Docs',
     to: '/docs',
-    icon: 'i-lucide-book-open',       // ⬅️ icon for nav item
+    icon: 'i-lucide-book-open',
     active: route.path.startsWith('/docs')
   },
   {
@@ -24,11 +29,18 @@ const items = computed(() => [
     icon: 'i-lucide-history'
   }
 ])
+
+// Show full docs tree in mobile menu only when on /docs routes and navigation exists
+const hasDocsNav = computed(() =>
+  route.path.startsWith('/docs') &&
+  navigation?.value &&
+  navigation.value.length > 0
+)
 </script>
 
 <template>
   <UHeader>
-    <!-- LEFT: your logo stays exactly as it is -->
+    <!-- LEFT: logo + template menu (unchanged) -->
     <template #left>
       <NuxtLink to="/">
         <AppLogo class="w-auto h-6 shrink-0" />
@@ -36,22 +48,25 @@ const items = computed(() => [
       <TemplateMenu />
     </template>
 
-    <!-- CENTER: nav with (optional) icons -->
+    <!-- CENTER: desktop nav with icons -->
     <UNavigationMenu
       :items="items"
       variant="link"
+      class="hidden lg:flex"
     />
 
-    <!-- RIGHT: search + color mode + auth buttons -->
+    <!-- RIGHT: search + color-mode + auth -->
     <template #right>
-      <!-- 🔍 This button opens the same global search panel you already wired in app.vue -->
+      <!-- 🔍 Global search (mobile + desktop) -->
       <UContentSearchButton
-        class="hidden sm:inline-flex mr-1"
         :collapsed="true"
+        class="inline-flex mr-1"
       />
 
-      <UColorModeButton />
+      <!-- 🌗 Dark / light toggle -->
+      <UColorModeButton class="mr-1" />
 
+      <!-- Auth buttons -->
       <UButton
         icon="i-lucide-log-in"
         color="neutral"
@@ -77,30 +92,40 @@ const items = computed(() => [
       />
     </template>
 
-    <!-- MOBILE BODY: nav + auth (you already had this, unchanged) -->
+    <!-- MOBILE BODY: docs tree on docs pages, fallback nav otherwise -->
     <template #body>
-      <UNavigationMenu
-        :items="items"
-        orientation="vertical"
-        class="-mx-2.5"
-      />
+      <div class="-mx-2.5 space-y-6 lg:hidden">
+        <!-- 📚 When on /docs → show full docs navigation -->
+        <UContentNavigation
+          v-if="hasDocsNav"
+          :navigation="navigation!"
+          highlight
+        />
 
-      <USeparator class="my-6" />
+        <!-- Otherwise → fallback to simple nav items -->
+        <UNavigationMenu
+          v-else
+          :items="items"
+          orientation="vertical"
+        />
 
-      <UButton
-        label="Sign in"
-        color="neutral"
-        variant="subtle"
-        to="/login"
-        block
-        class="mb-3"
-      />
-      <UButton
-        label="Sign up"
-        color="neutral"
-        to="/signup"
-        block
-      />
+        <USeparator class="my-2" />
+
+        <UButton
+          label="Sign in"
+          color="neutral"
+          variant="subtle"
+          to="/login"
+          block
+          class="mb-3"
+        />
+        <UButton
+          label="Sign up"
+          color="neutral"
+          to="/signup"
+          block
+        />
+      </div>
     </template>
   </UHeader>
 </template>

@@ -7,7 +7,6 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 <template>
   <div>
     <AppHeader />
-<GoogleAd variant="leaderboard" />
     <UMain>
       <UContainer>
         <UPage>
@@ -15,24 +14,17 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
             <UPageAside>
               <template #top>
                 <UContentSearchButton :collapsed="false" />
-                  <GoogleAd variant="square-fixed" />
               </template>
-
               <UContentNavigation
                 :navigation="navigation"
                 highlight
               />
-              <GoogleAd variant="rectangle" />
-
             </UPageAside>
           </template>
           <slot />
         </UPage>
       </UContainer>
     </UMain>
-
-<GoogleAd variant="large-leaderboard" />
-
     <AppFooter />
   </div>
 </template>

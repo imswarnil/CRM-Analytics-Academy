@@ -12,10 +12,15 @@ type Variant =
   | 'in-article'        | 'in-feed'     | 'multiplex'
 
 const props = withDefaults(defineProps<{
+  /** Visual / layout variant */
   variant?: Variant
+  /** AdSense client ID */
   adClient?: string
+  /** Optional: override slot ID from AdSense UI */
   adSlot?: string
+  /** 'on' for test ads; remove in production */
   adTest?: 'on' | 'off'
+  /** Reload ad on every route change */
   autoRefresh?: boolean
 }>(), {
   variant: 'horizontal',
@@ -27,7 +32,10 @@ const route = useRoute()
 const hostRef = ref<HTMLDivElement | null>(null)
 const adRendered = ref(false)
 
-/* -------- Load AdSense once (script tag also in app.vue) -------- */
+/**
+ * Ensure AdSense script is loaded once.
+ * (This is manual ad unit, NOT Auto Ads.)
+ */
 function ensureScript(): Promise<void> {
   return new Promise<void>((resolve) => {
     if (typeof window === 'undefined') return resolve()
@@ -61,30 +69,42 @@ function ensureScript(): Promise<void> {
   })
 }
 
-/* -------- Variant → attributes (Google manual unit style) -------- */
+/**
+ * Manual **responsive** ad unit attributes.
+ * This is NOT "Auto Ads" – it's the standard Google responsive display unit.
+ *
+ * <ins class="adsbygoogle"
+ *      style="display:block"
+ *      data-ad-client="ca-pub-XXXX"
+ *      data-ad-slot="YYYY"
+ *      data-ad-format="auto"
+ *      data-full-width-responsive="true"></ins>
+ */
 function attrsForVariant() {
-  const a: Record<string, string> = { 'data-ad-client': props.adClient! }
+  const a: Record<string, string> = {
+    'data-ad-client': props.adClient!
+  }
 
-  // Map variants to default slots; you can override with adSlot prop
+  // Default slots by variant family; override via adSlot if you want
   switch (props.variant) {
-    // Horizontal / leaderboard family
+    // Horizontal / leaderboards
     case 'horizontal':
-    case 'large-leaderboard':
     case 'leaderboard':
+    case 'large-leaderboard':
     case 'small-leaderboard':
       a['data-ad-slot'] = props.adSlot || '8939839370'
       break
 
-    // Skyscraper / vertical family
+    // Vertical / skyscrapers
     case 'vertical':
     case 'wide-skyscraper':
     case 'skyscraper':
       a['data-ad-slot'] = props.adSlot || '3487917390'
       break
 
-    // Rectangles / squares / content style
-    case 'square':
+    // Rectangles / squares / content
     case 'rectangle':
+    case 'square':
     case 'square-fixed':
     case 'in-article':
     case 'in-feed':
@@ -93,88 +113,170 @@ function attrsForVariant() {
       break
   }
 
+  // Manual responsive unit flags
+  a['data-ad-format'] = 'auto'
+  a['data-full-width-responsive'] = 'true'
+
   if (props.adTest) a['data-adtest'] = props.adTest
+
   return a
 }
 
-/* -------- Standard IAB sizes per variant (inline-block, fixed px) -------- */
+/**
+ * Responsive style: let container control width, Google handles height.
+ */
 function insStyleForVariant() {
-  // Google manual unit style: display:inline-block; width/height in px.
-  switch (props.variant) {
-    // 728 x 90 – Leaderboard
-    case 'horizontal':
-    case 'leaderboard':
-      return 'display:inline-block;width:728px;height:90px;'
-
-    // 970 x 90 – Large Leaderboard
-    case 'large-leaderboard':
-      return 'display:inline-block;width:970px;height:90px;'
-
-    // 320 x 50 – Mobile Leaderboard
-    case 'small-leaderboard':
-      return 'display:inline-block;width:320px;height:50px;'
-
-    // 300 x 600 – Wide Skyscraper / Half Page
-    case 'wide-skyscraper':
-      return 'display:inline-block;width:300px;height:600px;'
-
-    // 160 x 600 – Skyscraper
-    case 'skyscraper':
-      return 'display:inline-block;width:160px;height:600px;'
-
-    // 300 x 250 – Medium Rectangle
-    case 'rectangle':
-    case 'in-article':
-    case 'in-feed':
-    case 'multiplex':
-      return 'display:inline-block;width:300px;height:250px;'
-
-    // 250 x 250 – Square
-    case 'square':
-    case 'square-fixed':
-      return 'display:inline-block;width:250px;height:250px;'
-  }
+  return 'display:block;width:100%;height:auto;'
 }
 
-/* -------- Tailwind classes for outer frame (layout + centering) -------- */
+/**
+ * Tailwind-only frame classes per variant.
+ * These map to Google's top-performing sizes,
+ * but scale down on mobile.
+ */
 function frameClassesForVariant(): string[] {
-  const base = ['ad-frame'] // styled in main.css with SLDS theme
+  // Base ad "card" – using your CSS variables via arbitrary values
+  const base = [
+    'relative',
+    'flex', 'items-center', 'justify-center',
+    'border', 'border-dashed',
+    'rounded-[var(--ui-radius)]',
+    'bg-[color:var(--ui-bg-muted)]',
+    'dark:bg-[color:var(--ui-bg-elevated)]',
+    'border-[color:var(--ui-border)]',
+    'dark:border-[color:var(--ui-border)]',
+    'px-4', 'pt-7', 'pb-4',  // extra top padding for label inside
+    'overflow-hidden',
+    'w-full'
+  ]
 
   switch (props.variant) {
+    /**
+     * 728x90 leaderboard (desktop)
+     * Responsive mapping:
+     * - mobile: ~320px (320x50 / 300x50)
+     * - small: 468x60
+     * - large: 728x90
+     */
     case 'horizontal':
     case 'leaderboard':
-      return [...base, 'w-full', 'max-w-[728px]', 'min-h-[90px]']
+      return [
+        ...base,
+        'max-w-[320px]',               // phones → mobile banner 300x50 / 320x50
+        'sm:max-w-[468px]',            // tablets → 468x60
+        'lg:max-w-[728px]',            // desktop → 728x90
+        'min-h-[60px]'
+      ]
 
+    /**
+     * 970x90 large leaderboard
+     * Responsive:
+     * - mobile: 320x50
+     * - sm: 728x90
+     * - xl: 970x90
+     */
     case 'large-leaderboard':
-      return [...base, 'w-full', 'max-w-[970px]', 'min-h-[90px]']
+      return [
+        ...base,
+        'max-w-[320px]',
+        'sm:max-w-[728px]',
+        'xl:max-w-[970px]',
+        'min-h-[60px]'
+      ]
 
+    /**
+     * 320x50 mobile leaderboard
+     */
     case 'small-leaderboard':
-      return [...base, 'w-full', 'max-w-[320px]', 'min-h-[50px]']
+      return [
+        ...base,
+        'max-w-[320px]',
+        'min-h-[50px]'
+      ]
 
+    /**
+     * 160x600 wide skyscraper (top performer)
+     * We keep it narrow but tall; Google will pick appropriate vertical.
+     */
     case 'wide-skyscraper':
-      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[600px]']
+      return [
+        ...base,
+        'max-w-[160px]',
+        'min-h-[260px]'
+      ]
 
+    /**
+     * 120x600 skyscraper (narrower)
+     */
     case 'skyscraper':
-      return [...base, 'w-full', 'max-w-[160px]', 'min-h-[600px]']
+      return [
+        ...base,
+        'max-w-[120px]',
+        'min-h-[260px]'
+      ]
 
+    /**
+     * 300x250 medium rectangle (top performer)
+     * + 336x280 large rectangle on slightly wider screens
+     */
     case 'rectangle':
+      return [
+        ...base,
+        'max-w-[300px]',       // base → 300x250
+        'sm:max-w-[336px]',    // a bit wider → 336x280
+        'min-h-[220px]'
+      ]
+
+    /**
+     * 250x250 square; can approximate 200x200 small square on mobile
+     */
+    case 'square':
+    case 'square-fixed':
+      return [
+        ...base,
+        'max-w-[220px]',
+        'sm:max-w-[250px]',
+        'min-h-[200px]'
+      ]
+
+    /**
+     * Content / in-article / in-feed / multiplex:
+     * use a medium container which comfortably fits 300x250 / 336x280
+     * and can expand up to ~580x400 "netboard"-ish on wide layouts.
+     */
     case 'in-article':
     case 'in-feed':
     case 'multiplex':
-      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[250px]']
+      return [
+        ...base,
+        'max-w-[300px]',
+        'md:max-w-[580px]',
+        'min-h-[220px]'
+      ]
 
-    case 'square':
-    case 'square-fixed':
-      return [...base, 'w-full', 'max-w-[250px]', 'min-h-[250px]']
+    /**
+     * Generic vertical (fallback)
+     */
+    case 'vertical':
+      return [
+        ...base,
+        'max-w-[200px]',
+        'min-h-[260px]'
+      ]
   }
 }
 
-/* -------- Render ad (fresh each time) -------- */
+/**
+ * Render a fresh ad:
+ * - clear host
+ * - create <ins class="adsbygoogle">
+ * - set attrs + style
+ * - push to adsbygoogle queue
+ */
 async function renderAd() {
   const host = hostRef.value
   if (!host) return
 
-  // Clear any previous ad
   host.innerHTML = ''
 
   const ins = document.createElement('ins')
@@ -202,7 +304,9 @@ onMounted(async () => {
   await renderAd()
 })
 
-/* -------- Always reload ad on route change -------- */
+/**
+ * Always load a fresh ad on route change.
+ */
 watch(
   () => route.fullPath,
   async (newPath, oldPath) => {
@@ -215,7 +319,9 @@ watch(
   }
 )
 
-/* -------- Reload when important props change -------- */
+/**
+ * Reload if key props change.
+ */
 watch(
   () => [props.variant, props.adSlot, props.adTest],
   async () => {
@@ -232,18 +338,27 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- Outer wrapper centers the ad frame on the page -->
+  <!-- Outer wrapper centers the ad frame in the page -->
   <div class="w-full my-8 flex justify-center">
     <div :class="frameClassesForVariant()">
-      <!-- Border-only label sitting on the top border -->
-      <span class="ad-frame__label">
+      <!-- Ads label: border-only, inside the frame -->
+      <span
+        class="absolute top-2 left-1/2 -translate-x-1/2
+               px-2 py-[2px]
+               text-[0.625rem] tracking-[0.12em] uppercase
+               border border-dashed rounded-full
+               bg-transparent
+               text-[color:var(--ui-text-muted)]
+               border-[color:var(--ui-border)]
+               pointer-events-none whitespace-nowrap z-10"
+      >
         Advertisement
       </span>
 
-      <!-- Host where AdSense injects <ins> -->
+      <!-- Host where AdSense injects the <ins> -->
       <div
         ref="hostRef"
-        class="w-full h-auto overflow-visible leading-none flex items-center justify-center"
+        class="w-full h-auto overflow-hidden leading-none flex items-center justify-center"
       />
     </div>
   </div>
