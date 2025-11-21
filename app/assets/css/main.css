@@ -3,144 +3,97 @@
 
 @source "../../../content/**/*";
 
-/* =========================================================
-   SALESFORCE-STYLE LMS THEME (TOKENS ONLY)
-   ========================================================= */
+/* Tailwind / Nuxt UI design tokens */
 @theme static {
-  /* ---------------- Typography ---------------- */
-  --font-sans: "Salesforce Sans", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  /* Salesforce-ish font stack */
+  --font-sans: "Salesforce Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
-  /* Slightly calmer text scale for long-form learning content */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 0.95rem;
-  --text-lg: 1.1rem;
-  --text-xl: 1.35rem;
-  --text-2xl: 1.7rem;
-  --text-3xl: 2.1rem;
+  /* (Optional) mono font if needed */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
 
-  /* ---------------- Brand palette (Salesforce-ish) ---------------- */
+  /* Salesforce-like brand blue palette */
   --color-sf-50:  #f4f6fb;
-  --color-sf-100: #e3ecff;
-  --color-sf-200: #c5dafb;
-  --color-sf-300: #a3c4f5;
-  --color-sf-400: #74a4ed;
+  --color-sf-100: #e5ecf9;
+  --color-sf-200: #cbd9f4;
+  --color-sf-300: #a7c0f0;
+  --color-sf-400: #7ea6e5;
   --color-sf-500: #1b96ff;
-  --color-sf-600: #0176d3;  /* primary */
-  --color-sf-700: #0159a8;
-  --color-sf-800: #013a73;
-  --color-sf-900: #021f3f;
+  --color-sf-600: #0176d3; /* classic Salesforce blue */
+  --color-sf-700: #0b5cab;
+  --color-sf-800: #014486;
+  --color-sf-900: #032d60;
+  --color-sf-950: #021734;
 
-  /* Map to Tailwind / Nuxt UI primary */
-  --color-primary-50:  var(--color-sf-50);
-  --color-primary-100: var(--color-sf-100);
-  --color-primary-200: var(--color-sf-200);
-  --color-primary-300: var(--color-sf-300);
-  --color-primary-400: var(--color-sf-400);
-  --color-primary-500: var(--color-sf-500);
-  --color-primary-600: var(--color-sf-600);
-  --color-primary-700: var(--color-sf-700);
-  --color-primary-800: var(--color-sf-800);
-  --color-primary-900: var(--color-sf-900);
-
-  --color-primary:            var(--color-sf-600);
-  --color-primary-foreground: #ffffff;
-
-  /* LMS accent colors (tags, progress, lesson states) */
-  --color-accent-teal:   #1ab0b2;
-  --color-accent-violet: #7065f0;
-  --color-success:       #2e844a;
-  --color-warning:       #ffb75d;
-  --color-danger:        #ba0517;
-  --color-info:          #2b9aff;
-
-  /* ---------------- Neutrals & surfaces ---------------- */
-  --color-surface-0:         #f4f6fb;  /* page bg */
-  --color-surface-1:         #ffffff;  /* main cards */
-  --color-surface-2:         #f0f4fa;  /* side panels / subtle blocks */
-  --color-surface-3:         #e3ebf7;  /* section headers */
-  --color-border-subtle:     #d8dde6;
-
-  --color-foreground:        #181b29;
-  --color-foreground-muted:  #4e5665;
-  --color-foreground-softer: #7b8497;
-
-  /* Map to Nuxt UI semantic tokens */
-  --color-background:        var(--color-surface-0);
-  --color-muted:             var(--color-surface-2);
-  --color-muted-foreground:  var(--color-foreground-softer);
-  --color-border:            var(--color-border-subtle);
-
-  /* ---------------- Radii (no pill nonsense) ---------------- */
-  --radius-none: 0;
-  --radius-xs:   2px;
-  --radius-sm:   4px;
-  --radius-md:   6px;
-  --radius-lg:   8px;
-  --radius-xl:   10px;
-  --radius-2xl:  12px;
-  --radius-full: 9999px;
-
-  /* Nuxt UI usage */
-  --ui-radius:          var(--radius-md);
-  --ui-radius-card:     var(--radius-xl);
-  --ui-radius-input:    var(--radius-md);
-  --ui-radius-button:   var(--radius-md);
-  --ui-radius-tooltip:  var(--radius-sm);
-  --ui-radius-popover:  var(--radius-lg);
-
-  /* ---------------- Shadows (clean, LMS-friendly) ---------------- */
-  --shadow-xs: 0 1px 2px rgba(1, 63, 128, 0.06);
-  --shadow-sm: 0 2px 6px rgba(1, 63, 128, 0.08);
-  --shadow-md: 0 6px 18px rgba(1, 63, 128, 0.12);
-  --shadow-lg: 0 14px 40px rgba(1, 63, 128, 0.16);
-
-  --ui-shadow-card: var(--shadow-md);
-
-  /* ---------------- Layout tokens ---------------- */
-  --ui-container: 70rem; /* comfortable reading width for LMS */
-  --ui-border-width: 1px;
-
-  /* Vertical rhythm – a bit airy for learning content */
-  --spacing-3: 0.75rem;
-  --spacing-4: 1rem;
-  --spacing-6: 1.5rem;
-  --spacing-8: 2rem;
-  --spacing-10: 2.5rem;
-  --spacing-12: 3rem;
-
-  /* ---------------- Focus & rings ---------------- */
-  --ui-ring-width: 2px;
-  --ui-ring-color: rgba(1, 118, 211, 0.65);
+  /* Container width a bit more “app” than “marketing site” */
+  --container-8xl: 85rem;
 }
 
-/* =========================================================
-   LIGHT / DARK SURFACE TUNING
-   ========================================================= */
+/* Light theme: Salesforce Lightning-style surfaces */
 :root {
-  color-scheme: light;
-  background-color: var(--color-surface-0);
-  color: var(--color-foreground);
+  /* Use Salesforce blue as Nuxt UI primary token */
+  --ui-primary: var(--color-sf-600);
+
+  /* Page + surfaces – SLDS-style greys */
+  --ui-bg: #f3f2f2;           /* app background */
+  --ui-bg-muted: #ffffff;     /* cards, panels */
+  --ui-bg-elevated: #ffffff;
+  --ui-bg-accented: #e5f3ff;  /* subtle info/accent */
+
+  /* Inverted (for badges/pills on blue) */
+  --ui-bg-inverted: #032d60;
+
+  /* Borders like SLDS cards/inputs */
+  --ui-border: #dddbda;
+  --ui-border-muted: #e5e5e5;
+  --ui-border-strong: #c9c7c5;
+
+  /* Text colors close to SLDS tokens */
+  --ui-text: #080707;
+  --ui-text-muted: #514f4d;
+  --ui-text-soft: #706e6b;
+  --ui-text-inverted: #ffffff;
+
+  /* Compact radius like Lightning cards & inputs (~4px) */
+  --ui-radius: 0.25rem;
+
+  /* Layout */
+  --ui-container: var(--container-8xl);
+  --ui-header-height: --spacing(16);
 }
 
-/* If you’re using `.dark` on html/body */
-:root.dark {
-  color-scheme: dark;
+/* Dark mode – not “official SLDS” but still on-brand-ish */
+.dark {
+  --ui-bg: #101629;
+  --ui-bg-muted: #141b33;
+  --ui-bg-elevated: #161f3a;
+  --ui-bg-accented: #0b2f63;
 
-  --color-background:       #020716;
-  --color-surface-0:        #020716;
-  --color-surface-1:        #050b1f;
-  --color-surface-2:        #0b1027;
-  --color-surface-3:        #101632;
-  --color-border-subtle:    #1a2138;
+  --ui-border: #27344d;
+  --ui-border-muted: #1e2740;
 
-  --color-foreground:       #f4f7ff;
-  --color-foreground-muted: #c3cae7;
-  --color-foreground-softer:#8f9ac5;
+  --ui-text: #f4f6fb;
+  --ui-text-muted: #c9d3ea;
 
-  /* Keep primary bright in dark mode for CTAs */
-  --color-primary-500: #1b96ff;
-  --color-primary-600: #1b96ff;
-  --color-primary:     #1b96ff;
+  /* Slightly lighter blue for contrast on dark */
+  --ui-primary: var(--color-sf-400);
+
+  --ui-bg-inverted: #f3f2f2;
 }
+
+
+@layer components {
+  /* Subtle hover effect on all nav icons in the main header nav */
+  .app-main-nav .ui-navigation-menu-link-icon {
+    transition: transform 0.15s ease-out;
+  }
+
+  .app-main-nav a:hover .ui-navigation-menu-link-icon,
+  .app-main-nav button:hover .ui-navigation-menu-link-icon {
+    transform: translateY(-1px) scale(1.06);
+  }
+}
+
+
+
