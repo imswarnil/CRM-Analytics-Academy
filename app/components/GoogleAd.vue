@@ -65,9 +65,8 @@ function ensureScript(): Promise<void> {
 function attrsForVariant() {
   const a: Record<string, string> = { 'data-ad-client': props.adClient! }
 
-  // One default slot per "family" – override with adSlot when you want
   switch (props.variant) {
-    // Standard horizontal / leaderboard family (728x90 / 970x90 / 320x50)
+    // Horizontal / leaderboard family
     case 'horizontal':
     case 'large-leaderboard':
     case 'leaderboard':
@@ -75,14 +74,14 @@ function attrsForVariant() {
       a['data-ad-slot'] = props.adSlot || '8939839370'
       break
 
-    // Skyscraper family (160x600 / 300x600)
+    // Skyscraper family
     case 'vertical':
     case 'wide-skyscraper':
     case 'skyscraper':
       a['data-ad-slot'] = props.adSlot || '3487917390'
       break
 
-    // Rectangles, squares, content-like units (300x250, 250x250, etc.)
+    // Rectangles / squares / content-style
     case 'square':
     case 'rectangle':
     case 'square-fixed':
@@ -97,50 +96,47 @@ function attrsForVariant() {
   return a
 }
 
-/* -------- <ins> style – let ad decide height, no clipping -------- */
+/* -------- <ins> style – let ad define its own height -------- */
 function insStyleForVariant() {
-  // No height:100% → let the creative define its own height
-  // Width is 100% of the frame we give it (which is sized per variant)
   return 'display:block;width:100%;height:auto;'
 }
 
 /* -------- Tailwind classes for outer frame (standard sizes) -------- */
 function frameClassesForVariant(): string[] {
-  // .ad-frame handles flex centering, border, bg via CSS
   const base = ['ad-frame']
 
   switch (props.variant) {
-    // 728x90 Leaderboard-ish (centered, shrinks only if viewport < 728)
+    // 728x90
     case 'horizontal':
     case 'leaderboard':
       return [...base, 'w-full', 'max-w-[728px]', 'min-h-[90px]']
 
-    // 970x90 Large leaderboard
+    // 970x90
     case 'large-leaderboard':
       return [...base, 'w-full', 'max-w-[970px]', 'min-h-[90px]']
 
-    // 320x50 Small / mobile leaderboard
+    // 320x50
     case 'small-leaderboard':
       return [...base, 'w-full', 'max-w-[320px]', 'min-h-[50px]']
 
-    // 300x600 Wide skyscraper (half page)
+    // 300x600
     case 'wide-skyscraper':
       return [...base, 'w-full', 'max-w-[300px]', 'min-h-[600px]']
 
-    // 160x600 Skyscraper
+    // 160x600
     case 'skyscraper':
       return [...base, 'w-full', 'max-w-[160px]', 'min-h-[600px]']
 
-    // 300x250 Medium rectangle
+    // 300x250
     case 'rectangle':
       return [...base, 'w-full', 'max-w-[300px]', 'min-h-[250px]']
 
-    // 250x250 Square
+    // 250x250
     case 'square':
     case 'square-fixed':
       return [...base, 'w-full', 'max-w-[250px]', 'min-h-[250px]']
 
-    // Content / article style units – give them comfortable boxes
+    // Content-style
     case 'in-article':
       return [...base, 'w-full', 'max-w-3xl', 'min-h-[200px]']
     case 'in-feed':
@@ -228,7 +224,7 @@ onUnmounted(() => {
   <!-- Outer wrapper: centers the ad frame in the page -->
   <div class="w-full my-8 flex justify-center">
     <div :class="frameClassesForVariant()">
-      <!-- Label on dashed border, top-center -->
+      <!-- Label on top border, only border (no bg) -->
       <span class="ad-frame__label">
         Advertisement
       </span>

@@ -92,7 +92,7 @@
     transform: translateY(-1px) scale(1.06);
   }
 
-  /* -----------------------
+   /* -----------------------
      Ad frame styling
      ----------------------- */
   .ad-frame {
@@ -104,7 +104,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* IMPORTANT: allow label + ad to overflow naturally */
+    /* allow label + ad to extend naturally */
     overflow: visible;
   }
 
@@ -115,23 +115,27 @@
 
   .ad-frame__label {
     position: absolute;
-    top: -0.6rem;
+    /* Sit exactly on the top border, centered */
+    top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%); /* half above, half inside */
     padding: 0.1rem 0.7rem;
     font-size: 0.625rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border-radius: 9999px;
     border: 1px dashed var(--ui-border);
-    background-color: var(--ui-bg);
+    /* 🔻 No background color – transparent pill with just border */
+    background-color: transparent;
     color: var(--ui-text-muted);
     pointer-events: none;
     white-space: nowrap;
+    z-index: 10; /* ensure it's above the ad content */
   }
 
   .dark .ad-frame__label {
-    background-color: var(--ui-bg-elevated);
+    /* Still transparent in dark mode */
+    background-color: transparent;
     color: var(--ui-text-muted);
   }
 }
