@@ -81,6 +81,7 @@
 
   --ui-bg-inverted: #f3f2f2;
 }
+
 @layer components {
   /* Subtle hover effect on all nav icons in the main header nav */
   .app-main-nav .ui-navigation-menu-link-icon {
@@ -92,7 +93,7 @@
     transform: translateY(-1px) scale(1.06);
   }
 
-   /* -----------------------
+  /* -----------------------
      Ad frame styling
      ----------------------- */
   .ad-frame {
@@ -104,7 +105,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* allow label + ad to extend naturally */
+    /* Let label sit slightly outside the border */
     overflow: visible;
   }
 
@@ -115,27 +116,23 @@
 
   .ad-frame__label {
     position: absolute;
-    /* Sit exactly on the top border, centered */
-    top: 0;
+    top: -0.6rem;
     left: 50%;
-    transform: translate(-50%, -50%); /* half above, half inside */
+    transform: translateX(-50%);
     padding: 0.1rem 0.7rem;
     font-size: 0.625rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border-radius: 9999px;
     border: 1px dashed var(--ui-border);
-    /* 🔻 No background color – transparent pill with just border */
-    background-color: transparent;
+    background-color: var(--ui-bg);
     color: var(--ui-text-muted);
     pointer-events: none;
     white-space: nowrap;
-    z-index: 10; /* ensure it's above the ad content */
   }
 
   .dark .ad-frame__label {
-    /* Still transparent in dark mode */
-    background-color: transparent;
+    background-color: var(--ui-bg-elevated);
     color: var(--ui-text-muted);
   }
 }

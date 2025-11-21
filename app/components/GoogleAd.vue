@@ -6,10 +6,9 @@ defineOptions({ name: 'GoogleAd' })
 
 type Variant =
   | 'large-leaderboard' | 'leaderboard' | 'small-leaderboard'
-  | 'wide-skyscraper'   | 'skyscraper'
-  | 'rectangle'         | 'square-fixed'
-  | 'horizontal'        | 'vertical'    | 'square'
-  | 'in-article'        | 'in-feed'     | 'multiplex'
+  | 'wide-skyscraper' | 'skyscraper' | 'rectangle' | 'square-fixed'
+  | 'horizontal' | 'vertical' | 'square'
+  | 'in-article' | 'in-feed' | 'multiplex'
 
 const props = withDefaults(defineProps<{
   variant?: Variant
@@ -27,7 +26,7 @@ const route = useRoute()
 const hostRef = ref<HTMLDivElement | null>(null)
 const adRendered = ref(false)
 
-/* -------- Load AdSense once (script is also in app.vue) -------- */
+/* -------- Load AdSense once (uses global script from app.vue) -------- */
 function ensureScript(): Promise<void> {
   return new Promise<void>((resolve) => {
     if (typeof window === 'undefined') return resolve()
@@ -47,6 +46,7 @@ function ensureScript(): Promise<void> {
       return
     }
 
+    // Fallback if somehow missing
     const s = document.createElement('script')
     s.id = 'adsbygoogle-js'
     s.async = true
@@ -61,12 +61,11 @@ function ensureScript(): Promise<void> {
   })
 }
 
-/* -------- Variant → attributes (ONLY client + slot) -------- */
+/* -------- Variant → attributes (NO data-ad-format etc) -------- */
 function attrsForVariant() {
   const a: Record<string, string> = { 'data-ad-client': props.adClient! }
 
   switch (props.variant) {
-    // Horizontal / leaderboard family
     case 'horizontal':
     case 'large-leaderboard':
     case 'leaderboard':
@@ -74,14 +73,12 @@ function attrsForVariant() {
       a['data-ad-slot'] = props.adSlot || '8939839370'
       break
 
-    // Skyscraper family
     case 'vertical':
     case 'wide-skyscraper':
     case 'skyscraper':
       a['data-ad-slot'] = props.adSlot || '3487917390'
       break
 
-    // Rectangles / squares / content-style
     case 'square':
     case 'rectangle':
     case 'square-fixed':
@@ -96,53 +93,54 @@ function attrsForVariant() {
   return a
 }
 
-/* -------- <ins> style – let ad define its own height -------- */
+/* -------- Inline style for <ins> (let container control size) -------- */
 function insStyleForVariant() {
-  return 'display:block;width:100%;height:auto;'
+  // We let Tailwind + .ad-frame handle min-height & width
+  // Just make <ins> fill the available box.
+  return 'display:block;width:100%;height:100%;'
 }
 
-/* -------- Tailwind classes for outer frame (standard sizes) -------- */
+/* -------- Tailwind classes per-variant (outer frame box) -------- */
 function frameClassesForVariant(): string[] {
-  const base = ['ad-frame']
+  const base = [
+    'ad-frame',
+    'w-full'
+  ]
 
   switch (props.variant) {
-    // 728x90
+    // Responsive-ish units: horizontal / article / feed / multiplex
     case 'horizontal':
-    case 'leaderboard':
-      return [...base, 'w-full', 'max-w-[728px]', 'min-h-[90px]']
-
-    // 970x90
-    case 'large-leaderboard':
-      return [...base, 'w-full', 'max-w-[970px]', 'min-h-[90px]']
-
-    // 320x50
-    case 'small-leaderboard':
-      return [...base, 'w-full', 'max-w-[320px]', 'min-h-[50px]']
-
-    // 300x600
-    case 'wide-skyscraper':
-      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[600px]']
-
-    // 160x600
-    case 'skyscraper':
-      return [...base, 'w-full', 'max-w-[160px]', 'min-h-[600px]']
-
-    // 300x250
-    case 'rectangle':
-      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[250px]']
-
-    // 250x250
-    case 'square':
-    case 'square-fixed':
-      return [...base, 'w-full', 'max-w-[250px]', 'min-h-[250px]']
-
-    // Content-style
+      return [...base, 'max-w-5xl', 'min-h-[80px]', 'sm:min-h-[100px]']
     case 'in-article':
-      return [...base, 'w-full', 'max-w-3xl', 'min-h-[200px]']
+      return [...base, 'max-w-3xl', 'min-h-[180px]']
     case 'in-feed':
-      return [...base, 'w-full', 'max-w-full', 'min-h-[180px]']
+      return [...base, 'max-w-full', 'min-h-[160px]']
     case 'multiplex':
-      return [...base, 'w-full', 'max-w-4xl', 'min-h-[220px]']
+      return [...base, 'max-w-4xl', 'min-h-[220px]']
+
+    // Vertical / side units
+    case 'vertical':
+      return [...base, 'max-w-xs', 'min-h-[220px]']
+    case 'wide-skyscraper':
+      return [...base, 'max-w-[300px]', 'min-h-[600px]']
+    case 'skyscraper':
+      return [...base, 'max-w-[160px]', 'min-h-[600px]']
+
+    // Squares / rectangles
+    case 'square':
+      return [...base, 'max-w-[260px]', 'min-h-[220px]']
+    case 'rectangle':
+      return [...base, 'max-w-[300px]', 'min-h-[250px]']
+    case 'square-fixed':
+      return [...base, 'max-w-[250px]', 'min-h-[250px]']
+
+    // Leaderboards
+    case 'large-leaderboard':
+      return [...base, 'max-w-[970px]', 'min-h-[90px]']
+    case 'leaderboard':
+      return [...base, 'max-w-[728px]', 'min-h-[90px]']
+    case 'small-leaderboard':
+      return [...base, 'max-w-[320px]', 'min-h-[50px]']
   }
 }
 
@@ -221,18 +219,18 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- Outer wrapper: centers the ad frame in the page -->
+  <!-- Outer wrapper keeps ad centered and spaced from content -->
   <div class="w-full my-8 flex justify-center">
     <div :class="frameClassesForVariant()">
-      <!-- Label on top border, only border (no bg) -->
+      <!-- Label on dashed border, top-center -->
       <span class="ad-frame__label">
         Advertisement
       </span>
 
-      <!-- Host where AdSense injects <ins> -->
+      <!-- Host where AdSense injects the <ins> -->
       <div
         ref="hostRef"
-        class="w-full h-auto overflow-visible leading-none"
+        class="w-full h-full overflow-hidden leading-none"
       />
     </div>
   </div>
