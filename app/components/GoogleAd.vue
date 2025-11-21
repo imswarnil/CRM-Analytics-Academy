@@ -14,8 +14,6 @@ const props = withDefaults(defineProps<{
   variant?: Variant
   adClient?: string
   adSlot?: string
-  adLayout?: string
-  adLayoutKey?: string
   adTest?: 'on' | 'off'
   autoRefresh?: boolean
 }>(), {
@@ -38,7 +36,6 @@ function ensureScript(): Promise<void> {
 
     const existing = document.getElementById('adsbygoogle-js') as HTMLScriptElement | null
     if (existing) {
-      // If Nuxt head script exists, just wait for load/error (or resolve if already loaded)
       if ((existing as any)._adsLoaded) return resolve()
 
       existing.addEventListener('load', () => {
@@ -49,7 +46,7 @@ function ensureScript(): Promise<void> {
       return
     }
 
-    // Fallback: inject script if somehow missing
+    // Fallback if somehow missing
     const s = document.createElement('script')
     s.id = 'adsbygoogle-js'
     s.async = true
@@ -64,56 +61,30 @@ function ensureScript(): Promise<void> {
   })
 }
 
-/* -------- Variant → attributes -------- */
+/* -------- Variant → attributes (NO data-ad-format etc) -------- */
 function attrsForVariant() {
   const a: Record<string, string> = { 'data-ad-client': props.adClient! }
 
   switch (props.variant) {
-    // Responsive (manual placements, not Auto Ads)
     case 'horizontal':
-      a['data-ad-slot'] = props.adSlot || '8939839370'
-      a['data-ad-format'] = 'auto'
-      a['data-full-width-responsive'] = 'true'
-      break
-    case 'vertical':
-      a['data-ad-slot'] = props.adSlot || '3487917390'
-      a['data-ad-format'] = 'auto'
-      a['data-full-width-responsive'] = 'true'
-      break
-    case 'square':
-      a['data-ad-slot'] = props.adSlot || '7663977887'
-      a['data-ad-format'] = 'auto'
-      a['data-full-width-responsive'] = 'true'
-      break
-
-    // Fluid
-    case 'in-article':
-      a['data-ad-slot'] = props.adSlot || '6501428979'
-      a['data-ad-layout'] = props.adLayout || 'in-article'
-      a['data-ad-format'] = 'fluid'
-      break
-    case 'in-feed':
-      a['data-ad-slot'] = props.adSlot || '9130894804'
-      a['data-ad-format'] = 'fluid'
-      a['data-ad-layout-key'] = props.adLayoutKey || '-6v+f0-19-44+c6'
-      break
-    case 'multiplex':
-      a['data-ad-slot'] = props.adSlot || '6808134701'
-      a['data-ad-format'] = 'autorelaxed'
-      break
-
-    // Fixed sizes
     case 'large-leaderboard':
     case 'leaderboard':
     case 'small-leaderboard':
       a['data-ad-slot'] = props.adSlot || '8939839370'
       break
+
+    case 'vertical':
     case 'wide-skyscraper':
     case 'skyscraper':
       a['data-ad-slot'] = props.adSlot || '3487917390'
       break
+
+    case 'square':
     case 'rectangle':
     case 'square-fixed':
+    case 'in-article':
+    case 'in-feed':
+    case 'multiplex':
       a['data-ad-slot'] = props.adSlot || '7663977887'
       break
   }
@@ -122,45 +93,24 @@ function attrsForVariant() {
   return a
 }
 
-/* -------- Inline style for <ins> (only fixed sizes need strict w/h) -------- */
+/* -------- Inline style for <ins> (let container control size) -------- */
 function insStyleForVariant() {
-  switch (props.variant) {
-    // Responsive / fluid -> let container control height, just block
-    case 'horizontal':
-    case 'vertical':
-    case 'square':
-    case 'in-article':
-    case 'in-feed':
-    case 'multiplex':
-      return 'display:block;width:100%;height:auto'
-
-    // Fixed sizes
-    case 'large-leaderboard': return 'display:inline-block;width:970px;height:90px'
-    case 'leaderboard':       return 'display:inline-block;width:728px;height:90px'
-    case 'small-leaderboard': return 'display:inline-block;width:320px;height:50px'
-    case 'wide-skyscraper':   return 'display:inline-block;width:300px;height:600px'
-    case 'skyscraper':        return 'display:inline-block;width:160px;height:600px'
-    case 'rectangle':         return 'display:inline-block;width:300px;height:250px'
-    case 'square-fixed':      return 'display:inline-block;width:250px;height:250px'
-  }
+  // We let Tailwind + .ad-frame handle min-height & width
+  // Just make <ins> fill the available box.
+  return 'display:block;width:100%;height:100%;'
 }
 
 /* -------- Tailwind classes per-variant (outer frame box) -------- */
 function frameClassesForVariant(): string[] {
   const base = [
-    'ad-frame',          // styled in main.css using your SLDS tokens
-    'w-full',
+    'ad-frame',
+    'w-full'
   ]
 
   switch (props.variant) {
-    // Responsive / fluid – use container-driven sizing
+    // Responsive-ish units: horizontal / article / feed / multiplex
     case 'horizontal':
       return [...base, 'max-w-5xl', 'min-h-[80px]', 'sm:min-h-[100px]']
-    case 'vertical':
-      return [...base, 'max-w-xs', 'min-h-[220px]']
-    case 'square':
-      return [...base, 'max-w-[260px]', 'min-h-[220px]']
-
     case 'in-article':
       return [...base, 'max-w-3xl', 'min-h-[180px]']
     case 'in-feed':
@@ -168,21 +118,29 @@ function frameClassesForVariant(): string[] {
     case 'multiplex':
       return [...base, 'max-w-4xl', 'min-h-[220px]']
 
-    // Fixed sizes – clamp widths so they don’t overflow layout
+    // Vertical / side units
+    case 'vertical':
+      return [...base, 'max-w-xs', 'min-h-[220px]']
+    case 'wide-skyscraper':
+      return [...base, 'max-w-[300px]', 'min-h-[600px]']
+    case 'skyscraper':
+      return [...base, 'max-w-[160px]', 'min-h-[600px]']
+
+    // Squares / rectangles
+    case 'square':
+      return [...base, 'max-w-[260px]', 'min-h-[220px]']
+    case 'rectangle':
+      return [...base, 'max-w-[300px]', 'min-h-[250px]']
+    case 'square-fixed':
+      return [...base, 'max-w-[250px]', 'min-h-[250px]']
+
+    // Leaderboards
     case 'large-leaderboard':
       return [...base, 'max-w-[970px]', 'min-h-[90px]']
     case 'leaderboard':
       return [...base, 'max-w-[728px]', 'min-h-[90px]']
     case 'small-leaderboard':
       return [...base, 'max-w-[320px]', 'min-h-[50px]']
-    case 'wide-skyscraper':
-      return [...base, 'max-w-[300px]', 'min-h-[600px]']
-    case 'skyscraper':
-      return [...base, 'max-w-[160px]', 'min-h-[600px]']
-    case 'rectangle':
-      return [...base, 'max-w-[300px]', 'min-h-[250px]']
-    case 'square-fixed':
-      return [...base, 'max-w-[250px]', 'min-h-[250px]']
   }
 }
 
@@ -190,7 +148,7 @@ function frameClassesForVariant(): string[] {
 async function renderAd() {
   const host = hostRef.value
   if (!host) return
-  
+
   host.innerHTML = ''
 
   const ins = document.createElement('ins')
@@ -204,18 +162,18 @@ async function renderAd() {
 
   // @ts-ignore
   const q = (window.adsbygoogle = window.adsbygoogle || [])
-  try { 
-    q.push({}) 
+  try {
+    q.push({})
     adRendered.value = true
   } catch (e) {
     console.error('AdSense error:', e)
   }
 }
 
-/* -------- Refresh ad -------- */
+/* -------- Refresh ad on route change -------- */
 async function refreshAd() {
   if (!adRendered.value) return
-  
+
   // @ts-ignore
   const q = window.adsbygoogle
   if (q && q.length) {
@@ -233,7 +191,6 @@ onMounted(async () => {
   await renderAd()
 })
 
-// Watch for route changes to refresh ads
 watch(
   () => route.path,
   async (newPath, oldPath) => {
@@ -246,16 +203,14 @@ watch(
   }
 )
 
-// Watch for prop changes
 watch(
-  () => [props.variant, props.adSlot, props.adLayout, props.adLayoutKey, props.adTest],
+  () => [props.variant, props.adSlot, props.adTest],
   async () => {
     await nextTick()
     await renderAd()
   }
 )
 
-// Cleanup
 onUnmounted(() => {
   if (hostRef.value) {
     hostRef.value.innerHTML = ''
@@ -275,7 +230,7 @@ onUnmounted(() => {
       <!-- Host where AdSense injects the <ins> -->
       <div
         ref="hostRef"
-        class="w-full h-auto overflow-hidden leading-none"
+        class="w-full h-full overflow-hidden leading-none"
       />
     </div>
   </div>
