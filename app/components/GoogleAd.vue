@@ -34,7 +34,7 @@ const adRendered = ref(false)
 
 /**
  * Ensure AdSense script is loaded once.
- * (This is manual ad unit, NOT Auto Ads.)
+ * This is for **manual ad units**, NOT Google Auto Ads.
  */
 function ensureScript(): Promise<void> {
   return new Promise<void>((resolve) => {
@@ -70,8 +70,8 @@ function ensureScript(): Promise<void> {
 }
 
 /**
- * Manual **responsive** ad unit attributes.
- * This is NOT "Auto Ads" – it's the standard Google responsive display unit.
+ * Attributes for a **manual responsive** unit.
+ * This is NOT "Auto Ads", it's the standard responsive display ad:
  *
  * <ins class="adsbygoogle"
  *      style="display:block"
@@ -85,7 +85,7 @@ function attrsForVariant() {
     'data-ad-client': props.adClient!
   }
 
-  // Default slots by variant family; override via adSlot if you want
+  // Default slots by family – override via :ad-slot if you want
   switch (props.variant) {
     // Horizontal / leaderboards
     case 'horizontal':
@@ -102,7 +102,7 @@ function attrsForVariant() {
       a['data-ad-slot'] = props.adSlot || '3487917390'
       break
 
-    // Rectangles / squares / content
+    // Rectangles / squares / content-style
     case 'rectangle':
     case 'square':
     case 'square-fixed':
@@ -113,7 +113,7 @@ function attrsForVariant() {
       break
   }
 
-  // Manual responsive unit flags
+  // Responsive manual unit flags (still **manual placement**, not Auto Ads)
   a['data-ad-format'] = 'auto'
   a['data-full-width-responsive'] = 'true'
 
@@ -123,19 +123,23 @@ function attrsForVariant() {
 }
 
 /**
- * Responsive style: let container control width, Google handles height.
+ * Let container control width, AdSense controls height.
  */
 function insStyleForVariant() {
   return 'display:block;width:100%;height:auto;'
 }
 
 /**
- * Tailwind-only frame classes per variant.
- * These map to Google's top-performing sizes,
- * but scale down on mobile.
+ * Tailwind-only layout for the ad frame.
+ * Sizes are based on Google’s top-performing sizes:
+ * - 728x90, 970x90, 320x50, 300x250, 336x280, 160x600, 250x250, etc.
+ *
+ * We give **hints** via max-widths:
+ *  - mobile: ~320
+ *  - sm: 468 / 336 / 250 etc.
+ *  - md / lg / xl: 728 / 970 / 580 etc.
  */
 function frameClassesForVariant(): string[] {
-  // Base ad "card" – using your CSS variables via arbitrary values
   const base = [
     'relative',
     'flex', 'items-center', 'justify-center',
@@ -145,41 +149,40 @@ function frameClassesForVariant(): string[] {
     'dark:bg-[color:var(--ui-bg-elevated)]',
     'border-[color:var(--ui-border)]',
     'dark:border-[color:var(--ui-border)]',
-    'px-4', 'pt-7', 'pb-4',  // extra top padding for label inside
+    'px-4', 'pt-7', 'pb-4',   // extra top padding for label inside
     'overflow-hidden',
     'w-full'
   ]
 
   switch (props.variant) {
     /**
-     * 728x90 leaderboard (desktop)
-     * Responsive mapping:
-     * - mobile: ~320px (320x50 / 300x50)
-     * - small: 468x60
-     * - large: 728x90
+     * 728x90 leaderboard (top performer)
+     * - mobile: 320x50
+     * - sm: 468x60
+     * - md+: 728x90
      */
     case 'horizontal':
     case 'leaderboard':
       return [
         ...base,
-        'max-w-[320px]',               // phones → mobile banner 300x50 / 320x50
-        'sm:max-w-[468px]',            // tablets → 468x60
-        'lg:max-w-[728px]',            // desktop → 728x90
+        'max-w-[320px]',        // mobile → 300/320x50
+        'sm:max-w-[468px]',     // tablet → 468x60
+        'md:max-w-[728px]',     // desktop → 728x90
         'min-h-[60px]'
       ]
 
     /**
      * 970x90 large leaderboard
-     * Responsive:
      * - mobile: 320x50
-     * - sm: 728x90
+     * - md: 728x90
      * - xl: 970x90
      */
     case 'large-leaderboard':
       return [
         ...base,
         'max-w-[320px]',
-        'sm:max-w-[728px]',
+        'sm:max-w-[468px]',
+        'md:max-w-[728px]',
         'xl:max-w-[970px]',
         'min-h-[60px]'
       ]
@@ -196,7 +199,6 @@ function frameClassesForVariant(): string[] {
 
     /**
      * 160x600 wide skyscraper (top performer)
-     * We keep it narrow but tall; Google will pick appropriate vertical.
      */
     case 'wide-skyscraper':
       return [
@@ -206,7 +208,7 @@ function frameClassesForVariant(): string[] {
       ]
 
     /**
-     * 120x600 skyscraper (narrower)
+     * 120x600 skyscraper (narrow)
      */
     case 'skyscraper':
       return [
@@ -216,33 +218,32 @@ function frameClassesForVariant(): string[] {
       ]
 
     /**
-     * 300x250 medium rectangle (top performer)
-     * + 336x280 large rectangle on slightly wider screens
+     * 300x250 medium rectangle + 336x280 on slightly wider screens
      */
     case 'rectangle':
       return [
         ...base,
-        'max-w-[300px]',       // base → 300x250
-        'sm:max-w-[336px]',    // a bit wider → 336x280
+        'max-w-[300px]',      // 300x250
+        'sm:max-w-[336px]',   // 336x280
         'min-h-[220px]'
       ]
 
     /**
-     * 250x250 square; can approximate 200x200 small square on mobile
+     * 250x250 square / small rectangles
      */
     case 'square':
     case 'square-fixed':
       return [
         ...base,
-        'max-w-[220px]',
-        'sm:max-w-[250px]',
+        'max-w-[220px]',      // ~200x200 small square
+        'sm:max-w-[250px]',   // 250x250 square
         'min-h-[200px]'
       ]
 
     /**
-     * Content / in-article / in-feed / multiplex:
-     * use a medium container which comfortably fits 300x250 / 336x280
-     * and can expand up to ~580x400 "netboard"-ish on wide layouts.
+     * Content / feed / multiplex:
+     * - base: 300x250 / 336x280
+     * - md+: up to ~580x400 "netboard"-ish
      */
     case 'in-article':
     case 'in-feed':
@@ -250,12 +251,13 @@ function frameClassesForVariant(): string[] {
       return [
         ...base,
         'max-w-[300px]',
+        'sm:max-w-[336px]',
         'md:max-w-[580px]',
         'min-h-[220px]'
       ]
 
     /**
-     * Generic vertical (fallback)
+     * Generic vertical fallback
      */
     case 'vertical':
       return [
@@ -341,7 +343,7 @@ onUnmounted(() => {
   <!-- Outer wrapper centers the ad frame in the page -->
   <div class="w-full my-8 flex justify-center">
     <div :class="frameClassesForVariant()">
-      <!-- Ads label: border-only, inside the frame -->
+      <!-- Ads label inside the border -->
       <span
         class="absolute top-2 left-1/2 -translate-x-1/2
                px-2 py-[2px]

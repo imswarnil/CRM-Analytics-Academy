@@ -64,6 +64,20 @@ defineOgImageComponent('Docs', {
 
 <template>
 <GoogleAd variant="leaderboard" />
+<GoogleAd variant="large-leaderboard" />
+<GoogleAd variant="small-leaderboard" />
+
+<GoogleAd variant="wide-skyscraper" />
+<GoogleAd variant="skyscraper" />
+<GoogleAd variant="vertical" />
+
+<GoogleAd variant="rectangle" />
+<GoogleAd variant="square" />
+<GoogleAd variant="square-fixed" />
+
+<GoogleAd variant="in-article" />
+<GoogleAd variant="in-feed" />
+<GoogleAd variant="multiplex" />
   <UPage v-if="page">
     <UPageHeader
       :title="page.title"
