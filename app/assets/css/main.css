@@ -93,7 +93,7 @@
     transform: translateY(-1px) scale(1.06);
   }
 
-  /* -----------------------
+   /* -----------------------
      Ad frame styling
      ----------------------- */
   .ad-frame {
@@ -105,7 +105,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Let label sit slightly outside the border */
+    /* allow label & creative to extend; browser will handle scroll if needed */
     overflow: visible;
   }
 
@@ -116,23 +116,24 @@
 
   .ad-frame__label {
     position: absolute;
-    top: -0.6rem;
+    top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%); /* sits on the border center */
     padding: 0.1rem 0.7rem;
     font-size: 0.625rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border-radius: 9999px;
     border: 1px dashed var(--ui-border);
-    background-color: var(--ui-bg);
+    background-color: transparent; /* 🔥 only border, no fill */
     color: var(--ui-text-muted);
     pointer-events: none;
     white-space: nowrap;
+    z-index: 10;
   }
 
   .dark .ad-frame__label {
-    background-color: var(--ui-bg-elevated);
+    background-color: transparent;
     color: var(--ui-text-muted);
   }
 }

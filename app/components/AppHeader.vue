@@ -1,24 +1,34 @@
 <script setup lang="ts">
 const route = useRoute()
 
-const items = computed(() => [{
-  label: 'Docs',
-  to: '/docs',
-  active: route.path.startsWith('/docs')
-}, {
-  label: 'Pricing',
-  to: '/pricing'
-}, {
-  label: 'Blog',
-  to: '/blog'
-}, {
-  label: 'Changelog',
-  to: '/changelog'
-}])
+const items = computed(() => [
+  {
+    label: 'Docs',
+    to: '/docs',
+    icon: 'i-lucide-book-open',       // ⬅️ icon for nav item
+    active: route.path.startsWith('/docs')
+  },
+  {
+    label: 'Pricing',
+    to: '/pricing',
+    icon: 'i-lucide-credit-card'
+  },
+  {
+    label: 'Blog',
+    to: '/blog',
+    icon: 'i-lucide-pencil'
+  },
+  {
+    label: 'Changelog',
+    to: '/changelog',
+    icon: 'i-lucide-history'
+  }
+])
 </script>
 
 <template>
   <UHeader>
+    <!-- LEFT: your logo stays exactly as it is -->
     <template #left>
       <NuxtLink to="/">
         <AppLogo class="w-auto h-6 shrink-0" />
@@ -26,12 +36,20 @@ const items = computed(() => [{
       <TemplateMenu />
     </template>
 
+    <!-- CENTER: nav with (optional) icons -->
     <UNavigationMenu
       :items="items"
       variant="link"
     />
 
+    <!-- RIGHT: search + color mode + auth buttons -->
     <template #right>
+      <!-- 🔍 This button opens the same global search panel you already wired in app.vue -->
+      <UContentSearchButton
+        class="hidden sm:inline-flex mr-1"
+        :collapsed="true"
+      />
+
       <UColorModeButton />
 
       <UButton
@@ -59,6 +77,7 @@ const items = computed(() => [{
       />
     </template>
 
+    <!-- MOBILE BODY: nav + auth (you already had this, unchanged) -->
     <template #body>
       <UNavigationMenu
         :items="items"
