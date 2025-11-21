@@ -15,6 +15,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
             <UPageAside>
               <template #top>
                 <UContentSearchButton :collapsed="false" />
+                 <GoogleAd variant="in-article" />
               </template>
 
               <UContentNavigation

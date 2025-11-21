@@ -28,25 +28,39 @@ const route = useRoute()
 const hostRef = ref<HTMLDivElement | null>(null)
 const adRendered = ref(false)
 
-/* -------- Load AdSense once (non-async) -------- */
+/* -------- Load AdSense once (uses global script from app.vue) -------- */
 function ensureScript(): Promise<void> {
   return new Promise<void>((resolve) => {
+    if (typeof window === 'undefined') return resolve()
+
     // @ts-ignore
     if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) return resolve()
 
-    let s = document.getElementById('adsbygoogle-js') as HTMLScriptElement | null
-    if (!s) {
-      s = document.createElement('script')
-      s.id = 'adsbygoogle-js'
-      s.async = false
-      s.crossOrigin = 'anonymous'
-      s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.adClient}`
-      document.head.appendChild(s)
-      s.addEventListener('load', () => resolve())
-      s.addEventListener('error', () => resolve())
-    } else {
-      resolve()
+    const existing = document.getElementById('adsbygoogle-js') as HTMLScriptElement | null
+    if (existing) {
+      // If Nuxt head script exists, just wait for load/error (or resolve if already loaded)
+      if ((existing as any)._adsLoaded) return resolve()
+
+      existing.addEventListener('load', () => {
+        ;(existing as any)._adsLoaded = true
+        resolve()
+      })
+      existing.addEventListener('error', () => resolve())
+      return
     }
+
+    // Fallback: inject script if somehow missing
+    const s = document.createElement('script')
+    s.id = 'adsbygoogle-js'
+    s.async = true
+    s.crossOrigin = 'anonymous'
+    s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.adClient}`
+    s.addEventListener('load', () => {
+      ;(s as any)._adsLoaded = true
+      resolve()
+    })
+    s.addEventListener('error', () => resolve())
+    document.head.appendChild(s)
   })
 }
 
@@ -55,7 +69,7 @@ function attrsForVariant() {
   const a: Record<string, string> = { 'data-ad-client': props.adClient! }
 
   switch (props.variant) {
-    // Responsive (auto)
+    // Responsive (manual placements, not Auto Ads)
     case 'horizontal':
       a['data-ad-slot'] = props.adSlot || '8939839370'
       a['data-ad-format'] = 'auto'
@@ -111,63 +125,64 @@ function attrsForVariant() {
 /* -------- Inline style for <ins> (only fixed sizes need strict w/h) -------- */
 function insStyleForVariant() {
   switch (props.variant) {
-    case 'large-leaderboard': return 'display:inline-block;width:100%;height:90px'
-    case 'leaderboard':       return 'display:inline-block;width:100%;height:90px'
-    case 'small-leaderboard': return 'display:inline-block;width:100%;height:50px'
+    // Responsive / fluid -> let container control height, just block
+    case 'horizontal':
+    case 'vertical':
+    case 'square':
+    case 'in-article':
+    case 'in-feed':
+    case 'multiplex':
+      return 'display:block;width:100%;height:auto'
+
+    // Fixed sizes
+    case 'large-leaderboard': return 'display:inline-block;width:970px;height:90px'
+    case 'leaderboard':       return 'display:inline-block;width:728px;height:90px'
+    case 'small-leaderboard': return 'display:inline-block;width:320px;height:50px'
     case 'wide-skyscraper':   return 'display:inline-block;width:300px;height:600px'
     case 'skyscraper':        return 'display:inline-block;width:160px;height:600px'
     case 'rectangle':         return 'display:inline-block;width:300px;height:250px'
     case 'square-fixed':      return 'display:inline-block;width:250px;height:250px'
-    default:                  return 'display:block' // responsive/fluid
   }
 }
 
-/* -------- Tailwind classes per-variant (frame box) -------- */
+/* -------- Tailwind classes per-variant (outer frame box) -------- */
 function frameClassesForVariant(): string[] {
-  // Base frame styles (kept consistent with your previous look)
   const base = [
-    // container look
-    'border', 'border-dashed', 'rounded-xl', 'p-2',
-    'bg-white', 'border-neutral-200',
-    'dark:bg-neutral-900', 'dark:border-neutral-800',
-    // layout
-    'flex', 'justify-center', 'items-center',
-    // prevent overflow + reserve some height so CLS is reduced
-    'overflow-hidden'
+    'ad-frame',          // styled in main.css using your SLDS tokens
+    'w-full',
   ]
 
-  // Width clamps + min-h to hint layout (for responsive we use w-full)
   switch (props.variant) {
-    // Responsive / fluid
+    // Responsive / fluid – use container-driven sizing
     case 'horizontal':
-      return [...base, 'w-full', 'max-w-full', 'min-h-[70px]', 'sm:min-h-[80px]']
+      return [...base, 'max-w-5xl', 'min-h-[80px]', 'sm:min-h-[100px]']
     case 'vertical':
-      return [...base, 'w-full', 'max-w-full', 'min-h-[200px]']
+      return [...base, 'max-w-xs', 'min-h-[220px]']
     case 'square':
-      return [...base, 'w-full', 'max-w-[250px]', 'min-h-[200px]']
+      return [...base, 'max-w-[260px]', 'min-h-[220px]']
 
     case 'in-article':
-      return [...base, 'w-full', 'max-w-full', 'min-h-[160px]']
+      return [...base, 'max-w-3xl', 'min-h-[180px]']
     case 'in-feed':
-      return [...base, 'w-full', 'max-w-full', 'min-h-[160px]']
+      return [...base, 'max-w-full', 'min-h-[160px]']
     case 'multiplex':
-      return [...base, 'w-full', 'max-w-full', 'min-h-[200px]']
+      return [...base, 'max-w-4xl', 'min-h-[220px]']
 
-    // Fixed sizes (clamp via max-w so they never overflow container)
+    // Fixed sizes – clamp widths so they don’t overflow layout
     case 'large-leaderboard':
-      return [...base, 'w-full', 'max-w-[970px]', 'min-h-[90px]']
+      return [...base, 'max-w-[970px]', 'min-h-[90px]']
     case 'leaderboard':
-      return [...base, 'w-full', 'max-w-[728px]', 'min-h-[90px]']
+      return [...base, 'max-w-[728px]', 'min-h-[90px]']
     case 'small-leaderboard':
-      return [...base, 'w-full', 'max-w-[320px]', 'min-h-[50px]']
+      return [...base, 'max-w-[320px]', 'min-h-[50px]']
     case 'wide-skyscraper':
-      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[600px]']
+      return [...base, 'max-w-[300px]', 'min-h-[600px]']
     case 'skyscraper':
-      return [...base, 'w-full', 'max-w-[160px]', 'min-h-[600px]']
+      return [...base, 'max-w-[160px]', 'min-h-[600px]']
     case 'rectangle':
-      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[250px]']
+      return [...base, 'max-w-[300px]', 'min-h-[250px]']
     case 'square-fixed':
-      return [...base, 'w-full', 'max-w-[250px]', 'min-h-[250px]']
+      return [...base, 'max-w-[250px]', 'min-h-[250px]']
   }
 }
 
@@ -176,7 +191,6 @@ async function renderAd() {
   const host = hostRef.value
   if (!host) return
   
-  // Clear existing content
   host.innerHTML = ''
 
   const ins = document.createElement('ins')
@@ -206,7 +220,6 @@ async function refreshAd() {
   const q = window.adsbygoogle
   if (q && q.length) {
     try {
-      // Force refresh by pushing empty config
       q.push({})
     } catch (e) {
       console.error('AdSense refresh error:', e)
@@ -226,7 +239,6 @@ watch(
   async (newPath, oldPath) => {
     if (props.autoRefresh && newPath !== oldPath) {
       await nextTick()
-      // Small delay to ensure DOM is ready
       setTimeout(() => {
         refreshAd()
       }, 100)
@@ -252,10 +264,19 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- Outer wrapper keeps ad centered and spaced -->
-  <div class="w-full my-6 flex justify-center">
+  <!-- Outer wrapper keeps ad centered and spaced from content -->
+  <div class="w-full my-8 flex justify-center">
     <div :class="frameClassesForVariant()">
-      <div ref="hostRef" class="w-full h-auto overflow-hidden leading-none" />
+      <!-- Label on dashed border, top-center -->
+      <span class="ad-frame__label">
+        Advertisement
+      </span>
+
+      <!-- Host where AdSense injects the <ins> -->
+      <div
+        ref="hostRef"
+        class="w-full h-auto overflow-hidden leading-none"
+      />
     </div>
   </div>
 </template>

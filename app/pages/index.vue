@@ -34,8 +34,8 @@ useSeoMeta({
       <PromotionalVideo />
     </UPageHero>
 
+    <GoogleAd variant="horizontal" />
     
-
     <UPageSection
       v-for="(section, index) in page.sections"
       :key="index"

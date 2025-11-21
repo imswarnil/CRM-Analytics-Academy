@@ -93,7 +93,46 @@
   .app-main-nav button:hover .ui-navigation-menu-link-icon {
     transform: translateY(-1px) scale(1.06);
   }
+  /* -----------------------
+     Ad frame styling
+     ----------------------- */
+  .ad-frame {
+    position: relative;
+    border-radius: var(--ui-radius);
+    border: 1px dashed var(--ui-border);
+    background-color: var(--ui-bg-muted);
+    padding: 1.25rem 1rem 1rem; /* extra top padding for label cutout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .dark .ad-frame {
+    background-color: var(--ui-bg-elevated);
+    border-color: var(--ui-border);
+  }
+
+  .ad-frame__label {
+    position: absolute;
+    top: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.1rem 0.7rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    border: 1px dashed var(--ui-border);
+    background-color: var(--ui-bg);
+    color: var(--ui-text-muted);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .dark .ad-frame__label {
+    background-color: var(--ui-bg-elevated);
+    color: var(--ui-text-muted);
+  }
 }
-
-
 
