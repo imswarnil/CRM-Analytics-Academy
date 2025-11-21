@@ -114,7 +114,6 @@ function attrsForVariant() {
   }
 
   // Responsive manual unit flags (still **manual placement**, not Auto Ads)
-  a['data-ad-format'] = 'auto'
   a['data-full-width-responsive'] = 'true'
 
   if (props.adTest) a['data-adtest'] = props.adTest
@@ -126,7 +125,7 @@ function attrsForVariant() {
  * Let container control width, AdSense controls height.
  */
 function insStyleForVariant() {
-  return 'display:block;width:100%;height:auto;'
+  return 'display:block;width:100%;'
 }
 
 /**
@@ -360,7 +359,7 @@ onUnmounted(() => {
       <!-- Host where AdSense injects the <ins> -->
       <div
         ref="hostRef"
-        class="w-full h-auto overflow-hidden leading-none flex items-center justify-center"
+        class="w-full overflow-hidden leading-none flex items-center justify-center"
       />
     </div>
   </div>
