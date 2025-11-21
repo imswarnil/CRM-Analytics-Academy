@@ -6,9 +6,10 @@ defineOptions({ name: 'GoogleAd' })
 
 type Variant =
   | 'large-leaderboard' | 'leaderboard' | 'small-leaderboard'
-  | 'wide-skyscraper' | 'skyscraper' | 'rectangle' | 'square-fixed'
-  | 'horizontal' | 'vertical' | 'square'
-  | 'in-article' | 'in-feed' | 'multiplex'
+  | 'wide-skyscraper'   | 'skyscraper'
+  | 'rectangle'         | 'square-fixed'
+  | 'horizontal'        | 'vertical'    | 'square'
+  | 'in-article'        | 'in-feed'     | 'multiplex'
 
 const props = withDefaults(defineProps<{
   variant?: Variant
@@ -26,7 +27,7 @@ const route = useRoute()
 const hostRef = ref<HTMLDivElement | null>(null)
 const adRendered = ref(false)
 
-/* -------- Load AdSense once (uses global script from app.vue) -------- */
+/* -------- Load AdSense once (script is also in app.vue) -------- */
 function ensureScript(): Promise<void> {
   return new Promise<void>((resolve) => {
     if (typeof window === 'undefined') return resolve()
@@ -46,7 +47,6 @@ function ensureScript(): Promise<void> {
       return
     }
 
-    // Fallback if somehow missing
     const s = document.createElement('script')
     s.id = 'adsbygoogle-js'
     s.async = true
@@ -61,11 +61,13 @@ function ensureScript(): Promise<void> {
   })
 }
 
-/* -------- Variant → attributes (NO data-ad-format etc) -------- */
+/* -------- Variant → attributes (ONLY client + slot) -------- */
 function attrsForVariant() {
   const a: Record<string, string> = { 'data-ad-client': props.adClient! }
 
+  // One default slot per "family" – override with adSlot when you want
   switch (props.variant) {
+    // Standard horizontal / leaderboard family (728x90 / 970x90 / 320x50)
     case 'horizontal':
     case 'large-leaderboard':
     case 'leaderboard':
@@ -73,12 +75,14 @@ function attrsForVariant() {
       a['data-ad-slot'] = props.adSlot || '8939839370'
       break
 
+    // Skyscraper family (160x600 / 300x600)
     case 'vertical':
     case 'wide-skyscraper':
     case 'skyscraper':
       a['data-ad-slot'] = props.adSlot || '3487917390'
       break
 
+    // Rectangles, squares, content-like units (300x250, 250x250, etc.)
     case 'square':
     case 'rectangle':
     case 'square-fixed':
@@ -93,54 +97,56 @@ function attrsForVariant() {
   return a
 }
 
-/* -------- Inline style for <ins> (let container control size) -------- */
+/* -------- <ins> style – let ad decide height, no clipping -------- */
 function insStyleForVariant() {
-  // We let Tailwind + .ad-frame handle min-height & width
-  // Just make <ins> fill the available box.
-  return 'display:block;width:100%;height:100%;'
+  // No height:100% → let the creative define its own height
+  // Width is 100% of the frame we give it (which is sized per variant)
+  return 'display:block;width:100%;height:auto;'
 }
 
-/* -------- Tailwind classes per-variant (outer frame box) -------- */
+/* -------- Tailwind classes for outer frame (standard sizes) -------- */
 function frameClassesForVariant(): string[] {
-  const base = [
-    'ad-frame',
-    'w-full'
-  ]
+  // .ad-frame handles flex centering, border, bg via CSS
+  const base = ['ad-frame']
 
   switch (props.variant) {
-    // Responsive-ish units: horizontal / article / feed / multiplex
+    // 728x90 Leaderboard-ish (centered, shrinks only if viewport < 728)
     case 'horizontal':
-      return [...base, 'max-w-5xl', 'min-h-[80px]', 'sm:min-h-[100px]']
-    case 'in-article':
-      return [...base, 'max-w-3xl', 'min-h-[180px]']
-    case 'in-feed':
-      return [...base, 'max-w-full', 'min-h-[160px]']
-    case 'multiplex':
-      return [...base, 'max-w-4xl', 'min-h-[220px]']
-
-    // Vertical / side units
-    case 'vertical':
-      return [...base, 'max-w-xs', 'min-h-[220px]']
-    case 'wide-skyscraper':
-      return [...base, 'max-w-[300px]', 'min-h-[600px]']
-    case 'skyscraper':
-      return [...base, 'max-w-[160px]', 'min-h-[600px]']
-
-    // Squares / rectangles
-    case 'square':
-      return [...base, 'max-w-[260px]', 'min-h-[220px]']
-    case 'rectangle':
-      return [...base, 'max-w-[300px]', 'min-h-[250px]']
-    case 'square-fixed':
-      return [...base, 'max-w-[250px]', 'min-h-[250px]']
-
-    // Leaderboards
-    case 'large-leaderboard':
-      return [...base, 'max-w-[970px]', 'min-h-[90px]']
     case 'leaderboard':
-      return [...base, 'max-w-[728px]', 'min-h-[90px]']
+      return [...base, 'w-full', 'max-w-[728px]', 'min-h-[90px]']
+
+    // 970x90 Large leaderboard
+    case 'large-leaderboard':
+      return [...base, 'w-full', 'max-w-[970px]', 'min-h-[90px]']
+
+    // 320x50 Small / mobile leaderboard
     case 'small-leaderboard':
-      return [...base, 'max-w-[320px]', 'min-h-[50px]']
+      return [...base, 'w-full', 'max-w-[320px]', 'min-h-[50px]']
+
+    // 300x600 Wide skyscraper (half page)
+    case 'wide-skyscraper':
+      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[600px]']
+
+    // 160x600 Skyscraper
+    case 'skyscraper':
+      return [...base, 'w-full', 'max-w-[160px]', 'min-h-[600px]']
+
+    // 300x250 Medium rectangle
+    case 'rectangle':
+      return [...base, 'w-full', 'max-w-[300px]', 'min-h-[250px]']
+
+    // 250x250 Square
+    case 'square':
+    case 'square-fixed':
+      return [...base, 'w-full', 'max-w-[250px]', 'min-h-[250px]']
+
+    // Content / article style units – give them comfortable boxes
+    case 'in-article':
+      return [...base, 'w-full', 'max-w-3xl', 'min-h-[200px]']
+    case 'in-feed':
+      return [...base, 'w-full', 'max-w-full', 'min-h-[180px]']
+    case 'multiplex':
+      return [...base, 'w-full', 'max-w-4xl', 'min-h-[220px]']
   }
 }
 
@@ -219,7 +225,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- Outer wrapper keeps ad centered and spaced from content -->
+  <!-- Outer wrapper: centers the ad frame in the page -->
   <div class="w-full my-8 flex justify-center">
     <div :class="frameClassesForVariant()">
       <!-- Label on dashed border, top-center -->
@@ -227,10 +233,10 @@ onUnmounted(() => {
         Advertisement
       </span>
 
-      <!-- Host where AdSense injects the <ins> -->
+      <!-- Host where AdSense injects <ins> -->
       <div
         ref="hostRef"
-        class="w-full h-full overflow-hidden leading-none"
+        class="w-full h-auto overflow-visible leading-none"
       />
     </div>
   </div>

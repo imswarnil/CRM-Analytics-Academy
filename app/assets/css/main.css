@@ -81,7 +81,6 @@
 
   --ui-bg-inverted: #f3f2f2;
 }
-
 @layer components {
   /* Subtle hover effect on all nav icons in the main header nav */
   .app-main-nav .ui-navigation-menu-link-icon {
@@ -105,7 +104,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Let label sit slightly outside the border */
+    /* IMPORTANT: allow label + ad to overflow naturally */
     overflow: visible;
   }
 
