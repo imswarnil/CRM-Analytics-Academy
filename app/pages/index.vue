@@ -34,7 +34,6 @@ useSeoMeta({
       <PromotionalVideo />
     </UPageHero>
 
-       <Test />
 
     <GoogleAd variant="horizontal" />
     

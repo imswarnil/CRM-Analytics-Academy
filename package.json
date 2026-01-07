@@ -21,9 +21,10 @@
     "@vercel/speed-insights": "^1.2.0",
     "@vueuse/nuxt": "^14.0.0",
     "better-sqlite3": "^12.4.1",
-    "nuxt": "^4.2.1",
+    "nuxt": "^4.2.2",
     "nuxt-og-image": "^5.1.12",
-    "vercel": "^48.10.5",
+    "pnpm": "^10.27.0",
+    "vercel": "^50.1.6",
     "zod": "^4.1.12"
   },
   "devDependencies": {
