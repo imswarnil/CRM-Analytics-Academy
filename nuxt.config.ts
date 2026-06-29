@@ -71,33 +71,54 @@ export default defineNuxtConfig({
   },
 
   llms: {
-    domain: 'https://docs-template.nuxt.dev/',
-    title: 'Nuxt Docs Template',
-    description: 'A template for building documentation with Nuxt UI and Nuxt Content.',
+    domain: 'https://crmanalytics.imswarnil.com/',
+    title: 'CRM Analytics Academy',
+    description: 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery.',
     full: {
-      title: 'Nuxt Docs Template - Full Documentation',
-      description: 'This is the full documentation for the Nuxt Docs Template.'
+      title: 'CRM Analytics Academy - Full Curriculum',
+      description: 'The complete CRM Analytics Academy curriculum across all five modules.'
     },
     sections: [
       {
-        title: 'Getting Started',
+        title: 'Foundations',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/getting-started%' }
+          { field: 'path', operator: 'LIKE', value: '/foundations%' }
         ]
       },
       {
-        title: 'Essentials',
+        title: 'Data Integration & Prep',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/essentials%' }
+          { field: 'path', operator: 'LIKE', value: '/data-integration%' }
+        ]
+      },
+      {
+        title: 'SAQL',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/saql%' }
+        ]
+      },
+      {
+        title: 'Dashboards',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/dashboards%' }
+        ]
+      },
+      {
+        title: 'Einstein Discovery',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/einstein-discovery%' }
         ]
       }
     ]
   },
 
   mcp: {
-    name: 'Docs template'
+    name: 'CRM Analytics Academy'
   },
 
   ogImage: {

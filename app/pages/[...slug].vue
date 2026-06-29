@@ -31,6 +31,19 @@ useSeoMeta({
   ogDescription: description
 })
 
+// Render a copy of the page with in-article ads auto-injected between sections.
+const renderedPage = computed(() => {
+  const p = page.value
+  if (!p?.body?.value) return p
+  return {
+    ...p,
+    body: {
+      ...p.body,
+      value: injectInArticleAds(p.body.value)
+    }
+  }
+})
+
 const headline = computed(() => findPageHeadline(navigation?.value, page.value?.path))
 
 defineOgImage('Docs', { title, description, headline: headline.value })
@@ -70,8 +83,8 @@ const links = computed(() => {
 
     <UPageBody>
       <ContentRenderer
-        v-if="page"
-        :value="page"
+        v-if="renderedPage"
+        :value="renderedPage"
       />
 
       <AdUnit placement="endOfArticle" />
