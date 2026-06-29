@@ -46,12 +46,21 @@ export interface AdPlacement {
  * desktop-only sidebar on mobile) simply renders nothing.
  */
 export const AD_PLACEMENTS = {
-  /** Top of content. Mobile leaderboard → responsive leaderboard → leaderboard → billboard. */
+  /**
+   * Top of content — always a 90px leaderboard so it never dominates the page.
+   * Mobile leaderboard → responsive leaderboard → fixed 728×90 leaderboard.
+   */
   headerBanner: {
     variants: [
-      { max: 768, slot: '4003326983', format: 'horizontal', fullWidthResponsive: true, reserve: 100 },
+      { max: 768, slot: '4003326983', format: 'horizontal', fullWidthResponsive: true, reserve: 90 },
       { min: 768, max: 992, slot: '4774277934', format: 'horizontal', fullWidthResponsive: true, reserve: 90 },
-      { min: 992, max: 1200, slot: '8539588233', width: 728, height: 90, reserve: 90 },
+      { min: 992, slot: '8539588233', width: 728, height: 90, reserve: 90 }
+    ]
+  },
+
+  /** Optional billboard (970×250) for wide hero/marketing areas — not auto-placed. */
+  billboard: {
+    variants: [
       { min: 1200, slot: '4921873558', width: 970, height: 250, reserve: 250 }
     ]
   },
