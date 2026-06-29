@@ -85,7 +85,17 @@
 }
 .animate-fade-up { animation: fade-up 0.6s ease-out both; }
 
+/* Flowing dashed connectors (data being pulled from sources) */
+@keyframes dash-flow {
+  to { stroke-dashoffset: -24; }
+}
+.animate-dash {
+  stroke-dasharray: 5 6;
+  animation: dash-flow 0.9s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
-  .animate-fade-up { animation: none; }
+  .animate-fade-up,
+  .animate-dash { animation: none; }
 }

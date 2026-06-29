@@ -168,9 +168,9 @@ const outcomes = [
             </div>
           </div>
 
-          <!-- Animated query → chart card -->
+          <!-- Animated pipeline storyboard -->
           <div class="animate-fade-up">
-            <HeroQuery />
+            <HeroStory />
           </div>
         </div>
       </UContainer>
