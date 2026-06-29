@@ -12,6 +12,28 @@ useSeoMeta({
 
 defineOgImage('Docs', { title, description })
 
+useJsonLd({
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  'name': SITE.name,
+  'description': SITE.description,
+  'url': SITE.url,
+  'inLanguage': 'en',
+  'isAccessibleForFree': true,
+  'provider': {
+    '@type': 'Organization',
+    'name': SITE.name,
+    'sameAs': SITE.url
+  },
+  'hasPart': [
+    { name: 'Foundations', url: `${SITE.url}/foundations` },
+    { name: 'Data Integration & Prep', url: `${SITE.url}/data-integration` },
+    { name: 'SAQL', url: `${SITE.url}/saql` },
+    { name: 'Dashboards', url: `${SITE.url}/dashboards` },
+    { name: 'Einstein Discovery', url: `${SITE.url}/einstein-discovery` }
+  ].map(m => ({ '@type': 'Course', 'name': m.name, 'url': m.url, 'provider': { '@type': 'Organization', 'name': SITE.name } }))
+})
+
 const stats = [
   { value: '5', label: 'Modules' },
   { value: '15', label: 'Lessons' },
@@ -71,16 +93,6 @@ const outcomes = [
   { icon: 'i-lucide-layout-dashboard', title: 'Build dashboards', desc: 'Design responsive, faceted dashboards with drill-downs and embedded Salesforce actions.' },
   { icon: 'i-lucide-brain-circuit', title: 'Deploy predictions', desc: 'Train explainable Einstein Discovery models and surface predictions on records and in flows.' },
   { icon: 'i-lucide-badge-check', title: 'Prep for certification', desc: 'Cover the skills measured by the CRM Analytics & Einstein Discovery Consultant exam.' }
-]
-
-const saqlLines = [
-  { t: 'q = ', k: 'load', s: ' "Opportunities";' },
-  { t: 'q = ', k: 'filter', s: ' q by \'CloseDate\' in ["1 year ago".."current day"];' },
-  { t: 'q = ', k: 'group', s: ' q by \'StageName\';' },
-  { t: 'q = ', k: 'foreach', s: ' q generate' },
-  { t: '      \'StageName\' ', k: 'as', s: ' \'Stage\',' },
-  { t: '      ', k: 'sum', s: '(\'Amount\') as \'Pipeline\';' },
-  { t: 'q = ', k: 'order', s: ' q by \'Pipeline\' desc;' }
 ]
 </script>
 
@@ -156,49 +168,9 @@ const saqlLines = [
             </div>
           </div>
 
-          <!-- Code card -->
-          <div class="relative animate-fade-up">
-            <div class="absolute -inset-4 rounded-3xl bg-primary/20 blur-2xl" />
-            <div class="animate-float relative overflow-hidden rounded-2xl border border-default bg-default shadow-2xl ring-1 ring-default/60">
-              <div class="flex items-center gap-2 border-b border-default bg-muted/50 px-4 py-3">
-                <span class="size-3 rounded-full bg-red-400" />
-                <span class="size-3 rounded-full bg-amber-400" />
-                <span class="size-3 rounded-full bg-green-400" />
-                <span class="ml-2 flex items-center gap-1.5 text-xs text-muted">
-                  <UIcon
-                    name="i-lucide-file-code"
-                    class="size-3.5"
-                  />
-                  revenue-by-stage.saql
-                </span>
-              </div>
-              <div class="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed">
-                <div
-                  v-for="(l, i) in saqlLines"
-                  :key="i"
-                  class="whitespace-pre"
-                >
-                  <span class="text-muted">{{ l.t }}</span><span class="font-semibold text-primary">{{ l.k }}</span><span class="text-toned">{{ l.s }}</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-3 border-t border-default bg-muted/30 px-5 py-3">
-                <div class="flex items-end gap-1">
-                  <span
-                    class="w-2 rounded-sm bg-salesforce-700"
-                    style="height:10px"
-                  />
-                  <span
-                    class="w-2 rounded-sm bg-salesforce-500"
-                    style="height:16px"
-                  />
-                  <span
-                    class="w-2 rounded-sm bg-salesforce-300"
-                    style="height:22px"
-                  />
-                </div>
-                <span class="text-xs text-muted">Pipeline by stage, top to bottom</span>
-              </div>
-            </div>
+          <!-- Animated query → chart card -->
+          <div class="animate-fade-up">
+            <HeroQuery />
           </div>
         </div>
       </UContainer>

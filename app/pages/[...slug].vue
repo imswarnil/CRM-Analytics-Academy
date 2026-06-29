@@ -48,6 +48,37 @@ const headline = computed(() => findPageHeadline(navigation?.value, page.value?.
 
 defineOgImage('Docs', { title, description, headline: headline.value })
 
+// Structured data: the lesson as a learning article + a breadcrumb trail.
+const crumbs = computed(() => {
+  const segments = route.path.split('/').filter(Boolean)
+  const items = segments.map((seg, i) => ({
+    '@type': 'ListItem',
+    'position': i + 2,
+    'name': seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    'item': `${SITE.url}/${segments.slice(0, i + 1).join('/')}`
+  }))
+  return [{ '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE.url }, ...items]
+})
+
+useJsonLd([
+  {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    'headline': title,
+    'description': description,
+    'inLanguage': 'en',
+    'mainEntityOfPage': SITE.url + route.path,
+    'author': { '@type': 'Person', 'name': SITE.author },
+    'publisher': { '@type': 'Organization', 'name': SITE.name, 'logo': { '@type': 'ImageObject', 'url': `${SITE.url}/favicon.ico` } },
+    'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': crumbs.value
+  }
+])
+
 const links = computed(() => {
   const links = []
   if (toc?.bottom?.edit) {
@@ -128,8 +159,8 @@ const links = computed(() => {
       </UContentToc>
 
       <AdUnit
-        placement="stickySidebar"
-        class="mt-8 hidden xl:flex"
+        placement="sidebarSquare"
+        class="mt-8"
       />
     </template>
   </UPage>

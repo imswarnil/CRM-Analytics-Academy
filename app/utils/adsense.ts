@@ -47,14 +47,15 @@ export interface AdPlacement {
  */
 export const AD_PLACEMENTS = {
   /**
-   * Top of content — always a 90px leaderboard so it never dominates the page.
-   * Mobile leaderboard → responsive leaderboard → fixed 728×90 leaderboard.
+   * Top of content — a fully responsive leaderboard. Width and height are
+   * automatic (AdSense picks the best horizontal unit per viewport); the
+   * `reserve` only sets a min-height to avoid layout shift.
    */
   headerBanner: {
     variants: [
       { max: 768, slot: '4003326983', format: 'horizontal', fullWidthResponsive: true, reserve: 90 },
-      { min: 768, max: 992, slot: '4774277934', format: 'horizontal', fullWidthResponsive: true, reserve: 90 },
-      { min: 992, slot: '8539588233', width: 728, height: 90, reserve: 90 }
+      { min: 768, max: 1024, slot: '4774277934', format: 'horizontal', fullWidthResponsive: true, reserve: 90 },
+      { min: 1024, slot: '8539588233', format: 'horizontal', fullWidthResponsive: true, reserve: 90 }
     ]
   },
 
@@ -96,10 +97,21 @@ export const AD_PLACEMENTS = {
     ]
   },
 
-  /** Floating / sticky desktop sidebar skyscraper. */
+  /**
+   * Responsive square shown below the table of contents in the right rail.
+   * Auto-sized so it fits the narrow rail on desktop and a phone screen alike.
+   */
+  sidebarSquare: {
+    variants: [
+      { max: 768, slot: '6066270853', format: 'rectangle', fullWidthResponsive: true, reserve: 250 },
+      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 280 }
+    ]
+  },
+
+  /** Floating / sticky desktop sidebar skyscraper — available for manual use. */
   stickySidebar: {
     variants: [
-      { min: 1024, slot: '5882506557', width: 160, height: 600, reserve: 600 }
+      { min: 1024, slot: '5882506557', format: 'vertical', fullWidthResponsive: true, reserve: 600 }
     ]
   },
 

@@ -4,6 +4,31 @@ import type { ContentNavigationItem } from '@nuxt/content'
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { header } = useAppConfig()
+
+// Icon actions on the right of the navbar — all rendered as ghost icon links
+// with a hover tooltip, matching the GitHub / theme-toggle treatment.
+const actions = [
+  {
+    'icon': 'i-lucide-info',
+    'label': 'About',
+    'to': '/about',
+    'aria-label': 'About this project'
+  },
+  {
+    'icon': 'i-lucide-heart',
+    'label': 'Sponsor this project',
+    'to': 'https://github.com/sponsors/crm-analytics-academy',
+    'target': '_blank',
+    'aria-label': 'Sponsor this project'
+  },
+  {
+    'icon': 'i-simple-icons-github',
+    'label': 'View on GitHub',
+    'to': 'https://github.com/crm-analytics-academy/crm-analytics-academy',
+    'target': '_blank',
+    'aria-label': 'GitHub'
+  }
+]
 </script>
 
 <template>
@@ -49,20 +74,34 @@ const { header } = useAppConfig()
         class="lg:hidden"
       />
 
-      <UColorModeButton v-if="header?.colorMode" />
-
-      <template v-if="header?.links">
+      <UTooltip
+        v-for="action in actions"
+        :key="action.icon"
+        :text="action.label"
+      >
         <UButton
-          v-for="(link, index) of header.links"
-          :key="index"
-          v-bind="{ color: 'neutral', variant: 'ghost', ...link }"
+          :icon="action.icon"
+          :to="action.to"
+          :target="action.target"
+          :aria-label="action['aria-label']"
+          color="neutral"
+          variant="ghost"
+          :class="action.icon === 'i-lucide-heart' ? 'hover:text-primary' : ''"
         />
-      </template>
+      </UTooltip>
+
+      <UTooltip
+        v-if="header?.colorMode"
+        text="Toggle theme"
+      >
+        <UColorModeButton />
+      </UTooltip>
     </template>
 
     <template #body>
       <UContentNavigation
         highlight
+        type="single"
         :navigation="navigation"
       />
     </template>
