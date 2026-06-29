@@ -6,6 +6,11 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 <template>
   <UContainer>
+    <AdUnit
+      placement="headerBanner"
+      class="mt-4"
+    />
+
     <UPage>
       <template #left>
         <UPageAside>
@@ -18,5 +23,10 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
       <slot />
     </UPage>
+
+    <AdUnit
+      placement="footer"
+      class="mb-8"
+    />
   </UContainer>
 </template>

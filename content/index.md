@@ -1,7 +1,7 @@
 ---
 seo:
-  title: Nuxt Docs Template
-  description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
+  title: CRM Analytics Academy — Learn Salesforce CRM Analytics
+  description: A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, datasets, SAQL, dashboards, and Einstein Discovery, from fundamentals to advanced.
 ---
 
 ::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
@@ -12,10 +12,10 @@ orientation: horizontal
 :hero-background
 
 #title
-Ship Beautiful [Documentation]{.text-primary}.
+Master Salesforce [CRM Analytics]{.text-primary}.
 
 #description
-Build professional documentation with Nuxt UI's powerful components, enhanced typography, and seamless Nuxt Content integration. The same system trusted by the entire [Nuxt ecosystem](https://nuxt.com).
+A free, open-source, community-driven curriculum that takes you from zero to confident — data integration, datasets, SAQL, dashboards, and Einstein Discovery — with hands-on recipes and real datasets.
 
 #links
   :::u-button
@@ -24,237 +24,227 @@ Build professional documentation with Nuxt UI's powerful components, enhanced ty
   size: xl
   trailing-icon: i-lucide-arrow-right
   ---
-  Get started
+  Start learning
   :::
 
   :::u-button
   ---
-  icon: i-simple-icons-github
   color: neutral
   variant: outline
   size: xl
-  to: https://github.com/nuxt-ui-templates/docs
-  target: _blank
+  to: '#curriculum'
+  icon: i-lucide-graduation-cap
   ---
-  Use this template
+  Browse curriculum
   :::
 
 #default
-  :::prose-pre
-  ---
-  code: |
-    export default defineNuxtConfig({
-      modules: [
-        '@nuxt/ui',
-        '@nuxt/content',
-        'nuxt-og-image',
-        'nuxt-llms'
-      ],
-
-      css: ['~/assets/css/main.css']
-    })
-  filename: nuxt.config.ts
-  ---
-
-  ```ts [nuxt.config.ts]
-  export default defineNuxtConfig({
-    modules: [
-      '@nuxt/ui',
-      '@nuxt/content',
-      'nuxt-og-image',
-      'nuxt-llms'
-    ],
-
-    css: ['~/assets/css/main.css']
-  })
+  ```sql [revenue-by-stage.saql]
+  q = load "Opportunities";
+  q = filter q by 'CloseDate' in ["1 year ago".."current day"];
+  q = group q by 'StageName';
+  q = foreach q generate
+        'StageName' as 'Stage',
+        sum('Amount') as 'Pipeline';
+  q = order q by 'Pipeline' desc;
   ```
-  :::
 ::
 
-::u-page-section{class="dark:bg-neutral-950"}
-#title
-Powered by Nuxt UI components
+:ad-unit{placement="belowHero"}
 
-#links
-  :::u-button
-  ---
-  color: neutral
-  size: lg
-  target: _blank
-  to: https://ui.nuxt.com/docs/getting-started/installation/nuxt
-  trailingIcon: i-lucide-arrow-right
-  variant: subtle
-  ---
-  Explore Nuxt UI
-  :::
+::u-page-section{#curriculum class="dark:bg-neutral-950"}
+#title
+The Curriculum
+
+#description
+Eight modules, ordered as a path. Start at the top and work down, or jump to the topic you need. The docs _are_ the course.
 
 #features
   :::u-page-feature
   ---
-  icon: i-lucide-palette
+  icon: i-lucide-compass
+  to: /getting-started
   ---
   #title
-  100+ UI Components
+  01 · Foundations
 
   #description
-  Access the complete Nuxt UI component library. From badges to modals, everything styled and accessible out of the box.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-type
-  ---
-  #title
-  Beautiful Typography
-
-  #description
-  Pre-styled prose components with perfect visual harmony. No need for @tailwindcss/typography - get precise control over every element.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-layers
-  ---
-  #title
-  Rich Prose Components
-
-  #description
-  Accordions, cards, callouts, tabs, steps, code blocks, and more - all provided by Nuxt UI for interactive documentation.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-search
-  ---
-  #title
-  Built-in Search
-
-  #description
-  Full-text search with ContentSearch component. No need for Algolia - instant, relevant results with keyboard shortcuts (⌘K).
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-navigation
-  ---
-  #title
-  Smart Navigation
-
-  #description
-  Auto-generated navigation with ContentNavigation and ContentToc components. Sticky table of contents and prev/next links.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-moon
-  ---
-  #title
-  Dark Mode Ready
-
-  #description
-  Automatic theme switching with smooth transitions. Respects system preferences and remembers user choice.
-  :::
-::
-
-::u-page-section{class="dark:bg-neutral-950"}
-#title
-Enhanced with Nuxt Content
-
-#links
-  :::u-button
-  ---
-  color: neutral
-  size: lg
-  target: _blank
-  to: https://content.nuxt.com/docs/getting-started/installation
-  trailingIcon: i-lucide-arrow-right
-  variant: subtle
-  ---
-  Explore Nuxt Content
-  :::
-
-#features
-  :::u-page-feature
-  ---
-  icon: i-simple-icons-markdown
-  ---
-  #title
-  MDC Enhanced Markdown
-
-  #description
-  Write in Markdown while embedding Vue components. Seamlessly integrate interactive elements in your content.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-file-text
-  ---
-  #title
-  File-based Routing
-
-  #description
-  Organize content in folders and files. Your documentation structure automatically becomes your navigation.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-code
-  ---
-  #title
-  Syntax Highlighting
-
-  #description
-  Beautiful code blocks with language detection, line numbers, and copy buttons. Support for 100+ languages.
+  What CRM Analytics is, licensing and setup, Analytics Studio, and finding your way around the platform.
   :::
 
   :::u-page-feature
   ---
   icon: i-lucide-database
+  to: /getting-started
   ---
   #title
-  Content Database
+  02 · Data Integration
 
   #description
-  Query your content with a MongoDB-like API. Filter, sort, and search through your documentation programmatically.
+  Data Manager, connectors, syncs, and scheduling — getting Salesforce and external data into the platform reliably.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-file-code
+  icon: i-lucide-wand-sparkles
+  to: /getting-started
   ---
   #title
-  Frontmatter Support
+  03 · Data Prep & Recipes
 
   #description
-  Add metadata to your content files. Define SEO tags, navigation properties, and custom fields.
+  Build recipes with joins, aggregates, transforms, and clustering to shape clean, analysis-ready datasets.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-git-branch
+  icon: i-lucide-table-2
+  to: /getting-started
   ---
   #title
-  Version Control
+  04 · Datasets & Modeling
 
   #description
-  Content lives in your repository. Branch, review, and deploy documentation alongside your code.
+  Dataset structure, dimensions vs. measures, dates, augmenting data, and row-level security predicates.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-terminal
+  to: /getting-started
+  ---
+  #title
+  05 · SAQL
+
+  #description
+  The Salesforce Analytics Query Language — load, filter, group, foreach, windowing, and binding queries together.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-layout-dashboard
+  to: /getting-started
+  ---
+  #title
+  06 · Lenses & Dashboards
+
+  #description
+  Explore with lenses, then build interactive dashboards with widgets, faceting, and dashboard bindings.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-brain-circuit
+  to: /getting-started
+  ---
+  #title
+  07 · Einstein Discovery
+
+  #description
+  Predictive and prescriptive analytics — stories, models, improvements, and deploying predictions back into Salesforce.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-rocket
+  to: /getting-started
+  ---
+  #title
+  08 · Advanced & Delivery
+
+  #description
+  Templates, embedding in Lightning, the Analytics REST API, mobile, and production best practices.
   :::
 ::
+
+::u-page-section{class="dark:bg-neutral-950"}
+#title
+Why learn here
+
+#features
+  :::u-page-feature
+  ---
+  icon: i-lucide-unlock
+  ---
+  #title
+  Free & open source
+
+  #description
+  No paywalls, no sign-up. Every lesson lives in a public repo — fix a typo or contribute a recipe with a pull request.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-square-code
+  ---
+  #title
+  Hands-on recipes
+
+  #description
+  Copy-paste SAQL, dataflow, recipe, and dashboard JSON examples you can drop straight into your own org.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-route
+  ---
+  #title
+  A real learning path
+
+  #description
+  Concepts build on each other in order — from your first dataset to deploying Einstein Discovery models.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-bot
+  ---
+  #title
+  AI-assistant ready
+
+  #description
+  Every page is available as clean Markdown and over MCP, so Claude or ChatGPT can teach from the source.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-badge-check
+  ---
+  #title
+  Certification-aligned
+
+  #description
+  Mapped to the skills measured by the Salesforce CRM Analytics & Einstein Discovery Consultant exam.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-users
+  ---
+  #title
+  Community-driven
+
+  #description
+  Built by practitioners. Suggest topics, report issues, and shape the curriculum alongside other learners.
+  :::
+::
+
+:ad-unit{placement="betweenSections"}
 
 ::u-page-section{class="dark:bg-gradient-to-b from-neutral-950 to-neutral-900"}
   :::u-page-c-t-a
   ---
   links:
-    - label: Start building
+    - label: Start with the fundamentals
       to: '/getting-started'
       trailingIcon: i-lucide-arrow-right
-    - label: View on GitHub
-      to: 'https://github.com/nuxt-ui-templates/docs'
+    - label: Star on GitHub
+      to: 'https://github.com/crm-analytics-academy/crm-analytics-academy'
       target: _blank
       variant: subtle
       icon: i-simple-icons-github
-  title: Ready to build an amazing documentation?
-  description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
+  title: Ready to become a CRM Analytics pro?
+  description: Begin the curriculum today — it is free, open, and built to take you all the way to certified.
   class: dark:bg-neutral-950
   ---
 

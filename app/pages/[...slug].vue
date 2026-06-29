@@ -74,9 +74,15 @@ const links = computed(() => {
         :value="page"
       />
 
+      <AdUnit placement="endOfArticle" />
+
+      <AdUnit placement="afterArticle" />
+
       <USeparator v-if="surround?.length" />
 
       <UContentSurround :surround="surround" />
+
+      <AdUnit placement="relatedPosts" />
     </UPageBody>
 
     <template
@@ -87,6 +93,13 @@ const links = computed(() => {
         :title="toc?.title"
         :links="page.body?.toc?.links"
       >
+        <template #top>
+          <AdUnit
+            placement="stickySidebar"
+            class="mb-4 hidden xl:flex"
+          />
+        </template>
+
         <template
           v-if="toc?.bottom"
           #bottom

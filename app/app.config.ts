@@ -1,8 +1,8 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'green',
-      neutral: 'slate'
+      primary: 'salesforce',
+      neutral: 'cloud'
     },
     footer: {
       slots: {
@@ -12,7 +12,7 @@ export default defineAppConfig({
     }
   },
   seo: {
-    siteName: 'Nuxt Docs Template'
+    siteName: 'CRM Analytics Academy'
   },
   header: {
     title: '',
@@ -25,8 +25,16 @@ export default defineAppConfig({
     search: true,
     colorMode: true,
     links: [{
+      icon: 'i-lucide-heart',
+      label: 'Sponsor this project',
+      to: 'https://github.com/sponsors/crm-analytics-academy',
+      target: '_blank',
+      color: 'primary',
+      variant: 'subtle',
+      class: 'max-sm:[&_span:last-child]:hidden'
+    }, {
       'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/nuxt-ui-templates/docs',
+      'to': 'https://github.com/crm-analytics-academy/crm-analytics-academy',
       'target': '_blank',
       'aria-label': 'GitHub'
     }]
