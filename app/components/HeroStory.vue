@@ -717,49 +717,28 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <!-- Caption + controls below the window -->
-    <div class="mt-5">
-      <div class="flex items-center gap-2.5">
-        <span class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-inverted">{{ current.step }}</span>
-        <Transition
-          mode="out-in"
-          enter-active-class="transition duration-200"
-          enter-from-class="opacity-0 translate-x-2"
-          leave-active-class="transition duration-100"
-          leave-to-class="opacity-0 -translate-x-2"
-        >
-          <span
-            :key="current.key"
-            class="text-base font-bold tracking-tight text-highlighted"
-          >{{ current.title }}</span>
-        </Transition>
+    <!-- Step controls below the window -->
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <div class="flex gap-1.5">
+        <button
+          v-for="(s, i) in SCENES"
+          :key="s.key"
+          type="button"
+          :aria-label="`Go to step ${i + 1}`"
+          class="size-2 rounded-full transition-colors"
+          :class="i === scene ? 'bg-primary' : 'bg-default/30 hover:bg-default/50'"
+          @click="show(i)"
+        />
       </div>
-
-      <div class="mt-2 flex items-center justify-between gap-3">
-        <span class="text-[12px] text-muted">{{ current.caption }}</span>
-        <div class="flex items-center gap-3">
-          <div class="hidden gap-1 sm:flex">
-            <button
-              v-for="(s, i) in SCENES"
-              :key="s.key"
-              type="button"
-              :aria-label="`Go to step ${i + 1}`"
-              class="size-1.5 rounded-full transition-colors"
-              :class="i === scene ? 'bg-primary' : 'bg-default/30 hover:bg-default/50'"
-              @click="show(i)"
-            />
-          </div>
-          <UButton
-            icon="i-lucide-chevron-right"
-            size="xs"
-            color="primary"
-            variant="soft"
-            class="rounded-full"
-            aria-label="Next step"
-            @click="onNext"
-          />
-        </div>
-      </div>
+      <UButton
+        icon="i-lucide-chevron-right"
+        size="xs"
+        color="primary"
+        variant="soft"
+        class="rounded-full"
+        aria-label="Next step"
+        @click="onNext"
+      />
     </div>
   </div>
 </template>
