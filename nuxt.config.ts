@@ -28,6 +28,11 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  site: {
+    url: 'https://crmanalytics.imswarnil.com',
+    name: 'CRM Analytics Academy'
+  },
+
   content: {
     build: {
       markdown: {
