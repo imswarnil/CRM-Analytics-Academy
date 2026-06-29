@@ -157,11 +157,6 @@ const links = computed(() => {
           </div>
         </template>
       </UContentToc>
-
-      <AdUnit
-        placement="sidebarSquare"
-        class="mt-8"
-      />
     </template>
   </UPage>
 </template>
