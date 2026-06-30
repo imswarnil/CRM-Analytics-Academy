@@ -85,7 +85,21 @@
       { "t": "Rassemblez toutes vos données", "d": "Connectez Salesforce, Snowflake et des fichiers ; synchronisez selon un planning ; et mettez tout en forme en jeux de données propres avec des recettes visuelles." },
       { "t": "Explorez et visualisez instantanément", "d": "Écrivez du SAQL ou cliquez pour créer des lentilles, puis assemblez des tableaux de bord rapides et interactifs avec liaisons, facettes et explorations." },
       { "t": "Prédisez la suite", "d": "Entraînez des modèles Einstein Discovery explicables et affichez prédictions et recommandations là où votre équipe travaille." }
-    ]
+    ],
+    "projectsEyebrow": "Vitrine",
+    "projectsTitle": "Des projets à construire",
+    "projectsSubtitle": "De vrais tableaux de bord à recréer en apprenant — puis partagez le vôtre avec la communauté.",
+    "projects": [
+      { "t": "Santé du pipeline de ventes", "d": "Suivez les étapes, le taux de réussite et la prévision dans une vue interactive." },
+      { "t": "Risque d'attrition client", "d": "Notez les comptes avec Einstein Discovery et agissez avant leur départ." },
+      { "t": "KPI de service", "d": "Volume de cas, CSAT et temps de résolution pour les équipes support." },
+      { "t": "Revenu par région", "d": "Décomposez le revenu géographiquement avec des explorations." },
+      { "t": "Classement des commerciaux", "d": "Classez les performances avec du SAQL fenêtré et des facettes." },
+      { "t": "ROI marketing", "d": "Attribuez le pipeline aux campagnes et mesurez le retour." }
+    ],
+    "submitTitle": "Vous avez créé quelque chose ?",
+    "submitDesc": "Partagez le tableau de bord que vous avez construit et inspirez les autres.",
+    "submitButton": "Soumettre le vôtre"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Apprenez Salesforce CRM Analytics",

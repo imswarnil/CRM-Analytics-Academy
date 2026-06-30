@@ -85,7 +85,21 @@
       { "t": "Führe all deine Daten zusammen", "d": "Verbinde Salesforce, Snowflake und Dateien; synchronisiere nach Zeitplan; und forme alles mit visuellen Rezepten zu sauberen Datasets." },
       { "t": "Sofort erkunden und visualisieren", "d": "Schreibe SAQL oder klicke dir Lenses zusammen und baue schnelle, interaktive Dashboards mit Bindings, Faceting und Drill-downs." },
       { "t": "Sage voraus, was als Nächstes kommt", "d": "Trainiere erklärbare Einstein-Discovery-Modelle und zeige Vorhersagen und Empfehlungen genau dort, wo dein Team arbeitet." }
-    ]
+    ],
+    "projectsEyebrow": "Schaufenster",
+    "projectsTitle": "Projekte, die du bauen kannst",
+    "projectsSubtitle": "Echte Dashboards, die du beim Lernen nachbaust – und dann dein eigenes mit der Community teilst.",
+    "projects": [
+      { "t": "Sales-Pipeline-Gesundheit", "d": "Verfolge Phasen, Gewinnrate und Prognose in einer interaktiven Ansicht." },
+      { "t": "Kundenabwanderungs-Risiko", "d": "Bewerte Accounts mit Einstein Discovery und handle, bevor sie gehen." },
+      { "t": "Service-KPIs", "d": "Fallvolumen, CSAT und Bearbeitungszeit für Support-Teams." },
+      { "t": "Umsatz nach Region", "d": "Schlüssele den Umsatz geografisch mit Drill-downs auf." },
+      { "t": "Vertriebs-Rangliste", "d": "Ranke die Leistung mit gefenstertem SAQL und Faceting." },
+      { "t": "Marketing-ROI", "d": "Ordne Pipeline den Kampagnen zu und miss den Return." }
+    ],
+    "submitTitle": "Etwas gebaut?",
+    "submitDesc": "Teile dein Dashboard und inspiriere andere Lernende.",
+    "submitButton": "Deins einreichen"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics lernen",

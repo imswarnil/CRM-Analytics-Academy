@@ -1,0 +1,21 @@
+Id,AccountName,StageName,Amount,CloseDate,Region,Industry,OwnerName,IsWon
+OPP-1001,Acme Corp,Closed Won,120000,2025-01-18,Americas,Manufacturing,Jane Doe,true
+OPP-1002,Globex,Negotiation,84000,2025-02-04,EMEA,Technology,Carlos Ruiz,false
+OPP-1003,Initech,Closed Won,63000,2025-01-29,Americas,Finance,Jane Doe,true
+OPP-1004,Umbrella,Proposal,41000,2025-03-11,APAC,Healthcare,Mei Lin,false
+OPP-1005,Soylent,Qualification,28000,2025-02-22,LATAM,Retail,Ana Souza,false
+OPP-1006,Stark Industries,Closed Won,260000,2025-01-09,Americas,Manufacturing,Tom Baker,true
+OPP-1007,Wayne Enterprises,Negotiation,175000,2025-03-02,Americas,Finance,Tom Baker,false
+OPP-1008,Wonka,Proposal,52000,2025-02-17,EMEA,Retail,Carlos Ruiz,false
+OPP-1009,Cyberdyne,Closed Won,98000,2025-01-25,APAC,Technology,Mei Lin,true
+OPP-1010,Tyrell Corp,Prospecting,15000,2025-03-20,Americas,Technology,Jane Doe,false
+OPP-1011,Hooli,Closed Won,143000,2025-02-12,Americas,Technology,Tom Baker,true
+OPP-1012,Pied Piper,Qualification,22000,2025-03-08,Americas,Technology,Ana Souza,false
+OPP-1013,Massive Dynamic,Negotiation,210000,2025-01-31,EMEA,Healthcare,Carlos Ruiz,false
+OPP-1014,Vandelay,Closed Won,47000,2025-02-27,LATAM,Manufacturing,Ana Souza,true
+OPP-1015,Gringotts,Proposal,88000,2025-03-15,EMEA,Finance,Mei Lin,false
+OPP-1016,Oscorp,Closed Won,134000,2025-01-14,Americas,Healthcare,Jane Doe,true
+OPP-1017,Nakatomi,Qualification,31000,2025-02-19,APAC,Manufacturing,Mei Lin,false
+OPP-1018,Aperture,Negotiation,156000,2025-03-05,Americas,Technology,Tom Baker,false
+OPP-1019,Bluth Company,Prospecting,9000,2025-03-22,LATAM,Retail,Ana Souza,false
+OPP-1020,Dunder Mifflin,Closed Won,72000,2025-02-08,Americas,Retail,Jane Doe,true
