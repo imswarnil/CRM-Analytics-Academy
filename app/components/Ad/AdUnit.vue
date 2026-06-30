@@ -72,6 +72,19 @@ watch(show, async (visible) => {
   }
 })
 
+// Reload the ad on every client-side navigation: tear down the old <ins>,
+// recreate it, and push again so a fresh ad is requested per page.
+const route = useRoute()
+watch(() => route.fullPath, () => {
+  fillObserver?.disconnect()
+  pushed.value = false
+  empty.value = false
+  show.value = false
+  nextTick(() => {
+    show.value = true
+  })
+})
+
 onBeforeUnmount(() => {
   stop()
   fillObserver?.disconnect()
