@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const title = 'About — CRM Analytics Academy'
-const description = 'The story behind CRM Analytics Academy — an open-source curriculum for Salesforce CRM Analytics — and the person who builds it.'
+const { t } = useI18n()
+const title = computed(() => t('seo.aboutTitle'))
+const description = computed(() => t('seo.aboutDesc'))
 
 useSeoMeta({
   title,
@@ -9,7 +10,7 @@ useSeoMeta({
   ogDescription: description
 })
 
-defineOgImage('Docs', { title, description })
+defineOgImage('Docs', { title: title.value, description: description.value })
 
 useJsonLd([
   {
@@ -124,15 +125,15 @@ const authorLinks = [
 
             <div class="mt-8 flex flex-wrap gap-2">
               <span
-                v-for="t in stack"
-                :key="t.label"
+                v-for="tech in stack"
+                :key="tech.label"
                 class="inline-flex items-center gap-2 rounded-full border border-default bg-default px-3 py-1.5 text-xs font-medium text-toned"
               >
                 <UIcon
-                  :name="t.icon"
+                  :name="tech.icon"
                   class="size-3.5 text-primary"
                 />
-                {{ t.label }}
+                {{ tech.label }}
               </span>
             </div>
           </div>

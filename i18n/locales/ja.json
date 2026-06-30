@@ -1,0 +1,36 @@
+{
+  "language": "日本語",
+  "nav": {
+    "resources": "リソース",
+    "about": "概要",
+    "sponsor": "このプロジェクトを支援",
+    "github": "GitHubで見る",
+    "theme": "テーマ切り替え",
+    "chooseLanguage": "言語を選択"
+  },
+  "hero": {
+    "badge": "無料・オープンソースのカリキュラム",
+    "titleLead": "Salesforce をマスターする",
+    "titleAccent": "CRM Analytics",
+    "subtitle": "最初のデータセットから説明可能な予測の展開まで、5つの実践的なモジュールでプラットフォーム全体を学べます。実際の SAQL とコピペできる例付き。",
+    "f1": "登録不要",
+    "f2": "15のレッスン",
+    "f3": "認定資格に対応",
+    "start": "学習を始める",
+    "browse": "カリキュラムを見る"
+  },
+  "cta": {
+    "title": "CRM Analytics のプロになる準備はできましたか？",
+    "subtitle": "今日からカリキュラムを始めましょう。無料・オープンで、認定資格の取得まで導きます。",
+    "startFoundations": "基礎から始める",
+    "star": "GitHubでスターを付ける"
+  },
+  "seo": {
+    "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics を学ぶ",
+    "homeDesc": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。データ準備や SAQL からダッシュボード、Einstein Discovery まで、5つの実践モジュールで学べます。",
+    "aboutTitle": "概要 — CRM Analytics Academy",
+    "aboutDesc": "Salesforce CRM Analytics のためのオープンソース・カリキュラム「CRM Analytics Academy」の背景と、それを作る人物の物語。",
+    "resourcesTitle": "リソース — CRM Analytics Academy",
+    "resourcesDesc": "Salesforce CRM Analytics の最良のリソース集。公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツール。"
+  }
+}

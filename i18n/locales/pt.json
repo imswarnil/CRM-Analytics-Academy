@@ -1,0 +1,36 @@
+{
+  "language": "Português",
+  "nav": {
+    "resources": "Recursos",
+    "about": "Sobre",
+    "sponsor": "Apoiar este projeto",
+    "github": "Ver no GitHub",
+    "theme": "Alternar tema",
+    "chooseLanguage": "Escolher idioma"
+  },
+  "hero": {
+    "badge": "Currículo gratuito e de código aberto",
+    "titleLead": "Domine o Salesforce",
+    "titleAccent": "CRM Analytics",
+    "subtitle": "Do seu primeiro conjunto de dados até implantar previsões explicáveis — aprenda toda a plataforma em cinco módulos práticos, com SAQL real e exemplos prontos para copiar.",
+    "f1": "Sem cadastro",
+    "f2": "15 lições",
+    "f3": "Alinhado à certificação",
+    "start": "Começar a aprender",
+    "browse": "Ver o currículo"
+  },
+  "cta": {
+    "title": "Pronto para se tornar um profissional de CRM Analytics?",
+    "subtitle": "Comece o currículo hoje — é gratuito, aberto e feito para levar você até a certificação.",
+    "startFoundations": "Começar pelos Fundamentos",
+    "star": "Dar uma estrela no GitHub"
+  },
+  "seo": {
+    "homeTitle": "CRM Analytics Academy — Aprenda Salesforce CRM Analytics",
+    "homeDesc": "Um currículo gratuito e de código aberto para dominar o Salesforce CRM Analytics — da preparação de dados e SAQL a dashboards e Einstein Discovery, em cinco módulos práticos.",
+    "aboutTitle": "Sobre — CRM Analytics Academy",
+    "aboutDesc": "A história por trás da CRM Analytics Academy, um currículo de código aberto para Salesforce CRM Analytics, e quem o desenvolve.",
+    "resourcesTitle": "Recursos — CRM Analytics Academy",
+    "resourcesDesc": "Uma lista selecionada dos melhores recursos de Salesforce CRM Analytics — documentação oficial, Trailhead, referências de SAQL, comunidade e ferramentas."
+  }
+}

@@ -10,13 +10,26 @@ const route = useRoute()
 const { toc } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
-const { data: page } = await useAsyncData(route.path, () => queryCollection('docs').path(route.path).first())
+// Content is stored under unprefixed paths (/foundations). Strip the active
+// locale prefix (/es/foundations → /foundations) so localized routes resolve.
+const { locales } = useI18n()
+const localeCodes = (locales.value as { code: string }[]).map(l => l.code)
+const contentPath = computed(() => {
+  const segments = route.path.split('/').filter(Boolean)
+  if (segments.length && localeCodes.includes(segments[0]!)) {
+    const rest = segments.slice(1).join('/')
+    return rest ? `/${rest}` : '/'
+  }
+  return route.path
+})
+
+const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
-  return queryCollectionItemSurroundings('docs', route.path, {
+  return queryCollectionItemSurroundings('docs', contentPath.value, {
     fields: ['description']
   })
 })
@@ -133,31 +146,31 @@ const links = computed(() => {
       v-if="page?.body?.toc?.links?.length"
       #right
     >
+      <!-- 1. Table of contents -->
       <UContentToc
         :title="toc?.title"
         :links="page.body?.toc?.links"
+      />
+
+      <!-- 2. Ad below the TOC -->
+      <AdUnit
+        placement="sidebarSquare"
+        class="mt-6"
+      />
+
+      <!-- 3. Edit-page / community links -->
+      <div
+        v-if="toc?.bottom"
+        class="mt-6 hidden space-y-4 lg:block"
       >
-        <template
-          v-if="toc?.bottom"
-          #bottom
-        >
-          <div
-            class="hidden lg:block space-y-6"
-            :class="{ 'mt-6!': page.body?.toc?.links?.length }"
-          >
-            <USeparator
-              v-if="page.body?.toc?.links?.length"
-              type="dashed"
-            />
+        <USeparator type="dashed" />
+        <UPageLinks
+          :title="toc.bottom.title"
+          :links="links"
+        />
+      </div>
 
-            <UPageLinks
-              :title="toc.bottom.title"
-              :links="links"
-            />
-          </div>
-        </template>
-      </UContentToc>
-
+      <!-- 4. Ad below the edit section -->
       <AdUnit
         placement="sidebarSquare"
         class="mt-6"
