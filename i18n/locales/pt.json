@@ -78,6 +78,13 @@
       { "q": "Preciso de uma org do Salesforce?", "a": "Uma org Developer Edition gratuita basta para acompanhar todas as lições." },
       { "q": "Preciso de experiência em código?", "a": "Não. Começamos pelo básico de CRM e introduzimos SAQL aos poucos." },
       { "q": "Isso ajuda a me certificar?", "a": "O currículo se alinha aos temas do exame de consultor de CRM Analytics e Einstein Discovery." }
+    ],
+    "featuresEyebrow": "Como tudo se encaixa",
+    "featuresTitle": "Dos dados brutos às decisões",
+    "features": [
+      { "t": "Reúna todos os seus dados", "d": "Conecte Salesforce, Snowflake e arquivos; sincronize conforme uma programação; e modele tudo em conjuntos de dados limpos com receitas visuais." },
+      { "t": "Explore e visualize na hora", "d": "Escreva SAQL ou clique para criar lentes, depois monte painéis rápidos e interativos com vinculações, facetamento e detalhamentos." },
+      { "t": "Preveja o que vem a seguir", "d": "Treine modelos explicáveis do Einstein Discovery e exiba previsões e recomendações onde sua equipe trabalha." }
     ]
   },
   "seo": {

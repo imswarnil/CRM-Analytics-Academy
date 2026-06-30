@@ -78,6 +78,13 @@
       { "q": "Brauche ich eine Salesforce-Org?", "a": "Eine kostenlose Developer-Edition-Org reicht, um allen Lektionen zu folgen." },
       { "q": "Brauche ich Programmiererfahrung?", "a": "Nein. Wir starten mit den CRM-Grundlagen und führen SAQL Schritt für Schritt ein." },
       { "q": "Hilft es bei der Zertifizierung?", "a": "Der Lehrplan deckt die Themen der Prüfung zum CRM-Analytics- und Einstein-Discovery-Berater ab." }
+    ],
+    "featuresEyebrow": "Wie alles zusammenpasst",
+    "featuresTitle": "Von Rohdaten zu Entscheidungen",
+    "features": [
+      { "t": "Führe all deine Daten zusammen", "d": "Verbinde Salesforce, Snowflake und Dateien; synchronisiere nach Zeitplan; und forme alles mit visuellen Rezepten zu sauberen Datasets." },
+      { "t": "Sofort erkunden und visualisieren", "d": "Schreibe SAQL oder klicke dir Lenses zusammen und baue schnelle, interaktive Dashboards mit Bindings, Faceting und Drill-downs." },
+      { "t": "Sage voraus, was als Nächstes kommt", "d": "Trainiere erklärbare Einstein-Discovery-Modelle und zeige Vorhersagen und Empfehlungen genau dort, wo dein Team arbeitet." }
     ]
   },
   "seo": {

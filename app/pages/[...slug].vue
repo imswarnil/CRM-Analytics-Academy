@@ -124,18 +124,21 @@ useJsonLd([
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <!-- Table of contents, full width of the sidebar -->
-      <UContentToc
-        :title="toc?.title"
-        :links="page.body?.toc?.links"
-        class="w-full"
-      />
+      <!-- Single sticky block: TOC on top, ad directly below it. Wrapping them
+           in one element stops UPage from making each a separate sticky layer
+           (which overlapped and broke the TOC). -->
+      <div class="sticky top-(--ui-header-height) flex max-h-[calc(100vh-var(--ui-header-height)-1rem)] flex-col overflow-y-auto pt-6">
+        <UContentToc
+          :title="toc?.title"
+          :links="page.body?.toc?.links"
+          class="w-full shrink-0"
+        />
 
-      <!-- AdSense ad below the TOC — sticks in view while scrolling -->
-      <AdUnit
-        placement="sidebarSquare"
-        class="sticky top-24 mt-6 w-full"
-      />
+        <AdUnit
+          placement="sidebarSquare"
+          class="mt-6 w-full shrink-0"
+        />
+      </div>
     </template>
   </UPage>
 </template>

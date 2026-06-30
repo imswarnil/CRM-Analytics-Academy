@@ -78,6 +78,13 @@
       { "q": "需要 Salesforce 组织吗？", "a": "一个免费的 Developer Edition 组织足以跟随所有课程。" },
       { "q": "需要编程经验吗？", "a": "不需要。我们从 CRM 基础开始，循序渐进地引入 SAQL。" },
       { "q": "这能帮助我考取认证吗？", "a": "课程对齐 CRM Analytics 与 Einstein Discovery 顾问考试的主题。" }
+    ],
+    "featuresEyebrow": "整体如何衔接",
+    "featuresTitle": "从原始数据到决策",
+    "features": [
+      { "t": "汇聚你的所有数据", "d": "连接 Salesforce、Snowflake 和文件，按计划同步，并用可视化配方将一切整形为干净的数据集。" },
+      { "t": "即时探索与可视化", "d": "编写 SAQL 或点击构建透镜，然后用绑定、联动和下钻组装快速的交互式仪表板。" },
+      { "t": "预测接下来会发生什么", "d": "训练可解释的 Einstein Discovery 模型，并在团队工作的地方呈现预测与建议。" }
     ]
   },
   "seo": {

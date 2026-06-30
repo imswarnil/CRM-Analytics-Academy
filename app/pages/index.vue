@@ -66,6 +66,15 @@ const faqs = computed(() =>
   (tm('home.faqs') as { q: string, a: string }[]).map(f => ({ q: rt(f.q), a: rt(f.a) }))
 )
 
+const featureKinds = ['pipeline', 'chart', 'predict']
+const features = computed(() =>
+  (tm('home.features') as { t: string, d: string }[]).map((f, i) => ({
+    title: rt(f.t),
+    desc: rt(f.d),
+    kind: featureKinds[i]
+  }))
+)
+
 const topics = [
   'Data Manager', 'Connectors', 'Recipes', 'Dataflows', 'Datasets', 'Security Predicates',
   'SAQL', 'Bindings', 'Windowing', 'Lenses', 'Dashboards', 'Faceting', 'Drill-downs',
@@ -305,8 +314,109 @@ useJsonLd({
       </UContainer>
     </section>
 
-    <!-- ========================= OUTCOMES ========================= -->
+    <!-- ===================== ALTERNATING FEATURES ===================== -->
     <section class="py-20 sm:py-24">
+      <UContainer>
+        <div class="mx-auto mb-16 max-w-2xl text-center">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            {{ t('home.featuresEyebrow') }}
+          </p>
+          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
+            {{ t('home.featuresTitle') }}
+          </h2>
+        </div>
+
+        <div class="space-y-16 sm:space-y-24">
+          <div
+            v-for="(f, i) in features"
+            :key="f.title"
+            class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+          >
+            <!-- Illustration — alternates side per row -->
+            <div :class="i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'">
+              <div class="relative overflow-hidden rounded-2xl border border-default bg-muted/30 p-8">
+                <div class="absolute -inset-8 bg-primary/10 blur-3xl" />
+
+                <!-- pipeline -->
+                <div
+                  v-if="f.kind === 'pipeline'"
+                  class="relative flex items-center justify-between gap-3"
+                >
+                  <div class="space-y-2.5">
+                    <div
+                      v-for="(s, j) in ['i-simple-icons-salesforce', 'i-simple-icons-snowflake', 'i-lucide-database']"
+                      :key="j"
+                      class="flex items-center gap-2 rounded-lg border border-default bg-default px-3 py-2"
+                    >
+                      <UIcon
+                        :name="s"
+                        class="size-4 text-primary"
+                      />
+                      <span class="h-1.5 w-12 rounded-full bg-default/40" />
+                    </div>
+                  </div>
+                  <UIcon
+                    name="i-lucide-chevrons-right"
+                    class="size-6 shrink-0 text-primary/60"
+                  />
+                  <div class="flex flex-col items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-4">
+                    <UIcon
+                      name="i-lucide-table-2"
+                      class="size-7 text-primary"
+                    />
+                    <span class="text-[11px] font-semibold text-primary">Dataset</span>
+                  </div>
+                </div>
+
+                <!-- chart -->
+                <div
+                  v-else-if="f.kind === 'chart'"
+                  class="relative"
+                >
+                  <div class="flex h-32 items-end justify-between gap-2">
+                    <span
+                      v-for="(h, j) in [40, 70, 55, 92, 64]"
+                      :key="j"
+                      class="flex-1 rounded-t-md"
+                      :style="{ height: `${h}%`, background: ['var(--color-salesforce-700)', 'var(--color-salesforce-500)', 'var(--color-salesforce-400)', 'var(--color-salesforce-300)', 'var(--color-salesforce-200)'][j] }"
+                    />
+                  </div>
+                  <div class="mt-3 h-px w-full bg-default/40" />
+                </div>
+
+                <!-- predict -->
+                <div
+                  v-else
+                  class="relative flex items-center justify-center"
+                >
+                  <div
+                    class="relative flex size-32 items-center justify-center rounded-full"
+                    style="background: conic-gradient(var(--color-salesforce-500) 0 72%, var(--color-salesforce-200) 72% 100%)"
+                  >
+                    <div class="absolute inset-[18%] flex items-center justify-center rounded-full bg-muted/30 backdrop-blur">
+                      <span class="text-xl font-bold text-highlighted">72%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div :class="i % 2 === 0 ? 'lg:order-2' : 'lg:order-1'">
+              <h3 class="text-2xl font-bold tracking-tight text-highlighted sm:text-3xl">
+                {{ f.title }}
+              </h3>
+              <p class="mt-4 text-lg text-muted">
+                {{ f.desc }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </UContainer>
+    </section>
+
+    <!-- ========================= OUTCOMES ========================= -->
+    <section class="border-t border-default py-20 sm:py-24">
       <UContainer>
         <div class="mx-auto mb-14 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
