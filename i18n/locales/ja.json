@@ -6,7 +6,12 @@
     "sponsor": "このプロジェクトを支援",
     "github": "GitHubで見る",
     "theme": "テーマ切り替え",
-    "chooseLanguage": "言語を選択"
+    "chooseLanguage": "言語を選択",
+    "datasets": "データセット",
+    "contribute": "貢献する",
+    "more": "その他",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約"
   },
   "hero": {
     "badge": "無料・オープンソースのカリキュラム",
@@ -17,7 +22,8 @@
     "f2": "15のレッスン",
     "f3": "認定資格に対応",
     "start": "学習を始める",
-    "browse": "カリキュラムを見る"
+    "browse": "カリキュラムを見る",
+    "search": "検索"
   },
   "cta": {
     "title": "CRM Analytics のプロになる準備はできましたか？",
@@ -50,6 +56,11 @@
     "resourcesTitle": "厳選した最良のリンク集",
     "resourcesDesc": "カリキュラムに加え、公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツールを絞り込めるライブラリを用意しています。",
     "browseResources": "リソースを見る",
+    "getInvolved": {
+      "blurb": "このプロジェクトの構築を手伝いませんか？レッスンやコードを貢献するか、プロジェクトを直接支援してください。",
+      "contribute": "貢献する",
+      "sponsor": "支援する"
+    },
     "outcomesEyebrow": "成果",
     "outcomesTitle": "できるようになること",
     "outcomesSubtitle": "修了する頃には、エンドツーエンドの CRM Analytics ソリューションを構築し、それを示せます。",
@@ -101,6 +112,12 @@
     "submitDesc": "作ったダッシュボードを共有して、他の学習者を刺激しましょう。",
     "submitButton": "投稿する"
   },
+  "footer": {
+    "tagline": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。",
+    "curriculum": "カリキュラム",
+    "project": "プロジェクト",
+    "legal": "法的情報"
+  },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics を学ぶ",
     "homeDesc": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。データ準備や SAQL からダッシュボード、Einstein Discovery まで、5つの実践モジュールで学べます。",
@@ -108,5 +125,9 @@
     "aboutDesc": "Salesforce CRM Analytics のためのオープンソース・カリキュラム「CRM Analytics Academy」の背景と、それを作る人物の物語。",
     "resourcesTitle": "リソース — CRM Analytics Academy",
     "resourcesDesc": "Salesforce CRM Analytics の最良のリソース集。公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツール。"
+  },
+  "video": {
+    "thanksForWatching": "ご視聴ありがとうございました！",
+    "replay": "もう一度見る"
   }
 }

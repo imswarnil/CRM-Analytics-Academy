@@ -124,21 +124,20 @@ useJsonLd([
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <!-- Single sticky block: TOC on top, ad directly below it. Wrapping them
-           in one element stops UPage from making each a separate sticky layer
-           (which overlapped and broke the TOC). -->
-      <div class="sticky top-(--ui-header-height) flex max-h-[calc(100vh-var(--ui-header-height)-1rem)] flex-col overflow-y-auto pt-6">
-        <UContentToc
-          :title="toc?.title"
-          :links="page.body?.toc?.links"
-          class="w-full shrink-0"
-        />
+      <!-- UContentToc ships its own sticky/max-height/overflow styling, so it
+           stays the only sticky element in this rail. The ad is a plain sibling
+           below it — not sticky, not inside the TOC's capped scroll box — so it
+           never shrinks the TOC's visible height or overlaps it on scroll. -->
+      <UContentToc
+        :title="toc?.title"
+        :links="page.body?.toc?.links"
+        class="w-full"
+      />
 
-        <AdUnit
-          placement="sidebarSquare"
-          class="mt-6 w-full shrink-0"
-        />
-      </div>
+      <AdUnit
+        placement="sidebarSquare"
+        class="mt-6 w-full"
+      />
     </template>
   </UPage>
 </template>
