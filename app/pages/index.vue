@@ -94,6 +94,36 @@ const outcomes = [
   { icon: 'i-lucide-brain-circuit', title: 'Deploy predictions', desc: 'Train explainable Einstein Discovery models and surface predictions on records and in flows.' },
   { icon: 'i-lucide-badge-check', title: 'Prep for certification', desc: 'Cover the skills measured by the CRM Analytics & Einstein Discovery Consultant exam.' }
 ]
+
+const personas = [
+  { icon: 'i-lucide-line-chart', title: 'Analysts', desc: 'Go from drag-and-drop reports to building datasets, SAQL, and dashboards that scale.' },
+  { icon: 'i-lucide-settings-2', title: 'Admins', desc: 'Set up the platform, manage security predicates, and roll analytics out safely.' },
+  { icon: 'i-lucide-briefcase', title: 'Consultants', desc: 'Design end-to-end solutions and prep for the certification with confidence.' },
+  { icon: 'i-lucide-sprout', title: 'Beginners', desc: 'Start from CRM basics — no prior analytics experience required.' }
+]
+
+const topics = [
+  'Data Manager', 'Connectors', 'Recipes', 'Dataflows', 'Datasets', 'Security Predicates',
+  'SAQL', 'Bindings', 'Windowing', 'Lenses', 'Dashboards', 'Faceting', 'Drill-downs',
+  'Einstein Discovery', 'Stories', 'Predictions', 'REST API', 'Embedding'
+]
+
+const faqs = [
+  { q: 'Is it really free?', a: 'Yes — every lesson is free and open source, with no sign-up required.' },
+  { q: 'Do I need a Salesforce org?', a: 'A free Developer Edition org is enough to follow along with every lesson.' },
+  { q: 'Do I need coding experience?', a: 'No. We start from CRM basics and introduce SAQL gradually, step by step.' },
+  { q: 'Will this help me get certified?', a: 'The curriculum maps to the CRM Analytics & Einstein Discovery Consultant exam topics.' }
+]
+
+useJsonLd({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': faqs.map(f => ({
+    '@type': 'Question',
+    'name': f.q,
+    'acceptedAnswer': { '@type': 'Answer', 'text': f.a }
+  }))
+})
 </script>
 
 <template>
@@ -351,6 +381,143 @@ const outcomes = [
             </h3>
             <p class="mt-2 text-sm text-muted">
               {{ o.desc }}
+            </p>
+          </div>
+        </div>
+      </UContainer>
+    </section>
+
+    <!-- ========================= WHO IT'S FOR ========================= -->
+    <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
+      <UContainer>
+        <div class="mx-auto mb-14 max-w-2xl text-center">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            Who it's for
+          </p>
+          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
+            Built for every role on the team
+          </h2>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div
+            v-for="p in personas"
+            :key="p.title"
+            class="rounded-2xl border border-default bg-default p-6"
+          >
+            <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+              <UIcon
+                :name="p.icon"
+                class="size-5"
+              />
+            </div>
+            <h3 class="font-semibold text-highlighted">
+              {{ p.title }}
+            </h3>
+            <p class="mt-2 text-sm text-muted">
+              {{ p.desc }}
+            </p>
+          </div>
+        </div>
+      </UContainer>
+    </section>
+
+    <!-- ========================= TOPICS ========================= -->
+    <section class="py-20 sm:py-24">
+      <UContainer>
+        <div class="mx-auto mb-12 max-w-2xl text-center">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            Everything you'll master
+          </p>
+          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
+            One curriculum, the whole platform
+          </h2>
+        </div>
+        <div class="mx-auto flex max-w-3xl flex-wrap justify-center gap-2.5">
+          <span
+            v-for="t in topics"
+            :key="t"
+            class="rounded-full border border-default bg-default px-4 py-2 text-sm font-medium text-toned transition hover:border-primary/40 hover:text-primary"
+          >
+            {{ t }}
+          </span>
+        </div>
+      </UContainer>
+    </section>
+
+    <UContainer>
+      <AdUnit
+        placement="footer"
+        class="max-w-3xl"
+      />
+    </UContainer>
+
+    <!-- ========================= RESOURCES TEASER ========================= -->
+    <section class="border-y border-default bg-muted/30 py-20 sm:py-24">
+      <UContainer>
+        <div class="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+              Resources
+            </p>
+            <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
+              The best links, curated for you
+            </h2>
+            <p class="mt-4 text-lg text-muted">
+              Beyond the curriculum, we maintain a filterable library of official docs, Trailhead,
+              SAQL references, communities, and tools — so you never have to hunt for a good source again.
+            </p>
+            <UButton
+              to="/resources"
+              size="lg"
+              trailing-icon="i-lucide-arrow-right"
+              class="mt-6 rounded-full font-semibold"
+            >
+              Browse resources
+            </UButton>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div
+              v-for="c in ['Official docs', 'Trailhead', 'SAQL reference', 'Community & tools']"
+              :key="c"
+              class="flex items-center gap-2 rounded-xl border border-default bg-default p-4 text-sm font-medium text-toned"
+            >
+              <UIcon
+                name="i-lucide-bookmark"
+                class="size-4 text-primary"
+              />
+              {{ c }}
+            </div>
+          </div>
+        </div>
+      </UContainer>
+    </section>
+
+    <!-- ========================= FAQ ========================= -->
+    <section class="py-20 sm:py-24">
+      <UContainer>
+        <div class="mx-auto mb-12 max-w-2xl text-center">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            FAQ
+          </p>
+          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
+            Questions, answered
+          </h2>
+        </div>
+        <div class="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2">
+          <div
+            v-for="f in faqs"
+            :key="f.q"
+            class="rounded-2xl border border-default bg-default p-6"
+          >
+            <h3 class="flex items-start gap-2 font-semibold text-highlighted">
+              <UIcon
+                name="i-lucide-help-circle"
+                class="mt-0.5 size-4 shrink-0 text-primary"
+              />
+              {{ f.q }}
+            </h3>
+            <p class="mt-2 text-sm text-muted">
+              {{ f.a }}
             </p>
           </div>
         </div>

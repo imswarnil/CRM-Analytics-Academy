@@ -9,6 +9,12 @@ const { header } = useAppConfig()
 // with a hover tooltip, matching the GitHub / theme-toggle treatment.
 const actions = [
   {
+    'icon': 'i-lucide-library-big',
+    'label': 'Resources',
+    'to': '/resources',
+    'aria-label': 'Resources'
+  },
+  {
     'icon': 'i-lucide-info',
     'label': 'About',
     'to': '/about',

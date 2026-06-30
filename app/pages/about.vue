@@ -188,6 +188,13 @@ const authorLinks = [
       </UContainer>
     </section>
 
+    <UContainer>
+      <AdUnit
+        placement="betweenSections"
+        class="mx-auto max-w-3xl"
+      />
+    </UContainer>
+
     <!-- ===================== SECTION 2 — THE AUTHOR ===================== -->
     <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
       <UContainer>

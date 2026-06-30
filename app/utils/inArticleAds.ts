@@ -34,7 +34,7 @@ export function injectInArticleAds(
   nodes: unknown[],
   options: InArticleAdOptions = {}
 ): unknown[] {
-  const { interval = 3, max = 2, minSections = 4 } = options
+  const { interval = 2, max = 3, minSections = 3 } = options
 
   if (!Array.isArray(nodes) || nodes.length === 0) return nodes
 
