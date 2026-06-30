@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t, tm, rt } = useI18n()
 const localePath = useLocalePath()
 
 const title = computed(() => t('seo.homeTitle'))
@@ -53,21 +53,18 @@ const steps = computed(() => [
   { icon: 'i-lucide-bot', title: t('home.steps.ai.title'), desc: t('home.steps.ai.desc') }
 ])
 
-const outcomes = [
-  { icon: 'i-lucide-plug', title: 'Integrate any data', desc: 'Connect Salesforce and external sources, schedule reliable syncs, and keep datasets fresh.' },
-  { icon: 'i-lucide-wand-sparkles', title: 'Shape data with recipes', desc: 'Join, aggregate, and clean raw data into trustworthy, well-modeled datasets.' },
-  { icon: 'i-lucide-terminal', title: 'Write real SAQL', desc: 'Author queries by hand for advanced metrics, windowing, and dashboard interactivity.' },
-  { icon: 'i-lucide-layout-dashboard', title: 'Build dashboards', desc: 'Design responsive, faceted dashboards with drill-downs and embedded Salesforce actions.' },
-  { icon: 'i-lucide-brain-circuit', title: 'Deploy predictions', desc: 'Train explainable Einstein Discovery models and surface predictions on records and in flows.' },
-  { icon: 'i-lucide-badge-check', title: 'Prep for certification', desc: 'Cover the skills measured by the CRM Analytics & Einstein Discovery Consultant exam.' }
-]
+const outcomeIcons = ['i-lucide-plug', 'i-lucide-wand-sparkles', 'i-lucide-terminal', 'i-lucide-layout-dashboard', 'i-lucide-brain-circuit', 'i-lucide-badge-check']
+const personaIcons = ['i-lucide-line-chart', 'i-lucide-settings-2', 'i-lucide-briefcase', 'i-lucide-sprout']
 
-const personas = [
-  { icon: 'i-lucide-line-chart', title: 'Analysts', desc: 'Go from drag-and-drop reports to building datasets, SAQL, and dashboards that scale.' },
-  { icon: 'i-lucide-settings-2', title: 'Admins', desc: 'Set up the platform, manage security predicates, and roll analytics out safely.' },
-  { icon: 'i-lucide-briefcase', title: 'Consultants', desc: 'Design end-to-end solutions and prep for the certification with confidence.' },
-  { icon: 'i-lucide-sprout', title: 'Beginners', desc: 'Start from CRM basics — no prior analytics experience required.' }
-]
+const outcomes = computed(() =>
+  (tm('home.outcomes') as { t: string, d: string }[]).map((o, i) => ({ icon: outcomeIcons[i], title: rt(o.t), desc: rt(o.d) }))
+)
+const personas = computed(() =>
+  (tm('home.personas') as { t: string, d: string }[]).map((p, i) => ({ icon: personaIcons[i], title: rt(p.t), desc: rt(p.d) }))
+)
+const faqs = computed(() =>
+  (tm('home.faqs') as { q: string, a: string }[]).map(f => ({ q: rt(f.q), a: rt(f.a) }))
+)
 
 const topics = [
   'Data Manager', 'Connectors', 'Recipes', 'Dataflows', 'Datasets', 'Security Predicates',
@@ -75,17 +72,10 @@ const topics = [
   'Einstein Discovery', 'Stories', 'Predictions', 'REST API', 'Embedding'
 ]
 
-const faqs = [
-  { q: 'Is it really free?', a: 'Yes — every lesson is free and open source, with no sign-up required.' },
-  { q: 'Do I need a Salesforce org?', a: 'A free Developer Edition org is enough to follow along with every lesson.' },
-  { q: 'Do I need coding experience?', a: 'No. We start from CRM basics and introduce SAQL gradually, step by step.' },
-  { q: 'Will this help me get certified?', a: 'The curriculum maps to the CRM Analytics & Einstein Discovery Consultant exam topics.' }
-]
-
 useJsonLd({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  'mainEntity': faqs.map(f => ({
+  'mainEntity': faqs.value.map(f => ({
     '@type': 'Question',
     'name': f.q,
     'acceptedAnswer': { '@type': 'Answer', 'text': f.a }
@@ -320,13 +310,13 @@ useJsonLd({
       <UContainer>
         <div class="mx-auto mb-14 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            Outcomes
+            {{ t('home.outcomesEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            What you will be able to do
+            {{ t('home.outcomesTitle') }}
           </h2>
           <p class="mt-4 text-lg text-muted">
-            By the end you can deliver an end-to-end CRM Analytics solution — and prove it.
+            {{ t('home.outcomesSubtitle') }}
           </p>
         </div>
 
@@ -358,10 +348,10 @@ useJsonLd({
       <UContainer>
         <div class="mx-auto mb-14 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            Who it's for
+            {{ t('home.whoEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            Built for every role on the team
+            {{ t('home.whoTitle') }}
           </h2>
         </div>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -392,10 +382,10 @@ useJsonLd({
       <UContainer>
         <div class="mx-auto mb-12 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            Everything you'll master
+            {{ t('home.topicsEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            One curriculum, the whole platform
+            {{ t('home.topicsTitle') }}
           </h2>
         </div>
         <div class="mx-auto flex max-w-3xl flex-wrap justify-center gap-2.5">
@@ -462,10 +452,10 @@ useJsonLd({
       <UContainer>
         <div class="mx-auto mb-12 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            FAQ
+            {{ t('home.faqEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            Questions, answered
+            {{ t('home.faqTitle') }}
           </h2>
         </div>
         <div class="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2">

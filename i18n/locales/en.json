@@ -49,7 +49,36 @@
     "resourcesEyebrow": "Resources",
     "resourcesTitle": "The best links, curated for you",
     "resourcesDesc": "Beyond the curriculum, we maintain a filterable library of official docs, Trailhead, SAQL references, communities, and tools.",
-    "browseResources": "Browse resources"
+    "browseResources": "Browse resources",
+    "outcomesEyebrow": "Outcomes",
+    "outcomesTitle": "What you will be able to do",
+    "outcomesSubtitle": "By the end you can deliver an end-to-end CRM Analytics solution — and prove it.",
+    "outcomes": [
+      { "t": "Integrate any data", "d": "Connect Salesforce and external sources, schedule reliable syncs, and keep datasets fresh." },
+      { "t": "Shape data with recipes", "d": "Join, aggregate, and clean raw data into trustworthy, well-modeled datasets." },
+      { "t": "Write real SAQL", "d": "Author queries by hand for advanced metrics, windowing, and dashboard interactivity." },
+      { "t": "Build dashboards", "d": "Design responsive, faceted dashboards with drill-downs and embedded Salesforce actions." },
+      { "t": "Deploy predictions", "d": "Train explainable Einstein Discovery models and surface predictions on records and in flows." },
+      { "t": "Prep for certification", "d": "Cover the skills measured by the CRM Analytics & Einstein Discovery Consultant exam." }
+    ],
+    "whoEyebrow": "Who it's for",
+    "whoTitle": "Built for every role on the team",
+    "personas": [
+      { "t": "Analysts", "d": "Go from drag-and-drop reports to building datasets, SAQL, and dashboards that scale." },
+      { "t": "Admins", "d": "Set up the platform, manage security predicates, and roll analytics out safely." },
+      { "t": "Consultants", "d": "Design end-to-end solutions and prep for the certification with confidence." },
+      { "t": "Beginners", "d": "Start from CRM basics — no prior analytics experience required." }
+    ],
+    "topicsEyebrow": "Everything you'll master",
+    "topicsTitle": "One curriculum, the whole platform",
+    "faqEyebrow": "FAQ",
+    "faqTitle": "Questions, answered",
+    "faqs": [
+      { "q": "Is it really free?", "a": "Yes — every lesson is free and open source, with no sign-up required." },
+      { "q": "Do I need a Salesforce org?", "a": "A free Developer Edition org is enough to follow along with every lesson." },
+      { "q": "Do I need coding experience?", "a": "No. We start from CRM basics and introduce SAQL gradually, step by step." },
+      { "q": "Will this help me get certified?", "a": "The curriculum maps to the CRM Analytics & Einstein Discovery Consultant exam topics." }
+    ]
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",

@@ -4,9 +4,8 @@ import type { ContentNavigationItem } from '@nuxt/content'
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { header } = useAppConfig()
-const { t, locale, locales } = useI18n()
+const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
-const switchLocalePath = useSwitchLocalePath()
 
 // Icon actions on the right of the navbar — ghost icon links with a tooltip.
 const actions = computed(() => [
@@ -16,12 +15,13 @@ const actions = computed(() => [
   { icon: 'i-simple-icons-github', label: t('nav.github'), to: 'https://github.com/crm-analytics-academy/crm-analytics-academy', target: '_blank' }
 ])
 
-// Language switcher items — each links to the current route in that locale.
+// Language switcher — use setLocale so the choice is persisted (cookie) and
+// the browser-language auto-redirect doesn't bounce the user back.
 const localeItems = computed(() =>
   locales.value.map(l => ({
     label: l.name || l.code,
-    to: switchLocalePath(l.code),
-    icon: l.code === locale.value ? 'i-lucide-check' : undefined
+    icon: l.code === locale.value ? 'i-lucide-check' : undefined,
+    onSelect: () => setLocale(l.code)
   }))
 )
 </script>
