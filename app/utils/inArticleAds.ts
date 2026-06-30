@@ -3,24 +3,25 @@
  *
  * Nuxt Content parses a page body into a "minimark" AST: a flat array of block
  * nodes, each shaped like `[tag, props, ...children]`. This walks that array and
- * splices `<AdUnit placement="inArticle">` nodes between top-level `## sections`,
- * so every lesson gets ads automatically — no manual `:ad-unit` in the markdown.
+ * splices `<AdUnit placement="inArticle">` nodes after every Nth top-level
+ * paragraph, so every lesson gets ads automatically — no manual `:ad-unit` in
+ * the markdown.
  *
  * Density rules (keeps content dominant / avoids policy issues):
- *   - Only inject if the article has at least `minSections` H2 sections.
- *   - Place an ad before every `interval`-th section (never before the first).
+ *   - Only inject if the article has at least `minParagraphs` paragraphs.
+ *   - Insert an ad right after every `interval`-th paragraph (3rd, 6th, ...).
  *   - Cap the total at `max` in-article ads per page.
  */
 
 type MinimarkNode = [string, Record<string, unknown>?, ...unknown[]]
 
 export interface InArticleAdOptions {
-  /** Insert before every Nth H2 (default 3). */
+  /** Insert an ad after every Nth paragraph (default 3). */
   interval?: number
-  /** Maximum in-article ads per page (default 2). */
+  /** Maximum in-article ads per page (default 4). */
   max?: number
-  /** Minimum number of H2 sections required before injecting anything (default 4). */
-  minSections?: number
+  /** Minimum number of top-level paragraphs required before injecting anything (default 3). */
+  minParagraphs?: number
 }
 
 const AD_NODE = (): MinimarkNode => ['ad-unit', { placement: 'inArticle' }]
@@ -34,30 +35,30 @@ export function injectInArticleAds(
   nodes: unknown[],
   options: InArticleAdOptions = {}
 ): unknown[] {
-  const { interval = 2, max = 3, minSections = 3 } = options
+  const { interval = 3, max = 4, minParagraphs = 3 } = options
 
   if (!Array.isArray(nodes) || nodes.length === 0) return nodes
 
-  // Indices of every top-level H2 heading.
-  const headingIndices: number[] = []
+  // Indices of every top-level paragraph.
+  const paragraphIndices: number[] = []
   nodes.forEach((node, i) => {
-    if (Array.isArray(node) && node[0] === 'h2') headingIndices.push(i)
+    if (Array.isArray(node) && node[0] === 'p') paragraphIndices.push(i)
   })
 
-  if (headingIndices.length < minSections) return nodes
+  if (paragraphIndices.length < minParagraphs) return nodes
 
-  // Heading positions where an ad should go (skip the first section).
-  const insertBefore = new Set<number>()
-  for (let h = interval; h < headingIndices.length && insertBefore.size < max; h += interval) {
-    insertBefore.add(headingIndices[h]!)
+  // Node indices after which an ad should go (after the 3rd, 6th, ... paragraph).
+  const insertAfter = new Set<number>()
+  for (let p = interval - 1; p < paragraphIndices.length && insertAfter.size < max; p += interval) {
+    insertAfter.add(paragraphIndices[p]!)
   }
 
-  if (insertBefore.size === 0) return nodes
+  if (insertAfter.size === 0) return nodes
 
   const result: unknown[] = []
   nodes.forEach((node, i) => {
-    if (insertBefore.has(i)) result.push(AD_NODE())
     result.push(node)
+    if (insertAfter.has(i)) result.push(AD_NODE())
   })
 
   return result

@@ -234,10 +234,6 @@ function show(i: number) {
   auto = setTimeout(() => show((i + 1) % SCENES.length), SCENES[i]!.ms)
 }
 
-function onNext() {
-  show((scene.value + 1) % SCENES.length)
-}
-
 onMounted(() => {
   const reduce = import.meta.client && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
   if (reduce) {
@@ -715,30 +711,6 @@ onBeforeUnmount(() => {
           </Transition>
         </div>
       </div>
-    </div>
-
-    <!-- Step controls below the window -->
-    <div class="mt-4 flex items-center justify-center gap-3">
-      <div class="flex gap-1.5">
-        <button
-          v-for="(s, i) in SCENES"
-          :key="s.key"
-          type="button"
-          :aria-label="`Go to step ${i + 1}`"
-          class="size-2 rounded-full transition-colors"
-          :class="i === scene ? 'bg-primary' : 'bg-default/30 hover:bg-default/50'"
-          @click="show(i)"
-        />
-      </div>
-      <UButton
-        icon="i-lucide-chevron-right"
-        size="xs"
-        color="primary"
-        variant="soft"
-        class="rounded-full"
-        aria-label="Next step"
-        @click="onNext"
-      />
     </div>
   </div>
 </template>

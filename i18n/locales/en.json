@@ -8,7 +8,10 @@
     "theme": "Toggle theme",
     "chooseLanguage": "Choose language",
     "datasets": "Datasets",
-    "contribute": "Contribute"
+    "contribute": "Contribute",
+    "more": "More",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
   },
   "hero": {
     "badge": "Free & open-source curriculum",
@@ -19,7 +22,8 @@
     "f2": "15 lessons",
     "f3": "Certification-aligned",
     "start": "Start learning",
-    "browse": "Browse curriculum"
+    "browse": "Browse curriculum",
+    "search": "Search"
   },
   "cta": {
     "title": "Ready to become a CRM Analytics pro?",
@@ -52,6 +56,11 @@
     "resourcesTitle": "The best links, curated for you",
     "resourcesDesc": "Beyond the curriculum, we maintain a filterable library of official docs, Trailhead, SAQL references, communities, and tools.",
     "browseResources": "Browse resources",
+    "getInvolved": {
+      "blurb": "Want to help build this? Contribute lessons and code, or support the project directly.",
+      "contribute": "Contribute",
+      "sponsor": "Sponsor"
+    },
     "outcomesEyebrow": "Outcomes",
     "outcomesTitle": "What you will be able to do",
     "outcomesSubtitle": "By the end you can deliver an end-to-end CRM Analytics solution — and prove it.",
@@ -84,9 +93,9 @@
     "featuresEyebrow": "How it fits together",
     "featuresTitle": "From raw data to decisions",
     "features": [
-      { "t": "Bring all your data together", "d": "Connect Salesforce, Snowflake, and files; sync on a schedule; and shape everything into clean datasets with visual recipes." },
-      { "t": "Explore and visualize instantly", "d": "Write SAQL or click to build lenses, then assemble fast, interactive dashboards with bindings, faceting, and drill-downs." },
-      { "t": "Predict what happens next", "d": "Train explainable Einstein Discovery models and surface predictions and recommendations right where your team works." }
+      { "t": "Learn to bring data together", "d": "Lessons walk you through connecting Salesforce, Snowflake, and files; scheduling syncs; and shaping everything into clean datasets with visual recipes." },
+      { "t": "Learn to explore and visualize", "d": "Practice writing SAQL and building lenses, then assemble fast, interactive dashboards with bindings, faceting, and drill-downs — all in your own free org." },
+      { "t": "Learn to predict what happens next", "d": "Follow guided exercises to train explainable Einstein Discovery models and surface predictions and recommendations right where your team works." }
     ],
     "projectsEyebrow": "Showcase",
     "projectsTitle": "Projects you can build",
@@ -103,6 +112,12 @@
     "submitDesc": "Share the dashboard you built and inspire other learners.",
     "submitButton": "Submit yours"
   },
+  "footer": {
+    "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",
+    "curriculum": "Curriculum",
+    "project": "Project",
+    "legal": "Legal"
+  },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",
     "homeDesc": "A free, open-source curriculum for mastering Salesforce CRM Analytics — from data prep and SAQL to dashboards and Einstein Discovery, in five hands-on modules.",
@@ -110,5 +125,9 @@
     "aboutDesc": "The story behind CRM Analytics Academy — an open-source curriculum for Salesforce CRM Analytics — and the person who builds it.",
     "resourcesTitle": "Resources — CRM Analytics Academy",
     "resourcesDesc": "A curated list of the best Salesforce CRM Analytics resources — official docs, Trailhead, SAQL references, community, and tools."
+  },
+  "video": {
+    "thanksForWatching": "Thanks for watching!",
+    "replay": "Replay"
   }
 }

@@ -6,7 +6,12 @@
     "sponsor": "इस परियोजना को सहयोग दें",
     "github": "GitHub पर देखें",
     "theme": "थीम बदलें",
-    "chooseLanguage": "भाषा चुनें"
+    "chooseLanguage": "भाषा चुनें",
+    "datasets": "डेटासेट",
+    "contribute": "योगदान करें",
+    "more": "और",
+    "privacy": "गोपनीयता नीति",
+    "terms": "सेवा की शर्तें"
   },
   "hero": {
     "badge": "निःशुल्क और ओपन-सोर्स पाठ्यक्रम",
@@ -17,7 +22,8 @@
     "f2": "15 पाठ",
     "f3": "प्रमाणन के अनुरूप",
     "start": "सीखना शुरू करें",
-    "browse": "पाठ्यक्रम देखें"
+    "browse": "पाठ्यक्रम देखें",
+    "search": "खोजें"
   },
   "cta": {
     "title": "CRM Analytics विशेषज्ञ बनने के लिए तैयार हैं?",
@@ -50,6 +56,11 @@
     "resourcesTitle": "आपके लिए चुने गए बेहतरीन लिंक",
     "resourcesDesc": "पाठ्यक्रम के अलावा, हम आधिकारिक दस्तावेज़, Trailhead, SAQL संदर्भ, समुदाय और उपकरणों की एक फ़िल्टर-योग्य लाइब्रेरी रखते हैं।",
     "browseResources": "संसाधन देखें",
+    "getInvolved": {
+      "blurb": "क्या आप इसे बनाने में मदद करना चाहते हैं? पाठ और कोड में योगदान दें, या सीधे प्रोजेक्ट का समर्थन करें।",
+      "contribute": "योगदान करें",
+      "sponsor": "प्रायोजित करें"
+    },
     "outcomesEyebrow": "परिणाम",
     "outcomesTitle": "आप क्या कर पाएंगे",
     "outcomesSubtitle": "अंत तक आप एक संपूर्ण CRM Analytics समाधान बना पाएंगे — और उसे साबित कर पाएंगे।",
@@ -101,6 +112,12 @@
     "submitDesc": "आपने जो डैशबोर्ड बनाया उसे साझा करें और दूसरों को प्रेरित करें।",
     "submitButton": "अपना सबमिट करें"
   },
+  "footer": {
+    "tagline": "Salesforce CRM Analytics में महारत के लिए एक निःशुल्क, ओपन-सोर्स पाठ्यक्रम।",
+    "curriculum": "पाठ्यक्रम",
+    "project": "प्रोजेक्ट",
+    "legal": "कानूनी"
+  },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics सीखें",
     "homeDesc": "Salesforce CRM Analytics में महारत के लिए एक निःशुल्क, ओपन-सोर्स पाठ्यक्रम — डेटा तैयारी और SAQL से लेकर डैशबोर्ड और Einstein Discovery तक, पाँच व्यावहारिक मॉड्यूल में।",
@@ -108,5 +125,9 @@
     "aboutDesc": "CRM Analytics Academy की कहानी — Salesforce CRM Analytics के लिए एक ओपन-सोर्स पाठ्यक्रम — और इसे बनाने वाले व्यक्ति के बारे में।",
     "resourcesTitle": "संसाधन — CRM Analytics Academy",
     "resourcesDesc": "Salesforce CRM Analytics के सर्वोत्तम संसाधनों की एक चयनित सूची — आधिकारिक दस्तावेज़, Trailhead, SAQL संदर्भ, समुदाय और उपकरण।"
+  },
+  "video": {
+    "thanksForWatching": "देखने के लिए धन्यवाद!",
+    "replay": "फिर से देखें"
   }
 }

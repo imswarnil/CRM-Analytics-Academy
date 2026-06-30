@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useIntersectionObserver } from '@vueuse/core'
+
 const { t, tm, rt } = useI18n()
 const localePath = useLocalePath()
 
@@ -42,16 +44,22 @@ const stats = computed(() => [
 ])
 
 const modules = computed(() => [
-  { n: '01', title: t('home.modules.foundations.title'), to: '/foundations', icon: 'i-lucide-compass', desc: t('home.modules.foundations.desc') },
-  { n: '02', title: t('home.modules.analytics.title'), to: '/analytics', icon: 'i-lucide-terminal', desc: t('home.modules.analytics.desc') }
+  { n: '01', title: t('home.modules.foundations.title'), to: '/foundations', icon: 'i-lucide-compass', desc: t('home.modules.foundations.desc'), lessons: ['What Is CRM Analytics?', 'Data & Datasets'] },
+  { n: '02', title: t('home.modules.analytics.title'), to: '/analytics', icon: 'i-lucide-terminal', desc: t('home.modules.analytics.desc'), lessons: ['SAQL Queries', 'Dashboards & Einstein'] }
 ])
 
-const steps = computed(() => [
-  { icon: 'i-lucide-book-marked', title: t('home.steps.read.title'), desc: t('home.steps.read.desc') },
-  { icon: 'i-lucide-flask-conical', title: t('home.steps.try.title'), desc: t('home.steps.try.desc') },
-  { icon: 'i-lucide-blocks', title: t('home.steps.build.title'), desc: t('home.steps.build.desc') },
-  { icon: 'i-lucide-bot', title: t('home.steps.ai.title'), desc: t('home.steps.ai.desc') }
-])
+// Scroll-triggered animation for the "From raw data to decisions" illustrations.
+const featureRowEls = ref<(HTMLElement | null)[]>([])
+const featuresPlayed = ref<boolean[]>([])
+onMounted(() => {
+  featuresPlayed.value = featureRowEls.value.map(() => false)
+  featureRowEls.value.forEach((el, i) => {
+    if (!el) return
+    useIntersectionObserver(el, ([entry]) => {
+      if (entry?.isIntersecting) featuresPlayed.value[i] = true
+    }, { threshold: 0.35 })
+  })
+})
 
 const outcomeIcons = ['i-lucide-plug', 'i-lucide-wand-sparkles', 'i-lucide-terminal', 'i-lucide-layout-dashboard', 'i-lucide-brain-circuit', 'i-lucide-badge-check']
 const personaIcons = ['i-lucide-line-chart', 'i-lucide-settings-2', 'i-lucide-briefcase', 'i-lucide-sprout']
@@ -86,6 +94,7 @@ const topics = [
   'SAQL', 'Bindings', 'Windowing', 'Lenses', 'Dashboards', 'Faceting', 'Drill-downs',
   'Einstein Discovery', 'Stories', 'Predictions', 'REST API', 'Embedding'
 ]
+const topicsLoop = [...topics, ...topics]
 
 useJsonLd({
   '@context': 'https://schema.org',
@@ -151,6 +160,18 @@ useJsonLd({
               >
                 {{ t('hero.browse') }}
               </UButton>
+              <UTooltip :text="t('hero.search')">
+                <UButton
+                  icon="i-lucide-search"
+                  size="xl"
+                  color="neutral"
+                  variant="outline"
+                  square
+                  class="rounded-full"
+                  :aria-label="t('hero.search')"
+                  @click="useContentSearch().open.value = true"
+                />
+              </UTooltip>
             </div>
 
             <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
@@ -241,6 +262,22 @@ useJsonLd({
             </div>
             <h3 class="text-lg font-semibold text-highlighted">{{ m.title }}</h3>
             <p class="mt-2 grow text-sm text-muted">{{ m.desc }}</p>
+
+            <!-- Lesson preview — revealed on hover -->
+            <ul class="mt-4 max-h-0 space-y-1.5 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-24 group-hover:opacity-100">
+              <li
+                v-for="lesson in m.lessons"
+                :key="lesson"
+                class="flex items-center gap-2 text-xs font-medium text-toned"
+              >
+                <UIcon
+                  name="i-lucide-file-text"
+                  class="size-3.5 shrink-0 text-primary"
+                />
+                {{ lesson }}
+              </li>
+            </ul>
+
             <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
               {{ t('home.startModule') }}
               <UIcon
@@ -283,45 +320,8 @@ useJsonLd({
       />
     </UContainer>
 
-    <!-- ========================= HOW IT WORKS ========================= -->
-    <section class="relative border-y border-default bg-muted/30 py-20 sm:py-24">
-      <div class="absolute inset-0 bg-dots opacity-60" />
-      <UContainer class="relative">
-        <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            {{ t('home.howEyebrow') }}
-          </p>
-          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.howTitle') }}
-          </h2>
-        </div>
-
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <div
-            v-for="(step, i) in steps"
-            :key="step.title"
-            class="relative rounded-2xl border border-default bg-default p-6"
-          >
-            <div class="mb-4 flex size-11 items-center justify-center rounded-full bg-primary text-inverted shadow-lg shadow-primary/30">
-              <UIcon
-                :name="step.icon"
-                class="size-5"
-              />
-            </div>
-            <span class="absolute right-5 top-5 text-sm font-bold text-muted">{{ i + 1 }}</span>
-            <h3 class="font-semibold text-highlighted">
-              {{ step.title }}
-            </h3>
-            <p class="mt-2 text-sm text-muted">
-              {{ step.desc }}
-            </p>
-          </div>
-        </div>
-      </UContainer>
-    </section>
-
     <!-- ===================== ALTERNATING FEATURES ===================== -->
-    <section class="py-20 sm:py-24">
+    <section class="py-24 sm:py-32">
       <UContainer>
         <div class="mx-auto mb-16 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
@@ -338,9 +338,12 @@ useJsonLd({
             :key="f.title"
             class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
           >
-            <!-- Illustration — alternates side per row -->
+            <!-- Illustration — alternates side per row, animates in on scroll -->
             <div :class="i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'">
-              <div class="relative overflow-hidden rounded-2xl border border-default bg-muted/30 p-8">
+              <div
+                :ref="el => (featureRowEls[i] = el as HTMLElement)"
+                class="relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-default bg-muted/30 p-8 sm:min-h-[380px]"
+              >
                 <div class="absolute -inset-8 bg-primary/10 blur-3xl" />
 
                 <!-- pipeline -->
@@ -352,7 +355,9 @@ useJsonLd({
                     <div
                       v-for="(s, j) in ['i-simple-icons-salesforce', 'i-simple-icons-snowflake', 'i-lucide-database']"
                       :key="j"
-                      class="flex items-center gap-2 rounded-lg border border-default bg-default px-3 py-2"
+                      class="flex items-center gap-2 rounded-lg border border-default bg-default px-3 py-2 transition-all duration-500"
+                      :class="featuresPlayed[i] ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'"
+                      :style="{ transitionDelay: `${j * 120}ms` }"
                     >
                       <UIcon
                         :name="s"
@@ -363,9 +368,14 @@ useJsonLd({
                   </div>
                   <UIcon
                     name="i-lucide-chevrons-right"
-                    class="size-6 shrink-0 text-primary/60"
+                    class="size-6 shrink-0 text-primary/60 transition-opacity duration-700"
+                    :class="featuresPlayed[i] ? 'animate-pulse opacity-100' : 'opacity-0'"
                   />
-                  <div class="flex flex-col items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-4">
+                  <div
+                    class="flex flex-col items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-4 transition-all duration-500"
+                    :class="featuresPlayed[i] ? 'scale-100 opacity-100' : 'scale-75 opacity-0'"
+                    style="transition-delay: 450ms"
+                  >
                     <UIcon
                       name="i-lucide-table-2"
                       class="size-7 text-primary"
@@ -383,8 +393,13 @@ useJsonLd({
                     <span
                       v-for="(h, j) in [40, 70, 55, 92, 64]"
                       :key="j"
-                      class="flex-1 rounded-t-md"
-                      :style="{ height: `${h}%`, background: ['var(--color-salesforce-700)', 'var(--color-salesforce-500)', 'var(--color-salesforce-400)', 'var(--color-salesforce-300)', 'var(--color-salesforce-200)'][j] }"
+                      class="flex-1 rounded-t-md transition-all ease-out"
+                      :style="{
+                        height: featuresPlayed[i] ? `${h}%` : '0%',
+                        background: ['var(--color-salesforce-700)', 'var(--color-salesforce-500)', 'var(--color-salesforce-400)', 'var(--color-salesforce-300)', 'var(--color-salesforce-200)'][j],
+                        transitionDuration: '650ms',
+                        transitionDelay: `${j * 90}ms`
+                      }"
                     />
                   </div>
                   <div class="mt-3 h-px w-full bg-default/40" />
@@ -396,7 +411,8 @@ useJsonLd({
                   class="relative flex items-center justify-center"
                 >
                   <div
-                    class="relative flex size-32 items-center justify-center rounded-full"
+                    class="relative flex size-32 items-center justify-center rounded-full transition-all duration-700 ease-out"
+                    :class="featuresPlayed[i] ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-75 opacity-0'"
                     style="background: conic-gradient(var(--color-salesforce-500) 0 72%, var(--color-salesforce-200) 72% 100%)"
                   >
                     <div class="absolute inset-[18%] flex items-center justify-center rounded-full bg-muted/30 backdrop-blur">
@@ -436,24 +452,42 @@ useJsonLd({
           </p>
         </div>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div
-            v-for="o in outcomes"
-            :key="o.title"
-            class="group rounded-2xl border border-default bg-default p-6 transition hover:border-primary/40 hover:bg-muted/30"
-          >
-            <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-              <UIcon
-                :name="o.icon"
-                class="size-5"
-              />
+        <div class="relative mx-auto max-w-3xl">
+          <div class="absolute top-0 bottom-0 left-5 w-px bg-default sm:left-1/2 sm:-translate-x-1/2" />
+
+          <div class="space-y-8">
+            <div
+              v-for="(o, i) in outcomes"
+              :key="o.title"
+              class="relative pl-14 sm:pl-0"
+            >
+              <div class="absolute left-5 top-0 z-10 flex size-10 -translate-x-1/2 items-center justify-center rounded-full border-2 border-primary bg-default text-primary sm:left-1/2 sm:size-11">
+                <UIcon
+                  :name="o.icon"
+                  class="size-4 sm:size-5"
+                />
+              </div>
+
+              <div
+                class="sm:flex sm:items-center"
+                :class="i % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'"
+              >
+                <div
+                  class="sm:w-1/2"
+                  :class="i % 2 === 0 ? 'sm:pr-10 sm:text-right' : 'sm:pl-10'"
+                >
+                  <div class="rounded-2xl border border-default bg-default p-5 transition hover:border-primary/40 hover:bg-muted/30">
+                    <h3 class="font-semibold text-highlighted">
+                      {{ o.title }}
+                    </h3>
+                    <p class="mt-1.5 text-sm text-muted">
+                      {{ o.desc }}
+                    </p>
+                  </div>
+                </div>
+                <div class="hidden sm:block sm:w-1/2" />
+              </div>
             </div>
-            <h3 class="font-semibold text-highlighted">
-              {{ o.title }}
-            </h3>
-            <p class="mt-2 text-sm text-muted">
-              {{ o.desc }}
-            </p>
           </div>
         </div>
       </UContainer>
@@ -504,16 +538,19 @@ useJsonLd({
             {{ t('home.topicsTitle') }}
           </h2>
         </div>
-        <div class="mx-auto flex max-w-3xl flex-wrap justify-center gap-2.5">
+      </UContainer>
+
+      <div class="group relative mt-2 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+        <div class="animate-marquee flex w-max gap-2.5 py-2 group-hover:[animation-play-state:paused]">
           <span
-            v-for="topic in topics"
-            :key="topic"
-            class="rounded-full border border-default bg-default px-4 py-2 text-sm font-medium text-toned transition hover:border-primary/40 hover:text-primary"
+            v-for="(topic, i) in topicsLoop"
+            :key="`${topic}-${i}`"
+            class="shrink-0 rounded-full border border-default bg-default px-4 py-2 text-sm font-medium text-toned transition hover:border-primary/40 hover:text-primary"
           >
             {{ topic }}
           </span>
         </div>
-      </UContainer>
+      </div>
     </section>
 
     <UContainer>
@@ -537,14 +574,39 @@ useJsonLd({
             <p class="mt-4 text-lg text-muted">
               {{ t('home.resourcesDesc') }}
             </p>
-            <UButton
-              :to="localePath('/resources')"
-              size="lg"
-              trailing-icon="i-lucide-arrow-right"
-              class="mt-6 rounded-full font-semibold"
-            >
-              {{ t('home.browseResources') }}
-            </UButton>
+            <p class="mt-6 text-sm text-muted">
+              {{ t('home.getInvolved.blurb') }}
+            </p>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <UButton
+                :to="localePath('/resources')"
+                size="lg"
+                trailing-icon="i-lucide-arrow-right"
+                class="rounded-full font-semibold"
+              >
+                {{ t('home.browseResources') }}
+              </UButton>
+              <UButton
+                :to="localePath('/contribute')"
+                size="lg"
+                color="neutral"
+                variant="outline"
+                icon="i-lucide-git-pull-request"
+                class="rounded-full font-semibold"
+              >
+                {{ t('home.getInvolved.contribute') }}
+              </UButton>
+              <UButton
+                :to="localePath('/sponsor')"
+                size="lg"
+                color="neutral"
+                variant="outline"
+                icon="i-lucide-heart"
+                class="rounded-full font-semibold"
+              >
+                {{ t('home.getInvolved.sponsor') }}
+              </UButton>
+            </div>
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div

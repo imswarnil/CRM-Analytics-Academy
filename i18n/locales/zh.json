@@ -6,7 +6,12 @@
     "sponsor": "赞助此项目",
     "github": "在 GitHub 上查看",
     "theme": "切换主题",
-    "chooseLanguage": "选择语言"
+    "chooseLanguage": "选择语言",
+    "datasets": "数据集",
+    "contribute": "贡献",
+    "more": "更多",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
   },
   "hero": {
     "badge": "免费开源课程",
@@ -17,7 +22,8 @@
     "f2": "15 节课",
     "f3": "对齐认证考试",
     "start": "开始学习",
-    "browse": "浏览课程"
+    "browse": "浏览课程",
+    "search": "搜索"
   },
   "cta": {
     "title": "准备好成为 CRM Analytics 高手了吗？",
@@ -50,6 +56,11 @@
     "resourcesTitle": "为你精选的最佳链接",
     "resourcesDesc": "除了课程，我们还维护一个可筛选的资源库：官方文档、Trailhead、SAQL 参考、社区和工具。",
     "browseResources": "浏览资源",
+    "getInvolved": {
+      "blurb": "想帮忙建设这个项目吗？贡献课程和代码，或直接支持本项目。",
+      "contribute": "贡献",
+      "sponsor": "赞助"
+    },
     "outcomesEyebrow": "学习成果",
     "outcomesTitle": "你将能够做到",
     "outcomesSubtitle": "学完后，你能交付端到端的 CRM Analytics 解决方案，并加以证明。",
@@ -101,6 +112,12 @@
     "submitDesc": "分享你构建的仪表板，激励其他学习者。",
     "submitButton": "提交你的"
   },
+  "footer": {
+    "tagline": "一套免费开源课程，助你精通 Salesforce CRM Analytics。",
+    "curriculum": "课程",
+    "project": "项目",
+    "legal": "法律"
+  },
   "seo": {
     "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",
     "homeDesc": "一套免费开源课程，助你精通 Salesforce CRM Analytics——从数据准备、SAQL 到仪表板和 Einstein Discovery，共五个实操模块。",
@@ -108,5 +125,9 @@
     "aboutDesc": "CRM Analytics Academy 背后的故事——一套面向 Salesforce CRM Analytics 的开源课程，以及它的创建者。",
     "resourcesTitle": "资源 — CRM Analytics Academy",
     "resourcesDesc": "精选的 Salesforce CRM Analytics 优质资源——官方文档、Trailhead、SAQL 参考、社区和工具。"
+  },
+  "video": {
+    "thanksForWatching": "感谢观看！",
+    "replay": "重新播放"
   }
 }

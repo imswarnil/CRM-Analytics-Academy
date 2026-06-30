@@ -19,12 +19,12 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
             type="single"
             :navigation="navigation"
           />
-
-          <AdUnit
-            placement="sidebarSquare"
-            class="mt-6"
-          />
         </UPageAside>
+
+        <AdUnit
+          placement="sidebarSquare"
+          class="mt-6 hidden lg:block"
+        />
       </template>
 
       <slot />
