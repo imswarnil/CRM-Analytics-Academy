@@ -49,7 +49,36 @@
     "resourcesEyebrow": "资源",
     "resourcesTitle": "为你精选的最佳链接",
     "resourcesDesc": "除了课程，我们还维护一个可筛选的资源库：官方文档、Trailhead、SAQL 参考、社区和工具。",
-    "browseResources": "浏览资源"
+    "browseResources": "浏览资源",
+    "outcomesEyebrow": "学习成果",
+    "outcomesTitle": "你将能够做到",
+    "outcomesSubtitle": "学完后，你能交付端到端的 CRM Analytics 解决方案，并加以证明。",
+    "outcomes": [
+      { "t": "整合任何数据", "d": "连接 Salesforce 和外部数据源，安排可靠的同步，让数据保持最新。" },
+      { "t": "用配方整形数据", "d": "联接、聚合并清洗原始数据，形成可信、建模良好的数据集。" },
+      { "t": "编写真正的 SAQL", "d": "手写查询，实现高级指标、窗口计算和仪表板交互。" },
+      { "t": "构建仪表板", "d": "设计响应式、联动的仪表板，含下钻和内嵌的 Salesforce 操作。" },
+      { "t": "部署预测", "d": "训练可解释的 Einstein Discovery 模型，并在记录和流程中显示预测。" },
+      { "t": "备考认证", "d": "覆盖 CRM Analytics 与 Einstein Discovery 顾问考试所考查的技能。" }
+    ],
+    "whoEyebrow": "适合谁",
+    "whoTitle": "为团队的每个角色而设计",
+    "personas": [
+      { "t": "分析师", "d": "从拖拽式报表，进阶到构建可扩展的数据集、SAQL 和仪表板。" },
+      { "t": "管理员", "d": "搭建平台、管理安全谓词，并安全地推广分析。" },
+      { "t": "顾问", "d": "设计端到端解决方案，自信地备考认证。" },
+      { "t": "初学者", "d": "从 CRM 基础开始——无需任何分析经验。" }
+    ],
+    "topicsEyebrow": "你将掌握的一切",
+    "topicsTitle": "一套课程，整个平台",
+    "faqEyebrow": "常见问题",
+    "faqTitle": "为你解答",
+    "faqs": [
+      { "q": "真的免费吗？", "a": "是的——每节课都免费且开源，无需注册。" },
+      { "q": "需要 Salesforce 组织吗？", "a": "一个免费的 Developer Edition 组织足以跟随所有课程。" },
+      { "q": "需要编程经验吗？", "a": "不需要。我们从 CRM 基础开始，循序渐进地引入 SAQL。" },
+      { "q": "这能帮助我考取认证吗？", "a": "课程对齐 CRM Analytics 与 Einstein Discovery 顾问考试的主题。" }
+    ]
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",

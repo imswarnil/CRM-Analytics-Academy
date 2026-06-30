@@ -124,20 +124,18 @@ useJsonLd([
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <div class="w-full">
-        <!-- Table of contents, full width of the sidebar -->
-        <UContentToc
-          :title="toc?.title"
-          :links="page.body?.toc?.links"
-          class="w-full"
-        />
+      <!-- Table of contents, full width of the sidebar -->
+      <UContentToc
+        :title="toc?.title"
+        :links="page.body?.toc?.links"
+        class="w-full"
+      />
 
-        <!-- AdSense ad directly below the TOC -->
-        <AdUnit
-          placement="sidebarSquare"
-          class="mt-6 w-full"
-        />
-      </div>
+      <!-- AdSense ad below the TOC — sticks in view while scrolling -->
+      <AdUnit
+        placement="sidebarSquare"
+        class="sticky top-24 mt-6 w-full"
+      />
     </template>
   </UPage>
 </template>
