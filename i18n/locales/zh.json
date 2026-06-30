@@ -85,7 +85,21 @@
       { "t": "汇聚你的所有数据", "d": "连接 Salesforce、Snowflake 和文件，按计划同步，并用可视化配方将一切整形为干净的数据集。" },
       { "t": "即时探索与可视化", "d": "编写 SAQL 或点击构建透镜，然后用绑定、联动和下钻组装快速的交互式仪表板。" },
       { "t": "预测接下来会发生什么", "d": "训练可解释的 Einstein Discovery 模型，并在团队工作的地方呈现预测与建议。" }
-    ]
+    ],
+    "projectsEyebrow": "展示",
+    "projectsTitle": "你可以构建的项目",
+    "projectsSubtitle": "在学习中可以重建的真实仪表板——然后把你的作品分享给社区。",
+    "projects": [
+      { "t": "销售管道健康度", "d": "在一个交互视图中跟踪阶段、赢单率和预测。" },
+      { "t": "客户流失风险", "d": "用 Einstein Discovery 为客户打分，在流失前采取行动。" },
+      { "t": "服务 KPI", "d": "面向支持团队的案例量、CSAT 和解决时长。" },
+      { "t": "按区域的收入", "d": "用下钻按地理维度拆解收入。" },
+      { "t": "代表排行榜", "d": "用窗口 SAQL 和联动对业绩进行排名。" },
+      { "t": "营销 ROI", "d": "将管道归因到活动并衡量回报。" }
+    ],
+    "submitTitle": "做出了什么？",
+    "submitDesc": "分享你构建的仪表板，激励其他学习者。",
+    "submitButton": "提交你的"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",

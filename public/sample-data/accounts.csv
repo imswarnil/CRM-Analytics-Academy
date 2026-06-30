@@ -1,0 +1,13 @@
+AccountId,AccountName,Industry,Region,AnnualRevenue,Employees,Tier
+ACC-01,Acme Corp,Manufacturing,Americas,52000000,1200,Strategic
+ACC-02,Globex,Technology,EMEA,38000000,640,Enterprise
+ACC-03,Initech,Finance,Americas,21000000,310,Mid-Market
+ACC-04,Umbrella,Healthcare,APAC,76000000,2100,Strategic
+ACC-05,Soylent,Retail,LATAM,12000000,180,SMB
+ACC-06,Stark Industries,Manufacturing,Americas,140000000,5400,Strategic
+ACC-07,Wayne Enterprises,Finance,Americas,98000000,3200,Strategic
+ACC-08,Wonka,Retail,EMEA,33000000,520,Enterprise
+ACC-09,Cyberdyne,Technology,APAC,61000000,890,Enterprise
+ACC-10,Hooli,Technology,Americas,120000000,4100,Strategic
+ACC-11,Massive Dynamic,Healthcare,EMEA,84000000,2600,Strategic
+ACC-12,Vandelay,Manufacturing,LATAM,17000000,240,Mid-Market

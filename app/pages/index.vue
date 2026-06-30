@@ -75,6 +75,12 @@ const features = computed(() =>
   }))
 )
 
+const projectIcons = ['i-lucide-trending-up', 'i-lucide-user-minus', 'i-lucide-headset', 'i-lucide-globe', 'i-lucide-trophy', 'i-lucide-megaphone']
+const projects = computed(() =>
+  (tm('home.projects') as { t: string, d: string }[]).map((p, i) => ({ title: rt(p.t), desc: rt(p.d), icon: projectIcons[i] }))
+)
+const submitUrl = 'https://github.com/crm-analytics-academy/crm-analytics-academy/discussions'
+
 const topics = [
   'Data Manager', 'Connectors', 'Recipes', 'Dataflows', 'Datasets', 'Security Predicates',
   'SAQL', 'Bindings', 'Windowing', 'Lenses', 'Dashboards', 'Faceting', 'Drill-downs',
@@ -584,6 +590,67 @@ useJsonLd({
             <p class="mt-2 text-sm text-muted">
               {{ f.a }}
             </p>
+          </div>
+        </div>
+      </UContainer>
+    </section>
+
+    <!-- ===================== PROJECTS SHOWCASE ===================== -->
+    <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
+      <UContainer>
+        <div class="mx-auto mb-14 max-w-2xl text-center">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            {{ t('home.projectsEyebrow') }}
+          </p>
+          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
+            {{ t('home.projectsTitle') }}
+          </h2>
+          <p class="mt-4 text-lg text-muted">
+            {{ t('home.projectsSubtitle') }}
+          </p>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            v-for="p in projects"
+            :key="p.title"
+            class="group rounded-2xl border border-default bg-default p-6 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+          >
+            <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition group-hover:bg-primary group-hover:text-inverted">
+              <UIcon
+                :name="p.icon"
+                class="size-5"
+              />
+            </div>
+            <h3 class="font-semibold text-highlighted">
+              {{ p.title }}
+            </h3>
+            <p class="mt-2 text-sm text-muted">
+              {{ p.desc }}
+            </p>
+          </div>
+
+          <!-- Submit-your-dashboard card -->
+          <div class="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-salesforce-600 to-salesforce-800 p-6 text-white">
+            <UIcon
+              name="i-lucide-plus-circle"
+              class="mb-4 size-8"
+            />
+            <h3 class="text-lg font-semibold">
+              {{ t('home.submitTitle') }}
+            </h3>
+            <p class="mt-2 text-sm text-white/80">
+              {{ t('home.submitDesc') }}
+            </p>
+            <UButton
+              :to="submitUrl"
+              target="_blank"
+              color="neutral"
+              class="mt-5 w-fit rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
+              trailing-icon="i-lucide-arrow-up-right"
+            >
+              {{ t('home.submitButton') }}
+            </UButton>
           </div>
         </div>
       </UContainer>

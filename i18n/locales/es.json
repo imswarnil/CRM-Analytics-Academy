@@ -85,7 +85,21 @@
       { "t": "Reúne todos tus datos", "d": "Conecta Salesforce, Snowflake y archivos; sincroniza según un horario; y da forma a todo en conjuntos de datos limpios con recetas visuales." },
       { "t": "Explora y visualiza al instante", "d": "Escribe SAQL o haz clic para crear lentes, luego arma paneles rápidos e interactivos con enlaces, facetado y desgloses." },
       { "t": "Predice lo que viene", "d": "Entrena modelos explicables de Einstein Discovery y muestra predicciones y recomendaciones justo donde trabaja tu equipo." }
-    ]
+    ],
+    "projectsEyebrow": "Vitrina",
+    "projectsTitle": "Proyectos que puedes crear",
+    "projectsSubtitle": "Paneles reales que puedes recrear mientras aprendes, y luego comparte el tuyo con la comunidad.",
+    "projects": [
+      { "t": "Salud del pipeline de ventas", "d": "Sigue etapas, tasa de cierre y previsión en una vista interactiva." },
+      { "t": "Riesgo de abandono de clientes", "d": "Puntúa cuentas con Einstein Discovery y actúa antes de perderlas." },
+      { "t": "KPIs de servicio", "d": "Volumen de casos, CSAT y tiempo de resolución para equipos de soporte." },
+      { "t": "Ingresos por región", "d": "Desglosa los ingresos geográficamente con drill-downs." },
+      { "t": "Ranking de representantes", "d": "Clasifica el rendimiento con SAQL de ventanas y facetado." },
+      { "t": "ROI de marketing", "d": "Atribuye el pipeline a campañas y mide el retorno." }
+    ],
+    "submitTitle": "¿Creaste algo?",
+    "submitDesc": "Comparte el panel que creaste e inspira a otros.",
+    "submitButton": "Envía el tuyo"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Aprende Salesforce CRM Analytics",

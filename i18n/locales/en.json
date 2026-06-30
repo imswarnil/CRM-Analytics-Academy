@@ -6,7 +6,9 @@
     "sponsor": "Sponsor this project",
     "github": "View on GitHub",
     "theme": "Toggle theme",
-    "chooseLanguage": "Choose language"
+    "chooseLanguage": "Choose language",
+    "datasets": "Datasets",
+    "contribute": "Contribute"
   },
   "hero": {
     "badge": "Free & open-source curriculum",
@@ -85,7 +87,21 @@
       { "t": "Bring all your data together", "d": "Connect Salesforce, Snowflake, and files; sync on a schedule; and shape everything into clean datasets with visual recipes." },
       { "t": "Explore and visualize instantly", "d": "Write SAQL or click to build lenses, then assemble fast, interactive dashboards with bindings, faceting, and drill-downs." },
       { "t": "Predict what happens next", "d": "Train explainable Einstein Discovery models and surface predictions and recommendations right where your team works." }
-    ]
+    ],
+    "projectsEyebrow": "Showcase",
+    "projectsTitle": "Projects you can build",
+    "projectsSubtitle": "Real dashboards you can recreate as you learn — then share your own with the community.",
+    "projects": [
+      { "t": "Sales Pipeline Health", "d": "Track stages, win rate, and forecast in one interactive view." },
+      { "t": "Customer Churn Risk", "d": "Score accounts with Einstein Discovery and act before they leave." },
+      { "t": "Service KPIs", "d": "Case volume, CSAT, and resolution time for support teams." },
+      { "t": "Revenue by Region", "d": "Break revenue down geographically with drill-downs." },
+      { "t": "Rep Leaderboard", "d": "Rank performance with windowed SAQL and faceting." },
+      { "t": "Marketing ROI", "d": "Attribute pipeline to campaigns and measure return." }
+    ],
+    "submitTitle": "Built something?",
+    "submitDesc": "Share the dashboard you built and inspire other learners.",
+    "submitButton": "Submit yours"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",

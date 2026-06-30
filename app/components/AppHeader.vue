@@ -11,7 +11,7 @@ const localePath = useLocalePath()
 const actions = computed(() => [
   { icon: 'i-lucide-library-big', label: t('nav.resources'), to: localePath('/resources'), target: undefined as string | undefined },
   { icon: 'i-lucide-info', label: t('nav.about'), to: localePath('/about'), target: undefined as string | undefined },
-  { icon: 'i-lucide-heart', label: t('nav.sponsor'), to: 'https://github.com/sponsors/crm-analytics-academy', target: '_blank' },
+  { icon: 'i-lucide-heart', label: t('nav.sponsor'), to: localePath('/sponsor'), target: undefined as string | undefined },
   { icon: 'i-simple-icons-github', label: t('nav.github'), to: 'https://github.com/crm-analytics-academy/crm-analytics-academy', target: '_blank' }
 ])
 
