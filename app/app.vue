@@ -8,18 +8,18 @@ const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSe
 
 const route = useRoute()
 
+// i18n SEO: localized <html lang/dir>, canonical, and hreflang alternates.
+const i18nHead = useLocaleHead()
+
 useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' },
-    { rel: 'canonical', href: () => SITE.url + route.path }
-  ],
-  htmlAttrs: {
-    lang: 'en'
-  }
+    { rel: 'icon', href: '/favicon.ico' }
+  ]
 })
+useHead(i18nHead)
 
 useSeoMeta({
   titleTemplate: `%s - ${seo?.siteName}`,

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const title = 'Resources — CRM Analytics Academy'
-const description = 'A curated list of the best Salesforce CRM Analytics resources — official docs, Trailhead, SAQL references, community, and tools — filterable by category.'
+const { t } = useI18n()
+const title = computed(() => t('seo.resourcesTitle'))
+const description = computed(() => t('seo.resourcesDesc'))
 
 useSeoMeta({
   title,
@@ -9,7 +10,7 @@ useSeoMeta({
   ogDescription: description
 })
 
-defineOgImage('Docs', { title, description })
+defineOgImage('Docs', { title: title.value, description: description.value })
 
 interface Resource {
   title: string

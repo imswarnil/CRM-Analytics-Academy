@@ -1,5 +1,5 @@
 import { useWindowSize } from '@vueuse/core'
-import { AD_PLACEMENTS, type AdPlacementName, type AdVariant } from '~/utils/adsense'
+import { AD_PLACEMENTS, type AdPlacement, type AdPlacementName, type AdVariant } from '~/utils/adsense'
 
 declare global {
   interface Window {
@@ -20,7 +20,7 @@ const SSR_WIDTH = 1280
  * which lets the component render nothing at all.
  */
 export function useAdSlot(name: AdPlacementName) {
-  const placement = AD_PLACEMENTS[name]
+  const placement = AD_PLACEMENTS[name] as AdPlacement
   const { width } = useWindowSize()
   const mounted = ref(false)
 

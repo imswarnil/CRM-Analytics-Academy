@@ -1,6 +1,9 @@
 <script setup lang="ts">
-const title = 'CRM Analytics Academy — Learn Salesforce CRM Analytics'
-const description = 'A free, open-source curriculum for mastering Salesforce CRM Analytics — from data prep and SAQL to dashboards and Einstein Discovery, in five hands-on modules.'
+const { t } = useI18n()
+const localePath = useLocalePath()
+
+const title = computed(() => t('seo.homeTitle'))
+const description = computed(() => t('seo.homeDesc'))
 
 useSeoMeta({
   titleTemplate: '',
@@ -10,7 +13,7 @@ useSeoMeta({
   ogDescription: description
 })
 
-defineOgImage('Docs', { title, description })
+defineOgImage('Docs', { title: title.value, description: description.value })
 
 useJsonLd({
   '@context': 'https://schema.org',
@@ -148,27 +151,26 @@ useJsonLd({
                 name="i-lucide-sparkles"
                 class="mr-1 size-4"
               />
-              Free & open-source curriculum
+              {{ t('hero.badge') }}
             </UBadge>
 
             <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-6xl">
-              Master Salesforce<br>
-              <span class="text-gradient">CRM Analytics</span>.
+              {{ t('hero.titleLead') }}<br>
+              <span class="text-gradient">{{ t('hero.titleAccent') }}</span>.
             </h1>
 
             <p class="mt-6 max-w-xl text-lg text-muted">
-              From your first dataset to deploying explainable predictions — learn the entire
-              platform across five hands-on modules, with real SAQL and copy-paste examples.
+              {{ t('hero.subtitle') }}
             </p>
 
             <div class="mt-8 flex flex-wrap gap-3">
               <UButton
-                to="/foundations"
+                :to="localePath('/foundations')"
                 size="xl"
                 trailing-icon="i-lucide-arrow-right"
                 class="rounded-full font-semibold"
               >
-                Start learning
+                {{ t('hero.start') }}
               </UButton>
               <UButton
                 to="#curriculum"
@@ -178,7 +180,7 @@ useJsonLd({
                 icon="i-lucide-graduation-cap"
                 class="rounded-full font-semibold"
               >
-                Browse curriculum
+                {{ t('hero.browse') }}
               </UButton>
             </div>
 
@@ -186,15 +188,15 @@ useJsonLd({
               <span class="flex items-center gap-1.5"><UIcon
                 name="i-lucide-check"
                 class="size-4 text-primary"
-              /> No sign-up</span>
+              /> {{ t('hero.f1') }}</span>
               <span class="flex items-center gap-1.5"><UIcon
                 name="i-lucide-check"
                 class="size-4 text-primary"
-              /> 15 lessons</span>
+              /> {{ t('hero.f2') }}</span>
               <span class="flex items-center gap-1.5"><UIcon
                 name="i-lucide-check"
                 class="size-4 text-primary"
-              /> Certification-aligned</span>
+              /> {{ t('hero.f3') }}</span>
             </div>
           </div>
 
@@ -255,7 +257,7 @@ useJsonLd({
           <NuxtLink
             v-for="m in modules"
             :key="m.n"
-            :to="m.to"
+            :to="localePath(m.to)"
             class="group relative flex flex-col overflow-hidden rounded-2xl border border-default bg-default p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl"
           >
             <div class="absolute inset-x-0 top-0 h-1 scale-x-0 bg-gradient-to-r from-salesforce-400 to-salesforce-600 transition-transform duration-300 group-hover:scale-x-100" />
@@ -292,7 +294,7 @@ useJsonLd({
               Begin with Foundations and follow the modules in order for a complete, guided learning path.
             </p>
             <UButton
-              to="/foundations"
+              :to="localePath('/foundations')"
               color="neutral"
               variant="solid"
               class="mt-5 w-fit rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
@@ -434,11 +436,11 @@ useJsonLd({
         </div>
         <div class="mx-auto flex max-w-3xl flex-wrap justify-center gap-2.5">
           <span
-            v-for="t in topics"
-            :key="t"
+            v-for="topic in topics"
+            :key="topic"
             class="rounded-full border border-default bg-default px-4 py-2 text-sm font-medium text-toned transition hover:border-primary/40 hover:text-primary"
           >
-            {{ t }}
+            {{ topic }}
           </span>
         </div>
       </UContainer>
@@ -467,7 +469,7 @@ useJsonLd({
               SAQL references, communities, and tools — so you never have to hunt for a good source again.
             </p>
             <UButton
-              to="/resources"
+              :to="localePath('/resources')"
               size="lg"
               trailing-icon="i-lucide-arrow-right"
               class="mt-6 rounded-full font-semibold"
@@ -531,20 +533,20 @@ useJsonLd({
           <div class="absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           <div class="relative mx-auto max-w-2xl">
             <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Ready to become a CRM Analytics pro?
+              {{ t('cta.title') }}
             </h2>
             <p class="mt-4 text-lg text-white/80">
-              Begin the curriculum today — it is free, open, and built to take you all the way to certified.
+              {{ t('cta.subtitle') }}
             </p>
             <div class="mt-8 flex flex-wrap justify-center gap-3">
               <UButton
-                to="/foundations"
+                :to="localePath('/foundations')"
                 size="xl"
                 color="neutral"
                 trailing-icon="i-lucide-arrow-right"
                 class="rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
               >
-                Start with Foundations
+                {{ t('cta.startFoundations') }}
               </UButton>
               <UButton
                 to="https://github.com/crm-analytics-academy/crm-analytics-academy"
@@ -555,7 +557,7 @@ useJsonLd({
                 icon="i-simple-icons-github"
                 class="rounded-full font-semibold text-white ring-white/30 hover:bg-white/10"
               >
-                Star on GitHub
+                {{ t('cta.star') }}
               </UButton>
             </div>
           </div>
