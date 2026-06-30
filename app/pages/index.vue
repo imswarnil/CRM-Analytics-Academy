@@ -30,64 +30,28 @@ useJsonLd({
   },
   'hasPart': [
     { name: 'Foundations', url: `${SITE.url}/foundations` },
-    { name: 'Data Integration & Prep', url: `${SITE.url}/data-integration` },
-    { name: 'SAQL', url: `${SITE.url}/saql` },
-    { name: 'Dashboards', url: `${SITE.url}/dashboards` },
-    { name: 'Einstein Discovery', url: `${SITE.url}/einstein-discovery` }
+    { name: 'Analytics & SAQL', url: `${SITE.url}/analytics` }
   ].map(m => ({ '@type': 'Course', 'name': m.name, 'url': m.url, 'provider': { '@type': 'Organization', 'name': SITE.name } }))
 })
 
-const stats = [
-  { value: '5', label: 'Modules' },
-  { value: '15', label: 'Lessons' },
-  { value: '100%', label: 'Free & open' },
-  { value: 'AI', label: 'Assistant-ready' }
-]
+const stats = computed(() => [
+  { value: '2', label: t('home.stats.modules') },
+  { value: '4', label: t('home.stats.lessons') },
+  { value: '100%', label: t('home.stats.free') },
+  { value: 'AI', label: t('home.stats.ai') }
+])
 
-const modules = [
-  {
-    n: '01',
-    title: 'Foundations',
-    to: '/foundations',
-    icon: 'i-lucide-compass',
-    desc: 'What CRM Analytics is, licensing and access, and a guided tour of Analytics Studio so you know where everything lives.'
-  },
-  {
-    n: '02',
-    title: 'Data Integration & Prep',
-    to: '/data-integration',
-    icon: 'i-lucide-database',
-    desc: 'Connect and sync data, build Data Prep recipes, and model secure, analysis-ready datasets with row-level security.'
-  },
-  {
-    n: '03',
-    title: 'SAQL',
-    to: '/saql',
-    icon: 'i-lucide-terminal',
-    desc: 'The Salesforce Analytics Query Language — load, filter, group, windowing, and binding queries together for interactivity.'
-  },
-  {
-    n: '04',
-    title: 'Dashboards',
-    to: '/dashboards',
-    icon: 'i-lucide-layout-dashboard',
-    desc: 'Explore with lenses, assemble responsive dashboards, and add drill-downs, actions, and conditional formatting.'
-  },
-  {
-    n: '05',
-    title: 'Einstein Discovery',
-    to: '/einstein-discovery',
-    icon: 'i-lucide-brain-circuit',
-    desc: 'Build explainable models with stories, evaluate them, and deploy predictions and recommendations where users work.'
-  }
-]
+const modules = computed(() => [
+  { n: '01', title: t('home.modules.foundations.title'), to: '/foundations', icon: 'i-lucide-compass', desc: t('home.modules.foundations.desc') },
+  { n: '02', title: t('home.modules.analytics.title'), to: '/analytics', icon: 'i-lucide-terminal', desc: t('home.modules.analytics.desc') }
+])
 
-const steps = [
-  { icon: 'i-lucide-book-marked', title: 'Read the lesson', desc: 'Short, focused lessons explain one idea at a time with diagrams, callouts, and real examples.' },
-  { icon: 'i-lucide-flask-conical', title: 'Try it live', desc: 'Every concept maps to a concrete action in Analytics Studio — follow along in a Developer org.' },
-  { icon: 'i-lucide-blocks', title: 'Build a project', desc: 'Modules accumulate into a working pipeline: synced data, clean datasets, dashboards, a model.' },
-  { icon: 'i-lucide-bot', title: 'Ask the AI', desc: 'Every page is available as Markdown and over MCP, so Claude or ChatGPT can tutor you from the source.' }
-]
+const steps = computed(() => [
+  { icon: 'i-lucide-book-marked', title: t('home.steps.read.title'), desc: t('home.steps.read.desc') },
+  { icon: 'i-lucide-flask-conical', title: t('home.steps.try.title'), desc: t('home.steps.try.desc') },
+  { icon: 'i-lucide-blocks', title: t('home.steps.build.title'), desc: t('home.steps.build.desc') },
+  { icon: 'i-lucide-bot', title: t('home.steps.ai.title'), desc: t('home.steps.ai.desc') }
+])
 
 const outcomes = [
   { icon: 'i-lucide-plug', title: 'Integrate any data', desc: 'Connect Salesforce and external sources, schedule reliable syncs, and keep datasets fresh.' },
@@ -243,13 +207,13 @@ useJsonLd({
       <UContainer>
         <div class="mx-auto mb-14 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            The Curriculum
+            {{ t('home.curriculumEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            Five modules, one complete path
+            {{ t('home.curriculumTitle') }}
           </h2>
           <p class="mt-4 text-lg text-muted">
-            Start at the top and work down — together they cover the whole pipeline, from raw data to a deployed prediction.
+            {{ t('home.curriculumSubtitle') }}
           </p>
         </div>
 
@@ -273,7 +237,7 @@ useJsonLd({
             <h3 class="text-lg font-semibold text-highlighted">{{ m.title }}</h3>
             <p class="mt-2 grow text-sm text-muted">{{ m.desc }}</p>
             <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-              Start module
+              {{ t('home.startModule') }}
               <UIcon
                 name="i-lucide-arrow-right"
                 class="size-4 transition-transform group-hover:translate-x-1"
@@ -288,10 +252,10 @@ useJsonLd({
               class="mb-4 size-8"
             />
             <h3 class="text-lg font-semibold">
-              New here?
+              {{ t('home.newHereTitle') }}
             </h3>
             <p class="mt-2 text-sm text-white/80">
-              Begin with Foundations and follow the modules in order for a complete, guided learning path.
+              {{ t('home.newHereDesc') }}
             </p>
             <UButton
               :to="localePath('/foundations')"
@@ -300,7 +264,7 @@ useJsonLd({
               class="mt-5 w-fit rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
               trailing-icon="i-lucide-arrow-right"
             >
-              Start here
+              {{ t('home.startHere') }}
             </UButton>
           </div>
         </div>
@@ -320,10 +284,10 @@ useJsonLd({
       <UContainer class="relative">
         <div class="mx-auto mb-14 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            How it works
+            {{ t('home.howEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            Learn it, try it, build it
+            {{ t('home.howTitle') }}
           </h2>
         </div>
 
@@ -459,14 +423,13 @@ useJsonLd({
         <div class="grid items-center gap-10 lg:grid-cols-2">
           <div>
             <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-              Resources
+              {{ t('home.resourcesEyebrow') }}
             </p>
             <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-              The best links, curated for you
+              {{ t('home.resourcesTitle') }}
             </h2>
             <p class="mt-4 text-lg text-muted">
-              Beyond the curriculum, we maintain a filterable library of official docs, Trailhead,
-              SAQL references, communities, and tools — so you never have to hunt for a good source again.
+              {{ t('home.resourcesDesc') }}
             </p>
             <UButton
               :to="localePath('/resources')"
@@ -474,7 +437,7 @@ useJsonLd({
               trailing-icon="i-lucide-arrow-right"
               class="mt-6 rounded-full font-semibold"
             >
-              Browse resources
+              {{ t('home.browseResources') }}
             </UButton>
           </div>
           <div class="grid grid-cols-2 gap-3">

@@ -1,10 +1,24 @@
 <script setup lang="ts">
 const { seo } = useAppConfig()
+const { locale } = useI18n()
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
+// Navigation: fetch the full per-locale tree, then expose only the current
+// locale's branch with paths rewritten to localized routes.
+const { data: navTree } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
+const navigation = computed(() => {
+  const branch = navTree.value?.find(item => item.path === `/${locale.value}`)
+  return branch?.children ? localizeNavigation(branch.children) : []
+})
+
+const { data: allFiles } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
   server: false
 })
+// Search only the current locale; rewrite result links to localized routes.
+const files = computed(() =>
+  (allFiles.value || [])
+    .filter(f => f.id?.startsWith(`/${locale.value}/`) || f.id === `/${locale.value}`)
+    .map(f => ({ ...f, id: contentToRoutePath(f.id) }))
+)
 
 const route = useRoute()
 

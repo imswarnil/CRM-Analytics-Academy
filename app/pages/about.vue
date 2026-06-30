@@ -16,8 +16,8 @@ useJsonLd([
   {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
-    'name': title,
-    'description': description,
+    'name': title.value,
+    'description': description.value,
     'url': `${SITE.url}/about`,
     'inLanguage': 'en'
   },

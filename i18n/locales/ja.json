@@ -25,6 +25,32 @@
     "startFoundations": "基礎から始める",
     "star": "GitHubでスターを付ける"
   },
+  "home": {
+    "stats": { "modules": "モジュール", "lessons": "レッスン", "free": "無料・オープン", "ai": "AI対応" },
+    "curriculumEyebrow": "カリキュラム",
+    "curriculumTitle": "2つのモジュール、明確な道のり",
+    "curriculumSubtitle": "上から順に進めましょう。2つで、生データからデプロイ済みの予測まで全体の流れをカバーします。",
+    "modules": {
+      "foundations": { "title": "基礎", "desc": "CRM Analytics とは何か、データが安全なデータセットになる流れ、そしてプラットフォームの構成要素。" },
+      "analytics": { "title": "分析と SAQL", "desc": "SAQL クエリを書き、対話的なダッシュボードを作り、Einstein Discovery で予測を追加します。" }
+    },
+    "startModule": "モジュールを始める",
+    "newHereTitle": "はじめての方へ",
+    "newHereDesc": "基礎から始めて、モジュールを順番に進めると、完全でガイド付きの学習パスになります。",
+    "startHere": "ここから始める",
+    "howEyebrow": "進め方",
+    "howTitle": "学んで、試して、作る",
+    "steps": {
+      "read": { "title": "レッスンを読む", "desc": "短く焦点を絞ったレッスンが、実例とともに1つずつ説明します。" },
+      "try": { "title": "実際に試す", "desc": "すべての概念が具体的な操作に対応します。無料の Developer 組織で試しましょう。" },
+      "build": { "title": "プロジェクトを作る", "desc": "レッスンが積み重なって、実際のパイプラインになります。データ、データセット、ダッシュボード、モデル。" },
+      "ai": { "title": "AI に聞く", "desc": "各ページは Markdown と MCP で利用でき、アシスタントが教えてくれます。" }
+    },
+    "resourcesEyebrow": "リソース",
+    "resourcesTitle": "厳選した最良のリンク集",
+    "resourcesDesc": "カリキュラムに加え、公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツールを絞り込めるライブラリを用意しています。",
+    "browseResources": "リソースを見る"
+  },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics を学ぶ",
     "homeDesc": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。データ準備や SAQL からダッシュボード、Einstein Discovery まで、5つの実践モジュールで学べます。",

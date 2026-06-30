@@ -25,6 +25,32 @@
     "startFoundations": "Mit den Grundlagen beginnen",
     "star": "Auf GitHub mit Stern markieren"
   },
+  "home": {
+    "stats": { "modules": "Module", "lessons": "Lektionen", "free": "Frei & offen", "ai": "KI-bereit" },
+    "curriculumEyebrow": "Der Lehrplan",
+    "curriculumTitle": "Zwei Module, ein klarer Weg",
+    "curriculumSubtitle": "Beginne oben und arbeite dich nach unten – zusammen decken sie die gesamte Pipeline ab, von Rohdaten bis zur bereitgestellten Vorhersage.",
+    "modules": {
+      "foundations": { "title": "Grundlagen", "desc": "Was CRM Analytics ist, wie Daten zu einem sicheren Dataset werden, und die Bausteine der Plattform." },
+      "analytics": { "title": "Analytik & SAQL", "desc": "Schreibe SAQL-Abfragen, baue interaktive Dashboards und ergänze Vorhersagen mit Einstein Discovery." }
+    },
+    "startModule": "Modul starten",
+    "newHereTitle": "Neu hier?",
+    "newHereDesc": "Beginne mit den Grundlagen und folge den Modulen der Reihe nach für einen vollständigen, geführten Lernpfad.",
+    "startHere": "Hier starten",
+    "howEyebrow": "So funktioniert's",
+    "howTitle": "Lernen, ausprobieren, bauen",
+    "steps": {
+      "read": { "title": "Lektion lesen", "desc": "Kurze, fokussierte Lektionen erklären eine Idee nach der anderen mit echten Beispielen." },
+      "try": { "title": "Live ausprobieren", "desc": "Jedes Konzept wird zu einer konkreten Aktion – mach mit in einer kostenlosen Developer-Org." },
+      "build": { "title": "Ein Projekt bauen", "desc": "Lektionen summieren sich zu einer echten Pipeline: Daten, Datasets, Dashboards, ein Modell." },
+      "ai": { "title": "Frag die KI", "desc": "Jede Seite ist als Markdown und über MCP verfügbar, sodass ein Assistent dich anleiten kann." }
+    },
+    "resourcesEyebrow": "Ressourcen",
+    "resourcesTitle": "Die besten Links, für dich kuratiert",
+    "resourcesDesc": "Über den Lehrplan hinaus pflegen wir eine filterbare Bibliothek aus offizieller Dokumentation, Trailhead, SAQL-Referenzen, Communities und Tools.",
+    "browseResources": "Ressourcen ansehen"
+  },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics lernen",
     "homeDesc": "Ein kostenloser, quelloffener Lehrplan, um Salesforce CRM Analytics zu meistern – von Datenaufbereitung und SAQL bis zu Dashboards und Einstein Discovery, in fünf praxisnahen Modulen.",

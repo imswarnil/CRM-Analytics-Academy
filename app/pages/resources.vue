@@ -57,8 +57,8 @@ useJsonLd([
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    'name': title,
-    'description': description,
+    'name': title.value,
+    'description': description.value,
     'url': `${SITE.url}/resources`,
     'inLanguage': 'en'
   },

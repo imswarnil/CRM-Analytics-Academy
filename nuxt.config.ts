@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     'nuxt-og-image',
     'nuxt-llms',
     '@nuxtjs/mcp-toolkit',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@vercel/analytics/nuxt'
   ],
 
   devtools: {
@@ -59,7 +60,9 @@ export default defineNuxtConfig({
         '/'
       ],
       crawlLinks: true,
-      autoSubfolderIndex: false
+      autoSubfolderIndex: false,
+      // Don't abort the whole build if a single crawled route errors.
+      failOnError: false
     }
   },
 
@@ -104,42 +107,21 @@ export default defineNuxtConfig({
     description: 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery.',
     full: {
       title: 'CRM Analytics Academy - Full Curriculum',
-      description: 'The complete CRM Analytics Academy curriculum across all five modules.'
+      description: 'The complete CRM Analytics Academy curriculum (English).'
     },
     sections: [
       {
         title: 'Foundations',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/foundations%' }
+          { field: 'path', operator: 'LIKE', value: '/en/foundations%' }
         ]
       },
       {
-        title: 'Data Integration & Prep',
+        title: 'Analytics & SAQL',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/data-integration%' }
-        ]
-      },
-      {
-        title: 'SAQL',
-        contentCollection: 'docs',
-        contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/saql%' }
-        ]
-      },
-      {
-        title: 'Dashboards',
-        contentCollection: 'docs',
-        contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/dashboards%' }
-        ]
-      },
-      {
-        title: 'Einstein Discovery',
-        contentCollection: 'docs',
-        contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/einstein-discovery%' }
+          { field: 'path', operator: 'LIKE', value: '/en/analytics%' }
         ]
       }
     ]

@@ -25,6 +25,32 @@
     "startFoundations": "从基础开始",
     "star": "在 GitHub 上加星"
   },
+  "home": {
+    "stats": { "modules": "模块", "lessons": "课程", "free": "免费开放", "ai": "支持 AI" },
+    "curriculumEyebrow": "课程体系",
+    "curriculumTitle": "两个模块，一条清晰路径",
+    "curriculumSubtitle": "从上往下逐步学习——两个模块共同覆盖完整流程，从原始数据到部署的预测。",
+    "modules": {
+      "foundations": { "title": "基础", "desc": "什么是 CRM Analytics、数据如何变成安全的数据集，以及平台的构建块。" },
+      "analytics": { "title": "分析与 SAQL", "desc": "编写 SAQL 查询、构建交互式仪表板，并用 Einstein Discovery 添加预测。" }
+    },
+    "startModule": "开始模块",
+    "newHereTitle": "新手上路？",
+    "newHereDesc": "从基础开始，按顺序学习各模块，获得完整、引导式的学习路径。",
+    "startHere": "从这里开始",
+    "howEyebrow": "运作方式",
+    "howTitle": "学习、尝试、构建",
+    "steps": {
+      "read": { "title": "阅读课程", "desc": "简短、聚焦的课程，用真实示例每次只讲一个要点。" },
+      "try": { "title": "实时尝试", "desc": "每个概念都对应一个具体操作——在免费的 Developer 组织中跟着做。" },
+      "build": { "title": "构建项目", "desc": "课程逐步累积成一个真实的流程：数据、数据集、仪表板和一个模型。" },
+      "ai": { "title": "询问 AI", "desc": "每个页面都以 Markdown 和 MCP 形式提供，助手可以据此为你讲解。" }
+    },
+    "resourcesEyebrow": "资源",
+    "resourcesTitle": "为你精选的最佳链接",
+    "resourcesDesc": "除了课程，我们还维护一个可筛选的资源库：官方文档、Trailhead、SAQL 参考、社区和工具。",
+    "browseResources": "浏览资源"
+  },
   "seo": {
     "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",
     "homeDesc": "一套免费开源课程，助你精通 Salesforce CRM Analytics——从数据准备、SAQL 到仪表板和 Einstein Discovery，共五个实操模块。",
