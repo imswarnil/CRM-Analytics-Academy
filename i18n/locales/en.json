@@ -25,6 +25,32 @@
     "startFoundations": "Start with Foundations",
     "star": "Star on GitHub"
   },
+  "home": {
+    "stats": { "modules": "Modules", "lessons": "Lessons", "free": "Free & open", "ai": "AI-ready" },
+    "curriculumEyebrow": "The Curriculum",
+    "curriculumTitle": "Two modules, one clear path",
+    "curriculumSubtitle": "Start at the top and work down — together they cover the whole pipeline, from raw data to a deployed prediction.",
+    "modules": {
+      "foundations": { "title": "Foundations", "desc": "What CRM Analytics is, how data becomes a secure dataset, and the building blocks of the platform." },
+      "analytics": { "title": "Analytics & SAQL", "desc": "Write SAQL queries, build interactive dashboards, and add predictions with Einstein Discovery." }
+    },
+    "startModule": "Start module",
+    "newHereTitle": "New here?",
+    "newHereDesc": "Begin with Foundations and follow the modules in order for a complete, guided learning path.",
+    "startHere": "Start here",
+    "howEyebrow": "How it works",
+    "howTitle": "Learn it, try it, build it",
+    "steps": {
+      "read": { "title": "Read the lesson", "desc": "Short, focused lessons explain one idea at a time with real examples." },
+      "try": { "title": "Try it live", "desc": "Every concept maps to a concrete action — follow along in a free Developer org." },
+      "build": { "title": "Build a project", "desc": "Lessons accumulate into a working pipeline: data, datasets, dashboards, a model." },
+      "ai": { "title": "Ask the AI", "desc": "Every page is available as Markdown and over MCP, so an assistant can tutor you." }
+    },
+    "resourcesEyebrow": "Resources",
+    "resourcesTitle": "The best links, curated for you",
+    "resourcesDesc": "Beyond the curriculum, we maintain a filterable library of official docs, Trailhead, SAQL references, communities, and tools.",
+    "browseResources": "Browse resources"
+  },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",
     "homeDesc": "A free, open-source curriculum for mastering Salesforce CRM Analytics — from data prep and SAQL to dashboards and Einstein Discovery, in five hands-on modules.",

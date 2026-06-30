@@ -2,15 +2,11 @@ import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 
 export default defineContentConfig({
   collections: {
-    landing: defineCollection({
-      type: 'page',
-      source: 'index.md'
-    }),
     docs: defineCollection({
       type: 'page',
+      // Content is organised per locale: content/<locale>/<module>/<lesson>.md
       source: {
-        include: '**',
-        exclude: ['index.md']
+        include: '**'
       },
       schema: z.object({
         links: z.array(z.object({

@@ -10,18 +10,10 @@ const route = useRoute()
 const { toc } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
-// Content is stored under unprefixed paths (/foundations). Strip the active
-// locale prefix (/es/foundations → /foundations) so localized routes resolve.
+// Content lives under content/<locale>/…; map the route to the content path.
 const { locales } = useI18n()
-const localeCodes = (locales.value as { code: string }[]).map(l => l.code)
-const contentPath = computed(() => {
-  const segments = route.path.split('/').filter(Boolean)
-  if (segments.length && localeCodes.includes(segments[0]!)) {
-    const rest = segments.slice(1).join('/')
-    return rest ? `/${rest}` : '/'
-  }
-  return route.path
-})
+const localeCodes = locales.value.map(l => l.code)
+const contentPath = computed(() => routeToContentPath(route.path, localeCodes))
 
 const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
