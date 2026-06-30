@@ -91,20 +91,6 @@ useJsonLd([
     'itemListElement': crumbs.value
   }
 ])
-
-const links = computed(() => {
-  const links = []
-  if (toc?.bottom?.edit) {
-    links.push({
-      icon: 'i-lucide-external-link',
-      label: 'Edit this page',
-      to: `${toc.bottom.edit}/${page?.value?.stem}.${page?.value?.extension}`,
-      target: '_blank'
-    })
-  }
-
-  return [...links, ...(toc?.bottom?.links || [])].filter(Boolean)
-})
 </script>
 
 <template>
@@ -146,35 +132,20 @@ const links = computed(() => {
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <!-- 1. Table of contents -->
-      <UContentToc
-        :title="toc?.title"
-        :links="page.body?.toc?.links"
-      />
+      <div class="w-full">
+        <!-- Table of contents, full width of the sidebar -->
+        <UContentToc
+          :title="toc?.title"
+          :links="page.body?.toc?.links"
+          class="w-full"
+        />
 
-      <!-- 2. Ad below the TOC -->
-      <AdUnit
-        placement="sidebarSquare"
-        class="mt-6"
-      />
-
-      <!-- 3. Edit-page / community links -->
-      <div
-        v-if="toc?.bottom"
-        class="mt-6 hidden space-y-4 lg:block"
-      >
-        <USeparator type="dashed" />
-        <UPageLinks
-          :title="toc.bottom.title"
-          :links="links"
+        <!-- AdSense ad directly below the TOC -->
+        <AdUnit
+          placement="sidebarSquare"
+          class="mt-6 w-full"
         />
       </div>
-
-      <!-- 4. Ad below the edit section -->
-      <AdUnit
-        placement="sidebarSquare"
-        class="mt-6"
-      />
     </template>
   </UPage>
 </template>
