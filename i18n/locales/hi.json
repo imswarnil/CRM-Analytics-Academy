@@ -17,7 +17,7 @@
     "badge": "निःशुल्क और ओपन-सोर्स पाठ्यक्रम",
     "titleLead": "Salesforce में महारत हासिल करें",
     "titleAccent": "CRM Analytics",
-    "subtitle": "अपने पहले डेटासेट से लेकर समझाने योग्य पूर्वानुमान तैनात करने तक — पाँच व्यावहारिक मॉड्यूल में पूरा प्लेटफ़ॉर्म सीखें, वास्तविक SAQL और कॉपी-पेस्ट उदाहरणों के साथ।",
+    "subtitle": "अपने पहले डेटासेट से लेकर समझाने योग्य पूर्वानुमान तैनात करने तक — दो व्यावहारिक मॉड्यूल में पूरा प्लेटफ़ॉर्म सीखें, वास्तविक SAQL और कॉपी-पेस्ट उदाहरणों के साथ।",
     "f1": "कोई साइन-अप नहीं",
     "f2": "15 पाठ",
     "f3": "प्रमाणन के अनुरूप",
@@ -120,7 +120,7 @@
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics सीखें",
-    "homeDesc": "Salesforce CRM Analytics में महारत के लिए एक निःशुल्क, ओपन-सोर्स पाठ्यक्रम — डेटा तैयारी और SAQL से लेकर डैशबोर्ड और Einstein Discovery तक, पाँच व्यावहारिक मॉड्यूल में।",
+    "homeDesc": "Salesforce CRM Analytics में महारत के लिए एक निःशुल्क, ओपन-सोर्स पाठ्यक्रम — डेटा तैयारी और SAQL से लेकर डैशबोर्ड और Einstein Discovery तक, दो व्यावहारिक मॉड्यूल में।",
     "aboutTitle": "परिचय — CRM Analytics Academy",
     "aboutDesc": "CRM Analytics Academy की कहानी — Salesforce CRM Analytics के लिए एक ओपन-सोर्स पाठ्यक्रम — और इसे बनाने वाले व्यक्ति के बारे में।",
     "resourcesTitle": "संसाधन — CRM Analytics Academy",

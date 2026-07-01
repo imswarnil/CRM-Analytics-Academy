@@ -17,7 +17,7 @@
     "badge": "Currículo gratuito y de código abierto",
     "titleLead": "Domina Salesforce",
     "titleAccent": "CRM Analytics",
-    "subtitle": "Desde tu primer conjunto de datos hasta desplegar predicciones explicables: aprende toda la plataforma en cinco módulos prácticos, con SAQL real y ejemplos listos para copiar.",
+    "subtitle": "Desde tu primer conjunto de datos hasta desplegar predicciones explicables: aprende toda la plataforma en dos módulos prácticos, con SAQL real y ejemplos listos para copiar.",
     "f1": "Sin registro",
     "f2": "15 lecciones",
     "f3": "Alineado con la certificación",
@@ -120,7 +120,7 @@
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Aprende Salesforce CRM Analytics",
-    "homeDesc": "Un currículo gratuito y de código abierto para dominar Salesforce CRM Analytics: desde la preparación de datos y SAQL hasta paneles y Einstein Discovery, en cinco módulos prácticos.",
+    "homeDesc": "Un currículo gratuito y de código abierto para dominar Salesforce CRM Analytics: desde la preparación de datos y SAQL hasta paneles y Einstein Discovery, en dos módulos prácticos.",
     "aboutTitle": "Acerca de — CRM Analytics Academy",
     "aboutDesc": "La historia detrás de CRM Analytics Academy, un currículo de código abierto para Salesforce CRM Analytics, y quien lo desarrolla.",
     "resourcesTitle": "Recursos — CRM Analytics Academy",

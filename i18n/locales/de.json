@@ -17,7 +17,7 @@
     "badge": "Kostenloser & quelloffener Lehrplan",
     "titleLead": "Meistere Salesforce",
     "titleAccent": "CRM Analytics",
-    "subtitle": "Vom ersten Datensatz bis zum Bereitstellen erklärbarer Vorhersagen – lerne die gesamte Plattform in fünf praxisnahen Modulen, mit echtem SAQL und Beispielen zum Kopieren.",
+    "subtitle": "Vom ersten Datensatz bis zum Bereitstellen erklärbarer Vorhersagen – lerne die gesamte Plattform in zwei praxisnahen Modulen, mit echtem SAQL und Beispielen zum Kopieren.",
     "f1": "Keine Anmeldung",
     "f2": "15 Lektionen",
     "f3": "An der Zertifizierung ausgerichtet",
@@ -120,7 +120,7 @@
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics lernen",
-    "homeDesc": "Ein kostenloser, quelloffener Lehrplan, um Salesforce CRM Analytics zu meistern – von Datenaufbereitung und SAQL bis zu Dashboards und Einstein Discovery, in fünf praxisnahen Modulen.",
+    "homeDesc": "Ein kostenloser, quelloffener Lehrplan, um Salesforce CRM Analytics zu meistern – von Datenaufbereitung und SAQL bis zu Dashboards und Einstein Discovery, in zwei praxisnahen Modulen.",
     "aboutTitle": "Über uns — CRM Analytics Academy",
     "aboutDesc": "Die Geschichte hinter CRM Analytics Academy, einem quelloffenen Lehrplan für Salesforce CRM Analytics, und der Person, die ihn entwickelt.",
     "resourcesTitle": "Ressourcen — CRM Analytics Academy",

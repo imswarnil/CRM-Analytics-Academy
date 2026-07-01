@@ -17,7 +17,7 @@
     "badge": "無料・オープンソースのカリキュラム",
     "titleLead": "Salesforce をマスターする",
     "titleAccent": "CRM Analytics",
-    "subtitle": "最初のデータセットから説明可能な予測の展開まで、5つの実践的なモジュールでプラットフォーム全体を学べます。実際の SAQL とコピペできる例付き。",
+    "subtitle": "最初のデータセットから説明可能な予測の展開まで、2つの実践的なモジュールでプラットフォーム全体を学べます。実際の SAQL とコピペできる例付き。",
     "f1": "登録不要",
     "f2": "15のレッスン",
     "f3": "認定資格に対応",
@@ -120,7 +120,7 @@
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics を学ぶ",
-    "homeDesc": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。データ準備や SAQL からダッシュボード、Einstein Discovery まで、5つの実践モジュールで学べます。",
+    "homeDesc": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。データ準備や SAQL からダッシュボード、Einstein Discovery まで、2つの実践モジュールで学べます。",
     "aboutTitle": "概要 — CRM Analytics Academy",
     "aboutDesc": "Salesforce CRM Analytics のためのオープンソース・カリキュラム「CRM Analytics Academy」の背景と、それを作る人物の物語。",
     "resourcesTitle": "リソース — CRM Analytics Academy",
