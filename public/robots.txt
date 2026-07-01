@@ -1,0 +1,43 @@
+# CRM Analytics Academy — open, free curriculum. Everyone and everything is
+# welcome to crawl and index this site, including AI/LLM crawlers.
+
+User-agent: *
+Allow: /
+
+# Explicit allow for common AI/LLM crawlers, so there's no ambiguity.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Machine-readable curriculum summaries for LLMs (see llmstxt.org).
+# Llms-txt: https://crmanalytics.imswarnil.com/llms.txt
+# Llms-full-txt: https://crmanalytics.imswarnil.com/llms-full.txt
