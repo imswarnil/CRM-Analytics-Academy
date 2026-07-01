@@ -43,5 +43,3 @@ export function useAdSlot(name: AdPlacementName) {
     showLabel: placement.label !== false
   }
 }
-
-export type { AdPlacementName }

@@ -124,20 +124,25 @@ useJsonLd([
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <!-- UContentToc ships its own sticky/max-height/overflow styling, so it
-           stays the only sticky element in this rail. The ad is a plain sibling
-           below it — not sticky, not inside the TOC's capped scroll box — so it
-           never shrinks the TOC's visible height or overlaps it on scroll. -->
-      <UContentToc
-        :title="toc?.title"
-        :links="page.body?.toc?.links"
-        class="w-full"
-      />
+      <!-- UPage's #right slot requires a single root child (it's a Reka UI
+           Slot/asChild primitive), so TOC + ad are wrapped in one plain div.
+           UContentToc's own sticky/max-height/overflow is overridden off (via
+           :ui) so this outer div is the ONLY sticky/scroll box — the ad rides
+           along with the TOC and stops sticking once you scroll past the
+           bottom of this block, instead of floating forever or overlapping. -->
+      <div class="sticky top-(--ui-header-height) max-h-[calc(100vh-var(--ui-header-height)-1rem)] overflow-y-auto pt-6">
+        <UContentToc
+          :title="toc?.title"
+          :links="page.body?.toc?.links"
+          :ui="{ root: 'lg:static lg:max-h-none lg:overflow-y-visible' }"
+          class="w-full"
+        />
 
-      <AdUnit
-        placement="sidebarSquare"
-        class="mt-6 w-full"
-      />
+        <AdUnit
+          placement="sidebarSquare"
+          class="mt-6 w-full"
+        />
+      </div>
     </template>
   </UPage>
 </template>

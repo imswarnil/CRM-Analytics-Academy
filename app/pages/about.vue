@@ -41,10 +41,7 @@ const principles = [
 
 const modules = [
   { n: '01', label: 'Foundations', to: '/foundations' },
-  { n: '02', label: 'Data Integration & Prep', to: '/data-integration' },
-  { n: '03', label: 'SAQL', to: '/saql' },
-  { n: '04', label: 'Dashboards', to: '/dashboards' },
-  { n: '05', label: 'Einstein Discovery', to: '/einstein-discovery' }
+  { n: '02', label: 'Analytics & SAQL', to: '/analytics' }
 ]
 
 const stack = [
@@ -267,7 +264,7 @@ const authorLinks = [
             <div class="mt-8 grid grid-cols-3 gap-4">
               <div class="rounded-2xl border border-default bg-default p-4 text-center">
                 <div class="text-2xl font-extrabold text-highlighted">
-                  5
+                  2
                 </div>
                 <div class="mt-1 text-xs text-muted">
                   Modules
@@ -275,7 +272,7 @@ const authorLinks = [
               </div>
               <div class="rounded-2xl border border-default bg-default p-4 text-center">
                 <div class="text-2xl font-extrabold text-highlighted">
-                  16+
+                  4
                 </div>
                 <div class="mt-1 text-xs text-muted">
                   Lessons

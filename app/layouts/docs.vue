@@ -13,18 +13,21 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
     <UPage>
       <template #left>
-        <UPageAside>
+        <!-- One sticky, viewport-capped, scrollable box for nav + ad together —
+             the ad rides along with the nav and stops sticking once you scroll
+             past the bottom of this block, instead of floating forever. -->
+        <div class="hidden lg:sticky lg:top-(--ui-header-height) lg:block lg:max-h-[calc(100vh-var(--ui-header-height))] lg:overflow-y-auto lg:-ms-4 lg:py-8 lg:ps-4 lg:pe-6.5">
           <UContentNavigation
             highlight
             type="single"
             :navigation="navigation"
           />
-        </UPageAside>
 
-        <AdUnit
-          placement="sidebarSquare"
-          class="mt-6 hidden lg:block"
-        />
+          <AdUnit
+            placement="sidebarSquare"
+            class="mt-6"
+          />
+        </div>
       </template>
 
       <slot />

@@ -17,7 +17,7 @@
     "badge": "Free & open-source curriculum",
     "titleLead": "Master Salesforce",
     "titleAccent": "CRM Analytics",
-    "subtitle": "From your first dataset to deploying explainable predictions — learn the entire platform across five hands-on modules, with real SAQL and copy-paste examples.",
+    "subtitle": "From your first dataset to deploying explainable predictions — learn the entire platform across two hands-on modules, with real SAQL and copy-paste examples.",
     "f1": "No sign-up",
     "f2": "15 lessons",
     "f3": "Certification-aligned",
@@ -120,7 +120,7 @@
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",
-    "homeDesc": "A free, open-source curriculum for mastering Salesforce CRM Analytics — from data prep and SAQL to dashboards and Einstein Discovery, in five hands-on modules.",
+    "homeDesc": "A free, open-source curriculum for mastering Salesforce CRM Analytics — from data prep and SAQL to dashboards and Einstein Discovery, in two hands-on modules.",
     "aboutTitle": "About — CRM Analytics Academy",
     "aboutDesc": "The story behind CRM Analytics Academy — an open-source curriculum for Salesforce CRM Analytics — and the person who builds it.",
     "resourcesTitle": "Resources — CRM Analytics Academy",

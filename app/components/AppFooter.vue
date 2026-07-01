@@ -33,31 +33,36 @@ const columns = computed(() => [
 </script>
 
 <template>
-  <UFooter>
+  <UFooter :ui="{ top: 'py-10 lg:py-10', container: 'py-5 lg:py-4' }">
     <template #top>
-      <UFooterColumns :columns="columns">
-        <template #left>
-          <NuxtLink
-            :to="localePath('/')"
-            class="flex items-center gap-2"
-          >
-            <AppLogo class="h-6 w-auto shrink-0" />
-          </NuxtLink>
-          <p class="mt-4 max-w-xs text-sm text-muted">
-            {{ t('footer.tagline') }}
-          </p>
-          <div class="mt-5 flex items-center gap-1">
-            <UColorModeButton v-if="footer?.colorMode" />
-            <template v-if="footer?.links">
-              <UButton
-                v-for="(link, index) of footer?.links"
-                :key="index"
-                v-bind="{ color: 'neutral', variant: 'ghost', ...link }"
-              />
-            </template>
-          </div>
-        </template>
-      </UFooterColumns>
+      <UContainer>
+        <UFooterColumns
+          :columns="columns"
+          :ui="{ left: 'mb-8 xl:mb-0', list: 'mt-4 space-y-2.5' }"
+        >
+          <template #left>
+            <NuxtLink
+              :to="localePath('/')"
+              class="flex items-center gap-2"
+            >
+              <AppLogo class="h-6 w-auto shrink-0" />
+            </NuxtLink>
+            <p class="mt-3 max-w-xs text-sm text-muted">
+              {{ t('footer.tagline') }}
+            </p>
+            <div class="mt-4 flex items-center gap-1">
+              <UColorModeButton v-if="footer?.colorMode" />
+              <template v-if="footer?.links">
+                <UButton
+                  v-for="(link, index) of footer?.links"
+                  :key="index"
+                  v-bind="{ color: 'neutral', variant: 'ghost', ...link }"
+                />
+              </template>
+            </div>
+          </template>
+        </UFooterColumns>
+      </UContainer>
     </template>
 
     <template #left>
