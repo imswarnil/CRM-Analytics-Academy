@@ -14,7 +14,12 @@ const actions = computed(() => [
 ])
 
 // Secondary links folded into a "More" dropdown to keep the icon row short.
+// About/GitHub are duplicated here (as a `class` marking them mobile-only)
+// since their icon buttons are hidden below lg to keep the navbar from
+// overflowing on small screens.
 const moreItems = computed(() => [
+  { label: t('nav.about'), icon: 'i-lucide-info', to: localePath('/about'), class: 'lg:hidden' },
+  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/crm-analytics-academy/crm-analytics-academy', target: '_blank', class: 'lg:hidden' },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
@@ -59,6 +64,7 @@ const localeItems = computed(() =>
         v-for="action in actions"
         :key="action.icon"
         :text="action.label"
+        class="hidden lg:inline-flex"
       >
         <UButton
           :icon="action.icon"
@@ -70,18 +76,6 @@ const localeItems = computed(() =>
           :class="action.icon === 'i-lucide-heart' ? 'hover:text-primary' : ''"
         />
       </UTooltip>
-
-      <UDropdownMenu
-        :items="moreItems"
-        :content="{ align: 'end' }"
-      >
-        <UButton
-          icon="i-lucide-ellipsis-vertical"
-          color="neutral"
-          variant="ghost"
-          :aria-label="t('nav.more')"
-        />
-      </UDropdownMenu>
 
       <UDropdownMenu
         :items="localeItems"
@@ -101,6 +95,21 @@ const localeItems = computed(() =>
       >
         <UColorModeButton />
       </UTooltip>
+
+      <!-- "More" overflow menu — kept last so it reads as the catch-all,
+           after language and theme controls. Carries the mobile-only about
+           and GitHub links too, since those icons are hidden below lg. -->
+      <UDropdownMenu
+        :items="moreItems"
+        :content="{ align: 'end' }"
+      >
+        <UButton
+          icon="i-lucide-ellipsis-vertical"
+          color="neutral"
+          variant="ghost"
+          :aria-label="t('nav.more')"
+        />
+      </UDropdownMenu>
     </template>
 
     <template #body>

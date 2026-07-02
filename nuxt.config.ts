@@ -124,10 +124,52 @@ export default defineNuxtConfig({
         ]
       },
       {
-        title: 'Analytics & SAQL',
+        title: 'Getting Started',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/getting-started%' }
+        ]
+      },
+      {
+        title: 'Tour',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/tour%' }
+        ]
+      },
+      {
+        title: 'Navigating Dashboards',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/navigating%' }
+        ]
+      },
+      {
+        title: 'SAQL',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/saql%' }
+        ]
+      },
+      {
+        title: 'Analytics & Einstein',
         contentCollection: 'docs',
         contentFilters: [
           { field: 'path', operator: 'LIKE', value: '/en/analytics%' }
+        ]
+      },
+      {
+        title: 'Bindings',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/bindings%' }
+        ]
+      },
+      {
+        title: 'Chart Embedding',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/chart-embedding%' }
         ]
       }
     ]
