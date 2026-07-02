@@ -129,10 +129,12 @@ export const AD_PLACEMENTS = {
     ]
   },
 
-  /** End of article — multiplex, horizontal. */
+  /** End of article — multiplex, horizontal. Smaller reserve on mobile so
+   *  it doesn't dominate the screen after a short lesson. */
   endOfArticle: {
     variants: [
-      { slot: '6808134701', format: 'autorelaxed', reserve: 300 }
+      { max: 768, slot: '6808134701', format: 'autorelaxed', reserve: 220 },
+      { min: 768, slot: '6808134701', format: 'autorelaxed', reserve: 300 }
     ]
   },
 

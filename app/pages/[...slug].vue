@@ -111,8 +111,6 @@ useJsonLd([
 
       <AdUnit placement="endOfArticle" />
 
-      <AdUnit placement="afterArticle" />
-
       <USeparator v-if="surround?.length" />
 
       <UContentSurround :surround="surround" />
@@ -124,13 +122,13 @@ useJsonLd([
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <!-- UPage's #right slot requires a single root child (it's a Reka UI
-           Slot/asChild primitive), so TOC + ad are wrapped in one plain div.
-           UContentToc's own sticky/max-height/overflow is overridden off (via
-           :ui) so this outer div is the ONLY sticky/scroll box — the ad rides
-           along with the TOC and stops sticking once you scroll past the
-           bottom of this block, instead of floating forever or overlapping. -->
-      <div class="sticky top-(--ui-header-height) max-h-[calc(100vh-var(--ui-header-height)-1rem)] overflow-y-auto pt-6">
+      <!-- UPage's #right slot is order-first on mobile (TOC-before-content is
+           intentional there), so this wrapper must NOT be sticky/scroll-boxed
+           below lg — that pinned the ad to the top of the page on phones.
+           Sticky/scroll merging (so the ad rides along with the TOC and stops
+           once you scroll past this block) only kicks in at lg, where the
+           slot sits beside the article as a right rail. -->
+      <div class="pt-6 lg:sticky lg:top-(--ui-header-height) lg:max-h-[calc(100vh-var(--ui-header-height)-1rem)] lg:overflow-y-auto">
         <UContentToc
           :title="toc?.title"
           :links="page.body?.toc?.links"
@@ -138,9 +136,13 @@ useJsonLd([
           class="w-full"
         />
 
+        <!-- Desktop-only: on mobile this slot renders before the article
+             body, so an ad here would be the first thing visible on the
+             page. It still gets mobile ad exposure lower down (in-article /
+             end-of-article / footer placements). -->
         <AdUnit
           placement="sidebarSquare"
-          class="mt-6 w-full"
+          class="mt-6 hidden w-full lg:block"
         />
       </div>
     </template>

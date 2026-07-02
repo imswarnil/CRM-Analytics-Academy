@@ -32,20 +32,32 @@ useJsonLd({
   },
   'hasPart': [
     { name: 'Foundations', url: `${SITE.url}/foundations` },
-    { name: 'Analytics & SAQL', url: `${SITE.url}/analytics` }
+    { name: 'Getting Started', url: `${SITE.url}/getting-started` },
+    { name: 'Tour', url: `${SITE.url}/tour` },
+    { name: 'Navigating Dashboards', url: `${SITE.url}/navigating` },
+    { name: 'SAQL', url: `${SITE.url}/saql` },
+    { name: 'Analytics & Einstein', url: `${SITE.url}/analytics` },
+    { name: 'Bindings', url: `${SITE.url}/bindings` },
+    { name: 'Chart Embedding', url: `${SITE.url}/chart-embedding` }
   ].map(m => ({ '@type': 'Course', 'name': m.name, 'url': m.url, 'provider': { '@type': 'Organization', 'name': SITE.name } }))
 })
 
 const stats = computed(() => [
-  { value: '2', label: t('home.stats.modules') },
-  { value: '4', label: t('home.stats.lessons') },
+  { value: '8', label: t('home.stats.modules') },
+  { value: '24', label: t('home.stats.lessons') },
   { value: '100%', label: t('home.stats.free') },
   { value: 'AI', label: t('home.stats.ai') }
 ])
 
 const modules = computed(() => [
-  { n: '01', title: t('home.modules.foundations.title'), to: '/foundations', icon: 'i-lucide-compass', desc: t('home.modules.foundations.desc'), lessons: ['What Is CRM Analytics?', 'Data & Datasets'] },
-  { n: '02', title: t('home.modules.analytics.title'), to: '/analytics', icon: 'i-lucide-terminal', desc: t('home.modules.analytics.desc'), lessons: ['SAQL Queries', 'Dashboards & Einstein'] }
+  { n: '01', title: t('home.modules.foundations.title'), to: '/foundations', icon: 'i-lucide-compass', desc: t('home.modules.foundations.desc'), lessons: ['What Is CRM Analytics?', 'Data & Datasets', 'Editions & Security'] },
+  { n: '02', title: t('home.modules.gettingStarted.title'), to: '/getting-started', icon: 'i-lucide-rocket', desc: t('home.modules.gettingStarted.desc'), lessons: ['Get Access', 'Your First App', 'Sample Apps & Data'] },
+  { n: '03', title: t('home.modules.tour.title'), to: '/tour', icon: 'i-lucide-map', desc: t('home.modules.tour.desc'), lessons: ['Analytics Studio Home', 'Data Manager', 'Explorer & Editors'] },
+  { n: '04', title: t('home.modules.navigating.title'), to: '/navigating', icon: 'i-lucide-navigation', desc: t('home.modules.navigating.desc'), lessons: ['Reading a Dashboard', 'Filtering & Faceting', 'Saved Views & Sharing'] },
+  { n: '05', title: t('home.modules.saql.title'), to: '/saql', icon: 'i-lucide-code', desc: t('home.modules.saql.desc'), lessons: ['SAQL Basics', 'Filter & Group', 'Functions & Aggregates', 'Debugging Queries'] },
+  { n: '06', title: t('home.modules.analytics.title'), to: '/analytics', icon: 'i-lucide-terminal', desc: t('home.modules.analytics.desc'), lessons: ['Dashboards & Einstein'] },
+  { n: '07', title: t('home.modules.bindings.title'), to: '/bindings', icon: 'i-lucide-link', desc: t('home.modules.bindings.desc'), lessons: ['What Are Bindings?', 'Selection & Cell Bindings', 'Widget & URL Bindings'] },
+  { n: '08', title: t('home.modules.chartEmbedding.title'), to: '/chart-embedding', icon: 'i-lucide-frame', desc: t('home.modules.chartEmbedding.desc'), lessons: ['Ways to Embed', 'Lightning Record Pages', 'Custom Components & External'] }
 ])
 
 // Scroll-triggered animation for the "From raw data to decisions" illustrations.

@@ -95,9 +95,11 @@ const reserveStyle = computed(() => (variant.value ? { minHeight: `${variant.val
 const insStyle = computed(() => {
   const v = variant.value
   if (!v) return {}
+  // maxWidth: 100% keeps fixed-size units (e.g. 300px) from overflowing a
+  // container narrower than that, which is what let ads spill out on phones.
   return v.width && v.height
-    ? { display: 'inline-block', width: `${v.width}px`, height: `${v.height}px` }
-    : { display: 'block', width: '100%' }
+    ? { display: 'inline-block', width: `${v.width}px`, height: `${v.height}px`, maxWidth: '100%' }
+    : { display: 'block', width: '100%', maxWidth: '100%' }
 })
 </script>
 
