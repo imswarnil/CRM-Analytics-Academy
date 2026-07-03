@@ -53,8 +53,8 @@ export const AD_PLACEMENTS = {
    */
   headerBanner: {
     variants: [
-      { max: 768, slot: '4003326983', format: 'horizontal', fullWidthResponsive: true, reserve: 90 },
-      { min: 768, max: 1024, slot: '4774277934', format: 'horizontal', fullWidthResponsive: true, reserve: 90 },
+      { max: 768, slot: '4003326983', format: 'horizontal', fullWidthResponsive: true, reserve: 60 },
+      { min: 768, max: 1024, slot: '4774277934', format: 'horizontal', fullWidthResponsive: true, reserve: 75 },
       { min: 1024, slot: '8539588233', format: 'horizontal', fullWidthResponsive: true, reserve: 90 }
     ]
   },
@@ -66,10 +66,11 @@ export const AD_PLACEMENTS = {
     ]
   },
 
-  /** Just under the hero — responsive horizontal across all widths. */
+  /** Just under the hero — responsive horizontal, shorter on mobile. */
   belowHero: {
     variants: [
-      { slot: '8939839370', format: 'horizontal', fullWidthResponsive: true, reserve: 120 }
+      { max: 768, slot: '8939839370', format: 'horizontal', fullWidthResponsive: true, reserve: 70 },
+      { min: 768, slot: '8939839370', format: 'horizontal', fullWidthResponsive: true, reserve: 120 }
     ]
   },
 
@@ -138,10 +139,11 @@ export const AD_PLACEMENTS = {
     ]
   },
 
-  /** Footer — responsive horizontal. */
+  /** Footer — responsive horizontal, shorter on mobile. */
   footer: {
     variants: [
-      { slot: '8939839370', format: 'horizontal', fullWidthResponsive: true, reserve: 120 }
+      { max: 768, slot: '8939839370', format: 'horizontal', fullWidthResponsive: true, reserve: 70 },
+      { min: 768, slot: '8939839370', format: 'horizontal', fullWidthResponsive: true, reserve: 120 }
     ]
   },
 

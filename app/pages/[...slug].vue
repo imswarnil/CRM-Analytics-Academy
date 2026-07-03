@@ -65,6 +65,21 @@ const crumbs = computed(() => {
   return [{ '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE.url }, ...items]
 })
 
+// Edit-this-page + community links shown under the TOC ad.
+const tocBottomLinks = computed(() => {
+  const links = []
+  if (toc?.bottom?.edit) {
+    links.push({
+      icon: 'i-lucide-external-link',
+      label: 'Edit this page',
+      to: `${toc.bottom.edit}/${page.value?.stem}.${page.value?.extension}`,
+      target: '_blank'
+    })
+  }
+
+  return [...links, ...(toc?.bottom?.links || [])].filter(Boolean)
+})
+
 useJsonLd([
   {
     '@context': 'https://schema.org',
@@ -123,12 +138,12 @@ useJsonLd([
       #right
     >
       <!-- UPage's #right slot is order-first on mobile (TOC-before-content is
-           intentional there), so this wrapper must NOT be sticky/scroll-boxed
-           below lg — that pinned the ad to the top of the page on phones.
-           Sticky/scroll merging (so the ad rides along with the TOC and stops
-           once you scroll past this block) only kicks in at lg, where the
-           slot sits beside the article as a right rail. -->
-      <div class="pt-6 lg:sticky lg:top-(--ui-header-height) lg:max-h-[calc(100vh-var(--ui-header-height)-1rem)] lg:overflow-y-auto">
+           intentional there). No top padding below lg so the TOC sits flush
+           against the navbar with nothing in between. Sticky/scroll merging
+           (so the ad rides along with the TOC and stops once you scroll past
+           this block) only kicks in at lg, where the slot sits beside the
+           article as a right rail. -->
+      <div class="lg:sticky lg:top-(--ui-header-height) lg:max-h-[calc(100vh-var(--ui-header-height)-1rem)] lg:overflow-y-auto lg:pt-6">
         <UContentToc
           :title="toc?.title"
           :links="page.body?.toc?.links"
@@ -136,14 +151,23 @@ useJsonLd([
           class="w-full"
         />
 
-        <!-- Desktop-only: on mobile this slot renders before the article
-             body, so an ad here would be the first thing visible on the
-             page. It still gets mobile ad exposure lower down (in-article /
-             end-of-article / footer placements). -->
+        <!-- Comes after the TOC (not before it) on every breakpoint. -->
         <AdUnit
           placement="sidebarSquare"
-          class="mt-6 hidden w-full lg:block"
+          class="mt-6 w-full"
         />
+
+        <div
+          v-if="tocBottomLinks.length"
+          class="mt-6 hidden space-y-4 lg:block"
+        >
+          <USeparator type="dashed" />
+
+          <UPageLinks
+            :title="toc?.bottom?.title"
+            :links="tocBottomLinks"
+          />
+        </div>
       </div>
     </template>
   </UPage>

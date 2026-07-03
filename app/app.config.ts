@@ -63,17 +63,16 @@ export default defineAppConfig({
     title: 'Table of Contents',
     bottom: {
       title: 'Community',
-      edit: 'https://github.com/nuxt-ui-templates/docs/edit/main/content',
+      edit: 'https://github.com/crm-analytics-academy/crm-analytics-academy/edit/main/content',
       links: [{
         icon: 'i-lucide-star',
         label: 'Star on GitHub',
-        to: 'https://github.com/nuxt/ui',
+        to: 'https://github.com/crm-analytics-academy/crm-analytics-academy',
         target: '_blank'
       }, {
-        icon: 'i-lucide-book-open',
-        label: 'Nuxt UI docs',
-        to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-        target: '_blank'
+        icon: 'i-lucide-git-pull-request',
+        label: 'Contribute',
+        to: '/contribute'
       }]
     }
   }

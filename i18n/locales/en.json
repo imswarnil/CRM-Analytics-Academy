@@ -13,6 +13,11 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
   },
+  "sponsorCard": {
+    "title": "Sponsor this project",
+    "desc": "Keep the curriculum free and open.",
+    "cta": "Learn more"
+  },
   "hero": {
     "badge": "Free & open-source curriculum",
     "titleLead": "Master Salesforce",

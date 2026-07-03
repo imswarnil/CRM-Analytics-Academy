@@ -49,15 +49,19 @@ const stats = computed(() => [
   { value: 'AI', label: t('home.stats.ai') }
 ])
 
+// The 6 new modules only have English content so far (see CLAUDE.md /
+// memory: translation is a separate follow-up). `enOnly` keeps their links
+// pointing at the unprefixed English route on every locale instead of a
+// localized path that 404s and breaks prerendering.
 const modules = computed(() => [
   { n: '01', title: t('home.modules.foundations.title'), to: '/foundations', icon: 'i-lucide-compass', desc: t('home.modules.foundations.desc'), lessons: ['What Is CRM Analytics?', 'Data & Datasets', 'Editions & Security'] },
-  { n: '02', title: t('home.modules.gettingStarted.title'), to: '/getting-started', icon: 'i-lucide-rocket', desc: t('home.modules.gettingStarted.desc'), lessons: ['Get Access', 'Your First App', 'Sample Apps & Data'] },
-  { n: '03', title: t('home.modules.tour.title'), to: '/tour', icon: 'i-lucide-map', desc: t('home.modules.tour.desc'), lessons: ['Analytics Studio Home', 'Data Manager', 'Explorer & Editors'] },
-  { n: '04', title: t('home.modules.navigating.title'), to: '/navigating', icon: 'i-lucide-navigation', desc: t('home.modules.navigating.desc'), lessons: ['Reading a Dashboard', 'Filtering & Faceting', 'Saved Views & Sharing'] },
-  { n: '05', title: t('home.modules.saql.title'), to: '/saql', icon: 'i-lucide-code', desc: t('home.modules.saql.desc'), lessons: ['SAQL Basics', 'Filter & Group', 'Functions & Aggregates', 'Debugging Queries'] },
+  { n: '02', title: t('home.modules.gettingStarted.title'), to: '/getting-started', enOnly: true, icon: 'i-lucide-rocket', desc: t('home.modules.gettingStarted.desc'), lessons: ['Get Access', 'Your First App', 'Sample Apps & Data'] },
+  { n: '03', title: t('home.modules.tour.title'), to: '/tour', enOnly: true, icon: 'i-lucide-map', desc: t('home.modules.tour.desc'), lessons: ['Analytics Studio Home', 'Data Manager', 'Explorer & Editors'] },
+  { n: '04', title: t('home.modules.navigating.title'), to: '/navigating', enOnly: true, icon: 'i-lucide-navigation', desc: t('home.modules.navigating.desc'), lessons: ['Reading a Dashboard', 'Filtering & Faceting', 'Saved Views & Sharing'] },
+  { n: '05', title: t('home.modules.saql.title'), to: '/saql', enOnly: true, icon: 'i-lucide-code', desc: t('home.modules.saql.desc'), lessons: ['SAQL Basics', 'Filter & Group', 'Functions & Aggregates', 'Debugging Queries'] },
   { n: '06', title: t('home.modules.analytics.title'), to: '/analytics', icon: 'i-lucide-terminal', desc: t('home.modules.analytics.desc'), lessons: ['Dashboards & Einstein'] },
-  { n: '07', title: t('home.modules.bindings.title'), to: '/bindings', icon: 'i-lucide-link', desc: t('home.modules.bindings.desc'), lessons: ['What Are Bindings?', 'Selection & Cell Bindings', 'Widget & URL Bindings'] },
-  { n: '08', title: t('home.modules.chartEmbedding.title'), to: '/chart-embedding', icon: 'i-lucide-frame', desc: t('home.modules.chartEmbedding.desc'), lessons: ['Ways to Embed', 'Lightning Record Pages', 'Custom Components & External'] }
+  { n: '07', title: t('home.modules.bindings.title'), to: '/bindings', enOnly: true, icon: 'i-lucide-link', desc: t('home.modules.bindings.desc'), lessons: ['What Are Bindings?', 'Selection & Cell Bindings', 'Widget & URL Bindings'] },
+  { n: '08', title: t('home.modules.chartEmbedding.title'), to: '/chart-embedding', enOnly: true, icon: 'i-lucide-frame', desc: t('home.modules.chartEmbedding.desc'), lessons: ['Ways to Embed', 'Lightning Record Pages', 'Custom Components & External'] }
 ])
 
 // Scroll-triggered animation for the "From raw data to decisions" illustrations.
@@ -259,7 +263,7 @@ useJsonLd({
           <NuxtLink
             v-for="m in modules"
             :key="m.n"
-            :to="localePath(m.to)"
+            :to="m.enOnly ? m.to : localePath(m.to)"
             class="group relative flex flex-col overflow-hidden rounded-2xl border border-default bg-default p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl"
           >
             <div class="absolute inset-x-0 top-0 h-1 scale-x-0 bg-gradient-to-r from-salesforce-400 to-salesforce-600 transition-transform duration-300 group-hover:scale-x-100" />
