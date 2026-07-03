@@ -6,9 +6,17 @@ const toast = useToast()
 const { copy, copied } = useClipboard()
 const site = useSiteConfig()
 
-const mdPath = computed(() => `${site.url}/raw${route.path}.md`)
+// Content lives at /raw/<locale>/<path>.md — but the default locale has no
+// URL prefix (/foundations), so route.path alone 404s against the raw route.
+// Map it to the locale-prefixed content path first.
+const { locales } = useI18n()
+const localeCodes = locales.value.map(l => l.code)
+const contentPath = computed(() => routeToContentPath(route.path, localeCodes))
+const mdPath = computed(() => `${site.url}/raw${contentPath.value}.md`)
 
-const items = [
+const rawPath = computed(() => `/raw${contentPath.value}.md`)
+
+const items = computed(() => [
   {
     label: 'Copy Markdown link',
     icon: 'i-lucide-link',
@@ -24,7 +32,7 @@ const items = [
     label: 'View as Markdown',
     icon: 'i-simple-icons:markdown',
     target: '_blank',
-    to: `/raw${route.path}.md`
+    to: rawPath.value
   },
   {
     label: 'Open in ChatGPT',
@@ -38,10 +46,22 @@ const items = [
     target: '_blank',
     to: `https://claude.ai/new?q=${encodeURIComponent(`Read ${mdPath.value} so I can ask questions about it.`)}`
   }
-]
+])
 
 async function copyPage() {
-  copy(await $fetch<string>(`/raw${route.path}.md`))
+  try {
+    copy(await $fetch<string>(rawPath.value))
+    toast.add({
+      title: 'Copied to clipboard',
+      icon: 'i-lucide-check-circle'
+    })
+  } catch {
+    toast.add({
+      title: 'Could not copy page',
+      icon: 'i-lucide-alert-circle',
+      color: 'error'
+    })
+  }
 }
 </script>
 

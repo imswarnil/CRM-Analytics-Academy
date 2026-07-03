@@ -39,7 +39,7 @@ const localeItems = computed(() =>
 
 <template>
   <UHeader
-    :ui="{ center: 'flex-1' }"
+    :ui="{ center: 'flex-1', body: 'flex flex-col h-full p-0 overflow-hidden' }"
     :to="localePath('/')"
   >
     <UContentSearchButton
@@ -113,11 +113,19 @@ const localeItems = computed(() =>
     </template>
 
     <template #body>
-      <UContentNavigation
-        highlight
-        type="single"
-        :navigation="navigation"
-      />
+      <!-- min-h-0 lets this shrink below its content size so it actually
+           scrolls instead of pushing the sponsor card off-screen; the card
+           is a shrink-0 sibling, so it stays pinned to the bottom of the
+           mobile menu regardless of nav length. -->
+      <div class="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
+        <UContentNavigation
+          highlight
+          type="single"
+          :navigation="navigation"
+        />
+      </div>
+
+      <SponsorCard class="m-4 mt-0 shrink-0 sm:mx-6 sm:mb-6" />
     </template>
   </UHeader>
 </template>
