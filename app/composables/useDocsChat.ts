@@ -67,14 +67,11 @@ export function useDocsChat() {
     usedQuestions.value += 1
     persistCount()
 
-    // Refund the counted question and drop the empty assistant bubble on failure.
-    const fail = (message: string) => {
-      error.value = message
-      if (!assistant.content) {
-        messages.value.pop()
-        usedQuestions.value = Math.max(0, usedQuestions.value - 1)
-        persistCount()
-      }
+    // Refund the counted question — a failed/rate-limited request shouldn't burn
+    // the session quota.
+    const refund = () => {
+      usedQuestions.value = Math.max(0, usedQuestions.value - 1)
+      persistCount()
     }
 
     try {
@@ -91,9 +88,14 @@ export function useDocsChat() {
       })
 
       if (!res.ok || !res.body) {
-        fail(res.status === 429
-          ? 'CRM Analytics AI is busy right now (usage limit reached). Please try again in a little while.'
-          : 'Something went wrong. Please try again.')
+        refund()
+        if (res.status === 429) {
+          // Show the real reason clearly, in the chat itself.
+          assistant.content = '⚠️ **CRM Analytics AI has reached its usage limit for now.** This is a temporary Gemini free-tier cap — please try again in a little while.'
+        } else {
+          messages.value.pop()
+          error.value = 'Something went wrong. Please try again.'
+        }
         return
       }
 
@@ -108,7 +110,11 @@ export function useDocsChat() {
         assistant.content = '_No response was returned. Please try again._'
       }
     } catch {
-      fail('Something went wrong. Please try again.')
+      if (!assistant.content) {
+        refund()
+        messages.value.pop()
+        error.value = 'Something went wrong. Please try again.'
+      }
     } finally {
       loading.value = false
     }
