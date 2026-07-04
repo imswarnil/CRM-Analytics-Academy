@@ -44,24 +44,27 @@ async function save() {
 
 // --- AI assistant settings (stored in this browser, never on our servers) ---
 const ai = useAiSettings()
-const aiForm = reactive({ provider: ai.settings.value.provider, model: ai.settings.value.model, apiKey: ai.settings.value.apiKey })
+const aiForm = reactive({ useOwnKey: ai.settings.value.useOwnKey, provider: ai.settings.value.provider, model: ai.settings.value.model, apiKey: ai.settings.value.apiKey })
 const aiSaved = ref(0)
+const modeItems = [{ label: 'Site default', value: false }, { label: 'My own key', value: true }]
 const providerItems = ai.providers.map(p => ({ label: p.label, value: p.id }))
 const currentProvider = computed(() => ai.providers.find(p => p.id === aiForm.provider) ?? ai.providers[0]!)
 
 watchEffect(() => {
+  aiForm.useOwnKey = ai.settings.value.useOwnKey
   aiForm.provider = ai.settings.value.provider
   aiForm.model = ai.settings.value.model
   aiForm.apiKey = ai.settings.value.apiKey
 })
 
 function saveAi() {
-  ai.save({ provider: aiForm.provider, model: aiForm.model.trim(), apiKey: aiForm.apiKey.trim() })
+  ai.save({ useOwnKey: aiForm.useOwnKey, provider: aiForm.provider, model: aiForm.model.trim(), apiKey: aiForm.apiKey.trim() })
   aiSaved.value = Date.now()
 }
 function clearAi() {
   ai.clearKey()
   aiForm.apiKey = ''
+  aiForm.useOwnKey = false
   aiSaved.value = Date.now()
 }
 </script>
@@ -176,56 +179,70 @@ function clearAi() {
 
       <div class="mt-6 space-y-5">
         <UFormField
-          label="Provider"
-          name="ai_provider"
+          label="Which AI to use"
+          name="ai_mode"
         >
           <USelect
-            v-model="aiForm.provider"
-            :items="providerItems"
+            v-model="aiForm.useOwnKey"
+            :items="modeItems"
             value-key="value"
             class="w-full sm:max-w-xs"
           />
         </UFormField>
 
-        <UFormField
-          label="Model"
-          name="ai_model"
-          :help="`Default: ${currentProvider.defaultModel}`"
-        >
-          <UInput
-            v-model="aiForm.model"
-            :placeholder="currentProvider.defaultModel"
-            class="w-full sm:max-w-md"
-          />
-        </UFormField>
+        <template v-if="aiForm.useOwnKey">
+          <UFormField
+            label="Provider"
+            name="ai_provider"
+          >
+            <USelect
+              v-model="aiForm.provider"
+              :items="providerItems"
+              value-key="value"
+              class="w-full sm:max-w-xs"
+            />
+          </UFormField>
 
-        <UFormField
-          label="API key"
-          name="ai_key"
-        >
-          <UInput
-            v-model="aiForm.apiKey"
-            type="password"
-            placeholder="Paste your API key"
-            autocomplete="off"
-            class="w-full sm:max-w-md"
-          />
-          <template #help>
-            <span>
-              Get a key from
-              <a
-                :href="currentProvider.keyUrl"
-                target="_blank"
-                rel="noopener"
-                class="text-primary hover:underline"
-              >{{ currentProvider.label }}</a>
-              <span v-if="currentProvider.note"> · {{ currentProvider.note }}</span>.
-            </span>
-          </template>
-        </UFormField>
+          <UFormField
+            label="Model"
+            name="ai_model"
+            :help="`Default: ${currentProvider.defaultModel}`"
+          >
+            <UInput
+              v-model="aiForm.model"
+              :placeholder="currentProvider.defaultModel"
+              class="w-full sm:max-w-md"
+            />
+          </UFormField>
+
+          <UFormField
+            label="API key"
+            name="ai_key"
+          >
+            <UInput
+              v-model="aiForm.apiKey"
+              type="password"
+              placeholder="Paste your API key"
+              autocomplete="off"
+              class="w-full sm:max-w-md"
+            />
+            <template #help>
+              <span>
+                Get a key from
+                <a
+                  :href="currentProvider.keyUrl"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-primary hover:underline"
+                >{{ currentProvider.label }}</a>
+                <span v-if="currentProvider.note"> · {{ currentProvider.note }}</span>.
+              </span>
+            </template>
+          </UFormField>
+        </template>
 
         <p class="rounded-lg bg-default px-3 py-2.5 text-xs text-muted">
-          🔒 Your key is saved only in this browser and sent directly to your chosen provider when you chat. It is never stored on our servers. Leave it blank to use the site's shared model.
+          🔒 With <strong>your own key</strong>, it's saved only in this browser, sent directly to your provider, and has no question limit. <strong>Site default</strong> uses the shared (rate-limited) model.
         </p>
 
         <div class="flex items-center gap-3">

@@ -4,11 +4,12 @@ definePageMeta({ middleware: 'auth' })
 const client = useDb()
 const { user, displayName } = useProfile()
 const localePath = useLocalePath()
+const ai = useAiSettings()
 
 useSeoMeta({ title: 'Your dashboard — CRM Analytics Academy', robots: 'noindex' })
 
 // All authed data is fetched client-side (RLS scopes rows to the user).
-const { data, pending } = await useAsyncData(
+const { data, pending, refresh } = await useAsyncData(
   'dashboard',
   async () => {
     if (!user.value) return null
@@ -27,6 +28,10 @@ const { data, pending } = await useAsyncData(
   },
   { server: false, watch: [user] }
 )
+
+// useAsyncData caches by key across navigations, so re-fetch every time the
+// dashboard is opened — otherwise a lesson just marked complete won't show.
+onMounted(() => refresh())
 
 const statusColor = (s: string) => (s === 'approved' ? 'success' : s === 'rejected' ? 'error' : 'warning')
 
@@ -64,6 +69,38 @@ function lessonTitle(path: string) {
           size="sm"
         >
           Submit project
+        </UButton>
+      </div>
+    </div>
+
+    <!-- AI assistant / API key -->
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-default bg-elevated/40 px-4 py-3.5">
+      <div class="flex items-center gap-2.5">
+        <div class="flex size-9 items-center justify-center rounded-full bg-primary/10">
+          <UIcon
+            name="i-lucide-sparkles"
+            class="size-4.5 text-primary"
+          />
+        </div>
+        <div>
+          <p class="text-sm font-medium text-default">
+            AI assistant
+          </p>
+          <p class="text-xs text-muted">
+            {{ ai.usingOwn.value ? `Using your own ${ai.provider.value.label} key — no limits` : "Using the site's shared model — add your own key for unlimited use" }}
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <AiSettings />
+        <UButton
+          :to="localePath('/profile')"
+          size="sm"
+          color="neutral"
+          variant="outline"
+          icon="i-lucide-key-round"
+        >
+          Add / manage API key
         </UButton>
       </div>
     </div>

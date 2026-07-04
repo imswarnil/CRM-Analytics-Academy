@@ -49,7 +49,7 @@ export function useDocsChat() {
   const remaining = computed(() => Math.max(0, QUESTION_LIMIT - usedQuestions.value))
   // The per-session cap only applies to the site's shared key. Visitors using
   // their own key have no cap (it's their own quota).
-  const limitReached = computed(() => !ai.hasKey.value && remaining.value === 0)
+  const limitReached = computed(() => !ai.usingOwn.value && remaining.value === 0)
 
   async function send(text: string, opts: SendOptions = {}) {
     const content = text.trim()
@@ -67,7 +67,7 @@ export function useDocsChat() {
     loading.value = true
 
     // Only count against the per-session cap when using the site's shared key.
-    const counted = !ai.hasKey.value
+    const counted = !ai.usingOwn.value
     if (counted) {
       usedQuestions.value += 1
       persistCount()
@@ -91,10 +91,11 @@ export function useDocsChat() {
           locale: locale.value,
           pagePath: opts.pagePath,
           pageTitle: opts.pageTitle,
-          // Bring-your-own-key (empty when using the site's shared model).
-          provider: ai.settings.value.provider,
-          model: ai.activeModel.value,
-          apiKey: ai.settings.value.apiKey
+          // Bring-your-own-key — only sent when the user opted in; otherwise
+          // blank so the server uses the site's shared model.
+          provider: ai.usingOwn.value ? ai.settings.value.provider : '',
+          model: ai.usingOwn.value ? ai.activeModel.value : '',
+          apiKey: ai.usingOwn.value ? ai.settings.value.apiKey : ''
         })
       })
 
@@ -148,5 +149,5 @@ export function useDocsChat() {
     error.value = ''
   }
 
-  return { messages, loading, error, send, reset, remaining, limitReached, questionLimit: QUESTION_LIMIT, hasKey: ai.hasKey }
+  return { messages, loading, error, send, reset, remaining, limitReached, questionLimit: QUESTION_LIMIT, usingOwn: ai.usingOwn }
 }
