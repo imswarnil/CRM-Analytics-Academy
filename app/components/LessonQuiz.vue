@@ -11,7 +11,6 @@ const props = defineProps<{
 }>()
 
 const user = useSupabaseUser()
-const client = useDb()
 
 // Selected option index per question (-1 = unanswered).
 const selected = ref<number[]>(props.questions.map(() => -1))
@@ -26,12 +25,11 @@ async function submit() {
   if (!allAnswered.value || submitted.value) return
   submitted.value = true
   if (user.value) {
-    await client.from('quiz_attempts').insert({
-      user_id: user.value.id,
-      quiz_id: props.quizId,
-      score: score.value,
-      total: props.questions.length
-    })
+    // Saved via a server route (the browser client can arrive unauthenticated).
+    await $fetch('/api/quiz', {
+      method: 'POST',
+      body: { quizId: props.quizId, score: score.value, total: props.questions.length }
+    }).catch(() => {})
   }
 }
 

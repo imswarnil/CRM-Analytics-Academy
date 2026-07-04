@@ -176,7 +176,7 @@ function formatDate(iso: string) {
             <span class="text-sm font-medium text-highlighted">{{ authorName(c) }}</span>
             <span class="text-xs text-dimmed">{{ formatDate(c.created_at) }}</span>
             <UButton
-              v-if="user && (c.user_id === user.id || isAdmin)"
+              v-if="user && (c.user_id === user.sub || isAdmin)"
               icon="i-lucide-trash-2"
               color="neutral"
               variant="ghost"
