@@ -14,6 +14,16 @@ export default defineContentConfig({
           icon: z.string(),
           to: z.string(),
           target: z.string().optional()
+        })).optional(),
+        // 'members' soft-gates the lesson: logged-out readers see a teaser + a
+        // sign-in prompt. Defaults to public when omitted.
+        access: z.enum(['public', 'members']).optional(),
+        // Optional end-of-lesson quiz; scored client-side, attempts saved for
+        // signed-in users.
+        quiz: z.array(z.object({
+          q: z.string(),
+          options: z.array(z.string()),
+          answer: z.number()
         })).optional()
       })
     })

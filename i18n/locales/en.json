@@ -11,7 +11,13 @@
     "contribute": "Contribute",
     "more": "More",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Service"
+    "terms": "Terms of Service",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "admin": "Admin",
+    "signOut": "Sign out",
+    "signIn": "Sign in",
+    "showcase": "Showcase"
   },
   "sponsorCard": {
     "title": "Sponsor this project",
@@ -37,19 +43,48 @@
     "star": "Star on GitHub"
   },
   "home": {
-    "stats": { "modules": "Modules", "lessons": "Lessons", "free": "Free & open", "ai": "AI-ready" },
+    "stats": {
+      "modules": "Modules",
+      "lessons": "Lessons",
+      "free": "Free & open",
+      "ai": "AI-ready"
+    },
     "curriculumEyebrow": "The Curriculum",
     "curriculumTitle": "Eight modules, one clear path",
     "curriculumSubtitle": "Start at the top and work down — together they cover the whole pipeline, from raw data to a deployed prediction.",
     "modules": {
-      "foundations": { "title": "Foundations", "desc": "What CRM Analytics is, how data becomes a secure dataset, and the building blocks of the platform." },
-      "gettingStarted": { "title": "Getting Started", "desc": "Enable CRM Analytics, create your first app, and explore sample data before connecting your own." },
-      "tour": { "title": "Tour", "desc": "A guided tour of Analytics Studio — Home, Data Manager, Explorer, and the Dashboard Editor." },
-      "navigating": { "title": "Navigating Dashboards", "desc": "Read, filter, facet, and drill into a dashboard, then save and share your own view." },
-      "saql": { "title": "SAQL", "desc": "Write SAQL queries — filter, group, aggregate, and debug the language every chart compiles to." },
-      "analytics": { "title": "Analytics & Einstein", "desc": "Assemble queries into interactive dashboards and add predictions with Einstein Discovery." },
-      "bindings": { "title": "Bindings", "desc": "Wire widgets together with selection, cell, and URL bindings so one selection drives many." },
-      "chartEmbedding": { "title": "Chart Embedding", "desc": "Embed a dashboard on a record page, in a custom component, or outside Salesforce entirely." }
+      "foundations": {
+        "title": "Foundations",
+        "desc": "What CRM Analytics is, how data becomes a secure dataset, and the building blocks of the platform."
+      },
+      "gettingStarted": {
+        "title": "Getting Started",
+        "desc": "Enable CRM Analytics, create your first app, and explore sample data before connecting your own."
+      },
+      "tour": {
+        "title": "Tour",
+        "desc": "A guided tour of Analytics Studio — Home, Data Manager, Explorer, and the Dashboard Editor."
+      },
+      "navigating": {
+        "title": "Navigating Dashboards",
+        "desc": "Read, filter, facet, and drill into a dashboard, then save and share your own view."
+      },
+      "saql": {
+        "title": "SAQL",
+        "desc": "Write SAQL queries — filter, group, aggregate, and debug the language every chart compiles to."
+      },
+      "analytics": {
+        "title": "Analytics & Einstein",
+        "desc": "Assemble queries into interactive dashboards and add predictions with Einstein Discovery."
+      },
+      "bindings": {
+        "title": "Bindings",
+        "desc": "Wire widgets together with selection, cell, and URL bindings so one selection drives many."
+      },
+      "chartEmbedding": {
+        "title": "Chart Embedding",
+        "desc": "Embed a dashboard on a record page, in a custom component, or outside Salesforce entirely."
+      }
     },
     "startModule": "Start module",
     "newHereTitle": "New here?",
@@ -58,10 +93,22 @@
     "howEyebrow": "How it works",
     "howTitle": "Learn it, try it, build it",
     "steps": {
-      "read": { "title": "Read the lesson", "desc": "Short, focused lessons explain one idea at a time with real examples." },
-      "try": { "title": "Try it live", "desc": "Every concept maps to a concrete action — follow along in a free Developer org." },
-      "build": { "title": "Build a project", "desc": "Lessons accumulate into a working pipeline: data, datasets, dashboards, a model." },
-      "ai": { "title": "Ask the AI", "desc": "Every page is available as Markdown and over MCP, so an assistant can tutor you." }
+      "read": {
+        "title": "Read the lesson",
+        "desc": "Short, focused lessons explain one idea at a time with real examples."
+      },
+      "try": {
+        "title": "Try it live",
+        "desc": "Every concept maps to a concrete action — follow along in a free Developer org."
+      },
+      "build": {
+        "title": "Build a project",
+        "desc": "Lessons accumulate into a working pipeline: data, datasets, dashboards, a model."
+      },
+      "ai": {
+        "title": "Ask the AI",
+        "desc": "Every page is available as Markdown and over MCP, so an assistant can tutor you."
+      }
     },
     "resourcesEyebrow": "Resources",
     "resourcesTitle": "The best links, curated for you",
@@ -76,48 +123,117 @@
     "outcomesTitle": "What you will be able to do",
     "outcomesSubtitle": "By the end you can deliver an end-to-end CRM Analytics solution — and prove it.",
     "outcomes": [
-      { "t": "Integrate any data", "d": "Connect Salesforce and external sources, schedule reliable syncs, and keep datasets fresh." },
-      { "t": "Shape data with recipes", "d": "Join, aggregate, and clean raw data into trustworthy, well-modeled datasets." },
-      { "t": "Write real SAQL", "d": "Author queries by hand for advanced metrics, windowing, and dashboard interactivity." },
-      { "t": "Build dashboards", "d": "Design responsive, faceted dashboards with drill-downs and embedded Salesforce actions." },
-      { "t": "Deploy predictions", "d": "Train explainable Einstein Discovery models and surface predictions on records and in flows." },
-      { "t": "Prep for certification", "d": "Cover the skills measured by the CRM Analytics & Einstein Discovery Consultant exam." }
+      {
+        "t": "Integrate any data",
+        "d": "Connect Salesforce and external sources, schedule reliable syncs, and keep datasets fresh."
+      },
+      {
+        "t": "Shape data with recipes",
+        "d": "Join, aggregate, and clean raw data into trustworthy, well-modeled datasets."
+      },
+      {
+        "t": "Write real SAQL",
+        "d": "Author queries by hand for advanced metrics, windowing, and dashboard interactivity."
+      },
+      {
+        "t": "Build dashboards",
+        "d": "Design responsive, faceted dashboards with drill-downs and embedded Salesforce actions."
+      },
+      {
+        "t": "Deploy predictions",
+        "d": "Train explainable Einstein Discovery models and surface predictions on records and in flows."
+      },
+      {
+        "t": "Prep for certification",
+        "d": "Cover the skills measured by the CRM Analytics & Einstein Discovery Consultant exam."
+      }
     ],
     "whoEyebrow": "Who it's for",
     "whoTitle": "Built for every role on the team",
     "personas": [
-      { "t": "Analysts", "d": "Go from drag-and-drop reports to building datasets, SAQL, and dashboards that scale." },
-      { "t": "Admins", "d": "Set up the platform, manage security predicates, and roll analytics out safely." },
-      { "t": "Consultants", "d": "Design end-to-end solutions and prep for the certification with confidence." },
-      { "t": "Beginners", "d": "Start from CRM basics — no prior analytics experience required." }
+      {
+        "t": "Analysts",
+        "d": "Go from drag-and-drop reports to building datasets, SAQL, and dashboards that scale."
+      },
+      {
+        "t": "Admins",
+        "d": "Set up the platform, manage security predicates, and roll analytics out safely."
+      },
+      {
+        "t": "Consultants",
+        "d": "Design end-to-end solutions and prep for the certification with confidence."
+      },
+      {
+        "t": "Beginners",
+        "d": "Start from CRM basics — no prior analytics experience required."
+      }
     ],
     "topicsEyebrow": "Everything you'll master",
     "topicsTitle": "One curriculum, the whole platform",
     "faqEyebrow": "FAQ",
     "faqTitle": "Questions, answered",
     "faqs": [
-      { "q": "Is it really free?", "a": "Yes — every lesson is free and open source, with no sign-up required." },
-      { "q": "Do I need a Salesforce org?", "a": "A free Developer Edition org is enough to follow along with every lesson." },
-      { "q": "Do I need coding experience?", "a": "No. We start from CRM basics and introduce SAQL gradually, step by step." },
-      { "q": "Will this help me get certified?", "a": "The curriculum maps to the CRM Analytics & Einstein Discovery Consultant exam topics." }
+      {
+        "q": "Is it really free?",
+        "a": "Yes — every lesson is free and open source, with no sign-up required."
+      },
+      {
+        "q": "Do I need a Salesforce org?",
+        "a": "A free Developer Edition org is enough to follow along with every lesson."
+      },
+      {
+        "q": "Do I need coding experience?",
+        "a": "No. We start from CRM basics and introduce SAQL gradually, step by step."
+      },
+      {
+        "q": "Will this help me get certified?",
+        "a": "The curriculum maps to the CRM Analytics & Einstein Discovery Consultant exam topics."
+      }
     ],
     "featuresEyebrow": "How it fits together",
     "featuresTitle": "From raw data to decisions",
     "features": [
-      { "t": "Learn to bring data together", "d": "Lessons walk you through connecting Salesforce, Snowflake, and files; scheduling syncs; and shaping everything into clean datasets with visual recipes." },
-      { "t": "Learn to explore and visualize", "d": "Practice writing SAQL and building lenses, then assemble fast, interactive dashboards with bindings, faceting, and drill-downs — all in your own free org." },
-      { "t": "Learn to predict what happens next", "d": "Follow guided exercises to train explainable Einstein Discovery models and surface predictions and recommendations right where your team works." }
+      {
+        "t": "Learn to bring data together",
+        "d": "Lessons walk you through connecting Salesforce, Snowflake, and files; scheduling syncs; and shaping everything into clean datasets with visual recipes."
+      },
+      {
+        "t": "Learn to explore and visualize",
+        "d": "Practice writing SAQL and building lenses, then assemble fast, interactive dashboards with bindings, faceting, and drill-downs — all in your own free org."
+      },
+      {
+        "t": "Learn to predict what happens next",
+        "d": "Follow guided exercises to train explainable Einstein Discovery models and surface predictions and recommendations right where your team works."
+      }
     ],
     "projectsEyebrow": "Showcase",
     "projectsTitle": "Projects you can build",
     "projectsSubtitle": "Real dashboards you can recreate as you learn — then share your own with the community.",
     "projects": [
-      { "t": "Sales Pipeline Health", "d": "Track stages, win rate, and forecast in one interactive view." },
-      { "t": "Customer Churn Risk", "d": "Score accounts with Einstein Discovery and act before they leave." },
-      { "t": "Service KPIs", "d": "Case volume, CSAT, and resolution time for support teams." },
-      { "t": "Revenue by Region", "d": "Break revenue down geographically with drill-downs." },
-      { "t": "Rep Leaderboard", "d": "Rank performance with windowed SAQL and faceting." },
-      { "t": "Marketing ROI", "d": "Attribute pipeline to campaigns and measure return." }
+      {
+        "t": "Sales Pipeline Health",
+        "d": "Track stages, win rate, and forecast in one interactive view."
+      },
+      {
+        "t": "Customer Churn Risk",
+        "d": "Score accounts with Einstein Discovery and act before they leave."
+      },
+      {
+        "t": "Service KPIs",
+        "d": "Case volume, CSAT, and resolution time for support teams."
+      },
+      {
+        "t": "Revenue by Region",
+        "d": "Break revenue down geographically with drill-downs."
+      },
+      {
+        "t": "Rep Leaderboard",
+        "d": "Rank performance with windowed SAQL and faceting."
+      },
+      {
+        "t": "Marketing ROI",
+        "d": "Attribute pipeline to campaigns and measure return."
+      }
     ],
     "submitTitle": "Built something?",
     "submitDesc": "Share the dashboard you built and inspire other learners.",

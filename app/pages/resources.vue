@@ -45,9 +45,35 @@ const categories: { key: 'All' | Category, icon: string }[] = [
   { key: 'Community', icon: 'i-lucide-users' }
 ]
 
+// Community-submitted, admin-approved resources are merged in with the curated
+// list above (RLS exposes only approved rows to the public).
+const client = useDb()
+const user = useSupabaseUser()
+const localePath = useLocalePath()
+const validCats: Category[] = ['Docs', 'Learning', 'Books', 'Blogs', 'Tools', 'Community']
+const { data: community } = await useAsyncData('community-resources', async () => {
+  const { data } = await client
+    .from('resources')
+    .select('title, description, url, category')
+    .eq('status', 'approved')
+    .order('created_at', { ascending: false })
+    .returns<{ title: string, description: string | null, url: string, category: string | null }[]>()
+  return data ?? []
+})
+const communityResources = computed<Resource[]>(() =>
+  (community.value ?? []).map(r => ({
+    title: r.title,
+    desc: r.description || '',
+    url: r.url,
+    category: (validCats.includes(r.category as Category) ? r.category : 'Community') as Category,
+    icon: 'i-lucide-link'
+  }))
+)
+const allResources = computed(() => [...communityResources.value, ...resources])
+
 const selected = ref<'All' | Category>('All')
-const filtered = computed(() => selected.value === 'All' ? resources : resources.filter(r => r.category === selected.value))
-const countFor = (key: 'All' | Category) => key === 'All' ? resources.length : resources.filter(r => r.category === key).length
+const filtered = computed(() => selected.value === 'All' ? allResources.value : allResources.value.filter(r => r.category === selected.value))
+const countFor = (key: 'All' | Category) => key === 'All' ? allResources.value.length : allResources.value.filter(r => r.category === key).length
 
 useJsonLd({
   '@context': 'https://schema.org',
@@ -83,6 +109,15 @@ useJsonLd({
         <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
           Docs, courses, books, blogs, tools, and communities — filter to find what you need.
         </p>
+        <UButton
+          :to="user ? localePath('/submit/resource') : localePath('/login') + '?redirect=' + encodeURIComponent(localePath('/submit/resource'))"
+          icon="i-lucide-plus"
+          color="primary"
+          variant="subtle"
+          class="mt-6 rounded-full font-medium"
+        >
+          Submit a resource
+        </UButton>
       </UContainer>
     </section>
 

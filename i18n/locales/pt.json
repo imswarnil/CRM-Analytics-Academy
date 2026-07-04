@@ -11,7 +11,13 @@
     "contribute": "Contribuir",
     "more": "Mais",
     "privacy": "Política de Privacidade",
-    "terms": "Termos de Serviço"
+    "terms": "Termos de Serviço",
+    "dashboard": "Painel",
+    "profile": "Perfil",
+    "admin": "Admin",
+    "signOut": "Sair",
+    "signIn": "Entrar",
+    "showcase": "Vitrine"
   },
   "hero": {
     "badge": "Currículo gratuito e de código aberto",
@@ -32,13 +38,24 @@
     "star": "Dar uma estrela no GitHub"
   },
   "home": {
-    "stats": { "modules": "Módulos", "lessons": "Lições", "free": "Grátis e aberto", "ai": "Pronto para IA" },
+    "stats": {
+      "modules": "Módulos",
+      "lessons": "Lições",
+      "free": "Grátis e aberto",
+      "ai": "Pronto para IA"
+    },
     "curriculumEyebrow": "O currículo",
     "curriculumTitle": "Dois módulos, um caminho claro",
     "curriculumSubtitle": "Comece pelo topo e avance para baixo — juntos eles cobrem todo o fluxo, dos dados brutos a uma previsão implantada.",
     "modules": {
-      "foundations": { "title": "Fundamentos", "desc": "O que é o CRM Analytics, como os dados viram um conjunto de dados seguro e os componentes da plataforma." },
-      "analytics": { "title": "Analytics e SAQL", "desc": "Escreva consultas SAQL, crie painéis interativos e adicione previsões com o Einstein Discovery." }
+      "foundations": {
+        "title": "Fundamentos",
+        "desc": "O que é o CRM Analytics, como os dados viram um conjunto de dados seguro e os componentes da plataforma."
+      },
+      "analytics": {
+        "title": "Analytics e SAQL",
+        "desc": "Escreva consultas SAQL, crie painéis interativos e adicione previsões com o Einstein Discovery."
+      }
     },
     "startModule": "Iniciar módulo",
     "newHereTitle": "Novo por aqui?",
@@ -47,10 +64,22 @@
     "howEyebrow": "Como funciona",
     "howTitle": "Aprenda, experimente, construa",
     "steps": {
-      "read": { "title": "Leia a lição", "desc": "Lições curtas e focadas explicam uma ideia de cada vez com exemplos reais." },
-      "try": { "title": "Experimente ao vivo", "desc": "Cada conceito vira uma ação concreta: acompanhe em uma org Developer gratuita." },
-      "build": { "title": "Construa um projeto", "desc": "As lições se somam em um pipeline real: dados, conjuntos de dados, painéis e um modelo." },
-      "ai": { "title": "Pergunte à IA", "desc": "Cada página está disponível como Markdown e via MCP, para que um assistente ensine você." }
+      "read": {
+        "title": "Leia a lição",
+        "desc": "Lições curtas e focadas explicam uma ideia de cada vez com exemplos reais."
+      },
+      "try": {
+        "title": "Experimente ao vivo",
+        "desc": "Cada conceito vira uma ação concreta: acompanhe em uma org Developer gratuita."
+      },
+      "build": {
+        "title": "Construa um projeto",
+        "desc": "As lições se somam em um pipeline real: dados, conjuntos de dados, painéis e um modelo."
+      },
+      "ai": {
+        "title": "Pergunte à IA",
+        "desc": "Cada página está disponível como Markdown e via MCP, para que um assistente ensine você."
+      }
     },
     "resourcesEyebrow": "Recursos",
     "resourcesTitle": "Os melhores links, selecionados para você",
@@ -65,48 +94,117 @@
     "outcomesTitle": "O que você será capaz de fazer",
     "outcomesSubtitle": "Ao final, você entrega uma solução de CRM Analytics de ponta a ponta — e comprova isso.",
     "outcomes": [
-      { "t": "Integrar qualquer dado", "d": "Conecte o Salesforce e fontes externas, agende sincronizações confiáveis e mantenha os dados atualizados." },
-      { "t": "Modelar dados com receitas", "d": "Una, agregue e limpe dados brutos em conjuntos de dados confiáveis e bem modelados." },
-      { "t": "Escrever SAQL de verdade", "d": "Escreva consultas à mão para métricas avançadas, janelas e interatividade de painéis." },
-      { "t": "Construir painéis", "d": "Projete painéis responsivos e facetados com detalhamentos e ações do Salesforce integradas." },
-      { "t": "Implantar previsões", "d": "Treine modelos explicáveis do Einstein Discovery e exiba previsões em registros e fluxos." },
-      { "t": "Preparar para a certificação", "d": "Cubra as habilidades do exame de consultor de CRM Analytics e Einstein Discovery." }
+      {
+        "t": "Integrar qualquer dado",
+        "d": "Conecte o Salesforce e fontes externas, agende sincronizações confiáveis e mantenha os dados atualizados."
+      },
+      {
+        "t": "Modelar dados com receitas",
+        "d": "Una, agregue e limpe dados brutos em conjuntos de dados confiáveis e bem modelados."
+      },
+      {
+        "t": "Escrever SAQL de verdade",
+        "d": "Escreva consultas à mão para métricas avançadas, janelas e interatividade de painéis."
+      },
+      {
+        "t": "Construir painéis",
+        "d": "Projete painéis responsivos e facetados com detalhamentos e ações do Salesforce integradas."
+      },
+      {
+        "t": "Implantar previsões",
+        "d": "Treine modelos explicáveis do Einstein Discovery e exiba previsões em registros e fluxos."
+      },
+      {
+        "t": "Preparar para a certificação",
+        "d": "Cubra as habilidades do exame de consultor de CRM Analytics e Einstein Discovery."
+      }
     ],
     "whoEyebrow": "Para quem é",
     "whoTitle": "Feito para cada função da equipe",
     "personas": [
-      { "t": "Analistas", "d": "Vá de relatórios de arrastar e soltar à criação de conjuntos de dados, SAQL e painéis que escalam." },
-      { "t": "Administradores", "d": "Configure a plataforma, gerencie predicados de segurança e implante a analítica com segurança." },
-      { "t": "Consultores", "d": "Projete soluções de ponta a ponta e prepare-se para a certificação com confiança." },
-      { "t": "Iniciantes", "d": "Comece pelo básico de CRM — sem experiência prévia em analítica." }
+      {
+        "t": "Analistas",
+        "d": "Vá de relatórios de arrastar e soltar à criação de conjuntos de dados, SAQL e painéis que escalam."
+      },
+      {
+        "t": "Administradores",
+        "d": "Configure a plataforma, gerencie predicados de segurança e implante a analítica com segurança."
+      },
+      {
+        "t": "Consultores",
+        "d": "Projete soluções de ponta a ponta e prepare-se para a certificação com confiança."
+      },
+      {
+        "t": "Iniciantes",
+        "d": "Comece pelo básico de CRM — sem experiência prévia em analítica."
+      }
     ],
     "topicsEyebrow": "Tudo o que você vai dominar",
     "topicsTitle": "Um currículo, a plataforma inteira",
     "faqEyebrow": "Perguntas frequentes",
     "faqTitle": "Perguntas, respondidas",
     "faqs": [
-      { "q": "É realmente grátis?", "a": "Sim — cada lição é gratuita e de código aberto, sem necessidade de cadastro." },
-      { "q": "Preciso de uma org do Salesforce?", "a": "Uma org Developer Edition gratuita basta para acompanhar todas as lições." },
-      { "q": "Preciso de experiência em código?", "a": "Não. Começamos pelo básico de CRM e introduzimos SAQL aos poucos." },
-      { "q": "Isso ajuda a me certificar?", "a": "O currículo se alinha aos temas do exame de consultor de CRM Analytics e Einstein Discovery." }
+      {
+        "q": "É realmente grátis?",
+        "a": "Sim — cada lição é gratuita e de código aberto, sem necessidade de cadastro."
+      },
+      {
+        "q": "Preciso de uma org do Salesforce?",
+        "a": "Uma org Developer Edition gratuita basta para acompanhar todas as lições."
+      },
+      {
+        "q": "Preciso de experiência em código?",
+        "a": "Não. Começamos pelo básico de CRM e introduzimos SAQL aos poucos."
+      },
+      {
+        "q": "Isso ajuda a me certificar?",
+        "a": "O currículo se alinha aos temas do exame de consultor de CRM Analytics e Einstein Discovery."
+      }
     ],
     "featuresEyebrow": "Como tudo se encaixa",
     "featuresTitle": "Dos dados brutos às decisões",
     "features": [
-      { "t": "Reúna todos os seus dados", "d": "Conecte Salesforce, Snowflake e arquivos; sincronize conforme uma programação; e modele tudo em conjuntos de dados limpos com receitas visuais." },
-      { "t": "Explore e visualize na hora", "d": "Escreva SAQL ou clique para criar lentes, depois monte painéis rápidos e interativos com vinculações, facetamento e detalhamentos." },
-      { "t": "Preveja o que vem a seguir", "d": "Treine modelos explicáveis do Einstein Discovery e exiba previsões e recomendações onde sua equipe trabalha." }
+      {
+        "t": "Reúna todos os seus dados",
+        "d": "Conecte Salesforce, Snowflake e arquivos; sincronize conforme uma programação; e modele tudo em conjuntos de dados limpos com receitas visuais."
+      },
+      {
+        "t": "Explore e visualize na hora",
+        "d": "Escreva SAQL ou clique para criar lentes, depois monte painéis rápidos e interativos com vinculações, facetamento e detalhamentos."
+      },
+      {
+        "t": "Preveja o que vem a seguir",
+        "d": "Treine modelos explicáveis do Einstein Discovery e exiba previsões e recomendações onde sua equipe trabalha."
+      }
     ],
     "projectsEyebrow": "Vitrine",
     "projectsTitle": "Projetos que você pode construir",
     "projectsSubtitle": "Painéis reais que você pode recriar enquanto aprende — e depois compartilhe o seu com a comunidade.",
     "projects": [
-      { "t": "Saúde do pipeline de vendas", "d": "Acompanhe etapas, taxa de ganho e previsão em uma visão interativa." },
-      { "t": "Risco de churn de clientes", "d": "Pontue contas com o Einstein Discovery e aja antes de perdê-las." },
-      { "t": "KPIs de atendimento", "d": "Volume de casos, CSAT e tempo de resolução para equipes de suporte." },
-      { "t": "Receita por região", "d": "Detalhe a receita geograficamente com drill-downs." },
-      { "t": "Ranking de representantes", "d": "Classifique o desempenho com SAQL de janelas e facetamento." },
-      { "t": "ROI de marketing", "d": "Atribua o pipeline às campanhas e meça o retorno." }
+      {
+        "t": "Saúde do pipeline de vendas",
+        "d": "Acompanhe etapas, taxa de ganho e previsão em uma visão interativa."
+      },
+      {
+        "t": "Risco de churn de clientes",
+        "d": "Pontue contas com o Einstein Discovery e aja antes de perdê-las."
+      },
+      {
+        "t": "KPIs de atendimento",
+        "d": "Volume de casos, CSAT e tempo de resolução para equipes de suporte."
+      },
+      {
+        "t": "Receita por região",
+        "d": "Detalhe a receita geograficamente com drill-downs."
+      },
+      {
+        "t": "Ranking de representantes",
+        "d": "Classifique o desempenho com SAQL de janelas e facetamento."
+      },
+      {
+        "t": "ROI de marketing",
+        "d": "Atribua o pipeline às campanhas e meça o retorno."
+      }
     ],
     "submitTitle": "Construiu algo?",
     "submitDesc": "Compartilhe o painel que você criou e inspire outros.",

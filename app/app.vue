@@ -87,5 +87,7 @@ provide('navigation', navigation)
         :navigation="navigation"
       />
     </ClientOnly>
+
+    <AppChat />
   </UApp>
 </template>

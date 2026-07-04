@@ -5,7 +5,7 @@ const description = 'How to contribute to CRM Analytics Academy — fix a typo, 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
-const repo = 'https://github.com/crm-analytics-academy/crm-analytics-academy'
+const repo = 'https://github.com/imswarnil/CRM-Analytics-Academy'
 
 const ways = [
   { icon: 'i-lucide-spell-check', title: 'Fix a typo or error', desc: 'Spotted a mistake? Use the "Edit this page" link on any lesson to open a quick pull request.' },

@@ -103,7 +103,7 @@ const projectIcons = ['i-lucide-trending-up', 'i-lucide-user-minus', 'i-lucide-h
 const projects = computed(() =>
   (tm('home.projects') as { t: string, d: string }[]).map((p, i) => ({ title: rt(p.t), desc: rt(p.d), icon: projectIcons[i] }))
 )
-const submitUrl = 'https://github.com/crm-analytics-academy/crm-analytics-academy/discussions'
+const submitUrl = 'https://github.com/imswarnil/CRM-Analytics-Academy/discussions'
 
 const topics = [
   'Data Manager', 'Connectors', 'Recipes', 'Dataflows', 'Datasets', 'Security Predicates',
@@ -757,7 +757,7 @@ useJsonLd({
                 {{ t('cta.startFoundations') }}
               </UButton>
               <UButton
-                to="https://github.com/crm-analytics-academy/crm-analytics-academy"
+                to="https://github.com/imswarnil/CRM-Analytics-Academy"
                 target="_blank"
                 size="xl"
                 color="neutral"

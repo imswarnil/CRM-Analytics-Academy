@@ -10,7 +10,7 @@ const localePath = useLocalePath()
 // Icon actions on the right of the navbar — ghost icon links with a tooltip.
 const actions = computed(() => [
   { icon: 'i-lucide-info', label: t('nav.about'), to: localePath('/about'), target: undefined as string | undefined },
-  { icon: 'i-simple-icons-github', label: t('nav.github'), to: 'https://github.com/crm-analytics-academy/crm-analytics-academy', target: '_blank' }
+  { icon: 'i-simple-icons-github', label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
 ])
 
 // Secondary links folded into a "More" dropdown to keep the icon row short.
@@ -19,9 +19,10 @@ const actions = computed(() => [
 // overflowing on small screens.
 const moreItems = computed(() => [
   { label: t('nav.about'), icon: 'i-lucide-info', to: localePath('/about'), class: 'lg:hidden' },
-  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/crm-analytics-academy/crm-analytics-academy', target: '_blank', class: 'lg:hidden' },
+  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
+  { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
 ])
@@ -95,6 +96,8 @@ const localeItems = computed(() =>
       >
         <UColorModeButton />
       </UTooltip>
+
+      <AppUserMenu />
 
       <!-- "More" overflow menu — kept last so it reads as the catch-all,
            after language and theme controls. Carries the mobile-only about

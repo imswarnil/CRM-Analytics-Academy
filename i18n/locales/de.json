@@ -11,7 +11,13 @@
     "contribute": "Mitwirken",
     "more": "Mehr",
     "privacy": "Datenschutzerklärung",
-    "terms": "Nutzungsbedingungen"
+    "terms": "Nutzungsbedingungen",
+    "dashboard": "Dashboard",
+    "profile": "Profil",
+    "admin": "Admin",
+    "signOut": "Abmelden",
+    "signIn": "Anmelden",
+    "showcase": "Schaufenster"
   },
   "hero": {
     "badge": "Kostenloser & quelloffener Lehrplan",
@@ -32,13 +38,24 @@
     "star": "Auf GitHub mit Stern markieren"
   },
   "home": {
-    "stats": { "modules": "Module", "lessons": "Lektionen", "free": "Frei & offen", "ai": "KI-bereit" },
+    "stats": {
+      "modules": "Module",
+      "lessons": "Lektionen",
+      "free": "Frei & offen",
+      "ai": "KI-bereit"
+    },
     "curriculumEyebrow": "Der Lehrplan",
     "curriculumTitle": "Zwei Module, ein klarer Weg",
     "curriculumSubtitle": "Beginne oben und arbeite dich nach unten – zusammen decken sie die gesamte Pipeline ab, von Rohdaten bis zur bereitgestellten Vorhersage.",
     "modules": {
-      "foundations": { "title": "Grundlagen", "desc": "Was CRM Analytics ist, wie Daten zu einem sicheren Dataset werden, und die Bausteine der Plattform." },
-      "analytics": { "title": "Analytik & SAQL", "desc": "Schreibe SAQL-Abfragen, baue interaktive Dashboards und ergänze Vorhersagen mit Einstein Discovery." }
+      "foundations": {
+        "title": "Grundlagen",
+        "desc": "Was CRM Analytics ist, wie Daten zu einem sicheren Dataset werden, und die Bausteine der Plattform."
+      },
+      "analytics": {
+        "title": "Analytik & SAQL",
+        "desc": "Schreibe SAQL-Abfragen, baue interaktive Dashboards und ergänze Vorhersagen mit Einstein Discovery."
+      }
     },
     "startModule": "Modul starten",
     "newHereTitle": "Neu hier?",
@@ -47,10 +64,22 @@
     "howEyebrow": "So funktioniert's",
     "howTitle": "Lernen, ausprobieren, bauen",
     "steps": {
-      "read": { "title": "Lektion lesen", "desc": "Kurze, fokussierte Lektionen erklären eine Idee nach der anderen mit echten Beispielen." },
-      "try": { "title": "Live ausprobieren", "desc": "Jedes Konzept wird zu einer konkreten Aktion – mach mit in einer kostenlosen Developer-Org." },
-      "build": { "title": "Ein Projekt bauen", "desc": "Lektionen summieren sich zu einer echten Pipeline: Daten, Datasets, Dashboards, ein Modell." },
-      "ai": { "title": "Frag die KI", "desc": "Jede Seite ist als Markdown und über MCP verfügbar, sodass ein Assistent dich anleiten kann." }
+      "read": {
+        "title": "Lektion lesen",
+        "desc": "Kurze, fokussierte Lektionen erklären eine Idee nach der anderen mit echten Beispielen."
+      },
+      "try": {
+        "title": "Live ausprobieren",
+        "desc": "Jedes Konzept wird zu einer konkreten Aktion – mach mit in einer kostenlosen Developer-Org."
+      },
+      "build": {
+        "title": "Ein Projekt bauen",
+        "desc": "Lektionen summieren sich zu einer echten Pipeline: Daten, Datasets, Dashboards, ein Modell."
+      },
+      "ai": {
+        "title": "Frag die KI",
+        "desc": "Jede Seite ist als Markdown und über MCP verfügbar, sodass ein Assistent dich anleiten kann."
+      }
     },
     "resourcesEyebrow": "Ressourcen",
     "resourcesTitle": "Die besten Links, für dich kuratiert",
@@ -65,48 +94,117 @@
     "outcomesTitle": "Was du danach kannst",
     "outcomesSubtitle": "Am Ende lieferst du eine durchgängige CRM-Analytics-Lösung – und kannst es belegen.",
     "outcomes": [
-      { "t": "Beliebige Daten integrieren", "d": "Verbinde Salesforce und externe Quellen, plane zuverlässige Synchronisierungen und halte Daten aktuell." },
-      { "t": "Daten mit Rezepten formen", "d": "Verbinde, aggregiere und bereinige Rohdaten zu vertrauenswürdigen, gut modellierten Datasets." },
-      { "t": "Echtes SAQL schreiben", "d": "Schreibe Abfragen von Hand für fortgeschrittene Kennzahlen, Windowing und Dashboard-Interaktivität." },
-      { "t": "Dashboards bauen", "d": "Gestalte responsive, facettierte Dashboards mit Drill-downs und eingebetteten Salesforce-Aktionen." },
-      { "t": "Vorhersagen bereitstellen", "d": "Trainiere erklärbare Einstein-Discovery-Modelle und zeige Vorhersagen auf Datensätzen und in Flows." },
-      { "t": "Auf die Zertifizierung vorbereiten", "d": "Decke die Themen der Prüfung zum CRM-Analytics- und Einstein-Discovery-Berater ab." }
+      {
+        "t": "Beliebige Daten integrieren",
+        "d": "Verbinde Salesforce und externe Quellen, plane zuverlässige Synchronisierungen und halte Daten aktuell."
+      },
+      {
+        "t": "Daten mit Rezepten formen",
+        "d": "Verbinde, aggregiere und bereinige Rohdaten zu vertrauenswürdigen, gut modellierten Datasets."
+      },
+      {
+        "t": "Echtes SAQL schreiben",
+        "d": "Schreibe Abfragen von Hand für fortgeschrittene Kennzahlen, Windowing und Dashboard-Interaktivität."
+      },
+      {
+        "t": "Dashboards bauen",
+        "d": "Gestalte responsive, facettierte Dashboards mit Drill-downs und eingebetteten Salesforce-Aktionen."
+      },
+      {
+        "t": "Vorhersagen bereitstellen",
+        "d": "Trainiere erklärbare Einstein-Discovery-Modelle und zeige Vorhersagen auf Datensätzen und in Flows."
+      },
+      {
+        "t": "Auf die Zertifizierung vorbereiten",
+        "d": "Decke die Themen der Prüfung zum CRM-Analytics- und Einstein-Discovery-Berater ab."
+      }
     ],
     "whoEyebrow": "Für wen",
     "whoTitle": "Für jede Rolle im Team gemacht",
     "personas": [
-      { "t": "Analysten", "d": "Vom Drag-and-drop-Bericht zum Bau skalierbarer Datasets, SAQL und Dashboards." },
-      { "t": "Admins", "d": "Richte die Plattform ein, verwalte Sicherheitsprädikate und rolle Analytik sicher aus." },
-      { "t": "Berater", "d": "Entwirf durchgängige Lösungen und bereite dich sicher auf die Zertifizierung vor." },
-      { "t": "Einsteiger", "d": "Beginne mit den CRM-Grundlagen – keine Analytik-Vorkenntnisse nötig." }
+      {
+        "t": "Analysten",
+        "d": "Vom Drag-and-drop-Bericht zum Bau skalierbarer Datasets, SAQL und Dashboards."
+      },
+      {
+        "t": "Admins",
+        "d": "Richte die Plattform ein, verwalte Sicherheitsprädikate und rolle Analytik sicher aus."
+      },
+      {
+        "t": "Berater",
+        "d": "Entwirf durchgängige Lösungen und bereite dich sicher auf die Zertifizierung vor."
+      },
+      {
+        "t": "Einsteiger",
+        "d": "Beginne mit den CRM-Grundlagen – keine Analytik-Vorkenntnisse nötig."
+      }
     ],
     "topicsEyebrow": "Alles, was du meisterst",
     "topicsTitle": "Ein Lehrplan, die ganze Plattform",
     "faqEyebrow": "FAQ",
     "faqTitle": "Fragen, beantwortet",
     "faqs": [
-      { "q": "Ist es wirklich kostenlos?", "a": "Ja – jede Lektion ist kostenlos und quelloffen, ganz ohne Anmeldung." },
-      { "q": "Brauche ich eine Salesforce-Org?", "a": "Eine kostenlose Developer-Edition-Org reicht, um allen Lektionen zu folgen." },
-      { "q": "Brauche ich Programmiererfahrung?", "a": "Nein. Wir starten mit den CRM-Grundlagen und führen SAQL Schritt für Schritt ein." },
-      { "q": "Hilft es bei der Zertifizierung?", "a": "Der Lehrplan deckt die Themen der Prüfung zum CRM-Analytics- und Einstein-Discovery-Berater ab." }
+      {
+        "q": "Ist es wirklich kostenlos?",
+        "a": "Ja – jede Lektion ist kostenlos und quelloffen, ganz ohne Anmeldung."
+      },
+      {
+        "q": "Brauche ich eine Salesforce-Org?",
+        "a": "Eine kostenlose Developer-Edition-Org reicht, um allen Lektionen zu folgen."
+      },
+      {
+        "q": "Brauche ich Programmiererfahrung?",
+        "a": "Nein. Wir starten mit den CRM-Grundlagen und führen SAQL Schritt für Schritt ein."
+      },
+      {
+        "q": "Hilft es bei der Zertifizierung?",
+        "a": "Der Lehrplan deckt die Themen der Prüfung zum CRM-Analytics- und Einstein-Discovery-Berater ab."
+      }
     ],
     "featuresEyebrow": "Wie alles zusammenpasst",
     "featuresTitle": "Von Rohdaten zu Entscheidungen",
     "features": [
-      { "t": "Führe all deine Daten zusammen", "d": "Verbinde Salesforce, Snowflake und Dateien; synchronisiere nach Zeitplan; und forme alles mit visuellen Rezepten zu sauberen Datasets." },
-      { "t": "Sofort erkunden und visualisieren", "d": "Schreibe SAQL oder klicke dir Lenses zusammen und baue schnelle, interaktive Dashboards mit Bindings, Faceting und Drill-downs." },
-      { "t": "Sage voraus, was als Nächstes kommt", "d": "Trainiere erklärbare Einstein-Discovery-Modelle und zeige Vorhersagen und Empfehlungen genau dort, wo dein Team arbeitet." }
+      {
+        "t": "Führe all deine Daten zusammen",
+        "d": "Verbinde Salesforce, Snowflake und Dateien; synchronisiere nach Zeitplan; und forme alles mit visuellen Rezepten zu sauberen Datasets."
+      },
+      {
+        "t": "Sofort erkunden und visualisieren",
+        "d": "Schreibe SAQL oder klicke dir Lenses zusammen und baue schnelle, interaktive Dashboards mit Bindings, Faceting und Drill-downs."
+      },
+      {
+        "t": "Sage voraus, was als Nächstes kommt",
+        "d": "Trainiere erklärbare Einstein-Discovery-Modelle und zeige Vorhersagen und Empfehlungen genau dort, wo dein Team arbeitet."
+      }
     ],
     "projectsEyebrow": "Schaufenster",
     "projectsTitle": "Projekte, die du bauen kannst",
     "projectsSubtitle": "Echte Dashboards, die du beim Lernen nachbaust – und dann dein eigenes mit der Community teilst.",
     "projects": [
-      { "t": "Sales-Pipeline-Gesundheit", "d": "Verfolge Phasen, Gewinnrate und Prognose in einer interaktiven Ansicht." },
-      { "t": "Kundenabwanderungs-Risiko", "d": "Bewerte Accounts mit Einstein Discovery und handle, bevor sie gehen." },
-      { "t": "Service-KPIs", "d": "Fallvolumen, CSAT und Bearbeitungszeit für Support-Teams." },
-      { "t": "Umsatz nach Region", "d": "Schlüssele den Umsatz geografisch mit Drill-downs auf." },
-      { "t": "Vertriebs-Rangliste", "d": "Ranke die Leistung mit gefenstertem SAQL und Faceting." },
-      { "t": "Marketing-ROI", "d": "Ordne Pipeline den Kampagnen zu und miss den Return." }
+      {
+        "t": "Sales-Pipeline-Gesundheit",
+        "d": "Verfolge Phasen, Gewinnrate und Prognose in einer interaktiven Ansicht."
+      },
+      {
+        "t": "Kundenabwanderungs-Risiko",
+        "d": "Bewerte Accounts mit Einstein Discovery und handle, bevor sie gehen."
+      },
+      {
+        "t": "Service-KPIs",
+        "d": "Fallvolumen, CSAT und Bearbeitungszeit für Support-Teams."
+      },
+      {
+        "t": "Umsatz nach Region",
+        "d": "Schlüssele den Umsatz geografisch mit Drill-downs auf."
+      },
+      {
+        "t": "Vertriebs-Rangliste",
+        "d": "Ranke die Leistung mit gefenstertem SAQL und Faceting."
+      },
+      {
+        "t": "Marketing-ROI",
+        "d": "Ordne Pipeline den Kampagnen zu und miss den Return."
+      }
     ],
     "submitTitle": "Etwas gebaut?",
     "submitDesc": "Teile dein Dashboard und inspiriere andere Lernende.",
