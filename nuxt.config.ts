@@ -114,7 +114,10 @@ export default defineNuxtConfig({
   },
 
   icon: {
-    provider: 'iconify'
+    // Bundle icons from the installed @iconify-json/* collections locally
+    // instead of fetching from the Iconify API at runtime (which times out
+    // in dev → "failed to load icon …").
+    serverBundle: 'local'
   },
 
   llms: {
@@ -200,7 +203,9 @@ export default defineNuxtConfig({
   supabase: {
     url: process.env.CRMA_SUPABASE_URL,
     key: process.env.CRMA_SUPABASE_ANON_KEY,
-    serviceKey: process.env.CRMA_SUPABASE_SERVICE_ROLE_KEY,
+    // New-style secret key (sb_secret_…). The legacy `serviceKey` is deprecated;
+    // serverSupabaseServiceRole() uses this for admin/moderation.
+    secretKey: process.env.CRMA_SUPABASE_SECRET_KEY,
     redirect: false,
     // Client typing comes from useDb() (useSupabaseClient<Database>()), so the
     // module's own type generation stays off.
