@@ -22,57 +22,45 @@ export function useProfile() {
   const SELECT = 'id, username, full_name, avatar_url, bio, role'
 
   async function refresh() {
-    if (!user.value) {
+    // useSupabaseUser() returns JWT claims — the user id is `sub`, not `id`.
+    const uid = user.value?.sub
+    if (!uid) {
       profile.value = null
       loadedFor.value = null
       return
     }
     pending.value = true
-    let { data } = await client
+    // profiles are publicly readable, so this works even if the browser client
+    // is unauthenticated.
+    const { data } = await client
       .from('profiles')
       .select(SELECT)
-      .eq('id', user.value.id)
+      .eq('id', uid)
       .maybeSingle()
 
-    // Self-heal: if the profile row is missing (e.g. the user signed up before
-    // the DB trigger existed), create it now. Comments/resources/projects FK to
-    // profiles, so this is what makes those features work after login.
-    if (!data) {
-      const meta = (user.value.user_metadata ?? {}) as Record<string, string>
-      await client.from('profiles').upsert({
-        id: user.value.id,
-        full_name: meta.full_name || meta.name || null,
-        avatar_url: meta.avatar_url || meta.picture || null
-      }, { onConflict: 'id' })
-      const retry = await client
-        .from('profiles')
-        .select(SELECT)
-        .eq('id', user.value.id)
-        .maybeSingle()
-      data = retry.data
-    }
-
     profile.value = (data as Profile) ?? null
-    loadedFor.value = user.value.id
+    loadedFor.value = uid
     pending.value = false
   }
 
+  const userId = computed(() => user.value?.sub ?? null)
   const isAdmin = computed(() => profile.value?.role === 'admin')
 
   const displayName = computed(() =>
     profile.value?.full_name
     || profile.value?.username
-    || user.value?.email?.split('@')[0]
+    || (user.value?.email as string | undefined)?.split('@')[0]
     || 'Member'
   )
 
-  // Fetch once per signed-in user (client-only; RLS needs the user's token).
+  // Fetch once per signed-in user (client-only).
   if (import.meta.client) {
     watch(user, () => {
-      if (user.value && loadedFor.value !== user.value.id) refresh()
-      else if (!user.value) refresh()
+      const uid = user.value?.sub
+      if (uid && loadedFor.value !== uid) refresh()
+      else if (!uid) refresh()
     }, { immediate: true })
   }
 
-  return { user, profile, isAdmin, displayName, pending, refresh }
+  return { user, userId, profile, isAdmin, displayName, pending, refresh }
 }

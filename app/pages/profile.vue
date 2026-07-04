@@ -1,7 +1,6 @@
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
 
-const client = useDb()
 const { user, profile, displayName, refresh } = useProfile()
 
 useSeoMeta({ title: 'Your profile — CRM Analytics Academy', robots: 'noindex' })
@@ -24,20 +23,16 @@ async function save() {
   if (!user.value) return
   saving.value = true
   error.value = ''
-  const { error: err } = await client
-    .from('profiles')
-    .update({
-      full_name: form.full_name.trim() || null,
-      username: form.username.trim() || null,
-      bio: form.bio.trim() || null
+  try {
+    await $fetch('/api/profile', {
+      method: 'POST',
+      body: { full_name: form.full_name, username: form.username, bio: form.bio }
     })
-    .eq('id', user.value.id)
-
-  if (err) {
-    error.value = err.code === '23505' ? 'That username is already taken.' : err.message
-  } else {
     await refresh()
     savedAt.value = Date.now()
+  } catch (e) {
+    const err = e as { data?: { statusMessage?: string }, statusMessage?: string }
+    error.value = err?.data?.statusMessage || err?.statusMessage || 'Could not save. Please try again.'
   }
   saving.value = false
 }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
 
-const client = useDb()
 const user = useSupabaseUser()
 const localePath = useLocalePath()
 
@@ -19,15 +18,16 @@ async function submit() {
   if (!user.value || !valid.value || submitting.value) return
   submitting.value = true
   error.value = ''
-  const { error: err } = await client.from('resources').insert({
-    user_id: user.value.id,
-    title: form.title.trim(),
-    url: form.url.trim(),
-    description: form.description.trim() || null,
-    category: form.category || null
-  })
-  if (err) error.value = err.message
-  else done.value = true
+  try {
+    await $fetch('/api/submit', {
+      method: 'POST',
+      body: { type: 'resource', title: form.title, url: form.url, description: form.description, category: form.category }
+    })
+    done.value = true
+  } catch (e) {
+    const err = e as { data?: { statusMessage?: string }, statusMessage?: string }
+    error.value = err?.data?.statusMessage || err?.statusMessage || 'Could not submit. Please try again.'
+  }
   submitting.value = false
 }
 </script>
