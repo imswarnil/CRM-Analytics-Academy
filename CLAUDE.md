@@ -66,7 +66,7 @@ Uses the **`@nuxtjs/supabase`** module. **Google OAuth only.** Keys come from `C
   - Submissions: `pages/submit/resource.vue`, `pages/submit/project.vue` → admin-moderated. Approved resources appear on `/resources`; approved projects on `/showcase`.
   - `pages/dashboard.vue` — progress, quizzes, and the user's submissions. `pages/profile.vue` — edit profile.
   - `pages/admin.vue` — moderation queue (admin-gated in UI). `server/api/admin/moderate.post.ts` — approve/reject, **service-role**, guarded by `server/utils/auth.ts requireAdmin()`.
-- **Database**: `supabase/migrations/0001_init.sql` — idempotent; all tables + RLS + `is_admin()` + auto-create-profile trigger + role-escalation guard. **Apply it manually** in the Supabase SQL Editor. Tables: `profiles`, `lesson_progress`, `quiz_attempts`, `resources`, `projects`, `comments`. `comments/resources/projects.user_id` FK → `profiles(id)` (enables author embedding).
+- **Database**: `supabase/migrations/` — idempotent; all tables + RLS + `is_admin()` + auto-create-profile trigger + role-escalation guard. **Apply it manually** in the Supabase SQL Editor. Tables: `profiles`, `lesson_progress`, `quiz_attempts`, `resources`, `projects`, `comments`. `comments/resources/projects.user_id` FK → `profiles(id)` (enables author embedding).
 - **Manual setup** required before it works end-to-end: run the migration; enable Google provider (Google Cloud OAuth client, redirect URI `https://<ref>.supabase.co/auth/v1/callback`); add app redirect URLs (`.../confirm`) + Site URL in Supabase; make yourself admin via SQL. See `supabase-setup` skill.
 
 ### Raw markdown + LLM/MCP surface
