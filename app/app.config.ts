@@ -34,7 +34,7 @@ export default defineAppConfig({
       class: 'max-sm:[&_span:last-child]:hidden'
     }, {
       'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/crm-analytics-academy/crm-analytics-academy',
+      'to': 'https://github.com/imswarnil/CRM-Analytics-Academy',
       'target': '_blank',
       'aria-label': 'GitHub'
     }]
@@ -63,11 +63,11 @@ export default defineAppConfig({
     title: 'Table of Contents',
     bottom: {
       title: 'Community',
-      edit: 'https://github.com/crm-analytics-academy/crm-analytics-academy/edit/main/content',
+      edit: 'https://github.com/imswarnil/CRM-Analytics-Academy/edit/main/content',
       links: [{
         icon: 'i-lucide-star',
         label: 'Star on GitHub',
-        to: 'https://github.com/crm-analytics-academy/crm-analytics-academy',
+        to: 'https://github.com/imswarnil/CRM-Analytics-Academy',
         target: '_blank'
       }, {
         icon: 'i-lucide-git-pull-request',

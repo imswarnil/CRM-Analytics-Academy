@@ -1,0 +1,115 @@
+// Hand-written Supabase schema types — keep in sync with supabase/migrations/.
+// Referenced by nuxt.config `supabase.types` so useSupabaseClient() is typed.
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+
+type Timestamps = { created_at: string }
+
+export interface Database {
+  public: {
+    Tables: {
+      profiles: {
+        Row: {
+          id: string
+          username: string | null
+          full_name: string | null
+          avatar_url: string | null
+          bio: string | null
+          role: 'member' | 'admin'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          username?: string | null
+          full_name?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          role?: 'member' | 'admin'
+        }
+        Update: {
+          username?: string | null
+          full_name?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          role?: 'member' | 'admin'
+        }
+        Relationships: []
+      }
+      lesson_progress: {
+        Row: { user_id: string, lesson_path: string, completed_at: string }
+        Insert: { user_id: string, lesson_path: string, completed_at?: string }
+        Update: { completed_at?: string }
+        Relationships: []
+      }
+      quiz_attempts: {
+        Row: { id: string, user_id: string, quiz_id: string, score: number, total: number, created_at: string }
+        Insert: { user_id: string, quiz_id: string, score: number, total: number }
+        Update: { score?: number, total?: number }
+        Relationships: []
+      }
+      resources: {
+        Row: {
+          id: string
+          user_id: string | null
+          title: string
+          url: string
+          description: string | null
+          category: string | null
+          status: 'pending' | 'approved' | 'rejected'
+        } & Timestamps
+        Insert: {
+          user_id: string
+          title: string
+          url: string
+          description?: string | null
+          category?: string | null
+          status?: 'pending'
+        }
+        Update: { status?: 'pending' | 'approved' | 'rejected' }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          id: string
+          user_id: string | null
+          title: string
+          description: string | null
+          image_url: string | null
+          link: string | null
+          tags: string[] | null
+          status: 'pending' | 'approved' | 'rejected'
+        } & Timestamps
+        Insert: {
+          user_id: string
+          title: string
+          description?: string | null
+          image_url?: string | null
+          link?: string | null
+          tags?: string[] | null
+          status?: 'pending'
+        }
+        Update: { status?: 'pending' | 'approved' | 'rejected' }
+        Relationships: []
+      }
+      comments: {
+        Row: {
+          id: string
+          user_id: string
+          page_path: string
+          body: string
+          parent_id: string | null
+          created_at: string
+        }
+        Insert: { user_id: string, page_path: string, body: string, parent_id?: string | null }
+        Update: { body?: string }
+        Relationships: []
+      }
+    }
+    Views: Record<string, never>
+    Functions: {
+      is_admin: { Args: Record<string, never>, Returns: boolean }
+    }
+    Enums: Record<string, never>
+    CompositeTypes: Record<string, never>
+  }
+}

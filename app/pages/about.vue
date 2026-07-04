@@ -28,7 +28,7 @@ useJsonLd([
     'url': 'https://imswarnil.com',
     'jobTitle': 'Creator & maintainer, CRM Analytics Academy',
     'worksFor': { '@type': 'Organization', 'name': SITE.name },
-    'sameAs': ['https://github.com/crm-analytics-academy', 'https://imswarnil.com']
+    'sameAs': ['https://github.com/imswarnil', 'https://imswarnil.com']
   }
 ])
 
@@ -54,7 +54,7 @@ const stack = [
 ]
 
 const authorLinks = [
-  { icon: 'i-simple-icons-github', label: 'GitHub', to: 'https://github.com/crm-analytics-academy', target: '_blank' },
+  { icon: 'i-simple-icons-github', label: 'GitHub', to: 'https://github.com/imswarnil', target: '_blank' },
   { icon: 'i-lucide-globe', label: 'Website', to: 'https://imswarnil.com', target: '_blank' },
   { icon: 'i-lucide-heart', label: 'Sponsor', to: 'https://github.com/sponsors/crm-analytics-academy', target: '_blank' }
 ]
@@ -253,7 +253,7 @@ const authorLinks = [
               <p>
                 This is an ongoing, community-driven project. If it helped you, the best thanks is to
                 <NuxtLink
-                  to="https://github.com/crm-analytics-academy/crm-analytics-academy"
+                  to="https://github.com/imswarnil/CRM-Analytics-Academy"
                   target="_blank"
                   class="font-medium text-primary underline-offset-4 hover:underline"
                 >star the repo</NuxtLink>, suggest a topic, or contribute a lesson. Sponsorships keep it
@@ -315,7 +315,7 @@ const authorLinks = [
                 Start with Foundations
               </UButton>
               <UButton
-                to="https://github.com/crm-analytics-academy/crm-analytics-academy"
+                to="https://github.com/imswarnil/CRM-Analytics-Academy"
                 target="_blank"
                 size="xl"
                 color="neutral"

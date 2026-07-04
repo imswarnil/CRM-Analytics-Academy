@@ -26,6 +26,11 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
   })
 })
 
+// Soft members-gate: logged-out readers of an `access: members` lesson see a
+// teaser + sign-in prompt (content is still rendered, just visually gated).
+const user = useSupabaseUser()
+const locked = computed(() => page.value?.access === 'members' && !user.value)
+
 const title = page.value.seo?.title || page.value.title
 const description = page.value.seo?.description || page.value.description
 
@@ -119,12 +124,31 @@ useJsonLd([
     </UPageHeader>
 
     <UPageBody>
-      <ContentRenderer
-        v-if="renderedPage"
-        :value="renderedPage"
-      />
+      <MembersGate :locked="locked">
+        <ContentRenderer
+          v-if="renderedPage"
+          :value="renderedPage"
+        />
+      </MembersGate>
+
+      <template v-if="!locked">
+        <LessonProgress :lesson-path="route.path" />
+
+        <LessonQuiz
+          v-if="page.quiz?.length"
+          :questions="page.quiz"
+          :quiz-id="route.path"
+        />
+      </template>
 
       <AdUnit placement="endOfArticle" />
+
+      <DocsChat
+        :page-path="contentPath"
+        :page-title="page.title"
+      />
+
+      <LessonComments :page-path="route.path" />
 
       <USeparator v-if="surround?.length" />
 
@@ -137,37 +161,46 @@ useJsonLd([
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <!-- UPage's #right slot is order-first on mobile (TOC-before-content is
-           intentional there). No top padding below lg so the TOC sits flush
-           against the navbar with nothing in between. Sticky/scroll merging
-           (so the ad rides along with the TOC and stops once you scroll past
-           this block) only kicks in at lg, where the slot sits beside the
-           article as a right rail. -->
+      <!-- UPage's #right slot is order-first on mobile: it renders as a sticky,
+           collapsible "On this page" bar above the article. On lg+ it becomes
+           the right rail. `highlight` draws the scrollspy indicator — a filled
+           primary bar on the left border that tracks the active heading. The
+           ad + community links live in the #bottom slot, which the theme hides
+           on mobile so the mobile TOC stays clean. -->
       <div class="lg:sticky lg:top-(--ui-header-height) lg:max-h-[calc(100vh-var(--ui-header-height)-1rem)] lg:overflow-y-auto lg:pt-6">
         <UContentToc
+          highlight
+          highlight-color="primary"
           :title="toc?.title"
           :links="page.body?.toc?.links"
-          :ui="{ root: 'lg:static lg:max-h-none lg:overflow-y-visible' }"
+          :ui="{
+            root: 'lg:static lg:max-h-none lg:overflow-y-visible lg:bg-transparent lg:backdrop-blur-none',
+            container: 'lg:pt-0',
+            title: 'text-xs font-semibold uppercase tracking-wide text-dimmed',
+            link: 'text-sm py-1.5',
+            indicator: 'w-0.5'
+          }"
           class="w-full"
-        />
-
-        <!-- Comes after the TOC (not before it) on every breakpoint. -->
-        <AdUnit
-          placement="sidebarSquare"
-          class="mt-6 w-full"
-        />
-
-        <div
-          v-if="tocBottomLinks.length"
-          class="mt-6 hidden space-y-4 lg:block"
         >
-          <USeparator type="dashed" />
+          <template #bottom>
+            <AdUnit
+              placement="sidebarSquare"
+              class="w-full"
+            />
 
-          <UPageLinks
-            :title="toc?.bottom?.title"
-            :links="tocBottomLinks"
-          />
-        </div>
+            <div
+              v-if="tocBottomLinks.length"
+              class="space-y-4"
+            >
+              <USeparator type="dashed" />
+
+              <UPageLinks
+                :title="toc?.bottom?.title"
+                :links="tocBottomLinks"
+              />
+            </div>
+          </template>
+        </UContentToc>
       </div>
     </template>
   </UPage>

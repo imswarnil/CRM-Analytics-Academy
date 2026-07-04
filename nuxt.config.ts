@@ -9,7 +9,9 @@ export default defineNuxtConfig({
     'nuxt-llms',
     '@nuxtjs/mcp-toolkit',
     '@nuxtjs/i18n',
-    '@vercel/analytics/nuxt'
+    '@nuxtjs/supabase',
+    '@vercel/analytics/nuxt',
+    '@vercel/speed-insights/nuxt'
   ],
 
   devtools: {
@@ -48,6 +50,13 @@ export default defineNuxtConfig({
     }
   },
 
+  runtimeConfig: {
+    // Server-only. Provided via NUXT_GEMINI_API_KEY (see .env.example).
+    geminiApiKey: '',
+    // Overridable via NUXT_GEMINI_MODEL if needed.
+    geminiModel: 'gemini-flash-latest'
+  },
+
   experimental: {
     asyncContext: true
   },
@@ -68,7 +77,7 @@ export default defineNuxtConfig({
 
   vite: {
     optimizeDeps: {
-      include: ['@vue/devtools-core', '@vue/devtools-kit', '@vueuse/core']
+      include: ['@vue/devtools-core', '@vue/devtools-kit', '@vueuse/core', 'remark-emoji']
     }
   },
 
@@ -181,5 +190,19 @@ export default defineNuxtConfig({
 
   ogImage: {
     zeroRuntime: true
+  },
+
+  // Supabase auth + data. Keys come from the CRMA_-prefixed env vars created by
+  // the Vercel↔Supabase integration (see .env.example). `redirect: false` keeps
+  // the whole site public by default; individual pages opt in via the `auth`
+  // middleware. The service key is server-only (used for admin/moderation).
+  supabase: {
+    url: process.env.CRMA_SUPABASE_URL,
+    key: process.env.CRMA_SUPABASE_ANON_KEY,
+    serviceKey: process.env.CRMA_SUPABASE_SERVICE_ROLE_KEY,
+    redirect: false,
+    // Client typing comes from useDb() (useSupabaseClient<Database>()), so the
+    // module's own type generation stays off.
+    types: false
   }
 })

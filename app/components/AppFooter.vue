@@ -19,7 +19,7 @@ const columns = computed(() => [
       { label: t('nav.about'), to: localePath('/about') },
       { label: t('nav.contribute'), to: localePath('/contribute') },
       { label: t('nav.sponsor'), to: localePath('/sponsor') },
-      { label: t('nav.github'), to: 'https://github.com/crm-analytics-academy/crm-analytics-academy', target: '_blank' }
+      { label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
     ]
   },
   {
