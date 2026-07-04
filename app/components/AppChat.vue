@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { messages, loading, error, send, reset, remaining, limitReached, questionLimit } = useDocsChat()
+const { messages, loading, error, send, reset, remaining, limitReached, questionLimit, hasKey } = useDocsChat()
 
 const open = ref(false)
 const input = ref('')
@@ -84,6 +84,7 @@ function onKeydown(e: KeyboardEvent) {
             </div>
           </div>
           <div class="flex items-center gap-1">
+            <AiSettings />
             <UButton
               v-if="messages.length"
               icon="i-lucide-rotate-ccw"
@@ -176,7 +177,8 @@ function onKeydown(e: KeyboardEvent) {
             v-if="limitReached"
             class="rounded-lg bg-elevated px-3 py-2.5 text-center text-xs text-muted"
           >
-            You've used all {{ questionLimit }} questions for this session. Come back later to ask more.
+            You've used all {{ questionLimit }} free questions for this session. Add your own AI key
+            (⚙️ top-right) for unlimited use, or come back later.
           </div>
           <template v-else>
             <div class="flex items-end gap-2">
@@ -203,7 +205,14 @@ function onKeydown(e: KeyboardEvent) {
             </div>
             <p class="mt-2 flex items-center justify-between text-[11px] text-dimmed">
               <span>AI can make mistakes. Verify important details.</span>
-              <span class="shrink-0 tabular-nums">{{ remaining }}/{{ questionLimit }} left</span>
+              <span
+                v-if="!hasKey"
+                class="shrink-0 tabular-nums"
+              >{{ remaining }}/{{ questionLimit }} left</span>
+              <span
+                v-else
+                class="shrink-0"
+              >Your key</span>
             </p>
           </template>
         </div>

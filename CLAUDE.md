@@ -45,9 +45,11 @@ If the docs nav or `/raw/*.md` ever looks empty/broken in dev, this is almost al
 - To add a lesson, add a markdown file under `content/` (see the `new-lesson` skill). Do **not** create a Vue file. New pages must be link-reachable from `/` to be prerendered (`nitro.prerender.crawlLinks`).
 
 ### AI chat ("CRM Analytics AI")
-Gemini-backed Q&A grounded in the docs. **Free tier** (`gemini-flash-latest`), key in `NUXT_GEMINI_API_KEY` (server-only).
-- `server/api/chat.post.ts` — keyword-retrieves the most relevant docs sections (boosts the current page when `pagePath` is sent), calls Gemini with a docs-grounded system prompt, streams plain-text back. Thinking disabled; short answers to save tokens.
-- `app/composables/useDocsChat.ts` — shared client controller. Enforces a **3-questions-per-session** limit (sessionStorage), shared across both chat surfaces.
+Q&A grounded in the docs. Defaults to the site's **Gemini** key (`gemini-2.0-flash`, `NUXT_GEMINI_API_KEY`, server-only) but supports **bring-your-own-key**: each visitor can pick a provider + model + paste their own key (no server storage).
+- `server/utils/llm.ts` — multi-provider streaming (Gemini, OpenAI, Groq, OpenRouter, Anthropic). `fetchLlmStream()` fires the request; `sseToTextStream()` normalizes each provider's SSE into plain text.
+- `server/api/chat.post.ts` — keyword-retrieves relevant docs sections (boosts the current page via `pagePath`), builds a docs-grounded system prompt, resolves provider/key (user's if supplied, else site Gemini), streams the answer. Maps upstream 401/403→"key rejected", 429→friendly rate-limit message.
+- `app/composables/useAiSettings.ts` — the visitor's provider/model/key in localStorage (`AI_PROVIDERS` list). `app/components/AiSettings.vue` — the ⚙️ settings modal.
+- `app/composables/useDocsChat.ts` — shared client controller. Enforces a **3-questions-per-session** cap (sessionStorage) **only when using the site's shared key**; a visitor's own key is uncapped.
 - `app/components/AppChat.vue` — floating "Ask AI" widget (global, in `app.vue`).
 - `app/components/DocsChat.vue` — inline per-lesson chat (renders before prev/next nav), passes the current page for on-topic answers.
 

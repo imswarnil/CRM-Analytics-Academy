@@ -1,4 +1,5 @@
 import { queryCollectionSearchSections } from '@nuxt/content/server'
+import { fetchLlmStream, sseToTextStream, SUPPORTED_PROVIDERS } from '../utils/llm'
 
 interface ChatMessage {
   role: 'user' | 'assistant'
@@ -12,6 +13,10 @@ interface ChatBody {
   // relevance boost so on-page questions resolve faster and stay on-topic.
   pagePath?: string
   pageTitle?: string
+  // Optional bring-your-own-key: provider + model + key from the browser.
+  provider?: string
+  model?: string
+  apiKey?: string
 }
 
 // Words too common to be useful for keyword scoring.
@@ -37,14 +42,28 @@ const MAX_CONTEXT_CHARS = 6000
 
 export default defineEventHandler(async (event) => {
   const { geminiApiKey, geminiModel } = useRuntimeConfig(event)
-  if (!geminiApiKey) {
-    throw createError({ statusCode: 500, statusMessage: 'Chat is not configured (missing GEMINI API key).' })
-  }
 
   const body = await readBody<ChatBody>(event)
   const messages = (body?.messages ?? []).filter(m => m?.content?.trim())
   if (!messages.length) {
     throw createError({ statusCode: 400, statusMessage: 'No messages provided.' })
+  }
+
+  // Resolve which model to use: the user's own provider+key if supplied,
+  // otherwise the site's default Gemini key.
+  const userKey = typeof body?.apiKey === 'string' ? body.apiKey.trim() : ''
+  const userProvider = typeof body?.provider === 'string' ? body.provider : ''
+  const usingUserKey = Boolean(userKey && SUPPORTED_PROVIDERS.includes(userProvider as never))
+
+  const provider = usingUserKey ? userProvider : 'gemini'
+  const apiKey = usingUserKey ? userKey : geminiApiKey
+  const model = usingUserKey && body?.model?.trim() ? body.model.trim() : geminiModel
+
+  if (!apiKey) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'No AI key configured. Add your own API key in the chat settings to start chatting.'
+    })
   }
 
   const locale = (body?.locale || 'en').replace(/[^a-z]/g, '') || 'en'
@@ -125,91 +144,36 @@ export default defineEventHandler(async (event) => {
       : '--- DOCUMENTATION CONTEXT ---\n(No matching documentation was found for this question.)'
   ].join('\n')
 
-  // Map conversation to Gemini's format (assistant -> model).
-  const contents = messages.map(m => ({
-    role: m.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: m.content }]
-  }))
+  const upstream = await fetchLlmStream({
+    provider,
+    apiKey,
+    model,
+    system: systemInstruction,
+    messages,
+    maxTokens: 600
+  }).catch(() => null)
 
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:streamGenerateContent?alt=sse`
-
-  const upstream = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-goog-api-key': geminiApiKey
-    },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: systemInstruction }] },
-      contents,
-      // Disable "thinking" for faster, cheaper docs answers.
-      generationConfig: {
-        temperature: 0.3,
-        maxOutputTokens: 500,
-        thinkingConfig: { thinkingBudget: 0 }
-      }
-    })
-  })
-
-  if (!upstream.ok || !upstream.body) {
-    const detail = await upstream.text().catch(() => '')
-    // Surface rate limits distinctly so the client can show a friendly message
-    // instead of a generic error.
-    const rateLimited = upstream.status === 429
-    throw createError({
-      statusCode: rateLimited ? 429 : 502,
-      statusMessage: rateLimited
-        ? 'The assistant is temporarily rate-limited. Please try again shortly.'
-        : `Upstream LLM error (${upstream.status}). ${detail.slice(0, 300)}`
-    })
+  if (!upstream || !upstream.ok || !upstream.body) {
+    const status = upstream?.status ?? 502
+    const detail = upstream ? await upstream.text().catch(() => '') : ''
+    // Distinguish the common failure modes so the client can show a clear message.
+    let statusCode = 502
+    let statusMessage = `Upstream LLM error (${status}). ${detail.slice(0, 300)}`
+    if (status === 429) {
+      statusCode = 429
+      statusMessage = usingUserKey
+        ? 'Your AI provider is rate-limited or out of quota. Try again shortly.'
+        : 'The assistant is temporarily rate-limited. Add your own AI key in settings for uninterrupted use.'
+    } else if (status === 401 || status === 403) {
+      statusCode = 400
+      statusMessage = 'Your API key was rejected. Check the key and model in chat settings.'
+    }
+    throw createError({ statusCode, statusMessage })
   }
 
   setHeader(event, 'Content-Type', 'text/plain; charset=utf-8')
   setHeader(event, 'Cache-Control', 'no-cache, no-transform')
   setHeader(event, 'X-Accel-Buffering', 'no')
 
-  // Parse Gemini's SSE stream and re-emit only the plain text deltas.
-  const decoder = new TextDecoder()
-  const encoder = new TextEncoder()
-  let buffer = ''
-
-  const stream = new ReadableStream<Uint8Array>({
-    async start(controller) {
-      const reader = upstream.body!.getReader()
-      try {
-        for (;;) {
-          const { done, value } = await reader.read()
-          if (done) break
-          buffer += decoder.decode(value, { stream: true })
-          const lines = buffer.split('\n')
-          buffer = lines.pop() ?? ''
-          for (const line of lines) {
-            const trimmed = line.trim()
-            if (!trimmed.startsWith('data:')) continue
-            const payload = trimmed.slice(5).trim()
-            if (!payload || payload === '[DONE]') continue
-            try {
-              const json = JSON.parse(payload)
-              const parts = json?.candidates?.[0]?.content?.parts
-              if (Array.isArray(parts)) {
-                for (const part of parts) {
-                  if (typeof part?.text === 'string' && part.text) {
-                    controller.enqueue(encoder.encode(part.text))
-                  }
-                }
-              }
-            } catch {
-              // Ignore partial/non-JSON keep-alive lines.
-            }
-          }
-        }
-      } catch {
-        controller.enqueue(encoder.encode('\n\n_(The response was interrupted.)_'))
-      } finally {
-        controller.close()
-      }
-    }
-  })
-
-  return stream
+  return sseToTextStream(provider, upstream.body)
 })
