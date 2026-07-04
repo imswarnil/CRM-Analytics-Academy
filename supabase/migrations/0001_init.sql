@@ -113,6 +113,16 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
+-- Backfill profiles for any users who signed up before this migration ran
+-- (otherwise comments/resources/projects, which FK to profiles, would fail).
+insert into public.profiles (id, full_name, avatar_url)
+select
+  u.id,
+  coalesce(u.raw_user_meta_data ->> 'full_name', u.raw_user_meta_data ->> 'name'),
+  coalesce(u.raw_user_meta_data ->> 'avatar_url', u.raw_user_meta_data ->> 'picture')
+from auth.users u
+on conflict (id) do nothing;
+
 -- ---------------------------------------------------------------------------
 -- lesson_progress  (mark a lesson as done)
 -- ---------------------------------------------------------------------------

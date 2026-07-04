@@ -38,6 +38,7 @@ function persistCount() {
  */
 export function useDocsChat() {
   const { locale } = useI18n()
+  const ai = useAiSettings()
 
   restoreCount()
 
@@ -46,7 +47,9 @@ export function useDocsChat() {
   const error = ref('')
 
   const remaining = computed(() => Math.max(0, QUESTION_LIMIT - usedQuestions.value))
-  const limitReached = computed(() => remaining.value === 0)
+  // The per-session cap only applies to the site's shared key. Visitors using
+  // their own key have no cap (it's their own quota).
+  const limitReached = computed(() => !ai.hasKey.value && remaining.value === 0)
 
   async function send(text: string, opts: SendOptions = {}) {
     const content = text.trim()
@@ -63,13 +66,17 @@ export function useDocsChat() {
     messages.value.push(assistant)
     loading.value = true
 
-    // Count the question up front so it can't be bypassed by rapid submits.
-    usedQuestions.value += 1
-    persistCount()
+    // Only count against the per-session cap when using the site's shared key.
+    const counted = !ai.hasKey.value
+    if (counted) {
+      usedQuestions.value += 1
+      persistCount()
+    }
 
     // Refund the counted question — a failed/rate-limited request shouldn't burn
     // the session quota.
     const refund = () => {
+      if (!counted) return
       usedQuestions.value = Math.max(0, usedQuestions.value - 1)
       persistCount()
     }
@@ -83,7 +90,11 @@ export function useDocsChat() {
           messages: messages.value.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
           locale: locale.value,
           pagePath: opts.pagePath,
-          pageTitle: opts.pageTitle
+          pageTitle: opts.pageTitle,
+          // Bring-your-own-key (empty when using the site's shared model).
+          provider: ai.settings.value.provider,
+          model: ai.activeModel.value,
+          apiKey: ai.settings.value.apiKey
         })
       })
 
@@ -127,5 +138,5 @@ export function useDocsChat() {
     error.value = ''
   }
 
-  return { messages, loading, error, send, reset, remaining, limitReached, questionLimit: QUESTION_LIMIT }
+  return { messages, loading, error, send, reset, remaining, limitReached, questionLimit: QUESTION_LIMIT, hasKey: ai.hasKey }
 }

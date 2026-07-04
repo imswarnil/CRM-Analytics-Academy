@@ -33,7 +33,7 @@ async function toggle() {
     completed.value = false
   } else {
     await client.from('lesson_progress')
-      .upsert({ user_id: user.value.id, lesson_path: props.lessonPath })
+      .upsert({ user_id: user.value.id, lesson_path: props.lessonPath }, { onConflict: 'user_id,lesson_path' })
     completed.value = true
   }
   busy.value = false

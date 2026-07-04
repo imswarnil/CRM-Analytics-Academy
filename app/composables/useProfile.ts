@@ -19,6 +19,8 @@ export function useProfile() {
   const pending = useState<boolean>('crma-profile-pending', () => false)
   const loadedFor = useState<string | null>('crma-profile-loaded-for', () => null)
 
+  const SELECT = 'id, username, full_name, avatar_url, bio, role'
+
   async function refresh() {
     if (!user.value) {
       profile.value = null
@@ -26,11 +28,30 @@ export function useProfile() {
       return
     }
     pending.value = true
-    const { data } = await client
+    let { data } = await client
       .from('profiles')
-      .select('id, username, full_name, avatar_url, bio, role')
+      .select(SELECT)
       .eq('id', user.value.id)
-      .single()
+      .maybeSingle()
+
+    // Self-heal: if the profile row is missing (e.g. the user signed up before
+    // the DB trigger existed), create it now. Comments/resources/projects FK to
+    // profiles, so this is what makes those features work after login.
+    if (!data) {
+      const meta = (user.value.user_metadata ?? {}) as Record<string, string>
+      await client.from('profiles').upsert({
+        id: user.value.id,
+        full_name: meta.full_name || meta.name || null,
+        avatar_url: meta.avatar_url || meta.picture || null
+      }, { onConflict: 'id' })
+      const retry = await client
+        .from('profiles')
+        .select(SELECT)
+        .eq('id', user.value.id)
+        .maybeSingle()
+      data = retry.data
+    }
+
     profile.value = (data as Profile) ?? null
     loadedFor.value = user.value.id
     pending.value = false
