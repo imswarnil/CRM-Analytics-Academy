@@ -67,6 +67,16 @@ export function useDocsChat() {
     usedQuestions.value += 1
     persistCount()
 
+    // Refund the counted question and drop the empty assistant bubble on failure.
+    const fail = (message: string) => {
+      error.value = message
+      if (!assistant.content) {
+        messages.value.pop()
+        usedQuestions.value = Math.max(0, usedQuestions.value - 1)
+        persistCount()
+      }
+    }
+
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
@@ -81,7 +91,10 @@ export function useDocsChat() {
       })
 
       if (!res.ok || !res.body) {
-        throw new Error(`Request failed (${res.status})`)
+        fail(res.status === 429
+          ? 'CRM Analytics AI is busy right now (usage limit reached). Please try again in a little while.'
+          : 'Something went wrong. Please try again.')
+        return
       }
 
       const reader = res.body.getReader()
@@ -95,13 +108,7 @@ export function useDocsChat() {
         assistant.content = '_No response was returned. Please try again._'
       }
     } catch {
-      error.value = 'Something went wrong. Please try again.'
-      if (!assistant.content) {
-        messages.value.pop()
-        // Refund the failed question so a network error doesn't burn the quota.
-        usedQuestions.value = Math.max(0, usedQuestions.value - 1)
-        persistCount()
-      }
+      fail('Something went wrong. Please try again.')
     } finally {
       loading.value = false
     }

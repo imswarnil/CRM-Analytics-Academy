@@ -53,8 +53,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Server-only. Provided via NUXT_GEMINI_API_KEY (see .env.example).
     geminiApiKey: '',
-    // Overridable via NUXT_GEMINI_MODEL if needed.
-    geminiModel: 'gemini-flash-latest'
+    // Overridable via NUXT_GEMINI_MODEL. gemini-2.0-flash has a generous free
+    // tier; the "-latest" preview models have very low free quotas (limit ~20/day).
+    geminiModel: 'gemini-2.0-flash'
   },
 
   experimental: {

@@ -153,9 +153,14 @@ export default defineEventHandler(async (event) => {
 
   if (!upstream.ok || !upstream.body) {
     const detail = await upstream.text().catch(() => '')
+    // Surface rate limits distinctly so the client can show a friendly message
+    // instead of a generic error.
+    const rateLimited = upstream.status === 429
     throw createError({
-      statusCode: 502,
-      statusMessage: `Upstream LLM error (${upstream.status}). ${detail.slice(0, 300)}`
+      statusCode: rateLimited ? 429 : 502,
+      statusMessage: rateLimited
+        ? 'The assistant is temporarily rate-limited. Please try again shortly.'
+        : `Upstream LLM error (${upstream.status}). ${detail.slice(0, 300)}`
     })
   }
 
