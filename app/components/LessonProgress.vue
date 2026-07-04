@@ -5,6 +5,7 @@ const user = useSupabaseUser()
 const client = useDb()
 const localePath = useLocalePath()
 const route = useRoute()
+const toast = useToast()
 
 const completed = ref(false)
 const busy = ref(false)
@@ -26,15 +27,29 @@ async function loadState() {
 async function toggle() {
   if (!user.value || busy.value) return
   busy.value = true
-  if (completed.value) {
-    await client.from('lesson_progress').delete()
-      .eq('user_id', user.value.id)
-      .eq('lesson_path', props.lessonPath)
-    completed.value = false
+
+  const wasComplete = completed.value
+  const { error } = wasComplete
+    ? await client.from('lesson_progress').delete()
+        .eq('user_id', user.value.id)
+        .eq('lesson_path', props.lessonPath)
+    : await client.from('lesson_progress')
+        .upsert({ user_id: user.value.id, lesson_path: props.lessonPath }, { onConflict: 'user_id,lesson_path' })
+
+  if (error) {
+    // Surface the real reason instead of silently pretending it saved.
+    toast.add({
+      title: 'Could not save your progress',
+      description: error.message,
+      color: 'error',
+      icon: 'i-lucide-alert-triangle'
+    })
   } else {
-    await client.from('lesson_progress')
-      .upsert({ user_id: user.value.id, lesson_path: props.lessonPath }, { onConflict: 'user_id,lesson_path' })
-    completed.value = true
+    // Confirm against the DB rather than assuming success.
+    await loadState()
+    if (!wasComplete) {
+      toast.add({ title: 'Marked complete', color: 'success', icon: 'i-lucide-check' })
+    }
   }
   busy.value = false
 }

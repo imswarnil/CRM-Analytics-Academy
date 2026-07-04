@@ -53,7 +53,8 @@ async function post() {
     body: text
   })
   if (err) {
-    error.value = 'Could not post your comment. Please try again.'
+    // Show the actual reason so silent failures (auth/RLS) are visible.
+    error.value = err.message || 'Could not post your comment. Please try again.'
   } else {
     body.value = ''
     await refresh()

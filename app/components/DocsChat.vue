@@ -5,7 +5,7 @@ const props = defineProps<{
   pageTitle?: string
 }>()
 
-const { messages, loading, error, send, reset, remaining, limitReached, questionLimit, hasKey } = useDocsChat()
+const { messages, loading, error, send, reset, remaining, limitReached, questionLimit, usingOwn } = useDocsChat()
 
 const input = ref('')
 const scroller = ref<HTMLElement | null>(null)
@@ -176,7 +176,7 @@ function onKeydown(e: KeyboardEvent) {
         >
           <span>CRM Analytics AI can make mistakes. Verify important details.</span>
           <span
-            v-if="!hasKey"
+            v-if="!usingOwn"
             class="shrink-0 tabular-nums"
           >{{ remaining }}/{{ questionLimit }} left</span>
           <span

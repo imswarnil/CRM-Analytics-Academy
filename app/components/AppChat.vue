@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { messages, loading, error, send, reset, remaining, limitReached, questionLimit, hasKey } = useDocsChat()
+const { messages, loading, error, send, reset, remaining, limitReached, questionLimit, usingOwn } = useDocsChat()
 
 const open = ref(false)
 const input = ref('')
@@ -206,7 +206,7 @@ function onKeydown(e: KeyboardEvent) {
             <p class="mt-2 flex items-center justify-between text-[11px] text-dimmed">
               <span>AI can make mistakes. Verify important details.</span>
               <span
-                v-if="!hasKey"
+                v-if="!usingOwn"
                 class="shrink-0 tabular-nums"
               >{{ remaining }}/{{ questionLimit }} left</span>
               <span

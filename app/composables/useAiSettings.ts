@@ -1,4 +1,6 @@
 export interface AiSettings {
+  // false → use the site's shared model; true → use the visitor's own key.
+  useOwnKey: boolean
   provider: string
   model: string
   apiKey: string
@@ -29,7 +31,7 @@ const STORAGE_KEY = 'crma-ai-settings'
  * provider/model instead of the site's shared Gemini key.
  */
 export function useAiSettings() {
-  const settings = useState<AiSettings>('crma-ai-settings', () => ({ provider: 'gemini', model: '', apiKey: '' }))
+  const settings = useState<AiSettings>('crma-ai-settings', () => ({ useOwnKey: false, provider: 'gemini', model: '', apiKey: '' }))
   const loaded = useState('crma-ai-settings-loaded', () => false)
 
   if (import.meta.client && !loaded.value) {
@@ -56,9 +58,10 @@ export function useAiSettings() {
     persist()
   }
 
-  const hasKey = computed(() => settings.value.apiKey.trim().length > 0)
+  // "Using own key" requires both the toggle ON and a non-empty key.
+  const usingOwn = computed(() => settings.value.useOwnKey && settings.value.apiKey.trim().length > 0)
   const provider = computed(() => AI_PROVIDERS.find(p => p.id === settings.value.provider) ?? AI_PROVIDERS[0]!)
   const activeModel = computed(() => settings.value.model.trim() || provider.value.defaultModel)
 
-  return { settings, save, clearKey, hasKey, provider, activeModel, providers: AI_PROVIDERS }
+  return { settings, save, clearKey, usingOwn, provider, activeModel, providers: AI_PROVIDERS }
 }
