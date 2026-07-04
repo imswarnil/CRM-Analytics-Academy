@@ -47,24 +47,25 @@ async function post() {
   }
   posting.value = true
   error.value = ''
-  const { error: err } = await client.from('comments').insert({
-    user_id: user.value.id,
-    page_path: props.pagePath,
-    body: text
-  })
-  if (err) {
-    // Show the actual reason so silent failures (auth/RLS) are visible.
-    error.value = err.message || 'Could not post your comment. Please try again.'
-  } else {
+  try {
+    // Posted via a server route so RLS sees the authenticated user.
+    await $fetch('/api/comments', { method: 'POST', body: { pagePath: props.pagePath, body: text } })
     body.value = ''
     await refresh()
+  } catch (e) {
+    const err = e as { data?: { statusMessage?: string }, statusMessage?: string }
+    error.value = err?.data?.statusMessage || err?.statusMessage || 'Could not post your comment. Please try again.'
   }
   posting.value = false
 }
 
 async function remove(id: string) {
-  await client.from('comments').delete().eq('id', id)
-  await refresh()
+  try {
+    await $fetch('/api/comments', { method: 'DELETE', body: { id } })
+    await refresh()
+  } catch {
+    // ignore — the comment stays if the delete was not permitted
+  }
 }
 
 function authorName(c: CommentRow) {

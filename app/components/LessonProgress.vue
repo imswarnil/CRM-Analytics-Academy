@@ -2,7 +2,6 @@
 const props = defineProps<{ lessonPath: string }>()
 
 const user = useSupabaseUser()
-const client = useDb()
 const localePath = useLocalePath()
 const route = useRoute()
 const toast = useToast()
@@ -10,46 +9,42 @@ const toast = useToast()
 const completed = ref(false)
 const busy = ref(false)
 
+// All authed progress goes through server routes (the browser client can arrive
+// unauthenticated; the server reliably has the session cookie).
 async function loadState() {
   if (!user.value) {
     completed.value = false
     return
   }
-  const { data } = await client
-    .from('lesson_progress')
-    .select('lesson_path')
-    .eq('user_id', user.value.id)
-    .eq('lesson_path', props.lessonPath)
-    .maybeSingle()
-  completed.value = !!data
+  try {
+    const { paths } = await $fetch<{ paths: string[] }>('/api/progress')
+    completed.value = paths.includes(props.lessonPath)
+  } catch {
+    completed.value = false
+  }
 }
 
 async function toggle() {
   if (!user.value || busy.value) return
   busy.value = true
-
   const wasComplete = completed.value
-  const { error } = wasComplete
-    ? await client.from('lesson_progress').delete()
-        .eq('user_id', user.value.id)
-        .eq('lesson_path', props.lessonPath)
-    : await client.from('lesson_progress')
-        .upsert({ user_id: user.value.id, lesson_path: props.lessonPath }, { onConflict: 'user_id,lesson_path' })
-
-  if (error) {
-    // Surface the real reason instead of silently pretending it saved.
+  try {
+    const res = await $fetch<{ done: boolean }>('/api/progress', {
+      method: 'POST',
+      body: { lessonPath: props.lessonPath, done: !wasComplete }
+    })
+    completed.value = res.done
+    if (res.done) {
+      toast.add({ title: 'Marked complete', color: 'success', icon: 'i-lucide-check' })
+    }
+  } catch (e) {
+    const err = e as { data?: { statusMessage?: string }, statusMessage?: string }
     toast.add({
       title: 'Could not save your progress',
-      description: error.message,
+      description: err?.data?.statusMessage || err?.statusMessage || 'Please try again.',
       color: 'error',
       icon: 'i-lucide-alert-triangle'
     })
-  } else {
-    // Confirm against the DB rather than assuming success.
-    await loadState()
-    if (!wasComplete) {
-      toast.add({ title: 'Marked complete', color: 'success', icon: 'i-lucide-check' })
-    }
   }
   busy.value = false
 }
