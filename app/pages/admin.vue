@@ -1,7 +1,6 @@
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
 
-const client = useDb()
 const { isAdmin } = useProfile()
 
 useSeoMeta({ title: 'Admin — CRM Analytics Academy', robots: 'noindex' })
@@ -32,19 +31,9 @@ interface ProjectItem {
   profiles: Author | null
 }
 
-const { data, pending, refresh } = await useAsyncData(
+const { data, pending, refresh } = await useAsyncData<{ resources: ResourceItem[], projects: ProjectItem[] }>(
   'admin-queue',
-  async () => {
-    const [res, proj] = await Promise.all([
-      client.from('resources')
-        .select('id, title, url, description, category, status, created_at, profiles(username, full_name)')
-        .eq('status', 'pending').order('created_at', { ascending: true }).returns<ResourceItem[]>(),
-      client.from('projects')
-        .select('id, title, description, link, image_url, tags, status, created_at, profiles(username, full_name)')
-        .eq('status', 'pending').order('created_at', { ascending: true }).returns<ProjectItem[]>()
-    ])
-    return { resources: res.data ?? [], projects: proj.data ?? [] }
-  },
+  () => $fetch('/api/admin/queue'),
   { server: false, watch: [isAdmin] }
 )
 

@@ -1,31 +1,24 @@
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
 
-const client = useDb()
 const { user, displayName } = useProfile()
 const localePath = useLocalePath()
 const ai = useAiSettings()
 
 useSeoMeta({ title: 'Your dashboard — CRM Analytics Academy', robots: 'noindex' })
 
-// All authed data is fetched client-side (RLS scopes rows to the user).
-const { data, pending, refresh } = await useAsyncData(
+interface DashboardData {
+  progress: { lesson_path: string, completed_at: string }[]
+  resources: { id: string, title: string, status: string, created_at: string }[]
+  projects: { id: string, title: string, status: string, created_at: string }[]
+  quizzes: { quiz_id: string, score: number, total: number, created_at: string }[]
+}
+
+// Fetched via a server route so RLS sees the authenticated user (the browser
+// client can arrive anonymous).
+const { data, pending, refresh } = await useAsyncData<DashboardData | null>(
   'dashboard',
-  async () => {
-    if (!user.value) return null
-    const [progress, resources, projects, quizzes] = await Promise.all([
-      client.from('lesson_progress').select('lesson_path, completed_at').order('completed_at', { ascending: false }),
-      client.from('resources').select('id, title, status, created_at').order('created_at', { ascending: false }),
-      client.from('projects').select('id, title, status, created_at').order('created_at', { ascending: false }),
-      client.from('quiz_attempts').select('quiz_id, score, total, created_at').order('created_at', { ascending: false }).limit(5)
-    ])
-    return {
-      progress: progress.data ?? [],
-      resources: resources.data ?? [],
-      projects: projects.data ?? [],
-      quizzes: quizzes.data ?? []
-    }
-  },
+  () => $fetch('/api/dashboard'),
   { server: false, watch: [user] }
 )
 
