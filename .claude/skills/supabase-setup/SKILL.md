@@ -9,7 +9,11 @@ Stack: `@nuxtjs/supabase`, Google OAuth, RLS. Client keys are `CRMA_`-prefixed e
 
 ## One-time setup (dashboards — no code)
 
-1. **Apply the schema**: Supabase → SQL Editor → paste `supabase/migrations/0001_init.sql` → Run (idempotent, safe to re-run).
+1. **Apply the schema** — the project is linked to the Supabase CLI. From the repo:
+   ```bash
+   SUPABASE_DB_PASSWORD='<db-password>' supabase db push   # applies supabase/migrations/*
+   ```
+   (Requires `supabase login` once. Alternatively paste a migration file into Supabase → SQL Editor → Run — migrations are idempotent.)
 2. **Google OAuth**:
    - Google Cloud Console → APIs & Services → Credentials → create **OAuth client ID → Web application**.
    - **Authorized redirect URIs** (exact, no trailing slash): `https://<project-ref>.supabase.co/auth/v1/callback`
@@ -31,4 +35,4 @@ Stack: `@nuxtjs/supabase`, Google OAuth, RLS. Client keys are `CRMA_`-prefixed e
 
 ## Changing the schema
 
-Edit/add a file in `supabase/migrations/` **and** keep `types/database.types.ts` in sync (the client is typed from it via `useDb()`). Re-run the SQL in the editor. Server admin ops use `requireAdmin(event)` from `server/utils/auth.ts` (service role).
+Add a new timestamped file in `supabase/migrations/` (e.g. `supabase migration new <name>`) **and** keep `types/database.types.ts` in sync (the client is typed from it via `useDb()`), then `supabase db push`. Note: put `set check_function_bodies = off;` at the top if a function forward-references a table created later. Server admin ops use `requireAdmin(event)` from `server/utils/auth.ts` (service role).

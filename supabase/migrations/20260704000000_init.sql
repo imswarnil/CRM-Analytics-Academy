@@ -8,6 +8,9 @@
 --   update public.profiles set role = 'admin' where id = (
 --     select id from auth.users where email = 'YOUR_EMAIL_HERE');
 
+-- Allow forward references (e.g. is_admin() references profiles, created below).
+set check_function_bodies = off;
+
 -- ---------------------------------------------------------------------------
 -- Helpers
 -- ---------------------------------------------------------------------------
@@ -72,7 +75,11 @@ returns trigger
 language plpgsql
 as $$
 begin
-  if new.role is distinct from old.role and not public.is_admin() then
+  -- Block authenticated non-admin users from changing their own role, but allow
+  -- backend/service-role updates (auth.uid() is null) to bootstrap admins.
+  if new.role is distinct from old.role
+     and auth.uid() is not null
+     and not public.is_admin() then
     new.role = old.role;
   end if;
   return new;
