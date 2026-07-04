@@ -100,9 +100,19 @@ export function useDocsChat() {
 
       if (!res.ok || !res.body) {
         refund()
-        if (res.status === 429) {
-          // Show the real reason clearly, in the chat itself.
-          assistant.content = '⚠️ **CRM Analytics AI has reached its usage limit for now.** This is a temporary Gemini free-tier cap — please try again in a little while.'
+        // Surface the server's specific reason and guide the user to fix it.
+        let serverMsg = ''
+        try {
+          const j = JSON.parse(await res.text())
+          serverMsg = j.statusMessage || j.message || ''
+        } catch {
+          // non-JSON error body
+        }
+        if (res.status === 400) {
+          // No key configured, or the key/model was rejected.
+          assistant.content = `⚙️ **${serverMsg || 'No AI model is set up.'}**\n\nOpen the settings gear (top-right of this chat) and add your own API key — Google Gemini, OpenAI, Anthropic Claude, Groq, or OpenRouter — then ask again.`
+        } else if (res.status === 429) {
+          assistant.content = `⚠️ **${serverMsg || 'CRM Analytics AI has reached its usage limit for now.'}** Add your own AI key in settings for uninterrupted use.`
         } else {
           messages.value.pop()
           error.value = 'Something went wrong. Please try again.'
