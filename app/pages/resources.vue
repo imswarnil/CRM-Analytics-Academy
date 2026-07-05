@@ -14,6 +14,8 @@ interface Resource {
   url: string
   category: Category
   icon: string
+  submittedBy?: string
+  submitterLinkedin?: string | null
 }
 
 const resources: Resource[] = [
@@ -51,13 +53,18 @@ const client = useDb()
 const user = useSupabaseUser()
 const localePath = useLocalePath()
 const validCats: Category[] = ['Docs', 'Learning', 'Books', 'Blogs', 'Tools', 'Community']
+interface CommunityAuthor {
+  username: string | null
+  full_name: string | null
+  linkedin_url: string | null
+}
 const { data: community } = await useAsyncData('community-resources', async () => {
   const { data } = await client
     .from('resources')
-    .select('title, description, url, category, icon')
+    .select('title, description, url, category, icon, author:profiles(username, full_name, linkedin_url)')
     .eq('status', 'approved')
     .order('created_at', { ascending: false })
-    .returns<{ title: string, description: string | null, url: string, category: string | null, icon: string | null }[]>()
+    .returns<{ title: string, description: string | null, url: string, category: string | null, icon: string | null, author: CommunityAuthor | null }[]>()
   return data ?? []
 })
 const communityResources = computed<Resource[]>(() =>
@@ -66,7 +73,9 @@ const communityResources = computed<Resource[]>(() =>
     desc: r.description || '',
     url: r.url,
     category: (validCats.includes(r.category as Category) ? r.category : 'Community') as Category,
-    icon: r.icon || DEFAULT_RESOURCE_ICON
+    icon: r.icon || DEFAULT_RESOURCE_ICON,
+    submittedBy: r.author?.full_name || r.author?.username || undefined,
+    submitterLinkedin: r.author?.linkedin_url
   }))
 )
 const allResources = computed(() => [...communityResources.value, ...resources])
@@ -154,40 +163,62 @@ useJsonLd({
 
         <!-- Grid -->
         <div class="grid content-start gap-5 sm:grid-cols-2">
-          <NuxtLink
+          <div
             v-for="r in filtered"
             :key="r.title"
-            :to="r.url"
-            target="_blank"
-            rel="noopener"
             class="group flex flex-col rounded-2xl border border-default bg-default p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
           >
-            <div class="mb-4 flex items-center justify-between">
-              <div class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-                <UIcon
-                  :name="r.icon"
-                  class="size-5"
+            <a
+              :href="r.url"
+              target="_blank"
+              rel="noopener"
+              class="flex flex-1 flex-col"
+            >
+              <div class="mb-4 flex items-center justify-between">
+                <div class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                  <UIcon
+                    :name="r.icon"
+                    class="size-5"
+                  />
+                </div>
+                <UBadge
+                  :label="r.category"
+                  color="neutral"
+                  variant="subtle"
+                  size="sm"
+                  class="rounded-full"
                 />
               </div>
-              <UBadge
-                :label="r.category"
-                color="neutral"
-                variant="subtle"
-                size="sm"
-                class="rounded-full"
-              />
-            </div>
-            <h3 class="flex items-center gap-1 font-semibold text-highlighted">
-              {{ r.title }}
-              <UIcon
-                name="i-lucide-arrow-up-right"
-                class="size-4 text-dimmed transition group-hover:text-primary"
-              />
-            </h3>
-            <p class="mt-2 text-sm text-muted">
-              {{ r.desc }}
+              <h3 class="flex items-center gap-1 font-semibold text-highlighted">
+                {{ r.title }}
+                <UIcon
+                  name="i-lucide-arrow-up-right"
+                  class="size-4 text-dimmed transition group-hover:text-primary"
+                />
+              </h3>
+              <p class="mt-2 text-sm text-muted">
+                {{ r.desc }}
+              </p>
+            </a>
+            <p
+              v-if="r.submittedBy"
+              class="mt-3 flex items-center gap-1.5 text-xs text-dimmed"
+            >
+              Submitted by {{ r.submittedBy }}
+              <a
+                v-if="r.submitterLinkedin"
+                :href="r.submitterLinkedin"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-0.5 text-primary hover:underline"
+              >
+                <UIcon
+                  name="i-simple-icons-linkedin"
+                  class="size-3"
+                />LinkedIn
+              </a>
             </p>
-          </NuxtLink>
+          </div>
         </div>
       </div>
 

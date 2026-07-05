@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   const isAdmin = prof?.role === 'admin'
 
   let query = db.from('feedback')
-    .select('id, subject, message, category, status, page_path, created_at, user_id, author:profiles(username, full_name), feedback_replies(id, body, created_at, user_id, author:profiles(username, full_name, role))')
+    .select('id, subject, message, category, status, page_path, created_at, user_id, author:profiles(username, full_name, linkedin_url), feedback_replies(id, body, created_at, user_id, author:profiles(username, full_name, role))')
     .order('created_at', { ascending: false })
     .order('created_at', { ascending: true, referencedTable: 'feedback_replies' })
 

@@ -61,6 +61,7 @@ const TABLES: Record<string, TableConfig> = {
     columns: [
       { key: 'username', label: 'Username', type: 'text' },
       { key: 'full_name', label: 'Full name', type: 'text' },
+      { key: 'linkedin_url', label: 'LinkedIn', type: 'text' },
       { key: 'role', label: 'Role', type: 'select', options: ['member', 'admin'] }
     ]
   }

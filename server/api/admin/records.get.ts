@@ -7,7 +7,7 @@ const SELECT: Record<Table, string> = {
   comments: 'id, page_path, body, created_at, user_id, author:profiles(username, full_name)',
   feedback: 'id, subject, message, category, status, created_at, user_id, author:profiles(username, full_name)',
   guestbook: 'id, name, message, drawing, status, created_at, user_id, author:profiles(username, full_name)',
-  profiles: 'id, username, full_name, role, created_at'
+  profiles: 'id, username, full_name, linkedin_url, role, created_at'
 }
 
 // Admin-only: browse every row of an allowlisted table for full CRUD.

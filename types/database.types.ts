@@ -14,6 +14,7 @@ export interface Database {
           full_name: string | null
           avatar_url: string | null
           bio: string | null
+          linkedin_url: string | null
           role: 'member' | 'admin'
           created_at: string
           updated_at: string
@@ -24,6 +25,7 @@ export interface Database {
           full_name?: string | null
           avatar_url?: string | null
           bio?: string | null
+          linkedin_url?: string | null
           role?: 'member' | 'admin'
         }
         Update: {
@@ -31,6 +33,7 @@ export interface Database {
           full_name?: string | null
           avatar_url?: string | null
           bio?: string | null
+          linkedin_url?: string | null
           role?: 'member' | 'admin'
         }
         Relationships: []

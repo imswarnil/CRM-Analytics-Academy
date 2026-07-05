@@ -321,7 +321,7 @@ const authorLinks = [
                 color="neutral"
                 variant="outline"
                 icon="i-simple-icons-github"
-                class="rounded-full font-semibold text-white ring-white/30 hover:bg-white/10"
+                class="rounded-full bg-transparent font-semibold text-white ring-white/30 hover:bg-white/10 active:bg-white/10"
               >
                 Star on GitHub
               </UButton>

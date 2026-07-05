@@ -14,6 +14,7 @@ interface Author {
   username: string | null
   full_name: string | null
   avatar_url: string | null
+  linkedin_url: string | null
 }
 interface Entry {
   id: string
@@ -205,6 +206,18 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(undefined, { month: 's
           >
             <div class="flex flex-wrap items-center gap-2">
               <span class="font-medium text-highlighted">{{ e.name || authorName(e.author) }}</span>
+              <a
+                v-if="e.author?.linkedin_url"
+                :href="e.author.linkedin_url"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline"
+              >
+                <UIcon
+                  name="i-simple-icons-linkedin"
+                  class="size-3"
+                />LinkedIn
+              </a>
               <span class="text-xs text-dimmed">{{ fmt(e.created_at) }}</span>
               <UBadge
                 v-if="e.status === 'hidden'"
