@@ -4,6 +4,7 @@ export interface Profile {
   full_name: string | null
   avatar_url: string | null
   bio: string | null
+  linkedin_url: string | null
   role: 'member' | 'admin'
 }
 
@@ -19,7 +20,7 @@ export function useProfile() {
   const pending = useState<boolean>('crma-profile-pending', () => false)
   const loadedFor = useState<string | null>('crma-profile-loaded-for', () => null)
 
-  const SELECT = 'id, username, full_name, avatar_url, bio, role'
+  const SELECT = 'id, username, full_name, avatar_url, bio, linkedin_url, role'
 
   async function refresh() {
     // useSupabaseUser() returns JWT claims — the user id is `sub`, not `id`.

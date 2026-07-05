@@ -123,7 +123,7 @@ useJsonLd([
     'inLanguage': 'en',
     'mainEntityOfPage': SITE.url + route.path,
     'author': { '@type': 'Person', 'name': SITE.author },
-    'publisher': { '@type': 'Organization', 'name': SITE.name, 'logo': { '@type': 'ImageObject', 'url': `${SITE.url}/favicon.ico` } },
+    'publisher': { '@type': 'Organization', 'name': SITE.name, 'logo': { '@type': 'ImageObject', 'url': `${SITE.url}/icon-512.png` } },
     'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url }
   },
   {
@@ -136,11 +136,6 @@ useJsonLd([
 
 <template>
   <UPage v-if="page">
-    <UBreadcrumb
-      :items="breadcrumbItems"
-      class="mb-6"
-    />
-
     <UPageHeader
       :title="page.title"
       :description="page.description"
@@ -158,6 +153,11 @@ useJsonLd([
     </UPageHeader>
 
     <UPageBody>
+      <UBreadcrumb
+        :items="breadcrumbItems"
+        class="mb-6"
+      />
+
       <MembersGate :locked="locked">
         <ContentRenderer
           v-if="renderedPage"

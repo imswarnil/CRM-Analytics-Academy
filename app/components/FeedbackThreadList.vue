@@ -20,7 +20,7 @@ export interface FeedbackThread {
   page_path: string | null
   created_at: string
   user_id: string | null
-  author: { username: string | null, full_name: string | null } | null
+  author: { username: string | null, full_name: string | null, linkedin_url?: string | null } | null
   feedback_replies: Reply[]
 }
 
@@ -91,6 +91,18 @@ async function setStatus(id: string, status: 'open' | 'resolved') {
           v-if="admin"
           class="text-xs text-dimmed"
         >· {{ authorName(f.author) }}</span>
+        <a
+          v-if="admin && f.author?.linkedin_url"
+          :href="f.author.linkedin_url"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline"
+        >
+          <UIcon
+            name="i-simple-icons-linkedin"
+            class="size-3"
+          />LinkedIn
+        </a>
         <div class="ml-auto flex gap-2">
           <UButton
             v-if="admin"

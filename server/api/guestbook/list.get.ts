@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   }
 
   let query = db.from('guestbook')
-    .select('id, name, message, drawing, status, created_at, user_id, author:profiles(username, full_name, avatar_url)')
+    .select('id, name, message, drawing, status, created_at, user_id, author:profiles(username, full_name, avatar_url, linkedin_url)')
     .order('created_at', { ascending: false })
     .limit(200)
 

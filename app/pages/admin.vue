@@ -10,6 +10,7 @@ useSeoMeta({ title: 'Admin — CRM Analytics Academy', robots: 'noindex' })
 interface Author {
   username: string | null
   full_name: string | null
+  linkedin_url: string | null
 }
 interface ResourceItem {
   id: string
@@ -141,6 +142,18 @@ const authorName = (a: Author | null) => a?.full_name || a?.username || 'Unknown
                   </p>
                   <p class="mt-1 truncate text-xs text-dimmed">
                     {{ r.url }} · by {{ authorName(r.profiles) }}
+                    <a
+                      v-if="r.profiles?.linkedin_url"
+                      :href="r.profiles.linkedin_url"
+                      target="_blank"
+                      rel="noopener"
+                      class="ml-1 inline-flex items-center gap-0.5 text-primary hover:underline"
+                    >
+                      <UIcon
+                        name="i-simple-icons-linkedin"
+                        class="size-3"
+                      />LinkedIn
+                    </a>
                   </p>
                 </div>
                 <div class="flex gap-2">

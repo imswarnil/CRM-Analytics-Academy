@@ -48,10 +48,14 @@ const i18nHead = useLocaleHead()
 
 useHead({
   meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'theme-color', content: '#0176D3' }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+    { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
+    { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+    { rel: 'manifest', href: '/manifest.webmanifest' }
   ]
 })
 useHead(i18nHead)
@@ -72,7 +76,7 @@ useJsonLd([
     'name': SITE.name,
     'url': SITE.url,
     'description': SITE.description,
-    'logo': `${SITE.url}/favicon.ico`,
+    'logo': `${SITE.url}/icon-512.png`,
     'sameAs': [SITE.github]
   },
   {
@@ -107,6 +111,7 @@ provide('navigation', navigation)
         :files="files"
         :navigation="navigation"
       />
+      <PwaInstallPrompt />
     </ClientOnly>
   </UApp>
 </template>

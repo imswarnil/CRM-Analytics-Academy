@@ -164,4 +164,109 @@ a "nuxt dev" process, and prefer targeting the exact PID from `lsof`, not `pkill
 - 2026-07-06: Fixed feedback/guestbook sign-in-gate UX bug + confirmed guestbook
   auto-publish is by design; investigated but could not reproduce a docs 404
   (need exact URL from user).
+
+## Production bug sweep (2026-07-06)
+User reported: docs 404s in production, minor UI fixes, submitter LinkedIn on
+resources/feedback/guestbook, breadcrumb placement.
+
+1. **Docs 404 — FOUND & FIXED.** Live-site sweep found the real bug: all 6
+   "English-only" modules (getting-started, tour, navigating, saql, bindings,
+   chart-embedding — `content/es/` etc. never got these translated) 404 for
+   every non-English locale (42 URLs: 6 modules × 7 locales). Reachable via the
+   language switcher (`setLocale` tries `/es/saql` while reading an English-only
+   lesson) or a shared/bookmarked localized link. Fixed in `[...slug].vue`:
+   when the localized content path 404s, transparently fall back to serving
+   the English version instead of throwing. (Note: `return navigateTo(...)`
+   for a redirect-based fix doesn't typecheck — vue-tsc doesn't support Vue's
+   script-setup bare-`return` early-exit sugar in this project's toolchain —
+   so this fetches+serves English content in place rather than redirecting.)
+2. **"Star on GitHub" button invisible — FOUND & FIXED.** Both the homepage
+   CTA and about.vue had `variant="outline"` + forced `text-white`, but Nuxt UI's
+   outline variant renders `bg-default` (near-white in light mode) as its base
+   background — only the *hover* background was overridden, not the base one,
+   so white text sat on a white-ish button in light mode. Fixed by adding
+   `bg-transparent` to both buttons' class list.
+3. **LinkedIn profile field — ADDED.** New `profiles.linkedin_url` column
+   (migration `20260706020000_profile_linkedin.sql`, validated as a
+   linkedin.com URL server-side). Editable on `/profile`. Now shown next to
+   the author's name (with a LinkedIn icon link) on: the public Resources page
+   (community submissions), the admin Feedback view (private thread — LinkedIn
+   shown to admin only, not other users), the admin Resources moderation
+   queue, and publicly on every Guestbook entry. Also added as an editable
+   column in the generic admin Data Manager for the `profiles` table.
+4. **Breadcrumb placement — INVESTIGATED, asked user for specifics.** Inspected
+   the actual rendered HTML: the breadcrumb `<nav>` and the `UPageHeader`'s H1
+   sit in the same `UPage` center column with no differing horizontal padding
+   — they're already flush-aligned pixel-for-pixel. Nothing objectively
+   misaligned found via markup inspection alone; asked the user for a
+   screenshot/more specific description rather than guess further.
+
+### Process notes for next time
+- **Never run two `pnpm dev` instances against the same repo directory
+  concurrently** — they share `.data/content/contents.sqlite`, and concurrent
+  access from two Nuxt processes corrupts/loses the table ("no such table:
+  _content_docs"), even though the code is fine. This bit us mid-session.
+- For safe isolated verification while the user has their own dev server
+  running: use a **git worktree** (`git worktree add /tmp/xxx HEAD`, copy over
+  uncommitted changes with `git diff > patch` + `git apply`, symlink
+  `node_modules` and `.env` in), then run `CI=true node_modules/.bin/nuxt dev
+  --port <free-port>` directly (plain `pnpm dev` refuses to reinstall over a
+  symlinked `node_modules` without a TTY). Clean up after with `git worktree
+  remove <path> --force`.
+- Serving `.output/server/index.mjs` standalone locally hit an unrelated
+  pnpm/tslib ESM resolution error — this is a local-environment quirk, not
+  indicative of a real Vercel deploy issue (Vercel's own build/runtime handles
+  this differently). Don't rely on standalone `.output` execution for
+  verification in this environment; use a worktree dev server or the real
+  build's prerender log instead.
+- The user works in the same repo directory concurrently (their own dev
+  server, and at least one commit — `df4dcd6 "hjjh"` — made directly by them
+  mid-session). Always `git status`/`git log` before assuming what's committed.
+
+4b. **Breadcrumb — RESOLVED.** User clarified: wanted it below the title, above
+    the article body. Moved `<UBreadcrumb>` in `[...slug].vue` from before
+    `UPageHeader` to the top of `UPageBody` (right before `MembersGate`/
+    `ContentRenderer`). Verified via isolated worktree dev server: breadcrumb
+    now renders right after the header's description block and right before
+    the article body wrapper. lint + typecheck pass.
+
+## Status: all 4 phases + Phase-3 bugfix + full production bug sweep DONE.
+All 4 reported issues fixed and verified (404 fallback, button contrast,
+LinkedIn feature, breadcrumb placement). Nothing pending.
+
+## Favicon + PWA install prompt (2026-07-06)
+- [x] Generated proper favicon/PWA icons from the existing bar-chart logo
+      (`public/icon.svg`, already matched `AppLogo.vue` but was never wired
+      up — old `favicon.ico` predated it). Used the project's own `sharp`
+      dependency + a small hand-rolled multi-frame ICO writer (no ico npm
+      package available, none installed) to produce:
+      `public/favicon.ico` (16/32/48 multi-res), `icon-192.png`, `icon-512.png`,
+      `icon-maskable-512.png` (512 art padded 10% for Android's maskable safe
+      zone), `apple-touch-icon.png` (180×180).
+- [x] `public/manifest.webmanifest` — name/short_name, standalone display,
+      theme_color `#0176D3` (Salesforce blue, matches the logo + primary
+      theme), icons incl. the maskable variant.
+- [x] `app/app.vue` — added `<link rel="icon">` (ico + svg), `apple-touch-icon`,
+      `manifest`, and a `theme-color` meta tag. Updated the `Organization` +
+      `TechArticle` JSON-LD `logo` fields from `/favicon.ico` to `/icon-512.png`.
+- [x] PWA install-prompt toast: `usePwaInstall.ts` composable captures the
+      browser's `beforeinstallprompt` event (Chrome/Edge/Android only — iOS
+      Safari has no programmatic install, expected limitation) via
+      `useEventListener` (explicit import — `@vueuse/core` isn't auto-imported
+      in this project). `PwaInstallPrompt.vue` (mounted in `app.vue`, renderless)
+      watches for installability and shows a `useToast()` toast with
+      "Install"/"Not now" actions; a "Not now" click snoozes for 7 days via
+      localStorage.
+- [x] lint + typecheck + full `pnpm build` all pass; verified in an isolated
+      git worktree dev server (head tags render correctly, manifest + all
+      icons serve 200, no runtime errors, no regressions on any page swept).
+- ⚠️ No actual service worker was added (out of scope — not requested); this
+  is an installable-manifest + native install-prompt, not offline support.
+
+## Not yet committed
+As of last update, all work (production bug sweep + favicon/PWA) is in the
+working tree but not committed (only `44db657` and the user's own `df4dcd6
+"hjjh"` are on the branch/pushed history). Run `git status`/`git diff --stat`
+to see the current uncommitted set before committing — do not blindly
+`git add -A`.
 - (starting Phase 1)

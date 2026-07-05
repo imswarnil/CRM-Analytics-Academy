@@ -30,7 +30,7 @@ function buildPatch(table: Table, input: Record<string, unknown>): Record<string
   } else if (table === 'profiles') {
     const role = oneOf(input.role, ['member', 'admin'] as const)
     if (role) patch.role = role
-    for (const k of ['username', 'full_name', 'bio'] as const) {
+    for (const k of ['username', 'full_name', 'bio', 'linkedin_url'] as const) {
       if (k in input) patch[k] = str(input[k]) || null
     }
   }

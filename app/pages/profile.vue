@@ -5,7 +5,7 @@ const { user, profile, displayName, refresh } = useProfile()
 
 useSeoMeta({ title: 'Your profile — CRM Analytics Academy', robots: 'noindex' })
 
-const form = reactive({ full_name: '', username: '', bio: '' })
+const form = reactive({ full_name: '', username: '', bio: '', linkedin_url: '' })
 const saving = ref(false)
 const savedAt = ref(0)
 const error = ref('')
@@ -16,6 +16,7 @@ watch(profile, (p) => {
     form.full_name = p.full_name ?? ''
     form.username = p.username ?? ''
     form.bio = p.bio ?? ''
+    form.linkedin_url = p.linkedin_url ?? ''
   }
 }, { immediate: true })
 
@@ -26,7 +27,7 @@ async function save() {
   try {
     await $fetch('/api/profile', {
       method: 'POST',
-      body: { full_name: form.full_name, username: form.username, bio: form.bio }
+      body: { full_name: form.full_name, username: form.username, bio: form.bio, linkedin_url: form.linkedin_url }
     })
     await refresh()
     savedAt.value = Date.now()
@@ -93,6 +94,19 @@ async function save() {
           :rows="3"
           autoresize
           placeholder="A little about you and your CRM Analytics journey…"
+          class="w-full"
+        />
+      </UFormField>
+
+      <UFormField
+        label="LinkedIn profile"
+        name="linkedin_url"
+        help="Optional — shown next to your name on resources, feedback, and guestbook entries you submit."
+      >
+        <UInput
+          v-model="form.linkedin_url"
+          icon="i-simple-icons-linkedin"
+          placeholder="https://www.linkedin.com/in/your-name"
           class="w-full"
         />
       </UFormField>
