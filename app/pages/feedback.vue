@@ -3,6 +3,7 @@ import type { FeedbackThread } from '~/components/FeedbackThreadList.vue'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
+const route = useRoute()
 const user = useSupabaseUser()
 
 const title = 'Feedback — CRM Analytics Academy'
@@ -33,7 +34,7 @@ onMounted(() => refresh())
 const threads = computed(() => data.value?.feedback ?? [])
 
 async function submit() {
-  if (!form.message.trim()) return
+  if (!user.value || !form.message.trim()) return
   submitting.value = true
   error.value = ''
   try {
@@ -85,104 +86,92 @@ async function submit() {
     <UContainer class="py-12 sm:py-16">
       <div class="mx-auto max-w-2xl">
         <ClientOnly>
-          <!-- Signed out -->
-          <div
-            v-if="!user"
-            class="rounded-2xl border border-default bg-elevated/40 p-8 text-center"
+          <form
+            class="space-y-4 rounded-2xl border border-default bg-default p-6"
+            @submit.prevent="submit"
           >
-            <UIcon
-              name="i-lucide-lock"
-              class="mx-auto mb-3 size-8 text-muted"
-            />
-            <h2 class="text-lg font-semibold text-highlighted">
-              Sign in to send feedback
-            </h2>
-            <p class="mt-1 text-sm text-muted">
-              A quick sign-in lets us reply to you and keep your conversation in one place.
+            <UFormField
+              label="Category"
+              name="category"
+            >
+              <USelect
+                v-model="form.category"
+                :items="categories"
+                class="w-full"
+              />
+            </UFormField>
+            <UFormField
+              label="Subject"
+              name="subject"
+              hint="Optional"
+            >
+              <UInput
+                v-model="form.subject"
+                placeholder="A short summary"
+                class="w-full"
+              />
+            </UFormField>
+            <UFormField
+              label="Message"
+              name="message"
+              required
+            >
+              <UTextarea
+                v-model="form.message"
+                :rows="5"
+                autoresize
+                placeholder="What's on your mind?"
+                class="w-full"
+              />
+            </UFormField>
+            <p
+              v-if="error"
+              class="text-sm text-error"
+            >
+              {{ error }}
             </p>
             <UButton
-              :to="localePath('/login')"
-              icon="i-simple-icons-google"
-              class="mt-5 rounded-full font-semibold"
+              v-if="user"
+              type="submit"
+              icon="i-lucide-send"
+              :loading="submitting"
+              :disabled="!form.message.trim()"
+              class="rounded-full font-semibold"
             >
-              Sign in
+              Send feedback
             </UButton>
+            <UButton
+              v-else
+              :to="localePath('/login') + `?redirect=${encodeURIComponent(route.fullPath)}`"
+              icon="i-lucide-lock"
+              color="neutral"
+              variant="outline"
+              class="rounded-full font-semibold"
+            >
+              Sign in required
+            </UButton>
+          </form>
+
+          <!-- My threads -->
+          <div
+            v-if="threads.length"
+            class="mt-12"
+          >
+            <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+              <UIcon
+                name="i-lucide-messages-square"
+                class="size-5 text-primary"
+              />
+              Your feedback
+            </h2>
+            <FeedbackThreadList
+              :items="threads"
+              @refresh="refresh"
+            />
           </div>
 
-          <!-- Signed in -->
-          <template v-else>
-            <form
-              class="space-y-4 rounded-2xl border border-default bg-default p-6"
-              @submit.prevent="submit"
-            >
-              <UFormField
-                label="Category"
-                name="category"
-              >
-                <USelect
-                  v-model="form.category"
-                  :items="categories"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                label="Subject"
-                name="subject"
-                hint="Optional"
-              >
-                <UInput
-                  v-model="form.subject"
-                  placeholder="A short summary"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                label="Message"
-                name="message"
-                required
-              >
-                <UTextarea
-                  v-model="form.message"
-                  :rows="5"
-                  autoresize
-                  placeholder="What's on your mind?"
-                  class="w-full"
-                />
-              </UFormField>
-              <p
-                v-if="error"
-                class="text-sm text-error"
-              >
-                {{ error }}
-              </p>
-              <UButton
-                type="submit"
-                icon="i-lucide-send"
-                :loading="submitting"
-                :disabled="!form.message.trim()"
-                class="rounded-full font-semibold"
-              >
-                Send feedback
-              </UButton>
-            </form>
-
-            <!-- My threads -->
-            <div
-              v-if="threads.length"
-              class="mt-12"
-            >
-              <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
-                <UIcon
-                  name="i-lucide-messages-square"
-                  class="size-5 text-primary"
-                />
-                Your feedback
-              </h2>
-              <FeedbackThreadList
-                :items="threads"
-                @refresh="refresh"
-              />
-            </div>
+          <template #fallback>
+            <div class="h-64 rounded-2xl border border-default bg-elevated/40" />
           </template>
         </ClientOnly>
 
