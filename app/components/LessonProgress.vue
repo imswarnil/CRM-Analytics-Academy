@@ -5,6 +5,7 @@ const user = useSupabaseUser()
 const localePath = useLocalePath()
 const route = useRoute()
 const toast = useToast()
+const { refresh: refreshCompleted } = useCompletedLessons()
 
 const completed = ref(false)
 const busy = ref(false)
@@ -34,6 +35,7 @@ async function toggle() {
       body: { lessonPath: props.lessonPath, done: !wasComplete }
     })
     completed.value = res.done
+    await refreshCompleted()
     if (res.done) {
       toast.add({ title: 'Marked complete', color: 'success', icon: 'i-lucide-check' })
     }
