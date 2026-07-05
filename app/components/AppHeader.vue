@@ -47,7 +47,7 @@ const localeItems = computed(() =>
     <UContentSearchButton
       v-if="header?.search"
       :collapsed="false"
-      class="w-full"
+      class="w-full max-lg:hidden"
     />
 
     <template #left>
@@ -82,6 +82,7 @@ const localeItems = computed(() =>
       <UDropdownMenu
         :items="localeItems"
         :content="{ align: 'end' }"
+        class="max-lg:hidden"
       >
         <UButton
           icon="i-lucide-languages"
@@ -94,6 +95,7 @@ const localeItems = computed(() =>
       <UTooltip
         v-if="header?.colorMode"
         :text="t('nav.theme')"
+        class="max-lg:hidden"
       >
         <UColorModeButton />
       </UTooltip>
@@ -127,6 +129,23 @@ const localeItems = computed(() =>
           type="single"
           :navigation="navigation"
         />
+      </div>
+
+      <!-- Language + theme controls (hidden from the crowded mobile navbar). -->
+      <div class="flex items-center justify-between gap-2 border-t border-default px-4 py-3 sm:px-6 lg:hidden">
+        <UDropdownMenu
+          :items="localeItems"
+          :content="{ align: 'start' }"
+        >
+          <UButton
+            icon="i-lucide-languages"
+            :label="t('nav.chooseLanguage')"
+            color="neutral"
+            variant="ghost"
+            size="sm"
+          />
+        </UDropdownMenu>
+        <UColorModeButton />
       </div>
 
       <SponsorCard class="m-4 mt-0 shrink-0 sm:mx-6 sm:mb-6" />
