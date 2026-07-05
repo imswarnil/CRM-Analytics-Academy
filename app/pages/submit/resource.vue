@@ -7,7 +7,8 @@ const localePath = useLocalePath()
 useSeoMeta({ title: 'Submit a resource — CRM Analytics Academy', robots: 'noindex' })
 
 const categories = ['Docs', 'Learning', 'Books', 'Blogs', 'Tools', 'Community']
-const form = reactive({ title: '', url: '', description: '', category: '' })
+const icons = RESOURCE_ICONS
+const form = reactive({ title: '', url: '', description: '', category: '', icon: DEFAULT_RESOURCE_ICON })
 const submitting = ref(false)
 const done = ref(false)
 const error = ref('')
@@ -21,7 +22,7 @@ async function submit() {
   try {
     await $fetch('/api/submit', {
       method: 'POST',
-      body: { type: 'resource', title: form.title, url: form.url, description: form.description, category: form.category }
+      body: { type: 'resource', title: form.title, url: form.url, description: form.description, category: form.category, icon: form.icon }
     })
     done.value = true
   } catch (e) {
@@ -117,6 +118,30 @@ async function submit() {
             placeholder="Choose a category"
             class="w-full"
           />
+        </UFormField>
+
+        <UFormField
+          label="Icon"
+          help="Pick an icon shown next to your resource."
+        >
+          <div class="flex flex-wrap gap-2">
+            <button
+              v-for="ic in icons"
+              :key="ic"
+              type="button"
+              class="flex size-10 items-center justify-center rounded-lg border transition"
+              :class="form.icon === ic
+                ? 'border-primary bg-primary/10 text-primary ring-1 ring-primary/20'
+                : 'border-default text-muted hover:bg-elevated hover:text-default'"
+              :aria-label="ic"
+              @click="form.icon = ic"
+            >
+              <UIcon
+                :name="ic"
+                class="size-5"
+              />
+            </button>
+          </div>
         </UFormField>
 
         <UFormField label="Description">

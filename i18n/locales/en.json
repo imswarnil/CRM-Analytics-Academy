@@ -17,7 +17,9 @@
     "admin": "Admin",
     "signOut": "Sign out",
     "signIn": "Sign in",
-    "showcase": "Showcase"
+    "showcase": "Showcase",
+    "roadmap": "Roadmap",
+    "changelog": "Changelog"
   },
   "sponsorCard": {
     "title": "Sponsor this project",

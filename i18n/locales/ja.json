@@ -17,7 +17,9 @@
     "admin": "管理",
     "signOut": "ログアウト",
     "signIn": "ログイン",
-    "showcase": "ショーケース"
+    "showcase": "ショーケース",
+    "roadmap": "ロードマップ",
+    "changelog": "変更履歴"
   },
   "hero": {
     "badge": "無料・オープンソースのカリキュラム",

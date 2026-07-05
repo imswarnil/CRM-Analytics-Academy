@@ -17,7 +17,9 @@
     "admin": "Admin",
     "signOut": "Abmelden",
     "signIn": "Anmelden",
-    "showcase": "Schaufenster"
+    "showcase": "Schaufenster",
+    "roadmap": "Roadmap",
+    "changelog": "Änderungen"
   },
   "hero": {
     "badge": "Kostenloser & quelloffener Lehrplan",

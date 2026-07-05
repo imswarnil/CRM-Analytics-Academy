@@ -17,7 +17,9 @@
     "admin": "Administración",
     "signOut": "Cerrar sesión",
     "signIn": "Iniciar sesión",
-    "showcase": "Galería"
+    "showcase": "Galería",
+    "roadmap": "Hoja de ruta",
+    "changelog": "Novedades"
   },
   "hero": {
     "badge": "Currículo gratuito y de código abierto",

@@ -55,6 +55,7 @@ export interface Database {
           url: string
           description: string | null
           category: string | null
+          icon: string | null
           status: 'pending' | 'approved' | 'rejected'
         } & Timestamps
         Insert: {
@@ -63,6 +64,7 @@ export interface Database {
           url: string
           description?: string | null
           category?: string | null
+          icon?: string | null
           status?: 'pending'
         }
         Update: { status?: 'pending' | 'approved' | 'rejected' }
