@@ -25,7 +25,16 @@ const lessonKey = computed(() => {
 
 const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
+  // Some newer modules only have English content so far. Rather than 404 a
+  // reader whose locale (or the language switcher) points at a path that was
+  // never translated, fall back to serving the English version of the page.
+  const englishPath = contentPath.value.replace(new RegExp(`^/(${localeCodes.join('|')})(?=/|$)`), `/${DEFAULT_LOCALE}`)
+  if (englishPath !== contentPath.value) {
+    page.value = await queryCollection('docs').path(englishPath).first()
+  }
+  if (!page.value) {
+    throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
+  }
 }
 
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
