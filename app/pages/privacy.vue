@@ -86,6 +86,11 @@ const sections = [
               {{ s.body }}
             </p>
           </div>
+
+          <AdUnit
+            placement="betweenSections"
+            class="mx-auto my-8 max-w-3xl"
+          />
         </div>
       </UContainer>
     </section>

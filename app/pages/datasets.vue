@@ -134,6 +134,11 @@ useJsonLd(datasets.map(d => ({
           <li>Open the dataset, click <strong class="text-toned">Explore</strong>, and follow the lessons.</li>
         </ol>
       </div>
+
+      <AdUnit
+        placement="betweenSections"
+        class="mx-auto my-12 max-w-3xl"
+      />
     </UContainer>
   </div>
 </template>

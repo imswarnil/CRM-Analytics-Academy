@@ -19,7 +19,9 @@
     "signIn": "Se connecter",
     "showcase": "Vitrine",
     "roadmap": "Feuille de route",
-    "changelog": "Journal"
+    "changelog": "Journal",
+    "feedback": "Retour",
+    "guestbook": "Livre d'or"
   },
   "hero": {
     "badge": "Cursus gratuit et open source",

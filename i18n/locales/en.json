@@ -19,7 +19,9 @@
     "signIn": "Sign in",
     "showcase": "Showcase",
     "roadmap": "Roadmap",
-    "changelog": "Changelog"
+    "changelog": "Changelog",
+    "feedback": "Feedback",
+    "guestbook": "Guestbook"
   },
   "sponsorCard": {
     "title": "Sponsor this project",

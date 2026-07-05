@@ -105,6 +105,11 @@ const columns = [
           </ul>
         </div>
       </div>
+
+      <AdUnit
+        placement="betweenSections"
+        class="mx-auto my-12 max-w-3xl"
+      />
     </UContainer>
   </div>
 </template>

@@ -106,6 +106,53 @@ export interface Database {
         Update: { body?: string }
         Relationships: []
       }
+      feedback: {
+        Row: {
+          id: string
+          user_id: string | null
+          subject: string | null
+          message: string
+          category: 'general' | 'bug' | 'idea' | 'content' | 'other'
+          page_path: string | null
+          status: 'open' | 'resolved'
+          created_at: string
+        }
+        Insert: {
+          user_id: string
+          subject?: string | null
+          message: string
+          category?: 'general' | 'bug' | 'idea' | 'content' | 'other'
+          page_path?: string | null
+        }
+        Update: { status?: 'open' | 'resolved' }
+        Relationships: []
+      }
+      feedback_replies: {
+        Row: { id: string, feedback_id: string, user_id: string | null, body: string, created_at: string }
+        Insert: { feedback_id: string, user_id: string, body: string }
+        Update: { body?: string }
+        Relationships: []
+      }
+      guestbook: {
+        Row: {
+          id: string
+          user_id: string
+          name: string | null
+          message: string | null
+          drawing: string | null
+          status: 'visible' | 'hidden'
+          created_at: string
+        }
+        Insert: {
+          user_id: string
+          name?: string | null
+          message?: string | null
+          drawing?: string | null
+          status?: 'visible' | 'hidden'
+        }
+        Update: { status?: 'visible' | 'hidden', message?: string | null }
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: {

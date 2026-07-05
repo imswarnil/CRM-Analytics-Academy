@@ -8,9 +8,9 @@ const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 
 // Icon actions on the right of the navbar — ghost icon links with a tooltip.
+// About now lives only in the "More" dropdown below.
 const actions = computed(() => [
-  { icon: 'i-lucide-info', label: t('nav.about'), to: localePath('/about'), target: undefined as string | undefined },
-  { icon: 'i-simple-icons-github', label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
+  { icon: 'i-simple-icons-github', label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' as string | undefined }
 ])
 
 // Secondary links folded into a "More" dropdown to keep the icon row short.
@@ -24,6 +24,8 @@ const moreItems = computed(() => [
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
+  { label: t('nav.guestbook'), icon: 'i-lucide-book-heart', to: localePath('/guestbook') },
+  { label: t('nav.feedback'), icon: 'i-lucide-message-square-heart', to: localePath('/feedback') },
   { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },
   { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
 ])

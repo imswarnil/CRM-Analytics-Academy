@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { FeedbackThread } from '~/components/FeedbackThreadList.vue'
+
 definePageMeta({ middleware: 'auth' })
 
 const { isAdmin } = useProfile()
@@ -24,6 +26,13 @@ const { data, pending, refresh } = await useAsyncData<{ resources: ResourceItem[
   () => $fetch('/api/admin/queue'),
   { server: false, watch: [isAdmin] }
 )
+
+const { data: feedbackData, refresh: refreshFeedback } = await useAsyncData<{ feedback: FeedbackThread[], isAdmin: boolean }>(
+  'admin-feedback',
+  () => $fetch('/api/feedback/list'),
+  { server: false, watch: [isAdmin], default: () => ({ feedback: [], isAdmin: false }) }
+)
+const openFeedback = computed(() => feedbackData.value?.feedback.filter(f => f.status === 'open').length || 0)
 
 const busy = ref('')
 
@@ -164,6 +173,47 @@ const authorName = (a: Author | null) => a?.full_name || a?.username || 'Unknown
             >
               No resources awaiting review.
             </p>
+          </section>
+
+          <!-- Feedback -->
+          <section>
+            <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+              <UIcon
+                name="i-lucide-message-square-heart"
+                class="size-5 text-primary"
+              />
+              Feedback
+              <UBadge
+                color="warning"
+                variant="subtle"
+              >
+                {{ openFeedback }} open
+              </UBadge>
+            </h2>
+            <FeedbackThreadList
+              v-if="feedbackData?.feedback.length"
+              :items="feedbackData.feedback"
+              admin
+              @refresh="refreshFeedback"
+            />
+            <p
+              v-else
+              class="text-sm text-muted"
+            >
+              No feedback yet.
+            </p>
+          </section>
+
+          <!-- Full data manager: view/edit/delete any row in any table -->
+          <section>
+            <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+              <UIcon
+                name="i-lucide-database"
+                class="size-5 text-primary"
+              />
+              Data manager
+            </h2>
+            <AdminDataManager />
           </section>
         </div>
       </div>
