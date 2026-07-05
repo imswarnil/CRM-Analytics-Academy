@@ -54,10 +54,10 @@ const validCats: Category[] = ['Docs', 'Learning', 'Books', 'Blogs', 'Tools', 'C
 const { data: community } = await useAsyncData('community-resources', async () => {
   const { data } = await client
     .from('resources')
-    .select('title, description, url, category')
+    .select('title, description, url, category, icon')
     .eq('status', 'approved')
     .order('created_at', { ascending: false })
-    .returns<{ title: string, description: string | null, url: string, category: string | null }[]>()
+    .returns<{ title: string, description: string | null, url: string, category: string | null, icon: string | null }[]>()
   return data ?? []
 })
 const communityResources = computed<Resource[]>(() =>
@@ -66,7 +66,7 @@ const communityResources = computed<Resource[]>(() =>
     desc: r.description || '',
     url: r.url,
     category: (validCats.includes(r.category as Category) ? r.category : 'Community') as Category,
-    icon: 'i-lucide-link'
+    icon: r.icon || DEFAULT_RESOURCE_ICON
   }))
 )
 const allResources = computed(() => [...communityResources.value, ...resources])

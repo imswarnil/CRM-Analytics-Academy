@@ -19,7 +19,8 @@ export default defineEventHandler(async (event) => {
       title,
       url,
       description: str(body.description) || null,
-      category: str(body.category) || null
+      category: str(body.category) || null,
+      icon: str(body.icon) || null
     })
     if (error) throw createError({ statusCode: 500, statusMessage: error.message })
     return { ok: true }

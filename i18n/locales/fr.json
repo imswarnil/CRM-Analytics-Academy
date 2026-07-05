@@ -17,7 +17,9 @@
     "admin": "Admin",
     "signOut": "Se déconnecter",
     "signIn": "Se connecter",
-    "showcase": "Vitrine"
+    "showcase": "Vitrine",
+    "roadmap": "Feuille de route",
+    "changelog": "Journal"
   },
   "hero": {
     "badge": "Cursus gratuit et open source",

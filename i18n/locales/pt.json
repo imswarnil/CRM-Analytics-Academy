@@ -17,7 +17,9 @@
     "admin": "Admin",
     "signOut": "Sair",
     "signIn": "Entrar",
-    "showcase": "Vitrine"
+    "showcase": "Vitrine",
+    "roadmap": "Roteiro",
+    "changelog": "Novidades"
   },
   "hero": {
     "badge": "Currículo gratuito e de código aberto",

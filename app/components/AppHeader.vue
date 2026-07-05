@@ -18,11 +18,13 @@ const actions = computed(() => [
 // since their icon buttons are hidden below lg to keep the navbar from
 // overflowing on small screens.
 const moreItems = computed(() => [
-  { label: t('nav.about'), icon: 'i-lucide-info', to: localePath('/about'), class: 'lg:hidden' },
-  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },
+  { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
+  { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
+  { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
+  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },
   { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
 ])
 

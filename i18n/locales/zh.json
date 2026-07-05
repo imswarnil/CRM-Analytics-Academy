@@ -17,7 +17,9 @@
     "admin": "管理",
     "signOut": "退出登录",
     "signIn": "登录",
-    "showcase": "作品展示"
+    "showcase": "作品展示",
+    "roadmap": "路线图",
+    "changelog": "更新日志"
   },
   "hero": {
     "badge": "免费开源课程",
