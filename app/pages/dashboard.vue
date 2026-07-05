@@ -10,7 +10,6 @@ useSeoMeta({ title: 'Your dashboard — CRM Analytics Academy', robots: 'noindex
 interface DashboardData {
   progress: { lesson_path: string, completed_at: string }[]
   resources: { id: string, title: string, status: string, created_at: string }[]
-  projects: { id: string, title: string, status: string, created_at: string }[]
   quizzes: { quiz_id: string, score: number, total: number, created_at: string }[]
 }
 
@@ -54,14 +53,6 @@ function lessonTitle(path: string) {
           size="sm"
         >
           Submit resource
-        </UButton>
-        <UButton
-          :to="localePath('/submit/project')"
-          icon="i-lucide-plus"
-          color="primary"
-          size="sm"
-        >
-          Submit project
         </UButton>
       </div>
     </div>
@@ -243,58 +234,6 @@ function lessonTitle(path: string) {
           class="py-6 text-center text-sm text-muted"
         >
           You haven't submitted any resources.
-        </p>
-      </UPageCard>
-
-      <!-- My projects -->
-      <UPageCard
-        class="lg:col-span-2"
-        :ui="{ body: 'space-y-4' }"
-      >
-        <div class="flex items-center justify-between">
-          <h2 class="flex items-center gap-2 font-semibold text-highlighted">
-            <UIcon
-              name="i-lucide-layout-dashboard"
-              class="size-5 text-primary"
-            />
-            My projects
-          </h2>
-          <UButton
-            :to="localePath('/submit/project')"
-            icon="i-lucide-plus"
-            color="neutral"
-            variant="ghost"
-            size="xs"
-          />
-        </div>
-        <ul
-          v-if="data?.projects.length"
-          class="space-y-2"
-        >
-          <li
-            v-for="p in data.projects"
-            :key="p.id"
-            class="flex items-center justify-between gap-2 text-sm"
-          >
-            <span class="truncate text-default">{{ p.title }}</span>
-            <UBadge
-              :color="statusColor(p.status)"
-              variant="subtle"
-              class="shrink-0 capitalize"
-            >
-              {{ p.status }}
-            </UBadge>
-          </li>
-        </ul>
-        <p
-          v-else
-          class="py-6 text-center text-sm text-muted"
-        >
-          You haven't submitted any projects yet.
-          <NuxtLink
-            :to="localePath('/submit/project')"
-            class="text-primary hover:underline"
-          >Share your first dashboard →</NuxtLink>
         </p>
       </UPageCard>
     </div>

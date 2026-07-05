@@ -14,7 +14,7 @@ const toc = [
   { id: 'lessons', label: 'Writing a lesson' },
   { id: 'frontmatter', label: 'Lesson frontmatter' },
   { id: 'translations', label: 'Translations' },
-  { id: 'submit', label: 'Submitting resources & projects' },
+  { id: 'submit', label: 'Submitting resources' },
   { id: 'code', label: 'Code contributions' },
   { id: 'database', label: 'Database & migrations' },
   { id: 'pr', label: 'Opening a pull request' },
@@ -101,7 +101,6 @@ const toc = [
             <li><strong>Write or fix a lesson</strong> — improve wording, fix errors, or add a whole new lesson (Markdown, no coding needed).</li>
             <li><strong>Translate</strong> — bring a lesson or the UI into one of the site's languages.</li>
             <li><strong>Submit a resource</strong> — share a great docs page, course, tool, or community. <NuxtLink :to="localePath('/submit/resource')">Submit here</NuxtLink> (an admin reviews it).</li>
-            <li><strong>Share a project</strong> — show a dashboard or app you built. <NuxtLink :to="localePath('/submit/project')">Submit here</NuxtLink> → appears in the <NuxtLink :to="localePath('/showcase')">Showcase</NuxtLink> once approved.</li>
             <li><strong>Improve the code</strong> — fix a bug, refine the UI, or add a feature via a pull request.</li>
           </ul>
           <p>Resources and projects can be submitted right on the site once you <NuxtLink :to="localePath('/login')">sign in</NuxtLink> — no GitHub needed. The rest go through GitHub.</p>
@@ -169,14 +168,9 @@ Your content here…</code></pre>
           <p>UI strings live in <code>i18n/locales/&lt;lang&gt;.json</code>. If you add a new UI string, add it to <strong>all</strong> language files (there's no automatic fallback).</p>
 
           <h2 id="submit">
-            Submitting resources &amp; projects
+            Submitting resources
           </h2>
-          <p>These don't need GitHub — just sign in:</p>
-          <ul>
-            <li><strong>Resources</strong> — a helpful link (docs, course, tool, community). Go to <NuxtLink :to="localePath('/submit/resource')">Submit a resource</NuxtLink>, fill in the title, URL, and category. Approved links appear on the <NuxtLink :to="localePath('/resources')">Resources</NuxtLink> page.</li>
-            <li><strong>Projects</strong> — a dashboard or app you built. Go to <NuxtLink :to="localePath('/submit/project')">Submit a project</NuxtLink> with a title, description, a link, and an optional screenshot. Approved projects appear in the <NuxtLink :to="localePath('/showcase')">Showcase</NuxtLink>.</li>
-          </ul>
-          <p>Every submission is reviewed by an admin before it goes public. You can track the status (pending / approved) on your <NuxtLink :to="localePath('/dashboard')">dashboard</NuxtLink>.</p>
+          <p>This doesn't need GitHub — just sign in and share a helpful link (docs, course, tool, community). Go to <NuxtLink :to="localePath('/submit/resource')">Submit a resource</NuxtLink>, fill in the title, URL, and category. An admin reviews it, and once approved it appears on the <NuxtLink :to="localePath('/resources')">Resources</NuxtLink> page. Track the status (pending / approved) on your <NuxtLink :to="localePath('/dashboard')">dashboard</NuxtLink>.</p>
 
           <h2 id="code">
             Code contributions

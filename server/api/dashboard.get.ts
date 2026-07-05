@@ -8,17 +8,15 @@ export default defineEventHandler(async (event) => {
   if (!userId) return null
 
   const db = serverSupabaseServiceRole<Database>(event)
-  const [progress, resources, projects, quizzes] = await Promise.all([
+  const [progress, resources, quizzes] = await Promise.all([
     db.from('lesson_progress').select('lesson_path, completed_at').eq('user_id', userId).order('completed_at', { ascending: false }),
     db.from('resources').select('id, title, status, created_at').eq('user_id', userId).order('created_at', { ascending: false }),
-    db.from('projects').select('id, title, status, created_at').eq('user_id', userId).order('created_at', { ascending: false }),
     db.from('quiz_attempts').select('quiz_id, score, total, created_at').eq('user_id', userId).order('created_at', { ascending: false }).limit(5)
   ])
 
   return {
     progress: progress.data ?? [],
     resources: resources.data ?? [],
-    projects: projects.data ?? [],
     quizzes: quizzes.data ?? []
   }
 })
