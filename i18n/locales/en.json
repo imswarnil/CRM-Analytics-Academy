@@ -48,8 +48,7 @@
     "stats": {
       "modules": "Modules",
       "lessons": "Lessons",
-      "free": "Free & open",
-      "ai": "AI-ready"
+      "free": "Free & open"
     },
     "curriculumEyebrow": "The Curriculum",
     "curriculumTitle": "Eight modules, one clear path",
@@ -106,10 +105,6 @@
       "build": {
         "title": "Build a project",
         "desc": "Lessons accumulate into a working pipeline: data, datasets, dashboards, a model."
-      },
-      "ai": {
-        "title": "Ask the AI",
-        "desc": "Every page is available as Markdown and over MCP, so an assistant can tutor you."
       }
     },
     "resourcesEyebrow": "Resources",

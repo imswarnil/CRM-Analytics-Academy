@@ -3,7 +3,6 @@ definePageMeta({ middleware: 'auth' })
 
 const { user, displayName } = useProfile()
 const localePath = useLocalePath()
-const ai = useAiSettings()
 
 useSeoMeta({ title: 'Your dashboard — CRM Analytics Academy', robots: 'noindex' })
 
@@ -53,38 +52,6 @@ function lessonTitle(path: string) {
           size="sm"
         >
           Submit resource
-        </UButton>
-      </div>
-    </div>
-
-    <!-- AI assistant / API key -->
-    <div class="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-default bg-elevated/40 px-4 py-3.5">
-      <div class="flex items-center gap-2.5">
-        <div class="flex size-9 items-center justify-center rounded-full bg-primary/10">
-          <UIcon
-            name="i-lucide-sparkles"
-            class="size-4.5 text-primary"
-          />
-        </div>
-        <div>
-          <p class="text-sm font-medium text-default">
-            AI assistant
-          </p>
-          <p class="text-xs text-muted">
-            {{ ai.usingOwn.value ? `Using your own ${ai.provider.value.label} key — no limits` : "Using the site's shared model — add your own key for unlimited use" }}
-          </p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <AiSettings />
-        <UButton
-          :to="localePath('/profile')"
-          size="sm"
-          color="neutral"
-          variant="outline"
-          icon="i-lucide-key-round"
-        >
-          Add / manage API key
         </UButton>
       </div>
     </div>

@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     '@nuxt/content',
     'nuxt-og-image',
     'nuxt-llms',
-    '@nuxtjs/mcp-toolkit',
     '@nuxtjs/i18n',
     '@nuxtjs/supabase',
     '@vercel/analytics/nuxt',
@@ -48,14 +47,6 @@ export default defineNuxtConfig({
     experimental: {
       sqliteConnector: 'native'
     }
-  },
-
-  runtimeConfig: {
-    // Server-only. Provided via NUXT_GEMINI_API_KEY (see .env.example).
-    geminiApiKey: '',
-    // Overridable via NUXT_GEMINI_MODEL. gemini-2.0-flash has a generous free
-    // tier; the "-latest" preview models have very low free quotas (limit ~20/day).
-    geminiModel: 'gemini-2.0-flash'
   },
 
   experimental: {
@@ -186,10 +177,6 @@ export default defineNuxtConfig({
         ]
       }
     ]
-  },
-
-  mcp: {
-    name: 'CRM Analytics Academy'
   },
 
   ogImage: {

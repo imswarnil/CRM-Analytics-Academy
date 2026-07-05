@@ -180,7 +180,7 @@ Your content here…</code></pre>
           <ul>
             <li><code>content/</code> — the lessons (Markdown).</li>
             <li><code>app/pages/</code>, <code>app/components/</code>, <code>app/composables/</code> — the app UI.</li>
-            <li><code>server/</code> — API routes (the AI chat, moderation) and the raw-markdown/MCP surface.</li>
+            <li><code>server/</code> — API routes (moderation) and the raw-markdown surface.</li>
             <li><code>supabase/migrations/</code> — the database schema.</li>
           </ul>
           <p>Style rules are enforced by ESLint: no trailing commas, 1TBS braces, 2-space indent, and one interface member per line. Run <code>pnpm lint --fix</code> to auto-format. Match the surrounding code's conventions.</p>
@@ -194,11 +194,10 @@ Your content here…</code></pre>
             <li><strong>Nuxt Content 3</strong> — lessons authored in Markdown, served from SQLite</li>
             <li><strong>Nuxt UI v4</strong> + <strong>Tailwind CSS 4</strong> — components and styling</li>
             <li><strong>Supabase</strong> (Postgres + Row-Level Security) — Google auth, profiles, progress, quizzes, comments, and resource submissions</li>
-            <li><strong>Multi-provider AI</strong> — the docs assistant streams from Gemini, OpenAI, Groq, OpenRouter, or Anthropic (bring-your-own-key)</li>
             <li><strong>@nuxtjs/i18n</strong> — 8 languages</li>
             <li><strong>Vercel</strong> — hosting and CI (auto-deploy on push to <code>main</code>)</li>
           </ul>
-          <p>Also in the box: <code>nuxt-og-image</code> (social cards), <code>nuxt-llms</code> + an MCP server (machine-readable docs), and structured data for SEO.</p>
+          <p>Also in the box: <code>nuxt-og-image</code> (social cards), <code>nuxt-llms</code> (machine-readable docs), and structured data for SEO.</p>
 
           <h2 id="database">
             Database &amp; migrations

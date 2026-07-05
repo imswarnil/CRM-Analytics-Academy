@@ -43,8 +43,7 @@
     "stats": {
       "modules": "Modules",
       "lessons": "Leçons",
-      "free": "Gratuit et ouvert",
-      "ai": "Prêt pour l'IA"
+      "free": "Gratuit et ouvert"
     },
     "curriculumEyebrow": "Le programme",
     "curriculumTitle": "Deux modules, un parcours clair",
@@ -77,10 +76,6 @@
       "build": {
         "title": "Construisez un projet",
         "desc": "Les leçons s'additionnent en un pipeline réel : données, jeux de données, tableaux de bord, un modèle."
-      },
-      "ai": {
-        "title": "Demandez à l'IA",
-        "desc": "Chaque page est disponible en Markdown et via MCP, pour qu'un assistant vous accompagne."
       }
     },
     "resourcesEyebrow": "Ressources",

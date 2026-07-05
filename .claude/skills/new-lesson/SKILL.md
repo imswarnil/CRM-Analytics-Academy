@@ -18,7 +18,7 @@ Lessons are markdown under `content/<locale>/<NN.module>/<NN.lesson>.md`. Englis
    ```markdown
    ---
    title: <Lesson Title>
-   description: <One-sentence summary — used for SEO, OG image, and the AI chat.>
+   description: <One-sentence summary — used for SEO and the OG image.>
    # Optional:
    # access: members          # soft-gate: logged-out users see a teaser + sign-in
    # quiz:
@@ -38,4 +38,4 @@ Lessons are markdown under `content/<locale>/<NN.module>/<NN.lesson>.md`. Englis
 6. **Verify**: `pnpm typecheck` (content schema) and open the page in dev. If nav is empty, run the `dev-reset` skill.
 7. **Translations**: English is enough to ship. To translate, use the `translate-lesson` skill.
 
-Keep the writing practical and example-led (the AI chat and llms.txt read this content).
+Keep the writing practical and example-led (llms.txt reads this content).

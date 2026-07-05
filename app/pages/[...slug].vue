@@ -150,11 +150,6 @@ useJsonLd([
 
       <AdUnit placement="endOfArticle" />
 
-      <DocsChat
-        :page-path="contentPath"
-        :page-title="page.title"
-      />
-
       <LessonComments :page-path="route.path" />
 
       <USeparator v-if="surround?.length" />

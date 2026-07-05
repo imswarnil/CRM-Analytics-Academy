@@ -2,7 +2,7 @@
 
 <p align="center">
   A free, open-source curriculum for mastering <strong>Salesforce CRM Analytics</strong> —
-  data prep, SAQL, dashboards, bindings, and Einstein Discovery — with an AI tutor,
+  data prep, SAQL, dashboards, bindings, and Einstein Discovery — with
   member accounts, progress tracking, quizzes, and a community showcase.
 </p>
 
@@ -26,12 +26,11 @@
 ## Features
 
 - 📚 **Content-driven curriculum** — lessons are Markdown under `content/`, organised into modules, in **8 languages**.
-- 🤖 **AI tutor ("CRM Analytics AI")** — a docs-grounded chat (floating + inline per lesson). **Bring your own key**: each visitor can pick a provider (Gemini, OpenAI, Claude, Groq, OpenRouter), model, and paste their own API key.
 - 👤 **Member accounts** — Google sign-in via Supabase, with profiles and a personal dashboard.
 - ✅ **Progress tracking** — mark lessons complete and take end-of-lesson **quizzes**; results saved per user.
 - 🔒 **Members-only lessons** — opt-in soft gate via lesson frontmatter.
 - 🌍 **Community** — users submit **resources** and **projects** (dashboards) that appear on the site once an **admin** approves them, plus per-lesson **comments**.
-- 🧩 **Machine-readable** — every page is available as raw Markdown (`/raw/…`), an `llms.txt`, and MCP tools for AI agents.
+- 🧩 **Machine-readable** — every page is available as raw Markdown (`/raw/…`) and an `llms.txt` for AI agents.
 - ⚡ **Fast & SEO-friendly** — SSR + prerendering on Vercel, OG images, structured data, and AdSense slots.
 
 ## Tech stack
@@ -42,7 +41,6 @@
 | Content | **@nuxt/content 3** (Markdown, SQLite) |
 | UI | **Nuxt UI v4** + **Tailwind CSS 4** |
 | Auth & data | **Supabase** (Postgres + Row-Level Security), Google OAuth |
-| AI | Multi-provider streaming (Gemini / OpenAI / Groq / OpenRouter / Anthropic) |
 | i18n | **@nuxtjs/i18n** (8 locales) |
 | Hosting | **Vercel** |
 
@@ -73,7 +71,6 @@ Copy `.env.example` to `.env` (gitignored) and set:
 
 | Variable | Purpose |
 |----------|---------|
-| `NUXT_GEMINI_API_KEY` | Optional default AI key (server-only). Visitors can also bring their own key. |
 | `CRMA_SUPABASE_URL` | Supabase project URL (public). |
 | `CRMA_SUPABASE_ANON_KEY` | Supabase anon key (public, browser client). |
 | `CRMA_SUPABASE_SERVICE_ROLE_KEY` | Supabase service-role key (server-only; admin/moderation). |
@@ -105,13 +102,11 @@ Enable **Google** under Supabase → Auth → Providers, and add your app URLs (
 content/                 Lessons (Markdown), per locale → per module
 app/
   pages/                 Routes incl. the [...slug] catch-all for docs
-  components/            Chat, comments, quiz, progress, gating, header…
-  composables/           useDb, useProfile, useAiSettings, useDocsChat
+  components/            Comments, quiz, progress, gating, header…
+  composables/           useDb, useProfile
   middleware/auth.ts     Per-page auth guard
 server/
-  api/chat.post.ts       Multi-provider AI chat (retrieval + streaming)
   api/admin/             Admin moderation (service-role, guarded)
-  utils/llm.ts           Provider streaming (Gemini/OpenAI/Groq/…)
 supabase/migrations/     Idempotent SQL schema + RLS
 types/database.types.ts  Typed Supabase client
 ```

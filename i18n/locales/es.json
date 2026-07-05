@@ -43,8 +43,7 @@
     "stats": {
       "modules": "Módulos",
       "lessons": "Lecciones",
-      "free": "Gratis y abierto",
-      "ai": "Listo para IA"
+      "free": "Gratis y abierto"
     },
     "curriculumEyebrow": "El temario",
     "curriculumTitle": "Dos módulos, un camino claro",
@@ -77,10 +76,6 @@
       "build": {
         "title": "Construye un proyecto",
         "desc": "Las lecciones se acumulan en una canalización real: datos, conjuntos de datos, paneles y un modelo."
-      },
-      "ai": {
-        "title": "Pregunta a la IA",
-        "desc": "Cada página está disponible como Markdown y por MCP, para que un asistente te enseñe."
       }
     },
     "resourcesEyebrow": "Recursos",

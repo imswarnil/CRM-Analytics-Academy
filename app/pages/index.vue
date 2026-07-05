@@ -45,8 +45,7 @@ useJsonLd({
 const stats = computed(() => [
   { value: '8', label: t('home.stats.modules') },
   { value: '24', label: t('home.stats.lessons') },
-  { value: '100%', label: t('home.stats.free') },
-  { value: 'AI', label: t('home.stats.ai') }
+  { value: '100%', label: t('home.stats.free') }
 ])
 
 // The 6 new modules only have English content so far (see CLAUDE.md /

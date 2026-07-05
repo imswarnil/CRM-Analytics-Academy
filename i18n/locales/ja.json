@@ -43,8 +43,7 @@
     "stats": {
       "modules": "モジュール",
       "lessons": "レッスン",
-      "free": "無料・オープン",
-      "ai": "AI対応"
+      "free": "無料・オープン"
     },
     "curriculumEyebrow": "カリキュラム",
     "curriculumTitle": "2つのモジュール、明確な道のり",
@@ -77,10 +76,6 @@
       "build": {
         "title": "プロジェクトを作る",
         "desc": "レッスンが積み重なって、実際のパイプラインになります。データ、データセット、ダッシュボード、モデル。"
-      },
-      "ai": {
-        "title": "AI に聞く",
-        "desc": "各ページは Markdown と MCP で利用でき、アシスタントが教えてくれます。"
       }
     },
     "resourcesEyebrow": "リソース",
