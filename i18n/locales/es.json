@@ -19,7 +19,9 @@
     "signIn": "Iniciar sesión",
     "showcase": "Galería",
     "roadmap": "Hoja de ruta",
-    "changelog": "Novedades"
+    "changelog": "Novedades",
+    "feedback": "Comentarios",
+    "guestbook": "Libro de visitas"
   },
   "hero": {
     "badge": "Currículo gratuito y de código abierto",

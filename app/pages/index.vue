@@ -17,31 +17,6 @@ useSeoMeta({
 
 defineOgImage('Docs', { title: title.value, description: description.value })
 
-useJsonLd({
-  '@context': 'https://schema.org',
-  '@type': 'Course',
-  'name': SITE.name,
-  'description': SITE.description,
-  'url': SITE.url,
-  'inLanguage': 'en',
-  'isAccessibleForFree': true,
-  'provider': {
-    '@type': 'Organization',
-    'name': SITE.name,
-    'sameAs': SITE.url
-  },
-  'hasPart': [
-    { name: 'Foundations', url: `${SITE.url}/foundations` },
-    { name: 'Getting Started', url: `${SITE.url}/getting-started` },
-    { name: 'Tour', url: `${SITE.url}/tour` },
-    { name: 'Navigating Dashboards', url: `${SITE.url}/navigating` },
-    { name: 'SAQL', url: `${SITE.url}/saql` },
-    { name: 'Analytics & Einstein', url: `${SITE.url}/analytics` },
-    { name: 'Bindings', url: `${SITE.url}/bindings` },
-    { name: 'Chart Embedding', url: `${SITE.url}/chart-embedding` }
-  ].map(m => ({ '@type': 'Course', 'name': m.name, 'url': m.url, 'provider': { '@type': 'Organization', 'name': SITE.name } }))
-})
-
 const stats = computed(() => [
   { value: '8', label: t('home.stats.modules') },
   { value: '24', label: t('home.stats.lessons') },
@@ -63,6 +38,38 @@ const modules = computed(() => [
   { n: '08', title: t('home.modules.chartEmbedding.title'), to: '/chart-embedding', enOnly: true, icon: 'i-lucide-frame', desc: t('home.modules.chartEmbedding.desc'), lessons: ['Ways to Embed', 'Lightning Record Pages', 'Custom Components & External'] }
 ])
 
+// Course rich-snippet: the site is one Course; each module is a sub-Course whose
+// lessons are its syllabus sections. Free offer + online instance keep it valid
+// for Google's Course rich result.
+useJsonLd({
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  'name': SITE.name,
+  'description': SITE.description,
+  'url': SITE.url,
+  'inLanguage': 'en',
+  'isAccessibleForFree': true,
+  'provider': { '@type': 'Organization', 'name': SITE.name, 'sameAs': SITE.url },
+  'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
+  'hasCourseInstance': {
+    '@type': 'CourseInstance',
+    'courseMode': 'online',
+    'courseWorkload': 'PT12H',
+    'instructor': { '@type': 'Person', 'name': SITE.author }
+  },
+  'hasPart': modules.value.map(m => ({
+    '@type': 'Course',
+    'name': m.title,
+    'url': `${SITE.url}${m.to}`,
+    'description': m.desc,
+    'provider': { '@type': 'Organization', 'name': SITE.name },
+    'isAccessibleForFree': true,
+    'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
+    'hasCourseInstance': { '@type': 'CourseInstance', 'courseMode': 'online', 'courseWorkload': 'PT1H30M' },
+    'syllabusSections': m.lessons.map((l, li) => ({ '@type': 'Syllabus', 'name': l, 'position': li + 1 }))
+  }))
+})
+
 // Scroll-triggered animation for the "From raw data to decisions" illustrations.
 const featureRowEls = ref<(HTMLElement | null)[]>([])
 const featuresPlayed = ref<boolean[]>([])
@@ -76,12 +83,8 @@ onMounted(() => {
   })
 })
 
-const outcomeIcons = ['i-lucide-plug', 'i-lucide-wand-sparkles', 'i-lucide-terminal', 'i-lucide-layout-dashboard', 'i-lucide-brain-circuit', 'i-lucide-badge-check']
 const personaIcons = ['i-lucide-line-chart', 'i-lucide-settings-2', 'i-lucide-briefcase', 'i-lucide-sprout']
 
-const outcomes = computed(() =>
-  (tm('home.outcomes') as { t: string, d: string }[]).map((o, i) => ({ icon: outcomeIcons[i], title: rt(o.t), desc: rt(o.d) }))
-)
 const personas = computed(() =>
   (tm('home.personas') as { t: string, d: string }[]).map((p, i) => ({ icon: personaIcons[i], title: rt(p.t), desc: rt(p.d) }))
 )
@@ -97,19 +100,6 @@ const features = computed(() =>
     kind: featureKinds[i]
   }))
 )
-
-const projectIcons = ['i-lucide-trending-up', 'i-lucide-user-minus', 'i-lucide-headset', 'i-lucide-globe', 'i-lucide-trophy', 'i-lucide-megaphone']
-const projects = computed(() =>
-  (tm('home.projects') as { t: string, d: string }[]).map((p, i) => ({ title: rt(p.t), desc: rt(p.d), icon: projectIcons[i] }))
-)
-const submitUrl = 'https://github.com/imswarnil/CRM-Analytics-Academy/discussions'
-
-const topics = [
-  'Data Manager', 'Connectors', 'Recipes', 'Dataflows', 'Datasets', 'Security Predicates',
-  'SAQL', 'Bindings', 'Windowing', 'Lenses', 'Dashboards', 'Faceting', 'Drill-downs',
-  'Einstein Discovery', 'Stories', 'Predictions', 'REST API', 'Embedding'
-]
-const topicsLoop = [...topics, ...topics]
 
 useJsonLd({
   '@context': 'https://schema.org',
@@ -452,62 +442,6 @@ useJsonLd({
       </UContainer>
     </section>
 
-    <!-- ========================= OUTCOMES ========================= -->
-    <section class="border-t border-default py-20 sm:py-24">
-      <UContainer>
-        <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            {{ t('home.outcomesEyebrow') }}
-          </p>
-          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.outcomesTitle') }}
-          </h2>
-          <p class="mt-4 text-lg text-muted">
-            {{ t('home.outcomesSubtitle') }}
-          </p>
-        </div>
-
-        <div class="relative mx-auto max-w-3xl">
-          <div class="absolute top-0 bottom-0 left-5 w-px bg-default sm:left-1/2 sm:-translate-x-1/2" />
-
-          <div class="space-y-8">
-            <div
-              v-for="(o, i) in outcomes"
-              :key="o.title"
-              class="relative pl-14 sm:pl-0"
-            >
-              <div class="absolute left-5 top-0 z-10 flex size-10 -translate-x-1/2 items-center justify-center rounded-full border-2 border-primary bg-default text-primary sm:left-1/2 sm:size-11">
-                <UIcon
-                  :name="o.icon"
-                  class="size-4 sm:size-5"
-                />
-              </div>
-
-              <div
-                class="sm:flex sm:items-center"
-                :class="i % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'"
-              >
-                <div
-                  class="sm:w-1/2"
-                  :class="i % 2 === 0 ? 'sm:pr-10 sm:text-right' : 'sm:pl-10'"
-                >
-                  <div class="rounded-2xl border border-default bg-default p-5 transition hover:border-primary/40 hover:bg-muted/30">
-                    <h3 class="font-semibold text-highlighted">
-                      {{ o.title }}
-                    </h3>
-                    <p class="mt-1.5 text-sm text-muted">
-                      {{ o.desc }}
-                    </p>
-                  </div>
-                </div>
-                <div class="hidden sm:block sm:w-1/2" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </UContainer>
-    </section>
-
     <!-- ========================= WHO IT'S FOR ========================= -->
     <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
       <UContainer>
@@ -542,103 +476,12 @@ useJsonLd({
       </UContainer>
     </section>
 
-    <!-- ========================= TOPICS ========================= -->
-    <section class="py-20 sm:py-24">
-      <UContainer>
-        <div class="mx-auto mb-12 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            {{ t('home.topicsEyebrow') }}
-          </p>
-          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.topicsTitle') }}
-          </h2>
-        </div>
-      </UContainer>
-
-      <div class="group relative mt-2 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-        <div class="animate-marquee flex w-max gap-2.5 py-2 group-hover:[animation-play-state:paused]">
-          <span
-            v-for="(topic, i) in topicsLoop"
-            :key="`${topic}-${i}`"
-            class="shrink-0 rounded-full border border-default bg-default px-4 py-2 text-sm font-medium text-toned transition hover:border-primary/40 hover:text-primary"
-          >
-            {{ topic }}
-          </span>
-        </div>
-      </div>
-    </section>
-
     <UContainer>
       <AdUnit
         placement="footer"
         class="max-w-3xl"
       />
     </UContainer>
-
-    <!-- ========================= RESOURCES TEASER ========================= -->
-    <section class="border-y border-default bg-muted/30 py-20 sm:py-24">
-      <UContainer>
-        <div class="grid items-center gap-10 lg:grid-cols-2">
-          <div>
-            <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-              {{ t('home.resourcesEyebrow') }}
-            </p>
-            <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-              {{ t('home.resourcesTitle') }}
-            </h2>
-            <p class="mt-4 text-lg text-muted">
-              {{ t('home.resourcesDesc') }}
-            </p>
-            <p class="mt-6 text-sm text-muted">
-              {{ t('home.getInvolved.blurb') }}
-            </p>
-            <div class="mt-4 flex flex-wrap gap-3">
-              <UButton
-                :to="localePath('/resources')"
-                size="lg"
-                trailing-icon="i-lucide-arrow-right"
-                class="rounded-full font-semibold"
-              >
-                {{ t('home.browseResources') }}
-              </UButton>
-              <UButton
-                :to="localePath('/contribute')"
-                size="lg"
-                color="neutral"
-                variant="outline"
-                icon="i-lucide-git-pull-request"
-                class="rounded-full font-semibold"
-              >
-                {{ t('home.getInvolved.contribute') }}
-              </UButton>
-              <UButton
-                :to="localePath('/sponsor')"
-                size="lg"
-                color="neutral"
-                variant="outline"
-                icon="i-lucide-heart"
-                class="rounded-full font-semibold"
-              >
-                {{ t('home.getInvolved.sponsor') }}
-              </UButton>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div
-              v-for="c in ['Official docs', 'Trailhead', 'SAQL reference', 'Community & tools']"
-              :key="c"
-              class="flex items-center gap-2 rounded-xl border border-default bg-default p-4 text-sm font-medium text-toned"
-            >
-              <UIcon
-                name="i-lucide-bookmark"
-                class="size-4 text-primary"
-              />
-              {{ c }}
-            </div>
-          </div>
-        </div>
-      </UContainer>
-    </section>
 
     <!-- ========================= FAQ ========================= -->
     <section class="py-20 sm:py-24">
@@ -667,67 +510,6 @@ useJsonLd({
             <p class="mt-2 text-sm text-muted">
               {{ f.a }}
             </p>
-          </div>
-        </div>
-      </UContainer>
-    </section>
-
-    <!-- ===================== PROJECTS SHOWCASE ===================== -->
-    <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
-      <UContainer>
-        <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            {{ t('home.projectsEyebrow') }}
-          </p>
-          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.projectsTitle') }}
-          </h2>
-          <p class="mt-4 text-lg text-muted">
-            {{ t('home.projectsSubtitle') }}
-          </p>
-        </div>
-
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <div
-            v-for="p in projects"
-            :key="p.title"
-            class="group rounded-2xl border border-default bg-default p-6 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
-          >
-            <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition group-hover:bg-primary group-hover:text-inverted">
-              <UIcon
-                :name="p.icon"
-                class="size-5"
-              />
-            </div>
-            <h3 class="font-semibold text-highlighted">
-              {{ p.title }}
-            </h3>
-            <p class="mt-2 text-sm text-muted">
-              {{ p.desc }}
-            </p>
-          </div>
-
-          <!-- Submit-your-dashboard card -->
-          <div class="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-salesforce-600 to-salesforce-800 p-6 text-white">
-            <UIcon
-              name="i-lucide-plus-circle"
-              class="mb-4 size-8"
-            />
-            <h3 class="text-lg font-semibold">
-              {{ t('home.submitTitle') }}
-            </h3>
-            <p class="mt-2 text-sm text-white/80">
-              {{ t('home.submitDesc') }}
-            </p>
-            <UButton
-              :to="submitUrl"
-              target="_blank"
-              color="neutral"
-              class="mt-5 w-fit rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
-              trailing-icon="i-lucide-arrow-up-right"
-            >
-              {{ t('home.submitButton') }}
-            </UButton>
           </div>
         </div>
       </UContainer>

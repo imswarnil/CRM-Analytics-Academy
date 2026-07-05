@@ -8,6 +8,7 @@ definePageMeta({
 
 const route = useRoute()
 const { toc } = useAppConfig()
+const localePath = useLocalePath()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 // Content lives under content/<locale>/…; map the route to the content path.
@@ -77,6 +78,18 @@ const crumbs = computed(() => {
   return [{ '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE.url }, ...items]
 })
 
+// Visible breadcrumb trail (locale segment stripped; last crumb = page title).
+const breadcrumbItems = computed(() => {
+  const segments = route.path.split('/').filter(Boolean).filter(s => !(localeCodes as string[]).includes(s))
+  const items = segments.map((seg, i) => ({
+    label: seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    to: localePath(`/${segments.slice(0, i + 1).join('/')}`)
+  }))
+  const last = items[items.length - 1]
+  if (last) last.label = page.value?.title || last.label
+  return [{ label: 'Home', icon: 'i-lucide-house', to: localePath('/') }, ...items]
+})
+
 // Edit-this-page + community links shown under the TOC ad.
 const tocBottomLinks = computed(() => {
   const links = []
@@ -114,6 +127,11 @@ useJsonLd([
 
 <template>
   <UPage v-if="page">
+    <UBreadcrumb
+      :items="breadcrumbItems"
+      class="mb-6"
+    />
+
     <UPageHeader
       :title="page.title"
       :description="page.description"
@@ -163,47 +181,32 @@ useJsonLd([
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <!-- UPage's #right slot is order-first on mobile: it renders as a sticky,
-           collapsible "On this page" bar above the article. On lg+ it becomes
-           the right rail. `highlight` draws the scrollspy indicator — a filled
-           primary bar on the left border that tracks the active heading. The
-           ad + community links live in the #bottom slot, which the theme hides
-           on mobile so the mobile TOC stays clean. -->
-      <div class="lg:sticky lg:top-(--ui-header-height) lg:max-h-[calc(100vh-var(--ui-header-height)-1rem)] lg:overflow-y-auto lg:pt-6">
-        <UContentToc
-          highlight
-          highlight-color="primary"
-          :title="toc?.title"
-          :links="page.body?.toc?.links"
-          :ui="{
-            root: 'lg:static lg:max-h-none lg:overflow-y-visible lg:bg-transparent lg:backdrop-blur-none',
-            container: 'lg:pt-0',
-            title: 'text-xs font-semibold uppercase tracking-wide text-dimmed',
-            link: 'text-sm py-1.5',
-            indicator: 'w-0.5'
-          }"
-          class="w-full"
-        >
-          <template #bottom>
-            <AdUnit
-              placement="sidebarSquare"
-              class="w-full"
+      <!-- Default Nuxt UI TOC. The ad + community links live in the #bottom
+           slot, which the theme hides on mobile so the mobile TOC stays clean. -->
+      <UContentToc
+        highlight
+        :title="toc?.title"
+        :links="page.body?.toc?.links"
+      >
+        <template #bottom>
+          <AdUnit
+            placement="sidebarSquare"
+            class="w-full"
+          />
+
+          <div
+            v-if="tocBottomLinks.length"
+            class="space-y-4"
+          >
+            <USeparator type="dashed" />
+
+            <UPageLinks
+              :title="toc?.bottom?.title"
+              :links="tocBottomLinks"
             />
-
-            <div
-              v-if="tocBottomLinks.length"
-              class="space-y-4"
-            >
-              <USeparator type="dashed" />
-
-              <UPageLinks
-                :title="toc?.bottom?.title"
-                :links="tocBottomLinks"
-              />
-            </div>
-          </template>
-        </UContentToc>
-      </div>
+          </div>
+        </template>
+      </UContentToc>
     </template>
   </UPage>
 </template>

@@ -45,6 +45,15 @@ function lessonTitle(path: string) {
       </div>
       <div class="flex gap-2">
         <UButton
+          :to="localePath('/feedback')"
+          icon="i-lucide-message-square-heart"
+          color="neutral"
+          variant="outline"
+          size="sm"
+        >
+          Feedback
+        </UButton>
+        <UButton
           :to="localePath('/submit/resource')"
           icon="i-lucide-plus"
           color="neutral"

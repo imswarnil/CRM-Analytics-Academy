@@ -19,7 +19,9 @@
     "signIn": "ログイン",
     "showcase": "ショーケース",
     "roadmap": "ロードマップ",
-    "changelog": "変更履歴"
+    "changelog": "変更履歴",
+    "feedback": "フィードバック",
+    "guestbook": "ゲストブック"
   },
   "hero": {
     "badge": "無料・オープンソースのカリキュラム",

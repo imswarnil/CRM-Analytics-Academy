@@ -19,7 +19,9 @@
     "signIn": "Anmelden",
     "showcase": "Schaufenster",
     "roadmap": "Roadmap",
-    "changelog": "Änderungen"
+    "changelog": "Änderungen",
+    "feedback": "Feedback",
+    "guestbook": "Gästebuch"
   },
   "hero": {
     "badge": "Kostenloser & quelloffener Lehrplan",
