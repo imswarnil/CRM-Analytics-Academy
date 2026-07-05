@@ -15,6 +15,13 @@ const { locales } = useI18n()
 const localeCodes = locales.value.map(l => l.code)
 const contentPath = computed(() => routeToContentPath(route.path, localeCodes))
 
+// Locale-independent lesson key so progress is shared across languages
+// (/en/saql and /hi/saql → /saql). Used for completion tracking.
+const lessonKey = computed(() => {
+  const stripped = contentPath.value.replace(new RegExp(`^/(${localeCodes.join('|')})(?=/|$)`), '')
+  return stripped || '/'
+})
+
 const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
@@ -132,7 +139,7 @@ useJsonLd([
       </MembersGate>
 
       <template v-if="!locked">
-        <LessonProgress :lesson-path="route.path" />
+        <LessonProgress :lesson-path="lessonKey" />
 
         <LessonQuiz
           v-if="page.quiz?.length"
