@@ -129,5 +129,39 @@ checked the dev server log for runtime errors.
 - Migration must be applied manually in Supabase SQL editor (see supabase-setup).
 - Every new UI nav string must be added to all 8 `i18n/locales/*.json`.
 
+## Post-ship bug reports (2026-07-06)
+User reported after testing on their own `pnpm dev` (port 3000, signed in via Google):
+1. A docs page 404 — never got the exact URL from the user to reproduce; tried
+   all 8 module index pages + 2 nested lessons, all 200. **Still open** — need
+   the exact path next time it happens.
+2. `/feedback` and `/guestbook` showing "sign in required" even while signed in.
+   Diagnosed with a temporary `/api/debug/whoami` route (added, used, removed):
+   server-side session resolution was 100% correct (`resolvedUserId` populated,
+   `error: null`) — so `requireUser()`/server auth was never the problem.
+   Root cause: the pages rendered two mutually-exclusive `<ClientOnly>` branches
+   (sign-in gate card vs form) gated on `user`; user confirmed it was the gate
+   card showing, not a toast/error. Given the server session was valid, this
+   points to a stale client hydration state on first load of these brand-new
+   pages (added mid-session, so the running dev server picked up new pages via
+   HMR while an already-open tab kept a stale reactive client-only state).
+   **Fix applied**: restructured both `feedback.vue` and `guestbook.vue` to
+   always render the single form (removes the two-branch ClientOnly split that
+   likely caused the hydration inconsistency); only the submit control adapts —
+   signed in shows the real submit button, signed out shows a "Sign in required"
+   button that links to `/login?redirect=<current path>`. This was also the
+   UX the user explicitly asked for. lint + typecheck pass.
+3. "Admin can publish, all users can post/publish" — confirmed with the user
+   this is the *intended* design (auto-publish guestbook entries unless flagged
+   by the profanity filter, admin can hide/delete after) — not a bug, no change made.
+
+Process note: killed my own leftover dev-server processes with `pkill -f "nuxt
+dev"` while testing, which risks killing the user's own running dev server too
+(same process name) — got lucky this time (PID mismatch on the exact command
+line), but going forward: check `lsof -i :<port>` for cwd before ever killing
+a "nuxt dev" process, and prefer targeting the exact PID from `lsof`, not `pkill -f`.
+
 ## Changelog (most recent first)
+- 2026-07-06: Fixed feedback/guestbook sign-in-gate UX bug + confirmed guestbook
+  auto-publish is by design; investigated but could not reproduce a docs 404
+  (need exact URL from user).
 - (starting Phase 1)

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const localePath = useLocalePath()
+const route = useRoute()
 const user = useSupabaseUser()
 const toast = useToast()
 
@@ -38,6 +39,7 @@ const error = ref('')
 const busyId = ref('')
 
 async function submit() {
+  if (!user.value) return
   const drawing = canvasRef.value?.toDataURL() ?? null
   if (!form.message.trim() && !drawing) {
     error.value = 'Add a message or draw something first.'
@@ -120,30 +122,7 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(undefined, { month: 's
     <UContainer class="py-12 sm:py-16">
       <div class="mx-auto max-w-2xl">
         <ClientOnly>
-          <!-- Signed out -->
-          <div
-            v-if="!user"
-            class="rounded-2xl border border-default bg-elevated/40 p-8 text-center"
-          >
-            <UIcon
-              name="i-lucide-lock"
-              class="mx-auto mb-3 size-8 text-muted"
-            />
-            <h2 class="text-lg font-semibold text-highlighted">
-              Sign in to sign the guestbook
-            </h2>
-            <UButton
-              :to="localePath('/login')"
-              icon="i-simple-icons-google"
-              class="mt-5 rounded-full font-semibold"
-            >
-              Sign in
-            </UButton>
-          </div>
-
-          <!-- Signed in -->
           <form
-            v-else
             class="space-y-4 rounded-2xl border border-default bg-default p-6"
             @submit.prevent="submit"
           >
@@ -179,6 +158,7 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(undefined, { month: 's
               {{ error }}
             </p>
             <UButton
+              v-if="user"
               type="submit"
               icon="i-lucide-pen-line"
               :loading="submitting"
@@ -186,7 +166,20 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(undefined, { month: 's
             >
               Sign the guestbook
             </UButton>
+            <UButton
+              v-else
+              :to="localePath('/login') + `?redirect=${encodeURIComponent(route.fullPath)}`"
+              icon="i-lucide-lock"
+              color="neutral"
+              variant="outline"
+              class="rounded-full font-semibold"
+            >
+              Sign in required
+            </UButton>
           </form>
+          <template #fallback>
+            <div class="h-64 rounded-2xl border border-default bg-elevated/40" />
+          </template>
         </ClientOnly>
 
         <AdUnit
