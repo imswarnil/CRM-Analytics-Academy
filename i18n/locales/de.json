@@ -43,8 +43,7 @@
     "stats": {
       "modules": "Module",
       "lessons": "Lektionen",
-      "free": "Frei & offen",
-      "ai": "KI-bereit"
+      "free": "Frei & offen"
     },
     "curriculumEyebrow": "Der Lehrplan",
     "curriculumTitle": "Zwei Module, ein klarer Weg",
@@ -77,10 +76,6 @@
       "build": {
         "title": "Ein Projekt bauen",
         "desc": "Lektionen summieren sich zu einer echten Pipeline: Daten, Datasets, Dashboards, ein Modell."
-      },
-      "ai": {
-        "title": "Frag die KI",
-        "desc": "Jede Seite ist als Markdown und über MCP verfügbar, sodass ein Assistent dich anleiten kann."
       }
     },
     "resourcesEyebrow": "Ressourcen",

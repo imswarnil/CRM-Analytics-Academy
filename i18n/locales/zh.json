@@ -43,8 +43,7 @@
     "stats": {
       "modules": "模块",
       "lessons": "课程",
-      "free": "免费开放",
-      "ai": "支持 AI"
+      "free": "免费开放"
     },
     "curriculumEyebrow": "课程体系",
     "curriculumTitle": "两个模块，一条清晰路径",
@@ -77,10 +76,6 @@
       "build": {
         "title": "构建项目",
         "desc": "课程逐步累积成一个真实的流程：数据、数据集、仪表板和一个模型。"
-      },
-      "ai": {
-        "title": "询问 AI",
-        "desc": "每个页面都以 Markdown 和 MCP 形式提供，助手可以据此为你讲解。"
       }
     },
     "resourcesEyebrow": "资源",
