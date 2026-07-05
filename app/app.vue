@@ -1,13 +1,34 @@
 <script setup lang="ts">
+import type { ContentNavigationItem } from '@nuxt/content'
+
 const { seo } = useAppConfig()
-const { locale } = useI18n()
+const { locale, locales } = useI18n()
+
+// Completed lessons → tick them in the sidebar navigation.
+const { completed } = useCompletedLessons()
+const localeCodes = computed(() => locales.value.map(l => l.code))
+function canonical(p: string) {
+  return p.replace(new RegExp(`^/(${localeCodes.value.join('|')})(?=/|$)`), '') || '/'
+}
+function decorate(items: ContentNavigationItem[]): ContentNavigationItem[] {
+  const done = new Set(completed.value)
+  const walk = (list: ContentNavigationItem[]): ContentNavigationItem[] =>
+    list.map(item => ({
+      ...item,
+      badge: item.path && !item.children?.length && done.has(canonical(item.path))
+        ? { icon: 'i-lucide-circle-check-big', color: 'success', variant: 'soft', class: 'ring-0 p-0.5' }
+        : item.badge,
+      children: item.children ? walk(item.children) : undefined
+    }))
+  return walk(items)
+}
 
 // Navigation: fetch the full per-locale tree, then expose only the current
 // locale's branch with paths rewritten to localized routes.
 const { data: navTree } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
 const navigation = computed(() => {
   const branch = navTree.value?.find(item => item.path === `/${locale.value}`)
-  return branch?.children ? localizeNavigation(branch.children) : []
+  return branch?.children ? decorate(localizeNavigation(branch.children)) : []
 })
 
 const { data: allFiles } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
