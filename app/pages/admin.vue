@@ -19,19 +19,7 @@ interface ResourceItem {
   created_at: string
   profiles: Author | null
 }
-interface ProjectItem {
-  id: string
-  title: string
-  description: string | null
-  link: string | null
-  image_url: string | null
-  tags: string[] | null
-  status: string
-  created_at: string
-  profiles: Author | null
-}
-
-const { data, pending, refresh } = await useAsyncData<{ resources: ResourceItem[], projects: ProjectItem[] }>(
+const { data, pending, refresh } = await useAsyncData<{ resources: ResourceItem[] }>(
   'admin-queue',
   () => $fetch('/api/admin/queue'),
   { server: false, watch: [isAdmin] }
@@ -39,7 +27,7 @@ const { data, pending, refresh } = await useAsyncData<{ resources: ResourceItem[
 
 const busy = ref('')
 
-async function moderate(table: 'resources' | 'projects', id: string, status: 'approved' | 'rejected') {
+async function moderate(table: 'resources', id: string, status: 'approved' | 'rejected') {
   busy.value = id
   try {
     await $fetch('/api/admin/moderate', { method: 'POST', body: { table, id, status } })
@@ -175,93 +163,6 @@ const authorName = (a: Author | null) => a?.full_name || a?.username || 'Unknown
               class="text-sm text-muted"
             >
               No resources awaiting review.
-            </p>
-          </section>
-
-          <!-- Pending projects -->
-          <section>
-            <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
-              <UIcon
-                name="i-lucide-layout-dashboard"
-                class="size-5 text-primary"
-              />
-              Projects
-              <UBadge
-                color="warning"
-                variant="subtle"
-              >
-                {{ data?.projects.length || 0 }}
-              </UBadge>
-            </h2>
-            <div
-              v-if="data?.projects.length"
-              class="space-y-3"
-            >
-              <div
-                v-for="p in data.projects"
-                :key="p.id"
-                class="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-default p-4"
-              >
-                <div class="flex min-w-0 flex-1 gap-3">
-                  <img
-                    v-if="p.image_url"
-                    :src="p.image_url"
-                    :alt="p.title"
-                    class="size-16 shrink-0 rounded-lg border border-default object-cover"
-                  >
-                  <div class="min-w-0">
-                    <div class="flex items-center gap-2">
-                      <span class="font-medium text-default">{{ p.title }}</span>
-                      <UButton
-                        v-if="p.link"
-                        :to="p.link"
-                        target="_blank"
-                        icon="i-lucide-external-link"
-                        color="neutral"
-                        variant="ghost"
-                        size="xs"
-                      />
-                    </div>
-                    <p
-                      v-if="p.description"
-                      class="mt-1 line-clamp-2 text-sm text-muted"
-                    >
-                      {{ p.description }}
-                    </p>
-                    <p class="mt-1 text-xs text-dimmed">
-                      by {{ authorName(p.profiles) }}
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-2">
-                  <UButton
-                    color="success"
-                    variant="soft"
-                    size="sm"
-                    icon="i-lucide-check"
-                    :loading="busy === p.id"
-                    @click="moderate('projects', p.id, 'approved')"
-                  >
-                    Approve
-                  </UButton>
-                  <UButton
-                    color="error"
-                    variant="ghost"
-                    size="sm"
-                    icon="i-lucide-x"
-                    :disabled="busy === p.id"
-                    @click="moderate('projects', p.id, 'rejected')"
-                  >
-                    Reject
-                  </UButton>
-                </div>
-              </div>
-            </div>
-            <p
-              v-else
-              class="text-sm text-muted"
-            >
-              No projects awaiting review.
             </p>
           </section>
         </div>

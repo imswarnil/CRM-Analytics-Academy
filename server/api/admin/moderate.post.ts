@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
   const body = await readBody<{ table?: string, id?: string, status?: string }>(event)
 
-  const table = body.table === 'projects' ? 'projects' : body.table === 'resources' ? 'resources' : null
+  const table = body.table === 'resources' ? 'resources' : null
   const status = body.status && ['approved', 'rejected', 'pending'].includes(body.status)
     ? (body.status as 'approved' | 'rejected' | 'pending')
     : null
