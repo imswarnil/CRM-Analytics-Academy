@@ -115,8 +115,8 @@ export function useDocsChat() {
         } else if (res.status === 429) {
           assistant.content = `⚠️ **${serverMsg || 'CRM Analytics AI has reached its usage limit for now.'}** Add your own AI key in settings for uninterrupted use.`
         } else {
-          messages.value.pop()
-          error.value = 'Something went wrong. Please try again.'
+          // Any other error — show the actual reason and status, not a vague message.
+          assistant.content = `⚠️ **Chat error (${res.status}).** ${serverMsg || 'Please try again in a moment.'}`
         }
         return
       }
@@ -131,11 +131,12 @@ export function useDocsChat() {
       if (!assistant.content) {
         assistant.content = '_No response was returned. Please try again._'
       }
-    } catch {
+    } catch (e) {
       if (!assistant.content) {
         refund()
-        messages.value.pop()
-        error.value = 'Something went wrong. Please try again.'
+        // Surface the network/JS error reason instead of a vague message.
+        const msg = (e as Error)?.message || 'unknown error'
+        assistant.content = `⚠️ **Could not reach the assistant.** ${msg}. Check your connection and try again.`
       }
     } finally {
       loading.value = false
