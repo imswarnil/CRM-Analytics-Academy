@@ -263,10 +263,57 @@ LinkedIn feature, breadcrumb placement). Nothing pending.
 - ⚠️ No actual service worker was added (out of scope — not requested); this
   is an installable-manifest + native install-prompt, not offline support.
 
+## Push + Supabase sync (2026-07-06)
+- Rebased local `main` onto a remote commit (`e94e5ca`, a lesson-title-only
+  content edit unrelated to this work) — clean, no conflicts.
+- Pushed all session commits to `origin/main` (`cc569d1`) after the user
+  explicitly asked for it. Vercel auto-deployed; confirmed live via
+  `manifest.webmanifest` appearing (~70s after push) and a full production
+  sweep (all 6 locale-fallback 404s fixed, all PWA assets 200, button fix
+  and breadcrumb placement both confirmed live).
+- Applied the pending `20260706020000_profile_linkedin.sql` migration to the
+  **live** Supabase project (was still unapplied — would have broken the
+  LinkedIn feature/any `profiles` query once this shipped). All 8 migrations
+  now show as applied via `supabase migration list`.
+
+## PWA manifest completeness + service worker (2026-07-06)
+User pasted PWA-manifest-spec text (service worker description, screenshots,
+orientation/id explanation) and asked to fix warnings + add the listed
+Optional/Recommended manifest members.
+- [x] Real service worker added: `public/sw.js` — cache-first for immutable
+      hashed `/_nuxt/*` + image/font assets, network-first-with-cache-fallback
+      for HTML navigations, **never** touches `/api/*` (so Supabase auth,
+      moderation, and submissions behave identically with or without it).
+      Registered via `app/plugins/sw.client.ts` (client-only by filename
+      convention), only if `serviceWorker` is supported.
+- [x] `manifest.webmanifest`: added `id` ("/", stable per the spec's own
+      warning about start_url drift), `orientation` ("any" — doesn't
+      restrict a docs site), `lang`/`dir`, `categories`
+      (education/productivity/business), and `shortcuts` (Foundations,
+      Resources, Dashboard, Guestbook — reusing icon-192.png since no
+      per-shortcut icons exist). `scope` was already present from the
+      original PWA work.
+- [ ] **`screenshots` — intentionally skipped.** Needs real rendered
+      screenshots of the app; no headless-browser tooling is available in
+      this environment (checked: no chromium-cli, Playwright, wkhtmltoimage,
+      webkit2png, cutycapt). Fabricating placeholder images would be worse
+      than omitting the field. Revisit if the user supplies real screenshots
+      or a browser-automation tool becomes available.
+- [ ] **Deliberately NOT added** (would require real, currently-nonexistent
+      functionality — declaring them empty/fake would create broken or
+      misleading behavior, not fix a warning): `iarc_rating_id` (needs an
+      actual IARC certificate — we don't have one), `file_handlers`,
+      `share_target`, `protocol_handlers`, `widgets`, `edge_side_panel`,
+      `note_taking`, `launch_handler`, `scope_extensions`,
+      `prefer_related_applications`, `related_applications`,
+      `display_override`. None of these have a corresponding feature in the
+      app (no file-type association, no share-target page, no native
+      counterpart app, etc.).
+- [x] lint + typecheck + full `pnpm build` pass; verified in an isolated
+      git worktree dev server (manifest serves valid JSON with all new
+      fields, sw.js serves 200, no runtime errors, no regressions swept).
+
 ## Not yet committed
-As of last update, all work (production bug sweep + favicon/PWA) is in the
-working tree but not committed (only `44db657` and the user's own `df4dcd6
-"hjjh"` are on the branch/pushed history). Run `git status`/`git diff --stat`
-to see the current uncommitted set before committing — do not blindly
-`git add -A`.
+Run `git status`/`git diff --stat` to see the current uncommitted set before
+committing — do not blindly `git add -A`.
 - (starting Phase 1)
