@@ -18,8 +18,8 @@ useSeoMeta({
 defineOgImage('Docs', { title: title.value, description: description.value })
 
 const stats = computed(() => [
-  { value: '10', label: t('home.stats.lessons') },
-  { value: '31m', label: t('home.stats.video') },
+  { value: '18', label: t('home.stats.lessons') },
+  { value: '42m', label: t('home.stats.video') },
   { value: '100%', label: t('home.stats.free') }
 ])
 
@@ -44,6 +44,23 @@ const modules = computed(() => [
       'Six Steps to Adoption',
       'Interview Questions',
       'Graded Quiz'
+    ]
+  },
+  {
+    n: '02',
+    title: 'Setup & User Provisioning',
+    to: '/setup',
+    icon: 'i-lucide-settings-2',
+    desc: 'Set up CRM Analytics the right way: provision users, assign licenses and permission sets, and configure the integration and security users.',
+    lessons: [
+      'Provisioning Users',
+      'Licenses & Permission Sets',
+      'The Integration User',
+      'The Security User',
+      'Analytics Settings',
+      'Assigning Access',
+      'Graded Quiz',
+      'Interview Questions'
     ]
   }
 ])
