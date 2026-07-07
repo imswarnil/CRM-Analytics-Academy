@@ -121,76 +121,89 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(undefined, { month: 's
     </section>
 
     <UContainer class="py-12 sm:py-16">
-      <div class="mx-auto max-w-2xl">
-        <ClientOnly>
-          <form
-            class="space-y-4 rounded-2xl border border-default bg-default p-6"
-            @submit.prevent="submit"
-          >
-            <UFormField
-              label="Your name"
-              hint="Optional"
-            >
-              <UInput
-                v-model="form.name"
-                placeholder="How should we sign you?"
-                class="w-full"
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-12">
+        <!-- Left: details + form -->
+        <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <div class="rounded-2xl border border-default bg-elevated/30 p-6">
+            <h2 class="flex items-center gap-2 font-semibold text-highlighted">
+              <UIcon
+                name="i-lucide-heart-handshake"
+                class="size-5 text-primary"
               />
-            </UFormField>
-            <UFormField label="Message">
-              <UTextarea
-                v-model="form.message"
-                :rows="3"
-                autoresize
-                placeholder="Leave a note…"
-                class="w-full"
-              />
-            </UFormField>
-            <UFormField
-              label="Or draw something"
-              hint="Optional"
-            >
-              <GuestbookCanvas ref="canvasRef" />
-            </UFormField>
-            <p
-              v-if="error"
-              class="text-sm text-error"
-            >
-              {{ error }}
+              Say hello
+            </h2>
+            <p class="mt-3 text-sm text-muted">
+              Leave a note or a quick doodle for everyone who learns here. Entries post instantly — just keep it friendly. Abusive language is blocked automatically.
             </p>
-            <UButton
-              v-if="user"
-              type="submit"
-              icon="i-lucide-pen-line"
-              :loading="submitting"
-              class="rounded-full font-semibold"
-            >
-              Sign the guestbook
-            </UButton>
-            <UButton
-              v-else
-              :to="localePath('/login') + `?redirect=${encodeURIComponent(route.fullPath)}`"
-              icon="i-lucide-lock"
-              color="neutral"
-              variant="outline"
-              class="rounded-full font-semibold"
-            >
-              Sign in required
-            </UButton>
-          </form>
-          <template #fallback>
-            <div class="h-64 rounded-2xl border border-default bg-elevated/40" />
-          </template>
-        </ClientOnly>
+          </div>
 
-        <AdUnit
-          placement="betweenSections"
-          class="mx-auto my-12 max-w-3xl"
-        />
+          <ClientOnly>
+            <form
+              class="space-y-4 rounded-2xl border border-default bg-default p-6"
+              @submit.prevent="submit"
+            >
+              <UFormField
+                label="Your name"
+                hint="Optional"
+              >
+                <UInput
+                  v-model="form.name"
+                  placeholder="How should we sign you?"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField label="Message">
+                <UTextarea
+                  v-model="form.message"
+                  :rows="3"
+                  autoresize
+                  placeholder="Leave a note…"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField
+                label="Or draw something"
+                hint="Optional"
+              >
+                <GuestbookCanvas ref="canvasRef" />
+              </UFormField>
+              <p
+                v-if="error"
+                class="text-sm text-error"
+              >
+                {{ error }}
+              </p>
+              <UButton
+                v-if="user"
+                type="submit"
+                icon="i-lucide-pen-line"
+                :loading="submitting"
+                block
+                class="rounded-full font-semibold"
+              >
+                Sign the guestbook
+              </UButton>
+              <UButton
+                v-else
+                :to="localePath('/login') + `?redirect=${encodeURIComponent(route.fullPath)}`"
+                icon="i-lucide-lock"
+                color="neutral"
+                variant="outline"
+                block
+                class="rounded-full font-semibold"
+              >
+                Sign in required
+              </UButton>
+            </form>
+            <template #fallback>
+              <div class="h-96 rounded-2xl border border-default bg-elevated/40" />
+            </template>
+          </ClientOnly>
+        </aside>
 
-        <!-- Entries -->
-        <div class="space-y-5">
-          <h2 class="flex items-center gap-2 font-semibold text-highlighted">
+        <!-- Right: entries grid -->
+        <div>
+          <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
             <UIcon
               name="i-lucide-messages-square"
               class="size-5 text-primary"
@@ -199,77 +212,87 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(undefined, { month: 's
           </h2>
 
           <div
-            v-for="e in data.entries"
-            :key="e.id"
-            class="rounded-2xl border border-default bg-default p-5"
-            :class="e.status === 'hidden' ? 'opacity-50' : ''"
+            v-if="data.entries.length"
+            class="grid gap-4 sm:grid-cols-2"
           >
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="font-medium text-highlighted">{{ e.name || authorName(e.author) }}</span>
-              <a
-                v-if="e.author?.linkedin_url"
-                :href="e.author.linkedin_url"
-                target="_blank"
-                rel="noopener"
-                class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline"
-              >
-                <UIcon
-                  name="i-simple-icons-linkedin"
-                  class="size-3"
-                />LinkedIn
-              </a>
-              <span class="text-xs text-dimmed">{{ fmt(e.created_at) }}</span>
-              <UBadge
-                v-if="e.status === 'hidden'"
-                color="error"
-                variant="subtle"
-                size="sm"
-              >
-                Hidden
-              </UBadge>
-              <div class="ml-auto flex gap-1.5">
-                <UButton
-                  v-if="data.isAdmin"
-                  color="neutral"
-                  variant="ghost"
-                  size="xs"
-                  :icon="e.status === 'hidden' ? 'i-lucide-eye' : 'i-lucide-eye-off'"
-                  :loading="busyId === e.id"
-                  @click="toggleHidden(e)"
-                />
-                <UButton
-                  v-if="data.isAdmin || e.user_id === data.userId"
+            <div
+              v-for="e in data.entries"
+              :key="e.id"
+              class="flex flex-col rounded-2xl border border-default bg-default p-5 transition hover:border-primary/30"
+              :class="e.status === 'hidden' ? 'opacity-50' : ''"
+            >
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-medium text-highlighted">{{ e.name || authorName(e.author) }}</span>
+                <a
+                  v-if="e.author?.linkedin_url"
+                  :href="e.author.linkedin_url"
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline"
+                >
+                  <UIcon
+                    name="i-simple-icons-linkedin"
+                    class="size-3"
+                  />LinkedIn
+                </a>
+                <span class="text-xs text-dimmed">{{ fmt(e.created_at) }}</span>
+                <UBadge
+                  v-if="e.status === 'hidden'"
                   color="error"
-                  variant="ghost"
-                  size="xs"
-                  icon="i-lucide-trash-2"
-                  :loading="busyId === e.id"
-                  @click="removeEntry(e.id)"
-                />
+                  variant="subtle"
+                  size="sm"
+                >
+                  Hidden
+                </UBadge>
+                <div class="ml-auto flex gap-1.5">
+                  <UButton
+                    v-if="data.isAdmin"
+                    color="neutral"
+                    variant="ghost"
+                    size="xs"
+                    :icon="e.status === 'hidden' ? 'i-lucide-eye' : 'i-lucide-eye-off'"
+                    :loading="busyId === e.id"
+                    @click="toggleHidden(e)"
+                  />
+                  <UButton
+                    v-if="data.isAdmin || e.user_id === data.userId"
+                    color="error"
+                    variant="ghost"
+                    size="xs"
+                    icon="i-lucide-trash-2"
+                    :loading="busyId === e.id"
+                    @click="removeEntry(e.id)"
+                  />
+                </div>
               </div>
+              <p
+                v-if="e.message"
+                class="mt-2 whitespace-pre-wrap text-sm text-default"
+              >
+                {{ e.message }}
+              </p>
+              <img
+                v-if="e.drawing"
+                :src="e.drawing"
+                alt="A drawing left in the guestbook"
+                class="mt-3 max-w-full rounded-lg border border-default"
+                width="640"
+                height="300"
+              >
             </div>
-            <p
-              v-if="e.message"
-              class="mt-2 whitespace-pre-wrap text-sm text-default"
-            >
-              {{ e.message }}
-            </p>
-            <img
-              v-if="e.drawing"
-              :src="e.drawing"
-              alt="A drawing left in the guestbook"
-              class="mt-3 max-w-full rounded-lg border border-default"
-              width="640"
-              height="300"
-            >
           </div>
 
           <p
-            v-if="!data.entries.length"
-            class="py-10 text-center text-sm text-muted"
+            v-else
+            class="rounded-2xl border border-dashed border-default py-16 text-center text-sm text-muted"
           >
             No entries yet — be the first to sign!
           </p>
+
+          <AdUnit
+            placement="betweenSections"
+            class="mt-10"
+          />
         </div>
       </div>
     </UContainer>

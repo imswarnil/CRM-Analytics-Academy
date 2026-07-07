@@ -23,10 +23,22 @@ const elId = `yt-${Math.random().toString(36).slice(2)}`
 const activated = ref(false)
 const ready = ref(false)
 const playing = ref(false)
+// True from the moment the learner clicks until the video actually starts
+// playing — drives the loading spinner so there's never a bare black frame.
+const loading = ref(false)
 const finished = ref(false)
 const muted = ref(false)
 const current = ref(0)
 const duration = ref(0)
+
+// Warm up the YouTube connections so the first play starts faster.
+useHead({
+  link: [
+    { rel: 'preconnect', href: 'https://www.youtube.com' },
+    { rel: 'preconnect', href: 'https://i.ytimg.com' },
+    { rel: 'preconnect', href: 'https://www.google.com' }
+  ]
+})
 
 let player: YTPlayer | null = null
 let raf: ReturnType<typeof setInterval> | null = null
@@ -86,6 +98,7 @@ function startTicker() {
 
 async function activate() {
   activated.value = true
+  loading.value = true
   await loadIframeApi()
   await nextTick()
   player = new window.YT!.Player(elId, {
@@ -112,6 +125,7 @@ async function activate() {
         const YTS = window.YT!.PlayerState
         if (e.data === YTS.PLAYING) {
           playing.value = true
+          loading.value = false
           if (!duration.value) duration.value = props.end ?? e.target.getDuration()
           startTicker()
         } else {
@@ -180,7 +194,7 @@ onBeforeUnmount(() => {
       >
       <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/30" />
 
-      <span class="relative flex size-20 items-center justify-center rounded-full bg-primary text-inverted shadow-2xl transition group-hover:scale-110">
+      <span class="relative flex size-20 items-center justify-center rounded-full bg-primary text-inverted shadow-2xl transition duration-200 group-hover:scale-110 group-active:scale-95">
         <span class="absolute inset-0 animate-ping rounded-full bg-primary/40" />
         <UIcon
           name="i-lucide-play"
@@ -219,6 +233,33 @@ onBeforeUnmount(() => {
       class="pointer-events-none size-full"
     />
 
+    <!-- Loading overlay: keeps the poster on screen (no black flash) with a
+         spinner until the video actually starts, then cross-fades away. -->
+    <Transition
+      enter-active-class="transition-opacity duration-300"
+      leave-active-class="transition-opacity duration-500"
+      enter-from-class="opacity-0"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-if="activated && loading && !finished"
+        class="absolute inset-0 z-30 flex items-center justify-center overflow-hidden"
+      >
+        <img
+          :src="poster"
+          alt=""
+          class="absolute inset-0 size-full scale-105 object-cover blur-[2px]"
+        >
+        <div class="absolute inset-0 bg-black/60" />
+        <span class="relative flex size-14 items-center justify-center rounded-full bg-black/40 backdrop-blur">
+          <UIcon
+            name="i-lucide-loader-circle"
+            class="size-8 animate-spin text-white"
+          />
+        </span>
+      </div>
+    </Transition>
+
     <!-- Click-to-toggle overlay -->
     <button
       v-if="activated && !finished"
@@ -227,15 +268,20 @@ onBeforeUnmount(() => {
       :aria-label="playing ? 'Pause' : 'Play'"
       @click="togglePlay"
     >
-      <span
-        v-if="!playing"
-        class="flex size-16 items-center justify-center rounded-full bg-primary/90 text-inverted shadow-lg backdrop-blur"
+      <Transition
+        enter-active-class="transition duration-200"
+        enter-from-class="opacity-0 scale-90"
       >
-        <UIcon
-          name="i-lucide-play"
-          class="ml-0.5 size-7"
-        />
-      </span>
+        <span
+          v-if="ready && !playing && !loading"
+          class="flex size-16 items-center justify-center rounded-full bg-primary/90 text-inverted shadow-lg backdrop-blur transition active:scale-95"
+        >
+          <UIcon
+            name="i-lucide-play"
+            class="ml-0.5 size-7"
+          />
+        </span>
+      </Transition>
     </button>
 
     <!-- Custom control bar -->

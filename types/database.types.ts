@@ -109,6 +109,18 @@ export interface Database {
         Update: { body?: string }
         Relationships: []
       }
+      resource_votes: {
+        Row: { id: string, resource_id: string, user_id: string, created_at: string }
+        Insert: { resource_id: string, user_id: string }
+        Update: Record<string, never>
+        Relationships: []
+      }
+      certificates: {
+        Row: { id: string, code: string, user_id: string | null, name: string, course: string, avg_score: number | null, issued_at: string }
+        Insert: { code: string, user_id: string, name: string, course?: string, avg_score?: number | null }
+        Update: { name?: string, avg_score?: number | null }
+        Relationships: []
+      }
       feedback: {
         Row: {
           id: string

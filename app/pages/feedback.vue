@@ -84,101 +84,161 @@ async function submit() {
     </section>
 
     <UContainer class="py-12 sm:py-16">
-      <div class="mx-auto max-w-2xl">
-        <ClientOnly>
-          <form
-            class="space-y-4 rounded-2xl border border-default bg-default p-6"
-            @submit.prevent="submit"
-          >
-            <UFormField
-              label="Category"
-              name="category"
-            >
-              <USelect
-                v-model="form.category"
-                :items="categories"
-                class="w-full"
-              />
-            </UFormField>
-            <UFormField
-              label="Subject"
-              name="subject"
-              hint="Optional"
-            >
-              <UInput
-                v-model="form.subject"
-                placeholder="A short summary"
-                class="w-full"
-              />
-            </UFormField>
-            <UFormField
-              label="Message"
-              name="message"
-              required
-            >
-              <UTextarea
-                v-model="form.message"
-                :rows="5"
-                autoresize
-                placeholder="What's on your mind?"
-                class="w-full"
-              />
-            </UFormField>
-            <p
-              v-if="error"
-              class="text-sm text-error"
-            >
-              {{ error }}
-            </p>
-            <UButton
-              v-if="user"
-              type="submit"
-              icon="i-lucide-send"
-              :loading="submitting"
-              :disabled="!form.message.trim()"
-              class="rounded-full font-semibold"
-            >
-              Send feedback
-            </UButton>
-            <UButton
-              v-else
-              :to="localePath('/login') + `?redirect=${encodeURIComponent(route.fullPath)}`"
-              icon="i-lucide-lock"
-              color="neutral"
-              variant="outline"
-              class="rounded-full font-semibold"
-            >
-              Sign in required
-            </UButton>
-          </form>
-
-          <!-- My threads -->
-          <div
-            v-if="threads.length"
-            class="mt-12"
-          >
-            <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-12">
+        <!-- Left: details + form -->
+        <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <div class="rounded-2xl border border-default bg-elevated/30 p-6">
+            <h2 class="flex items-center gap-2 font-semibold text-highlighted">
               <UIcon
-                name="i-lucide-messages-square"
+                name="i-lucide-sparkles"
                 class="size-5 text-primary"
               />
-              Your feedback
+              How it works
             </h2>
-            <FeedbackThreadList
-              :items="threads"
-              @refresh="refresh"
-            />
+            <ul class="mt-4 space-y-3 text-sm text-muted">
+              <li class="flex gap-3">
+                <UIcon
+                  name="i-lucide-pencil-line"
+                  class="mt-0.5 size-4 shrink-0 text-primary"
+                />
+                <span>Pick a category and tell us what's on your mind.</span>
+              </li>
+              <li class="flex gap-3">
+                <UIcon
+                  name="i-lucide-eye"
+                  class="mt-0.5 size-4 shrink-0 text-primary"
+                />
+                <span>We read <span class="font-medium text-default">every</span> message — nothing is auto-filed.</span>
+              </li>
+              <li class="flex gap-3">
+                <UIcon
+                  name="i-lucide-message-circle-reply"
+                  class="mt-0.5 size-4 shrink-0 text-primary"
+                />
+                <span>Our reply shows up right here in your thread.</span>
+              </li>
+            </ul>
           </div>
 
-          <template #fallback>
-            <div class="h-64 rounded-2xl border border-default bg-elevated/40" />
-          </template>
-        </ClientOnly>
+          <ClientOnly>
+            <form
+              class="space-y-4 rounded-2xl border border-default bg-default p-6"
+              @submit.prevent="submit"
+            >
+              <UFormField
+                label="Category"
+                name="category"
+              >
+                <USelect
+                  v-model="form.category"
+                  :items="categories"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField
+                label="Subject"
+                name="subject"
+                hint="Optional"
+              >
+                <UInput
+                  v-model="form.subject"
+                  placeholder="A short summary"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField
+                label="Message"
+                name="message"
+                required
+              >
+                <UTextarea
+                  v-model="form.message"
+                  :rows="5"
+                  autoresize
+                  placeholder="What's on your mind?"
+                  class="w-full"
+                />
+              </UFormField>
+              <p
+                v-if="error"
+                class="text-sm text-error"
+              >
+                {{ error }}
+              </p>
+              <UButton
+                v-if="user"
+                type="submit"
+                icon="i-lucide-send"
+                :loading="submitting"
+                :disabled="!form.message.trim()"
+                block
+                class="rounded-full font-semibold"
+              >
+                Send feedback
+              </UButton>
+              <UButton
+                v-else
+                :to="localePath('/login') + `?redirect=${encodeURIComponent(route.fullPath)}`"
+                icon="i-lucide-lock"
+                color="neutral"
+                variant="outline"
+                block
+                class="rounded-full font-semibold"
+              >
+                Sign in required
+              </UButton>
+            </form>
+            <template #fallback>
+              <div class="h-96 rounded-2xl border border-default bg-elevated/40" />
+            </template>
+          </ClientOnly>
+        </aside>
 
-        <AdUnit
-          placement="betweenSections"
-          class="mx-auto mt-12 max-w-3xl"
-        />
+        <!-- Right: entries -->
+        <div>
+          <ClientOnly>
+            <div v-if="threads.length">
+              <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+                <UIcon
+                  name="i-lucide-messages-square"
+                  class="size-5 text-primary"
+                />
+                Your feedback
+                <UBadge
+                  color="primary"
+                  variant="subtle"
+                  size="sm"
+                >
+                  {{ threads.length }}
+                </UBadge>
+              </h2>
+              <FeedbackThreadList
+                :items="threads"
+                @refresh="refresh"
+              />
+            </div>
+            <div
+              v-else
+              class="flex h-full min-h-64 flex-col items-center justify-center rounded-2xl border border-dashed border-default p-10 text-center"
+            >
+              <UIcon
+                name="i-lucide-inbox"
+                class="size-8 text-dimmed"
+              />
+              <p class="mt-3 text-sm text-muted">
+                Your conversations will appear here once you send your first message.
+              </p>
+            </div>
+            <template #fallback>
+              <div class="h-64 rounded-2xl border border-default bg-elevated/40" />
+            </template>
+          </ClientOnly>
+
+          <AdUnit
+            placement="betweenSections"
+            class="mt-10"
+          />
+        </div>
       </div>
     </UContainer>
   </div>
