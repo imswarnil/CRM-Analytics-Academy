@@ -186,14 +186,13 @@ useJsonLd(jsonLd)
   <UPage v-if="page">
     <UBreadcrumb
       :items="breadcrumbItems"
-      class="mb-2"
+      class="mb-5"
     />
 
     <UPageHeader
       :title="page.title"
       :description="page.description"
       :headline="headline"
-      :ui="{ root: 'pt-0' }"
     >
       <template #links>
         <UButton

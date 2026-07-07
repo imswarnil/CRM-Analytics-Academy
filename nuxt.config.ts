@@ -19,12 +19,18 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' }
+      ],
       script: [
         {
           src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540',
           async: true,
           crossorigin: 'anonymous'
-        }
+        },
+        // Google tag (gtag.js)
+        { src: 'https://www.googletagmanager.com/gtag/js?id=G-VJD486Z7WT', async: true },
+        { innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VJD486Z7WT');` }
       ]
     }
   },

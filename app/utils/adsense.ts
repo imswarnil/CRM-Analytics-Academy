@@ -104,8 +104,8 @@ export const AD_PLACEMENTS = {
    */
   sidebarSquare: {
     variants: [
-      { max: 768, slot: '6066270853', format: 'rectangle', fullWidthResponsive: true, reserve: 250 },
-      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 280 }
+      { max: 768, slot: '6066270853', format: 'rectangle', fullWidthResponsive: true, reserve: 300 },
+      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 336 }
     ]
   },
 
