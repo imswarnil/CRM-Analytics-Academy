@@ -1,5 +1,11 @@
 <script setup lang="ts">
-const props = defineProps<{ lessonPath: string }>()
+const props = withDefaults(defineProps<{
+  lessonPath: string
+  // When false, completing is blocked (e.g. the lesson quiz isn't passed yet).
+  canComplete?: boolean
+}>(), {
+  canComplete: true
+})
 
 const user = useSupabaseUser()
 const localePath = useLocalePath()
@@ -27,6 +33,8 @@ async function loadState() {
 
 async function toggle() {
   if (!user.value || busy.value) return
+  // Guard against completing before the quiz is passed (also enforced in UI).
+  if (!props.canComplete && !completed.value) return
   busy.value = true
   const wasComplete = completed.value
   try {
@@ -64,7 +72,8 @@ watch(user, loadState, { immediate: true })
           :class="completed ? 'text-success' : 'text-muted'"
         />
         <span class="text-sm font-medium text-default">
-          {{ completed ? 'Lesson complete' : 'Finished this lesson?' }}
+          {{ completed ? 'Lesson complete'
+            : (!canComplete ? 'Pass the quiz below to complete this lesson' : 'Finished this lesson?') }}
         </span>
       </div>
 
@@ -74,7 +83,8 @@ watch(user, loadState, { immediate: true })
         :variant="completed ? 'soft' : 'solid'"
         size="sm"
         :loading="busy"
-        :icon="completed ? 'i-lucide-check' : undefined"
+        :disabled="!canComplete && !completed"
+        :icon="completed ? 'i-lucide-check' : (!canComplete ? 'i-lucide-lock' : undefined)"
         @click="toggle"
       >
         {{ completed ? 'Completed' : 'Mark as complete' }}

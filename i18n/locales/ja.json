@@ -45,7 +45,8 @@
     "stats": {
       "modules": "モジュール",
       "lessons": "レッスン",
-      "free": "無料・オープン"
+      "free": "無料・オープン",
+      "video": "動画"
     },
     "curriculumEyebrow": "カリキュラム",
     "curriculumTitle": "2つのモジュール、明確な道のり",
@@ -225,6 +226,7 @@
   },
   "video": {
     "thanksForWatching": "ご視聴ありがとうございました！",
-    "replay": "もう一度見る"
+    "replay": "もう一度見る",
+    "lessonCompleted": "レッスン完了"
   }
 }

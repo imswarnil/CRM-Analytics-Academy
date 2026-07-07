@@ -9,7 +9,10 @@ useSeoMeta({ title: 'Your dashboard — CRM Analytics Academy', robots: 'noindex
 interface DashboardData {
   progress: { lesson_path: string, completed_at: string }[]
   resources: { id: string, title: string, status: string, created_at: string }[]
-  quizzes: { quiz_id: string, score: number, total: number, created_at: string }[]
+  quizzes: { quiz_id: string, score: number, total: number, passed: boolean, created_at: string }[]
+  avgScore: number | null
+  quizzesTaken: number
+  quizzesPassed: number
 }
 
 // Fetched via a server route so RLS sees the authenticated user (the browser
@@ -135,13 +138,42 @@ function lessonTitle(path: string) {
 
       <!-- Quizzes -->
       <UPageCard :ui="{ body: 'space-y-4' }">
-        <h2 class="flex items-center gap-2 font-semibold text-highlighted">
-          <UIcon
-            name="i-lucide-list-checks"
-            class="size-5 text-primary"
-          />
-          Recent quizzes
-        </h2>
+        <div class="flex items-center justify-between">
+          <h2 class="flex items-center gap-2 font-semibold text-highlighted">
+            <UIcon
+              name="i-lucide-list-checks"
+              class="size-5 text-primary"
+            />
+            Quiz results
+          </h2>
+          <UBadge
+            v-if="data?.avgScore != null"
+            :color="data.avgScore >= 85 ? 'success' : 'primary'"
+            variant="subtle"
+          >
+            Avg {{ data.avgScore }}/100
+          </UBadge>
+        </div>
+
+        <div
+          v-if="data?.avgScore != null"
+          class="rounded-lg border border-default bg-elevated/40 p-3"
+        >
+          <div class="flex items-baseline justify-between">
+            <span class="text-sm text-muted">Average score</span>
+            <span class="text-2xl font-bold text-highlighted">{{ data.avgScore }}<span class="text-sm text-muted">/100</span></span>
+          </div>
+          <div class="mt-2 h-2 overflow-hidden rounded-full bg-default">
+            <div
+              class="h-full rounded-full bg-primary transition-all"
+              :style="{ width: `${data.avgScore}%` }"
+            />
+          </div>
+          <p class="mt-2 text-xs text-muted">
+            {{ data.quizzesPassed }} of {{ data.quizzesTaken }} section{{ data.quizzesTaken === 1 ? '' : 's' }} passed (85% to pass).
+          </p>
+        </div>
+
         <ul
           v-if="data?.quizzes.length"
           class="space-y-2"
@@ -151,12 +183,12 @@ function lessonTitle(path: string) {
             :key="i"
             class="flex items-center justify-between text-sm"
           >
-            <span class="truncate text-muted">{{ q.quiz_id }}</span>
+            <span class="truncate text-muted">{{ lessonTitle(q.quiz_id) }}</span>
             <UBadge
-              :color="q.score / q.total >= 0.7 ? 'success' : 'warning'"
+              :color="q.passed ? 'success' : 'warning'"
               variant="subtle"
             >
-              {{ q.score }}/{{ q.total }}
+              {{ Math.round((q.score / q.total) * 100) }}%
             </UBadge>
           </li>
         </ul>

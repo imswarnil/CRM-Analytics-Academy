@@ -45,7 +45,8 @@
     "stats": {
       "modules": "मॉड्यूल",
       "lessons": "पाठ",
-      "free": "मुफ़्त और खुला"
+      "free": "मुफ़्त और खुला",
+      "video": "वीडियो"
     },
     "curriculumEyebrow": "पाठ्यक्रम",
     "curriculumTitle": "दो मॉड्यूल, एक स्पष्ट राह",
@@ -225,6 +226,7 @@
   },
   "video": {
     "thanksForWatching": "देखने के लिए धन्यवाद!",
-    "replay": "फिर से देखें"
+    "replay": "फिर से देखें",
+    "lessonCompleted": "पाठ पूर्ण"
   }
 }

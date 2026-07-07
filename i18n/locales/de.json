@@ -45,7 +45,8 @@
     "stats": {
       "modules": "Module",
       "lessons": "Lektionen",
-      "free": "Frei & offen"
+      "free": "Frei & offen",
+      "video": "Video"
     },
     "curriculumEyebrow": "Der Lehrplan",
     "curriculumTitle": "Zwei Module, ein klarer Weg",
@@ -225,6 +226,7 @@
   },
   "video": {
     "thanksForWatching": "Danke fürs Zuschauen!",
-    "replay": "Wiederholen"
+    "replay": "Wiederholen",
+    "lessonCompleted": "Lektion abgeschlossen"
   }
 }

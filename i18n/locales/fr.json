@@ -45,7 +45,8 @@
     "stats": {
       "modules": "Modules",
       "lessons": "Leçons",
-      "free": "Gratuit et ouvert"
+      "free": "Gratuit et ouvert",
+      "video": "Vidéo"
     },
     "curriculumEyebrow": "Le programme",
     "curriculumTitle": "Deux modules, un parcours clair",
@@ -225,6 +226,7 @@
   },
   "video": {
     "thanksForWatching": "Merci d'avoir regardé !",
-    "replay": "Revoir"
+    "replay": "Revoir",
+    "lessonCompleted": "Leçon terminée"
   }
 }

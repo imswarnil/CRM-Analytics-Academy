@@ -48,6 +48,11 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
 const user = useSupabaseUser()
 const locked = computed(() => page.value?.access === 'members' && !user.value)
 
+// Quiz gates completion: a lesson/section with a quiz can't be marked complete
+// until it's passed. No quiz → always completable.
+const quizPassed = ref(!page.value?.quiz?.length)
+const canComplete = computed(() => quizPassed.value)
+
 const title = page.value.seo?.title || page.value.title
 const description = page.value.seo?.description || page.value.description
 
@@ -114,7 +119,8 @@ const tocBottomLinks = computed(() => {
   return [...links, ...(toc?.bottom?.links || [])].filter(Boolean)
 })
 
-useJsonLd([
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const jsonLd: any[] = [
   {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
@@ -131,11 +137,58 @@ useJsonLd([
     '@type': 'BreadcrumbList',
     'itemListElement': crumbs.value
   }
-])
+]
+
+// VideoObject for the lesson clip (helps this lesson surface as a video result).
+const video = page.value?.video
+if (video?.id) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    'name': title,
+    'description': description,
+    'thumbnailUrl': [`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`],
+    'uploadDate': '2021-04-01',
+    'contentUrl': `https://www.youtube.com/watch?v=${video.id}`,
+    'embedUrl': `https://www.youtube.com/embed/${video.id}`,
+    ...(video.start != null && video.end != null
+      ? {
+          hasPart: {
+            '@type': 'Clip',
+            'name': title,
+            'startOffset': video.start,
+            'endOffset': video.end,
+            'url': `https://www.youtube.com/watch?v=${video.id}&t=${video.start}s`
+          }
+        }
+      : {})
+  })
+}
+
+// FAQPage from the interview questions (rich-result eligible Q&A).
+const interview = page.value?.interview
+if (interview?.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': interview.map(i => ({
+      '@type': 'Question',
+      'name': i.q,
+      'acceptedAnswer': { '@type': 'Answer', 'text': i.a }
+    }))
+  })
+}
+
+useJsonLd(jsonLd)
 </script>
 
 <template>
   <UPage v-if="page">
+    <UBreadcrumb
+      :items="breadcrumbItems"
+      class="mb-4"
+    />
+
     <UPageHeader
       :title="page.title"
       :description="page.description"
@@ -153,12 +206,15 @@ useJsonLd([
     </UPageHeader>
 
     <UPageBody>
-      <UBreadcrumb
-        :items="breadcrumbItems"
-        class="mb-6"
-      />
-
       <MembersGate :locked="locked">
+        <YoutubeEmbed
+          v-if="page.video?.id"
+          :id="page.video.id"
+          :start="page.video.start"
+          :end="page.video.end"
+          class="mb-8"
+        />
+
         <ContentRenderer
           v-if="renderedPage"
           :value="renderedPage"
@@ -166,12 +222,22 @@ useJsonLd([
       </MembersGate>
 
       <template v-if="!locked">
-        <LessonProgress :lesson-path="lessonKey" />
+        <!-- End of section: interview prep first, then the graded quiz. -->
+        <LessonInterview
+          v-if="page.interview?.length"
+          :items="page.interview"
+        />
 
         <LessonQuiz
           v-if="page.quiz?.length"
-          :questions="page.quiz"
-          :quiz-id="route.path"
+          :path="contentPath"
+          :quiz-id="lessonKey"
+          @passed="v => quizPassed = v"
+        />
+
+        <LessonProgress
+          :lesson-path="lessonKey"
+          :can-complete="canComplete"
         />
       </template>
 
