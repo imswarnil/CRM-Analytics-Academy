@@ -19,6 +19,7 @@ const columns = computed(() => [
     children: [
       { label: t('nav.about'), to: localePath('/about') },
       { label: t('nav.contribute'), to: localePath('/contribute') },
+      { label: 'Verify a certificate', to: localePath('/verify') },
       { label: t('nav.sponsor'), to: localePath('/sponsor') },
       { label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
     ]

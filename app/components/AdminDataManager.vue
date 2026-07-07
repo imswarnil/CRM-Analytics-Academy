@@ -14,6 +14,7 @@ interface TableConfig {
   label: string
   icon: string
   columns: Column[]
+  editable?: boolean
 }
 
 const TABLES: Record<string, TableConfig> = {
@@ -56,13 +57,21 @@ const TABLES: Record<string, TableConfig> = {
     ]
   },
   profiles: {
-    label: 'Profiles',
+    label: 'Users',
     icon: 'i-lucide-users',
     columns: [
       { key: 'username', label: 'Username', type: 'text' },
       { key: 'full_name', label: 'Full name', type: 'text' },
       { key: 'linkedin_url', label: 'LinkedIn', type: 'text' },
       { key: 'role', label: 'Role', type: 'select', options: ['member', 'admin'] }
+    ]
+  },
+  resource_votes: {
+    label: 'Votes',
+    icon: 'i-lucide-heart',
+    editable: false,
+    columns: [
+      { key: 'resource_title', label: 'Resource', type: 'text', readonly: true }
     ]
   }
 }
@@ -227,6 +236,7 @@ const preview = (v: unknown) => (typeof v === 'string' && v.length > 80 ? `${v.s
             </div>
             <div class="flex shrink-0 gap-2">
               <UButton
+                v-if="config.editable !== false"
                 size="sm"
                 color="neutral"
                 variant="soft"

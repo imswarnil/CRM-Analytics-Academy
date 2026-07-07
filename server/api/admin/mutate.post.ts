@@ -1,5 +1,5 @@
-type Table = 'resources' | 'comments' | 'feedback' | 'guestbook' | 'profiles'
-const TABLES: Table[] = ['resources', 'comments', 'feedback', 'guestbook', 'profiles']
+type Table = 'resources' | 'comments' | 'feedback' | 'guestbook' | 'profiles' | 'resource_votes'
+const TABLES: Table[] = ['resources', 'comments', 'feedback', 'guestbook', 'profiles', 'resource_votes']
 
 const str = (v: unknown) => (typeof v === 'string' ? v.trim() : undefined)
 const oneOf = <T extends string>(v: unknown, allowed: readonly T[]) =>

@@ -1,8 +1,16 @@
 <script setup lang="ts">
+const localePath = useLocalePath()
 const title = 'Roadmap — CRM Analytics Academy'
-const description = 'What we\'re building next for CRM Analytics Academy — now, next, and later.'
+const description = 'Our vision for CRM Analytics Academy and what we\'re building next — now, next, and later.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
+
+const principles = [
+  { icon: 'i-lucide-gift', title: 'Free, forever', text: 'Every lesson, exam, and certificate stays free — funded by ads and sponsors, never paywalls.' },
+  { icon: 'i-lucide-git-fork', title: 'Open source', text: 'The whole site is on GitHub. Anyone can fix a typo, add a lesson, or ship a feature.' },
+  { icon: 'i-lucide-video', title: 'Learn by watching + doing', text: 'Short video clips paired with hands-on steps and graded exams — not walls of text.' },
+  { icon: 'i-lucide-users', title: 'Built with the community', text: 'Resources, feedback, and the guestbook are yours. The best ideas ship first.' }
+]
 
 const columns = [
   {
@@ -10,9 +18,10 @@ const columns = [
     label: 'In progress',
     icon: 'i-lucide-loader',
     color: 'text-primary',
+    ring: 'ring-primary/20',
     items: [
-      'Installable PWA with offline support',
-      'Mark-as-complete ticks in the sidebar',
+      'More SAQL & Einstein Discovery video lessons',
+      '“Continue where you left off” for members',
       'Notification bell for comment replies'
     ]
   },
@@ -21,11 +30,12 @@ const columns = [
     label: 'Up next',
     icon: 'i-lucide-arrow-right-circle',
     color: 'text-warning',
+    ring: 'ring-warning/20',
     items: [
-      'Feedback widget on every page',
-      'Interactive home page (analytics screen marquee)',
-      '“Continue where you left off” for members',
-      'More SAQL & Einstein Discovery lessons'
+      'Public learner profiles with earned certificates',
+      'Community Q&A / discussions',
+      'Downloadable practice datasets & solutions',
+      'Resource collections & curated learning paths'
     ]
   },
   {
@@ -33,11 +43,11 @@ const columns = [
     label: 'Later',
     icon: 'i-lucide-sparkles',
     color: 'text-muted',
+    ring: 'ring-default',
     items: [
-      'Certificates for completed tracks',
-      'Community Q&A / discussions',
-      'Downloadable practice datasets & solutions',
-      'Full translations across all 8 languages'
+      'Full translations across all 8 languages',
+      'Live cohort sessions & office hours',
+      'A companion mobile experience'
     ]
   }
 ]
@@ -76,33 +86,96 @@ const columns = [
     </section>
 
     <UContainer class="py-12 sm:py-16">
-      <div class="grid gap-6 md:grid-cols-3">
-        <div
-          v-for="col in columns"
-          :key="col.key"
-          class="rounded-2xl border border-default bg-elevated/30 p-6"
-        >
-          <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-12">
+        <!-- Left: vision -->
+        <aside class="lg:sticky lg:top-24 lg:self-start">
+          <h2 class="flex items-center gap-2 text-lg font-bold text-highlighted">
             <UIcon
-              :name="col.icon"
-              class="size-5"
-              :class="col.color"
+              name="i-lucide-telescope"
+              class="size-5 text-primary"
             />
-            {{ col.label }}
+            Our vision
           </h2>
-          <ul class="space-y-3">
+          <p class="mt-3 text-muted">
+            Make world-class CRM Analytics skills accessible to <span class="font-medium text-default">anyone</span>, anywhere — a
+            practitioner-grade path from your first dataset to production dashboards and Einstein Discovery, without a paywall.
+          </p>
+          <ul class="mt-6 space-y-4">
             <li
-              v-for="item in col.items"
-              :key="item"
-              class="flex items-start gap-2.5 text-sm text-toned"
+              v-for="p in principles"
+              :key="p.title"
+              class="flex gap-3"
             >
-              <UIcon
-                name="i-lucide-circle-dot"
-                class="mt-0.5 size-4 shrink-0 text-dimmed"
-              />
-              <span>{{ item }}</span>
+              <div class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                <UIcon
+                  :name="p.icon"
+                  class="size-4.5"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-highlighted">
+                  {{ p.title }}
+                </p>
+                <p class="mt-0.5 text-sm text-muted">
+                  {{ p.text }}
+                </p>
+              </div>
             </li>
           </ul>
+          <UButton
+            to="https://github.com/imswarnil/CRM-Analytics-Academy"
+            target="_blank"
+            icon="i-simple-icons-github"
+            color="neutral"
+            variant="outline"
+            class="mt-6 rounded-full font-medium"
+          >
+            Star us on GitHub
+          </UButton>
+        </aside>
+
+        <!-- Right: now / next / later -->
+        <div class="space-y-6">
+          <div
+            v-for="col in columns"
+            :key="col.key"
+            class="rounded-2xl border border-default bg-elevated/30 p-6"
+          >
+            <h3 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+              <span
+                class="flex size-8 items-center justify-center rounded-lg bg-default ring-1"
+                :class="col.ring"
+              >
+                <UIcon
+                  :name="col.icon"
+                  class="size-4.5"
+                  :class="col.color"
+                />
+              </span>
+              {{ col.label }}
+            </h3>
+            <ul class="grid gap-3 sm:grid-cols-2">
+              <li
+                v-for="item in col.items"
+                :key="item"
+                class="flex items-start gap-2.5 rounded-xl border border-default/60 bg-default/50 p-3 text-sm text-toned"
+              >
+                <UIcon
+                  name="i-lucide-circle-dot"
+                  class="mt-0.5 size-4 shrink-0 text-dimmed"
+                />
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <p class="text-center text-sm text-muted">
+            Shipped already? See the
+            <NuxtLink
+              :to="localePath('/changelog')"
+              class="text-primary hover:underline"
+            >changelog →</NuxtLink>
+          </p>
         </div>
       </div>
 

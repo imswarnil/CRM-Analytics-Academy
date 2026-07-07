@@ -1,13 +1,6 @@
 import { serverSupabaseServiceRole } from '#supabase/server'
 import type { Database } from '~~/types/database.types'
-
-// Course sections (used for per-section progress + certificate eligibility).
-// `total` is the number of lesson pages under `/<slug>`.
-const SECTIONS = [
-  { slug: 'foundations', title: 'CRM Analytics Foundations', total: 10 },
-  { slug: 'setup', title: 'Setup & User Provisioning', total: 8 }
-]
-const CERT_MIN_SCORE = 75
+import { SECTIONS, CERT_MIN_SCORE } from '../utils/progress'
 
 interface SkillScore { skill: string, correct: number, total: number }
 

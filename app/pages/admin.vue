@@ -35,6 +35,28 @@ const { data: feedbackData, refresh: refreshFeedback } = await useAsyncData<{ fe
 )
 const openFeedback = computed(() => feedbackData.value?.feedback.filter(f => f.status === 'open').length || 0)
 
+interface Overview {
+  stats: { totalUsers: number, newUsers7d: number, activeUsers7d: number, pendingResources: number, openFeedback: number, comments: number, votes: number, approvedResources: number }
+  weekly: { label: string, signups: number, active: number }[]
+  recentUsers: { id: string, name: string, email: string | null, isAdmin: boolean, created_at: string | null, last_sign_in_at: string | null }[]
+}
+const { data: overview } = await useAsyncData<Overview | null>(
+  'admin-overview',
+  () => $fetch('/api/admin/overview'),
+  { server: false, watch: [isAdmin] }
+)
+const weeklyMax = computed(() => Math.max(1, ...(overview.value?.weekly.map(w => Math.max(w.active, w.signups)) ?? [1])))
+
+function fmtWhen(iso: string | null) {
+  if (!iso) return 'never'
+  const diff = Date.now() - new Date(iso).getTime()
+  const day = 86400000
+  if (diff < 3600000) return `${Math.max(1, Math.round(diff / 60000))}m ago`
+  if (diff < day) return `${Math.round(diff / 3600000)}h ago`
+  if (diff < 7 * day) return `${Math.round(diff / day)}d ago`
+  return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+}
+
 const busy = ref('')
 
 async function moderate(table: 'resources', id: string, status: 'approved' | 'rejected') {
@@ -76,9 +98,219 @@ const authorName = (a: Author | null) => a?.full_name || a?.username || 'Unknown
             class="size-6 text-primary"
           />
           <h1 class="text-2xl font-bold text-highlighted">
-            Moderation queue
+            Admin dashboard
           </h1>
         </div>
+
+        <!-- Overview -->
+        <section
+          v-if="overview"
+          class="mb-10 space-y-6"
+        >
+          <!-- Headline stats -->
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="rounded-2xl border border-default bg-default p-5">
+              <div class="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted">
+                <UIcon
+                  name="i-lucide-users"
+                  class="size-4 text-primary"
+                />
+                Users
+              </div>
+              <p class="mt-2 text-3xl font-bold text-highlighted">
+                {{ overview.stats.totalUsers }}
+              </p>
+              <p class="mt-1.5 text-xs text-success">
+                +{{ overview.stats.newUsers7d }} new this week
+              </p>
+            </div>
+
+            <div class="rounded-2xl border border-default bg-default p-5">
+              <div class="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted">
+                <UIcon
+                  name="i-lucide-activity"
+                  class="size-4 text-primary"
+                />
+                Active (7d)
+              </div>
+              <p class="mt-2 text-3xl font-bold text-highlighted">
+                {{ overview.stats.activeUsers7d }}
+              </p>
+              <p class="mt-1.5 text-xs text-dimmed">
+                signed in this week
+              </p>
+            </div>
+
+            <a
+              href="#resources"
+              class="rounded-2xl border p-5 transition"
+              :class="overview.stats.pendingResources
+                ? 'border-warning/40 bg-warning/5 hover:border-warning'
+                : 'border-default bg-default hover:border-primary/40'"
+            >
+              <div class="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted">
+                <UIcon
+                  name="i-lucide-clock-alert"
+                  class="size-4"
+                  :class="overview.stats.pendingResources ? 'text-warning' : 'text-primary'"
+                />
+                Pending approvals
+              </div>
+              <p
+                class="mt-2 text-3xl font-bold"
+                :class="overview.stats.pendingResources ? 'text-warning' : 'text-highlighted'"
+              >
+                {{ overview.stats.pendingResources }}
+              </p>
+              <p class="mt-1.5 text-xs text-dimmed">
+                {{ overview.stats.pendingResources ? 'Review resources below →' : 'All caught up' }}
+              </p>
+            </a>
+
+            <a
+              href="#feedback"
+              class="rounded-2xl border p-5 transition"
+              :class="overview.stats.openFeedback
+                ? 'border-primary/40 bg-primary/5 hover:border-primary'
+                : 'border-default bg-default hover:border-primary/40'"
+            >
+              <div class="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted">
+                <UIcon
+                  name="i-lucide-message-square-heart"
+                  class="size-4 text-primary"
+                />
+                Open feedback
+              </div>
+              <p class="mt-2 text-3xl font-bold text-highlighted">
+                {{ overview.stats.openFeedback }}
+              </p>
+              <p class="mt-1.5 text-xs text-dimmed">
+                awaiting a reply
+              </p>
+            </a>
+          </div>
+
+          <!-- Secondary counts -->
+          <div class="flex flex-wrap gap-2">
+            <UBadge
+              color="neutral"
+              variant="subtle"
+              class="rounded-full"
+            >
+              <UIcon
+                name="i-lucide-library-big"
+                class="mr-1 size-3.5"
+              />{{ overview.stats.approvedResources }} approved resources
+            </UBadge>
+            <UBadge
+              color="neutral"
+              variant="subtle"
+              class="rounded-full"
+            >
+              <UIcon
+                name="i-lucide-heart"
+                class="mr-1 size-3.5"
+              />{{ overview.stats.votes }} votes
+            </UBadge>
+            <UBadge
+              color="neutral"
+              variant="subtle"
+              class="rounded-full"
+            >
+              <UIcon
+                name="i-lucide-message-circle"
+                class="mr-1 size-3.5"
+              />{{ overview.stats.comments }} comments
+            </UBadge>
+          </div>
+
+          <!-- Trend + recent users -->
+          <div class="grid gap-6 lg:grid-cols-3">
+            <!-- Weekly activity chart -->
+            <div class="rounded-2xl border border-default bg-default p-5 lg:col-span-2">
+              <div class="mb-4 flex items-center justify-between">
+                <h2 class="flex items-center gap-2 font-semibold text-highlighted">
+                  <UIcon
+                    name="i-lucide-chart-column"
+                    class="size-5 text-primary"
+                  />
+                  Last 7 weeks
+                </h2>
+                <div class="flex items-center gap-4 text-xs text-muted">
+                  <span class="flex items-center gap-1.5"><span class="size-2.5 rounded-full bg-primary" />Logged in</span>
+                  <span class="flex items-center gap-1.5"><span class="size-2.5 rounded-full bg-secondary" />New sign-ups</span>
+                </div>
+              </div>
+              <div class="flex h-44 items-end gap-2 sm:gap-4">
+                <div
+                  v-for="w in overview.weekly"
+                  :key="w.label"
+                  class="flex flex-1 flex-col items-center gap-2"
+                >
+                  <div class="flex w-full flex-1 items-end justify-center gap-1">
+                    <div
+                      class="w-1/2 rounded-t bg-primary transition-all duration-700"
+                      :style="{ height: `${Math.max(w.active ? 6 : 0, (w.active / weeklyMax) * 100)}%` }"
+                      :title="`${w.active} logged in`"
+                    />
+                    <div
+                      class="w-1/2 rounded-t bg-secondary transition-all duration-700"
+                      :style="{ height: `${Math.max(w.signups ? 6 : 0, (w.signups / weeklyMax) * 100)}%` }"
+                      :title="`${w.signups} new`"
+                    />
+                  </div>
+                  <span class="text-[11px] text-dimmed">{{ w.label }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent users -->
+            <div class="rounded-2xl border border-default bg-default p-5">
+              <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+                <UIcon
+                  name="i-lucide-user-plus"
+                  class="size-5 text-primary"
+                />
+                New users
+              </h2>
+              <ul class="space-y-3">
+                <li
+                  v-for="u in overview.recentUsers"
+                  :key="u.id"
+                  class="flex items-center gap-3"
+                >
+                  <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold uppercase text-primary">
+                    {{ u.name.slice(0, 2) }}
+                  </span>
+                  <div class="min-w-0 flex-1">
+                    <p class="flex items-center gap-1.5 truncate text-sm font-medium text-highlighted">
+                      {{ u.name }}
+                      <UBadge
+                        v-if="u.isAdmin"
+                        color="primary"
+                        variant="subtle"
+                        size="sm"
+                      >
+                        admin
+                      </UBadge>
+                    </p>
+                    <p class="truncate text-xs text-dimmed">
+                      {{ u.email }}
+                    </p>
+                  </div>
+                  <div class="shrink-0 text-right">
+                    <p class="text-xs text-muted">
+                      joined {{ fmtWhen(u.created_at) }}
+                    </p>
+                    <p class="text-[11px] text-dimmed">
+                      seen {{ fmtWhen(u.last_sign_in_at) }}
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
 
         <div
           v-if="pending"
@@ -95,7 +327,7 @@ const authorName = (a: Author | null) => a?.full_name || a?.username || 'Unknown
           class="space-y-10"
         >
           <!-- Pending resources -->
-          <section>
+          <section id="resources">
             <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
               <UIcon
                 name="i-lucide-library-big"
@@ -189,7 +421,7 @@ const authorName = (a: Author | null) => a?.full_name || a?.username || 'Unknown
           </section>
 
           <!-- Feedback -->
-          <section>
+          <section id="feedback">
             <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
               <UIcon
                 name="i-lucide-message-square-heart"

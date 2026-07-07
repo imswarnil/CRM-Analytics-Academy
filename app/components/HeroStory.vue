@@ -256,7 +256,7 @@ onBeforeUnmount(() => {
     <div class="relative">
       <div class="absolute -inset-4 rounded-3xl bg-primary/20 blur-2xl" />
 
-      <div class="animate-float relative flex aspect-video flex-col overflow-hidden rounded-2xl border border-default bg-default shadow-2xl ring-1 ring-default/60">
+      <div class="animate-float relative flex aspect-square flex-col overflow-hidden rounded-2xl border border-default bg-default shadow-2xl ring-1 ring-default/60">
         <!-- Title bar -->
         <div class="flex shrink-0 items-center gap-2 border-b border-default bg-muted/50 px-4 py-2.5">
           <span class="size-3 rounded-full bg-red-400" />
