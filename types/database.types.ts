@@ -45,9 +45,9 @@ export interface Database {
         Relationships: []
       }
       quiz_attempts: {
-        Row: { id: string, user_id: string, quiz_id: string, score: number, total: number, answers: Json | null, passed: boolean, created_at: string }
-        Insert: { user_id: string, quiz_id: string, score: number, total: number, answers?: Json | null, passed?: boolean }
-        Update: { score?: number, total?: number, answers?: Json | null, passed?: boolean }
+        Row: { id: string, user_id: string, quiz_id: string, score: number, total: number, answers: Json | null, passed: boolean, skills: Json | null, created_at: string }
+        Insert: { user_id: string, quiz_id: string, score: number, total: number, answers?: Json | null, passed?: boolean, skills?: Json | null }
+        Update: { score?: number, total?: number, answers?: Json | null, passed?: boolean, skills?: Json | null }
         Relationships: []
       }
       resources: {

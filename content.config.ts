@@ -31,7 +31,10 @@ export default defineContentConfig({
         quiz: z.array(z.object({
           q: z.string(),
           options: z.array(z.string()),
-          answer: z.number()
+          answer: z.number(),
+          // Skill area this question tests (e.g. "Data Prep") — powers the
+          // per-skill performance chart on the results screen.
+          skill: z.string().optional()
         })).optional(),
         // Passing score as a percentage (default 85). Reaching it marks the quiz
         // passed and (for gated lessons) unlocks completion.

@@ -8,7 +8,9 @@
 
 alter table public.quiz_attempts
   add column if not exists answers jsonb,
-  add column if not exists passed  boolean not null default false;
+  add column if not exists passed  boolean not null default false,
+  -- Per-skill breakdown for the attempt: [{ skill, correct, total }].
+  add column if not exists skills  jsonb;
 
 -- Speeds up "attempts for this user + quiz" lookups (used to rotate the
 -- question set on each retry) and per-quiz "best attempt" aggregation.

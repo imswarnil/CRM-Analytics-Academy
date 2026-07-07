@@ -39,6 +39,17 @@ export default defineEventHandler(async (event) => {
   const passScore = typeof page?.passScore === 'number' ? page.passScore : DEFAULT_PASS_SCORE
   const passed = total > 0 && (score / total) * 100 >= passScore
 
+  // Per-skill breakdown for the performance chart.
+  const skillMap = new Map<string, { correct: number, total: number }>()
+  indices.forEach((poolIdx, p) => {
+    const skill = pool[poolIdx]!.skill || 'General'
+    const bucket = skillMap.get(skill) ?? { correct: 0, total: 0 }
+    bucket.total += 1
+    if (results[p]) bucket.correct += 1
+    skillMap.set(skill, bucket)
+  })
+  const skills = [...skillMap.entries()].map(([skill, v]) => ({ skill, correct: v.correct, total: v.total }))
+
   const db = serverSupabaseServiceRole<Database>(event)
   const { error } = await db.from('quiz_attempts').insert({
     user_id: user.id,
@@ -46,9 +57,10 @@ export default defineEventHandler(async (event) => {
     score,
     total,
     answers: answers as unknown as Database['public']['Tables']['quiz_attempts']['Insert']['answers'],
-    passed
+    passed,
+    skills: skills as unknown as Database['public']['Tables']['quiz_attempts']['Insert']['skills']
   })
   if (error) throw createError({ statusCode: 500, statusMessage: error.message })
 
-  return { score, total, passed, passScore, results, correctAnswers }
+  return { score, total, passed, passScore, results, correctAnswers, skills }
 })

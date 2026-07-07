@@ -186,13 +186,14 @@ useJsonLd(jsonLd)
   <UPage v-if="page">
     <UBreadcrumb
       :items="breadcrumbItems"
-      class="mb-4"
+      class="mb-2"
     />
 
     <UPageHeader
       :title="page.title"
       :description="page.description"
       :headline="headline"
+      :ui="{ root: 'pt-0' }"
     >
       <template #links>
         <UButton
@@ -208,10 +209,11 @@ useJsonLd(jsonLd)
     <UPageBody>
       <MembersGate :locked="locked">
         <YoutubeEmbed
-          v-if="page.video?.id"
+          v-if="page.video?.id && !locked"
           :id="page.video.id"
           :start="page.video.start"
           :end="page.video.end"
+          :title="page.title"
           class="mb-8"
         />
 

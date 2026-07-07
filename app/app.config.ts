@@ -2,6 +2,7 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: 'salesforce',
+      secondary: 'grape',
       neutral: 'cloud'
     },
     footer: {
