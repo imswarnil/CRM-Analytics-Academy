@@ -11,6 +11,10 @@ const { variant, showLabel } = useAdSlot(props.placement)
 
 const dev = import.meta.dev
 
+// The right-rail slot doubles as a sponsor box: when AdSense doesn't fill it,
+// we show a "your brand here" placeholder instead of collapsing.
+const isSponsorSlot = computed(() => props.placement === 'sidebarSquare')
+
 const root = ref<HTMLElement | null>(null)
 const insEl = ref<HTMLElement | null>(null)
 const show = ref(false) // render <ins> only once near the viewport
@@ -105,22 +109,58 @@ const insStyle = computed(() => {
 
 <template>
   <div
-    v-if="variant && !empty"
+    v-if="variant && (!empty || isSponsorSlot)"
     ref="root"
-    class="ad-unit relative mx-auto my-6 flex w-full max-w-full flex-col items-center justify-center gap-1.5 overflow-hidden rounded-lg border border-default bg-muted/30 p-2"
+    class="ad-unit relative mx-auto my-6 flex w-full max-w-full flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-default bg-muted/30 p-2"
+    :class="isSponsorSlot ? 'min-h-72' : ''"
     :style="reserveStyle"
     role="complementary"
     aria-label="Advertisement"
   >
     <span
-      v-if="showLabel"
+      v-if="showLabel && !(empty && isSponsorSlot)"
       class="select-none text-[10px] font-medium uppercase tracking-widest text-muted"
     >
       Advertisement
     </span>
 
+    <!-- Sponsor placeholder (shown when the sidebar slot doesn't fill) -->
+    <div
+      v-if="empty && isSponsorSlot"
+      class="flex size-full flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-default bg-gradient-to-br from-primary/5 to-secondary/5 p-5 text-center"
+    >
+      <span class="select-none text-[10px] font-medium uppercase tracking-widest text-muted">
+        Sponsored
+      </span>
+      <div class="flex size-14 items-center justify-center rounded-2xl bg-primary/10">
+        <UIcon
+          name="i-lucide-sparkles"
+          class="size-7 text-primary"
+        />
+      </div>
+      <div>
+        <p class="text-sm font-semibold text-highlighted">
+          Your brand here
+        </p>
+        <p class="mt-1 text-xs text-muted">
+          Reach thousands of Salesforce analysts.
+        </p>
+      </div>
+      <UButton
+        to="https://github.com/sponsors/crm-analytics-academy"
+        target="_blank"
+        color="primary"
+        variant="soft"
+        size="xs"
+        icon="i-lucide-heart"
+        class="rounded-full"
+      >
+        Sponsor this project
+      </UButton>
+    </div>
+
     <ins
-      v-if="show"
+      v-else-if="show"
       ref="insEl"
       class="adsbygoogle"
       :style="insStyle"

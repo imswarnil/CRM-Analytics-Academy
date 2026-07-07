@@ -1,18 +1,15 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @source "../../../content/**/*";
 
 @theme static {
   --container-8xl: 90rem;
 
-  /* Friendly, modern type: Plus Jakarta Sans for body, Space Grotesk for
-     headings — playful but clean, with SLDS/system fallbacks. */
-  --font-sans: 'Plus Jakarta Sans', 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-display: 'Space Grotesk', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* SLDS-inspired type stack — Salesforce Sans with clean system fallbacks */
+  --font-sans: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
-  /* Grape — playful secondary accent (charts, highlights, badges). */
+  /* Grape — secondary accent (charts, highlights, badges). */
   --color-grape-50: #F5F3FF;
   --color-grape-100: #EDE9FE;
   --color-grape-200: #DDD6FE;
@@ -58,15 +55,8 @@
 :root {
   --ui-container: var(--container-8xl);
 
-  /* Friendlier, rounder corners for a playful-but-clean feel */
-  --ui-radius: 0.5rem;
-}
-
-/* Display font for headings — gives the site a distinct, characterful voice */
-h1, h2, h3, h4,
-.prose :where(h1, h2, h3, h4) {
-  font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  /* SLDS uses tight 0.25rem corners across components */
+  --ui-radius: 0.25rem;
 }
 
 /* ---------------------------------------------------------------------------
