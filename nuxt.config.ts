@@ -126,6 +126,13 @@ export default defineNuxtConfig({
         contentFilters: [
           { field: 'path', operator: 'LIKE', value: '/en/foundations%' }
         ]
+      },
+      {
+        title: 'Setup & User Provisioning',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/setup%' }
+        ]
       }
     ]
   },
