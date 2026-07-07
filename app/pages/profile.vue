@@ -2,8 +2,29 @@
 definePageMeta({ middleware: 'auth' })
 
 const { user, profile, displayName, refresh } = useProfile()
+const localePath = useLocalePath()
 
 useSeoMeta({ title: 'Your profile — CRM Analytics Academy', robots: 'noindex' })
+
+interface Progress {
+  avgScore: number | null
+  quizzesPassed: number
+  quizzesTaken: number
+  sections: { slug: string, title: string, total: number, completed: number, pct: number }[]
+  skills: { skill: string, correct: number, total: number, pct: number }[]
+  certificateEligible: boolean
+  certMinScore: number
+}
+const { data: dash } = await useAsyncData<Progress | null>(
+  'profile-progress',
+  () => $fetch('/api/dashboard'),
+  { server: false, watch: [user] }
+)
+onMounted(() => refreshNuxtData('profile-progress'))
+
+function skillClass(pct: number) {
+  return pct >= 85 ? 'bg-success' : pct >= 60 ? 'bg-primary' : 'bg-warning'
+}
 
 const form = reactive({ full_name: '', username: '', bio: '', linkedin_url: '' })
 const saving = ref(false)
@@ -55,6 +76,131 @@ async function save() {
         <p class="text-sm text-muted">
           {{ user?.email }}
         </p>
+      </div>
+    </div>
+
+    <!-- Progress + certificate -->
+    <div
+      v-if="dash"
+      class="mb-10 space-y-5"
+    >
+      <!-- Certificate -->
+      <div
+        v-if="dash.certificateEligible"
+        class="overflow-hidden rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/10 to-secondary/10 p-5"
+      >
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="flex size-12 items-center justify-center rounded-xl bg-primary text-inverted shadow">
+            <UIcon
+              name="i-lucide-award"
+              class="size-7"
+            />
+          </div>
+          <div class="min-w-0 flex-1">
+            <h2 class="font-bold text-highlighted">
+              Your certificate is ready 🎉
+            </h2>
+            <p class="text-sm text-muted">
+              You completed every section and scored {{ dash.avgScore }}/100.
+            </p>
+          </div>
+          <UButton
+            :to="localePath('/certificate')"
+            color="primary"
+            icon="i-lucide-download"
+          >
+            Get certificate
+          </UButton>
+        </div>
+      </div>
+
+      <!-- Section progress -->
+      <div class="rounded-2xl border border-default bg-default p-5">
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="flex items-center gap-2 font-semibold text-highlighted">
+            <UIcon
+              name="i-lucide-milestone"
+              class="size-5 text-primary"
+            />
+            Progress by section
+          </h2>
+          <UBadge
+            v-if="dash.avgScore != null"
+            :color="dash.avgScore >= 85 ? 'success' : 'primary'"
+            variant="subtle"
+          >
+            Avg {{ dash.avgScore }}/100
+          </UBadge>
+        </div>
+        <div class="space-y-4">
+          <div
+            v-for="s in dash.sections"
+            :key="s.slug"
+          >
+            <div class="mb-1 flex items-center justify-between text-sm">
+              <NuxtLink
+                :to="localePath(`/${s.slug}`)"
+                class="font-medium text-default hover:text-primary"
+              >
+                {{ s.title }}
+              </NuxtLink>
+              <span class="tabular-nums text-muted">{{ s.completed }}/{{ s.total }} · {{ s.pct }}%</span>
+            </div>
+            <div class="h-2.5 overflow-hidden rounded-full bg-elevated">
+              <div
+                class="h-full rounded-full bg-primary transition-all duration-700"
+                :style="{ width: `${s.pct}%` }"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div
+        v-if="dash.skills.length"
+        class="rounded-2xl border border-default bg-default p-5"
+      >
+        <h2 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+          <UIcon
+            name="i-lucide-radar"
+            class="size-5 text-primary"
+          />
+          CRM Analytics skills
+        </h2>
+        <div class="space-y-3.5">
+          <div
+            v-for="sk in dash.skills"
+            :key="sk.skill"
+          >
+            <div class="mb-1 flex items-center justify-between text-xs">
+              <span class="font-medium text-default">{{ sk.skill }}</span>
+              <span class="tabular-nums text-muted">{{ sk.pct }}%</span>
+            </div>
+            <div class="h-2.5 overflow-hidden rounded-full bg-elevated">
+              <div
+                class="h-full rounded-full transition-all duration-700"
+                :class="skillClass(sk.pct)"
+                :style="{ width: `${sk.pct}%` }"
+              />
+            </div>
+          </div>
+        </div>
+        <p class="mt-3 text-xs text-muted">
+          Based on your best graded-quiz attempt in each section.
+        </p>
+      </div>
+
+      <!-- Not yet eligible hint -->
+      <div
+        v-if="!dash.certificateEligible"
+        class="flex items-start gap-3 rounded-xl border border-dashed border-default px-4 py-3 text-sm text-muted"
+      >
+        <UIcon
+          name="i-lucide-award"
+          class="mt-0.5 size-4 shrink-0"
+        />
+        <p>Complete every lesson and score {{ dash.certMinScore }}%+ on the graded quizzes to unlock your shareable certificate.</p>
       </div>
     </div>
 

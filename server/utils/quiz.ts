@@ -9,6 +9,7 @@ export interface QuizQuestion {
   q: string
   options: string[]
   answer: number
+  skill?: string
 }
 
 /**

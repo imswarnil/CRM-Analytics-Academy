@@ -23,6 +23,7 @@ interface SetResponse {
   alreadyPassed: boolean
   questions: QuestionView[]
 }
+interface SkillScore { skill: string, correct: number, total: number }
 interface GradeResponse {
   score: number
   total: number
@@ -30,6 +31,14 @@ interface GradeResponse {
   passScore: number
   results: boolean[]
   correctAnswers: number[]
+  skills: SkillScore[]
+}
+
+function skillPct(s: SkillScore) {
+  return s.total ? Math.round((s.correct / s.total) * 100) : 0
+}
+function skillClass(pct: number) {
+  return pct >= 85 ? 'bg-success' : pct >= 60 ? 'bg-primary' : 'bg-warning'
 }
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -240,6 +249,40 @@ onMounted(loadSet)
         </UButton>
       </div>
 
+      <!-- Per-skill performance chart -->
+      <div
+        v-if="result.skills?.length"
+        class="mt-6 rounded-xl border border-default p-5"
+      >
+        <div class="mb-4 flex items-center gap-2">
+          <UIcon
+            name="i-lucide-bar-chart-3"
+            class="size-4 text-primary"
+          />
+          <h3 class="text-sm font-semibold text-highlighted">
+            Performance by skill
+          </h3>
+        </div>
+        <div class="space-y-3.5">
+          <div
+            v-for="s in result.skills"
+            :key="s.skill"
+          >
+            <div class="mb-1 flex items-center justify-between text-xs">
+              <span class="font-medium text-default">{{ s.skill }}</span>
+              <span class="tabular-nums text-muted">{{ s.correct }}/{{ s.total }} · {{ skillPct(s) }}%</span>
+            </div>
+            <div class="h-2.5 overflow-hidden rounded-full bg-elevated">
+              <div
+                class="h-full rounded-full transition-all duration-700"
+                :class="skillClass(skillPct(s))"
+                :style="{ width: `${skillPct(s)}%` }"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Review -->
       <div class="mt-6 space-y-4">
         <h3 class="text-sm font-semibold text-highlighted">
@@ -320,22 +363,22 @@ onMounted(loadSet)
 
       <!-- Current question -->
       <div v-if="currentQuestion">
-        <p class="mb-4 text-lg font-semibold leading-snug text-highlighted">
+        <p class="mb-6 text-xl font-semibold leading-snug text-highlighted sm:text-2xl">
           {{ currentQuestion.q }}
         </p>
-        <div class="space-y-2.5">
+        <div class="space-y-3">
           <button
             v-for="(opt, oi) in currentQuestion.options"
             :key="oi"
             type="button"
-            class="flex w-full items-center gap-3 rounded-xl border px-4 py-3.5 text-left text-sm transition"
+            class="flex w-full items-center gap-4 rounded-xl border px-5 py-4 text-left text-base transition sm:text-lg"
             :class="selected[current] === oi
-              ? 'border-primary bg-primary/5 ring-1 ring-primary'
+              ? 'border-primary bg-primary/5 ring-2 ring-primary'
               : 'border-default hover:border-primary/40 hover:bg-elevated'"
             @click="choose(oi)"
           >
             <span
-              class="flex size-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition"
+              class="flex size-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold transition"
               :class="selected[current] === oi ? 'bg-primary text-inverted' : 'bg-elevated text-muted'"
             >
               {{ LETTERS[oi] }}
