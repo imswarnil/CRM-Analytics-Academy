@@ -50,7 +50,8 @@
     "stats": {
       "modules": "Modules",
       "lessons": "Lessons",
-      "free": "Free & open"
+      "free": "Free & open",
+      "video": "Video"
     },
     "curriculumEyebrow": "The Curriculum",
     "curriculumTitle": "Eight modules, one clear path",
@@ -254,6 +255,7 @@
   },
   "video": {
     "thanksForWatching": "Thanks for watching!",
-    "replay": "Replay"
+    "replay": "Replay",
+    "lessonCompleted": "Lesson completed"
   }
 }

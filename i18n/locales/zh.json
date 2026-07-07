@@ -45,7 +45,8 @@
     "stats": {
       "modules": "模块",
       "lessons": "课程",
-      "free": "免费开放"
+      "free": "免费开放",
+      "video": "视频"
     },
     "curriculumEyebrow": "课程体系",
     "curriculumTitle": "两个模块，一条清晰路径",
@@ -225,6 +226,7 @@
   },
   "video": {
     "thanksForWatching": "感谢观看！",
-    "replay": "重新播放"
+    "replay": "重新播放",
+    "lessonCompleted": "课程完成"
   }
 }

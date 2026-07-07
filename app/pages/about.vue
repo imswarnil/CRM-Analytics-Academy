@@ -40,8 +40,9 @@ const principles = [
 ]
 
 const modules = [
-  { n: '01', label: 'Foundations', to: '/foundations' },
-  { n: '02', label: 'Analytics & SAQL', to: '/analytics' }
+  { n: '01', label: 'CRM Analytics Foundations', to: '/foundations' },
+  { n: '02', label: 'Interview questions', to: '/foundations/interview-questions' },
+  { n: '03', label: 'Graded quiz', to: '/foundations/quiz' }
 ]
 
 const stack = [
