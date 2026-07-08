@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// Animated Salesforce-style storyboard of the CRM Analytics workflow, shown
-// inside a Lightning "Analytics Studio" window:
-// recipe filter → dataset → explore/SAQL → run → bars → binding toggle → KPIs
-// → line + trendline → pie → funnel → sales velocity → security → dashboard/export.
+// Clean, centered Mac-style window that plays the CRM Analytics journey:
+// sync sources → dataflow → final dataset → open → write & run a query →
+// bar chart → toggle Market/Region (→ donut) → number widgets → start-learning CTA.
+const localePath = useLocalePath()
 
 const C = {
   d: 'var(--color-salesforce-700)',
@@ -12,98 +12,46 @@ const C = {
   xxl: 'var(--color-salesforce-200)'
 }
 
-interface Scene { key: string, tab: string, icon: string, action: 'run' | 'save' | 'download', title: string, caption: string, ms: number }
+interface Scene { key: string, file: string, icon: string, title: string, caption: string, ms: number }
 const SCENES: Scene[] = [
-  { key: 'flow', tab: 'revenue.recipe', icon: 'i-lucide-workflow', action: 'run', title: 'Prep & filter in a recipe', caption: 'Filter → aggregate → dataset', ms: 4400 },
-  { key: 'explore', tab: 'lens.saql', icon: 'i-lucide-search', action: 'run', title: 'Explore & write SAQL', caption: 'load · group · foreach → run', ms: 4600 },
-  { key: 'binding', tab: 'lens.saql', icon: 'i-lucide-link', action: 'save', title: 'Bind a dynamic dimension', caption: 'Toggle Stage ⇄ Region', ms: 3800 },
-  { key: 'kpis', tab: 'pipeline.dashboard', icon: 'i-lucide-badge-dollar-sign', action: 'save', title: 'KPIs, conditionally formatted', caption: 'Up / down arrows, RAG colors', ms: 3200 },
-  { key: 'line', tab: 'lens.chart', icon: 'i-lucide-trending-up', action: 'save', title: 'Trend with a dashed trendline', caption: 'Clean line + regression', ms: 3000 },
-  { key: 'pie', tab: 'lens.chart', icon: 'i-lucide-chart-pie', action: 'save', title: 'Pie breakdown by region', caption: 'Share of pipeline', ms: 2700 },
-  { key: 'funnel', tab: 'lens.chart', icon: 'i-lucide-filter', action: 'save', title: 'Sales funnel', caption: 'Stage-to-stage conversion', ms: 3000 },
-  { key: 'velocity', tab: 'metric.velocity', icon: 'i-lucide-gauge', action: 'save', title: 'Sales velocity', caption: '(Opps × Win% × Deal) ÷ Cycle', ms: 3200 },
-  { key: 'security', tab: 'dataset.security', icon: 'i-lucide-shield-check', action: 'save', title: 'Row-level security predicate', caption: 'Each user sees their rows', ms: 3400 },
-  { key: 'dashboard', tab: 'pipeline.dashboard', icon: 'i-lucide-layout-dashboard', action: 'download', title: 'Assemble & export to Excel', caption: 'Share · embed · download', ms: 4200 }
+  { key: 'sources', file: 'sync.connect', icon: 'i-lucide-cable', title: 'Combine & sync your sources', caption: 'Salesforce · Snowflake · CSV', ms: 3200 },
+  { key: 'dataflow', file: 'opportunities.dataflow', icon: 'i-lucide-workflow', title: 'Run the dataflow', caption: 'Join objects → one dataset', ms: 3800 },
+  { key: 'dataset', file: 'Opportunities.dataset', icon: 'i-lucide-database', title: 'Open the dataset', caption: 'Click to explore', ms: 2800 },
+  { key: 'query', file: 'lens.saql', icon: 'i-lucide-terminal', title: 'Write & run a query', caption: 'SAQL → Run Query → chart', ms: 4800 },
+  { key: 'toggle', file: 'lens.chart', icon: 'i-lucide-toggle-right', title: 'Toggle Market ⇄ Region', caption: 'Region → donut', ms: 4400 },
+  { key: 'widgets', file: 'pipeline.dashboard', icon: 'i-lucide-layout-dashboard', title: 'Add number widgets & more', caption: 'KPIs, charts, actions', ms: 3600 },
+  { key: 'cta', file: 'get-started', icon: 'i-lucide-rocket', title: 'Learn CRM Analytics from scratch', caption: 'Start free — no experience needed', ms: 4200 }
 ]
 
 // ---- Scene data ------------------------------------------------------------
-const recipeNodes = [
-  { icon: 'i-lucide-database', label: 'Input' },
-  { icon: 'i-lucide-filter', label: 'Filter' },
-  { icon: 'i-lucide-sigma', label: 'Aggregate' },
-  { icon: 'i-lucide-table-2', label: 'Output' }
+const sources = [
+  { icon: 'i-simple-icons-salesforce', label: 'Salesforce', color: '#00A1E0' },
+  { icon: 'i-simple-icons-snowflake', label: 'Snowflake', color: '#29B5E8' },
+  { icon: 'i-lucide-file-spreadsheet', label: 'CSV', color: 'var(--color-salesforce-500)' }
 ]
-const filterExpr = 'Amount > 0  &&  Stage != \'Closed Lost\''
-// Held as a string so the literal braces don't confuse the template parser.
-const bindingToken = '{{ Toggle.selection }}'
-
-const kpis = [
-  { label: 'Pipeline', value: '$9.0M', delta: '12%', dir: 'up', good: true },
-  { label: 'Win rate', value: '38%', delta: '4 pts', dir: 'up', good: true },
-  { label: 'Avg cycle', value: '21 d', delta: '3 d', dir: 'down', good: true },
-  { label: 'At risk', value: '$0.6M', delta: '9%', dir: 'up', good: false }
+const dataflowInputs = [
+  { icon: 'i-lucide-building-2', label: 'Account' },
+  { icon: 'i-lucide-target', label: 'Opportunity' },
+  { icon: 'i-lucide-user', label: 'User' }
 ]
-
-const bars = [
-  { label: 'Won', value: 100, color: C.d },
-  { label: 'Negotiate', value: 74, color: C.m },
-  { label: 'Proposal', value: 56, color: C.l },
-  { label: 'Qualify', value: 35, color: C.xl },
-  { label: 'Prospect', value: 22, color: C.xxl }
+const marketBars = [
+  { label: 'Enterprise', value: 100, color: C.d },
+  { label: 'Commercial', value: 72, color: C.m },
+  { label: 'SMB', value: 54, color: C.l },
+  { label: 'Startup', value: 33, color: C.xl }
 ]
-const colorsByIndex = [C.d, C.m, C.l, C.xl, C.xxl]
-const stageVals = [100, 74, 56, 35, 22]
-const regionVals = [92, 70, 58, 44, 30]
-const stageLabels = ['Won', 'Negotiate', 'Proposal', 'Qualify', 'Prospect']
-const regionLabels = ['Americas', 'EMEA', 'APAC', 'LATAM', 'India']
-
-const pieData = [
+const regionData = [
   { label: 'Americas', value: 42, color: C.d },
   { label: 'EMEA', value: 28, color: C.m },
   { label: 'APAC', value: 18, color: C.l },
   { label: 'LATAM', value: 12, color: C.xl }
 ]
-
-const funnel = [
-  { label: 'Leads', value: 100 },
-  { label: 'Qualified', value: 72 },
-  { label: 'Proposal', value: 48 },
-  { label: 'Negotiation', value: 30 },
-  { label: 'Won', value: 18 }
+const kpis = [
+  { label: 'Pipeline', value: '$9.0M', delta: '12%', up: true, good: true },
+  { label: 'Win rate', value: '38%', delta: '4 pts', up: true, good: true }
 ]
 
-const velocity = {
-  result: '$41k',
-  unit: '/ day',
-  parts: [
-    { label: 'Opps', value: '1,204' },
-    { label: 'Win %', value: '38%' },
-    { label: 'Deal', value: '$34k' },
-    { label: 'Cycle', value: '21 d' }
-  ]
-}
-
-const secRows = [
-  { rec: 'Acme Corp · $120k', mine: true },
-  { rec: 'Globex · $84k', mine: false },
-  { rec: 'Initech · $63k', mine: true },
-  { rec: 'Umbrella · $41k', mine: false }
-]
-
-const dashActions = [
-  { key: 'name', icon: 'i-lucide-pencil', label: 'Name' },
-  { key: 'share', icon: 'i-lucide-share-2', label: 'Share' },
-  { key: 'embed', icon: 'i-lucide-code', label: 'Embed' },
-  { key: 'excel', icon: 'i-lucide-file-spreadsheet', label: 'Excel' }
-]
-
-const toolbarActions = [
-  { k: 'run', icon: 'i-lucide-play', label: 'Run' },
-  { k: 'save', icon: 'i-lucide-save', label: 'Save' },
-  { k: 'download', icon: 'i-lucide-download', label: 'Excel' }
-]
-
-// ---- Typewriter (explore scene) -------------------------------------------
+// ---- Typewriter (query scene) ---------------------------------------------
 type Cls = 't' | 'k' | 's'
 const KEYWORDS = new Set(['load', 'filter', 'group', 'foreach', 'generate', 'order', 'by', 'as', 'sum', 'count'])
 function tokenize(line: string): [string, Cls][] {
@@ -121,8 +69,8 @@ function tokenize(line: string): [string, Cls][] {
 }
 const queryLines = [
   'q = load "Opportunities";',
-  'q = group q by \'Stage\';',
-  'q = foreach q generate \'Stage\',',
+  'q = group q by \'Market\';',
+  'q = foreach q generate \'Market\',',
   '      sum(\'Amount\') as \'Pipeline\';'
 ]
 const clsMap: Record<Cls, string> = { t: 'text-muted', k: 'font-semibold text-primary', s: 'text-toned' }
@@ -139,8 +87,7 @@ const scene = ref(0)
 const play = ref(false)
 const typed = ref(0)
 const queryRan = ref(false)
-const flip = ref(false)
-const secured = ref(false)
+const flip = ref(false) // toggle scene: Market (bars) → Region (donut)
 const current = computed(() => SCENES[scene.value]!)
 
 const renderedQuery = computed(() => {
@@ -162,18 +109,13 @@ const renderedQuery = computed(() => {
   }
   return lines
 })
+const typedDone = computed(() => typed.value >= queryChars.length)
 
-const bindBars = computed(() => {
-  const vals = flip.value ? regionVals : stageVals
-  const labels = flip.value ? regionLabels : stageLabels
-  return vals.map((v, i) => ({ value: v, label: labels[i]!, color: colorsByIndex[i]! }))
-})
-
-// Pie as a conic-gradient (no hole).
-const pieGradient = (() => {
-  const total = pieData.reduce((s, d) => s + d.value, 0)
+// Region donut as a conic-gradient with a center hole.
+const regionGradient = (() => {
+  const total = regionData.reduce((s, d) => s + d.value, 0)
   let acc = 0
-  const stops = pieData.map((d) => {
+  const stops = regionData.map((d) => {
     const start = (acc / total) * 100
     acc += d.value
     const end = (acc / total) * 100
@@ -182,35 +124,7 @@ const pieGradient = (() => {
   return `conic-gradient(${stops.join(', ')})`
 })()
 
-// Mini pie for the dashboard scene.
-const miniPie = pieGradient
-
-// Line geometry + least-squares trendline.
-const LW = 300
-const LH = 120
-const PAD = 12
-const linePts = [40, 62, 55, 85]
-const lineMax = Math.max(...linePts)
-const toPoint = (v: number, i: number) => ({
-  x: PAD + (i / (linePts.length - 1)) * (LW - PAD * 2),
-  y: LH - PAD - (v / lineMax) * (LH - PAD * 2)
-})
-const linePoints = linePts.map(toPoint)
-const linePolyline = linePoints.map(p => `${p.x},${p.y}`).join(' ')
-const lineArea = `${PAD},${LH - PAD} ${linePolyline} ${LW - PAD},${LH - PAD}`
-const meanX = (linePts.length - 1) / 2
-const meanY = linePts.reduce((a, b) => a + b, 0) / linePts.length
-let sxy = 0
-let sxx = 0
-linePts.forEach((y, i) => {
-  sxy += (i - meanX) * (y - meanY)
-  sxx += (i - meanX) ** 2
-})
-const slope = sxy / sxx
-const intercept = meanY - slope * meanX
-const trendPolyline = linePts.map((_, i) => toPoint(intercept + slope * i, i)).map(p => `${p.x},${p.y}`).join(' ')
-
-const barH = (v: number) => `${(v / 100) * 92}px`
+const barH = (v: number) => `${(v / 100) * 90}px`
 
 // ---- Loop engine ----------------------------------------------------------
 const timers: ReturnType<typeof setTimeout>[] = []
@@ -236,9 +150,9 @@ function startTyping() {
       stopTyper()
       later(() => {
         queryRan.value = true
-      }, 260)
+      }, 700)
     }
-  }, 14)
+  }, 13)
 }
 function stopAuto() {
   if (auto) {
@@ -255,20 +169,16 @@ function show(i: number) {
   typed.value = 0
   queryRan.value = false
   flip.value = false
-  secured.value = false
 
   later(() => {
     play.value = true
   }, 110)
 
   const key = SCENES[i]!.key
-  if (key === 'explore') later(startTyping, 300)
-  if (key === 'binding') later(() => {
+  if (key === 'query') later(startTyping, 320)
+  if (key === 'toggle') later(() => {
     flip.value = true
-  }, 1300)
-  if (key === 'security') later(() => {
-    secured.value = true
-  }, 900)
+  }, 1900)
 
   stopAuto()
   auto = setTimeout(() => show((i + 1) % SCENES.length), SCENES[i]!.ms)
@@ -297,53 +207,23 @@ onBeforeUnmount(() => {
       <!-- Soft ambient glow behind the window -->
       <div class="absolute -inset-4 -z-10 rounded-[2rem] bg-primary/15 blur-2xl" />
 
-      <div class="animate-float relative flex aspect-[4/3] flex-col overflow-hidden rounded-xl border border-default bg-default shadow-2xl ring-1 ring-default/60">
-        <!-- Salesforce Lightning global header -->
-        <div class="flex shrink-0 items-center gap-2 bg-gradient-to-r from-[#032D60] via-[#04396f] to-[#0b5cab] px-3 py-2 text-white">
-          <UIcon
-            name="i-lucide-grip"
-            class="size-4 opacity-80"
-          />
-          <UIcon
-            name="i-simple-icons-salesforce"
-            class="size-4 shrink-0"
-          />
-          <span class="text-xs font-semibold">Analytics Studio</span>
-          <div class="ml-auto hidden items-center gap-1.5 rounded bg-white/15 px-2 py-1 text-[10px] text-white/80 sm:flex">
+      <div class="animate-float relative mx-auto flex aspect-[4/3] w-full flex-col overflow-hidden rounded-2xl border border-default bg-default shadow-2xl ring-1 ring-default/60">
+        <!-- Mac title bar -->
+        <div class="flex shrink-0 items-center gap-2 border-b border-default bg-muted/50 px-4 py-2.5">
+          <span class="size-3 rounded-full bg-red-400" />
+          <span class="size-3 rounded-full bg-amber-400" />
+          <span class="size-3 rounded-full bg-green-400" />
+          <span class="ml-2 flex items-center gap-1.5 text-xs text-muted">
             <UIcon
-              name="i-lucide-search"
-              class="size-3"
+              :name="current.icon"
+              class="size-3.5"
             />
-            Search…
-          </div>
-          <span class="flex size-5 items-center justify-center rounded-full bg-white/20 text-[9px] font-bold">CA</span>
-        </div>
-
-        <!-- Object / action toolbar -->
-        <div class="flex shrink-0 items-center gap-1.5 border-b border-default bg-muted/40 px-3 py-1.5 text-[11px]">
-          <UIcon
-            :name="current.icon"
-            class="size-3.5 shrink-0 text-primary"
-          />
-          <span class="truncate font-medium text-toned">{{ current.tab }}</span>
-          <div class="ml-auto flex items-center gap-1">
-            <span
-              v-for="a in toolbarActions"
-              :key="a.k"
-              class="flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-medium transition-colors"
-              :class="current.action === a.k ? 'bg-primary text-inverted' : 'text-dimmed'"
-            >
-              <UIcon
-                :name="a.icon"
-                class="size-3"
-              />
-              <span class="hidden sm:inline">{{ a.label }}</span>
-            </span>
-          </div>
+            {{ current.file }}
+          </span>
         </div>
 
         <!-- Stage -->
-        <div class="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-4 py-3">
+        <div class="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-5 py-4">
           <Transition
             mode="out-in"
             enter-active-class="transition duration-250"
@@ -351,98 +231,173 @@ onBeforeUnmount(() => {
             leave-active-class="transition duration-100"
             leave-to-class="opacity-0 -translate-y-2"
           >
-            <!-- 1 · RECIPE FLOW + FILTER -->
+            <!-- 1 · SYNC SOURCES -->
             <div
-              v-if="current.key === 'flow'"
-              key="flow"
-              class="w-full"
+              v-if="current.key === 'sources'"
+              key="sources"
+              class="grid w-full grid-cols-[1fr_auto_1fr] items-center gap-3"
             >
-              <div class="flex items-center justify-between">
-                <template
-                  v-for="(n, i) in recipeNodes"
-                  :key="n.label"
+              <div class="space-y-2.5">
+                <div
+                  v-for="(s, i) in sources"
+                  :key="s.label"
+                  class="flex items-center gap-2 rounded-lg border border-default bg-muted/40 px-3 py-2 transition-all duration-400"
+                  :class="play ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'"
+                  :style="{ transitionDelay: `${i * 110}ms` }"
                 >
-                  <div
-                    class="flex flex-col items-center gap-1 rounded-lg border px-2.5 py-2 transition-all duration-300"
-                    :class="play ? (n.label === 'Filter' ? 'border-primary bg-primary/10' : 'border-primary/50 bg-default') + ' opacity-100' : 'border-default bg-default opacity-40'"
-                    :style="{ transitionDelay: `${i * 140}ms` }"
-                  >
-                    <UIcon
-                      :name="n.icon"
-                      class="size-4 text-primary"
-                    />
-                    <span class="text-[10px] font-medium text-toned">{{ n.label }}</span>
-                  </div>
                   <UIcon
-                    v-if="i < recipeNodes.length - 1"
-                    name="i-lucide-chevron-right"
-                    class="size-4 shrink-0 text-dimmed transition-opacity duration-300"
-                    :class="play ? 'opacity-100' : 'opacity-20'"
+                    :name="s.icon"
+                    class="size-4 shrink-0"
+                    :style="{ color: s.color }"
                   />
-                </template>
+                  <span class="truncate text-xs font-medium text-toned">{{ s.label }}</span>
+                </div>
               </div>
 
+              <svg
+                viewBox="0 0 80 120"
+                class="h-24 w-16"
+              >
+                <path
+                  v-for="(y, i) in [22, 60, 98]"
+                  :key="i"
+                  :d="`M2 ${y} C 40 ${y}, 40 60, 78 60`"
+                  fill="none"
+                  stroke="var(--ui-primary)"
+                  stroke-width="2"
+                  :style="{ opacity: play ? 0.7 : 0.15, transition: 'opacity 500ms ease' }"
+                />
+              </svg>
+
               <div
-                class="mt-4 flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 font-mono text-[11px] transition-all duration-400"
-                :class="play ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'"
-                :style="{ transitionDelay: '500ms' }"
+                class="flex flex-col items-center gap-1.5 justify-self-center rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 transition-all duration-400"
+                :class="play ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
+                :style="{ transitionDelay: '350ms' }"
               >
                 <UIcon
-                  name="i-lucide-filter"
-                  class="size-3.5 shrink-0 text-primary"
+                  name="i-lucide-refresh-cw"
+                  class="size-5 text-primary"
                 />
-                <span class="truncate text-toned">{{ filterExpr }}</span>
+                <span class="text-[11px] font-semibold text-primary">Synced</span>
+              </div>
+            </div>
+
+            <!-- 2 · DATAFLOW → FINAL DATASET -->
+            <div
+              v-else-if="current.key === 'dataflow'"
+              key="dataflow"
+              class="flex w-full flex-col items-center"
+            >
+              <div class="flex items-center justify-center gap-2">
+                <div
+                  v-for="(n, i) in dataflowInputs"
+                  :key="n.label"
+                  class="flex flex-col items-center gap-1 rounded-lg border bg-default px-2.5 py-2 transition-all duration-300"
+                  :class="play ? 'border-primary/50 opacity-100' : 'border-default opacity-30'"
+                  :style="{ transitionDelay: `${i * 130}ms` }"
+                >
+                  <UIcon
+                    :name="n.icon"
+                    class="size-4 text-primary"
+                  />
+                  <span class="text-[9px] font-medium text-toned">{{ n.label }}</span>
+                </div>
               </div>
 
-              <div class="mt-4">
-                <div class="mb-1.5 flex items-center gap-2 text-[11px] text-muted">
-                  <UIcon
-                    name="i-lucide-play"
-                    class="size-3 text-primary"
-                  />
-                  Running recipe…
-                </div>
-                <div class="h-1.5 overflow-hidden rounded-full bg-muted">
-                  <div
-                    class="h-full rounded-full bg-primary"
-                    :style="{ width: play ? '100%' : '0%', transition: 'width 1200ms ease-out' }"
-                  />
-                </div>
+              <UIcon
+                name="i-lucide-chevron-down"
+                class="my-1 size-4 text-dimmed transition-opacity duration-300"
+                :class="play ? 'opacity-100' : 'opacity-20'"
+                :style="{ transitionDelay: '450ms' }"
+              />
+              <div
+                class="flex items-center gap-1.5 rounded-md border border-default bg-muted/50 px-2.5 py-1 text-[10px] font-medium text-toned transition-all duration-300"
+                :class="play ? 'opacity-100' : 'opacity-0'"
+                :style="{ transitionDelay: '550ms' }"
+              >
+                <UIcon
+                  name="i-lucide-merge"
+                  class="size-3.5 text-primary"
+                />Join
               </div>
+              <UIcon
+                name="i-lucide-chevron-down"
+                class="my-1 size-4 text-dimmed transition-opacity duration-300"
+                :class="play ? 'opacity-100' : 'opacity-20'"
+                :style="{ transitionDelay: '700ms' }"
+              />
 
               <div
-                class="mt-4 flex items-center gap-3 rounded-xl border border-default bg-muted/40 p-2.5 transition-all duration-400"
-                :class="play ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'"
-                :style="{ transitionDelay: '1050ms' }"
+                class="flex items-center gap-3 rounded-xl border border-primary/40 bg-primary/10 px-4 py-2.5 shadow-sm transition-all duration-400"
+                :class="play ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
+                :style="{ transitionDelay: '850ms' }"
               >
-                <div class="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
+                <div class="flex size-8 items-center justify-center rounded-lg bg-primary/15 text-primary ring-1 ring-primary/20">
                   <UIcon
-                    name="i-lucide-table-2"
+                    name="i-lucide-database"
                     class="size-4"
                   />
                 </div>
                 <div>
-                  <p class="text-xs font-semibold text-highlighted">
-                    Opportunities dataset
+                  <p class="text-xs font-bold text-highlighted">
+                    Opportunities
                   </p>
                   <p class="text-[10px] text-muted">
-                    1.2M rows · filtered · ready
+                    final dataset · 1.2M rows
                   </p>
                 </div>
                 <UIcon
                   name="i-lucide-circle-check"
-                  class="ml-auto size-4 text-green-500"
+                  class="size-4 text-green-500"
                 />
               </div>
             </div>
 
-            <!-- 2 · EXPLORE / SAQL → RUN → BARS -->
+            <!-- 3 · OPEN DATASET (click) -->
             <div
-              v-else-if="current.key === 'explore'"
-              key="explore"
+              v-else-if="current.key === 'dataset'"
+              key="dataset"
+              class="relative flex w-full flex-col items-center justify-center"
+            >
+              <div
+                class="flex items-center gap-3 rounded-2xl border-2 border-primary/40 bg-primary/5 px-5 py-4 transition-all duration-500"
+                :class="play ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
+              >
+                <div class="flex size-11 items-center justify-center rounded-xl bg-primary/15 text-primary ring-1 ring-primary/20">
+                  <UIcon
+                    name="i-lucide-database"
+                    class="size-6"
+                  />
+                </div>
+                <div>
+                  <p class="text-sm font-bold text-highlighted">
+                    Opportunities
+                  </p>
+                  <p class="text-[11px] text-muted">
+                    1.2M rows · updated today
+                  </p>
+                </div>
+              </div>
+              <div
+                class="mt-4 flex items-center gap-1.5 rounded-full bg-highlighted/90 px-3 py-1 text-[11px] font-medium text-inverted transition-all duration-300"
+                :class="play ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'"
+                :style="{ transitionDelay: '600ms' }"
+              >
+                <UIcon
+                  name="i-lucide-mouse-pointer-click"
+                  class="size-3.5 animate-pulse"
+                />
+                Click to explore
+              </div>
+            </div>
+
+            <!-- 4 · WRITE & RUN QUERY → BAR CHART -->
+            <div
+              v-else-if="current.key === 'query'"
+              key="query"
               class="w-full"
             >
-              <div class="mb-2 font-mono text-[12px] leading-relaxed">
+              <div class="mb-2 rounded-lg border border-default bg-muted/30 p-2.5 font-mono text-[11.5px] leading-relaxed">
                 <div
                   v-for="(line, i) in renderedQuery"
                   :key="i"
@@ -453,405 +408,212 @@ onBeforeUnmount(() => {
                     :key="j"
                     :class="clsMap[run.cls]"
                   >{{ run.text }}</span><span
-                    v-if="!queryRan && i === renderedQuery.length - 1"
+                    v-if="!typedDone && i === renderedQuery.length - 1"
                     class="ml-px inline-block w-1.5 animate-pulse bg-primary align-middle"
                     style="height:1em"
                   />
                 </div>
               </div>
-              <div class="mb-2 flex items-center gap-2">
+              <div class="mb-3 flex items-center gap-2">
                 <span
-                  class="flex items-center gap-1 rounded bg-primary px-2 py-0.5 text-[10px] font-semibold text-inverted transition-opacity"
-                  :class="queryRan ? 'opacity-100' : 'opacity-40'"
+                  class="flex items-center gap-1 rounded-md px-2.5 py-1 text-[11px] font-semibold transition-all duration-300"
+                  :class="typedDone ? 'bg-primary text-inverted shadow-sm' : 'bg-muted text-dimmed'"
                 >
                   <UIcon
-                    name="i-lucide-play"
+                    :name="queryRan ? 'i-lucide-loader-circle' : 'i-lucide-play'"
                     class="size-3"
-                  />Run
+                    :class="queryRan ? 'animate-spin' : ''"
+                  />
+                  Run Query
                 </span>
                 <span
                   v-if="queryRan"
                   class="text-[10px] font-medium text-green-600"
-                >✓ 0.4s · 1,204 rows</span>
+                >✓ 1,204 rows</span>
               </div>
-              <div class="flex h-[76px] items-end justify-between gap-2">
+              <div class="flex h-[80px] items-end justify-between gap-2">
                 <div
-                  v-for="(bar, i) in bars"
+                  v-for="(bar, i) in marketBars"
                   :key="bar.label"
                   class="flex-1 rounded-t-md ease-out"
                   :style="{
                     height: queryRan ? barH(bar.value) : '0px',
                     background: bar.color,
                     transitionProperty: 'height',
-                    transitionDuration: '450ms',
-                    transitionDelay: `${i * 60}ms`
+                    transitionDuration: '500ms',
+                    transitionDelay: `${i * 70}ms`
                   }"
                 />
               </div>
             </div>
 
-            <!-- 3 · BINDING (dynamic grouping) -->
+            <!-- 5 · TOGGLE MARKET / REGION → DONUT -->
             <div
-              v-else-if="current.key === 'binding'"
-              key="binding"
+              v-else-if="current.key === 'toggle'"
+              key="toggle"
               class="w-full"
             >
-              <div class="mb-2 flex flex-wrap items-center gap-2">
-                <span class="text-[11px] text-muted">group by</span>
-                <button
-                  type="button"
-                  class="inline-flex items-center gap-1.5 rounded-md border border-primary/40 bg-primary/10 px-2 py-1 text-[11px] font-semibold text-primary transition-all duration-300"
-                >
-                  <UIcon
-                    name="i-lucide-link"
-                    class="size-3"
-                  />
-                  <span>{{ flip ? 'Region' : 'Stage' }}</span>
-                  <UIcon
-                    name="i-lucide-chevrons-up-down"
-                    class="size-3"
-                  />
-                </button>
-                <span
-                  class="text-[10px] text-dimmed transition-opacity duration-300"
-                  :class="flip ? 'opacity-100' : 'opacity-0'"
-                >↺ result re-binds</span>
-              </div>
-              <div class="mb-3 rounded-md border border-default bg-muted/40 px-2 py-1 font-mono text-[10px] text-toned">
-                q = group q by <span class="font-semibold text-primary">{{ bindingToken }}</span>;
-              </div>
-              <div class="flex h-[118px] items-end justify-between gap-2">
-                <div
-                  v-for="(bar, i) in bindBars"
-                  :key="i"
-                  class="flex flex-1 flex-col items-center justify-end gap-1"
-                >
-                  <div
-                    class="w-full rounded-t-md"
-                    :style="{
-                      height: play ? barH(bar.value) : '0px',
-                      background: bar.color,
-                      transition: 'height 500ms ease'
-                    }"
-                  />
-                  <span class="w-full truncate text-center text-[9px] text-dimmed">{{ bar.label }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- 4 · KPIS (conditional formatting) -->
-            <div
-              v-else-if="current.key === 'kpis'"
-              key="kpis"
-              class="grid w-full grid-cols-2 gap-2.5"
-            >
-              <div
-                v-for="(k, i) in kpis"
-                :key="k.label"
-                class="rounded-xl border border-default bg-default p-3 transition-all duration-300"
-                :class="play ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'"
-                :style="{ transitionDelay: `${i * 90}ms` }"
-              >
-                <p class="text-[10px] uppercase tracking-wide text-muted">
-                  {{ k.label }}
-                </p>
-                <div class="mt-0.5 flex items-baseline gap-1.5">
-                  <span class="text-lg font-bold text-highlighted">{{ k.value }}</span>
+              <div class="mb-4 flex justify-center">
+                <div class="inline-flex rounded-full border border-default bg-muted/40 p-0.5 text-[11px] font-medium">
                   <span
-                    class="flex items-center gap-0.5 text-[11px] font-semibold"
-                    :class="k.good ? 'text-green-600' : 'text-red-500'"
-                  >
-                    <UIcon
-                      :name="k.dir === 'up' ? 'i-lucide-arrow-up-right' : 'i-lucide-arrow-down-right'"
-                      class="size-3"
-                    />{{ k.delta }}
-                  </span>
+                    class="rounded-full px-3 py-1 transition-all duration-300"
+                    :class="!flip ? 'bg-primary text-inverted shadow-sm' : 'text-muted'"
+                  >Market</span>
+                  <span
+                    class="rounded-full px-3 py-1 transition-all duration-300"
+                    :class="flip ? 'bg-primary text-inverted shadow-sm' : 'text-muted'"
+                  >Region</span>
                 </div>
+              </div>
+
+              <Transition
+                mode="out-in"
+                enter-active-class="transition duration-300"
+                enter-from-class="opacity-0 scale-95"
+                leave-active-class="transition duration-150"
+                leave-to-class="opacity-0 scale-95"
+              >
+                <!-- Market → bar chart -->
                 <div
-                  class="mt-2 h-1 rounded-full"
-                  :class="k.good ? 'bg-green-500/20' : 'bg-red-500/20'"
+                  v-if="!flip"
+                  key="bars"
+                  class="flex h-[130px] items-end justify-between gap-3 px-2"
                 >
                   <div
-                    class="h-full rounded-full"
-                    :class="k.good ? 'bg-green-500' : 'bg-red-500'"
-                    :style="{ width: play ? '70%' : '0%', transition: 'width 600ms ease' }"
-                  />
+                    v-for="bar in marketBars"
+                    :key="bar.label"
+                    class="flex flex-1 flex-col items-center justify-end gap-1.5"
+                  >
+                    <div
+                      class="w-full rounded-t-md"
+                      :style="{ height: barH(bar.value), background: bar.color, transition: 'height 500ms ease' }"
+                    />
+                    <span class="w-full truncate text-center text-[9px] text-dimmed">{{ bar.label }}</span>
+                  </div>
+                </div>
+
+                <!-- Region → donut -->
+                <div
+                  v-else
+                  key="donut"
+                  class="flex h-[130px] items-center justify-center gap-5"
+                >
+                  <div
+                    class="relative size-28 rounded-full"
+                    :style="{ background: regionGradient }"
+                  >
+                    <div class="absolute inset-[24%] rounded-full bg-default" />
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <span class="text-xs font-bold text-highlighted">$9.0M</span>
+                    </div>
+                  </div>
+                  <div class="space-y-1.5">
+                    <div
+                      v-for="d in regionData"
+                      :key="d.label"
+                      class="flex items-center gap-2 text-[11px]"
+                    >
+                      <span
+                        class="size-2.5 rounded-sm"
+                        :style="{ background: d.color }"
+                      />
+                      <span class="text-toned">{{ d.label }}</span>
+                      <span class="ml-auto font-semibold text-muted">{{ d.value }}%</span>
+                    </div>
+                  </div>
+                </div>
+              </Transition>
+            </div>
+
+            <!-- 6 · NUMBER WIDGETS & MORE -->
+            <div
+              v-else-if="current.key === 'widgets'"
+              key="widgets"
+              class="w-full space-y-2.5"
+            >
+              <div class="grid grid-cols-2 gap-2.5">
+                <div
+                  v-for="(k, i) in kpis"
+                  :key="k.label"
+                  class="rounded-xl border border-default bg-default p-3 transition-all duration-300"
+                  :class="play ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'"
+                  :style="{ transitionDelay: `${i * 90}ms` }"
+                >
+                  <p class="text-[10px] uppercase tracking-wide text-muted">
+                    {{ k.label }}
+                  </p>
+                  <div class="mt-0.5 flex items-baseline gap-1.5">
+                    <span class="text-lg font-bold text-highlighted">{{ k.value }}</span>
+                    <span class="flex items-center gap-0.5 text-[11px] font-semibold text-green-600">
+                      <UIcon
+                        name="i-lucide-arrow-up-right"
+                        class="size-3"
+                      />{{ k.delta }}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <!-- 5 · LINE + DASHED TRENDLINE -->
-            <div
-              v-else-if="current.key === 'line'"
-              key="line"
-              class="w-full"
-            >
-              <svg
-                :viewBox="`0 0 ${LW} ${LH}`"
-                class="h-[140px] w-full"
-                preserveAspectRatio="none"
-              >
-                <polygon
-                  :points="lineArea"
-                  fill="var(--ui-primary)"
-                  :style="{ opacity: play ? 0.1 : 0, transition: 'opacity 600ms ease' }"
-                />
-                <polyline
-                  :points="trendPolyline"
-                  fill="none"
-                  stroke="var(--color-salesforce-400)"
-                  stroke-width="2"
-                  stroke-dasharray="6 5"
-                  stroke-linecap="round"
-                  :style="{ opacity: play ? 0.9 : 0, transition: 'opacity 600ms ease 300ms' }"
-                />
-                <polyline
-                  :points="linePolyline"
-                  fill="none"
-                  stroke="var(--ui-primary)"
-                  stroke-width="3"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  pathLength="1"
-                  :style="{ strokeDasharray: 1, strokeDashoffset: play ? 0 : 1, transition: 'stroke-dashoffset 800ms ease-out' }"
-                />
-                <circle
-                  v-for="(p, i) in linePoints"
-                  :key="i"
-                  :cx="p.x"
-                  :cy="p.y"
-                  r="4"
-                  fill="var(--ui-primary)"
-                  :style="{ opacity: play ? 1 : 0, transition: `opacity 250ms ease ${350 + i * 110}ms` }"
-                />
-              </svg>
-              <div class="mt-2 flex items-center gap-4 text-[10px] text-muted">
-                <span class="flex items-center gap-1.5"><span class="h-0.5 w-4 rounded bg-primary" />Pipeline</span>
-                <span class="flex items-center gap-1.5"><span class="w-4 border-t-2 border-dashed border-salesforce-400" />Trendline</span>
-              </div>
-            </div>
-
-            <!-- 6 · PIE -->
-            <div
-              v-else-if="current.key === 'pie'"
-              key="pie"
-              class="flex w-full items-center justify-center gap-6"
-            >
-              <div
-                class="size-32 rounded-full shadow-sm transition-all duration-500"
-                :class="play ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-90 opacity-0'"
-                :style="{ background: pieGradient }"
-              />
-              <div class="space-y-1.5">
+              <div class="grid grid-cols-2 gap-2.5">
                 <div
-                  v-for="(d, i) in pieData"
-                  :key="d.label"
-                  class="flex items-center gap-2 text-[11px] transition-opacity duration-400"
+                  class="flex h-20 items-end gap-1 rounded-xl border border-default bg-muted/30 p-2.5 transition-all duration-400"
                   :class="play ? 'opacity-100' : 'opacity-0'"
-                  :style="{ transitionDelay: `${150 + i * 80}ms` }"
+                  :style="{ transitionDelay: '220ms' }"
                 >
                   <span
-                    class="size-2.5 rounded-sm"
-                    :style="{ background: d.color }"
+                    v-for="bar in marketBars"
+                    :key="bar.label"
+                    class="flex-1 rounded-t-sm"
+                    :style="{ height: play ? barH(bar.value * 0.6) : '0px', background: bar.color, transition: 'height 500ms ease' }"
                   />
-                  <span class="text-toned">{{ d.label }}</span>
-                  <span class="ml-auto font-semibold text-muted">{{ d.value }}%</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- 7 · FUNNEL -->
-            <div
-              v-else-if="current.key === 'funnel'"
-              key="funnel"
-              class="w-full space-y-1.5"
-            >
-              <div
-                v-for="(f, i) in funnel"
-                :key="f.label"
-                class="flex items-center gap-2"
-              >
-                <span class="w-16 shrink-0 text-right text-[10px] text-muted">{{ f.label }}</span>
-                <div class="flex h-6 flex-1 items-center justify-center">
+                <div
+                  class="flex h-20 items-center justify-center rounded-xl border border-default bg-muted/30 p-2.5 transition-all duration-400"
+                  :class="play ? 'opacity-100' : 'opacity-0'"
+                  :style="{ transitionDelay: '320ms' }"
+                >
                   <div
-                    class="flex h-full items-center justify-center rounded text-[10px] font-semibold text-inverted transition-all duration-500"
-                    :style="{ width: play ? f.value + '%' : '0%', background: colorsByIndex[i], transitionDelay: `${i * 90}ms` }"
+                    class="relative size-14 rounded-full"
+                    :style="{ background: regionGradient }"
                   >
-                    <span v-if="play">{{ f.value }}%</span>
+                    <div class="absolute inset-[26%] rounded-full bg-muted" />
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 8 · SALES VELOCITY -->
-            <div
-              v-else-if="current.key === 'velocity'"
-              key="velocity"
-              class="w-full"
-            >
-              <div
-                class="flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 p-3 transition-all duration-400"
-                :class="play ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'"
-              >
-                <div class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
-                  <UIcon
-                    name="i-lucide-gauge"
-                    class="size-6"
-                  />
-                </div>
-                <div class="min-w-0">
-                  <p class="text-[10px] uppercase tracking-wide text-muted">
-                    Sales velocity
-                  </p>
-                  <p class="text-2xl font-bold text-highlighted">
-                    {{ velocity.result }} <span class="text-sm font-medium text-muted">{{ velocity.unit }}</span>
-                  </p>
-                </div>
-                <span class="ml-auto flex items-center gap-0.5 text-[11px] font-semibold text-green-600">
-                  <UIcon
-                    name="i-lucide-arrow-up-right"
-                    class="size-3"
-                  />15%
-                </span>
-              </div>
-              <div class="mt-3 grid grid-cols-4 gap-2">
-                <div
-                  v-for="(p, i) in velocity.parts"
-                  :key="p.label"
-                  class="rounded-lg border border-default bg-muted/30 p-2 text-center transition-all duration-300"
-                  :class="play ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
-                  :style="{ transitionDelay: `${150 + i * 80}ms` }"
-                >
-                  <p class="text-xs font-bold text-highlighted">
-                    {{ p.value }}
-                  </p>
-                  <p class="text-[9px] text-muted">
-                    {{ p.label }}
-                  </p>
-                </div>
-              </div>
-              <p class="mt-2 text-center font-mono text-[10px] text-dimmed">
-                (Opps × Win% × Deal) ÷ Cycle
-              </p>
-            </div>
-
-            <!-- 9 · SECURITY PREDICATE -->
-            <div
-              v-else-if="current.key === 'security'"
-              key="security"
-              class="w-full"
-            >
-              <div class="mb-4 flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 font-mono text-[12px]">
-                <UIcon
-                  name="i-lucide-shield-check"
-                  class="size-4 shrink-0 text-primary"
-                />
-                <span class="text-toned"><span class="text-muted">'OwnerId'</span> == <span class="font-semibold text-primary">"$User.Id"</span></span>
-              </div>
-              <div class="space-y-2">
-                <div
-                  v-for="(r, i) in secRows"
-                  :key="r.rec"
-                  class="flex items-center gap-2 rounded-lg border border-default px-3 py-2 text-xs transition-all duration-400"
-                  :class="secured && !r.mine ? 'bg-muted/30 opacity-40 blur-[1px]' : 'bg-default opacity-100'"
-                  :style="{ transitionDelay: `${i * 70}ms` }"
-                >
-                  <UIcon
-                    :name="secured && !r.mine ? 'i-lucide-lock' : 'i-lucide-circle-user-round'"
-                    class="size-4 shrink-0"
-                    :class="secured && !r.mine ? 'text-dimmed' : 'text-primary'"
-                  />
-                  <span class="text-toned">{{ r.rec }}</span>
-                  <span
-                    v-if="!r.mine"
-                    class="ml-auto text-[10px] font-medium"
-                    :class="secured ? 'text-dimmed' : 'text-muted'"
-                  >{{ secured ? 'hidden' : '' }}</span>
-                  <UIcon
-                    v-else
-                    name="i-lucide-eye"
-                    class="ml-auto size-3.5 text-green-500"
-                  />
-                </div>
-              </div>
-              <p class="mt-3 text-[11px] text-muted">
-                Each user sees only the rows they're allowed to.
-              </p>
-            </div>
-
-            <!-- 10 · DASHBOARD + EXPORT -->
+            <!-- 7 · START-LEARNING CTA -->
             <div
               v-else
-              key="dashboard"
-              class="w-full"
+              key="cta"
+              class="flex w-full flex-col items-center justify-center text-center transition-all duration-500"
+              :class="play ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
             >
-              <div class="mb-3 flex items-center gap-1.5">
-                <span class="mr-auto text-[11px] font-semibold text-highlighted">Pipeline Health</span>
-                <UTooltip
-                  v-for="(a, i) in dashActions"
-                  :key="a.key"
-                  :text="a.label"
-                >
-                  <span
-                    class="flex items-center gap-1 rounded-md border px-1.5 py-1 text-[10px] font-medium transition-all duration-300"
-                    :class="[
-                      play ? 'opacity-100' : 'opacity-0',
-                      a.key === 'excel' ? 'border-green-500/40 bg-green-500/10 text-green-600' : 'border-default text-muted'
-                    ]"
-                    :style="{ transitionDelay: `${i * 70}ms` }"
-                  >
-                    <UIcon
-                      :name="a.icon"
-                      class="size-3.5"
-                    />
-                    <span
-                      v-if="a.key === 'excel'"
-                      class="hidden sm:inline"
-                    >Excel</span>
-                  </span>
-                </UTooltip>
+              <div class="relative mb-3 flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                <span class="absolute inset-0 animate-ping rounded-2xl bg-primary/20" />
+                <UIcon
+                  name="i-lucide-rocket"
+                  class="relative size-7"
+                />
               </div>
-
-              <div class="grid grid-cols-3 gap-2">
-                <div
-                  v-for="(k, i) in ['$9.0M', '1,204', '38%']"
-                  :key="k"
-                  class="rounded-lg border border-default bg-muted/30 p-2.5 transition-all duration-300"
-                  :class="play ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
-                  :style="{ transitionDelay: `${i * 70}ms` }"
-                >
-                  <p class="text-sm font-bold text-highlighted">
-                    {{ k }}
-                  </p>
-                  <p class="text-[9px] text-muted">
-                    {{ ['Pipeline', 'Deals', 'Win rate'][i] }}
-                  </p>
-                </div>
-              </div>
-              <div class="mt-2 grid grid-cols-2 gap-2">
-                <div
-                  class="flex h-20 items-end gap-1 rounded-lg border border-default bg-muted/30 p-2.5 transition-all duration-400"
-                  :class="play ? 'opacity-100' : 'opacity-0'"
-                  :style="{ transitionDelay: '250ms' }"
-                >
-                  <span
-                    v-for="bar in bars"
-                    :key="bar.label"
-                    class="flex-1 rounded-t-sm"
-                    :style="{ height: play ? barH(bar.value * 0.55) : '0px', background: bar.color, transition: 'height 500ms ease' }"
-                  />
-                </div>
-                <div
-                  class="flex h-20 items-center justify-center rounded-lg border border-default bg-muted/30 p-2.5 transition-all duration-400"
-                  :class="play ? 'opacity-100' : 'opacity-0'"
-                  :style="{ transitionDelay: '350ms' }"
-                >
-                  <div
-                    class="size-14 rounded-full"
-                    :style="{ background: miniPie }"
-                  />
-                </div>
-              </div>
+              <p class="text-base font-bold text-highlighted">
+                Learn CRM Analytics
+              </p>
+              <p class="text-sm font-semibold text-primary">
+                from scratch
+              </p>
+              <p class="mt-1.5 max-w-[16rem] text-[11px] text-muted">
+                Datasets, SAQL, dashboards & Einstein Discovery — free, hands-on, no experience needed.
+              </p>
+              <NuxtLink
+                :to="localePath('/foundations')"
+                class="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-inverted shadow-sm transition hover:scale-105"
+              >
+                Start the free course
+                <UIcon
+                  name="i-lucide-arrow-right"
+                  class="size-3.5"
+                />
+              </NuxtLink>
             </div>
           </Transition>
         </div>
@@ -867,7 +629,6 @@ onBeforeUnmount(() => {
             />
           </div>
           <span class="ml-1.5 truncate text-[11px] font-medium text-toned">{{ current.title }}</span>
-          <span class="ml-auto hidden shrink-0 text-[11px] text-muted sm:block">{{ current.caption }}</span>
         </div>
       </div>
     </div>
