@@ -254,25 +254,12 @@ onBeforeUnmount(() => {
 <template>
   <div>
     <div class="relative">
-      <div class="absolute -inset-4 rounded-3xl bg-primary/20 blur-2xl" />
+      <!-- Soft ambient glow — no hard window frame, so it blends into the page -->
+      <div class="absolute inset-x-2 -inset-y-6 -z-10 rounded-[2.5rem] bg-primary/10 blur-3xl" />
 
-      <div class="animate-float relative flex aspect-square flex-col overflow-hidden rounded-2xl border border-default bg-default shadow-2xl ring-1 ring-default/60">
-        <!-- Title bar -->
-        <div class="flex shrink-0 items-center gap-2 border-b border-default bg-muted/50 px-4 py-2.5">
-          <span class="size-3 rounded-full bg-red-400" />
-          <span class="size-3 rounded-full bg-amber-400" />
-          <span class="size-3 rounded-full bg-green-400" />
-          <span class="ml-2 flex items-center gap-1.5 text-xs text-muted">
-            <UIcon
-              name="i-lucide-file-code"
-              class="size-3.5"
-            />
-            {{ current.file }}
-          </span>
-        </div>
-
-        <!-- Stage -->
-        <div class="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-6 py-4">
+      <div class="animate-float">
+        <!-- Stage: transparent so the illustration blends with the background -->
+        <div class="relative flex aspect-video items-center justify-center overflow-hidden px-1 sm:px-2">
           <Transition
             mode="out-in"
             enter-active-class="transition duration-250"
@@ -709,6 +696,22 @@ onBeforeUnmount(() => {
               </div>
             </div>
           </Transition>
+        </div>
+
+        <!-- Blended step caption (replaces the old window title bar) -->
+        <div class="mt-3 flex items-center gap-3 px-1">
+          <div class="flex items-center gap-1.5">
+            <span
+              v-for="(s, i) in SCENES"
+              :key="s.key"
+              class="h-1.5 rounded-full transition-all duration-300"
+              :class="i === scene ? 'w-5 bg-primary' : 'w-1.5 bg-primary/25'"
+            />
+          </div>
+          <p class="truncate text-sm font-semibold text-highlighted">
+            {{ current.title }}
+          </p>
+          <span class="ml-auto hidden shrink-0 text-xs text-muted sm:block">{{ current.caption }}</span>
         </div>
       </div>
     </div>
