@@ -1,6 +1,6 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- Transparent background; bars inset for a smaller, cleaner tab glyph -->
-  <g transform="translate(77 77) scale(0.7)">
+  <!-- Transparent background; smaller centered bars with generous padding -->
+  <g transform="translate(128 128) scale(0.5)">
     <rect x="77" y="235" width="90" height="200" rx="20" fill="#014486"/>
     <rect x="211" y="155" width="90" height="280" rx="20" fill="#0176D3"/>
     <rect x="345" y="77" width="90" height="358" rx="20" fill="#7AB8FF"/>
