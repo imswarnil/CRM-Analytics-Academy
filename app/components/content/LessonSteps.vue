@@ -16,24 +16,31 @@ defineProps<{
 
 <template>
   <div class="not-prose my-8">
-    <ol class="relative space-y-6 border-l-2 border-dashed border-primary/30 pl-8">
+    <ol class="relative space-y-6">
+      <!-- Vertical rail runs through the centre of the number badges -->
+      <span
+        class="pointer-events-none absolute bottom-4 left-4 top-4 border-l-2 border-dashed border-primary/30"
+        aria-hidden="true"
+      />
       <li
         v-for="(step, i) in items"
         :key="i"
-        class="relative"
+        class="relative flex gap-4"
       >
-        <span class="absolute -left-[2.6rem] flex size-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-inverted shadow-sm ring-4 ring-default">
+        <span class="relative z-10 flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold leading-none text-inverted shadow-sm ring-4 ring-default">
           {{ i + 1 }}
         </span>
-        <h4 class="text-base font-semibold text-highlighted">
-          {{ step.title }}
-        </h4>
-        <p
-          v-if="step.description"
-          class="mt-1 text-sm leading-relaxed text-muted"
-        >
-          {{ step.description }}
-        </p>
+        <div class="pt-0.5">
+          <h4 class="text-base font-semibold text-highlighted">
+            {{ step.title }}
+          </h4>
+          <p
+            v-if="step.description"
+            class="mt-1 text-sm leading-relaxed text-muted"
+          >
+            {{ step.description }}
+          </p>
+        </div>
       </li>
     </ol>
   </div>
