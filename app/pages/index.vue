@@ -242,7 +242,7 @@ useJsonLd({
           </div>
 
           <!-- Animated pipeline storyboard -->
-          <div class="animate-fade-up">
+          <div class="animate-fade-up mx-auto w-full max-w-md">
             <HeroStory />
           </div>
         </div>
