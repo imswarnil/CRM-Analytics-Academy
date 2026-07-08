@@ -6,7 +6,8 @@ import type { Database } from '~~/types/database.types'
 // shared by the dashboard and the certificate issuer.
 export const SECTIONS = [
   { slug: 'foundations', title: 'CRM Analytics Foundations', total: 10 },
-  { slug: 'setup', title: 'Setup & User Provisioning', total: 8 }
+  { slug: 'setup', title: 'Setup & User Provisioning', total: 8 },
+  { slug: 'creating-datasets', title: 'Creating Datasets', total: 10 }
 ]
 export const CERT_MIN_SCORE = 75
 export const CERT_COURSE = 'CRM Analytics Foundations'
