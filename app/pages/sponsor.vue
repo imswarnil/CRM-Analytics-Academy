@@ -56,6 +56,50 @@ const tiers = [
       </UContainer>
     </section>
 
+    <!-- Featured sponsor -->
+    <UContainer class="pt-12 sm:pt-16">
+      <div class="mx-auto max-w-3xl overflow-hidden rounded-2xl border border-primary/30 bg-primary/5">
+        <div class="flex flex-col items-center gap-5 p-6 text-center sm:flex-row sm:p-8 sm:text-left">
+          <div class="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+            <UIcon
+              name="i-lucide-sparkles"
+              class="size-8"
+            />
+          </div>
+          <div class="min-w-0 flex-1">
+            <span class="inline-block rounded bg-primary/15 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">
+              Featured sponsor
+            </span>
+            <h2 class="mt-2 text-xl font-bold text-highlighted">
+              Namaste Salesforce
+            </h2>
+            <p class="mt-1 text-sm text-muted">
+              Learn Salesforce the friendly way — tutorials, tips, and hands-on guidance for admins and developers.
+            </p>
+          </div>
+          <UButton
+            to="https://www.namastesalesforce.com/"
+            target="_blank"
+            rel="sponsored noopener"
+            icon="i-lucide-arrow-up-right"
+            trailing
+            size="lg"
+            class="shrink-0 rounded-full font-semibold"
+          >
+            Visit
+          </UButton>
+        </div>
+        <p class="border-t border-primary/20 bg-primary/5 px-6 py-3 text-center text-xs text-muted">
+          This is a <span class="font-medium text-default">demo placement</span> — your business could be featured here and across the site.
+          <NuxtLink
+            :to="sponsorUrl"
+            target="_blank"
+            class="text-primary hover:underline"
+          >Promote with us →</NuxtLink>
+        </p>
+      </div>
+    </UContainer>
+
     <UContainer class="py-14 sm:py-20">
       <div class="grid gap-6 sm:grid-cols-3">
         <div
