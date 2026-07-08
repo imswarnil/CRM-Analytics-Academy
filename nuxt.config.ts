@@ -139,6 +139,13 @@ export default defineNuxtConfig({
         contentFilters: [
           { field: 'path', operator: 'LIKE', value: '/en/setup%' }
         ]
+      },
+      {
+        title: 'Creating Datasets',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/creating-datasets%' }
+        ]
       }
     ]
   },

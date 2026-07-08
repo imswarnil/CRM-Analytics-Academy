@@ -62,6 +62,25 @@ const modules = computed(() => [
       'Graded Quiz',
       'Interview Questions'
     ]
+  },
+  {
+    n: '03',
+    title: 'Creating Datasets',
+    to: '/creating-datasets',
+    icon: 'i-lucide-database',
+    desc: 'Get data into CRM Analytics and shape it: upload CSVs, build datasets with Dataset Builder and recipes, master grain and lookups, and combine sources into a final dataset.',
+    lessons: [
+      'What Is a Dataset?',
+      'The Data Landscape',
+      'Upload a CSV',
+      'Grain, Lookups & Joins',
+      'Dataset Builder',
+      'Run the Dataflow',
+      'Build with a Recipe',
+      'Combine Datasets',
+      'Interview Questions',
+      'Graded Quiz'
+    ]
   }
 ])
 
