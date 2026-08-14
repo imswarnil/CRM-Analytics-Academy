@@ -168,6 +168,147 @@ export interface Database {
         Update: { status?: 'visible' | 'hidden', message?: string | null }
         Relationships: []
       }
+      posts: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          description: string | null
+          body: string | null
+          cover_url: string | null
+          tags: string[]
+          status: 'draft' | 'published'
+          published_at: string | null
+          is_external: boolean
+          source_url: string | null
+          source_name: string | null
+          author_name: string | null
+          author_url: string | null
+          excerpt_only: boolean
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          slug: string
+          title: string
+          description?: string | null
+          body?: string | null
+          cover_url?: string | null
+          tags?: string[]
+          status?: 'draft' | 'published'
+          published_at?: string | null
+          is_external?: boolean
+          source_url?: string | null
+          source_name?: string | null
+          author_name?: string | null
+          author_url?: string | null
+          excerpt_only?: boolean
+          created_by?: string | null
+        }
+        Update: {
+          slug?: string
+          title?: string
+          description?: string | null
+          body?: string | null
+          cover_url?: string | null
+          tags?: string[]
+          status?: 'draft' | 'published'
+          published_at?: string | null
+          is_external?: boolean
+          source_url?: string | null
+          source_name?: string | null
+          author_name?: string | null
+          author_url?: string | null
+          excerpt_only?: boolean
+        }
+        Relationships: []
+      }
+      sections: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          description: string | null
+          icon: string
+          position: number
+          status: 'draft' | 'published'
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          slug: string
+          title: string
+          description?: string | null
+          icon?: string
+          position?: number
+          status?: 'draft' | 'published'
+          created_by?: string | null
+        }
+        Update: {
+          slug?: string
+          title?: string
+          description?: string | null
+          icon?: string
+          position?: number
+          status?: 'draft' | 'published'
+        }
+        Relationships: []
+      }
+      lessons: {
+        Row: {
+          id: string
+          section_id: string
+          slug: string
+          title: string
+          description: string | null
+          body: string | null
+          position: number
+          status: 'draft' | 'published'
+          access: 'public' | 'members'
+          video_id: string | null
+          video_start: number | null
+          video_end: number | null
+          quiz: unknown | null
+          pass_score: number
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          section_id: string
+          slug: string
+          title: string
+          description?: string | null
+          body?: string | null
+          position?: number
+          status?: 'draft' | 'published'
+          access?: 'public' | 'members'
+          video_id?: string | null
+          video_start?: number | null
+          video_end?: number | null
+          quiz?: unknown | null
+          pass_score?: number
+          created_by?: string | null
+        }
+        Update: {
+          section_id?: string
+          slug?: string
+          title?: string
+          description?: string | null
+          body?: string | null
+          position?: number
+          status?: 'draft' | 'published'
+          access?: 'public' | 'members'
+          video_id?: string | null
+          video_start?: number | null
+          video_end?: number | null
+          quiz?: unknown | null
+          pass_score?: number
+        }
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: {

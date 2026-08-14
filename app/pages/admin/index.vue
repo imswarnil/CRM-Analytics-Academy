@@ -4,6 +4,7 @@ import type { FeedbackThread } from '~/components/FeedbackThreadList.vue'
 definePageMeta({ middleware: 'auth' })
 
 const { isAdmin } = useProfile()
+const localePath = useLocalePath()
 
 useSeoMeta({ title: 'Admin — CRM Analytics Academy', robots: 'noindex' })
 
@@ -100,6 +101,45 @@ const authorName = (a: Author | null) => a?.full_name || a?.username || 'Unknown
           <h1 class="text-2xl font-bold text-highlighted">
             Admin dashboard
           </h1>
+        </div>
+
+        <!-- Authoring tools: everything below is managed in-app, no Supabase trip needed. -->
+        <div class="mb-10 grid gap-3 sm:grid-cols-2">
+          <NuxtLink
+            :to="localePath('/admin/content')"
+            class="group flex items-start gap-3 rounded-2xl border border-default bg-default p-5 transition hover:border-primary/40 hover:shadow-md"
+          >
+            <UIcon
+              name="i-lucide-library"
+              class="mt-0.5 size-5 shrink-0 text-primary"
+            />
+            <div>
+              <p class="font-semibold text-highlighted group-hover:text-primary">
+                Content builder
+              </p>
+              <p class="mt-1 text-sm text-muted">
+                Create sections and lessons, set video clips, reorder, and publish to /learn.
+              </p>
+            </div>
+          </NuxtLink>
+
+          <NuxtLink
+            :to="localePath('/admin/posts')"
+            class="group flex items-start gap-3 rounded-2xl border border-default bg-default p-5 transition hover:border-primary/40 hover:shadow-md"
+          >
+            <UIcon
+              name="i-lucide-newspaper"
+              class="mt-0.5 size-5 shrink-0 text-primary"
+            />
+            <div>
+              <p class="font-semibold text-highlighted group-hover:text-primary">
+                Blog posts
+              </p>
+              <p class="mt-1 text-sm text-muted">
+                Write original posts or curate community articles with author credit and a source link.
+              </p>
+            </div>
+          </NuxtLink>
         </div>
 
         <!-- Overview -->

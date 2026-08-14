@@ -7,7 +7,10 @@ import type { Database } from '~~/types/database.types'
 export const SECTIONS = [
   { slug: 'foundations', title: 'CRM Analytics Foundations', total: 10 },
   { slug: 'setup', title: 'Setup & User Provisioning', total: 8 },
-  { slug: 'creating-datasets', title: 'Creating Datasets', total: 10 }
+  { slug: 'creating-datasets', title: 'Creating Datasets', total: 10 },
+  { slug: 'lenses-and-explorations', title: 'Lenses & Explorations', total: 8 },
+  { slug: 'designing-dashboards', title: 'Designing Dashboards', total: 9 },
+  { slug: 'collaboration', title: 'Collaboration', total: 10 }
 ]
 export const CERT_MIN_SCORE = 75
 export const CERT_COURSE = 'CRM Analytics Foundations'

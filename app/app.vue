@@ -98,8 +98,6 @@ provide('navigation', navigation)
 
     <AppHeader />
 
-    <SponsorStrip />
-
     <UMain>
       <NuxtLayout>
         <NuxtPage />

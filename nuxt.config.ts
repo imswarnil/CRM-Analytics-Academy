@@ -146,6 +146,27 @@ export default defineNuxtConfig({
         contentFilters: [
           { field: 'path', operator: 'LIKE', value: '/en/creating-datasets%' }
         ]
+      },
+      {
+        title: 'Lenses & Explorations',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/lenses-and-explorations%' }
+        ]
+      },
+      {
+        title: 'Designing Dashboards',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/designing-dashboards%' }
+        ]
+      },
+      {
+        title: 'Collaboration',
+        contentCollection: 'docs',
+        contentFilters: [
+          { field: 'path', operator: 'LIKE', value: '/en/collaboration%' }
+        ]
       }
     ]
   },

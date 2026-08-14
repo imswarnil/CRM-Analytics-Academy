@@ -81,6 +81,60 @@ const modules = computed(() => [
       'Interview Questions',
       'Graded Quiz'
     ]
+  },
+  {
+    n: '04',
+    title: 'Lenses & Explorations',
+    to: '/lenses-and-explorations',
+    icon: 'i-lucide-search',
+    desc: 'Explore a dataset without building a dashboard: work the lens/Explorer mode, switch between chart, table, and SAQL, and edit dataset field metadata so every chart inherits the right labels, colors, and formats.',
+    lessons: [
+      'What Is a Lens?',
+      'Analytics Tab & Apps',
+      'Explorer Mode Basics',
+      'Chart, Table & SAQL',
+      'Editing Fields',
+      'Conversational Analytics',
+      'Graded Quiz',
+      'Interview Questions'
+    ]
+  },
+  {
+    n: '05',
+    title: 'Designing Dashboards',
+    to: '/designing-dashboards',
+    icon: 'i-lucide-layout-dashboard',
+    desc: 'Craft dashboards people actually use: conditional formatting, date toggles and faceting, image-rich tables, custom tooltips and chart markers, KPI micro charts, and links that carry filters between dashboards.',
+    lessons: [
+      'Designing Dashboards',
+      'Conditional Formatting',
+      'Date Toggles & Faceting',
+      'Tables, Images & Themes',
+      'Tooltips & Chart Markers',
+      'KPI Micro Charts',
+      'Linking Dashboards',
+      'Graded Quiz',
+      'Interview Questions'
+    ]
+  },
+  {
+    n: '06',
+    title: 'Collaboration',
+    to: '/collaboration',
+    icon: 'i-lucide-users',
+    desc: 'Drive adoption with what the license already gives you: sharing, threshold notifications, annotations, exports, self-service exploration, saved views, subscriptions and watchlists, and in-widget onboarding videos.',
+    lessons: [
+      'Why Collaboration Matters',
+      'Sharing a Dashboard',
+      'Notifications & Annotations',
+      'Downloading Data',
+      'Self-Service Explore',
+      'Views',
+      'Subscriptions & Watchlists',
+      'Onboarding & Learn',
+      'Graded Quiz',
+      'Interview Questions'
+    ]
   }
 ])
 
