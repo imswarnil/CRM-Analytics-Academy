@@ -21,6 +21,13 @@ const next = computed(() => data.value?.next ?? null)
 const user = useSupabaseUser()
 const locked = computed(() => lesson.value.access === 'members' && !user.value)
 
+// Graded quizzes work here exactly as they do for markdown lessons: /api/quiz
+// resolves this `/learn/...` path against the lessons table, so the answer key
+// never leaves the server. quizId is keyed on the row id rather than the slug
+// so renaming a lesson doesn't orphan a learner's attempt history.
+const quizPath = computed(() => `/learn/${section.value.slug}/${lesson.value.slug}`)
+const quizId = computed(() => `learn:${lesson.value.id}`)
+
 useSeoMeta({
   title: () => `${lesson.value.title} — CRM Analytics Academy`,
   description: () => lesson.value.description ?? undefined,
@@ -81,54 +88,13 @@ useSeoMeta({
         </div>
       </MembersGate>
 
-      <!--
-        Read-only quiz preview. Grading for builder (DB-authored) lessons isn't
-        wired up yet — /api/quiz only knows about the markdown curriculum — so we
-        show the questions without scoring rather than faking a result.
-      -->
-      <section
+      <!-- Same graded component the markdown curriculum uses. -->
+      <LessonQuiz
         v-if="!locked && lesson.quizCount > 0"
-        class="mt-12 rounded-2xl border border-default bg-elevated/40 p-6"
-      >
-        <div class="flex items-start gap-3">
-          <UIcon
-            name="i-lucide-clipboard-list"
-            class="mt-0.5 size-5 shrink-0 text-primary"
-          />
-          <div>
-            <h2 class="font-semibold text-highlighted">
-              Quiz preview ({{ lesson.quizCount }} {{ lesson.quizCount === 1 ? 'question' : 'questions' }})
-            </h2>
-            <p class="mt-1 text-sm text-muted">
-              Preview only — graded quizzes for these lessons aren't available yet, so
-              answers aren't checked or saved.
-            </p>
-          </div>
-        </div>
-
-        <ol class="mt-6 space-y-6">
-          <li
-            v-for="(question, qIndex) in lesson.quiz ?? []"
-            :key="qIndex"
-          >
-            <p class="text-sm font-medium text-highlighted">
-              {{ qIndex + 1 }}. {{ question.q }}
-            </p>
-            <ul class="mt-2 space-y-1.5">
-              <li
-                v-for="(option, oIndex) in question.options ?? []"
-                :key="oIndex"
-                class="flex items-start gap-2 text-sm text-muted"
-              >
-                <span class="mt-0.5 font-mono text-xs text-dimmed">
-                  {{ String.fromCharCode(65 + oIndex) }}.
-                </span>
-                <span>{{ option }}</span>
-              </li>
-            </ul>
-          </li>
-        </ol>
-      </section>
+        :path="quizPath"
+        :quiz-id="quizId"
+        class="mt-12"
+      />
 
       <nav
         v-if="prev || next"

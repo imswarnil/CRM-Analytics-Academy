@@ -1,9 +1,7 @@
 import { serverSupabaseServiceRole } from '#supabase/server'
-import { queryCollection } from '@nuxt/content/server'
-import type { Collections } from '@nuxt/content'
 import type { Database } from '~~/types/database.types'
-import type { QuizQuestion } from '../utils/quiz'
 import { DEFAULT_PASS_SCORE, parseSetToken } from '../utils/quiz'
+import { loadQuizPool } from '../utils/quiz-source'
 
 // Grade a quiz attempt server-side and save it. The browser sends the question
 // set token (which pool questions were shown) plus the learner's chosen option
@@ -20,8 +18,9 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid quiz submission' })
   }
 
-  const page = await queryCollection(event, 'docs' as keyof Collections).path(path).first()
-  const pool = (page?.quiz ?? []) as QuizQuestion[]
+  // Resolves markdown lessons and admin-authored /learn lessons alike.
+  const source = await loadQuizPool(event, path)
+  const pool = source?.pool ?? []
   if (!pool.length) {
     throw createError({ statusCode: 404, statusMessage: 'No quiz for this lesson' })
   }
@@ -36,7 +35,7 @@ export default defineEventHandler(async (event) => {
   const results = correctAnswers.map((correct, p) => answers[p] === correct)
   const score = results.filter(Boolean).length
   const total = indices.length
-  const passScore = typeof page?.passScore === 'number' ? page.passScore : DEFAULT_PASS_SCORE
+  const passScore = source?.passScore ?? DEFAULT_PASS_SCORE
   const passed = total > 0 && (score / total) * 100 >= passScore
 
   // Per-skill breakdown for the performance chart.

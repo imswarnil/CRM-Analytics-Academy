@@ -1,9 +1,7 @@
 import { serverSupabaseServiceRole } from '#supabase/server'
-import { queryCollection } from '@nuxt/content/server'
-import type { Collections } from '@nuxt/content'
 import type { Database } from '~~/types/database.types'
-import type { QuizQuestion } from '../utils/quiz'
 import { pickQuizSet } from '../utils/quiz'
+import { loadQuizPool } from '../utils/quiz-source'
 
 // Serve a quiz question set WITHOUT answers. Picks a rotating subset of the
 // lesson's question pool based on how many times this user has already attempted
@@ -16,8 +14,9 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Missing quiz path' })
   }
 
-  const page = await queryCollection(event, 'docs' as keyof Collections).path(path).first()
-  const pool = (page?.quiz ?? []) as QuizQuestion[]
+  // Resolves markdown lessons and admin-authored /learn lessons alike.
+  const source = await loadQuizPool(event, path)
+  const pool = source?.pool ?? []
   if (!pool.length) {
     throw createError({ statusCode: 404, statusMessage: 'No quiz for this lesson' })
   }
@@ -40,7 +39,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const indices = pickQuizSet(pool.length, attemptIndex)
-  const passScore = typeof page?.passScore === 'number' ? page.passScore : undefined
+  const passScore = source?.passScore
 
   return {
     token: indices.join(','),
