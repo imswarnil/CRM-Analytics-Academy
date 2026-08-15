@@ -31,7 +31,8 @@
     "nuxt-og-image": "^6.7.0",
     "tailwindcss": "^4.3.1",
     "ufo": "^1.6.4",
-    "unist-util-visit": "^5.1.0"
+    "unist-util-visit": "^5.1.0",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.16.0",

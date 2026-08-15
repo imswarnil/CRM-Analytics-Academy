@@ -106,37 +106,20 @@ const authorName = (a: Author | null) => a?.full_name || a?.username || 'Unknown
         <!-- Authoring tools: everything below is managed in-app, no Supabase trip needed. -->
         <div class="mb-10 grid gap-3 sm:grid-cols-2">
           <NuxtLink
-            :to="localePath('/admin/content')"
-            class="group flex items-start gap-3 rounded-2xl border border-default bg-default p-5 transition hover:border-primary/40 hover:shadow-md"
+            :to="localePath('/admin/studio')"
+            class="group flex max-w-md items-start gap-3 rounded-2xl border border-default bg-default p-5 transition hover:border-primary/40 hover:shadow-md"
           >
             <UIcon
-              name="i-lucide-library"
+              name="i-lucide-file-pen-line"
               class="mt-0.5 size-5 shrink-0 text-primary"
             />
             <div>
               <p class="font-semibold text-highlighted group-hover:text-primary">
-                Content builder
+                Content studio
               </p>
               <p class="mt-1 text-sm text-muted">
-                Create sections and lessons, set video clips, reorder, and publish to /learn.
-              </p>
-            </div>
-          </NuxtLink>
-
-          <NuxtLink
-            :to="localePath('/admin/posts')"
-            class="group flex items-start gap-3 rounded-2xl border border-default bg-default p-5 transition hover:border-primary/40 hover:shadow-md"
-          >
-            <UIcon
-              name="i-lucide-newspaper"
-              class="mt-0.5 size-5 shrink-0 text-primary"
-            />
-            <div>
-              <p class="font-semibold text-highlighted group-hover:text-primary">
-                Blog posts
-              </p>
-              <p class="mt-1 text-sm text-muted">
-                Write original posts or curate community articles with author credit and a source link.
+                Author docs lessons and blog posts (original or curated, with author credit and a source link)
+                as markdown files. Local dev only — the production filesystem is read-only.
               </p>
             </div>
           </NuxtLink>

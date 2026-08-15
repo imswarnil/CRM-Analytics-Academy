@@ -4,23 +4,31 @@ const route = useRoute()
 
 const tag = computed(() => (typeof route.query.tag === 'string' ? route.query.tag : null))
 
-// Public, published-only data — safe to render on the server.
-const { data } = await useFetch('/api/posts', {
-  query: { tag },
-  default: () => ({ posts: [] })
-})
+// Public, published-only data — safe to render on the server. Sourced from
+// the `blog` Nuxt Content collection (content/blog/**), not a DB table.
+// Tag filtering happens client-side below: `tags` is a JSON array column, and
+// the query builder has no array-contains operator, so it's simplest (and
+// small enough here) to fetch the published set once and filter in memory.
+const { data: allPosts } = await useAsyncData(
+  'blog-index',
+  () => queryCollection('blog').where('status', '=', 'published').order('publishedAt', 'DESC').all(),
+  { default: () => [] }
+)
 
-const posts = computed(() => data.value?.posts ?? [])
+const posts = computed(() => {
+  if (!tag.value) return allPosts.value
+  return allPosts.value.filter(post => post.tags?.includes(tag.value as string))
+})
 
 const allTags = computed(() => {
   const seen = new Set<string>()
-  for (const post of posts.value) {
+  for (const post of allPosts.value) {
     for (const t of post.tags ?? []) seen.add(t)
   }
   return [...seen].sort()
 })
 
-function formatDate(value: string | null) {
+function formatDate(value: string | null | undefined) {
   if (!value) return ''
   return new Date(value).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -101,15 +109,15 @@ useSeoMeta({
         class="group flex flex-col overflow-hidden rounded-2xl border border-default bg-default transition hover:border-primary/40 hover:shadow-lg"
       >
         <NuxtLink
-          :to="localePath(`/blog/${post.slug}`)"
+          :to="localePath(post.path)"
           class="flex flex-1 flex-col"
         >
           <div
-            v-if="post.cover_url"
+            v-if="post.coverUrl"
             class="aspect-video overflow-hidden bg-elevated"
           >
             <img
-              :src="post.cover_url"
+              :src="post.coverUrl"
               :alt="post.title"
               loading="lazy"
               class="size-full object-cover transition duration-300 group-hover:scale-105"
@@ -119,12 +127,12 @@ useSeoMeta({
           <div class="flex flex-1 flex-col p-5">
             <div class="flex items-center gap-2 text-xs text-dimmed">
               <span
-                v-if="post.is_external"
+                v-if="post.isExternal"
                 class="rounded bg-primary/10 px-1.5 py-0.5 font-semibold uppercase tracking-wide text-primary"
               >
                 Community
               </span>
-              <time v-if="post.published_at">{{ formatDate(post.published_at) }}</time>
+              <time v-if="post.publishedAt">{{ formatDate(post.publishedAt) }}</time>
             </div>
 
             <h2 class="mt-2 font-semibold text-highlighted group-hover:text-primary">
@@ -140,10 +148,10 @@ useSeoMeta({
 
             <!-- Attribution is part of the card, not an afterthought. -->
             <p
-              v-if="post.is_external && post.author_name"
+              v-if="post.isExternal && post.authorName"
               class="mt-3 border-t border-default pt-3 text-xs text-dimmed"
             >
-              By {{ post.author_name }}<template v-if="post.source_name"> · {{ post.source_name }}</template>
+              By {{ post.authorName }}<template v-if="post.sourceName"> · {{ post.sourceName }}</template>
             </p>
           </div>
         </NuxtLink>

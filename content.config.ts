@@ -2,11 +2,41 @@ import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 
 export default defineContentConfig({
   collections: {
+    // The blog: originally, curated posts too. Files live at content/blog/**
+    // (NOT under a locale folder — the blog isn't localized). Field names
+    // mirror the old `posts` Supabase table 1:1; see CLAUDE.md.
+    blog: defineCollection({
+      type: 'page',
+      // include is relative to the content/ root (the default source cwd),
+      // so this scopes the collection to content/blog/** without a locale
+      // segment. Paths come out as /blog/<slug> automatically.
+      source: {
+        include: 'blog/**'
+      },
+      schema: z.object({
+        coverUrl: z.string().url().optional(),
+        tags: z.array(z.string()).optional(),
+        status: z.enum(['draft', 'published']).default('published'),
+        publishedAt: z.string().optional(),
+        // Curated posts credit whoever actually wrote them; requires
+        // sourceUrl + authorName (validated client-side in the Content Studio,
+        // there's no DB CHECK constraint for markdown files).
+        isExternal: z.boolean().optional(),
+        sourceUrl: z.string().url().optional(),
+        sourceName: z.string().optional(),
+        authorName: z.string().optional(),
+        authorUrl: z.string().url().optional(),
+        // Default true: host a summary, link out for the full article.
+        excerptOnly: z.boolean().default(true)
+      })
+    }),
     docs: defineCollection({
       type: 'page',
       // Content is organised per locale: content/<locale>/<module>/<lesson>.md
+      // (content/blog/** is excluded — that's the separate `blog` collection above).
       source: {
-        include: '**'
+        include: '**',
+        exclude: ['blog/**']
       },
       schema: z.object({
         links: z.array(z.object({
