@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Lets you re-deploy from the Actions tab without pushing a commit.
+  workflow_dispatch:
+
+# GITHUB_TOKEN permissions needed by actions/deploy-pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race. Queue instead of cancelling, so a push that lands
+# mid-deploy still ends up published rather than silently dropped.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # No test runner exists in this repo, so lint + typecheck are the gates.
+      - run: pnpm lint
+      - run: pnpm typecheck
+
+      - uses: actions/configure-pages@v5
+
+      - name: Build static site
+        run: pnpm generate
+        env:
+          NUXT_PUBLIC_SITE_URL: https://crmanalytics.imswarnil.com
+
+      # Fail loudly here rather than shipping a broken site: the github_pages
+      # preset must emit .nojekyll, and public/CNAME must survive into the
+      # output or the custom domain resets to *.github.io on every deploy.
+      - name: Verify output
+        run: |
+          test -f .output/public/index.html || { echo "::error::no index.html"; exit 1; }
+          test -f .output/public/.nojekyll || { echo "::error::missing .nojekyll — Jekyll would drop _nuxt/"; exit 1; }
+          test -f .output/public/CNAME     || { echo "::error::missing CNAME — custom domain would reset"; exit 1; }
+          echo "pages: $(find .output/public -name '*.html' | wc -l)"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

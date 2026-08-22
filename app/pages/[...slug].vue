@@ -16,13 +16,6 @@ const { locales } = useI18n()
 const localeCodes = locales.value.map(l => l.code)
 const contentPath = computed(() => routeToContentPath(route.path, localeCodes))
 
-// Locale-independent lesson key so progress is shared across languages
-// (/en/saql and /hi/saql → /saql). Used for completion tracking.
-const lessonKey = computed(() => {
-  const stripped = contentPath.value.replace(new RegExp(`^/(${localeCodes.join('|')})(?=/|$)`), '')
-  return stripped || '/'
-})
-
 const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
   // Some newer modules only have English content so far. Rather than 404 a
@@ -42,16 +35,6 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
     fields: ['description']
   })
 })
-
-// Soft members-gate: logged-out readers of an `access: members` lesson see a
-// teaser + sign-in prompt (content is still rendered, just visually gated).
-const user = useSupabaseUser()
-const locked = computed(() => page.value?.access === 'members' && !user.value)
-
-// Quiz gates completion: a lesson/section with a quiz can't be marked complete
-// until it's passed. No quiz → always completable.
-const quizPassed = ref(!page.value?.quiz?.length)
-const canComplete = computed(() => quizPassed.value)
 
 const title = page.value.seo?.title || page.value.title
 const description = page.value.seo?.description || page.value.description
@@ -206,45 +189,26 @@ useJsonLd(jsonLd)
     </UPageHeader>
 
     <UPageBody>
-      <MembersGate :locked="locked">
-        <YoutubeEmbed
-          v-if="page.video?.id && !locked"
-          :id="page.video.id"
-          :start="page.video.start"
-          :end="page.video.end"
-          :title="page.title"
-          class="mb-8"
-        />
+      <YoutubeEmbed
+        v-if="page.video?.id"
+        :id="page.video.id"
+        :start="page.video.start"
+        :end="page.video.end"
+        :title="page.title"
+        class="mb-8"
+      />
 
-        <ContentRenderer
-          v-if="renderedPage"
-          :value="renderedPage"
-        />
-      </MembersGate>
+      <ContentRenderer
+        v-if="renderedPage"
+        :value="renderedPage"
+      />
 
-      <template v-if="!locked">
-        <!-- End of section: interview prep first, then the graded quiz. -->
-        <LessonInterview
-          v-if="page.interview?.length"
-          :items="page.interview"
-        />
-
-        <LessonQuiz
-          v-if="page.quiz?.length"
-          :path="contentPath"
-          :quiz-id="lessonKey"
-          @passed="v => quizPassed = v"
-        />
-
-        <LessonProgress
-          :lesson-path="lessonKey"
-          :can-complete="canComplete"
-        />
-      </template>
+      <LessonInterview
+        v-if="page.interview?.length"
+        :items="page.interview"
+      />
 
       <AdUnit placement="endOfArticle" />
-
-      <LessonComments :page-path="route.path" />
 
       <USeparator v-if="surround?.length" />
 

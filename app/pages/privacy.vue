@@ -16,7 +16,7 @@ const sections = [
   },
   {
     title: 'Analytics',
-    body: 'We use Vercel Analytics to see which pages are popular and where visitors come from. It is configured to avoid storing personally identifiable information.'
+    body: 'We use Google Analytics and Microsoft Clarity to see which pages are popular, where visitors come from, and how lessons are read. Clarity also records anonymized interaction data such as clicks and scrolling to help us improve page layout. Neither is used to identify you personally.'
   },
   {
     title: 'Advertising — Google AdSense',

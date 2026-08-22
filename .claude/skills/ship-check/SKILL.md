@@ -1,11 +1,11 @@
 ---
 name: ship-check
-description: Pre-deploy verification for CRM Analytics Academy — runs lint, typecheck, and a production build, and flags anything that would break on Vercel. Use before committing/pushing or deploying.
+description: Pre-deploy verification for CRM Analytics Academy — runs lint, typecheck, and a static build, and flags anything that would break on GitHub Pages. Use before committing/pushing or deploying.
 ---
 
 # Ship check
 
-Run the full verification the project supports (there's no test runner). Do this before pushing to `main` / deploying to Vercel.
+Run the full verification the project supports (there's no test runner). Do this before pushing to `main` — a push to `main` deploys to GitHub Pages.
 
 ## Steps
 
@@ -30,6 +30,5 @@ Run the full verification the project supports (there's no test runner). Do this
 5. If dev was running, it may have wiped `.data` — run the `dev-reset` skill before returning to dev work.
 
 ## Gotchas
-- Env: the build needs `.env` present (Gemini + `CRMA_*` Supabase keys). Vercel has them set.
-- The `SUPABASE_SERVICE_KEY is deprecated` warning is non-blocking.
+- The site is fully static — there are no runtime secrets. `.env` only carries `NUXT_PUBLIC_SITE_URL`.
 - Never commit `.env` (it's gitignored). Verify with `git status` before committing.

@@ -13,16 +13,8 @@
     "more": "Plus",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
-    "dashboard": "Tableau de bord",
-    "profile": "Profil",
-    "admin": "Admin",
-    "signOut": "Se déconnecter",
-    "signIn": "Se connecter",
-    "showcase": "Vitrine",
     "roadmap": "Feuille de route",
-    "changelog": "Journal",
-    "feedback": "Retour",
-    "guestbook": "Livre d'or"
+    "changelog": "Journal"
   },
   "hero": {
     "badge": "Cursus gratuit et open source",

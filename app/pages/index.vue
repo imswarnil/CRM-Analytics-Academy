@@ -25,7 +25,7 @@ const stats = computed(() => [
 
 // The course is currently one video-led track ("CRM Analytics Foundations").
 // Each lesson pairs a clip of the Tableau CRM / CRM Analytics training video
-// with an article; the section closes with interview prep + a graded quiz.
+// with an article; the section closes with interview prep.
 const modules = computed(() => [
   {
     n: '01',

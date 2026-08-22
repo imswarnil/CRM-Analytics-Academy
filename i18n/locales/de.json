@@ -13,16 +13,8 @@
     "more": "Mehr",
     "privacy": "Datenschutzerklärung",
     "terms": "Nutzungsbedingungen",
-    "dashboard": "Dashboard",
-    "profile": "Profil",
-    "admin": "Admin",
-    "signOut": "Abmelden",
-    "signIn": "Anmelden",
-    "showcase": "Schaufenster",
     "roadmap": "Roadmap",
-    "changelog": "Änderungen",
-    "feedback": "Feedback",
-    "guestbook": "Gästebuch"
+    "changelog": "Änderungen"
   },
   "hero": {
     "badge": "Kostenloser & quelloffener Lehrplan",

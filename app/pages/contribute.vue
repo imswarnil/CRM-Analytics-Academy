@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const title = 'Contribute — CRM Analytics Academy'
-const description = 'Full contributor guide: set up locally, write and translate lessons, submit resources and projects, follow the code style, and open a pull request.'
+const description = 'Full contributor guide: set up locally, write and translate lessons, suggest resources, follow the code style, and open a pull request.'
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
@@ -16,12 +16,11 @@ const steps: { id: string, n: string, label: string, icon: string, level: Level 
   { id: 'lessons', n: '03', label: 'Writing a lesson', icon: 'i-lucide-pen-line', level: 'No code' },
   { id: 'frontmatter', n: '04', label: 'Lesson frontmatter', icon: 'i-lucide-file-code-2', level: 'No code' },
   { id: 'translations', n: '05', label: 'Translations', icon: 'i-lucide-languages', level: 'No code' },
-  { id: 'submit', n: '06', label: 'Submitting resources', icon: 'i-lucide-upload', level: 'No code' },
+  { id: 'submit', n: '06', label: 'Suggesting resources', icon: 'i-lucide-upload', level: 'No code' },
   { id: 'code', n: '07', label: 'Code contributions', icon: 'i-lucide-code', level: 'Intermediate' },
   { id: 'stack', n: '08', label: 'Tech stack', icon: 'i-lucide-layers', level: 'Reference' },
-  { id: 'database', n: '09', label: 'Database & migrations', icon: 'i-lucide-database', level: 'Advanced' },
-  { id: 'pr', n: '10', label: 'Opening a pull request', icon: 'i-lucide-git-pull-request', level: 'Beginner' },
-  { id: 'help', n: '11', label: 'Getting help', icon: 'i-lucide-life-buoy', level: 'Anytime' }
+  { id: 'pr', n: '09', label: 'Opening a pull request', icon: 'i-lucide-git-pull-request', level: 'Beginner' },
+  { id: 'help', n: '10', label: 'Getting help', icon: 'i-lucide-life-buoy', level: 'Anytime' }
 ]
 
 const levelColor = (l: Level): 'success' | 'primary' | 'warning' | 'neutral' =>
@@ -30,7 +29,7 @@ const levelColor = (l: Level): 'success' | 'primary' | 'warning' | 'neutral' =>
 // The friendliest first contributions — no experience required.
 const quickStarts = [
   { icon: 'i-lucide-type', title: 'Fix a typo', text: 'Hit “Edit this page” on any lesson — it opens a GitHub edit form. No setup at all.', to: '#lessons' },
-  { icon: 'i-lucide-upload', title: 'Share a resource', text: 'Sign in and submit a helpful link. An admin reviews it — no GitHub needed.', to: '#submit' },
+  { icon: 'i-lucide-upload', title: 'Share a resource', text: 'Found a great link? Open an issue and we will add it to the library.', to: '#submit' },
   { icon: 'i-lucide-languages', title: 'Translate a paragraph', text: 'Copy a lesson into another language and translate the text. Small chunks welcome.', to: '#translations' }
 ]
 
@@ -61,7 +60,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
           Help build the <span class="text-gradient">community</span>
         </h1>
         <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
-          Everything you need to add a lesson, translate content, share a resource or project, or improve the code.
+          Everything you need to add a lesson, translate content, suggest a resource, or improve the code.
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
           <UButton
@@ -74,14 +73,15 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
             View on GitHub
           </UButton>
           <UButton
-            :to="localePath('/submit/resource')"
+            :to="`${repo}/issues/new`"
+            target="_blank"
             size="lg"
             color="neutral"
             variant="outline"
             icon="i-lucide-plus"
             class="rounded-full font-semibold"
           >
-            Submit a resource
+            Suggest a resource
           </UButton>
         </div>
       </UContainer>
@@ -209,14 +209,14 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                   v-if="s.id === 'ways'"
                   :class="prose"
                 >
-                  <p>There are five main ways to help — pick whatever fits your time and skills:</p>
+                  <p>There are four main ways to help — pick whatever fits your time and skills:</p>
                   <ul>
                     <li><strong>Write or fix a lesson</strong> — improve wording, fix errors, or add a whole new lesson (Markdown, no coding needed).</li>
                     <li><strong>Translate</strong> — bring a lesson or the UI into one of the site's languages.</li>
-                    <li><strong>Submit a resource</strong> — share a great docs page, course, tool, or community. <NuxtLink :to="localePath('/submit/resource')">Submit here</NuxtLink> (an admin reviews it).</li>
+                    <li><strong>Suggest a resource</strong> — share a great docs page, course, tool, or community. <NuxtLink :to="`${repo}/issues/new`">Open an issue</NuxtLink> and we'll add it.</li>
                     <li><strong>Improve the code</strong> — fix a bug, refine the UI, or add a feature via a pull request.</li>
                   </ul>
-                  <p>Resources and projects can be submitted right on the site once you <NuxtLink :to="localePath('/login')">sign in</NuxtLink> — no GitHub needed. The rest go through GitHub.</p>
+                  <p>Everything goes through GitHub — the site is fully static, so every change is a file in the repo.</p>
                 </div>
 
                 <!-- setup -->
@@ -268,19 +268,21 @@ pnpm typecheck  # vue-tsc</code></pre>
                   <pre><code>---
 title: SAQL Basics
 description: A one-line summary used for SEO, the OG image, and AI search.
-# Optional — members-only lesson (logged-out users see a teaser):
-access: members
-# Optional — an end-of-lesson quiz (answer is the 0-based option index):
-quiz:
+# Optional — embed a clip of a YouTube video at the top of the lesson:
+video:
+  id: dQw4w9WgXcQ
+  start: 120
+  end: 480
+# Optional — model Q&amp;A rendered after the body (also emitted as FAQ schema):
+interview:
   - q: "What does the load statement do in SAQL?"
-    options: ["Filters rows", "Loads a dataset", "Groups data"]
-    answer: 1
+    a: "It loads a dataset into the query as the starting stream."
 ---
 
 # SAQL Basics
 
 Your content here…</code></pre>
-                  <p><code>title</code> and <code>description</code> are required; <code>access</code> and <code>quiz</code> are optional. A new <strong>top-level module</strong> also needs a <code>.navigation.yml</code> (with <code>title</code> and an <code>icon</code>) and a new section in the <code>llms</code> config in <code>nuxt.config.ts</code>.</p>
+                  <p><code>title</code> and <code>description</code> are required; <code>video</code> and <code>interview</code> are optional. A new <strong>top-level module</strong> also needs a <code>.navigation.yml</code> (with <code>title</code> and an <code>icon</code>) and a new section in the <code>llms</code> config in <code>nuxt.config.ts</code>.</p>
                 </div>
 
                 <!-- translations -->
@@ -298,7 +300,7 @@ Your content here…</code></pre>
                   v-else-if="s.id === 'submit'"
                   :class="prose"
                 >
-                  <p>This doesn't need GitHub — just sign in and share a helpful link (docs, course, tool, community). Go to <NuxtLink :to="localePath('/submit/resource')">Submit a resource</NuxtLink>, fill in the title, URL, and category. An admin reviews it, and once approved it appears on the <NuxtLink :to="localePath('/resources')">Resources</NuxtLink> page. Track the status (pending / approved) on your <NuxtLink :to="localePath('/dashboard')">dashboard</NuxtLink>.</p>
+                  <p>Found a helpful link (docs, course, tool, community)? <NuxtLink :to="`${repo}/issues/new`">Open an issue</NuxtLink> with the title, URL, and a one-line description. Once accepted it's added to the curated list in <code>app/pages/resources.vue</code> and appears on the <NuxtLink :to="localePath('/resources')">Resources</NuxtLink> page. Comfortable with a pull request? Add the entry yourself — it's a single line in that array.</p>
                 </div>
 
                 <!-- code -->
@@ -306,12 +308,11 @@ Your content here…</code></pre>
                   v-else-if="s.id === 'code'"
                   :class="prose"
                 >
-                  <p>The stack is <strong>Nuxt 4 · Nuxt Content · Nuxt UI v4 · Tailwind CSS 4 · Supabase</strong>. Key folders:</p>
+                  <p>The stack is <strong>Nuxt 4 · Nuxt Content · Nuxt UI v4 · Tailwind CSS 4</strong>. Key folders:</p>
                   <ul>
                     <li><code>content/</code> — the lessons (Markdown).</li>
                     <li><code>app/pages/</code>, <code>app/components/</code>, <code>app/composables/</code> — the app UI.</li>
-                    <li><code>server/</code> — API routes (moderation) and the raw-markdown surface.</li>
-                    <li><code>supabase/migrations/</code> — the database schema.</li>
+                    <li><code>server/routes/raw/</code> — the raw-markdown surface for AI agents and crawlers.</li>
                   </ul>
                   <p>Style rules are enforced by ESLint: no trailing commas, 1TBS braces, 2-space indent, and one interface member per line. Run <code>pnpm lint --fix</code> to auto-format. Match the surrounding code's conventions.</p>
                 </div>
@@ -326,21 +327,11 @@ Your content here…</code></pre>
                     <li><strong>Nuxt 4</strong> (Vue 3 + Nitro) — the framework, SSR + prerendering</li>
                     <li><strong>Nuxt Content 3</strong> — lessons authored in Markdown, served from SQLite</li>
                     <li><strong>Nuxt UI v4</strong> + <strong>Tailwind CSS 4</strong> — components and styling</li>
-                    <li><strong>Supabase</strong> (Postgres + Row-Level Security) — Google auth, profiles, progress, quizzes, comments, and resource submissions</li>
                     <li><strong>@nuxtjs/i18n</strong> — 8 languages</li>
-                    <li><strong>Vercel</strong> — hosting and CI (auto-deploy on push to <code>main</code>)</li>
+                    <li><strong>GitHub Pages</strong> + <strong>GitHub Actions</strong> — hosting and CI (auto-deploy on push to <code>main</code>)</li>
                   </ul>
                   <p>Also in the box: <code>nuxt-og-image</code> (social cards), <code>nuxt-llms</code> (machine-readable docs), and structured data for SEO.</p>
-                </div>
-
-                <!-- database -->
-                <div
-                  v-else-if="s.id === 'database'"
-                  :class="prose"
-                >
-                  <p>Schema changes go in <code>supabase/migrations/</code> as timestamped SQL files and are applied with the Supabase CLI:</p>
-                  <pre><code>supabase db push</code></pre>
-                  <p>Keep <code>types/database.types.ts</code> in sync so the typed client (<code>useDb()</code>) stays accurate. Every table uses Row-Level Security — new tables should ship with policies. If a SQL function forward-references a table created later in the file, add <code>set check_function_bodies = off;</code> at the top.</p>
+                  <p>There is <strong>no database and no accounts</strong> — every page is prerendered at build time from Markdown. If you're curious about the data model the site used to run on, see <code>dbms.md</code> in the repo.</p>
                 </div>
 
                 <!-- pr -->
@@ -355,7 +346,7 @@ Your content here…</code></pre>
                     <li><strong>Commit</strong> with a clear message and <strong>push</strong> to your fork.</li>
                     <li><strong>Open a PR</strong> against <code>main</code>, describing what changed and why.</li>
                   </ol>
-                  <p>A maintainer will review, suggest tweaks if needed, and merge. Once merged, Vercel deploys it automatically.</p>
+                  <p>A maintainer will review, suggest tweaks if needed, and merge. Once merged, the GitHub Actions workflow builds the site and publishes it to GitHub Pages automatically.</p>
                 </div>
 
                 <!-- help -->

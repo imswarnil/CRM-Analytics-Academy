@@ -15,6 +15,20 @@ interface Entry {
 
 const entries: Entry[] = [
   {
+    date: 'August 2026',
+    tag: 'Platform',
+    title: 'Back to a pure static site',
+    summary: 'We removed the entire backend. The Academy is now plain Markdown, prerendered and served from GitHub Pages — faster, simpler, and with nothing to sign into.',
+    color: 'warning',
+    items: [
+      'Accounts, progress tracking, graded quizzes, comments, feedback, the guestbook, and certificates have all been retired',
+      'No database and no analytics of your learning — every lesson is open to read with no sign-up',
+      'Every page is prerendered at build time, so the site loads as fast as static HTML can',
+      'Moved hosting from Vercel to GitHub Pages, deployed by GitHub Actions on every push',
+      'The old data model is documented in dbms.md in the repository, for anyone curious'
+    ]
+  },
+  {
     date: 'July 2026',
     tag: 'Community',
     title: 'Resource voting & leaderboard',

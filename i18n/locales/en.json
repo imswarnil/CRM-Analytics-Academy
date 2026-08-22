@@ -13,16 +13,8 @@
     "more": "More",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "dashboard": "Dashboard",
-    "profile": "Profile",
-    "admin": "Admin",
-    "signOut": "Sign out",
-    "signIn": "Sign in",
-    "showcase": "Showcase",
     "roadmap": "Roadmap",
-    "changelog": "Changelog",
-    "feedback": "Feedback",
-    "guestbook": "Guestbook"
+    "changelog": "Changelog"
   },
   "sponsorCard": {
     "title": "Sponsor this project",

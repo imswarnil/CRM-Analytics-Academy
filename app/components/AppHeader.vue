@@ -25,8 +25,6 @@ const moreItems = computed(() => [
   { label: t('nav.blog'), icon: 'i-lucide-newspaper', to: localePath('/blog') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
-  { label: t('nav.guestbook'), icon: 'i-lucide-book-heart', to: localePath('/guestbook') },
-  { label: t('nav.feedback'), icon: 'i-lucide-message-square-heart', to: localePath('/feedback') },
   { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },
   { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
 ])
@@ -102,8 +100,6 @@ const localeItems = computed(() =>
       >
         <UColorModeButton />
       </UTooltip>
-
-      <AppUserMenu />
 
       <!-- "More" overflow menu — kept last so it reads as the catch-all,
            after language and theme controls. Carries the mobile-only about

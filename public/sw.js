@@ -1,9 +1,13 @@
 // Minimal, safe service worker: caches immutable hashed static assets
-// cache-first, caches HTML navigations network-first (falling back to the
-// cache when offline), and never touches /api/* — dynamic, auth-bearing
-// requests must always hit the network so Supabase sessions, moderation,
-// and submissions behave exactly as without a service worker.
-const CACHE_NAME = 'crma-v1'
+// cache-first, and caches HTML navigations network-first (falling back to the
+// cache when offline). The site is fully static, so every response here is
+// public — there are no per-user or auth-bearing requests to keep out.
+//
+// Bump CACHE_NAME whenever a release must invalidate what returning visitors
+// already hold: `activate` deletes every cache that isn't the current name.
+// v2 = the static rewrite (dropped accounts, quizzes, comments, admin), so
+// stale HTML for those removed routes had to go.
+const CACHE_NAME = 'crma-v2'
 const STATIC_ASSET_RE = /\/_nuxt\/|\.(?:png|jpg|jpeg|svg|webp|ico|woff2?)$/
 
 self.addEventListener('install', () => {
@@ -24,7 +28,6 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url)
   if (url.origin !== self.location.origin) return
-  if (url.pathname.startsWith('/api/')) return
 
   if (STATIC_ASSET_RE.test(url.pathname)) {
     event.respondWith(

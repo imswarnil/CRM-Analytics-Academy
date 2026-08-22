@@ -7,10 +7,7 @@ export default defineNuxtConfig({
     '@nuxt/content',
     'nuxt-og-image',
     'nuxt-llms',
-    '@nuxtjs/i18n',
-    '@nuxtjs/supabase',
-    '@vercel/analytics/nuxt',
-    '@vercel/speed-insights/nuxt'
+    '@nuxtjs/i18n'
   ],
 
   devtools: {
@@ -19,18 +16,25 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      // Warm up the third-party origins early, but load the scripts themselves
+      // from the end of <body> so they never compete with the critical CSS/JS
+      // for bandwidth during first paint.
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' }
+        { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' },
+        { rel: 'preconnect', href: 'https://pagead2.googlesyndication.com', crossorigin: '' },
+        { rel: 'dns-prefetch', href: 'https://pagead2.googlesyndication.com' },
+        { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }
       ],
       script: [
         {
           src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540',
           async: true,
-          crossorigin: 'anonymous'
+          crossorigin: 'anonymous',
+          tagPosition: 'bodyClose'
         },
         // Google tag (gtag.js)
-        { src: 'https://www.googletagmanager.com/gtag/js?id=G-VJD486Z7WT', async: true },
-        { innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VJD486Z7WT');` }
+        { src: 'https://www.googletagmanager.com/gtag/js?id=G-VJD486Z7WT', async: true, tagPosition: 'bodyClose' },
+        { innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VJD486Z7WT');`, tagPosition: 'bodyClose' }
       ]
     }
   },
@@ -62,6 +66,13 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-07-11',
 
   nitro: {
+    // GitHub Pages serves plain files — there is no server. This preset emits a
+    // pure static tree into .output/public and, critically, writes a `.nojekyll`
+    // marker: without it GitHub runs Jekyll over the output, which silently
+    // ignores every underscore-prefixed directory (i.e. all of `_nuxt/`) and
+    // the site deploys with no CSS or JS at all.
+    preset: 'github_pages',
+
     prerender: {
       routes: [
         '/'
@@ -173,21 +184,5 @@ export default defineNuxtConfig({
 
   ogImage: {
     zeroRuntime: true
-  },
-
-  // Supabase auth + data. Keys come from the CRMA_-prefixed env vars created by
-  // the Vercel↔Supabase integration (see .env.example). `redirect: false` keeps
-  // the whole site public by default; individual pages opt in via the `auth`
-  // middleware. The service key is server-only (used for admin/moderation).
-  supabase: {
-    url: process.env.CRMA_SUPABASE_URL,
-    key: process.env.CRMA_SUPABASE_ANON_KEY,
-    // New-style secret key (sb_secret_…). The legacy `serviceKey` is deprecated;
-    // serverSupabaseServiceRole() uses this for admin/moderation.
-    secretKey: process.env.CRMA_SUPABASE_SECRET_KEY,
-    redirect: false,
-    // Client typing comes from useDb() (useSupabaseClient<Database>()), so the
-    // module's own type generation stays off.
-    types: false
   }
 })

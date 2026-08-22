@@ -9,7 +9,6 @@ const columns = computed(() => [
     children: [
       { label: t('home.modules.foundations.title'), to: localePath('/foundations') },
       { label: 'Interview questions', to: localePath('/foundations/interview-questions') },
-      { label: 'Graded quiz', to: localePath('/foundations/quiz') },
       { label: t('nav.resources'), to: localePath('/resources') },
       { label: t('nav.datasets'), to: localePath('/datasets') }
     ]
@@ -19,7 +18,7 @@ const columns = computed(() => [
     children: [
       { label: t('nav.about'), to: localePath('/about') },
       { label: t('nav.contribute'), to: localePath('/contribute') },
-      { label: 'Verify a certificate', to: localePath('/verify') },
+      { label: t('nav.roadmap'), to: localePath('/roadmap') },
       { label: t('nav.sponsor'), to: localePath('/sponsor') },
       { label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
     ]

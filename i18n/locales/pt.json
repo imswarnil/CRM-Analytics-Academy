@@ -13,16 +13,8 @@
     "more": "Mais",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço",
-    "dashboard": "Painel",
-    "profile": "Perfil",
-    "admin": "Admin",
-    "signOut": "Sair",
-    "signIn": "Entrar",
-    "showcase": "Vitrine",
     "roadmap": "Roteiro",
-    "changelog": "Novidades",
-    "feedback": "Feedback",
-    "guestbook": "Livro de visitas"
+    "changelog": "Novidades"
   },
   "hero": {
     "badge": "Currículo gratuito e de código aberto",

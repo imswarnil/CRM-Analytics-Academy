@@ -20,11 +20,13 @@ Lessons are markdown under `content/<locale>/<NN.module>/<NN.lesson>.md`. Englis
    title: <Lesson Title>
    description: <One-sentence summary — used for SEO and the OG image.>
    # Optional:
-   # access: members          # soft-gate: logged-out users see a teaser + sign-in
-   # quiz:
+   # video:                   # a clip of a YouTube video, embedded at the top
+   #   id: <youtube-id>
+   #   start: 0
+   #   end: 120
+   # interview:               # Q&A rendered after the body; also FAQPage JSON-LD
    #   - q: "Question text?"
-   #     options: ["A", "B", "C"]
-   #     answer: 1            # zero-based index of the correct option
+   #     a: "Model answer."
    ---
 
    # <Lesson Title>
