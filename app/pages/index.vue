@@ -446,7 +446,7 @@ useJsonLd({
             <!-- Illustration — alternates side per row, animates in on scroll -->
             <div :class="i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'">
               <div
-                :ref="el => (featureRowEls[i] = el as HTMLElement)"
+                :ref="(el: unknown) => (featureRowEls[i] = el as HTMLElement)"
                 class="relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-default bg-muted/30 p-8 sm:min-h-[380px]"
               >
                 <div class="absolute -inset-8 bg-primary/10 blur-3xl" />
