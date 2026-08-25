@@ -2,40 +2,74 @@ import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 
 export default defineContentConfig({
   collections: {
-    // The blog: original and curated posts. Files live at content/blog/**
-    // (NOT under a locale folder — the blog isn't localized).
-    blog: defineCollection({
-      type: 'page',
-      // include is relative to the content/ root (the default source cwd),
-      // so this scopes the collection to content/blog/** without a locale
-      // segment. Paths come out as /blog/<slug> automatically.
-      source: {
-        include: 'blog/**'
-      },
+    // Community-submitted resources. One markdown file per link, under
+    // content/resources/. Contributors open a PR adding a file; once it's
+    // merged the resource appears on /resources — no database, no moderation
+    // queue, the PR review *is* the moderation.
+    //
+    // `data` rather than `page`: these never render as their own route, they
+    // are just structured records the /resources page queries.
+    resources: defineCollection({
+      type: 'data',
+      source: 'resources/**/*.md',
       schema: z.object({
-        coverUrl: z.string().url().optional(),
-        tags: z.array(z.string()).optional(),
-        status: z.enum(['draft', 'published']).default('published'),
-        publishedAt: z.string().optional(),
-        // Curated posts credit whoever actually wrote them; requires
-        // sourceUrl + authorName (validated client-side in the Content Studio,
-        // there's no DB CHECK constraint for markdown files).
-        isExternal: z.boolean().optional(),
-        sourceUrl: z.string().url().optional(),
-        sourceName: z.string().optional(),
-        authorName: z.string().optional(),
-        authorUrl: z.string().url().optional(),
-        // Default true: host a summary, link out for the full article.
-        excerptOnly: z.boolean().default(true)
+        title: z.string(),
+        description: z.string(),
+        url: z.string().url(),
+        category: z.enum(['Docs', 'Learning', 'Books', 'Blogs', 'Tools', 'Community']),
+        // Any i-lucide-* or i-simple-icons-* name; falls back if omitted.
+        icon: z.string().optional(),
+        // Credit the person who submitted it, if they want it.
+        submittedBy: z.string().optional(),
+        submittedByUrl: z.string().url().optional(),
+        // Curated picks that shipped with the site, vs community submissions.
+        featured: z.boolean().default(false)
       })
     }),
+
+    // Community dashboard showcase. One markdown file per dashboard, under
+    // content/showcase/. Rendered as a page so each entry gets its own URL and
+    // can carry a full write-up in the body (build notes, gotchas, SAQL).
+    showcase: defineCollection({
+      type: 'page',
+      source: 'showcase/**',
+      schema: z.object({
+        // Screenshot of the finished dashboard — put the file in
+        // public/showcase/ and reference it as /showcase/<name>.png
+        image: z.string(),
+        author: z.string(),
+        authorUrl: z.string().url().optional(),
+        // e.g. Sales, Service, Marketing, Finance
+        domain: z.string().optional(),
+        difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).default('Intermediate'),
+        publishedAt: z.string().optional(),
+        // Which datasets/objects it's built on.
+        datasets: z.array(z.string()).optional(),
+        // The metrics on the dashboard and how each is actually computed —
+        // this is the part people come to the showcase for.
+        kpis: z.array(z.object({
+          name: z.string(),
+          formula: z.string(),
+          note: z.string().optional()
+        })).optional(),
+        // High-level build steps (the "recipe").
+        recipe: z.array(z.object({
+          step: z.string(),
+          detail: z.string().optional()
+        })).optional(),
+        // CRM Analytics features exercised, for filtering.
+        techniques: z.array(z.string()).optional()
+      })
+    }),
+
     docs: defineCollection({
       type: 'page',
-      // Content is organised per locale: content/<locale>/<module>/<lesson>.md
-      // (content/blog/** is excluded — that's the separate `blog` collection above).
+      // Content is organised per locale: content/<locale>/<module>/<lesson>.md.
+      // The non-localized collections above live in their own top-level folders
+      // and are excluded so they aren't ingested twice.
       source: {
         include: '**',
-        exclude: ['blog/**']
+        exclude: ['resources/**', 'showcase/**']
       },
       schema: z.object({
         links: z.array(z.object({
