@@ -103,6 +103,11 @@ export default defineNuxtConfig({
     strategy: 'prefix_except_default',
     defaultLocale: 'en',
     baseUrl: 'https://crmanalytics.imswarnil.com',
+    // 12 locales. `language` is the BCP-47 tag that lands in <html lang> and in
+    // the hreflang alternates; `dir` drives <html dir> so Arabic and Urdu lay
+    // out right-to-left. `translateTo` is not an i18n option — it is read by
+    // scripts/translate.mjs, which needs LibreTranslate's own codes (it speaks
+    // `zh-Hans`, not `zh`). Keep the two in sync when adding a locale.
     locales: [
       { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
       { code: 'es', language: 'es-ES', name: 'Español', file: 'es.json' },
@@ -111,7 +116,11 @@ export default defineNuxtConfig({
       { code: 'pt', language: 'pt-BR', name: 'Português', file: 'pt.json' },
       { code: 'ja', language: 'ja-JP', name: '日本語', file: 'ja.json' },
       { code: 'zh', language: 'zh-CN', name: '中文', file: 'zh.json' },
-      { code: 'hi', language: 'hi-IN', name: 'हिन्दी', file: 'hi.json' }
+      { code: 'hi', language: 'hi-IN', name: 'हिन्दी', file: 'hi.json' },
+      { code: 'ar', language: 'ar-SA', name: 'العربية', file: 'ar.json', dir: 'rtl' },
+      { code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru.json' },
+      { code: 'bn', language: 'bn-BD', name: 'বাংলা', file: 'bn.json' },
+      { code: 'ur', language: 'ur-PK', name: 'اردو', file: 'ur.json', dir: 'rtl' }
     ],
     detectBrowserLanguage: {
       useCookie: true,

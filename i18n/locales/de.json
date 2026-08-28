@@ -14,7 +14,13 @@
     "privacy": "Datenschutzerklärung",
     "terms": "Nutzungsbedingungen",
     "roadmap": "Roadmap",
-    "changelog": "Änderungen"
+    "changelog": "Änderungen",
+    "showcase": "Schaufenster"
+  },
+  "sponsorCard": {
+    "title": "Sponsor dieses Projekts",
+    "desc": "Halten Sie den Lehrplan frei und offen.",
+    "cta": "Erfahren Sie mehr"
   },
   "hero": {
     "badge": "Kostenloser & quelloffener Lehrplan",
@@ -49,9 +55,33 @@
         "title": "Grundlagen",
         "desc": "Was CRM Analytics ist, wie Daten zu einem sicheren Dataset werden, und die Bausteine der Plattform."
       },
+      "gettingStarted": {
+        "title": "Erste Schritte",
+        "desc": "Ermöglicht CRM AnalyticsErstellen Sie Ihre erste App und erkunden Sie Beispieldaten, bevor Sie Ihre eigenen verbinden."
+      },
+      "tour": {
+        "title": "Tour",
+        "desc": "Eine Führung durch Analytics Studio — Heimat, Data ManagerExplorer und das Dashboard Editor."
+      },
+      "navigating": {
+        "title": "Navigierende Dashboards",
+        "desc": "Lesen, filtern, facetten und bohren sie in ein dashboard, speichern und teilen sie dann ihre eigene ansicht."
+      },
+      "saql": {
+        "title": "SAQL",
+        "desc": "Schreiben SAQL Abfragen - filtern, gruppieren, aggregieren und debuggen Sie die Sprache, in die jedes Diagramm kompiliert."
+      },
       "analytics": {
         "title": "Analytik & SAQL",
         "desc": "Schreibe SAQL-Abfragen, baue interaktive Dashboards und ergänze Vorhersagen mit Einstein Discovery."
+      },
+      "bindings": {
+        "title": "Bindungen",
+        "desc": "Draht-Widgets zusammen mit Auswahl, Zelle und URL Bindungen, so dass eine Auswahl viele antreibt."
+      },
+      "chartEmbedding": {
+        "title": "Karteneinbettung",
+        "desc": "Einbetten eines Dashboards auf einer Datensatzseite, in eine benutzerdefinierte Komponente oder außerhalb Salesforce vollständig."
       }
     },
     "startModule": "Modul starten",
@@ -215,11 +245,39 @@
     "aboutTitle": "Über uns — CRM Analytics Academy",
     "aboutDesc": "Die Geschichte hinter CRM Analytics Academy, einem quelloffenen Lehrplan für Salesforce CRM Analytics, und der Person, die ihn entwickelt.",
     "resourcesTitle": "Ressourcen — CRM Analytics Academy",
-    "resourcesDesc": "Eine kuratierte Liste der besten Salesforce-CRM-Analytics-Ressourcen: offizielle Dokumentation, Trailhead, SAQL-Referenzen, Community und Tools."
+    "resourcesDesc": "Eine kuratierte Liste der besten Salesforce-CRM-Analytics-Ressourcen: offizielle Dokumentation, Trailhead, SAQL-Referenzen, Community und Tools.",
+    "showcaseTitle": "Dashboard Showcase",
+    "showcaseDesc": "Real CRM Analytics Dashboards, die von der Community erstellt wurden - die KPIs, die Formeln dahinter und die Techniken, mit denen jeder erstellt wurde."
   },
   "video": {
     "thanksForWatching": "Danke fürs Zuschauen!",
     "replay": "Wiederholen",
     "lessonCompleted": "Lektion abgeschlossen"
+  },
+  "showcase": {
+    "title": "Dashboard Showcase",
+    "subtitle": "Echte Dashboards, mit den KPIs und dem Denken dahinter. Filtern nach Geschäftsbereich, Schwierigkeitsgrad oder CRM Analytics angewandte Techniken.",
+    "all": "alle",
+    "domain": "Geschäftsbereich",
+    "difficulty": "Schwierigkeiten",
+    "technique": "Technik",
+    "results": "Armaturenbretter",
+    "noResults": "Noch stimmen keine Dashboards mit diesen Filtern überein.",
+    "clearFilters": "Klarfilter",
+    "by": "Gebaut von",
+    "kpis": "KPIs und wie sie berechnet werden",
+    "kpiName": "Metrisch",
+    "kpiFormula": "Wie es berechnet wird",
+    "kpiNote": "Warum",
+    "recipe": "Wie es gebaut wurde",
+    "datasets": "Verwendete Datensätze",
+    "techniques": "Verwendete Techniken",
+    "published": "Veröffentlicht",
+    "back": "Zurück zum Showcase",
+    "submit": "Senden Sie Ihr Dashboard",
+    "submitHint": "Etwas gebaut, auf das du stolz bist? Öffnen Sie eine Pull-Anfrage mit einer Markdown-Datei und sie erscheint hier.",
+    "beginner": "Anfänger",
+    "intermediate": "Zwischenprodukt",
+    "advanced": "Fortgeschritten"
   }
 }

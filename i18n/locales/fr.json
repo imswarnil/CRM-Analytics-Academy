@@ -14,7 +14,13 @@
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
     "roadmap": "Feuille de route",
-    "changelog": "Journal"
+    "changelog": "Journal",
+    "showcase": "Afficher"
+  },
+  "sponsorCard": {
+    "title": "Parrainer ce projet",
+    "desc": "Gardez le programme libre et ouvert.",
+    "cta": "En savoir plus"
   },
   "hero": {
     "badge": "Cursus gratuit et open source",
@@ -49,9 +55,33 @@
         "title": "Fondamentaux",
         "desc": "Ce qu'est CRM Analytics, comment les données deviennent un jeu de données sécurisé, et les composants de la plateforme."
       },
+      "gettingStarted": {
+        "title": "Commencer",
+        "desc": "Activer CRM Analytics, créez votre première application, et explorez des données d'échantillon avant de connecter votre propre."
+      },
+      "tour": {
+        "title": "Visite",
+        "desc": "Une visite guidée Analytics Studio — chez soi, Data Manager, Explorer, et l'éditeur de tableau de bord."
+      },
+      "navigating": {
+        "title": "Naviguer dans les tableaux de bord",
+        "desc": "Lire, filtrer, faire face et percer dans un tableau de bord, puis enregistrer et partager votre propre vue."
+      },
+      "saql": {
+        "title": "SAQL",
+        "desc": "Écrire SAQL requêtes — filtrer, grouper, agréger et déboguer la langue dans laquelle chaque graphique est compilé."
+      },
       "analytics": {
         "title": "Analytique et SAQL",
         "desc": "Écrivez des requêtes SAQL, créez des tableaux de bord interactifs et ajoutez des prédictions avec Einstein Discovery."
+      },
+      "bindings": {
+        "title": "Reliures",
+        "desc": "Widgets filaires avec sélection, cellule et URL se fixe donc une sélection entraîne beaucoup."
+      },
+      "chartEmbedding": {
+        "title": "Inscription du graphique",
+        "desc": "Intégré un tableau de bord sur une page d'enregistrement, dans un composant personnalisé ou à l'extérieur Salesforce entièrement."
       }
     },
     "startModule": "Démarrer le module",
@@ -215,11 +245,39 @@
     "aboutTitle": "À propos — CRM Analytics Academy",
     "aboutDesc": "L'histoire de CRM Analytics Academy, un cursus open source pour Salesforce CRM Analytics, et la personne qui le développe.",
     "resourcesTitle": "Ressources — CRM Analytics Academy",
-    "resourcesDesc": "Une sélection des meilleures ressources Salesforce CRM Analytics : documentation officielle, Trailhead, références SAQL, communauté et outils."
+    "resourcesDesc": "Une sélection des meilleures ressources Salesforce CRM Analytics : documentation officielle, Trailhead, références SAQL, communauté et outils.",
+    "showcaseTitle": "Tableau de bord",
+    "showcaseDesc": "Réel CRM Analytics les tableaux de bord construits par la communauté — les KPI, les formules derrière eux, et les techniques utilisées pour construire chacun."
   },
   "video": {
     "thanksForWatching": "Merci d'avoir regardé !",
     "replay": "Revoir",
     "lessonCompleted": "Leçon terminée"
+  },
+  "showcase": {
+    "title": "Tableau de bord",
+    "subtitle": "De vrais tableaux de bord, avec les KPI et la pensée derrière eux. Filtrer par secteur d'activité, difficulté, CRM Analytics techniques utilisées.",
+    "all": "Tous",
+    "domain": "Secteur d'activité",
+    "difficulty": "Difficulté",
+    "technique": "Technique",
+    "results": "tableaux de bord",
+    "noResults": "Aucun tableau de bord ne correspond à ces filtres.",
+    "clearFilters": "Effacer les filtres",
+    "by": "Construit par",
+    "kpis": "Les ICR et leur calcul",
+    "kpiName": "métrique",
+    "kpiFormula": "Comment il est calculé",
+    "kpiNote": "Pourquoi",
+    "recipe": "Comment il a été construit",
+    "datasets": "Données utilisées",
+    "techniques": "Techniques utilisées",
+    "published": "Publié",
+    "back": "Retour à la vitrine",
+    "submit": "Soumettre votre tableau de bord",
+    "submitHint": "Vous avez construit quelque chose de fier ? Ouvrez une requête de tirage avec un fichier balisage et il apparaît ici.",
+    "beginner": "Débutant",
+    "intermediate": "Intermédiaire",
+    "advanced": "Avancé"
   }
 }

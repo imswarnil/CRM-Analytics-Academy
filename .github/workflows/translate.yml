@@ -1,0 +1,134 @@
+name: Translate content
+
+# English is the only language anyone edits. When English source changes land on
+# main, translate them into the other eleven locales and commit the result back;
+# that commit is what triggers deploy.yml, so the site ships already translated.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/en/**'
+      - 'i18n/locales/en.json'
+      - 'scripts/translate.mjs'
+      - 'scripts/markdown-protect.mjs'
+      - 'scripts/i18n.config.mjs'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Re-translate everything, ignoring the manifest'
+        type: boolean
+        default: false
+      locales:
+        description: 'Comma-separated locales (blank = all)'
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+# Two translation runs at once would race on the same files, and pointing two of
+# them at one LibreTranslate instance reliably makes it drop connections.
+concurrency:
+  group: translate
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    # A push made by this workflow's own commit must not trigger it again.
+    if: "!contains(github.event.head_commit.message, '[skip translate]')"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # deploy.yml runs on the commit this job pushes, so a token that can
+          # write is required; the default GITHUB_TOKEN is enough.
+          persist-credentials: true
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # The endpoint is not committed (public repo, keyless instance), so it has
+      # to come from a repository variable. Without it, skip the translation
+      # steps with a warning rather than failing every push to main — deploy.yml
+      # is a separate workflow and still ships the site.
+      - name: Check endpoint is configured
+        id: cfg
+        run: |
+          if [ -z "${{ vars.LIBRETRANSLATE_URL }}" ]; then
+            echo "::warning::LIBRETRANSLATE_URL repository variable is not set — skipping translation. Add it under Settings → Secrets and variables → Actions → Variables."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Translate
+        if: steps.cfg.outputs.configured == 'true'
+        # A normal push changes one or two English files, so this is minutes.
+        # The cap is here for a bulk change; the manifest is saved after every
+        # file, so a run that hits it resumes on the next push rather than
+        # starting over.
+        timeout-minutes: 330
+        env:
+          # Set these in Settings → Secrets and variables → Actions.
+          # LIBRETRANSLATE_URL is a repository *variable*; the key (if the server
+          # ever needs one) is a *secret*. The script falls back to the endpoint
+          # in scripts/i18n.config.mjs when the variable is unset.
+          LIBRETRANSLATE_URL: ${{ vars.LIBRETRANSLATE_URL }}
+          LIBRETRANSLATE_API_KEY: ${{ secrets.LIBRETRANSLATE_API_KEY }}
+        run: |
+          set +e
+          if [ "${{ inputs.force }}" = "true" ]; then
+            # --force has to go through the script directly; translate-all.sh
+            # only forwards a locale list.
+            node scripts/translate.mjs --force ${{ inputs.locales && format('--locales={0}', inputs.locales) || '' }}
+          else
+            # Sequential, one locale at a time. The translation server is a
+            # 2-vCPU VPS and has already been taken down by a run that leaned on
+            # it too hard; this walks the locales politely and is resumable.
+            # UI strings first, then content.
+            node scripts/translate.mjs --only=ui && bash scripts/translate-all.sh ${{ inputs.locales }}
+          fi
+          status=$?
+          set -e
+          # Exit code 2 means some files fell back to English and were left out
+          # of the manifest. That is a partial success worth committing — the
+          # next run retries them — so it must not fail the job.
+          if [ $status -ne 0 ] && [ $status -ne 2 ]; then exit $status; fi
+          echo "translate_status=$status" >> "$GITHUB_ENV"
+
+      - name: Verify nothing English-only was corrupted
+        if: steps.cfg.outputs.configured == 'true'
+        run: |
+          # The script must never touch the English source of truth.
+          if ! git diff --quiet -- content/en i18n/locales/en.json; then
+            echo "::error::translate.mjs modified English source files"
+            git diff --stat -- content/en i18n/locales/en.json
+            exit 1
+          fi
+
+      - name: Commit translations
+        if: steps.cfg.outputs.configured == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content i18n/locales .translation-manifest.json
+          if git diff --cached --quiet; then
+            echo "No translation changes."
+            exit 0
+          fi
+          git commit -m "Translate content into the other locales [skip translate]"
+          # Rebase rather than force: another push may have landed while the
+          # translation run was working through eleven languages.
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
+
+      - name: Report incomplete files
+        if: steps.cfg.outputs.configured == 'true' && env.translate_status == '2'
+        run: echo "::warning::Some files fell back to English and were left out of the manifest. Re-run this workflow to retry them."

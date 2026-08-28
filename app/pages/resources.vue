@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const title = computed(() => t('seo.resourcesTitle'))
 const description = computed(() => t('seo.resourcesDesc'))
 
@@ -55,7 +55,7 @@ useJsonLd({
   'name': title.value,
   'description': description.value,
   'url': `${SITE.url}/resources`,
-  'inLanguage': 'en'
+  'inLanguage': locale.value
 })
 </script>
 

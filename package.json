@@ -13,7 +13,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "translate": "node --env-file-if-exists=.env scripts/translate.mjs"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.114",

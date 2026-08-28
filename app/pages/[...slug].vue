@@ -12,29 +12,53 @@ const localePath = useLocalePath()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 // Content lives under content/<locale>/…; map the route to the content path.
-const { locales } = useI18n()
+const { locale, locales } = useI18n()
 const localeCodes = locales.value.map(l => l.code)
 const contentPath = computed(() => routeToContentPath(route.path, localeCodes))
+
+// The same path under the default locale, used whenever this one is untranslated.
+const englishPath = computed(() =>
+  contentPath.value.replace(new RegExp(`^/(${localeCodes.join('|')})(?=/|$)`), `/${DEFAULT_LOCALE}`)
+)
 
 const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
   // Some newer modules only have English content so far. Rather than 404 a
   // reader whose locale (or the language switcher) points at a path that was
   // never translated, fall back to serving the English version of the page.
-  const englishPath = contentPath.value.replace(new RegExp(`^/(${localeCodes.join('|')})(?=/|$)`), `/${DEFAULT_LOCALE}`)
-  if (englishPath !== contentPath.value) {
-    page.value = await queryCollection('docs').path(englishPath).first()
+  if (englishPath.value !== contentPath.value) {
+    page.value = await queryCollection('docs').path(englishPath.value).first()
   }
   if (!page.value) {
     throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
   }
 }
 
-const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
-  return queryCollectionItemSurroundings('docs', contentPath.value, {
+const { data: surroundRaw } = await useAsyncData(`${route.path}-surround`, async () => {
+  const own = await queryCollectionItemSurroundings('docs', contentPath.value, {
+    fields: ['description']
+  })
+  if (own?.some(Boolean)) return own
+
+  // An untranslated locale has no surroundings of its own, which cost more than
+  // the missing prev/next buttons: the prerenderer walks the curriculum through
+  // this chain, so without it only the first module of that locale ever gets
+  // built. Borrow the English chain and point it at this locale's URLs.
+  if (englishPath.value === contentPath.value) return own
+  return queryCollectionItemSurroundings('docs', englishPath.value, {
     fields: ['description']
   })
 })
+
+// Surroundings come back with *content* paths (/en/foundations/…), and rendering
+// them directly produced a second, self-canonical copy of every English page at
+// /en/… — real duplicate content, since the default locale is unprefixed. Map
+// them to route paths the same way the navigation tree is mapped.
+const surround = computed(() =>
+  (surroundRaw.value ?? []).map(item =>
+    item ? { ...item, path: localePath(contentToRoutePath(item.path)) } : item
+  )
+)
 
 const title = page.value.seo?.title || page.value.title
 const description = page.value.seo?.description || page.value.description
@@ -109,7 +133,8 @@ const jsonLd: any[] = [
     '@type': 'TechArticle',
     'headline': title,
     'description': description,
-    'inLanguage': 'en',
+    // The locale this page was prerendered for, not a fixed 'en'.
+    'inLanguage': locales.value.find(l => l.code === locale.value)?.language || locale.value,
     'mainEntityOfPage': SITE.url + route.path,
     'author': { '@type': 'Person', 'name': SITE.author },
     'publisher': { '@type': 'Organization', 'name': SITE.name, 'logo': { '@type': 'ImageObject', 'url': `${SITE.url}/icon-512.png` } },

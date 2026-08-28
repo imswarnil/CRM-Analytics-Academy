@@ -28,3 +28,11 @@ logs
 
 # Personal reference PDFs (not part of the site)
 pdfs/
+
+# Local Salesforce project material that should never reach the public repo.
+# project/ itself is tracked (for its README); these are the things that must not be.
+project/**/.sfdx/
+project/**/.sf/
+project/**/*.key
+project/**/*.crt
+project/**/auth*.json
