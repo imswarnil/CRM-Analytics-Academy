@@ -40,11 +40,12 @@ If the docs nav or `/raw/*.md` ever looks empty/broken in dev, this is almost al
 ## Architecture
 
 ### Content pipeline (the docs)
-- `content/<locale>/<NN.module>/<NN.lesson>.md` — numeric prefixes set ordering; `.navigation.yml` per dir overrides `title`/`icon`. 8 locales: `en` (default, unprefixed) + `es fr de pt ja zh hi`.
+- `content/<locale>/<NN.module>/<NN.lesson>.md` — numeric prefixes set ordering; `.navigation.yml` per dir overrides `title`/`icon`. 12 locales: `en` (default, unprefixed) + `es fr de pt ja zh hi ar ru bn ur`; `ar` and `ur` are RTL. **Only `content/en/` is written by hand** — see "Translation pipeline" below.
 - `content.config.ts` — the `docs` collection schema. Frontmatter supports: `title`, `description`, optional `links[]` (header buttons), `video` (`{ id, start, end }` — a YouTube clip embedded at the top), and `interview[]` (`{ q, a }` — model Q&A rendered after the body, also emitted as FAQPage JSON-LD).
 - `app/pages/[...slug].vue` — the single catch-all rendering any docs page (`docs` layout, `UPage`/`UContentToc`). It maps the localized route → content path, renders the video, body, and interview Q&A, and falls back to the English page when a locale is untranslated.
 - `app/pages/index.vue` — landing page. Other top-level `app/pages/*.vue` are hand-written (about, resources, contribute, roadmap, changelog, sponsor, datasets, privacy, terms).
-- **Blog**: markdown under `content/blog/**` (a separate `blog` collection, not localized). Posts are either original or **curated** (`isExternal`) — curated posts require `authorName` + `sourceUrl`, render a credit line, and set `rel="canonical"` to the original. Default `excerptOnly` is true. Public at `app/pages/blog/index.vue` + `app/pages/blog/[slug].vue`.
+- **Showcase**: community dashboard write-ups under `content/showcase/**` (a separate `showcase` collection, not localized). Each entry carries a screenshot, `kpis[]` (name + formula + why), `recipe[]` (build steps), `datasets[]` and `techniques[]`. `domain`/`difficulty`/`techniques` drive client-side filters on `app/pages/showcase/index.vue`; detail at `app/pages/showcase/[slug].vue`. Screenshots go in `public/showcase/`.
+- There is **no blog** — it was replaced by `content/resources/` in commit `54095d1`.
 - To add a lesson, add a markdown file under `content/` (see the `new-lesson` skill). Do **not** create a Vue file. New pages must be link-reachable from `/` to be prerendered (`nitro.prerender.crawlLinks`).
 
 ### Static-only constraints
@@ -64,13 +65,40 @@ Same `docs` collection, exposed to AI agents/crawlers two ways:
 - OG images: `nuxt-og-image` (`zeroRuntime`), template `app/components/OgImage/Docs.takumi.vue`.
 - Ads: Google AdSense via `AdUnit.vue` (placements: headerBanner, endOfArticle, relatedPosts, sidebarSquare, footer). Third-party scripts load at `tagPosition: 'bodyClose'` with preconnect hints — keep it that way.
 
+### Translation pipeline
+English is the source of truth; the other 11 locales are **generated**.
+
+```bash
+pnpm translate                  # only what changed
+pnpm translate --locales=es,fr  # subset;  --only=ui|content, --limit=N, --force, --dry-run
+```
+
+`.github/workflows/translate.yml` runs this on every push to `main` that touches
+`content/en/**` or `i18n/locales/en.json`, and commits the result back (which triggers the
+deploy). It refuses to finish if the script modified anything under `content/en/`.
+
+- `scripts/translate.mjs` — driver: block parsing, batching, retry, incremental manifest.
+- `scripts/markdown-protect.mjs` — markdown ⇄ HTML with placeholder atoms. **Read the header comment before touching it**; the design is dictated by measured server behaviour (raw markdown gets corrupted, HTML tags survive, unicode sentinels are destroyed, placeholders fragment sentences).
+- `scripts/i18n.config.mjs` — locale map (LibreTranslate codes differ: `zh-Hans`, `pt-BR`), glossary, native locale names.
+- `.translation-manifest.json` — per-file and per-UI-key hashes of the **English** source. A file that fell back to English is deliberately left out, so the next run retries it.
+
+Hand-fix a bad translation by editing the locale file directly — it is only regenerated when
+its English source changes. See the `translate-lesson` skill for the full rationale.
+
 ## Environment variables
 
 Local values live in a **gitignored `.env`** (`.env.example` documents the shape). There are **no secrets** — the only variable is `NUXT_PUBLIC_SITE_URL` (public site URL, used for OG images when prerendering).
 
 ## Conventions
-- Links: use `useLocalePath()` / `localePath('/path')` for internal links (i18n prefixing). New user-facing nav strings go in **all 8** `i18n/locales/*.json` (there's no message fallback).
+- Links: use `useLocalePath()` / `localePath('/path')` for internal links (i18n prefixing). New user-facing strings go in `i18n/locales/en.json` **only** — `pnpm translate --only=ui` fills in the other 11 and preserves existing translations. There is no message fallback, so a key missing from a locale renders as the raw key.
+- JSON-LD `inLanguage`, the canonical link and `og:locale` are all derived from the active locale (`app/app.vue`). Don't hardcode `'en'` — every locale prerenders its own copy of each page.
 - All data is either markdown frontmatter or a static array in the page that uses it (e.g. the curated list in `app/pages/resources.vue`).
+
+## The project/ folder
+`project/` holds Swarnil's local Salesforce project material (org metadata, dashboard JSON,
+SAQL scratch files). It is **outside the build**: not in `content/`, not linked from any
+page, so neither Nuxt Content nor the prerender crawler sees it. The repo is public — see
+`project/README.md` for what must be sanitised before committing.
 
 ## Notes
 - `how-it-works.md` is the narrative architecture walkthrough; `dbms.md` is the data-model reference.

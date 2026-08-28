@@ -22,7 +22,7 @@ const moreItems = computed(() => [
   { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
   { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
-  { label: t('nav.blog'), icon: 'i-lucide-newspaper', to: localePath('/blog') },
+  { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },

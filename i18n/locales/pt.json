@@ -14,7 +14,13 @@
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço",
     "roadmap": "Roteiro",
-    "changelog": "Novidades"
+    "changelog": "Novidades",
+    "showcase": "Showcase"
+  },
+  "sponsorCard": {
+    "title": "Patrocine este projeto.",
+    "desc": "Mantenha o currículo livre e aberto.",
+    "cta": "Saiba mais."
   },
   "hero": {
     "badge": "Currículo gratuito e de código aberto",
@@ -49,9 +55,33 @@
         "title": "Fundamentos",
         "desc": "O que é o CRM Analytics, como os dados viram um conjunto de dados seguro e os componentes da plataforma."
       },
+      "gettingStarted": {
+        "title": "Começando",
+        "desc": "Activar CRM Analytics, criar seu primeiro aplicativo, e explorar dados de amostra antes de conectar o seu próprio."
+      },
+      "tour": {
+        "title": "Tour",
+        "desc": "Uma visita guiada de Analytics Studio - Casa. Data Manager, Explorer, e o Editor de Painel."
+      },
+      "navigating": {
+        "title": "Navegando pelos painéis",
+        "desc": "Leia, filtrar, facetar, e perfurar em um painel, em seguida, salvar e compartilhar sua própria visão."
+      },
+      "saql": {
+        "title": "SAQL",
+        "desc": "Escreva. SAQL Consultas: filtrar, agrupar, agregar e depurar a linguagem para a qual cada gráfico compila."
+      },
       "analytics": {
         "title": "Analytics e SAQL",
         "desc": "Escreva consultas SAQL, crie painéis interativos e adicione previsões com o Einstein Discovery."
+      },
+      "bindings": {
+        "title": "Encadernação",
+        "desc": "Fios widgets junto com seleção, célula, e URL Encaderna assim uma seleção dirige muitos."
+      },
+      "chartEmbedding": {
+        "title": "Chart Incorporando",
+        "desc": "Incorpore um painel em uma página de registro, em um componente personalizado, ou fora. Salesforce Completamente."
       }
     },
     "startModule": "Iniciar módulo",
@@ -215,11 +245,39 @@
     "aboutTitle": "Sobre — CRM Analytics Academy",
     "aboutDesc": "A história por trás da CRM Analytics Academy, um currículo de código aberto para Salesforce CRM Analytics, e quem o desenvolve.",
     "resourcesTitle": "Recursos — CRM Analytics Academy",
-    "resourcesDesc": "Uma lista selecionada dos melhores recursos de Salesforce CRM Analytics — documentação oficial, Trailhead, referências de SAQL, comunidade e ferramentas."
+    "resourcesDesc": "Uma lista selecionada dos melhores recursos de Salesforce CRM Analytics — documentação oficial, Trailhead, referências de SAQL, comunidade e ferramentas.",
+    "showcaseTitle": "Mostrador do painel",
+    "showcaseDesc": "Real. CRM Analytics painéis construídos pela comunidade - os KPIs, as fórmulas por trás deles, e as técnicas usadas para construir cada um."
   },
   "video": {
     "thanksForWatching": "Obrigado por assistir!",
     "replay": "Assistir novamente",
     "lessonCompleted": "Lição concluída"
+  },
+  "showcase": {
+    "title": "Mostrador do painel",
+    "subtitle": "Painéis reais, com os KPIs e o pensamento por trás deles. Filtrar por área de negócios, dificuldade, ou o CRM Analytics Técnicas usadas.",
+    "all": "Todos",
+    "domain": "Área de negócios",
+    "difficulty": "Dificuldade",
+    "technique": "Técnica",
+    "results": "Painéis",
+    "noResults": "Nenhum painel bate com esses filtros ainda.",
+    "clearFilters": "Limpar filtros",
+    "by": "Construído por",
+    "kpis": "KPIs e como eles são calculados",
+    "kpiName": "Métrico",
+    "kpiFormula": "Como é calculado",
+    "kpiNote": "Por quê?",
+    "recipe": "Como foi construída",
+    "datasets": "Datasets usados",
+    "techniques": "Técnicas usadas",
+    "published": "Publicado",
+    "back": "Voltar para mostrar",
+    "submit": "Envie seu painel.",
+    "submitHint": "Construiu algo de que se orgulha? Abra um pedido com um arquivo e aparece aqui.",
+    "beginner": "Iniciante.",
+    "intermediate": "Intermediário.",
+    "advanced": "Avançado."
   }
 }

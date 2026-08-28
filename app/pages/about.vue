@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const title = computed(() => t('seo.aboutTitle'))
 const description = computed(() => t('seo.aboutDesc'))
 
@@ -19,7 +19,7 @@ useJsonLd([
     'name': title.value,
     'description': description.value,
     'url': `${SITE.url}/about`,
-    'inLanguage': 'en'
+    'inLanguage': locale.value
   },
   {
     '@context': 'https://schema.org',

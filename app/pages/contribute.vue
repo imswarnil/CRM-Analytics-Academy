@@ -16,11 +16,12 @@ const steps: { id: string, n: string, label: string, icon: string, level: Level 
   { id: 'lessons', n: '03', label: 'Writing a lesson', icon: 'i-lucide-pen-line', level: 'No code' },
   { id: 'frontmatter', n: '04', label: 'Lesson frontmatter', icon: 'i-lucide-file-code-2', level: 'No code' },
   { id: 'translations', n: '05', label: 'Translations', icon: 'i-lucide-languages', level: 'No code' },
-  { id: 'submit', n: '06', label: 'Suggesting resources', icon: 'i-lucide-upload', level: 'No code' },
-  { id: 'code', n: '07', label: 'Code contributions', icon: 'i-lucide-code', level: 'Intermediate' },
-  { id: 'stack', n: '08', label: 'Tech stack', icon: 'i-lucide-layers', level: 'Reference' },
-  { id: 'pr', n: '09', label: 'Opening a pull request', icon: 'i-lucide-git-pull-request', level: 'Beginner' },
-  { id: 'help', n: '10', label: 'Getting help', icon: 'i-lucide-life-buoy', level: 'Anytime' }
+  { id: 'showcase', n: '06', label: 'Submitting a dashboard', icon: 'i-lucide-layout-dashboard', level: 'No code' },
+  { id: 'submit', n: '07', label: 'Suggesting resources', icon: 'i-lucide-upload', level: 'No code' },
+  { id: 'code', n: '08', label: 'Code contributions', icon: 'i-lucide-code', level: 'Intermediate' },
+  { id: 'stack', n: '09', label: 'Tech stack', icon: 'i-lucide-layers', level: 'Reference' },
+  { id: 'pr', n: '10', label: 'Opening a pull request', icon: 'i-lucide-git-pull-request', level: 'Beginner' },
+  { id: 'help', n: '11', label: 'Getting help', icon: 'i-lucide-life-buoy', level: 'Anytime' }
 ]
 
 const levelColor = (l: Level): 'success' | 'primary' | 'warning' | 'neutral' =>
@@ -30,7 +31,8 @@ const levelColor = (l: Level): 'success' | 'primary' | 'warning' | 'neutral' =>
 const quickStarts = [
   { icon: 'i-lucide-type', title: 'Fix a typo', text: 'Hit “Edit this page” on any lesson — it opens a GitHub edit form. No setup at all.', to: '#lessons' },
   { icon: 'i-lucide-upload', title: 'Share a resource', text: 'Found a great link? Open an issue and we will add it to the library.', to: '#submit' },
-  { icon: 'i-lucide-languages', title: 'Translate a paragraph', text: 'Copy a lesson into another language and translate the text. Small chunks welcome.', to: '#translations' }
+  { icon: 'i-lucide-languages', title: 'Improve a translation', text: 'Translations are machine-generated. Fix a clumsy sentence in your language — you do not need to touch English.', to: '#translations' },
+  { icon: 'i-lucide-layout-dashboard', title: 'Show your dashboard', text: 'Share what you built: a screenshot, the KPIs, and how you calculated them.', to: '#showcase' }
 ]
 
 // Prose classes shared by every timeline step body.
@@ -290,9 +292,45 @@ Your content here…</code></pre>
                   v-else-if="s.id === 'translations'"
                   :class="prose"
                 >
-                  <p>The site ships in 8 languages: English (default), Spanish, French, German, Portuguese, Japanese, Chinese, and Hindi. To translate a lesson, copy it to the same path under the target locale and translate the text — keep code blocks, headings, and frontmatter keys unchanged:</p>
-                  <pre><code>content/en/5.saql/1.index.md   →   content/es/5.saql/1.index.md</code></pre>
-                  <p>UI strings live in <code>i18n/locales/&lt;lang&gt;.json</code>. If you add a new UI string, add it to <strong>all</strong> language files (there's no automatic fallback).</p>
+                  <p>The site ships in <strong>12 languages</strong>: English (default), Spanish, French, German, Portuguese, Japanese, Chinese, Hindi, Arabic, Russian, Bengali, and Urdu. Arabic and Urdu render right-to-left.</p>
+                  <p><strong>You do not translate by hand.</strong> Write the lesson in English only. When it lands on <code>main</code>, a GitHub Action runs it through LibreTranslate and commits <code>content/&lt;locale&gt;/…</code> for all eleven other languages. Code blocks, SAQL, links, frontmatter keys and product names are protected and come through untouched.</p>
+                  <pre><code>content/en/5.saql/1.index.md   →   automatically →   content/es/5.saql/1.index.md
+                                                content/ar/5.saql/1.index.md
+                                                … and nine more</code></pre>
+                  <p>To run it yourself: <code>pnpm translate</code> (only changed files), or <code>pnpm translate --locales=es,fr</code>.</p>
+                  <p><strong>Machine translation is a starting point, not the finish line.</strong> If a sentence reads badly in your language, edit that locale's file directly and open a pull request — the pipeline only overwrites a file when its <em>English</em> source changes, so your fix survives.</p>
+                  <p>UI strings live in <code>i18n/locales/&lt;lang&gt;.json</code>. Add new strings to <code>en.json</code> only; the same run fills in the other eleven and leaves existing translations alone.</p>
+                </div>
+
+                <!-- showcase -->
+                <div
+                  v-else-if="s.id === 'showcase'"
+                  :class="prose"
+                >
+                  <p>Built a CRM Analytics dashboard you're proud of? Add it to the <NuxtLink :to="localePath('/showcase')">Showcase</NuxtLink>. It's one markdown file in <code>content/showcase/</code> plus a screenshot in <code>public/showcase/</code> — no database, no account, the pull request review is the moderation.</p>
+                  <p>What makes an entry worth reading is not the screenshot, it's the <strong>working out</strong>: which KPIs you put on it, the formula behind each one, and why you measured it that way. Say what went wrong too — the gotcha you hit is usually the most useful part.</p>
+                  <pre><code>---
+title: "Pipeline Health"
+description: "One-screen read on coverage, slippage and win rate."
+image: "/showcase/pipeline-health.png"
+author: "Your Name"
+authorUrl: "https://github.com/yourhandle"
+domain: "Sales"              # Sales | Service | Marketing | Finance | …
+difficulty: "Intermediate"   # Beginner | Intermediate | Advanced
+datasets: ["Opportunity", "User"]
+kpis:
+  - name: "Win Rate"
+    formula: "count() [IsWon] / count() [IsClosed]"
+    note: "Closed-only denominator, or the rate drifts all quarter."
+recipe:
+  - step: "Build at opportunity grain"
+    detail: "Account and Owner as lookups — never join line items here."
+techniques: ["Dataflow", "Faceting", "Conditional Formatting"]
+---
+
+Your write-up goes here.</code></pre>
+                  <p><code>domain</code>, <code>difficulty</code> and <code>techniques</code> drive the filters on the showcase page, so reuse existing values where they fit. Everything except <code>title</code>, <code>description</code>, <code>image</code> and <code>author</code> is optional.</p>
+                  <p><strong>Sanitise the screenshot first.</strong> Blur or fake customer names, revenue figures and user names — the repository is public.</p>
                 </div>
 
                 <!-- submit -->

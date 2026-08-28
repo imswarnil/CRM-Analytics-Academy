@@ -14,7 +14,13 @@
     "privacy": "隐私政策",
     "terms": "服务条款",
     "roadmap": "路线图",
-    "changelog": "更新日志"
+    "changelog": "更新日志",
+    "showcase": "显示大小写"
+  },
+  "sponsorCard": {
+    "title": "赞助这个项目",
+    "desc": "坚持课程自由开放.",
+    "cta": "学更多"
   },
   "hero": {
     "badge": "免费开源课程",
@@ -49,9 +55,33 @@
         "title": "基础",
         "desc": "什么是 CRM Analytics、数据如何变成安全的数据集，以及平台的构建块。"
       },
+      "gettingStarted": {
+        "title": "开始",
+        "desc": "启用 CRM Analytics,创建您的第一个应用程序,并在连接您自己的软件之前探索样本数据。"
+      },
+      "tour": {
+        "title": "巡回演出",
+        "desc": "导游参观 Analytics Studio - 归家了, Data Manager, Explorer, 和 Dashboard 编辑器."
+      },
+      "navigating": {
+        "title": "导航板",
+        "desc": "阅读、过滤、面部和钻入仪表板,然后保存和分享自己的视图。"
+      },
+      "saql": {
+        "title": "SAQL",
+        "desc": "写入 SAQL 查询——过滤器,组,聚合,调试每个图表汇编到的语言."
+      },
       "analytics": {
         "title": "分析与 SAQL",
         "desc": "编写 SAQL 查询、构建交互式仪表板，并用 Einstein Discovery 添加预测。"
+      },
+      "bindings": {
+        "title": "约束",
+        "desc": "电线部件连同选择、单元格和 URL 绑定这样一个选择驱动很多。"
+      },
+      "chartEmbedding": {
+        "title": "嵌入图",
+        "desc": "在记录页面、自定义组件或外部嵌入仪表板 Salesforce 完全一样"
       }
     },
     "startModule": "开始模块",
@@ -215,11 +245,39 @@
     "aboutTitle": "关于 — CRM Analytics Academy",
     "aboutDesc": "CRM Analytics Academy 背后的故事——一套面向 Salesforce CRM Analytics 的开源课程，以及它的创建者。",
     "resourcesTitle": "资源 — CRM Analytics Academy",
-    "resourcesDesc": "精选的 Salesforce CRM Analytics 优质资源——官方文档、Trailhead、SAQL 参考、社区和工具。"
+    "resourcesDesc": "精选的 Salesforce CRM Analytics 优质资源——官方文档、Trailhead、SAQL 参考、社区和工具。",
+    "showcaseTitle": "显示板",
+    "showcaseDesc": "真实 CRM Analytics 由社区建造的仪表板——KPI,其背后的公式,以及用于建造每一个的技巧."
   },
   "video": {
     "thanksForWatching": "感谢观看！",
     "replay": "重新播放",
     "lessonCompleted": "课程完成"
+  },
+  "showcase": {
+    "title": "显示板",
+    "subtitle": "真正的仪表板,有 KPI 及其背后的思维。 按商务区域、 难度或 CRM Analytics 使用的技术。",
+    "all": "全体",
+    "domain": "商业领域",
+    "difficulty": "难度",
+    "technique": "技术",
+    "results": "仪表板",
+    "noResults": "还没有仪表板与这些过滤器匹配.",
+    "clearFilters": "清除过滤器",
+    "by": "由",
+    "kpis": "KPI及其计算方法",
+    "kpiName": "度量衡",
+    "kpiFormula": "如何计算",
+    "kpiNote": "为什么",
+    "recipe": "它是如何建造的",
+    "datasets": "使用的数据集",
+    "techniques": "使用的技术",
+    "published": "已出版",
+    "back": "回来展示",
+    "submit": "提交仪表板",
+    "submitHint": "为你骄傲? 打开一个拉动请求, 并有一个标记下的文件, 它在这里出现 。",
+    "beginner": "初学者",
+    "intermediate": "中级",
+    "advanced": "高级"
   }
 }

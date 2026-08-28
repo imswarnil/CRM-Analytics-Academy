@@ -14,7 +14,13 @@
     "privacy": "プライバシーポリシー",
     "terms": "利用規約",
     "roadmap": "ロードマップ",
-    "changelog": "変更履歴"
+    "changelog": "変更履歴",
+    "showcase": "ショーケース"
+  },
+  "sponsorCard": {
+    "title": "このプロジェクトをスポンサー",
+    "desc": "カリキュラムを自由に保ち、開く。",
+    "cta": "もっと詳しく"
   },
   "hero": {
     "badge": "無料・オープンソースのカリキュラム",
@@ -49,9 +55,33 @@
         "title": "基礎",
         "desc": "CRM Analytics とは何か、データが安全なデータセットになる流れ、そしてプラットフォームの構成要素。"
       },
+      "gettingStarted": {
+        "title": "始める",
+        "desc": "アクセス CRM Analyticsまずはアプリを作成し、サンプルデータを調べて、自分で接続してください。"
+      },
+      "tour": {
+        "title": "ツアー",
+        "desc": "ガイド付きツアー Analytics Studio — ホーム Data Manager、エクスプローラ、およびダッシュボードエディタ。"
+      },
+      "navigating": {
+        "title": "ダッシュボードのナビゲート",
+        "desc": "読み取り、フィルタリング、ファセット、ドリルをダッシュボードにし、自分のビューを保存して共有します。"
+      },
+      "saql": {
+        "title": "SAQL",
+        "desc": "ログイン SAQL クエリ — フィルタ、グループ、集計、および各チャートがコンパイルする言語をデバッグします。"
+      },
       "analytics": {
         "title": "分析と SAQL",
         "desc": "SAQL クエリを書き、対話的なダッシュボードを作り、Einstein Discovery で予測を追加します。"
+      },
+      "bindings": {
+        "title": "ビンディング",
+        "desc": "ワイヤーウィジェットと選択、セル、および URL バインディングなので、1つの選択は多くのドライブを駆動します。"
+      },
+      "chartEmbedding": {
+        "title": "チャートの埋め込み",
+        "desc": "レコードページ、カスタムコンポーネント、または外部にダッシュボードを埋め込む Salesforce お問い合わせ"
       }
     },
     "startModule": "モジュールを始める",
@@ -215,11 +245,39 @@
     "aboutTitle": "概要 — CRM Analytics Academy",
     "aboutDesc": "Salesforce CRM Analytics のためのオープンソース・カリキュラム「CRM Analytics Academy」の背景と、それを作る人物の物語。",
     "resourcesTitle": "リソース — CRM Analytics Academy",
-    "resourcesDesc": "Salesforce CRM Analytics の最良のリソース集。公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツール。"
+    "resourcesDesc": "Salesforce CRM Analytics の最良のリソース集。公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツール。",
+    "showcaseTitle": "ダッシュボードのショーケース",
+    "showcaseDesc": "リアル CRM Analytics コミュニティが構築したダッシュボード — KPI、その背後にある式、各々のビルドに使われる技術。"
   },
   "video": {
     "thanksForWatching": "ご視聴ありがとうございました！",
     "replay": "もう一度見る",
     "lessonCompleted": "レッスン完了"
+  },
+  "showcase": {
+    "title": "ダッシュボードのショーケース",
+    "subtitle": "実際のダッシュボードは、KPI と後ろの思考で。 ビジネスエリア、難易度、または CRM Analytics 使用される技術。",
+    "all": "すべて",
+    "domain": "ビジネスエリア",
+    "difficulty": "難易度",
+    "technique": "テクニック",
+    "results": "ダッシュボード",
+    "noResults": "ダッシュボードはこれらのフィルタにマッチしません。",
+    "clearFilters": "フィルターをクリア",
+    "by": "によって造られる",
+    "kpis": "KPIと計算方法",
+    "kpiName": "メトリック",
+    "kpiFormula": "計算方法",
+    "kpiNote": "なぜ?",
+    "recipe": "造り方",
+    "datasets": "使用されるデータセット",
+    "techniques": "使用される技術",
+    "published": "ニュース",
+    "back": "ショーケースに戻る",
+    "submit": "ダッシュボードを送信",
+    "submitHint": "誇りに思っているものを作りませんか? 1つのマークダウンファイルでプルリクエストを開き、ここに表示されます。",
+    "beginner": "初心者向け",
+    "intermediate": "中出し",
+    "advanced": "アドバンスト"
   }
 }

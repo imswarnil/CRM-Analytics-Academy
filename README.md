@@ -17,7 +17,7 @@
   <img src="https://img.shields.io/badge/Nuxt%20UI-v4-00DC82?logo=nuxt&labelColor=020420" alt="Nuxt UI v4">
   <img src="https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss&labelColor=1c1c1c" alt="Tailwind 4">
   <img src="https://img.shields.io/badge/Static-prerendered-0176D3?labelColor=1c1c1c" alt="Static">
-  <img src="https://img.shields.io/badge/i18n-8%20locales-5B21B6?labelColor=1c1c1c" alt="8 locales">
+  <img src="https://img.shields.io/badge/i18n-12%20locales-5B21B6?labelColor=1c1c1c" alt="12 locales">
   <img src="https://img.shields.io/badge/License-MIT-blue" alt="MIT">
 </p>
 
@@ -49,10 +49,10 @@ with a written article — and closes with an interview-prep study sheet.
 ## Features
 
 - 📚 **Content-driven curriculum** — lessons are Markdown under `content/`, organised into sections.
-- 🌍 **8 locales** — `en` `es` `fr` `de` `pt` `ja` `zh` `hi` (UI strings; lesson bodies are English for now, falling back gracefully).
+- 🌍 **12 locales** — `en` `es` `fr` `de` `pt` `ja` `zh` `hi` `ar` `ru` `bn` `ur`, with `ar`/`ur` right-to-left. Lessons are written in English and translated automatically by a LibreTranslate pipeline (`pnpm translate`, plus a GitHub Action on every push); any page not yet translated falls back to English at its own localized URL rather than 404ing.
 - 🎬 **Video-led lessons** — a custom player with no YouTube branding; the iframe is only created on click, so nothing preloads.
 - 💬 **Interview prep** — model Q&A per section, also emitted as `FAQPage` structured data.
-- 📝 **Blog** — original and curated posts, authored as Markdown under `content/blog/`.
+- 🖼️ **Dashboard showcase** — community build write-ups under `content/showcase/`: screenshot, the KPIs with the formula behind each, the build recipe, and filters by business area, difficulty and technique.
 - 🧩 **Machine-readable** — every page as raw Markdown at `/raw/…`, plus `llms.txt` and `llms-full.txt` for AI agents.
 - ⚡ **Fully static** — no database, no accounts, no server state. 239 pages prerendered at build time.
 
@@ -63,7 +63,7 @@ with a written article — and closes with an interview-prep study sheet.
 | Framework | **Nuxt 4** (Vue 3, Nitro) |
 | Content | **@nuxt/content 3** (Markdown, SQLite at build time) |
 | UI | **Nuxt UI v4** + **Tailwind CSS 4** |
-| i18n | **@nuxtjs/i18n** (8 locales) |
+| i18n | **@nuxtjs/i18n** (12 locales) + LibreTranslate pipeline |
 | SEO | `nuxt-og-image`, `nuxt-llms`, JSON-LD structured data |
 | Hosting | **GitHub Pages**, deployed by **GitHub Actions** |
 
@@ -105,7 +105,7 @@ Only one, and it's optional locally — copy `.env.example` to `.env` (gitignore
 
 ```
 content/                 Lessons (Markdown), per locale → per section
-  blog/                  Blog posts (not localized)
+  showcase/              Community dashboard write-ups (not localized)
 app/
   pages/                 Routes incl. the [...slug] catch-all for docs
   components/            Header, footer, ads, MDC content components

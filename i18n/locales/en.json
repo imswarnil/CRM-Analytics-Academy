@@ -14,7 +14,8 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "roadmap": "Roadmap",
-    "changelog": "Changelog"
+    "changelog": "Changelog",
+    "showcase": "Showcase"
   },
   "sponsorCard": {
     "title": "Sponsor this project",
@@ -244,11 +245,39 @@
     "aboutTitle": "About — CRM Analytics Academy",
     "aboutDesc": "The story behind CRM Analytics Academy — an open-source curriculum for Salesforce CRM Analytics — and the person who builds it.",
     "resourcesTitle": "Resources — CRM Analytics Academy",
-    "resourcesDesc": "A curated list of the best Salesforce CRM Analytics resources — official docs, Trailhead, SAQL references, community, and tools."
+    "resourcesDesc": "A curated list of the best Salesforce CRM Analytics resources — official docs, Trailhead, SAQL references, community, and tools.",
+    "showcaseTitle": "Dashboard Showcase",
+    "showcaseDesc": "Real CRM Analytics dashboards built by the community — the KPIs, the formulas behind them, and the techniques used to build each one."
   },
   "video": {
     "thanksForWatching": "Thanks for watching!",
     "replay": "Replay",
     "lessonCompleted": "Lesson completed"
+  },
+  "showcase": {
+    "title": "Dashboard Showcase",
+    "subtitle": "Real dashboards, with the KPIs and the thinking behind them. Filter by business area, difficulty, or the CRM Analytics techniques used.",
+    "all": "All",
+    "domain": "Business area",
+    "difficulty": "Difficulty",
+    "technique": "Technique",
+    "results": "dashboards",
+    "noResults": "No dashboards match these filters yet.",
+    "clearFilters": "Clear filters",
+    "by": "Built by",
+    "kpis": "KPIs and how they are calculated",
+    "kpiName": "Metric",
+    "kpiFormula": "How it is calculated",
+    "kpiNote": "Why",
+    "recipe": "How it was built",
+    "datasets": "Datasets used",
+    "techniques": "Techniques used",
+    "published": "Published",
+    "back": "Back to showcase",
+    "submit": "Submit your dashboard",
+    "submitHint": "Built something you are proud of? Open a pull request with one markdown file and it appears here.",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
   }
 }

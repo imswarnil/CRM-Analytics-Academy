@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useIntersectionObserver } from '@vueuse/core'
 
-const { t, tm, rt } = useI18n()
+const { t, tm, rt, locale } = useI18n()
 const localePath = useLocalePath()
 
 const title = computed(() => t('seo.homeTitle'))
@@ -147,7 +147,7 @@ useJsonLd({
   'name': SITE.name,
   'description': SITE.description,
   'url': SITE.url,
-  'inLanguage': 'en',
+  'inLanguage': locale.value,
   'isAccessibleForFree': true,
   'provider': { '@type': 'Organization', 'name': SITE.name, 'sameAs': SITE.url },
   'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },

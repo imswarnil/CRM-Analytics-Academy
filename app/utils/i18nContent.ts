@@ -30,11 +30,27 @@ export function contentToRoutePath(contentPath: string): string {
   return contentPath
 }
 
-/** Recursively rewrite a Nuxt Content navigation tree's paths to route paths. */
-export function localizeNavigation<T extends { path?: string, children?: T[] }>(items: T[]): T[] {
+/**
+ * Recursively rewrite a Nuxt Content navigation tree's paths to route paths.
+ *
+ * `targetLocale` re-prefixes the result for a different locale than the paths
+ * came from. That is what lets an untranslated locale borrow the English tree:
+ * `/en/foundations` becomes `/de/foundations`, which is a real route that
+ * renders the English page via the fallback in `[...slug].vue`.
+ */
+export function localizeNavigation<T extends { path?: string, children?: T[] }>(
+  items: T[],
+  targetLocale?: string
+): T[] {
+  const toRoute = (path: string) => {
+    const route = contentToRoutePath(path)
+    if (!targetLocale || targetLocale === DEFAULT_LOCALE) return route
+    return `/${targetLocale}${route === '/' ? '' : route}`
+  }
+
   return items.map(item => ({
     ...item,
-    path: item.path ? contentToRoutePath(item.path) : item.path,
-    children: item.children ? localizeNavigation(item.children) : undefined
+    path: item.path ? toRoute(item.path) : item.path,
+    children: item.children ? localizeNavigation(item.children, targetLocale) : undefined
   }))
 }

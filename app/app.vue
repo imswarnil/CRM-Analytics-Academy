@@ -2,14 +2,22 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 
 const { seo } = useAppConfig()
-const { locale } = useI18n()
+const { locale, locales: allLocales } = useI18n()
 
 // Navigation: fetch the full per-locale tree, then expose only the current
 // locale's branch with paths rewritten to localized routes.
 const { data: navTree } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
 const navigation = computed<ContentNavigationItem[]>(() => {
   const branch = navTree.value?.find(item => item.path === `/${locale.value}`)
-  return branch?.children ? localizeNavigation(branch.children) : []
+  if (branch?.children?.length) return localizeNavigation(branch.children)
+
+  // A locale with no translated content yet borrows the English tree, pointed at
+  // its own URLs. Without this the prerenderer never discovers those routes —
+  // crawlLinks only follows links that exist — so every lesson 404s in that
+  // language and the hreflang alternates advertise dead pages. The routes do
+  // render: [...slug].vue already falls back to the English document.
+  const english = navTree.value?.find(item => item.path === `/${DEFAULT_LOCALE}`)
+  return english?.children ? localizeNavigation(english.children, locale.value) : []
 })
 
 const { data: allFiles } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
@@ -41,15 +49,41 @@ useHead({
 })
 useHead(i18nHead)
 
+// useLocaleHead emits the hreflang alternates and <html lang/dir>, but not a
+// canonical, so add one. Every locale prerenders its own copy of a page and each
+// copy is its own canonical URL — the alternates above are what ties the twelve
+// together, so pointing them all at English would instead ask Google to drop
+// eleven of them.
+const canonical = computed(() => {
+  const path = route.path.replace(/\/+$/, '')
+  return `${SITE.url}${path || ''}`
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: canonical }]
+})
+
+/** BCP-47 tag for a locale, in the underscore form Open Graph expects. */
+const ogLocale = (code: string) =>
+  (allLocales.value.find(l => l.code === code)?.language || code).replace('-', '_')
+
 useSeoMeta({
   titleTemplate: `%s - ${seo?.siteName}`,
   ogSiteName: seo?.siteName,
   ogType: 'website',
-  ogUrl: () => SITE.url + route.path,
+  ogUrl: canonical,
+  ogLocale: () => ogLocale(locale.value),
+  ogLocaleAlternate: () => allLocales.value
+    .filter(l => l.code !== locale.value)
+    .map(l => ogLocale(l.code)),
   twitterCard: 'summary_large_image'
 })
 
-// Site-wide structured data.
+// Site-wide structured data. It must declare the language actually rendered:
+// every locale prerenders its own copy of this page, and a hardcoded 'en' told
+// search engines all twelve of them were English.
+const bcp47 = computed(() => ogLocale(locale.value).replace('_', '-'))
+
 useJsonLd([
   {
     '@context': 'https://schema.org',
@@ -66,7 +100,7 @@ useJsonLd([
     'name': SITE.name,
     'url': SITE.url,
     'description': SITE.description,
-    'inLanguage': 'en'
+    'inLanguage': bcp47.value
   }
 ])
 
