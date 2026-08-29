@@ -2,6 +2,7 @@
 // Client-only by filename convention (`.client.ts`); safe no-op in
 // unsupported browsers.
 export default defineNuxtPlugin(() => {
+  if (import.meta.dev) return
   if (!('serviceWorker' in navigator)) return
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').catch(() => {})
