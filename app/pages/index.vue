@@ -228,7 +228,7 @@ useJsonLd({
               color="primary"
               variant="subtle"
               size="lg"
-              class="mb-6 rounded-full"
+              class="mb-6"
             >
               <UIcon
                 name="i-lucide-sparkles"
@@ -251,7 +251,7 @@ useJsonLd({
                 :to="localePath('/foundations')"
                 size="xl"
                 trailing-icon="i-lucide-arrow-right"
-                class="rounded-full font-semibold"
+                class="font-semibold"
               >
                 {{ t('hero.start') }}
               </UButton>
@@ -261,7 +261,7 @@ useJsonLd({
                 color="neutral"
                 variant="outline"
                 icon="i-lucide-graduation-cap"
-                class="rounded-full font-semibold"
+                class="font-semibold"
               >
                 {{ t('hero.browse') }}
               </UButton>
@@ -272,7 +272,6 @@ useJsonLd({
                   color="neutral"
                   variant="outline"
                   square
-                  class="rounded-full"
                   :aria-label="t('hero.search')"
                   @click="useContentSearch().open.value = true"
                 />
@@ -408,7 +407,7 @@ useJsonLd({
               :to="localePath('/foundations')"
               color="neutral"
               variant="solid"
-              class="mt-5 w-fit rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
+              class="mt-5 w-fit bg-white font-semibold text-salesforce-700 hover:bg-white/90"
               trailing-icon="i-lucide-arrow-right"
             >
               {{ t('home.startHere') }}
@@ -633,7 +632,7 @@ useJsonLd({
                 size="xl"
                 color="neutral"
                 trailing-icon="i-lucide-arrow-right"
-                class="rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
+                class="bg-white font-semibold text-salesforce-700 hover:bg-white/90"
               >
                 {{ t('cta.startFoundations') }}
               </UButton>
@@ -644,7 +643,7 @@ useJsonLd({
                 color="neutral"
                 variant="outline"
                 icon="i-simple-icons-github"
-                class="rounded-full bg-transparent font-semibold text-white ring-white/30 hover:bg-white/10 active:bg-white/10"
+                class="border-white bg-transparent font-semibold text-white shadow-[3px_3px_0_0_white] ring-white/30 hover:bg-white/10 hover:shadow-[5px_5px_0_0_white] active:bg-white/10 active:shadow-[1px_1px_0_0_white]"
               >
                 {{ t('cta.star') }}
               </UButton>

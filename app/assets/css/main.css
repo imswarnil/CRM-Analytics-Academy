@@ -1,3 +1,48 @@
+/* Self-hosted Figtree, copied from ~/Namaste Salesforce/NS-Design-System/fonts
+   (SIL OFL — see public/fonts/OFL-figtree.txt). Same four woff2s that system
+   ships: variable weight 300-900, latin + latin-ext, upright + italic. */
+@font-face {
+  font-family: "Figtree";
+  src: url("/fonts/figtree-var-latin.woff2") format("woff2-variations"), url("/fonts/figtree-var-latin.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Figtree";
+  src: url("/fonts/figtree-var-latin-ext.woff2") format("woff2-variations"), url("/fonts/figtree-var-latin-ext.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Figtree";
+  src: url("/fonts/figtree-italic-var-latin.woff2") format("woff2-variations"), url("/fonts/figtree-italic-var-latin.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Figtree";
+  src: url("/fonts/figtree-italic-var-latin-ext.woff2") format("woff2-variations"), url("/fonts/figtree-italic-var-latin-ext.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Metric-matched fallback so the swap to Figtree is not a reflow. */
+@font-face {
+  font-family: "Figtree Fallback";
+  src: local("Helvetica Neue"), local("Arial"), local("Segoe UI"), local("Roboto");
+  size-adjust: 100%;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
 @import "tailwindcss";
 @import "@nuxt/ui";
 
@@ -6,57 +51,127 @@
 @theme static {
   --container-8xl: 90rem;
 
-  /* SLDS-inspired type stack — Salesforce Sans with clean system fallbacks */
-  --font-sans: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* Type stack ported from NS Design System (src/tokens/typography.css):
+     one face, Figtree, for both body and headings -- no separate display
+     font, so a heading and a paragraph are the same family at different
+     weights and sizes rather than two typefaces meeting at one size. */
+  --font-sans: "Figtree", "Figtree Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: "Figtree", "Figtree Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-  /* Grape — secondary accent (charts, highlights, badges). */
-  --color-grape-50: #F5F3FF;
-  --color-grape-100: #EDE9FE;
-  --color-grape-200: #DDD6FE;
-  --color-grape-300: #C4B5FD;
-  --color-grape-400: #A78BFA;
-  --color-grape-500: #8B5CF6;
-  --color-grape-600: #7C3AED;
-  --color-grape-700: #6D28D9;
-  --color-grape-800: #5B21B6;
-  --color-grape-900: #4C1D95;
-  --color-grape-950: #2E1065;
+  /* NS Design System treats a second brand-like hue as an anti-pattern
+     (src/tokens/colors.css: Principle 3 says there is exactly one signal
+     color -- its own accent scale is a literal alias of brand, not an
+     independent palette). Grape is barely used here (one gradient in
+     AdUnit.vue plus the Nuxt UI secondary role), so it is aliased to the
+     same brand ramp below rather than kept as a competing purple. */
+  --color-grape-50: #EEF6FF;
+  --color-grape-100: #D8EDFF;
+  --color-grape-200: #B0D7FF;
+  --color-grape-300: #7CBEFF;
+  --color-grape-400: #1B96FF;
+  --color-grape-500: #0176D3;
+  --color-grape-600: #0B5CAB;
+  --color-grape-700: #03386B;
+  --color-grape-800: #032D60;
+  --color-grape-900: #001A3E;
+  --color-grape-950: #001A3E;
 
-  /* Salesforce Blue — primary brand ramp.
-     500 (#0176D3) is the accessible brand blue used for buttons/links;
-     700 (#014486) is the active/pressed state. */
-  --color-salesforce-50: #EBF5FF;
-  --color-salesforce-100: #D6EAFF;
-  --color-salesforce-200: #ADD4FF;
-  --color-salesforce-300: #7AB8FF;
-  --color-salesforce-400: #3D97F5;
+  /* Brand ramp, ported verbatim from NS Design System
+     (src/tokens/colors.css --ns-brand-*, the single signal color).
+     500 (#0176D3) is its literal primary. It only defines 50-900; 950
+     mirrors 900 rather than inventing an unauthored shade. Repurposes the
+     salesforce token name (unchanged), so every existing bg-salesforce,
+     text-salesforce, and var(--color-salesforce-N) reference across the
+     app, plus Nuxt UI primary (app.config.ts still points primary at
+     salesforce), picks this up without touching a single component file. */
+  --color-salesforce-50: #EEF6FF;
+  --color-salesforce-100: #D8EDFF;
+  --color-salesforce-200: #B0D7FF;
+  --color-salesforce-300: #7CBEFF;
+  --color-salesforce-400: #1B96FF;
   --color-salesforce-500: #0176D3;
-  --color-salesforce-600: #015FAC;
-  --color-salesforce-700: #014486;
+  --color-salesforce-600: #0B5CAB;
+  --color-salesforce-700: #03386B;
   --color-salesforce-800: #032D60;
-  --color-salesforce-900: #04244B;
-  --color-salesforce-950: #001639;
+  --color-salesforce-900: #001A3E;
+  --color-salesforce-950: #001A3E;
 
-  /* SLDS cool-neutral gray ramp.
-     50 (#F3F3F3) is the Lightning page-gray; 300 (#DDDBDA) is the SLDS border color. */
-  --color-cloud-50: #F3F3F3;
-  --color-cloud-100: #ECEBEA;
-  --color-cloud-200: #E5E5E5;
+  /* Neutral ramp built from the NS Design System light-mode semantic anchors
+     (src/tokens/colors.css): 100 is its literal --ns-surface-sunken
+     (#F4F6F8), 300 its --ns-border (#DDDBDA, the real SLDS grey), 700 its
+     --ns-muted (#5C5A57, WCAG-tuned so it never reads washed out), 900 its
+     --ns-ink (#181818). The rest are interpolated to keep a full 11-step
+     Tailwind ramp. Drives --ui-bg-muted, --ui-border-muted, etc. */
+  --color-cloud-50: #FFFFFF;
+  --color-cloud-100: #F4F6F8;
+  --color-cloud-200: #EAEDF0;
   --color-cloud-300: #DDDBDA;
-  --color-cloud-400: #C9C7C5;
-  --color-cloud-500: #969492;
-  --color-cloud-600: #706E6B;
-  --color-cloud-700: #514F4D;
-  --color-cloud-800: #3E3E3C;
-  --color-cloud-900: #2B2826;
-  --color-cloud-950: #181818;
+  --color-cloud-400: #C6C4C2;
+  --color-cloud-500: #A6A3A0;
+  --color-cloud-600: #8A8785;
+  --color-cloud-700: #5C5A57;
+  --color-cloud-800: #3A3937;
+  --color-cloud-900: #181818;
+  --color-cloud-950: #0A0A0A;
+
+  /* Neo-brutalist elevation. No blur, no softness: every shadow is a hard,
+     solid-color offset that reads as a stacked paper cutout, not a glow.
+     Color comes from --ui-text-highlighted so it is pure black in light
+     mode and flips to near-white in dark mode automatically. Overriding
+     the default Tailwind shadow scale here reaches every existing
+     shadow-sm/md/lg/xl/2xl utility already used across the app (index.vue,
+     HeroStory.vue, cards) without touching a single component file. */
+  --shadow-sm: 2px 2px 0 0 var(--ui-text-highlighted);
+  --shadow: 3px 3px 0 0 var(--ui-text-highlighted);
+  --shadow-md: 4px 4px 0 0 var(--ui-text-highlighted);
+  --shadow-lg: 5px 5px 0 0 var(--ui-text-highlighted);
+  --shadow-xl: 6px 6px 0 0 var(--ui-text-highlighted);
+  --shadow-2xl: 8px 8px 0 0 var(--ui-text-highlighted);
+
+  /* Neo-brutalist geometry: zero radius on every real corner. rounded-full
+     is deliberately left at its default so true circles (avatars, dots,
+     ambient blur blobs, the product-screenshot mockup inside HeroStory)
+     stay circular; only rectangular softening goes away. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
 }
 
 :root {
   --ui-container: var(--container-8xl);
 
-  /* SLDS uses tight 0.25rem corners across components */
-  --ui-radius: 0.25rem;
+  /* Matches the Tailwind radius override above, for anything inside Nuxt
+     UI components that reaches for --ui-radius directly. */
+  --ui-radius: 0px;
+
+  /* Neo-brutalist border color: pure black in light mode, pure white in
+     dark mode, via the same theme-reactive token the shadows use. This
+     overrides the semantic alias (not the neutral ramp step it defaults
+     to), so it repaints every border-default/border-muted/border-accented
+     element already in the app -- header, footer, dividers, card
+     outlines -- without disturbing bg-accented, which reads from the same
+     ramp step for a different, unrelated purpose. */
+  --ui-border: var(--ui-text-highlighted);
+  --ui-border-muted: var(--ui-text-highlighted);
+  --ui-border-accented: var(--ui-text-highlighted);
+
+  /* Brand focus ring, unchanged from the NS Design System port
+     (src/tokens/effects.css --shadow-focus). */
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--color-salesforce-500) 25%, transparent);
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    /* Full neo-brutalist heading voice: the heaviest weight Figtree draws,
+       closed up tight, so display text reads as a block, not a line. */
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
 }
 
 /* ---------------------------------------------------------------------------
