@@ -36,3 +36,8 @@ project/**/.sf/
 project/**/*.key
 project/**/*.crt
 project/**/auth*.json
+
+# Cloudflare / wrangler
+.wrangler/
+.dev.vars
+.dev.vars.*

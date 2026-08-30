@@ -1,0 +1,62 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "crm-analytics-academy",
+
+  // Nitro's cloudflare_module preset emits a module-syntax Worker here and the
+  // prerendered site next to it. Both paths are produced by `pnpm build` — do
+  // not point these at `dist/`, which is an unrelated leftover directory.
+  "main": ".output/server/index.mjs",
+
+  "compatibility_date": "2026-08-30",
+
+  // Better Auth, the Neon serverless driver and the Dodo SDK all reach for node
+  // builtins (crypto, buffer, stream). Without this flag they fail at runtime,
+  // not at build time, which makes it an expensive flag to forget.
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    // Every prerendered lesson, in every locale, plus _nuxt/. Cloudflare serves
+    // these directly without ever waking the Worker, so the curriculum stays as
+    // cheap and as fast as it was on Pages.
+    "directory": ".output/public",
+    "binding": "ASSETS",
+    // Fall through to the Worker when no file matches, so the dynamic routes
+    // (dashboard, auth, webhooks) are reachable instead of 404ing on a
+    // missing static file.
+    "not_found_handling": "none",
+    "run_worker_first": false
+  },
+
+  "observability": {
+    "enabled": true
+  },
+
+  // Runs the Worker in the region closest to the origin services it talks to
+  // (Neon) rather than closest to the viewer. The dynamic routes are all
+  // database-bound, so the round trip to Postgres dominates.
+  "placement": {
+    "mode": "smart"
+  },
+
+  // Non-secret build/runtime config only. Every actual credential — the Neon
+  // connection string, the OAuth client secrets, the Dodo API key and webhook
+  // secret — is set with `wrangler secret put` and is never written to this
+  // file or to the repository.
+  "vars": {
+    "NUXT_PUBLIC_SITE_URL": "https://crmanalytics.imswarnil.com",
+    // Flips Nuxt Content from the sqlite file the build prerenders against to
+    // the D1 binding below. Evaluated at request time, so it does not affect
+    // the build. Only /raw/*.md and server-rendered routes read it — every
+    // lesson page is already a prerendered file.
+    "NUXT_CONTENT_DATABASE_TYPE": "d1",
+    "NUXT_CONTENT_DATABASE_BINDING_NAME": "DB"
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "crm-analytics-academy-content",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ]
+}
