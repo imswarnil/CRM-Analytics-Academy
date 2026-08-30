@@ -59,28 +59,66 @@ export default defineNuxtConfig({
     }
   },
 
+  // Only the signed-in surface is dynamic. Everything else is the same static,
+  // markdown-driven site it has always been, prerendered at build time and
+  // served off Cloudflare's edge as a file. These routes are never cached:
+  // caching a page rendered for one signed-in learner and handing it to another
+  // is the classic way to leak an account.
+  routeRules: {
+    // `robots: false` would need the nuxt-robots module, which is not installed
+    // here — X-Robots-Tag does the same job at the header level.
+    '/dashboard/**': { prerender: false, headers: { 'cache-control': 'private, no-store', 'x-robots-tag': 'noindex, nofollow' } },
+    '/account/**': { prerender: false, headers: { 'cache-control': 'private, no-store', 'x-robots-tag': 'noindex, nofollow' } },
+    '/api/**': { prerender: false, headers: { 'cache-control': 'no-store' } }
+  },
+
   experimental: {
     asyncContext: true
   },
 
-  compatibilityDate: '2024-07-11',
+  compatibilityDate: '2025-07-15',
 
   nitro: {
-    // GitHub Pages serves plain files — there is no server. This preset emits a
-    // pure static tree into .output/public and, critically, writes a `.nojekyll`
-    // marker: without it GitHub runs Jekyll over the output, which silently
-    // ignores every underscore-prefixed directory (i.e. all of `_nuxt/`) and
-    // the site deploys with no CSS or JS at all.
-    preset: 'github_pages',
+    // Set per build pass — see the two `build:*` scripts in package.json.
+    //
+    // The site is built twice from this one codebase, because Nuxt Content and
+    // the Cloudflare preset cannot both get what they want in a single pass.
+    // The preset rebinds the content database to D1 during nitro config; the
+    // prerenderer then runs in plain Node with no D1 binding, every
+    // queryCollection 500s, `/` fails, and the crawler finds no links. Measured
+    // on this repo: node-server prerenders 2243 routes, cloudflare_module
+    // prerenders 5.
+    //
+    //   build:static -> node-server        -> .output-static/public  (the site)
+    //   build:worker -> cloudflare_module  -> .output/server         (the API)
+    //
+    // wrangler.jsonc then points `assets` at the first and `main` at the
+    // second. The Worker never queries a content collection, so its broken D1
+    // binding is never reached.
+    preset: process.env.NITRO_PRESET || 'node-server',
+
+    // Set explicitly rather than via NITRO_OUTPUT_DIR: Nitro does not pick that
+    // env var up here, so the static pass wrote into .output and the worker
+    // pass then overwrote it, leaving zero prerendered pages.
+    output: {
+      dir: process.env.NITRO_OUTPUT_DIR || '.output'
+    },
 
     prerender: {
-      routes: [
-        '/'
-      ],
-      crawlLinks: true,
+      // The worker pass has nothing worth prerendering and would only
+      // reproduce the 500 above.
+      crawlLinks: process.env.NITRO_PRERENDER !== 'false',
+      // /404.html is prerendered so Cloudflare can serve a real not-found page
+      // from static assets. Without it an unknown URL falls through to the
+      // Worker, which has no content database and dies with a 500 instead.
+      routes: process.env.NITRO_PRERENDER === 'false' ? [] : ['/', '/404.html'],
       autoSubfolderIndex: false,
       // Don't abort the whole build if a single crawled route errors.
-      failOnError: false
+      failOnError: false,
+      // The crawler follows every link it finds. The signed-in routes have no
+      // meaningful build-time render — they would bake in the logged-out state
+      // and then be served, cached, to real sessions.
+      ignore: ['/dashboard', '/account', '/api']
     }
   },
 

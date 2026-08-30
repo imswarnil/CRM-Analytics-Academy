@@ -6,7 +6,10 @@
     "node": ">=22.5.0"
   },
   "scripts": {
-    "build": "nuxt build",
+    "build": "pnpm build:static && pnpm build:worker",
+    "build:static": "NITRO_PRESET=node-server NITRO_OUTPUT_DIR=.output-static nuxt build",
+    "build:worker": "NITRO_PRESET=cloudflare_module NITRO_PRERENDER=false nuxt build",
+    "deploy": "pnpm build && wrangler deploy",
     "generate": "nuxt generate",
     "dev": "bash scripts/dev.sh",
     "dev:raw": "nuxt dev",

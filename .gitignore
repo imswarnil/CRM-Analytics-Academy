@@ -41,3 +41,6 @@ project/**/auth*.json
 .wrangler/
 .dev.vars
 .dev.vars.*
+
+# Two-pass build: static assets pass
+.output-static/
