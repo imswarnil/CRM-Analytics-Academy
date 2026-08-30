@@ -280,5 +280,21 @@
     "beginner": "Beginner",
     "intermediate": "Intermediate",
     "advanced": "Advanced"
+  },
+  "demo": {
+    "steps": "What you will build",
+    "connect": "Connect",
+    "query": "Query",
+    "build": "Build",
+    "predict": "Predict",
+    "connectCap": "Pull Salesforce, warehouse and file data into one dataset.",
+    "queryCap": "Write SAQL by hand — group, aggregate, filter.",
+    "predictCap": "Train an explainable model and see why it scored this way.",
+    "kpiRevenue": "Revenue",
+    "kpiWin": "Win rate",
+    "kpiCycle": "Cycle time",
+    "why1": "Two demos completed",
+    "why2": "Champion identified",
+    "why3": "Renewal within 30 days"
   }
 }

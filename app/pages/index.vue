@@ -214,60 +214,66 @@ useJsonLd({
   <div>
     <!-- ── Hero ─────────────────────────────────────────────────────────── -->
     <section class="hero bg-grid">
-      <div class="shell hero__inner">
-        <UiBadge
-          tone="brand"
-          icon="i-lucide-sparkles"
-        >
-          {{ t('hero.badge') }}
-        </UiBadge>
-
-        <h1 class="hero__title text-balance">
-          {{ t('hero.titleLead') }}
-          <span class="hero__accent">{{ t('hero.titleAccent') }}</span>
-        </h1>
-
-        <p class="lead hero__sub text-pretty">
-          {{ t('hero.subtitle') }}
-        </p>
-
-        <div class="hero__actions">
-          <UiButton
-            variant="primary"
-            size="lg"
-            :to="localePath('/foundations')"
-            trailing-icon="i-lucide-arrow-right"
+      <div class="shell hero__grid">
+        <div class="hero__copy">
+          <UiBadge
+            tone="brand"
+            icon="i-lucide-sparkles"
           >
-            {{ t('hero.start') }}
-          </UiButton>
-          <UiButton
-            size="lg"
-            href="#curriculum"
-            icon="i-lucide-graduation-cap"
-          >
-            {{ t('hero.browse') }}
-          </UiButton>
-          <UiButton
-            size="lg"
-            square
-            icon="i-lucide-search"
-            :aria-label="t('hero.search')"
-            :title="t('hero.search')"
-            @click="openSearch"
-          />
+            {{ t('hero.badge') }}
+          </UiBadge>
+
+          <h1 class="hero__title text-balance">
+            {{ t('hero.titleLead') }}
+            <span class="hero__accent">{{ t('hero.titleAccent') }}</span>
+          </h1>
+
+          <p class="lead hero__sub text-pretty">
+            {{ t('hero.subtitle') }}
+          </p>
+
+          <div class="hero__actions">
+            <UiButton
+              variant="primary"
+              size="lg"
+              :to="localePath('/foundations')"
+              trailing-icon="i-lucide-arrow-right"
+            >
+              {{ t('hero.start') }}
+            </UiButton>
+            <UiButton
+              size="lg"
+              href="#curriculum"
+              icon="i-lucide-graduation-cap"
+            >
+              {{ t('hero.browse') }}
+            </UiButton>
+            <UiButton
+              size="lg"
+              square
+              icon="i-lucide-search"
+              :aria-label="t('hero.search')"
+              :title="t('hero.search')"
+              @click="openSearch"
+            />
+          </div>
+
+          <ul class="hero__facts">
+            <li
+              v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
+              :key="f"
+            >
+              <Icon
+                name="i-lucide-check"
+                class="hero__tick"
+              />{{ f }}
+            </li>
+          </ul>
         </div>
 
-        <ul class="hero__facts">
-          <li
-            v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
-            :key="f"
-          >
-            <Icon
-              name="i-lucide-check"
-              class="hero__tick"
-            />{{ f }}
-          </li>
-        </ul>
+        <div class="hero__demo">
+          <HeroDemo />
+        </div>
       </div>
     </section>
 
@@ -517,22 +523,48 @@ useJsonLd({
   border-block-end: 1px solid var(--c-line);
 
   @media (min-width: 48rem) {
-    padding-block: var(--s-9) var(--s-8);
+    padding-block: var(--s-8);
   }
 }
 
-.hero__inner {
+// Two columns from lg: copy left, live demo right. Below that the demo drops
+// under the copy rather than shrinking — at phone width it would be unreadable
+// at any size that still left room for the headline.
+.hero__grid {
+  display: grid;
+  gap: var(--s-6);
+  align-items: center;
+
+  @media (min-width: 64rem) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--s-7);
+  }
+}
+
+.hero__copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--s-4);
-  max-width: 52rem;
+  max-width: 34rem;
+}
+
+.hero__demo {
+  // Keeps the demo from stretching to the full column on very wide screens,
+  // where a 900px-wide dashboard mock stops reading as a product screenshot.
+  max-width: 34rem;
+  width: 100%;
+  justify-self: center;
 }
 
 .hero__title {
-  font-size: var(--t-hero);
-  line-height: 0.98;
+  font-size: var(--t-h1);
+  line-height: 1.05;
   margin: 0;
+
+  @media (min-width: 64rem) {
+    font-size: clamp(2.5rem, 1.2rem + 2.6vi, 3.75rem);
+  }
 }
 
 // The accent phrase gets the brand, plus a rule under it that reads like a

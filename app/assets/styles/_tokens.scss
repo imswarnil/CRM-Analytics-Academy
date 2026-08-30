@@ -129,13 +129,19 @@ $bp-2xl: 96rem; // 1536px
 
   // -------------------------------------------------------------------------
   // TYPE
-  // Three faces, self-hosted (see _base.scss for the @font-face block).
-  // Archivo Black is a wall and does display work only; Space Grotesk is the
-  // reading face and has enough character to stay playful at body size;
-  // JetBrains Mono handles SAQL and code.
+  // Plus Jakarta Sans for headings and UI chrome, Inter for reading, JetBrains
+  // Mono for SAQL and code.
+  //
+  // The previous pair led with Archivo Black, which is a poster face: one
+  // static weight, very wide, and it made every heading look like an
+  // advertisement rather than a product. This is a learning application people
+  // work inside for half an hour at a time, so the display face needs a full
+  // weight axis and a UI voice. Plus Jakarta Sans has both and still has enough
+  // character not to read as a default. Inter is the most legible UI face there
+  // is at small sizes, which is what the interface is mostly made of.
   // -------------------------------------------------------------------------
-  --font-display: "Archivo Black", "Archivo Black Fallback", system-ui, sans-serif;
-  --font-body: "Space Grotesk", "Space Grotesk Fallback", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter Fallback", system-ui, sans-serif;
+  --font-body: "Inter", "Inter Fallback", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   // Fluid scale. The clamp middle term is in vi units so it tracks the
@@ -152,7 +158,7 @@ $bp-2xl: 96rem; // 1536px
   --t-tiny: 0.8125rem;
   --t-micro: 0.6875rem;
 
-  --lh-tight: 1.08;
+  --lh-tight: 1.12;
   --lh-snug: 1.3;
   --lh-body: 1.7;
 
