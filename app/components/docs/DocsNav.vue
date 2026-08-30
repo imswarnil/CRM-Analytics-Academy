@@ -27,6 +27,19 @@ function containsActive(item: ContentNavigationItem): boolean {
 }
 
 const modules = computed(() => props.items ?? [])
+
+// Where the learner is in the whole course, so each module can show how much of
+// it lies behind them. Position is derived from the same flat sequence the
+// player bar uses, which is what stops the two disagreeing.
+const { lessons, currentIndex } = useCourse()
+
+/** Lessons of `modulePath` that come at or before the current position. */
+function moduleProgress(mod: ContentNavigationItem) {
+  const own = lessons.value.filter(l => l.moduleTitle === String(mod.title ?? ''))
+  if (!own.length || currentIndex.value < 0) return 0
+  const done = own.filter(l => lessons.value.indexOf(l) < currentIndex.value).length
+  return Math.round((done / own.length) * 100)
+}
 </script>
 
 <template>
@@ -66,11 +79,22 @@ const modules = computed(() => props.items ?? [])
               class="docsnav__icon"
             />
             <span class="docsnav__title">{{ mod.title }}</span>
+            <span
+              v-if="moduleProgress(mod) > 0"
+              class="docsnav__pct"
+            >{{ moduleProgress(mod) }}%</span>
             <Icon
               name="i-lucide-chevron-down"
               class="docsnav__chev"
             />
           </summary>
+
+          <div
+            v-if="moduleProgress(mod) > 0"
+            class="docsnav__bar"
+          >
+            <span :style="{ width: `${moduleProgress(mod)}%` }" />
+          </div>
 
           <ul class="docsnav__lessons">
             <li
@@ -134,6 +158,31 @@ const modules = computed(() => props.items ?? [])
   height: 1.05rem;
   flex-shrink: 0;
   color: var(--c-text-faint);
+}
+
+.docsnav__pct {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--c-brand-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.docsnav__bar {
+  height: 0.2rem;
+  margin: var(--s-1) var(--s-3) 0;
+  border-radius: var(--r-full);
+  background: var(--c-bg-inset);
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    border-radius: var(--r-full);
+    background: var(--c-brand);
+    transition: width var(--dur-slow) var(--ease-spring);
+  }
 }
 
 .docsnav__chev {

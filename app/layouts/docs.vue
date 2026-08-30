@@ -10,37 +10,41 @@ const { toc: tocConfig } = useAppConfig()
 </script>
 
 <template>
-  <div class="shell">
-    <div class="docs">
-      <!-- Sidebar. Hidden below lg, where the header drawer carries the same
+  <div>
+    <DocsCoursePlayerBar />
+
+    <div class="shell">
+      <div class="docs">
+        <!-- Sidebar. Hidden below lg, where the header drawer carries the same
            tree instead — see AppHeader. -->
-      <aside class="docs__rail">
-        <div class="docs__rail-scroll">
-          <DocsNav
-            v-if="navigation?.length"
-            :items="navigation"
-          />
+        <aside class="docs__rail">
+          <div class="docs__rail-scroll">
+            <DocsNav
+              v-if="navigation?.length"
+              :items="navigation"
+            />
+          </div>
+
+          <SponsorCard class="docs__rail-foot" />
+        </aside>
+
+        <div class="docs__main">
+          <slot />
         </div>
 
-        <SponsorCard class="docs__rail-foot" />
-      </aside>
+        <aside class="docs__aside">
+          <DocsToc
+            v-if="toc?.length"
+            :links="toc"
+            :title="tocConfig?.title"
+          />
 
-      <div class="docs__main">
-        <slot />
+          <AdUnit
+            placement="sidebarSquare"
+            class="docs__aside-ad"
+          />
+        </aside>
       </div>
-
-      <aside class="docs__aside">
-        <DocsToc
-          v-if="toc?.length"
-          :links="toc"
-          :title="tocConfig?.title"
-        />
-
-        <AdUnit
-          placement="sidebarSquare"
-          class="docs__aside-ad"
-        />
-      </aside>
     </div>
   </div>
 </template>

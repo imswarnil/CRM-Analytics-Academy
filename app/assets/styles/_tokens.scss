@@ -129,20 +129,19 @@ $bp-2xl: 96rem; // 1536px
 
   // -------------------------------------------------------------------------
   // TYPE
-  // Plus Jakarta Sans for headings and UI chrome, Inter for reading, JetBrains
-  // Mono for SAQL and code.
+  // Geist for everything, Geist Mono for code.
   //
-  // The previous pair led with Archivo Black, which is a poster face: one
-  // static weight, very wide, and it made every heading look like an
-  // advertisement rather than a product. This is a learning application people
-  // work inside for half an hour at a time, so the display face needs a full
-  // weight axis and a UI voice. Plus Jakarta Sans has both and still has enough
-  // character not to read as a default. Inter is the most legible UI face there
-  // is at small sizes, which is what the interface is mostly made of.
-  // -------------------------------------------------------------------------
-  --font-display: "Plus Jakarta Sans", "Inter Fallback", system-ui, sans-serif;
-  --font-body: "Inter", "Inter Fallback", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  // One family across display, body and UI rather than a pairing. Two earlier
+  // attempts led with an expressive display face and both read as marketing
+  // rather than as software; this is an application people work inside, and a
+  // single engineered family is what makes an interface feel like one product
+  // instead of a page with headings pasted on. Geist carries a full 100-900
+  // axis, so hierarchy comes from weight and size rather than from a second
+  // typeface, and its tight apertures hold up at the small sizes the chrome is
+  // mostly made of.
+  --font-display: "Geist", "Geist Fallback", system-ui, sans-serif;
+  --font-body: "Geist", "Geist Fallback", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   // Fluid scale. The clamp middle term is in vi units so it tracks the
   // viewport, and every step names a role rather than a size — nothing should

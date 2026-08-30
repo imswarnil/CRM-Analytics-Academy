@@ -84,6 +84,7 @@ function closeAll() {
             class="hdr__icon-btn"
             type="button"
             :aria-expanded="langOpen"
+            :title="t('nav.chooseLanguage')"
             :aria-label="t('nav.chooseLanguage')"
             @click="closeAll(); langOpen = !langOpen"
           >
@@ -115,17 +116,20 @@ function closeAll() {
           class="hdr__icon-btn"
           type="button"
           :aria-label="t('nav.theme')"
-          :title="choice"
+          :title="`${t('nav.theme')}: ${choice}`"
           @click="cycle"
         >
           <Icon :name="themeIcon" />
         </button>
+
+        <span class="hdr__divider hide-below-lg" />
 
         <a
           class="hdr__icon-btn hide-below-lg"
           href="https://github.com/imswarnil/CRM-Analytics-Academy"
           target="_blank"
           rel="noopener noreferrer"
+          :title="t('nav.github')"
           :aria-label="t('nav.github')"
         >
           <Icon name="i-simple-icons-github" />
@@ -283,16 +287,40 @@ function closeAll() {
 }
 
 .hdr__icon-btn {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--r-full);
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
   color: var(--c-text-soft);
-  font-size: 1.15rem;
-  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  font-size: 1.05rem;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
 
-  &:hover { background: var(--c-bg-inset); color: var(--c-text); }
+  &:hover {
+    background: var(--c-bg-sunken);
+    border-color: var(--c-line);
+    color: var(--c-text);
+  }
+
+  &[aria-expanded="true"] {
+    background: var(--c-brand-faint);
+    border-color: var(--c-brand-soft);
+    color: var(--c-brand-text);
+  }
+}
+
+// A hairline between the navigation controls and the overflow menu, so the
+// row reads as two groups rather than six loose glyphs.
+.hdr__divider {
+  width: 1px;
+  height: 1.25rem;
+  margin-inline: var(--s-1);
+  background: var(--c-line);
 }
 
 .hdr__menu-wrap { position: relative; }
