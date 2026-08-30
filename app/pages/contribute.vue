@@ -59,7 +59,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
           Contributor guide
         </UBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Help build the <span class="text-gradient">community</span>
+          Help build the <span class="text-marker">community</span>
         </h1>
         <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
           Everything you need to add a lesson, translate content, suggest a resource, or improve the code.

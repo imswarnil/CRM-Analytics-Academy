@@ -239,7 +239,7 @@ useJsonLd({
 
             <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-6xl">
               {{ t('hero.titleLead') }}<br>
-              <span class="text-gradient">{{ t('hero.titleAccent') }}</span>.
+              <span class="text-marker">{{ t('hero.titleAccent') }}</span>.
             </h1>
 
             <p class="mt-6 max-w-xl text-lg text-muted">

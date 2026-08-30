@@ -55,7 +55,7 @@ useJsonLd(datasets.map(d => ({
           Sample datasets
         </UBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Practice on <span class="text-gradient">real-shaped</span> data
+          Practice on <span class="text-marker">real-shaped</span> data
         </h1>
         <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
           Download these free CSVs and upload them into CRM Analytics to follow every lesson hands-on — build recipes, write SAQL, and design dashboards.

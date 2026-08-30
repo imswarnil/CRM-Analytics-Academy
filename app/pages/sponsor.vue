@@ -39,7 +39,7 @@ const tiers = [
           Sponsor
         </UBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Help keep it <span class="text-gradient">free & open</span>
+          Help keep it <span class="text-marker">free & open</span>
         </h1>
         <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
           CRM Analytics Academy is built in the open and given away for free. Sponsorship keeps the lights on and funds new lessons, languages, and datasets.

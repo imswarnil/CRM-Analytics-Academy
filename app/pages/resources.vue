@@ -78,7 +78,7 @@ useJsonLd({
           Resources
         </UBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          The best <span class="text-gradient">CRM Analytics</span> resources
+          The best <span class="text-marker">CRM Analytics</span> resources
         </h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
           Docs, courses, books, blogs, tools, and communities — filter to find what you need.

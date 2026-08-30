@@ -82,7 +82,7 @@ const authorLinks = [
         </UBadge>
 
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Making Salesforce <span class="text-gradient">CRM Analytics</span> learnable for everyone
+          Making Salesforce <span class="text-marker">CRM Analytics</span> learnable for everyone
         </h1>
         <p class="mx-auto mt-6 max-w-2xl text-lg text-muted">
           Two things to know: what this project is, and who builds it.

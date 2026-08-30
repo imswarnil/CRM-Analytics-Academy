@@ -72,7 +72,7 @@ const columns = [
           Roadmap
         </UBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Where we're <span class="text-gradient">headed</span>
+          Where we're <span class="text-marker">headed</span>
         </h1>
         <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
           The Academy is open source and always growing. Have an idea?
