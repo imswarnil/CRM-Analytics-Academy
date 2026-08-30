@@ -1,0 +1,232 @@
+@use "tokens" as *;
+
+// ===========================================================================
+// PROSE
+// ---------------------------------------------------------------------------
+// The lesson column. The bargain the whole design makes: character lives in
+// the chrome — nav, cards, badges, the dashboard — and the reading column stays
+// quiet, wide-leaded and high-contrast, because people sit on these pages for
+// twenty minutes at a time. If a change here makes a lesson harder to read for
+// the sake of looking better, it is the wrong change.
+// ===========================================================================
+
+.prose {
+  max-width: var(--w-read);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--c-text);
+
+  > * + * {
+    margin-block-start: var(--s-4);
+  }
+
+  // -------------------------------------------------------------------------
+  // Headings. Each carries a short brand rule above it instead of a border
+  // below — it marks the start of a section the way a tick marks an axis, and
+  // it does not put a line between a heading and the text it belongs to.
+  // -------------------------------------------------------------------------
+  h2 {
+    margin-block-start: var(--s-7);
+    padding-block-start: var(--s-4);
+    position: relative;
+    scroll-margin-top: calc(var(--h-header) + var(--s-4));
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      width: 2.5rem;
+      height: 4px;
+      border-radius: var(--r-full);
+      background: var(--c-brand);
+    }
+  }
+
+  h3 {
+    margin-block-start: var(--s-6);
+    scroll-margin-top: calc(var(--h-header) + var(--s-4));
+  }
+
+  h4 {
+    margin-block-start: var(--s-5);
+    scroll-margin-top: calc(var(--h-header) + var(--s-4));
+  }
+
+  // A heading immediately after another heading should not get the big gap.
+  :is(h2, h3, h4) + :is(h3, h4) {
+    margin-block-start: var(--s-4);
+  }
+
+  // -------------------------------------------------------------------------
+  // Links. Underlined by default: in a body of text, colour alone is not an
+  // accessible affordance for anyone who cannot distinguish it.
+  // -------------------------------------------------------------------------
+  a {
+    color: var(--c-brand-text);
+    text-decoration: underline;
+    text-decoration-color: var(--c-brand-soft);
+    font-weight: 550;
+
+    &:hover {
+      text-decoration-color: currentcolor;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Lists. Custom markers, because the default disc is the giveaway of an
+  // unstyled page — and a square tick reads as a checklist, which is what a
+  // lesson's steps usually are.
+  // -------------------------------------------------------------------------
+  ul,
+  ol {
+    padding-inline-start: var(--s-5);
+
+    li + li {
+      margin-block-start: var(--s-2);
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding-inline-start: var(--s-5);
+
+    > li {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset-inline-start: calc(var(--s-5) * -1);
+        inset-block-start: 0.62em;
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 2px;
+        background: var(--c-brand);
+      }
+    }
+  }
+
+  ol {
+    list-style: none;
+    counter-reset: prose-ol;
+
+    > li {
+      position: relative;
+      counter-increment: prose-ol;
+
+      &::before {
+        content: counter(prose-ol);
+        position: absolute;
+        inset-inline-start: calc(var(--s-6) * -1);
+        inset-block-start: 0.1em;
+        display: grid;
+        place-items: center;
+        width: 1.4rem;
+        height: 1.4rem;
+        border-radius: var(--r-full);
+        background: var(--c-brand-soft);
+        color: var(--c-brand-strong);
+        font-family: var(--font-mono);
+        font-size: var(--t-micro);
+        font-weight: 700;
+      }
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Code
+  // -------------------------------------------------------------------------
+  :not(pre) > code {
+    padding: 0.12em 0.36em;
+    border-radius: var(--r-xs);
+    background: var(--c-brand-faint);
+    border: 1px solid var(--c-line-soft);
+    color: var(--c-brand-strong);
+    font-size: 0.875em;
+    white-space: nowrap;
+  }
+
+  pre {
+    padding: var(--s-4);
+    border-radius: var(--r-md);
+    background: var(--ink-95);
+    color: var(--ink-10);
+    border: 1px solid var(--c-line);
+    overflow-x: auto;
+    font-size: var(--t-small);
+    line-height: 1.6;
+
+    code {
+      background: none;
+      border: 0;
+      padding: 0;
+      color: inherit;
+      white-space: pre;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Tables. Scroll inside their own container — a wide table must never make
+  // the whole page scroll sideways.
+  // -------------------------------------------------------------------------
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-md);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--t-small);
+  }
+
+  th,
+  td {
+    padding: var(--s-3) var(--s-4);
+    text-align: start;
+    border-block-end: 1px solid var(--c-line-soft);
+  }
+
+  th {
+    background: var(--c-bg-sunken);
+    font-weight: 700;
+    color: var(--c-text);
+    white-space: nowrap;
+  }
+
+  tr:last-child td {
+    border-block-end: 0;
+  }
+
+  // -------------------------------------------------------------------------
+  // Quotes and figures
+  // -------------------------------------------------------------------------
+  blockquote {
+    padding: var(--s-4) var(--s-5);
+    border-inline-start: 4px solid var(--c-brand);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    background: var(--c-brand-faint);
+    color: var(--c-text-soft);
+    font-style: italic;
+
+    > * + * {
+      margin-block-start: var(--s-3);
+    }
+  }
+
+  img {
+    border-radius: var(--r-md);
+    border: 1px solid var(--c-line);
+  }
+
+  hr {
+    margin-block: var(--s-7);
+  }
+
+  // A lesson's first heading should not push away from the page header.
+  > :first-child {
+    margin-block-start: 0;
+  }
+}

@@ -1,0 +1,13 @@
+// ===========================================================================
+// SIGNAL — stylesheet entry
+// ---------------------------------------------------------------------------
+// Order matters: tokens define the custom properties everything else reads,
+// base resets and sets element defaults, layout provides structure, prose
+// styles the content column. Component styles live in their own .vue files
+// and read the same tokens through var(), so nothing has to be imported there.
+// ===========================================================================
+
+@use "tokens";
+@use "base";
+@use "layout";
+@use "prose";

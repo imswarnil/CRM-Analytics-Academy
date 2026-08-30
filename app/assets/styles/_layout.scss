@@ -1,0 +1,206 @@
+@use "tokens" as *;
+
+// ===========================================================================
+// LAYOUT
+// ---------------------------------------------------------------------------
+// A small, closed set of layout primitives. This is deliberately not a utility
+// framework: the point of leaving Tailwind was to stop describing layout in
+// markup. Anything specific to one component lives in that component's own
+// <style> block; only genuinely repeated structure appears here.
+// ===========================================================================
+
+.shell {
+  width: 100%;
+  max-width: var(--w-page);
+  margin-inline: auto;
+  padding-inline: var(--s-4);
+
+  @include from($bp-md) {
+    padding-inline: var(--s-6);
+  }
+}
+
+// The reading measure. Everything a person reads for minutes at a time is
+// capped here — this is the single most important number on the site.
+.shell--read {
+  max-width: var(--w-read);
+}
+
+.shell--wide {
+  max-width: 72rem;
+}
+
+// ---------------------------------------------------------------------------
+// Docs three-column: sidebar | lesson | table of contents.
+// Collapses progressively — the TOC goes first (it is a convenience), the
+// sidebar second (it has a drawer on mobile).
+// ---------------------------------------------------------------------------
+.docs {
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+
+  @include from($bp-lg) {
+    grid-template-columns: var(--w-sidebar) minmax(0, 1fr);
+    gap: var(--s-7);
+  }
+
+  @include from($bp-xl) {
+    grid-template-columns: var(--w-sidebar) minmax(0, 1fr) var(--w-toc);
+  }
+}
+
+.docs__rail {
+  display: none;
+
+  @include from($bp-lg) {
+    display: block;
+    position: sticky;
+    top: var(--h-header);
+    max-height: calc(100vh - var(--h-header));
+    // The nav scrolls in its own area so a 60-lesson tree never pushes what
+    // sits beneath it off screen.
+    display: flex;
+    flex-direction: column;
+    padding-block: var(--s-6);
+  }
+}
+
+.docs__aside {
+  display: none;
+
+  @include from($bp-xl) {
+    display: block;
+    position: sticky;
+    top: var(--h-header);
+    max-height: calc(100vh - var(--h-header));
+    overflow-y: auto;
+    padding-block: var(--s-6);
+  }
+}
+
+.docs__main {
+  min-width: 0; // without this a wide code block blows the grid track out
+  padding-block: var(--s-6) var(--s-9);
+}
+
+// ---------------------------------------------------------------------------
+// Stacks and clusters — the two arrangements that come up constantly.
+// ---------------------------------------------------------------------------
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.stack--tight { gap: var(--s-2); }
+.stack--loose { gap: var(--s-6); }
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.cluster--between {
+  justify-content: space-between;
+}
+
+// Auto-fitting card grid. The min track is a parameter so a caller can say how
+// wide its cards want to be without writing a new media query.
+.grid-auto {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min, 17rem), 100%), 1fr));
+}
+
+// ---------------------------------------------------------------------------
+// Sections
+// ---------------------------------------------------------------------------
+.section {
+  padding-block: var(--s-8);
+
+  @include from($bp-md) {
+    padding-block: var(--s-9);
+  }
+}
+
+.section--sunken {
+  background: var(--c-bg-sunken);
+}
+
+.section__head {
+  max-width: 44rem;
+  margin-bottom: var(--s-6);
+}
+
+// ---------------------------------------------------------------------------
+// Backdrops — flat, drawn patterns rather than blurred colour blobs. These are
+// the "analytics instrument" texture: plot grids and dot matrices, the paper an
+// engineer would sketch a chart on.
+// ---------------------------------------------------------------------------
+.bg-grid,
+.bg-dots {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    // Faded so the texture never competes with the words on top of it.
+    mask-image: linear-gradient(to bottom, #000, transparent 85%);
+  }
+}
+
+.bg-grid::before {
+  background-image:
+    linear-gradient(to right, var(--c-line-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--c-line-soft) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+}
+
+.bg-dots::before {
+  background-image: radial-gradient(var(--c-line) 1.5px, transparent 1.5px);
+  background-size: 1.5rem 1.5rem;
+}
+
+// ---------------------------------------------------------------------------
+// The few utilities that genuinely earn their keep.
+// ---------------------------------------------------------------------------
+.text-center { text-align: center; }
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 400;
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  color: var(--c-brand-text);
+}
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 1.6;
+  color: var(--c-text-soft);
+}
+
+.muted { color: var(--c-text-soft); }
+.faint { color: var(--c-text-faint); }
+
+.hide-below-md {
+  @include until($bp-md) { display: none !important; }
+}
+
+.hide-below-lg {
+  @include until($bp-lg) { display: none !important; }
+}
+
+.hide-from-lg {
+  @include from($bp-lg) { display: none !important; }
+}
