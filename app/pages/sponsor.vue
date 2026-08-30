@@ -25,43 +25,43 @@ const tiers = [
     <section class="relative overflow-hidden border-b border-default">
       <div class="absolute inset-0 bg-grid" />
       <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-16 text-center sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
+      <div class="shell relative py-16 text-center sm:py-20">
+        <UiBadge
+          tone="brand"
           class="mb-6 rounded-full"
+          size="md"
         >
-          <UIcon
+          <Icon
             name="i-lucide-heart"
             class="mr-1 size-4"
           />
           Sponsor
-        </UBadge>
+        </UiBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
           Help keep it <span class="text-marker">free & open</span>
         </h1>
         <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
           CRM Analytics Academy is built in the open and given away for free. Sponsorship keeps the lights on and funds new lessons, languages, and datasets.
         </p>
-        <UButton
+        <UiButton
+          variant="secondary"
           :to="sponsorUrl"
           target="_blank"
-          size="xl"
           icon="i-lucide-heart"
           class="mt-8 rounded-full font-semibold"
+          size="lg"
         >
           Sponsor on GitHub
-        </UButton>
-      </UContainer>
+        </UiButton>
+      </div>
     </section>
 
     <!-- Featured sponsor -->
-    <UContainer class="pt-12 sm:pt-16">
+    <div class="shell pt-12 sm:pt-16">
       <div class="mx-auto max-w-3xl overflow-hidden rounded-2xl border border-primary/30 bg-primary/5">
         <div class="flex flex-col items-center gap-5 p-6 text-center sm:flex-row sm:p-8 sm:text-left">
           <div class="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
-            <UIcon
+            <Icon
               name="i-lucide-sparkles"
               class="size-8"
             />
@@ -77,17 +77,18 @@ const tiers = [
               Learn Salesforce the friendly way — tutorials, tips, and hands-on guidance for admins and developers.
             </p>
           </div>
-          <UButton
+          <UiButton
+            variant="secondary"
             to="https://www.namastesalesforce.com/"
             target="_blank"
             rel="sponsored noopener"
             icon="i-lucide-arrow-up-right"
             trailing
-            size="lg"
             class="shrink-0 rounded-full font-semibold"
+            size="lg"
           >
             Visit
-          </UButton>
+          </UiButton>
         </div>
         <p class="border-t border-primary/20 bg-primary/5 px-6 py-3 text-center text-xs text-muted">
           This is a <span class="font-medium text-default">demo placement</span> — your business could be featured here and across the site.
@@ -98,9 +99,9 @@ const tiers = [
           >Promote with us →</NuxtLink>
         </p>
       </div>
-    </UContainer>
+    </div>
 
-    <UContainer class="py-14 sm:py-20">
+    <div class="shell py-14 sm:py-20">
       <div class="grid gap-6 sm:grid-cols-3">
         <div
           v-for="r in reasons"
@@ -108,7 +109,7 @@ const tiers = [
           class="rounded-2xl border border-default bg-default p-6"
         >
           <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-            <UIcon
+            <Icon
               :name="r.icon"
               class="size-5"
             />
@@ -146,23 +147,22 @@ const tiers = [
                 :key="perk"
                 class="flex items-start gap-2 text-sm text-muted"
               >
-                <UIcon
+                <Icon
                   name="i-lucide-check"
                   class="mt-0.5 size-4 shrink-0 text-primary"
                 />
                 {{ perk }}
               </li>
             </ul>
-            <UButton
+            <UiButton
+              variant="secondary"
               :to="sponsorUrl"
               target="_blank"
               block
-              :color="tier.highlight ? 'primary' : 'neutral'"
-              :variant="tier.highlight ? 'solid' : 'outline'"
               class="mt-6 rounded-full font-semibold"
             >
               Choose {{ tier.name }}
-            </UButton>
+            </UiButton>
           </div>
         </div>
         <p class="mt-8 text-center text-sm text-muted">
@@ -179,6 +179,6 @@ const tiers = [
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"
       />
-    </UContainer>
+    </div>
   </div>
 </template>

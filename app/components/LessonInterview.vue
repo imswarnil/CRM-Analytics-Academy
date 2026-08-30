@@ -13,7 +13,7 @@ defineProps<{
   >
     <div class="mb-5 flex items-center gap-2.5">
       <div class="flex size-9 items-center justify-center rounded-lg bg-primary/10">
-        <UIcon
+        <Icon
           name="i-lucide-messages-square"
           class="size-5 text-primary"
         />

@@ -35,9 +35,6 @@ const difficultyLabel = (value?: string) => {
   return ['beginner', 'intermediate', 'advanced'].includes(key) ? t(`showcase.${key}`) : String(value)
 }
 
-const badgeColor = (difficulty?: string) =>
-  difficulty === 'Beginner' ? 'success' : difficulty === 'Advanced' ? 'error' : 'warning'
-
 useJsonLd({
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
@@ -47,39 +44,35 @@ useJsonLd({
   'image': `${SITE.url}${entry.value.image}`,
   'author': { '@type': 'Person', 'name': entry.value.author },
   'datePublished': entry.value.publishedAt,
-  'isPartOf': { '@type': 'CollectionPage', 'name': t('showcase.title'), 'url': `${SITE.url}/showcase` },
-  'keywords': (entry.value.techniques ?? []).join(', ')
+  'isPartOf': { '@type': 'CollectionPage', 'name': t('showcase.title'), 'url': `${SITE.url}/showcase` }
 })
 </script>
 
 <template>
-  <UContainer
+  <div
     v-if="entry"
-    class="py-10 sm:py-14"
+    class="shell py-10 sm:py-14"
   >
-    <UButton
+    <UiButton
+      variant="ghost"
       :to="localePath('/showcase')"
       icon="i-lucide-arrow-left"
-      color="neutral"
-      variant="ghost"
-      size="sm"
       class="mb-6"
+      size="sm"
     >
       {{ t('showcase.back') }}
-    </UButton>
+    </UiButton>
 
     <div class="mb-4 flex flex-wrap items-center gap-2">
-      <UBadge
+      <UiBadge
         v-if="entry.domain"
+        tone="neutral"
         :label="entry.domain"
-        color="neutral"
-        variant="subtle"
         class="rounded-full"
       />
-      <UBadge
+      <UiBadge
+        tone="neutral"
         :label="difficultyLabel(entry.difficulty)"
-        :color="badgeColor(entry.difficulty)"
-        variant="subtle"
         class="rounded-full"
       />
     </div>
@@ -214,14 +207,13 @@ useJsonLd({
             {{ t('showcase.datasets') }}
           </p>
           <div class="flex flex-wrap gap-1.5">
-            <UBadge
+            <UiBadge
               v-for="dataset in entry.datasets"
               :key="dataset"
+              tone="neutral"
               :label="dataset"
-              color="neutral"
-              variant="subtle"
-              size="sm"
               class="rounded-full"
+              size="sm"
             />
           </div>
         </div>
@@ -234,14 +226,13 @@ useJsonLd({
             {{ t('showcase.techniques') }}
           </p>
           <div class="flex flex-wrap gap-1.5">
-            <UBadge
+            <UiBadge
               v-for="technique in entry.techniques"
               :key="technique"
+              tone="brand"
               :label="technique"
-              color="primary"
-              variant="subtle"
-              size="sm"
               class="rounded-full"
+              size="sm"
             />
           </div>
         </div>
@@ -252,5 +243,5 @@ useJsonLd({
         />
       </aside>
     </div>
-  </UContainer>
+  </div>
 </template>

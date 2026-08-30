@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { useIntersectionObserver } from '@vueuse/core'
+function openSearch() {
+  window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))
+}
 
 const { t, tm, rt, locale } = useI18n()
 const localePath = useLocalePath()
@@ -171,35 +173,31 @@ useJsonLd({
 })
 
 // Scroll-triggered animation for the "From raw data to decisions" illustrations.
-const featureRowEls = ref<(HTMLElement | null)[]>([])
-const featuresPlayed = ref<boolean[]>([])
-onMounted(() => {
-  featuresPlayed.value = featureRowEls.value.map(() => false)
-  featureRowEls.value.forEach((el, i) => {
-    if (!el) return
-    useIntersectionObserver(el, ([entry]) => {
-      if (entry?.isIntersecting) featuresPlayed.value[i] = true
-    }, { threshold: 0.35 })
-  })
-})
-
 const personaIcons = ['i-lucide-line-chart', 'i-lucide-settings-2', 'i-lucide-briefcase', 'i-lucide-sprout']
 
 const personas = computed(() =>
-  (tm('home.personas') as { t: string, d: string }[]).map((p, i) => ({ icon: personaIcons[i], title: rt(p.t), desc: rt(p.d) }))
+  (tm('home.personas') as { t: string, d: string }[]).map((p, i) => ({ icon: personaIcons[i % personaIcons.length]!, title: rt(p.t), desc: rt(p.d) }))
 )
 const faqs = computed(() =>
   (tm('home.faqs') as { q: string, a: string }[]).map(f => ({ q: rt(f.q), a: rt(f.a) }))
 )
 
-const featureKinds = ['pipeline', 'chart', 'predict']
+const featureIcons = ['i-lucide-workflow', 'i-lucide-chart-column', 'i-lucide-sparkles']
 const features = computed(() =>
   (tm('home.features') as { t: string, d: string }[]).map((f, i) => ({
     title: rt(f.t),
     desc: rt(f.d),
-    kind: featureKinds[i]
+    icon: featureIcons[i % featureIcons.length]!
   }))
 )
+
+const outcomes = computed(() =>
+  (tm('home.outcomes') as { t: string, d: string }[]).map(o => ({ title: rt(o.t), desc: rt(o.d) }))
+)
+
+// Rotated across the module cards so the curriculum reads as a sequence of
+// distinct stages rather than eight identical tiles.
+const accents = ['brand', 'data', 'progress', 'caution', 'action', 'meta'] as const
 
 useJsonLd({
   '@context': 'https://schema.org',
@@ -214,443 +212,617 @@ useJsonLd({
 
 <template>
   <div>
-    <!-- ============================ HERO ============================ -->
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 -left-32 size-96 rounded-full bg-primary/20 blur-3xl" />
-      <div class="absolute -top-20 right-0 size-80 rounded-full bg-salesforce-400/15 blur-3xl" />
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="hero bg-grid">
+      <div class="shell hero__inner">
+        <UiBadge
+          tone="brand"
+          icon="i-lucide-sparkles"
+        >
+          {{ t('hero.badge') }}
+        </UiBadge>
 
-      <UContainer class="relative py-20 sm:py-28">
-        <div class="grid items-center gap-12 lg:grid-cols-2">
-          <!-- Copy -->
-          <div class="animate-fade-up">
-            <UBadge
-              color="primary"
-              variant="subtle"
-              size="lg"
-              class="mb-6"
-            >
-              <UIcon
-                name="i-lucide-sparkles"
-                class="mr-1 size-4"
-              />
-              {{ t('hero.badge') }}
-            </UBadge>
+        <h1 class="hero__title text-balance">
+          {{ t('hero.titleLead') }}
+          <span class="hero__accent">{{ t('hero.titleAccent') }}</span>
+        </h1>
 
-            <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-6xl">
-              {{ t('hero.titleLead') }}<br>
-              <span class="text-marker">{{ t('hero.titleAccent') }}</span>.
-            </h1>
+        <p class="lead hero__sub text-pretty">
+          {{ t('hero.subtitle') }}
+        </p>
 
-            <p class="mt-6 max-w-xl text-lg text-muted">
-              {{ t('hero.subtitle') }}
-            </p>
-
-            <div class="mt-8 flex flex-wrap gap-3">
-              <UButton
-                :to="localePath('/foundations')"
-                size="xl"
-                trailing-icon="i-lucide-arrow-right"
-                class="font-semibold"
-              >
-                {{ t('hero.start') }}
-              </UButton>
-              <UButton
-                to="#curriculum"
-                size="xl"
-                color="neutral"
-                variant="outline"
-                icon="i-lucide-graduation-cap"
-                class="font-semibold"
-              >
-                {{ t('hero.browse') }}
-              </UButton>
-              <UTooltip :text="t('hero.search')">
-                <UButton
-                  icon="i-lucide-search"
-                  size="xl"
-                  color="neutral"
-                  variant="outline"
-                  square
-                  :aria-label="t('hero.search')"
-                  @click="useContentSearch().open.value = true"
-                />
-              </UTooltip>
-            </div>
-
-            <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
-              <span class="flex items-center gap-1.5"><UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary"
-              /> {{ t('hero.f1') }}</span>
-              <span class="flex items-center gap-1.5"><UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary"
-              /> {{ t('hero.f2') }}</span>
-              <span class="flex items-center gap-1.5"><UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary"
-              /> {{ t('hero.f3') }}</span>
-            </div>
-          </div>
-
-          <!-- Animated pipeline storyboard -->
-          <div class="animate-fade-up mx-auto w-full max-w-md">
-            <HeroStory />
-          </div>
-        </div>
-      </UContainer>
-    </section>
-
-    <!-- ============================ STATS ============================ -->
-    <section class="border-b border-default bg-gradient-to-r from-salesforce-600 to-salesforce-800">
-      <UContainer class="py-10">
-        <dl class="grid grid-cols-2 gap-8 sm:grid-cols-4">
-          <div
-            v-for="s in stats"
-            :key="s.label"
-            class="text-center"
+        <div class="hero__actions">
+          <UiButton
+            variant="primary"
+            size="lg"
+            :to="localePath('/foundations')"
+            trailing-icon="i-lucide-arrow-right"
           >
-            <dt class="text-4xl font-extrabold text-white">
-              {{ s.value }}
-            </dt>
-            <dd class="mt-1 text-sm font-medium text-white/70">
-              {{ s.label }}
-            </dd>
-          </div>
-        </dl>
-      </UContainer>
+            {{ t('hero.start') }}
+          </UiButton>
+          <UiButton
+            size="lg"
+            href="#curriculum"
+            icon="i-lucide-graduation-cap"
+          >
+            {{ t('hero.browse') }}
+          </UiButton>
+          <UiButton
+            size="lg"
+            square
+            icon="i-lucide-search"
+            :aria-label="t('hero.search')"
+            :title="t('hero.search')"
+            @click="openSearch"
+          />
+        </div>
+
+        <ul class="hero__facts">
+          <li
+            v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
+            :key="f"
+          >
+            <Icon
+              name="i-lucide-check"
+              class="hero__tick"
+            />{{ f }}
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <UContainer>
-      <AdUnit
-        placement="belowHero"
-        class="max-w-4xl"
-      />
-    </UContainer>
+    <!-- ── Stats ────────────────────────────────────────────────────────── -->
+    <section class="stats">
+      <div class="shell stats__inner">
+        <div
+          v-for="s in stats"
+          :key="s.label"
+          class="stats__cell"
+        >
+          <p class="stats__value">
+            {{ s.value }}
+          </p>
+          <p class="stats__label">
+            {{ s.label }}
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <!-- ========================= CURRICULUM ========================= -->
+    <!-- ── Curriculum ───────────────────────────────────────────────────── -->
     <section
       id="curriculum"
-      class="relative scroll-mt-24 py-20 sm:py-24"
+      class="section"
     >
-      <UContainer>
-        <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+      <div class="shell">
+        <header class="section__head">
+          <p class="eyebrow">
             {{ t('home.curriculumEyebrow') }}
           </p>
-          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.curriculumTitle') }}
-          </h2>
-          <p class="mt-4 text-lg text-muted">
+          <h2>{{ t('home.curriculumTitle') }}</h2>
+          <p class="lead">
             {{ t('home.curriculumSubtitle') }}
           </p>
-        </div>
+        </header>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <NuxtLink
-            v-for="m in modules"
-            :key="m.n"
+        <div
+          class="grid-auto"
+          style="--grid-min: 20rem"
+        >
+          <UiCard
+            v-for="(m, i) in modules"
+            :key="m.to"
             :to="localePath(m.to)"
-            class="group relative flex flex-col overflow-hidden rounded-2xl border border-default bg-default p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl"
+            :accent="accents[i % accents.length]"
+            padding="lg"
+            class="mod"
           >
-            <div class="absolute inset-x-0 top-0 h-1 scale-x-0 bg-gradient-to-r from-salesforce-400 to-salesforce-600 transition-transform duration-300 group-hover:scale-x-100" />
-            <div class="mb-5 flex items-center justify-between">
-              <div class="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition group-hover:bg-primary group-hover:text-inverted">
-                <UIcon
-                  :name="m.icon"
-                  class="size-6"
-                />
-              </div>
-              <span class="text-2xl font-extrabold text-default/15 group-hover:text-primary/30">{{ m.n }}</span>
-            </div>
-            <h3 class="text-lg font-semibold text-highlighted">{{ m.title }}</h3>
-            <p class="mt-2 grow text-sm text-muted">{{ m.desc }}</p>
-
-            <!-- Lesson preview — revealed on hover -->
-            <ul class="mt-4 max-h-0 space-y-1.5 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-24 group-hover:opacity-100">
-              <li
-                v-for="lesson in m.lessons"
-                :key="lesson"
-                class="flex items-center gap-2 text-xs font-medium text-toned"
-              >
-                <UIcon
-                  name="i-lucide-file-text"
-                  class="size-3.5 shrink-0 text-primary"
-                />
-                {{ lesson }}
-              </li>
-            </ul>
-
-            <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-              {{ t('home.startModule') }}
-              <UIcon
-                name="i-lucide-arrow-right"
-                class="size-4 transition-transform group-hover:translate-x-1"
+            <div class="mod__top">
+              <span class="mod__n">{{ m.n }}</span>
+              <Icon
+                :name="m.icon"
+                class="mod__icon"
               />
-            </span>
-          </NuxtLink>
+            </div>
 
-          <!-- Start-here call card -->
-          <div class="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-salesforce-600 to-salesforce-800 p-6 text-white">
-            <UIcon
-              name="i-lucide-flag"
-              class="mb-4 size-8"
-            />
-            <h3 class="text-lg font-semibold">
-              {{ t('home.newHereTitle') }}
+            <h3 class="mod__title">
+              {{ m.title }}
             </h3>
-            <p class="mt-2 text-sm text-white/80">
-              {{ t('home.newHereDesc') }}
+            <p class="mod__desc">
+              {{ m.desc }}
             </p>
-            <UButton
-              :to="localePath('/foundations')"
-              color="neutral"
-              variant="solid"
-              class="mt-5 w-fit bg-white font-semibold text-salesforce-700 hover:bg-white/90"
-              trailing-icon="i-lucide-arrow-right"
-            >
-              {{ t('home.startHere') }}
-            </UButton>
-          </div>
+
+            <p class="mod__meta">
+              <Icon name="i-lucide-book-open" />
+              {{ m.lessons.length }} {{ t('home.stats.lessons').toLowerCase() }}
+            </p>
+          </UiCard>
         </div>
-      </UContainer>
+      </div>
     </section>
 
-    <UContainer>
-      <AdUnit
-        placement="betweenSections"
-        class="max-w-3xl"
-      />
-    </UContainer>
-
-    <!-- ===================== ALTERNATING FEATURES ===================== -->
-    <section class="py-24 sm:py-32">
-      <UContainer>
-        <div class="mx-auto mb-16 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            {{ t('home.featuresEyebrow') }}
+    <!-- ── How it works ─────────────────────────────────────────────────── -->
+    <section class="section section--sunken">
+      <div class="shell">
+        <header class="section__head">
+          <p class="eyebrow">
+            {{ t('home.howEyebrow') }}
           </p>
-          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.featuresTitle') }}
-          </h2>
-        </div>
+          <h2>{{ t('home.howTitle') }}</h2>
+        </header>
 
-        <div class="space-y-16 sm:space-y-24">
+        <div
+          class="grid-auto"
+          style="--grid-min: 16rem"
+        >
           <div
             v-for="(f, i) in features"
             :key="f.title"
-            class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+            class="step"
           >
-            <!-- Illustration — alternates side per row, animates in on scroll -->
-            <div :class="i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'">
-              <div
-                :ref="(el: unknown) => (featureRowEls[i] = el as HTMLElement)"
-                class="relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-default bg-muted/30 p-8 sm:min-h-[380px]"
-              >
-                <div class="absolute -inset-8 bg-primary/10 blur-3xl" />
+            <span class="step__num">{{ i + 1 }}</span>
+            <Icon
+              :name="f.icon"
+              class="step__icon"
+            />
+            <h3 class="step__title">
+              {{ f.title }}
+            </h3>
+            <p class="step__desc">
+              {{ f.desc }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                <!-- pipeline -->
-                <div
-                  v-if="f.kind === 'pipeline'"
-                  class="relative flex items-center justify-between gap-3"
-                >
-                  <div class="space-y-2.5">
-                    <div
-                      v-for="(s, j) in ['i-simple-icons-salesforce', 'i-simple-icons-snowflake', 'i-lucide-database']"
-                      :key="j"
-                      class="flex items-center gap-2 rounded-lg border border-default bg-default px-3 py-2 transition-all duration-500"
-                      :class="featuresPlayed[i] ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'"
-                      :style="{ transitionDelay: `${j * 120}ms` }"
-                    >
-                      <UIcon
-                        :name="s"
-                        class="size-4 text-primary"
-                      />
-                      <span class="h-1.5 w-12 rounded-full bg-default/40" />
-                    </div>
-                  </div>
-                  <UIcon
-                    name="i-lucide-chevrons-right"
-                    class="size-6 shrink-0 text-primary/60 transition-opacity duration-700"
-                    :class="featuresPlayed[i] ? 'animate-pulse opacity-100' : 'opacity-0'"
-                  />
-                  <div
-                    class="flex flex-col items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-4 transition-all duration-500"
-                    :class="featuresPlayed[i] ? 'scale-100 opacity-100' : 'scale-75 opacity-0'"
-                    style="transition-delay: 450ms"
-                  >
-                    <UIcon
-                      name="i-lucide-table-2"
-                      class="size-7 text-primary"
-                    />
-                    <span class="text-[11px] font-semibold text-primary">Dataset</span>
-                  </div>
-                </div>
+    <!-- ── Outcomes ─────────────────────────────────────────────────────── -->
+    <section class="section">
+      <div class="shell">
+        <header class="section__head">
+          <p class="eyebrow">
+            {{ t('home.outcomesEyebrow') }}
+          </p>
+          <h2>{{ t('home.outcomesTitle') }}</h2>
+          <p class="lead">
+            {{ t('home.outcomesSubtitle') }}
+          </p>
+        </header>
 
-                <!-- chart -->
-                <div
-                  v-else-if="f.kind === 'chart'"
-                  class="relative"
-                >
-                  <div class="flex h-32 items-end justify-between gap-2">
-                    <span
-                      v-for="(h, j) in [40, 70, 55, 92, 64]"
-                      :key="j"
-                      class="flex-1 rounded-t-md transition-all ease-out"
-                      :style="{
-                        height: featuresPlayed[i] ? `${h}%` : '0%',
-                        background: ['var(--color-salesforce-700)', 'var(--color-salesforce-500)', 'var(--color-salesforce-400)', 'var(--color-salesforce-300)', 'var(--color-salesforce-200)'][j],
-                        transitionDuration: '650ms',
-                        transitionDelay: `${j * 90}ms`
-                      }"
-                    />
-                  </div>
-                  <div class="mt-3 h-px w-full bg-default/40" />
-                </div>
-
-                <!-- predict -->
-                <div
-                  v-else
-                  class="relative flex items-center justify-center"
-                >
-                  <div
-                    class="relative flex size-32 items-center justify-center rounded-full transition-all duration-700 ease-out"
-                    :class="featuresPlayed[i] ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-75 opacity-0'"
-                    style="background: conic-gradient(var(--color-salesforce-500) 0 72%, var(--color-salesforce-200) 72% 100%)"
-                  >
-                    <div class="absolute inset-[18%] flex items-center justify-center rounded-full bg-muted/30 backdrop-blur">
-                      <span class="text-xl font-bold text-highlighted">72%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Content -->
-            <div :class="i % 2 === 0 ? 'lg:order-2' : 'lg:order-1'">
-              <h3 class="text-2xl font-bold tracking-tight text-highlighted sm:text-3xl">
-                {{ f.title }}
-              </h3>
-              <p class="mt-4 text-lg text-muted">
-                {{ f.desc }}
+        <ul
+          class="grid-auto outcomes"
+          style="--grid-min: 18rem"
+        >
+          <li
+            v-for="o in outcomes"
+            :key="o.title"
+            class="outcome"
+          >
+            <Icon
+              name="i-lucide-circle-check"
+              class="outcome__tick"
+            />
+            <div>
+              <p class="outcome__title">
+                {{ o.title }}
+              </p>
+              <p class="outcome__desc">
+                {{ o.desc }}
               </p>
             </div>
-          </div>
-        </div>
-      </UContainer>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <!-- ========================= WHO IT'S FOR ========================= -->
-    <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
-      <UContainer>
-        <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+    <!-- ── Who it's for ─────────────────────────────────────────────────── -->
+    <section class="section section--sunken">
+      <div class="shell">
+        <header class="section__head">
+          <p class="eyebrow">
             {{ t('home.whoEyebrow') }}
           </p>
-          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.whoTitle') }}
-          </h2>
-        </div>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div
+          <h2>{{ t('home.whoTitle') }}</h2>
+        </header>
+
+        <div
+          class="grid-auto"
+          style="--grid-min: 15rem"
+        >
+          <UiCard
             v-for="p in personas"
             :key="p.title"
-            class="rounded-2xl border border-default bg-default p-6"
+            padding="md"
           >
-            <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-              <UIcon
-                :name="p.icon"
-                class="size-5"
-              />
-            </div>
-            <h3 class="font-semibold text-highlighted">
+            <Icon
+              :name="p.icon"
+              class="persona__icon"
+            />
+            <h3 class="persona__title">
               {{ p.title }}
             </h3>
-            <p class="mt-2 text-sm text-muted">
+            <p class="persona__desc">
               {{ p.desc }}
             </p>
-          </div>
+          </UiCard>
         </div>
-      </UContainer>
+      </div>
     </section>
 
-    <UContainer>
-      <AdUnit
-        placement="footer"
-        class="max-w-3xl"
-      />
-    </UContainer>
+    <!-- ── FAQ ──────────────────────────────────────────────────────────── -->
+    <section class="section">
+      <div class="shell shell--wide">
+        <header class="section__head">
+          <h2>FAQ</h2>
+        </header>
 
-    <!-- ========================= FAQ ========================= -->
-    <section class="py-20 sm:py-24">
-      <UContainer>
-        <div class="mx-auto mb-12 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            {{ t('home.faqEyebrow') }}
-          </p>
-          <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.faqTitle') }}
-          </h2>
-        </div>
-        <div class="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2">
-          <div
+        <div class="faq">
+          <details
             v-for="f in faqs"
             :key="f.q"
-            class="rounded-2xl border border-default bg-default p-6"
+            class="faq__item"
           >
-            <h3 class="flex items-start gap-2 font-semibold text-highlighted">
-              <UIcon
-                name="i-lucide-help-circle"
-                class="mt-0.5 size-4 shrink-0 text-primary"
+            <summary class="faq__q">
+              <span>{{ f.q }}</span>
+              <Icon
+                name="i-lucide-plus"
+                class="faq__sign"
               />
-              {{ f.q }}
-            </h3>
-            <p class="mt-2 text-sm text-muted">
+            </summary>
+            <p class="faq__a">
               {{ f.a }}
             </p>
-          </div>
+          </details>
         </div>
-      </UContainer>
+      </div>
     </section>
 
-    <!-- ============================ CTA ============================ -->
-    <section class="pb-24">
-      <UContainer>
-        <div class="relative overflow-hidden rounded-3xl border border-default bg-gradient-to-br from-salesforce-600 via-salesforce-700 to-salesforce-900 px-6 py-16 text-center sm:px-12">
-          <div class="absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
-          <div class="relative mx-auto max-w-2xl">
-            <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              {{ t('cta.title') }}
-            </h2>
-            <p class="mt-4 text-lg text-white/80">
-              {{ t('cta.subtitle') }}
-            </p>
-            <div class="mt-8 flex flex-wrap justify-center gap-3">
-              <UButton
-                :to="localePath('/foundations')"
-                size="xl"
-                color="neutral"
-                trailing-icon="i-lucide-arrow-right"
-                class="bg-white font-semibold text-salesforce-700 hover:bg-white/90"
-              >
-                {{ t('cta.startFoundations') }}
-              </UButton>
-              <UButton
-                to="https://github.com/imswarnil/CRM-Analytics-Academy"
-                target="_blank"
-                size="xl"
-                color="neutral"
-                variant="outline"
-                icon="i-simple-icons-github"
-                class="border-white bg-transparent font-semibold text-white shadow-[3px_3px_0_0_white] ring-white/30 hover:bg-white/10 hover:shadow-[5px_5px_0_0_white] active:bg-white/10 active:shadow-[1px_1px_0_0_white]"
-              >
-                {{ t('cta.star') }}
-              </UButton>
-            </div>
+    <!-- ── Final CTA ────────────────────────────────────────────────────── -->
+    <section class="section">
+      <div class="shell">
+        <div class="cta">
+          <h2 class="cta__title text-balance">
+            {{ t('home.resourcesTitle') }}
+          </h2>
+          <p class="cta__desc text-pretty">
+            {{ t('home.getInvolved.blurb') }}
+          </p>
+          <div class="cta__actions">
+            <UiButton
+              variant="primary"
+              size="lg"
+              :to="localePath('/foundations')"
+              trailing-icon="i-lucide-arrow-right"
+            >
+              {{ t('hero.start') }}
+            </UiButton>
+            <UiButton
+              size="lg"
+              :to="localePath('/contribute')"
+              icon="i-lucide-git-pull-request"
+            >
+              {{ t('home.getInvolved.contribute') }}
+            </UiButton>
           </div>
         </div>
-      </UContainer>
+      </div>
     </section>
   </div>
 </template>
+
+<style scoped lang="scss">
+// ── Hero ───────────────────────────────────────────────────────────────────
+.hero {
+  padding-block: var(--s-8) var(--s-7);
+  border-block-end: 1px solid var(--c-line);
+
+  @media (min-width: 48rem) {
+    padding-block: var(--s-9) var(--s-8);
+  }
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-4);
+  max-width: 52rem;
+}
+
+.hero__title {
+  font-size: var(--t-hero);
+  line-height: 0.98;
+  margin: 0;
+}
+
+// The accent phrase gets the brand, plus a rule under it that reads like a
+// plotted baseline — the same axis-tick motif the prose headings use.
+.hero__accent {
+  position: relative;
+  color: var(--c-brand);
+  white-space: nowrap;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: -0.08em;
+    height: 0.09em;
+    border-radius: var(--r-full);
+    background: var(--aqua);
+  }
+}
+
+.hero__sub {
+  margin: 0;
+  max-width: 44ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-block-start: var(--s-2);
+}
+
+.hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  list-style: none;
+  margin: var(--s-2) 0 0;
+  padding: 0;
+  font-size: var(--t-small);
+  color: var(--c-text-soft);
+
+  li { display: inline-flex; align-items: center; gap: var(--s-1); }
+}
+
+.hero__tick {
+  width: 1rem;
+  height: 1rem;
+  color: var(--lime);
+}
+
+// ── Stats ──────────────────────────────────────────────────────────────────
+.stats {
+  background: var(--c-brand-strong);
+  color: #fff;
+}
+
+.stats__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-block: var(--s-5);
+}
+
+.stats__cell {
+  text-align: center;
+
+  & + & {
+    border-inline-start: 1px solid rgb(255 255 255 / 0.18);
+  }
+}
+
+.stats__value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1rem + 2vi, 2.5rem);
+  line-height: 1;
+}
+
+.stats__label {
+  margin: var(--s-1) 0 0;
+  font-size: var(--t-tiny);
+  color: rgb(255 255 255 / 0.75);
+}
+
+// ── Module cards ───────────────────────────────────────────────────────────
+.mod__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--s-3);
+}
+
+.mod__n {
+  font-family: var(--font-mono);
+  font-size: var(--t-tiny);
+  font-weight: 700;
+  color: var(--c-text-faint);
+}
+
+.mod__icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--c-brand);
+}
+
+.mod__title {
+  margin: 0;
+  font-size: var(--t-h4);
+}
+
+.mod__desc {
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-small);
+  color: var(--c-text-soft);
+  // Keeps eight cards on a uniform grid when their copy differs in length.
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mod__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin: var(--s-4) 0 0;
+  font-size: var(--t-tiny);
+  color: var(--c-text-faint);
+
+  svg, span { width: 0.9rem; height: 0.9rem; }
+}
+
+// ── Steps ──────────────────────────────────────────────────────────────────
+.step {
+  position: relative;
+  padding-block-start: var(--s-5);
+  border-block-start: 2px solid var(--c-line);
+}
+
+.step__num {
+  position: absolute;
+  inset-block-start: calc(var(--s-4) * -1);
+  inset-inline-start: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--r-full);
+  background: var(--c-brand);
+  color: var(--c-on-brand);
+  font-family: var(--font-display);
+  font-size: var(--t-tiny);
+}
+
+.step__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--aqua);
+}
+
+.step__title {
+  margin: var(--s-3) 0 0;
+  font-size: var(--t-h4);
+}
+
+.step__desc {
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-small);
+  color: var(--c-text-soft);
+}
+
+// ── Outcomes ───────────────────────────────────────────────────────────────
+.outcomes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.outcome {
+  display: flex;
+  gap: var(--s-3);
+}
+
+.outcome__tick {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-block-start: 0.15rem;
+  color: var(--lime);
+}
+
+.outcome__title {
+  margin: 0;
+  font-weight: 650;
+}
+
+.outcome__desc {
+  margin: var(--s-1) 0 0;
+  font-size: var(--t-small);
+  color: var(--c-text-soft);
+}
+
+// ── Personas ───────────────────────────────────────────────────────────────
+.persona__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--violet);
+}
+
+.persona__title {
+  margin: var(--s-3) 0 0;
+  font-size: var(--t-h4);
+}
+
+.persona__desc {
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-small);
+  color: var(--c-text-soft);
+}
+
+// ── FAQ ────────────────────────────────────────────────────────────────────
+.faq {
+  max-width: 48rem;
+  border-block-start: 1px solid var(--c-line);
+}
+
+.faq__item {
+  border-block-end: 1px solid var(--c-line);
+}
+
+.faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-block: var(--s-4);
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker { display: none; }
+  &:hover { color: var(--c-brand-text); }
+}
+
+.faq__sign {
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--c-text-faint);
+  transition: transform var(--dur-mid) var(--ease-spring);
+}
+
+.faq__item[open] .faq__sign {
+  transform: rotate(45deg);
+}
+
+.faq__a {
+  margin: 0;
+  padding-block-end: var(--s-4);
+  max-width: 62ch;
+  font-size: var(--t-small);
+  color: var(--c-text-soft);
+}
+
+// ── CTA ────────────────────────────────────────────────────────────────────
+.cta {
+  padding: var(--s-7) var(--s-5);
+  border-radius: var(--r-xl);
+  background: var(--c-brand-strong);
+  color: #fff;
+  text-align: center;
+}
+
+.cta__title {
+  margin: 0;
+  color: #fff;
+  font-size: var(--t-h2);
+}
+
+.cta__desc {
+  margin: var(--s-3) auto 0;
+  max-width: 52ch;
+  color: rgb(255 255 255 / 0.82);
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3);
+  margin-block-start: var(--s-5);
+}
+</style>

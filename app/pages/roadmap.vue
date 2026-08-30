@@ -58,19 +58,18 @@ const columns = [
     <section class="relative overflow-hidden border-b border-default">
       <div class="absolute inset-0 bg-grid" />
       <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-14 text-center sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
+      <div class="shell relative py-14 text-center sm:py-20">
+        <UiBadge
+          tone="brand"
           class="mb-6 rounded-full"
+          size="md"
         >
-          <UIcon
+          <Icon
             name="i-lucide-map"
             class="mr-1 size-4"
           />
           Roadmap
-        </UBadge>
+        </UiBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
           Where we're <span class="text-marker">headed</span>
         </h1>
@@ -82,15 +81,15 @@ const columns = [
             class="text-primary hover:underline"
           >Open an issue</NuxtLink>.
         </p>
-      </UContainer>
+      </div>
     </section>
 
-    <UContainer class="py-12 sm:py-16">
+    <div class="shell py-12 sm:py-16">
       <div class="grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-12">
         <!-- Left: vision -->
         <aside class="lg:sticky lg:top-24 lg:self-start">
           <h2 class="flex items-center gap-2 text-lg font-bold text-highlighted">
-            <UIcon
+            <Icon
               name="i-lucide-telescope"
               class="size-5 text-primary"
             />
@@ -107,7 +106,7 @@ const columns = [
               class="flex gap-3"
             >
               <div class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-                <UIcon
+                <Icon
                   :name="p.icon"
                   class="size-4.5"
                 />
@@ -122,16 +121,15 @@ const columns = [
               </div>
             </li>
           </ul>
-          <UButton
+          <UiButton
+            variant="secondary"
             to="https://github.com/imswarnil/CRM-Analytics-Academy"
             target="_blank"
             icon="i-simple-icons-github"
-            color="neutral"
-            variant="outline"
             class="mt-6 rounded-full font-medium"
           >
             Star us on GitHub
-          </UButton>
+          </UiButton>
         </aside>
 
         <!-- Right: now / next / later -->
@@ -146,7 +144,7 @@ const columns = [
                 class="flex size-8 items-center justify-center rounded-lg bg-default ring-1"
                 :class="col.ring"
               >
-                <UIcon
+                <Icon
                   :name="col.icon"
                   class="size-4.5"
                   :class="col.color"
@@ -160,7 +158,7 @@ const columns = [
                 :key="item"
                 class="flex items-start gap-2.5 rounded-xl border border-default/60 bg-default/50 p-3 text-sm text-toned"
               >
-                <UIcon
+                <Icon
                   name="i-lucide-circle-dot"
                   class="mt-0.5 size-4 shrink-0 text-dimmed"
                 />
@@ -183,6 +181,6 @@ const columns = [
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"
       />
-    </UContainer>
+    </div>
   </div>
 </template>

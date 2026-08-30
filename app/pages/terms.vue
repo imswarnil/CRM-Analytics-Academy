@@ -45,30 +45,29 @@ const sections = [
   <div>
     <section class="relative overflow-hidden border-b border-default">
       <div class="absolute inset-0 bg-grid" />
-      <UContainer class="relative py-16 sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
+      <div class="shell relative py-16 sm:py-20">
+        <UiBadge
+          tone="brand"
           class="mb-6 rounded-full"
+          size="md"
         >
-          <UIcon
+          <Icon
             name="i-lucide-file-text"
             class="mr-1 size-4"
           />
           Legal
-        </UBadge>
+        </UiBadge>
         <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
           Terms of Service
         </h1>
         <p class="mt-4 max-w-2xl text-lg text-muted">
           The ground rules for using this free curriculum.
         </p>
-      </UContainer>
+      </div>
     </section>
 
     <section class="py-16 sm:py-20">
-      <UContainer>
+      <div class="shell">
         <div class="mx-auto max-w-3xl space-y-10">
           <div
             v-for="s in sections"
@@ -87,7 +86,7 @@ const sections = [
             class="mx-auto my-8 max-w-3xl"
           />
         </div>
-      </UContainer>
+      </div>
     </section>
   </div>
 </template>

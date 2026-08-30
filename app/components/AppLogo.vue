@@ -1,42 +1,97 @@
 <template>
-  <span class="flex items-center gap-2">
-    <!-- Three-bar chart, ascending heights, dark → lighter Salesforce blues -->
+  <span class="logo">
+    <!-- Four ascending bars with a plotted point above them: a chart being read,
+         which is the subject of the site. Drawn rather than iconified so the
+         bars can carry the brand ramp and the marker can carry the accent. -->
     <svg
-      viewBox="0 0 32 32"
-      class="h-7 w-7 shrink-0"
+      class="logo__mark"
+      viewBox="0 0 36 32"
       aria-hidden="true"
     >
       <rect
-        x="3"
-        y="14"
-        width="7"
-        height="15"
-        rx="1.5"
-        fill="var(--color-salesforce-700)"
+        x="1"
+        y="18"
+        width="6"
+        height="12"
+        rx="2"
+        fill="var(--blue-30)"
       />
       <rect
-        x="12.5"
-        y="9"
-        width="7"
-        height="20"
-        rx="1.5"
-        fill="var(--color-salesforce-500)"
+        x="9.5"
+        y="13"
+        width="6"
+        height="17"
+        rx="2"
+        fill="var(--blue-40)"
       />
       <rect
-        x="22"
-        y="4"
-        width="7"
-        height="25"
-        rx="1.5"
-        fill="var(--color-salesforce-300)"
+        x="18"
+        y="8"
+        width="6"
+        height="22"
+        rx="2"
+        fill="var(--blue-55)"
+      />
+      <rect
+        x="26.5"
+        y="3"
+        width="6"
+        height="27"
+        rx="2"
+        fill="var(--blue-70)"
+      />
+      <circle
+        cx="29.5"
+        cy="3"
+        r="3"
+        fill="var(--aqua)"
+        stroke="var(--c-bg)"
+        stroke-width="1.5"
       />
     </svg>
 
-    <span class="font-bold text-base tracking-tight whitespace-nowrap text-highlighted">
-      <!-- Full name on desktop, condensed on mobile -->
-      <span class="hidden sm:inline">CRM Analytics </span>
-      <span class="sm:hidden">CRMA </span>
-      <span class="text-primary">Academy</span>
+    <span class="logo__text">
+      <span class="logo__name">
+        <span class="logo__full">CRM Analytics</span>
+        <span class="logo__short">CRMA</span>
+      </span>
+      <span class="logo__sub">Academy</span>
     </span>
   </span>
 </template>
+
+<style scoped lang="scss">
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.logo__mark {
+  width: 1.7rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.logo__text {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3em;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: var(--tr-tight);
+  white-space: nowrap;
+}
+
+.logo__name { color: var(--c-text); }
+
+.logo__short { display: none; }
+
+@media (max-width: 25rem) {
+  .logo__full { display: none; }
+  .logo__short { display: inline; }
+}
+
+.logo__sub { color: var(--c-brand); }
+</style>

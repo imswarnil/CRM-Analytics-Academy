@@ -20,15 +20,9 @@ const navigation = computed<ContentNavigationItem[]>(() => {
   return english?.children ? localizeNavigation(english.children, locale.value) : []
 })
 
-const { data: allFiles } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
-  server: false
-})
-// Search only the current locale; rewrite result links to localized routes.
-const files = computed(() =>
-  (allFiles.value || [])
-    .filter(f => f.id?.startsWith(`/${locale.value}/`) || f.id === `/${locale.value}`)
-    .map(f => ({ ...f, id: contentToRoutePath(f.id) }))
-)
+// The search index is fetched inside DocsSearch on first open rather than
+// here. It is the largest single payload the site can serve and most readers
+// never search, so paying for it on every page load was the wrong default.
 
 const route = useRoute()
 
@@ -108,25 +102,44 @@ provide('navigation', navigation)
 </script>
 
 <template>
-  <UApp>
-    <NuxtLoadingIndicator />
+  <div class="app">
+    <NuxtLoadingIndicator color="var(--c-brand)" />
+
+    <a
+      class="skip-link"
+      href="#main"
+    >Skip to content</a>
 
     <AppHeader />
 
-    <UMain>
+    <main
+      id="main"
+      class="app__main"
+    >
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
-    </UMain>
+    </main>
 
     <AppFooter />
 
     <ClientOnly>
-      <LazyUContentSearch
-        :files="files"
-        :navigation="navigation"
-      />
       <PwaInstallPrompt />
     </ClientOnly>
-  </UApp>
+  </div>
 </template>
+
+<style lang="scss">
+// Sticky footer: the shell fills the viewport so a short page (a 404, an empty
+// filter result) does not leave the footer floating halfway up the screen.
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.app__main {
+  flex: 1;
+}
+</style>

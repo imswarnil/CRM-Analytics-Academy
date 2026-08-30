@@ -64,39 +64,37 @@ useJsonLd({
     <section class="relative overflow-hidden border-b border-default">
       <div class="absolute inset-0 bg-grid" />
       <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-14 text-center sm:py-16">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
+      <div class="shell relative py-14 text-center sm:py-16">
+        <UiBadge
+          tone="brand"
           class="mb-5 rounded-full"
+          size="md"
         >
-          <UIcon
+          <Icon
             name="i-lucide-library-big"
             class="mr-1 size-4"
           />
           Resources
-        </UBadge>
+        </UiBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
           The best <span class="text-marker">CRM Analytics</span> resources
         </h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
           Docs, courses, books, blogs, tools, and communities — filter to find what you need.
         </p>
-        <UButton
+        <UiButton
+          variant="quiet"
           to="https://github.com/imswarnil/CRM-Analytics-Academy/issues/new"
           target="_blank"
           icon="i-lucide-plus"
-          color="primary"
-          variant="subtle"
           class="mt-6 rounded-full font-medium"
         >
           Suggest a resource
-        </UButton>
-      </UContainer>
+        </UiButton>
+      </div>
     </section>
 
-    <UContainer class="py-12 sm:py-14">
+    <div class="shell py-12 sm:py-14">
       <div class="grid gap-8 lg:grid-cols-[210px_1fr]">
         <!-- Left filter -->
         <aside class="lg:sticky lg:top-24 lg:self-start">
@@ -116,7 +114,7 @@ useJsonLd({
                   : 'text-toned hover:bg-muted/50 hover:text-highlighted'"
                 @click="selected = c.key"
               >
-                <UIcon
+                <Icon
                   :name="c.icon"
                   class="size-4 shrink-0"
                 />
@@ -143,22 +141,21 @@ useJsonLd({
             >
               <div class="mb-4 flex items-center justify-between">
                 <div class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-                  <UIcon
+                  <Icon
                     :name="r.icon"
                     class="size-5"
                   />
                 </div>
-                <UBadge
+                <UiBadge
+                  tone="neutral"
                   :label="r.category"
-                  color="neutral"
-                  variant="subtle"
-                  size="sm"
                   class="rounded-full"
+                  size="sm"
                 />
               </div>
               <h3 class="flex items-center gap-1 font-semibold text-highlighted">
                 {{ r.title }}
-                <UIcon
+                <Icon
                   name="i-lucide-arrow-up-right"
                   class="size-4 text-dimmed transition group-hover:text-primary"
                 />
@@ -175,6 +172,6 @@ useJsonLd({
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"
       />
-    </UContainer>
+    </div>
   </div>
 </template>

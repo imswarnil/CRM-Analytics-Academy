@@ -113,19 +113,18 @@ const entries: Entry[] = [
     <section class="relative overflow-hidden border-b border-default">
       <div class="absolute inset-0 bg-grid" />
       <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-14 text-center sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
+      <div class="shell relative py-14 text-center sm:py-20">
+        <UiBadge
+          tone="brand"
           class="mb-6 rounded-full"
+          size="md"
         >
-          <UIcon
+          <Icon
             name="i-lucide-history"
             class="mr-1 size-4"
           />
           Changelog
-        </UBadge>
+        </UiBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
           What's <span class="text-marker">new</span>
         </h1>
@@ -137,10 +136,10 @@ const entries: Entry[] = [
             class="text-primary hover:underline"
           >GitHub</NuxtLink>.
         </p>
-      </UContainer>
+      </div>
     </section>
 
-    <UContainer class="max-w-3xl py-12 sm:py-16">
+    <div class="shell max-w-3xl py-12 sm:py-16">
       <div class="space-y-10 border-s border-default ps-6">
         <div
           v-for="(e, i) in entries"
@@ -150,13 +149,12 @@ const entries: Entry[] = [
           <span class="absolute -start-[1.85rem] top-1 flex size-4 items-center justify-center rounded-full border-2 border-primary bg-default" />
           <div class="mb-1 flex items-center gap-3">
             <span class="text-xs font-medium uppercase tracking-wide text-dimmed">{{ e.date }}</span>
-            <UBadge
-              :color="e.color"
-              variant="subtle"
+            <UiBadge
+              tone="neutral"
               size="sm"
             >
               {{ e.tag }}
-            </UBadge>
+            </UiBadge>
           </div>
           <h2 class="text-lg font-bold text-highlighted">
             {{ e.title }}
@@ -170,7 +168,7 @@ const entries: Entry[] = [
               :key="item"
               class="flex items-start gap-2 text-sm text-toned"
             >
-              <UIcon
+              <Icon
                 name="i-lucide-check"
                 class="mt-0.5 size-4 shrink-0 text-success"
               />
@@ -184,6 +182,6 @@ const entries: Entry[] = [
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"
       />
-    </UContainer>
+    </div>
   </div>
 </template>

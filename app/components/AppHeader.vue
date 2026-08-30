@@ -3,151 +3,401 @@ import type { ContentNavigationItem } from '@nuxt/content'
 
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
-const { header } = useAppConfig()
 const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
+const { choice, resolved, cycle } = useTheme()
 
-// Icon actions on the right of the navbar — ghost icon links with a tooltip.
-// About now lives only in the "More" dropdown below.
-const actions = computed(() => [
-  { icon: 'i-simple-icons-github', label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' as string | undefined }
+const menuOpen = ref(false)
+const langOpen = ref(false)
+const moreOpen = ref(false)
+
+const route = useRoute()
+watch(() => route.path, () => {
+  menuOpen.value = false
+  langOpen.value = false
+  moreOpen.value = false
+})
+
+watch(menuOpen, (open) => {
+  if (import.meta.client) document.body.style.overflow = open ? 'hidden' : ''
+})
+
+const primary = computed(() => [
+  { label: t('nav.showcase'), to: localePath('/showcase') },
+  { label: t('nav.resources'), to: localePath('/resources') },
+  { label: t('nav.datasets'), to: localePath('/datasets') }
 ])
 
-// Secondary links folded into a "More" dropdown to keep the icon row short.
-// About/GitHub are duplicated here (as a `class` marking them mobile-only)
-// since their icon buttons are hidden below lg to keep the navbar from
-// overflowing on small screens.
-const moreItems = computed(() => [
+const more = computed(() => [
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
   { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
   { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
-  { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
-  { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
-  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },
   { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
 ])
 
-// Language switcher — use setLocale so the choice is persisted (cookie) and
-// the browser-language auto-redirect doesn't bounce the user back.
-const localeItems = computed(() =>
-  locales.value.map(l => ({
-    label: l.name || l.code,
-    icon: l.code === locale.value ? 'i-lucide-check' : undefined,
-    onSelect: () => setLocale(l.code)
-  }))
+const themeIcon = computed(() =>
+  choice.value === 'system' ? 'i-lucide-monitor' : resolved.value === 'dark' ? 'i-lucide-moon' : 'i-lucide-sun'
 )
+
+function closeAll() {
+  langOpen.value = false
+  moreOpen.value = false
+}
 </script>
 
 <template>
-  <UHeader
-    :ui="{ center: 'flex-1', body: 'flex flex-col h-full p-0 overflow-hidden' }"
-    :to="localePath('/')"
-  >
-    <UContentSearchButton
-      v-if="header?.search"
-      :collapsed="false"
-      class="w-full max-lg:hidden"
-    />
-
-    <template #left>
-      <NuxtLink :to="localePath('/')">
-        <AppLogo class="h-6 w-auto shrink-0" />
+  <header class="hdr">
+    <div class="hdr__inner shell">
+      <NuxtLink
+        :to="localePath('/')"
+        class="hdr__brand"
+      >
+        <AppLogo />
       </NuxtLink>
-    </template>
 
-    <template #right>
-      <UContentSearchButton
-        v-if="header?.search"
-        class="lg:hidden"
-      />
-
-      <UTooltip
-        v-for="action in actions"
-        :key="action.icon"
-        :text="action.label"
-        class="hidden lg:inline-flex"
+      <nav
+        class="hdr__nav hide-below-lg"
+        aria-label="Main"
       >
-        <UButton
-          :icon="action.icon"
-          :to="action.to"
-          :target="action.target"
-          :aria-label="action.label"
-          color="neutral"
-          variant="ghost"
-          :class="action.icon === 'i-lucide-heart' ? 'hover:text-primary' : ''"
-        />
-      </UTooltip>
-
-      <UDropdownMenu
-        :items="localeItems"
-        :content="{ align: 'end' }"
-        class="max-lg:hidden"
-      >
-        <UButton
-          icon="i-lucide-languages"
-          color="neutral"
-          variant="ghost"
-          :aria-label="t('nav.chooseLanguage')"
-        />
-      </UDropdownMenu>
-
-      <UTooltip
-        v-if="header?.colorMode"
-        :text="t('nav.theme')"
-        class="max-lg:hidden"
-      >
-        <UColorModeButton />
-      </UTooltip>
-
-      <!-- "More" overflow menu — kept last so it reads as the catch-all,
-           after language and theme controls. Carries the mobile-only about
-           and GitHub links too, since those icons are hidden below lg. -->
-      <UDropdownMenu
-        :items="moreItems"
-        :content="{ align: 'end' }"
-      >
-        <UButton
-          icon="i-lucide-ellipsis-vertical"
-          color="neutral"
-          variant="ghost"
-          :aria-label="t('nav.more')"
-        />
-      </UDropdownMenu>
-    </template>
-
-    <template #body>
-      <!-- min-h-0 lets this shrink below its content size so it actually
-           scrolls instead of pushing the sponsor card off-screen; the card
-           is a shrink-0 sibling, so it stays pinned to the bottom of the
-           mobile menu regardless of nav length. -->
-      <div class="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
-        <UContentNavigation
-          highlight
-          type="single"
-          :navigation="navigation"
-        />
-      </div>
-
-      <!-- Language + theme controls (hidden from the crowded mobile navbar). -->
-      <div class="flex items-center justify-between gap-2 border-t border-default px-4 py-3 sm:px-6 lg:hidden">
-        <UDropdownMenu
-          :items="localeItems"
-          :content="{ align: 'start' }"
+        <NuxtLink
+          :to="localePath('/foundations')"
+          class="hdr__link"
         >
-          <UButton
-            icon="i-lucide-languages"
-            :label="t('nav.chooseLanguage')"
-            color="neutral"
-            variant="ghost"
-            size="sm"
-          />
-        </UDropdownMenu>
-        <UColorModeButton />
-      </div>
+          {{ t('nav.curriculum') }}
+        </NuxtLink>
+        <NuxtLink
+          v-for="item in primary"
+          :key="item.to"
+          :to="item.to"
+          class="hdr__link"
+        >
+          {{ item.label }}
+        </NuxtLink>
+      </nav>
 
-      <SponsorCard class="m-4 mt-0 shrink-0 sm:mx-6 sm:mb-6" />
-    </template>
-  </UHeader>
+      <div class="hdr__actions">
+        <DocsSearch class="hdr__search" />
+
+        <div class="hdr__menu-wrap hide-below-lg">
+          <button
+            class="hdr__icon-btn"
+            type="button"
+            :aria-expanded="langOpen"
+            :aria-label="t('nav.chooseLanguage')"
+            @click="closeAll(); langOpen = !langOpen"
+          >
+            <Icon name="i-lucide-languages" />
+          </button>
+          <div
+            v-if="langOpen"
+            class="hdr__menu"
+          >
+            <button
+              v-for="l in locales"
+              :key="l.code"
+              class="hdr__menu-item"
+              :class="{ 'is-current': l.code === locale }"
+              type="button"
+              @click="setLocale(l.code); langOpen = false"
+            >
+              {{ l.name || l.code }}
+              <Icon
+                v-if="l.code === locale"
+                name="i-lucide-check"
+                class="hdr__menu-check"
+              />
+            </button>
+          </div>
+        </div>
+
+        <button
+          class="hdr__icon-btn"
+          type="button"
+          :aria-label="t('nav.theme')"
+          :title="choice"
+          @click="cycle"
+        >
+          <Icon :name="themeIcon" />
+        </button>
+
+        <a
+          class="hdr__icon-btn hide-below-lg"
+          href="https://github.com/imswarnil/CRM-Analytics-Academy"
+          target="_blank"
+          rel="noopener noreferrer"
+          :aria-label="t('nav.github')"
+        >
+          <Icon name="i-simple-icons-github" />
+        </a>
+
+        <div class="hdr__menu-wrap hide-below-lg">
+          <button
+            class="hdr__icon-btn"
+            type="button"
+            :aria-expanded="moreOpen"
+            :aria-label="t('nav.more')"
+            @click="closeAll(); moreOpen = !moreOpen"
+          >
+            <Icon name="i-lucide-ellipsis" />
+          </button>
+          <div
+            v-if="moreOpen"
+            class="hdr__menu"
+          >
+            <NuxtLink
+              v-for="item in more"
+              :key="item.to"
+              :to="item.to"
+              class="hdr__menu-item"
+            >
+              <Icon
+                :name="item.icon"
+                class="hdr__menu-icon"
+              />
+              {{ item.label }}
+            </NuxtLink>
+          </div>
+        </div>
+
+        <button
+          class="hdr__icon-btn hide-from-lg"
+          type="button"
+          :aria-expanded="menuOpen"
+          aria-label="Menu"
+          @click="menuOpen = !menuOpen"
+        >
+          <Icon :name="menuOpen ? 'i-lucide-x' : 'i-lucide-menu'" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile drawer. Carries the curriculum tree too, since the docs rail is
+         hidden below lg and this is the only way to reach a lesson there. -->
+    <div
+      v-if="menuOpen"
+      class="hdr__drawer hide-from-lg"
+    >
+      <div class="hdr__drawer-inner shell">
+        <nav
+          class="hdr__drawer-nav"
+          aria-label="Sections"
+        >
+          <NuxtLink
+            v-for="item in [{ label: t('nav.curriculum'), to: localePath('/foundations') }, ...primary, ...more]"
+            :key="item.to"
+            :to="item.to"
+            class="hdr__drawer-link"
+          >
+            {{ item.label }}
+          </NuxtLink>
+        </nav>
+
+        <div
+          v-if="navigation?.length"
+          class="hdr__drawer-tree"
+        >
+          <DocsNav :items="navigation" />
+        </div>
+
+        <div class="hdr__drawer-langs">
+          <button
+            v-for="l in locales"
+            :key="l.code"
+            class="hdr__lang-chip"
+            :class="{ 'is-current': l.code === locale }"
+            type="button"
+            @click="setLocale(l.code)"
+          >
+            {{ l.name || l.code }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
 </template>
+
+<style scoped lang="scss">
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: color-mix(in srgb, var(--c-bg) 88%, transparent);
+  backdrop-filter: blur(12px) saturate(150%);
+  border-block-end: 1px solid var(--c-line);
+}
+
+.hdr__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  height: var(--h-header);
+}
+
+.hdr__brand {
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.hdr__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin-inline-start: var(--s-4);
+}
+
+.hdr__link {
+  position: relative;
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-sm);
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--c-text-soft);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+
+  &:hover { color: var(--c-text); background: var(--c-bg-inset); }
+
+  // The current section gets an underline that reads like a plotted baseline
+  // rather than a filled pill — quieter, and it does not fight the logo.
+  &.router-link-active {
+    color: var(--c-brand-text);
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset-inline: var(--s-3);
+      inset-block-end: 0.25rem;
+      height: 2px;
+      border-radius: var(--r-full);
+      background: var(--c-brand);
+    }
+  }
+}
+
+.hdr__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-inline-start: auto;
+}
+
+.hdr__icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--r-full);
+  color: var(--c-text-soft);
+  font-size: 1.15rem;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+
+  &:hover { background: var(--c-bg-inset); color: var(--c-text); }
+}
+
+.hdr__menu-wrap { position: relative; }
+
+.hdr__menu {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + var(--s-2));
+  min-width: 12rem;
+  max-height: 20rem;
+  overflow-y: auto;
+  padding: var(--s-2);
+  background: var(--c-bg-raised);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-3);
+  animation: menu-in var(--dur-fast) var(--ease-spring);
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+.hdr__menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  width: 100%;
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-sm);
+  font-size: var(--t-small);
+  color: var(--c-text);
+  text-decoration: none;
+  text-align: start;
+
+  &:hover { background: var(--c-bg-inset); }
+
+  &.is-current { color: var(--c-brand-text); font-weight: 650; }
+}
+
+.hdr__menu-icon,
+.hdr__menu-check {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.hdr__menu-check { margin-inline-start: auto; }
+
+// --- drawer
+.hdr__drawer {
+  position: fixed;
+  inset: var(--h-header) 0 0;
+  z-index: var(--z-overlay);
+  overflow-y: auto;
+  background: var(--c-bg);
+  border-block-start: 1px solid var(--c-line);
+}
+
+.hdr__drawer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  padding-block: var(--s-5) var(--s-8);
+}
+
+.hdr__drawer-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.hdr__drawer-link {
+  padding: var(--s-3) 0;
+  border-block-end: 1px solid var(--c-line-soft);
+  font-size: var(--t-lead);
+  font-weight: 600;
+  color: var(--c-text);
+  text-decoration: none;
+
+  &.router-link-active { color: var(--c-brand-text); }
+}
+
+.hdr__drawer-tree {
+  padding-block-start: var(--s-2);
+}
+
+.hdr__drawer-langs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.hdr__lang-chip {
+  padding: var(--s-1) var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-full);
+  font-size: var(--t-tiny);
+  color: var(--c-text-soft);
+
+  &.is-current {
+    background: var(--c-brand-faint);
+    border-color: var(--c-brand);
+    color: var(--c-brand-text);
+    font-weight: 650;
+  }
+}
+</style>

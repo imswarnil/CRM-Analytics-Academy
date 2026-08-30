@@ -2,8 +2,8 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
+    '@nuxt/icon',
     '@nuxt/image',
-    '@nuxt/ui',
     '@nuxt/content',
     'nuxt-og-image',
     'nuxt-llms',
@@ -16,6 +16,12 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      htmlAttrs: {
+        // The theme is applied before paint by a small inline script (see
+        // app/plugins/theme.client.ts) so a dark-mode reader never gets a white
+        // flash on first load.
+        'data-theme': 'light'
+      },
       // Warm up the third-party origins early, but load the scripts themselves
       // from the end of <body> so they never compete with the critical CSS/JS
       // for bandwidth during first paint.
@@ -26,6 +32,13 @@ export default defineNuxtConfig({
         { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }
       ],
       script: [
+        // Applied before first paint, in <head>, deliberately blocking: this is
+        // the one script that must run early. Anything later and a reader who
+        // chose dark gets a white flash on every navigation. It reads the same
+        // key useTheme() writes and sets the attribute the token layer keys on.
+        {
+          innerHTML: `(function(){try{var c=localStorage.getItem('crma-theme')||'system';var d=c==='dark'||(c==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'}catch(e){}})()`
+        },
         {
           src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540',
           async: true,
@@ -39,7 +52,7 @@ export default defineNuxtConfig({
     }
   },
 
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/styles/index.scss'],
 
   site: {
     url: 'https://crmanalytics.imswarnil.com',

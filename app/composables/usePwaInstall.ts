@@ -33,5 +33,10 @@ export function usePwaInstall() {
     deferredPrompt.value = null
   }
 
-  return { canInstall: computed(() => !!deferredPrompt.value), installed, promptInstall }
+  /** Drops the saved prompt so the banner goes away for this session. */
+  function dismiss() {
+    deferredPrompt.value = null
+  }
+
+  return { canInstall: computed(() => !!deferredPrompt.value), installed, promptInstall, dismiss }
 }

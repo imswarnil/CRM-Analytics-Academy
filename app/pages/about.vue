@@ -67,19 +67,18 @@ const authorLinks = [
       <div class="absolute inset-0 bg-grid" />
       <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
 
-      <UContainer class="relative py-20 text-center sm:py-24">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
+      <div class="shell relative py-20 text-center sm:py-24">
+        <UiBadge
+          tone="brand"
           class="mb-6 rounded-full"
+          size="md"
         >
-          <UIcon
+          <Icon
             name="i-lucide-info"
             class="mr-1 size-4"
           />
           About
-        </UBadge>
+        </UiBadge>
 
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
           Making Salesforce <span class="text-marker">CRM Analytics</span> learnable for everyone
@@ -87,12 +86,12 @@ const authorLinks = [
         <p class="mx-auto mt-6 max-w-2xl text-lg text-muted">
           Two things to know: what this project is, and who builds it.
         </p>
-      </UContainer>
+      </div>
     </section>
 
     <!-- ===================== SECTION 1 — THE PROJECT ===================== -->
     <section class="py-20 sm:py-24">
-      <UContainer>
+      <div class="shell">
         <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <!-- Narrative -->
           <div>
@@ -126,7 +125,7 @@ const authorLinks = [
                 :key="tech.label"
                 class="inline-flex items-center gap-2 rounded-full border border-default bg-default px-3 py-1.5 text-xs font-medium text-toned"
               >
-                <UIcon
+                <Icon
                   :name="tech.icon"
                   class="size-3.5 text-primary"
                 />
@@ -144,7 +143,7 @@ const authorLinks = [
                 class="rounded-2xl border border-default bg-default p-5"
               >
                 <div class="mb-3 flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-                  <UIcon
+                  <Icon
                     :name="p.icon"
                     class="size-5"
                   />
@@ -173,7 +172,7 @@ const authorLinks = [
                   >
                     <span class="font-mono text-xs font-bold text-primary/60">{{ m.n }}</span>
                     <span class="text-sm font-medium text-toned group-hover:text-highlighted">{{ m.label }}</span>
-                    <UIcon
+                    <Icon
                       name="i-lucide-arrow-right"
                       class="ml-auto size-4 text-dimmed transition group-hover:translate-x-0.5 group-hover:text-primary"
                     />
@@ -183,19 +182,19 @@ const authorLinks = [
             </div>
           </div>
         </div>
-      </UContainer>
+      </div>
     </section>
 
-    <UContainer>
+    <div class="shell">
       <AdUnit
         placement="betweenSections"
         class="mx-auto max-w-3xl"
       />
-    </UContainer>
+    </div>
 
     <!-- ===================== SECTION 2 — THE AUTHOR ===================== -->
     <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
-      <UContainer>
+      <div class="shell">
         <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <!-- Author card -->
           <div>
@@ -217,17 +216,16 @@ const authorLinks = [
               </p>
 
               <div class="mt-6 flex flex-wrap gap-2">
-                <UButton
+                <UiButton
                   v-for="l in authorLinks"
                   :key="l.label"
+                  variant="secondary"
                   :icon="l.icon"
                   :to="l.to"
                   :target="l.target"
                   :label="l.label"
-                  color="neutral"
-                  variant="outline"
-                  size="sm"
                   class="rounded-full"
+                  size="sm"
                 />
               </div>
             </div>
@@ -289,12 +287,12 @@ const authorLinks = [
             </div>
           </div>
         </div>
-      </UContainer>
+      </div>
     </section>
 
     <!-- ============================ CTA ============================ -->
     <section class="py-20 sm:py-24">
-      <UContainer>
+      <div class="shell">
         <div class="relative overflow-hidden rounded-3xl border border-default bg-gradient-to-br from-salesforce-600 via-salesforce-700 to-salesforce-900 px-6 py-16 text-center sm:px-12">
           <div class="absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           <div class="relative mx-auto max-w-2xl">
@@ -305,30 +303,29 @@ const authorLinks = [
               It's free, open, and built to take you from CRM basics all the way to certified.
             </p>
             <div class="mt-8 flex flex-wrap justify-center gap-3">
-              <UButton
+              <UiButton
+                variant="secondary"
                 to="/foundations"
-                size="xl"
-                color="neutral"
                 trailing-icon="i-lucide-arrow-right"
                 class="rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
+                size="lg"
               >
                 Start with Foundations
-              </UButton>
-              <UButton
+              </UiButton>
+              <UiButton
+                variant="secondary"
                 to="https://github.com/imswarnil/CRM-Analytics-Academy"
                 target="_blank"
-                size="xl"
-                color="neutral"
-                variant="outline"
                 icon="i-simple-icons-github"
                 class="rounded-full bg-transparent font-semibold text-white ring-white/30 hover:bg-white/10 active:bg-white/10"
+                size="lg"
               >
                 Star on GitHub
-              </UButton>
+              </UiButton>
             </div>
           </div>
         </div>
-      </UContainer>
+      </div>
     </section>
   </div>
 </template>

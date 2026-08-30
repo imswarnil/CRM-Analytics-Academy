@@ -133,7 +133,7 @@ const insStyle = computed(() => {
         Sponsored
       </span>
       <div class="flex size-14 items-center justify-center rounded-2xl bg-primary/10">
-        <UIcon
+        <Icon
           name="i-lucide-sparkles"
           class="size-7 text-primary"
         />
@@ -146,17 +146,16 @@ const insStyle = computed(() => {
           Reach thousands of Salesforce analysts.
         </p>
       </div>
-      <UButton
+      <UiButton
+        variant="quiet"
         to="https://github.com/sponsors/crm-analytics-academy"
         target="_blank"
-        color="primary"
-        variant="soft"
-        size="xs"
         icon="i-lucide-heart"
         class="rounded-full"
+        size="sm"
       >
         Sponsor this project
-      </UButton>
+      </UiButton>
     </div>
 
     <ins

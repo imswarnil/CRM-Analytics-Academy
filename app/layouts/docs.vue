@@ -2,43 +2,67 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+
+// Published by the lesson page — see app/pages/[...slug].vue. The rail is a
+// sibling of the page, not an ancestor, so state is the only seam between them.
+const toc = useState<{ id: string, text: string, depth: number }[]>('page-toc', () => [])
+const { toc: tocConfig } = useAppConfig()
 </script>
 
 <template>
-  <UContainer>
-    <!-- Hidden on mobile: the right rail (table of contents) renders first
-         there, and should sit directly under the navbar with nothing between
-         them. Desktop still gets the top banner above the two-column page. -->
-    <AdUnit
-      placement="headerBanner"
-      class="mt-4 hidden lg:block"
-    />
-
-    <UPage>
-      <template #left>
-        <!-- Sticky, viewport-capped column. The nav scrolls in its own
-             flex-1 area; the sponsor card is a shrink-0 sibling below it, so
-             it stays pinned at the bottom of the sidebar instead of
-             scrolling away with a long nav list. -->
-        <div class="hidden lg:sticky lg:top-(--ui-header-height) lg:flex lg:h-[calc(100vh-var(--ui-header-height))] lg:flex-col lg:-ms-4 lg:ps-4 lg:pe-6.5">
-          <div class="min-h-0 flex-1 overflow-y-auto py-8">
-            <UContentNavigation
-              highlight
-              type="single"
-              :navigation="navigation"
-            />
-          </div>
-
-          <SponsorCard class="mb-6 shrink-0" />
+  <div class="shell">
+    <div class="docs">
+      <!-- Sidebar. Hidden below lg, where the header drawer carries the same
+           tree instead — see AppHeader. -->
+      <aside class="docs__rail">
+        <div class="docs__rail-scroll">
+          <DocsNav
+            v-if="navigation?.length"
+            :items="navigation"
+          />
         </div>
-      </template>
 
-      <slot />
-    </UPage>
+        <SponsorCard class="docs__rail-foot" />
+      </aside>
 
-    <AdUnit
-      placement="footer"
-      class="mb-8"
-    />
-  </UContainer>
+      <div class="docs__main">
+        <slot />
+      </div>
+
+      <aside class="docs__aside">
+        <DocsToc
+          v-if="toc?.length"
+          :links="toc"
+          :title="tocConfig?.title"
+        />
+
+        <AdUnit
+          placement="sidebarSquare"
+          class="docs__aside-ad"
+        />
+      </aside>
+    </div>
+  </div>
 </template>
+
+<style scoped lang="scss">
+// The nav scrolls in its own area so a 60-lesson tree never pushes the sponsor
+// card off the bottom of the sidebar.
+.docs__rail-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-inline-end: var(--s-2);
+  // Keeps the scrollbar from sitting on top of the text at narrow widths.
+  scrollbar-gutter: stable;
+}
+
+.docs__rail-foot {
+  flex-shrink: 0;
+  margin-block-start: var(--s-4);
+}
+
+.docs__aside-ad {
+  margin-block-start: var(--s-5);
+}
+</style>

@@ -29,7 +29,7 @@ function external(to: string) {
       class="group flex items-center gap-3 rounded-xl border border-default bg-elevated/30 px-4 py-3 transition hover:border-primary/50 hover:bg-elevated"
     >
       <div class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-        <UIcon
+        <Icon
           :name="link.icon || 'i-lucide-arrow-up-right'"
           class="size-5"
         />
@@ -45,7 +45,7 @@ function external(to: string) {
           {{ link.description }}
         </p>
       </div>
-      <UIcon
+      <Icon
         name="i-lucide-chevron-right"
         class="ml-auto size-4 shrink-0 text-muted transition group-hover:translate-x-0.5 group-hover:text-primary"
       />

@@ -79,9 +79,6 @@ const difficultyLabel = (value?: string) => {
   return ['beginner', 'intermediate', 'advanced'].includes(key) ? t(`showcase.${key}`) : String(value)
 }
 
-const badgeColor = (difficulty?: string) =>
-  difficulty === 'Beginner' ? 'success' : difficulty === 'Advanced' ? 'error' : 'warning'
-
 const groups = computed(() => [
   { key: 'domain' as const, label: t('showcase.domain'), icon: 'i-lucide-briefcase', values: domains.value },
   { key: 'difficulty' as const, label: t('showcase.difficulty'), icon: 'i-lucide-signal', values: difficulties.value },
@@ -109,39 +106,37 @@ useJsonLd({
     <section class="relative overflow-hidden border-b border-default">
       <div class="absolute inset-0 bg-grid" />
       <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-14 text-center sm:py-16">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
+      <div class="shell relative py-14 text-center sm:py-16">
+        <UiBadge
+          tone="brand"
           class="mb-5 rounded-full"
+          size="md"
         >
-          <UIcon
+          <Icon
             name="i-lucide-layout-dashboard"
             class="mr-1 size-4"
           />
           {{ t('showcase.title') }}
-        </UBadge>
+        </UiBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
           {{ t('showcase.title') }}
         </h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
           {{ t('showcase.subtitle') }}
         </p>
-        <UButton
+        <UiButton
+          variant="quiet"
           to="https://github.com/imswarnil/CRM-Analytics-Academy/tree/main/content/showcase"
           target="_blank"
           icon="i-lucide-plus"
-          color="primary"
-          variant="subtle"
           class="mt-6 rounded-full font-medium"
         >
           {{ t('showcase.submit') }}
-        </UButton>
-      </UContainer>
+        </UiButton>
+      </div>
     </section>
 
-    <UContainer class="py-12 sm:py-14">
+    <div class="shell py-12 sm:py-14">
       <div class="grid gap-8 lg:grid-cols-[230px_1fr]">
         <aside class="lg:sticky lg:top-24 lg:self-start">
           <div
@@ -150,7 +145,7 @@ useJsonLd({
             class="mb-6"
           >
             <p class="mb-3 flex items-center gap-1.5 px-3 text-xs font-semibold uppercase tracking-widest text-muted">
-              <UIcon
+              <Icon
                 :name="group.icon"
                 class="size-3.5"
               />
@@ -178,17 +173,16 @@ useJsonLd({
             </ul>
           </div>
 
-          <UButton
+          <UiButton
             v-if="hasFilters"
-            icon="i-lucide-x"
-            color="neutral"
             variant="ghost"
-            size="sm"
+            icon="i-lucide-x"
             class="ml-1"
+            size="sm"
             @click="clearFilters"
           >
             {{ t('showcase.clearFilters') }}
-          </UButton>
+          </UiButton>
         </aside>
 
         <div>
@@ -219,26 +213,24 @@ useJsonLd({
 
               <div class="flex grow flex-col p-5">
                 <div class="mb-3 flex flex-wrap items-center gap-2">
-                  <UBadge
+                  <UiBadge
                     v-if="item.domain"
+                    tone="neutral"
                     :label="item.domain"
-                    color="neutral"
-                    variant="subtle"
-                    size="sm"
                     class="rounded-full"
+                    size="sm"
                   />
-                  <UBadge
+                  <UiBadge
+                    tone="neutral"
                     :label="difficultyLabel(item.difficulty)"
-                    :color="badgeColor(item.difficulty)"
-                    variant="subtle"
-                    size="sm"
                     class="rounded-full"
+                    size="sm"
                   />
                 </div>
 
                 <h3 class="flex items-center gap-1 font-semibold text-highlighted">
                   {{ item.title }}
-                  <UIcon
+                  <Icon
                     name="i-lucide-arrow-up-right"
                     class="size-4 text-dimmed transition group-hover:text-primary"
                   />
@@ -258,22 +250,21 @@ useJsonLd({
             v-else
             class="rounded-2xl border border-dashed border-default p-12 text-center"
           >
-            <UIcon
+            <Icon
               name="i-lucide-search-x"
               class="mx-auto size-8 text-dimmed"
             />
             <p class="mt-3 text-sm text-muted">
               {{ t('showcase.noResults') }}
             </p>
-            <UButton
-              color="neutral"
-              variant="subtle"
-              size="sm"
+            <UiButton
+              variant="secondary"
               class="mt-4"
+              size="sm"
               @click="clearFilters"
             >
               {{ t('showcase.clearFilters') }}
-            </UButton>
+            </UiButton>
           </div>
 
           <div class="mt-10 rounded-2xl border border-default bg-elevated/40 p-6 text-center">
@@ -283,19 +274,18 @@ useJsonLd({
             <p class="mx-auto mt-2 max-w-xl text-sm text-muted">
               {{ t('showcase.submitHint') }}
             </p>
-            <UButton
+            <UiButton
+              variant="quiet"
               :to="localePath('/contribute')"
               icon="i-lucide-git-pull-request"
-              color="primary"
-              variant="subtle"
-              size="sm"
               class="mt-4 rounded-full"
+              size="sm"
             >
               {{ t('nav.contribute') }}
-            </UButton>
+            </UiButton>
           </div>
         </div>
       </div>
-    </UContainer>
+    </div>
   </div>
 </template>

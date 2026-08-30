@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
 
       <span class="relative flex size-20 items-center justify-center rounded-full bg-primary text-inverted shadow-2xl transition duration-200 group-hover:scale-110 group-active:scale-95">
         <span class="absolute inset-0 animate-ping rounded-full bg-primary/40" />
-        <UIcon
+        <Icon
           name="i-lucide-play"
           class="relative ml-1 size-9"
         />
@@ -205,7 +205,7 @@ onBeforeUnmount(() => {
       <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5 text-left">
         <div class="min-w-0">
           <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/90 px-2.5 py-1 text-xs font-semibold text-inverted">
-            <UIcon
+            <Icon
               name="i-lucide-graduation-cap"
               class="size-3.5"
             />
@@ -252,7 +252,7 @@ onBeforeUnmount(() => {
         >
         <div class="absolute inset-0 bg-black/60" />
         <span class="relative flex size-14 items-center justify-center rounded-full bg-black/40 backdrop-blur">
-          <UIcon
+          <Icon
             name="i-lucide-loader-circle"
             class="size-8 animate-spin text-white"
           />
@@ -276,7 +276,7 @@ onBeforeUnmount(() => {
           v-if="ready && !playing && !loading"
           class="flex size-16 items-center justify-center rounded-full bg-primary/90 text-inverted shadow-lg backdrop-blur transition active:scale-95"
         >
-          <UIcon
+          <Icon
             name="i-lucide-play"
             class="ml-0.5 size-7"
           />
@@ -296,7 +296,7 @@ onBeforeUnmount(() => {
         :aria-label="playing ? 'Pause' : 'Play'"
         @click="togglePlay"
       >
-        <UIcon
+        <Icon
           :name="playing ? 'i-lucide-pause' : 'i-lucide-play'"
           class="size-5"
         />
@@ -326,7 +326,7 @@ onBeforeUnmount(() => {
         :aria-label="muted ? 'Unmute' : 'Mute'"
         @click="toggleMute"
       >
-        <UIcon
+        <Icon
           :name="muted ? 'i-lucide-volume-x' : 'i-lucide-volume-2'"
           class="size-5"
         />
@@ -338,22 +338,21 @@ onBeforeUnmount(() => {
       v-if="finished"
       class="absolute inset-0 z-40 flex flex-col items-center justify-center gap-3 bg-default/95 backdrop-blur"
     >
-      <UIcon
+      <Icon
         name="i-lucide-circle-check"
         class="size-9 text-primary"
       />
       <p class="font-semibold text-highlighted">
         {{ t('video.lessonCompleted') }}
       </p>
-      <UButton
+      <UiButton
+        variant="secondary"
         icon="i-lucide-rotate-ccw"
-        color="neutral"
-        variant="outline"
         class="rounded-full"
         @click="replay"
       >
         {{ t('video.replay') }}
-      </UButton>
+      </UiButton>
     </div>
   </div>
 </template>

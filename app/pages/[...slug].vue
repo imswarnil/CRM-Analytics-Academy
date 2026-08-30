@@ -7,7 +7,6 @@ definePageMeta({
 })
 
 const route = useRoute()
-const { toc } = useAppConfig()
 const localePath = useLocalePath()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
@@ -83,6 +82,18 @@ const renderedPage = computed(() => {
   }
 })
 
+// The table of contents renders in the docs layout's right rail, which is a
+// sibling of this page rather than a descendant, so it cannot be passed as a
+// prop or provided. Shared state is the seam. Cleared on unmount so a page
+// without headings does not inherit the previous lesson's list.
+const pageToc = useState<unknown[]>('page-toc', () => [])
+watchEffect(() => {
+  pageToc.value = page.value?.body?.toc?.links ?? []
+})
+onBeforeUnmount(() => {
+  pageToc.value = []
+})
+
 const headline = computed(() => findPageHeadline(navigation?.value, page.value?.path))
 
 defineOgImage('Docs', { title, description, headline: headline.value })
@@ -112,19 +123,6 @@ const breadcrumbItems = computed(() => {
 })
 
 // Edit-this-page + community links shown under the TOC ad.
-const tocBottomLinks = computed(() => {
-  const links = []
-  if (toc?.bottom?.edit) {
-    links.push({
-      icon: 'i-lucide-external-link',
-      label: 'Edit this page',
-      to: `${toc.bottom.edit}/${page.value?.stem}.${page.value?.extension}`,
-      target: '_blank'
-    })
-  }
-
-  return [...links, ...(toc?.bottom?.links || [])].filter(Boolean)
-})
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const jsonLd: any[] = [
@@ -191,41 +189,69 @@ useJsonLd(jsonLd)
 </script>
 
 <template>
-  <UPage v-if="page">
-    <UBreadcrumb
+  <article v-if="page">
+    <DocsBreadcrumb
       :items="breadcrumbItems"
-      class="mb-5"
+      class="lesson__crumbs"
     />
 
-    <UPageHeader
-      :title="page.title"
-      :description="page.description"
-      :headline="headline"
-    >
-      <template #links>
-        <UButton
+    <header class="lesson__head">
+      <p
+        v-if="headline"
+        class="eyebrow"
+      >
+        {{ headline }}
+      </p>
+      <h1 class="lesson__title">
+        {{ page.title }}
+      </h1>
+      <p
+        v-if="page.description"
+        class="lead lesson__desc"
+      >
+        {{ page.description }}
+      </p>
+
+      <div class="lesson__actions">
+        <UiButton
           v-for="(link, index) in page.links"
           :key="index"
-          v-bind="link"
-        />
+          :to="link.to"
+          :target="link.target"
+          :icon="link.icon"
+          size="sm"
+        >
+          {{ link.label }}
+        </UiButton>
 
         <PageHeaderLinks />
-      </template>
-    </UPageHeader>
+      </div>
+    </header>
 
-    <UPageBody>
+    <!-- The table of contents moves inline above the lesson below xl, where the
+         right rail is gone. It is a jump list, so it has to stay reachable. -->
+    <details
+      v-if="page.body?.toc?.links?.length"
+      class="lesson__toc-inline"
+    >
+      <summary>On this page</summary>
+      <DocsToc :links="page.body.toc.links" />
+    </details>
+
+    <div class="lesson__body">
       <YoutubeEmbed
         v-if="page.video?.id"
         :id="page.video.id"
         :start="page.video.start"
         :end="page.video.end"
         :title="page.title"
-        class="mb-8"
+        class="lesson__video"
       />
 
       <ContentRenderer
         v-if="renderedPage"
         :value="renderedPage"
+        class="prose"
       />
 
       <LessonInterview
@@ -235,43 +261,66 @@ useJsonLd(jsonLd)
 
       <AdUnit placement="endOfArticle" />
 
-      <USeparator v-if="surround?.length" />
-
-      <UContentSurround :surround="surround" />
+      <DocsSurround :surround="surround" />
 
       <AdUnit placement="relatedPosts" />
-    </UPageBody>
-
-    <template
-      v-if="page?.body?.toc?.links?.length"
-      #right
-    >
-      <!-- Default Nuxt UI TOC. The ad + community links live in the #bottom
-           slot, which the theme hides on mobile so the mobile TOC stays clean. -->
-      <UContentToc
-        highlight
-        :title="toc?.title"
-        :links="page.body?.toc?.links"
-      >
-        <template #bottom>
-          <AdUnit
-            placement="sidebarSquare"
-            class="w-full"
-          />
-
-          <div
-            v-if="tocBottomLinks.length"
-            class="space-y-4"
-          >
-            <USeparator type="dashed" />
-
-            <UPageLinks
-              :title="toc?.bottom?.title"
-              :links="tocBottomLinks"
-            />
-          </div>
-        </template>
-      </UContentToc>
-    </template>
-  </UPage>
+    </div>
+  </article>
 </template>
+
+<style scoped lang="scss">
+.lesson__crumbs {
+  margin-block-end: var(--s-4);
+}
+
+.lesson__head {
+  padding-block-end: var(--s-5);
+  border-block-end: 1px solid var(--c-line);
+}
+
+.lesson__title {
+  font-size: var(--t-h1);
+  text-wrap: balance;
+}
+
+.lesson__desc {
+  margin-block-start: var(--s-3);
+  max-width: 54ch;
+}
+
+.lesson__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-block-start: var(--s-4);
+}
+
+.lesson__body {
+  margin-block-start: var(--s-5);
+}
+
+.lesson__video {
+  margin-block-end: var(--s-6);
+}
+
+.lesson__toc-inline {
+  margin-block-start: var(--s-5);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-bg-sunken);
+
+  summary {
+    font-size: var(--t-tiny);
+    font-weight: 700;
+    letter-spacing: var(--tr-wide);
+    text-transform: uppercase;
+    color: var(--c-text-soft);
+    cursor: pointer;
+  }
+
+  @media (min-width: 80rem) {
+    display: none;
+  }
+}
+</style>

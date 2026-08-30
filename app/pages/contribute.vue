@@ -24,8 +24,9 @@ const steps: { id: string, n: string, label: string, icon: string, level: Level 
   { id: 'help', n: '11', label: 'Getting help', icon: 'i-lucide-life-buoy', level: 'Anytime' }
 ]
 
-const levelColor = (l: Level): 'success' | 'primary' | 'warning' | 'neutral' =>
-  l === 'No code' ? 'success' : l === 'Beginner' || l === 'Start here' ? 'primary' : l === 'Intermediate' || l === 'Advanced' ? 'warning' : 'neutral'
+// Maps a contribution's difficulty label onto the badge tone vocabulary.
+const levelTone = (l: Level): 'progress' | 'brand' | 'caution' | 'neutral' =>
+  l === 'No code' ? 'progress' : l === 'Beginner' || l === 'Start here' ? 'brand' : l === 'Intermediate' || l === 'Advanced' ? 'caution' : 'neutral'
 
 // The friendliest first contributions — no experience required.
 const quickStarts = [
@@ -45,19 +46,18 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
     <section class="relative overflow-hidden border-b border-default">
       <div class="absolute inset-0 bg-grid" />
       <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-14 text-center sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
+      <div class="shell relative py-14 text-center sm:py-20">
+        <UiBadge
+          tone="brand"
           class="mb-6 rounded-full"
+          size="md"
         >
-          <UIcon
+          <Icon
             name="i-lucide-git-pull-request"
             class="mr-1 size-4"
           />
           Contributor guide
-        </UBadge>
+        </UiBadge>
         <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
           Help build the <span class="text-marker">community</span>
         </h1>
@@ -65,31 +65,31 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
           Everything you need to add a lesson, translate content, suggest a resource, or improve the code.
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <UButton
+          <UiButton
+            variant="secondary"
             :to="repo"
             target="_blank"
-            size="lg"
             icon="i-simple-icons-github"
             class="rounded-full font-semibold"
+            size="lg"
           >
             View on GitHub
-          </UButton>
-          <UButton
+          </UiButton>
+          <UiButton
+            variant="secondary"
             :to="`${repo}/issues/new`"
             target="_blank"
-            size="lg"
-            color="neutral"
-            variant="outline"
             icon="i-lucide-plus"
             class="rounded-full font-semibold"
+            size="lg"
           >
             Suggest a resource
-          </UButton>
+          </UiButton>
         </div>
-      </UContainer>
+      </div>
     </section>
 
-    <UContainer class="py-12 sm:py-16">
+    <div class="shell py-12 sm:py-16">
       <div class="lg:grid lg:grid-cols-[240px_1fr] lg:gap-14">
         <!-- Sticky stepper -->
         <aside class="mb-10 lg:sticky lg:top-24 lg:mb-0 lg:self-start">
@@ -111,15 +111,14 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                   {{ Number(s.n) }}
                 </span>
                 <span class="min-w-0 flex-1 truncate font-medium">{{ s.label }}</span>
-                <UBadge
+                <UiBadge
                   v-if="s.level === 'No code' || s.level === 'Start here'"
-                  :color="levelColor(s.level)"
-                  variant="subtle"
-                  size="sm"
+                  :tone="levelTone(s.level)"
                   class="shrink-0"
+                  size="sm"
                 >
                   {{ s.level }}
-                </UBadge>
+                </UiBadge>
               </a>
             </li>
           </ol>
@@ -130,7 +129,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
           <!-- New-contributor welcome + quick starts -->
           <div class="rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
             <div class="flex items-center gap-2">
-              <UIcon
+              <Icon
                 name="i-lucide-hand-heart"
                 class="size-5 text-primary"
               />
@@ -150,14 +149,14 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 class="group rounded-xl border border-default bg-default p-4 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm"
               >
                 <div class="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
-                  <UIcon
+                  <Icon
                     :name="q.icon"
                     class="size-4.5"
                   />
                 </div>
                 <p class="mt-3 flex items-center gap-1 text-sm font-semibold text-highlighted">
                   {{ q.title }}
-                  <UIcon
+                  <Icon
                     name="i-lucide-arrow-right"
                     class="size-3.5 text-dimmed transition group-hover:translate-x-0.5 group-hover:text-primary"
                   />
@@ -180,7 +179,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
               class="relative scroll-mt-24 sm:pl-16"
             >
               <div class="absolute left-0 top-0 hidden size-11 items-center justify-center rounded-full border border-default bg-elevated text-primary shadow-sm sm:flex">
-                <UIcon
+                <Icon
                   :name="s.icon"
                   class="size-5"
                 />
@@ -190,16 +189,15 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                   <p class="text-xs font-semibold uppercase tracking-widest text-primary">
                     Step {{ s.n }}
                   </p>
-                  <UBadge
-                    :color="levelColor(s.level)"
-                    variant="subtle"
+                  <UiBadge
+                    tone="neutral"
                     size="sm"
                   >
                     {{ s.level }}
-                  </UBadge>
+                  </UiBadge>
                 </div>
                 <h2 class="flex items-center gap-2 text-xl font-bold tracking-tight text-highlighted sm:text-2xl">
-                  <UIcon
+                  <Icon
                     :name="s.icon"
                     class="size-5 text-primary sm:hidden"
                   />
@@ -410,6 +408,6 @@ Your write-up goes here.</code></pre>
           />
         </div>
       </div>
-    </UContainer>
+    </div>
   </div>
 </template>

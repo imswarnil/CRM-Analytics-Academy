@@ -28,7 +28,7 @@ defineProps<{
         v-if="card.icon"
         class="mb-3 flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-inverted"
       >
-        <UIcon
+        <Icon
           :name="card.icon"
           class="size-5"
         />
