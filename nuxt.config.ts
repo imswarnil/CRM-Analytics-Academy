@@ -1,4 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { existsSync, readFileSync } from 'node:fs'
+
+// Written by scripts/gate-content.mjs, which runs before every build. Missing
+// on a fresh checkout, which is fine — it means nothing is gated yet.
+const gatedRoutes: string[] = existsSync('.gated-routes.json')
+  ? JSON.parse(readFileSync('.gated-routes.json', 'utf8'))
+  : []
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -80,7 +88,13 @@ export default defineNuxtConfig({
       crawlLinks: true,
       autoSubfolderIndex: false,
       // Don't abort the whole build if a single crawled route errors.
-      failOnError: false
+      failOnError: false,
+      // Gated lessons never enter the public bundle. scripts/gate-content.mjs
+      // writes this list from `access: pro` frontmatter before the build, and
+      // scripts/verify-gating.mjs fails the build afterwards if any of their
+      // text made it into .output/public anyway. The crawler would otherwise
+      // follow the sidebar link straight into them.
+      ignore: gatedRoutes
     }
   },
 
@@ -150,42 +164,60 @@ export default defineNuxtConfig({
         title: 'CRM Analytics Foundations',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/foundations%' }
+          { field: 'path', operator: 'LIKE', value: '/en/foundations%' },
+          // Gated lessons are excluded from the LLM corpus: llms-full.txt
+          // concatenates whole bodies, and it is a public file.
+          { field: 'access', operator: '<>', value: 'pro' }
         ]
       },
       {
         title: 'Setup & User Provisioning',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/setup%' }
+          { field: 'path', operator: 'LIKE', value: '/en/setup%' },
+          // Gated lessons are excluded from the LLM corpus: llms-full.txt
+          // concatenates whole bodies, and it is a public file.
+          { field: 'access', operator: '<>', value: 'pro' }
         ]
       },
       {
         title: 'Creating Datasets',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/creating-datasets%' }
+          { field: 'path', operator: 'LIKE', value: '/en/creating-datasets%' },
+          // Gated lessons are excluded from the LLM corpus: llms-full.txt
+          // concatenates whole bodies, and it is a public file.
+          { field: 'access', operator: '<>', value: 'pro' }
         ]
       },
       {
         title: 'Lenses & Explorations',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/lenses-and-explorations%' }
+          { field: 'path', operator: 'LIKE', value: '/en/lenses-and-explorations%' },
+          // Gated lessons are excluded from the LLM corpus: llms-full.txt
+          // concatenates whole bodies, and it is a public file.
+          { field: 'access', operator: '<>', value: 'pro' }
         ]
       },
       {
         title: 'Designing Dashboards',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/designing-dashboards%' }
+          { field: 'path', operator: 'LIKE', value: '/en/designing-dashboards%' },
+          // Gated lessons are excluded from the LLM corpus: llms-full.txt
+          // concatenates whole bodies, and it is a public file.
+          { field: 'access', operator: '<>', value: 'pro' }
         ]
       },
       {
         title: 'Collaboration',
         contentCollection: 'docs',
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/collaboration%' }
+          { field: 'path', operator: 'LIKE', value: '/en/collaboration%' },
+          // Gated lessons are excluded from the LLM corpus: llms-full.txt
+          // concatenates whole bodies, and it is a public file.
+          { field: 'access', operator: '<>', value: 'pro' }
         ]
       }
     ]
