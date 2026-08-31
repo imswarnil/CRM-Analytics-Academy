@@ -1,0 +1,63 @@
+@layer base {
+  /* color-scheme lives here rather than beside the colour tokens because it is
+     a real declaration, not a custom property — unlayered it would outrank
+     Tailwind's scheme-* utilities. tokens/colors.css is now custom properties
+     only, which is also what keeps scripts/build-tokens.mjs' :root parser
+     honest. */
+  :root { color-scheme: light; }
+  [data-theme="dark"] { color-scheme: dark; }
+  html { overflow-x: clip; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  /* The `font:` shorthand cannot carry font-weight alongside the size/leading
+     pair in the form we want, so the weight is its own declaration. It is
+     --weight-body = 400: Figtree's Regular is properly fitted and does not
+     render grey, which is why the 450 ("Book") step the previous
+     Nunito-derived cut needed did not survive the font migration. See
+     fonts/README.md § "Why body copy is 400" and the note beside
+     --weight-body in tokens/typography.css. */
+  body { background-color: var(--color-surface); color: var(--color-ink); font: var(--size-body)/var(--leading-body) var(--font-sans); font-weight: var(--weight-body); transition: background-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out); margin: 0; }
+  /* Greyscale antialiasing in BOTH modes, which is a reversal.
+     The old rule kept subpixel smoothing on in light mode deliberately: it
+     adds roughly a quarter-step of apparent weight, and the previous
+     Nunito-derived cut needed it because its Regular read thin. Figtree does
+     not — it is a properly fitted grotesque, and at the 14px UI size this
+     rule sets, that borrowed weight is what makes body copy look semi-bold on
+     macOS. (The scale forks: 14 is the UI size, 17 is the reading size. This
+     declaration sets the UI one, which is the smaller and therefore the more
+     exposed of the two.) The compensation outlived the face it compensated
+     for. */
+  body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: var(--weight-heading); margin: 0; text-wrap: balance; line-height: var(--leading-heading); }
+  /* Tighten only the sizes where Figtree's metrics run loose. h4+ stays
+     at natural tracking — it sits close to body size. */
+  h1, h2, h3 { letter-spacing: var(--tracking-tight); line-height: var(--leading-tight); }
+  h4, h5, h6 { font-weight: var(--weight-semibold); }
+  p { margin: 0; text-wrap: pretty; }
+  /* `hidden` must actually hide. The attribute's display:none lives in the UA
+     stylesheet, which loses to ANY author rule — so every component that sets
+     its own display (.ns-btn is inline-flex, .ns-filters__applied is flex)
+     silently ignores it, and a "hidden" button sits there fully visible. This
+     is the one place !important is correct: the declaration is not a style
+     preference, it is the meaning of the attribute. */
+  [hidden] { display: none !important; }
+  strong, b { font-weight: var(--weight-body-strong); }
+  /* Data is never proportional-figured: a column of timestamps or scores has
+     to line up, and that is a typographic property, not a table one. Since
+     the label voice moved onto Figtree — whose DEFAULT figures are
+     proportional — this rule is what keeps a duration column a column; the
+     face used to give it away free. */
+  time, output, .ns-num, [data-numeric] { font-variant-numeric: tabular-nums; }
+  * { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--color-muted) 45%, transparent) transparent; }
+  ::selection { background-color: color-mix(in srgb, var(--color-brand-500) 22%, transparent); }
+  :focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; border-radius: var(--radius-sm); }
+  /* On the navy console surface, brand-500 reads too dim for a focus ring —
+     the ring is a safety feature, so it brightens rather than stays on-brand. */
+  [data-theme="dark"] :focus-visible { outline-color: var(--color-brand-300); }
+  a { color: var(--color-brand-600); }
+  a:hover { color: var(--color-brand-500); }
+  [data-theme="dark"] a { color: var(--color-brand-300); }
+  /* code gets the CODE face (platform mono — indentation is the syntax);
+     kbd and the label voice get the DATA treatment on the one shipped face. */
+  code, pre, samp { font-family: var(--font-code); }
+  kbd, .ns-label { font-family: var(--font-mono); }
+}

@@ -1,0 +1,106 @@
+/* NS Design System — data visualization palette.
+   =========================================================================
+   An LMS has dashboards: course completion, progress over time, quiz score
+   distributions, tag breakdowns. Principle 3 ("one signal color") makes this
+   a real design decision rather than a default — brand blue means
+   "interactive", so a chart that paints six series in six blues would make
+   every series look clickable.
+
+   The resolution: brand blue is ALWAYS categorical slot 1, and the remaining
+   hues are deliberately non-interactive hues that appear nowhere else in the
+   UI. A chart is the one place in this system where color carries meaning
+   other than "click me", and the palette is scoped to charts only.
+
+   Every value below was generated and machine-verified — not eyeballed —
+   against the six checks (OKLCH lightness band, chroma floor, adjacent-pair
+   CVD separation for protan/deutan/tritan, normal-vision floor, and contrast
+   vs. the mode's surface). Both modes pass all five applicable checks with no
+   warnings. Light was validated against #ffffff, dark against #051222.
+
+   RULES — these are not style preferences, they are what keeps the charts
+   readable:
+   1. Assign slots in fixed order, 1→7. NEVER cycle or reorder. Color follows
+      the entity, so filtering a series out must not repaint the survivors.
+   2. Never generate an 8th hue. An 8th series folds into "Other", becomes a
+      small-multiple, or the chart is the wrong form.
+   3. Status colors (--color-success/-warning/-error) are RESERVED. Never use
+      one as a series color, and never use a series color to mean "bad".
+   4. Text stays on ink tokens (--color-ink / --color-muted / --color-label).
+      Never color a number or a legend label with its series color — put a
+      colored mark next to it instead.
+   5. Sequential is one hue, light→dark. Diverging is two hues with a NEUTRAL
+      gray midpoint. Never a rainbow, never a hue at the diverging midpoint.
+   6. Dark mode is a re-picked set, not an automatic flip — the dark steps sit
+      in their own lightness band against the navy surface. */
+:root {
+  /* Categorical — fixed order. Slot 1 is brand blue. */
+  --chart-cat-1: #0176d3; /* brand blue    — always the primary series */
+  --chart-cat-2: #d1490d; /* rust          */
+  --chart-cat-3: #2e844a; /* green         */
+  --chart-cat-4: #9c3ad9; /* violet        */
+  --chart-cat-5: #0f9ba8; /* teal          */
+  --chart-cat-6: #a8890a; /* olive gold    */
+  --chart-cat-7: #d6247a; /* magenta       */
+
+  /* Sequential — magnitude, one hue, light→dark. Four steps is the honest
+     resolution of this ramp: a fifth step would collapse the adjacent
+     lightness gap below the 0.06 floor and read as a banding artifact. */
+  --chart-seq-1: #5aa9f7;
+  --chart-seq-2: #0176d3;
+  --chart-seq-3: #0b5cab;
+  --chart-seq-4: #03386b;
+
+  /* Diverging — polarity around a neutral. Cool arm is brand blue (positive /
+     above baseline), warm arm is rust (negative / below), midpoint is a true
+     neutral gray carrying no hue at all. */
+  --chart-div-cool-3: #03386b;
+  --chart-div-cool-2: #0176d3;
+  --chart-div-cool-1: #5aa9f7;
+  --chart-div-mid: #c9c7c5;
+  --chart-div-warm-1: #e3a06c;
+  --chart-div-warm-2: #d1490d;
+  --chart-div-warm-3: #7a2a06;
+
+  /* Chart chrome. Grid and axis are deliberately recessive — the hairline
+     principle applies to charts too: the data is the structure, the grid is
+     scaffolding you should stop seeing after a second. */
+  --chart-surface: var(--color-surface);
+  --chart-grid: color-mix(in srgb, var(--color-border) 60%, transparent);
+  --chart-axis: var(--color-border);
+  --chart-ink: var(--color-ink);
+  --chart-muted: var(--color-muted);
+  /* Gap punched between adjacent fills (stacked segments, neighbouring bars)
+     and rung around overlapping marks, so two same-family colors never touch. */
+  --chart-mark-gap: 2px;
+  --chart-line-w: 2px;
+  --chart-marker-size: 8px;
+  --chart-radius-end: 4px; /* rounded data-end, anchored end stays square */
+}
+
+[data-theme="dark"] {
+  /* Re-picked for the navy console surface, not lightened mechanically.
+     Verified against #051222: all five checks pass. */
+  --chart-cat-1: #3d9ae8;
+  --chart-cat-2: #e05a25;
+  --chart-cat-3: #22ab74;
+  --chart-cat-4: #b060e0;
+  --chart-cat-5: #159aa6;
+  --chart-cat-6: #ab8d22;
+  --chart-cat-7: #de4f96;
+
+  /* On navy, magnitude runs bright→dim: seq-1 stays the lightest step and
+     seq-4 is held at 2.37:1 against the surface so the darkest step is still
+     visibly a mark and not a hole in the page. */
+  --chart-seq-1: #cfe6ff;
+  --chart-seq-2: #9ccdff;
+  --chart-seq-3: #54a9f5;
+  --chart-seq-4: #14538c;
+
+  --chart-div-cool-3: #cfe6ff;
+  --chart-div-cool-2: #54a9f5;
+  --chart-div-cool-1: #1d6fb5;
+  --chart-div-mid: #5b6a7d;
+  --chart-div-warm-1: #a8542a;
+  --chart-div-warm-2: #e05a25;
+  --chart-div-warm-3: #f5a97c;
+}

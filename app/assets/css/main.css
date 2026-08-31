@@ -46,6 +46,16 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+/* NS Design System tokens, vendored in app/assets/css/nsds/ — see the README
+   there for why they are copied rather than installed. These declare the
+   --ns- source values and the public colour, size and space API that the rest
+   of this file maps Nuxt UI onto. */
+@import "./nsds/colors.css";
+@import "./nsds/typography.css";
+@import "./nsds/spacing.css";
+@import "./nsds/effects.css";
+@import "./nsds/layout.css";
+
 @source "../../../content/**/*";
 
 @theme static {
@@ -114,49 +124,35 @@
   --color-cloud-900: #181818;
   --color-cloud-950: #0A0A0A;
 
-  /* Neo-brutalist elevation. No blur, no softness: every shadow is a hard,
-     solid-color offset that reads as a stacked paper cutout, not a glow.
-     Color comes from --ui-text-highlighted so it is pure black in light
-     mode and flips to near-white in dark mode automatically. Overriding
-     the default Tailwind shadow scale here reaches every existing
-     shadow-sm/md/lg/xl/2xl utility already used across the app (index.vue,
-     HeroStory.vue, cards) without touching a single component file. */
-  --shadow-sm: 2px 2px 0 0 var(--ui-text-highlighted);
-  --shadow: 3px 3px 0 0 var(--ui-text-highlighted);
-  --shadow-md: 4px 4px 0 0 var(--ui-text-highlighted);
-  --shadow-lg: 5px 5px 0 0 var(--ui-text-highlighted);
-  --shadow-xl: 6px 6px 0 0 var(--ui-text-highlighted);
-  --shadow-2xl: 8px 8px 0 0 var(--ui-text-highlighted);
+  /* Elevation comes from the NS Design System (tokens/effects.css) rather
+     than Tailwind's defaults, so a card here casts the same shadow as a card
+     in every other Namaste Salesforce surface. */
+  --shadow-sm: var(--shadow-1, 0 1px 2px rgb(3 45 96 / 0.06));
+  --shadow: var(--shadow-2, 0 2px 6px rgb(3 45 96 / 0.08));
+  --shadow-md: var(--shadow-2, 0 4px 12px rgb(3 45 96 / 0.10));
+  --shadow-lg: var(--shadow-3, 0 12px 28px rgb(3 45 96 / 0.12));
+  --shadow-xl: var(--shadow-4, 0 24px 48px rgb(3 45 96 / 0.16));
+  --shadow-2xl: var(--shadow-4, 0 32px 64px rgb(3 45 96 / 0.20));
 
-  /* Neo-brutalist geometry: zero radius on every real corner. rounded-full
-     is deliberately left at its default so true circles (avatars, dots,
-     ambient blur blobs, the product-screenshot mockup inside HeroStory)
-     stay circular; only rectangular softening goes away. */
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-2xl: 0px;
-  --radius-3xl: 0px;
+  /* Radii from the NS scale. The previous pass zeroed all of these for the
+     neo-brutalist look; this is a learning product, and a sharp corner reads
+     as a control panel rather than as something a person enjoys using. */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
 }
 
 :root {
   --ui-container: var(--container-8xl);
 
-  /* Matches the Tailwind radius override above, for anything inside Nuxt
-     UI components that reaches for --ui-radius directly. */
-  --ui-radius: 0px;
+  --ui-radius: 0.5rem;
 
-  /* Neo-brutalist border color: pure black in light mode, pure white in
-     dark mode, via the same theme-reactive token the shadows use. This
-     overrides the semantic alias (not the neutral ramp step it defaults
-     to), so it repaints every border-default/border-muted/border-accented
-     element already in the app -- header, footer, dividers, card
-     outlines -- without disturbing bg-accented, which reads from the same
-     ramp step for a different, unrelated purpose. */
-  --ui-border: var(--ui-text-highlighted);
-  --ui-border-muted: var(--ui-text-highlighted);
-  --ui-border-accented: var(--ui-text-highlighted);
+  /* Borders stay on the neutral ramp. The neo-brutalist pass pointed all
+     three at --ui-text-highlighted, which drew every divider, card outline
+     and header rule in pure black. */
 
   /* Brand focus ring, unchanged from the NS Design System port
      (src/tokens/effects.css --shadow-focus). */
@@ -166,11 +162,11 @@
 @layer base {
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    /* Full neo-brutalist heading voice: the heaviest weight Figtree draws,
-       closed up tight, so display text reads as a block, not a line. */
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    /* 900 was the neo-brutalist voice — a wall of type. NS sets headings at
+       700, which is emphatic without shouting over the prose beneath it. */
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
   }
 }
 

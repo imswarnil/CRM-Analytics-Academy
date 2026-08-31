@@ -1,0 +1,92 @@
+:root {
+  /* Geometry — sharp and specific, not the generic 12px-everywhere/pill-everywhere
+     look. Cards get a small, deliberate radius; buttons/inputs a tighter one
+     still; --radius-pill is reserved for TRUE pills (tags, segmented controls),
+     never the default button/card shape. */
+  --ns-radius-card: 6px;
+  --ns-radius-btn: 4px;
+  --ns-radius-pill: 9999px;
+  --ns-radius-sm: 4px;
+
+  --radius-card: var(--ns-radius-card);
+  --radius-btn: var(--ns-radius-btn);
+  --radius-pill: var(--ns-radius-pill);
+  --radius-sm: var(--ns-radius-sm);
+
+  /* Elevation — the hairline border IS the primary structuring device.
+     Shadows are near-flat; nothing floats, nothing glows. */
+  --ns-shadow-card: 0 1px 0 rgb(0 0 0 / 0.02);
+  --ns-shadow-raised: 0 4px 16px -8px rgb(0 0 0 / 0.18);
+
+  --shadow-card: var(--ns-shadow-card);
+  --shadow-raised: var(--ns-shadow-raised);
+  --shadow-brand: 0 0 0 1px color-mix(in srgb, var(--color-brand-500) 55%, transparent);
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--color-brand-500) 25%, transparent);
+
+  /* Interaction — the states every control shares. Focus is a brand ring
+     outside the element; press is an instant opacity dim; disabled and
+     loading are fixed dim levels so "off" reads the same everywhere. */
+  --border-hairline: 1px;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --opacity-press: 0.85; /* @kind number */
+  --opacity-disabled: 0.45; /* @kind number */
+  --opacity-loading: 0.35; /* @kind number */
+
+  /* Motion — fast and literal. No spring/bounce; state changes read instantly,
+     like a console, not a marketing site. */
+  --ns-ease-out: cubic-bezier(0.2, 0.6, 0.2, 1); /* @kind cubicBezier */
+  --ease-out: var(--ns-ease-out); /* @kind cubicBezier */
+  --duration-fast: 120ms; /* @kind other */
+  --duration-base: 180ms; /* @kind other */
+  /* Two longer steps, and the line they draw is GESTURE versus RESPONSE, not
+     hover versus not-hover.
+
+     A gesture is watched: a highlighter sweep, a circle drawing itself, a
+     rule extending, a poster easing into a slow zoom. Nothing is waiting on
+     it, and rushing it destroys the only thing it was for — at 180ms a zoom
+     is a pop, which Principle 5 forbids outright.
+
+     A response is awaited: a menu opening, a button dimming, a panel sliding,
+     a value changing. Those take --duration-fast or --duration-base, always.
+     A control that takes 700ms to answer is a broken control, and no amount
+     of it being "decorative" changes that the reader is now waiting.
+
+     So: --duration-slow / --duration-draw are legal on a hover-triggered
+     DECORATION of a non-interactive surface (see .ns-video--zoom in
+     components/css/media.css, the one such call site). They are never legal on
+     anything that reports state. If you are unsure which one you have, ask
+     whether a reader would notice it missing or notice it being slow. */
+  --duration-slow: 420ms;   /* @kind other */
+  --duration-draw: 700ms;   /* @kind other */
+  /* The draw eases differently from the UI: a marker stroke starts fast and
+     settles, which is the opposite of a UI transition's ease-out curve. */
+  --ns-ease-draw: cubic-bezier(0.65, 0, 0.35, 1); /* @kind cubicBezier */
+  --ease-draw: var(--ns-ease-draw); /* @kind cubicBezier */
+}
+
+/* THREE @keyframes USED TO LIVE HERE, and they were the only declarations in
+   this file that were not custom properties. Two of them — `fade-up` and
+   `marquee` — carried no ns- prefix, and a keyframe name is GLOBAL and
+   unlayered: a consuming app with its own `fade-up` silently won or lost
+   depending on source order, with no cascade rule to appeal to. `fade-up` was
+   additionally a byte-for-byte duplicate of a properly-namespaced keyframe in
+   the component layer.
+
+   All three now live in components/css/motion.css, which is the file that
+   already owns page motion. A token file carries vocabulary — values a
+   component reaches for — and an animation is not a value. tokens/base.css
+   makes the same argument for keeping `color-scheme` out of tokens/colors.css.
+
+   Consequence worth knowing: the Tailwind bridge's `animate-*` utilities name
+   those keyframes, so they need the component layer loaded. Every consumer
+   imports styles.css, which loads it. */
+/* In @layer base, not unlayered. The !important is what makes this work and it
+   keeps working from here: an important declaration beats a normal one from any
+   layer, so this still overrides a Tailwind `transition-duration` utility. Being
+   layered just stops it from being the single strongest thing in the stylesheet. */
+@layer base {
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+}
