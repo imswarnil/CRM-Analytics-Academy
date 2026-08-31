@@ -1,18 +1,22 @@
 <script setup lang="ts">
 /**
- * The one button. Renders as <button>, <a> or <NuxtLink> depending on what it
- * is given, so a "link that looks like a button" never needs a second
- * component — that split is where design systems start to drift.
+ * Bulma's .button, wrapped.
+ *
+ * The wrapper exists for three things Bulma's bare class does not give: it
+ * picks the right element (<button>, <a>, <NuxtLink>) from the props, so a
+ * "link that looks like a button" never needs a second component; it adds
+ * rel="noopener" to anything opening a new tab; and it maps a small set of
+ * intent names onto Bulma's colour/variant matrix so call sites say what they
+ * mean rather than which Bulma modifiers to combine.
  */
 const props = withDefaults(defineProps<{
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'quiet'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'quiet' | 'link'
   size?: 'sm' | 'md' | 'lg'
   to?: string
   href?: string
   target?: string
   icon?: string
   trailingIcon?: string
-  /** Convenience alternative to the default slot. */
   label?: string
   block?: boolean
   square?: boolean
@@ -25,6 +29,21 @@ const props = withDefaults(defineProps<{
   type: 'button'
 })
 
+const VARIANT: Record<string, string> = {
+  primary: 'is-primary',
+  secondary: '',
+  ghost: 'is-ghost',
+  danger: 'is-danger',
+  quiet: 'is-primary is-light',
+  link: 'is-text'
+}
+
+const SIZE: Record<string, string> = {
+  sm: 'is-small',
+  md: '',
+  lg: 'is-medium'
+}
+
 const tag = computed(() => (props.to ? resolveComponent('NuxtLink') : props.href ? 'a' : 'button'))
 
 const bindings = computed(() => {
@@ -33,8 +52,8 @@ const bindings = computed(() => {
     return {
       href: props.href,
       target: props.target,
-      // Any link opening a new tab gets noopener: without it the destination
-      // can reach back through window.opener and navigate this tab.
+      // Without noopener the destination can reach back through window.opener
+      // and navigate this tab.
       rel: props.target === '_blank' ? 'noopener noreferrer' : undefined
     }
   }
@@ -46,51 +65,38 @@ const bindings = computed(() => {
   <component
     :is="tag"
     v-bind="bindings"
-    class="btn"
+    class="button"
     :class="[
-      `btn--${variant}`,
-      `btn--${size}`,
-      { 'btn--block': block, 'btn--square': square, 'is-loading': loading, 'is-disabled': disabled }
+      VARIANT[variant],
+      SIZE[size],
+      {
+        'is-fullwidth': block,
+        'is-loading': loading,
+        'is-rounded': !square,
+        'ui-btn--square': square
+      }
     ]"
-    :aria-busy="loading || undefined"
     :aria-disabled="disabled || undefined"
   >
-    <Icon
-      v-if="loading"
-      name="i-lucide-loader-circle"
-      class="btn__spin"
-    />
-    <Icon
-      v-else-if="icon"
-      :name="icon"
-      class="btn__icon"
-    />
     <span
-      v-if="$slots.default || label"
-      class="btn__label"
-    ><slot>{{ label }}</slot></span>
-    <Icon
+      v-if="icon && !loading"
+      class="icon"
+    >
+      <Icon :name="icon" />
+    </span>
+    <span v-if="$slots.default || label"><slot>{{ label }}</slot></span>
+    <span
       v-if="trailingIcon && !loading"
-      :name="trailingIcon"
-      class="btn__icon"
-    />
+      class="icon"
+    >
+      <Icon :name="trailingIcon" />
+    </span>
   </component>
 </template>
 
 <style scoped lang="scss">
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s-2);
-  border-radius: var(--r-full);
-  border: 1px solid transparent;
-  font-family: var(--font-body);
+.button {
   font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
-  text-decoration: none;
-  cursor: pointer;
   transition:
     background-color var(--dur-fast) var(--ease-out),
     border-color var(--dur-fast) var(--ease-out),
@@ -98,127 +104,28 @@ const bindings = computed(() => {
     box-shadow var(--dur-mid) var(--ease-out),
     transform var(--dur-fast) var(--ease-spring);
 
-  &:active:not(.is-disabled) {
-    transform: scale(0.97);
-  }
-
-  &.is-disabled,
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+  &:active:not([disabled]) { transform: scale(0.97); }
 }
 
-// --- sizes. The min-height floors are touch targets, not decoration: 44px is
-// the smallest reliably tappable control on a phone.
-.btn--sm {
-  min-height: 2rem;
-  padding-inline: var(--s-3);
-  font-size: var(--t-tiny);
-}
-
-.btn--md {
-  min-height: 2.75rem;
-  padding-inline: var(--s-5);
-  font-size: var(--t-small);
-}
-
-.btn--lg {
-  min-height: 3.25rem;
-  padding-inline: var(--s-6);
-  font-size: var(--t-body);
-}
-
-.btn--square {
+// Icon-only. Bulma's horizontal padding would otherwise collapse it to a
+// sliver, and 2.5rem is a real touch target.
+.ui-btn--square {
   padding-inline: 0;
   aspect-ratio: 1;
+  width: 2.5rem;
+  border-radius: var(--r-full);
 
-  &.btn--sm { width: 2rem; }
-  &.btn--md { width: 2.75rem; }
-  &.btn--lg { width: 3.25rem; }
+  &.is-small { width: 2rem; }
+  &.is-medium { width: 3rem; }
 }
 
-.btn--block {
-  display: flex;
-  width: 100%;
-}
-
-// --- variants
-.btn--primary {
-  background: var(--c-brand);
-  color: var(--c-on-brand);
+// The primary action on a view is the only thing that lifts toward the reader.
+.is-primary:not(.is-light) {
   box-shadow: var(--shadow-brand);
 
-  &:hover:not(.is-disabled) {
-    background: var(--c-brand-hover);
-    // The lift is the signature interaction: the primary action on a view is
-    // the only thing that moves toward the reader.
+  &:hover:not([disabled]) {
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgb(1 118 211 / 0.4);
+    box-shadow: 0 8px 22px rgb(1 118 211 / 0.36);
   }
-}
-
-.btn--secondary {
-  background: var(--c-bg-raised);
-  border-color: var(--c-line);
-  color: var(--c-text);
-  box-shadow: var(--shadow-1);
-
-  &:hover:not(.is-disabled) {
-    border-color: var(--c-brand);
-    color: var(--c-brand-text);
-    box-shadow: var(--shadow-2);
-  }
-}
-
-.btn--ghost {
-  background: transparent;
-  color: var(--c-text-soft);
-
-  &:hover:not(.is-disabled) {
-    background: var(--c-bg-inset);
-    color: var(--c-text);
-  }
-}
-
-.btn--quiet {
-  background: var(--c-brand-faint);
-  color: var(--c-brand-text);
-
-  &:hover:not(.is-disabled) {
-    background: var(--c-brand-soft);
-  }
-}
-
-.btn--danger {
-  background: var(--c-danger);
-  color: #fff;
-
-  &:hover:not(.is-disabled) {
-    filter: brightness(0.92);
-  }
-}
-
-.btn__icon {
-  width: 1.15em;
-  height: 1.15em;
-  flex-shrink: 0;
-}
-
-.btn__label {
-  // Keeps a long label from bursting the button on a narrow screen.
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.btn__spin {
-  width: 1.15em;
-  height: 1.15em;
-  flex-shrink: 0;
-  animation: btn-spin 0.7s linear infinite;
-}
-
-@keyframes btn-spin {
-  to { transform: rotate(360deg); }
 }
 </style>

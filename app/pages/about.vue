@@ -63,31 +63,17 @@ const authorLinks = [
 <template>
   <div>
     <!-- ============================ HERO ============================ -->
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-
-      <div class="shell relative py-20 text-center sm:py-24">
-        <UiBadge
-          tone="brand"
-          class="mb-6 rounded-full"
-          size="md"
-        >
-          <Icon
-            name="i-lucide-info"
-            class="mr-1 size-4"
-          />
-          About
-        </UiBadge>
-
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Making Salesforce <span class="text-marker">CRM Analytics</span> learnable for everyone
-        </h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg text-muted">
-          Two things to know: what this project is, and who builds it.
-        </p>
-      </div>
-    </section>
+    <PageHero
+      eyebrow="About"
+      icon="i-lucide-info"
+    >
+      <template #title>
+        Making Salesforce <span class="text-marker">CRM Analytics</span> learnable for everyone
+      </template>
+      <template #description>
+        Two things to know: what this project is, and who builds it.
+      </template>
+    </PageHero>
 
     <!-- ===================== SECTION 1 — THE PROJECT ===================== -->
     <section class="py-20 sm:py-24">
@@ -294,7 +280,6 @@ const authorLinks = [
     <section class="py-20 sm:py-24">
       <div class="shell">
         <div class="relative overflow-hidden rounded-3xl border border-default bg-gradient-to-br from-salesforce-600 via-salesforce-700 to-salesforce-900 px-6 py-16 text-center sm:px-12">
-          <div class="absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           <div class="relative mx-auto max-w-2xl">
             <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Start learning today

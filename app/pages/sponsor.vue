@@ -22,39 +22,17 @@ const tiers = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <div class="shell relative py-16 text-center sm:py-20">
-        <UiBadge
-          tone="brand"
-          class="mb-6 rounded-full"
-          size="md"
-        >
-          <Icon
-            name="i-lucide-heart"
-            class="mr-1 size-4"
-          />
-          Sponsor
-        </UiBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Help keep it <span class="text-marker">free & open</span>
-        </h1>
-        <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
-          CRM Analytics Academy is built in the open and given away for free. Sponsorship keeps the lights on and funds new lessons, languages, and datasets.
-        </p>
-        <UiButton
-          variant="secondary"
-          :to="sponsorUrl"
-          target="_blank"
-          icon="i-lucide-heart"
-          class="mt-8 rounded-full font-semibold"
-          size="lg"
-        >
-          Sponsor on GitHub
-        </UiButton>
-      </div>
-    </section>
+    <PageHero
+      eyebrow="Sponsor"
+      icon="i-lucide-heart"
+    >
+      <template #title>
+        Help keep it <span class="text-marker">free & open</span>
+      </template>
+      <template #description>
+        CRM Analytics Academy is built in the open and given away for free. Sponsorship keeps the lights on and funds new lessons, languages, and datasets.
+      </template>
+    </PageHero>
 
     <!-- Featured sponsor -->
     <div class="shell pt-12 sm:pt-16">

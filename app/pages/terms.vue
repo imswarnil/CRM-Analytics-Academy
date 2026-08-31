@@ -43,28 +43,18 @@ const sections = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="shell relative py-16 sm:py-20">
-        <UiBadge
-          tone="brand"
-          class="mb-6 rounded-full"
-          size="md"
-        >
-          <Icon
-            name="i-lucide-file-text"
-            class="mr-1 size-4"
-          />
-          Legal
-        </UiBadge>
-        <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Terms of Service
-        </h1>
-        <p class="mt-4 max-w-2xl text-lg text-muted">
-          The ground rules for using this free curriculum.
-        </p>
-      </div>
-    </section>
+    <PageHero
+      eyebrow="Legal"
+      icon="i-lucide-file-text"
+      size="sm"
+    >
+      <template #title>
+        Terms of Service
+      </template>
+      <template #description>
+        The ground rules for using this free curriculum.
+      </template>
+    </PageHero>
 
     <section class="py-16 sm:py-20">
       <div class="shell">

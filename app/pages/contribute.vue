@@ -43,51 +43,17 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
 <template>
   <div>
     <!-- Hero -->
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <div class="shell relative py-14 text-center sm:py-20">
-        <UiBadge
-          tone="brand"
-          class="mb-6 rounded-full"
-          size="md"
-        >
-          <Icon
-            name="i-lucide-git-pull-request"
-            class="mr-1 size-4"
-          />
-          Contributor guide
-        </UiBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Help build the <span class="text-marker">community</span>
-        </h1>
-        <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
-          Everything you need to add a lesson, translate content, suggest a resource, or improve the code.
-        </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <UiButton
-            variant="secondary"
-            :to="repo"
-            target="_blank"
-            icon="i-simple-icons-github"
-            class="rounded-full font-semibold"
-            size="lg"
-          >
-            View on GitHub
-          </UiButton>
-          <UiButton
-            variant="secondary"
-            :to="`${repo}/issues/new`"
-            target="_blank"
-            icon="i-lucide-plus"
-            class="rounded-full font-semibold"
-            size="lg"
-          >
-            Suggest a resource
-          </UiButton>
-        </div>
-      </div>
-    </section>
+    <PageHero
+      eyebrow="Contributor guide"
+      icon="i-lucide-git-pull-request"
+    >
+      <template #title>
+        Help build the <span class="text-marker">community</span>
+      </template>
+      <template #description>
+        Everything you need to add a lesson, translate content, suggest a resource, or improve the code.
+      </template>
+    </PageHero>
 
     <div class="shell py-12 sm:py-16">
       <div class="lg:grid lg:grid-cols-[240px_1fr] lg:gap-14">

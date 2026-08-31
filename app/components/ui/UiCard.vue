@@ -1,11 +1,10 @@
 <script setup lang="ts">
 /**
- * Surface primitive. Becomes a link when given `to`, which is what makes the
- * whole card clickable rather than just the heading inside it — a much larger
- * target, and the thing most card layouts get wrong.
- *
- * `accent` paints a hairline down the inline-start edge. It is how a module,
- * a difficulty or a lesson type is signalled without spending a badge on it.
+ * Bulma's .card with the two things this site needs on top: the whole card can
+ * be the link target rather than just the heading inside it — a much larger
+ * hit area, and the thing most card layouts get wrong — and an optional accent
+ * rail down the inline-start edge, which is how a module, difficulty or lesson
+ * type is signalled without spending a badge on it.
  */
 const props = withDefaults(defineProps<{
   to?: string
@@ -19,7 +18,6 @@ const props = withDefaults(defineProps<{
 })
 
 const tag = computed(() => (props.to ? resolveComponent('NuxtLink') : props.href ? 'a' : 'div'))
-
 const isLink = computed(() => Boolean(props.to || props.href))
 
 const bindings = computed(() => {
@@ -39,11 +37,11 @@ const bindings = computed(() => {
   <component
     :is="tag"
     v-bind="bindings"
-    class="card"
+    class="card ui-card"
     :class="[
-      `card--pad-${padding}`,
-      accent && `card--accent card--${accent}`,
-      { 'card--interactive': isLink || interactive }
+      `ui-card--${padding}`,
+      accent && `ui-card--accent ui-card--${accent}`,
+      { 'ui-card--link': isLink || interactive }
     ]"
   >
     <slot />
@@ -51,27 +49,26 @@ const bindings = computed(() => {
 </template>
 
 <style scoped lang="scss">
-.card {
+.ui-card {
   position: relative;
   display: block;
-  background: var(--c-bg-raised);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-1);
   color: inherit;
   text-decoration: none;
   overflow: hidden;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
   transition:
     border-color var(--dur-mid) var(--ease-out),
     box-shadow var(--dur-mid) var(--ease-out),
     transform var(--dur-mid) var(--ease-spring);
 }
 
-.card--pad-sm { padding: var(--s-4); }
-.card--pad-md { padding: var(--s-5); }
-.card--pad-lg { padding: var(--s-6); }
+.ui-card--sm { padding: var(--s-4); }
+.ui-card--md { padding: var(--s-5); }
+.ui-card--lg { padding: var(--s-6); }
 
-.card--interactive {
+.ui-card--link {
   cursor: pointer;
 
   &:hover {
@@ -80,16 +77,16 @@ const bindings = computed(() => {
     transform: translateY(-3px);
   }
 
-  // The whole card is the target, so the ring belongs on the whole card.
+  // The whole card is the target, so the focus ring belongs on the whole card.
   &:focus-visible {
     outline: 2px solid var(--c-brand);
     outline-offset: 3px;
   }
 }
 
-// The accent rail. Drawn as a pseudo-element rather than a border so it does
-// not shift the padding, and inset-inline so it flips for Arabic and Urdu.
-.card--accent::before {
+// Drawn as a pseudo-element rather than a border so it does not shift the
+// padding, and inset-inline so it flips for Arabic and Urdu.
+.ui-card--accent::before {
   content: "";
   position: absolute;
   inset-block: 0;
@@ -98,10 +95,10 @@ const bindings = computed(() => {
   background: var(--card-accent, var(--c-brand));
 }
 
-.card--brand { --card-accent: var(--c-brand); }
-.card--data { --card-accent: var(--aqua); }
-.card--progress { --card-accent: var(--lime); }
-.card--caution { --card-accent: var(--amber); }
-.card--action { --card-accent: var(--coral); }
-.card--meta { --card-accent: var(--violet); }
+.ui-card--brand { --card-accent: var(--c-brand); }
+.ui-card--data { --card-accent: var(--aqua); }
+.ui-card--progress { --card-accent: var(--lime); }
+.ui-card--caution { --card-accent: var(--amber); }
+.ui-card--action { --card-accent: var(--coral); }
+.ui-card--meta { --card-accent: var(--violet); }
 </style>

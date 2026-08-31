@@ -55,34 +55,22 @@ const columns = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <div class="shell relative py-14 text-center sm:py-20">
-        <UiBadge
-          tone="brand"
-          class="mb-6 rounded-full"
-          size="md"
-        >
-          <Icon
-            name="i-lucide-map"
-            class="mr-1 size-4"
-          />
-          Roadmap
-        </UiBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Where we're <span class="text-marker">headed</span>
-        </h1>
-        <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
-          The Academy is open source and always growing. Have an idea?
-          <NuxtLink
-            to="https://github.com/imswarnil/CRM-Analytics-Academy/issues"
-            target="_blank"
-            class="text-primary hover:underline"
-          >Open an issue</NuxtLink>.
-        </p>
-      </div>
-    </section>
+    <PageHero
+      eyebrow="Roadmap"
+      icon="i-lucide-map"
+    >
+      <template #title>
+        Where we're <span class="text-marker">headed</span>
+      </template>
+      <template #description>
+        The Academy is open source and always growing. Have an idea?
+        <NuxtLink
+          to="https://github.com/imswarnil/CRM-Analytics-Academy/issues"
+          target="_blank"
+          class="text-primary hover:underline"
+        >Open an issue</NuxtLink>.
+      </template>
+    </PageHero>
 
     <div class="shell py-12 sm:py-16">
       <div class="grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-12">

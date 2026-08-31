@@ -1,13 +1,26 @@
 // ===========================================================================
-// SIGNAL — stylesheet entry
+// Stylesheet entry
 // ---------------------------------------------------------------------------
-// Order matters: tokens define the custom properties everything else reads,
-// base resets and sets element defaults, layout provides structure, prose
-// styles the content column. Component styles live in their own .vue files
-// and read the same tokens through var(), so nothing has to be imported there.
+// Order matters. Fonts first so @font-face is declared before anything asks
+// for the family; Bulma next, configured at @use time with the project's own
+// values; then the theme layer, which sets the custom properties Bulma cannot
+// derive; then the app's own structure and the content column.
 // ===========================================================================
 
-@use "tokens";
-@use "base";
-@use "layout";
+@use "fonts";
+
+// Bulma, configured. Anything Bulma *derives* from has to be set here rather
+// than as a custom property later — the derivations run at compile time.
+@use "bulma/sass" with (
+  // The only deviation from stock Bulma. Its hover, active and invert shades
+  // are derived from this at compile time, which is why it is a Sass variable
+  // rather than a custom property.
+  $primary: #0176D3,
+
+  $family-primary: '"Geist", "Geist Fallback", system-ui, sans-serif',
+  $family-code: '"Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace'
+);
+
+@use "theme";
+@use "app";
 @use "prose";

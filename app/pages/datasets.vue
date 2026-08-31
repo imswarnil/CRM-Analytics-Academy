@@ -38,29 +38,17 @@ useJsonLd(datasets.map(d => ({
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <div class="shell relative py-16 text-center sm:py-20">
-        <UiBadge
-          tone="brand"
-          class="mb-6 rounded-full"
-          size="md"
-        >
-          <Icon
-            name="i-lucide-database"
-            class="mr-1 size-4"
-          />
-          Sample datasets
-        </UiBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          Practice on <span class="text-marker">real-shaped</span> data
-        </h1>
-        <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
-          Download these free CSVs and upload them into CRM Analytics to follow every lesson hands-on — build recipes, write SAQL, and design dashboards.
-        </p>
-      </div>
-    </section>
+    <PageHero
+      eyebrow="Sample datasets"
+      icon="i-lucide-database"
+    >
+      <template #title>
+        Practice on <span class="text-marker">real-shaped</span> data
+      </template>
+      <template #description>
+        Download these free CSVs and upload them into CRM Analytics to follow every lesson hands-on — build recipes, write SAQL, and design dashboards.
+      </template>
+    </PageHero>
 
     <div class="shell py-12 sm:py-16">
       <div class="grid gap-6 sm:grid-cols-2">

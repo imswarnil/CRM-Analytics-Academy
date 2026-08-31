@@ -1,0 +1,114 @@
+// ===========================================================================
+// THEME
+// ---------------------------------------------------------------------------
+// Stock Bulma with a blue primary. The primary itself is set as a Sass
+// variable in index.scss, because Bulma derives its hover, active and invert
+// shades from it at compile time — setting it as a custom property here would
+// give a blue button with grey states.
+//
+// Everything below is a bridge, not a theme: the custom components already
+// speak a small token vocabulary (--s-*, --c-*, --r-*), so those names are
+// pointed at Bulma's own variables. That keeps the components working while
+// making them follow Bulma's light/dark switch for free, and it means there is
+// no second palette to maintain.
+// ===========================================================================
+
+:root {
+  // --- surfaces and text, straight from Bulma's scheme
+  --c-bg: var(--bulma-scheme-main);
+  --c-bg-sunken: var(--bulma-scheme-main-bis);
+  --c-bg-raised: var(--bulma-scheme-main);
+  --c-bg-inset: var(--bulma-scheme-main-ter);
+
+  --c-text: var(--bulma-text-strong);
+  --c-text-soft: var(--bulma-text);
+  --c-text-faint: var(--bulma-text-weak);
+  --c-on-brand: var(--bulma-primary-invert);
+
+  --c-line: var(--bulma-border-weak);
+  --c-line-soft: var(--bulma-border-weak);
+  --c-line-strong: var(--bulma-border);
+
+  // --- brand. Bulma's own primary and link, not a parallel ramp.
+  --c-brand: var(--bulma-primary);
+  --c-brand-text: var(--bulma-link-text);
+  --c-brand-soft: var(--bulma-primary-light);
+  --c-brand-faint: var(--bulma-primary-light);
+  --c-brand-strong: var(--bulma-primary-dark);
+
+  // --- accents map onto Bulma's semantic colours rather than a private set.
+  --aqua: var(--bulma-info);
+  --lime: var(--bulma-success);
+  --amber: var(--bulma-warning);
+  --coral: var(--bulma-danger);
+  --coral-strong: var(--bulma-danger);
+  --violet: var(--bulma-link);
+  --aqua-soft: var(--bulma-info-light);
+  --lime-soft: var(--bulma-success-light);
+  --amber-soft: var(--bulma-warning-light);
+  --coral-soft: var(--bulma-danger-light);
+  --violet-soft: var(--bulma-link-light);
+
+  // --- 4px spacing scale
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+
+  // --- type steps, following Bulma's own sizes
+  --t-hero: var(--bulma-size-1);
+  --t-display: var(--bulma-size-2);
+  --t-h1: var(--bulma-size-2);
+  --t-h2: var(--bulma-size-3);
+  --t-h3: var(--bulma-size-4);
+  --t-h4: var(--bulma-size-5);
+  --t-lead: 1.125rem;
+  --t-body: 1rem;
+  --t-small: 0.9375rem;
+  --t-tiny: 0.8125rem;
+  --t-micro: 0.6875rem;
+
+  --lh-tight: 1.2;
+  --lh-body: 1.6;
+  --tr-tight: -0.01em;
+  --tr-wide: 0.02em;
+  --tr-caps: 0.1em;
+
+  // --- radii and elevation, Bulma's
+  --r-xs: var(--bulma-radius-small);
+  --r-sm: var(--bulma-radius);
+  --r-md: var(--bulma-radius-medium);
+  --r-lg: var(--bulma-radius-large);
+  --r-xl: var(--bulma-radius-large);
+  --r-full: var(--bulma-radius-rounded);
+
+  --shadow-1: var(--bulma-shadow);
+  --shadow-2: var(--bulma-shadow);
+  --shadow-3: var(--bulma-shadow);
+  --shadow-4: var(--bulma-shadow);
+  --shadow-brand: var(--bulma-shadow);
+
+  // --- motion
+  --ease-out: var(--bulma-easing, ease-out);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms;
+  --dur-mid: 220ms;
+  --dur-slow: 400ms;
+
+  // --- layout
+  --w-read: 46rem;
+  --w-sidebar: 17rem;
+  --w-toc: 15rem;
+  --h-header: 3.75rem;
+
+  --z-sticky: 100;
+  --z-header: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}
