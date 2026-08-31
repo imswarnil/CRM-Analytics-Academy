@@ -233,6 +233,8 @@ useJsonLd(jsonLd)
         :items="page.interview"
       />
 
+      <CourseLessonComplete />
+
       <AdUnit placement="endOfArticle" />
 
       <USeparator v-if="surround?.length" />
