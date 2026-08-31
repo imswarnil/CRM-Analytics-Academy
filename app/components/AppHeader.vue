@@ -7,6 +7,21 @@ const { header } = useAppConfig()
 const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 
+// Session, resolved once on mount. The header is on every page, so this is the
+// single place the session is fetched; useAuth keeps it in shared state for
+// the dashboard and account page rather than each refetching.
+const { user, isSignedIn, fetchSession, signOut } = useAuth()
+onMounted(() => {
+  fetchSession()
+})
+
+const accountItems = computed(() => [[
+  { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
+  { label: t('nav.account'), icon: 'i-lucide-user', to: localePath('/account') }
+], [
+  { label: t('nav.signOut'), icon: 'i-lucide-log-out', onSelect: () => signOut() }
+]])
+
 // Icon actions on the right of the navbar — ghost icon links with a tooltip.
 // About now lives only in the "More" dropdown below.
 const actions = computed(() => [
@@ -100,6 +115,35 @@ const localeItems = computed(() =>
       >
         <UColorModeButton />
       </UTooltip>
+
+      <ClientOnly>
+        <UDropdownMenu
+          v-if="isSignedIn"
+          :items="accountItems"
+          :content="{ align: 'end' }"
+        >
+          <UButton
+            :label="user?.name || user?.email"
+            icon="i-lucide-circle-user"
+            color="neutral"
+            variant="ghost"
+            class="max-sm:[&_span:last-child]:hidden"
+          />
+        </UDropdownMenu>
+        <UButton
+          v-else
+          :label="t('nav.signIn')"
+          :to="localePath('/sign-in')"
+          color="neutral"
+          variant="subtle"
+          size="sm"
+        />
+        <!-- Reserves the control's width during SSR so the navbar does not
+             jump once the session resolves. -->
+        <template #fallback>
+          <div class="h-8 w-20" />
+        </template>
+      </ClientOnly>
 
       <!-- "More" overflow menu — kept last so it reads as the catch-all,
            after language and theme controls. Carries the mobile-only about
