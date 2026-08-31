@@ -15,7 +15,11 @@
     "terms": "Terms of Service",
     "roadmap": "Roadmap",
     "changelog": "Changelog",
-    "showcase": "Showcase"
+    "showcase": "Showcase",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "dashboard": "Dashboard",
+    "account": "Account"
   },
   "sponsorCard": {
     "title": "Sponsor this project",
