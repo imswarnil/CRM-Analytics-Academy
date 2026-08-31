@@ -6,15 +6,17 @@
     "node": ">=22.5.0"
   },
   "scripts": {
-    "build": "nuxt build",
-    "generate": "nuxt generate",
+    "build": "pnpm gate && nuxt build",
+    "generate": "pnpm gate && nuxt generate && pnpm verify:gating",
     "dev": "bash scripts/dev.sh",
     "dev:raw": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
-    "translate": "node --env-file-if-exists=.env scripts/translate.mjs"
+    "translate": "node --env-file-if-exists=.env scripts/translate.mjs",
+    "gate": "node scripts/gate-content.mjs",
+    "verify:gating": "node scripts/verify-gating.mjs"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.114",

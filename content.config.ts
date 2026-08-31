@@ -72,6 +72,15 @@ export default defineContentConfig({
         exclude: ['resources/**', 'showcase/**']
       },
       schema: z.object({
+        // Access tier. `pro` lessons are excluded from the prerendered bundle
+        // entirely — see the prerender ignore in nuxt.config.ts — and their
+        // body is served only by /api/lesson after a server-side entitlement
+        // check. Anything not marked ships to everyone, so a lesson that
+        // should be paid and is not marked is simply free.
+        access: z.enum(['free', 'pro']).default('free'),
+        // Mux playback id. For a pro lesson this never reaches the client
+        // unsigned; /api/lesson mints a short-lived signed token instead.
+        mux: z.string().optional(),
         links: z.array(z.object({
           label: z.string(),
           icon: z.string(),
