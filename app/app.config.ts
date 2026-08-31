@@ -10,25 +10,11 @@ export default defineAppConfig({
         root: 'border-t border-default',
         left: 'text-sm text-muted'
       }
-    },
-    // Icon-only buttons get square rounding rather than a pill (redesign.md
-    // section 3.1) -- targeted with the square variant class from the
-    // Button component itself so it does not affect labeled buttons.
-    button: {
-      slots: {
-        base: 'border-[3px] border-[var(--ui-text-highlighted)] shadow-[3px_3px_0_0_var(--ui-text-highlighted)] transition-[transform,box-shadow] duration-100 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_var(--ui-text-highlighted)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0_0_var(--ui-text-highlighted)]'
-      }
-    },
-    card: {
-      slots: {
-        root: 'border-[3px] border-[var(--ui-text-highlighted)] shadow-[6px_6px_0_0_var(--ui-text-highlighted)]'
-      }
-    },
-    badge: {
-      slots: {
-        base: 'border-2 border-[var(--ui-text-highlighted)]'
-      }
     }
+    // No component overrides. The neo-brutalist pass put 3px black borders and
+    // hard offset shadows on button, card and badge; going back to stock Nuxt
+    // UI means those come from the theme, and the NS tokens imported in
+    // main.css are what colour them.
   },
   seo: {
     siteName: 'CRM Analytics Academy'
