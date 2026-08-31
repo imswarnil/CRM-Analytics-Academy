@@ -178,12 +178,12 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="not-prose group relative aspect-video w-full select-none overflow-hidden rounded-2xl border border-default bg-black shadow-lg">
+  <div class="not-prose relative aspect-video is-fullwidth select-none overflow-hidden rounded-2xl border border-default bg-black shadow-lg">
     <!-- Custom poster / thumbnail (before activation) -->
     <button
       v-if="!activated"
       type="button"
-      class="absolute inset-0 z-30 flex flex-col items-center justify-center overflow-hidden"
+      class="absolute inset-0 z-30 is-flex is-flex-direction-column is-align-items-center is-justify-content-center overflow-hidden"
       :aria-label="`Play${title ? ': ' + title : ' lesson video'}`"
       @click="activate"
     >
@@ -192,9 +192,9 @@ onBeforeUnmount(() => {
         alt=""
         class="absolute inset-0 size-full scale-105 object-cover blur-[1px]"
       >
-      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/30" />
+      <div class="absolute inset-0 yt-scrim" />
 
-      <span class="relative flex size-20 items-center justify-center rounded-full bg-primary text-inverted shadow-2xl transition duration-200 group-hover:scale-110 group-active:scale-95">
+      <span class="relative is-flex size-20 is-align-items-center is-justify-content-center rounded-full bg-primary text-inverted shadow-2xl transition duration-200 group-hover:scale-110 group-active:scale-95">
         <span class="absolute inset-0 animate-ping rounded-full bg-primary/40" />
         <Icon
           name="i-lucide-play"
@@ -202,9 +202,9 @@ onBeforeUnmount(() => {
         />
       </span>
 
-      <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5 text-left">
+      <div class="absolute inset-x-0 bottom-0 is-flex items-end is-justify-content-space-between gap-3 p-5 has-text-left">
         <div class="min-w-0">
-          <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/90 px-2.5 py-1 text-xs font-semibold text-inverted">
+          <span class="is-inline-flex is-align-items-center gap-1.5 rounded-full bg-primary/90 px-2.5 py-1 is-size-7 has-text-weight-semibold text-inverted">
             <Icon
               name="i-lucide-graduation-cap"
               class="size-3.5"
@@ -213,14 +213,14 @@ onBeforeUnmount(() => {
           </span>
           <p
             v-if="title"
-            class="mt-2 line-clamp-2 max-w-lg text-lg font-bold text-white drop-shadow"
+            class="mt-2 line-clamp-2 max-w-lg is-size-5 has-text-weight-bold has-text-white drop-shadow"
           >
             {{ title }}
           </p>
         </div>
         <span
           v-if="props.end"
-          class="shrink-0 rounded-md bg-black/60 px-2 py-1 font-mono text-xs text-white/90"
+          class="shrink-0 rounded-md bg-black/60 px-2 py-1 is-family-monospace is-size-7 text-white/90"
         >
           {{ fmt(clipLength) }}
         </span>
@@ -243,7 +243,7 @@ onBeforeUnmount(() => {
     >
       <div
         v-if="activated && loading && !finished"
-        class="absolute inset-0 z-30 flex items-center justify-center overflow-hidden"
+        class="absolute inset-0 z-30 is-flex is-align-items-center is-justify-content-center overflow-hidden"
       >
         <img
           :src="poster"
@@ -251,10 +251,10 @@ onBeforeUnmount(() => {
           class="absolute inset-0 size-full scale-105 object-cover blur-[2px]"
         >
         <div class="absolute inset-0 bg-black/60" />
-        <span class="relative flex size-14 items-center justify-center rounded-full bg-black/40 backdrop-blur">
+        <span class="relative is-flex size-14 is-align-items-center is-justify-content-center rounded-full bg-black/40 backdrop-blur">
           <Icon
             name="i-lucide-loader-circle"
-            class="size-8 animate-spin text-white"
+            class="size-8 animate-spin has-text-white"
           />
         </span>
       </div>
@@ -264,7 +264,7 @@ onBeforeUnmount(() => {
     <button
       v-if="activated && !finished"
       type="button"
-      class="absolute inset-0 z-10 flex items-center justify-center"
+      class="absolute inset-0 z-10 is-flex is-align-items-center is-justify-content-center"
       :aria-label="playing ? 'Pause' : 'Play'"
       @click="togglePlay"
     >
@@ -274,7 +274,7 @@ onBeforeUnmount(() => {
       >
         <span
           v-if="ready && !playing && !loading"
-          class="flex size-16 items-center justify-center rounded-full bg-primary/90 text-inverted shadow-lg backdrop-blur transition active:scale-95"
+          class="is-flex size-16 is-align-items-center is-justify-content-center rounded-full bg-primary/90 text-inverted shadow-lg backdrop-blur transition active:scale-95"
         >
           <Icon
             name="i-lucide-play"
@@ -287,7 +287,7 @@ onBeforeUnmount(() => {
     <!-- Custom control bar -->
     <div
       v-show="activated && !finished"
-      class="absolute inset-x-0 bottom-0 z-20 flex items-center gap-3 bg-gradient-to-t from-black/80 to-transparent px-4 pb-3 pt-8 opacity-0 transition group-hover:opacity-100"
+      class="absolute inset-x-0 bottom-0 z-20 is-flex is-align-items-center gap-3 yt-scrim px-4 pb-3 pt-8 opacity-0 transition"
       :class="{ '!opacity-100': !playing }"
     >
       <button
@@ -316,7 +316,7 @@ onBeforeUnmount(() => {
         />
       </div>
 
-      <span class="shrink-0 font-mono text-xs tabular-nums text-white/80">
+      <span class="shrink-0 is-family-monospace is-size-7 tabular-nums text-white/80">
         {{ fmt(elapsed) }} / {{ fmt(clipLength) }}
       </span>
 
@@ -336,13 +336,13 @@ onBeforeUnmount(() => {
     <!-- Lesson-completed end screen -->
     <div
       v-if="finished"
-      class="absolute inset-0 z-40 flex flex-col items-center justify-center gap-3 bg-default/95 backdrop-blur"
+      class="absolute inset-0 z-40 is-flex is-flex-direction-column is-align-items-center is-justify-content-center gap-3 bg-default/95 backdrop-blur"
     >
       <Icon
         name="i-lucide-circle-check"
-        class="size-9 text-primary"
+        class="size-9 has-text-primary"
       />
-      <p class="font-semibold text-highlighted">
+      <p class="has-text-weight-semibold has-text-weight-semibold">
         {{ t('video.lessonCompleted') }}
       </p>
       <UiButton

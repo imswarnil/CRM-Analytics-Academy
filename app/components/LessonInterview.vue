@@ -11,18 +11,18 @@ defineProps<{
     v-if="items.length"
     class="not-prose my-10"
   >
-    <div class="mb-5 flex items-center gap-2.5">
-      <div class="flex size-9 items-center justify-center rounded-lg bg-primary/10">
+    <div class="mb-5 is-flex is-align-items-center gap-2.5">
+      <div class="is-flex size-9 is-align-items-center is-justify-content-center rounded-lg bg-primary/10">
         <Icon
           name="i-lucide-messages-square"
-          class="size-5 text-primary"
+          class="size-5 has-text-primary"
         />
       </div>
       <div>
-        <h2 class="text-base font-semibold text-highlighted">
+        <h2 class="is-size-6 has-text-weight-semibold has-text-weight-semibold">
           Interview questions
         </h2>
-        <p class="text-xs text-muted">
+        <p class="is-size-7 has-text-grey">
           {{ items.length }} common questions with model answers — rehearse each one aloud.
         </p>
       </div>
@@ -32,21 +32,21 @@ defineProps<{
       <li
         v-for="(item, i) in items"
         :key="i"
-        class="overflow-hidden rounded-xl border border-default bg-default"
+        class="overflow-hidden rounded-xl border border-default has-background-white"
       >
-        <div class="flex items-start gap-3 border-b border-default bg-elevated/40 px-4 py-3">
-          <span class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-inverted">
+        <div class="is-flex is-align-items-flex-start gap-3 border-b border-default bg-elevated/40 px-4 py-3">
+          <span class="is-flex size-6 shrink-0 is-align-items-center is-justify-content-center rounded-full bg-primary is-size-7 has-text-weight-semibold text-inverted">
             {{ i + 1 }}
           </span>
-          <p class="text-sm font-semibold text-highlighted">
+          <p class="is-size-7 has-text-weight-semibold has-text-weight-semibold">
             {{ item.q }}
           </p>
         </div>
-        <div class="flex items-start gap-3 px-4 py-3">
-          <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-elevated text-[0.65rem] font-semibold uppercase text-muted">
+        <div class="is-flex is-align-items-flex-start gap-3 px-4 py-3">
+          <span class="mt-0.5 is-flex size-6 shrink-0 is-align-items-center is-justify-content-center rounded-full bg-elevated text-[0.65rem] has-text-weight-semibold is-uppercase has-text-grey">
             A
           </span>
-          <p class="text-sm leading-relaxed text-muted">
+          <p class="is-size-7 has-text-grey">
             {{ item.a }}
           </p>
         </div>

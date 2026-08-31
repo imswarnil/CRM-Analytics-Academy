@@ -214,7 +214,7 @@ useJsonLd({
   <div>
     <!-- ── Hero ─────────────────────────────────────────────────────────── -->
     <section class="hero bg-grid">
-      <div class="shell hero__grid">
+      <div class="container  hero__grid">
         <div class="hero__copy">
           <UiBadge
             tone="brand"
@@ -223,12 +223,12 @@ useJsonLd({
             {{ t('hero.badge') }}
           </UiBadge>
 
-          <h1 class="hero__title text-balance">
+          <h1 class="hero__title">
             {{ t('hero.titleLead') }}
             <span class="hero__accent">{{ t('hero.titleAccent') }}</span>
           </h1>
 
-          <p class="lead hero__sub text-pretty">
+          <p class="lead hero__sub">
             {{ t('hero.subtitle') }}
           </p>
 
@@ -279,7 +279,7 @@ useJsonLd({
 
     <!-- ── Stats ────────────────────────────────────────────────────────── -->
     <section class="stats">
-      <div class="shell stats__inner">
+      <div class="container  stats__inner">
         <div
           v-for="s in stats"
           :key="s.label"
@@ -300,7 +300,7 @@ useJsonLd({
       id="curriculum"
       class="section"
     >
-      <div class="shell">
+      <div class="container">
         <header class="section__head">
           <p class="eyebrow">
             {{ t('home.curriculumEyebrow') }}
@@ -312,8 +312,7 @@ useJsonLd({
         </header>
 
         <div
-          class="grid-auto"
-          style="--grid-min: 20rem"
+          class="grid-auto grid-min-20"
         >
           <UiCard
             v-for="(m, i) in modules"
@@ -349,7 +348,7 @@ useJsonLd({
 
     <!-- ── How it works ─────────────────────────────────────────────────── -->
     <section class="section section--sunken">
-      <div class="shell">
+      <div class="container">
         <header class="section__head">
           <p class="eyebrow">
             {{ t('home.howEyebrow') }}
@@ -358,8 +357,7 @@ useJsonLd({
         </header>
 
         <div
-          class="grid-auto"
-          style="--grid-min: 16rem"
+          class="grid-auto grid-min-16"
         >
           <div
             v-for="(f, i) in features"
@@ -384,7 +382,7 @@ useJsonLd({
 
     <!-- ── Outcomes ─────────────────────────────────────────────────────── -->
     <section class="section">
-      <div class="shell">
+      <div class="container">
         <header class="section__head">
           <p class="eyebrow">
             {{ t('home.outcomesEyebrow') }}
@@ -397,7 +395,6 @@ useJsonLd({
 
         <ul
           class="grid-auto outcomes"
-          style="--grid-min: 18rem"
         >
           <li
             v-for="o in outcomes"
@@ -423,7 +420,7 @@ useJsonLd({
 
     <!-- ── Who it's for ─────────────────────────────────────────────────── -->
     <section class="section section--sunken">
-      <div class="shell">
+      <div class="container">
         <header class="section__head">
           <p class="eyebrow">
             {{ t('home.whoEyebrow') }}
@@ -432,8 +429,7 @@ useJsonLd({
         </header>
 
         <div
-          class="grid-auto"
-          style="--grid-min: 15rem"
+          class="grid-auto grid-min-18"
         >
           <UiCard
             v-for="p in personas"
@@ -457,7 +453,7 @@ useJsonLd({
 
     <!-- ── FAQ ──────────────────────────────────────────────────────────── -->
     <section class="section">
-      <div class="shell shell--wide">
+      <div class="container is-max-widescreen">
         <header class="section__head">
           <h2>FAQ</h2>
         </header>
@@ -485,12 +481,12 @@ useJsonLd({
 
     <!-- ── Final CTA ────────────────────────────────────────────────────── -->
     <section class="section">
-      <div class="shell">
+      <div class="container">
         <div class="cta">
-          <h2 class="cta__title text-balance">
+          <h2 class="cta__title">
             {{ t('home.resourcesTitle') }}
           </h2>
-          <p class="cta__desc text-pretty">
+          <p class="cta__desc">
             {{ t('home.getInvolved.blurb') }}
           </p>
           <div class="cta__actions">
@@ -613,7 +609,7 @@ useJsonLd({
 .hero__tick {
   width: 1rem;
   height: 1rem;
-  color: var(--lime);
+  color: var(--bulma-primary);
 }
 
 // ── Stats ──────────────────────────────────────────────────────────────────
@@ -753,7 +749,7 @@ useJsonLd({
   width: 1.25rem;
   height: 1.25rem;
   margin-block-start: 0.15rem;
-  color: var(--lime);
+  color: var(--bulma-primary);
 }
 
 .outcome__title {

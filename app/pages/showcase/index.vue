@@ -115,7 +115,7 @@ useJsonLd({
       </template>
     </PageHero>
 
-    <div class="shell py-12 sm:py-14">
+    <div class="container  py-12 sm:py-14">
       <div class="grid gap-8 lg:grid-cols-[230px_1fr]">
         <aside class="lg:sticky lg:top-24 lg:self-start">
           <div
@@ -123,7 +123,7 @@ useJsonLd({
             :key="group.key"
             class="mb-6"
           >
-            <p class="mb-3 flex items-center gap-1.5 px-3 text-xs font-semibold uppercase tracking-widest text-muted">
+            <p class="mb-3 is-flex is-align-items-center gap-1.5 px-3 is-size-7 has-text-weight-semibold is-uppercase has-text-grey">
               <Icon
                 :name="group.icon"
                 class="size-3.5"
@@ -137,16 +137,14 @@ useJsonLd({
               >
                 <button
                   type="button"
-                  class="flex w-full items-center gap-2.5 rounded-lg px-3 py-1.5 text-sm font-medium transition"
-                  :class="selected[group.key] === value
-                    ? 'bg-primary/10 text-primary ring-1 ring-primary/20'
-                    : 'text-toned hover:bg-muted/50 hover:text-highlighted'"
+                  class="is-flex is-fullwidth is-align-items-center gap-2.5 rounded-lg px-3 py-1.5 is-size-7 has-text-weight-medium transition"
+                  :class="selected[group.key] === value ? 'bg-primary/10 has-text-primary ring-1 ring-primary/20' : 'text-toned hover:bg-muted/50 hover:text-highlighted'"
                   @click="selected[group.key] = value"
                 >
-                  <span class="grow text-left">
+                  <span class="grow has-text-left">
                     {{ value === 'All' ? t('showcase.all') : (group.key === 'difficulty' ? difficultyLabel(value) : value) }}
                   </span>
-                  <span class="text-xs text-muted">{{ countFor(group.key, value) }}</span>
+                  <span class="is-size-7 has-text-grey">{{ countFor(group.key, value) }}</span>
                 </button>
               </li>
             </ul>
@@ -165,8 +163,8 @@ useJsonLd({
         </aside>
 
         <div>
-          <p class="mb-6 text-sm text-muted">
-            <span class="font-medium text-highlighted">{{ filtered.length }}</span> {{ t('showcase.results') }}
+          <p class="mb-6 is-size-7 has-text-grey">
+            <span class="has-text-weight-medium has-text-weight-semibold">{{ filtered.length }}</span> {{ t('showcase.results') }}
           </p>
 
           <div
@@ -177,7 +175,7 @@ useJsonLd({
               v-for="item in filtered"
               :key="item.path"
               :to="localePath(item.path)"
-              class="group flex flex-col overflow-hidden rounded-2xl border border-default bg-default transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
+              class="is-flex is-flex-direction-column overflow-hidden rounded-2xl border border-default has-background-white transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
             >
               <div class="aspect-video overflow-hidden border-b border-default bg-muted/40">
                 <NuxtImg
@@ -190,8 +188,8 @@ useJsonLd({
                 />
               </div>
 
-              <div class="flex grow flex-col p-5">
-                <div class="mb-3 flex flex-wrap items-center gap-2">
+              <div class="is-flex grow is-flex-direction-column p-5">
+                <div class="mb-3 is-flex is-flex-wrap-wrap is-align-items-center gap-2">
                   <UiBadge
                     v-if="item.domain"
                     tone="neutral"
@@ -207,18 +205,18 @@ useJsonLd({
                   />
                 </div>
 
-                <h3 class="flex items-center gap-1 font-semibold text-highlighted">
+                <h3 class="title is-5 is-flex is-align-items-center gap-1 has-text-weight-semibold ">
                   {{ item.title }}
                   <Icon
                     name="i-lucide-arrow-up-right"
-                    class="size-4 text-dimmed transition group-hover:text-primary"
+                    class="size-4 has-text-grey-light transition group-hover:text-primary"
                   />
                 </h3>
-                <p class="mt-2 grow text-sm text-muted">
+                <p class="mt-2 grow is-size-7 has-text-grey">
                   {{ item.description }}
                 </p>
 
-                <p class="mt-4 text-xs text-dimmed">
+                <p class="mt-4 is-size-7 has-text-grey-light">
                   {{ t('showcase.by') }} {{ item.author }}
                 </p>
               </div>
@@ -227,13 +225,13 @@ useJsonLd({
 
           <div
             v-else
-            class="rounded-2xl border border-dashed border-default p-12 text-center"
+            class="rounded-2xl border border-dashed border-default p-12 has-text-centered"
           >
             <Icon
               name="i-lucide-search-x"
-              class="mx-auto size-8 text-dimmed"
+              class="mx-auto size-8 has-text-grey-light"
             />
-            <p class="mt-3 text-sm text-muted">
+            <p class="mt-3 is-size-7 has-text-grey">
               {{ t('showcase.noResults') }}
             </p>
             <UiButton
@@ -246,11 +244,11 @@ useJsonLd({
             </UiButton>
           </div>
 
-          <div class="mt-10 rounded-2xl border border-default bg-elevated/40 p-6 text-center">
-            <p class="font-semibold text-highlighted">
+          <div class="mt-10 rounded-2xl border border-default bg-elevated/40 p-6 has-text-centered">
+            <p class="has-text-weight-semibold has-text-weight-semibold">
               {{ t('showcase.submit') }}
             </p>
-            <p class="mx-auto mt-2 max-w-xl text-sm text-muted">
+            <p class="mx-auto mt-2 max-w-xl is-size-7 has-text-grey">
               {{ t('showcase.submitHint') }}
             </p>
             <UiButton

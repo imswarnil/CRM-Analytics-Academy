@@ -73,11 +73,11 @@ useJsonLd({
       </template>
     </PageHero>
 
-    <div class="shell py-12 sm:py-14">
+    <div class="container  py-12 sm:py-14">
       <div class="grid gap-8 lg:grid-cols-[210px_1fr]">
         <!-- Left filter -->
         <aside class="lg:sticky lg:top-24 lg:self-start">
-          <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-widest text-muted">
+          <p class="mb-3 px-3 is-size-7 has-text-weight-semibold is-uppercase has-text-grey">
             Filter
           </p>
           <ul class="space-y-1">
@@ -87,26 +87,24 @@ useJsonLd({
             >
               <button
                 type="button"
-                class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition"
-                :class="selected === c.key
-                  ? 'bg-primary/10 text-primary ring-1 ring-primary/20'
-                  : 'text-toned hover:bg-muted/50 hover:text-highlighted'"
+                class="is-flex is-fullwidth is-align-items-center gap-2.5 rounded-lg px-3 py-2 is-size-7 has-text-weight-medium transition"
+                :class="selected === c.key ? 'bg-primary/10 has-text-primary ring-1 ring-primary/20' : 'text-toned hover:bg-muted/50 hover:text-highlighted'"
                 @click="selected = c.key"
               >
                 <Icon
                   :name="c.icon"
                   class="size-4 shrink-0"
                 />
-                <span class="grow text-left">{{ c.key }}</span>
-                <span class="text-xs text-muted">{{ countFor(c.key) }}</span>
+                <span class="grow has-text-left">{{ c.key }}</span>
+                <span class="is-size-7 has-text-grey">{{ countFor(c.key) }}</span>
               </button>
             </li>
           </ul>
         </aside>
 
         <div>
-          <p class="mb-6 text-sm text-muted">
-            <span class="font-medium text-highlighted">{{ filtered.length }}</span> resources
+          <p class="mb-6 is-size-7 has-text-grey">
+            <span class="has-text-weight-medium has-text-weight-semibold">{{ filtered.length }}</span> resources
           </p>
 
           <div class="grid content-start gap-5 sm:grid-cols-2">
@@ -116,10 +114,10 @@ useJsonLd({
               :href="r.url"
               target="_blank"
               rel="noopener"
-              class="group flex flex-col rounded-2xl border border-default bg-default p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
+              class="is-flex is-flex-direction-column rounded-2xl border border-default has-background-white p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
             >
-              <div class="mb-4 flex items-center justify-between">
-                <div class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+              <div class="mb-4 is-flex is-align-items-center is-justify-content-space-between">
+                <div class="is-flex size-11 is-align-items-center is-justify-content-center rounded-xl bg-primary/10 has-text-primary ring-1 ring-primary/20">
                   <Icon
                     :name="r.icon"
                     class="size-5"
@@ -132,14 +130,14 @@ useJsonLd({
                   size="sm"
                 />
               </div>
-              <h3 class="flex items-center gap-1 font-semibold text-highlighted">
+              <h3 class="title is-5 is-flex is-align-items-center gap-1 has-text-weight-semibold ">
                 {{ r.title }}
                 <Icon
                   name="i-lucide-arrow-up-right"
-                  class="size-4 text-dimmed transition group-hover:text-primary"
+                  class="size-4 has-text-grey-light transition group-hover:text-primary"
                 />
               </h3>
-              <p class="mt-2 text-sm text-muted">
+              <p class="mt-2 is-size-7 has-text-grey">
                 {{ r.desc }}
               </p>
             </a>

@@ -99,7 +99,7 @@ const dash = computed(() => `${(pct.value / 100) * CIRC} ${CIRC}`)
 
 <style scoped lang="scss">
 .progress--brand { --progress-fg: var(--c-brand); }
-.progress--progress { --progress-fg: var(--lime); }
+.progress--progress { --progress-fg: var(--bulma-primary); }
 .progress--data { --progress-fg: var(--aqua); }
 
 // --- bar

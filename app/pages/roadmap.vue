@@ -67,43 +67,43 @@ const columns = [
         <NuxtLink
           to="https://github.com/imswarnil/CRM-Analytics-Academy/issues"
           target="_blank"
-          class="text-primary hover:underline"
+          class="has-text-primary hover:underline"
         >Open an issue</NuxtLink>.
       </template>
     </PageHero>
 
-    <div class="shell py-12 sm:py-16">
+    <div class="container  py-12 sm:py-16">
       <div class="grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-12">
         <!-- Left: vision -->
         <aside class="lg:sticky lg:top-24 lg:self-start">
-          <h2 class="flex items-center gap-2 text-lg font-bold text-highlighted">
+          <h2 class="title is-3 is-flex is-align-items-center gap-2 is-size-5  has-text-weight-semibold">
             <Icon
               name="i-lucide-telescope"
-              class="size-5 text-primary"
+              class="size-5 has-text-primary"
             />
             Our vision
           </h2>
-          <p class="mt-3 text-muted">
-            Make world-class CRM Analytics skills accessible to <span class="font-medium text-default">anyone</span>, anywhere — a
+          <p class="mt-3 has-text-grey">
+            Make world-class CRM Analytics skills accessible to <span class="has-text-weight-medium text-default">anyone</span>, anywhere — a
             practitioner-grade path from your first dataset to production dashboards and Einstein Discovery, without a paywall.
           </p>
           <ul class="mt-6 space-y-4">
             <li
               v-for="p in principles"
               :key="p.title"
-              class="flex gap-3"
+              class="is-flex gap-3"
             >
-              <div class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+              <div class="is-flex size-9 shrink-0 is-align-items-center is-justify-content-center rounded-xl bg-primary/10 has-text-primary ring-1 ring-primary/20">
                 <Icon
                   :name="p.icon"
                   class="size-4.5"
                 />
               </div>
               <div>
-                <p class="text-sm font-semibold text-highlighted">
+                <p class="is-size-7 has-text-weight-semibold has-text-weight-semibold">
                   {{ p.title }}
                 </p>
-                <p class="mt-0.5 text-sm text-muted">
+                <p class="mt-0.5 is-size-7 has-text-grey">
                   {{ p.text }}
                 </p>
               </div>
@@ -114,7 +114,7 @@ const columns = [
             to="https://github.com/imswarnil/CRM-Analytics-Academy"
             target="_blank"
             icon="i-simple-icons-github"
-            class="mt-6 rounded-full font-medium"
+            class="mt-6 rounded-full has-text-weight-medium"
           >
             Star us on GitHub
           </UiButton>
@@ -127,9 +127,9 @@ const columns = [
             :key="col.key"
             class="rounded-2xl border border-default bg-elevated/30 p-6"
           >
-            <h3 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+            <h3 class="title is-5 mb-4 is-flex is-align-items-center gap-2 has-text-weight-semibold ">
               <span
-                class="flex size-8 items-center justify-center rounded-lg bg-default ring-1"
+                class="is-flex size-8 is-align-items-center is-justify-content-center rounded-lg has-background-white ring-1"
                 :class="col.ring"
               >
                 <Icon
@@ -144,22 +144,22 @@ const columns = [
               <li
                 v-for="item in col.items"
                 :key="item"
-                class="flex items-start gap-2.5 rounded-xl border border-default/60 bg-default/50 p-3 text-sm text-toned"
+                class="is-flex is-align-items-flex-start gap-2.5 rounded-xl border border-default/60 bg-default/50 p-3 is-size-7 has-text-grey-dark"
               >
                 <Icon
                   name="i-lucide-circle-dot"
-                  class="mt-0.5 size-4 shrink-0 text-dimmed"
+                  class="mt-0.5 size-4 shrink-0 has-text-grey-light"
                 />
                 <span>{{ item }}</span>
               </li>
             </ul>
           </div>
 
-          <p class="text-center text-sm text-muted">
+          <p class="has-text-centered is-size-7 has-text-grey">
             Shipped already? See the
             <NuxtLink
               :to="localePath('/changelog')"
-              class="text-primary hover:underline"
+              class="has-text-primary hover:underline"
             >changelog →</NuxtLink>
           </p>
         </div>

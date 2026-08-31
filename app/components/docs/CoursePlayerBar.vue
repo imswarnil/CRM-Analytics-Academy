@@ -16,7 +16,7 @@ const localePath = useLocalePath()
     v-if="current"
     class="player"
   >
-    <div class="shell player__inner">
+    <div class="container  player__inner">
       <div class="player__where">
         <p class="player__module">
           {{ current.moduleTitle }}
@@ -158,7 +158,7 @@ const localePath = useLocalePath()
   border-radius: var(--r-full);
   // Two-stop, hard-edged: brand into aqua. It reads as a measured quantity
   // rather than as decoration, which is the register the whole site is in.
-  background: linear-gradient(90deg, var(--c-brand), var(--aqua));
+  background: var(--bulma-primary);
   transition: width var(--dur-slow) var(--ease-spring);
 }
 

@@ -48,7 +48,7 @@ function closeAll() {
 
 <template>
   <header class="hdr">
-    <div class="hdr__inner shell">
+    <div class="hdr__inner container">
       <NuxtLink
         :to="localePath('/')"
         class="hdr__brand"
@@ -182,7 +182,7 @@ function closeAll() {
       v-if="menuOpen"
       class="hdr__drawer hide-from-lg"
     >
-      <div class="hdr__drawer-inner shell">
+      <div class="hdr__drawer-inner container">
         <nav
           class="hdr__drawer-nav"
           aria-label="Sections"

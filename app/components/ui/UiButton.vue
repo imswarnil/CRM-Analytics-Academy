@@ -66,16 +66,7 @@ const bindings = computed(() => {
     :is="tag"
     v-bind="bindings"
     class="button"
-    :class="[
-      VARIANT[variant],
-      SIZE[size],
-      {
-        'is-fullwidth': block,
-        'is-loading': loading,
-        'is-rounded': !square,
-        'ui-btn--square': square
-      }
-    ]"
+    :class="[VARIANT[variant], SIZE[size], { 'is-fullwidth': block, 'is-loading': loading, 'is-rounded': !square, 'ui-btn--square': square }]"
     :aria-disabled="disabled || undefined"
   >
     <span

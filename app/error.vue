@@ -30,7 +30,7 @@ provide('navigation', navigation)
     <AppHeader />
 
     <main class="app__main">
-      <div class="shell err">
+      <div class="container  err">
         <p class="err__code">
           {{ error?.statusCode || 500 }}
         </p>

@@ -62,16 +62,16 @@ const sections = [
     </PageHero>
 
     <section class="py-16 sm:py-20">
-      <div class="shell">
+      <div class="container">
         <div class="mx-auto max-w-3xl space-y-10">
           <div
             v-for="s in sections"
             :key="s.title"
           >
-            <h2 class="text-xl font-bold text-highlighted">
+            <h2 class="title is-3 is-size-5  has-text-weight-semibold">
               {{ s.title }}
             </h2>
-            <p class="mt-2 text-muted">
+            <p class="mt-2 has-text-grey">
               {{ s.body }}
             </p>
           </div>

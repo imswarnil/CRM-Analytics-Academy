@@ -17,7 +17,7 @@ withDefaults(defineProps<{
 const TONE: Record<string, string> = {
   brand: 'is-primary is-light',
   data: 'is-info is-light',
-  progress: 'is-success is-light',
+  progress: 'is-primary is-light',
   caution: 'is-warning is-light',
   action: 'is-danger is-light',
   meta: 'ui-tag--meta',

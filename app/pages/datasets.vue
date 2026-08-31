@@ -50,47 +50,47 @@ useJsonLd(datasets.map(d => ({
       </template>
     </PageHero>
 
-    <div class="shell py-12 sm:py-16">
+    <div class="container  py-12 sm:py-16">
       <div class="grid gap-6 sm:grid-cols-2">
         <div
           v-for="d in datasets"
           :key="d.name"
-          class="flex flex-col rounded-2xl border border-default bg-default p-6"
+          class="is-flex is-flex-direction-column rounded-2xl border border-default has-background-white p-6"
         >
-          <div class="mb-4 flex items-center gap-3">
-            <div class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+          <div class="mb-4 is-flex is-align-items-center gap-3">
+            <div class="is-flex size-11 is-align-items-center is-justify-content-center rounded-xl bg-primary/10 has-text-primary ring-1 ring-primary/20">
               <Icon
                 :name="d.icon"
                 class="size-5"
               />
             </div>
             <div>
-              <h2 class="font-semibold text-highlighted">
+              <h2 class="has-text-weight-semibold has-text-weight-semibold">
                 {{ d.name }}
               </h2>
-              <p class="text-xs text-muted">
+              <p class="is-size-7 has-text-grey">
                 CSV · {{ d.rows }} rows
               </p>
             </div>
           </div>
-          <p class="grow text-sm text-muted">
+          <p class="grow is-size-7 has-text-grey">
             {{ d.desc }}
           </p>
-          <div class="mt-4 flex flex-wrap gap-1.5">
+          <div class="mt-4 is-flex is-flex-wrap-wrap gap-1.5">
             <span
               v-for="field in d.fields"
               :key="field"
-              class="rounded-md bg-muted px-2 py-0.5 font-mono text-[11px] text-toned"
+              class="rounded-md has-background-light px-2 py-0.5 is-family-monospace has-text-grey-dark"
             >{{ field }}</span>
           </div>
-          <div class="mt-5 flex gap-2">
+          <div class="mt-5 is-flex gap-2">
             <UiButton
               variant="secondary"
               :to="d.file"
               external
               download
               icon="i-lucide-download"
-              class="rounded-full font-semibold"
+              class="rounded-full has-text-weight-semibold"
             >
               Download CSV
             </UiButton>
@@ -108,17 +108,17 @@ useJsonLd(datasets.map(d => ({
       </div>
 
       <div class="mt-10 rounded-2xl border border-default bg-muted/30 p-6">
-        <h3 class="flex items-center gap-2 font-semibold text-highlighted">
+        <h3 class="title is-5 is-flex is-align-items-center gap-2 has-text-weight-semibold ">
           <Icon
             name="i-lucide-info"
-            class="size-4 text-primary"
+            class="size-4 has-text-primary"
           />
           How to use these
         </h3>
-        <ol class="mt-3 list-inside list-decimal space-y-1.5 text-sm text-muted">
-          <li>In CRM Analytics, open <strong class="text-toned">Data Manager → Create → CSV Upload</strong>.</li>
+        <ol class="mt-3 list-inside list-decimal space-y-1.5 is-size-7 has-text-grey">
+          <li>In CRM Analytics, open <strong class="has-text-grey-dark">Data Manager → Create → CSV Upload</strong>.</li>
           <li>Upload the file and let it create a dataset.</li>
-          <li>Open the dataset, click <strong class="text-toned">Explore</strong>, and follow the lessons.</li>
+          <li>Open the dataset, click <strong class="has-text-grey-dark">Explore</strong>, and follow the lessons.</li>
         </ol>
       </div>
 

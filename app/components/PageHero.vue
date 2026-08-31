@@ -1,12 +1,9 @@
 <script setup lang="ts">
 /**
- * The masthead every non-docs page opens with. Ten pages were carrying a
- * copy of the same markup — an absolutely-positioned grid, a blurred colour
- * blob, a badge, a centred headline and a lead — which meant ten places to
- * change when the pattern changed, and ten chances to drift.
+ * Bulma's .hero, used as the masthead on every non-docs page.
  *
- * The blur blob is gone. A soft radial glow was the single most out-of-place
- * thing left from the old design; the plot grid does the work now.
+ * Nine pages were each carrying their own copy of the same markup, which meant
+ * nine places to change when the pattern changed and nine chances to drift.
  */
 withDefaults(defineProps<{
   eyebrow?: string
@@ -21,75 +18,49 @@ withDefaults(defineProps<{
 
 <template>
   <section
-    class="phero bg-grid"
-    :class="`phero--${size}`"
+    class="hero"
+    :class="size === 'md' ? 'is-medium' : 'is-small'"
   >
-    <div class="shell phero__inner">
-      <UiBadge
-        v-if="eyebrow"
-        tone="brand"
-        :icon="icon"
-      >
-        {{ eyebrow }}
-      </UiBadge>
+    <div class="hero-body has-text-centered">
+      <div class="container">
+        <UiBadge
+          v-if="eyebrow"
+          tone="brand"
+          :icon="icon"
+          class="mb-4"
+        >
+          {{ eyebrow }}
+        </UiBadge>
 
-      <h1 class="phero__title text-balance">
-        <slot name="title">
-          {{ title }}
-        </slot>
-      </h1>
+        <h1 class="title is-2">
+          <slot name="title">
+            {{ title }}
+          </slot>
+        </h1>
 
-      <p
-        v-if="description || $slots.description"
-        class="lead phero__desc text-pretty"
-      >
-        <slot name="description">
-          {{ description }}
-        </slot>
-      </p>
+        <p
+          v-if="description || $slots.description"
+          class="subtitle is-5 has-text-grey mx-auto"
+        >
+          <slot name="description">
+            {{ description }}
+          </slot>
+        </p>
 
-      <div
-        v-if="$slots.actions"
-        class="phero__actions"
-      >
-        <slot name="actions" />
+        <div
+          v-if="$slots.actions"
+          class="buttons is-centered mt-5"
+        >
+          <slot name="actions" />
+        </div>
       </div>
     </div>
   </section>
 </template>
 
-<style scoped lang="scss">
-.phero {
-  border-block-end: 1px solid var(--c-line);
-}
-
-.phero__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-4);
-  max-width: 48rem;
-  text-align: center;
-}
-
-.phero--sm .phero__inner { padding-block: var(--s-7); }
-.phero--md .phero__inner { padding-block: var(--s-8); }
-
-.phero__title {
-  margin: 0;
-  font-size: var(--t-h1);
-}
-
-.phero__desc {
-  margin: 0;
+<style scoped>
+/* The lead sets better at a measure than at full container width. */
+.subtitle {
   max-width: 46ch;
-}
-
-.phero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--s-3);
-  margin-block-start: var(--s-2);
 }
 </style>

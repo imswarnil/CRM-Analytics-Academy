@@ -251,7 +251,7 @@ useJsonLd(jsonLd)
       <ContentRenderer
         v-if="renderedPage"
         :value="renderedPage"
-        class="prose"
+        class="content"
       />
 
       <LessonInterview

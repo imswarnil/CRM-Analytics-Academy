@@ -122,21 +122,21 @@ const entries: Entry[] = [
         <NuxtLink
           to="https://github.com/imswarnil/CRM-Analytics-Academy"
           target="_blank"
-          class="text-primary hover:underline"
+          class="has-text-primary hover:underline"
         >GitHub</NuxtLink>.
       </template>
     </PageHero>
 
-    <div class="shell max-w-3xl py-12 sm:py-16">
+    <div class="container  max-w-3xl py-12 sm:py-16">
       <div class="space-y-10 border-s border-default ps-6">
         <div
           v-for="(e, i) in entries"
           :key="i"
           class="relative"
         >
-          <span class="absolute -start-[1.85rem] top-1 flex size-4 items-center justify-center rounded-full border-2 border-primary bg-default" />
-          <div class="mb-1 flex items-center gap-3">
-            <span class="text-xs font-medium uppercase tracking-wide text-dimmed">{{ e.date }}</span>
+          <span class="absolute -start-[1.85rem] top-1 is-flex size-4 is-align-items-center is-justify-content-center rounded-full border-2 border-primary has-background-white" />
+          <div class="mb-1 is-flex is-align-items-center gap-3">
+            <span class="is-size-7 has-text-weight-medium is-uppercase has-text-grey-light">{{ e.date }}</span>
             <UiBadge
               tone="neutral"
               size="sm"
@@ -144,21 +144,21 @@ const entries: Entry[] = [
               {{ e.tag }}
             </UiBadge>
           </div>
-          <h2 class="text-lg font-bold text-highlighted">
+          <h2 class="title is-3 is-size-5  has-text-weight-semibold">
             {{ e.title }}
           </h2>
-          <p class="mb-3 mt-0.5 text-sm text-muted">
+          <p class="mb-3 mt-0.5 is-size-7 has-text-grey">
             {{ e.summary }}
           </p>
           <ul class="space-y-1.5">
             <li
               v-for="item in e.items"
               :key="item"
-              class="flex items-start gap-2 text-sm text-toned"
+              class="is-flex is-align-items-flex-start gap-2 is-size-7 has-text-grey-dark"
             >
               <Icon
                 name="i-lucide-check"
-                class="mt-0.5 size-4 shrink-0 text-success"
+                class="mt-0.5 size-4 shrink-0 has-text-primary"
               />
               <span>{{ item }}</span>
             </li>

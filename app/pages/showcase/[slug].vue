@@ -51,7 +51,7 @@ useJsonLd({
 <template>
   <div
     v-if="entry"
-    class="shell py-10 sm:py-14"
+    class="container  py-10 sm:py-14"
   >
     <UiButton
       variant="ghost"
@@ -63,7 +63,7 @@ useJsonLd({
       {{ t('showcase.back') }}
     </UiButton>
 
-    <div class="mb-4 flex flex-wrap items-center gap-2">
+    <div class="mb-4 is-flex is-flex-wrap-wrap is-align-items-center gap-2">
       <UiBadge
         v-if="entry.domain"
         tone="neutral"
@@ -77,27 +77,27 @@ useJsonLd({
       />
     </div>
 
-    <h1 class="text-3xl font-extrabold tracking-tight text-highlighted sm:text-4xl">
+    <h1 class="is-size-3 has-text-weight-bold has-text-weight-semibold is-size-2-tablet">
       {{ entry.title }}
     </h1>
-    <p class="mt-3 max-w-3xl text-lg text-muted">
+    <p class="mt-3 max-w-3xl is-size-5 has-text-grey">
       {{ entry.description }}
     </p>
 
-    <p class="mt-4 text-sm text-dimmed">
+    <p class="mt-4 is-size-7 has-text-grey-light">
       {{ t('showcase.by') }}
       <NuxtLink
         v-if="entry.authorUrl"
         :to="entry.authorUrl"
         target="_blank"
         rel="noopener"
-        class="font-medium text-toned hover:text-primary"
+        class="has-text-weight-medium has-text-grey-dark hover:text-primary"
       >
         {{ entry.author }}
       </NuxtLink>
       <span
         v-else
-        class="font-medium text-toned"
+        class="has-text-weight-medium has-text-grey-dark"
       >{{ entry.author }}</span>
       <span v-if="entry.publishedAt"> · {{ t('showcase.published') }} {{ entry.publishedAt }}</span>
     </p>
@@ -109,7 +109,7 @@ useJsonLd({
         :alt="entry.title"
         width="1200"
         height="675"
-        class="w-full"
+        class="is-fullwidth"
       />
     </div>
 
@@ -117,17 +117,17 @@ useJsonLd({
       <div class="min-w-0">
         <!-- KPIs: the table people actually come here for. -->
         <section v-if="entry.kpis?.length">
-          <h2 class="text-xl font-bold text-highlighted">
+          <h2 class="title is-3 is-size-5  has-text-weight-semibold">
             {{ t('showcase.kpis') }}
           </h2>
           <div class="mt-4 overflow-x-auto rounded-xl border border-default">
-            <table class="w-full min-w-[560px] text-left text-sm">
-              <thead class="bg-elevated/60 text-xs uppercase tracking-wide text-muted">
+            <table class="is-fullwidth min-w-[560px] has-text-left is-size-7">
+              <thead class="bg-elevated/60 is-size-7 is-uppercase has-text-grey">
                 <tr>
-                  <th class="px-4 py-3 font-semibold">
+                  <th class="px-4 py-3 has-text-weight-semibold">
                     {{ t('showcase.kpiName') }}
                   </th>
-                  <th class="px-4 py-3 font-semibold">
+                  <th class="px-4 py-3 has-text-weight-semibold">
                     {{ t('showcase.kpiFormula') }}
                   </th>
                 </tr>
@@ -138,14 +138,14 @@ useJsonLd({
                   :key="kpi.name"
                   class="border-t border-default align-top"
                 >
-                  <td class="px-4 py-3 font-medium text-highlighted">
+                  <td class="px-4 py-3 has-text-weight-medium has-text-weight-semibold">
                     {{ kpi.name }}
                   </td>
                   <td class="px-4 py-3">
-                    <code class="rounded bg-muted/60 px-1.5 py-0.5 font-mono text-xs text-toned">{{ kpi.formula }}</code>
+                    <code class="rounded bg-muted/60 px-1.5 py-0.5 is-family-monospace is-size-7 has-text-grey-dark">{{ kpi.formula }}</code>
                     <p
                       v-if="kpi.note"
-                      class="mt-2 text-xs text-muted"
+                      class="mt-2 is-size-7 has-text-grey"
                     >
                       {{ kpi.note }}
                     </p>
@@ -161,25 +161,25 @@ useJsonLd({
           v-if="entry.recipe?.length"
           class="mt-10"
         >
-          <h2 class="text-xl font-bold text-highlighted">
+          <h2 class="title is-3 is-size-5  has-text-weight-semibold">
             {{ t('showcase.recipe') }}
           </h2>
           <ol class="mt-4 space-y-4">
             <li
               v-for="(item, index) in entry.recipe"
               :key="item.step"
-              class="flex gap-4"
+              class="is-flex gap-4"
             >
-              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary ring-1 ring-primary/20">
+              <span class="is-flex size-7 shrink-0 is-align-items-center is-justify-content-center rounded-full bg-primary/10 is-size-7 has-text-weight-semibold has-text-primary ring-1 ring-primary/20">
                 {{ index + 1 }}
               </span>
               <div class="min-w-0">
-                <p class="font-medium text-highlighted">
+                <p class="has-text-weight-medium has-text-weight-semibold">
                   {{ item.step }}
                 </p>
                 <p
                   v-if="item.detail"
-                  class="mt-1 text-sm text-muted"
+                  class="mt-1 is-size-7 has-text-grey"
                 >
                   {{ item.detail }}
                 </p>
@@ -190,7 +190,7 @@ useJsonLd({
 
         <!-- The contributor's own write-up. -->
         <section class="mt-10">
-          <div class="prose prose-primary max-w-none dark:prose-invert">
+          <div class="content prose-primary max-w-none dark:prose-invert">
             <ContentRenderer :value="entry" />
           </div>
         </section>
@@ -203,10 +203,10 @@ useJsonLd({
           v-if="entry.datasets?.length"
           class="rounded-xl border border-default p-4"
         >
-          <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
+          <p class="mb-3 is-size-7 has-text-weight-semibold is-uppercase has-text-grey">
             {{ t('showcase.datasets') }}
           </p>
-          <div class="flex flex-wrap gap-1.5">
+          <div class="is-flex is-flex-wrap-wrap gap-1.5">
             <UiBadge
               v-for="dataset in entry.datasets"
               :key="dataset"
@@ -222,10 +222,10 @@ useJsonLd({
           v-if="entry.techniques?.length"
           class="rounded-xl border border-default p-4"
         >
-          <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
+          <p class="mb-3 is-size-7 has-text-weight-semibold is-uppercase has-text-grey">
             {{ t('showcase.techniques') }}
           </p>
-          <div class="flex flex-wrap gap-1.5">
+          <div class="is-flex is-flex-wrap-wrap gap-1.5">
             <UiBadge
               v-for="technique in entry.techniques"
               :key="technique"
@@ -239,7 +239,7 @@ useJsonLd({
 
         <AdUnit
           placement="sidebarSquare"
-          class="w-full"
+          class="is-fullwidth"
         />
       </aside>
     </div>

@@ -25,18 +25,18 @@ defineProps<{
       <li
         v-for="(step, i) in items"
         :key="i"
-        class="relative flex gap-4"
+        class="relative is-flex gap-4"
       >
-        <span class="relative z-10 flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold leading-none text-inverted shadow-sm ring-4 ring-default">
+        <span class="relative z-10 is-flex size-8 shrink-0 is-align-items-center is-justify-content-center rounded-full bg-primary is-size-7 has-text-weight-bold leading-none text-inverted shadow-sm ring-4 ring-default">
           {{ i + 1 }}
         </span>
         <div class="pt-0.5">
-          <h4 class="text-base font-semibold text-highlighted">
+          <h4 class="is-size-6 has-text-weight-semibold has-text-weight-semibold">
             {{ step.title }}
           </h4>
           <p
             v-if="step.description"
-            class="mt-1 text-sm leading-relaxed text-muted"
+            class="mt-1 is-size-7 has-text-grey"
           >
             {{ step.description }}
           </p>

@@ -111,7 +111,7 @@ const insStyle = computed(() => {
   <div
     v-if="variant && (!empty || isSponsorSlot)"
     ref="root"
-    class="ad-unit relative mx-auto my-6 flex w-full max-w-full flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-default bg-muted/30 p-2"
+    class="ad-unit relative mx-auto my-6 is-flex is-fullwidth max-w-full is-flex-direction-column is-align-items-center is-justify-content-center gap-1.5 overflow-hidden rounded-xl border border-default bg-muted/30 p-2"
     :class="isSponsorSlot ? 'min-h-72' : ''"
     :style="reserveStyle"
     role="complementary"
@@ -119,7 +119,7 @@ const insStyle = computed(() => {
   >
     <span
       v-if="showLabel && !(empty && isSponsorSlot)"
-      class="select-none text-[10px] font-medium uppercase tracking-widest text-muted"
+      class="select-none text-[10px] has-text-weight-medium is-uppercase has-text-grey"
     >
       Advertisement
     </span>
@@ -127,22 +127,22 @@ const insStyle = computed(() => {
     <!-- Sponsor placeholder (shown when the sidebar slot doesn't fill) -->
     <div
       v-if="empty && isSponsorSlot"
-      class="flex size-full flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-default bg-gradient-to-br from-primary/5 to-secondary/5 p-5 text-center"
+      class="is-flex size-full is-flex-direction-column is-align-items-center is-justify-content-center gap-3 rounded-lg border border-dashed border-default has-background-light p-5 has-text-centered"
     >
-      <span class="select-none text-[10px] font-medium uppercase tracking-widest text-muted">
+      <span class="select-none text-[10px] has-text-weight-medium is-uppercase has-text-grey">
         Sponsored
       </span>
-      <div class="flex size-14 items-center justify-center rounded-2xl bg-primary/10">
+      <div class="is-flex size-14 is-align-items-center is-justify-content-center rounded-2xl bg-primary/10">
         <Icon
           name="i-lucide-sparkles"
-          class="size-7 text-primary"
+          class="size-7 has-text-primary"
         />
       </div>
       <div>
-        <p class="text-sm font-semibold text-highlighted">
+        <p class="is-size-7 has-text-weight-semibold has-text-weight-semibold">
           Your brand here
         </p>
-        <p class="mt-1 text-xs text-muted">
+        <p class="mt-1 is-size-7 has-text-grey">
           Reach thousands of Salesforce analysts.
         </p>
       </div>

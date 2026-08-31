@@ -35,9 +35,6 @@ const quickStarts = [
   { icon: 'i-lucide-languages', title: 'Improve a translation', text: 'Translations are machine-generated. Fix a clumsy sentence in your language — you do not need to touch English.', to: '#translations' },
   { icon: 'i-lucide-layout-dashboard', title: 'Show your dashboard', text: 'Share what you built: a screenshot, the KPIs, and how you calculated them.', to: '#showcase' }
 ]
-
-// Prose classes shared by every timeline step body.
-const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:text-primary prose-pre:border prose-pre:border-default prose-headings:scroll-mt-24'
 </script>
 
 <template>
@@ -55,28 +52,28 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
       </template>
     </PageHero>
 
-    <div class="shell py-12 sm:py-16">
+    <div class="container  py-12 sm:py-16">
       <div class="lg:grid lg:grid-cols-[240px_1fr] lg:gap-14">
         <!-- Sticky stepper -->
         <aside class="mb-10 lg:sticky lg:top-24 lg:mb-0 lg:self-start">
-          <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-dimmed">
+          <p class="mb-4 is-size-7 has-text-weight-semibold is-uppercase has-text-grey-light">
             The guide, step by step
           </p>
           <ol class="relative space-y-1">
             <!-- connecting line -->
-            <span class="absolute bottom-3 left-3.5 top-3 w-px bg-default" />
+            <span class="absolute bottom-3 left-3.5 top-3 w-px has-background-white" />
             <li
               v-for="s in steps"
               :key="s.id"
             >
               <a
                 :href="`#${s.id}`"
-                class="group relative flex items-center gap-3 rounded-lg py-1.5 pl-0 pr-2 text-sm text-muted transition hover:text-primary"
+                class="relative is-flex is-align-items-center gap-3 rounded-lg py-1.5 pl-0 pr-2 is-size-7 has-text-grey transition hover:text-primary"
               >
-                <span class="relative z-10 flex size-7 shrink-0 items-center justify-center rounded-full border border-default bg-elevated text-[11px] font-bold text-dimmed transition group-hover:border-primary group-hover:text-primary">
+                <span class="relative z-10 is-flex size-7 shrink-0 is-align-items-center is-justify-content-center rounded-full border border-default bg-elevated has-text-weight-bold has-text-grey-light transition group-hover:border-primary group-hover:text-primary">
                   {{ Number(s.n) }}
                 </span>
-                <span class="min-w-0 flex-1 truncate font-medium">{{ s.label }}</span>
+                <span class="min-w-0 flex-1 truncate has-text-weight-medium">{{ s.label }}</span>
                 <UiBadge
                   v-if="s.level === 'No code' || s.level === 'Start here'"
                   :tone="levelTone(s.level)"
@@ -94,40 +91,40 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
         <div class="space-y-8">
           <!-- New-contributor welcome + quick starts -->
           <div class="rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
-            <div class="flex items-center gap-2">
+            <div class="is-flex is-align-items-center gap-2">
               <Icon
                 name="i-lucide-hand-heart"
-                class="size-5 text-primary"
+                class="size-5 has-text-primary"
               />
-              <h2 class="text-lg font-bold text-highlighted">
+              <h2 class="title is-3 is-size-5  has-text-weight-semibold">
                 New here? You're exactly who this is for.
               </h2>
             </div>
-            <p class="mt-2 text-sm text-muted">
+            <p class="mt-2 is-size-7 has-text-grey">
               You don't need to be a CRM Analytics expert or a developer to help. Pick a tiny first step below — most take
-              a few minutes and need <span class="font-medium text-default">zero code</span>. We review everything and are happy to guide you.
+              a few minutes and need <span class="has-text-weight-medium text-default">zero code</span>. We review everything and are happy to guide you.
             </p>
             <div class="mt-5 grid gap-3 sm:grid-cols-3">
               <a
                 v-for="q in quickStarts"
                 :key="q.title"
                 :href="q.to"
-                class="group rounded-xl border border-default bg-default p-4 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm"
+                class="rounded-xl border border-default has-background-white p-4 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm"
               >
-                <div class="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
+                <div class="is-flex size-9 is-align-items-center is-justify-content-center rounded-lg bg-primary/10 has-text-primary ring-1 ring-primary/20">
                   <Icon
                     :name="q.icon"
                     class="size-4.5"
                   />
                 </div>
-                <p class="mt-3 flex items-center gap-1 text-sm font-semibold text-highlighted">
+                <p class="mt-3 is-flex is-align-items-center gap-1 is-size-7 has-text-weight-semibold has-text-weight-semibold">
                   {{ q.title }}
                   <Icon
                     name="i-lucide-arrow-right"
-                    class="size-3.5 text-dimmed transition group-hover:translate-x-0.5 group-hover:text-primary"
+                    class="size-3.5 has-text-grey-light transition group-hover:translate-x-0.5 group-hover:text-primary"
                   />
                 </p>
-                <p class="mt-1 text-xs text-muted">
+                <p class="mt-1 is-size-7 has-text-grey">
                   {{ q.text }}
                 </p>
               </a>
@@ -136,7 +133,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
 
           <div class="relative space-y-8">
             <!-- vertical timeline rail (desktop) -->
-            <span class="absolute bottom-6 left-5 top-6 hidden w-px bg-gradient-to-b from-primary/40 via-default to-default sm:block" />
+            <span class="absolute bottom-6 left-5 top-6 is-hidden w-px has-background-primary-light sm:block" />
 
             <section
               v-for="s in steps"
@@ -144,15 +141,15 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
               :key="s.id"
               class="relative scroll-mt-24 sm:pl-16"
             >
-              <div class="absolute left-0 top-0 hidden size-11 items-center justify-center rounded-full border border-default bg-elevated text-primary shadow-sm sm:flex">
+              <div class="absolute left-0 top-0 is-hidden size-11 is-align-items-center is-justify-content-center rounded-full border border-default bg-elevated has-text-primary shadow-sm sm:flex">
                 <Icon
                   :name="s.icon"
                   class="size-5"
                 />
               </div>
               <div class="rounded-2xl border border-default bg-default/40 p-6 sm:p-8">
-                <div class="mb-1 flex items-center gap-2">
-                  <p class="text-xs font-semibold uppercase tracking-widest text-primary">
+                <div class="mb-1 is-flex is-align-items-center gap-2">
+                  <p class="is-size-7 has-text-weight-semibold is-uppercase has-text-primary">
                     Step {{ s.n }}
                   </p>
                   <UiBadge
@@ -162,10 +159,10 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                     {{ s.level }}
                   </UiBadge>
                 </div>
-                <h2 class="flex items-center gap-2 text-xl font-bold tracking-tight text-highlighted sm:text-2xl">
+                <h2 class="title is-3 is-flex is-align-items-center gap-2 is-size-5  has-text-weight-semibold is-size-4-tablet">
                   <Icon
                     :name="s.icon"
-                    class="size-5 text-primary sm:hidden"
+                    class="size-5 has-text-primary sm:hidden"
                   />
                   {{ s.label }}
                 </h2>
@@ -173,7 +170,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 <!-- ways -->
                 <div
                   v-if="s.id === 'ways'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>There are four main ways to help — pick whatever fits your time and skills:</p>
                   <ul>
@@ -188,7 +185,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 <!-- setup -->
                 <div
                   v-else-if="s.id === 'setup'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>You'll need <strong>Node.js 20+</strong> and <strong>pnpm</strong>. Then:</p>
                   <pre><code># 1. Fork the repo on GitHub, then clone your fork
@@ -211,7 +208,7 @@ pnpm typecheck  # vue-tsc</code></pre>
                 <!-- lessons -->
                 <div
                   v-else-if="s.id === 'lessons'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>Lessons are plain Markdown under <code>content/&lt;locale&gt;/&lt;module&gt;/&lt;lesson&gt;.md</code>. English lives in <code>content/en/</code>. The number prefixes set the order:</p>
                   <pre><code>content/en/
@@ -228,7 +225,7 @@ pnpm typecheck  # vue-tsc</code></pre>
                 <!-- frontmatter -->
                 <div
                   v-else-if="s.id === 'frontmatter'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>Each lesson starts with a YAML frontmatter block:</p>
                   <pre><code>---
@@ -254,7 +251,7 @@ Your content here…</code></pre>
                 <!-- translations -->
                 <div
                   v-else-if="s.id === 'translations'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>The site ships in <strong>12 languages</strong>: English (default), Spanish, French, German, Portuguese, Japanese, Chinese, Hindi, Arabic, Russian, Bengali, and Urdu. Arabic and Urdu render right-to-left.</p>
                   <p><strong>You do not translate by hand.</strong> Write the lesson in English only. When it lands on <code>main</code>, a GitHub Action runs it through LibreTranslate and commits <code>content/&lt;locale&gt;/…</code> for all eleven other languages. Code blocks, SAQL, links, frontmatter keys and product names are protected and come through untouched.</p>
@@ -269,7 +266,7 @@ Your content here…</code></pre>
                 <!-- showcase -->
                 <div
                   v-else-if="s.id === 'showcase'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>Built a CRM Analytics dashboard you're proud of? Add it to the <NuxtLink :to="localePath('/showcase')">Showcase</NuxtLink>. It's one markdown file in <code>content/showcase/</code> plus a screenshot in <code>public/showcase/</code> — no database, no account, the pull request review is the moderation.</p>
                   <p>What makes an entry worth reading is not the screenshot, it's the <strong>working out</strong>: which KPIs you put on it, the formula behind each one, and why you measured it that way. Say what went wrong too — the gotcha you hit is usually the most useful part.</p>
@@ -300,7 +297,7 @@ Your write-up goes here.</code></pre>
                 <!-- submit -->
                 <div
                   v-else-if="s.id === 'submit'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>Found a helpful link (docs, course, tool, community)? <NuxtLink :to="`${repo}/issues/new`">Open an issue</NuxtLink> with the title, URL, and a one-line description. Once accepted it's added to the curated list in <code>app/pages/resources.vue</code> and appears on the <NuxtLink :to="localePath('/resources')">Resources</NuxtLink> page. Comfortable with a pull request? Add the entry yourself — it's a single line in that array.</p>
                 </div>
@@ -308,7 +305,7 @@ Your write-up goes here.</code></pre>
                 <!-- code -->
                 <div
                   v-else-if="s.id === 'code'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>The stack is <strong>Nuxt 4 · Nuxt Content · Nuxt UI v4 · Tailwind CSS 4</strong>. Key folders:</p>
                   <ul>
@@ -322,7 +319,7 @@ Your write-up goes here.</code></pre>
                 <!-- stack -->
                 <div
                   v-else-if="s.id === 'stack'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>The whole site is open source — here's what powers it:</p>
                   <ul>
@@ -339,7 +336,7 @@ Your write-up goes here.</code></pre>
                 <!-- pr -->
                 <div
                   v-else-if="s.id === 'pr'"
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <ol>
                     <li><strong>Branch</strong> off <code>main</code>: <code>git checkout -b fix/typo-in-saql</code></li>
@@ -354,7 +351,7 @@ Your write-up goes here.</code></pre>
                 <!-- help -->
                 <div
                   v-else
-                  :class="prose"
+                  class="content mt-4"
                 >
                   <p>
                     Stuck or have an idea? Open an issue or a discussion on <a

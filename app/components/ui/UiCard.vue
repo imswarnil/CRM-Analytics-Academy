@@ -38,11 +38,7 @@ const bindings = computed(() => {
     :is="tag"
     v-bind="bindings"
     class="card ui-card"
-    :class="[
-      `ui-card--${padding}`,
-      accent && `ui-card--accent ui-card--${accent}`,
-      { 'ui-card--link': isLink || interactive }
-    ]"
+    :class="[`ui-card--${padding}`, accent && `ui-card--accent ui-card--${accent}`, { 'ui-card--link': isLink || interactive }]"
   >
     <slot />
   </component>
@@ -97,7 +93,7 @@ const bindings = computed(() => {
 
 .ui-card--brand { --card-accent: var(--c-brand); }
 .ui-card--data { --card-accent: var(--aqua); }
-.ui-card--progress { --card-accent: var(--lime); }
+.ui-card--progress { --card-accent: var(--bulma-primary); }
 .ui-card--caution { --card-accent: var(--amber); }
 .ui-card--action { --card-accent: var(--coral); }
 .ui-card--meta { --card-accent: var(--violet); }

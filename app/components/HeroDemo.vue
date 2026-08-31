@@ -226,7 +226,7 @@ const BARS = [46, 72, 38, 90, 61, 78, 52]
                 r="16"
               />
               <circle
-                class="donut__fill donut__fill--lime"
+                class="donut__fill donut__fill--done"
                 cx="21"
                 cy="21"
                 r="16"
@@ -427,7 +427,7 @@ const BARS = [46, 72, 38, 90, 61, 78, 52]
   width: 0.5em;
   height: 1em;
   margin-inline-start: 2px;
-  background: var(--lime);
+  background: var(--bulma-primary);
   vertical-align: -0.15em;
   animation: blink 1s steps(2) infinite;
 }
@@ -472,7 +472,7 @@ const BARS = [46, 72, 38, 90, 61, 78, 52]
   height: 0.75rem;
 }
 
-.kpi__t--up { color: var(--lime); }
+.kpi__t--up { color: var(--bulma-primary); }
 .kpi__t--down { color: var(--aqua); }
 
 .charts {
@@ -500,7 +500,7 @@ const BARS = [46, 72, 38, 90, 61, 78, 52]
   flex: 1;
   height: var(--h);
   border-radius: var(--r-xs) var(--r-xs) 0 0;
-  background: linear-gradient(var(--blue-40), var(--c-brand));
+  background: var(--bulma-primary);
   transform-origin: bottom;
   animation: grow var(--dur-slow) var(--ease-spring) both;
   animation-delay: var(--d);
@@ -531,7 +531,7 @@ const BARS = [46, 72, 38, 90, 61, 78, 52]
   animation: sweep 1.1s var(--ease-spring) both;
 }
 
-.donut__fill--lime { stroke: var(--lime); }
+.donut__fill--done { stroke: var(--bulma-primary); }
 
 @keyframes sweep {
   from { stroke-dashoffset: 100.5; }
@@ -584,7 +584,7 @@ const BARS = [46, 72, 38, 90, 61, 78, 52]
     animation-delay: var(--d);
   }
 
-  svg { width: 0.9rem; height: 0.9rem; color: var(--lime); flex-shrink: 0; }
+  svg { width: 0.9rem; height: 0.9rem; color: var(--bulma-primary); flex-shrink: 0; }
 }
 
 @keyframes pop {

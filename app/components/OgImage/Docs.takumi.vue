@@ -12,39 +12,39 @@ defineProps<{
 
 <template>
   <div
-    class="w-full h-full flex bg-neutral-950 relative overflow-hidden"
+    class="is-fullwidth h-full is-flex bg-neutral-950 relative overflow-hidden"
     data-theme="dark"
   >
     <div class="absolute top-0 left-0 w-1.5 h-full bg-primary-400" />
 
-    <div class="flex flex-col justify-between flex-1 px-20 py-16">
+    <div class="is-flex is-flex-direction-column is-justify-content-space-between flex-1 px-20 py-16">
       <div />
 
-      <div class="flex flex-col gap-5">
+      <div class="is-flex is-flex-direction-column gap-5">
         <span
           v-if="headline"
-          class="text-2xl font-medium text-primary-400"
+          class="is-size-4 has-text-weight-medium text-primary-400"
         >
           {{ headline }}
         </span>
 
         <h1
           v-if="title"
-          class="text-6xl font-bold text-highlighted"
+          class="is-size-1 has-text-weight-bold has-text-weight-semibold"
         >
           {{ title }}
         </h1>
 
         <p
           v-if="description"
-          class="text-3xl/11 text-muted"
+          class="text-3xl/11 has-text-grey"
           :style="{ lineClamp: 2, textOverflow: 'ellipsis' }"
         >
           {{ description }}
         </p>
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="is-flex is-align-items-center gap-4">
         <svg
           class="size-8"
           viewBox="0 0 512 512"
@@ -57,7 +57,7 @@ defineProps<{
           />
         </svg>
         <div class="h-px flex-1 bg-border" />
-        <span class="text-xl text-dimmed">ui.nuxt.com</span>
+        <span class="is-size-5 has-text-grey-light">ui.nuxt.com</span>
       </div>
     </div>
   </div>

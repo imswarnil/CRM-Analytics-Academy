@@ -35,7 +35,7 @@ const columns = computed(() => [
 
 <template>
   <footer class="ftr">
-    <div class="shell">
+    <div class="container">
       <div class="ftr__top">
         <div class="ftr__brand">
           <NuxtLink

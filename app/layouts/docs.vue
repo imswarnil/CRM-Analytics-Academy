@@ -13,7 +13,7 @@ const { toc: tocConfig } = useAppConfig()
   <div>
     <DocsCoursePlayerBar />
 
-    <div class="shell">
+    <div class="container">
       <div class="docs">
         <!-- Sidebar. Hidden below lg, where the header drawer carries the same
            tree instead — see AppHeader. -->
