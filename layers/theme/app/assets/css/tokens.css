@@ -1,0 +1,83 @@
+/* CRM Analytics Academy — design tokens.
+   ==========================================================================
+   Small on purpose. Everything visual is Nuxt UI's own theme driven by these
+   few values, so there is no second component system to keep in step: a
+   button is <UButton>, an icon is <UIcon name="i-lucide-…">, and this file
+   decides what they look like.
+
+   The two colours are chosen for the job rather than borrowed. Indigo reads
+   as instructional rather than corporate, and deliberately is not Salesforce
+   blue (#0176D3) — a site *about* a Salesforce product should not dress as
+   the product. Emerald carries progress and completion, which on a learning
+   platform is the one thing that deserves a second colour. */
+
+@theme static {
+  --font-sans: "Figtree", "Figtree Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --container-8xl: 90rem;
+
+  /* Reading measure. A lesson is read continuously, so the column is capped
+     by characters rather than pixels — ~68ch is the span the eye can track
+     without losing the line it came from. */
+  --container-prose: 68ch;
+}
+
+:root {
+  /* Nuxt UI derives every component's geometry from this.
+     10px, not 6: a learning app is meant to feel encouraging rather than
+     administrative, and the softer corner is most of what separates the two.
+     Still short of a pill — at 10px a card is friendly, at 20px it is a
+     toy. */
+  --ui-radius: 0.625rem;
+
+  --ui-container: var(--container-8xl);
+
+  /* The app shell. Named here so a component never hardcodes a chrome
+     dimension — the rail and the topbar are referenced by three files.
+     The rail is wider and the bar taller than the first pass: at 15.5rem the
+     longer nav labels truncated, and a 3.25rem bar left the icons feeling
+     crowded against the border. */
+  --shell-rail: 17rem;
+  --shell-topbar: 3.5rem;
+}
+
+@layer base {
+  /* Headings share the body family at heavier weights and tighter tracking.
+     At display sizes the default tracking of a geometric sans opens up and
+     the heading stops reading as one object.
+
+     The tracking is applied on a curve rather than flat: a 40px h1 needs more
+     negative tracking than an 18px h4, and one value for both leaves the
+     small headings looking cramped and the large ones loose. */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  h1 { letter-spacing: -0.028em; }
+  h2 { letter-spacing: -0.022em; }
+  h3 { letter-spacing: -0.016em; }
+  h4, h5, h6 { letter-spacing: -0.01em; }
+
+  /* Figtree's default figures are proportional, which makes a heading
+     containing a number sit unevenly. */
+  h1, h2, h3 {
+    font-variant-numeric: lining-nums;
+  }
+
+  /* A lesson is prose. `pretty` keeps the last line of a paragraph from
+     falling to a single orphaned word. */
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Counters that change while you read them — "7 / 49", a points total, a
+     percentage. Tabular figures stop the digits reflowing to a different
+     width mid-update, which is visible as a twitch in a sticky bar. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}

@@ -1,21 +1,12 @@
+/**
+ * Site configuration — what the chrome says, not how it looks.
+ *
+ * There is deliberately no `ui` key here. Component styling lives in
+ * layers/nsds/app/app.config.ts, so that the design system is one removable
+ * unit rather than a set of overrides scattered between a layer and the app.
+ * Anything added here under `ui` would silently win over the theme.
+ */
 export default defineAppConfig({
-  ui: {
-    colors: {
-      primary: 'salesforce',
-      secondary: 'grape',
-      neutral: 'cloud'
-    },
-    footer: {
-      slots: {
-        root: 'border-t border-default',
-        left: 'text-sm text-muted'
-      }
-    }
-    // No component overrides. The neo-brutalist pass put 3px black borders and
-    // hard offset shadows on button, card and badge; going back to stock Nuxt
-    // UI means those come from the theme, and the NS tokens imported in
-    // main.css are what colour them.
-  },
   seo: {
     siteName: 'CRM Analytics Academy'
   },
@@ -45,23 +36,21 @@ export default defineAppConfig({
     }]
   },
   footer: {
-    credits: `Built with Nuxt UI • © ${new Date().getFullYear()}`,
+    credits: `CRM Analytics Academy • Free and open source • © ${new Date().getFullYear()}`,
     colorMode: false,
+    // These used to point at Nuxt's own Discord, X and GitHub — template
+    // leftovers that sent every visitor who clicked them to another project.
+    // Only URLs that already exist elsewhere in this repo are used here.
     links: [{
-      'icon': 'i-simple-icons-discord',
-      'to': 'https://go.nuxt.com/discord',
-      'target': '_blank',
-      'aria-label': 'Nuxt on Discord'
-    }, {
-      'icon': 'i-simple-icons-x',
-      'to': 'https://go.nuxt.com/x',
-      'target': '_blank',
-      'aria-label': 'Nuxt on X'
-    }, {
       'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/nuxt/ui',
+      'to': 'https://github.com/imswarnil/CRM-Analytics-Academy',
       'target': '_blank',
-      'aria-label': 'Nuxt UI on GitHub'
+      'aria-label': 'CRM Analytics Academy on GitHub'
+    }, {
+      'icon': 'i-lucide-heart',
+      'to': 'https://github.com/sponsors/crm-analytics-academy',
+      'target': '_blank',
+      'aria-label': 'Sponsor this project'
     }]
   },
   toc: {
