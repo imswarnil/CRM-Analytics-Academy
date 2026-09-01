@@ -7,6 +7,44 @@ const gatedRoutes: string[] = existsSync('.gated-routes.json')
   ? JSON.parse(readFileSync('.gated-routes.json', 'utf8'))
   : []
 
+// The 12 locales the site ships. `language` is the BCP-47 tag that lands in
+// <html lang> and in the hreflang alternates; `dir` drives <html dir> so Arabic
+// and Urdu lay out right-to-left.
+//
+// Defined here rather than inline under `i18n` because the prerender rules
+// below have to agree with it. Writing the two out separately is exactly how
+// eleven localized copies of /dashboard were prerendered as logged-out shells
+// while the unprefixed English one was correctly skipped.
+const locales = [
+  { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
+  { code: 'es', language: 'es-ES', name: 'Español', file: 'es.json' },
+  { code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json' },
+  { code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json' },
+  { code: 'pt', language: 'pt-BR', name: 'Português', file: 'pt.json' },
+  { code: 'ja', language: 'ja-JP', name: '日本語', file: 'ja.json' },
+  { code: 'zh', language: 'zh-CN', name: '中文', file: 'zh.json' },
+  { code: 'hi', language: 'hi-IN', name: 'हिन्दी', file: 'hi.json' },
+  { code: 'ar', language: 'ar-SA', name: 'العربية', file: 'ar.json', dir: 'rtl' },
+  { code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru.json' },
+  { code: 'bn', language: 'bn-BD', name: 'বাংলা', file: 'bn.json' },
+  { code: 'ur', language: 'ur-PK', name: 'اردو', file: 'ur.json', dir: 'rtl' }
+] as const
+
+const DEFAULT_LOCALE = 'en'
+
+// Routes that must never become a static file: they are personal, so a
+// prerendered copy is by definition the wrong user's view of them.
+//
+// Nitro matches these as path prefixes, and only the default locale is
+// unprefixed — so each one needs its eleven prefixed forms spelled out too.
+// scripts/gate-content.mjs does the same thing for gated lessons.
+const privateRoutes = ['/dashboard', '/account', '/submit', '/admin', '/api'].flatMap(route => [
+  route,
+  ...locales
+    .filter(l => l.code !== DEFAULT_LOCALE)
+    .map(l => `/${l.code}${route}`)
+])
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -15,8 +53,29 @@ export default defineNuxtConfig({
     '@nuxt/content',
     'nuxt-og-image',
     'nuxt-llms',
+    '@nuxtjs/sitemap',
     '@nuxtjs/i18n'
   ],
+
+  // `icon.serverBundle` has to differ by environment, and this is the reason
+  // the site could not deploy at first: bundling lucide + simple-icons +
+  // vscode-icons locally puts 8.6 MB of icon JSON inside the Worker, and a
+  // Worker may be 3 MB (10 MB on a paid plan). Fetching the collections from
+  // jsdelivr instead keeps the Worker small; the prerender resolves them once
+  // at build time, so the static pages still ship real inline SVG.
+  $development: {
+    icon: {
+      // Local in dev, because the Iconify API times out there
+      // ("failed to load icon …") and every restart would pay for it again.
+      serverBundle: 'local'
+    }
+  },
+
+  $production: {
+    icon: {
+      serverBundle: { remote: 'jsdelivr' }
+    }
+  },
 
   devtools: {
     enabled: true
@@ -47,14 +106,39 @@ export default defineNuxtConfig({
     }
   },
 
-  css: ['~/assets/css/main.css'],
-
   site: {
     url: 'https://crmanalytics.imswarnil.com',
     name: 'CRM Analytics Academy'
   },
 
+  // NSDS flips its tokens on [data-theme="dark"]; @nuxtjs/color-mode writes a
+  // class by default. `dataValue` makes it write both, so the design system
+  // and Nuxt UI's `dark:` variant switch together instead of half the page
+  // going dark — which is what an earlier pass shipped. theme.css redeclares
+  // Tailwind's own `dark:` variant to read the same attribute.
+  //
+  // `storageKey` is the shared Namaste Salesforce contract: a reader moving
+  // between the estate's sites keeps the theme they chose.
+  colorMode: {
+    dataValue: 'theme',
+    storageKey: 'ns-theme'
+  },
+
   content: {
+    // Nuxt Studio — the hosted editor for content/.
+    //
+    // This only opens the door: the site still has to be connected to a
+    // project at nuxt.studio (sign in with GitHub, pick this repo). Studio
+    // then edits markdown through the GitHub API and commits to a branch, so
+    // publishing goes through the same push -> translate -> deploy chain as a
+    // hand-written commit rather than around it.
+    //
+    // `dev: true` gives the same live preview against a local `pnpm dev`.
+    preview: {
+      api: 'https://api.nuxt.studio',
+      dev: true
+    },
+
     build: {
       markdown: {
         toc: {
@@ -71,15 +155,32 @@ export default defineNuxtConfig({
     asyncContext: true
   },
 
-  compatibilityDate: '2024-07-11',
+  // Must be >= 2024-09-19 or Nitro resolves the *legacy* Cloudflare preset,
+  // which deploys through Workers Sites (a deprecated KV-backed asset store)
+  // instead of Workers Static Assets — and nuxt-og-image warns that its fonts
+  // do not load reliably there.
+  compatibilityDate: '2026-08-28',
 
   nitro: {
-    // GitHub Pages serves plain files — there is no server. This preset emits a
-    // pure static tree into .output/public and, critically, writes a `.nojekyll`
-    // marker: without it GitHub runs Jekyll over the output, which silently
-    // ignores every underscore-prefixed directory (i.e. all of `_nuxt/`) and
-    // the site deploys with no CSS or JS at all.
-    preset: 'github_pages',
+    // Cloudflare Workers, with Workers Static Assets in front of it.
+    //
+    // The whole curriculum is still prerendered into .output/public and served
+    // straight off Cloudflare's edge without ever waking the Worker — the same
+    // static delivery GitHub Pages gave us. The Worker only runs for what has
+    // no static file: /api/*, the signed-in surface, and the gated lessons.
+    // That is the entire reason for the move — those routes cannot exist on
+    // Pages, because Pages has no server to run them.
+    //
+    // Override with NITRO_PRESET=github_pages to build the old static-only
+    // bundle (no auth, no progress) if the Worker ever needs to be bypassed.
+    preset: 'cloudflare_module',
+
+    cloudflare: {
+      // The Neon driver and h3 both reach for node builtins. Declared here as
+      // well as in wrangler.jsonc because Nitro decides whether to ship real
+      // node compat or unenv polyfills before it ever reads the wrangler file.
+      nodeCompat: true
+    },
 
     prerender: {
       routes: [
@@ -94,7 +195,14 @@ export default defineNuxtConfig({
       // scripts/verify-gating.mjs fails the build afterwards if any of their
       // text made it into .output/public anyway. The crawler would otherwise
       // follow the sidebar link straight into them.
-      ignore: gatedRoutes
+      ignore: [
+        // The signed-in surface, in every locale. Prerendering it bakes the
+        // logged-out shell into a public file, which then has to be corrected
+        // on the client on every visit — a flash of the wrong state, and files
+        // that exist only to be replaced.
+        ...privateRoutes,
+        ...gatedRoutes
+      ]
     }
   },
 
@@ -114,28 +222,16 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    // vue-i18n options, chiefly `fallbackLocale: 'en'`. Without it a key a
+    // locale has not been translated yet renders as the key itself — which is
+    // exactly what shipped: Spanish, German and Hindi lesson pages showed the
+    // literal text `course.curriculum`.
+    vueI18n: './i18n.config.ts',
+
     strategy: 'prefix_except_default',
     defaultLocale: 'en',
     baseUrl: 'https://crmanalytics.imswarnil.com',
-    // 12 locales. `language` is the BCP-47 tag that lands in <html lang> and in
-    // the hreflang alternates; `dir` drives <html dir> so Arabic and Urdu lay
-    // out right-to-left. `translateTo` is not an i18n option — it is read by
-    // scripts/translate.mjs, which needs LibreTranslate's own codes (it speaks
-    // `zh-Hans`, not `zh`). Keep the two in sync when adding a locale.
-    locales: [
-      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
-      { code: 'es', language: 'es-ES', name: 'Español', file: 'es.json' },
-      { code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json' },
-      { code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json' },
-      { code: 'pt', language: 'pt-BR', name: 'Português', file: 'pt.json' },
-      { code: 'ja', language: 'ja-JP', name: '日本語', file: 'ja.json' },
-      { code: 'zh', language: 'zh-CN', name: '中文', file: 'zh.json' },
-      { code: 'hi', language: 'hi-IN', name: 'हिन्दी', file: 'hi.json' },
-      { code: 'ar', language: 'ar-SA', name: 'العربية', file: 'ar.json', dir: 'rtl' },
-      { code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru.json' },
-      { code: 'bn', language: 'bn-BD', name: 'বাংলা', file: 'bn.json' },
-      { code: 'ur', language: 'ur-PK', name: 'اردو', file: 'ur.json', dir: 'rtl' }
-    ],
+    locales: [...locales],
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
@@ -145,14 +241,18 @@ export default defineNuxtConfig({
   },
 
   icon: {
-    // Bundle icons from the installed @iconify-json/* collections locally
-    // instead of fetching from the Iconify API at runtime (which times out
-    // in dev → "failed to load icon …").
-    serverBundle: 'local'
+    // Icons the components actually reference, scanned out of the source and
+    // bundled for the browser. Without this the client asks the server for
+    // each one, which on a prerendered page means a request for something
+    // that is already inlined in the HTML it just loaded.
+    clientBundle: {
+      scan: true,
+      sizeLimitKb: 512
+    }
   },
 
   llms: {
-    domain: 'https://crmanalytics.imswarnil.com/',
+    domain: 'https://crmanalytics.imswarnil.com',
     title: 'CRM Analytics Academy',
     description: 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery.',
     full: {
@@ -225,5 +325,32 @@ export default defineNuxtConfig({
 
   ogImage: {
     zeroRuntime: true
+  },
+
+  // No `css` entry: the stylesheet is registered by layers/nsds, which owns
+  // the whole visual system — tokens, fonts, the Nuxt UI theme and the
+  // site's decorative helpers. Nuxt auto-registers anything under layers/.
+
+  // The site had no sitemap at all: 780 prerendered pages across 12 locales
+  // and nothing telling a crawler they exist beyond following links.
+  //
+  // The module reads the prerendered routes, so the sitemap is generated from
+  // what was actually built rather than from a hand-kept list that drifts the
+  // first time a lesson is added.
+  sitemap: {
+    // Personal or auth-gated surfaces. They are already excluded from the
+    // prerender and marked noindex, but a sitemap is a positive assertion
+    // that a URL is worth indexing — listing them would contradict the meta.
+    exclude: [
+      '/dashboard', '/account', '/submit', '/admin',
+      '/*/dashboard', '/*/account', '/*/submit', '/*/admin',
+      // The raw-markdown surface is for LLMs and is already advertised by
+      // llms.txt. In a sitemap it would be ~780 duplicate-content URLs.
+      '/raw/**'
+    ],
+    // hreflang alternates for the eleven translated locales, so a crawler
+    // serves the right language rather than treating twelve copies of a
+    // lesson as duplicates of each other.
+    autoI18n: true
   }
 })

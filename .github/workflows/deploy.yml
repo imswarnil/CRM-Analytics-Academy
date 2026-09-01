@@ -1,9 +1,14 @@
 name: Deploy to GitHub Pages
 
+# The push trigger is deliberately gone: the site is served by Cloudflare
+# Workers now (see deploy-cloudflare.yml), and GitHub Pages cannot run the
+# /api routes the dashboard depends on. Two live copies of the same site,
+# only one of which can sign a learner in, is worse than one.
+#
+# Kept, and still runnable by hand, as the rollback path. It pins
+# NITRO_PRESET below to override the cloudflare_module preset in
+# nuxt.config.ts, so this job still emits the pure static tree Pages needs.
 on:
-  push:
-    branches: [main]
-  # Lets you re-deploy from the Actions tab without pushing a commit.
   workflow_dispatch:
 
 # GITHUB_TOKEN permissions needed by actions/deploy-pages.
@@ -43,6 +48,9 @@ jobs:
         run: pnpm generate
         env:
           NUXT_PUBLIC_SITE_URL: https://crmanalytics.imswarnil.com
+          # nuxt.config.ts targets Cloudflare Workers. Pages has no server, so
+          # this job has to ask for the static preset explicitly.
+          NITRO_PRESET: github_pages
 
       # Fail loudly here rather than shipping a broken site: the github_pages
       # preset must emit .nojekyll, and public/CNAME must survive into the
