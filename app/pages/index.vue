@@ -17,8 +17,14 @@ useSeoMeta({
 
 defineOgImage('Docs', { title: title.value, description: description.value })
 
+// Derived, not typed. This read "18" while the hero beside it said 49 and
+// the course rail said "of 49" — three numbers for one fact, two of them
+// computed and the stale one hand-written. Counting the curriculum means it
+// cannot drift again when a lesson is added.
+const { lessons: allLessons } = useCourse()
+
 const stats = computed(() => [
-  { value: '18', label: t('home.stats.lessons') },
+  { value: String(allLessons.value.length || 49), label: t('home.stats.lessons') },
   { value: '42m', label: t('home.stats.video') },
   { value: '100%', label: t('home.stats.free') }
 ])
@@ -215,89 +221,89 @@ useJsonLd({
 <template>
   <div>
     <!-- ============================ HERO ============================ -->
+    <!-- NSDS's own hero band: dark navy, live hairline grid, split copy/media.
+         `--white` and `--ghost` are the two button variants NSDS reserves for
+         dark surfaces; on a light one they are invisible by design. -->
     <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 -left-32 size-96 rounded-full bg-primary/20 blur-3xl" />
-      <div class="absolute -top-20 right-0 size-80 rounded-full bg-salesforce-400/15 blur-3xl" />
+      <div
+        class="absolute inset-0 bg-grid"
+        aria-hidden="true"
+      />
+      <!-- A radial gauge motif in the corner. The site is about analytics, so
+           the background can say so instead of another paragraph. -->
+      <div
+        class="absolute inset-0 bg-rings"
+        aria-hidden="true"
+      />
 
-      <UContainer class="relative py-20 sm:py-28">
-        <div class="grid items-center gap-12 lg:grid-cols-2">
-          <!-- Copy -->
-          <div class="animate-fade-up">
-            <UBadge
-              color="primary"
-              variant="subtle"
-              size="lg"
-              class="mb-6"
+      <UContainer class="relative grid items-center gap-12 py-16 lg:grid-cols-2 sm:py-24">
+        <div class="animate-fade-up">
+          <UBadge
+            :label="t('hero.badge')"
+            icon="i-lucide-sparkles"
+            color="primary"
+            variant="subtle"
+            size="lg"
+          />
+
+          <h1 class="mt-6 text-4xl font-bold tracking-tight text-highlighted sm:text-5xl">
+            {{ t('hero.titleLead') }}
+            <span class="text-primary">{{ t('hero.titleAccent') }}</span>
+          </h1>
+
+          <p class="mt-5 max-w-xl text-lg text-muted">
+            {{ t('hero.subtitle') }}
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <UButton
+              :to="localePath('/foundations')"
+              :label="t('hero.start')"
+              trailing-icon="i-lucide-arrow-right"
+              size="xl"
+            />
+            <UButton
+              to="#curriculum"
+              :label="t('hero.browse')"
+              icon="i-lucide-graduation-cap"
+              color="neutral"
+              variant="outline"
+              size="xl"
+            />
+            <UButton
+              icon="i-lucide-search"
+              color="neutral"
+              variant="ghost"
+              size="xl"
+              :aria-label="t('hero.search')"
+              @click="useContentSearch().open.value = true"
+            />
+          </div>
+
+          <!-- Three short claims, inline. Stacked they spent three lines and
+               pushed the fold down; each keeps its own icon so they still read
+               as three things rather than one run-on. -->
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+            <li
+              v-for="fact in [
+                { icon: 'i-lucide-user-round-check', text: t('hero.f1') },
+                { icon: 'i-lucide-book-open', text: t('hero.f2') },
+                { icon: 'i-lucide-badge-check', text: t('hero.f3') }
+              ]"
+              :key="fact.text"
+              class="flex items-center gap-1.5"
             >
               <UIcon
-                name="i-lucide-sparkles"
-                class="mr-1 size-4"
+                :name="fact.icon"
+                class="size-4 text-primary"
               />
-              {{ t('hero.badge') }}
-            </UBadge>
+              {{ fact.text }}
+            </li>
+          </ul>
+        </div>
 
-            <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-6xl">
-              {{ t('hero.titleLead') }}<br>
-              <span class="text-gradient">{{ t('hero.titleAccent') }}</span>.
-            </h1>
-
-            <p class="mt-6 max-w-xl text-lg text-muted">
-              {{ t('hero.subtitle') }}
-            </p>
-
-            <div class="mt-8 flex flex-wrap gap-3">
-              <UButton
-                :to="localePath('/foundations')"
-                size="xl"
-                trailing-icon="i-lucide-arrow-right"
-                class="font-semibold"
-              >
-                {{ t('hero.start') }}
-              </UButton>
-              <UButton
-                to="#curriculum"
-                size="xl"
-                color="neutral"
-                variant="outline"
-                icon="i-lucide-graduation-cap"
-                class="font-semibold"
-              >
-                {{ t('hero.browse') }}
-              </UButton>
-              <UTooltip :text="t('hero.search')">
-                <UButton
-                  icon="i-lucide-search"
-                  size="xl"
-                  color="neutral"
-                  variant="outline"
-                  square
-                  :aria-label="t('hero.search')"
-                  @click="useContentSearch().open.value = true"
-                />
-              </UTooltip>
-            </div>
-
-            <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
-              <span class="flex items-center gap-1.5"><UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary"
-              /> {{ t('hero.f1') }}</span>
-              <span class="flex items-center gap-1.5"><UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary"
-              /> {{ t('hero.f2') }}</span>
-              <span class="flex items-center gap-1.5"><UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary"
-              /> {{ t('hero.f3') }}</span>
-            </div>
-          </div>
-
-          <!-- Animated pipeline storyboard -->
-          <div class="animate-fade-up mx-auto w-full max-w-md">
-            <HeroStory />
-          </div>
+        <div class="animate-fade-up">
+          <HeroStory />
         </div>
       </UContainer>
     </section>
@@ -334,7 +340,11 @@ useJsonLd({
       id="curriculum"
       class="relative scroll-mt-24 py-20 sm:py-24"
     >
-      <UContainer>
+      <div
+        class="absolute inset-x-0 bottom-0 h-64 bg-bars"
+        aria-hidden="true"
+      />
+      <UContainer class="relative">
         <div class="mx-auto mb-14 max-w-2xl text-center">
           <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
             {{ t('home.curriculumEyebrow') }}
@@ -348,71 +358,70 @@ useJsonLd({
         </div>
 
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <NuxtLink
+          <!-- NSDS cards: hairline border, no shadow at rest, and on hover a
+               brand border plus a 2px accent line inset along the top edge.
+               The previous version lifted, scaled and grew a shadow — which
+               Principle 5 rules out: motion is a state change, not a
+               performance. The whole card is one target via a stretched link
+               (a stretched link) rather than a link inside a card. -->
+          <article
             v-for="m in modules"
             :key="m.n"
-            :to="localePath(m.to)"
-            class="group relative flex flex-col overflow-hidden rounded-2xl border border-default bg-default p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl"
+            class="flex flex-col rounded-md border border-default transition-colors hover:border-primary"
           >
-            <div class="absolute inset-x-0 top-0 h-1 scale-x-0 bg-gradient-to-r from-salesforce-400 to-salesforce-600 transition-transform duration-300 group-hover:scale-x-100" />
-            <div class="mb-5 flex items-center justify-between">
-              <div class="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition group-hover:bg-primary group-hover:text-inverted">
+            <div class="flex flex-1 flex-col gap-2 p-5">
+              <div class="flex items-center justify-between">
                 <UIcon
                   :name="m.icon"
-                  class="size-6"
+                  class="size-6 text-primary"
                 />
+                <span class="tabular text-sm text-dimmed">{{ m.n }}</span>
               </div>
-              <span class="text-2xl font-extrabold text-default/15 group-hover:text-primary/30">{{ m.n }}</span>
+
+              <h3 class="font-semibold text-highlighted">
+                <NuxtLink
+                  class="after:absolute after:inset-0"
+                  :to="localePath(m.to)"
+                >{{ m.title }}</NuxtLink>
+              </h3>
+              <p class="text-sm text-muted">
+                {{ m.desc }}
+              </p>
             </div>
-            <h3 class="text-lg font-semibold text-highlighted">{{ m.title }}</h3>
-            <p class="mt-2 grow text-sm text-muted">{{ m.desc }}</p>
 
-            <!-- Lesson preview — revealed on hover -->
-            <ul class="mt-4 max-h-0 space-y-1.5 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-24 group-hover:opacity-100">
-              <li
-                v-for="lesson in m.lessons"
-                :key="lesson"
-                class="flex items-center gap-2 text-xs font-medium text-toned"
-              >
-                <UIcon
-                  name="i-lucide-file-text"
-                  class="size-3.5 shrink-0 text-primary"
-                />
-                {{ lesson }}
-              </li>
-            </ul>
+            <div class="flex items-center gap-3 border-t border-default px-5 py-3 text-sm text-muted">
+              <span>{{ m.lessons.length }} {{ t('home.lessonsWord') }}</span>
+              <span class="ms-auto text-primary">{{ t('home.startModule') }} →</span>
+            </div>
+          </article>
 
-            <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-              {{ t('home.startModule') }}
+          <!-- Start-here card. Kept as the odd one out — it is the only
+               card that is an instruction rather than a destination — but on
+               the NSDS card body so it sits on the same grid as the six
+               beside it, instead of a gradient panel with its own geometry. -->
+          <article class="flex flex-col rounded-md border border-default bg-elevated/40 transition-colors hover:border-primary">
+            <div class="flex flex-1 flex-col items-center gap-3 p-5 text-center">
               <UIcon
-                name="i-lucide-arrow-right"
-                class="size-4 transition-transform group-hover:translate-x-1"
+                name="i-lucide-flag"
+                class="size-7 text-primary"
               />
-            </span>
-          </NuxtLink>
-
-          <!-- Start-here call card -->
-          <div class="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-salesforce-600 to-salesforce-800 p-6 text-white">
-            <UIcon
-              name="i-lucide-flag"
-              class="mb-4 size-8"
-            />
-            <h3 class="text-lg font-semibold">
-              {{ t('home.newHereTitle') }}
-            </h3>
-            <p class="mt-2 text-sm text-white/80">
-              {{ t('home.newHereDesc') }}
-            </p>
-            <UButton
-              :to="localePath('/foundations')"
-              color="neutral"
-              variant="solid"
-              class="mt-5 w-fit bg-white font-semibold text-salesforce-700 hover:bg-white/90"
-              trailing-icon="i-lucide-arrow-right"
-            >
-              {{ t('home.startHere') }}
-            </UButton>
-          </div>
+              <h3 class="font-semibold text-highlighted">
+                <NuxtLink
+                  class="after:absolute after:inset-0"
+                  :to="localePath('/foundations')"
+                >{{ t('home.newHereTitle') }}</NuxtLink>
+              </h3>
+              <p class="text-sm text-muted">
+                {{ t('home.newHereDesc') }}
+              </p>
+              <UButton
+                :label="t('home.startHere')"
+                trailing-icon="i-lucide-arrow-right"
+                size="sm"
+                class="mt-2 pointer-events-none"
+              />
+            </div>
+          </article>
         </div>
       </UContainer>
     </section>
