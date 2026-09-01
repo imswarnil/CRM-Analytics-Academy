@@ -41,3 +41,8 @@ Allow: /
 # Machine-readable curriculum summaries for LLMs (see llmstxt.org).
 # Llms-txt: https://crmanalytics.imswarnil.com/llms.txt
 # Llms-full-txt: https://crmanalytics.imswarnil.com/llms-full.txt
+
+# The sitemap index. One child sitemap per locale, each carrying hreflang
+# alternates, so a crawler is told which of the twelve copies of a lesson to
+# serve rather than being left to guess they are duplicates.
+Sitemap: https://crmanalytics.imswarnil.com/sitemap_index.xml
