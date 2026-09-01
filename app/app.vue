@@ -6,7 +6,20 @@ const { locale, locales: allLocales } = useI18n()
 
 // Navigation: fetch the full per-locale tree, then expose only the current
 // locale's branch with paths rewritten to localized routes.
-const { data: navTree } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
+const { data: navTree, refresh: refreshNav } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
+
+// On a prerendered page this resolved at build time and arrives in the
+// payload. On a route the Worker renders at runtime — /dashboard, /account —
+// there is no content database bound to the Worker, so the server-side query
+// comes back empty and the curriculum reads as zero lessons.
+//
+// The browser can answer it: @nuxt/content ships the collection as a dump
+// (/dump.docs.sql) and queries it client-side. So retry there, and only when
+// the server actually returned nothing — on the 768 prerendered pages this
+// condition is false and no second query happens.
+onMounted(() => {
+  if (!navTree.value?.length) refreshNav()
+})
 const navigation = computed<ContentNavigationItem[]>(() => {
   const branch = navTree.value?.find(item => item.path === `/${locale.value}`)
   if (branch?.children?.length) return localizeNavigation(branch.children)
@@ -38,7 +51,10 @@ const i18nHead = useLocaleHead()
 useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { name: 'theme-color', content: '#0176D3' }
+    // Matches manifest.webmanifest. Both moved off Salesforce blue
+    // when the palette did; a stale value here shows as the wrong colour in
+    // the Android status bar of an installed app.
+    { name: 'theme-color', content: '#2563eb' }
   ],
   link: [
     { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
@@ -111,15 +127,17 @@ provide('navigation', navigation)
   <UApp>
     <NuxtLoadingIndicator />
 
-    <AppHeader />
-
-    <UMain>
+    <!-- One shell for every page. The old AppHeader/UMain/AppFooter stack is
+         gone: the site is an application now, so the chrome does not scroll
+         away and the footer lives inside the content pane rather than after
+         a page that never ends. -->
+    <AppShell>
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
-    </UMain>
 
-    <AppFooter />
+      <AppFooter />
+    </AppShell>
 
     <ClientOnly>
       <LazyUContentSearch
