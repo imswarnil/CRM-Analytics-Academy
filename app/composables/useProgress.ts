@@ -11,6 +11,14 @@
  */
 export function useProgress() {
   const completed = useState<Set<string>>('progress-completed', () => new Set())
+  // Entitlement rides along with progress because /api/progress returns both
+  // in one response. Keeping it here rather than refetching on the dashboard
+  // is what stops the page from asking a second time for something the rail
+  // already loaded — and from briefly disagreeing with it.
+  const pro = useState('progress-pro', () => false)
+  const points = useState('progress-points', () => 0)
+  const rank = useState<number | null>('progress-rank', () => null)
+  const contributions = useState('progress-contributions', () => 0)
   const loaded = useState('progress-loaded', () => false)
   const { isSignedIn } = useAuth()
   const { locales } = useI18n()
@@ -23,8 +31,18 @@ export function useProgress() {
   async function load() {
     if (!isSignedIn.value) return
     try {
-      const res = await $fetch<{ completed: string[] }>('/api/progress')
+      const res = await $fetch<{
+        completed: string[]
+        pro: boolean
+        points: number
+        rank: number | null
+        contributions: number
+      }>('/api/progress')
       completed.value = new Set(res.completed)
+      pro.value = Boolean(res.pro)
+      points.value = res.points ?? 0
+      rank.value = res.rank ?? null
+      contributions.value = res.contributions ?? 0
       loaded.value = true
     } catch {
       // Progress is an enhancement; failing to load it must not break a lesson.
@@ -52,5 +70,5 @@ export function useProgress() {
     }
   }
 
-  return { completed, loaded, load, isDone, setDone, normalise }
+  return { completed, pro, points, rank, contributions, loaded, load, isDone, setDone, normalise }
 }
