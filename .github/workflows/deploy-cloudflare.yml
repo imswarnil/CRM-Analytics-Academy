@@ -1,0 +1,59 @@
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+  # Lets you re-deploy from the Actions tab without pushing a commit.
+  workflow_dispatch:
+
+# Never let two deploys race. Queue instead of cancelling, so a push that lands
+# mid-deploy still ends up published rather than silently dropped.
+concurrency:
+  group: cloudflare-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # No test runner exists in this repo, so lint + typecheck are the gates.
+      - run: pnpm lint
+      - run: pnpm typecheck
+
+      # `pnpm build` runs scripts/gate-content.mjs first and raises the V8 heap
+      # — prerendering ~770 pages across 12 locales plus the OG images exceeds
+      # the default and aborts the build with SIGABRT part-way through.
+      - name: Build (prerender + Worker)
+        run: pnpm build
+        env:
+          NUXT_PUBLIC_SITE_URL: https://crmanalytics.imswarnil.com
+
+      # The paywall check. Fails the deploy if any `access: pro` lesson's text
+      # reached .output/public, where it would be a public file.
+      - run: pnpm verify:gating
+
+      - name: Verify output
+        run: |
+          test -f .output/public/index.html  || { echo "::error::no index.html"; exit 1; }
+          test -f .output/server/index.mjs   || { echo "::error::no Worker entry"; exit 1; }
+          echo "pages: $(find .output/public -name '*.html' | wc -l)"
+
+      # Secrets (DATABASE_URL, NEON_AUTH_*, DEMO_USER_*) are NOT set here.
+      # They are stored on the Worker itself via `wrangler secret put` and
+      # survive deploys, so they never have to exist in CI at all.
+      - name: Deploy Worker
+        run: pnpm exec wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

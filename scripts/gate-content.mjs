@@ -13,8 +13,31 @@
  * the text absent from .output/public", which scripts/verify-gating.mjs
  * asserts after the build.
  */
-import { readFile, writeFile, mkdir, rm, glob } from 'node:fs/promises'
+import { readFile, writeFile, mkdir, rm, readdir } from 'node:fs/promises'
 import path from 'node:path'
+
+/**
+ * Recursive file walk.
+ *
+ * Hand-rolled rather than fs.promises.glob: that is still flagged experimental
+ * on Node 22, which is what CI runs, and this script gates a live deploy. A
+ * dozen lines of readdir is a better trade than an experimental API in the
+ * path of the paywall check.
+ */
+async function walk(dir, match, out = []) {
+  let entries
+  try {
+    entries = await readdir(dir, { withFileTypes: true })
+  } catch {
+    return out
+  }
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name)
+    if (entry.isDirectory()) await walk(full, match, out)
+    else if (match(full)) out.push(full)
+  }
+  return out
+}
 
 const ROOT = process.cwd()
 const CONTENT = path.join(ROOT, 'content')
@@ -53,7 +76,7 @@ async function main() {
   const gated = new Set()
   let count = 0
 
-  for await (const file of glob(`${CONTENT}/**/*.md`)) {
+  for (const file of await walk(CONTENT, f => f.endsWith('.md'))) {
     const raw = await readFile(file, 'utf8')
     const fm = frontmatter(raw)
     if (fm.access !== 'pro') continue

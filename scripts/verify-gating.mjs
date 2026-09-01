@@ -10,9 +10,32 @@
  * the prerendered HTML, the payload JSON Nuxt emits beside it, and the content
  * SQL dumps @nuxt/content writes for client-side queries.
  */
-import { readFile, readdir, stat, glob } from 'node:fs/promises'
+import { readFile, readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { existsSync } from 'node:fs'
+
+/**
+ * Recursive file walk.
+ *
+ * Hand-rolled rather than fs.promises.glob: that is still flagged experimental
+ * on Node 22, which is what CI runs, and this script gates a live deploy. A
+ * dozen lines of readdir is a better trade than an experimental API in the
+ * path of the paywall check.
+ */
+async function walk(dir, match, out = []) {
+  let entries
+  try {
+    entries = await readdir(dir, { withFileTypes: true })
+  } catch {
+    return out
+  }
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name)
+    if (entry.isDirectory()) await walk(full, match, out)
+    else if (match(full)) out.push(full)
+  }
+  return out
+}
 
 const ROOT = process.cwd()
 const PUBLIC = path.join(ROOT, '.output/public')
@@ -68,7 +91,8 @@ async function main() {
   // Every text-ish file, not a chosen few: the two leaks this check was
   // written to catch were in /raw/*.md and llms-full.txt, neither of which an
   // html+json allowlist would have opened.
-  for await (const file of glob(`${PUBLIC}/**/*.{html,json,txt,sql,md,xml,js}`)) {
+  const TEXTUAL = /\.(html|json|txt|sql|md|xml|js)$/i
+  for (const file of await walk(PUBLIC, f => TEXTUAL.test(f))) {
     const size = (await stat(file)).size
     // The content dumps are large; read them anyway — they are the most
     // likely place for a body to be hiding.

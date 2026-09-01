@@ -1,0 +1,58 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "crm-analytics-academy",
+
+  // Both paths are Nitro's output, not hand-maintained source. `pnpm build`
+  // must run before `wrangler deploy` — that is why the deploy script chains
+  // them rather than exposing a bare `wrangler deploy`.
+  "main": ".output/server/index.mjs",
+  "compatibility_date": "2026-08-28",
+
+  // The Neon serverless driver and h3's body handling both use node builtins
+  // (Buffer, crypto, events). Without this the Worker fails at import time,
+  // not at request time, so it fails the whole deploy rather than one route.
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    // The prerendered curriculum — every lesson, in all 12 locales, plus
+    // _nuxt/. Cloudflare serves anything matching a file here directly from
+    // the edge and never starts the Worker, so the reading experience costs
+    // no compute and stays as fast as the old GitHub Pages build.
+    //
+    // Requests with no matching file (/api/*, /dashboard, gated lessons) fall
+    // through to the Worker. That fallthrough is the dynamic site.
+    "directory": ".output/public",
+
+    // Nitro's cloudflare-module entry checks `env.ASSETS` by this exact name
+    // before handing a request to h3; renaming it silently routes static files
+    // through the Worker instead.
+    "binding": "ASSETS",
+
+    // The prerender writes /foundations/intro.html, not
+    // /foundations/intro/index.html (nitro.prerender.autoSubfolderIndex is
+    // false), so the asset layer has to be willing to try the .html suffix.
+    "html_handling": "auto-trailing-slash",
+
+    // Don't let the asset layer answer a miss with its own 404 — a miss is
+    // exactly what has to reach the Worker.
+    "not_found_handling": "none"
+  },
+
+  // Keep the *.workers.dev hostname alive. Declaring `routes` below turns it
+  // off by default, and with the custom domain not yet attached that left the
+  // Worker deployed and completely unreachable.
+  "workers_dev": true,
+
+  // The production hostname. `custom_domain` has Cloudflare create and manage
+  // both the DNS record and the certificate for it — which is only possible
+  // because the hand-made records that used to point this name at GitHub
+  // Pages have been removed. Cloudflare refuses to take over a hostname that
+  // still has externally managed A/CNAME records on it.
+  "routes": [
+    { "pattern": "crmanalytics.imswarnil.com", "custom_domain": true }
+  ],
+
+  "observability": {
+    "enabled": true
+  }
+}
