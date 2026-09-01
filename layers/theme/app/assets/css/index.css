@@ -14,7 +14,6 @@
 @import "@nuxt/ui";
 
 @import "./tokens.css";
-@import "./shell.css";
 @import "./decor.css";
 
 /* Lesson markdown carries utility classes of its own, and Tailwind only emits

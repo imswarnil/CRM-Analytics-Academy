@@ -77,10 +77,6 @@
   --nb-surface: #ffffff;
   --nb-subtle: #F4F6FA;
 
-  /* The app shell. Named here so a component never hardcodes a chrome
-     dimension — the rail and the topbar are referenced by three files. */
-  --shell-rail: 17rem;
-  --shell-topbar: 3.5rem;
 }
 
 .dark {

@@ -160,10 +160,10 @@ const roles = ['learner', 'moderator', 'admin']
 </script>
 
 <template>
-  <UContainer class="py-10">
+  <div>
     <!-- Signed in but not an admin: say nothing useful. The API returns 404
          for the same reason — a 403 confirms the screen exists. -->
-    <div
+    <UContainer
       v-if="me?.signedIn && !isModerator"
       class="py-20 text-center"
     >
@@ -173,283 +173,354 @@ const roles = ['learner', 'moderator', 'admin']
       <p class="mt-2 text-muted">
         Not found.
       </p>
-    </div>
+    </UContainer>
 
-    <template v-else-if="isModerator">
-      <header class="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-wide text-primary">
-            admin
-          </p>
-          <h1 class="mt-1 text-3xl font-bold text-highlighted">
-            Site administration
-          </h1>
-          <p class="mt-1 text-sm text-muted">
-            Signed in as {{ me?.email }} · role {{ me?.role }}
-          </p>
-        </div>
-
-        <div class="flex gap-2">
-          <UButton
-            label="Moderation"
-            icon="i-lucide-inbox"
-            :color="tab === 'queue' ? 'primary' : 'neutral'"
-            :variant="tab === 'queue' ? 'soft' : 'outline'"
-            size="sm"
-            @click="tab = 'queue'"
-          />
-          <UButton
-            v-if="isAdmin"
-            label="Users"
-            icon="i-lucide-users"
-            :color="tab === 'users' ? 'primary' : 'neutral'"
-            :variant="tab === 'users' ? 'soft' : 'outline'"
-            size="sm"
-            @click="tab = 'users'"
-          />
-        </div>
-      </header>
-
-      <p
-        v-if="error"
-        class="mb-4 text-sm text-error"
-        role="alert"
-      >
-        {{ error }}
-      </p>
-
-      <!-- ============================ QUEUE ============================ -->
-      <section v-if="tab === 'queue'">
-        <div class="mb-4 flex gap-2">
-          <UButton
-            v-for="s in (['pending', 'approved', 'rejected'] as const)"
-            :key="s"
-            :label="s"
-            :color="queueStatus === s ? 'primary' : 'neutral'"
-            :variant="queueStatus === s ? 'soft' : 'outline'"
-            size="xs"
-            @click="queueStatus = s"
-          />
-        </div>
-
-        <p
-          v-if="!queue.length"
-          class="py-12 text-center text-sm text-muted"
-        >
-          Nothing {{ queueStatus }}.
-        </p>
-
-        <ul class="space-y-4">
-          <li
-            v-for="item in queue"
-            :key="item.id"
-            class="nb-card"
-          >
-            <div class="flex flex-1 flex-col gap-2 p-5">
-              <div class="flex flex-wrap items-center gap-2">
-                <span class="nb-tag bg-(--nb-subtle) px-2 py-0.5 text-[0.625rem] text-muted">{{ item.kind }}</span>
-                <span class="text-xs font-semibold uppercase tracking-wide text-dimmed">{{ item.submittedBy.email || 'unknown' }}</span>
-              </div>
-
-              <p class="font-semibold text-highlighted">
-                {{ item.title }}
-              </p>
-
-              <!-- rel="noopener nofollow" and no target-blank trust: this is an
-                   unreviewed link submitted by a stranger. -->
-              <a
-                v-if="item.url"
-                :href="item.url"
-                target="_blank"
-                rel="noopener nofollow ugc"
-                class="text-sm text-primary break-all"
-              >{{ item.url }}</a>
-
-              <p class="whitespace-pre-line text-sm text-muted">
-                {{ item.description }}
-              </p>
-
-              <p
-                v-if="item.tags.length"
-                class="flex flex-wrap gap-1"
-              >
-                <span
-                  v-for="tg in item.tags"
-                  :key="tg"
-                  class="rounded bg-elevated px-1.5 py-0.5 text-xs text-muted"
-                >{{ tg }}</span>
-              </p>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2 border-t border-default p-4">
-              <UButton
-                label="Approve"
-                icon="i-lucide-check"
-                size="sm"
-                :disabled="busy || item.status === 'approved'"
-                @click="review(item, 'approve')"
-              />
-              <UButton
-                label="Reject"
-                icon="i-lucide-x"
-                color="neutral"
-                variant="outline"
-                size="sm"
-                :disabled="busy || item.status === 'rejected'"
-                @click="review(item, 'reject')"
-              />
-              <UButton
-                label="Delete"
-                icon="i-lucide-trash-2"
-                color="error"
-                variant="ghost"
-                size="sm"
-                class="ms-auto"
-                :disabled="busy"
-                @click="review(item, 'delete')"
-              />
-            </div>
-          </li>
-        </ul>
-      </section>
-
-      <!-- ============================ USERS ============================ -->
-      <section v-else-if="tab === 'users' && isAdmin">
-        <div class="nb-card mb-8">
-          <div class="flex flex-1 flex-col gap-2 p-5">
-            <p class="font-semibold text-highlighted">
-              Create a user
-            </p>
-            <div class="grid gap-3 sm:grid-cols-4">
-              <input
-                v-model="newUser.email"
-                class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3 py-2 text-sm"
-                type="email"
-                placeholder="email"
-              >
-              <input
-                v-model="newUser.name"
-                class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3 py-2 text-sm"
-                type="text"
-                placeholder="name (optional)"
-              >
-              <select
-                v-model="newUser.role"
-                class="rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-2 py-1 text-sm"
-              >
-                <option
-                  v-for="r in roles"
-                  :key="r"
-                  :value="r"
-                >
-                  {{ r }}
-                </option>
-              </select>
-              <UButton
-                label="Create"
-                icon="i-lucide-user-plus"
-                :disabled="busy || !newUser.email"
-                @click="createUser"
-              />
-            </div>
-
-            <!-- Shown once. There is no email sending on this site, so this is
-                 the only time the password is visible. -->
-            <div
-              v-if="created"
-              class="nb-card mt-4 space-y-2 p-4 shadow-[inset_5px_0_0_0_var(--color-brand-green)]"
+    <div
+      v-else-if="isModerator"
+      class="lg:grid lg:grid-cols-[15rem_minmax(0,1fr)]"
+    >
+      <!-- The console's own chrome, per design page 08: an ink pane with the
+           admin sections, the operator pinned at the foot. Below lg it lies
+           down as a strip above the content. -->
+      <aside class="flex flex-col bg-ink text-slate-400 max-lg:flex-row max-lg:items-center max-lg:gap-2 max-lg:px-4 max-lg:py-2 lg:sticky lg:top-16 lg:h-[calc(100dvh-4rem)]">
+        <div class="flex items-center gap-2.5 border-slate-800 p-0 lg:border-b lg:p-4">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary">
+            <svg
+              viewBox="0 0 24 24"
+              class="h-4 w-4"
+              aria-hidden="true"
             >
-              <p class="font-semibold text-highlighted">
-                Created {{ created.email }}
-              </p>
-              <p>
-                Temporary password — copy it now, it is not stored and will not
-                be shown again:
-              </p>
-              <code>{{ created.temporaryPassword }}</code>
-            </div>
+              <rect
+                x="3"
+                y="13"
+                width="4"
+                height="8"
+                rx="1"
+                fill="#fff"
+              />
+              <rect
+                x="9"
+                y="8"
+                width="4"
+                height="13"
+                rx="1"
+                fill="#fff"
+              />
+              <rect
+                x="15"
+                y="3"
+                width="4"
+                height="18"
+                rx="1"
+                fill="#fff"
+              />
+            </svg>
+          </span>
+          <span class="max-lg:hidden">
+            <span class="font-display block text-[0.8125rem] font-bold text-white">Admin</span>
+            <span class="block text-[0.625rem] text-slate-500">CRM Analytics Academy</span>
+          </span>
+        </div>
+
+        <nav
+          class="flex gap-1 max-lg:ms-2 lg:flex-1 lg:flex-col lg:p-2.5"
+          aria-label="Admin sections"
+        >
+          <button
+            type="button"
+            class="flex items-center gap-2 rounded-lg px-3 py-2 text-[0.8125rem] transition-colors"
+            :class="tab === 'queue' ? 'bg-primary/20 font-semibold text-white' : 'font-medium text-slate-400 hover:text-white'"
+            @click="tab = 'queue'"
+          >
+            <UIcon
+              name="i-lucide-inbox"
+              class="size-4 shrink-0"
+            />
+            <span class="max-sm:hidden">Moderation</span>
+            <span
+              v-if="queue.length && queueStatus === 'pending'"
+              class="rounded-full bg-brand-pink px-1.5 py-px text-[0.5625rem] font-bold text-white lg:ms-auto"
+            >{{ queue.length }}</span>
+          </button>
+          <button
+            v-if="isAdmin"
+            type="button"
+            class="flex items-center gap-2 rounded-lg px-3 py-2 text-[0.8125rem] transition-colors"
+            :class="tab === 'users' ? 'bg-primary/20 font-semibold text-white' : 'font-medium text-slate-400 hover:text-white'"
+            @click="tab = 'users'"
+          >
+            <UIcon
+              name="i-lucide-users"
+              class="size-4 shrink-0"
+            />
+            <span class="max-sm:hidden">Users & Roles</span>
+          </button>
+        </nav>
+
+        <div class="border-slate-800 max-lg:ms-auto lg:border-t lg:p-4">
+          <div class="flex items-center gap-2">
+            <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-brand-purple text-[0.625rem] font-bold text-white">
+              {{ (me?.email || '?').slice(0, 1).toUpperCase() }}
+            </span>
+            <span class="max-lg:hidden">
+              <span class="block truncate text-xs font-semibold text-white">{{ me?.email }}</span>
+              <span class="block text-[0.625rem] text-slate-500">role {{ me?.role }}</span>
+            </span>
           </div>
         </div>
+      </aside>
 
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-[52rem] border-collapse text-sm">
-            <thead>
-              <tr>
-                <th class="text-start">
-                  User
-                </th>
-                <th class="text-start">
-                  Role
-                </th>
-                <th class="text-end">
-                  Points
-                </th>
-                <th class="text-end">
-                  Lessons
-                </th>
-                <th class="text-end">
-                  Queue
-                </th>
-                <th class="text-end">
-                  Pro
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="u in users"
-                :key="u.id"
-              >
-                <td>
-                  <span class="font-medium text-highlighted">{{ u.name || '—' }}</span>
-                  <span class="block text-xs text-muted">{{ u.email }}</span>
-                </td>
-                <td>
-                  <select
-                    class="rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-2 py-1 text-sm"
-                    :value="u.role"
-                    :disabled="busy || u.isDemo || u.roleLocked"
-                    @change="setRole(u, ($event.target as HTMLSelectElement).value)"
-                  >
-                    <option
-                      v-for="r in roles"
-                      :key="r"
-                      :value="r"
-                    >
-                      {{ r }}
-                    </option>
-                  </select>
-                  <!-- Say why it is disabled. A dead control with no
-                       explanation reads as a bug. -->
+      <div class="min-w-0 px-4 py-8 sm:px-8">
+        <header class="mb-6">
+          <h1 class="text-2xl font-bold text-highlighted">
+            {{ tab === 'queue' ? 'Moderation' : 'Users & Roles' }}
+          </h1>
+          <p class="mt-1 text-sm text-muted">
+            {{ tab === 'queue' ? 'Community submissions awaiting review.' : 'Accounts, roles and access.' }}
+          </p>
+        </header>
+
+        <p
+          v-if="error"
+          class="mb-4 text-sm text-error"
+          role="alert"
+        >
+          {{ error }}
+        </p>
+
+        <!-- ============================ QUEUE ============================ -->
+        <section v-if="tab === 'queue'">
+          <div class="mb-4 flex gap-2">
+            <UButton
+              v-for="s in (['pending', 'approved', 'rejected'] as const)"
+              :key="s"
+              :label="s"
+              :color="queueStatus === s ? 'primary' : 'neutral'"
+              :variant="queueStatus === s ? 'soft' : 'outline'"
+              size="xs"
+              @click="queueStatus = s"
+            />
+          </div>
+
+          <p
+            v-if="!queue.length"
+            class="py-12 text-center text-sm text-muted"
+          >
+            Nothing {{ queueStatus }}.
+          </p>
+
+          <ul class="space-y-4">
+            <li
+              v-for="item in queue"
+              :key="item.id"
+              class="nb-card"
+            >
+              <div class="flex flex-1 flex-col gap-2 p-5">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="nb-tag bg-(--nb-subtle) px-2 py-0.5 text-[0.625rem] text-muted">{{ item.kind }}</span>
+                  <span class="text-xs font-semibold uppercase tracking-wide text-dimmed">{{ item.submittedBy.email || 'unknown' }}</span>
+                </div>
+
+                <p class="font-semibold text-highlighted">
+                  {{ item.title }}
+                </p>
+
+                <!-- rel="noopener nofollow" and no target-blank trust: this is an
+                   unreviewed link submitted by a stranger. -->
+                <a
+                  v-if="item.url"
+                  :href="item.url"
+                  target="_blank"
+                  rel="noopener nofollow ugc"
+                  class="text-sm text-primary break-all"
+                >{{ item.url }}</a>
+
+                <p class="whitespace-pre-line text-sm text-muted">
+                  {{ item.description }}
+                </p>
+
+                <p
+                  v-if="item.tags.length"
+                  class="flex flex-wrap gap-1"
+                >
                   <span
-                    v-if="u.roleLocked"
-                    class="mt-1 block text-xs text-muted"
-                  >set by ADMIN_EMAILS</span>
-                </td>
-                <td class="tabular text-end">
-                  {{ u.points }}
-                </td>
-                <td class="tabular text-end">
-                  {{ u.lessonsDone }}
-                </td>
-                <td class="tabular text-end">
-                  {{ u.pendingSubmissions || '' }}
-                </td>
-                <td class="text-end">
-                  <UButton
-                    :label="u.pro ? 'Pro' : 'Free'"
-                    :color="u.pro ? 'primary' : 'neutral'"
-                    :variant="u.pro ? 'soft' : 'outline'"
-                    size="xs"
-                    :disabled="busy"
-                    @click="togglePro(u)"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </template>
-  </UContainer>
+                    v-for="tg in item.tags"
+                    :key="tg"
+                    class="rounded bg-elevated px-1.5 py-0.5 text-xs text-muted"
+                  >{{ tg }}</span>
+                </p>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 border-t border-default p-4">
+                <UButton
+                  label="Approve"
+                  icon="i-lucide-check"
+                  size="sm"
+                  :disabled="busy || item.status === 'approved'"
+                  @click="review(item, 'approve')"
+                />
+                <UButton
+                  label="Reject"
+                  icon="i-lucide-x"
+                  color="neutral"
+                  variant="outline"
+                  size="sm"
+                  :disabled="busy || item.status === 'rejected'"
+                  @click="review(item, 'reject')"
+                />
+                <UButton
+                  label="Delete"
+                  icon="i-lucide-trash-2"
+                  color="error"
+                  variant="ghost"
+                  size="sm"
+                  class="ms-auto"
+                  :disabled="busy"
+                  @click="review(item, 'delete')"
+                />
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================ USERS ============================ -->
+        <section v-else-if="tab === 'users' && isAdmin">
+          <div class="nb-card mb-8">
+            <div class="flex flex-1 flex-col gap-2 p-5">
+              <p class="font-semibold text-highlighted">
+                Create a user
+              </p>
+              <div class="grid gap-3 sm:grid-cols-4">
+                <input
+                  v-model="newUser.email"
+                  class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3 py-2 text-sm"
+                  type="email"
+                  placeholder="email"
+                >
+                <input
+                  v-model="newUser.name"
+                  class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3 py-2 text-sm"
+                  type="text"
+                  placeholder="name (optional)"
+                >
+                <select
+                  v-model="newUser.role"
+                  class="rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-2 py-1 text-sm"
+                >
+                  <option
+                    v-for="r in roles"
+                    :key="r"
+                    :value="r"
+                  >
+                    {{ r }}
+                  </option>
+                </select>
+                <UButton
+                  label="Create"
+                  icon="i-lucide-user-plus"
+                  :disabled="busy || !newUser.email"
+                  @click="createUser"
+                />
+              </div>
+
+              <!-- Shown once. There is no email sending on this site, so this is
+                 the only time the password is visible. -->
+              <div
+                v-if="created"
+                class="nb-card mt-4 space-y-2 p-4 shadow-[inset_5px_0_0_0_var(--color-brand-green)]"
+              >
+                <p class="font-semibold text-highlighted">
+                  Created {{ created.email }}
+                </p>
+                <p>
+                  Temporary password — copy it now, it is not stored and will not
+                  be shown again:
+                </p>
+                <code>{{ created.temporaryPassword }}</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[52rem] border-collapse text-sm">
+              <thead>
+                <tr>
+                  <th class="text-start">
+                    User
+                  </th>
+                  <th class="text-start">
+                    Role
+                  </th>
+                  <th class="text-end">
+                    Points
+                  </th>
+                  <th class="text-end">
+                    Lessons
+                  </th>
+                  <th class="text-end">
+                    Queue
+                  </th>
+                  <th class="text-end">
+                    Pro
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="u in users"
+                  :key="u.id"
+                >
+                  <td>
+                    <span class="font-medium text-highlighted">{{ u.name || '—' }}</span>
+                    <span class="block text-xs text-muted">{{ u.email }}</span>
+                  </td>
+                  <td>
+                    <select
+                      class="rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-2 py-1 text-sm"
+                      :value="u.role"
+                      :disabled="busy || u.isDemo || u.roleLocked"
+                      @change="setRole(u, ($event.target as HTMLSelectElement).value)"
+                    >
+                      <option
+                        v-for="r in roles"
+                        :key="r"
+                        :value="r"
+                      >
+                        {{ r }}
+                      </option>
+                    </select>
+                    <!-- Say why it is disabled. A dead control with no
+                       explanation reads as a bug. -->
+                    <span
+                      v-if="u.roleLocked"
+                      class="mt-1 block text-xs text-muted"
+                    >set by ADMIN_EMAILS</span>
+                  </td>
+                  <td class="tabular text-end">
+                    {{ u.points }}
+                  </td>
+                  <td class="tabular text-end">
+                    {{ u.lessonsDone }}
+                  </td>
+                  <td class="tabular text-end">
+                    {{ u.pendingSubmissions || '' }}
+                  </td>
+                  <td class="text-end">
+                    <UButton
+                      :label="u.pro ? 'Pro' : 'Free'"
+                      :color="u.pro ? 'primary' : 'neutral'"
+                      :variant="u.pro ? 'soft' : 'outline'"
+                      size="xs"
+                      :disabled="busy"
+                      @click="togglePro(u)"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
 </template>

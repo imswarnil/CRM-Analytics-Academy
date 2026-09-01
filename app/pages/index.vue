@@ -272,12 +272,13 @@ useJsonLd({
             class="rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
           />
 
-          <h1 class="mt-6 text-4xl font-bold tracking-tight text-highlighted sm:text-5xl">
+          <!-- The design's hero scale: 58px, solid leading, -0.03em. -->
+          <h1 class="mt-6 text-[2.625rem] leading-[1.02] font-bold tracking-[-0.03em] text-highlighted sm:text-[3.625rem]">
             {{ t('hero.titleLead') }}
             <span class="text-primary">{{ t('hero.titleAccent') }}</span>
           </h1>
 
-          <p class="mt-5 max-w-xl text-lg text-muted">
+          <p class="mt-5 max-w-xl text-[1.0625rem] leading-[1.7] font-medium text-toned">
             {{ t('hero.subtitle') }}
           </p>
 
@@ -424,7 +425,7 @@ useJsonLd({
               </span>
             </div>
 
-            <p class="mt-3 flex-1 text-sm text-muted">
+            <p class="mt-3 flex-1 text-[0.8125rem] leading-[1.55] font-medium text-muted">
               {{ m.desc }}
             </p>
 

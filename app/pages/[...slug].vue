@@ -198,7 +198,8 @@ useJsonLd(jsonLd)
       >
         {{ headline }}
       </p>
-      <h1 class="mt-1 text-3xl font-bold text-highlighted sm:text-4xl">
+      <!-- The design's player scale: a 32px title over the blue rule. -->
+      <h1 class="mt-1 text-[1.75rem] font-bold text-highlighted sm:text-[2rem]">
         {{ page.title }}
       </h1>
       <!-- The design system's underline accent: a short blue rule under
@@ -261,35 +262,19 @@ useJsonLd(jsonLd)
         v-if="page?.body?.toc?.links?.length"
         class="max-lg:hidden"
       >
-        <nav
-          class="sticky top-16"
-          :aria-label="toc?.title"
-        >
-          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-dimmed">
-            {{ toc?.title }}
-          </p>
-          <ul class="space-y-1 border-s border-default">
-            <template
-              v-for="link in page.body.toc.links"
-              :key="link.id"
-            >
-              <li>
-                <a
-                  class="-ms-px block border-s border-transparent ps-3 text-sm text-muted transition-colors hover:border-primary hover:text-primary"
-                  :href="`#${link.id}`"
-                >{{ link.text }}</a>
-              </li>
-              <li
-                v-for="child in link.children || []"
-                :key="child.id"
-              >
-                <a
-                  class="-ms-px block border-s border-transparent ps-6 text-sm text-dimmed transition-colors hover:border-primary hover:text-primary"
-                  :href="`#${child.id}`"
-                >{{ child.text }}</a>
-              </li>
-            </template>
-          </ul>
+        <!-- The stock Nuxt UI table of contents, dressed in the design's
+             display face and eyebrow style. -->
+        <div class="sticky top-20">
+          <UContentToc
+            :links="page.body.toc.links"
+            :title="toc?.title"
+            :ui="{
+              root: 'lg:pt-0',
+              container: 'p-0 sm:px-0',
+              title: 'font-display text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-muted',
+              link: 'text-[0.8125rem]'
+            }"
+          />
 
           <div
             v-if="tocBottomLinks.length"
@@ -305,7 +290,7 @@ useJsonLd(jsonLd)
               class="justify-start p-0"
             />
           </div>
-        </nav>
+        </div>
       </aside>
     </div>
 

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
-import { useEventListener } from '@vueuse/core'
 
 /**
- * The application shell: one persistent rail, one topbar, one scrolling pane.
+ * The site chrome, exactly as the design system draws it: one sticky top
+ * navbar on every page — logo left, pill links centre-right, the yellow
+ * call-to-action on the end — and the ink footer after the content.
  *
- * The rail changes what it holds rather than appearing twice. On a lesson it
- * is the curriculum with a way back out; everywhere else it is site
- * navigation. Two left rails on one screen — site nav beside course nav — is
- * the arrangement this avoids: it doubles the chrome and still leaves the
- * learner guessing which one moves them out of the lesson.
+ * There is no site-nav sidebar any more. The design gives a left pane to two
+ * screens only: the course player's curriculum (layouts/docs.vue) and the
+ * admin console (pages/admin.vue); each owns its pane itself. Below lg the
+ * pill row folds into a slide-over menu behind a hamburger.
  */
 const route = useRoute()
 const localePath = useLocalePath()
@@ -21,14 +21,8 @@ onMounted(fetchSession)
 
 // Loaded once here — the shell is on every page, which is what makes it the
 // right place for the single fetch.
-const { completed, points, load } = useProgress()
+const { load } = useProgress()
 watch(isSignedIn, ok => ok && load(), { immediate: true })
-
-const { lessons } = useCourse()
-const percentComplete = computed(() => {
-  const total = lessons.value.length
-  return total ? Math.round((completed.value.size / total) * 100) : 0
-})
 
 const { open: searchOpen } = useContentSearch()
 const colorMode = useColorMode()
@@ -37,7 +31,7 @@ const isDark = computed({
   set: v => (colorMode.preference = v ? 'dark' : 'light')
 })
 
-/** True on a lesson page — the rail shows the curriculum there. */
+/** True on a lesson page — the player owns that screen, so no footer. */
 function isLessonRoute(path: string) {
   const stripped = path.replace(new RegExp(`^/(${locales.value.map(l => l.code).join('|')})(?=/|$)`), '')
   const top = stripped.split('/').filter(Boolean)[0]
@@ -46,38 +40,25 @@ function isLessonRoute(path: string) {
 }
 const inCourse = computed(() => Boolean(navigation?.value?.length) && isLessonRoute(route.path))
 
-/**
- * The landing page is the one screen with no rail.
- *
- * A persistent navigation rail is right for an application — you are inside
- * something and need to move around it. It is wrong for the page whose entire
- * job is to explain the product to someone who has not signed up: it spends a
- * sixth of the viewport on links to places they have no reason to go yet, and
- * makes a marketing page look like a dashboard they are locked out of.
- */
-const isHome = computed(() => {
-  const codes = locales.value.map(l => l.code).join('|')
-  return /^\/?$/.test(route.path.replace(new RegExp(`^/(${codes})(?=/|$)`), ''))
-})
-
-const siteNav = computed(() => [
-  { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard'), auth: true },
+// The design's pill row: Courses, Showcase, Resources, Leaderboard, About.
+const navItems = computed(() => [
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/foundations') },
   { label: t('nav.showcase'), icon: 'i-lucide-chart-column-big', to: localePath('/showcase') },
-  { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
-  { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit'), auth: true },
+  { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
   { label: t('nav.about'), icon: 'i-lucide-info', to: localePath('/about') }
+])
+
+// Extra destinations for the mobile menu, where there is room to be complete.
+const menuExtras = computed(() => [
+  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets'), auth: false },
+  { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard'), auth: true },
+  { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit'), auth: true }
 ].filter(i => !i.auth || isSignedIn.value))
 
-const marketingNav = computed(() => [
-  { label: t('nav.curriculum'), to: localePath('/foundations') },
-  { label: t('nav.showcase'), to: localePath('/showcase') },
-  { label: t('nav.resources'), to: localePath('/resources') },
-  { label: t('nav.leaderboard'), to: localePath('/leaderboard') },
-  { label: t('nav.about'), to: localePath('/about') }
-])
+function isActive(to: string) {
+  return route.path === to || route.path.startsWith(`${to}/`)
+}
 
 const localeItems = computed(() => [
   locales.value.map(l => ({
@@ -94,39 +75,46 @@ const accountItems = computed(() => [[
   { label: t('nav.signOut'), icon: 'i-lucide-log-out', onSelect: () => signOut() }
 ]])
 
-/* --- Mobile drawer ------------------------------------------------------ */
-const railOpen = ref(false)
+/* --- Mobile menu --------------------------------------------------------- */
+const menuOpen = ref(false)
 watch(() => route.fullPath, () => {
-  railOpen.value = false
+  menuOpen.value = false
 })
-if (import.meta.client) {
-  useEventListener(document, 'keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Escape') railOpen.value = false
-  })
-}
 </script>
 
 <template>
-  <!-- Marketing shell: a top bar and a page that scrolls normally. -->
-  <div
-    v-if="isHome"
-    class="flex min-h-dvh flex-col bg-(--nb-page)"
-  >
-    <header class="sticky top-0 z-30 border-b-[3px] border-(--nb-ink) bg-(--nb-surface)/90 backdrop-blur">
-      <UContainer class="flex h-16 items-center gap-4">
-        <NuxtLink :to="localePath('/')">
-          <AppLogo class="h-7 w-auto" />
+  <div class="flex min-h-dvh flex-col bg-(--nb-page)">
+    <header class="sticky top-0 z-30 h-16 border-b-[3px] border-(--nb-ink) bg-(--nb-surface)/90 backdrop-blur">
+      <UContainer class="flex h-full items-center gap-3">
+        <NuxtLink
+          :to="localePath('/')"
+          aria-label="CRM Analytics Academy"
+        >
+          <AppLogo />
         </NuxtLink>
 
-        <nav class="ms-6 hidden items-center gap-1 lg:flex">
-          <UButton
-            v-for="item in marketingNav"
+        <!-- The pill row. Active is the solid blue pill of the design;
+             everything else stays quiet until hovered. -->
+        <nav
+          class="ms-4 hidden items-center gap-1 lg:flex"
+          :aria-label="t('nav.navigate')"
+        >
+          <NuxtLink
+            v-for="item in navItems"
             :key="item.to"
             :to="item.to"
-            :label="item.label"
-            color="neutral"
-            variant="ghost"
-          />
+            class="flex items-center gap-1.5 rounded-full px-4 py-2 text-[0.8125rem] transition-colors"
+            :class="isActive(item.to)
+              ? 'bg-primary font-semibold text-white'
+              : 'font-medium text-muted hover:bg-(--nb-subtle) hover:text-highlighted'"
+            :aria-current="isActive(item.to) ? 'page' : undefined"
+          >
+            <UIcon
+              :name="item.icon"
+              class="size-4 shrink-0"
+            />
+            {{ item.label }}
+          </NuxtLink>
         </nav>
 
         <div class="ms-auto flex items-center gap-1">
@@ -145,6 +133,109 @@ if (import.meta.client) {
               icon="i-lucide-languages"
               color="neutral"
               variant="ghost"
+              class="max-sm:hidden"
+              :aria-label="t('nav.chooseLanguage')"
+            />
+          </UDropdownMenu>
+          <ClientOnly>
+            <UButton
+              :icon="isDark ? 'i-lucide-moon' : 'i-lucide-sun'"
+              color="neutral"
+              variant="ghost"
+              role="switch"
+              :aria-checked="isDark"
+              class="max-sm:hidden"
+              :aria-label="t('nav.theme')"
+              @click="isDark = !isDark"
+            />
+            <template #fallback>
+              <div class="size-9 max-sm:hidden" />
+            </template>
+          </ClientOnly>
+
+          <div
+            class="mx-1 h-4.5 w-px bg-(--ui-border) max-lg:hidden"
+            aria-hidden="true"
+          />
+
+          <ClientOnly>
+            <UDropdownMenu
+              v-if="isSignedIn"
+              :items="accountItems"
+              :content="{ align: 'end' }"
+              class="max-lg:hidden"
+            >
+              <UButton
+                icon="i-lucide-circle-user"
+                color="neutral"
+                variant="ghost"
+                :aria-label="t('nav.account')"
+              />
+            </UDropdownMenu>
+          </ClientOnly>
+
+          <ClientOnly>
+            <!-- The design system's one loud button: yellow, ink text, ink
+                 line. Reserved for the primary action in the chrome. -->
+            <UButton
+              :to="localePath(isSignedIn ? '/dashboard' : '/sign-in')"
+              :label="isSignedIn ? t('nav.dashboard') : t('nav.signIn')"
+              class="bg-brand-yellow text-ink hover:bg-brand-yellow/85 max-sm:hidden"
+            />
+            <template #fallback>
+              <div class="h-9 w-24 max-sm:hidden" />
+            </template>
+          </ClientOnly>
+
+          <UButton
+            icon="i-lucide-menu"
+            color="neutral"
+            variant="ghost"
+            class="lg:hidden"
+            :aria-label="t('nav.menu')"
+            @click="menuOpen = true"
+          />
+        </div>
+      </UContainer>
+    </header>
+
+    <!-- Mobile menu: the same destinations as the pill row plus the ones the
+         row has no room for, one full-width tap target each. -->
+    <USlideover
+      v-model:open="menuOpen"
+      side="right"
+      :title="t('nav.navigate')"
+      :ui="{ content: 'max-w-72' }"
+    >
+      <template #body>
+        <nav
+          class="flex flex-col gap-1"
+          :aria-label="t('nav.navigate')"
+        >
+          <UButton
+            v-for="item in [...navItems.map(i => ({ ...i, auth: false })), ...menuExtras]"
+            :key="item.to"
+            :to="item.to"
+            :icon="item.icon"
+            :label="item.label"
+            :color="isActive(item.to) ? 'primary' : 'neutral'"
+            :variant="isActive(item.to) ? 'solid' : 'ghost'"
+            block
+            class="justify-start"
+          />
+        </nav>
+
+        <USeparator class="my-4" />
+
+        <div class="flex items-center gap-1">
+          <UDropdownMenu
+            :items="localeItems"
+            :content="{ align: 'start' }"
+          >
+            <UButton
+              icon="i-lucide-languages"
+              color="neutral"
+              variant="ghost"
               :aria-label="t('nav.chooseLanguage')"
             />
           </UDropdownMenu>
@@ -158,216 +249,46 @@ if (import.meta.client) {
               :aria-label="t('nav.theme')"
               @click="isDark = !isDark"
             />
-            <template #fallback>
-              <div class="size-9" />
-            </template>
-          </ClientOnly>
-          <ClientOnly>
-            <!-- The design system's one loud button: yellow, ink text, ink
-                 line. Reserved for the primary action in the chrome. -->
-            <UButton
-              :to="localePath(isSignedIn ? '/dashboard' : '/sign-in')"
-              :label="isSignedIn ? t('nav.dashboard') : t('nav.signIn')"
-              :icon="isSignedIn ? 'i-lucide-layout-dashboard' : 'i-lucide-log-in'"
-              class="bg-brand-yellow text-ink hover:bg-brand-yellow/85 disabled:bg-brand-yellow aria-disabled:bg-brand-yellow"
-            />
-            <template #fallback>
-              <div class="h-9 w-24" />
-            </template>
           </ClientOnly>
         </div>
-      </UContainer>
-    </header>
 
-    <main class="flex-1">
-      <slot />
-    </main>
-  </div>
-
-  <!-- Application shell: rail, topbar, one scrolling pane. -->
-  <div
-    v-else
-    class="shell bg-(--nb-page)"
-    :data-rail="railOpen ? 'open' : undefined"
-  >
-    <!-- ------------------------------------------------------------ rail -->
-    <nav
-      class="shell__rail border-e-[3px] border-(--nb-ink) bg-(--nb-surface)"
-      :aria-label="t('nav.navigate')"
-    >
-      <NuxtLink
-        :to="localePath('/')"
-        class="flex h-(--shell-topbar) shrink-0 items-center px-4"
-      >
-        <AppLogo class="h-6 w-auto" />
-      </NuxtLink>
-
-      <div class="shell__railbody px-2 py-2">
-        <!-- On a lesson the rail IS the curriculum, with one control out. -->
-        <template v-if="inCourse">
-          <UButton
-            :to="localePath('/dashboard')"
-            icon="i-lucide-arrow-left"
-            :label="t('nav.dashboard')"
-            color="neutral"
-            variant="ghost"
-            size="sm"
-            block
-            class="mb-2 justify-start"
-          />
-          <CourseRail
-            v-if="navigation?.length"
-            :items="navigation"
-          />
-        </template>
-
-        <template v-else>
-          <p class="px-2 pb-1 pt-3 text-[0.6875rem] font-semibold uppercase tracking-wider text-dimmed">
-            {{ t('nav.navigate') }}
-          </p>
-          <UButton
-            v-for="item in siteNav"
-            :key="item.to"
-            :to="item.to"
-            :icon="item.icon"
-            :label="item.label"
-            :color="route.path === item.to ? 'primary' : 'neutral'"
-            :variant="route.path === item.to ? 'soft' : 'ghost'"
-            size="md"
-            block
-            class="justify-start"
-          />
-        </template>
-      </div>
-
-      <div class="shrink-0 border-t border-default p-2">
         <ClientOnly>
-          <NuxtLink
-            v-if="isSignedIn"
-            :to="localePath('/dashboard')"
-            class="block rounded-md px-2 py-2 transition-colors hover:bg-elevated"
-          >
-            <span class="flex items-center gap-2">
+          <UButton
+            v-if="!isSignedIn"
+            :to="localePath('/sign-in')"
+            :label="t('nav.signIn')"
+            icon="i-lucide-log-in"
+            block
+            class="mt-4 bg-brand-yellow text-ink hover:bg-brand-yellow/85"
+          />
+          <template v-else>
+            <div class="mt-4 flex items-center gap-2 px-1">
               <UAvatar
                 :alt="user?.name || user?.email || '?'"
                 size="2xs"
               />
               <span class="min-w-0 flex-1 truncate text-sm text-highlighted">{{ user?.name || user?.email }}</span>
-              <span class="tabular text-xs font-semibold text-primary">{{ points }}</span>
-            </span>
-            <!-- Course progress under the name: the one number a learner
-                 wants without navigating, and the affordance that the
-                 dashboard exists. -->
-            <UProgress
-              :model-value="percentComplete"
-              :max="100"
-              size="xs"
-              class="mt-2"
-              :aria-label="t('course.courseProgress')"
-            />
-          </NuxtLink>
-
-          <UButton
-            v-else
-            :to="localePath('/sign-in')"
-            :label="t('nav.signIn')"
-            icon="i-lucide-log-in"
-            block
-            size="sm"
-          />
-
-          <!-- Reserves the block's height during SSR so the rail foot does
-               not jump once the session resolves. -->
-          <template #fallback>
-            <div class="h-8" />
-          </template>
-        </ClientOnly>
-      </div>
-    </nav>
-
-    <!-- Scrim, mobile only: tapping outside the drawer closes it. -->
-    <div
-      v-if="railOpen"
-      class="fixed inset-0 z-40 bg-black/40 lg:hidden"
-      @click="railOpen = false"
-    />
-
-    <!-- ---------------------------------------------------------- topbar -->
-    <header class="shell__topbar flex items-center gap-2 border-b-[3px] border-(--nb-ink) bg-(--nb-surface) px-3">
-      <UButton
-        icon="i-lucide-menu"
-        color="neutral"
-        variant="ghost"
-        size="sm"
-        class="lg:hidden"
-        :aria-label="t('nav.menu')"
-        @click="railOpen = !railOpen"
-      />
-
-      <p class="min-w-0 truncate font-semibold text-highlighted">
-        <slot name="title" />
-      </p>
-
-      <div class="ms-auto flex items-center gap-1">
-        <UButton
-          icon="i-lucide-search"
-          color="neutral"
-          variant="ghost"
-          size="md"
-          :aria-label="t('nav.search')"
-          @click="searchOpen = true"
-        />
-
-        <UDropdownMenu
-          :items="localeItems"
-          :content="{ align: 'end' }"
-        >
-          <UButton
-            icon="i-lucide-languages"
-            color="neutral"
-            variant="ghost"
-            size="md"
-            :aria-label="t('nav.chooseLanguage')"
-          />
-        </UDropdownMenu>
-
-        <ClientOnly>
-          <UButton
-            :icon="isDark ? 'i-lucide-moon' : 'i-lucide-sun'"
-            color="neutral"
-            variant="ghost"
-            size="md"
-            role="switch"
-            :aria-checked="isDark"
-            :aria-label="t('nav.theme')"
-            @click="isDark = !isDark"
-          />
-          <template #fallback>
-            <div class="size-8" />
-          </template>
-        </ClientOnly>
-
-        <ClientOnly>
-          <UDropdownMenu
-            v-if="isSignedIn"
-            :items="accountItems"
-            :content="{ align: 'end' }"
-          >
+            </div>
             <UButton
-              icon="i-lucide-circle-user"
+              :label="t('nav.signOut')"
+              icon="i-lucide-log-out"
               color="neutral"
               variant="ghost"
-              size="md"
-              :aria-label="t('nav.account')"
+              block
+              class="mt-2 justify-start"
+              @click="signOut()"
             />
-          </UDropdownMenu>
+          </template>
         </ClientOnly>
-      </div>
-    </header>
+      </template>
+    </USlideover>
 
-    <!-- ------------------------------------------------------------ main -->
-    <main class="shell__main">
+    <main class="flex-1">
       <slot />
     </main>
+
+    <!-- The player owns the lesson screen edge to edge; every other page
+         ends on the ink footer, per the design. -->
+    <AppFooter v-if="!inCourse" />
   </div>
 </template>

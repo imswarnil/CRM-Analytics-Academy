@@ -11,8 +11,7 @@ layers/theme/
 │   └── assets/css/
 │       ├── index.css       the one entry
 │       ├── fonts.css       Space Grotesk / Outfit / JetBrains Mono @font-face
-│       ├── tokens.css      palette, radius, type, shell dimensions, nb-* vocabulary
-│       ├── shell.css       the app-shell grid
+│       ├── tokens.css      palette, radius, type, nb-* vocabulary
 │       └── decor.css       landing-page backdrops and motion
 └── README.md
 ```
@@ -46,8 +45,7 @@ and `decor.css` (backdrops and keyframes).
 | Changing… | Goes in |
 | --- | --- |
 | primary colour, neutral, component defaults | `app/app.config.ts` |
-| palette, radius, type scale, shell dimensions, nb-* shapes | `tokens.css` |
-| the rail/topbar/main grid | `shell.css` |
+| palette, radius, type scale, nb-* shapes | `tokens.css` |
 | a hero backdrop or animation | `decor.css` |
 | the typeface | `fonts.css` + `public/fonts/` |
 
@@ -63,20 +61,14 @@ green = completion, purple = dashboards, sky = collaboration). Emerald still
 carries completion in components — "you finished this" has to be legible at a
 glance in a rail full of grey rows.
 
-## The shell
+## The chrome
 
-`.shell` is a fixed grid: rail, topbar, and one scrolling pane. The page itself
-never scrolls.
-
-That is the whole point. A docs site pretending to be a course ends up with two
-scrollbars — an outer one that moves the chrome and an inner one that moves the
-curriculum — and no way to tell which you are about to use. Here `.shell__main`
-is the only scroll container, and `.shell__railbody` scrolls independently
-inside a pane that does not move.
-
-The rail changes what it holds rather than appearing twice: on a lesson it is
-the curriculum stepper with one control back out, everywhere else it is site
-navigation.
+There is no app-shell grid any more — the design system's chrome is a sticky
+top navbar on every page (`AppShell.vue`), and the page scrolls normally
+under it. The two screens the design gives a left pane to own that pane
+themselves: the course player's curriculum lives in `layouts/docs.vue` (a
+sticky, self-scrolling column that becomes a slide-over below lg) and the
+admin console draws its own ink sidebar in `pages/admin.vue`.
 
 ## Verifying a change
 

@@ -2,20 +2,18 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 
 /**
- * The curriculum, as a stepper.
+ * The curriculum pane, drawn exactly as design page 02 draws it:
  *
- * One line runs down the column and every lesson's marker sits on it, so the
- * rail reads as a single path with your position on it — which is what a
- * course stepper is for, and what a plain list of links is not.
+ * - a progress header — "PROGRESS" in the display face, the count in blue,
+ *   the bar under them;
+ * - one block per section, headed by its coloured icon tile, its title and
+ *   its done-count, collapsible on the chevron;
+ * - inside an open section, one row per lesson: a green check square once
+ *   finished, the solid blue row with a white play square for where you
+ *   are, a numbered outline square for everything still ahead.
  *
- * Flat, with module headings, rather than a collapsible tree. A stepper whose
- * steps are hidden inside accordions cannot show a path: you would only ever
- * see the module you were already in, which is the one thing you did not need
- * telling.
- *
- * Because it is flat and the course is 49 lessons long, the current row is
- * scrolled into view on mount — otherwise a learner on lesson 30 lands
- * looking at lesson 1.
+ * The section holding the current lesson opens itself; the rest start
+ * collapsed, the way the design shows them.
  */
 const props = defineProps<{
   items: ContentNavigationItem[]
@@ -27,15 +25,26 @@ const { isDone } = useProgress()
 const { position, total, percent } = useCourse()
 const { t } = useI18n()
 
+// The design system's section accents and icons, in curriculum order —
+// the same sequence the homepage cards use.
+const accents = [
+  { tile: 'bg-brand-yellow text-ink', icon: 'i-lucide-compass' },
+  { tile: 'bg-brand-pink text-white', icon: 'i-lucide-settings-2' },
+  { tile: 'bg-primary text-white', icon: 'i-lucide-database' },
+  { tile: 'bg-brand-green text-ink', icon: 'i-lucide-search' },
+  { tile: 'bg-brand-purple text-white', icon: 'i-lucide-layout-dashboard' },
+  { tile: 'bg-brand-sky text-ink', icon: 'i-lucide-users' }
+]
+
 function isCurrent(path?: string) {
   if (!path) return false
   return route.path === localePath(path) || route.path === path
 }
 
-/** Modules flattened to [heading, ...lessons], numbered across the course. */
+/** Modules flattened with lessons numbered across the course. */
 const sections = computed(() => {
   let n = 0
-  return props.items.map((mod) => {
+  return props.items.map((mod, i) => {
     const children = (mod.children ?? []) as ContentNavigationItem[]
     const lessons = (children.length ? children : [mod]).map(lesson => ({
       path: lesson.path as string,
@@ -43,31 +52,47 @@ const sections = computed(() => {
       index: ++n
     }))
     return {
+      key: String(mod.path ?? i),
       title: String(mod.title ?? ''),
+      accent: accents[i % accents.length]!,
       lessons,
       done: lessons.filter(l => isDone(l.path)).length,
-      total: lessons.length
+      total: lessons.length,
+      hasCurrent: lessons.some(l => isCurrent(l.path))
     }
   })
 })
 
+/* Collapse state. The current section opens itself; a chevron click is an
+   explicit choice that then wins over the automatic behaviour. */
+const toggled = ref<Record<string, boolean>>({})
+function isOpen(s: { key: string, hasCurrent: boolean }) {
+  return toggled.value[s.key] ?? s.hasCurrent
+}
+function toggle(s: { key: string, hasCurrent: boolean }) {
+  toggled.value[s.key] = !isOpen(s)
+}
+watch(() => route.path, () => {
+  // A new lesson can live in a new section: clear explicit choices so the
+  // pane follows the learner again.
+  toggled.value = {}
+})
+
 const current = ref<HTMLElement | null>(null)
 onMounted(() => {
-  // `block: 'center'` rather than scrollIntoView's default 'nearest', which
-  // leaves the current lesson flush against an edge of the pane with no
-  // visible context on one side.
   current.value?.scrollIntoView({ block: 'center' })
 })
 </script>
 
 <template>
   <div>
-    <div class="px-2 pb-3">
+    <!-- Progress header -->
+    <div class="border-b border-default px-4 py-3.5">
       <div class="mb-1.5 flex items-baseline justify-between">
-        <span class="text-xs font-semibold uppercase tracking-wide text-dimmed">
+        <span class="font-display text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-muted">
           {{ t('course.curriculum') }}
         </span>
-        <span class="tabular text-xs text-muted">{{ position }} / {{ total }}</span>
+        <span class="tabular font-display text-[0.8125rem] font-bold text-primary">{{ position }}/{{ total }}</span>
       </div>
       <UProgress
         :model-value="percent"
@@ -78,59 +103,85 @@ onMounted(() => {
     </div>
 
     <nav :aria-label="t('course.curriculum')">
-      <template
-        v-for="section in sections"
-        :key="section.title"
+      <div
+        v-for="s in sections"
+        :key="s.key"
+        class="border-b border-default"
       >
-        <p class="flex items-baseline gap-2 px-2 pb-1 pt-4 text-xs font-semibold uppercase tracking-wide text-dimmed">
-          <span class="min-w-0 truncate">{{ section.title }}</span>
-          <span class="tabular ms-auto shrink-0">{{ section.done }}/{{ section.total }}</span>
-        </p>
-
-        <NuxtLink
-          v-for="lesson in section.lessons"
-          :key="lesson.path"
-          :ref="(el) => { if (isCurrent(lesson.path)) current = (el as { $el?: HTMLElement })?.$el ?? (el as HTMLElement | null) }"
-          :to="localePath(lesson.path)"
-          :aria-current="isCurrent(lesson.path) ? 'page' : undefined"
-          class="group relative flex items-center gap-2.5 rounded-lg py-1.5 pe-2 ps-2 text-sm transition-colors"
-          :class="isCurrent(lesson.path)
-            ? 'bg-primary font-semibold text-white'
-            : 'text-muted hover:bg-elevated hover:text-highlighted'"
+        <!-- Section header: coloured tile, title, done-count, chevron. -->
+        <button
+          type="button"
+          class="flex w-full items-center gap-2.5 px-4 py-3 text-start"
+          :aria-expanded="isOpen(s)"
+          @click="toggle(s)"
         >
-          <!-- The connecting line. Drawn per-row behind the marker rather than
-               as one element, so it cannot fall out of step with the list when
-               a module is added. -->
           <span
-            class="absolute inset-y-0 start-[1.25rem] w-px bg-accented"
-            aria-hidden="true"
-          />
-
-          <!-- A tick once finished, the lesson's number until then, so the
-               column reads as a sequence rather than identical bullets. -->
-          <!-- Done is green, per the design system: completion is the one
-               state that earns its own colour in a rail of grey rows. -->
-          <span
-            class="relative z-10 flex size-6 shrink-0 items-center justify-center rounded-md border-2 text-[0.6875rem] tabular transition-colors"
-            :class="isDone(lesson.path)
-              ? 'border-(--nb-ink) bg-brand-green text-ink'
-              : isCurrent(lesson.path)
-                ? 'border-white bg-white text-primary'
-                : 'border-default bg-default text-dimmed'"
+            class="nb-tile size-8 border-2"
+            :class="s.accent.tile"
           >
             <UIcon
-              v-if="isDone(lesson.path)"
-              name="i-lucide-check"
-              class="size-3.5"
+              :name="s.accent.icon"
+              class="size-4"
             />
-            <template v-else>{{ lesson.index }}</template>
           </span>
+          <span class="min-w-0 flex-1">
+            <span class="font-display block truncate text-[0.8125rem] font-bold text-highlighted">{{ s.title }}</span>
+            <span class="block text-[0.625rem] text-muted">{{ t('course.moduleProgress', { done: s.done, total: s.total }) }}</span>
+          </span>
+          <UIcon
+            :name="isOpen(s) ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
+            class="size-3.5 shrink-0 text-muted"
+          />
+        </button>
 
-          <span class="min-w-0 flex-1 truncate">{{ lesson.title }}</span>
-        </NuxtLink>
-      </template>
+        <div
+          v-show="isOpen(s)"
+          class="px-2.5 pb-2.5"
+        >
+          <NuxtLink
+            v-for="lesson in s.lessons"
+            :key="lesson.path"
+            :ref="(el) => { if (isCurrent(lesson.path)) current = (el as { $el?: HTMLElement })?.$el ?? (el as HTMLElement | null) }"
+            :to="localePath(lesson.path)"
+            :aria-current="isCurrent(lesson.path) ? 'page' : undefined"
+            class="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs transition-colors"
+            :class="isCurrent(lesson.path)
+              ? 'bg-primary font-bold text-white'
+              : isDone(lesson.path)
+                ? 'font-medium text-emerald-600 hover:bg-elevated dark:text-brand-green'
+                : 'font-medium text-muted hover:bg-elevated hover:text-highlighted'"
+          >
+            <!-- Green check once finished, white play square for where you
+                 are, the lesson's number until then. -->
+            <span
+              v-if="isDone(lesson.path)"
+              class="flex size-[1.125rem] shrink-0 items-center justify-center rounded border-2 border-(--nb-ink) bg-brand-green"
+            >
+              <UIcon
+                name="i-lucide-check"
+                class="size-2.5 text-white"
+              />
+            </span>
+            <span
+              v-else-if="isCurrent(lesson.path)"
+              class="flex size-[1.125rem] shrink-0 items-center justify-center rounded bg-white"
+            >
+              <UIcon
+                name="i-lucide-play"
+                class="size-2.5 text-primary"
+              />
+            </span>
+            <span
+              v-else
+              class="tabular flex size-[1.125rem] shrink-0 items-center justify-center rounded border-[1.5px] border-default text-[0.5625rem] font-bold text-muted"
+            >{{ lesson.index }}</span>
+
+            <span class="min-w-0 flex-1 truncate">{{ lesson.title }}</span>
+          </NuxtLink>
+        </div>
+      </div>
     </nav>
 
-    <SponsorCard class="mt-4" />
+    <SponsorCard class="mx-3 my-4" />
   </div>
 </template>

@@ -127,16 +127,13 @@ provide('navigation', navigation)
   <UApp>
     <NuxtLoadingIndicator />
 
-    <!-- One shell for every page. The old AppHeader/UMain/AppFooter stack is
-         gone: the site is an application now, so the chrome does not scroll
-         away and the footer lives inside the content pane rather than after
-         a page that never ends. -->
+    <!-- One shell for every page: the design system's sticky top navbar,
+         the page, then the ink footer (which the shell itself renders, and
+         omits on lesson screens where the player owns the viewport). -->
     <AppShell>
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
-
-      <AppFooter />
     </AppShell>
 
     <ClientOnly>
