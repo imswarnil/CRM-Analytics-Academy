@@ -1,0 +1,24 @@
+/* The site's only stylesheet entry.
+   ==========================================================================
+   Registered by layers/theme/nuxt.config.ts, so nothing in app/ imports it.
+
+   The whole visual system is Nuxt UI plus four small files. An earlier
+   version of this site vendored a 1.3 MB external design system and wrote its
+   markup against a second set of component classes; every screen then had to
+   decide which vocabulary it was speaking. This does not have that problem
+   because there is only one vocabulary. */
+
+@import "./fonts.css";
+
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@import "./tokens.css";
+@import "./shell.css";
+@import "./decor.css";
+
+/* Lesson markdown carries utility classes of its own, and Tailwind only emits
+   a class it has seen. Nuxt registers app/ automatically; content/ sits
+   outside the module graph, so it has to be named. Five levels up: this file
+   is layers/theme/app/assets/css/. */
+@source "../../../../../content/**/*";
