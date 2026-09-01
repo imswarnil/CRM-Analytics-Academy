@@ -24,7 +24,7 @@ const doneCount = computed(() => completed.value.size)
 <template>
   <div
     v-if="current"
-    class="sticky top-0 z-10 border-b border-default bg-default/85 backdrop-blur"
+    class="sticky top-0 z-10 border-b-2 border-(--nb-ink) bg-(--nb-surface)/90 backdrop-blur"
   >
     <div class="flex h-12 items-center gap-3 px-4 sm:gap-4 sm:px-6">
       <p class="hidden min-w-0 max-w-56 truncate text-sm font-medium text-highlighted sm:block">
@@ -79,8 +79,6 @@ const doneCount = computed(() => completed.value.size)
           :title="next?.title"
           trailing-icon="i-lucide-chevron-right"
           :label="next ? t('course.next') : t('course.finish')"
-          color="neutral"
-          variant="subtle"
           size="sm"
         />
       </div>

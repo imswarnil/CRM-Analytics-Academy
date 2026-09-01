@@ -1,9 +1,12 @@
-Copyright 2022 The Figtree Project Authors (https://github.com/erikdkennedy/figtree)
+The typefaces shipped in this directory are all licensed under the
+SIL Open Font License, Version 1.1 (full text below):
 
-This Font Software is licensed under the SIL Open Font License, Version 1.1.
-This license is copied below, and is also available with a FAQ at:
-http://scripts.sil.org/OFL
-
+- Space Grotesk — Copyright 2020 The Space Grotesk Project Authors
+  (https://github.com/floriankarsten/space-grotesk)
+- Outfit — Copyright 2021 The Outfit Project Authors
+  (https://github.com/Outfitio/Outfit-Fonts)
+- JetBrains Mono — Copyright 2020 The JetBrains Mono Project Authors
+  (https://github.com/JetBrains/JetBrainsMono)
 
 -----------------------------------------------------------
 SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007

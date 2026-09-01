@@ -39,6 +39,21 @@ const howPoints = computed(() => [
 function rankClass(rank: number) {
   return rank <= 3 ? 'text-primary font-bold' : 'text-muted'
 }
+
+// The design system's podium: the top three as cards, champion in the middle
+// on the heavier frame, gold/silver/bronze medal circles.
+const podium = computed(() => entries.value.slice(0, 3))
+const podiumOrder = computed(() => {
+  const [first, second, third] = podium.value
+  return [second, first, third].filter(e => e !== undefined)
+})
+const rest = computed(() => entries.value.slice(podium.value.length))
+
+const medal: Record<number, string> = {
+  1: 'bg-brand-yellow text-ink',
+  2: 'bg-[#C0C0C0] text-white',
+  3: 'bg-[#CD7F32] text-white'
+}
 </script>
 
 <template>
@@ -57,42 +72,75 @@ function rankClass(rank: number) {
 
     <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
       <div>
+        <!-- The podium. Champion in the middle on the heavier frame, the way
+             the design draws it; below sm they stack in rank order. -->
+        <div
+          v-if="podium.length === 3"
+          class="mb-8 flex flex-col justify-center gap-4 sm:flex-row sm:items-end"
+        >
+          <div
+            v-for="e in podiumOrder"
+            :key="e!.rank"
+            class="text-center"
+            :class="e!.rank === 1 ? 'nb-frame w-full rounded-2xl p-7 sm:w-56 sm:order-none order-first' : 'nb-card w-full p-5 sm:w-48'"
+          >
+            <span
+              class="font-display mx-auto mb-2.5 flex items-center justify-center rounded-full border-2 border-(--nb-ink) font-bold"
+              :class="[medal[e!.rank], e!.rank === 1 ? 'size-14 text-xl' : 'size-12 text-lg']"
+            >{{ e!.rank }}</span>
+            <p
+              class="font-display truncate font-bold text-highlighted"
+              :class="e!.rank === 1 ? 'text-lg' : 'text-[0.9375rem]'"
+            >
+              {{ e!.name }}
+            </p>
+            <p class="mt-0.5 text-xs text-muted">
+              {{ e!.points }} {{ t('leaderboard.points').toLowerCase() }} · {{ e!.lessonsDone }} {{ t('leaderboard.lessons').toLowerCase() }}
+            </p>
+            <span
+              v-if="e!.rank === 1"
+              class="nb-tag mt-2 inline-block bg-brand-yellow px-3 py-1 text-[0.625rem] text-ink"
+            >🏆 {{ t('leaderboard.champion') }}</span>
+          </div>
+        </div>
+
         <!-- Horizontal scroll on the table itself, not the page: a five-column
              table on a phone otherwise makes the whole document scroll
              sideways, including the header above it. -->
-        <div class="overflow-x-auto">
+        <div class="nb-card overflow-x-auto">
           <table class="w-full min-w-[34rem] border-collapse text-sm">
             <thead>
-              <tr>
-                <th class="w-12 border-b border-default pb-2 text-start font-semibold text-dimmed">
+              <tr class="bg-(--nb-subtle)">
+                <th class="font-display w-14 border-b-2 border-(--nb-ink) px-4 py-2.5 text-start text-[0.625rem] font-bold tracking-[0.08em] text-muted uppercase">
                   #
                 </th>
-                <th class="border-b border-default pb-2 text-start font-semibold text-dimmed">
+                <th class="font-display border-b-2 border-(--nb-ink) py-2.5 text-start text-[0.625rem] font-bold tracking-[0.08em] text-muted uppercase">
                   {{ t('leaderboard.learner') }}
                 </th>
-                <th class="border-b border-default pb-2 text-end font-semibold text-dimmed">
+                <th class="font-display border-b-2 border-(--nb-ink) py-2.5 pe-4 text-end text-[0.625rem] font-bold tracking-[0.08em] text-muted uppercase">
                   {{ t('leaderboard.points') }}
                 </th>
-                <th class="border-b border-default pb-2 text-end font-semibold text-dimmed max-sm:hidden">
+                <th class="font-display border-b-2 border-(--nb-ink) py-2.5 pe-4 text-end text-[0.625rem] font-bold tracking-[0.08em] text-muted uppercase max-sm:hidden">
                   {{ t('leaderboard.lessons') }}
                 </th>
-                <th class="border-b border-default pb-2 text-end font-semibold text-dimmed max-sm:hidden">
+                <th class="font-display border-b-2 border-(--nb-ink) py-2.5 pe-4 text-end text-[0.625rem] font-bold tracking-[0.08em] text-muted uppercase max-sm:hidden">
                   {{ t('leaderboard.contributions') }}
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr
-                v-for="e in entries"
+                v-for="e in (podium.length === 3 ? rest : entries)"
                 :key="e.rank"
+                class="border-t border-default first:border-t-0"
               >
                 <td
-                  class="border-t border-default py-2"
+                  class="font-display px-4 py-2.5 font-bold"
                   :class="rankClass(e.rank)"
                 >
                   {{ e.rank }}
                 </td>
-                <td class="border-t border-default py-2">
+                <td class="py-2.5">
                   <span class="flex items-center gap-2">
                     <img
                       v-if="e.image"
@@ -105,19 +153,19 @@ function rankClass(rank: number) {
                     >
                     <span
                       v-else
-                      class="flex size-6 items-center justify-center rounded-full bg-elevated text-xs font-semibold"
+                      class="flex size-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-white"
                       aria-hidden="true"
                     >{{ e.name.slice(0, 1).toUpperCase() }}</span>
                     <span class="min-w-0 truncate font-medium text-highlighted">{{ e.name }}</span>
                   </span>
                 </td>
-                <td class="tabular border-t border-default py-2 text-end font-semibold text-highlighted">
+                <td class="tabular py-2.5 pe-4 text-end font-semibold text-highlighted">
                   {{ e.points }}
                 </td>
-                <td class="tabular border-t border-default py-2 text-end max-sm:hidden">
+                <td class="tabular py-2.5 pe-4 text-end max-sm:hidden">
                   {{ e.lessonsDone }}
                 </td>
-                <td class="tabular border-t border-default py-2 text-end max-sm:hidden">
+                <td class="tabular py-2.5 pe-4 text-end max-sm:hidden">
                   {{ e.contributions }}
                 </td>
               </tr>
@@ -140,7 +188,7 @@ function rankClass(rank: number) {
       </div>
 
       <aside class="space-y-6">
-        <div class="rounded-md border border-default">
+        <div class="nb-card">
           <div class="p-4">
             <p class="text-xs font-semibold uppercase tracking-wide text-dimmed">
               {{ t('leaderboard.howKicker') }}

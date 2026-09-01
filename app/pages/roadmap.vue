@@ -55,15 +55,19 @@ const columns = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
+    <section class="relative overflow-hidden border-b-[3px] border-(--nb-ink) bg-(--nb-hero)">
+      <div
+        class="absolute -top-20 -right-20 size-56 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute -bottom-24 -left-24 size-64 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
+        aria-hidden="true"
+      />
       <UContainer class="relative py-14 text-center sm:py-20">
         <UBadge
-          color="primary"
-          variant="subtle"
           size="lg"
-          class="mb-6 rounded-full"
+          class="mb-6 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
         >
           <UIcon
             name="i-lucide-map"
@@ -139,7 +143,7 @@ const columns = [
           <div
             v-for="col in columns"
             :key="col.key"
-            class="rounded-2xl border border-default bg-elevated/30 p-6"
+            class="nb-card p-6"
           >
             <h3 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
               <span
@@ -158,7 +162,7 @@ const columns = [
               <li
                 v-for="item in col.items"
                 :key="item"
-                class="flex items-start gap-2.5 rounded-xl border border-default/60 bg-default/50 p-3 text-sm text-toned"
+                class="flex items-start gap-2.5 rounded-xl border-2 border-(--nb-ink) bg-(--nb-surface) p-3 text-sm text-toned"
               >
                 <UIcon
                   name="i-lucide-circle-dot"

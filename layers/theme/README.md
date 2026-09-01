@@ -10,12 +10,19 @@ layers/theme/
 │   ├── app.config.ts       the Nuxt UI theme — colours, a few slot tweaks
 │   └── assets/css/
 │       ├── index.css       the one entry
-│       ├── fonts.css       Figtree @font-face
-│       ├── tokens.css      radius, type, shell dimensions
+│       ├── fonts.css       Space Grotesk / Outfit / JetBrains Mono @font-face
+│       ├── tokens.css      palette, radius, type, shell dimensions, nb-* vocabulary
 │       ├── shell.css       the app-shell grid
 │       └── decor.css       landing-page backdrops and motion
 └── README.md
 ```
+
+The look is the Academy **"Neo Brutal" design system** (the claude.ai/design
+project "CRM Analytics Academy — All Pages"): Salesforce blue on near-white
+pages, an ink line (`--nb-ink`) around anything that matters, one loud yellow
+for the primary call to action, and four candy accents with one job each.
+`tokens.css` carries all of it; the small `nb-card` / `nb-frame` / `nb-tile` /
+`nb-tag` / `nb-pill` classes are the five shapes every screen is built from.
 
 ## One vocabulary
 
@@ -39,20 +46,22 @@ and `decor.css` (backdrops and keyframes).
 | Changing… | Goes in |
 | --- | --- |
 | primary colour, neutral, component defaults | `app/app.config.ts` |
-| radius, type scale, shell dimensions | `tokens.css` |
+| palette, radius, type scale, shell dimensions, nb-* shapes | `tokens.css` |
 | the rail/topbar/main grid | `shell.css` |
 | a hero backdrop or animation | `decor.css` |
 | the typeface | `fonts.css` + `public/fonts/` |
 
-## The two colours
+## The colours
 
-`indigo` for primary, `emerald` for success and progress.
+`salesforce` (a custom ramp with `#0176D3` at 500) for primary, `emerald` for
+success and progress.
 
-Indigo reads as instructional rather than corporate, and is deliberately **not**
-Salesforce blue (`#0176D3`): a site *about* a Salesforce product should not
-dress as the product. Emerald carries completion — on a learning platform that
-is the one thing that earns a second colour, because "you finished this" has to
-be legible at a glance in a rail full of grey rows.
+The design system decided the old "don't dress as the product" stance the other
+way: this is an analytics site and it now wears the domain's own blue, kept
+honest by the ink outlines and the candy accents (yellow = CTA, pink = flags,
+green = completion, purple = dashboards, sky = collaboration). Emerald still
+carries completion in components — "you finished this" has to be legible at a
+glance in a rail full of grey rows.
 
 ## The shell
 

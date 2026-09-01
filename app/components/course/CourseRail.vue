@@ -93,9 +93,9 @@ onMounted(() => {
           :ref="(el) => { if (isCurrent(lesson.path)) current = (el as { $el?: HTMLElement })?.$el ?? (el as HTMLElement | null) }"
           :to="localePath(lesson.path)"
           :aria-current="isCurrent(lesson.path) ? 'page' : undefined"
-          class="group relative flex items-center gap-2.5 py-1.5 pe-2 ps-2 text-sm transition-colors"
+          class="group relative flex items-center gap-2.5 rounded-lg py-1.5 pe-2 ps-2 text-sm transition-colors"
           :class="isCurrent(lesson.path)
-            ? 'bg-primary/10 font-medium text-primary'
+            ? 'bg-primary font-semibold text-white'
             : 'text-muted hover:bg-elevated hover:text-highlighted'"
         >
           <!-- The connecting line. Drawn per-row behind the marker rather than
@@ -108,12 +108,14 @@ onMounted(() => {
 
           <!-- A tick once finished, the lesson's number until then, so the
                column reads as a sequence rather than identical bullets. -->
+          <!-- Done is green, per the design system: completion is the one
+               state that earns its own colour in a rail of grey rows. -->
           <span
-            class="relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full border text-[0.6875rem] tabular transition-colors"
+            class="relative z-10 flex size-6 shrink-0 items-center justify-center rounded-md border-2 text-[0.6875rem] tabular transition-colors"
             :class="isDone(lesson.path)
-              ? 'border-primary bg-primary text-inverted'
+              ? 'border-(--nb-ink) bg-brand-green text-ink'
               : isCurrent(lesson.path)
-                ? 'border-primary bg-default text-primary'
+                ? 'border-white bg-white text-primary'
                 : 'border-default bg-default text-dimmed'"
           >
             <UIcon

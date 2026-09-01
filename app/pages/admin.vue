@@ -243,11 +243,11 @@ const roles = ['learner', 'moderator', 'admin']
           <li
             v-for="item in queue"
             :key="item.id"
-            class="rounded-md border border-default"
+            class="nb-card"
           >
             <div class="flex flex-1 flex-col gap-2 p-5">
               <div class="flex flex-wrap items-center gap-2">
-                <span class="rounded border border-default px-1.5 py-0.5 text-xs text-muted">{{ item.kind }}</span>
+                <span class="nb-tag bg-(--nb-subtle) px-2 py-0.5 text-[0.625rem] text-muted">{{ item.kind }}</span>
                 <span class="text-xs font-semibold uppercase tracking-wide text-dimmed">{{ item.submittedBy.email || 'unknown' }}</span>
               </div>
 
@@ -315,7 +315,7 @@ const roles = ['learner', 'moderator', 'admin']
 
       <!-- ============================ USERS ============================ -->
       <section v-else-if="tab === 'users' && isAdmin">
-        <div class="mb-8 rounded-md border border-default">
+        <div class="nb-card mb-8">
           <div class="flex flex-1 flex-col gap-2 p-5">
             <p class="font-semibold text-highlighted">
               Create a user
@@ -323,19 +323,19 @@ const roles = ['learner', 'moderator', 'admin']
             <div class="grid gap-3 sm:grid-cols-4">
               <input
                 v-model="newUser.email"
-                class="w-full rounded-md border border-default bg-default px-3 py-2 text-sm"
+                class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3 py-2 text-sm"
                 type="email"
                 placeholder="email"
               >
               <input
                 v-model="newUser.name"
-                class="w-full rounded-md border border-default bg-default px-3 py-2 text-sm"
+                class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3 py-2 text-sm"
                 type="text"
                 placeholder="name (optional)"
               >
               <select
                 v-model="newUser.role"
-                class="rounded-md border border-default bg-default px-2 py-1 text-sm"
+                class="rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-2 py-1 text-sm"
               >
                 <option
                   v-for="r in roles"
@@ -357,7 +357,7 @@ const roles = ['learner', 'moderator', 'admin']
                  the only time the password is visible. -->
             <div
               v-if="created"
-              class="mt-4 space-y-2 rounded-md border border-default border-s-4 border-s-success p-4"
+              class="nb-card mt-4 space-y-2 p-4 shadow-[inset_5px_0_0_0_var(--color-brand-green)]"
             >
               <p class="font-semibold text-highlighted">
                 Created {{ created.email }}
@@ -406,7 +406,7 @@ const roles = ['learner', 'moderator', 'admin']
                 </td>
                 <td>
                   <select
-                    class="rounded-md border border-default bg-default px-2 py-1 text-sm"
+                    class="rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-2 py-1 text-sm"
                     :value="u.role"
                     :disabled="busy || u.isDemo || u.roleLocked"
                     @change="setRole(u, ($event.target as HTMLSelectElement).value)"

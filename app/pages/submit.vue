@@ -95,7 +95,7 @@ const statusLabel: Record<Mine['status'], string> = {
       <div>
         <div
           v-if="sent"
-          class="rounded-md border border-default border-s-4 border-s-success p-4 space-y-3"
+          class="nb-card space-y-3 p-4 shadow-[inset_5px_0_0_0_var(--color-brand-green)]"
         >
           <p class="flex items-center gap-2 font-semibold text-highlighted">
             <UIcon
@@ -117,7 +117,7 @@ const statusLabel: Record<Mine['status'], string> = {
 
         <form
           v-else
-          class="max-w-xl space-y-5"
+          class="nb-frame max-w-xl space-y-5 rounded-2xl p-6 sm:p-8"
           @submit.prevent="send"
         >
           <fieldset class="space-y-2">
@@ -131,7 +131,7 @@ const statusLabel: Record<Mine['status'], string> = {
                 :icon="k.icon"
                 :label="k.label"
                 :color="kind === k.value ? 'primary' : 'neutral'"
-                :variant="kind === k.value ? 'soft' : 'outline'"
+                :variant="kind === k.value ? 'solid' : 'outline'"
                 size="sm"
                 :aria-pressed="kind === k.value"
                 @click="kind = k.value"
@@ -147,7 +147,7 @@ const statusLabel: Record<Mine['status'], string> = {
             <input
               id="s-title"
               v-model="form.title"
-              class="w-full rounded-md border border-default bg-default px-3 py-2 text-sm text-highlighted focus:border-primary focus:outline-none"
+              class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3.5 py-2.5 text-sm text-highlighted focus:border-primary focus:outline-none"
               type="text"
               maxlength="160"
               required
@@ -165,7 +165,7 @@ const statusLabel: Record<Mine['status'], string> = {
             <input
               id="s-url"
               v-model="form.url"
-              class="w-full rounded-md border border-default bg-default px-3 py-2 text-sm text-highlighted focus:border-primary focus:outline-none"
+              class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3.5 py-2.5 text-sm text-highlighted focus:border-primary focus:outline-none"
               type="url"
               placeholder="https://"
               :required="kind === 'resource'"
@@ -183,7 +183,7 @@ const statusLabel: Record<Mine['status'], string> = {
             <input
               id="s-img"
               v-model="form.imageUrl"
-              class="w-full rounded-md border border-default bg-default px-3 py-2 text-sm text-highlighted focus:border-primary focus:outline-none"
+              class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3.5 py-2.5 text-sm text-highlighted focus:border-primary focus:outline-none"
               type="url"
               placeholder="https://"
             >
@@ -197,7 +197,7 @@ const statusLabel: Record<Mine['status'], string> = {
             <textarea
               id="s-desc"
               v-model="form.description"
-              class="w-full rounded-md border border-default bg-default px-3 py-2 text-sm text-highlighted focus:border-primary focus:outline-none"
+              class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3.5 py-2.5 text-sm text-highlighted focus:border-primary focus:outline-none"
               rows="5"
               minlength="20"
               maxlength="2000"
@@ -216,7 +216,7 @@ const statusLabel: Record<Mine['status'], string> = {
             <input
               id="s-tags"
               v-model="form.tags"
-              class="w-full rounded-md border border-default bg-default px-3 py-2 text-sm text-highlighted focus:border-primary focus:outline-none"
+              class="w-full rounded-md border-2 border-(--nb-ink) bg-(--nb-surface) px-3.5 py-2.5 text-sm text-highlighted focus:border-primary focus:outline-none"
               type="text"
               placeholder="saql, dashboards"
             >
@@ -266,7 +266,7 @@ const statusLabel: Record<Mine['status'], string> = {
           <li
             v-for="s in mine.submissions"
             :key="s.id"
-            class="rounded-md border border-default"
+            class="nb-card"
           >
             <div class="p-4 space-y-2">
               <p class="text-sm font-semibold text-highlighted">

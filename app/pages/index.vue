@@ -23,12 +23,6 @@ defineOgImage('Docs', { title: title.value, description: description.value })
 // cannot drift again when a lesson is added.
 const { lessons: allLessons } = useCourse()
 
-const stats = computed(() => [
-  { value: String(allLessons.value.length || 49), label: t('home.stats.lessons') },
-  { value: '42m', label: t('home.stats.video') },
-  { value: '100%', label: t('home.stats.free') }
-])
-
 // The course is currently one video-led track ("CRM Analytics Foundations").
 // Each lesson pairs a clip of the Tableau CRM / CRM Analytics training video
 // with an article; the section closes with interview prep.
@@ -144,6 +138,25 @@ const modules = computed(() => [
   }
 ])
 
+// The design system gives each curriculum section its own accent: yellow,
+// pink, blue, green, purple, sky — in that order. Ink text on the light
+// accents, white on the saturated ones.
+const moduleAccents = [
+  { tile: 'bg-brand-yellow text-ink', deco: 'bg-brand-yellow-soft border-brand-yellow' },
+  { tile: 'bg-brand-pink text-white', deco: 'bg-brand-pink-soft border-brand-pink' },
+  { tile: 'bg-primary text-white', deco: 'bg-salesforce-100 border-primary' },
+  { tile: 'bg-brand-green text-ink', deco: 'bg-brand-green-soft border-brand-green' },
+  { tile: 'bg-brand-purple text-white', deco: 'bg-brand-purple-soft border-brand-purple' },
+  { tile: 'bg-brand-sky text-ink', deco: 'bg-brand-sky-soft border-brand-sky' }
+]
+
+const stats = computed(() => [
+  { value: String(modules.value.length), label: t('home.stats.modules') },
+  { value: String(allLessons.value.length || 49), label: t('home.stats.lessons') },
+  { value: '12', label: t('home.stats.languages') },
+  { value: '100%', label: t('home.stats.free') }
+])
+
 // Course rich-snippet: the site is one Course; each module is a sub-Course whose
 // lessons are its syllabus sections. Free offer + online instance keep it valid
 // for Google's Course rich result.
@@ -221,18 +234,32 @@ useJsonLd({
 <template>
   <div>
     <!-- ============================ HERO ============================ -->
-    <!-- NSDS's own hero band: dark navy, live hairline grid, split copy/media.
-         `--white` and `--ghost` are the two button variants NSDS reserves for
-         dark surfaces; on a light one they are invisible by design. -->
-    <section class="relative overflow-hidden border-b border-default">
+    <!-- The design system's hero: a blue wash with big bordered circles
+         breaking the corners and three candy dots floating in the space —
+         decoration the neo-brutal way, drawn shapes rather than gradients. -->
+    <section class="relative overflow-hidden bg-(--nb-hero)">
       <div
-        class="absolute inset-0 bg-grid"
+        class="absolute -top-24 -right-24 size-72 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
         aria-hidden="true"
       />
-      <!-- A radial gauge motif in the corner. The site is about analytics, so
-           the background can say so instead of another paragraph. -->
       <div
-        class="absolute inset-0 bg-rings"
+        class="absolute -bottom-28 -left-28 size-80 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute top-0 left-0 hidden size-32 rounded-br-full border-r-4 border-b-4 border-(--nb-ink) bg-(--nb-hero-shape-3) lg:block"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute top-12 right-1/3 hidden size-5 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow lg:block"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute right-40 bottom-16 hidden size-4 rotate-45 rounded border-[3px] border-(--nb-ink) bg-brand-pink lg:block"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute top-32 left-52 hidden size-3.5 rounded-full border-2 border-(--nb-ink) bg-brand-green lg:block"
         aria-hidden="true"
       />
 
@@ -241,9 +268,8 @@ useJsonLd({
           <UBadge
             :label="t('hero.badge')"
             icon="i-lucide-sparkles"
-            color="primary"
-            variant="subtle"
             size="lg"
+            class="rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
           />
 
           <h1 class="mt-6 text-4xl font-bold tracking-tight text-highlighted sm:text-5xl">
@@ -309,18 +335,24 @@ useJsonLd({
     </section>
 
     <!-- ============================ STATS ============================ -->
-    <section class="border-b border-default bg-gradient-to-r from-salesforce-600 to-salesforce-800">
-      <UContainer class="py-10">
-        <dl class="grid grid-cols-2 gap-8 sm:grid-cols-4">
+    <!-- The ink slab, pulled up over the hero's bottom edge the way the
+         design draws it. Each label keeps its own accent so the row reads as
+         four facts rather than one sentence. -->
+    <section class="relative z-10 -mt-10">
+      <UContainer>
+        <dl class="grid grid-cols-2 overflow-hidden rounded-2xl border-[3px] border-(--nb-ink) bg-ink sm:grid-cols-4">
           <div
-            v-for="s in stats"
+            v-for="(s, i) in stats"
             :key="s.label"
-            class="text-center"
+            class="border-slate-800 px-6 py-6 text-center not-last:sm:border-e max-sm:odd:border-e max-sm:[&:nth-child(-n+2)]:border-b"
           >
-            <dt class="text-4xl font-extrabold text-white">
+            <dt class="font-display text-3xl font-bold text-white">
               {{ s.value }}
             </dt>
-            <dd class="mt-1 text-sm font-medium text-white/70">
+            <dd
+              class="mt-1 text-[0.6875rem] font-semibold tracking-[0.1em] uppercase"
+              :class="['text-brand-sky', 'text-brand-yellow', 'text-brand-green', 'text-brand-pink'][i % 4]"
+            >
               {{ s.label }}
             </dd>
           </div>
@@ -346,7 +378,7 @@ useJsonLd({
       />
       <UContainer class="relative">
         <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+          <p class="font-display mb-4 inline-flex items-center rounded-full border-2 border-primary bg-salesforce-100 px-3.5 py-1 text-[0.6875rem] font-bold tracking-[0.06em] text-primary uppercase dark:bg-salesforce-900">
             {{ t('home.curriculumEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -357,55 +389,65 @@ useJsonLd({
           </p>
         </div>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- NSDS cards: hairline border, no shadow at rest, and on hover a
-               brand border plus a 2px accent line inset along the top edge.
-               The previous version lifted, scaled and grew a shadow — which
-               Principle 5 rules out: motion is a state change, not a
-               performance. The whole card is one target via a stretched link
-               (a stretched link) rather than a link inside a card. -->
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- The design system's section cards: a coloured icon tile wearing
+               the ink line, an eyebrow, and a tinted circle breaking the top
+               corner. The whole card is one target via a stretched link. -->
           <article
-            v-for="m in modules"
+            v-for="(m, i) in modules"
             :key="m.n"
-            class="flex flex-col rounded-md border border-default transition-colors hover:border-primary"
+            class="nb-card relative flex flex-col overflow-hidden p-6 transition-transform hover:-translate-y-0.5"
           >
-            <div class="flex flex-1 flex-col gap-2 p-5">
-              <div class="flex items-center justify-between">
+            <div
+              class="absolute -top-3 -right-3 size-12 rounded-full border-2"
+              :class="moduleAccents[i % moduleAccents.length]!.deco"
+              aria-hidden="true"
+            />
+            <div class="relative flex items-center gap-3">
+              <span
+                class="nb-tile size-11"
+                :class="moduleAccents[i % moduleAccents.length]!.tile"
+              >
                 <UIcon
                   :name="m.icon"
-                  class="size-6 text-primary"
+                  class="size-5"
                 />
-                <span class="tabular text-sm text-dimmed">{{ m.n }}</span>
-              </div>
-
-              <h3 class="font-semibold text-highlighted">
-                <NuxtLink
-                  class="after:absolute after:inset-0"
-                  :to="localePath(m.to)"
-                >{{ m.title }}</NuxtLink>
-              </h3>
-              <p class="text-sm text-muted">
-                {{ m.desc }}
-              </p>
+              </span>
+              <span>
+                <span class="font-display block text-[0.625rem] font-bold tracking-[0.08em] text-muted uppercase">{{ t('home.moduleWord') }} {{ m.n }}</span>
+                <h3 class="font-display mt-0.5 text-base font-bold text-highlighted">
+                  <NuxtLink
+                    class="after:absolute after:inset-0"
+                    :to="localePath(m.to)"
+                  >{{ m.title }}</NuxtLink>
+                </h3>
+              </span>
             </div>
 
-            <div class="flex items-center gap-3 border-t border-default px-5 py-3 text-sm text-muted">
-              <span>{{ m.lessons.length }} {{ t('home.lessonsWord') }}</span>
-              <span class="ms-auto text-primary">{{ t('home.startModule') }} →</span>
+            <p class="mt-3 flex-1 text-sm text-muted">
+              {{ m.desc }}
+            </p>
+
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-xs font-semibold text-muted">{{ m.lessons.length }} {{ t('home.lessonsWord') }}</span>
+              <span class="flex size-7 items-center justify-center rounded-full bg-ink dark:bg-slate-700">
+                <UIcon
+                  name="i-lucide-chevron-right"
+                  class="size-4 text-white"
+                />
+              </span>
             </div>
           </article>
 
           <!-- Start-here card. Kept as the odd one out — it is the only
-               card that is an instruction rather than a destination — but on
-               the NSDS card body so it sits on the same grid as the six
-               beside it, instead of a gradient panel with its own geometry. -->
-          <article class="flex flex-col rounded-md border border-default bg-elevated/40 transition-colors hover:border-primary">
-            <div class="flex flex-1 flex-col items-center gap-3 p-5 text-center">
+               card that is an instruction rather than a destination. -->
+          <article class="nb-card relative flex flex-col bg-(--nb-subtle) p-6 transition-transform hover:-translate-y-0.5">
+            <div class="flex flex-1 flex-col items-center justify-center gap-3 text-center">
               <UIcon
                 name="i-lucide-flag"
                 class="size-7 text-primary"
               />
-              <h3 class="font-semibold text-highlighted">
+              <h3 class="font-display font-bold text-highlighted">
                 <NuxtLink
                   class="after:absolute after:inset-0"
                   :to="localePath('/foundations')"
@@ -418,7 +460,7 @@ useJsonLd({
                 :label="t('home.startHere')"
                 trailing-icon="i-lucide-arrow-right"
                 size="sm"
-                class="mt-2 pointer-events-none"
+                class="pointer-events-none mt-2"
               />
             </div>
           </article>
@@ -437,7 +479,7 @@ useJsonLd({
     <section class="py-24 sm:py-32">
       <UContainer>
         <div class="mx-auto mb-16 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+          <p class="font-display mb-4 inline-flex items-center rounded-full border-2 border-primary bg-salesforce-100 px-3.5 py-1 text-[0.6875rem] font-bold tracking-[0.06em] text-primary uppercase dark:bg-salesforce-900">
             {{ t('home.featuresEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -455,10 +497,8 @@ useJsonLd({
             <div :class="i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'">
               <div
                 :ref="(el: unknown) => (featureRowEls[i] = el as HTMLElement)"
-                class="relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-default bg-muted/30 p-8 sm:min-h-[380px]"
+                class="nb-card relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden bg-(--nb-subtle) p-8 sm:min-h-[380px]"
               >
-                <div class="absolute -inset-8 bg-primary/10 blur-3xl" />
-
                 <!-- pipeline -->
                 <div
                   v-if="f.kind === 'pipeline'"
@@ -551,10 +591,10 @@ useJsonLd({
     </section>
 
     <!-- ========================= WHO IT'S FOR ========================= -->
-    <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
+    <section class="border-t-[3px] border-(--nb-ink) bg-(--nb-hero) py-20 sm:py-24">
       <UContainer>
         <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+          <p class="font-display mb-4 inline-flex items-center rounded-full border-2 border-primary bg-salesforce-100 px-3.5 py-1 text-[0.6875rem] font-bold tracking-[0.06em] text-primary uppercase dark:bg-salesforce-900">
             {{ t('home.whoEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -565,9 +605,9 @@ useJsonLd({
           <div
             v-for="p in personas"
             :key="p.title"
-            class="rounded-2xl border border-default bg-default p-6"
+            class="nb-card p-6"
           >
-            <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+            <div class="nb-tile mb-4 size-11 bg-salesforce-100 text-primary dark:bg-salesforce-900">
               <UIcon
                 :name="p.icon"
                 class="size-5"
@@ -595,7 +635,7 @@ useJsonLd({
     <section class="py-20 sm:py-24">
       <UContainer>
         <div class="mx-auto mb-12 max-w-2xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+          <p class="font-display mb-4 inline-flex items-center rounded-full border-2 border-primary bg-salesforce-100 px-3.5 py-1 text-[0.6875rem] font-bold tracking-[0.06em] text-primary uppercase dark:bg-salesforce-900">
             {{ t('home.faqEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -606,7 +646,7 @@ useJsonLd({
           <div
             v-for="f in faqs"
             :key="f.q"
-            class="rounded-2xl border border-default bg-default p-6"
+            class="nb-card p-6"
           >
             <h3 class="flex items-start gap-2 font-semibold text-highlighted">
               <UIcon
@@ -626,8 +666,15 @@ useJsonLd({
     <!-- ============================ CTA ============================ -->
     <section class="pb-24">
       <UContainer>
-        <div class="relative overflow-hidden rounded-3xl border border-default bg-gradient-to-br from-salesforce-600 via-salesforce-700 to-salesforce-900 px-6 py-16 text-center sm:px-12">
-          <div class="absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
+        <div class="relative overflow-hidden rounded-3xl border-[3px] border-(--nb-ink) bg-ink px-6 py-16 text-center sm:px-12">
+          <div
+            class="absolute -top-16 -left-16 size-48 rounded-full border-4 border-slate-800 bg-salesforce-900/60"
+            aria-hidden="true"
+          />
+          <div
+            class="absolute -right-12 -bottom-12 size-40 rounded-full border-4 border-slate-800 bg-salesforce-900/40"
+            aria-hidden="true"
+          />
           <div class="relative mx-auto max-w-2xl">
             <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               {{ t('cta.title') }}

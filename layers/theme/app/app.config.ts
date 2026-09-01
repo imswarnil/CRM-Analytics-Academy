@@ -1,21 +1,17 @@
 /**
- * The Nuxt UI theme.
+ * The Nuxt UI theme, tuned to the Academy "Neo Brutal" design system.
  *
- * Stock components, two colour choices and a handful of slot tweaks — no
- * second component system. Indigo reads as instructional rather than
- * corporate and is deliberately not Salesforce blue: a site *about* a
- * Salesforce product should not dress as the product. Emerald carries
- * progress, which on a learning platform is the one thing worth a second
- * colour.
+ * Stock components, one custom palette and a handful of slot tweaks — no
+ * second component system. `salesforce` is the blue ramp defined in
+ * tokens.css with #0176D3 at 500: this site now deliberately dresses in the
+ * domain's own colour, with an ink line around anything interactive.
  */
 export default defineAppConfig({
   ui: {
     colors: {
-      // Blue, not indigo. This is an analytics platform and blue is the
-      // colour of the domain — charts, dashboards, the products these lessons
-      // are about. `sky` as the secondary keeps the accent inside the same
-      // family so a second control never introduces a competing hue.
-      primary: 'blue',
+      // Salesforce blue — the design system's primary. `sky` keeps the
+      // secondary accent inside the same family.
+      primary: 'salesforce',
       secondary: 'sky',
       // Progress and completion. On a learning platform this is the one thing
       // that earns a colour of its own: "you finished this" has to be legible
@@ -26,33 +22,37 @@ export default defineAppConfig({
 
     button: {
       slots: {
-        base: 'font-semibold'
+        // Every button in the design system is a pill set in the display
+        // face. The weight is what lets a bordered white button read as a
+        // button at all.
+        base: 'font-display font-bold rounded-full'
       },
       compoundVariants: [
         {
-          // The chunky press, on filled buttons only.
-          //
-          // A solid button gets a darker bottom edge drawn *inside* it, and on
-          // press the edge collapses while the button drops a pixel — so it
-          // reads as a physical key rather than a rectangle that changes
-          // colour. It is the single most recognisable thing about how a
-          // learning app feels, and it costs one inset shadow.
-          //
-          // Inset rather than a coloured outer shadow so it works on every
-          // colour without a per-colour value, and only on `solid`: on ghost
-          // or link buttons there is no surface for an edge to belong to.
+          // Solid buttons wear the ink line and press down a pixel — the
+          // neo-brutal read of a physical key, at the cost of one border.
           variant: 'solid',
-          class: 'shadow-[inset_0_-3px_0_rgb(0_0_0/0.18)] active:translate-y-px active:shadow-[inset_0_-1px_0_rgb(0_0_0/0.18)] transition-[box-shadow,transform] duration-75'
+          class: 'border-2 border-(--nb-ink) active:translate-y-px transition-transform duration-75'
+        },
+        {
+          // Bordered white pill — the design system's secondary action.
+          variant: 'outline',
+          class: 'border-2 border-(--nb-ink) bg-(--nb-surface) text-highlighted ring-0 active:translate-y-px transition-transform duration-75'
         }
       ]
     },
 
+    badge: {
+      slots: {
+        base: 'font-display font-bold'
+      }
+    },
+
     card: {
       slots: {
-        // Flat by default. On a page that is mostly cards, a shadow on each
-        // one is elevation applied to everything, which is elevation applied
-        // to nothing.
-        root: 'shadow-none'
+        // The standard nb-card: 3px of ink, 16px corner, flat. Elevation on
+        // a page of cards is elevation applied to nothing.
+        root: 'rounded-2xl ring-[3px] ring-(--nb-ink) shadow-none'
       }
     },
 
@@ -67,10 +67,9 @@ export default defineAppConfig({
     },
 
     prose: {
-      // NSDS's one genuinely good idea, kept: a lesson is read continuously
-      // for minutes, so the reading size is a step above the UI size. Set as
-      // utilities because prose components emit utilities, and a utility
-      // beats layered CSS by design.
+      // A lesson is read continuously for minutes, so the reading size is a
+      // step above the UI size. Set as utilities because prose components
+      // emit utilities, and a utility beats layered CSS by design.
       p: { base: 'text-[1.0625rem] leading-[1.75] my-5' },
       ul: { base: 'text-[1.0625rem] leading-[1.75] my-5' },
       ol: { base: 'text-[1.0625rem] leading-[1.75] my-5' },

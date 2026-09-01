@@ -62,30 +62,36 @@ async function demo() {
 </script>
 
 <template>
-  <div class="grid min-h-full lg:grid-cols-2">
-    <!-- The brand panel. Hidden below lg, so nothing here may be the only
-         place something is said. -->
-    <aside class="relative hidden flex-col justify-end gap-3 bg-primary-950 p-12 text-white lg:flex">
-      <div
-        class="absolute inset-0 bg-grid opacity-20"
-        aria-hidden="true"
-      />
-      <div class="relative">
-        <p class="text-xs font-semibold uppercase tracking-wide text-primary-300">
-          {{ isSignUp ? t('auth.kickerSignUp') : t('auth.kickerSignIn') }}
-        </p>
-        <h2 class="mt-2 text-2xl font-bold">
-          {{ t('auth.asideTitle') }}
-        </h2>
-        <p class="mt-3 max-w-md text-sm text-white/70">
-          {{ t('auth.asideText') }}
-        </p>
-      </div>
-    </aside>
+  <!-- The design system's auth screen: one white card wearing the heavy ink
+       frame, centred on the hero wash, with the bordered circles breaking
+       the corners behind it. -->
+  <div class="relative flex min-h-full items-center justify-center overflow-hidden bg-(--nb-hero) p-6 sm:p-10">
+    <div
+      class="absolute -top-20 -left-20 size-64 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
+      aria-hidden="true"
+    />
+    <div
+      class="absolute -right-16 -bottom-16 size-52 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
+      aria-hidden="true"
+    />
+    <div
+      class="absolute top-16 right-1/4 hidden size-4.5 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow lg:block"
+      aria-hidden="true"
+    />
+    <div
+      class="absolute bottom-24 left-1/4 hidden size-3.5 rotate-45 border-2 border-(--nb-ink) bg-brand-green lg:block"
+      aria-hidden="true"
+    />
 
-    <div class="flex items-center justify-center p-6 sm:p-10">
-      <div class="w-full max-w-sm space-y-6">
+    <div class="nb-frame relative z-10 w-full max-w-md rounded-2xl p-8 sm:p-10">
+      <div class="w-full space-y-6">
         <div>
+          <NuxtLink
+            :to="localePath('/')"
+            class="mb-6 block"
+          >
+            <AppLogo />
+          </NuxtLink>
           <h1 class="text-2xl font-bold text-highlighted">
             {{ isSignUp ? t('auth.signUpTitle') : t('auth.signInTitle') }}
           </h1>

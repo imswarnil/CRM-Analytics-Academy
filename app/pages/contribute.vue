@@ -42,15 +42,19 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
 <template>
   <div>
     <!-- Hero -->
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
+    <section class="relative overflow-hidden border-b-[3px] border-(--nb-ink) bg-(--nb-hero)">
+      <div
+        class="absolute -top-20 -right-20 size-56 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute -bottom-24 -left-24 size-64 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
+        aria-hidden="true"
+      />
       <UContainer class="relative py-14 text-center sm:py-20">
         <UBadge
-          color="primary"
-          variant="subtle"
           size="lg"
-          class="mb-6 rounded-full"
+          class="mb-6 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
         >
           <UIcon
             name="i-lucide-git-pull-request"
@@ -128,7 +132,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
         <!-- Timeline body -->
         <div class="space-y-8">
           <!-- New-contributor welcome + quick starts -->
-          <div class="rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
+          <div class="nb-card p-6 sm:p-8">
             <div class="flex items-center gap-2">
               <UIcon
                 name="i-lucide-hand-heart"
@@ -147,7 +151,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 v-for="q in quickStarts"
                 :key="q.title"
                 :href="q.to"
-                class="group rounded-xl border border-default bg-default p-4 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm"
+                class="nb-card group p-4 transition-transform hover:-translate-y-0.5"
               >
                 <div class="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
                   <UIcon
@@ -185,7 +189,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                   class="size-5"
                 />
               </div>
-              <div class="rounded-2xl border border-default bg-default/40 p-6 sm:p-8">
+              <div class="nb-card p-6 sm:p-8">
                 <div class="mb-1 flex items-center gap-2">
                   <p class="text-xs font-semibold uppercase tracking-widest text-primary">
                     Step {{ s.n }}

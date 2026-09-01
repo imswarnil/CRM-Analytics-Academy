@@ -58,7 +58,8 @@
       "modules": "Modules",
       "lessons": "Lessons",
       "free": "Free & open",
-      "video": "Video"
+      "video": "Video",
+      "languages": "Languages"
     },
     "curriculumEyebrow": "The Curriculum",
     "curriculumTitle": "Six modules, one clear path",
@@ -245,7 +246,8 @@
     "submitTitle": "Built something?",
     "submitDesc": "Share the dashboard you built and inspire other learners.",
     "submitButton": "Submit yours",
-    "lessonsWord": "lessons"
+    "lessonsWord": "lessons",
+    "moduleWord": "Module"
   },
   "footer": {
     "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",
@@ -375,7 +377,8 @@
     "howLesson": "10 points per lesson completed",
     "howQuiz": "2 points per correct quiz answer, best attempt only",
     "howResource": "25 points per approved resource",
-    "howShowcase": "50 points per approved showcase dashboard"
+    "howShowcase": "50 points per approved showcase dashboard",
+    "champion": "Champion"
   },
   "submit": {
     "kicker": "contribute",

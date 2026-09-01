@@ -38,15 +38,19 @@ useJsonLd(datasets.map(d => ({
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
+    <section class="relative overflow-hidden border-b-[3px] border-(--nb-ink) bg-(--nb-hero)">
+      <div
+        class="absolute -top-20 -right-20 size-56 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute -bottom-24 -left-24 size-64 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
+        aria-hidden="true"
+      />
       <UContainer class="relative py-16 text-center sm:py-20">
         <UBadge
-          color="primary"
-          variant="subtle"
           size="lg"
-          class="mb-6 rounded-full"
+          class="mb-6 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
         >
           <UIcon
             name="i-lucide-database"
@@ -68,7 +72,7 @@ useJsonLd(datasets.map(d => ({
         <div
           v-for="d in datasets"
           :key="d.name"
-          class="flex flex-col rounded-2xl border border-default bg-default p-6"
+          class="nb-card flex flex-col p-6"
         >
           <div class="mb-4 flex items-center gap-3">
             <div class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
@@ -120,7 +124,7 @@ useJsonLd(datasets.map(d => ({
         </div>
       </div>
 
-      <div class="mt-10 rounded-2xl border border-default bg-muted/30 p-6">
+      <div class="nb-card mt-10 bg-(--nb-subtle) p-6">
         <h3 class="flex items-center gap-2 font-semibold text-highlighted">
           <UIcon
             name="i-lucide-info"

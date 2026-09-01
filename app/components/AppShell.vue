@@ -110,9 +110,9 @@ if (import.meta.client) {
   <!-- Marketing shell: a top bar and a page that scrolls normally. -->
   <div
     v-if="isHome"
-    class="flex min-h-dvh flex-col bg-default"
+    class="flex min-h-dvh flex-col bg-(--nb-page)"
   >
-    <header class="sticky top-0 z-30 border-b border-default bg-default/85 backdrop-blur">
+    <header class="sticky top-0 z-30 border-b-[3px] border-(--nb-ink) bg-(--nb-surface)/90 backdrop-blur">
       <UContainer class="flex h-16 items-center gap-4">
         <NuxtLink :to="localePath('/')">
           <AppLogo class="h-7 w-auto" />
@@ -163,10 +163,13 @@ if (import.meta.client) {
             </template>
           </ClientOnly>
           <ClientOnly>
+            <!-- The design system's one loud button: yellow, ink text, ink
+                 line. Reserved for the primary action in the chrome. -->
             <UButton
               :to="localePath(isSignedIn ? '/dashboard' : '/sign-in')"
               :label="isSignedIn ? t('nav.dashboard') : t('nav.signIn')"
               :icon="isSignedIn ? 'i-lucide-layout-dashboard' : 'i-lucide-log-in'"
+              class="bg-brand-yellow text-ink hover:bg-brand-yellow/85 disabled:bg-brand-yellow aria-disabled:bg-brand-yellow"
             />
             <template #fallback>
               <div class="h-9 w-24" />
@@ -184,12 +187,12 @@ if (import.meta.client) {
   <!-- Application shell: rail, topbar, one scrolling pane. -->
   <div
     v-else
-    class="shell bg-default"
+    class="shell bg-(--nb-page)"
     :data-rail="railOpen ? 'open' : undefined"
   >
     <!-- ------------------------------------------------------------ rail -->
     <nav
-      class="shell__rail border-e border-default bg-elevated/40"
+      class="shell__rail border-e-[3px] border-(--nb-ink) bg-(--nb-surface)"
       :aria-label="t('nav.navigate')"
     >
       <NuxtLink
@@ -290,7 +293,7 @@ if (import.meta.client) {
     />
 
     <!-- ---------------------------------------------------------- topbar -->
-    <header class="shell__topbar flex items-center gap-2 border-b border-default bg-default px-3">
+    <header class="shell__topbar flex items-center gap-2 border-b-[3px] border-(--nb-ink) bg-(--nb-surface) px-3">
       <UButton
         icon="i-lucide-menu"
         color="neutral"

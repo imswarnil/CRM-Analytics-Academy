@@ -201,6 +201,12 @@ useJsonLd(jsonLd)
       <h1 class="mt-1 text-3xl font-bold text-highlighted sm:text-4xl">
         {{ page.title }}
       </h1>
+      <!-- The design system's underline accent: a short blue rule under
+           every lesson title. -->
+      <div
+        class="mt-3 h-[3px] w-12 rounded-full bg-primary"
+        aria-hidden="true"
+      />
       <p
         v-if="page.description"
         class="mt-2 text-muted"
@@ -329,8 +335,6 @@ useJsonLd(jsonLd)
         v-if="surround?.[1]"
         :to="surround[1].path"
         trailing-icon="i-lucide-arrow-right"
-        color="neutral"
-        variant="outline"
         size="lg"
         class="justify-end sm:col-start-2"
       >

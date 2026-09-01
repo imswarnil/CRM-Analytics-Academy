@@ -76,10 +76,10 @@ const firstName = computed(() => user.value?.name?.split(' ')[0])
           { key: 'rank', label: t('dashboard.statRank'), value: rank ? `#${rank}` : t('dashboard.unranked'), accent: false }
         ]"
         :key="tile.key"
-        class="border border-default bg-elevated/30 p-4"
+        class="nb-card p-4"
       >
         <dd
-          class="tabular text-2xl font-bold sm:text-3xl"
+          class="tabular font-display text-2xl font-bold sm:text-3xl"
           :class="tile.accent ? 'text-primary' : 'text-highlighted'"
         >
           {{ tile.value }}

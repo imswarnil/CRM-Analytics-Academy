@@ -22,15 +22,19 @@ const tiers = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
+    <section class="relative overflow-hidden border-b-[3px] border-(--nb-ink) bg-(--nb-hero)">
+      <div
+        class="absolute -top-20 -right-20 size-56 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute -bottom-24 -left-24 size-64 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
+        aria-hidden="true"
+      />
       <UContainer class="relative py-16 text-center sm:py-20">
         <UBadge
-          color="primary"
-          variant="subtle"
           size="lg"
-          class="mb-6 rounded-full"
+          class="mb-6 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
         >
           <UIcon
             name="i-lucide-heart"
@@ -58,7 +62,7 @@ const tiers = [
 
     <!-- Featured sponsor -->
     <UContainer class="pt-12 sm:pt-16">
-      <div class="mx-auto max-w-3xl overflow-hidden rounded-2xl border border-primary/30 bg-primary/5">
+      <div class="mx-auto max-w-3xl overflow-hidden rounded-2xl border-[3px] border-primary bg-salesforce-50 dark:bg-salesforce-950">
         <div class="flex flex-col items-center gap-5 p-6 text-center sm:flex-row sm:p-8 sm:text-left">
           <div class="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
             <UIcon
@@ -105,7 +109,7 @@ const tiers = [
         <div
           v-for="r in reasons"
           :key="r.title"
-          class="rounded-2xl border border-default bg-default p-6"
+          class="nb-card p-6"
         >
           <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
             <UIcon
@@ -130,8 +134,8 @@ const tiers = [
           <div
             v-for="tier in tiers"
             :key="tier.name"
-            class="flex flex-col rounded-2xl border p-6"
-            :class="tier.highlight ? 'border-primary bg-primary/5 ring-1 ring-primary/30' : 'border-default bg-default'"
+            class="nb-card flex flex-col p-6"
+            :class="tier.highlight ? 'border-primary bg-salesforce-50 dark:bg-salesforce-950' : ''"
           >
             <h3 class="font-semibold text-highlighted">
               {{ tier.name }}

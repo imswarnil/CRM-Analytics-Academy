@@ -110,7 +110,7 @@ useJsonLd({
     </p>
 
     <!-- The screenshot is the point of the page, so it leads. -->
-    <div class="mt-8 overflow-hidden rounded-2xl border border-default bg-muted/40">
+    <div class="nb-card mt-8 overflow-hidden">
       <NuxtImg
         :src="entry.image"
         :alt="entry.title"
@@ -127,7 +127,7 @@ useJsonLd({
           <h2 class="text-xl font-bold text-highlighted">
             {{ t('showcase.kpis') }}
           </h2>
-          <div class="mt-4 overflow-x-auto rounded-xl border border-default">
+          <div class="nb-card mt-4 overflow-x-auto">
             <table class="w-full min-w-[560px] text-left text-sm">
               <thead class="bg-elevated/60 text-xs uppercase tracking-wide text-muted">
                 <tr>
@@ -208,7 +208,7 @@ useJsonLd({
       <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
         <div
           v-if="entry.datasets?.length"
-          class="rounded-xl border border-default p-4"
+          class="nb-card p-4"
         >
           <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
             {{ t('showcase.datasets') }}
@@ -228,7 +228,7 @@ useJsonLd({
 
         <div
           v-if="entry.techniques?.length"
-          class="rounded-xl border border-default p-4"
+          class="nb-card p-4"
         >
           <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
             {{ t('showcase.techniques') }}
