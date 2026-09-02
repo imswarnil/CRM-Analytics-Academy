@@ -227,6 +227,22 @@ const explore = computed(() => [
   { icon: 'i-lucide-briefcase', title: t('nav.jobs'), description: t('home.exploreJobs'), to: localePath('/jobs') }
 ])
 
+// The intro video (the Foundations welcome lesson's clip), opened in a modal
+// from the hero so the page never pays the iframe cost up front.
+const introOpen = ref(false)
+
+// Hero social proof: initials avatars standing in for the community.
+const communityAvatars = ['SS', 'RH', 'MC', 'CB', 'MT', 'BB']
+
+// The screenshot marquee: every feature page, captured from the live site
+// into public/screenshots/ (retake them when the design shifts).
+const shots = (names: string[]) => names.map(n => ({ src: `/screenshots/${n}.png`, alt: `CRM Analytics Academy — ${n}` }))
+const marqueeColumns = [
+  shots(['home', 'lesson', 'module', 'showcase']),
+  shots(['wall', 'companies', 'jobs', 'leaderboard']),
+  shots(['resources', 'datasets', 'about', 'signin'])
+]
+
 // Decorative icon chips floating over the hero backdrop. Purely visual:
 // hidden from assistive tech, pointer-transparent, stilled by the
 // prefers-reduced-motion override on .animate-float.
@@ -251,6 +267,16 @@ const heroLinks = computed(() => [
     variant: 'outline' as const,
     icon: 'i-lucide-graduation-cap',
     size: 'xl' as const
+  },
+  {
+    label: t('hero.watch'),
+    icon: 'i-lucide-circle-play',
+    color: 'neutral' as const,
+    variant: 'ghost' as const,
+    size: 'xl' as const,
+    onClick: () => {
+      introOpen.value = true
+    }
   },
   {
     'icon': 'i-lucide-search',
@@ -303,7 +329,6 @@ const heroLinks = computed(() => [
       <UPageHero
         orientation="horizontal"
         :description="t('hero.subtitle')"
-        :links="heroLinks"
         class="relative"
         :ui="{ container: 'lg:gap-16' }"
       >
@@ -325,45 +350,283 @@ const heroLinks = computed(() => [
         </template>
 
         <template #footer>
-          <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
-            <span
-              v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
-              :key="f"
-              class="flex items-center gap-1.5"
-            >
-              <UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary"
+          <div class="space-y-5">
+            <!-- The action row lives here by hand: UPageHero renders its
+                 `links` prop as the footer slot's DEFAULT content, so a
+                 custom footer must re-render them or they vanish. -->
+            <div class="flex flex-wrap gap-3">
+              <UButton
+                v-for="(link, li) in heroLinks"
+                :key="li"
+                v-bind="link"
               />
-              {{ f }}
-            </span>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <UAvatarGroup
+                size="md"
+                :max="5"
+              >
+                <UAvatar
+                  v-for="a in communityAvatars"
+                  :key="a"
+                  :text="a"
+                  class="bg-primary/10 text-primary"
+                />
+              </UAvatarGroup>
+              <span class="text-sm text-muted">{{ t('hero.community') }}</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
+              <span
+                v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
+                :key="f"
+                class="flex items-center gap-1.5"
+              >
+                <UIcon
+                  name="i-lucide-check"
+                  class="size-4 text-primary"
+                />
+                {{ f }}
+              </span>
+            </div>
           </div>
         </template>
 
-        <!-- The hero's media: the six modules as icon thumbnails. This is the
-           actual product, so it beats any illustration — and each tile is a
-           real link into its module. -->
-        <div class="grid grid-cols-2 gap-3">
-          <UPageCard
-            v-for="(m, i) in modules"
-            :key="m.n"
-            :icon="m.icon"
-            :title="m.title"
-            :description="`${m.lessons.length} ${t('home.stats.lessons')}`"
-            :to="localePath(m.to)"
-            variant="subtle"
-            class="animate-fade-up"
-            :style="{ animationDelay: `${i * 80}ms` }"
-            :ui="{
-              container: 'p-4 sm:p-4',
-              leadingIcon: 'size-8 text-primary',
-              title: 'text-sm',
-              description: 'text-xs'
-            }"
-          />
+        <div class="space-y-4">
+          <!-- One SVG telling the whole story: sources pulse, rows stream
+               into a dataset, and out the other side a chart draws itself. -->
+          <svg
+            viewBox="0 0 480 110"
+            fill="none"
+            class="w-full text-primary"
+            aria-hidden="true"
+          >
+            <g class="animate-svg-pulse">
+              <circle
+                cx="24"
+                cy="25"
+                r="9"
+                class="fill-primary/15"
+              />
+              <circle
+                cx="24"
+                cy="25"
+                r="4"
+                fill="currentColor"
+              />
+            </g>
+            <g
+              class="animate-svg-pulse"
+              style="animation-delay: 0.5s"
+            >
+              <circle
+                cx="24"
+                cy="55"
+                r="9"
+                class="fill-primary/15"
+              />
+              <circle
+                cx="24"
+                cy="55"
+                r="4"
+                fill="currentColor"
+              />
+            </g>
+            <g
+              class="animate-svg-pulse"
+              style="animation-delay: 1s"
+            >
+              <circle
+                cx="24"
+                cy="85"
+                r="9"
+                class="fill-primary/15"
+              />
+              <circle
+                cx="24"
+                cy="85"
+                r="4"
+                fill="currentColor"
+              />
+            </g>
+
+            <path
+              d="M36 25 C 90 25, 110 55, 158 55"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="animate-dash"
+            />
+            <path
+              d="M36 55 L 158 55"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="animate-dash"
+              style="animation-delay: 0.3s"
+            />
+            <path
+              d="M36 85 C 90 85, 110 55, 158 55"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="animate-dash"
+              style="animation-delay: 0.6s"
+            />
+
+            <rect
+              x="158"
+              y="37"
+              width="36"
+              height="36"
+              rx="8"
+              class="fill-primary/10 stroke-primary/40"
+            />
+            <path
+              d="M168 47h16M168 55h16M168 63h10"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+
+            <path
+              d="M194 55 H 238"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="animate-dash"
+              style="animation-delay: 0.9s"
+            />
+
+            <rect
+              x="238"
+              y="6"
+              width="236"
+              height="98"
+              rx="10"
+              class="stroke-primary/25"
+            />
+            <rect
+              v-for="(bar, bi) in [{ x: 254, h: 26 }, { x: 294, h: 44 }, { x: 334, h: 34 }, { x: 374, h: 58 }, { x: 414, h: 46 }]"
+              :key="bar.x"
+              :x="bar.x"
+              :y="94 - bar.h"
+              width="28"
+              :height="bar.h"
+              rx="4"
+              class="animate-svg-bar fill-primary/60"
+              :style="{ animationDelay: `${0.9 + bi * 0.15}s` }"
+            />
+            <path
+              d="M254 74 L 300 58 L 344 66 L 388 36 L 458 26"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              class="animate-svg-draw"
+            />
+            <circle
+              cx="458"
+              cy="26"
+              r="4"
+              fill="currentColor"
+              class="animate-svg-pulse"
+            />
+          </svg>
+
+          <!-- The hero's media: the six modules as icon thumbnails. This is
+             the actual product, so it beats any illustration — and each tile
+             is a real link into its module. -->
+          <div class="grid grid-cols-2 gap-3">
+            <UPageCard
+              v-for="(m, i) in modules"
+              :key="m.n"
+              :icon="m.icon"
+              :title="m.title"
+              :description="`${m.lessons.length} ${t('home.stats.lessons')}`"
+              :to="localePath(m.to)"
+              variant="subtle"
+              class="animate-fade-up"
+              :style="{ animationDelay: `${i * 80}ms` }"
+              :ui="{
+                container: 'p-4 sm:p-4',
+                leadingIcon: 'size-8 text-primary',
+                title: 'text-sm',
+                description: 'text-xs'
+              }"
+            />
+          </div>
         </div>
       </UPageHero>
     </section>
+
+    <!-- The intro clip, loaded only when asked for. -->
+    <UModal
+      v-model:open="introOpen"
+      :ui="{ content: 'max-w-3xl' }"
+    >
+      <template #content>
+        <YoutubeEmbed
+          id="aPwndqsmaGk"
+          :start="19"
+          :title="t('hero.watch')"
+        />
+      </template>
+    </UModal>
+
+    <!-- =================== SCREENSHOT MARQUEE =================== -->
+    <!-- Every feature page of the site, drifting past on a tilted plane. -->
+    <div
+      class="relative h-[400px] w-full overflow-hidden border-y border-default bg-muted"
+      aria-hidden="true"
+    >
+      <UMarquee
+        reverse
+        orientation="vertical"
+        :overlay="false"
+        :ui="{ root: '[--duration:40s] absolute w-[460px] -left-[100px] -top-[300px] h-[940px] transform-3d rotate-x-55 rotate-y-0 rotate-z-30' }"
+      >
+        <img
+          v-for="s in marqueeColumns[0]"
+          :key="s.src"
+          :src="s.src"
+          width="460"
+          height="258"
+          :alt="s.alt"
+          loading="lazy"
+          class="aspect-video rounded-lg border border-default bg-white"
+        >
+      </UMarquee>
+      <UMarquee
+        orientation="vertical"
+        :overlay="false"
+        :ui="{ root: '[--duration:40s] absolute w-[460px] -top-[400px] left-[480px] h-[1160px] transform-3d rotate-x-55 rotate-y-0 rotate-z-30' }"
+      >
+        <img
+          v-for="s in marqueeColumns[1]"
+          :key="s.src"
+          :src="s.src"
+          width="460"
+          height="258"
+          :alt="s.alt"
+          loading="lazy"
+          class="aspect-video rounded-lg border border-default bg-white"
+        >
+      </UMarquee>
+      <UMarquee
+        reverse
+        orientation="vertical"
+        :overlay="false"
+        :ui="{ root: 'hidden md:flex [--duration:40s] absolute w-[460px] -top-[300px] left-[1020px] h-[1060px] transform-3d rotate-x-55 rotate-y-0 rotate-z-30' }"
+      >
+        <img
+          v-for="s in marqueeColumns[2]"
+          :key="s.src"
+          :src="s.src"
+          width="460"
+          height="258"
+          :alt="s.alt"
+          loading="lazy"
+          class="aspect-video rounded-lg border border-default bg-white"
+        >
+      </UMarquee>
+    </div>
 
     <!-- ============================ STATS ============================ -->
     <UContainer>

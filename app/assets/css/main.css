@@ -143,6 +143,33 @@ html {
 }
 .animate-marquee { animation: marquee 28s linear infinite; }
 
+/* Hero SVG choreography: sources pulse, flow lines stream (via .animate-dash),
+   bars grow from their baseline and the trend line draws itself. */
+@keyframes svg-bar {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.animate-svg-bar {
+  transform-origin: bottom;
+  transform-box: fill-box;
+  animation: svg-bar 0.9s ease-out both;
+}
+
+@keyframes svg-draw {
+  from { stroke-dashoffset: 240; }
+  to { stroke-dashoffset: 0; }
+}
+.animate-svg-draw {
+  stroke-dasharray: 240;
+  animation: svg-draw 2.2s ease-out 0.4s both;
+}
+
+@keyframes svg-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.animate-svg-pulse { animation: svg-pulse 2.4s ease-in-out infinite; }
+
 /* Scroll-reveal: Reveal.vue adds .reveal-visible when the block enters the
    viewport. Elements already on screen at mount reveal immediately, so only
    below-the-fold content waits for its scroll. */
@@ -161,7 +188,10 @@ html {
   .animate-float,
   .animate-fade-up,
   .animate-dash,
-  .animate-marquee { animation: none; }
+  .animate-marquee,
+  .animate-svg-bar,
+  .animate-svg-draw,
+  .animate-svg-pulse { animation: none; }
 
   .reveal {
     opacity: 1;
