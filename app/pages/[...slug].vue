@@ -242,6 +242,11 @@ useJsonLd(jsonLd)
         :value="renderedPage"
       />
 
+      <CourseQuizCard
+        v-if="page.quiz?.length"
+        :questions="page.quiz"
+      />
+
       <LessonInterview
         v-if="page.interview?.length"
         :items="page.interview"

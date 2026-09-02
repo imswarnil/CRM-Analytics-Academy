@@ -13,6 +13,10 @@ PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/node_modules/.bin:$PATH"
 
 child=""
 
+# /ask and the MCP route read public/ask-index.json, which is generated (and
+# gitignored). Build it up front so a fresh checkout's dev server has it.
+node "$(dirname "${BASH_SOURCE[0]}")/build-search-index.mjs" || true
+
 cleanup() {
   trap - EXIT INT TERM HUP
   if [ -n "$child" ]; then

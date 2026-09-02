@@ -13,6 +13,7 @@ const route = useRoute()
 // `description` render as the big dropdown panels.
 const menuItems = computed(() => [
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/foundations'), active: route.path.startsWith(localePath('/foundations')) },
+  { label: t('nav.ask'), icon: 'i-lucide-sparkles', to: localePath('/ask') },
   { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
   {
     label: t('nav.resources'),

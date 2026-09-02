@@ -6,8 +6,8 @@
     "node": ">=22.5.0"
   },
   "scripts": {
-    "build": "pnpm gate && NODE_OPTIONS=--max-old-space-size=8192 nuxt build",
-    "generate": "pnpm gate && NODE_OPTIONS=--max-old-space-size=8192 nuxt generate && pnpm verify:gating",
+    "build": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=8192 nuxt build",
+    "generate": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=8192 nuxt generate && pnpm verify:gating",
     "dev": "bash scripts/dev.sh",
     "dev:raw": "nuxt dev",
     "preview": "nuxt preview",
@@ -16,6 +16,7 @@
     "typecheck": "nuxt typecheck",
     "translate": "node --env-file-if-exists=.env scripts/translate.mjs",
     "gate": "node scripts/gate-content.mjs",
+    "ask:index": "node scripts/build-search-index.mjs",
     "verify:gating": "node scripts/verify-gating.mjs",
     "cf:dev": "pnpm build && wrangler dev",
     "deploy": "pnpm build && pnpm verify:gating && wrangler deploy",

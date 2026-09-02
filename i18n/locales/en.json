@@ -32,7 +32,8 @@
     "wallOfFame": "Wall of Fame",
     "companies": "Companies",
     "jobs": "Jobs",
-    "community": "Community"
+    "community": "Community",
+    "ask": "Ask AI"
   },
   "sponsorCard": {
     "title": "Sponsor this project",
@@ -503,5 +504,31 @@
     "button": "Subscribe",
     "success": "Check your inbox to confirm your subscription.",
     "error": "Subscription failed - please try again later."
+  },
+  "quiz": {
+    "title": "Check your knowledge",
+    "question": "Question {n} of {total}",
+    "submit": "Submit answers",
+    "score": "You scored {score} of {total}",
+    "passed": "Passed - nice work!",
+    "failed": "Not yet - review the lessons and try again.",
+    "retry": "Try again",
+    "signInToSave": "Sign in to save your score and earn leaderboard points.",
+    "saved": "Score saved - it counts toward your leaderboard points.",
+    "answered": "{n} of {total} answered"
+  },
+  "ask": {
+    "eyebrow": "Ask",
+    "title": "Ask the curriculum",
+    "subtitle": "Type a question and get the exact lessons that answer it - no account, no waiting.",
+    "placeholder": "e.g. How do I facet a dashboard with a date toggle?",
+    "empty": "No matching lessons - try different words.",
+    "sources": "From the curriculum",
+    "aiBox": "Chat with this course in your AI tool",
+    "aiBoxDesc": "Paste this link into ChatGPT, Claude or any AI assistant to chat with the full curriculum.",
+    "copy": "Copy link",
+    "copied": "Copied!",
+    "mcp": "Connect via MCP",
+    "mcpDesc": "Point any MCP-capable client at this endpoint to give your AI assistant direct access to every lesson."
   }
 }

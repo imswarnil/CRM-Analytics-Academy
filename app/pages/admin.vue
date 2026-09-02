@@ -21,7 +21,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-const tab = ref<'overview' | 'users' | 'queue'>('overview')
+const tab = ref<'overview' | 'users' | 'queue' | 'content'>('overview')
 
 const { data: me } = await useLazyAsyncData('admin-me', () =>
   $fetch<{ signedIn: boolean, role: string | null, email?: string }>('/api/admin/me'), {
@@ -79,7 +79,21 @@ interface AdminStats {
   series: {
     submissions: SeriesPoint[]
     progress: SeriesPoint[]
+    // Empty (not zeros) when neon_auth."user" is unreadable — the chart hides.
+    signups?: SeriesPoint[]
   }
+  topLessons?: TopLesson[]
+  quiz?: QuizStats
+}
+
+interface TopLesson {
+  path: string
+  count: number
+}
+
+interface QuizStats {
+  attempts: number
+  avgScorePct: number
 }
 
 const users = ref<AdminUser[]>([])
@@ -154,13 +168,24 @@ function lastDays(n: number): string[] {
   return out
 }
 
-function sampleSeries(): AdminStats['series'] {
+function sampleSeries(): Required<AdminStats['series']> {
   const days = lastDays(14)
   return {
     submissions: days.map((day, i) => ({ day, count: 1 + ((i * 7) % 13) % 9 })),
-    progress: days.map((day, i) => ({ day, count: 3 + ((i * 5 + 4) % 11) }))
+    progress: days.map((day, i) => ({ day, count: 3 + ((i * 5 + 4) % 11) })),
+    signups: days.map((day, i) => ({ day, count: 1 + ((i * 3 + 2) % 7) }))
   }
 }
+
+const SAMPLE_TOP_LESSONS: TopLesson[] = [
+  { path: '/foundations/what-is-crm-analytics', count: 74 },
+  { path: '/creating-datasets/recipes-vs-dataflows', count: 61 },
+  { path: '/lenses-and-explorations/saql-basics', count: 48 },
+  { path: '/designing-dashboards/bindings', count: 39 },
+  { path: '/setup/enable-crm-analytics', count: 31 }
+]
+
+const SAMPLE_QUIZ: QuizStats = { attempts: 357, avgScorePct: 78 }
 
 function statsEmpty(s: AdminStats) {
   return Object.values(s.totals).every(v => !v)
@@ -219,6 +244,36 @@ const progressLine = computed(() => {
     line: pts.join(' '),
     area: `0,${CHART_H - CHART_PAD} ${pts.join(' ')} ${CHART_W},${CHART_H - CHART_PAD}`
   }
+})
+
+const displaySignups = computed(() => {
+  const s = stats.value
+  if (!s || statsEmpty(s)) return sampleSeries().signups
+  return s.series.signups ?? []
+})
+
+const signupLine = computed(() => {
+  const s = displaySignups.value
+  const max = Math.max(1, ...s.map(p => p.count))
+  const step = CHART_W / Math.max(1, s.length - 1)
+  return s.map((p, i) => {
+    const y = CHART_H - CHART_PAD - (p.count / max) * (CHART_H - CHART_PAD - 8)
+    return `${(i * step).toFixed(1)},${y.toFixed(1)}`
+  }).join(' ')
+})
+
+const displayTopLessons = computed(() => {
+  const s = stats.value
+  if (!s || statsEmpty(s)) return SAMPLE_TOP_LESSONS
+  return s.topLessons ?? []
+})
+
+const topLessonMax = computed(() => Math.max(1, ...displayTopLessons.value.map(l => l.count)))
+
+const displayQuiz = computed(() => {
+  const s = stats.value
+  if (!s || statsEmpty(s) || !s.quiz) return SAMPLE_QUIZ
+  return s.quiz
 })
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -303,6 +358,193 @@ async function createUser() {
 }
 
 const roles = ['learner', 'moderator', 'admin']
+
+/* --- Content studio ------------------------------------------------------ */
+// Edits English lessons straight against the GitHub repo (via
+// /api/admin/content/*). Publishing commits to main, which kicks off the
+// translate workflow and the Pages deploy — the same pipeline as a local push.
+interface ContentFile {
+  path: string
+  size: number
+}
+
+interface PublishResult {
+  path: string
+  sha: string
+  commitSha: string
+  commitUrl: string | null
+}
+
+const CONTENT_PREFIX = 'content/en/'
+
+// Mirrors the docs schema in content.config.ts: title + description are
+// required; video and interview are the optional extras worth remembering.
+const NEW_LESSON_TEMPLATE = `---
+title: Lesson title
+description: One-sentence summary shown in navigation and search results.
+# Optional YouTube clip rendered above the lesson body:
+# video:
+#   id: YOUTUBE_VIDEO_ID
+#   start: 0
+#   end: 120
+# Optional interview/quiz Q&A rendered after the body (also FAQPage JSON-LD):
+# interview:
+#   - q: A question a candidate should be able to answer?
+#     a: The model answer.
+---
+
+Write the lesson body in markdown here.
+`
+
+const contentTree = ref<ContentFile[]>([])
+const contentTreeLoaded = ref(false)
+const contentTreeLoading = ref(false)
+const contentError = ref('')
+const activePath = ref('')
+const newPath = ref('')
+const isNewFile = ref(false)
+const fileSha = ref('')
+const fileLoading = ref(false)
+const editorText = ref('')
+const loadedText = ref('')
+const commitMessage = ref('')
+const publishing = ref(false)
+const published = ref<PublishResult | null>(null)
+
+const contentDirty = computed(() => editorText.value !== loadedText.value)
+
+const contentModules = computed(() => {
+  const groups = new Map<string, ContentFile[]>()
+  for (const f of contentTree.value) {
+    const rel = f.path.slice(CONTENT_PREFIX.length)
+    const slash = rel.indexOf('/')
+    const dir = slash === -1 ? '(top level)' : rel.slice(0, slash)
+    const list = groups.get(dir) || []
+    list.push(f)
+    groups.set(dir, list)
+  }
+  return [...groups.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([name, files]) => ({ name, files }))
+})
+
+function fileLabel(f: ContentFile) {
+  const rel = f.path.slice(CONTENT_PREFIX.length)
+  const slash = rel.indexOf('/')
+  return slash === -1 ? rel : rel.slice(slash + 1)
+}
+
+async function loadContentTree() {
+  contentTreeLoading.value = true
+  contentError.value = ''
+  try {
+    contentTree.value = await $fetch<ContentFile[]>('/api/admin/content/tree')
+    contentTreeLoaded.value = true
+  } catch (e) {
+    contentError.value = msg(e)
+  } finally {
+    contentTreeLoading.value = false
+  }
+}
+
+function confirmDiscard() {
+  return !contentDirty.value
+    || confirm(`Discard unsaved changes to ${activePath.value || 'the new lesson'}?`)
+}
+
+async function openContentFile(path: string) {
+  if (path === activePath.value && !isNewFile.value) return
+  if (!confirmDiscard()) return
+  fileLoading.value = true
+  contentError.value = ''
+  published.value = null
+  try {
+    const r = await $fetch<{ path: string, sha: string, content: string }>('/api/admin/content/file', {
+      query: { path }
+    })
+    activePath.value = r.path
+    fileSha.value = r.sha
+    editorText.value = r.content
+    loadedText.value = r.content
+    commitMessage.value = ''
+    isNewFile.value = false
+  } catch (e) {
+    contentError.value = msg(e)
+  } finally {
+    fileLoading.value = false
+  }
+}
+
+function startNewLesson() {
+  if (!confirmDiscard()) return
+  published.value = null
+  contentError.value = ''
+  isNewFile.value = true
+  activePath.value = ''
+  fileSha.value = ''
+  newPath.value = 'content/en/<module>/<NN.slug>.md'
+  editorText.value = NEW_LESSON_TEMPLATE
+  loadedText.value = ''
+  commitMessage.value = ''
+}
+
+// Client-side mirror of the server's path rule — the server re-validates, this
+// just keeps the Publish button honest. '<' blocks the untouched placeholder.
+function validLessonPath(p: string) {
+  return p.startsWith(CONTENT_PREFIX) && p.endsWith('.md') && !p.includes('..') && !p.includes('<')
+}
+
+const publishPath = computed(() => (isNewFile.value ? newPath.value.trim() : activePath.value))
+const canPublish = computed(() =>
+  !publishing.value
+  && !fileLoading.value
+  && editorText.value.trim().length > 0
+  && validLessonPath(publishPath.value)
+  && (isNewFile.value || contentDirty.value)
+)
+
+async function publishContent() {
+  const path = publishPath.value
+  if (!validLessonPath(path)) {
+    contentError.value = 'Path must look like content/en/<module>/<NN.slug>.md.'
+    return
+  }
+  if (new TextEncoder().encode(editorText.value).length > 1024 * 1024) {
+    contentError.value = 'Content exceeds the 1 MB limit.'
+    return
+  }
+  publishing.value = true
+  contentError.value = ''
+  published.value = null
+  try {
+    const r = await $fetch<PublishResult>('/api/admin/content/file', {
+      method: 'PUT',
+      body: {
+        path,
+        content: editorText.value,
+        ...(fileSha.value ? { sha: fileSha.value } : {}),
+        ...(commitMessage.value.trim() ? { message: commitMessage.value.trim() } : {})
+      }
+    })
+    published.value = r
+    activePath.value = r.path
+    fileSha.value = r.sha
+    loadedText.value = editorText.value
+    isNewFile.value = false
+    commitMessage.value = ''
+    await loadContentTree()
+  } catch (e) {
+    contentError.value = msg(e)
+  } finally {
+    publishing.value = false
+  }
+}
+
+watch(tab, (t) => {
+  if (t === 'content' && isAdmin.value && !contentTreeLoaded.value && !contentTreeLoading.value) {
+    loadContentTree()
+  }
+})
 </script>
 
 <template>
@@ -323,8 +565,8 @@ const roles = ['learner', 'moderator', 'admin']
 
     <UContainer v-else-if="isModerator">
       <UPageHeader
-        :title="tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : 'Users & Roles'"
-        :description="tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : 'Accounts, roles and access.'"
+        :title="tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? 'Content Studio' : 'Users & Roles'"
+        :description="tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? 'Edit English lessons and publish them straight to GitHub.' : 'Accounts, roles and access.'"
       >
         <template #headline>
           <nav
@@ -354,6 +596,16 @@ const roles = ['learner', 'moderator', 'admin']
                 :label="String(queue.length)"
                 size="sm"
               />
+            </UButton>
+            <UButton
+              v-if="isAdmin"
+              icon="i-lucide-file-pen-line"
+              size="sm"
+              :color="tab === 'content' ? 'primary' : 'neutral'"
+              :variant="tab === 'content' ? 'soft' : 'ghost'"
+              @click="tab = 'content'"
+            >
+              Content
             </UButton>
             <UButton
               v-if="isAdmin"
@@ -406,7 +658,7 @@ const roles = ['learner', 'moderator', 'admin']
             </div>
           </div>
 
-          <div class="mt-6 grid gap-4 lg:grid-cols-2">
+          <div class="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
             <div class="rounded-lg border border-default p-4">
               <div class="mb-3 flex items-center justify-between gap-2">
                 <p class="text-sm font-semibold text-highlighted">
@@ -500,6 +752,143 @@ const roles = ['learner', 'moderator', 'admin']
               <div class="mt-1 flex justify-between text-[10px] tabular-nums text-muted">
                 <span>{{ dayLabels.first }}</span>
                 <span>{{ dayLabels.last }}</span>
+              </div>
+            </div>
+
+            <!-- Only rendered when the series exists: neon_auth."user" may be
+               unreadable locally, and the API sends [] rather than zeros. -->
+            <div
+              v-if="displaySignups.length"
+              class="rounded-lg border border-default p-4"
+            >
+              <div class="mb-3 flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-highlighted">
+                  Signups — last 14 days
+                </p>
+                <UBadge
+                  v-if="sampleActive"
+                  label="Sample data"
+                  color="neutral"
+                  variant="subtle"
+                  size="sm"
+                />
+              </div>
+              <svg
+                :viewBox="`0 0 ${CHART_W} ${CHART_H}`"
+                class="h-[140px] w-full text-primary"
+                preserveAspectRatio="none"
+                role="img"
+                aria-label="Line chart of signups per day over the last 14 days"
+              >
+                <line
+                  x1="0"
+                  :y1="CHART_H - CHART_PAD"
+                  :x2="CHART_W"
+                  :y2="CHART_H - CHART_PAD"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  opacity="0.2"
+                />
+                <polyline
+                  :points="signupLine"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-muted">
+                <span>{{ dayLabels.first }}</span>
+                <span>{{ dayLabels.last }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-4 lg:grid-cols-2">
+            <div class="rounded-lg border border-default p-4">
+              <div class="mb-3 flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-highlighted">
+                  Top lessons
+                </p>
+                <UBadge
+                  v-if="sampleActive"
+                  label="Sample data"
+                  color="neutral"
+                  variant="subtle"
+                  size="sm"
+                />
+              </div>
+              <p
+                v-if="!displayTopLessons.length"
+                class="py-6 text-center text-sm text-muted"
+              >
+                No completions yet.
+              </p>
+              <ul
+                v-else
+                class="space-y-3"
+              >
+                <li
+                  v-for="lesson in displayTopLessons"
+                  :key="lesson.path"
+                >
+                  <div class="mb-1 flex items-baseline justify-between gap-2 text-sm">
+                    <span class="truncate font-medium text-highlighted">{{ lesson.path }}</span>
+                    <span class="shrink-0 tabular-nums text-muted">{{ lesson.count.toLocaleString('en-US') }}</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-elevated">
+                    <div
+                      class="h-1.5 rounded-full bg-primary"
+                      :style="{ width: `${Math.max(4, (lesson.count / topLessonMax) * 100)}%` }"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="grid content-start gap-4 sm:grid-cols-2">
+              <div class="rounded-lg border border-default p-4">
+                <div class="flex items-center justify-between gap-2 text-muted">
+                  <div class="flex items-center gap-2">
+                    <UIcon
+                      name="i-lucide-list-checks"
+                      class="size-4 shrink-0"
+                    />
+                    <span class="truncate text-xs font-semibold uppercase tracking-wide">Quiz attempts</span>
+                  </div>
+                  <UBadge
+                    v-if="sampleActive"
+                    label="Sample data"
+                    color="neutral"
+                    variant="subtle"
+                    size="sm"
+                  />
+                </div>
+                <p class="mt-2 text-2xl font-bold tabular-nums text-highlighted">
+                  {{ displayQuiz.attempts.toLocaleString('en-US') }}
+                </p>
+              </div>
+              <div class="rounded-lg border border-default p-4">
+                <div class="flex items-center justify-between gap-2 text-muted">
+                  <div class="flex items-center gap-2">
+                    <UIcon
+                      name="i-lucide-percent"
+                      class="size-4 shrink-0"
+                    />
+                    <span class="truncate text-xs font-semibold uppercase tracking-wide">Avg quiz score</span>
+                  </div>
+                  <UBadge
+                    v-if="sampleActive"
+                    label="Sample data"
+                    color="neutral"
+                    variant="subtle"
+                    size="sm"
+                  />
+                </div>
+                <p class="mt-2 text-2xl font-bold tabular-nums text-highlighted">
+                  {{ displayQuiz.avgScorePct }}%
+                </p>
               </div>
             </div>
           </div>
@@ -609,6 +998,164 @@ const roles = ['learner', 'moderator', 'admin']
               </UCard>
             </li>
           </ul>
+        </section>
+
+        <!-- =========================== CONTENT =========================== -->
+        <section v-else-if="tab === 'content' && isAdmin">
+          <p
+            v-if="contentError"
+            class="mb-4 text-sm text-error"
+            role="alert"
+          >
+            {{ contentError }}
+          </p>
+
+          <div class="grid gap-6 lg:grid-cols-[18rem_1fr]">
+            <!-- File list -->
+            <div>
+              <UButton
+                label="New lesson"
+                icon="i-lucide-file-plus-2"
+                size="sm"
+                block
+                variant="soft"
+                class="mb-4"
+                @click="startNewLesson"
+              />
+
+              <p
+                v-if="contentTreeLoading"
+                class="py-6 text-center text-sm text-muted"
+              >
+                Loading files…
+              </p>
+              <p
+                v-else-if="!contentModules.length"
+                class="py-6 text-center text-sm text-muted"
+              >
+                No files loaded.
+              </p>
+
+              <div
+                v-for="mod in contentModules"
+                :key="mod.name"
+                class="mb-4"
+              >
+                <p class="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
+                  {{ mod.name }}
+                </p>
+                <ul>
+                  <li
+                    v-for="f in mod.files"
+                    :key="f.path"
+                  >
+                    <button
+                      type="button"
+                      class="w-full truncate rounded-md px-2 py-1 text-start text-sm hover:bg-elevated"
+                      :class="f.path === activePath && !isNewFile ? 'bg-elevated font-medium text-highlighted' : 'text-muted'"
+                      :title="f.path"
+                      @click="openContentFile(f.path)"
+                    >
+                      {{ fileLabel(f) }}
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Editor -->
+            <div>
+              <p
+                v-if="!isNewFile && !activePath"
+                class="rounded-lg border border-default p-10 text-center text-sm text-muted"
+              >
+                Pick a lesson on the left, or start a new one.
+              </p>
+
+              <div
+                v-else
+                class="flex flex-col gap-3"
+              >
+                <div class="flex flex-wrap items-center gap-2">
+                  <UInput
+                    v-if="isNewFile"
+                    v-model="newPath"
+                    class="min-w-64 grow font-mono"
+                    size="sm"
+                    placeholder="content/en/<module>/<NN.slug>.md"
+                  />
+                  <code
+                    v-else
+                    class="truncate text-sm text-highlighted"
+                  >{{ activePath }}</code>
+                  <UBadge
+                    v-if="contentDirty"
+                    label="Unsaved changes"
+                    color="warning"
+                    variant="subtle"
+                    size="sm"
+                  />
+                  <UBadge
+                    v-if="isNewFile"
+                    label="New file"
+                    color="neutral"
+                    variant="subtle"
+                    size="sm"
+                  />
+                </div>
+
+                <textarea
+                  v-model="editorText"
+                  class="h-[60vh] w-full resize-y rounded-lg border border-default bg-default p-3 font-mono text-sm text-highlighted focus:outline-none focus:ring-2 focus:ring-primary"
+                  :disabled="fileLoading"
+                  spellcheck="false"
+                  aria-label="Lesson markdown"
+                />
+
+                <div class="flex flex-wrap items-center gap-2">
+                  <UInput
+                    v-model="commitMessage"
+                    class="min-w-64 grow"
+                    size="sm"
+                    :placeholder="`content: update ${publishPath || 'lesson'} via admin studio`"
+                    aria-label="Commit message"
+                  />
+                  <UButton
+                    label="Publish to GitHub"
+                    icon="i-lucide-git-commit-horizontal"
+                    :loading="publishing"
+                    :disabled="!canPublish"
+                    @click="publishContent"
+                  />
+                </div>
+
+                <div
+                  v-if="published"
+                  class="rounded-lg border border-default bg-elevated p-4 text-sm"
+                >
+                  <p class="font-semibold text-highlighted">
+                    Published {{ published.path }}
+                  </p>
+                  <p class="mt-1 text-muted">
+                    Commit
+                    <a
+                      v-if="published.commitUrl"
+                      :href="published.commitUrl"
+                      target="_blank"
+                      rel="noopener"
+                      class="font-mono text-primary"
+                    >{{ published.commitSha.slice(0, 7) }}</a>
+                    <span
+                      v-else
+                      class="font-mono"
+                    >{{ published.commitSha.slice(0, 7) }}</span>
+                    is on main — the push triggers the translation workflow and the
+                    Pages deploy automatically; no further action needed.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- ============================ USERS ============================ -->

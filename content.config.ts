@@ -99,6 +99,16 @@ export default defineContentConfig({
         interview: z.array(z.object({
           q: z.string(),
           a: z.string()
+        })).optional(),
+        // Optional graded quiz rendered after the lesson body. `answer` is the
+        // index into `options`. The answers necessarily ship in the payload —
+        // this content is public, open-source markdown — so grading happens
+        // client-side and only the resulting score is persisted (see
+        // server/api/quiz.post.ts).
+        quiz: z.array(z.object({
+          q: z.string(),
+          options: z.array(z.string()).min(2).max(6),
+          answer: z.number().int().min(0)
         })).optional()
       })
     })

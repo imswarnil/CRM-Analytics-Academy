@@ -105,13 +105,60 @@ export default defineEventHandler(async (event) => {
     // Leave empty.
   }
 
+  // Signups per day. Deliberately [] (not fourteen zeros) when the query
+  // fails: neon_auth."user" belongs to the managed auth service and may not
+  // exist locally, and an empty array tells the client "no data available,
+  // hide the chart" rather than "fourteen days of nobody signing up".
+  let signups: SeriesPoint[] = []
+  try {
+    const rows = await sql`
+      select date_trunc('day', created_at)::date::text as day, count(*)::int as n
+      from neon_auth."user"
+      where created_at >= now() - interval '14 days'
+      group by 1
+    `
+    signups = dense(rows)
+  } catch {
+    // Leave empty.
+  }
+
+  let topLessons: { path: string, count: number }[] = []
+  try {
+    const rows = await sql`
+      select lesson_path, count(*)::int as n
+      from app.progress
+      group by lesson_path
+      order by n desc, lesson_path
+      limit 5
+    `
+    topLessons = rows.map(r => ({ path: String(r.lesson_path), count: Number(r.n) }))
+  } catch {
+    // Leave empty.
+  }
+
+  const quiz = { attempts: 0, avgScorePct: 0 }
+  try {
+    const rows = await sql`
+      select count(*)::int as attempts,
+             coalesce(round(avg(score::numeric / total) * 100), 0)::int as avg_pct
+      from app.quiz_attempt
+    `
+    quiz.attempts = Number(rows[0]?.attempts ?? 0)
+    quiz.avgScorePct = Number(rows[0]?.avg_pct ?? 0)
+  } catch {
+    // Leave zero.
+  }
+
   setResponseHeader(event, 'cache-control', 'private, no-store')
 
   return {
     totals,
     series: {
       submissions: dense(submissionRows),
-      progress: dense(progressRows)
-    }
+      progress: dense(progressRows),
+      signups
+    },
+    topLessons,
+    quiz
   }
 })
