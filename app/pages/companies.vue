@@ -63,15 +63,34 @@ const industryKeys = Object.keys(industryIcons) as Industry[]
 const typeFilter = ref<'all' | CompanyType>('all')
 const industryFilter = ref<'all' | Industry>('all')
 
-const typeItems = computed(() => [
+const typeItems = computed((): { label: string, value: 'all' | CompanyType }[] => [
   { label: t('companies.allTypes'), value: 'all' },
   { label: t('companies.typeCustomer'), value: 'customer' },
   { label: t('companies.typeConsultancy'), value: 'consultancy' }
 ])
 
-const industryItems = computed(() => [
+const industryItems = computed((): { label: string, value: 'all' | Industry }[] => [
   { label: t('companies.allIndustries'), value: 'all' },
   ...industryKeys.map(key => ({ label: t(`companies.industries.${key}`), value: key }))
+])
+
+// Companies matching the current type filter, before the industry filter is
+// applied — the sidebar count badges show how many results each industry holds.
+const typeMatched = computed(() => companies.filter(c => typeFilter.value === 'all' || c.type === typeFilter.value))
+
+const industrySidebarItems = computed(() => [
+  {
+    label: t('companies.allIndustries'),
+    value: 'all' as const,
+    icon: 'i-lucide-layout-grid',
+    count: typeMatched.value.length
+  },
+  ...industryKeys.map(key => ({
+    label: t(`companies.industries.${key}`),
+    value: key,
+    icon: industryIcons[key],
+    count: typeMatched.value.filter(c => c.industry === key).length
+  }))
 ])
 
 const filtered = computed(() => companies.filter(c =>
@@ -113,109 +132,178 @@ useJsonLd({
       :description="t('companies.subtitle')"
     />
 
-    <div class="mt-8 flex flex-wrap items-center gap-3">
-      <UTabs
-        v-model="typeFilter"
-        :items="typeItems"
-        :content="false"
-        color="primary"
-        size="sm"
-      />
-      <USelect
-        v-model="industryFilter"
-        :items="industryItems"
-        :placeholder="t('companies.filterIndustry')"
-        icon="i-lucide-filter"
-        size="sm"
-        class="w-56"
-      />
-      <UButton
-        v-if="hasFilters"
-        icon="i-lucide-x"
-        color="neutral"
-        variant="ghost"
-        size="sm"
-        @click="resetFilters"
-      >
-        {{ t('companies.reset') }}
-      </UButton>
-    </div>
+    <UPage>
+      <template #left>
+        <!-- Desktop-only sticky filter rail — same sticky pattern as the docs
+             layout's left column. UPage hides this slot below lg; the compact
+             filter row in the main column covers mobile. -->
+        <aside class="hidden py-8 lg:sticky lg:top-(--ui-header-height) lg:block lg:max-h-[calc(100vh-var(--ui-header-height))] lg:overflow-y-auto lg:-ms-4 lg:ps-4 lg:pe-6.5">
+          <div class="flex flex-col gap-6">
+            <div>
+              <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
+                {{ t('companies.filterType') }}
+              </p>
+              <div class="flex flex-col gap-0.5">
+                <UButton
+                  v-for="item in typeItems"
+                  :key="item.value"
+                  :label="item.label"
+                  :color="typeFilter === item.value ? 'primary' : 'neutral'"
+                  :variant="typeFilter === item.value ? 'soft' : 'ghost'"
+                  block
+                  size="sm"
+                  class="justify-start"
+                  @click="typeFilter = item.value"
+                />
+              </div>
+            </div>
 
-    <UPageGrid
-      v-if="filtered.length"
-      class="mt-8"
-    >
-      <UPageCard
-        v-for="company in filtered"
-        :key="company.name"
-      >
-        <div class="flex items-start justify-between gap-3">
-          <div class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-            <UIcon
-              :name="industryIcons[company.industry]"
-              class="size-5"
-            />
-          </div>
-          <div class="flex flex-wrap justify-end gap-1.5">
-            <UBadge
-              :label="company.type === 'customer' ? t('companies.typeCustomer') : t('companies.typeConsultancy')"
-              :color="company.type === 'customer' ? 'primary' : 'neutral'"
+            <div>
+              <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
+                {{ t('companies.filterIndustry') }}
+              </p>
+              <div class="flex flex-col gap-0.5">
+                <UButton
+                  v-for="item in industrySidebarItems"
+                  :key="item.value"
+                  :icon="item.icon"
+                  :color="industryFilter === item.value ? 'primary' : 'neutral'"
+                  :variant="industryFilter === item.value ? 'soft' : 'ghost'"
+                  block
+                  size="sm"
+                  @click="industryFilter = item.value"
+                >
+                  <span class="flex-1 truncate text-start">{{ item.label }}</span>
+                  <UBadge
+                    :label="String(item.count)"
+                    color="neutral"
+                    variant="subtle"
+                    size="sm"
+                  />
+                </UButton>
+              </div>
+            </div>
+
+            <UButton
+              v-if="hasFilters"
+              icon="i-lucide-rotate-ccw"
+              color="neutral"
               variant="subtle"
               size="sm"
-            />
-            <UBadge
-              :label="t(`companies.industries.${company.industry}`)"
-              color="neutral"
-              variant="outline"
-              size="sm"
-            />
+              block
+              @click="resetFilters"
+            >
+              {{ t('companies.reset') }}
+            </UButton>
           </div>
-        </div>
-        <h3 class="mt-4 font-semibold text-highlighted">
-          {{ company.name }}
-        </h3>
-        <p class="mt-1 text-sm text-muted">
-          {{ company.note }}
+        </aside>
+      </template>
+
+      <!-- Compact filter row for mobile only — the sticky rail takes over at lg. -->
+      <div class="mt-8 flex flex-wrap items-center gap-3 lg:hidden">
+        <UTabs
+          v-model="typeFilter"
+          :items="typeItems"
+          :content="false"
+          color="primary"
+          size="sm"
+        />
+        <USelect
+          v-model="industryFilter"
+          :items="industryItems"
+          :placeholder="t('companies.filterIndustry')"
+          icon="i-lucide-filter"
+          size="sm"
+          class="w-56"
+        />
+        <UButton
+          v-if="hasFilters"
+          icon="i-lucide-x"
+          color="neutral"
+          variant="ghost"
+          size="sm"
+          @click="resetFilters"
+        >
+          {{ t('companies.reset') }}
+        </UButton>
+      </div>
+
+      <UPageGrid
+        v-if="filtered.length"
+        class="mt-8 lg:my-8"
+      >
+        <UPageCard
+          v-for="company in filtered"
+          :key="company.name"
+        >
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+              <UIcon
+                :name="industryIcons[company.industry]"
+                class="size-5"
+              />
+            </div>
+            <div class="flex flex-wrap justify-end gap-1.5">
+              <UBadge
+                :label="company.type === 'customer' ? t('companies.typeCustomer') : t('companies.typeConsultancy')"
+                :color="company.type === 'customer' ? 'primary' : 'neutral'"
+                variant="subtle"
+                size="sm"
+              />
+              <UBadge
+                :label="t(`companies.industries.${company.industry}`)"
+                color="neutral"
+                variant="outline"
+                size="sm"
+              />
+            </div>
+          </div>
+          <h3 class="mt-4 font-semibold text-highlighted">
+            {{ company.name }}
+          </h3>
+          <p class="mt-1 text-sm text-muted">
+            {{ company.note }}
+          </p>
+          <UButton
+            v-if="company.url"
+            :to="company.url"
+            target="_blank"
+            rel="noopener"
+            :label="company.url.replace(/^https:\/\/(www\.)?/, '')"
+            trailing-icon="i-lucide-arrow-up-right"
+            color="neutral"
+            variant="link"
+            size="xs"
+            class="mt-3 px-0"
+          />
+        </UPageCard>
+      </UPageGrid>
+
+      <div
+        v-else
+        class="mt-12 flex flex-col items-center gap-4 py-12 text-center"
+      >
+        <UIcon
+          name="i-lucide-search-x"
+          class="size-8 text-dimmed"
+        />
+        <p class="text-muted">
+          {{ t('companies.empty') }}
         </p>
         <UButton
-          v-if="company.url"
-          :to="company.url"
-          target="_blank"
-          rel="noopener"
-          :label="company.url.replace(/^https:\/\/(www\.)?/, '')"
-          trailing-icon="i-lucide-arrow-up-right"
+          icon="i-lucide-rotate-ccw"
           color="neutral"
-          variant="link"
-          size="xs"
-          class="mt-3 px-0"
-        />
-      </UPageCard>
-    </UPageGrid>
+          variant="subtle"
+          size="sm"
+          @click="resetFilters"
+        >
+          {{ t('companies.reset') }}
+        </UButton>
+      </div>
 
-    <div
-      v-else
-      class="mt-12 flex flex-col items-center gap-4 py-12 text-center"
-    >
-      <UIcon
-        name="i-lucide-search-x"
-        class="size-8 text-dimmed"
-      />
-      <p class="text-muted">
-        {{ t('companies.empty') }}
+      <p class="mt-12 text-xs text-dimmed lg:mb-8">
+        {{ t('companies.disclaimer') }}
       </p>
-      <UButton
-        icon="i-lucide-rotate-ccw"
-        color="neutral"
-        variant="subtle"
-        size="sm"
-        @click="resetFilters"
-      >
-        {{ t('companies.reset') }}
-      </UButton>
-    </div>
-
-    <p class="mt-12 text-xs text-dimmed">
-      {{ t('companies.disclaimer') }}
-    </p>
+    </UPage>
   </UContainer>
 </template>

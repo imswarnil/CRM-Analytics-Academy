@@ -12,21 +12,25 @@ interface Person {
   name: string
   type: PersonType
   desc: string
+  linkedin: string
   url?: string
   icon?: string
 }
 
 // Curated by hand — like the resources list, this is data, not UI copy.
 // To add someone: append an entry with their name, one of the five types,
-// a short factual description of their community contribution, and a `url`
-// only if you are sure of the domain (the card renders fine without one).
+// a short factual description of their community contribution, and a
+// `linkedin` link. Unless you are certain of the person's exact LinkedIn
+// handle, use a people-search URL (`/search/results/all/?keywords=<name>`)
+// so we never fabricate a profile slug. `url` is an optional secondary
+// link (personal site, GitHub) rendered as a small icon button.
 const people: Person[] = [
-  { name: 'Rikke Hovgaard', type: 'blogger', desc: 'Writes salesforceblogger.com, one of the longest-running blogs dedicated to CRM Analytics tips, bindings, and dashboard techniques.', url: 'https://www.salesforceblogger.com' },
-  { name: 'Mohan Chinnappan', type: 'builder', desc: 'Builds and maintains open-source sfdx plugin tooling that many teams use to work with CRM Analytics assets from the command line.', url: 'https://github.com/mohan-chinnappan-n' },
-  { name: 'Carl Brundage', type: 'speaker', desc: 'Einstein Analytics Champion and consultant, known for sharing deep implementation expertise at community events.' },
-  { name: 'Mark Tossell', type: 'author', desc: 'Wrote the book Learning Tableau CRM and shares practical guidance on analytics adoption and dashboard design.' },
-  { name: 'Bobby Brill', type: 'speaker', desc: 'Longtime Einstein Discovery product leader at Salesforce, a familiar face in community demos and sessions.' },
-  { name: 'Skip Sauls', type: 'speaker', desc: 'CRM Analytics product management leader at Salesforce, known for engaging with practitioners in the Trailblazer community.' }
+  { name: 'Rikke Hovgaard', type: 'blogger', desc: 'Writes salesforceblogger.com, one of the longest-running blogs dedicated to CRM Analytics tips, bindings, and dashboard techniques.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Rikke%20Hovgaard', url: 'https://www.salesforceblogger.com', icon: 'i-lucide-globe' },
+  { name: 'Mohan Chinnappan', type: 'builder', desc: 'Builds and maintains open-source sfdx plugin tooling that many teams use to work with CRM Analytics assets from the command line.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Mohan%20Chinnappan', url: 'https://github.com/mohan-chinnappan-n', icon: 'i-simple-icons-github' },
+  { name: 'Carl Brundage', type: 'speaker', desc: 'Einstein Analytics Champion and consultant, known for sharing deep implementation expertise at community events.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Carl%20Brundage' },
+  { name: 'Mark Tossell', type: 'author', desc: 'Wrote the book Learning Tableau CRM and shares practical guidance on analytics adoption and dashboard design.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Mark%20Tossell' },
+  { name: 'Bobby Brill', type: 'speaker', desc: 'Longtime Einstein Discovery product leader at Salesforce, a familiar face in community demos and sessions.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Bobby%20Brill' },
+  { name: 'Skip Sauls', type: 'speaker', desc: 'CRM Analytics product management leader at Salesforce, known for engaging with practitioners in the Trailblazer community.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Skip%20Sauls' }
 ]
 
 const typeIcons: Record<PersonType, string> = {
@@ -44,6 +48,9 @@ const countFor = (key: 'all' | PersonType) => key === 'all' ? people.length : pe
 
 const initials = (name: string) => name.split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('')
 
+// A gallery wall never hangs perfectly straight — cycle a few tilts by index.
+const rotations = ['rotate-1', '-rotate-1', 'rotate-0', '-rotate-2']
+
 useJsonLd({
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -54,7 +61,7 @@ useJsonLd({
   'itemListElement': people.map((p, i) => ({
     '@type': 'ListItem',
     'position': i + 1,
-    'item': { '@type': 'Person', 'name': p.name, ...(p.url ? { url: p.url } : {}) }
+    'item': { '@type': 'Person', 'name': p.name, 'url': p.linkedin }
   }))
 })
 </script>
@@ -116,49 +123,91 @@ useJsonLd({
         </UButton>
       </div>
 
-      <UPageGrid>
-        <UPageCard
-          v-for="p in filtered"
-          :key="p.name"
-          :ui="{ body: 'flex-1' }"
-        >
-          <div class="flex h-full flex-col gap-3">
-            <div class="flex items-center justify-between gap-3">
-              <UAvatar
-                :text="initials(p.name)"
-                size="lg"
-              />
-              <UBadge
-                :label="t(`wall.types.${p.type}`)"
-                :icon="p.icon || typeIcons[p.type]"
-                color="primary"
-                variant="subtle"
-                size="sm"
-                class="rounded-full"
-              />
-            </div>
-            <h3 class="font-semibold text-highlighted">
-              {{ p.name }}
-            </h3>
-            <p class="grow text-sm text-muted">
-              {{ p.desc }}
-            </p>
-            <div v-if="p.url">
-              <UButton
-                :to="p.url"
-                target="_blank"
-                color="neutral"
-                variant="outline"
-                size="sm"
-                trailing-icon="i-lucide-arrow-up-right"
-                class="rounded-full"
+      <section class="bg-dots rounded-lg p-6 ring-1 ring-default sm:p-10">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3">
+          <div
+            v-for="(p, i) in filtered"
+            :key="p.name"
+            class="group relative transition-transform duration-300 hover:rotate-0"
+            :class="rotations[i % rotations.length]"
+          >
+            <!-- the nail it hangs from -->
+            <span
+              class="absolute -top-2 left-1/2 z-10 size-2 -translate-x-1/2 rounded-full bg-neutral-400 shadow-sm dark:bg-neutral-500"
+              aria-hidden="true"
+            />
+
+            <!-- wooden frame + mat -->
+            <div class="flex h-full flex-col rounded-sm border-8 border-amber-900/70 bg-amber-50 p-4 shadow-xl dark:border-amber-950 dark:bg-neutral-800">
+              <!-- sepia "photo" -->
+              <div
+                class="flex aspect-square items-center justify-center bg-gradient-to-br from-amber-100 to-amber-200 dark:from-neutral-700 dark:to-neutral-800"
+                aria-hidden="true"
               >
-                {{ t('wall.visit') }}
-              </UButton>
+                <UAvatar
+                  :text="initials(p.name)"
+                  size="3xl"
+                  class="bg-amber-200 font-serif text-amber-900 ring-2 ring-amber-300/70 dark:bg-neutral-600 dark:text-neutral-100 dark:ring-neutral-500/70"
+                />
+              </div>
+
+              <!-- brass name plaque -->
+              <div class="mt-3 rounded-sm border border-amber-300 bg-amber-200/80 px-3 py-1.5 text-center dark:border-amber-800 dark:bg-amber-900/40">
+                <p class="text-sm font-semibold uppercase tracking-widest text-amber-950 dark:text-amber-100">
+                  {{ p.name }}
+                </p>
+                <p class="text-[10px] uppercase tracking-wider text-amber-800 dark:text-amber-300">
+                  {{ t(`wall.types.${p.type}`) }}
+                </p>
+              </div>
+
+              <p class="mt-3 grow text-xs text-muted">
+                {{ p.desc }}
+              </p>
+
+              <div class="mt-3 flex items-center justify-between gap-2">
+                <UBadge
+                  :label="t(`wall.types.${p.type}`)"
+                  :icon="typeIcons[p.type]"
+                  color="primary"
+                  variant="subtle"
+                  size="sm"
+                  class="rounded-full"
+                />
+                <div class="relative z-10 flex items-center gap-1">
+                  <UButton
+                    v-if="p.url"
+                    :to="p.url"
+                    target="_blank"
+                    :aria-label="t('wall.visit')"
+                    :icon="p.icon || 'i-lucide-globe'"
+                    color="neutral"
+                    variant="ghost"
+                    size="xs"
+                  />
+                  <UButton
+                    :to="p.linkedin"
+                    target="_blank"
+                    :aria-label="t('wall.connect')"
+                    icon="i-simple-icons-linkedin"
+                    color="neutral"
+                    variant="ghost"
+                    size="xs"
+                  />
+                </div>
+              </div>
             </div>
+
+            <!-- whole-frame link to LinkedIn -->
+            <NuxtLink
+              :to="p.linkedin"
+              target="_blank"
+              :aria-label="p.name"
+              class="absolute inset-0 rounded-sm"
+            />
           </div>
-        </UPageCard>
-      </UPageGrid>
+        </div>
+      </section>
 
       <UPageCTA
         :title="t('wall.nominateTitle')"

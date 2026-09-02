@@ -431,7 +431,8 @@
     "visit": "Visit",
     "nominateTitle": "Know someone who belongs here?",
     "nominateDesc": "Nominate a blogger, creator or mentor whose work has helped the CRM Analytics community.",
-    "nominate": "Nominate someone"
+    "nominate": "Nominate someone",
+    "connect": "Connect on LinkedIn"
   },
   "companies": {
     "eyebrow": "Ecosystem",
@@ -456,7 +457,8 @@
       "telecom": "Telecom & media",
       "nonprofit": "Nonprofit & education",
       "consulting": "Consulting"
-    }
+    },
+    "filterType": "Type"
   },
   "jobs": {
     "eyebrow": "Careers",
@@ -469,6 +471,9 @@
     "empty": "No jobs match - try clearing the search.",
     "count": "{count} open roles",
     "disclaimer": "Listings come from third-party job boards; we do not screen employers. Always apply on the source site.",
-    "source": "Source"
+    "source": "Source",
+    "sample": "Sample",
+    "sampleNote": "Live listings are refreshed daily; these sample roles show what typically appears here.",
+    "filters": "Filters"
   }
 }
