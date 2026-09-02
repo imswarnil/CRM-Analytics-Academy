@@ -106,19 +106,15 @@ useJsonLd({
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b-[3px] border-(--nb-ink) bg-(--nb-hero)">
-      <div
-        class="absolute -top-20 -right-20 size-56 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute -bottom-24 -left-24 size-64 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
-        aria-hidden="true"
-      />
+    <section class="relative overflow-hidden border-b border-default">
+      <div class="absolute inset-0 bg-grid" />
+      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
       <UContainer class="relative py-14 text-center sm:py-16">
         <UBadge
+          color="primary"
+          variant="subtle"
           size="lg"
-          class="mb-5 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
+          class="mb-5 rounded-full"
         >
           <UIcon
             name="i-lucide-layout-dashboard"
@@ -208,9 +204,9 @@ useJsonLd({
               v-for="item in filtered"
               :key="item.path"
               :to="localePath(item.path)"
-              class="nb-card group flex flex-col overflow-hidden transition-transform hover:-translate-y-0.5"
+              class="group flex flex-col overflow-hidden rounded-2xl border border-default bg-default transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
             >
-              <div class="aspect-video overflow-hidden border-b-[3px] border-(--nb-ink) bg-(--nb-subtle)">
+              <div class="aspect-video overflow-hidden border-b border-default bg-muted/40">
                 <NuxtImg
                   :src="item.image"
                   :alt="item.title"
@@ -260,7 +256,7 @@ useJsonLd({
 
           <div
             v-else
-            class="rounded-2xl border-[3px] border-dashed border-(--nb-ink) p-12 text-center"
+            class="rounded-2xl border border-dashed border-default p-12 text-center"
           >
             <UIcon
               name="i-lucide-search-x"
@@ -280,7 +276,7 @@ useJsonLd({
             </UButton>
           </div>
 
-          <div class="nb-card mt-10 bg-(--nb-subtle) p-6 text-center">
+          <div class="mt-10 rounded-2xl border border-default bg-elevated/40 p-6 text-center">
             <p class="font-semibold text-highlighted">
               {{ t('showcase.submit') }}
             </p>

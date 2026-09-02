@@ -106,19 +106,16 @@ export default defineNuxtConfig({
     }
   },
 
+  css: ['~/assets/css/main.css'],
+
   site: {
     url: 'https://crmanalytics.imswarnil.com',
     name: 'CRM Analytics Academy'
   },
 
-  // NSDS flips its tokens on [data-theme="dark"]; @nuxtjs/color-mode writes a
-  // class by default. `dataValue` makes it write both, so the design system
-  // and Nuxt UI's `dark:` variant switch together instead of half the page
-  // going dark — which is what an earlier pass shipped. theme.css redeclares
-  // Tailwind's own `dark:` variant to read the same attribute.
-  //
   // `storageKey` is the shared Namaste Salesforce contract: a reader moving
-  // between the estate's sites keeps the theme they chose.
+  // between the estate's sites keeps the theme they chose. `dataValue` also
+  // mirrors the mode onto [data-theme] for anything styled off that attribute.
   colorMode: {
     dataValue: 'theme',
     storageKey: 'ns-theme'
@@ -326,10 +323,6 @@ export default defineNuxtConfig({
   ogImage: {
     zeroRuntime: true
   },
-
-  // No `css` entry: the stylesheet is registered by layers/nsds, which owns
-  // the whole visual system — tokens, fonts, the Nuxt UI theme and the
-  // site's decorative helpers. Nuxt auto-registers anything under layers/.
 
   // The site had no sitemap at all: 780 prerendered pages across 12 locales
   // and nothing telling a crawler they exist beyond following links.

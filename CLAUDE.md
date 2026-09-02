@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**CRM Analytics Academy** — a free, open-source learning site for Salesforce CRM Analytics (data prep, SAQL, dashboards, bindings, Einstein Discovery). Live at **crmanalytics.imswarnil.com**, hosted on **GitHub Pages** and deployed by GitHub Actions. GitHub: **imswarnil/CRM-Analytics-Academy**.
+**CRM Analytics Academy** — a free, open-source learning site for Salesforce CRM Analytics (data prep, SAQL, dashboards, bindings, Einstein Discovery). Live at **crmanalytics.imswarnil.com**, hosted on **Cloudflare Workers** (prerendered pages served as static assets, a small Worker for the dynamic routes) and deployed by GitHub Actions (`deploy-cloudflare.yml`). GitHub: **imswarnil/CRM-Analytics-Academy**.
 
-Built on **Nuxt 4 + Nuxt Content 3 + Nuxt UI v4 + Tailwind CSS 4**. It is a **fully static, markdown-driven site**: no database, no accounts, no server-side state. Every page is prerendered at build time from `content/`, not hand-written as Vue routes.
+Built on **Nuxt 4 + Nuxt Content 3 + Nuxt UI v4 + Tailwind CSS 4**, styled as the stock Nuxt UI docs template. It is a **markdown-driven site**: every docs page is prerendered at build time from `content/`, not hand-written as Vue routes. On top of that sits a small dynamic layer — **Neon Postgres + Neon Auth (better-auth)** — for sign-in/sign-up, a demo account, lesson progress, submissions and an admin console. Server code lives in `server/api/**` and `server/utils/**`; the schema is in `server/db/*.sql`.
 
-> The site previously had a Supabase layer (auth, progress, quizzes, comments, feedback, guestbook, certificates, admin panel, Content Studio). It was removed end to end. **`dbms.md`** records the full schema it ran on plus a single-table design for bringing it back — read that before proposing any database work.
+> History: an earlier Supabase layer was removed end to end (`dbms.md` records that era's schema — it is historical, **not** the current design), the site then ran fully static on GitHub Pages, and the dynamic layer was later rebuilt on Neon + Cloudflare. `how-it-works.md` also predates the Neon layer.
 
 ## Commands
 
@@ -48,11 +48,10 @@ If the docs nav or `/raw/*.md` ever looks empty/broken in dev, this is almost al
 - There is **no blog** — it was replaced by `content/resources/` in commit `54095d1`.
 - To add a lesson, add a markdown file under `content/` (see the `new-lesson` skill). Do **not** create a Vue file. New pages must be link-reachable from `/` to be prerendered (`nitro.prerender.crawlLinks`).
 
-### Static-only constraints
-- There is **no `server/api/`**. The only server route is `server/routes/raw/[...slug].md.get.ts`.
-- Don't add auth, user state, or any fetch that can't run at build time — it makes the route unprerenderable, which is the one thing this architecture is optimising against.
-- Publishing = commit a markdown file and push to `main`. `.github/workflows/deploy.yml` runs lint + typecheck, `pnpm generate`, and publishes `.output/public` to Pages.
-- `nitro.preset: 'github_pages'` emits `.nojekyll` (without it Jekyll drops all of `_nuxt/`). `public/CNAME` pins the custom domain — **don't delete either**.
+### Static-first constraints
+- The curriculum stays prerendered: content pages must not gain fetches that can't run at build time. Dynamic behavior belongs on the private routes (`/dashboard`, `/submit`, `/admin`, `/api/**`), which are excluded from the prerender via `privateRoutes` in `nuxt.config.ts`.
+- `nitro.preset: 'cloudflare_module'`; `wrangler.jsonc` serves `.output/public` as static assets and only misses reach the Worker. Auth state is resolved server-side per request (`server/utils/auth.ts`), never trusted from the client.
+- Publishing content = commit a markdown file and push to `main`. `.github/workflows/deploy-cloudflare.yml` deploys; `deploy.yml` (GitHub Pages, `NITRO_PRESET=github_pages`) is a manual-dispatch rollback path that builds the static-only bundle without auth.
 
 ### Raw markdown + LLM surface
 Same `docs` collection, exposed to AI agents/crawlers two ways:

@@ -38,7 +38,7 @@ const src = computed(() => {
 
 <template>
   <!-- The design system's video well: a heavy ink frame around a dark stage. -->
-  <div class="nb-frame aspect-video w-full bg-ink">
+  <div class="aspect-video w-full overflow-hidden rounded-lg border border-default bg-neutral-950">
     <iframe
       :src="src"
       :title="title"

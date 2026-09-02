@@ -20,6 +20,15 @@ const { data: navTree, refresh: refreshNav } = await useAsyncData('navigation', 
 onMounted(() => {
   if (!navTree.value?.length) refreshNav()
 })
+
+// Session bootstrap. app.vue is on every page, which is what makes it the
+// right place for the single fetch; progress loads once a session exists.
+const { isSignedIn, fetchSession } = useAuth()
+const { load: loadProgress } = useProgress()
+onMounted(() => {
+  fetchSession()
+})
+watch(isSignedIn, ok => ok && loadProgress(), { immediate: true })
 const navigation = computed<ContentNavigationItem[]>(() => {
   const branch = navTree.value?.find(item => item.path === `/${locale.value}`)
   if (branch?.children?.length) return localizeNavigation(branch.children)
@@ -51,10 +60,9 @@ const i18nHead = useLocaleHead()
 useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    // Matches manifest.webmanifest. Both moved off Salesforce blue
-    // when the palette did; a stale value here shows as the wrong colour in
-    // the Android status bar of an installed app.
-    { name: 'theme-color', content: '#2563eb' }
+    // Matches manifest.webmanifest; a stale value here shows as the wrong
+    // colour in the Android status bar of an installed app.
+    { name: 'theme-color', content: '#0176D3' }
   ],
   link: [
     { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
@@ -127,14 +135,15 @@ provide('navigation', navigation)
   <UApp>
     <NuxtLoadingIndicator />
 
-    <!-- One shell for every page: the design system's sticky top navbar,
-         the page, then the ink footer (which the shell itself renders, and
-         omits on lesson screens where the player owns the viewport). -->
-    <AppShell>
+    <AppHeader />
+
+    <UMain>
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
-    </AppShell>
+    </UMain>
+
+    <AppFooter />
 
     <ClientOnly>
       <LazyUContentSearch

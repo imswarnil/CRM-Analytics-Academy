@@ -8,7 +8,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <!-- Full-bleed: AuthForm is a two-column split and a width cap around it
-       would leave the brand panel floating in a gutter. -->
+  <!-- AuthForm centres its own card and carries its own padding, so the page
+       adds no wrapper of its own. -->
   <AuthForm mode="sign-in" />
 </template>

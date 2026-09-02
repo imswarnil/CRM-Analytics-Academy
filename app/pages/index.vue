@@ -17,11 +17,11 @@ useSeoMeta({
 
 defineOgImage('Docs', { title: title.value, description: description.value })
 
-// Derived, not typed. This read "18" while the hero beside it said 49 and
-// the course rail said "of 49" — three numbers for one fact, two of them
-// computed and the stale one hand-written. Counting the curriculum means it
-// cannot drift again when a lesson is added.
-const { lessons: allLessons } = useCourse()
+const stats = computed(() => [
+  { value: '18', label: t('home.stats.lessons') },
+  { value: '42m', label: t('home.stats.video') },
+  { value: '100%', label: t('home.stats.free') }
+])
 
 // The course is currently one video-led track ("CRM Analytics Foundations").
 // Each lesson pairs a clip of the Tableau CRM / CRM Analytics training video
@@ -138,25 +138,6 @@ const modules = computed(() => [
   }
 ])
 
-// The design system gives each curriculum section its own accent: yellow,
-// pink, blue, green, purple, sky — in that order. Ink text on the light
-// accents, white on the saturated ones.
-const moduleAccents = [
-  { tile: 'bg-brand-yellow text-ink', deco: 'bg-brand-yellow-soft border-brand-yellow' },
-  { tile: 'bg-brand-pink text-white', deco: 'bg-brand-pink-soft border-brand-pink' },
-  { tile: 'bg-primary text-white', deco: 'bg-salesforce-100 border-primary' },
-  { tile: 'bg-brand-green text-ink', deco: 'bg-brand-green-soft border-brand-green' },
-  { tile: 'bg-brand-purple text-white', deco: 'bg-brand-purple-soft border-brand-purple' },
-  { tile: 'bg-brand-sky text-ink', deco: 'bg-brand-sky-soft border-brand-sky' }
-]
-
-const stats = computed(() => [
-  { value: String(modules.value.length), label: t('home.stats.modules') },
-  { value: String(allLessons.value.length || 49), label: t('home.stats.lessons') },
-  { value: '12', label: t('home.stats.languages') },
-  { value: '100%', label: t('home.stats.free') }
-])
-
 // Course rich-snippet: the site is one Course; each module is a sub-Course whose
 // lessons are its syllabus sections. Free offer + online instance keep it valid
 // for Google's Course rich result.
@@ -234,126 +215,107 @@ useJsonLd({
 <template>
   <div>
     <!-- ============================ HERO ============================ -->
-    <!-- The design system's hero: a blue wash with big bordered circles
-         breaking the corners and three candy dots floating in the space —
-         decoration the neo-brutal way, drawn shapes rather than gradients. -->
-    <section class="relative overflow-hidden bg-(--nb-hero)">
-      <div
-        class="absolute -top-24 -right-24 size-72 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute -bottom-28 -left-28 size-80 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute top-0 left-0 hidden size-32 rounded-br-full border-r-4 border-b-4 border-(--nb-ink) bg-(--nb-hero-shape-3) lg:block"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute top-12 right-1/3 hidden size-5 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow lg:block"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute right-40 bottom-16 hidden size-4 rotate-45 rounded border-[3px] border-(--nb-ink) bg-brand-pink lg:block"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute top-32 left-52 hidden size-3.5 rounded-full border-2 border-(--nb-ink) bg-brand-green lg:block"
-        aria-hidden="true"
-      />
+    <section class="relative overflow-hidden border-b border-default">
+      <div class="absolute inset-0 bg-grid" />
+      <div class="absolute -top-32 -left-32 size-96 rounded-full bg-primary/20 blur-3xl" />
+      <div class="absolute -top-20 right-0 size-80 rounded-full bg-salesforce-400/15 blur-3xl" />
 
-      <UContainer class="relative grid items-center gap-12 py-16 lg:grid-cols-2 sm:py-24">
-        <div class="animate-fade-up">
-          <UBadge
-            :label="t('hero.badge')"
-            icon="i-lucide-sparkles"
-            size="lg"
-            class="rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
-          />
-
-          <!-- The design's hero scale: 58px, solid leading, -0.03em. -->
-          <h1 class="mt-6 text-[2.625rem] leading-[1.02] font-bold tracking-[-0.03em] text-highlighted sm:text-[3.625rem]">
-            {{ t('hero.titleLead') }}
-            <span class="text-primary">{{ t('hero.titleAccent') }}</span>
-          </h1>
-
-          <p class="mt-5 max-w-xl text-[1.0625rem] leading-[1.7] font-medium text-toned">
-            {{ t('hero.subtitle') }}
-          </p>
-
-          <div class="mt-8 flex flex-wrap items-center gap-3">
-            <UButton
-              :to="localePath('/foundations')"
-              :label="t('hero.start')"
-              trailing-icon="i-lucide-arrow-right"
-              size="xl"
-            />
-            <UButton
-              to="#curriculum"
-              :label="t('hero.browse')"
-              icon="i-lucide-graduation-cap"
-              color="neutral"
-              variant="outline"
-              size="xl"
-            />
-            <UButton
-              icon="i-lucide-search"
-              color="neutral"
-              variant="ghost"
-              size="xl"
-              :aria-label="t('hero.search')"
-              @click="useContentSearch().open.value = true"
-            />
-          </div>
-
-          <!-- Three short claims, inline. Stacked they spent three lines and
-               pushed the fold down; each keeps its own icon so they still read
-               as three things rather than one run-on. -->
-          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
-            <li
-              v-for="fact in [
-                { icon: 'i-lucide-user-round-check', text: t('hero.f1') },
-                { icon: 'i-lucide-book-open', text: t('hero.f2') },
-                { icon: 'i-lucide-badge-check', text: t('hero.f3') }
-              ]"
-              :key="fact.text"
-              class="flex items-center gap-1.5"
+      <UContainer class="relative py-20 sm:py-28">
+        <div class="grid items-center gap-12 lg:grid-cols-2">
+          <!-- Copy -->
+          <div class="animate-fade-up">
+            <UBadge
+              color="primary"
+              variant="subtle"
+              size="lg"
+              class="mb-6 rounded-full"
             >
               <UIcon
-                :name="fact.icon"
-                class="size-4 text-primary"
+                name="i-lucide-sparkles"
+                class="mr-1 size-4"
               />
-              {{ fact.text }}
-            </li>
-          </ul>
-        </div>
+              {{ t('hero.badge') }}
+            </UBadge>
 
-        <div class="animate-fade-up">
-          <HeroStory />
+            <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-6xl">
+              {{ t('hero.titleLead') }}<br>
+              <span class="text-gradient">{{ t('hero.titleAccent') }}</span>.
+            </h1>
+
+            <p class="mt-6 max-w-xl text-lg text-muted">
+              {{ t('hero.subtitle') }}
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <UButton
+                :to="localePath('/foundations')"
+                size="xl"
+                trailing-icon="i-lucide-arrow-right"
+                class="rounded-full font-semibold"
+              >
+                {{ t('hero.start') }}
+              </UButton>
+              <UButton
+                to="#curriculum"
+                size="xl"
+                color="neutral"
+                variant="outline"
+                icon="i-lucide-graduation-cap"
+                class="rounded-full font-semibold"
+              >
+                {{ t('hero.browse') }}
+              </UButton>
+              <UTooltip :text="t('hero.search')">
+                <UButton
+                  icon="i-lucide-search"
+                  size="xl"
+                  color="neutral"
+                  variant="outline"
+                  square
+                  class="rounded-full"
+                  :aria-label="t('hero.search')"
+                  @click="useContentSearch().open.value = true"
+                />
+              </UTooltip>
+            </div>
+
+            <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
+              <span class="flex items-center gap-1.5"><UIcon
+                name="i-lucide-check"
+                class="size-4 text-primary"
+              /> {{ t('hero.f1') }}</span>
+              <span class="flex items-center gap-1.5"><UIcon
+                name="i-lucide-check"
+                class="size-4 text-primary"
+              /> {{ t('hero.f2') }}</span>
+              <span class="flex items-center gap-1.5"><UIcon
+                name="i-lucide-check"
+                class="size-4 text-primary"
+              /> {{ t('hero.f3') }}</span>
+            </div>
+          </div>
+
+          <!-- Animated pipeline storyboard -->
+          <div class="animate-fade-up mx-auto w-full max-w-md">
+            <HeroStory />
+          </div>
         </div>
       </UContainer>
     </section>
 
     <!-- ============================ STATS ============================ -->
-    <!-- The ink slab, pulled up over the hero's bottom edge the way the
-         design draws it. Each label keeps its own accent so the row reads as
-         four facts rather than one sentence. -->
-    <section class="relative z-10 -mt-10">
-      <UContainer>
-        <dl class="grid grid-cols-2 overflow-hidden rounded-2xl border-[3px] border-(--nb-ink) bg-ink sm:grid-cols-4">
+    <section class="border-b border-default bg-gradient-to-r from-salesforce-600 to-salesforce-800">
+      <UContainer class="py-10">
+        <dl class="grid grid-cols-2 gap-8 sm:grid-cols-4">
           <div
-            v-for="(s, i) in stats"
+            v-for="s in stats"
             :key="s.label"
-            class="border-slate-800 px-6 py-6 text-center not-last:sm:border-e max-sm:odd:border-e max-sm:[&:nth-child(-n+2)]:border-b"
+            class="text-center"
           >
-            <dt class="font-display text-3xl font-bold text-white">
+            <dt class="text-4xl font-extrabold text-white">
               {{ s.value }}
             </dt>
-            <dd
-              class="mt-1 text-[0.6875rem] font-semibold tracking-[0.1em] uppercase"
-              :class="['text-brand-sky', 'text-brand-yellow', 'text-brand-green', 'text-brand-pink'][i % 4]"
-            >
+            <dd class="mt-1 text-sm font-medium text-white/70">
               {{ s.label }}
             </dd>
           </div>
@@ -373,13 +335,9 @@ useJsonLd({
       id="curriculum"
       class="relative scroll-mt-24 py-20 sm:py-24"
     >
-      <div
-        class="absolute inset-x-0 bottom-0 h-64 bg-bars"
-        aria-hidden="true"
-      />
-      <UContainer class="relative">
+      <UContainer>
         <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="font-display mb-4 inline-flex items-center rounded-full border-2 border-primary bg-salesforce-100 px-3.5 py-1 text-[0.6875rem] font-bold tracking-[0.06em] text-primary uppercase dark:bg-salesforce-900">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
             {{ t('home.curriculumEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -390,81 +348,72 @@ useJsonLd({
           </p>
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- The design system's section cards: a coloured icon tile wearing
-               the ink line, an eyebrow, and a tinted circle breaking the top
-               corner. The whole card is one target via a stretched link. -->
-          <article
-            v-for="(m, i) in modules"
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <NuxtLink
+            v-for="m in modules"
             :key="m.n"
-            class="nb-card relative flex flex-col overflow-hidden p-6 transition-transform hover:-translate-y-0.5"
+            :to="localePath(m.to)"
+            class="group relative flex flex-col overflow-hidden rounded-2xl border border-default bg-default p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl"
           >
-            <div
-              class="absolute -top-3 -right-3 size-12 rounded-full border-2"
-              :class="moduleAccents[i % moduleAccents.length]!.deco"
-              aria-hidden="true"
-            />
-            <div class="relative flex items-center gap-3">
-              <span
-                class="nb-tile size-11"
-                :class="moduleAccents[i % moduleAccents.length]!.tile"
-              >
+            <div class="absolute inset-x-0 top-0 h-1 scale-x-0 bg-gradient-to-r from-salesforce-400 to-salesforce-600 transition-transform duration-300 group-hover:scale-x-100" />
+            <div class="mb-5 flex items-center justify-between">
+              <div class="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition group-hover:bg-primary group-hover:text-inverted">
                 <UIcon
                   :name="m.icon"
-                  class="size-5"
+                  class="size-6"
                 />
-              </span>
-              <span>
-                <span class="font-display block text-[0.625rem] font-bold tracking-[0.08em] text-muted uppercase">{{ t('home.moduleWord') }} {{ m.n }}</span>
-                <h3 class="font-display mt-0.5 text-base font-bold text-highlighted">
-                  <NuxtLink
-                    class="after:absolute after:inset-0"
-                    :to="localePath(m.to)"
-                  >{{ m.title }}</NuxtLink>
-                </h3>
-              </span>
+              </div>
+              <span class="text-2xl font-extrabold text-default/15 group-hover:text-primary/30">{{ m.n }}</span>
             </div>
+            <h3 class="text-lg font-semibold text-highlighted">{{ m.title }}</h3>
+            <p class="mt-2 grow text-sm text-muted">{{ m.desc }}</p>
 
-            <p class="mt-3 flex-1 text-[0.8125rem] leading-[1.55] font-medium text-muted">
-              {{ m.desc }}
-            </p>
-
-            <div class="mt-4 flex items-center justify-between">
-              <span class="text-xs font-semibold text-muted">{{ m.lessons.length }} {{ t('home.lessonsWord') }}</span>
-              <span class="flex size-7 items-center justify-center rounded-full bg-ink dark:bg-slate-700">
+            <!-- Lesson preview — revealed on hover -->
+            <ul class="mt-4 max-h-0 space-y-1.5 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-24 group-hover:opacity-100">
+              <li
+                v-for="lesson in m.lessons"
+                :key="lesson"
+                class="flex items-center gap-2 text-xs font-medium text-toned"
+              >
                 <UIcon
-                  name="i-lucide-chevron-right"
-                  class="size-4 text-white"
+                  name="i-lucide-file-text"
+                  class="size-3.5 shrink-0 text-primary"
                 />
-              </span>
-            </div>
-          </article>
+                {{ lesson }}
+              </li>
+            </ul>
 
-          <!-- Start-here card. Kept as the odd one out — it is the only
-               card that is an instruction rather than a destination. -->
-          <article class="nb-card relative flex flex-col bg-(--nb-subtle) p-6 transition-transform hover:-translate-y-0.5">
-            <div class="flex flex-1 flex-col items-center justify-center gap-3 text-center">
+            <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+              {{ t('home.startModule') }}
               <UIcon
-                name="i-lucide-flag"
-                class="size-7 text-primary"
+                name="i-lucide-arrow-right"
+                class="size-4 transition-transform group-hover:translate-x-1"
               />
-              <h3 class="font-display font-bold text-highlighted">
-                <NuxtLink
-                  class="after:absolute after:inset-0"
-                  :to="localePath('/foundations')"
-                >{{ t('home.newHereTitle') }}</NuxtLink>
-              </h3>
-              <p class="text-sm text-muted">
-                {{ t('home.newHereDesc') }}
-              </p>
-              <UButton
-                :label="t('home.startHere')"
-                trailing-icon="i-lucide-arrow-right"
-                size="sm"
-                class="pointer-events-none mt-2"
-              />
-            </div>
-          </article>
+            </span>
+          </NuxtLink>
+
+          <!-- Start-here call card -->
+          <div class="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-salesforce-600 to-salesforce-800 p-6 text-white">
+            <UIcon
+              name="i-lucide-flag"
+              class="mb-4 size-8"
+            />
+            <h3 class="text-lg font-semibold">
+              {{ t('home.newHereTitle') }}
+            </h3>
+            <p class="mt-2 text-sm text-white/80">
+              {{ t('home.newHereDesc') }}
+            </p>
+            <UButton
+              :to="localePath('/foundations')"
+              color="neutral"
+              variant="solid"
+              class="mt-5 w-fit rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
+              trailing-icon="i-lucide-arrow-right"
+            >
+              {{ t('home.startHere') }}
+            </UButton>
+          </div>
         </div>
       </UContainer>
     </section>
@@ -480,7 +429,7 @@ useJsonLd({
     <section class="py-24 sm:py-32">
       <UContainer>
         <div class="mx-auto mb-16 max-w-2xl text-center">
-          <p class="font-display mb-4 inline-flex items-center rounded-full border-2 border-primary bg-salesforce-100 px-3.5 py-1 text-[0.6875rem] font-bold tracking-[0.06em] text-primary uppercase dark:bg-salesforce-900">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
             {{ t('home.featuresEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -498,8 +447,10 @@ useJsonLd({
             <div :class="i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'">
               <div
                 :ref="(el: unknown) => (featureRowEls[i] = el as HTMLElement)"
-                class="nb-card relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden bg-(--nb-subtle) p-8 sm:min-h-[380px]"
+                class="relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-default bg-muted/30 p-8 sm:min-h-[380px]"
               >
+                <div class="absolute -inset-8 bg-primary/10 blur-3xl" />
+
                 <!-- pipeline -->
                 <div
                   v-if="f.kind === 'pipeline'"
@@ -592,10 +543,10 @@ useJsonLd({
     </section>
 
     <!-- ========================= WHO IT'S FOR ========================= -->
-    <section class="border-t-[3px] border-(--nb-ink) bg-(--nb-hero) py-20 sm:py-24">
+    <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
       <UContainer>
         <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="font-display mb-4 inline-flex items-center rounded-full border-2 border-primary bg-salesforce-100 px-3.5 py-1 text-[0.6875rem] font-bold tracking-[0.06em] text-primary uppercase dark:bg-salesforce-900">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
             {{ t('home.whoEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -606,9 +557,9 @@ useJsonLd({
           <div
             v-for="p in personas"
             :key="p.title"
-            class="nb-card p-6"
+            class="rounded-2xl border border-default bg-default p-6"
           >
-            <div class="nb-tile mb-4 size-11 bg-salesforce-100 text-primary dark:bg-salesforce-900">
+            <div class="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
               <UIcon
                 :name="p.icon"
                 class="size-5"
@@ -636,7 +587,7 @@ useJsonLd({
     <section class="py-20 sm:py-24">
       <UContainer>
         <div class="mx-auto mb-12 max-w-2xl text-center">
-          <p class="font-display mb-4 inline-flex items-center rounded-full border-2 border-primary bg-salesforce-100 px-3.5 py-1 text-[0.6875rem] font-bold tracking-[0.06em] text-primary uppercase dark:bg-salesforce-900">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
             {{ t('home.faqEyebrow') }}
           </p>
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -647,7 +598,7 @@ useJsonLd({
           <div
             v-for="f in faqs"
             :key="f.q"
-            class="nb-card p-6"
+            class="rounded-2xl border border-default bg-default p-6"
           >
             <h3 class="flex items-start gap-2 font-semibold text-highlighted">
               <UIcon
@@ -667,15 +618,8 @@ useJsonLd({
     <!-- ============================ CTA ============================ -->
     <section class="pb-24">
       <UContainer>
-        <div class="relative overflow-hidden rounded-3xl border-[3px] border-(--nb-ink) bg-ink px-6 py-16 text-center sm:px-12">
-          <div
-            class="absolute -top-16 -left-16 size-48 rounded-full border-4 border-slate-800 bg-salesforce-900/60"
-            aria-hidden="true"
-          />
-          <div
-            class="absolute -right-12 -bottom-12 size-40 rounded-full border-4 border-slate-800 bg-salesforce-900/40"
-            aria-hidden="true"
-          />
+        <div class="relative overflow-hidden rounded-3xl border border-default bg-gradient-to-br from-salesforce-600 via-salesforce-700 to-salesforce-900 px-6 py-16 text-center sm:px-12">
+          <div class="absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           <div class="relative mx-auto max-w-2xl">
             <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               {{ t('cta.title') }}
@@ -689,7 +633,7 @@ useJsonLd({
                 size="xl"
                 color="neutral"
                 trailing-icon="i-lucide-arrow-right"
-                class="bg-white font-semibold text-salesforce-700 hover:bg-white/90"
+                class="rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
               >
                 {{ t('cta.startFoundations') }}
               </UButton>
@@ -700,7 +644,7 @@ useJsonLd({
                 color="neutral"
                 variant="outline"
                 icon="i-simple-icons-github"
-                class="border-white bg-transparent font-semibold text-white shadow-[3px_3px_0_0_white] ring-white/30 hover:bg-white/10 hover:shadow-[5px_5px_0_0_white] active:bg-white/10 active:shadow-[1px_1px_0_0_white]"
+                class="rounded-full bg-transparent font-semibold text-white ring-white/30 hover:bg-white/10 active:bg-white/10"
               >
                 {{ t('cta.star') }}
               </UButton>

@@ -63,20 +63,16 @@ const authorLinks = [
 <template>
   <div>
     <!-- ============================ HERO ============================ -->
-    <section class="relative overflow-hidden border-b-[3px] border-(--nb-ink) bg-(--nb-hero)">
-      <div
-        class="absolute -top-20 -right-20 size-56 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute -bottom-24 -left-24 size-64 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
-        aria-hidden="true"
-      />
+    <section class="relative overflow-hidden border-b border-default">
+      <div class="absolute inset-0 bg-grid" />
+      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
 
       <UContainer class="relative py-20 text-center sm:py-24">
         <UBadge
+          color="primary"
+          variant="subtle"
           size="lg"
-          class="mb-6 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
+          class="mb-6 rounded-full"
         >
           <UIcon
             name="i-lucide-info"
@@ -128,7 +124,7 @@ const authorLinks = [
               <span
                 v-for="tech in stack"
                 :key="tech.label"
-                class="nb-pill inline-flex items-center gap-2 bg-(--nb-surface) px-3.5 py-1.5 text-xs font-semibold text-toned"
+                class="inline-flex items-center gap-2 rounded-full border border-default bg-default px-3 py-1.5 text-xs font-medium text-toned"
               >
                 <UIcon
                   :name="tech.icon"
@@ -145,7 +141,7 @@ const authorLinks = [
               <div
                 v-for="p in principles"
                 :key="p.title"
-                class="nb-card p-5"
+                class="rounded-2xl border border-default bg-default p-5"
               >
                 <div class="mb-3 flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
                   <UIcon
@@ -162,7 +158,7 @@ const authorLinks = [
               </div>
             </div>
 
-            <div class="nb-card bg-(--nb-subtle) p-6">
+            <div class="rounded-2xl border border-default bg-muted/30 p-6">
               <p class="mb-4 text-sm font-semibold text-highlighted">
                 The curriculum at a glance
               </p>
@@ -198,7 +194,7 @@ const authorLinks = [
     </UContainer>
 
     <!-- ===================== SECTION 2 — THE AUTHOR ===================== -->
-    <section class="border-t-[3px] border-(--nb-ink) bg-(--nb-hero) py-20 sm:py-24">
+    <section class="border-t border-default bg-muted/30 py-20 sm:py-24">
       <UContainer>
         <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <!-- Author card -->
@@ -206,7 +202,7 @@ const authorLinks = [
             <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
               02 — The author
             </p>
-            <div class="nb-card rounded-3xl p-8">
+            <div class="rounded-3xl border border-default bg-default p-8">
               <div class="relative w-fit">
                 <div class="absolute -inset-2 rounded-full bg-primary/20 blur-xl" />
                 <div class="relative flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-salesforce-500 to-salesforce-800 text-3xl font-extrabold text-white shadow-xl">
@@ -266,7 +262,7 @@ const authorLinks = [
             </div>
 
             <div class="mt-8 grid grid-cols-3 gap-4">
-              <div class="nb-card p-4 text-center">
+              <div class="rounded-2xl border border-default bg-default p-4 text-center">
                 <div class="text-2xl font-extrabold text-highlighted">
                   2
                 </div>
@@ -274,7 +270,7 @@ const authorLinks = [
                   Modules
                 </div>
               </div>
-              <div class="nb-card p-4 text-center">
+              <div class="rounded-2xl border border-default bg-default p-4 text-center">
                 <div class="text-2xl font-extrabold text-highlighted">
                   4
                 </div>
@@ -282,7 +278,7 @@ const authorLinks = [
                   Lessons
                 </div>
               </div>
-              <div class="nb-card p-4 text-center">
+              <div class="rounded-2xl border border-default bg-default p-4 text-center">
                 <div class="text-2xl font-extrabold text-highlighted">
                   100%
                 </div>
@@ -299,7 +295,7 @@ const authorLinks = [
     <!-- ============================ CTA ============================ -->
     <section class="py-20 sm:py-24">
       <UContainer>
-        <div class="relative overflow-hidden rounded-3xl border-[3px] border-(--nb-ink) bg-ink px-6 py-16 text-center sm:px-12">
+        <div class="relative overflow-hidden rounded-3xl border border-default bg-gradient-to-br from-salesforce-600 via-salesforce-700 to-salesforce-900 px-6 py-16 text-center sm:px-12">
           <div class="absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           <div class="relative mx-auto max-w-2xl">
             <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">

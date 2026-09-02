@@ -12,7 +12,7 @@ const localePath = useLocalePath()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 // Content lives under content/<locale>/…; map the route to the content path.
-const { t, locale, locales } = useI18n()
+const { locale, locales } = useI18n()
 const localeCodes = locales.value.map(l => l.code)
 const contentPath = computed(() => routeToContentPath(route.path, localeCodes))
 
@@ -76,11 +76,11 @@ const renderedPage = computed(() => {
   if (!p?.body?.value) return p
 
   // Every lesson repeats its frontmatter title as a leading `# H1`, so the
-  // page shipped two <h1> elements: the player's own title and the body's
-  // copy of it. That is a duplicate heading for a reader and an ambiguous
-  // document outline for a crawler — one <h1> per page is the whole point of
-  // the element. Dropped here rather than edited out of 49 lessons x 12
-  // locales, and only when it is genuinely the first node.
+  // page shipped two <h1> elements: the header's title and the body's copy of
+  // it. That is a duplicate heading for a reader and an ambiguous document
+  // outline for a crawler — one <h1> per page is the whole point of the
+  // element. Dropped here rather than edited out of 49 lessons x 12 locales,
+  // and only when it is genuinely the first node.
   const body = p.body.value[0]?.[0] === 'h1'
     ? p.body.value.slice(1)
     : p.body.value
@@ -108,6 +108,18 @@ const crumbs = computed(() => {
     'item': `${SITE.url}/${segments.slice(0, i + 1).join('/')}`
   }))
   return [{ '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE.url }, ...items]
+})
+
+// Visible breadcrumb trail (locale segment stripped; last crumb = page title).
+const breadcrumbItems = computed(() => {
+  const segments = route.path.split('/').filter(Boolean).filter(s => !(localeCodes as string[]).includes(s))
+  const items = segments.map((seg, i) => ({
+    label: seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    to: localePath(`/${segments.slice(0, i + 1).join('/')}`)
+  }))
+  const last = items[items.length - 1]
+  if (last) last.label = page.value?.title || last.label
+  return [{ label: 'Home', icon: 'i-lucide-house', to: localePath('/') }, ...items]
 })
 
 // Edit-this-page + community links shown under the TOC ad.
@@ -190,149 +202,89 @@ useJsonLd(jsonLd)
 </script>
 
 <template>
-  <div v-if="page">
-    <header class="mx-auto max-w-5xl pt-6">
-      <p
-        v-if="headline"
-        class="text-xs font-semibold uppercase tracking-wide text-primary"
-      >
-        {{ headline }}
-      </p>
-      <!-- The design's player scale: a 32px title over the blue rule. -->
-      <h1 class="mt-1 text-[1.75rem] font-bold text-highlighted sm:text-[2rem]">
-        {{ page.title }}
-      </h1>
-      <!-- The design system's underline accent: a short blue rule under
-           every lesson title. -->
-      <div
-        class="mt-3 h-[3px] w-12 rounded-full bg-primary"
-        aria-hidden="true"
-      />
-      <p
-        v-if="page.description"
-        class="mt-2 text-muted"
-      >
-        {{ page.description }}
-      </p>
+  <UPage v-if="page">
+    <UBreadcrumb
+      :items="breadcrumbItems"
+      class="mb-5"
+    />
 
-      <div
-        v-if="page.links?.length"
-        class="mt-4 flex flex-wrap gap-2"
-      >
+    <UPageHeader
+      :title="page.title"
+      :description="page.description"
+      :headline="headline"
+    >
+      <template #links>
         <UButton
           v-for="(link, index) in page.links"
           :key="index"
           v-bind="link"
         />
+
         <PageHeaderLinks />
-      </div>
-    </header>
+      </template>
+    </UPageHeader>
 
-    <!-- Reading column plus the page outline. The outline is navigation
-         WITHIN this lesson, on the trailing edge, opposite the curriculum
-         rail which is navigation OUT of it. -->
-    <div class="mx-auto mt-6 grid max-w-5xl gap-10 lg:grid-cols-[minmax(0,1fr)_13rem]">
-      <article class="min-w-0">
-        <YoutubeEmbed
-          v-if="page.video?.id"
-          :id="page.video.id"
-          :start="page.video.start"
-          :end="page.video.end"
-          :title="page.title"
-          class="mb-8"
-        />
+    <UPageBody>
+      <YoutubeEmbed
+        v-if="page.video?.id"
+        :id="page.video.id"
+        :start="page.video.start"
+        :end="page.video.end"
+        :title="page.title"
+        class="mb-8"
+      />
 
-        <ContentRenderer
-          v-if="renderedPage"
-          :value="renderedPage"
-          class="prose-lesson"
-        />
+      <ContentRenderer
+        v-if="renderedPage"
+        :value="renderedPage"
+      />
 
-        <LessonInterview
-          v-if="page.interview?.length"
-          :items="page.interview"
-        />
+      <LessonInterview
+        v-if="page.interview?.length"
+        :items="page.interview"
+      />
 
-        <CourseLessonComplete />
+      <CourseLessonComplete />
 
-        <AdUnit placement="endOfArticle" />
-      </article>
+      <AdUnit placement="endOfArticle" />
 
-      <aside
-        v-if="page?.body?.toc?.links?.length"
-        class="max-lg:hidden"
+      <USeparator v-if="surround?.length" />
+
+      <UContentSurround :surround="surround" />
+
+      <AdUnit placement="relatedPosts" />
+    </UPageBody>
+
+    <template
+      v-if="page?.body?.toc?.links?.length"
+      #right
+    >
+      <!-- Default Nuxt UI TOC. The ad + community links live in the #bottom
+           slot, which the theme hides on mobile so the mobile TOC stays clean. -->
+      <UContentToc
+        highlight
+        :title="toc?.title"
+        :links="page.body?.toc?.links"
       >
-        <!-- The stock Nuxt UI table of contents, dressed in the design's
-             display face and eyebrow style. -->
-        <div class="sticky top-20">
-          <UContentToc
-            :links="page.body.toc.links"
-            :title="toc?.title"
-            :ui="{
-              root: 'lg:pt-0',
-              container: 'p-0 sm:px-0',
-              title: 'font-display text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-muted',
-              link: 'text-[0.8125rem]'
-            }"
+        <template #bottom>
+          <AdUnit
+            placement="sidebarSquare"
+            class="w-full"
           />
 
           <div
             v-if="tocBottomLinks.length"
-            class="mt-6 space-y-2 border-t border-default pt-4"
+            class="space-y-4"
           >
-            <UButton
-              v-for="link in tocBottomLinks"
-              :key="link.label"
-              v-bind="link"
-              color="neutral"
-              variant="link"
-              size="xs"
-              class="justify-start p-0"
+            <USeparator type="dashed" />
+
+            <UPageLinks
+              :title="toc?.bottom?.title"
+              :links="tocBottomLinks"
             />
           </div>
-        </div>
-      </aside>
-    </div>
-
-    <!-- The docked prev/next. This is where a lesson is finished, which is
-         why the transport bar above carries no primary action of its own. -->
-    <nav
-      class="mx-auto mt-10 grid max-w-5xl gap-3 border-t border-default pt-6 sm:grid-cols-2"
-      :aria-label="t('course.curriculum')"
-    >
-      <UButton
-        v-if="surround?.[0]"
-        :to="surround[0].path"
-        icon="i-lucide-arrow-left"
-        color="neutral"
-        variant="outline"
-        size="lg"
-        class="justify-start"
-      >
-        <span class="flex min-w-0 flex-col items-start">
-          <span class="text-xs text-dimmed">{{ t('course.previous') }}</span>
-          <span class="min-w-0 truncate">{{ surround[0].title }}</span>
-        </span>
-      </UButton>
-      <span v-else />
-
-      <UButton
-        v-if="surround?.[1]"
-        :to="surround[1].path"
-        trailing-icon="i-lucide-arrow-right"
-        size="lg"
-        class="justify-end sm:col-start-2"
-      >
-        <span class="flex min-w-0 flex-col items-end">
-          <span class="text-xs text-dimmed">{{ t('course.next') }}</span>
-          <span class="min-w-0 truncate">{{ surround[1].title }}</span>
-        </span>
-      </UButton>
-    </nav>
-
-    <div class="mx-auto max-w-5xl">
-      <AdUnit placement="relatedPosts" />
-      <AdUnit placement="afterArticle" />
-    </div>
-  </div>
+        </template>
+      </UContentToc>
+    </template>
+  </UPage>
 </template>

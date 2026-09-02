@@ -49,16 +49,6 @@ const selected = ref<'All' | Category>('All')
 const filtered = computed(() => selected.value === 'All' ? resources : resources.filter(r => r.category === selected.value))
 const countFor = (key: 'All' | Category) => key === 'All' ? resources.length : resources.filter(r => r.category === key).length
 
-// One accent per category, per the design system's resource tags.
-const categoryAccent: Record<Category, string> = {
-  Docs: 'bg-salesforce-100 text-primary dark:bg-salesforce-900',
-  Learning: 'bg-brand-yellow-soft text-yellow-700 dark:bg-yellow-950 dark:text-brand-yellow',
-  Books: 'bg-brand-purple-soft text-purple-600 dark:bg-purple-950 dark:text-brand-purple',
-  Blogs: 'bg-brand-pink-soft text-brand-pink dark:bg-pink-950',
-  Tools: 'bg-brand-green-soft text-emerald-600 dark:bg-emerald-950 dark:text-brand-green',
-  Community: 'bg-brand-sky-soft text-sky-600 dark:bg-sky-950 dark:text-brand-sky'
-}
-
 useJsonLd({
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
@@ -71,19 +61,15 @@ useJsonLd({
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b-[3px] border-(--nb-ink) bg-(--nb-hero)">
-      <div
-        class="absolute -top-20 -right-20 size-56 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute top-12 left-24 hidden size-4 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow lg:block"
-        aria-hidden="true"
-      />
+    <section class="relative overflow-hidden border-b border-default">
+      <div class="absolute inset-0 bg-grid" />
+      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
       <UContainer class="relative py-14 text-center sm:py-16">
         <UBadge
+          color="primary"
+          variant="subtle"
           size="lg"
-          class="mb-5 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.06em] text-ink uppercase"
+          class="mb-5 rounded-full"
         >
           <UIcon
             name="i-lucide-library-big"
@@ -91,8 +77,8 @@ useJsonLd({
           />
           Resources
         </UBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-highlighted sm:text-5xl">
-          The best <span class="text-primary">CRM Analytics</span> resources
+        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+          The best <span class="text-gradient">CRM Analytics</span> resources
         </h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
           Docs, courses, books, blogs, tools, and communities — filter to find what you need.
@@ -101,7 +87,9 @@ useJsonLd({
           to="https://github.com/imswarnil/CRM-Analytics-Academy/issues/new"
           target="_blank"
           icon="i-lucide-plus"
-          class="mt-6"
+          color="primary"
+          variant="subtle"
+          class="mt-6 rounded-full font-medium"
         >
           Suggest a resource
         </UButton>
@@ -109,59 +97,78 @@ useJsonLd({
     </section>
 
     <UContainer class="py-12 sm:py-14">
-      <!-- The design system's filter row: bordered pills, the active one
-           solid blue. -->
-      <div class="mb-8 flex flex-wrap gap-2">
-        <button
-          v-for="c in categories"
-          :key="c.key"
-          type="button"
-          class="nb-pill flex items-center gap-2 px-4 py-1.5 text-xs font-bold transition-colors"
-          :class="selected === c.key
-            ? 'bg-primary text-white'
-            : 'bg-(--nb-surface) text-muted hover:text-highlighted'"
-          @click="selected = c.key"
-        >
-          <UIcon
-            :name="c.icon"
-            class="size-3.5 shrink-0"
-          />
-          {{ c.key }}
-          <span :class="selected === c.key ? 'text-white/70' : 'text-dimmed'">{{ countFor(c.key) }}</span>
-        </button>
-      </div>
-
-      <div class="grid content-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <a
-          v-for="r in filtered"
-          :key="r.title"
-          :href="r.url"
-          target="_blank"
-          rel="noopener"
-          class="nb-card group flex flex-col p-6 transition-transform hover:-translate-y-0.5"
-        >
-          <div class="mb-3 flex items-center justify-between">
-            <span
-              class="nb-tag px-2.5 py-1 text-[0.625rem]"
-              :class="categoryAccent[r.category]"
-            >{{ r.category }}</span>
-            <UIcon
-              :name="r.icon"
-              class="size-5 text-muted"
-            />
-          </div>
-          <h3 class="font-display flex items-center gap-1 font-bold text-highlighted">
-            {{ r.title }}
-            <UIcon
-              name="i-lucide-arrow-up-right"
-              class="size-4 text-dimmed transition group-hover:text-primary"
-            />
-          </h3>
-          <p class="mt-2 flex-1 text-sm text-muted">
-            {{ r.desc }}
+      <div class="grid gap-8 lg:grid-cols-[210px_1fr]">
+        <!-- Left filter -->
+        <aside class="lg:sticky lg:top-24 lg:self-start">
+          <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-widest text-muted">
+            Filter
           </p>
-          <span class="mt-4 text-xs font-semibold text-primary">View →</span>
-        </a>
+          <ul class="space-y-1">
+            <li
+              v-for="c in categories"
+              :key="c.key"
+            >
+              <button
+                type="button"
+                class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition"
+                :class="selected === c.key
+                  ? 'bg-primary/10 text-primary ring-1 ring-primary/20'
+                  : 'text-toned hover:bg-muted/50 hover:text-highlighted'"
+                @click="selected = c.key"
+              >
+                <UIcon
+                  :name="c.icon"
+                  class="size-4 shrink-0"
+                />
+                <span class="grow text-left">{{ c.key }}</span>
+                <span class="text-xs text-muted">{{ countFor(c.key) }}</span>
+              </button>
+            </li>
+          </ul>
+        </aside>
+
+        <div>
+          <p class="mb-6 text-sm text-muted">
+            <span class="font-medium text-highlighted">{{ filtered.length }}</span> resources
+          </p>
+
+          <div class="grid content-start gap-5 sm:grid-cols-2">
+            <a
+              v-for="r in filtered"
+              :key="r.title"
+              :href="r.url"
+              target="_blank"
+              rel="noopener"
+              class="group flex flex-col rounded-2xl border border-default bg-default p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
+            >
+              <div class="mb-4 flex items-center justify-between">
+                <div class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                  <UIcon
+                    :name="r.icon"
+                    class="size-5"
+                  />
+                </div>
+                <UBadge
+                  :label="r.category"
+                  color="neutral"
+                  variant="subtle"
+                  size="sm"
+                  class="rounded-full"
+                />
+              </div>
+              <h3 class="flex items-center gap-1 font-semibold text-highlighted">
+                {{ r.title }}
+                <UIcon
+                  name="i-lucide-arrow-up-right"
+                  class="size-4 text-dimmed transition group-hover:text-primary"
+                />
+              </h3>
+              <p class="mt-2 text-sm text-muted">
+                {{ r.desc }}
+              </p>
+            </a>
+          </div>
+        </div>
       </div>
 
       <AdUnit

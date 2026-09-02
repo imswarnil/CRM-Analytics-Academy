@@ -204,9 +204,12 @@ onBeforeUnmount(() => {
 <template>
   <div>
     <div class="relative">
-      <div class="nb-frame relative mx-auto flex aspect-[4/3] w-full flex-col">
+      <!-- Soft ambient glow behind the window -->
+      <div class="absolute -inset-4 -z-10 rounded-[2rem] bg-primary/15 blur-2xl" />
+
+      <div class="animate-float relative mx-auto flex aspect-[4/3] w-full flex-col overflow-hidden rounded-2xl border border-default bg-default shadow-2xl ring-1 ring-default/60">
         <!-- Mac title bar -->
-        <div class="flex shrink-0 items-center gap-2 border-b-[3px] border-(--nb-ink) bg-(--nb-subtle) px-4 py-2.5">
+        <div class="flex shrink-0 items-center gap-2 border-b border-default bg-muted/50 px-4 py-2.5">
           <span class="size-3 rounded-full bg-red-400" />
           <span class="size-3 rounded-full bg-amber-400" />
           <span class="size-3 rounded-full bg-green-400" />
@@ -616,7 +619,7 @@ onBeforeUnmount(() => {
         </div>
 
         <!-- Footer: step progress + caption -->
-        <div class="flex shrink-0 items-center gap-2 border-t-[3px] border-(--nb-ink) bg-(--nb-subtle) px-3 py-1.5">
+        <div class="flex shrink-0 items-center gap-2 border-t border-default bg-muted/30 px-3 py-1.5">
           <div class="flex items-center gap-1">
             <span
               v-for="(s, i) in SCENES"

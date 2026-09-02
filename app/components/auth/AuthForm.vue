@@ -62,28 +62,9 @@ async function demo() {
 </script>
 
 <template>
-  <!-- The design system's auth screen: one white card wearing the heavy ink
-       frame, centred on the hero wash, with the bordered circles breaking
-       the corners behind it. -->
-  <div class="relative flex min-h-full items-center justify-center overflow-hidden bg-(--nb-hero) p-6 sm:p-10">
-    <div
-      class="absolute -top-20 -left-20 size-64 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape)"
-      aria-hidden="true"
-    />
-    <div
-      class="absolute -right-16 -bottom-16 size-52 rounded-full border-4 border-(--nb-ink) bg-(--nb-hero-shape-2)"
-      aria-hidden="true"
-    />
-    <div
-      class="absolute top-16 right-1/4 hidden size-4.5 rounded-full border-[3px] border-(--nb-ink) bg-brand-yellow lg:block"
-      aria-hidden="true"
-    />
-    <div
-      class="absolute bottom-24 left-1/4 hidden size-3.5 rotate-45 border-2 border-(--nb-ink) bg-brand-green lg:block"
-      aria-hidden="true"
-    />
-
-    <div class="nb-frame relative z-10 w-full max-w-md rounded-2xl p-8 sm:p-10">
+  <!-- Stock auth idiom: one centred card, nothing behind it. -->
+  <div class="flex min-h-full items-center justify-center p-6 sm:p-10">
+    <UCard class="w-full max-w-md">
       <div class="w-full space-y-6">
         <div>
           <NuxtLink
@@ -193,6 +174,6 @@ async function demo() {
           </template>
         </p>
       </div>
-    </div>
+    </UCard>
   </div>
 </template>
