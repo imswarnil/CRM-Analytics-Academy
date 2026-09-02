@@ -115,6 +115,14 @@ html {
   background-size: 22px 22px;
 }
 
+/* Slow diagonal drift for the hero's grid backdrop. One cell per cycle, so
+   the loop is seamless (the grid tiles every 56px). */
+@keyframes grid-pan {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 56px 56px, 56px 56px; }
+}
+.animate-grid-pan { animation: grid-pan 16s linear infinite; }
+
 @keyframes float-slow {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
@@ -189,6 +197,7 @@ html {
   .animate-fade-up,
   .animate-dash,
   .animate-marquee,
+  .animate-grid-pan,
   .animate-svg-bar,
   .animate-svg-draw,
   .animate-svg-pulse { animation: none; }

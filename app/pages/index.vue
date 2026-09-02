@@ -32,6 +32,7 @@ const stats = computed(() => [
 const modules = computed(() => [
   {
     n: '01',
+    kind: 'foundations' as const,
     title: 'CRM Analytics Foundations',
     to: '/foundations',
     icon: 'i-lucide-compass',
@@ -51,6 +52,7 @@ const modules = computed(() => [
   },
   {
     n: '02',
+    kind: 'setup' as const,
     title: 'Setup & User Provisioning',
     to: '/setup',
     icon: 'i-lucide-settings-2',
@@ -68,6 +70,7 @@ const modules = computed(() => [
   },
   {
     n: '03',
+    kind: 'datasets' as const,
     title: 'Creating Datasets',
     to: '/creating-datasets',
     icon: 'i-lucide-database',
@@ -87,6 +90,7 @@ const modules = computed(() => [
   },
   {
     n: '04',
+    kind: 'lenses' as const,
     title: 'Lenses & Explorations',
     to: '/lenses-and-explorations',
     icon: 'i-lucide-search',
@@ -104,6 +108,7 @@ const modules = computed(() => [
   },
   {
     n: '05',
+    kind: 'dashboards' as const,
     title: 'Designing Dashboards',
     to: '/designing-dashboards',
     icon: 'i-lucide-layout-dashboard',
@@ -122,6 +127,7 @@ const modules = computed(() => [
   },
   {
     n: '06',
+    kind: 'collaboration' as const,
     title: 'Collaboration',
     to: '/collaboration',
     icon: 'i-lucide-users',
@@ -173,29 +179,12 @@ useJsonLd({
   }))
 })
 
-const personaIcons = ['i-lucide-line-chart', 'i-lucide-settings-2', 'i-lucide-briefcase', 'i-lucide-sprout']
-
-const personas = computed(() =>
-  (tm('home.personas') as { t: string, d: string }[]).map((p, i) => ({ icon: personaIcons[i], title: rt(p.t), description: rt(p.d) }))
-)
-
 const faqs = computed(() =>
   (tm('home.faqs') as { q: string, a: string }[]).map(f => ({ q: rt(f.q), a: rt(f.a) }))
 )
 
 const faqItems = computed(() =>
   faqs.value.map(f => ({ label: f.q, content: f.a, icon: 'i-lucide-circle-help' }))
-)
-
-// The three value props, rendered by UPageSection's features grid with an
-// icon standing in for each illustration.
-const featureIcons = ['i-lucide-workflow', 'i-lucide-chart-column-big', 'i-lucide-sparkles']
-const features = computed(() =>
-  (tm('home.features') as { t: string, d: string }[]).map((f, i) => ({
-    title: rt(f.t),
-    description: rt(f.d),
-    icon: featureIcons[i]
-  }))
 )
 
 useJsonLd({
@@ -209,27 +198,12 @@ useJsonLd({
   }))
 })
 
-// The curriculum as a timeline: "one clear path" drawn as an actual path,
-// module by module down the page.
-const timelineItems = computed(() => modules.value.map(m => ({
-  date: `${t('home.curriculumEyebrow')} ${m.n}`,
-  title: m.title,
-  description: m.desc,
-  icon: m.icon,
-  to: localePath(m.to),
-  lessons: m.lessons.length
-})))
-
 // The ecosystem teasers: community, companies, careers.
 const explore = computed(() => [
   { icon: 'i-lucide-heart-handshake', title: t('nav.wallOfFame'), description: t('home.exploreWall'), to: localePath('/wall-of-fame') },
   { icon: 'i-lucide-building-2', title: t('nav.companies'), description: t('home.exploreCompanies'), to: localePath('/companies') },
   { icon: 'i-lucide-briefcase', title: t('nav.jobs'), description: t('home.exploreJobs'), to: localePath('/jobs') }
 ])
-
-// The intro video (the Foundations welcome lesson's clip), opened in a modal
-// from the hero so the page never pays the iframe cost up front.
-const introOpen = ref(false)
 
 // Hero social proof: initials avatars standing in for the community.
 const communityAvatars = ['SS', 'RH', 'MC', 'CB', 'MT', 'BB']
@@ -243,16 +217,7 @@ const marqueeColumns = [
   shots(['resources', 'datasets', 'about', 'signin'])
 ]
 
-// Decorative icon chips floating over the hero backdrop. Purely visual:
-// hidden from assistive tech, pointer-transparent, stilled by the
-// prefers-reduced-motion override on .animate-float.
-const floatChips = [
-  { icon: 'i-lucide-line-chart', style: { top: '16%', left: '44%', animationDuration: '7s' } },
-  { icon: 'i-lucide-sparkles', style: { top: '9%', right: '5%', animationDuration: '9s', animationDelay: '1.2s' } },
-  { icon: 'i-lucide-database', style: { bottom: '18%', left: '47%', animationDuration: '8s', animationDelay: '0.6s' } },
-  { icon: 'i-lucide-trophy', style: { bottom: '10%', right: '3%', animationDuration: '10s', animationDelay: '2s' } }
-]
-
+// Exactly two calls to action: begin, or see what's inside first.
 const heroLinks = computed(() => [
   {
     label: t('hero.start'),
@@ -267,26 +232,6 @@ const heroLinks = computed(() => [
     variant: 'outline' as const,
     icon: 'i-lucide-graduation-cap',
     size: 'xl' as const
-  },
-  {
-    label: t('hero.watch'),
-    icon: 'i-lucide-circle-play',
-    color: 'neutral' as const,
-    variant: 'ghost' as const,
-    size: 'xl' as const,
-    onClick: () => {
-      introOpen.value = true
-    }
-  },
-  {
-    'icon': 'i-lucide-search',
-    'color': 'neutral' as const,
-    'variant': 'outline' as const,
-    'size': 'xl' as const,
-    'aria-label': t('hero.search'),
-    'onClick': () => {
-      useContentSearch().open.value = true
-    }
   }
 ])
 </script>
@@ -296,7 +241,7 @@ const heroLinks = computed(() => [
     <!-- ============================ HERO ============================ -->
     <section class="relative overflow-hidden">
       <div
-        class="absolute inset-0 bg-grid"
+        class="bg-grid animate-grid-pan absolute inset-0"
         aria-hidden="true"
       />
       <div
@@ -307,24 +252,6 @@ const heroLinks = computed(() => [
         class="absolute -top-20 right-0 size-80 rounded-full bg-salesforce-400/10 blur-3xl"
         aria-hidden="true"
       />
-
-      <!-- Floating icon chips, drifting at different speeds over the grid. -->
-      <div
-        class="pointer-events-none absolute inset-0 hidden xl:block"
-        aria-hidden="true"
-      >
-        <div
-          v-for="chip in floatChips"
-          :key="chip.icon"
-          class="animate-float absolute flex size-12 items-center justify-center rounded-2xl border border-default bg-default/80 shadow-sm backdrop-blur"
-          :style="chip.style"
-        >
-          <UIcon
-            :name="chip.icon"
-            class="size-6 text-primary"
-          />
-        </div>
-      </div>
 
       <UPageHero
         orientation="horizontal"
@@ -362,21 +289,6 @@ const heroLinks = computed(() => [
               />
             </div>
 
-            <div class="flex items-center gap-3">
-              <UAvatarGroup
-                size="md"
-                :max="5"
-              >
-                <UAvatar
-                  v-for="a in communityAvatars"
-                  :key="a"
-                  :text="a"
-                  class="bg-primary/10 text-primary"
-                />
-              </UAvatarGroup>
-              <span class="text-sm text-muted">{{ t('hero.community') }}</span>
-            </div>
-
             <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
               <span
                 v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
@@ -393,182 +305,133 @@ const heroLinks = computed(() => [
           </div>
         </template>
 
-        <div class="space-y-4">
-          <!-- One SVG telling the whole story: sources pulse, rows stream
-               into a dataset, and out the other side a chart draws itself. -->
-          <svg
-            viewBox="0 0 480 110"
-            fill="none"
-            class="w-full text-primary"
+        <div class="relative lg:me-4">
+          <HeroVideo
+            id="aPwndqsmaGk"
+            :start="19"
+            :title="t('hero.watch')"
+          />
+
+          <!-- Floating proof around the frame: two medium stats and the
+               community faces, drifting slowly. Decorative duplicates of
+               real page content, so hidden from assistive tech. -->
+          <div
+            class="animate-float absolute -top-5 -left-4 flex items-center gap-2.5 rounded-xl border border-default bg-default/90 px-4 py-2.5 shadow-lg backdrop-blur max-sm:hidden"
+            style="animation-duration: 8s"
             aria-hidden="true"
           >
-            <g class="animate-svg-pulse">
-              <circle
-                cx="24"
-                cy="25"
-                r="9"
-                class="fill-primary/15"
-              />
-              <circle
-                cx="24"
-                cy="25"
-                r="4"
-                fill="currentColor"
-              />
-            </g>
-            <g
-              class="animate-svg-pulse"
-              style="animation-delay: 0.5s"
+            <UIcon
+              :name="stats[0]!.icon"
+              class="size-5 text-primary"
+            />
+            <div>
+              <p class="text-sm font-bold text-highlighted tabular-nums">
+                {{ stats[0]!.value }}
+              </p>
+              <p class="text-xs text-muted">
+                {{ stats[0]!.label }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="animate-float absolute -right-3 -bottom-5 flex items-center gap-2.5 rounded-xl border border-default bg-default/90 px-4 py-2.5 shadow-lg backdrop-blur max-sm:hidden"
+            style="animation-duration: 9s; animation-delay: 0.8s"
+            aria-hidden="true"
+          >
+            <UIcon
+              :name="stats[1]!.icon"
+              class="size-5 text-primary"
+            />
+            <div>
+              <p class="text-sm font-bold text-highlighted tabular-nums">
+                {{ stats[1]!.value }}
+              </p>
+              <p class="text-xs text-muted">
+                {{ stats[1]!.label }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="animate-float absolute -top-5 -right-3 flex items-center gap-2 rounded-xl border border-default bg-default/90 px-3 py-2 shadow-lg backdrop-blur max-sm:hidden"
+            style="animation-duration: 10s; animation-delay: 0.4s"
+            aria-hidden="true"
+          >
+            <UAvatarGroup
+              size="xs"
+              :max="4"
             >
-              <circle
-                cx="24"
-                cy="55"
-                r="9"
-                class="fill-primary/15"
+              <UAvatar
+                v-for="a in communityAvatars"
+                :key="a"
+                :text="a"
+                class="bg-primary/10 text-primary"
               />
-              <circle
-                cx="24"
-                cy="55"
-                r="4"
-                fill="currentColor"
-              />
-            </g>
-            <g
-              class="animate-svg-pulse"
-              style="animation-delay: 1s"
-            >
-              <circle
-                cx="24"
-                cy="85"
-                r="9"
-                class="fill-primary/15"
-              />
-              <circle
-                cx="24"
-                cy="85"
-                r="4"
-                fill="currentColor"
-              />
-            </g>
-
-            <path
-              d="M36 25 C 90 25, 110 55, 158 55"
-              stroke="currentColor"
-              stroke-width="1.5"
-              class="animate-dash"
-            />
-            <path
-              d="M36 55 L 158 55"
-              stroke="currentColor"
-              stroke-width="1.5"
-              class="animate-dash"
-              style="animation-delay: 0.3s"
-            />
-            <path
-              d="M36 85 C 90 85, 110 55, 158 55"
-              stroke="currentColor"
-              stroke-width="1.5"
-              class="animate-dash"
-              style="animation-delay: 0.6s"
-            />
-
-            <rect
-              x="158"
-              y="37"
-              width="36"
-              height="36"
-              rx="8"
-              class="fill-primary/10 stroke-primary/40"
-            />
-            <path
-              d="M168 47h16M168 55h16M168 63h10"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-
-            <path
-              d="M194 55 H 238"
-              stroke="currentColor"
-              stroke-width="1.5"
-              class="animate-dash"
-              style="animation-delay: 0.9s"
-            />
-
-            <rect
-              x="238"
-              y="6"
-              width="236"
-              height="98"
-              rx="10"
-              class="stroke-primary/25"
-            />
-            <rect
-              v-for="(bar, bi) in [{ x: 254, h: 26 }, { x: 294, h: 44 }, { x: 334, h: 34 }, { x: 374, h: 58 }, { x: 414, h: 46 }]"
-              :key="bar.x"
-              :x="bar.x"
-              :y="94 - bar.h"
-              width="28"
-              :height="bar.h"
-              rx="4"
-              class="animate-svg-bar fill-primary/60"
-              :style="{ animationDelay: `${0.9 + bi * 0.15}s` }"
-            />
-            <path
-              d="M254 74 L 300 58 L 344 66 L 388 36 L 458 26"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              class="animate-svg-draw"
-            />
-            <circle
-              cx="458"
-              cy="26"
-              r="4"
-              fill="currentColor"
-              class="animate-svg-pulse"
-            />
-          </svg>
-
-          <!-- The hero's media: the six modules as icon thumbnails. This is
-             the actual product, so it beats any illustration — and each tile
-             is a real link into its module. -->
-          <div class="grid grid-cols-2 gap-3">
-            <UPageCard
-              v-for="(m, i) in modules"
-              :key="m.n"
-              :icon="m.icon"
-              :title="m.title"
-              :description="`${m.lessons.length} ${t('home.stats.lessons')}`"
-              :to="localePath(m.to)"
-              variant="subtle"
-              class="animate-fade-up"
-              :style="{ animationDelay: `${i * 80}ms` }"
-              :ui="{
-                container: 'p-4 sm:p-4',
-                leadingIcon: 'size-8 text-primary',
-                title: 'text-sm',
-                description: 'text-xs'
-              }"
-            />
+            </UAvatarGroup>
           </div>
         </div>
       </UPageHero>
     </section>
 
-    <!-- The intro clip, loaded only when asked for. -->
-    <UModal
-      v-model:open="introOpen"
-      :ui="{ content: 'max-w-3xl' }"
+    <!-- ============================ STATS ============================ -->
+    <UContainer>
+      <AdUnit
+        placement="belowHero"
+        class="max-w-4xl"
+      />
+    </UContainer>
+
+    <!-- ========================= CURRICULUM ========================= -->
+    <UPageSection
+      id="curriculum"
+      :headline="t('home.curriculumEyebrow')"
+      :title="t('home.curriculumTitle')"
+      :description="t('home.curriculumSubtitle')"
+      class="scroll-mt-24"
     >
-      <template #content>
-        <YoutubeEmbed
-          id="aPwndqsmaGk"
-          :start="19"
-          :title="t('hero.watch')"
-        />
-      </template>
-    </UModal>
+      <UPageGrid>
+        <ScrollReveal
+          v-for="(m, mi) in modules"
+          :key="m.n"
+          :delay="(mi % 3) * 120"
+        >
+          <NuxtLink
+            :to="localePath(m.to)"
+            class="group flex h-full flex-col overflow-hidden rounded-lg border border-default bg-default transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+          >
+            <ModuleThumb :kind="m.kind" />
+            <div class="flex grow flex-col p-5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-semibold tracking-widest text-primary uppercase">{{ t('home.curriculumEyebrow') }} {{ m.n }}</span>
+                <UBadge
+                  color="neutral"
+                  variant="subtle"
+                  size="sm"
+                  icon="i-lucide-book-open"
+                  class="rounded-full"
+                >
+                  {{ m.lessons.length }}
+                </UBadge>
+              </div>
+              <h3 class="mt-2 text-lg font-semibold text-highlighted">
+                {{ m.title }}
+              </h3>
+              <p class="mt-2 line-clamp-3 grow text-sm text-muted">
+                {{ m.desc }}
+              </p>
+              <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                {{ t('home.startModule') }}
+                <UIcon
+                  name="i-lucide-arrow-right"
+                  class="size-4 transition-transform group-hover:translate-x-1"
+                />
+              </span>
+            </div>
+          </NuxtLink>
+        </ScrollReveal>
+      </UPageGrid>
+    </UPageSection>
 
     <!-- =================== SCREENSHOT MARQUEE =================== -->
     <!-- Every feature page of the site, drifting past on a tilted plane. -->
@@ -628,154 +491,12 @@ const heroLinks = computed(() => [
       </UMarquee>
     </div>
 
-    <!-- ============================ STATS ============================ -->
-    <UContainer>
-      <ScrollReveal>
-        <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 border-y border-default py-10 sm:gap-x-16">
-          <div
-            v-for="s in stats"
-            :key="s.label"
-            class="flex items-center gap-4"
-          >
-            <div class="flex size-14 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
-              <UIcon
-                :name="s.icon"
-                class="size-7 text-primary"
-              />
-            </div>
-            <div>
-              <p class="text-4xl font-extrabold text-highlighted tabular-nums">
-                {{ s.value }}
-              </p>
-              <p class="text-sm text-muted">
-                {{ s.label }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </ScrollReveal>
-
-      <AdUnit
-        placement="belowHero"
-        class="max-w-4xl"
-      />
-    </UContainer>
-
-    <!-- ========================= CURRICULUM ========================= -->
-    <UPageSection
-      id="curriculum"
-      :headline="t('home.curriculumEyebrow')"
-      :title="t('home.curriculumTitle')"
-      :description="t('home.curriculumSubtitle')"
-      class="scroll-mt-24"
-    >
-      <!-- "One clear path" drawn as one: the modules hang off a single
-           timeline, each stop an icon on the line with its module beside it. -->
-      <ScrollReveal>
-        <UTimeline
-          :items="timelineItems"
-          size="lg"
-          color="primary"
-          class="mx-auto max-w-2xl"
-          :ui="{
-            date: 'text-xs font-semibold uppercase tracking-widest text-primary',
-            title: 'text-xl font-bold text-highlighted',
-            description: 'mt-1'
-          }"
-        >
-          <template #description="{ item }">
-            <p class="text-muted">
-              {{ item.description }}
-            </p>
-            <div class="mt-4 flex flex-wrap items-center gap-3 pb-4">
-              <UBadge
-                color="neutral"
-                variant="subtle"
-                icon="i-lucide-book-open"
-                class="rounded-full"
-              >
-                {{ item.lessons }} {{ t('home.stats.lessons') }}
-              </UBadge>
-              <UButton
-                :to="item.to"
-                size="sm"
-                variant="soft"
-                trailing-icon="i-lucide-arrow-right"
-                class="rounded-full"
-              >
-                {{ t('home.startModule') }}
-              </UButton>
-            </div>
-          </template>
-        </UTimeline>
-      </ScrollReveal>
-
-      <!-- Start-here call card, closing the path -->
-      <ScrollReveal>
-        <UPageCard
-          icon="i-lucide-flag"
-          :title="t('home.newHereTitle')"
-          :description="t('home.newHereDesc')"
-          variant="solid"
-          orientation="horizontal"
-          class="mx-auto mt-10 max-w-2xl"
-          :ui="{ leadingIcon: 'size-10' }"
-        >
-          <template #footer>
-            <UButton
-              :to="localePath('/foundations')"
-              color="neutral"
-              variant="solid"
-              trailing-icon="i-lucide-arrow-right"
-            >
-              {{ t('home.startHere') }}
-            </UButton>
-          </template>
-        </UPageCard>
-      </ScrollReveal>
-    </UPageSection>
-
     <UContainer>
       <AdUnit
         placement="betweenSections"
         class="max-w-3xl"
       />
     </UContainer>
-
-    <!-- ========================= FEATURES ========================= -->
-    <UPageSection
-      :headline="t('home.featuresEyebrow')"
-      :title="t('home.featuresTitle')"
-      class="bg-dots"
-    >
-      <div class="space-y-16 sm:space-y-20">
-        <ScrollReveal
-          v-for="(f, fi) in features"
-          :key="f.title"
-        >
-          <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
-            <!-- The icon as the illustration: a big soft panel, side-swapped
-                 every other row. -->
-            <div :class="fi % 2 === 0 ? 'lg:order-1' : 'lg:order-2'">
-              <div class="flex min-h-56 items-center justify-center rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent sm:min-h-64">
-                <UIcon
-                  :name="f.icon"
-                  class="size-24 text-primary sm:size-28"
-                />
-              </div>
-            </div>
-            <div :class="fi % 2 === 0 ? 'lg:order-2' : 'lg:order-1'">
-              <h3 class="text-2xl font-bold tracking-tight text-highlighted sm:text-3xl">
-                {{ f.title }}
-              </h3>
-              <p class="mt-4 text-lg text-muted">
-                {{ f.description }}
-              </p>
-            </div>
-          </div>
-        </ScrollReveal>
-      </div>
-    </UPageSection>
 
     <!-- ========================= ECOSYSTEM ========================= -->
     <UPageSection
@@ -810,39 +531,6 @@ const heroLinks = computed(() => [
                 name="i-lucide-arrow-right"
                 class="size-5 text-primary"
               />
-            </template>
-          </UPageCard>
-        </ScrollReveal>
-      </UPageGrid>
-    </UPageSection>
-
-    <!-- ========================= WHO IT'S FOR ========================= -->
-    <UPageSection
-      :headline="t('home.whoEyebrow')"
-      :title="t('home.whoTitle')"
-      class="bg-muted/30"
-    >
-      <UPageGrid class="lg:grid-cols-2">
-        <ScrollReveal
-          v-for="(p, pi) in personas"
-          :key="p.title"
-          :delay="(pi % 2) * 120"
-        >
-          <UPageCard
-            :title="p.title"
-            :description="p.description"
-            variant="outline"
-            orientation="horizontal"
-            reverse
-            class="h-full"
-          >
-            <template #leading>
-              <div class="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
-                <UIcon
-                  :name="p.icon"
-                  class="size-8 text-primary"
-                />
-              </div>
             </template>
           </UPageCard>
         </ScrollReveal>
