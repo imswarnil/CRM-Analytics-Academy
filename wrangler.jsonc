@@ -60,7 +60,12 @@
   // Prefixes in use: submissions/, images/, course-lessons/, media/.
   // Served through /media/* and written by /api/upload — the bucket itself
   // stays private.
-  "r2_buckets": [
-    { "binding": "MEDIA", "bucket_name": "crm-analytics-academy" }
-  ]
+  //
+  // DISABLED until R2 is activated on the account (deploys fail with code
+  // 10042 otherwise): Cloudflare dashboard → R2 → activate, then uncomment,
+  // and add "Workers R2 Storage: Edit" to the CI API token. The upload and
+  // media routes answer 503 gracefully while this is off.
+  // "r2_buckets": [
+  //   { "binding": "MEDIA", "bucket_name": "crm-analytics-academy" }
+  // ]
 }
