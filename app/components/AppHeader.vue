@@ -8,29 +8,45 @@ const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 
-// The primary destinations, shown as a navigation menu in the navbar centre
-// on desktop and repeated vertically at the top of the mobile slideover.
+// The navbar menu: three direct links plus two rich dropdowns that hold
+// everything the old three-dots overflow used to hide. Children with a
+// `description` render as the big dropdown panels.
 const menuItems = computed(() => [
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/foundations'), active: route.path.startsWith(localePath('/foundations')) },
   { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
-  { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
-  { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') }
-])
-
-// Secondary links folded into a "More" dropdown to keep the icon row short.
-// GitHub is duplicated here (as a `class` marking it mobile-only) since its
-// icon button is hidden below lg to keep the navbar from overflowing.
-const moreItems = computed(() => [
-  { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
-  { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
-  { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
-  { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
-  { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
-  { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
-  { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
-  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },
-  { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
+  {
+    label: t('nav.resources'),
+    icon: 'i-lucide-library-big',
+    active: route.path.startsWith(localePath('/resources')) || route.path.startsWith(localePath('/datasets')),
+    children: [
+      { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
+      { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') }
+    ]
+  },
+  {
+    label: t('nav.community'),
+    icon: 'i-lucide-users',
+    active: ['/wall-of-fame', '/companies', '/jobs', '/leaderboard', '/contribute', '/sponsor'].some(p => route.path.startsWith(localePath(p))),
+    children: [
+      { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', description: t('home.exploreWall'), to: localePath('/wall-of-fame') },
+      { label: t('nav.companies'), icon: 'i-lucide-building-2', description: t('home.exploreCompanies'), to: localePath('/companies') },
+      { label: t('nav.jobs'), icon: 'i-lucide-briefcase', description: t('home.exploreJobs'), to: localePath('/jobs') },
+      { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
+      { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
+      { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
+    ]
+  },
+  {
+    label: t('nav.about'),
+    icon: 'i-lucide-badge-info',
+    active: ['/about', '/roadmap', '/changelog'].some(p => route.path.startsWith(localePath(p))),
+    children: [
+      { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
+      { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
+      { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
+      { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
+    ]
+  }
 ])
 
 // Account menu — the session itself is fetched once in app.vue.
@@ -58,10 +74,16 @@ const localeItems = computed(() =>
     :ui="{ center: 'flex-1', body: 'flex flex-col h-full p-0 overflow-hidden' }"
     :to="localePath('/')"
   >
+    <!-- Active state is a filled pill, not the underline: highlight is off
+         and the pill's ::before surface carries the primary tint instead. -->
     <UNavigationMenu
-      highlight
       :items="menuItems"
       class="max-lg:hidden"
+      :ui="{
+        link: 'font-medium rounded-full before:rounded-full data-active:text-primary data-active:before:bg-primary/10',
+        childList: 'grid grid-cols-2 gap-1 p-2 w-[28rem]',
+        childLinkDescription: 'line-clamp-2'
+      }"
     />
 
     <template #left>
@@ -72,22 +94,9 @@ const localeItems = computed(() =>
 
     <template #right>
       <!-- Search folds down to its icon form: the navbar centre now belongs
-           to the navigation menu, and the palette opens on Cmd/Ctrl-K too. -->
+           to the navigation menu, and the palette opens on Cmd/Ctrl-K too.
+           GitHub lives in the About dropdown and the footer. -->
       <UContentSearchButton v-if="header?.search" />
-
-      <UTooltip
-        :text="t('nav.github')"
-        class="hidden lg:inline-flex"
-      >
-        <UButton
-          icon="i-simple-icons-github"
-          to="https://github.com/imswarnil/CRM-Analytics-Academy"
-          target="_blank"
-          :aria-label="t('nav.github')"
-          color="neutral"
-          variant="ghost"
-        />
-      </UTooltip>
 
       <UDropdownMenu
         :items="localeItems"
@@ -135,21 +144,6 @@ const localeItems = computed(() =>
           <div class="size-9" />
         </template>
       </ClientOnly>
-
-      <!-- "More" overflow menu — kept last so it reads as the catch-all,
-           after language and theme controls. Carries the mobile-only about
-           and GitHub links too, since those icons are hidden below lg. -->
-      <UDropdownMenu
-        :items="moreItems"
-        :content="{ align: 'end' }"
-      >
-        <UButton
-          icon="i-lucide-ellipsis-vertical"
-          color="neutral"
-          variant="ghost"
-          :aria-label="t('nav.more')"
-        />
-      </UDropdownMenu>
     </template>
 
     <template #body>

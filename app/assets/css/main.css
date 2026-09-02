@@ -59,6 +59,13 @@
   --ui-radius: 0.25rem;
 }
 
+/* A slightly larger base type size across the whole site (16px → 17px).
+   Everything is rem-based, so every component and prose block scales with
+   this one declaration. */
+html {
+  font-size: 106.25%;
+}
+
 /* ---------------------------------------------------------------------------
    Landing-page visual helpers
 --------------------------------------------------------------------------- */

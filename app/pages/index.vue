@@ -209,6 +209,17 @@ useJsonLd({
   }))
 })
 
+// The curriculum as a timeline: "one clear path" drawn as an actual path,
+// module by module down the page.
+const timelineItems = computed(() => modules.value.map(m => ({
+  date: `${t('home.curriculumEyebrow')} ${m.n}`,
+  title: m.title,
+  description: m.desc,
+  icon: m.icon,
+  to: localePath(m.to),
+  lessons: m.lessons.length
+})))
+
 // The ecosystem teasers: community, companies, careers.
 const explore = computed(() => [
   { icon: 'i-lucide-heart-handshake', title: t('nav.wallOfFame'), description: t('home.exploreWall'), to: localePath('/wall-of-fame') },
@@ -356,28 +367,30 @@ const heroLinks = computed(() => [
 
     <!-- ============================ STATS ============================ -->
     <UContainer>
-      <UPageGrid class="lg:grid-cols-3">
-        <ScrollReveal
-          v-for="(s, i) in stats"
-          :key="s.label"
-          :delay="i * 120"
-        >
-          <UPageCard
-            :icon="s.icon"
-            variant="subtle"
-            orientation="horizontal"
-            class="h-full"
-            :ui="{ leadingIcon: 'size-10 text-primary' }"
+      <ScrollReveal>
+        <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 border-y border-default py-10 sm:gap-x-16">
+          <div
+            v-for="s in stats"
+            :key="s.label"
+            class="flex items-center gap-4"
           >
-            <template #title>
-              <span class="text-3xl font-bold tabular-nums">{{ s.value }}</span>
-            </template>
-            <template #description>
-              {{ s.label }}
-            </template>
-          </UPageCard>
-        </ScrollReveal>
-      </UPageGrid>
+            <div class="flex size-14 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
+              <UIcon
+                :name="s.icon"
+                class="size-7 text-primary"
+              />
+            </div>
+            <div>
+              <p class="text-4xl font-extrabold text-highlighted tabular-nums">
+                {{ s.value }}
+              </p>
+              <p class="text-sm text-muted">
+                {{ s.label }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
 
       <AdUnit
         placement="belowHero"
@@ -393,64 +406,70 @@ const heroLinks = computed(() => [
       :description="t('home.curriculumSubtitle')"
       class="scroll-mt-24"
     >
-      <UPageGrid>
-        <ScrollReveal
-          v-for="(m, mi) in modules"
-          :key="m.n"
-          :delay="(mi % 3) * 120"
+      <!-- "One clear path" drawn as one: the modules hang off a single
+           timeline, each stop an icon on the line with its module beside it. -->
+      <ScrollReveal>
+        <UTimeline
+          :items="timelineItems"
+          size="lg"
+          color="primary"
+          class="mx-auto max-w-2xl"
+          :ui="{
+            date: 'text-xs font-semibold uppercase tracking-widest text-primary',
+            title: 'text-xl font-bold text-highlighted',
+            description: 'mt-1'
+          }"
         >
-          <UPageCard
-            :icon="m.icon"
-            :title="m.title"
-            :description="m.desc"
-            :to="localePath(m.to)"
-            spotlight
-            class="h-full"
-            :ui="{ leadingIcon: 'size-10 text-primary' }"
-          >
-            <template #footer>
-              <div class="flex items-center justify-between">
-                <UBadge
-                  color="neutral"
-                  variant="subtle"
-                  icon="i-lucide-book-open"
-                >
-                  {{ m.lessons.length }} {{ t('home.stats.lessons') }}
-                </UBadge>
-                <span class="flex items-center gap-1 text-sm font-medium text-primary">
-                  {{ t('home.startModule') }}
-                  <UIcon
-                    name="i-lucide-arrow-right"
-                    class="size-4"
-                  />
-                </span>
-              </div>
-            </template>
-          </UPageCard>
-        </ScrollReveal>
-
-        <!-- Start-here call card -->
-        <ScrollReveal>
-          <UPageCard
-            icon="i-lucide-flag"
-            :title="t('home.newHereTitle')"
-            :description="t('home.newHereDesc')"
-            variant="solid"
-            :ui="{ leadingIcon: 'size-8' }"
-          >
-            <template #footer>
-              <UButton
-                :to="localePath('/foundations')"
+          <template #description="{ item }">
+            <p class="text-muted">
+              {{ item.description }}
+            </p>
+            <div class="mt-4 flex flex-wrap items-center gap-3 pb-4">
+              <UBadge
                 color="neutral"
-                variant="solid"
-                trailing-icon="i-lucide-arrow-right"
+                variant="subtle"
+                icon="i-lucide-book-open"
+                class="rounded-full"
               >
-                {{ t('home.startHere') }}
+                {{ item.lessons }} {{ t('home.stats.lessons') }}
+              </UBadge>
+              <UButton
+                :to="item.to"
+                size="sm"
+                variant="soft"
+                trailing-icon="i-lucide-arrow-right"
+                class="rounded-full"
+              >
+                {{ t('home.startModule') }}
               </UButton>
-            </template>
-          </UPageCard>
-        </ScrollReveal>
-      </UPageGrid>
+            </div>
+          </template>
+        </UTimeline>
+      </ScrollReveal>
+
+      <!-- Start-here call card, closing the path -->
+      <ScrollReveal>
+        <UPageCard
+          icon="i-lucide-flag"
+          :title="t('home.newHereTitle')"
+          :description="t('home.newHereDesc')"
+          variant="solid"
+          orientation="horizontal"
+          class="mx-auto mt-10 max-w-2xl"
+          :ui="{ leadingIcon: 'size-10' }"
+        >
+          <template #footer>
+            <UButton
+              :to="localePath('/foundations')"
+              color="neutral"
+              variant="solid"
+              trailing-icon="i-lucide-arrow-right"
+            >
+              {{ t('home.startHere') }}
+            </UButton>
+          </template>
+        </UPageCard>
+      </ScrollReveal>
     </UPageSection>
 
     <UContainer>
@@ -466,30 +485,33 @@ const heroLinks = computed(() => [
       :title="t('home.featuresTitle')"
       class="bg-dots"
     >
-      <UPageGrid class="lg:grid-cols-3">
+      <div class="space-y-16 sm:space-y-20">
         <ScrollReveal
           v-for="(f, fi) in features"
           :key="f.title"
-          :delay="fi * 120"
         >
-          <UPageCard
-            :title="f.title"
-            :description="f.description"
-            variant="naked"
-            class="h-full text-center"
-            :ui="{ container: 'items-center' }"
-          >
-            <template #leading>
-              <div class="mx-auto flex size-20 items-center justify-center rounded-3xl bg-primary/10 ring-1 ring-primary/20">
+          <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+            <!-- The icon as the illustration: a big soft panel, side-swapped
+                 every other row. -->
+            <div :class="fi % 2 === 0 ? 'lg:order-1' : 'lg:order-2'">
+              <div class="flex min-h-56 items-center justify-center rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent sm:min-h-64">
                 <UIcon
                   :name="f.icon"
-                  class="size-10 text-primary"
+                  class="size-24 text-primary sm:size-28"
                 />
               </div>
-            </template>
-          </UPageCard>
+            </div>
+            <div :class="fi % 2 === 0 ? 'lg:order-2' : 'lg:order-1'">
+              <h3 class="text-2xl font-bold tracking-tight text-highlighted sm:text-3xl">
+                {{ f.title }}
+              </h3>
+              <p class="mt-4 text-lg text-muted">
+                {{ f.description }}
+              </p>
+            </div>
+          </div>
         </ScrollReveal>
-      </UPageGrid>
+      </div>
     </UPageSection>
 
     <!-- ========================= ECOSYSTEM ========================= -->
@@ -503,6 +525,7 @@ const heroLinks = computed(() => [
           v-for="(e, ei) in explore"
           :key="e.to"
           :delay="ei * 120"
+          :class="ei === 0 ? 'lg:col-span-2' : ''"
         >
           <UPageCard
             :title="e.title"
@@ -536,23 +559,25 @@ const heroLinks = computed(() => [
       :title="t('home.whoTitle')"
       class="bg-muted/30"
     >
-      <UPageGrid class="lg:grid-cols-4">
+      <UPageGrid class="lg:grid-cols-2">
         <ScrollReveal
           v-for="(p, pi) in personas"
           :key="p.title"
-          :delay="pi * 100"
+          :delay="(pi % 2) * 120"
         >
           <UPageCard
             :title="p.title"
             :description="p.description"
             variant="outline"
+            orientation="horizontal"
+            reverse
             class="h-full"
           >
             <template #leading>
-              <div class="flex size-14 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
                 <UIcon
                   :name="p.icon"
-                  class="size-7 text-primary"
+                  class="size-8 text-primary"
                 />
               </div>
             </template>
