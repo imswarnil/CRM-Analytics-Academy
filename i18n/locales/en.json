@@ -263,7 +263,9 @@
     "pagesTitle": "Everything on the site",
     "pagesSubtitle": "Every page, one map.",
     "thanksText": "Built on what the community taught us.",
-    "thanksLink": "Thank you, Wall of Famers"
+    "thanksLink": "Thank you, Wall of Famers",
+    "langTitle": "Study in your language",
+    "langSubtitle": "The whole curriculum, in twelve languages."
   },
   "footer": {
     "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",

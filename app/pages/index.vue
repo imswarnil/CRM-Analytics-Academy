@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t, tm, rt, locale, locales } = useI18n()
+const { t, tm, rt, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 
 // The BCP-47 tag of the locale this copy of the page is prerendered for —
@@ -428,6 +428,38 @@ const heroLinks = computed(() => [
         class="max-w-4xl"
       />
     </UContainer>
+
+    <!-- ========================= LANGUAGES ========================= -->
+    <!-- The multilingual promise, made tangible: pick a language, keep
+         studying. setLocale persists the choice and rewrites every URL. -->
+    <section class="border-b border-default bg-muted/20">
+      <UContainer class="max-w-7xl px-6 py-8 lg:px-10">
+        <div class="flex flex-col items-center gap-3 text-center">
+          <p class="flex items-center gap-2 text-base font-semibold text-highlighted">
+            <UIcon
+              name="i-lucide-languages"
+              class="size-5 text-primary"
+            />
+            {{ t('home.langTitle') }}
+          </p>
+          <p class="text-sm text-muted">
+            {{ t('home.langSubtitle') }}
+          </p>
+          <div class="mt-1 flex flex-wrap justify-center gap-2">
+            <UButton
+              v-for="l in locales"
+              :key="l.code"
+              :label="l.name || l.code"
+              :color="l.code === locale ? 'primary' : 'neutral'"
+              :variant="l.code === locale ? 'soft' : 'outline'"
+              size="sm"
+              class="rounded-full"
+              @click="setLocale(l.code)"
+            />
+          </div>
+        </div>
+      </UContainer>
+    </section>
 
     <!-- ========================= CURRICULUM ========================= -->
     <UPageSection
