@@ -209,6 +209,7 @@ const explore = computed(() => [
 const directory = computed(() => [
   {
     label: t('footer.curriculum'),
+    icon: 'i-lucide-graduation-cap',
     links: [
       { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/foundations') },
       { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
@@ -218,6 +219,7 @@ const directory = computed(() => [
   },
   {
     label: t('footer.community'),
+    icon: 'i-lucide-users',
     links: [
       { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
       { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
@@ -228,6 +230,7 @@ const directory = computed(() => [
   },
   {
     label: t('footer.project'),
+    icon: 'i-lucide-map',
     links: [
       { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
       { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
@@ -237,6 +240,7 @@ const directory = computed(() => [
   },
   {
     label: t('nav.account'),
+    icon: 'i-lucide-circle-user',
     links: [
       { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
       { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') },
@@ -298,7 +302,7 @@ const heroLinks = computed(() => [
         :description="t('hero.subtitle')"
         class="relative"
         :ui="{
-          container: 'py-16 sm:py-20 lg:py-24 lg:gap-16',
+          container: 'max-w-7xl px-6 lg:px-10 py-16 sm:py-20 lg:py-24 lg:gap-16',
           title: 'text-4xl sm:text-6xl'
         }"
       >
@@ -432,6 +436,7 @@ const heroLinks = computed(() => [
       :title="t('home.curriculumTitle')"
       :description="t('home.curriculumSubtitle')"
       class="scroll-mt-24"
+      :ui="{ container: 'max-w-7xl px-6 lg:px-10' }"
     >
       <UPageGrid>
         <ScrollReveal
@@ -504,26 +509,37 @@ const heroLinks = computed(() => [
           </p>
         </div>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div
             v-for="g in directory"
             :key="g.label"
+            class="rounded-xl border border-default bg-default p-5 shadow-sm"
           >
-            <p class="mb-2 text-xs font-semibold tracking-widest text-muted uppercase">
-              {{ g.label }}
-            </p>
-            <div class="flex flex-wrap gap-1.5">
-              <UButton
+            <div class="mb-3 flex items-center gap-2.5 border-b border-default pb-3">
+              <div class="flex size-8 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-primary/20">
+                <UIcon
+                  :name="g.icon"
+                  class="size-4 text-primary"
+                />
+              </div>
+              <p class="text-xs font-semibold tracking-widest text-highlighted uppercase">
+                {{ g.label }}
+              </p>
+            </div>
+            <nav class="flex flex-col gap-0.5">
+              <ULink
                 v-for="l in g.links"
                 :key="l.to"
                 :to="l.to"
-                :icon="l.icon"
-                :label="l.label"
-                color="neutral"
-                variant="ghost"
-                size="sm"
-              />
-            </div>
+                class="group flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-muted transition-colors hover:bg-elevated hover:text-highlighted"
+              >
+                <UIcon
+                  :name="l.icon"
+                  class="size-4 text-dimmed transition-colors group-hover:text-primary"
+                />
+                {{ l.label }}
+              </ULink>
+            </nav>
           </div>
         </div>
       </UContainer>
@@ -602,6 +618,7 @@ const heroLinks = computed(() => [
       :headline="t('home.exploreEyebrow')"
       :title="t('home.exploreTitle')"
       :description="t('home.exploreSubtitle')"
+      :ui="{ container: 'max-w-7xl px-6 lg:px-10' }"
     >
       <UPageGrid class="lg:grid-cols-3">
         <ScrollReveal
@@ -647,6 +664,7 @@ const heroLinks = computed(() => [
     <UPageSection
       :headline="t('home.faqEyebrow')"
       :title="t('home.faqTitle')"
+      :ui="{ container: 'max-w-5xl px-6' }"
     >
       <ScrollReveal>
         <UAccordion

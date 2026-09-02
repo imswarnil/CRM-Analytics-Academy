@@ -21,7 +21,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-const tab = ref<'users' | 'queue'>('queue')
+const tab = ref<'overview' | 'users' | 'queue'>('overview')
 
 const { data: me } = await useLazyAsyncData('admin-me', () =>
   $fetch<{ signedIn: boolean, role: string | null, email?: string }>('/api/admin/me'), {
@@ -62,8 +62,29 @@ interface QueueItem {
   submittedBy: { name: string | null, email: string | null }
 }
 
+interface SeriesPoint {
+  day: string
+  count: number
+}
+
+interface AdminStats {
+  totals: {
+    users: number
+    pendingSubmissions: number
+    approvedSubmissions: number
+    rejectedSubmissions: number
+    lessonsCompleted: number
+    quizAttempts: number
+  }
+  series: {
+    submissions: SeriesPoint[]
+    progress: SeriesPoint[]
+  }
+}
+
 const users = ref<AdminUser[]>([])
 const queue = ref<QueueItem[]>([])
+const stats = ref<AdminStats | null>(null)
 const queueStatus = ref<'pending' | 'approved' | 'rejected'>('pending')
 const busy = ref(false)
 const error = ref('')
@@ -86,13 +107,138 @@ async function loadQueue() {
   } catch (e) { error.value = msg(e) }
 }
 
+async function loadStats() {
+  if (!isAdmin.value) return
+  try {
+    stats.value = await $fetch<AdminStats>('/api/admin/stats')
+  } catch (e) { error.value = msg(e) }
+}
+
 function msg(e: unknown) {
   return (e as { statusMessage?: string })?.statusMessage || 'Something went wrong.'
 }
 
-watch(isModerator, ok => ok && loadQueue(), { immediate: true })
-watch(isAdmin, ok => ok && loadUsers(), { immediate: true })
+watch(isModerator, (ok) => {
+  if (!ok) return
+  loadQueue()
+  // Moderators cannot read /api/admin/stats, so the default Overview tab is
+  // useless to them — land them on the queue instead.
+  if (!isAdmin.value && tab.value === 'overview') tab.value = 'queue'
+}, { immediate: true })
+watch(isAdmin, (ok) => {
+  if (!ok) return
+  loadUsers()
+  loadStats()
+}, { immediate: true })
 watch(queueStatus, loadQueue)
+
+/* --- Overview ----------------------------------------------------------- */
+// When the database is fresh (every number zero), the dashboard demonstrates
+// its full shape with clearly-labelled sample data instead of a wall of
+// zeros. The wobble is index math, not Math.random, so it is deterministic.
+const SAMPLE_TOTALS = {
+  users: 128,
+  pendingSubmissions: 6,
+  approvedSubmissions: 42,
+  rejectedSubmissions: 9,
+  lessonsCompleted: 913,
+  quizAttempts: 357
+}
+
+function lastDays(n: number): string[] {
+  const out: string[] = []
+  const now = Date.now()
+  for (let i = n - 1; i >= 0; i--) {
+    out.push(new Date(now - i * 86400000).toISOString().slice(0, 10))
+  }
+  return out
+}
+
+function sampleSeries(): AdminStats['series'] {
+  const days = lastDays(14)
+  return {
+    submissions: days.map((day, i) => ({ day, count: 1 + ((i * 7) % 13) % 9 })),
+    progress: days.map((day, i) => ({ day, count: 3 + ((i * 5 + 4) % 11) }))
+  }
+}
+
+function statsEmpty(s: AdminStats) {
+  return Object.values(s.totals).every(v => !v)
+    && s.series.submissions.every(p => !p.count)
+    && s.series.progress.every(p => !p.count)
+}
+
+const sampleActive = computed(() => !stats.value || statsEmpty(stats.value))
+const displayTotals = computed(() => {
+  const s = stats.value
+  return !s || statsEmpty(s) ? SAMPLE_TOTALS : s.totals
+})
+const displaySeries = computed(() => {
+  const s = stats.value
+  return !s || statsEmpty(s) ? sampleSeries() : s.series
+})
+
+const statCards = computed(() => [
+  { label: 'Users', icon: 'i-lucide-users', value: displayTotals.value.users },
+  { label: 'Pending review', icon: 'i-lucide-inbox', value: displayTotals.value.pendingSubmissions },
+  { label: 'Approved', icon: 'i-lucide-circle-check', value: displayTotals.value.approvedSubmissions },
+  { label: 'Lessons completed', icon: 'i-lucide-book-open-check', value: displayTotals.value.lessonsCompleted },
+  { label: 'Quiz attempts', icon: 'i-lucide-list-checks', value: displayTotals.value.quizAttempts }
+])
+
+// Inline SVG geometry. 280×140 viewBox, stretched to the card's width; the
+// bottom 18 units are breathing room above the baseline.
+const CHART_W = 280
+const CHART_H = 140
+const CHART_PAD = 18
+
+const submissionBars = computed(() => {
+  const s = displaySeries.value.submissions
+  const max = Math.max(1, ...s.map(p => p.count))
+  const bw = CHART_W / Math.max(1, s.length)
+  return s.map((p, i) => {
+    const h = (p.count / max) * (CHART_H - CHART_PAD - 8)
+    return {
+      x: +(i * bw + 2).toFixed(1),
+      y: +(CHART_H - CHART_PAD - h).toFixed(1),
+      w: +(bw - 4).toFixed(1),
+      h: +h.toFixed(1)
+    }
+  })
+})
+
+const progressLine = computed(() => {
+  const s = displaySeries.value.progress
+  const max = Math.max(1, ...s.map(p => p.count))
+  const step = CHART_W / Math.max(1, s.length - 1)
+  const pts = s.map((p, i) => {
+    const y = CHART_H - CHART_PAD - (p.count / max) * (CHART_H - CHART_PAD - 8)
+    return `${(i * step).toFixed(1)},${y.toFixed(1)}`
+  })
+  return {
+    line: pts.join(' '),
+    area: `0,${CHART_H - CHART_PAD} ${pts.join(' ')} ${CHART_W},${CHART_H - CHART_PAD}`
+  }
+})
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+function fmtDay(day: string) {
+  const parts = day.split('-')
+  const m = Number(parts[1])
+  const d = Number(parts[2])
+  if (!m || !d) return day
+  return `${MONTHS[m - 1]} ${d}`
+}
+
+// Sparse labels: only the first and last day of the window.
+const dayLabels = computed(() => {
+  const s = displaySeries.value.submissions
+  const first = s[0]
+  const last = s[s.length - 1]
+  if (!first || !last) return { first: '', last: '' }
+  return { first: fmtDay(first.day), last: fmtDay(last.day) }
+})
 
 async function setRole(u: AdminUser, role: string) {
   busy.value = true
@@ -177,14 +323,24 @@ const roles = ['learner', 'moderator', 'admin']
 
     <UContainer v-else-if="isModerator">
       <UPageHeader
-        :title="tab === 'queue' ? 'Moderation' : 'Users & Roles'"
-        :description="tab === 'queue' ? 'Community submissions awaiting review.' : 'Accounts, roles and access.'"
+        :title="tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : 'Users & Roles'"
+        :description="tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : 'Accounts, roles and access.'"
       >
         <template #headline>
           <nav
             class="flex items-center gap-2"
             aria-label="Admin sections"
           >
+            <UButton
+              v-if="isAdmin"
+              icon="i-lucide-layout-dashboard"
+              size="sm"
+              :color="tab === 'overview' ? 'primary' : 'neutral'"
+              :variant="tab === 'overview' ? 'soft' : 'ghost'"
+              @click="tab = 'overview'"
+            >
+              Overview
+            </UButton>
             <UButton
               icon="i-lucide-inbox"
               size="sm"
@@ -229,8 +385,128 @@ const roles = ['learner', 'moderator', 'admin']
           {{ error }}
         </p>
 
+        <!-- ========================== OVERVIEW ========================== -->
+        <section v-if="tab === 'overview' && isAdmin">
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            <div
+              v-for="card in statCards"
+              :key="card.label"
+              class="rounded-lg border border-default p-4"
+            >
+              <div class="flex items-center gap-2 text-muted">
+                <UIcon
+                  :name="card.icon"
+                  class="size-4 shrink-0"
+                />
+                <span class="truncate text-xs font-semibold uppercase tracking-wide">{{ card.label }}</span>
+              </div>
+              <p class="mt-2 text-2xl font-bold tabular-nums text-highlighted">
+                {{ card.value.toLocaleString('en-US') }}
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-4 lg:grid-cols-2">
+            <div class="rounded-lg border border-default p-4">
+              <div class="mb-3 flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-highlighted">
+                  Submissions — last 14 days
+                </p>
+                <UBadge
+                  v-if="sampleActive"
+                  label="Sample data"
+                  color="neutral"
+                  variant="subtle"
+                  size="sm"
+                />
+              </div>
+              <svg
+                :viewBox="`0 0 ${CHART_W} ${CHART_H}`"
+                class="h-[140px] w-full text-primary"
+                preserveAspectRatio="none"
+                role="img"
+                aria-label="Bar chart of submissions per day over the last 14 days"
+              >
+                <line
+                  x1="0"
+                  :y1="CHART_H - CHART_PAD"
+                  :x2="CHART_W"
+                  :y2="CHART_H - CHART_PAD"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  opacity="0.2"
+                />
+                <rect
+                  v-for="(b, i) in submissionBars"
+                  :key="i"
+                  :x="b.x"
+                  :y="b.y"
+                  :width="b.w"
+                  :height="b.h"
+                  rx="1.5"
+                  fill="currentColor"
+                  opacity="0.85"
+                />
+              </svg>
+              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-muted">
+                <span>{{ dayLabels.first }}</span>
+                <span>{{ dayLabels.last }}</span>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-default p-4">
+              <div class="mb-3 flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-highlighted">
+                  Lessons completed — last 14 days
+                </p>
+                <UBadge
+                  v-if="sampleActive"
+                  label="Sample data"
+                  color="neutral"
+                  variant="subtle"
+                  size="sm"
+                />
+              </div>
+              <svg
+                :viewBox="`0 0 ${CHART_W} ${CHART_H}`"
+                class="h-[140px] w-full text-primary"
+                preserveAspectRatio="none"
+                role="img"
+                aria-label="Area chart of lessons completed per day over the last 14 days"
+              >
+                <line
+                  x1="0"
+                  :y1="CHART_H - CHART_PAD"
+                  :x2="CHART_W"
+                  :y2="CHART_H - CHART_PAD"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  opacity="0.2"
+                />
+                <polygon
+                  :points="progressLine.area"
+                  fill="currentColor"
+                  opacity="0.15"
+                />
+                <polyline
+                  :points="progressLine.line"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-muted">
+                <span>{{ dayLabels.first }}</span>
+                <span>{{ dayLabels.last }}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- ============================ QUEUE ============================ -->
-        <section v-if="tab === 'queue'">
+        <section v-else-if="tab === 'queue'">
           <div class="mb-4 flex gap-2">
             <UButton
               v-for="s in (['pending', 'approved', 'rejected'] as const)"
