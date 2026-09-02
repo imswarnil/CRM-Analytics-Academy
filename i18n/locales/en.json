@@ -28,7 +28,10 @@
     "browseAll": "Browse the full curriculum",
     "leaderboard": "Leaderboard",
     "submit": "Contribute a resource",
-    "navigate": "Navigate"
+    "navigate": "Navigate",
+    "wallOfFame": "Wall of Fame",
+    "companies": "Companies",
+    "jobs": "Jobs"
   },
   "sponsorCard": {
     "title": "Sponsor this project",
@@ -247,13 +250,20 @@
     "submitDesc": "Share the dashboard you built and inspire other learners.",
     "submitButton": "Submit yours",
     "lessonsWord": "lessons",
-    "moduleWord": "Module"
+    "moduleWord": "Module",
+    "exploreEyebrow": "The ecosystem",
+    "exploreTitle": "More than lessons",
+    "exploreSubtitle": "The community, the companies and the careers around CRM Analytics.",
+    "exploreWall": "Meet the bloggers, YouTubers and authors who taught the community.",
+    "exploreCompanies": "See which companies run on CRM Analytics and who builds with it.",
+    "exploreJobs": "Fresh CRM Analytics roles, refreshed every day."
   },
   "footer": {
     "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",
     "curriculum": "Curriculum",
     "project": "Project",
-    "legal": "Legal"
+    "legal": "Legal",
+    "community": "Community"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",
@@ -405,5 +415,60 @@
     "rejected": "Not accepted",
     "none": "You have not submitted anything yet.",
     "signInFirst": "Sign in to contribute."
+  },
+  "wall": {
+    "eyebrow": "Community",
+    "title": "Wall of Fame",
+    "subtitle": "The people who make the CRM Analytics community what it is - the bloggers, YouTubers, authors, speakers and tool builders whose work taught the rest of us.",
+    "all": "Everyone",
+    "types": {
+      "blogger": "Blogger",
+      "youtuber": "YouTuber",
+      "author": "Author",
+      "speaker": "Speaker",
+      "builder": "Tool builder"
+    },
+    "visit": "Visit",
+    "nominateTitle": "Know someone who belongs here?",
+    "nominateDesc": "Nominate a blogger, creator or mentor whose work has helped the CRM Analytics community.",
+    "nominate": "Nominate someone"
+  },
+  "companies": {
+    "eyebrow": "Ecosystem",
+    "title": "Who runs on CRM Analytics",
+    "subtitle": "Companies known to use CRM Analytics in production, and the consultancies that design and build with it.",
+    "filterIndustry": "Industry",
+    "allIndustries": "All industries",
+    "allTypes": "All",
+    "typeCustomer": "Customer",
+    "typeConsultancy": "Consultancy",
+    "empty": "Nothing matches those filters.",
+    "reset": "Reset filters",
+    "disclaimer": "Curated from public case studies, talks and job posts. Logos and trademarks belong to their owners; a listing here is not an endorsement by or of Salesforce.",
+    "industries": {
+      "finance": "Financial services",
+      "insurance": "Insurance",
+      "healthcare": "Healthcare",
+      "manufacturing": "Manufacturing",
+      "retail": "Retail & consumer",
+      "technology": "Technology",
+      "energy": "Energy & utilities",
+      "telecom": "Telecom & media",
+      "nonprofit": "Nonprofit & education",
+      "consulting": "Consulting"
+    }
+  },
+  "jobs": {
+    "eyebrow": "Careers",
+    "title": "CRM Analytics jobs",
+    "subtitle": "Fresh roles that mention CRM Analytics, Tableau CRM or Einstein Analytics - refreshed daily from public job boards.",
+    "searchPlaceholder": "Search title, company or location",
+    "remoteOnly": "Remote only",
+    "apply": "View & apply",
+    "updated": "Last updated {date}",
+    "empty": "No jobs match - try clearing the search.",
+    "count": "{count} open roles",
+    "disclaimer": "Listings come from third-party job boards; we do not screen employers. Always apply on the source site.",
+    "source": "Source"
   }
 }

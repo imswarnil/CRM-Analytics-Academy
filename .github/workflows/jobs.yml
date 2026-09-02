@@ -1,0 +1,52 @@
+name: jobs
+
+# The /jobs page renders a committed dataset, not a live API. This refreshes
+# app/data/jobs.json once a day from the public job boards and commits it back;
+# that commit is what triggers deploy-cloudflare.yml, so the page ships fresh.
+on:
+  schedule:
+    - cron: '45 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The commit below has to push, so a token that can write is
+          # required; the default GITHUB_TOKEN is enough.
+          persist-credentials: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # The script needs no dependencies — global fetch only — so there is no
+      # pnpm install here. Adzuna is optional: without the secrets the script
+      # logs a note and ships Remotive data alone.
+      - name: Fetch jobs
+        env:
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+        run: node scripts/fetch-jobs.mjs
+
+      # Only commit when the dataset actually changed — `updatedAt` moves on
+      # every successful run, so "no diff" means the script deliberately left
+      # the file alone (every provider failed).
+      - name: Commit dataset
+        run: |
+          if git diff --quiet -- app/data/jobs.json; then
+            echo "No changes to the jobs dataset."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/data/jobs.json
+          git commit -m "chore(jobs): daily refresh of the jobs dataset"
+          # Rebase rather than force: a push may have landed while this ran.
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main

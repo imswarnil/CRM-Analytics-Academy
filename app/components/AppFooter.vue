@@ -14,6 +14,16 @@ const columns = computed(() => [
     ]
   },
   {
+    label: t('footer.community'),
+    children: [
+      { label: t('nav.wallOfFame'), to: localePath('/wall-of-fame') },
+      { label: t('nav.companies'), to: localePath('/companies') },
+      { label: t('nav.jobs'), to: localePath('/jobs') },
+      { label: t('nav.showcase'), to: localePath('/showcase') },
+      { label: t('nav.leaderboard'), to: localePath('/leaderboard') }
+    ]
+  },
+  {
     label: t('footer.project'),
     children: [
       { label: t('nav.about'), to: localePath('/about') },

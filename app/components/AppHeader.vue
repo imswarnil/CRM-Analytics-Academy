@@ -22,6 +22,9 @@ const menuItems = computed(() => [
 // GitHub is duplicated here (as a `class` marking it mobile-only) since its
 // icon button is hidden below lg to keep the navbar from overflowing.
 const moreItems = computed(() => [
+  { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
+  { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
+  { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
   { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
   { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },

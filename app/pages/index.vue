@@ -1,6 +1,11 @@
 <script setup lang="ts">
-const { t, tm, rt, locale } = useI18n()
+const { t, tm, rt, locale, locales } = useI18n()
 const localePath = useLocalePath()
+
+// The BCP-47 tag of the locale this copy of the page is prerendered for —
+// every language emits its own JSON-LD, so 'en' hardcoded here would tell
+// search engines all twelve copies are English.
+const bcp47 = computed(() => locales.value.find(l => l.code === locale.value)?.language || locale.value)
 
 const title = computed(() => t('seo.homeTitle'))
 const description = computed(() => t('seo.homeDesc'))
@@ -145,7 +150,7 @@ useJsonLd({
   'name': SITE.name,
   'description': SITE.description,
   'url': SITE.url,
-  'inLanguage': locale.value,
+  'inLanguage': bcp47.value,
   'isAccessibleForFree': true,
   'provider': { '@type': 'Organization', 'name': SITE.name, 'sameAs': SITE.url },
   'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
@@ -196,12 +201,30 @@ const features = computed(() =>
 useJsonLd({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
+  'inLanguage': bcp47.value,
   'mainEntity': faqs.value.map(f => ({
     '@type': 'Question',
     'name': f.q,
     'acceptedAnswer': { '@type': 'Answer', 'text': f.a }
   }))
 })
+
+// The ecosystem teasers: community, companies, careers.
+const explore = computed(() => [
+  { icon: 'i-lucide-heart-handshake', title: t('nav.wallOfFame'), description: t('home.exploreWall'), to: localePath('/wall-of-fame') },
+  { icon: 'i-lucide-building-2', title: t('nav.companies'), description: t('home.exploreCompanies'), to: localePath('/companies') },
+  { icon: 'i-lucide-briefcase', title: t('nav.jobs'), description: t('home.exploreJobs'), to: localePath('/jobs') }
+])
+
+// Decorative icon chips floating over the hero backdrop. Purely visual:
+// hidden from assistive tech, pointer-transparent, stilled by the
+// prefers-reduced-motion override on .animate-float.
+const floatChips = [
+  { icon: 'i-lucide-line-chart', style: { top: '16%', left: '44%', animationDuration: '7s' } },
+  { icon: 'i-lucide-sparkles', style: { top: '9%', right: '5%', animationDuration: '9s', animationDelay: '1.2s' } },
+  { icon: 'i-lucide-database', style: { bottom: '18%', left: '47%', animationDuration: '8s', animationDelay: '0.6s' } },
+  { icon: 'i-lucide-trophy', style: { bottom: '10%', right: '3%', animationDuration: '10s', animationDelay: '2s' } }
+]
 
 const heroLinks = computed(() => [
   {
@@ -234,85 +257,126 @@ const heroLinks = computed(() => [
 <template>
   <div>
     <!-- ============================ HERO ============================ -->
-    <UPageHero
-      orientation="horizontal"
-      :description="t('hero.subtitle')"
-      :links="heroLinks"
-      :ui="{ container: 'lg:gap-16' }"
-    >
-      <template #headline>
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          icon="i-lucide-sparkles"
-          class="rounded-full"
+    <section class="relative overflow-hidden">
+      <div
+        class="absolute inset-0 bg-grid"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute -top-32 -left-32 size-96 rounded-full bg-primary/15 blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute -top-20 right-0 size-80 rounded-full bg-salesforce-400/10 blur-3xl"
+        aria-hidden="true"
+      />
+
+      <!-- Floating icon chips, drifting at different speeds over the grid. -->
+      <div
+        class="pointer-events-none absolute inset-0 hidden xl:block"
+        aria-hidden="true"
+      >
+        <div
+          v-for="chip in floatChips"
+          :key="chip.icon"
+          class="animate-float absolute flex size-12 items-center justify-center rounded-2xl border border-default bg-default/80 shadow-sm backdrop-blur"
+          :style="chip.style"
         >
-          {{ t('hero.badge') }}
-        </UBadge>
-      </template>
-
-      <template #title>
-        {{ t('hero.titleLead') }}<br>
-        <span class="text-primary">{{ t('hero.titleAccent') }}</span>.
-      </template>
-
-      <template #footer>
-        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
-          <span
-            v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
-            :key="f"
-            class="flex items-center gap-1.5"
-          >
-            <UIcon
-              name="i-lucide-check"
-              class="size-4 text-primary"
-            />
-            {{ f }}
-          </span>
+          <UIcon
+            :name="chip.icon"
+            class="size-6 text-primary"
+          />
         </div>
-      </template>
+      </div>
 
-      <!-- The hero's media: the six modules as icon thumbnails. This is the
+      <UPageHero
+        orientation="horizontal"
+        :description="t('hero.subtitle')"
+        :links="heroLinks"
+        class="relative"
+        :ui="{ container: 'lg:gap-16' }"
+      >
+        <template #headline>
+          <UBadge
+            color="primary"
+            variant="subtle"
+            size="lg"
+            icon="i-lucide-sparkles"
+            class="rounded-full"
+          >
+            {{ t('hero.badge') }}
+          </UBadge>
+        </template>
+
+        <template #title>
+          {{ t('hero.titleLead') }}<br>
+          <span class="text-primary">{{ t('hero.titleAccent') }}</span>.
+        </template>
+
+        <template #footer>
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
+            <span
+              v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
+              :key="f"
+              class="flex items-center gap-1.5"
+            >
+              <UIcon
+                name="i-lucide-check"
+                class="size-4 text-primary"
+              />
+              {{ f }}
+            </span>
+          </div>
+        </template>
+
+        <!-- The hero's media: the six modules as icon thumbnails. This is the
            actual product, so it beats any illustration — and each tile is a
            real link into its module. -->
-      <div class="grid grid-cols-2 gap-3">
-        <UPageCard
-          v-for="m in modules"
-          :key="m.n"
-          :icon="m.icon"
-          :title="m.title"
-          :description="`${m.lessons.length} ${t('home.stats.lessons')}`"
-          :to="localePath(m.to)"
-          variant="subtle"
-          :ui="{
-            container: 'p-4 sm:p-4',
-            leadingIcon: 'size-7 text-primary',
-            title: 'text-sm',
-            description: 'text-xs'
-          }"
-        />
-      </div>
-    </UPageHero>
+        <div class="grid grid-cols-2 gap-3">
+          <UPageCard
+            v-for="(m, i) in modules"
+            :key="m.n"
+            :icon="m.icon"
+            :title="m.title"
+            :description="`${m.lessons.length} ${t('home.stats.lessons')}`"
+            :to="localePath(m.to)"
+            variant="subtle"
+            class="animate-fade-up"
+            :style="{ animationDelay: `${i * 80}ms` }"
+            :ui="{
+              container: 'p-4 sm:p-4',
+              leadingIcon: 'size-8 text-primary',
+              title: 'text-sm',
+              description: 'text-xs'
+            }"
+          />
+        </div>
+      </UPageHero>
+    </section>
 
     <!-- ============================ STATS ============================ -->
     <UContainer>
       <UPageGrid class="lg:grid-cols-3">
-        <UPageCard
-          v-for="s in stats"
+        <ScrollReveal
+          v-for="(s, i) in stats"
           :key="s.label"
-          :icon="s.icon"
-          variant="subtle"
-          orientation="horizontal"
-          :ui="{ leadingIcon: 'size-8 text-primary' }"
+          :delay="i * 120"
         >
-          <template #title>
-            <span class="text-2xl font-bold tabular-nums">{{ s.value }}</span>
-          </template>
-          <template #description>
-            {{ s.label }}
-          </template>
-        </UPageCard>
+          <UPageCard
+            :icon="s.icon"
+            variant="subtle"
+            orientation="horizontal"
+            class="h-full"
+            :ui="{ leadingIcon: 'size-10 text-primary' }"
+          >
+            <template #title>
+              <span class="text-3xl font-bold tabular-nums">{{ s.value }}</span>
+            </template>
+            <template #description>
+              {{ s.label }}
+            </template>
+          </UPageCard>
+        </ScrollReveal>
       </UPageGrid>
 
       <AdUnit
@@ -330,55 +394,62 @@ const heroLinks = computed(() => [
       class="scroll-mt-24"
     >
       <UPageGrid>
-        <UPageCard
-          v-for="m in modules"
+        <ScrollReveal
+          v-for="(m, mi) in modules"
           :key="m.n"
-          :icon="m.icon"
-          :title="m.title"
-          :description="m.desc"
-          :to="localePath(m.to)"
-          spotlight
-          :ui="{ leadingIcon: 'size-8 text-primary' }"
+          :delay="(mi % 3) * 120"
         >
-          <template #footer>
-            <div class="flex items-center justify-between">
-              <UBadge
-                color="neutral"
-                variant="subtle"
-                icon="i-lucide-book-open"
-              >
-                {{ m.lessons.length }} {{ t('home.stats.lessons') }}
-              </UBadge>
-              <span class="flex items-center gap-1 text-sm font-medium text-primary">
-                {{ t('home.startModule') }}
-                <UIcon
-                  name="i-lucide-arrow-right"
-                  class="size-4"
-                />
-              </span>
-            </div>
-          </template>
-        </UPageCard>
+          <UPageCard
+            :icon="m.icon"
+            :title="m.title"
+            :description="m.desc"
+            :to="localePath(m.to)"
+            spotlight
+            class="h-full"
+            :ui="{ leadingIcon: 'size-10 text-primary' }"
+          >
+            <template #footer>
+              <div class="flex items-center justify-between">
+                <UBadge
+                  color="neutral"
+                  variant="subtle"
+                  icon="i-lucide-book-open"
+                >
+                  {{ m.lessons.length }} {{ t('home.stats.lessons') }}
+                </UBadge>
+                <span class="flex items-center gap-1 text-sm font-medium text-primary">
+                  {{ t('home.startModule') }}
+                  <UIcon
+                    name="i-lucide-arrow-right"
+                    class="size-4"
+                  />
+                </span>
+              </div>
+            </template>
+          </UPageCard>
+        </ScrollReveal>
 
         <!-- Start-here call card -->
-        <UPageCard
-          icon="i-lucide-flag"
-          :title="t('home.newHereTitle')"
-          :description="t('home.newHereDesc')"
-          variant="solid"
-          :ui="{ leadingIcon: 'size-8' }"
-        >
-          <template #footer>
-            <UButton
-              :to="localePath('/foundations')"
-              color="neutral"
-              variant="solid"
-              trailing-icon="i-lucide-arrow-right"
-            >
-              {{ t('home.startHere') }}
-            </UButton>
-          </template>
-        </UPageCard>
+        <ScrollReveal>
+          <UPageCard
+            icon="i-lucide-flag"
+            :title="t('home.newHereTitle')"
+            :description="t('home.newHereDesc')"
+            variant="solid"
+            :ui="{ leadingIcon: 'size-8' }"
+          >
+            <template #footer>
+              <UButton
+                :to="localePath('/foundations')"
+                color="neutral"
+                variant="solid"
+                trailing-icon="i-lucide-arrow-right"
+              >
+                {{ t('home.startHere') }}
+              </UButton>
+            </template>
+          </UPageCard>
+        </ScrollReveal>
       </UPageGrid>
     </UPageSection>
 
@@ -393,8 +464,71 @@ const heroLinks = computed(() => [
     <UPageSection
       :headline="t('home.featuresEyebrow')"
       :title="t('home.featuresTitle')"
-      :features="features"
-    />
+      class="bg-dots"
+    >
+      <UPageGrid class="lg:grid-cols-3">
+        <ScrollReveal
+          v-for="(f, fi) in features"
+          :key="f.title"
+          :delay="fi * 120"
+        >
+          <UPageCard
+            :title="f.title"
+            :description="f.description"
+            variant="naked"
+            class="h-full text-center"
+            :ui="{ container: 'items-center' }"
+          >
+            <template #leading>
+              <div class="mx-auto flex size-20 items-center justify-center rounded-3xl bg-primary/10 ring-1 ring-primary/20">
+                <UIcon
+                  :name="f.icon"
+                  class="size-10 text-primary"
+                />
+              </div>
+            </template>
+          </UPageCard>
+        </ScrollReveal>
+      </UPageGrid>
+    </UPageSection>
+
+    <!-- ========================= ECOSYSTEM ========================= -->
+    <UPageSection
+      :headline="t('home.exploreEyebrow')"
+      :title="t('home.exploreTitle')"
+      :description="t('home.exploreSubtitle')"
+    >
+      <UPageGrid class="lg:grid-cols-3">
+        <ScrollReveal
+          v-for="(e, ei) in explore"
+          :key="e.to"
+          :delay="ei * 120"
+        >
+          <UPageCard
+            :title="e.title"
+            :description="e.description"
+            :to="e.to"
+            spotlight
+            class="h-full"
+          >
+            <template #leading>
+              <div class="flex size-16 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
+                <UIcon
+                  :name="e.icon"
+                  class="size-8 text-primary"
+                />
+              </div>
+            </template>
+            <template #footer>
+              <UIcon
+                name="i-lucide-arrow-right"
+                class="size-5 text-primary"
+              />
+            </template>
+          </UPageCard>
+        </ScrollReveal>
+      </UPageGrid>
+    </UPageSection>
 
     <!-- ========================= WHO IT'S FOR ========================= -->
     <UPageSection
@@ -403,15 +537,27 @@ const heroLinks = computed(() => [
       class="bg-muted/30"
     >
       <UPageGrid class="lg:grid-cols-4">
-        <UPageCard
-          v-for="p in personas"
+        <ScrollReveal
+          v-for="(p, pi) in personas"
           :key="p.title"
-          :icon="p.icon"
-          :title="p.title"
-          :description="p.description"
-          variant="outline"
-          :ui="{ leadingIcon: 'size-7 text-primary' }"
-        />
+          :delay="pi * 100"
+        >
+          <UPageCard
+            :title="p.title"
+            :description="p.description"
+            variant="outline"
+            class="h-full"
+          >
+            <template #leading>
+              <div class="flex size-14 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
+                <UIcon
+                  :name="p.icon"
+                  class="size-7 text-primary"
+                />
+              </div>
+            </template>
+          </UPageCard>
+        </ScrollReveal>
       </UPageGrid>
     </UPageSection>
 
@@ -427,38 +573,42 @@ const heroLinks = computed(() => [
       :headline="t('home.faqEyebrow')"
       :title="t('home.faqTitle')"
     >
-      <UAccordion
-        :items="faqItems"
-        type="multiple"
-        class="mx-auto max-w-3xl"
-      />
+      <ScrollReveal>
+        <UAccordion
+          :items="faqItems"
+          type="multiple"
+          class="mx-auto max-w-3xl"
+        />
+      </ScrollReveal>
     </UPageSection>
 
     <!-- ============================ CTA ============================ -->
     <UPageSection>
-      <UPageCTA
-        :title="t('cta.title')"
-        :description="t('cta.subtitle')"
-        variant="solid"
-        :links="[
-          {
-            label: t('cta.startFoundations'),
-            to: localePath('/foundations'),
-            color: 'neutral',
-            size: 'xl',
-            trailingIcon: 'i-lucide-arrow-right'
-          },
-          {
-            label: t('cta.star'),
-            to: 'https://github.com/imswarnil/CRM-Analytics-Academy',
-            target: '_blank',
-            color: 'neutral',
-            variant: 'outline',
-            size: 'xl',
-            icon: 'i-simple-icons-github'
-          }
-        ]"
-      />
+      <ScrollReveal>
+        <UPageCTA
+          :title="t('cta.title')"
+          :description="t('cta.subtitle')"
+          variant="solid"
+          :links="[
+            {
+              label: t('cta.startFoundations'),
+              to: localePath('/foundations'),
+              color: 'neutral',
+              size: 'xl',
+              trailingIcon: 'i-lucide-arrow-right'
+            },
+            {
+              label: t('cta.star'),
+              to: 'https://github.com/imswarnil/CRM-Analytics-Academy',
+              target: '_blank',
+              color: 'neutral',
+              variant: 'outline',
+              size: 'xl',
+              icon: 'i-simple-icons-github'
+            }
+          ]"
+        />
+      </ScrollReveal>
     </UPageSection>
   </div>
 </template>
