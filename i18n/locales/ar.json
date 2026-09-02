@@ -32,7 +32,8 @@
     "wallOfFame": "حائط الشهرة",
     "companies": "الشركات",
     "jobs": "الوظائف",
-    "community": "المجتمع"
+    "community": "المجتمع",
+    "ask": "اسألي"
   },
   "sponsorCard": {
     "title": "رعاية هذا المشروع",
@@ -263,7 +264,9 @@
     "pagesTitle": "كل شيء على الموقع",
     "pagesSubtitle": "كل صفحة، خريطة واحدة",
     "thanksText": "بناء على ما علمنا المجتمع",
-    "thanksLink": "شكراً لك جدار الشر"
+    "thanksLink": "شكراً لك جدار الشر",
+    "langTitle": "دراسة بلغتك",
+    "langSubtitle": "المنهج الدراسي بأكمله بـ 12 لغة"
   },
   "footer": {
     "tagline": "منهج دراسي مجاني ومفتوح المصدر للتدريس Salesforce CRM Analytics.",
@@ -501,5 +504,31 @@
     "button": "Subscribe",
     "success": "تفقد صندوقك لتأكيد اشتراكك",
     "error": "فشل الاشتراك - حاول مرة أخرى لاحقا -"
+  },
+  "quiz": {
+    "title": "تحقق من معرفتك",
+    "question": "سؤال {n} of of {total}",
+    "submit": "إجابات",
+    "score": "لقد سجلت {score} of of {total}",
+    "passed": "عمل رائع",
+    "failed": "ليس بعد - استعراض الدروس ومحاولة مرة أخرى.",
+    "retry": "حاول مرة أخرى",
+    "signInToSave": "وقّعْ ليُوفّرُ سجلَكَ ونقاطَ القيادةِ.",
+    "saved": "الكشافة تم إنقاذها، إنها تُحسب نحو نقاط القيادة",
+    "answered": "{n} of of {total} أجيب"
+  },
+  "ask": {
+    "eyebrow": "إسأل",
+    "title": "اسأل المنهج الدراسي",
+    "subtitle": "اكتب سؤالاً واحصل على الدروس التي تجيب عليه لا حساب ولا انتظار",
+    "placeholder": "على سبيل المثال كيف أواجه لوح مع مواعدة؟",
+    "empty": "لا دروس متطابقة جرب كلمات مختلفة",
+    "sources": "من المنهج الدراسي",
+    "aiBox": "مطاردة مع هذا المسار في أداة AI الخاص بك",
+    "aiBoxDesc": "قَدْ هذه الصلةِ إلى ChatGPT, Claude or any AI Assistant to talk with the full curriculum.",
+    "copy": "وصلة نسخ",
+    "copied": "!",
+    "mcp": "Connect via MCP",
+    "mcpDesc": "نوجه أيّ زبون قادر على إم بي سي في هذه النقطه الأخيره ليعطي مساعدك المساعد مباشرة لكل درس"
   }
 }

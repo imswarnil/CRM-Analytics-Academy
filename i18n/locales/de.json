@@ -32,7 +32,8 @@
     "wallOfFame": "Wall of Fame",
     "companies": "Unternehmen",
     "jobs": "Arbeitsplätze",
-    "community": "Gemeinschaft"
+    "community": "Gemeinschaft",
+    "ask": "Fragen Sie AI"
   },
   "sponsorCard": {
     "title": "Sponsor dieses Projekts",
@@ -263,7 +264,9 @@
     "pagesTitle": "Alles auf der Website",
     "pagesSubtitle": "Jede Seite, eine Karte.",
     "thanksText": "Aufbauend auf dem, was uns die Gemeinschaft gelehrt hat.",
-    "thanksLink": "Vielen Dank, Wand der Famers"
+    "thanksLink": "Vielen Dank, Wand der Famers",
+    "langTitle": "Studieren Sie in Ihrer Sprache",
+    "langSubtitle": "Der gesamte Lehrplan, in zwölf Sprachen."
   },
   "footer": {
     "tagline": "Ein kostenloser, quelloffener Lehrplan, um Salesforce CRM Analytics zu meistern.",
@@ -501,5 +504,31 @@
     "button": "Subscribe",
     "success": "Überprüfen Sie Ihren Posteingang, um Ihr Abonnement zu bestätigen.",
     "error": "Abonnement fehlgeschlagen - bitte versuchen Sie es später erneut."
+  },
+  "quiz": {
+    "title": "Überprüfen Sie Ihr Wissen",
+    "question": "Fragestellung {n} von {total}",
+    "submit": "Antworten einreichen",
+    "score": "Sie erzielten {score} von {total}",
+    "passed": "Passed - schöne Arbeit!",
+    "failed": "Noch nicht - überprüfen Sie die Lektionen und versuchen Sie es erneut.",
+    "retry": "Versuchen Sie es noch einmal",
+    "signInToSave": "Melden Sie sich an, um Ihre Punktzahl zu speichern und Leaderboard-Punkte zu sammeln.",
+    "saved": "Score gespeichert - es zählt zu Ihren Bestenlistenpunkten.",
+    "answered": "{n} von {total} beantwortet"
+  },
+  "ask": {
+    "eyebrow": "Bitten",
+    "title": "Fragen Sie den Lehrplan",
+    "subtitle": "Geben Sie eine Frage ein und erhalten Sie die genauen Lektionen, die sie beantworten - kein Konto, kein Warten.",
+    "placeholder": "z.B. Wie facette ich ein dashboard mit einem date toggle.",
+    "empty": "Keine passenden Lektionen - versuchen Sie verschiedene Wörter.",
+    "sources": "Aus dem Curriculum",
+    "aiBox": "Chatten Sie mit diesem Kurs in Ihrem AI-Tool",
+    "aiBoxDesc": "Fügen Sie diesen Link in ChatGPT, Claude oder einen beliebigen KI-Assistenten ein, um mit dem vollständigen Lehrplan zu chatten.",
+    "copy": "Kopierlink",
+    "copied": "Kopiert!",
+    "mcp": "Verbinden über MCP",
+    "mcpDesc": "Richten Sie einen beliebigen MCP-fähigen Client an diesen Endpunkt, um Ihrem KI-Assistenten direkten Zugriff auf jede Lektion zu geben."
   }
 }

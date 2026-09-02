@@ -32,7 +32,8 @@
     "wallOfFame": "Mur de la renommée",
     "companies": "Entreprises",
     "jobs": "Emploi",
-    "community": "Communauté"
+    "community": "Communauté",
+    "ask": "Demandez à AI"
   },
   "sponsorCard": {
     "title": "Parrainer ce projet",
@@ -263,7 +264,9 @@
     "pagesTitle": "Tout sur le site",
     "pagesSubtitle": "Chaque page, une carte.",
     "thanksText": "Construit sur ce que la communauté nous a appris.",
-    "thanksLink": "Merci, Mur de Famers"
+    "thanksLink": "Merci, Mur de Famers",
+    "langTitle": "Étudier dans votre langue",
+    "langSubtitle": "Le programme complet, en douze langues."
   },
   "footer": {
     "tagline": "Un cursus gratuit et open source pour maîtriser Salesforce CRM Analytics.",
@@ -501,5 +504,31 @@
     "button": "Abonnez-vous",
     "success": "Vérifiez votre boîte de réception pour confirmer votre abonnement.",
     "error": "L'abonnement a échoué - veuillez réessayer plus tard."
+  },
+  "quiz": {
+    "title": "Vérifiez vos connaissances",
+    "question": "Question {n} des {total}",
+    "submit": "Soumettre les réponses",
+    "score": "Vous avez marqué {score} des {total}",
+    "passed": "Passé - beau travail!",
+    "failed": "Pas encore - examiner les leçons et essayer à nouveau.",
+    "retry": "Essaie encore",
+    "signInToSave": "Connectez-vous pour enregistrer votre score et gagner des points de classement.",
+    "saved": "Score enregistré - il compte pour vos points de classement.",
+    "answered": "{n} des {total} répondu"
+  },
+  "ask": {
+    "eyebrow": "Demande",
+    "title": "Demandez le programme",
+    "subtitle": "Saisissez une question et obtenez les leçons exactes qui y répondent - pas de compte, pas d'attente.",
+    "placeholder": "Par exemple Comment faire face à un tableau de bord avec un rencard ?",
+    "empty": "Pas de cours assortis - essayez différents mots.",
+    "sources": "Du programme",
+    "aiBox": "Dialoguez avec ce cours dans votre outil AI",
+    "aiBoxDesc": "Collez ce lien dans ChatGPT, Claude ou tout assistant AI pour discuter avec le programme complet.",
+    "copy": "Copier le lien",
+    "copied": "Copié !",
+    "mcp": "Connexion via MCP",
+    "mcpDesc": "Pointez n'importe quel client capable de MCP à ce point d'arrêt pour donner à votre assistant d'IA un accès direct à chaque leçon."
   }
 }

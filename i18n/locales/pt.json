@@ -32,7 +32,8 @@
     "wallOfFame": "Muro da Fama",
     "companies": "Empresas.",
     "jobs": "Empregos",
-    "community": "Comunidade"
+    "community": "Comunidade",
+    "ask": "Pergunte ao Al."
   },
   "sponsorCard": {
     "title": "Patrocine este projeto.",
@@ -263,7 +264,9 @@
     "pagesTitle": "Tudo no site",
     "pagesSubtitle": "Cada página, um mapa.",
     "thanksText": "Construído sobre o que a comunidade nos ensinou.",
-    "thanksLink": "Obrigado. Muro dos Famosos"
+    "thanksLink": "Obrigado. Muro dos Famosos",
+    "langTitle": "Estude na sua língua.",
+    "langSubtitle": "Todo o currículo, em doze idiomas."
   },
   "footer": {
     "tagline": "Um currículo gratuito e de código aberto para dominar o Salesforce CRM Analytics.",
@@ -501,5 +504,31 @@
     "button": "Assine.",
     "success": "Verifique sua caixa de entrada para confirmar sua assinatura.",
     "error": "A assinatura falhou. Por favor, tente mais tarde."
+  },
+  "quiz": {
+    "title": "Verifique seu conhecimento.",
+    "question": "Pergunta {n} de {total}",
+    "submit": "Enviar respostas",
+    "score": "Você marcou. {score} de {total}",
+    "passed": "Bom trabalho!",
+    "failed": "Ainda não. Reveja as lições e tente novamente.",
+    "retry": "Tente novamente.",
+    "signInToSave": "Assine para economizar sua pontuação e ganhar pontos na tabela de classificação.",
+    "saved": "Pontuação salva, conta para seus pontos.",
+    "answered": "{n} de {total} Respondedo."
+  },
+  "ask": {
+    "eyebrow": "Pergunte.",
+    "title": "Pergunte ao currículo.",
+    "subtitle": "Escreva uma pergunta e pegue as lições exatas que respondem. Sem conta, sem esperar.",
+    "placeholder": "Por exemplo. Como posso enfrentar um painel com um botão de encontro?",
+    "empty": "Sem aulas iguais, tente palavras diferentes.",
+    "sources": "Do currículo.",
+    "aiBox": "Converse com este curso na sua ferramenta de IA.",
+    "aiBoxDesc": "Cole este link no ChatGPT, Claude ou qualquer assistente de IA para conversar com o currículo completo.",
+    "copy": "Entendido.",
+    "copied": "Copiado!",
+    "mcp": "Conectar via MCP",
+    "mcpDesc": "Aponte qualquer cliente com capacidade MCP neste ponto para dar ao seu assistente de IA acesso direto a todas as aulas."
   }
 }

@@ -32,7 +32,8 @@
     "wallOfFame": "Muro de la fama",
     "companies": "Empresas",
     "jobs": "Empleo",
-    "community": "Comunidad"
+    "community": "Comunidad",
+    "ask": "Pregúntele a AI"
   },
   "sponsorCard": {
     "title": "Patrocinar este proyecto",
@@ -263,7 +264,9 @@
     "pagesTitle": "Todo en el sitio",
     "pagesSubtitle": "Cada página, un mapa.",
     "thanksText": "Construido en lo que la comunidad nos enseñó.",
-    "thanksLink": "Gracias. Wall of Famers"
+    "thanksLink": "Gracias. Wall of Famers",
+    "langTitle": "Estudie en su idioma",
+    "langSubtitle": "Todo el currículo, en doce idiomas."
   },
   "footer": {
     "tagline": "Un currículo gratuito y de código abierto para dominar Salesforce CRM Analytics.",
@@ -501,5 +504,31 @@
     "button": "Suscríbete",
     "success": "Comprueba tu buzón de entrada para confirmar tu suscripción.",
     "error": "La suscripción falló - por favor intente de nuevo más tarde."
+  },
+  "quiz": {
+    "title": "Comprueba tu conocimiento",
+    "question": "Pregunta {n} de {total}",
+    "submit": "Presentar respuestas",
+    "score": "Usted anotó {score} de {total}",
+    "passed": "Pasado - buen trabajo!",
+    "failed": "Aún no - revisar las lecciones e intentarlo de nuevo.",
+    "retry": "Inténtalo de nuevo.",
+    "signInToSave": "Inicie sesión para ahorrar su puntuación y ganar puntos de clasificación.",
+    "saved": "Resultado salvado - cuenta con hacia sus puntos de clasificación.",
+    "answered": "{n} de {total} respondió:"
+  },
+  "ask": {
+    "eyebrow": "Pregunta",
+    "title": "Pregúntele al currículo",
+    "subtitle": "Escribe una pregunta y consigue las lecciones exactas que la responden - sin cuenta, sin espera.",
+    "placeholder": "Por ejemplo. ¿Cómo hago frente a un dashboard con una pelea de citas?",
+    "empty": "Sin clases iguales - prueba palabras diferentes.",
+    "sources": "Del currículo",
+    "aiBox": "Chat con este curso en tu herramienta AI",
+    "aiBoxDesc": "Pruebe este enlace en ChatGPT, Claude o cualquier asistente de inteligencia artificial para charlar con el currículo completo.",
+    "copy": "Copiar el enlace",
+    "copied": "¡Policía!",
+    "mcp": "Conectar a través de MCP",
+    "mcpDesc": "Indique a cualquier cliente con capacidad MCP en este punto final para dar a su asistente de inteligencia directa acceso a cada lección."
   }
 }
