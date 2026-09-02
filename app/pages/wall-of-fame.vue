@@ -46,10 +46,19 @@ const selected = ref<'all' | PersonType>('all')
 const filtered = computed(() => selected.value === 'all' ? people : people.filter(p => p.type === selected.value))
 const countFor = (key: 'all' | PersonType) => key === 'all' ? people.length : people.filter(p => p.type === key).length
 
-const initials = (name: string) => name.split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('')
-
-// A gallery wall never hangs perfectly straight — cycle a few tilts by index.
-const rotations = ['rotate-1', '-rotate-1', 'rotate-0', '-rotate-2']
+// Every frame on a real wall is different: three frame builds (polaroid,
+// wood, black gallery), five tilts and three photo crops, cycled so no two
+// neighbours match. Frame interiors stay light in both themes — paper and
+// wood don't theme — so interior text uses fixed dark tones, not semantic
+// tokens; only the wall behind them (.bg-wall) follows the color mode.
+const rotations = ['rotate-1', '-rotate-2', 'rotate-0', '-rotate-1', 'rotate-2']
+const aspects = ['aspect-square', 'aspect-[4/5]', 'aspect-[3/4]']
+const frameStyles = ['polaroid', 'wood', 'gallery'] as const
+const frameFor = (i: number) => ({
+  style: frameStyles[i % frameStyles.length],
+  rotation: rotations[i % rotations.length],
+  aspect: aspects[i % aspects.length]
+})
 
 useJsonLd({
   '@context': 'https://schema.org',
@@ -123,45 +132,81 @@ useJsonLd({
         </UButton>
       </div>
 
-      <section class="bg-dots rounded-lg p-6 ring-1 ring-default sm:p-10">
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3">
+      <section class="bg-wall rounded-lg p-6 shadow-inner ring-1 ring-default sm:p-10 lg:p-14">
+        <!-- CSS-columns masonry: mixed photo crops give every column its own
+             rhythm, like a wall that grew one frame at a time. -->
+        <div class="columns-1 gap-10 sm:columns-2 lg:columns-3">
           <div
             v-for="(p, i) in filtered"
             :key="p.name"
-            class="group relative transition-transform duration-300 hover:rotate-0"
-            :class="rotations[i % rotations.length]"
+            class="group relative mb-10 break-inside-avoid transition-all duration-300 hover:-translate-y-1.5 hover:rotate-0 hover:shadow-none"
+            :class="frameFor(i).rotation"
           >
             <!-- the nail it hangs from -->
             <span
-              class="absolute -top-2 left-1/2 z-10 size-2 -translate-x-1/2 rounded-full bg-neutral-400 shadow-sm dark:bg-neutral-500"
+              class="absolute -top-2.5 left-1/2 z-10 size-2 -translate-x-1/2 rounded-full bg-neutral-400 shadow-sm dark:bg-neutral-500"
               aria-hidden="true"
             />
 
-            <!-- wooden frame + mat -->
-            <div class="flex h-full flex-col rounded-sm border-8 border-amber-900/70 bg-amber-50 p-4 shadow-xl dark:border-amber-950 dark:bg-neutral-800">
-              <!-- sepia "photo" -->
+            <!-- the frame: polaroid paper, wood + mat, or thin black gallery -->
+            <div
+              class="flex h-full flex-col shadow-xl transition-shadow duration-300 group-hover:shadow-2xl"
+              :class="{
+                'bg-white p-3 pb-5': frameFor(i).style === 'polaroid',
+                'rounded-sm border-8 border-amber-900/80 bg-amber-50 p-3': frameFor(i).style === 'wood',
+                'border-[6px] border-neutral-900 bg-white p-4': frameFor(i).style === 'gallery'
+              }"
+            >
+              <!-- the photograph: sepia portrait silhouette under a glass sheen -->
               <div
-                class="flex aspect-square items-center justify-center bg-gradient-to-br from-amber-100 to-amber-200 dark:from-neutral-700 dark:to-neutral-800"
+                class="relative overflow-hidden bg-gradient-to-br from-amber-100 via-orange-100 to-amber-200"
+                :class="frameFor(i).aspect"
                 aria-hidden="true"
               >
-                <UAvatar
-                  :text="initials(p.name)"
-                  size="3xl"
-                  class="bg-amber-200 font-serif text-amber-900 ring-2 ring-amber-300/70 dark:bg-neutral-600 dark:text-neutral-100 dark:ring-neutral-500/70"
+                <UIcon
+                  name="i-lucide-user-round"
+                  class="absolute bottom-0 left-1/2 size-[72%] -translate-x-1/2 translate-y-[10%] text-amber-900/25"
                 />
+                <span class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/40" />
+                <span class="absolute inset-0 ring-1 ring-black/10 ring-inset" />
               </div>
 
-              <!-- brass name plaque -->
-              <div class="mt-3 rounded-sm border border-amber-300 bg-amber-200/80 px-3 py-1.5 text-center dark:border-amber-800 dark:bg-amber-900/40">
-                <p class="text-sm font-semibold uppercase tracking-widest text-amber-950 dark:text-amber-100">
+              <!-- the caption, in the frame's own voice -->
+              <div
+                v-if="frameFor(i).style === 'wood'"
+                class="mt-3 rounded-sm border border-amber-300 bg-amber-200/80 px-3 py-1.5 text-center"
+              >
+                <p class="text-sm font-semibold tracking-widest text-amber-950 uppercase">
                   {{ p.name }}
                 </p>
-                <p class="text-[10px] uppercase tracking-wider text-amber-800 dark:text-amber-300">
+                <p class="text-[10px] tracking-wider text-amber-800 uppercase">
+                  {{ t(`wall.types.${p.type}`) }}
+                </p>
+              </div>
+              <div
+                v-else-if="frameFor(i).style === 'polaroid'"
+                class="mt-3 text-center"
+              >
+                <p class="font-serif text-lg text-neutral-800 italic">
+                  {{ p.name }}
+                </p>
+                <p class="text-[10px] tracking-wider text-neutral-500 uppercase">
+                  {{ t(`wall.types.${p.type}`) }}
+                </p>
+              </div>
+              <div
+                v-else
+                class="mt-3 text-center"
+              >
+                <p class="text-xs font-medium tracking-[0.2em] text-neutral-800 uppercase">
+                  {{ p.name }}
+                </p>
+                <p class="text-[10px] tracking-wider text-neutral-500 uppercase">
                   {{ t(`wall.types.${p.type}`) }}
                 </p>
               </div>
 
-              <p class="mt-3 grow text-xs text-muted">
+              <p class="mt-3 grow text-xs text-neutral-600">
                 {{ p.desc }}
               </p>
 
@@ -203,7 +248,7 @@ useJsonLd({
               :to="p.linkedin"
               target="_blank"
               :aria-label="p.name"
-              class="absolute inset-0 rounded-sm"
+              class="absolute inset-0"
             />
           </div>
         </div>

@@ -80,6 +80,28 @@
   mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
 }
 
+/* Plaster wall for the Wall of Fame: warm base, faint speckle at two scales,
+   and a soft top light so the frames read as hung in a lit room. The frames
+   themselves stay light in both themes (paper and wood don't theme), so only
+   this wall surface changes with the mode. */
+.bg-wall {
+  background-color: #f3efe7;
+  background-image:
+    radial-gradient(rgba(120, 100, 70, 0.05) 1px, transparent 1.1px),
+    radial-gradient(rgba(120, 100, 70, 0.035) 1px, transparent 1.4px),
+    radial-gradient(ellipse 120% 90% at 50% 0%, rgba(255, 255, 255, 0.7), transparent 60%);
+  background-size: 12px 12px, 29px 29px, 100% 100%;
+  background-position: 0 0, 7px 11px, 0 0;
+}
+
+.dark .bg-wall {
+  background-color: #221f1b;
+  background-image:
+    radial-gradient(rgba(255, 244, 214, 0.04) 1px, transparent 1.1px),
+    radial-gradient(rgba(255, 244, 214, 0.028) 1px, transparent 1.4px),
+    radial-gradient(ellipse 120% 90% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 60%);
+}
+
 /* Subtle dotted backdrop for alternating sections */
 .bg-dots {
   background-image: radial-gradient(color-mix(in oklch, var(--ui-border) 70%, transparent) 1px, transparent 1px);
