@@ -81,8 +81,11 @@ const localeItems = computed(() =>
       class="max-lg:hidden"
       :ui="{
         link: 'font-medium rounded-full before:rounded-full data-active:text-primary data-active:before:bg-primary/10',
-        childList: 'grid grid-cols-2 gap-1 p-2 w-[28rem]',
-        childLinkDescription: 'line-clamp-2'
+        childList: 'grid grid-cols-2 gap-1.5 p-3 w-[34rem]',
+        childLink: 'rounded-lg p-3 gap-3 items-start',
+        childLinkIcon: 'size-6 text-primary shrink-0',
+        childLinkLabel: 'font-semibold',
+        childLinkDescription: 'line-clamp-2 mt-0.5 text-xs'
       }"
     />
 

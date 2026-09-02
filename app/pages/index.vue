@@ -205,6 +205,46 @@ const explore = computed(() => [
   { icon: 'i-lucide-briefcase', title: t('nav.jobs'), description: t('home.exploreJobs'), to: localePath('/jobs') }
 ])
 
+// Every route on the site, grouped — the homepage's own little sitemap.
+const directory = computed(() => [
+  {
+    label: t('footer.curriculum'),
+    links: [
+      { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/foundations') },
+      { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
+      { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
+      { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') }
+    ]
+  },
+  {
+    label: t('footer.community'),
+    links: [
+      { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
+      { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
+      { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
+      { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
+      { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') }
+    ]
+  },
+  {
+    label: t('footer.project'),
+    links: [
+      { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
+      { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
+      { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
+      { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
+    ]
+  },
+  {
+    label: t('nav.account'),
+    links: [
+      { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
+      { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') },
+      { label: t('nav.signIn'), icon: 'i-lucide-log-in', to: localePath('/sign-in') }
+    ]
+  }
+])
+
 // Hero social proof: initials avatars standing in for the community.
 const communityAvatars = ['SS', 'RH', 'MC', 'CB', 'MT', 'BB']
 
@@ -257,7 +297,10 @@ const heroLinks = computed(() => [
         orientation="horizontal"
         :description="t('hero.subtitle')"
         class="relative"
-        :ui="{ container: 'lg:gap-16' }"
+        :ui="{
+          container: 'py-16 sm:py-20 lg:py-24 lg:gap-16',
+          title: 'text-4xl sm:text-6xl'
+        }"
       >
         <template #headline>
           <UBadge
@@ -433,6 +476,59 @@ const heroLinks = computed(() => [
       </UPageGrid>
     </UPageSection>
 
+    <!-- ==================== SITE DIRECTORY ==================== -->
+    <!-- A short band: every route grouped, plus the community thank-you. -->
+    <section class="border-t border-default bg-muted/30">
+      <UContainer class="py-10">
+        <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 class="text-xl font-bold text-highlighted">
+              {{ t('home.pagesTitle') }}
+            </h2>
+            <p class="mt-1 text-sm text-muted">
+              {{ t('home.pagesSubtitle') }}
+            </p>
+          </div>
+          <p class="flex flex-wrap items-center gap-1.5 text-sm text-muted">
+            <UIcon
+              name="i-lucide-heart"
+              class="size-4 text-primary"
+            />
+            {{ t('home.thanksText') }}
+            <ULink
+              :to="localePath('/wall-of-fame')"
+              class="font-medium text-primary"
+            >
+              {{ t('home.thanksLink') }}
+            </ULink>
+          </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div
+            v-for="g in directory"
+            :key="g.label"
+          >
+            <p class="mb-2 text-xs font-semibold tracking-widest text-muted uppercase">
+              {{ g.label }}
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <UButton
+                v-for="l in g.links"
+                :key="l.to"
+                :to="l.to"
+                :icon="l.icon"
+                :label="l.label"
+                color="neutral"
+                variant="ghost"
+                size="sm"
+              />
+            </div>
+          </div>
+        </div>
+      </UContainer>
+    </section>
+
     <!-- =================== SCREENSHOT MARQUEE =================== -->
     <!-- Every feature page of the site, drifting past on a tilted plane. -->
     <div
@@ -497,6 +593,9 @@ const heroLinks = computed(() => [
         class="max-w-3xl"
       />
     </UContainer>
+
+    <!-- ========================= NEWSLETTER ========================= -->
+    <NewsletterSection />
 
     <!-- ========================= ECOSYSTEM ========================= -->
     <UPageSection

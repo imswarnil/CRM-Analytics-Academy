@@ -54,5 +54,13 @@
 
   "observability": {
     "enabled": true
-  }
+  },
+
+  // Media bucket (dashboard screenshots from the submit form, lesson images).
+  // Prefixes in use: submissions/, images/, course-lessons/, media/.
+  // Served through /media/* and written by /api/upload — the bucket itself
+  // stays private.
+  "r2_buckets": [
+    { "binding": "MEDIA", "bucket_name": "crm-analytics-academy" }
+  ]
 }

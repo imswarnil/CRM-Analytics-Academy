@@ -259,7 +259,11 @@
     "exploreSubtitle": "The community, the companies and the careers around CRM Analytics.",
     "exploreWall": "Meet the bloggers, YouTubers and authors who taught the community.",
     "exploreCompanies": "See which companies run on CRM Analytics and who builds with it.",
-    "exploreJobs": "Fresh CRM Analytics roles, refreshed every day."
+    "exploreJobs": "Fresh CRM Analytics roles, refreshed every day.",
+    "pagesTitle": "Everything on the site",
+    "pagesSubtitle": "Every page, one map.",
+    "thanksText": "Built on what the community taught us.",
+    "thanksLink": "Thank you, Wall of Famers"
   },
   "footer": {
     "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",
@@ -417,7 +421,18 @@
     "approved": "Approved",
     "rejected": "Not accepted",
     "none": "You have not submitted anything yet.",
-    "signInFirst": "Sign in to contribute."
+    "signInFirst": "Sign in to contribute.",
+    "stepKind": "Type",
+    "stepDetails": "Details",
+    "stepMedia": "Media",
+    "stepReview": "Review",
+    "next": "Continue",
+    "back": "Back",
+    "optional": "Optional",
+    "photosLabel": "Dashboard screenshots",
+    "photosHint": "PNG, JPG or WebP, up to 4 MB each - 4 images max.",
+    "uploading": "Uploading...",
+    "reviewHint": "Almost done - check everything reads right before sending."
   },
   "wall": {
     "eyebrow": "Community",
@@ -478,5 +493,13 @@
     "sample": "Sample",
     "sampleNote": "Live listings are refreshed daily; these sample roles show what typically appears here.",
     "filters": "Filters"
+  },
+  "newsletter": {
+    "title": "Stay in the loop",
+    "subtitle": "One occasional email when new modules, showcases or jobs land. No spam, unsubscribe anytime.",
+    "placeholder": "you{'@'}example.com",
+    "button": "Subscribe",
+    "success": "Check your inbox to confirm your subscription.",
+    "error": "Subscription failed - please try again later."
   }
 }
