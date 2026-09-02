@@ -205,13 +205,16 @@ useJsonLd(jsonLd)
   <UPage v-if="page">
     <UBreadcrumb
       :items="breadcrumbItems"
-      class="mb-5"
+      class="mt-6"
     />
 
+    <!-- pt-2 pulls the title up under the breadcrumb; the header's default
+         top padding doubled the gap the breadcrumb's own margin already made. -->
     <UPageHeader
       :title="page.title"
       :description="page.description"
       :headline="headline"
+      :ui="{ root: 'pt-2' }"
     >
       <template #links>
         <UButton
