@@ -6,25 +6,26 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 const { header } = useAppConfig()
 const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
+const route = useRoute()
 
-// Icon actions on the right of the navbar — ghost icon links with a tooltip.
-// About now lives only in the "More" dropdown below.
-const actions = computed(() => [
-  { icon: 'i-simple-icons-github', label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' as string | undefined }
+// The primary destinations, shown as a navigation menu in the navbar centre
+// on desktop and repeated vertically at the top of the mobile slideover.
+const menuItems = computed(() => [
+  { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/foundations'), active: route.path.startsWith(localePath('/foundations')) },
+  { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
+  { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
+  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
+  { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') }
 ])
 
 // Secondary links folded into a "More" dropdown to keep the icon row short.
-// About/GitHub are duplicated here (as a `class` marking them mobile-only)
-// since their icon buttons are hidden below lg to keep the navbar from
-// overflowing on small screens.
+// GitHub is duplicated here (as a `class` marking it mobile-only) since its
+// icon button is hidden below lg to keep the navbar from overflowing.
 const moreItems = computed(() => [
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
   { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
   { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
-  { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
-  { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank', class: 'lg:hidden' },
   { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
 ])
@@ -54,10 +55,10 @@ const localeItems = computed(() =>
     :ui="{ center: 'flex-1', body: 'flex flex-col h-full p-0 overflow-hidden' }"
     :to="localePath('/')"
   >
-    <UContentSearchButton
-      v-if="header?.search"
-      :collapsed="false"
-      class="w-full max-lg:hidden"
+    <UNavigationMenu
+      highlight
+      :items="menuItems"
+      class="max-lg:hidden"
     />
 
     <template #left>
@@ -67,25 +68,21 @@ const localeItems = computed(() =>
     </template>
 
     <template #right>
-      <UContentSearchButton
-        v-if="header?.search"
-        class="lg:hidden"
-      />
+      <!-- Search folds down to its icon form: the navbar centre now belongs
+           to the navigation menu, and the palette opens on Cmd/Ctrl-K too. -->
+      <UContentSearchButton v-if="header?.search" />
 
       <UTooltip
-        v-for="action in actions"
-        :key="action.icon"
-        :text="action.label"
+        :text="t('nav.github')"
         class="hidden lg:inline-flex"
       >
         <UButton
-          :icon="action.icon"
-          :to="action.to"
-          :target="action.target"
-          :aria-label="action.label"
+          icon="i-simple-icons-github"
+          to="https://github.com/imswarnil/CRM-Analytics-Academy"
+          target="_blank"
+          :aria-label="t('nav.github')"
           color="neutral"
           variant="ghost"
-          :class="action.icon === 'i-lucide-heart' ? 'hover:text-primary' : ''"
         />
       </UTooltip>
 
@@ -158,6 +155,16 @@ const localeItems = computed(() =>
            is a shrink-0 sibling, so it stays pinned to the bottom of the
            mobile menu regardless of nav length. -->
       <div class="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
+        <!-- The navbar's menu items first — on mobile this slideover is the
+             only place they exist — then the full curriculum tree. -->
+        <UNavigationMenu
+          orientation="vertical"
+          :items="menuItems"
+          class="mb-4"
+        />
+
+        <USeparator class="mb-4" />
+
         <UContentNavigation
           highlight
           type="single"
