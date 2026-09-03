@@ -266,7 +266,8 @@
     "thanksText": "コミュニティが何を教えたかに建てられました。",
     "thanksLink": "お問い合わせ ファマーの壁",
     "langTitle": "語学留学",
-    "langSubtitle": "12言語のカリキュラム全体。"
+    "langSubtitle": "12言語のカリキュラム全体。",
+    "langHint": "任意のページで、ナビゲーションバーの地球のアイコンを即座に切り替えるには、以下の言語を選択します。 あなたの選択は記憶されます。"
   },
   "footer": {
     "tagline": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。",

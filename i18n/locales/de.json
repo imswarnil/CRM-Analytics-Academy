@@ -266,7 +266,8 @@
     "thanksText": "Aufbauend auf dem, was uns die Gemeinschaft gelehrt hat.",
     "thanksLink": "Vielen Dank, Wand der Famers",
     "langTitle": "Studieren Sie in Ihrer Sprache",
-    "langSubtitle": "Der gesamte Lehrplan, in zwölf Sprachen."
+    "langSubtitle": "Der gesamte Lehrplan, in zwölf Sprachen.",
+    "langHint": "Wählen Sie unten eine Sprache aus, um sofort zu wechseln - oder verwenden Sie das Globussymbol in der Navigationsleiste auf einer beliebigen Seite. Ihre Wahl wird in Erinnerung bleiben."
   },
   "footer": {
     "tagline": "Ein kostenloser, quelloffener Lehrplan, um Salesforce CRM Analytics zu meistern.",

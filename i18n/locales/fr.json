@@ -266,7 +266,8 @@
     "thanksText": "Construit sur ce que la communauté nous a appris.",
     "thanksLink": "Merci, Mur de Famers",
     "langTitle": "Étudier dans votre langue",
-    "langSubtitle": "Le programme complet, en douze langues."
+    "langSubtitle": "Le programme complet, en douze langues.",
+    "langHint": "Choisissez une langue ci-dessous pour basculer instantanément - ou utilisez l'icône du globe dans la barre de navigation, sur n'importe quelle page. Votre choix est rappelé."
   },
   "footer": {
     "tagline": "Un cursus gratuit et open source pour maîtriser Salesforce CRM Analytics.",

@@ -266,7 +266,8 @@
     "thanksText": "Construido en lo que la comunidad nos enseñó.",
     "thanksLink": "Gracias. Wall of Famers",
     "langTitle": "Estudie en su idioma",
-    "langSubtitle": "Todo el currículo, en doce idiomas."
+    "langSubtitle": "Todo el currículo, en doce idiomas.",
+    "langHint": "Elija un idioma a continuación para cambiar al instante - o utilice el icono del globo en la barra de navegación, en cualquier página. Tu elección es recordada."
   },
   "footer": {
     "tagline": "Un currículo gratuito y de código abierto para dominar Salesforce CRM Analytics.",
