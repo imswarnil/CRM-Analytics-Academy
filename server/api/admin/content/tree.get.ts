@@ -21,8 +21,10 @@ export default defineEventHandler(async (event) => {
     tree = res.tree || []
   } catch (e) {
     const status = ghStatus(e)
-    if (status === 401 || status === 403) {
-      throw createError({ statusCode: 502, statusMessage: 'GitHub rejected the content token - check GITHUB_CONTENT_TOKEN permissions.' })
+    if (status === 401 || status === 403 || status === 404) {
+      // Fine-grained PATs answer 404 (not 403) when the repo was never granted
+      // to the token — the most common misconfiguration, so name it.
+      throw createError({ statusCode: 502, statusMessage: 'GitHub rejected the content token - the PAT needs Contents read/write granted to this specific repository.' })
     }
     throw createError({ statusCode: 502, statusMessage: 'Could not list content from GitHub.' })
   }

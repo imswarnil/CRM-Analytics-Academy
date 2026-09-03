@@ -205,62 +205,18 @@ const explore = computed(() => [
   { icon: 'i-lucide-briefcase', title: t('nav.jobs'), description: t('home.exploreJobs'), to: localePath('/jobs') }
 ])
 
-// Every route on the site, grouped — the homepage's own little sitemap.
-const directory = computed(() => [
-  {
-    label: t('footer.curriculum'),
-    icon: 'i-lucide-graduation-cap',
-    links: [
-      { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/foundations') },
-      { label: t('nav.ask'), icon: 'i-lucide-sparkles', to: localePath('/ask') },
-      { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
-      { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-      { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') }
-    ]
-  },
-  {
-    label: t('footer.community'),
-    icon: 'i-lucide-users',
-    links: [
-      { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
-      { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
-      { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
-      { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
-      { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') }
-    ]
-  },
-  {
-    label: t('footer.project'),
-    icon: 'i-lucide-map',
-    links: [
-      { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
-      { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
-      { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
-      { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
-    ]
-  },
-  {
-    label: t('nav.account'),
-    icon: 'i-lucide-circle-user',
-    links: [
-      { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
-      { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') },
-      { label: t('nav.signIn'), icon: 'i-lucide-log-in', to: localePath('/sign-in') }
-    ]
-  }
-])
+// The three value props, drawn as icon features by UPageSection.
+const featureIcons = ['i-lucide-workflow', 'i-lucide-chart-column-big', 'i-lucide-sparkles']
+const features = computed(() =>
+  (tm('home.features') as { t: string, d: string }[]).map((f, i) => ({
+    title: rt(f.t),
+    description: rt(f.d),
+    icon: featureIcons[i]
+  }))
+)
 
 // Hero social proof: initials avatars standing in for the community.
 const communityAvatars = ['SS', 'RH', 'MC', 'CB', 'MT', 'BB']
-
-// The screenshot marquee: every feature page, captured from the live site
-// into public/screenshots/ (retake them when the design shifts).
-const shots = (names: string[]) => names.map(n => ({ src: `/screenshots/${n}.png`, alt: `CRM Analytics Academy — ${n}` }))
-const marqueeColumns = [
-  shots(['home', 'lesson', 'module', 'showcase']),
-  shots(['wall', 'companies', 'jobs', 'leaderboard']),
-  shots(['resources', 'datasets', 'about', 'signin'])
-]
 
 // Exactly two calls to action: begin, or see what's inside first.
 const heroLinks = computed(() => [
@@ -514,134 +470,15 @@ const heroLinks = computed(() => [
       </UPageGrid>
     </UPageSection>
 
-    <!-- ==================== SITE DIRECTORY ==================== -->
-    <!-- A short band: every route grouped, plus the community thank-you. -->
-    <section class="border-t border-default bg-muted/30">
-      <UContainer class="py-10">
-        <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h2 class="text-xl font-bold text-highlighted">
-              {{ t('home.pagesTitle') }}
-            </h2>
-            <p class="mt-1 text-sm text-muted">
-              {{ t('home.pagesSubtitle') }}
-            </p>
-          </div>
-          <p class="flex flex-wrap items-center gap-1.5 text-sm text-muted">
-            <UIcon
-              name="i-lucide-heart"
-              class="size-4 text-primary"
-            />
-            {{ t('home.thanksText') }}
-            <ULink
-              :to="localePath('/wall-of-fame')"
-              class="font-medium text-primary"
-            >
-              {{ t('home.thanksLink') }}
-            </ULink>
-          </p>
-        </div>
-
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div
-            v-for="g in directory"
-            :key="g.label"
-            class="rounded-xl border border-default bg-default p-5 shadow-sm"
-          >
-            <div class="mb-3 flex items-center gap-2.5 border-b border-default pb-3">
-              <div class="flex size-8 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-primary/20">
-                <UIcon
-                  :name="g.icon"
-                  class="size-4 text-primary"
-                />
-              </div>
-              <p class="text-xs font-semibold tracking-widest text-highlighted uppercase">
-                {{ g.label }}
-              </p>
-            </div>
-            <nav class="flex flex-col gap-0.5">
-              <ULink
-                v-for="l in g.links"
-                :key="l.to"
-                :to="l.to"
-                class="group flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-muted transition-colors hover:bg-elevated hover:text-highlighted"
-              >
-                <UIcon
-                  :name="l.icon"
-                  class="size-4 text-dimmed transition-colors group-hover:text-primary"
-                />
-                {{ l.label }}
-              </ULink>
-            </nav>
-          </div>
-        </div>
-      </UContainer>
-    </section>
-
-    <!-- =================== SCREENSHOT MARQUEE =================== -->
-    <!-- Every feature page of the site, drifting past on a tilted plane. -->
-    <div
-      class="relative h-[400px] w-full overflow-hidden border-y border-default bg-muted"
-      aria-hidden="true"
-    >
-      <UMarquee
-        reverse
-        orientation="vertical"
-        :overlay="false"
-        :ui="{ root: '[--duration:40s] absolute w-[460px] -left-[100px] -top-[300px] h-[940px] transform-3d rotate-x-55 rotate-y-0 rotate-z-30' }"
-      >
-        <img
-          v-for="s in marqueeColumns[0]"
-          :key="s.src"
-          :src="s.src"
-          width="460"
-          height="258"
-          :alt="s.alt"
-          loading="lazy"
-          class="aspect-video rounded-lg border border-default bg-white"
-        >
-      </UMarquee>
-      <UMarquee
-        orientation="vertical"
-        :overlay="false"
-        :ui="{ root: '[--duration:40s] absolute w-[460px] -top-[400px] left-[480px] h-[1160px] transform-3d rotate-x-55 rotate-y-0 rotate-z-30' }"
-      >
-        <img
-          v-for="s in marqueeColumns[1]"
-          :key="s.src"
-          :src="s.src"
-          width="460"
-          height="258"
-          :alt="s.alt"
-          loading="lazy"
-          class="aspect-video rounded-lg border border-default bg-white"
-        >
-      </UMarquee>
-      <UMarquee
-        reverse
-        orientation="vertical"
-        :overlay="false"
-        :ui="{ root: 'hidden md:flex [--duration:40s] absolute w-[460px] -top-[300px] left-[1020px] h-[1060px] transform-3d rotate-x-55 rotate-y-0 rotate-z-30' }"
-      >
-        <img
-          v-for="s in marqueeColumns[2]"
-          :key="s.src"
-          :src="s.src"
-          width="460"
-          height="258"
-          :alt="s.alt"
-          loading="lazy"
-          class="aspect-video rounded-lg border border-default bg-white"
-        >
-      </UMarquee>
-    </div>
-
-    <UContainer>
-      <AdUnit
-        placement="betweenSections"
-        class="max-w-3xl"
-      />
-    </UContainer>
+    <!-- ========================= WHY THIS COURSE ========================= -->
+    <!-- The library's own section anatomy: headline, title, and its
+         built-in three-up feature grid. -->
+    <UPageSection
+      :headline="t('home.featuresEyebrow')"
+      :title="t('home.featuresTitle')"
+      :features="features"
+      :ui="{ container: 'max-w-7xl px-6 lg:px-10' }"
+    />
 
     <!-- ========================= NEWSLETTER ========================= -->
     <NewsletterSection />

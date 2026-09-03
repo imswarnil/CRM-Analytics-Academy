@@ -8,46 +8,27 @@ const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 
-// The navbar menu: three direct links plus two rich dropdowns that hold
-// everything the old three-dots overflow used to hide. Children with a
-// `description` render as the big dropdown panels.
+// A flat navbar, no dropdowns: six direct destinations. Everything else
+// (wall of fame, companies, leaderboard, project pages) lives in the footer
+// columns and the mobile slideover's extras list.
 const menuItems = computed(() => [
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/foundations'), active: route.path.startsWith(localePath('/foundations')) },
   { label: t('nav.ask'), icon: 'i-lucide-sparkles', to: localePath('/ask') },
   { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
-  {
-    label: t('nav.resources'),
-    icon: 'i-lucide-library-big',
-    active: route.path.startsWith(localePath('/resources')) || route.path.startsWith(localePath('/datasets')),
-    children: [
-      { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-      { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') }
-    ]
-  },
-  {
-    label: t('nav.community'),
-    icon: 'i-lucide-users',
-    active: ['/wall-of-fame', '/companies', '/jobs', '/leaderboard', '/contribute', '/sponsor'].some(p => route.path.startsWith(localePath(p))),
-    children: [
-      { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', description: t('home.exploreWall'), to: localePath('/wall-of-fame') },
-      { label: t('nav.companies'), icon: 'i-lucide-building-2', description: t('home.exploreCompanies'), to: localePath('/companies') },
-      { label: t('nav.jobs'), icon: 'i-lucide-briefcase', description: t('home.exploreJobs'), to: localePath('/jobs') },
-      { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
-      { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
-      { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') }
-    ]
-  },
-  {
-    label: t('nav.about'),
-    icon: 'i-lucide-badge-info',
-    active: ['/about', '/roadmap', '/changelog'].some(p => route.path.startsWith(localePath(p))),
-    children: [
-      { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
-      { label: t('nav.roadmap'), icon: 'i-lucide-map', to: localePath('/roadmap') },
-      { label: t('nav.changelog'), icon: 'i-lucide-history', to: localePath('/changelog') },
-      { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
-    ]
-  }
+  { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
+  { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
+  { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') }
+])
+
+// The rest of the site, for the mobile slideover only.
+const extraItems = computed(() => [
+  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
+  { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
+  { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
+  { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
+  { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
+  { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') },
+  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
 ])
 
 // Account menu — the session itself is fetched once in app.vue.
@@ -81,12 +62,7 @@ const localeItems = computed(() =>
       :items="menuItems"
       class="max-lg:hidden"
       :ui="{
-        link: 'font-medium rounded-full before:rounded-full data-active:text-primary data-active:before:bg-primary/10',
-        childList: 'grid grid-cols-2 gap-1.5 p-3 w-[34rem]',
-        childLink: 'rounded-lg p-3 gap-3 items-start',
-        childLinkIcon: 'size-6 text-primary shrink-0',
-        childLinkLabel: 'font-semibold',
-        childLinkDescription: 'line-clamp-2 mt-0.5 text-xs'
+        link: 'font-medium rounded-full before:rounded-full data-active:text-primary data-active:before:bg-primary/10'
       }"
     />
 
@@ -160,7 +136,7 @@ const localeItems = computed(() =>
              only place they exist — then the full curriculum tree. -->
         <UNavigationMenu
           orientation="vertical"
-          :items="menuItems"
+          :items="[...menuItems, ...extraItems]"
           class="mb-4"
         />
 
