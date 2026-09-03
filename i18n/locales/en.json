@@ -266,7 +266,8 @@
     "thanksText": "Built on what the community taught us.",
     "thanksLink": "Thank you, Wall of Famers",
     "langTitle": "Study in your language",
-    "langSubtitle": "The whole curriculum, in twelve languages."
+    "langSubtitle": "The whole curriculum, in twelve languages.",
+    "langHint": "Pick a language below to switch instantly - or use the globe icon in the navigation bar, on any page. Your choice is remembered."
   },
   "footer": {
     "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",

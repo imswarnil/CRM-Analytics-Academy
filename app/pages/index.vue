@@ -415,6 +415,15 @@ const heroLinks = computed(() => [
               <p class="mt-2 max-w-sm text-sm text-muted">
                 {{ t('home.langSubtitle') }}
               </p>
+              <!-- How to switch, said plainly — the tiles below, or the globe
+                   in the navbar from any page. -->
+              <p class="mt-3 flex max-w-sm items-start gap-2 rounded-lg bg-default/60 p-3 text-xs text-muted">
+                <UIcon
+                  name="i-lucide-info"
+                  class="mt-0.5 size-4 shrink-0 text-primary"
+                />
+                {{ t('home.langHint') }}
+              </p>
             </div>
             <div class="flex items-center gap-3">
               <UIcon

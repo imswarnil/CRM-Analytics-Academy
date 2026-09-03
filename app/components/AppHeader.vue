@@ -64,7 +64,7 @@ const localeItems = computed(() =>
       :items="menuItems"
       class="max-lg:hidden"
       :ui="{
-        link: 'font-medium rounded-full px-3.5 before:rounded-full data-active:text-inverted data-active:before:bg-primary data-active:font-semibold data-active:hover:text-inverted'
+        link: 'font-medium rounded-full px-3.5 before:rounded-full data-active:font-bold data-active:text-primary data-active:before:bg-primary/10 data-active:hover:text-primary'
       }"
     />
 
