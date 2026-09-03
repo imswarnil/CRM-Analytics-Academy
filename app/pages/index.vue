@@ -259,7 +259,7 @@ const heroLinks = computed(() => [
         :description="t('hero.subtitle')"
         class="relative"
         :ui="{
-          container: 'max-w-7xl px-6 lg:px-10 py-16 sm:py-20 lg:py-24 lg:gap-16',
+          container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20 lg:gap-16',
           title: 'text-4xl sm:text-6xl'
         }"
       >
@@ -425,7 +425,7 @@ const heroLinks = computed(() => [
       :title="t('home.curriculumTitle')"
       :description="t('home.curriculumSubtitle')"
       class="scroll-mt-24"
-      :ui="{ container: 'max-w-7xl px-6 lg:px-10' }"
+      :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }"
     >
       <UPageGrid>
         <ScrollReveal
@@ -477,7 +477,7 @@ const heroLinks = computed(() => [
       :headline="t('home.featuresEyebrow')"
       :title="t('home.featuresTitle')"
       :features="features"
-      :ui="{ container: 'max-w-7xl px-6 lg:px-10' }"
+      :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }"
     />
 
     <!-- ========================= NEWSLETTER ========================= -->
@@ -488,7 +488,7 @@ const heroLinks = computed(() => [
       :headline="t('home.exploreEyebrow')"
       :title="t('home.exploreTitle')"
       :description="t('home.exploreSubtitle')"
-      :ui="{ container: 'max-w-7xl px-6 lg:px-10' }"
+      :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }"
     >
       <UPageGrid class="lg:grid-cols-3">
         <ScrollReveal
@@ -534,7 +534,7 @@ const heroLinks = computed(() => [
     <UPageSection
       :headline="t('home.faqEyebrow')"
       :title="t('home.faqTitle')"
-      :ui="{ container: 'max-w-5xl px-6' }"
+      :ui="{ container: 'max-w-5xl px-6 py-12 sm:py-16 lg:py-20' }"
     >
       <ScrollReveal>
         <UAccordion
@@ -546,7 +546,7 @@ const heroLinks = computed(() => [
     </UPageSection>
 
     <!-- ============================ CTA ============================ -->
-    <UPageSection>
+    <UPageSection :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }">
       <ScrollReveal>
         <UPageCTA
           :title="t('cta.title')"
