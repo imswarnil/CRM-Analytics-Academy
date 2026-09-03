@@ -58,12 +58,12 @@ const localeItems = computed(() =>
   >
     <!-- Active state is a filled pill, not the underline: highlight is off
          and the pill's ::before surface carries the primary tint instead. -->
+    <!-- Stock Nuxt UI navigation menu: `highlight` gives the active item the
+         library's own indicator, no custom pill or underline of ours. -->
     <UNavigationMenu
+      highlight
       :items="menuItems"
       class="max-lg:hidden"
-      :ui="{
-        link: 'font-medium rounded-full before:rounded-full data-active:text-primary data-active:before:bg-primary/10'
-      }"
     />
 
     <template #left>

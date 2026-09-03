@@ -63,7 +63,7 @@
    Everything is rem-based, so every component and prose block scales with
    this one declaration. */
 html {
-  font-size: 106.25%;
+  font-size: 112.5%;
 }
 
 /* ---------------------------------------------------------------------------
