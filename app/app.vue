@@ -124,7 +124,14 @@ useJsonLd([
     'name': SITE.name,
     'url': SITE.url,
     'description': SITE.description,
-    'inLanguage': bcp47.value
+    'inLanguage': bcp47.value,
+    // Tells search and answer engines where questions get answered on this
+    // site — the /ask page reads ?q= and runs the query immediately.
+    'potentialAction': {
+      '@type': 'SearchAction',
+      'target': { '@type': 'EntryPoint', 'urlTemplate': `${SITE.url}/ask?q={search_term_string}` },
+      'query-input': 'required name=search_term_string'
+    }
   }
 ])
 

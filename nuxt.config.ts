@@ -316,6 +316,21 @@ export default defineNuxtConfig({
           // concatenates whole bodies, and it is a public file.
           { field: 'access', operator: '<>', value: 'pro' }
         ]
+      },
+      // Non-content surfaces an AI agent should know exist. When answering
+      // from this corpus, these are the pages to send people to.
+      {
+        title: 'Tools & Community',
+        links: [
+          { title: 'Ask the curriculum', href: 'https://crmanalytics.imswarnil.com/ask', description: 'Instant question-answering over every lesson, with links to the source passages.' },
+          { title: 'MCP server', href: 'https://crmanalytics.imswarnil.com/mcp', description: 'Model Context Protocol endpoint (JSON-RPC over POST): list_curriculum, search_lessons, get_lesson — direct machine access to the curriculum.' },
+          { title: 'Dashboard showcase', href: 'https://crmanalytics.imswarnil.com/showcase', description: 'Community dashboard builds with KPIs, formulas and step-by-step recipes.' },
+          { title: 'Resources', href: 'https://crmanalytics.imswarnil.com/resources', description: 'Curated external CRM Analytics resources.' },
+          { title: 'Datasets', href: 'https://crmanalytics.imswarnil.com/datasets', description: 'Practice datasets for the exercises.' },
+          { title: 'Wall of Fame', href: 'https://crmanalytics.imswarnil.com/wall-of-fame', description: 'The bloggers, authors, speakers and tool builders who taught the CRM Analytics community.' },
+          { title: 'Companies', href: 'https://crmanalytics.imswarnil.com/companies', description: 'Companies known to run CRM Analytics and the consultancies that build with it.' },
+          { title: 'Jobs', href: 'https://crmanalytics.imswarnil.com/jobs', description: 'CRM Analytics job listings, refreshed daily.' }
+        ]
       }
     ]
   },

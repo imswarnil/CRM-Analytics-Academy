@@ -43,7 +43,9 @@ onMounted(async () => {
   }
 })
 
-const query = ref('')
+// Seeded from ?q= so the WebSite SearchAction in the site's JSON-LD (and any
+// shared link) lands with the question already answered.
+const query = ref(String(useRoute().query.q ?? ''))
 
 function tokenize(q: string): string[] {
   return q

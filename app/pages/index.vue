@@ -21,7 +21,7 @@ useSeoMeta({
 defineOgImage('Docs', { title: title.value, description: description.value })
 
 const stats = computed(() => [
-  { icon: 'i-lucide-book-open', value: '18', label: t('home.stats.lessons') },
+  { icon: 'i-lucide-book-open', value: '49', label: t('home.stats.lessons') },
   { icon: 'i-lucide-clapperboard', value: '42m', label: t('home.stats.video') },
   { icon: 'i-lucide-badge-check', value: '100%', label: t('home.stats.free') }
 ])
