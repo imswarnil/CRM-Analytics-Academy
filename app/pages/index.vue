@@ -396,72 +396,6 @@ const heroLinks = computed(() => [
       />
     </UContainer>
 
-    <!-- ========================= LANGUAGES ========================= -->
-    <!-- The multilingual promise, made tangible: pick a language, keep
-         studying. setLocale persists the choice and rewrites every URL. -->
-    <section class="border-b border-default bg-muted/20">
-      <UContainer class="max-w-7xl px-6 py-12 lg:px-10">
-        <div class="grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          <!-- The bento's feature tile: what you're reading right now. -->
-          <div class="flex flex-col justify-between gap-4 rounded-xl border border-primary/30 bg-primary/5 p-5 sm:col-span-2 sm:row-span-2">
-            <div>
-              <p class="flex items-center gap-2 text-lg font-bold text-highlighted">
-                <UIcon
-                  name="i-lucide-languages"
-                  class="size-5 text-primary"
-                />
-                {{ t('home.langTitle') }}
-              </p>
-              <p class="mt-2 max-w-sm text-sm text-muted">
-                {{ t('home.langSubtitle') }}
-              </p>
-              <!-- How to switch, said plainly — the tiles below, or the globe
-                   in the navbar from any page. -->
-              <p class="mt-3 flex max-w-sm items-start gap-2 rounded-lg bg-default/60 p-3 text-xs text-muted">
-                <UIcon
-                  name="i-lucide-info"
-                  class="mt-0.5 size-4 shrink-0 text-primary"
-                />
-                {{ t('home.langHint') }}
-              </p>
-            </div>
-            <div class="flex items-center gap-3">
-              <UIcon
-                :name="flagFor(currentLocale)"
-                class="size-12 shrink-0 rounded-full"
-              />
-              <div>
-                <p class="text-xl font-bold text-highlighted">
-                  {{ currentLocale?.name || locale }}
-                </p>
-                <p class="text-xs tracking-widest text-primary uppercase">
-                  {{ currentLocale?.language }}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Every other language, one tile each. -->
-          <button
-            v-for="l in otherLocales"
-            :key="l.code"
-            type="button"
-            class="group flex items-center gap-3 rounded-xl border border-default bg-default p-4 text-left transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-            @click="setLocale(l.code)"
-          >
-            <UIcon
-              :name="flagFor(l)"
-              class="size-8 shrink-0 rounded-full"
-            />
-            <span class="min-w-0">
-              <span class="block truncate text-sm font-semibold text-highlighted">{{ l.name || l.code }}</span>
-              <span class="block text-xs text-dimmed uppercase">{{ l.code }}</span>
-            </span>
-          </button>
-        </div>
-      </UContainer>
-    </section>
-
     <!-- ========================= CURRICULUM ========================= -->
     <UPageSection
       id="curriculum"
@@ -587,6 +521,75 @@ const heroLinks = computed(() => [
           class="mx-auto max-w-3xl"
         />
       </ScrollReveal>
+    </UPageSection>
+
+    <!-- ========================= LANGUAGES ========================= -->
+    <!-- Last stop before the CTA: the multilingual promise as a two-column
+         block — the case on the left, the languages themselves on the right,
+         the grid fading out to imply "and more". -->
+    <UPageSection :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <p class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
+            <UIcon
+              name="i-lucide-languages"
+              class="size-5"
+            />
+            {{ t('home.langSubtitle') }}
+          </p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
+            {{ t('home.langTitle') }}
+          </h2>
+
+          <p class="mt-4 flex items-start gap-2.5 text-base text-muted">
+            <UIcon
+              name="i-lucide-info"
+              class="mt-1 size-4 shrink-0 text-primary"
+            />
+            {{ t('home.langHint') }}
+          </p>
+
+          <!-- What you're reading right now. -->
+          <div class="mt-6 flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 p-4">
+            <UIcon
+              :name="flagFor(currentLocale)"
+              class="size-10 shrink-0 rounded-full"
+            />
+            <div>
+              <p class="text-lg font-bold text-highlighted">
+                {{ currentLocale?.name || locale }}
+              </p>
+              <p class="text-xs tracking-widest text-primary uppercase">
+                {{ currentLocale?.language }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- The bento, fading out at its lower edge. -->
+        <div class="relative">
+          <div
+            class="grid grid-cols-2 gap-3 sm:grid-cols-3 [mask-image:linear-gradient(to_bottom,black_65%,transparent_100%)]"
+          >
+            <button
+              v-for="l in otherLocales"
+              :key="l.code"
+              type="button"
+              class="group flex items-center gap-2.5 rounded-xl border border-default bg-default p-3 text-left transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+              @click="setLocale(l.code)"
+            >
+              <UIcon
+                :name="flagFor(l)"
+                class="size-7 shrink-0 rounded-full"
+              />
+              <span class="min-w-0">
+                <span class="block truncate text-sm font-semibold text-highlighted">{{ l.name || l.code }}</span>
+                <span class="block text-xs text-dimmed uppercase">{{ l.code }}</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
     </UPageSection>
 
     <!-- ============================ CTA ============================ -->
