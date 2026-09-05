@@ -9,54 +9,134 @@
   /* SLDS-inspired type stack — Salesforce Sans with clean system fallbacks */
   --font-sans: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
-  /* Grape — secondary accent (charts, highlights, badges). */
-  --color-grape-50: #F5F3FF;
-  --color-grape-100: #EDE9FE;
-  --color-grape-200: #DDD6FE;
-  --color-grape-300: #C4B5FD;
-  --color-grape-400: #A78BFA;
-  --color-grape-500: #8B5CF6;
-  --color-grape-600: #7C3AED;
-  --color-grape-700: #6D28D9;
-  --color-grape-800: #5B21B6;
-  --color-grape-900: #4C1D95;
-  --color-grape-950: #2E1065;
+  /* ---------------------------------------------------------------------------
+     Colour ramps — copied from the Swarnil design system
+     (design.imswarnil.com, src/1-foundation/01-color.css).
 
-  /* Salesforce Blue — primary brand ramp.
-     500 (#0176D3) is the accessible brand blue used for buttons/links;
-     700 (#014486) is the active/pressed state. */
-  --color-salesforce-50: #EBF5FF;
-  --color-salesforce-100: #D6EAFF;
-  --color-salesforce-200: #ADD4FF;
-  --color-salesforce-300: #7AB8FF;
-  --color-salesforce-400: #3D97F5;
-  --color-salesforce-500: #0176D3;
-  --color-salesforce-600: #015FAC;
-  --color-salesforce-700: #014486;
-  --color-salesforce-800: #032D60;
-  --color-salesforce-900: #04244B;
-  --color-salesforce-950: #001639;
+     Every ramp is oklch on ONE shared lightness ladder, so azure-500 and
+     iris-500 sit at the same visual weight and are interchangeable as an
+     accent. Nuxt UI reads these as `primary: azure`, `secondary: iris`,
+     `neutral: ink` (app.config.ts) and derives --ui-color-* from them.
 
-  /* SLDS cool-neutral gray ramp.
-     50 (#F3F3F3) is the Lightning page-gray; 300 (#DDDBDA) is the SLDS border color. */
-  --color-cloud-50: #F3F3F3;
-  --color-cloud-100: #ECEBEA;
-  --color-cloud-200: #E5E5E5;
-  --color-cloud-300: #DDDBDA;
-  --color-cloud-400: #C9C7C5;
-  --color-cloud-500: #969492;
-  --color-cloud-600: #706E6B;
-  --color-cloud-700: #514F4D;
-  --color-cloud-800: #3E3E3C;
-  --color-cloud-900: #2B2826;
-  --color-cloud-950: #181818;
+       50   97%   a wash            500  ~63%  THE STEP — fills and marks
+       100  94%   a tint            600  56%   pressed, and accent text (light)
+       200  89%   a soft fill       700  47%   readable text on light
+       300  82%   a border          800  38%   deep fill
+       400  74%   hover (light)     900  29%   near-black tint
+                                   950  22%   the floor
+  --------------------------------------------------------------------------- */
+
+  /* Ink — the neutral everything is built on. A little blue is held in the
+     shadows (hue 275) so dark reads as unlit rather than muddy. Fourteen
+     steps in the source; 0, 25 and 1000 are kept for the surfaces below. */
+  --color-ink-0: oklch(99.2% 0.002 275);
+  --color-ink-25: oklch(98.2% 0.003 275);
+  --color-ink-50: oklch(96.6% 0.004 275);
+  --color-ink-100: oklch(94.0% 0.005 275);
+  --color-ink-200: oklch(89.0% 0.007 275);
+  --color-ink-300: oklch(82.0% 0.009 275);
+  --color-ink-400: oklch(71.0% 0.013 275);
+  --color-ink-500: oklch(58.0% 0.018 275);
+  --color-ink-600: oklch(48.0% 0.020 275);
+  --color-ink-700: oklch(39.0% 0.020 275);
+  --color-ink-800: oklch(30.5% 0.018 275);
+  --color-ink-900: oklch(23.0% 0.016 275);
+  --color-ink-950: oklch(17.5% 0.014 275);
+  --color-ink-1000: oklch(12.5% 0.012 275);
+
+  /* Azure — blue, hue 240. The brand accent: buttons, links, active nav. */
+  --color-azure-50: oklch(96.5% 0.018 240);
+  --color-azure-100: oklch(94.0% 0.035 240);
+  --color-azure-200: oklch(89.0% 0.060 240);
+  --color-azure-300: oklch(82.0% 0.090 240);
+  --color-azure-400: oklch(73.0% 0.125 240);
+  --color-azure-500: oklch(62.0% 0.145 240);
+  --color-azure-600: oklch(54.0% 0.150 240);
+  --color-azure-700: oklch(46.0% 0.130 240);
+  --color-azure-800: oklch(37.0% 0.105 240);
+  --color-azure-900: oklch(28.0% 0.080 240);
+  --color-azure-950: oklch(22.0% 0.060 240);
+
+  /* Iris — violet, hue 285. Secondary accent: charts, highlights, badges. */
+  --color-iris-50: oklch(96.5% 0.020 285);
+  --color-iris-100: oklch(94.0% 0.038 285);
+  --color-iris-200: oklch(89.0% 0.068 285);
+  --color-iris-300: oklch(82.0% 0.100 285);
+  --color-iris-400: oklch(73.0% 0.140 285);
+  --color-iris-500: oklch(62.0% 0.170 285);
+  --color-iris-600: oklch(54.0% 0.175 285);
+  --color-iris-700: oklch(46.0% 0.155 285);
+  --color-iris-800: oklch(37.0% 0.125 285);
+  --color-iris-900: oklch(28.0% 0.095 285);
+  --color-iris-950: oklch(22.0% 0.072 285);
 }
 
+/* ---------------------------------------------------------------------------
+   Nuxt UI semantic tokens, mapped to the design system's tier-2 names.
+
+   Nuxt UI's defaults put the page on pure white and dark mode on neutral-900.
+   The design system descends from paper (ink-0) in light and ascends from
+   near-black (ink-1000) in dark; hairlines go translucent in dark so they
+   survive over an image instead of vanishing into it. Unlayered, so these
+   beat Nuxt UI's own `@layer theme` declarations.
+
+     Nuxt UI               design system
+     --ui-bg               --bg-canvas
+     --ui-bg-muted         --bg-sunken
+     --ui-bg-elevated      --bg-muted
+     --ui-text-highlighted --fg-default
+     --ui-text             --fg-muted
+     --ui-text-toned       --fg-subtle
+     --ui-text-muted       --fg-faint
+     --ui-text-dimmed      --fg-disabled
+     --ui-border           --line-default
+     --ui-border-muted     --line-subtle
+     --ui-border-accented  --line-strong
+--------------------------------------------------------------------------- */
 :root {
   --ui-container: var(--container-8xl);
 
-  /* SLDS uses tight 0.25rem corners across components */
+  /* --radius-control (6px) is Nuxt UI's rounded-md, i.e. 1.5 × this;
+     --radius-card (10px) is close to rounded-lg at 2 ×. */
   --ui-radius: 0.25rem;
+
+  --ui-bg: var(--color-ink-0);
+  --ui-bg-muted: var(--color-ink-50);
+  --ui-bg-elevated: var(--color-ink-100);
+  --ui-bg-accented: var(--color-ink-200);
+  --ui-bg-inverted: var(--color-ink-950);
+
+  --ui-text-highlighted: var(--color-ink-900);
+  --ui-text: var(--color-ink-700);
+  --ui-text-toned: var(--color-ink-600);
+  --ui-text-muted: var(--color-ink-500);
+  --ui-text-dimmed: var(--color-ink-400);
+  --ui-text-inverted: var(--color-ink-50);
+
+  --ui-border: var(--color-ink-200);
+  --ui-border-muted: var(--color-ink-100);
+  --ui-border-accented: var(--color-ink-300);
+  --ui-border-inverted: var(--color-ink-950);
+}
+
+.dark {
+  --ui-bg: var(--color-ink-1000);
+  --ui-bg-muted: var(--color-ink-950);
+  --ui-bg-elevated: var(--color-ink-900);
+  --ui-bg-accented: var(--color-ink-800);
+  --ui-bg-inverted: var(--color-ink-50);
+
+  --ui-text-highlighted: var(--color-ink-50);
+  --ui-text: var(--color-ink-300);
+  --ui-text-toned: var(--color-ink-400);
+  --ui-text-muted: var(--color-ink-500);
+  --ui-text-dimmed: var(--color-ink-600);
+  --ui-text-inverted: var(--color-ink-900);
+
+  --ui-border: oklch(100% 0 0 / 0.12);
+  --ui-border-muted: oklch(100% 0 0 / 0.07);
+  --ui-border-accented: oklch(100% 0 0 / 0.22);
+  --ui-border-inverted: var(--color-ink-200);
 }
 
 /* A slightly larger base type size across the whole site (16px → 17px).
@@ -72,7 +152,7 @@ html {
 
 /* Brand gradient text */
 .text-gradient {
-  background-image: linear-gradient(115deg, var(--color-salesforce-400), var(--color-salesforce-600));
+  background-image: linear-gradient(115deg, var(--color-azure-400), var(--color-azure-600));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

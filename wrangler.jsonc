@@ -3,8 +3,8 @@
   "name": "crm-analytics-academy",
 
   // Both paths are Nitro's output, not hand-maintained source. `pnpm build`
-  // must run before `wrangler deploy` — that is why the deploy script chains
-  // them rather than exposing a bare `wrangler deploy`.
+  // must run before `wrangler deploy` — the deploy workflow does exactly that,
+  // and `pnpm preview` does the same before `wrangler dev`.
   "main": ".output/server/index.mjs",
   "compatibility_date": "2026-08-28",
 

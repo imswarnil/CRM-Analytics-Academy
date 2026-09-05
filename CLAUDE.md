@@ -18,7 +18,7 @@ Package manager is **pnpm** (`packageManager: pnpm@11.9.0`). Do **not** use npm.
 pnpm install        # deps (runs `nuxt prepare` via postinstall)
 pnpm dev            # dev server → http://localhost:3000
 pnpm build          # production build (also runs prerender)
-pnpm preview        # preview the production build
+pnpm preview        # build, then run the Worker bundle locally with wrangler dev
 pnpm lint           # eslint .   (run after editing)
 pnpm typecheck      # nuxt typecheck (vue-tsc)  (run after editing)
 ```
@@ -46,6 +46,7 @@ If the docs nav or `/raw/*.md` ever looks empty/broken in dev, this is almost al
 - `app/pages/index.vue` — landing page. Other top-level `app/pages/*.vue` are hand-written (about, resources, contribute, roadmap, changelog, sponsor, datasets, privacy, terms).
 - **Showcase**: community dashboard write-ups under `content/showcase/**` (a separate `showcase` collection, not localized). Each entry carries a screenshot, `kpis[]` (name + formula + why), `recipe[]` (build steps), `datasets[]` and `techniques[]`. `domain`/`difficulty`/`techniques` drive client-side filters on `app/pages/showcase/index.vue`; detail at `app/pages/showcase/[slug].vue`. Screenshots go in `public/showcase/`.
 - There is **no blog** — it was replaced by `content/resources/` in commit `54095d1`.
+- **Nuxt Studio** (`nuxt-studio` module) serves an in-browser markdown editor at `/_studio`, committing to `main` through a GitHub OAuth app. The hosted nuxt.studio service is gone, so the old `content.preview` config must not come back. Sign-in needs two Worker secrets, `STUDIO_GITHUB_CLIENT_ID` and `STUDIO_GITHUB_CLIENT_SECRET` (see `.env.example`); without them `/_studio` answers 404 "No authentication provider found"; publishing only works in a production build.
 - To add a lesson, add a markdown file under `content/` (see the `new-lesson` skill). Do **not** create a Vue file. New pages must be link-reachable from `/` to be prerendered (`nitro.prerender.crawlLinks`).
 
 ### Static-first constraints
@@ -59,8 +60,8 @@ Same `docs` collection, exposed to AI agents/crawlers two ways:
 - `nuxt-llms` (`llms:` in `nuxt.config.ts`) — generates `llms.txt` from `contentFilters` by path prefix. **When docs sections change, update these `sections`.**
 
 ### Theming & branding
-- `app/app.config.ts` — runtime UI config (colors: `primary: salesforce`, `neutral: cloud`; header/footer/TOC links).
-- `app/assets/css/main.css` — global CSS / Tailwind `@theme`.
+- `app/app.config.ts` — runtime UI config (colors: `primary: azure`, `secondary: iris`, `neutral: ink`; header/footer/TOC links).
+- `app/assets/css/main.css` — global CSS / Tailwind `@theme`. The three colour ramps are **copied verbatim from the Swarnil design system** (`../design.imswarnil.com/src/1-foundation/01-color.css`: oklch, one shared lightness ladder), and the `:root` / `.dark` blocks map Nuxt UI's `--ui-*` semantic tokens onto the design system's tier-2 names (canvas, sunken, line-subtle …). Keep the site on Nuxt UI components; change colour by editing the ramps, not by hardcoding hex.
 - OG images: `nuxt-og-image` (`zeroRuntime`), template `app/components/OgImage/Docs.takumi.vue`.
 - Ads: Google AdSense via `AdUnit.vue` (placements: headerBanner, endOfArticle, relatedPosts, sidebarSquare, footer). Third-party scripts load at `tagPosition: 'bodyClose'` with preconnect hints — keep it that way.
 

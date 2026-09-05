@@ -9,18 +9,14 @@
     "build": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=8192 nuxt build",
     "generate": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=8192 nuxt generate && pnpm verify:gating",
     "dev": "bash scripts/dev.sh",
-    "dev:raw": "nuxt dev",
-    "preview": "nuxt preview",
+    "preview": "pnpm build && wrangler dev",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
     "translate": "node --env-file-if-exists=.env scripts/translate.mjs",
     "gate": "node scripts/gate-content.mjs",
     "ask:index": "node scripts/build-search-index.mjs",
-    "verify:gating": "node scripts/verify-gating.mjs",
-    "cf:dev": "pnpm build && wrangler dev",
-    "deploy": "pnpm build && pnpm verify:gating && wrangler deploy",
-    "cf:tail": "wrangler tail"
+    "verify:gating": "node scripts/verify-gating.mjs"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.114",
@@ -42,6 +38,7 @@
     "nuxt": "^4.4.8",
     "nuxt-llms": "0.2.0",
     "nuxt-og-image": "^6.7.0",
+    "nuxt-studio": "^1.7.0",
     "tailwindcss": "^4.3.1",
     "ufo": "^1.6.4",
     "unist-util-visit": "^5.1.0",

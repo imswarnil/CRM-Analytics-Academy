@@ -260,7 +260,7 @@ const heroLinks = computed(() => [
         aria-hidden="true"
       />
       <div
-        class="absolute -top-20 right-0 size-80 rounded-full bg-salesforce-400/10 blur-3xl"
+        class="absolute -top-20 right-0 size-80 rounded-full bg-azure-400/10 blur-3xl"
         aria-hidden="true"
       />
 

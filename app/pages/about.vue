@@ -205,7 +205,7 @@ const authorLinks = [
             <div class="rounded-3xl border border-default bg-default p-8">
               <div class="relative w-fit">
                 <div class="absolute -inset-2 rounded-full bg-primary/20 blur-xl" />
-                <div class="relative flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-salesforce-500 to-salesforce-800 text-3xl font-extrabold text-white shadow-xl">
+                <div class="relative flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-azure-500 to-azure-800 text-3xl font-extrabold text-white shadow-xl">
                   SS
                 </div>
               </div>
@@ -295,7 +295,7 @@ const authorLinks = [
     <!-- ============================ CTA ============================ -->
     <section class="py-20 sm:py-24">
       <UContainer>
-        <div class="relative overflow-hidden rounded-3xl border border-default bg-gradient-to-br from-salesforce-600 via-salesforce-700 to-salesforce-900 px-6 py-16 text-center sm:px-12">
+        <div class="relative overflow-hidden rounded-3xl border border-default bg-gradient-to-br from-azure-600 via-azure-700 to-azure-900 px-6 py-16 text-center sm:px-12">
           <div class="absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           <div class="relative mx-auto max-w-2xl">
             <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -310,7 +310,7 @@ const authorLinks = [
                 size="xl"
                 color="neutral"
                 trailing-icon="i-lucide-arrow-right"
-                class="rounded-full bg-white font-semibold text-salesforce-700 hover:bg-white/90"
+                class="rounded-full bg-white font-semibold text-azure-700 hover:bg-white/90"
               >
                 Start with Foundations
               </UButton>

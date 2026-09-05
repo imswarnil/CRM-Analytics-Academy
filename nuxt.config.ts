@@ -54,7 +54,8 @@ export default defineNuxtConfig({
     'nuxt-og-image',
     'nuxt-llms',
     '@nuxtjs/sitemap',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    'nuxt-studio'
   ],
 
   // `icon.serverBundle` has to differ by environment, and this is the reason
@@ -122,20 +123,6 @@ export default defineNuxtConfig({
   },
 
   content: {
-    // Nuxt Studio — the hosted editor for content/.
-    //
-    // This only opens the door: the site still has to be connected to a
-    // project at nuxt.studio (sign in with GitHub, pick this repo). Studio
-    // then edits markdown through the GitHub API and commits to a branch, so
-    // publishing goes through the same push -> translate -> deploy chain as a
-    // hand-written commit rather than around it.
-    //
-    // `dev: true` gives the same live preview against a local `pnpm dev`.
-    preview: {
-      api: 'https://api.nuxt.studio',
-      dev: true
-    },
-
     build: {
       markdown: {
         toc: {
@@ -198,14 +185,23 @@ export default defineNuxtConfig({
         // on the client on every visit — a flash of the wrong state, and files
         // that exist only to be replaced.
         ...privateRoutes,
-        ...gatedRoutes
+        ...gatedRoutes,
+        // The editor is a signed-in surface too; a prerendered copy would be
+        // a logged-out shell.
+        '/_studio',
+        '/__nuxt_studio'
       ]
     }
   },
 
   vite: {
     optimizeDeps: {
-      include: ['@vue/devtools-core', '@vue/devtools-kit', '@vueuse/core', 'remark-emoji']
+      // Only packages this project depends on directly can be listed here:
+      // pnpm keeps transitive packages out of the root node_modules, so Vite
+      // cannot resolve them and warns on every start. These two are imported
+      // from app code and are pre-bundled so the first request does not
+      // trigger a "new dependencies discovered" reload.
+      include: ['@vueuse/core', '@microsoft/clarity']
     }
   },
 
@@ -350,8 +346,8 @@ export default defineNuxtConfig({
     // prerender and marked noindex, but a sitemap is a positive assertion
     // that a URL is worth indexing — listing them would contradict the meta.
     exclude: [
-      '/dashboard', '/account', '/submit', '/admin',
-      '/*/dashboard', '/*/account', '/*/submit', '/*/admin',
+      '/dashboard', '/account', '/submit', '/admin', '/_studio',
+      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio',
       // The raw-markdown surface is for LLMs and is already advertised by
       // llms.txt. In a sitemap it would be ~780 duplicate-content URLs.
       '/raw/**'
@@ -360,5 +356,30 @@ export default defineNuxtConfig({
     // serves the right language rather than treating twelve copies of a
     // lesson as duplicates of each other.
     autoI18n: true
+  },
+
+  // Nuxt Studio — the in-site editor for content/, served by this Worker at
+  // /_studio.
+  //
+  // The hosted service at nuxt.studio (the old `content.preview.api`
+  // setting) was sunset when Studio went open source, which is why the
+  // editor never appeared on the live site. The module now runs on our own
+  // server: it signs the editor in through a GitHub OAuth app, edits
+  // markdown through the GitHub API and commits to `main`, so publishing goes
+  // through the same push -> translate -> deploy chain as a hand-written
+  // commit rather than around it.
+  //
+  // Credentials are Worker secrets, never config:
+  //   STUDIO_GITHUB_CLIENT_ID / STUDIO_GITHUB_CLIENT_SECRET
+  // The OAuth app's callback URL is
+  //   https://crmanalytics.imswarnil.com/__nuxt_studio/auth/github
+  // Without the secrets the editor loads but cannot sign anyone in.
+  studio: {
+    repository: {
+      provider: 'github',
+      owner: 'imswarnil',
+      repo: 'CRM-Analytics-Academy',
+      branch: 'main'
+    }
   }
 })

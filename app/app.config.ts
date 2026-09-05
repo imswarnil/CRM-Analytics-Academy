@@ -1,9 +1,9 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'salesforce',
-      secondary: 'grape',
-      neutral: 'cloud'
+      primary: 'azure',
+      secondary: 'iris',
+      neutral: 'ink'
     },
     footer: {
       slots: {
