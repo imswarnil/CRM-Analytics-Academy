@@ -17,19 +17,46 @@
  * ---
  * ::
  */
-const props = defineProps<{
-  stages: {
-    label: string
-    value: number
-    note?: string
-  }[]
-  /** Shown under the last stage, e.g. "Q3 FY26, AMER". */
-  caption?: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    stages: {
+      label: string
+      value: number
+      note?: string
+    }[]
+    /** Shown under the last stage, e.g. "Q3 FY26, AMER". */
+    caption?: string
+    /**
+     * Bar length scale.
+     *
+     * `linear` is truthful and unreadable once a funnel spans orders of
+     * magnitude: 412,000 sessions against 448 opportunities makes every bar
+     * after the second a stub, and the reader loses the four stages that
+     * matter most. `log` keeps them all legible and is the honest choice
+     * PROVIDED the axis is understood as logarithmic -- which is why the
+     * component says so under the bars rather than leaving it implied.
+     */
+    scale?: 'linear' | 'log'
+  }>(),
+  { scale: 'linear' }
+)
 
 const top = computed(() => Math.max(...props.stages.map(s => s.value), 1))
+const floor = computed(() => Math.max(1, Math.min(...props.stages.map(s => s.value))))
 const fmt = (n: number) => n.toLocaleString('en-US')
 const pct = (a: number, b: number) => b ? `${((a / b) * 100).toFixed(1)}%` : 'â€”'
+
+// Log bars are mapped onto the span between the smallest and largest stage, so
+// the shortest bar is still visibly a bar rather than a hairline.
+function width(v: number) {
+  if (props.scale === 'log') {
+    const lo = Math.log10(floor.value)
+    const hi = Math.log10(top.value)
+    const t = hi === lo ? 1 : (Math.log10(Math.max(v, 1)) - lo) / (hi - lo)
+    return 12 + t * 88
+  }
+  return Math.max(1.5, (v / top.value) * 100)
+}
 </script>
 
 <template>
@@ -54,7 +81,7 @@ const pct = (a: number, b: number) => b ? `${((a / b) * 100).toFixed(1)}%` : 'â€
           >
             <div
               class="h-full rounded-full bg-primary/70"
-              :style="{ width: `${Math.max(1.5, (s.value / top) * 100)}%` }"
+              :style="{ width: `${width(s.value)}%` }"
             />
           </div>
           <p
@@ -82,10 +109,14 @@ const pct = (a: number, b: number) => b ? `${((a / b) * 100).toFixed(1)}%` : 'â€
       </template>
     </div>
     <figcaption
-      v-if="props.caption"
+      v-if="props.caption || props.scale === 'log'"
       class="mt-2 text-xs text-muted"
     >
       {{ props.caption }}
+      <span
+        v-if="props.scale === 'log'"
+        class="text-dimmed"
+      >Bar lengths are logarithmic â€” compare the percentages, not the bars.</span>
     </figcaption>
   </figure>
 </template>
