@@ -94,6 +94,13 @@ export default defineContentConfig({
           start: z.number().optional(),
           end: z.number().optional()
         }).optional(),
+        // Optional generated clip (scripts/lesson-to-video.mjs): a local MP4
+        // rendered above the YouTube embed. Files live in public/videos/,
+        // which is gitignored, so a clip is local until deliberately published.
+        clip: z.object({
+          src: z.string(),
+          poster: z.string().optional()
+        }).optional(),
         // Optional interview-prep Q&A rendered after the lesson body; also
         // emitted as FAQPage JSON-LD for SEO.
         interview: z.array(z.object({

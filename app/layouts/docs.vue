@@ -29,6 +29,11 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
             />
           </div>
 
+          <!-- The bought slot sits above the "sponsor me" link: one is what
+               somebody paid for, the other is the invitation to. Both are
+               shrink-0 so a long nav scrolls past them rather than pushing
+               them off the bottom. -->
+          <SponsorSlot class="mb-3 shrink-0" />
           <SponsorCard class="mb-6 shrink-0" />
         </div>
       </template>

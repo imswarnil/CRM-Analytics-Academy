@@ -45,6 +45,7 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.123.0",
     "@iconify-json/circle-flags": "^1.2.10",
     "@nuxt/eslint": "^1.16.0",
     "eslint": "^10.6.0",

@@ -228,6 +228,16 @@ useJsonLd(jsonLd)
     </UPageHeader>
 
     <UPageBody>
+      <video
+        v-if="page.clip?.src"
+        :src="page.clip.src"
+        :poster="page.clip.poster"
+        controls
+        playsinline
+        preload="metadata"
+        class="mb-8 aspect-video w-full rounded-lg border border-default bg-neutral-950"
+      />
+
       <YoutubeEmbed
         v-if="page.video?.id"
         :id="page.video.id"
