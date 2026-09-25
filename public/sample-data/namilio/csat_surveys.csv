@@ -1,0 +1,667 @@
+SurveyId,CaseId,AccountId,Segment,Region,ResponseDate,CSAT,NPS,NPSBand,Verbatim,Tag
+SVY-90001,CASE-70001,ACC-1000,SMB,LATAM,2024-12-05,3,6,Passive,Got there eventually.,Unresolved
+SVY-90002,CASE-70002,ACC-1000,SMB,LATAM,2025-09-20,5,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90003,CASE-70003,ACC-1000,SMB,LATAM,2025-11-19,3,7,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90004,CASE-70004,ACC-1000,SMB,LATAM,2025-12-31,5,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90005,CASE-70005,ACC-1000,SMB,LATAM,2026-09-27,2,7,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90006,CASE-70008,ACC-1000,SMB,LATAM,2026-08-18,2,1,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90007,CASE-70009,ACC-1001,Self-Serve,EMEA,2025-05-04,5,10,Promoter,Fast and clear.,Expertise
+SVY-90008,CASE-70010,ACC-1001,Self-Serve,EMEA,2025-10-03,4,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90009,CASE-70011,ACC-1001,Self-Serve,EMEA,2026-05-20,4,8,Promoter,Engineer knew the product cold.,Expertise
+SVY-90010,CASE-70012,ACC-1001,Self-Serve,EMEA,2025-03-12,5,10,Promoter,Fast and clear.,Speed
+SVY-90011,CASE-70015,ACC-1002,SMB,APAC,2024-12-14,5,9,Promoter,Fixed on the first reply.,Speed
+SVY-90012,CASE-70016,ACC-1002,SMB,APAC,2025-08-08,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90013,CASE-70018,ACC-1002,SMB,APAC,2025-12-06,4,8,Promoter,Fast and clear.,Proactive
+SVY-90014,CASE-70023,ACC-1004,SMB,EMEA,2026-05-05,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90015,CASE-70024,ACC-1004,SMB,EMEA,2026-09-04,5,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90016,CASE-70026,ACC-1004,SMB,EMEA,2026-06-12,5,10,Promoter,Fast and clear.,Expertise
+SVY-90017,CASE-70028,ACC-1004,SMB,EMEA,2026-07-26,3,5,Passive,"Answer was fine, took a while.",Slow response
+SVY-90018,CASE-70030,ACC-1004,SMB,EMEA,2026-07-13,2,6,Detractor,Still not really fixed.,Unresolved
+SVY-90019,CASE-70036,ACC-1005,Enterprise,AMER,2025-07-07,4,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90020,CASE-70040,ACC-1005,Enterprise,AMER,2025-08-16,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90021,CASE-70041,ACC-1005,Enterprise,AMER,2025-11-05,3,5,Passive,Got there eventually.,Slow response
+SVY-90022,CASE-70045,ACC-1005,Enterprise,AMER,2026-02-23,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90023,CASE-70046,ACC-1005,Enterprise,AMER,2024-10-01,5,10,Promoter,Fast and clear.,Expertise
+SVY-90024,CASE-70048,ACC-1005,Enterprise,AMER,2026-07-22,2,5,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90025,CASE-70049,ACC-1005,Enterprise,AMER,2024-12-01,5,10,Promoter,Fast and clear.,Speed
+SVY-90026,CASE-70056,ACC-1007,Enterprise,APAC,2026-09-01,2,5,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90027,CASE-70057,ACC-1007,Enterprise,APAC,2026-08-17,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90028,CASE-70059,ACC-1007,Enterprise,APAC,2025-10-24,2,2,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90029,CASE-70060,ACC-1007,Enterprise,APAC,2026-02-19,5,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90030,CASE-70061,ACC-1007,Enterprise,APAC,2026-03-11,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90031,CASE-70066,ACC-1007,Enterprise,APAC,2026-09-09,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90032,CASE-70069,ACC-1007,Enterprise,APAC,2025-07-18,4,8,Promoter,Engineer knew the product cold.,Expertise
+SVY-90033,CASE-70071,ACC-1007,Enterprise,APAC,2026-09-23,4,6,Promoter,Fast and clear.,Expertise
+SVY-90034,CASE-70073,ACC-1007,Enterprise,APAC,2026-02-22,4,9,Promoter,Fast and clear.,Expertise
+SVY-90035,CASE-70075,ACC-1007,Enterprise,APAC,2025-06-21,2,4,Detractor,Three days for a config answer.,Repeated handoffs
+SVY-90036,CASE-70080,ACC-1008,SMB,AMER,2026-01-19,3,5,Passive,Got there eventually.,Repeated handoffs
+SVY-90037,CASE-70081,ACC-1008,SMB,AMER,2026-08-24,4,9,Promoter,Fast and clear.,Expertise
+SVY-90038,CASE-70084,ACC-1008,SMB,AMER,2026-04-13,5,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90039,CASE-70085,ACC-1008,SMB,AMER,2026-09-20,3,7,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90040,CASE-70086,ACC-1008,SMB,AMER,2026-05-29,5,10,Promoter,Fast and clear.,Proactive
+SVY-90041,CASE-70087,ACC-1009,Enterprise,EMEA,2026-04-18,3,8,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90042,CASE-70093,ACC-1010,Mid-Market,EMEA,2026-08-10,5,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90043,CASE-70094,ACC-1010,Mid-Market,EMEA,2026-09-20,4,6,Promoter,Fast and clear.,Proactive
+SVY-90044,CASE-70095,ACC-1010,Mid-Market,EMEA,2026-07-30,1,5,Detractor,Three days for a config answer.,Slow response
+SVY-90045,CASE-70097,ACC-1010,Mid-Market,EMEA,2026-07-28,4,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90046,CASE-70102,ACC-1010,Mid-Market,EMEA,2026-08-18,5,10,Promoter,Fast and clear.,Speed
+SVY-90047,CASE-70104,ACC-1010,Mid-Market,EMEA,2026-08-08,2,4,Detractor,Three days for a config answer.,Slow response
+SVY-90048,CASE-70107,ACC-1011,SMB,AMER,2025-10-14,3,7,Passive,"Answer was fine, took a while.",Slow response
+SVY-90049,CASE-70108,ACC-1011,SMB,AMER,2025-05-24,3,6,Passive,Got there eventually.,Repeated handoffs
+SVY-90050,CASE-70110,ACC-1011,SMB,AMER,2025-07-11,3,5,Passive,Got there eventually.,Unresolved
+SVY-90051,CASE-70113,ACC-1011,SMB,AMER,2026-06-05,3,6,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90052,CASE-70114,ACC-1011,SMB,AMER,2026-07-16,4,7,Promoter,Fixed on the first reply.,Expertise
+SVY-90053,CASE-70116,ACC-1011,SMB,AMER,2026-05-17,4,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90054,CASE-70119,ACC-1012,Mid-Market,AMER,2026-04-24,2,4,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90055,CASE-70120,ACC-1012,Mid-Market,AMER,2026-09-09,5,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90056,CASE-70121,ACC-1012,Mid-Market,AMER,2024-10-21,4,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90057,CASE-70122,ACC-1012,Mid-Market,AMER,2026-02-13,2,3,Detractor,Still not really fixed.,Slow response
+SVY-90058,CASE-70124,ACC-1012,Mid-Market,AMER,2025-06-09,4,7,Promoter,Engineer knew the product cold.,Proactive
+SVY-90059,CASE-70125,ACC-1012,Mid-Market,AMER,2025-01-11,2,7,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90060,CASE-70127,ACC-1012,Mid-Market,AMER,2025-05-09,4,7,Promoter,Fixed on the first reply.,Expertise
+SVY-90061,CASE-70128,ACC-1012,Mid-Market,AMER,2025-07-01,2,6,Detractor,Three days for a config answer.,Slow response
+SVY-90062,CASE-70131,ACC-1012,Mid-Market,AMER,2025-04-06,4,7,Promoter,Fixed on the first reply.,Expertise
+SVY-90063,CASE-70134,ACC-1012,Mid-Market,AMER,2025-08-29,2,5,Detractor,Had to explain the problem twice.,Slow response
+SVY-90064,CASE-70143,ACC-1014,Self-Serve,EMEA,2025-12-07,5,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90065,CASE-70149,ACC-1015,SMB,EMEA,2026-07-06,3,7,Passive,"Answer was fine, took a while.",Slow response
+SVY-90066,CASE-70152,ACC-1015,SMB,EMEA,2026-03-09,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90067,CASE-70159,ACC-1017,Mid-Market,AMER,2026-01-10,3,8,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90068,CASE-70162,ACC-1017,Mid-Market,AMER,2026-05-31,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90069,CASE-70164,ACC-1017,Mid-Market,AMER,2025-10-23,1,2,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90070,CASE-70172,ACC-1019,SMB,LATAM,2026-08-29,3,6,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90071,CASE-70177,ACC-1019,SMB,LATAM,2026-09-23,4,8,Promoter,Fixed on the first reply.,Expertise
+SVY-90072,CASE-70181,ACC-1020,Self-Serve,AMER,2026-05-27,5,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90073,CASE-70183,ACC-1020,Self-Serve,AMER,2026-06-22,3,7,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90074,CASE-70187,ACC-1022,Mid-Market,EMEA,2026-09-01,3,6,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90075,CASE-70191,ACC-1022,Mid-Market,EMEA,2025-11-02,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90076,CASE-70193,ACC-1022,Mid-Market,EMEA,2026-03-14,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90077,CASE-70194,ACC-1022,Mid-Market,EMEA,2025-12-06,5,8,Promoter,Fast and clear.,Speed
+SVY-90078,CASE-70201,ACC-1022,Mid-Market,EMEA,2026-05-05,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90079,CASE-70202,ACC-1022,Mid-Market,EMEA,2025-12-17,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90080,CASE-70204,ACC-1023,Strategic,EMEA,2026-08-24,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90081,CASE-70206,ACC-1023,Strategic,EMEA,2026-05-02,3,8,Passive,Got there eventually.,Docs unclear
+SVY-90082,CASE-70209,ACC-1023,Strategic,EMEA,2026-09-28,5,10,Promoter,Fast and clear.,Proactive
+SVY-90083,CASE-70213,ACC-1023,Strategic,EMEA,2026-06-19,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90084,CASE-70218,ACC-1023,Strategic,EMEA,2026-07-10,4,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90085,CASE-70219,ACC-1023,Strategic,EMEA,2026-05-31,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90086,CASE-70224,ACC-1023,Strategic,EMEA,2026-08-08,2,4,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90087,CASE-70225,ACC-1023,Strategic,EMEA,2026-06-07,1,1,Detractor,Three days for a config answer.,Unresolved
+SVY-90088,CASE-70227,ACC-1023,Strategic,EMEA,2026-05-26,4,6,Promoter,Fast and clear.,Proactive
+SVY-90089,CASE-70228,ACC-1023,Strategic,EMEA,2026-09-13,5,10,Promoter,Fast and clear.,Expertise
+SVY-90090,CASE-70229,ACC-1023,Strategic,EMEA,2026-05-08,4,10,Promoter,Fast and clear.,Expertise
+SVY-90091,CASE-70231,ACC-1023,Strategic,EMEA,2026-06-30,4,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90092,CASE-70234,ACC-1023,Strategic,EMEA,2026-06-17,3,4,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90093,CASE-70235,ACC-1023,Strategic,EMEA,2026-07-11,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90094,CASE-70236,ACC-1023,Strategic,EMEA,2026-06-09,5,10,Promoter,Fast and clear.,Proactive
+SVY-90095,CASE-70237,ACC-1023,Strategic,EMEA,2026-06-24,3,5,Passive,"Answer was fine, took a while.",Slow response
+SVY-90096,CASE-70238,ACC-1023,Strategic,EMEA,2026-06-29,3,5,Passive,Got there eventually.,Slow response
+SVY-90097,CASE-70243,ACC-1023,Strategic,EMEA,2026-08-29,2,4,Detractor,Still not really fixed.,Unresolved
+SVY-90098,CASE-70250,ACC-1026,SMB,APAC,2026-07-07,4,10,Promoter,Fast and clear.,Speed
+SVY-90099,CASE-70252,ACC-1026,SMB,APAC,2026-08-01,1,2,Detractor,Still not really fixed.,Unresolved
+SVY-90100,CASE-70253,ACC-1026,SMB,APAC,2026-09-02,2,5,Detractor,Three days for a config answer.,Unresolved
+SVY-90101,CASE-70259,ACC-1027,Enterprise,EMEA,2025-03-06,4,8,Promoter,Fast and clear.,Expertise
+SVY-90102,CASE-70262,ACC-1027,Enterprise,EMEA,2025-01-30,3,7,Passive,Got there eventually.,Docs unclear
+SVY-90103,CASE-70263,ACC-1027,Enterprise,EMEA,2025-01-29,2,3,Detractor,Three days for a config answer.,Repeated handoffs
+SVY-90104,CASE-70265,ACC-1027,Enterprise,EMEA,2025-05-12,4,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90105,CASE-70266,ACC-1027,Enterprise,EMEA,2025-05-09,4,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90106,CASE-70268,ACC-1027,Enterprise,EMEA,2026-07-11,4,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90107,CASE-70270,ACC-1027,Enterprise,EMEA,2026-01-08,2,5,Detractor,Had to explain the problem twice.,Slow response
+SVY-90108,CASE-70271,ACC-1027,Enterprise,EMEA,2025-09-14,2,4,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90109,CASE-70273,ACC-1027,Enterprise,EMEA,2025-04-12,4,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90110,CASE-70275,ACC-1027,Enterprise,EMEA,2025-03-21,4,7,Promoter,Engineer knew the product cold.,Speed
+SVY-90111,CASE-70277,ACC-1027,Enterprise,EMEA,2025-02-20,5,8,Promoter,Fixed on the first reply.,Expertise
+SVY-90112,CASE-70278,ACC-1027,Enterprise,EMEA,2025-06-30,3,7,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90113,CASE-70280,ACC-1027,Enterprise,EMEA,2025-01-01,3,6,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90114,CASE-70283,ACC-1027,Enterprise,EMEA,2026-05-22,5,9,Promoter,Fast and clear.,Proactive
+SVY-90115,CASE-70285,ACC-1027,Enterprise,EMEA,2025-03-08,4,6,Promoter,Fast and clear.,Speed
+SVY-90116,CASE-70286,ACC-1027,Enterprise,EMEA,2026-09-26,3,6,Passive,Got there eventually.,Unresolved
+SVY-90117,CASE-70290,ACC-1027,Enterprise,EMEA,2026-01-01,2,3,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90118,CASE-70296,ACC-1027,Enterprise,EMEA,2026-01-24,3,6,Passive,Got there eventually.,Slow response
+SVY-90119,CASE-70298,ACC-1027,Enterprise,EMEA,2026-09-25,3,7,Passive,"Answer was fine, took a while.",Slow response
+SVY-90120,CASE-70300,ACC-1028,Mid-Market,EMEA,2026-04-25,3,7,Passive,Got there eventually.,Repeated handoffs
+SVY-90121,CASE-70303,ACC-1028,Mid-Market,EMEA,2026-05-11,5,10,Promoter,Fast and clear.,Proactive
+SVY-90122,CASE-70305,ACC-1028,Mid-Market,EMEA,2026-07-02,4,7,Promoter,Fast and clear.,Speed
+SVY-90123,CASE-70309,ACC-1028,Mid-Market,EMEA,2025-05-21,3,5,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90124,CASE-70310,ACC-1028,Mid-Market,EMEA,2026-09-08,5,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90125,CASE-70314,ACC-1028,Mid-Market,EMEA,2025-10-16,3,7,Passive,Got there eventually.,Docs unclear
+SVY-90126,CASE-70315,ACC-1028,Mid-Market,EMEA,2025-07-04,3,6,Passive,Got there eventually.,Unresolved
+SVY-90127,CASE-70316,ACC-1030,Self-Serve,APAC,2026-02-27,5,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90128,CASE-70317,ACC-1030,Self-Serve,APAC,2026-09-23,2,4,Detractor,Had to explain the problem twice.,Docs unclear
+SVY-90129,CASE-70319,ACC-1031,SMB,AMER,2025-04-14,3,8,Passive,Got there eventually.,Docs unclear
+SVY-90130,CASE-70323,ACC-1031,SMB,AMER,2026-08-24,5,10,Promoter,Fast and clear.,Speed
+SVY-90131,CASE-70326,ACC-1032,Self-Serve,EMEA,2026-09-14,4,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90132,CASE-70328,ACC-1034,Mid-Market,EMEA,2025-10-27,1,0,Detractor,Three days for a config answer.,Slow response
+SVY-90133,CASE-70329,ACC-1034,Mid-Market,EMEA,2025-12-07,3,8,Passive,Got there eventually.,Repeated handoffs
+SVY-90134,CASE-70335,ACC-1034,Mid-Market,EMEA,2026-03-07,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90135,CASE-70337,ACC-1034,Mid-Market,EMEA,2026-08-17,4,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90136,CASE-70346,ACC-1037,Self-Serve,AMER,2026-09-29,3,2,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90137,CASE-70350,ACC-1038,Mid-Market,EMEA,2026-09-11,3,5,Passive,Got there eventually.,Unresolved
+SVY-90138,CASE-70352,ACC-1038,Mid-Market,EMEA,2025-04-13,1,2,Detractor,Three days for a config answer.,Slow response
+SVY-90139,CASE-70353,ACC-1038,Mid-Market,EMEA,2026-03-04,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90140,CASE-70356,ACC-1038,Mid-Market,EMEA,2026-06-27,3,5,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90141,CASE-70359,ACC-1038,Mid-Market,EMEA,2026-02-06,5,8,Promoter,Fixed on the first reply.,Expertise
+SVY-90142,CASE-70361,ACC-1038,Mid-Market,EMEA,2026-07-31,4,8,Promoter,Fast and clear.,Expertise
+SVY-90143,CASE-70362,ACC-1038,Mid-Market,EMEA,2025-12-21,4,9,Promoter,Fast and clear.,Expertise
+SVY-90144,CASE-70364,ACC-1039,Enterprise,AMER,2026-08-31,3,5,Passive,Got there eventually.,Docs unclear
+SVY-90145,CASE-70365,ACC-1039,Enterprise,AMER,2026-06-13,4,10,Promoter,Fixed on the first reply.,Speed
+SVY-90146,CASE-70367,ACC-1039,Enterprise,AMER,2026-07-06,5,7,Promoter,Fixed on the first reply.,Expertise
+SVY-90147,CASE-70368,ACC-1039,Enterprise,AMER,2026-04-06,3,6,Passive,Got there eventually.,Repeated handoffs
+SVY-90148,CASE-70373,ACC-1039,Enterprise,AMER,2026-01-13,2,4,Detractor,Still not really fixed.,Docs unclear
+SVY-90149,CASE-70375,ACC-1041,Mid-Market,APAC,2026-09-29,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90150,CASE-70376,ACC-1041,Mid-Market,APAC,2025-11-28,5,9,Promoter,Fast and clear.,Proactive
+SVY-90151,CASE-70377,ACC-1041,Mid-Market,APAC,2026-06-21,3,9,Passive,Got there eventually.,Unresolved
+SVY-90152,CASE-70378,ACC-1041,Mid-Market,APAC,2026-02-15,3,5,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90153,CASE-70379,ACC-1041,Mid-Market,APAC,2025-07-20,3,6,Passive,Got there eventually.,Repeated handoffs
+SVY-90154,CASE-70381,ACC-1041,Mid-Market,APAC,2026-09-28,2,3,Detractor,Still not really fixed.,Slow response
+SVY-90155,CASE-70383,ACC-1041,Mid-Market,APAC,2026-04-22,4,7,Promoter,Fixed on the first reply.,Proactive
+SVY-90156,CASE-70384,ACC-1041,Mid-Market,APAC,2026-06-15,4,8,Promoter,Engineer knew the product cold.,Expertise
+SVY-90157,CASE-70386,ACC-1041,Mid-Market,APAC,2025-09-19,4,7,Promoter,Engineer knew the product cold.,Expertise
+SVY-90158,CASE-70391,ACC-1042,Strategic,EMEA,2025-12-11,4,7,Promoter,Fast and clear.,Speed
+SVY-90159,CASE-70394,ACC-1042,Strategic,EMEA,2025-09-29,4,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90160,CASE-70396,ACC-1042,Strategic,EMEA,2026-03-09,5,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90161,CASE-70401,ACC-1042,Strategic,EMEA,2026-01-07,3,7,Passive,Got there eventually.,Repeated handoffs
+SVY-90162,CASE-70402,ACC-1042,Strategic,EMEA,2026-03-20,3,5,Passive,Got there eventually.,Docs unclear
+SVY-90163,CASE-70407,ACC-1042,Strategic,EMEA,2025-04-20,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90164,CASE-70408,ACC-1042,Strategic,EMEA,2026-04-10,4,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90165,CASE-70411,ACC-1042,Strategic,EMEA,2025-05-25,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90166,CASE-70415,ACC-1042,Strategic,EMEA,2026-06-21,5,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90167,CASE-70417,ACC-1042,Strategic,EMEA,2025-12-06,3,5,Passive,Got there eventually.,Slow response
+SVY-90168,CASE-70418,ACC-1042,Strategic,EMEA,2025-11-02,4,5,Promoter,Fixed on the first reply.,Expertise
+SVY-90169,CASE-70420,ACC-1042,Strategic,EMEA,2025-07-23,4,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90170,CASE-70421,ACC-1042,Strategic,EMEA,2026-09-11,2,6,Detractor,Still not really fixed.,Docs unclear
+SVY-90171,CASE-70423,ACC-1042,Strategic,EMEA,2026-02-11,4,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90172,CASE-70427,ACC-1042,Strategic,EMEA,2025-07-12,4,8,Promoter,Fast and clear.,Expertise
+SVY-90173,CASE-70431,ACC-1042,Strategic,EMEA,2025-07-19,3,7,Passive,Got there eventually.,Slow response
+SVY-90174,CASE-70433,ACC-1042,Strategic,EMEA,2025-09-12,2,2,Detractor,Three days for a config answer.,Repeated handoffs
+SVY-90175,CASE-70434,ACC-1042,Strategic,EMEA,2026-03-28,4,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90176,CASE-70438,ACC-1042,Strategic,EMEA,2025-08-13,3,7,Passive,Got there eventually.,Repeated handoffs
+SVY-90177,CASE-70441,ACC-1042,Strategic,EMEA,2025-12-21,3,5,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90178,CASE-70443,ACC-1042,Strategic,EMEA,2025-04-25,3,5,Passive,Got there eventually.,Unresolved
+SVY-90179,CASE-70444,ACC-1043,Strategic,AMER,2026-09-24,3,8,Passive,Got there eventually.,Repeated handoffs
+SVY-90180,CASE-70447,ACC-1043,Strategic,AMER,2026-09-06,4,9,Promoter,Fixed on the first reply.,Speed
+SVY-90181,CASE-70450,ACC-1043,Strategic,AMER,2026-04-10,4,8,Promoter,Fast and clear.,Expertise
+SVY-90182,CASE-70453,ACC-1043,Strategic,AMER,2026-06-20,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90183,CASE-70454,ACC-1043,Strategic,AMER,2026-01-31,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90184,CASE-70455,ACC-1043,Strategic,AMER,2026-03-19,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90185,CASE-70458,ACC-1043,Strategic,AMER,2026-03-05,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90186,CASE-70462,ACC-1043,Strategic,AMER,2026-09-16,2,5,Detractor,Still not really fixed.,Docs unclear
+SVY-90187,CASE-70463,ACC-1043,Strategic,AMER,2026-08-23,4,7,Promoter,Fast and clear.,Speed
+SVY-90188,CASE-70464,ACC-1043,Strategic,AMER,2025-06-16,2,4,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90189,CASE-70467,ACC-1043,Strategic,AMER,2026-08-17,5,10,Promoter,Fast and clear.,Expertise
+SVY-90190,CASE-70468,ACC-1043,Strategic,AMER,2026-01-09,4,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90191,CASE-70470,ACC-1043,Strategic,AMER,2026-09-26,2,5,Detractor,Had to explain the problem twice.,Slow response
+SVY-90192,CASE-70479,ACC-1043,Strategic,AMER,2025-07-17,3,6,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90193,CASE-70482,ACC-1043,Strategic,AMER,2026-01-15,3,7,Passive,Got there eventually.,Unresolved
+SVY-90194,CASE-70484,ACC-1043,Strategic,AMER,2025-09-19,4,6,Promoter,Fixed on the first reply.,Speed
+SVY-90195,CASE-70485,ACC-1043,Strategic,AMER,2025-08-08,4,8,Promoter,Fast and clear.,Speed
+SVY-90196,CASE-70486,ACC-1043,Strategic,AMER,2025-09-11,5,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90197,CASE-70490,ACC-1043,Strategic,AMER,2026-06-21,4,7,Promoter,Fixed on the first reply.,Proactive
+SVY-90198,CASE-70491,ACC-1043,Strategic,AMER,2026-02-18,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90199,CASE-70493,ACC-1043,Strategic,AMER,2026-07-16,3,5,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90200,CASE-70497,ACC-1043,Strategic,AMER,2026-03-23,4,7,Promoter,Engineer knew the product cold.,Expertise
+SVY-90201,CASE-70498,ACC-1043,Strategic,AMER,2025-10-07,5,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90202,CASE-70501,ACC-1043,Strategic,AMER,2026-01-30,3,5,Passive,Got there eventually.,Docs unclear
+SVY-90203,CASE-70504,ACC-1043,Strategic,AMER,2026-05-11,5,8,Promoter,Fast and clear.,Expertise
+SVY-90204,CASE-70509,ACC-1043,Strategic,AMER,2025-07-27,2,4,Detractor,Still not really fixed.,Slow response
+SVY-90205,CASE-70514,ACC-1046,Strategic,AMER,2026-07-06,3,7,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90206,CASE-70516,ACC-1046,Strategic,AMER,2026-09-25,4,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90207,CASE-70524,ACC-1046,Strategic,AMER,2026-06-24,4,9,Promoter,Fixed on the first reply.,Speed
+SVY-90208,CASE-70527,ACC-1046,Strategic,AMER,2026-08-16,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90209,CASE-70528,ACC-1046,Strategic,AMER,2026-08-31,4,7,Promoter,Fixed on the first reply.,Speed
+SVY-90210,CASE-70539,ACC-1046,Strategic,AMER,2026-06-18,3,8,Passive,Got there eventually.,Repeated handoffs
+SVY-90211,CASE-70542,ACC-1046,Strategic,AMER,2026-09-18,4,7,Promoter,Fixed on the first reply.,Proactive
+SVY-90212,CASE-70545,ACC-1046,Strategic,AMER,2026-09-07,3,7,Passive,Got there eventually.,Repeated handoffs
+SVY-90213,CASE-70547,ACC-1046,Strategic,AMER,2026-08-11,2,4,Detractor,Three days for a config answer.,Slow response
+SVY-90214,CASE-70548,ACC-1046,Strategic,AMER,2026-06-29,3,7,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90215,CASE-70550,ACC-1046,Strategic,AMER,2026-07-03,5,10,Promoter,Fast and clear.,Expertise
+SVY-90216,CASE-70552,ACC-1046,Strategic,AMER,2026-06-21,5,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90217,CASE-70554,ACC-1046,Strategic,AMER,2026-09-15,3,5,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90218,CASE-70558,ACC-1046,Strategic,AMER,2026-07-20,4,8,Promoter,Fixed on the first reply.,Expertise
+SVY-90219,CASE-70559,ACC-1047,SMB,APAC,2025-08-19,5,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90220,CASE-70561,ACC-1047,SMB,APAC,2026-01-29,4,8,Promoter,Fixed on the first reply.,Expertise
+SVY-90221,CASE-70565,ACC-1047,SMB,APAC,2025-03-27,4,7,Promoter,Fixed on the first reply.,Expertise
+SVY-90222,CASE-70572,ACC-1048,Mid-Market,APAC,2026-02-20,1,0,Detractor,Three days for a config answer.,Slow response
+SVY-90223,CASE-70577,ACC-1048,Mid-Market,APAC,2025-05-11,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90224,CASE-70579,ACC-1048,Mid-Market,APAC,2025-10-06,3,7,Passive,Got there eventually.,Docs unclear
+SVY-90225,CASE-70580,ACC-1050,SMB,AMER,2026-07-01,5,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90226,CASE-70581,ACC-1050,SMB,AMER,2025-07-21,4,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90227,CASE-70582,ACC-1050,SMB,AMER,2026-04-29,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90228,CASE-70583,ACC-1050,SMB,AMER,2025-02-15,1,3,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90229,CASE-70588,ACC-1050,SMB,AMER,2025-11-15,2,6,Detractor,Had to explain the problem twice.,Slow response
+SVY-90230,CASE-70591,ACC-1052,SMB,LATAM,2025-04-05,1,2,Detractor,Three days for a config answer.,Docs unclear
+SVY-90231,CASE-70596,ACC-1054,Enterprise,AMER,2025-11-15,2,3,Detractor,Still not really fixed.,Unresolved
+SVY-90232,CASE-70597,ACC-1054,Enterprise,AMER,2026-05-16,2,3,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90233,CASE-70598,ACC-1054,Enterprise,AMER,2025-06-30,5,6,Promoter,Fixed on the first reply.,Proactive
+SVY-90234,CASE-70601,ACC-1054,Enterprise,AMER,2026-09-03,2,4,Detractor,Three days for a config answer.,Unresolved
+SVY-90235,CASE-70602,ACC-1054,Enterprise,AMER,2026-07-12,3,6,Passive,Got there eventually.,Repeated handoffs
+SVY-90236,CASE-70603,ACC-1054,Enterprise,AMER,2025-10-25,3,6,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90237,CASE-70607,ACC-1054,Enterprise,AMER,2026-07-23,2,2,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90238,CASE-70610,ACC-1054,Enterprise,AMER,2026-08-01,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90239,CASE-70611,ACC-1054,Enterprise,AMER,2025-09-19,4,8,Promoter,Fast and clear.,Expertise
+SVY-90240,CASE-70612,ACC-1054,Enterprise,AMER,2026-08-01,5,10,Promoter,Fast and clear.,Proactive
+SVY-90241,CASE-70613,ACC-1054,Enterprise,AMER,2026-04-13,4,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90242,CASE-70614,ACC-1054,Enterprise,AMER,2026-01-17,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90243,CASE-70616,ACC-1054,Enterprise,AMER,2026-07-03,4,9,Promoter,Fixed on the first reply.,Speed
+SVY-90244,CASE-70619,ACC-1054,Enterprise,AMER,2026-05-26,4,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90245,CASE-70621,ACC-1054,Enterprise,AMER,2025-12-14,3,6,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90246,CASE-70623,ACC-1054,Enterprise,AMER,2026-01-02,2,5,Detractor,Had to explain the problem twice.,Docs unclear
+SVY-90247,CASE-70624,ACC-1055,SMB,EMEA,2026-04-05,3,6,Passive,Got there eventually.,Slow response
+SVY-90248,CASE-70627,ACC-1055,SMB,EMEA,2026-05-19,4,6,Promoter,Engineer knew the product cold.,Proactive
+SVY-90249,CASE-70629,ACC-1055,SMB,EMEA,2026-05-03,2,4,Detractor,Three days for a config answer.,Slow response
+SVY-90250,CASE-70630,ACC-1055,SMB,EMEA,2026-06-14,2,4,Detractor,Three days for a config answer.,Unresolved
+SVY-90251,CASE-70631,ACC-1055,SMB,EMEA,2026-06-25,4,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90252,CASE-70633,ACC-1055,SMB,EMEA,2026-04-09,2,5,Detractor,Still not really fixed.,Docs unclear
+SVY-90253,CASE-70634,ACC-1057,SMB,AMER,2025-08-13,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90254,CASE-70638,ACC-1058,SMB,AMER,2026-03-01,4,10,Promoter,Fast and clear.,Speed
+SVY-90255,CASE-70641,ACC-1058,SMB,AMER,2025-12-23,4,7,Promoter,Engineer knew the product cold.,Speed
+SVY-90256,CASE-70644,ACC-1059,Enterprise,AMER,2026-09-18,3,8,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90257,CASE-70645,ACC-1059,Enterprise,AMER,2026-06-13,4,8,Promoter,Fast and clear.,Proactive
+SVY-90258,CASE-70649,ACC-1059,Enterprise,AMER,2026-03-19,4,9,Promoter,Fast and clear.,Expertise
+SVY-90259,CASE-70653,ACC-1059,Enterprise,AMER,2026-08-10,5,9,Promoter,Fast and clear.,Proactive
+SVY-90260,CASE-70659,ACC-1059,Enterprise,AMER,2026-07-19,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90261,CASE-70662,ACC-1060,SMB,AMER,2026-01-02,2,5,Detractor,Still not really fixed.,Slow response
+SVY-90262,CASE-70666,ACC-1061,Mid-Market,AMER,2025-10-06,4,7,Promoter,Fixed on the first reply.,Speed
+SVY-90263,CASE-70671,ACC-1061,Mid-Market,AMER,2025-12-29,5,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90264,CASE-70673,ACC-1061,Mid-Market,AMER,2025-05-02,3,8,Passive,Got there eventually.,Repeated handoffs
+SVY-90265,CASE-70678,ACC-1062,SMB,EMEA,2025-11-25,5,10,Promoter,Fast and clear.,Proactive
+SVY-90266,CASE-70680,ACC-1064,Mid-Market,EMEA,2025-05-24,3,7,Passive,Got there eventually.,Repeated handoffs
+SVY-90267,CASE-70682,ACC-1064,Mid-Market,EMEA,2026-05-31,3,7,Passive,"Answer was fine, took a while.",Slow response
+SVY-90268,CASE-70685,ACC-1064,Mid-Market,EMEA,2026-09-09,3,6,Passive,Got there eventually.,Docs unclear
+SVY-90269,CASE-70686,ACC-1064,Mid-Market,EMEA,2024-12-28,4,8,Promoter,Fast and clear.,Proactive
+SVY-90270,CASE-70688,ACC-1064,Mid-Market,EMEA,2026-06-08,3,7,Passive,"Answer was fine, took a while.",Slow response
+SVY-90271,CASE-70689,ACC-1064,Mid-Market,EMEA,2026-02-12,5,10,Promoter,Fast and clear.,Speed
+SVY-90272,CASE-70692,ACC-1064,Mid-Market,EMEA,2024-09-18,4,8,Promoter,Fast and clear.,Speed
+SVY-90273,CASE-70694,ACC-1064,Mid-Market,EMEA,2026-09-15,4,9,Promoter,Fixed on the first reply.,Speed
+SVY-90274,CASE-70696,ACC-1064,Mid-Market,EMEA,2025-03-27,5,8,Promoter,Fast and clear.,Speed
+SVY-90275,CASE-70702,ACC-1065,SMB,AMER,2026-07-28,4,7,Promoter,Fixed on the first reply.,Proactive
+SVY-90276,CASE-70703,ACC-1065,SMB,AMER,2025-05-10,3,5,Passive,Got there eventually.,Slow response
+SVY-90277,CASE-70704,ACC-1065,SMB,AMER,2026-05-08,5,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90278,CASE-70707,ACC-1066,Self-Serve,EMEA,2026-07-08,3,5,Passive,Got there eventually.,Docs unclear
+SVY-90279,CASE-70714,ACC-1067,Strategic,EMEA,2026-08-19,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90280,CASE-70717,ACC-1067,Strategic,EMEA,2026-08-05,1,1,Detractor,Three days for a config answer.,Unresolved
+SVY-90281,CASE-70722,ACC-1067,Strategic,EMEA,2026-08-30,4,6,Promoter,Fixed on the first reply.,Speed
+SVY-90282,CASE-70724,ACC-1067,Strategic,EMEA,2026-02-01,4,9,Promoter,Fast and clear.,Expertise
+SVY-90283,CASE-70728,ACC-1067,Strategic,EMEA,2025-12-22,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90284,CASE-70735,ACC-1070,SMB,EMEA,2026-07-25,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90285,CASE-70739,ACC-1071,Mid-Market,AMER,2026-06-23,3,7,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90286,CASE-70741,ACC-1071,Mid-Market,AMER,2026-02-10,1,1,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90287,CASE-70744,ACC-1071,Mid-Market,AMER,2026-07-19,5,7,Promoter,Fast and clear.,Expertise
+SVY-90288,CASE-70746,ACC-1071,Mid-Market,AMER,2026-07-21,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90289,CASE-70747,ACC-1071,Mid-Market,AMER,2026-03-03,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90290,CASE-70749,ACC-1071,Mid-Market,AMER,2026-03-20,3,7,Passive,"Answer was fine, took a while.",Slow response
+SVY-90291,CASE-70751,ACC-1071,Mid-Market,AMER,2026-07-05,5,9,Promoter,Fast and clear.,Proactive
+SVY-90292,CASE-70755,ACC-1071,Mid-Market,AMER,2026-09-24,4,7,Promoter,Fast and clear.,Speed
+SVY-90293,CASE-70761,ACC-1072,SMB,APAC,2026-07-27,4,7,Promoter,Fast and clear.,Expertise
+SVY-90294,CASE-70762,ACC-1072,SMB,APAC,2026-07-02,5,10,Promoter,Fast and clear.,Speed
+SVY-90295,CASE-70763,ACC-1072,SMB,APAC,2026-06-27,3,7,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90296,CASE-70764,ACC-1072,SMB,APAC,2026-09-08,4,6,Promoter,Fixed on the first reply.,Expertise
+SVY-90297,CASE-70775,ACC-1073,Enterprise,EMEA,2025-02-23,4,6,Promoter,Engineer knew the product cold.,Expertise
+SVY-90298,CASE-70778,ACC-1073,Enterprise,EMEA,2025-01-11,4,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90299,CASE-70783,ACC-1073,Enterprise,EMEA,2025-01-16,5,9,Promoter,Fast and clear.,Expertise
+SVY-90300,CASE-70788,ACC-1073,Enterprise,EMEA,2025-11-21,4,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90301,CASE-70789,ACC-1073,Enterprise,EMEA,2026-09-05,3,5,Passive,Got there eventually.,Slow response
+SVY-90302,CASE-70791,ACC-1074,Strategic,EMEA,2025-05-30,4,8,Promoter,Fast and clear.,Speed
+SVY-90303,CASE-70794,ACC-1074,Strategic,EMEA,2025-03-01,4,9,Promoter,Fast and clear.,Speed
+SVY-90304,CASE-70796,ACC-1074,Strategic,EMEA,2026-03-15,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90305,CASE-70801,ACC-1074,Strategic,EMEA,2025-12-17,3,4,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90306,CASE-70802,ACC-1074,Strategic,EMEA,2025-04-08,4,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90307,CASE-70803,ACC-1074,Strategic,EMEA,2026-05-17,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90308,CASE-70806,ACC-1074,Strategic,EMEA,2025-07-26,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90309,CASE-70807,ACC-1074,Strategic,EMEA,2026-01-04,5,9,Promoter,Fast and clear.,Expertise
+SVY-90310,CASE-70810,ACC-1074,Strategic,EMEA,2025-05-28,3,5,Passive,Got there eventually.,Docs unclear
+SVY-90311,CASE-70812,ACC-1074,Strategic,EMEA,2026-05-24,1,1,Detractor,Still not really fixed.,Docs unclear
+SVY-90312,CASE-70814,ACC-1074,Strategic,EMEA,2025-07-13,5,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90313,CASE-70817,ACC-1074,Strategic,EMEA,2025-03-20,4,10,Promoter,Fast and clear.,Proactive
+SVY-90314,CASE-70823,ACC-1074,Strategic,EMEA,2025-04-12,1,0,Detractor,Three days for a config answer.,Slow response
+SVY-90315,CASE-70824,ACC-1074,Strategic,EMEA,2026-02-25,4,6,Promoter,Engineer knew the product cold.,Proactive
+SVY-90316,CASE-70825,ACC-1074,Strategic,EMEA,2026-05-02,4,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90317,CASE-70826,ACC-1074,Strategic,EMEA,2026-08-30,3,7,Passive,Got there eventually.,Slow response
+SVY-90318,CASE-70829,ACC-1074,Strategic,EMEA,2025-05-11,4,7,Promoter,Fast and clear.,Proactive
+SVY-90319,CASE-70839,ACC-1074,Strategic,EMEA,2026-06-11,5,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90320,CASE-70840,ACC-1074,Strategic,EMEA,2025-04-28,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90321,CASE-70842,ACC-1074,Strategic,EMEA,2026-03-16,3,5,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90322,CASE-70843,ACC-1074,Strategic,EMEA,2026-08-04,5,7,Promoter,Fast and clear.,Speed
+SVY-90323,CASE-70844,ACC-1074,Strategic,EMEA,2025-08-07,2,5,Detractor,Still not really fixed.,Unresolved
+SVY-90324,CASE-70846,ACC-1074,Strategic,EMEA,2025-11-13,3,7,Passive,"Answer was fine, took a while.",Slow response
+SVY-90325,CASE-70851,ACC-1074,Strategic,EMEA,2025-03-01,3,6,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90326,CASE-70854,ACC-1074,Strategic,EMEA,2025-08-14,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90327,CASE-70855,ACC-1074,Strategic,EMEA,2025-08-19,3,8,Passive,"Answer was fine, took a while.",Slow response
+SVY-90328,CASE-70858,ACC-1074,Strategic,EMEA,2026-05-27,4,8,Promoter,Fast and clear.,Speed
+SVY-90329,CASE-70860,ACC-1074,Strategic,EMEA,2026-08-31,2,2,Detractor,Three days for a config answer.,Unresolved
+SVY-90330,CASE-70865,ACC-1075,Strategic,EMEA,2025-07-15,3,6,Passive,Got there eventually.,Repeated handoffs
+SVY-90331,CASE-70866,ACC-1075,Strategic,EMEA,2026-02-20,4,5,Promoter,Fast and clear.,Expertise
+SVY-90332,CASE-70867,ACC-1075,Strategic,EMEA,2026-07-26,5,8,Promoter,Fast and clear.,Speed
+SVY-90333,CASE-70870,ACC-1075,Strategic,EMEA,2026-06-28,4,9,Promoter,Fast and clear.,Expertise
+SVY-90334,CASE-70879,ACC-1075,Strategic,EMEA,2025-05-12,4,9,Promoter,Fast and clear.,Expertise
+SVY-90335,CASE-70883,ACC-1075,Strategic,EMEA,2025-12-21,5,10,Promoter,Fast and clear.,Expertise
+SVY-90336,CASE-70885,ACC-1075,Strategic,EMEA,2025-10-06,4,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90337,CASE-70892,ACC-1075,Strategic,EMEA,2025-09-14,4,6,Promoter,Engineer knew the product cold.,Speed
+SVY-90338,CASE-70895,ACC-1075,Strategic,EMEA,2026-01-18,5,6,Promoter,Fast and clear.,Proactive
+SVY-90339,CASE-70897,ACC-1075,Strategic,EMEA,2026-07-08,3,5,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90340,CASE-70901,ACC-1075,Strategic,EMEA,2025-05-06,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90341,CASE-70903,ACC-1075,Strategic,EMEA,2025-08-13,3,6,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90342,CASE-70905,ACC-1075,Strategic,EMEA,2025-10-05,4,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90343,CASE-70907,ACC-1075,Strategic,EMEA,2025-10-30,4,8,Promoter,Fast and clear.,Speed
+SVY-90344,CASE-70908,ACC-1075,Strategic,EMEA,2026-06-28,4,8,Promoter,Fast and clear.,Proactive
+SVY-90345,CASE-70913,ACC-1075,Strategic,EMEA,2025-12-13,3,3,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90346,CASE-70918,ACC-1075,Strategic,EMEA,2025-07-10,4,5,Promoter,Fast and clear.,Expertise
+SVY-90347,CASE-70920,ACC-1075,Strategic,EMEA,2026-02-01,4,6,Promoter,Fast and clear.,Proactive
+SVY-90348,CASE-70923,ACC-1075,Strategic,EMEA,2025-04-22,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90349,CASE-70925,ACC-1075,Strategic,EMEA,2026-06-04,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90350,CASE-70929,ACC-1075,Strategic,EMEA,2025-07-24,3,6,Passive,Got there eventually.,Unresolved
+SVY-90351,CASE-70930,ACC-1075,Strategic,EMEA,2026-05-22,5,8,Promoter,Fast and clear.,Expertise
+SVY-90352,CASE-70932,ACC-1076,Self-Serve,AMER,2026-08-01,1,0,Detractor,Had to explain the problem twice.,Docs unclear
+SVY-90353,CASE-70933,ACC-1076,Self-Serve,AMER,2026-02-14,3,5,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90354,CASE-70935,ACC-1076,Self-Serve,AMER,2026-02-01,2,1,Detractor,Had to explain the problem twice.,Slow response
+SVY-90355,CASE-70936,ACC-1076,Self-Serve,AMER,2025-07-22,4,8,Promoter,Fast and clear.,Speed
+SVY-90356,CASE-70937,ACC-1077,Mid-Market,AMER,2025-03-08,1,4,Detractor,Three days for a config answer.,Repeated handoffs
+SVY-90357,CASE-70939,ACC-1077,Mid-Market,AMER,2026-06-10,5,10,Promoter,Fast and clear.,Speed
+SVY-90358,CASE-70942,ACC-1077,Mid-Market,AMER,2025-03-22,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90359,CASE-70944,ACC-1077,Mid-Market,AMER,2026-06-21,4,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90360,CASE-70945,ACC-1077,Mid-Market,AMER,2025-11-19,1,2,Detractor,Still not really fixed.,Unresolved
+SVY-90361,CASE-70950,ACC-1080,Mid-Market,EMEA,2026-03-19,2,2,Detractor,Still not really fixed.,Unresolved
+SVY-90362,CASE-70959,ACC-1080,Mid-Market,EMEA,2026-08-17,3,5,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90363,CASE-70960,ACC-1080,Mid-Market,EMEA,2026-07-10,3,9,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90364,CASE-70962,ACC-1080,Mid-Market,EMEA,2026-08-14,3,9,Passive,Got there eventually.,Repeated handoffs
+SVY-90365,CASE-70967,ACC-1081,Mid-Market,AMER,2026-02-28,3,5,Passive,Got there eventually.,Slow response
+SVY-90366,CASE-70969,ACC-1081,Mid-Market,AMER,2026-08-30,2,4,Detractor,Still not really fixed.,Unresolved
+SVY-90367,CASE-70974,ACC-1081,Mid-Market,AMER,2026-07-21,5,10,Promoter,Fast and clear.,Expertise
+SVY-90368,CASE-70979,ACC-1081,Mid-Market,AMER,2026-03-09,2,3,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90369,CASE-70989,ACC-1082,Enterprise,APAC,2026-02-03,3,5,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90370,CASE-70991,ACC-1082,Enterprise,APAC,2026-02-26,4,7,Promoter,Fixed on the first reply.,Proactive
+SVY-90371,CASE-70993,ACC-1082,Enterprise,APAC,2026-07-09,2,6,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90372,CASE-70996,ACC-1082,Enterprise,APAC,2026-07-08,4,8,Promoter,Engineer knew the product cold.,Expertise
+SVY-90373,CASE-70999,ACC-1082,Enterprise,APAC,2025-04-24,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90374,CASE-71000,ACC-1082,Enterprise,APAC,2024-12-28,4,8,Promoter,Engineer knew the product cold.,Expertise
+SVY-90375,CASE-71004,ACC-1082,Enterprise,APAC,2025-03-14,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90376,CASE-71005,ACC-1082,Enterprise,APAC,2026-03-23,2,2,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90377,CASE-71006,ACC-1084,SMB,AMER,2026-09-12,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90378,CASE-71014,ACC-1085,SMB,EMEA,2026-07-18,4,7,Promoter,Fast and clear.,Proactive
+SVY-90379,CASE-71016,ACC-1086,Strategic,AMER,2025-02-06,4,9,Promoter,Fast and clear.,Proactive
+SVY-90380,CASE-71019,ACC-1086,Strategic,AMER,2026-07-17,5,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90381,CASE-71020,ACC-1086,Strategic,AMER,2025-02-15,3,7,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90382,CASE-71022,ACC-1086,Strategic,AMER,2025-06-30,3,6,Passive,Got there eventually.,Docs unclear
+SVY-90383,CASE-71028,ACC-1086,Strategic,AMER,2025-10-09,2,4,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90384,CASE-71032,ACC-1086,Strategic,AMER,2024-12-02,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90385,CASE-71033,ACC-1086,Strategic,AMER,2025-12-13,4,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90386,CASE-71035,ACC-1086,Strategic,AMER,2025-02-24,4,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90387,CASE-71036,ACC-1086,Strategic,AMER,2025-01-12,5,10,Promoter,Fast and clear.,Speed
+SVY-90388,CASE-71037,ACC-1086,Strategic,AMER,2026-06-01,3,7,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90389,CASE-71044,ACC-1086,Strategic,AMER,2024-10-28,4,7,Promoter,Engineer knew the product cold.,Expertise
+SVY-90390,CASE-71048,ACC-1086,Strategic,AMER,2024-12-17,4,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90391,CASE-71049,ACC-1086,Strategic,AMER,2025-02-23,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90392,CASE-71052,ACC-1086,Strategic,AMER,2026-01-16,4,10,Promoter,Fixed on the first reply.,Speed
+SVY-90393,CASE-71060,ACC-1086,Strategic,AMER,2025-06-04,2,2,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90394,CASE-71062,ACC-1086,Strategic,AMER,2025-12-05,3,4,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90395,CASE-71063,ACC-1086,Strategic,AMER,2025-01-30,2,5,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90396,CASE-71064,ACC-1086,Strategic,AMER,2025-11-08,4,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90397,CASE-71065,ACC-1086,Strategic,AMER,2025-06-04,2,5,Detractor,Three days for a config answer.,Docs unclear
+SVY-90398,CASE-71068,ACC-1086,Strategic,AMER,2025-03-14,4,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90399,CASE-71069,ACC-1086,Strategic,AMER,2025-05-15,4,7,Promoter,Fast and clear.,Proactive
+SVY-90400,CASE-71070,ACC-1086,Strategic,AMER,2025-11-09,5,7,Promoter,Fixed on the first reply.,Proactive
+SVY-90401,CASE-71073,ACC-1086,Strategic,AMER,2026-03-29,3,6,Passive,Got there eventually.,Repeated handoffs
+SVY-90402,CASE-71076,ACC-1087,SMB,APAC,2026-06-26,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90403,CASE-71077,ACC-1087,SMB,APAC,2026-07-06,2,4,Detractor,Still not really fixed.,Unresolved
+SVY-90404,CASE-71078,ACC-1087,SMB,APAC,2026-06-20,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90405,CASE-71079,ACC-1087,SMB,APAC,2026-07-24,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90406,CASE-71080,ACC-1087,SMB,APAC,2026-08-11,5,10,Promoter,Fast and clear.,Proactive
+SVY-90407,CASE-71083,ACC-1088,SMB,APAC,2025-09-27,4,8,Promoter,Fast and clear.,Speed
+SVY-90408,CASE-71084,ACC-1088,SMB,APAC,2026-05-22,3,6,Passive,Got there eventually.,Unresolved
+SVY-90409,CASE-71086,ACC-1088,SMB,APAC,2025-12-14,3,4,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90410,CASE-71088,ACC-1088,SMB,APAC,2026-01-02,3,6,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90411,CASE-71090,ACC-1088,SMB,APAC,2026-06-28,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90412,CASE-71092,ACC-1088,SMB,APAC,2026-02-21,3,7,Passive,Got there eventually.,Docs unclear
+SVY-90413,CASE-71095,ACC-1089,SMB,AMER,2026-06-13,5,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90414,CASE-71100,ACC-1089,SMB,AMER,2025-11-10,4,7,Promoter,Fast and clear.,Speed
+SVY-90415,CASE-71102,ACC-1089,SMB,AMER,2025-12-22,3,6,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90416,CASE-71105,ACC-1090,SMB,AMER,2025-12-19,5,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90417,CASE-71107,ACC-1090,SMB,AMER,2026-03-16,2,4,Detractor,Three days for a config answer.,Slow response
+SVY-90418,CASE-71108,ACC-1090,SMB,AMER,2026-08-03,4,8,Promoter,Fixed on the first reply.,Expertise
+SVY-90419,CASE-71110,ACC-1090,SMB,AMER,2026-04-05,5,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90420,CASE-71111,ACC-1090,SMB,AMER,2026-01-08,3,5,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90421,CASE-71113,ACC-1090,SMB,AMER,2025-11-19,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90422,CASE-71116,ACC-1092,SMB,AMER,2025-08-23,4,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90423,CASE-71117,ACC-1093,Enterprise,AMER,2025-02-22,4,7,Promoter,Engineer knew the product cold.,Speed
+SVY-90424,CASE-71124,ACC-1093,Enterprise,AMER,2025-08-25,3,6,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90425,CASE-71126,ACC-1093,Enterprise,AMER,2026-04-25,3,6,Passive,Got there eventually.,Unresolved
+SVY-90426,CASE-71132,ACC-1093,Enterprise,AMER,2025-11-10,4,7,Promoter,Fixed on the first reply.,Speed
+SVY-90427,CASE-71133,ACC-1093,Enterprise,AMER,2026-04-30,3,7,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90428,CASE-71137,ACC-1093,Enterprise,AMER,2026-03-07,2,2,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90429,CASE-71139,ACC-1093,Enterprise,AMER,2025-02-22,4,10,Promoter,Fixed on the first reply.,Speed
+SVY-90430,CASE-71144,ACC-1093,Enterprise,AMER,2026-04-30,4,8,Promoter,Fast and clear.,Expertise
+SVY-90431,CASE-71146,ACC-1093,Enterprise,AMER,2025-08-17,4,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90432,CASE-71151,ACC-1095,Enterprise,APAC,2026-09-20,1,0,Detractor,Three days for a config answer.,Slow response
+SVY-90433,CASE-71154,ACC-1095,Enterprise,APAC,2026-03-24,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90434,CASE-71159,ACC-1095,Enterprise,APAC,2026-09-10,4,7,Promoter,Fixed on the first reply.,Proactive
+SVY-90435,CASE-71161,ACC-1095,Enterprise,APAC,2026-06-17,5,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90436,CASE-71164,ACC-1095,Enterprise,APAC,2026-06-01,5,9,Promoter,Fast and clear.,Expertise
+SVY-90437,CASE-71168,ACC-1095,Enterprise,APAC,2026-03-22,4,6,Promoter,Fixed on the first reply.,Proactive
+SVY-90438,CASE-71171,ACC-1095,Enterprise,APAC,2026-08-09,2,4,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90439,CASE-71175,ACC-1095,Enterprise,APAC,2026-05-23,3,5,Passive,"Answer was fine, took a while.",Slow response
+SVY-90440,CASE-71176,ACC-1095,Enterprise,APAC,2026-08-28,4,6,Promoter,Engineer knew the product cold.,Expertise
+SVY-90441,CASE-71178,ACC-1095,Enterprise,APAC,2026-04-28,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90442,CASE-71180,ACC-1096,Mid-Market,EMEA,2026-07-04,2,5,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90443,CASE-71181,ACC-1096,Mid-Market,EMEA,2026-06-12,3,7,Passive,"Answer was fine, took a while.",Slow response
+SVY-90444,CASE-71182,ACC-1096,Mid-Market,EMEA,2026-06-12,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90445,CASE-71184,ACC-1096,Mid-Market,EMEA,2026-07-10,4,5,Promoter,Fast and clear.,Expertise
+SVY-90446,CASE-71185,ACC-1096,Mid-Market,EMEA,2026-06-15,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90447,CASE-71188,ACC-1096,Mid-Market,EMEA,2026-08-17,2,5,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90448,CASE-71192,ACC-1096,Mid-Market,EMEA,2026-04-30,3,4,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90449,CASE-71195,ACC-1097,SMB,EMEA,2026-08-22,2,4,Detractor,Still not really fixed.,Docs unclear
+SVY-90450,CASE-71197,ACC-1097,SMB,EMEA,2026-02-14,4,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90451,CASE-71200,ACC-1097,SMB,EMEA,2026-08-06,4,9,Promoter,Fast and clear.,Proactive
+SVY-90452,CASE-71201,ACC-1097,SMB,EMEA,2026-10-03,4,10,Promoter,Fast and clear.,Speed
+SVY-90453,CASE-71202,ACC-1097,SMB,EMEA,2026-01-23,4,6,Promoter,Fast and clear.,Speed
+SVY-90454,CASE-71206,ACC-1098,Mid-Market,APAC,2026-08-06,4,9,Promoter,Fixed on the first reply.,Speed
+SVY-90455,CASE-71207,ACC-1098,Mid-Market,APAC,2026-07-21,5,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90456,CASE-71208,ACC-1099,Self-Serve,APAC,2026-03-02,5,10,Promoter,Fast and clear.,Speed
+SVY-90457,CASE-71212,ACC-1100,Mid-Market,AMER,2025-11-06,2,3,Detractor,Had to explain the problem twice.,Slow response
+SVY-90458,CASE-71214,ACC-1100,Mid-Market,AMER,2025-10-02,2,3,Detractor,Three days for a config answer.,Slow response
+SVY-90459,CASE-71220,ACC-1100,Mid-Market,AMER,2026-08-12,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90460,CASE-71225,ACC-1101,SMB,EMEA,2025-09-04,5,6,Promoter,Fixed on the first reply.,Proactive
+SVY-90461,CASE-71226,ACC-1101,SMB,EMEA,2025-05-11,3,6,Passive,Got there eventually.,Repeated handoffs
+SVY-90462,CASE-71228,ACC-1101,SMB,EMEA,2024-10-07,3,7,Passive,Got there eventually.,Docs unclear
+SVY-90463,CASE-71234,ACC-1102,Mid-Market,EMEA,2025-10-19,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90464,CASE-71236,ACC-1102,Mid-Market,EMEA,2026-04-30,4,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90465,CASE-71237,ACC-1102,Mid-Market,EMEA,2026-04-10,4,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90466,CASE-71241,ACC-1103,Enterprise,EMEA,2026-07-05,4,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90467,CASE-71245,ACC-1103,Enterprise,EMEA,2026-08-02,3,5,Passive,Got there eventually.,Repeated handoffs
+SVY-90468,CASE-71253,ACC-1103,Enterprise,EMEA,2026-06-10,3,7,Passive,Got there eventually.,Unresolved
+SVY-90469,CASE-71255,ACC-1103,Enterprise,EMEA,2026-07-13,3,7,Passive,Got there eventually.,Unresolved
+SVY-90470,CASE-71257,ACC-1103,Enterprise,EMEA,2026-06-07,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90471,CASE-71259,ACC-1103,Enterprise,EMEA,2026-06-17,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90472,CASE-71261,ACC-1103,Enterprise,EMEA,2026-07-15,1,2,Detractor,Three days for a config answer.,Unresolved
+SVY-90473,CASE-71262,ACC-1103,Enterprise,EMEA,2026-09-25,3,4,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90474,CASE-71263,ACC-1103,Enterprise,EMEA,2026-08-05,4,10,Promoter,Fast and clear.,Speed
+SVY-90475,CASE-71265,ACC-1103,Enterprise,EMEA,2026-06-17,4,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90476,CASE-71272,ACC-1105,Self-Serve,APAC,2025-05-18,4,4,Promoter,Engineer knew the product cold.,Proactive
+SVY-90477,CASE-71273,ACC-1106,SMB,EMEA,2024-08-14,2,5,Detractor,Had to explain the problem twice.,Repeated handoffs
+SVY-90478,CASE-71276,ACC-1107,Mid-Market,AMER,2025-07-16,2,4,Detractor,Three days for a config answer.,Docs unclear
+SVY-90479,CASE-71277,ACC-1107,Mid-Market,AMER,2025-09-27,3,5,Passive,Got there eventually.,Slow response
+SVY-90480,CASE-71278,ACC-1107,Mid-Market,AMER,2025-05-24,4,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90481,CASE-71279,ACC-1107,Mid-Market,AMER,2026-08-27,4,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90482,CASE-71281,ACC-1107,Mid-Market,AMER,2025-04-18,3,8,Passive,Got there eventually.,Docs unclear
+SVY-90483,CASE-71282,ACC-1107,Mid-Market,AMER,2026-05-11,2,2,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90484,CASE-71284,ACC-1107,Mid-Market,AMER,2026-01-11,5,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90485,CASE-71285,ACC-1108,Self-Serve,AMER,2026-05-31,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90486,CASE-71287,ACC-1108,Self-Serve,AMER,2026-06-24,3,5,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90487,CASE-71294,ACC-1110,Enterprise,EMEA,2026-06-12,3,5,Passive,Got there eventually.,Repeated handoffs
+SVY-90488,CASE-71295,ACC-1110,Enterprise,EMEA,2025-07-04,3,5,Passive,Got there eventually.,Docs unclear
+SVY-90489,CASE-71297,ACC-1110,Enterprise,EMEA,2026-03-15,5,9,Promoter,Fast and clear.,Expertise
+SVY-90490,CASE-71298,ACC-1110,Enterprise,EMEA,2026-02-17,3,5,Passive,Got there eventually.,Unresolved
+SVY-90491,CASE-71300,ACC-1110,Enterprise,EMEA,2025-12-19,5,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90492,CASE-71301,ACC-1110,Enterprise,EMEA,2026-08-29,4,6,Promoter,Engineer knew the product cold.,Speed
+SVY-90493,CASE-71302,ACC-1110,Enterprise,EMEA,2025-11-02,4,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90494,CASE-71307,ACC-1110,Enterprise,EMEA,2026-07-23,5,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90495,CASE-71311,ACC-1110,Enterprise,EMEA,2025-07-01,3,5,Passive,Got there eventually.,Slow response
+SVY-90496,CASE-71313,ACC-1110,Enterprise,EMEA,2026-03-22,3,6,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90497,CASE-71314,ACC-1110,Enterprise,EMEA,2026-07-18,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90498,CASE-71315,ACC-1112,Mid-Market,LATAM,2025-12-17,3,7,Passive,Got there eventually.,Slow response
+SVY-90499,CASE-71316,ACC-1112,Mid-Market,LATAM,2026-07-10,4,8,Promoter,Fixed on the first reply.,Expertise
+SVY-90500,CASE-71324,ACC-1112,Mid-Market,LATAM,2024-12-10,4,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90501,CASE-71325,ACC-1112,Mid-Market,LATAM,2025-03-24,3,4,Passive,"Answer was fine, took a while.",Slow response
+SVY-90502,CASE-71328,ACC-1113,Mid-Market,LATAM,2026-07-20,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90503,CASE-71331,ACC-1113,Mid-Market,LATAM,2026-03-23,5,10,Promoter,Fast and clear.,Speed
+SVY-90504,CASE-71333,ACC-1113,Mid-Market,LATAM,2026-01-01,4,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90505,CASE-71334,ACC-1113,Mid-Market,LATAM,2025-09-23,4,10,Promoter,Fast and clear.,Speed
+SVY-90506,CASE-71335,ACC-1113,Mid-Market,LATAM,2025-09-20,4,6,Promoter,Fixed on the first reply.,Expertise
+SVY-90507,CASE-71336,ACC-1113,Mid-Market,LATAM,2026-04-01,5,9,Promoter,Fast and clear.,Expertise
+SVY-90508,CASE-71338,ACC-1113,Mid-Market,LATAM,2026-04-19,3,7,Passive,Got there eventually.,Repeated handoffs
+SVY-90509,CASE-71342,ACC-1114,Strategic,AMER,2026-07-10,4,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90510,CASE-71343,ACC-1114,Strategic,AMER,2026-09-27,4,10,Promoter,Fast and clear.,Speed
+SVY-90511,CASE-71344,ACC-1114,Strategic,AMER,2026-08-15,5,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90512,CASE-71353,ACC-1114,Strategic,AMER,2026-09-09,4,8,Promoter,Fast and clear.,Speed
+SVY-90513,CASE-71356,ACC-1114,Strategic,AMER,2026-08-03,3,5,Passive,Got there eventually.,Docs unclear
+SVY-90514,CASE-71360,ACC-1114,Strategic,AMER,2026-09-07,5,9,Promoter,Fast and clear.,Speed
+SVY-90515,CASE-71361,ACC-1114,Strategic,AMER,2026-08-16,3,5,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90516,CASE-71362,ACC-1114,Strategic,AMER,2026-08-27,2,5,Detractor,Had to explain the problem twice.,Unresolved
+SVY-90517,CASE-71363,ACC-1114,Strategic,AMER,2026-09-04,4,6,Promoter,Fixed on the first reply.,Expertise
+SVY-90518,CASE-71364,ACC-1114,Strategic,AMER,2026-08-27,4,10,Promoter,Fast and clear.,Proactive
+SVY-90519,CASE-71365,ACC-1114,Strategic,AMER,2026-09-08,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90520,CASE-71366,ACC-1114,Strategic,AMER,2026-08-19,3,6,Passive,Got there eventually.,Docs unclear
+SVY-90521,CASE-71368,ACC-1114,Strategic,AMER,2026-08-03,3,4,Passive,Got there eventually.,Repeated handoffs
+SVY-90522,CASE-71372,ACC-1114,Strategic,AMER,2026-07-08,3,6,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90523,CASE-71374,ACC-1114,Strategic,AMER,2026-08-27,3,6,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90524,CASE-71376,ACC-1114,Strategic,AMER,2026-09-15,2,3,Detractor,Had to explain the problem twice.,Slow response
+SVY-90525,CASE-71382,ACC-1115,SMB,AMER,2026-03-19,3,4,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90526,CASE-71384,ACC-1115,SMB,AMER,2026-03-11,3,6,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90527,CASE-71385,ACC-1115,SMB,AMER,2026-03-05,3,6,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90528,CASE-71388,ACC-1115,SMB,AMER,2026-04-11,3,6,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90529,CASE-71389,ACC-1116,Enterprise,AMER,2026-07-29,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90530,CASE-71391,ACC-1116,Enterprise,AMER,2025-09-06,3,5,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90531,CASE-71397,ACC-1116,Enterprise,AMER,2025-09-28,3,5,Passive,Got there eventually.,Slow response
+SVY-90532,CASE-71400,ACC-1116,Enterprise,AMER,2024-09-19,5,10,Promoter,Fast and clear.,Proactive
+SVY-90533,CASE-71404,ACC-1116,Enterprise,AMER,2025-04-14,4,7,Promoter,Fixed on the first reply.,Expertise
+SVY-90534,CASE-71406,ACC-1116,Enterprise,AMER,2024-07-29,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90535,CASE-71409,ACC-1116,Enterprise,AMER,2026-07-23,3,6,Passive,"Answer was fine, took a while.",Slow response
+SVY-90536,CASE-71412,ACC-1116,Enterprise,AMER,2025-08-17,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90537,CASE-71413,ACC-1116,Enterprise,AMER,2024-11-29,3,6,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90538,CASE-71416,ACC-1116,Enterprise,AMER,2026-05-22,5,8,Promoter,Fast and clear.,Expertise
+SVY-90539,CASE-71422,ACC-1118,Strategic,AMER,2025-03-07,2,6,Detractor,Still not really fixed.,Slow response
+SVY-90540,CASE-71424,ACC-1118,Strategic,AMER,2026-06-18,2,2,Detractor,Three days for a config answer.,Slow response
+SVY-90541,CASE-71429,ACC-1118,Strategic,AMER,2026-04-22,2,2,Detractor,Still not really fixed.,Unresolved
+SVY-90542,CASE-71433,ACC-1118,Strategic,AMER,2026-07-06,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90543,CASE-71434,ACC-1118,Strategic,AMER,2026-05-07,3,7,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90544,CASE-71440,ACC-1118,Strategic,AMER,2026-01-31,5,9,Promoter,Engineer knew the product cold.,Proactive
+SVY-90545,CASE-71444,ACC-1118,Strategic,AMER,2025-02-23,4,7,Promoter,Fast and clear.,Proactive
+SVY-90546,CASE-71448,ACC-1118,Strategic,AMER,2025-04-24,3,5,Passive,"Answer was fine, took a while.",Slow response
+SVY-90547,CASE-71449,ACC-1118,Strategic,AMER,2026-09-19,5,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90548,CASE-71453,ACC-1118,Strategic,AMER,2025-03-19,3,8,Passive,Got there eventually.,Unresolved
+SVY-90549,CASE-71458,ACC-1118,Strategic,AMER,2025-09-25,4,10,Promoter,Fast and clear.,Proactive
+SVY-90550,CASE-71460,ACC-1118,Strategic,AMER,2026-07-19,3,5,Passive,Got there eventually.,Docs unclear
+SVY-90551,CASE-71461,ACC-1118,Strategic,AMER,2026-07-31,2,3,Detractor,Three days for a config answer.,Slow response
+SVY-90552,CASE-71464,ACC-1118,Strategic,AMER,2026-03-12,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90553,CASE-71465,ACC-1118,Strategic,AMER,2026-09-15,3,6,Passive,"Answer was fine, took a while.",Slow response
+SVY-90554,CASE-71470,ACC-1118,Strategic,AMER,2025-03-01,4,7,Promoter,Engineer knew the product cold.,Proactive
+SVY-90555,CASE-71471,ACC-1118,Strategic,AMER,2025-07-01,2,3,Detractor,Three days for a config answer.,Slow response
+SVY-90556,CASE-71474,ACC-1118,Strategic,AMER,2025-04-04,5,10,Promoter,Fast and clear.,Speed
+SVY-90557,CASE-71479,ACC-1118,Strategic,AMER,2026-08-04,1,0,Detractor,Still not really fixed.,Unresolved
+SVY-90558,CASE-71485,ACC-1118,Strategic,AMER,2025-12-24,4,7,Promoter,Fixed on the first reply.,Speed
+SVY-90559,CASE-71486,ACC-1118,Strategic,AMER,2025-03-28,1,0,Detractor,Had to explain the problem twice.,Slow response
+SVY-90560,CASE-71488,ACC-1118,Strategic,AMER,2025-07-08,4,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90561,CASE-71493,ACC-1118,Strategic,AMER,2026-05-11,2,6,Detractor,Three days for a config answer.,Slow response
+SVY-90562,CASE-71494,ACC-1118,Strategic,AMER,2025-10-17,5,10,Promoter,Fast and clear.,Proactive
+SVY-90563,CASE-71496,ACC-1118,Strategic,AMER,2025-09-09,3,6,Passive,Got there eventually.,Slow response
+SVY-90564,CASE-71497,ACC-1119,Enterprise,AMER,2025-01-11,2,3,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90565,CASE-71498,ACC-1119,Enterprise,AMER,2026-04-14,2,3,Detractor,Had to explain the problem twice.,Slow response
+SVY-90566,CASE-71501,ACC-1119,Enterprise,AMER,2025-02-07,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90567,CASE-71502,ACC-1119,Enterprise,AMER,2025-11-03,3,7,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90568,CASE-71503,ACC-1119,Enterprise,AMER,2026-06-11,3,8,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90569,CASE-71509,ACC-1119,Enterprise,AMER,2024-11-05,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90570,CASE-71514,ACC-1119,Enterprise,AMER,2024-11-05,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90571,CASE-71515,ACC-1119,Enterprise,AMER,2025-10-28,3,7,Passive,Got there eventually.,Repeated handoffs
+SVY-90572,CASE-71520,ACC-1119,Enterprise,AMER,2026-02-08,2,5,Detractor,Three days for a config answer.,Docs unclear
+SVY-90573,CASE-71521,ACC-1119,Enterprise,AMER,2026-06-29,3,5,Passive,Got there eventually.,Repeated handoffs
+SVY-90574,CASE-71522,ACC-1120,Mid-Market,AMER,2026-01-16,2,4,Detractor,Had to explain the problem twice.,Docs unclear
+SVY-90575,CASE-71529,ACC-1120,Mid-Market,AMER,2026-01-30,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90576,CASE-71531,ACC-1120,Mid-Market,AMER,2026-05-23,3,7,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90577,CASE-71533,ACC-1120,Mid-Market,AMER,2026-03-12,4,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90578,CASE-71537,ACC-1120,Mid-Market,AMER,2026-03-12,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90579,CASE-71538,ACC-1120,Mid-Market,AMER,2025-10-25,3,8,Passive,Got there eventually.,Repeated handoffs
+SVY-90580,CASE-71540,ACC-1120,Mid-Market,AMER,2025-08-03,3,3,Passive,Got there eventually.,Repeated handoffs
+SVY-90581,CASE-71544,ACC-1121,SMB,EMEA,2026-04-18,4,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90582,CASE-71545,ACC-1121,SMB,EMEA,2026-07-15,4,9,Promoter,Fast and clear.,Proactive
+SVY-90583,CASE-71546,ACC-1121,SMB,EMEA,2026-03-07,5,10,Promoter,Fixed on the first reply.,Speed
+SVY-90584,CASE-71549,ACC-1121,SMB,EMEA,2026-06-11,5,10,Promoter,Fast and clear.,Proactive
+SVY-90585,CASE-71550,ACC-1121,SMB,EMEA,2025-06-27,3,6,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90586,CASE-71552,ACC-1122,Strategic,EMEA,2026-06-29,2,6,Detractor,Three days for a config answer.,Slow response
+SVY-90587,CASE-71559,ACC-1122,Strategic,EMEA,2026-01-18,5,9,Promoter,Fixed on the first reply.,Speed
+SVY-90588,CASE-71560,ACC-1122,Strategic,EMEA,2025-09-02,3,9,Passive,Got there eventually.,Docs unclear
+SVY-90589,CASE-71562,ACC-1122,Strategic,EMEA,2025-12-08,2,6,Detractor,Had to explain the problem twice.,Slow response
+SVY-90590,CASE-71563,ACC-1122,Strategic,EMEA,2026-01-29,4,10,Promoter,Engineer knew the product cold.,Proactive
+SVY-90591,CASE-71564,ACC-1122,Strategic,EMEA,2026-02-19,4,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90592,CASE-71568,ACC-1122,Strategic,EMEA,2026-07-18,5,8,Promoter,Engineer knew the product cold.,Proactive
+SVY-90593,CASE-71573,ACC-1122,Strategic,EMEA,2026-07-08,1,3,Detractor,Still not really fixed.,Slow response
+SVY-90594,CASE-71574,ACC-1122,Strategic,EMEA,2026-01-30,4,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90595,CASE-71577,ACC-1122,Strategic,EMEA,2025-10-04,5,10,Promoter,Fast and clear.,Proactive
+SVY-90596,CASE-71580,ACC-1122,Strategic,EMEA,2026-04-29,4,9,Promoter,Engineer knew the product cold.,Speed
+SVY-90597,CASE-71582,ACC-1122,Strategic,EMEA,2026-03-17,3,4,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90598,CASE-71583,ACC-1122,Strategic,EMEA,2026-07-25,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90599,CASE-71585,ACC-1122,Strategic,EMEA,2025-10-11,2,5,Detractor,Still not really fixed.,Slow response
+SVY-90600,CASE-71590,ACC-1122,Strategic,EMEA,2025-09-09,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90601,CASE-71591,ACC-1122,Strategic,EMEA,2026-03-08,3,5,Passive,"Answer was fine, took a while.",Docs unclear
+SVY-90602,CASE-71594,ACC-1122,Strategic,EMEA,2026-02-20,2,6,Detractor,Three days for a config answer.,Repeated handoffs
+SVY-90603,CASE-71597,ACC-1122,Strategic,EMEA,2025-08-06,3,6,Passive,Got there eventually.,Docs unclear
+SVY-90604,CASE-71599,ACC-1124,Mid-Market,AMER,2025-08-27,3,6,Passive,Got there eventually.,Repeated handoffs
+SVY-90605,CASE-71603,ACC-1124,Mid-Market,AMER,2026-03-25,5,10,Promoter,Fast and clear.,Expertise
+SVY-90606,CASE-71604,ACC-1124,Mid-Market,AMER,2025-05-10,3,6,Passive,Got there eventually.,Docs unclear
+SVY-90607,CASE-71605,ACC-1124,Mid-Market,AMER,2026-09-20,2,4,Detractor,Had to explain the problem twice.,Slow response
+SVY-90608,CASE-71608,ACC-1125,Strategic,EMEA,2026-08-16,5,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90609,CASE-71609,ACC-1125,Strategic,EMEA,2026-07-29,5,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90610,CASE-71613,ACC-1125,Strategic,EMEA,2026-07-04,5,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90611,CASE-71614,ACC-1125,Strategic,EMEA,2026-08-31,3,5,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90612,CASE-71615,ACC-1125,Strategic,EMEA,2026-09-16,2,2,Detractor,Still not really fixed.,Unresolved
+SVY-90613,CASE-71620,ACC-1125,Strategic,EMEA,2026-08-25,3,6,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90614,CASE-71633,ACC-1125,Strategic,EMEA,2026-08-13,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90615,CASE-71634,ACC-1125,Strategic,EMEA,2026-08-06,5,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90616,CASE-71635,ACC-1125,Strategic,EMEA,2026-07-14,3,8,Passive,Got there eventually.,Slow response
+SVY-90617,CASE-71642,ACC-1128,Mid-Market,EMEA,2026-04-11,2,5,Detractor,Three days for a config answer.,Docs unclear
+SVY-90618,CASE-71646,ACC-1128,Mid-Market,EMEA,2026-05-19,5,8,Promoter,Fast and clear.,Expertise
+SVY-90619,CASE-71648,ACC-1128,Mid-Market,EMEA,2026-08-11,3,6,Passive,Got there eventually.,Slow response
+SVY-90620,CASE-71651,ACC-1128,Mid-Market,EMEA,2026-04-27,5,10,Promoter,Fast and clear.,Speed
+SVY-90621,CASE-71655,ACC-1129,Self-Serve,APAC,2026-05-29,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90622,CASE-71660,ACC-1130,SMB,LATAM,2025-10-05,3,7,Passive,"Answer was fine, took a while.",Unresolved
+SVY-90623,CASE-71662,ACC-1130,SMB,LATAM,2025-05-20,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90624,CASE-71663,ACC-1130,SMB,LATAM,2025-09-13,3,8,Passive,"Answer was fine, took a while.",Slow response
+SVY-90625,CASE-71668,ACC-1132,SMB,AMER,2026-09-22,5,9,Promoter,Fixed on the first reply.,Expertise
+SVY-90626,CASE-71669,ACC-1132,SMB,AMER,2026-08-23,4,7,Promoter,Engineer knew the product cold.,Proactive
+SVY-90627,CASE-71670,ACC-1132,SMB,AMER,2026-09-19,4,8,Promoter,Fast and clear.,Speed
+SVY-90628,CASE-71675,ACC-1133,Mid-Market,APAC,2026-04-08,5,10,Promoter,Fixed on the first reply.,Expertise
+SVY-90629,CASE-71676,ACC-1133,Mid-Market,APAC,2025-10-06,5,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90630,CASE-71679,ACC-1133,Mid-Market,APAC,2025-06-18,2,4,Detractor,Three days for a config answer.,Unresolved
+SVY-90631,CASE-71687,ACC-1133,Mid-Market,APAC,2026-07-13,4,7,Promoter,Fast and clear.,Expertise
+SVY-90632,CASE-71689,ACC-1133,Mid-Market,APAC,2026-05-25,5,9,Promoter,Fast and clear.,Speed
+SVY-90633,CASE-71690,ACC-1133,Mid-Market,APAC,2025-04-27,1,3,Detractor,Still not really fixed.,Unresolved
+SVY-90634,CASE-71693,ACC-1133,Mid-Market,APAC,2026-07-31,1,4,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90635,CASE-71694,ACC-1133,Mid-Market,APAC,2025-05-25,4,9,Promoter,Fixed on the first reply.,Speed
+SVY-90636,CASE-71701,ACC-1134,SMB,EMEA,2026-01-08,4,9,Promoter,Fast and clear.,Expertise
+SVY-90637,CASE-71703,ACC-1134,SMB,EMEA,2025-02-22,1,2,Detractor,Three days for a config answer.,Slow response
+SVY-90638,CASE-71706,ACC-1134,SMB,EMEA,2026-03-01,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90639,CASE-71707,ACC-1134,SMB,EMEA,2025-03-30,3,7,Passive,Got there eventually.,Docs unclear
+SVY-90640,CASE-71716,ACC-1135,Enterprise,EMEA,2026-06-13,4,7,Promoter,Fixed on the first reply.,Expertise
+SVY-90641,CASE-71723,ACC-1135,Enterprise,EMEA,2026-09-18,4,8,Promoter,Fixed on the first reply.,Proactive
+SVY-90642,CASE-71728,ACC-1135,Enterprise,EMEA,2026-05-21,5,10,Promoter,Engineer knew the product cold.,Expertise
+SVY-90643,CASE-71729,ACC-1137,Mid-Market,APAC,2025-06-29,1,1,Detractor,Still not really fixed.,Unresolved
+SVY-90644,CASE-71730,ACC-1137,Mid-Market,APAC,2026-07-16,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90645,CASE-71731,ACC-1137,Mid-Market,APAC,2026-09-17,2,4,Detractor,Had to explain the problem twice.,Docs unclear
+SVY-90646,CASE-71732,ACC-1137,Mid-Market,APAC,2025-08-22,3,4,Passive,"Answer was fine, took a while.",Repeated handoffs
+SVY-90647,CASE-71733,ACC-1137,Mid-Market,APAC,2025-09-10,5,10,Promoter,Fixed on the first reply.,Proactive
+SVY-90648,CASE-71734,ACC-1137,Mid-Market,APAC,2025-05-18,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90649,CASE-71735,ACC-1137,Mid-Market,APAC,2025-08-30,5,9,Promoter,Fixed on the first reply.,Proactive
+SVY-90650,CASE-71737,ACC-1138,Self-Serve,AMER,2025-06-27,3,6,Passive,Got there eventually.,Docs unclear
+SVY-90651,CASE-71740,ACC-1139,Enterprise,AMER,2025-08-31,2,4,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90652,CASE-71741,ACC-1139,Enterprise,AMER,2026-09-14,2,6,Detractor,Three days for a config answer.,Unresolved
+SVY-90653,CASE-71742,ACC-1139,Enterprise,AMER,2026-07-01,3,6,Passive,Got there eventually.,Unresolved
+SVY-90654,CASE-71748,ACC-1139,Enterprise,AMER,2025-06-06,2,6,Detractor,Three days for a config answer.,Slow response
+SVY-90655,CASE-71750,ACC-1139,Enterprise,AMER,2025-09-08,2,3,Detractor,Had to explain the problem twice.,Docs unclear
+SVY-90656,CASE-71751,ACC-1139,Enterprise,AMER,2026-03-23,5,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90657,CASE-71752,ACC-1139,Enterprise,AMER,2026-01-07,5,9,Promoter,Fixed on the first reply.,Speed
+SVY-90658,CASE-71754,ACC-1139,Enterprise,AMER,2025-08-02,3,5,Passive,"Answer was fine, took a while.",Slow response
+SVY-90659,CASE-71758,ACC-1139,Enterprise,AMER,2025-08-12,4,8,Promoter,Engineer knew the product cold.,Speed
+SVY-90660,CASE-71759,ACC-1139,Enterprise,AMER,2026-05-06,5,9,Promoter,Engineer knew the product cold.,Expertise
+SVY-90661,CASE-71766,ACC-1139,Enterprise,AMER,2025-07-26,3,8,Passive,Got there eventually.,Unresolved
+SVY-90662,CASE-71768,ACC-1139,Enterprise,AMER,2025-10-19,4,7,Promoter,Engineer knew the product cold.,Expertise
+SVY-90663,CASE-71769,ACC-1139,Enterprise,AMER,2025-09-15,5,10,Promoter,Engineer knew the product cold.,Speed
+SVY-90664,CASE-71770,ACC-1139,Enterprise,AMER,2025-09-21,4,8,Promoter,Fixed on the first reply.,Speed
+SVY-90665,CASE-71771,ACC-1139,Enterprise,AMER,2025-07-09,2,3,Detractor,Still not really fixed.,Repeated handoffs
+SVY-90666,CASE-71776,ACC-1139,Enterprise,AMER,2025-11-17,5,10,Promoter,Fast and clear.,Expertise

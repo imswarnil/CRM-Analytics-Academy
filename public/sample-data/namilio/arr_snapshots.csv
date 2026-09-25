@@ -1,0 +1,1580 @@
+Month,MonthEnd,AccountId,AccountName,Segment,Motion,Region,Industry,OpeningARR,NewARR,ExpansionARR,ContractionARR,ChurnedARR,NetNewARR,ClosingARR,MovementType,IsActive,HealthScore,CSMOwnerId
+2025-04,2025-04-30,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-05,2025-05-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-06,2025-06-30,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-07,2025-07-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-08,2025-08-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-09,2025-09-30,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,0,34900,0,0,0,34900,34900,New,true,61,U-040
+2025-10,2025-10-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,34900,0,0,0,0,0,34900,Flat,true,61,U-040
+2025-11,2025-11-30,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,34900,0,0,0,0,0,34900,Flat,true,61,U-040
+2025-12,2025-12-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,34900,0,0,0,0,0,34900,Flat,true,61,U-040
+2026-01,2026-01-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,34900,0,0,0,0,0,34900,Flat,true,61,U-040
+2026-02,2026-02-28,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,34900,0,0,0,0,0,34900,Flat,true,61,U-040
+2026-03,2026-03-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,34900,0,0,0,0,0,34900,Flat,true,61,U-040
+2026-04,2026-04-30,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,34900,40900,22700,0,0,63600,98500,New,true,61,U-040
+2026-05,2026-05-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,98500,0,0,0,0,0,98500,Flat,true,61,U-040
+2026-06,2026-06-30,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,98500,0,0,0,0,0,98500,Flat,true,61,U-040
+2026-07,2026-07-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,98500,0,0,0,0,0,98500,Flat,true,61,U-040
+2026-08,2026-08-31,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,98500,0,0,0,0,0,98500,Flat,true,61,U-040
+2026-09,2026-09-30,ACC-1000,Sable Pay,SMB,Sales-Assisted,LATAM,EdTech,98500,34800,0,0,0,34800,133300,New,true,61,U-040
+2025-04,2025-04-30,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2025-05,2025-05-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2025-06,2025-06-30,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2025-07,2025-07-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2025-08,2025-08-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2025-09,2025-09-30,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2025-10,2025-10-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2025-11,2025-11-30,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2025-12,2025-12-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,47,
+2026-01,2026-01-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,0,12300,0,0,0,12300,12300,New,true,47,
+2026-02,2026-02-28,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,12300,0,0,0,0,0,12300,Flat,true,47,
+2026-03,2026-03-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,12300,0,0,0,0,0,12300,Flat,true,47,
+2026-04,2026-04-30,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,12300,0,0,0,0,0,12300,Flat,true,47,
+2026-05,2026-05-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,12300,0,0,0,0,0,12300,Flat,true,47,
+2026-06,2026-06-30,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,12300,0,0,-2520,0,-2520,9780,Contraction,true,47,
+2026-07,2026-07-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,9780,0,0,0,0,0,9780,Flat,true,47,
+2026-08,2026-08-31,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,9780,0,0,0,0,0,9780,Flat,true,47,
+2026-09,2026-09-30,ACC-1001,Dovetail Labs,Self-Serve,PLG,EMEA,E-commerce,9780,0,0,0,0,0,9780,Flat,true,47,
+2025-04,2025-04-30,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2025-05,2025-05-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2025-06,2025-06-30,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2025-07,2025-07-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2025-08,2025-08-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2025-09,2025-09-30,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2025-10,2025-10-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2025-11,2025-11-30,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2025-12,2025-12-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-01,2026-01-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-02,2026-02-28,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-03,2026-03-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-04,2026-04-30,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-05,2026-05-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-06,2026-06-30,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-07,2026-07-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-08,2026-08-31,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-09,2026-09-30,ACC-1002,Solstice Learning,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,98,U-039
+2026-04,2026-04-30,ACC-1003,Kestrel Travel,Self-Serve,PLG,APAC,Gaming,0,0,0,0,0,0,0,Flat,false,58,
+2026-05,2026-05-31,ACC-1003,Kestrel Travel,Self-Serve,PLG,APAC,Gaming,0,0,0,0,0,0,0,Flat,false,58,
+2026-06,2026-06-30,ACC-1003,Kestrel Travel,Self-Serve,PLG,APAC,Gaming,0,0,0,0,0,0,0,Flat,false,58,
+2026-07,2026-07-31,ACC-1003,Kestrel Travel,Self-Serve,PLG,APAC,Gaming,0,0,0,0,0,0,0,Flat,false,58,
+2026-08,2026-08-31,ACC-1003,Kestrel Travel,Self-Serve,PLG,APAC,Gaming,0,0,0,0,0,0,0,Flat,false,58,
+2026-09,2026-09-30,ACC-1003,Kestrel Travel,Self-Serve,PLG,APAC,Gaming,0,0,0,0,0,0,0,Flat,false,58,
+2026-02,2026-02-28,ACC-1004,Kestrel Gaming,SMB,Sales-Assisted,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,43,U-040
+2026-03,2026-03-31,ACC-1004,Kestrel Gaming,SMB,Sales-Assisted,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,43,U-040
+2026-04,2026-04-30,ACC-1004,Kestrel Gaming,SMB,Sales-Assisted,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,43,U-040
+2026-05,2026-05-31,ACC-1004,Kestrel Gaming,SMB,Sales-Assisted,EMEA,Healthcare,0,43700,0,0,0,43700,43700,New,true,43,U-040
+2026-06,2026-06-30,ACC-1004,Kestrel Gaming,SMB,Sales-Assisted,EMEA,Healthcare,43700,0,0,0,0,0,43700,Flat,true,43,U-040
+2026-07,2026-07-31,ACC-1004,Kestrel Gaming,SMB,Sales-Assisted,EMEA,Healthcare,43700,0,0,-7916,0,-7916,35784,Contraction,true,43,U-040
+2026-08,2026-08-31,ACC-1004,Kestrel Gaming,SMB,Sales-Assisted,EMEA,Healthcare,35784,0,0,0,0,0,35784,Flat,true,43,U-040
+2026-09,2026-09-30,ACC-1004,Kestrel Gaming,SMB,Sales-Assisted,EMEA,Healthcare,35784,9700,0,0,0,9700,45484,New,true,43,U-040
+2025-04,2025-04-30,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,89,U-035
+2025-05,2025-05-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,89,U-035
+2025-06,2025-06-30,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,89,U-035
+2025-07,2025-07-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,89,U-035
+2025-08,2025-08-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,89,U-035
+2025-09,2025-09-30,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,89,U-035
+2025-10,2025-10-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,0,0,33600,0,0,33600,33600,Expansion,true,89,U-035
+2025-11,2025-11-30,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2025-12,2025-12-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-01,2026-01-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-02,2026-02-28,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-03,2026-03-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-04,2026-04-30,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-05,2026-05-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-06,2026-06-30,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-07,2026-07-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-08,2026-08-31,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2026-09,2026-09-30,ACC-1005,Pallas Digital,Enterprise,Sales-Led,AMER,Insurance,33600,0,0,0,0,0,33600,Flat,true,89,U-035
+2025-04,2025-04-30,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,43,
+2025-05,2025-05-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,43,
+2025-06,2025-06-30,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,43,
+2025-07,2025-07-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,43,
+2025-08,2025-08-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,43,
+2025-09,2025-09-30,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,43,
+2025-10,2025-10-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,43,
+2025-11,2025-11-30,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,0,12600,0,0,0,12600,12600,New,true,43,
+2025-12,2025-12-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,12600,0,0,0,0,0,12600,Flat,true,43,
+2026-01,2026-01-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,12600,0,0,0,0,0,12600,Flat,true,43,
+2026-02,2026-02-28,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,12600,0,0,0,0,0,12600,Flat,true,43,
+2026-03,2026-03-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,12600,0,0,-3235,0,-3235,9365,Contraction,true,43,
+2026-04,2026-04-30,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,9365,0,0,0,0,0,9365,Flat,true,43,
+2026-05,2026-05-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,9365,0,0,0,0,0,9365,Flat,true,43,
+2026-06,2026-06-30,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,9365,0,0,0,0,0,9365,Flat,true,43,
+2026-07,2026-07-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,9365,0,0,0,0,0,9365,Flat,true,43,
+2026-08,2026-08-31,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,9365,0,0,0,0,0,9365,Flat,true,43,
+2026-09,2026-09-30,ACC-1006,Lattice Works,Self-Serve,PLG,AMER,Gaming,9365,0,0,0,0,0,9365,Flat,true,43,
+2025-05,2025-05-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,0,0,0,0,0,Flat,false,68,U-040
+2025-06,2025-06-30,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,0,0,0,0,0,Flat,false,68,U-040
+2025-07,2025-07-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,0,0,0,0,0,Flat,false,68,U-040
+2025-08,2025-08-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,0,0,0,0,0,Flat,false,68,U-040
+2025-09,2025-09-30,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,0,0,0,0,0,Flat,false,68,U-040
+2025-10,2025-10-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,0,0,0,0,0,Flat,false,68,U-040
+2025-11,2025-11-30,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,0,0,0,0,0,Flat,false,68,U-040
+2025-12,2025-12-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,0,0,0,0,0,Flat,false,68,U-040
+2026-01,2026-01-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,0,0,500200,0,0,500200,500200,Expansion,true,68,U-040
+2026-02,2026-02-28,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,500200,0,0,0,0,0,500200,Flat,true,68,U-040
+2026-03,2026-03-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,500200,0,0,0,0,0,500200,Flat,true,68,U-040
+2026-04,2026-04-30,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,500200,0,386200,0,0,386200,886400,Expansion,true,68,U-040
+2026-05,2026-05-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,886400,0,0,0,0,0,886400,Flat,true,68,U-040
+2026-06,2026-06-30,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,886400,179600,0,0,0,179600,1066000,New,true,68,U-040
+2026-07,2026-07-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,1066000,0,0,0,0,0,1066000,Flat,true,68,U-040
+2026-08,2026-08-31,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,1066000,0,0,0,0,0,1066000,Flat,true,68,U-040
+2026-09,2026-09-30,ACC-1007,Onyx Retail,Enterprise,Sales-Led,APAC,Healthcare,1066000,0,0,0,0,0,1066000,Flat,true,68,U-040
+2025-08,2025-08-31,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,0,43500,0,0,0,43500,43500,New,true,75,U-035
+2025-09,2025-09-30,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,43500,0,0,0,0,0,43500,Flat,true,75,U-035
+2025-10,2025-10-31,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,43500,0,10000,0,0,10000,53500,Expansion,true,75,U-035
+2025-11,2025-11-30,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2025-12,2025-12-31,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-01,2026-01-31,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-02,2026-02-28,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-03,2026-03-31,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-04,2026-04-30,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-05,2026-05-31,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-06,2026-06-30,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-07,2026-07-31,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-08,2026-08-31,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2026-09,2026-09-30,ACC-1008,Wexler Learning,SMB,Sales-Assisted,AMER,Healthcare,53500,0,0,0,0,0,53500,Flat,true,75,U-035
+2025-04,2025-04-30,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,78,U-037
+2025-05,2025-05-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,78,U-037
+2025-06,2025-06-30,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,78,U-037
+2025-07,2025-07-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,78,U-037
+2025-08,2025-08-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,78,U-037
+2025-09,2025-09-30,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,0,718200,205000,0,0,923200,923200,New,true,78,U-037
+2025-10,2025-10-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,923200,0,0,0,0,0,923200,Flat,true,78,U-037
+2025-11,2025-11-30,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,923200,0,0,0,0,0,923200,Flat,true,78,U-037
+2025-12,2025-12-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,923200,0,0,0,0,0,923200,Flat,true,78,U-037
+2026-01,2026-01-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,923200,0,0,0,0,0,923200,Flat,true,78,U-037
+2026-02,2026-02-28,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,923200,0,245200,0,0,245200,1168400,Expansion,true,78,U-037
+2026-03,2026-03-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,1168400,0,0,0,0,0,1168400,Flat,true,78,U-037
+2026-04,2026-04-30,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,1168400,0,0,0,0,0,1168400,Flat,true,78,U-037
+2026-05,2026-05-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,1168400,0,0,0,0,0,1168400,Flat,true,78,U-037
+2026-06,2026-06-30,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,1168400,0,0,0,0,0,1168400,Flat,true,78,U-037
+2026-07,2026-07-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,1168400,0,0,0,0,0,1168400,Flat,true,78,U-037
+2026-08,2026-08-31,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,1168400,0,0,0,0,0,1168400,Flat,true,78,U-037
+2026-09,2026-09-30,ACC-1009,Quanta Labs,Enterprise,Sales-Led,EMEA,SaaS,1168400,0,0,0,0,0,1168400,Flat,true,78,U-037
+2026-07,2026-07-31,ACC-1010,North Learning,Mid-Market,Sales-Led,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,88,U-035
+2026-08,2026-08-31,ACC-1010,North Learning,Mid-Market,Sales-Led,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,88,U-035
+2026-09,2026-09-30,ACC-1010,North Learning,Mid-Market,Sales-Led,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,88,U-035
+2025-04,2025-04-30,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2025-05,2025-05-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2025-06,2025-06-30,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2025-07,2025-07-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2025-08,2025-08-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2025-09,2025-09-30,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2025-10,2025-10-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2025-11,2025-11-30,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2025-12,2025-12-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2026-01,2026-01-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2026-02,2026-02-28,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2026-03,2026-03-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2026-04,2026-04-30,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,47,U-034
+2026-05,2026-05-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,0,30200,0,0,0,30200,30200,New,true,47,U-034
+2026-06,2026-06-30,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,30200,0,0,0,0,0,30200,Flat,true,47,U-034
+2026-07,2026-07-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,30200,0,0,0,0,0,30200,Flat,true,47,U-034
+2026-08,2026-08-31,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,30200,0,0,0,0,0,30200,Flat,true,47,U-034
+2026-09,2026-09-30,ACC-1011,Harbor Works,SMB,Sales-Assisted,AMER,Fintech,30200,0,0,0,0,0,30200,Flat,true,47,U-034
+2025-04,2025-04-30,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2025-05,2025-05-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2025-06,2025-06-30,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2025-07,2025-07-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2025-08,2025-08-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2025-09,2025-09-30,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2025-10,2025-10-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2025-11,2025-11-30,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2025-12,2025-12-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2026-01,2026-01-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2026-02,2026-02-28,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2026-03,2026-03-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,64,U-037
+2026-04,2026-04-30,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,0,165800,0,0,0,165800,165800,New,true,64,U-037
+2026-05,2026-05-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,165800,0,0,0,0,0,165800,Flat,true,64,U-037
+2026-06,2026-06-30,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,165800,0,0,0,0,0,165800,Flat,true,64,U-037
+2026-07,2026-07-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,165800,0,0,0,0,0,165800,Flat,true,64,U-037
+2026-08,2026-08-31,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,165800,110700,0,0,0,110700,276500,New,true,64,U-037
+2026-09,2026-09-30,ACC-1012,Tundra Mobility,Mid-Market,Sales-Led,AMER,Gaming,276500,65200,0,0,0,65200,341700,New,true,64,U-037
+2025-04,2025-04-30,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,28,
+2025-05,2025-05-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,28,
+2025-06,2025-06-30,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,28,
+2025-07,2025-07-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,28,
+2025-08,2025-08-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,0,13300,0,0,0,13300,13300,New,true,28,
+2025-09,2025-09-30,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,13300,0,0,0,0,0,13300,Flat,true,28,
+2025-10,2025-10-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,13300,0,0,0,0,0,13300,Flat,true,28,
+2025-11,2025-11-30,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,13300,0,0,0,0,0,13300,Flat,true,28,
+2025-12,2025-12-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,13300,0,0,0,0,0,13300,Flat,true,28,
+2026-01,2026-01-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,13300,0,0,0,0,0,13300,Flat,true,28,
+2026-02,2026-02-28,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,13300,0,0,0,0,0,13300,Flat,true,28,
+2026-03,2026-03-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,13300,0,6500,0,0,6500,19800,Expansion,true,28,
+2026-04,2026-04-30,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,19800,0,0,0,0,0,19800,Flat,true,28,
+2026-05,2026-05-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,19800,0,0,0,0,0,19800,Flat,true,28,
+2026-06,2026-06-30,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,19800,0,0,0,0,0,19800,Flat,true,28,
+2026-07,2026-07-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,19800,0,0,0,0,0,19800,Flat,true,28,
+2026-08,2026-08-31,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,19800,0,0,0,0,0,19800,Flat,true,28,
+2026-09,2026-09-30,ACC-1014,Lumen Technologies,Self-Serve,PLG,EMEA,SaaS,19800,0,0,0,0,0,19800,Flat,true,28,
+2025-08,2025-08-31,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2025-09,2025-09-30,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2025-10,2025-10-31,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2025-11,2025-11-30,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2025-12,2025-12-31,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-01,2026-01-31,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-02,2026-02-28,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-03,2026-03-31,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-04,2026-04-30,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-05,2026-05-31,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-06,2026-06-30,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-07,2026-07-31,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-08,2026-08-31,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-09,2026-09-30,ACC-1015,Umbra Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-038
+2026-03,2026-03-31,ACC-1016,Tundra Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,93,
+2026-04,2026-04-30,ACC-1016,Tundra Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,93,
+2026-05,2026-05-31,ACC-1016,Tundra Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,93,
+2026-06,2026-06-30,ACC-1016,Tundra Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,93,
+2026-07,2026-07-31,ACC-1016,Tundra Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,93,
+2026-08,2026-08-31,ACC-1016,Tundra Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,93,
+2026-09,2026-09-30,ACC-1016,Tundra Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,93,
+2025-04,2025-04-30,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2025-05,2025-05-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2025-06,2025-06-30,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2025-07,2025-07-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2025-08,2025-08-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2025-09,2025-09-30,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2025-10,2025-10-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2025-11,2025-11-30,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2025-12,2025-12-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2026-01,2026-01-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,78,U-036
+2026-02,2026-02-28,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,0,88500,0,0,0,88500,88500,New,true,78,U-036
+2026-03,2026-03-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,88500,0,0,0,0,0,88500,Flat,true,78,U-036
+2026-04,2026-04-30,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,88500,0,0,0,0,0,88500,Flat,true,78,U-036
+2026-05,2026-05-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,88500,0,0,0,0,0,88500,Flat,true,78,U-036
+2026-06,2026-06-30,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,88500,98900,0,0,0,98900,187400,New,true,78,U-036
+2026-07,2026-07-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,187400,0,0,0,0,0,187400,Flat,true,78,U-036
+2026-08,2026-08-31,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,187400,0,0,0,0,0,187400,Flat,true,78,U-036
+2026-09,2026-09-30,ACC-1017,Dovetail Gaming,Mid-Market,Sales-Led,AMER,EdTech,187400,0,0,0,0,0,187400,Flat,true,78,U-036
+2026-07,2026-07-31,ACC-1019,Tundra Systems,SMB,Sales-Assisted,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,81,U-038
+2026-08,2026-08-31,ACC-1019,Tundra Systems,SMB,Sales-Assisted,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,81,U-038
+2026-09,2026-09-30,ACC-1019,Tundra Systems,SMB,Sales-Assisted,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,81,U-038
+2025-12,2025-12-31,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-01,2026-01-31,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-02,2026-02-28,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-03,2026-03-31,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-04,2026-04-30,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-05,2026-05-31,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-06,2026-06-30,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-07,2026-07-31,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-08,2026-08-31,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2026-09,2026-09-30,ACC-1020,Wexler Health,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,30,
+2025-10,2025-10-31,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2025-11,2025-11-30,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2025-12,2025-12-31,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-01,2026-01-31,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-02,2026-02-28,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-03,2026-03-31,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-04,2026-04-30,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-05,2026-05-31,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-06,2026-06-30,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-07,2026-07-31,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-08,2026-08-31,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-09,2026-09-30,ACC-1022,Onyx Health,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,80,U-039
+2026-04,2026-04-30,ACC-1023,Sable Mobility,Strategic,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,63,U-034
+2026-05,2026-05-31,ACC-1023,Sable Mobility,Strategic,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,63,U-034
+2026-06,2026-06-30,ACC-1023,Sable Mobility,Strategic,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,63,U-034
+2026-07,2026-07-31,ACC-1023,Sable Mobility,Strategic,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,63,U-034
+2026-08,2026-08-31,ACC-1023,Sable Mobility,Strategic,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,63,U-034
+2026-09,2026-09-30,ACC-1023,Sable Mobility,Strategic,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,63,U-034
+2025-04,2025-04-30,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,93,U-038
+2025-05,2025-05-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,93,U-038
+2025-06,2025-06-30,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,93,U-038
+2025-07,2025-07-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,93,U-038
+2025-08,2025-08-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,0,0,8500,0,0,8500,8500,Expansion,true,93,U-038
+2025-09,2025-09-30,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,0,0,0,0,0,8500,Flat,true,93,U-038
+2025-10,2025-10-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,0,0,0,0,0,8500,Flat,true,93,U-038
+2025-11,2025-11-30,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,0,0,0,0,0,8500,Flat,true,93,U-038
+2025-12,2025-12-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,0,0,0,0,0,8500,Flat,true,93,U-038
+2026-01,2026-01-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,0,0,0,0,0,8500,Flat,true,93,U-038
+2026-02,2026-02-28,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,0,0,0,0,0,8500,Flat,true,93,U-038
+2026-03,2026-03-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,0,0,0,0,0,8500,Flat,true,93,U-038
+2026-04,2026-04-30,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,0,0,0,0,0,8500,Flat,true,93,U-038
+2026-05,2026-05-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,8500,32100,0,0,0,32100,40600,New,true,93,U-038
+2026-06,2026-06-30,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,40600,0,0,0,0,0,40600,Flat,true,93,U-038
+2026-07,2026-07-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,40600,0,0,0,0,0,40600,Flat,true,93,U-038
+2026-08,2026-08-31,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,40600,0,0,0,0,0,40600,Flat,true,93,U-038
+2026-09,2026-09-30,ACC-1024,Dovetail Health,SMB,Sales-Assisted,EMEA,E-commerce,40600,0,0,0,0,0,40600,Flat,true,93,U-038
+2026-06,2026-06-30,ACC-1026,Orbital Health,SMB,Sales-Assisted,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-07,2026-07-31,ACC-1026,Orbital Health,SMB,Sales-Assisted,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-08,2026-08-31,ACC-1026,Orbital Health,SMB,Sales-Assisted,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-09,2026-09-30,ACC-1026,Orbital Health,SMB,Sales-Assisted,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-04,2025-04-30,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-05,2025-05-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-06,2025-06-30,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-07,2025-07-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,0,0,564400,0,0,564400,564400,Expansion,true,60,U-037
+2025-08,2025-08-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,564400,0,0,0,0,0,564400,Flat,true,60,U-037
+2025-09,2025-09-30,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,564400,0,0,0,0,0,564400,Flat,true,60,U-037
+2025-10,2025-10-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,564400,0,0,0,0,0,564400,Flat,true,60,U-037
+2025-11,2025-11-30,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,564400,0,0,0,0,0,564400,Flat,true,60,U-037
+2025-12,2025-12-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,564400,677400,0,0,0,677400,1241800,New,true,60,U-037
+2026-01,2026-01-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,0,0,0,0,0,1241800,Flat,true,60,U-037
+2026-02,2026-02-28,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,0,0,0,0,0,1241800,Flat,true,60,U-037
+2026-03,2026-03-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,0,0,0,0,0,1241800,Flat,true,60,U-037
+2026-04,2026-04-30,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,0,0,0,0,0,1241800,Flat,true,60,U-037
+2026-05,2026-05-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,0,0,0,0,0,1241800,Flat,true,60,U-037
+2026-06,2026-06-30,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,0,0,0,0,0,1241800,Flat,true,60,U-037
+2026-07,2026-07-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,0,0,0,0,0,1241800,Flat,true,60,U-037
+2026-08,2026-08-31,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,0,0,0,0,0,1241800,Flat,true,60,U-037
+2026-09,2026-09-30,ACC-1027,Quanta Digital,Enterprise,Sales-Led,EMEA,Gaming,1241800,828200,0,0,0,828200,2070000,New,true,60,U-037
+2025-04,2025-04-30,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,75,U-036
+2025-05,2025-05-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,75,U-036
+2025-06,2025-06-30,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,75,U-036
+2025-07,2025-07-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,75,U-036
+2025-08,2025-08-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,75,U-036
+2025-09,2025-09-30,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,75,U-036
+2025-10,2025-10-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,75,U-036
+2025-11,2025-11-30,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,0,128400,0,0,0,128400,128400,New,true,75,U-036
+2025-12,2025-12-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,128400,0,0,0,0,0,128400,Flat,true,75,U-036
+2026-01,2026-01-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,128400,0,0,0,0,0,128400,Flat,true,75,U-036
+2026-02,2026-02-28,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,128400,74300,0,0,0,74300,202700,New,true,75,U-036
+2026-03,2026-03-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,202700,0,0,0,0,0,202700,Flat,true,75,U-036
+2026-04,2026-04-30,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,202700,0,0,0,0,0,202700,Flat,true,75,U-036
+2026-05,2026-05-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,202700,0,0,0,0,0,202700,Flat,true,75,U-036
+2026-06,2026-06-30,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,202700,0,0,0,0,0,202700,Flat,true,75,U-036
+2026-07,2026-07-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,202700,0,0,0,0,0,202700,Flat,true,75,U-036
+2026-08,2026-08-31,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,202700,0,0,0,0,0,202700,Flat,true,75,U-036
+2026-09,2026-09-30,ACC-1028,Tundra Care,Mid-Market,Sales-Led,EMEA,Gaming,202700,0,0,0,0,0,202700,Flat,true,75,U-036
+2025-08,2025-08-31,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,73,
+2025-09,2025-09-30,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,73,
+2025-10,2025-10-31,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,73,
+2025-11,2025-11-30,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,73,
+2025-12,2025-12-31,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,73,
+2026-01,2026-01-31,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,73,
+2026-02,2026-02-28,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,73,
+2026-03,2026-03-31,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,73,
+2026-04,2026-04-30,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,0,3800,0,0,0,3800,3800,New,true,73,
+2026-05,2026-05-31,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,3800,0,0,0,0,0,3800,Flat,true,73,
+2026-06,2026-06-30,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,3800,0,0,0,0,0,3800,Flat,true,73,
+2026-07,2026-07-31,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,3800,0,0,0,0,0,3800,Flat,true,73,
+2026-08,2026-08-31,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,3800,0,0,0,0,0,3800,Flat,true,73,
+2026-09,2026-09-30,ACC-1030,Cobalt Works,Self-Serve,PLG,APAC,Public Sector,3800,0,0,0,0,0,3800,Flat,true,73,
+2025-04,2025-04-30,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,94,U-036
+2025-05,2025-05-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,94,U-036
+2025-06,2025-06-30,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,94,U-036
+2025-07,2025-07-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,94,U-036
+2025-08,2025-08-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,94,U-036
+2025-09,2025-09-30,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,94,U-036
+2025-10,2025-10-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,94,U-036
+2025-11,2025-11-30,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,0,17600,0,0,0,17600,17600,New,true,94,U-036
+2025-12,2025-12-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,17600,0,0,0,0,0,17600,Flat,true,94,U-036
+2026-01,2026-01-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,17600,0,0,0,0,0,17600,Flat,true,94,U-036
+2026-02,2026-02-28,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,17600,22700,0,0,0,22700,40300,New,true,94,U-036
+2026-03,2026-03-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,40300,0,0,0,0,0,40300,Flat,true,94,U-036
+2026-04,2026-04-30,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,40300,0,0,0,0,0,40300,Flat,true,94,U-036
+2026-05,2026-05-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,40300,0,0,0,0,0,40300,Flat,true,94,U-036
+2026-06,2026-06-30,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,40300,0,0,0,0,0,40300,Flat,true,94,U-036
+2026-07,2026-07-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,40300,0,0,0,0,0,40300,Flat,true,94,U-036
+2026-08,2026-08-31,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,40300,0,0,0,0,0,40300,Flat,true,94,U-036
+2026-09,2026-09-30,ACC-1031,Cobalt Learning,SMB,Sales-Assisted,AMER,E-commerce,40300,0,0,0,0,0,40300,Flat,true,94,U-036
+2026-04,2026-04-30,ACC-1032,Tundra Retail,Self-Serve,PLG,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,42,
+2026-05,2026-05-31,ACC-1032,Tundra Retail,Self-Serve,PLG,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,42,
+2026-06,2026-06-30,ACC-1032,Tundra Retail,Self-Serve,PLG,EMEA,Real Estate,0,7600,0,0,0,7600,7600,New,true,42,
+2026-07,2026-07-31,ACC-1032,Tundra Retail,Self-Serve,PLG,EMEA,Real Estate,7600,0,0,0,0,0,7600,Flat,true,42,
+2026-08,2026-08-31,ACC-1032,Tundra Retail,Self-Serve,PLG,EMEA,Real Estate,7600,13600,0,0,0,13600,21200,New,true,42,
+2026-09,2026-09-30,ACC-1032,Tundra Retail,Self-Serve,PLG,EMEA,Real Estate,21200,0,0,0,0,0,21200,Flat,true,42,
+2025-08,2025-08-31,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2025-09,2025-09-30,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2025-10,2025-10-31,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2025-11,2025-11-30,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2025-12,2025-12-31,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-01,2026-01-31,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-02,2026-02-28,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-03,2026-03-31,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-04,2026-04-30,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-05,2026-05-31,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-06,2026-06-30,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-07,2026-07-31,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-08,2026-08-31,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2026-09,2026-09-30,ACC-1034,Sable Labs,Mid-Market,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,82,U-034
+2025-04,2025-04-30,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,76,U-035
+2025-05,2025-05-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,76,U-035
+2025-06,2025-06-30,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,76,U-035
+2025-07,2025-07-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,0,0,19200,0,0,19200,19200,Expansion,true,76,U-035
+2025-08,2025-08-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,19200,0,0,0,0,0,19200,Flat,true,76,U-035
+2025-09,2025-09-30,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,19200,0,0,0,0,0,19200,Flat,true,76,U-035
+2025-10,2025-10-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,19200,0,0,0,0,0,19200,Flat,true,76,U-035
+2025-11,2025-11-30,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,19200,25100,0,0,0,25100,44300,New,true,76,U-035
+2025-12,2025-12-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,44300,43400,0,0,0,43400,87700,New,true,76,U-035
+2026-01,2026-01-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,87700,0,0,0,0,0,87700,Flat,true,76,U-035
+2026-02,2026-02-28,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,87700,0,0,0,0,0,87700,Flat,true,76,U-035
+2026-03,2026-03-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,87700,0,0,0,0,0,87700,Flat,true,76,U-035
+2026-04,2026-04-30,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,87700,0,0,0,0,0,87700,Flat,true,76,U-035
+2026-05,2026-05-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,87700,41200,0,0,0,41200,128900,New,true,76,U-035
+2026-06,2026-06-30,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,128900,0,0,0,0,0,128900,Flat,true,76,U-035
+2026-07,2026-07-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,128900,0,0,0,0,0,128900,Flat,true,76,U-035
+2026-08,2026-08-31,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,128900,0,0,0,0,0,128900,Flat,true,76,U-035
+2026-09,2026-09-30,ACC-1035,Sable Digital,SMB,Sales-Assisted,EMEA,Travel,128900,0,0,0,0,0,128900,Flat,true,76,U-035
+2026-07,2026-07-31,ACC-1036,Tundra Market,Self-Serve,PLG,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,41,
+2026-08,2026-08-31,ACC-1036,Tundra Market,Self-Serve,PLG,EMEA,Telecom,0,0,600,0,0,600,600,Expansion,true,41,
+2026-09,2026-09-30,ACC-1036,Tundra Market,Self-Serve,PLG,EMEA,Telecom,600,0,0,0,0,0,600,Flat,true,41,
+2026-04,2026-04-30,ACC-1037,Sable Retail,Self-Serve,PLG,AMER,Gaming,0,2000,0,0,0,2000,2000,New,true,67,
+2026-05,2026-05-31,ACC-1037,Sable Retail,Self-Serve,PLG,AMER,Gaming,2000,0,0,0,0,0,2000,Flat,true,67,
+2026-06,2026-06-30,ACC-1037,Sable Retail,Self-Serve,PLG,AMER,Gaming,2000,2800,0,0,0,2800,4800,New,true,67,
+2026-07,2026-07-31,ACC-1037,Sable Retail,Self-Serve,PLG,AMER,Gaming,4800,0,0,0,0,0,4800,Flat,true,67,
+2026-08,2026-08-31,ACC-1037,Sable Retail,Self-Serve,PLG,AMER,Gaming,4800,0,0,0,0,0,4800,Flat,true,67,
+2026-09,2026-09-30,ACC-1037,Sable Retail,Self-Serve,PLG,AMER,Gaming,4800,0,0,0,0,0,4800,Flat,true,67,
+2025-04,2025-04-30,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,86,U-035
+2025-05,2025-05-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,86,U-035
+2025-06,2025-06-30,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,86,U-035
+2025-07,2025-07-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,86,U-035
+2025-08,2025-08-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,86,U-035
+2025-09,2025-09-30,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,86,U-035
+2025-10,2025-10-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,0,130800,0,0,0,130800,130800,New,true,86,U-035
+2025-11,2025-11-30,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,130800,160700,0,0,0,160700,291500,New,true,86,U-035
+2025-12,2025-12-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-01,2026-01-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-02,2026-02-28,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-03,2026-03-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-04,2026-04-30,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-05,2026-05-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-06,2026-06-30,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-07,2026-07-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-08,2026-08-31,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,0,0,0,0,0,291500,Flat,true,86,U-035
+2026-09,2026-09-30,ACC-1038,Kestrel Health,Mid-Market,Sales-Led,EMEA,Fintech,291500,110500,0,0,0,110500,402000,New,true,86,U-035
+2025-11,2025-11-30,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2025-12,2025-12-31,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-01,2026-01-31,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-02,2026-02-28,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-03,2026-03-31,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-04,2026-04-30,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-05,2026-05-31,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-06,2026-06-30,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-07,2026-07-31,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-08,2026-08-31,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2026-09,2026-09-30,ACC-1039,Vantage Pay,Enterprise,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,91,U-034
+2025-07,2025-07-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,0,0,0,0,0,0,0,Flat,false,64,U-036
+2025-08,2025-08-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,0,0,0,0,0,0,0,Flat,false,64,U-036
+2025-09,2025-09-30,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,0,0,0,0,0,0,0,Flat,false,64,U-036
+2025-10,2025-10-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,0,0,0,0,0,0,0,Flat,false,64,U-036
+2025-11,2025-11-30,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,0,0,0,0,0,0,0,Flat,false,64,U-036
+2025-12,2025-12-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,0,0,0,0,0,0,0,Flat,false,64,U-036
+2026-01,2026-01-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,0,159400,0,0,0,159400,159400,New,true,64,U-036
+2026-02,2026-02-28,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,159400,0,0,0,0,0,159400,Flat,true,64,U-036
+2026-03,2026-03-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,159400,0,0,0,0,0,159400,Flat,true,64,U-036
+2026-04,2026-04-30,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,159400,0,0,0,0,0,159400,Flat,true,64,U-036
+2026-05,2026-05-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,159400,0,0,0,0,0,159400,Flat,true,64,U-036
+2026-06,2026-06-30,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,159400,0,0,0,0,0,159400,Flat,true,64,U-036
+2026-07,2026-07-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,159400,0,0,0,0,0,159400,Flat,true,64,U-036
+2026-08,2026-08-31,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,159400,0,0,0,0,0,159400,Flat,true,64,U-036
+2026-09,2026-09-30,ACC-1041,Lumen Labs,Mid-Market,Sales-Led,APAC,Real Estate,159400,0,0,0,0,0,159400,Flat,true,64,U-036
+2025-04,2025-04-30,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-05,2025-05-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-06,2025-06-30,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-07,2025-07-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-08,2025-08-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-09,2025-09-30,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-10,2025-10-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-11,2025-11-30,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2025-12,2025-12-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-01,2026-01-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-02,2026-02-28,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-03,2026-03-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-04,2026-04-30,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-05,2026-05-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-037
+2026-06,2026-06-30,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,0,3169300,0,0,0,3169300,3169300,New,true,60,U-037
+2026-07,2026-07-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,3169300,0,0,0,0,0,3169300,Flat,true,60,U-037
+2026-08,2026-08-31,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,3169300,0,0,0,0,0,3169300,Flat,true,60,U-037
+2026-09,2026-09-30,ACC-1042,Lumen Freight,Strategic,Sales-Led,EMEA,Real Estate,3169300,0,0,0,0,0,3169300,Flat,true,60,U-037
+2025-06,2025-06-30,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-07,2025-07-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-08,2025-08-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-09,2025-09-30,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-10,2025-10-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-11,2025-11-30,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-12,2025-12-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-01,2026-01-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-02,2026-02-28,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-03,2026-03-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-04,2026-04-30,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-05,2026-05-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-06,2026-06-30,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-07,2026-07-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-08,2026-08-31,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-09,2026-09-30,ACC-1043,Lattice Market,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,69,U-040
+2026-05,2026-05-31,ACC-1046,Ember Care,Strategic,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,89,U-036
+2026-06,2026-06-30,ACC-1046,Ember Care,Strategic,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,89,U-036
+2026-07,2026-07-31,ACC-1046,Ember Care,Strategic,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,89,U-036
+2026-08,2026-08-31,ACC-1046,Ember Care,Strategic,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,89,U-036
+2026-09,2026-09-30,ACC-1046,Ember Care,Strategic,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,89,U-036
+2025-04,2025-04-30,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,43,U-036
+2025-05,2025-05-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,43,U-036
+2025-06,2025-06-30,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,0,30300,0,0,0,30300,30300,New,true,43,U-036
+2025-07,2025-07-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2025-08,2025-08-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2025-09,2025-09-30,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2025-10,2025-10-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2025-11,2025-11-30,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2025-12,2025-12-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-01,2026-01-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-02,2026-02-28,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-03,2026-03-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-04,2026-04-30,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-05,2026-05-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-06,2026-06-30,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-07,2026-07-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-08,2026-08-31,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2026-09,2026-09-30,ACC-1047,Foundry Works,SMB,Sales-Assisted,APAC,Logistics,30300,0,0,0,0,0,30300,Flat,true,43,U-036
+2025-04,2025-04-30,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-05,2025-05-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-06,2025-06-30,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-07,2025-07-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-08,2025-08-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-09,2025-09-30,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-10,2025-10-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-11,2025-11-30,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-12,2025-12-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-01,2026-01-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-02,2026-02-28,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-03,2026-03-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-04,2026-04-30,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-05,2026-05-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-06,2026-06-30,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-07,2026-07-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-08,2026-08-31,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2026-09,2026-09-30,ACC-1048,Lumen Digital,Mid-Market,Sales-Led,APAC,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-040
+2025-04,2025-04-30,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,66,U-040
+2025-05,2025-05-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,66,U-040
+2025-06,2025-06-30,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,66,U-040
+2025-07,2025-07-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,66,U-040
+2025-08,2025-08-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,66,U-040
+2025-09,2025-09-30,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,66,U-040
+2025-10,2025-10-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,66,U-040
+2025-11,2025-11-30,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,0,28500,0,0,0,28500,28500,New,true,66,U-040
+2025-12,2025-12-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-01,2026-01-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-02,2026-02-28,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-03,2026-03-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-04,2026-04-30,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-05,2026-05-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-06,2026-06-30,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-07,2026-07-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-08,2026-08-31,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-09,2026-09-30,ACC-1050,Lattice Digital,SMB,Sales-Assisted,AMER,Fintech,28500,0,0,0,0,0,28500,Flat,true,66,U-040
+2026-07,2026-07-31,ACC-1051,Cobalt Gaming,Self-Serve,PLG,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,79,
+2026-08,2026-08-31,ACC-1051,Cobalt Gaming,Self-Serve,PLG,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,79,
+2026-09,2026-09-30,ACC-1051,Cobalt Gaming,Self-Serve,PLG,AMER,E-commerce,0,0,1300,0,0,1300,1300,Expansion,true,79,
+2025-04,2025-04-30,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,0,0,0,0,0,0,0,Flat,false,93,U-040
+2025-05,2025-05-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,0,0,0,0,0,0,0,Flat,false,93,U-040
+2025-06,2025-06-30,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,0,0,0,0,0,0,0,Flat,false,93,U-040
+2025-07,2025-07-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,0,0,0,0,0,0,0,Flat,false,93,U-040
+2025-08,2025-08-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,0,0,0,0,0,0,0,Flat,false,93,U-040
+2025-09,2025-09-30,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,0,0,0,0,0,0,0,Flat,false,93,U-040
+2025-10,2025-10-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,0,0,18900,0,0,18900,18900,Expansion,true,93,U-040
+2025-11,2025-11-30,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2025-12,2025-12-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-01,2026-01-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-02,2026-02-28,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-03,2026-03-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-04,2026-04-30,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-05,2026-05-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-06,2026-06-30,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-07,2026-07-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-08,2026-08-31,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2026-09,2026-09-30,ACC-1052,Vertex Travel,SMB,Sales-Assisted,LATAM,Insurance,18900,0,0,0,0,0,18900,Flat,true,93,U-040
+2025-05,2025-05-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2025-06,2025-06-30,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2025-07,2025-07-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2025-08,2025-08-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2025-09,2025-09-30,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2025-10,2025-10-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2025-11,2025-11-30,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2025-12,2025-12-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2026-01,2026-01-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2026-02,2026-02-28,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2026-03,2026-03-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2026-04,2026-04-30,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2026-05,2026-05-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2026-06,2026-06-30,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,0,0,0,0,0,Flat,false,58,
+2026-07,2026-07-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,0,0,3200,0,0,3200,3200,Expansion,true,58,
+2026-08,2026-08-31,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,3200,0,0,0,0,0,3200,Flat,true,58,
+2026-09,2026-09-30,ACC-1053,Cinder Market,Self-Serve,PLG,LATAM,EdTech,3200,0,0,0,0,0,3200,Flat,true,58,
+2025-04,2025-04-30,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2025-05,2025-05-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2025-06,2025-06-30,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2025-07,2025-07-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2025-08,2025-08-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2025-09,2025-09-30,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2025-10,2025-10-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2025-11,2025-11-30,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2025-12,2025-12-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-036
+2026-01,2026-01-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,0,0,468200,0,0,468200,468200,Expansion,true,98,U-036
+2026-02,2026-02-28,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,468200,0,0,0,0,0,468200,Flat,true,98,U-036
+2026-03,2026-03-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,468200,0,0,0,0,0,468200,Flat,true,98,U-036
+2026-04,2026-04-30,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,468200,0,0,0,0,0,468200,Flat,true,98,U-036
+2026-05,2026-05-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,468200,0,0,0,0,0,468200,Flat,true,98,U-036
+2026-06,2026-06-30,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,468200,0,0,0,0,0,468200,Flat,true,98,U-036
+2026-07,2026-07-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,468200,0,0,0,0,0,468200,Flat,true,98,U-036
+2026-08,2026-08-31,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,468200,0,0,0,0,0,468200,Flat,true,98,U-036
+2026-09,2026-09-30,ACC-1054,Halcyon Digital,Enterprise,Sales-Led,AMER,Gaming,468200,0,0,0,0,0,468200,Flat,true,98,U-036
+2026-01,2026-01-31,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,49,U-034
+2026-02,2026-02-28,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,49,U-034
+2026-03,2026-03-31,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,49,U-034
+2026-04,2026-04-30,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,49,U-034
+2026-05,2026-05-31,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,0,16400,0,0,0,16400,16400,New,true,49,U-034
+2026-06,2026-06-30,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,16400,0,0,0,0,0,16400,Flat,true,49,U-034
+2026-07,2026-07-31,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,16400,0,0,0,0,0,16400,Flat,true,49,U-034
+2026-08,2026-08-31,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,16400,0,0,0,0,0,16400,Flat,true,49,U-034
+2026-09,2026-09-30,ACC-1055,Foundry Bank,SMB,Sales-Assisted,EMEA,Gaming,16400,0,0,0,0,0,16400,Flat,true,49,U-034
+2025-04,2025-04-30,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-05,2025-05-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-06,2025-06-30,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-07,2025-07-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-08,2025-08-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-09,2025-09-30,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-10,2025-10-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-11,2025-11-30,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,69,U-040
+2025-12,2025-12-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,0,34100,0,0,0,34100,34100,New,true,69,U-040
+2026-01,2026-01-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,34100,43800,0,0,0,43800,77900,New,true,69,U-040
+2026-02,2026-02-28,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,77900,0,0,0,0,0,77900,Flat,true,69,U-040
+2026-03,2026-03-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,77900,10300,0,0,0,10300,88200,New,true,69,U-040
+2026-04,2026-04-30,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,88200,0,0,0,0,0,88200,Flat,true,69,U-040
+2026-05,2026-05-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,88200,0,0,0,0,0,88200,Flat,true,69,U-040
+2026-06,2026-06-30,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,88200,0,0,0,0,0,88200,Flat,true,69,U-040
+2026-07,2026-07-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,88200,0,0,0,0,0,88200,Flat,true,69,U-040
+2026-08,2026-08-31,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,88200,0,0,0,0,0,88200,Flat,true,69,U-040
+2026-09,2026-09-30,ACC-1057,Ember Group,SMB,Sales-Assisted,AMER,EdTech,88200,0,0,0,0,0,88200,Flat,true,69,U-040
+2025-08,2025-08-31,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-09,2025-09-30,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-10,2025-10-31,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-11,2025-11-30,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-12,2025-12-31,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-01,2026-01-31,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-02,2026-02-28,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-03,2026-03-31,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-04,2026-04-30,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-05,2026-05-31,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-06,2026-06-30,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-07,2026-07-31,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-08,2026-08-31,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,0,32600,0,0,0,32600,32600,New,true,78,U-038
+2026-09,2026-09-30,ACC-1058,Wexler Gaming,SMB,Sales-Assisted,AMER,Gaming,32600,0,0,0,0,0,32600,Flat,true,78,U-038
+2026-02,2026-02-28,ACC-1059,Orbital Labs,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-03,2026-03-31,ACC-1059,Orbital Labs,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-04,2026-04-30,ACC-1059,Orbital Labs,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-05,2026-05-31,ACC-1059,Orbital Labs,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-06,2026-06-30,ACC-1059,Orbital Labs,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-07,2026-07-31,ACC-1059,Orbital Labs,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-08,2026-08-31,ACC-1059,Orbital Labs,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-09,2026-09-30,ACC-1059,Orbital Labs,Enterprise,Sales-Led,AMER,Insurance,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-04,2025-04-30,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2025-05,2025-05-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2025-06,2025-06-30,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2025-07,2025-07-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2025-08,2025-08-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2025-09,2025-09-30,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2025-10,2025-10-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2025-11,2025-11-30,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2025-12,2025-12-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2026-01,2026-01-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2026-02,2026-02-28,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2026-03,2026-03-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-034
+2026-04,2026-04-30,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,0,21500,0,0,0,21500,21500,New,true,88,U-034
+2026-05,2026-05-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,21500,0,0,0,0,0,21500,Flat,true,88,U-034
+2026-06,2026-06-30,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,21500,0,0,0,0,0,21500,Flat,true,88,U-034
+2026-07,2026-07-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,21500,0,0,0,0,0,21500,Flat,true,88,U-034
+2026-08,2026-08-31,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,21500,0,0,0,0,0,21500,Flat,true,88,U-034
+2026-09,2026-09-30,ACC-1060,Zephyr Health,SMB,Sales-Assisted,AMER,Telecom,21500,0,0,0,0,0,21500,Flat,true,88,U-034
+2025-04,2025-04-30,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-05,2025-05-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-06,2025-06-30,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-07,2025-07-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-08,2025-08-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-09,2025-09-30,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-10,2025-10-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-11,2025-11-30,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-12,2025-12-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-01,2026-01-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-02,2026-02-28,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-03,2026-03-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-04,2026-04-30,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-05,2026-05-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-06,2026-06-30,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-07,2026-07-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-08,2026-08-31,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2026-09,2026-09-30,ACC-1061,Rivet Market,Mid-Market,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-039
+2025-06,2025-06-30,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2025-07,2025-07-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2025-08,2025-08-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2025-09,2025-09-30,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2025-10,2025-10-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2025-11,2025-11-30,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,0,0,10100,0,0,10100,10100,Expansion,true,86,U-037
+2025-12,2025-12-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,10100,0,0,0,0,0,10100,Flat,true,86,U-037
+2026-01,2026-01-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,10100,0,0,0,0,0,10100,Flat,true,86,U-037
+2026-02,2026-02-28,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,10100,0,0,0,0,0,10100,Flat,true,86,U-037
+2026-03,2026-03-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,10100,0,0,0,0,0,10100,Flat,true,86,U-037
+2026-04,2026-04-30,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,10100,35600,0,0,0,35600,45700,New,true,86,U-037
+2026-05,2026-05-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,45700,0,0,0,0,0,45700,Flat,true,86,U-037
+2026-06,2026-06-30,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,45700,0,0,0,0,0,45700,Flat,true,86,U-037
+2026-07,2026-07-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,45700,0,0,0,0,0,45700,Flat,true,86,U-037
+2026-08,2026-08-31,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,45700,0,0,0,0,0,45700,Flat,true,86,U-037
+2026-09,2026-09-30,ACC-1062,Halcyon Works,SMB,Sales-Assisted,EMEA,E-commerce,45700,25200,0,0,0,25200,70900,New,true,86,U-037
+2025-04,2025-04-30,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2025-05,2025-05-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2025-06,2025-06-30,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2025-07,2025-07-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2025-08,2025-08-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2025-09,2025-09-30,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2025-10,2025-10-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2025-11,2025-11-30,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2025-12,2025-12-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2026-01,2026-01-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2026-02,2026-02-28,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,60,U-035
+2026-03,2026-03-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,0,0,55600,0,0,55600,55600,Expansion,true,60,U-035
+2026-04,2026-04-30,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,55600,0,0,0,0,0,55600,Flat,true,60,U-035
+2026-05,2026-05-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,55600,0,0,0,0,0,55600,Flat,true,60,U-035
+2026-06,2026-06-30,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,55600,0,0,0,0,0,55600,Flat,true,60,U-035
+2026-07,2026-07-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,55600,0,0,0,0,0,55600,Flat,true,60,U-035
+2026-08,2026-08-31,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,55600,0,0,0,0,0,55600,Flat,true,60,U-035
+2026-09,2026-09-30,ACC-1064,North Digital,Mid-Market,Sales-Led,EMEA,Travel,55600,0,0,0,0,0,55600,Flat,true,60,U-035
+2025-04,2025-04-30,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,87,U-036
+2025-05,2025-05-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,87,U-036
+2025-06,2025-06-30,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,87,U-036
+2025-07,2025-07-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,87,U-036
+2025-08,2025-08-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,0,13800,0,0,0,13800,13800,New,true,87,U-036
+2025-09,2025-09-30,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2025-10,2025-10-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2025-11,2025-11-30,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2025-12,2025-12-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-01,2026-01-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-02,2026-02-28,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-03,2026-03-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-04,2026-04-30,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-05,2026-05-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-06,2026-06-30,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-07,2026-07-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-08,2026-08-31,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2026-09,2026-09-30,ACC-1065,Halcyon Market,SMB,Sales-Assisted,AMER,Public Sector,13800,0,0,0,0,0,13800,Flat,true,87,U-036
+2025-04,2025-04-30,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,55,
+2025-05,2025-05-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,55,
+2025-06,2025-06-30,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,55,
+2025-07,2025-07-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,55,
+2025-08,2025-08-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,55,
+2025-09,2025-09-30,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,55,
+2025-10,2025-10-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,55,
+2025-11,2025-11-30,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,0,5900,0,0,0,5900,5900,New,true,55,
+2025-12,2025-12-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-01,2026-01-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-02,2026-02-28,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-03,2026-03-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-04,2026-04-30,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-05,2026-05-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-06,2026-06-30,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-07,2026-07-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-08,2026-08-31,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2026-09,2026-09-30,ACC-1066,Vertex Learning,Self-Serve,PLG,EMEA,E-commerce,5900,0,0,0,0,0,5900,Flat,true,55,
+2025-04,2025-04-30,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-037
+2025-05,2025-05-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-037
+2025-06,2025-06-30,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-037
+2025-07,2025-07-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,90,U-037
+2025-08,2025-08-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,0,0,299100,0,0,299100,299100,Expansion,true,90,U-037
+2025-09,2025-09-30,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2025-10,2025-10-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2025-11,2025-11-30,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2025-12,2025-12-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-01,2026-01-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-02,2026-02-28,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-03,2026-03-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-04,2026-04-30,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-05,2026-05-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-06,2026-06-30,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-07,2026-07-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-08,2026-08-31,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,0,0,0,0,0,299100,Flat,true,90,U-037
+2026-09,2026-09-30,ACC-1067,Dovetail Mobility,Strategic,Sales-Led,EMEA,Insurance,299100,1362000,0,0,0,1362000,1661100,New,true,90,U-037
+2025-09,2025-09-30,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2025-10,2025-10-31,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2025-11,2025-11-30,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2025-12,2025-12-31,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-01,2026-01-31,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-02,2026-02-28,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-03,2026-03-31,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-04,2026-04-30,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-05,2026-05-31,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-06,2026-06-30,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-07,2026-07-31,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-08,2026-08-31,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-09,2026-09-30,ACC-1070,Tundra Insure,SMB,Sales-Assisted,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,73,U-038
+2026-01,2026-01-31,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,0,172800,0,0,0,172800,172800,New,true,79,U-035
+2026-02,2026-02-28,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,172800,0,0,0,0,0,172800,Flat,true,79,U-035
+2026-03,2026-03-31,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,172800,0,0,0,0,0,172800,Flat,true,79,U-035
+2026-04,2026-04-30,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,172800,0,0,0,0,0,172800,Flat,true,79,U-035
+2026-05,2026-05-31,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,172800,0,0,0,0,0,172800,Flat,true,79,U-035
+2026-06,2026-06-30,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,172800,0,0,0,0,0,172800,Flat,true,79,U-035
+2026-07,2026-07-31,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,172800,0,0,0,0,0,172800,Flat,true,79,U-035
+2026-08,2026-08-31,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,172800,0,0,0,0,0,172800,Flat,true,79,U-035
+2026-09,2026-09-30,ACC-1071,Vertex Market,Mid-Market,Sales-Led,AMER,SaaS,172800,0,0,0,0,0,172800,Flat,true,79,U-035
+2026-05,2026-05-31,ACC-1072,Dovetail Works,SMB,Sales-Assisted,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,42,U-035
+2026-06,2026-06-30,ACC-1072,Dovetail Works,SMB,Sales-Assisted,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,42,U-035
+2026-07,2026-07-31,ACC-1072,Dovetail Works,SMB,Sales-Assisted,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,42,U-035
+2026-08,2026-08-31,ACC-1072,Dovetail Works,SMB,Sales-Assisted,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,42,U-035
+2026-09,2026-09-30,ACC-1072,Dovetail Works,SMB,Sales-Assisted,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,42,U-035
+2025-04,2025-04-30,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,44,U-040
+2025-05,2025-05-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,44,U-040
+2025-06,2025-06-30,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,44,U-040
+2025-07,2025-07-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,44,U-040
+2025-08,2025-08-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,44,U-040
+2025-09,2025-09-30,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,44,U-040
+2025-10,2025-10-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,44,U-040
+2025-11,2025-11-30,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,0,637600,0,0,0,637600,637600,New,true,44,U-040
+2025-12,2025-12-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,637600,0,0,0,0,0,637600,Flat,true,44,U-040
+2026-01,2026-01-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,637600,0,0,0,0,0,637600,Flat,true,44,U-040
+2026-02,2026-02-28,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,637600,0,0,0,0,0,637600,Flat,true,44,U-040
+2026-03,2026-03-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,637600,799500,0,0,0,799500,1437100,New,true,44,U-040
+2026-04,2026-04-30,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,1437100,0,0,0,0,0,1437100,Flat,true,44,U-040
+2026-05,2026-05-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,1437100,0,0,0,0,0,1437100,Flat,true,44,U-040
+2026-06,2026-06-30,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,1437100,0,0,0,0,0,1437100,Flat,true,44,U-040
+2026-07,2026-07-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,1437100,675500,0,0,0,675500,2112600,New,true,44,U-040
+2026-08,2026-08-31,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,2112600,0,0,0,0,0,2112600,Flat,true,44,U-040
+2026-09,2026-09-30,ACC-1073,Onyx Works,Enterprise,Sales-Led,EMEA,Fintech,2112600,0,0,0,0,0,2112600,Flat,true,44,U-040
+2025-04,2025-04-30,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-05,2025-05-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-06,2025-06-30,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-07,2025-07-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-08,2025-08-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-09,2025-09-30,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-10,2025-10-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-11,2025-11-30,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-12,2025-12-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-01,2026-01-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-02,2026-02-28,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-03,2026-03-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-04,2026-04-30,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-05,2026-05-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-06,2026-06-30,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-07,2026-07-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-08,2026-08-31,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2026-09,2026-09-30,ACC-1074,Aster Works,Strategic,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,80,U-035
+2025-04,2025-04-30,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2025-05,2025-05-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2025-06,2025-06-30,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2025-07,2025-07-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2025-08,2025-08-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2025-09,2025-09-30,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2025-10,2025-10-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2025-11,2025-11-30,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2025-12,2025-12-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2026-01,2026-01-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2026-02,2026-02-28,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,25,U-040
+2026-03,2026-03-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,0,1654200,0,0,0,1654200,1654200,New,true,25,U-040
+2026-04,2026-04-30,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,1654200,0,0,0,0,0,1654200,Flat,true,25,U-040
+2026-05,2026-05-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,1654200,0,807900,0,0,807900,2462100,Expansion,true,25,U-040
+2026-06,2026-06-30,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,2462100,0,0,-403255,0,-403255,2058845,Contraction,true,25,U-040
+2026-07,2026-07-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,2058845,0,0,0,0,0,2058845,Flat,true,25,U-040
+2026-08,2026-08-31,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,2058845,0,0,0,0,0,2058845,Flat,true,25,U-040
+2026-09,2026-09-30,ACC-1075,Onyx Logistics,Strategic,Sales-Led,EMEA,Telecom,2058845,0,0,0,0,0,2058845,Flat,true,25,U-040
+2025-04,2025-04-30,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2025-05,2025-05-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2025-06,2025-06-30,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2025-07,2025-07-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2025-08,2025-08-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2025-09,2025-09-30,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2025-10,2025-10-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2025-11,2025-11-30,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2025-12,2025-12-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2026-01,2026-01-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2026-02,2026-02-28,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2026-03,2026-03-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2026-04,2026-04-30,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2026-05,2026-05-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2026-06,2026-06-30,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2026-07,2026-07-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,0,0,0,0,0,0,Flat,false,69,
+2026-08,2026-08-31,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,0,10600,0,0,0,10600,10600,New,true,69,
+2026-09,2026-09-30,ACC-1076,Dovetail Freight,Self-Serve,PLG,AMER,Travel,10600,0,0,0,0,0,10600,Flat,true,69,
+2025-04,2025-04-30,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-05,2025-05-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-06,2025-06-30,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-07,2025-07-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-08,2025-08-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-09,2025-09-30,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-10,2025-10-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-11,2025-11-30,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-12,2025-12-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-01,2026-01-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-02,2026-02-28,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-03,2026-03-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-04,2026-04-30,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-05,2026-05-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-06,2026-06-30,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-07,2026-07-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-08,2026-08-31,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-09,2026-09-30,ACC-1077,Vantage Insure,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-04,2026-04-30,ACC-1078,Ember Gaming,SMB,Sales-Assisted,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-05,2026-05-31,ACC-1078,Ember Gaming,SMB,Sales-Assisted,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-06,2026-06-30,ACC-1078,Ember Gaming,SMB,Sales-Assisted,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-07,2026-07-31,ACC-1078,Ember Gaming,SMB,Sales-Assisted,EMEA,Fintech,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-08,2026-08-31,ACC-1078,Ember Gaming,SMB,Sales-Assisted,EMEA,Fintech,0,39800,0,0,0,39800,39800,New,true,83,U-034
+2026-09,2026-09-30,ACC-1078,Ember Gaming,SMB,Sales-Assisted,EMEA,Fintech,39800,0,0,0,0,0,39800,Flat,true,83,U-034
+2025-12,2025-12-31,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-01,2026-01-31,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-02,2026-02-28,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-03,2026-03-31,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-04,2026-04-30,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-05,2026-05-31,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-06,2026-06-30,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-07,2026-07-31,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-08,2026-08-31,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2026-09,2026-09-30,ACC-1080,Quanta Care,Mid-Market,Sales-Led,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,56,U-035
+2025-07,2025-07-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-08,2025-08-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-09,2025-09-30,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-10,2025-10-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-11,2025-11-30,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-12,2025-12-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-01,2026-01-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-02,2026-02-28,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-03,2026-03-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-04,2026-04-30,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-05,2026-05-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-06,2026-06-30,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-07,2026-07-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-08,2026-08-31,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-09,2026-09-30,ACC-1081,Solstice Pay,Mid-Market,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-04,2025-04-30,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-05,2025-05-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-06,2025-06-30,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-07,2025-07-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-08,2025-08-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-09,2025-09-30,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-10,2025-10-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-11,2025-11-30,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-12,2025-12-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-01,2026-01-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-02,2026-02-28,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-03,2026-03-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-04,2026-04-30,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-05,2026-05-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-06,2026-06-30,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-07,2026-07-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-08,2026-08-31,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2026-09,2026-09-30,ACC-1082,Solstice Care,Enterprise,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,95,U-039
+2025-11,2025-11-30,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,0,15500,0,0,0,15500,15500,New,true,71,U-039
+2025-12,2025-12-31,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-01,2026-01-31,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-02,2026-02-28,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-03,2026-03-31,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-04,2026-04-30,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-05,2026-05-31,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-06,2026-06-30,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-07,2026-07-31,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-08,2026-08-31,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,0,0,0,0,0,15500,Flat,true,71,U-039
+2026-09,2026-09-30,ACC-1084,Zephyr Care,SMB,Sales-Assisted,AMER,Logistics,15500,34900,0,0,0,34900,50400,New,true,71,U-039
+2026-04,2026-04-30,ACC-1085,Zephyr Bank,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2026-05,2026-05-31,ACC-1085,Zephyr Bank,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2026-06,2026-06-30,ACC-1085,Zephyr Bank,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2026-07,2026-07-31,ACC-1085,Zephyr Bank,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2026-08,2026-08-31,ACC-1085,Zephyr Bank,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2026-09,2026-09-30,ACC-1085,Zephyr Bank,SMB,Sales-Assisted,EMEA,E-commerce,0,0,0,0,0,0,0,Flat,false,86,U-037
+2025-04,2025-04-30,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,52,U-035
+2025-05,2025-05-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,52,U-035
+2025-06,2025-06-30,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,52,U-035
+2025-07,2025-07-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,52,U-035
+2025-08,2025-08-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,52,U-035
+2025-09,2025-09-30,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,52,U-035
+2025-10,2025-10-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,52,U-035
+2025-11,2025-11-30,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,52,U-035
+2025-12,2025-12-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,0,4613800,0,0,0,4613800,4613800,New,true,52,U-035
+2026-01,2026-01-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,4613800,0,0,0,0,0,4613800,Flat,true,52,U-035
+2026-02,2026-02-28,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,4613800,0,0,-655265,0,-655265,3958535,Contraction,true,52,U-035
+2026-03,2026-03-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,3958535,0,0,0,0,0,3958535,Flat,true,52,U-035
+2026-04,2026-04-30,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,3958535,819700,0,0,0,819700,4778235,New,true,52,U-035
+2026-05,2026-05-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,4778235,0,0,0,0,0,4778235,Flat,true,52,U-035
+2026-06,2026-06-30,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,4778235,0,0,0,0,0,4778235,Flat,true,52,U-035
+2026-07,2026-07-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,4778235,0,0,0,0,0,4778235,Flat,true,52,U-035
+2026-08,2026-08-31,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,4778235,0,0,0,0,0,4778235,Flat,true,52,U-035
+2026-09,2026-09-30,ACC-1086,Lumen Travel,Strategic,Sales-Led,AMER,EdTech,4778235,0,0,0,0,0,4778235,Flat,true,52,U-035
+2026-05,2026-05-31,ACC-1087,Harbor Retail,SMB,Sales-Assisted,APAC,Gaming,0,0,0,0,0,0,0,Flat,false,98,U-037
+2026-06,2026-06-30,ACC-1087,Harbor Retail,SMB,Sales-Assisted,APAC,Gaming,0,9100,0,0,0,9100,9100,New,true,98,U-037
+2026-07,2026-07-31,ACC-1087,Harbor Retail,SMB,Sales-Assisted,APAC,Gaming,9100,0,0,0,0,0,9100,Flat,true,98,U-037
+2026-08,2026-08-31,ACC-1087,Harbor Retail,SMB,Sales-Assisted,APAC,Gaming,9100,0,0,0,0,0,9100,Flat,true,98,U-037
+2026-09,2026-09-30,ACC-1087,Harbor Retail,SMB,Sales-Assisted,APAC,Gaming,9100,0,0,0,0,0,9100,Flat,true,98,U-037
+2025-04,2025-04-30,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-05,2025-05-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-06,2025-06-30,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-07,2025-07-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-08,2025-08-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-09,2025-09-30,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-10,2025-10-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-11,2025-11-30,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-12,2025-12-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-01,2026-01-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-02,2026-02-28,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-03,2026-03-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-04,2026-04-30,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-05,2026-05-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-06,2026-06-30,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-07,2026-07-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-08,2026-08-31,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2026-09,2026-09-30,ACC-1088,Beacon Works,SMB,Sales-Assisted,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,32,U-034
+2025-06,2025-06-30,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2025-07,2025-07-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2025-08,2025-08-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2025-09,2025-09-30,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2025-10,2025-10-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2025-11,2025-11-30,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2025-12,2025-12-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-01,2026-01-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-02,2026-02-28,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-03,2026-03-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-04,2026-04-30,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-05,2026-05-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-06,2026-06-30,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-07,2026-07-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-08,2026-08-31,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2026-09,2026-09-30,ACC-1089,Kestrel Group,SMB,Sales-Assisted,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,40,U-036
+2025-09,2025-09-30,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2025-10,2025-10-31,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2025-11,2025-11-30,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2025-12,2025-12-31,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-01,2026-01-31,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-02,2026-02-28,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-03,2026-03-31,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-04,2026-04-30,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-05,2026-05-31,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-06,2026-06-30,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-07,2026-07-31,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-08,2026-08-31,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2026-09,2026-09-30,ACC-1090,Pallas Labs,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,72,U-034
+2025-04,2025-04-30,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-05,2025-05-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-06,2025-06-30,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-07,2025-07-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-08,2025-08-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-09,2025-09-30,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-10,2025-10-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-11,2025-11-30,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-12,2025-12-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-01,2026-01-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-02,2026-02-28,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-03,2026-03-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-04,2026-04-30,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-05,2026-05-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-06,2026-06-30,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-07,2026-07-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-08,2026-08-31,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2026-09,2026-09-30,ACC-1092,Lattice Insure,SMB,Sales-Assisted,AMER,Travel,0,0,0,0,0,0,0,Flat,false,78,U-038
+2025-04,2025-04-30,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2025-05,2025-05-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2025-06,2025-06-30,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2025-07,2025-07-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2025-08,2025-08-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2025-09,2025-09-30,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2025-10,2025-10-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2025-11,2025-11-30,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2025-12,2025-12-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-01,2026-01-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-02,2026-02-28,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-03,2026-03-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-04,2026-04-30,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-05,2026-05-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-06,2026-06-30,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-07,2026-07-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-08,2026-08-31,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-09,2026-09-30,ACC-1093,Rivet Technologies,Enterprise,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,62,U-037
+2026-02,2026-02-28,ACC-1095,Halcyon Labs,Enterprise,Sales-Led,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,83,U-040
+2026-03,2026-03-31,ACC-1095,Halcyon Labs,Enterprise,Sales-Led,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,83,U-040
+2026-04,2026-04-30,ACC-1095,Halcyon Labs,Enterprise,Sales-Led,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,83,U-040
+2026-05,2026-05-31,ACC-1095,Halcyon Labs,Enterprise,Sales-Led,APAC,Logistics,0,477600,0,0,0,477600,477600,New,true,83,U-040
+2026-06,2026-06-30,ACC-1095,Halcyon Labs,Enterprise,Sales-Led,APAC,Logistics,477600,597200,0,0,0,597200,1074800,New,true,83,U-040
+2026-07,2026-07-31,ACC-1095,Halcyon Labs,Enterprise,Sales-Led,APAC,Logistics,1074800,0,0,0,0,0,1074800,Flat,true,83,U-040
+2026-08,2026-08-31,ACC-1095,Halcyon Labs,Enterprise,Sales-Led,APAC,Logistics,1074800,0,0,0,0,0,1074800,Flat,true,83,U-040
+2026-09,2026-09-30,ACC-1095,Halcyon Labs,Enterprise,Sales-Led,APAC,Logistics,1074800,0,0,0,0,0,1074800,Flat,true,83,U-040
+2026-03,2026-03-31,ACC-1096,Vertex Group,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,51,U-038
+2026-04,2026-04-30,ACC-1096,Vertex Group,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,51,U-038
+2026-05,2026-05-31,ACC-1096,Vertex Group,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,51,U-038
+2026-06,2026-06-30,ACC-1096,Vertex Group,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,51,U-038
+2026-07,2026-07-31,ACC-1096,Vertex Group,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,51,U-038
+2026-08,2026-08-31,ACC-1096,Vertex Group,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,51,U-038
+2026-09,2026-09-30,ACC-1096,Vertex Group,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,51,U-038
+2026-01,2026-01-31,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,58,U-036
+2026-02,2026-02-28,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,58,U-036
+2026-03,2026-03-31,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,58,U-036
+2026-04,2026-04-30,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,58,U-036
+2026-05,2026-05-31,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,0,0,0,0,0,0,0,Flat,false,58,U-036
+2026-06,2026-06-30,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,0,28300,0,0,0,28300,28300,New,true,58,U-036
+2026-07,2026-07-31,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,28300,0,0,0,0,0,28300,Flat,true,58,U-036
+2026-08,2026-08-31,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,28300,0,0,0,0,0,28300,Flat,true,58,U-036
+2026-09,2026-09-30,ACC-1097,Aster Pay,SMB,Sales-Assisted,EMEA,Healthcare,28300,0,0,0,0,0,28300,Flat,true,58,U-036
+2026-06,2026-06-30,ACC-1098,Juniper Care,Mid-Market,Sales-Led,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,76,U-038
+2026-07,2026-07-31,ACC-1098,Juniper Care,Mid-Market,Sales-Led,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,76,U-038
+2026-08,2026-08-31,ACC-1098,Juniper Care,Mid-Market,Sales-Led,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,76,U-038
+2026-09,2026-09-30,ACC-1098,Juniper Care,Mid-Market,Sales-Led,APAC,Fintech,0,0,0,0,0,0,0,Flat,false,76,U-038
+2025-06,2025-06-30,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2025-07,2025-07-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2025-08,2025-08-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2025-09,2025-09-30,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2025-10,2025-10-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2025-11,2025-11-30,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2025-12,2025-12-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-01,2026-01-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-02,2026-02-28,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-03,2026-03-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-04,2026-04-30,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-05,2026-05-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-06,2026-06-30,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-07,2026-07-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-08,2026-08-31,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2026-09,2026-09-30,ACC-1099,Orbital Insure,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,65,
+2025-04,2025-04-30,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,93,U-037
+2025-05,2025-05-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,93,U-037
+2025-06,2025-06-30,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,93,U-037
+2025-07,2025-07-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,0,176100,0,0,0,176100,176100,New,true,93,U-037
+2025-08,2025-08-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,0,0,0,0,0,176100,Flat,true,93,U-037
+2025-09,2025-09-30,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,0,0,0,0,0,176100,Flat,true,93,U-037
+2025-10,2025-10-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,0,0,0,0,0,176100,Flat,true,93,U-037
+2025-11,2025-11-30,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,0,0,0,0,0,176100,Flat,true,93,U-037
+2025-12,2025-12-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,0,0,0,0,0,176100,Flat,true,93,U-037
+2026-01,2026-01-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,0,0,0,0,0,176100,Flat,true,93,U-037
+2026-02,2026-02-28,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,0,0,0,0,0,176100,Flat,true,93,U-037
+2026-03,2026-03-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,0,0,0,0,0,176100,Flat,true,93,U-037
+2026-04,2026-04-30,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,176100,129600,0,0,0,129600,305700,New,true,93,U-037
+2026-05,2026-05-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,305700,0,0,0,0,0,305700,Flat,true,93,U-037
+2026-06,2026-06-30,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,305700,0,0,0,0,0,305700,Flat,true,93,U-037
+2026-07,2026-07-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,305700,160500,0,0,0,160500,466200,New,true,93,U-037
+2026-08,2026-08-31,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,466200,0,0,0,0,0,466200,Flat,true,93,U-037
+2026-09,2026-09-30,ACC-1100,Solstice Health,Mid-Market,Sales-Led,AMER,Fintech,466200,0,9200,0,0,9200,475400,Expansion,true,93,U-037
+2025-04,2025-04-30,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-05,2025-05-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-06,2025-06-30,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-07,2025-07-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-08,2025-08-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-09,2025-09-30,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-10,2025-10-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-11,2025-11-30,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2025-12,2025-12-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2026-01,2026-01-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2026-02,2026-02-28,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2026-03,2026-03-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,61,U-040
+2026-04,2026-04-30,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,0,0,7800,0,0,7800,7800,Expansion,true,61,U-040
+2026-05,2026-05-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,7800,0,0,0,0,0,7800,Flat,true,61,U-040
+2026-06,2026-06-30,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,7800,0,0,0,0,0,7800,Flat,true,61,U-040
+2026-07,2026-07-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,7800,36300,0,0,0,36300,44100,New,true,61,U-040
+2026-08,2026-08-31,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,44100,0,0,0,0,0,44100,Flat,true,61,U-040
+2026-09,2026-09-30,ACC-1101,North Mobility,SMB,Sales-Assisted,EMEA,Logistics,44100,0,0,0,0,0,44100,Flat,true,61,U-040
+2025-08,2025-08-31,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2025-09,2025-09-30,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2025-10,2025-10-31,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2025-11,2025-11-30,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2025-12,2025-12-31,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-01,2026-01-31,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-02,2026-02-28,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-03,2026-03-31,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-04,2026-04-30,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-05,2026-05-31,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-06,2026-06-30,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-07,2026-07-31,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-08,2026-08-31,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,0,0,0,0,0,0,Flat,false,70,U-035
+2026-09,2026-09-30,ACC-1102,Cinder Pay,Mid-Market,Sales-Led,EMEA,Real Estate,0,127100,0,0,0,127100,127100,New,true,70,U-035
+2026-05,2026-05-31,ACC-1103,Meridian Group,Enterprise,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,75,U-036
+2026-06,2026-06-30,ACC-1103,Meridian Group,Enterprise,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,75,U-036
+2026-07,2026-07-31,ACC-1103,Meridian Group,Enterprise,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,75,U-036
+2026-08,2026-08-31,ACC-1103,Meridian Group,Enterprise,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,75,U-036
+2026-09,2026-09-30,ACC-1103,Meridian Group,Enterprise,Sales-Led,EMEA,Telecom,0,0,0,0,0,0,0,Flat,false,75,U-036
+2026-04,2026-04-30,ACC-1104,Rivet Cloud,Self-Serve,PLG,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,64,
+2026-05,2026-05-31,ACC-1104,Rivet Cloud,Self-Serve,PLG,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,64,
+2026-06,2026-06-30,ACC-1104,Rivet Cloud,Self-Serve,PLG,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,64,
+2026-07,2026-07-31,ACC-1104,Rivet Cloud,Self-Serve,PLG,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,64,
+2026-08,2026-08-31,ACC-1104,Rivet Cloud,Self-Serve,PLG,AMER,E-commerce,0,11900,6300,0,0,18200,18200,New,true,64,
+2026-09,2026-09-30,ACC-1104,Rivet Cloud,Self-Serve,PLG,AMER,E-commerce,18200,0,0,0,0,0,18200,Flat,true,64,
+2025-04,2025-04-30,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,60,
+2025-05,2025-05-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,60,
+2025-06,2025-06-30,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,0,0,0,0,0,0,0,Flat,false,60,
+2025-07,2025-07-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,0,7200,2300,0,0,9500,9500,New,true,60,
+2025-08,2025-08-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2025-09,2025-09-30,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2025-10,2025-10-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2025-11,2025-11-30,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2025-12,2025-12-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-01,2026-01-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-02,2026-02-28,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-03,2026-03-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-04,2026-04-30,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-05,2026-05-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-06,2026-06-30,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-07,2026-07-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-08,2026-08-31,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2026-09,2026-09-30,ACC-1105,Wexler Logistics,Self-Serve,PLG,APAC,Public Sector,9500,0,0,0,0,0,9500,Flat,true,60,
+2025-04,2025-04-30,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-05,2025-05-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-06,2025-06-30,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-07,2025-07-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-08,2025-08-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-09,2025-09-30,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-10,2025-10-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-11,2025-11-30,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-12,2025-12-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-01,2026-01-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-02,2026-02-28,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-03,2026-03-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-04,2026-04-30,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-05,2026-05-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-06,2026-06-30,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-07,2026-07-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-08,2026-08-31,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2026-09,2026-09-30,ACC-1106,Aster Market,SMB,Sales-Assisted,EMEA,Gaming,0,0,0,0,0,0,0,Flat,false,89,U-037
+2025-04,2025-04-30,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-039
+2025-05,2025-05-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-039
+2025-06,2025-06-30,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-039
+2025-07,2025-07-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-039
+2025-08,2025-08-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-039
+2025-09,2025-09-30,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-039
+2025-10,2025-10-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,0,0,0,0,0,0,0,Flat,false,88,U-039
+2025-11,2025-11-30,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,0,125800,0,0,0,125800,125800,New,true,88,U-039
+2025-12,2025-12-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,125800,0,0,0,0,0,125800,Flat,true,88,U-039
+2026-01,2026-01-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,125800,0,0,0,0,0,125800,Flat,true,88,U-039
+2026-02,2026-02-28,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,125800,0,0,0,0,0,125800,Flat,true,88,U-039
+2026-03,2026-03-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,125800,127200,0,0,0,127200,253000,New,true,88,U-039
+2026-04,2026-04-30,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,253000,96400,0,0,0,96400,349400,New,true,88,U-039
+2026-05,2026-05-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,349400,0,0,0,0,0,349400,Flat,true,88,U-039
+2026-06,2026-06-30,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,349400,0,0,0,0,0,349400,Flat,true,88,U-039
+2026-07,2026-07-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,349400,0,0,0,0,0,349400,Flat,true,88,U-039
+2026-08,2026-08-31,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,349400,0,0,0,0,0,349400,Flat,true,88,U-039
+2026-09,2026-09-30,ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,AMER,Telecom,349400,0,0,0,0,0,349400,Flat,true,88,U-039
+2026-05,2026-05-31,ACC-1108,Aster Labs,Self-Serve,PLG,AMER,Logistics,0,0,0,0,0,0,0,Flat,false,72,
+2026-06,2026-06-30,ACC-1108,Aster Labs,Self-Serve,PLG,AMER,Logistics,0,0,0,0,0,0,0,Flat,false,72,
+2026-07,2026-07-31,ACC-1108,Aster Labs,Self-Serve,PLG,AMER,Logistics,0,0,3600,0,0,3600,3600,Expansion,true,72,
+2026-08,2026-08-31,ACC-1108,Aster Labs,Self-Serve,PLG,AMER,Logistics,3600,0,0,0,0,0,3600,Flat,true,72,
+2026-09,2026-09-30,ACC-1108,Aster Labs,Self-Serve,PLG,AMER,Logistics,3600,0,0,0,0,0,3600,Flat,true,72,
+2025-05,2025-05-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2025-06,2025-06-30,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2025-07,2025-07-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2025-08,2025-08-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2025-09,2025-09-30,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2025-10,2025-10-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2025-11,2025-11-30,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2025-12,2025-12-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2026-01,2026-01-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2026-02,2026-02-28,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2026-03,2026-03-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2026-04,2026-04-30,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2026-05,2026-05-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,0,0,0,0,0,0,Flat,false,69,U-039
+2026-06,2026-06-30,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,0,534800,0,0,0,534800,534800,New,true,69,U-039
+2026-07,2026-07-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,534800,0,0,0,0,0,534800,Flat,true,69,U-039
+2026-08,2026-08-31,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,534800,0,0,0,0,0,534800,Flat,true,69,U-039
+2026-09,2026-09-30,ACC-1110,Meridian Health,Enterprise,Sales-Led,EMEA,SaaS,534800,0,365400,0,0,365400,900200,Expansion,true,69,U-039
+2025-04,2025-04-30,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2025-05,2025-05-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2025-06,2025-06-30,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2025-07,2025-07-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2025-08,2025-08-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2025-09,2025-09-30,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2025-10,2025-10-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2025-11,2025-11-30,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2025-12,2025-12-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2026-01,2026-01-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2026-02,2026-02-28,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2026-03,2026-03-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2026-04,2026-04-30,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,0,0,0,0,0,0,Flat,false,43,U-039
+2026-05,2026-05-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,0,161200,0,0,0,161200,161200,New,true,43,U-039
+2026-06,2026-06-30,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,161200,0,0,-22788,0,-22788,138412,Contraction,true,43,U-039
+2026-07,2026-07-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,138412,0,0,0,0,0,138412,Flat,true,43,U-039
+2026-08,2026-08-31,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,138412,0,0,0,0,0,138412,Flat,true,43,U-039
+2026-09,2026-09-30,ACC-1112,Cobalt Labs,Mid-Market,Sales-Led,LATAM,Fintech,138412,0,0,0,0,0,138412,Flat,true,43,U-039
+2025-06,2025-06-30,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,51,U-035
+2025-07,2025-07-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,51,U-035
+2025-08,2025-08-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,51,U-035
+2025-09,2025-09-30,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,51,U-035
+2025-10,2025-10-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,51,U-035
+2025-11,2025-11-30,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,0,0,0,0,0,0,0,Flat,false,51,U-035
+2025-12,2025-12-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,0,96600,0,0,0,96600,96600,New,true,51,U-035
+2026-01,2026-01-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,96600,0,0,0,0,0,96600,Flat,true,51,U-035
+2026-02,2026-02-28,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,96600,0,0,0,0,0,96600,Flat,true,51,U-035
+2026-03,2026-03-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,96600,0,0,0,0,0,96600,Flat,true,51,U-035
+2026-04,2026-04-30,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,96600,0,0,0,0,0,96600,Flat,true,51,U-035
+2026-05,2026-05-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,96600,0,0,0,0,0,96600,Flat,true,51,U-035
+2026-06,2026-06-30,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,96600,0,0,0,0,0,96600,Flat,true,51,U-035
+2026-07,2026-07-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,96600,0,0,0,0,0,96600,Flat,true,51,U-035
+2026-08,2026-08-31,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,96600,67400,0,0,0,67400,164000,New,true,51,U-035
+2026-09,2026-09-30,ACC-1113,Rivet Learning,Mid-Market,Sales-Led,LATAM,Gaming,164000,172800,0,0,0,172800,336800,New,true,51,U-035
+2026-06,2026-06-30,ACC-1114,Quanta Systems,Strategic,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,68,U-039
+2026-07,2026-07-31,ACC-1114,Quanta Systems,Strategic,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,68,U-039
+2026-08,2026-08-31,ACC-1114,Quanta Systems,Strategic,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,68,U-039
+2026-09,2026-09-30,ACC-1114,Quanta Systems,Strategic,Sales-Led,AMER,Travel,0,0,0,0,0,0,0,Flat,false,68,U-039
+2025-12,2025-12-31,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,68,U-039
+2026-01,2026-01-31,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,68,U-039
+2026-02,2026-02-28,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,0,18800,5900,0,0,24700,24700,New,true,68,U-039
+2026-03,2026-03-31,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,24700,0,0,0,0,0,24700,Flat,true,68,U-039
+2026-04,2026-04-30,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,24700,0,0,0,0,0,24700,Flat,true,68,U-039
+2026-05,2026-05-31,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,24700,0,0,0,0,0,24700,Flat,true,68,U-039
+2026-06,2026-06-30,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,24700,17400,0,0,0,17400,42100,New,true,68,U-039
+2026-07,2026-07-31,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,42100,0,0,0,0,0,42100,Flat,true,68,U-039
+2026-08,2026-08-31,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,42100,0,0,0,0,0,42100,Flat,true,68,U-039
+2026-09,2026-09-30,ACC-1115,Onyx Group,SMB,Sales-Assisted,AMER,Public Sector,42100,0,0,0,0,0,42100,Flat,true,68,U-039
+2025-04,2025-04-30,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2025-05,2025-05-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2025-06,2025-06-30,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2025-07,2025-07-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2025-08,2025-08-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2025-09,2025-09-30,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2025-10,2025-10-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2025-11,2025-11-30,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2025-12,2025-12-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,72,U-039
+2026-01,2026-01-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,0,599700,0,0,0,599700,599700,New,true,72,U-039
+2026-02,2026-02-28,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,599700,0,0,0,0,0,599700,Flat,true,72,U-039
+2026-03,2026-03-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,599700,0,0,0,0,0,599700,Flat,true,72,U-039
+2026-04,2026-04-30,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,599700,0,0,0,0,0,599700,Flat,true,72,U-039
+2026-05,2026-05-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,599700,334100,0,0,0,334100,933800,New,true,72,U-039
+2026-06,2026-06-30,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,933800,0,0,0,0,0,933800,Flat,true,72,U-039
+2026-07,2026-07-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,933800,0,0,0,0,0,933800,Flat,true,72,U-039
+2026-08,2026-08-31,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,933800,0,0,0,0,0,933800,Flat,true,72,U-039
+2026-09,2026-09-30,ACC-1116,Tundra Digital,Enterprise,Sales-Led,AMER,Public Sector,933800,0,0,0,0,0,933800,Flat,true,72,U-039
+2025-04,2025-04-30,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2025-05,2025-05-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2025-06,2025-06-30,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2025-07,2025-07-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2025-08,2025-08-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2025-09,2025-09-30,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2025-10,2025-10-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2025-11,2025-11-30,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2025-12,2025-12-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,0,0,0,0,0,Flat,false,60,U-038
+2026-01,2026-01-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,0,0,525700,0,0,525700,525700,Expansion,true,60,U-038
+2026-02,2026-02-28,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,525700,0,0,0,0,0,525700,Flat,true,60,U-038
+2026-03,2026-03-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,525700,0,0,0,0,0,525700,Flat,true,60,U-038
+2026-04,2026-04-30,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,525700,0,0,0,0,0,525700,Flat,true,60,U-038
+2026-05,2026-05-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,525700,0,0,0,0,0,525700,Flat,true,60,U-038
+2026-06,2026-06-30,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,525700,0,0,0,0,0,525700,Flat,true,60,U-038
+2026-07,2026-07-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,525700,0,0,0,0,0,525700,Flat,true,60,U-038
+2026-08,2026-08-31,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,525700,0,0,0,0,0,525700,Flat,true,60,U-038
+2026-09,2026-09-30,ACC-1118,Rivet Pay,Strategic,Sales-Led,AMER,Real Estate,525700,0,337800,0,0,337800,863500,Expansion,true,60,U-038
+2025-04,2025-04-30,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2025-05,2025-05-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2025-06,2025-06-30,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2025-07,2025-07-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2025-08,2025-08-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2025-09,2025-09-30,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2025-10,2025-10-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2025-11,2025-11-30,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2025-12,2025-12-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2026-01,2026-01-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,0,0,0,0,0,0,Flat,false,55,U-036
+2026-02,2026-02-28,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,0,833900,0,0,0,833900,833900,New,true,55,U-036
+2026-03,2026-03-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,833900,0,0,0,0,0,833900,Flat,true,55,U-036
+2026-04,2026-04-30,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,833900,0,0,0,0,0,833900,Flat,true,55,U-036
+2026-05,2026-05-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,833900,0,0,-108489,0,-108489,725411,Contraction,true,55,U-036
+2026-06,2026-06-30,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,725411,0,0,0,0,0,725411,Flat,true,55,U-036
+2026-07,2026-07-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,725411,0,0,0,0,0,725411,Flat,true,55,U-036
+2026-08,2026-08-31,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,725411,0,0,0,0,0,725411,Flat,true,55,U-036
+2026-09,2026-09-30,ACC-1119,Ember Logistics,Enterprise,Sales-Led,AMER,E-commerce,725411,0,0,0,0,0,725411,Flat,true,55,U-036
+2025-04,2025-04-30,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2025-05,2025-05-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2025-06,2025-06-30,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2025-07,2025-07-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2025-08,2025-08-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2025-09,2025-09-30,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2025-10,2025-10-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2025-11,2025-11-30,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2025-12,2025-12-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2026-01,2026-01-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,75,U-040
+2026-02,2026-02-28,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,0,0,30300,0,0,30300,30300,Expansion,true,75,U-040
+2026-03,2026-03-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,30300,0,0,0,0,0,30300,Flat,true,75,U-040
+2026-04,2026-04-30,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,30300,0,0,0,0,0,30300,Flat,true,75,U-040
+2026-05,2026-05-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,30300,0,0,0,0,0,30300,Flat,true,75,U-040
+2026-06,2026-06-30,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,30300,0,0,0,0,0,30300,Flat,true,75,U-040
+2026-07,2026-07-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,30300,0,0,0,0,0,30300,Flat,true,75,U-040
+2026-08,2026-08-31,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,30300,0,0,0,0,0,30300,Flat,true,75,U-040
+2026-09,2026-09-30,ACC-1120,Pallas Insure,Mid-Market,Sales-Led,AMER,EdTech,30300,0,0,0,0,0,30300,Flat,true,75,U-040
+2025-05,2025-05-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,73,U-040
+2025-06,2025-06-30,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,73,U-040
+2025-07,2025-07-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,73,U-040
+2025-08,2025-08-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,73,U-040
+2025-09,2025-09-30,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,73,U-040
+2025-10,2025-10-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,73,U-040
+2025-11,2025-11-30,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,73,U-040
+2025-12,2025-12-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,0,0,0,0,0,0,Flat,false,73,U-040
+2026-01,2026-01-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,0,26500,0,0,0,26500,26500,New,true,73,U-040
+2026-02,2026-02-28,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,26500,0,0,0,0,0,26500,Flat,true,73,U-040
+2026-03,2026-03-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,26500,0,0,0,0,0,26500,Flat,true,73,U-040
+2026-04,2026-04-30,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,26500,0,0,0,0,0,26500,Flat,true,73,U-040
+2026-05,2026-05-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,26500,0,0,0,0,0,26500,Flat,true,73,U-040
+2026-06,2026-06-30,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,26500,0,0,0,0,0,26500,Flat,true,73,U-040
+2026-07,2026-07-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,26500,0,0,0,0,0,26500,Flat,true,73,U-040
+2026-08,2026-08-31,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,26500,0,0,0,0,0,26500,Flat,true,73,U-040
+2026-09,2026-09-30,ACC-1121,Ember Market,SMB,Sales-Assisted,EMEA,Logistics,26500,0,0,0,0,0,26500,Flat,true,73,U-040
+2025-07,2025-07-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-08,2025-08-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-09,2025-09-30,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-10,2025-10-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-11,2025-11-30,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2025-12,2025-12-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-01,2026-01-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-02,2026-02-28,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,98,U-034
+2026-03,2026-03-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,0,2081800,0,0,0,2081800,2081800,New,true,98,U-034
+2026-04,2026-04-30,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,2081800,0,0,0,0,0,2081800,Flat,true,98,U-034
+2026-05,2026-05-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,2081800,0,0,0,0,0,2081800,Flat,true,98,U-034
+2026-06,2026-06-30,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,2081800,0,0,0,0,0,2081800,Flat,true,98,U-034
+2026-07,2026-07-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,2081800,0,0,0,0,0,2081800,Flat,true,98,U-034
+2026-08,2026-08-31,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,2081800,0,0,0,0,0,2081800,Flat,true,98,U-034
+2026-09,2026-09-30,ACC-1122,Halcyon Freight,Strategic,Sales-Led,EMEA,Travel,2081800,0,0,0,0,0,2081800,Flat,true,98,U-034
+2025-04,2025-04-30,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,86,U-038
+2025-05,2025-05-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,86,U-038
+2025-06,2025-06-30,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,0,0,0,0,0,0,0,Flat,false,86,U-038
+2025-07,2025-07-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,0,86200,0,0,0,86200,86200,New,true,86,U-038
+2025-08,2025-08-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,86200,0,0,0,0,0,86200,Flat,true,86,U-038
+2025-09,2025-09-30,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,86200,0,0,0,0,0,86200,Flat,true,86,U-038
+2025-10,2025-10-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,86200,109100,0,0,0,109100,195300,New,true,86,U-038
+2025-11,2025-11-30,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2025-12,2025-12-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-01,2026-01-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-02,2026-02-28,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-03,2026-03-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-04,2026-04-30,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-05,2026-05-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-06,2026-06-30,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-07,2026-07-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-08,2026-08-31,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-09,2026-09-30,ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,AMER,Gaming,195300,0,0,0,0,0,195300,Flat,true,86,U-038
+2026-06,2026-06-30,ACC-1125,Sable Works,Strategic,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,71,U-038
+2026-07,2026-07-31,ACC-1125,Sable Works,Strategic,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,71,U-038
+2026-08,2026-08-31,ACC-1125,Sable Works,Strategic,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,71,U-038
+2026-09,2026-09-30,ACC-1125,Sable Works,Strategic,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,71,U-038
+2026-06,2026-06-30,ACC-1126,Solstice Labs,Self-Serve,PLG,APAC,Travel,0,0,0,0,0,0,0,Flat,false,80,
+2026-07,2026-07-31,ACC-1126,Solstice Labs,Self-Serve,PLG,APAC,Travel,0,0,0,0,0,0,0,Flat,false,80,
+2026-08,2026-08-31,ACC-1126,Solstice Labs,Self-Serve,PLG,APAC,Travel,0,0,0,0,0,0,0,Flat,false,80,
+2026-09,2026-09-30,ACC-1126,Solstice Labs,Self-Serve,PLG,APAC,Travel,0,0,0,0,0,0,0,Flat,false,80,
+2025-04,2025-04-30,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2025-05,2025-05-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2025-06,2025-06-30,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2025-07,2025-07-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2025-08,2025-08-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2025-09,2025-09-30,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2025-10,2025-10-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2025-11,2025-11-30,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2025-12,2025-12-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-01,2026-01-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-02,2026-02-28,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-03,2026-03-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-04,2026-04-30,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-05,2026-05-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-06,2026-06-30,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-07,2026-07-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-08,2026-08-31,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-09,2026-09-30,ACC-1127,Quanta Travel,SMB,Sales-Assisted,APAC,Travel,0,0,0,0,0,0,0,Flat,false,83,U-034
+2026-03,2026-03-31,ACC-1128,Cobalt Health,Mid-Market,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,98,U-037
+2026-04,2026-04-30,ACC-1128,Cobalt Health,Mid-Market,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,98,U-037
+2026-05,2026-05-31,ACC-1128,Cobalt Health,Mid-Market,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,98,U-037
+2026-06,2026-06-30,ACC-1128,Cobalt Health,Mid-Market,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,98,U-037
+2026-07,2026-07-31,ACC-1128,Cobalt Health,Mid-Market,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,98,U-037
+2026-08,2026-08-31,ACC-1128,Cobalt Health,Mid-Market,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,98,U-037
+2026-09,2026-09-30,ACC-1128,Cobalt Health,Mid-Market,Sales-Led,EMEA,Insurance,0,0,0,0,0,0,0,Flat,false,98,U-037
+2026-03,2026-03-31,ACC-1129,Vertex Pay,Self-Serve,PLG,APAC,SaaS,0,0,0,0,0,0,0,Flat,false,63,
+2026-04,2026-04-30,ACC-1129,Vertex Pay,Self-Serve,PLG,APAC,SaaS,0,3000,0,0,0,3000,3000,New,true,63,
+2026-05,2026-05-31,ACC-1129,Vertex Pay,Self-Serve,PLG,APAC,SaaS,3000,0,0,0,0,0,3000,Flat,true,63,
+2026-06,2026-06-30,ACC-1129,Vertex Pay,Self-Serve,PLG,APAC,SaaS,3000,4400,0,0,0,4400,7400,New,true,63,
+2026-07,2026-07-31,ACC-1129,Vertex Pay,Self-Serve,PLG,APAC,SaaS,7400,0,0,0,0,0,7400,Flat,true,63,
+2026-08,2026-08-31,ACC-1129,Vertex Pay,Self-Serve,PLG,APAC,SaaS,7400,0,0,0,0,0,7400,Flat,true,63,
+2026-09,2026-09-30,ACC-1129,Vertex Pay,Self-Serve,PLG,APAC,SaaS,7400,0,0,0,0,0,7400,Flat,true,63,
+2025-04,2025-04-30,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-05,2025-05-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-06,2025-06-30,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-07,2025-07-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-08,2025-08-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-09,2025-09-30,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-10,2025-10-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-11,2025-11-30,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2025-12,2025-12-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-01,2026-01-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-02,2026-02-28,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-03,2026-03-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-04,2026-04-30,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-05,2026-05-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-06,2026-06-30,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-07,2026-07-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-08,2026-08-31,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-09,2026-09-30,ACC-1130,Cobalt Bank,SMB,Sales-Assisted,LATAM,Real Estate,0,0,0,0,0,0,0,Flat,false,62,U-036
+2026-08,2026-08-31,ACC-1132,Umbra Freight,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,65,U-038
+2026-09,2026-09-30,ACC-1132,Umbra Freight,SMB,Sales-Assisted,AMER,Fintech,0,0,0,0,0,0,0,Flat,false,65,U-038
+2025-04,2025-04-30,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2025-05,2025-05-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2025-06,2025-06-30,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2025-07,2025-07-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2025-08,2025-08-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2025-09,2025-09-30,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2025-10,2025-10-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2025-11,2025-11-30,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2025-12,2025-12-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,0,0,0,0,0,Flat,false,41,U-037
+2026-01,2026-01-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,0,0,108700,0,0,108700,108700,Expansion,true,41,U-037
+2026-02,2026-02-28,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,108700,0,0,0,0,0,108700,Flat,true,41,U-037
+2026-03,2026-03-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,108700,0,0,0,0,0,108700,Flat,true,41,U-037
+2026-04,2026-04-30,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,108700,0,0,0,0,0,108700,Flat,true,41,U-037
+2026-05,2026-05-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,108700,0,0,0,0,0,108700,Flat,true,41,U-037
+2026-06,2026-06-30,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,108700,0,0,0,0,0,108700,Flat,true,41,U-037
+2026-07,2026-07-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,108700,0,0,-24799,0,-24799,83901,Contraction,true,41,U-037
+2026-08,2026-08-31,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,83901,0,0,0,0,0,83901,Flat,true,41,U-037
+2026-09,2026-09-30,ACC-1133,Cinder Travel,Mid-Market,Sales-Led,APAC,E-commerce,83901,172900,0,0,0,172900,256801,New,true,41,U-037
+2025-04,2025-04-30,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,72,U-038
+2025-05,2025-05-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,72,U-038
+2025-06,2025-06-30,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,72,U-038
+2025-07,2025-07-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,72,U-038
+2025-08,2025-08-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,72,U-038
+2025-09,2025-09-30,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,72,U-038
+2025-10,2025-10-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,72,U-038
+2025-11,2025-11-30,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,0,0,0,0,0,0,Flat,false,72,U-038
+2025-12,2025-12-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,0,42900,0,0,0,42900,42900,New,true,72,U-038
+2026-01,2026-01-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,42900,0,0,0,0,0,42900,Flat,true,72,U-038
+2026-02,2026-02-28,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,42900,0,0,0,0,0,42900,Flat,true,72,U-038
+2026-03,2026-03-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,42900,0,0,0,0,0,42900,Flat,true,72,U-038
+2026-04,2026-04-30,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,42900,0,0,0,0,0,42900,Flat,true,72,U-038
+2026-05,2026-05-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,42900,0,0,0,0,0,42900,Flat,true,72,U-038
+2026-06,2026-06-30,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,42900,0,0,0,0,0,42900,Flat,true,72,U-038
+2026-07,2026-07-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,42900,0,0,0,0,0,42900,Flat,true,72,U-038
+2026-08,2026-08-31,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,42900,0,10900,0,0,10900,53800,Expansion,true,72,U-038
+2026-09,2026-09-30,ACC-1134,Umbra Learning,SMB,Sales-Assisted,EMEA,Travel,53800,0,0,0,0,0,53800,Flat,true,72,U-038
+2026-04,2026-04-30,ACC-1135,Cinder Learning,Enterprise,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,60,U-039
+2026-05,2026-05-31,ACC-1135,Cinder Learning,Enterprise,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,60,U-039
+2026-06,2026-06-30,ACC-1135,Cinder Learning,Enterprise,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,60,U-039
+2026-07,2026-07-31,ACC-1135,Cinder Learning,Enterprise,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,60,U-039
+2026-08,2026-08-31,ACC-1135,Cinder Learning,Enterprise,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,60,U-039
+2026-09,2026-09-30,ACC-1135,Cinder Learning,Enterprise,Sales-Led,EMEA,EdTech,0,0,0,0,0,0,0,Flat,false,60,U-039
+2025-04,2025-04-30,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,81,U-034
+2025-05,2025-05-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,81,U-034
+2025-06,2025-06-30,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,81,U-034
+2025-07,2025-07-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,81,U-034
+2025-08,2025-08-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,0,0,0,0,0,0,0,Flat,false,81,U-034
+2025-09,2025-09-30,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,0,205200,0,0,0,205200,205200,New,true,81,U-034
+2025-10,2025-10-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2025-11,2025-11-30,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2025-12,2025-12-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-01,2026-01-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-02,2026-02-28,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-03,2026-03-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-04,2026-04-30,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-05,2026-05-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-06,2026-06-30,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-07,2026-07-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-08,2026-08-31,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2026-09,2026-09-30,ACC-1137,Pallas Health,Mid-Market,Sales-Led,APAC,Logistics,205200,0,0,0,0,0,205200,Flat,true,81,U-034
+2025-04,2025-04-30,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2025-05,2025-05-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2025-06,2025-06-30,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2025-07,2025-07-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2025-08,2025-08-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2025-09,2025-09-30,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2025-10,2025-10-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2025-11,2025-11-30,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2025-12,2025-12-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2026-01,2026-01-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2026-02,2026-02-28,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2026-03,2026-03-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2026-04,2026-04-30,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2026-05,2026-05-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,0,0,0,0,0,Flat,false,38,
+2026-06,2026-06-30,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,0,0,2000,0,0,2000,2000,Expansion,true,38,
+2026-07,2026-07-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,2000,0,0,0,0,0,2000,Flat,true,38,
+2026-08,2026-08-31,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,2000,0,0,0,0,0,2000,Flat,true,38,
+2026-09,2026-09-30,ACC-1138,North Insure,Self-Serve,PLG,AMER,Public Sector,2000,13100,0,0,0,13100,15100,New,true,38,
+2025-04,2025-04-30,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,96,U-034
+2025-05,2025-05-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,96,U-034
+2025-06,2025-06-30,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,96,U-034
+2025-07,2025-07-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,96,U-034
+2025-08,2025-08-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,96,U-034
+2025-09,2025-09-30,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,96,U-034
+2025-10,2025-10-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,0,0,0,0,0,0,0,Flat,false,96,U-034
+2025-11,2025-11-30,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,0,575900,0,0,0,575900,575900,New,true,96,U-034
+2025-12,2025-12-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,575900,0,0,0,0,0,575900,Flat,true,96,U-034
+2026-01,2026-01-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,575900,0,0,0,0,0,575900,Flat,true,96,U-034
+2026-02,2026-02-28,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,575900,0,0,0,0,0,575900,Flat,true,96,U-034
+2026-03,2026-03-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,575900,0,0,0,0,0,575900,Flat,true,96,U-034
+2026-04,2026-04-30,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,575900,0,0,0,0,0,575900,Flat,true,96,U-034
+2026-05,2026-05-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,575900,0,0,0,0,0,575900,Flat,true,96,U-034
+2026-06,2026-06-30,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,575900,0,0,0,0,0,575900,Flat,true,96,U-034
+2026-07,2026-07-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,575900,0,336500,0,0,336500,912400,Expansion,true,96,U-034
+2026-08,2026-08-31,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,912400,0,0,0,0,0,912400,Flat,true,96,U-034
+2026-09,2026-09-30,ACC-1139,Meridian Gaming,Enterprise,Sales-Led,AMER,EdTech,912400,0,0,0,0,0,912400,Flat,true,96,U-034
