@@ -2,12 +2,23 @@ export default defineAppConfig({
   ui: {
     // Every ramp comes from the Im Design System (design.imswarnil.com); see
     // the block comment in app/assets/css/main.css for the source values.
-    // The four statuses are named explicitly rather than left on Nuxt UI's
-    // defaults, because the design system's accent is red and the default
-    // `error` red would have been indistinguishable from the brand.
+    //
+    // BLUE LEADS, RED ACCENTS. The design system's own accent is red (signal,
+    // #f22f46) and this site ran on it until now. It doesn't survive being the
+    // dominant colour of a *teaching* site: the curriculum's whole argument is
+    // that red means "look at this number, something is wrong", and a red
+    // header, red nav and red buttons spend that meaning before a lesson can
+    // use it. So the system's blue (cobalt, #175cd3) carries structure --
+    // header, nav, links, buttons -- and signal drops to `secondary`, used
+    // sparingly for emphasis, the logo mark and anything genuinely urgent.
+    //
+    // The four statuses stay named explicitly. `info` is the same cobalt as
+    // primary, which is deliberate: it is the system's own info hex, and an
+    // informational callout on a blue-brand site reading as brand-coloured is
+    // correct. Warning/error/success stay clearly apart from both.
     colors: {
-      primary: 'signal',
-      secondary: 'orchid',
+      primary: 'cobalt',
+      secondary: 'signal',
       neutral: 'graphite',
       success: 'verdant',
       warning: 'ochre',

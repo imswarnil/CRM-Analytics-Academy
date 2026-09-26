@@ -1,6 +1,8 @@
 <template>
   <span class="flex items-center gap-2">
-    <!-- Three-bar chart, ascending heights, dark → lighter Salesforce blues -->
+    <!-- Three-bar chart, ascending heights, in the red accent (`secondary`,
+         the design system's own signal red) against the blue wordmark. The mark
+         is the one place red is spent unconditionally; see app.config.ts. -->
     <svg
       viewBox="0 0 32 32"
       class="h-7 w-7 shrink-0"
@@ -12,7 +14,7 @@
         width="7"
         height="15"
         rx="1.5"
-        fill="var(--color-signal-700)"
+        fill="var(--ui-color-secondary-700)"
       />
       <rect
         x="12.5"
@@ -20,7 +22,7 @@
         width="7"
         height="20"
         rx="1.5"
-        fill="var(--color-signal-500)"
+        fill="var(--ui-color-secondary-500)"
       />
       <rect
         x="22"
@@ -28,7 +30,7 @@
         width="7"
         height="25"
         rx="1.5"
-        fill="var(--color-signal-300)"
+        fill="var(--ui-color-secondary-300)"
       />
     </svg>
 

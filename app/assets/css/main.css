@@ -26,15 +26,24 @@
        400  73%   hover (light)     900  29%   near-black tint
                                     950  22%   the floor
 
-     Nuxt UI reads these through app.config.ts as `primary: signal`,
-     `secondary: orchid`, `neutral: graphite`, plus the four statuses.
+     Nuxt UI reads these through app.config.ts as `primary: cobalt`,
+     `secondary: signal`, `neutral: graphite`, plus the four statuses.
 
-     NOTE ON RED. The system's accent is red and so is its danger colour
-     (#b42318), only ~8 degrees apart in hue. The system gets away with it
-     because danger appears on its own tinted surfaces. Here they can end up
-     side by side, so nothing in this site signals state by colour alone —
-     every coloured delta carries a direction arrow, and the conditional
-     formatting lessons teach colour plus a label for exactly this reason.
+     WHY BLUE LEADS AND NOT THE SYSTEM'S OWN RED. The Im Design System keeps one
+     accent and it is red (signal, #f22f46). On a site that teaches dashboards,
+     red cannot also be the furniture: every lesson here spends red on "this
+     number is wrong, look at it", and a red header spends that meaning before a
+     lesson can use it. So cobalt — the system's own info hex, #175cd3, carried
+     onto the shared ladder as a full ramp — holds structure: header, nav, links,
+     buttons. Signal drops to the accent: the logo mark, one gradient stop, the
+     occasional emphasis. No derivation changed; only which ramp holds which role.
+
+     NOTE ON RED, STILL. Signal (21.4°) and crimson, the system's danger
+     (#b42318, ~29°), read as the same red at a glance. Demoting signal widens
+     the gap in practice — the accent now appears on brand furniture, danger on
+     state — but the rule stands regardless: nothing in this site signals state
+     by colour alone. Every coloured delta carries a direction arrow, and the
+     conditional formatting lessons teach colour plus a label for that reason.
   --------------------------------------------------------------------------- */
 
   /* Graphite — the neutral, copied value-for-value from the system's
@@ -222,11 +231,12 @@ html {
    Landing-page visual helpers
 --------------------------------------------------------------------------- */
 
-/* Brand gradient text. Accent into the rotated secondary -- the same pairing
-   the design system uses for its category colours, rather than two arbitrary
-   stops. */
+/* Brand gradient text. The primary blue into the red accent — the site's two
+   brand ramps in their new order, rather than two arbitrary stops. Both ends sit
+   on the same lightness ladder, so the gradient holds an even weight across its
+   length instead of dipping through the middle. */
 .text-gradient {
-  background-image: linear-gradient(115deg, var(--color-signal-500), var(--color-orchid-600));
+  background-image: linear-gradient(115deg, var(--color-cobalt-600), var(--color-signal-500));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
