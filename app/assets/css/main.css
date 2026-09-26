@@ -10,133 +10,205 @@
   --font-sans: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   /* ---------------------------------------------------------------------------
-     Colour ramps — copied from the Swarnil design system
-     (design.imswarnil.com, src/1-foundation/01-color.css).
+     Colour ramps — from the Im Design System (design.imswarnil.com).
 
-     Every ramp is oklch on ONE shared lightness ladder, so azure-500 and
-     iris-500 sit at the same visual weight and are interchangeable as an
-     accent. Nuxt UI reads these as `primary: azure`, `secondary: iris`,
-     `neutral: ink` (app.config.ts) and derives --ui-color-* from them.
+     The system keeps ONE accent and derives everything else from it. Its source
+     values live in src/foundation/tokens/: `--im-accent: #f22f46`, a pure
+     zero-chroma grey ladder in primitives.css, and four status hexes in
+     semantic.css. Those exact values are the anchors below; the remaining steps
+     are interpolated onto one shared lightness ladder so signal-500 and
+     cobalt-500 carry the same visual weight and are interchangeable as a mark.
 
-       50   97%   a wash            500  ~63%  THE STEP — fills and marks
+       50   97%   a wash            500  62.6% THE STEP — fills and marks
        100  94%   a tint            600  56%   pressed, and accent text (light)
        200  89%   a soft fill       700  47%   readable text on light
        300  82%   a border          800  38%   deep fill
-       400  74%   hover (light)     900  29%   near-black tint
-                                   950  22%   the floor
+       400  73%   hover (light)     900  29%   near-black tint
+                                    950  22%   the floor
+
+     Nuxt UI reads these through app.config.ts as `primary: signal`,
+     `secondary: orchid`, `neutral: graphite`, plus the four statuses.
+
+     NOTE ON RED. The system's accent is red and so is its danger colour
+     (#b42318), only ~8 degrees apart in hue. The system gets away with it
+     because danger appears on its own tinted surfaces. Here they can end up
+     side by side, so nothing in this site signals state by colour alone —
+     every coloured delta carries a direction arrow, and the conditional
+     formatting lessons teach colour plus a label for exactly this reason.
   --------------------------------------------------------------------------- */
 
-  /* Ink — the neutral everything is built on. A little blue is held in the
-     shadows (hue 275) so dark reads as unlit rather than muddy. Fourteen
-     steps in the source; 0, 25 and 1000 are kept for the surfaces below. */
-  --color-ink-0: oklch(99.2% 0.002 275);
-  --color-ink-25: oklch(98.2% 0.003 275);
-  --color-ink-50: oklch(96.6% 0.004 275);
-  --color-ink-100: oklch(94.0% 0.005 275);
-  --color-ink-200: oklch(89.0% 0.007 275);
-  --color-ink-300: oklch(82.0% 0.009 275);
-  --color-ink-400: oklch(71.0% 0.013 275);
-  --color-ink-500: oklch(58.0% 0.018 275);
-  --color-ink-600: oklch(48.0% 0.020 275);
-  --color-ink-700: oklch(39.0% 0.020 275);
-  --color-ink-800: oklch(30.5% 0.018 275);
-  --color-ink-900: oklch(23.0% 0.016 275);
-  --color-ink-950: oklch(17.5% 0.014 275);
-  --color-ink-1000: oklch(12.5% 0.012 275);
+  /* Graphite — the neutral, copied value-for-value from the system's
+     --im-gray-* ladder. Pure zero chroma: the system holds no hue in its greys,
+     so dark mode reads as unlit rather than tinted. `0` is --im-white, which is
+     the light canvas; the dark canvas is 950, not a fourteenth step. */
+  --color-graphite-0: oklch(100% 0 0);
+  --color-graphite-50: oklch(98.5% 0 0);
+  --color-graphite-100: oklch(97.0% 0 0);
+  --color-graphite-200: oklch(92.2% 0 0);
+  --color-graphite-300: oklch(87.0% 0 0);
+  --color-graphite-400: oklch(70.8% 0 0);
+  --color-graphite-500: oklch(55.6% 0 0);
+  --color-graphite-600: oklch(43.9% 0 0);
+  --color-graphite-700: oklch(37.1% 0 0);
+  --color-graphite-800: oklch(26.9% 0 0);
+  --color-graphite-900: oklch(20.5% 0 0);
+  --color-graphite-950: oklch(14.5% 0 0);
 
-  /* Azure — blue, hue 240. The brand accent: buttons, links, active nav. */
-  --color-azure-50: oklch(96.5% 0.018 240);
-  --color-azure-100: oklch(94.0% 0.035 240);
-  --color-azure-200: oklch(89.0% 0.060 240);
-  --color-azure-300: oklch(82.0% 0.090 240);
-  --color-azure-400: oklch(73.0% 0.125 240);
-  --color-azure-500: oklch(62.0% 0.145 240);
-  --color-azure-600: oklch(54.0% 0.150 240);
-  --color-azure-700: oklch(46.0% 0.130 240);
-  --color-azure-800: oklch(37.0% 0.105 240);
-  --color-azure-900: oklch(28.0% 0.080 240);
-  --color-azure-950: oklch(22.0% 0.060 240);
+  /* Signal — the Im Design System's accent (--im-accent, #f22f46), unchanged.
+     500 IS the source colour; every other step is derived from it. */
+  --color-signal-50: oklch(97.0% 0.020 21.4);
+  --color-signal-100: oklch(94.0% 0.043 21.4);
+  --color-signal-200: oklch(89.0% 0.079 21.4);
+  --color-signal-300: oklch(82.0% 0.129 21.4);
+  --color-signal-400: oklch(73.0% 0.186 21.4);
+  --color-signal-500: oklch(62.6% 0.226 21.4);
+  --color-signal-600: oklch(56.0% 0.215 21.4);
+  --color-signal-700: oklch(47.0% 0.186 21.4);
+  --color-signal-800: oklch(38.0% 0.149 21.4);
+  --color-signal-900: oklch(29.0% 0.115 21.4);
+  --color-signal-950: oklch(22.0% 0.088 21.4);
 
-  /* Iris — violet, hue 285. Secondary accent: charts, highlights, badges. */
-  --color-iris-50: oklch(96.5% 0.020 285);
-  --color-iris-100: oklch(94.0% 0.038 285);
-  --color-iris-200: oklch(89.0% 0.068 285);
-  --color-iris-300: oklch(82.0% 0.100 285);
-  --color-iris-400: oklch(73.0% 0.140 285);
-  --color-iris-500: oklch(62.0% 0.170 285);
-  --color-iris-600: oklch(54.0% 0.175 285);
-  --color-iris-700: oklch(46.0% 0.155 285);
-  --color-iris-800: oklch(37.0% 0.125 285);
-  --color-iris-900: oklch(28.0% 0.095 285);
-  --color-iris-950: oklch(22.0% 0.072 285);
+  /* Orchid — the accent rotated -90deg in oklch, exactly as the design system
+     derives its category colours (oklch(from accent l c calc(h - 90))). */
+  --color-orchid-50: oklch(97.0% 0.017 291.4);
+  --color-orchid-100: oklch(94.0% 0.035 291.4);
+  --color-orchid-200: oklch(89.0% 0.065 291.4);
+  --color-orchid-300: oklch(82.0% 0.106 291.4);
+  --color-orchid-400: oklch(73.0% 0.152 291.4);
+  --color-orchid-500: oklch(62.6% 0.186 291.4);
+  --color-orchid-600: oklch(56.0% 0.176 291.4);
+  --color-orchid-700: oklch(47.0% 0.152 291.4);
+  --color-orchid-800: oklch(38.0% 0.123 291.4);
+  --color-orchid-900: oklch(29.0% 0.095 291.4);
+  --color-orchid-950: oklch(22.0% 0.072 291.4);
+
+  /* Verdant — the design system's --im-success (#1a7f37). */
+  --color-verdant-50: oklch(97.0% 0.013 148.0);
+  --color-verdant-100: oklch(94.0% 0.028 148.0);
+  --color-verdant-200: oklch(89.0% 0.052 148.0);
+  --color-verdant-300: oklch(82.0% 0.084 148.0);
+  --color-verdant-400: oklch(73.0% 0.121 148.0);
+  --color-verdant-500: oklch(62.6% 0.147 148.0);
+  --color-verdant-600: oklch(52.4% 0.140 148.0);
+  --color-verdant-700: oklch(47.0% 0.121 148.0);
+  --color-verdant-800: oklch(38.0% 0.097 148.0);
+  --color-verdant-900: oklch(29.0% 0.075 148.0);
+  --color-verdant-950: oklch(22.0% 0.058 148.0);
+
+  /* Ochre — the design system's --im-warning (#8a5a00). */
+  --color-ochre-50: oklch(97.0% 0.012 73.3);
+  --color-ochre-100: oklch(94.0% 0.025 73.3);
+  --color-ochre-200: oklch(89.0% 0.046 73.3);
+  --color-ochre-300: oklch(82.0% 0.075 73.3);
+  --color-ochre-400: oklch(73.0% 0.108 73.3);
+  --color-ochre-500: oklch(62.6% 0.132 73.3);
+  --color-ochre-600: oklch(56.0% 0.125 73.3);
+  --color-ochre-700: oklch(50.8% 0.108 73.3);
+  --color-ochre-800: oklch(38.0% 0.087 73.3);
+  --color-ochre-900: oklch(29.0% 0.067 73.3);
+  --color-ochre-950: oklch(22.0% 0.051 73.3);
+
+  /* Crimson — the design system's --im-danger (#b42318). Deliberately deeper and
+     less chromatic than the accent so 'bad' never reads as 'brand'. */
+  --color-crimson-50: oklch(97.0% 0.020 29.5);
+  --color-crimson-100: oklch(94.0% 0.042 29.5);
+  --color-crimson-200: oklch(89.0% 0.078 29.5);
+  --color-crimson-300: oklch(82.0% 0.127 29.5);
+  --color-crimson-400: oklch(73.0% 0.182 29.5);
+  --color-crimson-500: oklch(62.6% 0.222 29.5);
+  --color-crimson-600: oklch(56.0% 0.211 29.5);
+  --color-crimson-700: oklch(50.0% 0.182 29.5);
+  --color-crimson-800: oklch(38.0% 0.147 29.5);
+  --color-crimson-900: oklch(29.0% 0.113 29.5);
+  --color-crimson-950: oklch(22.0% 0.087 29.5);
+
+  /* Cobalt — the design system's --im-info (#175cd3). */
+  --color-cobalt-50: oklch(97.0% 0.021 260.9);
+  --color-cobalt-100: oklch(94.0% 0.045 260.9);
+  --color-cobalt-200: oklch(89.0% 0.083 260.9);
+  --color-cobalt-300: oklch(82.0% 0.136 260.9);
+  --color-cobalt-400: oklch(73.0% 0.195 260.9);
+  --color-cobalt-500: oklch(62.6% 0.238 260.9);
+  --color-cobalt-600: oklch(56.0% 0.226 260.9);
+  --color-cobalt-700: oklch(50.9% 0.195 260.9);
+  --color-cobalt-800: oklch(38.0% 0.157 260.9);
+  --color-cobalt-900: oklch(29.0% 0.122 260.9);
+  --color-cobalt-950: oklch(22.0% 0.093 260.9);
 }
 
 /* ---------------------------------------------------------------------------
-   Nuxt UI semantic tokens, mapped to the design system's tier-2 names.
+   Nuxt UI semantic tokens, mapped onto the Im Design System's semantic names.
 
    Nuxt UI's defaults put the page on pure white and dark mode on neutral-900.
-   The design system descends from paper (ink-0) in light and ascends from
-   near-black (ink-1000) in dark; hairlines go translucent in dark so they
-   survive over an image instead of vanishing into it. Unlayered, so these
-   beat Nuxt UI's own `@layer theme` declarations.
+   The design system starts light at --im-canvas (white) and stacks surfaces
+   upward; in dark it starts at --im-gray-950 and stacks upward from there.
+   Hairlines are a translucent colour-mix in both themes, not a solid step, so
+   they hold up over a tinted surface or an image. Unlayered, so these beat
+   Nuxt UI's own `@layer theme` declarations.
 
-     Nuxt UI               design system
-     --ui-bg               --bg-canvas
-     --ui-bg-muted         --bg-sunken
-     --ui-bg-elevated      --bg-muted
-     --ui-text-highlighted --fg-default
-     --ui-text             --fg-muted
-     --ui-text-toned       --fg-subtle
-     --ui-text-muted       --fg-faint
-     --ui-text-dimmed      --fg-disabled
-     --ui-border           --line-default
-     --ui-border-muted     --line-subtle
-     --ui-border-accented  --line-strong
+     Nuxt UI               Im Design System
+     --ui-bg               --im-canvas
+     --ui-bg-muted         --im-surface
+     --ui-bg-elevated      --im-surface-2
+     --ui-bg-accented      --im-surface-3
+     --ui-text-highlighted --im-ink
+     --ui-text             --im-body
+     --ui-text-muted       --im-muted
+     --ui-text-dimmed      --im-faint
+     --ui-border           --im-line
 --------------------------------------------------------------------------- */
 :root {
   --ui-container: var(--container-8xl);
 
-  /* --radius-control (6px) is Nuxt UI's rounded-md, i.e. 1.5 × this;
-     --radius-card (10px) is close to rounded-lg at 2 ×. */
+  /* --radius-control (6px) is Nuxt UI's rounded-md, i.e. 1.5 x this;
+     --radius-card (10px) is close to rounded-lg at 2 x. */
   --ui-radius: 0.25rem;
 
-  --ui-bg: var(--color-ink-0);
-  --ui-bg-muted: var(--color-ink-50);
-  --ui-bg-elevated: var(--color-ink-100);
-  --ui-bg-accented: var(--color-ink-200);
-  --ui-bg-inverted: var(--color-ink-950);
+  /* Surfaces, from the page upward: --im-canvas, --im-surface, -2, -3. */
+  --ui-bg: var(--color-graphite-0);
+  --ui-bg-muted: var(--color-graphite-100);
+  --ui-bg-elevated: var(--color-graphite-200);
+  --ui-bg-accented: var(--color-graphite-300);
+  --ui-bg-inverted: var(--color-graphite-950);
 
-  --ui-text-highlighted: var(--color-ink-900);
-  --ui-text: var(--color-ink-700);
-  --ui-text-toned: var(--color-ink-600);
-  --ui-text-muted: var(--color-ink-500);
-  --ui-text-dimmed: var(--color-ink-400);
-  --ui-text-inverted: var(--color-ink-50);
+  /* Text, loudest to quietest: --im-ink, --im-body, --im-muted, --im-faint. */
+  --ui-text-highlighted: var(--color-graphite-950);
+  --ui-text: var(--color-graphite-600);
+  --ui-text-toned: var(--color-graphite-700);
+  --ui-text-muted: var(--color-graphite-500);
+  --ui-text-dimmed: var(--color-graphite-400);
+  --ui-text-inverted: var(--color-graphite-50);
 
-  --ui-border: var(--color-ink-200);
-  --ui-border-muted: var(--color-ink-100);
-  --ui-border-accented: var(--color-ink-300);
-  --ui-border-inverted: var(--color-ink-950);
+  /* --im-line is a translucent mix, not a solid step, so a hairline holds up
+     over a tinted surface or an image instead of banding against it. */
+  --ui-border: color-mix(in oklab, var(--color-graphite-500) 24%, transparent);
+  --ui-border-muted: color-mix(in oklab, var(--color-graphite-500) 14%, transparent);
+  --ui-border-accented: color-mix(in oklab, var(--color-graphite-500) 38%, transparent);
+  --ui-border-inverted: var(--color-graphite-950);
 }
 
 .dark {
-  --ui-bg: var(--color-ink-1000);
-  --ui-bg-muted: var(--color-ink-950);
-  --ui-bg-elevated: var(--color-ink-900);
-  --ui-bg-accented: var(--color-ink-800);
-  --ui-bg-inverted: var(--color-ink-50);
+  /* Dark descends from --im-gray-950, the system's dark canvas -- not from a
+     darker fourteenth step. Surfaces then ASCEND: 900, 800, 700. */
+  --ui-bg: var(--color-graphite-950);
+  --ui-bg-muted: var(--color-graphite-900);
+  --ui-bg-elevated: var(--color-graphite-800);
+  --ui-bg-accented: var(--color-graphite-700);
+  --ui-bg-inverted: var(--color-graphite-50);
 
-  --ui-text-highlighted: var(--color-ink-50);
-  --ui-text: var(--color-ink-300);
-  --ui-text-toned: var(--color-ink-400);
-  --ui-text-muted: var(--color-ink-500);
-  --ui-text-dimmed: var(--color-ink-600);
-  --ui-text-inverted: var(--color-ink-900);
+  --ui-text-highlighted: oklch(100% 0 0);
+  --ui-text: var(--color-graphite-400);
+  --ui-text-toned: var(--color-graphite-300);
+  --ui-text-muted: var(--color-graphite-500);
+  --ui-text-dimmed: var(--color-graphite-600);
+  --ui-text-inverted: var(--color-graphite-900);
 
-  --ui-border: oklch(100% 0 0 / 0.12);
-  --ui-border-muted: oklch(100% 0 0 / 0.07);
-  --ui-border-accented: oklch(100% 0 0 / 0.22);
-  --ui-border-inverted: var(--color-ink-200);
+  /* The system lightens the line's base in dark and raises its opacity, so a
+     hairline survives over a photograph rather than vanishing into it. */
+  --ui-border: color-mix(in oklab, var(--color-graphite-400) 26%, transparent);
+  --ui-border-muted: color-mix(in oklab, var(--color-graphite-400) 15%, transparent);
+  --ui-border-accented: color-mix(in oklab, var(--color-graphite-400) 40%, transparent);
+  --ui-border-inverted: var(--color-graphite-200);
 }
 
 /* A slightly larger base type size across the whole site (16px → 17px).
@@ -150,9 +222,11 @@ html {
    Landing-page visual helpers
 --------------------------------------------------------------------------- */
 
-/* Brand gradient text */
+/* Brand gradient text. Accent into the rotated secondary -- the same pairing
+   the design system uses for its category colours, rather than two arbitrary
+   stops. */
 .text-gradient {
-  background-image: linear-gradient(115deg, var(--color-azure-400), var(--color-azure-600));
+  background-image: linear-gradient(115deg, var(--color-signal-500), var(--color-orchid-600));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

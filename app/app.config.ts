@@ -1,9 +1,18 @@
 export default defineAppConfig({
   ui: {
+    // Every ramp comes from the Im Design System (design.imswarnil.com); see
+    // the block comment in app/assets/css/main.css for the source values.
+    // The four statuses are named explicitly rather than left on Nuxt UI's
+    // defaults, because the design system's accent is red and the default
+    // `error` red would have been indistinguishable from the brand.
     colors: {
-      primary: 'azure',
-      secondary: 'iris',
-      neutral: 'ink'
+      primary: 'signal',
+      secondary: 'orchid',
+      neutral: 'graphite',
+      success: 'verdant',
+      warning: 'ochre',
+      error: 'crimson',
+      info: 'cobalt'
     },
     footer: {
       slots: {
