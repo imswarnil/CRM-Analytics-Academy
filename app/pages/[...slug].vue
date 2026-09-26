@@ -202,7 +202,13 @@ useJsonLd(jsonLd)
 </script>
 
 <template>
-  <UPage v-if="page">
+  <!-- `lesson-grid` sizes this inner grid (prose vs table of contents) in
+       main.css, alongside the layout's outer one; the two compose to a page
+       that is a quarter rail, half prose, a quarter contents. -->
+  <UPage
+    v-if="page"
+    :ui="{ root: 'lesson-grid' }"
+  >
     <UBreadcrumb
       :items="breadcrumbItems"
       class="mt-6"
@@ -245,6 +251,13 @@ useJsonLd(jsonLd)
         :end="page.video.end"
         :title="page.title"
         class="mb-8"
+      />
+
+      <LessonWalkthrough
+        v-if="page.walkthrough?.shots?.length"
+        :shots="page.walkthrough.shots"
+        :org="page.walkthrough.org"
+        :has-video="Boolean(page.clip?.src || page.video?.id)"
       />
 
       <ContentRenderer

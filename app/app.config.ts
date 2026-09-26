@@ -1,29 +1,24 @@
 export default defineAppConfig({
   ui: {
-    // Every ramp comes from the Im Design System (design.imswarnil.com); see
-    // the block comment in app/assets/css/main.css for the source values.
+    // Every ramp comes from the Swarnil design system's colour foundation:
+    // azure (blue, hue 240) leads, iris (violet, 285) supports, ink is a
+    // faintly blue-tinted neutral so dark mode reads as night rather than as
+    // soot. All three sit on ONE shared lightness ladder, so azure-500 and
+    // iris-500 carry the same weight and are interchangeable as a mark.
     //
-    // BLUE LEADS, RED ACCENTS. The design system's own accent is red (signal,
-    // #f22f46) and this site ran on it until now. It doesn't survive being the
-    // dominant colour of a *teaching* site: the curriculum's whole argument is
-    // that red means "look at this number, something is wrong", and a red
-    // header, red nav and red buttons spend that meaning before a lesson can
-    // use it. So the system's blue (cobalt, #175cd3) carries structure --
-    // header, nav, links, buttons -- and signal drops to `secondary`, used
-    // sparingly for emphasis, the logo mark and anything genuinely urgent.
+    // Blue is the whole theme here, and that is a teaching decision as much as
+    // a brand one: this curriculum spends red on "this number is wrong, look at
+    // it", so red cannot also be the furniture. Structure, emphasis, nav, links
+    // and icons all draw from the blue ramp at different steps -- 600 for text
+    // on light, 500 for marks, 400 for dark mode, 100/50 for washes.
     //
-    // The four statuses stay named explicitly. `info` is the same cobalt as
-    // primary, which is deliberate: it is the system's own info hex, and an
-    // informational callout on a blue-brand site reading as brand-coloured is
-    // correct. Warning/error/success stay clearly apart from both.
+    // Statuses stay on Nuxt UI's defaults, which is what this site ran on
+    // before: green, amber, red, blue. They are state, not brand, and keeping
+    // them conventional is why a red delta still reads as bad news.
     colors: {
-      primary: 'cobalt',
-      secondary: 'signal',
-      neutral: 'graphite',
-      success: 'verdant',
-      warning: 'ochre',
-      error: 'crimson',
-      info: 'cobalt'
+      primary: 'azure',
+      secondary: 'iris',
+      neutral: 'ink'
     },
     footer: {
       slots: {

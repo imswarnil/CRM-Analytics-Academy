@@ -101,6 +101,24 @@ export default defineContentConfig({
           src: z.string(),
           poster: z.string().optional()
         }).optional(),
+        // The lesson's screen walkthrough, as a recording script. Rendered by
+        // LessonWalkthrough where the video goes: open when the lesson has no
+        // clip/video yet, collapsed once one lands. The `say` lines are written
+        // as teaching prose rather than stage direction, so the script reads as
+        // a text tour on its own -- which is what it is until the clip exists.
+        walkthrough: z.object({
+          // What to have on screen before recording starts.
+          org: z.string().optional(),
+          shots: z.array(z.object({
+            shot: z.string(),
+            // The click path, verbatim: "Data Manager -> Recipes -> Edit".
+            screen: z.string().optional(),
+            say: z.string(),
+            // Text overlay for this shot, if any.
+            onscreen: z.string().optional(),
+            seconds: z.number().optional()
+          })).min(1)
+        }).optional(),
         // Optional interview-prep Q&A rendered after the lesson body; also
         // emitted as FAQPage JSON-LD for SEO.
         interview: z.array(z.object({

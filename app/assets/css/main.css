@@ -6,218 +6,180 @@
 @theme static {
   --container-8xl: 90rem;
 
-  /* SLDS-inspired type stack — Salesforce Sans with clean system fallbacks */
-  --font-sans: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* ---------------------------------------------------------------------------
+     Type — Geist and Geist Mono, the two faces the Im Design System uses and
+     the only two here.
+
+     This replaces a stack headed by 'Salesforce Sans', which was never a real
+     dependency: the font is not on a public CDN and nothing in this project
+     ever shipped it, so every visitor has been reading the system fallback
+     instead. Naming Geist makes the intended face the actual face -- @nuxt/fonts
+     (bundled with Nuxt UI) resolves and self-hosts it at build time, so there is
+     no third-party request at runtime.
+
+     Geist Mono carries anything that is a value rather than a sentence: click
+     paths in a walkthrough, formulas in a metric spec, row counts, SAQL. That
+     separation is the design system's, and it is the reason a metric formula
+     reads as a specification rather than as prose.
+  --------------------------------------------------------------------------- */
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* ---------------------------------------------------------------------------
-     Colour ramps — from the Im Design System (design.imswarnil.com).
+     Radius, tracking and motion, taken value-for-value from the Im Design
+     System's primitives so a card, a button and a nav row here are curved and
+     eased exactly as they are there.
 
-     The system keeps ONE accent and derives everything else from it. Its source
-     values live in src/foundation/tokens/: `--im-accent: #f22f46`, a pure
-     zero-chroma grey ladder in primitives.css, and four status hexes in
-     semantic.css. Those exact values are the anchors below; the remaining steps
-     are interpolated onto one shared lightness ladder so signal-500 and
-     cobalt-500 carry the same visual weight and are interchangeable as a mark.
+     The system's own ladder is --im-radius-xs .. 2xl (4, 6, 8, 12, 16, 24px);
+     Nuxt UI derives everything from one --ui-radius, so the ladder is exposed
+     alongside it for the handful of places that need a specific rung.
+  --------------------------------------------------------------------------- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
 
-       50   97%   a wash            500  62.6% THE STEP — fills and marks
+  --tracking-tight: -0.02em;
+  --tracking-tighter: -0.035em;
+
+  /* The system eases everything out on this curve; nothing here uses the
+     browser default. --ease-instant is its hover duration: fast enough that a
+     nav row feels connected to the pointer rather than animated. */
+  --ease-out-im: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out-im: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-instant: 120ms;
+  --duration-quick: 200ms;
+
+  /* ---------------------------------------------------------------------------
+     Colour ramps — copied from the Swarnil design system
+     (design.imswarnil.com, src/1-foundation/01-color.css).
+
+     Every ramp is oklch on ONE shared lightness ladder, so azure-500 and
+     iris-500 sit at the same visual weight and are interchangeable as an
+     accent. Nuxt UI reads these as `primary: azure`, `secondary: iris`,
+     `neutral: ink` (app.config.ts) and derives --ui-color-* from them.
+
+       50   97%   a wash            500  ~63%  THE STEP — fills and marks
        100  94%   a tint            600  56%   pressed, and accent text (light)
        200  89%   a soft fill       700  47%   readable text on light
        300  82%   a border          800  38%   deep fill
-       400  73%   hover (light)     900  29%   near-black tint
-                                    950  22%   the floor
-
-     Nuxt UI reads these through app.config.ts as `primary: cobalt`,
-     `secondary: signal`, `neutral: graphite`, plus the four statuses.
-
-     WHY BLUE LEADS AND NOT THE SYSTEM'S OWN RED. The Im Design System keeps one
-     accent and it is red (signal, #f22f46). On a site that teaches dashboards,
-     red cannot also be the furniture: every lesson here spends red on "this
-     number is wrong, look at it", and a red header spends that meaning before a
-     lesson can use it. So cobalt — the system's own info hex, #175cd3, carried
-     onto the shared ladder as a full ramp — holds structure: header, nav, links,
-     buttons. Signal drops to the accent: the logo mark, one gradient stop, the
-     occasional emphasis. No derivation changed; only which ramp holds which role.
-
-     NOTE ON RED, STILL. Signal (21.4°) and crimson, the system's danger
-     (#b42318, ~29°), read as the same red at a glance. Demoting signal widens
-     the gap in practice — the accent now appears on brand furniture, danger on
-     state — but the rule stands regardless: nothing in this site signals state
-     by colour alone. Every coloured delta carries a direction arrow, and the
-     conditional formatting lessons teach colour plus a label for that reason.
+       400  74%   hover (light)     900  29%   near-black tint
+                                   950  22%   the floor
   --------------------------------------------------------------------------- */
 
-  /* Graphite — the neutral, copied value-for-value from the system's
-     --im-gray-* ladder. Pure zero chroma: the system holds no hue in its greys,
-     so dark mode reads as unlit rather than tinted. `0` is --im-white, which is
-     the light canvas; the dark canvas is 950, not a fourteenth step. */
-  --color-graphite-0: oklch(100% 0 0);
-  --color-graphite-50: oklch(98.5% 0 0);
-  --color-graphite-100: oklch(97.0% 0 0);
-  --color-graphite-200: oklch(92.2% 0 0);
-  --color-graphite-300: oklch(87.0% 0 0);
-  --color-graphite-400: oklch(70.8% 0 0);
-  --color-graphite-500: oklch(55.6% 0 0);
-  --color-graphite-600: oklch(43.9% 0 0);
-  --color-graphite-700: oklch(37.1% 0 0);
-  --color-graphite-800: oklch(26.9% 0 0);
-  --color-graphite-900: oklch(20.5% 0 0);
-  --color-graphite-950: oklch(14.5% 0 0);
+  /* Ink — the neutral everything is built on. A little blue is held in the
+     shadows (hue 275) so dark reads as unlit rather than muddy. Fourteen
+     steps in the source; 0, 25 and 1000 are kept for the surfaces below. */
+  --color-ink-0: oklch(99.2% 0.002 275);
+  --color-ink-25: oklch(98.2% 0.003 275);
+  --color-ink-50: oklch(96.6% 0.004 275);
+  --color-ink-100: oklch(94.0% 0.005 275);
+  --color-ink-200: oklch(89.0% 0.007 275);
+  --color-ink-300: oklch(82.0% 0.009 275);
+  --color-ink-400: oklch(71.0% 0.013 275);
+  --color-ink-500: oklch(58.0% 0.018 275);
+  --color-ink-600: oklch(48.0% 0.020 275);
+  --color-ink-700: oklch(39.0% 0.020 275);
+  --color-ink-800: oklch(30.5% 0.018 275);
+  --color-ink-900: oklch(23.0% 0.016 275);
+  --color-ink-950: oklch(17.5% 0.014 275);
+  --color-ink-1000: oklch(12.5% 0.012 275);
 
-  /* Signal — the Im Design System's accent (--im-accent, #f22f46), unchanged.
-     500 IS the source colour; every other step is derived from it. */
-  --color-signal-50: oklch(97.0% 0.020 21.4);
-  --color-signal-100: oklch(94.0% 0.043 21.4);
-  --color-signal-200: oklch(89.0% 0.079 21.4);
-  --color-signal-300: oklch(82.0% 0.129 21.4);
-  --color-signal-400: oklch(73.0% 0.186 21.4);
-  --color-signal-500: oklch(62.6% 0.226 21.4);
-  --color-signal-600: oklch(56.0% 0.215 21.4);
-  --color-signal-700: oklch(47.0% 0.186 21.4);
-  --color-signal-800: oklch(38.0% 0.149 21.4);
-  --color-signal-900: oklch(29.0% 0.115 21.4);
-  --color-signal-950: oklch(22.0% 0.088 21.4);
+  /* Azure — blue, hue 240. The brand accent: buttons, links, active nav. */
+  --color-azure-50: oklch(96.5% 0.018 240);
+  --color-azure-100: oklch(94.0% 0.035 240);
+  --color-azure-200: oklch(89.0% 0.060 240);
+  --color-azure-300: oklch(82.0% 0.090 240);
+  --color-azure-400: oklch(73.0% 0.125 240);
+  --color-azure-500: oklch(62.0% 0.145 240);
+  --color-azure-600: oklch(54.0% 0.150 240);
+  --color-azure-700: oklch(46.0% 0.130 240);
+  --color-azure-800: oklch(37.0% 0.105 240);
+  --color-azure-900: oklch(28.0% 0.080 240);
+  --color-azure-950: oklch(22.0% 0.060 240);
 
-  /* Orchid — the accent rotated -90deg in oklch, exactly as the design system
-     derives its category colours (oklch(from accent l c calc(h - 90))). */
-  --color-orchid-50: oklch(97.0% 0.017 291.4);
-  --color-orchid-100: oklch(94.0% 0.035 291.4);
-  --color-orchid-200: oklch(89.0% 0.065 291.4);
-  --color-orchid-300: oklch(82.0% 0.106 291.4);
-  --color-orchid-400: oklch(73.0% 0.152 291.4);
-  --color-orchid-500: oklch(62.6% 0.186 291.4);
-  --color-orchid-600: oklch(56.0% 0.176 291.4);
-  --color-orchid-700: oklch(47.0% 0.152 291.4);
-  --color-orchid-800: oklch(38.0% 0.123 291.4);
-  --color-orchid-900: oklch(29.0% 0.095 291.4);
-  --color-orchid-950: oklch(22.0% 0.072 291.4);
-
-  /* Verdant — the design system's --im-success (#1a7f37). */
-  --color-verdant-50: oklch(97.0% 0.013 148.0);
-  --color-verdant-100: oklch(94.0% 0.028 148.0);
-  --color-verdant-200: oklch(89.0% 0.052 148.0);
-  --color-verdant-300: oklch(82.0% 0.084 148.0);
-  --color-verdant-400: oklch(73.0% 0.121 148.0);
-  --color-verdant-500: oklch(62.6% 0.147 148.0);
-  --color-verdant-600: oklch(52.4% 0.140 148.0);
-  --color-verdant-700: oklch(47.0% 0.121 148.0);
-  --color-verdant-800: oklch(38.0% 0.097 148.0);
-  --color-verdant-900: oklch(29.0% 0.075 148.0);
-  --color-verdant-950: oklch(22.0% 0.058 148.0);
-
-  /* Ochre — the design system's --im-warning (#8a5a00). */
-  --color-ochre-50: oklch(97.0% 0.012 73.3);
-  --color-ochre-100: oklch(94.0% 0.025 73.3);
-  --color-ochre-200: oklch(89.0% 0.046 73.3);
-  --color-ochre-300: oklch(82.0% 0.075 73.3);
-  --color-ochre-400: oklch(73.0% 0.108 73.3);
-  --color-ochre-500: oklch(62.6% 0.132 73.3);
-  --color-ochre-600: oklch(56.0% 0.125 73.3);
-  --color-ochre-700: oklch(50.8% 0.108 73.3);
-  --color-ochre-800: oklch(38.0% 0.087 73.3);
-  --color-ochre-900: oklch(29.0% 0.067 73.3);
-  --color-ochre-950: oklch(22.0% 0.051 73.3);
-
-  /* Crimson — the design system's --im-danger (#b42318). Deliberately deeper and
-     less chromatic than the accent so 'bad' never reads as 'brand'. */
-  --color-crimson-50: oklch(97.0% 0.020 29.5);
-  --color-crimson-100: oklch(94.0% 0.042 29.5);
-  --color-crimson-200: oklch(89.0% 0.078 29.5);
-  --color-crimson-300: oklch(82.0% 0.127 29.5);
-  --color-crimson-400: oklch(73.0% 0.182 29.5);
-  --color-crimson-500: oklch(62.6% 0.222 29.5);
-  --color-crimson-600: oklch(56.0% 0.211 29.5);
-  --color-crimson-700: oklch(50.0% 0.182 29.5);
-  --color-crimson-800: oklch(38.0% 0.147 29.5);
-  --color-crimson-900: oklch(29.0% 0.113 29.5);
-  --color-crimson-950: oklch(22.0% 0.087 29.5);
-
-  /* Cobalt — the design system's --im-info (#175cd3). */
-  --color-cobalt-50: oklch(97.0% 0.021 260.9);
-  --color-cobalt-100: oklch(94.0% 0.045 260.9);
-  --color-cobalt-200: oklch(89.0% 0.083 260.9);
-  --color-cobalt-300: oklch(82.0% 0.136 260.9);
-  --color-cobalt-400: oklch(73.0% 0.195 260.9);
-  --color-cobalt-500: oklch(62.6% 0.238 260.9);
-  --color-cobalt-600: oklch(56.0% 0.226 260.9);
-  --color-cobalt-700: oklch(50.9% 0.195 260.9);
-  --color-cobalt-800: oklch(38.0% 0.157 260.9);
-  --color-cobalt-900: oklch(29.0% 0.122 260.9);
-  --color-cobalt-950: oklch(22.0% 0.093 260.9);
+  /* Iris — violet, hue 285. Secondary accent: charts, highlights, badges. */
+  --color-iris-50: oklch(96.5% 0.020 285);
+  --color-iris-100: oklch(94.0% 0.038 285);
+  --color-iris-200: oklch(89.0% 0.068 285);
+  --color-iris-300: oklch(82.0% 0.100 285);
+  --color-iris-400: oklch(73.0% 0.140 285);
+  --color-iris-500: oklch(62.0% 0.170 285);
+  --color-iris-600: oklch(54.0% 0.175 285);
+  --color-iris-700: oklch(46.0% 0.155 285);
+  --color-iris-800: oklch(37.0% 0.125 285);
+  --color-iris-900: oklch(28.0% 0.095 285);
+  --color-iris-950: oklch(22.0% 0.072 285);
 }
 
 /* ---------------------------------------------------------------------------
-   Nuxt UI semantic tokens, mapped onto the Im Design System's semantic names.
+   Nuxt UI semantic tokens, mapped to the design system's tier-2 names.
 
    Nuxt UI's defaults put the page on pure white and dark mode on neutral-900.
-   The design system starts light at --im-canvas (white) and stacks surfaces
-   upward; in dark it starts at --im-gray-950 and stacks upward from there.
-   Hairlines are a translucent colour-mix in both themes, not a solid step, so
-   they hold up over a tinted surface or an image. Unlayered, so these beat
-   Nuxt UI's own `@layer theme` declarations.
+   The design system descends from paper (ink-0) in light and ascends from
+   near-black (ink-1000) in dark; hairlines go translucent in dark so they
+   survive over an image instead of vanishing into it. Unlayered, so these
+   beat Nuxt UI's own `@layer theme` declarations.
 
-     Nuxt UI               Im Design System
-     --ui-bg               --im-canvas
-     --ui-bg-muted         --im-surface
-     --ui-bg-elevated      --im-surface-2
-     --ui-bg-accented      --im-surface-3
-     --ui-text-highlighted --im-ink
-     --ui-text             --im-body
-     --ui-text-muted       --im-muted
-     --ui-text-dimmed      --im-faint
-     --ui-border           --im-line
+     Nuxt UI               design system
+     --ui-bg               --bg-canvas
+     --ui-bg-muted         --bg-sunken
+     --ui-bg-elevated      --bg-muted
+     --ui-text-highlighted --fg-default
+     --ui-text             --fg-muted
+     --ui-text-toned       --fg-subtle
+     --ui-text-muted       --fg-faint
+     --ui-text-dimmed      --fg-disabled
+     --ui-border           --line-default
+     --ui-border-muted     --line-subtle
+     --ui-border-accented  --line-strong
 --------------------------------------------------------------------------- */
 :root {
   --ui-container: var(--container-8xl);
 
-  /* --radius-control (6px) is Nuxt UI's rounded-md, i.e. 1.5 x this;
-     --radius-card (10px) is close to rounded-lg at 2 x. */
+  /* --radius-control (6px) is Nuxt UI's rounded-md, i.e. 1.5 × this;
+     --radius-card (10px) is close to rounded-lg at 2 ×. */
   --ui-radius: 0.25rem;
 
-  /* Surfaces, from the page upward: --im-canvas, --im-surface, -2, -3. */
-  --ui-bg: var(--color-graphite-0);
-  --ui-bg-muted: var(--color-graphite-100);
-  --ui-bg-elevated: var(--color-graphite-200);
-  --ui-bg-accented: var(--color-graphite-300);
-  --ui-bg-inverted: var(--color-graphite-950);
+  --ui-bg: var(--color-ink-0);
+  --ui-bg-muted: var(--color-ink-50);
+  --ui-bg-elevated: var(--color-ink-100);
+  --ui-bg-accented: var(--color-ink-200);
+  --ui-bg-inverted: var(--color-ink-950);
 
-  /* Text, loudest to quietest: --im-ink, --im-body, --im-muted, --im-faint. */
-  --ui-text-highlighted: var(--color-graphite-950);
-  --ui-text: var(--color-graphite-600);
-  --ui-text-toned: var(--color-graphite-700);
-  --ui-text-muted: var(--color-graphite-500);
-  --ui-text-dimmed: var(--color-graphite-400);
-  --ui-text-inverted: var(--color-graphite-50);
+  --ui-text-highlighted: var(--color-ink-900);
+  --ui-text: var(--color-ink-700);
+  --ui-text-toned: var(--color-ink-600);
+  --ui-text-muted: var(--color-ink-500);
+  --ui-text-dimmed: var(--color-ink-400);
+  --ui-text-inverted: var(--color-ink-50);
 
-  /* --im-line is a translucent mix, not a solid step, so a hairline holds up
-     over a tinted surface or an image instead of banding against it. */
-  --ui-border: color-mix(in oklab, var(--color-graphite-500) 24%, transparent);
-  --ui-border-muted: color-mix(in oklab, var(--color-graphite-500) 14%, transparent);
-  --ui-border-accented: color-mix(in oklab, var(--color-graphite-500) 38%, transparent);
-  --ui-border-inverted: var(--color-graphite-950);
+  --ui-border: var(--color-ink-200);
+  --ui-border-muted: var(--color-ink-100);
+  --ui-border-accented: var(--color-ink-300);
+  --ui-border-inverted: var(--color-ink-950);
 }
 
 .dark {
-  /* Dark descends from --im-gray-950, the system's dark canvas -- not from a
-     darker fourteenth step. Surfaces then ASCEND: 900, 800, 700. */
-  --ui-bg: var(--color-graphite-950);
-  --ui-bg-muted: var(--color-graphite-900);
-  --ui-bg-elevated: var(--color-graphite-800);
-  --ui-bg-accented: var(--color-graphite-700);
-  --ui-bg-inverted: var(--color-graphite-50);
+  --ui-bg: var(--color-ink-1000);
+  --ui-bg-muted: var(--color-ink-950);
+  --ui-bg-elevated: var(--color-ink-900);
+  --ui-bg-accented: var(--color-ink-800);
+  --ui-bg-inverted: var(--color-ink-50);
 
-  --ui-text-highlighted: oklch(100% 0 0);
-  --ui-text: var(--color-graphite-400);
-  --ui-text-toned: var(--color-graphite-300);
-  --ui-text-muted: var(--color-graphite-500);
-  --ui-text-dimmed: var(--color-graphite-600);
-  --ui-text-inverted: var(--color-graphite-900);
+  --ui-text-highlighted: var(--color-ink-50);
+  --ui-text: var(--color-ink-300);
+  --ui-text-toned: var(--color-ink-400);
+  --ui-text-muted: var(--color-ink-500);
+  --ui-text-dimmed: var(--color-ink-600);
+  --ui-text-inverted: var(--color-ink-900);
 
-  /* The system lightens the line's base in dark and raises its opacity, so a
-     hairline survives over a photograph rather than vanishing into it. */
-  --ui-border: color-mix(in oklab, var(--color-graphite-400) 26%, transparent);
-  --ui-border-muted: color-mix(in oklab, var(--color-graphite-400) 15%, transparent);
-  --ui-border-accented: color-mix(in oklab, var(--color-graphite-400) 40%, transparent);
-  --ui-border-inverted: var(--color-graphite-200);
+  --ui-border: oklch(100% 0 0 / 0.12);
+  --ui-border-muted: oklch(100% 0 0 / 0.07);
+  --ui-border-accented: oklch(100% 0 0 / 0.22);
+  --ui-border-inverted: var(--color-ink-200);
 }
 
 /* A slightly larger base type size across the whole site (16px → 17px).
@@ -231,12 +193,9 @@ html {
    Landing-page visual helpers
 --------------------------------------------------------------------------- */
 
-/* Brand gradient text. The primary blue into the red accent — the site's two
-   brand ramps in their new order, rather than two arbitrary stops. Both ends sit
-   on the same lightness ladder, so the gradient holds an even weight across its
-   length instead of dipping through the middle. */
+/* Brand gradient text */
 .text-gradient {
-  background-image: linear-gradient(115deg, var(--color-cobalt-600), var(--color-signal-500));
+  background-image: linear-gradient(115deg, var(--color-azure-400), var(--color-azure-600));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -371,4 +330,219 @@ html {
     transform: none;
     transition: none;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   The design system's interaction idioms
+   ---------------------------------------------------------------------------
+   Colour is now entirely blue (azure, one ramp, many steps) and these rules are
+   what keeps that from reading as flat: hierarchy comes from WEIGHT and GROUND
+   rather than from hue, exactly as design.imswarnil.com does it. Headings track
+   tight, hovers move the ground and not the text, and an icon shifts from muted
+   to the blue at 500 to mark state.
+--------------------------------------------------------------------------- */
+
+/* Headings track tight and never hyphenate mid-word. The design system sets
+   this on every heading rung rather than on a utility, so it holds in prose
+   that was authored in markdown and never saw a class. */
+h1, h2, h3, h4,
+.im-tight {
+  letter-spacing: var(--tracking-tight);
+  text-wrap: pretty;
+}
+
+h1 {
+  letter-spacing: var(--tracking-tighter);
+}
+
+/* Anything that is a VALUE rather than a sentence sets in the mono face:
+   figures in a KPI tile, a click path, a row count, a formula. Tabular
+   figures so a column of numbers lines up at the decimal. */
+.im-figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-normal);
+}
+
+/* A meta line: mono, small, wide-tracked, uppercase. The system uses this for
+   anything that labels rather than says -- "19 FILES · 29,000 ROWS". */
+.im-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* One transition definition for every interactive surface in the site, on the
+   system's own out-curve. Only ground, border and colour move -- never size,
+   because a row that grows on hover shifts everything under it. */
+a,
+button,
+summary,
+[role="button"],
+.im-hoverable {
+  transition:
+    background-color var(--duration-instant) var(--ease-out-im),
+    border-color var(--duration-instant) var(--ease-out-im),
+    color var(--duration-instant) var(--ease-out-im),
+    box-shadow var(--duration-quick) var(--ease-out-im);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a, button, summary, [role="button"], .im-hoverable {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* A card that responds to the pointer: the ground lifts one step and the
+   hairline gains the blue. No shadow bloom, no translate -- the design system
+   treats a lift as a change of ground, which survives dark mode intact. */
+.im-card-hover {
+  transition:
+    background-color var(--duration-instant) var(--ease-out-im),
+    border-color var(--duration-instant) var(--ease-out-im);
+}
+
+.im-card-hover:hover {
+  background-color: var(--ui-bg-elevated);
+  border-color: color-mix(in oklab, var(--ui-color-primary-500) 35%, transparent);
+}
+
+/* Focus ring, one definition, blue, and visible on every ground. Keyboard
+   users get it; pointer users never see it. */
+:where(a, button, summary, [role="button"], input, select, textarea):focus-visible {
+  outline: 2px solid var(--ui-color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* The docs page split: a wider rail than Nuxt UI's default 2/10, taken out of
+   the body rather than out of the table of contents. Written as grid-column on
+   the slots instead of as col-span utilities on the `ui` prop, because those
+   utilities only exist if something else in the project already used them --
+   `lg:col-span-3` is not emitted by Nuxt UI's page theme, so passing it left
+   both columns on a single track with no error anywhere. */
+@media (min-width: 1024px) {
+  /* There are TWO nested UPage grids on a lesson, which is not obvious from
+     either file: the layout's UPage holds the rail and the page, and the page's
+     own UPage holds the prose and the table of contents. Sizing only the outer
+     one leaves the contents at two tenths of an already-narrowed column, which
+     is what truncated every heading in it to four words.
+
+     So both are set here, and the arithmetic composes to thirds:
+
+       .docs-grid    12 cols   rail 3        page 9
+       .lesson-grid   9 cols   prose 6       contents 3
+
+     Prose ends up at six of twelve -- the design system's reading measure
+     exactly -- with the two rails equal at a quarter each, which is what keeps
+     the page from leaning to one side. */
+  .docs-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+
+  .docs-grid > [data-slot="left"] {
+    grid-column: span 3 / span 3;
+  }
+
+  .docs-grid > [data-slot="center"] {
+    grid-column: span 9 / span 9;
+  }
+
+  .lesson-grid {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    column-gap: 2.5rem;
+  }
+
+  .lesson-grid > [data-slot="center"] {
+    grid-column: span 6 / span 6;
+  }
+
+  .lesson-grid > [data-slot="right"] {
+    grid-column: span 3 / span 3;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The lesson rail
+   ---------------------------------------------------------------------------
+   Styled as the design system's .im-sidenav + .im-navlink: a full-height
+   column that scrolls inside itself, rows at 2.25rem with a medium weight and
+   a md radius, and an icon that carries the state. The nav markup is Nuxt UI's
+   UContentNavigation, so these rules reach it through its data-slot attributes
+   rather than through classes it does not have.
+--------------------------------------------------------------------------- */
+.lesson-rail {
+  /* Its own scroll context, and a scrollbar that only appears on approach --
+     the system's sidenav does exactly this, so a long syllabus does not put a
+     permanent grey bar down the middle of the page. */
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.lesson-rail:hover {
+  scrollbar-color: var(--ui-bg-accented) transparent;
+}
+
+/* Module headings: the system's .im-navgroup-title -- quiet, small, and
+   emphatically not a link even though it sits in a list of them. */
+.lesson-rail :where([data-slot="link-title"]) {
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Rows. Nuxt UI already gives them a radius and a hover; this brings both onto
+   the system's values, and gives the icon the state change that makes a long
+   list scannable without reading it. */
+.lesson-rail :where(a[data-slot="link"]) {
+  min-height: 2.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+/* ICONS ARE BLUE, AT THREE DEPTHS. A module's icon is the site's blue at 500
+   in light and 400 in dark -- it is the one mark on a row of plain text, so it
+   carries the identity of the section. Hovering deepens it a step; the current
+   module deepens it again. Three steps of one ramp, which is how the design
+   system gets hierarchy out of a single hue instead of reaching for a second. */
+.lesson-rail :where(button, a) .iconify {
+  color: var(--ui-color-primary-500);
+  transition: color var(--duration-instant) var(--ease-out-im);
+}
+
+.dark .lesson-rail :where(button, a) .iconify {
+  color: var(--ui-color-primary-400);
+}
+
+.lesson-rail :where(button, a):hover .iconify {
+  color: var(--ui-color-primary-600);
+}
+
+.dark .lesson-rail :where(button, a):hover .iconify {
+  color: var(--ui-color-primary-300);
+}
+
+/* Chevrons are structure, not identity, so they stay neutral and let the
+   module icon be the only coloured thing in the row. */
+.lesson-rail :where(button, a) .iconify[class*="chevron"] {
+  color: var(--ui-text-dimmed);
+}
+
+/* The current lesson. Nuxt UI marks it with weight; this adds the blue, so
+   the eye finds it in a column of eighty rows without reading any of them. */
+.lesson-rail :where(a[aria-current="page"]) {
+  color: var(--ui-color-primary-600);
+  background-color: color-mix(in oklab, var(--ui-color-primary-500) 8%, transparent);
+}
+
+.dark .lesson-rail :where(a[aria-current="page"]) {
+  color: var(--ui-color-primary-300);
+  background-color: color-mix(in oklab, var(--ui-color-primary-400) 12%, transparent);
+}
+
+/* Hover on a lesson row moves the ground, never the type -- a row that changes
+   weight on hover makes the whole column twitch as the pointer crosses it. */
+.lesson-rail :where(a:not([aria-current="page"])):hover {
+  background-color: var(--ui-bg-elevated);
 }

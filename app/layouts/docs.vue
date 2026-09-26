@@ -14,28 +14,37 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
       class="mt-4 hidden lg:block"
     />
 
-    <UPage>
-      <template #left>
-        <!-- Sticky, viewport-capped column. The nav scrolls in its own
-             flex-1 area; the sponsor card is a shrink-0 sibling below it, so
-             it stays pinned at the bottom of the sidebar instead of
-             scrolling away with a long nav list. -->
-        <div class="hidden lg:sticky lg:top-(--ui-header-height) lg:flex lg:h-[calc(100vh-var(--ui-header-height))] lg:flex-col lg:-ms-4 lg:ps-4 lg:pe-6.5">
-          <div class="min-h-0 flex-1 overflow-y-auto py-8">
-            <UContentNavigation
-              highlight
-              type="single"
-              :navigation="navigation"
-            />
-          </div>
+    <!-- The rail is widened from Nuxt UI's 2/10 columns to 3/10 and the body
+         gives up the column; `.docs-grid` in main.css holds the arithmetic.
+         A syllabus of ten modules and eighty lessons does not fit a 2/10 rail
+         without truncating every second title, and a truncated lesson title in
+         a course navigation is worse than a narrower page: the rail is how you
+         know where you are. The body keeps 5/10, close to the design system's
+         own reading measure of six columns in twelve, so prose is no worse off.
 
-          <!-- The bought slot sits above the "sponsor me" link: one is what
-               somebody paid for, the other is the invitation to. Both are
-               shrink-0 so a long nav scrolls past them rather than pushing
-               them off the bottom. -->
-          <SponsorSlot class="mb-3 shrink-0" />
-          <SponsorCard class="mb-6 shrink-0" />
-        </div>
+         The split lives in CSS rather than in Tailwind classes on the `ui`
+         prop deliberately: those classes have to exist as compiled utilities,
+         and `lg:col-span-3` is not one Nuxt UI's own theme ever emits, so
+         passing it silently collapsed both columns to a single grid track. -->
+    <UPage :ui="{ root: 'docs-grid' }">
+      <template #left>
+        <!-- Full-height rail, sticky under the header, scrolling inside
+             itself. Nothing sits below the nav any more: the sponsor slot and
+             the sponsor card used to be pinned to the bottom of this column,
+             which cost the syllabus roughly a fifth of its height on a laptop
+             and put an advert in the one part of the page a learner uses to
+             navigate. Sponsorship still appears at the foot of each lesson and
+             on /sponsor; it does not belong in the course rail. -->
+        <nav
+          class="lesson-rail hidden lg:sticky lg:top-(--ui-header-height) lg:block lg:h-[calc(100dvh-var(--ui-header-height))] lg:overflow-y-auto lg:-ms-4 lg:ps-4 lg:pe-6 lg:pb-10 lg:pt-8"
+          aria-label="Course navigation"
+        >
+          <UContentNavigation
+            highlight
+            type="single"
+            :navigation="navigation"
+          />
+        </nav>
       </template>
 
       <slot />
