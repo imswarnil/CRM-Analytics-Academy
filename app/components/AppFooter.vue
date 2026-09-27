@@ -62,6 +62,12 @@ const columns = computed(() => [
             <p class="mt-3 max-w-xs text-sm text-muted">
               {{ t('footer.tagline') }}
             </p>
+            <!-- Deliberately not phrased as a Twilio endorsement: ex-Twilion
+                 is a statement about the author, not about who stands behind
+                 the site. -->
+            <p class="mt-2 max-w-xs text-xs text-dimmed">
+              {{ t('footer.builtBy') }}
+            </p>
             <div class="mt-4 flex items-center gap-1">
               <UColorModeButton v-if="footer?.colorMode" />
               <template v-if="footer?.links">
