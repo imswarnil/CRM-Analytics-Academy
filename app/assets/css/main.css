@@ -458,8 +458,8 @@ summary,
      on a two-track grid spans BOTH tracks and drops the contents rail to the
      bottom of a nine-thousand-pixel page, where nobody finds it. */
   .lesson-grid {
-    grid-template-columns: minmax(0, 1fr) 16rem;
-    column-gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    column-gap: 2.25rem;
   }
 
   .lesson-grid > [data-slot="center"] {
@@ -476,16 +476,13 @@ summary,
    whatever is left, because a fraction-based rail keeps growing with the
    viewport long after it has run out of anything to put in the space.
 
-   The navigation rail is the one that should NOT grow: 15rem holds a module
-   title, and every pixel beyond that is taken from the reading column, which
-   is the column that actually wants the room. The contents rail is fluid
-   between 19rem and 22rem -- wide enough for headings that do not truncate and
-   for the 300px ad to sit in it at full size, with its contents stretched to
-   fill the rail so no gap is left down its right-hand side.
+   Neither rail should grow: 15rem holds a module title, and the contents rail
+   is fluid between 16rem and 18rem -- enough for a heading of ordinary length
+   and for the ad beneath it, with its contents stretched to fill the rail so no
+   gap is left down the right-hand side. Every pixel beyond that would be taken
+   from the reading column, which is the column that actually wants the room.
 
-   At 1512px that lands at roughly 270 / 700 / 396: a reading measure in the
-   seventies of characters, and both rails carrying their content rather than
-   their padding. */
+   At 1512px that lands at roughly 270 / 790 / 324. */
 @media (min-width: 1280px) {
   .docs-grid {
     grid-template-columns: 15rem minmax(0, 1fr);
@@ -498,8 +495,8 @@ summary,
   }
 
   .lesson-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(19rem, 22rem);
-    column-gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 18rem);
+    column-gap: 2.25rem;
   }
 
   .lesson-grid > [data-slot="center"] {
