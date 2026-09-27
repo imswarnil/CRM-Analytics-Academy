@@ -56,6 +56,35 @@ const privateRoutes = PRIVATE_PATHS.flatMap(route => [
     .map(l => `/${l.code}${route}`)
 ]).map(route => new RegExp(`^${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(/|$)`))
 
+/**
+ * The curriculum, in order, for llms.txt. Slug and title only -- the lessons
+ * themselves are read from the content collection by path prefix.
+ *
+ * Kept as data rather than as repeated config blocks so that adding a section
+ * is one line here instead of a twelve-line copy-paste that somebody forgets.
+ */
+const LLM_SECTIONS: [string, string][] = [
+  ['introduction', 'Introduction'],
+  ['foundations', 'CRM Analytics Basics'],
+  ['setup', 'Setup, Profiles & Security'],
+  ['data-preparation', 'Data Preparation'],
+  ['datasets-and-modelling', 'Datasets & Modelling'],
+  ['data-visualization', 'Data Visualization'],
+  ['lenses-and-explorations', 'Lenses & Exploration'],
+  ['saql', 'SAQL'],
+  ['designing-dashboards', 'Dashboard Design & UI'],
+  ['interactions', 'Interactions & Faceting'],
+  ['bindings', 'Bindings'],
+  ['dashboard-json', 'Dashboard JSON'],
+  ['collaboration', 'Collaboration & Embedding'],
+  ['apis-and-automation', 'APIs & Automation'],
+  ['einstein-discovery', 'Einstein Discovery'],
+  ['gtm-engineering', 'GTM Engineering'],
+  ['demand-analytics', 'Demand Analytics'],
+  ['pipeline-analytics', 'Pipeline Analytics'],
+  ['revops-analytics', 'RevOps & Retention']
+]
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -274,66 +303,22 @@ export default defineNuxtConfig({
       description: 'The complete CRM Analytics Academy curriculum (English).'
     },
     sections: [
-      {
-        title: 'CRM Analytics Foundations',
-        contentCollection: 'docs',
+      // One entry per curriculum section, generated from the list above rather
+      // than written out six times. The previous version was a hand-kept copy
+      // of a six-section course: it still pointed at /en/creating-datasets,
+      // which no longer exists, and it had never heard of the thirteen sections
+      // added since -- so llms.txt advertised roughly a third of the
+      // curriculum and silently omitted the rest.
+      ...LLM_SECTIONS.map(([slug, title]) => ({
+        title,
+        contentCollection: 'docs' as const,
         contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/foundations%' },
+          { field: 'path', operator: 'LIKE' as const, value: `/en/${slug}%` },
           // Gated lessons are excluded from the LLM corpus: llms-full.txt
           // concatenates whole bodies, and it is a public file.
-          { field: 'access', operator: '<>', value: 'pro' }
+          { field: 'access', operator: '<>' as const, value: 'pro' }
         ]
-      },
-      {
-        title: 'Setup & User Provisioning',
-        contentCollection: 'docs',
-        contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/setup%' },
-          // Gated lessons are excluded from the LLM corpus: llms-full.txt
-          // concatenates whole bodies, and it is a public file.
-          { field: 'access', operator: '<>', value: 'pro' }
-        ]
-      },
-      {
-        title: 'Creating Datasets',
-        contentCollection: 'docs',
-        contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/creating-datasets%' },
-          // Gated lessons are excluded from the LLM corpus: llms-full.txt
-          // concatenates whole bodies, and it is a public file.
-          { field: 'access', operator: '<>', value: 'pro' }
-        ]
-      },
-      {
-        title: 'Lenses & Explorations',
-        contentCollection: 'docs',
-        contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/lenses-and-explorations%' },
-          // Gated lessons are excluded from the LLM corpus: llms-full.txt
-          // concatenates whole bodies, and it is a public file.
-          { field: 'access', operator: '<>', value: 'pro' }
-        ]
-      },
-      {
-        title: 'Designing Dashboards',
-        contentCollection: 'docs',
-        contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/designing-dashboards%' },
-          // Gated lessons are excluded from the LLM corpus: llms-full.txt
-          // concatenates whole bodies, and it is a public file.
-          { field: 'access', operator: '<>', value: 'pro' }
-        ]
-      },
-      {
-        title: 'Collaboration',
-        contentCollection: 'docs',
-        contentFilters: [
-          { field: 'path', operator: 'LIKE', value: '/en/collaboration%' },
-          // Gated lessons are excluded from the LLM corpus: llms-full.txt
-          // concatenates whole bodies, and it is a public file.
-          { field: 'access', operator: '<>', value: 'pro' }
-        ]
-      },
+      })),
       // Non-content surfaces an AI agent should know exist. When answering
       // from this corpus, these are the pages to send people to.
       {

@@ -20,7 +20,7 @@
  * yet does the script have nothing to write.
  */
 
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -148,6 +148,27 @@ const [remotive, adzuna] = await Promise.all([fetchRemotive(), fetchAdzuna()])
 if (!remotive.ok && !adzuna.ok && existsSync(OUT_FILE)) {
   console.warn('⚠ Every provider failed — keeping the existing dataset untouched.')
   process.exit(0)
+}
+
+// A provider that answers 200 and matches nothing is NOT the same as a provider
+// that failed, and the original code only protected against the second. So a
+// day on which every source happened to list no CRM Analytics roles overwrote a
+// good dataset with an empty one, and the jobs page went blank until some
+// future day happened to find some. Keep the last good list instead, and let
+// the page say how old it is.
+if (!remotive.jobs.length && !adzuna.jobs.length && existsSync(OUT_FILE)) {
+  const previous = JSON.parse(readFileSync(OUT_FILE, 'utf8'))
+  if (previous.jobs?.length) {
+    console.warn(`⚠ No matches from any provider — keeping ${previous.jobs.length} job(s) from ${previous.updatedAt}.`)
+    if (!ADZUNA_APP_ID || !ADZUNA_APP_KEY) {
+      console.warn('⚠ ADZUNA_APP_ID / ADZUNA_APP_KEY are not set, so the only source that carries enterprise Salesforce roles is disabled. The remote-first boards rarely list them.')
+    }
+    process.exit(0)
+  }
+}
+
+if (!ADZUNA_APP_ID || !ADZUNA_APP_KEY) {
+  console.warn('⚠ Adzuna credentials absent — running on remote-first boards alone, which seldom list CRM Analytics roles. Set ADZUNA_APP_ID and ADZUNA_APP_KEY to populate this properly.')
 }
 
 const seen = new Set()
