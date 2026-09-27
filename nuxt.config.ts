@@ -38,12 +38,23 @@ const DEFAULT_LOCALE = 'en'
 // Nitro matches these as path prefixes, and only the default locale is
 // unprefixed — so each one needs its eleven prefixed forms spelled out too.
 // scripts/gate-content.mjs does the same thing for gated lessons.
-const privateRoutes = ['/dashboard', '/account', '/submit', '/admin', '/api'].flatMap(route => [
+/**
+ * Signed-in surfaces, excluded from the prerender in every locale.
+ *
+ * These are REGULAR EXPRESSIONS anchored at a path boundary, not bare strings.
+ * Nitro matches a string in this list as a PREFIX, so '/dashboard' also
+ * excluded /dashboard-json and '/api' excluded /apis-and-automation — two whole
+ * sections silently absent from the build, with no error anywhere, because
+ * their slugs happen to start with the same characters as a private route.
+ */
+const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api']
+
+const privateRoutes = PRIVATE_PATHS.flatMap(route => [
   route,
   ...locales
     .filter(l => l.code !== DEFAULT_LOCALE)
     .map(l => `/${l.code}${route}`)
-])
+]).map(route => new RegExp(`^${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(/|$)`))
 
 export default defineNuxtConfig({
   modules: [
