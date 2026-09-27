@@ -605,3 +605,63 @@ summary,
 .lesson-rail :where(a:not([aria-current="page"])):hover {
   background-color: var(--ui-bg-elevated);
 }
+
+/* ---------------------------------------------------------------------------
+   The console look
+   ---------------------------------------------------------------------------
+   The single most recognisable thing about Twilio's console — and about Paste
+   generally — is not a colour. It is that the PAGE is tinted and the content
+   sits on crisp white surfaces above it, separated by 1px hairlines rather
+   than by shadows. A white page with white cards has no depth to spend; a
+   tinted page makes every surface read as a card without a single shadow.
+
+   This site is a learning product rather than a console, so the treatment is
+   applied where it earns its keep: the reading column, the rails and the
+   landing sections. Everything else inherits the palette and stays plain.
+--------------------------------------------------------------------------- */
+
+body {
+  background-color: var(--color-slate-50);
+}
+
+.dark body {
+  background-color: var(--color-slate-1000);
+}
+
+/* The reading column as a surface: white on the tint, one hairline, generous
+   inside padding so the text never touches the edge. Below 1024px the rails
+   collapse and the card would be a box around the whole viewport, so it only
+   applies where there is a page to sit on. */
+@media (min-width: 1024px) {
+  /* The PROSE column only. Applied to the outer grid's centre it would wrap the
+     table of contents too, and the contents rail is context rather than
+     content — it belongs on the tint with the navigation, so that exactly one
+     surface on the page holds the thing you came to read. */
+  .lesson-grid > [data-slot="center"] {
+    padding: 2rem 2.5rem 3rem;
+    background-color: var(--ui-bg);
+    border: 1px solid var(--ui-border-muted);
+    border-radius: var(--radius-xl);
+  }
+
+  .lesson-rail,
+  .lesson-grid > :not([data-slot="center"]) {
+    background-color: transparent;
+  }
+}
+
+/* Hairlines, not shadows. Nuxt UI reaches for a shadow on several components;
+   on a tinted ground a 1px line at the right contrast does the same work and
+   stays crisp at any zoom or pixel density. */
+:where(.im-card-hover, [data-slot="root"] > .rounded-lg) {
+  box-shadow: none;
+}
+
+/* Blue is structure, red is emphasis: a left rule in ember on anything the
+   lesson is calling out, so the accent appears as punctuation rather than as
+   decoration. The MDC callouts already carry their own colour by status; this
+   is for the walkthrough's narration, which is the one place the course speaks
+   in its own voice. */
+.lesson-walkthrough-say {
+  border-inline-start: 2px solid var(--color-ember-500);
+}

@@ -119,7 +119,7 @@ const runtime = computed(() => {
 
             <!-- The narration carries the teaching, so it is the one part set
                  at body size rather than in the metadata's smaller type. -->
-            <p class="mt-2 border-l-2 border-secondary/40 pl-3 text-sm leading-relaxed text-toned">
+            <p class="lesson-walkthrough-say mt-2 pl-3 text-sm leading-relaxed text-toned">
               {{ s.say }}
             </p>
 
