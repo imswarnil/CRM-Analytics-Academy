@@ -143,7 +143,7 @@ const phases = computed(() => [
     key: 'build',
     kicker: 'Phase 3',
     title: 'Do the job',
-    blurb: 'One fictional company, nineteen datasets, and fourteen dashboards built the way a go-to-market analytics team would build them.',
+    blurb: 'One fictional company, nineteen datasets, and sixteen dashboards built the way a go-to-market analytics team would build them.',
     icon: 'i-lucide-hammer',
     sections: sections.value.filter(s => s.index >= 7)
   }

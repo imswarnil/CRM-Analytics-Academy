@@ -431,12 +431,12 @@ summary,
 
      So both are set here, and the arithmetic composes to thirds:
 
-       .docs-grid    12 cols   rail 3        page 9
-       .lesson-grid   9 cols   prose 6       contents 3
+       .docs-grid    12 cols, rail 3 / page 9
+       .lesson-grid   two tracks, prose fluid / contents 16rem
 
-     Prose ends up at six of twelve -- the design system's reading measure
-     exactly -- with the two rails equal at a quarter each, which is what keeps
-     the page from leaning to one side. */
+     Between 1024 and 1280 the contents rail is fixed at 16rem and the prose
+     takes the rest; above 1280 both grids switch to fixed and bounded widths
+     (see the next block). */
   .docs-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 2rem;
@@ -450,33 +450,45 @@ summary,
     grid-column: span 9 / span 9;
   }
 
+  /* The table of contents keeps its OWN data-slot ("root"), because Nuxt UI's
+     slot wrapper merges onto UContentToc's nav and the component's attribute
+     wins. So `[data-slot="right"]` matches nothing here and the rail has to be
+     selected structurally -- as the child that is not the body. Targeting the
+     attribute silently left it carrying `lg:col-span-2` from the theme, which
+     on a two-track grid spans BOTH tracks and drops the contents rail to the
+     bottom of a nine-thousand-pixel page, where nobody finds it. */
   .lesson-grid {
-    grid-template-columns: repeat(9, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) 16rem;
     column-gap: 2.5rem;
   }
 
   .lesson-grid > [data-slot="center"] {
-    grid-column: span 6 / span 6;
+    grid-column: 1;
   }
 
-  .lesson-grid > [data-slot="right"] {
-    grid-column: span 3 / span 3;
+  .lesson-grid > :not([data-slot="center"]) {
+    grid-column: 2;
+    width: 100%;
   }
 }
 
-/* Above 1280px the two rails stop being fractions and become fixed widths, with
-   the prose taking whatever is left. A fraction-based rail keeps growing with
-   the viewport long after it has run out of anything to put in the extra space
-   -- which is what left the table of contents half empty on a wide screen --
-   while the reading column, the one thing that genuinely wants more room, grows
-   at the same rate and eventually overshoots a comfortable measure.
+/* Above 1280px the rails become fixed or bounded widths and the prose takes
+   whatever is left, because a fraction-based rail keeps growing with the
+   viewport long after it has run out of anything to put in the space.
 
-   22rem holds a full module title without truncating. 20rem is sized for the
-   ad in the right rail: a 300px medium rectangle plus its padding, which a
-   narrower rail would shrink and which is why that unit looked small. */
+   The navigation rail is the one that should NOT grow: 15rem holds a module
+   title, and every pixel beyond that is taken from the reading column, which
+   is the column that actually wants the room. The contents rail is fluid
+   between 19rem and 22rem -- wide enough for headings that do not truncate and
+   for the 300px ad to sit in it at full size, with its contents stretched to
+   fill the rail so no gap is left down its right-hand side.
+
+   At 1512px that lands at roughly 270 / 700 / 396: a reading measure in the
+   seventies of characters, and both rails carrying their content rather than
+   their padding. */
 @media (min-width: 1280px) {
   .docs-grid {
-    grid-template-columns: 22rem minmax(0, 1fr);
+    grid-template-columns: 15rem minmax(0, 1fr);
     column-gap: 2.5rem;
   }
 
@@ -486,13 +498,20 @@ summary,
   }
 
   .lesson-grid {
-    grid-template-columns: minmax(0, 1fr) 20rem;
-    column-gap: 3rem;
+    grid-template-columns: minmax(0, 1fr) minmax(19rem, 22rem);
+    column-gap: 2.5rem;
   }
 
-  .lesson-grid > [data-slot="center"],
-  .lesson-grid > [data-slot="right"] {
-    grid-column: auto;
+  .lesson-grid > [data-slot="center"] {
+    grid-column: 1;
+  }
+
+  /* Structural, not by data-slot -- see the note in the 1024px block. The rail
+     is fluid, so its contents stretch to fill it rather than sitting at their
+     intrinsic width and leaving a gap down the right-hand side. */
+  .lesson-grid > :not([data-slot="center"]) {
+    grid-column: 2;
+    width: 100%;
   }
 }
 
