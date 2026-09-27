@@ -274,7 +274,8 @@
     "curriculum": "Lehrplan",
     "project": "Projekt",
     "legal": "Rechtliches",
-    "community": "Gemeinschaft"
+    "community": "Gemeinschaft",
+    "builtBy": "Gebaut von einem Ex-Twilion."
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics lernen",

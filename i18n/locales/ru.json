@@ -274,7 +274,8 @@
     "curriculum": "учебная программа",
     "project": "Проект",
     "legal": "Юридический",
-    "community": "сообщество"
+    "community": "сообщество",
+    "builtBy": "Построенный бывшим Твильоном."
   },
   "seo": {
     "homeTitle": "CRM Analytics Академия - Учиться Salesforce CRM Analytics",

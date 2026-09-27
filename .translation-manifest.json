@@ -267,7 +267,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:fr": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -537,7 +538,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:de": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -807,7 +809,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:pt": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1077,7 +1080,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:ja": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1347,7 +1351,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:hi": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1617,7 +1622,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:ar": {
     "language": "ba118bf7fc9c1aed",
@@ -2022,7 +2028,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:ru": {
     "language": "ba118bf7fc9c1aed",
@@ -2427,7 +2434,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:bn": {
     "language": "ba118bf7fc9c1aed",
@@ -2832,7 +2840,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:ur": {
     "language": "ba118bf7fc9c1aed",
@@ -3237,7 +3246,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "ui:zh": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -3507,7 +3517,8 @@
     "ask.copied": "ea61bc15688d1e48",
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
-    "home.langHint": "e192b90354ade0a8"
+    "home.langHint": "e192b90354ade0a8",
+    "footer.builtBy": "ff2e85b854e1fdcc"
   },
   "es:01.foundations/.navigation.yml": "1f494ca2f772dbd5",
   "es:02.setup/01.index.md": "5b0473ebb52e92bf",

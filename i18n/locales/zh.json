@@ -274,7 +274,8 @@
     "curriculum": "课程",
     "project": "项目",
     "legal": "法律",
-    "community": "社区"
+    "community": "社区",
+    "builtBy": "由前w所建."
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",
