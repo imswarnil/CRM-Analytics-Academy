@@ -6,8 +6,8 @@
     "node": ">=22.5.0"
   },
   "scripts": {
-    "build": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=8192 nuxt build",
-    "generate": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=8192 nuxt generate && pnpm verify:gating",
+    "build": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=12288 nuxt build",
+    "generate": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=12288 nuxt generate && pnpm verify:gating",
     "dev": "bash scripts/dev.sh",
     "preview": "pnpm build && wrangler dev",
     "postinstall": "nuxt prepare",

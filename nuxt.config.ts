@@ -265,19 +265,25 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     baseUrl: 'https://crmanalytics.imswarnil.com',
     locales: [...locales],
-    // Pick the language from the visitor's browser on their first visit, on any
-    // path rather than only on `/` -- a link shared into a Spanish-speaking team
-    // lands on a lesson, not on the home page, and 'root' would leave every one
-    // of those visitors in English.
+    // Detection runs on the ROOT path only, and that limit is load-bearing.
     //
-    // The redirect happens client-side, because every page here is prerendered
-    // and served as a static asset, so no server middleware runs to inspect
-    // Accept-Language. The cookie makes it a once-per-visitor decision: someone
-    // who then switches language by hand is not bounced back on the next click.
+    // With `redirectOn: 'all'` the detector also runs while rendering a
+    // prefixed route. During prerender there is no Accept-Language header and
+    // no cookie, so it resolved to the fallback and every /es, /ja, /hi page
+    // was rendered AS ENGLISH: the navigation tree came back as the English
+    // branch, so each locale's pages linked only to English URLs. The crawler
+    // followed those, never reached a single translated lesson, and none of
+    // the 161 lessons x 11 locales was prerendered. On Cloudflare that is not
+    // a soft failure — the Worker has no D1 binding for the content database,
+    // so every one of those URLs answered 500.
+    //
+    // 'root' keeps the useful behaviour (a visitor landing on / gets their own
+    // language) without letting detection override a locale the URL already
+    // states.
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      redirectOn: 'all',
+      redirectOn: 'root',
       alwaysRedirect: false,
       fallbackLocale: 'en'
     }
