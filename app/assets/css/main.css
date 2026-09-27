@@ -597,7 +597,7 @@ summary,
    the system's values, and gives the icon the state change that makes a long
    list scannable without reading it. */
 .lesson-rail :where(a[data-slot="link"]) {
-  min-height: 2.25rem;
+  min-height: 1.9rem;
   border-radius: var(--radius-md);
   font-weight: 500;
 }
@@ -679,7 +679,7 @@ body {
      content — it belongs on the tint with the navigation, so that exactly one
      surface on the page holds the thing you came to read. */
   .lesson-grid > [data-slot="center"] {
-    padding: 2rem 2.5rem 3rem;
+    padding: 1.5rem 1.75rem 2.25rem;
     background-color: var(--ui-bg);
     border: 1px solid var(--ui-border-muted);
     border-radius: var(--radius-xl);

@@ -97,9 +97,11 @@ const insStyle = computed(() => {
   if (!v) return {}
   // maxWidth: 100% keeps fixed-size units (e.g. 300px) from overflowing a
   // container narrower than that, which is what let ads spill out on phones.
+  // marginInline: auto centres the unit itself; the CSS below centres the
+  // iframe AdSense writes inside it, which is the part that actually drifts.
   return v.width && v.height
-    ? { display: 'inline-block', width: `${v.width}px`, height: `${v.height}px`, maxWidth: '100%' }
-    : { display: 'block', width: '100%', maxWidth: '100%' }
+    ? { display: 'block', width: `${v.width}px`, height: `${v.height}px`, maxWidth: '100%', marginInline: 'auto' }
+    : { display: 'block', width: '100%', maxWidth: '100%', marginInline: 'auto' }
 })
 </script>
 
@@ -134,3 +136,23 @@ const insStyle = computed(() => {
     />
   </div>
 </template>
+
+<style scoped>
+/*
+ * AdSense replaces the <ins> contents with an iframe of its own sizing, and on
+ * a responsive unit that iframe is frequently narrower than the slot it was
+ * given — left-aligned inside it, which reads as a misplaced advert rather
+ * than a smaller one. Centring the generated child is the only way to hold it,
+ * because we do not control the markup it writes.
+ */
+.ad-unit :deep(ins.adsbygoogle) {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ad-unit :deep(iframe) {
+  display: block;
+  margin-inline: auto;
+  max-width: 100%;
+}
+</style>

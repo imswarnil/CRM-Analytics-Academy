@@ -307,7 +307,7 @@ Your content here…</code></pre>
                   v-else-if="s.id === 'showcase'"
                   :class="prose"
                 >
-                  <p>Built a CRM Analytics dashboard you're proud of? Add it to the <NuxtLink :to="localePath('/showcase')">Showcase</NuxtLink>. It's one markdown file in <code>content/showcase/</code> plus a screenshot in <code>public/showcase/</code> — no database, no account, the pull request review is the moderation.</p>
+                  <p>Built a CRM Analytics dashboard you're proud of? <NuxtLink :to="localePath('/submit')">Submit it to the Showcase</NuxtLink> — the form takes the title, the write-up and a screenshot, and a maintainer reviews it before it appears. If you would rather send a pull request, the markdown shape is below and both routes end in the same queue.</p>
                   <p>What makes an entry worth reading is not the screenshot, it's the <strong>working out</strong>: which KPIs you put on it, the formula behind each one, and why you measured it that way. Say what went wrong too — the gotcha you hit is usually the most useful part.</p>
                   <pre><code>---
 title: "Pipeline Health"
@@ -338,7 +338,8 @@ Your write-up goes here.</code></pre>
                   v-else-if="s.id === 'submit'"
                   :class="prose"
                 >
-                  <p>Found a helpful link (docs, course, tool, community)? <NuxtLink :to="`${repo}/issues/new`">Open an issue</NuxtLink> with the title, URL, and a one-line description. Once accepted it's added to the curated list in <code>app/pages/resources.vue</code> and appears on the <NuxtLink :to="localePath('/resources')">Resources</NuxtLink> page. Comfortable with a pull request? Add the entry yourself — it's a single line in that array.</p>
+                  <p>Found a helpful link — docs, a course, a tool, a community? <NuxtLink :to="localePath('/submit')">Submit it here</NuxtLink>. Title, URL and a line on why it is worth someone's time; it lands as pending and a maintainer approves it. No GitHub account, no pull request, no waiting for a build.</p>
+                  <p>Opening an issue still works if you prefer it, and so does a pull request adding a file to <code>content/resources/</code>. The form is simply faster, and it is the same moderation queue at the other end.</p>
                 </div>
 
                 <!-- code -->

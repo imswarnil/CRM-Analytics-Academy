@@ -535,5 +535,10 @@
     "copied": "Copied!",
     "mcp": "Connect via MCP",
     "mcpDesc": "Point any MCP-capable client at this endpoint to give your AI assistant direct access to every lesson."
+  },
+  "resources": {
+    "submitTitle": "Know a resource that belongs here?",
+    "submitBody": "Docs, a course, a tool, a community — anything that taught you something about CRM Analytics. Title, link and one line on why it is worth someone’s time. A maintainer reviews it before it appears.",
+    "submitCta": "Submit a resource"
   }
 }

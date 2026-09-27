@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const title = computed(() => t('seo.resourcesTitle'))
 const description = computed(() => t('seo.resourcesDesc'))
 
@@ -169,6 +170,26 @@ useJsonLd({
             </a>
           </div>
         </div>
+      </div>
+
+      <!-- Submitting a resource used to mean opening a GitHub issue, which is
+           a real barrier for the people most likely to know a good link. There
+           is a database and a moderated form now, so the page that lists
+           resources should be the page that invites one. -->
+      <div class="mx-auto mt-12 max-w-3xl rounded-xl border border-default bg-elevated/30 p-6 text-center">
+        <h2 class="text-lg font-semibold text-highlighted">
+          {{ t('resources.submitTitle') }}
+        </h2>
+        <p class="mx-auto mt-2 max-w-xl text-sm text-muted">
+          {{ t('resources.submitBody') }}
+        </p>
+        <UButton
+          :to="localePath('/submit')"
+          icon="i-lucide-circle-plus"
+          class="mt-4"
+        >
+          {{ t('resources.submitCta') }}
+        </UButton>
       </div>
 
       <AdUnit

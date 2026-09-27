@@ -84,8 +84,8 @@ export const AD_PLACEMENTS = {
   /** Between article sections — medium square on mobile, responsive square on larger. */
   betweenSections: {
     variants: [
-      { max: 768, slot: '9619442326', width: 250, height: 250, reserve: 250 },
-      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 280 }
+      { max: 768, slot: '9619442326', format: 'rectangle', fullWidthResponsive: true, reserve: 300 },
+      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 336 }
     ]
   },
 
@@ -110,12 +110,13 @@ export const AD_PLACEMENTS = {
    */
   sidebarSquare: {
     variants: [
-      // The contents rail is 13-14rem, so a fixed 300x250 no longer fits it —
-      // it would be clamped to the rail width and render as a squashed unit.
-      // Responsive on desktop, and the full medium rectangle on mobile where
-      // the rail becomes full width.
-      { max: 768, slot: '6066270853', width: 300, height: 250, reserve: 250 },
-      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 210 }
+      // A responsive rectangle rather than a pinned size: the contents rail is
+      // 13-14rem on a laptop and wider on a large screen, and a fixed unit is
+      // either clamped into a squashed box or leaves the rail half empty. The
+      // reserve is the taller square shape so the slot holds its place before
+      // the ad paints and the page does not jump.
+      { max: 768, slot: '6066270853', format: 'rectangle', fullWidthResponsive: true, reserve: 280 },
+      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 300 }
     ]
   },
 
