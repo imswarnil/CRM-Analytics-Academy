@@ -99,13 +99,19 @@ export const AD_PLACEMENTS = {
   },
 
   /**
-   * Responsive square shown below the table of contents in the right rail.
-   * Auto-sized so it fits the narrow rail on desktop and a phone screen alike.
+   * The one ad in the right rail, below the table of contents.
+   *
+   * Fixed 300x250 rather than a responsive rectangle. Responsive units size
+   * themselves to the container, and in a rail that was a fifth of the page
+   * that produced a unit barely a hundred and fifty pixels wide -- small enough
+   * to read as an accident. A medium rectangle is the standard unit at this
+   * size, advertisers buy it, and the rail is now 20rem specifically so it
+   * fits with its padding.
    */
   sidebarSquare: {
     variants: [
-      { max: 768, slot: '6066270853', format: 'rectangle', fullWidthResponsive: true, reserve: 300 },
-      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 336 }
+      { max: 768, slot: '6066270853', width: 300, height: 250, reserve: 250 },
+      { min: 768, slot: '7663977887', width: 300, height: 250, reserve: 250 }
     ]
   },
 

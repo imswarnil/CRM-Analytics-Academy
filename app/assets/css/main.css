@@ -464,6 +464,38 @@ summary,
   }
 }
 
+/* Above 1280px the two rails stop being fractions and become fixed widths, with
+   the prose taking whatever is left. A fraction-based rail keeps growing with
+   the viewport long after it has run out of anything to put in the extra space
+   -- which is what left the table of contents half empty on a wide screen --
+   while the reading column, the one thing that genuinely wants more room, grows
+   at the same rate and eventually overshoots a comfortable measure.
+
+   22rem holds a full module title without truncating. 20rem is sized for the
+   ad in the right rail: a 300px medium rectangle plus its padding, which a
+   narrower rail would shrink and which is why that unit looked small. */
+@media (min-width: 1280px) {
+  .docs-grid {
+    grid-template-columns: 22rem minmax(0, 1fr);
+    column-gap: 2.5rem;
+  }
+
+  .docs-grid > [data-slot="left"],
+  .docs-grid > [data-slot="center"] {
+    grid-column: auto;
+  }
+
+  .lesson-grid {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    column-gap: 3rem;
+  }
+
+  .lesson-grid > [data-slot="center"],
+  .lesson-grid > [data-slot="right"] {
+    grid-column: auto;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    The lesson rail
    ---------------------------------------------------------------------------

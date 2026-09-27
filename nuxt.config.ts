@@ -225,10 +225,20 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     baseUrl: 'https://crmanalytics.imswarnil.com',
     locales: [...locales],
+    // Pick the language from the visitor's browser on their first visit, on any
+    // path rather than only on `/` -- a link shared into a Spanish-speaking team
+    // lands on a lesson, not on the home page, and 'root' would leave every one
+    // of those visitors in English.
+    //
+    // The redirect happens client-side, because every page here is prerendered
+    // and served as a static asset, so no server middleware runs to inspect
+    // Accept-Language. The cookie makes it a once-per-visitor decision: someone
+    // who then switches language by hand is not bounced back on the next click.
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
+      redirectOn: 'all',
+      alwaysRedirect: false,
       fallbackLocale: 'en'
     }
   },

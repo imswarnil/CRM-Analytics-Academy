@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { ContentNavigationItem } from '@nuxt/content'
+
 const { t, tm, rt, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 
@@ -20,132 +22,94 @@ useSeoMeta({
 
 defineOgImage('Docs', { title: title.value, description: description.value })
 
+// Counted from the navigation tree rather than typed, because a hardcoded
+// lesson count is wrong within a week of anybody adding a lesson -- and it was:
+// it read 49 while the course carried twice that.
+const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
+
+const lessonCount = computed(() =>
+  (navigation.value ?? []).reduce((n, m) => n + ((m.children?.length ?? 0) || 1), 0)
+)
+
 const stats = computed(() => [
-  { icon: 'i-lucide-book-open', value: '49', label: t('home.stats.lessons') },
-  { icon: 'i-lucide-clapperboard', value: '42m', label: t('home.stats.video') },
+  { icon: 'i-lucide-book-open', value: String(lessonCount.value), label: t('home.stats.lessons') },
+  { icon: 'i-lucide-layout-dashboard', value: '14', label: t('home.stats.video') },
   { icon: 'i-lucide-badge-check', value: '100%', label: t('home.stats.free') }
 ])
 
-// The course is currently one video-led track ("CRM Analytics Foundations").
-// Each lesson pairs a clip of the Tableau CRM / CRM Analytics training video
-// with an article; the section closes with interview prep.
-const modules = computed(() => [
-  {
-    n: '01',
-    kind: 'foundations' as const,
-    title: 'CRM Analytics Foundations',
-    to: '/foundations',
-    icon: 'i-lucide-compass',
-    desc: t('home.modules.foundations.desc'),
-    lessons: [
-      'Welcome + Your Free Dev Org',
-      'What Is CRM Analytics?',
-      'Architecture & Data Flow',
-      'The Data Layer',
-      'The Design Layer',
-      'The Intelligence Layer',
-      'Hands-On Tour',
-      'Six Steps to Adoption',
-      'Interview Questions',
-      'Graded Quiz'
-    ]
-  },
-  {
-    n: '02',
-    kind: 'setup' as const,
-    title: 'Setup & User Provisioning',
-    to: '/setup',
-    icon: 'i-lucide-settings-2',
-    desc: 'Set up CRM Analytics the right way: provision users, assign licenses and permission sets, and configure the integration and security users.',
-    lessons: [
-      'Provisioning Users',
-      'Licenses & Permission Sets',
-      'The Integration User',
-      'The Security User',
-      'Analytics Settings',
-      'Assigning Access',
-      'Graded Quiz',
-      'Interview Questions'
-    ]
-  },
-  {
-    n: '03',
-    kind: 'datasets' as const,
-    title: 'Creating Datasets',
-    to: '/creating-datasets',
-    icon: 'i-lucide-database',
-    desc: 'Get data into CRM Analytics and shape it: upload CSVs, build datasets with Dataset Builder and recipes, master grain and lookups, and combine sources into a final dataset.',
-    lessons: [
-      'What Is a Dataset?',
-      'The Data Landscape',
-      'Upload a CSV',
-      'Grain, Lookups & Joins',
-      'Dataset Builder',
-      'Run the Dataflow',
-      'Build with a Recipe',
-      'Combine Datasets',
-      'Interview Questions',
-      'Graded Quiz'
-    ]
-  },
-  {
-    n: '04',
-    kind: 'lenses' as const,
-    title: 'Lenses & Explorations',
-    to: '/lenses-and-explorations',
-    icon: 'i-lucide-search',
-    desc: 'Explore a dataset without building a dashboard: work the lens/Explorer mode, switch between chart, table, and SAQL, and edit dataset field metadata so every chart inherits the right labels, colors, and formats.',
-    lessons: [
-      'What Is a Lens?',
-      'Analytics Tab & Apps',
-      'Explorer Mode Basics',
-      'Chart, Table & SAQL',
-      'Editing Fields',
-      'Conversational Analytics',
-      'Graded Quiz',
-      'Interview Questions'
-    ]
-  },
-  {
-    n: '05',
-    kind: 'dashboards' as const,
-    title: 'Designing Dashboards',
-    to: '/designing-dashboards',
-    icon: 'i-lucide-layout-dashboard',
-    desc: 'Craft dashboards people actually use: conditional formatting, date toggles and faceting, image-rich tables, custom tooltips and chart markers, KPI micro charts, and links that carry filters between dashboards.',
-    lessons: [
-      'Designing Dashboards',
-      'Conditional Formatting',
-      'Date Toggles & Faceting',
-      'Tables, Images & Themes',
-      'Tooltips & Chart Markers',
-      'KPI Micro Charts',
-      'Linking Dashboards',
-      'Graded Quiz',
-      'Interview Questions'
-    ]
-  },
-  {
-    n: '06',
-    kind: 'collaboration' as const,
-    title: 'Collaboration',
-    to: '/collaboration',
-    icon: 'i-lucide-users',
-    desc: 'Drive adoption with what the license already gives you: sharing, threshold notifications, annotations, exports, self-service exploration, saved views, subscriptions and watchlists, and in-widget onboarding videos.',
-    lessons: [
-      'Why Collaboration Matters',
-      'Sharing a Dashboard',
-      'Notifications & Annotations',
-      'Downloading Data',
-      'Self-Service Explore',
-      'Views',
-      'Subscriptions & Watchlists',
-      'Onboarding & Learn',
-      'Graded Quiz',
-      'Interview Questions'
-    ]
-  }
-])
+/**
+ * The curriculum cards, derived from the same navigation tree the sidebar and
+ * /curriculum read. They used to be a hardcoded array of six modules with their
+ * lesson titles typed out by hand, which described a curriculum that no longer
+ * exists -- six sections where there are now nineteen, and lesson names that
+ * were rewritten months ago.
+ *
+ * Only two things stay static: which of ModuleThumb's six drawings a section
+ * gets, and a one-line description. Everything else -- title, route, lesson
+ * count, order -- comes from the content itself and cannot drift again.
+ */
+const THUMBS: Record<string, 'foundations' | 'setup' | 'datasets' | 'lenses' | 'dashboards' | 'collaboration'> = {
+  'introduction': 'foundations',
+  'foundations': 'foundations',
+  'setup': 'setup',
+  'data-preparation': 'datasets',
+  'datasets-and-modelling': 'datasets',
+  'data-visualization': 'lenses',
+  'lenses-and-explorations': 'lenses',
+  'saql': 'lenses',
+  'designing-dashboards': 'dashboards',
+  'interactions': 'dashboards',
+  'bindings': 'dashboards',
+  'dashboard-json': 'dashboards',
+  'collaboration': 'collaboration',
+  'apis-and-automation': 'collaboration',
+  'einstein-discovery': 'collaboration',
+  'gtm-engineering': 'dashboards',
+  'demand-analytics': 'dashboards',
+  'pipeline-analytics': 'dashboards',
+  'revops-analytics': 'dashboards'
+}
+
+const BLURBS: Record<string, string> = {
+  'introduction': 'What the course is, who it is for, a free org, and the first dataset loaded.',
+  'foundations': 'What CRM Analytics is, the three layers, the vocabulary, and when it is the wrong tool.',
+  'setup': 'Licences, permission sets, the integration user, security predicates and sharing inheritance.',
+  'data-preparation': 'Connections, sync, recipes, buckets, missing values and de-duplication.',
+  'datasets-and-modelling': 'Grain, joins and fan-out, snapshots for history, and field metadata.',
+  'data-visualization': 'Every chart type on its own terms, and which one the question actually needs.',
+  'lenses-and-explorations': 'Exploring a dataset: groupings, measures, the three modes, and conversational queries.',
+  'saql': 'The query language itself — syntax, functions, the patterns that matter, and debugging.',
+  'designing-dashboards': 'Designing for a decision: hierarchy, formatting, widgets and performance.',
+  'interactions': 'Faceting, filters and selection — what makes a dashboard a system rather than a page.',
+  'bindings': 'One widget feeding another: selection, results, nesting, and where it turns unmaintainable.',
+  'dashboard-json': 'Under the hood: reading and editing the JSON when the builder runs out.',
+  'collaboration': 'Apps and sharing, subscriptions, annotations, embedding and governance.',
+  'apis-and-automation': 'The REST API, Python, automated dataset loads, and CI for analytics.',
+  'einstein-discovery': 'Stories, models, writing predictions back — and auditing a score before trusting it.',
+  'gtm-engineering': 'The warehouse, metric contracts, and the metric tree the builds fill in.',
+  'demand-analytics': 'AI search visibility, SEO, acquisition, campaigns, spend and attribution.',
+  'pipeline-analytics': 'Leads through to signature: routing, scoring, conversion, velocity and CPQ.',
+  'revops-analytics': 'Forecast, the ARR waterfall, consumption risk, service, and the executive board.'
+}
+
+function slugOf(path: string) {
+  return String(path).split('/').filter(Boolean).pop() ?? ''
+}
+
+const modules = computed(() =>
+  (navigation.value ?? []).map((mod, i) => {
+    const slug = slugOf(String(mod.path ?? ''))
+    return {
+      n: String(i).padStart(2, '0'),
+      kind: THUMBS[slug] ?? 'dashboards',
+      title: String(mod.title ?? ''),
+      to: String(mod.path ?? ''),
+      icon: String(mod.icon ?? 'i-lucide-book-open'),
+      desc: BLURBS[slug] ?? '',
+      lessons: ((mod.children ?? []) as ContentNavigationItem[]).map(l => String(l.title ?? ''))
+    }
+  })
+)
 
 // Course rich-snippet: the site is one Course; each module is a sub-Course whose
 // lessons are its syllabus sections. Free offer + online instance keep it valid
