@@ -535,5 +535,10 @@
     "copied": "Kopiert!",
     "mcp": "Verbinden über MCP",
     "mcpDesc": "Richten Sie einen beliebigen MCP-fähigen Client an diesen Endpunkt, um Ihrem KI-Assistenten direkten Zugriff auf jede Lektion zu geben."
+  },
+  "resources": {
+    "submitTitle": "Kennen Sie eine Ressource, die hierher gehört?",
+    "submitBody": "Docs, ein Kurs, ein Tool, eine Community - alles, was Sie etwas über CRM Analytics. Titel, Link und eine Zeile darüber, warum es jemandes Zeit wert ist. Ein Maintainer überprüft es, bevor es erscheint.",
+    "submitCta": "Einreichen einer Ressource"
   }
 }

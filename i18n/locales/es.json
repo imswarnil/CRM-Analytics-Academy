@@ -535,5 +535,10 @@
     "copied": "¡Policía!",
     "mcp": "Conectar a través de MCP",
     "mcpDesc": "Indique a cualquier cliente con capacidad MCP en este punto final para dar a su asistente de inteligencia directa acceso a cada lección."
+  },
+  "resources": {
+    "submitTitle": "¿Conoces un recurso que pertenece aquí?",
+    "submitBody": "Docs, un curso, una herramienta, una comunidad — cualquier cosa que le enseñó algo acerca de CRM Analytics. Título, enlace y una línea sobre por qué vale la pena el tiempo de alguien. Un encargado lo revisa antes de que aparezca.",
+    "submitCta": "Presentar un recurso"
   }
 }

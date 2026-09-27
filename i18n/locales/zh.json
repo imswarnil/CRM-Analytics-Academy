@@ -535,5 +535,10 @@
     "copied": "被抄袭了!",
     "mcp": "通过 MCP 连接",
     "mcpDesc": "在此端点点指向任何 MCP 有能力的客户端,使您的AI助理可以直接访问每一个课程."
+  },
+  "resources": {
+    "submitTitle": "知道属于这里的资源吗?",
+    "submitBody": "医生,一个课程,一个工具,一个社区——任何教你的东西 CRM Analytics。 。 。 标题、链接和一条线, 维护者会在出现前审查它.",
+    "submitCta": "提交资源"
   }
 }

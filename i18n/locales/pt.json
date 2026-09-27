@@ -535,5 +535,10 @@
     "copied": "Copiado!",
     "mcp": "Conectar via MCP",
     "mcpDesc": "Aponte qualquer cliente com capacidade MCP neste ponto para dar ao seu assistente de IA acesso direto a todas as aulas."
+  },
+  "resources": {
+    "submitTitle": "Conhece um recurso que pertence aqui?",
+    "submitBody": "Doutores, um curso, uma ferramenta, uma comunidade - qualquer coisa que lhe ensinou algo sobre CRM Analytics. Título, link e uma linha sobre porque vale o tempo de alguém. Um mantenedor revisou antes de aparecer.",
+    "submitCta": "Enviar um recurso"
   }
 }
