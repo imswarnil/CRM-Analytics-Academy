@@ -267,7 +267,9 @@
     "thanksLink": "Obrigado. Muro dos Famosos",
     "langTitle": "Estude na sua língua.",
     "langSubtitle": "Todo o currículo, em doze idiomas.",
-    "langHint": "Escolha um idioma abaixo para mudar instantaneamente - ou use o ícone globo na barra de navegação, em qualquer página. Sua escolha é lembrada."
+    "langHint": "Escolha um idioma abaixo para mudar instantaneamente - ou use o ícone globo na barra de navegação, em qualquer página. Sua escolha é lembrada.",
+    "subtitle": "Desde o seu primeiro conjunto de dados até um conselho executivo, um executivo, na verdade, abre toda a plataforma em dezenove seções, depois dezesseis painéis de compras construídos com dados de uma empresa.",
+    "f2": "161 lições."
   },
   "footer": {
     "tagline": "Um currículo gratuito e de código aberto para dominar o Salesforce CRM Analytics.",

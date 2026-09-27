@@ -268,7 +268,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:fr": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -539,7 +541,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:de": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -810,7 +814,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:pt": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1081,7 +1087,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:ja": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1352,7 +1360,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:hi": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1623,7 +1633,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:ar": {
     "language": "ba118bf7fc9c1aed",
@@ -1648,9 +1660,9 @@
     "hero.badge": "c24dc640e23382e9",
     "hero.titleLead": "cb2e2cd44fabd4a7",
     "hero.titleAccent": "02b71a11ccc95ef7",
-    "hero.subtitle": "f90e8537b377e0d1",
+    "hero.subtitle": "d3f0f2e264bea48a",
     "hero.f1": "9472204455bbfcaa",
-    "hero.f2": "8f0a9638fa81b237",
+    "hero.f2": "ffcdd01bd7fb596d",
     "hero.f3": "2ed245e9dadb3b42",
     "hero.start": "ac1796280ca0f3c1",
     "hero.browse": "824f9292a2b9aa45",
@@ -1664,8 +1676,8 @@
     "home.stats.free": "d10dffe7c9645058",
     "home.stats.video": "d534be829e32196b",
     "home.curriculumEyebrow": "2d601a2cc1864de5",
-    "home.curriculumTitle": "e77aa14dab766558",
-    "home.curriculumSubtitle": "58dcaa7bd785556f",
+    "home.curriculumTitle": "826e040a99dbc369",
+    "home.curriculumSubtitle": "8dc8b07a677a0ffb",
     "home.modules.foundations.title": "1157606ee47522a8",
     "home.modules.foundations.desc": "9b5d14a82534d6f3",
     "home.modules.gettingStarted.title": "d00eca1bae674280",
@@ -2029,7 +2041,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:ru": {
     "language": "ba118bf7fc9c1aed",
@@ -2054,9 +2068,9 @@
     "hero.badge": "c24dc640e23382e9",
     "hero.titleLead": "cb2e2cd44fabd4a7",
     "hero.titleAccent": "02b71a11ccc95ef7",
-    "hero.subtitle": "f90e8537b377e0d1",
+    "hero.subtitle": "d3f0f2e264bea48a",
     "hero.f1": "9472204455bbfcaa",
-    "hero.f2": "8f0a9638fa81b237",
+    "hero.f2": "ffcdd01bd7fb596d",
     "hero.f3": "2ed245e9dadb3b42",
     "hero.start": "ac1796280ca0f3c1",
     "hero.browse": "824f9292a2b9aa45",
@@ -2070,8 +2084,8 @@
     "home.stats.free": "d10dffe7c9645058",
     "home.stats.video": "d534be829e32196b",
     "home.curriculumEyebrow": "2d601a2cc1864de5",
-    "home.curriculumTitle": "e77aa14dab766558",
-    "home.curriculumSubtitle": "58dcaa7bd785556f",
+    "home.curriculumTitle": "826e040a99dbc369",
+    "home.curriculumSubtitle": "8dc8b07a677a0ffb",
     "home.modules.foundations.title": "1157606ee47522a8",
     "home.modules.foundations.desc": "9b5d14a82534d6f3",
     "home.modules.gettingStarted.title": "d00eca1bae674280",
@@ -2435,7 +2449,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:bn": {
     "language": "ba118bf7fc9c1aed",
@@ -2460,9 +2476,9 @@
     "hero.badge": "c24dc640e23382e9",
     "hero.titleLead": "cb2e2cd44fabd4a7",
     "hero.titleAccent": "02b71a11ccc95ef7",
-    "hero.subtitle": "f90e8537b377e0d1",
+    "hero.subtitle": "d3f0f2e264bea48a",
     "hero.f1": "9472204455bbfcaa",
-    "hero.f2": "8f0a9638fa81b237",
+    "hero.f2": "ffcdd01bd7fb596d",
     "hero.f3": "2ed245e9dadb3b42",
     "hero.start": "ac1796280ca0f3c1",
     "hero.browse": "824f9292a2b9aa45",
@@ -2476,8 +2492,8 @@
     "home.stats.free": "d10dffe7c9645058",
     "home.stats.video": "d534be829e32196b",
     "home.curriculumEyebrow": "2d601a2cc1864de5",
-    "home.curriculumTitle": "e77aa14dab766558",
-    "home.curriculumSubtitle": "58dcaa7bd785556f",
+    "home.curriculumTitle": "826e040a99dbc369",
+    "home.curriculumSubtitle": "8dc8b07a677a0ffb",
     "home.modules.foundations.title": "1157606ee47522a8",
     "home.modules.foundations.desc": "9b5d14a82534d6f3",
     "home.modules.gettingStarted.title": "d00eca1bae674280",
@@ -2841,7 +2857,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:ur": {
     "language": "ba118bf7fc9c1aed",
@@ -2866,9 +2884,9 @@
     "hero.badge": "c24dc640e23382e9",
     "hero.titleLead": "cb2e2cd44fabd4a7",
     "hero.titleAccent": "02b71a11ccc95ef7",
-    "hero.subtitle": "f90e8537b377e0d1",
+    "hero.subtitle": "d3f0f2e264bea48a",
     "hero.f1": "9472204455bbfcaa",
-    "hero.f2": "8f0a9638fa81b237",
+    "hero.f2": "ffcdd01bd7fb596d",
     "hero.f3": "2ed245e9dadb3b42",
     "hero.start": "ac1796280ca0f3c1",
     "hero.browse": "824f9292a2b9aa45",
@@ -2882,8 +2900,8 @@
     "home.stats.free": "d10dffe7c9645058",
     "home.stats.video": "d534be829e32196b",
     "home.curriculumEyebrow": "2d601a2cc1864de5",
-    "home.curriculumTitle": "e77aa14dab766558",
-    "home.curriculumSubtitle": "58dcaa7bd785556f",
+    "home.curriculumTitle": "826e040a99dbc369",
+    "home.curriculumSubtitle": "8dc8b07a677a0ffb",
     "home.modules.foundations.title": "1157606ee47522a8",
     "home.modules.foundations.desc": "9b5d14a82534d6f3",
     "home.modules.gettingStarted.title": "d00eca1bae674280",
@@ -3247,7 +3265,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "ui:zh": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -3518,7 +3538,9 @@
     "ask.mcp": "3048e9fb64b9f19e",
     "ask.mcpDesc": "dbc8b9509f4fe7f1",
     "home.langHint": "e192b90354ade0a8",
-    "footer.builtBy": "ff2e85b854e1fdcc"
+    "footer.builtBy": "ff2e85b854e1fdcc",
+    "home.subtitle": "9962c1d577b7caa3",
+    "home.f2": "ffcdd01bd7fb596d"
   },
   "es:01.foundations/.navigation.yml": "1f494ca2f772dbd5",
   "es:02.setup/01.index.md": "5b0473ebb52e92bf",

@@ -267,7 +267,9 @@
     "thanksLink": "Merci, Mur de Famers",
     "langTitle": "Étudier dans votre langue",
     "langSubtitle": "Le programme complet, en douze langues.",
-    "langHint": "Choisissez une langue ci-dessous pour basculer instantanément - ou utilisez l'icône du globe dans la barre de navigation, sur n'importe quelle page. Votre choix est rappelé."
+    "langHint": "Choisissez une langue ci-dessous pour basculer instantanément - ou utilisez l'icône du globe dans la barre de navigation, sur n'importe quelle page. Votre choix est rappelé.",
+    "subtitle": "De votre premier jeu de données à un conseil d'administration, un exec s'ouvre réellement — toute la plate-forme à travers dix-neuf sections, puis seize tableaux de bord allant au marché construits sur les données d'une entreprise.",
+    "f2": "161 leçons"
   },
   "footer": {
     "tagline": "Un cursus gratuit et open source pour maîtriser Salesforce CRM Analytics.",
