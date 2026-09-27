@@ -25,6 +25,8 @@ on:
 
 permissions:
   contents: write
+  # Needed to dispatch the deploy at the end of the run — see the last step.
+  actions: write
 
 # Two translation runs at once would race on the same files, and pointing two of
 # them at one LibreTranslate instance reliably makes it drop connections.
@@ -128,6 +130,19 @@ jobs:
           # translation run was working through eleven languages.
           git pull --rebase --autostash origin main
           git push origin HEAD:main
+          echo "pushed=true" >> "$GITHUB_ENV"
+
+      # A push made with GITHUB_TOKEN does NOT trigger other workflows. That is
+      # deliberate on GitHub's part (it stops workflows recursing), and it meant
+      # the translations landed in the repository and never reached the site:
+      # every locale stayed on whatever the last human push had prerendered,
+      # which is why translated lessons 404'd or fell back to English long after
+      # they had been translated. Dispatching the deploy explicitly is the fix.
+      - name: Deploy the translations
+        if: steps.cfg.outputs.configured == 'true' && env.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run "Deploy to Cloudflare Workers" --ref main
 
       - name: Report incomplete files
         if: steps.cfg.outputs.configured == 'true' && env.translate_status == '2'
