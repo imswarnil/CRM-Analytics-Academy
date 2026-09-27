@@ -36,7 +36,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
              navigate. Sponsorship still appears at the foot of each lesson and
              on /sponsor; it does not belong in the course rail. -->
         <nav
-          class="lesson-rail hidden lg:sticky lg:top-(--ui-header-height) lg:block lg:h-[calc(100dvh-var(--ui-header-height))] lg:overflow-y-auto lg:-ms-4 lg:ps-4 lg:pe-6 lg:pb-10 lg:pt-8"
+          class="lesson-rail hidden lg:block lg:-ms-4 lg:ps-4 lg:pe-4 lg:pb-10 lg:pt-8"
           aria-label="Course navigation"
         >
           <UContentNavigation

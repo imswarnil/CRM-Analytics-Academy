@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+/* ---------------------------------------------------------------------------
+   Twilio Paste design tokens (@twilio-paste/design-tokens, MIT).
+
+   Paste is a React component library, so its components cannot run in a Nuxt
+   app — but the token layer is framework-agnostic custom properties, and it is
+   the part that carries the design. Every --ui-* semantic token below is mapped
+   onto these, so the whole site inherits Twilio's colours, contrast decisions
+   and type without a line of React.
+--------------------------------------------------------------------------- */
+@import "@twilio-paste/design-tokens/dist/themes/twilio/tokens.custom-properties.css";
+@import "./paste-dark.css";
+
 @source "../../../content/**/*";
 
 @theme static {
@@ -22,8 +34,22 @@
      separation is the design system's, and it is the reason a metric formula
      reads as a specification rather than as prose.
   --------------------------------------------------------------------------- */
-  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  /* ---------------------------------------------------------------------------
+     Type — Paste's faces, as far as they can honestly be shipped.
+
+     Twilio Sans is Twilio's proprietary brand face. It is not in the tokens
+     package, it is not ours to redistribute, and naming it FIRST silently broke
+     font provisioning: @nuxt/fonts tries to resolve the leading family, fails,
+     and emits no @font-face at all — so the page fell back to system-ui and no
+     font was self-hosted.
+
+     So the stack leads with Inter, which is what Paste itself falls back to and
+     the closest open sibling to Twilio Sans in proportion and grade, and with
+     JetBrains Mono for code. Both are self-hosted at build time, so the type
+     actually renders as designed and no third-party request is made.
+  --------------------------------------------------------------------------- */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* ---------------------------------------------------------------------------
      Radius, tracking and motion, taken value-for-value from the Im Design
@@ -143,50 +169,68 @@
      --ui-border-accented  --line-strong
 --------------------------------------------------------------------------- */
 :root {
+  /* ---- Paste -> Nuxt UI -------------------------------------------------
+     Nuxt UI addresses colour as an 11-step ramp; Paste ships a named scale
+     (weakest .. strongest). The steps below are that scale stretched over the
+     ramp, so every Nuxt UI utility — text-primary, bg-primary/10, ring-primary
+     — resolves to a real Paste colour rather than an approximation of one. */
+  --ui-color-primary-50: var(--color-background-primary-weakest);
+  --ui-color-primary-100: var(--color-background-primary-weakest);
+  --ui-color-primary-200: var(--color-background-primary-weaker);
+  --ui-color-primary-300: var(--color-background-primary-weak);
+  --ui-color-primary-400: var(--color-background-primary-weak);
+  --ui-color-primary-500: var(--color-background-primary);
+  --ui-color-primary-600: var(--color-background-primary);
+  --ui-color-primary-700: var(--color-background-primary-strong);
+  --ui-color-primary-800: var(--color-background-primary-strong);
+  --ui-color-primary-900: var(--color-background-primary-stronger);
+  --ui-color-primary-950: var(--color-background-primary-strongest);
+  --ui-primary: var(--color-background-primary);
+
   --ui-container: var(--container-8xl);
 
-  /* Rounder than the old 4px. The palette is doing the playful work; the
-     radius keeps it company rather than fighting it. Nuxt UI derives its
-     control and card radii from this one value. */
-  --ui-radius: 0.5rem;
+  /* Paste's own control radius. */
+  --ui-radius: var(--border-radius-30, 0.5rem);
 
-  --ui-bg: var(--color-slate-0);
-  --ui-bg-muted: var(--color-slate-50);
-  --ui-bg-elevated: var(--color-slate-100);
-  --ui-bg-accented: var(--color-slate-200);
-  --ui-bg-inverted: var(--color-slate-950);
+  --ui-bg: var(--color-background-body);
+  --ui-bg-muted: var(--color-background);
+  --ui-bg-elevated: var(--color-background-strong, var(--color-background));
+  --ui-bg-accented: var(--color-background-stronger, var(--color-background-strong));
+  --ui-bg-inverted: var(--color-text);
 
-  --ui-text-highlighted: var(--color-slate-900);
-  --ui-text: var(--color-slate-700);
-  --ui-text-toned: var(--color-slate-600);
-  --ui-text-muted: var(--color-slate-500);
-  --ui-text-dimmed: var(--color-slate-400);
-  --ui-text-inverted: var(--color-slate-50);
+  --ui-text-highlighted: var(--color-text-strongest, var(--color-text));
+  --ui-text: var(--color-text);
+  --ui-text-toned: var(--color-text-weak);
+  --ui-text-muted: var(--color-text-weak);
+  --ui-text-dimmed: var(--color-text-weaker);
+  --ui-text-inverted: var(--color-background-body);
 
-  --ui-border: var(--color-slate-200);
-  --ui-border-muted: var(--color-slate-100);
-  --ui-border-accented: var(--color-slate-300);
-  --ui-border-inverted: var(--color-slate-950);
+  --ui-border: var(--color-border-weaker, var(--color-border));
+  --ui-border-muted: var(--color-border-weakest, var(--color-border-weaker));
+  --ui-border-accented: var(--color-border);
+  --ui-border-inverted: var(--color-text);
 }
 
 .dark {
-  --ui-bg: var(--color-slate-1000);
-  --ui-bg-muted: var(--color-slate-950);
-  --ui-bg-elevated: var(--color-slate-900);
-  --ui-bg-accented: var(--color-slate-800);
-  --ui-bg-inverted: var(--color-slate-50);
+  /* Paste's dark theme redefines the same token names, so the mapping is
+     identical — only the values underneath change. */
+  --ui-bg: var(--color-background-body);
+  --ui-bg-muted: var(--color-background);
+  --ui-bg-elevated: var(--color-background-strong, var(--color-background));
+  --ui-bg-accented: var(--color-background-stronger, var(--color-background-strong));
+  --ui-bg-inverted: var(--color-text);
 
-  --ui-text-highlighted: var(--color-slate-50);
-  --ui-text: var(--color-slate-300);
-  --ui-text-toned: var(--color-slate-400);
-  --ui-text-muted: var(--color-slate-500);
-  --ui-text-dimmed: var(--color-slate-600);
-  --ui-text-inverted: var(--color-slate-900);
+  --ui-text-highlighted: var(--color-text-strongest, var(--color-text));
+  --ui-text: var(--color-text);
+  --ui-text-toned: var(--color-text-weak);
+  --ui-text-muted: var(--color-text-weak);
+  --ui-text-dimmed: var(--color-text-weaker);
+  --ui-text-inverted: var(--color-background-body);
 
-  --ui-border: oklch(100% 0 0 / 0.12);
-  --ui-border-muted: oklch(100% 0 0 / 0.07);
-  --ui-border-accented: oklch(100% 0 0 / 0.22);
-  --ui-border-inverted: var(--color-slate-200);
+  --ui-border: var(--color-border-weaker, var(--color-border));
+  --ui-border-muted: var(--color-border-weakest, var(--color-border-weaker));
+  --ui-border-accented: var(--color-border);
+  --ui-border-inverted: var(--color-text);
 }
 
 /* A slightly larger base type size across the whole site (16px → 17px).
@@ -204,12 +248,10 @@ html {
    hues and a neutral, and a gradient between them muddies both. The class name
    is kept because markup across the site uses it; it now just sets the blue at
    the step that reads strongest against the page. */
+/* Brand emphasis text. Not a gradient — Paste does not use them, and with one
+   strong hue a fade only muddies it. */
 .text-gradient {
-  color: var(--color-marine-600);
-}
-
-.dark .text-gradient {
-  color: var(--color-marine-300);
+  color: var(--color-text-link, var(--color-background-primary));
 }
 
 /* Faint grid backdrop used behind the hero */
@@ -469,8 +511,8 @@ summary,
      on a two-track grid spans BOTH tracks and drops the contents rail to the
      bottom of a nine-thousand-pixel page, where nobody finds it. */
   .lesson-grid {
-    grid-template-columns: minmax(0, 1fr) 15rem;
-    column-gap: 2.25rem;
+    grid-template-columns: minmax(0, 1fr) 13rem;
+    column-gap: 2rem;
   }
 
   .lesson-grid > [data-slot="center"] {
@@ -496,8 +538,8 @@ summary,
    At 1512px that lands at roughly 270 / 790 / 324. */
 @media (min-width: 1280px) {
   .docs-grid {
-    grid-template-columns: 15rem minmax(0, 1fr);
-    column-gap: 2.5rem;
+    grid-template-columns: 12.5rem minmax(0, 1fr);
+    column-gap: 2rem;
   }
 
   .docs-grid > [data-slot="left"],
@@ -506,8 +548,8 @@ summary,
   }
 
   .lesson-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(16rem, 18rem);
-    column-gap: 2.25rem;
+    grid-template-columns: minmax(0, 1fr) 14rem;
+    column-gap: 2rem;
   }
 
   .lesson-grid > [data-slot="center"] {
@@ -621,11 +663,10 @@ summary,
 --------------------------------------------------------------------------- */
 
 body {
-  background-color: var(--color-slate-50);
-}
-
-.dark body {
-  background-color: var(--color-slate-1000);
+  /* Paste's `background` token IS the tinted page; `background-body` is the
+     white surface that sits on it. Using them in that relationship is what
+     makes this read as a Twilio console rather than as a tinted docs site. */
+  background-color: var(--color-background);
 }
 
 /* The reading column as a surface: white on the tint, one hairline, generous
@@ -663,5 +704,56 @@ body {
    is for the walkthrough's narration, which is the one place the course speaks
    in its own voice. */
 .lesson-walkthrough-say {
-  border-inline-start: 2px solid var(--color-ember-500);
+  border-inline-start: 2px solid var(--color-border-primary, var(--color-background-primary));
+}
+
+
+/* ---------------------------------------------------------------------------
+   The contents rail: sticky, unscrolled, flush right
+--------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  /* The grid cancels the container's right padding so the rail runs to the
+     edge of the viewport instead of stopping two rem short of it. The header
+     and the footer keep their padding — only this grid is pulled over. */
+  .docs-grid {
+    margin-right: -2rem;
+    padding-right: 0.5rem;
+  }
+
+  /* Sticky and WITHOUT a scrollbar of its own. Nuxt UI caps the contents rail
+     and lets it scroll internally, which on a lesson with a handful of
+     headings produces a scroll region that never scrolls and a scrollbar that
+     never has anything to do. Pinned to the top, sized by its content, and if
+     a lesson ever has more headings than fit, the page scroll carries them. */
+  .lesson-grid > :not([data-slot="center"]) {
+    position: sticky;
+    top: var(--ui-header-height);
+    align-self: start;
+  }
+
+  /* Reset the cap on the rail and its immediate wrapper only. Applying it to
+     every descendant also overrode the `truncate` on each link, so a long
+     heading ran off the side of the viewport instead of ending in an ellipsis. */
+  .lesson-grid > :not([data-slot="center"]),
+  .lesson-grid > :not([data-slot="center"]) > * {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+
+/* The navigation rail gets the same treatment as the contents rail: sticky,
+   its natural height, and no scrollbar of its own. It was a full-viewport
+   column that scrolled internally, which put a second scrollbar beside the
+   page's own and meant the syllabus scrolled independently of the lesson you
+   were reading. Pinned, sized by its content, and the page scroll carries it. */
+@media (min-width: 1024px) {
+  .lesson-rail {
+    position: sticky;
+    top: var(--ui-header-height);
+    align-self: start;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
 }

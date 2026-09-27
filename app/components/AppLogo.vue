@@ -12,7 +12,7 @@
         width="7"
         height="15"
         rx="1.5"
-        fill="var(--color-marine-700)"
+        fill="var(--color-background-primary-strong)"
       />
       <rect
         x="12.5"
@@ -20,7 +20,7 @@
         width="7"
         height="20"
         rx="1.5"
-        fill="var(--color-marine-400)"
+        fill="var(--color-background-primary)"
       />
       <rect
         x="22"
@@ -28,7 +28,7 @@
         width="7"
         height="25"
         rx="1.5"
-        fill="var(--color-ember-500)"
+        fill="var(--color-background-primary-weak)"
       />
     </svg>
 

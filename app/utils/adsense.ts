@@ -110,8 +110,12 @@ export const AD_PLACEMENTS = {
    */
   sidebarSquare: {
     variants: [
+      // The contents rail is 13-14rem, so a fixed 300x250 no longer fits it —
+      // it would be clamped to the rail width and render as a squashed unit.
+      // Responsive on desktop, and the full medium rectangle on mobile where
+      // the rail becomes full width.
       { max: 768, slot: '6066270853', width: 300, height: 250, reserve: 250 },
-      { min: 768, slot: '7663977887', width: 300, height: 250, reserve: 250 }
+      { min: 768, slot: '7663977887', format: 'rectangle', fullWidthResponsive: true, reserve: 210 }
     ]
   },
 

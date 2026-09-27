@@ -158,6 +158,59 @@ const jsonLd: any[] = [
   }
 ]
 
+/**
+ * LearningResource, so this reads as coursework rather than as a blog post.
+ * Search and answer engines use it to decide what a page TEACHES, which is the
+ * question being asked when somebody types "how do I build a pipeline
+ * dashboard in CRM Analytics" into an assistant rather than into a search box.
+ */
+jsonLd.push({
+  '@context': 'https://schema.org',
+  '@type': 'LearningResource',
+  'name': title,
+  'description': description,
+  'url': SITE.url + route.path,
+  'inLanguage': locales.value.find(l => l.code === locale.value)?.language || locale.value,
+  'learningResourceType': page.value?.walkthrough?.shots?.length ? 'Hands-on exercise' : 'Lesson',
+  'educationalLevel': 'Professional',
+  'teaches': 'Salesforce CRM Analytics',
+  'isAccessibleForFree': true,
+  'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url }
+})
+
+/**
+ * HowTo, built from the walkthrough script.
+ *
+ * This is the most valuable structured data on the site and it costs nothing to
+ * emit: the walkthrough already IS an ordered list of steps with a click path
+ * and an explanation, which is exactly the shape schema.org's HowTo describes.
+ * A build lesson can therefore answer "how do I build X" directly, with its
+ * steps, rather than being summarised second-hand.
+ */
+const shots = page.value?.walkthrough?.shots
+if (shots?.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    'name': title,
+    'description': description,
+    'inLanguage': locales.value.find(l => l.code === locale.value)?.language || locale.value,
+    'totalTime': `PT${Math.max(1, Math.round(shots.reduce((n, sh) => n + (sh.seconds ?? 0), 0) / 60))}M`,
+    ...(page.value?.walkthrough?.org
+      ? { supply: [{ '@type': 'HowToSupply', 'name': page.value.walkthrough.org }] }
+      : {}),
+    'tool': [{ '@type': 'HowToTool', 'name': 'Salesforce CRM Analytics' }],
+    'step': shots.map((sh, i) => ({
+      '@type': 'HowToStep',
+      'position': i + 1,
+      'name': sh.shot,
+      'text': sh.say,
+      ...(sh.screen ? { tool: [{ '@type': 'HowToTool', 'name': sh.screen }] } : {}),
+      'url': `${SITE.url}${route.path}#step-${i + 1}`
+    }))
+  })
+}
+
 // VideoObject for the lesson clip (helps this lesson surface as a video result).
 const video = page.value?.video
 if (video?.id) {
