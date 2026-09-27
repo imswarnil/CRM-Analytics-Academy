@@ -52,7 +52,8 @@
     "browse": "منهج الحشد",
     "search": "البحث",
     "watch": "إنتبه للمدخل",
-    "community": "المتعلمون عبر 12 لغة"
+    "community": "المتعلمون عبر 12 لغة",
+    "boardCaption": "اللوحة التي تبنيها في الدرس الأخير"
   },
   "cta": {
     "title": "على استعداد لتصبح CRM Analytics محترف؟",
@@ -65,7 +66,7 @@
       "modules": "Modules",
       "lessons": "الدروس",
       "free": "Free \" open",
-      "video": "Video",
+      "video": "المباني",
       "languages": "اللغات"
     },
     "curriculumEyebrow": "المنهج الدراسي",

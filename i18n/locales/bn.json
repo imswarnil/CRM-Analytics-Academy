@@ -52,7 +52,8 @@
     "browse": "নতুন শব্দভাণ্ডার ডাউনলোড করো",
     "search": "অনুসন্ধান",
     "watch": "জ্যোতিতে দেখুন",
-    "community": "১২টি ভাষা থেকে শিখুন"
+    "community": "১২টি ভাষা থেকে শিখুন",
+    "boardCaption": "শেষ শিক্ষায় আপনি বোর্ড তৈরি করেছেন"
   },
   "cta": {
     "title": "প্রস্তুত CRM Analytics প্রো?",
@@ -65,7 +66,7 @@
       "modules": "মডিউল",
       "lessons": "পাঠ",
       "free": "& মুক্ত (F)",
-      "video": "ভিডিও",
+      "video": "বিল্ড",
       "languages": "ভাষা"
     },
     "curriculumEyebrow": "কুমড়া",
