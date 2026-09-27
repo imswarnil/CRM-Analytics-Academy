@@ -1,24 +1,22 @@
 export default defineAppConfig({
   ui: {
-    // Every ramp comes from the Swarnil design system's colour foundation:
-    // azure (blue, hue 240) leads, iris (violet, 285) supports, ink is a
-    // faintly blue-tinted neutral so dark mode reads as night rather than as
-    // soot. All three sit on ONE shared lightness ladder, so azure-500 and
-    // iris-500 carry the same weight and are interchangeable as a mark.
+    // The palette is sampled from redandblue.png: marine (blue, sky through
+    // navy), ember (the crimson, at 500 exactly as sampled) and slate, an
+    // achromatic neutral because a tinted grey beside a saturated blue and a
+    // saturated red is one hue too many.
     //
-    // Blue is the whole theme here, and that is a teaching decision as much as
-    // a brand one: this curriculum spends red on "this number is wrong, look at
-    // it", so red cannot also be the furniture. Structure, emphasis, nav, links
-    // and icons all draw from the blue ramp at different steps -- 600 for text
-    // on light, 500 for marks, 400 for dark mode, 100/50 for washes.
+    // MARINE LEADS, EMBER ACCENTS. Structure -- header, nav, links, buttons --
+    // is blue. Red is spent sparingly: the logo, a mark, one bar in a chart.
+    // That is a teaching decision as much as a brand one, because every lesson
+    // here spends red on "this number is wrong, look at it", and furniture in
+    // the same colour would spend that meaning before a lesson could use it.
     //
-    // Statuses stay on Nuxt UI's defaults, which is what this site ran on
-    // before: green, amber, red, blue. They are state, not brand, and keeping
-    // them conventional is why a red delta still reads as bad news.
+    // Statuses stay on Nuxt UI's defaults. They are state, not brand, and
+    // keeping them conventional is why a red delta still reads as bad news.
     colors: {
-      primary: 'azure',
-      secondary: 'iris',
-      neutral: 'ink'
+      primary: 'marine',
+      secondary: 'ember',
+      neutral: 'slate'
     },
     footer: {
       slots: {

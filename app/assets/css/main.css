@@ -53,73 +53,79 @@
   --duration-quick: 200ms;
 
   /* ---------------------------------------------------------------------------
-     Colour ramps — copied from the Swarnil design system
-     (design.imswarnil.com, src/1-foundation/01-color.css).
+     Colour ramps — sampled from redandblue.png.
 
-     Every ramp is oklch on ONE shared lightness ladder, so azure-500 and
-     iris-500 sit at the same visual weight and are interchangeable as an
-     accent. Nuxt UI reads these as `primary: azure`, `secondary: iris`,
-     `neutral: ink` (app.config.ts) and derives --ui-color-* from them.
+     Five swatches, converted to oklch and stretched onto one shared lightness
+     ladder so marine-500 and ember-500 carry the same visual weight:
 
-       50   97%   a wash            500  ~63%  THE STEP — fills and marks
-       100  94%   a tint            600  56%   pressed, and accent text (light)
-       200  89%   a soft fill       700  47%   readable text on light
-       300  82%   a border          800  38%   deep fill
-       400  74%   hover (light)     900  29%   near-black tint
-                                   950  22%   the floor
+       #9FCBEE  sky    oklch(82.3% 0.068 243)  -> marine-200
+       #6497BF  steel  oklch(65.6% 0.081 243)  -> marine-400
+       #01016F  navy   oklch(24.6% 0.169 265)  -> marine-900
+       #D8031C  red    oklch(55.6% 0.225  26)  -> ember-500
+       #5A5A5A  grey   oklch(46.8% 0     90)   -> slate-500
+
+     The 500 step of marine is NOT in the image: the sampled blues are a pale
+     steel and a near-black navy, and a UI needs a saturated blue between them
+     for buttons, links and marks. It is the two of them mixed and pulled
+     towards the blue Salesforce uses, which is what "Twilio and Salesforce
+     blue" asks for -- a blue with some heat in it rather than a corporate navy.
+
+     Ember is the image's red, unchanged at 500. It is an ACCENT: marks,
+     emphasis, the logo, one bar in a chart. It is not the furniture, because
+     every lesson here spends red on "this number is wrong, look at it".
   --------------------------------------------------------------------------- */
 
-  /* Ink — the neutral everything is built on. A little blue is held in the
-     shadows (hue 275) so dark reads as unlit rather than muddy. Fourteen
-     steps in the source; 0, 25 and 1000 are kept for the surfaces below. */
-  --color-ink-0: oklch(99.2% 0.002 275);
-  --color-ink-25: oklch(98.2% 0.003 275);
-  --color-ink-50: oklch(96.6% 0.004 275);
-  --color-ink-100: oklch(94.0% 0.005 275);
-  --color-ink-200: oklch(89.0% 0.007 275);
-  --color-ink-300: oklch(82.0% 0.009 275);
-  --color-ink-400: oklch(71.0% 0.013 275);
-  --color-ink-500: oklch(58.0% 0.018 275);
-  --color-ink-600: oklch(48.0% 0.020 275);
-  --color-ink-700: oklch(39.0% 0.020 275);
-  --color-ink-800: oklch(30.5% 0.018 275);
-  --color-ink-900: oklch(23.0% 0.016 275);
-  --color-ink-950: oklch(17.5% 0.014 275);
-  --color-ink-1000: oklch(12.5% 0.012 275);
+  /* Marine — the blue. Sky at the top, navy at the floor. */
+  --color-marine-50: oklch(97.0% 0.014 243);
+  --color-marine-100: oklch(94.0% 0.030 243);
+  --color-marine-200: oklch(89.0% 0.052 243);
+  --color-marine-300: oklch(82.3% 0.068 243);
+  --color-marine-400: oklch(72.0% 0.106 245);
+  --color-marine-500: oklch(58.0% 0.176 252);
+  --color-marine-600: oklch(50.0% 0.192 256);
+  --color-marine-700: oklch(41.0% 0.190 260);
+  --color-marine-800: oklch(32.0% 0.180 262);
+  --color-marine-900: oklch(24.6% 0.169 265);
+  --color-marine-950: oklch(18.0% 0.130 265);
 
-  /* Azure — blue, hue 240. The brand accent: buttons, links, active nav. */
-  --color-azure-50: oklch(96.5% 0.018 240);
-  --color-azure-100: oklch(94.0% 0.035 240);
-  --color-azure-200: oklch(89.0% 0.060 240);
-  --color-azure-300: oklch(82.0% 0.090 240);
-  --color-azure-400: oklch(73.0% 0.125 240);
-  --color-azure-500: oklch(62.0% 0.145 240);
-  --color-azure-600: oklch(54.0% 0.150 240);
-  --color-azure-700: oklch(46.0% 0.130 240);
-  --color-azure-800: oklch(37.0% 0.105 240);
-  --color-azure-900: oklch(28.0% 0.080 240);
-  --color-azure-950: oklch(22.0% 0.060 240);
+  /* Ember — the red, at 500 exactly as sampled. */
+  --color-ember-50: oklch(97.0% 0.018 26);
+  --color-ember-100: oklch(94.0% 0.040 26);
+  --color-ember-200: oklch(89.0% 0.076 26);
+  --color-ember-300: oklch(80.0% 0.128 26);
+  --color-ember-400: oklch(68.0% 0.185 26);
+  --color-ember-500: oklch(55.6% 0.225 26);
+  --color-ember-600: oklch(49.0% 0.210 26);
+  --color-ember-700: oklch(41.0% 0.180 26);
+  --color-ember-800: oklch(33.0% 0.145 26);
+  --color-ember-900: oklch(26.0% 0.112 26);
+  --color-ember-950: oklch(19.0% 0.085 26);
 
-  /* Iris — violet, hue 285. Secondary accent: charts, highlights, badges. */
-  --color-iris-50: oklch(96.5% 0.020 285);
-  --color-iris-100: oklch(94.0% 0.038 285);
-  --color-iris-200: oklch(89.0% 0.068 285);
-  --color-iris-300: oklch(82.0% 0.100 285);
-  --color-iris-400: oklch(73.0% 0.140 285);
-  --color-iris-500: oklch(62.0% 0.170 285);
-  --color-iris-600: oklch(54.0% 0.175 285);
-  --color-iris-700: oklch(46.0% 0.155 285);
-  --color-iris-800: oklch(37.0% 0.125 285);
-  --color-iris-900: oklch(28.0% 0.095 285);
-  --color-iris-950: oklch(22.0% 0.072 285);
+  /* Slate — the neutral. The image's grey is achromatic, and it stays that
+     way: a tinted grey beside a saturated blue and a saturated red is one
+     hue too many. */
+  --color-slate-0: oklch(100% 0 0);
+  --color-slate-25: oklch(98.6% 0 0);
+  --color-slate-50: oklch(97.2% 0 0);
+  --color-slate-100: oklch(94.5% 0 0);
+  --color-slate-200: oklch(89.5% 0 0);
+  --color-slate-300: oklch(82.5% 0 0);
+  --color-slate-400: oklch(65.0% 0 0);
+  --color-slate-500: oklch(46.8% 0 0);
+  --color-slate-600: oklch(40.0% 0 0);
+  --color-slate-700: oklch(33.0% 0 0);
+  --color-slate-800: oklch(25.5% 0 0);
+  --color-slate-900: oklch(19.0% 0 0);
+  --color-slate-950: oklch(14.0% 0 0);
+  --color-slate-1000: oklch(10.0% 0 0);
 }
 
 /* ---------------------------------------------------------------------------
    Nuxt UI semantic tokens, mapped to the design system's tier-2 names.
 
    Nuxt UI's defaults put the page on pure white and dark mode on neutral-900.
-   The design system descends from paper (ink-0) in light and ascends from
-   near-black (ink-1000) in dark; hairlines go translucent in dark so they
+   Light descends from paper (slate-0); dark ascends from near-black
+   (slate-1000). Hairlines go translucent in dark so they
    survive over an image instead of vanishing into it. Unlayered, so these
    beat Nuxt UI's own `@layer theme` declarations.
 
@@ -139,47 +145,48 @@
 :root {
   --ui-container: var(--container-8xl);
 
-  /* --radius-control (6px) is Nuxt UI's rounded-md, i.e. 1.5 × this;
-     --radius-card (10px) is close to rounded-lg at 2 ×. */
-  --ui-radius: 0.25rem;
+  /* Rounder than the old 4px. The palette is doing the playful work; the
+     radius keeps it company rather than fighting it. Nuxt UI derives its
+     control and card radii from this one value. */
+  --ui-radius: 0.5rem;
 
-  --ui-bg: var(--color-ink-0);
-  --ui-bg-muted: var(--color-ink-50);
-  --ui-bg-elevated: var(--color-ink-100);
-  --ui-bg-accented: var(--color-ink-200);
-  --ui-bg-inverted: var(--color-ink-950);
+  --ui-bg: var(--color-slate-0);
+  --ui-bg-muted: var(--color-slate-50);
+  --ui-bg-elevated: var(--color-slate-100);
+  --ui-bg-accented: var(--color-slate-200);
+  --ui-bg-inverted: var(--color-slate-950);
 
-  --ui-text-highlighted: var(--color-ink-900);
-  --ui-text: var(--color-ink-700);
-  --ui-text-toned: var(--color-ink-600);
-  --ui-text-muted: var(--color-ink-500);
-  --ui-text-dimmed: var(--color-ink-400);
-  --ui-text-inverted: var(--color-ink-50);
+  --ui-text-highlighted: var(--color-slate-900);
+  --ui-text: var(--color-slate-700);
+  --ui-text-toned: var(--color-slate-600);
+  --ui-text-muted: var(--color-slate-500);
+  --ui-text-dimmed: var(--color-slate-400);
+  --ui-text-inverted: var(--color-slate-50);
 
-  --ui-border: var(--color-ink-200);
-  --ui-border-muted: var(--color-ink-100);
-  --ui-border-accented: var(--color-ink-300);
-  --ui-border-inverted: var(--color-ink-950);
+  --ui-border: var(--color-slate-200);
+  --ui-border-muted: var(--color-slate-100);
+  --ui-border-accented: var(--color-slate-300);
+  --ui-border-inverted: var(--color-slate-950);
 }
 
 .dark {
-  --ui-bg: var(--color-ink-1000);
-  --ui-bg-muted: var(--color-ink-950);
-  --ui-bg-elevated: var(--color-ink-900);
-  --ui-bg-accented: var(--color-ink-800);
-  --ui-bg-inverted: var(--color-ink-50);
+  --ui-bg: var(--color-slate-1000);
+  --ui-bg-muted: var(--color-slate-950);
+  --ui-bg-elevated: var(--color-slate-900);
+  --ui-bg-accented: var(--color-slate-800);
+  --ui-bg-inverted: var(--color-slate-50);
 
-  --ui-text-highlighted: var(--color-ink-50);
-  --ui-text: var(--color-ink-300);
-  --ui-text-toned: var(--color-ink-400);
-  --ui-text-muted: var(--color-ink-500);
-  --ui-text-dimmed: var(--color-ink-600);
-  --ui-text-inverted: var(--color-ink-900);
+  --ui-text-highlighted: var(--color-slate-50);
+  --ui-text: var(--color-slate-300);
+  --ui-text-toned: var(--color-slate-400);
+  --ui-text-muted: var(--color-slate-500);
+  --ui-text-dimmed: var(--color-slate-600);
+  --ui-text-inverted: var(--color-slate-900);
 
   --ui-border: oklch(100% 0 0 / 0.12);
   --ui-border-muted: oklch(100% 0 0 / 0.07);
   --ui-border-accented: oklch(100% 0 0 / 0.22);
-  --ui-border-inverted: var(--color-ink-200);
+  --ui-border-inverted: var(--color-slate-200);
 }
 
 /* A slightly larger base type size across the whole site (16px → 17px).
@@ -193,12 +200,16 @@ html {
    Landing-page visual helpers
 --------------------------------------------------------------------------- */
 
-/* Brand gradient text */
+/* Brand emphasis text. Deliberately NOT a gradient: this palette is two strong
+   hues and a neutral, and a gradient between them muddies both. The class name
+   is kept because markup across the site uses it; it now just sets the blue at
+   the step that reads strongest against the page. */
 .text-gradient {
-  background-image: linear-gradient(115deg, var(--color-azure-400), var(--color-azure-600));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-marine-600);
+}
+
+.dark .text-gradient {
+  color: var(--color-marine-300);
 }
 
 /* Faint grid backdrop used behind the hero */
@@ -335,7 +346,7 @@ html {
 /* ---------------------------------------------------------------------------
    The design system's interaction idioms
    ---------------------------------------------------------------------------
-   Colour is now entirely blue (azure, one ramp, many steps) and these rules are
+   Structure is carried by marine, one ramp across many steps, and these rules are
    what keeps that from reading as flat: hierarchy comes from WEIGHT and GROUND
    rather than from hue, exactly as design.imswarnil.com does it. Headings track
    tight, hovers move the ground and not the text, and an icon shifts from muted
