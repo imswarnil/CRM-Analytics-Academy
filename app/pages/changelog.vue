@@ -15,6 +15,22 @@ interface Entry {
 
 const entries: Entry[] = [
   {
+    date: 'September 2026',
+    tag: 'Curriculum',
+    title: 'Rewritten end to end, and reordered around the job',
+    summary: 'Every lesson replaced. The course now teaches the platform in order and then uses it on a real go-to-market problem, on one company\u2019s data.',
+    color: 'primary',
+    items: [
+      'Nineteen sections and 161 lessons, written from scratch \u2014 the product first, go-to-market engineering last',
+      'SAQL, data visualization, interactions, bindings, dashboard JSON, APIs and Einstein Discovery each promoted to a section of their own',
+      'Sixteen dashboard builds on Namilio, a fictional AI company, with published totals so you can check your own work',
+      'Screen walkthroughs on every hands-on lesson: what to have open, where to click, and what is worth saying about it',
+      'Showcase write-ups for all sixteen builds, with formulas, datasets and the recipe behind each',
+      'HowTo and LearningResource structured data, so a build lesson can answer \u201chow do I build this\u201d directly',
+      'Third-party training clips removed throughout \u2014 the curriculum is original work'
+    ]
+  },
+  {
     date: 'August 2026',
     tag: 'Platform',
     title: 'Back to a pure static site',

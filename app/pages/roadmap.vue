@@ -8,34 +8,35 @@ defineOgImage('Docs', { title, description })
 const principles = [
   { icon: 'i-lucide-gift', title: 'Free, forever', text: 'Every lesson, exam, and certificate stays free — funded by ads and sponsors, never paywalls.' },
   { icon: 'i-lucide-git-fork', title: 'Open source', text: 'The whole site is on GitHub. Anyone can fix a typo, add a lesson, or ship a feature.' },
-  { icon: 'i-lucide-video', title: 'Learn by watching + doing', text: 'Short video clips paired with hands-on steps and graded exams — not walls of text.' },
+  { icon: 'i-lucide-monitor-play', title: 'Build it, don\u2019t read it', text: 'Every hands-on lesson carries a screen walkthrough \u2014 what to click, and what is worth saying about it \u2014 plus a graded quiz.' },
   { icon: 'i-lucide-users', title: 'Built with the community', text: 'Resources, feedback, and the guestbook are yours. The best ideas ship first.' }
 ]
 
 const columns = [
   {
     key: 'now',
+    label: 'Shipped',
+    icon: 'i-lucide-check-circle-2',
+    color: 'text-success',
+    ring: 'ring-success/20',
+    items: [
+      'Nineteen sections and 161 lessons, rewritten end to end',
+      'Sixteen go-to-market builds on one company\u2019s data',
+      'Screen walkthroughs on every hands-on lesson',
+      'Downloadable practice datasets, with the true totals published'
+    ]
+  },
+  {
+    key: 'next',
     label: 'In progress',
     icon: 'i-lucide-loader',
     color: 'text-primary',
     ring: 'ring-primary/20',
     items: [
-      'More SAQL & Einstein Discovery video lessons',
-      '“Continue where you left off” for members',
-      'Notification bell for comment replies'
-    ]
-  },
-  {
-    key: 'next',
-    label: 'Up next',
-    icon: 'i-lucide-arrow-right-circle',
-    color: 'text-warning',
-    ring: 'ring-warning/20',
-    items: [
-      'Public learner profiles with earned certificates',
-      'Community Q&A / discussions',
-      'Downloadable practice datasets & solutions',
-      'Resource collections & curated learning paths'
+      'Recording the walkthrough scripts as video',
+      'A browsable mirror of the org the builds are made in',
+      'Showcase write-ups for adoption and AI-search dashboards',
+      'Translations regenerating across the other eleven languages'
     ]
   },
   {
@@ -45,9 +46,9 @@ const columns = [
     color: 'text-muted',
     ring: 'ring-default',
     items: [
-      'Full translations across all 8 languages',
-      'Live cohort sessions & office hours',
-      'A companion mobile experience'
+      'Public learner profiles with earned certificates',
+      'Community Q&A and curated learning paths',
+      'Live cohort sessions & office hours'
     ]
   }
 ]

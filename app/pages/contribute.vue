@@ -365,8 +365,8 @@ Your write-up goes here.</code></pre>
                     <li><strong>Nuxt 4</strong> (Vue 3 + Nitro) — the framework, SSR + prerendering</li>
                     <li><strong>Nuxt Content 3</strong> — lessons authored in Markdown, served from SQLite</li>
                     <li><strong>Nuxt UI v4</strong> + <strong>Tailwind CSS 4</strong> — components and styling</li>
-                    <li><strong>@nuxtjs/i18n</strong> — 8 languages</li>
-                    <li><strong>GitHub Pages</strong> + <strong>GitHub Actions</strong> — hosting and CI (auto-deploy on push to <code>main</code>)</li>
+                    <li><strong>@nuxtjs/i18n</strong> — 12 languages, eleven of them machine-translated from English</li>
+                    <li><strong>Cloudflare Workers</strong> + <strong>GitHub Actions</strong> — prerendered pages served as static assets, a Worker for the dynamic routes, auto-deployed on push to <code>main</code></li>
                   </ul>
                   <p>Also in the box: <code>nuxt-og-image</code> (social cards), <code>nuxt-llms</code> (machine-readable docs), and structured data for SEO.</p>
                   <p>There is <strong>no database and no accounts</strong> — every page is prerendered at build time from Markdown. If you're curious about the data model the site used to run on, see <code>dbms.md</code> in the repo.</p>
@@ -384,7 +384,7 @@ Your write-up goes here.</code></pre>
                     <li><strong>Commit</strong> with a clear message and <strong>push</strong> to your fork.</li>
                     <li><strong>Open a PR</strong> against <code>main</code>, describing what changed and why.</li>
                   </ol>
-                  <p>A maintainer will review, suggest tweaks if needed, and merge. Once merged, the GitHub Actions workflow builds the site and publishes it to GitHub Pages automatically.</p>
+                  <p>A maintainer will review, suggest tweaks if needed, and merge. Once merged, the GitHub Actions workflow builds the site and publishes it to Cloudflare automatically.</p>
                 </div>
 
                 <!-- help -->
