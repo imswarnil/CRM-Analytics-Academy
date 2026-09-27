@@ -33,7 +33,7 @@ const lessonCount = computed(() =>
 
 const stats = computed(() => [
   { icon: 'i-lucide-book-open', value: String(lessonCount.value), label: t('home.stats.lessons') },
-  { icon: 'i-lucide-layout-dashboard', value: '14', label: t('home.stats.video') },
+  { icon: 'i-lucide-layout-dashboard', value: '16', label: t('home.stats.video') },
   { icon: 'i-lucide-badge-check', value: '100%', label: t('home.stats.free') }
 ])
 
@@ -284,11 +284,13 @@ const heroLinks = computed(() => [
         </template>
 
         <div class="relative lg:me-4">
-          <HeroVideo
-            id="aPwndqsmaGk"
-            :start="19"
-            :title="t('hero.watch')"
-          />
+          <!-- Was an embedded third-party CRM Analytics training video — the
+               spine of the old curriculum, whose clips were removed from every
+               lesson when this was rewritten as original work. Introducing an
+               original course with somebody else's recording undercut the one
+               claim the page most needs to make, so the hero now shows what
+               the course produces instead. -->
+          <HeroBoard />
 
           <!-- Floating proof around the frame: two medium stats and the
                community faces, drifting slowly. Decorative duplicates of

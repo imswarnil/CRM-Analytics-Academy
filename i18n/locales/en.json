@@ -52,7 +52,8 @@
     "browse": "Browse curriculum",
     "search": "Search",
     "watch": "Watch the intro",
-    "community": "Learners across 12 languages"
+    "community": "Learners across 12 languages",
+    "boardCaption": "The board you build in the final lesson"
   },
   "cta": {
     "title": "Ready to become a CRM Analytics pro?",
@@ -65,7 +66,7 @@
       "modules": "Modules",
       "lessons": "Lessons",
       "free": "Free & open",
-      "video": "Video",
+      "video": "Builds",
       "languages": "Languages"
     },
     "curriculumEyebrow": "The Curriculum",
