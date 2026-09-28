@@ -757,3 +757,50 @@ body {
     overflow: visible;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   The contents rail, stripped
+   ---------------------------------------------------------------------------
+   UContentToc's root carries a stack of utilities meant for the mobile
+   presentation, where it is a full-width bar under the header:
+
+     -mx-4 px-4 sm:px-6 sm:-mx-6   a negative margin cancelled by padding
+     bg-default/75 backdrop-blur   a translucent bar
+     overflow-y-auto max-h-[…]     its own scroll region
+     lg:col-span-2                 a span for Nuxt UI's own grid, not ours
+
+   On desktop every one of those is wrong here. The negative margin and padding
+   push the rail's contents inward from both sides while the rail itself is
+   already narrow, so roughly 2rem of a 13rem column is spent on gutters that
+   do nothing. The scroll region never scrolls. The span belongs to a grid this
+   layout replaced.
+
+   Undone below rather than by editing the component, because the classes come
+   from Nuxt UI's theme and would come back on the next upgrade.
+--------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .lesson-grid > :not([data-slot="center"]) {
+    /* the -mx/px pair, and the mobile bar's own inset */
+    margin-inline: 0;
+    padding-inline: 0;
+
+    /* it is not a bar on desktop */
+    background-color: transparent;
+    backdrop-filter: none;
+
+    /* sized by its content; the page scroll carries it */
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* The heading and the link list pick up their own padding from the same
+     mobile treatment. The rail is the gutter now. */
+  .lesson-grid > :not([data-slot="center"]) > * {
+    padding-inline: 0;
+  }
+
+  /* Tighter rows: the contents list is a scan target, not a reading column. */
+  .lesson-grid > :not([data-slot="center"]) a {
+    padding-block: 0.15rem;
+  }
+}

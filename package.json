@@ -17,8 +17,8 @@
     "gate": "node scripts/gate-content.mjs",
     "ask:index": "node scripts/build-search-index.mjs",
     "verify:gating": "node scripts/verify-gating.mjs",
-    "org:pull": "cd salesforce && sf project retrieve start --metadata WaveDashboard WaveRecipe WaveDataflow WaveLens WaveApplication --target-org crma-dev",
-    "org:open": "cd salesforce && sf org open --target-org crma-dev"
+    "org:pull": "cd salesforce && sf project retrieve start --metadata WaveDashboard WaveRecipe WaveDataflow WaveLens WaveApplication",
+    "org:open": "cd salesforce && sf org open"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.114",
