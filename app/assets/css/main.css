@@ -379,6 +379,23 @@ button:hover > .bp-arrow {
 .bp-draw--on {
   stroke-dashoffset: 0;
 }
+.bp-grow-y,
+.bp-grow-x {
+  transform-box: fill-box;
+  transition: transform .5s var(--ease-out-im);
+}
+.bp-grow-y {
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+.bp-grow-x {
+  transform: scaleX(0);
+  transform-origin: center;
+}
+.bp-card--hover:hover .bp-grow-y,
+.bp-card--hover:hover .bp-grow-x {
+  transform: none;
+}
 .bp-fade {
   opacity: 0;
   transition: opacity .5s .2s;
@@ -403,7 +420,7 @@ button:hover > .bp-arrow {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bp-card, .bp-iconbox, .bp-row, .bp-arrow, .bp-draw, .bp-fade { transition: none; }
+  .bp-card, .bp-iconbox, .bp-row, .bp-arrow, .bp-draw, .bp-fade, .bp-grow-x, .bp-grow-y { transition: none; }
   .bp-marquee { animation: none; }
   .bp-card--hover:hover { transform: none; }
   html { scroll-behavior: auto; }

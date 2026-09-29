@@ -311,7 +311,7 @@ const timeline = computed(() => courseLessons.value.map((l) => {
     : isDone(l.path)
       ? 'tide' as const
       : m.access === 'pro' && !pro.value ? 'hatch' as const : 'ice' as const
-  return { label: '', value: m.minutes, tone, title: l.title, to: localePath(l.path) }
+  return { value: m.minutes, tone, title: l.title, to: localePath(l.path) }
 }))
 
 const hasMedia = computed(() => Boolean(page.value?.clip?.src || page.value?.video?.id || (lessonMux.value && page.value?.access !== 'pro')))
@@ -488,11 +488,9 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           </div>
         </div>
         <ClientOnly>
-          <BpBarChart
+          <BpTimeline
             :bars="timeline"
             :height="64"
-            :gap="1"
-            :format="v => `${v} min`"
           />
           <template #fallback>
             <div class="h-16" />

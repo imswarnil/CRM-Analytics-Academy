@@ -79,7 +79,7 @@ useJsonLd({
     <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
       <div class="grid gap-10 lg:grid-cols-[210px_minmax(0,1fr)]">
         <!-- Left filter -->
-        <aside class="lg:sticky lg:top-24 lg:self-start">
+        <aside class="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:overscroll-contain">
           <div class="border-[1.5px] border-(--ink) bg-(--card)">
             <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
               Filter

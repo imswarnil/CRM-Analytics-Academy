@@ -129,7 +129,7 @@ useJsonLd({
 
     <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
       <div class="grid gap-10 lg:grid-cols-[230px_minmax(0,1fr)]">
-        <aside class="lg:sticky lg:top-24 lg:self-start">
+        <aside class="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:overscroll-contain">
           <div
             v-for="group in groups"
             :key="group.key"
