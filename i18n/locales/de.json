@@ -36,7 +36,10 @@
     "ask": "Fragen Sie AI",
     "forTeams": "für Teams",
     "training": "Klassenschulung",
-    "implementation": "Durchführung"
+    "implementation": "Durchführung",
+    "home": "Zuhause",
+    "pricing": "Preisgestaltung",
+    "enroll": "Einschreiben"
   },
   "sponsorCard": {
     "title": "Sponsor dieses Projekts",
@@ -273,7 +276,23 @@
     "langSubtitle": "Der gesamte Lehrplan, in zwölf Sprachen.",
     "langHint": "Wählen Sie unten eine Sprache aus, um sofort zu wechseln - oder verwenden Sie das Globussymbol in der Navigationsleiste auf einer beliebigen Seite. Ihre Wahl wird in Erinnerung bleiben.",
     "subtitle": "Von Ihrem ersten Datensatz bis zu einem Vorstand öffnet sich tatsächlich eine Führungskraft - die gesamte Plattform in neunzehn Abschnitten, dann siebzehn Go-to-Market-Dashboards, die auf den Daten eines Unternehmens aufbauen.",
-    "f2": "161 Lektionen"
+    "f2": "161 Lektionen",
+    "hero": {
+      "eyebrow": "Aktualisiert für die aktuelle Salesforce Freigabe",
+      "title": "Lernen CRM Analytics die Art, wie es bei der Arbeit verwendet wird.",
+      "lead": "Ein fokussierter, freier Kurs. Walkthroughs und praktische Lektionen, die Sie von Ihrem ersten Objektiv zu Produktions-Dashboards, Rezepten, SAQL und Go-to-Market-Analysen - auf den Daten eines Unternehmens.",
+      "start": "Beginn der Lektion 1",
+      "curriculum": "Siehe Lehrplan"
+    },
+    "method": {
+      "title": "Gebaut von jemandem, der Schiffe CRM Analytics für einen Lebensunterhalt.",
+      "lead": "Vier Regeln prägen jede Lektion. Bewegen Sie eine Karte, um zu sehen, woran sie gemessen wird."
+    },
+    "teams": {
+      "title": "Ausbildung eines Ganzen Salesforce Team?",
+      "lead": "Teampläne, Fortschrittsberichte, die Ihr Manager lesen kann, Klassenräume und ein Lehrplan, der an Ihre Organisation angepasst ist.",
+      "cta": "Siehe Teampläne"
+    }
   },
   "footer": {
     "tagline": "Ein kostenloser, quelloffener Lehrplan, um Salesforce CRM Analytics zu meistern.",

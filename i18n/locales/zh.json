@@ -36,7 +36,10 @@
     "ask": "问大赦国际",
     "forTeams": "团队",
     "training": "课堂培训",
-    "implementation": "执行情况"
+    "implementation": "执行情况",
+    "home": "页 次",
+    "pricing": "定价",
+    "enroll": "输入"
   },
   "sponsorCard": {
     "title": "赞助这个项目",
@@ -273,7 +276,23 @@
     "langSubtitle": "整个课程,用十二种语言",
     "langHint": "选择下面的语言立即切换 - 或在任何页面的导航栏中使用地球图标 。 你的选择被记住了",
     "subtitle": "从你的第一个数据集到执行董事会 一个执行官实际上打开了—— 整个平台跨19个区, 然后17个上市仪表板 建立在一家公司的数据上。",
-    "f2": "161次经验教训"
+    "f2": "161次经验教训",
+    "hero": {
+      "eyebrow": "当前更新 Salesforce 释放",
+      "title": "学习 CRM Analytics 工作时使用的方法。",
+      "lead": "一个专注,免费的课程。 穿行和亲身练习 让你从第一眼看 生产仪表板,食谱, SAQL 和上市分析——根据一家公司的数据。",
+      "start": "开始上课 1",
+      "curriculum": "见课程"
+    },
+    "method": {
+      "title": "造船的人造的车 CRM Analytics 为生活。",
+      "lead": "四种规则塑造每课. 压着一张牌看看它用什么衡量"
+    },
+    "teams": {
+      "title": "整体培训 Salesforce 团队?",
+      "lead": "团队计划,进度报告 你的经理可以读到, 教室批量和课程 适合你的类。",
+      "cta": "见团队计划"
+    }
   },
   "footer": {
     "tagline": "一套免费开源课程，助你精通 Salesforce CRM Analytics。",

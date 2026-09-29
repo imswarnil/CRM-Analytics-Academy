@@ -36,7 +36,10 @@
     "ask": "Pregúntele a AI",
     "forTeams": "Para equipos",
     "training": "Capacitación aula",
-    "implementation": "Aplicación"
+    "implementation": "Aplicación",
+    "home": "Home",
+    "pricing": "Precios",
+    "enroll": "Inscripción"
   },
   "sponsorCard": {
     "title": "Patrocinar este proyecto",
@@ -273,7 +276,23 @@
     "langSubtitle": "Todo el currículo, en doce idiomas.",
     "langHint": "Elija un idioma a continuación para cambiar al instante - o utilice el icono del globo en la barra de navegación, en cualquier página. Tu elección es recordada.",
     "subtitle": "Desde su primer conjunto de datos a una junta ejecutiva un ejecutivo realmente abre — toda la plataforma a través de diecinueve secciones, luego diecisiete paneles de go-to-market construidos en los datos de una empresa.",
-    "f2": "161 lecciones"
+    "f2": "161 lecciones",
+    "hero": {
+      "eyebrow": "Actualizado para la corriente Salesforce liberación",
+      "title": "Aprender CRM Analytics la forma en que se utiliza en el trabajo.",
+      "lead": "Un curso enfocado y libre. Paseos y clases prácticas que te llevan de tu primera lente a tableros de producción, recetas, SAQL y análisis de ir al mercado — en los datos de una empresa.",
+      "start": "Comience la lección 1",
+      "curriculum": "Ver currículo"
+    },
+    "method": {
+      "title": "Construido por alguien que navegue CRM Analytics para vivir.",
+      "lead": "Cuatro reglas dan forma a cada lección. Hover una tarjeta para ver por qué se mide."
+    },
+    "teams": {
+      "title": "Formación completa Salesforce ¿equipo?",
+      "lead": "Planes de equipo, informes de progreso que su administrador puede leer, lotes de aula y un plan de estudios ajustado a su org.",
+      "cta": "Ver planes de equipo"
+    }
   },
   "footer": {
     "tagline": "Un currículo gratuito y de código abierto para dominar Salesforce CRM Analytics.",
