@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/lucide-static@0.469.0/font/lucide.css">
+<style>
+:root{--paper:#F4F7FB;--paper2:#E8EFF8;--card:#FBFCFE;--rmin:rgba(47,91,234,.055);--rmaj:rgba(47,91,234,.12);--ink:#0C1B33;--ink2:#4A5B78;--line:#C3D2E6;--navy:#0F2A5C;--signal:#2F5BEA;--tide:#3D8BD9;--frost:#A8CCF2;--ice:#DDEBFA;--glow:#3FC6DC;--on:#fff;--x:#7E93B5}
+[data-theme=dark]{--paper:#0A1428;--paper2:#0D1A33;--card:#0F1C36;--rmin:rgba(168,204,242,.055);--rmaj:rgba(168,204,242,.12);--ink:#E6EEFA;--ink2:#9DB0CF;--line:#24385F;--navy:#07122A;--signal:#6E93FF;--tide:#5BA6EC;--frost:#2B4A7C;--ice:#16274A;--glow:#5ED8EA;--on:#06112A;--x:#4F6A96}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Schibsted Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.28;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .4 0 0 0 0 .6 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+[data-theme=dark] body::after{mix-blend-mode:screen;opacity:.12}
+a{color:var(--signal);text-decoration:none}a:hover{color:var(--tide)}
+input,select{font:inherit;color:inherit}button{font:inherit;cursor:pointer;color:inherit}
+nav::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+<header style="position:sticky;top:0;z-index:40;background:color-mix(in oklab,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1.5px solid var(--ink)">
+<div style="max-width:1320px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;gap:22px">
+<button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;background:none;border:0;padding:0;flex:none">
+<span style="position:relative;width:34px;height:34px;border:1.5px solid var(--ink);background:var(--card);display:flex;align-items:flex-end;gap:3px;padding:6px">
+<span style="flex:1;height:30%;background:var(--frost)"></span><span style="flex:1;height:60%;background:var(--tide)"></span><span style="flex:1;height:100%;background:var(--signal)"></span>
+</span>
+<span style="display:flex;flex-direction:column;line-height:1;text-align:left"><span style="font-weight:800;font-size:16px;letter-spacing:-0.02em">CRM Analytics</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;color:var(--ink2);margin-top:4px">ACADEMY / 001</span></span>
+</button>
+<sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+<nav style="display:flex;gap:0;flex:1;min-width:0;height:100%;overflow-x:auto;scrollbar-width:none">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+<button onClick="{{ n.go }}" style="flex:none;position:relative;background:{{ n.bg }};border:0;border-left:1px solid var(--line);padding:0 15px;height:100%;font-size:14px;font-weight:600;color:{{ n.color }};transition:background .15s" style-hover="background:var(--ice)">{{ n.label }}<span style="position:absolute;left:0;right:0;bottom:-1.5px;height:3px;background:var(--signal);transform:scaleX({{ n.bar }});transition:transform .25s"></span></button>
+</sc-for>
+</nav>
+</sc-if>
+<sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}"><div style="flex:1"></div></sc-if>
+<div style="display:flex;align-items:center;gap:6px;flex:none">
+<button onClick="{{ openSearch }}" title="Search" style="display:flex;align-items:center;gap:8px;height:36px;padding:0 10px;border:1.5px solid var(--ink);background:var(--card);font-size:12px;transition:all .15s" style-hover="background:var(--ice)"><i class="icon-search" style="font-size:15px"></i><sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}"><span style="font-family:'IBM Plex Mono',monospace;color:var(--ink2)">⌘K</span></sc-if></button>
+<sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+<label style="display:flex;align-items:center;gap:4px;height:36px;padding:0 2px 0 9px;border:1.5px solid var(--ink);background:var(--card)"><i class="icon-languages" style="font-size:15px"></i><select value="{{ lang }}" onChange="{{ setLang }}" style="border:0;background:transparent;outline:0;font-family:'IBM Plex Mono',monospace;font-size:12px;height:32px"><option value="en">EN</option><option value="es">ES</option><option value="fr">FR</option><option value="de">DE</option><option value="ja">JA</option></select></label>
+</sc-if>
+<button onClick="{{ toggleTheme }}" title="Theme" style="width:36px;height:36px;border:1.5px solid var(--ink);background:var(--card);display:grid;place-items:center;transition:transform .35s" style-hover="transform:rotate(90deg)"><i class="{{ themeIcon }}" style="font-size:15px"></i></button>
+<sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ goPricing }}" style="height:36px;padding:0 14px;border:1.5px solid var(--ink);background:var(--signal);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;transition:background .15s" style-hover="background:var(--navy)">{{ t.cta }}<i class="icon-arrow-up-right" style="font-size:15px"></i></button>
+</sc-if>
+<sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ toggleMenu }}" style="width:36px;height:36px;border:1.5px solid var(--ink);background:var(--card);display:grid;place-items:center"><i class="{{ menuIcon }}" style="font-size:17px"></i></button>
+</sc-if>
+</div>
+</div>
+<sc-if value="{{ menuVisible }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid var(--line);padding:10px 20px 18px;display:flex;flex-direction:column;background:var(--paper)">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+<button onClick="{{ n.go }}" style="display:flex;align-items:center;gap:12px;text-align:left;background:none;border:0;border-bottom:1px dashed var(--line);padding:14px 4px;font-size:16px;font-weight:600;color:{{ n.color }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink2);width:22px">{{ n.num }}</span>{{ n.label }}</button>
+</sc-for>
+<div style="display:flex;gap:8px;margin-top:14px">
+<select value="{{ lang }}" onChange="{{ setLang }}" style="flex:1;height:44px;border:1.5px solid var(--ink);background:var(--card);padding:0 10px"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ja">日本語</option></select>
+<button onClick="{{ goPricing }}" style="flex:1;height:44px;border:1.5px solid var(--ink);background:var(--signal);color:#fff;font-weight:700">{{ t.cta }}</button>
+</div>
+</div>
+</sc-if>
+</header>
+
+<main style="flex:1">
+<sc-if value="{{ is.home }}" hint-placeholder-val="{{ true }}">
+<section style="position:relative;overflow:hidden;border-bottom:1.5px solid var(--ink);background-color:var(--paper);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px),linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px">
+<svg viewBox="0 0 1200 500" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none">
+<polygon points="0,430 100,410 200,420 300,370 400,385 500,330 600,345 700,290 800,300 900,240 1000,255 1100,190 1200,170 1200,500 0,500" fill="var(--ice)" opacity=".55"></polygon>
+<polyline points="0,430 100,410 200,420 300,370 400,385 500,330 600,345 700,290 800,300 900,240 1000,255 1100,190 1200,170" fill="none" stroke="var(--frost)" stroke-width="2" vector-effect="non-scaling-stroke"></polyline>
+<polyline points="0,460 150,455 300,440 450,445 600,420 750,425 900,400 1050,395 1200,370" fill="none" stroke="var(--tide)" stroke-width="1.2" stroke-dasharray="5 6" vector-effect="non-scaling-stroke" opacity=".6"></polyline>
+</svg>
+<div style="position:absolute;left:20px;bottom:10px;display:flex;gap:64px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink2);opacity:.7"><span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span></div>
+<div style="position:relative;max-width:1320px;margin:0 auto;padding:clamp(44px,7vw,92px) 20px clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(40px,5vw,72px);align-items:center">
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--ink2)"><span style="width:8px;height:8px;background:var(--glow)"></span>{{ t.badge }}<span style="flex:1;max-width:120px;height:1px;background:var(--line)"></span></div>
+<h1 style="margin:0;font-size:clamp(42px,6.2vw,76px);line-height:.95;letter-spacing:-0.045em;font-weight:900;text-wrap:balance">{{ t.heroTitle }}</h1>
+<div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--signal);max-width:460px"><span style="width:1px;height:9px;background:var(--signal)"></span><span style="flex:1;height:1px;background:var(--signal)"></span><span>1 COURSE · 42 LESSONS · 9H</span><span style="flex:1;height:1px;background:var(--signal)"></span><span style="width:1px;height:9px;background:var(--signal)"></span></div>
+<p style="margin:0;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:var(--ink2);max-width:520px;text-wrap:pretty">{{ t.heroSub }}</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<button onClick="{{ startFirst }}" style="height:52px;padding:0 22px;border:1.5px solid var(--ink);background:var(--signal);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;gap:12px;box-shadow:5px 5px 0 var(--ink);transition:transform .12s,box-shadow .12s,background .15s" style-hover="background:var(--navy);transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)" style-active="transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)"><i class="icon-play" style="font-size:16px"></i>{{ t.start }}</button>
+<button onClick="{{ goCurriculum }}" style="height:52px;padding:0 22px;border:1.5px solid var(--ink);background:var(--card);font-weight:700;font-size:15px;display:flex;align-items:center;gap:12px;transition:all .15s" style-hover="background:var(--ice);gap:18px">{{ t.viewCurr }}<i class="icon-move-right" style="font-size:16px"></i></button>
+</div>
+</div>
+<div style="position:relative;--x:var(--ink)">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink2);margin-bottom:10px"><span>FIG. 01 — PIPELINE BY MONTH</span><span>BUILT IN LESSON 07</span></div>
+<div style="position:relative;border:1.5px solid var(--ink);background:var(--card);padding:20px;display:flex;flex-direction:column;gap:18px;box-shadow:10px 10px 0 var(--ice)">
+<span style="position:absolute;inset:-7px;pointer-events:none;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line)">
+<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="3">
+<div style="padding:12px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:3px;transition:background .15s" style-hover="background:var(--ice)"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--ink2)">{{ k.l }}</span><span style="font-size:24px;font-weight:800;letter-spacing:-0.03em">{{ k.v }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--signal)">{{ k.d }}</span></div>
+</sc-for>
+</div>
+<div style="position:relative;height:180px;display:flex;align-items:flex-end;gap:5px;padding:24px 0 0 30px;background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% 39px;background-position:0 24px">
+<div style="position:absolute;left:0;top:18px;bottom:-6px;display:flex;flex-direction:column;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink2)"><span>4M</span><span>3M</span><span>2M</span><span>1M</span><span>0</span></div>
+<sc-for list="{{ bars }}" as="b" hint-placeholder-count="12">
+<div onMouseEnter="{{ b.enter }}" onMouseLeave="{{ b.leave }}" style="flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative;cursor:crosshair">
+<span style="position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--signal);opacity:{{ b.tip }};border-left:1px dashed var(--signal)"></span>
+<span style="position:absolute;bottom:calc({{ b.h }} + 8px);z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;padding:3px 6px;background:var(--ink);color:var(--paper);white-space:nowrap;opacity:{{ b.tip }};transition:opacity .12s;pointer-events:none">{{ b.v }}</span>
+<div style="position:relative;width:100%;height:{{ b.h }};background:{{ b.c }};border:1px solid {{ b.bd }};transition:all .2s cubic-bezier(.3,1.5,.5,1)"></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:5px;padding-left:30px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink2);margin-top:-10px"><sc-for list="{{ months }}" as="m" hint-placeholder-count="12"><span style="flex:1;text-align:center">{{ m }}</span></sc-for></div>
+</div>
+</div>
+</div>
+</section>
+
+<div style="border-bottom:1.5px solid var(--ink);background:var(--navy);color:#DDEBFA;overflow:hidden">
+<div style="height:10px;background:repeating-linear-gradient(90deg,rgba(221,235,250,.5) 0 1px,transparent 1px 8px),repeating-linear-gradient(90deg,rgba(221,235,250,.9) 0 1px,transparent 1px 40px);background-size:auto 5px,auto 10px;background-repeat:repeat-x"></div>
+<div style="display:flex;gap:36px;padding:12px 20px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;white-space:nowrap">
+<span>RECIPES</span><span style="color:#3FC6DC">+</span><span>DATA CLOUD</span><span style="color:#3FC6DC">+</span><span>LENSES</span><span style="color:#3FC6DC">+</span><span>BINDINGS</span><span style="color:#3FC6DC">+</span><span>SAQL</span><span style="color:#3FC6DC">+</span><span>COMPARE TABLES</span><span style="color:#3FC6DC">+</span><span>SECURITY PREDICATES</span><span style="color:#3FC6DC">+</span><span>TEMPLATED APPS</span><span style="color:#3FC6DC">+</span><span>EINSTEIN DISCOVERY</span>
+</div>
+</div>
+
+<section style="max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,96px) 20px;display:flex;flex-direction:column;gap:36px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:20px;align-items:end">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--signal)">FIG. 02 — METHOD</span><h2 style="margin:0;font-size:clamp(30px,4vw,48px);letter-spacing:-0.04em;line-height:1;font-weight:800">Built by someone who ships CRM Analytics for a living.</h2></div>
+<p style="margin:0;color:var(--ink2);font-size:16px;line-height:1.6;max-width:460px">Four rules shape every lesson. Hover a card to see what it's measured by.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:22px">
+<sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
+<div onMouseEnter="{{ f.enter }}" onMouseLeave="{{ f.leave }}" style="position:relative;--x:{{ f.x }};display:flex;flex-direction:column;gap:12px;padding:24px 22px 0;border:1.5px solid var(--ink);background-color:var(--card);background-image:linear-gradient({{ f.grid }} 1px,transparent 1px),linear-gradient(90deg,{{ f.grid }} 1px,transparent 1px);background-size:16px 16px;min-height:280px;transform:translateY({{ f.y }});transition:all .25s">
+<span style="position:absolute;inset:-7px;pointer-events:none;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink2)">{{ f.k }}</span><span style="width:42px;height:42px;display:grid;place-items:center;border:1.5px solid var(--ink);background:{{ f.ibg }};color:{{ f.ifg }};transform:rotate({{ f.rot }});transition:all .35s cubic-bezier(.3,1.5,.5,1)"><i class="{{ f.icon }}" style="font-size:19px"></i></span></div>
+<div style="font-weight:800;font-size:21px;letter-spacing:-0.02em;line-height:1.1">{{ f.title }}</div>
+<div style="font-size:14px;line-height:1.6;color:var(--ink2)">{{ f.body }}</div>
+<div style="margin-top:auto;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--signal);opacity:{{ f.op }};transition:opacity .3s"><span>{{ f.metric }}</span><span>{{ f.val }}</span></div>
+<svg viewBox="0 0 200 50" preserveAspectRatio="none" style="width:calc(100% + 44px);margin:0 -22px;height:56px;display:block">
+<polygon points="{{ f.area }}" fill="var(--ice)" style="opacity:{{ f.op }};transition:opacity .4s"></polygon>
+<polyline points="{{ f.pts }}" fill="none" stroke="var(--signal)" stroke-width="2" vector-effect="non-scaling-stroke" style="stroke-dasharray:420;stroke-dashoffset:{{ f.dash }};transition:stroke-dashoffset .9s ease"></polyline>
+</svg>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);background-color:var(--paper2);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px),linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px">
+<div style="max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,96px) 20px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--signal)">FIG. 03 — CURRICULUM, PLOTTED</span><h2 style="margin:0;font-size:clamp(30px,4vw,48px);letter-spacing:-0.04em;line-height:1;font-weight:800">Six modules. Every minute accounted for.</h2></div>
+<div style="display:flex;gap:16px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink2)"><span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--signal);border:1px solid var(--ink)"></span>VIDEO</span><span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--frost);border:1px solid var(--ink)"></span>ARTICLE</span></div>
+</div>
+<div style="position:relative;--x:var(--ink);border:1.5px solid var(--ink);background:var(--card)">
+<span style="position:absolute;inset:-7px;pointer-events:none;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<sc-for list="{{ modules }}" as="m" hint-placeholder-count="6">
+<button onClick="{{ m.open }}" onMouseEnter="{{ m.enter }}" onMouseLeave="{{ m.leave }}" style="width:100%;text-align:left;display:grid;grid-template-columns:{{ modCols }};gap:16px;align-items:center;padding:16px 20px;border:0;border-bottom:1px solid var(--line);background:{{ m.rowBg }};transition:background .15s">
+<span style="display:flex;gap:12px;align-items:baseline;min-width:0"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--signal)">{{ m.num }}</span><b style="font-size:16px;letter-spacing:-0.01em">{{ m.title }}</b></span>
+<span style="position:relative;height:30px;background-image:linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:20% 100%">
+<span style="position:absolute;left:0;top:4px;bottom:4px;width:{{ m.w }};display:flex;gap:2px;transform-origin:left;transform:scaleY({{ m.sy }});transition:transform .25s cubic-bezier(.3,1.5,.5,1)">
+<sc-for list="{{ m.segs }}" as="g" hint-placeholder-count="3"><span style="flex:{{ g.f }};background:{{ g.c }};border:1px solid var(--ink)"></span></sc-for>
+</span>
+</span>
+<span style="display:flex;align-items:center;justify-content:flex-end;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2)">{{ m.mins }}<i class="icon-arrow-right" style="font-size:15px;color:var(--signal);transform:translateX({{ m.ax }});opacity:{{ m.aop }};transition:all .2s"></i></span>
+</button>
+</sc-for>
+<div style="display:grid;grid-template-columns:{{ modCols }};gap:16px;padding:8px 20px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink2)"><span>MODULE</span><span style="display:flex;justify-content:space-between"><span>0</span><span>15</span><span>30</span><span>45</span><span>60</span><span>75 MIN</span></span><span></span></div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,96px) 20px">
+<div style="position:relative;--x:var(--ink);overflow:hidden;border:1.5px solid var(--ink);background-color:#0F2A5C;background-image:linear-gradient(rgba(168,204,242,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(168,204,242,.14) 1px,transparent 1px),linear-gradient(rgba(168,204,242,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(168,204,242,.06) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px;color:#E6EEFA;padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:36px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:18px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#3FC6DC">FIG. 04 — TEAMS</span>
+<div style="font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-0.04em;line-height:1">Training a whole Salesforce team?</div>
+<div style="font-size:16px;color:#B9CCE8;line-height:1.6;max-width:440px">Seat-based pricing, progress reports your manager can read, SSO when you need it.</div>
+<button onClick="{{ goTeams }}" style="align-self:flex-start;height:50px;padding:0 20px;border:1.5px solid #E6EEFA;background:#3FC6DC;color:#06112A;font-weight:800;display:flex;align-items:center;gap:10px;box-shadow:5px 5px 0 #E6EEFA;transition:all .12s" style-hover="transform:translate(-2px,-2px);box-shadow:7px 7px 0 #E6EEFA"><i class="icon-users"></i>See team plans</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:flex-end;gap:12px;height:210px;border-left:1.5px solid #B9CCE8;border-bottom:1.5px solid #B9CCE8;padding:0 12px">
+<sc-for list="{{ teamBars }}" as="b" hint-placeholder-count="6">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;transition:transform .25s" style-hover="transform:translateY(-10px)">
+<div style="height:{{ b.a }};background:#3FC6DC;border:1px solid #06112A"></div><div style="height:{{ b.b }};background:#3D8BD9;border:1px solid #06112A;border-top:0"></div><div style="height:{{ b.c }};background:#2F5BEA;border:1px solid #06112A;border-top:0"></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#B9CCE8;padding:0 12px"><span>WK 1</span><span>SEATS COMPLETING MODULES</span><span>WK 6</span></div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ is.curriculum }}" hint-placeholder-val="{{ false }}">
+<section style="border-bottom:1.5px solid var(--ink);background-color:var(--paper);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px),linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px">
+<div style="max-width:1040px;margin:0 auto;padding:clamp(40px,6vw,72px) 20px;display:flex;flex-direction:column;gap:18px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--signal)">SHEET 01 / 06 MODULES / 17 LESSONS SHOWN</span>
+<h1 style="margin:0;font-size:clamp(38px,5.5vw,64px);letter-spacing:-0.045em;line-height:.95;font-weight:900">{{ t.curriculum }}</h1>
+<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:6px">
+<div style="position:relative;flex:1;min-width:220px;height:16px;border:1.5px solid var(--ink);background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--line) calc(10% - 1px) 10%) var(--card)"><div style="height:100%;width:{{ progressPct }};background:repeating-linear-gradient(135deg,var(--signal) 0 6px,var(--tide) 6px 12px);transition:width .4s"></div></div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px">{{ progressLabel }}</span>
+</div>
+</div>
+</section>
+<section style="max-width:1040px;margin:0 auto;padding:48px 20px 96px;display:flex;flex-direction:column;gap:30px">
+<sc-for list="{{ modules }}" as="m" hint-placeholder-count="4">
+<div style="position:relative;--x:var(--x);border:1.5px solid var(--ink);background:var(--card)" style-hover="--x:var(--signal)">
+<span style="position:absolute;inset:-7px;pointer-events:none;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<div style="padding:16px 20px;display:flex;gap:16px;align-items:center;border-bottom:1.5px solid var(--ink);background:var(--ice)">
+<span style="font-size:34px;font-weight:900;letter-spacing:-0.05em;line-height:1;color:var(--signal)">{{ m.num }}</span>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><b style="font-size:19px;letter-spacing:-0.02em">{{ m.title }}</b><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink2)">{{ m.meta }}</span></div>
+<div style="width:44px;height:44px;flex:none;border-radius:50%;border:1.5px solid var(--ink);background:conic-gradient(var(--signal) 0 {{ m.pct }},var(--card) {{ m.pct }})"></div>
+</div>
+<sc-for list="{{ m.lessons }}" as="l" hint-placeholder-count="3">
+<button onClick="{{ l.open }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:14px;padding:14px 20px;border:0;border-top:1px dashed var(--line);background:transparent;transition:all .15s" style-hover="background:var(--ice);padding-left:28px">
+<span style="width:30px;height:30px;flex:none;display:grid;place-items:center;border:1.5px solid var(--ink);background:{{ l.dotBg }};color:{{ l.dotFg }}"><i class="{{ l.icon }}" style="font-size:14px"></i></span>
+<span style="flex:1;min-width:0;font-size:15px;font-weight:600">{{ l.title }}</span>
+<span style="width:{{ l.barW }};max-width:90px;height:8px;background:{{ l.barC }};border:1px solid var(--ink)"></span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2);width:34px;text-align:right">{{ l.dur }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.06em;padding:3px 7px;border:1px solid {{ l.accBd }};color:{{ l.accFg }};width:46px;text-align:center">{{ l.access }}</span>
+</button>
+</sc-for>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{ is.player }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:{{ playerCols }};align-items:start;transition:grid-template-columns .3s ease">
+<div style="min-width:0">
+<section style="background-color:var(--paper2);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px),linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px;border-bottom:1.5px solid var(--ink)">
+<div style="padding:clamp(16px,2.5vw,28px) clamp(16px,3vw,40px) clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<button onClick="{{ goCurriculum }}" style="display:flex;align-items:center;gap:6px;height:34px;padding:0 10px;border:1.5px solid var(--ink);background:var(--card);font-size:13px;font-weight:600" style-hover="background:var(--ice)"><i class="icon-chevron-left"></i>{{ cur.moduleTitle }}</button>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--signal)">{{ cur.code }}</span>
+<div style="flex:1"></div>
+<button onClick="{{ toggleDrawer }}" style="display:flex;align-items:center;gap:8px;height:34px;padding:0 12px;border:1.5px solid var(--ink);background:var(--card);font-size:13px;font-weight:600" style-hover="background:var(--ice)"><i class="icon-list-tree"></i>Contents</button>
+</div>
+<h1 style="margin:0;font-size:clamp(28px,3.6vw,46px);letter-spacing:-0.04em;line-height:1;font-weight:900">{{ cur.title }}</h1>
+<div style="position:relative;--x:var(--ink);margin:8px 7px 0">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink2);margin-bottom:10px"><span>{{ cur.figLabel }}</span><span>{{ cur.figRight }}</span></div>
+<div style="position:relative;border:1.5px solid var(--ink);background:var(--card)">
+<span style="position:absolute;inset:-7px;pointer-events:none;z-index:2;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<sc-if value="{{ cur.locked }}" hint-placeholder-val="{{ false }}">
+<div style="aspect-ratio:21/9;min-height:320px;background-color:#0F2A5C;background-image:linear-gradient(rgba(168,204,242,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(168,204,242,.14) 1px,transparent 1px);background-size:40px 40px;color:#E6EEFA;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px">
+<span style="width:60px;height:60px;border:1.5px solid #E6EEFA;background:#3FC6DC;color:#06112A;display:grid;place-items:center"><i class="icon-lock-keyhole" style="font-size:26px"></i></span>
+<div style="font-size:28px;font-weight:800;letter-spacing:-0.03em">This lesson is part of Pro</div>
+<div style="color:#B9CCE8;font-size:15px">Unlock all 42 lessons, project files and certificates.</div>
+<button onClick="{{ goPricing }}" style="height:48px;padding:0 22px;border:1.5px solid #E6EEFA;background:#fff;color:#06112A;font-weight:800;box-shadow:5px 5px 0 #3FC6DC;transition:all .12s" style-hover="transform:translate(-2px,-2px);box-shadow:7px 7px 0 #3FC6DC">View plans</button>
+</div>
+</sc-if>
+<sc-if value="{{ cur.showVideo }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;aspect-ratio:21/9;min-height:320px;background:#050B1A;overflow:hidden">
+<div style="position:absolute;inset:0;background-image:linear-gradient(rgba(120,160,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(120,160,255,.08) 1px,transparent 1px);background-size:40px 40px;display:grid;place-items:center;color:#6F82A8;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em">VIDEO EMBED · MUX / VIMEO / YOUTUBE</div>
+<button onClick="{{ togglePlay }}" style="position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border:1.5px solid #fff;background:#2F5BEA;color:#fff;display:grid;place-items:center;opacity:{{ bigPlay }};box-shadow:6px 6px 0 #3FC6DC;transition:all .15s" style-hover="transform:translate(-2px,-2px);box-shadow:8px 8px 0 #3FC6DC"><i class="icon-play" style="font-size:32px"></i></button>
+<div style="position:absolute;left:0;right:0;bottom:0;padding:14px 18px;display:flex;align-items:center;gap:14px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff">
+<button onClick="{{ togglePlay }}" style="width:36px;height:36px;border:1.5px solid #fff;background:transparent;color:#fff;display:grid;place-items:center"><i class="{{ playIcon }}" style="font-size:15px"></i></button>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px">{{ playTime }}</span>
+<div style="flex:1;height:6px;background:rgba(255,255,255,.18);position:relative"><div style="width:{{ playPct }};height:100%;background:#3FC6DC;transition:width .6s"></div></div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px">{{ cur.durFull }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid rgba(255,255,255,.5);padding:2px 6px">1.0×</span>
+<i class="icon-captions" style="font-size:17px"></i><i class="icon-maximize" style="font-size:17px"></i>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ cur.showArticle }}" hint-placeholder-val="{{ false }}">
+<article style="padding:clamp(24px,4vw,56px) 20px;display:flex;justify-content:center;background-image:linear-gradient(90deg,transparent calc(50% - 400px),var(--line) calc(50% - 400px),var(--line) calc(50% - 399px),transparent calc(50% - 399px))">
+<div style="max-width:720px;width:100%;font-size:17px;line-height:1.75;display:flex;flex-direction:column;gap:18px">
+<p style="margin:0;color:var(--ink2);font-size:20px;line-height:1.55">{{ cur.lede }}</p>
+<h3 style="margin:8px 0 0;font-size:24px;letter-spacing:-0.02em;display:flex;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--signal)">§1</span>The pattern</h3>
+<p style="margin:0">Load the dataset, group by the dimension you care about, then project only the measures you'll chart. Keep the stream narrow early — every column you carry costs query time.</p>
+<div style="border:1.5px solid var(--ink)">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:var(--ice);border-bottom:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px"><span>pipeline.saql</span><button onClick="{{ copy }}" style="display:flex;align-items:center;gap:6px;background:none;border:0;font-family:inherit;font-size:12px;color:var(--signal)"><i class="{{ copyIcon }}"></i>{{ copyLabel }}</button></div>
+<pre style="margin:0;padding:18px;background:#07102A;color:#CFE0FF;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.75;overflow:auto">q = load "opportunities";
+q = group q by 'StageName';
+q = foreach q generate 'StageName', sum('Amount') as 'Pipeline';
+q = order q by 'Pipeline' desc;</pre>
+</div>
+<div style="display:flex;gap:12px;padding:16px;border:1.5px dashed var(--signal);font-size:15px;line-height:1.6"><i class="icon-crosshair" style="font-size:18px;color:var(--signal);flex:none;margin-top:3px"></i><span><b>Tip:</b> In Lens mode, open the SAQL editor to see the query behind any click-built chart.</span></div>
+</div>
+</article>
+</sc-if>
+</div>
+<div style="height:14px;margin-top:6px;background:repeating-linear-gradient(90deg,var(--ink2) 0 1px,transparent 1px 1%),repeating-linear-gradient(90deg,var(--ink) 0 1.5px,transparent 1.5px 10%);background-size:100% 6px,100% 14px;background-repeat:no-repeat;opacity:.55"></div>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+<button onClick="{{ prev }}" style="height:44px;padding:0 16px;border:1.5px solid var(--ink);background:var(--card);font-weight:600;display:flex;align-items:center;gap:8px;transition:all .15s" style-hover="background:var(--ice);gap:14px"><i class="icon-arrow-left"></i>Previous</button>
+<div style="flex:1"></div>
+<button onClick="{{ toggleDone }}" style="height:44px;padding:0 16px;border:1.5px solid var(--ink);background:{{ doneBg }};color:{{ doneFg }};font-weight:700;display:flex;align-items:center;gap:8px;transition:all .2s"><i class="{{ doneIcon }}"></i>{{ doneLabel }}</button>
+<button onClick="{{ next }}" style="height:44px;padding:0 18px;border:1.5px solid var(--ink);background:var(--signal);color:#fff;font-weight:700;display:flex;align-items:center;gap:8px;box-shadow:4px 4px 0 var(--ink);transition:all .12s" style-hover="transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)">Next lesson<i class="icon-arrow-right"></i></button>
+</div>
+</div>
+</section>
+<section style="padding:28px clamp(16px,3vw,40px) 72px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--signal)">COURSE TIMELINE — BAR HEIGHT = LESSON LENGTH</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px">{{ progressLabel }}</span></div>
+<div style="position:relative;--x:var(--ink);border:1.5px solid var(--ink);background:var(--card);padding:26px 18px 12px;overflow-x:auto">
+<div style="display:flex;gap:18px;align-items:flex-end;min-width:720px">
+<sc-for list="{{ modules }}" as="m" hint-placeholder-count="6">
+<div style="flex:{{ m.n }};display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:flex-end;gap:4px;height:110px;border-bottom:1.5px solid var(--ink)">
+<sc-for list="{{ m.lessons }}" as="l" hint-placeholder-count="3">
+<button onClick="{{ l.open }}" onMouseEnter="{{ l.enter }}" onMouseLeave="{{ l.leave }}" title="{{ l.title }}" style="position:relative;flex:1;height:{{ l.tH }};padding:0;border:1px solid var(--ink);border-bottom:0;background:{{ l.tC }};transform-origin:bottom;transform:scaleY({{ l.tS }});transition:transform .18s cubic-bezier(.3,1.5,.5,1),background .15s">
+<span style="position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);white-space:nowrap;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 6px;background:var(--ink);color:var(--paper);opacity:{{ l.tip }};pointer-events:none;z-index:3">{{ l.title }}</span>
+</button>
+</sc-for>
+</div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.num }} {{ m.title }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink2)"><span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--signal);border:1px solid var(--ink)"></span>CURRENT</span><span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--tide);border:1px solid var(--ink)"></span>DONE</span><span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--ice);border:1px solid var(--ink)"></span>OPEN</span><span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:repeating-linear-gradient(135deg,var(--line) 0 2px,var(--card) 2px 4px);border:1px solid var(--ink)"></span>PRO</span></div>
+</section>
+</div>
+<sc-if value="{{ sideDock }}" hint-placeholder-val="{{ true }}">
+<aside style="position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;overflow-x:hidden;border-left:1.5px solid var(--ink);background-color:var(--paper);background-image:linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:16px 16px">
+<sc-if value="{{ sideOpen }}" hint-placeholder-val="{{ true }}">
+<div style="position:sticky;top:0;z-index:2;background:var(--paper);border-bottom:1.5px solid var(--ink);padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px"><div style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--signal)">SHEET — CONTENTS</span><b style="font-size:18px;letter-spacing:-0.02em">Course contents</b></div><button onClick="{{ toggleSide }}" title="Collapse" style="width:34px;height:34px;border:1.5px solid var(--ink);background:var(--card);display:grid;place-items:center;transition:all .15s" style-hover="background:var(--signal);color:#fff"><i class="icon-panel-right-close" style="font-size:16px"></i></button></div>
+<div style="height:12px;border:1.5px solid var(--ink);background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--line) calc(10% - 1px) 10%) var(--card)"><div style="height:100%;width:{{ progressPct }};background:repeating-linear-gradient(135deg,var(--signal) 0 5px,var(--tide) 5px 10px);transition:width .4s"></div></div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink2)">{{ progressLabel }}</span>
+</div>
+<sc-for list="{{ modules }}" as="m" hint-placeholder-count="6">
+<div style="border-bottom:1px dashed var(--line)">
+<div style="display:flex;align-items:center;gap:10px;padding:14px 18px 8px">
+<span style="font-size:20px;font-weight:900;letter-spacing:-0.04em;color:var(--signal)">{{ m.num }}</span>
+<span style="flex:1;min-width:0;display:flex;flex-direction:column"><b style="font-size:14px">{{ m.title }}</b><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink2)">{{ m.meta }}</span></span>
+<span style="width:22px;height:22px;flex:none;border-radius:50%;border:1.5px solid var(--ink);background:conic-gradient(var(--signal) 0 {{ m.pct }},var(--card) {{ m.pct }})"></span>
+</div>
+<sc-for list="{{ m.lessons }}" as="l" hint-placeholder-count="3">
+<button onClick="{{ l.open }}" style="width:100%;text-align:left;display:flex;gap:10px;align-items:center;padding:9px 18px 9px 15px;border:0;border-left:3px solid {{ l.activeBar }};background:{{ l.activeBg }};font-size:13px;transition:all .15s" style-hover="background:var(--ice);padding-left:21px">
+<span style="width:22px;height:22px;flex:none;display:grid;place-items:center;border:1px solid var(--ink);background:{{ l.dotBg }};color:{{ l.dotFg }}"><i class="{{ l.icon }}" style="font-size:11px"></i></span>
+<span style="flex:1;min-width:0;font-weight:500">{{ l.title }}</span>
+<span style="width:{{ l.miniW }};height:5px;flex:none;background:{{ l.barC }};border:1px solid var(--ink)"></span>
+<span style="font-family:'IBM Plex Mono',monospace;color:var(--ink2);font-size:10px;width:24px;text-align:right">{{ l.dur }}</span>
+</button>
+</sc-for>
+<div style="height:8px"></div>
+</div>
+</sc-for>
+</sc-if>
+<sc-if value="{{ sideClosed }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 0">
+<button onClick="{{ toggleSide }}" title="Expand contents" style="width:36px;height:36px;border:1.5px solid var(--ink);background:var(--card);display:grid;place-items:center;transition:all .15s" style-hover="background:var(--signal);color:#fff"><i class="icon-panel-right-open" style="font-size:16px"></i></button>
+<span style="width:24px;height:1.5px;background:var(--ink)"></span>
+<sc-for list="{{ modules }}" as="m" hint-placeholder-count="6">
+<button onClick="{{ m.open }}" title="{{ m.title }}" style="position:relative;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--ink);background:conic-gradient(var(--signal) 0 {{ m.pct }},var(--card) {{ m.pct }});display:grid;place-items:center;padding:0;transition:transform .2s cubic-bezier(.3,1.5,.5,1)" style-hover="transform:scale(1.15)"><span style="width:26px;height:26px;border-radius:50%;background:{{ m.railBg }};color:{{ m.railFg }};display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600">{{ m.num }}</span></button>
+</sc-for>
+<span style="writing-mode:vertical-rl;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--ink2);margin-top:8px">CONTENTS · {{ progressPct }}</span>
+</div>
+</sc-if>
+</aside>
+</sc-if>
+</div>
+<sc-if value="{{ drawer }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ toggleDrawer }}" style="position:fixed;inset:0;z-index:60;background:rgba(6,17,42,.4)">
+<aside onClick="{{ stop }}" style="position:absolute;right:0;top:0;bottom:0;width:min(400px,92vw);background:var(--paper);border-left:1.5px solid var(--ink);overflow:auto;padding:20px 0">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:0 20px 14px;border-bottom:1.5px solid var(--ink)"><b style="font-size:18px">Course contents</b><button onClick="{{ toggleDrawer }}" style="width:34px;height:34px;border:1.5px solid var(--ink);background:var(--card);display:grid;place-items:center"><i class="icon-x"></i></button></div>
+<sc-for list="{{ modules }}" as="m" hint-placeholder-count="4">
+<div style="padding:16px 20px 6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--signal)">{{ m.num }} — {{ m.title }}</div>
+<sc-for list="{{ m.lessons }}" as="l" hint-placeholder-count="3">
+<button onClick="{{ l.open }}" style="width:100%;text-align:left;display:flex;gap:10px;align-items:center;padding:10px 20px;border:0;border-left:3px solid {{ l.activeBar }};background:{{ l.activeBg }};font-size:14px" style-hover="background:var(--ice)">
+<span style="width:22px;height:22px;flex:none;display:grid;place-items:center;border:1px solid var(--ink);background:{{ l.dotBg }};color:{{ l.dotFg }}"><i class="{{ l.icon }}" style="font-size:11px"></i></span>
+<span style="flex:1">{{ l.title }}</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--ink2);font-size:11px">{{ l.dur }}</span>
+</button>
+</sc-for>
+</sc-for>
+</aside>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ is.pricing }}" hint-placeholder-val="{{ false }}">
+<section style="background-color:var(--paper);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px),linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px">
+<div style="max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,80px) 20px 96px;display:flex;flex-direction:column;align-items:center;gap:26px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--signal)">SHEET 02 — PRICING</span>
+<h1 style="margin:0;font-size:clamp(38px,5.5vw,68px);letter-spacing:-0.045em;text-align:center;line-height:.95;font-weight:900">{{ t.pricing }}</h1>
+<p style="margin:0;color:var(--ink2);text-align:center;max-width:520px;font-size:17px">Start free. Upgrade when you're ready to ship dashboards at work.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+<div style="display:flex;border:1.5px solid var(--ink);background:var(--card)">
+<sc-for list="{{ audTabs }}" as="a" hint-placeholder-count="2"><button onClick="{{ a.go }}" style="display:flex;align-items:center;gap:7px;border:0;padding:10px 18px;font-weight:700;font-size:14px;background:{{ a.bg }};color:{{ a.fg }};transition:all .2s"><i class="{{ a.icon }}"></i>{{ a.label }}</button></sc-for>
+</div>
+<div style="display:flex;border:1.5px solid var(--ink);background:var(--card)">
+<sc-for list="{{ billTabs }}" as="a" hint-placeholder-count="2"><button onClick="{{ a.go }}" style="border:0;padding:10px 18px;font-weight:700;font-size:14px;background:{{ a.bg }};color:{{ a.fg }};transition:all .2s">{{ a.label }}</button></sc-for>
+</div>
+</div>
+<div style="width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:26px;margin-top:14px">
+<sc-for list="{{ plans }}" as="p" hint-placeholder-count="3">
+<div onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" style="position:relative;--x:{{ p.x }};display:flex;flex-direction:column;gap:18px;padding:28px;border:1.5px solid var(--ink);background-color:{{ p.bg }};background-image:linear-gradient({{ p.grid }} 1px,transparent 1px),linear-gradient(90deg,{{ p.grid }} 1px,transparent 1px);background-size:16px 16px;color:{{ p.fg }};transform:translateY({{ p.y }});box-shadow:{{ p.sh }};transition:all .25s">
+<span style="position:absolute;inset:-7px;pointer-events:none;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;opacity:.7">{{ p.code }}</span><b style="font-size:26px;letter-spacing:-0.03em">{{ p.name }}</b></div>
+<span style="width:46px;height:46px;display:grid;place-items:center;border:1.5px solid {{ p.ibd }};background:{{ p.ibg }};color:{{ p.ifg }};transform:rotate({{ p.rot }});transition:transform .35s cubic-bezier(.3,1.5,.5,1)"><i class="{{ p.icon }}" style="font-size:21px"></i></span>
+</div>
+<sc-if value="{{ p.tag }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.1em;color:#06112A;background:#3FC6DC;padding:4px 8px;margin-top:-8px">{{ p.tag }}</span></sc-if>
+<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-size:56px;font-weight:900;letter-spacing:-0.05em;line-height:1">{{ p.price }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.75">{{ p.unit }}</span></div>
+<div style="font-size:15px;line-height:1.55;opacity:.8;min-height:46px">{{ p.desc }}</div>
+<div style="display:flex;align-items:flex-end;gap:4px;height:36px;border-bottom:1px solid {{ p.dash }}"><sc-for list="{{ p.meter }}" as="m" hint-placeholder-count="8"><span style="flex:1;height:{{ m.h }};background:{{ m.c }};transition:height .35s cubic-bezier(.3,1.5,.5,1)"></span></sc-for></div>
+<button style="height:50px;font-weight:800;font-size:15px;border:1.5px solid {{ p.btnBd }};background:{{ p.btnBg }};color:{{ p.btnFg }};display:flex;align-items:center;justify-content:center;gap:10px;transition:gap .2s" style-hover="gap:18px">{{ p.cta }}<i class="icon-arrow-right"></i></button>
+<div style="display:flex;flex-direction:column;gap:11px;font-size:14px">
+<sc-for list="{{ p.items }}" as="i" hint-placeholder-count="4"><div style="display:flex;gap:10px;align-items:flex-start"><i class="icon-plus" style="color:{{ p.check }};font-size:15px;margin-top:2px"></i><span>{{ i }}</span></div></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="width:100%;max-width:800px;display:flex;flex-direction:column;margin-top:48px;border:1.5px solid var(--ink);background:var(--card)">
+<div style="padding:16px 20px;border-bottom:1.5px solid var(--ink);background:var(--ice);display:flex;justify-content:space-between;align-items:center"><b style="font-size:20px;letter-spacing:-0.02em">Questions</b><i class="icon-message-circle-question" style="font-size:20px;color:var(--signal)"></i></div>
+<sc-for list="{{ faq }}" as="q" hint-placeholder-count="3">
+<details style="border-top:1px dashed var(--line);padding:16px 20px"><summary style="cursor:pointer;font-weight:700;font-size:16px">{{ q.q }}</summary><p style="margin:10px 0 0;color:var(--ink2);line-height:1.65">{{ q.a }}</p></details>
+</sc-for>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ is.showcase }}" hint-placeholder-val="{{ false }}">
+<section style="border-bottom:1.5px solid var(--ink);background-color:var(--paper);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px),linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px">
+<div style="max-width:1320px;margin:0 auto;padding:clamp(40px,6vw,72px) 20px;display:flex;flex-direction:column;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--signal)">SHEET 03 — BUILT BY LEARNERS</span><h1 style="margin:0;font-size:clamp(38px,5.5vw,64px);letter-spacing:-0.045em;line-height:.95;font-weight:900">{{ t.showcase }}</h1><p style="margin:0;color:var(--ink2);font-size:17px">Dashboards and apps students shipped at work.</p></div>
+</section>
+<section style="max-width:1320px;margin:0 auto;padding:48px 20px 96px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:28px">
+<sc-for list="{{ showcase }}" as="s" hint-placeholder-count="6">
+<div onMouseEnter="{{ s.enter }}" onMouseLeave="{{ s.leave }}" style="position:relative;--x:{{ s.x }};border:1.5px solid var(--ink);background:var(--card);transform:translateY({{ s.y }});box-shadow:{{ s.sh }};transition:all .25s">
+<span style="position:absolute;inset:-7px;pointer-events:none;z-index:2;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<div style="position:relative;aspect-ratio:16/10;border-bottom:1.5px solid var(--ink);background-color:var(--ice);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px);background-size:20px 20px;overflow:hidden">
+<svg viewBox="0 0 200 110" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">
+<polygon points="{{ s.area }}" fill="var(--frost)" style="opacity:{{ s.aop }};transition:opacity .4s"></polygon>
+<polyline points="{{ s.pts }}" fill="none" stroke="var(--signal)" stroke-width="2.2" vector-effect="non-scaling-stroke" style="stroke-dasharray:500;stroke-dashoffset:{{ s.dash }};transition:stroke-dashoffset 1s ease"></polyline>
+</svg>
+<span style="position:absolute;left:12px;top:10px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink2)">{{ s.code }}</span>
+<span style="position:absolute;right:12px;top:10px;width:36px;height:36px;display:grid;place-items:center;border:1.5px solid var(--ink);background:{{ s.ibg }};color:{{ s.ifg }};transition:all .25s"><i class="{{ s.icon }}" style="font-size:17px"></i></span>
+<span style="position:absolute;right:12px;bottom:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink2)">drop screenshot</span>
+</div>
+<div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px"><b style="font-size:18px;letter-spacing:-0.02em">{{ s.title }}</b><span style="font-size:13px;color:var(--ink2)">{{ s.by }}</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><sc-for list="{{ s.tags }}" as="g" hint-placeholder-count="2"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;padding:3px 7px;border:1px solid var(--ink)">{{ g }}</span></sc-for></div></div>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{ is.resources }}" hint-placeholder-val="{{ false }}">
+<section style="border-bottom:1.5px solid var(--ink);background-color:var(--paper);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px),linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px">
+<div style="max-width:1100px;margin:0 auto;padding:clamp(40px,6vw,72px) 20px;display:flex;flex-direction:column;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--signal)">SHEET 04 — TOOLKIT</span><h1 style="margin:0;font-size:clamp(38px,5.5vw,64px);letter-spacing:-0.045em;line-height:.95;font-weight:900">{{ t.resources }}</h1><p style="margin:0;color:var(--ink2);font-size:17px">References, templates and tools we actually use.</p></div>
+</section>
+<section style="max-width:1100px;margin:0 auto;padding:48px 20px 96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:26px">
+<sc-for list="{{ resources }}" as="r" hint-placeholder-count="6">
+<a href="#" onMouseEnter="{{ r.enter }}" onMouseLeave="{{ r.leave }}" style="position:relative;--x:{{ r.x }};display:flex;flex-direction:column;gap:10px;padding:22px;border:1.5px solid var(--ink);background-color:var(--card);background-image:linear-gradient({{ r.grid }} 1px,transparent 1px),linear-gradient(90deg,{{ r.grid }} 1px,transparent 1px);background-size:16px 16px;color:var(--ink);transition:all .2s;min-height:170px">
+<span style="position:absolute;inset:-7px;pointer-events:none;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--signal)">{{ r.kind }}</span><span style="width:40px;height:40px;display:grid;place-items:center;border:1.5px solid var(--ink);background:{{ r.ibg }};color:{{ r.ifg }};transform:rotate({{ r.rot }});transition:all .3s cubic-bezier(.3,1.5,.5,1)"><i class="{{ r.icon }}" style="font-size:18px"></i></span></div>
+<b style="font-size:19px;letter-spacing:-0.02em">{{ r.title }}</b>
+<span style="font-size:14px;color:var(--ink2);line-height:1.55">{{ r.desc }}</span>
+<span style="margin-top:auto;display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--signal)">OPEN<i class="icon-arrow-up-right" style="transform:translate({{ r.ax }});transition:transform .2s"></i></span>
+</a>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{ is.about }}" hint-placeholder-val="{{ false }}">
+<section style="background-color:var(--paper);background-image:linear-gradient(var(--rmaj) 1px,transparent 1px),linear-gradient(90deg,var(--rmaj) 1px,transparent 1px),linear-gradient(var(--rmin) 1px,transparent 1px),linear-gradient(90deg,var(--rmin) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px">
+<div style="max-width:860px;margin:0 auto;padding:clamp(40px,6vw,80px) 20px 96px;display:flex;flex-direction:column;gap:26px;font-size:18px;line-height:1.7">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--signal)">SHEET 05 — ABOUT</span>
+<h1 style="margin:0;font-size:clamp(38px,5.5vw,64px);letter-spacing:-0.045em;line-height:.95;font-weight:900">One technology. Taught properly.</h1>
+<p style="margin:0;color:var(--ink2)">CRM Analytics Academy teaches one thing: Salesforce CRM Analytics. No survey courses — just the recipes, SAQL, security and dashboard design admins and analysts use every day.</p>
+<div style="position:relative;--x:var(--ink);display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:22px;border:1.5px solid var(--ink);background:var(--card)">
+<span style="position:absolute;inset:-7px;pointer-events:none;background:linear-gradient(var(--x),var(--x)) 0 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% 7px/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 0/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 0 calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) 7px 100%/1.5px 15px no-repeat,linear-gradient(var(--x),var(--x)) 100% calc(100% - 7px)/15px 1.5px no-repeat,linear-gradient(var(--x),var(--x)) calc(100% - 7px) 100%/1.5px 15px no-repeat"></span>
+<div style="width:88px;height:88px;flex:none;border:1.5px solid var(--ink);background:repeating-linear-gradient(135deg,var(--ice) 0 6px,var(--card) 6px 12px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink2)">PHOTO</div>
+<div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:2px"><b style="font-size:20px;letter-spacing:-0.02em">Your Name</b><span style="font-size:14px;color:var(--ink2)">Instructor · Salesforce Analytics consultant</span></div>
+<div style="display:flex;gap:8px"><a href="#" style="width:42px;height:42px;border:1.5px solid var(--ink);display:grid;place-items:center;color:var(--ink);transition:all .15s" style-hover="background:var(--signal);color:#fff"><i class="icon-linkedin"></i></a><a href="#" style="width:42px;height:42px;border:1.5px solid var(--ink);display:grid;place-items:center;color:var(--ink);transition:all .15s" style-hover="background:var(--signal);color:#fff"><i class="icon-github"></i></a></div>
+</div>
+<p style="margin:0">Every lesson comes from real client work and is refreshed each Salesforce release. Questions? <a href="mailto:hello@crmanalytics.academy">hello@crmanalytics.academy</a></p>
+</div>
+</section>
+</sc-if>
+</main>
+
+<footer style="border-top:1.5px solid var(--ink);background:var(--navy);color:#B9CCE8">
+<div style="height:10px;background:repeating-linear-gradient(90deg,rgba(221,235,250,.45) 0 1px,transparent 1px 8px),repeating-linear-gradient(90deg,rgba(221,235,250,.9) 0 1px,transparent 1px 40px);background-size:auto 5px,auto 10px;background-repeat:repeat-x"></div>
+<div style="max-width:1320px;margin:0 auto;padding:26px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px">
+<span>© 2026 CRM ANALYTICS ACADEMY — NOT AFFILIATED WITH SALESFORCE, INC.</span>
+<div style="display:flex;gap:20px"><a href="#" style="color:#DDEBFA">TERMS</a><a href="#" style="color:#DDEBFA">PRIVACY</a><a href="#" style="color:#DDEBFA">CONTACT</a></div>
+</div>
+</footer>
+
+<sc-if value="{{ searchOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeSearch }}" style="position:fixed;inset:0;z-index:70;background:rgba(6,17,42,.45);display:flex;justify-content:center;padding:12vh 16px 0">
+<div onClick="{{ stop }}" style="width:min(640px,100%);align-self:flex-start;background:var(--card);border:1.5px solid var(--ink);box-shadow:10px 10px 0 var(--signal)">
+<div style="display:flex;align-items:center;gap:12px;padding:0 18px;border-bottom:1.5px solid var(--ink)"><i class="icon-search" style="font-size:18px;color:var(--signal)"></i><input autoFocus="{{ true }}" value="{{ q }}" onChange="{{ setQ }}" placeholder="Search lessons and resources…" style="flex:1;border:0;outline:0;padding:18px 0;font-size:16px;background:transparent"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--ink);padding:2px 6px">ESC</span></div>
+<div style="max-height:380px;overflow:auto">
+<sc-for list="{{ results }}" as="r" hint-placeholder-count="4">
+<button onClick="{{ r.go }}" style="width:100%;text-align:left;display:flex;gap:12px;align-items:center;padding:12px 18px;border:0;border-bottom:1px dashed var(--line);background:transparent;transition:all .12s" style-hover="background:var(--ice);padding-left:26px">
+<i class="{{ r.icon }}" style="font-size:16px;color:var(--signal)"></i><span style="flex:1;font-size:14px;font-weight:500">{{ r.title }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--ink2)">{{ r.kind }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultDark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;unlockAll&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;curriculum&quot;,&quot;player&quot;,&quot;pricing&quot;,&quot;showcase&quot;,&quot;resources&quot;,&quot;about&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
+const I18N={
+en:{home:'Home',curriculum:'Curriculum',pricing:'Pricing',showcase:'Showcase',resources:'Resources',about:'About',cta:'Enroll',badge:"UPDATED FOR WINTER '27",heroTitle:'Learn CRM Analytics the way it’s used at work.',heroSub:'One focused course. Video lessons and hands-on articles that take you from first lens to production dashboards, recipes and SAQL.',start:'Watch lesson 1',viewCurr:'See curriculum'},
+es:{home:'Inicio',curriculum:'Temario',pricing:'Precios',showcase:'Proyectos',resources:'Recursos',about:'Acerca de',cta:'Inscribirse',badge:"ACTUALIZADO WINTER '27",heroTitle:'Aprende CRM Analytics como se usa en el trabajo.',heroSub:'Un curso enfocado. Videos y artículos prácticos: del primer lens a dashboards, recipes y SAQL en producción.',start:'Ver lección 1',viewCurr:'Ver temario'},
+fr:{home:'Accueil',curriculum:'Programme',pricing:'Tarifs',showcase:'Réalisations',resources:'Ressources',about:'À propos',cta:"S'inscrire",badge:"MIS À JOUR WINTER '27",heroTitle:'Apprenez CRM Analytics comme on l’utilise au travail.',heroSub:'Un cours ciblé. Vidéos et articles pratiques, du premier lens aux tableaux de bord, recipes et SAQL.',start:'Voir la leçon 1',viewCurr:'Voir le programme'},
+de:{home:'Start',curriculum:'Lehrplan',pricing:'Preise',showcase:'Showcase',resources:'Ressourcen',about:'Über uns',cta:'Einschreiben',badge:"AKTUALISIERT WINTER '27",heroTitle:'CRM Analytics lernen – so, wie es im Job genutzt wird.',heroSub:'Ein fokussierter Kurs. Videos und Praxisartikel – vom ersten Lens bis zu Dashboards, Recipes und SAQL.',start:'Lektion 1 ansehen',viewCurr:'Lehrplan ansehen'},
+ja:{home:'ホーム',curriculum:'カリキュラム',pricing:'料金',showcase:'作品例',resources:'リソース',about:'概要',cta:'受講する',badge:"WINTER '27 対応",heroTitle:'現場で使えるCRM Analyticsを学ぶ。',heroSub:'ひとつに絞ったコース。動画と実践記事で、最初のレンズから本番のダッシュボード、レシピ、SAQLまで。',start:'レッスン1を見る',viewCurr:'カリキュラム'}};
+const MODS=[
+['Foundations',[['What CRM Analytics actually is','video',8,1],['Navigating Analytics Studio','video',11,1],['Licenses, permission sets & apps','article',6,1]]],
+['Data: Recipes & Connectors',[['Sync, connectors and Data Cloud','video',14],['Building your first recipe','video',18],['Joins, appends and transforms','article',9]]],
+['Lenses & Dashboards',[['Exploring data with lenses','video',12],['Dashboard layout people read','video',16],['Bindings in 10 minutes','article',10]]],
+['SAQL & Compare Tables',[['SAQL grammar basics','article',12],['Windowing & running totals','video',15],['Compare tables for execs','video',13]]],
+['Security & Sharing',[['Security predicates','article',8],['Sharing inheritance','video',10]]],
+['Shipping to Production',[['Templated apps & packaging','video',14],['Performance tuning checklist','article',7],['Capstone: Sales pipeline app','video',22]]]];
+const LESSONS=[];MODS.forEach((m,mi)=>m[1].forEach(l=>LESSONS.push({mi,title:l[0],type:l[1],dur:l[2],free:!!l[3]})));
+const RES=[['REFERENCE','SAQL cheat sheet','Every operator on one printable page.','icon-book-open'],['TEMPLATE','Pipeline dashboard JSON','Import-ready dashboard from the capstone.','icon-layout-dashboard'],['GUIDE','Recipe naming conventions','A style guide your team will follow.','icon-ruler'],['DOCS','Salesforce CRM Analytics docs','Official developer & admin reference.','icon-file-text'],['SNIPPETS','Security predicate patterns','Copy-paste patterns for role hierarchies.','icon-shield-check'],['COMMUNITY','Trailblazer Analytics group','Ask questions, share dashboards.','icon-users']];
+const SHOW=[['Renewal risk cockpit','Priya S. · RevOps','icon-gauge','RECIPES','SAQL'],['Field service SLA tracker','Marco D. · Admin','icon-timer','DASHBOARDS','BINDINGS'],['Pipeline waterfall','Aiko T. · Analyst','icon-chart-column-stacked','COMPARE TABLES'],['Case deflection insights','Sam K. · Service Cloud','icon-life-buoy','DATA CLOUD'],['Territory coverage','Lena W. · Sales Ops','icon-map','MAPS','SECURITY'],['Exec weekly snapshot','Omar R. · Consultant','icon-presentation','TEMPLATED APP']];
+const BARV=[42,55,48,67,61,78,72,88,80,95,90,100],MONTHS='JFMAMJJASOND'.split('');
+const pseudo=(seed,n,min=20)=>Array.from({length:n},(_,i)=>Math.round(min+((Math.sin(seed*9.7+i*2.3)*0.6+Math.sin(seed*3.1+i*0.9)*0.4)+1)/2*(100-min)));
+const line=(vals,W,H,pad=6)=>{const st=W/(vals.length-1);const p=vals.map((v,i)=>`${(i*st).toFixed(1)},${(H-pad-(v/100)*(H-pad*2)).toFixed(1)}`).join(' ');return{pts:p,area:`0,${H} ${p} ${W},${H}`}};
+const fmt=m=>`${String(m).padStart(2,'0')}:00`;
+class Component extends DCLogic{
+  state={page:this.props.startPage||'home',lang:'en',dark:!!this.props.defaultDark,cur:0,done:{0:1,1:1,2:1},aud:'ind',bill:'year',searchOpen:false,q:'',playing:false,hb:-1,hv:'',w:typeof window!=='undefined'?window.innerWidth:1200,menu:false,copied:false,drawer:false,side:true};
+  componentDidMount(){this.apply();this.onKey=e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();this.setState({searchOpen:true,q:''})}if(e.key==='Escape')this.setState({searchOpen:false,drawer:false})};this.onResize=()=>this.setState({w:window.innerWidth});window.addEventListener('keydown',this.onKey);window.addEventListener('resize',this.onResize)}
+  componentWillUnmount(){window.removeEventListener('keydown',this.onKey);window.removeEventListener('resize',this.onResize)}
+  componentDidUpdate(){this.apply()}
+  apply(){document.documentElement.dataset.theme=this.state.dark?'dark':'light'}
+  go(page,extra){this.setState({page,searchOpen:false,menu:false,drawer:false,...extra});window.scrollTo(0,0)}
+  openLesson(i){this.go('player',{cur:i,playing:false})}
+  hov(k){return{enter:()=>this.setState({hv:k}),leave:()=>this.setState(s=>s.hv===k?{hv:''}:null)}}
+  renderVals(){
+    const s=this.state,t=I18N[s.lang],cur=LESSONS[s.cur],mobile=s.w<1060,dock=s.w>=1024,unlock=!!this.props.unlockAll;
+    const doneN=Object.keys(s.done).filter(k=>s.done[k]).length;
+    const maxMin=75;let idx=0;
+    const modules=MODS.map((m,mi)=>{const hk='m'+mi,on=s.hv===hk,start=idx;const mins=m[1].reduce((a,l)=>a+l[2],0);
+      const lessons=m[1].map(()=>{const i=idx++,l=LESSONS[i],d=s.done[i],a=i===s.cur,vid=l.type==='video',lk=!l.free&&!unlock,th='t'+i,ton=s.hv===th;
+        return{title:l.title,dur:l.dur+'m',access:l.free?'FREE':lk?'PRO':'OPEN',accBd:l.free?'var(--signal)':'var(--line)',accFg:l.free?'var(--signal)':'var(--ink2)',icon:d?'icon-check':lk?'icon-lock':vid?'icon-play':'icon-file-text',dotBg:d?'var(--signal)':'var(--card)',dotFg:d?'#fff':vid?'var(--signal)':'var(--tide)',barW:(l.dur/22*90)+'px',miniW:(l.dur/22*36)+'px',barC:vid?'var(--signal)':'var(--frost)',
+          activeBg:a&&s.page==='player'?'var(--ice)':'transparent',activeBar:a&&s.page==='player'?'var(--signal)':'transparent',
+          tH:(28+l.dur/22*72)+'%',tC:a?'var(--signal)':d?'var(--tide)':lk?'repeating-linear-gradient(135deg,var(--line) 0 2px,var(--card) 2px 5px)':'var(--ice)',tS:ton?1.08:1,tip:ton?1:0,...this.hov(th),open:()=>this.openLesson(i)}});
+      const md=m[1].filter((_,k)=>s.done[start+k]).length;
+      return{num:String(mi+1).padStart(2,'0'),title:m[0],n:m[1].length,meta:`${m[1].length} LESSONS · ${mins} MIN`,mins:mins+' min',pct:Math.round(md/m[1].length*100)+'%',lessons,
+        railBg:cur.mi===mi?'var(--signal)':'var(--card)',railFg:cur.mi===mi?'#fff':'var(--ink)',
+        w:(mins/maxMin*100)+'%',sy:on?1.25:1,rowBg:on?'var(--ice)':'transparent',ax:on?'0':'-6px',aop:on?1:.35,
+        segs:m[1].map(l=>({f:l[2],c:l[1]==='video'?(on?'var(--signal)':'var(--tide)'):'var(--frost)'})),
+        ...this.hov(hk),open:()=>this.openLesson(start)}});
+    const sel=on=>({bg:on?'var(--ink)':'transparent',fg:on?'var(--paper)':'var(--ink2)'});
+    const yr=s.bill==='year';
+    const raw=s.aud==='ind'?[
+      {code:'PLAN / 00',name:'Free',icon:'icon-sprout',lvl:2,price:'$0',unit:'FOREVER',desc:'Foundations module and community access.',cta:'Start free',items:['3 free lessons','SAQL cheat sheet','Community forum']},
+      {code:'PLAN / 01',name:'Pro',icon:'icon-rocket',lvl:6,tag:'MOST POPULAR',hl:1,price:yr?'$19':'$29',unit:yr?'/MO · BILLED YEARLY':'/MO',desc:'The full course, updated every Salesforce release.',cta:'Get Pro',items:['All 42 lessons & articles','Capstone project files','Certificate of completion','Release updates included']},
+      {code:'PLAN / 02',name:'Lifetime',icon:'icon-infinity',lvl:8,price:'$399',unit:'ONE-TIME',desc:'Pay once, keep everything forever.',cta:'Buy lifetime',items:['Everything in Pro','Monthly live Q&A','Early access to new modules']}]:[
+      {code:'TEAM / 01',name:'Team',icon:'icon-users',lvl:6,tag:'5+ SEATS',hl:1,price:yr?'$15':'$22',unit:yr?'/SEAT/MO · YEARLY':'/SEAT/MO',desc:'Upskill admins and analysts together.',cta:'Start 14-day trial',items:['Everything in Pro, per seat','Manager progress dashboard','Assign learning paths','Invoice billing']},
+      {code:'TEAM / 02',name:'Enterprise',icon:'icon-building-2',lvl:8,price:'Custom',unit:'',desc:'For consultancies and large Salesforce orgs.',cta:'Talk to us',items:['SSO / SAML','Custom modules on your data','Live cohort workshops','Dedicated success manager']}];
+    const plans=raw.map((p,i)=>{const h=p.hl,hk='p'+i,on=s.hv===hk;return{...p,tag:p.tag||'',...this.hov(hk),
+      bg:h?'#0F2A5C':'var(--card)',fg:h?'#E6EEFA':'var(--ink)',grid:h?'rgba(168,204,242,.1)':(on?'var(--rmin)':'transparent'),x:on?'var(--signal)':'var(--x)',y:on?'-6px':'0',sh:on?'8px 8px 0 var(--ink)':'0 0 0 var(--ink)',
+      ibd:h?'#E6EEFA':'var(--ink)',ibg:h?'#3FC6DC':(on?'var(--signal)':'var(--ice)'),ifg:h?'#06112A':(on?'#fff':'var(--signal)'),rot:on?'-10deg':'0deg',
+      btnBg:h?'#fff':'var(--card)',btnFg:h?'#06112A':'var(--ink)',btnBd:h?'#fff':'var(--ink)',check:h?'#3FC6DC':'var(--signal)',dash:h?'rgba(230,238,250,.3)':'var(--line)',
+      meter:[1,2,3,4,5,6,7,8].map(k=>({h:(on?k*12.5:k*12.5*0.6)+'%',c:k<=p.lvl?(h?'#3FC6DC':'var(--signal)'):(h?'rgba(230,238,250,.15)':'var(--ice)')}))}});
+    const q=s.q.toLowerCase();
+    const results=[...LESSONS.map((l,i)=>({kind:l.type.toUpperCase(),icon:l.type==='video'?'icon-play':'icon-file-text',title:l.title,go:()=>this.openLesson(i)})),...RES.map(r=>({kind:r[0],icon:r[3],title:r[1],go:()=>this.go('resources')}))].filter(r=>!q||r.title.toLowerCase().includes(q)).slice(0,10);
+    const is={};is[s.page]=true;
+    const feat=[['icon-crosshair','One technology, deep','Only CRM Analytics. Every lesson assumes a real Salesforce org.','ORG-READY LESSONS','100%'],['icon-clapperboard','Video + article lessons','Watch the concept, then keep a written reference with copyable SAQL.','VIDEO : ARTICLE','2 : 1'],['icon-package-open','Real project files','Recipes, dashboards and datasets you can import into a dev org.','IMPORTABLE ASSETS','24'],['icon-refresh-cw','Release-current','Refreshed three times a year with every Salesforce release.','UPDATES / YEAR','3×']];
+    const locked=!cur.free&&!unlock,curCode=`M${String(cur.mi+1).padStart(2,'0')} · L${String(s.cur+1).padStart(2,'0')}`;
+    const cardHover=(k,i)=>{const on=s.hv===k;return{on,x:on?'var(--signal)':'var(--x)',y:on?'-5px':'0',grid:on?'var(--rmaj)':'transparent',ibg:on?'var(--signal)':'var(--ice)',ifg:on?'#fff':'var(--signal)',rot:on?'-12deg':'0deg',sh:on?'8px 8px 0 var(--ink)':'0 0 0 var(--ink)',...this.hov(k)}};
+    return{
+      t,lang:s.lang,is,modules,results,q:s.q,searchOpen:s.searchOpen,mobile,desktop:!mobile,menuVisible:mobile&&s.menu,menuIcon:s.menu?'icon-x':'icon-menu',toggleMenu:()=>this.setState({menu:!s.menu}),
+      themeIcon:s.dark?'icon-sun':'icon-moon',modCols:s.w<700?'minmax(0,1fr)':'minmax(180px,260px) minmax(0,1fr) 80px',
+      nav:['home','curriculum','pricing','showcase','resources','about'].map((p,i)=>{const on=s.page===p||(p==='curriculum'&&s.page==='player');return{label:t[p],num:'0'+(i+1),color:on?'var(--signal)':'var(--ink)',bg:on?'var(--ice)':'transparent',bar:on?1:0,go:()=>this.go(p)}}),
+      setLang:e=>this.setState({lang:e.target.value}),toggleTheme:()=>this.setState({dark:!s.dark}),
+      goHome:()=>this.go('home'),goPricing:()=>this.go('pricing'),goCurriculum:()=>this.go('curriculum'),goTeams:()=>this.go('pricing',{aud:'team'}),startFirst:()=>this.openLesson(0),
+      openSearch:()=>this.setState({searchOpen:true,q:''}),closeSearch:()=>this.setState({searchOpen:false}),stop:e=>e.stopPropagation(),setQ:e=>this.setState({q:e.target.value}),
+      kpis:[{l:'PIPELINE',v:'$4.2M',d:'▲ 12.4%'},{l:'WIN RATE',v:'38%',d:'▲ 3.1PT'},{l:'CYCLE',v:'21d',d:'▼ 4D'}],
+      months:MONTHS,
+      bars:BARV.map((v,i)=>{const h=s.hb===i;return{h:v+'%',v:'$'+(v*0.042).toFixed(2)+'M',c:h?'var(--glow)':(i>=9?'var(--signal)':i>=5?'var(--tide)':'var(--frost)'),bd:'var(--ink)',tip:h?1:0,enter:()=>this.setState({hb:i}),leave:()=>this.setState({hb:-1})}}),
+      features:feat.map((f,i)=>{const c=cardHover('f'+i);const ln=line(pseudo(i+3,12,15),200,50);return{...c,k:'0'+(i+1),icon:f[0],title:f[1],body:f[2],metric:f[3],val:f[4],op:c.on?1:0,dash:c.on?0:420,pts:ln.pts,area:ln.area}}),
+      teamBars:[[18,26,22],[22,28,26],[20,32,30],[26,30,30],[26,34,32],[30,34,32]].map(b=>({a:b[0]+'%',b:b[1]+'%',c:b[2]+'%'})),
+      progressPct:Math.round(doneN/LESSONS.length*100)+'%',progressLabel:`${doneN} / ${LESSONS.length} COMPLETE`,
+      drawer:s.drawer&&!dock,toggleDrawer:()=>dock?this.setState({side:!s.side}):this.setState({drawer:!s.drawer}),
+      sideDock:dock,sideOpen:dock&&s.side,sideClosed:dock&&!s.side,toggleSide:()=>this.setState({side:!s.side}),
+      playerCols:dock?(s.side?'minmax(0,1fr) 360px':'minmax(0,1fr) 60px'):'minmax(0,1fr)',
+      cur:{...cur,code:curCode,moduleTitle:MODS[cur.mi][0],durFull:fmt(cur.dur),figLabel:`FIG. ${curCode} — ${cur.type==='video'?'VIDEO LESSON':'ARTICLE'}`,figRight:cur.type==='video'?`21:9 · 1080P · ${cur.dur} MIN`:`${cur.dur} MIN READ`,locked,showVideo:!locked&&cur.type==='video',showArticle:!locked&&cur.type==='article',lede:`A practical walkthrough of ${cur.title.toLowerCase()} — with a query you can paste straight into your org.`},
+      playIcon:s.playing?'icon-pause':'icon-play',playPct:s.playing?'38%':'0%',playTime:s.playing?fmt(Math.round(cur.dur*0.38)):'00:00',bigPlay:s.playing?0:1,togglePlay:()=>this.setState({playing:!s.playing}),
+      copyIcon:s.copied?'icon-check':'icon-copy',copyLabel:s.copied?'COPIED':'COPY',copy:()=>{this.setState({copied:true});setTimeout(()=>this.setState({copied:false}),1400)},
+      doneLabel:s.done[s.cur]?'Completed':'Mark complete',doneIcon:s.done[s.cur]?'icon-circle-check-big':'icon-circle',doneBg:s.done[s.cur]?'var(--glow)':'var(--card)',doneFg:s.done[s.cur]?'#06112A':'var(--ink)',
+      toggleDone:()=>this.setState({done:{...s.done,[s.cur]:!s.done[s.cur]}}),
+      prev:()=>this.openLesson(Math.max(0,s.cur-1)),next:()=>this.openLesson(Math.min(LESSONS.length-1,s.cur+1)),
+      audTabs:[['ind','Individual','icon-user'],['team','Teams','icon-users']].map(([k,l,ic])=>({label:l,icon:ic,...sel(s.aud===k),go:()=>this.setState({aud:k})})),
+      billTabs:[['month','Monthly'],['year','Yearly −35%']].map(([k,l])=>({label:l,...sel(s.bill===k),go:()=>this.setState({bill:k})})),
+      plans,
+      faq:[{q:'Do I need a CRM Analytics license?',a:'No — follow along in a free Salesforce Developer Edition org with CRM Analytics enabled.'},{q:'Can I switch from monthly to yearly?',a:'Yes, anytime. We prorate the difference.'},{q:'Discounts for Salesforce partners?',a:'Consulting partners get 20% off Team plans. Get in touch.'}],
+      showcase:SHOW.map((x,i)=>{const c=cardHover('s'+i);const ln=line(pseudo(i+7,10,15),200,110,14);return{...c,code:'FIG. S'+String(i+1).padStart(2,'0'),title:x[0],by:x[1],icon:x[2],tags:x.slice(3),pts:ln.pts,area:ln.area,dash:c.on?0:500,aop:c.on?.8:.25}}),
+      resources:RES.map((r,i)=>{const c=cardHover('r'+i);return{...c,kind:r[0],title:r[1],desc:r[2],icon:r[3],ax:c.on?'3px,-3px':'0,0'}})
+    };
+  }
+}
+</script>
+</body>
+</html>

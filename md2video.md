@@ -124,8 +124,8 @@ you on a phone camera beats both for trust.
 Use a model for the parts that are language work, not the parts that are
 truth-telling:
 
-- **Condensing** a 900-word lesson into a 150-word narration script (the
-  `/api/ask` Workers AI setup in `rag.md` can do this — same free tier).
+- **Condensing** a 900-word lesson into a 150-word narration script (a
+  Workers AI binding can do this on the free tier).
 - **Slide bullet extraction** — turning a paragraph into three keyword lines.
 - **Chapter titles and descriptions** for YouTube.
 - **Short-form cuts** — picking the 45 seconds of a lesson that stands alone.
