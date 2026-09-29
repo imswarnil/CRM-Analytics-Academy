@@ -33,7 +33,10 @@
     "companies": "کمپنیاں",
     "jobs": "کام",
     "community": "کمیونٹی",
-    "ask": "سوال"
+    "ask": "سوال",
+    "forTeams": "ٹیموں کے لئے",
+    "training": "کلاسي پڑھنے کي مشق",
+    "implementation": "ترمیم"
   },
   "sponsorCard": {
     "title": "اس منصوبے کو سنبھالنا",
@@ -277,7 +280,8 @@
     "curriculum": "قرونِ‌وسطیٰ",
     "project": "منصوبہ بندی",
     "legal": "قانونی",
-    "community": "کمیونٹی"
+    "community": "کمیونٹی",
+    "academy": "اکیڈمی"
   },
   "seo": {
     "homeTitle": "CRM Analytics اکیڈمی — سیکھیں Salesforce CRM Analytics",

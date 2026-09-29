@@ -33,7 +33,10 @@
     "companies": "কুমীর",
     "jobs": "কাজ",
     "community": "সম্প্রদায়",
-    "ask": "জিজ্ঞাসা করা হবে"
+    "ask": "জিজ্ঞাসা করা হবে",
+    "forTeams": "দলের জন্য",
+    "training": "শ্রেণীকক্ষ প্রশিক্ষণ",
+    "implementation": "তীব্রতা:% 1"
   },
   "sponsorCard": {
     "title": "এই প্রোজেক্টের নাম",
@@ -277,7 +280,8 @@
     "curriculum": "ছাকন",
     "project": "প্রজেক্ট",
     "legal": "লিগাল",
-    "community": "সম্প্রদায়"
+    "community": "সম্প্রদায়",
+    "academy": "আকাডেমি"
   },
   "seo": {
     "homeTitle": "CRM Analytics একাডেমি — শিখুন Salesforce CRM Analytics",

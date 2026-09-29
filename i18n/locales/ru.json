@@ -33,7 +33,10 @@
     "companies": "Компании",
     "jobs": "Работа",
     "community": "сообщество",
-    "ask": "Задай вопрос"
+    "ask": "Задай вопрос",
+    "forTeams": "Для команд",
+    "training": "Обучение в классе",
+    "implementation": "Осуществление"
   },
   "sponsorCard": {
     "title": "Спонсор этого проекта",
@@ -277,7 +280,8 @@
     "curriculum": "учебная программа",
     "project": "Проект",
     "legal": "Юридический",
-    "community": "сообщество"
+    "community": "сообщество",
+    "academy": "Академия"
   },
   "seo": {
     "homeTitle": "CRM Analytics Академия - Учиться Salesforce CRM Analytics",

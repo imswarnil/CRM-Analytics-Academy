@@ -33,7 +33,10 @@
     "companies": "कंपनी",
     "jobs": "नौकरियां",
     "community": "समुदाय",
-    "ask": "एआई"
+    "ask": "एआई",
+    "forTeams": "टीमों के लिए",
+    "training": "कक्षा प्रशिक्षण",
+    "implementation": "कार्यान्वयन"
   },
   "sponsorCard": {
     "title": "इस परियोजना का प्रायोजक",
@@ -277,7 +280,8 @@
     "curriculum": "पाठ्यक्रम",
     "project": "प्रोजेक्ट",
     "legal": "कानूनी",
-    "community": "समुदाय"
+    "community": "समुदाय",
+    "academy": "अकादमी"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics सीखें",

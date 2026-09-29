@@ -33,7 +33,10 @@
     "companies": "Empresas.",
     "jobs": "Empregos",
     "community": "Comunidade",
-    "ask": "Pergunte ao Al."
+    "ask": "Pergunte ao Al.",
+    "forTeams": "Para as equipes",
+    "training": "Treinamento de sala de aula",
+    "implementation": "Implementação"
   },
   "sponsorCard": {
     "title": "Patrocine este projeto.",
@@ -277,7 +280,8 @@
     "curriculum": "Currículo",
     "project": "Projeto",
     "legal": "Legal",
-    "community": "Comunidade"
+    "community": "Comunidade",
+    "academy": "Academia"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Aprenda Salesforce CRM Analytics",

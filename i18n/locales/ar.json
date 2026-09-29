@@ -33,7 +33,10 @@
     "companies": "الشركات",
     "jobs": "الوظائف",
     "community": "المجتمع",
-    "ask": "اسألي"
+    "ask": "اسألي",
+    "forTeams": "للفرق",
+    "training": "التدريب في الفصول الدراسية",
+    "implementation": "التنفيذ"
   },
   "sponsorCard": {
     "title": "رعاية هذا المشروع",
@@ -277,7 +280,8 @@
     "curriculum": "المناهج",
     "project": "المشروع",
     "legal": "Legal",
-    "community": "المجتمع"
+    "community": "المجتمع",
+    "academy": "أكاديمية"
   },
   "seo": {
     "homeTitle": "CRM Analytics الأكاديمية - التعلم Salesforce CRM Analytics",

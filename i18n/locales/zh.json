@@ -33,7 +33,10 @@
     "companies": "公司",
     "jobs": "工作",
     "community": "社区",
-    "ask": "问大赦国际"
+    "ask": "问大赦国际",
+    "forTeams": "团队",
+    "training": "课堂培训",
+    "implementation": "执行情况"
   },
   "sponsorCard": {
     "title": "赞助这个项目",
@@ -277,7 +280,8 @@
     "curriculum": "课程",
     "project": "项目",
     "legal": "法律",
-    "community": "社区"
+    "community": "社区",
+    "academy": "学院"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",
