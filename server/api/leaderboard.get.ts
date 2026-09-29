@@ -20,14 +20,19 @@ export default defineEventHandler(async (event) => {
   const { limit } = getQuery(event)
   const take = Math.min(Number(limit) || 25, MAX_LIMIT)
 
-  const sql = useDb()
-  const rows = await sql`
-    select name, image, points, lessons_done, contributions
-    from app.user_points
-    where points > 0
-    order by points desc, lessons_done desc, name asc
-    limit ${take}
-  `
+  // Identical for every visitor, so one query per minute per isolate serves
+  // all of them. The edge header below does not help a Worker response on its
+  // own; this is what actually removes the 2s database round trip.
+  const rows = await memo(`leaderboard:${take}`, 60_000, () => {
+    const sql = useDb()
+    return sql`
+      select name, image, points, lessons_done, contributions
+      from app.user_points
+      where points > 0
+      order by points desc, lessons_done desc, name asc
+      limit ${take}
+    `
+  })
 
   // Public and identical for everyone, so it can be cached at the edge — but
   // briefly, because the whole point is that it moves.

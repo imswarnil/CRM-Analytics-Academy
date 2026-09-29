@@ -176,7 +176,18 @@ export default defineNuxtConfig({
   },
 
   experimental: {
-    asyncContext: true
+    asyncContext: true,
+    // Prefetch a page's payload when the pointer or focus reaches its link,
+    // not when the link scrolls into view. The course rail alone puts dozens
+    // of lesson links on screen, and prefetch-on-visibility fetched every one
+    // of their payloads on every page load, competing with the page itself.
+    // Hover-to-click is ~200ms, which is enough for the payload to arrive, so
+    // navigation still feels instant.
+    defaults: {
+      nuxtLink: {
+        prefetchOn: { interaction: true, visibility: false }
+      }
+    }
   },
 
   // Must be >= 2024-09-19 or Nitro resolves the *legacy* Cloudflare preset,

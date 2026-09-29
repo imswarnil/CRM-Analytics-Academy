@@ -4,9 +4,24 @@ import type { ContentNavigationItem } from '@nuxt/content'
 const { seo } = useAppConfig()
 const { locale, locales: allLocales } = useI18n()
 
-// Navigation: fetch the full per-locale tree, then expose only the current
-// locale's branch with paths rewritten to localized routes.
-const { data: navTree, refresh: refreshNav } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
+// Navigation: the current locale's tree only, with paths rewritten to
+// localized routes.
+//
+// This used to query every locale and pick one branch client-side, which put
+// all twelve trees — 12 × 161 titles, in scripts from Bengali to Arabic — into
+// every page's payload: ~380KB fetched on every client-side navigation, and
+// the main reason moving between lessons felt slow. Filtering in the query
+// keeps the payload to the one tree the page renders. A locale with no
+// translated content yet still falls back to the English tree below.
+const { data: navTree, refresh: refreshNav } = await useAsyncData(
+  () => `navigation-${locale.value}`,
+  async () => {
+    const own = await queryCollectionNavigation('docs').where('path', 'LIKE', `/${locale.value}/%`)
+    if (own?.length || locale.value === DEFAULT_LOCALE) return own
+    return queryCollectionNavigation('docs').where('path', 'LIKE', `/${DEFAULT_LOCALE}/%`)
+  },
+  { watch: [locale] }
+)
 
 // On a prerendered page this resolved at build time and arrives in the
 // payload. On a route the Worker renders at runtime — /dashboard, /account —

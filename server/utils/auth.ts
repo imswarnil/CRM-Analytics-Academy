@@ -25,18 +25,26 @@ export async function getSessionUser(event: H3Event): Promise<SessionUser | null
   const cookie = getRequestHeader(event, 'cookie')
   if (!cookie) return null
 
-  try {
-    const res = await $fetch<{ user?: SessionUser }>(`${base}/get-session`, {
-      headers: {
-        cookie,
-        // Neon Auth rejects requests without a trusted Origin.
-        origin: getRequestOrigin(event)
-      }
-    })
-    return res?.user ?? null
-  } catch {
-    return null
-  }
+  // One page fires several API calls, and each used to resolve the session
+  // over the network again — 0.5–1s apiece. The answer for a given cookie is
+  // stable for far longer than a page load, so it is kept for a minute in the
+  // isolate, keyed by a hash of the cookie rather than the cookie itself.
+  // Signing out or in changes the cookie, and so the key.
+  const key = `session:${await hashKey(cookie)}`
+  return memo(key, 60_000, async () => {
+    try {
+      const res = await $fetch<{ user?: SessionUser }>(`${base}/get-session`, {
+        headers: {
+          cookie,
+          // Neon Auth rejects requests without a trusted Origin.
+          origin: getRequestOrigin(event)
+        }
+      })
+      return res?.user ?? null
+    } catch {
+      return null
+    }
+  })
 }
 
 export async function requireUser(event: H3Event): Promise<SessionUser> {
