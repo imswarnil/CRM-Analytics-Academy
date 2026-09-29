@@ -90,9 +90,6 @@ importers:
       '@nuxt/eslint':
         specifier: ^1.16.0
         version: 1.16.0(@modelcontextprotocol/sdk@1.29.0(zod@4.3.6))(@typescript-eslint/utils@8.61.0(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3))(@vue/compiler-sfc@3.5.39)(crossws@0.4.5(srvx@0.11.15))(eslint@10.6.0(jiti@2.7.0))(magicast@0.5.3)(oxc-parser@0.137.0)(typescript@6.0.3)(vite@7.3.3(@types/node@25.9.0)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.47.1)(yaml@2.9.0))
-      '@twilio-paste/design-tokens':
-        specifier: ^10.15.0
-        version: 10.15.0
       eslint:
         specifier: ^10.6.0
         version: 10.6.0(jiti@2.7.0)
@@ -4541,9 +4538,6 @@ packages:
     resolution: {integrity: sha512-yGmYWACWycrNHMEfnR1k6CQ398ESIBgFeM47fXFhrdhMJ84QgdRk6VF/C21P80D1Rk/AQePfB0TUIaY4U9BRJg==}
     peerDependencies:
       react: '*'
-
-  '@twilio-paste/design-tokens@10.15.0':
-    resolution: {integrity: sha512-SqE2N7vMATe1bUgAzRlkyDQVee4C+QaOlU/U+EZvArhrJ8bi3gB6Dny82a0LnhJu7CWTcpz/mZZiawLHGHpueA==}
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
@@ -13627,8 +13621,6 @@ snapshots:
       - lmdb
       - typescript
       - uuidv7
-
-  '@twilio-paste/design-tokens@10.15.0': {}
 
   '@tybys/wasm-util@0.10.3':
     dependencies:

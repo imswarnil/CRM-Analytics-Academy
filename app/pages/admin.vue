@@ -21,7 +21,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-const tab = ref<'overview' | 'users' | 'queue' | 'content'>('overview')
+const tab = ref<'overview' | 'users' | 'queue' | 'content' | 'inquiries'>('overview')
 
 const { data: me } = await useLazyAsyncData('admin-me', () =>
   $fetch<{ signedIn: boolean, role: string | null, email?: string }>('/api/admin/me'), {
@@ -565,8 +565,8 @@ watch(tab, (t) => {
 
     <UContainer v-else-if="isModerator">
       <UPageHeader
-        :title="tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? 'Content Studio' : 'Users & Roles'"
-        :description="tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? 'Edit English lessons and publish them straight to GitHub.' : 'Accounts, roles and access.'"
+        :title="tab === 'inquiries' ? 'Enquiries' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? 'Content Studio' : 'Users & Roles'"
+        :description="tab === 'inquiries' ? 'Enrollments, quotations and implementation requests.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? 'Edit English lessons and publish them straight to GitHub.' : 'Accounts, roles and access.'"
       >
         <template #headline>
           <nav
@@ -596,6 +596,15 @@ watch(tab, (t) => {
                 :label="String(queue.length)"
                 size="sm"
               />
+            </UButton>
+            <UButton
+              icon="i-lucide-mail"
+              size="sm"
+              :color="tab === 'inquiries' ? 'primary' : 'neutral'"
+              :variant="tab === 'inquiries' ? 'soft' : 'ghost'"
+              @click="tab = 'inquiries'"
+            >
+              Enquiries
             </UButton>
             <UButton
               v-if="isAdmin"
@@ -636,6 +645,8 @@ watch(tab, (t) => {
         >
           {{ error }}
         </p>
+
+        <AdminInquiries v-if="tab === 'inquiries'" />
 
         <!-- ========================== OVERVIEW ========================== -->
         <section v-if="tab === 'overview' && isAdmin">

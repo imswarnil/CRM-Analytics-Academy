@@ -98,13 +98,26 @@ const headline = computed(() => findPageHeadline(navigation?.value, page.value?.
 
 defineOgImage('Docs', { title, description, headline: headline.value })
 
+// Crumb labels come from the navigation tree, so a section reads as its real
+// title ("SAQL", "Setup, Profiles & Security") rather than a title-cased slug.
+const sectionTitles = computed(() => {
+  const map: Record<string, string> = {}
+  for (const n of navigation?.value ?? []) {
+    const seg = String(n.path ?? '').split('/').filter(Boolean).pop()
+    if (seg) map[seg] = String(n.title ?? seg)
+  }
+  return map
+})
+const crumbLabel = (seg: string) => sectionTitles.value[seg]
+  ?? seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+
 // Structured data: the lesson as a learning article + a breadcrumb trail.
 const crumbs = computed(() => {
   const segments = route.path.split('/').filter(Boolean)
   const items = segments.map((seg, i) => ({
     '@type': 'ListItem',
     'position': i + 2,
-    'name': seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    'name': crumbLabel(seg),
     'item': `${SITE.url}/${segments.slice(0, i + 1).join('/')}`
   }))
   return [{ '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE.url }, ...items]
@@ -114,7 +127,7 @@ const crumbs = computed(() => {
 const breadcrumbItems = computed(() => {
   const segments = route.path.split('/').filter(Boolean).filter(s => !(localeCodes as string[]).includes(s))
   const items = segments.map((seg, i) => ({
-    label: seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    label: crumbLabel(seg),
     to: localePath(`/${segments.slice(0, i + 1).join('/')}`)
   }))
   const last = items[items.length - 1]

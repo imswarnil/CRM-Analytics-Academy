@@ -16,12 +16,15 @@ const menuItems = computed(() => [
   { label: t('nav.ask'), icon: 'i-lucide-sparkles', to: localePath('/ask') },
   { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
+  { label: t('nav.forTeams'), icon: 'i-lucide-users', to: '/teams' },
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') }
 ])
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
+  { label: t('nav.training'), icon: 'i-lucide-school', to: '/training' },
+  { label: t('nav.implementation'), icon: 'i-lucide-wrench', to: '/implementation' },
+  { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
   { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },

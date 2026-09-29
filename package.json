@@ -50,7 +50,6 @@
     "@anthropic-ai/sdk": "^0.123.0",
     "@iconify-json/circle-flags": "^1.2.10",
     "@nuxt/eslint": "^1.16.0",
-    "@twilio-paste/design-tokens": "^10.15.0",
     "eslint": "^10.6.0",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.3.5",

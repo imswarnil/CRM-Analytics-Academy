@@ -21,11 +21,13 @@
 const { t } = useI18n()
 const localePath = useLocalePath()
 
+// The Academy's own numbers: the training business the go-to-market builds
+// model — seats sold, corporate pipeline, completion and center utilisation.
 const kpis = [
-  { label: 'Net New ARR', value: '$1.42M', delta: '+8.3%', up: true, good: true },
-  { label: 'Net Revenue Retention', value: '112%', delta: '+3pt', up: true, good: true },
-  { label: 'Pipeline Coverage', value: '3.1×', delta: '−0.3×', up: false, good: false },
-  { label: 'CAC Payback', value: '14.2 mo', delta: '−1.1', up: false, good: true }
+  { label: 'Bookings (QTD)', value: '$486K', delta: '+12.4%', up: true, good: true },
+  { label: 'Enrollments', value: '1,284', delta: '+9.1%', up: true, good: true },
+  { label: 'Team pipeline', value: '$2.3M', delta: '−4.2%', up: false, good: false },
+  { label: 'Completion rate', value: '71%', delta: '+3pt', up: true, good: true }
 ]
 
 // Heights are a fixed sequence rather than random, so the render is
@@ -43,11 +45,11 @@ const funnel = [96, 74, 58, 41, 27]
     <div class="mb-4 flex items-center justify-between gap-3 border-b border-muted pb-3">
       <div class="flex items-center gap-2">
         <span class="size-2 rounded-full bg-primary" />
-        <span class="text-sm font-semibold text-highlighted">Namilio — GTM Board</span>
+        <span class="text-sm font-semibold text-highlighted">Academy — Revenue Board</span>
       </div>
       <div class="hidden items-center gap-1.5 sm:flex">
         <span
-          v-for="chip in ['Aug FY26', 'All segments']"
+          v-for="chip in ['Q3 FY26', 'All centers']"
           :key="chip"
           class="rounded-md border border-default px-2 py-0.5 text-[11px] text-muted"
         >{{ chip }}</span>
@@ -87,7 +89,7 @@ const funnel = [96, 74, 58, 41, 27]
     <div class="mt-3 grid gap-2.5 sm:grid-cols-2">
       <div class="rounded-lg border border-muted p-3">
         <p class="mb-2 text-[11px] text-dimmed">
-          ARR Waterfall
+          Bookings by month
         </p>
         <div
           class="flex items-end gap-1.5"
@@ -97,7 +99,7 @@ const funnel = [96, 74, 58, 41, 27]
             v-for="(h, i) in waterfall"
             :key="i"
             class="flex-1 rounded-sm"
-            :class="i % 3 === 2 ? 'bg-primary/30' : 'bg-primary'"
+            :class="i % 3 === 2 ? 'bg-secondary' : 'bg-primary'"
             :style="{ height: `${h}%` }"
           />
         </div>
@@ -105,7 +107,7 @@ const funnel = [96, 74, 58, 41, 27]
 
       <div class="rounded-lg border border-muted p-3">
         <p class="mb-2 text-[11px] text-dimmed">
-          Pipeline vs Plan
+          Enrollment funnel
         </p>
         <div
           class="flex flex-col justify-between gap-1 py-0.5"

@@ -33,7 +33,10 @@
     "companies": "Companies",
     "jobs": "Jobs",
     "community": "Community",
-    "ask": "Ask AI"
+    "ask": "Ask AI",
+    "forTeams": "For teams",
+    "training": "Classroom training",
+    "implementation": "Implementation"
   },
   "sponsorCard": {
     "title": "Sponsor this project",
@@ -278,7 +281,7 @@
     "project": "Project",
     "legal": "Legal",
     "community": "Community",
-    "builtBy": "Built by an ex-Twilion."
+    "academy": "Academy"
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",

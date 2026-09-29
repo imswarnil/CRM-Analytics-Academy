@@ -34,7 +34,7 @@ const { isDone } = useProgress()
 const { isSignedIn } = useAuth()
 
 const title = 'Curriculum'
-const description = 'Every section and every lesson of the CRM Analytics Academy course, in order: orientation, the CRM Analytics product itself, and then the fourteen go-to-market dashboard builds.'
+const description = 'Every section and every lesson of the CRM Analytics Academy course, in order: orientation, the CRM Analytics product itself, and then the sixteen go-to-market dashboard builds.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
@@ -118,36 +118,63 @@ const sections = computed<Section[]>(() =>
 )
 
 /**
- * The three phases. Sections are assigned by position rather than by slug so a
+ * The five phases. Sections are assigned by position rather than by slug so a
  * renamed section does not silently fall out of its phase — the course's order
  * is the thing that defines them.
  */
-const phases = computed(() => [
+const PHASES = [
   {
     key: 'orient',
-    kicker: 'Phase 1',
     title: 'Get oriented',
-    blurb: 'What the course is, who it is for, and a free org with the first dataset loaded. About an evening.',
     icon: 'i-lucide-compass',
-    sections: sections.value.filter(s => s.index === 0)
+    from: 0,
+    to: 0,
+    blurb: 'What the course is, who it is for, and how to study it. About an evening.'
   },
   {
-    key: 'product',
-    kicker: 'Phase 2',
-    title: 'Learn CRM Analytics itself',
-    blurb: 'The platform, end to end: access, datasets and grain, exploring, dashboard design, and shipping to people. Every build in phase 3 assumes all of it.',
-    icon: 'i-lucide-boxes',
-    sections: sections.value.filter(s => s.index >= 1 && s.index <= 6)
+    key: 'data',
+    title: 'Data foundations',
+    icon: 'i-lucide-database',
+    from: 1,
+    to: 4,
+    blurb: 'The platform, your org and its security, then getting data in and shaping it at the right grain.'
   },
   {
     key: 'build',
-    kicker: 'Phase 3',
-    title: 'Do the job',
-    blurb: 'One fictional company, nineteen datasets, and sixteen dashboards built the way a go-to-market analytics team would build them.',
+    title: 'Explore and build',
+    icon: 'i-lucide-layout-dashboard',
+    from: 5,
+    to: 11,
+    blurb: 'Charts, lenses, SAQL, dashboard design, interactions, bindings and the JSON underneath.'
+  },
+  {
+    key: 'ship',
+    title: 'Ship and scale',
+    icon: 'i-lucide-rocket',
+    from: 12,
+    to: 14,
+    blurb: 'Get the work to people, automate it through the APIs, and add prediction with Einstein Discovery.'
+  },
+  {
+    key: 'gtm',
+    title: 'Go-to-market builds',
     icon: 'i-lucide-hammer',
-    sections: sections.value.filter(s => s.index >= 7)
+    from: 15,
+    to: 18,
+    blurb: 'Sixteen dashboards for one training business, built the way a revenue analytics team would.'
   }
-].filter(p => p.sections.length))
+]
+
+const phases = computed(() => PHASES
+  .map((p, i) => ({
+    ...p,
+    kicker: `Phase ${i + 1}`,
+    sections: sections.value.filter(s => s.index >= p.from && s.index <= p.to)
+  }))
+  .filter(p => p.sections.length)
+)
+
+const pad = (n: number) => String(n).padStart(2, '0')
 
 const handsOnTotal = computed(() => lessons.value.length && sections.value.reduce(
   (n, s) => n + s.lessons.filter(l => l.handsOn).length, 0
@@ -162,228 +189,371 @@ const resumeTo = computed(() => lessons.value.find(l => !isDone(l.path))?.path)
 </script>
 
 <template>
-  <UContainer class="py-10 sm:py-14">
-    <!-- Header -->
-    <div class="mx-auto max-w-3xl text-center">
-      <p class="im-meta text-primary">
-        The course
-      </p>
-      <h1 class="mt-3 text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-        The whole curriculum
-      </h1>
-      <p class="mt-4 text-lg text-muted">
-        Learn the platform first, then use it on a real go-to-market problem. Free, open source,
-        and nothing is gated behind an account.
-      </p>
+  <UContainer class="py-8 sm:py-12">
+    <!-- Header: one brand panel carrying the pitch, the numbers and the CTAs -->
+    <header class="bg-brand-panel relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-12">
+      <div class="curriculum-hero relative">
+        <div>
+          <p class="im-meta text-white/70">
+            The course
+          </p>
+          <h1 class="mt-3 text-4xl font-bold tracking-tighter text-white sm:text-5xl">
+            The whole curriculum
+          </h1>
+          <p class="mt-4 max-w-xl text-lg text-white/80 text-pretty">
+            Learn the platform first, then use it on a real go-to-market problem. Free, open source,
+            and nothing is gated behind an account.
+          </p>
 
-      <div class="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-default bg-border sm:grid-cols-4">
-        <div
-          v-for="stat in [
-            { label: 'Sections', value: sections.length },
-            { label: 'Lessons', value: total },
-            { label: 'Hands-on builds', value: handsOnTotal },
-            { label: 'Est. time', value: `~${totalHours} h` }
-          ]"
-          :key="stat.label"
-          class="bg-default px-4 py-3"
-        >
-          <p class="im-figure text-xl font-semibold text-highlighted">
-            {{ stat.value }}
-          </p>
-          <p class="im-meta mt-0.5 text-dimmed">
-            {{ stat.label }}
-          </p>
+          <div class="mt-7 flex flex-wrap items-center gap-3">
+            <UButton
+              :to="localePath('/introduction')"
+              icon="i-lucide-compass"
+              size="lg"
+              color="neutral"
+              variant="solid"
+              class="curriculum-cta"
+            >
+              Start at the beginning
+            </UButton>
+
+            <ClientOnly>
+              <UButton
+                v-if="isSignedIn && resumeTo"
+                :to="localePath(resumeTo)"
+                icon="i-lucide-play"
+                size="lg"
+                variant="outline"
+                class="text-white ring-white/40 hover:bg-white/10"
+              >
+                Resume
+              </UButton>
+            </ClientOnly>
+
+            <UButton
+              :to="localePath('/datasets')"
+              icon="i-lucide-database"
+              size="lg"
+              variant="ghost"
+              class="text-white hover:bg-white/10"
+            >
+              Get the datasets
+            </UButton>
+          </div>
         </div>
-      </div>
 
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-        <UButton
-          :to="localePath('/introduction')"
-          icon="i-lucide-compass"
-          size="lg"
-        >
-          Start at the beginning
-        </UButton>
-
-        <ClientOnly>
-          <UButton
-            v-if="isSignedIn && resumeTo"
-            :to="localePath(resumeTo)"
-            icon="i-lucide-play"
-            color="neutral"
-            variant="outline"
-            size="lg"
+        <dl class="grid grid-cols-2 gap-3">
+          <div
+            v-for="stat in [
+              { label: 'Sections', value: sections.length, icon: 'i-lucide-layers' },
+              { label: 'Lessons', value: total, icon: 'i-lucide-book-open' },
+              { label: 'Hands-on builds', value: handsOnTotal, icon: 'i-lucide-monitor-play' },
+              { label: 'Est. time', value: `~${totalHours} h`, icon: 'i-lucide-clock' }
+            ]"
+            :key="stat.label"
+            class="rounded-xl bg-white/10 px-4 py-4 ring-1 ring-white/15 backdrop-blur-sm"
           >
-            Resume
-          </UButton>
-        </ClientOnly>
-
-        <UButton
-          :to="localePath('/datasets')"
-          icon="i-lucide-database"
-          color="neutral"
-          variant="ghost"
-          size="lg"
-        >
-          Get the datasets
-        </UButton>
+            <UIcon
+              :name="stat.icon"
+              class="size-4 text-white/70"
+            />
+            <dd class="im-figure mt-2 text-2xl font-semibold text-white">
+              {{ stat.value }}
+            </dd>
+            <dt class="im-meta mt-0.5 text-white/65">
+              {{ stat.label }}
+            </dt>
+          </div>
+        </dl>
       </div>
 
       <ClientOnly>
         <div
           v-if="isSignedIn && doneTotal > 0"
-          class="mx-auto mt-8 max-w-md"
+          class="relative mt-8 max-w-xl"
         >
           <div class="mb-2 flex items-baseline justify-between text-sm">
-            <span class="text-muted">Your progress</span>
-            <span class="im-figure text-highlighted">{{ doneTotal }} / {{ total }}</span>
+            <span class="text-white/75">Your progress</span>
+            <span class="im-figure text-white">{{ doneTotal }} / {{ total }}</span>
           </div>
-          <UProgress
-            :model-value="doneTotal"
-            :max="total"
-          />
+          <div class="h-2 overflow-hidden rounded-full bg-white/15">
+            <div
+              class="h-full rounded-full bg-white"
+              :style="{ width: `${Math.round(doneTotal / total * 100)}%` }"
+            />
+          </div>
         </div>
       </ClientOnly>
-    </div>
+    </header>
 
-    <!-- Phases -->
-    <div class="mt-14 space-y-14">
-      <section
-        v-for="phase in phases"
-        :key="phase.key"
+    <div class="curriculum-grid mt-10">
+      <!-- Index: every section, grouped by phase, sticky on desktop -->
+      <nav
+        class="curriculum-index hidden lg:block"
+        aria-label="Sections"
       >
-        <div class="flex items-start gap-3 border-b border-default pb-4">
-          <span class="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-md bg-primary/10">
-            <UIcon
-              :name="phase.icon"
-              class="size-5 text-primary"
-            />
-          </span>
-          <div class="min-w-0">
-            <p class="im-meta text-dimmed">
-              {{ phase.kicker }}
-            </p>
-            <h2 class="text-xl font-semibold tracking-tight text-highlighted">
-              {{ phase.title }}
-            </h2>
-            <p class="mt-1 max-w-3xl text-sm text-muted">
-              {{ phase.blurb }}
-            </p>
-          </div>
-        </div>
-
-        <div class="mt-5 grid gap-5 lg:grid-cols-2">
-          <article
+        <div
+          v-for="phase in phases"
+          :key="phase.key"
+          class="mb-5"
+        >
+          <p class="im-meta mb-1.5 px-2 text-dimmed">
+            {{ phase.kicker }} · {{ phase.title }}
+          </p>
+          <a
             v-for="section in phase.sections"
             :key="section.path"
-            class="im-card-hover rounded-lg border border-default bg-elevated/30 p-5"
+            :href="`#section-${section.index}`"
+            class="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-toned hover:bg-default hover:text-highlighted"
           >
-            <div class="flex items-start gap-3">
-              <span class="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-md border border-default bg-default">
-                <UIcon
-                  :name="section.icon"
-                  class="size-5 text-primary"
-                />
-              </span>
+            <span class="im-figure w-5 shrink-0 text-xs text-dimmed">{{ pad(section.index) }}</span>
+            <span class="truncate">{{ section.title }}</span>
+            <ClientOnly>
+              <UIcon
+                v-if="isSignedIn && section.lessons.length && doneIn(section) === section.lessons.length"
+                name="i-lucide-circle-check"
+                class="ms-auto size-3.5 shrink-0 text-primary"
+              />
+            </ClientOnly>
+          </a>
+        </div>
+      </nav>
 
-              <div class="min-w-0 flex-1">
-                <p class="im-meta text-dimmed">
-                  Section {{ section.index }} · {{ section.lessons.length }} lessons · ~{{ section.minutes }} min
-                </p>
-                <h3 class="mt-0.5 text-lg font-semibold tracking-tight text-highlighted">
-                  <NuxtLink
-                    :to="localePath(section.path)"
-                    class="hover:text-primary"
+      <!-- Phases on a timeline -->
+      <div class="min-w-0 space-y-12">
+        <section
+          v-for="(phase, pi) in phases"
+          :key="phase.key"
+          class="curriculum-phase"
+        >
+          <div class="flex items-start gap-4">
+            <span class="curriculum-phase-dot">
+              <UIcon
+                :name="phase.icon"
+                class="size-5"
+              />
+            </span>
+            <div class="min-w-0 pt-0.5">
+              <p class="im-meta text-primary">
+                {{ phase.kicker }} of {{ phases.length }}
+              </p>
+              <h2 class="mt-0.5 text-2xl font-bold tracking-tight text-highlighted">
+                {{ phase.title }}
+              </h2>
+              <p class="mt-1 max-w-2xl text-muted">
+                {{ phase.blurb }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 space-y-4 ps-0 sm:ps-14"
+            :class="{ 'pb-2': pi < phases.length - 1 }"
+          >
+            <article
+              v-for="section in phase.sections"
+              :id="`section-${section.index}`"
+              :key="section.path"
+              class="scroll-mt-24 overflow-hidden rounded-xl border border-default bg-default"
+            >
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-default px-5 py-4">
+                <span class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <UIcon
+                    :name="section.icon"
+                    class="size-5"
+                  />
+                </span>
+
+                <div class="min-w-0 flex-1">
+                  <p class="im-meta text-dimmed">
+                    Section {{ pad(section.index) }}
+                  </p>
+                  <h3 class="text-lg font-semibold tracking-tight text-highlighted">
+                    <NuxtLink
+                      :to="localePath(section.path)"
+                      class="hover:text-primary"
+                    >
+                      {{ section.title }}
+                    </NuxtLink>
+                  </h3>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <UBadge
+                    color="neutral"
+                    variant="soft"
+                    icon="i-lucide-book-open"
                   >
-                    {{ section.title }}
-                  </NuxtLink>
-                </h3>
+                    {{ section.lessons.length }} lessons
+                  </UBadge>
+                  <UBadge
+                    color="neutral"
+                    variant="soft"
+                    icon="i-lucide-clock"
+                  >
+                    ~{{ section.minutes }} min
+                  </UBadge>
+                  <UBadge
+                    v-if="section.lessons.some(l => l.handsOn)"
+                    color="primary"
+                    variant="soft"
+                    icon="i-lucide-monitor-play"
+                  >
+                    {{ section.lessons.filter(l => l.handsOn).length }} builds
+                  </UBadge>
+                  <ClientOnly>
+                    <UBadge
+                      v-if="isSignedIn"
+                      color="primary"
+                      variant="solid"
+                      class="im-figure"
+                    >
+                      {{ doneIn(section) }}/{{ section.lessons.length }}
+                    </UBadge>
+                  </ClientOnly>
+                </div>
               </div>
 
-              <ClientOnly>
-                <span
-                  v-if="isSignedIn"
-                  class="im-figure shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary"
+              <ol class="grid gap-x-4 px-3 py-3 sm:grid-cols-2">
+                <li
+                  v-for="(lesson, li) in section.lessons"
+                  :key="lesson.path"
                 >
-                  {{ doneIn(section) }}/{{ section.lessons.length }}
-                </span>
-              </ClientOnly>
-            </div>
-
-            <ol class="mt-4 space-y-0.5">
-              <li
-                v-for="lesson in section.lessons"
-                :key="lesson.path"
-              >
-                <NuxtLink
-                  :to="localePath(lesson.path)"
-                  class="flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm text-toned hover:bg-elevated hover:text-highlighted"
-                >
-                  <ClientOnly>
-                    <UIcon
-                      :name="isDone(lesson.path) ? 'i-lucide-circle-check' : 'i-lucide-circle'"
-                      class="size-4 shrink-0"
-                      :class="isDone(lesson.path) ? 'text-primary' : 'text-dimmed'"
-                    />
-                    <template #fallback>
+                  <NuxtLink
+                    :to="localePath(lesson.path)"
+                    class="group flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm text-toned hover:bg-elevated hover:text-highlighted"
+                  >
+                    <ClientOnly>
                       <UIcon
-                        name="i-lucide-circle"
-                        class="size-4 shrink-0 text-dimmed"
+                        v-if="isDone(lesson.path)"
+                        name="i-lucide-circle-check"
+                        class="size-4 shrink-0 text-primary"
                       />
-                    </template>
-                  </ClientOnly>
+                      <span
+                        v-else
+                        class="im-figure w-4 shrink-0 text-center text-[11px] text-dimmed group-hover:text-primary"
+                      >{{ li + 1 }}</span>
+                      <template #fallback>
+                        <span class="im-figure w-4 shrink-0 text-center text-[11px] text-dimmed">{{ li + 1 }}</span>
+                      </template>
+                    </ClientOnly>
 
-                  <span class="truncate">{{ lesson.title }}</span>
+                    <span class="truncate">{{ lesson.title }}</span>
 
-                  <!-- What kind of lesson it is, so an evening can be planned. -->
-                  <span class="ms-auto flex shrink-0 items-center gap-1.5">
-                    <UIcon
-                      v-if="lesson.handsOn"
-                      name="i-lucide-monitor-play"
-                      class="size-3.5 text-primary"
-                      title="Hands-on build, with a screen walkthrough"
-                    />
-                    <UIcon
-                      v-if="lesson.quiz"
-                      name="i-lucide-circle-help"
-                      class="size-3.5 text-dimmed"
-                      title="Graded quiz"
-                    />
-                    <UIcon
-                      v-if="lesson.interview"
-                      name="i-lucide-messages-square"
-                      class="size-3.5 text-dimmed"
-                      title="Interview questions"
-                    />
-                  </span>
-                </NuxtLink>
-              </li>
-            </ol>
-          </article>
+                    <span class="ms-auto flex shrink-0 items-center gap-1.5">
+                      <UIcon
+                        v-if="lesson.handsOn"
+                        name="i-lucide-monitor-play"
+                        class="size-3.5 text-primary"
+                        title="Hands-on build, with a screen walkthrough"
+                      />
+                      <UIcon
+                        v-if="lesson.quiz"
+                        name="i-lucide-circle-help"
+                        class="size-3.5 text-dimmed"
+                        title="Graded quiz"
+                      />
+                      <UIcon
+                        v-if="lesson.interview"
+                        name="i-lucide-messages-square"
+                        class="size-3.5 text-dimmed"
+                        title="Interview questions"
+                      />
+                    </span>
+                  </NuxtLink>
+                </li>
+              </ol>
+            </article>
+          </div>
+        </section>
+
+        <!-- Legend -->
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl border border-dashed border-default px-5 py-4 text-xs text-muted sm:ms-14">
+          <span class="flex items-center gap-1.5">
+            <UIcon
+              name="i-lucide-monitor-play"
+              class="size-3.5 text-primary"
+            /> Hands-on build, with a screen walkthrough
+          </span>
+          <span class="flex items-center gap-1.5">
+            <UIcon
+              name="i-lucide-circle-help"
+              class="size-3.5 text-dimmed"
+            /> Graded quiz
+          </span>
+          <span class="flex items-center gap-1.5">
+            <UIcon
+              name="i-lucide-messages-square"
+              class="size-3.5 text-dimmed"
+            /> Interview questions
+          </span>
         </div>
-      </section>
-    </div>
-
-    <!-- Legend -->
-    <div class="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-default pt-6 text-xs text-muted">
-      <span class="flex items-center gap-1.5">
-        <UIcon
-          name="i-lucide-monitor-play"
-          class="size-3.5 text-primary"
-        /> Hands-on build, with a screen walkthrough
-      </span>
-      <span class="flex items-center gap-1.5">
-        <UIcon
-          name="i-lucide-circle-help"
-          class="size-3.5 text-dimmed"
-        /> Graded quiz
-      </span>
-      <span class="flex items-center gap-1.5">
-        <UIcon
-          name="i-lucide-messages-square"
-          class="size-3.5 text-dimmed"
-        /> Interview questions
-      </span>
+      </div>
     </div>
   </UContainer>
 </template>
+
+<style scoped>
+.curriculum-hero {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .curriculum-hero {
+    grid-template-columns: minmax(0, 1fr) 24rem;
+  }
+}
+.curriculum-cta {
+  background-color: #fff;
+  color: var(--color-cobalt-700);
+}
+.curriculum-cta:hover {
+  background-color: var(--color-cobalt-50);
+}
+@media (min-width: 1024px) {
+  .curriculum-grid {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    column-gap: 2.5rem;
+    align-items: start;
+  }
+  .curriculum-index {
+    position: sticky;
+    top: calc(var(--ui-header-height) + 1.5rem);
+  }
+}
+
+/* The timeline: a hairline running down from each phase's marker. */
+.curriculum-phase {
+  position: relative;
+}
+@media (min-width: 640px) {
+  .curriculum-phase::before {
+    content: "";
+    position: absolute;
+    left: 1.25rem;
+    top: 2.75rem;
+    bottom: -3rem;
+    width: 1px;
+    background: linear-gradient(var(--ui-border-accented), var(--ui-border-accented) 70%, transparent);
+  }
+  .curriculum-phase:last-of-type::before {
+    bottom: 0;
+  }
+}
+.curriculum-phase-dot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--ui-primary);
+  color: #fff;
+  box-shadow: 0 0 0 4px var(--app-page);
+}
+</style>

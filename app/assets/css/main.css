@@ -1,65 +1,29 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-/* ---------------------------------------------------------------------------
-   Twilio Paste design tokens (@twilio-paste/design-tokens, MIT).
-
-   Paste is a React component library, so its components cannot run in a Nuxt
-   app — but the token layer is framework-agnostic custom properties, and it is
-   the part that carries the design. Every --ui-* semantic token below is mapped
-   onto these, so the whole site inherits Twilio's colours, contrast decisions
-   and type without a line of React.
---------------------------------------------------------------------------- */
-@import "@twilio-paste/design-tokens/dist/themes/twilio/tokens.custom-properties.css";
-@import "./paste-dark.css";
-
 @source "../../../content/**/*";
 
+/* ---------------------------------------------------------------------------
+   CRM Analytics Academy — theme foundation
+
+   One original palette, all blue: cobalt leads, lagoon (a cooler cyan-blue)
+   is the second voice, and mist is a neutral with a trace of the same hue so
+   greys sit with the blues instead of against them. There is no red anywhere
+   in the brand, because every lesson spends red on "this number is wrong".
+   Statuses (success/warning/error) stay on Nuxt UI's defaults for the same
+   reason: they are state, not brand.
+
+   Every ramp shares one lightness ladder, so cobalt-500 and lagoon-500 carry
+   the same visual weight and can sit side by side in a chart.
+--------------------------------------------------------------------------- */
 @theme static {
   --container-8xl: 90rem;
 
-  /* ---------------------------------------------------------------------------
-     Type — Geist and Geist Mono, the two faces the Im Design System uses and
-     the only two here.
+  /* Type. Geist for sentences, Geist Mono for values: formulas, click paths,
+     row counts, SAQL. @nuxt/fonts resolves and self-hosts both at build time. */
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-     This replaces a stack headed by 'Salesforce Sans', which was never a real
-     dependency: the font is not on a public CDN and nothing in this project
-     ever shipped it, so every visitor has been reading the system fallback
-     instead. Naming Geist makes the intended face the actual face -- @nuxt/fonts
-     (bundled with Nuxt UI) resolves and self-hosts it at build time, so there is
-     no third-party request at runtime.
-
-     Geist Mono carries anything that is a value rather than a sentence: click
-     paths in a walkthrough, formulas in a metric spec, row counts, SAQL. That
-     separation is the design system's, and it is the reason a metric formula
-     reads as a specification rather than as prose.
-  --------------------------------------------------------------------------- */
-  /* ---------------------------------------------------------------------------
-     Type — Paste's faces, as far as they can honestly be shipped.
-
-     Twilio Sans is Twilio's proprietary brand face. It is not in the tokens
-     package, it is not ours to redistribute, and naming it FIRST silently broke
-     font provisioning: @nuxt/fonts tries to resolve the leading family, fails,
-     and emits no @font-face at all — so the page fell back to system-ui and no
-     font was self-hosted.
-
-     So the stack leads with Inter, which is what Paste itself falls back to and
-     the closest open sibling to Twilio Sans in proportion and grade, and with
-     JetBrains Mono for code. Both are self-hosted at build time, so the type
-     actually renders as designed and no third-party request is made.
-  --------------------------------------------------------------------------- */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-
-  /* ---------------------------------------------------------------------------
-     Radius, tracking and motion, taken value-for-value from the Im Design
-     System's primitives so a card, a button and a nav row here are curved and
-     eased exactly as they are there.
-
-     The system's own ladder is --im-radius-xs .. 2xl (4, 6, 8, 12, 16, 24px);
-     Nuxt UI derives everything from one --ui-radius, so the ladder is exposed
-     alongside it for the handful of places that need a specific rung.
-  --------------------------------------------------------------------------- */
   --radius-xs: 0.25rem;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -70,188 +34,156 @@
   --tracking-tight: -0.02em;
   --tracking-tighter: -0.035em;
 
-  /* The system eases everything out on this curve; nothing here uses the
-     browser default. --ease-instant is its hover duration: fast enough that a
-     nav row feels connected to the pointer rather than animated. */
   --ease-out-im: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-in-out-im: cubic-bezier(0.65, 0, 0.35, 1);
   --duration-instant: 120ms;
   --duration-quick: 200ms;
 
-  /* ---------------------------------------------------------------------------
-     Colour ramps — sampled from redandblue.png.
+  /* Cobalt — the brand blue. 600 is the working step in light mode (buttons,
+     links: 4.5:1 on white), 400 in dark. */
+  --color-cobalt-50: oklch(97.2% 0.015 258);
+  --color-cobalt-100: oklch(94.0% 0.033 258);
+  --color-cobalt-200: oklch(88.6% 0.062 258);
+  --color-cobalt-300: oklch(80.8% 0.104 258);
+  --color-cobalt-400: oklch(70.8% 0.157 259);
+  --color-cobalt-500: oklch(60.4% 0.206 261);
+  --color-cobalt-600: oklch(52.6% 0.224 263);
+  --color-cobalt-700: oklch(45.6% 0.206 264);
+  --color-cobalt-800: oklch(38.8% 0.171 265);
+  --color-cobalt-900: oklch(32.4% 0.133 266);
+  --color-cobalt-950: oklch(23.8% 0.093 267);
 
-     Five swatches, converted to oklch and stretched onto one shared lightness
-     ladder so marine-500 and ember-500 carry the same visual weight:
+  /* Lagoon — the cooler second blue, for secondary marks and the second
+     series in a chart. */
+  --color-lagoon-50: oklch(97.6% 0.016 222);
+  --color-lagoon-100: oklch(94.6% 0.034 222);
+  --color-lagoon-200: oklch(89.6% 0.062 222);
+  --color-lagoon-300: oklch(82.6% 0.095 222);
+  --color-lagoon-400: oklch(74.0% 0.122 224);
+  --color-lagoon-500: oklch(65.0% 0.134 227);
+  --color-lagoon-600: oklch(56.4% 0.125 230);
+  --color-lagoon-700: oklch(48.6% 0.108 232);
+  --color-lagoon-800: oklch(41.0% 0.088 234);
+  --color-lagoon-900: oklch(34.4% 0.070 236);
+  --color-lagoon-950: oklch(25.4% 0.052 238);
 
-       #9FCBEE  sky    oklch(82.3% 0.068 243)  -> marine-200
-       #6497BF  steel  oklch(65.6% 0.081 243)  -> marine-400
-       #01016F  navy   oklch(24.6% 0.169 265)  -> marine-900
-       #D8031C  red    oklch(55.6% 0.225  26)  -> ember-500
-       #5A5A5A  grey   oklch(46.8% 0     90)   -> slate-500
-
-     The 500 step of marine is NOT in the image: the sampled blues are a pale
-     steel and a near-black navy, and a UI needs a saturated blue between them
-     for buttons, links and marks. It is the two of them mixed and pulled
-     towards the blue Salesforce uses, which is what "Twilio and Salesforce
-     blue" asks for -- a blue with some heat in it rather than a corporate navy.
-
-     Ember is the image's red, unchanged at 500. It is an ACCENT: marks,
-     emphasis, the logo, one bar in a chart. It is not the furniture, because
-     every lesson here spends red on "this number is wrong, look at it".
-  --------------------------------------------------------------------------- */
-
-  /* Marine — the blue. Sky at the top, navy at the floor. */
-  --color-marine-50: oklch(97.0% 0.014 243);
-  --color-marine-100: oklch(94.0% 0.030 243);
-  --color-marine-200: oklch(89.0% 0.052 243);
-  --color-marine-300: oklch(82.3% 0.068 243);
-  --color-marine-400: oklch(72.0% 0.106 245);
-  --color-marine-500: oklch(58.0% 0.176 252);
-  --color-marine-600: oklch(50.0% 0.192 256);
-  --color-marine-700: oklch(41.0% 0.190 260);
-  --color-marine-800: oklch(32.0% 0.180 262);
-  --color-marine-900: oklch(24.6% 0.169 265);
-  --color-marine-950: oklch(18.0% 0.130 265);
-
-  /* Ember — the red, at 500 exactly as sampled. */
-  --color-ember-50: oklch(97.0% 0.018 26);
-  --color-ember-100: oklch(94.0% 0.040 26);
-  --color-ember-200: oklch(89.0% 0.076 26);
-  --color-ember-300: oklch(80.0% 0.128 26);
-  --color-ember-400: oklch(68.0% 0.185 26);
-  --color-ember-500: oklch(55.6% 0.225 26);
-  --color-ember-600: oklch(49.0% 0.210 26);
-  --color-ember-700: oklch(41.0% 0.180 26);
-  --color-ember-800: oklch(33.0% 0.145 26);
-  --color-ember-900: oklch(26.0% 0.112 26);
-  --color-ember-950: oklch(19.0% 0.085 26);
-
-  /* Slate — the neutral. The image's grey is achromatic, and it stays that
-     way: a tinted grey beside a saturated blue and a saturated red is one
-     hue too many. */
-  --color-slate-0: oklch(100% 0 0);
-  --color-slate-25: oklch(98.6% 0 0);
-  --color-slate-50: oklch(97.2% 0 0);
-  --color-slate-100: oklch(94.5% 0 0);
-  --color-slate-200: oklch(89.5% 0 0);
-  --color-slate-300: oklch(82.5% 0 0);
-  --color-slate-400: oklch(65.0% 0 0);
-  --color-slate-500: oklch(46.8% 0 0);
-  --color-slate-600: oklch(40.0% 0 0);
-  --color-slate-700: oklch(33.0% 0 0);
-  --color-slate-800: oklch(25.5% 0 0);
-  --color-slate-900: oklch(19.0% 0 0);
-  --color-slate-950: oklch(14.0% 0 0);
-  --color-slate-1000: oklch(10.0% 0 0);
+  /* Mist — the neutral, tinted toward cobalt. */
+  --color-mist-50: oklch(98.4% 0.004 258);
+  --color-mist-100: oklch(96.4% 0.007 258);
+  --color-mist-200: oklch(92.6% 0.012 258);
+  --color-mist-300: oklch(87.0% 0.018 258);
+  --color-mist-400: oklch(71.0% 0.026 258);
+  --color-mist-500: oklch(55.6% 0.031 258);
+  --color-mist-600: oklch(45.0% 0.032 259);
+  --color-mist-700: oklch(37.4% 0.032 260);
+  --color-mist-800: oklch(28.0% 0.030 261);
+  --color-mist-900: oklch(21.4% 0.028 262);
+  --color-mist-950: oklch(15.6% 0.024 263);
 }
 
 /* ---------------------------------------------------------------------------
-   Nuxt UI semantic tokens, mapped to the design system's tier-2 names.
+   Nuxt UI semantic tokens
 
-   Nuxt UI's defaults put the page on pure white and dark mode on neutral-900.
-   Light descends from paper (slate-0); dark ascends from near-black
-   (slate-1000). Hairlines go translucent in dark so they
-   survive over an image instead of vanishing into it. Unlayered, so these
-   beat Nuxt UI's own `@layer theme` declarations.
-
-     Nuxt UI               design system
-     --ui-bg               --bg-canvas
-     --ui-bg-muted         --bg-sunken
-     --ui-bg-elevated      --bg-muted
-     --ui-text-highlighted --fg-default
-     --ui-text             --fg-muted
-     --ui-text-toned       --fg-subtle
-     --ui-text-muted       --fg-faint
-     --ui-text-dimmed      --fg-disabled
-     --ui-border           --line-default
-     --ui-border-muted     --line-subtle
-     --ui-border-accented  --line-strong
+   Light: a faintly blue page (mist-50) with white surfaces on it — depth from
+   ground and hairline rather than from shadow. Dark: a deep blue-black page
+   with surfaces one step up. Unlayered, so these beat Nuxt UI's @layer theme.
 --------------------------------------------------------------------------- */
 :root {
-  /* ---- Paste -> Nuxt UI -------------------------------------------------
-     Nuxt UI addresses colour as an 11-step ramp; Paste ships a named scale
-     (weakest .. strongest). The steps below are that scale stretched over the
-     ramp, so every Nuxt UI utility — text-primary, bg-primary/10, ring-primary
-     — resolves to a real Paste colour rather than an approximation of one. */
-  --ui-color-primary-50: var(--color-background-primary-weakest);
-  --ui-color-primary-100: var(--color-background-primary-weakest);
-  --ui-color-primary-200: var(--color-background-primary-weaker);
-  --ui-color-primary-300: var(--color-background-primary-weak);
-  --ui-color-primary-400: var(--color-background-primary-weak);
-  --ui-color-primary-500: var(--color-background-primary);
-  --ui-color-primary-600: var(--color-background-primary);
-  --ui-color-primary-700: var(--color-background-primary-strong);
-  --ui-color-primary-800: var(--color-background-primary-strong);
-  --ui-color-primary-900: var(--color-background-primary-stronger);
-  --ui-color-primary-950: var(--color-background-primary-strongest);
-  --ui-primary: var(--color-background-primary);
-
+  --ui-primary: var(--ui-color-primary-600);
+  --ui-secondary: var(--ui-color-secondary-600);
   --ui-container: var(--container-8xl);
+  --ui-radius: 0.5rem;
+  --ui-header-height: 4rem;
 
-  /* Paste's own control radius. */
-  --ui-radius: var(--border-radius-30, 0.5rem);
+  --ui-bg: #fff;
+  --ui-bg-muted: var(--color-mist-50);
+  --ui-bg-elevated: var(--color-mist-100);
+  --ui-bg-accented: var(--color-mist-200);
+  --ui-bg-inverted: var(--color-mist-900);
 
-  --ui-bg: var(--color-background-body);
-  --ui-bg-muted: var(--color-background);
-  --ui-bg-elevated: var(--color-background-strong, var(--color-background));
-  --ui-bg-accented: var(--color-background-stronger, var(--color-background-strong));
-  --ui-bg-inverted: var(--color-text);
+  --ui-text-dimmed: var(--color-mist-400);
+  --ui-text-muted: var(--color-mist-500);
+  --ui-text-toned: var(--color-mist-600);
+  --ui-text: var(--color-mist-700);
+  --ui-text-highlighted: var(--color-mist-950);
+  --ui-text-inverted: #fff;
 
-  --ui-text-highlighted: var(--color-text-strongest, var(--color-text));
-  --ui-text: var(--color-text);
-  --ui-text-toned: var(--color-text-weak);
-  --ui-text-muted: var(--color-text-weak);
-  --ui-text-dimmed: var(--color-text-weaker);
-  --ui-text-inverted: var(--color-background-body);
+  --ui-border: var(--color-mist-200);
+  --ui-border-muted: var(--color-mist-200);
+  --ui-border-accented: var(--color-mist-300);
+  --ui-border-inverted: var(--color-mist-900);
 
-  --ui-border: var(--color-border-weaker, var(--color-border));
-  --ui-border-muted: var(--color-border-weakest, var(--color-border-weaker));
-  --ui-border-accented: var(--color-border);
-  --ui-border-inverted: var(--color-text);
+  /* The page ground sits under the white surfaces. */
+  --app-page: color-mix(in oklch, var(--color-mist-50) 60%, var(--color-cobalt-50));
 }
 
 .dark {
-  /* Paste's dark theme redefines the same token names, so the mapping is
-     identical — only the values underneath change. */
-  --ui-bg: var(--color-background-body);
-  --ui-bg-muted: var(--color-background);
-  --ui-bg-elevated: var(--color-background-strong, var(--color-background));
-  --ui-bg-accented: var(--color-background-stronger, var(--color-background-strong));
-  --ui-bg-inverted: var(--color-text);
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
 
-  --ui-text-highlighted: var(--color-text-strongest, var(--color-text));
-  --ui-text: var(--color-text);
-  --ui-text-toned: var(--color-text-weak);
-  --ui-text-muted: var(--color-text-weak);
-  --ui-text-dimmed: var(--color-text-weaker);
-  --ui-text-inverted: var(--color-background-body);
+  --ui-bg: var(--color-mist-900);
+  --ui-bg-muted: var(--color-mist-800);
+  --ui-bg-elevated: var(--color-mist-800);
+  --ui-bg-accented: var(--color-mist-700);
+  --ui-bg-inverted: #fff;
 
-  --ui-border: var(--color-border-weaker, var(--color-border));
-  --ui-border-muted: var(--color-border-weakest, var(--color-border-weaker));
-  --ui-border-accented: var(--color-border);
-  --ui-border-inverted: var(--color-text);
+  --ui-text-dimmed: var(--color-mist-500);
+  --ui-text-muted: var(--color-mist-400);
+  --ui-text-toned: var(--color-mist-300);
+  --ui-text: var(--color-mist-200);
+  --ui-text-highlighted: #fff;
+  --ui-text-inverted: var(--color-mist-900);
+
+  --ui-border: color-mix(in oklch, var(--color-mist-700) 80%, transparent);
+  --ui-border-muted: color-mix(in oklch, var(--color-mist-700) 55%, transparent);
+  --ui-border-accented: var(--color-mist-600);
+  --ui-border-inverted: #fff;
+
+  --app-page: var(--color-mist-950);
 }
 
-/* A slightly larger base type size across the whole site (16px → 17px).
-   Everything is rem-based, so every component and prose block scales with
-   this one declaration. */
 html {
-  font-size: 112.5%;
+  font-size: 106.25%; /* 17px */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--app-page);
+}
+
+::selection {
+  background-color: color-mix(in oklch, var(--ui-color-primary-500) 22%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
    Landing-page visual helpers
 --------------------------------------------------------------------------- */
 
-/* Brand emphasis text. Deliberately NOT a gradient: this palette is two strong
-   hues and a neutral, and a gradient between them muddies both. The class name
-   is kept because markup across the site uses it; it now just sets the blue at
-   the step that reads strongest against the page. */
-/* Brand emphasis text. Not a gradient — Paste does not use them, and with one
-   strong hue a fade only muddies it. */
+/* Brand emphasis text. The class name is kept because markup uses it; it is a
+   solid colour, never a gradient. */
 .text-gradient {
-  color: var(--color-text-link, var(--color-background-primary));
+  color: var(--ui-primary);
+}
+
+/* A soft blue wash for hero and CTA panels: two radial pools of cobalt and
+   lagoon over the page ground. */
+.bg-brand-wash {
+  background:
+    radial-gradient(60% 80% at 15% 0%, color-mix(in oklch, var(--ui-color-primary-500) 14%, transparent), transparent 70%),
+    radial-gradient(50% 70% at 90% 10%, color-mix(in oklch, var(--ui-color-secondary-400) 16%, transparent), transparent 70%);
+}
+
+/* A solid brand panel (CTA bands, the curriculum header). */
+.bg-brand-panel {
+  background-color: var(--color-cobalt-700);
+  background-image:
+    radial-gradient(70% 120% at 100% 0%, color-mix(in oklch, var(--color-lagoon-500) 45%, transparent), transparent 60%),
+    radial-gradient(60% 100% at 0% 100%, color-mix(in oklch, var(--color-cobalt-500) 60%, transparent), transparent 60%);
+  color: #fff;
+}
+.dark .bg-brand-panel {
+  background-color: var(--color-cobalt-900);
 }
 
 /* Faint grid backdrop used behind the hero */
@@ -388,7 +320,7 @@ html {
 /* ---------------------------------------------------------------------------
    The design system's interaction idioms
    ---------------------------------------------------------------------------
-   Structure is carried by marine, one ramp across many steps, and these rules are
+   Structure is carried by cobalt, one ramp across many steps, and these rules are
    what keeps that from reading as flat: hierarchy comes from WEIGHT and GROUND
    rather than from hue, exactly as design.imswarnil.com does it. Headings track
    tight, hovers move the ground and not the text, and an icon shifts from muted
@@ -649,25 +581,11 @@ summary,
 }
 
 /* ---------------------------------------------------------------------------
-   The console look
+   Surfaces
    ---------------------------------------------------------------------------
-   The single most recognisable thing about Twilio's console — and about Paste
-   generally — is not a colour. It is that the PAGE is tinted and the content
-   sits on crisp white surfaces above it, separated by 1px hairlines rather
-   than by shadows. A white page with white cards has no depth to spend; a
-   tinted page makes every surface read as a card without a single shadow.
-
-   This site is a learning product rather than a console, so the treatment is
-   applied where it earns its keep: the reading column, the rails and the
-   landing sections. Everything else inherits the palette and stays plain.
+   The page is tinted (--app-page) and the thing you came to read sits on a
+   white surface above it, separated by a hairline rather than a shadow.
 --------------------------------------------------------------------------- */
-
-body {
-  /* Paste's `background` token IS the tinted page; `background-body` is the
-     white surface that sits on it. Using them in that relationship is what
-     makes this read as a Twilio console rather than as a tinted docs site. */
-  background-color: var(--color-background);
-}
 
 /* The reading column as a surface: white on the tint, one hairline, generous
    inside padding so the text never touches the edge. Below 1024px the rails
@@ -698,13 +616,10 @@ body {
   box-shadow: none;
 }
 
-/* Blue is structure, red is emphasis: a left rule in ember on anything the
-   lesson is calling out, so the accent appears as punctuation rather than as
-   decoration. The MDC callouts already carry their own colour by status; this
-   is for the walkthrough's narration, which is the one place the course speaks
-   in its own voice. */
+/* The walkthrough's narration: the one place the course speaks in its own
+   voice, marked with a cobalt rule. */
 .lesson-walkthrough-say {
-  border-inline-start: 2px solid var(--color-border-primary, var(--color-background-primary));
+  border-inline-start: 2px solid var(--ui-primary);
 }
 
 

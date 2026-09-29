@@ -2,6 +2,16 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+const route = useRoute()
+
+// The rail opens the section you are reading. Accordion state is only read on
+// mount, so the nav is keyed on the section: crossing into another section
+// re-opens the right one, while moving between lessons inside it does not
+// remount anything.
+const sectionKey = computed(() => {
+  const segs = route.path.split('/').filter(Boolean)
+  return segs.find(s => navigation?.value?.some(n => String(n.path).endsWith(`/${s}`))) ?? ''
+})
 </script>
 
 <template>
@@ -40,6 +50,8 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
           aria-label="Course navigation"
         >
           <UContentNavigation
+            :key="sectionKey"
+            default-open
             highlight
             type="single"
             :navigation="navigation"

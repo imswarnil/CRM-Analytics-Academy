@@ -31,14 +31,17 @@ const columns = computed(() => [
       { label: t('nav.contribute'), to: localePath('/contribute') },
       { label: t('nav.roadmap'), to: localePath('/roadmap') },
       { label: t('nav.sponsor'), to: localePath('/sponsor') },
-      { label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
+      { label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' },
+      { label: t('nav.privacy'), to: localePath('/privacy') },
+      { label: t('nav.terms'), to: localePath('/terms') }
     ]
   },
   {
-    label: t('footer.legal'),
+    label: t('footer.academy'),
     children: [
-      { label: t('nav.privacy'), to: localePath('/privacy') },
-      { label: t('nav.terms'), to: localePath('/terms') }
+      { label: t('nav.training'), to: '/training' },
+      { label: t('nav.forTeams'), to: '/teams' },
+      { label: t('nav.implementation'), to: '/implementation' }
     ]
   }
 ])
@@ -61,12 +64,6 @@ const columns = computed(() => [
             </NuxtLink>
             <p class="mt-3 max-w-xs text-sm text-muted">
               {{ t('footer.tagline') }}
-            </p>
-            <!-- Deliberately not phrased as a Twilio endorsement: ex-Twilion
-                 is a statement about the author, not about who stands behind
-                 the site. -->
-            <p class="mt-2 max-w-xs text-xs text-dimmed">
-              {{ t('footer.builtBy') }}
             </p>
             <div class="mt-4 flex items-center gap-1">
               <UColorModeButton v-if="footer?.colorMode" />
