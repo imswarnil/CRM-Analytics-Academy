@@ -1,11 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { existsSync, readFileSync } from 'node:fs'
-
-// Written by scripts/gate-content.mjs, which runs before every build. Missing
-// on a fresh checkout, which is fine — it means nothing is gated yet.
-const gatedRoutes: string[] = existsSync('.gated-routes.json')
-  ? JSON.parse(readFileSync('.gated-routes.json', 'utf8'))
-  : []
 
 // The 12 locales the site ships. `language` is the BCP-47 tag that lands in
 // <html lang> and in the hreflang alternates; `dir` drives <html dir> so Arabic
@@ -236,7 +229,10 @@ export default defineNuxtConfig({
         // on the client on every visit — a flash of the wrong state, and files
         // that exist only to be replaced.
         ...privateRoutes,
-        ...gatedRoutes,
+        // Pro lessons are NOT excluded: what prerenders for them is the public
+        // stub from .gated-stubs/ (title, teaser, paywall). The full body is
+        // only in server/assets/gated and reaches the browser through
+        // /api/lesson after an entitlement check.
         // The editor is a signed-in surface too; a prerendered copy would be
         // a logged-out shell.
         '/_studio',

@@ -77,9 +77,6 @@ importers:
       unist-util-visit:
         specifier: ^5.1.0
         version: 5.1.0
-      yaml:
-        specifier: ^2.9.0
-        version: 2.9.0
     devDependencies:
       '@anthropic-ai/sdk':
         specifier: ^0.123.0
@@ -102,6 +99,9 @@ importers:
       wrangler:
         specifier: ^4.127.1
         version: 4.127.1
+      yaml:
+        specifier: ^2.9.0
+        version: 2.9.0
 
 packages:
 

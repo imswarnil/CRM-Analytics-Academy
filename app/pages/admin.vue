@@ -21,7 +21,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-const tab = ref<'overview' | 'users' | 'queue' | 'content' | 'inquiries'>('overview')
+const tab = ref<'overview' | 'users' | 'queue' | 'content' | 'inquiries' | 'lessons' | 'comments'>('overview')
 
 const { data: me } = await useLazyAsyncData('admin-me', () =>
   $fetch<{ signedIn: boolean, role: string | null, email?: string }>('/api/admin/me'), {
@@ -565,8 +565,8 @@ watch(tab, (t) => {
 
     <UContainer v-else-if="isModerator">
       <UPageHeader
-        :title="tab === 'inquiries' ? 'Enquiries' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? 'Content Studio' : 'Users & Roles'"
-        :description="tab === 'inquiries' ? 'Enrollments, quotations and implementation requests.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? 'Edit English lessons and publish them straight to GitHub.' : 'Accounts, roles and access.'"
+        :title="tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'inquiries' ? 'Enquiries' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? 'Content Studio' : 'Users & Roles'"
+        :description="tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'inquiries' ? 'Enrollments, quotations and implementation requests.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? 'Edit English lessons and publish them straight to GitHub.' : 'Accounts, roles and access.'"
       >
         <template #headline>
           <nav
@@ -596,6 +596,25 @@ watch(tab, (t) => {
                 :label="String(queue.length)"
                 size="sm"
               />
+            </UButton>
+            <UButton
+              icon="i-lucide-messages-square"
+              size="sm"
+              :color="tab === 'comments' ? 'primary' : 'neutral'"
+              :variant="tab === 'comments' ? 'soft' : 'ghost'"
+              @click="tab = 'comments'"
+            >
+              Comments
+            </UButton>
+            <UButton
+              v-if="isAdmin"
+              icon="i-lucide-sparkles"
+              size="sm"
+              :color="tab === 'lessons' ? 'primary' : 'neutral'"
+              :variant="tab === 'lessons' ? 'soft' : 'ghost'"
+              @click="tab = 'lessons'"
+            >
+              Lessons & Pro
             </UButton>
             <UButton
               icon="i-lucide-mail"
@@ -647,6 +666,8 @@ watch(tab, (t) => {
         </p>
 
         <AdminInquiries v-if="tab === 'inquiries'" />
+        <AdminComments v-if="tab === 'comments'" />
+        <AdminLessons v-if="tab === 'lessons' && isAdmin" />
 
         <!-- ========================== OVERVIEW ========================== -->
         <section v-if="tab === 'overview' && isAdmin">

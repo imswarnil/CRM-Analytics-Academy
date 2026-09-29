@@ -1,4 +1,15 @@
+import { existsSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
+
+// Pro lessons, as relative paths under content/. Written by
+// scripts/gate-content.mjs before every build; absent means nothing is gated.
+// These files are excluded from the collection — which is published whole as
+// a client-side database — and replaced by the stubs in .gated-stubs/, which
+// carry the title, navigation and a teaser but never the body.
+const gatedFiles: string[] = existsSync('.gated-files.json')
+  ? JSON.parse(readFileSync('.gated-files.json', 'utf8'))
+  : []
 
 export default defineContentConfig({
   collections: {
@@ -67,20 +78,26 @@ export default defineContentConfig({
       // Content is organised per locale: content/<locale>/<module>/<lesson>.md.
       // The non-localized collections above live in their own top-level folders
       // and are excluded so they aren't ingested twice.
-      source: {
-        include: '**',
-        exclude: ['resources/**', 'showcase/**']
-      },
+      source: [
+        {
+          include: '**',
+          exclude: ['resources/**', 'showcase/**', ...gatedFiles]
+        },
+        ...(gatedFiles.length ? [{ cwd: resolve('.gated-stubs'), include: '**' }] : [])
+      ],
       schema: z.object({
-        // Access tier. `pro` lessons are excluded from the prerendered bundle
-        // entirely — see the prerender ignore in nuxt.config.ts — and their
-        // body is served only by /api/lesson after a server-side entitlement
-        // check. Anything not marked ships to everyone, so a lesson that
-        // should be paid and is not marked is simply free.
+        // Access tier. A `pro` lesson's real file never enters this
+        // collection: scripts/gate-content.mjs swaps in a stub (title,
+        // navigation, teaser) and the body is served only by /api/lesson after
+        // a server-side entitlement check. Anything not marked ships to
+        // everyone, so a lesson that should be paid and is not marked is free.
         access: z.enum(['free', 'pro']).default('free'),
-        // Mux playback id. For a pro lesson this never reaches the client
-        // unsigned; /api/lesson mints a short-lived signed token instead.
-        mux: z.string().optional(),
+        // Mux playback ids, one per language: `mux: { en: abc, es: def }`, or a
+        // single string for English only. The player picks the reader's
+        // language and falls back to English. A free lesson's ids use Mux's
+        // public playback policy; a pro lesson's are signed, so the id is
+        // useless without the short-lived token /api/lesson mints.
+        mux: z.union([z.string(), z.record(z.string(), z.string())]).optional(),
         links: z.array(z.object({
           label: z.string(),
           icon: z.string(),

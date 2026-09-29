@@ -36,12 +36,45 @@ const extraItems = computed(() => [
 
 // Account menu — the session itself is fetched once in app.vue.
 const { user, isSignedIn, signOut } = useAuth()
-const accountItems = computed(() => [[
-  { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
-  { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') }
-], [
-  { label: t('nav.signOut'), icon: 'i-lucide-log-out', onSelect: () => signOut() }
-]])
+const { pro } = useProgress()
+
+// Whether to show the admin console link. Asked once per session, only for a
+// signed-in user, and only on the client — the console itself enforces the
+// role on every request, so this is navigation, not access control.
+const role = ref<string | null>(null)
+watch(isSignedIn, async (ok) => {
+  if (!ok || import.meta.server) {
+    role.value = null
+    return
+  }
+  try {
+    role.value = (await $fetch<{ role: string | null }>('/api/admin/me')).role
+  } catch {
+    role.value = null
+  }
+}, { immediate: true })
+
+const initials = computed(() => (user.value?.name || user.value?.email || '?').trim().slice(0, 1).toUpperCase())
+
+const accountItems = computed(() => [
+  [{
+    type: 'label' as const,
+    label: user.value?.name || user.value?.email || t('nav.account'),
+    avatar: user.value?.image ? { src: user.value.image } : undefined
+  }],
+  [
+    { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
+    { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
+    { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') },
+    pro.value
+      ? { label: 'Pro — active', icon: 'i-lucide-badge-check', to: localePath('/dashboard') }
+      : { label: 'Upgrade to Pro', icon: 'i-lucide-sparkles', to: '/pricing', color: 'primary' as const }
+  ],
+  ...(role.value === 'admin' || role.value === 'moderator'
+    ? [[{ label: 'Admin console', icon: 'i-lucide-shield', to: localePath('/admin') }]]
+    : []),
+  [{ label: t('nav.signOut'), icon: 'i-lucide-log-out', onSelect: () => signOut() }]
+])
 
 // Language switcher — use setLocale so the choice is persisted (cookie) and
 // the browser-language auto-redirect doesn't bounce the user back.
@@ -111,11 +144,30 @@ const localeItems = computed(() =>
           :content="{ align: 'end' }"
         >
           <UButton
-            icon="i-lucide-circle-user"
             color="neutral"
             variant="ghost"
+            class="gap-2 rounded-full p-1 pe-2"
             :aria-label="user?.name || user?.email || t('nav.account')"
-          />
+          >
+            <UAvatar
+              :src="user?.image || undefined"
+              :text="initials"
+              size="xs"
+              class="bg-primary text-inverted"
+            />
+            <UBadge
+              v-if="pro"
+              size="sm"
+              variant="soft"
+              class="max-sm:hidden"
+            >
+              Pro
+            </UBadge>
+            <UIcon
+              name="i-lucide-chevron-down"
+              class="size-3.5 text-muted"
+            />
+          </UButton>
         </UDropdownMenu>
         <UButton
           v-else

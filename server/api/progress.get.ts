@@ -22,15 +22,23 @@ export default defineEventHandler(async (event) => {
   // Rank is computed here rather than read from a stored column: it is a
   // position in an ordering, so it changes when *other* people earn points,
   // and nothing would ever know to update this user's row.
-  const [completed, entitlement, points] = await Promise.all([
+  const [completed, entitlement, points, activity] = await Promise.all([
     sql`select lesson_path from app.progress where user_id = ${user.id} order by completed_at desc`,
-    sql`select pro from app.entitlement where user_id = ${user.id}`,
+    hasPro(user.id),
     sql`
       select p.points, p.contributions,
              (select count(*) + 1 from app.user_points q
                where q.points > p.points) as rank
       from app.user_points p
       where p.user_id = ${user.id}
+    `,
+    // Lessons completed per week for the last 12 weeks, for the dashboard's
+    // activity chart. Weeks with nothing are filled in on the client.
+    sql`
+      select to_char(date_trunc('week', completed_at), 'YYYY-MM-DD') as week, count(*)::int as n
+      from app.progress
+      where user_id = ${user.id} and completed_at > now() - interval '12 weeks'
+      group by 1 order by 1
     `
   ])
 
@@ -38,7 +46,8 @@ export default defineEventHandler(async (event) => {
 
   return {
     completed: completed.map(r => r.lesson_path as string),
-    pro: Boolean(entitlement[0]?.pro),
+    activity: activity.map(r => ({ week: r.week as string, count: Number(r.n) })),
+    pro: entitlement,
     points: Number(points[0]?.points ?? 0),
     contributions: Number(points[0]?.contributions ?? 0),
     // Unranked until they have earned something — rank 1 of nobody is not a

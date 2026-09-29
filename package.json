@@ -6,7 +6,7 @@
     "node": ">=22.5.0"
   },
   "scripts": {
-    "build": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=12288 nuxt build",
+    "build": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=12288 nuxt build && pnpm verify:gating",
     "generate": "pnpm gate && pnpm ask:index && NODE_OPTIONS=--max-old-space-size=12288 nuxt generate && pnpm verify:gating",
     "dev": "bash scripts/dev.sh",
     "preview": "pnpm build && wrangler dev",
@@ -43,8 +43,7 @@
     "nuxt-studio": "^1.7.0",
     "tailwindcss": "^4.3.1",
     "ufo": "^1.6.4",
-    "unist-util-visit": "^5.1.0",
-    "yaml": "^2.9.0"
+    "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.123.0",
@@ -53,7 +52,8 @@
     "eslint": "^10.6.0",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.3.5",
-    "wrangler": "^4.127.1"
+    "wrangler": "^4.127.1",
+    "yaml": "^2.9.0"
   },
   "packageManager": "pnpm@11.9.0"
 }

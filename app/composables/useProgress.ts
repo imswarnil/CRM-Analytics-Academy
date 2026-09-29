@@ -20,6 +20,7 @@ export function useProgress() {
   const rank = useState<number | null>('progress-rank', () => null)
   const contributions = useState('progress-contributions', () => 0)
   const loaded = useState('progress-loaded', () => false)
+  const activity = useState<{ week: string, count: number }[]>('progress-activity', () => [])
   const { isSignedIn } = useAuth()
   const { locales } = useI18n()
 
@@ -37,12 +38,14 @@ export function useProgress() {
         points: number
         rank: number | null
         contributions: number
+        activity?: { week: string, count: number }[]
       }>('/api/progress')
       completed.value = new Set(res.completed)
       pro.value = Boolean(res.pro)
       points.value = res.points ?? 0
       rank.value = res.rank ?? null
       contributions.value = res.contributions ?? 0
+      activity.value = res.activity ?? []
       loaded.value = true
     } catch {
       // Progress is an enhancement; failing to load it must not break a lesson.
@@ -70,5 +73,5 @@ export function useProgress() {
     }
   }
 
-  return { completed, pro, points, rank, contributions, loaded, load, isDone, setDone, normalise }
+  return { completed, pro, points, rank, contributions, activity, loaded, load, isDone, setDone, normalise }
 }

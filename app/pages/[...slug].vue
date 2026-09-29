@@ -21,6 +21,23 @@ const englishPath = computed(() =>
   contentPath.value.replace(new RegExp(`^/(${localeCodes.join('|')})(?=/|$)`), `/${DEFAULT_LOCALE}`)
 )
 
+// Videos are declared on the English lesson (translations are generated and
+// may not carry the field), so a translated page borrows English's ids and
+// MuxVideo then picks this reader's language from them.
+const { data: englishMux } = await useAsyncData(`mux-${englishPath.value}`, async () => {
+  if (contentPath.value === englishPath.value) return null
+  const doc = await queryCollection('docs').path(englishPath.value).select('mux').first()
+  return (doc?.mux as string | Record<string, string> | undefined) ?? null
+})
+const lessonMux = computed(() => page.value?.mux ?? englishMux.value ?? undefined)
+
+const { normalise } = useProgress()
+const lessonKey = computed(() => normalise(route.path))
+
+// Set once a Pro lesson's full body has loaded; the full body starts with the
+// teaser, so the teaser is hidden rather than shown twice.
+const proUnlocked = ref(false)
+
 const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
   // Some newer modules only have English content so far. Rather than 404 a
@@ -297,6 +314,18 @@ useJsonLd(jsonLd)
 
         <PageHeaderLinks />
       </template>
+      <template
+        v-if="page.access === 'pro'"
+        #headline
+      >
+        <span class="flex items-center gap-2">
+          {{ headline }}
+          <UBadge
+            icon="i-lucide-sparkles"
+            size="sm"
+          >Pro</UBadge>
+        </span>
+      </template>
     </UPageHeader>
 
     <UPageBody>
@@ -319,6 +348,14 @@ useJsonLd(jsonLd)
         class="mb-8"
       />
 
+      <!-- A free lesson's own video, in the reader's language. A Pro lesson's
+           video is signed and arrives with its body inside the gate below. -->
+      <MuxVideo
+        v-if="lessonMux && page.access !== 'pro'"
+        :ids="lessonMux"
+        :title="page.title"
+      />
+
       <LessonWalkthrough
         v-if="page.walkthrough?.shots?.length"
         :shots="page.walkthrough.shots"
@@ -327,8 +364,19 @@ useJsonLd(jsonLd)
       />
 
       <ContentRenderer
-        v-if="renderedPage"
+        v-if="renderedPage && !proUnlocked"
         :value="renderedPage"
+      />
+
+      <!-- For a Pro lesson the rendered body above is only the public teaser.
+           The gate shows the paywall, or fetches and renders the full lesson
+           for a reader whose entitlement the server confirms. -->
+      <CourseLessonProGate
+        v-if="page.access === 'pro'"
+        :content-path="contentPath"
+        :title="page.title"
+        :mux="page.mux"
+        @unlocked="proUnlocked = true"
       />
 
       <CourseQuizCard
@@ -342,6 +390,11 @@ useJsonLd(jsonLd)
       />
 
       <CourseLessonComplete />
+
+      <!-- One discussion per lesson across all languages: the path is
+           locale-stripped, so a question asked on the Spanish page is there
+           for English readers too. -->
+      <CourseLessonComments :lesson-path="lessonKey" />
 
       <AdUnit placement="endOfArticle" />
 

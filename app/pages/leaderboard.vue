@@ -14,16 +14,27 @@ interface Entry {
   points: number
   lessonsDone: number
   contributions: number
+  isMe?: boolean
 }
+
+// All-time rewards whoever started first; the 30-day board is the one a
+// newcomer can climb this month. Both use the same point weights.
+const period = ref<'all' | 'month'>('all')
 
 // `server: false` on purpose. The page prerenders as a shell and fills in on
 // the client: baking a leaderboard into a static file would ship a snapshot
 // of the rankings taken at build time and never update it.
-const { data, pending } = await useLazyAsyncData('leaderboard', () =>
-  $fetch<{ entries: Entry[] }>('/api/leaderboard'), {
+const { data, pending } = await useLazyAsyncData(() => `leaderboard-${period.value}`, () =>
+  $fetch<{ entries: Entry[], me: Entry | null }>('/api/leaderboard', { query: { period: period.value } }), {
   server: false,
-  default: () => ({ entries: [] as Entry[] })
+  watch: [period],
+  default: () => ({ entries: [] as Entry[], me: null })
 })
+
+// The signed-in learner's own row, shown under the table when they are not
+// already in the visible list.
+const me = computed(() => data.value?.me ?? null)
+const meOffBoard = computed(() => me.value && !entries.value.some(e => e.isMe))
 
 const entries = computed(() => data.value?.entries ?? [])
 
@@ -65,6 +76,19 @@ const medal: Record<number, string> = {
     />
 
     <UPageBody>
+      <div class="mb-6 flex flex-wrap items-center gap-2">
+        <UButton
+          v-for="p in [{ key: 'all', label: 'All time', icon: 'i-lucide-infinity' }, { key: 'month', label: 'Last 30 days', icon: 'i-lucide-calendar-days' }] as const"
+          :key="p.key"
+          :icon="p.icon"
+          size="sm"
+          :color="period === p.key ? 'primary' : 'neutral'"
+          :variant="period === p.key ? 'soft' : 'ghost'"
+          @click="period = p.key"
+        >
+          {{ p.label }}
+        </UButton>
+      </div>
       <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <div>
           <!-- The podium. Champion in the middle with the primary border;
@@ -132,6 +156,7 @@ const medal: Record<number, string> = {
                   v-for="e in (podium.length === 3 ? rest : entries)"
                   :key="e.rank"
                   class="border-t border-default first:border-t-0"
+                  :class="e.isMe ? 'bg-primary/8' : ''"
                 >
                   <td
                     class="px-4 py-2.5 font-bold"
@@ -156,6 +181,11 @@ const medal: Record<number, string> = {
                         aria-hidden="true"
                       >{{ e.name.slice(0, 1).toUpperCase() }}</span>
                       <span class="min-w-0 truncate font-medium text-highlighted">{{ e.name }}</span>
+                      <UBadge
+                        v-if="e.isMe"
+                        size="sm"
+                        variant="soft"
+                      >You</UBadge>
                     </span>
                   </td>
                   <td class="py-2.5 pe-4 text-end font-semibold tabular-nums text-highlighted">
@@ -170,6 +200,16 @@ const medal: Record<number, string> = {
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <div
+            v-if="meOffBoard && me"
+            class="mt-4 flex items-center justify-between rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 text-sm"
+          >
+            <span class="text-toned">Your position</span>
+            <span class="font-semibold text-highlighted">
+              #{{ me.rank }} · {{ me.points }} points
+            </span>
           </div>
 
           <p

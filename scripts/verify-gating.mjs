@@ -13,6 +13,7 @@
 import { readFile, readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { existsSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
 
 /**
  * Recursive file walk.
@@ -42,27 +43,47 @@ const PUBLIC = path.join(ROOT, '.output/public')
 const GATED = path.join(ROOT, 'server/assets/gated')
 
 /**
- * Distinctive verbatim slices of the body.
+ * Distinctive verbatim slices of the part of each lesson that must stay
+ * hidden.
  *
- * Taken raw — no punctuation stripping. An earlier version normalised the
- * probe but not the file it searched, so "PINEAPPLE-QUARTZ-MERIDIAN" became
- * "PINEAPPLE QUARTZ MERIDIAN" and never matched the leaked copy that still
- * had its hyphens. That produced a green check over a real leak, which is
- * worse than having no check at all.
+ * Taken only from runs of plain prose — no markdown syntax, quotes or
+ * backslashes — so the same characters appear verbatim whether the body leaked
+ * as markdown (/raw, llms-full.txt) or as the parsed text nodes of the content
+ * database. A probe that spans `**bold**` would match neither, and produce a
+ * green check over a real leak.
  *
- * Several probes per lesson, from different offsets, because one slice can
- * legitimately fall inside a shared boilerplate line.
+ * Anything that also appears in public text is skipped — the teaser is
+ * public on purpose, and a sentence shared with a free lesson is not a leak.
  */
-function probes(markdown) {
-  const body = markdown.replace(/^---[\s\S]*?---/, '').trim()
-  const flat = body.replace(/\s+/g, ' ')
+function probes(markdown, stubText) {
+  const body = markdown.replace(/^---[\s\S]*?---/, '')
+  // Any script, not only Latin: the translated copies of a Pro lesson are
+  // gated too, and a probe set that cannot see Chinese or Bengali would pass
+  // a leaked translation. Dense scripts need fewer characters to be
+  // distinctive, so the minimum length drops for them.
+  const runs = body.match(/\p{L}[^*_`[\]()|\\"'<>{}#:\n]{15,}/gu) ?? []
   const out = []
-  for (const frac of [0.25, 0.5, 0.75]) {
-    const start = Math.floor(flat.length * frac)
-    const slice = flat.slice(start, start + 60).trim()
-    if (slice.length >= 30) out.push(slice)
+  for (const run of runs) {
+    const dense = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(run)
+    const slice = run.slice(0, dense ? 16 : 44).trim()
+    if (slice.length < (dense ? 12 : 36) || stubText.includes(slice)) continue
+    out.push(slice)
+    if (out.length >= 6) break
   }
   return out
+}
+
+/** Content dumps ship gzipped and base64-encoded; read them decoded. */
+async function readText(file) {
+  const raw = await readFile(file, 'utf8')
+  if (/sql_dump\.txt$/.test(file) && /^[A-Za-z0-9+/=\s]+$/.test(raw.slice(0, 200))) {
+    try {
+      return gunzipSync(Buffer.from(raw, 'base64')).toString('utf8')
+    } catch {
+      return raw
+    }
+  }
+  return raw
 }
 
 async function main() {
@@ -75,16 +96,32 @@ async function main() {
     process.exit(1)
   }
 
-  const assets = (await readdir(GATED)).filter(f => f.endsWith('.json'))
+  const assets = await walk(GATED, f => f.endsWith('.json'))
   if (!assets.length) {
     console.log('[verify-gating] no gated content — nothing to check')
     return
   }
 
   const needles = []
+  // Text that is public on purpose: the stubs' teasers, and every lesson that
+  // is not gated. A sentence a Pro lesson shares with a free one proves
+  // nothing when it turns up in the bundle, so it is not used as a probe.
+  const STUBS = path.join(ROOT, '.gated-stubs')
+  const gatedFiles = new Set(JSON.parse(await readFile(path.join(ROOT, '.gated-files.json'), 'utf8')))
+  const CONTENT = path.join(ROOT, 'content')
+  const publicFiles = [
+    ...(await walk(STUBS, f => f.endsWith('.md'))),
+    ...(await walk(CONTENT, f => f.endsWith('.md') && !gatedFiles.has(path.relative(CONTENT, f).split(path.sep).join('/'))))
+  ]
+  const stubs = (await Promise.all(publicFiles.map(f => readFile(f, 'utf8')))).join('\n')
   for (const file of assets) {
-    const { markdown } = JSON.parse(await readFile(path.join(GATED, file), 'utf8'))
-    for (const p of probes(markdown)) needles.push({ file, probe: p })
+    const { markdown } = JSON.parse(await readFile(file, 'utf8'))
+    const found = probes(markdown, stubs)
+    if (!found.length) {
+      console.error(`[verify-gating] FAIL — no usable probes for ${file}; the check would pass blindly`)
+      process.exit(1)
+    }
+    for (const p of found) needles.push({ file, probe: p })
   }
 
   const leaks = []
@@ -97,7 +134,7 @@ async function main() {
     // The content dumps are large; read them anyway — they are the most
     // likely place for a body to be hiding.
     if (size > 60_000_000) continue
-    const text = (await readFile(file, 'utf8')).replace(/\s+/g, ' ')
+    const text = (await readText(file)).replace(/\s+/g, ' ')
     for (const { file: src, probe: p } of needles) {
       if (text.includes(p)) leaks.push({ lesson: src, found_in: path.relative(PUBLIC, file) })
     }

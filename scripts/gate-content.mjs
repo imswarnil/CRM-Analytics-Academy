@@ -16,6 +16,8 @@
 import { readFile, writeFile, mkdir, rm, readdir } from 'node:fs/promises'
 import path from 'node:path'
 
+import { parse as parseYaml, stringify as stringifyYaml } from 'yaml'
+
 /**
  * Recursive file walk.
  *
@@ -42,22 +44,18 @@ async function walk(dir, match, out = []) {
 const ROOT = process.cwd()
 const CONTENT = path.join(ROOT, 'content')
 const OUT = path.join(ROOT, 'server/assets/gated')
+const STUBS = path.join(ROOT, '.gated-stubs')
 const ROUTES = path.join(ROOT, '.gated-routes.json')
+const FILES = path.join(ROOT, '.gated-files.json')
 
-/** Minimal frontmatter read — enough to find `access` and `mux`. */
-function frontmatter(raw) {
-  const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
-  if (!m) return {}
-  const out = {}
-  for (const line of m[1].split(/\r?\n/)) {
-    const kv = line.match(/^([a-zA-Z_][\w-]*):\s*(.*)$/)
-    if (kv) out[kv[1]] = kv[2].trim().replace(/^["']|["']$/g, '')
-  }
-  return out
+function split(raw) {
+  const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/)
+  if (!m) return { data: {}, body: raw }
+  return { data: parseYaml(m[1]) ?? {}, body: m[2] }
 }
 
 /**
- * content/en/1.foundations/3.saql.md -> /foundations/saql
+ * content/en/01.foundations/03.saql.md -> /foundations/saql
  * Numeric ordering prefixes and the locale segment are both stripped, matching
  * how [...slug].vue maps a route to a content path.
  */
@@ -69,37 +67,127 @@ function toRoute(file) {
   return { locale, route: route.replace(/\/index$/, '') || '/' }
 }
 
+/**
+ * The free part of a Pro lesson: the title and introduction, up to the first
+ * `## ` heading (or the first section, if the introduction is a single line),
+ * capped at ~1,800 characters. Enough for a reader to judge whether it is worth unlocking,
+ * and a small enough fraction that it gives nothing away.
+ */
+function teaser(body) {
+  const lines = body.split(/\r?\n/)
+  const out = []
+  let headings = 0
+  let inBlock = false
+  for (const line of lines) {
+    // Never cut an MDC component in half — its YAML would not parse.
+    if (/^::[a-z]/.test(line)) inBlock = true
+    if (/^::\s*$/.test(line)) {
+      inBlock = false
+      out.push(line)
+      continue
+    }
+    // Stop at the first section heading once there is a real introduction to
+    // show; a lesson with a one-line intro gets its first section too.
+    if (!inBlock && /^## /.test(line) && (++headings >= 2 || out.join('\n').replace(/^#.*$/m, '').trim().length > 160)) break
+    out.push(line)
+    if (!inBlock && out.join('\n').length > 1800) break
+  }
+  while (inBlock && out.length && !/^::\s*$/.test(out[out.length - 1] ?? '')) out.pop()
+  return out.join('\n').trim()
+}
+
+/**
+ * The stub that takes a Pro lesson's place in the content collection. The
+ * collection is published whole as a client-side database (dump.docs.sql), so
+ * anything in it is public; the stub carries only what a locked page shows —
+ * title, description, navigation, the video's (signed, useless on their own)
+ * playback ids — and the teaser. Quizzes, interview answers and walkthrough
+ * scripts stay behind the paywall with the body.
+ */
+function stub(data, body) {
+  const keep = {}
+  for (const k of ['title', 'description', 'navigation', 'links', 'mux', 'badge']) {
+    if (data[k] !== undefined) keep[k] = data[k]
+  }
+  keep.access = 'pro'
+  return `---\n${stringifyYaml(keep).trim()}\n---\n\n${teaser(body)}\n`
+}
+
 async function main() {
   await rm(OUT, { recursive: true, force: true })
+  await rm(STUBS, { recursive: true, force: true })
   await mkdir(OUT, { recursive: true })
 
   const gated = new Set()
-  let count = 0
+  const files = []
+  const all = await walk(CONTENT, f => f.endsWith('.md'))
 
-  for (const file of await walk(CONTENT, f => f.endsWith('.md'))) {
-    const raw = await readFile(file, 'utf8')
-    const fm = frontmatter(raw)
-    if (fm.access !== 'pro') continue
-
-    const { locale, route } = toRoute(file)
-    // One asset per locale+route, keyed the way the API looks it up.
-    const key = `${locale}${route}`.replace(/^\//, '').replace(/\//g, ':')
-    await writeFile(
-      path.join(OUT, `${key}.json`),
-      JSON.stringify({ access: 'pro', mux: fm.mux ?? null, markdown: raw }),
-      'utf8'
-    )
-
-    // Both the unprefixed default-locale route and the prefixed one, since
-    // the prerenderer would otherwise still emit /es/<route>.
-    gated.add(locale === 'en' ? route : `/${locale}${route}`)
-    if (locale === 'en') gated.add(`/en${route}`)
-    count += 1
+  // English is the only hand-written locale; the other eleven are generated
+  // from it. So a lesson's access and videos are decided by its English file
+  // and applied to every translation — otherwise the Spanish copy of a Pro
+  // lesson would give the lesson away, and a translation that lost the field
+  // would quietly make it free.
+  const english = new Map()
+  for (const file of all) {
+    const rel = path.relative(CONTENT, file).split(path.sep)
+    if (rel[0] !== 'en') continue
+    const { data } = split(await readFile(file, 'utf8'))
+    english.set(rel.slice(1).join('/'), data)
   }
 
+  for (const file of all) {
+    const raw = await readFile(file, 'utf8')
+    const { data, body } = split(raw)
+    const rel0 = path.relative(CONTENT, file).split(path.sep)
+    const en = english.get(rel0.slice(1).join('/'))
+    if (en?.access === 'pro') {
+      data.access = 'pro'
+      if (en.mux !== undefined) data.mux = en.mux
+    }
+    if (data.access !== 'pro') continue
+
+    const rel = path.relative(CONTENT, file)
+    files.push(rel.split(path.sep).join('/'))
+
+    const { locale, route } = toRoute(file)
+    // One asset per locale+route, as nested folders: Nitro reads server
+    // assets through unstorage, which treats ':' in a key as a path separator,
+    // so the API's key `gated:en:saql:functions.json` resolves to
+    // gated/en/saql/functions.json. A flat file with colons in its name is
+    // listed by getKeys() and then never found by getItem().
+    const assetPath = path.join(OUT, locale, `${route.replace(/^\//, '')}.json`)
+    await mkdir(path.dirname(assetPath), { recursive: true })
+    await writeFile(assetPath, JSON.stringify({ access: 'pro', markdown: body, data }), 'utf8')
+
+    const stubPath = path.join(STUBS, rel)
+    await mkdir(path.dirname(stubPath), { recursive: true })
+    await writeFile(stubPath, stub(data, body), 'utf8')
+
+    gated.add(locale === 'en' ? route : `/${locale}${route}`)
+  }
+
+  // Every English lesson with its access and videos, for the admin Lessons
+  // view. The Worker has no content database, so this is how it knows the
+  // curriculum without calling GitHub for 161 files.
+  const manifest = [...english.entries()]
+    .filter(([rel]) => !rel.startsWith('.') && rel.includes('/'))
+    .map(([rel, d]) => ({
+      file: `en/${rel}`,
+      route: '/' + rel.replace(/\.md$/, '').split('/').map(p => p.replace(/^\d+\./, '')).join('/').replace(/\/index$/, ''),
+      section: rel.split('/')[0],
+      title: String(d.navigation?.title ?? d.title ?? rel),
+      access: d.access === 'pro' ? 'pro' : 'free',
+      mux: d.mux ?? null
+    }))
+    .sort((x, y) => x.file.localeCompare(y.file))
+  await mkdir(path.join(ROOT, 'server/assets'), { recursive: true })
+  await writeFile(path.join(ROOT, 'server/assets/lessons.json'), JSON.stringify(manifest), 'utf8')
+
+  // content.config.ts reads this list to exclude the real files from the
+  // collection, and adds .gated-stubs/ as a second source in their place.
+  await writeFile(FILES, JSON.stringify(files.sort(), null, 2), 'utf8')
   await writeFile(ROUTES, JSON.stringify([...gated].sort(), null, 2), 'utf8')
-  console.log(`[gate-content] ${count} gated lesson(s) -> server/assets/gated/`)
-  console.log(`[gate-content] ${gated.size} route(s) excluded from prerender`)
+  console.log(`[gate-content] ${files.length} Pro lesson file(s) -> server/assets/gated/ + .gated-stubs/`)
 }
 
 main().catch((e) => {

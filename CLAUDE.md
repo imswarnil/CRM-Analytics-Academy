@@ -85,9 +85,17 @@ deploy). It refuses to finish if the script modified anything under `content/en/
 Hand-fix a bad translation by editing the locale file directly — it is only regenerated when
 its English source changes. See the `translate-lesson` skill for the full rationale.
 
+## Pro lessons, payments, video and comments
+
+- **Pro lessons.** Mark a lesson `access: pro` in its **English** frontmatter; every translation follows. `scripts/gate-content.mjs` (run by `pnpm build`) moves the full body into `server/assets/gated/<locale>/<route>.json` and writes a public stub (title, navigation, teaser) into `.gated-stubs/`; `content.config.ts` excludes the real files and reads the stubs instead, because the content collection ships to the browser as `dump.docs.sql`. The body is served only by `/api/lesson/<locale>/<route>` after `hasPro()`. `pnpm build` ends with `scripts/verify-gating.mjs`, which decodes the dumps and fails the build if any hidden text is public. Admins toggle access in `/admin → Lessons & Pro`, which commits the frontmatter change to GitHub.
+- **Payments: Dodo Payments.** `/pricing` → `POST /api/billing/checkout` → Dodo hosted checkout → `POST /api/billing/webhook` (Standard Webhooks signature, replay-guarded by `app.webhook_event`) grants/revokes `app.entitlement`. The return redirect grants nothing. Worker secrets: `MY_DODO_API_KEY`, `DODO_WEBHOOK_SECRET`, `DODO_ENV` (`test` until you switch to live), `DODO_PRODUCT_PRO_MONTHLY`, `DODO_PRODUCT_PRO_LIFETIME`.
+- **Video: Mux.** Frontmatter `mux: { en: <playbackId>, es: … }` on the English lesson; the player picks the reader's language and falls back to English. Free lessons use public playback ids; Pro lessons use signed ids and need `MUX_SIGNING_KEY_ID` / `MUX_SIGNING_KEY_SECRET` on the Worker.
+- **Comments.** `app.comment` (`server/db/006_comments.sql`), one level of replies, keyed by the locale-stripped lesson path. Moderated in `/admin → Comments`.
+- Migrations in `server/db/*.sql` are applied by hand against Neon, in order.
+
 ## Environment variables
 
-Local values live in a **gitignored `.env`** (`.env.example` documents the shape). There are **no secrets** — the only variable is `NUXT_PUBLIC_SITE_URL` (public site URL, used for OG images when prerendering).
+Local values live in a **gitignored `.env`** (`.env.example` documents the shape). Production secrets live on the Worker (`wrangler secret put`): Neon (`DATABASE_URL`, `NEON_AUTH_*`), admin (`ADMIN_EMAILS`, `GITHUB_CONTENT_TOKEN`), Studio OAuth, Dodo (above) and, once added, Mux signing keys.
 
 ## Conventions
 - Links: use `useLocalePath()` / `localePath('/path')` for internal links (i18n prefixing). New user-facing strings go in `i18n/locales/en.json` **only** — `pnpm translate --only=ui` fills in the other 11 and preserves existing translations. There is no message fallback, so a key missing from a locale renders as the raw key.
