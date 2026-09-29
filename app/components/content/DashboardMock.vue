@@ -75,43 +75,43 @@ const span = (n?: number) => SPANS[Math.min(12, Math.max(1, n ?? 4))]
 
 <template>
   <figure class="not-prose my-8">
-    <div class="overflow-hidden rounded-xl border border-default bg-default shadow-sm">
+    <div class="overflow-hidden border-[1.5px] border-(--ink) bg-(--card)">
       <!-- chrome -->
-      <div class="flex items-center gap-2 border-b border-default bg-elevated/60 px-3 py-2">
+      <div class="flex items-center gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2">
         <span
           class="flex gap-1.5"
           aria-hidden="true"
         >
-          <span class="size-2.5 rounded-full bg-dimmed/40" />
-          <span class="size-2.5 rounded-full bg-dimmed/40" />
-          <span class="size-2.5 rounded-full bg-dimmed/40" />
+          <span class="size-2.5 bg-(--line)" />
+          <span class="size-2.5 bg-(--line)" />
+          <span class="size-2.5 bg-(--line)" />
         </span>
         <div class="min-w-0 flex-1 text-center">
-          <p class="truncate text-xs font-semibold text-highlighted">
+          <p class="truncate text-xs font-semibold text-(--ink)">
             {{ props.title }}
           </p>
           <p
             v-if="props.subtitle"
-            class="truncate text-[11px] text-muted"
+            class="truncate text-[11px] text-(--ink2)"
           >
             {{ props.subtitle }}
           </p>
         </div>
         <UIcon
           name="i-lucide-refresh-cw"
-          class="size-3.5 shrink-0 text-dimmed"
+          class="size-3.5 shrink-0 text-(--ink2)"
         />
       </div>
 
       <!-- global filters -->
       <div
         v-if="props.filters?.length"
-        class="flex flex-wrap gap-1.5 border-b border-default bg-elevated/25 px-3 py-2"
+        class="flex flex-wrap gap-1.5 border-b-[1.5px] border-(--ink) bg-(--paper) px-3 py-2"
       >
         <span
           v-for="(f, i) in props.filters"
           :key="i"
-          class="inline-flex items-center gap-1 rounded-md border border-default bg-default px-2 py-0.5 text-[11px] text-muted"
+          class="inline-flex items-center gap-1 border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 text-[11px] text-(--ink2)"
         >
           <UIcon
             name="i-lucide-chevron-down"
@@ -126,21 +126,21 @@ const span = (n?: number) => SPANS[Math.min(12, Math.max(1, n ?? 4))]
         <div
           v-for="(w, i) in props.widgets"
           :key="i"
-          class="flex min-h-[64px] flex-col justify-between rounded-lg border border-dashed border-default bg-elevated/30 p-2.5"
+          class="flex min-h-[64px] flex-col justify-between border border-dashed border-(--line) bg-(--card) p-2.5"
           :class="span(w.span)"
         >
           <div class="flex items-start gap-1.5">
             <UIcon
               :name="icon(w.type)"
-              class="mt-px size-3.5 shrink-0 text-primary/70"
+              class="mt-px size-3.5 shrink-0 text-(--signal)"
             />
-            <p class="text-[11px] font-semibold leading-tight text-highlighted">
+            <p class="text-[11px] font-semibold leading-tight text-(--ink)">
               {{ w.label }}
             </p>
           </div>
           <p
             v-if="w.note"
-            class="mt-1.5 font-mono text-[10px] leading-snug text-dimmed"
+            class="mt-1.5 font-mono text-[10px] leading-snug text-(--ink2)"
           >
             {{ w.note }}
           </p>
@@ -149,7 +149,7 @@ const span = (n?: number) => SPANS[Math.min(12, Math.max(1, n ?? 4))]
     </div>
     <figcaption
       v-if="props.caption"
-      class="mt-2 text-center text-xs text-muted"
+      class="mt-2 text-center text-xs text-(--ink2)"
     >
       {{ props.caption }}
     </figcaption>

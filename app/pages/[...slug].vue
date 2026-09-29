@@ -106,7 +106,7 @@ const renderedPage = computed(() => {
     ...p,
     body: {
       ...p.body,
-      value: injectInArticleAds(body)
+      value: injectInArticlePromos(body)
     }
   }
 })
@@ -282,79 +282,223 @@ if (interview?.length) {
 }
 
 useJsonLd(jsonLd)
+
+// Player chrome: position in the course, prev / next, completion and the
+// course timeline (one bar per lesson, current signal, done tide, open ice,
+// locked Pro hatched).
+const { lessons: courseLessons, current, previous, next, position, total: courseTotal } = useCourse()
+const { isDone, setDone, pro } = useProgress()
+const { isSignedIn } = useAuth()
+const { of: metaOf } = useLessonMeta()
+const meta = computed(() => metaOf(route.path))
+const done = computed(() => isDone(route.path))
+const mobileContents = useState('bp-contents-mobile', () => false)
+const tocOpen = useCookie<boolean>('bp-toc-open', { default: () => true, sameSite: 'lax' })
+
+async function toggleDone() {
+  if (!isSignedIn.value) {
+    await navigateTo(localePath('/sign-in'))
+    return
+  }
+  await setDone(route.path, !done.value)
+}
+
+const timeline = computed(() => courseLessons.value.map((l) => {
+  const m = metaOf(l.path)
+  const here = normalise(l.path) === lessonKey.value
+  const tone = here
+    ? 'signal' as const
+    : isDone(l.path)
+      ? 'tide' as const
+      : m.access === 'pro' && !pro.value ? 'hatch' as const : 'ice' as const
+  return { label: '', value: m.minutes, tone, title: l.title, to: localePath(l.path) }
+}))
+
+const hasMedia = computed(() => Boolean(page.value?.clip?.src || page.value?.video?.id || (lessonMux.value && page.value?.access !== 'pro')))
+const lessonNo = computed(() => String(position.value).padStart(3, '0'))
 </script>
 
 <template>
-  <!-- `lesson-grid` sizes this inner grid (prose vs table of contents) in
-       main.css, alongside the layout's outer one; the two compose to a page
-       that is a quarter rail, half prose, a quarter contents. -->
-  <UPage
+  <article
     v-if="page"
-    :ui="{ root: 'lesson-grid' }"
+    class="min-w-0"
   >
-    <UBreadcrumb
-      :items="breadcrumbItems"
-      class="mt-6"
-    />
+    <!-- Lesson header: crumbs, drawing number, title -->
+    <header class="graph-paper border-b-[1.5px] border-(--ink) px-4 pb-8 pt-6 sm:px-8">
+      <div class="flex items-center justify-between gap-3">
+        <nav
+          aria-label="Breadcrumb"
+          class="min-w-0"
+        >
+          <ol class="flex min-w-0 flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2)">
+            <li
+              v-for="(c, i) in breadcrumbItems"
+              :key="c.to"
+              class="flex items-center gap-2"
+            >
+              <span v-if="i">/</span>
+              <NuxtLink
+                :to="c.to"
+                class="truncate hover:text-(--signal)"
+                :class="i === breadcrumbItems.length - 1 ? 'text-(--ink)' : ''"
+              >{{ c.label }}</NuxtLink>
+            </li>
+          </ol>
+        </nav>
+        <UButton
+          class="lg:hidden"
+          icon="i-lucide-list"
+          color="neutral"
+          variant="outline"
+          size="sm"
+          label="Contents"
+          @click="mobileContents = true"
+        />
+      </div>
 
-    <!-- pt-2 pulls the title up under the breadcrumb; the header's default
-         top padding doubled the gap the breadcrumb's own margin already made. -->
-    <UPageHeader
-      :title="page.title"
-      :description="page.description"
-      :headline="headline"
-      :ui="{ root: 'pt-2' }"
-    >
-      <template #links>
+      <p class="eyebrow mt-6">
+        Lesson {{ lessonNo }} / {{ courseTotal }} — {{ current?.moduleTitle || headline }}
+      </p>
+      <h1 class="bp-h2 mt-3 max-w-4xl text-(--ink)">
+        {{ page.title }}
+      </h1>
+      <p
+        v-if="page.description"
+        class="bp-lead mt-4 max-w-3xl"
+      >
+        {{ page.description }}
+      </p>
+      <div class="mt-5 flex flex-wrap items-center gap-2">
+        <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">
+          {{ meta.type }} · {{ meta.minutes }} min
+        </span>
+        <span
+          class="border-[1.5px] px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]"
+          :class="page.access === 'pro' ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--signal) text-(--signal)'"
+        >{{ page.access === 'pro' ? 'Pro' : 'Free' }}</span>
         <UButton
           v-for="(link, index) in page.links"
           :key="index"
           v-bind="link"
+          size="xs"
+          color="neutral"
+          variant="outline"
         />
-
         <PageHeaderLinks />
-      </template>
-      <template
-        v-if="page.access === 'pro'"
-        #headline
-      >
-        <span class="flex items-center gap-2">
-          {{ headline }}
-          <UBadge
-            icon="i-lucide-sparkles"
-            size="sm"
-          >Pro</UBadge>
-        </span>
-      </template>
-    </UPageHeader>
+      </div>
+    </header>
 
-    <UPageBody>
-      <video
-        v-if="page.clip?.src"
-        :src="page.clip.src"
-        :poster="page.clip.poster"
-        controls
-        playsinline
-        preload="metadata"
-        class="mb-8 aspect-video w-full rounded-lg border border-default bg-neutral-950"
-      />
-
-      <YoutubeEmbed
-        v-if="page.video?.id"
-        :id="page.video.id"
-        :start="page.video.start"
-        :end="page.video.end"
-        :title="page.title"
+    <div class="mx-auto max-w-[68rem] px-4 py-8 sm:px-8">
+      <!-- The media, framed as a figure -->
+      <BpFigure
+        v-if="hasMedia"
+        :caption="`Fig. ${lessonNo} — ${page.title}`"
+        :spec="`${meta.minutes} min`"
+        ruler
         class="mb-8"
-      />
+      >
+        <video
+          v-if="page.clip?.src"
+          :src="page.clip.src"
+          :poster="page.clip.poster"
+          controls
+          playsinline
+          preload="metadata"
+          class="aspect-video w-full bg-(--ink)"
+        />
+        <YoutubeEmbed
+          v-else-if="page.video?.id"
+          :id="page.video.id"
+          :start="page.video.start"
+          :end="page.video.end"
+          :title="page.title"
+        />
+        <MuxVideo
+          v-else-if="lessonMux && page.access !== 'pro'"
+          :ids="lessonMux"
+          :title="page.title"
+        />
+      </BpFigure>
 
-      <!-- A free lesson's own video, in the reader's language. A Pro lesson's
-           video is signed and arrives with its body inside the gate below. -->
-      <MuxVideo
-        v-if="lessonMux && page.access !== 'pro'"
-        :ids="lessonMux"
-        :title="page.title"
-      />
+      <!-- Prev / mark complete / next -->
+      <div
+        class="mb-8 grid items-stretch border-[1.5px] border-(--ink) bg-(--card)"
+        style="grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr)"
+      >
+        <NuxtLink
+          v-if="previous"
+          :to="localePath(previous.path)"
+          class="group flex min-w-0 items-center gap-2 px-3 py-2.5 hover:bg-(--ice)"
+        >
+          <UIcon
+            name="i-lucide-arrow-left"
+            class="size-4 flex-none transition-transform group-hover:-translate-x-0.5"
+          />
+          <span class="min-w-0">
+            <span class="block font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">Previous</span>
+            <span class="block truncate text-sm font-semibold">{{ previous.title }}</span>
+          </span>
+        </NuxtLink>
+        <span v-else />
+        <ClientOnly>
+          <button
+            type="button"
+            class="flex items-center gap-2 border-x-[1.5px] border-(--ink) px-4 font-mono text-[11px] font-semibold uppercase tracking-[.1em] transition-colors"
+            :class="done ? 'bg-(--glow) text-(--ink)' : 'hover:bg-(--ice)'"
+            @click="toggleDone"
+          >
+            <UIcon
+              :name="done ? 'i-lucide-check-check' : 'i-lucide-check'"
+              class="size-4"
+            />
+            <span class="hidden sm:inline">{{ done ? 'Completed' : 'Mark complete' }}</span>
+          </button>
+          <template #fallback>
+            <span class="border-x-[1.5px] border-(--ink) px-4" />
+          </template>
+        </ClientOnly>
+        <NuxtLink
+          v-if="next"
+          :to="localePath(next.path)"
+          class="group flex min-w-0 items-center justify-end gap-2 px-3 py-2.5 text-end hover:bg-(--ice)"
+        >
+          <span class="min-w-0">
+            <span class="block font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">Next</span>
+            <span class="block truncate text-sm font-semibold">{{ next.title }}</span>
+          </span>
+          <UIcon
+            name="i-lucide-arrow-right"
+            class="size-4 flex-none transition-transform group-hover:translate-x-0.5"
+          />
+        </NuxtLink>
+        <span v-else />
+      </div>
+
+      <!-- Course timeline -->
+      <div class="mb-10 border-[1.5px] border-(--ink) bg-(--card) p-4">
+        <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <p class="mono-label">
+            Course timeline — lesson {{ position }} of {{ courseTotal }}
+          </p>
+          <div class="flex flex-wrap gap-3 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">
+            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--ink) bg-(--signal)" />Here</span>
+            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--ink) bg-(--tide)" />Done</span>
+            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--ink) bg-(--ice)" />Open</span>
+            <span class="flex items-center gap-1"><i class="hatch inline-block size-2.5 border border-(--ink)" />Pro</span>
+          </div>
+        </div>
+        <ClientOnly>
+          <BpBarChart
+            :bars="timeline"
+            :height="64"
+            :gap="1"
+            :format="v => `${v} min`"
+          />
+          <template #fallback>
+            <div class="h-16" />
+          </template>
+        </ClientOnly>
+      </div>
 
       <LessonWalkthrough
         v-if="page.walkthrough?.shots?.length"
@@ -363,21 +507,127 @@ useJsonLd(jsonLd)
         :has-video="Boolean(page.clip?.src || page.video?.id)"
       />
 
-      <ContentRenderer
-        v-if="renderedPage && !proUnlocked"
-        :value="renderedPage"
-      />
+      <details
+        v-if="page?.body?.toc?.links?.length"
+        class="group mb-8 border-[1.5px] border-(--ink) bg-(--card) xl:hidden"
+      >
+        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-mono text-[11px] uppercase tracking-[.1em]">
+          {{ toc?.title || 'On this page' }}
+          <UIcon
+            name="i-lucide-chevron-down"
+            class="size-4 transition-transform group-open:rotate-180"
+          />
+        </summary>
+        <ul class="border-t border-dashed border-(--line) px-4 py-3 text-sm">
+          <li
+            v-for="l in page.body.toc.links"
+            :key="l.id"
+            class="py-1"
+          >
+            <a
+              :href="`#${l.id}`"
+              class="hover:text-(--signal)"
+            >{{ l.text }}</a>
+          </li>
+        </ul>
+      </details>
 
-      <!-- For a Pro lesson the rendered body above is only the public teaser.
-           The gate shows the paywall, or fetches and renders the full lesson
-           for a reader whose entitlement the server confirms. -->
-      <CourseLessonProGate
-        v-if="page.access === 'pro'"
-        :content-path="contentPath"
-        :title="page.title"
-        :mux="page.mux"
-        @unlocked="proUnlocked = true"
-      />
+      <div
+        class="relative xl:grid xl:gap-10"
+        :class="tocOpen ? 'xl:grid-cols-[minmax(0,1fr)_12rem]' : 'xl:grid-cols-[minmax(0,1fr)_2.25rem]'"
+      >
+        <div class="bp-prose min-w-0">
+          <ContentRenderer
+            v-if="renderedPage && !proUnlocked"
+            :value="renderedPage"
+          />
+
+          <!-- For a Pro lesson the rendered body above is only the public teaser.
+               The gate shows the paywall, or fetches and renders the full lesson
+               for a reader whose entitlement the server confirms. -->
+          <CourseLessonProGate
+            v-if="page.access === 'pro'"
+            :content-path="contentPath"
+            :title="page.title"
+            :mux="page.mux"
+            @unlocked="proUnlocked = true"
+          />
+        </div>
+
+        <aside
+          v-if="page?.body?.toc?.links?.length"
+          class="hidden xl:block"
+        >
+          <!-- Collapsed: a narrow rail with the reopen button, and the prose
+               takes the width back. Remembered per reader in a cookie. -->
+          <div
+            v-if="!tocOpen"
+            class="sticky top-24 flex flex-col items-center gap-3"
+          >
+            <UButton
+              icon="i-lucide-panel-right-open"
+              color="neutral"
+              variant="outline"
+              size="xs"
+              square
+              aria-label="Show table of contents"
+              @click="tocOpen = true"
+            />
+            <span class="font-mono text-[10px] uppercase tracking-[.15em] text-(--ink2) [writing-mode:vertical-rl]">{{ toc?.title || 'On this page' }}</span>
+          </div>
+          <div
+            v-else
+            class="sticky top-24"
+          >
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <p class="mono-label">
+                {{ toc?.title || 'On this page' }}
+              </p>
+              <UButton
+                icon="i-lucide-panel-right-close"
+                color="neutral"
+                variant="ghost"
+                size="xs"
+                square
+                aria-label="Collapse table of contents"
+                @click="tocOpen = false"
+              />
+            </div>
+            <ul class="space-y-2 border-s-[1.5px] border-(--ink) text-[13px]">
+              <li
+                v-for="l in page.body.toc.links"
+                :key="l.id"
+              >
+                <a
+                  :href="`#${l.id}`"
+                  class="-ms-[1.5px] block border-s-[3px] border-transparent ps-3 text-(--ink2) hover:border-(--signal) hover:text-(--ink)"
+                >{{ l.text }}</a>
+              </li>
+            </ul>
+            <div
+              v-if="tocBottomLinks.length"
+              class="mt-6 space-y-2 border-t border-dashed border-(--line) pt-4"
+            >
+              <NuxtLink
+                v-for="l in tocBottomLinks"
+                :key="l.label"
+                :to="l.to"
+                :target="l.target"
+                class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2) hover:text-(--signal)"
+              >
+                <UIcon
+                  :name="l.icon"
+                  class="size-3.5"
+                />{{ l.label }}
+              </NuxtLink>
+            </div>
+            <PromoSlot
+              placement="sidebarSquare"
+              class="mt-6 w-full"
+            />
+          </div>
+        </aside>
+      </div>
 
       <CourseQuizCard
         v-if="page.quiz?.length"
@@ -396,45 +646,14 @@ useJsonLd(jsonLd)
            for English readers too. -->
       <CourseLessonComments :lesson-path="lessonKey" />
 
-      <AdUnit placement="endOfArticle" />
+      <PromoSlot placement="endOfArticle" />
 
-      <USeparator v-if="surround?.length" />
+      <UContentSurround
+        :surround="surround"
+        class="mt-10"
+      />
 
-      <UContentSurround :surround="surround" />
-
-      <AdUnit placement="relatedPosts" />
-    </UPageBody>
-
-    <template
-      v-if="page?.body?.toc?.links?.length"
-      #right
-    >
-      <!-- Default Nuxt UI TOC. The ad + community links live in the #bottom
-           slot, which the theme hides on mobile so the mobile TOC stays clean. -->
-      <UContentToc
-        highlight
-        :title="toc?.title"
-        :links="page.body?.toc?.links"
-      >
-        <template #bottom>
-          <AdUnit
-            placement="sidebarSquare"
-            class="w-full"
-          />
-
-          <div
-            v-if="tocBottomLinks.length"
-            class="space-y-4"
-          >
-            <USeparator type="dashed" />
-
-            <UPageLinks
-              :title="toc?.bottom?.title"
-              :links="tocBottomLinks"
-            />
-          </div>
-        </template>
-      </UContentToc>
-    </template>
-  </UPage>
+      <PromoSlot placement="relatedPosts" />
+    </div>
+  </article>
 </template>

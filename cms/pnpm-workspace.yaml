@@ -1,0 +1,6 @@
+# The CMS is its own pnpm project, not a package of the site: the site's
+# Cloudflare build never installs Payload or Next.
+allowBuilds:
+  sharp: true
+  esbuild: true
+  unrs-resolver: false

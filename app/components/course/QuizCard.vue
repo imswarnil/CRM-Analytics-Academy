@@ -77,39 +77,42 @@ function retry() {
 </script>
 
 <template>
-  <section class="not-prose my-10">
-    <div class="mb-5 flex items-center gap-2.5">
-      <div class="flex size-9 items-center justify-center rounded-lg bg-primary/10">
+  <section class="not-prose my-12 border-[1.5px] border-(--ink) bg-(--card)">
+    <header class="flex items-center gap-3 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
+      <span class="flex size-9 items-center justify-center border-[1.5px] border-(--ink) bg-(--card)">
         <UIcon
           name="i-lucide-clipboard-check"
-          class="size-5 text-primary"
+          class="size-5 text-(--signal)"
         />
-      </div>
-      <div>
-        <h2 class="text-base font-semibold text-highlighted">
-          {{ t('quiz.title') }}
-        </h2>
-        <p class="text-xs text-muted">
+      </span>
+      <div class="min-w-0 flex-1">
+        <p class="eyebrow">
+          Check — {{ t('quiz.title') }}
+        </p>
+        <p class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">
           {{ t('quiz.answered', { n: answeredCount, total }) }}
         </p>
       </div>
-    </div>
+    </header>
 
-    <ol class="space-y-4">
+    <ol class="divide-y divide-dashed divide-(--line)">
       <li
         v-for="(question, i) in questions"
         :key="i"
-        class="rounded-xl border p-4 transition-colors"
+        class="relative p-5 transition-colors"
         :class="submitted
-          ? (selections[i] === question.answer
-            ? 'border-success/40 bg-success/5'
-            : 'border-error/40 bg-error/5')
-          : 'border-default bg-default'"
+          ? (selections[i] === question.answer ? 'bg-success/5' : 'bg-error/5')
+          : ''"
       >
-        <p class="mb-1 text-xs font-medium text-muted">
+        <span
+          v-if="submitted"
+          class="absolute inset-y-0 start-0 w-[3px]"
+          :class="selections[i] === question.answer ? 'bg-success' : 'bg-error'"
+        />
+        <p class="mono-label mb-1">
           {{ t('quiz.question', { n: i + 1, total }) }}
         </p>
-        <p class="mb-3 font-medium text-highlighted">
+        <p class="mb-3 font-semibold text-(--ink)">
           {{ question.q }}
         </p>
         <URadioGroup
@@ -120,50 +123,47 @@ function retry() {
       </li>
     </ol>
 
-    <div
-      v-if="!submitted"
-      class="mt-5"
-    >
+    <footer class="border-t-[1.5px] border-(--ink) p-5">
       <UButton
+        v-if="!submitted"
         :label="t('quiz.submit')"
         :disabled="answeredCount < total"
         @click="submit"
       />
-    </div>
 
-    <UAlert
-      v-else
-      class="mt-5"
-      :color="passed ? 'success' : 'error'"
-      variant="subtle"
-      :icon="passed ? 'i-lucide-trophy' : 'i-lucide-rotate-ccw'"
-      :title="t('quiz.score', { score, total })"
-      :description="passed ? t('quiz.passed') : t('quiz.failed')"
-    >
-      <template #actions>
-        <div class="flex flex-wrap items-center gap-3">
-          <UButton
-            color="neutral"
-            variant="outline"
-            :label="t('quiz.retry')"
-            icon="i-lucide-rotate-ccw"
-            @click="retry"
-          />
-          <p
-            v-if="isSignedIn && saved"
-            class="text-sm text-muted"
-          >
-            {{ t('quiz.saved') }}
-          </p>
-          <ULink
-            v-else-if="!isSignedIn"
-            :to="localePath('/sign-in')"
-            class="text-sm"
-          >
-            {{ t('quiz.signInToSave') }}
-          </ULink>
-        </div>
-      </template>
-    </UAlert>
+      <UAlert
+        v-else
+        :color="passed ? 'success' : 'error'"
+        variant="subtle"
+        :icon="passed ? 'i-lucide-trophy' : 'i-lucide-rotate-ccw'"
+        :title="t('quiz.score', { score, total })"
+        :description="passed ? t('quiz.passed') : t('quiz.failed')"
+      >
+        <template #actions>
+          <div class="flex flex-wrap items-center gap-3">
+            <UButton
+              color="neutral"
+              variant="outline"
+              :label="t('quiz.retry')"
+              icon="i-lucide-rotate-ccw"
+              @click="retry"
+            />
+            <p
+              v-if="isSignedIn && saved"
+              class="text-sm text-(--ink2)"
+            >
+              {{ t('quiz.saved') }}
+            </p>
+            <ULink
+              v-else-if="!isSignedIn"
+              :to="localePath('/sign-in')"
+              class="text-sm"
+            >
+              {{ t('quiz.signInToSave') }}
+            </ULink>
+          </div>
+        </template>
+      </UAlert>
+    </footer>
   </section>
 </template>

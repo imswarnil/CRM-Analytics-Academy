@@ -81,7 +81,7 @@ if (jobs.length) {
     <UPage>
       <template #left>
         <aside class="hidden lg:sticky lg:top-(--ui-header-height) lg:block lg:max-h-[calc(100vh-var(--ui-header-height))] lg:overflow-y-auto lg:py-12 lg:pe-6">
-          <p class="mb-4 text-sm font-semibold text-highlighted">
+          <p class="mono-label mb-4">
             {{ t('jobs.filters') }}
           </p>
           <div class="space-y-4">
@@ -98,38 +98,29 @@ if (jobs.length) {
           </div>
           <p
             v-if="updatedLine"
-            class="mt-6 text-sm text-dimmed"
+            class="mt-6 text-sm text-(--ink2)"
           >
             {{ updatedLine }}
           </p>
-          <p class="mt-3 text-xs text-dimmed">
+          <p class="mt-3 text-xs text-(--ink2)">
             {{ t('jobs.disclaimer') }}
           </p>
         </aside>
       </template>
 
       <div class="py-12 sm:py-16">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          class="mb-4 rounded-full"
-        >
-          <UIcon
-            name="i-lucide-briefcase"
-            class="mr-1 size-4"
-          />
-          {{ t('jobs.eyebrow') }}
-        </UBadge>
-        <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+        <p class="eyebrow mb-4">
+          Sheet 07 — {{ t('jobs.eyebrow') }}
+        </p>
+        <h1 class="bp-h1">
           {{ t('jobs.title') }}
         </h1>
-        <p class="mt-4 text-lg text-muted">
+        <p class="mt-4 bp-lead">
           {{ t('jobs.subtitle') }}
         </p>
         <p
           v-if="updatedLine"
-          class="mt-2 text-sm text-dimmed lg:hidden"
+          class="mt-2 text-sm text-(--ink2) lg:hidden"
         >
           {{ updatedLine }}
         </p>
@@ -147,12 +138,12 @@ if (jobs.length) {
           />
         </div>
 
-        <p class="mt-6 text-sm text-muted lg:mt-8">
+        <p class="mt-6 text-sm text-(--ink2) lg:mt-8">
           {{ t('jobs.count', { count: filtered.length }) }}
         </p>
         <p
           v-if="showingSamples"
-          class="mt-1 text-sm text-dimmed"
+          class="mt-1 text-sm text-(--ink2)"
         >
           {{ t('jobs.sampleNote') }}
         </p>
@@ -185,7 +176,7 @@ if (jobs.length) {
                   />
                   {{ job.location }}
                 </span>
-                <span class="text-dimmed">{{ formatDate(job.postedAt) }}</span>
+                <span class="text-(--ink2)">{{ formatDate(job.postedAt) }}</span>
               </span>
             </template>
             <template #footer>
@@ -232,18 +223,18 @@ if (jobs.length) {
 
         <div
           v-else
-          class="mt-10 flex flex-col items-center gap-3 rounded-lg border border-default py-16 text-center"
+          class="mt-10 flex flex-col items-center gap-3 border-[1.5px] border-(--ink) py-16 text-center"
         >
           <UIcon
             name="i-lucide-briefcase"
-            class="size-8 text-dimmed"
+            class="size-8 text-(--ink2)"
           />
-          <p class="text-muted">
+          <p class="text-(--ink2)">
             {{ t('jobs.empty') }}
           </p>
         </div>
 
-        <p class="mt-10 text-xs text-dimmed lg:hidden">
+        <p class="mt-10 text-xs text-(--ink2) lg:hidden">
           {{ t('jobs.disclaimer') }}
         </p>
       </div>

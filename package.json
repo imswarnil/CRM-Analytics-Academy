@@ -17,6 +17,10 @@
     "gate": "node scripts/gate-content.mjs",
     "ask:index": "node scripts/build-search-index.mjs",
     "verify:gating": "node scripts/verify-gating.mjs",
+    "cms:dev": "pnpm --dir cms dev",
+    "cms:import": "pnpm --dir cms run content:import",
+    "cms:pull": "pnpm --dir cms run content:pull",
+    "cms:pull:dry": "pnpm --dir cms run content:pull:dry",
     "org:pull": "cd salesforce && sf project retrieve start --metadata WaveDashboard WaveRecipe WaveDataflow WaveLens WaveApplication",
     "org:open": "cd salesforce && sf org open"
   },

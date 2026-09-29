@@ -62,9 +62,9 @@ async function demo() {
 </script>
 
 <template>
-  <!-- Stock auth idiom: one centred card, nothing behind it. -->
-  <div class="flex min-h-full items-center justify-center p-6 sm:p-10">
-    <UCard class="w-full max-w-md">
+  <!-- Blueprint auth: a graph-paper sheet with one ink-framed card on it. -->
+  <div class="graph-paper flex min-h-[calc(100vh-var(--ui-header-height))] items-center justify-center p-6 sm:p-10">
+    <div class="crosshair w-full max-w-md border-[1.5px] border-(--ink) bg-(--card) p-6 shadow-[10px_10px_0_var(--ice)] sm:p-8">
       <div class="w-full space-y-6">
         <div>
           <NuxtLink
@@ -73,10 +73,13 @@ async function demo() {
           >
             <AppLogo />
           </NuxtLink>
-          <h1 class="text-2xl font-bold text-highlighted">
+          <p class="eyebrow">
+            {{ isSignUp ? 'Sheet 00 — Enrol' : 'Sheet 00 — Sign in' }}
+          </p>
+          <h1 class="bp-h3 mt-2 text-(--ink)">
             {{ isSignUp ? t('auth.signUpTitle') : t('auth.signInTitle') }}
           </h1>
-          <p class="mt-1 text-sm text-muted">
+          <p class="mt-2 text-sm text-(--ink2)">
             {{ isSignUp ? t('auth.signUpDesc') : t('auth.signInDesc') }}
           </p>
         </div>
@@ -163,17 +166,23 @@ async function demo() {
           />
         </form>
 
-        <p class="border-t border-default pt-4 text-center text-sm text-muted">
+        <p class="border-t border-dashed border-(--line) pt-4 text-center font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)">
           <template v-if="isSignUp">
             {{ t('auth.haveAccount') }}
-            <ULink :to="localePath('/sign-in')">{{ t('auth.signInLink') }}</ULink>
+            <ULink
+              :to="localePath('/sign-in')"
+              class="font-semibold text-(--signal)"
+            >{{ t('auth.signInLink') }}</ULink>
           </template>
           <template v-else>
             {{ t('auth.noAccount') }}
-            <ULink :to="localePath('/sign-up')">{{ t('auth.signUpLink') }}</ULink>
+            <ULink
+              :to="localePath('/sign-up')"
+              class="font-semibold text-(--signal)"
+            >{{ t('auth.signUpLink') }}</ULink>
           </template>
         </p>
       </div>
-    </UCard>
+    </div>
   </div>
 </template>

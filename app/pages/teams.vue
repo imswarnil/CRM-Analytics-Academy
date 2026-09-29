@@ -55,72 +55,82 @@ const outcomes = [
 
 <template>
   <div>
-    <section class="bg-brand-wash border-b border-default">
-      <UContainer class="py-14 sm:py-20">
-        <p class="im-meta text-primary">
-          CRM Analytics Academy · For teams
-        </p>
-        <h1 class="mt-3 max-w-3xl text-4xl font-bold tracking-tighter text-highlighted sm:text-5xl text-balance">
-          Upskill the whole team on CRM Analytics
-        </h1>
-        <p class="mt-5 max-w-2xl text-lg text-muted text-pretty">
-          From the admin who owns the licences to the analyst who ships the dashboards — one
-          curriculum, delivered the way your team works, with progress you can see.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <UButton
-            to="#quote"
-            size="lg"
-            icon="i-lucide-file-text"
-          >
-            Request a quotation
-          </UButton>
-          <UButton
-            to="/implementation"
-            size="lg"
-            color="neutral"
-            variant="outline"
-            icon="i-lucide-wrench"
-          >
-            Need it built instead?
-          </UButton>
-        </div>
-      </UContainer>
-    </section>
-
-    <UContainer class="py-14 sm:py-16">
-      <div class="grid gap-4 lg:grid-cols-3">
-        <article
-          v-for="p in plans"
-          :key="p.name"
-          class="relative flex flex-col rounded-2xl border bg-default p-6"
-          :class="p.highlight ? 'border-primary ring-1 ring-primary' : 'border-default'"
+    <BpPageHeader
+      sheet="Sheet 07 / For teams"
+      title="Upskill the whole team on CRM Analytics"
+      lead="From the admin who owns the licences to the analyst who ships the dashboards — one curriculum, delivered the way your team works, with progress you can see."
+    >
+      <div class="mt-8 flex flex-wrap gap-3">
+        <UButton
+          to="#quote"
+          size="lg"
+          icon="i-lucide-file-text"
         >
-          <UBadge
+          Request a quotation
+        </UButton>
+        <UButton
+          to="/implementation"
+          size="lg"
+          color="neutral"
+          variant="outline"
+          icon="i-lucide-wrench"
+        >
+          Need it built instead?
+        </UButton>
+      </div>
+    </BpPageHeader>
+
+    <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+      <p class="eyebrow">
+        Fig. 01 — Plans
+      </p>
+      <div class="mt-6 grid gap-6 lg:grid-cols-3">
+        <article
+          v-for="(p, n) in plans"
+          :key="p.name"
+          class="relative flex flex-col border-[1.5px] border-(--ink) p-6"
+          :class="p.highlight ? 'graph-paper-navy bg-(--navy) text-white shadow-[10px_10px_0_var(--signal)]' : 'bg-(--card)'"
+        >
+          <span
             v-if="p.highlight"
-            class="absolute -top-3 left-6"
-          >
-            Most teams
-          </UBadge>
+            class="absolute -top-3 end-4 bg-(--glow) px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.1em] text-(--ink)"
+          >Most teams</span>
           <div class="flex items-center gap-3">
-            <span class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <span
+              class="flex size-10 items-center justify-center border-[1.5px]"
+              :class="p.highlight ? 'border-white/60 text-(--glow)' : 'border-(--ink) bg-(--ice) text-(--signal)'"
+            >
               <UIcon
                 :name="p.icon"
                 class="size-5"
               />
             </span>
-            <h2 class="text-lg font-semibold text-highlighted">
-              {{ p.name }}
-            </h2>
+            <div>
+              <p
+                class="mono-label"
+                :class="p.highlight ? 'text-(--glow)!' : ''"
+              >
+                Plan 0{{ n + 1 }}
+              </p>
+              <h2 class="text-lg font-extrabold">
+                {{ p.name }}
+              </h2>
+            </div>
           </div>
-          <p class="mt-5">
-            <span class="text-4xl font-bold tracking-tight text-highlighted">{{ p.price }}</span>
-            <span class="ms-1.5 text-sm text-muted">{{ p.per }}</span>
+          <p class="mt-5 flex items-baseline gap-2">
+            <span class="text-4xl font-black tracking-[-0.04em]">{{ p.price }}</span>
+            <span
+              class="font-mono text-xs uppercase"
+              :class="p.highlight ? 'text-white/70' : 'text-(--ink2)'"
+            >{{ p.per }}</span>
           </p>
-          <p class="mt-3 text-sm text-muted">
+          <p
+            class="mt-3 text-sm"
+            :class="p.highlight ? 'text-white/80' : 'text-(--ink2)'"
+          >
             {{ p.blurb }}
           </p>
-          <ul class="mt-5 flex-1 space-y-2.5 text-sm text-toned">
+          <ul class="mt-5 flex-1 space-y-2.5 text-sm">
             <li
               v-for="f in p.features"
               :key="f"
@@ -128,7 +138,8 @@ const outcomes = [
             >
               <UIcon
                 name="i-lucide-check"
-                class="mt-0.5 size-4 shrink-0 text-primary"
+                class="mt-0.5 size-4 shrink-0"
+                :class="p.highlight ? 'text-(--glow)' : 'text-(--signal)'"
               />
               {{ f }}
             </li>
@@ -139,34 +150,39 @@ const outcomes = [
             size="lg"
             class="mt-6"
             :variant="p.highlight ? 'solid' : 'outline'"
-            :color="p.highlight ? 'primary' : 'neutral'"
+            :color="p.highlight ? 'secondary' : 'neutral'"
           >
             {{ p.cta.label }}
           </UButton>
         </article>
       </div>
 
-      <div class="mt-16">
-        <p class="im-meta text-primary">
-          Outcomes by role
+      <div class="mt-20">
+        <p class="eyebrow">
+          Fig. 02 — Outcomes by role
         </p>
-        <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
+        <h2 class="bp-h2 mt-3">
           Every role leaves able to do its part
         </h2>
-        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="mt-8 grid border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-2 lg:grid-cols-4">
           <div
-            v-for="o in outcomes"
+            v-for="(o, n) in outcomes"
             :key="o.title"
-            class="rounded-xl border border-default bg-default p-5"
+            class="border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-5"
           >
-            <UIcon
-              :name="o.icon"
-              class="size-5 text-primary"
-            />
-            <h3 class="mt-3 font-semibold text-highlighted">
+            <div class="flex items-center justify-between">
+              <span class="bp-iconbox">
+                <UIcon
+                  :name="o.icon"
+                  class="size-5"
+                />
+              </span>
+              <span class="font-mono text-[10px] text-(--ink2)">R-0{{ n + 1 }}</span>
+            </div>
+            <h3 class="mt-4 font-extrabold text-(--ink)">
               {{ o.title }}
             </h3>
-            <p class="mt-1.5 text-sm text-muted">
+            <p class="mt-1.5 text-sm text-(--ink2)">
               {{ o.text }}
             </p>
           </div>
@@ -175,16 +191,16 @@ const outcomes = [
 
       <div
         id="quote"
-        class="mt-16 grid scroll-mt-24 gap-10 lg:grid-cols-5"
+        class="mt-20 grid scroll-mt-24 gap-10 lg:grid-cols-5"
       >
         <div class="lg:col-span-2">
-          <p class="im-meta text-primary">
-            Quotation
+          <p class="eyebrow">
+            Fig. 03 — Quotation
           </p>
-          <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
+          <h2 class="bp-h2 mt-3">
             Tell us about the team
           </h2>
-          <p class="mt-3 text-muted">
+          <p class="bp-lead mt-4">
             A training advisor replies within two working days with a programme outline, a
             schedule and a price for your headcount.
           </p>
@@ -193,6 +209,6 @@ const outcomes = [
           <InquiryForm kind="quotation" />
         </div>
       </div>
-    </UContainer>
+    </div>
   </div>
 </template>

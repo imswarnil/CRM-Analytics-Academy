@@ -36,6 +36,6 @@ const src = computed(() => `https://sponsor.imswarnil.com/embed/${props.slot}`)
     loading="lazy"
     scrolling="no"
     sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
-    class="block w-full border-0 bg-transparent"
+    class="block w-full border-[1.5px] border-(--ink) bg-(--card)"
   />
 </template>

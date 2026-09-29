@@ -38,22 +38,22 @@ defineProps<{
     <div
       v-for="(o, i) in items"
       :key="i"
-      class="flex flex-col overflow-hidden rounded-xl border border-default bg-default"
+      class="flex flex-col overflow-hidden border-[1.5px] border-(--ink) bg-(--card)"
     >
-      <div class="border-b border-default bg-elevated/50 px-4 py-3">
+      <div class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-3">
         <div class="flex items-center gap-2">
           <UIcon
             v-if="o.icon"
             :name="o.icon"
-            class="size-4 shrink-0 text-primary"
+            class="size-4 shrink-0 text-(--signal)"
           />
-          <h4 class="text-sm font-semibold text-highlighted">
+          <h4 class="text-sm font-semibold text-(--ink)">
             {{ o.title }}
           </h4>
         </div>
         <p
           v-if="o.subtitle"
-          class="mt-0.5 text-xs text-muted"
+          class="mt-0.5 text-xs text-(--ink2)"
         >
           {{ o.subtitle }}
         </p>
@@ -67,11 +67,11 @@ defineProps<{
           <li
             v-for="(p, j) in o.pros"
             :key="j"
-            class="flex gap-2 text-sm leading-snug text-muted"
+            class="flex gap-2 text-sm leading-snug text-(--ink2)"
           >
             <UIcon
               name="i-lucide-check"
-              class="mt-0.5 size-4 shrink-0 text-success"
+              class="mt-0.5 size-4 shrink-0 text-(--signal)"
             />
             <span>{{ p }}</span>
           </li>
@@ -83,11 +83,11 @@ defineProps<{
           <li
             v-for="(c, j) in o.cons"
             :key="j"
-            class="flex gap-2 text-sm leading-snug text-muted"
+            class="flex gap-2 text-sm leading-snug text-(--ink2)"
           >
             <UIcon
               name="i-lucide-x"
-              class="mt-0.5 size-4 shrink-0 text-error"
+              class="mt-0.5 size-4 shrink-0 text-(--ink)"
             />
             <span>{{ c }}</span>
           </li>
@@ -96,7 +96,7 @@ defineProps<{
 
       <p
         v-if="o.verdict"
-        class="border-t border-default bg-primary/5 px-4 py-2.5 text-xs font-medium leading-snug text-toned"
+        class="border-t border-dashed border-(--line) bg-(--ice) px-4 py-2.5 text-xs font-medium leading-snug text-(--ink2)"
       >
         {{ o.verdict }}
       </p>

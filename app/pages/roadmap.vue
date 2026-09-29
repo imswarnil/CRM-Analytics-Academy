@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const localePath = useLocalePath()
-const title = 'Roadmap — CRM Analytics Academy'
+const title = 'Roadmap'
 const description = 'Our vision for CRM Analytics Academy and what we\'re building next — now, next, and later.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
 const principles = [
-  { icon: 'i-lucide-gift', title: 'Free, forever', text: 'Every lesson, exam, and certificate stays free — funded by ads and sponsors, never paywalls.' },
+  { icon: 'i-lucide-gift', title: 'Free, forever', text: 'The core course, exams and certificates stay free — funded by sponsors, ads and optional Pro.' },
   { icon: 'i-lucide-git-fork', title: 'Open source', text: 'The whole site is on GitHub. Anyone can fix a typo, add a lesson, or ship a feature.' },
   { icon: 'i-lucide-monitor-play', title: 'Build it, don\u2019t read it', text: 'Every hands-on lesson carries a screen walkthrough \u2014 what to click, and what is worth saying about it \u2014 plus a graded quiz.' },
   { icon: 'i-lucide-users', title: 'Built with the community', text: 'Resources, feedback, and the guestbook are yours. The best ideas ship first.' }
@@ -17,8 +17,8 @@ const columns = [
     key: 'now',
     label: 'Shipped',
     icon: 'i-lucide-check-circle-2',
-    color: 'text-success',
-    ring: 'ring-success/20',
+    color: 'text-white',
+    ring: 'bg-(--signal)',
     items: [
       'Nineteen sections and 161 lessons, rewritten end to end',
       'Seventeen go-to-market builds on the Academy\u2019s own business data',
@@ -30,8 +30,8 @@ const columns = [
     key: 'next',
     label: 'In progress',
     icon: 'i-lucide-loader',
-    color: 'text-primary',
-    ring: 'ring-primary/20',
+    color: 'text-(--signal)',
+    ring: 'bg-(--ice)',
     items: [
       'Recording the walkthrough scripts as video',
       'A browsable mirror of the org the builds are made in',
@@ -43,8 +43,8 @@ const columns = [
     key: 'later',
     label: 'Later',
     icon: 'i-lucide-sparkles',
-    color: 'text-muted',
-    ring: 'ring-default',
+    color: 'text-(--ink2)',
+    ring: 'hatch bg-(--card)',
     items: [
       'Public learner profiles with earned certificates',
       'Community Q&A and curated learning paths',
@@ -56,31 +56,20 @@ const columns = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
+    <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
       <UContainer class="relative py-14 text-center sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          class="mb-6 rounded-full"
-        >
-          <UIcon
-            name="i-lucide-map"
-            class="mr-1 size-4"
-          />
-          Roadmap
-        </UBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+        <p class="eyebrow mb-5">
+          Sheet 11 / Roadmap
+        </p>
+        <h1 class="mx-auto max-w-3xl bp-h1">
           Where we're <span class="text-gradient">headed</span>
         </h1>
-        <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
+        <p class="mx-auto mt-5 max-w-2xl bp-lead">
           The Academy is open source and always growing. Have an idea?
           <NuxtLink
             to="https://github.com/imswarnil/CRM-Analytics-Academy/issues"
             target="_blank"
-            class="text-primary hover:underline"
+            class="text-(--signal) hover:underline"
           >Open an issue</NuxtLink>.
         </p>
       </UContainer>
@@ -90,15 +79,15 @@ const columns = [
       <div class="grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-12">
         <!-- Left: vision -->
         <aside class="lg:sticky lg:top-24 lg:self-start">
-          <h2 class="flex items-center gap-2 text-lg font-bold text-highlighted">
+          <h2 class="flex items-center gap-2 text-lg font-bold text-(--ink)">
             <UIcon
               name="i-lucide-telescope"
-              class="size-5 text-primary"
+              class="size-5 text-(--signal)"
             />
             Our vision
           </h2>
-          <p class="mt-3 text-muted">
-            Make world-class CRM Analytics skills accessible to <span class="font-medium text-default">anyone</span>, anywhere — a
+          <p class="mt-3 text-(--ink2)">
+            Make world-class CRM Analytics skills accessible to <span class="font-medium text-(--ink)">anyone</span>, anywhere — a
             practitioner-grade path from your first dataset to production dashboards and Einstein Discovery, without a paywall.
           </p>
           <ul class="mt-6 space-y-4">
@@ -107,17 +96,17 @@ const columns = [
               :key="p.title"
               class="flex gap-3"
             >
-              <div class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+              <div class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-(--signal) ">
                 <UIcon
                   :name="p.icon"
                   class="size-4.5"
                 />
               </div>
               <div>
-                <p class="text-sm font-semibold text-highlighted">
+                <p class="text-sm font-semibold text-(--ink)">
                   {{ p.title }}
                 </p>
-                <p class="mt-0.5 text-sm text-muted">
+                <p class="mt-0.5 text-sm text-(--ink2)">
                   {{ p.text }}
                 </p>
               </div>
@@ -129,7 +118,7 @@ const columns = [
             icon="i-simple-icons-github"
             color="neutral"
             variant="outline"
-            class="mt-6 rounded-full font-medium"
+            class="mt-6 font-medium"
           >
             Star us on GitHub
           </UButton>
@@ -140,11 +129,11 @@ const columns = [
           <div
             v-for="col in columns"
             :key="col.key"
-            class="rounded-2xl border border-default bg-elevated/30 p-6"
+            class="border-[1.5px] border-(--ink) bg-(--card) p-6"
           >
-            <h3 class="mb-4 flex items-center gap-2 font-semibold text-highlighted">
+            <h3 class="mb-4 flex items-center gap-3 text-lg font-extrabold tracking-[-0.02em] text-(--ink)">
               <span
-                class="flex size-8 items-center justify-center rounded-lg bg-default ring-1"
+                class="flex size-8 items-center justify-center border-[1.5px] border-(--ink)"
                 :class="col.ring"
               >
                 <UIcon
@@ -159,28 +148,28 @@ const columns = [
               <li
                 v-for="item in col.items"
                 :key="item"
-                class="flex items-start gap-2.5 rounded-xl border border-default/60 bg-default/50 p-3 text-sm text-toned"
+                class="flex items-start gap-2.5 border border-dashed border-(--line) bg-(--card) p-3 text-sm text-(--ink2)"
               >
                 <UIcon
                   name="i-lucide-circle-dot"
-                  class="mt-0.5 size-4 shrink-0 text-dimmed"
+                  class="mt-0.5 size-4 shrink-0 text-(--ink2)"
                 />
                 <span>{{ item }}</span>
               </li>
             </ul>
           </div>
 
-          <p class="text-center text-sm text-muted">
+          <p class="text-center text-sm text-(--ink2)">
             Shipped already? See the
             <NuxtLink
               :to="localePath('/changelog')"
-              class="text-primary hover:underline"
+              class="text-(--signal) hover:underline"
             >changelog →</NuxtLink>
           </p>
         </div>
       </div>
 
-      <AdUnit
+      <PromoSlot
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"
       />

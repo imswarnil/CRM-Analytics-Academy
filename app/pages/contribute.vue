@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const title = 'Contribute — CRM Analytics Academy'
+const title = 'Contribute'
 const description = 'Full contributor guide: set up locally, write and translate lessons, suggest resources, follow the code style, and open a pull request.'
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
@@ -42,26 +42,15 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
 <template>
   <div>
     <!-- Hero -->
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
+    <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
       <UContainer class="relative py-14 text-center sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          class="mb-6 rounded-full"
-        >
-          <UIcon
-            name="i-lucide-git-pull-request"
-            class="mr-1 size-4"
-          />
-          Contributor guide
-        </UBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+        <p class="eyebrow mb-5">
+          Sheet 10 / Contributor guide
+        </p>
+        <h1 class="mx-auto max-w-3xl bp-h1">
           Help build the <span class="text-gradient">community</span>
         </h1>
-        <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
+        <p class="mx-auto mt-5 max-w-2xl bp-lead">
           Everything you need to add a lesson, translate content, suggest a resource, or improve the code.
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
@@ -70,7 +59,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
             target="_blank"
             size="lg"
             icon="i-simple-icons-github"
-            class="rounded-full font-semibold"
+            class="font-semibold"
           >
             View on GitHub
           </UButton>
@@ -80,7 +69,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
             color="neutral"
             variant="outline"
             icon="i-lucide-plus"
-            class="rounded-full font-semibold"
+            class="font-semibold"
           >
             Suggest a resource
           </UButton>
@@ -92,21 +81,21 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
       <div class="lg:grid lg:grid-cols-[240px_1fr] lg:gap-14">
         <!-- Sticky stepper -->
         <aside class="mb-10 lg:sticky lg:top-24 lg:mb-0 lg:self-start">
-          <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-dimmed">
+          <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-(--ink2)">
             The guide, step by step
           </p>
           <ol class="relative space-y-1">
             <!-- connecting line -->
-            <span class="absolute bottom-3 left-3.5 top-3 w-px bg-default" />
+            <span class="absolute bottom-3 left-3.5 top-3 w-px bg-(--card)" />
             <li
               v-for="s in steps"
               :key="s.id"
             >
               <a
                 :href="`#${s.id}`"
-                class="group relative flex items-center gap-3 rounded-lg py-1.5 pl-0 pr-2 text-sm text-muted transition hover:text-primary"
+                class="group relative flex items-center gap-3 py-1.5 pl-0 pr-2 text-sm text-(--ink2) transition hover:text-(--signal)"
               >
-                <span class="relative z-10 flex size-7 shrink-0 items-center justify-center rounded-full border border-default bg-elevated text-[11px] font-bold text-dimmed transition group-hover:border-primary group-hover:text-primary">
+                <span class="relative z-10 flex size-7 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-[11px] font-bold text-(--ink2) transition group-hover:border-(--signal) group-hover:text-(--signal)">
                   {{ Number(s.n) }}
                 </span>
                 <span class="min-w-0 flex-1 truncate font-medium">{{ s.label }}</span>
@@ -127,41 +116,41 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
         <!-- Timeline body -->
         <div class="space-y-8">
           <!-- New-contributor welcome + quick starts -->
-          <div class="rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
+          <div class="border border-(--ink) bg-(--ice) p-6 sm:p-8">
             <div class="flex items-center gap-2">
               <UIcon
                 name="i-lucide-hand-heart"
-                class="size-5 text-primary"
+                class="size-5 text-(--signal)"
               />
-              <h2 class="text-lg font-bold text-highlighted">
+              <h2 class="text-lg font-bold text-(--ink)">
                 New here? You're exactly who this is for.
               </h2>
             </div>
-            <p class="mt-2 text-sm text-muted">
+            <p class="mt-2 text-sm text-(--ink2)">
               You don't need to be a CRM Analytics expert or a developer to help. Pick a tiny first step below — most take
-              a few minutes and need <span class="font-medium text-default">zero code</span>. We review everything and are happy to guide you.
+              a few minutes and need <span class="font-medium text-(--ink)">zero code</span>. We review everything and are happy to guide you.
             </p>
             <div class="mt-5 grid gap-3 sm:grid-cols-3">
               <a
                 v-for="q in quickStarts"
                 :key="q.title"
                 :href="q.to"
-                class="group rounded-xl border border-default bg-default p-4 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm"
+                class="group border-[1.5px] border-(--ink) bg-(--card) p-4 transition hover:-translate-y-0.5 hover:border-(--signal) hover:shadow-[4px_4px_0_var(--ink)]"
               >
-                <div class="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
+                <div class="flex size-9 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-(--signal) ">
                   <UIcon
                     :name="q.icon"
                     class="size-4.5"
                   />
                 </div>
-                <p class="mt-3 flex items-center gap-1 text-sm font-semibold text-highlighted">
+                <p class="mt-3 flex items-center gap-1 text-sm font-semibold text-(--ink)">
                   {{ q.title }}
                   <UIcon
                     name="i-lucide-arrow-right"
-                    class="size-3.5 text-dimmed transition group-hover:translate-x-0.5 group-hover:text-primary"
+                    class="size-3.5 text-(--ink2) transition group-hover:translate-x-0.5 group-hover:text-(--signal)"
                   />
                 </p>
-                <p class="mt-1 text-xs text-muted">
+                <p class="mt-1 text-xs text-(--ink2)">
                   {{ q.text }}
                 </p>
               </a>
@@ -170,7 +159,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
 
           <div class="relative space-y-8">
             <!-- vertical timeline rail (desktop) -->
-            <span class="absolute bottom-6 left-5 top-6 hidden w-px bg-gradient-to-b from-primary/40 via-default to-default sm:block" />
+            <span class="absolute bottom-6 left-5 top-6 hidden border-s-[1.5px] border-dashed border-(--signal) sm:block" />
 
             <section
               v-for="s in steps"
@@ -178,15 +167,15 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
               :key="s.id"
               class="relative scroll-mt-24 sm:pl-16"
             >
-              <div class="absolute left-0 top-0 hidden size-11 items-center justify-center rounded-full border border-default bg-elevated text-primary shadow-sm sm:flex">
+              <div class="absolute left-0 top-0 hidden size-11 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-(--signal) sm:flex">
                 <UIcon
                   :name="s.icon"
                   class="size-5"
                 />
               </div>
-              <div class="rounded-2xl border border-default bg-default/40 p-6 sm:p-8">
+              <div class="border-[1.5px] border-(--ink) bg-(--card) p-6 sm:p-8">
                 <div class="mb-1 flex items-center gap-2">
-                  <p class="text-xs font-semibold uppercase tracking-widest text-primary">
+                  <p class="text-xs font-semibold uppercase tracking-widest text-(--signal)">
                     Step {{ s.n }}
                   </p>
                   <UBadge
@@ -197,10 +186,10 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                     {{ s.level }}
                   </UBadge>
                 </div>
-                <h2 class="flex items-center gap-2 text-xl font-bold tracking-tight text-highlighted sm:text-2xl">
+                <h2 class="flex items-center gap-2 text-xl font-bold tracking-tight text-(--ink) sm:text-2xl">
                   <UIcon
                     :name="s.icon"
-                    class="size-5 text-primary sm:hidden"
+                    class="size-5 text-(--signal) sm:hidden"
                   />
                   {{ s.label }}
                 </h2>
@@ -404,7 +393,7 @@ Your write-up goes here.</code></pre>
             </section>
           </div>
 
-          <AdUnit
+          <PromoSlot
             placement="betweenSections"
             class="mx-auto max-w-3xl"
           />

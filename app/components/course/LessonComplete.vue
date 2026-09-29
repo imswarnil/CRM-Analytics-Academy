@@ -22,40 +22,38 @@ async function toggle() {
 
 <template>
   <div
-    class="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-lg border p-4 transition-colors"
-    :class="done
-      ? 'border-primary/40 bg-primary/5'
-      : 'border-default bg-elevated/40'"
+    class="mt-12 flex flex-wrap items-center justify-between gap-4 border-[1.5px] border-(--ink) p-4 transition-colors"
+    :class="done ? 'bg-(--ice)' : 'graph-paper-fine bg-(--card)'"
   >
     <ClientOnly>
       <UButton
         v-if="isSignedIn"
-        :icon="done ? 'i-lucide-circle-check' : 'i-lucide-circle'"
-        :color="done ? 'primary' : 'neutral'"
-        :variant="done ? 'soft' : 'outline'"
+        :icon="done ? 'i-lucide-check-check' : 'i-lucide-check'"
+        :color="done ? 'secondary' : 'neutral'"
+        :variant="done ? 'solid' : 'outline'"
         :label="done ? t('course.completed') : t('course.markComplete')"
         @click="toggle"
       />
       <p
         v-else
-        class="text-sm text-muted"
+        class="text-sm text-(--ink2)"
       >
-        <ULink :to="localePath('/sign-in')">
+        <ULink
+          :to="localePath('/sign-in')"
+          class="font-semibold text-(--signal)"
+        >
           {{ t('course.signIn') }}
         </ULink>
         {{ ' ' }}{{ t('course.signInToTrack') }}
       </p>
 
-      <!-- Reserves the control's height during SSR. This block sits mid-page,
-           so resolving the session must not shove the next-lesson button and
-           everything below it down the page after paint. -->
+      <!-- Reserves the control's height during SSR, so resolving the session
+           does not shove everything below it down the page after paint. -->
       <template #fallback>
         <div class="h-8 w-40" />
       </template>
     </ClientOnly>
 
-    <!-- The one solid button on a lesson page: NSDS allows exactly one, and
-         "keep going" is the action the page exists to produce. -->
     <UButton
       v-if="next"
       :to="localePath(next.path)"

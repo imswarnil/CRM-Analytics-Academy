@@ -31,81 +31,77 @@ const steps = [
 
 <template>
   <div>
-    <section class="bg-brand-wash border-b border-default">
-      <UContainer class="py-14 sm:py-20">
-        <p class="im-meta text-primary">
-          CRM Analytics Academy · Implementation
-        </p>
-        <h1 class="mt-3 max-w-3xl text-4xl font-bold tracking-tighter text-highlighted sm:text-5xl text-balance">
-          CRM Analytics, built by the people who teach it
-        </h1>
-        <p class="mt-5 max-w-2xl text-lg text-muted text-pretty">
-          Rollouts, dashboards and data pipelines delivered with the same rules the course
-          teaches: the right grain, a metric contract, and security that holds.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <UButton
-            to="#consult"
-            size="lg"
-            icon="i-lucide-calendar"
-          >
-            Request a consultation
-          </UButton>
-          <UButton
-            to="/teams"
-            size="lg"
-            color="neutral"
-            variant="outline"
-            icon="i-lucide-users"
-          >
-            Train your team instead
-          </UButton>
-        </div>
-      </UContainer>
-    </section>
+    <BpPageHeader
+      sheet="Sheet 09 / Implementation"
+      title="CRM Analytics, built by the people who teach it"
+      lead="Rollouts, dashboards and data pipelines delivered with the same rules the course teaches: the right grain, a metric contract, and security that holds."
+    >
+      <div class="mt-8 flex flex-wrap gap-3">
+        <UButton
+          to="#consult"
+          size="lg"
+          icon="i-lucide-calendar"
+        >
+          Request a consultation
+        </UButton>
+        <UButton
+          to="/teams"
+          size="lg"
+          color="neutral"
+          variant="outline"
+          icon="i-lucide-users"
+        >
+          Train your team instead
+        </UButton>
+      </div>
+    </BpPageHeader>
 
-    <UContainer class="py-14 sm:py-16">
-      <p class="im-meta text-primary">
-        Services
+    <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+      <p class="eyebrow">
+        Fig. 01 — Services
       </p>
-      <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
+      <h2 class="bp-h2 mt-3">
         What we build
       </h2>
-      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div
-          v-for="s in services"
+          v-for="(s, n) in services"
           :key="s.title"
-          class="im-card-hover rounded-xl border border-default bg-default p-5"
+          class="bp-card bp-card--hover p-5"
         >
-          <span class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <UIcon
-              :name="s.icon"
-              class="size-5"
-            />
-          </span>
-          <h3 class="mt-4 font-semibold text-highlighted">
+          <div class="flex items-start justify-between">
+            <span class="bp-iconbox">
+              <UIcon
+                :name="s.icon"
+                class="size-5"
+              />
+            </span>
+            <span class="font-mono text-[10px] text-(--ink2)">S-0{{ n + 1 }}</span>
+          </div>
+          <h3 class="mt-4 font-extrabold text-(--ink)">
             {{ s.title }}
           </h3>
-          <p class="mt-1.5 text-sm text-muted">
+          <p class="mt-1.5 text-sm text-(--ink2)">
             {{ s.text }}
           </p>
         </div>
       </div>
 
-      <div class="mt-16 rounded-2xl border border-default bg-default p-6 sm:p-8">
-        <p class="im-meta text-primary">
-          How it works
+      <div class="graph-paper-navy mt-20 border-[1.5px] border-(--ink) bg-(--navy) p-6 text-white sm:p-8">
+        <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+          Fig. 02 — How it works
         </p>
         <ol class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <li
             v-for="s in steps"
             :key="s.n"
+            class="border-t-[1.5px] border-white/40 pt-4"
           >
-            <span class="im-figure text-2xl font-semibold text-primary">{{ s.n }}</span>
-            <h3 class="mt-2 font-semibold text-highlighted">
+            <span class="text-3xl font-black tracking-[-0.04em] text-(--glow)">{{ s.n }}</span>
+            <h3 class="mt-2 font-extrabold">
               {{ s.title }}
             </h3>
-            <p class="mt-1 text-sm text-muted">
+            <p class="mt-1 text-sm text-white/75">
               {{ s.text }}
             </p>
           </li>
@@ -114,16 +110,16 @@ const steps = [
 
       <div
         id="consult"
-        class="mt-16 grid scroll-mt-24 gap-10 lg:grid-cols-5"
+        class="mt-20 grid scroll-mt-24 gap-10 lg:grid-cols-5"
       >
         <div class="lg:col-span-2">
-          <p class="im-meta text-primary">
-            Consultation
+          <p class="eyebrow">
+            Fig. 03 — Consultation
           </p>
-          <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
+          <h2 class="bp-h2 mt-3">
             Describe the project
           </h2>
-          <p class="mt-3 text-muted">
+          <p class="bp-lead mt-4">
             A solution architect reads every request and replies to schedule a scoping call.
             No sales sequence, no newsletter.
           </p>
@@ -132,6 +128,6 @@ const steps = [
           <InquiryForm kind="implementation" />
         </div>
       </div>
-    </UContainer>
+    </div>
   </div>
 </template>

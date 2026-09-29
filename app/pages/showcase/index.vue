@@ -79,9 +79,6 @@ const difficultyLabel = (value?: string) => {
   return ['beginner', 'intermediate', 'advanced'].includes(key) ? t(`showcase.${key}`) : String(value)
 }
 
-const badgeColor = (difficulty?: string) =>
-  difficulty === 'Beginner' ? 'success' : difficulty === 'Advanced' ? 'error' : 'warning'
-
 const groups = computed(() => [
   { key: 'domain' as const, label: t('showcase.domain'), icon: 'i-lucide-briefcase', values: domains.value },
   { key: 'difficulty' as const, label: t('showcase.difficulty'), icon: 'i-lucide-signal', values: difficulties.value },
@@ -106,73 +103,67 @@ useJsonLd({
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-14 text-center sm:py-16">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          class="mb-5 rounded-full"
-        >
-          <UIcon
-            name="i-lucide-layout-dashboard"
-            class="mr-1 size-4"
-          />
-          {{ t('showcase.title') }}
-        </UBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          {{ t('showcase.title') }}
-        </h1>
-        <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
-          {{ t('showcase.subtitle') }}
-        </p>
+    <BpPageHeader
+      :sheet="`Sheet 05 / Showcase / ${items.length} dashboards`"
+      :title="t('showcase.title')"
+      :lead="t('showcase.subtitle')"
+    >
+      <div class="mt-8 flex flex-wrap gap-3">
         <UButton
           to="https://github.com/imswarnil/CRM-Analytics-Academy/tree/main/content/showcase"
           target="_blank"
           icon="i-lucide-plus"
-          color="primary"
-          variant="subtle"
-          class="mt-6 rounded-full font-medium"
         >
           {{ t('showcase.submit') }}
         </UButton>
-      </UContainer>
-    </section>
+        <UButton
+          :to="localePath('/contribute')"
+          icon="i-lucide-git-pull-request"
+          color="neutral"
+          variant="outline"
+        >
+          {{ t('nav.contribute') }}
+        </UButton>
+      </div>
+    </BpPageHeader>
 
-    <UContainer class="py-12 sm:py-14">
-      <div class="grid gap-8 lg:grid-cols-[230px_1fr]">
+    <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[230px_minmax(0,1fr)]">
         <aside class="lg:sticky lg:top-24 lg:self-start">
           <div
             v-for="group in groups"
             :key="group.key"
-            class="mb-6"
+            class="mb-6 border-[1.5px] border-(--ink) bg-(--card)"
           >
-            <p class="mb-3 flex items-center gap-1.5 px-3 text-xs font-semibold uppercase tracking-widest text-muted">
+            <p class="flex items-center gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink)">
               <UIcon
                 :name="group.icon"
-                class="size-3.5"
+                class="size-3.5 text-(--signal)"
               />
               {{ group.label }}
             </p>
-            <ul class="space-y-1">
+            <ul>
               <li
                 v-for="value in group.values"
                 :key="value"
+                class="border-b border-dashed border-(--line) last:border-b-0"
               >
                 <button
                   type="button"
-                  class="flex w-full items-center gap-2.5 rounded-lg px-3 py-1.5 text-sm font-medium transition"
+                  class="relative flex w-full items-center gap-2.5 px-3 py-2 text-sm transition-colors"
                   :class="selected[group.key] === value
-                    ? 'bg-primary/10 text-primary ring-1 ring-primary/20'
-                    : 'text-toned hover:bg-muted/50 hover:text-highlighted'"
+                    ? 'bg-(--ice) font-bold text-(--signal)'
+                    : 'text-(--ink) hover:bg-(--ice)/50'"
                   @click="selected[group.key] = value"
                 >
-                  <span class="grow text-left">
+                  <span
+                    v-if="selected[group.key] === value"
+                    class="absolute inset-y-0 start-0 w-[3px] bg-(--signal)"
+                  />
+                  <span class="grow text-start">
                     {{ value === 'All' ? t('showcase.all') : (group.key === 'difficulty' ? difficultyLabel(value) : value) }}
                   </span>
-                  <span class="text-xs text-muted">{{ countFor(group.key, value) }}</span>
+                  <span class="font-mono text-[10px] text-(--ink2)">{{ countFor(group.key, value) }}</span>
                 </button>
               </li>
             </ul>
@@ -182,9 +173,8 @@ useJsonLd({
             v-if="hasFilters"
             icon="i-lucide-x"
             color="neutral"
-            variant="ghost"
+            variant="outline"
             size="sm"
-            class="ml-1"
             @click="clearFilters"
           >
             {{ t('showcase.clearFilters') }}
@@ -192,8 +182,8 @@ useJsonLd({
         </aside>
 
         <div>
-          <p class="mb-6 text-sm text-muted">
-            <span class="font-medium text-highlighted">{{ filtered.length }}</span> {{ t('showcase.results') }}
+          <p class="mono-label mb-6">
+            {{ filtered.length }} {{ t('showcase.results') }}
           </p>
 
           <div
@@ -201,73 +191,53 @@ useJsonLd({
             class="grid content-start gap-6 sm:grid-cols-2"
           >
             <NuxtLink
-              v-for="item in filtered"
+              v-for="(item, n) in filtered"
               :key="item.path"
               :to="localePath(item.path)"
-              class="group flex flex-col overflow-hidden rounded-2xl border border-default bg-default transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
+              class="bp-card bp-card--hover group flex flex-col"
             >
-              <div class="aspect-video overflow-hidden border-b border-default bg-muted/40">
-                <NuxtImg
-                  :src="item.image"
-                  :alt="item.title"
-                  loading="lazy"
-                  width="600"
-                  height="338"
-                  class="size-full object-cover transition duration-500 group-hover:scale-105"
-                />
-              </div>
+              <BpShowcaseThumb
+                :image="item.image"
+                :alt="item.title"
+                :seed="item.path"
+              />
 
               <div class="flex grow flex-col p-5">
-                <div class="mb-3 flex flex-wrap items-center gap-2">
-                  <UBadge
-                    v-if="item.domain"
-                    :label="item.domain"
-                    color="neutral"
-                    variant="subtle"
-                    size="sm"
-                    class="rounded-full"
-                  />
-                  <UBadge
-                    :label="difficultyLabel(item.difficulty)"
-                    :color="badgeColor(item.difficulty)"
-                    variant="subtle"
-                    size="sm"
-                    class="rounded-full"
-                  />
-                </div>
-
-                <h3 class="flex items-center gap-1 font-semibold text-highlighted">
+                <p class="eyebrow">
+                  Fig. {{ String(n + 1).padStart(2, '0') }} — {{ item.domain || 'Dashboard' }}
+                </p>
+                <h3 class="mt-2 flex items-start gap-1 text-lg font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">
                   {{ item.title }}
-                  <UIcon
-                    name="i-lucide-arrow-up-right"
-                    class="size-4 text-dimmed transition group-hover:text-primary"
-                  />
                 </h3>
-                <p class="mt-2 grow text-sm text-muted">
+                <p class="mt-2 grow text-sm text-(--ink2)">
                   {{ item.description }}
                 </p>
 
-                <p class="mt-4 text-xs text-dimmed">
-                  {{ t('showcase.by') }} {{ item.author }}
-                </p>
+                <div class="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-dashed border-(--line) pt-3">
+                  <span class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">{{ t('showcase.by') }} {{ item.author }}</span>
+                  <span
+                    class="border-[1.5px] px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
+                    :class="item.difficulty === 'Advanced' ? 'border-(--ink) bg-(--ink) text-(--paper)' : item.difficulty === 'Beginner' ? 'border-(--signal) text-(--signal)' : 'border-(--ink) text-(--ink)'"
+                  >{{ difficultyLabel(item.difficulty) }}</span>
+                </div>
               </div>
             </NuxtLink>
           </div>
 
           <div
             v-else
-            class="rounded-2xl border border-dashed border-default p-12 text-center"
+            class="border-[1.5px] border-dashed border-(--ink2) p-12 text-center"
           >
             <UIcon
               name="i-lucide-search-x"
-              class="mx-auto size-8 text-dimmed"
+              class="mx-auto size-8 text-(--ink2)"
             />
-            <p class="mt-3 text-sm text-muted">
+            <p class="mt-3 text-sm text-(--ink2)">
               {{ t('showcase.noResults') }}
             </p>
             <UButton
               color="neutral"
-              variant="subtle"
+              variant="outline"
               size="sm"
               class="mt-4"
               @click="clearFilters"
@@ -276,26 +246,27 @@ useJsonLd({
             </UButton>
           </div>
 
-          <div class="mt-10 rounded-2xl border border-default bg-elevated/40 p-6 text-center">
-            <p class="font-semibold text-highlighted">
+          <div class="graph-paper-navy mt-12 border-[1.5px] border-(--ink) bg-(--navy) p-8 text-white">
+            <p class="eyebrow text-(--glow)!">
+              Submit
+            </p>
+            <p class="mt-2 text-2xl font-extrabold tracking-[-0.02em]">
               {{ t('showcase.submit') }}
             </p>
-            <p class="mx-auto mt-2 max-w-xl text-sm text-muted">
+            <p class="mt-2 max-w-xl text-sm text-white/80">
               {{ t('showcase.submitHint') }}
             </p>
             <UButton
               :to="localePath('/contribute')"
               icon="i-lucide-git-pull-request"
-              color="primary"
-              variant="subtle"
-              size="sm"
-              class="mt-4 rounded-full"
+              color="secondary"
+              class="mt-5"
             >
               {{ t('nav.contribute') }}
             </UButton>
           </div>
         </div>
       </div>
-    </UContainer>
+    </div>
   </div>
 </template>

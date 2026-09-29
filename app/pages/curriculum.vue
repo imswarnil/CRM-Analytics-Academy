@@ -2,558 +2,223 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 
 /**
- * The whole course on one page: every section, every lesson, in order.
+ * The whole course on one sheet — Blueprint "SHEET 01".
  *
- * The header's "Curriculum" link used to point at /foundations, which meant the
- * only way to see the shape of the course was to open its first lesson and read
- * a sidebar. Someone deciding whether to start, or returning after a fortnight
- * and trying to remember where they were, needs the map rather than a lesson.
+ * Every section is a card: a big drawing number, its lesson count and length,
+ * and a donut for the reader's progress through it. Every lesson is a row with
+ * a type icon, a length bar proportional to its minutes, and a FREE / PRO /
+ * OPEN tag. Lengths and kinds come from app/data/lesson-meta.json, generated
+ * from the lessons themselves at build time.
  *
- * Three things beyond a list of links:
- *
- *   - The sections are grouped into the three PHASES the course actually has —
- *     orientation, the product, then the job. That grouping is the course's
- *     argument (you cannot build go-to-market analytics until the product is
- *     familiar) and it was previously only visible to someone who read all ten
- *     section introductions.
- *   - Each lesson is marked as hands-on or quizzed, so a learner can see where
- *     the work is before committing an evening to it.
- *   - Time estimates are derived from the lesson's own shape rather than
- *     guessed: a lesson carrying a walkthrough script is a build and costs
- *     roughly three times a reading lesson.
- *
- * Progress is additive and client-only: the page prerenders for everyone, and a
- * signed-in learner's ticks, per-section counts and Resume button hydrate on
- * top. Nothing here is gated behind signing in.
+ * Progress is client-only and additive: the page prerenders for everyone and
+ * a signed-in learner's ticks hydrate on top.
  */
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 const localePath = useLocalePath()
-const { locale } = useI18n()
-const { lessons, total } = useCourse()
-const { isDone } = useProgress()
-const { isSignedIn } = useAuth()
+const { total } = useCourse()
+const { isDone, pro } = useProgress()
+const { of: metaOf } = useLessonMeta()
 
 const title = 'Curriculum'
 const description = 'Every section and every lesson of the CRM Analytics Academy course, in order: orientation, the CRM Analytics product itself, and then the seventeen go-to-market dashboard builds.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
-/**
- * Per-lesson shape, queried from the content collection rather than the
- * navigation tree, because the tree carries titles and paths and nothing about
- * what a lesson contains. Reduced to booleans in the transform so the payload
- * stays small — the page needs to know THAT a lesson is hands-on, not what its
- * script says.
- */
-const { data: meta } = await useAsyncData(
-  () => `curriculum-meta-${locale.value}`,
-  () => queryCollection('docs')
-    .where('path', 'LIKE', `/${locale.value}/%`)
-    .select('path', 'walkthrough', 'quiz', 'interview')
-    .all(),
-  {
-    watch: [locale],
-    transform: rows => Object.fromEntries(
-      (rows ?? []).map(r => [
-        contentToRoutePath(String(r.path)),
-        {
-          handsOn: Boolean((r as { walkthrough?: { shots?: unknown[] } }).walkthrough?.shots?.length),
-          quiz: Boolean((r as { quiz?: unknown[] }).quiz?.length),
-          interview: Boolean((r as { interview?: unknown[] }).interview?.length)
-        }
-      ])
-    )
-  }
-)
-
-interface Lesson {
+interface Row {
   title: string
   path: string
-  handsOn: boolean
-  quiz: boolean
-  interview: boolean
-}
-
-interface Section {
-  title: string
-  icon: string
-  path: string
-  index: number
-  lessons: Lesson[]
   minutes: number
+  type: 'video' | 'article'
+  access: 'free' | 'pro'
 }
 
-// A reading lesson is about fifteen minutes; one carrying a walkthrough script
-// is a build and realistically takes three quarters of an hour with an org
-// open. Rounded to the nearest five so nobody mistakes it for a measurement.
-const READ_MINUTES = 15
-const BUILD_MINUTES = 45
-
-const sections = computed<Section[]>(() =>
+const sections = computed(() =>
   (navigation.value ?? []).map((mod, index) => {
-    const lessons: Lesson[] = ((mod.children ?? []) as ContentNavigationItem[])
+    const lessons: Row[] = ((mod.children ?? []) as ContentNavigationItem[])
       .filter(l => l.path)
       .map((l) => {
-        const m = meta.value?.[String(l.path)]
-        return {
-          title: String(l.title ?? ''),
-          path: String(l.path ?? ''),
-          handsOn: Boolean(m?.handsOn),
-          quiz: Boolean(m?.quiz),
-          interview: Boolean(m?.interview)
-        }
+        const m = metaOf(String(l.path))
+        return { title: String(l.title ?? ''), path: String(l.path), minutes: m.minutes, type: m.type, access: m.access }
       })
-
-    const minutes = lessons.reduce((sum, l) => sum + (l.handsOn ? BUILD_MINUTES : READ_MINUTES), 0)
-
     return {
-      title: String(mod.title ?? ''),
-      icon: String(mod.icon ?? 'i-lucide-book-open'),
-      path: String(mod.path ?? ''),
+      n: String(index).padStart(2, '0'),
       index,
+      title: String(mod.title ?? ''),
+      path: String(mod.path ?? ''),
       lessons,
-      minutes: Math.round(minutes / 5) * 5
+      minutes: lessons.reduce((s, l) => s + l.minutes, 0)
     }
   })
 )
 
-/**
- * The five phases. Sections are assigned by position rather than by slug so a
- * renamed section does not silently fall out of its phase — the course's order
- * is the thing that defines them.
- */
+// The five phases, by position, as mono labels between groups of cards.
 const PHASES = [
-  {
-    key: 'orient',
-    title: 'Get oriented',
-    icon: 'i-lucide-compass',
-    from: 0,
-    to: 0,
-    blurb: 'What the course is, who it is for, and how to study it. About an evening.'
-  },
-  {
-    key: 'data',
-    title: 'Data foundations',
-    icon: 'i-lucide-database',
-    from: 1,
-    to: 4,
-    blurb: 'The platform, your org and its security, then getting data in and shaping it at the right grain.'
-  },
-  {
-    key: 'build',
-    title: 'Explore and build',
-    icon: 'i-lucide-layout-dashboard',
-    from: 5,
-    to: 11,
-    blurb: 'Charts, lenses, SAQL, dashboard design, interactions, bindings and the JSON underneath.'
-  },
-  {
-    key: 'ship',
-    title: 'Ship and scale',
-    icon: 'i-lucide-rocket',
-    from: 12,
-    to: 14,
-    blurb: 'Get the work to people, automate it through the APIs, and add prediction with Einstein Discovery.'
-  },
-  {
-    key: 'gtm',
-    title: 'Go-to-market builds',
-    icon: 'i-lucide-hammer',
-    from: 15,
-    to: 18,
-    blurb: 'Seventeen dashboards for one training business — the Academy itself — built the way a revenue analytics team would.'
-  }
+  { from: 0, label: 'Phase 1 — Get oriented' },
+  { from: 1, label: 'Phase 2 — Data foundations' },
+  { from: 5, label: 'Phase 3 — Explore and build' },
+  { from: 12, label: 'Phase 4 — Ship and scale' },
+  { from: 15, label: 'Phase 5 — Go-to-market builds' }
 ]
+const phaseAt = (i: number) => PHASES.find(p => p.from === i)?.label
 
-const phases = computed(() => PHASES
-  .map((p, i) => ({
-    ...p,
-    kicker: `Phase ${i + 1}`,
-    sections: sections.value.filter(s => s.index >= p.from && s.index <= p.to)
-  }))
-  .filter(p => p.sections.length)
-)
-
-const pad = (n: number) => String(n).padStart(2, '0')
-
-const handsOnTotal = computed(() => lessons.value.length && sections.value.reduce(
-  (n, s) => n + s.lessons.filter(l => l.handsOn).length, 0
-))
+const maxLesson = computed(() => Math.max(1, ...sections.value.flatMap(s => s.lessons.map(l => l.minutes))))
 const totalHours = computed(() => Math.round(sections.value.reduce((n, s) => n + s.minutes, 0) / 60))
 
-function doneIn(section: Section) {
-  return section.lessons.filter(l => isDone(l.path)).length
+const doneIn = (s: { lessons: Row[] }) => s.lessons.filter(l => isDone(l.path)).length
+const doneTotal = computed(() => sections.value.reduce((n, s) => n + doneIn(s), 0))
+const progressPct = computed(() => (total.value ? (doneTotal.value / total.value) * 100 : 0))
+
+function tag(l: Row) {
+  if (l.access === 'free') return 'free'
+  return pro.value ? 'open' : 'pro'
 }
-const doneTotal = computed(() => lessons.value.filter(l => isDone(l.path)).length)
-const resumeTo = computed(() => lessons.value.find(l => !isDone(l.path))?.path)
+function icon(l: Row) {
+  if (isDone(l.path)) return 'i-lucide-check'
+  if (l.access === 'pro' && !pro.value) return 'i-lucide-lock'
+  return l.type === 'video' ? 'i-lucide-play' : 'i-lucide-file-text'
+}
 </script>
 
 <template>
-  <UContainer class="py-8 sm:py-12">
-    <!-- Header: one brand panel carrying the pitch, the numbers and the CTAs -->
-    <header class="bg-brand-panel relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-12">
-      <div class="curriculum-hero relative">
-        <div>
-          <p class="im-meta text-white/70">
-            The course
-          </p>
-          <h1 class="mt-3 text-4xl font-bold tracking-tighter text-white sm:text-5xl">
-            The whole curriculum
-          </h1>
-          <p class="mt-4 max-w-xl text-lg text-white/80 text-pretty">
-            Learn the platform first, then use it on a real go-to-market problem. Free, open source,
-            and nothing is gated behind an account.
-          </p>
-
-          <div class="mt-7 flex flex-wrap items-center gap-3">
-            <UButton
-              :to="localePath('/introduction')"
-              icon="i-lucide-compass"
-              size="lg"
-              color="neutral"
-              variant="solid"
-              class="curriculum-cta"
-            >
-              Start at the beginning
-            </UButton>
-
-            <ClientOnly>
-              <UButton
-                v-if="isSignedIn && resumeTo"
-                :to="localePath(resumeTo)"
-                icon="i-lucide-play"
-                size="lg"
-                variant="outline"
-                class="text-white ring-white/40 hover:bg-white/10"
-              >
-                Resume
-              </UButton>
-            </ClientOnly>
-
-            <UButton
-              :to="localePath('/datasets')"
-              icon="i-lucide-database"
-              size="lg"
-              variant="ghost"
-              class="text-white hover:bg-white/10"
-            >
-              Get the datasets
-            </UButton>
-          </div>
-        </div>
-
-        <dl class="grid grid-cols-2 gap-3">
-          <div
-            v-for="stat in [
-              { label: 'Sections', value: sections.length, icon: 'i-lucide-layers' },
-              { label: 'Lessons', value: total, icon: 'i-lucide-book-open' },
-              { label: 'Hands-on builds', value: handsOnTotal, icon: 'i-lucide-monitor-play' },
-              { label: 'Est. time', value: `~${totalHours} h`, icon: 'i-lucide-clock' }
-            ]"
-            :key="stat.label"
-            class="rounded-xl bg-white/10 px-4 py-4 ring-1 ring-white/15 backdrop-blur-sm"
-          >
-            <UIcon
-              :name="stat.icon"
-              class="size-4 text-white/70"
-            />
-            <dd class="im-figure mt-2 text-2xl font-semibold text-white">
-              {{ stat.value }}
-            </dd>
-            <dt class="im-meta mt-0.5 text-white/65">
-              {{ stat.label }}
-            </dt>
-          </div>
-        </dl>
-      </div>
-
-      <ClientOnly>
-        <div
-          v-if="isSignedIn && doneTotal > 0"
-          class="relative mt-8 max-w-xl"
-        >
-          <div class="mb-2 flex items-baseline justify-between text-sm">
-            <span class="text-white/75">Your progress</span>
-            <span class="im-figure text-white">{{ doneTotal }} / {{ total }}</span>
-          </div>
-          <div class="h-2 overflow-hidden rounded-full bg-white/15">
+  <div>
+    <BpPageHeader
+      :sheet="`Sheet 01 / ${sections.length} sections / ${total} lessons / ${totalHours}h`"
+      title="Curriculum"
+    >
+      <div class="mt-8 flex max-w-4xl items-center gap-4">
+        <div class="relative h-4 flex-1 border-[1.5px] border-(--ink) bg-(--card)">
+          <ClientOnly>
             <div
-              class="h-full rounded-full bg-white"
-              :style="{ width: `${Math.round(doneTotal / total * 100)}%` }"
+              class="hatch-signal h-full border-e-[1.5px] border-(--ink) transition-[width] duration-700"
+              :style="{ width: `${progressPct}%` }"
             />
-          </div>
+          </ClientOnly>
+          <span
+            v-for="i in 9"
+            :key="i"
+            class="absolute inset-y-0 border-s border-(--ink)"
+            :style="{ left: `${i * 10}%` }"
+          />
         </div>
-      </ClientOnly>
-    </header>
+        <ClientOnly>
+          <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink)">{{ doneTotal }} / {{ total }} complete</span>
+          <template #fallback>
+            <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink)">0 / {{ total }} complete</span>
+          </template>
+        </ClientOnly>
+      </div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <UButton
+          :to="localePath('/introduction')"
+          icon="i-lucide-play"
+        >
+          Start at the beginning
+        </UButton>
+        <UButton
+          :to="localePath('/datasets')"
+          color="neutral"
+          variant="outline"
+          icon="i-lucide-database"
+        >
+          Get the datasets
+        </UButton>
+      </div>
+    </BpPageHeader>
 
-    <div class="curriculum-grid mt-10">
-      <!-- Index: every section, grouped by phase, sticky on desktop -->
-      <nav
-        class="curriculum-index hidden lg:block"
-        aria-label="Sections"
+    <div class="mx-auto max-w-[66rem] space-y-8 px-4 py-14 sm:px-6">
+      <template
+        v-for="s in sections"
+        :key="s.path"
       >
-        <div
-          v-for="phase in phases"
-          :key="phase.key"
-          class="mb-5"
+        <p
+          v-if="phaseAt(s.index)"
+          class="eyebrow pt-4"
         >
-          <p class="im-meta mb-1.5 px-2 text-dimmed">
-            {{ phase.kicker }} · {{ phase.title }}
-          </p>
-          <a
-            v-for="section in phase.sections"
-            :key="section.path"
-            :href="`#section-${section.index}`"
-            class="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-toned hover:bg-default hover:text-highlighted"
-          >
-            <span class="im-figure w-5 shrink-0 text-xs text-dimmed">{{ pad(section.index) }}</span>
-            <span class="truncate">{{ section.title }}</span>
-            <ClientOnly>
-              <UIcon
-                v-if="isSignedIn && section.lessons.length && doneIn(section) === section.lessons.length"
-                name="i-lucide-circle-check"
-                class="ms-auto size-3.5 shrink-0 text-primary"
-              />
-            </ClientOnly>
-          </a>
-        </div>
-      </nav>
+          {{ phaseAt(s.index) }}
+        </p>
 
-      <!-- Phases on a timeline -->
-      <div class="min-w-0 space-y-12">
         <section
-          v-for="(phase, pi) in phases"
-          :key="phase.key"
-          class="curriculum-phase"
+          :id="`section-${s.index}`"
+          class="scroll-mt-24 border-[1.5px] border-(--ink) bg-(--card)"
         >
-          <div class="flex items-start gap-4">
-            <span class="curriculum-phase-dot">
-              <UIcon
-                :name="phase.icon"
-                class="size-5"
-              />
-            </span>
-            <div class="min-w-0 pt-0.5">
-              <p class="im-meta text-primary">
-                {{ phase.kicker }} of {{ phases.length }}
-              </p>
-              <h2 class="mt-0.5 text-2xl font-bold tracking-tight text-highlighted">
-                {{ phase.title }}
-              </h2>
-              <p class="mt-1 max-w-2xl text-muted">
-                {{ phase.blurb }}
-              </p>
-            </div>
-          </div>
-
-          <div
-            class="mt-6 space-y-4 ps-0 sm:ps-14"
-            :class="{ 'pb-2': pi < phases.length - 1 }"
+          <NuxtLink
+            :to="localePath(s.path)"
+            class="group flex items-center gap-4 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-4"
           >
-            <article
-              v-for="section in phase.sections"
-              :id="`section-${section.index}`"
-              :key="section.path"
-              class="scroll-mt-24 overflow-hidden rounded-xl border border-default bg-default"
+            <span class="text-4xl font-black leading-none tracking-[-0.04em] text-(--signal)">{{ s.n }}</span>
+            <span class="min-w-0 flex-1">
+              <span class="block truncate text-xl font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">{{ s.title }}</span>
+              <span class="mono-label">{{ s.lessons.length }} lessons · {{ s.minutes }} min</span>
+            </span>
+            <ClientOnly>
+              <BpDonut :value="s.lessons.length ? doneIn(s) / s.lessons.length : 0" />
+              <template #fallback>
+                <BpDonut :value="0" />
+              </template>
+            </ClientOnly>
+          </NuxtLink>
+
+          <ol>
+            <li
+              v-for="l in s.lessons"
+              :key="l.path"
+              class="border-b border-dashed border-(--line) last:border-b-0"
             >
-              <div class="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-default px-5 py-4">
-                <span class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <UIcon
-                    :name="section.icon"
-                    class="size-5"
-                  />
-                </span>
-
-                <div class="min-w-0 flex-1">
-                  <p class="im-meta text-dimmed">
-                    Section {{ pad(section.index) }}
-                  </p>
-                  <h3 class="text-lg font-semibold tracking-tight text-highlighted">
-                    <NuxtLink
-                      :to="localePath(section.path)"
-                      class="hover:text-primary"
-                    >
-                      {{ section.title }}
-                    </NuxtLink>
-                  </h3>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-1.5">
-                  <UBadge
-                    color="neutral"
-                    variant="soft"
-                    icon="i-lucide-book-open"
+              <NuxtLink
+                :to="localePath(l.path)"
+                class="bp-row flex items-center gap-4 px-5 py-3 hover:bg-(--ice)/50"
+              >
+                <ClientOnly>
+                  <span
+                    class="flex size-8 flex-none items-center justify-center border-[1.5px] border-(--ink)"
+                    :class="isDone(l.path) ? 'bg-(--signal) text-white' : 'bg-(--card) text-(--signal)'"
                   >
-                    {{ section.lessons.length }} lessons
-                  </UBadge>
-                  <UBadge
-                    color="neutral"
-                    variant="soft"
-                    icon="i-lucide-clock"
-                  >
-                    ~{{ section.minutes }} min
-                  </UBadge>
-                  <UBadge
-                    v-if="section.lessons.some(l => l.handsOn)"
-                    color="primary"
-                    variant="soft"
-                    icon="i-lucide-monitor-play"
-                  >
-                    {{ section.lessons.filter(l => l.handsOn).length }} builds
-                  </UBadge>
-                  <ClientOnly>
-                    <UBadge
-                      v-if="isSignedIn"
-                      color="primary"
-                      variant="solid"
-                      class="im-figure"
-                    >
-                      {{ doneIn(section) }}/{{ section.lessons.length }}
-                    </UBadge>
-                  </ClientOnly>
-                </div>
-              </div>
-
-              <ol class="grid gap-x-4 px-3 py-3 sm:grid-cols-2">
-                <li
-                  v-for="(lesson, li) in section.lessons"
-                  :key="lesson.path"
-                >
-                  <NuxtLink
-                    :to="localePath(lesson.path)"
-                    class="group flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm text-toned hover:bg-elevated hover:text-highlighted"
-                  >
-                    <ClientOnly>
+                    <UIcon
+                      :name="icon(l)"
+                      class="size-4"
+                    />
+                  </span>
+                  <template #fallback>
+                    <span class="flex size-8 flex-none items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--signal)">
                       <UIcon
-                        v-if="isDone(lesson.path)"
-                        name="i-lucide-circle-check"
-                        class="size-4 shrink-0 text-primary"
-                      />
-                      <span
-                        v-else
-                        class="im-figure w-4 shrink-0 text-center text-[11px] text-dimmed group-hover:text-primary"
-                      >{{ li + 1 }}</span>
-                      <template #fallback>
-                        <span class="im-figure w-4 shrink-0 text-center text-[11px] text-dimmed">{{ li + 1 }}</span>
-                      </template>
-                    </ClientOnly>
-
-                    <span class="truncate">{{ lesson.title }}</span>
-
-                    <span class="ms-auto flex shrink-0 items-center gap-1.5">
-                      <UIcon
-                        v-if="lesson.handsOn"
-                        name="i-lucide-monitor-play"
-                        class="size-3.5 text-primary"
-                        title="Hands-on build, with a screen walkthrough"
-                      />
-                      <UIcon
-                        v-if="lesson.quiz"
-                        name="i-lucide-circle-help"
-                        class="size-3.5 text-dimmed"
-                        title="Graded quiz"
-                      />
-                      <UIcon
-                        v-if="lesson.interview"
-                        name="i-lucide-messages-square"
-                        class="size-3.5 text-dimmed"
-                        title="Interview questions"
+                        :name="l.type === 'video' ? 'i-lucide-play' : 'i-lucide-file-text'"
+                        class="size-4"
                       />
                     </span>
-                  </NuxtLink>
-                </li>
-              </ol>
-            </article>
-          </div>
-        </section>
+                  </template>
+                </ClientOnly>
 
-        <!-- Legend -->
-        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl border border-dashed border-default px-5 py-4 text-xs text-muted sm:ms-14">
-          <span class="flex items-center gap-1.5">
-            <UIcon
-              name="i-lucide-monitor-play"
-              class="size-3.5 text-primary"
-            /> Hands-on build, with a screen walkthrough
-          </span>
-          <span class="flex items-center gap-1.5">
-            <UIcon
-              name="i-lucide-circle-help"
-              class="size-3.5 text-dimmed"
-            /> Graded quiz
-          </span>
-          <span class="flex items-center gap-1.5">
-            <UIcon
-              name="i-lucide-messages-square"
-              class="size-3.5 text-dimmed"
-            /> Interview questions
-          </span>
-        </div>
+                <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ l.title }}</span>
+
+                <span class="hidden w-24 justify-end sm:flex">
+                  <span
+                    class="h-2.5 border-[1.5px] border-(--ink)"
+                    :class="l.type === 'video' ? 'bg-(--signal)' : 'bg-(--frost)'"
+                    :style="{ width: `${Math.max(8, (l.minutes / maxLesson) * 100)}%` }"
+                  />
+                </span>
+                <span class="w-10 text-end font-mono text-xs text-(--ink2)">{{ l.minutes }}m</span>
+                <ClientOnly>
+                  <span
+                    class="w-14 border-[1.5px] py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
+                    :class="tag(l) === 'pro' ? 'border-(--line) text-(--ink2)' : 'border-(--signal) text-(--signal)'"
+                  >{{ tag(l) }}</span>
+                  <template #fallback>
+                    <span class="w-14 border-[1.5px] border-(--signal) py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em] text-(--signal)">{{ l.access }}</span>
+                  </template>
+                </ClientOnly>
+              </NuxtLink>
+            </li>
+          </ol>
+        </section>
+      </template>
+
+      <div class="flex flex-wrap gap-5 pt-2 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+        <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--signal)" />Video walkthrough</span>
+        <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--frost)" />Article</span>
+        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--signal) px-1 text-(--signal)">free</span>Free for everyone</span>
+        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--line) px-1">pro</span>Part of Pro</span>
       </div>
     </div>
-  </UContainer>
+  </div>
 </template>
-
-<style scoped>
-.curriculum-hero {
-  display: grid;
-  gap: 2.5rem;
-  align-items: center;
-}
-@media (min-width: 1024px) {
-  .curriculum-hero {
-    grid-template-columns: minmax(0, 1fr) 24rem;
-  }
-}
-.curriculum-cta {
-  background-color: #fff;
-  color: var(--color-cobalt-700);
-}
-.curriculum-cta:hover {
-  background-color: var(--color-cobalt-50);
-}
-@media (min-width: 1024px) {
-  .curriculum-grid {
-    display: grid;
-    grid-template-columns: 15rem minmax(0, 1fr);
-    column-gap: 2.5rem;
-    align-items: start;
-  }
-  .curriculum-index {
-    position: sticky;
-    top: calc(var(--ui-header-height) + 1.5rem);
-  }
-}
-
-/* The timeline: a hairline running down from each phase's marker. */
-.curriculum-phase {
-  position: relative;
-}
-@media (min-width: 640px) {
-  .curriculum-phase::before {
-    content: "";
-    position: absolute;
-    left: 1.25rem;
-    top: 2.75rem;
-    bottom: -3rem;
-    width: 1px;
-    background: linear-gradient(var(--ui-border-accented), var(--ui-border-accented) 70%, transparent);
-  }
-  .curriculum-phase:last-of-type::before {
-    bottom: 0;
-  }
-}
-.curriculum-phase-dot {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 9999px;
-  background-color: var(--ui-primary);
-  color: #fff;
-  box-shadow: 0 0 0 4px var(--app-page);
-}
-</style>

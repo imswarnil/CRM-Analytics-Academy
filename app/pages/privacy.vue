@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const title = 'Privacy Policy — CRM Analytics Academy'
+const title = 'Privacy Policy'
 const description = 'How CRM Analytics Academy handles data, cookies, analytics, and advertising.'
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
@@ -47,25 +47,15 @@ const sections = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
+    <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
       <UContainer class="relative py-16 sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          class="mb-6 rounded-full"
-        >
-          <UIcon
-            name="i-lucide-shield-check"
-            class="mr-1 size-4"
-          />
-          Privacy
-        </UBadge>
-        <h1 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+        <p class="eyebrow mb-5">
+          Sheet 14 / Privacy
+        </p>
+        <h1 class="bp-h1">
           Privacy Policy
         </h1>
-        <p class="mt-4 max-w-2xl text-lg text-muted">
+        <p class="mt-4 max-w-2xl bp-lead">
           CRM Analytics Academy is a free curriculum, funded in part by advertising. Here is exactly what
           that means for your data.
         </p>
@@ -79,15 +69,15 @@ const sections = [
             v-for="s in sections"
             :key="s.title"
           >
-            <h2 class="text-xl font-bold text-highlighted">
+            <h2 class="text-xl font-bold text-(--ink)">
               {{ s.title }}
             </h2>
-            <p class="mt-2 text-muted">
+            <p class="mt-2 text-(--ink2)">
               {{ s.body }}
             </p>
           </div>
 
-          <AdUnit
+          <PromoSlot
             placement="betweenSections"
             class="mx-auto my-8 max-w-3xl"
           />

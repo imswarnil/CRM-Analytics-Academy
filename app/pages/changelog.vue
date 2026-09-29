@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const title = 'Changelog — CRM Analytics Academy'
+const title = 'Changelog'
 const description = 'Recent updates and improvements to CRM Analytics Academy.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
@@ -140,46 +140,35 @@ const entries: Entry[] = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
+    <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
       <UContainer class="relative py-14 text-center sm:py-20">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          class="mb-6 rounded-full"
-        >
-          <UIcon
-            name="i-lucide-history"
-            class="mr-1 size-4"
-          />
-          Changelog
-        </UBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+        <p class="eyebrow mb-5">
+          Sheet 12 / Changelog
+        </p>
+        <h1 class="mx-auto max-w-3xl bp-h1">
           What's <span class="text-gradient">new</span>
         </h1>
-        <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
+        <p class="mx-auto mt-5 max-w-2xl bp-lead">
           Recent updates to the Academy. Follow along on
           <NuxtLink
             to="https://github.com/imswarnil/CRM-Analytics-Academy"
             target="_blank"
-            class="text-primary hover:underline"
+            class="text-(--signal) hover:underline"
           >GitHub</NuxtLink>.
         </p>
       </UContainer>
     </section>
 
     <UContainer class="max-w-3xl py-12 sm:py-16">
-      <div class="space-y-10 border-s border-default ps-6">
+      <div class="space-y-10 border-s border-(--line) ps-6">
         <div
           v-for="(e, i) in entries"
           :key="i"
           class="relative"
         >
-          <span class="absolute -start-[1.85rem] top-1 flex size-4 items-center justify-center rounded-full border-2 border-primary bg-default" />
+          <span class="absolute -start-[1.85rem] top-1 flex size-4 items-center justify-center border-2 border-(--signal) bg-(--card)" />
           <div class="mb-1 flex items-center gap-3">
-            <span class="text-xs font-medium uppercase tracking-wide text-dimmed">{{ e.date }}</span>
+            <span class="text-xs font-medium uppercase tracking-wide text-(--ink2)">{{ e.date }}</span>
             <UBadge
               :color="e.color"
               variant="subtle"
@@ -188,21 +177,21 @@ const entries: Entry[] = [
               {{ e.tag }}
             </UBadge>
           </div>
-          <h2 class="text-lg font-bold text-highlighted">
+          <h2 class="text-lg font-bold text-(--ink)">
             {{ e.title }}
           </h2>
-          <p class="mb-3 mt-0.5 text-sm text-muted">
+          <p class="mb-3 mt-0.5 text-sm text-(--ink2)">
             {{ e.summary }}
           </p>
           <ul class="space-y-1.5">
             <li
               v-for="item in e.items"
               :key="item"
-              class="flex items-start gap-2 text-sm text-toned"
+              class="flex items-start gap-2 text-sm text-(--ink2)"
             >
               <UIcon
                 name="i-lucide-check"
-                class="mt-0.5 size-4 shrink-0 text-success"
+                class="mt-0.5 size-4 shrink-0 text-(--signal)"
               />
               <span>{{ item }}</span>
             </li>
@@ -210,7 +199,7 @@ const entries: Entry[] = [
         </div>
       </div>
 
-      <AdUnit
+      <PromoSlot
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"
       />

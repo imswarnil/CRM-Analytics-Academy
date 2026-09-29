@@ -97,21 +97,24 @@ const localePath = useLocalePath()
 </script>
 
 <template>
-  <div class="rounded-2xl border border-default bg-default p-5 sm:p-7">
+  <div class="crosshair relative border-[1.5px] border-(--ink) bg-(--card) p-5 shadow-[10px_10px_0_var(--ice)] sm:p-7">
+    <p class="mono-label mb-5">
+      Form {{ kind }} — all fields reach a person
+    </p>
     <div
       v-if="sent"
       class="flex flex-col items-center py-10 text-center"
     >
-      <span class="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+      <span class="flex size-12 items-center justify-center border-[1.5px] border-(--ink) bg-(--glow) text-(--ink)">
         <UIcon
           name="i-lucide-check"
           class="size-6"
         />
       </span>
-      <p class="mt-4 text-lg font-semibold text-highlighted">
+      <p class="mt-4 text-xl font-extrabold tracking-[-0.02em] text-(--ink)">
         Request sent
       </p>
-      <p class="mt-1 max-w-sm text-muted">
+      <p class="mt-1 max-w-sm text-(--ink2)">
         {{ copy.done }}
       </p>
     </div>
@@ -208,12 +211,12 @@ const localePath = useLocalePath()
         :title="error"
       />
 
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <p class="text-xs text-muted">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-t border-dashed border-(--line) pt-5">
+        <p class="text-xs text-(--ink2)">
           We only use these details to reply to you. See the
           <NuxtLink
             :to="localePath('/privacy')"
-            class="underline hover:text-highlighted"
+            class="underline hover:text-(--signal)"
           >privacy policy</NuxtLink>.
         </p>
         <UButton

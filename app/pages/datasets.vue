@@ -6,7 +6,7 @@
  */
 import manifest from '~~/public/sample-data/academy/manifest.json'
 
-const title = 'Datasets — CRM Analytics Academy'
+const title = 'Datasets'
 const description = 'The course warehouse: CRM Analytics Academy\'s own business data — accounts, pipeline, subscriptions, classroom batches and enrollments — as free CSVs to load into your CRM Analytics org.'
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
@@ -96,97 +96,95 @@ useJsonLd({
 
 <template>
   <div>
-    <section class="bg-brand-wash border-b border-default">
-      <UContainer class="py-14 sm:py-20">
-        <p class="im-meta text-primary">
-          The course warehouse
-        </p>
-        <h1 class="mt-3 max-w-3xl text-4xl font-bold tracking-tighter text-highlighted sm:text-5xl text-balance">
-          One company's data, every build in the course
-        </h1>
-        <p class="mt-5 max-w-2xl text-lg text-muted text-pretty">
-          CRM Analytics Academy's own business: learners and team plans, a pipeline of corporate
-          deals, six classroom centers and every seat sold in them. Load it into your org once and
-          every lesson from the first dashboard to the executive board runs on it.
-        </p>
-        <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-          <div
-            v-for="s in [
-              { label: 'Files', value: fmt(Object.keys(files).length) },
-              { label: 'Rows', value: fmt(totalRows) },
-              { label: 'Window', value: `${manifest.window.from.slice(0, 7)} → ${manifest.window.to.slice(0, 7)}` }
-            ]"
-            :key="s.label"
-          >
-            <dd class="im-figure text-2xl font-semibold text-highlighted">
-              {{ s.value }}
-            </dd>
-            <dt class="im-meta text-dimmed">
-              {{ s.label }}
-            </dt>
-          </div>
-        </dl>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <UButton
-            :to="`${BASE}/README.md`"
-            external
-            target="_blank"
-            icon="i-lucide-book-open"
-            size="lg"
-          >
-            Read the data guide
-          </UButton>
-          <UButton
-            :to="`${BASE}/manifest.json`"
-            external
-            target="_blank"
-            icon="i-lucide-file-json"
-            size="lg"
-            color="neutral"
-            variant="outline"
-          >
-            Manifest
-          </UButton>
+    <BpPageHeader
+      sheet="Sheet 05 / The course warehouse"
+      title="One company's data, every build in the course"
+      lead="CRM Analytics Academy's own business: learners and team plans, a pipeline of corporate deals, six classroom centers and every seat sold in them. Load it into your org once and every lesson from the first dashboard to the executive board runs on it."
+    >
+      <dl class="mt-8 inline-grid grid-cols-3 border-[1.5px] border-(--ink) bg-(--card)">
+        <div
+          v-for="(s, n) in [
+            { label: 'Files', value: fmt(Object.keys(files).length) },
+            { label: 'Rows', value: fmt(totalRows) },
+            { label: 'Window', value: `${manifest.window.from.slice(0, 7)} → ${manifest.window.to.slice(0, 7)}` }
+          ]"
+          :key="s.label"
+          class="flex flex-col-reverse px-5 py-3"
+          :class="n ? 'border-s-[1.5px] border-(--ink)' : ''"
+        >
+          <dd class="text-2xl font-black tracking-[-0.03em] text-(--ink)">
+            {{ s.value }}
+          </dd>
+          <dt class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+            {{ s.label }}
+          </dt>
         </div>
-      </UContainer>
-    </section>
+      </dl>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <UButton
+          :to="`${BASE}/README.md`"
+          external
+          target="_blank"
+          icon="i-lucide-book-open"
+          size="lg"
+        >
+          Read the data guide
+        </UButton>
+        <UButton
+          :to="`${BASE}/manifest.json`"
+          external
+          target="_blank"
+          icon="i-lucide-file-json"
+          size="lg"
+          color="neutral"
+          variant="outline"
+        >
+          Manifest
+        </UButton>
+      </div>
+    </BpPageHeader>
 
-    <UContainer class="py-12 sm:py-16">
-      <div class="space-y-12">
+    <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div class="space-y-14">
         <section
-          v-for="g in groups"
+          v-for="(g, gi) in groups"
           :key="g.title"
         >
-          <h2 class="flex items-center gap-2 text-xl font-bold tracking-tight text-highlighted">
-            <UIcon
-              :name="g.icon"
-              class="size-5 text-primary"
-            />
+          <p class="eyebrow">
+            Table 0{{ gi + 1 }}
+          </p>
+          <h2 class="mt-2 flex items-center gap-3 text-2xl font-extrabold tracking-[-0.02em] text-(--ink)">
+            <span class="bp-iconbox size-9!">
+              <UIcon
+                :name="g.icon"
+                class="size-4"
+              />
+            </span>
             {{ g.title }}
           </h2>
-          <div class="mt-4 overflow-hidden rounded-xl border border-default bg-default">
+          <div class="mt-5 border-[1.5px] border-(--ink) bg-(--card)">
             <div
               v-for="f in g.files"
               :key="f.file"
-              class="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-default px-5 py-4 last:border-b-0"
+              class="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-dashed border-(--line) px-5 py-4 last:border-b-0 hover:bg-(--ice)/50"
             >
               <div class="min-w-0 flex-1 basis-72">
-                <p class="font-mono text-sm font-semibold text-highlighted">
+                <p class="font-mono text-sm font-semibold text-(--ink)">
                   {{ f.file }}
                 </p>
-                <p class="mt-0.5 text-sm text-muted">
+                <p class="mt-0.5 text-sm text-(--ink2)">
                   {{ f.desc }}
                 </p>
               </div>
               <div class="w-44 shrink-0">
-                <p class="im-meta text-dimmed">
+                <p class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
                   one row per
                 </p>
-                <p class="text-sm text-toned">
+                <p class="text-sm text-(--ink)">
                   {{ f.grain }}
                 </p>
               </div>
-              <p class="im-figure w-28 shrink-0 text-sm text-toned">
+              <p class="w-28 shrink-0 font-mono text-sm text-(--ink)">
                 {{ fmt(files[f.file]?.rows ?? 0) }} rows
               </p>
               <UButton
@@ -194,7 +192,8 @@ useJsonLd({
                 external
                 download
                 size="sm"
-                variant="soft"
+                color="neutral"
+                variant="outline"
                 icon="i-lucide-download"
               >
                 CSV
@@ -204,25 +203,21 @@ useJsonLd({
         </section>
       </div>
 
-      <div class="mt-12 rounded-xl border border-default bg-default p-6">
-        <h3 class="flex items-center gap-2 font-semibold text-highlighted">
-          <UIcon
-            name="i-lucide-info"
-            class="size-4 text-primary"
-          />
-          Loading it into your org
-        </h3>
-        <ol class="mt-3 list-inside list-decimal space-y-1.5 text-sm text-muted">
-          <li>In Analytics Studio, create an app called <strong class="text-toned">Academy Analytics</strong>.</li>
-          <li>Open <strong class="text-toned">Data Manager → Create Dataset → CSV File</strong> and upload one file at a time into that app.</li>
+      <div class="graph-paper-navy mt-14 border-[1.5px] border-(--ink) bg-(--navy) p-6 text-white">
+        <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+          Procedure — loading it into your org
+        </p>
+        <ol class="mt-4 list-inside list-decimal space-y-2 text-sm text-white/80">
+          <li>In Analytics Studio, create an app called <strong class="text-white">Academy Analytics</strong>.</li>
+          <li>Open <strong class="text-white">Data Manager → Create Dataset → CSV File</strong> and upload one file at a time into that app.</li>
           <li>Check the row count against this page before building on it — a short count is almost always a delimiter or date-format problem.</li>
         </ol>
       </div>
 
-      <AdUnit
+      <PromoSlot
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"
       />
-    </UContainer>
+    </div>
   </div>
 </template>

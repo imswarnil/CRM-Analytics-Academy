@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
 
-const { t, tm, rt, locale, locales, setLocale } = useI18n()
+const { t, tm, rt, locale, locales } = useI18n()
 const localePath = useLocalePath()
 
 // The BCP-47 tag of the locale this copy of the page is prerendered for —
@@ -31,12 +31,6 @@ const lessonCount = computed(() =>
   (navigation.value ?? []).reduce((n, m) => n + ((m.children?.length ?? 0) || 1), 0)
 )
 
-const stats = computed(() => [
-  { icon: 'i-lucide-book-open', value: String(lessonCount.value), label: t('home.stats.lessons') },
-  { icon: 'i-lucide-layout-dashboard', value: '17', label: t('home.stats.video') },
-  { icon: 'i-lucide-badge-check', value: '100%', label: t('home.stats.free') }
-])
-
 /**
  * The curriculum cards, derived from the same navigation tree the sidebar and
  * /curriculum read. They used to be a hardcoded array of six modules with their
@@ -48,28 +42,6 @@ const stats = computed(() => [
  * gets, and a one-line description. Everything else -- title, route, lesson
  * count, order -- comes from the content itself and cannot drift again.
  */
-const THUMBS: Record<string, 'foundations' | 'setup' | 'datasets' | 'lenses' | 'dashboards' | 'collaboration'> = {
-  'introduction': 'foundations',
-  'foundations': 'foundations',
-  'setup': 'setup',
-  'data-preparation': 'datasets',
-  'datasets-and-modelling': 'datasets',
-  'data-visualization': 'lenses',
-  'lenses-and-explorations': 'lenses',
-  'saql': 'lenses',
-  'designing-dashboards': 'dashboards',
-  'interactions': 'dashboards',
-  'bindings': 'dashboards',
-  'dashboard-json': 'dashboards',
-  'collaboration': 'collaboration',
-  'apis-and-automation': 'collaboration',
-  'einstein-discovery': 'collaboration',
-  'gtm-engineering': 'dashboards',
-  'demand-analytics': 'dashboards',
-  'pipeline-analytics': 'dashboards',
-  'revops-analytics': 'dashboards'
-}
-
 const BLURBS: Record<string, string> = {
   'introduction': 'What the course is, who it is for, a free org, and the first dataset loaded.',
   'foundations': 'What CRM Analytics is, the three layers, the vocabulary, and when it is the wrong tool.',
@@ -96,17 +68,22 @@ function slugOf(path: string) {
   return String(path).split('/').filter(Boolean).pop() ?? ''
 }
 
+const { of: lessonMeta } = useLessonMeta()
+
 const modules = computed(() =>
   (navigation.value ?? []).map((mod, i) => {
     const slug = slugOf(String(mod.path ?? ''))
     return {
       n: String(i).padStart(2, '0'),
-      kind: THUMBS[slug] ?? 'dashboards',
       title: String(mod.title ?? ''),
       to: String(mod.path ?? ''),
       icon: String(mod.icon ?? 'i-lucide-book-open'),
       desc: BLURBS[slug] ?? '',
-      lessons: ((mod.children ?? []) as ContentNavigationItem[]).map(l => String(l.title ?? ''))
+      lessons: ((mod.children ?? []) as ContentNavigationItem[]).map(l => ({
+        title: String(l.title ?? ''),
+        to: String(l.path ?? ''),
+        ...lessonMeta(String(l.path ?? ''))
+      }))
     }
   })
 )
@@ -162,429 +139,378 @@ useJsonLd({
   }))
 })
 
-// The ecosystem teasers: community, companies, careers.
-const explore = computed(() => [
-  { icon: 'i-lucide-heart-handshake', title: t('nav.wallOfFame'), description: t('home.exploreWall'), to: localePath('/wall-of-fame') },
-  { icon: 'i-lucide-building-2', title: t('nav.companies'), description: t('home.exploreCompanies'), to: localePath('/companies') },
-  { icon: 'i-lucide-briefcase', title: t('nav.jobs'), description: t('home.exploreJobs'), to: localePath('/jobs') }
-])
+// ---- Blueprint page data ----------------------------------------------------
 
-// The three value props, drawn as icon features by UPageSection.
-const featureIcons = ['i-lucide-workflow', 'i-lucide-chart-column-big', 'i-lucide-sparkles']
-const features = computed(() =>
-  (tm('home.features') as { t: string, d: string }[]).map((f, i) => ({
-    title: rt(f.t),
-    description: rt(f.d),
-    icon: featureIcons[i]
-  }))
-)
+const totalMinutes = computed(() => modules.value.reduce((n, m) => n + m.lessons.reduce((k, l) => k + l.minutes, 0), 0))
+const hours = computed(() => Math.round(totalMinutes.value / 60))
 
-// Flags come from the locale's own BCP-47 region subtag (en-US → us,
-// pt-BR → br, ar-SA → sa), so the map can never drift from nuxt.config.
-type LocaleLike = { code: string, language?: string, name?: string }
-const flagFor = (l?: LocaleLike) => {
-  const region = (l?.language || '').split('-')[1]?.toLowerCase()
-  return region ? `i-circle-flags-${region}` : 'i-lucide-globe'
-}
-const currentLocale = computed<LocaleLike | undefined>(() => locales.value.find(l => l.code === locale.value))
-const otherLocales = computed(() => locales.value.filter(l => l.code !== locale.value))
+// FIG. 01 — the Academy's own closing ARR, last twelve months, from the course
+// warehouse (public/sample-data/academy/arr_snapshots.csv). The chart the
+// course ends up building, drawn on the page that sells it.
+const arr = [1352, 1722, 2805, 3047, 3670, 4098, 5013, 5781, 6210, 6512, 7100, 6969]
+const months = ['O', 'N', 'D', 'J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S']
+const heroBars = arr.map((v, i) => ({
+  label: months[i]!,
+  value: v,
+  tone: (i < 4 ? 'frost' : i < 8 ? 'tide' : 'signal') as 'frost' | 'tide' | 'signal',
+  title: `${months[i]} · $${(v / 1000).toFixed(2)}M ARR`
+}))
+const heroKpis = [
+  { label: 'ARR', value: '$6.97M', delta: '▲ 664% YoY', up: true },
+  { label: 'Win rate', value: '40.4%', delta: '▲ closed deals', up: true },
+  { label: 'NRR', value: '139.5%', delta: '▲ GRR 97.2%', up: true }
+]
 
-// Hero social proof: initials avatars standing in for the community.
-const communityAvatars = ['SS', 'RH', 'MC', 'CB', 'MT', 'BB']
+const ticker = ['Recipes', 'SAQL', 'Datasets', 'Grain', 'Lenses', 'Dashboards', 'Bindings', 'Security predicates', 'Einstein Discovery', 'Dashboard JSON', 'REST API', 'Metric contracts', 'ARR waterfall', 'Pipeline analytics']
 
-// Exactly two calls to action: begin, or see what's inside first.
-const heroLinks = computed(() => [
-  {
-    label: t('hero.start'),
-    to: localePath('/foundations'),
-    trailingIcon: 'i-lucide-arrow-right',
-    size: 'xl' as const
-  },
-  {
-    label: t('hero.browse'),
-    to: '#curriculum',
-    color: 'neutral' as const,
-    variant: 'outline' as const,
-    icon: 'i-lucide-graduation-cap',
-    size: 'xl' as const
-  }
-])
+const method = [
+  { n: '01', icon: 'i-lucide-crosshair', title: 'One technology, deep', text: 'Only CRM Analytics. Every lesson assumes a real Salesforce org and real data.', metric: 'Depth · 19 sections', path: 'M0 58 L40 52 L80 46 L120 40 L160 30 L200 22 L240 12' },
+  { n: '02', icon: 'i-lucide-clapperboard', title: 'Video + article lessons', text: 'Walk through it on screen, then keep a written reference with copyable SAQL.', metric: `Length · ${hours.value}h total`, path: 'M0 50 L40 44 L80 48 L120 30 L160 34 L200 18 L240 20' },
+  { n: '03', icon: 'i-lucide-package-open', title: 'One company’s data', text: 'Twenty-one CSVs describing one business. Every build reconciles with the last.', metric: 'Data · 32,000 rows', path: 'M0 60 L40 40 L80 42 L120 26 L160 28 L200 16 L240 8' },
+  { n: '04', icon: 'i-lucide-refresh-cw', title: 'Release-current', text: 'Rewritten when Salesforce renames things. Free, open source, and it stays that way.', metric: 'Cost · $0 to learn', path: 'M0 40 L40 42 L80 36 L120 38 L160 30 L200 32 L240 24' }
+]
+
+// FIG. 03 — the curriculum as stacked bars: one segment per lesson, width
+// proportional to its minutes, on a shared axis.
+const axisMax = computed(() => Math.ceil(Math.max(15, ...modules.value.map(m => m.lessons.reduce((n, l) => n + l.minutes, 0))) / 15) * 15)
+const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, (_, i) => i * 15))
+
+const teamBars = [
+  [30, 22, 18], [34, 26, 22], [38, 32, 20], [40, 30, 26], [42, 34, 26], [44, 36, 30]
+]
 </script>
 
 <template>
   <div>
-    <!-- ============================ HERO ============================ -->
-    <section class="relative overflow-hidden">
-      <div
-        class="bg-grid animate-grid-pan absolute inset-0"
+    <!-- HERO ------------------------------------------------------------- -->
+    <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
+      <!-- faint area chart behind everything -->
+      <svg
+        class="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] w-full"
+        viewBox="0 0 1200 400"
+        preserveAspectRatio="none"
         aria-hidden="true"
-      />
-      <div
-        class="absolute -top-32 -left-32 size-96 rounded-full bg-primary/15 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        class="absolute -top-20 right-0 size-80 rounded-full bg-primary-400/10 blur-3xl"
-        aria-hidden="true"
-      />
-
-      <UPageHero
-        orientation="horizontal"
-        :description="t('hero.subtitle')"
-        class="relative"
-        :ui="{
-          container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20 lg:gap-16',
-          title: 'text-4xl sm:text-6xl'
-        }"
       >
-        <template #headline>
-          <UBadge
-            color="primary"
-            variant="subtle"
-            size="lg"
-            icon="i-lucide-sparkles"
-            class="rounded-full"
-          >
-            {{ t('hero.badge') }}
-          </UBadge>
-        </template>
+        <path
+          d="M0 360 L100 330 L200 340 L300 290 L400 300 L500 250 L600 262 L700 210 L800 220 L900 170 L1000 180 L1100 130 L1200 110 L1200 400 L0 400Z"
+          fill="var(--ice)"
+          fill-opacity=".55"
+          stroke="var(--frost)"
+          stroke-width="1.5"
+          vector-effect="non-scaling-stroke"
+        />
+        <path
+          d="M0 380 L150 370 L300 355 L450 350 L600 330 L750 318 L900 300 L1050 285 L1200 270"
+          fill="none"
+          stroke="var(--frost)"
+          stroke-width="1.5"
+          stroke-dasharray="6 6"
+          vector-effect="non-scaling-stroke"
+        />
+      </svg>
+      <div class="pointer-events-none absolute inset-x-0 bottom-3 mx-auto flex max-w-(--ui-container) justify-around px-8 font-mono text-[10px] text-(--x)">
+        <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
+      </div>
 
-        <template #title>
-          {{ t('hero.titleLead') }}<br>
-          <span class="text-primary">{{ t('hero.titleAccent') }}</span>.
-        </template>
-
-        <template #footer>
-          <div class="space-y-5">
-            <!-- The action row lives here by hand: UPageHero renders its
-                 `links` prop as the footer slot's DEFAULT content, so a
-                 custom footer must re-render them or they vanish. -->
-            <div class="flex flex-wrap gap-3">
-              <UButton
-                v-for="(link, li) in heroLinks"
-                :key="li"
-                v-bind="link"
-              />
-            </div>
-
-            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-dimmed">
-              <span
-                v-for="f in [t('hero.f1'), t('hero.f2'), t('hero.f3')]"
-                :key="f"
-                class="flex items-center gap-1.5"
-              >
-                <UIcon
-                  name="i-lucide-check"
-                  class="size-4 text-primary"
-                />
-                {{ f }}
-              </span>
-            </div>
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[repeat(auto-fit,minmax(440px,1fr))] lg:px-8">
+        <div>
+          <p class="eyebrow flex items-center gap-2">
+            <span class="inline-block size-2 bg-(--glow)" />
+            {{ t('home.hero.eyebrow') }}
+          </p>
+          <h1 class="bp-h1 mt-5">
+            {{ t('home.hero.title') }}
+          </h1>
+          <div class="mt-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)">
+            <span class="h-3 border-s-[1.5px] border-(--ink2)" />
+            <span class="h-px flex-1 bg-(--ink2)/50" />
+            <span>1 course · {{ lessonCount }} lessons · {{ hours }}h</span>
+            <span class="h-px flex-1 bg-(--ink2)/50" />
+            <span class="h-3 border-s-[1.5px] border-(--ink2)" />
           </div>
-        </template>
-
-        <div class="relative lg:me-4">
-          <!-- Was an embedded third-party CRM Analytics training video — the
-               spine of the old curriculum, whose clips were removed from every
-               lesson when this was rewritten as original work. Introducing an
-               original course with somebody else's recording undercut the one
-               claim the page most needs to make, so the hero now shows what
-               the course produces instead. -->
-          <HeroBoard />
-
-          <!-- Floating proof around the frame: two medium stats and the
-               community faces, drifting slowly. Decorative duplicates of
-               real page content, so hidden from assistive tech. -->
-          <div
-            class="animate-float absolute -top-5 -left-4 flex items-center gap-2.5 rounded-xl border border-default bg-default/90 px-4 py-2.5 shadow-lg backdrop-blur max-sm:hidden"
-            style="animation-duration: 8s"
-            aria-hidden="true"
-          >
-            <UIcon
-              :name="stats[0]!.icon"
-              class="size-5 text-primary"
-            />
-            <div>
-              <p class="text-sm font-bold text-highlighted tabular-nums">
-                {{ stats[0]!.value }}
-              </p>
-              <p class="text-xs text-muted">
-                {{ stats[0]!.label }}
-              </p>
-            </div>
-          </div>
-
-          <div
-            class="animate-float absolute -right-3 -bottom-5 flex items-center gap-2.5 rounded-xl border border-default bg-default/90 px-4 py-2.5 shadow-lg backdrop-blur max-sm:hidden"
-            style="animation-duration: 9s; animation-delay: 0.8s"
-            aria-hidden="true"
-          >
-            <UIcon
-              :name="stats[1]!.icon"
-              class="size-5 text-primary"
-            />
-            <div>
-              <p class="text-sm font-bold text-highlighted tabular-nums">
-                {{ stats[1]!.value }}
-              </p>
-              <p class="text-xs text-muted">
-                {{ stats[1]!.label }}
-              </p>
-            </div>
-          </div>
-
-          <div
-            class="animate-float absolute -top-5 -right-3 flex items-center gap-2 rounded-xl border border-default bg-default/90 px-3 py-2 shadow-lg backdrop-blur max-sm:hidden"
-            style="animation-duration: 10s; animation-delay: 0.4s"
-            aria-hidden="true"
-          >
-            <UAvatarGroup
-              size="xs"
-              :max="4"
+          <p class="bp-lead mt-6 max-w-xl">
+            {{ t('home.hero.lead') }}
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <UButton
+              :to="localePath('/introduction')"
+              size="lg"
+              icon="i-lucide-play"
             >
-              <UAvatar
-                v-for="a in communityAvatars"
-                :key="a"
-                :text="a"
-                class="bg-primary/10 text-primary"
-              />
-            </UAvatarGroup>
+              {{ t('home.hero.start') }}
+            </UButton>
+            <UButton
+              :to="localePath('/curriculum')"
+              size="lg"
+              color="neutral"
+              variant="outline"
+              trailing-icon="i-lucide-arrow-right"
+            >
+              {{ t('home.hero.curriculum') }}
+            </UButton>
           </div>
         </div>
-      </UPageHero>
+
+        <BpFigure
+          caption="Fig. 01 — Academy ARR by month"
+          spec="Built in Build 14"
+          shadow
+        >
+          <div class="p-4 sm:p-5">
+            <div class="grid grid-cols-3 border-[1.5px] border-(--line)">
+              <div
+                v-for="(k, i) in heroKpis"
+                :key="k.label"
+                class="p-3"
+                :class="i ? 'border-s-[1.5px] border-(--line)' : ''"
+              >
+                <p class="font-mono text-[9px] uppercase tracking-[.12em] text-(--ink2)">
+                  {{ k.label }}
+                </p>
+                <p class="mt-1 text-2xl font-extrabold tracking-[-0.03em] text-(--ink)">
+                  {{ k.value }}
+                </p>
+                <p class="mt-0.5 font-mono text-[10px] text-(--signal)">
+                  {{ k.delta }}
+                </p>
+              </div>
+            </div>
+            <div class="mt-6 ps-7">
+              <BpBarChart
+                :bars="heroBars"
+                :height="150"
+                :ticks="['0', '2M', '4M', '6M']"
+              />
+            </div>
+          </div>
+        </BpFigure>
+      </div>
     </section>
 
-    <!-- ============================ STATS ============================ -->
-    <UContainer>
-      <AdUnit
-        placement="belowHero"
-        class="max-w-4xl"
-      />
-    </UContainer>
-
-    <!-- ========================= CURRICULUM ========================= -->
-    <UPageSection
-      id="curriculum"
-      :headline="t('home.curriculumEyebrow')"
-      :title="t('home.curriculumTitle')"
-      :description="t('home.curriculumSubtitle')"
-      class="scroll-mt-24"
-      :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }"
-    >
-      <UPageGrid>
-        <ScrollReveal
-          v-for="(m, mi) in modules"
-          :key="m.n"
-          :delay="(mi % 3) * 120"
+    <!-- TICKER ------------------------------------------------------------ -->
+    <div class="graph-paper-navy overflow-hidden border-b-[1.5px] border-(--ink) text-white">
+      <div class="ruler text-white/60" />
+      <div class="bp-marquee flex w-max gap-6 py-4 font-mono text-sm uppercase tracking-[.14em]">
+        <template
+          v-for="copy in 2"
+          :key="copy"
         >
-          <NuxtLink
-            :to="localePath(m.to)"
-            class="group flex h-full flex-col overflow-hidden rounded-lg border border-default bg-default transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+          <span
+            v-for="w in ticker"
+            :key="`${copy}-${w}`"
+            class="flex items-center gap-6 whitespace-nowrap"
           >
-            <ModuleThumb :kind="m.kind" />
-            <div class="flex grow flex-col p-5">
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-semibold tracking-widest text-primary uppercase">{{ t('home.curriculumEyebrow') }} {{ m.n }}</span>
-                <UBadge
-                  color="neutral"
-                  variant="subtle"
-                  size="sm"
-                  icon="i-lucide-book-open"
-                  class="rounded-full"
-                >
-                  {{ m.lessons.length }}
-                </UBadge>
-              </div>
-              <h3 class="mt-2 text-lg font-semibold text-highlighted">
-                {{ m.title }}
-              </h3>
-              <p class="mt-2 line-clamp-3 grow text-sm text-muted">
-                {{ m.desc }}
-              </p>
-              <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                {{ t('home.startModule') }}
-                <UIcon
-                  name="i-lucide-arrow-right"
-                  class="size-4 transition-transform group-hover:translate-x-1"
-                />
-              </span>
-            </div>
-          </NuxtLink>
-        </ScrollReveal>
-      </UPageGrid>
-    </UPageSection>
+            {{ w }}<span class="text-(--glow)">+</span>
+          </span>
+        </template>
+      </div>
+    </div>
 
-    <!-- ========================= WHY THIS COURSE ========================= -->
-    <!-- The library's own section anatomy: headline, title, and its
-         built-in three-up feature grid. -->
-    <UPageSection
-      :headline="t('home.featuresEyebrow')"
-      :title="t('home.featuresTitle')"
-      :features="features"
-      :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }"
-    />
-
-    <!-- ========================= NEWSLETTER ========================= -->
-    <NewsletterSection />
-
-    <!-- ========================= ECOSYSTEM ========================= -->
-    <UPageSection
-      :headline="t('home.exploreEyebrow')"
-      :title="t('home.exploreTitle')"
-      :description="t('home.exploreSubtitle')"
-      :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }"
-    >
-      <UPageGrid class="lg:grid-cols-3">
-        <ScrollReveal
-          v-for="(e, ei) in explore"
-          :key="e.to"
-          :delay="ei * 120"
-          :class="ei === 0 ? 'lg:col-span-2' : ''"
-        >
-          <UPageCard
-            :title="e.title"
-            :description="e.description"
-            :to="e.to"
-            spotlight
-            class="h-full"
-          >
-            <template #leading>
-              <div class="flex size-16 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
-                <UIcon
-                  :name="e.icon"
-                  class="size-8 text-primary"
-                />
-              </div>
-            </template>
-            <template #footer>
-              <UIcon
-                name="i-lucide-arrow-right"
-                class="size-5 text-primary"
-              />
-            </template>
-          </UPageCard>
-        </ScrollReveal>
-      </UPageGrid>
-    </UPageSection>
-
-    <UContainer>
-      <AdUnit
-        placement="footer"
-        class="max-w-3xl"
-      />
-    </UContainer>
-
-    <!-- ========================= FAQ ========================= -->
-    <UPageSection
-      :headline="t('home.faqEyebrow')"
-      :title="t('home.faqTitle')"
-      :ui="{ container: 'max-w-5xl px-6 py-12 sm:py-16 lg:py-20' }"
-    >
-      <ScrollReveal>
-        <UAccordion
-          :items="faqItems"
-          type="multiple"
-          class="mx-auto max-w-3xl"
-        />
-      </ScrollReveal>
-    </UPageSection>
-
-    <!-- ========================= LANGUAGES ========================= -->
-    <!-- Last stop before the CTA: the multilingual promise as a two-column
-         block — the case on the left, the languages themselves on the right,
-         the grid fading out to imply "and more". -->
-    <UPageSection :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }">
-      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+    <!-- METHOD ------------------------------------------------------------ -->
+    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
+      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end">
         <div>
-          <p class="flex items-center gap-2 text-sm font-semibold tracking-widest text-primary uppercase">
-            <UIcon
-              name="i-lucide-languages"
-              class="size-5"
-            />
-            {{ t('home.langSubtitle') }}
+          <p class="eyebrow">
+            Fig. 02 — Method
           </p>
-          <h2 class="mt-3 text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t('home.langTitle') }}
+          <h2 class="bp-h2 mt-4">
+            {{ t('home.method.title') }}
           </h2>
+        </div>
+        <p class="bp-lead">
+          {{ t('home.method.lead') }}
+        </p>
+      </div>
 
-          <p class="mt-4 flex items-start gap-2.5 text-base text-muted">
-            <UIcon
-              name="i-lucide-info"
-              class="mt-1 size-4 shrink-0 text-primary"
-            />
-            {{ t('home.langHint') }}
-          </p>
-
-          <!-- What you're reading right now. -->
-          <div class="mt-6 flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 p-4">
-            <UIcon
-              :name="flagFor(currentLocale)"
-              class="size-10 shrink-0 rounded-full"
-            />
-            <div>
-              <p class="text-lg font-bold text-highlighted">
-                {{ currentLocale?.name || locale }}
-              </p>
-              <p class="text-xs tracking-widest text-primary uppercase">
-                {{ currentLocale?.language }}
-              </p>
-            </div>
+      <div class="mt-12 grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))]">
+        <article
+          v-for="m in method"
+          :key="m.n"
+          class="bp-card bp-card--hover flex min-h-72 flex-col p-6"
+        >
+          <div class="flex items-start justify-between">
+            <span class="font-mono text-xs text-(--ink2)">{{ m.n }}</span>
+            <span class="bp-iconbox"><UIcon
+              :name="m.icon"
+              class="size-5"
+            /></span>
           </div>
+          <h3 class="bp-h3 mt-5">
+            {{ m.title }}
+          </h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-(--ink2)">
+            {{ m.text }}
+          </p>
+          <div class="mt-auto pt-6">
+            <svg
+              viewBox="0 0 240 64"
+              class="h-16 w-full"
+              aria-hidden="true"
+            >
+              <path
+                :d="`${m.path} L240 64 L0 64Z`"
+                fill="var(--ice)"
+                class="bp-fade"
+              />
+              <path
+                :d="m.path"
+                fill="none"
+                stroke="var(--signal)"
+                stroke-width="2"
+                class="bp-draw"
+              />
+            </svg>
+            <p class="bp-fade mt-1 font-mono text-[10px] uppercase tracking-[.12em] text-(--signal)">
+              {{ m.metric }}
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CURRICULUM, PLOTTED ---------------------------------------------- -->
+    <section class="graph-paper border-y-[1.5px] border-(--ink)">
+      <div class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="eyebrow">
+              Fig. 03 — Curriculum, plotted
+            </p>
+            <h2 class="bp-h2 mt-4">
+              {{ modules.length }} sections, {{ lessonCount }} lessons
+            </h2>
+          </div>
+          <UButton
+            :to="localePath('/curriculum')"
+            color="neutral"
+            variant="outline"
+            trailing-icon="i-lucide-arrow-right"
+          >
+            Full curriculum
+          </UButton>
         </div>
 
-        <!-- The bento, fading out at its lower edge. -->
-        <div class="relative">
-          <div
-            class="grid grid-cols-2 gap-3 sm:grid-cols-3 [mask-image:linear-gradient(to_bottom,black_65%,transparent_100%)]"
+        <div class="crosshair mt-10 border-[1.5px] border-(--ink) bg-(--card)">
+          <NuxtLink
+            v-for="m in modules"
+            :key="m.to"
+            :to="localePath(m.to)"
+            class="bp-row group grid items-center gap-3 border-b border-(--line) px-5 py-3.5 hover:bg-(--ice)/50 md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)_5rem]"
           >
-            <button
-              v-for="l in otherLocales"
-              :key="l.code"
-              type="button"
-              class="group flex items-center gap-2.5 rounded-xl border border-default bg-default p-3 text-left transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-              @click="setLocale(l.code)"
-            >
-              <UIcon
-                :name="flagFor(l)"
-                class="size-7 shrink-0 rounded-full"
+            <span class="flex items-center gap-3">
+              <span class="font-mono text-xs text-(--signal)">{{ m.n }}</span>
+              <span class="truncate font-bold text-(--ink)">{{ m.title }}</span>
+            </span>
+            <span class="relative flex h-5 items-center">
+              <span
+                v-for="tk in axisTicks.slice(1, -1)"
+                :key="tk"
+                class="absolute inset-y-[-8px] border-s border-(--line)"
+                :style="{ left: `${(tk / axisMax) * 100}%` }"
               />
-              <span class="min-w-0">
-                <span class="block truncate text-sm font-semibold text-highlighted">{{ l.name || l.code }}</span>
-                <span class="block text-xs text-dimmed uppercase">{{ l.code }}</span>
-              </span>
-            </button>
+              <span
+                v-for="(l, li) in m.lessons"
+                :key="li"
+                class="relative h-full border-[1.5px] border-(--ink) transition-colors"
+                :class="l.type === 'video' ? 'bg-(--tide)' : 'bg-(--frost)'"
+                :style="{ width: `${(l.minutes / axisMax) * 100}%`, marginRight: '-1.5px' }"
+                :title="`${l.title} · ${l.minutes} min`"
+              />
+            </span>
+            <span class="hidden items-center justify-end gap-1 font-mono text-xs text-(--ink2) md:flex">
+              {{ m.lessons.reduce((n, l) => n + l.minutes, 0) }} min
+              <UIcon
+                name="i-lucide-arrow-right"
+                class="bp-arrow size-3.5 text-(--signal)"
+              />
+            </span>
+          </NuxtLink>
+          <div class="hidden grid-cols-[minmax(0,17rem)_minmax(0,1fr)_5rem] gap-3 px-5 py-2 md:grid">
+            <span class="font-mono text-[10px] uppercase text-(--ink2)">Section</span>
+            <span class="relative h-4">
+              <span
+                v-for="tk in axisTicks"
+                :key="tk"
+                class="absolute -translate-x-1/2 font-mono text-[10px] text-(--ink2)"
+                :style="{ left: `${(tk / axisMax) * 100}%` }"
+              >{{ tk }}{{ tk === axisMax ? ' min' : '' }}</span>
+            </span>
+            <span />
+          </div>
+        </div>
+        <div class="mt-4 flex gap-5 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+          <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--tide)" />Video walkthrough</span>
+          <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--frost)" />Article</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAMS ------------------------------------------------------------- -->
+    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
+      <div class="graph-paper-navy grid items-center gap-10 border-[1.5px] border-(--ink) p-8 text-white sm:p-12 lg:grid-cols-2">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+            Fig. 04 — Teams
+          </p>
+          <h2 class="mt-4 text-4xl font-extrabold leading-none tracking-[-0.04em] text-white sm:text-5xl">
+            {{ t('home.teams.title') }}
+          </h2>
+          <p class="mt-5 max-w-md text-lg text-white/75">
+            {{ t('home.teams.lead') }}
+          </p>
+          <NuxtLink
+            to="/teams"
+            class="mt-8 inline-flex items-center gap-2 border-[1.5px] border-white bg-(--glow) px-6 py-3 font-bold text-(--navy) shadow-[5px_5px_0_rgba(255,255,255,.85)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_rgba(255,255,255,.85)]"
+          >
+            <UIcon
+              name="i-lucide-users"
+              class="size-5"
+            />
+            {{ t('home.teams.cta') }}
+          </NuxtLink>
+        </div>
+        <div>
+          <div class="flex h-56 items-end gap-3 border-s-[1.5px] border-b-[1.5px] border-white/70 px-3">
+            <div
+              v-for="(stack, i) in teamBars"
+              :key="i"
+              class="flex flex-1 flex-col-reverse"
+            >
+              <span
+                v-for="(v, j) in stack"
+                :key="j"
+                class="border border-(--navy)"
+                :style="{ height: `${v * 1.1}px`, background: ['var(--signal)', 'var(--tide)', 'var(--glow)'][j] }"
+              />
+            </div>
+          </div>
+          <div class="mt-2 flex justify-between px-3 font-mono text-[10px] uppercase text-white/60">
+            <span>Wk 1</span><span>Seats completing sections</span><span>Wk 6</span>
           </div>
         </div>
       </div>
-    </UPageSection>
+    </section>
 
-    <!-- ============================ CTA ============================ -->
-    <UPageSection :ui="{ container: 'max-w-7xl px-6 lg:px-10 py-12 sm:py-16 lg:py-20' }">
-      <ScrollReveal>
-        <UPageCTA
-          :title="t('cta.title')"
-          :description="t('cta.subtitle')"
-          variant="solid"
-          :links="[
-            {
-              label: t('cta.startFoundations'),
-              to: localePath('/foundations'),
-              color: 'neutral',
-              size: 'xl',
-              trailingIcon: 'i-lucide-arrow-right'
-            },
-            {
-              label: t('cta.star'),
-              to: 'https://github.com/imswarnil/CRM-Analytics-Academy',
-              target: '_blank',
-              color: 'neutral',
-              variant: 'outline',
-              size: 'xl',
-              icon: 'i-simple-icons-github'
-            }
-          ]"
+    <!-- FAQ --------------------------------------------------------------- -->
+    <section
+      v-if="faqItems.length"
+      class="mx-auto max-w-3xl px-4 pb-20 sm:px-6"
+    >
+      <div class="border-[1.5px] border-(--ink) bg-(--card)">
+        <div class="flex items-center justify-between border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-4">
+          <h2 class="text-xl font-extrabold text-(--ink)">
+            {{ t('home.faqTitle') }}
+          </h2>
+          <UIcon
+            name="i-lucide-message-circle-question"
+            class="size-5 text-(--signal)"
+          />
+        </div>
+        <UAccordion
+          :items="faqItems"
+          :ui="{ root: 'px-5' }"
         />
-      </ScrollReveal>
-    </UPageSection>
+      </div>
+    </section>
   </div>
 </template>

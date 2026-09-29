@@ -37,7 +37,6 @@ const weeks = computed(() => {
   }
   return out
 })
-const weekMax = computed(() => Math.max(1, ...weeks.value.map(w => w.count)))
 const thisWeek = computed(() => weeks.value[weeks.value.length - 1]?.count ?? 0)
 
 // Progress per section, in course order.
@@ -103,210 +102,155 @@ const recent = computed(() => {
 })
 
 const firstName = computed(() => user.value?.name?.split(' ')[0])
+
+// The same twelve weeks, as bars for the Blueprint chart.
+const activityBars = computed(() => weeks.value.map((w, i) => ({
+  label: i === weeks.value.length - 1 ? 'Now' : i % 3 === 0 ? w.week.slice(5) : '',
+  value: w.count,
+  tone: i === weeks.value.length - 1 ? 'signal' as const : w.count ? 'tide' as const : 'ice' as const,
+  title: `Week of ${w.week} · ${w.count}`
+})))
 </script>
 
 <template>
-  <UContainer>
-    <UPageHeader
-      :headline="t('dashboard.kicker')"
+  <div>
+    <BpPageHeader
+      :sheet="t('dashboard.kicker')"
       :title="firstName ? t('dashboard.welcomeNamed', { name: firstName }) : t('dashboard.welcome')"
     />
 
-    <UPageBody>
-      <!-- Tiles before the detail: a learner opening this page wants the
-         headline numbers first, the breakdown second.
-
-           Two columns on a phone rather than four. At four, "Certification"
-           style labels wrap to three lines and the row becomes taller than the
-           card beneath it. -->
-      <dl class="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4 sm:gap-6">
+    <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 lg:px-8">
+      <!-- Tiles before the detail: the headline numbers first, the breakdown
+           second. Two columns on a phone so labels do not wrap to three lines. -->
+      <dl class="mb-8 grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) lg:grid-cols-4">
         <div
-          v-for="tile in [
+          v-for="(tile, n) in [
             { key: 'done', label: t('dashboard.statCompleted'), value: done, accent: true },
             { key: 'remaining', label: t('dashboard.statRemaining'), value: remaining, accent: false },
             { key: 'points', label: t('dashboard.statPoints'), value: points, accent: true },
             { key: 'rank', label: t('dashboard.statRank'), value: rank ? `#${rank}` : t('dashboard.unranked'), accent: false }
           ]"
           :key="tile.key"
-          class="rounded-lg border border-default p-4"
+          class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-5"
         >
           <dd
-            class="text-2xl font-bold tabular-nums sm:text-3xl"
-            :class="tile.accent ? 'text-primary' : 'text-highlighted'"
+            class="mt-2 text-3xl font-black tabular-nums tracking-[-0.03em] sm:text-4xl"
+            :class="tile.accent ? 'text-(--signal)' : 'text-(--ink)'"
           >
             {{ tile.value }}
           </dd>
-          <dt class="mt-1 truncate text-xs font-semibold uppercase tracking-wide text-dimmed">
-            {{ tile.label }}
+          <dt class="truncate font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
+            K.0{{ n + 1 }} — {{ tile.label }}
           </dt>
         </div>
       </dl>
 
       <div class="grid gap-6 lg:grid-cols-3">
-        <UCard class="lg:col-span-2">
-          <template #header>
-            <p class="font-semibold text-highlighted">
-              {{ t('dashboard.yourProgress') }}
+        <section class="self-start border-[1.5px] border-(--ink) bg-(--card) lg:col-span-2">
+          <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
+            <p class="eyebrow">
+              Fig. 01 — {{ t('dashboard.yourProgress') }}
             </p>
-          </template>
-
-          <div class="mb-2 flex items-baseline justify-between">
-            <span class="text-sm text-muted">{{ t('dashboard.lessonsDone', { done, total }) }}</span>
-            <span class="text-sm font-bold tabular-nums text-highlighted">{{ percent }}%</span>
-          </div>
-          <UProgress
-            :model-value="percent"
-            :max="100"
-            :aria-label="t('course.courseProgress')"
-          />
-
-          <div
-            v-if="loaded && !done"
-            class="mt-6 text-sm text-muted"
-          >
-            {{ t('dashboard.nothingYet') }}
-          </div>
-
-          <!-- Recently completed, newest first. Five is enough to recognise
-               where you were without turning the card into a log. -->
-          <p
-            v-else-if="recent.length"
-            class="mt-6 text-xs font-semibold uppercase tracking-wide text-dimmed"
-          >
-            {{ t('dashboard.recentlyCompleted') }}
-          </p>
-          <ul
-            v-if="recent.length"
-            class="mt-2 space-y-1"
-          >
-            <li
-              v-for="lesson in recent"
-              :key="lesson.path"
+            <span class="font-mono text-xs font-semibold tabular-nums">{{ percent }}%</span>
+          </header>
+          <div class="p-5">
+            <p class="mb-2 text-sm text-(--ink2)">
+              {{ t('dashboard.lessonsDone', { done, total }) }}
+            </p>
+            <div
+              class="relative h-4 border-[1.5px] border-(--ink) bg-(--paper)"
+              role="progressbar"
+              :aria-valuenow="percent"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              :aria-label="t('course.courseProgress')"
             >
-              <NuxtLink
-                :to="localePath(lesson.path)"
-                class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-muted transition-colors hover:bg-elevated hover:text-highlighted"
-              >
-                <UIcon
-                  name="i-lucide-circle-check"
-                  class="size-4 shrink-0 text-primary"
-                />
-                <span class="min-w-0 flex-1 truncate">{{ lesson.title }}</span>
-                <span class="hidden shrink-0 truncate text-xs uppercase tracking-wide text-dimmed sm:block">{{ lesson.moduleTitle }}</span>
-              </NuxtLink>
-            </li>
-          </ul>
+              <div
+                class="hatch-signal h-full border-e-[1.5px] border-(--ink) transition-[width] duration-700"
+                :style="{ width: `${percent}%` }"
+              />
+              <span
+                v-for="i in 9"
+                :key="i"
+                class="absolute inset-y-0 border-s border-(--ink)"
+                :style="{ left: `${i * 10}%` }"
+              />
+            </div>
 
-          <template
+            <p
+              v-if="loaded && !done"
+              class="mt-6 text-sm text-(--ink2)"
+            >
+              {{ t('dashboard.nothingYet') }}
+            </p>
+
+            <!-- Recently completed, newest first. -->
+            <p
+              v-else-if="recent.length"
+              class="mono-label mt-6"
+            >
+              {{ t('dashboard.recentlyCompleted') }}
+            </p>
+            <ul
+              v-if="recent.length"
+              class="mt-2 border-t border-dashed border-(--line)"
+            >
+              <li
+                v-for="lesson in recent"
+                :key="lesson.path"
+                class="border-b border-dashed border-(--line)"
+              >
+                <NuxtLink
+                  :to="localePath(lesson.path)"
+                  class="flex items-center gap-3 px-1 py-2 text-sm transition-colors hover:bg-(--ice)"
+                >
+                  <span class="flex size-6 flex-none items-center justify-center border-[1.5px] border-(--ink) bg-(--signal) text-white">
+                    <UIcon
+                      name="i-lucide-check"
+                      class="size-3.5"
+                    />
+                  </span>
+                  <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ lesson.title }}</span>
+                  <span class="hidden shrink-0 truncate font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2) sm:block">{{ lesson.moduleTitle }}</span>
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+          <footer
             v-if="resume"
-            #footer
+            class="flex flex-wrap items-center gap-4 border-t-[1.5px] border-(--ink) px-5 py-4"
           >
             <UButton
               :to="localePath(resume.path)"
               trailing-icon="i-lucide-arrow-right"
               :label="done ? t('dashboard.continueCta') : t('dashboard.startFirst')"
             />
-            <p class="mt-2 truncate text-sm text-muted">
-              {{ resume.title }}
+            <p class="min-w-0 truncate font-mono text-xs uppercase tracking-[.08em] text-(--ink2)">
+              Next — {{ resume.title }}
             </p>
-          </template>
-        </UCard>
+          </footer>
+        </section>
 
-        <UCard class="lg:col-span-2">
-          <template #header>
-            <div class="flex items-center justify-between">
-              <p class="font-semibold text-highlighted">
-                Activity
-              </p>
-              <span class="text-sm text-muted">{{ thisWeek }} this week</span>
-            </div>
-          </template>
-          <div
-            class="flex items-end gap-1.5"
-            style="height: 7rem"
-            role="img"
-            :aria-label="`Lessons completed per week, last 12 weeks: ${weeks.map(w => w.count).join(', ')}`"
-          >
-            <div
-              v-for="w in weeks"
-              :key="w.week"
-              class="flex-1 rounded-sm"
-              :class="w.count ? 'bg-primary' : 'bg-elevated'"
-              :style="{ height: `${Math.max(6, (w.count / weekMax) * 100)}%` }"
-              :title="`Week of ${w.week}: ${w.count}`"
-            />
-          </div>
-          <div class="mt-2 flex justify-between text-xs text-muted">
-            <span>12 weeks ago</span>
-            <span>This week</span>
-          </div>
-        </UCard>
-
-        <UCard>
-          <template #header>
-            <p class="font-semibold text-highlighted">
-              By section
+        <!-- Plan: the navy panel -->
+        <section class="graph-paper-navy flex flex-col border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white shadow-[8px_8px_0_var(--signal)]">
+          <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--glow)">
+            {{ t('dashboard.plan') }}
+          </p>
+          <div class="mt-3 flex items-center gap-3">
+            <span class="flex size-10 flex-none items-center justify-center border-[1.5px] border-white/60">
+              <UIcon
+                :name="pro ? 'i-lucide-badge-check' : 'i-lucide-lock'"
+                class="size-5"
+                :class="pro ? 'text-(--glow)' : 'text-white/70'"
+              />
+            </span>
+            <p class="text-2xl font-black tracking-[-0.02em]">
+              {{ pro ? t('dashboard.planPro') : t('dashboard.planFree') }}
             </p>
-          </template>
-          <ul class="max-h-72 space-y-2.5 overflow-y-auto pe-1">
-            <li
-              v-for="sec in bySection"
-              :key="sec.title"
-            >
-              <div class="flex justify-between gap-2 text-xs">
-                <span class="truncate text-toned">{{ sec.title }}</span>
-                <span class="im-figure shrink-0 text-muted">{{ sec.done }}/{{ sec.total }}</span>
-              </div>
-              <div class="mt-1 h-1.5 overflow-hidden rounded-full bg-elevated">
-                <div
-                  class="h-full rounded-full bg-primary"
-                  :style="{ width: `${sec.total ? (sec.done / sec.total) * 100 : 0}%` }"
-                />
-              </div>
-            </li>
-          </ul>
-        </UCard>
-
-        <UCard>
-          <template #header>
-            <p class="font-semibold text-highlighted">
-              {{ t('dashboard.plan') }}
-            </p>
-          </template>
-
-          <div class="flex items-center gap-3">
-            <UIcon
-              :name="pro ? 'i-lucide-badge-check' : 'i-lucide-lock'"
-              class="size-6"
-              :class="pro ? 'text-primary' : 'text-muted'"
-            />
-            <div class="min-w-0">
-              <p class="font-medium text-highlighted">
-                {{ pro ? t('dashboard.planPro') : t('dashboard.planFree') }}
-              </p>
-              <p class="text-sm text-muted">
-                {{ pro ? t('dashboard.planProDesc') : t('dashboard.planFreeDesc') }}
-              </p>
-            </div>
           </div>
-
-          <div class="mt-4 flex flex-wrap gap-2 border-t border-default pt-4">
-            <UButton
-              :to="localePath('/leaderboard')"
-              :label="t('dashboard.viewLeaderboard')"
-              icon="i-lucide-trophy"
-              color="neutral"
-              variant="outline"
-              size="sm"
-            />
-            <UButton
-              :to="localePath('/submit')"
-              :label="t('dashboard.contribute')"
-              icon="i-lucide-circle-plus"
-              variant="soft"
-              size="sm"
-            />
-          </div>
+          <p class="mt-3 text-sm text-white/75">
+            {{ pro ? t('dashboard.planProDesc') : t('dashboard.planFreeDesc') }}
+          </p>
 
           <UAlert
             v-if="confirming"
@@ -318,11 +262,12 @@ const firstName = computed(() => user.value?.name?.split(' ')[0])
             description="This usually takes a few seconds."
           />
 
-          <div class="mt-3 flex flex-wrap gap-2">
+          <div class="mt-auto flex flex-wrap gap-2 pt-6">
             <UButton
               v-if="!pro"
               to="/pricing"
               icon="i-lucide-sparkles"
+              color="secondary"
               size="sm"
             >
               Upgrade to Pro
@@ -330,17 +275,79 @@ const firstName = computed(() => user.value?.name?.split(' ')[0])
             <UButton
               v-else
               icon="i-lucide-credit-card"
-              color="neutral"
-              variant="ghost"
+              color="secondary"
               size="sm"
               :loading="portalBusy"
               @click="manageBilling"
             >
               Manage billing
             </UButton>
+            <UButton
+              :to="localePath('/leaderboard')"
+              :label="t('dashboard.viewLeaderboard')"
+              icon="i-lucide-trophy"
+              color="neutral"
+              variant="outline"
+              size="sm"
+              class="border-white/60 bg-transparent text-white hover:bg-white/10"
+            />
+            <UButton
+              :to="localePath('/submit')"
+              :label="t('dashboard.contribute')"
+              icon="i-lucide-circle-plus"
+              color="neutral"
+              variant="outline"
+              size="sm"
+              class="border-white/60 bg-transparent text-white hover:bg-white/10"
+            />
           </div>
-        </UCard>
+        </section>
+
+        <section class="self-start border-[1.5px] border-(--ink) bg-(--card) lg:col-span-2">
+          <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+            <p class="eyebrow">
+              Fig. 02 — Activity, last 12 weeks
+            </p>
+            <span class="font-mono text-xs uppercase tracking-[.08em] text-(--ink2)">{{ thisWeek }} this week</span>
+          </header>
+          <div
+            class="graph-paper-fine p-5"
+            role="img"
+            :aria-label="`Lessons completed per week, last 12 weeks: ${weeks.map(w => w.count).join(', ')}`"
+          >
+            <BpBarChart
+              :bars="activityBars"
+              :height="140"
+              :format="v => `${v} lessons`"
+            />
+          </div>
+        </section>
+
+        <section class="border-[1.5px] border-(--ink) bg-(--card)">
+          <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+            <p class="eyebrow">
+              Fig. 03 — By section
+            </p>
+          </header>
+          <ul class="max-h-80 overflow-y-auto">
+            <li
+              v-for="(sec, n) in bySection"
+              :key="sec.title"
+              class="flex items-center gap-3 border-b border-dashed border-(--line) px-5 py-2.5 last:border-b-0"
+            >
+              <span class="w-6 font-mono text-[11px] font-semibold text-(--signal)">{{ String(n).padStart(2, '0') }}</span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate text-sm font-semibold text-(--ink)">{{ sec.title }}</span>
+                <span class="font-mono text-[10px] text-(--ink2)">{{ sec.done }}/{{ sec.total }}</span>
+              </span>
+              <BpDonut
+                :value="sec.total ? sec.done / sec.total : 0"
+                :size="28"
+              />
+            </li>
+          </ul>
+        </section>
       </div>
-    </UPageBody>
-  </UContainer>
+    </div>
+  </div>
 </template>

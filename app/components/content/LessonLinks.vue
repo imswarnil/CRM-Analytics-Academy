@@ -26,28 +26,28 @@ function external(to: string) {
       :to="link.to"
       :target="external(link.to) ? '_blank' : undefined"
       :rel="external(link.to) ? 'noopener' : undefined"
-      class="group flex items-center gap-3 rounded-xl border border-default bg-elevated/30 px-4 py-3 transition hover:border-primary/50 hover:bg-elevated"
+      class="group flex items-center gap-3 border-[1.5px] border-(--ink) bg-(--card) px-4 py-3 transition hover:border-(--signal) hover:bg-(--ice)"
     >
-      <div class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+      <div class="flex size-9 shrink-0 items-center justify-center bg-(--ice) text-(--signal)">
         <UIcon
           :name="link.icon || 'i-lucide-arrow-up-right'"
           class="size-5"
         />
       </div>
       <div class="min-w-0">
-        <p class="truncate text-sm font-semibold text-highlighted group-hover:text-primary">
+        <p class="truncate text-sm font-semibold text-(--ink) group-hover:text-(--signal)">
           {{ link.label }}
         </p>
         <p
           v-if="link.description"
-          class="truncate text-xs text-muted"
+          class="truncate text-xs text-(--ink2)"
         >
           {{ link.description }}
         </p>
       </div>
       <UIcon
         name="i-lucide-chevron-right"
-        class="ml-auto size-4 shrink-0 text-muted transition group-hover:translate-x-0.5 group-hover:text-primary"
+        class="ml-auto size-4 shrink-0 text-(--ink2) transition group-hover:translate-x-0.5 group-hover:text-(--signal)"
       />
     </NuxtLink>
   </div>

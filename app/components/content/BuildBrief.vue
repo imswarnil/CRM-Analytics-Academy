@@ -38,70 +38,70 @@ defineProps<{
 </script>
 
 <template>
-  <section class="not-prose my-8 overflow-hidden rounded-2xl border border-primary/25 bg-primary/[0.03]">
-    <header class="flex flex-wrap items-center gap-2 border-b border-primary/20 bg-primary/[0.06] px-5 py-3">
+  <section class="not-prose my-8 overflow-hidden border-[1.5px] border-(--ink) bg-(--card)">
+    <header class="flex flex-wrap items-center gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
       <UIcon
         name="i-lucide-clipboard-list"
-        class="size-4 shrink-0 text-primary"
+        class="size-4 shrink-0 text-(--signal)"
       />
-      <p class="text-[10px] font-bold uppercase tracking-widest text-primary">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--signal)">
         Build brief
       </p>
-      <h4 class="ml-auto text-sm font-semibold text-highlighted">
+      <h4 class="ml-auto text-sm font-semibold text-(--ink)">
         {{ dashboard }}
       </h4>
     </header>
 
     <dl class="grid gap-x-6 gap-y-4 p-5 sm:grid-cols-2">
       <div>
-        <dt class="text-[10px] font-bold uppercase tracking-widest text-dimmed">
+        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
           Who opens it
         </dt>
-        <dd class="mt-1 text-sm leading-snug text-toned">
+        <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ audience }}
         </dd>
       </div>
       <div v-if="cadence">
-        <dt class="text-[10px] font-bold uppercase tracking-widest text-dimmed">
+        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
           When
         </dt>
-        <dd class="mt-1 text-sm leading-snug text-toned">
+        <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ cadence }}
         </dd>
       </div>
       <div class="sm:col-span-2">
-        <dt class="text-[10px] font-bold uppercase tracking-widest text-dimmed">
+        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
           The question it answers
         </dt>
-        <dd class="mt-1 text-sm leading-snug text-toned">
+        <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ question }}
         </dd>
       </div>
       <div class="sm:col-span-2">
-        <dt class="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-primary">
+        <dt class="flex items-center gap-1 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--signal)">
           <UIcon
             name="i-lucide-git-branch"
             class="size-3"
           />
           The decision it changes
         </dt>
-        <dd class="mt-1 text-sm font-medium leading-snug text-highlighted">
+        <dd class="mt-1 text-sm font-medium leading-snug text-(--ink)">
           {{ decision }}
         </dd>
       </div>
       <div v-if="success">
-        <dt class="text-[10px] font-bold uppercase tracking-widest text-dimmed">
+        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
           How we know it worked
         </dt>
-        <dd class="mt-1 text-sm leading-snug text-toned">
+        <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ success }}
         </dd>
       </div>
       <div v-if="notInScope?.length">
-        <dt class="text-[10px] font-bold uppercase tracking-widest text-dimmed">
+        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
           Deliberately not here
         </dt>
-        <dd class="mt-1 text-sm leading-snug text-muted">
+        <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ notInScope.join(' · ') }}
         </dd>
       </div>
@@ -109,13 +109,13 @@ defineProps<{
 
     <footer
       v-if="datasets?.length"
-      class="flex flex-wrap items-center gap-1.5 border-t border-primary/20 px-5 py-3"
+      class="flex flex-wrap items-center gap-1.5 border-t border-dashed border-(--line) px-5 py-3"
     >
-      <span class="mr-1 text-[10px] font-bold uppercase tracking-widest text-dimmed">Built on</span>
+      <span class="mr-1 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">Built on</span>
       <code
         v-for="(d, i) in datasets"
         :key="i"
-        class="rounded border border-default bg-default px-1.5 py-0.5 font-mono text-[11px] text-muted"
+        class="border-[1.5px] border-(--ink) bg-(--card) px-1.5 py-0.5 font-mono text-[11px] text-(--ink2)"
       >{{ d }}</code>
     </footer>
   </section>

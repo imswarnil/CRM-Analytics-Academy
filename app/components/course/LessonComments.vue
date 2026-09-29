@@ -99,201 +99,199 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
 <template>
   <section
     ref="root"
-    class="rounded-2xl border border-default bg-default p-5 sm:p-6"
+    class="mt-12 border-[1.5px] border-(--ink) bg-(--card)"
     aria-labelledby="lesson-comments-title"
   >
-    <div class="flex items-center justify-between gap-3">
+    <div class="flex items-center justify-between gap-3 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
       <h2
         id="lesson-comments-title"
-        class="flex items-center gap-2 text-lg font-semibold tracking-tight text-highlighted"
+        class="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[.12em] text-(--signal)"
       >
         <UIcon
           name="i-lucide-messages-square"
-          class="size-5 text-primary"
+          class="size-4"
         />
         Questions and discussion
-        <UBadge
-          v-if="loaded && comments.length"
-          color="neutral"
-          variant="soft"
-          size="sm"
-        >
-          {{ comments.length }}
-        </UBadge>
       </h2>
+      <span
+        v-if="loaded && comments.length"
+        class="border-[1.5px] border-(--ink) bg-(--card) px-2 font-mono text-[11px] font-semibold"
+      >{{ comments.length }}</span>
     </div>
 
-    <ClientOnly>
-      <div
-        v-if="isSignedIn"
-        class="mt-4"
-      >
-        <UTextarea
-          v-model="draft"
-          :rows="3"
-          autoresize
-          :maxlength="2000"
-          placeholder="Ask a question or share how you solved it…"
-          class="w-full"
-        />
-        <div class="mt-2 flex items-center justify-between gap-3">
-          <p class="text-xs text-muted">
-            Plain text. Be kind — other learners are working through this too.
-          </p>
-          <UButton
-            :loading="posting && !replyTo"
-            :disabled="draft.trim().length < 2"
-            icon="i-lucide-send"
-            size="sm"
-            @click="post(null)"
-          >
-            Post
-          </UButton>
-        </div>
-      </div>
-      <p
-        v-else
-        class="mt-4 text-sm text-muted"
-      >
-        <NuxtLink
-          :to="localePath('/sign-in')"
-          class="font-medium text-primary hover:underline"
-        >Sign in</NuxtLink>
-        to ask a question or answer one.
-      </p>
-    </ClientOnly>
-
-    <p
-      v-if="error"
-      class="mt-3 text-sm text-error"
-    >
-      {{ error }}
-    </p>
-
-    <div
-      v-if="loading && !loaded"
-      class="mt-6 space-y-3"
-    >
-      <USkeleton class="h-4 w-1/3" />
-      <USkeleton class="h-4 w-2/3" />
-    </div>
-
-    <p
-      v-else-if="loaded && !comments.length"
-      class="mt-6 text-sm text-muted"
-    >
-      No questions yet. If something in this lesson was unclear, you are probably not the only one.
-    </p>
-
-    <ul
-      v-else
-      class="mt-6 space-y-5"
-    >
-      <li
-        v-for="c in threads"
-        :key="c.id"
-      >
-        <div class="flex gap-3">
-          <UAvatar
-            :src="c.image || undefined"
-            :alt="c.name"
-            size="sm"
+    <div class="p-5 sm:p-6">
+      <ClientOnly>
+        <div
+          v-if="isSignedIn"
+        >
+          <UTextarea
+            v-model="draft"
+            :rows="3"
+            autoresize
+            :maxlength="2000"
+            placeholder="Ask a question or share how you solved it…"
+            class="w-full"
           />
-          <div class="min-w-0 flex-1">
-            <p class="text-sm">
-              <span class="font-semibold text-highlighted">{{ c.name }}</span>
-              <span class="ms-2 text-xs text-muted">{{ when(c.createdAt) }}</span>
+          <div class="mt-2 flex items-center justify-between gap-3">
+            <p class="font-mono text-[10px] uppercase tracking-[.06em] text-(--ink2)">
+              Plain text. Be kind — other learners are working through this too.
             </p>
-            <p class="mt-1 whitespace-pre-line break-words text-sm text-toned">
-              {{ c.body }}
-            </p>
-            <div class="mt-1 flex gap-3 text-xs">
-              <button
-                v-if="isSignedIn"
-                type="button"
-                class="text-muted hover:text-primary"
-                @click="replyTo = replyTo === c.id ? null : c.id"
-              >
-                Reply
-              </button>
-              <button
-                v-if="c.mine"
-                type="button"
-                class="text-muted hover:text-error"
-                @click="remove(c.id)"
-              >
-                Delete
-              </button>
-            </div>
-
-            <ul
-              v-if="c.replies.length"
-              class="mt-3 space-y-3 border-s border-default ps-4"
+            <UButton
+              :loading="posting && !replyTo"
+              :disabled="draft.trim().length < 2"
+              icon="i-lucide-send"
+              size="sm"
+              @click="post(null)"
             >
-              <li
-                v-for="r in c.replies"
-                :key="r.id"
-                class="flex gap-3"
-              >
-                <UAvatar
-                  :src="r.image || undefined"
-                  :alt="r.name"
-                  size="xs"
-                />
-                <div class="min-w-0 flex-1">
-                  <p class="text-sm">
-                    <span class="font-semibold text-highlighted">{{ r.name }}</span>
-                    <span class="ms-2 text-xs text-muted">{{ when(r.createdAt) }}</span>
-                  </p>
-                  <p class="mt-1 whitespace-pre-line break-words text-sm text-toned">
-                    {{ r.body }}
-                  </p>
-                  <button
-                    v-if="r.mine"
-                    type="button"
-                    class="mt-1 text-xs text-muted hover:text-error"
-                    @click="remove(r.id)"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </li>
-            </ul>
+              Post
+            </UButton>
+          </div>
+        </div>
+        <p
+          v-else
+          class="text-sm text-(--ink2)"
+        >
+          <NuxtLink
+            :to="localePath('/sign-in')"
+            class="font-semibold text-(--signal) hover:underline"
+          >Sign in</NuxtLink>
+          to ask a question or answer one.
+        </p>
+      </ClientOnly>
 
-            <div
-              v-if="replyTo === c.id"
-              class="mt-3"
-            >
-              <UTextarea
-                v-model="replyDraft"
-                :rows="2"
-                autoresize
-                :maxlength="2000"
-                placeholder="Write a reply…"
-                class="w-full"
-              />
-              <div class="mt-2 flex justify-end gap-2">
-                <UButton
-                  size="xs"
-                  color="neutral"
-                  variant="ghost"
-                  @click="replyTo = null"
-                >
-                  Cancel
-                </UButton>
-                <UButton
-                  size="xs"
-                  :loading="posting"
-                  :disabled="replyDraft.trim().length < 2"
-                  @click="post(c.id)"
+      <p
+        v-if="error"
+        class="mt-3 text-sm text-error"
+      >
+        {{ error }}
+      </p>
+
+      <div
+        v-if="loading && !loaded"
+        class="mt-6 space-y-3"
+      >
+        <USkeleton class="h-4 w-1/3" />
+        <USkeleton class="h-4 w-2/3" />
+      </div>
+
+      <p
+        v-else-if="loaded && !comments.length"
+        class="mt-6 border border-dashed border-(--line) px-4 py-6 text-center text-sm text-(--ink2)"
+      >
+        No questions yet. If something in this lesson was unclear, you are probably not the only one.
+      </p>
+
+      <ul
+        v-else
+        class="mt-6 divide-y divide-dashed divide-(--line) border-t border-dashed border-(--line)"
+      >
+        <li
+          v-for="c in threads"
+          :key="c.id"
+          class="py-5"
+        >
+          <div class="flex gap-3">
+            <UAvatar
+              :src="c.image || undefined"
+              :alt="c.name"
+              size="sm"
+            />
+            <div class="min-w-0 flex-1">
+              <p class="text-sm">
+                <span class="font-semibold text-(--ink)">{{ c.name }}</span>
+                <span class="ms-2 font-mono text-[10px] uppercase text-(--ink2)">{{ when(c.createdAt) }}</span>
+              </p>
+              <p class="mt-1 whitespace-pre-line break-words text-sm text-(--ink)">
+                {{ c.body }}
+              </p>
+              <div class="mt-1 flex gap-3 text-xs">
+                <button
+                  v-if="isSignedIn"
+                  type="button"
+                  class="font-mono uppercase tracking-[.08em] text-(--ink2) hover:text-(--signal)"
+                  @click="replyTo = replyTo === c.id ? null : c.id"
                 >
                   Reply
-                </UButton>
+                </button>
+                <button
+                  v-if="c.mine"
+                  type="button"
+                  class="font-mono uppercase tracking-[.08em] text-(--ink2) hover:text-error"
+                  @click="remove(c.id)"
+                >
+                  Delete
+                </button>
+              </div>
+
+              <ul
+                v-if="c.replies.length"
+                class="mt-4 space-y-3 border-s-[1.5px] border-(--signal) ps-4"
+              >
+                <li
+                  v-for="r in c.replies"
+                  :key="r.id"
+                  class="flex gap-3"
+                >
+                  <UAvatar
+                    :src="r.image || undefined"
+                    :alt="r.name"
+                    size="xs"
+                  />
+                  <div class="min-w-0 flex-1">
+                    <p class="text-sm">
+                      <span class="font-semibold text-(--ink)">{{ r.name }}</span>
+                      <span class="ms-2 font-mono text-[10px] uppercase text-(--ink2)">{{ when(r.createdAt) }}</span>
+                    </p>
+                    <p class="mt-1 whitespace-pre-line break-words text-sm text-(--ink)">
+                      {{ r.body }}
+                    </p>
+                    <button
+                      v-if="r.mine"
+                      type="button"
+                      class="mt-1 font-mono text-xs uppercase tracking-[.08em] text-(--ink2) hover:text-error"
+                      @click="remove(r.id)"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              </ul>
+
+              <div
+                v-if="replyTo === c.id"
+                class="mt-3"
+              >
+                <UTextarea
+                  v-model="replyDraft"
+                  :rows="2"
+                  autoresize
+                  :maxlength="2000"
+                  placeholder="Write a reply…"
+                  class="w-full"
+                />
+                <div class="mt-2 flex justify-end gap-2">
+                  <UButton
+                    size="xs"
+                    color="neutral"
+                    variant="ghost"
+                    @click="replyTo = null"
+                  >
+                    Cancel
+                  </UButton>
+                  <UButton
+                    size="xs"
+                    :loading="posting"
+                    :disabled="replyDraft.trim().length < 2"
+                    @click="post(c.id)"
+                  >
+                    Reply
+                  </UButton>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </section>
 </template>

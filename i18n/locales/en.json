@@ -36,7 +36,10 @@
     "ask": "Ask AI",
     "forTeams": "For teams",
     "training": "Classroom training",
-    "implementation": "Implementation"
+    "implementation": "Implementation",
+    "home": "Home",
+    "pricing": "Pricing",
+    "enroll": "Enroll"
   },
   "sponsorCard": {
     "title": "Sponsor this project",
@@ -273,7 +276,23 @@
     "langSubtitle": "The whole curriculum, in twelve languages.",
     "langHint": "Pick a language below to switch instantly - or use the globe icon in the navigation bar, on any page. Your choice is remembered.",
     "subtitle": "From your first dataset to an executive board an exec actually opens — the whole platform across nineteen sections, then seventeen go-to-market dashboards built on one company's data.",
-    "f2": "161 lessons"
+    "f2": "161 lessons",
+    "hero": {
+      "eyebrow": "Updated for the current Salesforce release",
+      "title": "Learn CRM Analytics the way it’s used at work.",
+      "lead": "One focused, free course. Walkthroughs and hands-on lessons that take you from your first lens to production dashboards, recipes, SAQL and go-to-market analytics — on one company’s data.",
+      "start": "Start lesson 1",
+      "curriculum": "See curriculum"
+    },
+    "method": {
+      "title": "Built by someone who ships CRM Analytics for a living.",
+      "lead": "Four rules shape every lesson. Hover a card to see what it is measured by."
+    },
+    "teams": {
+      "title": "Training a whole Salesforce team?",
+      "lead": "Team plans, progress reports your manager can read, classroom batches and a curriculum fitted to your org.",
+      "cta": "See team plans"
+    }
   },
   "footer": {
     "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",

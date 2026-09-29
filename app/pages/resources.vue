@@ -62,110 +62,90 @@ useJsonLd({
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-14 text-center sm:py-16">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          class="mb-5 rounded-full"
-        >
-          <UIcon
-            name="i-lucide-library-big"
-            class="mr-1 size-4"
-          />
-          Resources
-        </UBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-          The best <span class="text-gradient">CRM Analytics</span> resources
-        </h1>
-        <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
-          Docs, courses, books, blogs, tools, and communities — filter to find what you need.
-        </p>
-        <UButton
-          :to="localePath('/submit?kind=resource')"
-          icon="i-lucide-plus"
-          color="primary"
-          variant="subtle"
-          class="mt-6 rounded-full font-medium"
-        >
-          Suggest a resource
-        </UButton>
-      </UContainer>
-    </section>
+    <BpPageHeader
+      :sheet="`Sheet 06 / Resources / ${resources.length} references`"
+      title="The best CRM Analytics resources"
+      lead="Docs, courses, books, blogs, tools, and communities — filter to find what you need."
+    >
+      <UButton
+        :to="localePath('/submit?kind=resource')"
+        icon="i-lucide-plus"
+        class="mt-8"
+      >
+        Suggest a resource
+      </UButton>
+    </BpPageHeader>
 
-    <UContainer class="py-12 sm:py-14">
-      <div class="grid gap-8 lg:grid-cols-[210px_1fr]">
+    <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[210px_minmax(0,1fr)]">
         <!-- Left filter -->
         <aside class="lg:sticky lg:top-24 lg:self-start">
-          <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-widest text-muted">
-            Filter
-          </p>
-          <ul class="space-y-1">
-            <li
-              v-for="c in categories"
-              :key="c.key"
-            >
-              <button
-                type="button"
-                class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition"
-                :class="selected === c.key
-                  ? 'bg-primary/10 text-primary ring-1 ring-primary/20'
-                  : 'text-toned hover:bg-muted/50 hover:text-highlighted'"
-                @click="selected = c.key"
+          <div class="border-[1.5px] border-(--ink) bg-(--card)">
+            <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
+              Filter
+            </p>
+            <ul>
+              <li
+                v-for="c in categories"
+                :key="c.key"
+                class="border-b border-dashed border-(--line) last:border-b-0"
               >
-                <UIcon
-                  :name="c.icon"
-                  class="size-4 shrink-0"
-                />
-                <span class="grow text-left">{{ c.key }}</span>
-                <span class="text-xs text-muted">{{ countFor(c.key) }}</span>
-              </button>
-            </li>
-          </ul>
+                <button
+                  type="button"
+                  class="relative flex w-full items-center gap-2.5 px-3 py-2 text-sm transition-colors"
+                  :class="selected === c.key
+                    ? 'bg-(--ice) font-bold text-(--signal)'
+                    : 'text-(--ink) hover:bg-(--ice)/50'"
+                  @click="selected = c.key"
+                >
+                  <span
+                    v-if="selected === c.key"
+                    class="absolute inset-y-0 start-0 w-[3px] bg-(--signal)"
+                  />
+                  <UIcon
+                    :name="c.icon"
+                    class="size-4 shrink-0"
+                  />
+                  <span class="grow text-start">{{ c.key }}</span>
+                  <span class="font-mono text-[10px] text-(--ink2)">{{ countFor(c.key) }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
         </aside>
 
         <div>
-          <p class="mb-6 text-sm text-muted">
-            <span class="font-medium text-highlighted">{{ filtered.length }}</span> resources
+          <p class="mono-label mb-6">
+            {{ filtered.length }} resources
           </p>
 
-          <div class="grid content-start gap-5 sm:grid-cols-2">
+          <div class="grid content-start gap-6 sm:grid-cols-2 xl:grid-cols-3">
             <a
               v-for="r in filtered"
               :key="r.title"
               :href="r.url"
               target="_blank"
               rel="noopener"
-              class="group flex flex-col rounded-2xl border border-default bg-default p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
+              class="bp-card bp-card--hover group flex flex-col p-5"
             >
-              <div class="mb-4 flex items-center justify-between">
-                <div class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-                  <UIcon
-                    :name="r.icon"
-                    class="size-5"
-                  />
-                </div>
-                <UBadge
-                  :label="r.category"
-                  color="neutral"
-                  variant="subtle"
-                  size="sm"
-                  class="rounded-full"
-                />
-              </div>
-              <h3 class="flex items-center gap-1 font-semibold text-highlighted">
-                {{ r.title }}
+              <span class="bp-iconbox absolute end-4 top-4 text-(--signal)">
                 <UIcon
-                  name="i-lucide-arrow-up-right"
-                  class="size-4 text-dimmed transition group-hover:text-primary"
+                  :name="r.icon"
+                  class="size-5"
                 />
+              </span>
+              <p class="eyebrow pe-14">
+                {{ r.category }}
+              </p>
+              <h3 class="mt-3 pe-14 text-lg font-extrabold leading-tight tracking-[-0.02em] text-(--ink)">
+                {{ r.title }}
               </h3>
-              <p class="mt-2 text-sm text-muted">
+              <p class="mt-2 grow text-sm text-(--ink2)">
                 {{ r.desc }}
               </p>
+              <span class="mt-5 border-t border-dashed border-(--line) pt-3 font-mono text-[11px] font-semibold uppercase tracking-[.12em] text-(--signal)">
+                Open ↗
+              </span>
             </a>
           </div>
         </div>
@@ -175,26 +155,30 @@ useJsonLd({
            a real barrier for the people most likely to know a good link. There
            is a database and a moderated form now, so the page that lists
            resources should be the page that invites one. -->
-      <div class="mx-auto mt-12 max-w-3xl rounded-xl border border-default bg-elevated/30 p-6 text-center">
-        <h2 class="text-lg font-semibold text-highlighted">
+      <div class="graph-paper-navy mx-auto mt-16 max-w-3xl border-[1.5px] border-(--ink) bg-(--navy) p-8 text-center text-white shadow-[10px_10px_0_var(--signal)]">
+        <p class="eyebrow text-(--glow)!">
+          Submit
+        </p>
+        <h2 class="mt-2 text-2xl font-extrabold tracking-[-0.02em]">
           {{ t('resources.submitTitle') }}
         </h2>
-        <p class="mx-auto mt-2 max-w-xl text-sm text-muted">
+        <p class="mx-auto mt-2 max-w-xl text-sm text-white/80">
           {{ t('resources.submitBody') }}
         </p>
         <UButton
           :to="localePath('/submit')"
           icon="i-lucide-circle-plus"
-          class="mt-4"
+          color="secondary"
+          class="mt-5"
         >
           {{ t('resources.submitCta') }}
         </UButton>
       </div>
 
-      <AdUnit
+      <PromoSlot
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"
       />
-    </UContainer>
+    </div>
   </div>
 </template>

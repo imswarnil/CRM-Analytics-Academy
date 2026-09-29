@@ -87,15 +87,15 @@ async function save() {
   <section>
     <div class="mb-4 grid gap-3 sm:grid-cols-3">
       <UCard>
-        <p class="im-meta text-dimmed">
+        <p class="im-meta text-(--ink2)">
           Lessons
         </p>
-        <p class="im-figure mt-1 text-2xl font-semibold text-highlighted">
+        <p class="im-figure mt-1 text-3xl font-black text-(--signal)">
           {{ lessons.length }}
         </p>
       </UCard>
       <UCard>
-        <p class="im-meta text-dimmed">
+        <p class="im-meta text-(--ink2)">
           Pro
         </p>
         <p class="im-figure mt-1 text-2xl font-semibold text-primary">
@@ -103,10 +103,10 @@ async function save() {
         </p>
       </UCard>
       <UCard>
-        <p class="im-meta text-dimmed">
+        <p class="im-meta text-(--ink2)">
           With video
         </p>
-        <p class="im-figure mt-1 text-2xl font-semibold text-highlighted">
+        <p class="im-figure mt-1 text-3xl font-black text-(--signal)">
           {{ counts.video }}
         </p>
       </UCard>
@@ -149,7 +149,7 @@ async function save() {
       {{ error }}
     </p>
 
-    <div class="overflow-hidden rounded-xl border border-default bg-default">
+    <div class="overflow-hidden border-[1.5px] border-(--ink) bg-(--card)">
       <div
         v-if="loading"
         class="space-y-2 p-4"
@@ -164,13 +164,13 @@ async function save() {
         v-for="l in shown"
         v-else
         :key="l.file"
-        class="flex flex-wrap items-center gap-3 border-b border-default px-4 py-2.5 last:border-b-0"
+        class="flex flex-wrap items-center gap-3 border-b border-(--line) px-4 py-2.5 last:border-b-0"
       >
         <div class="min-w-0 flex-1">
-          <p class="truncate text-sm font-medium text-highlighted">
+          <p class="truncate text-sm font-medium text-(--ink)">
             {{ l.title }}
           </p>
-          <p class="truncate font-mono text-xs text-muted">
+          <p class="truncate font-mono text-xs text-(--ink2)">
             {{ l.route }}
           </p>
         </div>
@@ -241,7 +241,7 @@ async function save() {
                 :placeholder="lang === 'en' ? 'English (default)' : lang"
               >
                 <template #leading>
-                  <span class="font-mono text-xs uppercase text-muted">{{ lang }}</span>
+                  <span class="font-mono text-xs uppercase text-(--ink2)">{{ lang }}</span>
                 </template>
               </UInput>
             </div>

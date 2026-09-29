@@ -2,8 +2,8 @@
  * Centralised Google AdSense configuration.
  *
  * One place to manage the publisher id and every ad slot. Each placement holds
- * an ordered list of breakpoint variants; `useAdSlot()` picks the right one for
- * the current viewport so a single `<AdUnit>` adapts to screen size & layout.
+ * an ordered list of breakpoint variants; `usePromoSlot()` picks the right one for
+ * the current viewport so a single `<PromoSlot>` adapts to screen size & layout.
  */
 
 export const ADSENSE_CLIENT = 'ca-pub-1291242080282540'

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useIntersectionObserver } from '@vueuse/core'
-import { ADSENSE_CLIENT, type AdPlacementName } from '~/utils/adsense'
+import { ADSENSE_CLIENT, type AdPlacementName } from '~/utils/promo'
 
 const props = defineProps<{
   /** Named placement from the central config. */
   placement: AdPlacementName
 }>()
 
-const { variant, showLabel } = useAdSlot(props.placement)
+const { variant, showLabel } = usePromoSlot(props.placement)
 
 const dev = import.meta.dev
 
@@ -109,14 +109,14 @@ const insStyle = computed(() => {
   <div
     v-if="variant && !empty"
     ref="root"
-    class="ad-unit relative mx-auto my-6 flex w-full max-w-full flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-default bg-muted/30 p-2"
+    class="promo-slot relative mx-auto my-6 flex w-full max-w-full flex-col items-center justify-center gap-1.5 overflow-hidden border-[1.5px] border-dashed border-(--line) bg-(--card)/60 p-2"
     :style="reserveStyle"
     role="complementary"
     aria-label="Advertisement"
   >
     <span
       v-if="showLabel"
-      class="select-none text-[10px] font-medium uppercase tracking-widest text-muted"
+      class="select-none font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)"
     >
       Advertisement
     </span>
@@ -136,23 +136,3 @@ const insStyle = computed(() => {
     />
   </div>
 </template>
-
-<style scoped>
-/*
- * AdSense replaces the <ins> contents with an iframe of its own sizing, and on
- * a responsive unit that iframe is frequently narrower than the slot it was
- * given — left-aligned inside it, which reads as a misplaced advert rather
- * than a smaller one. Centring the generated child is the only way to hold it,
- * because we do not control the markup it writes.
- */
-.ad-unit :deep(ins.adsbygoogle) {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.ad-unit :deep(iframe) {
-  display: block;
-  margin-inline: auto;
-  max-width: 100%;
-}
-</style>

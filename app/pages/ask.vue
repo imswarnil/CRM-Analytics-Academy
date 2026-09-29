@@ -159,75 +159,66 @@ useJsonLd({
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div class="absolute inset-0 bg-grid" />
-      <div class="absolute -top-32 left-1/2 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-      <UContainer class="relative py-14 text-center sm:py-16">
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          class="mb-5 rounded-full"
-        >
-          <UIcon
-            name="i-lucide-sparkles"
-            class="mr-1 size-4"
-          />
-          {{ t('ask.eyebrow') }}
-        </UBadge>
-        <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+    <section class="graph-paper border-b-[1.5px] border-(--ink)">
+      <div class="mx-auto max-w-(--ui-container) px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
+        <p class="eyebrow">
+          Sheet 06 / {{ t('ask.eyebrow') }}
+        </p>
+        <h1 class="bp-h1 mx-auto mt-4 max-w-4xl">
           {{ t('ask.title') }}
         </h1>
-        <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
+        <p class="bp-lead mx-auto mt-5 max-w-2xl">
           {{ t('ask.subtitle') }}
         </p>
 
-        <div class="mx-auto mt-8 max-w-2xl">
+        <div class="mx-auto mt-8 max-w-2xl shadow-[8px_8px_0_var(--ink)]">
           <UInput
             v-model="query"
             icon="i-lucide-search"
             size="xl"
-            variant="subtle"
             :placeholder="t('ask.placeholder')"
             :loading="loading"
             autofocus
             class="w-full"
           />
         </div>
-      </UContainer>
+      </div>
     </section>
 
-    <UContainer class="py-12 sm:py-14">
+    <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
       <!-- Results -->
       <div
         v-if="results.length"
         class="mx-auto max-w-3xl"
       >
-        <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-muted">
+        <p class="eyebrow mb-4">
           {{ t('ask.sources') }}
         </p>
         <div class="space-y-4">
-          <UCard
-            v-for="result in results"
+          <div
+            v-for="(result, n) in results"
             :key="result.doc.path"
-            variant="subtle"
+            class="bp-card bp-card--hover p-5"
           >
+            <p class="mono-label mb-1">
+              Source {{ String(n + 1).padStart(2, '0') }}
+            </p>
             <NuxtLink
               :to="localePath(result.doc.path)"
-              class="text-base font-semibold text-highlighted hover:text-primary"
+              class="text-lg font-extrabold tracking-[-0.02em] text-(--ink) hover:text-(--signal)"
             >
               {{ result.doc.title }}
             </NuxtLink>
-            <p class="mt-1 text-sm text-muted">
+            <p class="mt-1 text-sm text-(--ink2)">
               {{ result.doc.description }}
             </p>
             <!-- eslint-disable vue/no-v-html -- snippet is HTML-escaped before <mark> is added -->
             <p
-              class="mt-3 text-sm text-toned [&_mark]:rounded-sm [&_mark]:bg-primary/20 [&_mark]:px-0.5 [&_mark]:text-highlighted"
+              class="mt-3 border-s-[3px] border-(--signal) ps-3 text-sm text-(--ink) [&_mark]:bg-(--glow)/50 [&_mark]:px-0.5 [&_mark]:text-(--ink)"
               v-html="highlight(result.snippet)"
             />
             <!-- eslint-enable vue/no-v-html -->
-          </UCard>
+          </div>
         </div>
       </div>
 
@@ -238,26 +229,26 @@ useJsonLd({
       >
         <UIcon
           name="i-lucide-search-x"
-          class="mx-auto size-8 text-muted"
+          class="mx-auto size-8 text-(--ink2)"
         />
-        <p class="mt-3 text-muted">
+        <p class="mt-3 text-(--ink2)">
           {{ t('ask.empty') }}
         </p>
       </div>
 
       <!-- Promo cards: use the curriculum in your own AI tool / over MCP -->
       <div class="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
-        <UCard variant="subtle">
+        <div class="graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white">
           <div class="flex items-center gap-2.5">
             <UIcon
               name="i-lucide-bot"
-              class="size-5 text-primary"
+              class="size-5 text-(--glow)"
             />
-            <h2 class="font-semibold text-highlighted">
+            <h2 class="font-extrabold">
               {{ t('ask.aiBox') }}
             </h2>
           </div>
-          <p class="mt-2 text-sm text-muted">
+          <p class="mt-2 text-sm text-white/75">
             {{ t('ask.aiBoxDesc') }}
           </p>
           <div class="mt-4 flex items-center gap-2">
@@ -269,27 +260,26 @@ useJsonLd({
             />
             <UButton
               size="sm"
-              color="primary"
-              variant="subtle"
+              color="secondary"
               :icon="copied === LLMS_FULL_URL ? 'i-lucide-check' : 'i-lucide-copy'"
               @click="copy(LLMS_FULL_URL)"
             >
               {{ copied === LLMS_FULL_URL ? t('ask.copied') : t('ask.copy') }}
             </UButton>
           </div>
-        </UCard>
+        </div>
 
-        <UCard variant="subtle">
+        <div class="graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white">
           <div class="flex items-center gap-2.5">
             <UIcon
               name="i-lucide-plug"
-              class="size-5 text-primary"
+              class="size-5 text-(--glow)"
             />
-            <h2 class="font-semibold text-highlighted">
+            <h2 class="font-extrabold">
               {{ t('ask.mcp') }}
             </h2>
           </div>
-          <p class="mt-2 text-sm text-muted">
+          <p class="mt-2 text-sm text-white/75">
             {{ t('ask.mcpDesc') }}
           </p>
           <div class="mt-4 flex items-center gap-2">
@@ -301,16 +291,15 @@ useJsonLd({
             />
             <UButton
               size="sm"
-              color="primary"
-              variant="subtle"
+              color="secondary"
               :icon="copied === MCP_URL ? 'i-lucide-check' : 'i-lucide-copy'"
               @click="copy(MCP_URL)"
             >
               {{ copied === MCP_URL ? t('ask.copied') : t('ask.copy') }}
             </UButton>
           </div>
-        </UCard>
+        </div>
       </div>
-    </UContainer>
+    </div>
   </div>
 </template>

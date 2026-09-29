@@ -1,0 +1,39 @@
+{
+  "name": "crm-analytics-academy-cms",
+  "private": true,
+  "type": "module",
+  "description": "Payload CMS for CRM Analytics Academy. Authoring only: the site never reads it at runtime — `pnpm content:pull` writes it out as markdown under ../content.",
+  "scripts": {
+    "dev": "next dev --port 3100",
+    "build": "next build",
+    "start": "next start --port 3100",
+    "payload": "payload",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "payload generate:importmap",
+    "content:import": "payload run scripts/import.ts",
+    "content:pull": "payload run scripts/pull.ts",
+    "content:pull:dry": "DRY_RUN=1 payload run scripts/pull.ts"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "3.90.2",
+    "@payloadcms/next": "3.90.2",
+    "@payloadcms/storage-s3": "3.90.2",
+    "@payloadcms/ui": "3.90.2",
+    "graphql": "^16.11.0",
+    "next": "15.4.11",
+    "payload": "3.90.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sharp": "0.34.5",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

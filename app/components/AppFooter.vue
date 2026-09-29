@@ -48,40 +48,83 @@ const columns = computed(() => [
 </script>
 
 <template>
-  <UFooter :ui="{ top: 'py-10 lg:py-10', container: 'py-5 lg:py-4' }">
-    <template #top>
-      <UContainer>
-        <UFooterColumns
-          :columns="columns"
-          :ui="{ left: 'mb-8 xl:mb-0', list: 'mt-4 space-y-2.5' }"
-        >
-          <template #left>
-            <NuxtLink
-              :to="localePath('/')"
-              class="flex items-center gap-2"
+  <!-- Navy, with a ruler strip along the top edge and mono uppercase type,
+       as in the Blueprint spec. Custom markup rather than UFooter, because
+       the columns sit on a dark ground the component does not theme. -->
+  <footer class="graph-paper-navy text-white/80">
+    <div class="ruler text-white/70" />
+    <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]">
+        <div>
+          <NuxtLink
+            :to="localePath('/')"
+            aria-label="CRM Analytics Academy — home"
+          >
+            <AppLogo inverted />
+          </NuxtLink>
+          <p class="mt-4 max-w-xs text-sm text-white/65">
+            {{ t('footer.tagline') }}
+          </p>
+          <div class="mt-5 flex gap-2">
+            <a
+              v-for="(link, index) of footer?.links ?? []"
+              :key="index"
+              :href="link.to"
+              target="_blank"
+              rel="noopener"
+              :aria-label="link['aria-label']"
+              class="flex size-9 items-center justify-center border-[1.5px] border-white/40 text-white hover:border-(--glow) hover:text-(--glow)"
             >
-              <AppLogo class="h-6 w-auto shrink-0" />
-            </NuxtLink>
-            <p class="mt-3 max-w-xs text-sm text-muted">
-              {{ t('footer.tagline') }}
-            </p>
-            <div class="mt-4 flex items-center gap-1">
-              <UColorModeButton v-if="footer?.colorMode" />
-              <template v-if="footer?.links">
-                <UButton
-                  v-for="(link, index) of footer?.links"
-                  :key="index"
-                  v-bind="{ color: 'neutral', variant: 'ghost', ...link }"
-                />
-              </template>
-            </div>
-          </template>
-        </UFooterColumns>
-      </UContainer>
-    </template>
+              <UIcon
+                :name="link.icon"
+                class="size-4"
+              />
+            </a>
+          </div>
+        </div>
 
-    <template #left>
-      {{ footer.credits }}
-    </template>
-  </UFooter>
+        <div
+          v-for="col in columns"
+          :key="col.label"
+        >
+          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+            {{ col.label }}
+          </p>
+          <ul class="mt-4 space-y-2.5">
+            <li
+              v-for="link in col.children"
+              :key="link.to"
+            >
+              <NuxtLink
+                :to="link.to"
+                :target="'target' in link ? link.target : undefined"
+                class="text-sm text-white/75 hover:text-white"
+              >
+                {{ link.label }}
+              </NuxtLink>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/15">
+      <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center justify-between gap-3 px-4 py-4 font-mono text-[11px] uppercase tracking-[.1em] text-white/60 sm:px-6 lg:px-8">
+        <span>© {{ new Date().getFullYear() }} CRM Analytics Academy — not affiliated with Salesforce, Inc.</span>
+        <span class="flex gap-5">
+          <NuxtLink
+            :to="localePath('/terms')"
+            class="hover:text-white"
+          >Terms</NuxtLink>
+          <NuxtLink
+            :to="localePath('/privacy')"
+            class="hover:text-white"
+          >Privacy</NuxtLink>
+          <NuxtLink
+            :to="localePath('/about')"
+            class="hover:text-white"
+          >Contact</NuxtLink>
+        </span>
+      </div>
+    </div>
+  </footer>
 </template>

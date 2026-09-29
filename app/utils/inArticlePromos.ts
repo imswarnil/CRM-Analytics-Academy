@@ -3,8 +3,8 @@
  *
  * Nuxt Content parses a page body into a "minimark" AST: a flat array of block
  * nodes, each shaped like `[tag, props, ...children]`. This walks that array and
- * splices `<AdUnit placement="inArticle">` nodes after every Nth top-level
- * paragraph, so every lesson gets ads automatically — no manual `:ad-unit` in
+ * splices `<PromoSlot placement="inArticle">` nodes after every Nth top-level
+ * paragraph, so every lesson gets ads automatically — no manual `:promo-slot` in
  * the markdown.
  *
  * Density rules (keeps content dominant / avoids policy issues):
@@ -24,14 +24,14 @@ export interface InArticleAdOptions {
   minParagraphs?: number
 }
 
-const AD_NODE = (): MinimarkNode => ['ad-unit', { placement: 'inArticle' }]
+const AD_NODE = (): MinimarkNode => ['promo-slot', { placement: 'inArticle' }]
 
 /**
  * Return a new body value array with in-article ad nodes injected.
  * The original nodes are reused (only the top-level array is rebuilt), so this
  * is cheap and non-destructive.
  */
-export function injectInArticleAds(
+export function injectInArticlePromos(
   nodes: unknown[],
   options: InArticleAdOptions = {}
 ): unknown[] {

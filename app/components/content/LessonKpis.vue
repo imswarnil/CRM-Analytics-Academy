@@ -65,19 +65,19 @@ function peak(spark: number[]) {
     <div
       v-for="(k, i) in props.items"
       :key="i"
-      class="flex flex-col justify-between gap-3 rounded-xl border border-default bg-elevated/40 p-4"
+      class="flex flex-col justify-between gap-3 border-[1.5px] border-(--ink) bg-(--card) p-4"
     >
       <div>
-        <p class="text-xs font-medium uppercase tracking-wide text-muted">
+        <p class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
           {{ k.label }}
         </p>
-        <p class="mt-1 text-2xl font-semibold tabular-nums leading-none tracking-tight text-highlighted">
+        <p class="mt-1 text-3xl font-black tabular-nums leading-none tracking-[-0.03em] text-(--ink)">
           {{ k.value }}
         </p>
         <p
           v-if="k.delta"
           class="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold"
-          :class="k.trend === 'flat' ? 'text-muted' : isGood(k) ? 'text-success' : 'text-error'"
+          :class="k.trend === 'flat' ? 'text-(--ink2)' : isGood(k) ? 'text-(--signal)' : 'text-(--ink)'"
         >
           <UIcon
             :name="arrow(k.trend)"
@@ -97,14 +97,14 @@ function peak(spark: number[]) {
         <span
           v-for="(v, j) in k.spark"
           :key="j"
-          class="min-h-px flex-1 rounded-sm bg-primary/35"
+          class="min-h-px flex-1 bg-(--tide)"
           :style="{ height: `${Math.max(4, (v / peak(k.spark)) * 100)}%` }"
         />
       </div>
 
       <p
         v-if="k.hint"
-        class="border-t border-default/60 pt-2 font-mono text-[11px] leading-snug text-dimmed"
+        class="border-t border-dashed border-(--line) pt-2 font-mono text-[11px] leading-snug text-(--ink2)"
       >
         {{ k.hint }}
       </p>

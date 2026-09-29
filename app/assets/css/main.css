@@ -2,720 +2,526 @@
 @import "@nuxt/ui";
 
 @source "../../../content/**/*";
+/* Tailwind's scanner reads "[...slug].vue" as a glob character class and
+   skips it, so utilities used only in the lesson page were never generated. */
+@source "../../pages/*slug*.vue";
+@source "../../pages/showcase/*slug*.vue";
 
-/* ---------------------------------------------------------------------------
-   CRM Analytics Academy — theme foundation
+/* ===========================================================================
+   CRM Analytics Academy — "Blueprint"
 
-   One original palette, all blue: cobalt leads, lagoon (a cooler cyan-blue)
-   is the second voice, and mist is a neutral with a trace of the same hue so
-   greys sit with the blues instead of against them. There is no red anywhere
-   in the brand, because every lesson spends red on "this number is wrong".
-   Statuses (success/warning/error) stay on Nuxt UI's defaults for the same
-   reason: they are state, not brand.
+   A technical-drawing style: graph paper, ink borders, crop marks, rulers,
+   square corners and hard offset shadows. The spec is the design handoff in
+   docs/design-handoff-blueprint/ (README + the interactive reference HTML).
 
-   Every ramp shares one lightness ladder, so cobalt-500 and lagoon-500 carry
-   the same visual weight and can sit side by side in a chart.
---------------------------------------------------------------------------- */
+   Layers in this file, in order:
+     1. Theme tokens — type, the blueprint ramp, the ink neutral, square radii
+     2. Semantic tokens — Nuxt UI's --ui-* mapped onto paper and ink, light/dark
+     3. Signature utilities — graph-paper, crosshair, ruler, hard-shadow, …
+     4. Motion — the one easing curve and the hover language
+     5. Layout — the lesson player grid
+     6. Compatibility — class names existing markup uses, restyled
+=========================================================================== */
+
 @theme static {
-  --container-8xl: 90rem;
+  --container-8xl: 82.5rem;
 
-  /* Type. Geist for sentences, Geist Mono for values: formulas, click paths,
-     row counts, SAQL. @nuxt/fonts resolves and self-hosts both at build time. */
-  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --radius-xs: 0.25rem;
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
+  /* Blueprint — the primary ramp. 500 is "signal". */
+  --color-blueprint-50: #F4F7FB;
+  --color-blueprint-100: #DDEBFA;
+  --color-blueprint-200: #A8CCF2;
+  --color-blueprint-300: #7FB2EA;
+  --color-blueprint-400: #3D8BD9;
+  --color-blueprint-500: #2F5BEA;
+  --color-blueprint-600: #2549C4;
+  --color-blueprint-700: #1C3A9C;
+  --color-blueprint-800: #15306F;
+  --color-blueprint-900: #0F2A5C;
+  --color-blueprint-950: #07122A;
+
+  /* Glow — the cyan accent, used sparingly: hovered bars, done states. */
+  --color-glow-50: #ECFAFD;
+  --color-glow-100: #CFF3F8;
+  --color-glow-200: #A3E7F1;
+  --color-glow-300: #6FD8E8;
+  --color-glow-400: #3FC6DC;
+  --color-glow-500: #22AEC6;
+  --color-glow-600: #1B8CA2;
+  --color-glow-700: #1A6F82;
+  --color-glow-800: #1B5A69;
+  --color-glow-900: #1A4B58;
+  --color-glow-950: #0B303A;
+
+  /* Ink — the neutral, from paper to the darkest line. */
+  --color-ink-50: #F4F7FB;
+  --color-ink-100: #E8EFF8;
+  --color-ink-200: #C3D2E6;
+  --color-ink-300: #A3B5CF;
+  --color-ink-400: #7E93B5;
+  --color-ink-500: #5E7295;
+  --color-ink-600: #4A5B78;
+  --color-ink-700: #33445F;
+  --color-ink-800: #1E2E4A;
+  --color-ink-900: #0C1B33;
+  --color-ink-950: #07122A;
+
+  /* Square corners everywhere. Only rounded-full (donuts, dots) survives. */
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
 
   --tracking-tight: -0.02em;
-  --tracking-tighter: -0.035em;
+  --tracking-tighter: -0.04em;
 
-  --ease-out-im: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-in-out-im: cubic-bezier(0.65, 0, 0.35, 1);
-  --duration-instant: 120ms;
-  --duration-quick: 200ms;
-
-  /* Cobalt — the brand blue. 600 is the working step in light mode (buttons,
-     links: 4.5:1 on white), 400 in dark. */
-  --color-cobalt-50: oklch(97.2% 0.015 258);
-  --color-cobalt-100: oklch(94.0% 0.033 258);
-  --color-cobalt-200: oklch(88.6% 0.062 258);
-  --color-cobalt-300: oklch(80.8% 0.104 258);
-  --color-cobalt-400: oklch(70.8% 0.157 259);
-  --color-cobalt-500: oklch(60.4% 0.206 261);
-  --color-cobalt-600: oklch(52.6% 0.224 263);
-  --color-cobalt-700: oklch(45.6% 0.206 264);
-  --color-cobalt-800: oklch(38.8% 0.171 265);
-  --color-cobalt-900: oklch(32.4% 0.133 266);
-  --color-cobalt-950: oklch(23.8% 0.093 267);
-
-  /* Lagoon — the cooler second blue, for secondary marks and the second
-     series in a chart. */
-  --color-lagoon-50: oklch(97.6% 0.016 222);
-  --color-lagoon-100: oklch(94.6% 0.034 222);
-  --color-lagoon-200: oklch(89.6% 0.062 222);
-  --color-lagoon-300: oklch(82.6% 0.095 222);
-  --color-lagoon-400: oklch(74.0% 0.122 224);
-  --color-lagoon-500: oklch(65.0% 0.134 227);
-  --color-lagoon-600: oklch(56.4% 0.125 230);
-  --color-lagoon-700: oklch(48.6% 0.108 232);
-  --color-lagoon-800: oklch(41.0% 0.088 234);
-  --color-lagoon-900: oklch(34.4% 0.070 236);
-  --color-lagoon-950: oklch(25.4% 0.052 238);
-
-  /* Mist — the neutral, tinted toward cobalt. */
-  --color-mist-50: oklch(98.4% 0.004 258);
-  --color-mist-100: oklch(96.4% 0.007 258);
-  --color-mist-200: oklch(92.6% 0.012 258);
-  --color-mist-300: oklch(87.0% 0.018 258);
-  --color-mist-400: oklch(71.0% 0.026 258);
-  --color-mist-500: oklch(55.6% 0.031 258);
-  --color-mist-600: oklch(45.0% 0.032 259);
-  --color-mist-700: oklch(37.4% 0.032 260);
-  --color-mist-800: oklch(28.0% 0.030 261);
-  --color-mist-900: oklch(21.4% 0.028 262);
-  --color-mist-950: oklch(15.6% 0.024 263);
+  --ease-bounce: cubic-bezier(.3, 1.5, .5, 1);
+  --ease-out-im: cubic-bezier(.2, .8, .2, 1);
+  --duration-instant: 150ms;
+  --duration-quick: 250ms;
 }
 
 /* ---------------------------------------------------------------------------
-   Nuxt UI semantic tokens
-
-   Light: a faintly blue page (mist-50) with white surfaces on it — depth from
-   ground and hairline rather than from shadow. Dark: a deep blue-black page
-   with surfaces one step up. Unlayered, so these beat Nuxt UI's @layer theme.
+   2. Semantic tokens
 --------------------------------------------------------------------------- */
 :root {
-  --ui-primary: var(--ui-color-primary-600);
-  --ui-secondary: var(--ui-color-secondary-600);
+  --paper: #F4F7FB;
+  --paper2: #E8EFF8;
+  --card: #FBFCFE;
+  --ink: #0C1B33;
+  --ink2: #4A5B78;
+  --line: #C3D2E6;
+  --navy: #0F2A5C;
+  --signal: #2F5BEA;
+  --tide: #3D8BD9;
+  --frost: #A8CCF2;
+  --ice: #DDEBFA;
+  --glow: #3FC6DC;
+  --on: #fff;
+  --rmin: rgba(47, 91, 234, .032);
+  --rmaj: rgba(47, 91, 234, .07);
+  --x: #7E93B5;
+
+  --ui-primary: var(--signal);
+  --ui-secondary: var(--glow);
+  --ui-radius: 0;
   --ui-container: var(--container-8xl);
-  --ui-radius: 0.5rem;
   --ui-header-height: 4rem;
 
-  --ui-bg: #fff;
-  --ui-bg-muted: var(--color-mist-50);
-  --ui-bg-elevated: var(--color-mist-100);
-  --ui-bg-accented: var(--color-mist-200);
-  --ui-bg-inverted: var(--color-mist-900);
+  --ui-bg: var(--paper);
+  --ui-bg-muted: var(--paper2);
+  --ui-bg-elevated: var(--card);
+  --ui-bg-accented: var(--ice);
+  --ui-bg-inverted: var(--ink);
 
-  --ui-text-dimmed: var(--color-mist-400);
-  --ui-text-muted: var(--color-mist-500);
-  --ui-text-toned: var(--color-mist-600);
-  --ui-text: var(--color-mist-700);
-  --ui-text-highlighted: var(--color-mist-950);
-  --ui-text-inverted: #fff;
+  --ui-text-dimmed: var(--x);
+  --ui-text-muted: var(--ink2);
+  --ui-text-toned: var(--ink2);
+  --ui-text: var(--ink);
+  --ui-text-highlighted: var(--ink);
+  --ui-text-inverted: var(--paper);
 
-  --ui-border: var(--color-mist-200);
-  --ui-border-muted: var(--color-mist-200);
-  --ui-border-accented: var(--color-mist-300);
-  --ui-border-inverted: var(--color-mist-900);
-
-  /* The page ground sits under the white surfaces. */
-  --app-page: color-mix(in oklch, var(--color-mist-50) 60%, var(--color-cobalt-50));
+  --ui-border: var(--line);
+  --ui-border-muted: var(--line);
+  --ui-border-accented: var(--ink);
+  --ui-border-inverted: var(--paper);
 }
 
 .dark {
-  --ui-primary: var(--ui-color-primary-400);
-  --ui-secondary: var(--ui-color-secondary-400);
-
-  --ui-bg: var(--color-mist-900);
-  --ui-bg-muted: var(--color-mist-800);
-  --ui-bg-elevated: var(--color-mist-800);
-  --ui-bg-accented: var(--color-mist-700);
-  --ui-bg-inverted: #fff;
-
-  --ui-text-dimmed: var(--color-mist-500);
-  --ui-text-muted: var(--color-mist-400);
-  --ui-text-toned: var(--color-mist-300);
-  --ui-text: var(--color-mist-200);
-  --ui-text-highlighted: #fff;
-  --ui-text-inverted: var(--color-mist-900);
-
-  --ui-border: color-mix(in oklch, var(--color-mist-700) 80%, transparent);
-  --ui-border-muted: color-mix(in oklch, var(--color-mist-700) 55%, transparent);
-  --ui-border-accented: var(--color-mist-600);
-  --ui-border-inverted: #fff;
-
-  --app-page: var(--color-mist-950);
+  --paper: #0A1428;
+  --paper2: #0D1A33;
+  --card: #0F1C36;
+  --ink: #E6EEFA;
+  --ink2: #9DB0CF;
+  --line: #24385F;
+  --navy: #07122A;
+  --signal: #6E93FF;
+  --tide: #5BA6EC;
+  --frost: #2B4A7C;
+  --ice: #16274A;
+  --glow: #5ED8EA;
+  --on: #06112A;
+  --rmin: rgba(168, 204, 242, .035);
+  --rmaj: rgba(168, 204, 242, .075);
+  --x: #4F6A96;
 }
 
 html {
-  font-size: 106.25%; /* 17px */
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: var(--app-page);
+  background: var(--paper);
+  color: var(--ink);
+  transition: background-color .3s, color .3s;
+}
+
+/* Paper grain. Fixed and pointer-transparent, so it never blocks a click. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  opacity: .28;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .4 0 0 0 0 .6 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark body::after {
+  mix-blend-mode: screen;
+  opacity: .12;
 }
 
 ::selection {
-  background-color: color-mix(in oklch, var(--ui-color-primary-500) 22%, transparent);
+  background: var(--frost);
+  color: var(--ink);
+}
+
+h1, h2, h3, h4 {
+  text-wrap: balance;
 }
 
 /* ---------------------------------------------------------------------------
-   Landing-page visual helpers
+   3. Signature utilities
 --------------------------------------------------------------------------- */
 
-/* Brand emphasis text. The class name is kept because markup uses it; it is a
-   solid colour, never a gradient. */
-.text-gradient {
-  color: var(--ui-primary);
+/* Graph paper: 80px major lines over a 16px minor grid. */
+@utility graph-paper {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--rmaj) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rmaj) 1px, transparent 1px),
+    linear-gradient(var(--rmin) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
+@utility graph-paper-fine {
+  background-image:
+    linear-gradient(var(--rmin) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+@utility graph-paper-navy {
+  background-color: var(--navy);
+  background-image:
+    linear-gradient(rgba(168, 204, 242, .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 204, 242, .07) 1px, transparent 1px),
+    linear-gradient(rgba(168, 204, 242, .03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 204, 242, .03) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
+@utility ink-border {
+  border: 1.5px solid var(--ink);
+}
+@utility hard-shadow {
+  box-shadow: 5px 5px 0 var(--ink);
+}
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+/* Diagonal hatching: Pro lessons in charts, progress fills. */
+@utility hatch {
+  background-image: repeating-linear-gradient(135deg, var(--x) 0 1px, transparent 1px 7px);
+}
+@utility hatch-signal {
+  background-image: repeating-linear-gradient(135deg, var(--signal) 0 6px, var(--tide) 6px 12px);
 }
 
-/* A soft blue wash for hero and CTA panels: two radial pools of cobalt and
-   lagoon over the page ground. */
-.bg-brand-wash {
+/* Crop-mark "+" corners on any relative box. The marks turn signal on hover. */
+.crosshair {
+  position: relative;
+}
+.crosshair::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  pointer-events: none;
+  z-index: 2;
+  --c: linear-gradient(var(--x), var(--x));
   background:
-    radial-gradient(60% 80% at 15% 0%, color-mix(in oklch, var(--ui-color-primary-500) 14%, transparent), transparent 70%),
-    radial-gradient(50% 70% at 90% 10%, color-mix(in oklch, var(--ui-color-secondary-400) 16%, transparent), transparent 70%);
+    var(--c) 0 7px / 15px 1.5px no-repeat,
+    var(--c) 7px 0 / 1.5px 15px no-repeat,
+    var(--c) 100% 7px / 15px 1.5px no-repeat,
+    var(--c) calc(100% - 7px) 0 / 1.5px 15px no-repeat,
+    var(--c) 0 calc(100% - 7px) / 15px 1.5px no-repeat,
+    var(--c) 7px 100% / 1.5px 15px no-repeat,
+    var(--c) 100% calc(100% - 7px) / 15px 1.5px no-repeat,
+    var(--c) calc(100% - 7px) 100% / 1.5px 15px no-repeat;
+}
+.crosshair:hover::before {
+  --c: linear-gradient(var(--signal), var(--signal));
 }
 
-/* A solid brand panel (CTA bands, the curriculum header). */
-.bg-brand-panel {
-  background-color: var(--color-cobalt-700);
+/* Ruler strip: small ticks every 8px, tall ticks every 40px. */
+@utility ruler {
+  height: 10px;
+  background:
+    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 8px) 0 0 / auto 5px repeat-x,
+    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 40px) 0 0 / auto 10px repeat-x;
+  opacity: .6;
+}
+
+/* Type scale from the spec. */
+.bp-h1 {
+  font-weight: 900;
+  font-size: clamp(42px, 6.2vw, 76px);
+  line-height: .95;
+  letter-spacing: -0.045em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.bp-h2 {
+  font-weight: 800;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.bp-h3 {
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.bp-lead {
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.6;
+  color: var(--ink2);
+}
+
+/* ---------------------------------------------------------------------------
+   4. Motion — the hover language, all on one bouncy curve
+--------------------------------------------------------------------------- */
+
+/* A card that lifts, drops a hard shadow, and reveals the fine grid. */
+.bp-card {
+  position: relative;
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  transition:
+    transform .25s var(--ease-bounce),
+    box-shadow .25s var(--ease-bounce),
+    background-color .2s;
+}
+.bp-card--hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 8px 8px 0 var(--ink);
   background-image:
-    radial-gradient(70% 120% at 100% 0%, color-mix(in oklch, var(--color-lagoon-500) 45%, transparent), transparent 60%),
-    radial-gradient(60% 100% at 0% 100%, color-mix(in oklch, var(--color-cobalt-500) 60%, transparent), transparent 60%);
-  color: #fff;
-}
-.dark .bg-brand-panel {
-  background-color: var(--color-cobalt-900);
+    linear-gradient(var(--rmin) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
+  background-size: 16px 16px;
 }
 
-/* Faint grid backdrop used behind the hero */
-.bg-grid {
-  background-image:
-    linear-gradient(to right, color-mix(in oklch, var(--ui-border) 55%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklch, var(--ui-border) 55%, transparent) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+/* The square icon box in a card's corner: fills, whitens, tilts. */
+.bp-iconbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1.5px solid var(--ink);
+  background: var(--ice);
+  color: var(--signal);
+  transition: transform .3s var(--ease-bounce), background-color .2s, color .2s;
+}
+.bp-card--hover:hover .bp-iconbox,
+.bp-iconbox--active {
+  background: var(--signal);
+  color: var(--on);
+  transform: rotate(-12deg);
 }
 
-/* Plaster wall for the Wall of Fame: warm base, faint speckle at two scales,
-   and a soft top light so the frames read as hung in a lit room. The frames
-   themselves stay light in both themes (paper and wood don't theme), so only
-   this wall surface changes with the mode. */
-.bg-wall {
-  background-color: #f3efe7;
-  background-image:
-    radial-gradient(rgba(120, 100, 70, 0.05) 1px, transparent 1.1px),
-    radial-gradient(rgba(120, 100, 70, 0.035) 1px, transparent 1.4px),
-    radial-gradient(ellipse 120% 90% at 50% 0%, rgba(255, 255, 255, 0.7), transparent 60%);
-  background-size: 12px 12px, 29px 29px, 100% 100%;
-  background-position: 0 0, 7px 11px, 0 0;
+/* Rows and links that slide right, with an arrow that follows. */
+.bp-row {
+  transition: padding-left .25s var(--ease-bounce), background-color .15s;
+}
+.bp-row:hover {
+  padding-left: 8px;
+}
+.bp-arrow {
+  transition: transform .25s var(--ease-bounce);
+}
+.bp-row:hover .bp-arrow,
+a:hover > .bp-arrow,
+button:hover > .bp-arrow {
+  transform: translateX(4px);
 }
 
-.dark .bg-wall {
-  background-color: #221f1b;
-  background-image:
-    radial-gradient(rgba(255, 244, 214, 0.04) 1px, transparent 1.1px),
-    radial-gradient(rgba(255, 244, 214, 0.028) 1px, transparent 1.4px),
-    radial-gradient(ellipse 120% 90% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 60%);
+/* Sparkline that draws itself in on hover. */
+.bp-draw {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  transition: stroke-dashoffset .9s var(--ease-out-im);
+}
+.bp-card--hover:hover .bp-draw,
+.bp-draw--on {
+  stroke-dashoffset: 0;
+}
+.bp-fade {
+  opacity: 0;
+  transition: opacity .5s .2s;
+}
+.bp-card--hover:hover .bp-fade {
+  opacity: 1;
 }
 
-/* Subtle dotted backdrop for alternating sections */
-.bg-dots {
-  background-image: radial-gradient(color-mix(in oklch, var(--ui-border) 70%, transparent) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-/* Slow diagonal drift for the hero's grid backdrop. One cell per cycle, so
-   the loop is seamless (the grid tiles every 56px). */
-@keyframes grid-pan {
-  from { background-position: 0 0, 0 0; }
-  to { background-position: 56px 56px, 56px 56px; }
-}
-.animate-grid-pan { animation: grid-pan 16s linear infinite; }
-
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-.animate-float { animation: float-slow 7s ease-in-out infinite; }
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; }
-}
-.animate-fade-up { animation: fade-up 0.6s ease-out both; }
-
-/* Flowing dashed connectors (data being pulled from sources) */
-@keyframes dash-flow {
-  to { stroke-dashoffset: -24; }
-}
-.animate-dash {
-  stroke-dasharray: 5 6;
-  animation: dash-flow 0.9s linear infinite;
-}
-
-/* Infinite horizontal scroll for the topics marquee */
-@keyframes marquee {
+/* Keyword ticker in the navy band. */
+@keyframes bp-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-.animate-marquee { animation: marquee 28s linear infinite; }
-
-/* Hero SVG choreography: sources pulse, flow lines stream (via .animate-dash),
-   bars grow from their baseline and the trend line draws itself. */
-@keyframes svg-bar {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-.animate-svg-bar {
-  transform-origin: bottom;
-  transform-box: fill-box;
-  animation: svg-bar 0.9s ease-out both;
+.bp-marquee {
+  animation: bp-marquee 40s linear infinite;
 }
 
-@keyframes svg-draw {
-  from { stroke-dashoffset: 240; }
-  to { stroke-dashoffset: 0; }
-}
-.animate-svg-draw {
-  stroke-dasharray: 240;
-  animation: svg-draw 2.2s ease-out 0.4s both;
+/* Focus: a signal outline, offset, square. */
+:where(a, button, summary, [role="button"], input, select, textarea):focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
 }
 
-@keyframes svg-pulse {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .bp-card, .bp-iconbox, .bp-row, .bp-arrow, .bp-draw, .bp-fade { transition: none; }
+  .bp-marquee { animation: none; }
+  .bp-card--hover:hover { transform: none; }
+  html { scroll-behavior: auto; }
 }
-.animate-svg-pulse { animation: svg-pulse 2.4s ease-in-out infinite; }
 
-/* Scroll-reveal: Reveal.vue adds .reveal-visible when the block enters the
-   viewport. Elements already on screen at mount reveal immediately, so only
-   below-the-fold content waits for its scroll. */
+/* ---------------------------------------------------------------------------
+   5. Layout — the lesson player
+   Main column + sticky course sidebar on the right, collapsible to a rail.
+--------------------------------------------------------------------------- */
+.bp-player {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 1024px) {
+  .bp-player {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    transition: grid-template-columns .3s var(--ease-out-im);
+  }
+  .bp-player--collapsed {
+    grid-template-columns: minmax(0, 1fr) 60px;
+  }
+}
+.bp-player-aside {
+  position: sticky;
+  top: var(--ui-header-height);
+  height: calc(100vh - var(--ui-header-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  border-left: 1.5px solid var(--ink);
+}
+
+/* Lesson prose inside the player: § numbered headings. */
+.bp-prose {
+  counter-reset: bp-sec;
+}
+.bp-prose h2 {
+  counter-increment: bp-sec;
+}
+.bp-prose h2::before {
+  content: "§" counter(bp-sec) " ";
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: .55em;
+  letter-spacing: .08em;
+  color: var(--signal);
+  vertical-align: middle;
+  margin-right: .5em;
+}
+
+/* ---------------------------------------------------------------------------
+   6. Compatibility — class names existing markup uses, in Blueprint terms
+--------------------------------------------------------------------------- */
+.im-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.im-figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.im-card-hover {
+  transition: transform .25s var(--ease-bounce), box-shadow .25s var(--ease-bounce);
+}
+.im-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.text-gradient {
+  color: var(--signal);
+}
+.bg-grid,
+.bg-brand-wash,
+.bg-dots {
+  background-image:
+    linear-gradient(var(--rmaj) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rmaj) 1px, transparent 1px),
+    linear-gradient(var(--rmin) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
+.bg-brand-panel {
+  background-color: var(--navy);
+  background-image:
+    linear-gradient(rgba(168, 204, 242, .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 204, 242, .07) 1px, transparent 1px);
+  background-size: 80px 80px;
+  color: #fff;
+}
+.bg-wall {
+  background-color: var(--paper2);
+}
+.lesson-walkthrough-say {
+  border-inline-start: 2px solid var(--signal);
+}
+.animate-float,
+.animate-grid-pan {
+  animation: none;
+}
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  transform: translateY(16px);
+  transition: opacity .6s var(--ease-out-im), transform .6s var(--ease-out-im);
   transition-delay: var(--reveal-delay, 0ms);
 }
 .reveal-visible {
   opacity: 1;
   transform: none;
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-fade-up,
-  .animate-dash,
-  .animate-marquee,
-  .animate-grid-pan,
-  .animate-svg-bar,
-  .animate-svg-draw,
-  .animate-svg-pulse { animation: none; }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
 
-/* ---------------------------------------------------------------------------
-   The design system's interaction idioms
-   ---------------------------------------------------------------------------
-   Structure is carried by cobalt, one ramp across many steps, and these rules are
-   what keeps that from reading as flat: hierarchy comes from WEIGHT and GROUND
-   rather than from hue, exactly as design.imswarnil.com does it. Headings track
-   tight, hovers move the ground and not the text, and an icon shifts from muted
-   to the blue at 500 to mark state.
---------------------------------------------------------------------------- */
-
-/* Headings track tight and never hyphenate mid-word. The design system sets
-   this on every heading rung rather than on a utility, so it holds in prose
-   that was authored in markdown and never saw a class. */
-h1, h2, h3, h4,
-.im-tight {
-  letter-spacing: var(--tracking-tight);
-  text-wrap: pretty;
-}
-
-h1 {
-  letter-spacing: var(--tracking-tighter);
-}
-
-/* Anything that is a VALUE rather than a sentence sets in the mono face:
-   figures in a KPI tile, a click path, a row count, a formula. Tabular
-   figures so a column of numbers lines up at the decimal. */
-.im-figure {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: var(--tracking-normal);
-}
-
-/* A meta line: mono, small, wide-tracked, uppercase. The system uses this for
-   anything that labels rather than says -- "19 FILES · 29,000 ROWS". */
-.im-meta {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-/* One transition definition for every interactive surface in the site, on the
-   system's own out-curve. Only ground, border and colour move -- never size,
-   because a row that grows on hover shifts everything under it. */
-a,
-button,
-summary,
-[role="button"],
-.im-hoverable {
-  transition:
-    background-color var(--duration-instant) var(--ease-out-im),
-    border-color var(--duration-instant) var(--ease-out-im),
-    color var(--duration-instant) var(--ease-out-im),
-    box-shadow var(--duration-quick) var(--ease-out-im);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  a, button, summary, [role="button"], .im-hoverable {
-    transition-duration: 0.01ms;
-  }
-}
-
-/* A card that responds to the pointer: the ground lifts one step and the
-   hairline gains the blue. No shadow bloom, no translate -- the design system
-   treats a lift as a change of ground, which survives dark mode intact. */
-.im-card-hover {
-  transition:
-    background-color var(--duration-instant) var(--ease-out-im),
-    border-color var(--duration-instant) var(--ease-out-im);
-}
-
-.im-card-hover:hover {
-  background-color: var(--ui-bg-elevated);
-  border-color: color-mix(in oklab, var(--ui-color-primary-500) 35%, transparent);
-}
-
-/* Focus ring, one definition, blue, and visible on every ground. Keyboard
-   users get it; pointer users never see it. */
-:where(a, button, summary, [role="button"], input, select, textarea):focus-visible {
-  outline: 2px solid var(--ui-color-primary-500);
-  outline-offset: 2px;
-  border-radius: var(--radius-xs);
-}
-
-/* The docs page split: a wider rail than Nuxt UI's default 2/10, taken out of
-   the body rather than out of the table of contents. Written as grid-column on
-   the slots instead of as col-span utilities on the `ui` prop, because those
-   utilities only exist if something else in the project already used them --
-   `lg:col-span-3` is not emitted by Nuxt UI's page theme, so passing it left
-   both columns on a single track with no error anywhere. */
-@media (min-width: 1024px) {
-  /* There are TWO nested UPage grids on a lesson, which is not obvious from
-     either file: the layout's UPage holds the rail and the page, and the page's
-     own UPage holds the prose and the table of contents. Sizing only the outer
-     one leaves the contents at two tenths of an already-narrowed column, which
-     is what truncated every heading in it to four words.
-
-     So both are set here, and the arithmetic composes to thirds:
-
-       .docs-grid    12 cols, rail 3 / page 9
-       .lesson-grid   two tracks, prose fluid / contents 16rem
-
-     Between 1024 and 1280 the contents rail is fixed at 16rem and the prose
-     takes the rest; above 1280 both grids switch to fixed and bounded widths
-     (see the next block). */
-  .docs-grid {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: 2rem;
-  }
-
-  .docs-grid > [data-slot="left"] {
-    grid-column: span 3 / span 3;
-  }
-
-  .docs-grid > [data-slot="center"] {
-    grid-column: span 9 / span 9;
-  }
-
-  /* The table of contents keeps its OWN data-slot ("root"), because Nuxt UI's
-     slot wrapper merges onto UContentToc's nav and the component's attribute
-     wins. So `[data-slot="right"]` matches nothing here and the rail has to be
-     selected structurally -- as the child that is not the body. Targeting the
-     attribute silently left it carrying `lg:col-span-2` from the theme, which
-     on a two-track grid spans BOTH tracks and drops the contents rail to the
-     bottom of a nine-thousand-pixel page, where nobody finds it. */
-  .lesson-grid {
-    grid-template-columns: minmax(0, 1fr) 13rem;
-    column-gap: 2rem;
-  }
-
-  .lesson-grid > [data-slot="center"] {
-    grid-column: 1;
-  }
-
-  .lesson-grid > :not([data-slot="center"]) {
-    grid-column: 2;
-    width: 100%;
-  }
-}
-
-/* Above 1280px the rails become fixed or bounded widths and the prose takes
-   whatever is left, because a fraction-based rail keeps growing with the
-   viewport long after it has run out of anything to put in the space.
-
-   Neither rail should grow: 15rem holds a module title, and the contents rail
-   is fluid between 16rem and 18rem -- enough for a heading of ordinary length
-   and for the ad beneath it, with its contents stretched to fill the rail so no
-   gap is left down the right-hand side. Every pixel beyond that would be taken
-   from the reading column, which is the column that actually wants the room.
-
-   At 1512px that lands at roughly 270 / 790 / 324. */
-@media (min-width: 1280px) {
-  .docs-grid {
-    grid-template-columns: 12.5rem minmax(0, 1fr);
-    column-gap: 2rem;
-  }
-
-  .docs-grid > [data-slot="left"],
-  .docs-grid > [data-slot="center"] {
-    grid-column: auto;
-  }
-
-  .lesson-grid {
-    grid-template-columns: minmax(0, 1fr) 14rem;
-    column-gap: 2rem;
-  }
-
-  .lesson-grid > [data-slot="center"] {
-    grid-column: 1;
-  }
-
-  /* Structural, not by data-slot -- see the note in the 1024px block. The rail
-     is fluid, so its contents stretch to fill it rather than sitting at their
-     intrinsic width and leaving a gap down the right-hand side. */
-  .lesson-grid > :not([data-slot="center"]) {
-    grid-column: 2;
-    width: 100%;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   The lesson rail
-   ---------------------------------------------------------------------------
-   Styled as the design system's .im-sidenav + .im-navlink: a full-height
-   column that scrolls inside itself, rows at 2.25rem with a medium weight and
-   a md radius, and an icon that carries the state. The nav markup is Nuxt UI's
-   UContentNavigation, so these rules reach it through its data-slot attributes
-   rather than through classes it does not have.
---------------------------------------------------------------------------- */
-.lesson-rail {
-  /* Its own scroll context, and a scrollbar that only appears on approach --
-     the system's sidenav does exactly this, so a long syllabus does not put a
-     permanent grey bar down the middle of the page. */
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
-
-.lesson-rail:hover {
-  scrollbar-color: var(--ui-bg-accented) transparent;
-}
-
-/* Module headings: the system's .im-navgroup-title -- quiet, small, and
-   emphatically not a link even though it sits in a list of them. */
-.lesson-rail :where([data-slot="link-title"]) {
-  letter-spacing: var(--tracking-tight);
-}
-
-/* Rows. Nuxt UI already gives them a radius and a hover; this brings both onto
-   the system's values, and gives the icon the state change that makes a long
-   list scannable without reading it. */
-.lesson-rail :where(a[data-slot="link"]) {
-  min-height: 1.9rem;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-}
-
-/* ICONS ARE BLUE, AT THREE DEPTHS. A module's icon is the site's blue at 500
-   in light and 400 in dark -- it is the one mark on a row of plain text, so it
-   carries the identity of the section. Hovering deepens it a step; the current
-   module deepens it again. Three steps of one ramp, which is how the design
-   system gets hierarchy out of a single hue instead of reaching for a second. */
-.lesson-rail :where(button, a) .iconify {
-  color: var(--ui-color-primary-500);
-  transition: color var(--duration-instant) var(--ease-out-im);
-}
-
-.dark .lesson-rail :where(button, a) .iconify {
-  color: var(--ui-color-primary-400);
-}
-
-.lesson-rail :where(button, a):hover .iconify {
-  color: var(--ui-color-primary-600);
-}
-
-.dark .lesson-rail :where(button, a):hover .iconify {
-  color: var(--ui-color-primary-300);
-}
-
-/* Chevrons are structure, not identity, so they stay neutral and let the
-   module icon be the only coloured thing in the row. */
-.lesson-rail :where(button, a) .iconify[class*="chevron"] {
-  color: var(--ui-text-dimmed);
-}
-
-/* The current lesson. Nuxt UI marks it with weight; this adds the blue, so
-   the eye finds it in a column of eighty rows without reading any of them. */
-.lesson-rail :where(a[aria-current="page"]) {
-  color: var(--ui-color-primary-600);
-  background-color: color-mix(in oklab, var(--ui-color-primary-500) 8%, transparent);
-}
-
-.dark .lesson-rail :where(a[aria-current="page"]) {
-  color: var(--ui-color-primary-300);
-  background-color: color-mix(in oklab, var(--ui-color-primary-400) 12%, transparent);
-}
-
-/* Hover on a lesson row moves the ground, never the type -- a row that changes
-   weight on hover makes the whole column twitch as the pointer crosses it. */
-.lesson-rail :where(a:not([aria-current="page"])):hover {
-  background-color: var(--ui-bg-elevated);
-}
-
-/* ---------------------------------------------------------------------------
-   Surfaces
-   ---------------------------------------------------------------------------
-   The page is tinted (--app-page) and the thing you came to read sits on a
-   white surface above it, separated by a hairline rather than a shadow.
---------------------------------------------------------------------------- */
-
-/* The reading column as a surface: white on the tint, one hairline, generous
-   inside padding so the text never touches the edge. Below 1024px the rails
-   collapse and the card would be a box around the whole viewport, so it only
-   applies where there is a page to sit on. */
-@media (min-width: 1024px) {
-  /* The PROSE column only. Applied to the outer grid's centre it would wrap the
-     table of contents too, and the contents rail is context rather than
-     content — it belongs on the tint with the navigation, so that exactly one
-     surface on the page holds the thing you came to read. */
-  .lesson-grid > [data-slot="center"] {
-    padding: 1.5rem 1.75rem 2.25rem;
-    background-color: var(--ui-bg);
-    border: 1px solid var(--ui-border-muted);
-    border-radius: var(--radius-xl);
-  }
-
-  .lesson-rail,
-  .lesson-grid > :not([data-slot="center"]) {
-    background-color: transparent;
-  }
-}
-
-/* Hairlines, not shadows. Nuxt UI reaches for a shadow on several components;
-   on a tinted ground a 1px line at the right contrast does the same work and
-   stays crisp at any zoom or pixel density. */
-:where(.im-card-hover, [data-slot="root"] > .rounded-lg) {
-  box-shadow: none;
-}
-
-/* The walkthrough's narration: the one place the course speaks in its own
-   voice, marked with a cobalt rule. */
-.lesson-walkthrough-say {
-  border-inline-start: 2px solid var(--ui-primary);
-}
-
-
-/* ---------------------------------------------------------------------------
-   The contents rail: sticky, unscrolled, flush right
---------------------------------------------------------------------------- */
-@media (min-width: 1024px) {
-  /* The grid cancels the container's right padding so the rail runs to the
-     edge of the viewport instead of stopping two rem short of it. The header
-     and the footer keep their padding — only this grid is pulled over. */
-  .docs-grid {
-    margin-right: -2rem;
-    padding-right: 0.5rem;
-  }
-
-  /* Sticky and WITHOUT a scrollbar of its own. Nuxt UI caps the contents rail
-     and lets it scroll internally, which on a lesson with a handful of
-     headings produces a scroll region that never scrolls and a scrollbar that
-     never has anything to do. Pinned to the top, sized by its content, and if
-     a lesson ever has more headings than fit, the page scroll carries them. */
-  .lesson-grid > :not([data-slot="center"]) {
-    position: sticky;
-    top: var(--ui-header-height);
-    align-self: start;
-  }
-
-  /* Reset the cap on the rail and its immediate wrapper only. Applying it to
-     every descendant also overrode the `truncate` on each link, so a long
-     heading ran off the side of the viewport instead of ending in an ellipsis. */
-  .lesson-grid > :not([data-slot="center"]),
-  .lesson-grid > :not([data-slot="center"]) > * {
-    max-height: none;
-    overflow: visible;
-  }
-}
-
-
-/* The navigation rail gets the same treatment as the contents rail: sticky,
-   its natural height, and no scrollbar of its own. It was a full-viewport
-   column that scrolled internally, which put a second scrollbar beside the
-   page's own and meant the syllabus scrolled independently of the lesson you
-   were reading. Pinned, sized by its content, and the page scroll carries it. */
-@media (min-width: 1024px) {
-  .lesson-rail {
-    position: sticky;
-    top: var(--ui-header-height);
-    align-self: start;
-    height: auto;
-    max-height: none;
-    overflow: visible;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   The contents rail, stripped
-   ---------------------------------------------------------------------------
-   UContentToc's root carries a stack of utilities meant for the mobile
-   presentation, where it is a full-width bar under the header:
-
-     -mx-4 px-4 sm:px-6 sm:-mx-6   a negative margin cancelled by padding
-     bg-default/75 backdrop-blur   a translucent bar
-     overflow-y-auto max-h-[…]     its own scroll region
-     lg:col-span-2                 a span for Nuxt UI's own grid, not ours
-
-   On desktop every one of those is wrong here. The negative margin and padding
-   push the rail's contents inward from both sides while the rail itself is
-   already narrow, so roughly 2rem of a 13rem column is spent on gutters that
-   do nothing. The scroll region never scrolls. The span belongs to a grid this
-   layout replaced.
-
-   Undone below rather than by editing the component, because the classes come
-   from Nuxt UI's theme and would come back on the next upgrade.
---------------------------------------------------------------------------- */
-@media (min-width: 1024px) {
-  .lesson-grid > :not([data-slot="center"]) {
-    /* the -mx/px pair, and the mobile bar's own inset */
-    margin-inline: 0;
-    padding-inline: 0;
-
-    /* it is not a bar on desktop */
-    background-color: transparent;
-    backdrop-filter: none;
-
-    /* sized by its content; the page scroll carries it */
-    max-height: none;
-    overflow: visible;
-  }
-
-  /* The heading and the link list pick up their own padding from the same
-     mobile treatment. The rail is the gutter now. */
-  .lesson-grid > :not([data-slot="center"]) > * {
-    padding-inline: 0;
-  }
-
-  /* Tighter rows: the contents list is a scan target, not a reading column. */
-  .lesson-grid > :not([data-slot="center"]) a {
-    padding-block: 0.15rem;
-  }
-}
+/* PromoSlot: AdSense replaces the <ins> contents with an iframe of its own
+   sizing, often narrower than the slot and left-aligned inside it. Centring
+   the generated child is the only way to hold it. Kept here rather than as a
+   scoped <style>, whose module URL ad blockers refuse to load. */
+.promo-slot ins { margin-inline: auto; text-align: center; }
+.promo-slot iframe { display: block; margin-inline: auto; max-width: 100%; }

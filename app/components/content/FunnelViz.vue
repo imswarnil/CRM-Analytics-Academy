@@ -66,27 +66,27 @@ function width(v: number) {
         v-for="(s, i) in props.stages"
         :key="i"
       >
-        <div class="rounded-lg border border-default bg-elevated/30 p-3">
+        <div class="border-[1.5px] border-(--ink) bg-(--card) p-3">
           <div class="mb-2 flex items-baseline justify-between gap-3">
-            <p class="text-sm font-semibold text-highlighted">
+            <p class="text-sm font-semibold text-(--ink)">
               {{ s.label }}
             </p>
-            <p class="shrink-0 text-sm font-semibold tabular-nums text-highlighted">
+            <p class="shrink-0 text-sm font-semibold tabular-nums text-(--ink)">
               {{ fmt(s.value) }}
             </p>
           </div>
           <div
-            class="h-2 overflow-hidden rounded-full bg-default"
+            class="h-2.5 overflow-hidden border border-(--ink) bg-(--paper)"
             aria-hidden="true"
           >
             <div
-              class="h-full rounded-full bg-primary/70"
+              class="h-full bg-(--signal)"
               :style="{ width: `${width(s.value)}%` }"
             />
           </div>
           <p
             v-if="s.note"
-            class="mt-2 text-xs text-muted"
+            class="mt-2 text-xs text-(--ink2)"
           >
             {{ s.note }}
           </p>
@@ -95,13 +95,13 @@ function width(v: number) {
         <!-- The gap carries the step conversion — the actionable number. -->
         <div
           v-if="i < props.stages.length - 1"
-          class="flex items-center gap-2 py-0.5 pl-3 text-xs text-muted"
+          class="flex items-center gap-2 py-0.5 pl-3 text-xs text-(--ink2)"
         >
           <UIcon
             name="i-lucide-corner-down-right"
-            class="size-3.5 shrink-0 text-dimmed"
+            class="size-3.5 shrink-0 text-(--ink2)"
           />
-          <span class="font-semibold tabular-nums text-primary">
+          <span class="font-semibold tabular-nums text-(--signal)">
             {{ pct(props.stages[i + 1]!.value, s.value) }}
           </span>
           <span>convert to {{ props.stages[i + 1]!.label }}</span>
@@ -110,12 +110,12 @@ function width(v: number) {
     </div>
     <figcaption
       v-if="props.caption || props.scale === 'log'"
-      class="mt-2 text-xs text-muted"
+      class="mt-2 text-xs text-(--ink2)"
     >
       {{ props.caption }}
       <span
         v-if="props.scale === 'log'"
-        class="text-dimmed"
+        class="text-(--ink2)"
       >Bar lengths are logarithmic — compare the percentages, not the bars.</span>
     </figcaption>
   </figure>

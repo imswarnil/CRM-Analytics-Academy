@@ -69,14 +69,14 @@ async function setStatus(r: Row, s: 'visible' | 'hidden') {
         <div class="flex flex-wrap items-start gap-3">
           <div class="min-w-0 flex-1">
             <p class="text-sm">
-              <span class="font-semibold text-highlighted">{{ r.name || 'Anonymous' }}</span>
-              <span class="ms-2 text-xs text-muted">{{ r.email }} · {{ new Date(r.createdAt).toLocaleString() }}</span>
+              <span class="font-semibold text-(--ink)">{{ r.name || 'Anonymous' }}</span>
+              <span class="ms-2 text-xs text-(--ink2)">{{ r.email }} · {{ new Date(r.createdAt).toLocaleString() }}</span>
             </p>
             <NuxtLink
               :to="r.path"
               class="font-mono text-xs text-primary hover:underline"
             >{{ r.path }}{{ r.isReply ? ' · reply' : '' }}</NuxtLink>
-            <p class="mt-2 whitespace-pre-line break-words text-sm text-toned">
+            <p class="mt-2 whitespace-pre-line break-words text-sm text-(--ink)">
               {{ r.body }}
             </p>
           </div>

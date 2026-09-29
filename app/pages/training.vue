@@ -43,99 +43,90 @@ function choose(key: 'track' | 'center', value: string) {
 
 <template>
   <div>
-    <section class="bg-brand-wash border-b border-default">
-      <UContainer class="py-14 sm:py-20">
-        <p class="im-meta text-primary">
-          CRM Analytics Academy · Classroom
-        </p>
-        <h1 class="mt-3 max-w-3xl text-4xl font-bold tracking-tighter text-highlighted sm:text-5xl text-balance">
-          Learn CRM Analytics in a room, with an instructor and an org of your own
-        </h1>
-        <p class="mt-5 max-w-2xl text-lg text-muted text-pretty">
-          The same curriculum as the free online course, taught over one to two weeks in small
-          batches. Every seat comes with a configured practice org and the course datasets loaded.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <UButton
-            to="#enroll"
-            size="lg"
-            icon="i-lucide-ticket"
-          >
-            Reserve a seat
-          </UButton>
-          <UButton
-            to="/teams"
-            size="lg"
-            color="neutral"
-            variant="outline"
-            icon="i-lucide-users"
-          >
-            Training a team?
-          </UButton>
-        </div>
-
-        <UAlert
-          class="mt-10 max-w-3xl"
-          color="info"
-          variant="subtle"
-          icon="i-lucide-info"
-          title="These centers are the course's worked example"
-          description="CRM Analytics Academy's classroom business is the fictional company the go-to-market dashboards are built on. Requests sent here are received and answered, but no batch, seat or payment is confirmed through this page."
-        />
-      </UContainer>
-    </section>
-
-    <UContainer class="py-14 sm:py-16">
-      <!-- Programmes -->
-      <div class="flex items-end justify-between gap-4">
-        <div>
-          <p class="im-meta text-primary">
-            Programmes
-          </p>
-          <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
-            Four programmes, one path
-          </h2>
-        </div>
+    <BpPageHeader
+      sheet="Sheet 08 / Classroom"
+      title="Learn CRM Analytics in a room, with an instructor and an org of your own"
+      lead="The same curriculum as the free online course, taught over one to two weeks in small batches. Every seat comes with a configured practice org and the course datasets loaded."
+    >
+      <div class="mt-8 flex flex-wrap gap-3">
+        <UButton
+          to="#enroll"
+          size="lg"
+          icon="i-lucide-ticket"
+        >
+          Reserve a seat
+        </UButton>
+        <UButton
+          to="/teams"
+          size="lg"
+          color="neutral"
+          variant="outline"
+          icon="i-lucide-users"
+        >
+          Training a team?
+        </UButton>
       </div>
 
-      <div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="mt-10 flex max-w-3xl gap-3 border-[1.5px] border-dashed border-(--ink) bg-(--card) p-4">
+        <UIcon
+          name="i-lucide-info"
+          class="mt-0.5 size-4 flex-none text-(--signal)"
+        />
+        <div class="text-sm">
+          <p class="font-bold text-(--ink)">
+            These centers are the course's worked example
+          </p>
+          <p class="mt-1 text-(--ink2)">
+            CRM Analytics Academy's classroom business is the fictional company the go-to-market dashboards are built on. Requests sent here are received and answered, but no batch, seat or payment is confirmed through this page.
+          </p>
+        </div>
+      </div>
+    </BpPageHeader>
+
+    <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+      <!-- Programmes -->
+      <p class="eyebrow">
+        Fig. 01 — Programmes
+      </p>
+      <h2 class="bp-h2 mt-3">
+        Four programmes, one path
+      </h2>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         <article
-          v-for="p in programmes"
+          v-for="(p, n) in programmes"
           :key="p.key"
-          class="im-card-hover flex flex-col rounded-xl border border-default bg-default p-5"
+          class="bp-card bp-card--hover flex flex-col p-5"
         >
           <div class="flex items-center justify-between">
-            <span class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <span class="bp-iconbox">
               <UIcon
                 :name="p.icon"
                 class="size-5"
               />
             </span>
-            <UBadge
-              color="neutral"
-              variant="soft"
-            >
-              {{ p.level }}
-            </UBadge>
+            <span class="border-[1.5px] border-(--ink) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">{{ p.level }}</span>
           </div>
-          <h3 class="mt-4 text-lg font-semibold tracking-tight text-highlighted">
+          <p class="mono-label mt-4">
+            P-0{{ n + 1 }}
+          </p>
+          <h3 class="mt-1 text-lg font-extrabold tracking-[-0.02em] text-(--ink)">
             {{ p.title }}
           </h3>
-          <p class="mt-1.5 flex-1 text-sm text-muted">
+          <p class="mt-1.5 flex-1 text-sm text-(--ink2)">
             {{ p.blurb }}
           </p>
-          <div class="mt-5 flex items-end justify-between border-t border-default pt-4">
+          <div class="mt-5 flex items-end justify-between border-t border-dashed border-(--line) pt-4">
             <div>
-              <p class="im-figure text-xl font-semibold text-highlighted">
+              <p class="text-2xl font-black tracking-[-0.03em] text-(--ink)">
                 {{ p.price }}
               </p>
-              <p class="im-meta text-dimmed">
+              <p class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">
                 {{ p.days }} days · per seat
               </p>
             </div>
             <UButton
               size="sm"
-              variant="soft"
               trailing-icon="i-lucide-arrow-right"
               @click="choose('track', p.key)"
             >
@@ -146,35 +137,35 @@ function choose(key: 'track' | 'center', value: string) {
       </div>
 
       <!-- Centers -->
-      <div class="mt-16">
-        <p class="im-meta text-primary">
-          Training centers
+      <div class="mt-20">
+        <p class="eyebrow">
+          Fig. 02 — Training centers
         </p>
-        <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
+        <h2 class="bp-h2 mt-3">
           Five cities and a live-online room
         </h2>
 
-        <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-8 grid border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-2 lg:grid-cols-3">
           <button
             v-for="c in centers"
             :key="c.city"
             type="button"
-            class="im-card-hover flex items-center gap-4 rounded-xl border border-default bg-default p-4 text-start"
+            class="flex items-center gap-4 border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-4 text-start transition-colors hover:bg-(--ice)"
             @click="choose('center', c.city)"
           >
-            <span class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-elevated text-primary">
+            <span class="bp-iconbox">
               <UIcon
                 :name="c.icon"
                 class="size-5"
               />
             </span>
             <span class="min-w-0 flex-1">
-              <span class="block font-semibold text-highlighted">{{ c.city }}</span>
-              <span class="block text-sm text-muted">{{ c.address }} · {{ c.region }}</span>
+              <span class="block font-extrabold text-(--ink)">{{ c.city }}</span>
+              <span class="block text-sm text-(--ink2)">{{ c.address }} · {{ c.region }}</span>
             </span>
             <span class="text-end">
-              <span class="im-figure block text-highlighted">{{ c.seats }}</span>
-              <span class="im-meta block text-dimmed">seats</span>
+              <span class="block text-xl font-black text-(--ink)">{{ c.seats }}</span>
+              <span class="block font-mono text-[10px] uppercase text-(--ink2)">seats</span>
             </span>
           </button>
         </div>
@@ -183,28 +174,28 @@ function choose(key: 'track' | 'center', value: string) {
       <!-- Enroll -->
       <div
         id="enroll"
-        class="mt-16 grid scroll-mt-24 gap-10 lg:grid-cols-5"
+        class="mt-20 grid scroll-mt-24 gap-10 lg:grid-cols-5"
       >
         <div class="lg:col-span-2">
-          <p class="im-meta text-primary">
-            Enrollment
+          <p class="eyebrow">
+            Fig. 03 — Enrollment
           </p>
-          <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
+          <h2 class="bp-h2 mt-3">
             Reserve a seat
           </h2>
-          <p class="mt-3 text-muted">
+          <p class="bp-lead mt-4">
             Pick a programme and a center. Batches start when a room reaches eight seats; you
             hear from the center before anything is confirmed.
           </p>
-          <ul class="mt-6 space-y-3 text-sm text-toned">
+          <ul class="mt-6 space-y-3 text-sm text-(--ink)">
             <li
               v-for="item in ['A practice org per seat, datasets preloaded', 'Maximum 16 learners per instructor', 'Every lesson stays free online afterwards', 'Certificate of completion on the final build']"
               :key="item"
               class="flex gap-2.5"
             >
               <UIcon
-                name="i-lucide-circle-check"
-                class="mt-0.5 size-4 shrink-0 text-primary"
+                name="i-lucide-check"
+                class="mt-0.5 size-4 shrink-0 text-(--signal)"
               />
               {{ item }}
             </li>
@@ -217,6 +208,6 @@ function choose(key: 'track' | 'center', value: string) {
           />
         </div>
       </div>
-    </UContainer>
+    </div>
   </div>
 </template>

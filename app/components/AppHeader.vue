@@ -4,24 +4,31 @@ import type { ContentNavigationItem } from '@nuxt/content'
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { header } = useAppConfig()
+const colorMode = useColorMode()
 const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 
-// A flat navbar, no dropdowns: six direct destinations. Everything else
-// (wall of fame, companies, leaderboard, project pages) lives in the footer
-// columns and the mobile slideover's extras list.
+// The six destinations from the Blueprint spec, drawn as full-height cells.
+// Everything else lives in the mobile menu and the footer.
 const menuItems = computed(() => [
-  { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum'), active: route.path.startsWith(localePath('/curriculum')) },
-  { label: t('nav.ask'), icon: 'i-lucide-sparkles', to: localePath('/ask') },
+  { label: t('nav.home'), icon: 'i-lucide-house', to: localePath('/'), exact: true },
+  { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
+  { label: t('nav.pricing'), icon: 'i-lucide-tag', to: '/pricing' },
   { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.forTeams'), icon: 'i-lucide-users', to: '/teams' },
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') }
 ])
 
+function isActive(item: { to: string, exact?: boolean }) {
+  if (item.exact) return route.path === item.to || route.path === `${item.to}/`
+  return route.path === item.to || route.path.startsWith(`${item.to}/`)
+}
+
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
+  { label: t('nav.ask'), icon: 'i-lucide-sparkles', to: localePath('/ask') },
+  { label: t('nav.forTeams'), icon: 'i-lucide-users', to: '/teams' },
   { label: t('nav.training'), icon: 'i-lucide-school', to: '/training' },
   { label: t('nav.implementation'), icon: 'i-lucide-wrench', to: '/implementation' },
   { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
@@ -89,125 +96,171 @@ const localeItems = computed(() =>
 
 <template>
   <UHeader
-    :ui="{ center: 'flex-1', body: 'flex flex-col h-full p-0 overflow-hidden' }"
+    :ui="{ center: 'hidden', left: 'lg:flex-none', right: 'lg:flex-1', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-none border-[1.5px] border-(--ink) size-9 flex items-center justify-center' }"
     :to="localePath('/')"
   >
-    <!-- Active state is a filled pill, not the underline: highlight is off
-         and the pill's ::before surface carries the primary tint instead. -->
-    <!-- No underline anywhere: `highlight` is off, and the active item is
-         drawn as a filled primary pill instead. -->
-    <UNavigationMenu
-      :items="menuItems"
-      class="max-lg:hidden"
-      :ui="{
-        link: 'font-medium rounded-full px-3.5 before:rounded-full data-active:font-bold data-active:text-primary data-active:before:bg-primary/10 data-active:hover:text-primary'
-      }"
-    />
-
     <template #left>
-      <NuxtLink :to="localePath('/')">
-        <AppLogo class="h-6 w-auto shrink-0" />
+      <NuxtLink
+        :to="localePath('/')"
+        class="shrink-0"
+        aria-label="CRM Analytics Academy — home"
+      >
+        <AppLogo />
       </NuxtLink>
+
+      <!-- Nav cells, full header height, hairline-separated. -->
+      <nav
+        class="ms-6 hidden h-16 items-stretch border-s border-(--line) min-[1060px]:flex"
+        aria-label="Main"
+      >
+        <NuxtLink
+          v-for="item in menuItems"
+          :key="item.to"
+          :to="item.to"
+          class="relative flex items-center border-e border-(--line) px-4 text-[15px] font-semibold transition-colors"
+          :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
+        >
+          {{ item.label }}
+          <span
+            v-if="isActive(item)"
+            class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
+          />
+        </NuxtLink>
+      </nav>
     </template>
 
     <template #right>
-      <!-- Search folds down to its icon form: the navbar centre now belongs
-           to the navigation menu, and the palette opens on Cmd/Ctrl-K too.
-           GitHub lives in the About dropdown and the footer. -->
-      <UContentSearchButton v-if="header?.search" />
-
-      <UDropdownMenu
-        :items="localeItems"
-        :content="{ align: 'end' }"
-        class="max-lg:hidden"
-      >
-        <UButton
-          icon="i-lucide-languages"
-          color="neutral"
-          variant="ghost"
-          :aria-label="t('nav.chooseLanguage')"
+      <div class="ms-auto flex items-center gap-2">
+        <UContentSearchButton
+          v-if="header?.search"
+          :collapsed="false"
+          class="hidden h-9 rounded-none border-[1.5px] border-(--ink) bg-(--card) px-3 font-mono text-xs text-(--ink2) ring-0 hover:bg-(--ice) sm:flex"
+          label=""
         />
-      </UDropdownMenu>
+        <UContentSearchButton
+          v-if="header?.search"
+          class="size-9 rounded-none border-[1.5px] border-(--ink) sm:hidden"
+        />
 
-      <UTooltip
-        v-if="header?.colorMode"
-        :text="t('nav.theme')"
-        class="max-lg:hidden"
-      >
-        <UColorModeButton />
-      </UTooltip>
-
-      <ClientOnly>
         <UDropdownMenu
-          v-if="isSignedIn"
-          :items="accountItems"
+          :items="localeItems"
           :content="{ align: 'end' }"
+          class="max-lg:hidden"
         >
-          <UButton
-            color="neutral"
-            variant="ghost"
-            class="gap-2 rounded-full p-1 pe-2"
-            :aria-label="user?.name || user?.email || t('nav.account')"
+          <button
+            type="button"
+            class="flex h-9 items-center gap-1.5 border-[1.5px] border-(--ink) bg-(--card) px-2.5 font-mono text-xs uppercase text-(--ink) hover:bg-(--ice)"
+            :aria-label="t('nav.chooseLanguage')"
           >
-            <UAvatar
-              :src="user?.image || undefined"
-              :text="initials"
-              size="xs"
-              class="bg-primary text-inverted"
+            <UIcon
+              name="i-lucide-languages"
+              class="size-4"
             />
-            <UBadge
-              v-if="pro"
-              size="sm"
-              variant="soft"
-              class="max-sm:hidden"
-            >
-              Pro
-            </UBadge>
+            {{ locale }}
             <UIcon
               name="i-lucide-chevron-down"
-              class="size-3.5 text-muted"
+              class="size-3.5"
             />
-          </UButton>
+          </button>
         </UDropdownMenu>
-        <UButton
-          v-else
-          :to="localePath('/sign-in')"
-          :label="t('nav.signIn')"
-          color="primary"
-          variant="subtle"
-          class="max-sm:hidden"
-        />
-        <template #fallback>
-          <div class="size-9" />
-        </template>
-      </ClientOnly>
+
+        <ClientOnly>
+          <button
+            v-if="header?.colorMode"
+            type="button"
+            class="group flex size-9 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) max-lg:hidden"
+            :aria-label="t('nav.theme')"
+            @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
+          >
+            <UIcon
+              :name="colorMode.value === 'dark' ? 'i-lucide-sun' : 'i-lucide-moon'"
+              class="size-4 transition-transform duration-300 ease-[cubic-bezier(.3,1.5,.5,1)] group-hover:rotate-90"
+            />
+          </button>
+          <template #fallback>
+            <div class="size-9 max-lg:hidden" />
+          </template>
+        </ClientOnly>
+
+        <ClientOnly>
+          <UDropdownMenu
+            v-if="isSignedIn"
+            :items="accountItems"
+            :content="{ align: 'end' }"
+          >
+            <button
+              type="button"
+              class="flex h-9 items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) pe-2.5 hover:bg-(--ice)"
+              :aria-label="user?.name || user?.email || t('nav.account')"
+            >
+              <span class="flex size-[33px] items-center justify-center overflow-hidden border-e-[1.5px] border-(--ink) bg-(--signal) font-bold text-white">
+                <img
+                  v-if="user?.image"
+                  :src="user.image"
+                  alt=""
+                  class="size-full object-cover"
+                >
+                <template v-else>{{ initials }}</template>
+              </span>
+              <span
+                v-if="pro"
+                class="font-mono text-[10px] uppercase tracking-[.08em] text-(--signal) max-sm:hidden"
+              >Pro</span>
+              <UIcon
+                name="i-lucide-chevron-down"
+                class="size-3.5 text-(--ink2)"
+              />
+            </button>
+          </UDropdownMenu>
+          <UButton
+            v-else
+            to="/pricing"
+            size="sm"
+            trailing-icon="i-lucide-arrow-up-right"
+            class="max-sm:hidden"
+          >
+            {{ t('nav.enroll') }}
+          </UButton>
+          <template #fallback>
+            <div class="h-9 w-24 max-sm:hidden" />
+          </template>
+        </ClientOnly>
+      </div>
     </template>
 
     <template #body>
-      <!-- min-h-0 lets this shrink below its content size so it actually
-           scrolls instead of pushing the sponsor card off-screen; the card
-           is a shrink-0 sibling, so it stays pinned to the bottom of the
-           mobile menu regardless of nav length. -->
-      <div class="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
-        <!-- The navbar's menu items first — on mobile this slideover is the
-             only place they exist — then the full curriculum tree. -->
-        <UNavigationMenu
-          orientation="vertical"
-          :items="[...menuItems, ...extraItems]"
-          class="mb-4"
-        />
+      <div class="min-h-0 flex-1 overflow-y-auto">
+        <!-- Numbered rows, as in the spec's mobile menu. -->
+        <nav class="border-b-[1.5px] border-(--ink)">
+          <NuxtLink
+            v-for="(item, i) in [...menuItems, ...extraItems]"
+            :key="item.to"
+            :to="item.to"
+            class="bp-row flex items-center gap-4 border-b border-(--line) px-5 py-3.5 text-lg font-bold last:border-b-0"
+            :class="'exact' in item && isActive(item as { to: string, exact?: boolean }) ? 'text-(--signal)' : 'text-(--ink)'"
+          >
+            <span class="font-mono text-xs text-(--signal)">{{ String(i + 1).padStart(2, '0') }}</span>
+            {{ item.label }}
+            <UIcon
+              name="i-lucide-arrow-right"
+              class="bp-arrow ms-auto size-4 text-(--ink2)"
+            />
+          </NuxtLink>
+        </nav>
 
-        <USeparator class="mb-4" />
-
-        <UContentNavigation
-          highlight
-          type="single"
-          :navigation="navigation"
-        />
+        <div class="p-5">
+          <p class="eyebrow mb-3">
+            Course contents
+          </p>
+          <UContentNavigation
+            highlight
+            type="single"
+            :navigation="navigation"
+          />
+        </div>
       </div>
 
-      <!-- Language + theme controls (hidden from the crowded mobile navbar). -->
-      <div class="flex items-center justify-between gap-2 border-t border-default px-4 py-3 sm:px-6 lg:hidden">
+      <div class="flex items-center justify-between gap-2 border-t-[1.5px] border-(--ink) px-5 py-3">
         <UDropdownMenu
           :items="localeItems"
           :content="{ align: 'start' }"
@@ -216,14 +269,12 @@ const localeItems = computed(() =>
             icon="i-lucide-languages"
             :label="t('nav.chooseLanguage')"
             color="neutral"
-            variant="ghost"
+            variant="outline"
             size="sm"
           />
         </UDropdownMenu>
-        <UColorModeButton />
+        <UColorModeButton class="rounded-none border-[1.5px] border-(--ink)" />
       </div>
-
-      <SponsorCard class="m-4 mt-0 shrink-0 sm:mx-6 sm:mb-6" />
     </template>
   </UHeader>
 </template>

@@ -101,49 +101,54 @@ watch([pro, loaded], ([isPro]) => {
         class="pointer-events-none absolute inset-x-0 -top-24 h-24"
         style="background: linear-gradient(to bottom, transparent, var(--ui-bg))"
       />
-      <div class="rounded-2xl border border-primary/30 bg-primary/5 p-6 text-center sm:p-8">
-        <span class="mx-auto flex size-12 items-center justify-center rounded-full bg-primary text-inverted">
-          <UIcon
-            name="i-lucide-lock"
-            class="size-5"
-          />
-        </span>
-        <h3 class="mt-4 text-xl font-bold tracking-tight text-highlighted">
-          The rest of this lesson is part of Pro
-        </h3>
-        <p class="mx-auto mt-2 max-w-md text-muted">
-          Pro unlocks every Pro lesson, its quiz and interview questions, and the lesson videos —
-          and pays for the rest of the course to stay free.
-        </p>
-        <p
-          v-if="failed"
-          class="mt-3 text-sm text-error"
-        >
-          {{ failed }}
-        </p>
-        <div class="mt-6 flex flex-wrap justify-center gap-3">
-          <UButton
-            to="/pricing"
-            size="lg"
-            icon="i-lucide-sparkles"
+      <div class="crosshair hatch border-[1.5px] border-(--ink) p-2">
+        <div class="bg-(--card) p-6 text-center sm:p-10">
+          <span class="mx-auto flex size-12 items-center justify-center border-[1.5px] border-(--ink) bg-(--ink) text-(--paper)">
+            <UIcon
+              name="i-lucide-lock"
+              class="size-5"
+            />
+          </span>
+          <p class="eyebrow mt-5">
+            Pro lesson — locked
+          </p>
+          <h3 class="bp-h3 mt-2 text-(--ink)">
+            The rest of this lesson is part of Pro
+          </h3>
+          <p class="mx-auto mt-3 max-w-md text-(--ink2)">
+            Pro unlocks every Pro lesson, its quiz and interview questions, and the lesson videos —
+            and pays for the rest of the course to stay free.
+          </p>
+          <p
+            v-if="failed"
+            class="mt-3 text-sm text-error"
           >
-            See Pro plans
-          </UButton>
-          <UButton
-            v-if="!isSignedIn"
-            :to="localePath('/sign-in')"
-            size="lg"
-            color="neutral"
-            variant="outline"
-          >
-            I already have Pro
-          </UButton>
+            {{ failed }}
+          </p>
+          <div class="mt-7 flex flex-wrap justify-center gap-3">
+            <UButton
+              :to="localePath('/pricing')"
+              size="lg"
+              icon="i-lucide-sparkles"
+            >
+              See Pro plans
+            </UButton>
+            <UButton
+              v-if="!isSignedIn"
+              :to="localePath('/sign-in')"
+              size="lg"
+              color="neutral"
+              variant="outline"
+            >
+              I already have Pro
+            </UButton>
+          </div>
         </div>
       </div>
     </div>
 
     <template #fallback>
-      <div class="my-10 h-40 rounded-2xl border border-default bg-muted" />
+      <div class="my-10 h-40 border-[1.5px] border-(--ink) bg-(--card)" />
     </template>
   </ClientOnly>
 </template>

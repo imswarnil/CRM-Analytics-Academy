@@ -47,85 +47,85 @@ const runtime = computed(() => {
 
 <template>
   <details
-    class="not-prose group mb-8 overflow-hidden rounded-lg border border-default bg-elevated/40"
+    class="not-prose group mb-8 border-[1.5px] border-(--ink) bg-(--card)"
     :open="!hasVideo"
   >
-    <summary class="flex cursor-pointer list-none items-center gap-3 px-4 py-3 hover:bg-elevated/70">
-      <UIcon
-        name="i-lucide-monitor-play"
-        class="size-5 shrink-0 text-primary"
-      />
-      <span class="flex-1">
-        <span class="block text-sm font-semibold text-highlighted">
+    <summary class="flex cursor-pointer list-none items-center gap-3 bg-(--ice) px-4 py-3 hover:bg-(--frost)/40">
+      <span class="flex size-8 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card)">
+        <UIcon
+          name="i-lucide-monitor-play"
+          class="size-4 text-(--signal)"
+        />
+      </span>
+      <span class="min-w-0 flex-1">
+        <span class="eyebrow block">
           Screen walkthrough
         </span>
-        <span class="block text-xs text-muted">
+        <span class="block text-xs text-(--ink2)">
           {{ hasVideo ? 'The script behind the video above' : 'Follow along in your own org — the video for this lesson is not recorded yet' }}
         </span>
       </span>
-      <UBadge
+      <span
         v-if="runtime"
-        color="neutral"
-        variant="subtle"
-        size="sm"
-        class="shrink-0"
+        class="shrink-0 border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]"
       >
         {{ runtime }}
-      </UBadge>
+      </span>
       <UIcon
         name="i-lucide-chevron-down"
-        class="size-4 shrink-0 text-dimmed transition-transform group-open:rotate-180"
+        class="size-4 shrink-0 text-(--ink2) transition-transform group-open:rotate-180"
       />
     </summary>
 
-    <div class="border-t border-default px-4 py-4">
+    <div class="border-t-[1.5px] border-(--ink) px-4 py-5">
       <p
         v-if="org"
-        class="mb-4 flex items-start gap-2 text-xs text-muted"
+        class="mb-5 flex items-start gap-2 border border-dashed border-(--line) px-3 py-2 text-xs text-(--ink2)"
       >
         <UIcon
           name="i-lucide-crosshair"
-          class="mt-0.5 size-3.5 shrink-0"
+          class="mt-0.5 size-3.5 shrink-0 text-(--signal)"
         />
-        <span><span class="font-medium text-toned">Have open:</span> {{ org }}</span>
+        <span><span class="font-mono font-semibold uppercase tracking-[.08em] text-(--ink)">Have open:</span> {{ org }}</span>
       </p>
 
-      <ol class="space-y-5">
+      <ol class="space-y-6">
         <li
           v-for="(s, i) in shots"
+          :id="`step-${i + 1}`"
           :key="i"
           class="flex gap-3"
         >
-          <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold leading-none text-primary">
-            {{ i + 1 }}
+          <span class="mt-0.5 flex size-7 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--signal) font-mono text-xs font-semibold leading-none text-white">
+            {{ String(i + 1).padStart(2, '0') }}
           </span>
           <div class="min-w-0 flex-1">
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-              <h4 class="text-sm font-semibold text-highlighted">
+              <h4 class="text-sm font-bold text-(--ink)">
                 {{ s.shot }}
               </h4>
               <span
                 v-if="s.seconds"
-                class="text-xs tabular-nums text-dimmed"
+                class="font-mono text-[10px] tabular-nums text-(--ink2)"
               >{{ s.seconds }}s</span>
             </div>
 
             <p
               v-if="s.screen"
-              class="mt-1 font-mono text-xs leading-relaxed text-muted"
+              class="mt-1 font-mono text-xs leading-relaxed text-(--signal)"
             >
               {{ s.screen }}
             </p>
 
             <!-- The narration carries the teaching, so it is the one part set
                  at body size rather than in the metadata's smaller type. -->
-            <p class="lesson-walkthrough-say mt-2 pl-3 text-sm leading-relaxed text-toned">
+            <p class="lesson-walkthrough-say mt-2 pl-3 text-sm leading-relaxed text-(--ink)">
               {{ s.say }}
             </p>
 
             <p
               v-if="s.onscreen"
-              class="mt-2 inline-flex items-center gap-1.5 rounded border border-dashed border-default px-2 py-1 text-xs text-muted"
+              class="mt-2 inline-flex items-center gap-1.5 border border-dashed border-(--ink2) px-2 py-1 font-mono text-[11px] text-(--ink2)"
             >
               <UIcon
                 name="i-lucide-type"

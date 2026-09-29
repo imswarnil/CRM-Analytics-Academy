@@ -46,17 +46,11 @@ const selected = ref<'all' | PersonType>('all')
 const filtered = computed(() => selected.value === 'all' ? people : people.filter(p => p.type === selected.value))
 const countFor = (key: 'all' | PersonType) => key === 'all' ? people.length : people.filter(p => p.type === key).length
 
-// Every frame on a real wall is different: three frame builds (polaroid,
-// wood, black gallery), five tilts and three photo crops, cycled so no two
-// neighbours match. Frame interiors stay light in both themes — paper and
-// wood don't theme — so interior text uses fixed dark tones, not semantic
-// tokens; only the wall behind them (.bg-wall) follows the color mode.
-const rotations = ['rotate-1', '-rotate-2', 'rotate-0', '-rotate-1', 'rotate-2']
-const aspects = ['aspect-square', 'aspect-[4/5]', 'aspect-[3/4]']
-const frameStyles = ['polaroid', 'wood', 'gallery'] as const
+// Every person is a numbered drawing sheet; the portrait crop cycles so
+// neighbouring cards do not line up like a spreadsheet.
+const aspects = ['aspect-[4/3]', 'aspect-square', 'aspect-[5/4]']
 const frameFor = (i: number) => ({
-  style: frameStyles[i % frameStyles.length],
-  rotation: rotations[i % rotations.length],
+  no: String(i + 1).padStart(3, '0'),
   aspect: aspects[i % aspects.length]
 })
 
@@ -77,22 +71,12 @@ useJsonLd({
 
 <template>
   <div>
-    <UPageHero
+    <BpPageHeader
+      :sheet="`Sheet 09 / ${t('wall.eyebrow')}`"
       :title="t('wall.title')"
-      :description="t('wall.subtitle')"
-    >
-      <template #headline>
-        <UBadge
-          color="primary"
-          variant="subtle"
-          size="lg"
-          icon="i-lucide-trophy"
-          class="rounded-full"
-        >
-          {{ t('wall.eyebrow') }}
-        </UBadge>
-      </template>
-    </UPageHero>
+      :lead="t('wall.subtitle')"
+      center
+    />
 
     <UContainer class="pb-16 sm:pb-20">
       <div class="mb-8 flex flex-wrap justify-center gap-2">
@@ -100,7 +84,6 @@ useJsonLd({
           :color="selected === 'all' ? 'primary' : 'neutral'"
           :variant="selected === 'all' ? 'subtle' : 'ghost'"
           icon="i-lucide-layout-grid"
-          class="rounded-full"
           @click="selected = 'all'"
         >
           {{ t('wall.all') }}
@@ -109,7 +92,6 @@ useJsonLd({
             color="neutral"
             variant="subtle"
             size="sm"
-            class="rounded-full"
           />
         </UButton>
         <UButton
@@ -118,7 +100,6 @@ useJsonLd({
           :color="selected === type ? 'primary' : 'neutral'"
           :variant="selected === type ? 'subtle' : 'ghost'"
           :icon="typeIcons[type]"
-          class="rounded-full"
           @click="selected = type"
         >
           {{ t(`wall.types.${type}`) }}
@@ -127,145 +108,98 @@ useJsonLd({
             color="neutral"
             variant="subtle"
             size="sm"
-            class="rounded-full"
           />
         </UButton>
       </div>
 
-      <section class="bg-wall rounded-lg p-6 shadow-inner ring-1 ring-default sm:p-10 lg:p-14">
-        <!-- CSS-columns masonry: mixed photo crops give every column its own
-             rhythm, like a wall that grew one frame at a time. -->
-        <div class="columns-1 gap-10 sm:columns-2 lg:columns-3">
+      <div class="columns-1 gap-6 sm:columns-2 lg:columns-3">
+        <div
+          v-for="(p, i) in filtered"
+          :key="p.name"
+          class="bp-card bp-card--hover group relative mb-6 break-inside-avoid"
+        >
           <div
-            v-for="(p, i) in filtered"
-            :key="p.name"
-            class="group relative mb-10 break-inside-avoid transition-all duration-300 hover:-translate-y-1.5 hover:rotate-0 hover:shadow-none"
-            :class="frameFor(i).rotation"
+            class="crosshair hatch relative border-b-[1.5px] border-(--ink) bg-(--ice)"
+            :class="frameFor(i).aspect"
+            aria-hidden="true"
           >
-            <!-- the nail it hangs from -->
-            <span
-              class="absolute -top-2.5 left-1/2 z-10 size-2 -translate-x-1/2 rounded-full bg-neutral-400 shadow-sm dark:bg-neutral-500"
-              aria-hidden="true"
+            <UIcon
+              name="i-lucide-user-round"
+              class="absolute bottom-0 left-1/2 size-[62%] -translate-x-1/2 text-(--tide)"
             />
+            <span class="absolute start-3 top-3 bg-(--card) px-1.5 py-0.5 font-mono text-[10px] tracking-[.1em] text-(--ink)">No. {{ frameFor(i).no }}</span>
+          </div>
 
-            <!-- the frame: polaroid paper, wood + mat, or thin black gallery -->
-            <div
-              class="flex h-full flex-col shadow-xl transition-shadow duration-300 group-hover:shadow-2xl"
-              :class="{
-                'bg-white p-3 pb-5': frameFor(i).style === 'polaroid',
-                'rounded-sm border-8 border-amber-900/80 bg-amber-50 p-3': frameFor(i).style === 'wood',
-                'border-[6px] border-neutral-900 bg-white p-4': frameFor(i).style === 'gallery'
-              }"
-            >
-              <!-- the photograph: sepia portrait silhouette under a glass sheen -->
-              <div
-                class="relative overflow-hidden bg-gradient-to-br from-amber-100 via-orange-100 to-amber-200"
-                :class="frameFor(i).aspect"
-                aria-hidden="true"
-              >
-                <UIcon
-                  name="i-lucide-user-round"
-                  class="absolute bottom-0 left-1/2 size-[72%] -translate-x-1/2 translate-y-[10%] text-amber-900/25"
+          <div class="p-4">
+            <p class="mono-label">
+              {{ t(`wall.types.${p.type}`) }}
+            </p>
+            <h3 class="mt-1 text-lg font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">
+              {{ p.name }}
+            </h3>
+            <p class="mt-2 text-sm text-(--ink2)">
+              {{ p.desc }}
+            </p>
+
+            <div class="mt-4 flex items-center justify-between gap-2 border-t border-dashed border-(--line) pt-3">
+              <UBadge
+                :label="t(`wall.types.${p.type}`)"
+                :icon="typeIcons[p.type]"
+                color="primary"
+                variant="subtle"
+                size="sm"
+              />
+              <div class="relative z-10 flex items-center gap-1">
+                <UButton
+                  v-if="p.url"
+                  :to="p.url"
+                  target="_blank"
+                  :aria-label="t('wall.visit')"
+                  :icon="p.icon || 'i-lucide-globe'"
+                  color="neutral"
+                  variant="ghost"
+                  size="xs"
                 />
-                <span class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/40" />
-                <span class="absolute inset-0 ring-1 ring-black/10 ring-inset" />
-              </div>
-
-              <!-- the caption, in the frame's own voice -->
-              <div
-                v-if="frameFor(i).style === 'wood'"
-                class="mt-3 rounded-sm border border-amber-300 bg-amber-200/80 px-3 py-1.5 text-center"
-              >
-                <p class="text-sm font-semibold tracking-widest text-amber-950 uppercase">
-                  {{ p.name }}
-                </p>
-                <p class="text-[10px] tracking-wider text-amber-800 uppercase">
-                  {{ t(`wall.types.${p.type}`) }}
-                </p>
-              </div>
-              <div
-                v-else-if="frameFor(i).style === 'polaroid'"
-                class="mt-3 text-center"
-              >
-                <p class="font-serif text-lg text-neutral-800 italic">
-                  {{ p.name }}
-                </p>
-                <p class="text-[10px] tracking-wider text-neutral-500 uppercase">
-                  {{ t(`wall.types.${p.type}`) }}
-                </p>
-              </div>
-              <div
-                v-else
-                class="mt-3 text-center"
-              >
-                <p class="text-xs font-medium tracking-[0.2em] text-neutral-800 uppercase">
-                  {{ p.name }}
-                </p>
-                <p class="text-[10px] tracking-wider text-neutral-500 uppercase">
-                  {{ t(`wall.types.${p.type}`) }}
-                </p>
-              </div>
-
-              <p class="mt-3 grow text-xs text-neutral-600">
-                {{ p.desc }}
-              </p>
-
-              <div class="mt-3 flex items-center justify-between gap-2">
-                <UBadge
-                  :label="t(`wall.types.${p.type}`)"
-                  :icon="typeIcons[p.type]"
-                  color="primary"
-                  variant="subtle"
-                  size="sm"
-                  class="rounded-full"
+                <UButton
+                  :to="p.linkedin"
+                  target="_blank"
+                  :aria-label="t('wall.connect')"
+                  icon="i-simple-icons-linkedin"
+                  color="neutral"
+                  variant="ghost"
+                  size="xs"
                 />
-                <div class="relative z-10 flex items-center gap-1">
-                  <UButton
-                    v-if="p.url"
-                    :to="p.url"
-                    target="_blank"
-                    :aria-label="t('wall.visit')"
-                    :icon="p.icon || 'i-lucide-globe'"
-                    color="neutral"
-                    variant="ghost"
-                    size="xs"
-                  />
-                  <UButton
-                    :to="p.linkedin"
-                    target="_blank"
-                    :aria-label="t('wall.connect')"
-                    icon="i-simple-icons-linkedin"
-                    color="neutral"
-                    variant="ghost"
-                    size="xs"
-                  />
-                </div>
               </div>
             </div>
-
-            <!-- whole-frame link to LinkedIn -->
-            <NuxtLink
-              :to="p.linkedin"
-              target="_blank"
-              :aria-label="p.name"
-              class="absolute inset-0"
-            />
           </div>
+
+          <!-- whole-card link to LinkedIn -->
+          <NuxtLink
+            :to="p.linkedin"
+            target="_blank"
+            :aria-label="p.name"
+            class="absolute inset-0"
+          />
         </div>
-      </section>
+      </div>
 
       <UPageCTA
         :title="t('wall.nominateTitle')"
         :description="t('wall.nominateDesc')"
-        variant="subtle"
+        variant="naked"
         class="mt-12"
+        :ui="{
+          root: 'graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) shadow-[10px_10px_0_var(--signal)]',
+          title: 'text-white',
+          description: 'text-white/80'
+        }"
         :links="[
           {
             label: t('wall.nominate'),
             to: 'https://github.com/imswarnil/CRM-Analytics-Academy/discussions',
             target: '_blank',
             icon: 'i-lucide-heart-handshake',
-            color: 'primary'
+            color: 'secondary'
           }
         ]"
       />

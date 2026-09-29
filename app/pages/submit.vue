@@ -203,324 +203,323 @@ const statusLabel: Record<Mine['status'], string> = {
 
 <template>
   <div>
-    <section class="flex min-h-[calc(100vh-var(--ui-header-height,4rem))] items-center justify-center px-4 py-6 sm:px-6">
-      <UCard class="w-full max-w-2xl">
-        <template #header>
-          <div class="space-y-1">
-            <p class="text-xs font-semibold uppercase tracking-wide text-primary">
-              {{ t('submit.kicker') }}
-            </p>
-            <h1 class="text-lg font-bold text-highlighted">
-              {{ t('submit.title') }}
-            </h1>
-          </div>
-        </template>
-
-        <div
-          v-if="sent"
-          class="space-y-3 py-4 text-center"
-        >
-          <UIcon
-            name="i-lucide-circle-check"
-            class="mx-auto size-10 text-success"
-          />
-          <p class="font-semibold text-highlighted">
-            {{ t('submit.sentTitle') }}
+    <section class="graph-paper flex min-h-[calc(100vh-var(--ui-header-height,4rem))] items-center justify-center border-b-[1.5px] border-(--ink) px-4 py-10 sm:px-6">
+      <div class="crosshair w-full max-w-2xl border-[1.5px] border-(--ink) bg-(--card) shadow-[10px_10px_0_var(--ice)]">
+        <div class="space-y-1 border-b-[1.5px] border-(--ink) bg-(--ice) px-6 py-4">
+          <p class="eyebrow">
+            {{ t('submit.kicker') }}
           </p>
-          <p class="text-sm text-muted">
-            {{ t('submit.sentBody') }}
-          </p>
-          <UButton
-            :label="t('submit.another')"
-            color="neutral"
-            variant="outline"
-            size="sm"
-            @click="sent = false"
-          />
+          <h1 class="text-2xl font-extrabold tracking-[-0.02em] text-(--ink)">
+            {{ t('submit.title') }}
+          </h1>
         </div>
-
-        <div
-          v-else
-          class="space-y-6"
-        >
-          <UStepper
-            v-model="step"
-            :items="steps"
-            size="sm"
-          />
-
-          <!-- Step 1: what kind of thing is this? -->
-          <fieldset
-            v-if="step === 0"
-            class="space-y-3"
-          >
-            <legend class="text-sm font-medium text-highlighted">
-              {{ t('submit.kind') }}
-            </legend>
-            <div class="grid gap-3 sm:grid-cols-3">
-              <UButton
-                v-for="k in kinds"
-                :key="k.value"
-                :icon="k.icon"
-                :label="k.label"
-                :color="kind === k.value ? 'primary' : 'neutral'"
-                :variant="kind === k.value ? 'soft' : 'outline'"
-                size="lg"
-                block
-                class="h-24 flex-col justify-center gap-2 text-center"
-                :aria-pressed="kind === k.value"
-                @click="kind = k.value"
-              />
-            </div>
-            <p class="text-sm text-muted">
-              {{ t('submit.subtitle') }}
-            </p>
-          </fieldset>
-
-          <!-- Step 2: title, link, description -->
+        <div class="p-6">
           <div
-            v-else-if="step === 1"
-            class="space-y-4"
+            v-if="sent"
+            class="space-y-3 py-4 text-center"
           >
-            <UFormField :label="t('submit.titleLabel')">
-              <UInput
-                v-model="form.title"
-                class="w-full"
-                maxlength="160"
-                autofocus
-              />
-            </UFormField>
-
-            <UFormField
-              v-if="kind !== 'lesson-idea'"
-              :label="t('submit.urlLabel')"
-              :hint="kind === 'showcase' ? t('submit.optional') : undefined"
-            >
-              <UInput
-                v-model="form.url"
-                class="w-full"
-                type="url"
-                placeholder="https://"
-                icon="i-lucide-link"
-              />
-            </UFormField>
-
-            <UFormField
-              :label="t('submit.descLabel')"
-              :help="t('submit.descHint')"
-            >
-              <UTextarea
-                v-model="form.description"
-                class="w-full"
-                :rows="3"
-                maxlength="2000"
-              />
-            </UFormField>
-          </div>
-
-          <!-- Step 3: screenshots + tags, both optional -->
-          <div
-            v-else-if="step === 2"
-            class="space-y-4"
-          >
-            <UFormField
-              :label="t('submit.photosLabel')"
-              :hint="t('submit.optional')"
-              :help="t('submit.photosHint')"
-            >
-              <input
-                ref="fileInput"
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                multiple
-                class="hidden"
-                @change="onFiles"
-              >
-              <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div
-                  v-for="p in photos"
-                  :key="p.key"
-                  class="relative aspect-video overflow-hidden rounded-md border border-default"
-                >
-                  <img
-                    :src="p.url"
-                    alt=""
-                    class="size-full object-cover"
-                  >
-                  <UButton
-                    icon="i-lucide-x"
-                    color="neutral"
-                    variant="solid"
-                    size="xs"
-                    class="absolute right-1 top-1"
-                    :aria-label="t('submit.back')"
-                    @click="removePhoto(p.key)"
-                  />
-                </div>
-                <UButton
-                  v-if="photos.length < MAX_PHOTOS"
-                  icon="i-lucide-image-plus"
-                  color="neutral"
-                  variant="outline"
-                  class="aspect-video h-auto flex-col justify-center border-dashed"
-                  block
-                  :loading="uploading"
-                  :label="uploading ? t('submit.uploading') : undefined"
-                  :aria-label="t('submit.photosLabel')"
-                  @click="fileInput?.click()"
-                />
-              </div>
-            </UFormField>
-
-            <UAlert
-              v-if="uploadError"
-              color="warning"
-              variant="subtle"
-              icon="i-lucide-triangle-alert"
-              :title="uploadError"
+            <UIcon
+              name="i-lucide-circle-check"
+              class="mx-auto size-10 text-success"
             />
-
-            <UFormField
-              :label="t('submit.tagsLabel')"
-              :hint="t('submit.optional')"
-            >
-              <USelectMenu
-                v-model="form.tags"
-                :items="tagOptions"
-                multiple
-                create-item
-                icon="i-lucide-tags"
-                class="w-full"
-                @create="onCreateTag"
-              />
-            </UFormField>
+            <p class="font-semibold text-(--ink)">
+              {{ t('submit.sentTitle') }}
+            </p>
+            <p class="text-sm text-(--ink2)">
+              {{ t('submit.sentBody') }}
+            </p>
+            <UButton
+              :label="t('submit.another')"
+              color="neutral"
+              variant="outline"
+              size="sm"
+              @click="sent = false"
+            />
           </div>
 
-          <!-- Step 4: review + send -->
           <div
             v-else
-            class="space-y-4"
+            class="space-y-6"
           >
-            <p class="text-sm text-muted">
-              {{ t('submit.reviewHint') }}
-            </p>
+            <UStepper
+              v-model="step"
+              :items="steps"
+              size="sm"
+            />
 
-            <dl class="space-y-3 text-sm">
-              <div class="flex items-baseline justify-between gap-4">
-                <dt class="shrink-0 text-muted">
-                  {{ t('submit.kind') }}
-                </dt>
-                <dd class="font-medium text-highlighted">
-                  {{ kindLabel }}
-                </dd>
-              </div>
-              <USeparator />
-              <div class="flex items-baseline justify-between gap-4">
-                <dt class="shrink-0 text-muted">
-                  {{ t('submit.titleLabel') }}
-                </dt>
-                <dd class="truncate font-medium text-highlighted">
-                  {{ form.title }}
-                </dd>
-              </div>
-              <template v-if="form.url">
-                <USeparator />
-                <div class="flex items-baseline justify-between gap-4">
-                  <dt class="shrink-0 text-muted">
-                    {{ t('submit.urlLabel') }}
-                  </dt>
-                  <dd class="truncate font-medium text-highlighted">
-                    {{ form.url }}
-                  </dd>
-                </div>
-              </template>
-              <USeparator />
-              <div class="space-y-1">
-                <dt class="text-muted">
-                  {{ t('submit.descLabel') }}
-                </dt>
-                <dd class="line-clamp-3 text-highlighted">
-                  {{ form.description }}
-                </dd>
-              </div>
-              <template v-if="form.tags.length">
-                <USeparator />
-                <div class="flex items-baseline justify-between gap-4">
-                  <dt class="shrink-0 text-muted">
-                    {{ t('submit.tagsLabel') }}
-                  </dt>
-                  <dd class="flex flex-wrap justify-end gap-1">
-                    <UBadge
-                      v-for="tag in form.tags"
-                      :key="tag"
-                      :label="tag"
-                      color="neutral"
-                      variant="subtle"
-                      size="sm"
-                    />
-                  </dd>
-                </div>
-              </template>
-            </dl>
-
-            <div
-              v-if="photos.length"
-              class="flex gap-2"
+            <!-- Step 1: what kind of thing is this? -->
+            <fieldset
+              v-if="step === 0"
+              class="space-y-3"
             >
-              <img
-                v-for="p in photos"
-                :key="p.key"
-                :src="p.url"
-                alt=""
-                class="h-14 w-24 rounded-md border border-default object-cover"
+              <legend class="mono-label mb-2">
+                {{ t('submit.kind') }}
+              </legend>
+              <div class="grid gap-3 sm:grid-cols-3">
+                <UButton
+                  v-for="k in kinds"
+                  :key="k.value"
+                  :icon="k.icon"
+                  :label="k.label"
+                  :color="kind === k.value ? 'primary' : 'neutral'"
+                  :variant="kind === k.value ? 'soft' : 'outline'"
+                  size="lg"
+                  block
+                  class="h-24 flex-col justify-center gap-2 text-center"
+                  :aria-pressed="kind === k.value"
+                  @click="kind = k.value"
+                />
+              </div>
+              <p class="text-sm text-(--ink2)">
+                {{ t('submit.subtitle') }}
+              </p>
+            </fieldset>
+
+            <!-- Step 2: title, link, description -->
+            <div
+              v-else-if="step === 1"
+              class="space-y-4"
+            >
+              <UFormField :label="t('submit.titleLabel')">
+                <UInput
+                  v-model="form.title"
+                  class="w-full"
+                  maxlength="160"
+                  autofocus
+                />
+              </UFormField>
+
+              <UFormField
+                v-if="kind !== 'lesson-idea'"
+                :label="t('submit.urlLabel')"
+                :hint="kind === 'showcase' ? t('submit.optional') : undefined"
               >
+                <UInput
+                  v-model="form.url"
+                  class="w-full"
+                  type="url"
+                  placeholder="https://"
+                  icon="i-lucide-link"
+                />
+              </UFormField>
+
+              <UFormField
+                :label="t('submit.descLabel')"
+                :help="t('submit.descHint')"
+              >
+                <UTextarea
+                  v-model="form.description"
+                  class="w-full"
+                  :rows="3"
+                  maxlength="2000"
+                />
+              </UFormField>
             </div>
 
-            <UAlert
-              v-if="error"
-              color="error"
-              variant="subtle"
-              icon="i-lucide-alert-circle"
-              :title="error"
-            />
-          </div>
+            <!-- Step 3: screenshots + tags, both optional -->
+            <div
+              v-else-if="step === 2"
+              class="space-y-4"
+            >
+              <UFormField
+                :label="t('submit.photosLabel')"
+                :hint="t('submit.optional')"
+                :help="t('submit.photosHint')"
+              >
+                <input
+                  ref="fileInput"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  multiple
+                  class="hidden"
+                  @change="onFiles"
+                >
+                <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  <div
+                    v-for="p in photos"
+                    :key="p.key"
+                    class="relative aspect-video overflow-hidden border-[1.5px] border-(--ink)"
+                  >
+                    <img
+                      :src="p.url"
+                      alt=""
+                      class="size-full object-cover"
+                    >
+                    <UButton
+                      icon="i-lucide-x"
+                      color="neutral"
+                      variant="solid"
+                      size="xs"
+                      class="absolute right-1 top-1"
+                      :aria-label="t('submit.back')"
+                      @click="removePhoto(p.key)"
+                    />
+                  </div>
+                  <UButton
+                    v-if="photos.length < MAX_PHOTOS"
+                    icon="i-lucide-image-plus"
+                    color="neutral"
+                    variant="outline"
+                    class="aspect-video h-auto flex-col justify-center border-dashed"
+                    block
+                    :loading="uploading"
+                    :label="uploading ? t('submit.uploading') : undefined"
+                    :aria-label="t('submit.photosLabel')"
+                    @click="fileInput?.click()"
+                  />
+                </div>
+              </UFormField>
 
-          <div class="flex items-center justify-between pt-2">
-            <UButton
-              :label="t('submit.back')"
-              color="neutral"
-              variant="ghost"
-              icon="i-lucide-arrow-left"
-              :disabled="step === 0 || sending"
-              @click="step -= 1"
-            />
-            <UButton
-              v-if="step < 3"
-              :label="t('submit.next')"
-              trailing-icon="i-lucide-arrow-right"
-              :disabled="!canContinue"
-              @click="step += 1"
-            />
-            <UButton
+              <UAlert
+                v-if="uploadError"
+                color="warning"
+                variant="subtle"
+                icon="i-lucide-triangle-alert"
+                :title="uploadError"
+              />
+
+              <UFormField
+                :label="t('submit.tagsLabel')"
+                :hint="t('submit.optional')"
+              >
+                <USelectMenu
+                  v-model="form.tags"
+                  :items="tagOptions"
+                  multiple
+                  create-item
+                  icon="i-lucide-tags"
+                  class="w-full"
+                  @create="onCreateTag"
+                />
+              </UFormField>
+            </div>
+
+            <!-- Step 4: review + send -->
+            <div
               v-else
-              :label="t('submit.submit')"
-              icon="i-lucide-send"
-              :loading="sending"
-              @click="send"
-            />
+              class="space-y-4"
+            >
+              <p class="text-sm text-(--ink2)">
+                {{ t('submit.reviewHint') }}
+              </p>
+
+              <dl class="space-y-3 text-sm">
+                <div class="flex items-baseline justify-between gap-4">
+                  <dt class="shrink-0 text-(--ink2)">
+                    {{ t('submit.kind') }}
+                  </dt>
+                  <dd class="font-medium text-(--ink)">
+                    {{ kindLabel }}
+                  </dd>
+                </div>
+                <USeparator />
+                <div class="flex items-baseline justify-between gap-4">
+                  <dt class="shrink-0 text-(--ink2)">
+                    {{ t('submit.titleLabel') }}
+                  </dt>
+                  <dd class="truncate font-medium text-(--ink)">
+                    {{ form.title }}
+                  </dd>
+                </div>
+                <template v-if="form.url">
+                  <USeparator />
+                  <div class="flex items-baseline justify-between gap-4">
+                    <dt class="shrink-0 text-(--ink2)">
+                      {{ t('submit.urlLabel') }}
+                    </dt>
+                    <dd class="truncate font-medium text-(--ink)">
+                      {{ form.url }}
+                    </dd>
+                  </div>
+                </template>
+                <USeparator />
+                <div class="space-y-1">
+                  <dt class="text-(--ink2)">
+                    {{ t('submit.descLabel') }}
+                  </dt>
+                  <dd class="line-clamp-3 text-(--ink)">
+                    {{ form.description }}
+                  </dd>
+                </div>
+                <template v-if="form.tags.length">
+                  <USeparator />
+                  <div class="flex items-baseline justify-between gap-4">
+                    <dt class="shrink-0 text-(--ink2)">
+                      {{ t('submit.tagsLabel') }}
+                    </dt>
+                    <dd class="flex flex-wrap justify-end gap-1">
+                      <UBadge
+                        v-for="tag in form.tags"
+                        :key="tag"
+                        :label="tag"
+                        color="neutral"
+                        variant="subtle"
+                        size="sm"
+                      />
+                    </dd>
+                  </div>
+                </template>
+              </dl>
+
+              <div
+                v-if="photos.length"
+                class="flex gap-2"
+              >
+                <img
+                  v-for="p in photos"
+                  :key="p.key"
+                  :src="p.url"
+                  alt=""
+                  class="h-14 w-24 border-[1.5px] border-(--ink) object-cover"
+                >
+              </div>
+
+              <UAlert
+                v-if="error"
+                color="error"
+                variant="subtle"
+                icon="i-lucide-alert-circle"
+                :title="error"
+              />
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <UButton
+                :label="t('submit.back')"
+                color="neutral"
+                variant="ghost"
+                icon="i-lucide-arrow-left"
+                :disabled="step === 0 || sending"
+                @click="step -= 1"
+              />
+              <UButton
+                v-if="step < 3"
+                :label="t('submit.next')"
+                trailing-icon="i-lucide-arrow-right"
+                :disabled="!canContinue"
+                @click="step += 1"
+              />
+              <UButton
+                v-else
+                :label="t('submit.submit')"
+                icon="i-lucide-send"
+                :loading="sending"
+                @click="send"
+              />
+            </div>
           </div>
         </div>
-      </UCard>
+      </div>
     </section>
 
-    <UContainer class="pb-16">
-      <p class="mb-4 text-xs font-semibold uppercase tracking-wide text-dimmed">
+    <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
+      <p class="eyebrow mb-5">
         {{ t('submit.mine') }}
       </p>
 
       <p
         v-if="!mine?.submissions?.length"
-        class="text-sm text-muted"
+        class="text-sm text-(--ink2)"
       >
         {{ t('submit.none') }}
       </p>
@@ -532,10 +531,10 @@ const statusLabel: Record<Mine['status'], string> = {
         <li
           v-for="s in mine.submissions"
           :key="s.id"
-          class="rounded-lg border border-default p-4"
+          class="border-[1.5px] border-(--ink) bg-(--card) p-4"
         >
           <div class="space-y-2">
-            <p class="text-sm font-semibold text-highlighted">
+            <p class="text-sm font-extrabold text-(--ink)">
               {{ s.title }}
             </p>
             <UBadge
@@ -546,7 +545,7 @@ const statusLabel: Record<Mine['status'], string> = {
             />
             <p
               v-if="s.reviewNote"
-              class="text-sm text-muted"
+              class="text-sm text-(--ink2)"
             >
               {{ s.reviewNote }}
             </p>
@@ -555,11 +554,11 @@ const statusLabel: Record<Mine['status'], string> = {
       </ul>
 
       <NuxtLink
-        class="mt-6 inline-block text-sm text-primary"
+        class="mt-6 inline-block font-mono text-xs uppercase tracking-[.1em] text-(--signal)"
         :to="localePath('/leaderboard')"
       >
         {{ t('nav.leaderboard') }} →
       </NuxtLink>
-    </UContainer>
+    </div>
   </div>
 </template>

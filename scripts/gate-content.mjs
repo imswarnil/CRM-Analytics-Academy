@@ -128,11 +128,13 @@ async function main() {
   // lesson would give the lesson away, and a translation that lost the field
   // would quietly make it free.
   const english = new Map()
+  const words = new Map()
   for (const file of all) {
     const rel = path.relative(CONTENT, file).split(path.sep)
     if (rel[0] !== 'en') continue
-    const { data } = split(await readFile(file, 'utf8'))
+    const { data, body } = split(await readFile(file, 'utf8'))
     english.set(rel.slice(1).join('/'), data)
+    words.set(rel.slice(1).join('/'), body.split(/\s+/).filter(Boolean).length)
   }
 
   for (const file of all) {
@@ -182,6 +184,32 @@ async function main() {
     .sort((x, y) => x.file.localeCompare(y.file))
   await mkdir(path.join(ROOT, 'server/assets'), { recursive: true })
   await writeFile(path.join(ROOT, 'server/assets/lessons.json'), JSON.stringify(manifest), 'utf8')
+
+  // Per-lesson length and kind for the Blueprint charts (curriculum bars,
+  // the player's course timeline, the home page's "curriculum, plotted").
+  // Minutes = reading at 200 wpm plus the walkthrough's spoken seconds,
+  // rounded, never under 3. Committed, so dev and typecheck always have it.
+  const meta = {}
+  for (const [rel, d] of english) {
+    if (!rel.includes('/')) continue
+    const route = '/' + rel.replace(/\.md$/, '').split('/').map(p => p.replace(/^\d+\./, '')).join('/').replace(/\/index$/, '')
+    const spoken = Array.isArray(d.walkthrough?.shots)
+      ? d.walkthrough.shots.reduce((n, sh) => n + (Number(sh.seconds) || 0), 0)
+      : 0
+    const minutes = Math.max(3, Math.round((words.get(rel) ?? 0) / 200 + spoken / 60))
+    const video = Boolean(d.mux || d.video?.id || d.clip?.src || d.walkthrough?.shots?.length)
+    meta[route] = {
+      minutes,
+      type: video ? 'video' : 'article',
+      access: d.access === 'pro' ? 'pro' : 'free',
+      quiz: Array.isArray(d.quiz) && d.quiz.length > 0
+    }
+  }
+  await mkdir(path.join(ROOT, 'app/data'), { recursive: true })
+  const metaPath = path.join(ROOT, 'app/data/lesson-meta.json')
+  const next = JSON.stringify(meta, null, 1) + '\n'
+  const prev = await readFile(metaPath, 'utf8').catch(() => '')
+  if (prev !== next) await writeFile(metaPath, next, 'utf8')
 
   // content.config.ts reads this list to exclude the real files from the
   // collection, and adds .gated-stubs/ as a second source in their place.

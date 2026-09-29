@@ -109,14 +109,14 @@ onMounted(load)
             {{ KIND_META[item.kind].label }}
           </UBadge>
           <div class="min-w-0 flex-1">
-            <p class="font-semibold text-highlighted">
+            <p class="font-semibold text-(--ink)">
               {{ item.name }}
               <span
                 v-if="item.company"
-                class="font-normal text-muted"
+                class="font-normal text-(--ink2)"
               >· {{ item.company }}</span>
             </p>
-            <p class="text-sm text-muted">
+            <p class="text-sm text-(--ink2)">
               <a
                 :href="`mailto:${item.email}`"
                 class="text-primary hover:underline"
@@ -143,10 +143,10 @@ onMounted(load)
             :key="k"
             class="flex gap-2"
           >
-            <dt class="im-meta shrink-0 pt-0.5 text-dimmed">
+            <dt class="im-meta shrink-0 pt-0.5 text-(--ink2)">
               {{ k }}
             </dt>
-            <dd class="text-toned">
+            <dd class="text-(--ink)">
               {{ v }}
             </dd>
           </div>
@@ -154,7 +154,7 @@ onMounted(load)
 
         <p
           v-if="item.message"
-          class="mt-4 whitespace-pre-line rounded-lg bg-muted px-4 py-3 text-sm text-toned"
+          class="mt-4 whitespace-pre-line border border-dashed border-(--line) bg-(--ice) px-4 py-3 text-sm text-(--ink)"
         >
           {{ item.message }}
         </p>

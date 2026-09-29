@@ -555,10 +555,10 @@ watch(tab, (t) => {
       v-if="me?.signedIn && !isModerator"
       class="py-20 text-center"
     >
-      <p class="text-xs font-semibold uppercase tracking-wide text-dimmed">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
         404
       </p>
-      <p class="mt-2 text-muted">
+      <p class="mt-2 text-(--ink2)">
         Not found.
       </p>
     </UContainer>
@@ -570,7 +570,7 @@ watch(tab, (t) => {
       >
         <template #headline>
           <nav
-            class="flex items-center gap-2"
+            class="flex flex-wrap items-center gap-1 border-[1.5px] border-(--ink) bg-(--card) p-1"
             aria-label="Admin sections"
           >
             <UButton
@@ -578,7 +578,7 @@ watch(tab, (t) => {
               icon="i-lucide-layout-dashboard"
               size="sm"
               :color="tab === 'overview' ? 'primary' : 'neutral'"
-              :variant="tab === 'overview' ? 'soft' : 'ghost'"
+              :variant="tab === 'overview' ? 'solid' : 'ghost'"
               @click="tab = 'overview'"
             >
               Overview
@@ -587,7 +587,7 @@ watch(tab, (t) => {
               icon="i-lucide-inbox"
               size="sm"
               :color="tab === 'queue' ? 'primary' : 'neutral'"
-              :variant="tab === 'queue' ? 'soft' : 'ghost'"
+              :variant="tab === 'queue' ? 'solid' : 'ghost'"
               @click="tab = 'queue'"
             >
               Moderation
@@ -601,7 +601,7 @@ watch(tab, (t) => {
               icon="i-lucide-messages-square"
               size="sm"
               :color="tab === 'comments' ? 'primary' : 'neutral'"
-              :variant="tab === 'comments' ? 'soft' : 'ghost'"
+              :variant="tab === 'comments' ? 'solid' : 'ghost'"
               @click="tab = 'comments'"
             >
               Comments
@@ -611,7 +611,7 @@ watch(tab, (t) => {
               icon="i-lucide-sparkles"
               size="sm"
               :color="tab === 'lessons' ? 'primary' : 'neutral'"
-              :variant="tab === 'lessons' ? 'soft' : 'ghost'"
+              :variant="tab === 'lessons' ? 'solid' : 'ghost'"
               @click="tab = 'lessons'"
             >
               Lessons & Pro
@@ -620,7 +620,7 @@ watch(tab, (t) => {
               icon="i-lucide-mail"
               size="sm"
               :color="tab === 'inquiries' ? 'primary' : 'neutral'"
-              :variant="tab === 'inquiries' ? 'soft' : 'ghost'"
+              :variant="tab === 'inquiries' ? 'solid' : 'ghost'"
               @click="tab = 'inquiries'"
             >
               Enquiries
@@ -630,7 +630,7 @@ watch(tab, (t) => {
               icon="i-lucide-file-pen-line"
               size="sm"
               :color="tab === 'content' ? 'primary' : 'neutral'"
-              :variant="tab === 'content' ? 'soft' : 'ghost'"
+              :variant="tab === 'content' ? 'solid' : 'ghost'"
               @click="tab = 'content'"
             >
               Content
@@ -640,7 +640,7 @@ watch(tab, (t) => {
               icon="i-lucide-users"
               size="sm"
               :color="tab === 'users' ? 'primary' : 'neutral'"
-              :variant="tab === 'users' ? 'soft' : 'ghost'"
+              :variant="tab === 'users' ? 'solid' : 'ghost'"
               @click="tab = 'users'"
             >
               Users & Roles
@@ -649,9 +649,9 @@ watch(tab, (t) => {
         </template>
 
         <template #links>
-          <div class="text-end text-xs text-muted">
-            <span class="block max-w-56 truncate font-medium text-highlighted">{{ me?.email }}</span>
-            <span class="block">role {{ me?.role }}</span>
+          <div class="border-[1.5px] border-(--ink) bg-(--card) px-3 py-2 text-end font-mono text-[11px] text-(--ink2)">
+            <span class="block max-w-56 truncate font-semibold text-(--ink)">{{ me?.email }}</span>
+            <span class="block uppercase tracking-[.1em]">role · {{ me?.role }}</span>
           </div>
         </template>
       </UPageHeader>
@@ -675,25 +675,25 @@ watch(tab, (t) => {
             <div
               v-for="card in statCards"
               :key="card.label"
-              class="rounded-lg border border-default p-4"
+              class="border-[1.5px] border-(--ink) bg-(--card) p-4"
             >
-              <div class="flex items-center gap-2 text-muted">
+              <div class="flex items-center gap-2 text-(--ink2)">
                 <UIcon
                   :name="card.icon"
                   class="size-4 shrink-0"
                 />
-                <span class="truncate text-xs font-semibold uppercase tracking-wide">{{ card.label }}</span>
+                <span class="truncate font-mono text-[10px] font-semibold uppercase tracking-[.12em]">{{ card.label }}</span>
               </div>
-              <p class="mt-2 text-2xl font-bold tabular-nums text-highlighted">
+              <p class="mt-2 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--signal)">
                 {{ card.value.toLocaleString('en-US') }}
               </p>
             </div>
           </div>
 
           <div class="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-            <div class="rounded-lg border border-default p-4">
+            <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
               <div class="mb-3 flex items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-highlighted">
+                <p class="text-sm font-semibold text-(--ink)">
                   Submissions — last 14 days
                 </p>
                 <UBadge
@@ -732,15 +732,15 @@ watch(tab, (t) => {
                   opacity="0.85"
                 />
               </svg>
-              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-muted">
+              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-(--ink2)">
                 <span>{{ dayLabels.first }}</span>
                 <span>{{ dayLabels.last }}</span>
               </div>
             </div>
 
-            <div class="rounded-lg border border-default p-4">
+            <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
               <div class="mb-3 flex items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-highlighted">
+                <p class="text-sm font-semibold text-(--ink)">
                   Lessons completed — last 14 days
                 </p>
                 <UBadge
@@ -781,7 +781,7 @@ watch(tab, (t) => {
                   stroke-linecap="round"
                 />
               </svg>
-              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-muted">
+              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-(--ink2)">
                 <span>{{ dayLabels.first }}</span>
                 <span>{{ dayLabels.last }}</span>
               </div>
@@ -791,10 +791,10 @@ watch(tab, (t) => {
                unreadable locally, and the API sends [] rather than zeros. -->
             <div
               v-if="displaySignups.length"
-              class="rounded-lg border border-default p-4"
+              class="border-[1.5px] border-(--ink) bg-(--card) p-4"
             >
               <div class="mb-3 flex items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-highlighted">
+                <p class="text-sm font-semibold text-(--ink)">
                   Signups — last 14 days
                 </p>
                 <UBadge
@@ -830,7 +830,7 @@ watch(tab, (t) => {
                   stroke-linecap="round"
                 />
               </svg>
-              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-muted">
+              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-(--ink2)">
                 <span>{{ dayLabels.first }}</span>
                 <span>{{ dayLabels.last }}</span>
               </div>
@@ -838,9 +838,9 @@ watch(tab, (t) => {
           </div>
 
           <div class="mt-6 grid gap-4 lg:grid-cols-2">
-            <div class="rounded-lg border border-default p-4">
+            <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
               <div class="mb-3 flex items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-highlighted">
+                <p class="text-sm font-semibold text-(--ink)">
                   Top lessons
                 </p>
                 <UBadge
@@ -853,7 +853,7 @@ watch(tab, (t) => {
               </div>
               <p
                 v-if="!displayTopLessons.length"
-                class="py-6 text-center text-sm text-muted"
+                class="py-6 text-center text-sm text-(--ink2)"
               >
                 No completions yet.
               </p>
@@ -866,12 +866,12 @@ watch(tab, (t) => {
                   :key="lesson.path"
                 >
                   <div class="mb-1 flex items-baseline justify-between gap-2 text-sm">
-                    <span class="truncate font-medium text-highlighted">{{ lesson.path }}</span>
-                    <span class="shrink-0 tabular-nums text-muted">{{ lesson.count.toLocaleString('en-US') }}</span>
+                    <span class="truncate font-medium text-(--ink)">{{ lesson.path }}</span>
+                    <span class="shrink-0 tabular-nums text-(--ink2)">{{ lesson.count.toLocaleString('en-US') }}</span>
                   </div>
-                  <div class="h-1.5 rounded-full bg-elevated">
+                  <div class="h-1.5 bg-(--ice)">
                     <div
-                      class="h-1.5 rounded-full bg-primary"
+                      class="h-1.5 bg-(--signal)"
                       :style="{ width: `${Math.max(4, (lesson.count / topLessonMax) * 100)}%` }"
                     />
                   </div>
@@ -880,14 +880,14 @@ watch(tab, (t) => {
             </div>
 
             <div class="grid content-start gap-4 sm:grid-cols-2">
-              <div class="rounded-lg border border-default p-4">
-                <div class="flex items-center justify-between gap-2 text-muted">
+              <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
+                <div class="flex items-center justify-between gap-2 text-(--ink2)">
                   <div class="flex items-center gap-2">
                     <UIcon
                       name="i-lucide-list-checks"
                       class="size-4 shrink-0"
                     />
-                    <span class="truncate text-xs font-semibold uppercase tracking-wide">Quiz attempts</span>
+                    <span class="truncate font-mono text-[10px] font-semibold uppercase tracking-[.12em]">Quiz attempts</span>
                   </div>
                   <UBadge
                     v-if="sampleActive"
@@ -897,18 +897,18 @@ watch(tab, (t) => {
                     size="sm"
                   />
                 </div>
-                <p class="mt-2 text-2xl font-bold tabular-nums text-highlighted">
+                <p class="mt-2 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--signal)">
                   {{ displayQuiz.attempts.toLocaleString('en-US') }}
                 </p>
               </div>
-              <div class="rounded-lg border border-default p-4">
-                <div class="flex items-center justify-between gap-2 text-muted">
+              <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
+                <div class="flex items-center justify-between gap-2 text-(--ink2)">
                   <div class="flex items-center gap-2">
                     <UIcon
                       name="i-lucide-percent"
                       class="size-4 shrink-0"
                     />
-                    <span class="truncate text-xs font-semibold uppercase tracking-wide">Avg quiz score</span>
+                    <span class="truncate font-mono text-[10px] font-semibold uppercase tracking-[.12em]">Avg quiz score</span>
                   </div>
                   <UBadge
                     v-if="sampleActive"
@@ -918,7 +918,7 @@ watch(tab, (t) => {
                     size="sm"
                   />
                 </div>
-                <p class="mt-2 text-2xl font-bold tabular-nums text-highlighted">
+                <p class="mt-2 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--signal)">
                   {{ displayQuiz.avgScorePct }}%
                 </p>
               </div>
@@ -942,7 +942,7 @@ watch(tab, (t) => {
 
           <p
             v-if="!queue.length"
-            class="py-12 text-center text-sm text-muted"
+            class="py-12 text-center text-sm text-(--ink2)"
           >
             Nothing {{ queueStatus }}.
           </p>
@@ -961,10 +961,10 @@ watch(tab, (t) => {
                       variant="subtle"
                       size="sm"
                     />
-                    <span class="text-xs font-semibold uppercase tracking-wide text-dimmed">{{ item.submittedBy.email || 'unknown' }}</span>
+                    <span class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">{{ item.submittedBy.email || 'unknown' }}</span>
                   </div>
 
-                  <p class="font-semibold text-highlighted">
+                  <p class="font-semibold text-(--ink)">
                     {{ item.title }}
                   </p>
 
@@ -978,7 +978,7 @@ watch(tab, (t) => {
                     class="text-sm text-primary break-all"
                   >{{ item.url }}</a>
 
-                  <p class="whitespace-pre-line text-sm text-muted">
+                  <p class="whitespace-pre-line text-sm text-(--ink2)">
                     {{ item.description }}
                   </p>
 
@@ -1057,13 +1057,13 @@ watch(tab, (t) => {
 
               <p
                 v-if="contentTreeLoading"
-                class="py-6 text-center text-sm text-muted"
+                class="py-6 text-center text-sm text-(--ink2)"
               >
                 Loading files…
               </p>
               <p
                 v-else-if="!contentModules.length"
-                class="py-6 text-center text-sm text-muted"
+                class="py-6 text-center text-sm text-(--ink2)"
               >
                 No files loaded.
               </p>
@@ -1073,7 +1073,7 @@ watch(tab, (t) => {
                 :key="mod.name"
                 class="mb-4"
               >
-                <p class="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
+                <p class="mb-1 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
                   {{ mod.name }}
                 </p>
                 <ul>
@@ -1083,8 +1083,8 @@ watch(tab, (t) => {
                   >
                     <button
                       type="button"
-                      class="w-full truncate rounded-md px-2 py-1 text-start text-sm hover:bg-elevated"
-                      :class="f.path === activePath && !isNewFile ? 'bg-elevated font-medium text-highlighted' : 'text-muted'"
+                      class="w-full truncate px-2 py-1 text-start text-sm hover:bg-(--ice)"
+                      :class="f.path === activePath && !isNewFile ? 'bg-(--ice) font-medium text-(--ink)' : 'text-(--ink2)'"
                       :title="f.path"
                       @click="openContentFile(f.path)"
                     >
@@ -1099,7 +1099,7 @@ watch(tab, (t) => {
             <div>
               <p
                 v-if="!isNewFile && !activePath"
-                class="rounded-lg border border-default p-10 text-center text-sm text-muted"
+                class="border-[1.5px] border-(--ink) bg-(--card) p-10 text-center text-sm text-(--ink2)"
               >
                 Pick a lesson on the left, or start a new one.
               </p>
@@ -1118,7 +1118,7 @@ watch(tab, (t) => {
                   />
                   <code
                     v-else
-                    class="truncate text-sm text-highlighted"
+                    class="truncate text-sm text-(--ink)"
                   >{{ activePath }}</code>
                   <UBadge
                     v-if="contentDirty"
@@ -1138,7 +1138,7 @@ watch(tab, (t) => {
 
                 <textarea
                   v-model="editorText"
-                  class="h-[60vh] w-full resize-y rounded-lg border border-default bg-default p-3 font-mono text-sm text-highlighted focus:outline-none focus:ring-2 focus:ring-primary"
+                  class="h-[60vh] w-full resize-y border-[1.5px] border-(--ink) bg-(--card) p-3 font-mono text-sm text-(--ink) focus:outline-none focus:ring-2 focus:ring-(--signal)"
                   :disabled="fileLoading"
                   spellcheck="false"
                   aria-label="Lesson markdown"
@@ -1163,12 +1163,12 @@ watch(tab, (t) => {
 
                 <div
                   v-if="published"
-                  class="rounded-lg border border-default bg-elevated p-4 text-sm"
+                  class="border-[1.5px] border-(--ink) bg-(--ice) p-4 text-sm"
                 >
-                  <p class="font-semibold text-highlighted">
+                  <p class="font-semibold text-(--ink)">
                     Published {{ published.path }}
                   </p>
-                  <p class="mt-1 text-muted">
+                  <p class="mt-1 text-(--ink2)">
                     Commit
                     <a
                       v-if="published.commitUrl"
@@ -1194,7 +1194,7 @@ watch(tab, (t) => {
         <section v-else-if="tab === 'users' && isAdmin">
           <UCard class="mb-8">
             <div class="flex flex-col gap-2">
-              <p class="font-semibold text-highlighted">
+              <p class="font-semibold text-(--ink)">
                 Create a user
               </p>
               <div class="grid gap-3 sm:grid-cols-4">
@@ -1224,12 +1224,12 @@ watch(tab, (t) => {
                  the only time the password is visible. -->
               <div
                 v-if="created"
-                class="mt-4 space-y-2 rounded-lg border border-default bg-elevated p-4"
+                class="mt-4 space-y-2 border-[1.5px] border-(--ink) bg-(--ice) p-4"
               >
-                <p class="font-semibold text-highlighted">
+                <p class="font-semibold text-(--ink)">
                   Created {{ created.email }}
                 </p>
-                <p class="text-sm text-muted">
+                <p class="text-sm text-(--ink2)">
                   Temporary password — copy it now, it is not stored and will not
                   be shown again:
                 </p>
@@ -1241,23 +1241,23 @@ watch(tab, (t) => {
           <div class="overflow-x-auto">
             <table class="w-full min-w-[52rem] border-collapse text-sm">
               <thead>
-                <tr class="border-b border-default">
-                  <th class="px-2 py-2 text-start text-xs font-semibold uppercase tracking-wide text-muted">
+                <tr class="border-b border-(--line)">
+                  <th class="px-2 py-2 text-start font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
                     User
                   </th>
-                  <th class="px-2 py-2 text-start text-xs font-semibold uppercase tracking-wide text-muted">
+                  <th class="px-2 py-2 text-start font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
                     Role
                   </th>
-                  <th class="px-2 py-2 text-end text-xs font-semibold uppercase tracking-wide text-muted">
+                  <th class="px-2 py-2 text-end font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
                     Points
                   </th>
-                  <th class="px-2 py-2 text-end text-xs font-semibold uppercase tracking-wide text-muted">
+                  <th class="px-2 py-2 text-end font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
                     Lessons
                   </th>
-                  <th class="px-2 py-2 text-end text-xs font-semibold uppercase tracking-wide text-muted">
+                  <th class="px-2 py-2 text-end font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
                     Queue
                   </th>
-                  <th class="px-2 py-2 text-end text-xs font-semibold uppercase tracking-wide text-muted">
+                  <th class="px-2 py-2 text-end font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
                     Pro
                   </th>
                 </tr>
@@ -1266,15 +1266,15 @@ watch(tab, (t) => {
                 <tr
                   v-for="u in users"
                   :key="u.id"
-                  class="border-b border-default"
+                  class="border-b border-(--line)"
                 >
                   <td class="px-2 py-3">
-                    <span class="font-medium text-highlighted">{{ u.name || '—' }}</span>
-                    <span class="block text-xs text-muted">{{ u.email }}</span>
+                    <span class="font-medium text-(--ink)">{{ u.name || '—' }}</span>
+                    <span class="block text-xs text-(--ink2)">{{ u.email }}</span>
                   </td>
                   <td class="px-2 py-3">
                     <select
-                      class="rounded-md border border-default bg-default px-2 py-1 text-sm disabled:opacity-50"
+                      class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-1 text-sm disabled:opacity-50"
                       :value="u.role"
                       :disabled="busy || u.isDemo || u.roleLocked"
                       @change="setRole(u, ($event.target as HTMLSelectElement).value)"
@@ -1291,7 +1291,7 @@ watch(tab, (t) => {
                        explanation reads as a bug. -->
                     <span
                       v-if="u.roleLocked"
-                      class="mt-1 block text-xs text-muted"
+                      class="mt-1 block text-xs text-(--ink2)"
                     >set by ADMIN_EMAILS</span>
                   </td>
                   <td class="px-2 py-3 text-end tabular-nums">

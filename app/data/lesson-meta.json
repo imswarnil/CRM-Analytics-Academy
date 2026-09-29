@@ -1,0 +1,968 @@
+{
+ "/introduction": {
+  "minutes": 8,
+  "type": "video",
+  "access": "free",
+  "quiz": false
+ },
+ "/introduction/who-this-is-for": {
+  "minutes": 7,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/introduction/how-the-course-works": {
+  "minutes": 8,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/introduction/what-you-will-build": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/introduction/set-up-your-org": {
+  "minutes": 13,
+  "type": "video",
+  "access": "free",
+  "quiz": false
+ },
+ "/introduction/a-tour-of-analytics-studio": {
+  "minutes": 12,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/introduction/how-to-study-this": {
+  "minutes": 7,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/introduction/faq": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/foundations": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/foundations/the-three-layers": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/foundations/what-a-dataset-really-is": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/foundations/how-the-data-arrives": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/foundations/the-vocabulary": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/foundations/when-not-to-use-it": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/foundations/your-first-dashboard": {
+  "minutes": 12,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/foundations/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/foundations/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/setup": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/setup/licences-and-permission-sets": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/setup/the-integration-user": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/setup/row-level-security": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/setup/sharing-inheritance": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/setup/org-settings-and-rollout": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/setup/hands-on-locking-down-the-academy": {
+  "minutes": 10,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/setup/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/setup/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/connections-and-sync": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/load-a-csv-properly": {
+  "minutes": 8,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/buckets-and-binning": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/recipe-nodes": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/formulas-and-computed-fields": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/missing-values": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/de-duplication": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/troubleshooting-a-recipe": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-preparation/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/data-preparation/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/datasets-and-modelling": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/datasets-and-modelling/grain-joins-and-fan-out": {
+  "minutes": 10,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/datasets-and-modelling/dataset-design": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/datasets-and-modelling/modelling-patterns": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/datasets-and-modelling/dates-history-and-snapshots": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/datasets-and-modelling/field-metadata-and-formatting": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/datasets-and-modelling/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/datasets-and-modelling/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/choosing-a-chart": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/bar-and-column": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/line-and-area": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/part-of-whole": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/scatter-and-distribution": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/numbers-gauges-and-sparklines": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/tables-and-pivots": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/maps": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/funnels-and-waterfalls": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/chart-honesty": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/data-visualization/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/data-visualization/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/lenses-and-explorations": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/lenses-and-explorations/explorer-basics": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/lenses-and-explorations/the-three-modes": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/lenses-and-explorations/conversational-analytics": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/lenses-and-explorations/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/lenses-and-explorations/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/saql": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/saql/saql-when-clicks-run-out": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/saql/functions": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/saql/filters-and-nulls": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/saql/grouping-and-windowing": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/saql/working-across-datasets": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/saql/debugging-a-query": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/saql/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/saql/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/designing-dashboards": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/designing-dashboards/layout-and-hierarchy": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/designing-dashboards/conditional-formatting": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/designing-dashboards/tables-kpis-and-micro-charts": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/designing-dashboards/performance": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/designing-dashboards/hands-on-pipeline-dashboard": {
+  "minutes": 11,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/designing-dashboards/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/designing-dashboards/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/interactions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/interactions/faceting-and-filters": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/interactions/selection-and-initial-state": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/interactions/drill-down-and-navigation": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/interactions/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/interactions/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/bindings": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/bindings/bindings-basics": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/bindings/selection-bindings": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/bindings/results-bindings": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/bindings/nesting-and-limits": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/bindings/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/bindings/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/dashboard-json": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/dashboard-json/anatomy": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/dashboard-json/steps-and-queries": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/dashboard-json/widgets-and-layouts": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/dashboard-json/editing-safely": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/dashboard-json/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/dashboard-json/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/collaboration": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/collaboration/apps-and-sharing": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/collaboration/subscriptions-and-notifications": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/collaboration/annotations": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/collaboration/embedding": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/collaboration/self-service-and-views": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/collaboration/downloading-and-governance": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/collaboration/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/collaboration/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/apis-and-automation": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/apis-and-automation/the-rest-api": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/apis-and-automation/running-saql-from-code": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/apis-and-automation/loading-data": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/apis-and-automation/python-end-to-end": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/apis-and-automation/automation-and-deployment": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/apis-and-automation/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/apis-and-automation/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/einstein-discovery": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/einstein-discovery/what-a-story-is": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/einstein-discovery/preparing-data": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/einstein-discovery/reading-a-story-honestly": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/einstein-discovery/deploying-and-write-back": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/einstein-discovery/auditing-a-score": {
+  "minutes": 9,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/einstein-discovery/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/einstein-discovery/graded-quiz": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/gtm-engineering": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/gtm-engineering/meet-the-academy": {
+  "minutes": 8,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/gtm-engineering/the-gtm-data-model": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/gtm-engineering/load-the-warehouse": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/gtm-engineering/grain-and-fan-out": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/gtm-engineering/metric-contracts": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/gtm-engineering/designing-for-decisions": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/gtm-engineering/the-gtm-metric-tree": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/gtm-engineering/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/demand-analytics": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/demand-analytics/ai-search-visibility": {
+  "minutes": 8,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/demand-analytics/seo-in-the-ai-era": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/demand-analytics/acquisition-and-ga4": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/demand-analytics/regional-demand": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/demand-analytics/campaign-performance": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/demand-analytics/spend-efficiency": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/demand-analytics/attribution": {
+  "minutes": 6,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/demand-analytics/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/pipeline-analytics": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/pipeline-analytics/lead-overview": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/pipeline-analytics/routing-and-sla": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/pipeline-analytics/lead-scoring": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/pipeline-analytics/inbound-vs-outbound": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/pipeline-analytics/lead-to-opportunity": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/pipeline-analytics/opportunity-management": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/pipeline-analytics/funnel-and-velocity": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/pipeline-analytics/cpq-and-discounting": {
+  "minutes": 5,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/pipeline-analytics/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/revops-analytics": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ },
+ "/revops-analytics/forecast-and-commit": {
+  "minutes": 4,
+  "type": "article",
+  "access": "free",
+  "quiz": true
+ },
+ "/revops-analytics/arr-waterfall-and-nrr": {
+  "minutes": 11,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/revops-analytics/consumption-and-commit-risk": {
+  "minutes": 10,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/revops-analytics/service-sla-and-deflection": {
+  "minutes": 9,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/revops-analytics/the-executive-gtm-board": {
+  "minutes": 11,
+  "type": "video",
+  "access": "free",
+  "quiz": true
+ },
+ "/revops-analytics/interview-questions": {
+  "minutes": 3,
+  "type": "article",
+  "access": "free",
+  "quiz": false
+ }
+}

@@ -41,34 +41,34 @@ defineProps<{
       <li
         v-for="(s, i) in items"
         :key="i"
-        class="flex w-[calc(100%-2rem)] shrink-0 snap-start flex-col rounded-xl border border-default bg-gradient-to-b from-elevated/60 to-default p-5 sm:w-[19rem]"
+        class="flex w-[calc(100%-2rem)] shrink-0 snap-start flex-col border-[1.5px] border-(--ink) graph-paper-fine bg-(--card) p-5 sm:w-[19rem]"
       >
         <div class="mb-3 flex items-center justify-between gap-2">
           <span
             v-if="s.kicker"
-            class="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary"
+            class="bg-(--ice) px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--signal)"
           >
             {{ s.kicker }}
           </span>
           <span
             v-else
-            class="text-[10px] font-bold uppercase tracking-wider text-dimmed"
+            class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)"
           >
             {{ String(i + 1).padStart(2, '0') }} / {{ String(items.length).padStart(2, '0') }}
           </span>
           <UIcon
             v-if="s.icon"
             :name="s.icon"
-            class="size-4 shrink-0 text-primary/70"
+            class="size-4 shrink-0 text-(--signal)"
           />
         </div>
 
-        <h4 class="text-base font-semibold leading-snug text-highlighted">
+        <h4 class="text-base font-semibold leading-snug text-(--ink)">
           {{ s.title }}
         </h4>
         <p
           v-if="s.body"
-          class="mt-2 text-sm leading-relaxed text-muted"
+          class="mt-2 text-sm leading-relaxed text-(--ink2)"
         >
           {{ s.body }}
         </p>
@@ -79,18 +79,18 @@ defineProps<{
           <li
             v-for="(b, j) in s.bullets"
             :key="j"
-            class="flex gap-2 text-sm leading-snug text-muted"
+            class="flex gap-2 text-sm leading-snug text-(--ink2)"
           >
             <UIcon
               name="i-lucide-dot"
-              class="mt-0.5 size-4 shrink-0 text-primary"
+              class="mt-0.5 size-4 shrink-0 text-(--signal)"
             />
             <span>{{ b }}</span>
           </li>
         </ul>
       </li>
     </ol>
-    <p class="mt-1 flex items-center gap-1 text-xs text-dimmed">
+    <p class="mt-1 flex items-center gap-1 text-xs text-(--ink2)">
       <UIcon
         name="i-lucide-move-horizontal"
         class="size-3.5"

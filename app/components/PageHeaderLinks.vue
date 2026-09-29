@@ -69,11 +69,12 @@ async function copyPage() {
   <UFieldGroup>
     <UButton
       label="Copy page"
+      size="xs"
       :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
       color="neutral"
       variant="outline"
       :ui="{
-        leadingIcon: [copied ? 'text-primary' : 'text-neutral', 'size-3.5']
+        leadingIcon: [copied ? 'text-(--signal)' : 'text-(--ink)', 'size-3.5']
       }"
       @click="copyPage"
     />
@@ -90,7 +91,7 @@ async function copyPage() {
     >
       <UButton
         icon="i-lucide-chevron-down"
-        size="sm"
+        size="xs"
         color="neutral"
         variant="outline"
         aria-label="Open copy actions menu"
