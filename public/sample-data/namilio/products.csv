@@ -1,7 +1,0 @@
-ProductCode,ProductName,Family,PricingModel,Unit,ListUnitPrice,GrossMarginPct,LaunchDate
-VOICE-AGENT,Namilio Voice Agents,Voice,Usage,minute,0.09,54,2025-02-01
-MSG-API,Namilio Messaging API,Messaging,Usage,message,0.0075,48,2024-06-01
-COPILOT-API,Namilio Copilot API,AI,Usage,1K tokens,0.011,41,2025-05-15
-VERIFY,Namilio Verify,Messaging,Usage,verification,0.05,62,2024-09-01
-STUDIO,Namilio Studio,Platform,Seat,seat/year,540,86,2024-03-01
-CONNECT-ENT,Namilio Connect Enterprise,Platform,Platform,year,48000,91,2025-01-15

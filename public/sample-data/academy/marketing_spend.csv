@@ -1,0 +1,403 @@
+Month,MonthEnd,Channel,Region,Spend,Currency,BudgetOwner,IsPaid
+2025-04,2025-04-30,Paid Search,AMER,6400,USD,Marketing,true
+2025-04,2025-04-30,Paid Search,EMEA,3500,USD,Marketing,true
+2025-04,2025-04-30,Paid Search,APAC,2550,USD,Marketing,true
+2025-04,2025-04-30,Paid Social,AMER,3100,USD,Marketing,true
+2025-04,2025-04-30,Paid Social,EMEA,1100,USD,Marketing,true
+2025-04,2025-04-30,Organic Search,AMER,1050,USD,Marketing,false
+2025-04,2025-04-30,AI Assistant Referral,AMER,400,USD,Marketing,false
+2025-04,2025-04-30,AI Assistant Referral,APAC,400,USD,Marketing,false
+2025-04,2025-04-30,Free Course,AMER,400,USD,Marketing,false
+2025-04,2025-04-30,Free Course,EMEA,400,USD,Marketing,false
+2025-04,2025-04-30,Free Course,APAC,400,USD,Marketing,false
+2025-04,2025-04-30,Free Course,LATAM,400,USD,Marketing,false
+2025-04,2025-04-30,Salesforce Community,APAC,400,USD,Marketing,false
+2025-04,2025-04-30,Webinar,AMER,1000,USD,Marketing,false
+2025-04,2025-04-30,Webinar,EMEA,950,USD,Marketing,false
+2025-04,2025-04-30,Webinar,APAC,500,USD,Marketing,false
+2025-04,2025-04-30,Conference,EMEA,3000,USD,Marketing,true
+2025-04,2025-04-30,Conference,APAC,2200,USD,Marketing,true
+2025-04,2025-04-30,Outbound Sequence,AMER,5600,USD,Sales Development,false
+2025-04,2025-04-30,Outbound Sequence,LATAM,500,USD,Sales Development,false
+2025-04,2025-04-30,SI Partner Referral,LATAM,400,USD,Marketing,false
+2025-04,2025-04-30,Customer Referral,AMER,400,USD,Marketing,false
+2025-05,2025-05-31,Paid Search,AMER,5600,USD,Marketing,true
+2025-05,2025-05-31,Paid Search,APAC,2550,USD,Marketing,true
+2025-05,2025-05-31,Paid Social,APAC,750,USD,Marketing,true
+2025-05,2025-05-31,Paid Social,LATAM,400,USD,Marketing,true
+2025-05,2025-05-31,AI Assistant Referral,AMER,400,USD,Marketing,false
+2025-05,2025-05-31,AI Assistant Referral,EMEA,400,USD,Marketing,false
+2025-05,2025-05-31,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2025-05,2025-05-31,Free Course,AMER,400,USD,Marketing,false
+2025-05,2025-05-31,Free Course,APAC,400,USD,Marketing,false
+2025-05,2025-05-31,Salesforce Community,APAC,400,USD,Marketing,false
+2025-05,2025-05-31,Salesforce Community,LATAM,400,USD,Marketing,false
+2025-05,2025-05-31,Webinar,AMER,850,USD,Marketing,false
+2025-05,2025-05-31,Webinar,EMEA,600,USD,Marketing,false
+2025-05,2025-05-31,Conference,APAC,1350,USD,Marketing,true
+2025-05,2025-05-31,Conference,LATAM,400,USD,Marketing,true
+2025-05,2025-05-31,Outbound Sequence,AMER,5250,USD,Sales Development,false
+2025-05,2025-05-31,Outbound Sequence,APAC,2000,USD,Sales Development,false
+2025-05,2025-05-31,Outbound Sequence,LATAM,550,USD,Sales Development,false
+2025-05,2025-05-31,SI Partner Referral,EMEA,750,USD,Marketing,false
+2025-05,2025-05-31,SI Partner Referral,APAC,400,USD,Marketing,false
+2025-05,2025-05-31,SI Partner Referral,LATAM,400,USD,Marketing,false
+2025-05,2025-05-31,Customer Referral,EMEA,400,USD,Marketing,false
+2025-05,2025-05-31,Customer Referral,APAC,400,USD,Marketing,false
+2025-06,2025-06-30,Paid Search,AMER,5350,USD,Marketing,true
+2025-06,2025-06-30,Paid Search,EMEA,3200,USD,Marketing,true
+2025-06,2025-06-30,Paid Search,APAC,1600,USD,Marketing,true
+2025-06,2025-06-30,Paid Search,LATAM,450,USD,Marketing,true
+2025-06,2025-06-30,Paid Social,AMER,1500,USD,Marketing,true
+2025-06,2025-06-30,Paid Social,EMEA,1500,USD,Marketing,true
+2025-06,2025-06-30,Paid Social,LATAM,400,USD,Marketing,true
+2025-06,2025-06-30,Organic Search,EMEA,450,USD,Marketing,false
+2025-06,2025-06-30,AI Assistant Referral,EMEA,400,USD,Marketing,false
+2025-06,2025-06-30,AI Assistant Referral,APAC,400,USD,Marketing,false
+2025-06,2025-06-30,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2025-06,2025-06-30,Free Course,AMER,400,USD,Marketing,false
+2025-06,2025-06-30,Free Course,APAC,400,USD,Marketing,false
+2025-06,2025-06-30,Salesforce Community,AMER,400,USD,Marketing,false
+2025-06,2025-06-30,Salesforce Community,EMEA,400,USD,Marketing,false
+2025-06,2025-06-30,Salesforce Community,APAC,400,USD,Marketing,false
+2025-06,2025-06-30,Salesforce Community,LATAM,400,USD,Marketing,false
+2025-06,2025-06-30,Webinar,EMEA,550,USD,Marketing,false
+2025-06,2025-06-30,Webinar,APAC,450,USD,Marketing,false
+2025-06,2025-06-30,Webinar,LATAM,400,USD,Marketing,false
+2025-06,2025-06-30,Conference,AMER,3500,USD,Marketing,true
+2025-06,2025-06-30,Conference,EMEA,1700,USD,Marketing,true
+2025-06,2025-06-30,Conference,APAC,1400,USD,Marketing,true
+2025-06,2025-06-30,Outbound Sequence,APAC,2100,USD,Sales Development,false
+2025-06,2025-06-30,SI Partner Referral,AMER,1100,USD,Marketing,false
+2025-06,2025-06-30,SI Partner Referral,APAC,550,USD,Marketing,false
+2025-06,2025-06-30,SI Partner Referral,LATAM,400,USD,Marketing,false
+2025-06,2025-06-30,Customer Referral,EMEA,400,USD,Marketing,false
+2025-06,2025-06-30,Customer Referral,APAC,400,USD,Marketing,false
+2025-07,2025-07-31,Paid Social,AMER,2450,USD,Marketing,true
+2025-07,2025-07-31,Organic Search,APAC,400,USD,Marketing,false
+2025-07,2025-07-31,AI Assistant Referral,AMER,400,USD,Marketing,false
+2025-07,2025-07-31,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2025-07,2025-07-31,Free Course,APAC,400,USD,Marketing,false
+2025-07,2025-07-31,Free Course,LATAM,400,USD,Marketing,false
+2025-07,2025-07-31,Salesforce Community,AMER,400,USD,Marketing,false
+2025-07,2025-07-31,Salesforce Community,APAC,400,USD,Marketing,false
+2025-07,2025-07-31,Salesforce Community,LATAM,400,USD,Marketing,false
+2025-07,2025-07-31,Webinar,APAC,500,USD,Marketing,false
+2025-07,2025-07-31,Conference,AMER,5050,USD,Marketing,true
+2025-07,2025-07-31,Conference,EMEA,1950,USD,Marketing,true
+2025-07,2025-07-31,Conference,APAC,2100,USD,Marketing,true
+2025-07,2025-07-31,Conference,LATAM,400,USD,Marketing,true
+2025-07,2025-07-31,Outbound Sequence,EMEA,2150,USD,Sales Development,false
+2025-07,2025-07-31,Outbound Sequence,APAC,1850,USD,Sales Development,false
+2025-07,2025-07-31,SI Partner Referral,EMEA,700,USD,Marketing,false
+2025-07,2025-07-31,Customer Referral,EMEA,400,USD,Marketing,false
+2025-08,2025-08-31,Paid Search,LATAM,600,USD,Marketing,true
+2025-08,2025-08-31,Organic Search,AMER,650,USD,Marketing,false
+2025-08,2025-08-31,Organic Search,EMEA,650,USD,Marketing,false
+2025-08,2025-08-31,Organic Search,LATAM,400,USD,Marketing,false
+2025-08,2025-08-31,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2025-08,2025-08-31,Free Course,AMER,450,USD,Marketing,false
+2025-08,2025-08-31,Free Course,APAC,400,USD,Marketing,false
+2025-08,2025-08-31,Salesforce Community,AMER,450,USD,Marketing,false
+2025-08,2025-08-31,Salesforce Community,APAC,400,USD,Marketing,false
+2025-08,2025-08-31,Salesforce Community,LATAM,400,USD,Marketing,false
+2025-08,2025-08-31,Webinar,EMEA,600,USD,Marketing,false
+2025-08,2025-08-31,Conference,APAC,1400,USD,Marketing,true
+2025-08,2025-08-31,Conference,LATAM,450,USD,Marketing,true
+2025-08,2025-08-31,Outbound Sequence,APAC,1950,USD,Sales Development,false
+2025-08,2025-08-31,SI Partner Referral,EMEA,450,USD,Marketing,false
+2025-08,2025-08-31,SI Partner Referral,APAC,400,USD,Marketing,false
+2025-08,2025-08-31,SI Partner Referral,LATAM,400,USD,Marketing,false
+2025-08,2025-08-31,Customer Referral,EMEA,400,USD,Marketing,false
+2025-08,2025-08-31,Customer Referral,APAC,400,USD,Marketing,false
+2025-08,2025-08-31,Customer Referral,LATAM,400,USD,Marketing,false
+2025-09,2025-09-30,Paid Search,AMER,5050,USD,Marketing,true
+2025-09,2025-09-30,Paid Social,AMER,2800,USD,Marketing,true
+2025-09,2025-09-30,Paid Social,EMEA,1100,USD,Marketing,true
+2025-09,2025-09-30,Paid Social,LATAM,400,USD,Marketing,true
+2025-09,2025-09-30,AI Assistant Referral,APAC,400,USD,Marketing,false
+2025-09,2025-09-30,Salesforce Community,AMER,450,USD,Marketing,false
+2025-09,2025-09-30,Salesforce Community,APAC,400,USD,Marketing,false
+2025-09,2025-09-30,Webinar,AMER,1300,USD,Marketing,false
+2025-09,2025-09-30,Webinar,EMEA,1050,USD,Marketing,false
+2025-09,2025-09-30,Webinar,APAC,600,USD,Marketing,false
+2025-09,2025-09-30,Webinar,LATAM,400,USD,Marketing,false
+2025-09,2025-09-30,Conference,LATAM,400,USD,Marketing,true
+2025-09,2025-09-30,Outbound Sequence,AMER,5300,USD,Sales Development,false
+2025-09,2025-09-30,Outbound Sequence,EMEA,2150,USD,Sales Development,false
+2025-09,2025-09-30,Outbound Sequence,APAC,3050,USD,Sales Development,false
+2025-09,2025-09-30,Outbound Sequence,LATAM,550,USD,Sales Development,false
+2025-09,2025-09-30,SI Partner Referral,AMER,750,USD,Marketing,false
+2025-09,2025-09-30,SI Partner Referral,EMEA,700,USD,Marketing,false
+2025-09,2025-09-30,Customer Referral,EMEA,400,USD,Marketing,false
+2025-09,2025-09-30,Customer Referral,APAC,400,USD,Marketing,false
+2025-09,2025-09-30,Customer Referral,LATAM,400,USD,Marketing,false
+2025-10,2025-10-31,Paid Search,AMER,4050,USD,Marketing,true
+2025-10,2025-10-31,Paid Search,EMEA,2550,USD,Marketing,true
+2025-10,2025-10-31,Paid Search,APAC,3400,USD,Marketing,true
+2025-10,2025-10-31,Paid Search,LATAM,650,USD,Marketing,true
+2025-10,2025-10-31,Paid Social,AMER,2000,USD,Marketing,true
+2025-10,2025-10-31,Paid Social,APAC,900,USD,Marketing,true
+2025-10,2025-10-31,Paid Social,LATAM,400,USD,Marketing,true
+2025-10,2025-10-31,Organic Search,EMEA,900,USD,Marketing,false
+2025-10,2025-10-31,Organic Search,APAC,500,USD,Marketing,false
+2025-10,2025-10-31,AI Assistant Referral,EMEA,400,USD,Marketing,false
+2025-10,2025-10-31,AI Assistant Referral,APAC,400,USD,Marketing,false
+2025-10,2025-10-31,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2025-10,2025-10-31,Free Course,EMEA,400,USD,Marketing,false
+2025-10,2025-10-31,Salesforce Community,AMER,400,USD,Marketing,false
+2025-10,2025-10-31,Salesforce Community,LATAM,400,USD,Marketing,false
+2025-10,2025-10-31,Webinar,AMER,1000,USD,Marketing,false
+2025-10,2025-10-31,Webinar,APAC,450,USD,Marketing,false
+2025-10,2025-10-31,Conference,EMEA,3350,USD,Marketing,true
+2025-10,2025-10-31,Conference,LATAM,400,USD,Marketing,true
+2025-10,2025-10-31,Outbound Sequence,AMER,4600,USD,Sales Development,false
+2025-10,2025-10-31,Outbound Sequence,LATAM,400,USD,Sales Development,false
+2025-10,2025-10-31,SI Partner Referral,AMER,1050,USD,Marketing,false
+2025-10,2025-10-31,SI Partner Referral,EMEA,600,USD,Marketing,false
+2025-10,2025-10-31,SI Partner Referral,APAC,400,USD,Marketing,false
+2025-11,2025-11-30,Paid Search,EMEA,2900,USD,Marketing,true
+2025-11,2025-11-30,Paid Search,APAC,2100,USD,Marketing,true
+2025-11,2025-11-30,Paid Search,LATAM,650,USD,Marketing,true
+2025-11,2025-11-30,Paid Social,EMEA,1600,USD,Marketing,true
+2025-11,2025-11-30,Paid Social,LATAM,400,USD,Marketing,true
+2025-11,2025-11-30,Organic Search,APAC,400,USD,Marketing,false
+2025-11,2025-11-30,AI Assistant Referral,AMER,400,USD,Marketing,false
+2025-11,2025-11-30,AI Assistant Referral,EMEA,400,USD,Marketing,false
+2025-11,2025-11-30,Free Course,APAC,400,USD,Marketing,false
+2025-11,2025-11-30,Salesforce Community,AMER,400,USD,Marketing,false
+2025-11,2025-11-30,Salesforce Community,EMEA,400,USD,Marketing,false
+2025-11,2025-11-30,Salesforce Community,APAC,400,USD,Marketing,false
+2025-11,2025-11-30,Salesforce Community,LATAM,400,USD,Marketing,false
+2025-11,2025-11-30,Webinar,EMEA,700,USD,Marketing,false
+2025-11,2025-11-30,Conference,AMER,3650,USD,Marketing,true
+2025-11,2025-11-30,Conference,EMEA,1750,USD,Marketing,true
+2025-11,2025-11-30,Conference,LATAM,600,USD,Marketing,true
+2025-11,2025-11-30,Outbound Sequence,AMER,4300,USD,Sales Development,false
+2025-11,2025-11-30,Outbound Sequence,EMEA,2850,USD,Sales Development,false
+2025-11,2025-11-30,Outbound Sequence,APAC,2700,USD,Sales Development,false
+2025-11,2025-11-30,Outbound Sequence,LATAM,700,USD,Sales Development,false
+2025-11,2025-11-30,SI Partner Referral,AMER,1000,USD,Marketing,false
+2025-11,2025-11-30,SI Partner Referral,LATAM,400,USD,Marketing,false
+2025-11,2025-11-30,Customer Referral,AMER,400,USD,Marketing,false
+2025-11,2025-11-30,Customer Referral,APAC,400,USD,Marketing,false
+2025-11,2025-11-30,Customer Referral,LATAM,400,USD,Marketing,false
+2025-12,2025-12-31,Paid Search,AMER,4250,USD,Marketing,true
+2025-12,2025-12-31,Paid Search,APAC,2950,USD,Marketing,true
+2025-12,2025-12-31,Organic Search,EMEA,800,USD,Marketing,false
+2025-12,2025-12-31,Organic Search,LATAM,400,USD,Marketing,false
+2025-12,2025-12-31,AI Assistant Referral,AMER,400,USD,Marketing,false
+2025-12,2025-12-31,Free Course,AMER,400,USD,Marketing,false
+2025-12,2025-12-31,Free Course,EMEA,400,USD,Marketing,false
+2025-12,2025-12-31,Free Course,LATAM,400,USD,Marketing,false
+2025-12,2025-12-31,Salesforce Community,AMER,450,USD,Marketing,false
+2025-12,2025-12-31,Salesforce Community,LATAM,400,USD,Marketing,false
+2025-12,2025-12-31,Webinar,APAC,550,USD,Marketing,false
+2025-12,2025-12-31,Outbound Sequence,EMEA,4000,USD,Sales Development,false
+2025-12,2025-12-31,SI Partner Referral,AMER,1300,USD,Marketing,false
+2025-12,2025-12-31,SI Partner Referral,EMEA,550,USD,Marketing,false
+2025-12,2025-12-31,SI Partner Referral,LATAM,400,USD,Marketing,false
+2025-12,2025-12-31,Customer Referral,APAC,400,USD,Marketing,false
+2025-12,2025-12-31,Customer Referral,LATAM,400,USD,Marketing,false
+2026-01,2026-01-31,Paid Search,APAC,1800,USD,Marketing,true
+2026-01,2026-01-31,Paid Social,AMER,2150,USD,Marketing,true
+2026-01,2026-01-31,Paid Social,EMEA,1450,USD,Marketing,true
+2026-01,2026-01-31,Paid Social,APAC,1150,USD,Marketing,true
+2026-01,2026-01-31,Paid Social,LATAM,400,USD,Marketing,true
+2026-01,2026-01-31,Organic Search,APAC,400,USD,Marketing,false
+2026-01,2026-01-31,AI Assistant Referral,EMEA,400,USD,Marketing,false
+2026-01,2026-01-31,AI Assistant Referral,APAC,400,USD,Marketing,false
+2026-01,2026-01-31,Free Course,AMER,450,USD,Marketing,false
+2026-01,2026-01-31,Free Course,EMEA,400,USD,Marketing,false
+2026-01,2026-01-31,Free Course,APAC,400,USD,Marketing,false
+2026-01,2026-01-31,Salesforce Community,AMER,400,USD,Marketing,false
+2026-01,2026-01-31,Salesforce Community,LATAM,400,USD,Marketing,false
+2026-01,2026-01-31,Webinar,AMER,1300,USD,Marketing,false
+2026-01,2026-01-31,Webinar,EMEA,700,USD,Marketing,false
+2026-01,2026-01-31,Conference,AMER,4800,USD,Marketing,true
+2026-01,2026-01-31,Conference,EMEA,2300,USD,Marketing,true
+2026-01,2026-01-31,Conference,APAC,2050,USD,Marketing,true
+2026-01,2026-01-31,Conference,LATAM,450,USD,Marketing,true
+2026-01,2026-01-31,Outbound Sequence,AMER,4550,USD,Sales Development,false
+2026-01,2026-01-31,Outbound Sequence,EMEA,3300,USD,Sales Development,false
+2026-01,2026-01-31,SI Partner Referral,AMER,1000,USD,Marketing,false
+2026-01,2026-01-31,SI Partner Referral,APAC,500,USD,Marketing,false
+2026-01,2026-01-31,SI Partner Referral,LATAM,400,USD,Marketing,false
+2026-01,2026-01-31,Customer Referral,EMEA,400,USD,Marketing,false
+2026-02,2026-02-28,Paid Search,APAC,1900,USD,Marketing,true
+2026-02,2026-02-28,Paid Social,EMEA,1200,USD,Marketing,true
+2026-02,2026-02-28,Organic Search,APAC,400,USD,Marketing,false
+2026-02,2026-02-28,AI Assistant Referral,AMER,400,USD,Marketing,false
+2026-02,2026-02-28,AI Assistant Referral,APAC,400,USD,Marketing,false
+2026-02,2026-02-28,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2026-02,2026-02-28,Free Course,AMER,400,USD,Marketing,false
+2026-02,2026-02-28,Free Course,EMEA,400,USD,Marketing,false
+2026-02,2026-02-28,Free Course,APAC,400,USD,Marketing,false
+2026-02,2026-02-28,Free Course,LATAM,400,USD,Marketing,false
+2026-02,2026-02-28,Salesforce Community,EMEA,400,USD,Marketing,false
+2026-02,2026-02-28,Salesforce Community,LATAM,400,USD,Marketing,false
+2026-02,2026-02-28,Webinar,APAC,500,USD,Marketing,false
+2026-02,2026-02-28,Webinar,LATAM,400,USD,Marketing,false
+2026-02,2026-02-28,Conference,AMER,5050,USD,Marketing,true
+2026-02,2026-02-28,Conference,APAC,1550,USD,Marketing,true
+2026-02,2026-02-28,Conference,LATAM,550,USD,Marketing,true
+2026-02,2026-02-28,Outbound Sequence,APAC,2100,USD,Sales Development,false
+2026-02,2026-02-28,Outbound Sequence,LATAM,500,USD,Sales Development,false
+2026-02,2026-02-28,SI Partner Referral,LATAM,400,USD,Marketing,false
+2026-02,2026-02-28,Customer Referral,AMER,400,USD,Marketing,false
+2026-02,2026-02-28,Customer Referral,APAC,400,USD,Marketing,false
+2026-02,2026-02-28,Customer Referral,LATAM,400,USD,Marketing,false
+2026-03,2026-03-31,Paid Search,AMER,7350,USD,Marketing,true
+2026-03,2026-03-31,Paid Search,EMEA,3750,USD,Marketing,true
+2026-03,2026-03-31,Paid Social,AMER,3400,USD,Marketing,true
+2026-03,2026-03-31,Paid Social,EMEA,1400,USD,Marketing,true
+2026-03,2026-03-31,Paid Social,APAC,950,USD,Marketing,true
+2026-03,2026-03-31,Paid Social,LATAM,400,USD,Marketing,true
+2026-03,2026-03-31,Organic Search,AMER,800,USD,Marketing,false
+2026-03,2026-03-31,Organic Search,APAC,400,USD,Marketing,false
+2026-03,2026-03-31,Organic Search,LATAM,400,USD,Marketing,false
+2026-03,2026-03-31,AI Assistant Referral,APAC,400,USD,Marketing,false
+2026-03,2026-03-31,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2026-03,2026-03-31,Free Course,AMER,400,USD,Marketing,false
+2026-03,2026-03-31,Salesforce Community,AMER,400,USD,Marketing,false
+2026-03,2026-03-31,Salesforce Community,EMEA,400,USD,Marketing,false
+2026-03,2026-03-31,Salesforce Community,APAC,400,USD,Marketing,false
+2026-03,2026-03-31,Webinar,EMEA,650,USD,Marketing,false
+2026-03,2026-03-31,Conference,AMER,3950,USD,Marketing,true
+2026-03,2026-03-31,Conference,EMEA,3750,USD,Marketing,true
+2026-03,2026-03-31,Conference,APAC,1400,USD,Marketing,true
+2026-03,2026-03-31,Outbound Sequence,AMER,5300,USD,Sales Development,false
+2026-03,2026-03-31,Outbound Sequence,LATAM,400,USD,Sales Development,false
+2026-03,2026-03-31,SI Partner Referral,EMEA,650,USD,Marketing,false
+2026-03,2026-03-31,Customer Referral,EMEA,400,USD,Marketing,false
+2026-03,2026-03-31,Customer Referral,APAC,400,USD,Marketing,false
+2026-04,2026-04-30,Paid Search,AMER,5600,USD,Marketing,true
+2026-04,2026-04-30,Organic Search,AMER,700,USD,Marketing,false
+2026-04,2026-04-30,Organic Search,EMEA,600,USD,Marketing,false
+2026-04,2026-04-30,Organic Search,APAC,500,USD,Marketing,false
+2026-04,2026-04-30,AI Assistant Referral,EMEA,400,USD,Marketing,false
+2026-04,2026-04-30,AI Assistant Referral,APAC,400,USD,Marketing,false
+2026-04,2026-04-30,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2026-04,2026-04-30,Free Course,EMEA,400,USD,Marketing,false
+2026-04,2026-04-30,Free Course,APAC,400,USD,Marketing,false
+2026-04,2026-04-30,Salesforce Community,EMEA,400,USD,Marketing,false
+2026-04,2026-04-30,Salesforce Community,APAC,400,USD,Marketing,false
+2026-04,2026-04-30,Webinar,LATAM,400,USD,Marketing,false
+2026-04,2026-04-30,Conference,EMEA,2550,USD,Marketing,true
+2026-04,2026-04-30,Conference,APAC,1650,USD,Marketing,true
+2026-04,2026-04-30,Conference,LATAM,600,USD,Marketing,true
+2026-04,2026-04-30,Outbound Sequence,EMEA,3500,USD,Sales Development,false
+2026-04,2026-04-30,Outbound Sequence,APAC,2400,USD,Sales Development,false
+2026-04,2026-04-30,SI Partner Referral,EMEA,550,USD,Marketing,false
+2026-04,2026-04-30,SI Partner Referral,LATAM,400,USD,Marketing,false
+2026-04,2026-04-30,Customer Referral,EMEA,400,USD,Marketing,false
+2026-04,2026-04-30,Customer Referral,LATAM,400,USD,Marketing,false
+2026-05,2026-05-31,Paid Search,AMER,3950,USD,Marketing,true
+2026-05,2026-05-31,Paid Search,EMEA,3500,USD,Marketing,true
+2026-05,2026-05-31,Paid Social,EMEA,1700,USD,Marketing,true
+2026-05,2026-05-31,Paid Social,APAC,950,USD,Marketing,true
+2026-05,2026-05-31,Paid Social,LATAM,400,USD,Marketing,true
+2026-05,2026-05-31,Organic Search,APAC,500,USD,Marketing,false
+2026-05,2026-05-31,Organic Search,LATAM,400,USD,Marketing,false
+2026-05,2026-05-31,Free Course,LATAM,400,USD,Marketing,false
+2026-05,2026-05-31,Salesforce Community,APAC,400,USD,Marketing,false
+2026-05,2026-05-31,Webinar,AMER,950,USD,Marketing,false
+2026-05,2026-05-31,Webinar,EMEA,650,USD,Marketing,false
+2026-05,2026-05-31,Conference,AMER,3000,USD,Marketing,true
+2026-05,2026-05-31,Conference,APAC,2100,USD,Marketing,true
+2026-05,2026-05-31,Conference,LATAM,450,USD,Marketing,true
+2026-05,2026-05-31,Outbound Sequence,LATAM,750,USD,Sales Development,false
+2026-05,2026-05-31,SI Partner Referral,APAC,450,USD,Marketing,false
+2026-05,2026-05-31,Customer Referral,EMEA,400,USD,Marketing,false
+2026-05,2026-05-31,Customer Referral,APAC,400,USD,Marketing,false
+2026-05,2026-05-31,Customer Referral,LATAM,400,USD,Marketing,false
+2026-06,2026-06-30,Paid Search,EMEA,5100,USD,Marketing,true
+2026-06,2026-06-30,Paid Search,APAC,3400,USD,Marketing,true
+2026-06,2026-06-30,Paid Search,LATAM,600,USD,Marketing,true
+2026-06,2026-06-30,Paid Social,AMER,1950,USD,Marketing,true
+2026-06,2026-06-30,Paid Social,EMEA,1300,USD,Marketing,true
+2026-06,2026-06-30,Paid Social,LATAM,400,USD,Marketing,true
+2026-06,2026-06-30,Organic Search,AMER,800,USD,Marketing,false
+2026-06,2026-06-30,Organic Search,EMEA,600,USD,Marketing,false
+2026-06,2026-06-30,Organic Search,APAC,600,USD,Marketing,false
+2026-06,2026-06-30,Organic Search,LATAM,400,USD,Marketing,false
+2026-06,2026-06-30,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2026-06,2026-06-30,Free Course,AMER,400,USD,Marketing,false
+2026-06,2026-06-30,Free Course,APAC,400,USD,Marketing,false
+2026-06,2026-06-30,Salesforce Community,AMER,400,USD,Marketing,false
+2026-06,2026-06-30,Webinar,EMEA,900,USD,Marketing,false
+2026-06,2026-06-30,Webinar,LATAM,400,USD,Marketing,false
+2026-06,2026-06-30,Conference,EMEA,2850,USD,Marketing,true
+2026-06,2026-06-30,Conference,APAC,1950,USD,Marketing,true
+2026-06,2026-06-30,SI Partner Referral,AMER,1200,USD,Marketing,false
+2026-06,2026-06-30,SI Partner Referral,EMEA,650,USD,Marketing,false
+2026-06,2026-06-30,SI Partner Referral,APAC,400,USD,Marketing,false
+2026-06,2026-06-30,SI Partner Referral,LATAM,400,USD,Marketing,false
+2026-06,2026-06-30,Customer Referral,AMER,450,USD,Marketing,false
+2026-06,2026-06-30,Customer Referral,EMEA,400,USD,Marketing,false
+2026-06,2026-06-30,Customer Referral,LATAM,400,USD,Marketing,false
+2026-07,2026-07-31,Paid Search,AMER,5700,USD,Marketing,true
+2026-07,2026-07-31,Paid Social,AMER,2100,USD,Marketing,true
+2026-07,2026-07-31,Paid Social,EMEA,1600,USD,Marketing,true
+2026-07,2026-07-31,Organic Search,AMER,900,USD,Marketing,false
+2026-07,2026-07-31,Organic Search,APAC,450,USD,Marketing,false
+2026-07,2026-07-31,AI Assistant Referral,EMEA,400,USD,Marketing,false
+2026-07,2026-07-31,Free Course,EMEA,400,USD,Marketing,false
+2026-07,2026-07-31,Free Course,APAC,400,USD,Marketing,false
+2026-07,2026-07-31,Salesforce Community,EMEA,400,USD,Marketing,false
+2026-07,2026-07-31,Salesforce Community,LATAM,400,USD,Marketing,false
+2026-07,2026-07-31,Webinar,EMEA,1100,USD,Marketing,false
+2026-07,2026-07-31,Webinar,APAC,400,USD,Marketing,false
+2026-07,2026-07-31,Conference,AMER,3100,USD,Marketing,true
+2026-07,2026-07-31,Conference,EMEA,3100,USD,Marketing,true
+2026-07,2026-07-31,Conference,APAC,2050,USD,Marketing,true
+2026-07,2026-07-31,Conference,LATAM,450,USD,Marketing,true
+2026-07,2026-07-31,Outbound Sequence,AMER,5950,USD,Sales Development,false
+2026-07,2026-07-31,Outbound Sequence,EMEA,2350,USD,Sales Development,false
+2026-07,2026-07-31,SI Partner Referral,LATAM,400,USD,Marketing,false
+2026-07,2026-07-31,Customer Referral,AMER,400,USD,Marketing,false
+2026-08,2026-08-31,Paid Search,EMEA,4250,USD,Marketing,true
+2026-08,2026-08-31,Paid Search,APAC,2450,USD,Marketing,true
+2026-08,2026-08-31,Paid Search,LATAM,550,USD,Marketing,true
+2026-08,2026-08-31,Paid Social,AMER,2650,USD,Marketing,true
+2026-08,2026-08-31,Paid Social,LATAM,400,USD,Marketing,true
+2026-08,2026-08-31,Organic Search,EMEA,600,USD,Marketing,false
+2026-08,2026-08-31,Organic Search,LATAM,400,USD,Marketing,false
+2026-08,2026-08-31,AI Assistant Referral,AMER,400,USD,Marketing,false
+2026-08,2026-08-31,AI Assistant Referral,APAC,400,USD,Marketing,false
+2026-08,2026-08-31,Salesforce Community,APAC,400,USD,Marketing,false
+2026-08,2026-08-31,Salesforce Community,LATAM,400,USD,Marketing,false
+2026-08,2026-08-31,Webinar,EMEA,900,USD,Marketing,false
+2026-08,2026-08-31,Webinar,LATAM,400,USD,Marketing,false
+2026-08,2026-08-31,Conference,EMEA,2900,USD,Marketing,true
+2026-08,2026-08-31,Outbound Sequence,APAC,1800,USD,Sales Development,false
+2026-08,2026-08-31,SI Partner Referral,EMEA,700,USD,Marketing,false
+2026-08,2026-08-31,SI Partner Referral,APAC,400,USD,Marketing,false
+2026-08,2026-08-31,SI Partner Referral,LATAM,400,USD,Marketing,false
+2026-08,2026-08-31,Customer Referral,AMER,400,USD,Marketing,false
+2026-09,2026-09-30,Paid Search,AMER,4500,USD,Marketing,true
+2026-09,2026-09-30,Paid Search,LATAM,650,USD,Marketing,true
+2026-09,2026-09-30,Paid Social,AMER,3100,USD,Marketing,true
+2026-09,2026-09-30,Paid Social,EMEA,1750,USD,Marketing,true
+2026-09,2026-09-30,Paid Social,APAC,1000,USD,Marketing,true
+2026-09,2026-09-30,Organic Search,APAC,500,USD,Marketing,false
+2026-09,2026-09-30,Organic Search,LATAM,400,USD,Marketing,false
+2026-09,2026-09-30,AI Assistant Referral,AMER,400,USD,Marketing,false
+2026-09,2026-09-30,AI Assistant Referral,APAC,400,USD,Marketing,false
+2026-09,2026-09-30,AI Assistant Referral,LATAM,400,USD,Marketing,false
+2026-09,2026-09-30,Free Course,AMER,400,USD,Marketing,false
+2026-09,2026-09-30,Free Course,EMEA,400,USD,Marketing,false
+2026-09,2026-09-30,Free Course,APAC,400,USD,Marketing,false
+2026-09,2026-09-30,Free Course,LATAM,400,USD,Marketing,false
+2026-09,2026-09-30,Salesforce Community,EMEA,400,USD,Marketing,false
+2026-09,2026-09-30,Salesforce Community,LATAM,400,USD,Marketing,false
+2026-09,2026-09-30,Webinar,EMEA,1000,USD,Marketing,false
+2026-09,2026-09-30,Webinar,APAC,400,USD,Marketing,false
+2026-09,2026-09-30,Conference,AMER,4000,USD,Marketing,true
+2026-09,2026-09-30,Conference,EMEA,3100,USD,Marketing,true
+2026-09,2026-09-30,Conference,APAC,1900,USD,Marketing,true
+2026-09,2026-09-30,SI Partner Referral,LATAM,400,USD,Marketing,false
+2026-09,2026-09-30,Customer Referral,AMER,400,USD,Marketing,false
+2026-09,2026-09-30,Customer Referral,EMEA,400,USD,Marketing,false
+2026-09,2026-09-30,Customer Referral,APAC,400,USD,Marketing,false
+2026-09,2026-09-30,Customer Referral,LATAM,400,USD,Marketing,false

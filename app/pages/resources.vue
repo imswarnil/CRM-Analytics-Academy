@@ -85,8 +85,7 @@ useJsonLd({
           Docs, courses, books, blogs, tools, and communities — filter to find what you need.
         </p>
         <UButton
-          to="https://github.com/imswarnil/CRM-Analytics-Academy/issues/new"
-          target="_blank"
+          :to="localePath('/submit?kind=resource')"
           icon="i-lucide-plus"
           color="primary"
           variant="subtle"

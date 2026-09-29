@@ -29,7 +29,11 @@ interface Mine {
   reviewNote: string | null
 }
 
-const kind = ref<Kind>('resource')
+const route = useRoute()
+// A link can preselect what is being submitted (/submit?kind=showcase), so a
+// "Suggest a resource" button lands on the right form rather than a chooser.
+const KIND_VALUES: Kind[] = ['resource', 'showcase', 'lesson-idea']
+const kind = ref<Kind>(KIND_VALUES.includes(route.query.kind as Kind) ? route.query.kind as Kind : 'resource')
 const form = reactive({ title: '', url: '', description: '', tags: [] as string[] })
 const photos = ref<Photo[]>([])
 const step = ref(0)

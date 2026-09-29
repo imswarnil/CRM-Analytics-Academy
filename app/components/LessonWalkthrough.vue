@@ -3,7 +3,7 @@
 // and rendered where the video will eventually sit:
 //
 //   walkthrough:
-//     org: "Namilio GTM dev org — Analytics Studio, GTM app"
+//     org: "Your CRM Analytics org — Analytics Studio, Academy Analytics app"
 //     shots:
 //       - shot: "Open the recipe"
 //         screen: "Data Manager → Recipes → gtm_pipeline → Edit"

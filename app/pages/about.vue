@@ -34,7 +34,7 @@ useJsonLd([
 
 const principles = [
   { icon: 'i-lucide-unlock', title: 'Open & free, forever', desc: 'No paywalls, no sign-up walls. Every lesson lives in a public repo you can read, fork, and improve.' },
-  { icon: 'i-lucide-route', title: 'A path, not a pile', desc: 'Nineteen sections build on each other — from what CRM Analytics is, through SAQL and dashboard design, to sixteen go-to-market dashboards on one company\u2019s data.' },
+  { icon: 'i-lucide-route', title: 'A path, not a pile', desc: 'Nineteen sections build on each other — from what CRM Analytics is, through SAQL and dashboard design, to seventeen go-to-market dashboards on the Academy\u2019s own business data.' },
   { icon: 'i-lucide-square-code', title: 'Hands-on by default', desc: 'Real SAQL, recipes, and dashboard examples you can paste straight into your own org.' },
   { icon: 'i-lucide-bot', title: 'AI-native', desc: 'Every page is published as Markdown and over MCP, so assistants can teach from the source.' }
 ]

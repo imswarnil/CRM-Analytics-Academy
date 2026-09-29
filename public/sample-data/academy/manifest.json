@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-09-29",
+  "seed": 20260926,
+  "scale": 1,
+  "window": {
+    "from": "2025-04-01",
+    "to": "2026-09-30"
+  },
+  "company": "CRM Analytics Academy — online courses, team plans, classroom training centers, certification and implementation",
+  "files": {
+    "reps.csv": {
+      "rows": 40,
+      "columns": 11
+    },
+    "products.csv": {
+      "rows": 6,
+      "columns": 8
+    },
+    "accounts.csv": {
+      "rows": 140,
+      "columns": 18
+    },
+    "contacts.csv": {
+      "rows": 444,
+      "columns": 11
+    },
+    "marketing_spend.csv": {
+      "rows": 402,
+      "columns": 8
+    },
+    "seo_keywords.csv": {
+      "rows": 2370,
+      "columns": 12
+    },
+    "llm_visibility.csv": {
+      "rows": 5400,
+      "columns": 17
+    },
+    "web_sessions.csv": {
+      "rows": 4932,
+      "columns": 16
+    },
+    "leads.csv": {
+      "rows": 2800,
+      "columns": 32
+    },
+    "opportunities.csv": {
+      "rows": 608,
+      "columns": 40
+    },
+    "opportunity_products.csv": {
+      "rows": 1192,
+      "columns": 13
+    },
+    "quotes.csv": {
+      "rows": 795,
+      "columns": 25
+    },
+    "cases.csv": {
+      "rows": 1723,
+      "columns": 25
+    },
+    "csat_surveys.csv": {
+      "rows": 664,
+      "columns": 11
+    },
+    "usage_monthly.csv": {
+      "rows": 2612,
+      "columns": 18
+    },
+    "platform_health_daily.csv": {
+      "rows": 3244,
+      "columns": 10
+    },
+    "arr_snapshots.csv": {
+      "rows": 1579,
+      "columns": 19
+    },
+    "campaigns.csv": {
+      "rows": 46,
+      "columns": 23
+    },
+    "centers.csv": {
+      "rows": 6,
+      "columns": 8
+    },
+    "batches.csv": {
+      "rows": 182,
+      "columns": 19
+    },
+    "enrollments.csv": {
+      "rows": 3151,
+      "columns": 22
+    }
+  },
+  "checks": {
+    "opportunityLinesReconcile": true,
+    "campaignLeadCountsReconcile": true,
+    "batchSeatsReconcile": true,
+    "classroomRevenue": 3305327,
+    "totalPipeline": 21794000,
+    "totalClosedWon": 13388400,
+    "leadToOppRatePct": 18.07,
+    "winRatePct": 40.39
+  }
+}

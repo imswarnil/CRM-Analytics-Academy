@@ -75,8 +75,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
             View on GitHub
           </UButton>
           <UButton
-            :to="`${repo}/issues/new`"
-            target="_blank"
+            :to="localePath('/submit?kind=resource')"
             size="lg"
             color="neutral"
             variant="outline"
@@ -215,10 +214,10 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                   <ul>
                     <li><strong>Write or fix a lesson</strong> — improve wording, fix errors, or add a whole new lesson (Markdown, no coding needed).</li>
                     <li><strong>Translate</strong> — bring a lesson or the UI into one of the site's languages.</li>
-                    <li><strong>Suggest a resource</strong> — share a great docs page, course, tool, or community. <NuxtLink :to="`${repo}/issues/new`">Open an issue</NuxtLink> and we'll add it.</li>
+                    <li><strong>Suggest a resource</strong> — share a great docs page, course, tool, or community. <NuxtLink :to="localePath('/submit?kind=resource')">Submit it here</NuxtLink> — it goes into a moderation queue, not a GitHub issue.</li>
                     <li><strong>Improve the code</strong> — fix a bug, refine the UI, or add a feature via a pull request.</li>
                   </ul>
-                  <p>Everything goes through GitHub — the site is fully static, so every change is a file in the repo.</p>
+                  <p>Lesson and code changes go through GitHub, because every lesson is a file in the repo. Resources, showcase dashboards and lesson ideas are submitted on the site and reviewed in the admin console.</p>
                 </div>
 
                 <!-- setup -->

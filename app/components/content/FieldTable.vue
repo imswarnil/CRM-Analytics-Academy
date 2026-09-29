@@ -2,7 +2,7 @@
 /**
  * A field reference for one dataset.
  *
- * Every lesson that builds on the Namilio warehouse has to tell the reader which
+ * Every lesson that builds on the Academy warehouse has to tell the reader which
  * columns exist and, more importantly, which ones are dimensions and which are
  * measures — because in CRM Analytics that distinction decides what you can
  * group by and what you can aggregate, and getting it wrong is the single most

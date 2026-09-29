@@ -34,7 +34,7 @@ const { isDone } = useProgress()
 const { isSignedIn } = useAuth()
 
 const title = 'Curriculum'
-const description = 'Every section and every lesson of the CRM Analytics Academy course, in order: orientation, the CRM Analytics product itself, and then the sixteen go-to-market dashboard builds.'
+const description = 'Every section and every lesson of the CRM Analytics Academy course, in order: orientation, the CRM Analytics product itself, and then the seventeen go-to-market dashboard builds.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
@@ -161,7 +161,7 @@ const PHASES = [
     icon: 'i-lucide-hammer',
     from: 15,
     to: 18,
-    blurb: 'Sixteen dashboards for one training business, built the way a revenue analytics team would.'
+    blurb: 'Seventeen dashboards for one training business — the Academy itself — built the way a revenue analytics team would.'
   }
 ]
 

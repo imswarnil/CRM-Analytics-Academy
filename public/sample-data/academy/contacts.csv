@@ -1,0 +1,445 @@
+ContactId,AccountId,ContactName,Title,Persona,Email,Country,Region,IsEconomicBuyer,IsChampion,OptedIntoMarketing
+CON-0001,ACC-1000,Yuki Haddad,Business Analyst,Individual Learner,yuki.haddad@sableretail.com,Argentina,LATAM,false,false,false
+CON-0002,ACC-1000,Kwame Haddad,Salesforce Administrator,Salesforce Admin,kwame.haddad@sableretail.com,Argentina,LATAM,false,false,false
+CON-0003,ACC-1001,Sofia Shaw,Career Switcher,Individual Learner,sofia.shaw@dovetailbank.com,United Kingdom,EMEA,false,false,false
+CON-0004,ACC-1001,Noah Moreno,Junior Consultant,Individual Learner,noah.moreno@dovetailbank.com,United Kingdom,EMEA,false,false,false
+CON-0005,ACC-1002,Luis Qureshi,Procurement Manager,Procurement / Finance,luis.qureshi@solsticetelecom.com,Indonesia,APAC,false,false,true
+CON-0006,ACC-1002,Felix Moreno,Business Analyst,Individual Learner,felix.moreno@solsticetelecom.com,Indonesia,APAC,false,false,false
+CON-0007,ACC-1003,Marcus Rao,Senior Salesforce Admin,Salesforce Admin,marcus.rao@kestrelmotors.com,Indonesia,APAC,false,false,true
+CON-0008,ACC-1004,Priya Nair,Data Analyst,Individual Learner,priya.nair@kestrelpharma.com,Germany,EMEA,false,false,true
+CON-0009,ACC-1004,Felix Kovac,Data Analyst,Individual Learner,felix.kovac@kestrelpharma.com,Germany,EMEA,false,false,true
+CON-0010,ACC-1005,Marcus Mensah,Career Switcher,Individual Learner,marcus.mensah@pallasdigital.com,Brazil,AMER,false,false,true
+CON-0011,ACC-1005,Amara Marino,Salesforce Administrator,Salesforce Admin,amara.marino@pallasdigital.com,Brazil,AMER,false,false,true
+CON-0012,ACC-1005,Ana Ahmed,Head of Enablement,L&D / Enablement Manager,ana.ahmed@pallasdigital.com,Brazil,AMER,true,false,false
+CON-0013,ACC-1006,Ishaan Ortega,Business Analyst,Individual Learner,ishaan.ortega@latticeworks.com,Canada,AMER,false,false,true
+CON-0014,ACC-1007,Clara Lindqvist,Career Switcher,Individual Learner,clara.lindqvist@onyxinsurance.com,Japan,APAC,false,false,true
+CON-0015,ACC-1007,Lena Ahmed,Platform Owner,Salesforce Admin,lena.ahmed@onyxinsurance.com,Japan,APAC,false,false,true
+CON-0016,ACC-1007,Marcus Qureshi,Salesforce Administrator,Salesforce Admin,marcus.qureshi@onyxinsurance.com,Japan,APAC,true,false,false
+CON-0017,ACC-1007,Yuki Brandt,Career Switcher,Individual Learner,yuki.brandt@onyxinsurance.com,Japan,APAC,false,false,true
+CON-0018,ACC-1008,Aditi Okafor,BI Lead,Analytics Lead,aditi.okafor@wexlertelecom.com,United States,AMER,true,false,false
+CON-0019,ACC-1008,Zara Petrova,BI Lead,Analytics Lead,zara.petrova@wexlertelecom.com,United States,AMER,false,false,true
+CON-0020,ACC-1008,Lena Novak,Career Switcher,Individual Learner,lena.novak@wexlertelecom.com,United States,AMER,false,false,false
+CON-0021,ACC-1008,Sana Kapoor,Business Analyst,Individual Learner,sana.kapoor@wexlertelecom.com,United States,AMER,false,false,false
+CON-0022,ACC-1009,Ravi Shaw,Director of Sales Operations,Analytics Lead,ravi.shaw@quantabank.com,UAE,EMEA,false,false,true
+CON-0023,ACC-1009,Tom Haddad,L&D Manager,L&D / Enablement Manager,tom.haddad@quantabank.com,UAE,EMEA,true,false,false
+CON-0024,ACC-1010,Hannah Brandt,Career Switcher,Individual Learner,hannah.brandt@northtelecom.com,UAE,EMEA,false,false,false
+CON-0025,ACC-1010,Omar Lindqvist,Junior Consultant,Individual Learner,omar.lindqvist@northtelecom.com,UAE,EMEA,false,false,false
+CON-0026,ACC-1010,Aditi Kapoor,Head of Analytics,Analytics Lead,aditi.kapoor@northtelecom.com,UAE,EMEA,false,false,true
+CON-0027,ACC-1010,Omar Whitfield,Data Analyst,Individual Learner,omar.whitfield@northtelecom.com,UAE,EMEA,false,true,false
+CON-0028,ACC-1011,Ishaan Mensah,RevOps Manager,Analytics Lead,ishaan.mensah@harborworks.com,United States,AMER,false,false,false
+CON-0029,ACC-1011,Lena Rao,Business Analyst,Individual Learner,lena.rao@harborworks.com,United States,AMER,false,false,true
+CON-0030,ACC-1011,Diego Kapoor,Junior Consultant,Individual Learner,diego.kapoor@harborworks.com,United States,AMER,false,false,false
+CON-0031,ACC-1011,Maya Kapoor,Career Switcher,Individual Learner,maya.kapoor@harborworks.com,United States,AMER,false,false,false
+CON-0032,ACC-1011,Zara Petrova,Data Analyst,Individual Learner,zara.petrova@harborworks.com,United States,AMER,false,false,false
+CON-0033,ACC-1012,Hannah Rao,Career Switcher,Individual Learner,hannah.rao@tundraenergy.com,United States,AMER,false,false,true
+CON-0034,ACC-1012,Sana Petrova,Salesforce Administrator,Salesforce Admin,sana.petrova@tundraenergy.com,United States,AMER,false,false,true
+CON-0035,ACC-1012,Amara Moreno,Director of Sales Operations,Analytics Lead,amara.moreno@tundraenergy.com,United States,AMER,false,false,false
+CON-0036,ACC-1012,Jonas Marino,CFO,Procurement / Finance,jonas.marino@tundraenergy.com,United States,AMER,false,false,false
+CON-0037,ACC-1013,Jonas Novak,Career Switcher,Individual Learner,jonas.novak@cinderfoods.com,United States,AMER,false,false,true
+CON-0038,ACC-1013,Sofia Mensah,RevOps Manager,Analytics Lead,sofia.mensah@cinderfoods.com,United States,AMER,true,false,true
+CON-0039,ACC-1014,Victor Haddad,Training Director,L&D / Enablement Manager,victor.haddad@lumentechnologies.com,UAE,EMEA,true,true,true
+CON-0040,ACC-1014,Yuki Okafor,Data Analyst,Individual Learner,yuki.okafor@lumentechnologies.com,UAE,EMEA,false,false,false
+CON-0041,ACC-1015,Diego Fischer,Junior Consultant,Individual Learner,diego.fischer@umbraconsulting.com,Netherlands,EMEA,true,false,false
+CON-0042,ACC-1015,Noah Ortega,Data Analyst,Individual Learner,noah.ortega@umbraconsulting.com,Netherlands,EMEA,false,false,false
+CON-0043,ACC-1015,Noah Berg,Data Analyst,Individual Learner,noah.berg@umbraconsulting.com,Netherlands,EMEA,false,false,true
+CON-0044,ACC-1015,Victor Rao,Salesforce Administrator,Salesforce Admin,victor.rao@umbraconsulting.com,Netherlands,EMEA,false,false,true
+CON-0045,ACC-1015,Marcus Chen,Head of Vendor Management,Procurement / Finance,marcus.chen@umbraconsulting.com,Netherlands,EMEA,true,false,true
+CON-0046,ACC-1016,Yuki Nair,Head of Enablement,L&D / Enablement Manager,yuki.nair@tundrafoods.com,United States,AMER,true,false,true
+CON-0047,ACC-1017,Hannah Moreno,Business Analyst,Individual Learner,hannah.moreno@dovetailpharma.com,Brazil,AMER,false,false,true
+CON-0048,ACC-1017,Noah Moreno,L&D Manager,L&D / Enablement Manager,noah.moreno@dovetailpharma.com,Brazil,AMER,true,false,true
+CON-0049,ACC-1017,Hannah Hale,Senior Salesforce Admin,Salesforce Admin,hannah.hale@dovetailpharma.com,Brazil,AMER,false,false,true
+CON-0050,ACC-1017,Diego Tanaka,Platform Owner,Salesforce Admin,diego.tanaka@dovetailpharma.com,Brazil,AMER,false,false,true
+CON-0051,ACC-1017,Marcus Hale,Platform Owner,Salesforce Admin,marcus.hale@dovetailpharma.com,Brazil,AMER,false,false,true
+CON-0052,ACC-1018,Ishaan Novak,Career Switcher,Individual Learner,ishaan.novak@vertexcare.com,Brazil,AMER,false,false,false
+CON-0053,ACC-1019,Amara Almeida,Data Analyst,Individual Learner,amara.almeida@tundrasystems.com,Colombia,LATAM,false,false,false
+CON-0054,ACC-1019,Tom Ahmed,RevOps Manager,Analytics Lead,tom.ahmed@tundrasystems.com,Colombia,LATAM,false,false,true
+CON-0055,ACC-1019,Yuki Lindqvist,Career Switcher,Individual Learner,yuki.lindqvist@tundrasystems.com,Colombia,LATAM,true,false,false
+CON-0056,ACC-1020,Priya Hale,BI Lead,Analytics Lead,priya.hale@wexlerhealth.com,Brazil,AMER,false,false,true
+CON-0057,ACC-1020,Priya Silva,Data Analyst,Individual Learner,priya.silva@wexlerhealth.com,Brazil,AMER,false,false,true
+CON-0058,ACC-1021,Jonas Ortega,L&D Manager,L&D / Enablement Manager,jonas.ortega@embertelecom.com,Mexico,AMER,false,true,true
+CON-0059,ACC-1022,Ana Lindqvist,CRM Manager,Salesforce Admin,ana.lindqvist@onyxhealth.com,Sweden,EMEA,true,true,false
+CON-0060,ACC-1022,Felix Haddad,Platform Owner,Salesforce Admin,felix.haddad@onyxhealth.com,Sweden,EMEA,false,false,true
+CON-0061,ACC-1022,Luis Diallo,Business Analyst,Individual Learner,luis.diallo@onyxhealth.com,Sweden,EMEA,false,false,true
+CON-0062,ACC-1022,Ishaan Rao,Head of Analytics,Analytics Lead,ishaan.rao@onyxhealth.com,Sweden,EMEA,false,false,false
+CON-0063,ACC-1022,Lena Mensah,People Development Lead,L&D / Enablement Manager,lena.mensah@onyxhealth.com,Sweden,EMEA,false,false,true
+CON-0064,ACC-1023,Diego Nair,Head of Analytics,Analytics Lead,diego.nair@sableenergy.com,Germany,EMEA,false,false,false
+CON-0065,ACC-1023,Zara Kovac,RevOps Manager,Analytics Lead,zara.kovac@sableenergy.com,Germany,EMEA,false,false,false
+CON-0066,ACC-1023,Kwame Silva,Procurement Manager,Procurement / Finance,kwame.silva@sableenergy.com,Germany,EMEA,false,false,false
+CON-0067,ACC-1023,Hannah Ortega,Finance Director,Procurement / Finance,hannah.ortega@sableenergy.com,Germany,EMEA,false,false,true
+CON-0068,ACC-1023,Priya Hale,Business Analyst,Individual Learner,priya.hale@sableenergy.com,Germany,EMEA,false,false,true
+CON-0069,ACC-1023,Sofia Moreno,Salesforce Administrator,Salesforce Admin,sofia.moreno@sableenergy.com,Germany,EMEA,false,false,false
+CON-0070,ACC-1023,Aditi Ahmed,Career Switcher,Individual Learner,aditi.ahmed@sableenergy.com,Germany,EMEA,false,true,true
+CON-0071,ACC-1024,Ana Tanaka,CFO,Procurement / Finance,ana.tanaka@dovetailhealth.com,Spain,EMEA,true,false,false
+CON-0072,ACC-1024,Luis Qureshi,Career Switcher,Individual Learner,luis.qureshi@dovetailhealth.com,Spain,EMEA,false,false,true
+CON-0073,ACC-1024,Sofia Chen,Platform Owner,Salesforce Admin,sofia.chen@dovetailhealth.com,Spain,EMEA,false,true,false
+CON-0074,ACC-1024,Felix Rao,Data Analyst,Individual Learner,felix.rao@dovetailhealth.com,Spain,EMEA,false,true,false
+CON-0075,ACC-1025,Sofia Hale,Career Switcher,Individual Learner,sofia.hale@emberbank.com,Indonesia,APAC,false,false,false
+CON-0076,ACC-1026,Ishaan Kovac,RevOps Manager,Analytics Lead,ishaan.kovac@orbitalhealth.com,Australia,APAC,false,false,false
+CON-0077,ACC-1026,Sana Okafor,Director of Sales Operations,Analytics Lead,sana.okafor@orbitalhealth.com,Australia,APAC,false,false,true
+CON-0078,ACC-1026,Aditi Almeida,Career Switcher,Individual Learner,aditi.almeida@orbitalhealth.com,Australia,APAC,false,false,false
+CON-0079,ACC-1027,Zara Whitfield,Junior Consultant,Individual Learner,zara.whitfield@quantadigital.com,Netherlands,EMEA,false,false,false
+CON-0080,ACC-1027,Omar Rao,Head of Analytics,Analytics Lead,omar.rao@quantadigital.com,Netherlands,EMEA,false,false,true
+CON-0081,ACC-1027,Victor Kovac,Head of Analytics,Analytics Lead,victor.kovac@quantadigital.com,Netherlands,EMEA,false,false,true
+CON-0082,ACC-1027,Sana Petrova,Director of Sales Operations,Analytics Lead,sana.petrova@quantadigital.com,Netherlands,EMEA,false,false,false
+CON-0083,ACC-1028,Hannah Whitfield,Head of Vendor Management,Procurement / Finance,hannah.whitfield@tundracare.com,United Kingdom,EMEA,true,false,true
+CON-0084,ACC-1028,Diego Whitfield,Business Analyst,Individual Learner,diego.whitfield@tundracare.com,United Kingdom,EMEA,false,false,true
+CON-0085,ACC-1028,Lena Ahmed,Junior Consultant,Individual Learner,lena.ahmed@tundracare.com,United Kingdom,EMEA,false,false,false
+CON-0086,ACC-1029,Amara Nair,Data Analyst,Individual Learner,amara.nair@umbratechnologies.com,Mexico,AMER,false,false,false
+CON-0087,ACC-1030,Priya Marino,Platform Owner,Salesforce Admin,priya.marino@cobaltworks.com,Indonesia,APAC,false,false,false
+CON-0088,ACC-1031,Elena Moreno,Junior Consultant,Individual Learner,elena.moreno@cobalttelecom.com,Brazil,AMER,false,false,false
+CON-0089,ACC-1031,Sana Rao,Junior Consultant,Individual Learner,sana.rao@cobalttelecom.com,Brazil,AMER,true,true,true
+CON-0090,ACC-1031,Ravi Hale,Senior Salesforce Admin,Salesforce Admin,ravi.hale@cobalttelecom.com,Brazil,AMER,false,false,false
+CON-0091,ACC-1031,Jonas Berg,Platform Owner,Salesforce Admin,jonas.berg@cobalttelecom.com,Brazil,AMER,false,false,false
+CON-0092,ACC-1031,Ana Petrova,Platform Owner,Salesforce Admin,ana.petrova@cobalttelecom.com,Brazil,AMER,false,true,false
+CON-0093,ACC-1032,Zara Ahmed,Career Switcher,Individual Learner,zara.ahmed@tundrainsurance.com,Sweden,EMEA,false,false,false
+CON-0094,ACC-1032,Priya Qureshi,Junior Consultant,Individual Learner,priya.qureshi@tundrainsurance.com,Sweden,EMEA,false,false,true
+CON-0095,ACC-1033,Felix Haddad,Business Analyst,Individual Learner,felix.haddad@umbracapital.com,Brazil,AMER,true,true,true
+CON-0096,ACC-1034,Maya Hale,Head of Vendor Management,Procurement / Finance,maya.hale@sablebank.com,UAE,EMEA,true,false,true
+CON-0097,ACC-1034,Ravi Fischer,Business Analyst,Individual Learner,ravi.fischer@sablebank.com,UAE,EMEA,false,false,true
+CON-0098,ACC-1034,Tom Diallo,RevOps Manager,Analytics Lead,tom.diallo@sablebank.com,UAE,EMEA,false,true,true
+CON-0099,ACC-1034,Zara Almeida,CRM Manager,Salesforce Admin,zara.almeida@sablebank.com,UAE,EMEA,false,true,false
+CON-0100,ACC-1034,Omar Berg,Career Switcher,Individual Learner,omar.berg@sablebank.com,UAE,EMEA,false,false,false
+CON-0101,ACC-1035,Sana Rao,Director of Sales Operations,Analytics Lead,sana.rao@sabledigital.com,United Kingdom,EMEA,true,false,true
+CON-0102,ACC-1035,Zara Nair,CFO,Procurement / Finance,zara.nair@sabledigital.com,United Kingdom,EMEA,true,false,true
+CON-0103,ACC-1035,Lena Kovac,Data Analyst,Individual Learner,lena.kovac@sabledigital.com,United Kingdom,EMEA,false,true,true
+CON-0104,ACC-1035,Ben Hale,RevOps Manager,Analytics Lead,ben.hale@sabledigital.com,United Kingdom,EMEA,false,false,true
+CON-0105,ACC-1036,Diego Kapoor,Salesforce Administrator,Salesforce Admin,diego.kapoor@tundramedia.com,Spain,EMEA,false,false,true
+CON-0106,ACC-1036,Ben Chen,Data Analyst,Individual Learner,ben.chen@tundramedia.com,Spain,EMEA,false,false,false
+CON-0107,ACC-1037,Diego Petrova,Data Analyst,Individual Learner,diego.petrova@sableinsurance.com,Canada,AMER,false,false,false
+CON-0108,ACC-1037,Sofia Silva,Junior Consultant,Individual Learner,sofia.silva@sableinsurance.com,Canada,AMER,false,false,false
+CON-0109,ACC-1038,Victor Kovac,BI Lead,Analytics Lead,victor.kovac@kestrelhealth.com,France,EMEA,false,false,true
+CON-0110,ACC-1038,Diego Brandt,Business Analyst,Individual Learner,diego.brandt@kestrelhealth.com,France,EMEA,false,false,false
+CON-0111,ACC-1039,Nina Ahmed,Career Switcher,Individual Learner,nina.ahmed@vantageretail.com,Brazil,AMER,false,false,false
+CON-0112,ACC-1039,Noah Rao,Director of Sales Operations,Analytics Lead,noah.rao@vantageretail.com,Brazil,AMER,false,false,true
+CON-0113,ACC-1039,Zara Novak,People Development Lead,L&D / Enablement Manager,zara.novak@vantageretail.com,Brazil,AMER,false,true,true
+CON-0114,ACC-1040,Ben Moreno,Business Analyst,Individual Learner,ben.moreno@rivetlogistics.com,Sweden,EMEA,false,false,false
+CON-0115,ACC-1041,Aditi Petrova,Career Switcher,Individual Learner,aditi.petrova@lumenbank.com,India,APAC,false,true,true
+CON-0116,ACC-1041,Nina Shaw,Platform Owner,Salesforce Admin,nina.shaw@lumenbank.com,India,APAC,false,false,false
+CON-0117,ACC-1041,Maya Novak,L&D Manager,L&D / Enablement Manager,maya.novak@lumenbank.com,India,APAC,false,false,true
+CON-0118,ACC-1042,Ishaan Kovac,Career Switcher,Individual Learner,ishaan.kovac@lumenfoods.com,United Kingdom,EMEA,false,false,false
+CON-0119,ACC-1042,Yuki Qureshi,BI Lead,Analytics Lead,yuki.qureshi@lumenfoods.com,United Kingdom,EMEA,false,true,true
+CON-0120,ACC-1042,Diego Haddad,Data Analyst,Individual Learner,diego.haddad@lumenfoods.com,United Kingdom,EMEA,false,false,false
+CON-0121,ACC-1042,Amara Chen,CRM Manager,Salesforce Admin,amara.chen@lumenfoods.com,United Kingdom,EMEA,false,false,false
+CON-0122,ACC-1042,Nina Almeida,Head of Enablement,L&D / Enablement Manager,nina.almeida@lumenfoods.com,United Kingdom,EMEA,true,false,true
+CON-0123,ACC-1042,Luis Ortega,Career Switcher,Individual Learner,luis.ortega@lumenfoods.com,United Kingdom,EMEA,false,false,false
+CON-0124,ACC-1042,Sofia Nair,BI Lead,Analytics Lead,sofia.nair@lumenfoods.com,United Kingdom,EMEA,false,false,true
+CON-0125,ACC-1042,Tom Tanaka,Salesforce Administrator,Salesforce Admin,tom.tanaka@lumenfoods.com,United Kingdom,EMEA,false,false,true
+CON-0126,ACC-1043,Maya Silva,Data Analyst,Individual Learner,maya.silva@latticemedia.com,Mexico,AMER,false,false,true
+CON-0127,ACC-1043,Elena Moreno,Head of Analytics,Analytics Lead,elena.moreno@latticemedia.com,Mexico,AMER,false,false,false
+CON-0128,ACC-1043,Ishaan Shaw,Finance Director,Procurement / Finance,ishaan.shaw@latticemedia.com,Mexico,AMER,false,false,false
+CON-0129,ACC-1043,Clara Fischer,Senior Salesforce Admin,Salesforce Admin,clara.fischer@latticemedia.com,Mexico,AMER,false,false,true
+CON-0130,ACC-1043,Ishaan Silva,Data Analyst,Individual Learner,ishaan.silva@latticemedia.com,Mexico,AMER,false,false,false
+CON-0131,ACC-1044,Luis Whitfield,BI Lead,Analytics Lead,luis.whitfield@umbraretail.com,Canada,AMER,false,false,false
+CON-0132,ACC-1045,Nina Haddad,CFO,Procurement / Finance,nina.haddad@meridiantechnologies.com,India,APAC,false,false,true
+CON-0133,ACC-1046,Aditi Brandt,Data Analyst,Individual Learner,aditi.brandt@embercare.com,United States,AMER,false,false,true
+CON-0134,ACC-1046,Noah Qureshi,Platform Owner,Salesforce Admin,noah.qureshi@embercare.com,United States,AMER,false,false,true
+CON-0135,ACC-1046,Ben Kovac,Career Switcher,Individual Learner,ben.kovac@embercare.com,United States,AMER,false,false,true
+CON-0136,ACC-1046,Maya Almeida,Career Switcher,Individual Learner,maya.almeida@embercare.com,United States,AMER,false,true,false
+CON-0137,ACC-1046,Hannah Moreno,Career Switcher,Individual Learner,hannah.moreno@embercare.com,United States,AMER,false,false,false
+CON-0138,ACC-1047,Sofia Ahmed,Career Switcher,Individual Learner,sofia.ahmed@foundryworks.com,Indonesia,APAC,false,false,false
+CON-0139,ACC-1047,Luis Qureshi,RevOps Manager,Analytics Lead,luis.qureshi@foundryworks.com,Indonesia,APAC,false,true,true
+CON-0140,ACC-1047,Clara Novak,Procurement Manager,Procurement / Finance,clara.novak@foundryworks.com,Indonesia,APAC,true,false,true
+CON-0141,ACC-1047,Jonas Bright,Senior Salesforce Admin,Salesforce Admin,jonas.bright@foundryworks.com,Indonesia,APAC,false,false,true
+CON-0142,ACC-1047,Lena Brandt,L&D Manager,L&D / Enablement Manager,lena.brandt@foundryworks.com,Indonesia,APAC,false,false,false
+CON-0143,ACC-1048,Jonas Shaw,RevOps Manager,Analytics Lead,jonas.shaw@lumendigital.com,Australia,APAC,false,false,true
+CON-0144,ACC-1048,Elena Shaw,Salesforce Administrator,Salesforce Admin,elena.shaw@lumendigital.com,Australia,APAC,false,false,false
+CON-0145,ACC-1048,Ben Iyer,Junior Consultant,Individual Learner,ben.iyer@lumendigital.com,Australia,APAC,false,true,false
+CON-0146,ACC-1048,Diego Moreno,Finance Director,Procurement / Finance,diego.moreno@lumendigital.com,Australia,APAC,false,false,false
+CON-0147,ACC-1048,Marcus Chen,Data Analyst,Individual Learner,marcus.chen@lumendigital.com,Australia,APAC,false,false,true
+CON-0148,ACC-1049,Lena Fischer,Salesforce Administrator,Salesforce Admin,lena.fischer@solsticeinsurance.com,Spain,EMEA,false,false,true
+CON-0149,ACC-1050,Sofia Moreno,Head of Analytics,Analytics Lead,sofia.moreno@latticedigital.com,Mexico,AMER,false,true,true
+CON-0150,ACC-1050,Luis Haddad,Data Analyst,Individual Learner,luis.haddad@latticedigital.com,Mexico,AMER,false,false,false
+CON-0151,ACC-1051,Victor Ortega,Platform Owner,Salesforce Admin,victor.ortega@cobaltpharma.com,United States,AMER,false,false,true
+CON-0152,ACC-1051,Lena Moreno,Director of Sales Operations,Analytics Lead,lena.moreno@cobaltpharma.com,United States,AMER,false,true,true
+CON-0153,ACC-1052,Priya Rao,Director of Sales Operations,Analytics Lead,priya.rao@vertexmotors.com,Chile,LATAM,false,true,true
+CON-0154,ACC-1052,Lena Moreno,Head of Vendor Management,Procurement / Finance,lena.moreno@vertexmotors.com,Chile,LATAM,false,false,true
+CON-0155,ACC-1053,Kwame Bright,CRM Manager,Salesforce Admin,kwame.bright@cindermedia.com,Colombia,LATAM,false,false,true
+CON-0156,ACC-1054,Luis Iyer,Senior Salesforce Admin,Salesforce Admin,luis.iyer@halcyondigital.com,Brazil,AMER,false,false,false
+CON-0157,ACC-1054,Lena Nair,Director of Sales Operations,Analytics Lead,lena.nair@halcyondigital.com,Brazil,AMER,false,false,true
+CON-0158,ACC-1054,Victor Diallo,Data Analyst,Individual Learner,victor.diallo@halcyondigital.com,Brazil,AMER,true,false,true
+CON-0159,ACC-1054,Noah Novak,Procurement Manager,Procurement / Finance,noah.novak@halcyondigital.com,Brazil,AMER,false,false,true
+CON-0160,ACC-1055,Amara Hale,Procurement Manager,Procurement / Finance,amara.hale@foundryconsulting.com,UAE,EMEA,true,true,true
+CON-0161,ACC-1055,Priya Chen,Business Analyst,Individual Learner,priya.chen@foundryconsulting.com,UAE,EMEA,false,false,true
+CON-0162,ACC-1055,Ana Marino,Training Director,L&D / Enablement Manager,ana.marino@foundryconsulting.com,UAE,EMEA,false,false,true
+CON-0163,ACC-1055,Aditi Novak,Data Analyst,Individual Learner,aditi.novak@foundryconsulting.com,UAE,EMEA,false,false,false
+CON-0164,ACC-1056,Ana Kapoor,CFO,Procurement / Finance,ana.kapoor@harbormedia.com,France,EMEA,true,false,true
+CON-0165,ACC-1057,Zara Berg,Business Analyst,Individual Learner,zara.berg@embergroup.com,Canada,AMER,false,false,false
+CON-0166,ACC-1057,Luis Rao,RevOps Manager,Analytics Lead,luis.rao@embergroup.com,Canada,AMER,false,false,false
+CON-0167,ACC-1057,Yuki Kovac,Data Analyst,Individual Learner,yuki.kovac@embergroup.com,Canada,AMER,false,false,false
+CON-0168,ACC-1057,Ben Iyer,Career Switcher,Individual Learner,ben.iyer@embergroup.com,Canada,AMER,false,false,true
+CON-0169,ACC-1057,Elena Diallo,BI Lead,Analytics Lead,elena.diallo@embergroup.com,Canada,AMER,false,false,true
+CON-0170,ACC-1058,Lena Whitfield,Director of Sales Operations,Analytics Lead,lena.whitfield@wexlerpharma.com,Mexico,AMER,false,false,false
+CON-0171,ACC-1058,Tom Lindqvist,Business Analyst,Individual Learner,tom.lindqvist@wexlerpharma.com,Mexico,AMER,false,false,true
+CON-0172,ACC-1058,Clara Shaw,Head of Enablement,L&D / Enablement Manager,clara.shaw@wexlerpharma.com,Mexico,AMER,false,false,true
+CON-0173,ACC-1058,Ishaan Ahmed,Career Switcher,Individual Learner,ishaan.ahmed@wexlerpharma.com,Mexico,AMER,true,false,true
+CON-0174,ACC-1059,Sana Brandt,Platform Owner,Salesforce Admin,sana.brandt@orbitalbank.com,Brazil,AMER,false,false,false
+CON-0175,ACC-1059,Ana Fischer,Business Analyst,Individual Learner,ana.fischer@orbitalbank.com,Brazil,AMER,false,false,false
+CON-0176,ACC-1060,Tom Hale,Platform Owner,Salesforce Admin,tom.hale@zephyrhealth.com,United States,AMER,false,false,true
+CON-0177,ACC-1060,Victor Shaw,Career Switcher,Individual Learner,victor.shaw@zephyrhealth.com,United States,AMER,false,false,true
+CON-0178,ACC-1060,Noah Mensah,Career Switcher,Individual Learner,noah.mensah@zephyrhealth.com,United States,AMER,false,false,true
+CON-0179,ACC-1060,Sana Petrova,L&D Manager,L&D / Enablement Manager,sana.petrova@zephyrhealth.com,United States,AMER,true,false,true
+CON-0180,ACC-1060,Jonas Bright,Junior Consultant,Individual Learner,jonas.bright@zephyrhealth.com,United States,AMER,false,false,true
+CON-0181,ACC-1061,Felix Berg,Junior Consultant,Individual Learner,felix.berg@rivetmedia.com,United States,AMER,false,false,false
+CON-0182,ACC-1061,Marcus Okafor,Salesforce Administrator,Salesforce Admin,marcus.okafor@rivetmedia.com,United States,AMER,false,false,true
+CON-0183,ACC-1061,Jonas Berg,RevOps Manager,Analytics Lead,jonas.berg@rivetmedia.com,United States,AMER,false,false,true
+CON-0184,ACC-1062,Clara Hale,Business Analyst,Individual Learner,clara.hale@halcyonworks.com,Sweden,EMEA,false,false,true
+CON-0185,ACC-1062,Mei Lindqvist,Data Analyst,Individual Learner,mei.lindqvist@halcyonworks.com,Sweden,EMEA,false,false,false
+CON-0186,ACC-1062,Nina Iyer,Data Analyst,Individual Learner,nina.iyer@halcyonworks.com,Sweden,EMEA,false,true,false
+CON-0187,ACC-1063,Ana Okafor,Junior Consultant,Individual Learner,ana.okafor@vertexpharma.com,Brazil,AMER,true,true,false
+CON-0188,ACC-1064,Maya Shaw,Head of Enablement,L&D / Enablement Manager,maya.shaw@northdigital.com,UAE,EMEA,true,false,false
+CON-0189,ACC-1064,Omar Kapoor,Senior Salesforce Admin,Salesforce Admin,omar.kapoor@northdigital.com,UAE,EMEA,false,false,true
+CON-0190,ACC-1064,Ben Tanaka,Training Director,L&D / Enablement Manager,ben.tanaka@northdigital.com,UAE,EMEA,true,false,true
+CON-0191,ACC-1064,Aditi Kapoor,Career Switcher,Individual Learner,aditi.kapoor@northdigital.com,UAE,EMEA,false,false,false
+CON-0192,ACC-1065,Noah Lindqvist,Business Analyst,Individual Learner,noah.lindqvist@halcyonmedia.com,Canada,AMER,false,false,false
+CON-0193,ACC-1065,Yuki Novak,Business Analyst,Individual Learner,yuki.novak@halcyonmedia.com,Canada,AMER,false,false,true
+CON-0194,ACC-1065,Lena Marino,Head of Analytics,Analytics Lead,lena.marino@halcyonmedia.com,Canada,AMER,false,false,true
+CON-0195,ACC-1065,Tom Marino,Business Analyst,Individual Learner,tom.marino@halcyonmedia.com,Canada,AMER,false,false,true
+CON-0196,ACC-1066,Kwame Shaw,Career Switcher,Individual Learner,kwame.shaw@vertextelecom.com,Spain,EMEA,false,true,true
+CON-0197,ACC-1067,Aditi Lindqvist,Data Analyst,Individual Learner,aditi.lindqvist@dovetailenergy.com,Netherlands,EMEA,false,false,true
+CON-0198,ACC-1067,Marcus Okafor,Platform Owner,Salesforce Admin,marcus.okafor@dovetailenergy.com,Netherlands,EMEA,false,false,true
+CON-0199,ACC-1067,Kwame Lindqvist,BI Lead,Analytics Lead,kwame.lindqvist@dovetailenergy.com,Netherlands,EMEA,false,false,true
+CON-0200,ACC-1067,Clara Silva,Head of Enablement,L&D / Enablement Manager,clara.silva@dovetailenergy.com,Netherlands,EMEA,true,true,false
+CON-0201,ACC-1067,Kwame Marino,People Development Lead,L&D / Enablement Manager,kwame.marino@dovetailenergy.com,Netherlands,EMEA,true,false,false
+CON-0202,ACC-1068,Diego Hale,RevOps Manager,Analytics Lead,diego.hale@quantaworks.com,Netherlands,EMEA,false,true,true
+CON-0203,ACC-1068,Zara Whitfield,Head of Analytics,Analytics Lead,zara.whitfield@quantaworks.com,Netherlands,EMEA,false,false,false
+CON-0204,ACC-1069,Diego Qureshi,Junior Consultant,Individual Learner,diego.qureshi@solsticelogistics.com,Brazil,AMER,false,false,false
+CON-0205,ACC-1069,Elena Berg,Head of Vendor Management,Procurement / Finance,elena.berg@solsticelogistics.com,Brazil,AMER,false,false,true
+CON-0206,ACC-1070,Amara Almeida,Director of Sales Operations,Analytics Lead,amara.almeida@tundracapital.com,Spain,EMEA,false,false,true
+CON-0207,ACC-1070,Omar Ahmed,Business Analyst,Individual Learner,omar.ahmed@tundracapital.com,Spain,EMEA,false,false,true
+CON-0208,ACC-1070,Felix Nair,Senior Salesforce Admin,Salesforce Admin,felix.nair@tundracapital.com,Spain,EMEA,false,true,true
+CON-0209,ACC-1070,Mei Marino,Head of Analytics,Analytics Lead,mei.marino@tundracapital.com,Spain,EMEA,false,false,false
+CON-0210,ACC-1071,Ishaan Haddad,Procurement Manager,Procurement / Finance,ishaan.haddad@vertexmedia.com,Canada,AMER,true,true,false
+CON-0211,ACC-1071,Sana Silva,Senior Salesforce Admin,Salesforce Admin,sana.silva@vertexmedia.com,Canada,AMER,false,false,true
+CON-0212,ACC-1071,Luis Hale,People Development Lead,L&D / Enablement Manager,luis.hale@vertexmedia.com,Canada,AMER,false,false,false
+CON-0213,ACC-1071,Ishaan Rao,BI Lead,Analytics Lead,ishaan.rao@vertexmedia.com,Canada,AMER,false,false,true
+CON-0214,ACC-1071,Ben Whitfield,BI Lead,Analytics Lead,ben.whitfield@vertexmedia.com,Canada,AMER,false,false,false
+CON-0215,ACC-1072,Jonas Bright,Training Director,L&D / Enablement Manager,jonas.bright@dovetailworks.com,India,APAC,false,false,false
+CON-0216,ACC-1072,Jonas Ortega,RevOps Manager,Analytics Lead,jonas.ortega@dovetailworks.com,India,APAC,false,false,false
+CON-0217,ACC-1073,Mei Berg,Data Analyst,Individual Learner,mei.berg@onyxworks.com,Spain,EMEA,false,false,true
+CON-0218,ACC-1073,Ravi Lindqvist,CRM Manager,Salesforce Admin,ravi.lindqvist@onyxworks.com,Spain,EMEA,false,false,true
+CON-0219,ACC-1073,Ben Rao,Senior Salesforce Admin,Salesforce Admin,ben.rao@onyxworks.com,Spain,EMEA,false,false,true
+CON-0220,ACC-1073,Yuki Haddad,Head of Analytics,Analytics Lead,yuki.haddad@onyxworks.com,Spain,EMEA,false,false,false
+CON-0221,ACC-1074,Ishaan Rao,RevOps Manager,Analytics Lead,ishaan.rao@asterworks.com,Netherlands,EMEA,false,true,false
+CON-0222,ACC-1074,Felix Iyer,Career Switcher,Individual Learner,felix.iyer@asterworks.com,Netherlands,EMEA,false,false,false
+CON-0223,ACC-1074,Clara Kovac,Career Switcher,Individual Learner,clara.kovac@asterworks.com,Netherlands,EMEA,false,false,true
+CON-0224,ACC-1074,Elena Tanaka,Head of Enablement,L&D / Enablement Manager,elena.tanaka@asterworks.com,Netherlands,EMEA,false,false,true
+CON-0225,ACC-1074,Felix Ahmed,Platform Owner,Salesforce Admin,felix.ahmed@asterworks.com,Netherlands,EMEA,false,false,false
+CON-0226,ACC-1074,Felix Ahmed,Career Switcher,Individual Learner,felix.ahmed@asterworks.com,Netherlands,EMEA,false,false,true
+CON-0227,ACC-1074,Nina Whitfield,People Development Lead,L&D / Enablement Manager,nina.whitfield@asterworks.com,Netherlands,EMEA,false,false,true
+CON-0228,ACC-1074,Nina Bright,Data Analyst,Individual Learner,nina.bright@asterworks.com,Netherlands,EMEA,false,false,true
+CON-0229,ACC-1075,Elena Bright,RevOps Manager,Analytics Lead,elena.bright@onyxlogistics.com,Sweden,EMEA,false,false,false
+CON-0230,ACC-1075,Sana Ortega,CFO,Procurement / Finance,sana.ortega@onyxlogistics.com,Sweden,EMEA,true,false,true
+CON-0231,ACC-1075,Aditi Nair,Salesforce Administrator,Salesforce Admin,aditi.nair@onyxlogistics.com,Sweden,EMEA,false,false,true
+CON-0232,ACC-1075,Mei Novak,Business Analyst,Individual Learner,mei.novak@onyxlogistics.com,Sweden,EMEA,false,false,true
+CON-0233,ACC-1075,Elena Petrova,Training Director,L&D / Enablement Manager,elena.petrova@onyxlogistics.com,Sweden,EMEA,true,false,false
+CON-0234,ACC-1075,Felix Moreno,Training Director,L&D / Enablement Manager,felix.moreno@onyxlogistics.com,Sweden,EMEA,true,false,false
+CON-0235,ACC-1076,Aditi Diallo,Career Switcher,Individual Learner,aditi.diallo@dovetailfoods.com,United States,AMER,false,false,true
+CON-0236,ACC-1076,Nina Berg,Head of Enablement,L&D / Enablement Manager,nina.berg@dovetailfoods.com,United States,AMER,true,true,false
+CON-0237,ACC-1077,Ishaan Berg,RevOps Manager,Analytics Lead,ishaan.berg@vantagecapital.com,Canada,AMER,false,false,true
+CON-0238,ACC-1077,Omar Whitfield,CFO,Procurement / Finance,omar.whitfield@vantagecapital.com,Canada,AMER,false,false,true
+CON-0239,ACC-1077,Sana Qureshi,RevOps Manager,Analytics Lead,sana.qureshi@vantagecapital.com,Canada,AMER,false,false,true
+CON-0240,ACC-1077,Clara Almeida,Junior Consultant,Individual Learner,clara.almeida@vantagecapital.com,Canada,AMER,false,false,true
+CON-0241,ACC-1077,Diego Rao,Director of Sales Operations,Analytics Lead,diego.rao@vantagecapital.com,Canada,AMER,false,false,true
+CON-0242,ACC-1078,Amara Tanaka,Senior Salesforce Admin,Salesforce Admin,amara.tanaka@emberpharma.com,France,EMEA,false,false,false
+CON-0243,ACC-1078,Felix Berg,Salesforce Administrator,Salesforce Admin,felix.berg@emberpharma.com,France,EMEA,false,true,true
+CON-0244,ACC-1078,Ana Kapoor,Data Analyst,Individual Learner,ana.kapoor@emberpharma.com,France,EMEA,false,false,false
+CON-0245,ACC-1078,Amara Moreno,Junior Consultant,Individual Learner,amara.moreno@emberpharma.com,France,EMEA,false,false,true
+CON-0246,ACC-1079,Lena Chen,Data Analyst,Individual Learner,lena.chen@umbracare.com,Canada,AMER,false,false,true
+CON-0247,ACC-1079,Maya Marino,People Development Lead,L&D / Enablement Manager,maya.marino@umbracare.com,Canada,AMER,true,true,true
+CON-0248,ACC-1080,Kwame Bright,Salesforce Administrator,Salesforce Admin,kwame.bright@quantacare.com,UAE,EMEA,false,false,true
+CON-0249,ACC-1080,Kwame Hale,Business Analyst,Individual Learner,kwame.hale@quantacare.com,UAE,EMEA,true,true,true
+CON-0250,ACC-1080,Zara Kapoor,Platform Owner,Salesforce Admin,zara.kapoor@quantacare.com,UAE,EMEA,false,false,true
+CON-0251,ACC-1080,Yuki Diallo,Senior Salesforce Admin,Salesforce Admin,yuki.diallo@quantacare.com,UAE,EMEA,false,false,true
+CON-0252,ACC-1081,Felix Kapoor,Head of Enablement,L&D / Enablement Manager,felix.kapoor@solsticeretail.com,United States,AMER,true,true,false
+CON-0253,ACC-1081,Ishaan Whitfield,CRM Manager,Salesforce Admin,ishaan.whitfield@solsticeretail.com,United States,AMER,false,true,true
+CON-0254,ACC-1082,Luis Kovac,L&D Manager,L&D / Enablement Manager,luis.kovac@solsticecare.com,Indonesia,APAC,false,false,true
+CON-0255,ACC-1082,Luis Tanaka,People Development Lead,L&D / Enablement Manager,luis.tanaka@solsticecare.com,Indonesia,APAC,false,false,true
+CON-0256,ACC-1082,Marcus Ahmed,Junior Consultant,Individual Learner,marcus.ahmed@solsticecare.com,Indonesia,APAC,false,false,false
+CON-0257,ACC-1082,Diego Kovac,CFO,Procurement / Finance,diego.kovac@solsticecare.com,Indonesia,APAC,true,false,true
+CON-0258,ACC-1082,Ben Moreno,L&D Manager,L&D / Enablement Manager,ben.moreno@solsticecare.com,Indonesia,APAC,false,true,false
+CON-0259,ACC-1083,Marcus Okafor,L&D Manager,L&D / Enablement Manager,marcus.okafor@zephyrenergy.com,UAE,EMEA,true,false,true
+CON-0260,ACC-1083,Felix Ahmed,Training Director,L&D / Enablement Manager,felix.ahmed@zephyrenergy.com,UAE,EMEA,false,false,true
+CON-0261,ACC-1084,Lena Diallo,Junior Consultant,Individual Learner,lena.diallo@zephyrcare.com,United States,AMER,true,false,true
+CON-0262,ACC-1084,Sofia Marino,Career Switcher,Individual Learner,sofia.marino@zephyrcare.com,United States,AMER,false,true,true
+CON-0263,ACC-1084,Jonas Haddad,Business Analyst,Individual Learner,jonas.haddad@zephyrcare.com,United States,AMER,false,false,true
+CON-0264,ACC-1085,Sana Mensah,Data Analyst,Individual Learner,sana.mensah@zephyrconsulting.com,Germany,EMEA,false,false,true
+CON-0265,ACC-1085,Aditi Marino,Director of Sales Operations,Analytics Lead,aditi.marino@zephyrconsulting.com,Germany,EMEA,false,false,false
+CON-0266,ACC-1086,Zara Kapoor,Junior Consultant,Individual Learner,zara.kapoor@lumenmotors.com,Brazil,AMER,false,false,false
+CON-0267,ACC-1086,Noah Lindqvist,Platform Owner,Salesforce Admin,noah.lindqvist@lumenmotors.com,Brazil,AMER,false,false,true
+CON-0268,ACC-1086,Lena Almeida,RevOps Manager,Analytics Lead,lena.almeida@lumenmotors.com,Brazil,AMER,false,false,true
+CON-0269,ACC-1086,Noah Kapoor,Training Director,L&D / Enablement Manager,noah.kapoor@lumenmotors.com,Brazil,AMER,false,false,false
+CON-0270,ACC-1086,Priya Silva,Career Switcher,Individual Learner,priya.silva@lumenmotors.com,Brazil,AMER,false,false,false
+CON-0271,ACC-1086,Priya Moreno,Data Analyst,Individual Learner,priya.moreno@lumenmotors.com,Brazil,AMER,false,true,false
+CON-0272,ACC-1086,Victor Ahmed,Head of Analytics,Analytics Lead,victor.ahmed@lumenmotors.com,Brazil,AMER,false,false,true
+CON-0273,ACC-1086,Ben Mensah,Senior Salesforce Admin,Salesforce Admin,ben.mensah@lumenmotors.com,Brazil,AMER,false,false,true
+CON-0274,ACC-1087,Jonas Berg,RevOps Manager,Analytics Lead,jonas.berg@harborinsurance.com,Indonesia,APAC,true,true,false
+CON-0275,ACC-1087,Yuki Iyer,Platform Owner,Salesforce Admin,yuki.iyer@harborinsurance.com,Indonesia,APAC,false,false,true
+CON-0276,ACC-1087,Ana Okafor,People Development Lead,L&D / Enablement Manager,ana.okafor@harborinsurance.com,Indonesia,APAC,true,false,true
+CON-0277,ACC-1087,Yuki Ortega,Junior Consultant,Individual Learner,yuki.ortega@harborinsurance.com,Indonesia,APAC,false,true,true
+CON-0278,ACC-1087,Tom Kapoor,Head of Enablement,L&D / Enablement Manager,tom.kapoor@harborinsurance.com,Indonesia,APAC,true,false,false
+CON-0279,ACC-1088,Noah Marino,Platform Owner,Salesforce Admin,noah.marino@beaconworks.com,Australia,APAC,false,false,true
+CON-0280,ACC-1088,Zara Brandt,Junior Consultant,Individual Learner,zara.brandt@beaconworks.com,Australia,APAC,false,false,true
+CON-0281,ACC-1088,Aditi Qureshi,Business Analyst,Individual Learner,aditi.qureshi@beaconworks.com,Australia,APAC,false,false,true
+CON-0282,ACC-1088,Luis Rao,Business Analyst,Individual Learner,luis.rao@beaconworks.com,Australia,APAC,false,false,true
+CON-0283,ACC-1089,Clara Berg,Salesforce Administrator,Salesforce Admin,clara.berg@kestrelgroup.com,Canada,AMER,false,false,true
+CON-0284,ACC-1089,Yuki Novak,CRM Manager,Salesforce Admin,yuki.novak@kestrelgroup.com,Canada,AMER,false,true,false
+CON-0285,ACC-1089,Ravi Kapoor,Head of Analytics,Analytics Lead,ravi.kapoor@kestrelgroup.com,Canada,AMER,false,false,true
+CON-0286,ACC-1090,Elena Kapoor,People Development Lead,L&D / Enablement Manager,elena.kapoor@pallasbank.com,United States,AMER,true,false,true
+CON-0287,ACC-1090,Ben Brandt,Head of Vendor Management,Procurement / Finance,ben.brandt@pallasbank.com,United States,AMER,false,false,false
+CON-0288,ACC-1090,Hannah Berg,Career Switcher,Individual Learner,hannah.berg@pallasbank.com,United States,AMER,false,false,true
+CON-0289,ACC-1090,Yuki Fischer,Career Switcher,Individual Learner,yuki.fischer@pallasbank.com,United States,AMER,false,false,true
+CON-0290,ACC-1091,Jonas Petrova,Platform Owner,Salesforce Admin,jonas.petrova@vertextechnologies.com,Indonesia,APAC,false,false,true
+CON-0291,ACC-1091,Hannah Ahmed,Platform Owner,Salesforce Admin,hannah.ahmed@vertextechnologies.com,Indonesia,APAC,false,false,true
+CON-0292,ACC-1092,Diego Whitfield,Data Analyst,Individual Learner,diego.whitfield@latticecapital.com,Canada,AMER,false,false,false
+CON-0293,ACC-1092,Sana Bright,CFO,Procurement / Finance,sana.bright@latticecapital.com,Canada,AMER,true,false,true
+CON-0294,ACC-1092,Ana Kapoor,Head of Analytics,Analytics Lead,ana.kapoor@latticecapital.com,Canada,AMER,true,false,true
+CON-0295,ACC-1093,Clara Fischer,Procurement Manager,Procurement / Finance,clara.fischer@rivettechnologies.com,United States,AMER,false,false,true
+CON-0296,ACC-1093,Amara Moreno,Head of Analytics,Analytics Lead,amara.moreno@rivettechnologies.com,United States,AMER,false,false,true
+CON-0297,ACC-1094,Marcus Berg,Career Switcher,Individual Learner,marcus.berg@solsticefoods.com,Canada,AMER,false,false,true
+CON-0298,ACC-1095,Elena Hale,Head of Analytics,Analytics Lead,elena.hale@halcyonbank.com,Singapore,APAC,false,false,true
+CON-0299,ACC-1095,Ben Okafor,Business Analyst,Individual Learner,ben.okafor@halcyonbank.com,Singapore,APAC,true,true,true
+CON-0300,ACC-1095,Ravi Nair,Head of Enablement,L&D / Enablement Manager,ravi.nair@halcyonbank.com,Singapore,APAC,false,false,true
+CON-0301,ACC-1096,Yuki Ahmed,Business Analyst,Individual Learner,yuki.ahmed@vertexgroup.com,France,EMEA,false,false,true
+CON-0302,ACC-1096,Sana Brandt,Business Analyst,Individual Learner,sana.brandt@vertexgroup.com,France,EMEA,false,true,true
+CON-0303,ACC-1096,Nina Nair,Salesforce Administrator,Salesforce Admin,nina.nair@vertexgroup.com,France,EMEA,false,false,false
+CON-0304,ACC-1096,Yuki Kapoor,CRM Manager,Salesforce Admin,yuki.kapoor@vertexgroup.com,France,EMEA,false,false,true
+CON-0305,ACC-1097,Clara Berg,CFO,Procurement / Finance,clara.berg@asterretail.com,Germany,EMEA,false,true,true
+CON-0306,ACC-1097,Jonas Ortega,CRM Manager,Salesforce Admin,jonas.ortega@asterretail.com,Germany,EMEA,false,false,false
+CON-0307,ACC-1097,Tom Berg,Junior Consultant,Individual Learner,tom.berg@asterretail.com,Germany,EMEA,false,false,true
+CON-0308,ACC-1097,Marcus Whitfield,CRM Manager,Salesforce Admin,marcus.whitfield@asterretail.com,Germany,EMEA,false,false,true
+CON-0309,ACC-1098,Jonas Rao,Salesforce Administrator,Salesforce Admin,jonas.rao@junipercare.com,Singapore,APAC,false,true,false
+CON-0310,ACC-1098,Kwame Brandt,Head of Enablement,L&D / Enablement Manager,kwame.brandt@junipercare.com,Singapore,APAC,false,false,true
+CON-0311,ACC-1098,Jonas Lindqvist,Head of Analytics,Analytics Lead,jonas.lindqvist@junipercare.com,Singapore,APAC,false,false,true
+CON-0312,ACC-1098,Zara Hale,CFO,Procurement / Finance,zara.hale@junipercare.com,Singapore,APAC,false,false,true
+CON-0313,ACC-1099,Ishaan Chen,Training Director,L&D / Enablement Manager,ishaan.chen@orbitalcapital.com,Japan,APAC,false,false,true
+CON-0314,ACC-1100,Zara Lindqvist,Platform Owner,Salesforce Admin,zara.lindqvist@solsticehealth.com,Brazil,AMER,false,false,true
+CON-0315,ACC-1100,Marcus Berg,Junior Consultant,Individual Learner,marcus.berg@solsticehealth.com,Brazil,AMER,false,false,true
+CON-0316,ACC-1100,Priya Moreno,Director of Sales Operations,Analytics Lead,priya.moreno@solsticehealth.com,Brazil,AMER,false,false,false
+CON-0317,ACC-1100,Diego Hale,Data Analyst,Individual Learner,diego.hale@solsticehealth.com,Brazil,AMER,false,true,true
+CON-0318,ACC-1101,Ravi Whitfield,Platform Owner,Salesforce Admin,ravi.whitfield@northenergy.com,Spain,EMEA,false,false,true
+CON-0319,ACC-1101,Clara Lindqvist,Data Analyst,Individual Learner,clara.lindqvist@northenergy.com,Spain,EMEA,false,false,true
+CON-0320,ACC-1101,Hannah Haddad,Career Switcher,Individual Learner,hannah.haddad@northenergy.com,Spain,EMEA,false,false,true
+CON-0321,ACC-1101,Jonas Hale,Senior Salesforce Admin,Salesforce Admin,jonas.hale@northenergy.com,Spain,EMEA,false,false,true
+CON-0322,ACC-1101,Elena Bright,Director of Sales Operations,Analytics Lead,elena.bright@northenergy.com,Spain,EMEA,false,false,true
+CON-0323,ACC-1102,Sofia Marino,Senior Salesforce Admin,Salesforce Admin,sofia.marino@cinderretail.com,Germany,EMEA,true,true,false
+CON-0324,ACC-1102,Kwame Brandt,RevOps Manager,Analytics Lead,kwame.brandt@cinderretail.com,Germany,EMEA,false,false,false
+CON-0325,ACC-1102,Jonas Okafor,L&D Manager,L&D / Enablement Manager,jonas.okafor@cinderretail.com,Germany,EMEA,false,true,true
+CON-0326,ACC-1102,Sofia Tanaka,Director of Sales Operations,Analytics Lead,sofia.tanaka@cinderretail.com,Germany,EMEA,false,true,false
+CON-0327,ACC-1102,Ravi Chen,L&D Manager,L&D / Enablement Manager,ravi.chen@cinderretail.com,Germany,EMEA,false,false,false
+CON-0328,ACC-1103,Amara Qureshi,Data Analyst,Individual Learner,amara.qureshi@meridiangroup.com,United Kingdom,EMEA,false,false,true
+CON-0329,ACC-1103,Jonas Chen,Platform Owner,Salesforce Admin,jonas.chen@meridiangroup.com,United Kingdom,EMEA,false,false,true
+CON-0330,ACC-1103,Priya Shaw,Director of Sales Operations,Analytics Lead,priya.shaw@meridiangroup.com,United Kingdom,EMEA,false,false,false
+CON-0331,ACC-1104,Clara Shaw,Business Analyst,Individual Learner,clara.shaw@rivetpartners.com,Brazil,AMER,false,true,true
+CON-0332,ACC-1104,Victor Tanaka,Head of Analytics,Analytics Lead,victor.tanaka@rivetpartners.com,Brazil,AMER,true,false,true
+CON-0333,ACC-1105,Kwame Kapoor,Head of Enablement,L&D / Enablement Manager,kwame.kapoor@wexlerlogistics.com,India,APAC,false,false,true
+CON-0334,ACC-1106,Marcus Ortega,RevOps Manager,Analytics Lead,marcus.ortega@astermedia.com,UAE,EMEA,false,false,true
+CON-0335,ACC-1106,Noah Hale,Career Switcher,Individual Learner,noah.hale@astermedia.com,UAE,EMEA,false,false,true
+CON-0336,ACC-1106,Tom Rao,Platform Owner,Salesforce Admin,tom.rao@astermedia.com,UAE,EMEA,false,true,true
+CON-0337,ACC-1106,Nina Diallo,Junior Consultant,Individual Learner,nina.diallo@astermedia.com,UAE,EMEA,false,false,false
+CON-0338,ACC-1106,Jonas Iyer,Career Switcher,Individual Learner,jonas.iyer@astermedia.com,UAE,EMEA,false,true,false
+CON-0339,ACC-1107,Clara Berg,Director of Sales Operations,Analytics Lead,clara.berg@beaconlogistics.com,United States,AMER,false,false,true
+CON-0340,ACC-1107,Victor Okafor,Junior Consultant,Individual Learner,victor.okafor@beaconlogistics.com,United States,AMER,false,false,true
+CON-0341,ACC-1107,Elena Brandt,People Development Lead,L&D / Enablement Manager,elena.brandt@beaconlogistics.com,United States,AMER,false,false,false
+CON-0342,ACC-1107,Maya Kovac,Junior Consultant,Individual Learner,maya.kovac@beaconlogistics.com,United States,AMER,false,false,false
+CON-0343,ACC-1107,Ravi Petrova,Head of Enablement,L&D / Enablement Manager,ravi.petrova@beaconlogistics.com,United States,AMER,false,false,true
+CON-0344,ACC-1108,Ishaan Rao,Junior Consultant,Individual Learner,ishaan.rao@asterbank.com,Brazil,AMER,false,true,true
+CON-0345,ACC-1108,Ishaan Ortega,Salesforce Administrator,Salesforce Admin,ishaan.ortega@asterbank.com,Brazil,AMER,false,false,false
+CON-0346,ACC-1109,Ben Almeida,Data Analyst,Individual Learner,ben.almeida@lumenretail.com,Canada,AMER,false,false,false
+CON-0347,ACC-1109,Luis Qureshi,Procurement Manager,Procurement / Finance,luis.qureshi@lumenretail.com,Canada,AMER,false,true,true
+CON-0348,ACC-1110,Sana Diallo,Career Switcher,Individual Learner,sana.diallo@meridianhealth.com,UAE,EMEA,false,false,true
+CON-0349,ACC-1110,Omar Petrova,Data Analyst,Individual Learner,omar.petrova@meridianhealth.com,UAE,EMEA,false,false,false
+CON-0350,ACC-1110,Omar Tanaka,Data Analyst,Individual Learner,omar.tanaka@meridianhealth.com,UAE,EMEA,false,false,true
+CON-0351,ACC-1110,Ravi Novak,Director of Sales Operations,Analytics Lead,ravi.novak@meridianhealth.com,UAE,EMEA,false,false,false
+CON-0352,ACC-1110,Ishaan Almeida,Head of Enablement,L&D / Enablement Manager,ishaan.almeida@meridianhealth.com,UAE,EMEA,true,false,false
+CON-0353,ACC-1111,Ben Hale,Head of Enablement,L&D / Enablement Manager,ben.hale@pallassystems.com,Canada,AMER,false,false,true
+CON-0354,ACC-1111,Ben Iyer,Junior Consultant,Individual Learner,ben.iyer@pallassystems.com,Canada,AMER,false,false,true
+CON-0355,ACC-1112,Aditi Novak,Training Director,L&D / Enablement Manager,aditi.novak@cobaltbank.com,Argentina,LATAM,true,false,true
+CON-0356,ACC-1112,Sana Iyer,Business Analyst,Individual Learner,sana.iyer@cobaltbank.com,Argentina,LATAM,false,false,false
+CON-0357,ACC-1112,Elena Shaw,L&D Manager,L&D / Enablement Manager,elena.shaw@cobaltbank.com,Argentina,LATAM,false,false,true
+CON-0358,ACC-1112,Mei Rao,CFO,Procurement / Finance,mei.rao@cobaltbank.com,Argentina,LATAM,false,false,false
+CON-0359,ACC-1112,Diego Haddad,RevOps Manager,Analytics Lead,diego.haddad@cobaltbank.com,Argentina,LATAM,false,false,false
+CON-0360,ACC-1113,Zara Okafor,CFO,Procurement / Finance,zara.okafor@rivettelecom.com,Argentina,LATAM,false,false,true
+CON-0361,ACC-1113,Ana Tanaka,Career Switcher,Individual Learner,ana.tanaka@rivettelecom.com,Argentina,LATAM,false,true,true
+CON-0362,ACC-1114,Ana Ahmed,Finance Director,Procurement / Finance,ana.ahmed@quantasystems.com,Brazil,AMER,false,false,false
+CON-0363,ACC-1114,Luis Berg,Junior Consultant,Individual Learner,luis.berg@quantasystems.com,Brazil,AMER,false,false,false
+CON-0364,ACC-1114,Clara Ortega,Head of Analytics,Analytics Lead,clara.ortega@quantasystems.com,Brazil,AMER,false,false,false
+CON-0365,ACC-1114,Sofia Okafor,RevOps Manager,Analytics Lead,sofia.okafor@quantasystems.com,Brazil,AMER,false,false,false
+CON-0366,ACC-1114,Sofia Fischer,Finance Director,Procurement / Finance,sofia.fischer@quantasystems.com,Brazil,AMER,false,false,true
+CON-0367,ACC-1114,Yuki Moreno,Junior Consultant,Individual Learner,yuki.moreno@quantasystems.com,Brazil,AMER,true,false,true
+CON-0368,ACC-1114,Sana Haddad,People Development Lead,L&D / Enablement Manager,sana.haddad@quantasystems.com,Brazil,AMER,true,false,true
+CON-0369,ACC-1115,Luis Berg,Director of Sales Operations,Analytics Lead,luis.berg@onyxgroup.com,Brazil,AMER,false,true,false
+CON-0370,ACC-1115,Noah Kapoor,Head of Vendor Management,Procurement / Finance,noah.kapoor@onyxgroup.com,Brazil,AMER,true,false,false
+CON-0371,ACC-1116,Diego Rao,Senior Salesforce Admin,Salesforce Admin,diego.rao@tundradigital.com,Canada,AMER,false,true,true
+CON-0372,ACC-1116,Clara Kapoor,Business Analyst,Individual Learner,clara.kapoor@tundradigital.com,Canada,AMER,true,false,true
+CON-0373,ACC-1116,Felix Petrova,RevOps Manager,Analytics Lead,felix.petrova@tundradigital.com,Canada,AMER,false,false,true
+CON-0374,ACC-1117,Marcus Iyer,Business Analyst,Individual Learner,marcus.iyer@halcyoncare.com,Canada,AMER,false,false,true
+CON-0375,ACC-1118,Ben Ahmed,Career Switcher,Individual Learner,ben.ahmed@rivetretail.com,Canada,AMER,false,false,true
+CON-0376,ACC-1118,Lena Whitfield,Head of Analytics,Analytics Lead,lena.whitfield@rivetretail.com,Canada,AMER,false,true,false
+CON-0377,ACC-1118,Ravi Petrova,Training Director,L&D / Enablement Manager,ravi.petrova@rivetretail.com,Canada,AMER,false,true,false
+CON-0378,ACC-1118,Lena Lindqvist,CRM Manager,Salesforce Admin,lena.lindqvist@rivetretail.com,Canada,AMER,false,false,false
+CON-0379,ACC-1118,Omar Lindqvist,Procurement Manager,Procurement / Finance,omar.lindqvist@rivetretail.com,Canada,AMER,true,false,false
+CON-0380,ACC-1119,Mei Lindqvist,Training Director,L&D / Enablement Manager,mei.lindqvist@emberlogistics.com,United States,AMER,false,false,true
+CON-0381,ACC-1119,Omar Tanaka,Career Switcher,Individual Learner,omar.tanaka@emberlogistics.com,United States,AMER,false,false,false
+CON-0382,ACC-1120,Nina Qureshi,Business Analyst,Individual Learner,nina.qureshi@pallascapital.com,United States,AMER,true,true,true
+CON-0383,ACC-1120,Luis Whitfield,CFO,Procurement / Finance,luis.whitfield@pallascapital.com,United States,AMER,false,false,false
+CON-0384,ACC-1121,Marcus Ortega,Career Switcher,Individual Learner,marcus.ortega@embermedia.com,Sweden,EMEA,false,false,true
+CON-0385,ACC-1121,Noah Tanaka,BI Lead,Analytics Lead,noah.tanaka@embermedia.com,Sweden,EMEA,false,false,false
+CON-0386,ACC-1121,Tom Okafor,Business Analyst,Individual Learner,tom.okafor@embermedia.com,Sweden,EMEA,false,false,true
+CON-0387,ACC-1121,Felix Silva,Platform Owner,Salesforce Admin,felix.silva@embermedia.com,Sweden,EMEA,false,false,false
+CON-0388,ACC-1122,Ana Ortega,BI Lead,Analytics Lead,ana.ortega@halcyonfoods.com,Germany,EMEA,false,false,true
+CON-0389,ACC-1122,Diego Chen,RevOps Manager,Analytics Lead,diego.chen@halcyonfoods.com,Germany,EMEA,false,true,true
+CON-0390,ACC-1122,Amara Iyer,People Development Lead,L&D / Enablement Manager,amara.iyer@halcyonfoods.com,Germany,EMEA,true,false,true
+CON-0391,ACC-1122,Zara Berg,Platform Owner,Salesforce Admin,zara.berg@halcyonfoods.com,Germany,EMEA,false,false,true
+CON-0392,ACC-1122,Noah Almeida,Data Analyst,Individual Learner,noah.almeida@halcyonfoods.com,Germany,EMEA,false,false,true
+CON-0393,ACC-1122,Ishaan Diallo,Training Director,L&D / Enablement Manager,ishaan.diallo@halcyonfoods.com,Germany,EMEA,false,false,true
+CON-0394,ACC-1122,Omar Mensah,RevOps Manager,Analytics Lead,omar.mensah@halcyonfoods.com,Germany,EMEA,false,false,false
+CON-0395,ACC-1122,Zara Silva,Salesforce Administrator,Salesforce Admin,zara.silva@halcyonfoods.com,Germany,EMEA,true,false,true
+CON-0396,ACC-1123,Maya Mensah,Senior Salesforce Admin,Salesforce Admin,maya.mensah@halcyontelecom.com,Argentina,LATAM,false,false,true
+CON-0397,ACC-1124,Hannah Marino,Platform Owner,Salesforce Admin,hannah.marino@cobalttechnologies.com,United States,AMER,false,true,true
+CON-0398,ACC-1124,Tom Kovac,Data Analyst,Individual Learner,tom.kovac@cobalttechnologies.com,United States,AMER,false,false,false
+CON-0399,ACC-1124,Tom Iyer,Career Switcher,Individual Learner,tom.iyer@cobalttechnologies.com,United States,AMER,false,false,false
+CON-0400,ACC-1124,Yuki Almeida,Head of Analytics,Analytics Lead,yuki.almeida@cobalttechnologies.com,United States,AMER,false,false,false
+CON-0401,ACC-1125,Tom Chen,Head of Analytics,Analytics Lead,tom.chen@sableworks.com,Germany,EMEA,false,false,false
+CON-0402,ACC-1125,Sana Fischer,Business Analyst,Individual Learner,sana.fischer@sableworks.com,Germany,EMEA,false,false,true
+CON-0403,ACC-1125,Lena Lindqvist,Senior Salesforce Admin,Salesforce Admin,lena.lindqvist@sableworks.com,Germany,EMEA,false,true,false
+CON-0404,ACC-1125,Yuki Ahmed,RevOps Manager,Analytics Lead,yuki.ahmed@sableworks.com,Germany,EMEA,false,false,false
+CON-0405,ACC-1125,Clara Chen,Salesforce Administrator,Salesforce Admin,clara.chen@sableworks.com,Germany,EMEA,false,false,true
+CON-0406,ACC-1126,Clara Rao,Data Analyst,Individual Learner,clara.rao@solsticebank.com,Singapore,APAC,false,false,true
+CON-0407,ACC-1127,Victor Ortega,L&D Manager,L&D / Enablement Manager,victor.ortega@quantamotors.com,Indonesia,APAC,true,false,true
+CON-0408,ACC-1127,Hannah Haddad,Finance Director,Procurement / Finance,hannah.haddad@quantamotors.com,Indonesia,APAC,false,false,true
+CON-0409,ACC-1128,Yuki Rao,Junior Consultant,Individual Learner,yuki.rao@cobalthealth.com,UAE,EMEA,false,false,true
+CON-0410,ACC-1128,Sana Haddad,Business Analyst,Individual Learner,sana.haddad@cobalthealth.com,UAE,EMEA,false,false,false
+CON-0411,ACC-1128,Ben Mensah,Head of Vendor Management,Procurement / Finance,ben.mensah@cobalthealth.com,UAE,EMEA,true,false,true
+CON-0412,ACC-1129,Marcus Fischer,Business Analyst,Individual Learner,marcus.fischer@vertexretail.com,Indonesia,APAC,false,false,true
+CON-0413,ACC-1129,Ben Chen,Procurement Manager,Procurement / Finance,ben.chen@vertexretail.com,Indonesia,APAC,false,false,false
+CON-0414,ACC-1130,Ishaan Haddad,Head of Analytics,Analytics Lead,ishaan.haddad@cobaltconsulting.com,Argentina,LATAM,false,false,true
+CON-0415,ACC-1130,Jonas Haddad,Head of Analytics,Analytics Lead,jonas.haddad@cobaltconsulting.com,Argentina,LATAM,false,true,true
+CON-0416,ACC-1130,Ishaan Diallo,Career Switcher,Individual Learner,ishaan.diallo@cobaltconsulting.com,Argentina,LATAM,false,false,true
+CON-0417,ACC-1131,Elena Berg,CFO,Procurement / Finance,elena.berg@halcyoncapital.com,India,APAC,false,false,true
+CON-0418,ACC-1131,Mei Almeida,Career Switcher,Individual Learner,mei.almeida@halcyoncapital.com,India,APAC,false,false,true
+CON-0419,ACC-1132,Kwame Nair,Data Analyst,Individual Learner,kwame.nair@umbrafoods.com,Mexico,AMER,true,false,true
+CON-0420,ACC-1132,Jonas Nair,Business Analyst,Individual Learner,jonas.nair@umbrafoods.com,Mexico,AMER,false,false,true
+CON-0421,ACC-1132,Tom Kovac,Junior Consultant,Individual Learner,tom.kovac@umbrafoods.com,Mexico,AMER,false,true,true
+CON-0422,ACC-1132,Ben Berg,Junior Consultant,Individual Learner,ben.berg@umbrafoods.com,Mexico,AMER,false,false,false
+CON-0423,ACC-1133,Jonas Haddad,Training Director,L&D / Enablement Manager,jonas.haddad@cindermotors.com,Australia,APAC,true,false,true
+CON-0424,ACC-1133,Marcus Nair,Career Switcher,Individual Learner,marcus.nair@cindermotors.com,Australia,APAC,false,false,false
+CON-0425,ACC-1133,Yuki Iyer,Career Switcher,Individual Learner,yuki.iyer@cindermotors.com,Australia,APAC,false,true,false
+CON-0426,ACC-1133,Aditi Ahmed,Career Switcher,Individual Learner,aditi.ahmed@cindermotors.com,Australia,APAC,false,false,true
+CON-0427,ACC-1133,Ishaan Qureshi,Career Switcher,Individual Learner,ishaan.qureshi@cindermotors.com,Australia,APAC,false,false,true
+CON-0428,ACC-1134,Clara Tanaka,L&D Manager,L&D / Enablement Manager,clara.tanaka@umbratelecom.com,Sweden,EMEA,true,false,true
+CON-0429,ACC-1134,Ben Moreno,CRM Manager,Salesforce Admin,ben.moreno@umbratelecom.com,Sweden,EMEA,false,false,false
+CON-0430,ACC-1135,Marcus Berg,CRM Manager,Salesforce Admin,marcus.berg@cindertelecom.com,Spain,EMEA,false,false,false
+CON-0431,ACC-1135,Sana Hale,Procurement Manager,Procurement / Finance,sana.hale@cindertelecom.com,Spain,EMEA,true,false,false
+CON-0432,ACC-1135,Ana Hale,Data Analyst,Individual Learner,ana.hale@cindertelecom.com,Spain,EMEA,false,true,false
+CON-0433,ACC-1135,Maya Ortega,Junior Consultant,Individual Learner,maya.ortega@cindertelecom.com,Spain,EMEA,false,false,true
+CON-0434,ACC-1136,Lena Lindqvist,Business Analyst,Individual Learner,lena.lindqvist@cobaltinsurance.com,United Kingdom,EMEA,false,false,false
+CON-0435,ACC-1137,Aditi Whitfield,CRM Manager,Salesforce Admin,aditi.whitfield@pallashealth.com,Japan,APAC,false,false,true
+CON-0436,ACC-1137,Noah Lindqvist,Business Analyst,Individual Learner,noah.lindqvist@pallashealth.com,Japan,APAC,false,false,true
+CON-0437,ACC-1137,Priya Ortega,Director of Sales Operations,Analytics Lead,priya.ortega@pallashealth.com,Japan,APAC,false,true,true
+CON-0438,ACC-1137,Noah Silva,Platform Owner,Salesforce Admin,noah.silva@pallashealth.com,Japan,APAC,false,true,false
+CON-0439,ACC-1137,Amara Mensah,Senior Salesforce Admin,Salesforce Admin,amara.mensah@pallashealth.com,Japan,APAC,false,false,false
+CON-0440,ACC-1138,Ravi Okafor,Director of Sales Operations,Analytics Lead,ravi.okafor@northcapital.com,Brazil,AMER,false,false,true
+CON-0441,ACC-1139,Elena Moreno,Data Analyst,Individual Learner,elena.moreno@meridianpharma.com,Brazil,AMER,false,false,true
+CON-0442,ACC-1139,Tom Tanaka,Finance Director,Procurement / Finance,tom.tanaka@meridianpharma.com,Brazil,AMER,false,false,true
+CON-0443,ACC-1139,Sana Kovac,Procurement Manager,Procurement / Finance,sana.kovac@meridianpharma.com,Brazil,AMER,false,false,true
+CON-0444,ACC-1139,Noah Mensah,Platform Owner,Salesforce Admin,noah.mensah@meridianpharma.com,Brazil,AMER,false,false,true

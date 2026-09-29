@@ -1,0 +1,141 @@
+AccountId,AccountName,Segment,Motion,Industry,Country,Region,EmployeeBand,SignupDate,TenureMonths,ARR,HealthScore,IsPayingCustomer,IsLogo,CSMOwnerId,SupportTier,ContractType,RenewalMonth
+ACC-1000,Sable Retail,SMB,Sales-Assisted,Media,Argentina,LATAM,51-200,2024-09-03,25,16700,61,true,false,U-040,Standard,Annual Commit,2026-02
+ACC-1001,Dovetail Bank,Self-Serve,PLG,Retail,United Kingdom,EMEA,1-10,2024-12-11,22,3500,47,true,false,,Community,Monthly Subscription,2026-08
+ACC-1002,Solstice Telecom,SMB,Sales-Assisted,Manufacturing,Indonesia,APAC,51-200,2024-09-26,24,16600,98,true,false,U-039,Standard,Annual Commit,2026-07
+ACC-1003,Kestrel Motors,Self-Serve,PLG,Insurance,Indonesia,APAC,1-10,2026-04-09,6,600,58,true,false,,Community,Monthly Subscription,2025-11
+ACC-1004,Kestrel Pharma,SMB,Sales-Assisted,Healthcare,Germany,EMEA,51-200,2026-02-21,7,14600,43,true,false,U-040,Standard,Annual Commit,2026-07
+ACC-1005,Pallas Digital,Enterprise,Sales-Led,Logistics,Brazil,AMER,1001-5000,2024-09-15,25,79300,89,true,true,U-035,Business,Annual Commit,2026-03
+ACC-1006,Lattice Works,Self-Serve,PLG,Insurance,Canada,AMER,11-50,2025-02-26,19,1600,43,true,false,,Community,Monthly Subscription,2026-02
+ACC-1007,Onyx Insurance,Enterprise,Sales-Led,Healthcare,Japan,APAC,1001-5000,2025-05-19,17,228400,68,true,false,U-040,Business,Monthly,2026-01
+ACC-1008,Wexler Telecom,SMB,Sales-Assisted,Healthcare,United States,AMER,11-50,2025-08-19,14,6200,75,true,false,U-035,Standard,Monthly,2026-08
+ACC-1009,Quanta Bank,Enterprise,Sales-Led,Technology,UAE,EMEA,5000+,2025-03-28,18,158600,78,true,true,U-037,Business,Annual Commit,2026-09
+ACC-1010,North Telecom,Mid-Market,Sales-Led,Manufacturing,UAE,EMEA,201-500,2026-07-24,2,63100,88,true,false,U-035,Standard,Annual Commit,2025-07
+ACC-1011,Harbor Works,SMB,Sales-Assisted,Financial Services,United States,AMER,51-200,2025-04-10,18,11800,47,true,false,U-034,Standard,Annual Commit,2026-03
+ACC-1012,Tundra Energy,Mid-Market,Sales-Led,Insurance,United States,AMER,501-1000,2024-09-06,25,29500,64,true,false,U-037,Standard,Monthly,2026-01
+ACC-1013,Cinder Foods,Self-Serve,PLG,Education,United States,AMER,1-10,2024-07-24,27,0,14,false,false,,Community,Monthly Subscription,2026-09
+ACC-1014,Lumen Technologies,Self-Serve,PLG,Technology,UAE,EMEA,1-10,2025-01-01,21,2500,28,true,false,,Community,Monthly Subscription,2025-06
+ACC-1015,Umbra Consulting,SMB,Sales-Assisted,Insurance,Netherlands,EMEA,51-200,2025-08-06,14,13600,98,true,false,U-038,Standard,Annual Commit,2026-07
+ACC-1016,Tundra Foods,Self-Serve,PLG,Telecom,United States,AMER,11-50,2026-03-20,6,500,93,true,false,,Community,Monthly Subscription,2025-07
+ACC-1017,Dovetail Pharma,Mid-Market,Sales-Led,Media,Brazil,AMER,501-1000,2024-12-17,22,26200,78,true,false,U-036,Standard,Annual Commit,2025-12
+ACC-1018,Vertex Care,Self-Serve,PLG,Technology,Brazil,AMER,1-10,2024-12-01,22,0,58,false,false,,Community,Monthly Subscription,2025-08
+ACC-1019,Tundra Systems,SMB,Sales-Assisted,Insurance,Colombia,LATAM,51-200,2026-07-25,2,10200,81,true,false,U-038,Standard,Annual Commit,2025-05
+ACC-1020,Wexler Health,Self-Serve,PLG,Telecom,Brazil,AMER,1-10,2025-12-28,9,2700,30,true,false,,Community,Monthly Subscription,2025-10
+ACC-1021,Ember Telecom,Self-Serve,PLG,Retail,Mexico,AMER,11-50,2026-05-30,4,0,38,false,false,,Community,Monthly Subscription,2025-11
+ACC-1022,Onyx Health,Mid-Market,Sales-Led,Insurance,Sweden,EMEA,501-1000,2025-10-26,11,39800,80,true,false,U-039,Standard,Annual Commit,2025-08
+ACC-1023,Sable Energy,Strategic,Sales-Led,Financial Services,Germany,EMEA,5000+,2026-04-21,5,701700,63,true,true,U-034,Premier,Annual Commit,2025-04
+ACC-1024,Dovetail Health,SMB,Sales-Assisted,Retail,Spain,EMEA,11-50,2025-01-21,21,12500,93,true,false,U-038,Standard,Monthly,2026-03
+ACC-1025,Ember Bank,Self-Serve,PLG,Technology,Indonesia,APAC,1-10,2025-04-16,18,0,30,false,false,,Community,Monthly Subscription,2026-07
+ACC-1026,Orbital Health,SMB,Sales-Assisted,Logistics,Australia,APAC,11-50,2026-06-21,3,14300,60,true,false,U-037,Standard,Annual Commit,2026-01
+ACC-1027,Quanta Digital,Enterprise,Sales-Led,Insurance,Netherlands,EMEA,1001-5000,2024-11-18,23,255400,60,true,true,U-037,Business,Annual Commit,2026-06
+ACC-1028,Tundra Care,Mid-Market,Sales-Led,Insurance,United Kingdom,EMEA,501-1000,2025-03-28,18,29300,75,true,false,U-036,Standard,Annual Commit,2026-01
+ACC-1029,Umbra Technologies,Self-Serve,PLG,Retail,Mexico,AMER,1-10,2026-05-30,4,0,62,false,false,,Community,Monthly Subscription,2026-07
+ACC-1030,Cobalt Works,Self-Serve,PLG,Public Sector,Indonesia,APAC,1-10,2025-08-18,14,2600,73,true,false,,Community,Monthly Subscription,2026-09
+ACC-1031,Cobalt Telecom,SMB,Sales-Assisted,Retail,Brazil,AMER,11-50,2024-12-13,22,17200,94,true,false,U-036,Standard,Annual Commit,2026-02
+ACC-1032,Tundra Insurance,Self-Serve,PLG,Education,Sweden,EMEA,1-10,2026-04-06,6,1200,42,true,false,,Community,Monthly Subscription,2026-08
+ACC-1033,Umbra Capital,Self-Serve,PLG,Healthcare,Brazil,AMER,1-10,2025-06-10,16,0,75,false,false,,Community,Monthly Subscription,2026-02
+ACC-1034,Sable Bank,Mid-Market,Sales-Led,Consulting / SI,UAE,EMEA,201-500,2025-08-03,14,24200,82,true,false,U-034,Standard,Monthly,2026-06
+ACC-1035,Sable Digital,SMB,Sales-Assisted,Telecom,United Kingdom,EMEA,51-200,2025-03-14,19,14600,76,true,false,U-035,Standard,Annual Commit,2025-06
+ACC-1036,Tundra Media,Self-Serve,PLG,Consulting / SI,Spain,EMEA,11-50,2026-07-13,3,500,41,true,false,,Community,Monthly Subscription,2026-07
+ACC-1037,Sable Insurance,Self-Serve,PLG,Insurance,Canada,AMER,1-10,2026-04-26,5,2800,67,true,false,,Community,Monthly Subscription,2025-04
+ACC-1038,Kestrel Health,Mid-Market,Sales-Led,Financial Services,France,EMEA,501-1000,2025-03-25,18,55600,86,true,false,U-035,Standard,Monthly,2026-07
+ACC-1039,Vantage Retail,Enterprise,Sales-Led,Consulting / SI,Brazil,AMER,5000+,2025-11-20,10,149500,91,true,true,U-034,Business,Monthly,2026-07
+ACC-1040,Rivet Logistics,Self-Serve,PLG,Education,Sweden,EMEA,11-50,2026-02-08,8,0,57,false,false,,Community,Monthly Subscription,2025-12
+ACC-1041,Lumen Bank,Mid-Market,Sales-Led,Education,India,APAC,501-1000,2025-07-08,15,29800,64,true,false,U-036,Standard,Monthly,2025-10
+ACC-1042,Lumen Foods,Strategic,Sales-Led,Education,United Kingdom,EMEA,1001-5000,2025-04-12,18,648900,60,true,true,U-037,Premier,Annual Commit,2026-08
+ACC-1043,Lattice Media,Strategic,Sales-Led,Education,Mexico,AMER,1001-5000,2025-06-06,16,661600,69,true,true,U-040,Premier,Annual Commit,2026-03
+ACC-1044,Umbra Retail,Self-Serve,PLG,Financial Services,Canada,AMER,1-10,2026-05-31,4,0,56,false,false,,Community,Monthly Subscription,2025-06
+ACC-1045,Meridian Technologies,Self-Serve,PLG,Manufacturing,India,APAC,11-50,2025-08-12,14,0,66,false,false,,Community,Monthly Subscription,2025-12
+ACC-1046,Ember Care,Strategic,Sales-Led,Retail,United States,AMER,5000+,2026-05-19,4,555700,89,true,true,U-036,Premier,Monthly,2026-03
+ACC-1047,Foundry Works,SMB,Sales-Assisted,Manufacturing,Indonesia,APAC,51-200,2025-01-27,20,16600,43,true,false,U-036,Standard,Annual Commit,2025-08
+ACC-1048,Lumen Digital,Mid-Market,Sales-Led,Logistics,Australia,APAC,501-1000,2025-02-17,20,38700,90,true,false,U-040,Standard,Annual Commit,2026-05
+ACC-1049,Solstice Insurance,Self-Serve,PLG,Telecom,Spain,EMEA,11-50,2024-05-19,29,0,61,false,false,,Community,Monthly Subscription,2026-06
+ACC-1050,Lattice Digital,SMB,Sales-Assisted,Financial Services,Mexico,AMER,11-50,2024-06-22,28,10300,66,true,false,U-040,Standard,Annual Commit,2025-12
+ACC-1051,Cobalt Pharma,Self-Serve,PLG,Retail,United States,AMER,1-10,2026-07-14,3,1600,79,true,false,,Community,Monthly Subscription,2026-05
+ACC-1052,Vertex Motors,SMB,Sales-Assisted,Logistics,Chile,LATAM,11-50,2024-05-30,28,14600,93,true,false,U-040,Standard,Annual Commit,2025-05
+ACC-1053,Cinder Media,Self-Serve,PLG,Media,Colombia,LATAM,1-10,2025-05-09,17,1300,58,true,false,,Community,Monthly Subscription,2026-01
+ACC-1054,Halcyon Digital,Enterprise,Sales-Led,Insurance,Brazil,AMER,5000+,2025-04-05,18,275900,98,true,true,U-036,Business,Annual Commit,2026-05
+ACC-1055,Foundry Consulting,SMB,Sales-Assisted,Insurance,UAE,EMEA,51-200,2026-01-07,9,12300,49,true,false,U-034,Standard,Annual Commit,2025-08
+ACC-1056,Harbor Media,Self-Serve,PLG,Insurance,France,EMEA,1-10,2024-06-17,28,0,62,false,false,,Community,Monthly Subscription,2025-04
+ACC-1057,Ember Group,SMB,Sales-Assisted,Media,Canada,AMER,11-50,2024-11-09,23,9800,69,true,false,U-040,Standard,Annual Commit,2026-01
+ACC-1058,Wexler Pharma,SMB,Sales-Assisted,Insurance,Mexico,AMER,11-50,2025-08-17,14,6300,78,true,false,U-038,Standard,Monthly,2026-04
+ACC-1059,Orbital Bank,Enterprise,Sales-Led,Logistics,Brazil,AMER,5000+,2026-02-12,8,215300,62,true,true,U-036,Business,Monthly,2025-10
+ACC-1060,Zephyr Health,SMB,Sales-Assisted,Consulting / SI,United States,AMER,51-200,2024-12-02,22,13900,88,true,false,U-034,Standard,Monthly,2025-10
+ACC-1061,Rivet Media,Mid-Market,Sales-Led,Education,United States,AMER,501-1000,2025-02-02,20,70100,70,true,false,U-039,Standard,Monthly,2025-12
+ACC-1062,Halcyon Works,SMB,Sales-Assisted,Retail,Sweden,EMEA,51-200,2025-06-18,16,14200,86,true,false,U-037,Standard,Annual Commit,2025-04
+ACC-1063,Vertex Pharma,Self-Serve,PLG,Insurance,Brazil,AMER,1-10,2025-09-27,12,0,52,false,false,,Community,Monthly Subscription,2025-11
+ACC-1064,North Digital,Mid-Market,Sales-Led,Telecom,UAE,EMEA,201-500,2024-08-09,26,70900,60,true,false,U-035,Standard,Annual Commit,2026-03
+ACC-1065,Halcyon Media,SMB,Sales-Assisted,Public Sector,Canada,AMER,11-50,2025-01-19,21,14300,87,true,false,U-036,Standard,Annual Commit,2025-09
+ACC-1066,Vertex Telecom,Self-Serve,PLG,Retail,Spain,EMEA,11-50,2024-09-22,25,800,55,true,false,,Community,Monthly Subscription,2025-04
+ACC-1067,Dovetail Energy,Strategic,Sales-Led,Logistics,Netherlands,EMEA,5000+,2024-11-03,23,665700,90,true,false,U-037,Premier,Monthly,2025-12
+ACC-1068,Quanta Works,Self-Serve,PLG,Telecom,Netherlands,EMEA,1-10,2026-05-02,5,0,45,false,false,,Community,Monthly Subscription,2025-12
+ACC-1069,Solstice Logistics,Self-Serve,PLG,Education,Brazil,AMER,1-10,2025-10-25,11,0,47,false,false,,Community,Monthly Subscription,2025-06
+ACC-1070,Tundra Capital,SMB,Sales-Assisted,Education,Spain,EMEA,11-50,2025-09-10,13,14100,73,true,false,U-038,Standard,Annual Commit,2026-02
+ACC-1071,Vertex Media,Mid-Market,Sales-Led,Technology,Canada,AMER,201-500,2026-01-26,8,26500,79,true,false,U-035,Standard,Annual Commit,2025-04
+ACC-1072,Dovetail Works,SMB,Sales-Assisted,Public Sector,India,APAC,51-200,2026-05-27,4,15900,42,true,false,U-035,Standard,Monthly,2025-12
+ACC-1073,Onyx Works,Enterprise,Sales-Led,Financial Services,Spain,EMEA,5000+,2024-12-08,22,113900,44,true,false,U-040,Business,Annual Commit,2025-08
+ACC-1074,Aster Works,Strategic,Sales-Led,Logistics,Netherlands,EMEA,1001-5000,2025-01-25,20,847200,80,true,true,U-035,Premier,Annual Commit,2025-12
+ACC-1075,Onyx Logistics,Strategic,Sales-Led,Consulting / SI,Sweden,EMEA,5000+,2025-04-10,18,921300,25,true,false,U-040,Premier,Annual Commit,2025-11
+ACC-1076,Dovetail Foods,Self-Serve,PLG,Telecom,United States,AMER,11-50,2025-01-10,21,800,69,true,false,,Community,Monthly Subscription,2026-04
+ACC-1077,Vantage Capital,Mid-Market,Sales-Led,Telecom,Canada,AMER,201-500,2024-08-04,26,52000,98,true,false,U-034,Standard,Annual Commit,2025-08
+ACC-1078,Ember Pharma,SMB,Sales-Assisted,Financial Services,France,EMEA,51-200,2026-04-10,6,13700,83,true,false,U-034,Standard,Annual Commit,2025-08
+ACC-1079,Umbra Care,Self-Serve,PLG,Retail,Canada,AMER,1-10,2025-05-07,17,0,41,false,false,,Community,Monthly Subscription,2025-07
+ACC-1080,Quanta Care,Mid-Market,Sales-Led,Healthcare,UAE,EMEA,501-1000,2025-12-14,10,59200,56,true,false,U-035,Standard,Annual Commit,2026-07
+ACC-1081,Solstice Retail,Mid-Market,Sales-Led,Telecom,United States,AMER,501-1000,2025-07-14,15,38700,62,true,false,U-036,Standard,Monthly,2025-10
+ACC-1082,Solstice Care,Enterprise,Sales-Led,Retail,Indonesia,APAC,1001-5000,2024-08-04,26,92700,95,true,true,U-039,Business,Annual Commit,2025-10
+ACC-1083,Zephyr Energy,Self-Serve,PLG,Manufacturing,UAE,EMEA,11-50,2026-05-07,5,0,52,false,false,,Community,Monthly Subscription,2025-10
+ACC-1084,Zephyr Care,SMB,Sales-Assisted,Manufacturing,United States,AMER,51-200,2025-11-20,10,16900,71,true,false,U-039,Standard,Annual Commit,2026-03
+ACC-1085,Zephyr Consulting,SMB,Sales-Assisted,Retail,Germany,EMEA,51-200,2026-04-02,6,11700,86,true,false,U-037,Standard,Monthly,2025-07
+ACC-1086,Lumen Motors,Strategic,Sales-Led,Media,Brazil,AMER,1001-5000,2024-10-11,24,455400,52,true,true,U-035,Premier,Annual Commit,2026-06
+ACC-1087,Harbor Insurance,SMB,Sales-Assisted,Insurance,Indonesia,APAC,11-50,2026-05-21,4,14500,98,true,false,U-037,Standard,Annual Commit,2025-09
+ACC-1088,Beacon Works,SMB,Sales-Assisted,Financial Services,Australia,APAC,51-200,2024-12-10,22,10600,32,true,false,U-034,Standard,Annual Commit,2026-08
+ACC-1089,Kestrel Group,SMB,Sales-Assisted,Insurance,Canada,AMER,11-50,2025-06-20,16,11900,40,true,false,U-036,Standard,Monthly,2026-01
+ACC-1090,Pallas Bank,SMB,Sales-Assisted,Financial Services,United States,AMER,11-50,2025-09-30,12,14200,72,true,false,U-034,Standard,Monthly,2026-05
+ACC-1091,Vertex Technologies,Self-Serve,PLG,Manufacturing,Indonesia,APAC,11-50,2025-04-11,18,0,47,false,false,,Community,Monthly Subscription,2025-04
+ACC-1092,Lattice Capital,SMB,Sales-Assisted,Telecom,Canada,AMER,11-50,2024-10-02,24,13000,78,true,false,U-038,Standard,Monthly,2026-05
+ACC-1093,Rivet Technologies,Enterprise,Sales-Led,Telecom,United States,AMER,1001-5000,2024-10-12,24,156100,62,true,true,U-037,Business,Annual Commit,2026-06
+ACC-1094,Solstice Foods,Self-Serve,PLG,Healthcare,Canada,AMER,1-10,2024-05-13,29,0,68,false,false,,Community,Monthly Subscription,2025-12
+ACC-1095,Halcyon Bank,Enterprise,Sales-Led,Manufacturing,Singapore,APAC,1001-5000,2026-02-02,8,208800,83,true,true,U-040,Business,Annual Commit,2025-05
+ACC-1096,Vertex Group,Mid-Market,Sales-Led,Education,France,EMEA,201-500,2026-03-30,6,63000,51,true,false,U-038,Standard,Annual Commit,2026-04
+ACC-1097,Aster Retail,SMB,Sales-Assisted,Healthcare,Germany,EMEA,51-200,2026-01-06,9,5100,58,true,false,U-036,Standard,Annual Commit,2026-08
+ACC-1098,Juniper Care,Mid-Market,Sales-Led,Financial Services,Singapore,APAC,501-1000,2026-06-28,3,59800,76,true,false,U-038,Standard,Annual Commit,2026-09
+ACC-1099,Orbital Capital,Self-Serve,PLG,Public Sector,Japan,APAC,11-50,2025-06-12,16,3500,65,true,false,,Community,Monthly Subscription,2025-08
+ACC-1100,Solstice Health,Mid-Market,Sales-Led,Financial Services,Brazil,AMER,201-500,2024-05-03,29,19900,93,true,false,U-037,Standard,Annual Commit,2025-04
+ACC-1101,North Energy,SMB,Sales-Assisted,Manufacturing,Spain,EMEA,11-50,2024-08-26,26,15600,61,true,false,U-040,Standard,Annual Commit,2026-02
+ACC-1102,Cinder Retail,Mid-Market,Sales-Led,Education,Germany,EMEA,501-1000,2025-08-07,14,51100,70,true,false,U-035,Standard,Monthly,2026-07
+ACC-1103,Meridian Group,Enterprise,Sales-Led,Consulting / SI,United Kingdom,EMEA,1001-5000,2026-05-20,4,144000,75,true,true,U-036,Business,Annual Commit,2025-08
+ACC-1104,Rivet Partners,Self-Serve,PLG,Retail,Brazil,AMER,11-50,2026-04-08,6,3400,64,true,false,,Community,Monthly Subscription,2025-07
+ACC-1105,Wexler Logistics,Self-Serve,PLG,Public Sector,India,APAC,1-10,2025-01-20,21,800,60,true,false,,Community,Monthly Subscription,2025-10
+ACC-1106,Aster Media,SMB,Sales-Assisted,Insurance,UAE,EMEA,51-200,2024-05-30,28,12500,89,true,false,U-037,Standard,Annual Commit,2026-07
+ACC-1107,Beacon Logistics,Mid-Market,Sales-Led,Consulting / SI,United States,AMER,501-1000,2024-11-04,23,22000,88,true,false,U-039,Standard,Annual Commit,2025-12
+ACC-1108,Aster Bank,Self-Serve,PLG,Manufacturing,Brazil,AMER,11-50,2026-05-19,4,1500,72,true,false,,Community,Monthly Subscription,2025-09
+ACC-1109,Lumen Retail,Self-Serve,PLG,Logistics,Canada,AMER,11-50,2024-05-12,29,0,54,false,false,,Community,Monthly Subscription,2026-09
+ACC-1110,Meridian Health,Enterprise,Sales-Led,Technology,UAE,EMEA,5000+,2025-05-28,16,257500,69,true,false,U-039,Business,Annual Commit,2026-05
+ACC-1111,Pallas Systems,Self-Serve,PLG,Consulting / SI,Canada,AMER,11-50,2025-12-23,9,0,92,false,false,,Community,Monthly Subscription,2025-07
+ACC-1112,Cobalt Bank,Mid-Market,Sales-Led,Financial Services,Argentina,LATAM,201-500,2024-06-24,28,64200,43,true,false,U-039,Standard,Annual Commit,2025-10
+ACC-1113,Rivet Telecom,Mid-Market,Sales-Led,Insurance,Argentina,LATAM,501-1000,2025-06-28,15,49100,51,true,false,U-035,Standard,Monthly,2025-12
+ACC-1114,Quanta Systems,Strategic,Sales-Led,Telecom,Brazil,AMER,1001-5000,2026-06-23,3,1081900,68,true,true,U-039,Premier,Annual Commit,2026-04
+ACC-1115,Onyx Group,SMB,Sales-Assisted,Public Sector,Brazil,AMER,11-50,2025-12-20,9,4100,68,true,false,U-039,Standard,Annual Commit,2026-04
+ACC-1116,Tundra Digital,Enterprise,Sales-Led,Public Sector,Canada,AMER,5000+,2024-05-23,29,185000,72,true,true,U-039,Business,Monthly,2026-04
+ACC-1117,Halcyon Care,Self-Serve,PLG,Financial Services,Canada,AMER,11-50,2026-04-02,6,0,54,false,false,,Community,Monthly Subscription,2025-11
+ACC-1118,Rivet Retail,Strategic,Sales-Led,Education,Canada,AMER,5000+,2025-01-11,21,447900,60,true,true,U-038,Premier,Annual Commit,2026-09
+ACC-1119,Ember Logistics,Enterprise,Sales-Led,Retail,United States,AMER,1001-5000,2024-10-10,24,270400,55,true,true,U-036,Business,Annual Commit,2026-08
+ACC-1120,Pallas Capital,Mid-Market,Sales-Led,Media,United States,AMER,201-500,2025-03-31,18,49300,75,true,false,U-040,Standard,Monthly,2026-02
+ACC-1121,Ember Media,SMB,Sales-Assisted,Manufacturing,Sweden,EMEA,11-50,2025-05-13,17,10500,73,true,false,U-040,Standard,Monthly,2025-07
+ACC-1122,Halcyon Foods,Strategic,Sales-Led,Telecom,Germany,EMEA,5000+,2025-07-18,15,542300,98,true,false,U-034,Premier,Annual Commit,2026-05
+ACC-1123,Halcyon Telecom,Self-Serve,PLG,Insurance,Argentina,LATAM,1-10,2024-08-25,26,0,59,false,false,,Community,Monthly Subscription,2026-09
+ACC-1124,Cobalt Technologies,Mid-Market,Sales-Led,Insurance,United States,AMER,201-500,2024-07-01,27,16300,86,true,false,U-038,Standard,Annual Commit,2025-05
+ACC-1125,Sable Works,Strategic,Sales-Led,Media,Germany,EMEA,1001-5000,2026-06-09,4,550800,71,true,true,U-038,Premier,Annual Commit,2025-12
+ACC-1126,Solstice Bank,Self-Serve,PLG,Telecom,Singapore,APAC,1-10,2026-06-22,3,2200,80,true,false,,Community,Monthly Subscription,2026-08
+ACC-1127,Quanta Motors,SMB,Sales-Assisted,Telecom,Indonesia,APAC,51-200,2025-02-10,20,4100,83,true,false,U-034,Standard,Monthly,2026-02
+ACC-1128,Cobalt Health,Mid-Market,Sales-Led,Logistics,UAE,EMEA,501-1000,2026-03-25,6,50800,98,true,false,U-037,Standard,Annual Commit,2026-02
+ACC-1129,Vertex Retail,Self-Serve,PLG,Technology,Indonesia,APAC,11-50,2026-03-04,7,2500,63,true,false,,Community,Monthly Subscription,2025-09
+ACC-1130,Cobalt Consulting,SMB,Sales-Assisted,Education,Argentina,LATAM,11-50,2024-07-06,27,15800,62,true,false,U-036,Standard,Annual Commit,2026-05
+ACC-1131,Halcyon Capital,Self-Serve,PLG,Financial Services,India,APAC,11-50,2024-11-18,23,0,76,false,false,,Community,Monthly Subscription,2025-10
+ACC-1132,Umbra Foods,SMB,Sales-Assisted,Financial Services,Mexico,AMER,11-50,2026-08-04,2,12200,65,true,false,U-038,Standard,Monthly,2025-11
+ACC-1133,Cinder Motors,Mid-Market,Sales-Led,Retail,Australia,APAC,501-1000,2025-03-21,19,71700,41,true,false,U-037,Standard,Annual Commit,2026-07
+ACC-1134,Umbra Telecom,SMB,Sales-Assisted,Telecom,Sweden,EMEA,11-50,2024-12-26,21,12900,72,true,false,U-038,Standard,Monthly,2026-02
+ACC-1135,Cinder Telecom,Enterprise,Sales-Led,Media,Spain,EMEA,5000+,2026-04-08,6,174000,60,true,false,U-039,Business,Annual Commit,2026-07
+ACC-1136,Cobalt Insurance,Self-Serve,PLG,Telecom,United Kingdom,EMEA,11-50,2025-04-14,18,0,50,false,false,,Community,Monthly Subscription,2025-09
+ACC-1137,Pallas Health,Mid-Market,Sales-Led,Manufacturing,Japan,APAC,501-1000,2025-02-01,20,59800,81,true,false,U-034,Standard,Annual Commit,2026-04
+ACC-1138,North Capital,Self-Serve,PLG,Public Sector,Brazil,AMER,11-50,2025-02-28,19,1600,38,true,false,,Community,Monthly Subscription,2025-10
+ACC-1139,Meridian Pharma,Enterprise,Sales-Led,Media,Brazil,AMER,5000+,2025-04-14,18,157300,96,true,true,U-034,Business,Monthly,2026-04

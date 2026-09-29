@@ -33,7 +33,7 @@ const lessonCount = computed(() =>
 
 const stats = computed(() => [
   { icon: 'i-lucide-book-open', value: String(lessonCount.value), label: t('home.stats.lessons') },
-  { icon: 'i-lucide-layout-dashboard', value: '16', label: t('home.stats.video') },
+  { icon: 'i-lucide-layout-dashboard', value: '17', label: t('home.stats.video') },
   { icon: 'i-lucide-badge-check', value: '100%', label: t('home.stats.free') }
 ])
 

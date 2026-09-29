@@ -21,7 +21,7 @@ defineOgImage('Docs', { title, description })
 const programmes = [
   { key: 'CRM Analytics Foundations (5 days)', title: 'Foundations', days: 5, icon: 'i-lucide-blocks', level: 'Beginner', price: '$1,450', blurb: 'Access and security, data prep, datasets and grain, your first lens and dashboard.' },
   { key: 'Dashboards & SAQL (5 days)', title: 'Dashboards & SAQL', days: 5, icon: 'i-lucide-code-xml', level: 'Intermediate', price: '$1,650', blurb: 'Dashboard design, interactions, bindings, SAQL and the dashboard JSON underneath.' },
-  { key: 'Go-to-Market Analytics (10 days)', title: 'Go-to-Market Analytics', days: 10, icon: 'i-lucide-trending-up', level: 'Advanced', price: '$2,900', blurb: 'Sixteen revenue dashboards — demand, pipeline, retention — built on one company\'s data.' },
+  { key: 'Go-to-Market Analytics (10 days)', title: 'Go-to-Market Analytics', days: 10, icon: 'i-lucide-trending-up', level: 'Advanced', price: '$2,900', blurb: 'Seventeen revenue dashboards — demand, pipeline, retention — built on one company\'s data.' },
   { key: 'Certification bootcamp (3 days)', title: 'Certification bootcamp', days: 3, icon: 'i-lucide-award', level: 'Exam prep', price: '$890', blurb: 'The Consultant exam outline, timed practice and a review of every weak area.' }
 ]
 

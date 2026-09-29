@@ -21,7 +21,7 @@ const columns = [
     ring: 'ring-success/20',
     items: [
       'Nineteen sections and 161 lessons, rewritten end to end',
-      'Sixteen go-to-market builds on one company\u2019s data',
+      'Seventeen go-to-market builds on the Academy\u2019s own business data',
       'Screen walkthroughs on every hands-on lesson',
       'Downloadable practice datasets, with the true totals published'
     ]

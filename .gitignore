@@ -65,8 +65,8 @@ salesforce/node_modules/
 # Retrieved org metadata is NOT committed wholesale. A freshly provisioned CRM
 # Analytics dev org ships ~27 Salesforce sample dashboards (Larry's Laptop
 # Emporium, The Motivator, the Trailhead samples); committing those to a public
-# repo redistributes Salesforce's content and buries the Namilio builds this
+# repo redistributes Salesforce's content and buries the Academy builds this
 # course is actually about. Retrieve freely, commit deliberately:
 #   pnpm org:pull      # refresh the local mirror
-#   git add -f salesforce/force-app/main/default/wave/Namilio_*.wdash
+#   git add -f salesforce/force-app/main/default/wave/Academy_*.wdash
 salesforce/force-app/main/default/wave/

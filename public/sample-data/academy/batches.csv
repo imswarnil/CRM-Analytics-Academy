@@ -1,0 +1,183 @@
+BatchId,CenterId,City,Region,ProgrammeCode,Programme,StartDate,EndDate,Days,Instructor,Capacity,SeatsSold,SeatsAttended,Completed,CertPassed,UtilizationPct,Revenue,Status,AvgCSAT
+BAT-5001,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-04-01,2025-04-06,5,Marcus Tanaka,32,25,23,19,4,78.1,18470,Completed,4.08
+BAT-5002,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-04-17,2025-04-22,5,Sofia Shaw,32,15,14,11,4,46.9,10890,Completed,4.38
+BAT-5003,CTR-BLR,Bengaluru,APAC,DSQ,Dashboards & SAQL,2025-05-10,2025-05-15,5,Hannah Qureshi,32,22,20,18,9,68.8,17836,Completed,4.15
+BAT-5004,CTR-BLR,Bengaluru,APAC,GTM,Go-to-Market Analytics,2025-06-02,2025-06-16,10,Tom Diallo,32,22,22,17,0,68.8,31903,Completed,4.58
+BAT-5005,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-06-20,2025-06-25,5,Tom Diallo,32,16,14,13,5,50,11328,Completed,4.56
+BAT-5006,CTR-BLR,Bengaluru,APAC,DSQ,Dashboards & SAQL,2025-07-04,2025-07-09,5,Sofia Shaw,32,29,27,25,5,90.6,24512,Completed,4.5
+BAT-5007,CTR-BLR,Bengaluru,APAC,DSQ,Dashboards & SAQL,2025-07-20,2025-07-25,5,Hannah Qureshi,32,21,20,16,2,65.6,16427,Completed,4.3
+BAT-5008,CTR-BLR,Bengaluru,APAC,CERT,Certification Bootcamp,2025-08-04,2025-08-07,3,Marcus Tanaka,32,23,22,20,15,71.9,10214,Completed,4.25
+BAT-5009,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-08-16,2025-08-21,5,Hannah Qureshi,32,25,23,22,3,78.1,17710,Completed,4.38
+BAT-5010,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-08-31,2025-09-05,5,Ishaan Diallo,32,26,26,20,7,81.3,18468,Completed,3.92
+BAT-5011,CTR-BLR,Bengaluru,APAC,GTM,Go-to-Market Analytics,2025-09-17,2025-10-01,10,Sofia Shaw,32,10,9,6,1,31.3,14596,Completed,4.67
+BAT-5012,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-10-06,2025-10-11,5,Hannah Qureshi,32,24,24,20,5,75,16672,Completed,4.54
+BAT-5013,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-10-29,2025-11-03,5,Tom Diallo,32,20,20,14,3,62.5,14600,Completed,4.3
+BAT-5014,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-11-18,2025-11-23,5,Yuki Iyer,32,23,21,17,5,71.9,16434,Completed,4.55
+BAT-5015,CTR-BLR,Bengaluru,APAC,DSQ,Dashboards & SAQL,2025-11-30,2025-12-05,5,Ishaan Diallo,32,28,28,23,6,87.5,23055,Completed,4
+BAT-5016,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2025-12-23,2025-12-28,5,Aditi Chen,32,13,12,7,0,40.6,9374,Completed,4.6
+BAT-5017,CTR-BLR,Bengaluru,APAC,GTM,Go-to-Market Analytics,2026-01-04,2026-01-18,10,Ravi Ahmed,32,19,17,15,5,59.4,26240,Completed,4
+BAT-5018,CTR-BLR,Bengaluru,APAC,DSQ,Dashboards & SAQL,2026-01-26,2026-01-31,5,Aditi Chen,32,25,24,23,6,78.1,20469,Completed,4
+BAT-5019,CTR-BLR,Bengaluru,APAC,CERT,Certification Bootcamp,2026-02-07,2026-02-10,3,Hannah Qureshi,32,32,31,26,21,100,14257,Completed,3.67
+BAT-5020,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-02-24,2026-03-01,5,Aditi Whitfield,32,32,29,28,6,100,22496,Completed,4.47
+BAT-5021,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-03-20,2026-03-25,5,Aditi Chen,32,29,27,22,4,90.6,20942,Completed,4.29
+BAT-5022,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-04-08,2026-04-13,5,Marcus Tanaka,32,23,20,18,2,71.9,16074,Completed,4.45
+BAT-5023,CTR-BLR,Bengaluru,APAC,DSQ,Dashboards & SAQL,2026-04-23,2026-04-28,5,Marcus Tanaka,32,26,24,21,3,81.3,21060,Completed,4.21
+BAT-5024,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-05-10,2026-05-15,5,Aditi Chen,32,27,24,24,7,84.4,19266,Completed,4.33
+BAT-5025,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-05-30,2026-06-04,5,Yuki Iyer,32,29,28,24,5,90.6,20302,Completed,4.24
+BAT-5026,CTR-BLR,Bengaluru,APAC,DSQ,Dashboards & SAQL,2026-06-12,2026-06-17,5,Ishaan Diallo,32,32,30,28,9,100,25412,Completed,4
+BAT-5027,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-07-04,2026-07-09,5,Marcus Tanaka,32,32,31,27,5,100,22696,Completed,4.39
+BAT-5028,CTR-BLR,Bengaluru,APAC,GTM,Go-to-Market Analytics,2026-07-16,2026-07-30,10,Ravi Ahmed,32,32,29,18,3,100,47059,Completed,4
+BAT-5029,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-08-02,2026-08-07,5,Tom Diallo,32,24,22,19,2,75,17552,Completed,4.3
+BAT-5030,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-08-22,2026-08-27,5,Sofia Shaw,32,26,25,22,5,81.3,18588,Completed,3.76
+BAT-5031,CTR-BLR,Bengaluru,APAC,FND,CRM Analytics Foundations,2026-09-10,2026-09-15,5,Ravi Ahmed,32,26,23,20,5,81.3,18628,Completed,4.4
+BAT-5032,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2025-04-01,2025-04-06,5,Tom Diallo,24,12,12,9,1,50,8776,Completed,4.63
+BAT-5033,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2025-04-21,2025-04-26,5,Hannah Qureshi,24,20,18,16,3,83.3,14080,Completed,4.3
+BAT-5034,CTR-PNQ,Pune,APAC,CERT,Certification Bootcamp,2025-05-10,2025-05-13,3,Aditi Whitfield,24,11,9,9,6,45.8,4728,Completed,4.5
+BAT-5035,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2025-05-31,2025-06-05,5,Yuki Iyer,24,19,17,15,5,79.2,15248,Completed,4.2
+BAT-5036,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2025-06-12,2025-06-17,5,Aditi Whitfield,24,15,15,14,3,62.5,12162,Completed,4.25
+BAT-5037,CTR-PNQ,Pune,APAC,GTM,Go-to-Market Analytics,2025-06-28,2025-07-12,10,Yuki Iyer,24,21,20,11,6,87.5,30229,Completed,4.43
+BAT-5038,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2025-07-13,2025-07-18,5,Ishaan Diallo,24,11,10,9,1,45.8,7618,Completed,4.43
+BAT-5039,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2025-07-25,2025-07-30,5,Ravi Ahmed,24,10,10,9,1,41.7,7340,Completed,4.43
+BAT-5040,CTR-PNQ,Pune,APAC,GTM,Go-to-Market Analytics,2025-08-12,2025-08-26,10,Aditi Whitfield,24,15,15,8,0,62.5,21776,Completed,4.13
+BAT-5041,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2025-08-29,2025-09-03,5,Yuki Iyer,24,21,20,15,4,87.5,17065,Completed,4.45
+BAT-5042,CTR-PNQ,Pune,APAC,GTM,Go-to-Market Analytics,2025-09-21,2025-10-05,10,Sofia Shaw,24,19,17,12,4,79.2,27597,Completed,4.2
+BAT-5043,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2025-10-10,2025-10-15,5,Aditi Chen,24,19,16,13,1,79.2,13762,Completed,4.27
+BAT-5044,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2025-10-24,2025-10-29,5,Hannah Qureshi,24,15,15,12,5,62.5,10770,Completed,4.22
+BAT-5045,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2025-11-16,2025-11-21,5,Aditi Chen,24,14,14,12,1,58.3,11620,Completed,4.56
+BAT-5046,CTR-PNQ,Pune,APAC,GTM,Go-to-Market Analytics,2025-11-29,2025-12-13,10,Hannah Qureshi,24,16,14,12,4,66.7,23289,Completed,4
+BAT-5047,CTR-PNQ,Pune,APAC,CERT,Certification Bootcamp,2025-12-23,2025-12-26,3,Hannah Qureshi,24,11,10,9,8,45.8,4802,Completed,4.13
+BAT-5048,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2026-01-06,2026-01-11,5,Yuki Iyer,24,11,11,9,2,45.8,7378,Completed,4.13
+BAT-5049,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2026-01-24,2026-01-29,5,Sofia Shaw,24,11,11,7,2,45.8,9078,Completed,3.8
+BAT-5050,CTR-PNQ,Pune,APAC,CERT,Certification Bootcamp,2026-02-14,2026-02-17,3,Yuki Iyer,24,16,16,15,7,66.7,7005,Completed,4.09
+BAT-5051,CTR-PNQ,Pune,APAC,CERT,Certification Bootcamp,2026-03-05,2026-03-08,3,Marcus Tanaka,24,21,21,19,11,87.5,9185,Completed,4.17
+BAT-5052,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2026-03-19,2026-03-24,5,Tom Diallo,24,19,18,13,4,79.2,14282,Completed,4.29
+BAT-5053,CTR-PNQ,Pune,APAC,GTM,Go-to-Market Analytics,2026-04-04,2026-04-18,10,Sofia Shaw,24,14,12,11,0,58.3,20419,Completed,4.13
+BAT-5054,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2026-04-28,2026-05-03,5,Ishaan Diallo,24,18,18,15,5,75,14706,Completed,4.56
+BAT-5055,CTR-PNQ,Pune,APAC,CERT,Certification Bootcamp,2026-05-15,2026-05-18,3,Aditi Chen,24,20,20,18,14,83.3,9064,Completed,4.08
+BAT-5056,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2026-05-28,2026-06-02,5,Aditi Whitfield,24,18,16,16,5,75,14933,Completed,4.25
+BAT-5057,CTR-PNQ,Pune,APAC,GTM,Go-to-Market Analytics,2026-06-21,2026-07-05,10,Aditi Chen,24,24,21,15,0,100,34856,Completed,4.44
+BAT-5058,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2026-07-05,2026-07-10,5,Ishaan Diallo,24,9,8,8,4,37.5,7307,Completed,4.25
+BAT-5059,CTR-PNQ,Pune,APAC,CERT,Certification Bootcamp,2026-07-24,2026-07-27,3,Aditi Whitfield,24,20,18,17,14,83.3,8942,Completed,4.43
+BAT-5060,CTR-PNQ,Pune,APAC,CERT,Certification Bootcamp,2026-08-10,2026-08-13,3,Yuki Iyer,24,13,12,11,10,54.2,5536,Completed,4
+BAT-5061,CTR-PNQ,Pune,APAC,FND,CRM Analytics Foundations,2026-08-28,2026-09-02,5,Sofia Shaw,24,16,15,11,4,66.7,11448,Completed,3.78
+BAT-5062,CTR-PNQ,Pune,APAC,DSQ,Dashboards & SAQL,2026-09-13,2026-09-18,5,Ishaan Diallo,24,17,17,16,2,70.8,13887,Completed,4.5
+BAT-5063,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-04-01,2025-04-06,5,Hannah Qureshi,28,16,14,12,2,57.1,11648,Completed,4.33
+BAT-5064,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-04-14,2025-04-19,5,Aditi Chen,28,17,17,15,4,60.7,12046,Completed,4.42
+BAT-5065,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-04-29,2025-05-04,5,Ravi Ahmed,28,13,10,10,3,46.4,9294,Completed,4.38
+BAT-5066,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-05-14,2025-05-19,5,Ravi Ahmed,28,13,13,10,3,46.4,9534,Completed,3.89
+BAT-5067,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-06-01,2025-06-06,5,Tom Diallo,28,24,24,20,8,85.7,17112,Completed,4.21
+BAT-5068,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-06-14,2025-06-19,5,Tom Diallo,28,15,13,12,4,53.6,10770,Completed,4.56
+BAT-5069,CTR-HYD,Hyderabad,APAC,DSQ,Dashboards & SAQL,2025-07-02,2025-07-07,5,Aditi Chen,28,11,10,6,2,39.3,8986,Completed,4
+BAT-5070,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-07-14,2025-07-19,5,Marcus Tanaka,28,14,12,12,4,50,10092,Completed,4.22
+BAT-5071,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-08-03,2025-08-08,5,Hannah Qureshi,28,14,14,10,2,50,9572,Completed,3.86
+BAT-5072,CTR-HYD,Hyderabad,APAC,GTM,Go-to-Market Analytics,2025-08-17,2025-08-31,10,Ishaan Diallo,28,19,18,15,3,67.9,27757,Completed,4.17
+BAT-5073,CTR-HYD,Hyderabad,APAC,DSQ,Dashboards & SAQL,2025-09-07,2025-09-12,5,Aditi Whitfield,28,18,15,12,2,64.3,14387,Completed,3.88
+BAT-5074,CTR-HYD,Hyderabad,APAC,DSQ,Dashboards & SAQL,2025-09-22,2025-09-27,5,Sofia Shaw,28,16,16,13,2,57.1,12388,Completed,3.82
+BAT-5075,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-10-05,2025-10-10,5,Marcus Tanaka,28,20,20,18,3,71.4,14120,Completed,4.38
+BAT-5076,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-10-25,2025-10-30,5,Ishaan Diallo,28,10,8,5,1,35.7,7340,Completed,4
+BAT-5077,CTR-HYD,Hyderabad,APAC,CERT,Certification Bootcamp,2025-11-10,2025-11-13,3,Aditi Whitfield,28,17,15,14,7,60.7,7593,Completed,4.25
+BAT-5078,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2025-11-28,2025-12-03,5,Ishaan Diallo,28,3,2,1,0,10.7,1874,Completed,4
+BAT-5079,CTR-HYD,Hyderabad,APAC,DSQ,Dashboards & SAQL,2025-12-18,2025-12-23,5,Hannah Qureshi,28,25,23,19,5,89.3,19834,Completed,4.64
+BAT-5080,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2026-01-01,2026-01-06,5,Marcus Tanaka,28,25,21,19,3,89.3,18230,Completed,4.31
+BAT-5081,CTR-HYD,Hyderabad,APAC,DSQ,Dashboards & SAQL,2026-01-19,2026-01-24,5,Marcus Tanaka,28,17,17,13,3,60.7,14071,Completed,4.73
+BAT-5082,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2026-02-02,2026-02-07,5,Ravi Ahmed,28,23,22,19,3,82.1,16954,Completed,4.4
+BAT-5083,CTR-HYD,Hyderabad,APAC,CERT,Certification Bootcamp,2026-02-22,2026-02-25,3,Tom Diallo,28,12,12,12,8,42.9,5339,Completed,4
+BAT-5084,CTR-HYD,Hyderabad,APAC,DSQ,Dashboards & SAQL,2026-03-08,2026-03-13,5,Marcus Tanaka,28,25,24,19,2,89.3,20649,Completed,4.5
+BAT-5085,CTR-HYD,Hyderabad,APAC,GTM,Go-to-Market Analytics,2026-03-22,2026-04-05,10,Sofia Shaw,28,28,28,20,3,100,40122,Completed,4.23
+BAT-5086,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2026-04-06,2026-04-11,5,Ravi Ahmed,28,12,9,8,0,42.9,8496,Completed,4.33
+BAT-5087,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2026-04-18,2026-04-23,5,Sofia Shaw,28,18,15,14,1,64.3,13004,Completed,4.25
+BAT-5088,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2026-05-03,2026-05-08,5,Yuki Iyer,28,11,10,10,1,39.3,7658,Completed,4.63
+BAT-5089,CTR-HYD,Hyderabad,APAC,CERT,Certification Bootcamp,2026-05-27,2026-05-30,3,Ravi Ahmed,28,16,15,15,12,57.1,7151,Completed,4.1
+BAT-5090,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2026-06-20,2026-06-25,5,Aditi Whitfield,28,20,17,17,6,71.4,14280,Completed,4
+BAT-5091,CTR-HYD,Hyderabad,APAC,CERT,Certification Bootcamp,2026-07-03,2026-07-06,3,Aditi Chen,28,15,14,13,11,53.6,6663,Completed,4.33
+BAT-5092,CTR-HYD,Hyderabad,APAC,DSQ,Dashboards & SAQL,2026-07-20,2026-07-25,5,Aditi Chen,28,20,17,13,3,71.4,16521,Completed,4.4
+BAT-5093,CTR-HYD,Hyderabad,APAC,FND,CRM Analytics Foundations,2026-08-10,2026-08-15,5,Yuki Iyer,28,23,22,21,3,82.1,16994,Completed,4.2
+BAT-5094,CTR-HYD,Hyderabad,APAC,GTM,Go-to-Market Analytics,2026-08-27,2026-09-10,10,Aditi Whitfield,28,27,24,21,5,96.4,39958,Completed,4.06
+BAT-5095,CTR-LON,London,EMEA,DSQ,Dashboards & SAQL,2025-04-01,2025-04-06,5,Tom Diallo,20,7,6,6,0,35,9984,Completed,4.17
+BAT-5096,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-04-13,2025-04-18,5,Tom Diallo,20,11,10,9,2,55,15153,Completed,4.17
+BAT-5097,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-05-02,2025-05-07,5,Hannah Qureshi,20,8,8,6,2,40,10659,Completed,4.4
+BAT-5098,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2025-05-17,2025-05-20,3,Ravi Ahmed,20,7,7,7,2,35,5519,Completed,4.33
+BAT-5099,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2025-06-07,2025-06-10,3,Ravi Ahmed,20,3,2,1,0,15,2314,Completed,
+BAT-5100,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2025-07-01,2025-07-04,3,Aditi Chen,20,13,11,11,7,65,10325,Completed,4.83
+BAT-5101,CTR-LON,London,EMEA,DSQ,Dashboards & SAQL,2025-07-14,2025-07-19,5,Aditi Chen,20,9,9,7,1,45,12953,Completed,4.25
+BAT-5102,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2025-08-03,2025-08-06,3,Sofia Shaw,20,7,6,5,3,35,5520,Completed,4.6
+BAT-5103,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-08-23,2025-08-28,5,Aditi Whitfield,20,12,11,11,3,60,15878,Completed,4.25
+BAT-5104,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2025-09-06,2025-09-09,3,Sofia Shaw,20,5,5,3,1,25,4228,Completed,4
+BAT-5105,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-09-18,2025-09-23,5,Tom Diallo,20,9,9,8,0,45,11383,Completed,4.75
+BAT-5106,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-09-30,2025-10-05,5,Marcus Tanaka,20,5,5,5,1,25,6888,Completed,5
+BAT-5107,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-10-13,2025-10-18,5,Hannah Qureshi,20,13,12,8,3,65,17110,Completed,3.6
+BAT-5108,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-10-26,2025-10-31,5,Ishaan Diallo,20,6,5,5,0,30,7685,Completed,4
+BAT-5109,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2025-11-19,2025-11-22,3,Sofia Shaw,20,14,13,11,8,70,11172,Completed,4.71
+BAT-5110,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-12-06,2025-12-11,5,Hannah Qureshi,20,10,10,8,2,50,13414,Completed,4
+BAT-5111,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2025-12-23,2025-12-28,5,Aditi Whitfield,20,5,5,2,0,25,6381,Completed,4.5
+BAT-5112,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2026-01-15,2026-01-18,3,Marcus Tanaka,20,9,8,8,7,45,7343,Completed,4.33
+BAT-5113,CTR-LON,London,EMEA,DSQ,Dashboards & SAQL,2026-01-29,2026-02-03,5,Ishaan Diallo,20,10,9,8,2,50,15593,Completed,4.25
+BAT-5114,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2026-02-15,2026-02-20,5,Ishaan Diallo,20,8,5,3,2,40,10803,Completed,5
+BAT-5115,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2026-03-07,2026-03-12,5,Sofia Shaw,20,6,5,4,1,30,7686,Completed,5
+BAT-5116,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2026-03-21,2026-03-26,5,Tom Diallo,20,9,9,7,3,45,11674,Completed,4
+BAT-5117,CTR-LON,London,EMEA,DSQ,Dashboards & SAQL,2026-04-06,2026-04-11,5,Marcus Tanaka,20,14,14,14,5,70,21121,Completed,4.36
+BAT-5118,CTR-LON,London,EMEA,GTM,Go-to-Market Analytics,2026-04-24,2026-05-08,10,Marcus Tanaka,20,10,10,9,4,50,26535,Completed,4.5
+BAT-5119,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2026-05-07,2026-05-10,3,Yuki Iyer,20,9,8,7,5,45,7121,Completed,5
+BAT-5120,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2026-05-23,2026-05-26,3,Tom Diallo,20,13,13,11,6,65,10903,Completed,4
+BAT-5121,CTR-LON,London,EMEA,DSQ,Dashboards & SAQL,2026-06-04,2026-06-09,5,Aditi Whitfield,20,16,15,10,1,80,24092,Completed,4.57
+BAT-5122,CTR-LON,London,EMEA,DSQ,Dashboards & SAQL,2026-06-26,2026-07-01,5,Ishaan Diallo,20,15,12,10,1,75,22195,Completed,4.57
+BAT-5123,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2026-07-11,2026-07-14,3,Sofia Shaw,20,10,9,7,4,50,8322,Completed,4
+BAT-5124,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2026-07-27,2026-08-01,5,Tom Diallo,20,8,6,5,1,40,9644,Completed,4.67
+BAT-5125,CTR-LON,London,EMEA,FND,CRM Analytics Foundations,2026-08-19,2026-08-24,5,Aditi Whitfield,20,6,6,5,1,30,7613,Completed,3.5
+BAT-5126,CTR-LON,London,EMEA,CERT,Certification Bootcamp,2026-09-03,2026-09-06,3,Ishaan Diallo,20,6,5,5,5,30,5029,Completed,3.8
+BAT-5127,CTR-AUS,Austin,AMER,CERT,Certification Bootcamp,2025-06-01,2025-06-04,3,Tom Diallo,20,10,9,7,6,50,8233,Completed,4.2
+BAT-5128,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2025-06-22,2025-06-27,5,Ishaan Diallo,20,6,6,4,0,30,9405,Completed,4.33
+BAT-5129,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2025-07-10,2025-07-15,5,Yuki Iyer,20,5,5,4,1,25,7508,Completed,4
+BAT-5130,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2025-08-02,2025-08-07,5,Sofia Shaw,20,11,9,7,0,55,14574,Completed,4.33
+BAT-5131,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2025-08-26,2025-08-31,5,Ishaan Diallo,20,8,8,7,1,40,10731,Completed,4.25
+BAT-5132,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2025-09-16,2025-09-21,5,Aditi Chen,20,8,7,7,1,40,10731,Completed,4.17
+BAT-5133,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2025-10-09,2025-10-14,5,Hannah Qureshi,20,13,12,11,1,65,16531,Completed,4
+BAT-5134,CTR-AUS,Austin,AMER,GTM,Go-to-Market Analytics,2025-10-29,2025-11-12,10,Sofia Shaw,20,11,11,11,2,55,28275,Completed,4.56
+BAT-5135,CTR-AUS,Austin,AMER,CERT,Certification Bootcamp,2025-11-21,2025-11-24,3,Aditi Chen,20,11,10,8,5,55,8591,Completed,4.25
+BAT-5136,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2025-12-06,2025-12-11,5,Hannah Qureshi,20,8,8,6,5,40,11551,Completed,4.67
+BAT-5137,CTR-AUS,Austin,AMER,GTM,Go-to-Market Analytics,2025-12-23,2026-01-06,10,Ishaan Diallo,20,11,11,7,3,55,29000,Completed,4.33
+BAT-5138,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2026-01-06,2026-01-11,5,Ishaan Diallo,20,9,8,6,0,45,12108,Completed,4.5
+BAT-5139,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2026-01-22,2026-01-27,5,Sofia Shaw,20,16,15,13,6,80,20156,Completed,3.78
+BAT-5140,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2026-02-04,2026-02-09,5,Yuki Iyer,20,13,11,9,3,65,19472,Completed,4.25
+BAT-5141,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2026-02-23,2026-02-28,5,Aditi Chen,20,9,8,6,2,45,13284,Completed,4.2
+BAT-5142,CTR-AUS,Austin,AMER,CERT,Certification Bootcamp,2026-03-11,2026-03-14,3,Sofia Shaw,20,12,11,10,7,60,9701,Completed,4.17
+BAT-5143,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2026-03-24,2026-03-29,5,Marcus Tanaka,20,13,12,10,2,65,17908,Completed,4.44
+BAT-5144,CTR-AUS,Austin,AMER,CERT,Certification Bootcamp,2026-04-06,2026-04-09,3,Hannah Qureshi,20,12,12,12,7,60,9612,Completed,4
+BAT-5145,CTR-AUS,Austin,AMER,GTM,Go-to-Market Analytics,2026-04-19,2026-05-03,10,Ravi Ahmed,20,8,8,5,0,40,20880,Completed,4
+BAT-5146,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2026-05-07,2026-05-12,5,Tom Diallo,20,8,7,7,4,40,12128,Completed,3.6
+BAT-5147,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2026-05-21,2026-05-26,5,Yuki Iyer,20,9,7,6,1,45,11456,Completed,4
+BAT-5148,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2026-06-13,2026-06-18,5,Tom Diallo,20,14,12,7,2,70,18271,Completed,3.5
+BAT-5149,CTR-AUS,Austin,AMER,CERT,Certification Bootcamp,2026-06-26,2026-06-29,3,Hannah Qureshi,20,13,10,9,7,65,9880,Completed,4.29
+BAT-5150,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2026-07-20,2026-07-25,5,Aditi Chen,20,10,10,8,1,50,14356,Completed,4
+BAT-5151,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2026-08-06,2026-08-11,5,Tom Diallo,20,15,14,14,5,75,21616,Completed,3.7
+BAT-5152,CTR-AUS,Austin,AMER,FND,CRM Analytics Foundations,2026-08-29,2026-09-03,5,Sofia Shaw,20,10,9,7,2,50,13413,Completed,4.33
+BAT-5153,CTR-AUS,Austin,AMER,DSQ,Dashboards & SAQL,2026-09-12,2026-09-17,5,Sofia Shaw,20,9,8,7,2,45,13530,Completed,4.5
+BAT-5154,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2025-04-01,2025-04-06,5,Ishaan Diallo,40,35,32,26,6,87.5,51318,Completed,4.32
+BAT-5155,CTR-ONL,Live online,Global,FND,CRM Analytics Foundations,2025-04-15,2025-04-20,5,Sofia Shaw,40,21,21,19,5,52.5,27914,Completed,4.25
+BAT-5156,CTR-ONL,Live online,Global,CERT,Certification Bootcamp,2025-04-27,2025-04-30,3,Yuki Iyer,40,21,18,15,12,52.5,17134,Completed,4.08
+BAT-5157,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2025-05-19,2025-05-24,5,Sofia Shaw,40,33,29,24,2,82.5,49915,Completed,4.41
+BAT-5158,CTR-ONL,Live online,Global,CERT,Certification Bootcamp,2025-06-04,2025-06-07,3,Hannah Qureshi,40,13,13,12,11,32.5,10414,Completed,4.14
+BAT-5159,CTR-ONL,Live online,Global,FND,CRM Analytics Foundations,2025-06-27,2025-07-02,5,Ravi Ahmed,40,23,20,17,5,57.5,29800,Completed,4.62
+BAT-5160,CTR-ONL,Live online,Global,CERT,Certification Bootcamp,2025-07-19,2025-07-22,3,Aditi Chen,40,14,13,12,10,35,11081,Completed,4.25
+BAT-5161,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2025-08-10,2025-08-15,5,Ravi Ahmed,40,22,20,20,3,55,31929,Completed,4.28
+BAT-5162,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2025-09-02,2025-09-07,5,Hannah Qureshi,40,37,36,31,10,92.5,54948,Completed,4.44
+BAT-5163,CTR-ONL,Live online,Global,FND,CRM Analytics Foundations,2025-09-16,2025-09-21,5,Ravi Ahmed,40,25,21,18,1,62.5,32338,Completed,4.42
+BAT-5164,CTR-ONL,Live online,Global,CERT,Certification Bootcamp,2025-10-08,2025-10-11,3,Aditi Chen,40,33,32,26,19,82.5,26658,Completed,4.5
+BAT-5165,CTR-ONL,Live online,Global,CERT,Certification Bootcamp,2025-10-23,2025-10-26,3,Aditi Chen,40,21,21,15,12,52.5,16868,Completed,3.92
+BAT-5166,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2025-11-04,2025-11-09,5,Tom Diallo,40,25,23,18,3,62.5,36880,Completed,4.14
+BAT-5167,CTR-ONL,Live online,Global,GTM,Go-to-Market Analytics,2025-11-22,2025-12-06,10,Aditi Whitfield,40,27,22,15,2,67.5,69890,Completed,4.5
+BAT-5168,CTR-ONL,Live online,Global,FND,CRM Analytics Foundations,2025-12-14,2025-12-19,5,Sofia Shaw,40,30,29,22,4,75,40022,Completed,4.31
+BAT-5169,CTR-ONL,Live online,Global,FND,CRM Analytics Foundations,2026-01-07,2026-01-12,5,Yuki Iyer,40,36,34,27,4,90,47779,Completed,4.33
+BAT-5170,CTR-ONL,Live online,Global,FND,CRM Analytics Foundations,2026-01-24,2026-01-29,5,Hannah Qureshi,40,34,31,26,4,85,44736,Completed,4.21
+BAT-5171,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2026-02-09,2026-02-14,5,Ravi Ahmed,40,14,13,12,2,35,20708,Completed,3.88
+BAT-5172,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2026-02-25,2026-03-02,5,Marcus Tanaka,40,23,21,18,4,57.5,33909,Completed,4
+BAT-5173,CTR-ONL,Live online,Global,CERT,Certification Bootcamp,2026-03-19,2026-03-22,3,Tom Diallo,40,33,29,24,19,82.5,26880,Completed,4.13
+BAT-5174,CTR-ONL,Live online,Global,GTM,Go-to-Market Analytics,2026-04-02,2026-04-16,10,Aditi Whitfield,40,30,28,23,2,75,79025,Completed,4.35
+BAT-5175,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2026-04-24,2026-04-29,5,Ishaan Diallo,40,33,30,29,9,82.5,48267,Completed,4.48
+BAT-5176,CTR-ONL,Live online,Global,FND,CRM Analytics Foundations,2026-05-15,2026-05-20,5,Aditi Chen,40,31,27,23,8,77.5,40603,Completed,4.13
+BAT-5177,CTR-ONL,Live online,Global,CERT,Certification Bootcamp,2026-06-05,2026-06-08,3,Marcus Tanaka,40,26,22,20,14,65,21095,Completed,4.23
+BAT-5178,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2026-06-28,2026-07-03,5,Tom Diallo,40,32,27,23,3,80,47937,Completed,4.57
+BAT-5179,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2026-07-13,2026-07-18,5,Aditi Chen,40,25,24,20,5,62.5,37209,Completed,4
+BAT-5180,CTR-ONL,Live online,Global,DSQ,Dashboards & SAQL,2026-07-28,2026-08-02,5,Yuki Iyer,40,23,21,21,6,57.5,33912,Completed,4.32
+BAT-5181,CTR-ONL,Live online,Global,GTM,Go-to-Market Analytics,2026-08-12,2026-08-26,10,Sofia Shaw,40,19,18,12,3,47.5,51040,Completed,4.44
+BAT-5182,CTR-ONL,Live online,Global,FND,CRM Analytics Foundations,2026-08-30,2026-09-04,5,Tom Diallo,40,28,26,23,5,70,37122,Completed,4.38

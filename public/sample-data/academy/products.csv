@@ -1,0 +1,7 @@
+ProductCode,ProductName,Family,PricingModel,Unit,ListUnitPrice,GrossMarginPct,LaunchDate
+PRO,Academy Pro,Online,Seat,learner/year,240,88,2024-03-01
+TEAM,Team Plan,Online,Seat,seat/year,390,84,2024-06-01
+ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,78,2025-01-15
+CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,46,2024-09-01
+VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,2025-02-01
+IMPL,Implementation Services,Services,Usage,consulting hour,175,38,2025-05-15

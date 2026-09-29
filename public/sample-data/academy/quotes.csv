@@ -1,0 +1,796 @@
+QuoteId,OpportunityId,AccountId,Segment,Version,IsFinalVersion,Status,CreatedDate,ListTotal,DiscountPct,NetTotal,DiscountAmount,RequiresApproval,ApprovalSteps,ApproverChain,ApprovalDays,ApprovedDate,WentToDealDesk,TermMonths,PaymentTerms,BillingFrequency,HasRampSchedule,HasNonStandardTerms,HasPrepaidPool,HasTrueUpClause
+QTE-40001,OPP-20003,ACC-1038,Mid-Market,1,false,Superseded,2025-08-04,61210,13,53253,7957,false,1,Auto-approved,0,2025-08-04,false,24,Net 30,Annual,false,false,true,true
+QTE-40002,OPP-20003,ACC-1038,Mid-Market,2,true,Rejected,2025-08-11,61210,10,59100,2110,false,1,Auto-approved,0,2025-08-11,false,12,Net 60,Annual,false,false,true,true
+QTE-40003,OPP-20005,ACC-1062,SMB,1,false,Superseded,2026-02-25,5995,13,5216,779,false,1,Auto-approved,0,2026-02-25,false,12,Net 60,Annual,false,false,true,true
+QTE-40004,OPP-20005,ACC-1062,SMB,2,false,Superseded,2026-02-27,5995,37,3777,2218,true,3,AE Manager > Deal Desk > RevOps,9,2026-03-08,true,12,Net 30,Monthly,false,true,true,true
+QTE-40005,OPP-20005,ACC-1062,SMB,3,false,Superseded,2026-03-01,5995,18,4916,1079,true,3,AE Manager > Deal Desk > RevOps,6,2026-03-07,false,24,Net 30,Annual,false,true,true,true
+QTE-40006,OPP-20005,ACC-1062,SMB,4,true,Rejected,2026-03-04,5995,30,5400,595,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-03-14,true,36,Prepaid Annual,Annual,false,true,true,true
+QTE-40007,OPP-20010,ACC-1010,Mid-Market,1,false,Superseded,2025-07-15,58140,18,47675,10465,true,2,AE Manager > Deal Desk,4,2025-07-19,false,24,Net 60,Annual,false,false,true,true
+QTE-40008,OPP-20010,ACC-1010,Mid-Market,2,false,Superseded,2025-07-19,58140,25,43605,14535,true,2,AE Manager > Deal Desk,1,2025-07-20,true,36,Net 30,Annual,false,false,true,true
+QTE-40009,OPP-20010,ACC-1010,Mid-Market,3,true,Rejected,2025-07-24,58140,18,32700,25440,true,3,AE Manager > Deal Desk > RevOps,4,2025-07-28,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40010,OPP-20011,ACC-1097,SMB,1,false,Superseded,2026-02-16,14945,13,13002,1943,false,1,Auto-approved,0,2026-02-16,false,24,Net 30,Annual,false,false,true,true
+QTE-40011,OPP-20011,ACC-1097,SMB,2,true,Rejected,2026-02-18,14945,15,12800,2145,false,1,Auto-approved,0,2026-02-18,false,12,Prepaid Annual,Quarterly,false,false,true,false
+QTE-40012,OPP-20012,ACC-1088,SMB,1,true,Rejected,2026-08-13,3475,23,3500,0,true,3,AE Manager > Deal Desk > RevOps,5,2026-08-18,true,12,Net 60,Quarterly,false,true,true,false
+QTE-40013,OPP-20013,ACC-1000,SMB,1,true,Rejected,2025-08-06,47575,8,17700,29875,false,1,Auto-approved,0,2025-08-06,false,6,Prepaid Annual,Monthly,false,false,true,true
+QTE-40014,OPP-20014,ACC-1055,SMB,1,false,Superseded,2026-10-13,13675,13,11897,1778,false,1,Auto-approved,0,2026-10-13,false,6,Net 45,Annual,false,false,true,true
+QTE-40015,OPP-20014,ACC-1055,SMB,2,true,Presented,2026-10-15,13675,10,12600,1075,false,1,Auto-approved,0,2026-10-15,false,36,Net 60,Annual,false,false,true,true
+QTE-40016,OPP-20015,ACC-1107,Mid-Market,1,false,Superseded,2025-07-21,24770,13,21550,3220,false,1,Auto-approved,0,2025-07-21,false,36,Net 45,Annual,false,false,true,true
+QTE-40017,OPP-20015,ACC-1107,Mid-Market,2,false,Superseded,2025-07-26,24770,15,21055,3715,false,1,Auto-approved,0,2025-07-26,false,6,Net 30,Quarterly,false,false,true,false
+QTE-40018,OPP-20015,ACC-1107,Mid-Market,3,true,Accepted,2025-08-01,24770,23,22300,2470,true,2,AE Manager > Deal Desk,3,2025-08-04,true,12,Net 30,Annual,false,false,true,true
+QTE-40019,OPP-20016,ACC-1137,Mid-Market,1,true,Rejected,2025-12-19,43250,18,43200,50,true,2,AE Manager > Deal Desk,6,2025-12-25,false,36,Net 30,Annual,false,false,true,false
+QTE-40020,OPP-20018,ACC-1110,Enterprise,1,false,Superseded,2025-08-03,183175,23,141045,42130,true,2,AE Manager > Deal Desk,6,2025-08-09,true,12,Net 30,Monthly,false,false,true,true
+QTE-40021,OPP-20018,ACC-1110,Enterprise,2,true,Rejected,2025-08-15,183175,10,185600,0,false,1,Auto-approved,0,2025-08-15,false,24,Net 30,Annual,false,false,true,true
+QTE-40022,OPP-20019,ACC-1095,Enterprise,1,true,Presented,2026-07-30,152640,8,177000,0,false,1,Auto-approved,0,2026-07-30,false,12,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40023,OPP-20020,ACC-1100,Mid-Market,1,true,Accepted,2026-01-26,63960,28,64000,0,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-02-05,true,36,Net 30,Quarterly,false,true,false,false
+QTE-40024,OPP-20022,ACC-1060,SMB,1,true,Accepted,2026-05-30,36000,13,8200,27800,false,1,Auto-approved,0,2026-05-30,false,24,Prepaid Annual,Monthly,false,false,false,false
+QTE-40025,OPP-20023,ACC-1085,SMB,1,false,Superseded,2025-08-27,36000,35,23400,12600,true,3,AE Manager > Deal Desk > RevOps,8,2025-09-04,true,12,Net 60,Annual,false,false,false,false
+QTE-40026,OPP-20023,ACC-1085,SMB,2,false,Superseded,2025-08-28,36000,37,22680,13320,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2025-09-07,true,12,Net 30,Annual,false,true,false,false
+QTE-40027,OPP-20023,ACC-1085,SMB,3,true,Rejected,2025-08-29,36000,40,6100,29900,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2025-09-07,true,12,Net 30,Annual,false,true,false,false
+QTE-40028,OPP-20025,ACC-1065,SMB,1,false,Superseded,2025-09-02,38170,35,24811,13359,true,4,AE Manager > Deal Desk > RevOps > Finance,6,2025-09-08,true,36,Net 45,Monthly,false,true,true,true
+QTE-40029,OPP-20025,ACC-1065,SMB,2,false,Superseded,2025-09-03,38170,10,34353,3817,false,1,Auto-approved,0,2025-09-03,false,24,Net 30,Monthly,false,false,true,true
+QTE-40030,OPP-20025,ACC-1065,SMB,3,false,Superseded,2025-09-04,38170,18,31299,6871,true,2,AE Manager > Deal Desk,5,2025-09-09,false,12,Net 30,Monthly,false,false,true,false
+QTE-40031,OPP-20025,ACC-1065,SMB,4,true,Accepted,2025-09-05,38170,20,5000,33170,true,3,AE Manager > Deal Desk > RevOps,7,2025-09-12,false,12,Net 30,Annual,false,false,true,true
+QTE-40032,OPP-20026,ACC-1087,SMB,1,true,Accepted,2025-07-06,49190,8,16900,32290,false,1,Auto-approved,0,2025-07-06,false,12,Prepaid Annual,Monthly,false,false,true,true
+QTE-40033,OPP-20027,ACC-1035,SMB,1,true,Accepted,2025-08-17,10180,13,9900,280,false,1,Auto-approved,0,2025-08-17,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40034,OPP-20028,ACC-1078,SMB,1,true,Rejected,2025-05-13,18195,8,16700,1495,false,1,Auto-approved,0,2025-05-13,false,12,Net 45,Monthly,false,false,true,true
+QTE-40035,OPP-20029,ACC-1070,SMB,1,false,Superseded,2025-07-28,4590,8,4223,367,false,1,Auto-approved,0,2025-07-28,false,12,Net 60,Annual,false,true,true,true
+QTE-40036,OPP-20029,ACC-1070,SMB,2,false,Superseded,2025-07-30,4590,15,3902,688,false,1,Auto-approved,0,2025-07-30,false,24,Net 30,Annual,false,false,true,false
+QTE-40037,OPP-20029,ACC-1070,SMB,3,true,Accepted,2025-08-01,4590,13,4800,0,false,1,Auto-approved,0,2025-08-01,false,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40038,OPP-20030,ACC-1038,Mid-Market,1,false,Superseded,2025-12-25,16920,8,15566,1354,false,1,Auto-approved,0,2025-12-25,false,36,Net 30,Annual,false,false,true,true
+QTE-40039,OPP-20030,ACC-1038,Mid-Market,2,false,Superseded,2025-12-29,16920,25,12690,4230,true,2,AE Manager > Deal Desk,10,2026-01-08,true,12,Net 30,Annual,false,false,true,false
+QTE-40040,OPP-20030,ACC-1038,Mid-Market,3,false,Superseded,2026-01-02,16920,13,14720,2200,false,1,Auto-approved,0,2026-01-02,false,24,Net 45,Monthly,false,false,true,true
+QTE-40041,OPP-20030,ACC-1038,Mid-Market,4,true,Accepted,2026-01-07,16920,35,15300,1620,true,3,AE Manager > Deal Desk > RevOps,8,2026-01-15,true,12,Prepaid Annual,Monthly,false,false,true,true
+QTE-40042,OPP-20031,ACC-1102,Mid-Market,1,true,Rejected,2025-08-06,50825,18,47300,3525,true,2,AE Manager > Deal Desk,5,2025-08-11,false,12,Net 60,Annual,false,false,true,true
+QTE-40043,OPP-20032,ACC-1082,Enterprise,1,false,Superseded,2025-09-14,234050,18,191921,42129,true,2,AE Manager > Deal Desk,7,2025-09-21,false,12,Net 30,Annual,true,false,true,false
+QTE-40044,OPP-20032,ACC-1082,Enterprise,2,false,Superseded,2025-10-01,234050,25,175538,58512,true,3,AE Manager > Deal Desk > RevOps,7,2025-10-08,true,24,Net 45,Monthly,true,false,true,true
+QTE-40045,OPP-20032,ACC-1082,Enterprise,3,true,Accepted,2025-10-18,234050,28,187300,46750,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2025-10-29,true,12,Net 60,Annual,true,true,true,false
+QTE-40046,OPP-20033,ACC-1019,SMB,1,false,Superseded,2025-05-20,11990,18,9832,2158,true,2,AE Manager > Deal Desk,4,2025-05-24,false,12,Net 45,Monthly,false,false,true,true
+QTE-40047,OPP-20033,ACC-1019,SMB,2,false,Superseded,2025-05-22,11990,25,8993,2997,true,2,AE Manager > Deal Desk,6,2025-05-28,true,12,Net 30,Monthly,false,false,true,true
+QTE-40048,OPP-20033,ACC-1019,SMB,3,true,Rejected,2025-05-24,11990,33,10800,1190,true,3,AE Manager > Deal Desk > RevOps,5,2025-05-29,true,12,Net 45,Monthly,false,false,true,true
+QTE-40049,OPP-20034,ACC-1061,Mid-Market,1,false,Superseded,2025-09-22,54775,18,44916,9859,true,3,AE Manager > Deal Desk > RevOps,7,2025-09-29,false,6,Prepaid Annual,Monthly,false,false,true,true
+QTE-40050,OPP-20034,ACC-1061,Mid-Market,2,false,Superseded,2025-09-25,54775,37,34508,20267,true,3,AE Manager > Deal Desk > RevOps,7,2025-10-02,true,36,Net 30,Monthly,false,true,true,false
+QTE-40051,OPP-20034,ACC-1061,Mid-Market,3,true,Rejected,2025-09-29,54775,23,52100,2675,true,3,AE Manager > Deal Desk > RevOps,11,2025-10-10,true,36,Net 45,Annual,false,false,true,true
+QTE-40052,OPP-20036,ACC-1027,Enterprise,1,true,Rejected,2025-12-14,129780,23,152000,0,true,3,AE Manager > Deal Desk > RevOps,8,2025-12-22,true,12,Net 60,Annual,false,false,true,true
+QTE-40053,OPP-20039,ACC-1124,Mid-Market,1,true,Presented,2026-10-12,39390,48,35500,3890,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,14,2026-10-26,true,12,Net 45,Annual,false,true,false,false
+QTE-40054,OPP-20040,ACC-1106,SMB,1,true,Rejected,2025-06-07,18480,13,16600,1880,false,1,Auto-approved,0,2025-06-07,false,12,Net 30,Annual,false,false,false,false
+QTE-40055,OPP-20041,ACC-1070,SMB,1,false,Superseded,2026-07-27,12760,18,10463,2297,true,3,AE Manager > Deal Desk > RevOps,6,2026-08-02,false,12,Net 60,Annual,false,false,true,true
+QTE-40056,OPP-20041,ACC-1070,SMB,2,false,Superseded,2026-07-29,12760,37,8039,4721,true,3,AE Manager > Deal Desk > RevOps,7,2026-08-05,true,36,Net 30,Monthly,false,true,true,true
+QTE-40057,OPP-20041,ACC-1070,SMB,3,true,Accepted,2026-07-31,12760,18,12600,160,true,3,AE Manager > Deal Desk > RevOps,7,2026-08-07,false,24,Net 45,Quarterly,false,true,true,true
+QTE-40058,OPP-20042,ACC-1098,Mid-Market,1,true,Rejected,2026-06-29,48250,48,19100,29150,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,10,2026-07-09,true,12,Prepaid Annual,Monthly,false,false,true,false
+QTE-40059,OPP-20044,ACC-1047,SMB,1,true,Accepted,2025-07-23,7565,23,6600,965,true,3,AE Manager > Deal Desk > RevOps,9,2025-08-01,true,12,Net 30,Annual,false,false,true,true
+QTE-40060,OPP-20045,ACC-1084,SMB,1,false,Superseded,2026-05-17,14390,23,11080,3310,true,3,AE Manager > Deal Desk > RevOps,6,2026-05-23,true,12,Net 60,Quarterly,false,false,true,true
+QTE-40061,OPP-20045,ACC-1084,SMB,2,true,Rejected,2026-05-20,14390,37,13600,790,true,3,AE Manager > Deal Desk > RevOps,4,2026-05-24,true,12,Net 30,Annual,false,true,true,true
+QTE-40062,OPP-20046,ACC-1088,SMB,1,false,Superseded,2025-05-25,15750,28,11340,4410,true,3,AE Manager > Deal Desk > RevOps,7,2025-06-01,true,36,Net 60,Annual,false,false,true,true
+QTE-40063,OPP-20046,ACC-1088,SMB,2,false,Superseded,2025-05-28,15750,15,13388,2362,false,1,Auto-approved,0,2025-05-28,false,24,Net 60,Annual,false,false,true,true
+QTE-40064,OPP-20046,ACC-1088,SMB,3,true,Rejected,2025-05-31,15750,53,13700,2050,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2025-06-08,true,24,Net 30,Quarterly,false,true,true,true
+QTE-40065,OPP-20047,ACC-1089,SMB,1,false,Superseded,2026-05-28,43380,13,37741,5639,false,1,Auto-approved,0,2026-05-28,false,36,Net 30,Annual,false,true,true,true
+QTE-40066,OPP-20047,ACC-1089,SMB,2,false,Superseded,2026-05-30,43380,25,32535,10845,true,3,AE Manager > Deal Desk > RevOps,7,2026-06-06,true,36,Net 30,Quarterly,false,false,true,false
+QTE-40067,OPP-20047,ACC-1089,SMB,3,true,Rejected,2026-06-02,43380,18,10100,33280,true,2,AE Manager > Deal Desk,8,2026-06-10,false,24,Net 30,Quarterly,false,false,true,false
+QTE-40068,OPP-20049,ACC-1061,Mid-Market,1,true,Accepted,2025-06-13,57375,13,54000,3375,false,1,Auto-approved,0,2025-06-13,false,36,Net 60,Annual,false,false,true,true
+QTE-40069,OPP-20053,ACC-1110,Enterprise,1,false,Superseded,2025-08-26,135720,28,97718,38002,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2025-09-07,true,24,Net 30,Monthly,true,false,false,false
+QTE-40070,OPP-20053,ACC-1110,Enterprise,2,true,Rejected,2025-09-06,135720,10,129100,6620,false,1,Auto-approved,0,2025-09-06,false,12,Net 30,Monthly,false,true,false,false
+QTE-40071,OPP-20054,ACC-1118,Strategic,1,false,Superseded,2026-01-14,218305,35,141898,76407,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2026-01-26,true,24,Net 30,Monthly,true,false,true,false
+QTE-40072,OPP-20054,ACC-1118,Strategic,2,false,Superseded,2026-01-23,218305,25,163729,54576,true,3,AE Manager > Deal Desk > RevOps,7,2026-01-30,true,24,Net 45,Monthly,true,false,true,true
+QTE-40073,OPP-20054,ACC-1118,Strategic,3,true,Accepted,2026-01-31,218305,23,244900,0,true,2,AE Manager > Deal Desk,9,2026-02-09,true,12,Net 30,Annual,true,false,true,true
+QTE-40074,OPP-20057,ACC-1100,Mid-Market,1,true,Accepted,2026-05-27,88140,18,70400,17740,true,3,AE Manager > Deal Desk > RevOps,10,2026-06-06,false,12,Net 45,Quarterly,false,false,false,false
+QTE-40075,OPP-20058,ACC-1132,SMB,1,true,Rejected,2026-03-22,15890,18,15400,490,true,3,AE Manager > Deal Desk > RevOps,8,2026-03-30,false,12,Net 45,Monthly,false,false,true,false
+QTE-40076,OPP-20059,ACC-1133,Mid-Market,1,false,Superseded,2025-10-10,36000,28,25920,10080,true,3,AE Manager > Deal Desk > RevOps,8,2025-10-18,true,12,Net 30,Monthly,false,true,false,false
+QTE-40077,OPP-20059,ACC-1133,Mid-Market,2,false,Superseded,2025-10-13,36000,20,28800,7200,true,3,AE Manager > Deal Desk > RevOps,5,2025-10-18,false,24,Net 60,Monthly,false,true,false,false
+QTE-40078,OPP-20059,ACC-1133,Mid-Market,3,false,Superseded,2025-10-16,36000,13,31320,4680,false,1,Auto-approved,0,2025-10-16,false,36,Net 60,Annual,false,false,false,false
+QTE-40079,OPP-20059,ACC-1133,Mid-Market,4,true,Rejected,2025-10-19,36000,15,32000,4000,false,1,Auto-approved,0,2025-10-19,false,36,Net 30,Quarterly,false,false,false,false
+QTE-40080,OPP-20060,ACC-1078,SMB,1,true,Rejected,2026-07-22,5840,13,4700,1140,false,1,Auto-approved,0,2026-07-22,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40081,OPP-20061,ACC-1085,SMB,1,false,Superseded,2026-07-15,12870,8,11840,1030,false,1,Auto-approved,0,2026-07-15,false,24,Net 30,Annual,false,false,false,false
+QTE-40082,OPP-20061,ACC-1085,SMB,2,false,Superseded,2026-07-17,12870,50,6435,6435,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-07-27,true,12,Prepaid Annual,Annual,false,true,false,false
+QTE-40083,OPP-20061,ACC-1085,SMB,3,true,Rejected,2026-07-20,12870,18,13000,0,true,2,AE Manager > Deal Desk,10,2026-07-30,false,36,Net 45,Annual,false,false,false,false
+QTE-40084,OPP-20062,ACC-1089,SMB,1,false,Superseded,2026-08-09,9750,28,7020,2730,true,3,AE Manager > Deal Desk > RevOps,7,2026-08-16,true,36,Net 60,Annual,false,true,false,false
+QTE-40085,OPP-20062,ACC-1089,SMB,2,true,Rejected,2026-08-12,9750,20,9900,0,true,3,AE Manager > Deal Desk > RevOps,9,2026-08-21,false,24,Net 45,Monthly,false,false,false,false
+QTE-40086,OPP-20067,ACC-1134,SMB,1,false,Superseded,2026-07-14,7440,18,6101,1339,true,2,AE Manager > Deal Desk,2,2026-07-16,false,12,Net 30,Annual,false,false,false,false
+QTE-40087,OPP-20067,ACC-1134,SMB,2,false,Superseded,2026-07-16,7440,10,6696,744,false,1,Auto-approved,0,2026-07-16,false,12,Net 60,Annual,false,false,false,false
+QTE-40088,OPP-20067,ACC-1134,SMB,3,true,Accepted,2026-07-18,7440,33,6900,540,true,3,AE Manager > Deal Desk > RevOps,8,2026-07-26,true,24,Net 30,Quarterly,false,true,false,false
+QTE-40089,OPP-20069,ACC-1005,Enterprise,1,true,Rejected,2025-12-07,267600,28,267500,100,true,3,AE Manager > Deal Desk > RevOps,9,2025-12-16,true,24,Net 60,Annual,false,true,false,false
+QTE-40090,OPP-20073,ACC-1047,SMB,1,false,Superseded,2026-05-10,8190,18,6716,1474,true,2,AE Manager > Deal Desk,6,2026-05-16,false,12,Net 30,Annual,false,false,false,false
+QTE-40091,OPP-20073,ACC-1047,SMB,2,false,Superseded,2026-05-14,8190,20,6552,1638,true,3,AE Manager > Deal Desk > RevOps,4,2026-05-18,false,24,Net 30,Annual,false,false,false,false
+QTE-40092,OPP-20073,ACC-1047,SMB,3,true,Rejected,2026-05-18,8190,18,7100,1090,true,2,AE Manager > Deal Desk,7,2026-05-25,false,24,Net 45,Annual,false,false,false,false
+QTE-40093,OPP-20075,ACC-1034,Mid-Market,1,false,Superseded,2026-02-03,52530,8,48328,4202,false,1,Auto-approved,0,2026-02-03,false,36,Net 30,Monthly,false,false,true,true
+QTE-40094,OPP-20075,ACC-1034,Mid-Market,2,false,Superseded,2026-02-08,52530,10,47277,5253,false,1,Auto-approved,0,2026-02-08,false,36,Net 60,Monthly,false,false,true,true
+QTE-40095,OPP-20075,ACC-1034,Mid-Market,3,false,Superseded,2026-02-14,52530,23,40448,12082,true,2,AE Manager > Deal Desk,7,2026-02-21,true,12,Net 30,Monthly,false,false,true,false
+QTE-40096,OPP-20075,ACC-1034,Mid-Market,4,false,Superseded,2026-02-19,52530,30,36771,15759,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-03-01,true,12,Net 60,Annual,false,true,true,true
+QTE-40097,OPP-20075,ACC-1034,Mid-Market,5,true,Accepted,2026-02-24,52530,33,51400,1130,true,3,AE Manager > Deal Desk > RevOps,7,2026-03-03,true,24,Net 30,Quarterly,false,true,true,true
+QTE-40098,OPP-20076,ACC-1110,Enterprise,1,false,Superseded,2025-11-03,259215,13,225517,33698,false,1,Auto-approved,0,2025-11-03,false,12,Prepaid Annual,Monthly,false,false,true,true
+QTE-40099,OPP-20076,ACC-1110,Enterprise,2,true,Accepted,2025-11-13,259215,10,205900,53315,false,1,Auto-approved,0,2025-11-13,false,24,Net 60,Monthly,true,true,true,true
+QTE-40100,OPP-20077,ACC-1090,SMB,1,true,Accepted,2026-01-04,42030,8,8600,33430,false,1,Auto-approved,0,2026-01-04,false,12,Net 30,Annual,false,false,true,true
+QTE-40101,OPP-20079,ACC-1122,Strategic,1,false,Superseded,2025-11-15,311740,28,224453,87287,true,3,AE Manager > Deal Desk > RevOps,6,2025-11-21,true,24,Net 30,Annual,false,true,true,true
+QTE-40102,OPP-20079,ACC-1122,Strategic,2,true,Rejected,2025-12-02,311740,25,346200,0,true,2,AE Manager > Deal Desk,5,2025-12-07,true,24,Net 45,Annual,false,false,true,true
+QTE-40103,OPP-20080,ACC-1088,SMB,1,true,Rejected,2025-09-03,42660,8,9100,33560,false,1,Auto-approved,0,2025-09-03,false,24,Net 60,Annual,false,false,true,true
+QTE-40104,OPP-20081,ACC-1022,Mid-Market,1,true,Rejected,2026-07-30,67320,13,67200,120,false,1,Auto-approved,0,2026-07-30,false,12,Net 45,Monthly,false,false,true,true
+QTE-40105,OPP-20082,ACC-1071,Mid-Market,1,true,Accepted,2026-03-11,83760,13,67000,16760,false,1,Auto-approved,0,2026-03-11,false,36,Net 30,Annual,false,false,false,false
+QTE-40106,OPP-20084,ACC-1080,Mid-Market,1,false,Superseded,2025-12-01,64690,13,56280,8410,false,1,Auto-approved,0,2025-12-01,false,12,Net 60,Annual,false,false,true,true
+QTE-40107,OPP-20084,ACC-1080,Mid-Market,2,true,Rejected,2025-12-02,64690,10,58800,5890,false,1,Auto-approved,0,2025-12-02,false,12,Net 30,Monthly,false,false,true,true
+QTE-40108,OPP-20085,ACC-1134,SMB,1,true,Rejected,2025-10-01,7715,18,7400,315,true,2,AE Manager > Deal Desk,7,2025-10-08,false,36,Net 30,Monthly,false,false,true,true
+QTE-40109,OPP-20086,ACC-1011,SMB,1,true,Accepted,2025-09-11,6000,13,5700,300,false,1,Auto-approved,0,2025-09-11,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40110,OPP-20087,ACC-1015,SMB,1,true,Rejected,2025-10-09,16800,18,15400,1400,true,2,AE Manager > Deal Desk,7,2025-10-16,false,12,Net 45,Quarterly,false,true,true,true
+QTE-40111,OPP-20089,ACC-1072,SMB,1,true,Accepted,2025-10-14,7320,35,6500,820,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2025-10-24,true,12,Net 60,Quarterly,false,true,true,true
+QTE-40112,OPP-20090,ACC-1113,Mid-Market,1,true,Rejected,2026-02-18,51360,8,24500,26860,false,1,Auto-approved,0,2026-02-18,false,12,Net 30,Annual,false,false,false,false
+QTE-40113,OPP-20093,ACC-1073,Enterprise,1,true,Rejected,2025-11-04,218850,23,198700,20150,true,3,AE Manager > Deal Desk > RevOps,3,2025-11-07,true,24,Net 30,Annual,true,true,true,true
+QTE-40114,OPP-20094,ACC-1028,Mid-Market,1,false,Superseded,2026-07-07,31140,13,27092,4048,false,1,Auto-approved,0,2026-07-07,false,36,Net 30,Quarterly,false,false,true,false
+QTE-40115,OPP-20094,ACC-1028,Mid-Market,2,true,Rejected,2026-07-13,31140,10,31200,0,false,1,Auto-approved,0,2026-07-13,false,12,Net 30,Annual,false,true,true,true
+QTE-40116,OPP-20097,ACC-1047,SMB,1,false,Superseded,2025-06-08,21600,13,18792,2808,false,1,Auto-approved,0,2025-06-08,false,36,Prepaid Annual,Annual,false,false,true,false
+QTE-40117,OPP-20097,ACC-1047,SMB,2,true,Rejected,2025-06-11,21600,25,17300,4300,true,3,AE Manager > Deal Desk > RevOps,5,2025-06-16,true,12,Net 60,Annual,false,false,true,false
+QTE-40118,OPP-20101,ACC-1010,Mid-Market,1,false,Superseded,2026-02-09,48960,23,37699,11261,true,3,AE Manager > Deal Desk > RevOps,7,2026-02-16,true,12,Net 45,Annual,false,false,true,true
+QTE-40119,OPP-20101,ACC-1010,Mid-Market,2,true,Accepted,2026-02-15,48960,20,30400,18560,true,3,AE Manager > Deal Desk > RevOps,13,2026-02-28,false,24,Net 30,Quarterly,false,true,true,true
+QTE-40120,OPP-20102,ACC-1058,SMB,1,false,Superseded,2025-11-25,4725,18,3875,850,true,2,AE Manager > Deal Desk,8,2025-12-03,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40121,OPP-20102,ACC-1058,SMB,2,false,Superseded,2025-11-27,4725,10,4253,472,false,1,Auto-approved,0,2025-11-27,false,12,Net 30,Annual,false,true,true,true
+QTE-40122,OPP-20102,ACC-1058,SMB,3,false,Superseded,2025-11-29,4725,13,4111,614,false,1,Auto-approved,0,2025-11-29,false,12,Net 60,Annual,false,false,true,true
+QTE-40123,OPP-20102,ACC-1058,SMB,4,true,Accepted,2025-11-30,4725,20,4700,25,true,2,AE Manager > Deal Desk,10,2025-12-10,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40124,OPP-20103,ACC-1116,Enterprise,1,false,Superseded,2026-07-07,93660,18,76801,16859,true,2,AE Manager > Deal Desk,6,2026-07-13,false,36,Net 60,Annual,true,false,true,true
+QTE-40125,OPP-20103,ACC-1116,Enterprise,2,true,Accepted,2026-07-15,93660,10,90800,2860,false,1,Auto-approved,0,2026-07-15,false,12,Net 30,Quarterly,true,false,true,true
+QTE-40126,OPP-20104,ACC-1067,Strategic,1,false,Superseded,2026-07-23,1078135,8,991884,86251,false,1,Auto-approved,0,2026-07-23,false,12,Net 30,Annual,true,false,true,true
+QTE-40127,OPP-20104,ACC-1067,Strategic,2,false,Superseded,2026-08-06,1078135,25,808601,269534,true,3,AE Manager > Deal Desk > RevOps,8,2026-08-14,true,24,Net 60,Annual,true,false,true,true
+QTE-40128,OPP-20104,ACC-1067,Strategic,3,true,Rejected,2026-08-21,1078135,33,1045800,32335,true,3,AE Manager > Deal Desk > RevOps,6,2026-08-27,true,12,Net 30,Annual,false,true,true,true
+QTE-40129,OPP-20106,ACC-1054,Enterprise,1,true,Rejected,2026-04-02,36000,8,114200,0,false,1,Auto-approved,0,2026-04-02,false,12,Prepaid Annual,Quarterly,true,false,false,false
+QTE-40130,OPP-20112,ACC-1093,Enterprise,1,false,Superseded,2025-07-22,218400,18,179088,39312,true,2,AE Manager > Deal Desk,7,2025-07-29,false,12,Net 60,Annual,true,false,true,true
+QTE-40131,OPP-20112,ACC-1093,Enterprise,2,true,Rejected,2025-07-27,218400,10,210900,7500,false,1,Auto-approved,0,2025-07-27,false,12,Net 30,Monthly,false,false,true,true
+QTE-40132,OPP-20114,ACC-1042,Strategic,1,false,Superseded,2026-03-26,763150,8,702098,61052,false,1,Auto-approved,0,2026-03-26,false,24,Net 30,Monthly,true,false,true,true
+QTE-40133,OPP-20114,ACC-1042,Strategic,2,true,Rejected,2026-04-09,763150,25,831600,0,true,3,AE Manager > Deal Desk > RevOps,8,2026-04-17,true,36,Net 30,Quarterly,true,false,true,false
+QTE-40134,OPP-20116,ACC-1089,SMB,1,true,Rejected,2025-10-26,13020,18,11600,1420,true,2,AE Manager > Deal Desk,4,2025-10-30,false,24,Net 45,Quarterly,false,false,true,true
+QTE-40135,OPP-20117,ACC-1087,SMB,1,true,Rejected,2025-07-20,46560,23,13400,33160,true,2,AE Manager > Deal Desk,4,2025-07-24,true,12,Net 30,Annual,false,false,true,true
+QTE-40136,OPP-20118,ACC-1017,Mid-Market,1,true,Accepted,2026-05-30,40920,13,40900,20,false,1,Auto-approved,0,2026-05-30,false,12,Net 30,Annual,false,false,true,true
+QTE-40137,OPP-20119,ACC-1039,Enterprise,1,true,Rejected,2025-09-10,278880,8,278900,0,false,1,Auto-approved,0,2025-09-10,false,12,Net 30,Annual,false,false,false,false
+QTE-40138,OPP-20120,ACC-1067,Strategic,1,true,Rejected,2026-02-16,706560,8,649300,57260,false,1,Auto-approved,0,2026-02-16,false,24,Net 60,Quarterly,false,false,true,true
+QTE-40139,OPP-20122,ACC-1087,SMB,1,true,Rejected,2026-05-12,12300,13,11700,600,false,1,Auto-approved,0,2026-05-12,false,12,Net 45,Annual,false,false,true,true
+QTE-40140,OPP-20123,ACC-1052,SMB,1,false,Superseded,2026-04-21,15400,13,13398,2002,false,1,Auto-approved,0,2026-04-21,false,12,Net 45,Quarterly,false,false,true,false
+QTE-40141,OPP-20123,ACC-1052,SMB,2,false,Superseded,2026-04-23,15400,20,12320,3080,true,2,AE Manager > Deal Desk,4,2026-04-27,false,24,Net 30,Monthly,false,false,true,true
+QTE-40142,OPP-20123,ACC-1052,SMB,3,false,Superseded,2026-04-24,15400,13,13398,2002,false,1,Auto-approved,0,2026-04-24,false,12,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40143,OPP-20123,ACC-1052,SMB,4,false,Superseded,2026-04-26,15400,25,11550,3850,true,3,AE Manager > Deal Desk > RevOps,9,2026-05-05,true,12,Net 30,Quarterly,false,false,true,true
+QTE-40144,OPP-20123,ACC-1052,SMB,5,true,Accepted,2026-04-27,15400,23,14700,700,true,2,AE Manager > Deal Desk,3,2026-04-30,true,12,Net 60,Quarterly,false,false,true,false
+QTE-40145,OPP-20124,ACC-1095,Enterprise,1,true,Accepted,2025-08-25,254670,23,254500,170,true,2,AE Manager > Deal Desk,2,2025-08-27,true,24,Net 30,Annual,true,false,false,false
+QTE-40146,OPP-20127,ACC-1028,Mid-Market,1,true,Accepted,2026-08-21,30420,23,29000,1420,true,3,AE Manager > Deal Desk > RevOps,9,2026-08-30,true,36,Net 45,Annual,false,true,false,false
+QTE-40147,OPP-20128,ACC-1071,Mid-Market,1,false,Superseded,2026-05-31,71640,28,51581,20059,true,3,AE Manager > Deal Desk > RevOps,7,2026-06-07,true,12,Prepaid Annual,Monthly,false,true,true,false
+QTE-40148,OPP-20128,ACC-1071,Mid-Market,2,false,Superseded,2026-06-05,71640,15,60894,10746,false,1,Auto-approved,0,2026-06-05,false,12,Net 45,Annual,false,false,true,false
+QTE-40149,OPP-20128,ACC-1071,Mid-Market,3,true,Rejected,2026-06-10,71640,18,63300,8340,true,3,AE Manager > Deal Desk > RevOps,4,2026-06-14,false,24,Net 30,Monthly,false,false,true,true
+QTE-40150,OPP-20129,ACC-1024,SMB,1,false,Superseded,2025-11-18,47700,8,43884,3816,false,1,Auto-approved,0,2025-11-18,false,12,Net 30,Annual,false,false,false,false
+QTE-40151,OPP-20129,ACC-1024,SMB,2,true,Rejected,2025-11-21,47700,37,17000,30700,true,3,AE Manager > Deal Desk > RevOps,8,2025-11-29,true,36,Net 60,Annual,false,false,false,false
+QTE-40152,OPP-20130,ACC-1071,Mid-Market,1,false,Superseded,2026-04-19,51120,28,36806,14314,true,4,AE Manager > Deal Desk > RevOps > Finance,6,2026-04-25,true,6,Net 30,Monthly,false,false,false,false
+QTE-40153,OPP-20130,ACC-1071,Mid-Market,2,true,Rejected,2026-04-24,51120,10,46000,5120,false,1,Auto-approved,0,2026-04-24,false,12,Net 30,Quarterly,false,false,false,false
+QTE-40154,OPP-20131,ACC-1122,Strategic,1,true,Accepted,2025-09-17,831070,35,715300,115770,true,3,AE Manager > Deal Desk > RevOps,12,2025-09-29,true,12,Net 45,Annual,true,false,true,true
+QTE-40155,OPP-20135,ACC-1035,SMB,1,false,Superseded,2025-07-20,7795,18,6392,1403,true,3,AE Manager > Deal Desk > RevOps,3,2025-07-23,false,36,Net 45,Monthly,false,false,true,true
+QTE-40156,OPP-20135,ACC-1035,SMB,2,false,Superseded,2025-07-23,7795,20,6236,1559,true,2,AE Manager > Deal Desk,5,2025-07-28,false,36,Net 45,Annual,false,false,true,true
+QTE-40157,OPP-20135,ACC-1035,SMB,3,false,Superseded,2025-07-26,7795,23,6002,1793,true,2,AE Manager > Deal Desk,5,2025-07-31,true,12,Net 30,Quarterly,false,false,true,true
+QTE-40158,OPP-20135,ACC-1035,SMB,4,true,Rejected,2025-07-29,7795,35,6000,1795,true,3,AE Manager > Deal Desk > RevOps,10,2025-08-08,true,36,Prepaid Annual,Monthly,false,true,true,true
+QTE-40159,OPP-20136,ACC-1054,Enterprise,1,false,Superseded,2026-03-18,107415,13,93451,13964,false,1,Auto-approved,0,2026-03-18,false,12,Net 30,Quarterly,true,true,true,true
+QTE-40160,OPP-20136,ACC-1054,Enterprise,2,false,Superseded,2026-03-30,107415,15,91303,16112,false,1,Auto-approved,0,2026-03-30,false,12,Net 30,Monthly,true,false,true,true
+QTE-40161,OPP-20136,ACC-1054,Enterprise,3,false,Superseded,2026-04-11,107415,13,93451,13964,false,1,Auto-approved,0,2026-04-11,false,12,Net 30,Quarterly,true,false,true,false
+QTE-40162,OPP-20136,ACC-1054,Enterprise,4,true,Rejected,2026-04-23,107415,42,81900,25515,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,13,2026-05-06,true,12,Net 60,Annual,false,false,true,false
+QTE-40163,OPP-20138,ACC-1004,SMB,1,true,Accepted,2026-04-04,23300,18,17400,5900,true,3,AE Manager > Deal Desk > RevOps,2,2026-04-06,false,36,Net 60,Monthly,false,false,true,true
+QTE-40164,OPP-20141,ACC-1096,Mid-Market,1,false,Superseded,2026-05-24,28320,8,26054,2266,false,1,Auto-approved,0,2026-05-24,false,12,Prepaid Annual,Annual,false,false,false,false
+QTE-40165,OPP-20141,ACC-1096,Mid-Market,2,false,Superseded,2026-05-27,28320,20,22656,5664,true,2,AE Manager > Deal Desk,8,2026-06-04,false,6,Net 45,Annual,false,false,false,false
+QTE-40166,OPP-20141,ACC-1096,Mid-Market,3,false,Superseded,2026-05-30,28320,23,21806,6514,true,3,AE Manager > Deal Desk > RevOps,5,2026-06-04,true,12,Net 60,Quarterly,false,false,false,false
+QTE-40167,OPP-20141,ACC-1096,Mid-Market,4,true,Accepted,2026-06-02,28320,42,28200,120,true,4,AE Manager > Deal Desk > RevOps > Finance,13,2026-06-15,true,24,Net 30,Monthly,false,true,false,false
+QTE-40168,OPP-20142,ACC-1130,SMB,1,false,Superseded,2026-01-16,14680,8,13506,1174,false,1,Auto-approved,0,2026-01-16,false,36,Net 45,Monthly,false,false,true,true
+QTE-40169,OPP-20142,ACC-1130,SMB,2,false,Superseded,2026-01-17,14680,20,11744,2936,true,3,AE Manager > Deal Desk > RevOps,2,2026-01-19,false,24,Net 45,Quarterly,false,false,true,true
+QTE-40170,OPP-20142,ACC-1130,SMB,3,false,Superseded,2026-01-18,14680,33,9836,4844,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2026-01-29,true,12,Net 30,Quarterly,false,true,true,false
+QTE-40171,OPP-20142,ACC-1130,SMB,4,false,Superseded,2026-01-19,14680,15,12478,2202,false,1,Auto-approved,0,2026-01-19,false,24,Net 30,Annual,false,false,true,true
+QTE-40172,OPP-20142,ACC-1130,SMB,5,true,Rejected,2026-01-20,14680,45,14300,380,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,10,2026-01-30,true,36,Net 30,Monthly,false,true,true,true
+QTE-40173,OPP-20143,ACC-1062,SMB,1,true,Accepted,2025-11-07,9715,8,9700,15,false,1,Auto-approved,0,2025-11-07,false,12,Net 45,Annual,false,true,true,true
+QTE-40174,OPP-20144,ACC-1055,SMB,1,false,Superseded,2026-07-08,38370,8,35300,3070,false,1,Auto-approved,0,2026-07-08,false,12,Net 60,Monthly,false,false,true,true
+QTE-40175,OPP-20144,ACC-1055,SMB,2,true,Rejected,2026-07-09,38370,30,3400,34970,true,3,AE Manager > Deal Desk > RevOps,7,2026-07-16,true,12,Prepaid Annual,Quarterly,false,true,true,true
+QTE-40176,OPP-20146,ACC-1072,SMB,1,true,Rejected,2026-05-03,9610,35,9700,0,true,3,AE Manager > Deal Desk > RevOps,5,2026-05-08,true,12,Prepaid Annual,Quarterly,false,true,true,true
+QTE-40177,OPP-20149,ACC-1130,SMB,1,false,Superseded,2025-11-13,13650,23,10511,3139,true,3,AE Manager > Deal Desk > RevOps,9,2025-11-22,true,36,Net 45,Annual,false,true,false,false
+QTE-40178,OPP-20149,ACC-1130,SMB,2,false,Superseded,2025-11-14,13650,25,10238,3412,true,2,AE Manager > Deal Desk,8,2025-11-22,true,36,Net 60,Annual,false,false,false,false
+QTE-40179,OPP-20149,ACC-1130,SMB,3,false,Superseded,2025-11-14,13650,23,10511,3139,true,2,AE Manager > Deal Desk,1,2025-11-15,true,12,Net 45,Quarterly,false,false,false,false
+QTE-40180,OPP-20149,ACC-1130,SMB,4,false,Superseded,2025-11-14,13650,20,10920,2730,true,2,AE Manager > Deal Desk,3,2025-11-17,false,24,Prepaid Annual,Quarterly,false,false,false,false
+QTE-40181,OPP-20149,ACC-1130,SMB,5,true,Rejected,2025-11-15,13650,58,13000,650,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,13,2025-11-28,true,12,Net 60,Monthly,false,false,false,false
+QTE-40182,OPP-20150,ACC-1100,Mid-Market,1,false,Superseded,2026-06-24,36000,18,29520,6480,true,3,AE Manager > Deal Desk > RevOps,7,2026-07-01,false,12,Net 45,Monthly,false,false,false,false
+QTE-40183,OPP-20150,ACC-1100,Mid-Market,2,false,Superseded,2026-06-27,36000,10,32400,3600,false,1,Auto-approved,0,2026-06-27,false,36,Net 30,Quarterly,false,false,false,false
+QTE-40184,OPP-20150,ACC-1100,Mid-Market,3,false,Superseded,2026-06-30,36000,28,25920,10080,true,3,AE Manager > Deal Desk > RevOps,5,2026-07-05,true,24,Net 30,Annual,false,false,false,false
+QTE-40185,OPP-20150,ACC-1100,Mid-Market,4,false,Superseded,2026-07-03,36000,42,20880,15120,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,13,2026-07-16,true,12,Net 30,Monthly,false,false,false,false
+QTE-40186,OPP-20150,ACC-1100,Mid-Market,5,true,Rejected,2026-07-06,36000,18,54700,0,true,3,AE Manager > Deal Desk > RevOps,4,2026-07-10,false,24,Net 30,Annual,false,false,false,false
+QTE-40187,OPP-20152,ACC-1034,Mid-Market,1,false,Superseded,2026-02-01,90300,23,69531,20769,true,3,AE Manager > Deal Desk > RevOps,6,2026-02-07,true,12,Net 30,Quarterly,false,true,true,true
+QTE-40188,OPP-20152,ACC-1034,Mid-Market,2,false,Superseded,2026-02-08,90300,20,72240,18060,true,2,AE Manager > Deal Desk,5,2026-02-13,false,12,Net 45,Annual,false,false,true,true
+QTE-40189,OPP-20152,ACC-1034,Mid-Market,3,true,Rejected,2026-02-15,90300,18,58700,31600,true,2,AE Manager > Deal Desk,2,2026-02-17,false,12,Net 30,Annual,false,false,true,true
+QTE-40190,OPP-20153,ACC-1010,Mid-Market,1,false,Superseded,2025-06-20,58750,8,54050,4700,false,1,Auto-approved,0,2025-06-20,false,12,Net 30,Quarterly,false,false,true,false
+QTE-40191,OPP-20153,ACC-1010,Mid-Market,2,false,Superseded,2025-06-25,58750,15,49938,8812,false,1,Auto-approved,0,2025-06-25,false,12,Net 30,Annual,false,false,true,true
+QTE-40192,OPP-20153,ACC-1010,Mid-Market,3,false,Superseded,2025-06-30,58750,23,45238,13512,true,2,AE Manager > Deal Desk,6,2025-07-06,true,36,Net 30,Annual,false,false,true,true
+QTE-40193,OPP-20153,ACC-1010,Mid-Market,4,true,Rejected,2025-07-05,58750,20,31800,26950,true,2,AE Manager > Deal Desk,5,2025-07-10,false,24,Net 60,Monthly,false,true,true,true
+QTE-40194,OPP-20154,ACC-1055,SMB,1,false,Superseded,2025-07-13,12075,13,10505,1570,false,1,Auto-approved,0,2025-07-13,false,12,Net 60,Annual,false,false,true,true
+QTE-40195,OPP-20154,ACC-1055,SMB,2,true,Rejected,2025-07-16,12075,10,12100,0,false,1,Auto-approved,0,2025-07-16,false,12,Net 30,Monthly,false,false,true,true
+QTE-40196,OPP-20157,ACC-1116,Enterprise,1,true,Rejected,2026-02-05,119685,13,103900,15785,false,1,Auto-approved,0,2026-02-05,false,12,Net 60,Quarterly,true,false,true,true
+QTE-40197,OPP-20158,ACC-1101,SMB,1,true,Rejected,2026-06-07,36000,23,16700,19300,true,3,AE Manager > Deal Desk > RevOps,8,2026-06-15,true,12,Net 45,Monthly,false,false,false,false
+QTE-40198,OPP-20159,ACC-1100,Mid-Market,1,false,Superseded,2025-08-19,36000,18,29520,6480,true,3,AE Manager > Deal Desk > RevOps,5,2025-08-24,false,24,Net 30,Monthly,false,true,false,false
+QTE-40199,OPP-20159,ACC-1100,Mid-Market,2,false,Superseded,2025-08-23,36000,15,30600,5400,false,1,Auto-approved,0,2025-08-23,false,24,Net 60,Quarterly,false,false,false,false
+QTE-40200,OPP-20159,ACC-1100,Mid-Market,3,true,Accepted,2025-08-28,36000,28,67500,0,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2025-09-08,true,12,Net 45,Annual,false,true,false,false
+QTE-40201,OPP-20161,ACC-1095,Enterprise,1,false,Superseded,2026-05-22,231660,8,213127,18533,false,1,Auto-approved,0,2026-05-22,false,36,Net 60,Quarterly,true,false,true,true
+QTE-40202,OPP-20161,ACC-1095,Enterprise,2,false,Superseded,2026-06-08,231660,37,145946,85714,true,3,AE Manager > Deal Desk > RevOps,13,2026-06-21,true,12,Net 60,Monthly,false,false,true,true
+QTE-40203,OPP-20161,ACC-1095,Enterprise,3,true,Accepted,2026-06-25,231660,13,191200,40460,false,1,Auto-approved,0,2026-06-25,false,36,Net 45,Annual,true,false,true,true
+QTE-40204,OPP-20162,ACC-1008,SMB,1,false,Superseded,2026-05-07,47790,23,36798,10992,true,2,AE Manager > Deal Desk,4,2026-05-11,true,24,Net 30,Monthly,false,true,true,true
+QTE-40205,OPP-20162,ACC-1008,SMB,2,true,Rejected,2026-05-08,47790,15,16800,30990,false,1,Auto-approved,0,2026-05-08,false,24,Prepaid Annual,Quarterly,false,true,true,false
+QTE-40206,OPP-20163,ACC-1073,Enterprise,1,false,Superseded,2026-07-10,206400,48,107328,99072,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,16,2026-07-26,true,12,Net 30,Annual,false,true,false,false
+QTE-40207,OPP-20163,ACC-1073,Enterprise,2,false,Superseded,2026-07-18,206400,25,154800,51600,true,2,AE Manager > Deal Desk,5,2026-07-23,true,36,Prepaid Annual,Monthly,true,false,false,false
+QTE-40208,OPP-20163,ACC-1073,Enterprise,3,true,Accepted,2026-07-26,206400,23,203000,3400,true,3,AE Manager > Deal Desk > RevOps,8,2026-08-03,true,12,Net 30,Quarterly,false,false,false,false
+QTE-40209,OPP-20166,ACC-1007,Enterprise,1,false,Superseded,2025-09-15,72295,28,52052,20243,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2025-09-26,true,24,Net 60,Monthly,false,false,true,true
+QTE-40210,OPP-20166,ACC-1007,Enterprise,2,false,Superseded,2025-09-24,72295,50,36148,36147,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,15,2025-10-09,true,12,Net 60,Monthly,false,true,true,true
+QTE-40211,OPP-20166,ACC-1007,Enterprise,3,true,Accepted,2025-10-02,72295,13,68700,3595,false,1,Auto-approved,0,2025-10-02,false,12,Net 30,Annual,true,true,true,false
+QTE-40212,OPP-20167,ACC-1072,SMB,1,false,Superseded,2026-01-18,48580,8,44694,3886,false,1,Auto-approved,0,2026-01-18,false,12,Prepaid Annual,Annual,false,true,true,true
+QTE-40213,OPP-20167,ACC-1072,SMB,2,false,Superseded,2026-01-20,48580,15,41293,7287,false,1,Auto-approved,0,2026-01-20,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40214,OPP-20167,ACC-1072,SMB,3,true,Rejected,2026-01-22,48580,28,15600,32980,true,4,AE Manager > Deal Desk > RevOps > Finance,13,2026-02-04,true,12,Net 60,Quarterly,false,true,true,true
+QTE-40215,OPP-20169,ACC-1067,Strategic,1,false,Superseded,2026-06-11,311960,18,255807,56153,true,3,AE Manager > Deal Desk > RevOps,9,2026-06-20,false,12,Net 60,Annual,true,false,true,false
+QTE-40216,OPP-20169,ACC-1067,Strategic,2,false,Superseded,2026-06-29,311960,20,249568,62392,true,2,AE Manager > Deal Desk,4,2026-07-03,false,36,Net 30,Annual,true,true,true,true
+QTE-40217,OPP-20169,ACC-1067,Strategic,3,false,Superseded,2026-07-17,311960,40,187176,124784,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-07-26,true,12,Net 45,Annual,true,false,true,false
+QTE-40218,OPP-20169,ACC-1067,Strategic,4,true,Rejected,2026-08-03,311960,15,396500,0,false,1,Auto-approved,0,2026-08-03,false,12,Prepaid Annual,Annual,false,false,true,false
+QTE-40219,OPP-20171,ACC-1041,Mid-Market,1,false,Superseded,2025-10-03,46295,18,37962,8333,true,2,AE Manager > Deal Desk,1,2025-10-04,false,24,Net 45,Annual,false,false,true,true
+QTE-40220,OPP-20171,ACC-1041,Mid-Market,2,true,Rejected,2025-10-08,46295,10,40500,5795,false,1,Auto-approved,0,2025-10-08,false,12,Net 45,Quarterly,false,false,true,true
+QTE-40221,OPP-20172,ACC-1055,SMB,1,false,Superseded,2026-07-26,15890,23,12235,3655,true,3,AE Manager > Deal Desk > RevOps,6,2026-08-01,true,12,Net 45,Annual,false,true,true,true
+QTE-40222,OPP-20172,ACC-1055,SMB,2,true,Rejected,2026-07-27,15890,30,13300,2590,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-08-06,true,12,Net 30,Annual,false,false,true,true
+QTE-40223,OPP-20175,ACC-1096,Mid-Market,1,false,Superseded,2026-06-07,36000,13,31320,4680,false,1,Auto-approved,0,2026-06-07,false,12,Net 30,Quarterly,false,false,false,false
+QTE-40224,OPP-20175,ACC-1096,Mid-Market,2,true,Rejected,2026-06-12,36000,15,42200,0,false,1,Auto-approved,0,2026-06-12,false,12,Net 30,Annual,false,false,false,false
+QTE-40225,OPP-20176,ACC-1005,Enterprise,1,false,Superseded,2026-01-20,83670,8,76976,6694,false,1,Auto-approved,0,2026-01-20,false,36,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40226,OPP-20176,ACC-1005,Enterprise,2,false,Superseded,2026-02-02,83670,25,62753,20917,true,3,AE Manager > Deal Desk > RevOps,7,2026-02-09,true,24,Net 30,Annual,true,false,true,true
+QTE-40227,OPP-20176,ACC-1005,Enterprise,3,true,Rejected,2026-02-16,83670,33,69200,14470,true,3,AE Manager > Deal Desk > RevOps,7,2026-02-23,true,12,Net 30,Monthly,false,true,true,true
+QTE-40228,OPP-20177,ACC-1062,SMB,1,false,Superseded,2025-12-01,3290,13,2862,428,false,1,Auto-approved,0,2025-12-01,false,36,Net 30,Monthly,false,false,true,true
+QTE-40229,OPP-20177,ACC-1062,SMB,2,true,Rejected,2025-12-04,3290,37,3000,290,true,3,AE Manager > Deal Desk > RevOps,10,2025-12-14,true,24,Net 30,Annual,false,true,true,true
+QTE-40230,OPP-20179,ACC-1059,Enterprise,1,true,Rejected,2026-07-29,72150,28,66800,5350,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-08-07,true,12,Net 60,Quarterly,false,true,false,false
+QTE-40231,OPP-20181,ACC-1005,Enterprise,1,true,Rejected,2026-05-31,78390,18,78500,0,true,3,AE Manager > Deal Desk > RevOps,9,2026-06-09,false,24,Net 60,Quarterly,true,false,false,false
+QTE-40232,OPP-20182,ACC-1012,Mid-Market,1,false,Superseded,2026-08-29,69120,13,60134,8986,false,1,Auto-approved,0,2026-08-29,false,12,Net 30,Annual,false,false,false,false
+QTE-40233,OPP-20182,ACC-1012,Mid-Market,2,false,Superseded,2026-09-07,69120,25,51840,17280,true,2,AE Manager > Deal Desk,6,2026-09-13,true,6,Net 60,Annual,false,false,false,false
+QTE-40234,OPP-20182,ACC-1012,Mid-Market,3,true,Presented,2026-09-16,69120,33,59300,9820,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-09-25,true,24,Net 45,Quarterly,false,true,false,false
+QTE-40235,OPP-20184,ACC-1011,SMB,1,true,Rejected,2025-06-08,17325,18,14800,2525,true,3,AE Manager > Deal Desk > RevOps,7,2025-06-15,false,12,Net 45,Quarterly,false,false,true,true
+QTE-40236,OPP-20186,ACC-1078,SMB,1,true,Rejected,2026-01-20,43075,23,10700,32375,true,2,AE Manager > Deal Desk,3,2026-01-23,true,12,Net 60,Annual,false,false,true,true
+QTE-40237,OPP-20187,ACC-1115,SMB,1,false,Superseded,2026-01-13,8970,28,6458,2512,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2026-01-21,true,12,Prepaid Annual,Annual,false,false,false,false
+QTE-40238,OPP-20187,ACC-1115,SMB,2,false,Superseded,2026-01-14,8970,15,7625,1345,false,1,Auto-approved,0,2026-01-14,false,36,Net 30,Annual,false,false,false,false
+QTE-40239,OPP-20187,ACC-1115,SMB,3,false,Superseded,2026-01-15,8970,28,6458,2512,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-01-25,true,24,Net 30,Quarterly,false,true,false,false
+QTE-40240,OPP-20187,ACC-1115,SMB,4,false,Superseded,2026-01-16,8970,15,7625,1345,false,1,Auto-approved,0,2026-01-16,false,36,Net 45,Annual,false,false,false,false
+QTE-40241,OPP-20187,ACC-1115,SMB,5,true,Rejected,2026-01-17,8970,23,5800,3170,true,2,AE Manager > Deal Desk,4,2026-01-21,true,24,Net 30,Quarterly,false,false,false,false
+QTE-40242,OPP-20188,ACC-1034,Mid-Market,1,false,Superseded,2025-10-29,73320,23,56456,16864,true,2,AE Manager > Deal Desk,6,2025-11-04,true,36,Net 60,Monthly,false,false,false,false
+QTE-40243,OPP-20188,ACC-1034,Mid-Market,2,false,Superseded,2025-11-04,73320,20,58656,14664,true,2,AE Manager > Deal Desk,2,2025-11-06,false,24,Net 60,Annual,false,false,false,false
+QTE-40244,OPP-20188,ACC-1034,Mid-Market,3,true,Rejected,2025-11-10,73320,53,66000,7320,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,14,2025-11-24,true,36,Net 30,Quarterly,false,false,false,false
+QTE-40245,OPP-20189,ACC-1133,Mid-Market,1,true,Accepted,2026-03-01,75360,8,57800,17560,false,1,Auto-approved,0,2026-03-01,false,12,Net 60,Monthly,false,false,false,false
+QTE-40246,OPP-20190,ACC-1059,Enterprise,1,true,Accepted,2026-07-28,36000,23,93000,0,true,3,AE Manager > Deal Desk > RevOps,5,2026-08-02,true,36,Net 45,Quarterly,false,false,false,false
+QTE-40247,OPP-20191,ACC-1046,Strategic,1,false,Superseded,2026-09-01,867545,28,624632,242913,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-09-11,true,24,Net 45,Annual,true,true,true,true
+QTE-40248,OPP-20191,ACC-1046,Strategic,2,false,Superseded,2026-09-07,867545,15,737413,130132,false,1,Auto-approved,0,2026-09-07,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40249,OPP-20191,ACC-1046,Strategic,3,true,Rejected,2026-09-13,867545,18,1098200,0,true,2,AE Manager > Deal Desk,2,2026-09-15,false,24,Prepaid Annual,Annual,true,true,true,true
+QTE-40250,OPP-20194,ACC-1011,SMB,1,true,Rejected,2026-01-03,16970,8,14300,2670,false,1,Auto-approved,0,2026-01-03,false,12,Net 30,Annual,false,false,true,true
+QTE-40251,OPP-20196,ACC-1088,SMB,1,false,Superseded,2025-08-26,36000,13,31320,4680,false,1,Auto-approved,0,2025-08-26,false,12,Net 30,Annual,false,false,false,false
+QTE-40252,OPP-20196,ACC-1088,SMB,2,true,Accepted,2025-08-29,36000,25,16100,19900,true,2,AE Manager > Deal Desk,5,2025-09-03,true,36,Net 30,Monthly,false,false,false,false
+QTE-40253,OPP-20197,ACC-1007,Enterprise,1,false,Superseded,2025-07-28,290550,35,188858,101692,true,3,AE Manager > Deal Desk > RevOps,7,2025-08-04,true,12,Net 45,Annual,true,true,false,false
+QTE-40254,OPP-20197,ACC-1007,Enterprise,2,false,Superseded,2025-08-07,290550,15,246968,43582,false,1,Auto-approved,0,2025-08-07,false,12,Net 60,Monthly,true,false,false,false
+QTE-40255,OPP-20197,ACC-1007,Enterprise,3,false,Superseded,2025-08-17,290550,23,223724,66826,true,2,AE Manager > Deal Desk,7,2025-08-24,true,12,Net 60,Annual,false,false,false,false
+QTE-40256,OPP-20197,ACC-1007,Enterprise,4,true,Rejected,2025-08-26,290550,20,261600,28950,true,3,AE Manager > Deal Desk > RevOps,7,2025-09-02,false,12,Prepaid Annual,Quarterly,false,false,false,false
+QTE-40257,OPP-20198,ACC-1097,SMB,1,true,Presented,2026-10-16,10480,35,8700,1780,true,3,AE Manager > Deal Desk > RevOps,9,2026-10-25,true,12,Net 30,Monthly,false,true,true,false
+QTE-40258,OPP-20199,ACC-1097,SMB,1,false,Superseded,2025-09-19,41980,13,36523,5457,false,1,Auto-approved,0,2025-09-19,false,12,Net 30,Annual,false,false,true,true
+QTE-40259,OPP-20199,ACC-1097,SMB,2,false,Superseded,2025-09-22,41980,20,33584,8396,true,3,AE Manager > Deal Desk > RevOps,6,2025-09-28,false,36,Net 30,Quarterly,false,true,true,true
+QTE-40260,OPP-20199,ACC-1097,SMB,3,true,Rejected,2025-09-24,41980,18,8700,33280,true,3,AE Manager > Deal Desk > RevOps,9,2025-10-03,false,12,Net 60,Quarterly,false,false,true,true
+QTE-40261,OPP-20200,ACC-1008,SMB,1,true,Rejected,2026-09-02,13200,8,13200,0,false,1,Auto-approved,0,2026-09-02,false,12,Net 30,Quarterly,false,false,false,false
+QTE-40262,OPP-20201,ACC-1060,SMB,1,false,Superseded,2025-07-01,38880,13,33826,5054,false,1,Auto-approved,0,2025-07-01,false,12,Net 30,Annual,false,false,false,false
+QTE-40263,OPP-20201,ACC-1060,SMB,2,false,Superseded,2025-07-02,38880,20,31104,7776,true,3,AE Manager > Deal Desk > RevOps,4,2025-07-06,false,12,Net 60,Annual,false,false,false,false
+QTE-40264,OPP-20201,ACC-1060,SMB,3,false,Superseded,2025-07-03,38880,33,26050,12830,true,3,AE Manager > Deal Desk > RevOps,3,2025-07-06,true,12,Net 30,Quarterly,false,true,false,false
+QTE-40265,OPP-20201,ACC-1060,SMB,4,true,Rejected,2025-07-03,38880,30,5800,33080,true,3,AE Manager > Deal Desk > RevOps,5,2025-07-08,true,12,Prepaid Annual,Annual,false,false,false,false
+QTE-40266,OPP-20202,ACC-1114,Strategic,1,false,Superseded,2026-07-19,290605,8,267357,23248,false,1,Auto-approved,0,2026-07-19,false,6,Net 60,Monthly,false,false,true,false
+QTE-40267,OPP-20202,ACC-1114,Strategic,2,false,Superseded,2026-07-30,290605,25,217954,72651,true,2,AE Manager > Deal Desk,3,2026-08-02,true,6,Net 30,Monthly,false,false,true,true
+QTE-40268,OPP-20202,ACC-1114,Strategic,3,true,Rejected,2026-08-10,290605,13,279400,11205,false,1,Auto-approved,0,2026-08-10,false,12,Net 30,Quarterly,true,true,true,true
+QTE-40269,OPP-20204,ACC-1119,Enterprise,1,false,Superseded,2026-04-13,86335,13,75111,11224,false,1,Auto-approved,0,2026-04-13,false,12,Prepaid Annual,Quarterly,true,true,true,true
+QTE-40270,OPP-20204,ACC-1119,Enterprise,2,true,Rejected,2026-04-20,86335,50,77500,8835,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,16,2026-05-06,true,12,Net 30,Annual,false,true,true,true
+QTE-40271,OPP-20205,ACC-1122,Strategic,1,false,Superseded,2026-06-26,587760,18,481963,105797,true,3,AE Manager > Deal Desk > RevOps,10,2026-07-06,false,24,Net 30,Quarterly,true,false,true,false
+QTE-40272,OPP-20205,ACC-1122,Strategic,2,false,Superseded,2026-07-10,587760,25,440820,146940,true,3,AE Manager > Deal Desk > RevOps,9,2026-07-19,true,12,Net 45,Quarterly,false,false,true,true
+QTE-40273,OPP-20205,ACC-1122,Strategic,3,true,Rejected,2026-07-24,587760,33,576300,11460,true,3,AE Manager > Deal Desk > RevOps,9,2026-08-02,true,36,Net 30,Annual,true,false,true,true
+QTE-40274,OPP-20206,ACC-1047,SMB,1,false,Superseded,2025-10-25,37950,48,19734,18216,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,14,2025-11-08,true,12,Net 30,Annual,false,false,false,false
+QTE-40275,OPP-20206,ACC-1047,SMB,2,false,Superseded,2025-10-27,37950,15,32258,5692,false,1,Auto-approved,0,2025-10-27,false,12,Net 30,Annual,false,false,false,false
+QTE-40276,OPP-20206,ACC-1047,SMB,3,true,Rejected,2025-10-29,37950,13,4400,33550,false,1,Auto-approved,0,2025-10-29,false,12,Net 30,Annual,false,false,false,false
+QTE-40277,OPP-20208,ACC-1112,Mid-Market,1,true,Rejected,2025-05-28,36000,18,52500,0,true,3,AE Manager > Deal Desk > RevOps,5,2025-06-02,false,12,Net 30,Quarterly,false,false,false,false
+QTE-40278,OPP-20209,ACC-1007,Enterprise,1,true,Rejected,2026-04-04,125375,8,121400,3975,false,1,Auto-approved,0,2026-04-04,false,12,Prepaid Annual,Quarterly,true,false,true,false
+QTE-40279,OPP-20210,ACC-1116,Enterprise,1,false,Superseded,2025-07-18,255280,35,165932,89348,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2025-07-27,true,12,Net 60,Annual,false,false,true,true
+QTE-40280,OPP-20210,ACC-1116,Enterprise,2,true,Rejected,2025-07-28,255280,30,247600,7680,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2025-08-08,true,36,Net 30,Quarterly,false,false,true,true
+QTE-40281,OPP-20211,ACC-1100,Mid-Market,1,false,Superseded,2026-06-05,49370,48,25672,23698,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,15,2026-06-20,true,12,Net 30,Annual,false,true,true,true
+QTE-40282,OPP-20211,ACC-1100,Mid-Market,2,false,Superseded,2026-06-14,49370,15,41965,7405,false,1,Auto-approved,0,2026-06-14,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40283,OPP-20211,ACC-1100,Mid-Market,3,false,Superseded,2026-06-23,49370,13,42952,6418,false,1,Auto-approved,0,2026-06-23,false,36,Net 30,Annual,false,false,true,true
+QTE-40284,OPP-20211,ACC-1100,Mid-Market,4,false,Superseded,2026-07-01,49370,25,37028,12342,true,3,AE Manager > Deal Desk > RevOps,7,2026-07-08,true,12,Net 60,Annual,false,false,true,true
+QTE-40285,OPP-20211,ACC-1100,Mid-Market,5,true,Rejected,2026-07-10,49370,33,45100,4270,true,4,AE Manager > Deal Desk > RevOps > Finance,7,2026-07-17,true,6,Net 30,Quarterly,false,false,true,true
+QTE-40286,OPP-20213,ACC-1086,Strategic,1,false,Superseded,2026-12-10,481955,48,250617,231338,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-12-20,true,12,Net 30,Annual,false,false,true,true
+QTE-40287,OPP-20213,ACC-1086,Strategic,2,true,Presented,2026-12-23,481955,20,606800,0,true,3,AE Manager > Deal Desk > RevOps,2,2026-12-25,false,24,Net 45,Annual,false,false,true,true
+QTE-40288,OPP-20214,ACC-1024,SMB,1,true,Rejected,2026-07-18,36000,35,6700,29300,true,3,AE Manager > Deal Desk > RevOps,12,2026-07-30,true,12,Net 30,Annual,false,false,false,false
+QTE-40289,OPP-20215,ACC-1114,Strategic,1,false,Superseded,2026-05-14,428130,13,372473,55657,false,1,Auto-approved,0,2026-05-14,false,36,Net 60,Monthly,true,false,true,true
+QTE-40290,OPP-20215,ACC-1114,Strategic,2,true,Rejected,2026-05-22,428130,20,401600,26530,true,2,AE Manager > Deal Desk,6,2026-05-28,false,24,Net 45,Annual,true,false,true,true
+QTE-40291,OPP-20218,ACC-1085,SMB,1,false,Superseded,2025-11-17,36000,35,23400,12600,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2025-11-27,true,12,Prepaid Annual,Monthly,false,true,false,false
+QTE-40292,OPP-20218,ACC-1085,SMB,2,true,Rejected,2025-11-18,36000,37,15700,20300,true,3,AE Manager > Deal Desk > RevOps,11,2025-11-29,true,24,Net 30,Annual,false,true,false,false
+QTE-40293,OPP-20222,ACC-1092,SMB,1,false,Superseded,2026-06-09,3910,23,3011,899,true,2,AE Manager > Deal Desk,6,2026-06-15,true,12,Net 45,Annual,false,false,true,true
+QTE-40294,OPP-20222,ACC-1092,SMB,2,true,Accepted,2026-06-11,3910,25,3700,210,true,3,AE Manager > Deal Desk > RevOps,10,2026-06-21,true,36,Net 60,Annual,false,false,true,true
+QTE-40295,OPP-20227,ACC-1087,SMB,1,false,Superseded,2026-01-13,3540,13,3080,460,false,1,Auto-approved,0,2026-01-13,false,12,Net 30,Monthly,false,false,true,false
+QTE-40296,OPP-20227,ACC-1087,SMB,2,true,Rejected,2026-01-15,3540,15,3400,140,false,1,Auto-approved,0,2026-01-15,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40297,OPP-20228,ACC-1060,SMB,1,true,Rejected,2026-09-01,14100,13,14100,0,false,1,Auto-approved,0,2026-09-01,false,24,Net 45,Quarterly,false,false,true,true
+QTE-40298,OPP-20229,ACC-1027,Enterprise,1,false,Superseded,2026-01-23,121500,18,99630,21870,true,2,AE Manager > Deal Desk,2,2026-01-25,false,12,Net 30,Monthly,false,false,true,true
+QTE-40299,OPP-20229,ACC-1027,Enterprise,2,false,Superseded,2026-01-31,121500,50,60750,60750,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,12,2026-02-12,true,12,Net 30,Annual,false,true,true,true
+QTE-40300,OPP-20229,ACC-1027,Enterprise,3,true,Accepted,2026-02-08,121500,33,124000,0,true,3,AE Manager > Deal Desk > RevOps,9,2026-02-17,true,36,Net 30,Quarterly,false,false,true,true
+QTE-40301,OPP-20230,ACC-1102,Mid-Market,1,true,Rejected,2025-08-06,47470,13,39100,8370,false,1,Auto-approved,0,2025-08-06,false,24,Net 45,Annual,false,false,true,true
+QTE-40302,OPP-20231,ACC-1124,Mid-Market,1,false,Superseded,2026-03-27,50730,13,44135,6595,false,1,Auto-approved,0,2026-03-27,false,12,Net 45,Monthly,false,false,false,false
+QTE-40303,OPP-20231,ACC-1124,Mid-Market,2,false,Superseded,2026-04-03,50730,20,40584,10146,true,3,AE Manager > Deal Desk > RevOps,9,2026-04-12,false,6,Net 45,Quarterly,false,false,false,false
+QTE-40304,OPP-20231,ACC-1124,Mid-Market,3,false,Superseded,2026-04-10,50730,13,44135,6595,false,1,Auto-approved,0,2026-04-10,false,12,Prepaid Annual,Monthly,false,false,false,false
+QTE-40305,OPP-20231,ACC-1124,Mid-Market,4,false,Superseded,2026-04-17,50730,42,29423,21307,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2026-04-25,true,12,Prepaid Annual,Monthly,false,false,false,false
+QTE-40306,OPP-20231,ACC-1124,Mid-Market,5,true,Rejected,2026-04-24,50730,28,45800,4930,true,3,AE Manager > Deal Desk > RevOps,9,2026-05-03,true,12,Net 60,Annual,false,true,false,false
+QTE-40307,OPP-20232,ACC-1128,Mid-Market,1,true,Accepted,2025-11-25,66150,13,62900,3250,false,1,Auto-approved,0,2025-11-25,false,24,Net 30,Annual,false,true,true,true
+QTE-40308,OPP-20234,ACC-1137,Mid-Market,1,false,Superseded,2026-05-18,50380,23,38793,11587,true,3,AE Manager > Deal Desk > RevOps,8,2026-05-26,true,12,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40309,OPP-20234,ACC-1137,Mid-Market,2,false,Superseded,2026-05-27,50380,15,42823,7557,false,1,Auto-approved,0,2026-05-27,false,36,Net 60,Quarterly,false,false,true,false
+QTE-40310,OPP-20234,ACC-1137,Mid-Market,3,false,Superseded,2026-06-05,50380,53,23679,26701,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,14,2026-06-19,true,36,Net 45,Annual,false,true,true,true
+QTE-40311,OPP-20234,ACC-1137,Mid-Market,4,true,Rejected,2026-06-13,50380,15,17600,32780,false,1,Auto-approved,0,2026-06-13,false,12,Prepaid Annual,Annual,false,true,true,false
+QTE-40312,OPP-20235,ACC-1120,Mid-Market,1,false,Superseded,2026-04-11,36000,13,31320,4680,false,1,Auto-approved,0,2026-04-11,false,12,Net 30,Monthly,false,false,false,false
+QTE-40313,OPP-20235,ACC-1120,Mid-Market,2,true,Rejected,2026-04-19,36000,25,54500,0,true,2,AE Manager > Deal Desk,4,2026-04-23,true,12,Net 45,Monthly,false,false,false,false
+QTE-40314,OPP-20238,ACC-1065,SMB,1,false,Superseded,2025-12-15,6120,18,5018,1102,true,2,AE Manager > Deal Desk,4,2025-12-19,false,12,Net 30,Annual,false,false,true,true
+QTE-40315,OPP-20238,ACC-1065,SMB,2,true,Rejected,2025-12-17,6120,37,5300,820,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2025-12-25,true,24,Net 60,Annual,false,true,true,true
+QTE-40316,OPP-20239,ACC-1062,SMB,1,true,Rejected,2026-05-05,36000,13,6600,29400,false,1,Auto-approved,0,2026-05-05,false,12,Net 30,Quarterly,false,false,false,false
+QTE-40317,OPP-20240,ACC-1062,SMB,1,true,Accepted,2026-03-30,12240,28,11700,540,true,3,AE Manager > Deal Desk > RevOps,8,2026-04-07,true,24,Net 30,Quarterly,false,false,false,false
+QTE-40318,OPP-20241,ACC-1022,Mid-Market,1,false,Superseded,2025-08-29,38110,23,29345,8765,true,3,AE Manager > Deal Desk > RevOps,9,2025-09-07,true,12,Net 45,Monthly,false,false,true,true
+QTE-40319,OPP-20241,ACC-1022,Mid-Market,2,false,Superseded,2025-09-03,38110,10,34299,3811,false,1,Auto-approved,0,2025-09-03,false,24,Net 60,Quarterly,false,false,true,true
+QTE-40320,OPP-20241,ACC-1022,Mid-Market,3,false,Superseded,2025-09-09,38110,13,33156,4954,false,1,Auto-approved,0,2025-09-09,false,24,Net 30,Annual,false,false,true,true
+QTE-40321,OPP-20241,ACC-1022,Mid-Market,4,true,Rejected,2025-09-15,38110,42,38000,110,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2025-09-26,true,12,Net 30,Annual,false,false,true,true
+QTE-40322,OPP-20242,ACC-1050,SMB,1,false,Superseded,2026-06-04,36000,18,29520,6480,true,3,AE Manager > Deal Desk > RevOps,6,2026-06-10,false,12,Net 30,Monthly,false,false,false,false
+QTE-40323,OPP-20242,ACC-1050,SMB,2,true,Rejected,2026-06-06,36000,25,11300,24700,true,2,AE Manager > Deal Desk,4,2026-06-10,true,12,Net 30,Annual,false,false,false,false
+QTE-40324,OPP-20243,ACC-1019,SMB,1,false,Superseded,2026-06-19,11700,13,10179,1521,false,1,Auto-approved,0,2026-06-19,false,24,Net 60,Annual,false,false,true,false
+QTE-40325,OPP-20243,ACC-1019,SMB,2,true,Rejected,2026-06-22,11700,25,11700,0,true,3,AE Manager > Deal Desk > RevOps,7,2026-06-29,true,24,Net 60,Quarterly,false,false,true,true
+QTE-40326,OPP-20244,ACC-1057,SMB,1,false,Superseded,2026-05-24,5680,8,5226,454,false,1,Auto-approved,0,2026-05-24,false,24,Prepaid Annual,Annual,false,false,true,true
+QTE-40327,OPP-20244,ACC-1057,SMB,2,true,Rejected,2026-05-28,5680,20,4800,880,true,2,AE Manager > Deal Desk,8,2026-06-05,false,12,Net 60,Quarterly,false,true,true,true
+QTE-40328,OPP-20245,ACC-1023,Strategic,1,false,Superseded,2026-10-02,480385,13,417935,62450,false,1,Auto-approved,0,2026-10-02,false,12,Net 30,Quarterly,false,false,true,false
+QTE-40329,OPP-20245,ACC-1023,Strategic,2,true,Presented,2026-10-17,480385,50,491700,0,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,8,2026-10-25,true,12,Net 45,Annual,false,false,true,true
+QTE-40330,OPP-20247,ACC-1127,SMB,1,true,Rejected,2025-07-07,14870,8,12700,2170,false,1,Auto-approved,0,2025-07-07,false,12,Net 60,Monthly,false,false,true,true
+QTE-40331,OPP-20249,ACC-1112,Mid-Market,1,true,Rejected,2026-02-01,50755,13,25300,25455,false,1,Auto-approved,0,2026-02-01,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40332,OPP-20250,ACC-1093,Enterprise,1,false,Superseded,2026-08-23,175700,28,126504,49196,true,3,AE Manager > Deal Desk > RevOps,6,2026-08-29,true,12,Net 30,Monthly,true,false,true,false
+QTE-40333,OPP-20250,ACC-1093,Enterprise,2,false,Superseded,2026-08-29,175700,20,140560,35140,true,2,AE Manager > Deal Desk,3,2026-09-01,false,12,Net 30,Annual,false,false,true,true
+QTE-40334,OPP-20250,ACC-1093,Enterprise,3,true,Rejected,2026-09-04,175700,28,140600,35100,true,4,AE Manager > Deal Desk > RevOps > Finance,4,2026-09-08,true,36,Net 30,Annual,false,false,true,true
+QTE-40335,OPP-20252,ACC-1115,SMB,1,false,Superseded,2025-11-21,49710,18,40762,8948,true,2,AE Manager > Deal Desk,6,2025-11-27,false,12,Net 45,Monthly,false,false,true,true
+QTE-40336,OPP-20252,ACC-1115,SMB,2,false,Superseded,2025-11-22,49710,15,42254,7456,false,1,Auto-approved,0,2025-11-22,false,12,Net 45,Annual,false,false,true,true
+QTE-40337,OPP-20252,ACC-1115,SMB,3,true,Accepted,2025-11-23,49710,13,16700,33010,false,1,Auto-approved,0,2025-11-23,false,24,Net 30,Annual,false,true,true,true
+QTE-40338,OPP-20254,ACC-1028,Mid-Market,1,true,Rejected,2025-07-20,64800,23,61600,3200,true,2,AE Manager > Deal Desk,3,2025-07-23,true,12,Net 30,Annual,false,true,false,false
+QTE-40339,OPP-20255,ACC-1027,Enterprise,1,false,Superseded,2026-06-23,117565,48,61134,56431,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2026-07-05,true,12,Net 60,Annual,true,false,true,true
+QTE-40340,OPP-20255,ACC-1027,Enterprise,2,true,Rejected,2026-06-30,117565,20,109700,7865,true,2,AE Manager > Deal Desk,6,2026-07-06,false,24,Net 30,Monthly,true,false,true,false
+QTE-40341,OPP-20256,ACC-1112,Mid-Market,1,false,Superseded,2026-02-11,65410,13,56907,8503,false,1,Auto-approved,0,2026-02-11,false,12,Net 30,Monthly,false,false,true,true
+QTE-40342,OPP-20256,ACC-1112,Mid-Market,2,false,Superseded,2026-02-14,65410,20,52328,13082,true,2,AE Manager > Deal Desk,3,2026-02-17,false,24,Net 30,Quarterly,false,false,true,false
+QTE-40343,OPP-20256,ACC-1112,Mid-Market,3,false,Superseded,2026-02-18,65410,28,47095,18315,true,3,AE Manager > Deal Desk > RevOps,8,2026-02-26,true,12,Prepaid Annual,Monthly,false,false,true,true
+QTE-40344,OPP-20256,ACC-1112,Mid-Market,4,true,Accepted,2026-02-22,65410,30,63000,2410,true,3,AE Manager > Deal Desk > RevOps,6,2026-02-28,true,12,Net 60,Annual,false,false,true,true
+QTE-40345,OPP-20257,ACC-1072,SMB,1,false,Superseded,2026-06-01,15190,23,11696,3494,true,3,AE Manager > Deal Desk > RevOps,9,2026-06-10,true,12,Net 30,Annual,false,false,true,true
+QTE-40346,OPP-20257,ACC-1072,SMB,2,true,Rejected,2026-06-03,15190,10,14100,1090,false,1,Auto-approved,0,2026-06-03,false,24,Net 30,Annual,false,false,true,true
+QTE-40347,OPP-20258,ACC-1088,SMB,1,true,Accepted,2025-08-08,6300,28,6000,300,true,3,AE Manager > Deal Desk > RevOps,8,2025-08-16,true,36,Net 30,Annual,false,false,true,true
+QTE-40348,OPP-20259,ACC-1093,Enterprise,1,false,Superseded,2026-01-17,127250,18,104345,22905,true,3,AE Manager > Deal Desk > RevOps,10,2026-01-27,false,12,Prepaid Annual,Annual,false,true,true,true
+QTE-40349,OPP-20259,ACC-1093,Enterprise,2,false,Superseded,2026-01-23,127250,10,114525,12725,false,1,Auto-approved,0,2026-01-23,false,24,Net 45,Monthly,false,false,true,true
+QTE-40350,OPP-20259,ACC-1093,Enterprise,3,true,Rejected,2026-01-30,127250,23,110100,17150,true,2,AE Manager > Deal Desk,4,2026-02-03,true,12,Prepaid Annual,Annual,true,false,true,false
+QTE-40351,OPP-20260,ACC-1128,Mid-Market,1,true,Rejected,2026-04-04,69750,23,41400,28350,true,2,AE Manager > Deal Desk,7,2026-04-11,true,12,Net 45,Annual,false,false,false,false
+QTE-40352,OPP-20262,ACC-1110,Enterprise,1,true,Rejected,2026-05-14,276830,8,276700,130,false,1,Auto-approved,0,2026-05-14,false,12,Net 45,Annual,false,true,true,true
+QTE-40353,OPP-20263,ACC-1096,Mid-Market,1,false,Superseded,2025-08-26,36000,23,27720,8280,true,3,AE Manager > Deal Desk > RevOps,10,2025-09-05,true,12,Net 60,Annual,false,true,false,false
+QTE-40354,OPP-20263,ACC-1096,Mid-Market,2,false,Superseded,2025-08-30,36000,15,30600,5400,false,1,Auto-approved,0,2025-08-30,false,12,Net 60,Annual,false,false,false,false
+QTE-40355,OPP-20263,ACC-1096,Mid-Market,3,true,Rejected,2025-09-04,36000,23,34100,1900,true,3,AE Manager > Deal Desk > RevOps,5,2025-09-09,true,12,Net 30,Quarterly,false,true,false,false
+QTE-40356,OPP-20264,ACC-1077,Mid-Market,1,true,Rejected,2026-06-12,30810,13,24700,6110,false,1,Auto-approved,0,2026-06-12,false,12,Net 45,Monthly,false,false,false,false
+QTE-40357,OPP-20265,ACC-1005,Enterprise,1,false,Superseded,2026-05-16,103775,18,85096,18679,true,2,AE Manager > Deal Desk,1,2026-05-17,false,12,Net 30,Annual,false,false,true,false
+QTE-40358,OPP-20265,ACC-1005,Enterprise,2,false,Superseded,2026-05-23,103775,20,83020,20755,true,3,AE Manager > Deal Desk > RevOps,10,2026-06-02,false,36,Net 30,Quarterly,false,false,true,true
+QTE-40359,OPP-20265,ACC-1005,Enterprise,3,true,Rejected,2026-05-30,103775,33,67400,36375,true,3,AE Manager > Deal Desk > RevOps,6,2026-06-05,true,12,Net 30,Annual,false,true,true,true
+QTE-40360,OPP-20266,ACC-1095,Enterprise,1,false,Superseded,2026-01-31,291450,23,224417,67033,true,3,AE Manager > Deal Desk > RevOps,7,2026-02-07,true,36,Net 30,Annual,false,false,true,true
+QTE-40361,OPP-20266,ACC-1095,Enterprise,2,true,Rejected,2026-02-12,291450,20,255800,35650,true,3,AE Manager > Deal Desk > RevOps,6,2026-02-18,false,12,Net 45,Annual,true,false,true,true
+QTE-40362,OPP-20268,ACC-1038,Mid-Market,1,false,Superseded,2026-04-17,39770,23,30623,9147,true,2,AE Manager > Deal Desk,4,2026-04-21,true,36,Net 30,Quarterly,false,false,true,false
+QTE-40363,OPP-20268,ACC-1038,Mid-Market,2,false,Superseded,2026-04-22,39770,20,31816,7954,true,3,AE Manager > Deal Desk > RevOps,4,2026-04-26,false,12,Net 30,Monthly,false,false,true,false
+QTE-40364,OPP-20268,ACC-1038,Mid-Market,3,true,Rejected,2026-04-27,39770,13,34100,5670,false,1,Auto-approved,0,2026-04-27,false,12,Net 30,Annual,false,false,true,false
+QTE-40365,OPP-20270,ACC-1130,SMB,1,false,Superseded,2026-06-27,36000,23,27720,8280,true,3,AE Manager > Deal Desk > RevOps,6,2026-07-03,true,36,Net 30,Monthly,false,false,false,false
+QTE-40366,OPP-20270,ACC-1130,SMB,2,true,Rejected,2026-06-30,36000,10,17100,18900,false,1,Auto-approved,0,2026-06-30,false,24,Net 45,Quarterly,false,false,false,false
+QTE-40367,OPP-20271,ACC-1000,SMB,1,false,Superseded,2026-05-05,8250,13,7178,1072,false,1,Auto-approved,0,2026-05-05,false,12,Net 60,Quarterly,false,false,true,false
+QTE-40368,OPP-20271,ACC-1000,SMB,2,false,Superseded,2026-05-07,8250,25,6188,2062,true,2,AE Manager > Deal Desk,4,2026-05-11,true,12,Net 30,Annual,false,false,true,true
+QTE-40369,OPP-20271,ACC-1000,SMB,3,true,Accepted,2026-05-08,8250,28,8300,0,true,3,AE Manager > Deal Desk > RevOps,10,2026-05-18,true,24,Net 30,Quarterly,false,false,true,true
+QTE-40370,OPP-20272,ACC-1057,SMB,1,true,Accepted,2025-09-02,21700,8,17400,4300,false,1,Auto-approved,0,2025-09-02,false,36,Net 60,Annual,false,false,true,true
+QTE-40371,OPP-20274,ACC-1024,SMB,1,true,Accepted,2025-10-17,10990,13,11000,0,false,1,Auto-approved,0,2025-10-17,false,36,Prepaid Annual,Monthly,false,false,true,true
+QTE-40372,OPP-20278,ACC-1073,Enterprise,1,true,Accepted,2026-03-15,214110,35,214100,10,true,3,AE Manager > Deal Desk > RevOps,8,2026-03-23,true,24,Net 30,Annual,false,true,false,false
+QTE-40373,OPP-20280,ACC-1119,Enterprise,1,false,Superseded,2026-01-19,137520,23,105890,31630,true,2,AE Manager > Deal Desk,5,2026-01-24,true,12,Net 30,Monthly,true,true,false,false
+QTE-40374,OPP-20280,ACC-1119,Enterprise,2,false,Superseded,2026-01-28,137520,20,110016,27504,true,3,AE Manager > Deal Desk > RevOps,8,2026-02-05,false,24,Net 30,Annual,false,false,false,false
+QTE-40375,OPP-20280,ACC-1119,Enterprise,3,false,Superseded,2026-02-05,137520,13,119642,17878,false,1,Auto-approved,0,2026-02-05,false,12,Prepaid Annual,Annual,false,false,false,false
+QTE-40376,OPP-20280,ACC-1119,Enterprise,4,false,Superseded,2026-02-14,137520,20,110016,27504,true,3,AE Manager > Deal Desk > RevOps,6,2026-02-20,false,12,Net 45,Annual,false,false,false,false
+QTE-40377,OPP-20280,ACC-1119,Enterprise,5,true,Rejected,2026-02-23,137520,23,116400,21120,true,2,AE Manager > Deal Desk,4,2026-02-27,true,36,Net 60,Annual,true,false,false,false
+QTE-40378,OPP-20282,ACC-1041,Mid-Market,1,true,Rejected,2026-05-15,46850,18,37400,9450,true,3,AE Manager > Deal Desk > RevOps,5,2026-05-20,false,24,Prepaid Annual,Annual,false,false,true,true
+QTE-40379,OPP-20284,ACC-1008,SMB,1,true,Accepted,2025-06-14,13525,23,12900,625,true,3,AE Manager > Deal Desk > RevOps,10,2025-06-24,true,12,Net 60,Annual,false,false,true,true
+QTE-40380,OPP-20285,ACC-1057,SMB,1,false,Superseded,2026-09-07,5075,35,3299,1776,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-09-16,true,12,Net 30,Annual,false,true,true,true
+QTE-40381,OPP-20285,ACC-1057,SMB,2,false,Superseded,2026-09-09,5075,20,4060,1015,true,3,AE Manager > Deal Desk > RevOps,8,2026-09-17,false,12,Net 30,Monthly,false,false,true,true
+QTE-40382,OPP-20285,ACC-1057,SMB,3,true,Rejected,2026-09-11,5075,13,3800,1275,false,1,Auto-approved,0,2026-09-11,false,12,Net 30,Annual,false,false,true,true
+QTE-40383,OPP-20286,ACC-1017,Mid-Market,1,false,Superseded,2026-01-03,23410,13,20367,3043,false,1,Auto-approved,0,2026-01-03,false,12,Net 60,Monthly,false,true,true,true
+QTE-40384,OPP-20286,ACC-1017,Mid-Market,2,false,Superseded,2026-01-13,23410,37,14748,8662,true,3,AE Manager > Deal Desk > RevOps,7,2026-01-20,true,6,Prepaid Annual,Annual,false,false,true,true
+QTE-40385,OPP-20286,ACC-1017,Mid-Market,3,false,Superseded,2026-01-23,23410,23,18026,5384,true,2,AE Manager > Deal Desk,4,2026-01-27,true,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40386,OPP-20286,ACC-1017,Mid-Market,4,false,Superseded,2026-02-01,23410,25,17558,5852,true,2,AE Manager > Deal Desk,4,2026-02-05,true,12,Net 45,Quarterly,false,false,true,true
+QTE-40387,OPP-20286,ACC-1017,Mid-Market,5,true,Rejected,2026-02-11,23410,18,21500,1910,true,2,AE Manager > Deal Desk,3,2026-02-14,false,36,Net 45,Monthly,false,true,true,true
+QTE-40388,OPP-20287,ACC-1078,SMB,1,false,Superseded,2026-04-15,36000,18,29520,6480,true,2,AE Manager > Deal Desk,6,2026-04-21,false,12,Net 30,Annual,false,false,false,false
+QTE-40389,OPP-20287,ACC-1078,SMB,2,true,Accepted,2026-04-16,36000,10,13400,22600,false,1,Auto-approved,0,2026-04-16,false,12,Net 60,Quarterly,false,false,false,false
+QTE-40390,OPP-20288,ACC-1015,SMB,1,true,Accepted,2025-11-03,4340,13,4200,140,false,1,Auto-approved,0,2025-11-03,false,12,Net 45,Annual,false,false,true,true
+QTE-40391,OPP-20289,ACC-1087,SMB,1,false,Superseded,2025-12-07,21060,18,17269,3791,true,2,AE Manager > Deal Desk,7,2025-12-14,false,6,Net 60,Annual,false,false,true,true
+QTE-40392,OPP-20289,ACC-1087,SMB,2,true,Rejected,2025-12-09,21060,20,16900,4160,true,3,AE Manager > Deal Desk > RevOps,6,2025-12-15,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40393,OPP-20292,ACC-1024,SMB,1,false,Superseded,2026-04-12,44460,23,34234,10226,true,3,AE Manager > Deal Desk > RevOps,11,2026-04-23,true,12,Net 30,Monthly,false,false,true,true
+QTE-40394,OPP-20292,ACC-1024,SMB,2,false,Superseded,2026-04-15,44460,10,40014,4446,false,1,Auto-approved,0,2026-04-15,false,6,Net 30,Monthly,false,true,true,true
+QTE-40395,OPP-20292,ACC-1024,SMB,3,true,Accepted,2026-04-19,44460,23,12700,31760,true,2,AE Manager > Deal Desk,5,2026-04-24,true,24,Prepaid Annual,Monthly,false,false,true,true
+QTE-40396,OPP-20294,ACC-1055,SMB,1,false,Superseded,2026-07-28,13895,8,12783,1112,false,1,Auto-approved,0,2026-07-28,false,12,Net 60,Annual,false,false,true,true
+QTE-40397,OPP-20294,ACC-1055,SMB,2,true,Rejected,2026-07-30,13895,10,11400,2495,false,1,Auto-approved,0,2026-07-30,false,12,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40398,OPP-20296,ACC-1048,Mid-Market,1,true,Presented,2026-12-14,58500,18,55700,2800,true,3,AE Manager > Deal Desk > RevOps,9,2026-12-23,false,36,Net 60,Annual,false,true,false,false
+QTE-40399,OPP-20298,ACC-1022,Mid-Market,1,false,Superseded,2026-07-01,48480,18,39754,8726,true,2,AE Manager > Deal Desk,1,2026-07-02,false,24,Net 30,Monthly,false,false,false,false
+QTE-40400,OPP-20298,ACC-1022,Mid-Market,2,false,Superseded,2026-07-06,48480,15,41208,7272,false,1,Auto-approved,0,2026-07-06,false,24,Net 45,Monthly,false,false,false,false
+QTE-40401,OPP-20298,ACC-1022,Mid-Market,3,false,Superseded,2026-07-11,48480,23,37330,11150,true,3,AE Manager > Deal Desk > RevOps,6,2026-07-17,true,24,Net 60,Quarterly,false,false,false,false
+QTE-40402,OPP-20298,ACC-1022,Mid-Market,4,true,Accepted,2026-07-16,48480,20,19800,28680,true,3,AE Manager > Deal Desk > RevOps,11,2026-07-27,false,12,Net 45,Annual,false,false,false,false
+QTE-40403,OPP-20299,ACC-1055,SMB,1,false,Superseded,2025-07-13,4390,48,2283,2107,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,14,2025-07-27,true,12,Net 30,Quarterly,false,false,true,true
+QTE-40404,OPP-20299,ACC-1055,SMB,2,true,Rejected,2025-07-15,4390,20,4100,290,true,2,AE Manager > Deal Desk,2,2025-07-17,false,12,Net 60,Quarterly,false,true,true,true
+QTE-40405,OPP-20300,ACC-1026,SMB,1,false,Superseded,2025-06-05,42130,8,38760,3370,false,1,Auto-approved,0,2025-06-05,false,36,Net 30,Annual,false,false,true,true
+QTE-40406,OPP-20300,ACC-1026,SMB,2,true,Rejected,2025-06-06,42130,10,10300,31830,false,1,Auto-approved,0,2025-06-06,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40407,OPP-20301,ACC-1026,SMB,1,false,Superseded,2026-01-01,17160,23,13213,3947,true,3,AE Manager > Deal Desk > RevOps,7,2026-01-08,true,24,Net 30,Quarterly,false,false,false,false
+QTE-40408,OPP-20301,ACC-1026,SMB,2,true,Rejected,2026-01-04,17160,15,12800,4360,false,1,Auto-approved,0,2026-01-04,false,24,Net 30,Annual,false,false,false,false
+QTE-40409,OPP-20302,ACC-1106,SMB,1,false,Superseded,2025-08-25,9840,18,8069,1771,true,3,AE Manager > Deal Desk > RevOps,7,2025-09-01,false,24,Net 30,Annual,false,false,false,false
+QTE-40410,OPP-20302,ACC-1106,SMB,2,true,Rejected,2025-08-27,9840,50,8900,940,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,13,2025-09-09,true,24,Net 30,Annual,false,true,false,false
+QTE-40411,OPP-20303,ACC-1095,Enterprise,1,true,Rejected,2026-04-20,36000,13,192500,0,false,1,Auto-approved,0,2026-04-20,false,12,Net 30,Annual,true,false,false,false
+QTE-40412,OPP-20312,ACC-1113,Mid-Market,1,false,Superseded,2026-03-21,80200,23,61754,18446,true,2,AE Manager > Deal Desk,3,2026-03-24,true,12,Net 30,Quarterly,false,false,true,true
+QTE-40413,OPP-20312,ACC-1113,Mid-Market,2,true,Rejected,2026-03-26,80200,37,57700,22500,true,3,AE Manager > Deal Desk > RevOps,6,2026-04-01,true,12,Net 30,Annual,false,true,true,false
+QTE-40414,OPP-20314,ACC-1089,SMB,1,false,Superseded,2025-10-05,20640,8,18989,1651,false,1,Auto-approved,0,2025-10-05,false,12,Net 30,Annual,false,true,false,false
+QTE-40415,OPP-20314,ACC-1089,SMB,2,false,Superseded,2025-10-09,20640,37,13003,7637,true,3,AE Manager > Deal Desk > RevOps,8,2025-10-17,true,24,Net 30,Quarterly,false,false,false,false
+QTE-40416,OPP-20314,ACC-1089,SMB,3,true,Rejected,2025-10-14,20640,18,17600,3040,true,3,AE Manager > Deal Desk > RevOps,9,2025-10-23,false,12,Net 30,Annual,false,false,false,false
+QTE-40417,OPP-20315,ACC-1084,SMB,1,true,Accepted,2025-12-01,39040,13,4000,35040,false,1,Auto-approved,0,2025-12-01,false,24,Net 30,Annual,false,true,true,true
+QTE-40418,OPP-20316,ACC-1023,Strategic,1,true,Rejected,2025-08-26,475470,13,408400,67070,false,1,Auto-approved,0,2025-08-26,false,24,Net 45,Monthly,false,false,true,true
+QTE-40419,OPP-20317,ACC-1120,Mid-Market,1,false,Superseded,2026-11-27,57600,18,47232,10368,true,3,AE Manager > Deal Desk > RevOps,5,2026-12-02,false,36,Net 30,Annual,false,false,false,false
+QTE-40420,OPP-20317,ACC-1120,Mid-Market,2,false,Superseded,2026-12-02,57600,30,40320,17280,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2026-12-13,true,24,Net 30,Monthly,false,true,false,false
+QTE-40421,OPP-20317,ACC-1120,Mid-Market,3,true,Presented,2026-12-07,57600,18,37400,20200,true,3,AE Manager > Deal Desk > RevOps,11,2026-12-18,false,24,Net 60,Annual,false,false,false,false
+QTE-40422,OPP-20318,ACC-1055,SMB,1,true,Rejected,2026-07-14,8605,13,6900,1705,false,1,Auto-approved,0,2026-07-14,false,12,Prepaid Annual,Quarterly,false,false,true,false
+QTE-40423,OPP-20320,ACC-1132,SMB,1,true,Accepted,2025-04-30,36000,18,3800,32200,true,3,AE Manager > Deal Desk > RevOps,5,2025-05-05,false,36,Net 60,Annual,false,true,false,false
+QTE-40424,OPP-20321,ACC-1072,SMB,1,true,Rejected,2026-05-08,12870,28,9700,3170,true,3,AE Manager > Deal Desk > RevOps,7,2026-05-15,true,24,Net 30,Monthly,false,false,false,false
+QTE-40425,OPP-20322,ACC-1113,Mid-Market,1,false,Superseded,2026-05-20,81785,8,75242,6543,false,1,Auto-approved,0,2026-05-20,false,24,Prepaid Annual,Annual,false,false,true,true
+QTE-40426,OPP-20322,ACC-1113,Mid-Market,2,true,Rejected,2026-05-26,81785,10,69800,11985,false,1,Auto-approved,0,2026-05-26,false,12,Net 30,Annual,false,false,true,true
+QTE-40427,OPP-20323,ACC-1005,Enterprise,1,false,Superseded,2025-10-26,142820,13,124253,18567,false,1,Auto-approved,0,2025-10-26,false,36,Net 60,Annual,false,false,true,true
+QTE-40428,OPP-20323,ACC-1005,Enterprise,2,true,Rejected,2025-11-08,142820,10,137600,5220,false,1,Auto-approved,0,2025-11-08,false,12,Prepaid Annual,Annual,true,false,true,false
+QTE-40429,OPP-20326,ACC-1075,Strategic,1,true,Rejected,2025-12-10,634630,8,965600,0,false,1,Auto-approved,0,2025-12-10,false,12,Net 30,Monthly,true,true,true,true
+QTE-40430,OPP-20327,ACC-1120,Mid-Market,1,true,Accepted,2025-12-25,57530,28,53200,4330,true,3,AE Manager > Deal Desk > RevOps,9,2026-01-03,true,24,Net 30,Monthly,false,true,true,false
+QTE-40431,OPP-20328,ACC-1103,Enterprise,1,false,Superseded,2026-11-09,233970,8,215252,18718,false,1,Auto-approved,0,2026-11-09,false,12,Prepaid Annual,Monthly,false,false,true,true
+QTE-40432,OPP-20328,ACC-1103,Enterprise,2,false,Superseded,2026-11-15,233970,15,198875,35095,false,1,Auto-approved,0,2026-11-15,false,36,Prepaid Annual,Annual,false,false,true,true
+QTE-40433,OPP-20328,ACC-1103,Enterprise,3,true,Presented,2026-11-21,233970,33,241000,0,true,3,AE Manager > Deal Desk > RevOps,8,2026-11-29,true,12,Net 60,Annual,true,true,true,true
+QTE-40434,OPP-20329,ACC-1010,Mid-Market,1,true,Accepted,2025-07-10,35620,23,35300,320,true,3,AE Manager > Deal Desk > RevOps,10,2025-07-20,true,36,Net 30,Annual,false,false,true,true
+QTE-40435,OPP-20330,ACC-1038,Mid-Market,1,false,Superseded,2026-08-04,63950,48,33254,30696,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2026-08-15,true,36,Net 30,Annual,false,false,true,true
+QTE-40436,OPP-20330,ACC-1038,Mid-Market,2,false,Superseded,2026-08-09,63950,20,51160,12790,true,2,AE Manager > Deal Desk,8,2026-08-17,false,12,Net 45,Quarterly,false,false,true,true
+QTE-40437,OPP-20330,ACC-1038,Mid-Market,3,true,Accepted,2026-08-13,63950,18,43700,20250,true,2,AE Manager > Deal Desk,2,2026-08-15,false,12,Net 60,Monthly,false,false,true,false
+QTE-40438,OPP-20332,ACC-1118,Strategic,1,false,Superseded,2026-06-10,901980,23,694525,207455,true,2,AE Manager > Deal Desk,3,2026-06-13,true,36,Net 45,Annual,false,true,true,true
+QTE-40439,OPP-20332,ACC-1118,Strategic,2,false,Superseded,2026-06-23,901980,20,721584,180396,true,2,AE Manager > Deal Desk,4,2026-06-27,false,12,Prepaid Annual,Annual,true,false,true,false
+QTE-40440,OPP-20332,ACC-1118,Strategic,3,true,Rejected,2026-07-06,901980,33,783300,118680,true,3,AE Manager > Deal Desk > RevOps,8,2026-07-14,true,12,Net 45,Annual,false,true,true,false
+QTE-40441,OPP-20334,ACC-1137,Mid-Market,1,false,Superseded,2025-10-18,21875,13,19031,2844,false,1,Auto-approved,0,2025-10-18,false,24,Net 45,Monthly,false,true,true,false
+QTE-40442,OPP-20334,ACC-1137,Mid-Market,2,true,Rejected,2025-10-24,21875,15,20700,1175,false,1,Auto-approved,0,2025-10-24,false,36,Net 30,Monthly,false,false,true,true
+QTE-40443,OPP-20335,ACC-1027,Enterprise,1,true,Rejected,2025-10-05,283685,48,246600,37085,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2025-10-17,true,12,Net 30,Annual,false,true,true,true
+QTE-40444,OPP-20336,ACC-1050,SMB,1,false,Superseded,2026-05-04,42530,28,30622,11908,true,3,AE Manager > Deal Desk > RevOps,3,2026-05-07,true,12,Net 30,Monthly,false,false,true,true
+QTE-40445,OPP-20336,ACC-1050,SMB,2,true,Accepted,2026-05-07,42530,37,10400,32130,true,3,AE Manager > Deal Desk > RevOps,7,2026-05-14,true,12,Net 60,Quarterly,false,true,true,true
+QTE-40446,OPP-20337,ACC-1026,SMB,1,false,Superseded,2026-09-10,11310,18,9274,2036,true,2,AE Manager > Deal Desk,2,2026-09-12,false,12,Prepaid Annual,Quarterly,false,false,false,false
+QTE-40447,OPP-20337,ACC-1026,SMB,2,false,Superseded,2026-09-11,11310,20,9048,2262,true,3,AE Manager > Deal Desk > RevOps,7,2026-09-18,false,24,Net 45,Annual,false,false,false,false
+QTE-40448,OPP-20337,ACC-1026,SMB,3,true,Accepted,2026-09-11,11310,33,11200,110,true,3,AE Manager > Deal Desk > RevOps,4,2026-09-15,true,12,Prepaid Annual,Annual,false,true,false,false
+QTE-40449,OPP-20339,ACC-1125,Strategic,1,false,Superseded,2026-07-15,441205,35,286783,154422,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-07-25,true,24,Net 60,Annual,false,true,true,true
+QTE-40450,OPP-20339,ACC-1125,Strategic,2,false,Superseded,2026-08-05,441205,50,220603,220602,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2026-08-16,true,24,Net 30,Quarterly,true,true,true,true
+QTE-40451,OPP-20339,ACC-1125,Strategic,3,false,Superseded,2026-08-27,441205,18,361788,79417,true,2,AE Manager > Deal Desk,1,2026-08-28,false,12,Net 60,Quarterly,true,false,true,true
+QTE-40452,OPP-20339,ACC-1125,Strategic,4,true,Presented,2026-09-17,441205,42,423700,17505,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,9,2026-09-26,true,12,Net 60,Annual,true,true,true,true
+QTE-40453,OPP-20340,ACC-1097,SMB,1,false,Superseded,2026-05-13,8100,28,5832,2268,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-05-22,true,24,Net 45,Annual,false,true,true,false
+QTE-40454,OPP-20340,ACC-1097,SMB,2,false,Superseded,2026-05-14,8100,37,5103,2997,true,3,AE Manager > Deal Desk > RevOps,7,2026-05-21,true,12,Net 60,Annual,false,true,true,false
+QTE-40455,OPP-20340,ACC-1097,SMB,3,true,Rejected,2026-05-16,8100,33,7800,300,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2026-05-24,true,12,Net 60,Annual,false,false,true,false
+QTE-40456,OPP-20341,ACC-1071,Mid-Market,1,true,Rejected,2025-09-16,36000,48,38700,0,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,15,2025-10-01,true,24,Net 45,Quarterly,false,true,false,false
+QTE-40457,OPP-20343,ACC-1005,Enterprise,1,false,Superseded,2026-01-29,290880,18,238522,52358,true,3,AE Manager > Deal Desk > RevOps,4,2026-02-02,false,12,Net 30,Annual,false,false,false,false
+QTE-40458,OPP-20343,ACC-1005,Enterprise,2,false,Superseded,2026-02-07,290880,10,261792,29088,false,1,Auto-approved,0,2026-02-07,false,12,Net 30,Monthly,true,false,false,false
+QTE-40459,OPP-20343,ACC-1005,Enterprise,3,true,Rejected,2026-02-16,290880,18,269400,21480,true,3,AE Manager > Deal Desk > RevOps,8,2026-02-24,false,24,Net 30,Quarterly,false,false,false,false
+QTE-40460,OPP-20344,ACC-1047,SMB,1,true,Rejected,2026-01-26,17010,48,15600,1410,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2026-02-06,true,6,Net 45,Annual,false,true,true,true
+QTE-40461,OPP-20345,ACC-1004,SMB,1,true,Accepted,2025-06-08,47700,8,14400,33300,false,1,Auto-approved,0,2025-06-08,false,12,Net 30,Annual,false,false,false,false
+QTE-40462,OPP-20347,ACC-1012,Mid-Market,1,false,Superseded,2025-07-12,73115,8,67266,5849,false,1,Auto-approved,0,2025-07-12,false,36,Net 45,Quarterly,false,false,true,true
+QTE-40463,OPP-20347,ACC-1012,Mid-Market,2,false,Superseded,2025-07-15,73115,30,51181,21934,true,3,AE Manager > Deal Desk > RevOps,8,2025-07-23,true,12,Net 60,Quarterly,false,false,true,true
+QTE-40464,OPP-20347,ACC-1012,Mid-Market,3,true,Rejected,2025-07-17,73115,40,48100,25015,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2025-07-26,true,12,Prepaid Annual,Annual,false,false,true,false
+QTE-40465,OPP-20348,ACC-1027,Enterprise,1,false,Superseded,2025-12-05,69480,35,45162,24318,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2025-12-14,true,36,Net 30,Monthly,false,false,true,true
+QTE-40466,OPP-20348,ACC-1027,Enterprise,2,false,Superseded,2025-12-17,69480,20,55584,13896,true,2,AE Manager > Deal Desk,4,2025-12-21,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40467,OPP-20348,ACC-1027,Enterprise,3,true,Accepted,2025-12-30,69480,40,62500,6980,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-01-08,true,12,Prepaid Annual,Monthly,false,true,true,true
+QTE-40468,OPP-20351,ACC-1052,SMB,1,false,Superseded,2026-05-20,15600,13,13572,2028,false,1,Auto-approved,0,2026-05-20,false,12,Net 45,Quarterly,false,false,false,false
+QTE-40469,OPP-20351,ACC-1052,SMB,2,false,Superseded,2026-05-22,15600,20,12480,3120,true,2,AE Manager > Deal Desk,4,2026-05-26,false,12,Net 60,Monthly,false,false,false,false
+QTE-40470,OPP-20351,ACC-1052,SMB,3,true,Rejected,2026-05-24,15600,18,13300,2300,true,3,AE Manager > Deal Desk > RevOps,10,2026-06-03,false,12,Net 30,Annual,false,false,false,false
+QTE-40471,OPP-20354,ACC-1012,Mid-Market,1,true,Accepted,2026-03-09,19980,28,17900,2080,true,3,AE Manager > Deal Desk > RevOps,9,2026-03-18,true,12,Net 60,Monthly,false,false,true,true
+QTE-40472,OPP-20355,ACC-1070,SMB,1,false,Superseded,2026-08-28,5890,13,5124,766,false,1,Auto-approved,0,2026-08-28,false,24,Net 60,Quarterly,false,false,true,true
+QTE-40473,OPP-20355,ACC-1070,SMB,2,true,Rejected,2026-08-29,5890,20,5700,190,true,2,AE Manager > Deal Desk,5,2026-09-03,false,24,Net 60,Quarterly,false,false,true,true
+QTE-40474,OPP-20357,ACC-1042,Strategic,1,true,Rejected,2025-09-15,637060,8,668600,0,false,1,Auto-approved,0,2025-09-15,false,12,Net 30,Quarterly,true,false,true,false
+QTE-40475,OPP-20359,ACC-1097,SMB,1,true,Rejected,2025-06-18,15790,35,14200,1590,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2025-06-30,true,12,Net 45,Annual,false,false,true,false
+QTE-40476,OPP-20360,ACC-1103,Enterprise,1,false,Superseded,2026-04-15,160710,35,104462,56248,true,3,AE Manager > Deal Desk > RevOps,8,2026-04-23,true,36,Net 45,Quarterly,false,false,false,false
+QTE-40477,OPP-20360,ACC-1103,Enterprise,2,true,Accepted,2026-04-26,160710,20,140300,20410,true,3,AE Manager > Deal Desk > RevOps,8,2026-05-04,false,12,Net 30,Monthly,false,false,false,false
+QTE-40478,OPP-20361,ACC-1128,Mid-Market,1,true,Rejected,2026-07-21,59960,48,34100,25860,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-07-31,true,24,Net 60,Quarterly,false,false,true,true
+QTE-40479,OPP-20363,ACC-1119,Enterprise,1,true,Accepted,2025-12-19,145265,8,138100,7165,false,1,Auto-approved,0,2025-12-19,false,24,Net 30,Annual,false,false,true,true
+QTE-40480,OPP-20364,ACC-1101,SMB,1,false,Superseded,2025-12-15,8300,28,5976,2324,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2025-12-23,true,12,Net 30,Monthly,false,false,true,true
+QTE-40481,OPP-20364,ACC-1101,SMB,2,false,Superseded,2025-12-17,8300,25,6225,2075,true,2,AE Manager > Deal Desk,6,2025-12-23,true,24,Net 30,Quarterly,false,false,true,true
+QTE-40482,OPP-20364,ACC-1101,SMB,3,true,Rejected,2025-12-19,8300,23,8100,200,true,2,AE Manager > Deal Desk,1,2025-12-20,true,24,Net 30,Monthly,false,false,true,false
+QTE-40483,OPP-20365,ACC-1128,Mid-Market,1,true,Rejected,2026-05-10,32920,23,32700,220,true,3,AE Manager > Deal Desk > RevOps,9,2026-05-19,true,24,Net 30,Annual,false,false,true,false
+QTE-40484,OPP-20366,ACC-1028,Mid-Market,1,false,Superseded,2026-02-27,70000,18,57400,12600,true,3,AE Manager > Deal Desk > RevOps,7,2026-03-06,false,12,Net 45,Annual,false,false,true,true
+QTE-40485,OPP-20366,ACC-1028,Mid-Market,2,false,Superseded,2026-03-05,70000,30,49000,21000,true,3,AE Manager > Deal Desk > RevOps,2,2026-03-07,true,12,Net 30,Quarterly,false,true,true,true
+QTE-40486,OPP-20366,ACC-1028,Mid-Market,3,false,Superseded,2026-03-12,70000,28,50400,19600,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2026-03-24,true,12,Net 30,Quarterly,false,false,true,true
+QTE-40487,OPP-20366,ACC-1028,Mid-Market,4,false,Superseded,2026-03-18,70000,20,56000,14000,true,3,AE Manager > Deal Desk > RevOps,10,2026-03-28,false,12,Net 30,Annual,false,false,true,true
+QTE-40488,OPP-20366,ACC-1028,Mid-Market,5,true,Rejected,2026-03-24,70000,18,63000,7000,true,2,AE Manager > Deal Desk,9,2026-04-02,false,12,Net 60,Annual,false,false,true,false
+QTE-40489,OPP-20367,ACC-1004,SMB,1,false,Superseded,2026-08-11,9810,8,9025,785,false,1,Auto-approved,0,2026-08-11,false,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40490,OPP-20367,ACC-1004,SMB,2,true,Rejected,2026-08-13,9810,20,9400,410,true,3,AE Manager > Deal Desk > RevOps,5,2026-08-18,false,12,Net 45,Annual,false,false,true,true
+QTE-40491,OPP-20369,ACC-1122,Strategic,1,false,Superseded,2026-04-28,619750,23,477208,142542,true,2,AE Manager > Deal Desk,3,2026-05-01,true,24,Net 30,Annual,true,false,true,true
+QTE-40492,OPP-20369,ACC-1122,Strategic,2,true,Rejected,2026-05-18,619750,15,839800,0,false,1,Auto-approved,0,2026-05-18,false,12,Net 30,Annual,true,true,true,false
+QTE-40493,OPP-20370,ACC-1095,Enterprise,1,false,Superseded,2026-09-30,82800,13,72036,10764,false,1,Auto-approved,0,2026-09-30,false,36,Net 30,Monthly,true,false,false,false
+QTE-40494,OPP-20370,ACC-1095,Enterprise,2,false,Superseded,2026-10-11,82800,10,74520,8280,false,1,Auto-approved,0,2026-10-11,false,12,Net 60,Annual,false,false,false,false
+QTE-40495,OPP-20370,ACC-1095,Enterprise,3,true,Presented,2026-10-22,82800,13,98800,0,false,1,Auto-approved,0,2026-10-22,false,12,Net 45,Monthly,false,false,false,false
+QTE-40496,OPP-20371,ACC-1096,Mid-Market,1,false,Superseded,2026-04-08,45180,8,41566,3614,false,1,Auto-approved,0,2026-04-08,false,24,Net 30,Monthly,false,true,true,true
+QTE-40497,OPP-20371,ACC-1096,Mid-Market,2,false,Superseded,2026-04-14,45180,10,40662,4518,false,1,Auto-approved,0,2026-04-14,false,12,Net 45,Annual,false,false,true,true
+QTE-40498,OPP-20371,ACC-1096,Mid-Market,3,true,Rejected,2026-04-20,45180,40,38400,6780,true,4,AE Manager > Deal Desk > RevOps > Finance,7,2026-04-27,true,24,Net 60,Annual,false,false,true,true
+QTE-40499,OPP-20373,ACC-1085,SMB,1,false,Superseded,2026-06-09,40350,8,37122,3228,false,1,Auto-approved,0,2026-06-09,false,12,Net 30,Annual,false,false,true,true
+QTE-40500,OPP-20373,ACC-1085,SMB,2,true,Rejected,2026-06-10,40350,10,5700,34650,false,1,Auto-approved,0,2026-06-10,false,36,Net 60,Annual,false,false,true,true
+QTE-40501,OPP-20375,ACC-1067,Strategic,1,false,Superseded,2026-02-27,571465,18,468601,102864,true,3,AE Manager > Deal Desk > RevOps,7,2026-03-06,false,36,Net 30,Quarterly,false,false,true,false
+QTE-40502,OPP-20375,ACC-1067,Strategic,2,false,Superseded,2026-03-08,571465,20,457172,114293,true,2,AE Manager > Deal Desk,8,2026-03-16,false,12,Net 45,Annual,true,false,true,true
+QTE-40503,OPP-20375,ACC-1067,Strategic,3,false,Superseded,2026-03-16,571465,13,497175,74290,false,1,Auto-approved,0,2026-03-16,false,36,Net 30,Quarterly,false,false,true,false
+QTE-40504,OPP-20375,ACC-1067,Strategic,4,false,Superseded,2026-03-25,571465,20,457172,114293,true,3,AE Manager > Deal Desk > RevOps,6,2026-03-31,false,36,Net 45,Annual,true,false,true,true
+QTE-40505,OPP-20375,ACC-1067,Strategic,5,true,Rejected,2026-04-03,571465,23,591500,0,true,3,AE Manager > Deal Desk > RevOps,6,2026-04-09,true,36,Net 30,Annual,false,false,true,true
+QTE-40506,OPP-20377,ACC-1118,Strategic,1,true,Accepted,2026-06-05,239830,13,274200,0,false,1,Auto-approved,0,2026-06-05,false,12,Net 60,Annual,false,true,true,true
+QTE-40507,OPP-20378,ACC-1124,Mid-Market,1,false,Superseded,2025-11-10,58320,48,30326,27994,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2025-11-21,true,36,Net 45,Quarterly,false,true,false,false
+QTE-40508,OPP-20378,ACC-1124,Mid-Market,2,false,Superseded,2025-11-15,58320,25,43740,14580,true,2,AE Manager > Deal Desk,2,2025-11-17,true,12,Net 30,Annual,false,false,false,false
+QTE-40509,OPP-20378,ACC-1124,Mid-Market,3,false,Superseded,2025-11-20,58320,13,50738,7582,false,1,Auto-approved,0,2025-11-20,false,12,Net 30,Monthly,false,false,false,false
+QTE-40510,OPP-20378,ACC-1124,Mid-Market,4,true,Rejected,2025-11-24,58320,20,69600,0,true,3,AE Manager > Deal Desk > RevOps,10,2025-12-04,false,12,Net 30,Annual,false,false,false,false
+QTE-40511,OPP-20380,ACC-1011,SMB,1,true,Rejected,2026-02-03,18900,8,17000,1900,false,1,Auto-approved,0,2026-02-03,false,12,Net 60,Annual,false,false,true,true
+QTE-40512,OPP-20381,ACC-1078,SMB,1,false,Superseded,2026-06-20,43440,18,35621,7819,true,2,AE Manager > Deal Desk,5,2026-06-25,false,6,Prepaid Annual,Annual,false,false,true,false
+QTE-40513,OPP-20381,ACC-1078,SMB,2,false,Superseded,2026-06-22,43440,30,30408,13032,true,3,AE Manager > Deal Desk > RevOps,6,2026-06-28,true,12,Net 60,Annual,false,true,true,false
+QTE-40514,OPP-20381,ACC-1078,SMB,3,true,Accepted,2026-06-24,43440,33,8500,34940,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2026-07-02,true,12,Net 60,Annual,false,false,true,true
+QTE-40515,OPP-20383,ACC-1095,Enterprise,1,true,Rejected,2025-12-31,171120,13,196900,0,false,1,Auto-approved,0,2025-12-31,false,12,Net 30,Annual,true,false,false,false
+QTE-40516,OPP-20384,ACC-1127,SMB,1,true,Accepted,2026-05-18,8355,23,7900,455,true,2,AE Manager > Deal Desk,8,2026-05-26,true,12,Net 60,Quarterly,false,false,true,true
+QTE-40517,OPP-20386,ACC-1043,Strategic,1,true,Presented,2026-08-08,682720,35,793500,0,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-08-17,true,12,Net 60,Monthly,true,true,true,true
+QTE-40518,OPP-20389,ACC-1137,Mid-Market,1,true,Accepted,2025-10-17,60570,35,67100,0,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2025-10-27,true,12,Net 60,Quarterly,false,true,false,false
+QTE-40519,OPP-20390,ACC-1060,SMB,1,true,Rejected,2025-06-22,45050,28,9800,35250,true,3,AE Manager > Deal Desk > RevOps,4,2025-06-26,true,36,Net 30,Annual,false,false,true,false
+QTE-40520,OPP-20391,ACC-1125,Strategic,1,false,Superseded,2026-11-28,320250,18,262605,57645,true,3,AE Manager > Deal Desk > RevOps,9,2026-12-07,false,24,Net 60,Annual,true,false,true,true
+QTE-40521,OPP-20391,ACC-1125,Strategic,2,true,Presented,2026-12-07,320250,15,339500,0,false,1,Auto-approved,0,2026-12-07,false,36,Prepaid Annual,Annual,true,false,true,true
+QTE-40522,OPP-20393,ACC-1078,SMB,1,false,Superseded,2026-04-06,8575,28,6174,2401,true,3,AE Manager > Deal Desk > RevOps,7,2026-04-13,true,12,Net 45,Quarterly,false,false,true,true
+QTE-40523,OPP-20393,ACC-1078,SMB,2,true,Rejected,2026-04-07,8575,25,7300,1275,true,2,AE Manager > Deal Desk,3,2026-04-10,true,24,Net 60,Annual,false,false,true,true
+QTE-40524,OPP-20394,ACC-1115,SMB,1,true,Rejected,2026-04-10,16940,28,15300,1640,true,3,AE Manager > Deal Desk > RevOps,7,2026-04-17,true,24,Prepaid Annual,Annual,false,false,true,true
+QTE-40525,OPP-20396,ACC-1060,SMB,1,true,Accepted,2025-07-31,10920,23,10400,520,true,2,AE Manager > Deal Desk,5,2025-08-05,true,12,Net 60,Annual,false,false,false,false
+QTE-40526,OPP-20398,ACC-1007,Enterprise,1,false,Superseded,2026-01-31,245870,23,189320,56550,true,3,AE Manager > Deal Desk > RevOps,7,2026-02-07,true,24,Net 60,Quarterly,false,false,true,true
+QTE-40527,OPP-20398,ACC-1007,Enterprise,2,true,Accepted,2026-02-11,245870,10,274600,0,false,1,Auto-approved,0,2026-02-11,false,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40528,OPP-20399,ACC-1070,SMB,1,true,Rejected,2026-07-14,36000,18,8600,27400,true,3,AE Manager > Deal Desk > RevOps,7,2026-07-21,false,12,Net 30,Monthly,false,true,false,false
+QTE-40529,OPP-20403,ACC-1113,Mid-Market,1,true,Accepted,2026-03-11,81970,23,63000,18970,true,2,AE Manager > Deal Desk,1,2026-03-12,true,12,Net 60,Annual,false,false,true,true
+QTE-40530,OPP-20407,ACC-1067,Strategic,1,false,Superseded,2026-05-02,663810,23,511134,152676,true,3,AE Manager > Deal Desk > RevOps,8,2026-05-10,true,24,Net 60,Monthly,false,false,true,true
+QTE-40531,OPP-20407,ACC-1067,Strategic,2,true,Rejected,2026-05-26,663810,30,650900,12910,true,3,AE Manager > Deal Desk > RevOps,10,2026-06-05,true,12,Net 30,Monthly,true,false,true,true
+QTE-40532,OPP-20408,ACC-1042,Strategic,1,true,Rejected,2026-03-05,366680,28,307300,59380,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-03-14,true,12,Net 60,Annual,true,false,true,false
+QTE-40533,OPP-20409,ACC-1110,Enterprise,1,true,Rejected,2025-08-21,213260,13,194200,19060,false,1,Auto-approved,0,2025-08-21,false,12,Net 60,Annual,true,false,true,true
+QTE-40534,OPP-20413,ACC-1127,SMB,1,true,Rejected,2025-07-13,23225,8,17400,5825,false,1,Auto-approved,0,2025-07-13,false,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40535,OPP-20414,ACC-1132,SMB,1,false,Superseded,2025-06-02,12100,8,11132,968,false,1,Auto-approved,0,2025-06-02,false,12,Net 30,Annual,false,false,true,true
+QTE-40536,OPP-20414,ACC-1132,SMB,2,true,Accepted,2025-06-04,12100,20,11400,700,true,2,AE Manager > Deal Desk,2,2025-06-06,false,12,Net 30,Monthly,false,false,true,true
+QTE-40537,OPP-20416,ACC-1081,Mid-Market,1,false,Superseded,2026-01-12,71170,18,58359,12811,true,3,AE Manager > Deal Desk > RevOps,8,2026-01-20,false,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40538,OPP-20416,ACC-1081,Mid-Market,2,false,Superseded,2026-01-16,71170,25,53378,17792,true,3,AE Manager > Deal Desk > RevOps,8,2026-01-24,true,12,Net 45,Monthly,false,false,true,false
+QTE-40539,OPP-20416,ACC-1081,Mid-Market,3,false,Superseded,2026-01-20,71170,23,54801,16369,true,3,AE Manager > Deal Desk > RevOps,13,2026-02-02,true,24,Net 45,Annual,false,false,true,true
+QTE-40540,OPP-20416,ACC-1081,Mid-Market,4,true,Rejected,2026-01-25,71170,42,46200,24970,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2026-02-06,true,36,Net 30,Annual,false,false,true,true
+QTE-40541,OPP-20418,ACC-1084,SMB,1,true,Accepted,2025-07-30,14640,23,14000,640,true,3,AE Manager > Deal Desk > RevOps,8,2025-08-07,true,36,Net 30,Annual,false,false,false,false
+QTE-40542,OPP-20421,ACC-1077,Mid-Market,1,false,Superseded,2026-04-14,49240,13,42839,6401,false,1,Auto-approved,0,2026-04-14,false,12,Net 60,Quarterly,false,false,true,false
+QTE-40543,OPP-20421,ACC-1077,Mid-Market,2,true,Accepted,2026-04-20,49240,25,49400,0,true,3,AE Manager > Deal Desk > RevOps,5,2026-04-25,true,12,Net 30,Annual,false,false,true,true
+QTE-40544,OPP-20423,ACC-1103,Enterprise,1,false,Superseded,2026-03-25,244165,48,126966,117199,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-04-03,true,6,Net 30,Annual,false,true,true,true
+QTE-40545,OPP-20423,ACC-1103,Enterprise,2,false,Superseded,2026-04-04,244165,10,219749,24416,false,1,Auto-approved,0,2026-04-04,false,12,Net 30,Monthly,false,false,true,false
+QTE-40546,OPP-20423,ACC-1103,Enterprise,3,false,Superseded,2026-04-14,244165,53,114758,129407,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,11,2026-04-25,true,6,Net 45,Annual,false,true,true,true
+QTE-40547,OPP-20423,ACC-1103,Enterprise,4,true,Rejected,2026-04-24,244165,20,212100,32065,true,2,AE Manager > Deal Desk,5,2026-04-29,false,12,Net 30,Monthly,false,false,true,false
+QTE-40548,OPP-20424,ACC-1054,Enterprise,1,true,Presented,2026-09-04,97280,28,66600,30680,true,3,AE Manager > Deal Desk > RevOps,4,2026-09-08,true,24,Net 30,Monthly,true,false,true,false
+QTE-40549,OPP-20425,ACC-1096,Mid-Market,1,true,Rejected,2026-03-16,81535,23,70700,10835,true,2,AE Manager > Deal Desk,4,2026-03-20,true,12,Net 60,Monthly,false,false,true,true
+QTE-40550,OPP-20426,ACC-1064,Mid-Market,1,true,Presented,2026-10-24,83060,18,54900,28160,true,2,AE Manager > Deal Desk,3,2026-10-27,false,24,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40551,OPP-20431,ACC-1097,SMB,1,false,Superseded,2026-04-02,48015,23,36972,11043,true,3,AE Manager > Deal Desk > RevOps,7,2026-04-09,true,12,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40552,OPP-20431,ACC-1097,SMB,2,true,Rejected,2026-04-04,48015,20,13100,34915,true,2,AE Manager > Deal Desk,8,2026-04-12,false,24,Net 30,Monthly,false,false,true,true
+QTE-40553,OPP-20434,ACC-1054,Enterprise,1,false,Superseded,2026-07-12,36000,23,27720,8280,true,3,AE Manager > Deal Desk > RevOps,5,2026-07-17,true,12,Net 30,Monthly,true,false,false,false
+QTE-40554,OPP-20434,ACC-1054,Enterprise,2,false,Superseded,2026-07-18,36000,10,32400,3600,false,1,Auto-approved,0,2026-07-18,false,12,Net 30,Monthly,false,false,false,false
+QTE-40555,OPP-20434,ACC-1054,Enterprise,3,false,Superseded,2026-07-25,36000,23,27720,8280,true,3,AE Manager > Deal Desk > RevOps,6,2026-07-31,true,36,Net 30,Annual,false,false,false,false
+QTE-40556,OPP-20434,ACC-1054,Enterprise,4,true,Rejected,2026-07-31,36000,20,119700,0,true,2,AE Manager > Deal Desk,7,2026-08-07,false,12,Net 45,Quarterly,true,false,false,false
+QTE-40557,OPP-20436,ACC-1078,SMB,1,true,Rejected,2025-05-15,9420,13,9000,420,false,1,Auto-approved,0,2025-05-15,false,12,Net 45,Annual,false,false,true,true
+QTE-40558,OPP-20438,ACC-1027,Enterprise,1,true,Accepted,2025-09-28,167435,13,150000,17435,false,1,Auto-approved,0,2025-09-28,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40559,OPP-20439,ACC-1067,Strategic,1,false,Superseded,2026-05-29,870555,23,670327,200228,true,3,AE Manager > Deal Desk > RevOps,6,2026-06-04,true,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40560,OPP-20439,ACC-1067,Strategic,2,false,Superseded,2026-06-14,870555,25,652916,217639,true,2,AE Manager > Deal Desk,5,2026-06-19,true,12,Net 30,Monthly,true,false,true,true
+QTE-40561,OPP-20439,ACC-1067,Strategic,3,true,Rejected,2026-06-30,870555,18,778700,91855,true,3,AE Manager > Deal Desk > RevOps,9,2026-07-09,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40562,OPP-20442,ACC-1106,SMB,1,false,Superseded,2025-10-04,4500,35,2925,1575,true,3,AE Manager > Deal Desk > RevOps,3,2025-10-07,true,12,Net 60,Quarterly,false,false,true,true
+QTE-40563,OPP-20442,ACC-1106,SMB,2,true,Rejected,2025-10-04,4500,10,4200,300,false,1,Auto-approved,0,2025-10-04,false,36,Net 30,Quarterly,false,false,true,true
+QTE-40564,OPP-20443,ACC-1086,Strategic,1,false,Superseded,2026-01-10,405650,13,352916,52734,false,1,Auto-approved,0,2026-01-10,false,12,Net 45,Annual,false,false,true,true
+QTE-40565,OPP-20443,ACC-1086,Strategic,2,true,Rejected,2026-01-25,405650,25,358200,47450,true,2,AE Manager > Deal Desk,5,2026-01-30,true,36,Net 60,Monthly,false,false,true,false
+QTE-40566,OPP-20444,ACC-1012,Mid-Market,1,false,Superseded,2025-08-27,37530,8,34528,3002,false,1,Auto-approved,0,2025-08-27,false,12,Net 45,Annual,false,false,true,true
+QTE-40567,OPP-20444,ACC-1012,Mid-Market,2,true,Rejected,2025-08-30,37530,25,32400,5130,true,2,AE Manager > Deal Desk,7,2025-09-06,true,12,Net 45,Quarterly,false,false,true,true
+QTE-40568,OPP-20448,ACC-1071,Mid-Market,1,false,Superseded,2026-04-21,58320,23,44906,13414,true,2,AE Manager > Deal Desk,8,2026-04-29,true,12,Net 30,Annual,false,false,true,true
+QTE-40569,OPP-20448,ACC-1071,Mid-Market,2,true,Rejected,2026-04-28,58320,10,55400,2920,false,1,Auto-approved,0,2026-04-28,false,6,Net 45,Quarterly,false,false,true,true
+QTE-40570,OPP-20449,ACC-1128,Mid-Market,1,false,Superseded,2025-08-12,60000,18,49200,10800,true,2,AE Manager > Deal Desk,5,2025-08-17,false,24,Net 30,Annual,false,false,true,true
+QTE-40571,OPP-20449,ACC-1128,Mid-Market,2,false,Superseded,2025-08-18,60000,15,51000,9000,false,1,Auto-approved,0,2025-08-18,false,12,Net 30,Quarterly,false,true,true,true
+QTE-40572,OPP-20449,ACC-1128,Mid-Market,3,false,Superseded,2025-08-24,60000,13,52200,7800,false,1,Auto-approved,0,2025-08-24,false,12,Net 30,Annual,false,false,true,true
+QTE-40573,OPP-20449,ACC-1128,Mid-Market,4,true,Accepted,2025-08-30,60000,15,28200,31800,false,1,Auto-approved,0,2025-08-30,false,24,Net 60,Annual,false,false,true,true
+QTE-40574,OPP-20450,ACC-1050,SMB,1,false,Superseded,2025-08-27,10440,23,8039,2401,true,2,AE Manager > Deal Desk,4,2025-08-31,true,36,Net 60,Annual,false,false,true,true
+QTE-40575,OPP-20450,ACC-1050,SMB,2,true,Accepted,2025-08-30,10440,25,9900,540,true,2,AE Manager > Deal Desk,6,2025-09-05,true,12,Net 45,Quarterly,false,false,true,true
+QTE-40576,OPP-20451,ACC-1057,SMB,1,true,Rejected,2026-01-13,15570,23,13800,1770,true,3,AE Manager > Deal Desk > RevOps,4,2026-01-17,true,12,Net 30,Annual,false,false,true,true
+QTE-40577,OPP-20453,ACC-1112,Mid-Market,1,false,Superseded,2025-11-23,15600,23,12012,3588,true,2,AE Manager > Deal Desk,6,2025-11-29,true,12,Net 30,Quarterly,false,false,false,false
+QTE-40578,OPP-20453,ACC-1112,Mid-Market,2,true,Rejected,2025-11-29,15600,20,15600,0,true,2,AE Manager > Deal Desk,6,2025-12-05,false,12,Net 30,Annual,false,false,false,false
+QTE-40579,OPP-20454,ACC-1000,SMB,1,true,Rejected,2025-12-29,16980,48,16200,780,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,12,2026-01-10,true,12,Net 45,Quarterly,false,true,true,true
+QTE-40580,OPP-20455,ACC-1000,SMB,1,false,Superseded,2025-09-23,8640,23,6653,1987,true,3,AE Manager > Deal Desk > RevOps,10,2025-10-03,true,12,Net 60,Monthly,false,false,false,false
+QTE-40581,OPP-20455,ACC-1000,SMB,2,true,Accepted,2025-09-26,8640,20,7700,940,true,3,AE Manager > Deal Desk > RevOps,10,2025-10-06,false,12,Net 30,Annual,false,false,false,false
+QTE-40582,OPP-20456,ACC-1133,Mid-Market,1,true,Rejected,2026-08-31,48300,23,17800,30500,true,2,AE Manager > Deal Desk,3,2026-09-03,true,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40583,OPP-20457,ACC-1064,Mid-Market,1,false,Superseded,2025-12-08,60550,18,49651,10899,true,2,AE Manager > Deal Desk,10,2025-12-18,false,12,Net 45,Quarterly,false,false,true,false
+QTE-40584,OPP-20457,ACC-1064,Mid-Market,2,true,Accepted,2025-12-15,60550,30,60600,0,true,3,AE Manager > Deal Desk > RevOps,9,2025-12-24,true,12,Net 60,Annual,false,true,true,true
+QTE-40585,OPP-20458,ACC-1050,SMB,1,true,Accepted,2025-08-09,41760,48,11100,30660,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,15,2025-08-24,true,24,Net 30,Quarterly,false,false,true,true
+QTE-40586,OPP-20460,ACC-1019,SMB,1,false,Superseded,2026-06-11,41745,8,38405,3340,false,1,Auto-approved,0,2026-06-11,false,12,Net 45,Annual,false,false,true,true
+QTE-40587,OPP-20460,ACC-1019,SMB,2,true,Rejected,2026-06-13,41745,25,6700,35045,true,3,AE Manager > Deal Desk > RevOps,6,2026-06-19,true,12,Net 45,Annual,false,false,true,true
+QTE-40588,OPP-20461,ACC-1015,SMB,1,true,Rejected,2026-03-30,9335,23,8300,1035,true,2,AE Manager > Deal Desk,6,2026-04-05,true,12,Net 60,Quarterly,false,false,true,true
+QTE-40589,OPP-20463,ACC-1005,Enterprise,1,true,Accepted,2025-08-29,202410,23,202400,10,true,3,AE Manager > Deal Desk > RevOps,5,2025-09-03,true,12,Net 30,Annual,false,false,false,false
+QTE-40590,OPP-20464,ACC-1084,SMB,1,false,Superseded,2026-04-11,36000,23,27720,8280,true,2,AE Manager > Deal Desk,4,2026-04-15,true,12,Net 30,Quarterly,false,false,false,false
+QTE-40591,OPP-20464,ACC-1084,SMB,2,true,Rejected,2026-04-14,36000,15,13100,22900,false,1,Auto-approved,0,2026-04-14,false,36,Net 60,Monthly,false,false,false,false
+QTE-40592,OPP-20466,ACC-1112,Mid-Market,1,false,Superseded,2025-10-26,29560,23,22761,6799,true,2,AE Manager > Deal Desk,2,2025-10-28,true,36,Net 30,Annual,false,false,true,true
+QTE-40593,OPP-20466,ACC-1112,Mid-Market,2,false,Superseded,2025-11-03,29560,25,22170,7390,true,2,AE Manager > Deal Desk,5,2025-11-08,true,12,Prepaid Annual,Annual,false,false,true,false
+QTE-40594,OPP-20466,ACC-1112,Mid-Market,3,true,Accepted,2025-11-11,29560,18,29000,560,true,3,AE Manager > Deal Desk > RevOps,7,2025-11-18,false,24,Net 60,Annual,false,true,true,false
+QTE-40595,OPP-20467,ACC-1048,Mid-Market,1,true,Rejected,2026-03-10,78955,23,71300,7655,true,3,AE Manager > Deal Desk > RevOps,6,2026-03-16,true,12,Net 45,Annual,false,false,true,true
+QTE-40596,OPP-20469,ACC-1086,Strategic,1,true,Rejected,2026-04-11,280655,13,253700,26955,false,1,Auto-approved,0,2026-04-11,false,12,Net 30,Quarterly,true,false,true,true
+QTE-40597,OPP-20471,ACC-1060,SMB,1,true,Rejected,2025-08-04,36000,35,10800,25200,true,3,AE Manager > Deal Desk > RevOps,7,2025-08-11,true,12,Prepaid Annual,Quarterly,false,true,false,false
+QTE-40598,OPP-20473,ACC-1113,Mid-Market,1,false,Superseded,2025-12-07,36000,18,29520,6480,true,2,AE Manager > Deal Desk,4,2025-12-11,false,12,Net 30,Annual,false,false,false,false
+QTE-40599,OPP-20473,ACC-1113,Mid-Market,2,true,Accepted,2025-12-16,36000,15,29600,6400,false,1,Auto-approved,0,2025-12-16,false,24,Net 60,Annual,false,false,false,false
+QTE-40600,OPP-20476,ACC-1137,Mid-Market,1,true,Rejected,2025-12-05,18435,8,18100,335,false,1,Auto-approved,0,2025-12-05,false,12,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40601,OPP-20477,ACC-1093,Enterprise,1,false,Superseded,2026-10-23,36000,23,27720,8280,true,2,AE Manager > Deal Desk,1,2026-10-24,true,24,Net 45,Annual,false,true,false,false
+QTE-40602,OPP-20477,ACC-1093,Enterprise,2,false,Superseded,2026-10-28,36000,30,25200,10800,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-11-07,true,24,Net 45,Quarterly,false,true,false,false
+QTE-40603,OPP-20477,ACC-1093,Enterprise,3,true,Presented,2026-11-01,36000,13,84200,0,false,1,Auto-approved,0,2026-11-01,false,12,Net 45,Annual,false,false,false,false
+QTE-40604,OPP-20480,ACC-1134,SMB,1,true,Presented,2026-09-23,5190,28,4600,590,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-10-02,true,12,Net 45,Quarterly,false,true,true,false
+QTE-40605,OPP-20481,ACC-1084,SMB,1,true,Accepted,2025-12-20,16200,18,13800,2400,true,3,AE Manager > Deal Desk > RevOps,11,2025-12-31,false,12,Net 30,Annual,false,false,true,true
+QTE-40606,OPP-20482,ACC-1074,Strategic,1,false,Superseded,2025-12-16,563430,8,518356,45074,false,1,Auto-approved,0,2025-12-16,false,12,Net 30,Annual,false,false,false,false
+QTE-40607,OPP-20482,ACC-1074,Strategic,2,false,Superseded,2025-12-22,563430,15,478916,84514,false,1,Auto-approved,0,2025-12-22,false,12,Net 60,Annual,false,false,false,false
+QTE-40608,OPP-20482,ACC-1074,Strategic,3,true,Rejected,2025-12-29,563430,23,776500,0,true,2,AE Manager > Deal Desk,7,2026-01-05,true,12,Net 30,Annual,false,false,false,false
+QTE-40609,OPP-20483,ACC-1084,SMB,1,false,Superseded,2025-07-28,6475,23,4986,1489,true,3,AE Manager > Deal Desk > RevOps,7,2025-08-04,true,12,Net 30,Quarterly,false,true,true,false
+QTE-40610,OPP-20483,ACC-1084,SMB,2,false,Superseded,2025-07-30,6475,10,5828,647,false,1,Auto-approved,0,2025-07-30,false,24,Net 30,Annual,false,false,true,true
+QTE-40611,OPP-20483,ACC-1084,SMB,3,true,Rejected,2025-08-01,6475,18,6500,0,true,3,AE Manager > Deal Desk > RevOps,8,2025-08-09,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40612,OPP-20485,ACC-1132,SMB,1,false,Superseded,2025-12-04,20340,23,15662,4678,true,2,AE Manager > Deal Desk,4,2025-12-08,true,36,Net 60,Quarterly,false,false,true,true
+QTE-40613,OPP-20485,ACC-1132,SMB,2,true,Rejected,2025-12-06,20340,20,15300,5040,true,2,AE Manager > Deal Desk,8,2025-12-14,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40614,OPP-20488,ACC-1081,Mid-Market,1,true,Rejected,2025-08-17,21875,13,21800,75,false,1,Auto-approved,0,2025-08-17,false,36,Net 30,Annual,false,false,true,true
+QTE-40615,OPP-20489,ACC-1064,Mid-Market,1,false,Superseded,2026-04-28,61140,8,56249,4891,false,1,Auto-approved,0,2026-04-28,false,36,Prepaid Annual,Annual,false,false,true,false
+QTE-40616,OPP-20489,ACC-1064,Mid-Market,2,true,Rejected,2026-05-05,61140,25,55600,5540,true,3,AE Manager > Deal Desk > RevOps,5,2026-05-10,true,12,Net 60,Quarterly,false,false,true,true
+QTE-40617,OPP-20490,ACC-1084,SMB,1,true,Rejected,2025-08-27,16800,23,16500,300,true,3,AE Manager > Deal Desk > RevOps,6,2025-09-02,true,24,Net 30,Quarterly,false,false,true,false
+QTE-40618,OPP-20491,ACC-1070,SMB,1,false,Superseded,2025-08-31,20945,18,17175,3770,true,3,AE Manager > Deal Desk > RevOps,7,2025-09-07,false,24,Net 30,Annual,false,false,true,false
+QTE-40619,OPP-20491,ACC-1070,SMB,2,false,Superseded,2025-09-01,20945,15,17803,3142,false,1,Auto-approved,0,2025-09-01,false,24,Net 30,Monthly,false,false,true,true
+QTE-40620,OPP-20491,ACC-1070,SMB,3,true,Rejected,2025-09-02,20945,40,17800,3145,true,3,AE Manager > Deal Desk > RevOps,9,2025-09-11,true,12,Net 60,Monthly,false,false,true,false
+QTE-40621,OPP-20493,ACC-1128,Mid-Market,1,true,Rejected,2025-07-18,76050,8,57000,19050,false,1,Auto-approved,0,2025-07-18,false,12,Prepaid Annual,Monthly,false,false,false,false
+QTE-40622,OPP-20494,ACC-1114,Strategic,1,false,Superseded,2025-11-27,1089070,35,707896,381174,true,3,AE Manager > Deal Desk > RevOps,9,2025-12-06,true,12,Net 30,Monthly,false,false,true,true
+QTE-40623,OPP-20494,ACC-1114,Strategic,2,false,Superseded,2025-12-12,1089070,20,871256,217814,true,3,AE Manager > Deal Desk > RevOps,8,2025-12-20,false,36,Net 30,Quarterly,false,false,true,true
+QTE-40624,OPP-20494,ACC-1114,Strategic,3,false,Superseded,2025-12-26,1089070,53,511863,577207,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,13,2026-01-08,true,12,Net 60,Annual,false,false,true,true
+QTE-40625,OPP-20494,ACC-1114,Strategic,4,true,Rejected,2026-01-10,1089070,42,904400,184670,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,14,2026-01-24,true,12,Net 45,Annual,true,true,true,true
+QTE-40626,OPP-20499,ACC-1057,SMB,1,false,Superseded,2026-02-13,10725,13,9331,1394,false,1,Auto-approved,0,2026-02-13,false,12,Net 30,Annual,false,true,true,true
+QTE-40627,OPP-20499,ACC-1057,SMB,2,false,Superseded,2026-02-15,10725,25,8044,2681,true,3,AE Manager > Deal Desk > RevOps,5,2026-02-20,true,12,Net 30,Quarterly,false,false,true,true
+QTE-40628,OPP-20499,ACC-1057,SMB,3,true,Accepted,2026-02-17,10725,18,9400,1325,true,2,AE Manager > Deal Desk,5,2026-02-22,false,24,Net 30,Annual,false,false,true,true
+QTE-40629,OPP-20502,ACC-1015,SMB,1,false,Superseded,2026-02-18,7190,28,5177,2013,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2026-02-26,true,12,Net 45,Annual,false,true,true,false
+QTE-40630,OPP-20502,ACC-1015,SMB,2,true,Accepted,2026-02-19,7190,15,7000,190,false,1,Auto-approved,0,2026-02-19,false,12,Net 30,Annual,false,false,true,true
+QTE-40631,OPP-20503,ACC-1071,Mid-Market,1,false,Superseded,2026-01-12,70050,13,60944,9106,false,1,Auto-approved,0,2026-01-12,false,12,Net 60,Monthly,false,false,true,true
+QTE-40632,OPP-20503,ACC-1071,Mid-Market,2,false,Superseded,2026-01-17,70050,25,52538,17512,true,3,AE Manager > Deal Desk > RevOps,7,2026-01-24,true,24,Net 45,Annual,false,true,true,true
+QTE-40633,OPP-20503,ACC-1071,Mid-Market,3,true,Rejected,2026-01-23,70050,40,70100,0,true,3,AE Manager > Deal Desk > RevOps,8,2026-01-31,true,24,Net 60,Monthly,false,true,true,false
+QTE-40634,OPP-20504,ACC-1031,SMB,1,false,Superseded,2026-05-03,19260,18,15793,3467,true,2,AE Manager > Deal Desk,5,2026-05-08,false,24,Net 60,Quarterly,false,false,true,true
+QTE-40635,OPP-20504,ACC-1031,SMB,2,false,Superseded,2026-05-04,19260,10,17334,1926,false,1,Auto-approved,0,2026-05-04,false,12,Prepaid Annual,Annual,false,true,true,true
+QTE-40636,OPP-20504,ACC-1031,SMB,3,false,Superseded,2026-05-06,19260,23,14830,4430,true,2,AE Manager > Deal Desk,8,2026-05-14,true,12,Net 30,Annual,false,true,true,false
+QTE-40637,OPP-20504,ACC-1031,SMB,4,true,Rejected,2026-05-07,19260,25,17300,1960,true,3,AE Manager > Deal Desk > RevOps,2,2026-05-09,true,12,Net 45,Annual,false,false,true,false
+QTE-40638,OPP-20505,ACC-1121,SMB,1,true,Rejected,2026-04-13,5040,23,4000,1040,true,3,AE Manager > Deal Desk > RevOps,6,2026-04-19,true,36,Net 30,Annual,false,false,true,true
+QTE-40639,OPP-20506,ACC-1078,SMB,1,false,Superseded,2025-07-23,15190,13,13215,1975,false,1,Auto-approved,0,2025-07-23,false,24,Net 60,Monthly,false,false,true,true
+QTE-40640,OPP-20506,ACC-1078,SMB,2,true,Rejected,2025-07-26,15190,25,15100,90,true,2,AE Manager > Deal Desk,5,2025-07-31,true,24,Net 30,Annual,false,false,true,true
+QTE-40641,OPP-20508,ACC-1002,SMB,1,true,Accepted,2025-03-28,36000,8,8000,28000,false,1,Auto-approved,0,2025-03-28,false,24,Net 45,Quarterly,false,false,false,false
+QTE-40642,OPP-20509,ACC-1004,SMB,1,false,Superseded,2026-05-04,44640,13,38837,5803,false,1,Auto-approved,0,2026-05-04,false,6,Net 30,Quarterly,false,false,true,true
+QTE-40643,OPP-20509,ACC-1004,SMB,2,true,Accepted,2026-05-06,44640,15,14100,30540,false,1,Auto-approved,0,2026-05-06,false,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40644,OPP-20510,ACC-1005,Enterprise,1,true,Rejected,2025-05-01,28000,18,22400,5600,true,2,AE Manager > Deal Desk,6,2025-05-07,false,12,Net 30,Monthly,false,true,true,true
+QTE-40645,OPP-20511,ACC-1005,Enterprise,1,true,Accepted,2024-12-07,22770,48,20200,2570,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2024-12-17,true,12,Net 45,Annual,true,true,true,false
+QTE-40646,OPP-20512,ACC-1007,Enterprise,1,true,Accepted,2026-05-04,75960,23,108000,0,true,3,AE Manager > Deal Desk > RevOps,8,2026-05-12,true,12,Net 30,Annual,false,false,true,true
+QTE-40647,OPP-20513,ACC-1008,SMB,1,false,Superseded,2025-08-31,37420,13,32555,4865,false,1,Auto-approved,0,2025-08-31,false,36,Net 45,Annual,false,false,true,true
+QTE-40648,OPP-20513,ACC-1008,SMB,2,true,Accepted,2025-09-02,37420,10,1600,35820,false,1,Auto-approved,0,2025-09-02,false,12,Net 60,Annual,false,true,true,true
+QTE-40649,OPP-20514,ACC-1009,Enterprise,1,false,Superseded,2025-09-22,166695,23,128355,38340,true,2,AE Manager > Deal Desk,6,2025-09-28,true,12,Net 60,Quarterly,true,false,true,true
+QTE-40650,OPP-20514,ACC-1009,Enterprise,2,false,Superseded,2025-09-30,166695,37,105018,61677,true,3,AE Manager > Deal Desk > RevOps,7,2025-10-07,true,12,Net 30,Monthly,true,true,true,true
+QTE-40651,OPP-20514,ACC-1009,Enterprise,3,true,Accepted,2025-10-08,166695,23,149600,17095,true,3,AE Manager > Deal Desk > RevOps,9,2025-10-17,true,36,Prepaid Annual,Annual,false,false,true,true
+QTE-40652,OPP-20515,ACC-1009,Enterprise,1,false,Superseded,2026-05-18,87610,23,67460,20150,true,3,AE Manager > Deal Desk > RevOps,4,2026-05-22,true,12,Net 60,Annual,true,false,true,true
+QTE-40653,OPP-20515,ACC-1009,Enterprise,2,true,Accepted,2026-05-23,87610,30,70000,17610,true,4,AE Manager > Deal Desk > RevOps > Finance,7,2026-05-30,true,12,Net 30,Annual,false,false,true,false
+QTE-40654,OPP-20516,ACC-1009,Enterprise,1,false,Superseded,2025-12-22,166160,18,136251,29909,true,2,AE Manager > Deal Desk,8,2025-12-30,false,24,Net 45,Quarterly,true,false,true,true
+QTE-40655,OPP-20516,ACC-1009,Enterprise,2,true,Accepted,2025-12-30,166160,25,166300,0,true,2,AE Manager > Deal Desk,4,2026-01-03,true,12,Net 30,Annual,false,false,true,false
+QTE-40656,OPP-20517,ACC-1010,Mid-Market,1,false,Superseded,2026-08-23,85800,18,70356,15444,true,3,AE Manager > Deal Desk > RevOps,4,2026-08-27,false,24,Net 45,Annual,false,false,false,false
+QTE-40657,OPP-20517,ACC-1010,Mid-Market,2,false,Superseded,2026-08-25,85800,10,77220,8580,false,1,Auto-approved,0,2026-08-25,false,12,Net 30,Annual,false,false,false,false
+QTE-40658,OPP-20517,ACC-1010,Mid-Market,3,true,Rejected,2026-08-27,85800,53,68700,17100,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,13,2026-09-09,true,12,Net 45,Annual,false,true,false,false
+QTE-40659,OPP-20518,ACC-1011,SMB,1,false,Superseded,2025-07-29,7560,13,6577,983,false,1,Auto-approved,0,2025-07-29,false,12,Net 30,Annual,false,false,true,true
+QTE-40660,OPP-20518,ACC-1011,SMB,2,false,Superseded,2025-08-01,7560,50,3780,3780,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,12,2025-08-13,true,12,Net 45,Quarterly,false,true,true,true
+QTE-40661,OPP-20518,ACC-1011,SMB,3,false,Superseded,2025-08-04,7560,53,3553,4007,true,4,AE Manager > Deal Desk > RevOps > Finance,6,2025-08-10,true,36,Prepaid Annual,Monthly,false,true,true,true
+QTE-40662,OPP-20518,ACC-1011,SMB,4,true,Accepted,2025-08-07,7560,25,7600,0,true,2,AE Manager > Deal Desk,8,2025-08-15,true,36,Prepaid Annual,Monthly,false,false,true,true
+QTE-40663,OPP-20519,ACC-1022,Mid-Market,1,true,Accepted,2026-04-14,67290,18,42200,25090,true,2,AE Manager > Deal Desk,6,2026-04-20,false,12,Net 60,Monthly,false,false,false,false
+QTE-40664,OPP-20521,ACC-1023,Strategic,1,true,Accepted,2026-07-07,720885,13,668600,52285,false,1,Auto-approved,0,2026-07-07,false,24,Net 60,Monthly,false,false,true,true
+QTE-40665,OPP-20523,ACC-1027,Enterprise,1,false,Superseded,2025-04-26,188895,35,122782,66113,true,4,AE Manager > Deal Desk > RevOps > Finance,4,2025-04-30,true,12,Net 30,Annual,false,true,true,true
+QTE-40666,OPP-20523,ACC-1027,Enterprise,2,true,Rejected,2025-05-02,188895,30,177000,11895,true,4,AE Manager > Deal Desk > RevOps > Finance,8,2025-05-10,true,12,Prepaid Annual,Annual,true,true,true,false
+QTE-40667,OPP-20524,ACC-1027,Enterprise,1,true,Accepted,2025-10-27,78100,8,72100,6000,false,1,Auto-approved,0,2025-10-27,false,12,Net 45,Quarterly,true,false,true,true
+QTE-40668,OPP-20526,ACC-1031,SMB,1,true,Accepted,2026-06-13,10970,8,10700,270,false,1,Auto-approved,0,2026-06-13,false,36,Net 30,Annual,false,false,true,true
+QTE-40669,OPP-20527,ACC-1039,Enterprise,1,true,Presented,2026-09-17,168930,8,145400,23530,false,1,Auto-approved,0,2026-09-17,false,12,Net 45,Annual,true,false,true,false
+QTE-40670,OPP-20528,ACC-1042,Strategic,1,false,Superseded,2025-06-16,957990,48,498155,459835,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,11,2025-06-27,true,12,Net 60,Annual,false,false,true,true
+QTE-40671,OPP-20528,ACC-1042,Strategic,2,false,Superseded,2025-06-22,957990,10,862191,95799,false,1,Auto-approved,0,2025-06-22,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40672,OPP-20528,ACC-1042,Strategic,3,true,Rejected,2025-06-29,957990,28,679300,278690,true,3,AE Manager > Deal Desk > RevOps,10,2025-07-09,true,12,Net 30,Annual,false,false,true,false
+QTE-40673,OPP-20529,ACC-1042,Strategic,1,true,Accepted,2026-07-08,695180,13,734800,0,false,1,Auto-approved,0,2026-07-08,false,24,Net 60,Monthly,false,false,true,false
+QTE-40674,OPP-20530,ACC-1043,Strategic,1,false,Superseded,2026-03-25,359760,13,312991,46769,false,1,Auto-approved,0,2026-03-25,false,24,Net 30,Annual,false,false,true,true
+QTE-40675,OPP-20530,ACC-1043,Strategic,2,false,Superseded,2026-04-09,359760,15,305796,53964,false,1,Auto-approved,0,2026-04-09,false,12,Prepaid Annual,Annual,true,false,true,true
+QTE-40676,OPP-20530,ACC-1043,Strategic,3,false,Superseded,2026-04-24,359760,23,277015,82745,true,2,AE Manager > Deal Desk,5,2026-04-29,true,12,Net 45,Monthly,false,false,true,true
+QTE-40677,OPP-20530,ACC-1043,Strategic,4,true,Rejected,2026-05-09,359760,25,366200,0,true,2,AE Manager > Deal Desk,7,2026-05-16,true,36,Net 60,Annual,false,true,true,true
+QTE-40678,OPP-20534,ACC-1046,Strategic,1,false,Superseded,2026-10-13,578050,13,502904,75146,false,1,Auto-approved,0,2026-10-13,false,12,Net 45,Quarterly,false,false,true,false
+QTE-40679,OPP-20534,ACC-1046,Strategic,2,false,Superseded,2026-10-26,578050,30,404635,173415,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2026-11-07,true,12,Prepaid Annual,Annual,true,true,true,true
+QTE-40680,OPP-20534,ACC-1046,Strategic,3,true,Presented,2026-11-07,578050,40,550700,27350,true,3,AE Manager > Deal Desk > RevOps,3,2026-11-10,true,24,Net 45,Annual,false,false,true,true
+QTE-40681,OPP-20537,ACC-1048,Mid-Market,1,false,Superseded,2025-07-09,16135,48,8390,7745,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,14,2025-07-23,true,36,Net 60,Annual,false,true,true,true
+QTE-40682,OPP-20537,ACC-1048,Mid-Market,2,true,Rejected,2025-07-14,16135,20,16200,0,true,2,AE Manager > Deal Desk,7,2025-07-21,false,12,Net 45,Monthly,false,true,true,true
+QTE-40683,OPP-20538,ACC-1050,SMB,1,false,Superseded,2025-04-18,41210,13,35853,5357,false,1,Auto-approved,0,2025-04-18,false,12,Net 45,Annual,false,false,true,true
+QTE-40684,OPP-20538,ACC-1050,SMB,2,false,Superseded,2025-04-22,41210,15,35029,6181,false,1,Auto-approved,0,2025-04-22,false,12,Net 30,Annual,false,false,true,false
+QTE-40685,OPP-20538,ACC-1050,SMB,3,true,Rejected,2025-04-26,41210,23,6700,34510,true,2,AE Manager > Deal Desk,9,2025-05-05,true,12,Net 30,Annual,false,false,true,true
+QTE-40686,OPP-20541,ACC-1054,Enterprise,1,false,Superseded,2025-10-14,179820,18,147452,32368,true,2,AE Manager > Deal Desk,6,2025-10-20,false,24,Net 30,Annual,false,false,true,false
+QTE-40687,OPP-20541,ACC-1054,Enterprise,2,false,Superseded,2025-10-25,179820,20,143856,35964,true,2,AE Manager > Deal Desk,5,2025-10-30,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40688,OPP-20541,ACC-1054,Enterprise,3,true,Rejected,2025-11-05,179820,13,300500,0,false,1,Auto-approved,0,2025-11-05,false,12,Net 30,Annual,true,false,true,true
+QTE-40689,OPP-20542,ACC-1054,Enterprise,1,false,Superseded,2026-07-20,250445,8,230409,20036,false,1,Auto-approved,0,2026-07-20,false,12,Net 45,Annual,false,false,true,true
+QTE-40690,OPP-20542,ACC-1054,Enterprise,2,true,Accepted,2026-07-30,250445,20,306400,0,true,2,AE Manager > Deal Desk,4,2026-08-03,false,12,Net 60,Annual,false,false,true,true
+QTE-40691,OPP-20544,ACC-1059,Enterprise,1,false,Superseded,2026-07-29,116070,23,89374,26696,true,3,AE Manager > Deal Desk > RevOps,5,2026-08-03,true,24,Net 45,Annual,false,true,true,true
+QTE-40692,OPP-20544,ACC-1059,Enterprise,2,true,Accepted,2026-08-06,116070,25,74100,41970,true,2,AE Manager > Deal Desk,5,2026-08-11,true,24,Net 60,Quarterly,true,true,true,false
+QTE-40693,OPP-20545,ACC-1059,Enterprise,1,true,Accepted,2026-05-03,65960,13,38400,27560,false,1,Auto-approved,0,2026-05-03,false,12,Prepaid Annual,Annual,false,false,true,false
+QTE-40694,OPP-20546,ACC-1059,Enterprise,1,false,Superseded,2026-07-05,327740,18,268747,58993,true,3,AE Manager > Deal Desk > RevOps,8,2026-07-13,false,24,Net 45,Quarterly,true,false,true,true
+QTE-40695,OPP-20546,ACC-1059,Enterprise,2,false,Superseded,2026-07-15,327740,10,294966,32774,false,1,Auto-approved,0,2026-07-15,false,12,Net 60,Annual,false,false,true,false
+QTE-40696,OPP-20546,ACC-1059,Enterprise,3,true,Accepted,2026-07-25,327740,23,253900,73840,true,2,AE Manager > Deal Desk,6,2026-07-31,true,12,Net 30,Annual,false,false,true,true
+QTE-40697,OPP-20547,ACC-1060,SMB,1,false,Superseded,2026-09-27,44990,8,41391,3599,false,1,Auto-approved,0,2026-09-27,false,12,Net 60,Annual,false,false,true,false
+QTE-40698,OPP-20547,ACC-1060,SMB,2,false,Superseded,2026-09-29,44990,15,38242,6748,false,1,Auto-approved,0,2026-09-29,false,36,Net 30,Monthly,false,false,true,true
+QTE-40699,OPP-20547,ACC-1060,SMB,3,false,Superseded,2026-10-01,44990,28,32393,12597,true,3,AE Manager > Deal Desk > RevOps,7,2026-10-08,true,12,Net 45,Annual,false,false,true,true
+QTE-40700,OPP-20547,ACC-1060,SMB,4,false,Superseded,2026-10-04,44990,42,26094,18896,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,14,2026-10-18,true,24,Net 30,Annual,false,true,true,true
+QTE-40701,OPP-20547,ACC-1060,SMB,5,true,Presented,2026-10-06,44990,18,14400,30590,true,2,AE Manager > Deal Desk,1,2026-10-07,false,6,Net 30,Quarterly,false,false,true,true
+QTE-40702,OPP-20548,ACC-1061,Mid-Market,1,false,Superseded,2026-03-05,28570,8,26284,2286,false,1,Auto-approved,0,2026-03-05,false,36,Net 60,Quarterly,false,false,true,false
+QTE-40703,OPP-20548,ACC-1061,Mid-Market,2,true,Accepted,2026-03-10,28570,37,26800,1770,true,3,AE Manager > Deal Desk > RevOps,11,2026-03-21,true,24,Net 45,Annual,false,false,true,true
+QTE-40704,OPP-20549,ACC-1065,SMB,1,false,Superseded,2026-07-15,2975,8,2737,238,false,1,Auto-approved,0,2026-07-15,false,12,Net 45,Monthly,false,false,true,true
+QTE-40705,OPP-20549,ACC-1065,SMB,2,true,Accepted,2026-07-16,2975,30,2900,75,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2026-07-28,true,12,Net 30,Annual,false,true,true,true
+QTE-40706,OPP-20552,ACC-1067,Strategic,1,false,Superseded,2026-08-18,775680,28,558490,217190,true,3,AE Manager > Deal Desk > RevOps,7,2026-08-25,true,12,Net 45,Monthly,false,true,true,true
+QTE-40707,OPP-20552,ACC-1067,Strategic,2,false,Superseded,2026-08-25,775680,10,698112,77568,false,1,Auto-approved,0,2026-08-25,false,36,Prepaid Annual,Monthly,true,false,true,true
+QTE-40708,OPP-20552,ACC-1067,Strategic,3,true,Rejected,2026-09-01,775680,18,682200,93480,true,2,AE Manager > Deal Desk,8,2026-09-09,false,12,Net 30,Annual,false,false,true,true
+QTE-40709,OPP-20553,ACC-1072,SMB,1,true,Accepted,2026-08-27,7440,8,7400,40,false,1,Auto-approved,0,2026-08-27,false,36,Net 45,Annual,false,false,false,false
+QTE-40710,OPP-20554,ACC-1073,Enterprise,1,true,Accepted,2026-06-14,137165,28,123800,13365,true,4,AE Manager > Deal Desk > RevOps > Finance,9,2026-06-23,true,12,Net 45,Quarterly,true,true,true,false
+QTE-40711,OPP-20558,ACC-1074,Strategic,1,false,Superseded,2025-05-17,1358260,23,1045860,312400,true,3,AE Manager > Deal Desk > RevOps,9,2025-05-26,true,24,Net 30,Quarterly,true,false,true,true
+QTE-40712,OPP-20558,ACC-1074,Strategic,2,false,Superseded,2025-05-31,1358260,10,1222434,135826,false,1,Auto-approved,0,2025-05-31,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40713,OPP-20558,ACC-1074,Strategic,3,true,Accepted,2025-06-14,1358260,33,984800,373460,true,3,AE Manager > Deal Desk > RevOps,5,2025-06-19,true,12,Net 30,Quarterly,true,true,true,true
+QTE-40714,OPP-20559,ACC-1075,Strategic,1,false,Superseded,2025-11-10,347905,18,285282,62623,true,3,AE Manager > Deal Desk > RevOps,6,2025-11-16,false,24,Net 45,Annual,true,false,true,false
+QTE-40715,OPP-20559,ACC-1075,Strategic,2,true,Rejected,2025-11-18,347905,15,300400,47505,false,1,Auto-approved,0,2025-11-18,false,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40716,OPP-20560,ACC-1075,Strategic,1,false,Superseded,2026-02-10,208700,23,160699,48001,true,3,AE Manager > Deal Desk > RevOps,10,2026-02-20,true,24,Net 60,Annual,false,false,true,true
+QTE-40717,OPP-20560,ACC-1075,Strategic,2,false,Superseded,2026-02-21,208700,20,166960,41740,true,3,AE Manager > Deal Desk > RevOps,4,2026-02-25,false,12,Net 60,Annual,true,false,true,true
+QTE-40718,OPP-20560,ACC-1075,Strategic,3,true,Accepted,2026-03-04,208700,33,166500,42200,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2026-03-16,true,6,Prepaid Annual,Monthly,false,true,true,true
+QTE-40719,OPP-20561,ACC-1075,Strategic,1,true,Accepted,2026-03-28,225825,13,187900,37925,false,1,Auto-approved,0,2026-03-28,false,12,Net 30,Annual,false,false,true,true
+QTE-40720,OPP-20562,ACC-1075,Strategic,1,true,Presented,2026-08-22,814630,13,861600,0,false,1,Auto-approved,0,2026-08-22,false,12,Net 45,Quarterly,true,false,true,true
+QTE-40721,OPP-20564,ACC-1081,Mid-Market,1,true,Accepted,2026-05-06,24150,8,20600,3550,false,1,Auto-approved,0,2026-05-06,false,24,Net 30,Quarterly,false,true,true,false
+QTE-40722,OPP-20565,ACC-1082,Enterprise,1,true,Accepted,2025-03-30,81200,23,58200,23000,true,2,AE Manager > Deal Desk,4,2025-04-03,true,12,Net 45,Annual,true,false,true,true
+QTE-40723,OPP-20566,ACC-1084,SMB,1,true,Rejected,2026-07-28,36000,35,18900,17100,true,3,AE Manager > Deal Desk > RevOps,10,2026-08-07,true,36,Net 60,Monthly,false,false,false,false
+QTE-40724,OPP-20568,ACC-1086,Strategic,1,false,Superseded,2025-02-22,316830,8,291484,25346,false,1,Auto-approved,0,2025-02-22,false,12,Net 30,Annual,false,false,true,true
+QTE-40725,OPP-20568,ACC-1086,Strategic,2,true,Accepted,2025-03-07,316830,10,298800,18030,false,1,Auto-approved,0,2025-03-07,false,12,Prepaid Annual,Annual,false,true,true,false
+QTE-40726,OPP-20569,ACC-1087,SMB,1,true,Accepted,2026-06-15,6240,8,6200,40,false,1,Auto-approved,0,2026-06-15,false,12,Net 30,Monthly,false,false,false,false
+QTE-40727,OPP-20570,ACC-1089,SMB,1,false,Superseded,2025-10-22,12710,8,11693,1017,false,1,Auto-approved,0,2025-10-22,false,36,Net 60,Quarterly,false,false,true,false
+QTE-40728,OPP-20570,ACC-1089,SMB,2,false,Superseded,2025-10-24,12710,10,11439,1271,false,1,Auto-approved,0,2025-10-24,false,12,Net 30,Annual,false,false,true,false
+QTE-40729,OPP-20570,ACC-1089,SMB,3,true,Accepted,2025-10-26,12710,28,12000,710,true,3,AE Manager > Deal Desk > RevOps,9,2025-11-04,true,12,Net 60,Quarterly,false,true,true,true
+QTE-40730,OPP-20571,ACC-1090,SMB,1,false,Superseded,2026-07-15,14430,18,11833,2597,true,3,AE Manager > Deal Desk > RevOps,5,2026-07-20,false,36,Net 30,Annual,false,false,false,false
+QTE-40731,OPP-20571,ACC-1090,SMB,2,true,Rejected,2026-07-17,14430,15,13100,1330,false,1,Auto-approved,0,2026-07-17,false,12,Net 45,Annual,false,false,false,false
+QTE-40732,OPP-20572,ACC-1093,Enterprise,1,true,Rejected,2026-04-21,61455,48,38800,22655,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,7,2026-04-28,true,24,Net 45,Annual,false,false,true,true
+QTE-40733,OPP-20574,ACC-1095,Enterprise,1,true,Accepted,2026-03-28,75880,23,70100,5780,true,2,AE Manager > Deal Desk,9,2026-04-06,true,12,Net 30,Annual,false,false,true,true
+QTE-40734,OPP-20575,ACC-1095,Enterprise,1,true,Accepted,2026-07-06,178800,8,207200,0,false,1,Auto-approved,0,2026-07-06,false,12,Net 45,Annual,false,false,true,true
+QTE-40735,OPP-20576,ACC-1100,Mid-Market,1,false,Superseded,2024-06-13,22575,8,20769,1806,false,1,Auto-approved,0,2024-06-13,false,36,Net 45,Annual,false,false,true,false
+QTE-40736,OPP-20576,ACC-1100,Mid-Market,2,false,Superseded,2024-06-18,22575,10,20318,2257,false,1,Auto-approved,0,2024-06-18,false,24,Net 30,Annual,false,true,true,false
+QTE-40737,OPP-20576,ACC-1100,Mid-Market,3,false,Superseded,2024-06-22,22575,33,15125,7450,true,3,AE Manager > Deal Desk > RevOps,7,2024-06-29,true,36,Net 45,Annual,false,true,true,true
+QTE-40738,OPP-20576,ACC-1100,Mid-Market,4,true,Accepted,2024-06-27,22575,35,21400,1175,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2024-07-09,true,12,Net 60,Annual,false,false,true,false
+QTE-40739,OPP-20577,ACC-1102,Mid-Market,1,false,Superseded,2026-08-08,43440,23,33449,9991,true,3,AE Manager > Deal Desk > RevOps,5,2026-08-13,true,12,Prepaid Annual,Monthly,false,false,true,true
+QTE-40740,OPP-20577,ACC-1102,Mid-Market,2,true,Accepted,2026-08-11,43440,15,14800,28640,false,1,Auto-approved,0,2026-08-11,false,12,Net 30,Annual,false,false,true,true
+QTE-40741,OPP-20578,ACC-1103,Enterprise,1,false,Superseded,2026-07-13,33600,13,29232,4368,false,1,Auto-approved,0,2026-07-13,false,12,Net 30,Monthly,false,false,true,true
+QTE-40742,OPP-20578,ACC-1103,Enterprise,2,true,Accepted,2026-07-19,33600,50,32000,1600,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,12,2026-07-31,true,12,Net 45,Quarterly,true,false,true,true
+QTE-40743,OPP-20580,ACC-1110,Enterprise,1,false,Superseded,2025-11-17,70940,13,61718,9222,false,1,Auto-approved,0,2025-11-17,false,12,Net 30,Monthly,false,false,true,true
+QTE-40744,OPP-20580,ACC-1110,Enterprise,2,false,Superseded,2025-12-02,70940,25,53205,17735,true,2,AE Manager > Deal Desk,3,2025-12-05,true,12,Net 30,Annual,false,false,true,false
+QTE-40745,OPP-20580,ACC-1110,Enterprise,3,false,Superseded,2025-12-17,70940,13,61718,9222,false,1,Auto-approved,0,2025-12-17,false,36,Net 30,Monthly,false,false,true,true
+QTE-40746,OPP-20580,ACC-1110,Enterprise,4,true,Accepted,2026-01-01,70940,20,49200,21740,true,2,AE Manager > Deal Desk,6,2026-01-07,false,12,Net 30,Annual,true,true,true,true
+QTE-40747,OPP-20581,ACC-1110,Enterprise,1,false,Superseded,2026-02-28,148490,18,121762,26728,true,2,AE Manager > Deal Desk,8,2026-03-08,false,36,Net 30,Annual,true,false,true,true
+QTE-40748,OPP-20581,ACC-1110,Enterprise,2,false,Superseded,2026-03-10,148490,15,126217,22273,false,1,Auto-approved,0,2026-03-10,false,12,Net 30,Quarterly,false,false,true,true
+QTE-40749,OPP-20581,ACC-1110,Enterprise,3,false,Superseded,2026-03-21,148490,18,121762,26728,true,3,AE Manager > Deal Desk > RevOps,6,2026-03-27,false,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40750,OPP-20581,ACC-1110,Enterprise,4,true,Accepted,2026-03-31,148490,30,141100,7390,true,3,AE Manager > Deal Desk > RevOps,10,2026-04-10,true,24,Net 45,Monthly,true,true,true,false
+QTE-40751,OPP-20586,ACC-1116,Enterprise,1,true,Rejected,2026-02-21,82725,8,102000,0,false,1,Auto-approved,0,2026-02-21,false,36,Net 30,Monthly,false,false,true,true
+QTE-40752,OPP-20587,ACC-1118,Strategic,1,false,Superseded,2025-06-11,398580,8,366694,31886,false,1,Auto-approved,0,2025-06-11,false,24,Net 30,Monthly,false,false,true,true
+QTE-40753,OPP-20587,ACC-1118,Strategic,2,false,Superseded,2025-06-17,398580,15,338793,59787,false,1,Auto-approved,0,2025-06-17,false,12,Net 30,Annual,false,false,true,true
+QTE-40754,OPP-20587,ACC-1118,Strategic,3,true,Accepted,2025-06-24,398580,23,469800,0,true,3,AE Manager > Deal Desk > RevOps,5,2025-06-29,true,12,Net 60,Annual,true,false,true,false
+QTE-40755,OPP-20588,ACC-1118,Strategic,1,true,Accepted,2025-12-29,490985,28,497500,0,true,3,AE Manager > Deal Desk > RevOps,5,2026-01-03,true,36,Net 45,Monthly,true,false,true,true
+QTE-40756,OPP-20589,ACC-1118,Strategic,1,true,Accepted,2026-02-23,190410,13,277700,0,false,1,Auto-approved,0,2026-02-23,false,36,Net 60,Annual,false,false,true,true
+QTE-40757,OPP-20590,ACC-1118,Strategic,1,true,Accepted,2025-03-14,272870,8,245500,27370,false,1,Auto-approved,0,2025-03-14,false,12,Net 30,Annual,true,false,true,false
+QTE-40758,OPP-20591,ACC-1119,Enterprise,1,true,Rejected,2026-04-10,219120,8,168200,50920,false,1,Auto-approved,0,2026-04-10,false,12,Net 30,Annual,false,false,true,true
+QTE-40759,OPP-20592,ACC-1120,Mid-Market,1,false,Superseded,2026-09-07,54580,48,28382,26198,true,6,AE Manager > Deal Desk > RevOps > Finance > VP Sales > CRO,16,2026-09-23,true,6,Net 30,Monthly,false,false,true,true
+QTE-40760,OPP-20592,ACC-1120,Mid-Market,2,false,Superseded,2026-09-08,54580,15,46393,8187,false,1,Auto-approved,0,2026-09-08,false,12,Net 30,Monthly,false,false,true,true
+QTE-40761,OPP-20592,ACC-1120,Mid-Market,3,false,Superseded,2026-09-10,54580,28,39298,15282,true,3,AE Manager > Deal Desk > RevOps,7,2026-09-17,true,6,Net 45,Annual,false,true,true,true
+QTE-40762,OPP-20592,ACC-1120,Mid-Market,4,true,Accepted,2026-09-12,54580,30,53500,1080,true,4,AE Manager > Deal Desk > RevOps > Finance,12,2026-09-24,true,12,Net 60,Monthly,false,true,true,true
+QTE-40763,OPP-20593,ACC-1121,SMB,1,false,Superseded,2026-02-22,3270,8,3008,262,false,1,Auto-approved,0,2026-02-22,false,24,Net 30,Monthly,false,false,true,true
+QTE-40764,OPP-20593,ACC-1121,SMB,2,true,Rejected,2026-02-24,3270,20,2600,670,true,2,AE Manager > Deal Desk,5,2026-03-01,false,12,Net 30,Annual,false,false,true,true
+QTE-40765,OPP-20594,ACC-1122,Strategic,1,false,Superseded,2026-05-07,594890,48,309343,285547,true,5,AE Manager > Deal Desk > RevOps > Finance > VP Sales,12,2026-05-19,true,12,Net 30,Annual,false,true,true,true
+QTE-40766,OPP-20594,ACC-1122,Strategic,2,true,Accepted,2026-05-25,594890,25,556000,38890,true,3,AE Manager > Deal Desk > RevOps,9,2026-06-03,true,36,Net 60,Quarterly,false,false,true,true
+QTE-40767,OPP-20595,ACC-1122,Strategic,1,true,Accepted,2026-01-25,307880,35,308000,0,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-02-04,true,24,Prepaid Annual,Quarterly,false,false,true,true
+QTE-40768,OPP-20596,ACC-1124,Mid-Market,1,false,Superseded,2024-10-30,5400,13,4698,702,false,1,Auto-approved,0,2024-10-30,false,12,Net 60,Monthly,false,false,true,true
+QTE-40769,OPP-20596,ACC-1124,Mid-Market,2,false,Superseded,2024-11-06,5400,10,4860,540,false,1,Auto-approved,0,2024-11-06,false,24,Net 45,Quarterly,false,false,true,true
+QTE-40770,OPP-20596,ACC-1124,Mid-Market,3,false,Superseded,2024-11-13,5400,13,4698,702,false,1,Auto-approved,0,2024-11-13,false,12,Net 30,Annual,false,true,true,false
+QTE-40771,OPP-20596,ACC-1124,Mid-Market,4,false,Superseded,2024-11-20,5400,15,4590,810,false,1,Auto-approved,0,2024-11-20,false,12,Net 30,Annual,false,false,true,true
+QTE-40772,OPP-20596,ACC-1124,Mid-Market,5,true,Accepted,2024-11-27,5400,38,3500,1900,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2024-12-07,true,12,Prepaid Annual,Annual,false,false,true,true
+QTE-40773,OPP-20600,ACC-1127,SMB,1,false,Superseded,2025-08-26,37010,8,34049,2961,false,1,Auto-approved,0,2025-08-26,false,24,Net 45,Annual,false,true,true,true
+QTE-40774,OPP-20600,ACC-1127,SMB,2,true,Accepted,2025-08-27,37010,20,1200,35810,true,2,AE Manager > Deal Desk,3,2025-08-30,false,36,Net 45,Annual,false,false,true,false
+QTE-40775,OPP-20601,ACC-1128,Mid-Market,1,true,Accepted,2026-08-23,36000,13,54900,0,false,1,Auto-approved,0,2026-08-23,false,12,Net 30,Monthly,false,false,false,false
+QTE-40776,OPP-20602,ACC-1130,SMB,1,false,Superseded,2025-02-08,41940,18,34391,7549,true,2,AE Manager > Deal Desk,4,2025-02-12,false,12,Net 45,Annual,false,false,true,true
+QTE-40777,OPP-20602,ACC-1130,SMB,2,false,Superseded,2025-02-10,41940,25,31455,10485,true,2,AE Manager > Deal Desk,3,2025-02-13,true,12,Net 30,Quarterly,false,false,true,true
+QTE-40778,OPP-20602,ACC-1130,SMB,3,true,Rejected,2025-02-13,41940,13,7200,34740,false,1,Auto-approved,0,2025-02-13,false,36,Net 30,Annual,false,false,true,true
+QTE-40779,OPP-20603,ACC-1132,SMB,1,false,Superseded,2026-08-28,3930,13,3419,511,false,1,Auto-approved,0,2026-08-28,false,12,Net 60,Quarterly,false,false,true,true
+QTE-40780,OPP-20603,ACC-1132,SMB,2,true,Accepted,2026-08-31,3930,10,3000,930,false,1,Auto-approved,0,2026-08-31,false,36,Prepaid Annual,Quarterly,false,false,true,false
+QTE-40781,OPP-20604,ACC-1134,SMB,1,true,Rejected,2025-10-16,6330,28,5900,430,true,3,AE Manager > Deal Desk > RevOps,6,2025-10-22,true,12,Net 60,Monthly,false,true,true,true
+QTE-40782,OPP-20605,ACC-1135,Enterprise,1,false,Superseded,2026-06-30,112800,18,92496,20304,true,3,AE Manager > Deal Desk > RevOps,7,2026-07-07,false,12,Net 45,Annual,true,false,true,false
+QTE-40783,OPP-20605,ACC-1135,Enterprise,2,false,Superseded,2026-07-07,112800,37,71064,41736,true,3,AE Manager > Deal Desk > RevOps,7,2026-07-14,true,36,Net 30,Annual,false,true,true,true
+QTE-40784,OPP-20605,ACC-1135,Enterprise,3,true,Rejected,2026-07-15,112800,23,101800,11000,true,2,AE Manager > Deal Desk,6,2026-07-21,true,12,Net 45,Annual,false,false,true,true
+QTE-40785,OPP-20606,ACC-1139,Enterprise,1,false,Superseded,2025-08-06,64520,28,46454,18066,true,3,AE Manager > Deal Desk > RevOps,6,2025-08-12,true,12,Net 60,Annual,false,true,true,true
+QTE-40786,OPP-20606,ACC-1139,Enterprise,2,false,Superseded,2025-08-16,64520,20,51616,12904,true,2,AE Manager > Deal Desk,7,2025-08-23,false,12,Net 30,Annual,false,true,true,true
+QTE-40787,OPP-20606,ACC-1139,Enterprise,3,false,Superseded,2025-08-26,64520,23,49680,14840,true,3,AE Manager > Deal Desk > RevOps,12,2025-09-07,true,24,Net 30,Monthly,false,false,true,true
+QTE-40788,OPP-20606,ACC-1139,Enterprise,4,true,Accepted,2025-09-04,64520,30,50100,14420,true,3,AE Manager > Deal Desk > RevOps,7,2025-09-11,true,6,Net 30,Quarterly,false,false,true,true
+QTE-40789,OPP-20607,ACC-1139,Enterprise,1,false,Superseded,2026-01-01,79970,28,57578,22392,true,4,AE Manager > Deal Desk > RevOps > Finance,11,2026-01-12,true,36,Net 30,Monthly,true,true,true,true
+QTE-40790,OPP-20607,ACC-1139,Enterprise,2,false,Superseded,2026-01-12,79970,15,67975,11995,false,1,Auto-approved,0,2026-01-12,false,24,Net 30,Quarterly,false,false,true,true
+QTE-40791,OPP-20607,ACC-1139,Enterprise,3,true,Accepted,2026-01-23,79970,28,78300,1670,true,4,AE Manager > Deal Desk > RevOps > Finance,10,2026-02-02,true,24,Net 45,Annual,true,false,true,true
+QTE-40792,OPP-20608,ACC-1139,Enterprise,1,false,Superseded,2025-09-20,87150,23,67106,20044,true,3,AE Manager > Deal Desk > RevOps,7,2025-09-27,true,12,Prepaid Annual,Monthly,false,false,true,true
+QTE-40793,OPP-20608,ACC-1139,Enterprise,2,false,Superseded,2025-10-02,87150,15,74078,13072,false,1,Auto-approved,0,2025-10-02,false,24,Net 30,Annual,false,false,true,true
+QTE-40794,OPP-20608,ACC-1139,Enterprise,3,false,Superseded,2025-10-13,87150,13,75821,11329,false,1,Auto-approved,0,2025-10-13,false,36,Net 45,Annual,false,false,true,true
+QTE-40795,OPP-20608,ACC-1139,Enterprise,4,true,Rejected,2025-10-25,87150,35,83400,3750,true,3,AE Manager > Deal Desk > RevOps,8,2025-11-02,true,12,Net 30,Quarterly,true,false,true,true

@@ -1,0 +1,7 @@
+CenterId,City,Country,Region,Seats,OpenedDate,MonthlyFixedCost,CenterManager
+CTR-BLR,Bengaluru,India,APAC,32,2024-09-01,9800,Diego Fischer
+CTR-PNQ,Pune,India,APAC,24,2025-01-15,6400,Victor Kapoor
+CTR-HYD,Hyderabad,India,APAC,28,2025-04-01,7600,Sofia Haddad
+CTR-LON,London,United Kingdom,EMEA,20,2024-11-01,21500,Hannah Okafor
+CTR-AUS,Austin,United States,AMER,20,2025-06-01,18900,Omar Kovac
+CTR-ONL,Live online,Global,Global,40,2024-09-01,3200,Mei Chen

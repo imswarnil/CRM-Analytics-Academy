@@ -19,7 +19,7 @@ const plans = [
     per: 'forever',
     icon: 'i-lucide-laptop',
     blurb: 'The whole online course, for anyone on the team, at their own pace.',
-    features: ['161 lessons and 16 builds', 'Progress tracking per learner', 'Quizzes and interview sets'],
+    features: ['161 lessons and 17 builds', 'Progress tracking per learner', 'Quizzes and interview sets'],
     cta: { label: 'Start learning', to: '/curriculum' },
     highlight: false
   },

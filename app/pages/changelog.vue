@@ -16,6 +16,20 @@ interface Entry {
 const entries: Entry[] = [
   {
     date: 'September 2026',
+    tag: 'Redesign',
+    title: 'A new look, and the Academy as the company in every build',
+    summary: 'An original blue theme across the whole site, and a worked example that is finally the business behind the course.',
+    color: 'primary',
+    items: [
+      'A new palette, type and component styling throughout, with a rebuilt curriculum page',
+      'The example company is now CRM Analytics Academy itself: self-serve learners, team plans, six classroom centers, certification and implementation',
+      'A new twenty-one-file warehouse — including classroom batches and enrollments — with the numbers in every lesson recomputed from it',
+      'Seventeen builds, numbered consistently across the course',
+      'Classroom training, team quotations and implementation requests, submitted on the site'
+    ]
+  },
+  {
+    date: 'September 2026',
     tag: 'Curriculum',
     title: 'Rewritten end to end, and reordered around the job',
     summary: 'Every lesson replaced. The course now teaches the platform in order and then uses it on a real go-to-market problem, on one company\u2019s data.',

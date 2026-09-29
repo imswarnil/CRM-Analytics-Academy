@@ -1,0 +1,1193 @@
+OpportunityId,AccountId,ProductCode,ProductName,Family,PricingModel,Unit,ListUnitPrice,DiscountPct,NetUnitPrice,CommittedUnits,ARR,IsPrimaryProduct
+OPP-20001,ACC-1066,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,16,2500,true
+OPP-20002,ACC-1108,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,2,400,true
+OPP-20003,ACC-1038,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,61,18800,true
+OPP-20003,ACC-1038,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,127,22800,false
+OPP-20003,ACC-1038,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,81,17500,false
+OPP-20004,ACC-1110,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,113,25800,true
+OPP-20004,ACC-1110,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,319,50200,false
+OPP-20005,ACC-1062,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,9,1800,true
+OPP-20005,ACC-1062,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,4,1400,false
+OPP-20005,ACC-1062,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,13,2200,false
+OPP-20006,ACC-1079,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,13,2800,true
+OPP-20007,ACC-1044,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,6,2000,true
+OPP-20008,ACC-1001,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,9,1200,true
+OPP-20009,ACC-1016,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,19,2700,true
+OPP-20010,ACC-1010,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,21,7400,true
+OPP-20010,ACC-1010,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,11200,false
+OPP-20010,ACC-1010,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,45,14100,false
+OPP-20011,ACC-1097,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,29,3900,true
+OPP-20011,ACC-1097,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,15,4400,false
+OPP-20011,ACC-1097,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,29,4500,false
+OPP-20012,ACC-1088,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,5,1700,true
+OPP-20012,ACC-1088,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,11,1800,false
+OPP-20013,ACC-1000,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,25,3900,true
+OPP-20013,ACC-1000,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,40,7200,false
+OPP-20013,ACC-1000,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,6600,false
+OPP-20014,ACC-1055,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,40,6500,true
+OPP-20014,ACC-1055,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,37,6100,false
+OPP-20015,ACC-1107,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,58,11900,true
+OPP-20015,ACC-1107,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,35,10400,false
+OPP-20016,ACC-1137,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,50,12100,true
+OPP-20016,ACC-1137,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,53,16400,false
+OPP-20016,ACC-1137,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,38,14700,false
+OPP-20017,ACC-1014,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,8,1400,true
+OPP-20018,ACC-1110,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,841,95700,true
+OPP-20018,ACC-1110,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,89900,false
+OPP-20019,ACC-1095,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,25,27000,1,60300,true
+OPP-20019,ACC-1095,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,648,116700,false
+OPP-20020,ACC-1100,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,164,64000,true
+OPP-20021,ACC-1033,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,8,2600,true
+OPP-20022,ACC-1060,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,8200,true
+OPP-20023,ACC-1085,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,6100,true
+OPP-20024,ACC-1040,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,9,3000,true
+OPP-20025,ACC-1065,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,2800,true
+OPP-20025,ACC-1065,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,7,2200,false
+OPP-20026,ACC-1087,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,44,6700,true
+OPP-20026,ACC-1087,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,17,5100,false
+OPP-20026,ACC-1087,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,5100,false
+OPP-20027,ACC-1035,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,22,6600,true
+OPP-20027,ACC-1035,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,14,3300,false
+OPP-20028,ACC-1078,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,45,7900,true
+OPP-20028,ACC-1078,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,43,8800,false
+OPP-20029,ACC-1070,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,6,1900,true
+OPP-20029,ACC-1070,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,7,2900,false
+OPP-20030,ACC-1038,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,94,15300,true
+OPP-20031,ACC-1102,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,55,16900,true
+OPP-20031,ACC-1102,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,193,30400,false
+OPP-20032,ACC-1082,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,755,187300,true
+OPP-20033,ACC-1019,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,15,3600,true
+OPP-20033,ACC-1019,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,33,4800,false
+OPP-20033,ACC-1019,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,14,2400,false
+OPP-20034,ACC-1061,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,313,52100,true
+OPP-20035,ACC-1109,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,7,1100,true
+OPP-20036,ACC-1027,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,63000,true
+OPP-20036,ACC-1027,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,305,52100,false
+OPP-20036,ACC-1027,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,162,36900,false
+OPP-20037,ACC-1083,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,13,2700,true
+OPP-20038,ACC-1068,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,13,1900,true
+OPP-20039,ACC-1124,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,101,35500,true
+OPP-20040,ACC-1106,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,77,16600,true
+OPP-20041,ACC-1070,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,28,4700,true
+OPP-20041,ACC-1070,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,17,3100,false
+OPP-20041,ACC-1070,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,20,4800,false
+OPP-20042,ACC-1098,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,7600,true
+OPP-20042,ACC-1098,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,25,7600,false
+OPP-20042,ACC-1098,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,25,3900,false
+OPP-20043,ACC-1095,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,281,67500,true
+OPP-20043,ACC-1095,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,222,36000,false
+OPP-20044,ACC-1047,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,25,3900,true
+OPP-20044,ACC-1047,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,4,1200,false
+OPP-20044,ACC-1047,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,5,1500,false
+OPP-20045,ACC-1084,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,24,5500,true
+OPP-20045,ACC-1084,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,11,4300,false
+OPP-20045,ACC-1084,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,14,3800,false
+OPP-20046,ACC-1088,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,40,6400,true
+OPP-20046,ACC-1088,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,21,4300,false
+OPP-20046,ACC-1088,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,9,3000,false
+OPP-20047,ACC-1089,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,41,5500,true
+OPP-20047,ACC-1089,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,4600,false
+OPP-20048,ACC-1040,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,13,2100,true
+OPP-20049,ACC-1061,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,58,19200,true
+OPP-20049,ACC-1061,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,69,12100,false
+OPP-20049,ACC-1061,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,126,22700,false
+OPP-20050,ACC-1109,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,28,3300,true
+OPP-20051,ACC-1136,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,7,2200,true
+OPP-20052,ACC-1111,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,2,300,true
+OPP-20053,ACC-1110,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,348,129100,true
+OPP-20054,ACC-1118,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,357,53100,true
+OPP-20054,ACC-1118,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,87000,false
+OPP-20054,ACC-1118,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,192,60000,false
+OPP-20054,ACC-1118,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,145,44800,false
+OPP-20055,ACC-1007,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,118,18100,true
+OPP-20055,ACC-1007,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,270,47300,false
+OPP-20055,ACC-1007,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,162,33000,false
+OPP-20056,ACC-1023,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,188000,true
+OPP-20056,ACC-1023,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,816,135700,false
+OPP-20056,ACC-1023,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,672,153200,false
+OPP-20056,ACC-1023,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,503,140200,false
+OPP-20056,ACC-1023,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,401,148600,false
+OPP-20057,ACC-1100,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,226,70400,true
+OPP-20058,ACC-1132,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,26,4100,true
+OPP-20058,ACC-1132,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,18,7100,false
+OPP-20058,ACC-1132,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,18,4200,false
+OPP-20059,ACC-1133,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,32000,true
+OPP-20060,ACC-1078,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,6,1900,true
+OPP-20060,ACC-1078,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,20,2800,false
+OPP-20061,ACC-1085,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,33,13000,true
+OPP-20062,ACC-1089,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,25,9900,true
+OPP-20063,ACC-1073,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,22000,true
+OPP-20063,ACC-1073,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,175,43500,false
+OPP-20064,ACC-1056,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,7,2700,true
+OPP-20065,ACC-1078,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,8800,true
+OPP-20065,ACC-1078,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,29,5000,false
+OPP-20066,ACC-1025,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,13,2700,true
+OPP-20067,ACC-1134,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,18,4100,true
+OPP-20067,ACC-1134,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,8,2800,false
+OPP-20068,ACC-1093,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,1803,275800,true
+OPP-20069,ACC-1005,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,1115,267500,true
+OPP-20070,ACC-1126,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,2,300,true
+OPP-20071,ACC-1014,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,12,2100,true
+OPP-20072,ACC-1025,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,7,1200,true
+OPP-20073,ACC-1047,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,21,7100,true
+OPP-20074,ACC-1003,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,8,1900,true
+OPP-20075,ACC-1034,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,122,29200,true
+OPP-20075,ACC-1034,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,75,22200,false
+OPP-20076,ACC-1110,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,257,65200,true
+OPP-20076,ACC-1110,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,519,72600,false
+OPP-20076,ACC-1110,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,284,68100,false
+OPP-20077,ACC-1090,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,3200,true
+OPP-20077,ACC-1090,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,9,3300,false
+OPP-20077,ACC-1090,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,14,2100,false
+OPP-20078,ACC-1037,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,18,3400,true
+OPP-20079,ACC-1122,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,147400,true
+OPP-20079,ACC-1122,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,448,70600,false
+OPP-20079,ACC-1122,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,506,128200,false
+OPP-20080,ACC-1088,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,2900,true
+OPP-20080,ACC-1088,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,24,4300,false
+OPP-20080,ACC-1088,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,6,1900,false
+OPP-20081,ACC-1022,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,156,37400,true
+OPP-20081,ACC-1022,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,166,29800,false
+OPP-20082,ACC-1071,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,349,67000,true
+OPP-20083,ACC-1060,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,9,1800,true
+OPP-20083,ACC-1060,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,15,1700,false
+OPP-20083,ACC-1060,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,8,2700,false
+OPP-20084,ACC-1080,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,79,19000,true
+OPP-20084,ACC-1080,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,151,23100,false
+OPP-20084,ACC-1080,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,106,16700,false
+OPP-20085,ACC-1134,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,10,2800,true
+OPP-20085,ACC-1134,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,13,2100,false
+OPP-20085,ACC-1134,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,6,2500,false
+OPP-20086,ACC-1011,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,8,1300,true
+OPP-20086,ACC-1011,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,19,4400,false
+OPP-20087,ACC-1015,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,24,8400,true
+OPP-20087,ACC-1015,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,24,7000,false
+OPP-20088,ACC-1129,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,1,200,true
+OPP-20089,ACC-1072,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,19,2700,true
+OPP-20089,ACC-1072,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,10,3800,false
+OPP-20090,ACC-1113,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,12300,true
+OPP-20090,ACC-1113,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,64,12200,false
+OPP-20091,ACC-1126,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,12,2000,true
+OPP-20092,ACC-1044,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,4,600,true
+OPP-20093,ACC-1073,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,409,66200,true
+OPP-20093,ACC-1073,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,306,45500,false
+OPP-20093,ACC-1073,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,382,87000,false
+OPP-20094,ACC-1028,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,173,31200,true
+OPP-20095,ACC-1033,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,11,1700,true
+OPP-20096,ACC-1033,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,5,1800,true
+OPP-20097,ACC-1047,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,33,3900,true
+OPP-20097,ACC-1047,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,18,6500,false
+OPP-20097,ACC-1047,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,36,6900,false
+OPP-20098,ACC-1046,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,497,164700,true
+OPP-20098,ACC-1046,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,1060,120600,false
+OPP-20098,ACC-1046,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,57100,false
+OPP-20098,ACC-1046,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,818,147200,false
+OPP-20099,ACC-1083,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,8,1800,true
+OPP-20100,ACC-1090,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,37,7900,true
+OPP-20100,ACC-1090,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,36,6400,false
+OPP-20101,ACC-1010,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,17400,true
+OPP-20101,ACC-1010,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,72,13000,false
+OPP-20102,ACC-1058,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,27,4700,true
+OPP-20103,ACC-1116,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,303,51800,true
+OPP-20103,ACC-1116,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,163,39000,false
+OPP-20104,ACC-1067,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,1995,349200,true
+OPP-20104,ACC-1067,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,1680,403300,false
+OPP-20104,ACC-1067,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,1051,293300,false
+OPP-20105,ACC-1091,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,11,3200,true
+OPP-20106,ACC-1054,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,114200,true
+OPP-20107,ACC-1036,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,4,600,true
+OPP-20108,ACC-1055,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,4,1300,true
+OPP-20108,ACC-1055,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,10,1400,false
+OPP-20108,ACC-1055,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,5,1100,false
+OPP-20109,ACC-1138,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,23,3100,true
+OPP-20110,ACC-1094,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,9,1300,true
+OPP-20111,ACC-1048,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,257,45000,true
+OPP-20112,ACC-1093,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,280,67300,true
+OPP-20112,ACC-1093,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,840,143600,false
+OPP-20113,ACC-1136,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,12,2900,true
+OPP-20114,ACC-1042,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,152200,true
+OPP-20114,ACC-1042,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,1497,341300,false
+OPP-20114,ACC-1042,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,457,134600,false
+OPP-20114,ACC-1042,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,580,203500,false
+OPP-20115,ACC-1136,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,6,1400,true
+OPP-20116,ACC-1089,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,42,11600,true
+OPP-20117,ACC-1087,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,5200,true
+OPP-20117,ACC-1087,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,37,5300,false
+OPP-20117,ACC-1087,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,10,2900,false
+OPP-20118,ACC-1017,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,132,40900,true
+OPP-20119,ACC-1039,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,1162,278900,true
+OPP-20120,ACC-1067,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,968,113200,true
+OPP-20120,ACC-1067,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,490,181700,false
+OPP-20120,ACC-1067,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,675,154000,false
+OPP-20120,ACC-1067,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,93000,false
+OPP-20120,ACC-1067,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,462,107400,false
+OPP-20121,ACC-1091,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,13,1900,true
+OPP-20122,ACC-1087,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,36,5700,true
+OPP-20122,ACC-1087,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,25,6000,false
+OPP-20123,ACC-1052,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,88,14700,true
+OPP-20124,ACC-1095,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,653,254500,true
+OPP-20125,ACC-1066,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,11,1600,true
+OPP-20126,ACC-1094,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,5,1900,true
+OPP-20127,ACC-1028,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,78,29000,true
+OPP-20128,ACC-1071,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,25,27000,1,31300,true
+OPP-20128,ACC-1071,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,198,32000,false
+OPP-20129,ACC-1024,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,30,10100,true
+OPP-20129,ACC-1024,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,6900,false
+OPP-20130,ACC-1071,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,213,46000,true
+OPP-20131,ACC-1122,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,1894,289800,true
+OPP-20131,ACC-1122,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,853,299500,false
+OPP-20131,ACC-1122,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,508,126000,false
+OPP-20132,ACC-1037,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,1,400,true
+OPP-20133,ACC-1129,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,8,3300,true
+OPP-20134,ACC-1091,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,2,500,true
+OPP-20135,ACC-1035,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,11,1900,true
+OPP-20135,ACC-1035,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,5,1300,false
+OPP-20135,ACC-1035,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,18,2800,false
+OPP-20136,ACC-1054,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,109,33900,true
+OPP-20136,ACC-1054,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,215,24500,false
+OPP-20136,ACC-1054,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,23500,false
+OPP-20137,ACC-1099,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,20,3500,true
+OPP-20138,ACC-1004,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,30,6900,true
+OPP-20138,ACC-1004,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,92,10500,false
+OPP-20139,ACC-1057,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,26,8600,true
+OPP-20139,ACC-1057,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,53,7200,false
+OPP-20140,ACC-1037,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,4,700,true
+OPP-20141,ACC-1096,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,118,28200,true
+OPP-20142,ACC-1130,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,25,5500,true
+OPP-20142,ACC-1130,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,28,8800,false
+OPP-20143,ACC-1062,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,37,6500,true
+OPP-20143,ACC-1062,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,18,3200,false
+OPP-20144,ACC-1055,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,2,700,true
+OPP-20144,ACC-1055,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,1000,false
+OPP-20144,ACC-1055,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,10,1700,false
+OPP-20145,ACC-1079,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,10,2600,true
+OPP-20146,ACC-1072,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,31,9700,true
+OPP-20147,ACC-1029,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,7,1700,true
+OPP-20148,ACC-1091,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,12,2200,true
+OPP-20149,ACC-1130,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,35,13000,true
+OPP-20150,ACC-1100,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,54700,true
+OPP-20151,ACC-1072,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,32,5800,true
+OPP-20151,ACC-1072,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,18,5100,false
+OPP-20152,ACC-1034,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,516,58700,true
+OPP-20153,ACC-1010,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,130,22700,true
+OPP-20153,ACC-1010,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,9100,false
+OPP-20154,ACC-1055,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,69,12100,true
+OPP-20155,ACC-1099,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,7,1600,true
+OPP-20156,ACC-1082,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,67300,true
+OPP-20156,ACC-1082,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,217,84700,false
+OPP-20156,ACC-1082,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,656,88600,false
+OPP-20157,ACC-1116,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,363,47700,true
+OPP-20157,ACC-1116,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,312,56200,false
+OPP-20158,ACC-1101,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,16700,true
+OPP-20159,ACC-1100,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,67500,true
+OPP-20160,ACC-1016,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,7,1600,true
+OPP-20161,ACC-1095,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,489,99700,true
+OPP-20161,ACC-1095,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,635,91500,false
+OPP-20162,ACC-1008,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,9,3400,true
+OPP-20162,ACC-1008,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,46,7100,false
+OPP-20162,ACC-1008,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,6300,false
+OPP-20163,ACC-1073,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,275,62600,true
+OPP-20163,ACC-1073,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,360,140400,false
+OPP-20164,ACC-1063,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,4,900,true
+OPP-20165,ACC-1076,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,4,700,true
+OPP-20166,ACC-1007,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,88,30800,true
+OPP-20166,ACC-1007,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,217,37900,false
+OPP-20167,ACC-1072,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,6000,true
+OPP-20167,ACC-1072,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,18,3700,false
+OPP-20167,ACC-1072,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,40,5900,false
+OPP-20168,ACC-1013,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,4,800,true
+OPP-20169,ACC-1067,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,250,45000,true
+OPP-20169,ACC-1067,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,161,47200,false
+OPP-20169,ACC-1067,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,263,81500,false
+OPP-20169,ACC-1067,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,151100,false
+OPP-20169,ACC-1067,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,398,71700,false
+OPP-20170,ACC-1021,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,16,2400,true
+OPP-20171,ACC-1041,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,52,15300,true
+OPP-20171,ACC-1041,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,54,16800,false
+OPP-20171,ACC-1041,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,53,8400,false
+OPP-20172,ACC-1055,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,36,5200,true
+OPP-20172,ACC-1055,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,14,4000,false
+OPP-20172,ACC-1055,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,13,4100,false
+OPP-20173,ACC-1025,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,3,500,true
+OPP-20174,ACC-1021,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,1,500,true
+OPP-20175,ACC-1096,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,42200,true
+OPP-20176,ACC-1005,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,98,24400,true
+OPP-20176,ACC-1005,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,166,21800,false
+OPP-20176,ACC-1005,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,101,23000,false
+OPP-20177,ACC-1062,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,3,1100,true
+OPP-20177,ACC-1062,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,3,800,false
+OPP-20177,ACC-1062,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,8,1100,false
+OPP-20178,ACC-1117,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,13,2900,true
+OPP-20179,ACC-1059,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,156,35600,true
+OPP-20179,ACC-1059,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,89,31200,false
+OPP-20180,ACC-1022,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,185,57700,true
+OPP-20181,ACC-1005,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,201,78500,true
+OPP-20182,ACC-1012,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,138,33000,true
+OPP-20182,ACC-1012,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,26300,false
+OPP-20183,ACC-1083,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,6,1800,true
+OPP-20184,ACC-1011,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,99,14800,true
+OPP-20185,ACC-1055,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,11000,true
+OPP-20186,ACC-1078,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,20,4700,true
+OPP-20186,ACC-1078,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,3900,false
+OPP-20186,ACC-1078,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,13,2100,false
+OPP-20187,ACC-1115,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,23,5800,true
+OPP-20188,ACC-1034,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,188,66000,true
+OPP-20189,ACC-1133,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,164,37500,true
+OPP-20189,ACC-1133,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,20300,false
+OPP-20190,ACC-1059,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,93000,true
+OPP-20191,ACC-1046,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,460,110500,true
+OPP-20191,ACC-1046,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,295900,false
+OPP-20191,ACC-1046,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,1111,194500,false
+OPP-20191,ACC-1046,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,756,265500,false
+OPP-20191,ACC-1046,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,748,231800,false
+OPP-20192,ACC-1021,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,9,2600,true
+OPP-20193,ACC-1016,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,10,2700,true
+OPP-20194,ACC-1011,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,49,7500,true
+OPP-20194,ACC-1011,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,20,2800,false
+OPP-20194,ACC-1011,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,15,4000,false
+OPP-20195,ACC-1090,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,4200,true
+OPP-20195,ACC-1090,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,23,3500,false
+OPP-20196,ACC-1088,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,16100,true
+OPP-20197,ACC-1007,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,745,261600,true
+OPP-20198,ACC-1097,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,23,3600,true
+OPP-20198,ACC-1097,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,16,5100,false
+OPP-20199,ACC-1097,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,10,3100,true
+OPP-20199,ACC-1097,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,2800,false
+OPP-20199,ACC-1097,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,16,2800,false
+OPP-20200,ACC-1008,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,55,13200,true
+OPP-20201,ACC-1060,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,12,2300,true
+OPP-20201,ACC-1060,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,3500,false
+OPP-20202,ACC-1114,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,291,107900,true
+OPP-20202,ACC-1114,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,204,47500,false
+OPP-20202,ACC-1114,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,57800,false
+OPP-20202,ACC-1114,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,445,66200,false
+OPP-20203,ACC-1032,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,4,1200,true
+OPP-20204,ACC-1119,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,114,27400,true
+OPP-20204,ACC-1119,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,337,50100,false
+OPP-20205,ACC-1122,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,1060,254500,true
+OPP-20205,ACC-1122,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,599,222100,false
+OPP-20205,ACC-1122,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,570,99700,false
+OPP-20206,ACC-1047,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,2500,true
+OPP-20206,ACC-1047,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,5,1900,false
+OPP-20207,ACC-1025,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,3,1000,true
+OPP-20208,ACC-1112,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,52500,true
+OPP-20209,ACC-1007,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,139,43200,true
+OPP-20209,ACC-1007,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,147,25100,false
+OPP-20209,ACC-1007,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,319,53100,false
+OPP-20210,ACC-1116,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,564,101600,true
+OPP-20210,ACC-1116,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,496,146000,false
+OPP-20211,ACC-1100,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,152,27400,true
+OPP-20211,ACC-1100,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,71,17700,false
+OPP-20212,ACC-1111,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,16,2500,true
+OPP-20213,ACC-1086,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,190900,true
+OPP-20213,ACC-1086,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,612,146800,false
+OPP-20213,ACC-1086,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,1709,269100,false
+OPP-20214,ACC-1024,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,6700,true
+OPP-20215,ACC-1114,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,61700,true
+OPP-20215,ACC-1114,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,378,140200,false
+OPP-20215,ACC-1114,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,345,96300,false
+OPP-20215,ACC-1114,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,574,103400,false
+OPP-20216,ACC-1045,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,7,1900,true
+OPP-20217,ACC-1094,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,13,2600,true
+OPP-20218,ACC-1085,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,15700,true
+OPP-20219,ACC-1029,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,13,2300,true
+OPP-20220,ACC-1006,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,2,300,true
+OPP-20221,ACC-1076,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,17,3300,true
+OPP-20222,ACC-1092,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,4,700,true
+OPP-20222,ACC-1092,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,7,1300,false
+OPP-20222,ACC-1092,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,5,1700,false
+OPP-20223,ACC-1040,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,26,3000,true
+OPP-20224,ACC-1044,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,16,2800,true
+OPP-20225,ACC-1104,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,1,300,true
+OPP-20226,ACC-1118,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,942,164900,true
+OPP-20226,ACC-1118,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,285300,false
+OPP-20226,ACC-1118,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,1382,223900,false
+OPP-20226,ACC-1118,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,471,146000,false
+OPP-20226,ACC-1118,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,457,178400,false
+OPP-20227,ACC-1087,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,4,1500,true
+OPP-20227,ACC-1087,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,11,1900,false
+OPP-20228,ACC-1060,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,8,3100,true
+OPP-20228,ACC-1060,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,21,5100,false
+OPP-20228,ACC-1060,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,33,5900,false
+OPP-20229,ACC-1027,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,47100,true
+OPP-20229,ACC-1027,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,90,28000,false
+OPP-20229,ACC-1027,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,320,48900,false
+OPP-20230,ACC-1102,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,31,9500,true
+OPP-20230,ACC-1102,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,76,11900,false
+OPP-20230,ACC-1102,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,109,17700,false
+OPP-20231,ACC-1124,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,109,23600,true
+OPP-20231,ACC-1124,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,63,22200,false
+OPP-20232,ACC-1128,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,378,62900,true
+OPP-20233,ACC-1042,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,1876,427700,true
+OPP-20233,ACC-1042,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,3087,459200,false
+OPP-20233,ACC-1042,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,688,202500,false
+OPP-20234,ACC-1137,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,5500,true
+OPP-20234,ACC-1137,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,17,5900,false
+OPP-20234,ACC-1137,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,25,6200,false
+OPP-20235,ACC-1120,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,25,27000,1,54500,true
+OPP-20236,ACC-1061,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,105,15100,true
+OPP-20236,ACC-1061,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,91,35600,false
+OPP-20237,ACC-1109,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,8,3100,true
+OPP-20238,ACC-1065,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,15,3000,true
+OPP-20238,ACC-1065,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,14,2300,false
+OPP-20239,ACC-1062,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,6600,true
+OPP-20240,ACC-1062,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,51,11700,true
+OPP-20241,ACC-1022,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,61,18800,true
+OPP-20241,ACC-1022,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,80,19200,false
+OPP-20242,ACC-1050,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,11300,true
+OPP-20243,ACC-1019,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,65,11700,true
+OPP-20244,ACC-1057,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,7,2100,true
+OPP-20244,ACC-1057,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,9,2700,false
+OPP-20245,ACC-1023,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,259,68200,true
+OPP-20245,ACC-1023,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,693,133100,false
+OPP-20245,ACC-1023,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,137900,false
+OPP-20245,ACC-1023,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,215,67100,false
+OPP-20245,ACC-1023,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,651,85400,false
+OPP-20246,ACC-1091,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,8,2700,true
+OPP-20247,ACC-1127,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,40,7600,true
+OPP-20247,ACC-1127,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,17,5100,false
+OPP-20248,ACC-1003,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,20,3300,true
+OPP-20249,ACC-1112,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,37,6500,true
+OPP-20249,ACC-1112,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,10900,false
+OPP-20249,ACC-1112,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,46,7900,false
+OPP-20250,ACC-1093,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,1004,140600,true
+OPP-20251,ACC-1103,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,76500,true
+OPP-20251,ACC-1103,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,293,47400,false
+OPP-20252,ACC-1115,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,5700,true
+OPP-20252,ACC-1115,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,19,6900,false
+OPP-20252,ACC-1115,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,36,4100,false
+OPP-20253,ACC-1033,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,26,3600,true
+OPP-20254,ACC-1028,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,270,61600,true
+OPP-20255,ACC-1027,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,93,34400,true
+OPP-20255,ACC-1027,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,241,40100,false
+OPP-20255,ACC-1027,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,163,35200,false
+OPP-20256,ACC-1112,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,128,29200,true
+OPP-20256,ACC-1112,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,78,14100,false
+OPP-20256,ACC-1112,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,118,19700,false
+OPP-20257,ACC-1072,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,17,5400,true
+OPP-20257,ACC-1072,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,16,5000,false
+OPP-20257,ACC-1072,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,15,3700,false
+OPP-20258,ACC-1088,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,36,6000,true
+OPP-20259,ACC-1093,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,296,78000,true
+OPP-20259,ACC-1093,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,91,32100,false
+OPP-20260,ACC-1128,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,10900,true
+OPP-20260,ACC-1128,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,33,12800,false
+OPP-20260,ACC-1128,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,87,17700,false
+OPP-20261,ACC-1094,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,5,1700,true
+OPP-20262,ACC-1110,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,893,276700,true
+OPP-20263,ACC-1096,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,150,34100,true
+OPP-20264,ACC-1077,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,79,24700,true
+OPP-20265,ACC-1005,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,593,67400,true
+OPP-20266,ACC-1095,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,901,145900,true
+OPP-20266,ACC-1095,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,417,109900,false
+OPP-20267,ACC-1044,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,14,2100,true
+OPP-20268,ACC-1038,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,35,11500,true
+OPP-20268,ACC-1038,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,104,15500,false
+OPP-20268,ACC-1038,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,44,7100,false
+OPP-20269,ACC-1013,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,25,3400,true
+OPP-20270,ACC-1130,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,17100,true
+OPP-20271,ACC-1000,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,13,3000,true
+OPP-20271,ACC-1000,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,6,2500,false
+OPP-20271,ACC-1000,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,9,2800,false
+OPP-20272,ACC-1057,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,124,17400,true
+OPP-20273,ACC-1117,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,11,1900,true
+OPP-20274,ACC-1024,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,14,4400,true
+OPP-20274,ACC-1024,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,38,6600,false
+OPP-20275,ACC-1018,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,12,2700,true
+OPP-20276,ACC-1094,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,9,1600,true
+OPP-20277,ACC-1083,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,6,1500,true
+OPP-20278,ACC-1073,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,549,214100,true
+OPP-20279,ACC-1104,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,17,3000,true
+OPP-20280,ACC-1119,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,423,86300,true
+OPP-20280,ACC-1119,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,30100,false
+OPP-20281,ACC-1001,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,3,900,true
+OPP-20282,ACC-1041,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,62,10800,true
+OPP-20282,ACC-1041,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,26600,false
+OPP-20283,ACC-1094,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,7,2300,true
+OPP-20284,ACC-1008,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,10,3100,true
+OPP-20284,ACC-1008,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,15,2700,false
+OPP-20284,ACC-1008,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,20,7100,false
+OPP-20285,ACC-1057,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,29,3800,true
+OPP-20286,ACC-1017,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,34,11400,true
+OPP-20286,ACC-1017,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,58,10100,false
+OPP-20287,ACC-1078,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,13400,true
+OPP-20288,ACC-1015,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,14,4200,true
+OPP-20289,ACC-1087,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,117,16900,true
+OPP-20290,ACC-1036,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,13,3000,true
+OPP-20291,ACC-1006,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,9,1900,true
+OPP-20292,ACC-1024,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,4600,true
+OPP-20292,ACC-1024,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,47,8100,false
+OPP-20293,ACC-1117,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,17,2900,true
+OPP-20294,ACC-1055,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,18,3500,true
+OPP-20294,ACC-1055,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,37,4900,false
+OPP-20294,ACC-1055,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,10,3000,false
+OPP-20295,ACC-1083,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,11,3300,true
+OPP-20296,ACC-1048,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,150,55700,true
+OPP-20297,ACC-1123,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,7,1700,true
+OPP-20298,ACC-1022,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,7300,true
+OPP-20298,ACC-1022,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,52,12500,false
+OPP-20299,ACC-1055,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,2,800,true
+OPP-20299,ACC-1055,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,6,2000,false
+OPP-20299,ACC-1055,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,10,1300,false
+OPP-20300,ACC-1026,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,13,3900,true
+OPP-20300,ACC-1026,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,12,2000,false
+OPP-20300,ACC-1026,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,4400,false
+OPP-20301,ACC-1026,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,44,12800,true
+OPP-20302,ACC-1106,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,41,8900,true
+OPP-20303,ACC-1095,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,192500,true
+OPP-20304,ACC-1076,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,1,400,true
+OPP-20305,ACC-1033,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,16,2600,true
+OPP-20306,ACC-1123,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,11,3200,true
+OPP-20307,ACC-1033,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,14,2200,true
+OPP-20308,ACC-1044,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,6,2000,true
+OPP-20309,ACC-1131,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,2,700,true
+OPP-20310,ACC-1044,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,13,2300,true
+OPP-20311,ACC-1068,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,6,1000,true
+OPP-20312,ACC-1113,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,85,18300,true
+OPP-20312,ACC-1113,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,19200,false
+OPP-20312,ACC-1113,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,136,20200,false
+OPP-20313,ACC-1036,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,2,600,true
+OPP-20314,ACC-1089,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,86,17600,true
+OPP-20315,ACC-1084,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,4,1300,true
+OPP-20315,ACC-1084,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,1000,false
+OPP-20315,ACC-1084,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,10,1700,false
+OPP-20316,ACC-1023,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,882,146600,true
+OPP-20316,ACC-1023,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,464,83600,false
+OPP-20316,ACC-1023,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,990,178200,false
+OPP-20317,ACC-1120,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,240,37400,true
+OPP-20318,ACC-1055,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,19,2600,true
+OPP-20318,ACC-1055,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,10,2000,false
+OPP-20318,ACC-1055,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,16,2300,false
+OPP-20319,ACC-1045,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,20,3100,true
+OPP-20320,ACC-1132,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,3800,true
+OPP-20321,ACC-1072,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,33,9700,true
+OPP-20322,ACC-1113,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,127,22900,true
+OPP-20322,ACC-1113,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,25200,false
+OPP-20322,ACC-1113,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,131,21700,false
+OPP-20323,ACC-1005,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,92,27200,true
+OPP-20323,ACC-1005,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,327,74600,false
+OPP-20323,ACC-1005,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,199,35800,false
+OPP-20324,ACC-1037,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,2,700,true
+OPP-20325,ACC-1045,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,7,1700,true
+OPP-20326,ACC-1075,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,1385,199500,true
+OPP-20326,ACC-1075,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,435600,false
+OPP-20326,ACC-1075,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,603,168100,false
+OPP-20326,ACC-1075,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,928,162400,false
+OPP-20327,ACC-1120,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,88,17900,true
+OPP-20327,ACC-1120,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,111,18900,false
+OPP-20327,ACC-1120,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,53,16400,false
+OPP-20328,ACC-1103,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,299,110600,true
+OPP-20328,ACC-1103,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,452,73300,false
+OPP-20328,ACC-1103,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,57100,false
+OPP-20329,ACC-1010,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,54,9300,true
+OPP-20329,ACC-1010,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,52,9100,false
+OPP-20329,ACC-1010,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,70,16900,false
+OPP-20330,ACC-1038,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,48,10300,true
+OPP-20330,ACC-1038,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,53,16300,false
+OPP-20330,ACC-1038,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,17100,false
+OPP-20331,ACC-1136,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,9,2900,true
+OPP-20332,ACC-1118,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,759,188300,true
+OPP-20332,ACC-1118,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,2653,405900,false
+OPP-20332,ACC-1118,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,485,189100,false
+OPP-20333,ACC-1064,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,10300,true
+OPP-20333,ACC-1064,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,37,6700,false
+OPP-20333,ACC-1064,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,109,16200,false
+OPP-20334,ACC-1137,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,125,20700,true
+OPP-20335,ACC-1027,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,435,104500,true
+OPP-20335,ACC-1027,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,199,65900,false
+OPP-20335,ACC-1027,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,581,76200,false
+OPP-20336,ACC-1050,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,11,2300,true
+OPP-20336,ACC-1050,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,13,3200,false
+OPP-20336,ACC-1050,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,4900,false
+OPP-20337,ACC-1026,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,26,6300,true
+OPP-20337,ACC-1026,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,13,4900,false
+OPP-20338,ACC-1136,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,3,1000,true
+OPP-20339,ACC-1125,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,680,110200,true
+OPP-20339,ACC-1125,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,501,120200,false
+OPP-20339,ACC-1125,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,543,95000,false
+OPP-20339,ACC-1125,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,334,98300,false
+OPP-20340,ACC-1097,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,10,3600,true
+OPP-20340,ACC-1097,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,24,4200,false
+OPP-20341,ACC-1071,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,38700,true
+OPP-20342,ACC-1033,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,12,2900,true
+OPP-20343,ACC-1005,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,438,89400,true
+OPP-20343,ACC-1005,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,82700,false
+OPP-20343,ACC-1005,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,384,97300,false
+OPP-20344,ACC-1047,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,62,10100,true
+OPP-20344,ACC-1047,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,15,5500,false
+OPP-20345,ACC-1004,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,30,10600,true
+OPP-20345,ACC-1004,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,3800,false
+OPP-20346,ACC-1012,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,151,47000,true
+OPP-20346,ACC-1012,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,133,23200,false
+OPP-20347,ACC-1012,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,25,27000,1,14900,true
+OPP-20347,ACC-1012,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,81,11400,false
+OPP-20347,ACC-1012,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,74,21800,false
+OPP-20348,ACC-1027,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,386,62500,true
+OPP-20349,ACC-1063,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,16,3300,true
+OPP-20350,ACC-1033,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,21,3600,true
+OPP-20351,ACC-1052,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,16,5400,true
+OPP-20351,ACC-1052,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,39,7900,false
+OPP-20352,ACC-1075,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,155400,true
+OPP-20352,ACC-1075,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,1071,282200,false
+OPP-20352,ACC-1075,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,335,130600,false
+OPP-20353,ACC-1104,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,3,800,true
+OPP-20354,ACC-1012,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,25,7700,true
+OPP-20354,ACC-1012,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,33,10200,false
+OPP-20355,ACC-1070,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,19,5700,true
+OPP-20356,ACC-1040,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,14,2300,true
+OPP-20357,ACC-1042,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,1180,292700,true
+OPP-20357,ACC-1042,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,176000,false
+OPP-20357,ACC-1042,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,1307,199900,false
+OPP-20358,ACC-1107,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,299,71700,true
+OPP-20359,ACC-1097,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,34,5900,true
+OPP-20359,ACC-1097,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,41,8300,false
+OPP-20360,ACC-1103,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,217,71800,true
+OPP-20360,ACC-1103,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,317,68500,false
+OPP-20361,ACC-1128,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,11700,true
+OPP-20361,ACC-1128,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,43,10200,false
+OPP-20361,ACC-1128,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,44,12200,false
+OPP-20362,ACC-1043,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,952,158200,true
+OPP-20362,ACC-1043,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,1196,370700,false
+OPP-20362,ACC-1043,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,361,133800,false
+OPP-20363,ACC-1119,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,295,51600,true
+OPP-20363,ACC-1119,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,199,42900,false
+OPP-20363,ACC-1119,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,148,43600,false
+OPP-20364,ACC-1101,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,8,2600,true
+OPP-20364,ACC-1101,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,13,3100,false
+OPP-20364,ACC-1101,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,15,2400,false
+OPP-20365,ACC-1128,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,52,16000,true
+OPP-20365,ACC-1128,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,70,16700,false
+OPP-20366,ACC-1028,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,400,63000,true
+OPP-20367,ACC-1004,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,15,4300,true
+OPP-20367,ACC-1004,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,10,3800,false
+OPP-20367,ACC-1004,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,7,1300,false
+OPP-20368,ACC-1030,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,10,1600,true
+OPP-20369,ACC-1122,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,1237,193000,true
+OPP-20369,ACC-1122,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,373200,false
+OPP-20369,ACC-1122,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,886,155100,false
+OPP-20369,ACC-1122,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,338,118500,false
+OPP-20370,ACC-1095,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,52100,true
+OPP-20370,ACC-1095,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,195,46700,false
+OPP-20371,ACC-1096,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,251,38400,true
+OPP-20372,ACC-1059,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,308,120200,true
+OPP-20372,ACC-1059,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,289,39000,false
+OPP-20373,ACC-1085,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,9,1600,true
+OPP-20373,ACC-1085,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,7,2800,false
+OPP-20373,ACC-1085,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,1300,false
+OPP-20374,ACC-1051,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,5,900,true
+OPP-20375,ACC-1067,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,718,109800,true
+OPP-20375,ACC-1067,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,799,132900,false
+OPP-20375,ACC-1067,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,175600,false
+OPP-20375,ACC-1067,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,1110,173200,false
+OPP-20376,ACC-1083,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,18,3000,true
+OPP-20377,ACC-1118,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,304,61300,true
+OPP-20377,ACC-1118,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,108700,false
+OPP-20377,ACC-1118,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,281,104200,false
+OPP-20378,ACC-1124,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,47400,true
+OPP-20378,ACC-1124,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,93,22200,false
+OPP-20379,ACC-1069,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,11,2700,true
+OPP-20380,ACC-1011,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,57,8700,true
+OPP-20380,ACC-1011,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,36,8300,false
+OPP-20381,ACC-1078,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,16,1900,true
+OPP-20381,ACC-1078,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,19,3900,false
+OPP-20381,ACC-1078,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,2700,false
+OPP-20382,ACC-1029,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,16,2800,true
+OPP-20383,ACC-1095,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,563,108100,true
+OPP-20383,ACC-1095,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,88800,false
+OPP-20384,ACC-1127,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,13,2200,true
+OPP-20384,ACC-1127,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,6,2100,false
+OPP-20384,ACC-1127,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,21,3600,false
+OPP-20385,ACC-1091,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,4,900,true
+OPP-20386,ACC-1043,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,453,150200,true
+OPP-20386,ACC-1043,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,764,120300,false
+OPP-20386,ACC-1043,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,653,202400,false
+OPP-20386,ACC-1043,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,193400,false
+OPP-20386,ACC-1043,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,558,127200,false
+OPP-20387,ACC-1079,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,8,1900,true
+OPP-20388,ACC-1111,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,14,3500,true
+OPP-20389,ACC-1137,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,43800,true
+OPP-20389,ACC-1137,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,63,23300,false
+OPP-20390,ACC-1060,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,25,2900,true
+OPP-20390,ACC-1060,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,26,3700,false
+OPP-20390,ACC-1060,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,3200,false
+OPP-20391,ACC-1125,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,496,113000,true
+OPP-20391,ACC-1125,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,543,92900,false
+OPP-20391,ACC-1125,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,173,67500,false
+OPP-20391,ACC-1125,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,66100,false
+OPP-20392,ACC-1108,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,7,2700,true
+OPP-20393,ACC-1078,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,49,7300,true
+OPP-20394,ACC-1115,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,13,3200,true
+OPP-20394,ACC-1115,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,40,5300,false
+OPP-20394,ACC-1115,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,22,6800,false
+OPP-20395,ACC-1131,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,3,700,true
+OPP-20396,ACC-1060,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,28,10400,true
+OPP-20397,ACC-1029,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,10,1700,true
+OPP-20398,ACC-1007,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,578,86000,true
+OPP-20398,ACC-1007,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,85300,false
+OPP-20398,ACC-1007,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,453,103300,false
+OPP-20399,ACC-1070,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,8600,true
+OPP-20400,ACC-1016,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,11,2600,true
+OPP-20401,ACC-1029,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,6,1000,true
+OPP-20402,ACC-1066,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,11,2000,true
+OPP-20403,ACC-1113,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,64,19800,true
+OPP-20403,ACC-1113,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,67,26000,false
+OPP-20403,ACC-1113,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,17200,false
+OPP-20404,ACC-1027,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,243,55300,true
+OPP-20404,ACC-1027,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,295,86900,false
+OPP-20404,ACC-1027,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,424,72500,false
+OPP-20405,ACC-1126,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,25,2900,true
+OPP-20406,ACC-1123,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,12,2900,true
+OPP-20407,ACC-1067,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,631,151500,true
+OPP-20407,ACC-1067,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,1154,155800,false
+OPP-20407,ACC-1067,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,588,102900,false
+OPP-20407,ACC-1067,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,91600,false
+OPP-20407,ACC-1067,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,425,149100,false
+OPP-20408,ACC-1042,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,401,111900,true
+OPP-20408,ACC-1042,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,605,70800,false
+OPP-20408,ACC-1042,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,229,89200,false
+OPP-20408,ACC-1042,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,184,35400,false
+OPP-20409,ACC-1110,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,239,70400,true
+OPP-20409,ACC-1110,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,341,69500,false
+OPP-20409,ACC-1110,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,147,54300,false
+OPP-20410,ACC-1124,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,45,13300,true
+OPP-20410,ACC-1124,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,69,7900,false
+OPP-20411,ACC-1062,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,95,14900,true
+OPP-20412,ACC-1136,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,11,1900,true
+OPP-20413,ACC-1127,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,19,6200,true
+OPP-20413,ACC-1127,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,36,6500,false
+OPP-20413,ACC-1127,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,41,4700,false
+OPP-20414,ACC-1132,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,21,4600,true
+OPP-20414,ACC-1132,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,12,1900,false
+OPP-20414,ACC-1132,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,28,4900,false
+OPP-20415,ACC-1049,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,20,2800,true
+OPP-20416,ACC-1081,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,94,14800,true
+OPP-20416,ACC-1081,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,78,14100,false
+OPP-20416,ACC-1081,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,17300,false
+OPP-20417,ACC-1131,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,9,2400,true
+OPP-20418,ACC-1084,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,61,14000,true
+OPP-20419,ACC-1079,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,2,500,true
+OPP-20420,ACC-1069,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,1,300,true
+OPP-20421,ACC-1077,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,28,8700,true
+OPP-20421,ACC-1077,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,117,21100,false
+OPP-20421,ACC-1077,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,50,19600,false
+OPP-20422,ACC-1063,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,17,2900,true
+OPP-20423,ACC-1103,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,559,97800,true
+OPP-20423,ACC-1103,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,306,55100,false
+OPP-20423,ACC-1103,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,234,59200,false
+OPP-20424,ACC-1054,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,23600,true
+OPP-20424,ACC-1054,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,128,25700,false
+OPP-20424,ACC-1054,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,90,17300,false
+OPP-20425,ACC-1096,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,61,18900,true
+OPP-20425,ACC-1096,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,205,35100,false
+OPP-20425,ACC-1096,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,147,16700,false
+OPP-20426,ACC-1064,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,92,15300,true
+OPP-20426,ACC-1064,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,172,24800,false
+OPP-20426,ACC-1064,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,14800,false
+OPP-20427,ACC-1061,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,99,23800,true
+OPP-20428,ACC-1104,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,3,600,true
+OPP-20429,ACC-1001,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,17,2600,true
+OPP-20430,ACC-1042,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,175,61400,true
+OPP-20430,ACC-1042,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,477,114400,false
+OPP-20430,ACC-1042,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,552,91700,false
+OPP-20430,ACC-1042,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,626,107100,false
+OPP-20431,ACC-1097,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,16,4000,true
+OPP-20431,ACC-1097,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,33,5700,false
+OPP-20431,ACC-1097,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,3400,false
+OPP-20432,ACC-1040,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,14,2700,true
+OPP-20433,ACC-1118,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,337,76800,true
+OPP-20433,ACC-1118,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,375,87100,false
+OPP-20433,ACC-1118,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,628,101700,false
+OPP-20433,ACC-1118,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,47200,false
+OPP-20434,ACC-1054,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,119700,true
+OPP-20435,ACC-1109,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,7,1000,true
+OPP-20436,ACC-1078,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,10,3600,true
+OPP-20436,ACC-1078,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,12,2100,false
+OPP-20436,ACC-1078,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,14,3300,false
+OPP-20437,ACC-1051,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,12,2100,true
+OPP-20438,ACC-1027,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,459,80400,true
+OPP-20438,ACC-1027,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,281,69600,false
+OPP-20439,ACC-1067,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,1093,191200,true
+OPP-20439,ACC-1067,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,502,81300,false
+OPP-20439,ACC-1067,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,569,210900,false
+OPP-20439,ACC-1067,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,1112,200100,false
+OPP-20439,ACC-1067,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,323,95200,false
+OPP-20440,ACC-1001,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,2,400,true
+OPP-20441,ACC-1056,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,11,2300,true
+OPP-20442,ACC-1106,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,25,4200,true
+OPP-20443,ACC-1086,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,350,97700,true
+OPP-20443,ACC-1086,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,373,116300,false
+OPP-20443,ACC-1086,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,632,144200,false
+OPP-20444,ACC-1012,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,19,6800,true
+OPP-20444,ACC-1012,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,40,8100,false
+OPP-20444,ACC-1012,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,114,17500,false
+OPP-20445,ACC-1092,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,54,9500,true
+OPP-20446,ACC-1120,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,131,36500,true
+OPP-20447,ACC-1030,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,10,1400,true
+OPP-20448,ACC-1071,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,138,31500,true
+OPP-20448,ACC-1071,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,144,23900,false
+OPP-20449,ACC-1128,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,32,11700,true
+OPP-20449,ACC-1128,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,64,11600,false
+OPP-20449,ACC-1128,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,4900,false
+OPP-20450,ACC-1050,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,58,9900,true
+OPP-20451,ACC-1057,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,29,6000,true
+OPP-20451,ACC-1057,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,11,3400,false
+OPP-20451,ACC-1057,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,24,4400,false
+OPP-20452,ACC-1068,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,4,800,true
+OPP-20453,ACC-1112,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,40,15600,true
+OPP-20454,ACC-1000,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,33,5300,true
+OPP-20454,ACC-1000,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,18,5600,false
+OPP-20454,ACC-1000,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,14,5300,false
+OPP-20455,ACC-1000,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,36,7700,true
+OPP-20456,ACC-1133,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,36,6300,true
+OPP-20456,ACC-1133,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,25,5600,false
+OPP-20456,ACC-1133,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,5900,false
+OPP-20457,ACC-1064,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,346,60600,true
+OPP-20458,ACC-1050,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,32,5400,true
+OPP-20458,ACC-1050,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,5700,false
+OPP-20459,ACC-1016,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,2,300,true
+OPP-20460,ACC-1019,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,15,2300,true
+OPP-20460,ACC-1019,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,1800,false
+OPP-20460,ACC-1019,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,8,2600,false
+OPP-20461,ACC-1015,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,16,3900,true
+OPP-20461,ACC-1015,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,25,4400,false
+OPP-20462,ACC-1109,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,18,3300,true
+OPP-20463,ACC-1005,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,519,202400,true
+OPP-20464,ACC-1084,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,13100,true
+OPP-20465,ACC-1066,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,3,500,true
+OPP-20466,ACC-1112,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,64,10700,true
+OPP-20466,ACC-1112,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,102,18300,false
+OPP-20467,ACC-1048,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,57,22200,true
+OPP-20467,ACC-1048,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,135,26000,false
+OPP-20467,ACC-1048,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,139,23100,false
+OPP-20468,ACC-1104,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,5,800,true
+OPP-20469,ACC-1086,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,557,63400,true
+OPP-20469,ACC-1086,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,189,62500,false
+OPP-20469,ACC-1086,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,54400,false
+OPP-20469,ACC-1086,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,237,73400,false
+OPP-20470,ACC-1083,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,5,900,true
+OPP-20471,ACC-1060,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,10800,true
+OPP-20472,ACC-1014,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,1,400,true
+OPP-20473,ACC-1113,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,29600,true
+OPP-20474,ACC-1083,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,2,300,true
+OPP-20475,ACC-1094,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,3,1100,true
+OPP-20476,ACC-1137,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,47,8100,true
+OPP-20476,ACC-1137,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,57,10000,false
+OPP-20477,ACC-1093,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,25,27000,1,84200,true
+OPP-20478,ACC-1126,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,5,1300,true
+OPP-20479,ACC-1036,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,19,2700,true
+OPP-20480,ACC-1134,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,9,2300,true
+OPP-20480,ACC-1134,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,10,2300,false
+OPP-20481,ACC-1084,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,90,13800,true
+OPP-20482,ACC-1074,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,377,132500,true
+OPP-20482,ACC-1074,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,263500,false
+OPP-20482,ACC-1074,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,1585,380500,false
+OPP-20483,ACC-1084,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,37,6500,true
+OPP-20484,ACC-1138,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,22,3400,true
+OPP-20485,ACC-1132,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,113,15300,true
+OPP-20486,ACC-1069,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,6,1100,true
+OPP-20487,ACC-1099,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,19,3100,true
+OPP-20488,ACC-1081,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,125,21800,true
+OPP-20489,ACC-1064,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,58,17100,true
+OPP-20489,ACC-1064,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,214,38500,false
+OPP-20490,ACC-1084,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,24,7500,true
+OPP-20490,ACC-1084,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,39,9000,false
+OPP-20491,ACC-1070,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,35,6100,true
+OPP-20491,ACC-1070,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,30,6100,false
+OPP-20491,ACC-1070,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,23,5600,false
+OPP-20492,ACC-1044,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,8,3000,true
+OPP-20493,ACC-1128,TEAM,Team Plan,Online,Seat,seat/year,390,25,292.5,195,57000,true
+OPP-20494,ACC-1114,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,1567,315700,true
+OPP-20494,ACC-1114,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,1182,212700,false
+OPP-20494,ACC-1114,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,370,129800,false
+OPP-20494,ACC-1114,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,1026,246200,false
+OPP-20495,ACC-1053,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,4,600,true
+OPP-20496,ACC-1019,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,24,9200,true
+OPP-20496,ACC-1019,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,17,3000,false
+OPP-20497,ACC-1056,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,13,2300,true
+OPP-20498,ACC-1032,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,7,1600,true
+OPP-20499,ACC-1057,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,10,2200,true
+OPP-20499,ACC-1057,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,21,3300,false
+OPP-20499,ACC-1057,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,15,3900,false
+OPP-20500,ACC-1069,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,2,500,true
+OPP-20501,ACC-1006,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,7,2600,true
+OPP-20502,ACC-1015,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,21,3700,true
+OPP-20502,ACC-1015,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,11,3300,false
+OPP-20503,ACC-1071,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,73,28600,true
+OPP-20503,ACC-1071,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,231,41500,false
+OPP-20504,ACC-1031,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,107,17300,true
+OPP-20505,ACC-1121,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,28,4000,true
+OPP-20506,ACC-1078,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,31,9600,true
+OPP-20506,ACC-1078,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,31,5500,false
+OPP-20507,ACC-1001,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,5,1600,true
+OPP-20508,ACC-1002,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,8000,true
+OPP-20509,ACC-1004,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,48,8700,true
+OPP-20509,ACC-1004,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,5400,false
+OPP-20510,ACC-1005,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,160,22400,true
+OPP-20511,ACC-1005,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,25,7800,true
+OPP-20511,ACC-1005,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,27,4200,false
+OPP-20511,ACC-1005,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,34,8200,false
+OPP-20512,ACC-1007,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,72100,true
+OPP-20512,ACC-1007,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,222,35900,false
+OPP-20513,ACC-1008,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,4,600,true
+OPP-20513,ACC-1008,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,400,false
+OPP-20513,ACC-1008,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,3,600,false
+OPP-20514,ACC-1009,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,489,68500,true
+OPP-20514,ACC-1009,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,208,81100,false
+OPP-20515,ACC-1009,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,91,26800,true
+OPP-20515,ACC-1009,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,19800,false
+OPP-20515,ACC-1009,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,130,23400,false
+OPP-20516,ACC-1009,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,536,166300,true
+OPP-20517,ACC-1010,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,220,68700,true
+OPP-20518,ACC-1011,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,42,7600,true
+OPP-20519,ACC-1022,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,93,21300,true
+OPP-20519,ACC-1022,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,23,7700,false
+OPP-20519,ACC-1022,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,13200,false
+OPP-20520,ACC-1023,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,577,98700,true
+OPP-20520,ACC-1023,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,315,92700,false
+OPP-20520,ACC-1023,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,251,60200,false
+OPP-20520,ACC-1023,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,45400,false
+OPP-20521,ACC-1023,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,413,136900,true
+OPP-20521,ACC-1023,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,2217,368500,false
+OPP-20521,ACC-1023,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,716,163200,false
+OPP-20522,ACC-1023,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,25,27000,1,35900,true
+OPP-20522,ACC-1023,IMPL,Implementation Services,Services,Usage,consulting hour,175,20,140,479,67000,false
+OPP-20522,ACC-1023,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,275,56100,false
+OPP-20523,ACC-1027,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,485,80700,true
+OPP-20523,ACC-1027,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,166,49000,false
+OPP-20523,ACC-1027,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,292,47300,false
+OPP-20524,ACC-1027,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,73,28300,true
+OPP-20524,ACC-1027,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,66,15100,false
+OPP-20524,ACC-1027,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,109,28700,false
+OPP-20525,ACC-1030,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,8,1200,true
+OPP-20526,ACC-1031,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,19,3400,true
+OPP-20526,ACC-1031,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,8,2400,false
+OPP-20526,ACC-1031,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,13,4900,false
+OPP-20527,ACC-1039,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,144,31100,true
+OPP-20527,ACC-1039,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,337,51600,false
+OPP-20527,ACC-1039,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,189,62700,false
+OPP-20528,ACC-1042,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,1635,255100,true
+OPP-20528,ACC-1042,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,1255,203300,false
+OPP-20528,ACC-1042,TEAM,Team Plan,Online,Seat,seat/year,390,35,253.5,871,220900,false
+OPP-20529,ACC-1042,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,938,155900,true
+OPP-20529,ACC-1042,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,429,142100,false
+OPP-20529,ACC-1042,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,125400,false
+OPP-20529,ACC-1042,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,901,154100,false
+OPP-20529,ACC-1042,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,534,157300,false
+OPP-20530,ACC-1043,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,425,91800,true
+OPP-20530,ACC-1043,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,261,101700,false
+OPP-20530,ACC-1043,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,64600,false
+OPP-20530,ACC-1043,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,387,108100,false
+OPP-20531,ACC-1043,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,364,134900,true
+OPP-20531,ACC-1043,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,1367,221400,false
+OPP-20531,ACC-1043,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,364,87300,false
+OPP-20531,ACC-1043,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,451,71100,false
+OPP-20531,ACC-1043,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,228800,false
+OPP-20532,ACC-1043,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,207,30800,true
+OPP-20532,ACC-1043,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,98,27400,false
+OPP-20532,ACC-1043,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,110,36400,false
+OPP-20532,ACC-1043,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,256,58400,false
+OPP-20533,ACC-1043,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,881,158600,true
+OPP-20533,ACC-1043,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,133300,false
+OPP-20533,ACC-1043,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,957,237400,false
+OPP-20533,ACC-1043,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,1130,197700,false
+OPP-20534,ACC-1046,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,938,168900,true
+OPP-20534,ACC-1046,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,282,104400,false
+OPP-20534,ACC-1046,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,641,153900,false
+OPP-20534,ACC-1046,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,469,123500,false
+OPP-20535,ACC-1046,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,362,100900,true
+OPP-20535,ACC-1046,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,191500,false
+OPP-20535,ACC-1046,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,558,97600,false
+OPP-20535,ACC-1046,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,998,215600,false
+OPP-20536,ACC-1046,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,1239,189500,true
+OPP-20536,ACC-1046,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,396,146800,false
+OPP-20536,ACC-1046,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,136800,false
+OPP-20536,ACC-1046,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,973,110700,false
+OPP-20537,ACC-1048,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,21,6500,true
+OPP-20537,ACC-1048,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,55,9700,false
+OPP-20538,ACC-1050,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,8,2600,true
+OPP-20538,ACC-1050,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,7,2300,false
+OPP-20538,ACC-1050,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,25,27000,1,1800,false
+OPP-20539,ACC-1051,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,5,900,true
+OPP-20540,ACC-1053,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,5,1500,true
+OPP-20541,ACC-1054,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,5,34200,1,156600,true
+OPP-20541,ACC-1054,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,799,143900,false
+OPP-20542,ACC-1054,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,99200,true
+OPP-20542,ACC-1054,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,378,140200,false
+OPP-20542,ACC-1054,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,383,67000,false
+OPP-20543,ACC-1057,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,4,1000,true
+OPP-20543,ACC-1057,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,9,1400,false
+OPP-20543,ACC-1057,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,4,800,false
+OPP-20544,ACC-1059,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,265,31000,true
+OPP-20544,ACC-1059,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,83,27500,false
+OPP-20544,ACC-1059,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,15600,false
+OPP-20545,ACC-1059,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,68,15400,true
+OPP-20545,ACC-1059,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,44,10800,false
+OPP-20545,ACC-1059,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,12200,false
+OPP-20546,ACC-1059,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,406,126800,true
+OPP-20546,ACC-1059,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,968,127100,false
+OPP-20547,ACC-1060,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,6800,true
+OPP-20547,ACC-1060,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,29,7600,false
+OPP-20548,ACC-1061,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,55,15300,true
+OPP-20548,ACC-1061,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,64,11500,false
+OPP-20549,ACC-1065,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,17,2900,true
+OPP-20550,ACC-1066,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,2,400,true
+OPP-20551,ACC-1067,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,63900,true
+OPP-20551,ACC-1067,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,225,66200,false
+OPP-20551,ACC-1067,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,458,65900,false
+OPP-20551,ACC-1067,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,124,48300,false
+OPP-20552,ACC-1067,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,1517,218400,true
+OPP-20552,ACC-1067,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,892,249000,false
+OPP-20552,ACC-1067,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,1292,214800,false
+OPP-20553,ACC-1072,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,31,7400,true
+OPP-20554,ACC-1073,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,275,48200,true
+OPP-20554,ACC-1073,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,371,75600,false
+OPP-20555,ACC-1073,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,51000,true
+OPP-20555,ACC-1073,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,157,58000,false
+OPP-20556,ACC-1074,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,2017,290500,true
+OPP-20556,ACC-1074,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,970,300600,false
+OPP-20556,ACC-1074,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,198300,false
+OPP-20556,ACC-1074,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,362,134200,false
+OPP-20557,ACC-1074,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,1633,264600,true
+OPP-20557,ACC-1074,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,620,192100,false
+OPP-20557,ACC-1074,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,339,118900,false
+OPP-20557,ACC-1074,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,168700,false
+OPP-20557,ACC-1074,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,1482,259400,false
+OPP-20558,ACC-1074,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,1408,221800,true
+OPP-20558,ACC-1074,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,3513,548000,false
+OPP-20558,ACC-1074,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,1493,215000,false
+OPP-20559,ACC-1075,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,39600,true
+OPP-20559,ACC-1075,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,184,68000,false
+OPP-20559,ACC-1075,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,629,84900,false
+OPP-20559,ACC-1075,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,495,73600,false
+OPP-20559,ACC-1075,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,130,34300,false
+OPP-20560,ACC-1075,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,90,15400,true
+OPP-20560,ACC-1075,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,122,22000,false
+OPP-20560,ACC-1075,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,130,45700,false
+OPP-20560,ACC-1075,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,294,43700,false
+OPP-20560,ACC-1075,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,35,201.5,197,39700,false
+OPP-20561,ACC-1075,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,123,40700,true
+OPP-20561,ACC-1075,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,309,51400,false
+OPP-20561,ACC-1075,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,164,35400,false
+OPP-20561,ACC-1075,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,269,41100,false
+OPP-20561,ACC-1075,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,19300,false
+OPP-20562,ACC-1075,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,858,142700,true
+OPP-20562,ACC-1075,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,262800,false
+OPP-20562,ACC-1075,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,1299,202600,false
+OPP-20562,ACC-1075,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,833,120000,false
+OPP-20562,ACC-1075,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,538,133500,false
+OPP-20563,ACC-1076,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,4,800,true
+OPP-20564,ACC-1081,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,138,20600,true
+OPP-20565,ACC-1082,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,90,14100,true
+OPP-20565,ACC-1082,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,17600,false
+OPP-20565,ACC-1082,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,10,279,95,26500,false
+OPP-20566,ACC-1084,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,18900,true
+OPP-20567,ACC-1086,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,508,178200,true
+OPP-20567,ACC-1086,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,758,88700,false
+OPP-20567,ACC-1086,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,379,66300,false
+OPP-20567,ACC-1086,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,128600,false
+OPP-20568,ACC-1086,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,270,64800,true
+OPP-20568,ACC-1086,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,822,136700,false
+OPP-20568,ACC-1086,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,601,97300,false
+OPP-20569,ACC-1087,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,16,6200,true
+OPP-20570,ACC-1089,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,41,12000,true
+OPP-20571,ACC-1090,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,26,6200,true
+OPP-20571,ACC-1090,TEAM,Team Plan,Online,Seat,seat/year,390,15,331.5,21,6900,false
+OPP-20572,ACC-1093,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,93,16200,true
+OPP-20572,ACC-1093,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,15300,false
+OPP-20572,ACC-1093,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,51,7300,false
+OPP-20573,ACC-1095,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,20,144,980,141100,true
+OPP-20574,ACC-1095,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,124,36500,true
+OPP-20574,ACC-1095,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,156,33600,false
+OPP-20575,ACC-1095,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,382,82500,true
+OPP-20575,ACC-1095,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,284,48600,false
+OPP-20575,ACC-1095,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,76100,false
+OPP-20576,ACC-1100,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,129,21400,true
+OPP-20577,ACC-1102,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,18,3200,true
+OPP-20577,ACC-1102,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,11,4400,false
+OPP-20577,ACC-1102,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,7200,false
+OPP-20578,ACC-1103,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,192,32000,true
+OPP-20579,ACC-1108,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,1,200,true
+OPP-20580,ACC-1110,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,50,15500,true
+OPP-20580,ACC-1110,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,81,18500,false
+OPP-20580,ACC-1110,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,15200,false
+OPP-20581,ACC-1110,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,479,141100,true
+OPP-20582,ACC-1114,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,535,115600,true
+OPP-20582,ACC-1114,IMPL,Implementation Services,Services,Usage,consulting hour,175,35,113.75,962,109400,false
+OPP-20582,ACC-1114,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,786,120300,false
+OPP-20582,ACC-1114,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,389,144200,false
+OPP-20582,ACC-1114,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,124400,false
+OPP-20583,ACC-1114,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,230,80700,true
+OPP-20583,ACC-1114,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,346,107400,false
+OPP-20583,ACC-1114,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,20,28800,1,56100,false
+OPP-20583,ACC-1114,IMPL,Implementation Services,Services,Usage,consulting hour,175,5,166.25,854,142000,false
+OPP-20583,ACC-1114,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,606,103700,false
+OPP-20584,ACC-1114,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,444,70000,true
+OPP-20584,ACC-1114,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,152,56500,false
+OPP-20584,ACC-1114,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,456,98600,false
+OPP-20584,ACC-1114,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,512,150700,false
+OPP-20585,ACC-1114,PRO,Academy Pro,Online,Seat,learner/year,240,5,228,1289,293800,true
+OPP-20585,ACC-1114,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,414,161600,false
+OPP-20585,ACC-1114,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,94600,false
+OPP-20585,ACC-1114,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,418,97200,false
+OPP-20586,ACC-1116,IMPL,Implementation Services,Services,Usage,consulting hour,175,25,131.25,267,35100,true
+OPP-20586,ACC-1116,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,66900,false
+OPP-20587,ACC-1118,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,541,116900,true
+OPP-20587,ACC-1118,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,178400,false
+OPP-20587,ACC-1118,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,1293,174500,false
+OPP-20588,ACC-1118,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,199,62000,true
+OPP-20588,ACC-1118,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,106200,false
+OPP-20588,ACC-1118,PRO,Academy Pro,Online,Seat,learner/year,240,25,180,477,85800,false
+OPP-20588,ACC-1118,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,432,133900,false
+OPP-20588,ACC-1118,IMPL,Implementation Services,Services,Usage,consulting hour,175,15,148.75,737,109600,false
+OPP-20589,ACC-1118,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,10,162,548,88700,true
+OPP-20589,ACC-1118,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,143,55700,false
+OPP-20589,ACC-1118,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,35,23400,1,133300,false
+OPP-20590,ACC-1118,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,531,81200,true
+OPP-20590,ACC-1118,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,523,125500,false
+OPP-20590,ACC-1118,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,25,232.5,167,38800,false
+OPP-20591,ACC-1119,PRO,Academy Pro,Online,Seat,learner/year,240,35,156,423,66000,true
+OPP-20591,ACC-1119,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,129,40000,false
+OPP-20591,ACC-1119,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,199,62200,false
+OPP-20592,ACC-1120,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,40,12400,true
+OPP-20592,ACC-1120,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,117,20000,false
+OPP-20592,ACC-1120,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,88,21100,false
+OPP-20593,ACC-1121,TEAM,Team Plan,Online,Seat,seat/year,390,20,312,6,1800,true
+OPP-20593,ACC-1121,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,3,800,false
+OPP-20594,ACC-1122,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,15,153,956,146200,true
+OPP-20594,ACC-1122,PRO,Academy Pro,Online,Seat,learner/year,240,10,216,544,117600,false
+OPP-20594,ACC-1122,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,1670,292200,false
+OPP-20595,ACC-1122,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,498,89600,true
+OPP-20595,ACC-1122,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,470,145800,false
+OPP-20595,ACC-1122,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,186,72600,false
+OPP-20596,ACC-1124,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,30,3500,true
+OPP-20597,ACC-1125,PRO,Academy Pro,Online,Seat,learner/year,240,20,192,1108,212700,true
+OPP-20597,ACC-1125,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,226,88200,false
+OPP-20597,ACC-1125,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,476,147500,false
+OPP-20597,ACC-1125,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,25,135,657,88700,false
+OPP-20598,ACC-1125,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,240,57700,true
+OPP-20598,ACC-1125,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,20,248,275,68300,false
+OPP-20598,ACC-1125,TEAM,Team Plan,Online,Seat,seat/year,390,5,370.5,468,173400,false
+OPP-20598,ACC-1125,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,161000,false
+OPP-20598,ACC-1125,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,5,171,1041,178000,false
+OPP-20599,ACC-1126,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,6,1400,true
+OPP-20600,ACC-1127,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,400,true
+OPP-20600,ACC-1127,TEAM,Team Plan,Online,Seat,seat/year,390,0,390,1,300,false
+OPP-20600,ACC-1127,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,2,500,false
+OPP-20601,ACC-1128,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,54900,true
+OPP-20602,ACC-1130,PRO,Academy Pro,Online,Seat,learner/year,240,15,204,16,3200,true
+OPP-20602,ACC-1130,IMPL,Implementation Services,Services,Usage,consulting hour,175,10,157.5,12,1900,false
+OPP-20602,ACC-1130,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,10,32400,1,2100,false
+OPP-20603,ACC-1132,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,35,117,16,1900,true
+OPP-20603,ACC-1132,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,6,1100,false
+OPP-20604,ACC-1134,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,15,263.5,8,2000,true
+OPP-20604,ACC-1134,IMPL,Implementation Services,Services,Usage,consulting hour,175,0,175,22,3900,false
+OPP-20605,ACC-1135,TEAM,Team Plan,Online,Seat,seat/year,390,10,351,58,20300,true
+OPP-20605,ACC-1135,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,27400,false
+OPP-20605,ACC-1135,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,301,54100,false
+OPP-20606,ACC-1139,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,0,36000,1,21500,true
+OPP-20606,ACC-1139,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,92,28600,false
+OPP-20607,ACC-1139,PRO,Academy Pro,Online,Seat,learner/year,240,0,240,96,23100,true
+OPP-20607,ACC-1139,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,5,294.5,107,31500,false
+OPP-20607,ACC-1139,VOUCHER,Certification Vouchers,Certification,Usage,voucher,180,0,180,132,23700,false
+OPP-20608,ACC-1139,ENTERPRISE,Enterprise Programme,Programmes,Platform,year,36000,15,30600,1,32300,true
+OPP-20608,ACC-1139,CLASSROOM,Classroom Seat-Days,Classroom,Usage,seat-day,310,0,310,165,51100,false

@@ -15,7 +15,7 @@
  *
  * ::dashboard-mock
  * ---
- * title: Namilio — Pipeline Health
+ * title: Academy — Pipeline Health
  * subtitle: Weekly, AEs and their managers
  * filters: [Close Quarter, Segment, Region]
  * widgets:
