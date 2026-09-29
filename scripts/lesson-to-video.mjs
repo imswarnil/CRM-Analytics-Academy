@@ -4,6 +4,7 @@
  *
  *   node scripts/lesson-to-video.mjs content/en/1.foundations/1.index.md \
  *        [--paragraphs=1] [--lipsync] [--ai] [--voice=swarnil] [--lang=en] \
+ *        [--tts=xtts|voicestudio] [--profile=<voicestudio profile id>] \
  *        [--face=~/voice-clone/video/input/Swarnil_Sample_Video.mp4] [--face-start=3] [--face-length=8] [--out=public/videos/x.mp4]
  *
  * What it does, in order (see md2video.md for the reasoning):
@@ -14,7 +15,10 @@
  *      Only with --ai (and ANTHROPIC_API_KEY) does Claude Opus 5 write each
  *      scene instead: heading, bullets, narration and an SVG illustration.
  *   2. Voice. Each narration is spoken in the cloned voice by the local
- *      Coqui XTTS setup in ~/voice-clone (profile clips in audio/training/<voice>).
+ *      Coqui XTTS setup in ~/voice-clone (profile clips in audio/training/<voice>),
+ *      or with --tts=voicestudio by the VoiceStudio desktop app's local backend
+ *      (its MCP server on localhost:3900; open the app first so the backend and
+ *      a voice model are running). Both are local — nothing leaves the machine.
  *   3. Face (optional, --lipsync). Wav2Lip re-syncs the sample video's lips to
  *      the narration and the result sits picture-in-picture on the slide.
  *   4. Slide. Heading + bullets + illustration composed as one 1920x1080 SVG
@@ -295,7 +299,7 @@ const duration = async f => Number(await capture('ffprobe', ['-v', 'error', '-sh
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
-console.log(`lesson: ${file}\nscenes: ${chosen.length} paragraph(s)\nvoice:  ${VOICE} (XTTS v2, local)\nface:   ${LIPSYNC ? FACE : 'off'}\nmodel:  ${USE_AI ? 'claude-opus-5' : 'none (offline storyboard)'}\nout:    ${OUT}\n`)
+console.log(`lesson: ${file}\nscenes: ${chosen.length} paragraph(s)\nvoice:  ${TTS === 'voicestudio' ? `VoiceStudio${VS_PROFILE ? ` profile ${VS_PROFILE}` : ''} (local)` : `${VOICE} (XTTS v2, local)`}\nface:   ${LIPSYNC ? FACE : 'off'}\nmodel:  ${USE_AI ? 'claude-opus-5' : 'none (offline storyboard)'}\nout:    ${OUT}\n`)
 
 const scenes = USE_AI ? await storyboardWithClaude(chosen) : storyboardOffline(chosen)
 writeFileSync(path.join(WORK, 'storyboard.json'), JSON.stringify(scenes, null, 2))
@@ -306,6 +310,61 @@ const speakerClips = existsSync(profileDir)
   : [path.join(VOICE_ROOT, 'audio', 'samples', 'sample_clean.wav')]
 
 const tts = path.join(VOICE_ROOT, 'tts-env', 'bin', 'python3')
+const TTS = value('tts', 'xtts')
+const VS_PROFILE = value('profile', '')
+const VS_URL = value('voicestudio-url', 'http://localhost:3900/mcp/')
+
+/**
+ * VoiceStudio over its local MCP endpoint (Streamable HTTP): initialize, then
+ * call the `generate_speech` tool. The result is either an MCP audio content
+ * block (base64) or a text block naming the file it wrote; both are handled.
+ * Responses may arrive as JSON or as a server-sent-event stream.
+ */
+let vsSession = ''
+async function vsRpc(method, params, id) {
+  const res = await fetch(VS_URL, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'accept': 'application/json, text/event-stream',
+      ...(vsSession ? { 'mcp-session-id': vsSession } : {})
+    },
+    body: JSON.stringify({ jsonrpc: '2.0', method, params, ...(id !== undefined ? { id } : {}) })
+  }).catch((e) => {
+    throw new Error(`VoiceStudio is not reachable at ${VS_URL} — open the app so its backend is running (${e.message})`)
+  })
+  vsSession = res.headers.get('mcp-session-id') || vsSession
+  if (id === undefined) return null
+  const text = await res.text()
+  const json = res.headers.get('content-type')?.includes('text/event-stream')
+    ? JSON.parse(text.split('\n').filter(l => l.startsWith('data:')).map(l => l.slice(5).trim()).pop() || '{}')
+    : JSON.parse(text)
+  if (json.error) throw new Error(`VoiceStudio ${method}: ${json.error.message}`)
+  return json.result
+}
+
+async function speakWithVoiceStudio(text, outWav) {
+  if (!vsSession) {
+    await vsRpc('initialize', { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'lesson-to-video', version: '1' } }, 1)
+    await vsRpc('notifications/initialized', {})
+  }
+  const result = await vsRpc('tools/call', {
+    name: 'generate_speech',
+    arguments: { text, format: 'wav', ...(VS_PROFILE ? { profile_id: VS_PROFILE } : {}) }
+  }, Date.now())
+  for (const item of result?.content ?? []) {
+    if (item.type === 'audio' && item.data) {
+      writeFileSync(outWav, Buffer.from(item.data, 'base64'))
+      return
+    }
+    const file = item.type === 'text' && item.text?.match(/\S+\.(wav|ogg|opus)\b/)?.[0]
+    if (file && existsSync(file)) {
+      writeFileSync(outWav, readFileSync(file))
+      return
+    }
+  }
+  throw new Error(`VoiceStudio returned no audio: ${JSON.stringify(result).slice(0, 300)}`)
+}
 const w2lEnv = path.join(VOICE_ROOT, 'wav2lip-env', 'bin', 'python3')
 const w2lDir = path.join(VOICE_ROOT, 'video', 'Wav2Lip')
 
@@ -319,8 +378,12 @@ for (const [i, scene] of scenes.entries()) {
 
   // 2. voice
   if (!existsSync(wav)) {
-    await run(tts, [path.join(VOICE_ROOT, 'scripts', 'clone_voice.py'),
-      '--text', scene.narration, '--lang', LANG, '--speaker', speakerClips.join(','), '--out', wav])
+    if (TTS === 'voicestudio') {
+      await speakWithVoiceStudio(scene.narration, wav)
+    } else {
+      await run(tts, [path.join(VOICE_ROOT, 'scripts', 'clone_voice.py'),
+        '--text', scene.narration, '--lang', LANG, '--speaker', speakerClips.join(','), '--out', wav])
+    }
   }
   console.log(`narration: ${(await duration(wav)).toFixed(1)}s`)
 
