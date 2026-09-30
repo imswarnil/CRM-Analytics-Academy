@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+  <pattern id="gn-minor" width="20" height="20" patternUnits="userSpaceOnUse">
+    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(168,204,242,0.07)" stroke-width="1"/>
+  </pattern>
+  <pattern id="gn" width="100" height="100" patternUnits="userSpaceOnUse">
+    <rect width="100" height="100" fill="url(#gn-minor)"/>
+    <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(168,204,242,0.14)" stroke-width="1.25"/>
+  </pattern></defs>
+<rect width="1600" height="900" fill="#0F2A5C"/>
+<rect width="1600" height="900" fill="url(#gn)"/>
+    <path d="M 64 80 h 32 M 80 64 v 32 M 1504 80 h 32 M 1520 64 v 32 M 64 820 h 32 M 80 804 v 32 M 1504 820 h 32 M 1520 804 v 32" stroke="#3FC6DC" stroke-width="1.5"/>
+    <text x="120" y="380" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="260" letter-spacing="-10" fill="#3FC6DC">03</text>
+    <text x="126" y="470" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" letter-spacing="5" fill="#A8CCF2">SECTION 03 — 11 LESSONS</text>
+    <text x="120" y="590" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="104" letter-spacing="-4" fill="#FFFFFF">Data Preparation</text>
+    <g transform="translate(120 660)">
+      <rect x="0" y="67.3076923076923" width="44" height="32.69230769230769" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="60" y="44.230769230769226" width="44" height="55.769230769230774" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="120" y="21.15384615384616" width="44" height="78.84615384615384" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="180" y="75" width="44" height="25" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="240" y="51.92307692307692" width="44" height="48.07692307692308" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="300" y="28.84615384615384" width="44" height="71.15384615384616" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="360" y="5.769230769230774" width="44" height="94.23076923076923" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="420" y="59.61538461538461" width="44" height="40.38461538461539" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="480" y="36.53846153846154" width="44" height="63.46153846153846" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="540" y="13.461538461538453" width="44" height="86.53846153846155" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/><rect x="600" y="67.3076923076923" width="44" height="32.69230769230769" fill="#3D8BD9" stroke="#0C1B33" stroke-width="1.5"/>
+    </g>
+    <text x="1480" y="790" text-anchor="end" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#A8CCF2">crmanalytics.imswarnil.com</text>
+</svg>

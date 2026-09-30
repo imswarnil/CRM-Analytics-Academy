@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160">
+<defs>
+  <pattern id="gl-minor" width="48" height="48" patternUnits="userSpaceOnUse">
+    <path d="M 48 0 L 0 0 0 48" fill="none" stroke="rgba(47,91,234,0.06)" stroke-width="1"/>
+  </pattern>
+  <pattern id="gl" width="240" height="240" patternUnits="userSpaceOnUse">
+    <rect width="240" height="240" fill="url(#gl-minor)"/>
+    <path d="M 240 0 L 0 0 0 240" fill="none" stroke="rgba(47,91,234,0.13)" stroke-width="1.25"/>
+  </pattern></defs>
+<rect width="3840" height="2160" fill="#F4F7FB"/>
+<rect width="3840" height="2160" fill="url(#gl)"/>
+</svg>

@@ -250,22 +250,38 @@ h1, h2, h3, h4 {
 .crosshair {
   position: relative;
 }
-.crosshair::before {
+.crosshair::before,
+.bp-card--hover::after {
   content: "";
   position: absolute;
-  inset: -7px;
+  /* Each "+" is centred on a corner of the border box: arms of 12px reach
+     6px either side, and the pseudo-element extends 6px past every edge.
+     Positions are anchored to the nearest edge (right 6px, bottom 6px …)
+     rather than computed from percentages, so the vertical arm lands on the
+     1.5px border line exactly — at any card size. */
+  inset: -6px;
   pointer-events: none;
   z-index: 2;
   --c: linear-gradient(var(--x), var(--x));
   background:
-    var(--c) 0 7px / 15px 1.5px no-repeat,
-    var(--c) 7px 0 / 1.5px 15px no-repeat,
-    var(--c) 100% 7px / 15px 1.5px no-repeat,
-    var(--c) calc(100% - 7px) 0 / 1.5px 15px no-repeat,
-    var(--c) 0 calc(100% - 7px) / 15px 1.5px no-repeat,
-    var(--c) 7px 100% / 1.5px 15px no-repeat,
-    var(--c) 100% calc(100% - 7px) / 15px 1.5px no-repeat,
-    var(--c) calc(100% - 7px) 100% / 1.5px 15px no-repeat;
+    var(--c) left 0 top 6px / 12px 1.5px no-repeat,
+    var(--c) left 6px top 0 / 1.5px 12px no-repeat,
+    var(--c) right 0 top 6px / 12px 1.5px no-repeat,
+    var(--c) right 6px top 0 / 1.5px 12px no-repeat,
+    var(--c) left 0 bottom 6px / 12px 1.5px no-repeat,
+    var(--c) left 6px bottom 0 / 1.5px 12px no-repeat,
+    var(--c) right 0 bottom 6px / 12px 1.5px no-repeat,
+    var(--c) right 6px bottom 0 / 1.5px 12px no-repeat;
+}
+/* Cards show their crop marks only while hovered, in signal blue. */
+.bp-card--hover::after {
+  --x: var(--signal);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.bp-card--hover:hover::after,
+.bp-card--hover:focus-within::after {
+  opacity: 1;
 }
 .crosshair:hover::before {
   --c: linear-gradient(var(--signal), var(--signal));

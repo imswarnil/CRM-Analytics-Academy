@@ -12,7 +12,7 @@ defineProps<{
 </script>
 
 <template>
-  <figure class="m-0">
+  <figure class="m-0 flex flex-col">
     <figcaption
       v-if="caption || spec"
       class="mb-2 flex justify-between gap-4 font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)"
@@ -21,7 +21,7 @@ defineProps<{
       <span>{{ spec }}</span>
     </figcaption>
     <div
-      class="crosshair border-[1.5px] border-(--ink) bg-(--card)"
+      class="crosshair flex flex-1 flex-col border-[1.5px] border-(--ink) bg-(--card)"
       :class="shadow ? 'shadow-[10px_10px_0_var(--ice)]' : ''"
     >
       <slot />

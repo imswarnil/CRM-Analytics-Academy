@@ -6,9 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **CRM Analytics Academy** — a free, open-source learning site for Salesforce CRM Analytics (data prep, SAQL, dashboards, bindings, Einstein Discovery). Live at **crmanalytics.imswarnil.com**, hosted on **Cloudflare Workers** (prerendered pages served as static assets, a small Worker for the dynamic routes) and deployed by GitHub Actions (`deploy-cloudflare.yml`). GitHub: **imswarnil/CRM-Analytics-Academy**.
 
-Built on **Nuxt 4 + Nuxt Content 3 + Nuxt UI v4 + Tailwind CSS 4**, styled as the stock Nuxt UI docs template. It is a **markdown-driven site**: every docs page is prerendered at build time from `content/`, not hand-written as Vue routes. On top of that sits a small dynamic layer — **Neon Postgres + Neon Auth (better-auth)** — for sign-in/sign-up, a demo account, lesson progress, submissions and an admin console. Server code lives in `server/api/**` and `server/utils/**`; the schema is in `server/db/*.sql`.
+Built on **Nuxt 4 + Nuxt Content 3 + Nuxt UI v4 + Tailwind CSS 4**, styled in the Blueprint design system (see "Theming & branding"). It is a **markdown-driven site**: every docs page is prerendered at build time from `content/`, not hand-written as Vue routes. On top of that sits a small dynamic layer — **Neon Postgres + Neon Auth (better-auth)** — for sign-in/sign-up, a demo account, lesson progress, submissions and an admin console. Server code lives in `server/api/**` and `server/utils/**`; the schema is in `server/db/*.sql`.
 
-> History: an earlier Supabase layer was removed end to end (`dbms.md` records that era's schema — it is historical, **not** the current design), the site then ran fully static on GitHub Pages, and the dynamic layer was later rebuilt on Neon + Cloudflare. `how-it-works.md` also predates the Neon layer.
+> History: an earlier Supabase layer was removed end to end, the site then ran fully static on GitHub Pages, and the dynamic layer was later rebuilt on Neon + Cloudflare. The README holds the current low-level design.
 
 ## Commands
 
@@ -131,5 +131,5 @@ page, so neither Nuxt Content nor the prerender crawler sees it. The repo is pub
 `project/README.md` for what must be sanitised before committing.
 
 ## Notes
-- `how-it-works.md` is the narrative architecture walkthrough; `dbms.md` is the data-model reference.
+- `README.md` is the low-level design (architecture, request flows, data model, API routes); `content-assets/` holds the reusable brand, background and video-editing assets.
 - Memory note `project_crm_academy.md` describes project context — verify against the actual files before relying on it.

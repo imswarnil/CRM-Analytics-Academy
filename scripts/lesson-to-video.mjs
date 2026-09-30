@@ -7,7 +7,7 @@
  *        [--tts=xtts|voicestudio] [--profile=<voicestudio profile id>] \
  *        [--face=~/voice-clone/video/input/Swarnil_Sample_Video.mp4] [--face-start=3] [--face-length=8] [--out=public/videos/x.mp4]
  *
- * What it does, in order (see md2video.md for the reasoning):
+ * What it does, in order:
  *
  *   1. Storyboard. The first N prose paragraphs of the lesson become scenes.
  *      By default this is fully local: the paragraph itself is the narration,

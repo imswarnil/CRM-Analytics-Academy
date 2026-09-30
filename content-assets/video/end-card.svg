@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs>
+  <pattern id="gn-minor" width="24" height="24" patternUnits="userSpaceOnUse">
+    <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(168,204,242,0.07)" stroke-width="1"/>
+  </pattern>
+  <pattern id="gn" width="120" height="120" patternUnits="userSpaceOnUse">
+    <rect width="120" height="120" fill="url(#gn-minor)"/>
+    <path d="M 120 0 L 0 0 0 120" fill="none" stroke="rgba(168,204,242,0.14)" stroke-width="1.25"/>
+  </pattern></defs>
+<rect width="1920" height="1080" fill="#0F2A5C"/>
+<rect width="1920" height="1080" fill="url(#gn)"/>
+  <path d="M 140 160 h 40 M 160 140 v 40 M 1740 160 h 40 M 1760 140 v 40 M 140 920 h 40 M 160 900 v 40 M 1740 920 h 40 M 1760 900 v 40" stroke="#3FC6DC" stroke-width="1.5"/>
+  <text x="960" y="360" text-anchor="middle" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="28" letter-spacing="6" fill="#3FC6DC">KEEP GOING</text>
+  <text x="960" y="520" text-anchor="middle" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="120" letter-spacing="-4" fill="#FFFFFF">Learn CRM Analytics, free</text>
+  <g transform="translate(560 620)">
+    <rect x="10" y="10" width="800" height="120" fill="#2F5BEA"/>
+    <rect width="800" height="120" fill="#FFFFFF" stroke="#0C1B33" stroke-width="3"/>
+    <text x="400" y="78" text-anchor="middle" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-weight="600" font-size="40" fill="#0C1B33">crmanalytics.imswarnil.com</text>
+  </g>
+</svg>

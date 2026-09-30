@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs></defs>
+
+
+  <g transform="translate(1300 96)">
+    <rect x="10" y="10" width="524" height="190" fill="#0C1B33"/>
+    <rect width="524" height="190" fill="#FAFCFE" stroke="#0C1B33" stroke-width="3"/>
+    <text x="32" y="48" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="18" letter-spacing="4" fill="#2F5BEA">NEXT LESSON →</text>
+    <text x="32" y="104" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="800" font-size="38" fill="#0C1B33">Next lesson title</text>
+    <rect x="32" y="130" width="220" height="40" fill="#2F5BEA"/>
+    <text x="142" y="157" text-anchor="middle" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-weight="600" font-size="18" letter-spacing="2" fill="#FFFFFF">SUBSCRIBE</text>
+    <text x="272" y="157" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="16" fill="#4A5B78">crmanalytics.imswarnil.com</text>
+  </g>
+</svg>

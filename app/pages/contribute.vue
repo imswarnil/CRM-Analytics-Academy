@@ -360,7 +360,7 @@ Your write-up goes here.</code></pre>
                     <li><strong>Cloudflare Workers</strong> + <strong>GitHub Actions</strong> — prerendered pages served as static assets, a Worker for the dynamic routes, auto-deployed on push to <code>main</code></li>
                   </ul>
                   <p>Also in the box: <code>nuxt-og-image</code> (social cards), <code>nuxt-llms</code> (machine-readable docs), and structured data for SEO.</p>
-                  <p>There is <strong>no database and no accounts</strong> — every page is prerendered at build time from Markdown. If you're curious about the data model the site used to run on, see <code>dbms.md</code> in the repo.</p>
+                  <p>Every lesson is prerendered at build time from Markdown, so you can write and preview lessons with <strong>no database at all</strong>. Accounts, progress and Pro run on Neon Postgres and only matter if you are working on those features — the README's low-level design covers them.</p>
                 </div>
 
                 <!-- pr -->

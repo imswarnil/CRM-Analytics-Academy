@@ -57,7 +57,7 @@ const entries: Entry[] = [
       'No database and no analytics of your learning — every lesson is open to read with no sign-up',
       'Every page is prerendered at build time, so the site loads as fast as static HTML can',
       'Moved hosting from Vercel to GitHub Pages, deployed by GitHub Actions on every push',
-      'The old data model is documented in dbms.md in the repository, for anyone curious'
+      'The old data model was retired with it'
     ]
   },
   {

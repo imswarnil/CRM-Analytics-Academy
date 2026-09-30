@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs>
+  <pattern id="gl-minor" width="16" height="16" patternUnits="userSpaceOnUse">
+    <path d="M 16 0 L 0 0 0 16" fill="none" stroke="rgba(47,91,234,0.06)" stroke-width="1"/>
+  </pattern>
+  <pattern id="gl" width="80" height="80" patternUnits="userSpaceOnUse">
+    <rect width="80" height="80" fill="url(#gl-minor)"/>
+    <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(47,91,234,0.13)" stroke-width="1.25"/>
+  </pattern></defs>
+<rect width="1280" height="720" fill="#F4F7FB"/>
+<rect width="1280" height="720" fill="url(#gl)"/>
+  <rect x="640" y="0" width="640" height="720" fill="#0F2A5C"/>
+  <g transform="translate(700 160)">
+    <rect x="0" y="260" width="64" height="140" fill="#3D8BD9" stroke="#0C1B33" stroke-width="2"/><rect x="88" y="179.99999999999997" width="64" height="220.00000000000003" fill="#3D8BD9" stroke="#0C1B33" stroke-width="2"/><rect x="176" y="220" width="64" height="180" fill="#3D8BD9" stroke="#0C1B33" stroke-width="2"/><rect x="264" y="100" width="64" height="300" fill="#3D8BD9" stroke="#0C1B33" stroke-width="2"/><rect x="352" y="152" width="64" height="248" fill="#3D8BD9" stroke="#0C1B33" stroke-width="2"/><rect x="440" y="20" width="64" height="380" fill="#3FC6DC" stroke="#0C1B33" stroke-width="2"/>
+  </g>
+  <text x="56" y="120" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" letter-spacing="4" fill="#2F5BEA">CRM ANALYTICS</text>
+  <text x="52" y="300" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="104" letter-spacing="-4" fill="#0C1B33">Big</text>
+  <text x="52" y="410" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="104" letter-spacing="-4" fill="#0C1B33">title</text>
+  <rect x="56" y="520" width="420" height="72" fill="#2F5BEA"/>
+  <text x="80" y="568" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-weight="600" font-size="30" fill="#FFFFFF">FREE LESSON</text>
+</svg>

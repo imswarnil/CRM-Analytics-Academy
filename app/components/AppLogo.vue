@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * The mark: three ascending bars in an ink-bordered box — a bar chart as a
- * drafting symbol — beside the name and a drawing number.
+ * drafting symbol — beside the name and the author's credit.
  */
 defineProps<{ inverted?: boolean }>()
 </script>
@@ -21,11 +21,11 @@ defineProps<{ inverted?: boolean }>()
       <span
         class="whitespace-nowrap text-[17px] font-extrabold tracking-[-0.02em]"
         :class="inverted ? 'text-white' : 'text-(--ink)'"
-      >CRM Analytics</span>
+      >CRM Analytics <span :class="inverted ? 'text-white/70' : 'text-(--signal)'">Academy</span></span>
       <span
-        class="mt-1 font-mono text-[9.5px] uppercase tracking-[.2em]"
+        class="mt-1 font-mono text-[10px] tracking-[.06em]"
         :class="inverted ? 'text-white/60' : 'text-(--ink2)'"
-      >Academy / 001</span>
+      >By Swarnil</span>
     </span>
   </span>
 </template>

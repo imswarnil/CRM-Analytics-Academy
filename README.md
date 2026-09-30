@@ -1,164 +1,456 @@
+<p align="center"><img src="content-assets/brand/logo-mark-on-paper.png" alt="CRM Analytics Academy logo" width="96"></p>
+
 <h1 align="center">CRM Analytics Academy</h1>
 
 <p align="center">
-  A free, open-source curriculum for mastering <strong>Salesforce CRM Analytics</strong> —
-  data prep, SAQL, dashboards, bindings, and Einstein Discovery.
+  <strong>The free, open-source course for Salesforce CRM Analytics</strong> — data prep, datasets, SAQL,
+  dashboards, bindings, Einstein Discovery and seventeen go-to-market dashboard builds, in twelve languages.
 </p>
 
 <p align="center">
-  <a href="https://crmanalytics.imswarnil.com"><strong>🌐 Live site</strong></a> ·
-  <a href="https://crmanalytics.imswarnil.com/foundations"><strong>📚 Start learning</strong></a> ·
-  <a href="https://crmanalytics.imswarnil.com/wall-of-fame"><strong>🏆 Wall of Fame</strong></a> ·
-  <a href="https://crmanalytics.imswarnil.com/contribute"><strong>🤝 Contribute</strong></a>
+  <a href="https://crmanalytics.imswarnil.com"><strong>Live site</strong></a> ·
+  <a href="https://crmanalytics.imswarnil.com/curriculum"><strong>Curriculum</strong></a> ·
+  <a href="https://crmanalytics.imswarnil.com/introduction"><strong>Start lesson 1</strong></a> ·
+  <a href="https://crmanalytics.imswarnil.com/contribute"><strong>Contribute</strong></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml"><img src="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml/badge.svg" alt="Deploy status"></a>
-  <img src="https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&labelColor=020420" alt="Nuxt 4">
-  <img src="https://img.shields.io/badge/Nuxt%20UI-v4-00DC82?logo=nuxt&labelColor=020420" alt="Nuxt UI v4">
-  <img src="https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss&labelColor=1c1c1c" alt="Tailwind 4">
-  <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?logo=cloudflare&labelColor=1c1c1c" alt="Cloudflare Workers">
-  <img src="https://img.shields.io/badge/i18n-12%20locales-5B21B6?labelColor=1c1c1c" alt="12 locales">
-  <img src="https://img.shields.io/badge/License-MIT-blue" alt="MIT">
+  <a href="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml"><img src="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml/badge.svg" alt="Deploy to Cloudflare Workers"></a>
+  <img src="https://img.shields.io/badge/languages-12-2F5BEA" alt="12 languages">
+  <img src="https://img.shields.io/badge/lessons-161-2F5BEA" alt="161 lessons">
+  <img src="https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&labelColor=0C1B33" alt="Nuxt 4">
+  <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?logo=cloudflare&labelColor=0C1B33" alt="Cloudflare Workers">
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-0F2A5C" alt="MIT license"></a>
 </p>
 
 <p align="center">
-  <img src="./.github/screenshot.png" alt="CRM Analytics Academy home page" width="800">
+  <img src="./.github/screenshot.png" alt="CRM Analytics Academy — Blueprint home page" width="820">
 </p>
 
-## Why this exists
+Salesforce CRM Analytics (formerly Wave, Einstein Analytics and Tableau CRM) is documented well in pieces
+and poorly as a path. CRM Analytics Academy is that path: **19 sections and 161 lessons** that go from
+"what is a dataset" to security predicates, complex SAQL, bindings, the dashboard JSON underneath, and a full
+set of revenue dashboards built on one company's data. The core course is free; optional **Pro** lessons fund it.
 
-Salesforce CRM Analytics (formerly Wave / Einstein Analytics / Tableau CRM) is
-well documented in pieces and poorly documented as a path. This is the path:
-six sections that go from "what is a dataset" to shipping a faceted dashboard
-and talking about it in an interview — free, open source, in twelve languages.
+---
 
-## The curriculum
+## Contents
 
-| # | Section | Covers |
-|---|---------|--------|
-| 1 | [Foundations](https://crmanalytics.imswarnil.com/foundations) | What CRM Analytics is, how data becomes a secure dataset, the platform's building blocks |
-| 2 | [Setup & User Provisioning](https://crmanalytics.imswarnil.com/setup) | Licences, permission sets, the Integration and Security users, row-level predicates |
-| 3 | [Creating Datasets](https://crmanalytics.imswarnil.com/creating-datasets) | Grain, lookups vs joins, Dataset Builder, recipes, the sync layer |
-| 4 | [Lenses & Explorations](https://crmanalytics.imswarnil.com/lenses-and-explorations) | Explorer mode, SAQL behind a chart, the Fields panel, Conversational Analytics |
-| 5 | [Designing Dashboards](https://crmanalytics.imswarnil.com/designing-dashboards) | Faceting, conditional formatting, KPI rows, links that carry filters |
-| 6 | [Collaboration](https://crmanalytics.imswarnil.com/collaboration) | Sharing, subscriptions, notifications, watchlists, driving adoption |
-
-Each section is video-led — lessons pair a clip from a real training session
-with a written article — and closes with an interview-prep study sheet.
+- [Features](#features)
+- [The curriculum](#the-curriculum)
+- [Architecture](#architecture)
+- [Request flows](#request-flows)
+- [Data model](#data-model)
+- [API](#api)
+- [Content pipeline](#content-pipeline)
+- [Internationalisation](#internationalisation)
+- [SEO](#seo)
+- [CMS (Payload)](#cms-payload)
+- [Directory map](#directory-map)
+- [Scripts](#scripts)
+- [Local setup](#local-setup)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
-- 📚 **Content-driven curriculum** — 49 lessons as Markdown under `content/`, prerendered in every language.
-- 🌍 **12 locales** — `en` `es` `fr` `de` `pt` `ja` `zh` `hi` `ar` `ru` `bn` `ur`, with `ar`/`ur` right-to-left. English is the source; the other eleven are machine-translated by a LibreTranslate pipeline (`pnpm translate` locally, a GitHub Action in CI). An untranslated page falls back to English at its localized URL rather than 404ing.
-- 👤 **Accounts & progress** — email/password sign-in (Neon Auth), lesson completion tracking, a learner dashboard and a points leaderboard. The curriculum itself never requires an account.
-- 🏆 **Community surfaces** — a [Wall of Fame](https://crmanalytics.imswarnil.com/wall-of-fame) honoring the bloggers, authors and tool builders who taught the ecosystem; a filterable directory of [companies and consultancies](https://crmanalytics.imswarnil.com/companies) on CRM Analytics; and [job listings](https://crmanalytics.imswarnil.com/jobs) refreshed daily from public job boards.
-- 📝 **Submissions** — a multi-step wizard for sharing resources and dashboards, with screenshot uploads to R2 and a human moderation queue behind an admin console.
-- 🎬 **Video-led lessons** — click-to-play embeds; no player script loads until asked for.
-- 💬 **Interview prep** — model Q&A per section, also emitted as `FAQPage` structured data.
-- 🖼️ **Dashboard showcase** — community build write-ups: screenshot, the KPIs with the formula behind each, the build recipe, and technique filters.
-- 🧩 **Machine-readable** — every page as raw Markdown at `/raw/…`, plus `llms.txt` for AI agents.
-- ⚡ **Static-first** — every lesson in every language is prerendered and served from the edge; the Worker only wakes for the signed-in surface and `/api/*`.
+- **161 lessons in 19 sections**, prerendered in **12 languages** (2,400+ static pages).
+- **Lesson player** — course contents sidebar with progress rings, prev / mark complete / next, a course
+  timeline, collapsible table of contents, screen walkthroughs, graded quizzes and interview Q&A.
+- **Accounts and progress** (Neon Auth), points, a leaderboard, comments on every lesson, a demo account.
+- **Pro lessons** — the body of a Pro lesson never ships in the static bundle; it is served after a
+  server-side entitlement check. Payments through **Dodo Payments**; video through **Mux** (signed for Pro).
+- **Community** — submit resources, dashboards and lesson ideas; moderated in `/admin`; a showcase of
+  dashboard write-ups with KPIs, formulas and build recipes.
+- **Business pages** — team quotations, classroom enrolment and implementation enquiries into one inbox.
+- **AI-ready** — any lesson as raw markdown at `/raw/<path>.md`, an `llms.txt`, a search page (`/ask`) and a
+  read-only **MCP server** at `/mcp` (`list_curriculum`, `search_lessons`, `get_lesson`).
+- **Blueprint design system** — paper/ink tokens, graph paper, crop marks, hard shadows, mono labels
+  (spec in [`docs/design-handoff-blueprint/`](./docs/design-handoff-blueprint)).
+- **Payload CMS** for authoring, written back to markdown so git stays the source of truth.
 
-## Tech stack
+## The curriculum
 
-| Area | Choice |
-|------|--------|
-| Framework | **Nuxt 4** (Vue 3, Nitro) |
-| Content | **@nuxt/content 3** (Markdown, SQLite at build time) |
-| UI | **Nuxt UI v4** + **Tailwind CSS 4** |
-| i18n | **@nuxtjs/i18n** (12 locales) + LibreTranslate pipeline |
-| Auth & data | **Neon Postgres** + **Neon Auth** (better-auth) |
-| Media | **Cloudflare R2** (screenshots, lesson media) |
-| SEO | `nuxt-og-image`, `nuxt-llms`, JSON-LD structured data |
-| Hosting | **Cloudflare Workers** (static assets + a small dynamic Worker), deployed by GitHub Actions |
+| # | Section | Lessons |
+|---|---|---|
+| 00 | [Introduction](https://crmanalytics.imswarnil.com/introduction) | 8 |
+| 01 | [CRM Analytics Basics](https://crmanalytics.imswarnil.com/foundations) | 9 |
+| 02 | [Setup, Profiles & Security](https://crmanalytics.imswarnil.com/setup) | 9 |
+| 03 | [Data Preparation](https://crmanalytics.imswarnil.com/data-preparation) | 11 |
+| 04 | [Datasets & Modelling](https://crmanalytics.imswarnil.com/datasets-and-modelling) | 8 |
+| 05 | [Data Visualization](https://crmanalytics.imswarnil.com/data-visualization) | 13 |
+| 06 | [Lenses & Exploration](https://crmanalytics.imswarnil.com/lenses-and-explorations) | 6 |
+| 07 | [SAQL](https://crmanalytics.imswarnil.com/saql) | 9 |
+| 08 | [Dashboard Design & UI](https://crmanalytics.imswarnil.com/designing-dashboards) | 8 |
+| 09 | [Interactions & Faceting](https://crmanalytics.imswarnil.com/interactions) | 6 |
+| 10 | [Bindings](https://crmanalytics.imswarnil.com/bindings) | 7 |
+| 11 | [Dashboard JSON](https://crmanalytics.imswarnil.com/dashboard-json) | 7 |
+| 12 | [Collaboration & Embedding](https://crmanalytics.imswarnil.com/collaboration) | 9 |
+| 13 | [APIs & Automation](https://crmanalytics.imswarnil.com/apis-and-automation) | 8 |
+| 14 | [Einstein Discovery](https://crmanalytics.imswarnil.com/einstein-discovery) | 8 |
+| 15 | [GTM Engineering](https://crmanalytics.imswarnil.com/gtm-engineering) | 9 |
+| 16 | [Demand Analytics](https://crmanalytics.imswarnil.com/demand-analytics) | 9 |
+| 17 | [Pipeline Analytics](https://crmanalytics.imswarnil.com/pipeline-analytics) | 10 |
+| 18 | [RevOps & Retention](https://crmanalytics.imswarnil.com/revops-analytics) | 7 |
 
-## Quick start
+## Architecture
 
-Requires **Node.js 22.5+** (the content layer uses `node:sqlite`) and **pnpm**.
+**Static-first.** Every public page is prerendered at build time and served by Cloudflare straight from the
+edge; the Worker (Nitro, `cloudflare_module` preset) only runs for requests that miss a static file — the
+API, auth, and private pages. The reading experience never touches the database.
+
+```mermaid
+flowchart LR
+  subgraph Client
+    B[Browser]
+  end
+
+  subgraph Cloudflare
+    A[(Static assets<br/>.output/public<br/>2,400+ prerendered pages)]
+    W[Worker · Nitro<br/>/api/** · /mcp · /raw/** · /media/**<br/>private pages]
+    R2[(R2 bucket<br/>MEDIA)]
+  end
+
+  subgraph Neon Postgres
+    APP[(schema app<br/>progress · entitlement · comment …)]
+    AUTH[(schema neon_auth<br/>users · sessions)]
+    PL[(schema payload<br/>CMS collections)]
+  end
+
+  B -- "GET /saql, /es/saql …" --> A
+  B -- "miss / API" --> W
+  W --> APP
+  W -- "/api/auth/** proxy" --> AUTH
+  W --> R2
+  W -- "checkout" --> DODO[Dodo Payments]
+  DODO -- "webhook (signed)" --> W
+  W -- "signed playback token" --> MUX[Mux]
+  B -- "player.mux.com" --> MUX
+  CMS[Payload CMS · cms/<br/>local authoring] --> PL
+```
+
+**Build and deploy pipeline** (GitHub Actions):
+
+```mermaid
+flowchart LR
+  EN[content/en/**<br/>English markdown] -->|push| TR[translate.yml<br/>LibreTranslate]
+  TR -->|commits 11 locales| C[content/&lt;locale&gt;/**]
+  EN --> G
+  C --> G[gate-content.mjs<br/>Pro bodies → server/assets/gated<br/>public stubs · lesson-meta.json]
+  G --> IDX[build-search-index.mjs<br/>public/ask-index.json]
+  IDX --> NB[nuxt build<br/>prerender every route]
+  NB --> VG[verify-gating.mjs<br/>fail if Pro text is public]
+  VG --> WD[wrangler deploy]
+  WD --> IN[indexnow.mjs<br/>changed URLs → Bing, Yandex …]
+```
+
+| Layer | Choice |
+|---|---|
+| Framework | Nuxt 4, Nuxt Content 3, Nuxt UI 4, Tailwind CSS 4 |
+| Hosting | Cloudflare Workers — static assets + one Worker (`wrangler.jsonc`) |
+| Database | Neon Postgres (`app`, `neon_auth`, `payload` schemas) |
+| Auth | Neon Auth (Better Auth), proxied through `/api/auth/**`; resolved server-side per request |
+| Payments | Dodo Payments (hosted checkout + Standard Webhooks signature) |
+| Video | Mux — public playback for free lessons, RS256-signed tokens for Pro |
+| Media | Cloudflare R2 (`MEDIA` binding), served by `/media/**` |
+| Translation | LibreTranslate, incremental, driven by `scripts/translate.mjs` |
+| CMS | Payload 3 (`cms/`), local authoring, synced to markdown |
+
+## Request flows
+
+**Reading a free lesson** — no Worker, no database:
+
+```mermaid
+sequenceDiagram
+  participant B as Browser
+  participant E as Cloudflare edge
+  participant W as Worker
+  B->>E: GET /es/saql/functions
+  E-->>B: prerendered HTML (+ JSON-LD, hreflang)
+  Note over B: hydrates; content comes from the prerendered payload
+  B->>W: GET /api/progress (only if signed in)
+  W-->>B: completed lessons, points, pro flag
+```
+
+**Unlocking a Pro lesson** — the body exists only inside the Worker bundle:
+
+```mermaid
+sequenceDiagram
+  participant B as Browser
+  participant W as Worker
+  participant DB as Neon (app.entitlement)
+  participant M as Mux
+  B->>W: GET /api/lesson/en/saql/functions
+  W->>W: requireUser (session cookie)
+  W->>DB: hasPro(user)
+  alt not Pro
+    W-->>B: 403 — paywall stays
+  else Pro
+    W->>W: read server asset gated/en/saql/functions.json
+    W->>W: sign Mux playback JWT (RS256, 2 h)
+    W-->>B: markdown + quiz + interview + playback token
+    B->>M: player.mux.com/<id>?playback-token=…
+  end
+```
+
+**Checkout** — the webhook is the only thing that grants Pro:
+
+```mermaid
+sequenceDiagram
+  participant B as Browser
+  participant W as Worker
+  participant D as Dodo Payments
+  participant DB as Neon
+  B->>W: POST /api/billing/checkout {plan}
+  W->>D: create checkout (metadata: user_id, plan)
+  D-->>W: checkout_url
+  W-->>B: redirect to hosted checkout
+  B->>D: pays
+  D->>W: POST /api/billing/webhook (signed)
+  W->>W: verify signature + timestamp
+  W->>DB: insert app.webhook_event (replay guard)
+  W->>DB: upsert app.entitlement (pro = true)
+  Note over B: the return redirect grants nothing
+```
+
+## Data model
+
+Application tables live in the `app` schema (`server/db/*.sql`, applied in order). Users themselves live
+in `neon_auth`; `app` tables key on the auth `user_id`.
+
+```mermaid
+erDiagram
+  PROGRESS {
+    text user_id PK
+    text lesson_path PK
+    timestamptz completed_at
+  }
+  ENTITLEMENT {
+    text user_id PK
+    boolean pro
+    text source
+    text plan
+    text dodo_payment_id
+    text dodo_customer_id
+    text dodo_subscription_id
+    timestamptz current_period_end
+  }
+  WEBHOOK_EVENT {
+    text id PK
+    text kind
+    timestamptz received_at
+  }
+  SUBMISSION {
+    bigint id PK
+    text user_id
+    text kind "resource | showcase | lesson-idea"
+    text title
+    text url
+    text status "pending | approved | rejected"
+  }
+  QUIZ_ATTEMPT {
+    bigint id PK
+    text user_id
+    text lesson_path
+    smallint score
+    smallint total
+  }
+  USER_ROLE {
+    text user_id PK
+    text role "learner | moderator | admin"
+  }
+  INQUIRY {
+    bigint id PK
+    text kind "enrollment | quotation | implementation"
+    text email
+    jsonb details
+    text status
+  }
+  COMMENT {
+    bigint id PK
+    text lesson_path
+    text user_id
+    bigint parent_id FK
+    text body
+    text status "visible | hidden"
+  }
+  DEMO_ACCOUNT {
+    text user_id PK
+  }
+  COMMENT ||--o{ COMMENT : "replies"
+```
+
+Views: `app.user_points` (10 per lesson, 2 per best quiz point, plus approved contributions) feeds the
+leaderboard; `app.admin_user` joins everything the admin console shows about a user.
+
+## API
+
+| Method | Path | Auth | Purpose |
+|---|---|---|---|
+| GET | `/api/progress` | user | Completed lessons, points, rank, Pro flag, weekly activity |
+| POST | `/api/progress` | user (not demo) | Mark a lesson complete / incomplete |
+| POST | `/api/quiz` | user (not demo) | Record a quiz attempt |
+| GET | `/api/leaderboard` | public | All-time or last-30-days ranking |
+| GET | `/api/lesson/<locale>/<route>` | user + Pro | Full body of a Pro lesson + signed Mux token |
+| GET · POST | `/api/comments` | public · user | Read / post comments and one level of replies |
+| DELETE | `/api/comments/:id` | author | Delete your own comment (moderators hide via admin) |
+| GET · POST | `/api/submissions` | user | Own submissions / submit resource, dashboard, idea |
+| POST | `/api/upload` | user | Screenshot upload to R2 |
+| POST | `/api/inquiries` | public | Enrolment, quotation or implementation enquiry |
+| POST | `/api/newsletter` | public | Newsletter signup (proxied to Ghost members) |
+| POST | `/api/billing/checkout` | user (not demo) | Start a Dodo checkout |
+| POST | `/api/billing/portal` | user | Billing portal link |
+| POST | `/api/billing/webhook` | Dodo signature | Grant / revoke Pro |
+| GET | `/api/geo` | public | Visitor country from the edge (first-visit language) |
+| * | `/api/auth/**` | — | Proxy to Neon Auth; `POST /api/auth/demo` signs into the demo account |
+| GET | `/api/admin/me` | user | Role and permissions of the session |
+| GET · PATCH | `/api/admin/submissions`, `/comments`, `/inquiries` | moderator | Moderation queues |
+| GET · PATCH · POST | `/api/admin/users` | admin | Users, roles, Pro grants |
+| GET · PATCH | `/api/admin/lessons` | admin | Access tier + Mux ids, committed to GitHub |
+| GET · PUT | `/api/admin/content/tree`, `/file` | admin | In-browser lesson editor, commits to GitHub |
+| GET | `/api/admin/stats` | admin | Overview metrics |
+| GET | `/raw/<path>.md` | public | Any lesson as raw markdown |
+| GET · POST | `/mcp` | public | MCP server (JSON-RPC 2.0), read-only curriculum tools |
+| GET | `/media/<key>` | public | Serve an R2 object |
+
+## Content pipeline
+
+`content/<locale>/<NN.section>/<NN.lesson>.md` — two-digit prefixes set the order; `.navigation.yml` per
+section sets its title and icon. **Only `content/en/` is written by hand**; the other eleven locales are
+generated. Schema: `content.config.ts`.
+
+| Frontmatter | Meaning |
+|---|---|
+| `title`, `description`, `navigation.title` | Page title, meta description, short sidebar title |
+| `access: free \| pro` | Pro bodies are moved out of the public bundle by `gate-content.mjs` |
+| `mux: { en: id, es: id }` | Mux playback id per language; English is the fallback |
+| `video: { id, start, end }` | YouTube clip at the top of the lesson |
+| `walkthrough: { org, shots[] }` | Screen-recording script, rendered as a step-by-step tour and HowTo JSON-LD |
+| `quiz[]: { q, options[], answer }` | Graded quiz |
+| `interview[]: { q, a }` | Interview Q&A, also FAQPage JSON-LD |
+| `links[]` | Buttons in the lesson header |
+
+Collections: `docs` (lessons, all locales), `showcase` (`content/showcase/`, dashboard write-ups) and
+`resources` (`content/resources/`, curated links).
+
+## Internationalisation
+
+- **12 locales**: `en` (default, unprefixed), `es fr de pt ja zh hi ar ru bn ur`; `ar` and `ur` are RTL.
+  Strategy `prefix_except_default` — `/saql` and `/es/saql`.
+- UI strings in `i18n/locales/*.json`, English only by hand; `pnpm translate` fills the rest and keeps a
+  hash manifest so only changed text is re-translated.
+- **First-visit language**: `app/plugins/locale-auto.client.ts` uses the browser's languages, then the
+  visitor's country (`/api/geo`) when no browser language is supported. Remembered in a cookie; never
+  applied to crawlers, private routes or English-only pages.
+
+## SEO
+
+| Page type | JSON-LD |
+|---|---|
+| Every page | `Organization` + `EducationalOrganization`, `WebSite` (+ `SearchAction` → `/ask`) |
+| Home | `Course` (sections as `hasPart`), `FAQPage` |
+| Curriculum | `CollectionPage`, `BreadcrumbList`, `Course` with timed `syllabusSections` |
+| Lesson | `TechArticle`, `LearningResource`, `BreadcrumbList`, `HowTo` (walkthrough), `FAQPage` (interview), `VideoObject` (YouTube); translations linked with `workTranslation` / `translationOfWork`; Pro lessons marked `isAccessibleForFree: false` with the gated element |
+| Pricing | `Course` with real `Offer`s, `FAQPage` |
+| Teams, training, implementation | `Service` |
+| Showcase, resources, jobs, leaderboard | `CollectionPage` / `ItemList` |
+| Other pages | typed `WebPage` + `BreadcrumbList` (`usePageSchema()`) |
+
+Plus: canonical and `hreflang` (with `x-default`) on every page, a per-locale sitemap index
+(`/sitemap_index.xml`), OG images per page, `robots.txt` open to search and AI crawlers, and
+**IndexNow** submission of changed URLs after every deploy.
+
+## CMS (Payload)
+
+`cms/` is a Payload 3 app (its own pnpm project; the site's build never installs it). It stores data in the
+`payload` schema of the same Neon database and never touches `app` or `neon_auth`. The site never reads
+Payload at runtime — content still reaches it as markdown.
+
+```bash
+pnpm cms:dev        # http://localhost:3100/admin
+pnpm cms:import     # content/ → Payload (upsert on file path)
+pnpm cms:pull:dry   # what would change
+pnpm cms:pull       # Payload → content/ (rewrites only files whose parsed content changed)
+```
+
+Lesson bodies are stored verbatim as markdown so MDC components survive the round trip.
+
+## Directory map
+
+```text
+app/
+  pages/              index, curriculum, [...slug] (every lesson), pricing, showcase/, dashboard, admin …
+  layouts/docs.vue    the lesson player grid (lesson + course contents sidebar)
+  components/bp/      Blueprint primitives: PageHeader, Figure, BarChart, Donut, Timeline, CourseContents …
+  components/content/ MDC blocks used inside lessons (FieldTable, MetricSpec, FunnelViz …)
+  composables/        useCourse, useProgress, useLessonMeta, usePageSchema …
+  plugins/            analytics, service worker, first-visit language
+  assets/css/main.css Blueprint tokens and utilities
+server/
+  api/                the routes above
+  utils/              auth, admin roles, db, dodo, entitlement, mux signing, memo cache
+  db/*.sql            migrations, applied by hand to Neon in order
+  routes/             /mcp, /raw/**, /media/**
+content/              lessons (12 locales), showcase/, resources/
+scripts/              gating, translation, search index, IndexNow, Mux upload, lesson-to-video, jobs
+cms/                  Payload CMS
+content-assets/       reusable brand, background, video and project images
+docs/                 the Blueprint design handoff
+.github/workflows/    deploy (Cloudflare), translate, jobs, Pages rollback
+```
+
+## Scripts
+
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Dev server (`http://localhost:3000`), search index first |
+| `pnpm build` | Gate Pro content → search index → `nuxt build` (prerender) → verify gating |
+| `pnpm preview` | Build, then run the Worker locally with `wrangler dev` |
+| `pnpm lint` / `pnpm typecheck` | ESLint / `nuxt typecheck` — the CI gates |
+| `pnpm translate` | Translate changed English content and UI strings (`--locales`, `--only`, `--dry-run`) |
+| `pnpm gate` | Move Pro lesson bodies into server assets; write `app/data/lesson-meta.json` |
+| `pnpm verify:gating` | Fail if any Pro text is in the public bundle |
+| `pnpm ask:index` | Build `public/ask-index.json` for `/ask` and the MCP server |
+| `pnpm cms:*` | Payload dev / import / pull (see above) |
+| `pnpm mux:lesson <lesson> <video> [--lang=es]` | Upload a lesson video to Mux and write its playback id |
+
+## Local setup
+
+Requires Node 22+ and **pnpm** (not npm).
 
 ```bash
 git clone https://github.com/imswarnil/CRM-Analytics-Academy.git
 cd CRM-Analytics-Academy
 pnpm install
-pnpm dev                  # → http://localhost:3000
+cp .env.example .env      # only NUXT_PUBLIC_SITE_URL is needed to read lessons
+pnpm dev                  # http://localhost:3000
 ```
 
-The curriculum, showcase and every static page work with no configuration.
-Auth, progress and uploads need the environment variables below; without
-them those surfaces degrade gracefully.
+The dynamic layer (sign-in, progress, admin, payments) needs the Neon, Neon Auth, Dodo and Mux values
+documented in `.env.example`; for `wrangler dev` put them in `.dev.vars`. Without them the curriculum still
+renders — only the signed-in features are off.
 
-Verify before committing (there's no test runner):
-
-```bash
-pnpm lint
-pnpm typecheck
-pnpm build                # catches SSR/prerender issues dev mode doesn't
-```
-
-> **Tip:** if the docs sidebar looks empty in dev, the local content DB went stale — run `rm -rf .data && pnpm dev`.
-
-## Environment variables
-
-Copy `.env.example` to `.env` (gitignored). All are optional for working on
-content; the dynamic layer needs the Neon ones.
-
-| Variable | Purpose |
-|----------|---------|
-| `NUXT_PUBLIC_SITE_URL` | Public site URL, used for OG images when prerendering. |
-| `DATABASE_URL` | Neon pooled connection string (progress, submissions, roles). |
-| `NEON_AUTH_BASE_URL` / `NEON_AUTH_COOKIE_SECRET` | Neon Auth (managed better-auth) endpoint and cookie secret. |
-| `ADMIN_EMAILS` | Comma-separated bootstrap admin allowlist. |
-| `LIBRETRANSLATE_URL` | Translation server for `pnpm translate`. |
-| `ADZUNA_APP_ID` / `ADZUNA_APP_KEY` | Optional; enriches the daily jobs refresh. |
-
-## Project structure
-
-```
-content/                 Lessons (Markdown), per locale → per section
-  showcase/              Community dashboard write-ups (not localized)
-app/
-  pages/                 Routes incl. the [...slug] catch-all for docs
-  components/            Header, footer, hero, ads, MDC content components
-  composables/           Auth, progress, course, ad slots, JSON-LD
-  data/jobs.json         Jobs dataset, refreshed daily by a workflow
-server/
-  api/                   Auth proxy, progress, submissions, uploads, admin
-  routes/raw/            Any page as raw Markdown, for AI agents
-  routes/media/          R2-backed media (screenshots)
-  db/                    SQL schema for the Neon database
-scripts/                 Translation pipeline, jobs fetcher, content gating
-.github/workflows/       Cloudflare deploy, translation, daily jobs refresh
-```
-
-## Adding a lesson
-
-Add a Markdown file — never a `.vue` file:
-
-```
-content/en/<NN.section>/<NN.lesson>.md
-```
-
-Numeric prefixes set the ordering; `.navigation.yml` in each section folder sets
-its sidebar title and icon. New pages must be link-reachable from `/` to be
-prerendered. Push to `main` and the pipeline translates and deploys.
+If the docs sidebar is ever empty in dev, the Nuxt Content dev database is stale:
+`rm -rf .data && pnpm dev`.
 
 ## Deployment
 
-Every push to `main` runs lint + typecheck, builds, and deploys to Cloudflare
-Workers (`.github/workflows/deploy-cloudflare.yml`). The whole curriculum is
-prerendered and served as static assets from the edge; requests with no
-matching file — `/api/*`, the signed-in pages — fall through to the Worker.
-A manual-dispatch GitHub Pages workflow remains as a documented static-only
-rollback path.
+Push to `main`. `.github/workflows/deploy-cloudflare.yml` runs lint, typecheck, `pnpm build` (with the
+gating check) and `wrangler deploy`, then notifies IndexNow. Runtime secrets live on the Worker
+(`wrangler secret put …`), never in CI. A push that changes `content/en/**` or `i18n/locales/en.json` also
+runs `translate.yml`, which commits the eleven translated locales and triggers another deploy.
+`deploy.yml` is a manual, static-only GitHub Pages fallback.
 
 ## Contributing
 
-Contributions are welcome — add a lesson, translate content, suggest a resource,
-or improve the code. See the full guide at
-**[/contribute](https://crmanalytics.imswarnil.com/contribute)**, or submit a
-resource directly at **[/submit](https://crmanalytics.imswarnil.com/submit)**.
+Every lesson is a markdown file — fix a typo with **Edit this page** on any lesson, or add a lesson under
+`content/en/` (never a Vue file). New UI strings go in `i18n/locales/en.json` only. Run `pnpm lint` and
+`pnpm typecheck` before opening a pull request. The full guide is at
+[crmanalytics.imswarnil.com/contribute](https://crmanalytics.imswarnil.com/contribute).
+
+CRM Analytics Academy is an independent project and is not affiliated with Salesforce, Inc.
 
 ## License
 
-[MIT](./LICENSE) © Swarnil Singhai
+[MIT](./LICENSE).

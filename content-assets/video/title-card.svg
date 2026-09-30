@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs>
+  <pattern id="gl-minor" width="24" height="24" patternUnits="userSpaceOnUse">
+    <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(47,91,234,0.06)" stroke-width="1"/>
+  </pattern>
+  <pattern id="gl" width="120" height="120" patternUnits="userSpaceOnUse">
+    <rect width="120" height="120" fill="url(#gl-minor)"/>
+    <path d="M 120 0 L 0 0 0 120" fill="none" stroke="rgba(47,91,234,0.13)" stroke-width="1.25"/>
+  </pattern></defs>
+<rect width="1920" height="1080" fill="#F4F7FB"/>
+<rect width="1920" height="1080" fill="url(#gl)"/>
+  <path d="M 140 200 h 40 M 160 180 v 40 M 1740 200 h 40 M 1760 180 v 40 M 140 880 h 40 M 160 860 v 40 M 1740 880 h 40 M 1760 860 v 40" stroke="#2F5BEA" stroke-width="1.5"/>
+  <text x="200" y="320" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="6" fill="#2F5BEA">LESSON 001 / 161 — INTRODUCTION</text>
+  <text x="196" y="520" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="150" letter-spacing="-6" fill="#0C1B33">Lesson title</text>
+  <text x="200" y="620" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="44" fill="#4A5B78">One line on what this lesson teaches.</text>
+  <rect x="200" y="720" width="96" height="96" fill="none" stroke="#0C1B33" stroke-width="3.4285714285714284"/><rect x="219.2" y="776.64" width="13.714285714285712" height="20.159999999999997" fill="#A8CCF2"/><rect x="241.1428571428571" y="762.24" width="13.714285714285712" height="34.559999999999995" fill="#3D8BD9"/><rect x="263.0857142857143" y="744.9599999999999" width="13.714285714285712" height="51.839999999999996" fill="#2F5BEA"/>
+  <text x="324" y="770" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="800" font-size="40" fill="#0C1B33">CRM Analytics</text>
+  <text x="324" y="806" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="20" letter-spacing="3" fill="#4A5B78">BY SWARNIL</text>
+</svg>

@@ -14,6 +14,7 @@
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
     "translate": "node --env-file-if-exists=.env scripts/translate.mjs",
+    "i18n:review": "node scripts/review-titles.mjs",
     "gate": "node scripts/gate-content.mjs",
     "ask:index": "node scripts/build-search-index.mjs",
     "verify:gating": "node scripts/verify-gating.mjs",

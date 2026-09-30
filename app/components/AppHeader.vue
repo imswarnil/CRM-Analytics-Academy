@@ -92,11 +92,17 @@ const localeItems = computed(() =>
     onSelect: () => setLocale(l.code)
   }))
 )
+
+// The course player and the curriculum sheet run edge to edge, so the navbar
+// does too there; everywhere else it keeps the page container.
+const fluid = computed(() =>
+  route.meta.layout === 'docs' || /^(\/[a-z]{2})?\/curriculum\/?$/.test(route.path)
+)
 </script>
 
 <template>
   <UHeader
-    :ui="{ center: 'hidden', left: 'lg:flex-none', right: 'lg:flex-1', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-none border-[1.5px] border-(--ink) size-9 flex items-center justify-center' }"
+    :ui="{ container: fluid ? 'max-w-none' : '', center: 'hidden', left: 'lg:flex-none', right: 'lg:flex-1', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-none border-[1.5px] border-(--ink) size-9 flex items-center justify-center' }"
     :to="localePath('/')"
   >
     <template #left>

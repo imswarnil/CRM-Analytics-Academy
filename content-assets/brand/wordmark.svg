@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="240" viewBox="0 0 960 240">
+<defs></defs>
+
+
+  <rect x="32" y="40" width="160" height="160" fill="none" stroke="#0C1B33" stroke-width="5.714285714285714"/><rect x="64" y="134.4" width="22.857142857142858" height="33.599999999999994" fill="#A8CCF2"/><rect x="100.57142857142857" y="110.4" width="22.857142857142858" height="57.599999999999994" fill="#3D8BD9"/><rect x="137.14285714285714" y="81.6" width="22.857142857142858" height="86.4" fill="#2F5BEA"/>
+  <text x="232" y="132" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="800" font-size="76" letter-spacing="-2" fill="#0C1B33">CRM Analytics</text>
+  <text x="236" y="184" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="26" letter-spacing="4" fill="#4A5B78">BY SWARNIL</text>
+</svg>

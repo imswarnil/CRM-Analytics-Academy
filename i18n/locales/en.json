@@ -279,8 +279,8 @@
     "f2": "161 lessons",
     "hero": {
       "eyebrow": "Updated for the current Salesforce release",
-      "title": "Learn CRM Analytics the way it’s used at work.",
-      "lead": "One focused, free course. Walkthroughs and hands-on lessons that take you from your first lens to production dashboards, recipes, SAQL and go-to-market analytics — on one company’s data.",
+      "title": "Learn Salesforce CRM Analytics the way it’s used at work.",
+      "lead": "A free, hands-on Salesforce CRM Analytics course: recipes, SAQL, dashboards, security and Einstein Discovery, built on one company’s real data.",
       "start": "Start lesson 1",
       "curriculum": "See curriculum"
     },
@@ -292,6 +292,40 @@
       "title": "Training a whole Salesforce team?",
       "lead": "Team plans, progress reports your manager can read, classroom batches and a curriculum fitted to your org.",
       "cta": "See team plans"
+    },
+    "slides": {
+      "label": "Course figures",
+      "prev": "Previous figure",
+      "next": "Next figure",
+      "dataflow": "A dataflow, drawn",
+      "dataflowNote": "Sources → recipe → dataset → lens and dashboard. Built by hand in section 03.",
+      "topics": "What you will build",
+      "tiles": {
+        "ai": {
+          "title": "AI with Einstein Discovery",
+          "line": "Stories, scores, write-back"
+        },
+        "security": {
+          "title": "Security predicates",
+          "line": "Row-level security that passes audit"
+        },
+        "saql": {
+          "title": "Complex SAQL",
+          "line": "Windowing, cogroup, debugging"
+        },
+        "kpis": {
+          "title": "KPIs that hold up",
+          "line": "Metric contracts and definitions"
+        },
+        "bindings": {
+          "title": "Bindings",
+          "line": "Selection and results bindings"
+        },
+        "recipes": {
+          "title": "Data prep recipes",
+          "line": "Joins, formulas, de-duplication"
+        }
+      }
     }
   },
   "footer": {

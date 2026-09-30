@@ -251,39 +251,37 @@ const teamBars = [
           </div>
         </div>
 
-        <BpFigure
-          caption="Fig. 01 — Academy ARR by month"
-          spec="Built in Build 14"
-          shadow
-        >
-          <div class="p-4 sm:p-5">
-            <div class="grid grid-cols-3 border-[1.5px] border-(--line)">
-              <div
-                v-for="(k, i) in heroKpis"
-                :key="k.label"
-                class="p-3"
-                :class="i ? 'border-s-[1.5px] border-(--line)' : ''"
-              >
-                <p class="font-mono text-[9px] uppercase tracking-[.12em] text-(--ink2)">
-                  {{ k.label }}
-                </p>
-                <p class="mt-1 text-2xl font-extrabold tracking-[-0.03em] text-(--ink)">
-                  {{ k.value }}
-                </p>
-                <p class="mt-0.5 font-mono text-[10px] text-(--signal)">
-                  {{ k.delta }}
-                </p>
+        <BpHeroSlides>
+          <template #arr>
+            <div class="p-4 sm:p-5">
+              <div class="grid grid-cols-3 border-[1.5px] border-(--line)">
+                <div
+                  v-for="(k, i) in heroKpis"
+                  :key="k.label"
+                  class="p-3"
+                  :class="i ? 'border-s-[1.5px] border-(--line)' : ''"
+                >
+                  <p class="font-mono text-[9px] uppercase tracking-[.12em] text-(--ink2)">
+                    {{ k.label }}
+                  </p>
+                  <p class="mt-1 text-2xl font-extrabold tracking-[-0.03em] text-(--ink)">
+                    {{ k.value }}
+                  </p>
+                  <p class="mt-0.5 font-mono text-[10px] text-(--signal)">
+                    {{ k.delta }}
+                  </p>
+                </div>
+              </div>
+              <div class="mt-6 ps-7">
+                <BpBarChart
+                  :bars="heroBars"
+                  :height="150"
+                  :ticks="['0', '2M', '4M', '6M']"
+                />
               </div>
             </div>
-            <div class="mt-6 ps-7">
-              <BpBarChart
-                :bars="heroBars"
-                :height="150"
-                :ticks="['0', '2M', '4M', '6M']"
-              />
-            </div>
-          </div>
-        </BpFigure>
+          </template>
+        </BpHeroSlides>
       </div>
     </section>
 

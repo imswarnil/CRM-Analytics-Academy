@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs></defs>
+
+
+  <g transform="translate(96 820)">
+    <rect x="10" y="10" width="760" height="150" fill="#0C1B33"/>
+    <rect width="760" height="150" fill="#FAFCFE" stroke="#0C1B33" stroke-width="3"/>
+    <rect width="12" height="150" fill="#2F5BEA"/>
+    <text x="44" y="42" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="18" letter-spacing="4" fill="#2F5BEA">FIG. 01 — SPEAKER</text>
+    <text x="44" y="96" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="800" font-size="46" letter-spacing="-1" fill="#0C1B33">Swarnil Singhai</text>
+    <text x="44" y="130" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#4A5B78">CRM Analytics Academy</text>
+  </g>
+</svg>
