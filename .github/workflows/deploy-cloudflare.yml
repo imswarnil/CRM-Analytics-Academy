@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history, so the IndexNow step can diff against the previous push.
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
 
@@ -57,3 +60,15 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # Tell IndexNow engines (Bing, Yandex, Seznam, Naver) which pages this
+      # push changed, so they recrawl in hours. A manual run submits the whole
+      # sitemap. Never fails the deploy — the site is already live by now.
+      - name: Notify search engines (IndexNow)
+        continue-on-error: true
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            node scripts/indexnow.mjs --all
+          else
+            node scripts/indexnow.mjs --since=${{ github.event.before }}
+          fi

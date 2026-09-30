@@ -185,11 +185,22 @@ const paywall = isPro
   ? { isAccessibleForFree: false, hasPart: { '@type': 'WebPageElement', 'isAccessibleForFree': false, 'cssSelector': '.bp-paywalled' } }
   : { isAccessibleForFree: true }
 
+// Every lesson exists in twelve languages at twelve URLs. The English one is
+// the original; the rest say they are translations of it, and it lists them —
+// so search engines treat them as one work in many languages rather than as
+// twelve near-duplicates.
+const englishRoute = normalise(route.path)
+const articleId = (code: string) => `${SITE.url}${code === DEFAULT_LOCALE ? '' : `/${code}`}${englishRoute === '/' ? '' : englishRoute}#article`
+const translations = locale.value === DEFAULT_LOCALE
+  ? { workTranslation: localeCodes.filter(c => c !== DEFAULT_LOCALE).map(c => ({ '@id': articleId(c), 'inLanguage': locales.value.find(l => l.code === c)?.language || c })) }
+  : { translationOfWork: { '@id': articleId(DEFAULT_LOCALE) } }
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const jsonLd: any[] = [
   {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
+    '@id': articleId(locale.value),
     'headline': title,
     'description': description,
     // The locale this page was prerendered for, not a fixed 'en'.
@@ -199,6 +210,7 @@ const jsonLd: any[] = [
     'publisher': { '@id': ORG_ID },
     'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url },
     'timeRequired': `PT${lessonMeta.minutes}M`,
+    ...translations,
     ...paywall
   },
   {

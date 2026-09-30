@@ -562,5 +562,9 @@
     "submitTitle": "Know a resource that belongs here?",
     "submitBody": "Docs, a course, a tool, a community — anything that taught you something about CRM Analytics. Title, link and one line on why it is worth someone’s time. A maintainer reviews it before it appears.",
     "submitCta": "Submit a resource"
+  },
+  "localeAuto": {
+    "switched": "Showing this page in {language}",
+    "keepEnglish": "Keep English"
   }
 }
