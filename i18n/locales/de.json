@@ -562,5 +562,9 @@
     "submitTitle": "Kennen Sie eine Ressource, die hierher gehört?",
     "submitBody": "Docs, ein Kurs, ein Tool, eine Community - alles, was Sie etwas über CRM Analytics. Titel, Link und eine Zeile darüber, warum es jemandes Zeit wert ist. Ein Maintainer überprüft es, bevor es erscheint.",
     "submitCta": "Einreichen einer Ressource"
+  },
+  "localeAuto": {
+    "switched": "Diese Seite anzeigen in {language}",
+    "keepEnglish": "Bleiben Sie Englisch"
   }
 }

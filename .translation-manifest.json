@@ -291,7 +291,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:fr": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -585,7 +587,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:de": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -879,7 +883,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:pt": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1173,7 +1179,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:ja": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1467,7 +1475,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:hi": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -1761,7 +1771,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:ar": {
     "language": "ba118bf7fc9c1aed",
@@ -2190,7 +2202,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:ru": {
     "language": "ba118bf7fc9c1aed",
@@ -2619,7 +2633,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:bn": {
     "language": "ba118bf7fc9c1aed",
@@ -3048,7 +3064,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:ur": {
     "language": "ba118bf7fc9c1aed",
@@ -3477,7 +3495,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "ui:zh": {
     "nav.showcase": "9a15dc9c62db5943",
@@ -3771,7 +3791,9 @@
     "home.method.lead": "e01d39f105be2fa3",
     "home.teams.title": "95d5183083db426b",
     "home.teams.lead": "feb7b5365fbe8bb5",
-    "home.teams.cta": "f00c496a6b423ba5"
+    "home.teams.cta": "f00c496a6b423ba5",
+    "localeAuto.switched": "2bb3d4a28010b3e5",
+    "localeAuto.keepEnglish": "ca351f6fda3136f4"
   },
   "es:01.foundations/.navigation.yml": "1f494ca2f772dbd5",
   "es:02.setup/01.index.md": "07a8ef9477a9ae96",

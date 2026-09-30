@@ -562,5 +562,9 @@
     "submitTitle": "ここで所属するリソースを知っていますか?",
     "submitBody": "Docs, コース, ツール, コミュニティ — 何かを教えた CRM Analyticsお問い合わせ タイトル、リンク、誰の時間を価値がある理由の1行。 メンテナーが表示される前にレビューします。",
     "submitCta": "リソースの送信"
+  },
+  "localeAuto": {
+    "switched": "サイトマップ {language}",
+    "keepEnglish": "英語を保ち続ける"
   }
 }

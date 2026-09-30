@@ -562,5 +562,9 @@
     "submitTitle": "知道属于这里的资源吗?",
     "submitBody": "医生,一个课程,一个工具,一个社区——任何教你的东西 CRM Analytics。 。 。 标题、链接和一条线, 维护者会在出现前审查它.",
     "submitCta": "提交资源"
+  },
+  "localeAuto": {
+    "switched": "显示此页面 {language}",
+    "keepEnglish": "保留英文"
   }
 }
