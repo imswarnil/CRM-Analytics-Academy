@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const title = 'Terms of Service'
-const description = 'The terms for using the CRM Analytics Academy curriculum.'
+const description = 'The terms for using CRM Analytics Academy: the free curriculum and its licence, accounts and progress, Pro purchases, community content and acceptable use.'
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
+
+usePageSchema({ name: title, description, type: 'WebPage' })
 
 const sections = [
   {

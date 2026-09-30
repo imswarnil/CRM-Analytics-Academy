@@ -3,7 +3,7 @@
  * Implementation services, and the consultation request form.
  */
 const title = 'CRM Analytics implementation'
-const description = 'Salesforce CRM Analytics implementation by the people who wrote the course: rollouts, dashboards, data pipelines, Einstein Discovery and rescues of stalled projects. Request a consultation.'
+const description = 'CRM Analytics implementation by the people who wrote the course: rollouts, dashboards, data pipelines, Einstein Discovery and rescues of stalled projects.'
 // Hand-written English, so one copy: twelve locale copies of an untranslated
 // page add prerender weight (the build runs near its heap limit) and nothing
 // a reader can use.
@@ -11,6 +11,21 @@ defineI18nRoute({ locales: ['en'] })
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
+
+usePageSchema({
+  name: title,
+  description,
+  type: 'WebPage',
+  extra: [{
+    '@type': 'Service',
+    'name': title,
+    'description': description,
+    'serviceType': 'Salesforce CRM Analytics implementation consulting',
+    'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
+    'areaServed': 'Worldwide',
+    'url': `${SITE.url}/implementation`
+  }]
+})
 
 const services = [
   { icon: 'i-lucide-rocket', title: 'New rollout', text: 'Licences, permission sets, security predicates, the first datasets and a first dashboard people use.' },

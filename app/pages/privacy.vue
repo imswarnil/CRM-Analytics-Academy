@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const title = 'Privacy Policy'
-const description = 'How CRM Analytics Academy handles data, cookies, analytics, and advertising.'
+const description = 'How CRM Analytics Academy handles your data: what an account stores, cookies, analytics, advertising, payments through Dodo Payments, and how to delete it all.'
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
+
+usePageSchema({ name: title, description, type: 'WebPage' })
 
 const sections = [
   {

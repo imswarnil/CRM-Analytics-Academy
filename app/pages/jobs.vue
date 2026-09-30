@@ -19,6 +19,7 @@ const description = computed(() => t('jobs.subtitle'))
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title: title.value, description: description.value })
+usePageSchema({ name: title.value, description: description.value, type: 'CollectionPage' })
 
 const jobs = jobsData.jobs as Job[]
 

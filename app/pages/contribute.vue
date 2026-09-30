@@ -5,6 +5,8 @@ const description = 'Full contributor guide: set up locally, write and translate
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
+usePageSchema({ name: title, description, type: 'WebPage' })
+
 const localePath = useLocalePath()
 const repo = 'https://github.com/imswarnil/CRM-Analytics-Academy'
 

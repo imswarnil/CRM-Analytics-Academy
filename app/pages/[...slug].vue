@@ -80,11 +80,19 @@ const surround = computed(() =>
 const title = page.value.seo?.title || page.value.title
 const description = page.value.seo?.description || page.value.description
 
+// Search results cut a description near 160 characters, mid-word. Trim it at
+// a word boundary instead; the full text stays on the page and in JSON-LD.
+function metaDescription(text?: string, max = 158) {
+  if (!text || text.length <= max) return text
+  const cut = text.slice(0, max)
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 100)).replace(/[\s,;:—–-]+$/, '')}…`
+}
+
 useSeoMeta({
   title,
   ogTitle: title,
-  description,
-  ogDescription: description
+  description: metaDescription(description),
+  ogDescription: metaDescription(description, 200)
 })
 
 // Render a copy of the page with in-article ads auto-injected between sections.
@@ -167,6 +175,16 @@ const tocBottomLinks = computed(() => {
   return [...links, ...(toc?.bottom?.links || [])].filter(Boolean)
 })
 
+// A Pro lesson's body is behind a paywall. Google's rule for that is to say
+// so in structured data — isAccessibleForFree false plus the element that is
+// gated — or the difference between what it crawls and what a reader sees
+// can be treated as cloaking. `.bp-paywalled` is the gate in LessonProGate.
+const lessonMeta = useLessonMeta().of(route.path)
+const isPro = page.value?.access === 'pro'
+const paywall = isPro
+  ? { isAccessibleForFree: false, hasPart: { '@type': 'WebPageElement', 'isAccessibleForFree': false, 'cssSelector': '.bp-paywalled' } }
+  : { isAccessibleForFree: true }
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const jsonLd: any[] = [
   {
@@ -178,8 +196,10 @@ const jsonLd: any[] = [
     'inLanguage': locales.value.find(l => l.code === locale.value)?.language || locale.value,
     'mainEntityOfPage': SITE.url + route.path,
     'author': { '@type': 'Person', 'name': SITE.author },
-    'publisher': { '@type': 'Organization', 'name': SITE.name, 'logo': { '@type': 'ImageObject', 'url': `${SITE.url}/icon-512.png` } },
-    'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url }
+    'publisher': { '@id': ORG_ID },
+    'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url },
+    'timeRequired': `PT${lessonMeta.minutes}M`,
+    ...paywall
   },
   {
     '@context': 'https://schema.org',
@@ -204,7 +224,8 @@ jsonLd.push({
   'learningResourceType': page.value?.walkthrough?.shots?.length ? 'Hands-on exercise' : 'Lesson',
   'educationalLevel': 'Professional',
   'teaches': 'Salesforce CRM Analytics',
-  'isAccessibleForFree': true,
+  'timeRequired': `PT${lessonMeta.minutes}M`,
+  ...paywall,
   'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url }
 })
 

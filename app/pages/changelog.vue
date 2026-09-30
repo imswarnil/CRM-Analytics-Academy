@@ -1,8 +1,10 @@
 <script setup lang="ts">
 const title = 'Changelog'
-const description = 'Recent updates and improvements to CRM Analytics Academy.'
+const description = 'What changed on CRM Analytics Academy, release by release: new lessons and sections, dashboard builds, translations, site features and fixes.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
+
+usePageSchema({ name: title, description, type: 'WebPage' })
 
 interface Entry {
   date: string

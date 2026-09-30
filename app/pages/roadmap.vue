@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const localePath = useLocalePath()
 const title = 'Roadmap'
-const description = 'Our vision for CRM Analytics Academy and what we\'re building next — now, next, and later.'
+const description = 'Where CRM Analytics Academy is going: what is being built now, what comes next and what is planned later — lessons, dashboard builds, videos and site features.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
+
+usePageSchema({ name: title, description, type: 'WebPage' })
 
 const principles = [
   { icon: 'i-lucide-gift', title: 'Free, forever', text: 'The core course, exams and certificates stay free — funded by sponsors, ads and optional Pro.' },

@@ -305,9 +305,9 @@
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics を学ぶ",
     "homeDesc": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。データ準備や SAQL からダッシュボード、Einstein Discovery まで、2つの実践モジュールで学べます。",
-    "aboutTitle": "概要 — CRM Analytics Academy",
+    "aboutTitle": "概要",
     "aboutDesc": "Salesforce CRM Analytics のためのオープンソース・カリキュラム「CRM Analytics Academy」の背景と、それを作る人物の物語。",
-    "resourcesTitle": "リソース — CRM Analytics Academy",
+    "resourcesTitle": "リソース",
     "resourcesDesc": "Salesforce CRM Analytics の最良のリソース集。公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツール。",
     "showcaseTitle": "ダッシュボードのショーケース",
     "showcaseDesc": "リアル CRM Analytics コミュニティが構築したダッシュボード — KPI、その背後にある式、各々のビルドに使われる技術。"

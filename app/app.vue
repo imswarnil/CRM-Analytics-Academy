@@ -138,16 +138,20 @@ useJsonLd([
   {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'EducationalOrganization'],
+    '@id': ORG_ID,
     'name': SITE.name,
     'url': SITE.url,
     'description': SITE.description,
-    'logo': `${SITE.url}/icon-512.png`,
+    'logo': { '@type': 'ImageObject', 'url': `${SITE.url}/icon-512.png`, 'width': 512, 'height': 512 },
+    'founder': { '@type': 'Person', 'name': SITE.author },
     'sameAs': [SITE.github]
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': WEBSITE_ID,
     'name': SITE.name,
+    'publisher': { '@id': ORG_ID },
     'url': SITE.url,
     'description': SITE.description,
     'inLanguage': bcp47.value,

@@ -50,6 +50,42 @@ const faq = [
   { label: 'Do you store my card?', content: 'No. Card details go straight to Dodo Payments; this site only ever sees whether a payment succeeded.' }
 ]
 
+// Real prices of the real (Dodo) products. Structured data must match what
+// the page shows, so change both together.
+usePageSchema({
+  name: title,
+  description,
+  type: 'WebPage',
+  extra: [
+    {
+      '@type': 'Course',
+      'name': `${SITE.name} Pro`,
+      'description': description,
+      'url': `${SITE.url}/pricing`,
+      'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
+      'hasCourseInstance': { '@type': 'CourseInstance', 'courseMode': 'online', 'courseWorkload': 'PT12H' },
+      'offers': [
+        { '@type': 'Offer', 'name': 'Free', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD', 'availability': 'https://schema.org/InStock', 'url': `${SITE.url}/pricing` },
+        {
+          '@type': 'Offer',
+          'name': 'Pro Monthly',
+          'category': 'Subscription',
+          'price': '9',
+          'priceCurrency': 'USD',
+          'availability': 'https://schema.org/InStock',
+          'url': `${SITE.url}/pricing`,
+          'priceSpecification': { '@type': 'UnitPriceSpecification', 'price': '9', 'priceCurrency': 'USD', 'billingDuration': 'P1M' }
+        },
+        { '@type': 'Offer', 'name': 'Pro Lifetime', 'category': 'Paid', 'price': '99', 'priceCurrency': 'USD', 'availability': 'https://schema.org/InStock', 'url': `${SITE.url}/pricing` }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      'mainEntity': faq.map(f => ({ '@type': 'Question', 'name': f.label, 'acceptedAnswer': { '@type': 'Answer', 'text': f.content } }))
+    }
+  ]
+})
+
 const busy = ref('')
 const error = ref('')
 

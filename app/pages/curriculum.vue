@@ -20,7 +20,7 @@ const { isDone, pro } = useProgress()
 const { of: metaOf } = useLessonMeta()
 
 const title = 'Curriculum'
-const description = 'Every section and every lesson of the CRM Analytics Academy course, in order: orientation, the CRM Analytics product itself, and then the seventeen go-to-market dashboard builds.'
+const description = 'Every section and lesson of the CRM Analytics Academy course, in order: orientation, the product itself, then seventeen go-to-market dashboard builds.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
@@ -63,6 +63,35 @@ const phaseAt = (i: number) => PHASES.find(p => p.from === i)?.label
 
 const maxLesson = computed(() => Math.max(1, ...sections.value.flatMap(s => s.lessons.map(l => l.minutes))))
 const totalHours = computed(() => Math.round(sections.value.reduce((n, s) => n + s.minutes, 0) / 60))
+
+// The whole course as schema.org Course: one syllabus section per course
+// section, timed from the lessons' real lengths.
+usePageSchema(() => ({
+  name: title,
+  description,
+  type: 'CollectionPage',
+  extra: [{
+    '@type': 'Course',
+    'name': SITE.name,
+    'description': description,
+    'url': `${SITE.url}/curriculum`,
+    'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
+    'inLanguage': 'en',
+    'availableLanguage': ['en', 'es', 'fr', 'de', 'pt', 'ja', 'zh', 'hi', 'ar', 'ru', 'bn', 'ur'],
+    'educationalLevel': 'Beginner to advanced',
+    'teaches': 'Salesforce CRM Analytics: data preparation, datasets, SAQL, dashboards, bindings and Einstein Discovery',
+    'isAccessibleForFree': true,
+    'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
+    'hasCourseInstance': { '@type': 'CourseInstance', 'courseMode': 'online', 'courseWorkload': `PT${totalHours.value}H` },
+    'syllabusSections': sections.value.map((s, i) => ({
+      '@type': 'Syllabus',
+      'name': s.title,
+      'position': i + 1,
+      'timeRequired': `PT${s.minutes}M`,
+      'url': `${SITE.url}${s.path}`
+    }))
+  }]
+}))
 
 const doneIn = (s: { lessons: Row[] }) => s.lessons.filter(l => isDone(l.path)).length
 const doneTotal = computed(() => sections.value.reduce((n, s) => n + doneIn(s), 0))

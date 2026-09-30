@@ -61,7 +61,10 @@ watch([pro, loaded], ([isPro]) => {
 
 <template>
   <ClientOnly>
-    <div v-if="pro && lesson">
+    <div
+      v-if="pro && lesson"
+      class="bp-paywalled"
+    >
       <MuxVideo
         v-if="lesson.playback"
         :ids="lesson.playback.playbackId"
@@ -94,7 +97,7 @@ watch([pro, loaded], ([isPro]) => {
 
     <div
       v-else
-      class="relative my-10"
+      class="bp-paywalled relative my-10"
     >
       <!-- Fade the teaser into the lock so it reads as "there is more". -->
       <div
@@ -148,7 +151,7 @@ watch([pro, loaded], ([isPro]) => {
     </div>
 
     <template #fallback>
-      <div class="my-10 h-40 border-[1.5px] border-(--ink) bg-(--card)" />
+      <div class="bp-paywalled my-10 h-40 border-[1.5px] border-(--ink) bg-(--card)" />
     </template>
   </ClientOnly>
 </template>

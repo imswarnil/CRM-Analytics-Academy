@@ -9,7 +9,7 @@
  * away believing they hold a confirmed seat in a building that does not exist.
  */
 const title = 'Classroom training'
-const description = 'Instructor-led CRM Analytics programmes at the Academy\'s training centers and live online: foundations, dashboards and SAQL, go-to-market analytics and a certification bootcamp.'
+const description = 'Instructor-led CRM Analytics programmes, in person and live online: foundations, dashboards and SAQL, go-to-market analytics and a certification bootcamp.'
 // Hand-written English, so one copy: twelve locale copies of an untranslated
 // page add prerender weight (the build runs near its heap limit) and nothing
 // a reader can use.
@@ -17,6 +17,21 @@ defineI18nRoute({ locales: ['en'] })
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
+
+usePageSchema({
+  name: title,
+  description,
+  type: 'WebPage',
+  extra: [{
+    '@type': 'Service',
+    'name': title,
+    'description': description,
+    'serviceType': 'Salesforce CRM Analytics classroom training',
+    'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
+    'areaServed': 'Worldwide',
+    'url': `${SITE.url}/training`
+  }]
+})
 
 const programmes = [
   { key: 'CRM Analytics Foundations (5 days)', title: 'Foundations', days: 5, icon: 'i-lucide-blocks', level: 'Beginner', price: '$1,450', blurb: 'Access and security, data prep, datasets and grain, your first lens and dashboard.' },

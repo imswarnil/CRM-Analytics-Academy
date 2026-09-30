@@ -305,9 +305,9 @@
   "seo": {
     "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",
     "homeDesc": "一套免费开源课程，助你精通 Salesforce CRM Analytics——从数据准备、SAQL 到仪表板和 Einstein Discovery，共两个实操模块。",
-    "aboutTitle": "关于 — CRM Analytics Academy",
+    "aboutTitle": "关于",
     "aboutDesc": "CRM Analytics Academy 背后的故事——一套面向 Salesforce CRM Analytics 的开源课程，以及它的创建者。",
-    "resourcesTitle": "资源 — CRM Analytics Academy",
+    "resourcesTitle": "资源",
     "resourcesDesc": "精选的 Salesforce CRM Analytics 优质资源——官方文档、Trailhead、SAQL 参考、社区和工具。",
     "showcaseTitle": "显示板",
     "showcaseDesc": "真实 CRM Analytics 由社区建造的仪表板——KPI,其背后的公式,以及用于建造每一个的技巧."

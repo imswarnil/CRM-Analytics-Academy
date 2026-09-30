@@ -99,7 +99,7 @@ useJsonLd({
   'url': SITE.url,
   'inLanguage': bcp47.value,
   'isAccessibleForFree': true,
-  'provider': { '@type': 'Organization', 'name': SITE.name, 'sameAs': SITE.url },
+  'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
   'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
   'hasCourseInstance': {
     '@type': 'CourseInstance',

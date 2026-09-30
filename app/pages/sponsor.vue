@@ -5,6 +5,8 @@ const description = 'Sponsor CRM Analytics Academy and help keep the best free, 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
+usePageSchema({ name: title, description, type: 'WebPage' })
+
 const sponsorUrl = 'https://github.com/sponsors/crm-analytics-academy'
 
 const reasons = [

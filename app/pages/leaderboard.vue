@@ -2,9 +2,15 @@
 const { t } = useI18n()
 const localePath = useLocalePath()
 
+const lbTitle = 'Leaderboard'
+const lbDescription = 'The CRM Analytics Academy leaderboard: learners ranked by lessons completed, quizzes passed and contributions accepted, all time and this month.'
+defineOgImage('Docs', { title: lbTitle, description: lbDescription })
+usePageSchema({ name: lbTitle, description: lbDescription, type: 'CollectionPage' })
 useSeoMeta({
-  title: 'Leaderboard',
-  description: 'Learners ranked by lessons completed, quizzes passed and contributions accepted.'
+  ogTitle: lbTitle,
+  ogDescription: lbDescription,
+  title: lbTitle,
+  description: lbDescription
 })
 
 interface Entry {

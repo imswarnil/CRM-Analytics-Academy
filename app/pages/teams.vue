@@ -3,7 +3,7 @@
  * Upskilling for company teams, and the quotation form.
  */
 const title = 'CRM Analytics training for teams'
-const description = 'Upskill your admins, analysts and developers in Salesforce CRM Analytics: onsite, at an Academy center or live virtual, with a curriculum fitted to your org. Request a quotation.'
+const description = 'Train your admins, analysts and developers in Salesforce CRM Analytics — onsite, at a center or live online, fitted to your org. Request a quote.'
 // Hand-written English, so one copy: twelve locale copies of an untranslated
 // page add prerender weight (the build runs near its heap limit) and nothing
 // a reader can use.
@@ -11,6 +11,21 @@ defineI18nRoute({ locales: ['en'] })
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
+
+usePageSchema({
+  name: title,
+  description,
+  type: 'WebPage',
+  extra: [{
+    '@type': 'Service',
+    'name': title,
+    'description': description,
+    'serviceType': 'Salesforce CRM Analytics corporate training',
+    'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
+    'areaServed': 'Worldwide',
+    'url': `${SITE.url}/teams`
+  }]
+})
 
 const plans = [
   {
