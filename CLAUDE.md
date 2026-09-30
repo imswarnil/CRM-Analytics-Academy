@@ -108,6 +108,13 @@ its English source changes. See the `translate-lesson` skill for the full ration
 - **Comments.** `app.comment` (`server/db/006_comments.sql`), one level of replies, keyed by the locale-stripped lesson path. Moderated in `/admin → Comments`.
 - Migrations in `server/db/*.sql` are applied by hand against Neon, in order.
 
+## Languages, search engines and video uploads
+
+- **First-visit language.** `app/plugins/locale-auto.client.ts` picks a locale once: the browser's languages first (a supported one wins, English included), then the country from `/api/geo` (Cloudflare `cf.country`) only when no browser language is supported. India and Pakistan are deliberately unmapped. It stores the pick in the i18n module's `i18n_redirected` cookie; the header switcher (`setLocale`) overrides it. It never runs for bots, private routes or English-only pages — every locale must stay its own crawlable URL.
+- **Structured data.** `usePageSchema()` gives every hand-written page a typed WebPage + BreadcrumbList linked to the site graph (`ORG_ID`, `WEBSITE_ID` in `app.vue`). Lessons build their own in `[...slug].vue` (TechArticle, LearningResource, HowTo, FAQ), with `workTranslation` / `translationOfWork` between the 12 language versions and paywall markup (`.bp-paywalled`) on Pro lessons. Structured data must match the page: no invented prices, addresses or ratings.
+- **IndexNow.** `scripts/indexnow.mjs` (key file in `public/`) runs after every deploy and submits the URLs the push changed; a manual `workflow_dispatch` deploy submits the whole sitemap. Google does not take IndexNow — it uses the sitemap and Search Console.
+- **Mux uploads.** `pnpm mux:lesson <route> <video.mp4> [--lang=es] [--test]` uploads through the Mux CLI's own stored login (`mux login`; no keys in the repo), public for free lessons and signed for Pro, and writes `mux.<lang>` into the English lesson's frontmatter.
+
 ## Environment variables
 
 Local values live in a **gitignored `.env`** (`.env.example` documents the shape). Production secrets live on the Worker (`wrangler secret put`): Neon (`DATABASE_URL`, `NEON_AUTH_*`), admin (`ADMIN_EMAILS`, `GITHUB_CONTENT_TOKEN`), Studio OAuth, Dodo (above) and, once added, Mux signing keys.
