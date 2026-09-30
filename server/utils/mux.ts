@@ -41,14 +41,13 @@ function derLength(n: number): number[] {
  * PKCS#8 envelope WebCrypto requires. Importing PKCS#1 bytes as 'pkcs8' fails
  * with an ASN.1 tag error — which is how every signed video would have failed.
  */
-function pkcs1ToPkcs8(pkcs1: Uint8Array): Uint8Array {
+function pkcs1ToPkcs8(pkcs1: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> {
   // AlgorithmIdentifier: rsaEncryption (1.2.840.113549.1.1.1), NULL params.
   const algorithm = [0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00]
   const version = [0x02, 0x01, 0x00]
   const octet = [0x04, ...derLength(pkcs1.length)]
   const bodyLength = version.length + algorithm.length + octet.length + pkcs1.length
-  const out = new Uint8Array([0x30, ...derLength(bodyLength), ...version, ...algorithm, ...octet, ...pkcs1])
-  return out
+  return new Uint8Array([0x30, ...derLength(bodyLength), ...version, ...algorithm, ...octet, ...pkcs1])
 }
 
 /** Turns the base64 PEM private key Mux issues into a CryptoKey. */
