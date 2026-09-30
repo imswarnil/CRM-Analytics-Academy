@@ -76,12 +76,35 @@ try {
   process.exit(1)
 }
 
-// The CLI prints one JSON document (or one per uploaded file).
-const start = out.search(/[[{]/)
-const json = JSON.parse(out.slice(start))
-const asset = Array.isArray(json) ? json[0] : json
-const playbackId = (asset.playback_ids ?? asset.asset?.playback_ids ?? []).find(p => p.policy === policy)?.id
-  ?? (asset.playback_ids ?? asset.asset?.playback_ids ?? [])[0]?.id
+// With --wait the CLI prints several JSON documents one after another (the
+// upload, then the finished asset). Split them on top-level braces and take
+// the last one that carries playback ids.
+function jsonDocuments(text) {
+  const docs = []
+  let depth = 0
+  let start = -1
+  let inString = false
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i]
+    if (inString) {
+      if (c === '\\') i++
+      else if (c === '"') inString = false
+      continue
+    }
+    if (c === '"') inString = true
+    else if (c === '{' || c === '[') {
+      if (depth++ === 0) start = i
+    } else if ((c === '}' || c === ']') && --depth === 0) {
+      try {
+        docs.push(JSON.parse(text.slice(start, i + 1)))
+      } catch { /* not JSON after all */ }
+    }
+  }
+  return docs.flat()
+}
+const ids = a => a?.playback_ids ?? a?.asset?.playback_ids ?? []
+const asset = jsonDocuments(out).reverse().find(d => ids(d).length)
+const playbackId = (ids(asset).find(p => p.policy === policy) ?? ids(asset)[0])?.id
 if (!playbackId) {
   console.error('Uploaded, but no playback id came back:', JSON.stringify(asset).slice(0, 400))
   process.exit(1)

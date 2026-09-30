@@ -28,15 +28,39 @@ function base64url(input: ArrayBuffer | string): string {
   return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
 }
 
-/** Turns the PEM-ish base64 private key Mux issues into a CryptoKey. */
+/** DER length octets: short form below 128, long form above. */
+function derLength(n: number): number[] {
+  if (n < 0x80) return [n]
+  const bytes: number[] = []
+  for (let v = n; v > 0; v >>= 8) bytes.unshift(v & 0xFF)
+  return [0x80 | bytes.length, ...bytes]
+}
+
+/**
+ * Wraps a PKCS#1 RSA key (what Mux issues: "BEGIN RSA PRIVATE KEY") in the
+ * PKCS#8 envelope WebCrypto requires. Importing PKCS#1 bytes as 'pkcs8' fails
+ * with an ASN.1 tag error — which is how every signed video would have failed.
+ */
+function pkcs1ToPkcs8(pkcs1: Uint8Array): Uint8Array {
+  // AlgorithmIdentifier: rsaEncryption (1.2.840.113549.1.1.1), NULL params.
+  const algorithm = [0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00]
+  const version = [0x02, 0x01, 0x00]
+  const octet = [0x04, ...derLength(pkcs1.length)]
+  const bodyLength = version.length + algorithm.length + octet.length + pkcs1.length
+  const out = new Uint8Array([0x30, ...derLength(bodyLength), ...version, ...algorithm, ...octet, ...pkcs1])
+  return out
+}
+
+/** Turns the base64 PEM private key Mux issues into a CryptoKey. */
 async function importKey(pem: string): Promise<CryptoKey> {
+  const isPkcs1 = pem.includes('BEGIN RSA PRIVATE KEY')
   const body = pem
     .replace(/-----(BEGIN|END) [^-]+-----/g, '')
     .replace(/\s+/g, '')
   const der = Uint8Array.from(atob(body), c => c.charCodeAt(0))
   return crypto.subtle.importKey(
     'pkcs8',
-    der,
+    isPkcs1 ? pkcs1ToPkcs8(der) : der,
     { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
     false,
     ['sign']
@@ -65,7 +89,7 @@ export async function signMuxPlayback(playbackId: string): Promise<SignedPlaybac
   const signingInput = `${base64url(JSON.stringify(header))}.${base64url(JSON.stringify(payload))}`
 
   // The secret arrives base64-encoded from the Mux dashboard.
-  const pem = atob(keySecret)
+  const pem = atob(keySecret.replace(/\s+/g, ''))
   const key = await importKey(pem)
   const signature = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, new TextEncoder().encode(signingInput))
 
