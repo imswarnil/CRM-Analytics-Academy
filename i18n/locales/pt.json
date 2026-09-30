@@ -279,8 +279,8 @@
     "f2": "161 lições.",
     "hero": {
       "eyebrow": "Atualizado para o atual Salesforce Soltar",
-      "title": "Aprenda. CRM Analytics A forma como é usado no trabalho.",
-      "lead": "Um foco, curso livre. Caminhadas e lições práticas que te levam da primeira lente para painéis de produção, receitas, SAQL e ir ao mercado de análise - em dados de uma empresa.",
+      "title": "Aprenda. Salesforce CRM Analytics A forma como é usado no trabalho.",
+      "lead": "Um livre, prático Salesforce CRM Analytics Claro: receitas, SAQL, painéis, segurança e Einstein Discovery, construído sobre dados reais de uma empresa.",
       "start": "Comece a lição 1",
       "curriculum": "Veja o currículo."
     },
@@ -292,6 +292,40 @@
       "title": "Treinando um todo Salesforce Equipe?",
       "lead": "Planos de equipe, relatórios de progresso que seu gerente pode ler, lotes de sala de aula e um currículo adaptado à sua org.",
       "cta": "Veja os planos da equipe."
+    },
+    "slides": {
+      "label": "Números de curso",
+      "prev": "Figura anterior",
+      "next": "Próxima figura.",
+      "dataflow": "Um fluxo de dados, desenhado",
+      "dataflowNote": "Fontes → receita → dataset → lente e painel. Construído à mão na seção 03.",
+      "topics": "O que você vai construir",
+      "tiles": {
+        "ai": {
+          "title": "AI com Einstein Discovery",
+          "line": "Histórias, notas, respostas"
+        },
+        "security": {
+          "title": "Predicações de segurança",
+          "line": "Segurança de linha que passa na auditoria."
+        },
+        "saql": {
+          "title": "Complexo. SAQL",
+          "line": "Janelas, grupos, depuração"
+        },
+        "kpis": {
+          "title": "KPIs que se sustentam",
+          "line": "Contratos métricos e definições"
+        },
+        "bindings": {
+          "title": "Encadernação",
+          "line": "Seleção e resultados ligados"
+        },
+        "recipes": {
+          "title": "Receitas de preparação de dados",
+          "line": "Juntas, fórmulas, desduplicação"
+        }
+      }
     }
   },
   "footer": {

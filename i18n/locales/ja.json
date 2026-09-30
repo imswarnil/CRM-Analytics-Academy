@@ -279,8 +279,8 @@
     "f2": "161レッスン",
     "hero": {
       "eyebrow": "現在更新 Salesforce リリース",
-      "title": "学びます CRM Analytics 仕事で使う方法。",
-      "lead": "1つの集中された、自由なコース。 あなたの最初のレンズから生産のダッシュボード、調理法、 SAQL 自社のデータを一元化し、市場分析を行います。",
+      "title": "学びます Salesforce CRM Analytics 仕事で使う方法。",
+      "lead": "無料、ハンズオン Salesforce CRM Analytics コース: レシピ, SAQL、ダッシュボード、セキュリティ Einstein Discovery, 自社の実データ上に構築.",
       "start": "レッスン開始 1",
       "curriculum": "カリキュラムを見る"
     },
@@ -292,6 +292,40 @@
       "title": "トレーニング Salesforce チーム?",
       "lead": "チームプラン、進捗レポートでは、マネージャーが読み取れる、教室のバッチとカリキュラムをorgに報告できます。",
       "cta": "チームプランを見る"
+    },
+    "slides": {
+      "label": "コース図",
+      "prev": "前の図",
+      "next": "次の図",
+      "dataflow": "データフロー、描画",
+      "dataflowNote": "ソース→レシピ→データセット→レンズとダッシュボード。 セクション 03 で手によって造られる。",
+      "topics": "ビルドする",
+      "tiles": {
+        "ai": {
+          "title": "AIとAI Einstein Discovery",
+          "line": "ストーリー、スコア、書き込みバック"
+        },
+        "security": {
+          "title": "セキュリティの述語",
+          "line": "監査を通過する行レベルのセキュリティ"
+        },
+        "saql": {
+          "title": "コンプレックス SAQL",
+          "line": "ウィンドウイング、コグループ、デバッグ"
+        },
+        "kpis": {
+          "title": "保有するKPI",
+          "line": "メトリック契約と定義"
+        },
+        "bindings": {
+          "title": "ビンディング",
+          "line": "選択と結果の結合"
+        },
+        "recipes": {
+          "title": "データの事前レシピ",
+          "line": "参加、式、複製"
+        }
+      }
     }
   },
   "footer": {

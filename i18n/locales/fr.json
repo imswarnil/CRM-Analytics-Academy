@@ -279,8 +279,8 @@
     "f2": "161 leçons",
     "hero": {
       "eyebrow": "Mise à jour pour le Salesforce libération",
-      "title": "Apprendre CRM Analytics la façon dont il est utilisé au travail.",
-      "lead": "Un cours concentré et gratuit. Des parcours et des leçons pratiques qui vous emmènent de votre premier objectif à la production des tableaux de bord, recettes, SAQL et d'analyse de marché — sur une seule entreprise.",
+      "title": "Apprendre Salesforce CRM Analytics la façon dont il est utilisé au travail.",
+      "lead": "C'est gratuit. Salesforce CRM Analytics cours: recettes, SAQL, tableaux de bord, sécurité et Einstein Discovery, construit sur une entreprise de données réelles.",
       "start": "Début de la leçon 1",
       "curriculum": "Voir programme"
     },
@@ -292,6 +292,40 @@
       "title": "Formation dans son ensemble Salesforce L'équipe ?",
       "lead": "Les plans d'équipe, les rapports d'avancement de votre gestionnaire peuvent lire, les lots de classe et un programme adapté à votre org.",
       "cta": "Voir plans d'équipe"
+    },
+    "slides": {
+      "label": "Chiffres du cours",
+      "prev": "Chiffre précédent",
+      "next": "Figure suivante",
+      "dataflow": "Un flux de données, tiré",
+      "dataflowNote": "Sources → recette → dataset → objectif et tableau de bord. Construit à la main dans la section 03.",
+      "topics": "Ce que vous allez construire",
+      "tiles": {
+        "ai": {
+          "title": "AI avec Einstein Discovery",
+          "line": "Histoires, scores, récits"
+        },
+        "security": {
+          "title": "Prédicats de sécurité",
+          "line": "Sécurité au niveau de la ligne qui passe la vérification"
+        },
+        "saql": {
+          "title": "Complexe SAQL",
+          "line": "Fenêtre, cogroupe, débogage"
+        },
+        "kpis": {
+          "title": "Les KPI qui tiennent le coup",
+          "line": "Contrats métriques et définitions"
+        },
+        "bindings": {
+          "title": "Reliures",
+          "line": "Reliures de sélection et de résultats"
+        },
+        "recipes": {
+          "title": "Recettes de préparation des données",
+          "line": "Joindres, formules, déduplication"
+        }
+      }
     }
   },
   "footer": {

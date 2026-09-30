@@ -279,8 +279,8 @@
     "f2": "161 lecciones",
     "hero": {
       "eyebrow": "Actualizado para la corriente Salesforce liberación",
-      "title": "Aprender CRM Analytics la forma en que se utiliza en el trabajo.",
-      "lead": "Un curso enfocado y libre. Paseos y clases prácticas que te llevan de tu primera lente a tableros de producción, recetas, SAQL y análisis de ir al mercado — en los datos de una empresa.",
+      "title": "Aprender Salesforce CRM Analytics la forma en que se utiliza en el trabajo.",
+      "lead": "Una libre, mano a mano Salesforce CRM Analytics curso: recetas, SAQL, tableros, seguridad y Einstein Discovery, construido sobre los datos reales de una empresa.",
       "start": "Comience la lección 1",
       "curriculum": "Ver currículo"
     },
@@ -292,6 +292,40 @@
       "title": "Formación completa Salesforce ¿equipo?",
       "lead": "Planes de equipo, informes de progreso que su administrador puede leer, lotes de aula y un plan de estudios ajustado a su org.",
       "cta": "Ver planes de equipo"
+    },
+    "slides": {
+      "label": "Cifras de curso",
+      "prev": "Gráfico anterior",
+      "next": "Siguiente figura",
+      "dataflow": "A dataflow, drawn",
+      "dataflowNote": "Fuentes → receta → dataset → lente y dashboard. Construido a mano en la sección 03.",
+      "topics": "Lo que construirás",
+      "tiles": {
+        "ai": {
+          "title": "AI con Einstein Discovery",
+          "line": "Historias, puntuaciones, recuento"
+        },
+        "security": {
+          "title": "Situación de seguridad",
+          "line": "Seguridad a nivel de filas que aprueba auditoría"
+        },
+        "saql": {
+          "title": "Complejo SAQL",
+          "line": "Windowing, cogroup, debugging"
+        },
+        "kpis": {
+          "title": "KPIs que sostienen",
+          "line": "Contratos y definiciones métricas"
+        },
+        "bindings": {
+          "title": "Bindings",
+          "line": "Selection and results bindings"
+        },
+        "recipes": {
+          "title": "Recetas de preparación de datos",
+          "line": "Únetes, fórmulas, deduplicación"
+        }
+      }
     }
   },
   "footer": {

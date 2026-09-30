@@ -279,8 +279,8 @@
     "f2": "161次经验教训",
     "hero": {
       "eyebrow": "当前更新 Salesforce 释放",
-      "title": "学习 CRM Analytics 工作时使用的方法。",
-      "lead": "一个专注,免费的课程。 穿行和亲身练习 让你从第一眼看 生产仪表板,食谱, SAQL 和上市分析——根据一家公司的数据。",
+      "title": "学习 Salesforce CRM Analytics 工作时使用的方法。",
+      "lead": "一个自由的手 Salesforce CRM Analytics 课程:食谱, SAQL、仪表板、安保和 Einstein Discovery,基于一家公司的真实数据。",
       "start": "开始上课 1",
       "curriculum": "见课程"
     },
@@ -292,6 +292,40 @@
       "title": "整体培训 Salesforce 团队?",
       "lead": "团队计划,进度报告 你的经理可以读到, 教室批量和课程 适合你的类。",
       "cta": "见团队计划"
+    },
+    "slides": {
+      "label": "课程数字",
+      "prev": "上一个数字",
+      "next": "下图",
+      "dataflow": "绘制的数据流",
+      "dataflowNote": "资料来源_食谱_数据集_镜头和仪表板. 第03节中手工建造.",
+      "topics": "你将建造什么",
+      "tiles": {
+        "ai": {
+          "title": "大赦国际 Einstein Discovery",
+          "line": "故事、分数、回信"
+        },
+        "security": {
+          "title": "安全前提",
+          "line": "通过审计的行级安全"
+        },
+        "saql": {
+          "title": "复杂 SAQL",
+          "line": "窗口、 组合、 调试"
+        },
+        "kpis": {
+          "title": "坚挺的KPI",
+          "line": "计量合同和定义"
+        },
+        "bindings": {
+          "title": "约束",
+          "line": "选择和结果约束"
+        },
+        "recipes": {
+          "title": "数据准备食谱",
+          "line": "连接、 公式、 复制"
+        }
+      }
     }
   },
   "footer": {

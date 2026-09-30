@@ -279,8 +279,8 @@
     "f2": "161 Lektionen",
     "hero": {
       "eyebrow": "Aktualisiert für die aktuelle Salesforce Freigabe",
-      "title": "Lernen CRM Analytics die Art, wie es bei der Arbeit verwendet wird.",
-      "lead": "Ein fokussierter, freier Kurs. Walkthroughs und praktische Lektionen, die Sie von Ihrem ersten Objektiv zu Produktions-Dashboards, Rezepten, SAQL und Go-to-Market-Analysen - auf den Daten eines Unternehmens.",
+      "title": "Lernen Salesforce CRM Analytics die Art, wie es bei der Arbeit verwendet wird.",
+      "lead": "Eine kostenlose, hands-on Salesforce CRM Analytics Kurs: Rezepte, SAQLDashboards, Sicherheit und Einstein DiscoveryBasierend auf den realen Daten eines Unternehmens.",
       "start": "Beginn der Lektion 1",
       "curriculum": "Siehe Lehrplan"
     },
@@ -292,6 +292,40 @@
       "title": "Ausbildung eines Ganzen Salesforce Team?",
       "lead": "Teampläne, Fortschrittsberichte, die Ihr Manager lesen kann, Klassenräume und ein Lehrplan, der an Ihre Organisation angepasst ist.",
       "cta": "Siehe Teampläne"
+    },
+    "slides": {
+      "label": "Kurszahlen",
+      "prev": "Vorherige Ziffer",
+      "next": "Nächste Abbildung",
+      "dataflow": "Ein Datenfluss, gezeichnet",
+      "dataflowNote": "Quellen → Rezept → Dataset → Objektiv und Dashboard. Von Hand gebaut in Abschnitt 03.",
+      "topics": "Was du bauen wirst",
+      "tiles": {
+        "ai": {
+          "title": "KI mit Einstein Discovery",
+          "line": "Geschichten, Partituren, Rückschreibungen"
+        },
+        "security": {
+          "title": "Sicherheitsprädikate",
+          "line": "Row-Level-Sicherheit, die das Audit besteht"
+        },
+        "saql": {
+          "title": "Komplex SAQL",
+          "line": "Fenster, Cogroup, Debugging"
+        },
+        "kpis": {
+          "title": "KPIs, die halten",
+          "line": "Metrische Verträge und Definitionen"
+        },
+        "bindings": {
+          "title": "Bindungen",
+          "line": "Auswahl und Ergebnisbindungen"
+        },
+        "recipes": {
+          "title": "Rezepturen für die Datenvorbereitung",
+          "line": "Verknüpfungen, Formeln, Deduplizierung"
+        }
+      }
     }
   },
   "footer": {
