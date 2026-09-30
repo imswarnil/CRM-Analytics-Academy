@@ -304,10 +304,10 @@
   },
   "seo": {
     "homeTitle": "CRM Analytics Академия - Учиться Salesforce CRM Analytics",
-    "homeDesc": "Бесплатная учебная программа с открытым исходным кодом для освоения Salesforce CRM Analytics - по предварительным данным и SAQL для приборных панелей и Einstein DiscoveryВ двух практических модулях.",
-    "aboutTitle": "По поводу... CRM Analytics Академия",
+    "homeDesc": "Бесплатная учебная программа с открытым исходным кодом для освоения Salesforce CRM Analytics - по предварительным данным и SAQL на приборные панели, привязки, Einstein Discovery и переход на рынок сборки приборной панели.",
+    "aboutTitle": "О нас",
     "aboutDesc": "История позади CRM Analytics Академия - учебная программа с открытым исходным кодом для Salesforce CRM Analytics Человек, который его строит.",
-    "resourcesTitle": "Ресурсы - CRM Analytics Академия",
+    "resourcesTitle": "ресурсы",
     "resourcesDesc": "Составлен список лучших Salesforce CRM Analytics ресурсы — официальные документы, Trailhead, SAQL Ссылки, сообщество и инструменты.",
     "showcaseTitle": "Витрина приборной панели",
     "showcaseDesc": "Реальный CRM Analytics панели приборов, построенные сообществом — KPI, формулы, лежащие в их основе, и методы, используемые для создания каждого из них."
