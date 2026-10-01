@@ -1,49 +1,49 @@
 {
-  "id": "/",
+  "id": "/?source=pwa",
   "name": "CRM Analytics Academy",
   "short_name": "CRMA Academy",
-  "description": "A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery.",
+  "description": "The free, open-source course for Salesforce CRM Analytics: data prep, SAQL, dashboards, bindings, Einstein Discovery and go-to-market dashboard builds, in twelve languages.",
   "lang": "en",
   "dir": "ltr",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#ffffff",
-  "theme_color": "#0176D3",
-  "categories": ["education", "productivity", "business"],
+  "background_color": "#F4F7FB",
+  "theme_color": "#0F2A5C",
+  "categories": ["education", "productivity"],
+  "prefer_related_applications": false,
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "screenshots": [
+    { "src": "/pwa/screenshot-wide.png", "sizes": "1280x720", "type": "image/png", "form_factor": "wide", "label": "The lesson player: the lesson, its video and the course contents" },
+    { "src": "/pwa/screenshot-narrow.png", "sizes": "720x1280", "type": "image/png", "form_factor": "narrow", "label": "The curriculum on a phone" }
   ],
   "shortcuts": [
     {
-      "name": "Continue learning",
-      "short_name": "Continue",
-      "description": "Pick up where you left off",
-      "url": "/dashboard",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
-    },
-    {
       "name": "Curriculum",
       "short_name": "Curriculum",
-      "description": "All 49 lessons, start to finish",
-      "url": "/foundations",
+      "description": "Every section and lesson, in order",
+      "url": "/curriculum?source=pwa",
       "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
-      "name": "Leaderboard",
-      "short_name": "Leaderboard",
-      "description": "See where you rank",
-      "url": "/leaderboard",
+      "name": "Continue learning",
+      "short_name": "Dashboard",
+      "description": "Your progress and where you left off",
+      "url": "/dashboard?source=pwa",
       "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
-      "name": "Resources",
-      "short_name": "Resources",
-      "description": "Curated and community resources",
-      "url": "/resources",
+      "name": "Ask the curriculum",
+      "short_name": "Ask",
+      "description": "Search every lesson for an answer",
+      "url": "/ask?source=pwa",
       "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]

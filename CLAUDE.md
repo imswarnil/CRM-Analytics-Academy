@@ -115,6 +115,14 @@ its English source changes. See the `translate-lesson` skill for the full ration
 - **IndexNow.** `scripts/indexnow.mjs` (key file in `public/`) runs after every deploy and submits the URLs the push changed; a manual `workflow_dispatch` deploy submits the whole sitemap. Google does not take IndexNow — it uses the sitemap and Search Console.
 - **Mux uploads.** `pnpm mux:lesson <route> <video.mp4> [--lang=es] [--test]` uploads through the Mux CLI's own stored login (`mux login`; no keys in the repo), public for free lessons and signed for Pro, and writes `mux.<lang>` into the English lesson's frontmatter.
 
+## Leads, teams and the PWA
+
+- **Leads.** Every business form (`/sales`, `/contact`, `/instructors`, `/nominate`, `/sponsor`, `/training`, `/implementation`) posts to `POST /api/leads` → `app.lead` in Neon. Business types require a company email (`server/utils/freeEmailDomains.ts`); every lead is enriched from its domain (`server/utils/urlMeta.ts`, also exposed as `GET /api/url-meta` for favicons/link previews) and forwarded to n8n → Salesforce with an HMAC signature (`server/utils/n8n.ts`; workflow + setup in `integrations/n8n/`). Worked in `/admin → Leads`. Secrets: `N8N_WEBHOOK_URL`, `N8N_WEBHOOK_SECRET` (unset ⇒ leads queue as `not_configured`).
+- **Teams.** Self-serve seats (3–50, $180/seat/yr, Dodo test product, company-domain emails) on `/teams`; the buyer owns the team at `/team`, invites via copyable links (`app.team*`, migration `008`); `hasPro()` covers team members; `/admin → Teams` lists them. Enterprise/instructor/sponsor/quote go through `/sales` and friends.
+- **Pricing.** Free $0 · Pro Monthly $12 · Pro Annual $96 (featured) · Team Seat $180/yr · Enterprise custom. Old $9 monthly / $99 lifetime purchases stay honoured; lifetime is no longer sold. **Pro (and team) users see no ads** — PromoSlot renders nothing for them.
+- **PWA.** `public/manifest.webmanifest` + icons + screenshots, offline fallback `public/offline.html`, service worker per `app/plugins/sw.client.ts`. Head links live in `nuxt.config.ts`.
+- **Operator docs.** `/admin → Guide` (component `AdminGuide.vue`) is the end-to-end "how do I run this" manual; keep it truthful when workflows change.
+
 ## Environment variables
 
 Local values live in a **gitignored `.env`** (`.env.example` documents the shape). Production secrets live on the Worker (`wrangler secret put`): Neon (`DATABASE_URL`, `NEON_AUTH_*`), admin (`ADMIN_EMAILS`, `GITHUB_CONTENT_TOKEN`), Studio OAuth, Dodo (above) and, once added, Mux signing keys.

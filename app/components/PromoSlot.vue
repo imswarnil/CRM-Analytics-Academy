@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useIntersectionObserver } from '@vueuse/core'
-import { ADSENSE_CLIENT, type AdPlacementName } from '~/utils/promo'
+import { ADSENSE_CLIENT, loadPromoScript, rememberPro, type AdPlacementName } from '~/utils/promo'
 
 const props = defineProps<{
   /** Named placement from the central config. */
@@ -10,6 +10,17 @@ const props = defineProps<{
 const { variant, showLabel } = usePromoSlot(props.placement)
 
 const dev = import.meta.dev
+
+// No promos for Pro. A signed-in reader is held back until their progress
+// (which carries the Pro flag) has loaded, so a Pro reader is never shown one
+// for the half-second before the answer arrives. Anonymous readers are never
+// Pro and are not held.
+const { pro, loaded } = useProgress()
+const { isSignedIn } = useAuth()
+const blocked = computed(() => pro.value || (isSignedIn.value && !loaded.value))
+watch([pro, loaded], ([isPro, isLoaded]) => {
+  if (isLoaded || isPro) rememberPro(isPro)
+}, { immediate: true })
 
 const root = ref<HTMLElement | null>(null)
 const insEl = ref<HTMLElement | null>(null)
@@ -53,8 +64,16 @@ function watchFill() {
   }, 4000)
 }
 
-function pushAd() {
-  if (pushed.value || !insEl.value) return
+async function pushAd() {
+  if (pushed.value || !insEl.value || blocked.value) return
+  try {
+    await loadPromoScript()
+  } catch {
+    // Blocked by an extension or offline: collapse the slot instead of
+    // leaving an empty frame behind.
+    empty.value = true
+    return
+  }
   try {
     ;(window.adsbygoogle = window.adsbygoogle || []).push({})
     pushed.value = true
@@ -65,8 +84,8 @@ function pushAd() {
   }
 }
 
-watch(show, async (visible) => {
-  if (visible) {
+watch([show, blocked], async ([visible, isBlocked]) => {
+  if (visible && !isBlocked) {
     await nextTick()
     pushAd()
   }
@@ -107,7 +126,7 @@ const insStyle = computed(() => {
 
 <template>
   <div
-    v-if="variant && !empty"
+    v-if="variant && !empty && !pro"
     ref="root"
     class="promo-slot relative mx-auto my-6 flex w-full max-w-full flex-col items-center justify-center gap-1.5 overflow-hidden border-[1.5px] border-dashed border-(--line) bg-(--card)/60 p-2"
     :style="reserveStyle"
@@ -122,7 +141,7 @@ const insStyle = computed(() => {
     </span>
 
     <ins
-      v-if="show"
+      v-if="show && !blocked"
       ref="insEl"
       class="adsbygoogle"
       :style="insStyle"

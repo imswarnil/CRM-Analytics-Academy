@@ -217,8 +217,8 @@ function choose(key: 'track' | 'center', value: string) {
           </ul>
         </div>
         <div class="lg:col-span-3">
-          <InquiryForm
-            kind="enrollment"
+          <LeadForm
+            type="training"
             :preset="preset"
           />
         </div>

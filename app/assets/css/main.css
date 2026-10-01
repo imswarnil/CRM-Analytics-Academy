@@ -558,3 +558,114 @@ button:hover > .bp-arrow {
    scoped <style>, whose module URL ad blockers refuse to load. */
 .promo-slot ins { margin-inline: auto; text-align: center; }
 .promo-slot iframe { display: block; margin-inline: auto; max-width: 100%; }
+
+/* ---------------------------------------------------------------------------
+   Drafting sketch (BpDrawing) — draws itself once on load
+   Paths are normalised to pathLength="1", so one dash rule draws any of them.
+--------------------------------------------------------------------------- */
+.bp-sketch-line {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  animation: bp-sketch-draw 1.4s var(--ease-out-im) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 150ms);
+}
+/* Dashed construction lines keep their dash and fade in instead. */
+.bp-sketch-line--dash {
+  stroke-dasharray: .012 .012;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  animation: bp-sketch-fade .8s ease-out forwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 150ms);
+}
+.bp-sketch-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  fill: var(--ink2);
+  opacity: 0;
+  animation: bp-sketch-fade .6s ease-out forwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 400ms);
+}
+@keyframes bp-sketch-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes bp-sketch-fade {
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bp-sketch-line,
+  .bp-sketch-line--dash,
+  .bp-sketch-label {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Wall of Fame — polaroids hung on a drawing board
+--------------------------------------------------------------------------- */
+.bp-wall {
+  position: relative;
+  border: 1.5px solid var(--ink);
+  background-color: var(--paper2);
+  background-image:
+    linear-gradient(var(--rmaj) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rmaj) 1px, transparent 1px),
+    linear-gradient(var(--rmin) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
+.bp-polaroid {
+  position: relative;
+  display: block;
+  background: #fff;
+  padding: 10px 10px 0;
+  border: 1px solid rgba(12, 27, 51, .18);
+  box-shadow: 0 1px 1px rgba(12, 27, 51, .12), 0 10px 22px -8px rgba(12, 27, 51, .35);
+  transform: translate(var(--dx, 0), var(--dy, 0)) rotate(var(--rot, 0deg));
+  transition: transform .35s var(--ease-bounce), box-shadow .35s;
+  color: #0C1B33;
+}
+.bp-polaroid:hover,
+.bp-polaroid:focus-within {
+  transform: translate(0, -6px) rotate(0deg) scale(1.03);
+  box-shadow: 0 1px 1px rgba(12, 27, 51, .12), 0 22px 34px -12px rgba(12, 27, 51, .45);
+  z-index: 3;
+}
+.bp-polaroid__caption {
+  font-family: 'Caveat', 'Segoe Print', 'Bradley Hand', 'Comic Sans MS', cursive;
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+/* A strip of translucent tape, or a pushpin, holding each photo up. */
+.bp-polaroid__tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 84px;
+  height: 24px;
+  transform: translateX(-50%) rotate(var(--tape, -3deg));
+  background: rgba(221, 235, 250, .78);
+  border: 1px solid rgba(127, 178, 234, .55);
+  box-shadow: 0 1px 2px rgba(12, 27, 51, .12);
+}
+.bp-polaroid__pin {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, #7FB2EA, var(--signal) 60%, #15306F);
+  box-shadow: 0 3px 4px rgba(12, 27, 51, .35);
+}
+.dark .bp-polaroid {
+  background: #F4F7FB;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bp-polaroid {
+    transition: none;
+  }
+}

@@ -40,7 +40,7 @@ const DEFAULT_LOCALE = 'en'
  * sections silently absent from the build, with no error anywhere, because
  * their slugs happen to start with the same characters as a private route.
  */
-const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api']
+const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api', '/team', '/join']
 
 const privateRoutes = PRIVATE_PATHS.flatMap(route => [
   route,
@@ -120,19 +120,31 @@ export default defineNuxtConfig({
       // Warm up the third-party origins early, but load the scripts themselves
       // from the end of <body> so they never compete with the critical CSS/JS
       // for bandwidth during first paint.
+      // AdSense site ownership, now that its script loads on demand rather
+      // than in every page head.
+      meta: [
+        { name: 'google-adsense-account', content: 'ca-pub-1291242080282540' },
+        // PWA chrome colour — navy in the title bar when installed.
+        { name: 'theme-color', content: '#0F2A5C' }
+      ],
+      style: [
+        { innerHTML: 'html[data-pro] .promo-slot{display:none!important}' }
+      ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' },
+        { rel: 'manifest', href: '/manifest.webmanifest' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         { rel: 'preconnect', href: 'https://pagead2.googlesyndication.com', crossorigin: '' },
         { rel: 'dns-prefetch', href: 'https://pagead2.googlesyndication.com' },
         { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }
       ],
       script: [
-        {
-          src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540',
-          async: true,
-          crossorigin: 'anonymous',
-          tagPosition: 'bodyClose'
-        },
+        // Before first paint: a returning Pro reader (flag kept by PromoSlot)
+        // gets <html data-pro>, and the style below hides every promo slot,
+        // so nothing is reserved and then collapsed. The AdSense library
+        // itself is no longer loaded here — PromoSlot loads it on demand, and
+        // never for Pro.
+        { innerHTML: `try{if(localStorage.getItem('crma-pro')==='1')document.documentElement.setAttribute('data-pro','')}catch(e){}`, tagPosition: 'head' },
         // Google tag (gtag.js)
         { src: 'https://www.googletagmanager.com/gtag/js?id=G-VJD486Z7WT', async: true, tagPosition: 'bodyClose' },
         { innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VJD486Z7WT');`, tagPosition: 'bodyClose' }

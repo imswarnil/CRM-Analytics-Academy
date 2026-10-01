@@ -1,63 +1,56 @@
 <script setup lang="ts">
 /**
- * Upskilling for company teams, and the quotation form.
+ * Self-serve teams: buy seats on a company email, invite colleagues by link,
+ * see who is learning. Anything larger or invoiced goes to /sales.
  */
-const title = 'CRM Analytics training for teams'
-const description = 'Train your admins, analysts and developers in Salesforce CRM Analytics — onsite, at a center or live online, fitted to your org. Request a quote.'
+const title = 'CRM Analytics Academy for teams'
+const description = 'Give your team Pro: $15 per seat per month, billed yearly, 3–50 seats. Invite colleagues on your company domain and manage seats yourself.'
 // Hand-written English, so one copy: twelve locale copies of an untranslated
-// page add prerender weight (the build runs near its heap limit) and nothing
-// a reader can use.
+// page add prerender weight and nothing a reader can use.
 defineI18nRoute({ locales: ['en'] })
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 
+const faq = [
+  { label: 'Who can join our team?', content: 'Anyone with an email on your company domain — the domain you bought with. The owner can allow extra domains (a subsidiary, a second brand) from the team console. Personal mailboxes such as Gmail cannot own or join a team.' },
+  { label: 'How do invites work?', content: 'The owner or a team admin creates an invite for an email address and copies the link to them. They sign in with that address and accept; that is when the seat is taken. Unused invites expire after 14 days.' },
+  { label: 'Can we change the number of seats?', content: 'Yes, from the billing portal. Removing someone frees their seat for the next person straight away.' },
+  { label: 'What if we cancel?', content: 'Everyone keeps Pro until the end of the year you paid for, then the team goes back to the free course. Progress is never deleted.' },
+  { label: 'More than 50 seats, invoicing or SSO?', content: 'Talk to sales: volume pricing, purchase orders, SSO, private cohorts and instructor-led training are quoted per organisation.' }
+]
+
 usePageSchema({
   name: title,
   description,
   type: 'WebPage',
-  extra: [{
-    '@type': 'Service',
-    'name': title,
-    'description': description,
-    'serviceType': 'Salesforce CRM Analytics corporate training',
-    'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
-    'areaServed': 'Worldwide',
-    'url': `${SITE.url}/teams`
-  }]
+  extra: [
+    {
+      '@type': 'Service',
+      'name': title,
+      'description': description,
+      'serviceType': 'Salesforce CRM Analytics team training',
+      'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
+      'areaServed': 'Worldwide',
+      'url': `${SITE.url}/teams`,
+      'offers': {
+        '@type': 'Offer', 'price': '180', 'priceCurrency': 'USD', 'url': `${SITE.url}/teams`,
+        'eligibleQuantity': { '@type': 'QuantitativeValue', 'minValue': 3, 'maxValue': 50, 'unitText': 'seat' },
+        'priceSpecification': { '@type': 'UnitPriceSpecification', 'price': '180', 'priceCurrency': 'USD', 'billingDuration': 'P1Y', 'referenceQuantity': { '@type': 'QuantitativeValue', 'value': 1, 'unitText': 'seat' } }
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      'mainEntity': faq.map(f => ({ '@type': 'Question', 'name': f.label, 'acceptedAnswer': { '@type': 'Answer', 'text': f.content } }))
+    }
+  ]
 })
 
-const plans = [
-  {
-    name: 'Self-serve',
-    price: 'Free',
-    per: 'forever',
-    icon: 'i-lucide-laptop',
-    blurb: 'The whole online course, for anyone on the team, at their own pace.',
-    features: ['161 lessons and 17 builds', 'Progress tracking per learner', 'Quizzes and interview sets'],
-    cta: { label: 'Start learning', to: '/curriculum' },
-    highlight: false
-  },
-  {
-    name: 'Team',
-    price: '$390',
-    per: 'per learner',
-    icon: 'i-lucide-users',
-    blurb: 'Self-paced plus mentor hours and a cohort manager who reports progress back to you.',
-    features: ['Everything in Self-serve', 'Weekly live office hours', 'Team progress report', 'Practice org per learner'],
-    cta: { label: 'Get a quotation', to: '#quote' },
-    highlight: true
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    per: 'per programme',
-    icon: 'i-lucide-building-2',
-    blurb: 'Instructor-led, onsite or virtual, with exercises built on a copy of your own data model.',
-    features: ['Curriculum fitted to your org', 'Onsite or at an Academy center', 'Pre- and post-assessment', 'Dedicated training advisor'],
-    cta: { label: 'Talk to us', to: '#quote' },
-    highlight: false
-  }
+const steps = [
+  { n: '01', icon: 'i-lucide-credit-card', title: 'Buy seats', text: 'Choose 3–50 seats and pay on your company email. You become the team owner.' },
+  { n: '02', icon: 'i-lucide-link', title: 'Invite by link', text: 'Create an invite per colleague and send them the link. Only your company domain can accept.' },
+  { n: '03', icon: 'i-lucide-graduation-cap', title: 'They learn with Pro', text: 'Every Pro lesson, video and quiz, no ads — with their own progress and points.' },
+  { n: '04', icon: 'i-lucide-gauge', title: 'You manage seats', text: 'The team console shows members, open invites and free seats. Remove someone to free a seat.' }
 ]
 
 const outcomes = [
@@ -72,158 +65,149 @@ const outcomes = [
   <div>
     <BpPageHeader
       sheet="Sheet 07 / For teams"
-      title="Upskill the whole team on CRM Analytics"
-      lead="From the admin who owns the licences to the analyst who ships the dashboards — one curriculum, delivered the way your team works, with progress you can see."
+      title="Pro for the whole team, in five minutes"
+      lead="Buy seats on your company email, invite colleagues by link, and see who is learning. $15 per seat per month, billed yearly."
     >
       <div class="mt-8 flex flex-wrap gap-3">
         <UButton
-          to="#quote"
-          size="lg"
-          icon="i-lucide-file-text"
+          to="#buy"
+          icon="i-lucide-users"
         >
-          Request a quotation
+          Buy team seats
         </UButton>
         <UButton
-          to="/implementation"
-          size="lg"
+          to="/sales"
           color="neutral"
           variant="outline"
-          icon="i-lucide-wrench"
+          icon="i-lucide-message-square"
         >
-          Need it built instead?
+          Talk to sales
         </UButton>
       </div>
     </BpPageHeader>
 
-    <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-      <p class="eyebrow">
-        Fig. 01 — Plans
-      </p>
-      <div class="mt-6 grid gap-6 lg:grid-cols-3">
-        <article
-          v-for="(p, n) in plans"
-          :key="p.name"
-          class="relative flex flex-col border-[1.5px] border-(--ink) p-6"
-          :class="p.highlight ? 'graph-paper-navy bg-(--navy) text-white shadow-[10px_10px_0_var(--signal)]' : 'bg-(--card)'"
-        >
-          <span
-            v-if="p.highlight"
-            class="absolute -top-3 end-4 bg-(--glow) px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.1em] text-(--ink)"
-          >Most teams</span>
-          <div class="flex items-center gap-3">
-            <span
-              class="flex size-10 items-center justify-center border-[1.5px]"
-              :class="p.highlight ? 'border-white/60 text-(--glow)' : 'border-(--ink) bg-(--ice) text-(--signal)'"
+    <div class="mx-auto max-w-[68rem] space-y-20 px-4 py-14 sm:px-6">
+      <!-- How it works -->
+      <section>
+        <p class="eyebrow">
+          Fig. 01 — How it works
+        </p>
+        <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div
+            v-for="s in steps"
+            :key="s.n"
+            class="bp-card bp-card--hover p-5"
+          >
+            <div class="flex items-start justify-between">
+              <span class="font-mono text-xs text-(--ink2)">{{ s.n }}</span>
+              <span class="bp-iconbox size-10 text-(--signal)">
+                <UIcon
+                  :name="s.icon"
+                  class="size-5"
+                />
+              </span>
+            </div>
+            <h3 class="mt-5 text-lg font-extrabold">
+              {{ s.title }}
+            </h3>
+            <p class="mt-2 text-sm text-(--ink2)">
+              {{ s.text }}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buy -->
+      <section
+        id="buy"
+        class="scroll-mt-24 grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]"
+      >
+        <div class="border-[1.5px] border-(--ink) bg-(--card) p-6 sm:p-8">
+          <p class="eyebrow">
+            Fig. 02 — Pricing calculator
+          </p>
+          <h2 class="bp-h3 mt-3">
+            Team seats
+          </h2>
+          <p class="mt-2 text-sm text-(--ink2)">
+            $15 per seat per month, billed yearly. 3 to 50 seats; add more any time from billing.
+          </p>
+          <div class="mt-6">
+            <TeamCheckout />
+          </div>
+        </div>
+        <div class="graph-paper-navy flex flex-col border-[1.5px] border-(--ink) bg-(--navy) p-6 text-white shadow-[10px_10px_0_var(--signal)] sm:p-8">
+          <p class="mono-label text-(--glow)!">
+            Bigger than 50 seats?
+          </p>
+          <h2 class="mt-3 text-2xl font-extrabold">
+            Enterprise, invoicing and training centres
+          </h2>
+          <p class="mt-3 text-sm text-white/80">
+            Volume pricing, purchase orders and invoices, SSO, private cohorts, instructor-led classroom training, and CRM Analytics implementation alongside it.
+          </p>
+          <div class="mt-auto flex flex-wrap gap-3 pt-8">
+            <UButton
+              to="/sales"
+              color="secondary"
+              icon="i-lucide-message-square"
             >
+              Talk to sales
+            </UButton>
+            <UButton
+              to="/training"
+              color="neutral"
+              variant="outline"
+              class="border-white/60 bg-transparent text-white hover:bg-white/10"
+            >
+              Classroom training
+            </UButton>
+          </div>
+        </div>
+      </section>
+
+      <!-- Who learns what -->
+      <section>
+        <p class="eyebrow">
+          Fig. 03 — What each role gets
+        </p>
+        <div class="mt-6 grid border-[1.5px] border-(--ink) bg-(--card) sm:grid-cols-2">
+          <div
+            v-for="(o, i) in outcomes"
+            :key="o.title"
+            class="flex gap-4 p-6"
+            :class="[i % 2 === 0 ? 'sm:border-e-[1.5px] sm:border-(--ink)' : '', i < 2 ? 'border-b-[1.5px] border-(--ink)' : i === 2 ? 'border-b-[1.5px] border-(--ink) sm:border-b-0' : '']"
+          >
+            <span class="bp-iconbox size-10 flex-none text-(--signal)">
               <UIcon
-                :name="p.icon"
+                :name="o.icon"
                 class="size-5"
               />
             </span>
             <div>
-              <p
-                class="mono-label"
-                :class="p.highlight ? 'text-(--glow)!' : ''"
-              >
-                Plan 0{{ n + 1 }}
+              <h3 class="font-extrabold">
+                {{ o.title }}
+              </h3>
+              <p class="mt-1 text-sm text-(--ink2)">
+                {{ o.text }}
               </p>
-              <h2 class="text-lg font-extrabold">
-                {{ p.name }}
-              </h2>
             </div>
           </div>
-          <p class="mt-5 flex items-baseline gap-2">
-            <span class="text-4xl font-black tracking-[-0.04em]">{{ p.price }}</span>
-            <span
-              class="font-mono text-xs uppercase"
-              :class="p.highlight ? 'text-white/70' : 'text-(--ink2)'"
-            >{{ p.per }}</span>
-          </p>
-          <p
-            class="mt-3 text-sm"
-            :class="p.highlight ? 'text-white/80' : 'text-(--ink2)'"
-          >
-            {{ p.blurb }}
-          </p>
-          <ul class="mt-5 flex-1 space-y-2.5 text-sm">
-            <li
-              v-for="f in p.features"
-              :key="f"
-              class="flex gap-2.5"
-            >
-              <UIcon
-                name="i-lucide-check"
-                class="mt-0.5 size-4 shrink-0"
-                :class="p.highlight ? 'text-(--glow)' : 'text-(--signal)'"
-              />
-              {{ f }}
-            </li>
-          </ul>
-          <UButton
-            :to="p.cta.to"
-            block
-            size="lg"
-            class="mt-6"
-            :variant="p.highlight ? 'solid' : 'outline'"
-            :color="p.highlight ? 'secondary' : 'neutral'"
-          >
-            {{ p.cta.label }}
-          </UButton>
-        </article>
-      </div>
+        </div>
+      </section>
 
-      <div class="mt-20">
+      <section class="mx-auto max-w-3xl">
         <p class="eyebrow">
-          Fig. 02 — Outcomes by role
+          Fig. 04 — Questions
         </p>
         <h2 class="bp-h2 mt-3">
-          Every role leaves able to do its part
+          How teams work
         </h2>
-        <div class="mt-8 grid border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-2 lg:grid-cols-4">
-          <div
-            v-for="(o, n) in outcomes"
-            :key="o.title"
-            class="border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-5"
-          >
-            <div class="flex items-center justify-between">
-              <span class="bp-iconbox">
-                <UIcon
-                  :name="o.icon"
-                  class="size-5"
-                />
-              </span>
-              <span class="font-mono text-[10px] text-(--ink2)">R-0{{ n + 1 }}</span>
-            </div>
-            <h3 class="mt-4 font-extrabold text-(--ink)">
-              {{ o.title }}
-            </h3>
-            <p class="mt-1.5 text-sm text-(--ink2)">
-              {{ o.text }}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div
-        id="quote"
-        class="mt-20 grid scroll-mt-24 gap-10 lg:grid-cols-5"
-      >
-        <div class="lg:col-span-2">
-          <p class="eyebrow">
-            Fig. 03 — Quotation
-          </p>
-          <h2 class="bp-h2 mt-3">
-            Tell us about the team
-          </h2>
-          <p class="bp-lead mt-4">
-            A training advisor replies within two working days with a programme outline, a
-            schedule and a price for your headcount.
-          </p>
-        </div>
-        <div class="lg:col-span-3">
-          <InquiryForm kind="quotation" />
-        </div>
-      </div>
+        <UAccordion
+          :items="faq"
+          class="mt-8"
+        />
+      </section>
     </div>
   </div>
 </template>

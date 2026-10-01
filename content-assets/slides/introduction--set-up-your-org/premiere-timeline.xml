@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xmeml>
+<xmeml version="4">
+  <sequence id="sequence-1">
+    <name>Set Up Your Org in Thirty Minutes — slides</name>
+    <duration>16380</duration>
+    <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+    <marker><name>01 Set Up Your Org in Thirty Minutes</name><comment>A free CRM Analytics Developer org, the two permission sets that actually matter, an app to build in, and the first Academy CSV loaded — the shortest honest path from nothing to a working dataset. You need an org to build in. This lesson…</comment><in>0</in><out>-1</out></marker>
+    <marker><name>02 What you will learn</name><comment>- The six steps - The two permission sets, in one paragraph - What "app" means here, because it is confusing - Loading a CSV: what to check every single time - Your thirty minutes, spent - Do not load all twenty-one files yet</comment><in>180</in><out>-1</out></marker>
+    <marker><name>03 The two permission sets, in one paragraph</name><comment>CRM Analytics access is granted by permission set, not by profile, and not by being an administrator. CRM Analytics Plus Admin carries the create-and-manage permissions: apps, datasets, recipes, dashboards, and the ability to see all data…</comment><in>540</in><out>-1</out></marker>
+    <marker><name>04 What "app" means here, because it is confusing</name><comment>An app in CRM Analytics is a container with sharing settings — closer to a folder than to an application. Datasets, lenses and dashboards live inside one. Sharing an app shares what is in it, which is why the exploration section on…</comment><in>1260</in><out>-1</out></marker>
+    <marker><name>05 Loading a CSV: what to check every single time</name><comment>Uploading a CSV takes ten seconds. Checking it takes two minutes and saves a build. Three things go wrong, in this order of frequency:</comment><in>1980</in><out>-1</out></marker>
+    <marker><name>06 Your thirty minutes, spent</name><comment>The remaining five minutes are the ones where the Analytics Studio tile does not appear and you log out and back in.</comment><in>2250</in><out>-1</out></marker>
+    <marker><name>07 Do not load all twenty-one files yet</name><comment>Load accounts.csv and stop. The Data Preparation section loads the rest properly — through recipes rather than by hand, which is how it would be done in a real org, and which teaches you something that uploading twenty-one CSVs in a row…</comment><in>2490</in><out>-1</out></marker>
+    <marker><name>08 Lab 1 — Sign up for the right kind of org</name><comment>Screen: trailhead.salesforce.com/promo/orgs/analytics-de → the signup form This is the one step where the wrong choice costs you an hour. A plain Developer Edition org from the normal signup page does not have CRM Analytics in it, and…</comment><in>3210</in><out>-1</out></marker>
+    <marker><name>09 Lab 2 — The username is not an email address</name><comment>Screen: The signup form → Username field Use a real email address for Email, because you need the activation link. The Username field is separate and it must be globally unique across every Salesforce org on earth, so put something like…</comment><in>4710</in><out>-1</out></marker>
+    <marker><name>10 Lab 3 — Activate and set a password you will not lose</name><comment>Screen: The activation email → Change Password screen The link is valid for a limited time and the org is unusable until you use it. Set the password in your password manager now, with the login URL, because a Developer org has no recovery…</comment><in>5910</in><out>-1</out></marker>
+    <marker><name>11 Lab 4 — Confirm CRM Analytics is really there</name><comment>Screen: Setup → Quick Find 'Analytics' → Analytics → Settings Before assigning anything, confirm. If you can see an Analytics section in Setup with a Settings page, and the checkbox for enabling CRM Analytics is already ticked, the org is…</comment><in>6660</in><out>-1</out></marker>
+    <marker><name>12 Lab 5 — Assign yourself the permission sets</name><comment>Screen: Setup → Users → your user → Permission Set Assignments → Edit Being a System Administrator is not enough. CRM Analytics access comes through permission sets, and you want two: CRM Analytics Plus Admin, which lets you create apps…</comment><in>8010</in><out>-1</out></marker>
+    <marker><name>13 Lab 6 — Open Analytics Studio for the first time</name><comment>Screen: App Launcher (the nine dots) → search 'Analytics' → Analytics Studio If the tile is there, you are set up. If it is not, log out and back in — permission set assignments sometimes need a fresh session before the App Launcher…</comment><in>9660</in><out>-1</out></marker>
+    <marker><name>14 Lab 7 — Create the app you will build everything in</name><comment>Screen: Analytics Studio → Create → App → Create Blank App → name it 'Academy Analytics' An app in CRM Analytics is a folder with sharing attached, not an application. Create one blank app called Academy Analytics and put every dataset…</comment><in>10560</in><out>-1</out></marker>
+    <marker><name>15 Lab 8 — Load the first CSV</name><comment>Screen: Analytics Studio → Create → Dataset → CSV File → upload accounts.csv Start with accounts dot csv, the smallest file at a hundred and forty rows. Drop it in, let Salesforce infer the schema, and then look carefully at what it…</comment><in>11760</in><out>-1</out></marker>
+    <marker><name>16 Lab 9 — Check the field types before you trust them</name><comment>Screen: The upload preview → Edit Field Attributes The inferred schema is right about eighty percent of the time and the twenty percent costs you a whole build. Watch three things. Dates: anything that came in as text cannot be used in a…</comment><in>13110</in><out>-1</out></marker>
+    <marker><name>17 Lab 10 — Prove it worked</name><comment>Screen: Analytics Studio → Browse → your dataset → click it Clicking a dataset opens a lens on it — that is CRM Analytics' default gesture and you will use it hundreds of times. You should see a count of a hundred and forty rows. If you…</comment><in>14760</in><out>-1</out></marker>
+    <marker><name>18 Recap</name><comment>- The six steps: - The two permission sets, in one paragraph: CRM Analytics access is granted by permission set, not by profile, and not by being an administrator. - What "app" means here, because it is confusing: An app in CRM Analytics…</comment><in>15960</in><out>-1</out></marker>
+    <marker><name>19 Keep going</name><comment>Next lesson: A Guided Tour of Analytics Studio. Everything is free at crmanalytics.imswarnil.com.</comment><in>16200</in><out>-1</out></marker>
+    <media>
+      <video>
+        <format>
+          <samplecharacteristics>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <width>1920</width>
+            <height>1080</height>
+            <pixelaspectratio>square</pixelaspectratio>
+          </samplecharacteristics>
+        </format>
+        <track>
+        <clipitem id="clip-1">
+          <name>01-title.png</name>
+          <duration>180</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>0</start>
+          <end>180</end>
+          <in>0</in>
+          <out>180</out>
+          <file id="file-1">
+            <name>01-title.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/01-title.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>180</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-2">
+          <name>02-learn.png</name>
+          <duration>360</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>180</start>
+          <end>540</end>
+          <in>0</in>
+          <out>360</out>
+          <file id="file-2">
+            <name>02-learn.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/02-learn.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>360</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-3">
+          <name>03-concept.png</name>
+          <duration>720</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>540</start>
+          <end>1260</end>
+          <in>0</in>
+          <out>720</out>
+          <file id="file-3">
+            <name>03-concept.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/03-concept.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>720</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-4">
+          <name>04-concept.png</name>
+          <duration>720</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>1260</start>
+          <end>1980</end>
+          <in>0</in>
+          <out>720</out>
+          <file id="file-4">
+            <name>04-concept.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/04-concept.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>720</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-5">
+          <name>05-concept.png</name>
+          <duration>270</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>1980</start>
+          <end>2250</end>
+          <in>0</in>
+          <out>270</out>
+          <file id="file-5">
+            <name>05-concept.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/05-concept.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>270</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-6">
+          <name>06-concept.png</name>
+          <duration>240</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>2250</start>
+          <end>2490</end>
+          <in>0</in>
+          <out>240</out>
+          <file id="file-6">
+            <name>06-concept.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/06-concept.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>240</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-7">
+          <name>07-concept.png</name>
+          <duration>720</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>2490</start>
+          <end>3210</end>
+          <in>0</in>
+          <out>720</out>
+          <file id="file-7">
+            <name>07-concept.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/07-concept.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>720</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-8">
+          <name>08-lab.png</name>
+          <duration>1500</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>3210</start>
+          <end>4710</end>
+          <in>0</in>
+          <out>1500</out>
+          <file id="file-8">
+            <name>08-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/08-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>1500</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-9">
+          <name>09-lab.png</name>
+          <duration>1200</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>4710</start>
+          <end>5910</end>
+          <in>0</in>
+          <out>1200</out>
+          <file id="file-9">
+            <name>09-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/09-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>1200</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-10">
+          <name>10-lab.png</name>
+          <duration>750</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>5910</start>
+          <end>6660</end>
+          <in>0</in>
+          <out>750</out>
+          <file id="file-10">
+            <name>10-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/10-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>750</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-11">
+          <name>11-lab.png</name>
+          <duration>1350</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>6660</start>
+          <end>8010</end>
+          <in>0</in>
+          <out>1350</out>
+          <file id="file-11">
+            <name>11-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/11-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>1350</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-12">
+          <name>12-lab.png</name>
+          <duration>1650</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>8010</start>
+          <end>9660</end>
+          <in>0</in>
+          <out>1650</out>
+          <file id="file-12">
+            <name>12-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/12-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>1650</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-13">
+          <name>13-lab.png</name>
+          <duration>900</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>9660</start>
+          <end>10560</end>
+          <in>0</in>
+          <out>900</out>
+          <file id="file-13">
+            <name>13-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/13-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>900</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-14">
+          <name>14-lab.png</name>
+          <duration>1200</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>10560</start>
+          <end>11760</end>
+          <in>0</in>
+          <out>1200</out>
+          <file id="file-14">
+            <name>14-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/14-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>1200</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-15">
+          <name>15-lab.png</name>
+          <duration>1350</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>11760</start>
+          <end>13110</end>
+          <in>0</in>
+          <out>1350</out>
+          <file id="file-15">
+            <name>15-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/15-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>1350</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-16">
+          <name>16-lab.png</name>
+          <duration>1650</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>13110</start>
+          <end>14760</end>
+          <in>0</in>
+          <out>1650</out>
+          <file id="file-16">
+            <name>16-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/16-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>1650</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-17">
+          <name>17-lab.png</name>
+          <duration>1200</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>14760</start>
+          <end>15960</end>
+          <in>0</in>
+          <out>1200</out>
+          <file id="file-17">
+            <name>17-lab.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/17-lab.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>1200</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-18">
+          <name>18-recap.png</name>
+          <duration>240</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>15960</start>
+          <end>16200</end>
+          <in>0</in>
+          <out>240</out>
+          <file id="file-18">
+            <name>18-recap.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/18-recap.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>240</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        <clipitem id="clip-19">
+          <name>19-end.png</name>
+          <duration>180</duration>
+          <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+          <start>16200</start>
+          <end>16380</end>
+          <in>0</in>
+          <out>180</out>
+          <file id="file-19">
+            <name>19-end.png</name>
+            <pathurl>file://localhost/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/content-assets/slides/introduction--set-up-your-org/19-end.png</pathurl>
+            <rate><timebase>30</timebase><ntsc>FALSE</ntsc></rate>
+            <duration>180</duration>
+            <media><video><samplecharacteristics><width>1920</width><height>1080</height></samplecharacteristics></video></media>
+          </file>
+        </clipitem>
+        </track>
+      </video>
+    </media>
+  </sequence>
+</xmeml>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { WALL_PEOPLE } from '~/data/wall-of-fame'
 import type { ContentNavigationItem } from '@nuxt/content'
 
 const { t, tm, rt, locale, locales } = useI18n()
@@ -141,6 +142,8 @@ useJsonLd({
 
 // ---- Blueprint page data ----------------------------------------------------
 
+const wallPeople = WALL_PEOPLE.slice(0, 8)
+
 const totalMinutes = computed(() => modules.value.reduce((n, m) => n + m.lessons.reduce((k, l) => k + l.minutes, 0), 0))
 const hours = computed(() => Math.round(totalMinutes.value / 60))
 
@@ -211,6 +214,12 @@ const teamBars = [
       <div class="pointer-events-none absolute inset-x-0 bottom-3 mx-auto flex max-w-(--ui-container) justify-around px-8 font-mono text-[10px] text-(--x)">
         <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
       </div>
+      <!-- A drafting sketch that draws itself once on load, behind the copy. -->
+      <BpDrawing
+        seed="home-hero"
+        variant="hero"
+        class="absolute bottom-4 start-[30%] hidden w-[26rem] opacity-35 lg:block"
+      />
 
       <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[repeat(auto-fit,minmax(440px,1fr))] lg:px-8">
         <div>
@@ -221,13 +230,6 @@ const teamBars = [
           <h1 class="bp-h1 mt-5">
             {{ t('home.hero.title') }}
           </h1>
-          <div class="mt-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)">
-            <span class="h-3 border-s-[1.5px] border-(--ink2)" />
-            <span class="h-px flex-1 bg-(--ink2)/50" />
-            <span>1 course · {{ lessonCount }} lessons · {{ hours }}h</span>
-            <span class="h-px flex-1 bg-(--ink2)/50" />
-            <span class="h-3 border-s-[1.5px] border-(--ink2)" />
-          </div>
           <p class="bp-lead mt-6 max-w-xl">
             {{ t('home.hero.lead') }}
           </p>
@@ -440,6 +442,50 @@ const teamBars = [
           <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--tide)" />Video walkthrough</span>
           <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--frost)" />Article</span>
         </div>
+      </div>
+    </section>
+
+    <!-- AUTHOR ------------------------------------------------------------ -->
+    <HomeAuthorSection />
+
+    <!-- WALL OF FAME -------------------------------------------------------- -->
+    <section class="border-y-[1.5px] border-(--ink) bg-(--paper2)/60">
+      <div class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <div class="max-w-2xl">
+            <p class="eyebrow">
+              {{ t('home.wall.eyebrow') }}
+            </p>
+            <h2 class="bp-h2 mt-4">
+              {{ t('home.wall.title') }}
+            </h2>
+            <p class="bp-lead mt-4">
+              {{ t('home.wall.lead') }}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <UButton
+              :to="localePath('/wall-of-fame')"
+              color="neutral"
+              variant="outline"
+              trailing-icon="i-lucide-arrow-right"
+            >
+              {{ t('home.wall.see') }}
+            </UButton>
+            <UButton
+              to="/nominate"
+              icon="i-lucide-heart-handshake"
+            >
+              {{ t('wall.nominate') }}
+            </UButton>
+          </div>
+        </div>
+        <BpPolaroidWall
+          :people="wallPeople"
+          :min-slots="8"
+          :label="t('home.wall.board')"
+          class="mt-12"
+        />
       </div>
     </section>
 

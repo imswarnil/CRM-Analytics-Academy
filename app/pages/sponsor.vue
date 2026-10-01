@@ -166,6 +166,28 @@ const tiers = [
         </p>
       </div>
 
+      <div
+        id="sponsor-form"
+        class="mt-20 grid scroll-mt-24 gap-10 lg:grid-cols-5"
+      >
+        <div class="lg:col-span-2">
+          <p class="eyebrow">
+            Company sponsorship
+          </p>
+          <h2 class="bp-h2 mt-3">
+            Put your brand in front of CRM Analytics teams
+          </h2>
+          <p class="bp-lead mt-4">
+            Section sponsorships, dataset features and newsletter mentions — clearly labelled,
+            never inside a lesson's teaching. Tell us what you would like to reach and we send
+            the media kit with the open slots.
+          </p>
+        </div>
+        <div class="lg:col-span-3">
+          <LeadForm type="sponsor" />
+        </div>
+      </div>
+
       <PromoSlot
         placement="betweenSections"
         class="mx-auto my-12 max-w-3xl"

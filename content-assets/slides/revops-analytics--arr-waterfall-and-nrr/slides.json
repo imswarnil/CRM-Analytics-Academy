@@ -1,0 +1,203 @@
+{
+  "lesson": "Build: The ARR Waterfall and Net Retention",
+  "route": "/revops-analytics/arr-waterfall-and-nrr",
+  "section": "RevOps & Retention",
+  "lessonCode": "LESSON 157 / 161",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "crossfade": 0.5,
+  "totalDuration": 546,
+  "slides": [
+    {
+      "order": 1,
+      "type": "title",
+      "title": "Build: The ARR Waterfall and Net Retention",
+      "file": "01-title.png",
+      "svg": "01-title.svg",
+      "start": 0,
+      "duration": 6,
+      "notes": "Build 14 — new, expansion, contraction and churn as a single bridge, and the one number that predicts the Academy's future better than any pipeline metric: net revenue retention.\n\nBuild 14. Most of the Academy's ARR arrives as new logos, but the base it already has grew on its own by nearly 40% in a year — teams adding seats, buying another classroom block, topping up vouchers — and in September 2026 a single churned account took $354K of it away again. This dashboard is how you see both."
+    },
+    {
+      "order": 2,
+      "type": "learn",
+      "title": "What you will learn",
+      "file": "02-learn.png",
+      "svg": "02-learn.svg",
+      "start": 6,
+      "duration": 12,
+      "notes": "- Why the snapshot is the whole build\n- The metrics\n- The layout\n- The two readings that matter\n- The Academy's own reading\n- The last widget is the most used"
+    },
+    {
+      "order": 3,
+      "type": "concept",
+      "title": "Why the snapshot is the whole build",
+      "file": "03-concept.png",
+      "svg": "03-concept.svg",
+      "start": 18,
+      "duration": 24,
+      "notes": "arrsnapshots.csv is 1,579 rows: one per account per month, eighteen months. The same account appears eighteen times, and each row states what was true that month. This is what the datasets and modelling section called a snapshot dataset, and it is the only reason this build exists — new, expansion, contraction and churn are movements between states*, and no amount of cleverness recovers them from an account record that only knows today's number."
+    },
+    {
+      "order": 4,
+      "type": "concept",
+      "title": "The two readings that matter",
+      "file": "04-concept.png",
+      "svg": "04-concept.svg",
+      "start": 42,
+      "duration": 20,
+      "notes": "Those two scenarios have the same NRR and completely different futures. That is the argument for putting gross retention on the screen beside it, permanently — the most common executive-dashboard mistake in a subscription business is reporting NRR alone and congratulating a company that is losing a fifteenth of its base every period."
+    },
+    {
+      "order": 5,
+      "type": "concept",
+      "title": "The Academy's own reading",
+      "file": "05-concept.png",
+      "svg": "05-concept.svg",
+      "start": 62,
+      "duration": 24,
+      "notes": "The cohort of 20 accounts that were paying in September 2025 opened at $912K of ARR. Twelve months later they had added $386K of expansion and lost $25K to contraction and churn: NRR of 139.5% and GRR of 97.2%. That is the healthy case on the left — but it rests on twenty accounts, and the company's biggest single movement of the whole period arrived in September 2026 from outside that cohort: one account churning $354K, which turned the month's net new ARR negative. A retention dashboard that only showed the cohort NRR would have reported an excellent year and missed the month that mattered."
+    },
+    {
+      "order": 6,
+      "type": "concept",
+      "title": "The last widget is the most used",
+      "file": "06-concept.png",
+      "svg": "06-concept.svg",
+      "start": 86,
+      "duration": 24,
+      "notes": "The movements table — account, movement type, amount — is what turns this from a reporting screen into a working one. When the CRO asks why contraction doubled, the answer is three account names, and it is on the screen already. Sort it by absolute movement, not by signed value. The largest contraction and the largest expansion are both interesting; sorting by signed amount buries the contractions at the bottom where nobody looks, which is exactly the wrong end of the table to hide."
+    },
+    {
+      "order": 7,
+      "type": "lab",
+      "title": "Lab 1 — Understand why this file is a snapshot",
+      "file": "07-lab.png",
+      "svg": "07-lab.svg",
+      "start": 110,
+      "duration": 50,
+      "notes": "Screen: Browse → arr_snapshots → lens → group by Month, count rows\n\nOne row per account per month, eighteen months, one thousand five hundred and seventy-nine rows. The same account appears eighteen times. That is not duplication — each row is a statement about that month, and it is the only reason a waterfall is possible at all. You cannot recompute last March's ARR from today's account record, because the account record only knows today."
+    },
+    {
+      "order": 8,
+      "type": "lab",
+      "title": "Lab 2 — The mistake to make once",
+      "file": "08-lab.png",
+      "svg": "08-lab.svg",
+      "start": 160,
+      "duration": 45,
+      "notes": "Screen: In the lens → sum ClosingARR with no month filter\n\nSum Closing A-R-R across every row and you get roughly eighteen years of revenue. Nothing errors. This is the snapshot version of the fan-out from section three: every query against a snapshot must either pick a month or group by one, and forgetting produces arithmetic that is correct and information that is nonsense."
+    },
+    {
+      "order": 9,
+      "type": "lab",
+      "title": "Lab 3 — The movement columns are the waterfall",
+      "file": "09-lab.png",
+      "svg": "09-lab.svg",
+      "start": 205,
+      "duration": 50,
+      "notes": "Screen: Group by Month → sum NewARR, ExpansionARR, ContractionARR, ChurnedARR\n\nFour columns already carry the movements: new, expansion, contraction and churn. You are not deriving them — the snapshot recorded them at the time. This is exactly why the setup section warned about losing Movement Type to a permission problem: the chart would still render, the total would still be right, and all four movements would collapse into one indistinguishable net number."
+    },
+    {
+      "order": 10,
+      "type": "lab",
+      "title": "Lab 4 — Build the bridge",
+      "file": "10-lab.png",
+      "svg": "10-lab.svg",
+      "start": 255,
+      "duration": 50,
+      "notes": "Screen: Waterfall or stacked column → Month on the axis, the four movements as series\n\nOpening A-R-R, plus new, plus expansion, minus contraction, minus churn, equals closing. Check that arithmetic on one month before you trust the chart — if opening plus the movements does not equal closing, you have either filtered something out or picked up a duplicate account row."
+    },
+    {
+      "order": 11,
+      "type": "lab",
+      "title": "Lab 5 — Net revenue retention",
+      "file": "11-lab.png",
+      "svg": "11-lab.svg",
+      "start": 305,
+      "duration": 55,
+      "notes": "Screen: New KPI → (opening + expansion − contraction − churn) ÷ opening, for the cohort\n\nN-R-R measures what happened to the customers you already had, so new business is excluded deliberately — including it measures sales, not retention. Opening A-R-R plus expansion minus contraction minus churn, divided by opening. Above one hundred percent means the existing base grew on its own, which is the single most predictive number on this dashboard."
+    },
+    {
+      "order": 12,
+      "type": "lab",
+      "title": "Lab 6 — Gross retention beside it",
+      "file": "12-lab.png",
+      "svg": "12-lab.svg",
+      "start": 360,
+      "duration": 50,
+      "notes": "Screen: Second KPI → (opening − contraction − churn) ÷ opening\n\nGross retention removes expansion too, so it can never exceed one hundred percent. Put the two side by side: the gap between them is entirely expansion, and that gap is the thing a business selling seats into teams lives on. N-R-R of a hundred and twelve with gross retention of ninety-four tells a completely different story from N-R-R of a hundred and twelve with gross of ninety-eight."
+    },
+    {
+      "order": 13,
+      "type": "lab",
+      "title": "Lab 7 — Split by segment, and look for the lie",
+      "file": "13-lab.png",
+      "svg": "13-lab.svg",
+      "start": 410,
+      "duration": 45,
+      "notes": "Screen: Break NRR by Segment\n\nCompany-level N-R-R hides everything. Split it by segment and you usually find one segment carrying the number and another quietly bleeding. Self-Serve and Strategic behave nothing alike at the Academy, and a single blended figure lets a real problem hide behind a good average for two quarters."
+    },
+    {
+      "order": 14,
+      "type": "lab",
+      "title": "Lab 8 — Check against the README",
+      "file": "14-lab.png",
+      "svg": "14-lab.svg",
+      "start": 455,
+      "duration": 35,
+      "notes": "Screen: README.md → ARR figures → compare closing ARR for the latest month\n\nCompare your latest closing A-R-R with the README. If it is high, you are probably summing across months somewhere; if it is low, check whether inactive accounts are being filtered out when they should be counted as churned rather than excluded."
+    },
+    {
+      "order": 15,
+      "type": "quiz",
+      "title": "Check yourself",
+      "file": "15-quiz.png",
+      "svg": "15-quiz.svg",
+      "start": 490,
+      "duration": 14,
+      "notes": "Why does net revenue retention exclude new business?\n\nAnswer: NRR measures what happened to customers you already had — including new logos measures sales, not retention"
+    },
+    {
+      "order": 16,
+      "type": "quiz",
+      "title": "Check yourself",
+      "file": "16-quiz.png",
+      "svg": "16-quiz.svg",
+      "start": 504,
+      "duration": 14,
+      "notes": "Gross retention can never exceed 100% because:\n\nAnswer: It removes expansion, leaving only contraction and churn, which can only subtract"
+    },
+    {
+      "order": 17,
+      "type": "quiz",
+      "title": "Check yourself",
+      "file": "17-quiz.png",
+      "svg": "17-quiz.svg",
+      "start": 518,
+      "duration": 14,
+      "notes": "Summing ClosingARR across all 1,579 snapshot rows gives:\n\nAnswer: Roughly eighteen years of revenue — every query on a snapshot must pick or group by a month"
+    },
+    {
+      "order": 18,
+      "type": "recap",
+      "title": "Recap",
+      "file": "18-recap.png",
+      "svg": "18-recap.svg",
+      "start": 532,
+      "duration": 8,
+      "notes": "- Why the snapshot is the whole build: csv is 1,579 rows: one per account per month, eighteen months.\n- The metrics: \n- The layout: \n- The two readings that matter: Those two scenarios have the same NRR and completely different futures.\n- The Academy's own reading: The cohort of 20 accounts that were paying in September 2025 opened at $912K of ARR.\n- The last widget is the most used: The movements table — account, movement type, amount — is what turns this from a reporting screen into a working one."
+    },
+    {
+      "order": 19,
+      "type": "end",
+      "title": "Keep going",
+      "file": "19-end.png",
+      "svg": "19-end.svg",
+      "start": 540,
+      "duration": 6,
+      "notes": "Next lesson: Build: Consumption and Commit Risk. Everything is free at crmanalytics.imswarnil.com."
+    }
+  ]
+}

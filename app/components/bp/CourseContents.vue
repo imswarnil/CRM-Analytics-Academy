@@ -30,6 +30,7 @@ const sections = computed(() =>
     return {
       n: String(index).padStart(2, '0'),
       title: String(mod.title ?? ''),
+      icon: String((mod as { icon?: string }).icon ?? 'i-lucide-book-open'),
       path: String(mod.path ?? ''),
       lessons,
       done,
@@ -60,12 +61,24 @@ function lessonIcon(l: { path: string, type: string, access: string }) {
   return l.type === 'video' ? 'i-lucide-play' : 'i-lucide-file-text'
 }
 
-// Keep the current lesson in view when the page changes.
+// Keep the current lesson in view — by scrolling the sidebar's own scroll box
+// only. scrollIntoView() would also scroll the page, so every lesson opened
+// jumped the window down and slid the breadcrumbs under the header.
 const list = ref<HTMLElement | null>(null)
-watch(() => route.path, () => nextTick(() => {
-  list.value?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'nearest' })
-}), { immediate: false })
-onMounted(() => list.value?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'center' }))
+function revealCurrent(center: boolean) {
+  const el = list.value?.querySelector<HTMLElement>('[aria-current="page"]')
+  if (!el) return
+  let box: HTMLElement | null = el.parentElement
+  while (box && !/(auto|scroll)/.test(getComputedStyle(box).overflowY)) box = box.parentElement
+  if (!box) return
+  const top = el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop
+  const bottom = top + el.offsetHeight
+  if (center) box.scrollTop = top - box.clientHeight / 2 + el.offsetHeight / 2
+  else if (top < box.scrollTop) box.scrollTop = top
+  else if (bottom > box.scrollTop + box.clientHeight) box.scrollTop = bottom - box.clientHeight
+}
+watch(() => route.path, () => nextTick(() => revealCurrent(false)))
+onMounted(() => revealCurrent(true))
 </script>
 
 <template>
@@ -88,11 +101,18 @@ onMounted(() => list.value?.querySelector('[aria-current="page"]')?.scrollIntoVi
       :to="localePath(s.lessons[0]?.path ?? s.path)"
       :title="`${s.n} — ${s.title}`"
     >
-      <BpDonut
-        :value="s.lessons.length ? s.done / s.lessons.length : 0"
-        :active="s.active"
-        :size="28"
-      />
+      <span class="relative flex size-[34px] items-center justify-center">
+        <BpDonut
+          :value="s.lessons.length ? s.done / s.lessons.length : 0"
+          :active="s.active"
+          :size="34"
+        />
+        <UIcon
+          :name="s.icon"
+          class="absolute size-3.5"
+          :class="s.active || (s.lessons.length && s.done === s.lessons.length) ? 'text-white' : 'text-(--signal)'"
+        />
+      </span>
     </NuxtLink>
     <span class="mt-2 font-mono text-[10px] uppercase tracking-[.15em] text-(--ink2) [writing-mode:vertical-rl]">Contents · {{ pct }}%</span>
   </div>
@@ -148,10 +168,18 @@ onMounted(() => list.value?.querySelector('[aria-current="page"]')?.scrollIntoVi
             <span class="block truncate text-sm font-bold text-(--ink)">{{ s.title }}</span>
             <span class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ s.lessons.length }} lessons · {{ s.minutes }}m</span>
           </span>
-          <BpDonut
-            :value="s.lessons.length ? s.done / s.lessons.length : 0"
-            :size="24"
-          />
+          <!-- The section's own icon inside its progress ring. -->
+          <span class="relative flex size-8 flex-none items-center justify-center">
+            <BpDonut
+              :value="s.lessons.length ? s.done / s.lessons.length : 0"
+              :size="32"
+            />
+            <UIcon
+              :name="s.icon"
+              class="absolute size-3.5"
+              :class="s.lessons.length && s.done === s.lessons.length ? 'text-white' : 'text-(--signal)'"
+            />
+          </span>
         </button>
 
         <ol

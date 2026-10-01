@@ -12,7 +12,7 @@
   <path d="M 34 48 h 28 M 48 34 v 28 M 1138 48 h 28 M 1152 34 v 28 M 34 582 h 28 M 48 568 v 28 M 1138 582 h 28 M 1152 568 v 28" stroke="#2F5BEA" stroke-width="1.5"/>
   <rect x="84" y="84" width="64" height="64" fill="none" stroke="#0C1B33" stroke-width="2.2857142857142856"/><rect x="96.8" y="121.75999999999999" width="9.142857142857142" height="13.44" fill="#A8CCF2"/><rect x="111.42857142857142" y="112.16" width="9.142857142857142" height="23.04" fill="#3D8BD9"/><rect x="126.05714285714285" y="100.63999999999999" width="9.142857142857142" height="34.56" fill="#2F5BEA"/>
   <text x="168" y="118" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="800" font-size="30" fill="#0C1B33">CRM Analytics</text>
-  <text x="168" y="144" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="15" letter-spacing="3" fill="#4A5B78">BY SWARNIL</text>
+  <text x="168" y="144" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="15" letter-spacing="3" fill="#4A5B78">ACADEMY</text>
   <text x="84" y="268" font-family="'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="20" letter-spacing="4" fill="#2F5BEA">FIG. 01 — FREE COURSE</text>
   <text x="80" y="352" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="72" letter-spacing="-3" fill="#0C1B33">Learn CRM Analytics</text>
   <text x="84" y="412" font-family="'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="28" fill="#4A5B78">Data prep to SAQL to dashboards, in 12 languages.</text>

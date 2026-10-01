@@ -21,7 +21,12 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-const tab = ref<'overview' | 'users' | 'queue' | 'content' | 'inquiries' | 'lessons' | 'comments'>('overview')
+type AdminTab = 'overview' | 'users' | 'queue' | 'content' | 'leads' | 'teams' | 'lessons' | 'comments' | 'guide'
+const tab = ref<AdminTab>('overview')
+// The Guide's "Open" buttons jump straight to the tab a chapter describes.
+const goToTab = (t: string) => {
+  tab.value = t as AdminTab
+}
 
 const { data: me } = await useLazyAsyncData('admin-me', () =>
   $fetch<{ signedIn: boolean, role: string | null, email?: string }>('/api/admin/me'), {
@@ -565,8 +570,8 @@ watch(tab, (t) => {
 
     <UContainer v-else-if="isModerator">
       <UPageHeader
-        :title="tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'inquiries' ? 'Enquiries' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? 'Content Studio' : 'Users & Roles'"
-        :description="tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'inquiries' ? 'Enrollments, quotations and implementation requests.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? 'Edit English lessons and publish them straight to GitHub.' : 'Accounts, roles and access.'"
+        :title="tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'leads' ? 'Leads' : tab === 'teams' ? 'Teams' : tab === 'guide' ? 'Guide' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? 'Content Studio' : 'Users & Roles'"
+        :description="tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'leads' ? 'Sales, quotes, teams, training, sponsors, instructors and nominations — enriched and sent to the CRM.' : tab === 'teams' ? 'Every team: seats bought, seats used, members and status.' : tab === 'guide' ? 'How to run the academy, end to end — writing, pricing, video, leads and tracking.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? 'Edit English lessons and publish them straight to GitHub.' : 'Accounts, roles and access.'"
       >
         <template #headline>
           <nav
@@ -617,13 +622,23 @@ watch(tab, (t) => {
               Lessons & Pro
             </UButton>
             <UButton
-              icon="i-lucide-mail"
+              icon="i-lucide-inbox"
               size="sm"
-              :color="tab === 'inquiries' ? 'primary' : 'neutral'"
-              :variant="tab === 'inquiries' ? 'solid' : 'ghost'"
-              @click="tab = 'inquiries'"
+              :color="tab === 'leads' ? 'primary' : 'neutral'"
+              :variant="tab === 'leads' ? 'solid' : 'ghost'"
+              @click="tab = 'leads'"
             >
-              Enquiries
+              Leads
+            </UButton>
+            <UButton
+              v-if="isAdmin"
+              icon="i-lucide-users-round"
+              size="sm"
+              :color="tab === 'teams' ? 'primary' : 'neutral'"
+              :variant="tab === 'teams' ? 'solid' : 'ghost'"
+              @click="tab = 'teams'"
+            >
+              Teams
             </UButton>
             <UButton
               v-if="isAdmin"
@@ -645,6 +660,16 @@ watch(tab, (t) => {
             >
               Users & Roles
             </UButton>
+            <UButton
+              v-if="isAdmin"
+              icon="i-lucide-book-open"
+              size="sm"
+              :color="tab === 'guide' ? 'primary' : 'neutral'"
+              :variant="tab === 'guide' ? 'solid' : 'ghost'"
+              @click="tab = 'guide'"
+            >
+              Guide
+            </UButton>
           </nav>
         </template>
 
@@ -665,7 +690,12 @@ watch(tab, (t) => {
           {{ error }}
         </p>
 
-        <AdminInquiries v-if="tab === 'inquiries'" />
+        <AdminLeads v-if="tab === 'leads'" />
+        <AdminTeams v-if="tab === 'teams' && isAdmin" />
+        <AdminGuide
+          v-if="tab === 'guide' && isAdmin"
+          @go="goToTab"
+        />
         <AdminComments v-if="tab === 'comments'" />
         <AdminLessons v-if="tab === 'lessons' && isAdmin" />
 

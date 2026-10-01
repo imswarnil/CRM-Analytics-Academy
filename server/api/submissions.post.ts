@@ -1,6 +1,11 @@
 /**
  * Submit a resource, a showcase dashboard, or a lesson idea.
  *
+ * The contribute stepper also sends `details`: the structured fields of its
+ * fine-grained type (dashboard data sources and KPI formulas, a translation's
+ * before and after, a SAQL snippet …). `kind` stays one of three moderation
+ * buckets; `details.type` says what the thing really is.
+ *
  * Everything lands as `pending`. Nothing a learner types reaches a public page
  * until a human approves it — this is a public form on a site with a database
  * behind it, which is a spam target whether or not it is worth spamming yet.
@@ -12,6 +17,24 @@
  */
 const KINDS = ['resource', 'showcase', 'lesson-idea'] as const
 type Kind = typeof KINDS[number]
+
+// Fine-grained type → the moderation bucket it must be filed under.
+const DETAIL_TYPES: Record<string, Kind> = {
+  dashboard: 'showcase',
+  resource: 'resource',
+  lesson: 'lesson-idea',
+  translation: 'lesson-idea',
+  snippet: 'lesson-idea'
+}
+const MAX_DETAILS_BYTES = 24_000
+
+/** Every string under `details` that looks like a link must be http(s). */
+function unsafeLink(value: unknown): boolean {
+  if (typeof value === 'string') return /^\s*(javascript|data|vbscript):/i.test(value)
+  if (Array.isArray(value)) return value.some(unsafeLink)
+  if (value && typeof value === 'object') return Object.values(value).some(unsafeLink)
+  return false
+}
 
 // Per-user, per-window. An authenticated endpoint that writes rows is the
 // shape of thing that gets hammered by one compromised account.
@@ -95,11 +118,24 @@ export default defineEventHandler(async (event) => {
       )].slice(0, 8)
     : []
 
+  // Structured details: an object, a known type that matches the bucket,
+  // bounded in size, and no script-scheme links anywhere inside it.
+  let details: Record<string, unknown> = {}
+  if (body?.details !== undefined && body.details !== null) {
+    if (typeof body.details !== 'object' || Array.isArray(body.details)) fail('Details must be an object.')
+    details = body.details as Record<string, unknown>
+    const type = String(details.type ?? '')
+    if (!(type in DETAIL_TYPES)) fail('Unknown contribution type.')
+    if (DETAIL_TYPES[type] !== kind) fail('That contribution type does not match its category.')
+    if (JSON.stringify(details).length > MAX_DETAILS_BYTES) fail('That submission is too long.')
+    if (unsafeLink(details)) fail('Links must start with http:// or https://')
+  }
+
   const sql = useDb()
   try {
     const rows = await sql`
-      insert into app.submission (user_id, kind, title, url, description, tags, image_url)
-      values (${user.id}, ${kind}, ${title}, ${url}, ${description}, ${tags}, ${imageUrl})
+      insert into app.submission (user_id, kind, title, url, description, tags, image_url, details)
+      values (${user.id}, ${kind}, ${title}, ${url}, ${description}, ${tags}, ${imageUrl}, ${JSON.stringify(details)}::jsonb)
       returning id, status, created_at
     `
     const row = rows[0]

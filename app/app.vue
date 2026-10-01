@@ -88,7 +88,7 @@ useHead({
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     // Matches manifest.webmanifest; a stale value here shows as the wrong
     // colour in the Android status bar of an installed app.
-    { name: 'theme-color', content: '#0176D3' }
+    { name: 'theme-color', content: '#0F2A5C' }
   ],
   link: [
     { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },

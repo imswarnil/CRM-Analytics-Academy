@@ -140,7 +140,7 @@ const steps = [
           </p>
         </div>
         <div class="lg:col-span-3">
-          <InquiryForm kind="implementation" />
+          <LeadForm type="implementation" />
         </div>
       </div>
     </div>

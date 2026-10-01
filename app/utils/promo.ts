@@ -190,3 +190,44 @@ export const AD_PLACEMENTS = {
 } satisfies Record<string, AdPlacement>
 
 export type AdPlacementName = keyof typeof AD_PLACEMENTS
+
+/**
+ * The AdSense library, loaded on demand — only once a slot is about to show to
+ * a reader who is not on Pro. It used to sit in every page's <head>, which
+ * meant Pro readers downloaded it too. One tag per page, however many slots.
+ */
+let promoScript: Promise<void> | null = null
+export function loadPromoScript(): Promise<void> {
+  if (import.meta.server) return Promise.resolve()
+  if (promoScript) return promoScript
+  promoScript = new Promise((resolve, reject) => {
+    const s = document.createElement('script')
+    s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`
+    s.async = true
+    s.crossOrigin = 'anonymous'
+    s.onload = () => resolve()
+    s.onerror = () => {
+      promoScript = null
+      reject(new Error('promo script blocked'))
+    }
+    document.body.appendChild(s)
+  })
+  return promoScript
+}
+
+/**
+ * Pro readers see no promos. Whether a reader is Pro is only known after
+ * /api/progress answers, which is after first paint — so the answer is also
+ * kept in localStorage, and an inline <head> script (nuxt.config) marks
+ * <html data-pro> before paint on the next visit. CSS there hides every slot,
+ * so a returning Pro reader never sees space reserved and then collapsed.
+ */
+export const PRO_FLAG_KEY = 'crma-pro'
+export function rememberPro(isPro: boolean) {
+  if (import.meta.server) return
+  try {
+    if (isPro) localStorage.setItem(PRO_FLAG_KEY, '1')
+    else localStorage.removeItem(PRO_FLAG_KEY)
+  } catch { /* storage blocked: the slot just hides after load instead */ }
+  document.documentElement.toggleAttribute('data-pro', isPro)
+}

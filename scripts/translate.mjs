@@ -435,6 +435,33 @@ async function walk(dir) {
 
 const sha = s => createHash('sha256').update(s).digest('hex').slice(0, 16)
 
+/**
+ * What a translation depends on. `access` (free/pro) and `mux` (video ids) are
+ * read from the English file by gate-content and the lesson page for every
+ * locale, so they are never translated — and changing them must not mark the
+ * file stale, or locking a lesson or attaching a video would re-translate it
+ * into eleven languages for nothing. Those top-level frontmatter keys (and a
+ * `mux:` block's indented lines) are dropped before hashing; a file without
+ * them hashes exactly as it always did, so existing manifest entries hold.
+ */
+function translationSource(raw) {
+  const m = raw.match(/^---\n([\s\S]*?)\n---/)
+  if (!m || !/^(access|mux):/m.test(m[1])) return raw
+  const lines = m[1].split('\n')
+  const kept = []
+  let skipping = false
+  for (const line of lines) {
+    if (/^(access|mux):/.test(line)) {
+      skipping = true
+      continue
+    }
+    if (skipping && /^\s+\S/.test(line)) continue
+    skipping = false
+    kept.push(line)
+  }
+  return `---\n${kept.join('\n')}\n---${raw.slice(m[0].length)}`
+}
+
 /** Recorded in place of a hash when a key failed, so the next run retries it. */
 const FAILED_MARK = 'failed'
 
@@ -611,7 +638,7 @@ async function translateContent(manifest) {
       const rel = relative(sourceDir, file)
       const outPath = join(CONTENT_DIR, locale, rel)
       const raw = await readFile(file, 'utf8')
-      const hash = sha(raw)
+      const hash = sha(translationSource(raw))
       const key = `${locale}:${rel}`
 
       if (!FORCE && manifest[key] === hash && existsSync(outPath)) {

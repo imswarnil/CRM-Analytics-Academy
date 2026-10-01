@@ -37,6 +37,8 @@ set of revenue dashboards built on one company's data. The core course is free; 
 ## Contents
 
 - [Features](#features)
+- [Built with](#built-with)
+- [Operating the academy](#operating-the-academy)
 - [The curriculum](#the-curriculum)
 - [Architecture](#architecture)
 - [Request flows](#request-flows)
@@ -69,6 +71,39 @@ set of revenue dashboards built on one company's data. The core course is free; 
 - **Blueprint design system** — paper/ink tokens, graph paper, crop marks, hard shadows, mono labels
   (spec in [`docs/design-handoff-blueprint/`](./docs/design-handoff-blueprint)).
 - **Payload CMS** for authoring, written back to markdown so git stays the source of truth.
+
+## Built with
+
+| Layer | Technology |
+| --- | --- |
+| Framework | [Nuxt 4](https://nuxt.com) (Vue 3, Vite, Nitro), TypeScript |
+| Content | [Nuxt Content 3](https://content.nuxt.com) (markdown + MDC components), `nuxt-llms` for `llms.txt`, `/raw/*.md` for agents |
+| UI | [Nuxt UI v4](https://ui.nuxt.com), [Tailwind CSS 4](https://tailwindcss.com), the in-house **Blueprint** design system (graph paper, crop marks, hard shadows), Schibsted Grotesk + IBM Plex Mono via `@nuxt/fonts`, Lucide / Simple Icons via Iconify |
+| i18n | `@nuxtjs/i18n` — 12 locales, 2 RTL; machine translation through a self-hosted [LibreTranslate](https://libretranslate.com) |
+| Hosting | [Cloudflare Workers](https://workers.cloudflare.com) (static assets at the edge + a Nitro Worker), Cloudflare R2 for uploads, Wrangler |
+| Database | [Neon](https://neon.tech) serverless Postgres (`@neondatabase/serverless`) |
+| Auth | Neon Auth ([better-auth](https://better-auth.com)), a shared demo account |
+| Payments | [Dodo Payments](https://dodopayments.com) hosted checkout + Standard Webhooks (test mode) |
+| Video | [Mux](https://mux.com) (public + signed playback, per-language ids), Mux CLI for uploads, ffmpeg + VoiceStudio / macOS voices for local narration |
+| CMS | [Payload 3](https://payloadcms.com) on Next.js 15 (`cms/`), Postgres adapter in its own schema, optional R2 storage; Nuxt Studio as a lightweight in-browser editor |
+| Automation | [n8n](https://n8n.io) webhook → Salesforce Lead (HMAC-signed), enrichment from the company's own site |
+| SEO | `@nuxtjs/sitemap`, `nuxt-og-image` (Takumi renderer), JSON-LD per page type, hreflang, IndexNow |
+| Analytics | Microsoft Clarity |
+| PWA | Web app manifest, service worker with an offline page, install prompt |
+| Creative | `content-assets/` — SVG/PNG/ProRes kit, After Effects ExtendScript, Premiere XML, lesson-slide generator (rsvg-convert, ffmpeg) |
+| Quality | ESLint (`@nuxt/eslint`), `vue-tsc` typecheck, a build-time gating verifier, GitHub Actions, Renovate |
+
+## Operating the academy
+
+The full, step-by-step operator's guide lives in the admin console (**/admin → Guide**). In short:
+
+1. **Write** a lesson in Payload (`pnpm cms:dev`) or as `content/en/<NN.section>/<NN.lesson>.md`; preview with `pnpm dev`.
+2. **Free or Pro**: `access: pro` in the English frontmatter, the Payload field, or **/admin → Lessons & Pro**. The build gates the body and fails if anything leaks.
+3. **Video**: `pnpm mux:lesson <route> <file> [--lang=es]`; slides for recording with `pnpm slides:lesson <route>`; edit in After Effects / Premiere from `content-assets/`.
+4. **Publish**: `pnpm cms:pull`, commit, push — translation, build, deploy and IndexNow run in GitHub Actions.
+5. **Sell**: individuals buy Pro on `/pricing`; companies buy seats on `/teams` and invite colleagues on `/team`; bigger deals come through `/sales`.
+6. **Leads**: every form (sales, quotes, training, implementation, sponsor, instructor, nomination, contact) lands in Neon, is enriched, forwarded to Salesforce through n8n, and worked in **/admin → Leads**.
+7. **Track**: `/admin` KPIs, Clarity, Search Console, the Dodo dashboard and the GitHub Actions runs.
 
 ## The curriculum
 

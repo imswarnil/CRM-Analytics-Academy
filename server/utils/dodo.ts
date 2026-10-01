@@ -8,7 +8,10 @@
  * Plans map to Dodo product ids through env vars rather than constants, so a
  * price change is a dashboard edit and a secret update — never a deploy.
  */
-export type Plan = 'monthly' | 'lifetime'
+export type Plan = 'monthly' | 'annual' | 'team' | 'lifetime'
+
+/** Seats a self-serve team can buy; beyond this it is a sales conversation. */
+export const TEAM_SEATS = { min: 3, max: 50 } as const
 
 export function dodoBase(): string {
   return process.env.DODO_ENV === 'live'
@@ -17,9 +20,13 @@ export function dodoBase(): string {
 }
 
 export function dodoProduct(plan: Plan): string | undefined {
-  return plan === 'monthly'
-    ? process.env.DODO_PRODUCT_PRO_MONTHLY
-    : process.env.DODO_PRODUCT_PRO_LIFETIME
+  switch (plan) {
+    case 'monthly': return process.env.DODO_PRODUCT_PRO_MONTHLY
+    case 'annual': return process.env.DODO_PRODUCT_PRO_ANNUAL
+    case 'team': return process.env.DODO_PRODUCT_TEAM_SEAT
+    // No longer sold; kept so an old lifetime purchase still resolves.
+    case 'lifetime': return process.env.DODO_PRODUCT_PRO_LIFETIME
+  }
 }
 
 export function dodoFetch<T>(path: string, init: { method?: 'GET' | 'POST', body?: unknown } = {}): Promise<T> {

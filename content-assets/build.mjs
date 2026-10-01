@@ -173,7 +173,7 @@ out('video/title-card.svg', sheet(1920, 1080, false, `
   <text x="200" y="620" font-family="${SANS}" font-size="44" fill="${C.ink2}">One line on what this lesson teaches.</text>
   ${mark(200, 720, 96)}
   <text x="324" y="770" font-family="${SANS}" font-weight="800" font-size="40" fill="${C.ink}">CRM Analytics</text>
-  <text x="324" y="806" font-family="${MONO}" font-size="20" letter-spacing="3" fill="${C.ink2}">BY SWARNIL</text>`))
+  <text x="324" y="806" font-family="${MONO}" font-size="20" letter-spacing="3" fill="${C.ink2}">ACADEMY</text>`))
 
 // Chapter / section card (navy).
 out('video/chapter-card.svg', sheet(1920, 1080, true, `
@@ -195,9 +195,9 @@ out('video/end-card.svg', sheet(1920, 1080, true, `
 
 // Subscribe / next-lesson overlay — transparent, top-right.
 out('video/next-lesson-overlay.svg', svg(1920, 1080, `
-  <g transform="translate(1300 96)">
-    <rect x="10" y="10" width="524" height="190" fill="${C.ink}"/>
-    <rect width="524" height="190" fill="${C.card}" stroke="${C.ink}" stroke-width="3"/>
+  <g transform="translate(1224 96)">
+    <rect x="10" y="10" width="600" height="190" fill="${C.ink}"/>
+    <rect width="600" height="190" fill="${C.card}" stroke="${C.ink}" stroke-width="3"/>
     <text x="32" y="48" font-family="${MONO}" font-size="18" letter-spacing="4" fill="${C.signal}">NEXT LESSON →</text>
     <text x="32" y="104" font-family="${SANS}" font-weight="800" font-size="38" fill="${C.ink}">Next lesson title</text>
     <rect x="32" y="130" width="220" height="40" fill="${C.signal}"/>
@@ -250,7 +250,7 @@ out('brand/logo-mark-on-navy.svg', svg(512, 512, mark(56, 56, 400, { box: C.fros
 const wordmark = dark => svg(960, 240, `
   ${mark(32, 40, 160, dark ? { box: C.frost, bars: [C.frost, C.tide, C.glow] } : {})}
   <text x="232" y="132" font-family="${SANS}" font-weight="800" font-size="76" letter-spacing="-2" fill="${dark ? C.white : C.ink}">CRM Analytics</text>
-  <text x="236" y="184" font-family="${MONO}" font-size="26" letter-spacing="4" fill="${dark ? C.frost : C.ink2}">BY SWARNIL</text>`, { bg: dark ? C.navy : undefined })
+  <text x="236" y="184" font-family="${MONO}" font-size="26" letter-spacing="4" fill="${dark ? C.frost : C.ink2}">ACADEMY</text>`, { bg: dark ? C.navy : undefined })
 out('brand/wordmark.svg', wordmark(false))
 out('brand/wordmark-on-navy.svg', wordmark(true))
 
@@ -260,7 +260,7 @@ const og = (eyebrow, title, lead, bars) => sheet(1200, 630, false, `
   ${cropMarks(48, 48, 1104, 534, C.signal, 14)}
   ${mark(84, 84, 64)}
   <text x="168" y="118" font-family="${SANS}" font-weight="800" font-size="30" fill="${C.ink}">CRM Analytics</text>
-  <text x="168" y="144" font-family="${MONO}" font-size="15" letter-spacing="3" fill="${C.ink2}">BY SWARNIL</text>
+  <text x="168" y="144" font-family="${MONO}" font-size="15" letter-spacing="3" fill="${C.ink2}">ACADEMY</text>
   <text x="84" y="268" font-family="${MONO}" font-size="20" letter-spacing="4" fill="${C.signal}">${esc(eyebrow)}</text>
   <text x="80" y="352" font-family="${SANS}" font-weight="900" font-size="72" letter-spacing="-3" fill="${C.ink}">${esc(title)}</text>
   <text x="84" y="412" font-family="${SANS}" font-size="28" fill="${C.ink2}">${esc(lead)}</text>

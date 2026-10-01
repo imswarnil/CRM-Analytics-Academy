@@ -709,7 +709,7 @@
  },
  "/einstein-discovery": {
   "minutes": 3,
-  "type": "article",
+  "type": "video",
   "access": "free",
   "quiz": true
  },
@@ -818,49 +818,49 @@
  "/demand-analytics/ai-search-visibility": {
   "minutes": 8,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/demand-analytics/seo-in-the-ai-era": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/demand-analytics/acquisition-and-ga4": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/demand-analytics/regional-demand": {
   "minutes": 6,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/demand-analytics/campaign-performance": {
   "minutes": 6,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/demand-analytics/spend-efficiency": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/demand-analytics/attribution": {
   "minutes": 6,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/demand-analytics/interview-questions": {
   "minutes": 3,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/pipeline-analytics": {
@@ -872,55 +872,55 @@
  "/pipeline-analytics/lead-overview": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/pipeline-analytics/routing-and-sla": {
   "minutes": 4,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/pipeline-analytics/lead-scoring": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/pipeline-analytics/inbound-vs-outbound": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/pipeline-analytics/lead-to-opportunity": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/pipeline-analytics/opportunity-management": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/pipeline-analytics/funnel-and-velocity": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/pipeline-analytics/cpq-and-discounting": {
   "minutes": 5,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/pipeline-analytics/interview-questions": {
   "minutes": 3,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  },
  "/revops-analytics": {
@@ -932,37 +932,37 @@
  "/revops-analytics/forecast-and-commit": {
   "minutes": 4,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/revops-analytics/arr-waterfall-and-nrr": {
   "minutes": 11,
   "type": "video",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/revops-analytics/consumption-and-commit-risk": {
   "minutes": 10,
   "type": "video",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/revops-analytics/service-sla-and-deflection": {
   "minutes": 9,
   "type": "video",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/revops-analytics/the-executive-gtm-board": {
   "minutes": 11,
   "type": "video",
-  "access": "free",
+  "access": "pro",
   "quiz": true
  },
  "/revops-analytics/interview-questions": {
   "minutes": 3,
   "type": "article",
-  "access": "free",
+  "access": "pro",
   "quiz": false
  }
 }

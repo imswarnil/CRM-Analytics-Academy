@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import type { ContentNavigationItem } from '@nuxt/content'
+import { AUTHOR } from '~/data/author'
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const navigation = inject<Ref<unknown[]>>('navigation', ref([]))
+const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 const { total } = useCourse()
 const title = computed(() => t('seo.aboutTitle'))
 const description = computed(() => t('seo.aboutDesc'))
@@ -27,11 +30,17 @@ useJsonLd([
   {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    'name': SITE.author,
+    'name': AUTHOR.name,
     'url': 'https://imswarnil.com',
-    'jobTitle': 'Creator & maintainer, CRM Analytics Academy',
-    'worksFor': { '@type': 'Organization', 'name': SITE.name },
-    'sameAs': ['https://github.com/imswarnil', 'https://imswarnil.com']
+    'image': AUTHOR.avatar,
+    'description': AUTHOR.summary,
+    'jobTitle': AUTHOR.role,
+    'worksFor': { '@type': 'Organization', 'name': AUTHOR.company },
+    'workLocation': { '@type': 'Place', 'name': AUTHOR.place },
+    'alumniOf': { '@type': 'CollegeOrUniversity', 'name': AUTHOR.education.school },
+    'hasOccupation': AUTHOR.roles.map(r => ({ '@type': 'Occupation', 'name': r.title, 'description': `${r.company}, ${r.place} (${r.years})` })),
+    'knowsAbout': AUTHOR.skills.flatMap(g => g.items),
+    'sameAs': AUTHOR.social.map(s => s.url)
   }
 ])
 
@@ -42,10 +51,12 @@ const principles = [
   { icon: 'i-lucide-bot', title: 'AI-native', desc: 'Every page is published as Markdown and over MCP, so assistants can teach from the source.' }
 ]
 
-const modules = [
-  { n: '01', label: 'CRM Analytics Foundations', to: '/foundations' },
-  { n: '02', label: 'Interview questions', to: '/foundations/interview-questions' }
-]
+// Every section of the course, straight from the navigation tree.
+const modules = computed(() => (navigation.value ?? []).map((m, i) => ({
+  n: String(i).padStart(2, '0'),
+  label: String(m.title ?? ''),
+  to: String(m.path ?? '/')
+})))
 
 const stack = [
   { icon: 'i-simple-icons-nuxt', label: 'Nuxt 4' },
@@ -57,6 +68,7 @@ const stack = [
 ]
 
 const authorLinks = [
+  { icon: 'i-simple-icons-linkedin', label: 'LinkedIn', to: 'https://www.linkedin.com/in/imswarnil/', target: '_blank' },
   { icon: 'i-simple-icons-github', label: 'GitHub', to: 'https://github.com/imswarnil', target: '_blank' },
   { icon: 'i-lucide-globe', label: 'Website', to: 'https://imswarnil.com', target: '_blank' },
   { icon: 'i-lucide-heart', label: 'Sponsor', to: 'https://github.com/sponsors/crm-analytics-academy', target: '_blank' }
@@ -145,7 +157,7 @@ const authorLinks = [
             <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
               The curriculum at a glance
             </p>
-            <ul>
+            <ul class="max-h-96 overflow-y-auto">
               <li
                 v-for="m in modules"
                 :key="m.n"
@@ -194,10 +206,10 @@ const authorLinks = [
                 </span>
                 <div>
                   <h3 class="text-2xl font-extrabold tracking-[-0.02em] text-(--ink)">
-                    Swarnil Singhai
+                    {{ AUTHOR.name }}
                   </h3>
                   <p class="mono-label mt-1">
-                    Creator &amp; maintainer
+                    {{ AUTHOR.role }} · {{ AUTHOR.company }}
                   </p>
                 </div>
               </div>
@@ -274,6 +286,136 @@ const authorLinks = [
             </p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ===================== SECTION 3 — THE WORK ===================== -->
+    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
+      <p class="eyebrow">
+        {{ t('about.work.eyebrow') }}
+      </p>
+      <div class="mt-3 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end">
+        <h2 class="bp-h2">
+          {{ t('about.work.title') }}
+        </h2>
+        <p class="bp-lead">
+          {{ AUTHOR.summary }}
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <!-- Highlights -->
+        <div>
+          <p class="mono-label">
+            {{ t('about.work.highlights') }}
+          </p>
+          <ol class="mt-3 space-y-3">
+            <li
+              v-for="(h, i) in AUTHOR.highlights"
+              :key="i"
+              class="bp-card bp-card--hover flex gap-4 p-5"
+            >
+              <span class="font-mono text-xs font-semibold text-(--signal)">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span class="text-[15px] leading-relaxed text-(--ink2)">{{ h }}</span>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Experience + education -->
+        <div class="space-y-6">
+          <div class="border-[1.5px] border-(--ink) bg-(--card)">
+            <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
+              {{ t('about.work.experience') }}
+            </p>
+            <ol class="relative px-4 py-2">
+              <li
+                v-for="r in AUTHOR.roles"
+                :key="r.company"
+                class="relative border-s-[1.5px] border-(--line) py-3 ps-5"
+              >
+                <span
+                  class="absolute -start-[7px] top-4 size-3 border-[1.5px] border-(--ink)"
+                  :class="r.current ? 'bg-(--signal)' : 'bg-(--card)'"
+                />
+                <p class="font-mono text-[11px] text-(--ink2)">
+                  {{ r.years }} · {{ r.place }}
+                </p>
+                <p class="mt-0.5 font-bold text-(--ink)">
+                  {{ r.title }} <span class="font-normal text-(--ink2)">· {{ r.company }}</span>
+                </p>
+              </li>
+            </ol>
+          </div>
+          <div class="flex items-start gap-4 border-[1.5px] border-(--ink) bg-(--card) p-4">
+            <span class="bp-iconbox text-(--signal)">
+              <UIcon
+                name="i-lucide-graduation-cap"
+                class="size-5"
+              />
+            </span>
+            <div>
+              <p class="mono-label">
+                {{ t('about.work.education') }}
+              </p>
+              <p class="mt-1 font-bold text-(--ink)">
+                {{ AUTHOR.education.degree }}
+              </p>
+              <p class="text-sm text-(--ink2)">
+                {{ AUTHOR.education.school }} · {{ AUTHOR.education.years }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="mt-12 border-[1.5px] border-(--ink) bg-(--card)">
+        <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
+          {{ t('about.work.skills') }}
+        </p>
+        <dl class="divide-y divide-dashed divide-(--line)">
+          <div
+            v-for="g in AUTHOR.skills"
+            :key="g.group"
+            class="grid gap-3 px-4 py-3 md:grid-cols-[8rem_minmax(0,1fr)] md:items-baseline"
+          >
+            <dt class="font-mono text-[11px] font-semibold uppercase tracking-[.12em] text-(--signal)">
+              {{ g.group }}
+            </dt>
+            <dd class="flex flex-wrap gap-1.5">
+              <span
+                v-for="s in g.items"
+                :key="s"
+                class="border-[1.5px] border-(--ink) px-2 py-0.5 text-[12px] text-(--ink)"
+              >{{ s }}</span>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Other things he builds -->
+      <p class="mono-label mt-12">
+        {{ t('about.work.projects') }}
+      </p>
+      <div class="mt-3 grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr))]">
+        <a
+          v-for="p in AUTHOR.projects"
+          :key="p.name"
+          :href="p.url"
+          target="_blank"
+          rel="noopener"
+          class="bp-card bp-card--hover flex flex-col p-4"
+        >
+          <span class="flex items-center justify-between gap-2">
+            <span class="font-extrabold text-(--ink)">{{ p.name }}</span>
+            <span
+              class="border-[1.5px] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[.1em]"
+              :class="p.status === 'live' ? 'border-(--signal) text-(--signal)' : 'border-(--line) text-(--ink2)'"
+            >{{ p.status === 'live' ? t('about.work.live') : t('about.work.building') }}</span>
+          </span>
+          <span class="mt-2 text-sm text-(--ink2)">{{ p.blurb }}</span>
+          <span class="mt-auto pt-3 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ p.stack }}</span>
+        </a>
       </div>
     </section>
 

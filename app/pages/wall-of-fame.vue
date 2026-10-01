@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { WALL_PEOPLE, WALL_TYPE_ICONS, WALL_TYPES, type WallPersonType } from '~/data/wall-of-fame'
+
 const { t, locale, locales } = useI18n()
 const title = computed(() => t('wall.title'))
 const description = computed(() => t('wall.subtitle'))
@@ -6,53 +8,15 @@ const description = computed(() => t('wall.subtitle'))
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title: title.value, description: description.value })
 
-type PersonType = 'blogger' | 'youtuber' | 'author' | 'speaker' | 'builder'
-
-interface Person {
-  name: string
-  type: PersonType
-  desc: string
-  linkedin: string
-  url?: string
-  icon?: string
-}
-
-// Curated by hand — like the resources list, this is data, not UI copy.
-// To add someone: append an entry with their name, one of the five types,
-// a short factual description of their community contribution, and a
-// `linkedin` link. Unless you are certain of the person's exact LinkedIn
-// handle, use a people-search URL (`/search/results/all/?keywords=<name>`)
-// so we never fabricate a profile slug. `url` is an optional secondary
-// link (personal site, GitHub) rendered as a small icon button.
-const people: Person[] = [
-  { name: 'Rikke Hovgaard', type: 'blogger', desc: 'Writes salesforceblogger.com, one of the longest-running blogs dedicated to CRM Analytics tips, bindings, and dashboard techniques.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Rikke%20Hovgaard', url: 'https://www.salesforceblogger.com', icon: 'i-lucide-globe' },
-  { name: 'Mohan Chinnappan', type: 'builder', desc: 'Builds and maintains open-source sfdx plugin tooling that many teams use to work with CRM Analytics assets from the command line.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Mohan%20Chinnappan', url: 'https://github.com/mohan-chinnappan-n', icon: 'i-simple-icons-github' },
-  { name: 'Carl Brundage', type: 'speaker', desc: 'Einstein Analytics Champion and consultant, known for sharing deep implementation expertise at community events.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Carl%20Brundage' },
-  { name: 'Mark Tossell', type: 'author', desc: 'Wrote the book Learning Tableau CRM and shares practical guidance on analytics adoption and dashboard design.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Mark%20Tossell' },
-  { name: 'Bobby Brill', type: 'speaker', desc: 'Longtime Einstein Discovery product leader at Salesforce, a familiar face in community demos and sessions.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Bobby%20Brill' },
-  { name: 'Skip Sauls', type: 'speaker', desc: 'CRM Analytics product management leader at Salesforce, known for engaging with practitioners in the Trailblazer community.', linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Skip%20Sauls' }
-]
-
-const typeIcons: Record<PersonType, string> = {
-  blogger: 'i-lucide-pen-line',
-  youtuber: 'i-lucide-youtube',
-  author: 'i-lucide-book-open',
-  speaker: 'i-lucide-mic',
-  builder: 'i-lucide-wrench'
-}
-
-const types: PersonType[] = ['blogger', 'youtuber', 'author', 'speaker', 'builder']
-const selected = ref<'all' | PersonType>('all')
+// The people are data in app/data/wall-of-fame.ts, shared with the home page.
+const people = WALL_PEOPLE
+const selected = ref<'all' | WallPersonType>('all')
 const filtered = computed(() => selected.value === 'all' ? people : people.filter(p => p.type === selected.value))
-const countFor = (key: 'all' | PersonType) => key === 'all' ? people.length : people.filter(p => p.type === key).length
+const countFor = (key: 'all' | WallPersonType) => key === 'all' ? people.length : people.filter(p => p.type === key).length
 
-// Every person is a numbered drawing sheet; the portrait crop cycles so
-// neighbouring cards do not line up like a spreadsheet.
-const aspects = ['aspect-[4/3]', 'aspect-square', 'aspect-[5/4]']
-const frameFor = (i: number) => ({
-  no: String(i + 1).padStart(3, '0'),
-  aspect: aspects[i % aspects.length]
-})
+// Always leave a few empty frames on the board: an open invitation to
+// nominate, and the honest way to show a wall that is still filling up.
+const minSlots = computed(() => Math.max(8, Math.ceil((filtered.value.length + 2) / 4) * 4))
 
 useJsonLd({
   '@context': 'https://schema.org',
@@ -64,7 +28,13 @@ useJsonLd({
   'itemListElement': people.map((p, i) => ({
     '@type': 'ListItem',
     'position': i + 1,
-    'item': { '@type': 'Person', 'name': p.name, 'url': p.linkedin }
+    'item': {
+      '@type': 'Person',
+      'name': p.name,
+      'url': p.linkedin,
+      'description': p.desc,
+      ...(p.url ? { sameAs: [p.url] } : {})
+    }
   }))
 })
 </script>
@@ -76,133 +46,98 @@ useJsonLd({
       :title="t('wall.title')"
       :lead="t('wall.subtitle')"
       center
-    />
-
-    <UContainer class="pb-16 sm:pb-20">
-      <div class="mb-8 flex flex-wrap justify-center gap-2">
+    >
+      <div class="mt-8 flex justify-center">
         <UButton
-          :color="selected === 'all' ? 'primary' : 'neutral'"
-          :variant="selected === 'all' ? 'subtle' : 'ghost'"
-          icon="i-lucide-layout-grid"
-          @click="selected = 'all'"
+          to="/nominate"
+          icon="i-lucide-heart-handshake"
+          size="lg"
         >
-          {{ t('wall.all') }}
-          <UBadge
-            :label="String(countFor('all'))"
-            color="neutral"
-            variant="subtle"
-            size="sm"
-          />
-        </UButton>
-        <UButton
-          v-for="type in types"
-          :key="type"
-          :color="selected === type ? 'primary' : 'neutral'"
-          :variant="selected === type ? 'subtle' : 'ghost'"
-          :icon="typeIcons[type]"
-          @click="selected = type"
-        >
-          {{ t(`wall.types.${type}`) }}
-          <UBadge
-            :label="String(countFor(type))"
-            color="neutral"
-            variant="subtle"
-            size="sm"
-          />
+          {{ t('wall.nominate') }}
         </UButton>
       </div>
+    </BpPageHeader>
 
-      <div class="columns-1 gap-6 sm:columns-2 lg:columns-3">
-        <div
-          v-for="(p, i) in filtered"
-          :key="p.name"
-          class="bp-card bp-card--hover group relative mb-6 break-inside-avoid"
+    <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
+      <!-- Filter strip -->
+      <div
+        class="mx-auto mb-10 flex w-fit max-w-full flex-wrap justify-center border-[1.5px] border-(--ink) bg-(--card)"
+        role="group"
+        :aria-label="t('wall.filter')"
+      >
+        <button
+          v-for="key in (['all', ...WALL_TYPES] as const)"
+          :key="key"
+          type="button"
+          class="flex items-center gap-2 border-e-[1.5px] border-(--ink) px-4 py-2 font-mono text-[11px] uppercase tracking-[.1em] transition-colors last:border-e-0"
+          :class="selected === key ? 'bg-(--ink) text-(--paper)' : 'text-(--ink) hover:bg-(--ice)'"
+          :aria-pressed="selected === key"
+          @click="selected = key"
         >
-          <div
-            class="crosshair hatch relative border-b-[1.5px] border-(--ink) bg-(--ice)"
-            :class="frameFor(i).aspect"
-            aria-hidden="true"
-          >
-            <UIcon
-              name="i-lucide-user-round"
-              class="absolute bottom-0 left-1/2 size-[62%] -translate-x-1/2 text-(--tide)"
-            />
-            <span class="absolute start-3 top-3 bg-(--card) px-1.5 py-0.5 font-mono text-[10px] tracking-[.1em] text-(--ink)">No. {{ frameFor(i).no }}</span>
-          </div>
+          <UIcon
+            :name="key === 'all' ? 'i-lucide-layout-grid' : WALL_TYPE_ICONS[key]"
+            class="size-3.5"
+          />
+          {{ key === 'all' ? t('wall.all') : t(`wall.types.${key}`) }}
+          <span class="opacity-60">{{ countFor(key) }}</span>
+        </button>
+      </div>
 
-          <div class="p-4">
+      <BpPolaroidWall
+        :key="selected"
+        :people="filtered"
+        :min-slots="minSlots"
+        :label="`${t('wall.board')} — ${filtered.length}`"
+      />
+
+      <!-- Who they are, in words: the polaroids are the picture, this is the record. -->
+      <section class="mt-16">
+        <p class="eyebrow">
+          {{ t('wall.whoTitle') }}
+        </p>
+        <ul class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <li
+            v-for="p in filtered"
+            :key="p.name"
+            class="border-[1.5px] border-(--ink) bg-(--card) p-4"
+          >
             <p class="mono-label">
               {{ t(`wall.types.${p.type}`) }}
             </p>
-            <h3 class="mt-1 text-lg font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">
-              {{ p.name }}
-            </h3>
-            <p class="mt-2 text-sm text-(--ink2)">
+            <a
+              :href="p.linkedin"
+              target="_blank"
+              rel="noopener"
+              class="mt-1 block font-extrabold text-(--ink) hover:text-(--signal)"
+            >{{ p.name }}</a>
+            <p class="mt-1.5 text-sm text-(--ink2)">
               {{ p.desc }}
             </p>
+          </li>
+        </ul>
+      </section>
 
-            <div class="mt-4 flex items-center justify-between gap-2 border-t border-dashed border-(--line) pt-3">
-              <UBadge
-                :label="t(`wall.types.${p.type}`)"
-                :icon="typeIcons[p.type]"
-                color="primary"
-                variant="subtle"
-                size="sm"
-              />
-              <div class="relative z-10 flex items-center gap-1">
-                <UButton
-                  v-if="p.url"
-                  :to="p.url"
-                  target="_blank"
-                  :aria-label="t('wall.visit')"
-                  :icon="p.icon || 'i-lucide-globe'"
-                  color="neutral"
-                  variant="ghost"
-                  size="xs"
-                />
-                <UButton
-                  :to="p.linkedin"
-                  target="_blank"
-                  :aria-label="t('wall.connect')"
-                  icon="i-simple-icons-linkedin"
-                  color="neutral"
-                  variant="ghost"
-                  size="xs"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- whole-card link to LinkedIn -->
-          <NuxtLink
-            :to="p.linkedin"
-            target="_blank"
-            :aria-label="p.name"
-            class="absolute inset-0"
-          />
+      <section class="graph-paper-navy mt-16 grid items-center gap-6 border-[1.5px] border-(--ink) bg-(--navy) p-8 text-white shadow-[10px_10px_0_var(--signal)] sm:p-10 md:grid-cols-[minmax(0,1fr)_auto]">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+            {{ t('wall.eyebrow') }}
+          </p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-[-0.03em]">
+            {{ t('wall.nominateTitle') }}
+          </h2>
+          <p class="mt-3 max-w-xl text-white/80">
+            {{ t('wall.nominateDesc') }}
+          </p>
         </div>
-      </div>
-
-      <UPageCTA
-        :title="t('wall.nominateTitle')"
-        :description="t('wall.nominateDesc')"
-        variant="naked"
-        class="mt-12"
-        :ui="{
-          root: 'graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) shadow-[10px_10px_0_var(--signal)]',
-          title: 'text-white',
-          description: 'text-white/80'
-        }"
-        :links="[
-          {
-            label: t('wall.nominate'),
-            to: 'https://github.com/imswarnil/CRM-Analytics-Academy/discussions',
-            target: '_blank',
-            icon: 'i-lucide-heart-handshake',
-            color: 'secondary'
-          }
-        ]"
-      />
-    </UContainer>
+        <UButton
+          to="/nominate"
+          color="secondary"
+          size="lg"
+          icon="i-lucide-heart-handshake"
+        >
+          {{ t('wall.nominate') }}
+        </UButton>
+      </section>
+    </div>
   </div>
 </template>

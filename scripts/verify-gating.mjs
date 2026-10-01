@@ -115,8 +115,17 @@ async function main() {
   ]
   const stubs = (await Promise.all(publicFiles.map(f => readFile(f, 'utf8')))).join('\n')
   for (const file of assets) {
-    const { markdown } = JSON.parse(await readFile(file, 'utf8'))
-    const found = probes(markdown, stubs)
+    const { markdown, data } = JSON.parse(await readFile(file, 'utf8'))
+    // The body is not the only thing a Pro lesson hides: the interview Q&A,
+    // quiz questions and walkthrough narration ride along in `data` and are
+    // served by the same entitlement check — so they are probed too. (Some
+    // interview lessons have almost no body beyond the public teaser; their
+    // substance IS this data.)
+    const hiddenData = []
+    for (const i of data?.interview ?? []) hiddenData.push(i.q, i.a)
+    for (const q of data?.quiz ?? []) hiddenData.push(q.q, ...(q.options ?? []))
+    for (const sh of data?.walkthrough?.shots ?? []) hiddenData.push(sh.say)
+    const found = probes(`${markdown}\n${hiddenData.filter(Boolean).join('\n')}`, stubs)
     if (!found.length) {
       console.error(`[verify-gating] FAIL — no usable probes for ${file}; the check would pass blindly`)
       process.exit(1)

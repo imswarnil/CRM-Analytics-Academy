@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0F2A5C">
+<title>Offline · CRM Analytics Academy</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<style>
+  :root { --paper:#F4F7FB; --card:#FBFCFE; --ink:#0C1B33; --ink2:#46597A; --signal:#2F5BEA; --rmin:rgba(47,91,234,.032); --rmaj:rgba(47,91,234,.07); }
+  @media (prefers-color-scheme: dark) { :root { --paper:#07122A; --card:#0C1B33; --ink:#E6EEF9; --ink2:#9FB2CF; --rmin:rgba(168,204,242,.035); --rmaj:rgba(168,204,242,.075); } }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    display: grid; place-items: center; padding: 16px;
+    background: var(--paper);
+    background-image:
+      linear-gradient(var(--rmaj) 1px, transparent 1px), linear-gradient(90deg, var(--rmaj) 1px, transparent 1px),
+      linear-gradient(var(--rmin) 1px, transparent 1px), linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    color: var(--ink); font: 16px/1.55 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  }
+  main { position: relative; max-width: 520px; width: 100%; background: var(--card); border: 1.5px solid var(--ink); padding: 32px; box-shadow: 10px 10px 0 rgba(47,91,234,.18); }
+  .mark { width: 44px; height: 44px; }
+  .eyebrow { font: 500 11px/1 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); margin: 24px 0 8px; }
+  h1 { font-size: clamp(28px, 6vw, 40px); line-height: 1; letter-spacing: -.04em; margin: 0 0 12px; font-weight: 900; }
+  p { color: var(--ink2); margin: 0 0 24px; }
+  button { font: 700 15px/1 inherit; font-family: inherit; background: var(--signal); color: #fff; border: 1.5px solid var(--ink); padding: 12px 18px; box-shadow: 4px 4px 0 var(--ink); cursor: pointer; }
+  button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+</style>
+</head>
+<body>
+<main>
+  <svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect x="40" y="40" width="432" height="432" fill="none" stroke="currentColor" stroke-width="28"/><rect x="128" y="292" width="64" height="100" fill="#A8CCF2"/><rect x="224" y="224" width="64" height="168" fill="#3D8BD9"/><rect x="320" y="140" width="64" height="252" fill="#2F5BEA"/></svg>
+  <p class="eyebrow">Sheet 00 — No connection</p>
+  <h1>You're offline.</h1>
+  <p>Lessons you've opened before still work. This page needs the network — reconnect and try again.</p>
+  <button type="button" onclick="location.reload()">Try again</button>
+</main>
+</body>
+</html>

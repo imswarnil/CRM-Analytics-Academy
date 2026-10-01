@@ -357,67 +357,71 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
     class="min-w-0"
   >
     <!-- Lesson header: crumbs, drawing number, title -->
-    <header class="graph-paper border-b-[1.5px] border-(--ink) px-4 pb-8 pt-6 sm:px-8">
-      <div class="flex items-center justify-between gap-3">
-        <nav
-          aria-label="Breadcrumb"
-          class="min-w-0"
-        >
-          <ol class="flex min-w-0 flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2)">
-            <li
-              v-for="(c, i) in breadcrumbItems"
-              :key="c.to"
-              class="flex items-center gap-2"
-            >
-              <span v-if="i">/</span>
-              <NuxtLink
-                :to="c.to"
-                class="truncate hover:text-(--signal)"
-                :class="i === breadcrumbItems.length - 1 ? 'text-(--ink)' : ''"
-              >{{ c.label }}</NuxtLink>
-            </li>
-          </ol>
-        </nav>
-        <UButton
-          class="lg:hidden"
-          icon="i-lucide-list"
-          color="neutral"
-          variant="outline"
-          size="sm"
-          label="Contents"
-          @click="mobileContents = true"
-        />
-      </div>
+    <header class="graph-paper border-b-[1.5px] border-(--ink)">
+      <!-- Same column as the lesson body below, so the title lines up with the
+           text whether the course contents are open or collapsed. -->
+      <div class="mx-auto max-w-[68rem] px-4 pb-8 pt-6 sm:px-8">
+        <div class="flex items-center justify-between gap-3">
+          <nav
+            aria-label="Breadcrumb"
+            class="min-w-0"
+          >
+            <ol class="flex min-w-0 flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2)">
+              <li
+                v-for="(c, i) in breadcrumbItems"
+                :key="c.to"
+                class="flex items-center gap-2"
+              >
+                <span v-if="i">/</span>
+                <NuxtLink
+                  :to="c.to"
+                  class="truncate hover:text-(--signal)"
+                  :class="i === breadcrumbItems.length - 1 ? 'text-(--ink)' : ''"
+                >{{ c.label }}</NuxtLink>
+              </li>
+            </ol>
+          </nav>
+          <UButton
+            class="lg:hidden"
+            icon="i-lucide-list"
+            color="neutral"
+            variant="outline"
+            size="sm"
+            label="Contents"
+            @click="mobileContents = true"
+          />
+        </div>
 
-      <p class="eyebrow mt-6">
-        Lesson {{ lessonNo }} / {{ courseTotal }} — {{ current?.moduleTitle || headline }}
-      </p>
-      <h1 class="bp-h2 mt-3 max-w-4xl text-(--ink)">
-        {{ page.title }}
-      </h1>
-      <p
-        v-if="page.description"
-        class="bp-lead mt-4 max-w-3xl"
-      >
-        {{ page.description }}
-      </p>
-      <div class="mt-5 flex flex-wrap items-center gap-2">
-        <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">
-          {{ meta.type }} · {{ meta.minutes }} min
-        </span>
-        <span
-          class="border-[1.5px] px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]"
-          :class="page.access === 'pro' ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--signal) text-(--signal)'"
-        >{{ page.access === 'pro' ? 'Pro' : 'Free' }}</span>
-        <UButton
-          v-for="(link, index) in page.links"
-          :key="index"
-          v-bind="link"
-          size="xs"
-          color="neutral"
-          variant="outline"
-        />
-        <PageHeaderLinks />
+        <p class="eyebrow mt-6">
+          Lesson {{ lessonNo }} / {{ courseTotal }} — {{ current?.moduleTitle || headline }}
+        </p>
+        <h1 class="bp-h2 mt-3 max-w-4xl text-(--ink)">
+          {{ page.title }}
+        </h1>
+        <p
+          v-if="page.description"
+          class="bp-lead mt-4 max-w-3xl"
+        >
+          {{ page.description }}
+        </p>
+        <div class="mt-5 flex flex-wrap items-center gap-2">
+          <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">
+            {{ meta.type }} · {{ meta.minutes }} min
+          </span>
+          <span
+            class="border-[1.5px] px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]"
+            :class="page.access === 'pro' ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--signal) text-(--signal)'"
+          >{{ page.access === 'pro' ? 'Pro' : 'Free' }}</span>
+          <UButton
+            v-for="(link, index) in page.links"
+            :key="index"
+            v-bind="link"
+            size="xs"
+            color="neutral"
+            variant="outline"
+          />
+          <PageHeaderLinks />
+        </div>
       </div>
     </header>
 
@@ -535,7 +539,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         v-if="page.walkthrough?.shots?.length"
         :shots="page.walkthrough.shots"
         :org="page.walkthrough.org"
-        :has-video="Boolean(page.clip?.src || page.video?.id)"
+        :has-video="Boolean(page.clip?.src || page.video?.id || lessonMux)"
       />
 
       <details

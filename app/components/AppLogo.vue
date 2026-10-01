@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * The mark: three ascending bars in an ink-bordered box — a bar chart as a
- * drafting symbol — beside the name and the author's credit.
+ * drafting symbol — beside the name.
  */
 defineProps<{ inverted?: boolean }>()
 </script>
@@ -17,15 +17,9 @@ defineProps<{ inverted?: boolean }>()
       <span class="h-[60%] flex-1 bg-(--tide)" />
       <span class="h-full flex-1 bg-(--signal)" />
     </span>
-    <span class="flex flex-col text-start leading-none">
-      <span
-        class="whitespace-nowrap text-[17px] font-extrabold tracking-[-0.02em]"
-        :class="inverted ? 'text-white' : 'text-(--ink)'"
-      >CRM Analytics <span :class="inverted ? 'text-white/70' : 'text-(--signal)'">Academy</span></span>
-      <span
-        class="mt-1 font-mono text-[10px] tracking-[.06em]"
-        :class="inverted ? 'text-white/60' : 'text-(--ink2)'"
-      >By Swarnil</span>
-    </span>
+    <span
+      class="whitespace-nowrap text-[17px] font-extrabold leading-none tracking-[-0.02em]"
+      :class="inverted ? 'text-white' : 'text-(--ink)'"
+    >CRM Analytics <span :class="inverted ? 'text-(--glow)' : 'text-(--signal)'">Academy</span></span>
   </span>
 </template>

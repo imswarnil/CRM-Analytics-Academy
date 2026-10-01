@@ -1,0 +1,47 @@
+{
+  "comp": { "width": 1920, "height": 1080, "fps": 30, "pixelAspect": 1 },
+  "colors": {
+    "paper": "#F4F7FB",
+    "card": "#FAFCFE",
+    "ink": "#0C1B33",
+    "ink2": "#4A5B78",
+    "navy": "#0F2A5C",
+    "signal": "#2F5BEA",
+    "tide": "#3D8BD9",
+    "frost": "#A8CCF2",
+    "ice": "#DDEBFA",
+    "glow": "#3FC6DC"
+  },
+  "fonts": {
+    "display": ["SchibstedGrotesk-Black", "SchibstedGrotesk-ExtraBold", "HelveticaNeue-Bold", "Arial-BoldMT"],
+    "body": ["SchibstedGrotesk-Regular", "HelveticaNeue", "ArialMT"],
+    "mono": ["IBMPlexMono-Medium", "IBMPlexMono", "Menlo-Regular", "CourierNewPSMT"]
+  },
+  "durations": {
+    "background": 10,
+    "titleCard": 6,
+    "chapterCard": 5,
+    "lowerThird": 6,
+    "endCard": 10,
+    "overlay": 8,
+    "cropFrame": 10,
+    "animIn": 0.6,
+    "animOut": 0.5
+  },
+  "grid": { "minor": 24, "major": 120, "darkBackground": true },
+  "text": {
+    "lessonCode": "LESSON 005 / 161",
+    "sectionName": "INTRODUCTION",
+    "lessonTitle": "Set Up Your Org in Thirty Minutes",
+    "lessonLead": "A free CRM Analytics org, the two permission sets that matter, and the first dataset loaded.",
+    "chapterNumber": "07",
+    "chapterTitle": "SAQL",
+    "speakerName": "Swarnil Singhai",
+    "speakerRole": "SALESFORCE ENGINEER · CRM ANALYTICS",
+    "nextLabel": "NEXT LESSON",
+    "nextTitle": "A Tour of Analytics Studio",
+    "subscribe": "SUBSCRIBE",
+    "endHeadline": "Keep going.",
+    "site": "crmanalytics.imswarnil.com"
+  }
+}

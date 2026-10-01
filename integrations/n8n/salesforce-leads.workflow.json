@@ -1,0 +1,383 @@
+{
+  "name": "CRM Analytics Academy → Salesforce leads",
+  "nodes": [
+    {
+      "id": "e9aecf7c-5264-45a9-8132-46b5a8423a8f",
+      "name": "Academy webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crm-academy-leads",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      }
+    },
+    {
+      "id": "48a33f7b-03e0-472d-9fe3-1c202bcb04ea",
+      "name": "Verify signature & map",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Verifies X-Academy-Signature: sha256=<hex HMAC-SHA256 of the raw body>.\n// Needs: NODE_FUNCTION_ALLOW_BUILTIN=crypto and the secret in $env.ACADEMY_WEBHOOK_SECRET\n// (set N8N_BLOCK_ENV_ACCESS_IN_NODE=false), or paste it into SECRET below.\nconst crypto = require('crypto');\nconst SECRET = $env.ACADEMY_WEBHOOK_SECRET || '';\nconst item = $input.first();\nconst headers = item.json.headers || {};\nconst given = String(headers['x-academy-signature'] || '');\n\n// The exact bytes that were signed: the raw body when the webhook keeps it,\n// otherwise the parsed body re-serialised (identical for the Academy's compact JSON).\nlet raw;\nif (item.binary && item.binary.data && item.binary.data.data) {\n  raw = Buffer.from(item.binary.data.data, 'base64').toString('utf8');\n} else {\n  raw = JSON.stringify(item.json.body);\n}\nconst expected = 'sha256=' + crypto.createHmac('sha256', SECRET).update(raw).digest('hex');\nconst ok = SECRET.length > 0 && given.length === expected.length\n  && crypto.timingSafeEqual(Buffer.from(given), Buffer.from(expected));\n\nconst body = typeof item.json.body === 'string' ? JSON.parse(item.json.body) : item.json.body;\nconst lead = (body && body.lead) || {};\nconst parts = String(lead.name || '').trim().split(/\\s+/);\nconst lastName = parts.length > 1 ? parts.pop() : (parts[0] || 'Unknown');\nconst firstName = parts.join(' ');\nconst details = lead.details || {};\nconst description = [\n  `Academy ${lead.type} request #${lead.id}`,\n  lead.message ? `Message: ${lead.message}` : '',\n  Object.keys(details).length ? 'Details: ' + Object.entries(details).map(([k, v]) => `${k}=${v}`).join('; ') : '',\n  lead.budget ? `Budget: ${lead.budget}` : '',\n  lead.sourcePage ? `Page: ${lead.sourcePage}` : '',\n  lead.utm && Object.keys(lead.utm).length ? 'UTM: ' + Object.entries(lead.utm).map(([k, v]) => `${k}=${v}`).join('; ') : '',\n  lead.enrichment && lead.enrichment.siteDescription ? `Company: ${lead.enrichment.siteDescription}` : ''\n].filter(Boolean).join('\\n');\n\nreturn [{ json: {\n  signatureValid: ok,\n  type: lead.type,\n  leadId: lead.id,\n  firstName,\n  lastName,\n  email: lead.email,\n  company: lead.company || lead.companyDomain || 'Unknown (individual)',\n  title: lead.role || '',\n  phone: lead.phone || '',\n  country: lead.country || '',\n  seats: lead.seats || null,\n  description\n} }];"
+      }
+    },
+    {
+      "id": "47724472-5289-44fb-be69-749fe3e0a3d3",
+      "name": "Signature valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "7c3aa13a-67f9-47c7-abdc-99e4c03986af",
+              "leftValue": "={{ $json.signatureValid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "e73fcd0b-9bbe-4219-814a-d7ab6d8c1114",
+      "name": "Reject (401)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        520
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"error\": \"bad signature\" } }}",
+        "options": {
+          "responseCode": 401
+        }
+      }
+    },
+    {
+      "id": "cc3da032-f98c-4618-8d4f-60b03096bb50",
+      "name": "Route by type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        720,
+        200
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "7365238f-aff9-47d8-8547-65a98b3f4f6d",
+                    "leftValue": "={{ ['quote','sales','team','training','implementation','sponsor','contact','instructor'].includes($json.type) }}",
+                    "rightValue": true,
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Create lead"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "aa2b1a57-dede-4ecd-95cf-3263414ec24d",
+                    "leftValue": "={{ $json.type === 'nomination' }}",
+                    "rightValue": true,
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Nomination"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "024a4f60-748a-47d4-ba9c-7fa8ca3be13a",
+      "name": "Create Lead",
+      "type": "n8n-nodes-base.salesforce",
+      "typeVersion": 1,
+      "position": [
+        960,
+        100
+      ],
+      "parameters": {
+        "resource": "lead",
+        "operation": "create",
+        "company": "={{ $json.company }}",
+        "lastname": "={{ $json.lastName }}",
+        "additionalFields": {
+          "firstname": "={{ $json.firstName }}",
+          "email": "={{ $json.email }}",
+          "title": "={{ $json.title }}",
+          "phone": "={{ $json.phone }}",
+          "country": "={{ $json.country }}",
+          "leadSource": "CRM Analytics Academy",
+          "description": "={{ $json.description }}",
+          "numberOfEmployees": "={{ $json.seats || undefined }}"
+        }
+      },
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+          "name": "Salesforce account"
+        }
+      }
+    },
+    {
+      "id": "b1b1548c-1fb2-44b7-8926-d1b8425ca9f3",
+      "name": "Sales or quote?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        100
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "9325dbf6-30ae-4040-b0de-b8386bf4ceb0",
+              "leftValue": "={{ ['sales','quote'].includes($('Verify signature & map').item.json.type) }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "7df1ce01-7c8f-4e02-8dd8-2dd3d155eaf6",
+      "name": "Create follow-up Task",
+      "type": "n8n-nodes-base.salesforce",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        0
+      ],
+      "parameters": {
+        "resource": "task",
+        "operation": "create",
+        "status": "Not Started",
+        "additionalFields": {
+          "subject": "={{ 'Academy ' + $('Verify signature & map').item.json.type + ': reply within 1 business day' }}",
+          "whoId": "={{ $('Create Lead').item.json.id }}",
+          "priority": "High",
+          "description": "={{ $('Verify signature & map').item.json.description }}"
+        }
+      },
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+          "name": "Salesforce account"
+        }
+      }
+    },
+    {
+      "id": "7f69acc9-ca90-4578-89d4-f5b462e4901c",
+      "name": "Respond with Salesforce id",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        100
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"salesforceId\": $('Create Lead').item.json.id } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "a9d0211b-571f-43ad-9384-42c642e5a2c4",
+      "name": "Respond (nomination, no CRM)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        320
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": true } }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Academy webhook": {
+      "main": [
+        [
+          {
+            "node": "Verify signature & map",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify signature & map": {
+      "main": [
+        [
+          {
+            "node": "Signature valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Signature valid?": {
+      "main": [
+        [
+          {
+            "node": "Route by type",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reject (401)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by type": {
+      "main": [
+        [
+          {
+            "node": "Create Lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond (nomination, no CRM)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Lead": {
+      "main": [
+        [
+          {
+            "node": "Sales or quote?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales or quote?": {
+      "main": [
+        [
+          {
+            "node": "Create follow-up Task",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond with Salesforce id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create follow-up Task": {
+      "main": [
+        [
+          {
+            "node": "Respond with Salesforce id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

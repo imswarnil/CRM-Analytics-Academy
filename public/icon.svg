@@ -1,8 +1,1 @@
-<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- Transparent background; smaller centered bars with generous padding -->
-  <g transform="translate(128 128) scale(0.5)">
-    <rect x="77" y="235" width="90" height="200" rx="20" fill="#014486"/>
-    <rect x="211" y="155" width="90" height="280" rx="20" fill="#0176D3"/>
-    <rect x="345" y="77" width="90" height="358" rx="20" fill="#7AB8FF"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect x="40" y="40" width="432" height="432" fill="#F4F7FB" stroke="#0C1B33" stroke-width="28"/><rect x="128" y="292" width="64" height="100" fill="#A8CCF2"/><rect x="224" y="224" width="64" height="168" fill="#3D8BD9"/><rect x="320" y="140" width="64" height="252" fill="#2F5BEA"/></svg>

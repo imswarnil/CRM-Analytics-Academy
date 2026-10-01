@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const sql = useDb()
 
   const rows = await sql`
-    select id, kind, title, url, status, review_note, created_at
+    select id, kind, title, url, status, review_note, created_at, details->>'type' as type
     from app.submission
     where user_id = ${user.id}
     order by created_at desc
@@ -26,6 +26,7 @@ export default defineEventHandler(async (event) => {
     submissions: rows.map(r => ({
       id: Number(r.id),
       kind: r.kind as string,
+      type: (r.type as string | null) ?? null,
       title: r.title as string,
       url: r.url as string | null,
       status: r.status as 'pending' | 'approved' | 'rejected',

@@ -280,7 +280,7 @@
     "hero": {
       "eyebrow": "Updated for the current Salesforce release",
       "title": "Learn Salesforce CRM Analytics the way it’s used at work.",
-      "lead": "A free, hands-on Salesforce CRM Analytics course: recipes, SAQL, dashboards, security and Einstein Discovery, built on one company’s real data.",
+      "lead": "Free, hands-on lessons on recipes, SAQL, dashboards, security and Einstein Discovery — built on one company’s real data.",
       "start": "Start lesson 1",
       "curriculum": "See curriculum"
     },
@@ -326,6 +326,20 @@
           "line": "Joins, formulas, de-duplication"
         }
       }
+    },
+    "author": {
+      "eyebrow": "Fig. 05 — The author",
+      "figure": "Fig. 05 — Who teaches this",
+      "title": "Seven years of go-to-market dashboards, turned into a course.",
+      "more": "More about Swarnil",
+      "connect": "Connect on LinkedIn"
+    },
+    "wall": {
+      "eyebrow": "Fig. 06 — Wall of Fame",
+      "title": "The people who taught the rest of us.",
+      "lead": "Bloggers, authors, speakers and tool builders whose work made CRM Analytics learnable — pinned to the wall by name.",
+      "see": "See the whole wall",
+      "board": "Board — Wall of Fame"
     }
   },
   "footer": {
@@ -334,7 +348,18 @@
     "project": "Project",
     "legal": "Legal",
     "community": "Community",
-    "academy": "Academy"
+    "academy": "Academy",
+    "links": {
+      "instructors": "Become an instructor",
+      "nominate": "Nominate for the Wall",
+      "sales": "Talk to sales",
+      "contact": "Contact us"
+    },
+    "quip": {
+      "0": "Made by Swarnil with an unreasonable amount of prompting and a heroic waste of tokens.",
+      "1": "Hand-drawn by Swarnil, machine-assisted. The token budget is now more of a suggestion.",
+      "2": "Built by Swarnil one prompt at a time — a few of them even worked on the first try."
+    }
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",
@@ -514,7 +539,13 @@
     "nominateTitle": "Know someone who belongs here?",
     "nominateDesc": "Nominate a blogger, creator or mentor whose work has helped the CRM Analytics community.",
     "nominate": "Nominate someone",
-    "connect": "Connect on LinkedIn"
+    "connect": "Connect on LinkedIn",
+    "emptyPhoto": "Your photo here",
+    "emptyCaption": "Get nominated",
+    "emptyHint": "Nominate someone",
+    "filter": "Filter by kind",
+    "board": "Board",
+    "whoTitle": "Who they are"
   },
   "companies": {
     "eyebrow": "Ecosystem",
@@ -600,5 +631,18 @@
   "localeAuto": {
     "switched": "Showing this page in {language}",
     "keepEnglish": "Keep English"
+  },
+  "about": {
+    "work": {
+      "eyebrow": "§ 03 — The work",
+      "title": "Seven years of go-to-market analytics.",
+      "highlights": "Highlights",
+      "experience": "Experience",
+      "education": "Education",
+      "skills": "Skills",
+      "projects": "Also built by Swarnil",
+      "live": "Live",
+      "building": "Building"
+    }
   }
 }

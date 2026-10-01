@@ -18,6 +18,7 @@ const columns = computed(() => [
     label: t('footer.community'),
     children: [
       { label: t('nav.wallOfFame'), to: localePath('/wall-of-fame') },
+      { label: t('footer.links.nominate'), to: '/nominate' },
       { label: t('nav.companies'), to: localePath('/companies') },
       { label: t('nav.jobs'), to: localePath('/jobs') },
       { label: t('nav.showcase'), to: localePath('/showcase') },
@@ -29,6 +30,7 @@ const columns = computed(() => [
     children: [
       { label: t('nav.about'), to: localePath('/about') },
       { label: t('nav.contribute'), to: localePath('/contribute') },
+      { label: t('footer.links.instructors'), to: '/instructors' },
       { label: t('nav.roadmap'), to: localePath('/roadmap') },
       { label: t('nav.sponsor'), to: localePath('/sponsor') },
       { label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' },
@@ -39,12 +41,22 @@ const columns = computed(() => [
   {
     label: t('footer.academy'),
     children: [
-      { label: t('nav.training'), to: '/training' },
       { label: t('nav.forTeams'), to: '/teams' },
-      { label: t('nav.implementation'), to: '/implementation' }
+      { label: t('footer.links.sales'), to: '/sales' },
+      { label: t('nav.training'), to: '/training' },
+      { label: t('nav.implementation'), to: '/implementation' },
+      { label: t('footer.links.contact'), to: '/contact' }
     ]
   }
 ])
+
+// The honest colophon. One line per page view, chosen on the client so the
+// prerendered page has a stable first line and hydration does not mismatch.
+const quips = computed(() => [t('footer.quip.0'), t('footer.quip.1'), t('footer.quip.2')])
+const quip = ref(0)
+onMounted(() => {
+  quip.value = Math.floor(Math.random() * quips.value.length)
+})
 </script>
 
 <template>
@@ -120,10 +132,21 @@ const columns = computed(() => [
             class="hover:text-white"
           >Privacy</NuxtLink>
           <NuxtLink
-            :to="localePath('/about')"
+            to="/contact"
             class="hover:text-white"
           >Contact</NuxtLink>
         </span>
+      </div>
+    </div>
+    <!-- Colophon strip -->
+    <div class="bg-(--glow) text-(--navy)">
+      <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2.5 text-center text-[13px] sm:px-6 lg:px-8">
+        <UIcon
+          name="i-lucide-coffee"
+          class="size-4 flex-none"
+          aria-hidden="true"
+        />
+        <span>{{ quips[quip] }}</span>
       </div>
     </div>
   </footer>

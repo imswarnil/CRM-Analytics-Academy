@@ -1,0 +1,218 @@
+// Shared helpers for the CRM Analytics Academy After Effects scripts.
+// ExtendScript (ES3): var only, no arrow functions, no template strings.
+// Included by build-brand-kit.jsx and import-lesson-slides.jsx with #include.
+
+var BP = BP || {};
+
+/** The folder this script lives in. */
+BP.here = function () {
+  return new File($.fileName).parent;
+};
+
+/** Reads a text file; returns null when it does not exist. */
+BP.readText = function (file) {
+  if (!file.exists) return null;
+  file.encoding = 'UTF-8';
+  file.open('r');
+  var text = file.read();
+  file.close();
+  return text;
+};
+
+/**
+ * Parses JSON. Uses the native JSON object when this After Effects has one
+ * (2022+), otherwise evaluates it — the files are local and ours.
+ */
+BP.parseJSON = function (text) {
+  if (typeof JSON !== 'undefined' && JSON.parse) return JSON.parse(text);
+  return eval('(' + text + ')');
+};
+
+/** "#2F5BEA" → [0.184, 0.357, 0.918] */
+BP.rgb = function (hex) {
+  var h = String(hex).replace('#', '');
+  return [parseInt(h.substr(0, 2), 16) / 255, parseInt(h.substr(2, 2), 16) / 255, parseInt(h.substr(4, 2), 16) / 255];
+};
+
+/** First installed font from a list of PostScript names (AE 2023+ can check). */
+BP.pickFont = function (names) {
+  try {
+    if (app.fonts && app.fonts.getFontsByPostScriptName) {
+      for (var i = 0; i < names.length; i++) {
+        var found = app.fonts.getFontsByPostScriptName(names[i]);
+        if (found && found.length) return names[i];
+      }
+    }
+  } catch (e) {}
+  return names[0];
+};
+
+/** A folder in the Project panel, created once. */
+BP.folder = function (name, parent) {
+  var items = app.project.items;
+  for (var i = 1; i <= items.length; i++) {
+    if (items[i] instanceof FolderItem && items[i].name === name) return items[i];
+  }
+  var f = items.addFolder(name);
+  if (parent) f.parentFolder = parent;
+  return f;
+};
+
+/** Removes an existing comp with this name, so re-running rebuilds cleanly. */
+BP.replaceComp = function (name, w, h, dur, fps, folder) {
+  var items = app.project.items;
+  for (var i = items.length; i >= 1; i--) {
+    if (items[i] instanceof CompItem && items[i].name === name) items[i].remove();
+  }
+  var comp = items.addComp(name, w, h, 1, dur, fps);
+  if (folder) comp.parentFolder = folder;
+  return comp;
+};
+
+/** A shape layer whose shape coordinates are comp coordinates. */
+BP.shapeLayer = function (comp, name) {
+  var layer = comp.layers.addShape();
+  layer.name = name;
+  layer.property('ADBE Transform Group').property('ADBE Position').setValue([0, 0]);
+  layer.property('ADBE Transform Group').property('ADBE Anchor Point').setValue([0, 0]);
+  return layer;
+};
+
+/** A new group inside a shape layer; returns its contents. */
+BP.group = function (layer, name) {
+  var g = layer.property('ADBE Root Vectors Group').addProperty('ADBE Vector Group');
+  g.name = name;
+  return g.property('ADBE Vectors Group');
+};
+
+BP.fill = function (contents, hex, opacity) {
+  var f = contents.addProperty('ADBE Vector Graphic - Fill');
+  f.property('ADBE Vector Fill Color').setValue(BP.rgb(hex));
+  if (opacity !== undefined) f.property('ADBE Vector Fill Opacity').setValue(opacity);
+  return f;
+};
+
+BP.stroke = function (contents, hex, width, opacity) {
+  var s = contents.addProperty('ADBE Vector Graphic - Stroke');
+  s.property('ADBE Vector Stroke Color').setValue(BP.rgb(hex));
+  s.property('ADBE Vector Stroke Width').setValue(width);
+  if (opacity !== undefined) s.property('ADBE Vector Stroke Opacity').setValue(opacity);
+  return s;
+};
+
+/** A rectangle by its top-left corner, as a named, editable shape group. */
+BP.rect = function (layer, name, x, y, w, h, fillHex, strokeHex, strokeW) {
+  var c = BP.group(layer, name);
+  var r = c.addProperty('ADBE Vector Shape - Rect');
+  r.property('ADBE Vector Rect Size').setValue([w, h]);
+  r.property('ADBE Vector Rect Position').setValue([x + w / 2, y + h / 2]);
+  if (strokeHex) BP.stroke(c, strokeHex, strokeW || 2);
+  if (fillHex) BP.fill(c, fillHex);
+  return c;
+};
+
+/** An open polyline path, e.g. a line or a tick. */
+BP.path = function (contents, points) {
+  var p = contents.addProperty('ADBE Vector Shape - Group');
+  var shape = new Shape();
+  shape.vertices = points;
+  shape.closed = false;
+  p.property('ADBE Vector Shape').setValue(shape);
+  return p;
+};
+
+/**
+ * A line repeated `copies` times `step` apart — the grid is two of these per
+ * axis, so the spacing stays one editable number (Repeater → Transform → Position).
+ */
+BP.repeatedLine = function (layer, name, from, to, copies, offset, hex, width, opacity) {
+  var c = BP.group(layer, name);
+  BP.path(c, [from, to]);
+  BP.stroke(c, hex, width, opacity);
+  var rep = c.addProperty('ADBE Vector Filter - Repeater');
+  rep.property('ADBE Vector Repeater Copies').setValue(copies);
+  rep.property('ADBE Vector Repeater Transform').property('ADBE Vector Repeater Position').setValue(offset);
+  return c;
+};
+
+/** Four "+" crop marks centred on the corners of a rectangle. */
+BP.cropMarks = function (layer, name, x, y, w, h, hex, arm) {
+  var a = arm || 14;
+  var c = BP.group(layer, name);
+  var corners = [[x, y], [x + w, y], [x, y + h], [x + w, y + h]];
+  for (var i = 0; i < corners.length; i++) {
+    var cx = corners[i][0];
+    var cy = corners[i][1];
+    BP.path(c, [[cx - a, cy], [cx + a, cy]]);
+    BP.path(c, [[cx, cy - a], [cx, cy + a]]);
+  }
+  BP.stroke(c, hex, 1.5);
+  return c;
+};
+
+/** The logo mark: three rising bars in a box, top-left at (x, y), size s. */
+BP.logo = function (layer, x, y, s, boxHex, colors) {
+  BP.rect(layer, 'Logo box', x, y, s, s, null, boxHex, Math.max(1.5, s / 28));
+  var pad = s * 0.2;
+  var bw = (s - pad * 2) / 4.2;
+  var gap = bw * 0.6;
+  var ks = [0.35, 0.6, 0.9];
+  for (var i = 0; i < 3; i++) {
+    var h = (s - pad * 2) * ks[i];
+    BP.rect(layer, 'Logo bar ' + (i + 1), x + pad + i * (bw + gap), y + s - pad - h, bw, h, colors[i]);
+  }
+};
+
+/**
+ * A point text layer with editable source text. `x, y` is the baseline start.
+ * Every property a designer changes (font, size, colour, tracking) is on the
+ * text document, so the Character panel edits it directly.
+ */
+BP.text = function (comp, name, str, x, y, opts) {
+  var layer = comp.layers.addText(str);
+  layer.name = name;
+  var prop = layer.property('ADBE Text Properties').property('ADBE Text Document');
+  var doc = prop.value;
+  doc.resetCharStyle();
+  doc.font = opts.font;
+  doc.fontSize = opts.size;
+  doc.applyFill = true;
+  doc.fillColor = BP.rgb(opts.color);
+  doc.applyStroke = false;
+  doc.tracking = opts.tracking || 0;
+  doc.justification = opts.justify || ParagraphJustification.LEFT_JUSTIFY;
+  prop.setValue(doc);
+  layer.property('ADBE Transform Group').property('ADBE Position').setValue([x, y]);
+  return layer;
+};
+
+/** Eases every keyframe of a property (1D or spatial). */
+BP.ease = function (prop, influence) {
+  var e = new KeyframeEase(0, influence || 70);
+  var dims = prop.propertyValueType === PropertyValueType.TwoD_SPATIAL || prop.propertyValueType === PropertyValueType.ThreeD_SPATIAL
+    ? 1
+    : (prop.value instanceof Array ? prop.value.length : 1);
+  var list = [];
+  for (var d = 0; d < dims; d++) list.push(e);
+  for (var k = 1; k <= prop.numKeys; k++) prop.setTemporalEaseAtKey(k, list, list);
+};
+
+/** Slide-and-fade in at `t`, optionally out at `tOut`. */
+BP.animateIn = function (layer, t, dx, dy, dur, tOut, outDur) {
+  var tr = layer.property('ADBE Transform Group');
+  var pos = tr.property('ADBE Position');
+  var op = tr.property('ADBE Opacity');
+  var p = pos.value;
+  pos.setValueAtTime(t, [p[0] + dx, p[1] + dy]);
+  pos.setValueAtTime(t + dur, [p[0], p[1]]);
+  op.setValueAtTime(t, 0);
+  op.setValueAtTime(t + dur, 100);
+  if (tOut !== undefined) {
+    pos.setValueAtTime(tOut, [p[0], p[1]]);
+    pos.setValueAtTime(tOut + outDur, [p[0] + dx, p[1] + dy]);
+    op.setValueAtTime(tOut, 100);
+    op.setValueAtTime(tOut + outDur, 0);
+  }
+  BP.ease(pos, 80);
+  BP.ease(op, 60);
+};
