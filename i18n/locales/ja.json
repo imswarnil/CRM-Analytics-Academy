@@ -280,7 +280,7 @@
     "hero": {
       "eyebrow": "現在更新 Salesforce リリース",
       "title": "学びます Salesforce CRM Analytics 仕事で使う方法。",
-      "lead": "無料、ハンズオン Salesforce CRM Analytics コース: レシピ, SAQL、ダッシュボード、セキュリティ Einstein Discovery, 自社の実データ上に構築.",
+      "lead": "無料、レシピの実践レッスン、 SAQL、ダッシュボード、セキュリティ Einstein Discovery — 1つの会社の実データに組み込まれています。",
       "start": "レッスン開始 1",
       "curriculum": "カリキュラムを見る"
     },
@@ -326,6 +326,20 @@
           "line": "参加、式、複製"
         }
       }
+    },
+    "author": {
+      "eyebrow": "図05 — 著者",
+      "figure": "図05 — 誰がこれを教えているか",
+      "title": "市場向けダッシュボードを7年連続で導入。",
+      "more": "Swarnilについてもっと知る",
+      "connect": "リンクされた接続 インスタグラム"
+    },
+    "wall": {
+      "eyebrow": "図 06 — ファムの壁",
+      "title": "わたしたちの安静を教えた人々。",
+      "lead": "Bloggers、作者、スピーカー、ツールビルダー CRM Analytics 学習可能 — 壁に名前を付けてピン留め。",
+      "see": "壁全体を見る",
+      "board": "ボード — ファムの壁"
     }
   },
   "footer": {
@@ -334,7 +348,18 @@
     "project": "プロジェクト",
     "legal": "法的情報",
     "community": "コミュニティ",
-    "academy": "アカデミー"
+    "academy": "アカデミー",
+    "links": {
+      "instructors": "インストラクターになる",
+      "nominate": "壁にノミネート",
+      "sales": "販売について",
+      "contact": "お問い合わせ"
+    },
+    "quip": {
+      "0": "スワルニによって作られた、非合理的な量のプロンプトとトークンの英雄的な廃棄物。",
+      "1": "スワルニ、機械アシストによる手描き トークン予算は提案の多くです。",
+      "2": "スワルニを一度に1つのプロンプトで構築。そのうちのいくつかは最初の試みで働いた。"
+    }
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics を学ぶ",
@@ -514,7 +539,13 @@
     "nominateTitle": "ここに所属する人を教えてください。",
     "nominateDesc": "仕事が助けたブロガー、クリエイター、メンターを指名 CRM Analytics コミュニティ。",
     "nominate": "誰かを指す",
-    "connect": "リンクされた接続 インスタグラム"
+    "connect": "リンクされた接続 インスタグラム",
+    "emptyPhoto": "あなたの写真はこちら",
+    "emptyCaption": "ノミネート",
+    "emptyHint": "誰かを指す",
+    "filter": "種類別フィルター",
+    "board": "ボード",
+    "whoTitle": "誰が"
   },
   "companies": {
     "eyebrow": "エコシステム",
@@ -600,5 +631,18 @@
   "localeAuto": {
     "switched": "サイトマップ {language}",
     "keepEnglish": "英語を保ち続ける"
+  },
+  "about": {
+    "work": {
+      "eyebrow": "§ 03 — 仕事",
+      "title": "市場分析の7年。",
+      "highlights": "ハイライト",
+      "experience": "体験プラン",
+      "education": "教育機関",
+      "skills": "スキル",
+      "projects": "スワルンジル社製",
+      "live": "ライブ",
+      "building": "建築設計"
+    }
   }
 }

@@ -280,7 +280,7 @@
     "hero": {
       "eyebrow": "Aktualisiert für die aktuelle Salesforce Freigabe",
       "title": "Lernen Salesforce CRM Analytics die Art, wie es bei der Arbeit verwendet wird.",
-      "lead": "Eine kostenlose, hands-on Salesforce CRM Analytics Kurs: Rezepte, SAQLDashboards, Sicherheit und Einstein DiscoveryBasierend auf den realen Daten eines Unternehmens.",
+      "lead": "Kostenloser, praktischer Unterricht über Rezepte, SAQLDashboards, Sicherheit und Einstein Discovery Basierend auf den realen Daten eines Unternehmens.",
       "start": "Beginn der Lektion 1",
       "curriculum": "Siehe Lehrplan"
     },
@@ -326,6 +326,20 @@
           "line": "Verknüpfungen, Formeln, Deduplizierung"
         }
       }
+    },
+    "author": {
+      "eyebrow": "Fig. 05 — Der Autor",
+      "figure": "Fig. 05 — Wer lehrt das",
+      "title": "Sieben Jahre Go-to-Market-Dashboards wurden zu einem Kurs.",
+      "more": "Mehr über Swarnil",
+      "connect": "Connect auf Linked In"
+    },
+    "wall": {
+      "eyebrow": "Fig. 06 — Wall of Fame",
+      "title": "Die Leute, die den Rest von uns gelehrt haben.",
+      "lead": "Blogger, Autoren, Referenten und Werkzeugbauer, deren Arbeit CRM Analytics Lernbar - mit Namen an die Wand gepinnt.",
+      "see": "Sehen Sie die ganze Wand",
+      "board": "Vorstand - Wall of Fame"
     }
   },
   "footer": {
@@ -334,7 +348,18 @@
     "project": "Projekt",
     "legal": "Rechtliches",
     "community": "Gemeinschaft",
-    "academy": "Akademie"
+    "academy": "Akademie",
+    "links": {
+      "instructors": "Werden Sie Ausbilder",
+      "nominate": "Nominiert für die Wall",
+      "sales": "Sprechen Sie mit dem Verkauf",
+      "contact": "Kontaktieren Sie uns"
+    },
+    "quip": {
+      "0": "Hergestellt von Swarnil mit einer unangemessenen Menge an Aufforderung und einer heroischen Verschwendung von Token.",
+      "1": "Handgezeichnet von Swarnil, maschinell unterstützt. Das Token-Budget ist jetzt eher ein Vorschlag.",
+      "2": "Gebaut von Swarnil eine Aufforderung nach der anderen - einige von ihnen arbeiteten sogar am ersten Versuch."
+    }
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Salesforce CRM Analytics lernen",
@@ -514,7 +539,13 @@
     "nominateTitle": "Kennen Sie jemanden, der hierher gehört?",
     "nominateDesc": "Nominieren Sie einen Blogger, Schöpfer oder Mentor, dessen Arbeit dem CRM Analytics Gemeinschaft.",
     "nominate": "Nominieren Sie jemanden",
-    "connect": "Connect auf Linked In"
+    "connect": "Connect auf Linked In",
+    "emptyPhoto": "Dein Foto hier",
+    "emptyCaption": "Nominiert",
+    "emptyHint": "Nominieren Sie jemanden",
+    "filter": "Filter nach Art",
+    "board": "Vorstand",
+    "whoTitle": "Wer sie sind"
   },
   "companies": {
     "eyebrow": "Ökosystem",
@@ -600,5 +631,18 @@
   "localeAuto": {
     "switched": "Diese Seite anzeigen in {language}",
     "keepEnglish": "Bleiben Sie Englisch"
+  },
+  "about": {
+    "work": {
+      "eyebrow": "§ 03 — Die Arbeit",
+      "title": "Sieben Jahre Go-to-Market Analytics.",
+      "highlights": "Highlights",
+      "experience": "Erfahrung",
+      "education": "Bildung",
+      "skills": "Fähigkeiten",
+      "projects": "Auch gebaut von Swarnil",
+      "live": "Lebend",
+      "building": "Gebäude"
+    }
   }
 }

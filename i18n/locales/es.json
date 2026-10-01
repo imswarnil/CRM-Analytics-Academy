@@ -280,7 +280,7 @@
     "hero": {
       "eyebrow": "Actualizado para la corriente Salesforce liberación",
       "title": "Aprender Salesforce CRM Analytics la forma en que se utiliza en el trabajo.",
-      "lead": "Una libre, mano a mano Salesforce CRM Analytics curso: recetas, SAQL, tableros, seguridad y Einstein Discovery, construido sobre los datos reales de una empresa.",
+      "lead": "Clases gratuitas y prácticas sobre recetas, SAQL, tableros, seguridad y Einstein Discovery — construido sobre los datos reales de una empresa.",
       "start": "Comience la lección 1",
       "curriculum": "Ver currículo"
     },
@@ -326,6 +326,20 @@
           "line": "Únetes, fórmulas, deduplicación"
         }
       }
+    },
+    "author": {
+      "eyebrow": "Fig. 05 - El autor",
+      "figure": "Fig. 05 — Quien enseña esto",
+      "title": "Siete años de dashboards de ir al mercado, convertido en un curso.",
+      "more": "Más sobre Swarnil",
+      "connect": "Conectar en Enlace In"
+    },
+    "wall": {
+      "eyebrow": "Fig. 06 — Muro de la fama",
+      "title": "La gente que nos enseñó el resto de nosotros.",
+      "lead": "Bloggers, autores, altavoces y constructores de herramientas cuya obra CRM Analytics aprendiz — clavado a la pared por nombre.",
+      "see": "Ver todo el muro",
+      "board": "Junta — Muro de la fama"
     }
   },
   "footer": {
@@ -334,7 +348,18 @@
     "project": "Proyecto",
     "legal": "Legal",
     "community": "Comunidad",
-    "academy": "Academia"
+    "academy": "Academia",
+    "links": {
+      "instructors": "Convertirse en instructor",
+      "nominate": "Nominado para el Muro",
+      "sales": "Hablar con ventas",
+      "contact": "Contacta con nosotros"
+    },
+    "quip": {
+      "0": "Hecho por Swarnil con una cantidad irrazonable de impulso y un desperdicio heroico de fichas.",
+      "1": "Traducido a mano por Swarnil, asistido a máquina. El presupuesto total es ahora más una sugerencia.",
+      "2": "Construido por Swarnil un impulso a la vez, algunos de ellos incluso trabajaron en el primer intento."
+    }
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Aprende Salesforce CRM Analytics",
@@ -514,7 +539,13 @@
     "nominateTitle": "¿Conoces a alguien que pertenece aquí?",
     "nominateDesc": "Nominar a un blogger, creador o mentor cuyo trabajo ha ayudado CRM Analytics comunidad.",
     "nominate": "Nominar a alguien",
-    "connect": "Conectar en Enlace In"
+    "connect": "Conectar en Enlace In",
+    "emptyPhoto": "Tu foto aquí",
+    "emptyCaption": "Nominado",
+    "emptyHint": "Nominar a alguien",
+    "filter": "Filtro por tipo",
+    "board": "Junta",
+    "whoTitle": "Quienes son"
   },
   "companies": {
     "eyebrow": "Ecosystem",
@@ -600,5 +631,18 @@
   "localeAuto": {
     "switched": "Mostrando esta página en {language}",
     "keepEnglish": "Mantenga el inglés"
+  },
+  "about": {
+    "work": {
+      "eyebrow": "§ 03 - El trabajo",
+      "title": "Siete años de análisis de ir al mercado.",
+      "highlights": "Aspectos destacados",
+      "experience": "Experiencia",
+      "education": "Educación",
+      "skills": "Habilidades",
+      "projects": "También construido por Swarnil",
+      "live": "Vivir",
+      "building": "Edificio"
+    }
   }
 }

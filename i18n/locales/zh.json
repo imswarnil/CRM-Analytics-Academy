@@ -280,7 +280,7 @@
     "hero": {
       "eyebrow": "当前更新 Salesforce 释放",
       "title": "学习 Salesforce CRM Analytics 工作时使用的方法。",
-      "lead": "一个自由的手 Salesforce CRM Analytics 课程:食谱, SAQL、仪表板、安保和 Einstein Discovery,基于一家公司的真实数据。",
+      "lead": "免费的,实际操作的课程 关于食谱, SAQL、仪表板、安保和 Einstein Discovery ——以一家公司的真实数据为基础.",
       "start": "开始上课 1",
       "curriculum": "见课程"
     },
@@ -326,6 +326,20 @@
           "line": "连接、 公式、 复制"
         }
       }
+    },
+    "author": {
+      "eyebrow": "图05-提交人",
+      "figure": "图05——是谁教的",
+      "title": "七年上市仪表板,变成课程.",
+      "more": "更多关于斯沃尼尔",
+      "connect": "在链接上连接 内"
+    },
+    "wall": {
+      "eyebrow": "图06——名人墙",
+      "title": "教诸众生者.",
+      "lead": "博客、作者、演讲者和工具制作者, CRM Analytics 可以学习——用名字钉在墙上.",
+      "see": "看见整堵墙",
+      "board": "董事会——名人墙"
     }
   },
   "footer": {
@@ -334,7 +348,18 @@
     "project": "项目",
     "legal": "法律",
     "community": "社区",
-    "academy": "学院"
+    "academy": "学院",
+    "links": {
+      "instructors": "成为教官",
+      "nominate": "提名长城",
+      "sales": "谈销售",
+      "contact": "联系我们"
+    },
+    "quip": {
+      "0": "由史瓦尼尔用不合理的催促量和英勇的废品制造.",
+      "1": "由史瓦尼尔手绘,机器辅助. 象征性预算现在更是一个建议。",
+      "2": "由Swarnil一次一个提示建造——其中少数甚至致力于第一次尝试."
+    }
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",
@@ -514,7 +539,13 @@
     "nominateTitle": "知道这里的人是谁吗?",
     "nominateDesc": "提名一名博客、创作者或导师, CRM Analytics 社区。",
     "nominate": "点名",
-    "connect": "在链接上连接 内"
+    "connect": "在链接上连接 内",
+    "emptyPhoto": "你的照片在这里",
+    "emptyCaption": "获得提名",
+    "emptyHint": "点名",
+    "filter": "按类型过滤",
+    "board": "董事会",
+    "whoTitle": "他们是谁"
   },
   "companies": {
     "eyebrow": "生态系统",
@@ -600,5 +631,18 @@
   "localeAuto": {
     "switched": "显示此页面 {language}",
     "keepEnglish": "保留英文"
+  },
+  "about": {
+    "work": {
+      "eyebrow": "第03节——工作",
+      "title": "7年上市分析.",
+      "highlights": "要点",
+      "experience": "经历",
+      "education": "学历",
+      "skills": "技能",
+      "projects": "也是史瓦尼尔建造的",
+      "live": "现场直播",
+      "building": "大楼"
+    }
   }
 }

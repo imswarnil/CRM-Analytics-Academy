@@ -280,7 +280,7 @@
     "hero": {
       "eyebrow": "آخر المستجدات في الوقت الراهن Salesforce الإفراج",
       "title": "التعلم Salesforce CRM Analytics طريقة استخدامه في العمل.",
-      "lead": "حر، يدوي Salesforce CRM Analytics بالطبع SAQLلوحات المداخيل والأمن Einstein Discoveryمبني على بيانات الشركة الحقيقية.",
+      "lead": "دروس مجانية على الوصفات SAQLلوحات المداخيل والأمن Einstein Discovery - مبنية على البيانات الحقيقية لشركة واحدة.",
       "start": "الدرس الأول",
       "curriculum": "See curriculum"
     },
@@ -326,6 +326,20 @@
           "line": "فرص العمل، والصيغ، ورفع الطلب"
         }
       }
+    },
+    "author": {
+      "eyebrow": "Fig. 05 - The author",
+      "figure": "Fig. 05 - who teaches this",
+      "title": "سبع سنوات من لوحات الصيد إلى السوق تحولت إلى دورة",
+      "more": "المزيد عن (سوارنيل)",
+      "connect": "Connect on Linked In"
+    },
+    "wall": {
+      "eyebrow": "Fig. 06 - Wall of Fame",
+      "title": "الناس الذين علموا بقيتنا",
+      "lead": "المدونون والمؤلفون والمتحدثون وصانعو الأدوات الذين عملوا CRM Analytics قابلة للتعلم - مثبتة على الحائط بالاسم.",
+      "see": "انظر الحائط كله",
+      "board": "المجلس - جدار الأسرة"
     }
   },
   "footer": {
@@ -334,7 +348,18 @@
     "project": "المشروع",
     "legal": "Legal",
     "community": "المجتمع",
-    "academy": "أكاديمية"
+    "academy": "أكاديمية",
+    "links": {
+      "instructors": "كوني مدربة",
+      "nominate": "تسمية الجدار",
+      "sales": "الحديث عن المبيعات",
+      "contact": "اتصل بنا"
+    },
+    "quip": {
+      "0": "مصنوعة من قبل (سوارنيل) بكمية غير معقولة من الحفز و النفايات البطولية للذكور",
+      "1": "يدوياً من قبل (سوارنيل) مُساعدة بالآلات إن الميزانية المكشوفة هي الآن اقتراح أكثر.",
+      "2": "بنى من قبل (سوارنيل) بسرعة واحدة في وقت واحد البعض منهم عملوا على المحاولة الأولى"
+    }
   },
   "seo": {
     "homeTitle": "CRM Analytics الأكاديمية - التعلم Salesforce CRM Analytics",
@@ -514,7 +539,13 @@
     "nominateTitle": "هل تعرف شخص ينتمي إلى هنا؟",
     "nominateDesc": "تسمية مدون أو مبتكر أو معلم ساعد عمله CRM Analytics المجتمع",
     "nominate": "تسمية شخص ما",
-    "connect": "Connect on Linked In"
+    "connect": "Connect on Linked In",
+    "emptyPhoto": "صورتك هنا",
+    "emptyCaption": "ترشح",
+    "emptyHint": "تسمية شخص ما",
+    "filter": "فيلم من نوع",
+    "board": "المجلس",
+    "whoTitle": "من هم"
   },
   "companies": {
     "eyebrow": "النظام الإيكولوجي",
@@ -600,5 +631,18 @@
   "localeAuto": {
     "switched": "عرض هذه الصفحة {language}",
     "keepEnglish": "حافظ على الإنجليزية"
+  },
+  "about": {
+    "work": {
+      "eyebrow": "الباب 03 - العمل",
+      "title": "سبع سنوات من تحليلات الذهاب إلى السوق",
+      "highlights": "Highlights",
+      "experience": "الخبرة",
+      "education": "التعليم",
+      "skills": "المهارات",
+      "projects": "أيضا بنيت من قبل (سوارنيل)",
+      "live": "الحياة",
+      "building": "المبنى"
+    }
   }
 }
