@@ -10,7 +10,11 @@ export default eventHandler(async (event) => {
 
   const path = withLeadingSlash(slug.replace('.md', ''))
 
-  const page = await queryCollection(event, 'docs' as const).path(path).first()
+  // Every raw page a reader may see is prerendered, so on Cloudflare this
+  // handler only runs for URLs that have no file — gated lessons and typos —
+  // where the Worker has no content database and the query throws. Either
+  // way the right answer is 404, not a 500.
+  const page = await queryCollection(event, 'docs' as const).path(path).first().catch(() => null)
   if (!page) {
     throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
   }
