@@ -32,6 +32,9 @@ const CONTENT = path.join(CONTENT_ROOT, 'en')
 const SEARCH_OUT = path.join(ROOT, 'public', 'search')
 const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'ja', 'zh', 'hi', 'ar', 'ru', 'bn', 'ur']
 const SECTION_CAP = 320
+const SITE = 'https://crmanalytics.imswarnil.com'
+const LLMS_BLURB = 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery. Machine-translated from English.'
+const rawRoutes = []
 const OUT = path.join(ROOT, 'public', 'ask-index.json')
 const TEXT_CAP = 2000
 
@@ -213,6 +216,7 @@ async function buildSearch() {
       .filter(rel => english.has(rel))
       .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
     const out = []
+    const llms = []
     for (const rel of rels) {
       const file = own.has(rel) ? path.join(base, rel) : english.get(rel)
       const { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
@@ -220,9 +224,32 @@ async function buildSearch() {
       const title = String(data.title ?? '')
       // A Pro lesson is findable by its title; its body is not public text.
       out.push(...(data.access === 'pro' ? [{ id: route, title, titles: [], level: 1, content: String(data.description ?? '') }] : toSections(route, title, body)))
+      // Only translated, free lessons get a raw copy: an English fallback is
+      // already in the English llms.txt, and a Pro body is never public.
+      if (own.has(rel) && data.access !== 'pro') {
+        llms.push({ route, raw: `/raw/${locale}${toRoute(english.get(rel))}.md`, title, description: String(data.description ?? '') })
+      }
     }
     await writeFile(path.join(SEARCH_OUT, `${locale}.json`), JSON.stringify(out), 'utf8')
+    if (locale !== 'en') {
+      rawRoutes.push(...llms.map(l => l.raw))
+      await mkdir(path.join(ROOT, 'public', locale), { recursive: true })
+      await writeFile(path.join(ROOT, 'public', locale, 'llms.txt'), [
+        `# CRM Analytics Academy (${locale})`,
+        '',
+        `> ${LLMS_BLURB}`,
+        '',
+        `Language: ${locale}. The English original is at ${SITE}/llms.txt.`,
+        '',
+        '## Lessons',
+        '',
+        ...llms.map(l => `- [${l.title}](${SITE}${l.raw}): ${l.description}`.trim()),
+        ''
+      ].join('\n'), 'utf8')
+    }
   }
+  // Prerender list for the localized raw markdown (read by nuxt.config.ts).
+  await writeFile(path.join(ROOT, '.raw-routes.json'), JSON.stringify(rawRoutes), 'utf8')
   console.log(`[search] ${LOCALES.length} locale index(es) -> public/search/`)
 }
 

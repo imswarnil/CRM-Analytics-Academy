@@ -2,7 +2,7 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import { AUTHOR } from '~/data/author'
 
-const { t, locale } = useI18n()
+const { t, locale, locales } = useI18n()
 const localePath = useLocalePath()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 const { total } = useCourse()
@@ -24,8 +24,8 @@ useJsonLd([
     '@type': 'AboutPage',
     'name': title.value,
     'description': description.value,
-    'url': `${SITE.url}/about`,
-    'inLanguage': locale.value
+    'url': `${SITE.url}${useRoute().path}`,
+    'inLanguage': locales.value.find(l => l.code === locale.value)?.language || locale.value
   },
   {
     '@context': 'https://schema.org',
