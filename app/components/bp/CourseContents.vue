@@ -220,5 +220,8 @@ onMounted(() => revealCurrent(true))
         </ol>
       </li>
     </ol>
+    <div class="border-t-[1.5px] border-(--ink) p-3">
+      <SponsorCard />
+    </div>
   </div>
 </template>

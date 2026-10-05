@@ -21,7 +21,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type AdminTab = 'overview' | 'users' | 'queue' | 'content' | 'leads' | 'teams' | 'lessons' | 'comments' | 'guide'
+type AdminTab = 'overview' | 'users' | 'queue' | 'content' | 'leads' | 'teams' | 'sponsors' | 'lessons' | 'comments' | 'guide'
 const tab = ref<AdminTab>('overview')
 // The Guide's "Open" buttons jump straight to the tab a chapter describes.
 const goToTab = (t: string) => {
@@ -391,8 +391,8 @@ const roles = ['learner', 'instructor', 'moderator', 'admin']
 
     <UContainer v-else-if="isStaff">
       <UPageHeader
-        :title="tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'leads' ? 'Leads' : tab === 'teams' ? 'Teams' : tab === 'guide' ? 'Guide' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? (isInstructor ? 'Instructor studio' : 'Content') : 'Users & Roles'"
-        :description="tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'leads' ? 'Sales, quotes, teams, sponsors, instructors and nominations — enriched and sent to the CRM.' : tab === 'teams' ? 'Every team: seats bought, seats used, members and status.' : tab === 'guide' ? 'How to run the academy, end to end — writing, pricing, video, leads and tracking.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? (isInstructor ? 'Edit the lessons you author and create new ones; an admin reviews every change.' : 'The course on GitHub: edit, create, rename and reorder lessons and sections, review instructors and credit people.') : 'Accounts, roles and access.'"
+        :title="tab === 'sponsors' ? 'Sponsors' : tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'leads' ? 'Leads' : tab === 'teams' ? 'Teams' : tab === 'guide' ? 'Guide' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? (isInstructor ? 'Instructor studio' : 'Content') : 'Users & Roles'"
+        :description="tab === 'sponsors' ? 'One sponsor per month: bookings, refunds, manual bookings and creative moderation.' : tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'leads' ? 'Sales, quotes, teams, sponsors, instructors and nominations — enriched and sent to the CRM.' : tab === 'teams' ? 'Every team: seats bought, seats used, members and status.' : tab === 'guide' ? 'How to run the academy, end to end — writing, pricing, video, leads and tracking.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? (isInstructor ? 'Edit the lessons you author and create new ones; an admin reviews every change.' : 'The course on GitHub: edit, create, rename and reorder lessons and sections, review instructors and credit people.') : 'Accounts, roles and access.'"
       >
         <template #headline>
           <nav
@@ -465,6 +465,16 @@ const roles = ['learner', 'instructor', 'moderator', 'admin']
               Teams
             </UButton>
             <UButton
+              v-if="isAdmin"
+              icon="i-lucide-megaphone"
+              size="sm"
+              :color="tab === 'sponsors' ? 'primary' : 'neutral'"
+              :variant="tab === 'sponsors' ? 'solid' : 'ghost'"
+              @click="tab = 'sponsors'"
+            >
+              Sponsors
+            </UButton>
+            <UButton
               v-if="isEditor"
               icon="i-lucide-file-pen-line"
               size="sm"
@@ -516,6 +526,7 @@ const roles = ['learner', 'instructor', 'moderator', 'admin']
 
         <AdminLeads v-if="tab === 'leads' && isModerator" />
         <AdminTeams v-if="tab === 'teams' && isAdmin" />
+        <AdminSponsors v-if="tab === 'sponsors' && isAdmin" />
         <AdminGuide
           v-if="tab === 'guide' && isAdmin"
           @go="goToTab"

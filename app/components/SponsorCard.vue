@@ -1,6 +1,18 @@
 <script setup lang="ts">
+/**
+ * "Sponsor the project" — a compact link to /sponsor for rails and footers.
+ * Its second line is live: this month's sponsor when there is one, the price
+ * when the month is open. It reads the same placement feed as the promo
+ * slots, so it adds no request of its own.
+ */
 const { t } = useI18n()
 const localePath = useLocalePath()
+const { data, ensure } = usePlacementFeed()
+onMounted(ensure)
+
+const line = computed(() => data.value?.sponsor
+  ? t('sponsor.card.current', { name: data.value.sponsor.name })
+  : t('sponsor.card.open', { price: `$${PARTNER_PRICE_USD}` }))
 </script>
 
 <template>
@@ -15,7 +27,7 @@ const localePath = useLocalePath()
 
     <span class="min-w-0 flex-1">
       <span class="block truncate text-xs font-bold text-(--ink)">{{ t('sponsorCard.title') }}</span>
-      <span class="block truncate font-mono text-[10px] uppercase tracking-[.06em] text-(--ink2)">{{ t('sponsorCard.desc') }}</span>
+      <span class="block truncate font-mono text-[10px] uppercase tracking-[.06em] text-(--ink2)">{{ line }}</span>
     </span>
 
     <UIcon

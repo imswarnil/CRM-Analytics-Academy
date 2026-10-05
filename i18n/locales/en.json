@@ -42,6 +42,150 @@
     "desc": "Keep the curriculum free and open.",
     "cta": "Learn more"
   },
+  "sponsor": {
+    "slot": {
+      "label": "Sponsored",
+      "labelOpen": "Sponsor slot",
+      "aria": "Sponsor",
+      "eyebrow": "Open slot",
+      "title": "Promote your brand here",
+      "terms": "{price}/month · one sponsor per month",
+      "textBody": "Reach CRM Analytics learners on every page — {price} a month, one sponsor at a time.",
+      "cta": "Book a month",
+      "defaultCta": "Learn more"
+    },
+    "card": {
+      "current": "This month: {name}",
+      "open": "{price}/month · one sponsor at a time"
+    },
+    "page": {
+      "seoTitle": "Sponsor the project",
+      "seoDescription": "Sponsor CRM Analytics Academy: one brand per month, every placement on the site, {price} a month. See live reach and book an open month.",
+      "sheet": "Sheet 13 / Sponsor",
+      "title": "Sponsor the project",
+      "lead": "One brand a month gets every sponsor placement on the academy — banners, rail squares and in-lesson text — in front of people learning Salesforce CRM Analytics. {price} a month. Book an open month below; it goes live on the 1st.",
+      "ctaBook": "See open months",
+      "ctaStudio": "Open the sponsor studio",
+      "offerEyebrow": "FIG. 02 — The offer",
+      "offerTitle": "{price} a month. One sponsor. Every slot.",
+      "offer": [
+        {
+          "t": "Exclusive",
+          "d": "Only one sponsor per calendar month. No rotation, no competitors next to you."
+        },
+        {
+          "t": "Every placement",
+          "d": "Your leaderboard, square and text creatives fill every slot on every page, in all twelve languages."
+        },
+        {
+          "t": "Self-serve",
+          "d": "Pay by card, design your creatives in the studio, publish — and watch impressions and clicks."
+        }
+      ],
+      "howEyebrow": "FIG. 04 — How it works",
+      "howTitle": "From booking to live in minutes",
+      "how": [
+        {
+          "t": "Pick months",
+          "d": "Choose one or more consecutive open months on the timeline."
+        },
+        {
+          "t": "Pay",
+          "d": "Secure hosted checkout. The months are held for you while you pay."
+        },
+        {
+          "t": "Build",
+          "d": "Upload images or design an ad from your logo and copy in the sponsor studio, with true-size previews."
+        },
+        {
+          "t": "Go live",
+          "d": "Publish. Your creatives replace the placeholders for every day of your months."
+        }
+      ],
+      "formatsEyebrow": "FIG. 05 — Formats",
+      "formatsTitle": "Three formats, shown at true size",
+      "formats": {
+        "leaderboard": "Leaderboard",
+        "leaderboardSpec": "728×90 · 320×100 on phones",
+        "leaderboardWhere": "Across lesson and page columns.",
+        "square": "Square",
+        "squareSpec": "300×250 · or 1:1",
+        "squareWhere": "In the lesson rail and page sidebars.",
+        "text": "Text",
+        "textSpec": "Logo · 60-character headline · 140-character line",
+        "textWhere": "Inside lessons, after the reading."
+      },
+      "faqEyebrow": "FIG. 06 — Questions",
+      "faqTitle": "Sponsorship FAQ",
+      "faqs": [
+        {
+          "q": "What do I get for {price}?",
+          "a": "Every sponsor placement on the site for one calendar month (UTC), exclusively. Nobody else is shown in those slots during your month."
+        },
+        {
+          "q": "Can I book several months?",
+          "a": "Yes — pick consecutive open months and pay once. Months that are not next to each other are separate bookings."
+        },
+        {
+          "q": "When does my sponsorship start?",
+          "a": "On the 1st of the month you booked, at 00:00 UTC. Publish your creatives any time before — they appear automatically."
+        },
+        {
+          "q": "Are Pro members shown my ad?",
+          "a": "No. Pro and team members pay for an ad-free academy, so the reach figures above are an upper bound."
+        },
+        {
+          "q": "What can't I advertise?",
+          "a": "Anything misleading, unsafe or unrelated to working professionals. Creatives can be paused or rejected with a note, and you can publish a replacement at any time."
+        },
+        {
+          "q": "Can I pay by invoice?",
+          "a": "Yes. Use the form at the bottom of this page and we will book the month for you."
+        }
+      ],
+      "invoiceEyebrow": "Invoice or bigger deal",
+      "invoiceTitle": "Prefer an invoice, or want more than slots?",
+      "invoiceLead": "Section sponsorships, dataset features and newsletter mentions — clearly labelled, never inside a lesson's teaching. Tell us what you would like to reach."
+    },
+    "reach": {
+      "eyebrow": "FIG. 01 — Live reach",
+      "title": "Who you reach",
+      "note": "Counted live from the academy's own database and Cloudflare analytics — never estimated. Updated {time}.",
+      "learners": "Learner accounts",
+      "active": "Active learners, 30 days",
+      "completed": "Lessons completed",
+      "quizzes": "Quiz attempts",
+      "comments": "Lesson comments",
+      "languages": "Languages",
+      "pageViews": "Page views, 30 days",
+      "countries": "Countries, 30 days",
+      "topCountries": "Top countries, 30 days",
+      "loading": "Counting…",
+      "unavailable": "Live figures are unavailable right now."
+    },
+    "calendar": {
+      "eyebrow": "FIG. 03 — Availability",
+      "title": "The next twelve months",
+      "lead": "One sponsor per month. Pick one or more consecutive open months.",
+      "available": "Open",
+      "booked": "Booked",
+      "bookedBy": "Booked by {name}",
+      "held": "On hold",
+      "heldHint": "Someone is checking out",
+      "closed": "Closed",
+      "mine": "Yours",
+      "selected": "Selected",
+      "summary": "No months selected | {n} month · {total} | {n} months · {total}",
+      "brandName": "Brand name",
+      "brandNamePlaceholder": "Shown on your creatives and the calendar",
+      "website": "Website",
+      "book": "Book and pay",
+      "signIn": "Sign in to book",
+      "holdNote": "Months are held for {minutes} minutes while you pay. Nothing is booked until payment succeeds.",
+      "unavailable": "Booking opens soon. Use the form below to reserve a month.",
+      "error": "The calendar could not load. Refresh to try again."
+    }
+  },
   "hero": {
     "badge": "Free & open-source curriculum",
     "titleLead": "Master Salesforce",
