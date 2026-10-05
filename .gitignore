@@ -57,7 +57,7 @@ public/transcripts/
 public/ask-index.json
 public/search/
 public/*/llms.txt
-.raw-routes.json
+public/raw/
 
 # Salesforce CLI auth state. `.sf/` and `.sfdx/` hold ORG ACCESS TOKENS — a
 # refresh token in one of these is a live, password-free login to the org, so

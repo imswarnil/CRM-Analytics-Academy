@@ -436,11 +436,11 @@
       "caption": "Fig. 01 — Academy ARR by month",
       "spec": "Construido en Construido 14",
       "arr": "ARR",
-      "arrDelta": ". {n} año en curso",
+      "arrDelta": "{n} year on year",
       "winRate": "Tasa de ganancia",
-      "winRateDelta": "▲ acuerdos cerrados",
+      "winRateDelta": "closed deals",
       "nrr": "NRR",
-      "nrrDelta": "■ GRR {n}"
+      "nrrDelta": "GRR {n}"
     },
     "plot": {
       "eyebrow": "Fig. 02 — Curriculum, plotted",

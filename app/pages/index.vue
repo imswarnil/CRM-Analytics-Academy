@@ -252,7 +252,7 @@ const { data: builds } = await useAsyncData('home-showcase', () =>
                   {{ k.value }}
                 </p>
                 <p class="mt-0.5 truncate font-mono text-[10px] text-(--signal)">
-                  {{ k.delta }}
+                  <span aria-hidden="true">▲</span> {{ k.delta }}
                 </p>
               </div>
             </div>

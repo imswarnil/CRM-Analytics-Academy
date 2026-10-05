@@ -436,9 +436,9 @@
       "caption": "Fig. 01: Academia ARR por mês",
       "spec": "Construído em construção 14",
       "arr": "ARR",
-      "arrDelta": "# # {n} Ano após ano",
+      "arrDelta": "{n} year on year",
       "winRate": "Taxa de vitória",
-      "winRateDelta": "\"Fechados negócios\"",
+      "winRateDelta": "closed deals",
       "nrr": "NRR",
       "nrrDelta": "GRR {n}"
     },

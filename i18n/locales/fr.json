@@ -436,11 +436,11 @@
       "caption": "Fig. 01 — Académie ARR par mois",
       "spec": "Construit dans la construction 14",
       "arr": "ARR",
-      "arrDelta": "C'est vrai. {n} année",
+      "arrDelta": "{n} year on year",
       "winRate": "Taux de gain",
-      "winRateDelta": "Marchés conclus",
+      "winRateDelta": "closed deals",
       "nrr": "NRR",
-      "nrrDelta": "RRR {n}"
+      "nrrDelta": "GRR {n}"
     },
     "plot": {
       "eyebrow": "Fig. 02 — Curriculum, tracé",

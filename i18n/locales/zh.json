@@ -436,11 +436,11 @@
       "caption": "图1——按月分列的学院",
       "spec": "建于建筑 14",
       "arr": "资源",
-      "arrDelta": "▲ {n} 年数",
+      "arrDelta": "{n} year on year",
       "winRate": "赢率",
-      "winRateDelta": "关闭交易",
+      "winRateDelta": "closed deals",
       "nrr": "核 报",
-      "nrrDelta": "GRR( 加纳) {n}"
+      "nrrDelta": "GRR {n}"
     },
     "plot": {
       "eyebrow": "图02——课程编排",
@@ -832,7 +832,7 @@
       },
       "devOrg": {
         "title": "开发者版块",
-        "desc": "免费的 Salesforce {\\fn黑体\\fs22\\bord1\\shad0\\3aHBE\\4aH00\\fscx67\\fscy66\\2cHFFFFFF\\3cH808080}Org会听每门课"
+        "desc": "A free Salesforce org to follow every lesson hands-on."
       },
       "vscode": {
         "title": "VS 代码 + SF 扩展",

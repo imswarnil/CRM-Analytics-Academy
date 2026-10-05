@@ -436,11 +436,11 @@
       "caption": "কা. পূ.",
       "spec": "বিল্ট-ইন পরিচালন ব্যবস্থা",
       "arr": "আর্গন",
-      "arrDelta": "হেইলংজিয়াং {n} প্রতি বছর",
+      "arrDelta": "{n} year on year",
       "winRate": "জয়ের হার",
-      "winRateDelta": "উদ্যোগ বন্ধ করুন",
+      "winRateDelta": "closed deals",
       "nrr": "আর- জি- আর",
-      "nrrDelta": "এল- ডি- এ- পি {n}"
+      "nrrDelta": "GRR {n}"
     },
     "plot": {
       "eyebrow": "অক্টোবর - ডিসেম্বর",
@@ -1077,7 +1077,7 @@
       "verify": "{bold}: {lint} এবং {typecheck} দুই পাশ.",
       "verifyBold": "যাচাই করা হচ্ছে",
       "commit": "{bold} সুস ্ পষ ্ ট গ ্ রন ্ থখানা সন ্ বন ্ ধে ভেবে দেখো -- {push} আপনার fork.",
-      "commitBold": "মন্তব্য@ info: status",
+      "commitBold": "Commit",
       "pushBold": "পুশ",
       "open": "{bold} বিরুদ্ধে {main}কি পরিবর্তন হয়েছে এবং কেন।",
       "openBold": "উন্মুক্ত মেমো (_O)",

@@ -436,11 +436,11 @@
       "caption": "Fig. 01 — Academy ARR nach Monat",
       "spec": "Gebaut in Build 14",
       "arr": "ARR",
-      "arrDelta": "<0xE2><0x96><0xB2> {n} Jahr für Jahr",
+      "arrDelta": "{n} year on year",
       "winRate": "Gewinnrate",
-      "winRateDelta": "<0xE2><0x96><0xB2> geschlossene Geschäfte",
+      "winRateDelta": "closed deals",
       "nrr": "NRR",
-      "nrrDelta": "<0xE2><0x96><0xB2> GRR {n}"
+      "nrrDelta": "GRR {n}"
     },
     "plot": {
       "eyebrow": "Abb. 02 — Curriculum, aufgetragen",

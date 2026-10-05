@@ -436,11 +436,11 @@
       "caption": "Рис.01 — Академия АРР по месяцам",
       "spec": "Построено в здании 14",
       "arr": "АРР",
-      "arrDelta": "? {n} Год за годом",
+      "arrDelta": "{n} year on year",
       "winRate": "Выигрышная ставка",
-      "winRateDelta": "Закрытые сделки",
+      "winRateDelta": "closed deals",
       "nrr": "НРР",
-      "nrrDelta": "† GRR {n}"
+      "nrrDelta": "GRR {n}"
     },
     "plot": {
       "eyebrow": "Рис. 02 — Учебный план, составленный",

@@ -16,15 +16,13 @@ interface Lesson {
   mux: string | Record<string, string> | null
 }
 
-const LANGS = ['en', 'es', 'fr', 'de', 'pt', 'ja', 'zh', 'hi', 'ar', 'ru', 'bn', 'ur']
-
 const lessons = ref<Lesson[]>([])
 const loading = ref(true)
 const error = ref('')
 const filter = ref<'all' | 'pro' | 'free' | 'video'>('all')
 const search = ref('')
 const editing = ref<Lesson | null>(null)
-const form = reactive<{ access: 'free' | 'pro', mux: Record<string, string> }>({ access: 'free', mux: {} })
+const form = reactive<{ access: 'free' | 'pro', mux: string }>({ access: 'free', mux: '' })
 const saving = ref(false)
 const saved = ref<Record<string, string>>({})
 
@@ -40,26 +38,27 @@ async function load() {
 }
 onMounted(load)
 
-const muxOf = (l: Lesson): Record<string, string> =>
-  typeof l.mux === 'string' ? { en: l.mux } : (l.mux ?? {})
+// One video per lesson. An old per-language map still reads as its English id.
+const muxOf = (l: Lesson): string =>
+  typeof l.mux === 'string' ? l.mux : (l.mux?.en ?? '')
 
 const shown = computed(() => lessons.value.filter((l) => {
   if (filter.value === 'pro' && l.access !== 'pro') return false
   if (filter.value === 'free' && l.access !== 'free') return false
-  if (filter.value === 'video' && !Object.keys(muxOf(l)).length) return false
+  if (filter.value === 'video' && !muxOf(l)) return false
   const q = search.value.trim().toLowerCase()
   return !q || l.title.toLowerCase().includes(q) || l.route.includes(q)
 }))
 
 const counts = computed(() => ({
   pro: lessons.value.filter(l => l.access === 'pro').length,
-  video: lessons.value.filter(l => Object.keys(muxOf(l)).length).length
+  video: lessons.value.filter(l => muxOf(l)).length
 }))
 
 function edit(l: Lesson) {
   editing.value = l
   form.access = l.access
-  form.mux = { ...Object.fromEntries(LANGS.map(k => [k, ''])), ...muxOf(l) }
+  form.mux = muxOf(l)
 }
 
 async function save() {
@@ -72,7 +71,7 @@ async function save() {
       body: { file: editing.value.file, access: form.access, mux: form.mux }
     })
     editing.value.access = form.access
-    editing.value.mux = Object.fromEntries(Object.entries(form.mux).filter(([, v]) => v.trim()))
+    editing.value.mux = form.mux.trim() || null
     saved.value[editing.value.file] = res.commitUrl ?? ''
     editing.value = null
   } catch (e) {
@@ -175,13 +174,13 @@ async function save() {
           </p>
         </div>
         <UBadge
-          v-if="Object.keys(muxOf(l)).length"
+          v-if="muxOf(l)"
           color="neutral"
           variant="soft"
           icon="i-lucide-video"
           size="sm"
         >
-          {{ Object.keys(muxOf(l)).join(' · ') }}
+          Video
         </UBadge>
         <UBadge
           :color="l.access === 'pro' ? 'primary' : 'neutral'"
@@ -229,22 +228,15 @@ async function save() {
             </div>
           </UFormField>
           <UFormField
-            label="Mux playback ids"
-            help="One per language. English plays for any language left empty. Use signed ids for Pro lessons and public ids for free ones."
+            label="Mux playback id"
+            help="One video for every language — captions and the transcript follow the reader's language. Use a signed id for a Pro lesson and a public one for a free lesson."
           >
-            <div class="grid gap-2 sm:grid-cols-2">
-              <UInput
-                v-for="lang in LANGS"
-                :key="lang"
-                v-model="form.mux[lang]"
-                size="sm"
-                :placeholder="lang === 'en' ? 'English (default)' : lang"
-              >
-                <template #leading>
-                  <span class="font-mono text-xs uppercase text-(--ink2)">{{ lang }}</span>
-                </template>
-              </UInput>
-            </div>
+            <UInput
+              v-model="form.mux"
+              class="w-full"
+              placeholder="e.g. a4nOgmxGWg6gULfcBbAa00gXyfcwPnAFldF8RdsNyk8M"
+              icon="i-lucide-video"
+            />
           </UFormField>
         </div>
       </template>

@@ -35,7 +35,6 @@ const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'ja', 'zh', 'hi', 'ar', 'ru', 'bn
 const SECTION_CAP = 320
 const SITE = 'https://crmanalytics.imswarnil.com'
 const LLMS_BLURB = 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery. Machine-translated from English.'
-const rawRoutes = []
 const OUT = path.join(ROOT, 'public', 'ask-index.json')
 const TEXT_CAP = 2000
 
@@ -239,12 +238,22 @@ async function buildSearch() {
       // Only translated, free lessons get a raw copy: an English fallback is
       // already in the English llms.txt, and a Pro body is never public.
       if (own.has(rel) && !isPro) {
-        llms.push({ route, raw: `/raw/${locale}${toRoute(english.get(rel))}.md`, title, description: String(data.description ?? '') })
+        const raw = `/raw/${locale}${toRoute(english.get(rel))}.md`
+        llms.push({ route, raw, title, description: String(data.description ?? '') })
+        // Written as a static file straight from the translated markdown.
+        // These used to be prerender routes — 1,500 trips through the Nitro
+        // renderer for what is the source file minus its frontmatter, and
+        // enough extra heap to push the build past 12 GB.
+        if (locale !== 'en') {
+          const target = path.join(ROOT, 'public', raw)
+          await mkdir(path.dirname(target), { recursive: true })
+          const lead = [`# ${title}`, '', data.description ? `> ${data.description}` : '', ''].join('\n')
+          await writeFile(target, `${lead}\n${stripProBlocks(body).replace(/^\s*#\s+[^\n]*\n/, '').trim()}\n`, 'utf8')
+        }
       }
     }
     await writeFile(path.join(SEARCH_OUT, `${locale}.json`), JSON.stringify(out), 'utf8')
     if (locale !== 'en') {
-      rawRoutes.push(...llms.map(l => l.raw))
       await mkdir(path.join(ROOT, 'public', locale), { recursive: true })
       await writeFile(path.join(ROOT, 'public', locale, 'llms.txt'), [
         `# CRM Analytics Academy (${locale})`,
@@ -260,8 +269,6 @@ async function buildSearch() {
       ].join('\n'), 'utf8')
     }
   }
-  // Prerender list for the localized raw markdown (read by nuxt.config.ts).
-  await writeFile(path.join(ROOT, '.raw-routes.json'), JSON.stringify(rawRoutes), 'utf8')
   console.log(`[search] ${LOCALES.length} locale index(es) -> public/search/`)
 }
 

@@ -28,6 +28,7 @@
 
 import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -536,6 +537,41 @@ function mapMessages(node, fn, trail = []) {
   return node
 }
 
+/**
+ * Why a translated UI message must not be written, or '' when it is fine.
+ *
+ * The site build compiles every message with vue-i18n and FAILS on one it
+ * rejects, so a single bad string from the engine takes the deploy down. It
+ * has: "▲" came back as the literal bytes `<0xE2><0x96><0xB2>` (read as HTML),
+ * a stray "@" became a broken linked-message reference, and one Chinese
+ * string came back full of subtitle-renderer markup. Each of those is caught
+ * here and the key keeps its previous text (or English) until a later run.
+ */
+const messageCompiler = await import(
+  createRequire(import.meta.url).resolve('@intlify/message-compiler', {
+    paths: [createRequire(import.meta.url).resolve('@nuxtjs/i18n')]
+  })
+)
+function invalidMessage(translated, source) {
+  let error = ''
+  try {
+    messageCompiler.baseCompile(translated, {
+      onError: (e) => {
+        error ||= e.message
+      }
+    })
+  } catch (e) {
+    error ||= e.message
+  }
+  if (error) return `does not compile (${error})`
+  for (const ch of ['<', '@', '|', '$']) {
+    if (translated.includes(ch) && !source.includes(ch)) return `introduces "${ch}"`
+  }
+  const names = s => [...s.matchAll(/\{\s*([\w.]+)\s*\}/g)].map(m => m[1]).sort().join(',')
+  if (names(translated) !== names(source)) return `placeholders changed (${names(source)} → ${names(translated)})`
+  return ''
+}
+
 async function translateUi(manifest) {
   const enPath = join(LOCALES_DIR, `${SOURCE_LOCALE}.json`)
   const en = JSON.parse(await readFile(enPath, 'utf8'))
@@ -606,7 +642,9 @@ async function translateUi(manifest) {
       const raw = translated.get(htmlBySource.get(source))
       const restored = raw == null ? null : fromTranslatedHtml(raw, atomsBySource.get(source))
 
-      if (restored == null) {
+      const invalid = restored != null && invalidMessage(restored, source)
+      if (invalid) console.warn(`    ! ui ${locale} ${path}: ${invalid} — kept the previous text`)
+      if (restored == null || invalid) {
         kept++
         nextHashes[path] = FAILED_MARK
         // Fall back to an existing translation before falling back to English.

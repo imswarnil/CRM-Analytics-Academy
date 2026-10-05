@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, realpathSync } from 'node:fs'
+import { realpathSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -27,13 +27,6 @@ const locales = [
 ] as const
 
 const DEFAULT_LOCALE = 'en'
-
-// Localized raw-markdown routes, written by scripts/build-search-index.mjs
-// before every build. Nothing links to them from HTML, so the crawler would
-// never reach them on its own.
-const rawRoutes: string[] = existsSync('.raw-routes.json')
-  ? JSON.parse(readFileSync('.raw-routes.json', 'utf8'))
-  : []
 
 // Routes that must never become a static file: they are personal, so a
 // prerendered copy is by definition the wrong user's view of them.
@@ -287,8 +280,7 @@ export default defineNuxtConfig({
 
     prerender: {
       routes: [
-        '/',
-        ...rawRoutes
+        '/'
       ],
       crawlLinks: true,
       autoSubfolderIndex: false,
