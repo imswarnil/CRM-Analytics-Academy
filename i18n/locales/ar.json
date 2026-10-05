@@ -25,7 +25,8 @@
     "pricing": "الطباعة",
     "instructors": "المستفيدون & الأرصدة الدائنة",
     "enrollFree": "مجانية",
-    "sponsorShort": "الرعاة"
+    "sponsorShort": "الرعاة",
+    "homeAria": "CRM Analytics الأكاديمية - البيت"
   },
   "sponsorCard": {
     "title": "رعاية هذا المشروع"
@@ -49,8 +50,10 @@
     "page": {
       "seoTitle": "رعاية المشروع",
       "seoDescription": "الرعاة CRM Analytics الأكاديمية: علامة واحدة في الشهر، كل مكان في الموقع، {price} شهر شاهدْ الوصولَ المباشرَ ويَحْجزُ شهرَ مفتوحَ.",
+      "sheet": "Sheet 13 / Sponsor",
       "title": "رعاية المشروع",
       "lead": "وعلامة واحدة في الشهر تحصل على كل راعي في الأكاديمية - لافتات، مربعات السكك الحديدية، ورسالة غير رسمية - أمام الناس الذين يتعلمون Salesforce CRM Analytics. {price} شهر احجزي شهرًا مفتوحًا أسفله، ويعيش في الأول.",
+      "ctaBook": "See open months",
       "ctaStudio": "افتح الاستوديو",
       "offerEyebrow": "FIG. 02 - العرض",
       "offerTitle": "{price} شهر راعي واحد كل مكان",
@@ -244,12 +247,18 @@
       "datasets-and-modelling": "جِدْ، إنضمامات وتخيلات، طلقات للتاريخ، وميدالية ميدانية.",
       "data-visualization": "كل نوع من المخططات بشروطه الخاصة، و الذي يحتاجه السؤال في الواقع.",
       "lenses-and-explorations": "Exploring a dataset: groups, measures, the three modes, and conversational queries.",
+      "saql": "The query language itself — syntax, functions, the patterns that matter, and debugging.",
+      "designing-dashboards": "Designing for a decision: hierarchy, formatting, widgets and performance.",
       "interactions": "وجهاً لوجه ومرشحاً واختياراً - ما الذي يجعل لوحة مظلة نظاماً وليس صفحة.",
       "bindings": "نبتة واحدة تغذي أخرى: الاختيار، النتائج، التعلّم، وحيث يتحول إلى غير قابل للاستمرار.",
       "dashboard-json": "تحت الغطاء: القراءة وتحرير JSON عندما يَنْفذُ البناء.",
+      "collaboration": "Apps and sharing, subscriptions, annotations, embedding and governance.",
       "apis-and-automation": "The REST API(بيثون)، حمولات البيانات الآلية، و(سي آي) للمحللين.",
       "einstein-discovery": "قصص ونماذج وكتابة التنبؤات - وتدقيق الحسابات قبل الثقة بها.",
-      "gtm-engineering": "المستودع، عقود المقاييس، والشجرة المترية التي تملأها البنايات"
+      "gtm-engineering": "المستودع، عقود المقاييس، والشجرة المترية التي تملأها البنايات",
+      "demand-analytics": "AI search visibility, SEO, acquisition, campaigns, spend and attribution.",
+      "pipeline-analytics": "Leads through to signature: routing, scoring, conversion, velocity and CPQ.",
+      "revops-analytics": "Forecast, the ARR waterfall, consumption risk, service, and the executive board."
     },
     "forTeams": {
       "eyebrow": "للفرق",
@@ -296,6 +305,7 @@
     "noResults": "لا توجد لوحات تطابق هذه القوارير بعد",
     "clearFilters": "مرشحات واضحة",
     "by": "Built by",
+    "kpis": "KPIs and how they are calculated",
     "kpiName": "القياس",
     "kpiFormula": "كيفية حسابها",
     "kpiNote": "لماذا",
@@ -321,7 +331,12 @@
     "completed": "مكتملة",
     "signInToTrack": "وقّعْ لتتبع تقدمِكَ.",
     "signIn": "وقع",
-    "courseProgress": "التقدم المحرز"
+    "courseProgress": "التقدم المحرز",
+    "contents": "محتويات الدورة",
+    "contentsPct": "المحتويات )تابع( {pct}النسبة المئوية",
+    "showContents": "محتويات الدورة",
+    "collapseContents": "محتويات دورة التصفيق",
+    "sectionMeta": "{lessons} الدروس المستفادة {minutes}m"
   },
   "dashboard": {
     "kicker": "لوحة",
@@ -343,7 +358,16 @@
     "statPoints": "النقاط",
     "statRank": "رانك",
     "unranked": "-",
-    "contribute": "المساهمة"
+    "contribute": "المساهمة",
+    "upgradePro": "ترقية إلى برو",
+    "manageBilling": "سند التكليف",
+    "confirmingTitle": "تأكيد دفعك",
+    "confirmingDesc": "هذا عادة يستغرق بضع ثواني.",
+    "activity": "النشاط، 12 أسبوعاً",
+    "thisWeek": "{n} هذا الأسبوع",
+    "activityAria": "الدروس المنجزة في الأسبوع، في الأسبوع الماضي {counts}",
+    "lessonsCount": "{n} الدروس المستفادة",
+    "bySection": "حسب الفرع"
   },
   "auth": {
     "signInTitle": "مرحباً بعودتك",
@@ -379,27 +403,224 @@
     "verifyDesc": "أرسلنا رابط تأكيد {email}. افتحه، ثم وقع"
   },
   "submit": {
-    "kicker": "المساهمة",
-    "kind": "ماذا تقدم؟",
+    "title": "المساهمة في الأكاديمية",
+    "subtitle": "لوحات العمل، والموارد، وإصلاح الدروس، والترجمة، SAQL. كل شيء يتم استعراضه من قبل شخص ما قبل ظهوره، ويحسب العمل المعتمد نحو رتبتك على لوحة التحكم.",
     "kindResource": "A resource",
+    "kindShowcase": "لوح ضارب",
+    "kindIdea": "إصلاح الدرس أو فكرة",
     "titleLabel": "العنوان",
     "urlLabel": "Link",
-    "imageLabel": "Screenshot URL",
-    "descHint": "عشرون شخصًا على الأقل",
-    "tagsLabel": "Tags",
-    "tagsHint": "البلاغ منفصل، حتى 8.",
+    "descLabel": "لماذا هو مفيد؟",
+    "submit": "Submit for review",
+    "sentTitle": "شكرًا لك، إنه في طابور الاستعراض",
+    "sentBody": "سترى وضعه تحت التبرعات الموافق عليها تُقيد لك وتعتمد على رتبتك على لوحة التحكم",
+    "another": "المساهمة بشيء آخر",
     "mine": "ملاحظاتكم",
     "pending": "قيد الاستعراض",
     "approved": "الوظائف المعتمدة",
     "rejected": "غير مقبولة",
-    "signInFirst": "وقّع على المساهمة",
+    "none": "لا شيء حتى الآن - ستظهر مساهمتك الأولى هنا بحالة استعراضها.",
     "stepKind": "النوع",
     "stepDetails": "التفاصيل",
+    "stepMedia": "KPIs & وسائط الإعلام",
     "stepReview": "الاستعراض",
+    "next": "التالي: {step}",
     "back": "العودة",
     "optional": "الاختياري",
-    "photosHint": "PNG, JPG or WebP, up to 4 MB each - 4 images max.",
-    "uploading": "تحميل..."
+    "photosLabel": "طلقات نارية - حتى {max}",
+    "uploading": "تحميل...",
+    "reviewHint": "هذا بالضبط ما سيرسل لإعادة النظر",
+    "sheet": "Sheet 07 / Contribute",
+    "received": "وردت",
+    "mineTitle": "ما أرسلته",
+    "reviewNote": "ملاحظة: {note}",
+    "kindTranslation": "إصلاح للترجمة",
+    "kindSnippet": "ألف SAQL !",
+    "blurbShowcase": "للمعرض: كيف أعدت البيانات، المصادر، كل KPI وكيف يتم حسابها",
+    "blurbResource": "A docs page, course, tool, blog or community worth someone’s time.",
+    "blurbIdea": "شيء خاطئ في الدرس، أو درس يجب أن يكون موجودا.",
+    "blurbTranslation": "ترجمه آليه تقرأ خطأ في لغتك",
+    "blurbSnippet": "سؤال يحل مشكلة حقيقية مع البيانات التي يجريها",
+    "short": {
+      "dashboard": "لوحة",
+      "resource": "الموارد",
+      "lesson": "الدرس",
+      "translation": "الترجمة التحريرية",
+      "snippet": "!"
+    },
+    "stepDashboard": "لوحة",
+    "stepData": "البيانات",
+    "stepLink": "Link",
+    "stepLesson": "الدرس",
+    "stepProposal": "المقترح",
+    "stepWhere": "أين",
+    "stepCorrection": "تصحيح",
+    "stepSnippet": "Snippet",
+    "stepContext": "السياق",
+    "stepOf": "الخطوة {current} / {total} - {label}",
+    "stepsCount": "{n} الخطوات",
+    "add": "مضافا إليها",
+    "addSource": "يضاف مصدر",
+    "removeSource": "مصدر الإزالة",
+    "searchLessons": "بحث الدروس...",
+    "errGeneric": "حدث شيء خاطئ",
+    "errImageSize": "الصور مجهزة في 4 إم بي",
+    "errUpload": "فشل التحميل - استنشق صورة URL بدلاً من ذلك",
+    "errImageUrl": "Image links must start with http:/// or https://",
+    "problems": {
+      "dashName": "أعطِ لوحةِ الداشنة a اسم (3+ شخصيات).",
+      "writeupUrl": "The write-up link must start with http:// or https://",
+      "creditUrl": "رباطك يجب أن يبدأ في http:// أو https://",
+      "prep": "يرجى بيان كيفية إعداد البيانات (20+ شخصيات).",
+      "source": "يضاف على الأقل مصدر بيانات واحد.",
+      "kpi": "إضافة واحدة على الأقل KPI.",
+      "kpiFields": "كل شيء KPI يحتاج إلى اسم وكيف يتم حسابه",
+      "resourceUrl": "Paste the link, starting with http:// or https://",
+      "resourceTitle": "أعطه عنوان (3+ شخصيات).",
+      "resourceWhy": "قل لماذا هو مفيد (20+ شخصيات).",
+      "lessonPick": "اختر الدرس",
+      "ideaTitle": "أعطِ فكرةَ الدرسَ a عنوان.",
+      "fixBody": "Describe what is wrong (20+ characters).",
+      "ideaBody": "توضيح الدرس (20+ شخصيات).",
+      "sourceUrls": "يجب أن تبدأ وصلات المصادر في الموقع التالي:",
+      "translationWhere": "اختر اللغة والدرس",
+      "translationText": "قدم النص الخاطئ و تصحيحك",
+      "snippetTitle": "أعطِ القنّاص لقب.",
+      "snippetSaql": "باستي SAQL.",
+      "snippetWhat": "قل ما تفعله (20+ شخصيات)."
+    },
+    "options": {
+      "domains": {
+        "sales": "المبيعات",
+        "service": "الخدمات",
+        "marketing": "التسويق",
+        "finance": "المالية",
+        "other": "أخرى"
+      },
+      "difficulties": {
+        "beginner": "Beginner",
+        "intermediate": "الوسيط",
+        "advanced": "السلف"
+      },
+      "prepTools": {
+        "recipe": "الوصف",
+        "dataflow": "Dataflow",
+        "sync": "تزامن البيانات/الربط",
+        "csv": "CSV تحميل",
+        "api": "البيانات الخارجية API"
+      },
+      "prepSteps": {
+        "joins": "/ زيادة",
+        "filters": "الأفلام",
+        "formulas": "حقول الاستمارة",
+        "aggregations": "التجميع",
+        "append": "التذييل",
+        "bucketing": "التعبئة",
+        "dates": "التاريخ",
+        "dedupe": "الوصف"
+      },
+      "sourceTypes": {
+        "sfObject": "Salesforce الجسم",
+        "csv": "CSV",
+        "connector": "الموصل الخارجي",
+        "snowflake": "Snowflake",
+        "database": "قاعدة بيانات أخرى",
+        "other": "أخرى"
+      },
+      "techniques": {
+        "bindings": "اللبنات",
+        "saql": "SAQL",
+        "compareTables": "جداول مقارنة",
+        "windowing": "Windowing",
+        "predicates": "القواعد الأمنية",
+        "faceting": "مواجهة",
+        "dynamicFilters": "مرشحات الديناميكية",
+        "actions": "الإجراءات",
+        "discovery": "Einstein Discovery",
+        "mobile": "مخططات متنقلة"
+      },
+      "categories": {
+        "docs": "Docs",
+        "learning": "التعلم",
+        "books": "الكتب",
+        "blogs": "المدونات",
+        "tools": "الأدوات",
+        "community": "المجتمع"
+      }
+    },
+    "dash": {
+      "name": "اسم داش",
+      "namePh": "التغطية بالخط الحاسوبي حسب القطاع",
+      "domain": "مجال الأعمال",
+      "difficulty": "صعوبة",
+      "writeup": "الكتابة العامة",
+      "creditName": "الائتمان - اسمك",
+      "creditNamePh": "كما يجب أن تظهر على المسلسل",
+      "creditUrl": "الإئتمان - وصلتك",
+      "tools": "البناء مع",
+      "prepSteps": "الخطوات التحضيرية",
+      "prep": "كيف قمت بإعداد البيانات؟",
+      "prepHelp": "الإنضمام و لماذا، ما قمت به، أي شيء يفاجئك.",
+      "prepPh": "(أ) زيادة الفرص مع حساب الحساب المحاسبي الأول؛ والوفاة المغلقة أكبر من سنتين؛",
+      "grain": "Grain",
+      "grainHelp": "ما هو الصف الأول من مجموعة البيانات النهائية.",
+      "grainPh": "صف واحد لكل فرصة لكل أسبوع",
+      "sources": "مصادر البيانات",
+      "rowsPh": "(اختياري)",
+      "kpis": "KPIs - name, how it is calculated, why it matters",
+      "kpiN": "KPI {n}",
+      "removeKpi": "إزالة الألغام KPI",
+      "kpiNamePh": "معدل الفوز",
+      "kpiFormulaPh": "المبلغ )أيزوون(/العد - على الفرص المغلقة، بحلول موعد قريب",
+      "kpiWhyPh": "لماذا يهم (اختياري)",
+      "addKpi": "مضافا إليه KPI",
+      "techniques": "التقنيات المستخدمة",
+      "removeShot": "طلقات الشاشة",
+      "dropShot": "الشاشة",
+      "mediaUrlPh": "... أَو بَعْض الصورةِ URL"
+    },
+    "res": {
+      "linkHelp": "معذره - نجلب العنوان والوصف والشعار.",
+      "category": "الفئة",
+      "what": "ما هو عليه",
+      "whyHelp": "من يجب أن يقرأه وماذا سيخرجون منه"
+    },
+    "les": {
+      "fix": "اصلح الدرس",
+      "propose": "اعرض الدرس",
+      "which": "أي درس؟",
+      "ideaTitle": "عنوان الدرس المقترح",
+      "ideaTitlePh": "تزامن البيانات الإضافية دون إعادة تحميل كاملة",
+      "wrong": "ما الخطب؟",
+      "outline": "الخطوط الخارجية",
+      "wrongHelp": "قم بسحب الممر وقل ما يجب أن يقوله",
+      "outlineHelp": "ما يُعلّمُ، في أيّ ترتيب، وما يَبْنيه المتعلم.",
+      "sources": "المصادر - الاختيارية"
+    },
+    "tr": {
+      "language": "اللغة",
+      "languagePh": "اختيار اللغة",
+      "lesson": "الدرس",
+      "wrong": "النص بصيغته الحالية",
+      "suggested": "ماذا يجب أن يقول",
+      "note": "ملاحظة",
+      "notePh": "على سبيل المثال \"الغرين\" هو مصطلح فني هنا وليس قمح"
+    },
+    "snip": {
+      "titlePh": "المجموع حسب الربع المالي",
+      "what": "ماذا تفعل؟",
+      "dataset": "البيانات",
+      "shape": "شكل البيانات",
+      "shapeHelp": "الحقول التي يحتاجها الاستفسار، مع الأنواع."
+    },
+    "review": {
+      "summary": "موجز",
+      "domainLevel": "الرتبة الرئيسية",
+      "rows": "{n} الصفوف",
+      "kpis": "KPIs",
+      "screenshots": "Screenshots",
+      "links": "الروابط"
+    }
   },
   "wall": {
     "eyebrow": "المجتمع",
@@ -609,6 +830,7 @@
       "description": "دليل المساهمين الكاملين: وضع وكتابة وترجمة الدروس، واقتراح الموارد، واتباع أسلوب الشفرة، وفتح طلب سحب."
     },
     "hero": {
+      "eyebrow": "Sheet 10 / Contributor guide",
       "title": "المساعدة في بناء {em}",
       "titleEm": "المجتمعات المحلية",
       "lead": "كل ما تحتاج لإضافة درس، ترجمة المحتوى، اقتراح مورد، أو تحسين الرمز.",
@@ -678,6 +900,7 @@
         "text": "يتشاركون في صفحة أطباء كبيرة، أو دورة، أو أداة، أو مجتمع. {link} - يَذْهبُ إلى a إستعراض، لَيسَ a GitHub مشكلة"
       },
       "code": {
+        "label": "Improve the code",
         "text": "اصلح حشرة، اصلح الأشعة فوق البنفسجية أو اضيف سمة عن طريق طلب سحب"
       },
       "outro": "الدرس والتغييرات الرمزية تمر GitHubلأن كل درس هو ملف في مذكرة وتُعرض على الموقع الموارد، ولوحات المتابعة، وأفكار الدرس، وتُستعرض في المجموعة المخصصة."
@@ -763,6 +986,7 @@
       "description": "أين CRM Analytics وتذهب الأكاديمية إلى: ما يجري بناؤه الآن، وما يليه وما يُعتزم القيام به فيما بعد - الدروس، وبناء لوحات المتابعة، والفيديو، وملامح الموقع."
     },
     "hero": {
+      "eyebrow": "Sheet 11 / Roadmap",
       "title": "حيث نحن {em}",
       "titleEm": "Head",
       "lead": "الأكاديمية مصدر مفتوح و تنمو دائماً هل لديك فكرة؟ {issue}.",
@@ -829,6 +1053,7 @@
       "description": "الذي تغير CRM Analytics الأكاديمية، النشر بالإفراج: دروس وأقسام جديدة، مبنيات لوحة المتابعة، ترجمات، سمات الموقع ومعالجاته."
     },
     "hero": {
+      "eyebrow": "Sheet 12 / Changelog",
       "title": "ماذا؟ {em}",
       "titleEm": "جديدة",
       "lead": "آخر المستجدات للأكاديمية المتابعة {github}."
@@ -973,7 +1198,10 @@
       "title": "الإجراء - تحميله في بورغ",
       "step1": "In Analytics Studioنصنع تطبيق يسمى {app}.",
       "step2": "مفتوح {path} و تحميل ملف واحد في وقت واحد في ذلك التطبيق.",
-      "step3": "وتحقق من عدد الصف الذي يُعد على هذه الصفحة قبل أن يُبنى عليها - فالعد القصير يكاد يكون دائماً مشكلة محددة أو مشكلة تاريخية."
+      "step3": "وتحقق من عدد الصف الذي يُعد على هذه الصفحة قبل أن يُبنى عليها - فالعد القصير يكاد يكون دائماً مشكلة محددة أو مشكلة تاريخية.",
+      "pathDataManager": "Data Manager",
+      "pathCreateDataset": "إنشاء مجموعة بيانات",
+      "pathCsvFile": "CSV File"
     },
     "groups": {
       "dimensions": "الأبعاد",
@@ -984,17 +1212,20 @@
     },
     "files": {
       "accounts": {
-        "grain": "الحساب"
+        "grain": "الحساب",
+        "desc": "Customers from individual learners to global SIs: segment, region, ARR, health, support tier."
       },
       "contacts": {
         "grain": "الاتصال",
         "desc": "Personas from Individual Learner to L&مدير، مع المشتري الاقتصادي والأعلام البطولة."
       },
       "products": {
-        "grain": "عرض"
+        "grain": "عرض",
+        "desc": "Academy Pro, Team Plan, Enterprise Programme, seat-days, vouchers and services."
       },
       "reps": {
-        "grain": "!"
+        "grain": "!",
+        "desc": "AEs, SDRs, BDRs, solution consultants and CSMs, with quota and ramp."
       },
       "centers": {
         "grain": "مركز التدريب",
@@ -1041,14 +1272,16 @@
         "desc": "وقد استُخدمت المقاعد والمجمعات المدفوعة مقدما - المؤشر الرئيسي للتجديد."
       },
       "arr_snapshots": {
-        "grain": "الحساب العاشر"
+        "grain": "الحساب العاشر",
+        "desc": "The ARR waterfall: new, expansion, contraction and churn."
       },
       "cases": {
         "grain": "الحالة",
         "desc": "تقديم الدعم إلى جيش تحرير السودان، والسبب الجذري، والسؤال عن انحراف منظمة العفو الدولية."
       },
       "csat_surveys": {
-        "grain": "الاستقصاء"
+        "grain": "الاستقصاء",
+        "desc": "CSAT and NPS, kept separate on purpose."
       },
       "platform_health_daily": {
         "grain": "اليوم × عرض ×",
@@ -1070,6 +1303,7 @@
       "description": "كيف CRM Analytics تُعالجُ الأكاديميةُ بياناتَكَ: الذي a مخزن حسابِ، كوكيز، محلّل، إعلانات، مدفوعاتِ خلال دودو،"
     },
     "hero": {
+      "eyebrow": "Sheet 14 / Privacy",
       "lead": "CRM Analytics والأكاديمية منهج دراسي مجاني يموله جزئيا الإعلان. هنا بالضبط ما يعنيه ذلك لبياناتك"
     },
     "englishPrevails": "هذه السياسة مترجمة من اللغة الإنجليزية وإذا اختلفت الصيغتان، تسود الصيغة الانكليزية. {link}",
@@ -1117,6 +1351,10 @@
     "seo": {
       "title": "مدة الخدمة",
       "description": "شروط استخدام CRM Analytics Academy: the free curriculum and its licence, accounts and progress, Pro purchases, community content and acceptable use."
+    },
+    "hero": {
+      "eyebrow": "Sheet 15 / Terms",
+      "lead": "The ground rules for using this free curriculum."
     },
     "englishPrevails": "هذه المصطلحات مترجمة من اللغة الإنجليزية وإذا اختلفت الصيغتان، تسود الصيغة الانكليزية. {link}",
     "englishLink": "اقرأ النسخة الانكليزية",
@@ -1185,7 +1423,8 @@
     "legend": {
       "video": "Video walkthrough",
       "article": "المادة",
-      "free": "حر للجميع"
+      "free": "حر للجميع",
+      "pro": "Part of Pro"
     }
   },
   "leadForm": {
@@ -1216,6 +1455,20 @@
   "lesson": {
     "authors": {
       "label": "صاحب البلاغ"
+    },
+    "toc": {
+      "show": "جدول المحتويات",
+      "collapse": "جدول المحتويات"
+    },
+    "copy": {
+      "page": "Page",
+      "menu": "قائمة بالنسخ المفتوحة",
+      "markdownLink": "وصلة رمزية",
+      "viewMarkdown": "\"فيو\"",
+      "openChatgpt": "إفتح الباب",
+      "openClaude": "مفتوحة في كلود",
+      "copied": "مركب على لوح مشبك",
+      "failed": "لا يمكن نسخ الصفحة"
     }
   },
   "credits": {
@@ -1309,6 +1562,7 @@
     "code": "لا يوجد رمز واحد {count} أمثلة رمزية",
     "tables": "لا طاولة {count} الجداول",
     "minutes": "حول {count} min to read",
+    "seePlans": "See Pro plans",
     "haveIt": "لدي (برو) بالفعل",
     "loading": "فتح...",
     "loadFailed": "هذا القسم لا يمكن تحميله حاول تحميل الصفحة",
@@ -1329,5 +1583,39 @@
     "note": "وتتولد الكفاءات من الفيديو آليا وترجمة الآلات إلى كل لغة.",
     "loading": "مخطوطة تحميل...",
     "unavailable": "النص غير متاح الآن"
+  },
+  "comments": {
+    "title": "المسائل والمناقشة",
+    "demoReadOnly": "ويقرأ الحساب النهائي فقط. {link} لطرح سؤال أو الإجابة على سؤال واحد.",
+    "createAccount": "إنشاء حساب مجاني",
+    "signInPrompt": "{signIn} أو {signUp} لطرح سؤال أو الإجابة على سؤال واحد.",
+    "signIn": "وقع",
+    "createAccountLower": "إنشاء حساب مجاني",
+    "placeholder": "اسألي سؤالاً أو تشاركي كيف حللتيه",
+    "hint": "رسالة بسيطة كونوا لطفاء - المتعلمون الآخرون يعملون من خلال هذا أيضا.",
+    "post": "الوظيفة",
+    "empty": "لا أسئلة بعد إذا كان هناك شيء في هذا الدرس غير واضح، ربما أنت لست الوحيد.",
+    "reply": "الرد",
+    "replyPlaceholder": "أكتب رد",
+    "cancel": "إلغاء",
+    "delete": "تحذف",
+    "you": "أنت",
+    "errLoad": "ولا يمكن تحميل التعليقات.",
+    "errPost": "لم أستطع نشر ذلك أرجوك حاول مرة أخرى",
+    "errDelete": "لا يمكن حذف هذا التعليق."
+  },
+  "buildBrief": {
+    "title": "موجز البناء",
+    "audience": "الذي يفتحه",
+    "when": "عندما",
+    "question": "السؤال الذي يجيب",
+    "decision": "القرار يتغير",
+    "success": "كيف نعلم أنه نجح",
+    "notInScope": "ليس هنا عن عمد",
+    "builtOn": "البناء على"
+  },
+  "funnel": {
+    "convertTo": "تحويل إلى {stage}",
+    "logScale": "وطول المحاماة هو لوغاريثيم - مقارنة النسب المئوية، وليس القضبان."
   }
 }

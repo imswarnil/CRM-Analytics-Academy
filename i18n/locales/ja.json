@@ -25,7 +25,8 @@
     "pricing": "料金について",
     "instructors": "インストラクター & クレジット",
     "enrollFree": "入学無料",
-    "sponsorShort": "スポンサー"
+    "sponsorShort": "スポンサー",
+    "homeAria": "CRM Analytics アカデミー — ホーム"
   },
   "sponsorCard": {
     "title": "このプロジェクトをスポンサー"
@@ -330,7 +331,12 @@
     "completed": "完了しました",
     "signInToTrack": "進行状況を追跡するためにサインインします。",
     "signIn": "サインイン",
-    "courseProgress": "コース進行状況"
+    "courseProgress": "コース進行状況",
+    "contents": "コース内容",
+    "contentsPct": "コンテンツ・ {pct}ツイート",
+    "showContents": "コース内容を見る",
+    "collapseContents": "崩壊コース内容",
+    "sectionMeta": "{lessons} レッスン・レッスン {minutes}m 点"
   },
   "dashboard": {
     "kicker": "ダッシュボード",
@@ -352,7 +358,16 @@
     "statPoints": "ポイント",
     "statRank": "ランキング",
     "unranked": "— — —",
-    "contribute": "貢献する"
+    "contribute": "貢献する",
+    "upgradePro": "Pro へのアップグレード",
+    "manageBilling": "課金の管理",
+    "confirmingTitle": "ご入金の確認",
+    "confirmingDesc": "通常は数秒かかります。",
+    "activity": "活動、最後の12週",
+    "thisWeek": "{n} 今週の",
+    "activityAria": "レッスンは1週間に完了します。 {counts}",
+    "lessonsCount": "{n} レッスン",
+    "bySection": "セクションで"
   },
   "auth": {
     "signInTitle": "歓迎の背部",
@@ -388,28 +403,224 @@
     "verifyDesc": "確認リンクをお送りしました {email}お問い合わせ 開いたら、サインインします。"
   },
   "submit": {
-    "kicker": "貢献する",
-    "kind": "提出する理由",
+    "title": "アカデミーへの貢献",
+    "subtitle": "ダッシュボード、リソース、レッスンの修正、翻訳、 SAQLお問い合わせ すべてが表示される前に人によってレビューされ、ダッシュボードであなたのランクに向かって承認された作業カウント。",
     "kindResource": "リソース",
+    "kindShowcase": "ダッシュボード",
+    "kindIdea": "レッスンの修正やアイデア",
     "titleLabel": "タイトル",
     "urlLabel": "サイトマップ",
-    "imageLabel": "スクリーンショット URL",
-    "descHint": "20文字以上",
-    "tagsLabel": "ニュース",
-    "tagsHint": "コンマ区切り、最大8.",
+    "descLabel": "なぜ役に立つのか?",
     "submit": "レビューを提出する",
+    "sentTitle": "ありがとうございます。それはレビューキューにあります。",
+    "sentBody": "下記のステータスが表示されます。 承認されたコントリビューションは、ダッシュボードでランクに向かってクレジットされます。",
+    "another": "何かを他のものにする",
     "mine": "あなたの投稿",
     "pending": "ペンディングレビュー",
     "approved": "承認済み",
     "rejected": "受付不可",
-    "signInFirst": "お問い合わせ",
+    "none": "あなたの最初の投稿は、レビューのステータスでここに表示されます。",
     "stepKind": "タイプ:",
     "stepDetails": "ニュース",
+    "stepMedia": "KPIの特長 & メディア",
     "stepReview": "レビュー",
+    "next": "次へ — {step}",
     "back": "バックナンバー",
     "optional": "オプション",
-    "photosHint": "PNG、JPG、WebP、最大4メガバイト、最大4画像",
-    "uploading": "アップロード..."
+    "photosLabel": "スクリーンショット — まで {max}",
+    "uploading": "アップロード...",
+    "reviewHint": "これは、レビューのために送信されるものです。",
+    "sheet": "シート07/貢献",
+    "received": "受付開始",
+    "mineTitle": "送信されたもの",
+    "reviewNote": "注意: {note}",
+    "kindTranslation": "翻訳修正",
+    "kindSnippet": "ツイート SAQL スニペット",
+    "blurbShowcase": "ショーケース:データ、ソース、すべてのものを準備する方法 KPI 計算方法",
+    "blurbResource": "ドキュメントページ、コース、ツール、ブログ、コミュニティが誰かの時間を価値あるものにする。",
+    "blurbIdea": "レッスンに誤ったこと、または存在すべきレッスン。",
+    "blurbTranslation": "あなたの言語で誤った読み方をした機械翻訳。",
+    "blurbSnippet": "実際の問題を解決するクエリ、データセットで実行します。",
+    "short": {
+      "dashboard": "ダッシュボード",
+      "resource": "リソース",
+      "lesson": "レッスン",
+      "translation": "インフォメーション",
+      "snippet": "スニペット"
+    },
+    "stepDashboard": "ダッシュボード",
+    "stepData": "データデータ",
+    "stepLink": "サイトマップ",
+    "stepLesson": "レッスン",
+    "stepProposal": "ソリューション",
+    "stepWhere": "アクセス",
+    "stepCorrection": "修正方法",
+    "stepSnippet": "スニペット",
+    "stepContext": "コンテンツ",
+    "stepOf": "ステップステップ {current} ・ {total} — — — {label}",
+    "stepsCount": "{n} ステップステップ",
+    "add": "追加する",
+    "addSource": "ソースを追加する",
+    "removeSource": "ソースを削除",
+    "searchLessons": "レッスン検索",
+    "errGeneric": "何かが間違っていた。",
+    "errImageSize": "各4MBで撮影した画像は4MBです。",
+    "errUpload": "アップロード失敗 — 画像を貼り付ける URL 代わりに。",
+    "errImageUrl": "画像リンクは http:// または https:// から始まる必要があります。",
+    "problems": {
+      "dashName": "ダッシュボードに名前(3+文字)を指定します。",
+      "writeupUrl": "書込みリンクは http:// または https:// から始まる必要があります。",
+      "creditUrl": "あなたのリンクは http:// または https:// から始まる必要があります。",
+      "prep": "作成したデータ(20文字以上)を記述します。",
+      "source": "少なくとも1つのデータソースを追加します。",
+      "kpi": "少なくとも1つを追加 KPIお問い合わせ",
+      "kpiFields": "お問い合わせ KPI 名前と計算方法が必要です。",
+      "resourceUrl": "http:// または https:// から始まるリンクを貼り付ける",
+      "resourceTitle": "タイトル(3+文字)",
+      "resourceWhy": "なぜそれが役に立つのか(20+文字)。",
+      "lessonPick": "レッスンを選ぶ",
+      "ideaTitle": "レッスンのアイデアをタイトルに。",
+      "fixBody": "間違った20文字以上の文字を記述します。",
+      "ideaBody": "レッスン概要(20文字以上)",
+      "sourceUrls": "ソースリンクは http:// または https:// から始まる必要があります。",
+      "translationWhere": "言語とレッスンを選ぶ",
+      "translationText": "間違ったテキストと修正を貼り付けます。",
+      "snippetTitle": "タイトルにスニペットを与えます。",
+      "snippetSaql": "ペースト SAQLお問い合わせ",
+      "snippetWhat": "(20文字以上)"
+    },
+    "options": {
+      "domains": {
+        "sales": "営業品目",
+        "service": "サービス",
+        "marketing": "マーケティング",
+        "finance": "ファイナンス",
+        "other": "その他"
+      },
+      "difficulties": {
+        "beginner": "初心者向け",
+        "intermediate": "中出し",
+        "advanced": "アドバンスト"
+      },
+      "prepTools": {
+        "recipe": "レシピ",
+        "dataflow": "Dataflow",
+        "sync": "データ同期/コネクター",
+        "csv": "CSV アップロード",
+        "api": "外部データ API"
+      },
+      "prepSteps": {
+        "joins": "参加/参加",
+        "filters": "フィルター",
+        "formulas": "フォーミュラフィールド",
+        "aggregations": "アグリゲーション",
+        "append": "お問い合わせ",
+        "bucketing": "バケット",
+        "dates": "デイリーハンドリング",
+        "dedupe": "デジュプリケーション"
+      },
+      "sourceTypes": {
+        "sfObject": "Salesforce オブジェクト",
+        "csv": "CSV",
+        "connector": "外部コネクタ",
+        "snowflake": "スノーフレーク",
+        "database": "その他のデータベース",
+        "other": "その他"
+      },
+      "techniques": {
+        "bindings": "ビンディング",
+        "saql": "SAQL",
+        "compareTables": "テーブルの比較",
+        "windowing": "ウィンドウズ",
+        "predicates": "セキュリティの述語",
+        "faceting": "フェイス",
+        "dynamicFilters": "動的フィルタ",
+        "actions": "アクション",
+        "discovery": "Einstein Discovery",
+        "mobile": "モバイルレイアウト"
+      },
+      "categories": {
+        "docs": "ドキュメント",
+        "learning": "トレーニング",
+        "books": "出版書籍",
+        "blogs": "ブログ",
+        "tools": "ツール",
+        "community": "コミュニティ"
+      }
+    },
+    "dash": {
+      "name": "ダッシュボード名",
+      "namePh": "セグメント別パイプラインカバレッジ",
+      "domain": "ビジネスドメイン",
+      "difficulty": "難易度",
+      "writeup": "パブリック・ライティング・アップ",
+      "creditName": "クレジット — あなたの名前",
+      "creditNamePh": "ショーケースに表示されるように",
+      "creditUrl": "あなたのリンク",
+      "tools": "組み込み",
+      "prepSteps": "準備手順",
+      "prep": "データの準備はどうすればよいですか?",
+      "prepHelp": "参加と理由、フィルターを抜いたもの、驚いたもの。",
+      "prepPh": "AccountId のアカウントで拡張された機会; 2 年以上経過したクローズド・ロスト フィルタアウト; ...",
+      "grain": "ログイン",
+      "grainHelp": "最終データセットの1列は?",
+      "grainPh": "スナップショット週あたりの機会1列",
+      "sources": "データソース",
+      "rowsPh": "列(任意)",
+      "kpis": "KPI — 名前、計算方法、なぜ重要か",
+      "kpiN": "KPI {n}",
+      "removeKpi": "削除 KPI",
+      "kpiNamePh": "ウィンレート",
+      "kpiFormulaPh": "sum(IsWon) / count() — クローズドな機会に",
+      "kpiWhyPh": "なぜ重要か(任意)",
+      "addKpi": "追加する KPI",
+      "techniques": "使用される技術",
+      "removeShot": "スクリーンショットを削除",
+      "dropShot": "ドロップスクリーンショット",
+      "mediaUrlPh": "・・・ 画像を貼り付ける URL"
+    },
+    "res": {
+      "linkHelp": "それを貼り付ける — タイトル、説明、ロゴを取得します。",
+      "category": "カテゴリー",
+      "what": "それが何か",
+      "whyHelp": "誰がそれを読むべきか、そしてそれらがそれから抜け出すもの。"
+    },
+    "les": {
+      "fix": "レッスンの修正",
+      "propose": "レッスンの提案",
+      "which": "どのレッスンですか?",
+      "ideaTitle": "レッスンタイトル",
+      "ideaTitlePh": "完全リロードなしのデータ同期",
+      "wrong": "何が間違っていますか?",
+      "outline": "インフォメーション",
+      "wrongHelp": "通路を引用し、それが言うべきことを言う。",
+      "outlineHelp": "何を教えているのか、どのような順序で、そして学習者が構築するのか。",
+      "sources": "ソース — オプション"
+    },
+    "tr": {
+      "language": "用語集",
+      "languagePh": "言語を選ぶ",
+      "lesson": "レッスン",
+      "wrong": "今読むようにテキスト",
+      "suggested": "言うべきこと",
+      "note": "お問い合わせ",
+      "notePh": "例えば「Grain」は小麦ではなく、ここに芸術の用語です"
+    },
+    "snip": {
+      "titlePh": "四半期ごとの累計ランニング",
+      "what": "どうすればよいですか?",
+      "dataset": "データセット",
+      "shape": "データセット形状",
+      "shapeHelp": "クエリニーズのフィールドには、タイプがあります。"
+    },
+    "review": {
+      "summary": "インフォメーション",
+      "domainLevel": "ドメイン・レベル",
+      "rows": "{n} ログイン",
+      "kpis": "KPIの特長",
+      "screenshots": "スクリーンショット",
+      "links": "サイトマップ"
+    }
   },
   "wall": {
     "eyebrow": "コミュニティ",
@@ -987,7 +1198,10 @@
       "title": "手順 — あなたのorgにそれをロードする",
       "step1": "インスタグラム Analytics Studio, 呼ばれるアプリを作成する {app}お問い合わせ",
       "step2": "アクセス {path} そのアプリに一度に1つのファイルをアップロードします。",
-      "step3": "ビルドする前に、このページに対する行数をチェックしてください。 短いカウントは、ほぼ常に区切り文字や日付フォーマットの問題です。"
+      "step3": "ビルドする前に、このページに対する行数をチェックしてください。 短いカウントは、ほぼ常に区切り文字や日付フォーマットの問題です。",
+      "pathDataManager": "Data Manager",
+      "pathCreateDataset": "データセットを作成する",
+      "pathCsvFile": "CSV ファイル"
     },
     "groups": {
       "dimensions": "サイズ:",
@@ -1241,6 +1455,20 @@
   "lesson": {
     "authors": {
       "label": "著者 | 著者"
+    },
+    "toc": {
+      "show": "コンテンツの表を表示",
+      "collapse": "コンテンツの崩壊テーブル"
+    },
+    "copy": {
+      "page": "コピーページ",
+      "menu": "コピーアクションメニューを開く",
+      "markdownLink": "マークダウンリンクのコピー",
+      "viewMarkdown": "マークダウンとして見る",
+      "openChatgpt": "ChatGPTで開く",
+      "openClaude": "クラウデで開く",
+      "copied": "クリップボードにコピー",
+      "failed": "ページをコピーできません"
     }
   },
   "credits": {
@@ -1355,5 +1583,39 @@
     "note": "動画から自動生成され、各言語に機械翻訳されます。",
     "loading": "トランスクリプトを読み込む...",
     "unavailable": "今はトランスクリプトは利用できません。"
+  },
+  "comments": {
+    "title": "質問とディスカッション",
+    "demoReadOnly": "デモ口座は読み取り専用です。 {link} 質問をしたり、答えたりする。",
+    "createAccount": "無料アカウントを作成する",
+    "signInPrompt": "{signIn} または {signUp} 質問をしたり、答えたりする。",
+    "signIn": "サインイン",
+    "createAccountLower": "無料アカウントを作成",
+    "placeholder": "質問をしたり、解決方法を共有したり...",
+    "hint": "テキストを平らにします。 親切で、他の学習者もこれを通して働いています。",
+    "post": "ニュース",
+    "empty": "お問い合わせ このレッスンで何かが不明な場合は、おそらく1つだけではありません。",
+    "reply": "スタッフ",
+    "replyPlaceholder": "お問い合わせ",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "you": "お問い合わせ",
+    "errLoad": "コメントはロードできませんでした。",
+    "errPost": "投稿できません。 お問い合わせ",
+    "errDelete": "コメントを削除できません。"
+  },
+  "buildBrief": {
+    "title": "簡単なビルド",
+    "audience": "誰が開くか",
+    "when": "いつか",
+    "question": "答える質問",
+    "decision": "変更する決定",
+    "success": "お問い合わせ",
+    "notInScope": "意図的にここにはない",
+    "builtOn": "作り付け"
+  },
+  "funnel": {
+    "convertTo": "変換する {stage}",
+    "logScale": "棒の長さは、棒ではなく、パーセンテージを比較します。"
   }
 }

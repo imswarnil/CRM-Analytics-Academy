@@ -25,7 +25,8 @@
     "pricing": "پرنٹ",
     "instructors": "مُعلم & تعریف",
     "enrollFree": "خالی",
-    "sponsorShort": "سرپرست"
+    "sponsorShort": "سرپرست",
+    "homeAria": "CRM Analytics اکیڈمی — گھر"
   },
   "sponsorCard": {
     "title": "اس منصوبے کو سنبھالنا"
@@ -330,7 +331,12 @@
     "completed": "مکمل",
     "signInToTrack": "اپنی ترقی کا جائزہ لینے کے لئے نشانی.",
     "signIn": "نشانی",
-    "courseProgress": "عملی ترقی"
+    "courseProgress": "عملی ترقی",
+    "contents": "عمل",
+    "contentsPct": "ہدایات کے موضوعات {pct}%s",
+    "showContents": "طےشدہ",
+    "collapseContents": "رنگوں کا رنگ",
+    "sectionMeta": "{lessons} سبق‌آموز {minutes}م"
   },
   "dashboard": {
     "kicker": "ڈاک بورڈ",
@@ -352,7 +358,16 @@
     "statPoints": "پوائنٹ",
     "statRank": "رنگ",
     "unranked": "—",
-    "contribute": "رنگ"
+    "contribute": "رنگ",
+    "upgradePro": "پرو !",
+    "manageBilling": "بِلِش",
+    "confirmingTitle": "آپ کی ادائیگی کی تصدیق...",
+    "confirmingDesc": "یہ عام طور پر چند سیکنڈ کا ہوتا ہے۔",
+    "activity": "جلدی، گزشتہ 12 ہفتے",
+    "thisWeek": "{n} اس ہفتے",
+    "activityAria": "گزشتہ ۱۲ ہفتوں بعد ، سبق مکمل ہوا : {counts}",
+    "lessonsCount": "{n} سبق",
+    "bySection": "قسم ہے ایک حصے کی"
   },
   "auth": {
     "signInTitle": "خوش آمدید",
@@ -388,28 +403,224 @@
     "verifyDesc": "ہم نے ایک تصدیقی حصہ بھیجا {email}. . اسے کھولو، پھر نشان میں۔"
   },
   "submit": {
-    "kicker": "عطیات",
-    "kind": "تم مسلمان ہو؟",
+    "title": "اکیڈمی میں ترقی",
+    "subtitle": "داس بورڈ، وسائل، سبق اصلاحات، تراجم اور SAQL. . ہر چیز کا جائزہ لینے سے پہلے کسی شخص کا جائزہ لیا جاتا ہے ۔",
     "kindResource": "ایک وسائل",
+    "kindShowcase": "جمع",
+    "kindIdea": "ایک سبق درست کرنا یا تصور کرنا",
     "titleLabel": "فائلز",
     "urlLabel": "لنک",
-    "imageLabel": "سکرین شاٹ URL",
-    "descHint": "20 حروف کم.",
-    "tagsLabel": "تاج",
-    "tagsHint": "کوما الگ، 8 تک.",
+    "descLabel": "یہ کیوں مفید ہے ؟",
     "submit": "تجزیے کیلئے قدردانی",
+    "sentTitle": "آپ کا شکریہ — یہ جائزے کے سلسلے میں ہے ۔",
+    "sentBody": "آپ ذیل میں اس کی حیثیت کو دیکھیں گے۔ خوشی سے دینے والے عطیات آپ کیلئے قابلِ‌تعریف ہیں اور آپ کے مرتبے پر شمار ہوتے ہیں ۔",
+    "another": "کچھ اور تقسیم کریں",
     "mine": "آپ کے ماتحت",
     "pending": "پرنٹنگ جائزے",
     "approved": "غیر متصل",
     "rejected": "قبول نہیں کیا گیا",
-    "signInFirst": "تعاون کرنے کے لئے نشانی.",
+    "none": "آپ کا سب سے پہلا تعاون اس کی جانچ‌شُدہ حالت سے یہاں ظاہر ہوگا ۔",
     "stepKind": "قسم",
     "stepDetails": "تفصیلات",
+    "stepMedia": "کیپ & میڈیا",
     "stepReview": "اعادہ",
+    "next": "اگلا — {step}",
     "back": "واپس",
     "optional": "غیر متصل",
-    "photosHint": "پی این جی ، جے پی یا ویب پی سے 4 ایم‌ایم‌ایس تک ، ہر ۴ تصویری میکس تک ۔",
-    "uploading": "اپ لوڈ کریں..."
+    "photosLabel": "سکرین — تک — {max}",
+    "uploading": "اپ لوڈ کریں...",
+    "reviewHint": "یہ بالکل تجزیہ کے لیے بھیجا جائے گا۔",
+    "sheet": "شہد کی مکھی",
+    "received": "غیر متصل",
+    "mineTitle": "تم نے کیا بھیجا ہے",
+    "reviewNote": "نوٹ: {note}",
+    "kindTranslation": "ترجمہ مکمل کریں",
+    "kindSnippet": "جواب SAQL خاموش",
+    "blurbShowcase": "نمائش کے لیے: آپ نے اعداد و شمار، ماخذ، ہر ایک کو کیسے تیار کیا۔ KPI اور اسے کس طرح انداز کیا گیا ہے",
+    "blurbResource": "اِس سلسلے میں ایک مثال پر غور کریں ۔",
+    "blurbIdea": "سبق میں کوئی غلطی یا سبق ہونا چاہئے ۔",
+    "blurbTranslation": "آپ کی زبان میں ایک مشین کا ترجمہ غلط ہے ۔",
+    "blurbSnippet": "ایک ایسا آلہ جو ایک حقیقی مسئلہ حل کرتا ہے، جس کے ساتھ یہ ڈیٹا سیٹ چلتا ہے۔",
+    "short": {
+      "dashboard": "مصر",
+      "resource": "وسائل",
+      "lesson": "سبق",
+      "translation": "ترجمہ",
+      "snippet": "خاموش"
+    },
+    "stepDashboard": "ڈاک بورڈ",
+    "stepData": "ڈیٹا",
+    "stepLink": "لنک",
+    "stepLesson": "سبق",
+    "stepProposal": "پراس",
+    "stepWhere": "کہاں",
+    "stepCorrection": "اصلاح",
+    "stepSnippet": "حساس",
+    "stepContext": "پرنٹ",
+    "stepOf": "قدم {current} / {total} — {label}",
+    "stepsCount": "{n} قدم",
+    "add": "_شامل کریں",
+    "addSource": "ماخذ شامل کریں",
+    "removeSource": "ماخوذ",
+    "searchLessons": "تلاش کریں سبق...",
+    "errGeneric": "کچھ غلط ہو گیا.",
+    "errImageSize": "تصاویر ۴ ایم‌ایم‌ایس پر بنائی گئی ہیں ۔",
+    "errUpload": "اپ لوڈ کرنے میں ناکامی — تصویر کا ماضی URL اس کی بجائے.",
+    "errImageUrl": "تصویری لنکس کا آغاز https://www.s://d.info.org سے ہوتا ہے۔",
+    "problems": {
+      "dashName": "نام بتا ئے (3+ حروف)۔",
+      "writeupUrl": "لکھنؤ لنک کا آغاز https://www یا https://s://s.p.com سے کرنا ضروری ہے۔",
+      "creditUrl": "آپ کا تعلق شروع میں https://www.s://d.info.org سے ہے.",
+      "prep": "آپ نے اعداد و شمار (20+ حروف) کیسے تیار کیے۔",
+      "source": "کم از کم ایک ڈیٹا ماخذ شامل کریں۔",
+      "kpi": "کم از کم ایک شامل کریں KPI. .",
+      "kpiFields": "ہر کوئی KPI اسم کی ضرورت ہے اور اس کا اندازہ کس طرح لگایا جاتا ہے۔",
+      "resourceUrl": "لنک پیسٹ کریں، شروع کریں https://s://s.",
+      "resourceTitle": "اسے عنوان (3+ حروف) دے دیں۔",
+      "resourceWhy": "یہ کیوں مفید ہے (20+ حروف)۔",
+      "lessonPick": "سبق حاصل کریں ۔",
+      "ideaTitle": "سبق دیں ۔",
+      "fixBody": "کیا غلط ہے (20+ حروف)۔",
+      "ideaBody": "سبق (20+ حروف)۔",
+      "sourceUrls": "ماخذ تعلقات کا آغاز https://www.s://s.org سے کرنا چاہیے یا https://s://s.in.org",
+      "translationWhere": "زبان اور درس و تدریس کا انتخاب کریں۔",
+      "translationText": "غلط متن اور اصلاح پیش کرنا۔",
+      "snippetTitle": "ایک عنوان دیں ۔",
+      "snippetSaql": "بورڈ پیسٹ کریں SAQL. .",
+      "snippetWhat": "بتا کہ یہ کیا کرتا ہے (20+ حروف)۔"
+    },
+    "options": {
+      "domains": {
+        "sales": "سلیس",
+        "service": "سروس",
+        "marketing": "مارکیٹ",
+        "finance": "فن",
+        "other": "دیگر"
+      },
+      "difficulties": {
+        "beginner": "بینر",
+        "intermediate": "انٹرمیڈیٹ",
+        "advanced": "اعلی"
+      },
+      "prepTools": {
+        "recipe": "دوبارہ شروع",
+        "dataflow": "Dataflow",
+        "sync": "ڈیٹا سنیک / متصل",
+        "csv": "CSV لوڈ کریں",
+        "api": "بیرونی اعداد API"
+      },
+      "prepSteps": {
+        "joins": "اتحاد / تناؤ",
+        "filters": "فائلز",
+        "formulas": "فورملا میدان",
+        "aggregations": "اختلافات",
+        "append": "حذف",
+        "bucketing": "شوٹنگ",
+        "dates": "ڈیٹنگ",
+        "dedupe": "ایجاد"
+      },
+      "sourceTypes": {
+        "sfObject": "Salesforce جگہ",
+        "csv": "CSV",
+        "connector": "بیرونی تعلق",
+        "snowflake": "برف",
+        "database": "دیگر ڈیٹا بیس",
+        "other": "دیگر"
+      },
+      "techniques": {
+        "bindings": "بائٹس",
+        "saql": "SAQL",
+        "compareTables": "تختوں پر غور کریں",
+        "windowing": "ونڈو",
+        "predicates": "تحفظات",
+        "faceting": "چہرے",
+        "dynamicFilters": "حرکی فعال",
+        "actions": "عمل",
+        "discovery": "Einstein Discovery",
+        "mobile": "موبائل وقفہ"
+      },
+      "categories": {
+        "docs": "ڈاک",
+        "learning": "پڑھنا",
+        "books": "کتا ب",
+        "blogs": "بلاگ",
+        "tools": "آلات",
+        "community": "کمیونٹی"
+      }
+    },
+    "dash": {
+      "name": "دہش بورڈ کا نام",
+      "namePh": "اِس کی ایک وجہ تو یہ ہے کہ اُس نے اِس پر تحقیق کی ۔",
+      "domain": "کاروباری ڈومین",
+      "difficulty": "رکاوٹ",
+      "writeup": "عوامی تحریریں -",
+      "creditName": "نام — آپ کا نام",
+      "creditNamePh": "جیسا کہ نمائش پر ظاہر ہونا چاہئے",
+      "creditUrl": "تصویر — آپ کا تعلق",
+      "tools": "ساتھ",
+      "prepSteps": "اقدام",
+      "prep": "آپ نے اعداد و شمار کیسے تیار کیے؟",
+      "prepHelp": "ساتھیوں اور کیوں، آپ کو باہر نکالا، کوئی بھی چیز آپ کو حیران کر.",
+      "prepPh": "اکاؤنٹ Id کے حساب سے تیار کیا گیا. بند. 2 سال سے زیادہ پرانی عمر;",
+      "grain": "گندم",
+      "grainHelp": "حتمی اعداد و شمار کی ایک قطار کیا ہے.",
+      "grainPh": "ہر قطار میں ایک قطار فی ہفتہ",
+      "sources": "ڈیٹا ذرائع",
+      "rowsPh": "نقل‌مکانی",
+      "kpis": "KPIs — نام، کیسے حساب لگایا جاتا ہے، یہ معاملہ کیوں ہے۔",
+      "kpiN": "KPI {n}",
+      "removeKpi": "نکالو KPI",
+      "kpiNamePh": "شرح سود",
+      "kpiFormulaPh": "کمیت (IsWon) / شمارندی (() — بند مواقع پر، قریبی تاریخ کے حساب سے",
+      "kpiWhyPh": "اِس کی کیا وجہ ہے ؟",
+      "addKpi": "_شامل کریں KPI",
+      "techniques": "تکنیکی استعمال",
+      "removeShot": "سکرین کو نکالو",
+      "dropShot": "سکرین کو گرا ئيں",
+      "mediaUrlPh": "... یا کسی تصویر کو ریکارڈ کریں URL"
+    },
+    "res": {
+      "linkHelp": "اِسے لیکر ہم عنوان ، تشریح اور لاگو کی وضاحت کرتے ہیں ۔",
+      "category": "کیٹیگری",
+      "what": "یہ کیا ہے؟",
+      "whyHelp": "جس کو پڑھنا چاہیے اور اس سے کیا حاصل کرنا چاہیے۔"
+    },
+    "les": {
+      "fix": "ایک سبق",
+      "propose": "ایک سبق",
+      "which": "اِس سے ہم کیا سیکھتے ہیں ؟",
+      "ideaTitle": "تعلیمی عنوان",
+      "ideaTitlePh": "مکمل تفاعل ڈیٹا سنک بغیر",
+      "wrong": "غلط کیا ہے؟",
+      "outline": "بیرونی",
+      "wrongHelp": "اِس سلسلے میں ایک مثال پر غور کریں ۔",
+      "outlineHelp": "اِس میں کیا بتایا گیا ہے ، اور تربیت دینے والا کس ترتیب میں ہے ۔",
+      "sources": "س . ع ."
+    },
+    "tr": {
+      "language": "زبان",
+      "languagePh": "زبان پرنٹ کريں",
+      "lesson": "سبق",
+      "wrong": "اب پڑھتے ہی عبارت",
+      "suggested": "اسے کیا کہنا چاہئے",
+      "note": "نوٹ",
+      "notePh": "مثلا 'گین‘ یہاں آرٹ کی اصطلاح ہے، گندم نہیں۔"
+    },
+    "snip": {
+      "titlePh": "کُل‌وقتی خدمت",
+      "what": "یہ کیا کرتا ہے ؟",
+      "dataset": "ڈیٹا سیٹ",
+      "shape": "ڈیٹا سیٹ فارم",
+      "shapeHelp": "اِس کی مختلف اقسام ہیں ۔"
+    },
+    "review": {
+      "summary": "سانچہ:ابتدائی ترتیب:",
+      "domainLevel": "جگہ",
+      "rows": "{n} قطار",
+      "kpis": "کیپ",
+      "screenshots": "سکرین شاٹس",
+      "links": "لنک"
+    }
   },
   "wall": {
     "eyebrow": "کمیونٹی",
@@ -987,7 +1198,10 @@
       "title": "پُراعتماد — اسے آپ کے یانگ میں لادا جاتا ہے۔",
       "step1": "میں Analytics Studio، ایک ایپ بنائیں جسے نام دیا گیا ہے {app}. .",
       "step2": "کھولیں {path} اور اس ایپ میں ایک فائل اپ لوڈ کریں.",
-      "step3": "اس پر تعمیر کرنے سے پہلے اس صفحے کے خلاف قطاروں کا جائزہ لیں — ایک مختصر نمبر تقریباً ہمیشہ ایک delimiter یا dateformat مسئلہ ہوتا ہے۔"
+      "step3": "اس پر تعمیر کرنے سے پہلے اس صفحے کے خلاف قطاروں کا جائزہ لیں — ایک مختصر نمبر تقریباً ہمیشہ ایک delimiter یا dateformat مسئلہ ہوتا ہے۔",
+      "pathDataManager": "Data Manager",
+      "pathCreateDataset": "ڈیٹا سیٹ بنائیں",
+      "pathCsvFile": "CSV فائل"
     },
     "groups": {
       "dimensions": "رنگ",
@@ -1241,6 +1455,20 @@
   "lesson": {
     "authors": {
       "label": "مصنف:"
+    },
+    "toc": {
+      "show": "مواد کا تختہ دکھائیں",
+      "collapse": "مواد کی تختیاں"
+    },
+    "copy": {
+      "page": "کاپی رائٹ",
+      "menu": "مینو پڑھنے كے عمل سنا ئيں",
+      "markdownLink": "مارک ڈاؤن لوڈ",
+      "viewMarkdown": "دیکھیں جیسے مارک ڈاؤن لوڈ",
+      "openChatgpt": "گفتگو میں کھولیں",
+      "openClaude": "کلپو میں کھولیں",
+      "copied": "باتیک سے منسوب",
+      "failed": "کاپی نہیں کی جاسکتی"
     }
   },
   "credits": {
@@ -1355,5 +1583,39 @@
     "note": "ہر زبان میں ویڈیو خودبخود اور مشینوں سے جڑے ہوئے کیپرس پیدا ہوتے ہیں۔",
     "loading": "لوڈ کریں...",
     "unavailable": "آج‌کل اس کا استعمال دستیاب نہیں ہے ۔"
+  },
+  "comments": {
+    "title": "سوالات اور بحث",
+    "demoReadOnly": "ڈیم اکاؤنٹ صرف پڑھی جاتی ہے۔ {link} سوال پوچھیں یا جواب دیں ۔",
+    "createAccount": "مفت کھاتہ بنائیں",
+    "signInPrompt": "{signIn} یا {signUp} سوال پوچھیں یا جواب دیں ۔",
+    "signIn": "نشانی",
+    "createAccountLower": "مفت کھاتہ تخلیق کريں",
+    "placeholder": "کوئی سوال پوچھیں یا آپ اسے کیسے حل کرتے ہیں...",
+    "hint": "پلیز متن مہربانی سے پیش آئیں ۔",
+    "post": "پوسٹ",
+    "empty": "اب تک کوئی سوال نہیں ۔ اگر اس سبق میں کوئی بات واضح تھی تو شاید آپ واحد نہیں ہیں ۔",
+    "reply": "انکار کرو",
+    "replyPlaceholder": "جواب لکھیں...",
+    "cancel": "منسوخ",
+    "delete": "حذف",
+    "you": "آپ",
+    "errLoad": "تبصروں کا بوجھ نہیں اٹھایا جا سکتا تھا ۔",
+    "errPost": "کہ پوسٹ نہیں کر سکتا. براہ مہربانی دوبارہ کوشش کریں.",
+    "errDelete": "اس تبصرے کو منسوخ نہیں کیا جا سکا۔"
+  },
+  "buildBrief": {
+    "title": "مختصر کريں",
+    "audience": "جو اسے کھول دیتا ہے۔",
+    "when": "کب",
+    "question": "سوال کا جواب",
+    "decision": "فیصلے میں تبدیلی",
+    "success": "ہم یہ کیسے جانتے ہیں",
+    "notInScope": "حقیقت‌پسندانہ طور پر یہاں نہیں",
+    "builtOn": "اوپر لکھیں"
+  },
+  "funnel": {
+    "convertTo": "جگہ {stage}",
+    "logScale": "اِس کی بجائے اِن میں سے زیادہ‌تر کا موازنہ بڑی مقدار میں کِیا جاتا ہے ۔"
   }
 }

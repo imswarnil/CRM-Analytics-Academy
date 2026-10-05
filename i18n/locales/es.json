@@ -25,7 +25,8 @@
     "pricing": "Precios",
     "instructors": "Instructores & acreedores",
     "enrollFree": "Ingrese gratis",
-    "sponsorShort": "Sponsor"
+    "sponsorShort": "Sponsor",
+    "homeAria": "CRM Analytics Academia"
   },
   "sponsorCard": {
     "title": "Patrocinar este proyecto"
@@ -214,6 +215,7 @@
       "connect": "Conectar en Enlace In"
     },
     "figure": {
+      "caption": "Fig. 01 — Academy ARR by month",
       "spec": "Construido en Construido 14",
       "arr": "ARR",
       "arrDelta": "{n} año en curso",
@@ -223,6 +225,7 @@
       "nrrDelta": "GRR {n}"
     },
     "plot": {
+      "eyebrow": "Fig. 02 — Curriculum, plotted",
       "title": "{sections} secciones, {lessons} lecciones",
       "full": "Plan de estudios completo",
       "section": "Sección",
@@ -231,6 +234,7 @@
       "article": "Artículo"
     },
     "showcase": {
+      "eyebrow": "Fig. 03 — Showcase",
       "title": "Paneles construidos en el curso",
       "lead": "Cada construcción viene con sus KPIs, la fórmula detrás de cada uno y los pasos para hacerlo usted mismo.",
       "all": "Ver todas las construcciones"
@@ -327,7 +331,12 @@
     "completed": "Completado",
     "signInToTrack": "Inicie sesión para seguir su progreso.",
     "signIn": "Iniciar sesión",
-    "courseProgress": "Progresos realizados"
+    "courseProgress": "Progresos realizados",
+    "contents": "Contenido del curso",
+    "contentsPct": "Contenido · {pct}%",
+    "showContents": "Mostrar contenido del curso",
+    "collapseContents": "Contenido del curso de colapso",
+    "sectionMeta": "{lessons} lecciones · {minutes}m"
   },
   "dashboard": {
     "kicker": "Dashboard",
@@ -349,7 +358,16 @@
     "statPoints": "Puntos",
     "statRank": "Rank",
     "unranked": "—",
-    "contribute": "Gentileza"
+    "contribute": "Gentileza",
+    "upgradePro": "Actualización a Pro",
+    "manageBilling": "Administrar facturación",
+    "confirmingTitle": "Confirmando su pago...",
+    "confirmingDesc": "Esto normalmente lleva unos segundos.",
+    "activity": "Actividad, últimas 12 semanas",
+    "thisWeek": "{n} esta semana",
+    "activityAria": "Lecciones completadas por semana, las últimas 12 semanas: {counts}",
+    "lessonsCount": "{n} lecciones",
+    "bySection": "Por sección"
   },
   "auth": {
     "signInTitle": "Bienvenido de nuevo",
@@ -385,28 +403,224 @@
     "verifyDesc": "Enviamos un enlace de confirmación a {email}. Ábrelo, luego firma."
   },
   "submit": {
-    "kicker": "contribución",
-    "kind": "¿Qué estás presentando?",
+    "title": "Contribuir a la Academia",
+    "subtitle": "Paneles, recursos, soluciones de lección, traducciones y SAQL. Todo es revisado por una persona antes de que aparezca, y el trabajo aprobado cuenta hacia su rango en el tablero.",
     "kindResource": "Un recurso",
+    "kindShowcase": "Un dashboard",
+    "kindIdea": "Una lección o una idea",
     "titleLabel": "Título",
     "urlLabel": "Enlace",
-    "imageLabel": "Captura URL",
-    "descHint": "20 caracteres como mínimo.",
-    "tagsLabel": "Etiquetas",
-    "tagsHint": "Comma se separó, hasta 8.",
+    "descLabel": "¿Por qué es útil?",
     "submit": "Presentación del examen",
+    "sentTitle": "Gracias — está en la cola de revisión.",
+    "sentBody": "Usted verá su estado abajo. Las contribuciones aprobadas se acreditan a usted y cuentan hacia su rango en el panel de control.",
+    "another": "Gentileza de algo más",
     "mine": "Sus presentaciones",
     "pending": "Examen pendiente",
     "approved": "Aprobado",
     "rejected": "No aceptado",
-    "signInFirst": "Inicia sesión para contribuir.",
+    "none": "Nada todavía — su primera contribución aparecerá aquí con su estado de revisión.",
     "stepKind": "Tipo",
     "stepDetails": "Detalles",
+    "stepMedia": "KPI & medios de comunicación",
     "stepReview": "Examen",
+    "next": "Siguiente: {step}",
     "back": "Atrás",
     "optional": "Facultativo",
-    "photosHint": "PNG, JPG o WebP, hasta 4 MB cada - 4 imágenes máx.",
-    "uploading": "Subiendo..."
+    "photosLabel": "Capturas de pantalla — hasta {max}",
+    "uploading": "Subiendo...",
+    "reviewHint": "Esto es exactamente lo que se enviará para su revisión.",
+    "sheet": "Hoja 07 / Gentileza",
+    "received": "Recibidos",
+    "mineTitle": "Lo que has enviado",
+    "reviewNote": "Nota: {note}",
+    "kindTranslation": "Una reparación de traducción",
+    "kindSnippet": "A SAQL snippet",
+    "blurbShowcase": "Para el escaparate: cómo usted preparó los datos, las fuentes, cada KPI y cómo se calcula.",
+    "blurbResource": "Una página de documentos, curso, herramienta, blog o comunidad vale la pena el tiempo de alguien.",
+    "blurbIdea": "Algo malo en una lección, o una lección que debería existir.",
+    "blurbTranslation": "Una traducción automática que lee mal en su idioma.",
+    "blurbSnippet": "Una consulta que resuelve un problema real, con el conjunto de datos que se ejecuta.",
+    "short": {
+      "dashboard": "dashboard",
+      "resource": "recursos",
+      "lesson": "lección",
+      "translation": "traducción",
+      "snippet": "snippet"
+    },
+    "stepDashboard": "Dashboard",
+    "stepData": "Datos",
+    "stepLink": "Enlace",
+    "stepLesson": "Lección",
+    "stepProposal": "Propuesta",
+    "stepWhere": "Donde",
+    "stepCorrection": "Corrección",
+    "stepSnippet": "Snippet",
+    "stepContext": "Contexto",
+    "stepOf": "Paso {current} / {total} — {label}",
+    "stepsCount": "{n} Medidas adoptadas",
+    "add": "Añadir",
+    "addSource": "Añadir una fuente",
+    "removeSource": "Quitar la fuente",
+    "searchLessons": "Clases de búsqueda...",
+    "errGeneric": "Algo salió mal.",
+    "errImageSize": "Las imágenes están cubiertas a 4 MB cada una.",
+    "errUpload": "Subir falló: pegar una imagen URL en lugar de eso.",
+    "errImageUrl": "Los enlaces de imágenes deben comenzar con http:// o https://",
+    "problems": {
+      "dashName": "Dar al panel un nombre (3+ caracteres).",
+      "writeupUrl": "El enlace de inscripción debe comenzar con http:// o https://",
+      "creditUrl": "Su enlace debe comenzar con http:// o https://",
+      "prep": "Describa cómo preparó los datos (20+ caracteres).",
+      "source": "Añadir al menos una fuente de datos.",
+      "kpi": "Agregar por lo menos uno KPI.",
+      "kpiFields": "Cada uno KPI necesita un nombre y cómo se calcula.",
+      "resourceUrl": "Pruebe el enlace, empezando por http:// o https://",
+      "resourceTitle": "Dale un título (3+ caracteres).",
+      "resourceWhy": "Diga por qué es útil (20+ caracteres).",
+      "lessonPick": "Escoge la lección.",
+      "ideaTitle": "Dale a la lección un título.",
+      "fixBody": "Describir lo que está mal (20+ caracteres).",
+      "ideaBody": "Destacar la lección (20+ caracteres).",
+      "sourceUrls": "Los enlaces de fuentes deben comenzar con http:// o https://",
+      "translationWhere": "Escoge el idioma y la lección.",
+      "translationText": "Pruebe el texto equivocado y su corrección.",
+      "snippetTitle": "Dale un título al bobo.",
+      "snippetSaql": "Pruebe el SAQL.",
+      "snippetWhat": "Di lo que hace (20+ caracteres)."
+    },
+    "options": {
+      "domains": {
+        "sales": "Ventas",
+        "service": "Servicio",
+        "marketing": "Marketing",
+        "finance": "Finanzas",
+        "other": "Otros"
+      },
+      "difficulties": {
+        "beginner": "Beginner",
+        "intermediate": "Intermedio",
+        "advanced": "Avances"
+      },
+      "prepTools": {
+        "recipe": "Receta",
+        "dataflow": "Dataflow",
+        "sync": "Sincronización de datos / conector",
+        "csv": "CSV subida",
+        "api": "Datos externos API"
+      },
+      "prepSteps": {
+        "joins": "Únetes / aumentos",
+        "filters": "Filtros",
+        "formulas": "Campos de fórmula",
+        "aggregations": "Aggregations",
+        "append": "Fondo",
+        "bucketing": "Bucketing",
+        "dates": "Fecha de tramitación",
+        "dedupe": "Deduplicación"
+      },
+      "sourceTypes": {
+        "sfObject": "Salesforce objeto",
+        "csv": "CSV",
+        "connector": "Conector externo",
+        "snowflake": "Snowflake",
+        "database": "Otras bases de datos",
+        "other": "Otros"
+      },
+      "techniques": {
+        "bindings": "Bindings",
+        "saql": "SAQL",
+        "compareTables": "Comparar tablas",
+        "windowing": "Windowing",
+        "predicates": "Situación de seguridad",
+        "faceting": "Caray",
+        "dynamicFilters": "Filtros dinámicos",
+        "actions": "Acciones",
+        "discovery": "Einstein Discovery",
+        "mobile": "Diseño móvil"
+      },
+      "categories": {
+        "docs": "Docs",
+        "learning": "Aprender",
+        "books": "Libros",
+        "blogs": "Blogs",
+        "tools": "Herramientas",
+        "community": "Comunidad"
+      }
+    },
+    "dash": {
+      "name": "Nombre del panel",
+      "namePh": "Cobertura de tuberías por segmento",
+      "domain": "Business domain",
+      "difficulty": "Dificultad",
+      "writeup": "Public write-up",
+      "creditName": "Crédito - su nombre",
+      "creditNamePh": "Como debe aparecer en el escaparate",
+      "creditUrl": "Crédito - su enlace",
+      "tools": "Construido",
+      "prepSteps": "Pasos de preparación",
+      "prep": "¿Cómo preparó los datos?",
+      "prepHelp": "Las uniones y por qué, lo que filtraste, cualquier cosa que te sorprendió.",
+      "prepPh": "Oportunidades aumentadas con la Cuenta en AccountId; cerradas perdidas mayores de 2 años filtradas; ...",
+      "grain": "Grado",
+      "grainHelp": "Lo que una fila del conjunto de datos final es.",
+      "grainPh": "Una fila por oportunidad por semana instantánea",
+      "sources": "Fuentes de datos",
+      "rowsPh": "Filas (opcional)",
+      "kpis": "KPIs - nombre, cómo se calcula, por qué importa",
+      "kpiN": "KPI {n}",
+      "removeKpi": "Retirar KPI",
+      "kpiNamePh": "Tasa de ganancia",
+      "kpiFormulaPh": "sum(IsWon) / count() — sobre oportunidades cerradas, por fecha cercana",
+      "kpiWhyPh": "Por qué importa (opcional)",
+      "addKpi": "Añadir un KPI",
+      "techniques": "Técnicas utilizadas",
+      "removeShot": "Remove screenshot",
+      "dropShot": "Captura de pantalla",
+      "mediaUrlPh": "... o pegar una imagen URL"
+    },
+    "res": {
+      "linkHelp": "Pruébalo: buscamos el título, descripción y logotipo.",
+      "category": "Categoría",
+      "what": "Lo que es",
+      "whyHelp": "Quien debería leerlo, y lo que sacarán de ella."
+    },
+    "les": {
+      "fix": "Arregla una lección",
+      "propose": "Proponer una lección",
+      "which": "¿Qué lección?",
+      "ideaTitle": "Título de la lección propuesta",
+      "ideaTitlePh": "Sincronización de datos incremental sin recargas completas",
+      "wrong": "¿Qué pasa?",
+      "outline": "Esquema",
+      "wrongHelp": "Cita el pasaje y di lo que debe decir.",
+      "outlineHelp": "Lo que enseña, en qué orden, y lo que construye el alumno.",
+      "sources": "Fuentes - opcionales"
+    },
+    "tr": {
+      "language": "Idioma",
+      "languagePh": "Escoge un idioma",
+      "lesson": "Lección",
+      "wrong": "El texto como se lee ahora",
+      "suggested": "Qué debería decir",
+      "note": "Nota",
+      "notePh": "por ejemplo 'Grain' es un término de arte aquí, no trigo"
+    },
+    "snip": {
+      "titlePh": "Correr total por trimestre fiscal",
+      "what": "¿Qué hace?",
+      "dataset": "Dataset",
+      "shape": "Forma de conjunto de datos",
+      "shapeHelp": "Los campos que la consulta necesita, con tipos."
+    },
+    "review": {
+      "summary": "Resumen",
+      "domainLevel": "Dominio · nivel",
+      "rows": "{n} filas",
+      "kpis": "KPI",
+      "screenshots": "Captura",
+      "links": "Enlaces"
+    }
   },
   "wall": {
     "eyebrow": "Comunidad",
@@ -583,6 +797,7 @@
     "curriculumAtGlance": "El currículo de un vistazo",
     "instructor": {
       "eyebrow": "§ 02 - El instructor",
+      "caption": "Fig. 01 — Instructor",
       "spec": "Creador & encargado del mantenimiento"
     },
     "stats": {
@@ -605,7 +820,8 @@
       "eyebrow": "Comienzo",
       "title": "Empieza a aprender hoy",
       "body": "Es gratis, abierto y construido para llevarte de los básicos de CRM todo el camino a la certificación.",
-      "start": "Empieza con Fundaciones"
+      "start": "Empieza con Fundaciones",
+      "github": "Star on GitHub"
     }
   },
   "contribute": {
@@ -982,7 +1198,10 @@
       "title": "Procedimiento - cargarlo en su org",
       "step1": "In Analytics Studio, crear una aplicación llamada {app}.",
       "step2": "Abierto {path} y subir un archivo a la vez en esa aplicación.",
-      "step3": "Compruebe el recuento de la fila contra esta página antes de construir en ella — un recuento corto es casi siempre un problema delimitador o fecha-formato."
+      "step3": "Compruebe el recuento de la fila contra esta página antes de construir en ella — un recuento corto es casi siempre un problema delimitador o fecha-formato.",
+      "pathDataManager": "Data Manager",
+      "pathCreateDataset": "Crear Dataset",
+      "pathCsvFile": "CSV Archivo"
     },
     "groups": {
       "dimensions": "Dimensiones",
@@ -1236,6 +1455,20 @@
   "lesson": {
     "authors": {
       "label": "Autores de la vida"
+    },
+    "toc": {
+      "show": "Mostrar tabla de contenidos",
+      "collapse": "Tabla de colapso de contenidos"
+    },
+    "copy": {
+      "page": "Copiar la página",
+      "menu": "Menú de acciones de copia abierta",
+      "markdownLink": "Copie el enlace Markdown",
+      "viewMarkdown": "Ver como Markdown",
+      "openChatgpt": "Abrir en ChatGPT",
+      "openClaude": "Abierto en Claude",
+      "copied": "Copiado para el portapapeles",
+      "failed": "No se puede copiar página"
     }
   },
   "credits": {
@@ -1350,5 +1583,39 @@
     "note": "Las cápsulas se generan a partir del vídeo automáticamente y se transmiten a cada idioma.",
     "loading": "Carga transcripción...",
     "unavailable": "La transcripción no está disponible ahora mismo."
+  },
+  "comments": {
+    "title": "Cuestiones y debates",
+    "demoReadOnly": "La cuenta demo es sólo lectura. {link} para hacer una pregunta o responder a una.",
+    "createAccount": "Crear una cuenta gratuita",
+    "signInPrompt": "{signIn} o {signUp} para hacer una pregunta o responder a una.",
+    "signIn": "Iniciar sesión",
+    "createAccountLower": "crear una cuenta gratuita",
+    "placeholder": "Haga una pregunta o comparta cómo la resolvió...",
+    "hint": "Texto sencillo. Sé amable — otros estudiantes están trabajando a través de esto también.",
+    "post": "Puesto",
+    "empty": "Todavía no hay preguntas. Si algo en esta lección no estaba claro, probablemente no eres el único.",
+    "reply": "Respuesta",
+    "replyPlaceholder": "Escribe una respuesta...",
+    "cancel": "Cancelar",
+    "delete": "Suprimir",
+    "you": "Tú",
+    "errLoad": "Los comentarios no se pueden cargar.",
+    "errPost": "No podía publicar eso. Por favor, inténtalo de nuevo.",
+    "errDelete": "No podía borrar ese comentario."
+  },
+  "buildBrief": {
+    "title": "Construir breve",
+    "audience": "Quien lo abre",
+    "when": "Cuando",
+    "question": "La pregunta que responde",
+    "decision": "La decisión que cambia",
+    "success": "Cómo sabemos que funcionó",
+    "notInScope": "Deliberadamente no aquí",
+    "builtOn": "Construido"
+  },
+  "funnel": {
+    "convertTo": "convertir a {stage}",
+    "logScale": "Las longitudes de la barra son logarítmicas — comparar los porcentajes, no las barras."
   }
 }

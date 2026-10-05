@@ -25,7 +25,8 @@
     "pricing": "定价",
     "instructors": "教员 & 贷方",
     "enrollFree": "免费滚动",
-    "sponsorShort": "发起人"
+    "sponsorShort": "发起人",
+    "homeAria": "CRM Analytics 学院——家"
   },
   "sponsorCard": {
     "title": "赞助这个项目"
@@ -330,7 +331,12 @@
     "completed": "已完成",
     "signInToTrack": "签到追踪你的进展",
     "signIn": "签名",
-    "courseProgress": "课程进度"
+    "courseProgress": "课程进度",
+    "contents": "课程内容",
+    "contentsPct": "目录 · {pct}百分比(%)",
+    "showContents": "显示课程内容",
+    "collapseContents": "折叠课程内容",
+    "sectionMeta": "{lessons} 课程 · {minutes}页:1"
   },
   "dashboard": {
     "kicker": "电线板",
@@ -352,7 +358,16 @@
     "statPoints": "点",
     "statRank": "军衔",
     "unranked": ". . . . . .",
-    "contribute": "贡献"
+    "contribute": "贡献",
+    "upgradePro": "升级到 Pro",
+    "manageBilling": "管理计费",
+    "confirmingTitle": "确认你的付款...",
+    "confirmingDesc": "这通常需要几秒钟。",
+    "activity": "过去12周的活动",
+    "thisWeek": "{n} 这个星期",
+    "activityAria": "过去12个星期每周完成的课: {counts}",
+    "lessonsCount": "{n} 经验教训",
+    "bySection": "按款次分列"
   },
   "auth": {
     "signInTitle": "欢迎回来",
@@ -388,28 +403,224 @@
     "verifyDesc": "我们发送了一个确认链接 {email}。 。 。 。 打开,然后签入。"
   },
   "submit": {
-    "kicker": "贡献",
-    "kind": "你在说什么?",
+    "title": "对学院的贡献",
+    "subtitle": "盘子、资源、课程修正、翻译和 SAQL。 。 。 所有事情在出现前都由一个人审查 批准的工作都取决于你在仪表板上的级别",
     "kindResource": "一个资源",
+    "kindShowcase": "仪表板",
+    "kindIdea": "一个教训或想法",
     "titleLabel": "标题",
     "urlLabel": "链接",
-    "imageLabel": "截图 URL",
-    "descHint": "最少20个字符。",
-    "tagsLabel": "标记",
-    "tagsHint": "逗号分离,最高8.",
+    "descLabel": "为什么有用?",
     "submit": "提交供审查",
+    "sentTitle": "感谢大家——这是在审查排队。",
+    "sentBody": "你们可以看到下面的情况。 批准的捐款将记入你名下 并计入你的军衔",
+    "another": "做点别的",
     "mine": "你的意见",
     "pending": "待审查",
     "approved": "核定数",
     "rejected": "不接受",
-    "signInFirst": "签名供稿.",
+    "none": "你的第一个贡献将随审查状况而出现。",
     "stepKind": "类型",
     "stepDetails": "细节",
+    "stepMedia": "KPIs 软件 & 媒体",
     "stepReview": "审查",
+    "next": "下一个 {step}",
     "back": "回来",
     "optional": "可选",
-    "photosHint": "PNG, JPG 或 WebP, 每张最多4 MB - 4 张最大图像 。",
-    "uploading": "正在上传..."
+    "photosLabel": "截图——最多 {max}",
+    "uploading": "正在上传...",
+    "reviewHint": "这正是将送交审查的内容。",
+    "sheet": "第07页/贡献",
+    "received": "实收",
+    "mineTitle": "你送来的东西",
+    "reviewNote": "说明: {note}",
+    "kindTranslation": "翻译修正",
+    "kindSnippet": "页:1 SAQL 片断",
+    "blurbShowcase": "关于展示:你如何准备数据、资料来源、每个 KPI 如何计算。",
+    "blurbResource": "博客、博客或社群,",
+    "blurbIdea": "某种错误的教训 或应该存在的教训",
+    "blurbTranslation": "用你语言读错的机器翻译",
+    "blurbSnippet": "以它运行的数据集解决一个真实问题的查询.",
+    "short": {
+      "dashboard": "仪表板",
+      "resource": "资源",
+      "lesson": "教训",
+      "translation": "翻译",
+      "snippet": "片断"
+    },
+    "stepDashboard": "电线板",
+    "stepData": "数据",
+    "stepLink": "链接",
+    "stepLesson": "课程",
+    "stepProposal": "提议",
+    "stepWhere": "何处",
+    "stepCorrection": "更正",
+    "stepSnippet": "片断",
+    "stepContext": "背景情况",
+    "stepOf": "步骤 {current} 页:1 {total} . . . . . . {label}",
+    "stepsCount": "{n} 步骤",
+    "add": "添加",
+    "addSource": "添加来源",
+    "removeSource": "删除源",
+    "searchLessons": "搜索课程...",
+    "errGeneric": "出了点问题",
+    "errImageSize": "图像封顶为每张4MB.",
+    "errUpload": "上传失败——粘贴图像 URL 相反。",
+    "errImageUrl": "图像链接必须从http://或https://开始",
+    "problems": {
+      "dashName": "给仪表盘一个名字(3+字符).",
+      "writeupUrl": "写入链接必须从http://或https://开始",
+      "creditUrl": "您的链接必须从 http:// 或 https:// 开始",
+      "prep": "描述你如何准备数据(20+字符).",
+      "source": "添加至少一个数据源 。",
+      "kpi": "至少添加一个 KPI。 。 。 。",
+      "kpiFields": "每个 KPI 需要一个名称以及如何计算。",
+      "resourceUrl": "粘贴链接, 从 http:// 或 https:// 开始",
+      "resourceTitle": "给它一个标题(3+字符).",
+      "resourceWhy": "说明为什么它有用(20+字符).",
+      "lessonPick": "选课.",
+      "ideaTitle": "给教头一个标题。",
+      "fixBody": "描述什么是错的(20+字符).",
+      "ideaBody": "大纲课(20+人物).",
+      "sourceUrls": "源链接必须从http://或https://开始",
+      "translationWhere": "选语言与课.",
+      "translationText": "粘贴错误的文本和您的更正 。",
+      "snippetTitle": "给片段一个标题。",
+      "snippetSaql": "粘贴 SAQL。 。 。 。",
+      "snippetWhat": "说它做什么(20+字符)."
+    },
+    "options": {
+      "domains": {
+        "sales": "销售",
+        "service": "服务",
+        "marketing": "营销",
+        "finance": "财务",
+        "other": "其他人员"
+      },
+      "difficulties": {
+        "beginner": "初学者",
+        "intermediate": "中级",
+        "advanced": "高级"
+      },
+      "prepTools": {
+        "recipe": "食谱",
+        "dataflow": "Dataflow",
+        "sync": "数据同步/ 连接器",
+        "csv": "CSV 上传",
+        "api": "外部数据 API"
+      },
+      "prepSteps": {
+        "joins": "加入/扩充",
+        "filters": "过滤器",
+        "formulas": "公式字段",
+        "aggregations": "合计",
+        "append": "附录",
+        "bucketing": "击球",
+        "dates": "处理日期",
+        "dedupe": "复制"
+      },
+      "sourceTypes": {
+        "sfObject": "Salesforce 对象",
+        "csv": "CSV",
+        "connector": "外部连接器",
+        "snowflake": "雪花",
+        "database": "其他数据库",
+        "other": "其他人员"
+      },
+      "techniques": {
+        "bindings": "约束",
+        "saql": "SAQL",
+        "compareTables": "比较表格",
+        "windowing": "窗口",
+        "predicates": "安全前提",
+        "faceting": "面对",
+        "dynamicFilters": "动态过滤器",
+        "actions": "行动",
+        "discovery": "Einstein Discovery",
+        "mobile": "移动布局"
+      },
+      "categories": {
+        "docs": "文档",
+        "learning": "学习",
+        "books": "书籍",
+        "blogs": "博客",
+        "tools": "工具",
+        "community": "社区"
+      }
+    },
+    "dash": {
+      "name": "挂板名称",
+      "namePh": "按区段分列的输油管覆盖率",
+      "domain": "商业领域",
+      "difficulty": "难度",
+      "writeup": "公开写作",
+      "creditName": "功劳——你的名字",
+      "creditNamePh": "它应该出现在展示中",
+      "creditUrl": "功劳——你的链接",
+      "tools": "与",
+      "prepSteps": "筹备步骤",
+      "prep": "你怎么准备的?",
+      "prepHelp": "加入和为什么,你过滤出来的东西, 任何让你惊讶的东西。",
+      "prepPh": "利用账户ID增加机会;2年以上的封闭式损失被过滤掉;.",
+      "grain": "谷物",
+      "grainHelp": "最终数据集的一行是什么.",
+      "grainPh": "每周每一次机会一行",
+      "sources": "数据来源",
+      "rowsPh": "行( 可选)",
+      "kpis": "KPIs——名称,计算方法,为何重要.",
+      "kpiN": "KPI {n}",
+      "removeKpi": "删除 KPI",
+      "kpiNamePh": "赢率",
+      "kpiFormulaPh": "总数(IsWon) / 数()——超过关闭的机会,截止日期",
+      "kpiWhyPh": "为何重要(可选)",
+      "addKpi": "添加一个 KPI",
+      "techniques": "使用的技术",
+      "removeShot": "删除截图",
+      "dropShot": "丢弃截图",
+      "mediaUrlPh": ". . . .  .... 粘贴图像 URL"
+    },
+    "res": {
+      "linkHelp": "粘贴——我们获取标题,描述和标志.",
+      "category": "类别",
+      "what": "这是什么",
+      "whyHelp": "谁应读此经,其能从中得出."
+    },
+    "les": {
+      "fix": "补习",
+      "propose": "提出教训",
+      "which": "哪个课?",
+      "ideaTitle": "拟议课程标题",
+      "ideaTitlePh": "递增数据同步而不完全重载",
+      "wrong": "有什么不对吗?",
+      "outline": "大纲",
+      "wrongHelp": "引经而说其应.",
+      "outlineHelp": "它教什么, 以什么顺序, 和学习者建立。",
+      "sources": "来源——可选"
+    },
+    "tr": {
+      "language": "语言",
+      "languagePh": "选一种语言",
+      "lesson": "课程",
+      "wrong": "现在的文字",
+      "suggested": "它应该说什么",
+      "note": "说明",
+      "notePh": "比如,\"Grain\"是这里的一个艺术术语,不是小麦"
+    },
+    "snip": {
+      "titlePh": "按财政季度分列的共计",
+      "what": "这有什么用?",
+      "dataset": "数据集",
+      "shape": "数据集形状",
+      "shapeHelp": "查询需要的字段,有类型。"
+    },
+    "review": {
+      "summary": "目 录",
+      "domainLevel": "域 一级",
+      "rows": "{n} 行数",
+      "kpis": "KPIs 软件",
+      "screenshots": "截图",
+      "links": "链接"
+    }
   },
   "wall": {
     "eyebrow": "社区",
@@ -515,7 +726,8 @@
         "desc": "脚本部署并管理来自终端的分析资产."
       },
       "devOrg": {
-        "title": "开发者版块"
+        "title": "开发者版块",
+        "desc": "A free Salesforce org to follow every lesson hands-on."
       },
       "vscode": {
         "title": "VS 代码 + SF 扩展",
@@ -986,7 +1198,10 @@
       "title": "程序 - 装入您的矿石中",
       "step1": "内 Analytics Studio,创建名为 {app}。 。 。 。",
       "step2": "打开 {path} 一次上传一个文件到应用程序中。",
-      "step3": "在建立这个页面之前先检查行数——一个短数几乎总是一个划界者或日期格式的问题."
+      "step3": "在建立这个页面之前先检查行数——一个短数几乎总是一个划界者或日期格式的问题.",
+      "pathDataManager": "Data Manager",
+      "pathCreateDataset": "创建数据集",
+      "pathCsvFile": "CSV 文件"
     },
     "groups": {
       "dimensions": "尺寸",
@@ -1240,6 +1455,20 @@
   "lesson": {
     "authors": {
       "label": "作者 | 作者"
+    },
+    "toc": {
+      "show": "显示目录",
+      "collapse": "折叠目录"
+    },
+    "copy": {
+      "page": "复制页面",
+      "menu": "打开复制动作菜单",
+      "markdownLink": "复制马克下行链接",
+      "viewMarkdown": "视图为 Markdown",
+      "openChatgpt": "在 ChatGPT 中打开",
+      "openClaude": "在克劳德打开",
+      "copied": "复制到剪贴板",
+      "failed": "无法复制页面"
     }
   },
   "credits": {
@@ -1354,5 +1583,39 @@
     "note": "说明由视频自动生成,机器翻译为每种语言。",
     "loading": "正在装入记录...",
     "unavailable": "现在没有笔录"
+  },
+  "comments": {
+    "title": "问题和讨论",
+    "demoReadOnly": "演示账户只读 。 {link} 问问题或回答问题。",
+    "createAccount": "创建自由账户",
+    "signInPrompt": "{signIn} 或 {signUp} 问问题或回答问题。",
+    "signIn": "签名",
+    "createAccountLower": "创建自由账户",
+    "placeholder": "问一个问题或分享你是如何解决的...",
+    "hint": "纯文字. 友善点——其他学习者也正在通过这项工作。",
+    "post": "员额",
+    "empty": "还没有问题 如果这课上有些事不明确的话 可能不止你一个人",
+    "reply": "答复",
+    "replyPlaceholder": "写回信...",
+    "cancel": "取消",
+    "delete": "删除",
+    "you": "你们",
+    "errLoad": "无法装入注释 。",
+    "errPost": "无法张贴 。 请再试一次",
+    "errDelete": "无法删除该注释 。"
+  },
+  "buildBrief": {
+    "title": "构建简短",
+    "audience": "谁开的?",
+    "when": "何时",
+    "question": "它回答的问题",
+    "decision": "改变的决定",
+    "success": "我们怎么知道它有用",
+    "notInScope": "故意不在这里",
+    "builtOn": "内建于"
+  },
+  "funnel": {
+    "convertTo": "转换为 {stage}",
+    "logScale": "栏长度为对数——比较百分数而不是栏."
   }
 }
