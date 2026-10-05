@@ -1,123 +1,30 @@
 /**
  * Upload a lesson video to Mux and wire it into the lesson.
  *
- *   pnpm mux:lesson <lesson> <video.mp4> [--lang=en] [--test]
+ *   pnpm mux:lesson <lesson> <video.mp4> [--test] [--policy=signed|public] [--no-write]
  *
- *   <lesson>   a route (/saql/functions) or a file under content/en
- *   --lang     which language this recording is in (default en). One lesson
- *              can carry a recording per language; the player picks the
- *              reader's and falls back to English.
- *   --test     a Mux test asset: watermarked, 10s, deleted after 24h
- *
- * Uses the Mux CLI's stored login (`mux login`), so no keys live in this
- * repo. The playback policy follows the lesson: a Pro lesson's video is
- * uploaded `signed` (useless without the short-lived token /api/lesson mints
- * after checking entitlement), a free lesson's is `public`.
- *
- * The playback id is written into the ENGLISH lesson's frontmatter as
- * `mux: { <lang>: <id> }` — the only file edited by hand; every translation
- * reads its videos from there.
+ * Kept as the short form of `pnpm video upload <lesson> --file=<video>`; the
+ * work happens in scripts/video/stages/upload.mjs. One video per lesson: the
+ * playback id is written into the English frontmatter as `mux: <id>`, and the
+ * asset asks Mux for generated English captions (the languages come from
+ * translating those). `--lang` is gone — there are no per-language recordings.
  */
-import { execFileSync } from 'node:child_process'
-import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
-import path from 'node:path'
-import { parseDocument } from 'yaml'
+import { parseArgs } from './lib/lessons.mjs'
+import { createContext, StageError } from './video/lib/context.mjs'
+import { run } from './video/stages/upload.mjs'
 
-const args = process.argv.slice(2)
-const flags = Object.fromEntries(args.filter(a => a.startsWith('--')).map(a => a.slice(2).split('=')).map(([k, v]) => [k, v ?? true]))
-const [lessonArg, video] = args.filter(a => !a.startsWith('--'))
-const lang = String(flags.lang || 'en')
-
-if (!lessonArg || !video) {
-  console.error('usage: pnpm mux:lesson <lesson route or file> <video file> [--lang=en] [--test]')
+const { flags, positional } = parseArgs(process.argv.slice(2))
+const [lesson, video] = positional
+if (!lesson || !video) {
+  console.error('usage: pnpm mux:lesson <lesson route or file> <video file> [--test] [--policy=signed|public] [--no-write]')
   process.exit(1)
 }
-if (!existsSync(video)) {
-  console.error(`No such video: ${video}`)
+if (flags.lang && flags.lang !== 'en') {
+  console.error('--lang is no longer supported: a lesson has one video, and other languages are captions (see video/README.md).')
   process.exit(1)
 }
 
-const EN = path.resolve('content/en')
-const strip = s => s.replace(/^\d+\./, '').replace(/\.md$/, '')
-
-/** /saql/functions → content/en/07.saql/03.functions.md ; /saql → …/01.index.md */
-function resolveLesson(arg) {
-  if (arg.endsWith('.md') && existsSync(arg)) return path.resolve(arg)
-  const [section, lesson = 'index'] = arg.replace(/^\/|\/$/g, '').split('/')
-  const dir = readdirSync(EN).find(d => statSync(path.join(EN, d)).isDirectory() && strip(d) === section)
-  const file = dir && readdirSync(path.join(EN, dir)).find(f => f.endsWith('.md') && strip(f) === lesson)
-  if (!file) throw new Error(`No English lesson for ${arg}`)
-  return path.join(EN, dir, file)
-}
-
-const file = resolveLesson(lessonArg)
-const raw = readFileSync(file, 'utf8')
-const m = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
-if (!m) throw new Error(`${file} has no frontmatter`)
-const doc = parseDocument(m[1])
-const access = doc.get('access') === 'pro' ? 'pro' : 'free'
-const policy = access === 'pro' ? 'signed' : 'public'
-const route = path.relative(EN, file).split(path.sep).map(strip).join('/').replace(/\/index$/, '')
-
-console.log(`Uploading ${video} → /${route} (${lang}, ${access} lesson, ${policy} playback)…`)
-const cli = [
-  'assets', 'create', '--upload', video,
-  '-p', policy,
-  '--passthrough', `lesson:/${route}:${lang}`,
-  '--video-quality', 'basic',
-  '--wait', '--json', '-y',
-  ...(flags.test ? ['--test'] : [])
-]
-let out
-try {
-  out = execFileSync('mux', cli, { encoding: 'utf8', stdio: ['inherit', 'pipe', 'inherit'] })
-} catch {
-  console.error('\nThe Mux CLI failed. Logged in? Run `mux login` (token from dashboard.mux.com → Settings → Access Tokens).')
+run(createContext(lesson, { ...flags, file: video })).catch((e) => {
+  console.error(e instanceof StageError ? e.message : e)
   process.exit(1)
-}
-
-// With --wait the CLI prints several JSON documents one after another (the
-// upload, then the finished asset). Split them on top-level braces and take
-// the last one that carries playback ids.
-function jsonDocuments(text) {
-  const docs = []
-  let depth = 0
-  let start = -1
-  let inString = false
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i]
-    if (inString) {
-      if (c === '\\') i++
-      else if (c === '"') inString = false
-      continue
-    }
-    if (c === '"') inString = true
-    else if (c === '{' || c === '[') {
-      if (depth++ === 0) start = i
-    } else if ((c === '}' || c === ']') && --depth === 0) {
-      try {
-        docs.push(JSON.parse(text.slice(start, i + 1)))
-      } catch { /* not JSON after all */ }
-    }
-  }
-  return docs.flat()
-}
-const ids = a => a?.playback_ids ?? a?.asset?.playback_ids ?? []
-const asset = jsonDocuments(out).reverse().find(d => ids(d).length)
-const playbackId = (ids(asset).find(p => p.policy === policy) ?? ids(asset)[0])?.id
-if (!playbackId) {
-  console.error('Uploaded, but no playback id came back:', JSON.stringify(asset).slice(0, 400))
-  process.exit(1)
-}
-
-// Frontmatter: `mux` becomes a per-language map (an old single-string value is
-// English). Edited through the YAML document so the rest keeps its formatting.
-const current = doc.get('mux')
-const existing = typeof current === 'string' ? { en: current } : (current?.toJSON?.() ?? {})
-doc.set('mux', { ...existing, [lang]: playbackId })
-const yaml = doc.toString({ lineWidth: 0 }).trimEnd()
-writeFileSync(file, `---\n${yaml}\n---\n${m[2]}`)
-
-console.log(`\n✓ asset ${asset.id ?? asset.asset?.id}  playback ${playbackId} (${policy})`)
-console.log(`✓ ${path.relative(process.cwd(), file)} → mux.${lang}`)
-if (policy === 'signed') console.log('  Pro video: the Worker needs MUX_SIGNING_KEY_ID / MUX_SIGNING_KEY_SECRET (mux signing-keys create).')
+})

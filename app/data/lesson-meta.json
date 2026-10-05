@@ -709,7 +709,7 @@
  },
  "/einstein-discovery": {
   "minutes": 3,
-  "type": "video",
+  "type": "article",
   "access": "free",
   "quiz": true
  },

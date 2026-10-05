@@ -9,6 +9,9 @@ on:
     paths:
       - 'content/en/**'
       - 'i18n/locales/en.json'
+      # English captions of lesson videos, synced from Mux by captions.yml.
+      - 'content-transcripts/en/**'
+      - 'scripts/lib/vtt.mjs'
       - 'scripts/translate.mjs'
       - 'scripts/markdown-protect.mjs'
       - 'scripts/i18n.config.mjs'
@@ -109,9 +112,9 @@ jobs:
         if: steps.cfg.outputs.configured == 'true'
         run: |
           # The script must never touch the English source of truth.
-          if ! git diff --quiet -- content/en i18n/locales/en.json; then
+          if ! git diff --quiet -- content/en i18n/locales/en.json content-transcripts/en; then
             echo "::error::translate.mjs modified English source files"
-            git diff --stat -- content/en i18n/locales/en.json
+            git diff --stat -- content/en i18n/locales/en.json content-transcripts/en
             exit 1
           fi
 
@@ -121,6 +124,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content i18n/locales .translation-manifest.json
+          [ -d content-transcripts ] && git add content-transcripts
           if git diff --cached --quiet; then
             echo "No translation changes."
             exit 0

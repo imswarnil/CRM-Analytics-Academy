@@ -21,15 +21,20 @@ const englishPath = computed(() =>
   contentPath.value.replace(new RegExp(`^/(${localeCodes.join('|')})(?=/|$)`), `/${DEFAULT_LOCALE}`)
 )
 
-// Videos are declared on the English lesson (translations are generated and
-// may not carry the field), so a translated page borrows English's ids and
-// MuxVideo then picks this reader's language from them.
+// The video is declared on the English lesson (translations are generated and
+// may not carry the field), so a translated page borrows English's id. One
+// video per lesson: every locale plays the same asset, with its own captions
+// and transcript (LessonPlayer).
 const { data: englishMux } = await useAsyncData(`mux-${englishPath.value}`, async () => {
   if (contentPath.value === englishPath.value) return null
   const doc = await queryCollection('docs').path(englishPath.value).select('mux').first()
   return (doc?.mux as string | Record<string, string> | undefined) ?? null
 })
-const lessonMux = computed(() => page.value?.mux ?? englishMux.value ?? undefined)
+const lessonMux = computed(() => muxPlaybackId(page.value?.mux ?? englishMux.value))
+
+// `nuxt dev` serves public/ through Vite, out of reach of an internal fetch;
+// the dev server is asked over HTTP instead (see the transcript fetch below).
+const requestOrigin = import.meta.dev && import.meta.server ? useRequestURL().origin : ''
 
 const { normalise } = useProgress()
 const lessonKey = computed(() => normalise(route.path))
@@ -206,7 +211,10 @@ const tocBottomLinks = computed(() => {
 // can be treated as cloaking. `.bp-paywalled` is the gate in LessonProGate.
 const lessonMeta = useLessonMeta().of(route.path)
 const isPro = page.value?.access === 'pro'
-const paywall = isPro
+// A free lesson with inline `::pro` blocks is partly paywalled: the build left a
+// `pro-locked` placeholder (also `.bp-paywalled`) where each block was.
+const hasLockedBlocks = !isPro && JSON.stringify(page.value?.body ?? '').includes('pro-locked')
+const paywall = isPro || hasLockedBlocks
   ? { isAccessibleForFree: false, hasPart: { '@type': 'WebPageElement', 'isAccessibleForFree': false, 'cssSelector': '.bp-paywalled' } }
   : { isAccessibleForFree: true }
 
@@ -329,6 +337,38 @@ if (video?.id) {
   })
 }
 
+// The lesson's own (Mux) video. Its transcript — this reader's language when
+// there is one, else English — is prerendered into the page for the
+// transcript panel, and for a free lesson goes into VideoObject as
+// `transcript`. A Pro lesson's transcript is gated with its video and never
+// fetched here.
+const transcriptLangs = lessonMeta.transcripts ?? []
+const transcriptLang = transcriptLangs.includes(locale.value) ? locale.value : (transcriptLangs.includes('en') ? 'en' : transcriptLangs[0] ?? '')
+const { data: transcriptCues } = await useAsyncData(`transcript-${transcriptLang}-${englishRoute}`, async () => {
+  if (isPro || !lessonMux.value || !transcriptLang) return []
+  const file = `/transcripts/${transcriptFile(transcriptLang, englishRoute)}`
+  // public/ files are served to an internal fetch while prerendering.
+  const vtt = await $fetch<string>(requestOrigin + file, { responseType: 'text' }).catch(() => '')
+  return parseVttCues(String(vtt))
+})
+if (lessonMux.value && !isPro) {
+  const v = lessonMeta.video
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    'name': title,
+    'description': description,
+    'thumbnailUrl': [`https://image.mux.com/${lessonMux.value}/thumbnail.jpg?width=1280`],
+    ...(v?.uploadDate ? { uploadDate: v.uploadDate } : {}),
+    ...(v?.duration ? { duration: `PT${v.duration}S` } : {}),
+    'contentUrl': `https://stream.mux.com/${lessonMux.value}.m3u8`,
+    'embedUrl': `https://player.mux.com/${lessonMux.value}`,
+    ...(transcriptCues.value?.length
+      ? { transcript: transcriptCues.value.map(c => c.text).join(' '), inLanguage: locales.value.find(l => l.code === transcriptLang)?.language || transcriptLang }
+      : {})
+  })
+}
+
 // FAQPage from the interview questions (rich-result eligible Q&A).
 const interview = page.value?.interview
 if (interview?.length) {
@@ -376,7 +416,7 @@ const timeline = computed(() => courseLessons.value.map((l) => {
   return { value: m.minutes, tone, title: l.title, to: localePath(l.path) }
 }))
 
-const hasMedia = computed(() => Boolean(page.value?.clip?.src || page.value?.video?.id || (lessonMux.value && page.value?.access !== 'pro')))
+const hasMedia = computed(() => Boolean(page.value?.video?.id || (lessonMux.value && page.value?.access !== 'pro')))
 const lessonNo = computed(() => String(position.value).padStart(3, '0'))
 </script>
 
@@ -467,14 +507,14 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         ruler
         class="mb-8"
       >
-        <video
-          v-if="page.clip?.src"
-          :src="page.clip.src"
-          :poster="page.clip.poster"
-          controls
-          playsinline
-          preload="metadata"
-          class="aspect-video w-full bg-(--ink)"
+        <LessonPlayer
+          v-if="lessonMux && page.access !== 'pro'"
+          :playback-id="lessonMux"
+          :title="page.title"
+          :route="englishRoute"
+          :transcript-langs="transcriptLangs"
+          :initial-lang="transcriptLang"
+          :initial-cues="transcriptCues ?? []"
         />
         <YoutubeEmbed
           v-else-if="page.video?.id"
@@ -485,11 +525,6 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           :author="videoCredit?.author"
           :author-url="videoCredit?.authorUrl ?? undefined"
           :credit-title="videoCredit?.title ?? undefined"
-        />
-        <MuxVideo
-          v-else-if="lessonMux && page.access !== 'pro'"
-          :ids="lessonMux"
-          :title="page.title"
         />
       </BpFigure>
 
@@ -575,7 +610,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         v-if="page.walkthrough?.shots?.length"
         :shots="page.walkthrough.shots"
         :org="page.walkthrough.org"
-        :has-video="Boolean(page.clip?.src || page.video?.id || lessonMux)"
+        :has-video="Boolean(page.video?.id || lessonMux)"
       />
 
       <details
@@ -620,7 +655,8 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             v-if="page.access === 'pro'"
             :content-path="contentPath"
             :title="page.title"
-            :mux="page.mux"
+            :route="englishRoute"
+            :transcript-langs="transcriptLangs"
             @unlocked="proUnlocked = true"
           />
         </div>

@@ -1636,5 +1636,40 @@
       "startSmall": "Prefer to start small?",
       "contribute": "Contribute a fix or a resource first."
     }
+  },
+  "pro": {
+    "lessonEyebrow": "Pro lesson — locked",
+    "lessonTitle": "The rest of this lesson is part of Pro",
+    "lessonBody": "Pro unlocks every Pro lesson, its quiz and interview questions, and the lesson videos — and pays for the rest of the course to stay free.",
+    "blockEyebrow": "Pro section — locked",
+    "blockTitle": "This section is part of Pro",
+    "blockBody": "Pro unlocks this section, every Pro lesson and the lesson videos — and pays for the rest of the course to stay free.",
+    "inside": "Inside",
+    "paragraphs": "no text | 1 paragraph | {count} paragraphs",
+    "videos": "no video | a video | {count} videos",
+    "code": "no code | 1 code example | {count} code examples",
+    "tables": "no table | 1 table | {count} tables",
+    "minutes": "about {count} min to read",
+    "seePlans": "See Pro plans",
+    "haveIt": "I already have Pro",
+    "loading": "Unlocking…",
+    "loadFailed": "This section could not be loaded. Try reloading the page.",
+    "lessonLoadFailed": "This lesson could not be loaded. Try reloading the page.",
+    "badge": "Pro"
+  },
+  "transcript": {
+    "title": "Transcript",
+    "language": "Transcript language",
+    "search": "Search the transcript",
+    "copy": "Copy",
+    "copied": "Copied",
+    "download": "Download .vtt",
+    "show": "Show transcript",
+    "hide": "Hide transcript",
+    "matches": "no matches | 1 match | {count} matches",
+    "jumpTo": "Play from {time}",
+    "note": "Captions are generated from the video automatically and machine-translated into each language.",
+    "loading": "Loading transcript…",
+    "unavailable": "The transcript is not available right now."
   }
 }

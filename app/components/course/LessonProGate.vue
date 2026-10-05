@@ -5,34 +5,42 @@
  * The page itself only ever holds the stub (title, teaser, navigation). For a
  * reader with Pro this fetches the real body from /api/lesson — which checks
  * entitlement on the server — and renders it, along with the quiz, interview
- * questions and a signed video. Everyone else gets the paywall. Nothing here
- * is the security boundary; the API is. This is presentation.
+ * questions and the signed video with its transcript. Everyone else gets the
+ * locked card — the same CourseProLockedCard an inline `::pro` block shows, so
+ * "locked" has one look and one code path. Nothing here is the security
+ * boundary; the API is. This is presentation.
  */
+import type { PlaybackTokens } from '#shared/utils/lessonVideo'
+import { MUX_PLAYBACK, parseGatedMarkdown } from '~/utils/proContent'
+
 interface ProLesson {
   markdown: string
   quiz: { q: string, options: string[], answer: number }[] | null
   interview: { q: string, a: string }[] | null
-  playback?: { playbackId: string, token: string }
+  playback?: PlaybackTokens
+  inlinePlayback?: Record<string, PlaybackTokens>
 }
 
 const emit = defineEmits<{ unlocked: [] }>()
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   contentPath: string
   title: string
-  mux?: string | Record<string, string>
-}>()
+  /** Locale-free route, for the video's transcripts. */
+  route?: string
+  transcriptLangs?: string[]
+}>(), {
+  route: '',
+  transcriptLangs: () => []
+})
 
-const localePath = useLocalePath()
-const { isSignedIn } = useAuth()
+const { t } = useI18n()
 const { pro, loaded } = useProgress()
 
 const lesson = ref<ProLesson | null>(null)
-// The parsed body, in the shape ContentRenderer takes. Parsed here rather
-// than passed to <MDC> because <MDC> only resolves globally registered
-// components, and the course's own blocks (field tables, lesson links, …) are
-// registered for ContentRenderer — the same renderer free lessons use.
 const parsed = ref<{ body: unknown, toc?: unknown } | null>(null)
+const inlinePlayback = ref<Record<string, PlaybackTokens>>({})
+provide(MUX_PLAYBACK, inlinePlayback)
 const failed = ref('')
 const loading = ref(false)
 
@@ -42,13 +50,13 @@ async function load() {
   failed.value = ''
   try {
     const res = await $fetch<ProLesson>(`/api/lesson${props.contentPath}`)
-    const { parseMarkdown } = await import('@nuxtjs/mdc/runtime')
-    parsed.value = await parseMarkdown(res.markdown, { toc: { depth: 2, searchDepth: 1 } }) as { body: unknown, toc?: unknown }
+    parsed.value = await parseGatedMarkdown(res.markdown)
+    inlinePlayback.value = res.inlinePlayback ?? {}
     lesson.value = res
     emit('unlocked')
   } catch (e) {
     const err = e as { statusCode?: number }
-    failed.value = err.statusCode === 403 ? '' : (apiError(e) || 'Could not load this lesson.')
+    failed.value = err.statusCode === 403 ? '' : (apiError(e) || t('pro.lessonLoadFailed'))
   } finally {
     loading.value = false
   }
@@ -65,11 +73,15 @@ watch([pro, loaded], ([isPro]) => {
       v-if="pro && lesson"
       class="bp-paywalled"
     >
-      <MuxVideo
+      <LessonPlayer
         v-if="lesson.playback"
-        :ids="lesson.playback.playbackId"
-        :token="lesson.playback.token"
+        class="mb-8"
+        :playback-id="lesson.playback.playbackId"
+        :tokens="lesson.playback"
         :title="title"
+        :route="route"
+        :transcript-langs="transcriptLangs"
+        transcript-source="pro"
       />
       <ContentRenderer
         v-if="parsed"
@@ -95,60 +107,11 @@ watch([pro, loaded], ([isPro]) => {
       <USkeleton class="h-4 w-4/6" />
     </div>
 
-    <div
+    <CourseProLockedCard
       v-else
-      class="bp-paywalled relative my-10"
-    >
-      <!-- Fade the teaser into the lock so it reads as "there is more". -->
-      <div
-        class="pointer-events-none absolute inset-x-0 -top-24 h-24"
-        style="background: linear-gradient(to bottom, transparent, var(--ui-bg))"
-      />
-      <div class="crosshair hatch border-[1.5px] border-(--ink) p-2">
-        <div class="bg-(--card) p-6 text-center sm:p-10">
-          <span class="mx-auto flex size-12 items-center justify-center border-[1.5px] border-(--ink) bg-(--ink) text-(--paper)">
-            <UIcon
-              name="i-lucide-lock"
-              class="size-5"
-            />
-          </span>
-          <p class="eyebrow mt-5">
-            Pro lesson — locked
-          </p>
-          <h3 class="bp-h3 mt-2 text-(--ink)">
-            The rest of this lesson is part of Pro
-          </h3>
-          <p class="mx-auto mt-3 max-w-md text-(--ink2)">
-            Pro unlocks every Pro lesson, its quiz and interview questions, and the lesson videos —
-            and pays for the rest of the course to stay free.
-          </p>
-          <p
-            v-if="failed"
-            class="mt-3 text-sm text-error"
-          >
-            {{ failed }}
-          </p>
-          <div class="mt-7 flex flex-wrap justify-center gap-3">
-            <UButton
-              :to="localePath('/pricing')"
-              size="lg"
-              icon="i-lucide-sparkles"
-            >
-              See Pro plans
-            </UButton>
-            <UButton
-              v-if="!isSignedIn"
-              :to="{ path: localePath('/sign-in'), query: { redirect: $route.fullPath } }"
-              size="lg"
-              color="neutral"
-              variant="outline"
-            >
-              I already have Pro
-            </UButton>
-          </div>
-        </div>
-      </div>
-    </div>
+      kind="lesson"
+      :error="failed"
+    />
 
     <template #fallback>
       <div class="bp-paywalled my-10 h-40 border-[1.5px] border-(--ink) bg-(--card)" />

@@ -25,6 +25,7 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parse as parseYaml } from 'yaml'
+import { splitProBlocks, stripProBlocks } from './lib/pro-blocks.mjs'
 
 const ROOT = process.cwd()
 const CONTENT_ROOT = path.join(ROOT, 'content')
@@ -219,14 +220,25 @@ async function buildSearch() {
     const llms = []
     for (const rel of rels) {
       const file = own.has(rel) ? path.join(base, rel) : english.get(rel)
-      const { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
+      let { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
+      // Access is decided by the English lesson, as in gate-content.
+      const en = file === english.get(rel) ? { data, body } : parseFrontmatter(await readFile(english.get(rel), 'utf8'))
+      const enData = en.data
+      // A translation whose ::pro blocks do not match English's is withheld by
+      // gate-content (it may hold a block's text unwrapped); index English instead.
+      if (file !== english.get(rel) && splitProBlocks(body).blocks.length !== splitProBlocks(en.body).blocks.length) {
+        ;({ data, body } = en)
+        own.delete(rel)
+      }
+      const isPro = data.access === 'pro' || enData.access === 'pro'
       const route = (locale === 'en' ? '' : `/${locale}`) + toRoute(english.get(rel))
       const title = String(data.title ?? '')
-      // A Pro lesson is findable by its title; its body is not public text.
-      out.push(...(data.access === 'pro' ? [{ id: route, title, titles: [], level: 1, content: String(data.description ?? '') }] : toSections(route, title, body)))
+      // A Pro lesson is findable by its title; its body is not public text,
+      // and neither are the inline `::pro` blocks of a free one.
+      out.push(...(isPro ? [{ id: route, title, titles: [], level: 1, content: String(data.description ?? '') }] : toSections(route, title, stripProBlocks(body))))
       // Only translated, free lessons get a raw copy: an English fallback is
       // already in the English llms.txt, and a Pro body is never public.
-      if (own.has(rel) && data.access !== 'pro') {
+      if (own.has(rel) && !isPro) {
         llms.push({ route, raw: `/raw/${locale}${toRoute(english.get(rel))}.md`, title, description: String(data.description ?? '') })
       }
     }
@@ -269,7 +281,8 @@ async function main() {
     // prerender ignore list.
     if (data.access === 'pro') continue
 
-    const { headings, text } = extractText(body)
+    // Inline `::pro` blocks are gated text too: an index entry is public.
+    const { headings, text } = extractText(stripProBlocks(body))
     const words = text ? text.split(/\s+/).length : 0
 
     index.push({

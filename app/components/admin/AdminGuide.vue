@@ -28,7 +28,7 @@ const chapters: Chapter[] = [
     steps: [
       { title: 'Or in the browser', body: 'Admin → Content edits lessons straight against GitHub: no local setup, a live preview, and every save is a commit. See "Editing content" below.', to: '#content' },
       { title: 'Open the CMS', body: 'Payload runs locally. Sign in with your admin account, then Course → Lessons → Create. Pick the section, order and slug; the body is markdown with the course\'s MDC blocks (::field-table, :lesson-links …).', code: 'pnpm cms:dev    # http://localhost:3100/admin' },
-      { title: 'Or write markdown directly', body: 'Add content/en/<NN.section>/<NN.lesson>.md with two-digit prefixes. Frontmatter: title, description, navigation.title, access, mux, walkthrough, quiz, interview, links.' },
+      { title: 'Or write markdown directly', body: 'Add content/en/<NN.section>/<NN.lesson>.md with two-digit prefixes. Frontmatter: title, description, navigation.title, access, mux (one playback id), walkthrough, quiz, interview, links.' },
       { title: 'Preview', body: 'Run the site and open the lesson. If the sidebar looks empty, reset the dev content database.', code: 'pnpm dev\npkill -f "nuxt dev"; rm -rf .data && pnpm dev   # if the nav is empty' },
       { title: 'Publish', body: 'Pull Payload into markdown (only changed files are written), review the diff, commit and push. The Translate workflow fills the 11 locales, then Deploy builds, verifies gating, ships to Cloudflare and pings IndexNow.', code: 'pnpm cms:pull:dry && pnpm cms:pull\ngit add content && git commit -m "content: …" && git push' }
     ]
@@ -48,12 +48,14 @@ const chapters: Chapter[] = [
     n: '03',
     icon: 'i-lucide-clapperboard',
     title: 'Video, slides and editing',
-    lead: 'Mux hosts the video; the player picks the reader\'s language and falls back to English.',
+    lead: 'One video per lesson, in your voice. Every language gets the same video with its own captions and transcript.',
     steps: [
-      { title: 'Upload a lesson video', body: 'Uses the Mux CLI login on this machine. Free lessons get public playback; Pro lessons are uploaded signed and play only with a token minted after the entitlement check.', code: 'pnpm mux:lesson /saql/functions ~/Videos/saql.mp4\npnpm mux:lesson /saql/functions ~/Videos/saql-es.mp4 --lang=es\npnpm mux:lesson /saql/functions clip.mp4 --test   # watermarked, deleted in 24h' },
+      { title: 'Producing a lesson video', body: 'pnpm video runs the pipeline stage by stage; each writes into .data/video/<route>/ so any stage can be redone or replaced by hand. The voice is yours — HeyGen clone, a local clone, or a recording; there is no default TTS, and HeyGen runs only when you select it. Full guide: video/README.md.', code: 'pnpm video script /saql/functions          # narration beats (--with-claude: prompt to polish)\npnpm video voice  /saql/functions --provider=heygen   # or local-clone, or file --file=x.wav\npnpm video avatar /saql/functions --provider=none     # or heygen\npnpm video motion /saql/functions          # HyperFrames project → render in Claude Code\npnpm video edit   /saql/functions          # paste PREMIERE.md into Claude Code (Premiere MCP)' },
+      { title: 'Upload to Mux', body: 'Uploads final.mp4 (Premiere\'s export), requests Mux auto-captions in English and writes mux: <id> into the English lesson. Free lessons get public playback; Pro lessons are signed and play only with a token minted after the entitlement check.', code: 'pnpm video upload /saql/functions\npnpm mux:lesson /saql/functions ~/Videos/saql.mp4 --test   # watermarked, deleted in 24h' },
+      { title: 'Captions and transcripts', body: 'Once Mux has generated the captions, sync them; the Refresh captions workflow also does this daily, so a caption you correct in Mux flows through on its own. Translate then makes the other 11 languages and the deploy publishes them: the player shows the reader\'s language and a searchable transcript under the video.', code: 'pnpm video captions /saql/functions   # → content-transcripts/en/…vtt, then commit + push' },
+      { title: 'Pro sections inside a free lesson', body: 'Wrap any part of a lesson — text, tables, a video — in ::pro … :: and it is locked like a Pro lesson: the build moves it into the Worker and leaves a locked card. Nested components take three colons (:::lesson-video{mux="…"}).' },
       { title: 'Turn a lesson into slides', body: 'Generates 1920×1080 Blueprint slides (title, concepts, examples, lab steps, quiz, recap), speaker notes and a Premiere timeline.', code: 'pnpm slides:lesson /introduction/set-up-your-org' },
-      { title: 'Edit in After Effects / Premiere', body: 'content-assets/after-effects: run build-brand-kit.jsx (File → Scripts) to get fully editable comps, and import-lesson-slides.jsx to lay a deck out on a timeline. content-assets/premiere: ProRes 4444 overlays with alpha and an importable XML sequence.' },
-      { title: 'Generate narration locally', body: 'lesson-to-video builds a narrated walkthrough on this machine (VoiceStudio or macOS voices) — no cloud model.', code: 'node scripts/lesson-to-video.mjs /introduction/set-up-your-org --tts=voicestudio' }
+      { title: 'Edit in After Effects / Premiere', body: 'content-assets/after-effects: run build-brand-kit.jsx (File → Scripts) to get fully editable comps, and import-lesson-slides.jsx to lay a deck out on a timeline. content-assets/premiere: ProRes 4444 overlays with alpha and an importable XML sequence.' }
     ]
   },
   {

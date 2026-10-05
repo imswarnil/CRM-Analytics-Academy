@@ -11,10 +11,12 @@
  *
  * Returns the markdown (rendered client-side with <MDC>), the frontmatter
  * the stub deliberately left out (quiz, interview, walkthrough), and — when
- * the lesson has a video — a signed Mux playback token for the reader's
- * language, minted per request with a short life so it cannot outlive the
+ * the lesson has a video — a signed Mux playback token for its one video
+ * (captions carry the languages), minted per request with a short life so it cannot outlive the
  * entitlement that earned it.
  */
+import type { MuxField } from '#shared/utils/lessonVideo'
+
 interface GatedLesson {
   access: 'pro'
   markdown: string
@@ -48,13 +50,11 @@ export default defineEventHandler(async (event) => {
 
   setResponseHeader(event, 'cache-control', 'private, no-store')
 
-  const locale = path.split('/')[1] ?? 'en'
-  const mux = lesson.data.mux
-  const playbackId = typeof mux === 'string'
-    ? mux
-    : mux && typeof mux === 'object'
-      ? (mux as Record<string, string>)[locale] ?? (mux as Record<string, string>).en
-      : undefined
+  // One video per lesson, every locale: `mux` is a single playback id (an old
+  // per-language map is read for its English entry only). Videos inside the
+  // lesson body (`:::lesson-video{mux=…}`) are signed too.
+  const playbackId = muxPlaybackId(lesson.data.mux as MuxField)
+  const inline = await signMuxPlaybacks(muxIdsIn(lesson.markdown).filter(id => id !== playbackId))
 
   const { quiz, interview, walkthrough } = lesson.data
   return {
@@ -63,6 +63,7 @@ export default defineEventHandler(async (event) => {
     quiz: quiz ?? null,
     interview: interview ?? null,
     walkthrough: walkthrough ?? null,
-    playback: playbackId ? await signMuxPlayback(playbackId) : undefined
+    playback: playbackId ? await signMuxPlayback(playbackId) : undefined,
+    inlinePlayback: inline
   }
 })
