@@ -23,7 +23,7 @@ async function join() {
     state.value = 'done'
     await useProgress().load()
   } catch (e) {
-    message.value = (e as { statusMessage?: string }).statusMessage || 'This invite could not be accepted.'
+    message.value = apiError(e) || 'This invite could not be accepted.'
     state.value = 'error'
   }
 }

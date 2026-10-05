@@ -4,8 +4,8 @@ import { emailDomain, isFreeEmailDomain } from '../../server/utils/freeEmailDoma
 
 /**
  * One form for every way to reach the Academy: contact, sales, quotes, team
- * sign-ups, classroom seats, implementation, sponsorship, instructor
- * applications and Wall of Fame nominations.
+ * sign-ups, sponsorship, instructor applications and Wall of Fame
+ * nominations.
  *
  * The contact fields are shared; `type` decides which of them are required,
  * whether a work email is required (business conversations — the company
@@ -13,13 +13,19 @@ import { emailDomain, isFreeEmailDomain } from '../../server/utils/freeEmailDoma
  * fields appear. Everything is validated again on the server in
  * server/utils/leads.ts; this side only gives earlier, friendlier errors.
  */
-type LeadType = 'quote' | 'sales' | 'contact' | 'instructor' | 'sponsor' | 'team' | 'nomination' | 'training' | 'implementation'
+type LeadType = 'quote' | 'sales' | 'contact' | 'instructor' | 'sponsor' | 'team' | 'nomination'
+
+interface Option {
+  label: string
+  value: string
+}
 
 interface Field {
   key: string
   label: string
-  kind: 'select' | 'text' | 'url' | 'textarea'
-  options?: string[]
+  kind: 'select' | 'multiselect' | 'text' | 'url' | 'textarea'
+  /** Plain strings are stored as written; options store `value` and show `label`. */
+  options?: string[] | Option[]
   required?: boolean
   placeholder?: string
   wide?: boolean
@@ -35,7 +41,7 @@ interface TypeConfig {
   role?: boolean
   country?: boolean
   seats?: string
-  budget?: string[]
+  budget?: string[] | Option[]
   fields: Field[]
 }
 
@@ -45,7 +51,9 @@ const props = defineProps<{
   preset?: Record<string, string>
 }>()
 
-const WORK_EMAIL: LeadType[] = ['quote', 'sales', 'team', 'training', 'implementation', 'sponsor']
+const { t } = useI18n()
+
+const WORK_EMAIL: LeadType[] = ['quote', 'sales', 'team', 'sponsor']
 
 const CONFIG: Record<LeadType, TypeConfig> = {
   contact: {
@@ -69,7 +77,7 @@ const CONFIG: Record<LeadType, TypeConfig> = {
     country: true,
     seats: 'People to train',
     fields: [
-      { key: 'topic', label: 'Interested in', kind: 'select', options: ['Team licences (Pro for everyone)', 'Live or onsite training', 'Custom curriculum for our org', 'Implementation help', 'Partnership / reseller'] },
+      { key: 'topic', label: 'Interested in', kind: 'select', options: ['Team licences (Pro for everyone)', 'Custom curriculum for our org', 'Implementation help', 'Partnership / reseller'] },
       { key: 'timeline', label: 'Timeline', kind: 'select', options: ['This month', 'This quarter', 'Next quarter', 'Just exploring'] }
     ]
   },
@@ -99,37 +107,6 @@ const CONFIG: Record<LeadType, TypeConfig> = {
     seats: 'Seats',
     fields: [
       { key: 'plan', label: 'Plan', kind: 'select', options: ['Team (annual)', 'Enterprise (SSO, invoicing)'] }
-    ]
-  },
-  training: {
-    label: 'Classroom training',
-    submit: 'Reserve my seat',
-    done: 'Seat request received. The center will email you the batch dates and joining details.',
-    message: 'Anything we should know? (optional)',
-    company: 'optional',
-    role: true,
-    fields: [
-      { key: 'center', label: 'Training center', kind: 'select', options: ['Bengaluru', 'Pune', 'Hyderabad', 'London', 'Austin', 'Live online'] },
-      { key: 'track', label: 'Programme', kind: 'select', options: ['CRM Analytics Foundations (5 days)', 'Dashboards & SAQL (5 days)', 'Go-to-Market Analytics (10 days)', 'Certification bootcamp (3 days)'] },
-      { key: 'cohort', label: 'Preferred start', kind: 'select', options: ['Next available', 'Within 1 month', 'Within 3 months', 'Weekend batch'] },
-      { key: 'experience', label: 'Your experience', kind: 'select', options: ['New to Salesforce', 'Salesforce admin / user', 'Data or BI background', 'Already using CRM Analytics'] }
-    ]
-  },
-  implementation: {
-    label: 'Implementation',
-    submit: 'Request a consultation',
-    done: 'Thanks — a solution architect will reply to schedule a scoping call.',
-    message: 'Describe the project: users, data, the decisions it should support',
-    messageRequired: true,
-    company: 'required',
-    role: true,
-    country: true,
-    budget: ['Under $10k', '$10k–$50k', '$50k–$150k', '$150k+', 'Not sure yet'],
-    fields: [
-      { key: 'scope', label: 'What do you need?', kind: 'select', options: ['New CRM Analytics rollout', 'Dashboards on existing data', 'Data pipeline / recipes', 'Einstein Discovery model', 'Performance or security review', 'Rescue a stalled project'] },
-      { key: 'orgEdition', label: 'Salesforce edition', kind: 'select', options: ['Enterprise', 'Unlimited', 'Performance', 'Not sure'] },
-      { key: 'dataSources', label: 'Data sources', kind: 'select', options: ['Salesforce only', 'Salesforce + a warehouse', 'Salesforce + files/ERP', 'Many systems'] },
-      { key: 'timeline', label: 'Timeline', kind: 'select', options: ['ASAP', '1–3 months', '3–6 months', 'Exploring'] }
     ]
   },
   sponsor: {
@@ -178,7 +155,10 @@ const CONFIG: Record<LeadType, TypeConfig> = {
   }
 }
 
-const config = computed(() => CONFIG[props.type])
+function configFor(type: LeadType): TypeConfig {
+  return CONFIG[type]
+}
+const config = computed(() => configFor(props.type))
 const workEmail = computed(() => WORK_EMAIL.includes(props.type))
 
 const route = useRoute()
@@ -195,9 +175,13 @@ const state = reactive({
   website: '',
   details: {} as Record<string, string>
 })
+// Multi-select answers, kept apart so every single-value field stays a string.
+const multi = ref<Record<string, string[]>>({})
 
 function resetDetails() {
-  state.details = Object.fromEntries(CONFIG[props.type].fields.map(f => [f.key, props.preset?.[f.key] ?? '']))
+  const fields = configFor(props.type).fields
+  state.details = Object.fromEntries(fields.filter(f => f.kind !== 'multiselect').map(f => [f.key, props.preset?.[f.key] ?? '']))
+  multi.value = Object.fromEntries(fields.filter(f => f.kind === 'multiselect').map(f => [f.key, props.preset?.[f.key]?.split(',').filter(Boolean) ?? []]))
 }
 resetDetails()
 watch(() => props.type, resetDetails)
@@ -211,7 +195,7 @@ const emailProblem = computed(() => {
   if (!workEmail.value || !e.includes('@')) return ''
   const domain = emailDomain(e)
   return domain.includes('.') && isFreeEmailDomain(domain)
-    ? `Please use your work email — ${domain} is a personal address.`
+    ? t('leadForm.personalEmail', { domain })
     : ''
 })
 
@@ -244,6 +228,12 @@ async function submit() {
     error.value = emailProblem.value
     return
   }
+  // A required multi-select has no native `required`; check it here.
+  const missing = config.value.fields.find(f => f.kind === 'multiselect' && f.required && !multi.value[f.key]?.length)
+  if (missing) {
+    error.value = t('leadForm.pickOne', { field: missing.label })
+    return
+  }
   sending.value = true
   try {
     const q = route.query
@@ -251,12 +241,11 @@ async function submit() {
       .filter(k => typeof q[k] === 'string').map(k => [k, String(q[k])]))
     await $fetch('/api/leads', {
       method: 'POST',
-      body: { type: props.type, ...state, sourcePage: route.path, utm }
+      body: { type: props.type, ...state, details: { ...state.details, ...multi.value }, sourcePage: route.path, utm }
     })
     sent.value = true
   } catch (e) {
-    const err = e as { statusMessage?: string, data?: { statusMessage?: string } }
-    error.value = err.data?.statusMessage || err.statusMessage || 'Something went wrong. Please try again.'
+    error.value = apiError(e) || t('leadForm.failed')
   } finally {
     sending.value = false
   }
@@ -274,7 +263,7 @@ const localePath = useLocalePath()
 <template>
   <div class="crosshair relative border-[1.5px] border-(--ink) bg-(--card) p-5 shadow-[10px_10px_0_var(--ice)] sm:p-7">
     <p class="mono-label mb-5">
-      Form — {{ config.label }}
+      {{ t('leadForm.formLabel', { label: config.label }) }}
     </p>
 
     <div
@@ -289,7 +278,7 @@ const localePath = useLocalePath()
         />
       </span>
       <p class="mt-4 text-xl font-extrabold tracking-[-0.02em] text-(--ink)">
-        Sent
+        {{ t('leadForm.sent') }}
       </p>
       <p class="mt-1 max-w-sm text-(--ink2)">
         {{ config.done }}
@@ -301,7 +290,7 @@ const localePath = useLocalePath()
         size="sm"
         @click="again"
       >
-        Send another
+        {{ t('leadForm.sendAnother') }}
       </UButton>
     </div>
 
@@ -312,7 +301,7 @@ const localePath = useLocalePath()
     >
       <div class="grid gap-4 sm:grid-cols-2">
         <UFormField
-          :label="type === 'nomination' ? 'Your name' : 'Full name'"
+          :label="type === 'nomination' ? t('leadForm.yourName') : t('leadForm.fullName')"
           required
         >
           <UInput
@@ -323,8 +312,8 @@ const localePath = useLocalePath()
           />
         </UFormField>
         <UFormField
-          :label="workEmail ? 'Work email' : (type === 'nomination' ? 'Your email' : 'Email')"
-          :hint="workEmail ? 'Company domain' : undefined"
+          :label="workEmail ? t('leadForm.workEmail') : (type === 'nomination' ? t('leadForm.yourEmail') : t('leadForm.email'))"
+          :hint="workEmail ? t('leadForm.companyDomain') : undefined"
           :error="emailProblem || undefined"
           required
         >
@@ -339,7 +328,7 @@ const localePath = useLocalePath()
         </UFormField>
         <UFormField
           v-if="config.company !== 'hidden'"
-          :label="config.company === 'required' ? 'Company' : 'Company (optional)'"
+          :label="config.company === 'required' ? t('leadForm.company') : t('leadForm.companyOptional')"
           :required="config.company === 'required'"
         >
           <UInput
@@ -351,12 +340,12 @@ const localePath = useLocalePath()
         </UFormField>
         <UFormField
           v-if="config.role"
-          label="Role (optional)"
+          :label="t('leadForm.roleOptional')"
         >
           <UInput
             v-model="state.role"
             autocomplete="organization-title"
-            placeholder="e.g. Sales Ops lead"
+            :placeholder="t('leadForm.rolePlaceholder')"
             class="w-full"
           />
         </UFormField>
@@ -374,18 +363,18 @@ const localePath = useLocalePath()
         </UFormField>
         <UFormField
           v-if="config.budget"
-          label="Budget"
+          :label="t('leadForm.budget')"
         >
           <USelect
             v-model="state.budget"
             :items="config.budget"
-            placeholder="Select…"
+            :placeholder="t('leadForm.select')"
             class="w-full"
           />
         </UFormField>
         <UFormField
           v-if="config.country"
-          label="Country (optional)"
+          :label="t('leadForm.countryOptional')"
         >
           <UInput
             v-model="state.country"
@@ -395,7 +384,7 @@ const localePath = useLocalePath()
         </UFormField>
         <UFormField
           v-if="type !== 'nomination'"
-          label="Phone (optional)"
+          :label="t('leadForm.phoneOptional')"
         >
           <UInput
             v-model="state.phone"
@@ -416,7 +405,15 @@ const localePath = useLocalePath()
             v-if="f.kind === 'select'"
             v-model="state.details[f.key]"
             :items="f.options"
-            placeholder="Select…"
+            :placeholder="t('leadForm.select')"
+            class="w-full"
+          />
+          <USelect
+            v-else-if="f.kind === 'multiselect'"
+            v-model="multi[f.key]"
+            :items="f.options"
+            multiple
+            :placeholder="t('leadForm.selectMany')"
             class="w-full"
           />
           <UTextarea
@@ -493,13 +490,19 @@ const localePath = useLocalePath()
       />
 
       <div class="flex flex-wrap items-center justify-between gap-3 border-t border-dashed border-(--line) pt-5">
-        <p class="text-xs text-(--ink2)">
-          We only use these details to reply to you. See the
-          <NuxtLink
-            :to="localePath('/privacy')"
-            class="underline hover:text-(--signal)"
-          >privacy policy</NuxtLink>.
-        </p>
+        <i18n-t
+          keypath="leadForm.privacy"
+          tag="p"
+          class="text-xs text-(--ink2)"
+          scope="global"
+        >
+          <template #link>
+            <NuxtLink
+              :to="localePath('/privacy')"
+              class="underline hover:text-(--signal)"
+            >{{ t('leadForm.privacyLink') }}</NuxtLink>
+          </template>
+        </i18n-t>
         <UButton
           type="submit"
           size="lg"

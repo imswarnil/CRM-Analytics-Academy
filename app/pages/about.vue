@@ -2,7 +2,7 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import { AUTHOR } from '~/data/author'
 
-const { t, locale } = useI18n()
+const { t, tm, rt } = useI18n()
 const localePath = useLocalePath()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 const { total } = useCourse()
@@ -18,17 +18,11 @@ useSeoMeta({
 
 defineOgImage('Docs', { title: title.value, description: description.value })
 
-useJsonLd([
-  {
-    '@context': 'https://schema.org',
-    '@type': 'AboutPage',
-    'name': title.value,
-    'description': description.value,
-    'url': `${SITE.url}/about`,
-    'inLanguage': locale.value
-  },
-  {
-    '@context': 'https://schema.org',
+usePageSchema(() => ({
+  name: title.value,
+  description: description.value,
+  type: 'AboutPage',
+  extra: [{
     '@type': 'Person',
     'name': AUTHOR.name,
     'url': 'https://imswarnil.com',
@@ -41,15 +35,18 @@ useJsonLd([
     'hasOccupation': AUTHOR.roles.map(r => ({ '@type': 'Occupation', 'name': r.title, 'description': `${r.company}, ${r.place} (${r.years})` })),
     'knowsAbout': AUTHOR.skills.flatMap(g => g.items),
     'sameAs': AUTHOR.social.map(s => s.url)
-  }
-])
+  }]
+}))
 
-const principles = [
-  { icon: 'i-lucide-unlock', title: 'Open, and free at the core', desc: 'No sign-up wall. The core course is free and lives in a public repo you can read, fork and improve; optional Pro lessons pay for the rest.' },
-  { icon: 'i-lucide-route', title: 'A path, not a pile', desc: 'Nineteen sections build on each other — from what CRM Analytics is, through SAQL and dashboard design, to seventeen go-to-market dashboards on the Academy\u2019s own business data.' },
-  { icon: 'i-lucide-square-code', title: 'Hands-on by default', desc: 'Real SAQL, recipes, and dashboard examples you can paste straight into your own org.' },
-  { icon: 'i-lucide-bot', title: 'AI-native', desc: 'Every page is published as Markdown and over MCP, so assistants can teach from the source.' }
-]
+// The copy lives in i18n (`about.principles`); the icons stay here, by position.
+const PRINCIPLE_ICONS = ['i-lucide-unlock', 'i-lucide-route', 'i-lucide-square-code', 'i-lucide-bot']
+const principles = computed(() =>
+  (tm('about.principles') as { title: string, desc: string }[]).map((p, i) => ({
+    icon: PRINCIPLE_ICONS[i] ?? 'i-lucide-circle',
+    title: rt(p.title),
+    desc: rt(p.desc)
+  }))
+)
 
 // Every section of the course, straight from the navigation tree.
 const modules = computed(() => (navigation.value ?? []).map((m, i) => ({
@@ -58,6 +55,7 @@ const modules = computed(() => (navigation.value ?? []).map((m, i) => ({
   to: String(m.path ?? '/')
 })))
 
+// Product names, not translated.
 const stack = [
   { icon: 'i-simple-icons-nuxt', label: 'Nuxt 4' },
   { icon: 'i-simple-icons-vuedotjs', label: 'Vue 3' },
@@ -67,20 +65,20 @@ const stack = [
   { icon: 'i-simple-icons-salesforce', label: 'CRM Analytics' }
 ]
 
-const authorLinks = [
+const authorLinks = computed(() => [
   { icon: 'i-simple-icons-linkedin', label: 'LinkedIn', to: 'https://www.linkedin.com/in/imswarnil/', target: '_blank' },
   { icon: 'i-simple-icons-github', label: 'GitHub', to: 'https://github.com/imswarnil', target: '_blank' },
-  { icon: 'i-lucide-globe', label: 'Website', to: 'https://imswarnil.com', target: '_blank' },
-  { icon: 'i-lucide-heart', label: 'Sponsor', to: 'https://github.com/sponsors/crm-analytics-academy', target: '_blank' }
-]
+  { icon: 'i-lucide-globe', label: t('about.links.website'), to: 'https://imswarnil.com', target: '_blank' },
+  { icon: 'i-lucide-heart', label: t('about.links.sponsor'), to: 'https://github.com/sponsors/crm-analytics-academy', target: '_blank' }
+])
 </script>
 
 <template>
   <div>
     <BpPageHeader
-      sheet="Sheet 07 / About"
-      title="Making CRM Analytics learnable for everyone"
-      lead="Two things to know: what this project is, and who builds it."
+      :sheet="t('about.header.sheet')"
+      :title="t('about.header.title')"
+      :lead="t('about.header.lead')"
     />
 
     <!-- ===================== SECTION 1 — THE PROJECT ===================== -->
@@ -89,26 +87,26 @@ const authorLinks = [
         <!-- Narrative -->
         <div>
           <p class="eyebrow">
-            § 01 — The project
+            {{ t('about.project.eyebrow') }}
           </p>
           <h2 class="bp-h2 mt-3 text-(--ink)">
-            Great analytics learning shouldn't be locked away
+            {{ t('about.project.title') }}
           </h2>
           <div class="mt-6 space-y-4 text-lg text-(--ink2)">
             <p>
-              Learning CRM Analytics usually means stitching together scattered docs, expensive courses,
-              and out-of-date blog posts. The result is a steep, lonely climb — even though the platform
-              is genuinely powerful once it clicks.
+              {{ t('about.project.p1') }}
             </p>
+            <i18n-t
+              keypath="about.project.p2"
+              tag="p"
+              scope="global"
+            >
+              <template #name>
+                <strong class="text-(--ink)">{{ SITE.name }}</strong>
+              </template>
+            </i18n-t>
             <p>
-              <strong class="text-(--ink)">CRM Analytics Academy</strong> exists to fix that: one
-              coherent, modern, community-driven curriculum that takes you from "what is a CRM?" all the
-              way to deploying an explainable prediction back into Salesforce. It is, and always will be,
-              free and open source.
-            </p>
-            <p>
-              Everything is written in the open. Spot a mistake or want to add a recipe? Open a pull
-              request — the curriculum gets better with every learner who joins in.
+              {{ t('about.project.p3') }}
             </p>
           </div>
 
@@ -142,7 +140,7 @@ const authorLinks = [
                 />
               </span>
               <p class="mono-label mt-4">
-                Principle {{ String(n + 1).padStart(2, '0') }}
+                {{ t('about.principleLabel', { n: String(n + 1).padStart(2, '0') }) }}
               </p>
               <h3 class="mt-1 font-extrabold text-(--ink)">
                 {{ p.title }}
@@ -155,7 +153,7 @@ const authorLinks = [
 
           <div class="border-[1.5px] border-(--ink) bg-(--card)">
             <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
-              The curriculum at a glance
+              {{ t('about.curriculumAtGlance') }}
             </p>
             <ul class="max-h-96 overflow-y-auto">
               <li
@@ -191,11 +189,11 @@ const authorLinks = [
         <!-- Instructor card -->
         <div>
           <p class="eyebrow">
-            § 02 — The instructor
+            {{ t('about.instructor.eyebrow') }}
           </p>
           <BpFigure
-            caption="Fig. 01 — Instructor"
-            spec="Creator &amp; maintainer"
+            :caption="t('about.instructor.caption')"
+            :spec="t('about.instructor.spec')"
             shadow
             class="mt-4"
           >
@@ -217,7 +215,7 @@ const authorLinks = [
               <dl class="mt-6 grid grid-cols-3 border-[1.5px] border-(--ink)">
                 <div class="border-e-[1.5px] border-(--ink) p-3 text-center">
                   <dt class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
-                    Sections
+                    {{ t('about.stats.sections') }}
                   </dt>
                   <dd class="mt-1 text-2xl font-black tracking-[-0.03em] text-(--ink)">
                     {{ navigation.length }}
@@ -225,7 +223,7 @@ const authorLinks = [
                 </div>
                 <div class="border-e-[1.5px] border-(--ink) p-3 text-center">
                   <dt class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
-                    Lessons
+                    {{ t('about.stats.lessons') }}
                   </dt>
                   <dd class="mt-1 text-2xl font-black tracking-[-0.03em] text-(--ink)">
                     {{ total }}
@@ -233,7 +231,7 @@ const authorLinks = [
                 </div>
                 <div class="p-3 text-center">
                   <dt class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
-                    Open source
+                    {{ t('about.stats.openSource') }}
                   </dt>
                   <dd class="mt-1 text-2xl font-black tracking-[-0.03em] text-(--signal)">
                     100%
@@ -244,7 +242,7 @@ const authorLinks = [
               <div class="mt-6 flex flex-wrap gap-2">
                 <UButton
                   v-for="l in authorLinks"
-                  :key="l.label"
+                  :key="l.to"
                   :icon="l.icon"
                   :to="l.to"
                   :target="l.target"
@@ -261,29 +259,36 @@ const authorLinks = [
         <!-- Author narrative -->
         <div class="flex flex-col justify-center">
           <h2 class="bp-h2 text-(--ink)">
-            Built by one developer, for the whole community
+            {{ t('about.author.title') }}
           </h2>
           <div class="mt-6 space-y-4 text-lg text-(--ink2)">
+            <i18n-t
+              keypath="about.author.p1"
+              tag="p"
+              scope="global"
+            >
+              <template #name>
+                <strong class="text-(--ink)">Swarnil</strong>
+              </template>
+            </i18n-t>
             <p>
-              Hi — I'm <strong class="text-(--ink)">Swarnil</strong>. I build on the Salesforce
-              platform and care a lot about making hard things approachable. I started CRM Analytics
-              Academy after watching too many capable people bounce off the learning curve, simply
-              because the good material was scattered, dated, or behind a paywall.
+              {{ t('about.author.p2') }}
             </p>
-            <p>
-              So I turned what I'd learned the hard way into a structured, open path others can follow —
-              the resource I wish I'd had when I started. Every lesson is something I'd actually want a
-              teammate to read on their first week.
-            </p>
-            <p>
-              This is an ongoing, community-driven project. If it helped you, the best thanks is to
-              <NuxtLink
-                to="https://github.com/imswarnil/CRM-Analytics-Academy"
-                target="_blank"
-                class="font-semibold text-(--signal) underline-offset-4 hover:underline"
-              >star the repo</NuxtLink>, suggest a topic, or contribute a lesson. Sponsorships keep it
-              free and growing.
-            </p>
+            <i18n-t
+              keypath="about.author.p3"
+              tag="p"
+              scope="global"
+            >
+              <template #star>
+                <NuxtLink
+                  to="https://github.com/imswarnil/CRM-Analytics-Academy"
+                  target="_blank"
+                  class="font-semibold text-(--signal) underline-offset-4 hover:underline"
+                >
+                  {{ t('about.author.star') }}
+                </NuxtLink>
+              </template>
+            </i18n-t>
           </div>
         </div>
       </div>
@@ -423,13 +428,13 @@ const authorLinks = [
     <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
       <div class="graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) px-6 py-16 text-center text-white shadow-[10px_10px_0_var(--signal)] sm:px-12">
         <p class="eyebrow text-(--glow)!">
-          Start
+          {{ t('about.cta.eyebrow') }}
         </p>
         <h2 class="bp-h2 mt-3 text-white">
-          Start learning today
+          {{ t('about.cta.title') }}
         </h2>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">
-          It's free, open, and built to take you from CRM basics all the way to certified.
+          {{ t('about.cta.body') }}
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
           <UButton
@@ -438,7 +443,7 @@ const authorLinks = [
             color="secondary"
             trailing-icon="i-lucide-arrow-right"
           >
-            Start with Foundations
+            {{ t('about.cta.start') }}
           </UButton>
           <UButton
             to="https://github.com/imswarnil/CRM-Analytics-Academy"
@@ -449,7 +454,7 @@ const authorLinks = [
             icon="i-simple-icons-github"
             class="border-white/60 bg-transparent text-white hover:bg-white/10"
           >
-            Star on GitHub
+            {{ t('about.cta.github') }}
           </UButton>
         </div>
       </div>

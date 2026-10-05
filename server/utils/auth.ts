@@ -5,6 +5,7 @@ export interface SessionUser {
   email: string
   name: string | null
   image: string | null
+  emailVerified?: boolean
 }
 
 /**
@@ -44,7 +45,9 @@ export async function getSessionUser(event: H3Event): Promise<SessionUser | null
     } catch {
       return null
     }
-  })
+    // Only a resolved user is cached. A null may be a transient Neon Auth
+    // error, and caching it signed the person out of every API for a minute.
+  }, user => user !== null)
 }
 
 export async function requireUser(event: H3Event): Promise<SessionUser> {

@@ -43,18 +43,34 @@ const lessonKey = computed(() => normalise(route.path))
 // teaser, so the teaser is hidden rather than shown twice.
 const proUnlocked = ref(false)
 
+// True when this locale has no translation and the English page is shown.
+// Such a copy is not its own document: it points its canonical at English and
+// stays out of the index, rather than claiming to be a German page.
+const servedEnglish = useState(`served-en-${route.path}`, () => false)
+
 const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
   // Some newer modules only have English content so far. Rather than 404 a
   // reader whose locale (or the language switcher) points at a path that was
   // never translated, fall back to serving the English version of the page.
   if (englishPath.value !== contentPath.value) {
-    page.value = await queryCollection('docs').path(englishPath.value).first()
+    // On the Worker (no content database) this throws; that is a missing
+    // page, not a server error.
+    page.value = await queryCollection('docs').path(englishPath.value).first().catch(() => null)
+    servedEnglish.value = Boolean(page.value)
   }
   if (!page.value) {
     throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
   }
 }
+
+// Authors (content/people) and third-party credits, read from the English
+// lesson like `mux` — see useLessonCredits.
+const { authors: lessonAuthors, credits: lessonCredits, videoCredit, authorLd, citationLd } = await useLessonCredits({
+  page,
+  contentPath: contentPath.value,
+  englishPath: englishPath.value
+})
 
 const { data: surroundRaw } = await useAsyncData(`${route.path}-surround`, async () => {
   const own = await queryCollectionItemSurroundings('docs', contentPath.value, {
@@ -141,16 +157,25 @@ const sectionTitles = computed(() => {
 const crumbLabel = (seg: string) => sectionTitles.value[seg]
   ?? seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 
-// Structured data: the lesson as a learning article + a breadcrumb trail.
+if (servedEnglish.value) {
+  useHead({
+    link: [{ rel: 'canonical', href: `${SITE.url}${contentToRoutePath(englishPath.value)}` }],
+    meta: [{ name: 'robots', content: 'noindex, follow' }]
+  })
+}
+
+// Structured data: the lesson as a learning article + a breadcrumb trail. The
+// locale is part of the URL, not a level of the hierarchy, so it is not a crumb.
+const { t: tCrumb } = useI18n()
 const crumbs = computed(() => {
-  const segments = route.path.split('/').filter(Boolean)
+  const segments = route.path.split('/').filter(Boolean).filter(s => !(localeCodes as string[]).includes(s))
   const items = segments.map((seg, i) => ({
     '@type': 'ListItem',
     'position': i + 2,
-    'name': crumbLabel(seg),
-    'item': `${SITE.url}/${segments.slice(0, i + 1).join('/')}`
+    'name': i === segments.length - 1 ? (page.value?.title || crumbLabel(seg)) : crumbLabel(seg),
+    'item': `${SITE.url}${localePath(`/${segments.slice(0, i + 1).join('/')}`)}`
   }))
-  return [{ '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE.url }, ...items]
+  return [{ '@type': 'ListItem', 'position': 1, 'name': tCrumb('nav.home'), 'item': `${SITE.url}${localePath('/') === '/' ? '' : localePath('/')}` }, ...items]
 })
 
 // Visible breadcrumb trail (locale segment stripped; last crumb = page title).
@@ -162,7 +187,7 @@ const breadcrumbItems = computed(() => {
   }))
   const last = items[items.length - 1]
   if (last) last.label = page.value?.title || last.label
-  return [{ label: 'Home', icon: 'i-lucide-house', to: localePath('/') }, ...items]
+  return [{ label: tCrumb('nav.home'), icon: 'i-lucide-house', to: localePath('/') }, ...items]
 })
 
 // Edit-this-page + community links shown under the TOC ad.
@@ -214,7 +239,8 @@ const jsonLd: any[] = [
     // The locale this page was prerendered for, not a fixed 'en'.
     'inLanguage': locales.value.find(l => l.code === locale.value)?.language || locale.value,
     'mainEntityOfPage': SITE.url + route.path,
-    'author': { '@type': 'Person', 'name': SITE.author },
+    'author': authorLd.value,
+    ...citationLd.value,
     'publisher': { '@id': ORG_ID },
     'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url },
     'timeRequired': `PT${lessonMeta.minutes}M`,
@@ -294,6 +320,9 @@ if (video?.id) {
     'uploadDate': '2021-04-01',
     'contentUrl': `https://www.youtube.com/watch?v=${video.id}`,
     'embedUrl': `https://www.youtube.com/embed/${video.id}`,
+    ...(videoCredit.value
+      ? { author: { '@type': 'Person', 'name': videoCredit.value.author, ...(videoCredit.value.authorUrl ? { url: videoCredit.value.authorUrl } : {}) } }
+      : {}),
     ...(video.start != null && video.end != null
       ? {
           hasPart: {
@@ -370,7 +399,7 @@ const tocOpen = useCookie<boolean>('bp-toc-open', { default: () => true, sameSit
 
 async function toggleDone() {
   if (!isSignedIn.value) {
-    await navigateTo(localePath('/sign-in'))
+    await navigateTo({ path: localePath('/sign-in'), query: { redirect: useRouter().currentRoute.value.fullPath } })
     return
   }
   await setDone(route.path, !done.value)
@@ -444,6 +473,10 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         >
           {{ page.description }}
         </p>
+        <CourseLessonAuthors
+          :authors="lessonAuthors"
+          class="mt-4"
+        />
         <div class="mt-5 flex flex-wrap items-center gap-2">
           <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">
             {{ meta.type }} · {{ meta.minutes }} min
@@ -489,6 +522,9 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           :start="page.video.start"
           :end="page.video.end"
           :title="page.title"
+          :author="videoCredit?.author"
+          :author-url="videoCredit?.authorUrl ?? undefined"
+          :credit-title="videoCredit?.title ?? undefined"
         />
       </BpFigure>
 
@@ -708,6 +744,11 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
       <LessonInterview
         v-if="page.interview?.length"
         :items="page.interview"
+      />
+
+      <CourseLessonCredits
+        :credits="lessonCredits"
+        :video="videoCredit"
       />
 
       <CourseLessonComplete />

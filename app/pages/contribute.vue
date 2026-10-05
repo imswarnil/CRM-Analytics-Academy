@@ -1,41 +1,53 @@
 <script setup lang="ts">
-const title = 'Contribute'
-const description = 'Full contributor guide: set up locally, write and translate lessons, suggest resources, follow the code style, and open a pull request.'
+const { t, tm, rt } = useI18n()
+const title = computed(() => t('contribute.seo.title'))
+const description = computed(() => t('contribute.seo.description'))
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
-defineOgImage('Docs', { title, description })
+defineOgImage('Docs', { title: title.value, description: description.value })
 
-usePageSchema({ name: title, description, type: 'WebPage' })
+usePageSchema(() => ({ name: title.value, description: description.value, type: 'WebPage' }))
 
 const localePath = useLocalePath()
 const repo = 'https://github.com/imswarnil/CRM-Analytics-Academy'
 
-type Level = 'Start here' | 'No code' | 'Beginner' | 'Intermediate' | 'Advanced' | 'Reference' | 'Anytime'
+/** Keys under `contribute.levels`. */
+type Level = 'startHere' | 'noCode' | 'beginner' | 'intermediate' | 'advanced' | 'reference' | 'anytime'
 
-const steps: { id: string, n: string, label: string, icon: string, level: Level }[] = [
-  { id: 'ways', n: '01', label: 'Ways to contribute', icon: 'i-lucide-sparkles', level: 'Start here' },
-  { id: 'setup', n: '02', label: 'Local setup', icon: 'i-lucide-terminal', level: 'Beginner' },
-  { id: 'lessons', n: '03', label: 'Writing a lesson', icon: 'i-lucide-pen-line', level: 'No code' },
-  { id: 'frontmatter', n: '04', label: 'Lesson frontmatter', icon: 'i-lucide-file-code-2', level: 'No code' },
-  { id: 'translations', n: '05', label: 'Translations', icon: 'i-lucide-languages', level: 'No code' },
-  { id: 'showcase', n: '06', label: 'Submitting a dashboard', icon: 'i-lucide-layout-dashboard', level: 'No code' },
-  { id: 'submit', n: '07', label: 'Suggesting resources', icon: 'i-lucide-upload', level: 'No code' },
-  { id: 'code', n: '08', label: 'Code contributions', icon: 'i-lucide-code', level: 'Intermediate' },
-  { id: 'stack', n: '09', label: 'Tech stack', icon: 'i-lucide-layers', level: 'Reference' },
-  { id: 'pr', n: '10', label: 'Opening a pull request', icon: 'i-lucide-git-pull-request', level: 'Beginner' },
-  { id: 'help', n: '11', label: 'Getting help', icon: 'i-lucide-life-buoy', level: 'Anytime' }
+/** Labels live under `contribute.steps.<id>`. */
+const steps: { id: string, n: string, icon: string, level: Level }[] = [
+  { id: 'ways', n: '01', icon: 'i-lucide-sparkles', level: 'startHere' },
+  { id: 'setup', n: '02', icon: 'i-lucide-terminal', level: 'beginner' },
+  { id: 'lessons', n: '03', icon: 'i-lucide-pen-line', level: 'noCode' },
+  { id: 'frontmatter', n: '04', icon: 'i-lucide-file-code-2', level: 'noCode' },
+  { id: 'translations', n: '05', icon: 'i-lucide-languages', level: 'noCode' },
+  { id: 'showcase', n: '06', icon: 'i-lucide-layout-dashboard', level: 'noCode' },
+  { id: 'submit', n: '07', icon: 'i-lucide-upload', level: 'noCode' },
+  { id: 'code', n: '08', icon: 'i-lucide-code', level: 'intermediate' },
+  { id: 'stack', n: '09', icon: 'i-lucide-layers', level: 'reference' },
+  { id: 'pr', n: '10', icon: 'i-lucide-git-pull-request', level: 'beginner' },
+  { id: 'help', n: '11', icon: 'i-lucide-life-buoy', level: 'anytime' }
 ]
 
 const levelColor = (l: Level): 'success' | 'primary' | 'warning' | 'neutral' =>
-  l === 'No code' ? 'success' : l === 'Beginner' || l === 'Start here' ? 'primary' : l === 'Intermediate' || l === 'Advanced' ? 'warning' : 'neutral'
+  l === 'noCode' ? 'success' : l === 'beginner' || l === 'startHere' ? 'primary' : l === 'intermediate' || l === 'advanced' ? 'warning' : 'neutral'
 
-// The friendliest first contributions — no experience required.
-const quickStarts = [
-  { icon: 'i-lucide-type', title: 'Fix a typo', text: 'Hit “Edit this page” on any lesson — it opens a GitHub edit form. No setup at all.', to: '#lessons' },
-  { icon: 'i-lucide-upload', title: 'Share a resource', text: 'Found a great link? Open an issue and we will add it to the library.', to: '#submit' },
-  { icon: 'i-lucide-languages', title: 'Improve a translation', text: 'Translations are machine-generated. Fix a clumsy sentence in your language — you do not need to touch English.', to: '#translations' },
-  { icon: 'i-lucide-layout-dashboard', title: 'Show your dashboard', text: 'Share what you built: a screenshot, the KPIs, and how you calculated them.', to: '#showcase' }
+// The friendliest first contributions — no experience required. The copy
+// lives in i18n (`contribute.quickStarts`); icons and anchors stay here, by position.
+const QUICK_STARTS = [
+  { icon: 'i-lucide-type', to: '#lessons' },
+  { icon: 'i-lucide-upload', to: '#submit' },
+  { icon: 'i-lucide-languages', to: '#translations' },
+  { icon: 'i-lucide-layout-dashboard', to: '#showcase' }
 ]
+const quickStarts = computed(() =>
+  (tm('contribute.quickStarts') as { title: string, text: string }[]).map((q, i) => ({
+    icon: QUICK_STARTS[i]?.icon ?? 'i-lucide-circle',
+    to: QUICK_STARTS[i]?.to ?? '#ways',
+    title: rt(q.title),
+    text: rt(q.text)
+  }))
+)
 
 // Prose classes shared by every timeline step body.
 const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:text-primary prose-pre:border prose-pre:border-default prose-headings:scroll-mt-24'
@@ -47,13 +59,20 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
     <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
       <UContainer class="relative py-14 text-center sm:py-20">
         <p class="eyebrow mb-5">
-          Sheet 10 / Contributor guide
+          {{ t('contribute.hero.eyebrow') }}
         </p>
-        <h1 class="mx-auto max-w-3xl bp-h1">
-          Help build the <span class="text-gradient">community</span>
-        </h1>
+        <i18n-t
+          keypath="contribute.hero.title"
+          tag="h1"
+          scope="global"
+          class="mx-auto max-w-3xl bp-h1"
+        >
+          <template #em>
+            <span class="text-gradient">{{ t('contribute.hero.titleEm') }}</span>
+          </template>
+        </i18n-t>
         <p class="mx-auto mt-5 max-w-2xl bp-lead">
-          Everything you need to add a lesson, translate content, suggest a resource, or improve the code.
+          {{ t('contribute.hero.lead') }}
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
           <UButton
@@ -63,7 +82,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
             icon="i-simple-icons-github"
             class="font-semibold"
           >
-            View on GitHub
+            {{ t('contribute.hero.github') }}
           </UButton>
           <UButton
             :to="localePath('/submit?kind=resource')"
@@ -73,7 +92,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
             icon="i-lucide-plus"
             class="font-semibold"
           >
-            Suggest a resource
+            {{ t('contribute.hero.suggest') }}
           </UButton>
         </div>
       </UContainer>
@@ -84,7 +103,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
         <!-- Sticky stepper -->
         <aside class="mb-10 lg:sticky lg:top-24 lg:mb-0 lg:self-start">
           <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-(--ink2)">
-            The guide, step by step
+            {{ t('contribute.stepper') }}
           </p>
           <ol class="relative space-y-1">
             <!-- connecting line -->
@@ -100,15 +119,15 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 <span class="relative z-10 flex size-7 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-[11px] font-bold text-(--ink2) transition group-hover:border-(--signal) group-hover:text-(--signal)">
                   {{ Number(s.n) }}
                 </span>
-                <span class="min-w-0 flex-1 truncate font-medium">{{ s.label }}</span>
+                <span class="min-w-0 flex-1 truncate font-medium">{{ t(`contribute.steps.${s.id}`) }}</span>
                 <UBadge
-                  v-if="s.level === 'No code' || s.level === 'Start here'"
+                  v-if="s.level === 'noCode' || s.level === 'startHere'"
                   :color="levelColor(s.level)"
                   variant="subtle"
                   size="sm"
                   class="shrink-0"
                 >
-                  {{ s.level }}
+                  {{ t(`contribute.levels.${s.level}`) }}
                 </UBadge>
               </a>
             </li>
@@ -125,17 +144,23 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 class="size-5 text-(--signal)"
               />
               <h2 class="text-lg font-bold text-(--ink)">
-                New here? You're exactly who this is for.
+                {{ t('contribute.welcome.title') }}
               </h2>
             </div>
-            <p class="mt-2 text-sm text-(--ink2)">
-              You don't need to be a CRM Analytics expert or a developer to help. Pick a tiny first step below — most take
-              a few minutes and need <span class="font-medium text-(--ink)">zero code</span>. We review everything and are happy to guide you.
-            </p>
+            <i18n-t
+              keypath="contribute.welcome.body"
+              tag="p"
+              scope="global"
+              class="mt-2 text-sm text-(--ink2)"
+            >
+              <template #zero>
+                <span class="font-medium text-(--ink)">{{ t('contribute.welcome.zero') }}</span>
+              </template>
+            </i18n-t>
             <div class="mt-5 grid gap-3 sm:grid-cols-3">
               <a
                 v-for="q in quickStarts"
-                :key="q.title"
+                :key="q.to"
                 :href="q.to"
                 class="group border-[1.5px] border-(--ink) bg-(--card) p-4 transition hover:-translate-y-0.5 hover:border-(--signal) hover:shadow-[4px_4px_0_var(--ink)]"
               >
@@ -178,14 +203,14 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
               <div class="border-[1.5px] border-(--ink) bg-(--card) p-6 sm:p-8">
                 <div class="mb-1 flex items-center gap-2">
                   <p class="text-xs font-semibold uppercase tracking-widest text-(--signal)">
-                    Step {{ s.n }}
+                    {{ t('contribute.stepLabel', { n: s.n }) }}
                   </p>
                   <UBadge
                     :color="levelColor(s.level)"
                     variant="subtle"
                     size="sm"
                   >
-                    {{ s.level }}
+                    {{ t(`contribute.levels.${s.level}`) }}
                   </UBadge>
                 </div>
                 <h2 class="flex items-center gap-2 text-xl font-bold tracking-tight text-(--ink) sm:text-2xl">
@@ -193,7 +218,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                     :name="s.icon"
                     class="size-5 text-(--signal) sm:hidden"
                   />
-                  {{ s.label }}
+                  {{ t(`contribute.steps.${s.id}`) }}
                 </h2>
 
                 <!-- ways -->
@@ -201,14 +226,26 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                   v-if="s.id === 'ways'"
                   :class="prose"
                 >
-                  <p>There are four main ways to help — pick whatever fits your time and skills:</p>
+                  <p>{{ t('contribute.ways.intro') }}</p>
                   <ul>
-                    <li><strong>Write or fix a lesson</strong> — improve wording, fix errors, or add a whole new lesson (Markdown, no coding needed).</li>
-                    <li><strong>Translate</strong> — bring a lesson or the UI into one of the site's languages.</li>
-                    <li><strong>Suggest a resource</strong> — share a great docs page, course, tool, or community. <NuxtLink :to="localePath('/submit?kind=resource')">Submit it here</NuxtLink> — it goes into a moderation queue, not a GitHub issue.</li>
-                    <li><strong>Improve the code</strong> — fix a bug, refine the UI, or add a feature via a pull request.</li>
+                    <li><strong>{{ t('contribute.ways.write.label') }}</strong> — {{ t('contribute.ways.write.text') }}</li>
+                    <li><strong>{{ t('contribute.ways.translate.label') }}</strong> — {{ t('contribute.ways.translate.text') }}</li>
+                    <li>
+                      <strong>{{ t('contribute.ways.resource.label') }}</strong> —
+                      <i18n-t
+                        keypath="contribute.ways.resource.text"
+                        scope="global"
+                      >
+                        <template #link>
+                          <NuxtLink :to="localePath('/submit?kind=resource')">
+                            {{ t('contribute.submitHere') }}
+                          </NuxtLink>
+                        </template>
+                      </i18n-t>
+                    </li>
+                    <li><strong>{{ t('contribute.ways.code.label') }}</strong> — {{ t('contribute.ways.code.text') }}</li>
                   </ul>
-                  <p>Lesson and code changes go through GitHub, because every lesson is a file in the repo. Resources, showcase dashboards and lesson ideas are submitted on the site and reviewed in the admin console.</p>
+                  <p>{{ t('contribute.ways.outro') }}</p>
                 </div>
 
                 <!-- setup -->
@@ -216,7 +253,18 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                   v-else-if="s.id === 'setup'"
                   :class="prose"
                 >
-                  <p>You'll need <strong>Node.js 20+</strong> and <strong>pnpm</strong>. Then:</p>
+                  <i18n-t
+                    keypath="contribute.setup.need"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #node>
+                      <strong>Node.js 20+</strong>
+                    </template>
+                    <template #pnpm>
+                      <strong>pnpm</strong>
+                    </template>
+                  </i18n-t>
                   <pre><code># 1. Fork the repo on GitHub, then clone your fork
 git clone https://github.com/&lt;you&gt;/CRM-Analytics-Academy.git
 cd CRM-Analytics-Academy
@@ -226,11 +274,22 @@ pnpm install
 
 # 3. Start the dev server → http://localhost:3000
 pnpm dev</code></pre>
-                  <p>Before committing, always run the two checks (there's no test runner):</p>
+                  <p>{{ t('contribute.setup.checks') }}</p>
                   <pre><code>pnpm lint       # eslint
 pnpm typecheck  # vue-tsc</code></pre>
                   <blockquote>
-                    <p><strong>Tip:</strong> if the docs sidebar ever looks empty in dev, the local content database went stale. Fix it with <code>rm -rf .data && pnpm dev</code>.</p>
+                    <i18n-t
+                      keypath="contribute.setup.tip"
+                      tag="p"
+                      scope="global"
+                    >
+                      <template #label>
+                        <strong>{{ t('contribute.setup.tipLabel') }}</strong>
+                      </template>
+                      <template #cmd>
+                        <code>rm -rf .data && pnpm dev</code>
+                      </template>
+                    </i18n-t>
                   </blockquote>
                 </div>
 
@@ -239,7 +298,18 @@ pnpm typecheck  # vue-tsc</code></pre>
                   v-else-if="s.id === 'lessons'"
                   :class="prose"
                 >
-                  <p>Lessons are plain Markdown under <code>content/&lt;locale&gt;/&lt;module&gt;/&lt;lesson&gt;.md</code>. English lives in <code>content/en/</code>. The number prefixes set the order:</p>
+                  <i18n-t
+                    keypath="contribute.lessons.p1"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #path>
+                      <code>content/&lt;locale&gt;/&lt;module&gt;/&lt;lesson&gt;.md</code>
+                    </template>
+                    <template #en>
+                      <code>content/en/</code>
+                    </template>
+                  </i18n-t>
                   <pre><code>content/en/
   1.foundations/
     1.index.md
@@ -247,8 +317,27 @@ pnpm typecheck  # vue-tsc</code></pre>
   5.saql/
     1.index.md
     2.filter-and-group.md</code></pre>
-                  <p>To add a lesson, create a new file with the next number in a module (e.g. <code>content/en/5.saql/5.window-functions.md</code>), start with a top-level heading, and write in Markdown. Use <code>##</code> for sections — they become the table of contents. Keep it practical and example-led.</p>
-                  <p>To fix a small typo, just use the <strong>“Edit this page”</strong> link at the bottom of any lesson — it opens a GitHub edit form.</p>
+                  <i18n-t
+                    keypath="contribute.lessons.p2"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #example>
+                      <code>content/en/5.saql/5.window-functions.md</code>
+                    </template>
+                    <template #h2>
+                      <code>##</code>
+                    </template>
+                  </i18n-t>
+                  <i18n-t
+                    keypath="contribute.lessons.p3"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #edit>
+                      <strong>{{ t('contribute.lessons.editLabel') }}</strong>
+                    </template>
+                  </i18n-t>
                 </div>
 
                 <!-- frontmatter -->
@@ -256,7 +345,7 @@ pnpm typecheck  # vue-tsc</code></pre>
                   v-else-if="s.id === 'frontmatter'"
                   :class="prose"
                 >
-                  <p>Each lesson starts with a YAML frontmatter block:</p>
+                  <p>{{ t('contribute.frontmatter.intro') }}</p>
                   <pre><code>---
 title: SAQL Basics
 description: A one-line summary used for SEO, the OG image, and AI search.
@@ -274,7 +363,42 @@ interview:
 # SAQL Basics
 
 Your content here…</code></pre>
-                  <p><code>title</code> and <code>description</code> are required; <code>video</code> and <code>interview</code> are optional. A new <strong>top-level module</strong> also needs a <code>.navigation.yml</code> (with <code>title</code> and an <code>icon</code>) and a new section in the <code>llms</code> config in <code>nuxt.config.ts</code>.</p>
+                  <i18n-t
+                    keypath="contribute.frontmatter.p1"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #title>
+                      <code>title</code>
+                    </template>
+                    <template #description>
+                      <code>description</code>
+                    </template>
+                    <template #video>
+                      <code>video</code>
+                    </template>
+                    <template #interview>
+                      <code>interview</code>
+                    </template>
+                    <template #module>
+                      <strong>{{ t('contribute.frontmatter.module') }}</strong>
+                    </template>
+                    <template #nav>
+                      <code>.navigation.yml</code>
+                    </template>
+                    <template #navTitle>
+                      <code>title</code>
+                    </template>
+                    <template #icon>
+                      <code>icon</code>
+                    </template>
+                    <template #llms>
+                      <code>llms</code>
+                    </template>
+                    <template #config>
+                      <code>nuxt.config.ts</code>
+                    </template>
+                  </i18n-t>
                 </div>
 
                 <!-- translations -->
@@ -282,14 +406,69 @@ Your content here…</code></pre>
                   v-else-if="s.id === 'translations'"
                   :class="prose"
                 >
-                  <p>The site ships in <strong>12 languages</strong>: English (default), Spanish, French, German, Portuguese, Japanese, Chinese, Hindi, Arabic, Russian, Bengali, and Urdu. Arabic and Urdu render right-to-left.</p>
-                  <p><strong>You do not translate by hand.</strong> Write the lesson in English only. When it lands on <code>main</code>, a GitHub Action runs it through LibreTranslate and commits <code>content/&lt;locale&gt;/…</code> for all eleven other languages. Code blocks, SAQL, links, frontmatter keys and product names are protected and come through untouched.</p>
+                  <i18n-t
+                    keypath="contribute.translations.p1"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #languages>
+                      <strong>{{ t('contribute.translations.languages') }}</strong>
+                    </template>
+                  </i18n-t>
+                  <i18n-t
+                    keypath="contribute.translations.p2"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #bold>
+                      <strong>{{ t('contribute.translations.p2Bold') }}</strong>
+                    </template>
+                    <template #main>
+                      <code>main</code>
+                    </template>
+                    <template #path>
+                      <code>content/&lt;locale&gt;/…</code>
+                    </template>
+                  </i18n-t>
                   <pre><code>content/en/5.saql/1.index.md   →   automatically →   content/es/5.saql/1.index.md
                                                 content/ar/5.saql/1.index.md
                                                 … and nine more</code></pre>
-                  <p>To run it yourself: <code>pnpm translate</code> (only changed files), or <code>pnpm translate --locales=es,fr</code>.</p>
-                  <p><strong>Machine translation is a starting point, not the finish line.</strong> If a sentence reads badly in your language, edit that locale's file directly and open a pull request — the pipeline only overwrites a file when its <em>English</em> source changes, so your fix survives.</p>
-                  <p>UI strings live in <code>i18n/locales/&lt;lang&gt;.json</code>. Add new strings to <code>en.json</code> only; the same run fills in the other eleven and leaves existing translations alone.</p>
+                  <i18n-t
+                    keypath="contribute.translations.p3"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #all>
+                      <code>pnpm translate</code>
+                    </template>
+                    <template #subset>
+                      <code>pnpm translate --locales=es,fr</code>
+                    </template>
+                  </i18n-t>
+                  <i18n-t
+                    keypath="contribute.translations.p4"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #bold>
+                      <strong>{{ t('contribute.translations.p4Bold') }}</strong>
+                    </template>
+                    <template #english>
+                      <em>{{ t('contribute.translations.english') }}</em>
+                    </template>
+                  </i18n-t>
+                  <i18n-t
+                    keypath="contribute.translations.p5"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #path>
+                      <code>i18n/locales/&lt;lang&gt;.json</code>
+                    </template>
+                    <template #en>
+                      <code>en.json</code>
+                    </template>
+                  </i18n-t>
                 </div>
 
                 <!-- showcase -->
@@ -297,8 +476,26 @@ Your content here…</code></pre>
                   v-else-if="s.id === 'showcase'"
                   :class="prose"
                 >
-                  <p>Built a CRM Analytics dashboard you're proud of? <NuxtLink :to="localePath('/submit')">Submit it to the Showcase</NuxtLink> — the form takes the title, the write-up and a screenshot, and a maintainer reviews it before it appears. If you would rather send a pull request, the markdown shape is below and both routes end in the same queue.</p>
-                  <p>What makes an entry worth reading is not the screenshot, it's the <strong>working out</strong>: which KPIs you put on it, the formula behind each one, and why you measured it that way. Say what went wrong too — the gotcha you hit is usually the most useful part.</p>
+                  <i18n-t
+                    keypath="contribute.showcase.p1"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #link>
+                      <NuxtLink :to="localePath('/submit')">
+                        {{ t('contribute.showcase.link') }}
+                      </NuxtLink>
+                    </template>
+                  </i18n-t>
+                  <i18n-t
+                    keypath="contribute.showcase.p2"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #working>
+                      <strong>{{ t('contribute.showcase.working') }}</strong>
+                    </template>
+                  </i18n-t>
                   <pre><code>---
 title: "Pipeline Health"
 description: "One-screen read on coverage, slippage and win rate."
@@ -319,8 +516,42 @@ techniques: ["Dataflow", "Faceting", "Conditional Formatting"]
 ---
 
 Your write-up goes here.</code></pre>
-                  <p><code>domain</code>, <code>difficulty</code> and <code>techniques</code> drive the filters on the showcase page, so reuse existing values where they fit. Everything except <code>title</code>, <code>description</code>, <code>image</code> and <code>author</code> is optional.</p>
-                  <p><strong>Sanitise the screenshot first.</strong> Blur or fake customer names, revenue figures and user names — the repository is public.</p>
+                  <i18n-t
+                    keypath="contribute.showcase.p3"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #domain>
+                      <code>domain</code>
+                    </template>
+                    <template #difficulty>
+                      <code>difficulty</code>
+                    </template>
+                    <template #techniques>
+                      <code>techniques</code>
+                    </template>
+                    <template #title>
+                      <code>title</code>
+                    </template>
+                    <template #description>
+                      <code>description</code>
+                    </template>
+                    <template #image>
+                      <code>image</code>
+                    </template>
+                    <template #author>
+                      <code>author</code>
+                    </template>
+                  </i18n-t>
+                  <i18n-t
+                    keypath="contribute.showcase.p4"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #bold>
+                      <strong>{{ t('contribute.showcase.p4Bold') }}</strong>
+                    </template>
+                  </i18n-t>
                 </div>
 
                 <!-- submit -->
@@ -328,8 +559,26 @@ Your write-up goes here.</code></pre>
                   v-else-if="s.id === 'submit'"
                   :class="prose"
                 >
-                  <p>Found a helpful link — docs, a course, a tool, a community? <NuxtLink :to="localePath('/submit')">Submit it here</NuxtLink>. Title, URL and a line on why it is worth someone's time; it lands as pending and a maintainer approves it. No GitHub account, no pull request, no waiting for a build.</p>
-                  <p>Opening an issue still works if you prefer it, and so does a pull request adding a file to <code>content/resources/</code>. The form is simply faster, and it is the same moderation queue at the other end.</p>
+                  <i18n-t
+                    keypath="contribute.submit.p1"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #link>
+                      <NuxtLink :to="localePath('/submit')">
+                        {{ t('contribute.submitHere') }}
+                      </NuxtLink>
+                    </template>
+                  </i18n-t>
+                  <i18n-t
+                    keypath="contribute.submit.p2"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #path>
+                      <code>content/resources/</code>
+                    </template>
+                  </i18n-t>
                 </div>
 
                 <!-- code -->
@@ -337,13 +586,59 @@ Your write-up goes here.</code></pre>
                   v-else-if="s.id === 'code'"
                   :class="prose"
                 >
-                  <p>The stack is <strong>Nuxt 4 · Nuxt Content · Nuxt UI v4 · Tailwind CSS 4</strong>. Key folders:</p>
+                  <i18n-t
+                    keypath="contribute.code.p1"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #stack>
+                      <strong>Nuxt 4 · Nuxt Content · Nuxt UI v4 · Tailwind CSS 4</strong>
+                    </template>
+                  </i18n-t>
                   <ul>
-                    <li><code>content/</code> — the lessons (Markdown).</li>
-                    <li><code>app/pages/</code>, <code>app/components/</code>, <code>app/composables/</code> — the app UI.</li>
-                    <li><code>server/routes/raw/</code> — the raw-markdown surface for AI agents and crawlers.</li>
+                    <i18n-t
+                      keypath="contribute.code.content"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #path>
+                        <code>content/</code>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.code.app"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #pages>
+                        <code>app/pages/</code>
+                      </template>
+                      <template #components>
+                        <code>app/components/</code>
+                      </template>
+                      <template #composables>
+                        <code>app/composables/</code>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.code.raw"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #path>
+                        <code>server/routes/raw/</code>
+                      </template>
+                    </i18n-t>
                   </ul>
-                  <p>Style rules are enforced by ESLint: no trailing commas, 1TBS braces, 2-space indent, and one interface member per line. Run <code>pnpm lint --fix</code> to auto-format. Match the surrounding code's conventions.</p>
+                  <i18n-t
+                    keypath="contribute.code.p2"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #cmd>
+                      <code>pnpm lint --fix</code>
+                    </template>
+                  </i18n-t>
                 </div>
 
                 <!-- stack -->
@@ -351,16 +646,84 @@ Your write-up goes here.</code></pre>
                   v-else-if="s.id === 'stack'"
                   :class="prose"
                 >
-                  <p>The whole site is open source — here's what powers it:</p>
+                  <p>{{ t('contribute.stack.intro') }}</p>
                   <ul>
-                    <li><strong>Nuxt 4</strong> (Vue 3 + Nitro) — the framework, SSR + prerendering</li>
-                    <li><strong>Nuxt Content 3</strong> — lessons authored in Markdown, served from SQLite</li>
-                    <li><strong>Nuxt UI v4</strong> + <strong>Tailwind CSS 4</strong> — components and styling</li>
-                    <li><strong>@nuxtjs/i18n</strong> — 12 languages, eleven of them machine-translated from English</li>
-                    <li><strong>Cloudflare Workers</strong> + <strong>GitHub Actions</strong> — prerendered pages served as static assets, a Worker for the dynamic routes, auto-deployed on push to <code>main</code></li>
+                    <i18n-t
+                      keypath="contribute.stack.nuxt"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #name>
+                        <strong>Nuxt 4</strong>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.stack.content"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #name>
+                        <strong>Nuxt Content 3</strong>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.stack.ui"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #ui>
+                        <strong>Nuxt UI v4</strong>
+                      </template>
+                      <template #tailwind>
+                        <strong>Tailwind CSS 4</strong>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.stack.i18n"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #name>
+                        <strong>@nuxtjs/i18n</strong>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.stack.hosting"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #workers>
+                        <strong>Cloudflare Workers</strong>
+                      </template>
+                      <template #actions>
+                        <strong>GitHub Actions</strong>
+                      </template>
+                      <template #main>
+                        <code>main</code>
+                      </template>
+                    </i18n-t>
                   </ul>
-                  <p>Also in the box: <code>nuxt-og-image</code> (social cards), <code>nuxt-llms</code> (machine-readable docs), and structured data for SEO.</p>
-                  <p>Every lesson is prerendered at build time from Markdown, so you can write and preview lessons with <strong>no database at all</strong>. Accounts, progress and Pro run on Neon Postgres and only matter if you are working on those features — the README's low-level design covers them.</p>
+                  <i18n-t
+                    keypath="contribute.stack.extras"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #og>
+                      <code>nuxt-og-image</code>
+                    </template>
+                    <template #llms>
+                      <code>nuxt-llms</code>
+                    </template>
+                  </i18n-t>
+                  <i18n-t
+                    keypath="contribute.stack.noDb"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #bold>
+                      <strong>{{ t('contribute.stack.noDbBold') }}</strong>
+                    </template>
+                  </i18n-t>
                 </div>
 
                 <!-- pr -->
@@ -369,13 +732,74 @@ Your write-up goes here.</code></pre>
                   :class="prose"
                 >
                   <ol>
-                    <li><strong>Branch</strong> off <code>main</code>: <code>git checkout -b fix/typo-in-saql</code></li>
-                    <li><strong>Make your change</strong> and preview it with <code>pnpm dev</code>.</li>
-                    <li><strong>Verify</strong>: <code>pnpm lint</code> and <code>pnpm typecheck</code> both pass.</li>
-                    <li><strong>Commit</strong> with a clear message and <strong>push</strong> to your fork.</li>
-                    <li><strong>Open a PR</strong> against <code>main</code>, describing what changed and why.</li>
+                    <i18n-t
+                      keypath="contribute.pr.branch"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #bold>
+                        <strong>{{ t('contribute.pr.branchBold') }}</strong>
+                      </template>
+                      <template #main>
+                        <code>main</code>
+                      </template>
+                      <template #cmd>
+                        <code>git checkout -b fix/typo-in-saql</code>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.pr.change"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #bold>
+                        <strong>{{ t('contribute.pr.changeBold') }}</strong>
+                      </template>
+                      <template #cmd>
+                        <code>pnpm dev</code>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.pr.verify"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #bold>
+                        <strong>{{ t('contribute.pr.verifyBold') }}</strong>
+                      </template>
+                      <template #lint>
+                        <code>pnpm lint</code>
+                      </template>
+                      <template #typecheck>
+                        <code>pnpm typecheck</code>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.pr.commit"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #bold>
+                        <strong>{{ t('contribute.pr.commitBold') }}</strong>
+                      </template>
+                      <template #push>
+                        <strong>{{ t('contribute.pr.pushBold') }}</strong>
+                      </template>
+                    </i18n-t>
+                    <i18n-t
+                      keypath="contribute.pr.open"
+                      tag="li"
+                      scope="global"
+                    >
+                      <template #bold>
+                        <strong>{{ t('contribute.pr.openBold') }}</strong>
+                      </template>
+                      <template #main>
+                        <code>main</code>
+                      </template>
+                    </i18n-t>
                   </ol>
-                  <p>A maintainer will review, suggest tweaks if needed, and merge. Once merged, the GitHub Actions workflow builds the site and publishes it to Cloudflare automatically.</p>
+                  <p>{{ t('contribute.pr.after') }}</p>
                 </div>
 
                 <!-- help -->
@@ -383,13 +807,19 @@ Your write-up goes here.</code></pre>
                   v-else
                   :class="prose"
                 >
-                  <p>
-                    Stuck or have an idea? Open an issue or a discussion on <a
-                      :href="repo"
-                      target="_blank"
-                      rel="noopener"
-                    >GitHub</a>. First-time contributors are very welcome — no contribution is too small.
-                  </p>
+                  <i18n-t
+                    keypath="contribute.help"
+                    tag="p"
+                    scope="global"
+                  >
+                    <template #github>
+                      <a
+                        :href="repo"
+                        target="_blank"
+                        rel="noopener"
+                      >GitHub</a>
+                    </template>
+                  </i18n-t>
                 </div>
               </div>
             </section>

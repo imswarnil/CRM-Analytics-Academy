@@ -63,6 +63,9 @@ set of revenue dashboards built on one company's data. The core course is free; 
 - **Accounts and progress** (Neon Auth), points, a leaderboard, comments on every lesson, a demo account.
 - **Pro lessons** — the body of a Pro lesson never ships in the static bundle; it is served after a
   server-side entitlement check. Payments through **Dodo Payments**; video through **Mux** (signed for Pro).
+- **Self-serve sponsorship** — one sponsor per calendar month, $99, every promo slot on the site. Live reach
+  and a twelve-month availability timeline on `/sponsor`, Dodo checkout, a sponsor studio with true-size
+  previews, impression and click counts; the house placeholder fills unsold months (no AdSense).
 - **Community** — submit resources, dashboards and lesson ideas; moderated in `/admin`; a showcase of
   dashboard write-ups with KPIs, formulas and build recipes.
 - **Business pages** — team quotations, classroom enrolment and implementation enquiries into one inbox.
@@ -249,6 +252,38 @@ sequenceDiagram
   Note over B: the return redirect grants nothing
 ```
 
+**Sponsorship** — one sponsor per calendar month (UTC), $99 a month, exclusive. A hold is the lock:
+
+```mermaid
+sequenceDiagram
+  participant B as Browser
+  participant W as Worker
+  participant D as Dodo Payments
+  participant DB as Neon (app.sponsor_*)
+  B->>W: GET /api/partner/calendar
+  W->>DB: release expired holds; read held / paid months
+  B->>W: POST /api/partner/checkout {months, brand}
+  W->>DB: insert sponsor_booking rows status=held, hold 30 min
+  Note over DB: partial unique index on (month) where status in (held, paid) —<br/>a second buyer's insert fails with 409
+  W->>D: checkout: DODO_PRODUCT_SPONSOR_MONTH × months<br/>metadata kind=sponsor, checkout_ref
+  B->>D: pays
+  D->>W: POST /api/billing/webhook payment.succeeded
+  W->>DB: held → paid (lapsed hold: re-claim if free, else needs_refund)
+  D-->>W: payment.failed / cancelled → held → cancelled
+  B->>W: GET /api/placement/current (every page, edge-cached 5 min)
+  W-->>B: this month's sponsor + published creative per format
+  B->>W: POST /api/placement/seen (beacon) · GET /api/placement/go/:id (click → 302)
+```
+
+Serving: `<PromoSlot placement="…">` maps each placement to a format (`app/utils/promo.ts`): leaderboard
+728×90 / 320×100, square 300×250, text (logo, 60-char headline, 140-char line). It reserves that box on the
+server render, fetches `/api/placement/current` once per page view after mount, and fills the box with the
+sponsor's creative (`<PromoCreative>`, labelled Sponsored, `rel="sponsored noopener"`) or the house
+placeholder (`<PromoHouse>`, links to `/sponsor`) — so nothing shifts. Pro readers see neither. AdSense code
+remains in `app/utils/promoNetwork.ts` + `<PromoNetwork>` but only loads when built with
+`NUXT_PUBLIC_PROMO_NETWORK=adsense`. Serving paths say `placement` / `partner` and images live under
+`/media/brand/…`: filter lists match "ad" and "sponsor" in URLs and would break the page.
+
 ## Data model
 
 Application tables live in the `app` schema (`server/db/*.sql`, applied in order). Users themselves live
@@ -293,7 +328,7 @@ erDiagram
   }
   USER_ROLE {
     text user_id PK
-    text role "learner | moderator | admin"
+    text role "learner | instructor | moderator | admin"
   }
   INQUIRY {
     bigint id PK
@@ -313,7 +348,44 @@ erDiagram
   DEMO_ACCOUNT {
     text user_id PK
   }
+  SPONSOR {
+    uuid id PK
+    text user_id UK
+    text name
+    text website
+    text contact_email
+  }
+  SPONSOR_BOOKING {
+    uuid id PK
+    uuid sponsor_id FK
+    date month "first of month; one held|paid row per month"
+    text status "held | paid | cancelled"
+    text source "dodo | invoice | comp"
+    uuid checkout_ref
+    timestamptz hold_expires_at
+    text dodo_payment_id
+    boolean needs_refund
+  }
+  SPONSOR_CREATIVE {
+    uuid id PK
+    uuid sponsor_id FK
+    text format "leaderboard | square | text"
+    text mode "image | designed"
+    text image_url
+    text headline
+    text click_url
+    text status "draft | published | paused | rejected"
+  }
+  SPONSOR_STAT {
+    uuid creative_id PK
+    date day PK
+    int impressions
+    int clicks
+  }
   COMMENT ||--o{ COMMENT : "replies"
+  SPONSOR ||--o{ SPONSOR_BOOKING : "books"
+  SPONSOR ||--o{ SPONSOR_CREATIVE : "designs"
+  SPONSOR_CREATIVE ||--o{ SPONSOR_STAT : "counted"
 ```
 
 Views: `app.user_points` (10 per lesson, 2 per best quiz point, plus approved contributions) feeds the
@@ -333,19 +405,32 @@ leaderboard; `app.admin_user` joins everything the admin console shows about a u
 | GET · POST | `/api/comments` | public · user | Read / post comments and one level of replies |
 | DELETE | `/api/comments/:id` | author | Delete your own comment (moderators hide via admin) |
 | GET · POST | `/api/submissions` | user | Own submissions / submit resource, dashboard, idea |
-| POST | `/api/upload` | user | Screenshot upload to R2 |
+| POST | `/api/upload` | user | Screenshot upload to R2; with `kind`, a sponsor creative (size-checked from the bytes) |
 | POST | `/api/inquiries` | public | Enrolment, quotation or implementation enquiry |
 | POST | `/api/newsletter` | public | Newsletter signup (proxied to Ghost members) |
 | POST | `/api/billing/checkout` | user (not demo) | Start a Dodo checkout |
 | POST | `/api/billing/portal` | user | Billing portal link |
-| POST | `/api/billing/webhook` | Dodo signature | Grant / revoke Pro |
+| POST | `/api/billing/webhook` | Dodo signature | Grant / revoke Pro; settle sponsorship holds (`metadata.kind = sponsor`) |
+| GET | `/api/partner/calendar` | public | Next 12 months: available / held / booked (sponsor name) / closed |
+| GET | `/api/partner/reach` | public | Live reach for `/sponsor` (Neon counts + Cloudflare page views if configured), cached 1 h |
+| POST | `/api/partner/checkout` | user (not demo) | Hold consecutive months, start a Dodo checkout |
+| GET · PATCH | `/api/partner/me`, `/api/partner/account` | user | Sponsor studio: account, bookings, creatives, stats · brand edit |
+| POST · PATCH · DELETE | `/api/partner/creatives`, `/api/partner/creatives/:id` | sponsor | Save (and publish) / publish–unpublish / delete a creative |
+| GET | `/api/placement/current` | public | This month's sponsor + published creative per format (edge-cached 5 min) |
+| POST | `/api/placement/seen` | public | Impression beacon (live creatives only) |
+| GET | `/api/placement/go/:id` | public | Count a click, 302 to the creative's link |
+| GET · POST · PATCH | `/api/admin/sponsors`, `/bookings`, `/creatives` | admin | Calendar, manual / comp bookings, cancel, refunds, moderation |
 | GET | `/api/geo` | public | Visitor country from the edge (first-visit language) |
 | * | `/api/auth/**` | — | Proxy to Neon Auth; `POST /api/auth/demo` signs into the demo account |
 | GET | `/api/admin/me` | user | Role and permissions of the session |
 | GET · PATCH | `/api/admin/submissions`, `/comments`, `/inquiries` | moderator | Moderation queues |
 | GET · PATCH · POST | `/api/admin/users` | admin | Users, roles, Pro grants |
 | GET · PATCH | `/api/admin/lessons` | admin | Access tier + Mux ids, committed to GitHub |
-| GET · PUT | `/api/admin/content/tree`, `/file` | admin | In-browser lesson editor, commits to GitHub |
+| GET · PUT | `/api/admin/content/tree`, `/file` | admin · instructor | Course tree from main; read / save a lesson or person (admin → commit to main, instructor → branch + pull request) |
+| POST · PATCH | `/api/admin/content/lesson`, `/section` | admin · instructor | Create a lesson or section (next two-digit prefix); rename a lesson; rename a section (admin) |
+| POST | `/api/admin/content/reorder` | admin | Reorder lessons or sections: English + every locale + manifest keys, one commit |
+| GET · POST | `/api/admin/content/reviews` | admin · instructor | Review queue of instructor pull requests: publish (squash merge), request changes, close |
+| GET · PUT | `/api/admin/content/instructors` | admin | Link instructor accounts to people in the registry |
 | GET | `/api/admin/stats` | admin | Overview metrics |
 | GET | `/raw/<path>.md` | public | Any lesson as raw markdown |
 | GET · POST | `/mcp` | public | MCP server (JSON-RPC 2.0), read-only curriculum tools |
@@ -362,14 +447,27 @@ generated. Schema: `content.config.ts`.
 | `title`, `description`, `navigation.title` | Page title, meta description, short sidebar title |
 | `access: free \| pro` | Pro bodies are moved out of the public bundle by `gate-content.mjs` |
 | `mux: id` | The lesson's one Mux video; every locale gets it with captions and a transcript (`content-transcripts/`) |
-| `video: { id, start, end }` | YouTube clip at the top of the lesson |
+| `video: { id, start, end, title?, author?, authorUrl? }` | YouTube clip at the top of the lesson; `author` credits someone else's video ("Video by …") |
+| `authors: [slug]` | Who wrote it — slugs from `content/people/`; none means the site owner. English only, translations inherit |
+| `credits[]: { kind, title, author, authorUrl?, url, license?, note? }` | Third-party video / post / article / image / dataset used in the lesson — "Credits & sources" block and JSON-LD `citation`. English only |
 | `walkthrough: { org, shots[] }` | Screen-recording script, rendered as a step-by-step tour and HowTo JSON-LD |
 | `quiz[]: { q, options[], answer }` | Graded quiz |
 | `interview[]: { q, a }` | Interview Q&A, also FAQPage JSON-LD |
 | `links[]` | Buttons in the lesson header |
 
-Collections: `docs` (lessons, all locales), `showcase` (`content/showcase/`, dashboard write-ups) and
-`resources` (`content/resources/`, curated links).
+Collections: `docs` (lessons, all locales), `showcase` (`content/showcase/`, dashboard write-ups),
+`resources` (`content/resources/`, curated links) and `people` (`content/people/<slug>.yml` — name, role
+instructor | maintainer | blogger | creator | community, avatar, headline, links), listed on `/instructors`
+together with everyone named in a lesson's credits.
+
+**Editing in the browser** — `/admin → Content` reads the course from `main` on GitHub (one GraphQL call,
+cached per commit) and writes back through the Git Data API: edit a lesson (form + markdown + live preview),
+create lessons and sections with correct prefixes, rename, and reorder. A reorder renames the English files,
+the same relative paths in every locale and the `.translation-manifest.json` keys in **one commit**, so
+nothing is re-translated and no URL changes. Admins commit to `main`; **instructors** (role `instructor`,
+linked to a person in the registry) may edit only lessons whose `authors` include them, and every save goes
+to a `lesson/<slug>-<id>` branch and pull request that an admin publishes from the review queue. Requires
+`GITHUB_CONTENT_TOKEN` with Contents + Pull requests read/write, and migration `012_instructors.sql`.
 
 ## Internationalisation
 

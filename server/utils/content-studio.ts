@@ -1,10 +1,11 @@
 /**
  * Shared plumbing for the Content Studio routes (/api/admin/content/*).
  *
- * The studio edits English lessons by proxying the GitHub REST contents API —
- * the repo itself stays the source of truth, and a publish is just a commit to
- * main, which triggers the translate workflow and the Pages deploy exactly as
- * a local push would.
+ * The studio edits English lessons by proxying the GitHub API — the repo
+ * itself stays the source of truth, and a publish is just a commit to main,
+ * which triggers the translate workflow and the deploy exactly as a local push
+ * would. An instructor's save is a commit to a branch plus a pull request
+ * instead (server/utils/content-publish.ts).
  *
  * Security posture:
  *   - GITHUB_CONTENT_TOKEN never leaves the server. It is read here, sent to
@@ -14,10 +15,18 @@
  *     that could smuggle query strings into the proxied URL.
  */
 
+/** Every content/<locale> folder: English plus the eleven generated ones. */
+export const CONTENT_LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'ja', 'zh', 'hi', 'ar', 'ru', 'bn', 'ur'] as const
+
 const MAX_CONTENT_BYTES = 1024 * 1024 // 1 MB — far beyond any real lesson.
 
 export function contentRepo(): string {
   return process.env.GITHUB_CONTENT_REPO || 'imswarnil/CRM-Analytics-Academy'
+}
+
+/** The branch the site deploys from; admins commit here, instructors open pull requests against it. */
+export function contentBranch(): string {
+  return process.env.GITHUB_CONTENT_BRANCH || 'main'
 }
 
 export function requireContentToken(): string {
@@ -72,4 +81,28 @@ export function ghHeaders(token: string): Record<string, string> {
 export function ghStatus(e: unknown): number {
   const err = e as { status?: number, statusCode?: number, response?: { status?: number } }
   return Number(err?.status ?? err?.statusCode ?? err?.response?.status ?? 0)
+}
+
+/** content/people/<slug>.yml — one entry in the people registry. */
+export function assertPersonPath(path: unknown): string {
+  if (typeof path !== 'string' || !/^content\/people\/[a-z0-9][a-z0-9-]{0,63}\.yml$/.test(path)) {
+    throw createError({ statusCode: 400, statusMessage: 'Path must be content/people/<slug>.yml.' })
+  }
+  return path
+}
+
+/** A section folder under content/en: two-digit prefix, kebab-case slug. */
+export function assertSectionDir(dir: unknown): string {
+  if (typeof dir !== 'string' || !/^\d{2,3}\.[a-z0-9][a-z0-9-]*$/.test(dir)) {
+    throw createError({ statusCode: 400, statusMessage: 'Unknown section.' })
+  }
+  return dir
+}
+
+/** A person or lesson slug: lowercase, digits and dashes. */
+export function assertSlug(slug: unknown, what = 'Slug'): string {
+  if (typeof slug !== 'string' || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(slug)) {
+    throw createError({ statusCode: 400, statusMessage: `${what} must be lowercase letters, digits and dashes.` })
+  }
+  return slug
 }

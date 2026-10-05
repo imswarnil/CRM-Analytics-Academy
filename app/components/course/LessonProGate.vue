@@ -56,7 +56,7 @@ async function load() {
     emit('unlocked')
   } catch (e) {
     const err = e as { statusCode?: number }
-    failed.value = err.statusCode === 403 ? '' : t('pro.lessonLoadFailed')
+    failed.value = err.statusCode === 403 ? '' : (apiError(e) || t('pro.lessonLoadFailed'))
   } finally {
     loading.value = false
   }

@@ -51,6 +51,7 @@ const TYPES = [
   { value: 'contact', label: 'Contact' }
 ]
 const TYPE_ICON: Record<string, string> = {
+  project: 'i-lucide-handshake',
   sales: 'i-lucide-briefcase-business',
   quote: 'i-lucide-file-text',
   team: 'i-lucide-users',
@@ -70,8 +71,13 @@ const N8N_META: Record<Lead['n8nStatus'], { label: string, cls: string }> = {
   not_configured: { label: 'No CRM', cls: 'border-(--line) text-(--ink2)' }
 }
 
-const type = ref('all')
-const status = ref<string>('new')
+// Another tab can open this one pre-filtered by setting this state.
+const presetType = useState<string | null>('admin-leads-type', () => null)
+const preset = presetType.value && TYPES.some(x => x.value === presetType.value) ? presetType.value : null
+presetType.value = null
+const type = ref(preset ?? 'all')
+// Arriving pre-filtered means "show me all of these", not only the new ones.
+const status = ref<string>(preset ? 'all' : 'new')
 const q = ref('')
 const page = ref(1)
 const leads = ref<Lead[]>([])
@@ -99,7 +105,7 @@ async function load() {
     pageSize.value = res.pageSize
     counts.value = res.counts
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Could not load leads.'
+    error.value = apiError(e) || 'Could not load leads.'
   } finally {
     loading.value = false
   }
@@ -146,7 +152,7 @@ async function save() {
     open.value = false
     await load()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not save', color: 'error' })
+    toast.add({ title: apiError(e) || 'Could not save', color: 'error' })
   } finally {
     saving.value = false
   }
@@ -161,7 +167,7 @@ async function enrich() {
     toast.add({ title: res.companyName ? `Enriched: ${res.companyName}` : 'Enriched', icon: 'i-lucide-sparkles' })
     load()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not enrich', color: 'error' })
+    toast.add({ title: apiError(e) || 'Could not enrich', color: 'error' })
   } finally {
     busy.value = ''
   }
@@ -180,7 +186,7 @@ async function forward() {
     })
     load()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not send', color: 'error' })
+    toast.add({ title: apiError(e) || 'Could not send', color: 'error' })
   } finally {
     busy.value = ''
   }

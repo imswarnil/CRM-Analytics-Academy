@@ -13,6 +13,9 @@ defineProps<{
   items: { label: string, to: string, description?: string, icon?: string }[]
 }>()
 
+const { locale, localeCodes } = useI18n()
+const localized = (to: string) => localizeHref(to, locale.value, localeCodes.value)
+
 function external(to: string) {
   return /^https?:\/\//.test(to)
 }
@@ -23,7 +26,7 @@ function external(to: string) {
     <NuxtLink
       v-for="(link, i) in items"
       :key="i"
-      :to="link.to"
+      :to="localized(link.to)"
       :target="external(link.to) ? '_blank' : undefined"
       :rel="external(link.to) ? 'noopener' : undefined"
       class="group flex items-center gap-3 border-[1.5px] border-(--ink) bg-(--card) px-4 py-3 transition hover:border-(--signal) hover:bg-(--ice)"

@@ -1,69 +1,80 @@
 /**
- * Create or update one English lesson by committing straight to the repo's
- * default branch through the GitHub contents API.
+ * Save one content file.
  *
- * sha present  → update (GitHub rejects a stale sha with 409/422, surfaced as
- *                a clear conflict message instead of a silent overwrite).
- * sha absent   → create (GitHub 422s if the file already exists).
+ *   content/en/**.md         update an existing lesson (sha required). New
+ *                            lessons go through POST /lesson, which picks the
+ *                            numeric prefix.
+ *   content/people/<s>.yml   create (no sha) or update a person — admins only.
  *
- * No committer is set: the commit is authored by whatever identity the
- * fine-grained PAT belongs to, which is exactly the audit trail wanted.
+ * Admins commit to main; instructors to their draft branch and pull request
+ * (server/utils/content-publish.ts). The frontmatter is validated first — an
+ * unknown author slug or a credit without a link is refused here rather than
+ * discovered by the build.
  */
-export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
-  const token = requireContentToken()
-  const repo = contentRepo()
+import { parse as parseYaml } from 'yaml'
 
+export default defineEventHandler(async (event) => {
+  const ctx = await editorContext(event)
   const body = await readBody<{ path?: unknown, content?: unknown, sha?: unknown, message?: unknown }>(event)
-  const path = assertLessonPath(body?.path)
 
   if (typeof body?.content !== 'string' || !body.content.trim()) {
     throw createError({ statusCode: 400, statusMessage: 'Content is required.' })
   }
-  const content = assertContentSize(body.content)
-
-  const sha = typeof body?.sha === 'string' && body.sha ? body.sha : undefined
-  const message = typeof body?.message === 'string' && body.message.trim()
-    ? body.message.trim()
-    : `content: update ${path} via admin studio`
-
-  let res: { content?: { sha?: string }, commit?: { sha?: string, html_url?: string } }
-  try {
-    res = await $fetch<{ content?: { sha?: string }, commit?: { sha?: string, html_url?: string } }>(
-      `https://api.github.com/repos/${repo}/contents/${path}`,
-      {
-        method: 'PUT',
-        headers: ghHeaders(token),
-        body: {
-          message,
-          content: Buffer.from(content, 'utf8').toString('base64'),
-          ...(sha ? { sha } : {})
-        }
-      }
-    )
-  } catch (e) {
-    const status = ghStatus(e)
-    // 409 = branch moved under us; 422 = sha stale/missing for an existing
-    // file (or present for a new one). Both mean the editor's view is out of
-    // date — same remedy either way.
-    if (status === 409 || status === 422) {
-      throw createError({
-        statusCode: 409,
-        statusMessage: 'The file changed on GitHub since it was loaded - reload it and reapply your edit.'
-      })
-    }
-    if (status === 401 || status === 403) {
-      throw createError({ statusCode: 502, statusMessage: 'GitHub rejected the content token - check GITHUB_CONTENT_TOKEN permissions.' })
-    }
-    throw createError({ statusCode: 502, statusMessage: 'Could not publish the file to GitHub.' })
-  }
+  const content = assertContentSize(body.content.replace(/\r\n/g, '\n'))
+  const sha = typeof body?.sha === 'string' && body.sha ? body.sha : null
+  const custom = typeof body?.message === 'string' ? body.message.trim().slice(0, 200) : ''
 
   setResponseHeader(event, 'cache-control', 'private, no-store')
 
-  return {
-    path,
-    sha: String(res.content?.sha ?? ''),
-    commitSha: String(res.commit?.sha ?? ''),
-    commitUrl: res.commit?.html_url ? String(res.commit.html_url) : null
+  // People registry -----------------------------------------------------------
+  if (typeof body?.path === 'string' && body.path.startsWith('content/people/')) {
+    if (ctx.role !== 'admin') {
+      throw createError({ statusCode: 403, statusMessage: 'Only admins edit the people registry.' })
+    }
+    const path = assertPersonPath(body.path)
+    let data: Record<string, unknown>
+    try {
+      data = (parseYaml(content) ?? {}) as Record<string, unknown>
+    } catch (e) {
+      throw createError({ statusCode: 422, statusMessage: `Not valid YAML: ${String((e as Error).message).split('\n')[0]}` })
+    }
+    const problems = personProblems(data)
+    if (problems.length) throw createError({ statusCode: 422, statusMessage: problems.join(' ') })
+
+    const slug = path.replace(/^content\/people\/|\.yml$/g, '')
+    const result = await publishChanges(ctx, {
+      summary: String(data.name),
+      slug,
+      message: custom || `content: ${sha ? 'update' : 'add'} person ${slug}`,
+      changes: [{ path, content }],
+      expect: { [path]: sha }
+    })
+    return { path, sha: await gitBlobSha(content), ...result }
   }
+
+  // Lesson ---------------------------------------------------------------------
+  const path = assertLessonPath(body?.path)
+  if (!sha) {
+    throw createError({ statusCode: 400, statusMessage: 'Reload the lesson before saving (missing sha). New lessons are created with "New lesson".' })
+  }
+
+  const course = await readCourse()
+  const data = assertLessonFile(content, new Set(course.people.map(p => p.slug)))
+
+  const draft = ctx.role === 'instructor' ? await findDraft(ctx.user.id, [path]) : null
+  await assertMayEdit(ctx, path, draft)
+  if (ctx.role === 'instructor' && !(data.authors as string[] | undefined)?.includes(ctx.personSlug!)) {
+    throw createError({ statusCode: 422, statusMessage: 'Keep yourself in authors - it is what lets you keep editing this lesson.' })
+  }
+
+  const rel = path.replace('content/en/', '')
+  const result = await publishChanges(ctx, {
+    summary: String(data.title),
+    slug: lessonRoute(rel.split('/')[0]!, rel.split('/').pop()!).split('/').pop()!,
+    message: custom || `content: update ${rel}`,
+    changes: [{ path, content }],
+    expect: { [path]: sha },
+    draft
+  })
+  return { path, sha: await gitBlobSha(content), ...result }
 })

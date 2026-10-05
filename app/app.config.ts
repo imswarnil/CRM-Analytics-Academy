@@ -12,7 +12,12 @@ export default defineAppConfig({
     // ---- Primitives -------------------------------------------------------
     button: {
       slots: {
-        base: 'rounded-none font-bold border-[1.5px] border-transparent transition-all duration-150 ease-[cubic-bezier(.3,1.5,.5,1)]'
+        // The press: one pixel down-right while the hard shadow shrinks by the
+        // same pixel, so the shadow's outer edge never moves and nothing around
+        // the button shifts. Only transform and box-shadow animate (120ms,
+        // ease-out); colours change at once. Reduced motion gets the same one-pixel
+        // state change with no transition.
+        base: 'rounded-none font-bold border-[1.5px] border-transparent transition-[transform,box-shadow] duration-[120ms] ease-out motion-reduce:transition-none'
       },
       variants: {
         size: {
@@ -27,22 +32,22 @@ export default defineAppConfig({
         {
           color: 'primary',
           variant: 'solid',
-          class: 'border-(--ink) bg-(--signal) text-white shadow-[5px_5px_0_var(--ink)] hover:bg-blueprint-900 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--ink)] active:translate-x-1 active:translate-y-1 active:shadow-[1px_1px_0_var(--ink)] dark:text-(--on) dark:hover:bg-blueprint-300'
+          class: 'border-(--ink) bg-(--signal) text-white shadow-[5px_5px_0_var(--ink)] hover:bg-blueprint-900 active:translate-x-px active:translate-y-px active:shadow-[4px_4px_0_var(--ink)] dark:text-(--on) dark:hover:bg-blueprint-300'
         },
         {
           color: 'neutral',
           variant: 'outline',
-          class: 'border-(--ink) bg-(--card) text-(--ink) ring-0 hover:bg-(--ice) hover:gap-3'
+          class: 'border-(--ink) bg-(--card) text-(--ink) ring-0 hover:bg-(--ice) active:translate-x-px active:translate-y-px'
         },
         {
           color: 'neutral',
           variant: 'solid',
-          class: 'border-(--ink) bg-(--ink) text-(--paper) hover:bg-(--signal) hover:text-white'
+          class: 'border-(--ink) bg-(--ink) text-(--paper) hover:bg-(--signal) hover:text-white active:translate-x-px active:translate-y-px'
         },
         {
           color: 'primary',
           variant: 'outline',
-          class: 'border-(--signal) text-(--signal) ring-0 hover:bg-(--ice)'
+          class: 'border-(--signal) text-(--signal) ring-0 hover:bg-(--ice) active:translate-x-px active:translate-y-px'
         },
         {
           color: 'primary',
@@ -229,7 +234,7 @@ export default defineAppConfig({
     },
     contentSurround: {
       slots: {
-        link: 'rounded-none border-[1.5px] border-(--ink) bg-(--card) hover:bg-(--card) hover:shadow-[6px_6px_0_var(--ink)] hover:-translate-y-1 transition-all duration-200 px-5 py-6',
+        link: 'rounded-none border-[1.5px] border-(--ink) bg-(--card) hover:bg-(--card) hover:shadow-[4px_4px_0_var(--ink)] hover:-translate-x-px hover:-translate-y-px transition-[transform,box-shadow] duration-[160ms] ease-out motion-reduce:transition-none px-5 py-6',
         linkLeading: 'rounded-none bg-(--ice) ring-[1.5px] ring-(--ink) group-hover:bg-(--signal)',
         linkLeadingIcon: 'text-(--signal) group-hover:text-white'
       }

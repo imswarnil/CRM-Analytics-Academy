@@ -1,0 +1,11 @@
+# The people registry: one file per person, named by the slug lessons use in
+# `authors:`. Facts only (see app/data/author.ts for where they come from).
+name: "Swarnil Singhai"
+role: "maintainer"
+avatar: "https://github.com/imswarnil.png"
+headline: "Salesforce engineer, seven years in go-to-market analytics. Writes and maintains the Academy."
+links:
+  site: "https://imswarnil.com"
+  linkedin: "https://www.linkedin.com/in/imswarnil/"
+  x: "https://x.com/imswarnil"
+  github: "https://github.com/imswarnil"

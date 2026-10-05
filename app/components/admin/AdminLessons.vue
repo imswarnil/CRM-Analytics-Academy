@@ -33,7 +33,7 @@ async function load() {
   try {
     lessons.value = (await $fetch<{ lessons: Lesson[] }>('/api/admin/lessons')).lessons
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Could not load lessons.'
+    error.value = apiError(e) || 'Could not load lessons.'
   } finally {
     loading.value = false
   }
@@ -76,7 +76,7 @@ async function save() {
     saved.value[editing.value.file] = res.commitUrl ?? ''
     editing.value = null
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Could not save.'
+    error.value = apiError(e) || 'Could not save.'
   } finally {
     saving.value = false
   }

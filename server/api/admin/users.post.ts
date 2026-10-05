@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
 
   // Optional role, applied after the account exists.
   const role = String(body?.role ?? 'learner')
-  if (['admin', 'moderator'].includes(role)) {
+  if (role !== 'learner' && (ROLES as readonly string[]).includes(role)) {
     const sql = useDb()
     const rows = await sql`select id::text as id from neon_auth."user" where lower(email) = ${email}`
     if (rows[0]) {

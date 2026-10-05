@@ -14,6 +14,14 @@
  * A team plan never touches the buyer's personal entitlement: its events
  * create or update the app.team row (keyed on the subscription), whose seats
  * are the subscription quantity and whose members get Pro through hasPro().
+ *
+ * A sponsorship (metadata.kind = 'sponsor') never touches entitlements
+ * either — it is a one-time payment, and without its own branch it would fall
+ * into the lifetime-Pro grant below. Its events settle the months held at
+ * checkout (app.sponsor_booking, see server/api/partner/checkout.post.ts):
+ *
+ *   payment.succeeded                     → held months become paid
+ *   payment.failed / payment.cancelled    → held months are released
  */
 interface DodoEvent {
   type: string
@@ -48,6 +56,18 @@ export default defineEventHandler(async (event) => {
   if (!seen.length) return { ok: true, duplicate: true }
 
   const d = msg.data
+
+  if (d.metadata?.kind === 'sponsor' || d.metadata?.plan === 'sponsor') {
+    try {
+      return { ok: true, sponsor: await applySponsorEvent(sql, msg.type, d) }
+    } catch (e) {
+      // Un-claim the event so Dodo's retry processes it again instead of
+      // being skipped as a duplicate.
+      await sql`delete from app.webhook_event where id = ${getRequestHeader(event, 'webhook-id')}`
+      throw e
+    }
+  }
+
   // Prefer the account id carried from checkout; fall back to the email on
   // the Dodo customer, matched against Neon Auth, for payments that began
   // somewhere other than our checkout endpoint.
@@ -168,4 +188,72 @@ async function applyTeamEvent(
       await sql`update app.team set status = 'inactive', updated_at = now() where dodo_subscription_id = ${d.subscription_id}`
       break
   }
+}
+
+/**
+ * Settles a sponsorship checkout. Idempotent by construction: every update is
+ * conditioned on the booking's current status, so a replayed or reordered
+ * delivery changes nothing the second time.
+ */
+async function applySponsorEvent(
+  sql: ReturnType<typeof useDb>,
+  type: string,
+  d: DodoEvent['data']
+): Promise<string> {
+  const ref = d.metadata?.checkout_ref
+  if (!ref || !/^[0-9a-f-]{36}$/i.test(ref)) return 'ignored: no checkout_ref'
+
+  if (type === 'payment.failed' || type === 'payment.cancelled') {
+    await sql`
+      update app.sponsor_booking set status = 'cancelled', note = ${`payment ${type.split('.')[1]}`}, updated_at = now()
+      where checkout_ref = ${ref}::uuid and status = 'held'
+    `
+    await placementChanged()
+    return 'released'
+  }
+
+  if (type !== 'payment.succeeded') return `ignored: ${type}`
+
+  const paymentId = d.payment_id ?? null
+  // The normal case: the hold is still live.
+  await sql`
+    update app.sponsor_booking
+    set status = 'paid', paid_at = now(), hold_expires_at = null, dodo_payment_id = ${paymentId}, updated_at = now()
+    where checkout_ref = ${ref}::uuid and status = 'held'
+  `
+
+  // The buyer took longer than the hold. Re-claim each lapsed month if it is
+  // still free; if someone else has it now, the money arrived for a month we
+  // cannot give, so flag it for a refund in /admin → Sponsors.
+  const lapsed = await sql`
+    select id::text, sponsor_id::text, to_char(month, 'YYYY-MM-DD') as month from app.sponsor_booking
+    where checkout_ref = ${ref}::uuid and status = 'cancelled' and dodo_payment_id is null and needs_refund = false
+  `
+  for (const row of lapsed) {
+    // The buyer's OWN newer hold on this month (a second checkout they
+    // started) yields to the one they actually paid.
+    await sql`
+      update app.sponsor_booking set status = 'cancelled', note = 'superseded by payment of an earlier checkout', updated_at = now()
+      where month = ${row.month}::date and sponsor_id = ${row.sponsor_id}::uuid and status = 'held'
+    `
+    try {
+      await sql`
+        update app.sponsor_booking
+        set status = 'paid', paid_at = now(), hold_expires_at = null, dodo_payment_id = ${paymentId},
+            note = 'paid after the hold lapsed', updated_at = now()
+        where id = ${row.id}::uuid and status = 'cancelled'
+      `
+    } catch (e) {
+      if ((e as { code?: string }).code !== '23505') throw e
+      await sql`
+        update app.sponsor_booking
+        set needs_refund = true, dodo_payment_id = ${paymentId},
+            note = 'paid after the hold lapsed; month already taken — refund', updated_at = now()
+        where id = ${row.id}::uuid
+      `
+    }
+  }
+
+  await placementChanged()
+  return 'paid'
 }

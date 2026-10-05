@@ -1,42 +1,52 @@
 /**
- * One lesson file, decoded, plus the blob sha the editor must send back on
- * save — the sha is GitHub's optimistic lock, so a stale editor gets a 409
- * instead of silently overwriting someone else's commit.
+ * One content file, decoded, plus the blob sha the editor must send back on
+ * save — the sha is the optimistic lock, so a stale editor gets a 409 instead
+ * of silently overwriting someone else's commit.
+ *
+ * Lessons (content/en/**.md) for admins and instructors; people entries
+ * (content/people/<slug>.yml) for admins. An instructor with an open draft of
+ * the lesson reads it from the draft's branch — that is the copy their next
+ * save will land on — and `canEdit` says whether they may change it at all.
  */
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
-  const token = requireContentToken()
-  const repo = contentRepo()
-  const path = assertLessonPath(getQuery(event).path)
+  const { user, role } = await requireEditor(event)
+  const raw = getQuery(event).path
+  const isPerson = typeof raw === 'string' && raw.startsWith('content/people/')
+  if (isPerson && role !== 'admin') {
+    throw createError({ statusCode: 403, statusMessage: 'Only admins edit the people registry.' })
+  }
+  const path = isPerson ? assertPersonPath(raw) : assertLessonPath(raw)
 
-  let file: { sha?: string, content?: string, encoding?: string, size?: number }
-  try {
-    file = await $fetch<{ sha?: string, content?: string, encoding?: string, size?: number }>(
-      `https://api.github.com/repos/${repo}/contents/${path}`,
-      { headers: ghHeaders(token) }
-    )
-  } catch (e) {
-    const status = ghStatus(e)
-    if (status === 404) {
-      throw createError({ statusCode: 404, statusMessage: 'File not found in the repo.' })
+  let draft: DraftRow | null = null
+  let canEdit = role === 'admin'
+  let reason: string | null = null
+  if (role === 'instructor') {
+    try {
+      const ctx = await editorContext(event)
+      draft = await findDraft(user.id, [path])
+      await assertMayEdit(ctx, path, draft)
+      canEdit = true
+    } catch (e) {
+      const err = e as { statusCode?: number, statusMessage?: string }
+      if (err.statusCode !== 403) throw e
+      reason = err.statusMessage ?? 'You cannot edit this lesson.'
     }
-    if (status === 401 || status === 403) {
-      throw createError({ statusCode: 502, statusMessage: 'GitHub rejected the content token - check GITHUB_CONTENT_TOKEN permissions.' })
-    }
-    throw createError({ statusCode: 502, statusMessage: 'Could not read the file from GitHub.' })
   }
 
-  // The contents API stops inlining content above 1 MB; that is also our own
-  // editing cap, so refuse rather than returning an empty body.
-  if (Number(file.size ?? 0) > 1024 * 1024 || file.encoding !== 'base64' || typeof file.content !== 'string') {
-    throw createError({ statusCode: 413, statusMessage: 'File is too large to edit in the studio (1 MB limit).' })
-  }
+  const ref = draft?.branch ?? contentBranch()
+  const file = await readFileAt(path, ref)
+  if (!file) throw createError({ statusCode: 404, statusMessage: 'File not found in the repo.' })
 
   setResponseHeader(event, 'cache-control', 'private, no-store')
-
   return {
     path,
-    sha: String(file.sha),
-    content: Buffer.from(file.content, 'base64').toString('utf8')
+    sha: file.sha,
+    content: file.content,
+    ref,
+    canEdit,
+    reason,
+    draft: draft
+      ? { branch: draft.branch, prNumber: draft.prNumber, prUrl: draft.prUrl, status: draft.status, reviewNote: draft.reviewNote }
+      : null
   }
 })

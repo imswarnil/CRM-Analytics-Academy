@@ -10,12 +10,12 @@ import type { LeadRow } from './n8n'
  * type-specific fields may land in `details` — anything else the client sends
  * is dropped rather than stored.
  */
-export const LEAD_TYPES = ['quote', 'sales', 'contact', 'instructor', 'sponsor', 'team', 'nomination', 'training', 'implementation'] as const
+export const LEAD_TYPES = ['quote', 'sales', 'contact', 'instructor', 'sponsor', 'team', 'nomination'] as const
 export type LeadType = typeof LEAD_TYPES[number]
 
 /** Business conversations: these need a company email. */
-export const WORK_EMAIL_TYPES: LeadType[] = ['quote', 'sales', 'team', 'training', 'implementation', 'sponsor']
-const COMPANY_REQUIRED: LeadType[] = ['quote', 'sales', 'team', 'implementation', 'sponsor']
+export const WORK_EMAIL_TYPES: LeadType[] = ['quote', 'sales', 'team', 'sponsor']
+const COMPANY_REQUIRED: LeadType[] = ['quote', 'sales', 'team', 'sponsor']
 
 const DETAIL_FIELDS: Record<LeadType, string[]> = {
   quote: ['plan', 'delivery', 'timeline', 'teamSize'],
@@ -24,9 +24,7 @@ const DETAIL_FIELDS: Record<LeadType, string[]> = {
   instructor: ['expertise', 'experienceYears', 'linkedin', 'portfolio', 'topics', 'availability'],
   sponsor: ['tier', 'placement', 'timeline'],
   team: ['plan', 'teamSize'],
-  nomination: ['nomineeName', 'nomineeUrl', 'builtWhat', 'photoUrl', 'relationship'],
-  training: ['center', 'track', 'cohort', 'experience'],
-  implementation: ['scope', 'orgEdition', 'dataSources', 'timeline']
+  nomination: ['nomineeName', 'nomineeUrl', 'builtWhat', 'photoUrl', 'relationship']
 }
 
 const REQUIRED_DETAILS: Partial<Record<LeadType, { key: string, label: string }[]>> = {
@@ -114,7 +112,12 @@ export function validateLead(body: Record<string, unknown>): CleanLead {
   const raw = (body.details && typeof body.details === 'object' ? body.details : {}) as Record<string, unknown>
   const details: Record<string, string> = {}
   for (const key of DETAIL_FIELDS[type]) {
-    const v = text(raw[key], key === 'builtWhat' ? 2000 : 300)
+    // Multi-select fields arrive as arrays; details stay flat strings so the
+    // CRM hand-off and the admin table need no special case.
+    const value = Array.isArray(raw[key])
+      ? (raw[key] as unknown[]).map(x => String(x ?? '').trim()).filter(Boolean).slice(0, 12).join(', ')
+      : raw[key]
+    const v = text(value, key === 'builtWhat' ? 2000 : 300)
     if (!v) continue
     if (URL_DETAILS.has(key) && !safeUrl(/^https?:\/\//i.test(v) ? v : `https://${v}`)) fail('Please enter a valid public link (https://…).')
     details[key] = URL_DETAILS.has(key) && !/^https?:\/\//i.test(v) ? `https://${v}` : v
