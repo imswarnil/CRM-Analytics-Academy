@@ -84,7 +84,7 @@ set of revenue dashboards built on one company's data. The core course is free; 
 | Database | [Neon](https://neon.tech) serverless Postgres (`@neondatabase/serverless`) |
 | Auth | Neon Auth ([better-auth](https://better-auth.com)), a shared demo account |
 | Payments | [Dodo Payments](https://dodopayments.com) hosted checkout + Standard Webhooks (test mode) |
-| Video | [Mux](https://mux.com) (public + signed playback, per-language ids), Mux CLI for uploads, ffmpeg + VoiceStudio / macOS voices for local narration |
+| Video | [Mux](https://mux.com) (public + signed playback, one video per lesson, auto-generated captions translated into 11 languages), `<mux-player>`, an owner-run production pipeline (`pnpm video`: HeyGen or local voice clone, HyperFrames motion, Premiere via MCP) |
 | CMS | [Payload 3](https://payloadcms.com) on Next.js 15 (`cms/`), Postgres adapter in its own schema, optional R2 storage; Nuxt Studio as a lightweight in-browser editor |
 | Automation | [n8n](https://n8n.io) webhook → Salesforce Lead (HMAC-signed), enrichment from the company's own site |
 | SEO | `@nuxtjs/sitemap`, `nuxt-og-image` (Takumi renderer), JSON-LD per page type, hreflang, IndexNow |
@@ -99,7 +99,7 @@ The full, step-by-step operator's guide lives in the admin console (**/admin →
 
 1. **Write** a lesson in Payload (`pnpm cms:dev`) or as `content/en/<NN.section>/<NN.lesson>.md`; preview with `pnpm dev`.
 2. **Free or Pro**: `access: pro` in the English frontmatter, the Payload field, or **/admin → Lessons & Pro**. The build gates the body and fails if anything leaks.
-3. **Video**: `pnpm mux:lesson <route> <file> [--lang=es]`; slides for recording with `pnpm slides:lesson <route>`; edit in After Effects / Premiere from `content-assets/`.
+3. **Video**: `pnpm video <stage> <route>` (script → voice → avatar → motion → edit → upload → captions, see `video/README.md`); captions sync daily and are translated with the content.
 4. **Publish**: `pnpm cms:pull`, commit, push — translation, build, deploy and IndexNow run in GitHub Actions.
 5. **Sell**: individuals buy Pro on `/pricing`; companies buy seats on `/teams` and invite colleagues on `/team`; bigger deals come through `/sales`.
 6. **Leads**: every form (sales, quotes, training, implementation, sponsor, instructor, nomination, contact) lands in Neon, is enriched, forwarded to Salesforce through n8n, and worked in **/admin → Leads**.
@@ -328,6 +328,8 @@ leaderboard; `app.admin_user` joins everything the admin console shows about a u
 | POST | `/api/quiz` | user (not demo) | Record a quiz attempt |
 | GET | `/api/leaderboard` | public | All-time or last-30-days ranking |
 | GET | `/api/lesson/<locale>/<route>` | user + Pro | Full body of a Pro lesson + signed Mux token |
+| GET | `/api/lesson-block/<locale>/<route>?n=` | user + Pro | One inline `::pro` block + signed Mux tokens |
+| GET | `/api/transcript/<locale>/<route>` | user + Pro | Transcript (VTT) of a Pro lesson's video |
 | GET · POST | `/api/comments` | public · user | Read / post comments and one level of replies |
 | DELETE | `/api/comments/:id` | author | Delete your own comment (moderators hide via admin) |
 | GET · POST | `/api/submissions` | user | Own submissions / submit resource, dashboard, idea |
@@ -359,7 +361,7 @@ generated. Schema: `content.config.ts`.
 |---|---|
 | `title`, `description`, `navigation.title` | Page title, meta description, short sidebar title |
 | `access: free \| pro` | Pro bodies are moved out of the public bundle by `gate-content.mjs` |
-| `mux: { en: id, es: id }` | Mux playback id per language; English is the fallback |
+| `mux: id` | The lesson's one Mux video; every locale gets it with captions and a transcript (`content-transcripts/`) |
 | `video: { id, start, end }` | YouTube clip at the top of the lesson |
 | `walkthrough: { org, shots[] }` | Screen-recording script, rendered as a step-by-step tour and HowTo JSON-LD |
 | `quiz[]: { q, options[], answer }` | Graded quiz |
@@ -428,7 +430,9 @@ server/
   db/*.sql            migrations, applied by hand to Neon in order
   routes/             /mcp, /raw/**, /media/**
 content/              lessons (12 locales), showcase/, resources/
-scripts/              gating, translation, search index, IndexNow, Mux upload, lesson-to-video, jobs
+scripts/              gating, translation, search index, IndexNow, video pipeline (scripts/video), jobs
+content-transcripts/  lesson video captions per locale (en synced from Mux, the rest translated)
+video/                video pipeline config + guide
 cms/                  Payload CMS
 content-assets/       reusable brand, background, video and project images
 docs/                 the Blueprint design handoff
@@ -448,7 +452,9 @@ docs/                 the Blueprint design handoff
 | `pnpm verify:gating` | Fail if any Pro text is in the public bundle |
 | `pnpm ask:index` | Build `public/ask-index.json` for `/ask` and the MCP server |
 | `pnpm cms:*` | Payload dev / import / pull (see above) |
-| `pnpm mux:lesson <lesson> <video> [--lang=es]` | Upload a lesson video to Mux and write its playback id |
+| `pnpm video <stage> <route>` | Lesson video pipeline (see `video/README.md`) |
+| `pnpm captions <route> \| --all` | Sync Mux's English captions into `content-transcripts/en/` |
+| `pnpm mux:lesson <lesson> <video>` | Upload a lesson video to Mux and write its playback id |
 
 ## Local setup
 
