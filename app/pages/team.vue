@@ -202,7 +202,7 @@ async function billing() {
               Manage billing
             </UButton>
             <UButton
-              to="/experts#contact"
+              to="/teams#contact"
               color="neutral"
               variant="outline"
               class="border-white/60 bg-transparent text-white hover:bg-white/10"

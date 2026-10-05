@@ -40,8 +40,6 @@ interface Lead {
 
 const TYPES = [
   { value: 'all', label: 'All types' },
-  { value: 'project', label: 'Project (experts)' },
-  { value: 'expert', label: 'Expert application' },
   { value: 'sales', label: 'Sales' },
   { value: 'quote', label: 'Quote' },
   { value: 'team', label: 'Team' },
@@ -54,7 +52,6 @@ const TYPES = [
 ]
 const TYPE_ICON: Record<string, string> = {
   project: 'i-lucide-handshake',
-  expert: 'i-lucide-user-round-check',
   sales: 'i-lucide-briefcase-business',
   quote: 'i-lucide-file-text',
   team: 'i-lucide-users',
@@ -74,7 +71,7 @@ const N8N_META: Record<Lead['n8nStatus'], { label: string, cls: string }> = {
   not_configured: { label: 'No CRM', cls: 'border-(--line) text-(--ink2)' }
 }
 
-// Another tab (Experts) can open this one pre-filtered by setting this state.
+// Another tab can open this one pre-filtered by setting this state.
 const presetType = useState<string | null>('admin-leads-type', () => null)
 const preset = presetType.value && TYPES.some(x => x.value === presetType.value) ? presetType.value : null
 presetType.value = null

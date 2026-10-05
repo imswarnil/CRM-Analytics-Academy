@@ -134,7 +134,7 @@ useJsonLd({
   }))
 })
 
-const ways = computed(() => ['01', '02', '03', '04'].map(n => ({
+const ways = computed(() => ['01', '02', '04'].map(n => ({
   n,
   title: t(`people.teach.ways.${n}.title`),
   text: t(`people.teach.ways.${n}.text`)

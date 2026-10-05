@@ -38,8 +38,7 @@ const columns = computed(() => [
     label: t('footer.academy'),
     children: [
       { label: t('nav.forTeams'), to: '/teams' },
-      { label: t('nav.experts'), to: localePath('/experts') },
-      { label: t('footer.links.contact'), to: localePath('/experts') + '#contact' }
+      { label: t('footer.links.sales'), to: '/teams#contact' }
     ]
   }
 ])
@@ -126,7 +125,7 @@ onMounted(() => {
             class="hover:text-white"
           >Privacy</NuxtLink>
           <NuxtLink
-            :to="localePath('/experts') + '#contact'"
+            to="/teams#contact"
             class="hover:text-white"
           >Contact</NuxtLink>
         </span>

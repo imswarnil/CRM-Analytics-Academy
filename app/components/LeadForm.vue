@@ -4,9 +4,8 @@ import { emailDomain, isFreeEmailDomain } from '../../server/utils/freeEmailDoma
 
 /**
  * One form for every way to reach the Academy: contact, sales, quotes, team
- * sign-ups, implementation, sponsorship, instructor applications, Wall of
- * Fame nominations, and the experts network — project requests (`project`)
- * and applications to join (`expert`).
+ * sign-ups, sponsorship, instructor applications and Wall of Fame
+ * nominations.
  *
  * The contact fields are shared; `type` decides which of them are required,
  * whether a work email is required (business conversations — the company
@@ -14,7 +13,7 @@ import { emailDomain, isFreeEmailDomain } from '../../server/utils/freeEmailDoma
  * fields appear. Everything is validated again on the server in
  * server/utils/leads.ts; this side only gives earlier, friendlier errors.
  */
-type LeadType = 'quote' | 'sales' | 'contact' | 'instructor' | 'sponsor' | 'team' | 'nomination' | 'implementation' | 'project' | 'expert'
+type LeadType = 'quote' | 'sales' | 'contact' | 'instructor' | 'sponsor' | 'team' | 'nomination'
 
 interface Option {
   label: string
@@ -54,55 +53,9 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-const WORK_EMAIL: LeadType[] = ['quote', 'sales', 'team', 'implementation', 'sponsor', 'project']
+const WORK_EMAIL: LeadType[] = ['quote', 'sales', 'team', 'sponsor']
 
-/** Options whose stored value is a stable key and whose label is translated. */
-function keyed(keys: readonly string[], prefix: string): Option[] {
-  return keys.map(k => ({ value: k, label: t(`${prefix}.${k}`) }))
-}
-
-// The experts network's forms are translated; the older ones are English-only
-// pages and keep their English config below.
-const EXPERT_CONFIG = computed<Record<'project' | 'expert', TypeConfig>>(() => ({
-  project: {
-    label: t('experts.form.project.label'),
-    submit: t('experts.form.project.submit'),
-    done: t('experts.form.project.done'),
-    message: t('experts.form.project.message'),
-    messageRequired: true,
-    company: 'required',
-    role: true,
-    country: true,
-    budget: keyed(['under10k', 'from10k', 'from50k', 'from150k', 'unsure'], 'experts.form.project.budgets'),
-    fields: [
-      { key: 'services', label: t('experts.form.project.services'), kind: 'multiselect', required: true, wide: true, options: keyed(PROJECT_SERVICES, 'experts.services') },
-      { key: 'orgEdition', label: t('experts.form.project.edition'), kind: 'select', options: keyed(['enterprise', 'unlimited', 'performance', 'unsure'], 'experts.form.project.editions') },
-      { key: 'dataSources', label: t('experts.form.project.data'), kind: 'select', options: keyed(['salesforce', 'warehouse', 'files', 'many'], 'experts.form.project.sources') },
-      { key: 'timeline', label: t('experts.form.project.timeline'), kind: 'select', options: keyed(['asap', 'months1to3', 'months3to6', 'exploring'], 'experts.form.project.timelines') }
-    ]
-  },
-  expert: {
-    label: t('experts.form.expert.label'),
-    submit: t('experts.form.expert.submit'),
-    done: t('experts.form.expert.done'),
-    message: t('experts.form.expert.message'),
-    messageRequired: true,
-    company: 'optional',
-    role: true,
-    country: true,
-    fields: [
-      { key: 'expertise', label: t('experts.form.expert.expertise'), kind: 'multiselect', required: true, wide: true, options: keyed(EXPERT_SKILLS, 'experts.skills') },
-      { key: 'experienceYears', label: t('experts.form.expert.years'), kind: 'select', required: true, options: keyed(EXPERT_YEARS, 'experts.years') },
-      { key: 'linkedin', label: t('experts.form.expert.linkedin'), kind: 'url', required: true, placeholder: 'https://www.linkedin.com/in/…' },
-      { key: 'portfolio', label: t('experts.form.expert.portfolio'), kind: 'url', placeholder: 'https://…' },
-      { key: 'rateBand', label: t('experts.form.expert.rate'), kind: 'select', options: keyed(EXPERT_RATES, 'experts.rates') },
-      { key: 'availability', label: t('experts.form.expert.availability'), kind: 'select', options: keyed(EXPERT_AVAILABILITY, 'experts.availability') },
-      { key: 'timezone', label: t('experts.form.expert.timezone'), kind: 'text', placeholder: t('experts.form.expert.timezonePlaceholder') }
-    ]
-  }
-}))
-
-const LEGACY_CONFIG: Record<Exclude<LeadType, 'project' | 'expert'>, TypeConfig> = {
+const CONFIG: Record<LeadType, TypeConfig> = {
   contact: {
     label: 'Contact',
     submit: 'Send message',
@@ -156,23 +109,6 @@ const LEGACY_CONFIG: Record<Exclude<LeadType, 'project' | 'expert'>, TypeConfig>
       { key: 'plan', label: 'Plan', kind: 'select', options: ['Team (annual)', 'Enterprise (SSO, invoicing)'] }
     ]
   },
-  implementation: {
-    label: 'Implementation',
-    submit: 'Request a consultation',
-    done: 'Thanks — a solution architect will reply to schedule a scoping call.',
-    message: 'Describe the project: users, data, the decisions it should support',
-    messageRequired: true,
-    company: 'required',
-    role: true,
-    country: true,
-    budget: ['Under $10k', '$10k–$50k', '$50k–$150k', '$150k+', 'Not sure yet'],
-    fields: [
-      { key: 'scope', label: 'What do you need?', kind: 'select', options: ['New CRM Analytics rollout', 'Dashboards on existing data', 'Data pipeline / recipes', 'Einstein Discovery model', 'Performance or security review', 'Rescue a stalled project'] },
-      { key: 'orgEdition', label: 'Salesforce edition', kind: 'select', options: ['Enterprise', 'Unlimited', 'Performance', 'Not sure'] },
-      { key: 'dataSources', label: 'Data sources', kind: 'select', options: ['Salesforce only', 'Salesforce + a warehouse', 'Salesforce + files/ERP', 'Many systems'] },
-      { key: 'timeline', label: 'Timeline', kind: 'select', options: ['ASAP', '1–3 months', '3–6 months', 'Exploring'] }
-    ]
-  },
   sponsor: {
     label: 'Sponsorship',
     submit: 'Start a sponsorship',
@@ -220,7 +156,7 @@ const LEGACY_CONFIG: Record<Exclude<LeadType, 'project' | 'expert'>, TypeConfig>
 }
 
 function configFor(type: LeadType): TypeConfig {
-  return type === 'project' || type === 'expert' ? EXPERT_CONFIG.value[type] : LEGACY_CONFIG[type]
+  return CONFIG[type]
 }
 const config = computed(() => configFor(props.type))
 const workEmail = computed(() => WORK_EMAIL.includes(props.type))

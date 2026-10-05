@@ -297,7 +297,7 @@ async function buy(plan: 'monthly' | 'annual') {
             Custom
           </p>
           <p class="mt-3 text-sm text-white/80">
-            More than 50 seats, invoicing and purchase orders, SSO, or a CRM Analytics implementation from our experts network alongside the course.
+            More than 50 seats, invoicing and purchase orders, or SSO.
           </p>
           <ul class="my-6 space-y-2 text-sm">
             <li
@@ -313,7 +313,7 @@ async function buy(plan: 'monthly' | 'annual') {
           </ul>
           <div class="mt-auto flex flex-wrap gap-3">
             <UButton
-              to="/experts#contact"
+              to="/teams#contact"
               color="secondary"
               icon="i-lucide-message-square"
             >

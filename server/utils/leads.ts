@@ -10,12 +10,12 @@ import type { LeadRow } from './n8n'
  * type-specific fields may land in `details` — anything else the client sends
  * is dropped rather than stored.
  */
-export const LEAD_TYPES = ['quote', 'sales', 'contact', 'instructor', 'sponsor', 'team', 'nomination', 'training', 'implementation', 'project', 'expert'] as const
+export const LEAD_TYPES = ['quote', 'sales', 'contact', 'instructor', 'sponsor', 'team', 'nomination'] as const
 export type LeadType = typeof LEAD_TYPES[number]
 
 /** Business conversations: these need a company email. */
-export const WORK_EMAIL_TYPES: LeadType[] = ['quote', 'sales', 'team', 'training', 'implementation', 'sponsor', 'project']
-const COMPANY_REQUIRED: LeadType[] = ['quote', 'sales', 'team', 'implementation', 'sponsor', 'project']
+export const WORK_EMAIL_TYPES: LeadType[] = ['quote', 'sales', 'team', 'sponsor']
+const COMPANY_REQUIRED: LeadType[] = ['quote', 'sales', 'team', 'sponsor']
 
 const DETAIL_FIELDS: Record<LeadType, string[]> = {
   quote: ['plan', 'delivery', 'timeline', 'teamSize'],
@@ -24,24 +24,12 @@ const DETAIL_FIELDS: Record<LeadType, string[]> = {
   instructor: ['expertise', 'experienceYears', 'linkedin', 'portfolio', 'topics', 'availability'],
   sponsor: ['tier', 'placement', 'timeline'],
   team: ['plan', 'teamSize'],
-  nomination: ['nomineeName', 'nomineeUrl', 'builtWhat', 'photoUrl', 'relationship'],
-  training: ['center', 'track', 'cohort', 'experience'],
-  implementation: ['scope', 'orgEdition', 'dataSources', 'timeline'],
-  // A company asking the experts network to deliver something.
-  project: ['services', 'orgEdition', 'dataSources', 'timeline'],
-  // A freelancer applying to join the network. `expertise` is multi-select.
-  expert: ['expertise', 'experienceYears', 'linkedin', 'portfolio', 'rateBand', 'availability', 'timezone']
+  nomination: ['nomineeName', 'nomineeUrl', 'builtWhat', 'photoUrl', 'relationship']
 }
 
 const REQUIRED_DETAILS: Partial<Record<LeadType, { key: string, label: string }[]>> = {
   nomination: [{ key: 'nomineeName', label: 'the nominee\'s name' }, { key: 'builtWhat', label: 'what they built' }],
-  instructor: [{ key: 'expertise', label: 'your area of expertise' }],
-  project: [{ key: 'services', label: 'what you need delivered' }],
-  expert: [
-    { key: 'expertise', label: 'your areas of expertise' },
-    { key: 'experienceYears', label: 'your years with CRM Analytics' },
-    { key: 'linkedin', label: 'your LinkedIn profile' }
-  ]
+  instructor: [{ key: 'expertise', label: 'your area of expertise' }]
 }
 
 const URL_DETAILS = new Set(['linkedin', 'portfolio', 'nomineeUrl', 'photoUrl'])

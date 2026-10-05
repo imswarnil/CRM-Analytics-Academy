@@ -14,7 +14,6 @@ const route = useRoute()
 const menuItems = computed(() => [
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
   { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
-  { label: t('nav.experts'), icon: 'i-lucide-handshake', to: localePath('/experts') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.pricing'), icon: 'i-lucide-tag', to: '/pricing' },
   { label: t('nav.sponsor'), icon: 'i-lucide-megaphone', to: localePath('/sponsor') }

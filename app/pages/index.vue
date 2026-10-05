@@ -4,7 +4,7 @@ import type { ContentNavigationItem } from '@nuxt/content'
 /**
  * The home page, kept to what a first-time visitor needs: what the course
  * is (hero), what is in it (the curriculum, plotted), real builds (a showcase
- * teaser), help when you need more than a course (the experts network), who
+ * teaser), seats for teams, who
  * wrote it, and the common questions. Everything is prerendered per locale;
  * nothing here fetches at runtime.
  */
@@ -168,8 +168,6 @@ const { data: builds } = await useAsyncData('home-showcase', () =>
     .limit(3)
     .all()
 )
-
-const expertPoints = computed(() => (tm('home.experts.points') as string[]).map(p => rt(p)))
 </script>
 
 <template>
@@ -405,51 +403,40 @@ const expertPoints = computed(() => (tm('home.experts.points') as string[]).map(
       </div>
     </section>
 
-    <!-- EXPERTS ----------------------------------------------------------- -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="graph-paper-navy grid items-center gap-10 border-[1.5px] border-(--ink) bg-(--navy) p-8 text-white sm:p-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-        <div>
+    <!-- FOR TEAMS -------------------------------------------------------- -->
+    <section class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 lg:px-8">
+      <div class="graph-paper-navy flex flex-col gap-6 border-[1.5px] border-(--ink) p-6 text-white sm:p-10 lg:flex-row lg:items-center lg:justify-between">
+        <div class="max-w-2xl">
           <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
-            {{ t('home.experts.eyebrow') }}
+            {{ t('home.forTeams.eyebrow') }}
           </p>
-          <h2 class="mt-4 text-4xl font-extrabold leading-none tracking-[-0.04em] text-white sm:text-5xl">
-            {{ t('home.experts.title') }}
+          <h2 class="mt-3 text-2xl font-extrabold tracking-[-0.02em] sm:text-3xl">
+            {{ t('home.forTeams.title') }}
           </h2>
-          <p class="mt-5 max-w-xl text-lg text-white/80">
-            {{ t('home.experts.lead') }}
+          <p class="mt-3 text-white/80">
+            {{ t('home.forTeams.lead') }}
           </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <UButton
-              :to="localePath('/experts')"
-              size="lg"
-              color="secondary"
-              icon="i-lucide-handshake"
-            >
-              {{ t('home.experts.hire') }}
-            </UButton>
-            <UButton
-              :to="localePath('/experts/join')"
-              size="lg"
-              color="neutral"
-              variant="outline"
-              trailing-icon="i-lucide-arrow-right"
-              class="border-white/70 bg-transparent text-white hover:bg-white/10"
-            >
-              {{ t('home.experts.join') }}
-            </UButton>
-          </div>
         </div>
-        <ul class="border-[1.5px] border-white/60">
-          <li
-            v-for="(p, i) in expertPoints"
-            :key="p"
-            class="flex items-start gap-3 p-4"
-            :class="i ? 'border-t border-dashed border-white/30' : ''"
+        <div class="flex flex-wrap gap-3">
+          <UButton
+            to="/teams"
+            color="secondary"
+            size="lg"
+            icon="i-lucide-users"
           >
-            <span class="font-mono text-xs text-(--glow)">{{ String(i + 1).padStart(2, '0') }}</span>
-            <span class="text-white/90">{{ p }}</span>
-          </li>
-        </ul>
+            {{ t('home.forTeams.seats') }}
+          </UButton>
+          <UButton
+            to="/teams#contact"
+            size="lg"
+            color="neutral"
+            variant="outline"
+            icon="i-lucide-message-square"
+            class="border-white/60 bg-transparent text-white hover:bg-white/10"
+          >
+            {{ t('home.forTeams.sales') }}
+          </UButton>
+        </div>
       </div>
     </section>
 

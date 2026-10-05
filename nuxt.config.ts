@@ -65,10 +65,10 @@ const RETIRED: Record<string, string> = {
   '/companies': '/',
   '/leaderboard': '/dashboard',
   '/ask': '/curriculum',
-  '/training': '/experts',
-  '/sales': '/experts#contact',
-  '/contact': '/experts#contact',
-  '/implementation': '/experts'
+  '/training': '/teams',
+  '/sales': '/teams#contact',
+  '/contact': '/teams#contact',
+  '/implementation': '/teams'
 }
 
 const redirectRules = Object.fromEntries([
@@ -77,7 +77,8 @@ const redirectRules = Object.fromEntries([
     .map(l => [`/${l.code}${path}`, { redirect: { to: path, statusCode: 301 } }])),
   ...Object.entries(RETIRED).flatMap(([from, to]) => [
     [from, { redirect: { to, statusCode: 301 } }],
-    ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => [`/${l.code}${from}`, { redirect: { to: `/${l.code}${to === '/' ? '' : to}`, statusCode: 301 } }])
+    // /teams is English-only, so its redirects stay unprefixed.
+    ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => [`/${l.code}${from}`, { redirect: { to: to.startsWith('/teams') ? to : `/${l.code}${to === '/' ? '' : to}`, statusCode: 301 } }])
   ])
 ])
 

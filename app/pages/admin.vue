@@ -21,7 +21,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type AdminTab = 'overview' | 'users' | 'queue' | 'content' | 'leads' | 'experts' | 'teams' | 'lessons' | 'comments' | 'guide'
+type AdminTab = 'overview' | 'users' | 'queue' | 'content' | 'leads' | 'teams' | 'lessons' | 'comments' | 'guide'
 const tab = ref<AdminTab>('overview')
 // The Guide's "Open" buttons jump straight to the tab a chapter describes.
 const goToTab = (t: string) => {
@@ -391,8 +391,8 @@ const roles = ['learner', 'instructor', 'moderator', 'admin']
 
     <UContainer v-else-if="isStaff">
       <UPageHeader
-        :title="tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'leads' ? 'Leads' : tab === 'experts' ? 'Experts network' : tab === 'teams' ? 'Teams' : tab === 'guide' ? 'Guide' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? (isInstructor ? 'Instructor studio' : 'Content') : 'Users & Roles'"
-        :description="tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'leads' ? 'Sales, quotes, teams, training, sponsors, instructors and nominations — enriched and sent to the CRM.' : tab === 'experts' ? 'Applications to join, the public roster, and requests to hire the network.' : tab === 'teams' ? 'Every team: seats bought, seats used, members and status.' : tab === 'guide' ? 'How to run the academy, end to end — writing, pricing, video, leads and tracking.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? (isInstructor ? 'Edit the lessons you author and create new ones; an admin reviews every change.' : 'The course on GitHub: edit, create, rename and reorder lessons and sections, review instructors and credit people.') : 'Accounts, roles and access.'"
+        :title="tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'leads' ? 'Leads' : tab === 'teams' ? 'Teams' : tab === 'guide' ? 'Guide' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? (isInstructor ? 'Instructor studio' : 'Content') : 'Users & Roles'"
+        :description="tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'leads' ? 'Sales, quotes, teams, sponsors, instructors and nominations — enriched and sent to the CRM.' : tab === 'teams' ? 'Every team: seats bought, seats used, members and status.' : tab === 'guide' ? 'How to run the academy, end to end — writing, pricing, video, leads and tracking.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? (isInstructor ? 'Edit the lessons you author and create new ones; an admin reviews every change.' : 'The course on GitHub: edit, create, rename and reorder lessons and sections, review instructors and credit people.') : 'Accounts, roles and access.'"
       >
         <template #headline>
           <nav
@@ -456,16 +456,6 @@ const roles = ['learner', 'instructor', 'moderator', 'admin']
             </UButton>
             <UButton
               v-if="isAdmin"
-              icon="i-lucide-handshake"
-              size="sm"
-              :color="tab === 'experts' ? 'primary' : 'neutral'"
-              :variant="tab === 'experts' ? 'solid' : 'ghost'"
-              @click="tab = 'experts'"
-            >
-              Experts
-            </UButton>
-            <UButton
-              v-if="isAdmin"
               icon="i-lucide-users-round"
               size="sm"
               :color="tab === 'teams' ? 'primary' : 'neutral'"
@@ -525,10 +515,6 @@ const roles = ['learner', 'instructor', 'moderator', 'admin']
         </p>
 
         <AdminLeads v-if="tab === 'leads' && isModerator" />
-        <AdminExperts
-          v-if="tab === 'experts' && isAdmin"
-          @go="goToTab"
-        />
         <AdminTeams v-if="tab === 'teams' && isAdmin" />
         <AdminGuide
           v-if="tab === 'guide' && isAdmin"

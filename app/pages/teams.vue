@@ -76,7 +76,7 @@ const outcomes = [
           Buy team seats
         </UButton>
         <UButton
-          to="/experts#contact"
+          to="#contact"
           color="neutral"
           variant="outline"
           icon="i-lucide-message-square"
@@ -144,23 +144,15 @@ const outcomes = [
             Enterprise and invoicing
           </h2>
           <p class="mt-3 text-sm text-white/80">
-            Volume pricing, purchase orders and invoices, SSO, and — through our experts network — CRM Analytics implementation alongside it.
+            Volume pricing, purchase orders and invoices, SSO and a custom start date. Tell us what you need and we reply within two working days.
           </p>
           <div class="mt-auto flex flex-wrap gap-3 pt-8">
             <UButton
-              to="/experts#contact"
+              to="#contact"
               color="secondary"
               icon="i-lucide-message-square"
             >
               Talk to sales
-            </UButton>
-            <UButton
-              to="/experts"
-              color="neutral"
-              variant="outline"
-              class="border-white/60 bg-transparent text-white hover:bg-white/10"
-            >
-              Hire CRM Analytics experts
             </UButton>
           </div>
         </div>
@@ -207,6 +199,25 @@ const outcomes = [
           :items="faq"
           class="mt-8"
         />
+      </section>
+
+      <!-- Talk to sales -->
+      <section
+        id="contact"
+        class="mx-auto max-w-3xl scroll-mt-24"
+      >
+        <p class="eyebrow">
+          Fig. 05 — Talk to sales
+        </p>
+        <h2 class="bp-h2 mt-3">
+          Invoicing, more seats or SSO
+        </h2>
+        <p class="bp-lead mt-3">
+          Tell us about your team. We reply within two working days.
+        </p>
+        <div class="mt-8 border-[1.5px] border-(--ink) bg-(--card) p-6 sm:p-8">
+          <LeadForm type="sales" />
+        </div>
       </section>
     </div>
   </div>
