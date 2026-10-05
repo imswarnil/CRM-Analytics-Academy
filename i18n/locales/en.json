@@ -397,7 +397,12 @@
     "submitHint": "Built something you are proud of? Open a pull request with one markdown file and it appears here.",
     "beginner": "Beginner",
     "intermediate": "Intermediate",
-    "advanced": "Advanced"
+    "advanced": "Advanced",
+    "noScreenshot": "Screenshot coming soon",
+    "viewBuild": "View the build",
+    "submitEyebrow": "Submit",
+    "sheet": "Sheet 05 / Showcase / {n} dashboards",
+    "dashboard": "Dashboard"
   },
   "course": {
     "curriculum": "Curriculum",
