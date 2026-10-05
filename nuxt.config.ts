@@ -294,6 +294,13 @@ export default defineNuxtConfig({
         // on the client on every visit — a flash of the wrong state, and files
         // that exist only to be replaced.
         ...privateRoutes,
+        // Redirect sources are answered by the Worker (routeRules above), and
+        // must never be crawled: rendered through the lesson catch-all, each
+        // one advertised hreflang alternates like /ja/ru/jobs, whose
+        // alternates nested again — thousands of phantom routes until the
+        // prerenderer ran out of memory.
+        ...Object.keys(redirectRules).map(path => new RegExp(`^${path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(/|$|\\?)`)),
+        new RegExp(`^/(${locales.map(l => l.code).join('|')})/(${locales.map(l => l.code).join('|')})(/|$)`),
         // Pro lessons are NOT excluded: what prerenders for them is the public
         // stub from .gated-stubs/ (title, teaser, paywall). The full body is
         // only in server/assets/gated and reaches the browser through
