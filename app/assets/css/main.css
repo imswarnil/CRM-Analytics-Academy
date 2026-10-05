@@ -327,26 +327,32 @@ h1, h2, h3, h4 {
 }
 
 /* ---------------------------------------------------------------------------
-   4. Motion — the hover language, all on one bouncy curve
+   4. Motion — the hover language: small, quick, ease-out
 --------------------------------------------------------------------------- */
 
-/* A card that lifts, drops a hard shadow, and reveals the fine grid. */
+/* A card that lifts one pixel onto a short hard shadow and reveals the fine
+   grid. Deliberately small and on a plain ease-out, transform and shadow
+   only — no layout property moves, so nothing around it shifts. Pressing
+   settles it back down with the shadow one pixel shorter. */
 .bp-card {
   position: relative;
   background: var(--card);
   border: 1.5px solid var(--ink);
   transition:
-    transform .25s var(--ease-bounce),
-    box-shadow .25s var(--ease-bounce),
-    background-color .2s;
+    transform .16s var(--ease-out-im),
+    box-shadow .16s var(--ease-out-im);
 }
 .bp-card--hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 8px 8px 0 var(--ink);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
   background-image:
     linear-gradient(var(--rmin) 1px, transparent 1px),
     linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
   background-size: 16px 16px;
+}
+.bp-card--hover:active {
+  transform: none;
+  box-shadow: 3px 3px 0 var(--ink);
 }
 
 /* The square icon box in a card's corner: fills, whitens, tilts. */
@@ -438,7 +444,7 @@ button:hover > .bp-arrow {
 @media (prefers-reduced-motion: reduce) {
   .bp-card, .bp-iconbox, .bp-row, .bp-arrow, .bp-draw, .bp-fade, .bp-grow-x, .bp-grow-y { transition: none; }
   .bp-marquee { animation: none; }
-  .bp-card--hover:hover { transform: none; }
+  .bp-card--hover:hover, .bp-card--hover:active { transform: none; }
   html { scroll-behavior: auto; }
 }
 
