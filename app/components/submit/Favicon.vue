@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /** The favicon (or logo) of any link, square-framed. Blank until resolved. */
-import { fetchUrlMeta, fallbackIcon, isHttpUrl } from './urlMeta'
+import { fetchUrlMeta, fallbackIcon, isHttpUrl } from '~/utils/urlMeta'
 
 const props = withDefaults(defineProps<{ url?: string | null, size?: number }>(), { size: 20 })
 

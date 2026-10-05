@@ -24,6 +24,8 @@
  * ---
  * ::
  */
+const { t } = useI18n()
+
 defineProps<{
   dashboard: string
   audience: string
@@ -45,7 +47,7 @@ defineProps<{
         class="size-4 shrink-0 text-(--signal)"
       />
       <p class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--signal)">
-        Build brief
+        {{ t('buildBrief.title') }}
       </p>
       <h4 class="ml-auto text-sm font-semibold text-(--ink)">
         {{ dashboard }}
@@ -55,7 +57,7 @@ defineProps<{
     <dl class="grid gap-x-6 gap-y-4 p-5 sm:grid-cols-2">
       <div>
         <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-          Who opens it
+          {{ t('buildBrief.audience') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ audience }}
@@ -63,7 +65,7 @@ defineProps<{
       </div>
       <div v-if="cadence">
         <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-          When
+          {{ t('buildBrief.when') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ cadence }}
@@ -71,7 +73,7 @@ defineProps<{
       </div>
       <div class="sm:col-span-2">
         <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-          The question it answers
+          {{ t('buildBrief.question') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ question }}
@@ -83,7 +85,7 @@ defineProps<{
             name="i-lucide-git-branch"
             class="size-3"
           />
-          The decision it changes
+          {{ t('buildBrief.decision') }}
         </dt>
         <dd class="mt-1 text-sm font-medium leading-snug text-(--ink)">
           {{ decision }}
@@ -91,7 +93,7 @@ defineProps<{
       </div>
       <div v-if="success">
         <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-          How we know it worked
+          {{ t('buildBrief.success') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ success }}
@@ -99,7 +101,7 @@ defineProps<{
       </div>
       <div v-if="notInScope?.length">
         <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-          Deliberately not here
+          {{ t('buildBrief.notInScope') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
           {{ notInScope.join(' · ') }}
@@ -111,7 +113,7 @@ defineProps<{
       v-if="datasets?.length"
       class="flex flex-wrap items-center gap-1.5 border-t border-dashed border-(--line) px-5 py-3"
     >
-      <span class="mr-1 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">Built on</span>
+      <span class="mr-1 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">{{ t('buildBrief.builtOn') }}</span>
       <code
         v-for="(d, i) in datasets"
         :key="i"

@@ -41,6 +41,8 @@ const props = withDefaults(
   { scale: 'linear' }
 )
 
+const { t } = useI18n()
+
 const top = computed(() => Math.max(...props.stages.map(s => s.value), 1))
 const floor = computed(() => Math.max(1, Math.min(...props.stages.map(s => s.value))))
 const fmt = (n: number) => n.toLocaleString('en-US')
@@ -104,7 +106,7 @@ function width(v: number) {
           <span class="font-semibold tabular-nums text-(--signal)">
             {{ pct(props.stages[i + 1]!.value, s.value) }}
           </span>
-          <span>convert to {{ props.stages[i + 1]!.label }}</span>
+          <span>{{ t('funnel.convertTo', { stage: props.stages[i + 1]!.label }) }}</span>
         </div>
       </template>
     </div>
@@ -116,7 +118,7 @@ function width(v: number) {
       <span
         v-if="props.scale === 'log'"
         class="text-(--ink2)"
-      >Bar lengths are logarithmic — compare the percentages, not the bars.</span>
+      >{{ t('funnel.logScale') }}</span>
     </figcaption>
   </figure>
 </template>

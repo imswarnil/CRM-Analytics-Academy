@@ -20,6 +20,7 @@ interface CommentItem {
 
 const props = defineProps<{ lessonPath: string }>()
 
+const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const { isSignedIn, user } = useAuth()
@@ -50,7 +51,7 @@ async function load() {
     comments.value = res.comments
     loaded.value = true
   } catch {
-    error.value = 'Comments could not be loaded.'
+    error.value = t('comments.errLoad')
   } finally {
     loading.value = false
   }
@@ -83,7 +84,7 @@ async function post(parentId: number | null) {
       body: text,
       createdAt: res.createdAt ?? new Date().toISOString(),
       edited: false,
-      name: user.value?.name?.trim() || 'You',
+      name: user.value?.name?.trim() || t('comments.you'),
       image: user.value?.image ?? null,
       mine: true
     }]
@@ -95,7 +96,7 @@ async function post(parentId: number | null) {
       draft.value = ''
     }
   } catch (e) {
-    error.value = apiError(e) || 'Could not post that. Please try again.'
+    error.value = apiError(e) || t('comments.errPost')
   } finally {
     posting.value = false
   }
@@ -106,7 +107,7 @@ async function remove(id: number) {
     await $fetch(`/api/comments/${id}`, { method: 'DELETE' })
     await load()
   } catch {
-    error.value = 'Could not delete that comment.'
+    error.value = t('comments.errDelete')
   }
 }
 
@@ -128,7 +129,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
           name="i-lucide-messages-square"
           class="size-4"
         />
-        Questions and discussion
+        {{ t('comments.title') }}
       </h2>
       <span
         v-if="loaded && comments.length"
@@ -138,17 +139,20 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
 
     <div class="p-5 sm:p-6">
       <ClientOnly>
-        <p
+        <i18n-t
           v-if="isSignedIn && demo"
+          keypath="comments.demoReadOnly"
+          tag="p"
+          scope="global"
           class="text-sm text-(--ink2)"
         >
-          The demo account is read-only.
-          <NuxtLink
-            :to="signUpTo"
-            class="font-semibold text-(--signal) hover:underline"
-          >Create a free account</NuxtLink>
-          to ask a question or answer one.
-        </p>
+          <template #link>
+            <NuxtLink
+              :to="signUpTo"
+              class="font-semibold text-(--signal) hover:underline"
+            >{{ t('comments.createAccount') }}</NuxtLink>
+          </template>
+        </i18n-t>
         <div
           v-else-if="isSignedIn"
         >
@@ -157,12 +161,12 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
             :rows="3"
             autoresize
             :maxlength="2000"
-            placeholder="Ask a question or share how you solved it…"
+            :placeholder="t('comments.placeholder')"
             class="w-full"
           />
           <div class="mt-2 flex items-center justify-between gap-3">
             <p class="font-mono text-[10px] uppercase tracking-[.06em] text-(--ink2)">
-              Plain text. Be kind — other learners are working through this too.
+              {{ t('comments.hint') }}
             </p>
             <UButton
               :loading="posting && !replyTo"
@@ -171,25 +175,30 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
               size="sm"
               @click="post(null)"
             >
-              Post
+              {{ t('comments.post') }}
             </UButton>
           </div>
         </div>
-        <p
+        <i18n-t
           v-else
+          keypath="comments.signInPrompt"
+          tag="p"
+          scope="global"
           class="text-sm text-(--ink2)"
         >
-          <NuxtLink
-            :to="signInTo"
-            class="font-semibold text-(--signal) hover:underline"
-          >Sign in</NuxtLink>
-          or
-          <NuxtLink
-            :to="signUpTo"
-            class="font-semibold text-(--signal) hover:underline"
-          >create a free account</NuxtLink>
-          to ask a question or answer one.
-        </p>
+          <template #signIn>
+            <NuxtLink
+              :to="signInTo"
+              class="font-semibold text-(--signal) hover:underline"
+            >{{ t('comments.signIn') }}</NuxtLink>
+          </template>
+          <template #signUp>
+            <NuxtLink
+              :to="signUpTo"
+              class="font-semibold text-(--signal) hover:underline"
+            >{{ t('comments.createAccountLower') }}</NuxtLink>
+          </template>
+        </i18n-t>
       </ClientOnly>
 
       <p
@@ -211,7 +220,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
         v-else-if="loaded && !comments.length"
         class="mt-6 border border-dashed border-(--line) px-4 py-6 text-center text-sm text-(--ink2)"
       >
-        No questions yet. If something in this lesson was unclear, you are probably not the only one.
+        {{ t('comments.empty') }}
       </p>
 
       <ul
@@ -244,7 +253,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                   class="font-mono uppercase tracking-[.08em] text-(--ink2) hover:text-(--signal)"
                   @click="replyTo = replyTo === c.id ? null : c.id"
                 >
-                  Reply
+                  {{ t('comments.reply') }}
                 </button>
                 <button
                   v-if="c.mine"
@@ -252,7 +261,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                   class="font-mono uppercase tracking-[.08em] text-(--ink2) hover:text-error"
                   @click="remove(c.id)"
                 >
-                  Delete
+                  {{ t('comments.delete') }}
                 </button>
               </div>
 
@@ -284,7 +293,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                       class="mt-1 font-mono text-xs uppercase tracking-[.08em] text-(--ink2) hover:text-error"
                       @click="remove(r.id)"
                     >
-                      Delete
+                      {{ t('comments.delete') }}
                     </button>
                   </div>
                 </li>
@@ -299,7 +308,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                   :rows="2"
                   autoresize
                   :maxlength="2000"
-                  placeholder="Write a reply…"
+                  :placeholder="t('comments.replyPlaceholder')"
                   class="w-full"
                 />
                 <div class="mt-2 flex justify-end gap-2">
@@ -309,7 +318,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                     variant="ghost"
                     @click="replyTo = null"
                   >
-                    Cancel
+                    {{ t('comments.cancel') }}
                   </UButton>
                   <UButton
                     size="xs"
@@ -317,7 +326,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                     :disabled="replyDraft.trim().length < 2"
                     @click="post(c.id)"
                   >
-                    Reply
+                    {{ t('comments.reply') }}
                   </UButton>
                 </div>
               </div>

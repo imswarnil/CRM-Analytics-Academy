@@ -63,7 +63,7 @@ onMounted(() => {
         <div>
           <NuxtLink
             :to="localePath('/')"
-            aria-label="CRM Analytics Academy — home"
+            :aria-label="t('nav.homeAria')"
           >
             <AppLogo inverted />
           </NuxtLink>

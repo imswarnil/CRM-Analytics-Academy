@@ -2,7 +2,6 @@
   "language": "Deutsch",
   "nav": {
     "resources": "Ressourcen",
-    "blog": "Blog",
     "about": "Über uns",
     "sponsor": "Dieses Projekt unterstützen",
     "github": "Auf GitHub ansehen",
@@ -10,28 +9,17 @@
     "chooseLanguage": "Sprache wählen",
     "datasets": "Datensätze",
     "contribute": "Mitwirken",
-    "more": "Mehr",
     "privacy": "Datenschutzerklärung",
     "terms": "Nutzungsbedingungen",
     "roadmap": "Roadmap",
-    "changelog": "Änderungen",
     "showcase": "Schaufenster",
     "signIn": "Zeichen",
     "signOut": "Abmelden",
     "dashboard": "Dashboard",
     "account": "Konto",
     "curriculum": "Lehrplan",
-    "search": "Suche",
-    "menu": "Menü",
-    "closeMenu": "Schließen des Menüs",
-    "startLearning": "Starten Sie das Lernen",
-    "browseAll": "Durchsuchen Sie den vollständigen Lehrplan",
     "submit": "Beitragen einer Ressource",
-    "navigate": "Navigieren",
-    "wallOfFame": "Wall of Fame",
-    "community": "Gemeinschaft",
     "forTeams": "für Teams",
-    "implementation": "Durchführung",
     "home": "Zuhause",
     "pricing": "Preisgestaltung",
     "instructors": "Ausbilder & Kredite",
@@ -39,9 +27,7 @@
     "sponsorShort": "Sponsor"
   },
   "sponsorCard": {
-    "title": "Sponsor dieses Projekts",
-    "desc": "Halten Sie den Lehrplan frei und offen.",
-    "cta": "Erfahren Sie mehr"
+    "title": "Sponsor dieses Projekts"
   },
   "sponsor": {
     "slot": {
@@ -187,153 +173,12 @@
       "error": "Der Kalender konnte nicht geladen werden. Refresh, um es noch einmal zu versuchen."
     }
   },
-  "hero": {
-    "badge": "Kostenloser & quelloffener Lehrplan",
-    "titleLead": "Meistere Salesforce",
-    "titleAccent": "CRM Analytics",
-    "subtitle": "Vom ersten Datensatz bis zum Bereitstellen erklärbarer Vorhersagen – lerne die gesamte Plattform in sechs praxisnahen Modulen, mit echtem SAQL und Beispielen zum Kopieren.",
-    "f1": "Keine Anmeldung",
-    "f2": "49 Lektionen",
-    "f3": "An der Zertifizierung ausgerichtet",
-    "start": "Jetzt lernen",
-    "browse": "Lehrplan ansehen",
-    "search": "Suchen",
-    "watch": "Sehen Sie sich das Intro an",
-    "community": "Lernende in 12 Sprachen",
-    "boardCaption": "Das Board, das Sie in der letzten Lektion bauen"
-  },
-  "cta": {
-    "title": "Bereit, ein CRM-Analytics-Profi zu werden?",
-    "subtitle": "Beginne den Lehrplan noch heute – kostenlos, offen und darauf ausgelegt, dich bis zur Zertifizierung zu bringen.",
-    "startFoundations": "Mit den Grundlagen beginnen",
-    "star": "Auf GitHub mit Stern markieren"
-  },
   "home": {
-    "stats": {
-      "modules": "Module",
-      "lessons": "Lektionen",
-      "free": "Frei & offen",
-      "video": "Video",
-      "languages": "Sprachen"
-    },
-    "curriculumEyebrow": "Der Lehrplan",
-    "curriculumTitle": "Zwei Module, ein klarer Weg",
-    "curriculumSubtitle": "Beginne oben und arbeite dich nach unten – zusammen decken sie die gesamte Pipeline ab, von Rohdaten bis zur bereitgestellten Vorhersage.",
     "modules": {
       "foundations": {
-        "title": "Grundlagen",
-        "desc": "Was CRM Analytics ist, wie Daten zu einem sicheren Dataset werden, und die Bausteine der Plattform."
-      },
-      "gettingStarted": {
-        "title": "Erste Schritte",
-        "desc": "Ermöglicht CRM AnalyticsErstellen Sie Ihre erste App und erkunden Sie Beispieldaten, bevor Sie Ihre eigenen verbinden."
-      },
-      "tour": {
-        "title": "Tour",
-        "desc": "Eine Führung durch Analytics Studio — Heimat, Data ManagerExplorer und das Dashboard Editor."
-      },
-      "navigating": {
-        "title": "Navigierende Dashboards",
-        "desc": "Lesen, filtern, facetten und bohren sie in ein dashboard, speichern und teilen sie dann ihre eigene ansicht."
-      },
-      "saql": {
-        "title": "SAQL",
-        "desc": "Schreiben SAQL Abfragen - filtern, gruppieren, aggregieren und debuggen Sie die Sprache, in die jedes Diagramm kompiliert."
-      },
-      "analytics": {
-        "title": "Analytik & SAQL",
-        "desc": "Schreibe SAQL-Abfragen, baue interaktive Dashboards und ergänze Vorhersagen mit Einstein Discovery."
-      },
-      "bindings": {
-        "title": "Bindungen",
-        "desc": "Draht-Widgets zusammen mit Auswahl, Zelle und URL Bindungen, so dass eine Auswahl viele antreibt."
-      },
-      "chartEmbedding": {
-        "title": "Karteneinbettung",
-        "desc": "Einbetten eines Dashboards auf einer Datensatzseite, in eine benutzerdefinierte Komponente oder außerhalb Salesforce vollständig."
+        "title": "Grundlagen"
       }
     },
-    "startModule": "Modul starten",
-    "newHereTitle": "Neu hier?",
-    "newHereDesc": "Beginne mit den Grundlagen und folge den Modulen der Reihe nach für einen vollständigen, geführten Lernpfad.",
-    "startHere": "Hier starten",
-    "howEyebrow": "So funktioniert's",
-    "howTitle": "Lernen, ausprobieren, bauen",
-    "steps": {
-      "read": {
-        "title": "Lektion lesen",
-        "desc": "Kurze, fokussierte Lektionen erklären eine Idee nach der anderen mit echten Beispielen."
-      },
-      "try": {
-        "title": "Live ausprobieren",
-        "desc": "Jedes Konzept wird zu einer konkreten Aktion – mach mit in einer kostenlosen Developer-Org."
-      },
-      "build": {
-        "title": "Ein Projekt bauen",
-        "desc": "Lektionen summieren sich zu einer echten Pipeline: Daten, Datasets, Dashboards, ein Modell."
-      }
-    },
-    "resourcesEyebrow": "Ressourcen",
-    "resourcesTitle": "Die besten Links, für dich kuratiert",
-    "resourcesDesc": "Über den Lehrplan hinaus pflegen wir eine filterbare Bibliothek aus offizieller Dokumentation, Trailhead, SAQL-Referenzen, Communities und Tools.",
-    "browseResources": "Ressourcen ansehen",
-    "getInvolved": {
-      "blurb": "Möchtest du mithelfen? Trage Lektionen und Code bei oder unterstütze das Projekt direkt.",
-      "contribute": "Mitwirken",
-      "sponsor": "Sponsern"
-    },
-    "outcomesEyebrow": "Ergebnisse",
-    "outcomesTitle": "Was du danach kannst",
-    "outcomesSubtitle": "Am Ende lieferst du eine durchgängige CRM-Analytics-Lösung – und kannst es belegen.",
-    "outcomes": [
-      {
-        "t": "Beliebige Daten integrieren",
-        "d": "Verbinde Salesforce und externe Quellen, plane zuverlässige Synchronisierungen und halte Daten aktuell."
-      },
-      {
-        "t": "Daten mit Rezepten formen",
-        "d": "Verbinde, aggregiere und bereinige Rohdaten zu vertrauenswürdigen, gut modellierten Datasets."
-      },
-      {
-        "t": "Echtes SAQL schreiben",
-        "d": "Schreibe Abfragen von Hand für fortgeschrittene Kennzahlen, Windowing und Dashboard-Interaktivität."
-      },
-      {
-        "t": "Dashboards bauen",
-        "d": "Gestalte responsive, facettierte Dashboards mit Drill-downs und eingebetteten Salesforce-Aktionen."
-      },
-      {
-        "t": "Vorhersagen bereitstellen",
-        "d": "Trainiere erklärbare Einstein-Discovery-Modelle und zeige Vorhersagen auf Datensätzen und in Flows."
-      },
-      {
-        "t": "Auf die Zertifizierung vorbereiten",
-        "d": "Decke die Themen der Prüfung zum CRM-Analytics- und Einstein-Discovery-Berater ab."
-      }
-    ],
-    "whoEyebrow": "Für wen",
-    "whoTitle": "Für jede Rolle im Team gemacht",
-    "personas": [
-      {
-        "t": "Analysten",
-        "d": "Vom Drag-and-drop-Bericht zum Bau skalierbarer Datasets, SAQL und Dashboards."
-      },
-      {
-        "t": "Admins",
-        "d": "Richte die Plattform ein, verwalte Sicherheitsprädikate und rolle Analytik sicher aus."
-      },
-      {
-        "t": "Berater",
-        "d": "Entwirf durchgängige Lösungen und bereite dich sicher auf die Zertifizierung vor."
-      },
-      {
-        "t": "Einsteiger",
-        "d": "Beginne mit den CRM-Grundlagen – keine Analytik-Vorkenntnisse nötig."
-      }
-    ],
-    "topicsEyebrow": "Alles, was du meisterst",
-    "topicsTitle": "Ein Lehrplan, die ganze Plattform",
-    "faqEyebrow": "FAQ",
     "faqTitle": "Fragen, beantwortet",
     "faqs": [
       {
@@ -353,71 +198,6 @@
         "a": "Der Lehrplan deckt die Themen der Prüfung zum CRM-Analytics- und Einstein-Discovery-Berater ab."
       }
     ],
-    "featuresEyebrow": "Wie alles zusammenpasst",
-    "featuresTitle": "Von Rohdaten zu Entscheidungen",
-    "features": [
-      {
-        "t": "Führe all deine Daten zusammen",
-        "d": "Verbinde Salesforce, Snowflake und Dateien; synchronisiere nach Zeitplan; und forme alles mit visuellen Rezepten zu sauberen Datasets."
-      },
-      {
-        "t": "Sofort erkunden und visualisieren",
-        "d": "Schreibe SAQL oder klicke dir Lenses zusammen und baue schnelle, interaktive Dashboards mit Bindings, Faceting und Drill-downs."
-      },
-      {
-        "t": "Sage voraus, was als Nächstes kommt",
-        "d": "Trainiere erklärbare Einstein-Discovery-Modelle und zeige Vorhersagen und Empfehlungen genau dort, wo dein Team arbeitet."
-      }
-    ],
-    "projectsEyebrow": "Schaufenster",
-    "projectsTitle": "Projekte, die du bauen kannst",
-    "projectsSubtitle": "Echte Dashboards, die du beim Lernen nachbaust – und dann dein eigenes mit der Community teilst.",
-    "projects": [
-      {
-        "t": "Sales-Pipeline-Gesundheit",
-        "d": "Verfolge Phasen, Gewinnrate und Prognose in einer interaktiven Ansicht."
-      },
-      {
-        "t": "Kundenabwanderungs-Risiko",
-        "d": "Bewerte Accounts mit Einstein Discovery und handle, bevor sie gehen."
-      },
-      {
-        "t": "Service-KPIs",
-        "d": "Fallvolumen, CSAT und Bearbeitungszeit für Support-Teams."
-      },
-      {
-        "t": "Umsatz nach Region",
-        "d": "Schlüssele den Umsatz geografisch mit Drill-downs auf."
-      },
-      {
-        "t": "Vertriebs-Rangliste",
-        "d": "Ranke die Leistung mit gefenstertem SAQL und Faceting."
-      },
-      {
-        "t": "Marketing-ROI",
-        "d": "Ordne Pipeline den Kampagnen zu und miss den Return."
-      }
-    ],
-    "submitTitle": "Etwas gebaut?",
-    "submitDesc": "Teile dein Dashboard und inspiriere andere Lernende.",
-    "submitButton": "Deins einreichen",
-    "lessonsWord": "Unterricht",
-    "moduleWord": "Modul",
-    "exploreEyebrow": "Das Ökosystem",
-    "exploreTitle": "Mehr als Lektionen",
-    "exploreSubtitle": "Die Community, die Unternehmen und die Karrieren rund um CRM Analytics.",
-    "exploreWall": "Treffen Sie die Blogger, YouTuber und Autoren, die die Community unterrichtet haben.",
-    "exploreCompanies": "Sehen Sie, auf welche Unternehmen CRM Analytics Und wer mit ihm baut.",
-    "exploreJobs": "frisch CRM Analytics Rollen, jeden Tag aufgefrischt.",
-    "pagesTitle": "Alles auf der Website",
-    "pagesSubtitle": "Jede Seite, eine Karte.",
-    "thanksText": "Aufbauend auf dem, was uns die Gemeinschaft gelehrt hat.",
-    "thanksLink": "Vielen Dank, Wand der Famers",
-    "langTitle": "Studieren Sie in Ihrer Sprache",
-    "langSubtitle": "Der gesamte Lehrplan, in zwölf Sprachen.",
-    "langHint": "Wählen Sie unten eine Sprache aus, um sofort zu wechseln - oder verwenden Sie das Globussymbol in der Navigationsleiste auf einer beliebigen Seite. Ihre Wahl wird in Erinnerung bleiben.",
-    "subtitle": "Von Ihrem ersten Datensatz bis zu einem Vorstand öffnet sich tatsächlich eine Führungskraft - die gesamte Plattform in neunzehn Abschnitten, dann siebzehn Go-to-Market-Dashboards, die auf den Daten eines Unternehmens aufbauen.",
-    "f2": "161 Lektionen",
     "hero": {
       "eyebrow": "Aktualisiert für die aktuelle Salesforce Freigabe",
       "title": "Lernen Salesforce CRM Analytics die Art, wie es bei der Arbeit verwendet wird.",
@@ -490,14 +270,11 @@
     "tagline": "Ein kostenloser, quelloffener Lehrplan, um Salesforce CRM Analytics zu meistern.",
     "curriculum": "Lehrplan",
     "project": "Projekt",
-    "legal": "Rechtliches",
     "community": "Gemeinschaft",
     "academy": "Akademie",
     "links": {
-      "instructors": "Werden Sie Ausbilder",
       "nominate": "Nominiert für die Wall",
-      "sales": "Sprechen Sie mit dem Verkauf",
-      "contact": "Kontaktieren Sie uns"
+      "sales": "Sprechen Sie mit dem Verkauf"
     },
     "quip": {
       "0": "Hergestellt von Swarnil mit einer unangemessenen Menge an Aufforderung und einer heroischen Verschwendung von Token.",
@@ -514,11 +291,6 @@
     "resourcesDesc": "Eine kuratierte Liste der besten Salesforce-CRM-Analytics-Ressourcen: offizielle Dokumentation, Trailhead, SAQL-Referenzen, Community und Tools.",
     "showcaseTitle": "Dashboard Showcase",
     "showcaseDesc": "Real CRM Analytics Dashboards, die von der Community erstellt wurden - die KPIs, die Formeln dahinter und die Techniken, mit denen jeder erstellt wurde."
-  },
-  "video": {
-    "thanksForWatching": "Danke fürs Zuschauen!",
-    "replay": "Wiederholen",
-    "lessonCompleted": "Lektion abgeschlossen"
   },
   "showcase": {
     "title": "Dashboard Showcase",
@@ -552,19 +324,12 @@
     "dashboard": "Dashboard"
   },
   "course": {
-    "curriculum": "Lehrplan",
-    "lessonOf": "{position} von {total}",
-    "complete": "{percent}% vollständig",
-    "previous": "Früher",
-    "next": "Nächster Artikel",
-    "finish": "Ende",
     "nextLesson": "Nächste: {title}",
     "markComplete": "Vollständige Kennzeichnung",
     "completed": "Abgeschlossen",
     "signInToTrack": "Melden Sie sich an, um Ihren Fortschritt zu verfolgen.",
     "signIn": "Zeichen",
-    "courseProgress": "Kursfortschritt",
-    "moduleProgress": "{done} von {total} Lektionen"
+    "courseProgress": "Kursfortschritt"
   },
   "dashboard": {
     "kicker": "Dashboard",
@@ -572,9 +337,7 @@
     "welcomeNamed": "Willkommen zurück, {name}",
     "yourProgress": "Ihre Fortschritte",
     "lessonsDone": "{done} von {total} Unterricht",
-    "keepGoing": "Weiter wo du aufgehört hast",
     "continueCta": "Lebenslauf",
-    "browseCurriculum": "Durchsuchen des Curriculums",
     "nothingYet": "Sie haben noch keine Lektion abgeschlossen.",
     "startFirst": "Beginnen Sie die erste Lektion",
     "plan": "Plan",
@@ -585,7 +348,6 @@
     "recentlyCompleted": "Vor kurzem abgeschlossen",
     "statCompleted": "Abgeschlossen",
     "statRemaining": "Verbleibend",
-    "statProgress": "Fortschritt",
     "statPoints": "Punkte",
     "statRank": "Rang",
     "unranked": "—",
@@ -597,7 +359,6 @@
     "signUpTitle": "Frei einschreiben",
     "signUpDesc": "Ein kostenloses Konto: Ihre Fortschritte, Quizergebnisse und Fragen folgen Ihnen zu jedem Gerät.",
     "demoCta": "Nur schauen? Entdecken Sie mit der Read-only-Demo",
-    "or": "oder",
     "name": "Name",
     "email": "E-Mail",
     "password": "Passwort",
@@ -627,44 +388,30 @@
   },
   "submit": {
     "kicker": "Beitrag",
-    "title": "Teilen Sie etwas mit der Community",
-    "subtitle": "Eine Ressource, die Sie nützlich fanden, ein Dashboard, das Sie erstellt haben, oder eine Lektion, die Sie sich wünschen. Alles wird überprüft, bevor es erscheint.",
     "kind": "Was reichen Sie ein?",
     "kindResource": "Eine Ressource",
-    "kindShowcase": "Ein Dashboard-Projekt",
-    "kindIdea": "Eine Lektion Idee",
     "titleLabel": "Titel",
     "urlLabel": "Link",
     "imageLabel": "Bildschirmfoto URL",
-    "descLabel": "Warum lohnt es sich zu teilen?",
     "descHint": "mindestens 20 Zeichen.",
     "tagsLabel": "Tags",
     "tagsHint": "Komma getrennt, bis zu 8.",
     "submit": "Vorlage zur Überprüfung",
-    "sentTitle": "Danke - es ist in der Schlange.",
-    "sentBody": "Wir überprüfen Einreichungen von Hand. Sie werden es hier sehen, sobald es genehmigt ist.",
-    "another": "Einreichen eines anderen",
     "mine": "Ihre Beiträge",
     "pending": "Ausstehende Überprüfung",
     "approved": "Zugelassen",
     "rejected": "Nicht akzeptiert",
-    "none": "Sie haben noch nichts vorgelegt.",
     "signInFirst": "Melden Sie sich an, um beizutragen.",
     "stepKind": "Typ",
     "stepDetails": "Einzelheiten",
-    "stepMedia": "Medien",
     "stepReview": "Überprüfung",
-    "next": "Weiterfahren",
     "back": "Rücken",
     "optional": "Fakultativ",
-    "photosLabel": "Dashboard Screenshots",
     "photosHint": "PNG, JPG oder WebP, jeweils bis zu 4 MB - 4 Bilder max.",
-    "uploading": "Hochladen...",
-    "reviewHint": "Fast fertig - überprüfen Sie alles liest direkt vor dem Senden."
+    "uploading": "Hochladen..."
   },
   "wall": {
     "eyebrow": "Gemeinschaft",
-    "title": "Wall of Fame",
     "subtitle": "Die Menschen, die die CRM Analytics Community was es ist - die Blogger, YouTuber, Autoren, Sprecher und Werkzeugbauer, deren Arbeit den Rest von uns gelehrt hat.",
     "all": "Alle",
     "types": {
@@ -678,63 +425,12 @@
     "nominateTitle": "Kennen Sie jemanden, der hierher gehört?",
     "nominateDesc": "Nominieren Sie einen Blogger, Schöpfer oder Mentor, dessen Arbeit dem CRM Analytics Gemeinschaft.",
     "nominate": "Nominieren Sie jemanden",
-    "connect": "Connect auf Linked In",
     "emptyPhoto": "Dein Foto hier",
     "emptyCaption": "Nominiert",
     "emptyHint": "Nominieren Sie jemanden",
     "filter": "Filter nach Art",
     "board": "Vorstand",
     "whoTitle": "Wer sie sind"
-  },
-  "companies": {
-    "eyebrow": "Ökosystem",
-    "title": "Wer läuft auf CRM Analytics",
-    "subtitle": "Bekannte Unternehmen CRM Analytics in der Produktion und den Beratungsunternehmen, die damit entwerfen und bauen.",
-    "filterIndustry": "Industrie",
-    "allIndustries": "Alle Industriezweige",
-    "allTypes": "alle",
-    "typeCustomer": "Kunde",
-    "typeConsultancy": "Beratung",
-    "empty": "Nichts passt zu diesen Filtern.",
-    "reset": "Filter zurücksetzen",
-    "disclaimer": "Kuratiert aus öffentlichen Fallstudien, Vorträgen und Stellenausschreibungen. Logos und Marken gehören ihren Eigentümern; eine Auflistung hier ist keine Bestätigung durch oder von Salesforce.",
-    "industries": {
-      "finance": "Finanzdienstleistungen",
-      "insurance": "Versicherung",
-      "healthcare": "Gesundheitsversorgung",
-      "manufacturing": "Herstellung von Waren",
-      "retail": "Einzelhandel & Verbraucher",
-      "technology": "Technologie",
-      "energy": "Energie & Versorgungsunternehmen",
-      "telecom": "Telekommunikation & Medien",
-      "nonprofit": "Gemeinnützige & Bildung",
-      "consulting": "Beratung"
-    },
-    "filterType": "Typ"
-  },
-  "jobs": {
-    "eyebrow": "Karriere",
-    "title": "CRM Analytics Arbeitsplätze",
-    "subtitle": "Frische Rollen, die erwähnen CRM Analytics, Tableau CRM oder Einstein Analytics - täglich von öffentlichen Jobbörsen aktualisiert.",
-    "searchPlaceholder": "Suchtitel, Firma oder Standort",
-    "remoteOnly": "Remote nur",
-    "apply": "Ansicht & Antrag",
-    "updated": "Zuletzt aktualisiert {date}",
-    "empty": "Keine Jobs passen zusammen - versuchen Sie, die Suche zu löschen.",
-    "count": "{count} Offene Rollen",
-    "disclaimer": "Angebote kommen von drittanbieter-jobbörsen; wir überprüfen keine arbeitgeber. Bewerben Sie sich immer auf der Quellseite.",
-    "source": "Quelle",
-    "sample": "Probe",
-    "sampleNote": "Live-angebote werden täglich aktualisiert; diese beispielrollen zeigen, was hier typischerweise erscheint.",
-    "filters": "Filter"
-  },
-  "newsletter": {
-    "title": "Bleiben Sie in der Schleife",
-    "subtitle": "Eine gelegentliche E-Mail, wenn neue Module, Showcases oder Jobs landen. Kein Spam, jederzeit abmelden.",
-    "placeholder": "Sie{'@'}Beispiel:com",
-    "button": "Subscribe",
-    "success": "Überprüfen Sie Ihren Posteingang, um Ihr Abonnement zu bestätigen.",
-    "error": "Abonnement fehlgeschlagen - bitte versuchen Sie es später erneut."
   },
   "quiz": {
     "title": "Überprüfen Sie Ihr Wissen",
@@ -747,20 +443,6 @@
     "signInToSave": "Melden Sie sich an, um Ihre Punktzahl zu speichern und Punkte zu sammeln.",
     "saved": "Score gespeichert - es zählt zu Ihren Punkten.",
     "answered": "{n} von {total} beantwortet"
-  },
-  "ask": {
-    "eyebrow": "Bitten",
-    "title": "Fragen Sie den Lehrplan",
-    "subtitle": "Geben Sie eine Frage ein und erhalten Sie die genauen Lektionen, die sie beantworten - kein Konto, kein Warten.",
-    "placeholder": "z.B. Wie facette ich ein dashboard mit einem date toggle.",
-    "empty": "Keine passenden Lektionen - versuchen Sie verschiedene Wörter.",
-    "sources": "Aus dem Curriculum",
-    "aiBox": "Chatten Sie mit diesem Kurs in Ihrem AI-Tool",
-    "aiBoxDesc": "Fügen Sie diesen Link in ChatGPT, Claude oder einen beliebigen KI-Assistenten ein, um mit dem vollständigen Lehrplan zu chatten.",
-    "copy": "Kopierlink",
-    "copied": "Kopiert!",
-    "mcp": "Verbinden über MCP",
-    "mcpDesc": "Richten Sie einen beliebigen MCP-fähigen Client an diesen Endpunkt, um Ihrem KI-Assistenten direkten Zugriff auf jede Lektion zu geben."
   },
   "resources": {
     "submitTitle": "Kennen Sie eine Ressource, die hierher gehört?",

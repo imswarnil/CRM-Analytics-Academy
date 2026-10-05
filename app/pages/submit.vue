@@ -11,10 +11,12 @@
  *
  * Everything posts to /api/submissions: `kind` is one of the three moderation
  * buckets, `details` carries the structured fields of the fine-grained type.
- * The copy is English only; the route stays localized because localized
- * pages link to it.
+ * Every string the contributor reads goes through t('submit.*'). The option
+ * values (domains, techniques, source types…) stay English because they are
+ * what the API stores and the admin console reads; only their labels are
+ * translated.
  */
-import { hostOf, isHttpUrl, type UrlMeta } from '~/components/submit/urlMeta'
+import { hostOf, isHttpUrl, type UrlMeta } from '~/utils/urlMeta'
 
 definePageMeta({
   // Personal and auth-gated, like /dashboard: never prerendered, never
@@ -22,8 +24,10 @@ definePageMeta({
   middleware: 'auth'
 })
 
+const { t, locales } = useI18n()
+
 useSeoMeta({
-  title: 'Contribute',
+  title: t('nav.contribute'),
   robots: 'noindex, nofollow'
 })
 
@@ -40,31 +44,31 @@ interface Mine {
   reviewNote: string | null
 }
 
-const TYPES: { value: Type, kind: Kind, label: string, blurb: string, icon: string }[] = [
-  { value: 'dashboard', kind: 'showcase', label: 'A dashboard', blurb: 'For the showcase: how you prepared the data, the sources, every KPI and how it is calculated.', icon: 'i-lucide-chart-column' },
-  { value: 'resource', kind: 'resource', label: 'A resource', blurb: 'A docs page, course, tool, blog or community worth someone’s time.', icon: 'i-lucide-link' },
-  { value: 'lesson', kind: 'lesson-idea', label: 'A lesson fix or idea', blurb: 'Something wrong in a lesson, or a lesson that should exist.', icon: 'i-lucide-lightbulb' },
-  { value: 'translation', kind: 'lesson-idea', label: 'A translation fix', blurb: 'A machine translation that reads wrong in your language.', icon: 'i-lucide-languages' },
-  { value: 'snippet', kind: 'lesson-idea', label: 'A SAQL snippet', blurb: 'A query that solves a real problem, with the dataset it runs on.', icon: 'i-lucide-code-xml' }
+const TYPES: { value: Type, kind: Kind, labelKey: string, blurbKey: string, icon: string }[] = [
+  { value: 'dashboard', kind: 'showcase', labelKey: 'submit.kindShowcase', blurbKey: 'submit.blurbShowcase', icon: 'i-lucide-chart-column' },
+  { value: 'resource', kind: 'resource', labelKey: 'submit.kindResource', blurbKey: 'submit.blurbResource', icon: 'i-lucide-link' },
+  { value: 'lesson', kind: 'lesson-idea', labelKey: 'submit.kindIdea', blurbKey: 'submit.blurbIdea', icon: 'i-lucide-lightbulb' },
+  { value: 'translation', kind: 'lesson-idea', labelKey: 'submit.kindTranslation', blurbKey: 'submit.blurbTranslation', icon: 'i-lucide-languages' },
+  { value: 'snippet', kind: 'lesson-idea', labelKey: 'submit.kindSnippet', blurbKey: 'submit.blurbSnippet', icon: 'i-lucide-code-xml' }
 ]
 
+/** Step labels, as i18n keys — the first and last are shared by every type. */
 const STEPS: Record<Type, string[]> = {
-  dashboard: ['Type', 'Dashboard', 'Data', 'KPIs & media', 'Review'],
-  resource: ['Type', 'Link', 'Details', 'Review'],
-  lesson: ['Type', 'Lesson', 'Proposal', 'Review'],
-  translation: ['Type', 'Where', 'Correction', 'Review'],
-  snippet: ['Type', 'Snippet', 'Context', 'Review']
+  dashboard: ['submit.stepKind', 'submit.stepDashboard', 'submit.stepData', 'submit.stepMedia', 'submit.stepReview'],
+  resource: ['submit.stepKind', 'submit.stepLink', 'submit.stepDetails', 'submit.stepReview'],
+  lesson: ['submit.stepKind', 'submit.stepLesson', 'submit.stepProposal', 'submit.stepReview'],
+  translation: ['submit.stepKind', 'submit.stepWhere', 'submit.stepCorrection', 'submit.stepReview'],
+  snippet: ['submit.stepKind', 'submit.stepSnippet', 'submit.stepContext', 'submit.stepReview']
 }
 
 const route = useRoute()
 const localePath = useLocalePath()
-const { locales } = useI18n()
 const { lessons } = useCourse()
 
 // A link can preselect what is being submitted: ?type=snippet, or the older
 // ?kind=showcase|resource|lesson-idea buckets.
 const LEGACY: Record<string, Type> = { 'showcase': 'dashboard', 'resource': 'resource', 'lesson-idea': 'lesson' }
-const initial = (TYPES.some(t => t.value === route.query.type) ? route.query.type : LEGACY[String(route.query.kind)]) as Type | undefined
+const initial = (TYPES.some(x => x.value === route.query.type) ? route.query.type : LEGACY[String(route.query.kind)]) as Type | undefined
 const type = ref<Type>(initial ?? 'dashboard')
 const step = ref(initial ? 1 : 0)
 
@@ -72,17 +76,35 @@ const steps = computed(() => STEPS[type.value])
 const total = computed(() => steps.value.length)
 const isReview = computed(() => step.value === total.value - 1)
 const pad = (n: number) => String(n).padStart(2, '0')
-const typeInfo = computed(() => TYPES.find(t => t.value === type.value)!)
+const typeInfo = computed(() => TYPES.find(x => x.value === type.value)!)
 
 // ---------------------------------------------------------------- state ---
 
-const DOMAINS = ['Sales', 'Service', 'Marketing', 'Finance', 'Other']
-const DIFFICULTIES = ['Beginner', 'Intermediate', 'Advanced']
-const PREP_TOOLS = ['Recipe', 'Dataflow', 'Data sync / connector', 'CSV upload', 'External data API']
-const PREP_STEPS = ['Joins / augments', 'Filters', 'Formula fields', 'Aggregations', 'Append', 'Bucketing', 'Date handling', 'Deduplication']
-const SOURCE_TYPES = ['Salesforce object', 'CSV', 'External connector', 'Snowflake', 'Other database', 'Other']
-const TECHNIQUES = ['Bindings', 'SAQL', 'Compare tables', 'Windowing', 'Security predicates', 'Faceting', 'Dynamic filters', 'Actions', 'Einstein Discovery', 'Mobile layout']
-const CATEGORIES = ['Docs', 'Learning', 'Books', 'Blogs', 'Tools', 'Community']
+/**
+ * An option list. `value` is what the API receives and what the admin console
+ * and the showcase filters compare against, so it stays English; the label the
+ * contributor sees is `t(key)`.
+ */
+interface Option {
+  id: string
+  value: string
+  key: string
+}
+const options = (group: string, entries: Record<string, string>): Option[] =>
+  Object.entries(entries).map(([id, value]) => ({ id, value, key: `submit.options.${group}.${id}` }))
+const optionLabel = (list: Option[], value: string) => {
+  const hit = list.find(o => o.value === value)
+  return hit ? t(hit.key) : value
+}
+
+const DOMAINS = options('domains', { sales: 'Sales', service: 'Service', marketing: 'Marketing', finance: 'Finance', other: 'Other' })
+const DIFFICULTIES = options('difficulties', { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' })
+const PREP_TOOLS = options('prepTools', { recipe: 'Recipe', dataflow: 'Dataflow', sync: 'Data sync / connector', csv: 'CSV upload', api: 'External data API' })
+const PREP_STEPS = options('prepSteps', { joins: 'Joins / augments', filters: 'Filters', formulas: 'Formula fields', aggregations: 'Aggregations', append: 'Append', bucketing: 'Bucketing', dates: 'Date handling', dedupe: 'Deduplication' })
+const SOURCE_TYPES = options('sourceTypes', { sfObject: 'Salesforce object', csv: 'CSV', connector: 'External connector', snowflake: 'Snowflake', database: 'Other database', other: 'Other' })
+const TECHNIQUES = options('techniques', { bindings: 'Bindings', saql: 'SAQL', compareTables: 'Compare tables', windowing: 'Windowing', predicates: 'Security predicates', faceting: 'Faceting', dynamicFilters: 'Dynamic filters', actions: 'Actions', discovery: 'Einstein Discovery', mobile: 'Mobile layout' })
+const CATEGORIES = options('categories', { docs: 'Docs', learning: 'Learning', books: 'Books', blogs: 'Blogs', tools: 'Tools', community: 'Community' })
+const sourceTypeItems = computed(() => SOURCE_TYPES.map(o => ({ label: t(o.key), value: o.value })))
 
 const dash = reactive({
   name: '',
@@ -149,7 +171,7 @@ async function onFiles(e: Event) {
   for (const file of files) {
     if (dash.media.length >= MAX_MEDIA) break
     if (file.size > MAX_BYTES) {
-      mediaError.value = 'Images are capped at 4 MB each.'
+      mediaError.value = t('submit.errImageSize')
       continue
     }
     const body = new FormData()
@@ -159,7 +181,7 @@ async function onFiles(e: Event) {
       const up = await $fetch<{ key: string, url: string }>('/api/upload', { method: 'POST', body })
       dash.media.push({ url: new URL(up.url, window.location.origin).toString(), key: up.key })
     } catch (err) {
-      mediaError.value = messageOf(err, 'Upload failed — paste an image URL instead.')
+      mediaError.value = messageOf(err, t('submit.errUpload'))
     } finally {
       uploading.value = false
     }
@@ -169,7 +191,7 @@ async function onFiles(e: Event) {
 function addMediaUrl() {
   const url = dash.mediaUrl.trim()
   if (!isHttpUrl(url)) {
-    mediaError.value = 'Image links must start with http:// or https://'
+    mediaError.value = t('submit.errImageUrl')
     return
   }
   if (dash.media.length >= MAX_MEDIA) return
@@ -190,47 +212,47 @@ const problem = computed(() => {
   switch (type.value) {
     case 'dashboard':
       if (s === 1) {
-        if (len(dash.name) < 3) return 'Give the dashboard a name (3+ characters).'
-        if (!optionalUrlOk(dash.writeup)) return 'The write-up link must start with http:// or https://'
-        if (!optionalUrlOk(dash.creditUrl)) return 'Your link must start with http:// or https://'
+        if (len(dash.name) < 3) return t('submit.problems.dashName')
+        if (!optionalUrlOk(dash.writeup)) return t('submit.problems.writeupUrl')
+        if (!optionalUrlOk(dash.creditUrl)) return t('submit.problems.creditUrl')
       }
       if (s === 2) {
-        if (len(dash.prep) < 20) return 'Describe how you prepared the data (20+ characters).'
-        if (!dash.sources.some(x => len(x.name))) return 'Add at least one data source.'
+        if (len(dash.prep) < 20) return t('submit.problems.prep')
+        if (!dash.sources.some(x => len(x.name))) return t('submit.problems.source')
       }
       if (s === 3) {
         const kpis = dash.kpis.filter(k => len(k.name) || len(k.formula))
-        if (!kpis.length) return 'Add at least one KPI.'
-        if (kpis.some(k => !len(k.name) || !len(k.formula))) return 'Every KPI needs a name and how it is calculated.'
+        if (!kpis.length) return t('submit.problems.kpi')
+        if (kpis.some(k => !len(k.name) || !len(k.formula))) return t('submit.problems.kpiFields')
       }
       return ''
     case 'resource':
-      if (s === 1 && !isHttpUrl(res.url)) return 'Paste the link, starting with http:// or https://'
+      if (s === 1 && !isHttpUrl(res.url)) return t('submit.problems.resourceUrl')
       if (s === 2) {
-        if (len(res.title) < 3) return 'Give it a title (3+ characters).'
-        if (len(res.why) < 20) return 'Say why it is useful (20+ characters).'
+        if (len(res.title) < 3) return t('submit.problems.resourceTitle')
+        if (len(res.why) < 20) return t('submit.problems.resourceWhy')
       }
       return ''
     case 'lesson':
       if (s === 1) {
-        if (lesson.mode === 'fix' && !lesson.path) return 'Pick the lesson.'
-        if (lesson.mode === 'idea' && len(lesson.ideaTitle) < 3) return 'Give the lesson idea a title.'
+        if (lesson.mode === 'fix' && !lesson.path) return t('submit.problems.lessonPick')
+        if (lesson.mode === 'idea' && len(lesson.ideaTitle) < 3) return t('submit.problems.ideaTitle')
       }
       if (s === 2) {
-        if (len(lesson.body) < 20) return lesson.mode === 'fix' ? 'Describe what is wrong (20+ characters).' : 'Outline the lesson (20+ characters).'
-        if (lesson.sources.some(x => !optionalUrlOk(x.url))) return 'Source links must start with http:// or https://'
+        if (len(lesson.body) < 20) return lesson.mode === 'fix' ? t('submit.problems.fixBody') : t('submit.problems.ideaBody')
+        if (lesson.sources.some(x => !optionalUrlOk(x.url))) return t('submit.problems.sourceUrls')
       }
       return ''
     case 'translation':
-      if (s === 1 && (!tr.locale || !tr.path)) return 'Pick the language and the lesson.'
-      if (s === 2 && (len(tr.wrong) < 2 || len(tr.suggested) < 2)) return 'Paste the wrong text and your correction.'
+      if (s === 1 && (!tr.locale || !tr.path)) return t('submit.problems.translationWhere')
+      if (s === 2 && (len(tr.wrong) < 2 || len(tr.suggested) < 2)) return t('submit.problems.translationText')
       return ''
     case 'snippet':
       if (s === 1) {
-        if (len(snip.title) < 3) return 'Give the snippet a title.'
-        if (len(snip.saql) < 10) return 'Paste the SAQL.'
+        if (len(snip.title) < 3) return t('submit.problems.snippetTitle')
+        if (len(snip.saql) < 10) return t('submit.problems.snippetSaql')
       }
-      if (s === 2 && len(snip.what) < 20) return 'Say what it does (20+ characters).'
+      if (s === 2 && len(snip.what) < 20) return t('submit.problems.snippetWhat')
       return ''
   }
   return ''
@@ -352,7 +374,7 @@ const sending = ref(false)
 const sent = ref(false)
 const error = ref('')
 
-function messageOf(e: unknown, fallback = 'Something went wrong.') {
+function messageOf(e: unknown, fallback = t('submit.errGeneric')) {
   const err = e as { statusMessage?: string, data?: { statusMessage?: string } }
   return err?.data?.statusMessage || err?.statusMessage || fallback
 }
@@ -389,21 +411,24 @@ const { data: mine, refresh: refreshMine } = await useLazyAsyncData('my-submissi
   default: () => ({ submissions: [] as Mine[] })
 })
 
-const STATUS: Record<Mine['status'], { label: string, cls: string }> = {
-  pending: { label: 'Pending review', cls: 'border-(--line) text-(--ink2)' },
-  approved: { label: 'Approved', cls: 'border-(--signal) text-(--signal)' },
-  rejected: { label: 'Rejected', cls: 'border-error text-error' }
+const STATUS: Record<Mine['status'], { key: string, cls: string }> = {
+  pending: { key: 'submit.pending', cls: 'border-(--line) text-(--ink2)' },
+  approved: { key: 'submit.approved', cls: 'border-(--signal) text-(--signal)' },
+  rejected: { key: 'submit.rejected', cls: 'border-error text-error' }
 }
-const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replace(/^A /, '')
-  ?? ({ 'showcase': 'dashboard', 'resource': 'resource', 'lesson-idea': 'lesson idea' } as Record<string, string>)[s.kind] ?? s.kind
+/** The one-word kind shown beside a past submission; older rows only have a bucket. */
+const typeLabel = (s: Mine) => {
+  const type = s.type ?? LEGACY[s.kind]
+  return type ? t(`submit.short.${type}`) : s.kind
+}
 </script>
 
 <template>
   <div>
     <BpPageHeader
-      sheet="Sheet 07 / Contribute"
-      title="Contribute to the Academy"
-      lead="Dashboards, resources, lesson fixes, translations and SAQL. Everything is reviewed by a person before it appears, and approved work earns points on the leaderboard."
+      :sheet="t('submit.sheet')"
+      :title="t('submit.title')"
+      :lead="t('submit.subtitle')"
     />
 
     <div class="mx-auto max-w-[76rem] px-4 py-12 sm:px-6">
@@ -419,20 +444,20 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
           />
         </span>
         <p class="eyebrow mt-6">
-          Received
+          {{ t('submit.received') }}
         </p>
         <h2 class="bp-h3 mt-2">
-          Thank you — it is in the review queue.
+          {{ t('submit.sentTitle') }}
         </h2>
         <p class="mx-auto mt-3 max-w-lg text-(--ink2)">
-          You will see its status below. Approved contributions are credited to you and count on the leaderboard.
+          {{ t('submit.sentBody') }}
         </p>
         <UButton
           class="mt-6"
           icon="i-lucide-plus"
           @click="sent = false"
         >
-          Contribute something else
+          {{ t('submit.another') }}
         </UButton>
       </div>
 
@@ -444,7 +469,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
         <div class="border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-5 sm:px-8">
           <div class="flex flex-wrap items-center justify-between gap-3">
             <p class="font-mono text-xs font-semibold uppercase tracking-[.14em] text-(--signal)">
-              Step {{ pad(step + 1) }} / {{ pad(total) }} — {{ steps[step] }}
+              {{ t('submit.stepOf', { current: pad(step + 1), total: pad(total), label: t(steps[step]!) }) }}
             </p>
             <p
               v-if="step > 0"
@@ -453,7 +478,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               <UIcon
                 :name="typeInfo.icon"
                 class="size-4"
-              />{{ typeInfo.label }}
+              />{{ t(typeInfo.labelKey) }}
             </p>
           </div>
           <ol class="mt-4 flex border-[1.5px] border-(--ink) bg-(--card)">
@@ -471,7 +496,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 @click="i < step && (step = i, showProblem = false)"
               >
                 <span class="font-mono text-[10px] tracking-[.1em]">{{ pad(i + 1) }}</span>
-                <span class="hidden truncate text-xs font-bold sm:block">{{ label }}</span>
+                <span class="hidden truncate text-xs font-bold sm:block">{{ t(label) }}</span>
               </button>
             </li>
           </ol>
@@ -484,22 +509,22 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
             class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
             <button
-              v-for="t in TYPES"
-              :key="t.value"
+              v-for="ty in TYPES"
+              :key="ty.value"
               type="button"
               class="bp-card bp-card--hover group flex flex-col items-start gap-3 p-6 text-start"
-              :class="type === t.value ? 'ring-2 ring-(--signal)' : ''"
-              @click="choose(t.value)"
+              :class="type === ty.value ? 'ring-2 ring-(--signal)' : ''"
+              @click="choose(ty.value)"
             >
               <span class="bp-iconbox size-11">
                 <UIcon
-                  :name="t.icon"
+                  :name="ty.icon"
                   class="size-5"
                 />
               </span>
-              <span class="text-lg font-extrabold text-(--ink)">{{ t.label }}</span>
-              <span class="text-sm text-(--ink2)">{{ t.blurb }}</span>
-              <span class="mt-auto font-mono text-[10px] uppercase tracking-[.12em] text-(--signal)">{{ STEPS[t.value].length - 1 }} steps →</span>
+              <span class="text-lg font-extrabold text-(--ink)">{{ t(ty.labelKey) }}</span>
+              <span class="text-sm text-(--ink2)">{{ t(ty.blurbKey) }}</span>
+              <span class="mt-auto font-mono text-[10px] uppercase tracking-[.12em] text-(--signal)">{{ t('submit.stepsCount', { n: STEPS[ty.value].length - 1 }) }} →</span>
             </button>
           </div>
 
@@ -510,48 +535,48 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               class="grid gap-6 lg:grid-cols-2"
             >
               <UFormField
-                label="Dashboard name"
+                :label="t('submit.dash.name')"
                 required
                 class="lg:col-span-2"
               >
                 <UInput
                   v-model="dash.name"
                   size="xl"
-                  placeholder="Pipeline coverage by segment"
+                  :placeholder="t('submit.dash.namePh')"
                   class="w-full"
                 />
               </UFormField>
-              <UFormField label="Business domain">
+              <UFormField :label="t('submit.dash.domain')">
                 <div class="flex flex-wrap gap-2">
                   <button
                     v-for="d in DOMAINS"
-                    :key="d"
+                    :key="d.id"
                     type="button"
                     class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                    :class="dash.domain === d ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
-                    @click="dash.domain = d"
+                    :class="dash.domain === d.value ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
+                    @click="dash.domain = d.value"
                   >
-                    {{ d }}
+                    {{ t(d.key) }}
                   </button>
                 </div>
               </UFormField>
-              <UFormField label="Difficulty">
+              <UFormField :label="t('submit.dash.difficulty')">
                 <div class="flex flex-wrap gap-2">
                   <button
                     v-for="d in DIFFICULTIES"
-                    :key="d"
+                    :key="d.id"
                     type="button"
                     class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                    :class="dash.difficulty === d ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
-                    @click="dash.difficulty = d"
+                    :class="dash.difficulty === d.value ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
+                    @click="dash.difficulty = d.value"
                   >
-                    {{ d }}
+                    {{ t(d.key) }}
                   </button>
                 </div>
               </UFormField>
               <UFormField
-                label="Public write-up"
-                hint="Optional"
+                :label="t('submit.dash.writeup')"
+                :hint="t('submit.optional')"
                 class="lg:col-span-2"
               >
                 <UInput
@@ -568,18 +593,18 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 </UInput>
               </UFormField>
               <UFormField
-                label="Credit — your name"
-                hint="Optional"
+                :label="t('submit.dash.creditName')"
+                :hint="t('submit.optional')"
               >
                 <UInput
                   v-model="dash.creditName"
-                  placeholder="As it should appear on the showcase"
+                  :placeholder="t('submit.dash.creditNamePh')"
                   class="w-full"
                 />
               </UFormField>
               <UFormField
-                label="Credit — your link"
-                hint="Optional"
+                :label="t('submit.dash.creditUrl')"
+                :hint="t('submit.optional')"
               >
                 <UInput
                   v-model="dash.creditUrl"
@@ -601,69 +626,69 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               class="space-y-8"
             >
               <div class="grid gap-6 lg:grid-cols-2">
-                <UFormField label="Built with">
+                <UFormField :label="t('submit.dash.tools')">
                   <div class="flex flex-wrap gap-2">
                     <button
                       v-for="x in PREP_TOOLS"
-                      :key="x"
+                      :key="x.id"
                       type="button"
                       class="flex items-center gap-1.5 border-[1.5px] px-3 py-1.5 text-sm"
-                      :class="dash.tools.includes(x) ? 'border-(--signal) bg-(--ice) font-semibold text-(--signal)' : 'border-(--line) hover:border-(--ink)'"
-                      @click="toggle(dash.tools, x)"
+                      :class="dash.tools.includes(x.value) ? 'border-(--signal) bg-(--ice) font-semibold text-(--signal)' : 'border-(--line) hover:border-(--ink)'"
+                      @click="toggle(dash.tools, x.value)"
                     >
                       <UIcon
-                        :name="dash.tools.includes(x) ? 'i-lucide-square-check' : 'i-lucide-square'"
+                        :name="dash.tools.includes(x.value) ? 'i-lucide-square-check' : 'i-lucide-square'"
                         class="size-4"
-                      />{{ x }}
+                      />{{ t(x.key) }}
                     </button>
                   </div>
                 </UFormField>
-                <UFormField label="Preparation steps">
+                <UFormField :label="t('submit.dash.prepSteps')">
                   <div class="flex flex-wrap gap-2">
                     <button
                       v-for="x in PREP_STEPS"
-                      :key="x"
+                      :key="x.id"
                       type="button"
                       class="flex items-center gap-1.5 border-[1.5px] px-3 py-1.5 text-sm"
-                      :class="dash.prepSteps.includes(x) ? 'border-(--signal) bg-(--ice) font-semibold text-(--signal)' : 'border-(--line) hover:border-(--ink)'"
-                      @click="toggle(dash.prepSteps, x)"
+                      :class="dash.prepSteps.includes(x.value) ? 'border-(--signal) bg-(--ice) font-semibold text-(--signal)' : 'border-(--line) hover:border-(--ink)'"
+                      @click="toggle(dash.prepSteps, x.value)"
                     >
                       <UIcon
-                        :name="dash.prepSteps.includes(x) ? 'i-lucide-square-check' : 'i-lucide-square'"
+                        :name="dash.prepSteps.includes(x.value) ? 'i-lucide-square-check' : 'i-lucide-square'"
                         class="size-4"
-                      />{{ x }}
+                      />{{ t(x.key) }}
                     </button>
                   </div>
                 </UFormField>
               </div>
               <UFormField
-                label="How did you prepare the data?"
+                :label="t('submit.dash.prep')"
                 required
-                help="The joins and why, what you filtered out, anything that surprised you."
+                :help="t('submit.dash.prepHelp')"
               >
                 <UTextarea
                   v-model="dash.prep"
                   :rows="6"
                   autoresize
                   class="w-full"
-                  placeholder="Opportunities augmented with Account on AccountId; closed-lost older than 2 years filtered out; …"
+                  :placeholder="t('submit.dash.prepPh')"
                 />
               </UFormField>
               <UFormField
-                label="Grain"
-                hint="Optional"
-                help="What one row of the final dataset is."
+                :label="t('submit.dash.grain')"
+                :hint="t('submit.optional')"
+                :help="t('submit.dash.grainHelp')"
               >
                 <UInput
                   v-model="dash.grain"
                   class="w-full"
-                  placeholder="One row per opportunity per snapshot week"
+                  :placeholder="t('submit.dash.grainPh')"
                 />
               </UFormField>
 
               <div>
                 <p class="mono-label mb-3">
-                  Data sources
+                  {{ t('submit.dash.sources') }}
                 </p>
                 <div class="border-[1.5px] border-(--ink)">
                   <div
@@ -673,7 +698,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                   >
                     <USelect
                       v-model="src.type"
-                      :items="SOURCE_TYPES"
+                      :items="sourceTypeItems"
                       class="w-full"
                     />
                     <UInput
@@ -683,7 +708,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                     />
                     <UInput
                       v-model="src.rows"
-                      placeholder="Rows (optional)"
+                      :placeholder="t('submit.dash.rowsPh')"
                       class="w-full"
                     />
                     <UButton
@@ -691,7 +716,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                       color="neutral"
                       variant="ghost"
                       square
-                      aria-label="Remove source"
+                      :aria-label="t('submit.removeSource')"
                       :disabled="dash.sources.length === 1"
                       @click="dash.sources.splice(i, 1)"
                     />
@@ -706,7 +731,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                   :disabled="dash.sources.length >= 12"
                   @click="dash.sources.push({ type: 'Salesforce object', name: '', rows: '' })"
                 >
-                  Add a source
+                  {{ t('submit.addSource') }}
                 </UButton>
               </div>
             </div>
@@ -717,7 +742,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
             >
               <div>
                 <p class="mono-label mb-3">
-                  KPIs — name, how it is calculated, why it matters
+                  {{ t('submit.dash.kpis') }}
                 </p>
                 <div class="space-y-4">
                   <div
@@ -726,14 +751,14 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                     class="border-[1.5px] border-(--ink)"
                   >
                     <div class="flex items-center justify-between border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2">
-                      <span class="font-mono text-[11px] font-semibold uppercase tracking-[.1em] text-(--signal)">KPI {{ pad(i + 1) }}</span>
+                      <span class="font-mono text-[11px] font-semibold uppercase tracking-[.1em] text-(--signal)">{{ t('submit.dash.kpiN', { n: pad(i + 1) }) }}</span>
                       <UButton
                         icon="i-lucide-trash-2"
                         color="neutral"
                         variant="ghost"
                         size="xs"
                         square
-                        aria-label="Remove KPI"
+                        :aria-label="t('submit.dash.removeKpi')"
                         :disabled="dash.kpis.length === 1"
                         @click="dash.kpis.splice(i, 1)"
                       />
@@ -741,20 +766,20 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                     <div class="grid gap-3 p-3 lg:grid-cols-[16rem_minmax(0,1fr)]">
                       <UInput
                         v-model="k.name"
-                        placeholder="Win rate"
+                        :placeholder="t('submit.dash.kpiNamePh')"
                         class="w-full"
                       />
                       <UTextarea
                         v-model="k.formula"
                         :rows="2"
                         autoresize
-                        placeholder="sum(IsWon) / count() — over closed opportunities, by close date"
+                        :placeholder="t('submit.dash.kpiFormulaPh')"
                         class="w-full"
                         :ui="{ base: 'font-mono text-sm' }"
                       />
                       <UInput
                         v-model="k.why"
-                        placeholder="Why it matters (optional)"
+                        :placeholder="t('submit.dash.kpiWhyPh')"
                         class="w-full lg:col-span-2"
                       />
                     </div>
@@ -769,28 +794,28 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                   :disabled="dash.kpis.length >= 12"
                   @click="dash.kpis.push({ name: '', formula: '', why: '' })"
                 >
-                  Add a KPI
+                  {{ t('submit.dash.addKpi') }}
                 </UButton>
               </div>
 
-              <UFormField label="Techniques used">
+              <UFormField :label="t('submit.dash.techniques')">
                 <div class="flex flex-wrap gap-2">
                   <button
                     v-for="x in TECHNIQUES"
-                    :key="x"
+                    :key="x.id"
                     type="button"
                     class="border-[1.5px] px-3 py-1.5 font-mono text-xs uppercase tracking-[.06em]"
-                    :class="dash.techniques.includes(x) ? 'border-(--signal) bg-(--signal) text-white' : 'border-(--line) hover:border-(--ink)'"
-                    @click="toggle(dash.techniques, x)"
+                    :class="dash.techniques.includes(x.value) ? 'border-(--signal) bg-(--signal) text-white' : 'border-(--line) hover:border-(--ink)'"
+                    @click="toggle(dash.techniques, x.value)"
                   >
-                    {{ x }}
+                    {{ t(x.key) }}
                   </button>
                 </div>
               </UFormField>
 
               <div>
                 <p class="mono-label mb-3">
-                  Screenshots — up to {{ MAX_MEDIA }}
+                  {{ t('submit.photosLabel', { max: MAX_MEDIA }) }}
                 </p>
                 <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                   <div
@@ -810,7 +835,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                       size="xs"
                       color="neutral"
                       square
-                      aria-label="Remove screenshot"
+                      :aria-label="t('submit.dash.removeShot')"
                       @click="dash.media.splice(i, 1)"
                     />
                   </div>
@@ -823,7 +848,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                       class="size-6"
                       :class="uploading ? 'animate-spin' : ''"
                     />
-                    {{ uploading ? 'Uploading…' : 'Drop screenshot' }}
+                    {{ uploading ? t('submit.uploading') : t('submit.dash.dropShot') }}
                     <input
                       type="file"
                       accept="image/png,image/jpeg,image/webp"
@@ -836,7 +861,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 <div class="mt-3 flex gap-2">
                   <UInput
                     v-model="dash.mediaUrl"
-                    placeholder="…or paste an image URL"
+                    :placeholder="t('submit.dash.mediaUrlPh')"
                     class="flex-1"
                     @keydown.enter.prevent="addMediaUrl"
                   />
@@ -846,7 +871,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                     :disabled="!dash.mediaUrl.trim() || dash.media.length >= MAX_MEDIA"
                     @click="addMediaUrl"
                   >
-                    Add
+                    {{ t('submit.add') }}
                   </UButton>
                 </div>
                 <p
@@ -866,9 +891,9 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               class="space-y-5"
             >
               <UFormField
-                label="Link"
+                :label="t('submit.urlLabel')"
                 required
-                help="Paste it — we fetch the title, description and logo."
+                :help="t('submit.res.linkHelp')"
               >
                 <UInput
                   v-model="res.url"
@@ -896,7 +921,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 class="lg:col-span-2"
               />
               <UFormField
-                label="Title"
+                :label="t('submit.titleLabel')"
                 required
               >
                 <UInput
@@ -904,23 +929,23 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                   class="w-full"
                 />
               </UFormField>
-              <UFormField label="Category">
+              <UFormField :label="t('submit.res.category')">
                 <div class="flex flex-wrap gap-2">
                   <button
                     v-for="c in CATEGORIES"
-                    :key="c"
+                    :key="c.id"
                     type="button"
                     class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                    :class="res.category === c ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
-                    @click="res.category = c"
+                    :class="res.category === c.value ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
+                    @click="res.category = c.value"
                   >
-                    {{ c }}
+                    {{ t(c.key) }}
                   </button>
                 </div>
               </UFormField>
               <UFormField
-                label="What it is"
-                hint="Optional"
+                :label="t('submit.res.what')"
+                :hint="t('submit.optional')"
                 class="lg:col-span-2"
               >
                 <UTextarea
@@ -931,9 +956,9 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 />
               </UFormField>
               <UFormField
-                label="Why is it useful?"
+                :label="t('submit.descLabel')"
                 required
-                help="Who should read it, and what they will get out of it."
+                :help="t('submit.res.whyHelp')"
                 class="lg:col-span-2"
               >
                 <UTextarea
@@ -961,33 +986,33 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                   :class="lesson.mode === m ? 'bg-(--ink) text-(--paper)' : 'hover:bg-(--ice)'"
                   @click="lesson.mode = m"
                 >
-                  {{ m === 'fix' ? 'Fix a lesson' : 'Propose a lesson' }}
+                  {{ m === 'fix' ? t('submit.les.fix') : t('submit.les.propose') }}
                 </button>
               </div>
               <UFormField
                 v-if="lesson.mode === 'fix'"
-                label="Which lesson?"
+                :label="t('submit.les.which')"
                 required
               >
                 <USelectMenu
                   v-model="lesson.path"
                   :items="lessonItems"
                   value-key="value"
-                  placeholder="Search lessons…"
+                  :placeholder="t('submit.searchLessons')"
                   size="xl"
                   class="w-full"
                 />
               </UFormField>
               <UFormField
                 v-else
-                label="Proposed lesson title"
+                :label="t('submit.les.ideaTitle')"
                 required
               >
                 <UInput
                   v-model="lesson.ideaTitle"
                   size="xl"
                   class="w-full"
-                  placeholder="Incremental data sync without full reloads"
+                  :placeholder="t('submit.les.ideaTitlePh')"
                 />
               </UFormField>
             </div>
@@ -996,9 +1021,9 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               class="space-y-6"
             >
               <UFormField
-                :label="lesson.mode === 'fix' ? 'What is wrong?' : 'Outline'"
+                :label="lesson.mode === 'fix' ? t('submit.les.wrong') : t('submit.les.outline')"
                 required
-                :help="lesson.mode === 'fix' ? 'Quote the passage and say what it should say.' : 'What it teaches, in what order, and what the learner builds.'"
+                :help="lesson.mode === 'fix' ? t('submit.les.wrongHelp') : t('submit.les.outlineHelp')"
               >
                 <UTextarea
                   v-model="lesson.body"
@@ -1009,7 +1034,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               </UFormField>
               <div>
                 <p class="mono-label mb-3">
-                  Sources — optional
+                  {{ t('submit.les.sources') }}
                 </p>
                 <div class="space-y-2">
                   <div
@@ -1034,7 +1059,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                       color="neutral"
                       variant="ghost"
                       square
-                      aria-label="Remove source"
+                      :aria-label="t('submit.removeSource')"
                       :disabled="lesson.sources.length === 1"
                       @click="lesson.sources.splice(i, 1)"
                     />
@@ -1049,7 +1074,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                   :disabled="lesson.sources.length >= 6"
                   @click="lesson.sources.push({ url: '' })"
                 >
-                  Add a source
+                  {{ t('submit.addSource') }}
                 </UButton>
               </div>
             </div>
@@ -1062,26 +1087,26 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               class="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]"
             >
               <UFormField
-                label="Language"
+                :label="t('submit.tr.language')"
                 required
               >
                 <USelect
                   v-model="tr.locale"
                   :items="localeItems"
-                  placeholder="Pick a language"
+                  :placeholder="t('submit.tr.languagePh')"
                   size="xl"
                   class="w-full"
                 />
               </UFormField>
               <UFormField
-                label="Lesson"
+                :label="t('submit.tr.lesson')"
                 required
               >
                 <USelectMenu
                   v-model="tr.path"
                   :items="lessonItems"
                   value-key="value"
-                  placeholder="Search lessons…"
+                  :placeholder="t('submit.searchLessons')"
                   size="xl"
                   class="w-full"
                 />
@@ -1092,7 +1117,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               class="grid gap-6 lg:grid-cols-2"
             >
               <UFormField
-                label="The text as it reads now"
+                :label="t('submit.tr.wrong')"
                 required
               >
                 <UTextarea
@@ -1103,7 +1128,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 />
               </UFormField>
               <UFormField
-                label="What it should say"
+                :label="t('submit.tr.suggested')"
                 required
               >
                 <UTextarea
@@ -1114,14 +1139,14 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 />
               </UFormField>
               <UFormField
-                label="Note"
-                hint="Optional"
+                :label="t('submit.tr.note')"
+                :hint="t('submit.optional')"
                 class="lg:col-span-2"
               >
                 <UInput
                   v-model="tr.note"
                   class="w-full"
-                  placeholder="e.g. 'Grain' is a term of art here, not wheat"
+                  :placeholder="t('submit.tr.notePh')"
                 />
               </UFormField>
             </div>
@@ -1134,14 +1159,14 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               class="space-y-6"
             >
               <UFormField
-                label="Title"
+                :label="t('submit.titleLabel')"
                 required
               >
                 <UInput
                   v-model="snip.title"
                   size="xl"
                   class="w-full"
-                  placeholder="Running total by fiscal quarter"
+                  :placeholder="t('submit.snip.titlePh')"
                 />
               </UFormField>
               <UFormField
@@ -1164,7 +1189,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               class="grid gap-6 lg:grid-cols-2"
             >
               <UFormField
-                label="What does it do?"
+                :label="t('submit.snip.what')"
                 required
                 class="lg:col-span-2"
               >
@@ -1176,8 +1201,8 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 />
               </UFormField>
               <UFormField
-                label="Dataset"
-                hint="Optional"
+                :label="t('submit.snip.dataset')"
+                :hint="t('submit.optional')"
               >
                 <UInput
                   v-model="snip.dataset"
@@ -1186,9 +1211,9 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 />
               </UFormField>
               <UFormField
-                label="Dataset shape"
-                hint="Optional"
-                help="The fields the query needs, with types."
+                :label="t('submit.snip.shape')"
+                :hint="t('submit.optional')"
+                :help="t('submit.snip.shapeHelp')"
               >
                 <UTextarea
                   v-model="snip.shape"
@@ -1208,23 +1233,23 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
             class="space-y-6"
           >
             <p class="text-(--ink2)">
-              This is exactly what will be sent for review.
+              {{ t('submit.reviewHint') }}
             </p>
             <dl class="border-[1.5px] border-(--ink)">
               <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
                 <dt class="mono-label">
-                  Type
+                  {{ t('submit.stepKind') }}
                 </dt>
                 <dd class="flex items-center gap-2 font-semibold">
                   <UIcon
                     :name="typeInfo.icon"
                     class="size-4 text-(--signal)"
-                  />{{ typeInfo.label }}
+                  />{{ t(typeInfo.labelKey) }}
                 </dd>
               </div>
               <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
                 <dt class="mono-label">
-                  Title
+                  {{ t('submit.titleLabel') }}
                 </dt>
                 <dd class="font-semibold">
                   {{ payload.title }}
@@ -1232,7 +1257,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               </div>
               <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
                 <dt class="mono-label">
-                  Summary
+                  {{ t('submit.review.summary') }}
                 </dt>
                 <dd class="whitespace-pre-line text-sm text-(--ink2)">
                   {{ payload.description }}
@@ -1242,13 +1267,13 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               <template v-if="type === 'dashboard'">
                 <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
                   <dt class="mono-label">
-                    Domain · level
+                    {{ t('submit.review.domainLevel') }}
                   </dt>
-                  <dd>{{ dash.domain }} · {{ dash.difficulty }}</dd>
+                  <dd>{{ optionLabel(DOMAINS, dash.domain) }} · {{ optionLabel(DIFFICULTIES, dash.difficulty) }}</dd>
                 </div>
                 <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
                   <dt class="mono-label">
-                    Data sources
+                    {{ t('submit.dash.sources') }}
                   </dt>
                   <dd>
                     <ul class="space-y-1 text-sm">
@@ -1256,14 +1281,14 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                         v-for="s in dashSources"
                         :key="s.name"
                       >
-                        <span class="font-mono text-[11px] uppercase text-(--ink2)">{{ s.type }}</span> — {{ s.name }}<span v-if="s.rows"> · {{ s.rows }} rows</span>
+                        <span class="font-mono text-[11px] uppercase text-(--ink2)">{{ optionLabel(SOURCE_TYPES, s.type) }}</span> — {{ s.name }}<span v-if="s.rows"> · {{ t('submit.review.rows', { n: s.rows }) }}</span>
                       </li>
                     </ul>
                   </dd>
                 </div>
                 <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
                   <dt class="mono-label">
-                    KPIs
+                    {{ t('submit.review.kpis') }}
                   </dt>
                   <dd>
                     <ul class="space-y-2 text-sm">
@@ -1282,14 +1307,14 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                   class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]"
                 >
                   <dt class="mono-label">
-                    Techniques
+                    {{ t('submit.dash.techniques') }}
                   </dt>
                   <dd class="flex flex-wrap gap-1.5">
                     <span
                       v-for="x in dash.techniques"
                       :key="x"
                       class="border border-(--signal) px-2 py-0.5 font-mono text-[10px] uppercase text-(--signal)"
-                    >{{ x }}</span>
+                    >{{ optionLabel(TECHNIQUES, x) }}</span>
                   </dd>
                 </div>
                 <div
@@ -1297,7 +1322,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                   class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]"
                 >
                   <dt class="mono-label">
-                    Screenshots
+                    {{ t('submit.review.screenshots') }}
                   </dt>
                   <dd class="flex flex-wrap gap-2">
                     <img
@@ -1315,7 +1340,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               <template v-else-if="type === 'lesson' && lesson.mode === 'fix'">
                 <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
                   <dt class="mono-label">
-                    Lesson
+                    {{ t('submit.tr.lesson') }}
                   </dt>
                   <dd>
                     <NuxtLink
@@ -1343,7 +1368,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
                 class="grid gap-1 p-4 sm:grid-cols-[12rem_minmax(0,1fr)]"
               >
                 <dt class="mono-label">
-                  Links
+                  {{ t('submit.review.links') }}
                 </dt>
                 <dd>
                   <ul class="space-y-2">
@@ -1397,7 +1422,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
             size="lg"
             @click="back"
           >
-            Back
+            {{ t('submit.back') }}
           </UButton>
           <UButton
             v-if="!isReview"
@@ -1405,7 +1430,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
             size="lg"
             @click="next"
           >
-            Next — {{ steps[step + 1] }}
+            {{ t('submit.next', { step: t(steps[step + 1]!) }) }}
           </UButton>
           <UButton
             v-else
@@ -1414,7 +1439,7 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
             :loading="sending"
             @click="send"
           >
-            Submit for review
+            {{ t('submit.submit') }}
           </UButton>
         </div>
       </div>
@@ -1422,16 +1447,16 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
       <!-- Your submissions -->
       <section class="mt-16">
         <p class="eyebrow">
-          Fig. 02 — Your submissions
+          Fig. 02 — {{ t('submit.mine') }}
         </p>
         <h2 class="bp-h3 mt-2">
-          What you have sent
+          {{ t('submit.mineTitle') }}
         </h2>
         <p
           v-if="!mine?.submissions?.length"
           class="mt-6 border-[1.5px] border-dashed border-(--line) p-6 text-center text-sm text-(--ink2)"
         >
-          Nothing yet — your first contribution will show up here with its review status.
+          {{ t('submit.none') }}
         </p>
         <ul
           v-else
@@ -1459,12 +1484,12 @@ const typeLabel = (s: Mine) => TYPES.find(t => t.value === s.type)?.label.replac
               <span
                 v-if="s.reviewNote"
                 class="block text-xs text-(--ink2)"
-              >Note: {{ s.reviewNote }}</span>
+              >{{ t('submit.reviewNote', { note: s.reviewNote }) }}</span>
             </span>
             <span
               class="border-[1.5px] px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
               :class="STATUS[s.status].cls"
-            >{{ STATUS[s.status].label }}</span>
+            >{{ t(STATUS[s.status].key) }}</span>
           </li>
         </ul>
       </section>

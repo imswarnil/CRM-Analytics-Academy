@@ -18,6 +18,7 @@ const localePath = useLocalePath()
 const { isDone, pro, normalise } = useProgress()
 const { of: metaOf } = useLessonMeta()
 const { total } = useCourse()
+const { t } = useI18n()
 
 const here = computed(() => normalise(route.path))
 
@@ -92,7 +93,7 @@ onMounted(() => revealCurrent(true))
       color="neutral"
       variant="ghost"
       square
-      aria-label="Show course contents"
+      :aria-label="t('course.showContents')"
       @click="emit('toggle')"
     />
     <NuxtLink
@@ -114,7 +115,7 @@ onMounted(() => revealCurrent(true))
         />
       </span>
     </NuxtLink>
-    <span class="mt-2 font-mono text-[10px] uppercase tracking-[.15em] text-(--ink2) [writing-mode:vertical-rl]">Contents · {{ pct }}%</span>
+    <span class="mt-2 font-mono text-[10px] uppercase tracking-[.15em] text-(--ink2) [writing-mode:vertical-rl]">{{ t('course.contentsPct', { pct }) }}</span>
   </div>
 
   <!-- Full list -->
@@ -126,7 +127,7 @@ onMounted(() => revealCurrent(true))
     <div class="sticky top-0 z-10 border-b-[1.5px] border-(--ink) bg-(--paper) px-4 py-3">
       <div class="flex items-center justify-between gap-2">
         <p class="eyebrow">
-          Course contents
+          {{ t('course.contents') }}
         </p>
         <UButton
           v-if="collapsible"
@@ -135,7 +136,7 @@ onMounted(() => revealCurrent(true))
           variant="ghost"
           size="sm"
           square
-          aria-label="Collapse course contents"
+          :aria-label="t('course.collapseContents')"
           @click="emit('toggle')"
         />
       </div>
@@ -166,7 +167,7 @@ onMounted(() => revealCurrent(true))
           <span class="w-7 font-mono text-xs font-semibold text-(--signal)">{{ s.n }}</span>
           <span class="min-w-0 flex-1">
             <span class="block truncate text-sm font-bold text-(--ink)">{{ s.title }}</span>
-            <span class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ s.lessons.length }} lessons · {{ s.minutes }}m</span>
+            <span class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ t('course.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
           </span>
           <!-- The section's own icon inside its progress ring. -->
           <span class="relative flex size-8 flex-none items-center justify-center">

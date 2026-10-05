@@ -2,7 +2,6 @@
   "language": "العربية",
   "nav": {
     "resources": "الموارد",
-    "blog": "Blog",
     "about": "بشأن",
     "sponsor": "رعاية هذا المشروع",
     "github": "مشاهدة GitHub",
@@ -10,28 +9,18 @@
     "chooseLanguage": "لغة الاختيار",
     "datasets": "مجموعات البيانات",
     "contribute": "المساهمة",
-    "more": "أكثر",
     "privacy": "سياسة الخصوصية",
     "terms": "مدة الخدمة",
     "roadmap": "Roadmap",
-    "changelog": "التغيير",
     "showcase": "عرض",
     "signIn": "وقع",
     "signOut": "وقع",
     "dashboard": "لوحة",
     "account": "الحساب",
     "curriculum": "المناهج",
-    "search": "البحث",
-    "menu": "Menu",
-    "closeMenu": "تغلق القائمة",
-    "startLearning": "بدء التعلم",
-    "browseAll": "تجميع المناهج الدراسية الكاملة",
     "submit": "المساهمة بموارد",
-    "navigate": "Navigate",
     "wallOfFame": "حائط الشهرة",
-    "community": "المجتمع",
     "forTeams": "للفرق",
-    "implementation": "التنفيذ",
     "home": "البيت",
     "pricing": "الطباعة",
     "instructors": "المستفيدون & الأرصدة الدائنة",
@@ -39,9 +28,7 @@
     "sponsorShort": "الرعاة"
   },
   "sponsorCard": {
-    "title": "رعاية هذا المشروع",
-    "desc": "أبقي المنهاج حراً ومفتوحاً",
-    "cta": "تعلم المزيد"
+    "title": "رعاية هذا المشروع"
   },
   "sponsor": {
     "slot": {
@@ -62,10 +49,8 @@
     "page": {
       "seoTitle": "رعاية المشروع",
       "seoDescription": "الرعاة CRM Analytics الأكاديمية: علامة واحدة في الشهر، كل مكان في الموقع، {price} شهر شاهدْ الوصولَ المباشرَ ويَحْجزُ شهرَ مفتوحَ.",
-      "sheet": "Sheet 13 / Sponsor",
       "title": "رعاية المشروع",
       "lead": "وعلامة واحدة في الشهر تحصل على كل راعي في الأكاديمية - لافتات، مربعات السكك الحديدية، ورسالة غير رسمية - أمام الناس الذين يتعلمون Salesforce CRM Analytics. {price} شهر احجزي شهرًا مفتوحًا أسفله، ويعيش في الأول.",
-      "ctaBook": "See open months",
       "ctaStudio": "افتح الاستوديو",
       "offerEyebrow": "FIG. 02 - العرض",
       "offerTitle": "{price} شهر راعي واحد كل مكان",
@@ -187,153 +172,12 @@
       "error": "التقويم لا يمكن تحميله لنحاول مجدداً"
     }
   },
-  "hero": {
-    "badge": "منهج مجاني مفتوح المصدر",
-    "titleLead": "سيدي Salesforce",
-    "titleAccent": "CRM Analytics",
-    "subtitle": "من أول مجموعة بياناتك إلى مجلس تنفيذي شخص ما يفتح في الواقع المنصّة بأكملها في تسعة عشر قسماً ثمّ سبعة عشر لوحة مقسمة للسوق",
-    "f1": "لا إشارة",
-    "f2": "161 درسا",
-    "f3": "منح الشهادات",
-    "start": "بدء التعلم",
-    "browse": "منهج الحشد",
-    "search": "البحث",
-    "watch": "إنتبه للمدخل",
-    "community": "المتعلمون عبر 12 لغة",
-    "boardCaption": "اللوحة التي تبنيها في الدرس الأخير"
-  },
-  "cta": {
-    "title": "على استعداد لتصبح CRM Analytics محترف؟",
-    "subtitle": "وبدءا من المنهج الدراسي اليوم - فهو مجاني ومفتوح ومبني ليأخذكم إلى المصادقة.",
-    "startFoundations": "بدء مع المؤسسات",
-    "star": "نجمة GitHub"
-  },
   "home": {
-    "stats": {
-      "modules": "Modules",
-      "lessons": "الدروس",
-      "free": "Free \" open",
-      "video": "المباني",
-      "languages": "اللغات"
-    },
-    "curriculumEyebrow": "المنهج الدراسي",
-    "curriculumTitle": "تسعة عشر قسماً، مسار واحد واضح",
-    "curriculumSubtitle": "التعلم CRM Analytics أولا، ثم استخدامه. وتأتي أقسام المنتجات حسب الترتيب؛ وتبني السوق في نهاية المطاف على مجموعة بيانات واحدة، وبالتالي يتعين على كل عدد أن يطابقها.",
     "modules": {
       "foundations": {
-        "title": "المؤسسات",
-        "desc": "ماذا؟ CRM Analytics هو، كيف تصبح البيانات مجموعة بيانات مأمونة، ومباني المنبر."
-      },
-      "gettingStarted": {
-        "title": "بدأت",
-        "desc": "التمكين CRM Analyticsاصنعي تطبيقك الأول و استكشفي بيانات العينة قبل أن تربطي نفسك"
-      },
-      "tour": {
-        "title": "الجولة",
-        "desc": "جولة مرشدة Analytics Studio - البيت، Data Managerمستكشف، ومحرر لوحة الداش"
-      },
-      "navigating": {
-        "title": "ألواح الصيد الملاحية",
-        "desc": "اقرأ، تصفية، وجه، وحفر في لوحة قماش، ثم حفظ وتقاسم وجهة نظرك الخاصة."
-      },
-      "saql": {
-        "title": "SAQL",
-        "desc": "الكتابة SAQL الاستفسارات - مرشحة، مجموعة، تجميعية، وحذف اللغة التي تجمعها كل خريطة."
-      },
-      "analytics": {
-        "title": "محلل في أينشتاين",
-        "desc": "تجميع الاستفسارات في لوحات تفاعلية وإضافات التنبؤات مع Einstein Discovery."
-      },
-      "bindings": {
-        "title": "اللبنات",
-        "desc": "نباتات واقية مع الاختيار، الخلية، URL مُلزِمة لذلك اختيار واحد يقود الكثير"
-      },
-      "chartEmbedding": {
-        "title": "Chart Embedding",
-        "desc": "جهزت لوحة على صفحة قياسية، في عنصر تقليدي، أو خارج Salesforce تماماً"
+        "title": "المؤسسات"
       }
     },
-    "startModule": "نموذج البداية",
-    "newHereTitle": "جديد هنا؟",
-    "newHereDesc": "ابدأ بالمؤسسة واتبع الوحدات من أجل مسار تعليمي مرشد كامل.",
-    "startHere": "ابدأ هنا",
-    "howEyebrow": "كيف يعمل",
-    "howTitle": "تعلّم، جربه، بنّيه",
-    "steps": {
-      "read": {
-        "title": "اقرأ الدرس",
-        "desc": "وتوضح الدروس القصيرة المركزة فكرة واحدة في وقت واحد مع أمثلة حقيقية."
-      },
-      "try": {
-        "title": "حاول أن تعيش",
-        "desc": "فكل مفهوم يرسم خريطة لعمل ملموس - يتابع في منظمة تنمية حرة."
-      },
-      "build": {
-        "title": "بناء مشروع",
-        "desc": "Lessons accumulate into a working pipeline: data, datasets, dashboards, a model."
-      }
-    },
-    "resourcesEyebrow": "الموارد",
-    "resourcesTitle": "أفضل وصلات، شفيت لك",
-    "resourcesDesc": "بعد المنهاج الدراسي، نحتفظ بمكتبة قابلة للتصفية من الأطباء الرسميين، Trailhead.. SAQL المراجع، والمجتمعات المحلية، والأدوات.",
-    "browseResources": "الموارد الأساسية",
-    "getInvolved": {
-      "blurb": "هل تريد المساعدة في بناء هذا؟ المساهمة بالدروس والشفرة، أو دعم المشروع مباشرة.",
-      "contribute": "المساهمة",
-      "sponsor": "الرعاة"
-    },
-    "outcomesEyebrow": "النتائج",
-    "outcomesTitle": "ما ستفعله",
-    "outcomesSubtitle": "في النهاية يمكنك أن توصل نهاية إلى نهاية CRM Analytics حل - وإثبات ذلك.",
-    "outcomes": [
-      {
-        "t": "إدماج أي بيانات",
-        "d": "Connect Salesforce والمصادر الخارجية، والجدول الزمني المتزامنات الموثوقة، والاحتفاظ بمجموعات البيانات الجديدة."
-      },
-      {
-        "t": "تبادل البيانات مع الوصفات",
-        "d": "انضموا إلى بيانات خام ونظيفة في مجموعات بيانات جديرة بالثقة وحسنة الأداء"
-      },
-      {
-        "t": "الكتابة الحقيقية SAQL",
-        "d": "يَسْألُ باليد عن القياساتِ المتطورةِ، النوافذ، تفاعل لوحةِ الدبابيس."
-      },
-      {
-        "t": "بناء لوحات سطوح",
-        "d": "تصميم لوحات مصممة مستجيبة وموجهة ومزودة بالحفر Salesforce أفعال"
-      },
-      {
-        "t": "توقعات النشر",
-        "d": "التدريب الذي يمكن تفسيره Einstein Discovery النماذج والتنبؤات السطحية في السجلات وفي التدفقات."
-      },
-      {
-        "t": "الإعداد لإصدار الشهادات",
-        "d": "تغطية المهارات التي يقاسها CRM Analytics \" Einstein Discovery إمتحان استشاري"
-      }
-    ],
-    "whoEyebrow": "لمن هو",
-    "whoTitle": "بناء كل دور في الفريق",
-    "personas": [
-      {
-        "t": "المحللون",
-        "d": "اذهب من تقارير السحب والأدوية إلى بناء مجموعات البيانات SAQLو لوحات التزلج تلك"
-      },
-      {
-        "t": "Admins",
-        "d": "جهزوا المنصّة، وأديروا المُؤسّسات الأمنية، وأخرجوا التحليلات بأمان."
-      },
-      {
-        "t": "الاستشاريون",
-        "d": "تصميم الحلول النهائية والإعداد لإصدار الشهادات بثقة."
-      },
-      {
-        "t": "Beginners",
-        "d": "ابتداء من أساسيات إدارة المخاطر المؤسسية - لا حاجة إلى خبرة تحليلية مسبقة."
-      }
-    ],
-    "topicsEyebrow": "كل شيء ستتقنه",
-    "topicsTitle": "منهج دراسي واحد، منصة كاملة",
-    "faqEyebrow": "FAQ",
     "faqTitle": "أسئلة، أجاب عليها",
     "faqs": [
       {
@@ -353,71 +197,6 @@
         "a": "خرائط المناهج الدراسية CRM Analytics \" Einstein Discovery مواضيع امتحانات الخبراء الاستشاريين."
       }
     ],
-    "featuresEyebrow": "كيف تتناسب مع بعضها البعض",
-    "featuresTitle": "من البيانات الخام إلى المقررات",
-    "features": [
-      {
-        "t": "تعلم جمع البيانات",
-        "d": "الدروس تسير عليك من خلال التواصل Salesforce(سنوفليك) والملفات، جدولة متزامنات، وتشكيل كل شيء في مجموعات بيانات نظيفة مع وصفات بصرية"
-      },
-      {
-        "t": "تعلم البحث والتصوير",
-        "d": "كتابة الممارسة SAQL و بناء العدسات، ثم تجميع لوحات سريعة تفاعلية مع الملزمات، وجه، وحفر - كل في org الخاص بك."
-      },
-      {
-        "t": "تعلم التنبؤ بما سيحدث",
-        "d": "التدريبات المصحوبة بمرشدين في مجال التدريب Einstein Discovery النماذج والتنبؤات السطحية والتوصيات حيث يعمل فريقك"
-      }
-    ],
-    "projectsEyebrow": "عرض",
-    "projectsTitle": "مشاريع يمكنك بناءها",
-    "projectsSubtitle": "الألواح الدامغة الحقيقية يمكنك أن تعيدها كما تتعلم ثم تشارك نفسك مع المجتمع",
-    "projects": [
-      {
-        "t": "برنامج المبيعات",
-        "d": "مراحل المسار، ومعدل الفوز، والتوقعات من وجهة نظر تفاعلية واحدة."
-      },
-      {
-        "t": "العميل تشورن",
-        "d": "الحسابات الاكبر مع Einstein Discovery وتصرفوا قبل أن يغادروا"
-      },
-      {
-        "t": "الخدمة",
-        "d": "حجم القضايا، CSAT، والوقت المخصص لحل أفرقة الدعم."
-      },
-      {
-        "t": "الإيرادات حسب المنطقة",
-        "d": "اكسر الايرادات جغرافيا مع عمليات الحفر"
-      },
-      {
-        "t": "لوحة القيادة",
-        "d": "أداء رانك مع نافذة SAQL ومواجهة."
-      },
-      {
-        "t": "Marketing ROI",
-        "d": "إسناد خط الأنابيب إلى الحملات وقياس العودة."
-      }
-    ],
-    "submitTitle": "بناء شيء؟",
-    "submitDesc": "شارك اللوح الذي بنيته و إلهام المتعلمين الآخرين",
-    "submitButton": "ضع يدك",
-    "lessonsWord": "الدروس المستفادة",
-    "moduleWord": "الوحدة",
-    "exploreEyebrow": "النظام الإيكولوجي",
-    "exploreTitle": "أكثر من الدروس",
-    "exploreSubtitle": "المجتمع والشركات والمهن CRM Analytics.",
-    "exploreWall": "قابلوا المدونين و اليوتيوبرز و المؤلفين الذين علموا المجتمع",
-    "exploreCompanies": "نرى الشركات التي تعمل CRM Analytics ومن يبني بها",
-    "exploreJobs": "طازجة CRM Analytics الأدوار، تنعش كل يوم.",
-    "pagesTitle": "كل شيء على الموقع",
-    "pagesSubtitle": "كل صفحة، خريطة واحدة",
-    "thanksText": "بناء على ما علمنا المجتمع",
-    "thanksLink": "شكراً لك جدار الشر",
-    "langTitle": "دراسة بلغتك",
-    "langSubtitle": "المنهج الدراسي بأكمله بـ 12 لغة",
-    "langHint": "اختر لغة تحت للتبديل الفوري - أو استخدام رمز العالم في حانة الملاحة، في أي صفحة. إختيارك يتذكر",
-    "subtitle": "من أول مجموعة بياناتك إلى مجلس تنفيذي سيفتح بالفعل البرنامج بأكمله في تسعة عشر قسماً ثم سبعة عشر لوحة مقسمة",
-    "f2": "161 درسا",
     "hero": {
       "eyebrow": "آخر المستجدات في الوقت الراهن Salesforce الإفراج",
       "title": "التعلم Salesforce CRM Analytics طريقة استخدامه في العمل.",
@@ -465,18 +244,12 @@
       "datasets-and-modelling": "جِدْ، إنضمامات وتخيلات، طلقات للتاريخ، وميدالية ميدانية.",
       "data-visualization": "كل نوع من المخططات بشروطه الخاصة، و الذي يحتاجه السؤال في الواقع.",
       "lenses-and-explorations": "Exploring a dataset: groups, measures, the three modes, and conversational queries.",
-      "saql": "The query language itself — syntax, functions, the patterns that matter, and debugging.",
-      "designing-dashboards": "Designing for a decision: hierarchy, formatting, widgets and performance.",
       "interactions": "وجهاً لوجه ومرشحاً واختياراً - ما الذي يجعل لوحة مظلة نظاماً وليس صفحة.",
       "bindings": "نبتة واحدة تغذي أخرى: الاختيار، النتائج، التعلّم، وحيث يتحول إلى غير قابل للاستمرار.",
       "dashboard-json": "تحت الغطاء: القراءة وتحرير JSON عندما يَنْفذُ البناء.",
-      "collaboration": "Apps and sharing, subscriptions, annotations, embedding and governance.",
       "apis-and-automation": "The REST API(بيثون)، حمولات البيانات الآلية، و(سي آي) للمحللين.",
       "einstein-discovery": "قصص ونماذج وكتابة التنبؤات - وتدقيق الحسابات قبل الثقة بها.",
-      "gtm-engineering": "المستودع، عقود المقاييس، والشجرة المترية التي تملأها البنايات",
-      "demand-analytics": "AI search visibility, SEO, acquisition, campaigns, spend and attribution.",
-      "pipeline-analytics": "Leads through to signature: routing, scoring, conversion, velocity and CPQ.",
-      "revops-analytics": "Forecast, the ARR waterfall, consumption risk, service, and the executive board."
+      "gtm-engineering": "المستودع، عقود المقاييس، والشجرة المترية التي تملأها البنايات"
     },
     "forTeams": {
       "eyebrow": "للفرق",
@@ -490,14 +263,11 @@
     "tagline": "منهج دراسي مجاني ومفتوح المصدر للتدريس Salesforce CRM Analytics.",
     "curriculum": "المناهج",
     "project": "المشروع",
-    "legal": "Legal",
     "community": "المجتمع",
     "academy": "أكاديمية",
     "links": {
-      "instructors": "كوني مدربة",
       "nominate": "تسمية الجدار",
-      "sales": "الحديث عن المبيعات",
-      "contact": "اتصل بنا"
+      "sales": "الحديث عن المبيعات"
     },
     "quip": {
       "0": "مصنوعة من قبل (سوارنيل) بكمية غير معقولة من الحفز و النفايات البطولية للذكور",
@@ -515,11 +285,6 @@
     "showcaseTitle": "عرض لوح داش",
     "showcaseDesc": "حقيقية CRM Analytics - ألواح الصيد التي يبنها المجتمع المحلي - مؤسسات إعادة الإدماج، والصيغ التي خلفها، والأساليب المستخدمة لبناء كل منها."
   },
-  "video": {
-    "thanksForWatching": "شكراً على مشاهدتك",
-    "replay": "Replay",
-    "lessonCompleted": "الدرس المنجز"
-  },
   "showcase": {
     "title": "عرض لوح داش",
     "subtitle": "لوحات سطو حقيقية، مع أجهزة الكمبيوتر الخاصة والتفكير وراءها. ملء حسب المجال التجاري، أو الصعوبة، أو CRM Analytics التقنيات المستخدمة",
@@ -531,7 +296,6 @@
     "noResults": "لا توجد لوحات تطابق هذه القوارير بعد",
     "clearFilters": "مرشحات واضحة",
     "by": "Built by",
-    "kpis": "KPIs and how they are calculated",
     "kpiName": "القياس",
     "kpiFormula": "كيفية حسابها",
     "kpiNote": "لماذا",
@@ -552,19 +316,12 @@
     "dashboard": "لوحة"
   },
   "course": {
-    "curriculum": "المناهج",
-    "lessonOf": "{position} of of {total}",
-    "complete": "{percent}النسبة المئوية كاملة",
-    "previous": "سابقا",
-    "next": "التالي",
-    "finish": "الانتهاء",
     "nextLesson": "التالي: {title}",
     "markComplete": "علامة كاملة",
     "completed": "مكتملة",
     "signInToTrack": "وقّعْ لتتبع تقدمِكَ.",
     "signIn": "وقع",
-    "courseProgress": "التقدم المحرز",
-    "moduleProgress": "{done} of of {total} الدروس المستفادة"
+    "courseProgress": "التقدم المحرز"
   },
   "dashboard": {
     "kicker": "لوحة",
@@ -572,9 +329,7 @@
     "welcomeNamed": "مرحباً بعودتك {name}",
     "yourProgress": "تقدمك",
     "lessonsDone": "{done} of of {total} الدروس المستفادة",
-    "keepGoing": "استمري حيث غادرت",
     "continueCta": "الاستهلاك",
-    "browseCurriculum": "تجميع المناهج الدراسية",
     "nothingYet": "لم تستكمل درساً بعد",
     "startFirst": "ابدأ الدرس الأول",
     "plan": "الخطة",
@@ -585,7 +340,6 @@
     "recentlyCompleted": "اكتملت مؤخرا",
     "statCompleted": "مكتملة",
     "statRemaining": "البقاء",
-    "statProgress": "التقدم",
     "statPoints": "النقاط",
     "statRank": "رانك",
     "unranked": "-",
@@ -597,7 +351,6 @@
     "signUpTitle": "مجانية",
     "signUpDesc": "حساب حر واحد: تقدمك، درجاتك وأسئلتك تتبعك لكل جهاز",
     "demoCta": "مجرد النظر؟ استكشاف مع العرض فقط",
-    "or": "أو",
     "name": "الاسم",
     "email": "Email",
     "password": "كلمة السر",
@@ -627,40 +380,26 @@
   },
   "submit": {
     "kicker": "المساهمة",
-    "title": "نتشارك شيئاً مع المجتمع",
-    "subtitle": "مورد وجدته مفيداً، لوح طابور بنيته، أو درس تتمنى وجوده. كل شيء يتم استعراضه قبل ظهوره",
     "kind": "ماذا تقدم؟",
     "kindResource": "A resource",
-    "kindShowcase": "مشروع لوحة بيانات",
-    "kindIdea": "فكرة الدرس",
     "titleLabel": "العنوان",
     "urlLabel": "Link",
     "imageLabel": "Screenshot URL",
-    "descLabel": "لماذا تستحق المشاركة؟",
     "descHint": "عشرون شخصًا على الأقل",
     "tagsLabel": "Tags",
     "tagsHint": "البلاغ منفصل، حتى 8.",
-    "submit": "Submit for review",
-    "sentTitle": "شكراً - إنه في الطابور",
-    "sentBody": "ونحن نستعرض التقارير باليد. ستراه هنا بمجرد الموافقة عليه",
-    "another": "ترجمه اخرى",
     "mine": "ملاحظاتكم",
     "pending": "قيد الاستعراض",
     "approved": "الوظائف المعتمدة",
     "rejected": "غير مقبولة",
-    "none": "أنت لم تقدم أي شيء بعد",
     "signInFirst": "وقّع على المساهمة",
     "stepKind": "النوع",
     "stepDetails": "التفاصيل",
-    "stepMedia": "وسائط الإعلام",
     "stepReview": "الاستعراض",
-    "next": "استمر",
     "back": "العودة",
     "optional": "الاختياري",
-    "photosLabel": "طلقات شاشات لوحية",
     "photosHint": "PNG, JPG or WebP, up to 4 MB each - 4 images max.",
-    "uploading": "تحميل...",
-    "reviewHint": "كدت أنتهي تفقد كل شيء يقرأ قبل إرساله"
+    "uploading": "تحميل..."
   },
   "wall": {
     "eyebrow": "المجتمع",
@@ -678,63 +417,12 @@
     "nominateTitle": "هل تعرف شخص ينتمي إلى هنا؟",
     "nominateDesc": "تسمية مدون أو مبتكر أو معلم ساعد عمله CRM Analytics المجتمع",
     "nominate": "تسمية شخص ما",
-    "connect": "Connect on Linked In",
     "emptyPhoto": "صورتك هنا",
     "emptyCaption": "ترشح",
     "emptyHint": "تسمية شخص ما",
     "filter": "فيلم من نوع",
     "board": "المجلس",
     "whoTitle": "من هم"
-  },
-  "companies": {
-    "eyebrow": "النظام الإيكولوجي",
-    "title": "الذي يركض CRM Analytics",
-    "subtitle": "الشركات المعروف استخدامها CRM Analytics في الإنتاج، والاستشارات التي تصمم وتبني معها.",
-    "filterIndustry": "الصناعة",
-    "allIndustries": "جميع الصناعات",
-    "allTypes": "كل شيء",
-    "typeCustomer": "زبون",
-    "typeConsultancy": "المشورة",
-    "empty": "لا شيء يطابق تلك المرشّحات",
-    "reset": "مرشحات إعادة التشكيل",
-    "disclaimer": "مأخوذة من دراسات الحالة العامة والمحادثات والوظائف. اللوغوات والعلامات التجارية تنتمي إلى مالكيها؛ والقائمة هنا ليست إقرارا من جانب أو من Salesforce.",
-    "industries": {
-      "finance": "الخدمات المالية",
-      "insurance": "التأمين",
-      "healthcare": "الرعاية الصحية",
-      "manufacturing": "التصنيع",
-      "retail": "التجزئة & المستهلك",
-      "technology": "التكنولوجيا",
-      "energy": "الطاقة & المرافق",
-      "telecom": "Telecom & وسائط الإعلام",
-      "nonprofit": "الربح & التعليم",
-      "consulting": "المشورة"
-    },
-    "filterType": "النوع"
-  },
-  "jobs": {
-    "eyebrow": "المهن",
-    "title": "CRM Analytics الوظائف",
-    "subtitle": "الأدوار الجديدة التي ذكرتها CRM Analytics.. Tableau CRM أو Einstein Analytics -أعيد تأهيلها يومياً من مجالس الوظائف العامة",
-    "searchPlaceholder": "عنوان البحث أو الشركة أو الموقع",
-    "remoteOnly": "Remote only",
-    "apply": "View & التطبيق",
-    "updated": "آخر تحديث {date}",
-    "empty": "لا يوجد تطابق بين الوظائف حاول تصفية البحث",
-    "count": "{count} الأدوار المفتوحة",
-    "disclaimer": "وتأتي الإدراجات من مجالس العمل التابعة لأطراف ثالثة؛ ونحن لا نفحص أرباب العمل. دائماً ما نتقدم في موقع المصدر",
-    "source": "المصدر",
-    "sample": "العينات",
-    "sampleNote": "وتُعاد تصنيف الأسماء الحية يومياً؛ وتبين أدوار العينة هذه ما يظهر عادة هنا.",
-    "filters": "الأفلام"
-  },
-  "newsletter": {
-    "title": "إبقَ في الحلقةِ",
-    "subtitle": "بريد إلكتروني من حين لآخر عندما تهبط وحدات جديدة أو عروض أو وظائف. لا مسام، غير مقص في أي وقت.",
-    "placeholder": "أنت{'@'}على سبيل المثال",
-    "button": "Subscribe",
-    "success": "تفقد صندوقك لتأكيد اشتراكك",
-    "error": "فشل الاشتراك - حاول مرة أخرى لاحقا -"
   },
   "quiz": {
     "title": "تحقق من معرفتك",
@@ -747,20 +435,6 @@
     "signInToSave": "وقّعْ ليُوفّرُ سجلَكَ ونقاطَ الكسبَ.",
     "saved": "الكشافة تم إنقاذها إنها تُحسب نحو نقاطك",
     "answered": "{n} of of {total} أجيب"
-  },
-  "ask": {
-    "eyebrow": "إسأل",
-    "title": "اسأل المنهج الدراسي",
-    "subtitle": "اكتب سؤالاً واحصل على الدروس التي تجيب عليه لا حساب ولا انتظار",
-    "placeholder": "على سبيل المثال كيف أواجه لوح مع مواعدة؟",
-    "empty": "لا دروس متطابقة جرب كلمات مختلفة",
-    "sources": "من المنهج الدراسي",
-    "aiBox": "مطاردة مع هذا المسار في أداة AI الخاص بك",
-    "aiBoxDesc": "قَدْ هذه الصلةِ إلى ChatGPT, Claude or any AI Assistant to talk with the full curriculum.",
-    "copy": "وصلة نسخ",
-    "copied": "!",
-    "mcp": "Connect via MCP",
-    "mcpDesc": "نوجه أيّ زبون قادر على إم بي سي في هذه النقطه الأخيره ليعطي مساعدك المساعد مباشرة لكل درس"
   },
   "resources": {
     "submitTitle": "هل تعرف مصدر ينتمي إلى هنا؟",
@@ -935,7 +609,6 @@
       "description": "دليل المساهمين الكاملين: وضع وكتابة وترجمة الدروس، واقتراح الموارد، واتباع أسلوب الشفرة، وفتح طلب سحب."
     },
     "hero": {
-      "eyebrow": "Sheet 10 / Contributor guide",
       "title": "المساعدة في بناء {em}",
       "titleEm": "المجتمعات المحلية",
       "lead": "كل ما تحتاج لإضافة درس، ترجمة المحتوى، اقتراح مورد، أو تحسين الرمز.",
@@ -1005,7 +678,6 @@
         "text": "يتشاركون في صفحة أطباء كبيرة، أو دورة، أو أداة، أو مجتمع. {link} - يَذْهبُ إلى a إستعراض، لَيسَ a GitHub مشكلة"
       },
       "code": {
-        "label": "Improve the code",
         "text": "اصلح حشرة، اصلح الأشعة فوق البنفسجية أو اضيف سمة عن طريق طلب سحب"
       },
       "outro": "الدرس والتغييرات الرمزية تمر GitHubلأن كل درس هو ملف في مذكرة وتُعرض على الموقع الموارد، ولوحات المتابعة، وأفكار الدرس، وتُستعرض في المجموعة المخصصة."
@@ -1091,7 +763,6 @@
       "description": "أين CRM Analytics وتذهب الأكاديمية إلى: ما يجري بناؤه الآن، وما يليه وما يُعتزم القيام به فيما بعد - الدروس، وبناء لوحات المتابعة، والفيديو، وملامح الموقع."
     },
     "hero": {
-      "eyebrow": "Sheet 11 / Roadmap",
       "title": "حيث نحن {em}",
       "titleEm": "Head",
       "lead": "الأكاديمية مصدر مفتوح و تنمو دائماً هل لديك فكرة؟ {issue}.",
@@ -1158,7 +829,6 @@
       "description": "الذي تغير CRM Analytics الأكاديمية، النشر بالإفراج: دروس وأقسام جديدة، مبنيات لوحة المتابعة، ترجمات، سمات الموقع ومعالجاته."
     },
     "hero": {
-      "eyebrow": "Sheet 12 / Changelog",
       "title": "ماذا؟ {em}",
       "titleEm": "جديدة",
       "lead": "آخر المستجدات للأكاديمية المتابعة {github}."
@@ -1314,20 +984,17 @@
     },
     "files": {
       "accounts": {
-        "grain": "الحساب",
-        "desc": "Customers from individual learners to global SIs: segment, region, ARR, health, support tier."
+        "grain": "الحساب"
       },
       "contacts": {
         "grain": "الاتصال",
         "desc": "Personas from Individual Learner to L&مدير، مع المشتري الاقتصادي والأعلام البطولة."
       },
       "products": {
-        "grain": "عرض",
-        "desc": "Academy Pro, Team Plan, Enterprise Programme, seat-days, vouchers and services."
+        "grain": "عرض"
       },
       "reps": {
-        "grain": "!",
-        "desc": "AEs, SDRs, BDRs, solution consultants and CSMs, with quota and ramp."
+        "grain": "!"
       },
       "centers": {
         "grain": "مركز التدريب",
@@ -1374,16 +1041,14 @@
         "desc": "وقد استُخدمت المقاعد والمجمعات المدفوعة مقدما - المؤشر الرئيسي للتجديد."
       },
       "arr_snapshots": {
-        "grain": "الحساب العاشر",
-        "desc": "The ARR waterfall: new, expansion, contraction and churn."
+        "grain": "الحساب العاشر"
       },
       "cases": {
         "grain": "الحالة",
         "desc": "تقديم الدعم إلى جيش تحرير السودان، والسبب الجذري، والسؤال عن انحراف منظمة العفو الدولية."
       },
       "csat_surveys": {
-        "grain": "الاستقصاء",
-        "desc": "CSAT and NPS, kept separate on purpose."
+        "grain": "الاستقصاء"
       },
       "platform_health_daily": {
         "grain": "اليوم × عرض ×",
@@ -1405,7 +1070,6 @@
       "description": "كيف CRM Analytics تُعالجُ الأكاديميةُ بياناتَكَ: الذي a مخزن حسابِ، كوكيز، محلّل، إعلانات، مدفوعاتِ خلال دودو،"
     },
     "hero": {
-      "eyebrow": "Sheet 14 / Privacy",
       "lead": "CRM Analytics والأكاديمية منهج دراسي مجاني يموله جزئيا الإعلان. هنا بالضبط ما يعنيه ذلك لبياناتك"
     },
     "englishPrevails": "هذه السياسة مترجمة من اللغة الإنجليزية وإذا اختلفت الصيغتان، تسود الصيغة الانكليزية. {link}",
@@ -1453,10 +1117,6 @@
     "seo": {
       "title": "مدة الخدمة",
       "description": "شروط استخدام CRM Analytics Academy: the free curriculum and its licence, accounts and progress, Pro purchases, community content and acceptable use."
-    },
-    "hero": {
-      "eyebrow": "Sheet 15 / Terms",
-      "lead": "The ground rules for using this free curriculum."
     },
     "englishPrevails": "هذه المصطلحات مترجمة من اللغة الإنجليزية وإذا اختلفت الصيغتان، تسود الصيغة الانكليزية. {link}",
     "englishLink": "اقرأ النسخة الانكليزية",
@@ -1525,8 +1185,7 @@
     "legend": {
       "video": "Video walkthrough",
       "article": "المادة",
-      "free": "حر للجميع",
-      "pro": "Part of Pro"
+      "free": "حر للجميع"
     }
   },
   "leadForm": {
@@ -1650,7 +1309,6 @@
     "code": "لا يوجد رمز واحد {count} أمثلة رمزية",
     "tables": "لا طاولة {count} الجداول",
     "minutes": "حول {count} min to read",
-    "seePlans": "See Pro plans",
     "haveIt": "لدي (برو) بالفعل",
     "loading": "فتح...",
     "loadFailed": "هذا القسم لا يمكن تحميله حاول تحميل الصفحة",

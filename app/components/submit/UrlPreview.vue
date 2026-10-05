@@ -4,7 +4,7 @@
  * (debounced) as the contributor types. Emits the metadata so the form can
  * prefill empty fields from it.
  */
-import { fetchUrlMeta, hostOf, isHttpUrl, type UrlMeta } from './urlMeta'
+import { fetchUrlMeta, hostOf, isHttpUrl, type UrlMeta } from '~/utils/urlMeta'
 
 const props = defineProps<{ url: string }>()
 const emit = defineEmits<{ meta: [UrlMeta] }>()

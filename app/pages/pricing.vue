@@ -11,7 +11,7 @@
 defineI18nRoute({ locales: ['en'] })
 
 const title = 'Pricing'
-const description = 'CRM Analytics Academy is free. Pro is $12 a month or $96 a year for every Pro lesson, video and quiz with no ads; teams are $15 per seat per month.'
+const description = 'CRM Analytics Academy is free. Pro is $12 a month or $96 a year for every Pro lesson, video and quiz with no ads; teams are $180 per seat per year.'
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title, description })
 

@@ -12,7 +12,7 @@ const localePath = useLocalePath()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 // Content lives under content/<locale>/…; map the route to the content path.
-const { locale, locales } = useI18n()
+const { t, locale, locales } = useI18n()
 const localeCodes = locales.value.map(l => l.code)
 const contentPath = computed(() => routeToContentPath(route.path, localeCodes))
 
@@ -677,7 +677,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
               variant="outline"
               size="xs"
               square
-              aria-label="Show table of contents"
+              :aria-label="t('lesson.toc.show')"
               @click="tocOpen = true"
             />
             <span class="font-mono text-[10px] uppercase tracking-[.15em] text-(--ink2) [writing-mode:vertical-rl]">{{ toc?.title || 'On this page' }}</span>
@@ -696,7 +696,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
                 variant="ghost"
                 size="xs"
                 square
-                aria-label="Collapse table of contents"
+                :aria-label="t('lesson.toc.collapse')"
                 @click="tocOpen = false"
               />
             </div>

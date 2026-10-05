@@ -95,7 +95,7 @@ const fluid = computed(() =>
       <NuxtLink
         :to="localePath('/')"
         class="shrink-0"
-        aria-label="CRM Analytics Academy — home"
+        :aria-label="t('nav.homeAria')"
       >
         <AppLogo compact />
       </NuxtLink>

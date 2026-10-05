@@ -2,7 +2,6 @@
   "language": "日本語",
   "nav": {
     "resources": "リソース",
-    "blog": "ブログ",
     "about": "概要",
     "sponsor": "このプロジェクトを支援",
     "github": "GitHubで見る",
@@ -10,28 +9,18 @@
     "chooseLanguage": "言語を選択",
     "datasets": "データセット",
     "contribute": "貢献する",
-    "more": "その他",
     "privacy": "プライバシーポリシー",
     "terms": "利用規約",
     "roadmap": "ロードマップ",
-    "changelog": "変更履歴",
     "showcase": "ショーケース",
     "signIn": "サインイン",
     "signOut": "サインアップ",
     "dashboard": "ダッシュボード",
     "account": "パスワード",
     "curriculum": "カリキュラム",
-    "search": "インフォメーション",
-    "menu": "メニュー",
-    "closeMenu": "メニュー",
-    "startLearning": "学習開始",
-    "browseAll": "フルカリキュラムをブラウズ",
     "submit": "リソースへの貢献",
-    "navigate": "ナビゲート",
     "wallOfFame": "ファメの壁",
-    "community": "コミュニティ",
     "forTeams": "チームについて",
-    "implementation": "導入事例",
     "home": "ホーム >",
     "pricing": "料金について",
     "instructors": "インストラクター & クレジット",
@@ -39,9 +28,7 @@
     "sponsorShort": "スポンサー"
   },
   "sponsorCard": {
-    "title": "このプロジェクトをスポンサー",
-    "desc": "カリキュラムを自由に保ち、開く。",
-    "cta": "もっと詳しく"
+    "title": "このプロジェクトをスポンサー"
   },
   "sponsor": {
     "slot": {
@@ -187,153 +174,12 @@
       "error": "カレンダーは読み込めません。 もう一度お試しください。"
     }
   },
-  "hero": {
-    "badge": "無料・オープンソースのカリキュラム",
-    "titleLead": "Salesforce をマスターする",
-    "titleAccent": "CRM Analytics",
-    "subtitle": "最初のデータセットから説明可能な予測の展開まで、6つの実践的なモジュールでプラットフォーム全体を学べます。実際の SAQL とコピペできる例付き。",
-    "f1": "登録不要",
-    "f2": "49のレッスン",
-    "f3": "認定資格に対応",
-    "start": "学習を始める",
-    "browse": "カリキュラムを見る",
-    "search": "検索",
-    "watch": "イントロを見る",
-    "community": "12カ国語で学習者",
-    "boardCaption": "最終レッスンで作成したボード"
-  },
-  "cta": {
-    "title": "CRM Analytics のプロになる準備はできましたか？",
-    "subtitle": "今日からカリキュラムを始めましょう。無料・オープンで、認定資格の取得まで導きます。",
-    "startFoundations": "基礎から始める",
-    "star": "GitHubでスターを付ける"
-  },
   "home": {
-    "stats": {
-      "modules": "モジュール",
-      "lessons": "レッスン",
-      "free": "無料・オープン",
-      "video": "動画",
-      "languages": "語学学校"
-    },
-    "curriculumEyebrow": "カリキュラム",
-    "curriculumTitle": "2つのモジュール、明確な道のり",
-    "curriculumSubtitle": "上から順に進めましょう。2つで、生データからデプロイ済みの予測まで全体の流れをカバーします。",
     "modules": {
       "foundations": {
-        "title": "基礎",
-        "desc": "CRM Analytics とは何か、データが安全なデータセットになる流れ、そしてプラットフォームの構成要素。"
-      },
-      "gettingStarted": {
-        "title": "始める",
-        "desc": "アクセス CRM Analyticsまずはアプリを作成し、サンプルデータを調べて、自分で接続してください。"
-      },
-      "tour": {
-        "title": "ツアー",
-        "desc": "ガイド付きツアー Analytics Studio — ホーム Data Manager、エクスプローラ、およびダッシュボードエディタ。"
-      },
-      "navigating": {
-        "title": "ダッシュボードのナビゲート",
-        "desc": "読み取り、フィルタリング、ファセット、ドリルをダッシュボードにし、自分のビューを保存して共有します。"
-      },
-      "saql": {
-        "title": "SAQL",
-        "desc": "ログイン SAQL クエリ — フィルタ、グループ、集計、および各チャートがコンパイルする言語をデバッグします。"
-      },
-      "analytics": {
-        "title": "分析と SAQL",
-        "desc": "SAQL クエリを書き、対話的なダッシュボードを作り、Einstein Discovery で予測を追加します。"
-      },
-      "bindings": {
-        "title": "ビンディング",
-        "desc": "ワイヤーウィジェットと選択、セル、および URL バインディングなので、1つの選択は多くのドライブを駆動します。"
-      },
-      "chartEmbedding": {
-        "title": "チャートの埋め込み",
-        "desc": "レコードページ、カスタムコンポーネント、または外部にダッシュボードを埋め込む Salesforce お問い合わせ"
+        "title": "基礎"
       }
     },
-    "startModule": "モジュールを始める",
-    "newHereTitle": "はじめての方へ",
-    "newHereDesc": "基礎から始めて、モジュールを順番に進めると、完全でガイド付きの学習パスになります。",
-    "startHere": "ここから始める",
-    "howEyebrow": "進め方",
-    "howTitle": "学んで、試して、作る",
-    "steps": {
-      "read": {
-        "title": "レッスンを読む",
-        "desc": "短く焦点を絞ったレッスンが、実例とともに1つずつ説明します。"
-      },
-      "try": {
-        "title": "実際に試す",
-        "desc": "すべての概念が具体的な操作に対応します。無料の Developer 組織で試しましょう。"
-      },
-      "build": {
-        "title": "プロジェクトを作る",
-        "desc": "レッスンが積み重なって、実際のパイプラインになります。データ、データセット、ダッシュボード、モデル。"
-      }
-    },
-    "resourcesEyebrow": "リソース",
-    "resourcesTitle": "厳選した最良のリンク集",
-    "resourcesDesc": "カリキュラムに加え、公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツールを絞り込めるライブラリを用意しています。",
-    "browseResources": "リソースを見る",
-    "getInvolved": {
-      "blurb": "このプロジェクトの構築を手伝いませんか？レッスンやコードを貢献するか、プロジェクトを直接支援してください。",
-      "contribute": "貢献する",
-      "sponsor": "支援する"
-    },
-    "outcomesEyebrow": "成果",
-    "outcomesTitle": "できるようになること",
-    "outcomesSubtitle": "修了する頃には、エンドツーエンドの CRM Analytics ソリューションを構築し、それを示せます。",
-    "outcomes": [
-      {
-        "t": "あらゆるデータを統合",
-        "d": "Salesforce や外部ソースを接続し、信頼できる同期をスケジュールして、データを最新に保ちます。"
-      },
-      {
-        "t": "レシピでデータを整形",
-        "d": "生データを結合・集計・クレンジングし、信頼できるよく設計されたデータセットにします。"
-      },
-      {
-        "t": "本物の SAQL を書く",
-        "d": "高度な指標、ウィンドウ処理、ダッシュボードの対話性のためにクエリを手書きします。"
-      },
-      {
-        "t": "ダッシュボードを作る",
-        "d": "ドリルダウンや Salesforce アクションを組み込んだ、レスポンシブでファセット対応のダッシュボードを設計します。"
-      },
-      {
-        "t": "予測をデプロイ",
-        "d": "説明可能な Einstein Discovery モデルを学習し、レコードやフローに予測を表示します。"
-      },
-      {
-        "t": "認定資格に備える",
-        "d": "CRM Analytics と Einstein Discovery コンサルタント試験の範囲をカバーします。"
-      }
-    ],
-    "whoEyebrow": "対象者",
-    "whoTitle": "チームのあらゆる役割のために",
-    "personas": [
-      {
-        "t": "アナリスト",
-        "d": "ドラッグ＆ドロップのレポートから、スケールするデータセット・SAQL・ダッシュボードの構築へ。"
-      },
-      {
-        "t": "管理者",
-        "d": "プラットフォームを設定し、セキュリティ述語を管理し、分析を安全に展開します。"
-      },
-      {
-        "t": "コンサルタント",
-        "d": "エンドツーエンドのソリューションを設計し、自信を持って認定に備えます。"
-      },
-      {
-        "t": "初心者",
-        "d": "CRM の基礎から始められます。分析の経験は不要です。"
-      }
-    ],
-    "topicsEyebrow": "習得できるすべて",
-    "topicsTitle": "1つのカリキュラムで、プラットフォーム全体",
-    "faqEyebrow": "よくある質問",
     "faqTitle": "疑問にお答えします",
     "faqs": [
       {
@@ -353,71 +199,6 @@
         "a": "カリキュラムは CRM Analytics と Einstein Discovery コンサルタント試験の範囲に対応しています。"
       }
     ],
-    "featuresEyebrow": "全体の流れ",
-    "featuresTitle": "生データから意思決定へ",
-    "features": [
-      {
-        "t": "すべてのデータを集約",
-        "d": "Salesforce、Snowflake、ファイルを接続し、スケジュールで同期し、ビジュアルなレシピで整形してクリーンなデータセットにします。"
-      },
-      {
-        "t": "すぐに探索・可視化",
-        "d": "SAQL を書くか、クリックでレンズを作成し、バインディング・ファセット・ドリルダウンを備えた高速で対話的なダッシュボードを組み立てます。"
-      },
-      {
-        "t": "次に起こることを予測",
-        "d": "説明可能な Einstein Discovery モデルを学習し、チームが働く場所に予測と推奨を表示します。"
-      }
-    ],
-    "projectsEyebrow": "ショーケース",
-    "projectsTitle": "あなたが作れるプロジェクト",
-    "projectsSubtitle": "学びながら再現できる実際のダッシュボード。そして自分の作品をコミュニティと共有しましょう。",
-    "projects": [
-      {
-        "t": "営業パイプラインの健全性",
-        "d": "ステージ、受注率、予測を1つの対話的なビューで追跡します。"
-      },
-      {
-        "t": "顧客離反リスク",
-        "d": "Einstein Discovery でアカウントをスコアリングし、離反前に対処します。"
-      },
-      {
-        "t": "サービス KPI",
-        "d": "サポートチーム向けのケース件数、CSAT、解決時間。"
-      },
-      {
-        "t": "地域別売上",
-        "d": "ドリルダウンで売上を地理的に分解します。"
-      },
-      {
-        "t": "担当者ランキング",
-        "d": "ウィンドウ SAQL とファセットで成績をランク付けします。"
-      },
-      {
-        "t": "マーケティング ROI",
-        "d": "パイプラインをキャンペーンに帰属させ、リターンを測定します。"
-      }
-    ],
-    "submitTitle": "何か作りましたか？",
-    "submitDesc": "作ったダッシュボードを共有して、他の学習者を刺激しましょう。",
-    "submitButton": "投稿する",
-    "lessonsWord": "レッスン",
-    "moduleWord": "モジュール",
-    "exploreEyebrow": "生態系",
-    "exploreTitle": "レッスン内容",
-    "exploreSubtitle": "コミュニティ、企業、キャリア CRM Analyticsお問い合わせ",
-    "exploreWall": "コミュニティを教えたブロガー、YouTubers、作者をご紹介します。",
-    "exploreCompanies": "どの企業が実行されているかを見る CRM Analytics 誰がそれを使って構築するのか。",
-    "exploreJobs": "フレッシュ CRM Analytics 日々の役割をリフレッシュ。",
-    "pagesTitle": "サイト上のすべて",
-    "pagesSubtitle": "このページは1つのマップです。",
-    "thanksText": "コミュニティが何を教えたかに建てられました。",
-    "thanksLink": "お問い合わせ ファマーの壁",
-    "langTitle": "語学留学",
-    "langSubtitle": "12言語のカリキュラム全体。",
-    "langHint": "任意のページで、ナビゲーションバーの地球のアイコンを即座に切り替えるには、以下の言語を選択します。 あなたの選択は記憶されます。",
-    "subtitle": "最初のデータセットからエグゼクティブボードまでは、実際に開いています。このプラットフォームは、9つのセクション全体で、13のGo-to-marketダッシュボードが1つの会社のデータ上に構築されています。",
-    "f2": "161レッスン",
     "hero": {
       "eyebrow": "現在更新 Salesforce リリース",
       "title": "学びます Salesforce CRM Analytics 仕事で使う方法。",
@@ -490,14 +271,11 @@
     "tagline": "Salesforce CRM Analytics を習得するための無料・オープンソースのカリキュラム。",
     "curriculum": "カリキュラム",
     "project": "プロジェクト",
-    "legal": "法的情報",
     "community": "コミュニティ",
     "academy": "アカデミー",
     "links": {
-      "instructors": "インストラクターになる",
       "nominate": "壁にノミネート",
-      "sales": "販売について",
-      "contact": "お問い合わせ"
+      "sales": "販売について"
     },
     "quip": {
       "0": "スワルニによって作られた、非合理的な量のプロンプトとトークンの英雄的な廃棄物。",
@@ -514,11 +292,6 @@
     "resourcesDesc": "Salesforce CRM Analytics の最良のリソース集。公式ドキュメント、Trailhead、SAQL リファレンス、コミュニティ、ツール。",
     "showcaseTitle": "ダッシュボードのショーケース",
     "showcaseDesc": "リアル CRM Analytics コミュニティが構築したダッシュボード — KPI、その背後にある式、各々のビルドに使われる技術。"
-  },
-  "video": {
-    "thanksForWatching": "ご視聴ありがとうございました！",
-    "replay": "もう一度見る",
-    "lessonCompleted": "レッスン完了"
   },
   "showcase": {
     "title": "ダッシュボードのショーケース",
@@ -552,19 +325,12 @@
     "dashboard": "ダッシュボード"
   },
   "course": {
-    "curriculum": "カリキュラム",
-    "lessonOf": "{position} インフォメーション {total}",
-    "complete": "{percent}% 完了",
-    "previous": "新着情報",
-    "next": "次へ",
-    "finish": "フィニッシュ",
     "nextLesson": "次へ: {title}",
     "markComplete": "マークを完成",
     "completed": "完了しました",
     "signInToTrack": "進行状況を追跡するためにサインインします。",
     "signIn": "サインイン",
-    "courseProgress": "コース進行状況",
-    "moduleProgress": "{done} インフォメーション {total} レッスン"
+    "courseProgress": "コース進行状況"
   },
   "dashboard": {
     "kicker": "ダッシュボード",
@@ -572,9 +338,7 @@
     "welcomeNamed": "歓迎された背部、 {name}",
     "yourProgress": "あなたの進捗状況",
     "lessonsDone": "{done} インフォメーション {total} レッスン",
-    "keepGoing": "退去場所を続行",
     "continueCta": "ログイン",
-    "browseCurriculum": "カリキュラムをブラウズ",
     "nothingYet": "レッスンをまだ完了していません。",
     "startFirst": "最初のレッスンを開始",
     "plan": "プラン",
@@ -585,7 +349,6 @@
     "recentlyCompleted": "最近完成",
     "statCompleted": "完了しました",
     "statRemaining": "メンテナンス",
-    "statProgress": "ニュース",
     "statPoints": "ポイント",
     "statRank": "ランキング",
     "unranked": "— — —",
@@ -597,7 +360,6 @@
     "signUpTitle": "入学無料",
     "signUpDesc": "1つの無料アカウント:あなたの進捗状況、クイズスコアと質問は、すべてのデバイスにあなたをフォローします。",
     "demoCta": "お問い合わせ 読み取り専用デモで探す",
-    "or": "または",
     "name": "お名前 (必須)",
     "email": "電子メール",
     "password": "パスワード",
@@ -627,40 +389,27 @@
   },
   "submit": {
     "kicker": "貢献する",
-    "title": "コミュニティと何かを共有",
-    "subtitle": "便利なダッシュボード、ビルドしたダッシュボード、または自分が望むレッスンを発見したリソース。 表示される前に、すべてレビューされます。",
     "kind": "提出する理由",
     "kindResource": "リソース",
-    "kindShowcase": "ダッシュボードプロジェクト",
-    "kindIdea": "レッスンアイデア",
     "titleLabel": "タイトル",
     "urlLabel": "サイトマップ",
     "imageLabel": "スクリーンショット URL",
-    "descLabel": "なぜ共有価値がありますか?",
     "descHint": "20文字以上",
     "tagsLabel": "ニュース",
     "tagsHint": "コンマ区切り、最大8.",
     "submit": "レビューを提出する",
-    "sentTitle": "おかげで、それはキューにあります。",
-    "sentBody": "投稿を手元で確認します。 承認されると、こちらで確認できます。",
-    "another": "別の投稿",
     "mine": "あなたの投稿",
     "pending": "ペンディングレビュー",
     "approved": "承認済み",
     "rejected": "受付不可",
-    "none": "何も提出していません。",
     "signInFirst": "お問い合わせ",
     "stepKind": "タイプ:",
     "stepDetails": "ニュース",
-    "stepMedia": "メディア",
     "stepReview": "レビュー",
-    "next": "お問い合わせ",
     "back": "バックナンバー",
     "optional": "オプション",
-    "photosLabel": "ダッシュボードスクリーンショット",
     "photosHint": "PNG、JPG、WebP、最大4メガバイト、最大4画像",
-    "uploading": "アップロード...",
-    "reviewHint": "ほぼ完了 - 送信する前に、すべてが正しく読み込まれていることを確認してください。"
+    "uploading": "アップロード..."
   },
   "wall": {
     "eyebrow": "コミュニティ",
@@ -678,63 +427,12 @@
     "nominateTitle": "ここに所属する人を教えてください。",
     "nominateDesc": "仕事が助けたブロガー、クリエイター、メンターを指名 CRM Analytics コミュニティ。",
     "nominate": "誰かを指す",
-    "connect": "リンクされた接続 インスタグラム",
     "emptyPhoto": "あなたの写真はこちら",
     "emptyCaption": "ノミネート",
     "emptyHint": "誰かを指す",
     "filter": "種類別フィルター",
     "board": "ボード",
     "whoTitle": "誰が"
-  },
-  "companies": {
-    "eyebrow": "エコシステム",
-    "title": "誰が動くか CRM Analytics",
-    "subtitle": "使用される企業 CRM Analytics 制作、設計・製作するコンサルティング",
-    "filterIndustry": "業界トップ",
-    "allIndustries": "すべての業界",
-    "allTypes": "すべて",
-    "typeCustomer": "お客様の声",
-    "typeConsultancy": "コンサルティング",
-    "empty": "フィルタにマッチしない",
-    "reset": "フィルターのリセット",
-    "disclaimer": "公共のケーススタディ、トーク、求人投稿から収集。 ロゴおよび商標は、所有者に帰属します。 ここにリストすることは、または Salesforceお問い合わせ",
-    "industries": {
-      "finance": "金融サービス",
-      "insurance": "保険保険",
-      "healthcare": "ヘルスケア",
-      "manufacturing": "製造業",
-      "retail": "リテール & コンテンツ",
-      "technology": "テクノロジー",
-      "energy": "エネルギー & ユーティリティ",
-      "telecom": "テレコム & メディア",
-      "nonprofit": "非営利団体 & 教育機関",
-      "consulting": "コンサルティング"
-    },
-    "filterType": "タイプ:"
-  },
-  "jobs": {
-    "eyebrow": "採用情報",
-    "title": "CRM Analytics 求人情報",
-    "subtitle": "言及する新鮮な役割 CRM Analytics, Tableau CRM または Einstein Analytics - パブリックジョブボードから毎日更新。",
-    "searchPlaceholder": "タイトル、会社、所在地を検索",
-    "remoteOnly": "リモートのみ",
-    "apply": "ニュース & お問い合わせ",
-    "updated": "更新履歴 {date}",
-    "empty": "ジョブマッチなし - 検索をクリアしてみてください。",
-    "count": "{count} オープンロール",
-    "disclaimer": "リストは、サードパーティのジョブボードから来ています。当社は、採用者を選別しません。 常にソースサイトに適用される。",
-    "source": "ソース",
-    "sample": "サンプル",
-    "sampleNote": "ライブリストは毎日更新されます。これらのサンプルの役割は、ここで表示されるものを示しています。",
-    "filters": "フィルター"
-  },
-  "newsletter": {
-    "title": "ループに滞在する",
-    "subtitle": "新しいモジュール、ショーケース、またはジョブの土地のときの一時的なメール。 迷惑メール、いつでも退会。",
-    "placeholder": "お問い合わせ{'@'}例:com",
-    "button": "会員登録",
-    "success": "サブスクリプションを確認するには、受信トレイを確認してください。",
-    "error": "サブスクリプション失敗 - 後でもう一度お試しください。"
   },
   "quiz": {
     "title": "知識のチェック",
@@ -747,20 +445,6 @@
     "signInToSave": "スコアを保存し、ポイントを獲得するためにサインインします。",
     "saved": "スコア保存 - 自分のポイントにカウントされます。",
     "answered": "{n} インフォメーション {total} お問い合わせ"
-  },
-  "ask": {
-    "eyebrow": "お問い合わせ",
-    "title": "カリキュラムを尋ねる",
-    "subtitle": "質問を入力し、それを答える正確なレッスンを取得する - アカウントなし、待機しません。",
-    "placeholder": "例) ダッシュボードに日付を切り替える方法は?",
-    "empty": "マッチングレッスンなし - 異なる単語を試してみてください。",
-    "sources": "カリキュラムから",
-    "aiBox": "あなたのAIツールでこのコースをチャット",
-    "aiBoxDesc": "このリンクをChatGPT、Claude、またはすべてのAIアシスタントに貼り付け、完全なカリキュラムとチャットできます。",
-    "copy": "コピーリンク",
-    "copied": "コピッド!",
-    "mcp": "MCPで接続",
-    "mcpDesc": "あらゆるMCP対応のクライアントをエンドポイントでポイントし、AIアシスタントが各レッスンに直接アクセスできるようにします。"
   },
   "resources": {
     "submitTitle": "ここで所属するリソースを知っていますか?",

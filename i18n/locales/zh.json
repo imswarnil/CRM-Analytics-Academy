@@ -2,7 +2,6 @@
   "language": "中文",
   "nav": {
     "resources": "资源",
-    "blog": "博客",
     "about": "关于",
     "sponsor": "赞助此项目",
     "github": "在 GitHub 上查看",
@@ -10,28 +9,18 @@
     "chooseLanguage": "选择语言",
     "datasets": "数据集",
     "contribute": "贡献",
-    "more": "更多",
     "privacy": "隐私政策",
     "terms": "服务条款",
     "roadmap": "路线图",
-    "changelog": "更新日志",
     "showcase": "显示大小写",
     "signIn": "签名",
     "signOut": "签字",
     "dashboard": "电线板",
     "account": "账户",
     "curriculum": "课程",
-    "search": "搜索",
-    "menu": "菜单",
-    "closeMenu": "关闭菜单",
-    "startLearning": "开始学习",
-    "browseAll": "浏览全部课程",
     "submit": "贡献资源",
-    "navigate": "导航",
     "wallOfFame": "名人墙",
-    "community": "社区",
     "forTeams": "团队",
-    "implementation": "执行情况",
     "home": "页 次",
     "pricing": "定价",
     "instructors": "教员 & 贷方",
@@ -39,9 +28,7 @@
     "sponsorShort": "发起人"
   },
   "sponsorCard": {
-    "title": "赞助这个项目",
-    "desc": "坚持课程自由开放.",
-    "cta": "学更多"
+    "title": "赞助这个项目"
   },
   "sponsor": {
     "slot": {
@@ -187,153 +174,12 @@
       "error": "日历无法装入 。 刷新再试一次 。"
     }
   },
-  "hero": {
-    "badge": "免费开源课程",
-    "titleLead": "精通 Salesforce",
-    "titleAccent": "CRM Analytics",
-    "subtitle": "从第一个数据集到部署可解释的预测——通过六个实操模块学习整个平台，包含真实的 SAQL 和可复制的示例。",
-    "f1": "无需注册",
-    "f2": "49 节课",
-    "f3": "对齐认证考试",
-    "start": "开始学习",
-    "browse": "浏览课程",
-    "search": "搜索",
-    "watch": "注意介绍",
-    "community": "12种语言的学习者",
-    "boardCaption": "在最后的课上建造的董事会"
-  },
-  "cta": {
-    "title": "准备好成为 CRM Analytics 高手了吗？",
-    "subtitle": "立即开始课程——免费、开放，助你一路考取认证。",
-    "startFoundations": "从基础开始",
-    "star": "在 GitHub 上加星"
-  },
   "home": {
-    "stats": {
-      "modules": "模块",
-      "lessons": "课程",
-      "free": "免费开放",
-      "video": "视频",
-      "languages": "语文"
-    },
-    "curriculumEyebrow": "课程体系",
-    "curriculumTitle": "两个模块，一条清晰路径",
-    "curriculumSubtitle": "从上往下逐步学习——两个模块共同覆盖完整流程，从原始数据到部署的预测。",
     "modules": {
       "foundations": {
-        "title": "基础",
-        "desc": "什么是 CRM Analytics、数据如何变成安全的数据集，以及平台的构建块。"
-      },
-      "gettingStarted": {
-        "title": "开始",
-        "desc": "启用 CRM Analytics,创建您的第一个应用程序,并在连接您自己的软件之前探索样本数据。"
-      },
-      "tour": {
-        "title": "巡回演出",
-        "desc": "导游参观 Analytics Studio - 归家了, Data Manager, Explorer, 和 Dashboard 编辑器."
-      },
-      "navigating": {
-        "title": "导航板",
-        "desc": "阅读、过滤、面部和钻入仪表板,然后保存和分享自己的视图。"
-      },
-      "saql": {
-        "title": "SAQL",
-        "desc": "写入 SAQL 查询——过滤器,组,聚合,调试每个图表汇编到的语言."
-      },
-      "analytics": {
-        "title": "分析与 SAQL",
-        "desc": "编写 SAQL 查询、构建交互式仪表板，并用 Einstein Discovery 添加预测。"
-      },
-      "bindings": {
-        "title": "约束",
-        "desc": "电线部件连同选择、单元格和 URL 绑定这样一个选择驱动很多。"
-      },
-      "chartEmbedding": {
-        "title": "嵌入图",
-        "desc": "在记录页面、自定义组件或外部嵌入仪表板 Salesforce 完全一样"
+        "title": "基础"
       }
     },
-    "startModule": "开始模块",
-    "newHereTitle": "新手上路？",
-    "newHereDesc": "从基础开始，按顺序学习各模块，获得完整、引导式的学习路径。",
-    "startHere": "从这里开始",
-    "howEyebrow": "运作方式",
-    "howTitle": "学习、尝试、构建",
-    "steps": {
-      "read": {
-        "title": "阅读课程",
-        "desc": "简短、聚焦的课程，用真实示例每次只讲一个要点。"
-      },
-      "try": {
-        "title": "实时尝试",
-        "desc": "每个概念都对应一个具体操作——在免费的 Developer 组织中跟着做。"
-      },
-      "build": {
-        "title": "构建项目",
-        "desc": "课程逐步累积成一个真实的流程：数据、数据集、仪表板和一个模型。"
-      }
-    },
-    "resourcesEyebrow": "资源",
-    "resourcesTitle": "为你精选的最佳链接",
-    "resourcesDesc": "除了课程，我们还维护一个可筛选的资源库：官方文档、Trailhead、SAQL 参考、社区和工具。",
-    "browseResources": "浏览资源",
-    "getInvolved": {
-      "blurb": "想帮忙建设这个项目吗？贡献课程和代码，或直接支持本项目。",
-      "contribute": "贡献",
-      "sponsor": "赞助"
-    },
-    "outcomesEyebrow": "学习成果",
-    "outcomesTitle": "你将能够做到",
-    "outcomesSubtitle": "学完后，你能交付端到端的 CRM Analytics 解决方案，并加以证明。",
-    "outcomes": [
-      {
-        "t": "整合任何数据",
-        "d": "连接 Salesforce 和外部数据源，安排可靠的同步，让数据保持最新。"
-      },
-      {
-        "t": "用配方整形数据",
-        "d": "联接、聚合并清洗原始数据，形成可信、建模良好的数据集。"
-      },
-      {
-        "t": "编写真正的 SAQL",
-        "d": "手写查询，实现高级指标、窗口计算和仪表板交互。"
-      },
-      {
-        "t": "构建仪表板",
-        "d": "设计响应式、联动的仪表板，含下钻和内嵌的 Salesforce 操作。"
-      },
-      {
-        "t": "部署预测",
-        "d": "训练可解释的 Einstein Discovery 模型，并在记录和流程中显示预测。"
-      },
-      {
-        "t": "备考认证",
-        "d": "覆盖 CRM Analytics 与 Einstein Discovery 顾问考试所考查的技能。"
-      }
-    ],
-    "whoEyebrow": "适合谁",
-    "whoTitle": "为团队的每个角色而设计",
-    "personas": [
-      {
-        "t": "分析师",
-        "d": "从拖拽式报表，进阶到构建可扩展的数据集、SAQL 和仪表板。"
-      },
-      {
-        "t": "管理员",
-        "d": "搭建平台、管理安全谓词，并安全地推广分析。"
-      },
-      {
-        "t": "顾问",
-        "d": "设计端到端解决方案，自信地备考认证。"
-      },
-      {
-        "t": "初学者",
-        "d": "从 CRM 基础开始——无需任何分析经验。"
-      }
-    ],
-    "topicsEyebrow": "你将掌握的一切",
-    "topicsTitle": "一套课程，整个平台",
-    "faqEyebrow": "常见问题",
     "faqTitle": "为你解答",
     "faqs": [
       {
@@ -353,71 +199,6 @@
         "a": "课程对齐 CRM Analytics 与 Einstein Discovery 顾问考试的主题。"
       }
     ],
-    "featuresEyebrow": "整体如何衔接",
-    "featuresTitle": "从原始数据到决策",
-    "features": [
-      {
-        "t": "汇聚你的所有数据",
-        "d": "连接 Salesforce、Snowflake 和文件，按计划同步，并用可视化配方将一切整形为干净的数据集。"
-      },
-      {
-        "t": "即时探索与可视化",
-        "d": "编写 SAQL 或点击构建透镜，然后用绑定、联动和下钻组装快速的交互式仪表板。"
-      },
-      {
-        "t": "预测接下来会发生什么",
-        "d": "训练可解释的 Einstein Discovery 模型，并在团队工作的地方呈现预测与建议。"
-      }
-    ],
-    "projectsEyebrow": "展示",
-    "projectsTitle": "你可以构建的项目",
-    "projectsSubtitle": "在学习中可以重建的真实仪表板——然后把你的作品分享给社区。",
-    "projects": [
-      {
-        "t": "销售管道健康度",
-        "d": "在一个交互视图中跟踪阶段、赢单率和预测。"
-      },
-      {
-        "t": "客户流失风险",
-        "d": "用 Einstein Discovery 为客户打分，在流失前采取行动。"
-      },
-      {
-        "t": "服务 KPI",
-        "d": "面向支持团队的案例量、CSAT 和解决时长。"
-      },
-      {
-        "t": "按区域的收入",
-        "d": "用下钻按地理维度拆解收入。"
-      },
-      {
-        "t": "代表排行榜",
-        "d": "用窗口 SAQL 和联动对业绩进行排名。"
-      },
-      {
-        "t": "营销 ROI",
-        "d": "将管道归因到活动并衡量回报。"
-      }
-    ],
-    "submitTitle": "做出了什么？",
-    "submitDesc": "分享你构建的仪表板，激励其他学习者。",
-    "submitButton": "提交你的",
-    "lessonsWord": "经验教训",
-    "moduleWord": "模块",
-    "exploreEyebrow": "生态系统",
-    "exploreTitle": "不只是教训",
-    "exploreSubtitle": "社区、公司和事业 CRM Analytics。 。 。 。",
-    "exploreWall": "与教授社群的博客、YouTube用户及作者会面。",
-    "exploreCompanies": "看看哪个公司经营 CRM Analytics 并凭此而建者.",
-    "exploreJobs": "新鲜 CRM Analytics 角色,每天更新。",
-    "pagesTitle": "现场的一切",
-    "pagesSubtitle": "每页,一张地图。",
-    "thanksText": "以社区教导我们的东西为基础",
-    "thanksLink": "谢谢 法梅尔斯城墙",
-    "langTitle": "用自己的语言学习",
-    "langSubtitle": "整个课程,用十二种语言",
-    "langHint": "选择下面的语言立即切换 - 或在任何页面的导航栏中使用地球图标 。 你的选择被记住了",
-    "subtitle": "从你的第一个数据集到执行董事会 一个执行官实际上打开了—— 整个平台跨19个区, 然后17个上市仪表板 建立在一家公司的数据上。",
-    "f2": "161次经验教训",
     "hero": {
       "eyebrow": "当前更新 Salesforce 释放",
       "title": "学习 Salesforce CRM Analytics 工作时使用的方法。",
@@ -490,14 +271,11 @@
     "tagline": "一套免费开源课程，助你精通 Salesforce CRM Analytics。",
     "curriculum": "课程",
     "project": "项目",
-    "legal": "法律",
     "community": "社区",
     "academy": "学院",
     "links": {
-      "instructors": "成为教官",
       "nominate": "提名长城",
-      "sales": "谈销售",
-      "contact": "联系我们"
+      "sales": "谈销售"
     },
     "quip": {
       "0": "由史瓦尼尔用不合理的催促量和英勇的废品制造.",
@@ -514,11 +292,6 @@
     "resourcesDesc": "精选的 Salesforce CRM Analytics 优质资源——官方文档、Trailhead、SAQL 参考、社区和工具。",
     "showcaseTitle": "显示板",
     "showcaseDesc": "真实 CRM Analytics 由社区建造的仪表板——KPI,其背后的公式,以及用于建造每一个的技巧."
-  },
-  "video": {
-    "thanksForWatching": "感谢观看！",
-    "replay": "重新播放",
-    "lessonCompleted": "课程完成"
   },
   "showcase": {
     "title": "显示板",
@@ -552,19 +325,12 @@
     "dashboard": "电线板"
   },
   "course": {
-    "curriculum": "课程",
-    "lessonOf": "{position} 页:1 {total}",
-    "complete": "{percent}完成百分比",
-    "previous": "上一个",
-    "next": "下一个",
-    "finish": "完成",
     "nextLesson": "下一个: {title}",
     "markComplete": "标记为完成",
     "completed": "已完成",
     "signInToTrack": "签到追踪你的进展",
     "signIn": "签名",
-    "courseProgress": "课程进度",
-    "moduleProgress": "{done} 页:1 {total} 经验教训"
+    "courseProgress": "课程进度"
   },
   "dashboard": {
     "kicker": "电线板",
@@ -572,9 +338,7 @@
     "welcomeNamed": "欢迎回来 {name}",
     "yourProgress": "你的进展",
     "lessonsDone": "{done} 页:1 {total} 经验教训",
-    "keepGoing": "继续你离开的地方",
     "continueCta": "继续",
-    "browseCurriculum": "浏览课程",
     "nothingYet": "你还没有完成一个课程。",
     "startFirst": "第一课开始",
     "plan": "计划",
@@ -585,7 +349,6 @@
     "recentlyCompleted": "最近完成",
     "statCompleted": "已完成",
     "statRemaining": "剩余",
-    "statProgress": "进展",
     "statPoints": "点",
     "statRank": "军衔",
     "unranked": ". . . . . .",
@@ -597,7 +360,6 @@
     "signUpTitle": "免费滚动",
     "signUpDesc": "一个免费账户:你的进度,测试分数和问题跟随你到每个设备.",
     "demoCta": "只是看看吗? 以只读演示探索",
-    "or": "或",
     "name": "名称",
     "email": "电子邮件",
     "password": "密码",
@@ -627,40 +389,27 @@
   },
   "submit": {
     "kicker": "贡献",
-    "title": "与社区分享一些东西",
-    "subtitle": "一个你发现有用的资源,一个你建造的仪表板, 或者一个你希望存在的教训。 一切在出现前都经过审查.",
     "kind": "你在说什么?",
     "kindResource": "一个资源",
-    "kindShowcase": "仪表板项目",
-    "kindIdea": "一个教训的想法",
     "titleLabel": "标题",
     "urlLabel": "链接",
     "imageLabel": "截图 URL",
-    "descLabel": "为什么值得分享?",
     "descHint": "最少20个字符。",
     "tagsLabel": "标记",
     "tagsHint": "逗号分离,最高8.",
     "submit": "提交供审查",
-    "sentTitle": "谢谢,它在排队。",
-    "sentBody": "我们一手审查提交材料。 一旦得到批准,你会看到它在这里。",
-    "another": "提交另一个",
     "mine": "你的意见",
     "pending": "待审查",
     "approved": "核定数",
     "rejected": "不接受",
-    "none": "你还没有提交任何文件。",
     "signInFirst": "签名供稿.",
     "stepKind": "类型",
     "stepDetails": "细节",
-    "stepMedia": "媒体",
     "stepReview": "审查",
-    "next": "继续",
     "back": "回来",
     "optional": "可选",
-    "photosLabel": "剪贴板截图",
     "photosHint": "PNG, JPG 或 WebP, 每张最多4 MB - 4 张最大图像 。",
-    "uploading": "正在上传...",
-    "reviewHint": "几乎完成了 - 在发送前检查所有读数正确。"
+    "uploading": "正在上传..."
   },
   "wall": {
     "eyebrow": "社区",
@@ -678,63 +427,12 @@
     "nominateTitle": "知道这里的人是谁吗?",
     "nominateDesc": "提名一名博客、创作者或导师, CRM Analytics 社区。",
     "nominate": "点名",
-    "connect": "在链接上连接 内",
     "emptyPhoto": "你的照片在这里",
     "emptyCaption": "获得提名",
     "emptyHint": "点名",
     "filter": "按类型过滤",
     "board": "董事会",
     "whoTitle": "他们是谁"
-  },
-  "companies": {
-    "eyebrow": "生态系统",
-    "title": "谁继续 CRM Analytics",
-    "subtitle": "已知使用的公司 CRM Analytics 以及设计和建造的顾问",
-    "filterIndustry": "工业",
-    "allIndustries": "所有行业",
-    "allTypes": "全体",
-    "typeCustomer": "客户",
-    "typeConsultancy": "咨询",
-    "empty": "没有比对那些过滤器。",
-    "reset": "重置过滤器",
-    "disclaimer": "从公开的案例研究,谈话和岗位上解答. logos和商标属于其所有人;此处的上市不是由 Salesforce。 。 。 。",
-    "industries": {
-      "finance": "金融服务",
-      "insurance": "保险",
-      "healthcare": "保健",
-      "manufacturing": "制造业",
-      "retail": "零售 & 消费者",
-      "technology": "技术",
-      "energy": "能源 & 公用事业",
-      "telecom": "电信 & 媒体",
-      "nonprofit": "非营利 & 学历",
-      "consulting": "咨询"
-    },
-    "filterType": "类型"
-  },
-  "jobs": {
-    "eyebrow": "事业",
-    "title": "CRM Analytics 任务",
-    "subtitle": "提到的新角色 CRM Analytics, (中文). Tableau CRM 或 Einstein Analytics - 每天从公共工作委员会得到更新。",
-    "searchPlaceholder": "搜索标题、公司或地点",
-    "remoteOnly": "仅远程",
-    "apply": "视图 & 应用",
-    "updated": "上次更新 {date}",
-    "empty": "没有匹配的工作 - 尝试清除搜索 。",
-    "count": "{count} 开放角色",
-    "disclaimer": "名单来自第三方工作委员会;我们不筛选雇主。 总是在源址上应用.",
-    "source": "来源",
-    "sample": "样本",
-    "sampleNote": "直播列表每天更新;这些样本角色显示了这里通常出现的情况.",
-    "filters": "过滤器"
-  },
-  "newsletter": {
-    "title": "保持循环",
-    "subtitle": "当新模块、展示或工作落地时, 没有垃圾邮件,随时不订阅。",
-    "placeholder": "老师{'@'}实例.com",
-    "button": "订阅",
-    "success": "检查您的收件箱以确认您的订阅 。",
-    "error": "订阅失败 - 请稍后再试 。"
   },
   "quiz": {
     "title": "检查你的知识",
@@ -747,20 +445,6 @@
     "signInToSave": "签名来保存你的分数 并赚取积分。",
     "saved": "积分存下来了 数到你的分数",
     "answered": "{n} 页:1 {total} 已回复"
-  },
-  "ask": {
-    "eyebrow": "询问",
-    "title": "问课程",
-    "subtitle": "输入一个问题,得到准确的教训 答案,没有帐号,没有等待。",
-    "placeholder": "譬如说. 我如何面对一个仪表板 与日期切换?",
-    "empty": "没有匹配的课程 - 尝试不同的单词 。",
-    "sources": "从课程中",
-    "aiBox": "在您的 AI 工具中与此课程聊天",
-    "aiBoxDesc": "将此链接粘贴到 ChatGPT, Claude 或任何 AI 助手,以与完整课程进行聊天.",
-    "copy": "复制链接",
-    "copied": "被抄袭了!",
-    "mcp": "通过 MCP 连接",
-    "mcpDesc": "在此端点点指向任何 MCP 有能力的客户端,使您的AI助理可以直接访问每一个课程."
   },
   "resources": {
     "submitTitle": "知道属于这里的资源吗?",
@@ -831,8 +515,7 @@
         "desc": "脚本部署并管理来自终端的分析资产."
       },
       "devOrg": {
-        "title": "开发者版块",
-        "desc": "A free Salesforce org to follow every lesson hands-on."
+        "title": "开发者版块"
       },
       "vscode": {
         "title": "VS 代码 + SF 扩展",

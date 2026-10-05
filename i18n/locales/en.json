@@ -2,7 +2,6 @@
   "language": "English",
   "nav": {
     "resources": "Resources",
-    "blog": "Blog",
     "about": "About",
     "sponsor": "Sponsor this project",
     "github": "View on GitHub",
@@ -10,38 +9,27 @@
     "chooseLanguage": "Choose language",
     "datasets": "Datasets",
     "contribute": "Contribute",
-    "more": "More",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "roadmap": "Roadmap",
-    "changelog": "Changelog",
     "showcase": "Showcase",
     "signIn": "Sign in",
     "signOut": "Sign out",
     "dashboard": "Dashboard",
     "account": "Account",
     "curriculum": "Curriculum",
-    "search": "Search",
-    "menu": "Menu",
-    "closeMenu": "Close menu",
-    "startLearning": "Start learning",
-    "browseAll": "Browse the full curriculum",
     "submit": "Contribute a resource",
-    "navigate": "Navigate",
     "wallOfFame": "Wall of Fame",
-    "community": "Community",
     "forTeams": "For teams",
-    "implementation": "Implementation",
     "home": "Home",
     "pricing": "Pricing",
     "instructors": "Instructors & credits",
     "enrollFree": "Enroll free",
-    "sponsorShort": "Sponsor"
+    "sponsorShort": "Sponsor",
+    "homeAria": "CRM Analytics Academy — home"
   },
   "sponsorCard": {
-    "title": "Sponsor this project",
-    "desc": "Keep the curriculum free and open.",
-    "cta": "Learn more"
+    "title": "Sponsor this project"
   },
   "sponsor": {
     "slot": {
@@ -187,153 +175,12 @@
       "error": "The calendar could not load. Refresh to try again."
     }
   },
-  "hero": {
-    "badge": "Free & open-source curriculum",
-    "titleLead": "Master Salesforce",
-    "titleAccent": "CRM Analytics",
-    "subtitle": "From your first dataset to an executive board somebody actually opens — the whole platform across nineteen sections, then seventeen go-to-market dashboards built on one company's data.",
-    "f1": "No sign-up",
-    "f2": "161 lessons",
-    "f3": "Certification-aligned",
-    "start": "Start learning",
-    "browse": "Browse curriculum",
-    "search": "Search",
-    "watch": "Watch the intro",
-    "community": "Learners across 12 languages",
-    "boardCaption": "The board you build in the final lesson"
-  },
-  "cta": {
-    "title": "Ready to become a CRM Analytics pro?",
-    "subtitle": "Begin the curriculum today — it is free, open, and built to take you all the way to certified.",
-    "startFoundations": "Start with Foundations",
-    "star": "Star on GitHub"
-  },
   "home": {
-    "stats": {
-      "modules": "Modules",
-      "lessons": "Lessons",
-      "free": "Free & open",
-      "video": "Builds",
-      "languages": "Languages"
-    },
-    "curriculumEyebrow": "The Curriculum",
-    "curriculumTitle": "Nineteen sections, one clear path",
-    "curriculumSubtitle": "Learn CRM Analytics first, then use it. The product sections come in order; the go-to-market builds at the end run on a single dataset, so every number has to reconcile.",
     "modules": {
       "foundations": {
-        "title": "Foundations",
-        "desc": "What CRM Analytics is, how data becomes a secure dataset, and the building blocks of the platform."
-      },
-      "gettingStarted": {
-        "title": "Getting Started",
-        "desc": "Enable CRM Analytics, create your first app, and explore sample data before connecting your own."
-      },
-      "tour": {
-        "title": "Tour",
-        "desc": "A guided tour of Analytics Studio — Home, Data Manager, Explorer, and the Dashboard Editor."
-      },
-      "navigating": {
-        "title": "Navigating Dashboards",
-        "desc": "Read, filter, facet, and drill into a dashboard, then save and share your own view."
-      },
-      "saql": {
-        "title": "SAQL",
-        "desc": "Write SAQL queries — filter, group, aggregate, and debug the language every chart compiles to."
-      },
-      "analytics": {
-        "title": "Analytics & Einstein",
-        "desc": "Assemble queries into interactive dashboards and add predictions with Einstein Discovery."
-      },
-      "bindings": {
-        "title": "Bindings",
-        "desc": "Wire widgets together with selection, cell, and URL bindings so one selection drives many."
-      },
-      "chartEmbedding": {
-        "title": "Chart Embedding",
-        "desc": "Embed a dashboard on a record page, in a custom component, or outside Salesforce entirely."
+        "title": "Foundations"
       }
     },
-    "startModule": "Start module",
-    "newHereTitle": "New here?",
-    "newHereDesc": "Begin with Foundations and follow the modules in order for a complete, guided learning path.",
-    "startHere": "Start here",
-    "howEyebrow": "How it works",
-    "howTitle": "Learn it, try it, build it",
-    "steps": {
-      "read": {
-        "title": "Read the lesson",
-        "desc": "Short, focused lessons explain one idea at a time with real examples."
-      },
-      "try": {
-        "title": "Try it live",
-        "desc": "Every concept maps to a concrete action — follow along in a free Developer org."
-      },
-      "build": {
-        "title": "Build a project",
-        "desc": "Lessons accumulate into a working pipeline: data, datasets, dashboards, a model."
-      }
-    },
-    "resourcesEyebrow": "Resources",
-    "resourcesTitle": "The best links, curated for you",
-    "resourcesDesc": "Beyond the curriculum, we maintain a filterable library of official docs, Trailhead, SAQL references, communities, and tools.",
-    "browseResources": "Browse resources",
-    "getInvolved": {
-      "blurb": "Want to help build this? Contribute lessons and code, or support the project directly.",
-      "contribute": "Contribute",
-      "sponsor": "Sponsor"
-    },
-    "outcomesEyebrow": "Outcomes",
-    "outcomesTitle": "What you will be able to do",
-    "outcomesSubtitle": "By the end you can deliver an end-to-end CRM Analytics solution — and prove it.",
-    "outcomes": [
-      {
-        "t": "Integrate any data",
-        "d": "Connect Salesforce and external sources, schedule reliable syncs, and keep datasets fresh."
-      },
-      {
-        "t": "Shape data with recipes",
-        "d": "Join, aggregate, and clean raw data into trustworthy, well-modeled datasets."
-      },
-      {
-        "t": "Write real SAQL",
-        "d": "Author queries by hand for advanced metrics, windowing, and dashboard interactivity."
-      },
-      {
-        "t": "Build dashboards",
-        "d": "Design responsive, faceted dashboards with drill-downs and embedded Salesforce actions."
-      },
-      {
-        "t": "Deploy predictions",
-        "d": "Train explainable Einstein Discovery models and surface predictions on records and in flows."
-      },
-      {
-        "t": "Prep for certification",
-        "d": "Cover the skills measured by the CRM Analytics & Einstein Discovery Consultant exam."
-      }
-    ],
-    "whoEyebrow": "Who it's for",
-    "whoTitle": "Built for every role on the team",
-    "personas": [
-      {
-        "t": "Analysts",
-        "d": "Go from drag-and-drop reports to building datasets, SAQL, and dashboards that scale."
-      },
-      {
-        "t": "Admins",
-        "d": "Set up the platform, manage security predicates, and roll analytics out safely."
-      },
-      {
-        "t": "Consultants",
-        "d": "Design end-to-end solutions and prep for the certification with confidence."
-      },
-      {
-        "t": "Beginners",
-        "d": "Start from CRM basics — no prior analytics experience required."
-      }
-    ],
-    "topicsEyebrow": "Everything you'll master",
-    "topicsTitle": "One curriculum, the whole platform",
-    "faqEyebrow": "FAQ",
     "faqTitle": "Questions, answered",
     "faqs": [
       {
@@ -353,71 +200,6 @@
         "a": "The curriculum maps to the CRM Analytics & Einstein Discovery Consultant exam topics."
       }
     ],
-    "featuresEyebrow": "How it fits together",
-    "featuresTitle": "From raw data to decisions",
-    "features": [
-      {
-        "t": "Learn to bring data together",
-        "d": "Lessons walk you through connecting Salesforce, Snowflake, and files; scheduling syncs; and shaping everything into clean datasets with visual recipes."
-      },
-      {
-        "t": "Learn to explore and visualize",
-        "d": "Practice writing SAQL and building lenses, then assemble fast, interactive dashboards with bindings, faceting, and drill-downs — all in your own free org."
-      },
-      {
-        "t": "Learn to predict what happens next",
-        "d": "Follow guided exercises to train explainable Einstein Discovery models and surface predictions and recommendations right where your team works."
-      }
-    ],
-    "projectsEyebrow": "Showcase",
-    "projectsTitle": "Projects you can build",
-    "projectsSubtitle": "Real dashboards you can recreate as you learn — then share your own with the community.",
-    "projects": [
-      {
-        "t": "Sales Pipeline Health",
-        "d": "Track stages, win rate, and forecast in one interactive view."
-      },
-      {
-        "t": "Customer Churn Risk",
-        "d": "Score accounts with Einstein Discovery and act before they leave."
-      },
-      {
-        "t": "Service KPIs",
-        "d": "Case volume, CSAT, and resolution time for support teams."
-      },
-      {
-        "t": "Revenue by Region",
-        "d": "Break revenue down geographically with drill-downs."
-      },
-      {
-        "t": "Rep Leaderboard",
-        "d": "Rank performance with windowed SAQL and faceting."
-      },
-      {
-        "t": "Marketing ROI",
-        "d": "Attribute pipeline to campaigns and measure return."
-      }
-    ],
-    "submitTitle": "Built something?",
-    "submitDesc": "Share the dashboard you built and inspire other learners.",
-    "submitButton": "Submit yours",
-    "lessonsWord": "lessons",
-    "moduleWord": "Module",
-    "exploreEyebrow": "The ecosystem",
-    "exploreTitle": "More than lessons",
-    "exploreSubtitle": "The community, the companies and the careers around CRM Analytics.",
-    "exploreWall": "Meet the bloggers, YouTubers and authors who taught the community.",
-    "exploreCompanies": "See which companies run on CRM Analytics and who builds with it.",
-    "exploreJobs": "Fresh CRM Analytics roles, refreshed every day.",
-    "pagesTitle": "Everything on the site",
-    "pagesSubtitle": "Every page, one map.",
-    "thanksText": "Built on what the community taught us.",
-    "thanksLink": "Thank you, Wall of Famers",
-    "langTitle": "Study in your language",
-    "langSubtitle": "The whole curriculum, in twelve languages.",
-    "langHint": "Pick a language below to switch instantly - or use the globe icon in the navigation bar, on any page. Your choice is remembered.",
-    "subtitle": "From your first dataset to an executive board an exec actually opens — the whole platform across nineteen sections, then seventeen go-to-market dashboards built on one company's data.",
-    "f2": "161 lessons",
     "hero": {
       "eyebrow": "Updated for the current Salesforce release",
       "title": "Learn Salesforce CRM Analytics the way it’s used at work.",
@@ -490,14 +272,11 @@
     "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",
     "curriculum": "Curriculum",
     "project": "Project",
-    "legal": "Legal",
     "community": "Community",
     "academy": "Academy",
     "links": {
-      "instructors": "Become an instructor",
       "nominate": "Nominate for the Wall",
-      "sales": "Talk to sales",
-      "contact": "Contact us"
+      "sales": "Talk to sales"
     },
     "quip": {
       "0": "Made by Swarnil with an unreasonable amount of prompting and a heroic waste of tokens.",
@@ -514,11 +293,6 @@
     "resourcesDesc": "A curated list of the best Salesforce CRM Analytics resources — official docs, Trailhead, SAQL references, community, and tools.",
     "showcaseTitle": "Dashboard Showcase",
     "showcaseDesc": "Real CRM Analytics dashboards built by the community — the KPIs, the formulas behind them, and the techniques used to build each one."
-  },
-  "video": {
-    "thanksForWatching": "Thanks for watching!",
-    "replay": "Replay",
-    "lessonCompleted": "Lesson completed"
   },
   "showcase": {
     "title": "Dashboard Showcase",
@@ -552,19 +326,17 @@
     "dashboard": "Dashboard"
   },
   "course": {
-    "curriculum": "Curriculum",
-    "lessonOf": "{position} of {total}",
-    "complete": "{percent}% complete",
-    "previous": "Previous",
-    "next": "Next",
-    "finish": "Finish",
     "nextLesson": "Next: {title}",
     "markComplete": "Mark as complete",
     "completed": "Completed",
     "signInToTrack": "Sign in to track your progress.",
     "signIn": "Sign in",
     "courseProgress": "Course progress",
-    "moduleProgress": "{done} of {total} lessons done"
+    "contents": "Course contents",
+    "contentsPct": "Contents · {pct}%",
+    "showContents": "Show course contents",
+    "collapseContents": "Collapse course contents",
+    "sectionMeta": "{lessons} lessons · {minutes}m"
   },
   "dashboard": {
     "kicker": "Dashboard",
@@ -572,9 +344,7 @@
     "welcomeNamed": "Welcome back, {name}",
     "yourProgress": "Your progress",
     "lessonsDone": "{done} of {total} lessons",
-    "keepGoing": "Continue where you left off",
     "continueCta": "Resume",
-    "browseCurriculum": "Browse the curriculum",
     "nothingYet": "You have not completed a lesson yet.",
     "startFirst": "Start the first lesson",
     "plan": "Plan",
@@ -585,11 +355,19 @@
     "recentlyCompleted": "Recently completed",
     "statCompleted": "Completed",
     "statRemaining": "Remaining",
-    "statProgress": "Progress",
     "statPoints": "Points",
     "statRank": "Rank",
     "unranked": "—",
-    "contribute": "Contribute"
+    "contribute": "Contribute",
+    "upgradePro": "Upgrade to Pro",
+    "manageBilling": "Manage billing",
+    "confirmingTitle": "Confirming your payment…",
+    "confirmingDesc": "This usually takes a few seconds.",
+    "activity": "Activity, last 12 weeks",
+    "thisWeek": "{n} this week",
+    "activityAria": "Lessons completed per week, last 12 weeks: {counts}",
+    "lessonsCount": "{n} lessons",
+    "bySection": "By section"
   },
   "auth": {
     "signInTitle": "Welcome back",
@@ -597,7 +375,6 @@
     "signUpTitle": "Enroll free",
     "signUpDesc": "One free account: your progress, quiz scores and questions follow you to every device.",
     "demoCta": "Just looking? Explore with the read-only demo",
-    "or": "or",
     "name": "Name",
     "email": "Email",
     "password": "Password",
@@ -626,41 +403,224 @@
     "verifyDesc": "We sent a confirmation link to {email}. Open it, then sign in."
   },
   "submit": {
-    "kicker": "contribute",
-    "title": "Share something with the community",
-    "subtitle": "A resource you found useful, a dashboard you built, or a lesson you wish existed. Everything is reviewed before it appears.",
-    "kind": "What are you submitting?",
+    "title": "Contribute to the Academy",
+    "subtitle": "Dashboards, resources, lesson fixes, translations and SAQL. Everything is reviewed by a person before it appears, and approved work counts toward your rank on the dashboard.",
     "kindResource": "A resource",
-    "kindShowcase": "A dashboard project",
-    "kindIdea": "A lesson idea",
+    "kindShowcase": "A dashboard",
+    "kindIdea": "A lesson fix or idea",
     "titleLabel": "Title",
     "urlLabel": "Link",
-    "imageLabel": "Screenshot URL",
-    "descLabel": "Why is it worth sharing?",
-    "descHint": "20 characters minimum.",
-    "tagsLabel": "Tags",
-    "tagsHint": "Comma separated, up to 8.",
+    "descLabel": "Why is it useful?",
     "submit": "Submit for review",
-    "sentTitle": "Thanks — it is in the queue.",
-    "sentBody": "We review submissions by hand. You will see it here once it is approved.",
-    "another": "Submit another",
+    "sentTitle": "Thank you — it is in the review queue.",
+    "sentBody": "You will see its status below. Approved contributions are credited to you and count toward your rank on the dashboard.",
+    "another": "Contribute something else",
     "mine": "Your submissions",
     "pending": "Pending review",
     "approved": "Approved",
     "rejected": "Not accepted",
-    "none": "You have not submitted anything yet.",
-    "signInFirst": "Sign in to contribute.",
+    "none": "Nothing yet — your first contribution will show up here with its review status.",
     "stepKind": "Type",
     "stepDetails": "Details",
-    "stepMedia": "Media",
+    "stepMedia": "KPIs & media",
     "stepReview": "Review",
-    "next": "Continue",
+    "next": "Next — {step}",
     "back": "Back",
     "optional": "Optional",
-    "photosLabel": "Dashboard screenshots",
-    "photosHint": "PNG, JPG or WebP, up to 4 MB each - 4 images max.",
+    "photosLabel": "Screenshots — up to {max}",
     "uploading": "Uploading...",
-    "reviewHint": "Almost done - check everything reads right before sending."
+    "reviewHint": "This is exactly what will be sent for review.",
+    "sheet": "Sheet 07 / Contribute",
+    "received": "Received",
+    "mineTitle": "What you have sent",
+    "reviewNote": "Note: {note}",
+    "kindTranslation": "A translation fix",
+    "kindSnippet": "A SAQL snippet",
+    "blurbShowcase": "For the showcase: how you prepared the data, the sources, every KPI and how it is calculated.",
+    "blurbResource": "A docs page, course, tool, blog or community worth someone’s time.",
+    "blurbIdea": "Something wrong in a lesson, or a lesson that should exist.",
+    "blurbTranslation": "A machine translation that reads wrong in your language.",
+    "blurbSnippet": "A query that solves a real problem, with the dataset it runs on.",
+    "short": {
+      "dashboard": "dashboard",
+      "resource": "resource",
+      "lesson": "lesson",
+      "translation": "translation",
+      "snippet": "snippet"
+    },
+    "stepDashboard": "Dashboard",
+    "stepData": "Data",
+    "stepLink": "Link",
+    "stepLesson": "Lesson",
+    "stepProposal": "Proposal",
+    "stepWhere": "Where",
+    "stepCorrection": "Correction",
+    "stepSnippet": "Snippet",
+    "stepContext": "Context",
+    "stepOf": "Step {current} / {total} — {label}",
+    "stepsCount": "{n} steps",
+    "add": "Add",
+    "addSource": "Add a source",
+    "removeSource": "Remove source",
+    "searchLessons": "Search lessons…",
+    "errGeneric": "Something went wrong.",
+    "errImageSize": "Images are capped at 4 MB each.",
+    "errUpload": "Upload failed — paste an image URL instead.",
+    "errImageUrl": "Image links must start with http:// or https://",
+    "problems": {
+      "dashName": "Give the dashboard a name (3+ characters).",
+      "writeupUrl": "The write-up link must start with http:// or https://",
+      "creditUrl": "Your link must start with http:// or https://",
+      "prep": "Describe how you prepared the data (20+ characters).",
+      "source": "Add at least one data source.",
+      "kpi": "Add at least one KPI.",
+      "kpiFields": "Every KPI needs a name and how it is calculated.",
+      "resourceUrl": "Paste the link, starting with http:// or https://",
+      "resourceTitle": "Give it a title (3+ characters).",
+      "resourceWhy": "Say why it is useful (20+ characters).",
+      "lessonPick": "Pick the lesson.",
+      "ideaTitle": "Give the lesson idea a title.",
+      "fixBody": "Describe what is wrong (20+ characters).",
+      "ideaBody": "Outline the lesson (20+ characters).",
+      "sourceUrls": "Source links must start with http:// or https://",
+      "translationWhere": "Pick the language and the lesson.",
+      "translationText": "Paste the wrong text and your correction.",
+      "snippetTitle": "Give the snippet a title.",
+      "snippetSaql": "Paste the SAQL.",
+      "snippetWhat": "Say what it does (20+ characters)."
+    },
+    "options": {
+      "domains": {
+        "sales": "Sales",
+        "service": "Service",
+        "marketing": "Marketing",
+        "finance": "Finance",
+        "other": "Other"
+      },
+      "difficulties": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      },
+      "prepTools": {
+        "recipe": "Recipe",
+        "dataflow": "Dataflow",
+        "sync": "Data sync / connector",
+        "csv": "CSV upload",
+        "api": "External data API"
+      },
+      "prepSteps": {
+        "joins": "Joins / augments",
+        "filters": "Filters",
+        "formulas": "Formula fields",
+        "aggregations": "Aggregations",
+        "append": "Append",
+        "bucketing": "Bucketing",
+        "dates": "Date handling",
+        "dedupe": "Deduplication"
+      },
+      "sourceTypes": {
+        "sfObject": "Salesforce object",
+        "csv": "CSV",
+        "connector": "External connector",
+        "snowflake": "Snowflake",
+        "database": "Other database",
+        "other": "Other"
+      },
+      "techniques": {
+        "bindings": "Bindings",
+        "saql": "SAQL",
+        "compareTables": "Compare tables",
+        "windowing": "Windowing",
+        "predicates": "Security predicates",
+        "faceting": "Faceting",
+        "dynamicFilters": "Dynamic filters",
+        "actions": "Actions",
+        "discovery": "Einstein Discovery",
+        "mobile": "Mobile layout"
+      },
+      "categories": {
+        "docs": "Docs",
+        "learning": "Learning",
+        "books": "Books",
+        "blogs": "Blogs",
+        "tools": "Tools",
+        "community": "Community"
+      }
+    },
+    "dash": {
+      "name": "Dashboard name",
+      "namePh": "Pipeline coverage by segment",
+      "domain": "Business domain",
+      "difficulty": "Difficulty",
+      "writeup": "Public write-up",
+      "creditName": "Credit — your name",
+      "creditNamePh": "As it should appear on the showcase",
+      "creditUrl": "Credit — your link",
+      "tools": "Built with",
+      "prepSteps": "Preparation steps",
+      "prep": "How did you prepare the data?",
+      "prepHelp": "The joins and why, what you filtered out, anything that surprised you.",
+      "prepPh": "Opportunities augmented with Account on AccountId; closed-lost older than 2 years filtered out; …",
+      "grain": "Grain",
+      "grainHelp": "What one row of the final dataset is.",
+      "grainPh": "One row per opportunity per snapshot week",
+      "sources": "Data sources",
+      "rowsPh": "Rows (optional)",
+      "kpis": "KPIs — name, how it is calculated, why it matters",
+      "kpiN": "KPI {n}",
+      "removeKpi": "Remove KPI",
+      "kpiNamePh": "Win rate",
+      "kpiFormulaPh": "sum(IsWon) / count() — over closed opportunities, by close date",
+      "kpiWhyPh": "Why it matters (optional)",
+      "addKpi": "Add a KPI",
+      "techniques": "Techniques used",
+      "removeShot": "Remove screenshot",
+      "dropShot": "Drop screenshot",
+      "mediaUrlPh": "…or paste an image URL"
+    },
+    "res": {
+      "linkHelp": "Paste it — we fetch the title, description and logo.",
+      "category": "Category",
+      "what": "What it is",
+      "whyHelp": "Who should read it, and what they will get out of it."
+    },
+    "les": {
+      "fix": "Fix a lesson",
+      "propose": "Propose a lesson",
+      "which": "Which lesson?",
+      "ideaTitle": "Proposed lesson title",
+      "ideaTitlePh": "Incremental data sync without full reloads",
+      "wrong": "What is wrong?",
+      "outline": "Outline",
+      "wrongHelp": "Quote the passage and say what it should say.",
+      "outlineHelp": "What it teaches, in what order, and what the learner builds.",
+      "sources": "Sources — optional"
+    },
+    "tr": {
+      "language": "Language",
+      "languagePh": "Pick a language",
+      "lesson": "Lesson",
+      "wrong": "The text as it reads now",
+      "suggested": "What it should say",
+      "note": "Note",
+      "notePh": "e.g. 'Grain' is a term of art here, not wheat"
+    },
+    "snip": {
+      "titlePh": "Running total by fiscal quarter",
+      "what": "What does it do?",
+      "dataset": "Dataset",
+      "shape": "Dataset shape",
+      "shapeHelp": "The fields the query needs, with types."
+    },
+    "review": {
+      "summary": "Summary",
+      "domainLevel": "Domain · level",
+      "rows": "{n} rows",
+      "kpis": "KPIs",
+      "screenshots": "Screenshots",
+      "links": "Links"
+    }
   },
   "wall": {
     "eyebrow": "Community",
@@ -678,63 +638,12 @@
     "nominateTitle": "Know someone who belongs here?",
     "nominateDesc": "Nominate a blogger, creator or mentor whose work has helped the CRM Analytics community.",
     "nominate": "Nominate someone",
-    "connect": "Connect on LinkedIn",
     "emptyPhoto": "Your photo here",
     "emptyCaption": "Get nominated",
     "emptyHint": "Nominate someone",
     "filter": "Filter by kind",
     "board": "Board",
     "whoTitle": "Who they are"
-  },
-  "companies": {
-    "eyebrow": "Ecosystem",
-    "title": "Who runs on CRM Analytics",
-    "subtitle": "Companies known to use CRM Analytics in production, and the consultancies that design and build with it.",
-    "filterIndustry": "Industry",
-    "allIndustries": "All industries",
-    "allTypes": "All",
-    "typeCustomer": "Customer",
-    "typeConsultancy": "Consultancy",
-    "empty": "Nothing matches those filters.",
-    "reset": "Reset filters",
-    "disclaimer": "Curated from public case studies, talks and job posts. Logos and trademarks belong to their owners; a listing here is not an endorsement by or of Salesforce.",
-    "industries": {
-      "finance": "Financial services",
-      "insurance": "Insurance",
-      "healthcare": "Healthcare",
-      "manufacturing": "Manufacturing",
-      "retail": "Retail & consumer",
-      "technology": "Technology",
-      "energy": "Energy & utilities",
-      "telecom": "Telecom & media",
-      "nonprofit": "Nonprofit & education",
-      "consulting": "Consulting"
-    },
-    "filterType": "Type"
-  },
-  "jobs": {
-    "eyebrow": "Careers",
-    "title": "CRM Analytics jobs",
-    "subtitle": "Fresh roles that mention CRM Analytics, Tableau CRM or Einstein Analytics - refreshed daily from public job boards.",
-    "searchPlaceholder": "Search title, company or location",
-    "remoteOnly": "Remote only",
-    "apply": "View & apply",
-    "updated": "Last updated {date}",
-    "empty": "No jobs match - try clearing the search.",
-    "count": "{count} open roles",
-    "disclaimer": "Listings come from third-party job boards; we do not screen employers. Always apply on the source site.",
-    "source": "Source",
-    "sample": "Sample",
-    "sampleNote": "Live listings are refreshed daily; these sample roles show what typically appears here.",
-    "filters": "Filters"
-  },
-  "newsletter": {
-    "title": "Stay in the loop",
-    "subtitle": "One occasional email when new modules, showcases or jobs land. No spam, unsubscribe anytime.",
-    "placeholder": "you{'@'}example.com",
-    "button": "Subscribe",
-    "success": "Check your inbox to confirm your subscription.",
-    "error": "Subscription failed - please try again later."
   },
   "quiz": {
     "title": "Check your knowledge",
@@ -747,20 +656,6 @@
     "signInToSave": "Sign in to save your score and earn points.",
     "saved": "Score saved - it counts toward your points.",
     "answered": "{n} of {total} answered"
-  },
-  "ask": {
-    "eyebrow": "Ask",
-    "title": "Ask the curriculum",
-    "subtitle": "Type a question and get the exact lessons that answer it - no account, no waiting.",
-    "placeholder": "e.g. How do I facet a dashboard with a date toggle?",
-    "empty": "No matching lessons - try different words.",
-    "sources": "From the curriculum",
-    "aiBox": "Chat with this course in your AI tool",
-    "aiBoxDesc": "Paste this link into ChatGPT, Claude or any AI assistant to chat with the full curriculum.",
-    "copy": "Copy link",
-    "copied": "Copied!",
-    "mcp": "Connect via MCP",
-    "mcpDesc": "Point any MCP-capable client at this endpoint to give your AI assistant direct access to every lesson."
   },
   "resources": {
     "submitTitle": "Know a resource that belongs here?",
@@ -1303,7 +1198,10 @@
       "title": "Procedure — loading it into your org",
       "step1": "In Analytics Studio, create an app called {app}.",
       "step2": "Open {path} and upload one file at a time into that app.",
-      "step3": "Check the row count against this page before building on it — a short count is almost always a delimiter or date-format problem."
+      "step3": "Check the row count against this page before building on it — a short count is almost always a delimiter or date-format problem.",
+      "pathDataManager": "Data Manager",
+      "pathCreateDataset": "Create Dataset",
+      "pathCsvFile": "CSV File"
     },
     "groups": {
       "dimensions": "Dimensions",
@@ -1557,6 +1455,20 @@
   "lesson": {
     "authors": {
       "label": "Author | Authors"
+    },
+    "toc": {
+      "show": "Show table of contents",
+      "collapse": "Collapse table of contents"
+    },
+    "copy": {
+      "page": "Copy page",
+      "menu": "Open copy actions menu",
+      "markdownLink": "Copy Markdown link",
+      "viewMarkdown": "View as Markdown",
+      "openChatgpt": "Open in ChatGPT",
+      "openClaude": "Open in Claude",
+      "copied": "Copied to clipboard",
+      "failed": "Could not copy page"
     }
   },
   "credits": {
@@ -1671,5 +1583,39 @@
     "note": "Captions are generated from the video automatically and machine-translated into each language.",
     "loading": "Loading transcript…",
     "unavailable": "The transcript is not available right now."
+  },
+  "comments": {
+    "title": "Questions and discussion",
+    "demoReadOnly": "The demo account is read-only. {link} to ask a question or answer one.",
+    "createAccount": "Create a free account",
+    "signInPrompt": "{signIn} or {signUp} to ask a question or answer one.",
+    "signIn": "Sign in",
+    "createAccountLower": "create a free account",
+    "placeholder": "Ask a question or share how you solved it…",
+    "hint": "Plain text. Be kind — other learners are working through this too.",
+    "post": "Post",
+    "empty": "No questions yet. If something in this lesson was unclear, you are probably not the only one.",
+    "reply": "Reply",
+    "replyPlaceholder": "Write a reply…",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "you": "You",
+    "errLoad": "Comments could not be loaded.",
+    "errPost": "Could not post that. Please try again.",
+    "errDelete": "Could not delete that comment."
+  },
+  "buildBrief": {
+    "title": "Build brief",
+    "audience": "Who opens it",
+    "when": "When",
+    "question": "The question it answers",
+    "decision": "The decision it changes",
+    "success": "How we know it worked",
+    "notInScope": "Deliberately not here",
+    "builtOn": "Built on"
+  },
+  "funnel": {
+    "convertTo": "convert to {stage}",
+    "logScale": "Bar lengths are logarithmic — compare the percentages, not the bars."
   }
 }

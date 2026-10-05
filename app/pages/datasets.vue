@@ -204,7 +204,7 @@ usePageSchema(() => ({
             scope="global"
           >
             <template #path>
-              <strong class="text-white">Data Manager → Create Dataset → CSV File</strong>
+              <strong class="text-white">{{ t('datasets.procedure.pathDataManager') }} → {{ t('datasets.procedure.pathCreateDataset') }} → {{ t('datasets.procedure.pathCsvFile') }}</strong>
             </template>
           </i18n-t>
           <li>{{ t('datasets.procedure.step3') }}</li>

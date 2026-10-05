@@ -226,7 +226,7 @@ const activityBars = computed(() => weeks.value.map((w, i) => ({
               :label="done ? t('dashboard.continueCta') : t('dashboard.startFirst')"
             />
             <p class="min-w-0 truncate font-mono text-xs uppercase tracking-[.08em] text-(--ink2)">
-              Next — {{ resume.title }}
+              {{ t('course.nextLesson', { title: resume.title }) }}
             </p>
           </footer>
         </section>
@@ -258,8 +258,8 @@ const activityBars = computed(() => weeks.value.map((w, i) => ({
             color="info"
             variant="subtle"
             icon="i-lucide-loader-circle"
-            title="Confirming your payment…"
-            description="This usually takes a few seconds."
+            :title="t('dashboard.confirmingTitle')"
+            :description="t('dashboard.confirmingDesc')"
           />
 
           <div class="mt-auto flex flex-wrap gap-2 pt-6">
@@ -270,7 +270,7 @@ const activityBars = computed(() => weeks.value.map((w, i) => ({
               color="secondary"
               size="sm"
             >
-              Upgrade to Pro
+              {{ t('dashboard.upgradePro') }}
             </UButton>
             <UButton
               v-else
@@ -280,7 +280,7 @@ const activityBars = computed(() => weeks.value.map((w, i) => ({
               :loading="portalBusy"
               @click="manageBilling"
             >
-              Manage billing
+              {{ t('dashboard.manageBilling') }}
             </UButton>
             <UButton
               :to="localePath('/submit')"
@@ -297,19 +297,19 @@ const activityBars = computed(() => weeks.value.map((w, i) => ({
         <section class="self-start border-[1.5px] border-(--ink) bg-(--card) lg:col-span-2">
           <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
             <p class="eyebrow">
-              Fig. 02 — Activity, last 12 weeks
+              Fig. 02 — {{ t('dashboard.activity') }}
             </p>
-            <span class="font-mono text-xs uppercase tracking-[.08em] text-(--ink2)">{{ thisWeek }} this week</span>
+            <span class="font-mono text-xs uppercase tracking-[.08em] text-(--ink2)">{{ t('dashboard.thisWeek', { n: thisWeek }) }}</span>
           </header>
           <div
             class="graph-paper-fine p-5"
             role="img"
-            :aria-label="`Lessons completed per week, last 12 weeks: ${weeks.map(w => w.count).join(', ')}`"
+            :aria-label="t('dashboard.activityAria', { counts: weeks.map(w => w.count).join(', ') })"
           >
             <BpBarChart
               :bars="activityBars"
               :height="140"
-              :format="v => `${v} lessons`"
+              :format="v => t('dashboard.lessonsCount', { n: v })"
             />
           </div>
         </section>
@@ -317,7 +317,7 @@ const activityBars = computed(() => weeks.value.map((w, i) => ({
         <section class="border-[1.5px] border-(--ink) bg-(--card)">
           <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
             <p class="eyebrow">
-              Fig. 03 — By section
+              Fig. 03 — {{ t('dashboard.bySection') }}
             </p>
           </header>
           <ul class="max-h-80 overflow-y-auto">
