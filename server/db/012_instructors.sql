@@ -1,7 +1,7 @@
 -- Instructors and the lesson review queue.
 --
 -- Idempotent: every statement can run again on a database that already has
--- it. Applied by hand against Neon, after 011, like every other migration.
+-- it. Applied by hand against Neon, after 010, like every other migration.
 --
 -- 1. A fourth role. An instructor can open /admin, but sees only the content
 --    editor, may edit only the lessons that list them as an author (plus the

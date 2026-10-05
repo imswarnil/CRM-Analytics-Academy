@@ -28,7 +28,7 @@
 -- expired AND someone else has since taken the month. The money arrived but
 -- the month cannot be given; the admin console lists these for a refund.
 --
--- Additive only and independent of 011–013. Apply by hand against Neon.
+-- Additive only and independent of 012–014. Apply by hand against Neon.
 
 create table if not exists app.sponsor (
   id             uuid        primary key default gen_random_uuid(),

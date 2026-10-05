@@ -1,6 +1,6 @@
 /** Every team — bought or granted — with seat usage, for /admin → Teams. */
 export default defineEventHandler(async (event) => {
-  await requireModerator(event)
+  await requireAdmin(event)
   const sql = useDb()
   const rows = await sql`
     select t.id::text, t.name, t.domain, t.extra_domains, t.seats, t.status, t.current_period_end, t.created_at,

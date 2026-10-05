@@ -62,7 +62,9 @@ const RETIRED: Record<string, string> = {
   '/training': '/teams',
   '/sales': '/teams#contact',
   '/contact': '/teams#contact',
-  '/implementation': '/teams'
+  '/implementation': '/teams',
+  '/experts': '/teams',
+  '/experts/join': '/instructors'
 }
 
 const redirectRules = Object.fromEntries([

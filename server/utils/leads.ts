@@ -4,8 +4,7 @@ import type { LeadRow } from './n8n'
 /**
  * Inbound leads: validation, storage, enrichment and the hand-off to n8n.
  *
- * One service behind /api/leads and the older /api/inquiries, so both forms
- * obey the same rules. Every type shares the contact fields; what differs is
+ * One service behind /api/leads, so every form obeys the same rules. Every type shares the contact fields; what differs is
  * which of them are required, whether a work email is required, and which
  * type-specific fields may land in `details` — anything else the client sends
  * is dropped rather than stored.

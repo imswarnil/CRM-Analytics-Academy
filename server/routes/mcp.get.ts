@@ -12,6 +12,6 @@ export default defineEventHandler((event) => {
     transport: 'streamable-http',
     endpoint: 'https://crmanalytics.imswarnil.com/mcp',
     usage: 'Send JSON-RPC 2.0 requests via POST to this URL (methods: initialize, tools/list, tools/call).',
-    documentation: 'https://crmanalytics.imswarnil.com/ask'
+    documentation: 'https://crmanalytics.imswarnil.com/curriculum'
   }
 })

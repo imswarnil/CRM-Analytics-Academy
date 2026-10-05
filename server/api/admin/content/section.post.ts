@@ -17,6 +17,7 @@ const YAML_OPTS = { lineWidth: 0, defaultStringType: 'QUOTE_DOUBLE', defaultKeyT
 
 export default defineEventHandler(async (event) => {
   const ctx = await editorContext(event)
+  if (ctx.role !== 'admin') throw createError({ statusCode: 403, statusMessage: 'Only admins create sections.' })
   const body = await readBody<{ title?: unknown, slug?: unknown, icon?: unknown, description?: unknown }>(event)
 
   const title = typeof body?.title === 'string' ? body.title.trim().slice(0, 80) : ''

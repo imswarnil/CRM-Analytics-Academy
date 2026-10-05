@@ -15,17 +15,19 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid transcript path' })
   }
 
+  // Authorize first: a 404 before the Pro check would tell anyone which Pro
+  // lessons have a transcript.
+  const user = await requireUser(event)
+  if (!(await hasPro(user.id))) {
+    throw createError({ statusCode: 403, statusMessage: 'This transcript requires Pro' })
+  }
+
   const parts = path.replace(/^\//, '').split('/')
   if (parts.length === 1) parts.push('index')
   const storage = useStorage('assets:server')
   const raw = await storage.getItemRaw(`gated-transcripts:${parts.join(':')}.vtt`)
   if (!raw) {
     throw createError({ statusCode: 404, statusMessage: 'Transcript not found' })
-  }
-
-  const user = await requireUser(event)
-  if (!(await hasPro(user.id))) {
-    throw createError({ statusCode: 403, statusMessage: 'This transcript requires Pro' })
   }
 
   setResponseHeader(event, 'content-type', 'text/vtt; charset=utf-8')

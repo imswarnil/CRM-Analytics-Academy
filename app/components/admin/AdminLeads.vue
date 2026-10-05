@@ -1,8 +1,8 @@
 <script setup lang="ts">
 /**
- * The leads inbox: every business form on the site (contact, sales, quotes,
- * teams, training, implementation, sponsorship, instructor applications,
- * nominations) in one table, with the company each lead was enriched from,
+ * The leads inbox: every business form on the site (sales, quotes, teams,
+ * sponsorship, instructor applications, nominations — plus the contact,
+ * training and implementation rows from forms retired on 2026-10-05) in one table, with the company each lead was enriched from,
  * where it stands in the CRM hand-off, and a slideover to work it.
  */
 interface Lead {
@@ -43,15 +43,12 @@ const TYPES = [
   { value: 'sales', label: 'Sales' },
   { value: 'quote', label: 'Quote' },
   { value: 'team', label: 'Team' },
-  { value: 'training', label: 'Training' },
-  { value: 'implementation', label: 'Implementation' },
   { value: 'sponsor', label: 'Sponsor' },
   { value: 'instructor', label: 'Instructor' },
   { value: 'nomination', label: 'Nomination' },
   { value: 'contact', label: 'Contact' }
 ]
 const TYPE_ICON: Record<string, string> = {
-  project: 'i-lucide-handshake',
   sales: 'i-lucide-briefcase-business',
   quote: 'i-lucide-file-text',
   team: 'i-lucide-users',

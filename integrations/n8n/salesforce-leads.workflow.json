@@ -106,7 +106,7 @@
                 "conditions": [
                   {
                     "id": "7365238f-aff9-47d8-8547-65a98b3f4f6d",
-                    "leftValue": "={{ ['quote','sales','team','training','implementation','sponsor','contact','instructor'].includes($json.type) }}",
+                    "leftValue": "={{ ['quote','sales','team','sponsor','instructor'].includes($json.type) }}",
                     "rightValue": true,
                     "operator": {
                       "type": "boolean",
