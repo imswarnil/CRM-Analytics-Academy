@@ -436,11 +436,11 @@
       "caption": "Fig. 01 — अकादमी ARR by month",
       "spec": "निर्मित 14",
       "arr": "ARR",
-      "arrDelta": "{n} year on year",
+      "arrDelta": "{n} साल",
       "winRate": "विन दर",
-      "winRateDelta": "closed deals",
+      "winRateDelta": "बंद सौदों",
       "nrr": "एन आर",
-      "nrrDelta": "GRR {n}"
+      "nrrDelta": "जीआरआर {n}"
     },
     "plot": {
       "eyebrow": "अंजीर 02 - पाठ्यक्रम, साजिश",

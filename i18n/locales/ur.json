@@ -436,11 +436,11 @@
       "caption": "Fig. 01 — اکیڈمی آر آر آر -",
       "spec": "14 بنائیں",
       "arr": "آر .",
-      "arrDelta": "{n} year on year",
+      "arrDelta": "{n} سال میں",
       "winRate": "شرح سود",
-      "winRateDelta": "closed deals",
+      "winRateDelta": "بند",
       "nrr": "نار",
-      "nrrDelta": "GRR {n}"
+      "nrrDelta": "جارج {n}"
     },
     "plot": {
       "eyebrow": "منصوبہ‌سازی",

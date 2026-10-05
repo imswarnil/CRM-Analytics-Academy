@@ -436,9 +436,9 @@
       "caption": "Fig. 01 - Academy ARR by month",
       "spec": "البناء في المبنى 14",
       "arr": "ARR",
-      "arrDelta": "{n} year on year",
+      "arrDelta": "{n} السنة",
       "winRate": "معدل الفوز",
-      "winRateDelta": "closed deals",
+      "winRateDelta": "صفقات مغلقة",
       "nrr": "NRR",
       "nrrDelta": "GRR {n}"
     },

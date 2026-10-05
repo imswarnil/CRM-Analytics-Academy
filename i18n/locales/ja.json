@@ -436,11 +436,11 @@
       "caption": "図01 — 月別アカデミー ARR",
       "spec": "ビルド14",
       "arr": "ログイン",
-      "arrDelta": "{n} year on year",
+      "arrDelta": "{n} 年間行事",
       "winRate": "ウィンレート",
-      "winRateDelta": "closed deals",
+      "winRateDelta": "クローズド取引",
       "nrr": "ログイン",
-      "nrrDelta": "GRR {n}"
+      "nrrDelta": "ログイン {n}"
     },
     "plot": {
       "eyebrow": "図02 — カリキュラム、プロット",

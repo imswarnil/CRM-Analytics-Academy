@@ -436,11 +436,11 @@
       "caption": "কা. পূ.",
       "spec": "বিল্ট-ইন পরিচালন ব্যবস্থা",
       "arr": "আর্গন",
-      "arrDelta": "{n} year on year",
+      "arrDelta": "{n} প্রতি বছর",
       "winRate": "জয়ের হার",
-      "winRateDelta": "closed deals",
+      "winRateDelta": "বন্ধ তাসের খেলা",
       "nrr": "আর- জি- আর",
-      "nrrDelta": "GRR {n}"
+      "nrrDelta": "জি- আর- এলName {n}"
     },
     "plot": {
       "eyebrow": "অক্টোবর - ডিসেম্বর",

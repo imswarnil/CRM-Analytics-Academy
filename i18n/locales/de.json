@@ -436,9 +436,9 @@
       "caption": "Fig. 01 — Academy ARR nach Monat",
       "spec": "Gebaut in Build 14",
       "arr": "ARR",
-      "arrDelta": "{n} year on year",
+      "arrDelta": "{n} Jahr für Jahr",
       "winRate": "Gewinnrate",
-      "winRateDelta": "closed deals",
+      "winRateDelta": "Geschlossene Geschäfte",
       "nrr": "NRR",
       "nrrDelta": "GRR {n}"
     },

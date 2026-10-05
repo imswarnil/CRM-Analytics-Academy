@@ -436,11 +436,11 @@
       "caption": "图1——按月分列的学院",
       "spec": "建于建筑 14",
       "arr": "资源",
-      "arrDelta": "{n} year on year",
+      "arrDelta": "{n} 年数",
       "winRate": "赢率",
-      "winRateDelta": "closed deals",
+      "winRateDelta": "已结束的交易",
       "nrr": "核 报",
-      "nrrDelta": "GRR {n}"
+      "nrrDelta": "加纳 {n}"
     },
     "plot": {
       "eyebrow": "图02——课程编排",
