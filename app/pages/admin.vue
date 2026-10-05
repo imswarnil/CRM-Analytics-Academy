@@ -36,6 +36,14 @@ const { data: me } = await useLazyAsyncData('admin-me', () =>
 
 const isAdmin = computed(() => me.value?.role === 'admin')
 const isModerator = computed(() => me.value?.role === 'admin' || me.value?.role === 'moderator')
+// Instructors get the content editor and nothing else; every route behind it
+// re-checks the role (requireEditor) and the ownership of each lesson.
+const isInstructor = computed(() => me.value?.role === 'instructor')
+const isEditor = computed(() => isAdmin.value || isInstructor.value)
+const isStaff = computed(() => isModerator.value || isInstructor.value)
+watch(isInstructor, (ok) => {
+  if (ok) tab.value = 'content'
+}, { immediate: true })
 
 interface AdminUser {
   id: string
@@ -362,194 +370,7 @@ async function createUser() {
   }
 }
 
-const roles = ['learner', 'moderator', 'admin']
-
-/* --- Content studio ------------------------------------------------------ */
-// Edits English lessons straight against the GitHub repo (via
-// /api/admin/content/*). Publishing commits to main, which kicks off the
-// translate workflow and the Pages deploy — the same pipeline as a local push.
-interface ContentFile {
-  path: string
-  size: number
-}
-
-interface PublishResult {
-  path: string
-  sha: string
-  commitSha: string
-  commitUrl: string | null
-}
-
-const CONTENT_PREFIX = 'content/en/'
-
-// Mirrors the docs schema in content.config.ts: title + description are
-// required; video and interview are the optional extras worth remembering.
-const NEW_LESSON_TEMPLATE = `---
-title: Lesson title
-description: One-sentence summary shown in navigation and search results.
-# Optional YouTube clip rendered above the lesson body:
-# video:
-#   id: YOUTUBE_VIDEO_ID
-#   start: 0
-#   end: 120
-# Optional interview/quiz Q&A rendered after the body (also FAQPage JSON-LD):
-# interview:
-#   - q: A question a candidate should be able to answer?
-#     a: The model answer.
----
-
-Write the lesson body in markdown here.
-`
-
-const contentTree = ref<ContentFile[]>([])
-const contentTreeLoaded = ref(false)
-const contentTreeLoading = ref(false)
-const contentError = ref('')
-const activePath = ref('')
-const newPath = ref('')
-const isNewFile = ref(false)
-const fileSha = ref('')
-const fileLoading = ref(false)
-const editorText = ref('')
-const loadedText = ref('')
-const commitMessage = ref('')
-const publishing = ref(false)
-const published = ref<PublishResult | null>(null)
-
-const contentDirty = computed(() => editorText.value !== loadedText.value)
-
-const contentModules = computed(() => {
-  const groups = new Map<string, ContentFile[]>()
-  for (const f of contentTree.value) {
-    const rel = f.path.slice(CONTENT_PREFIX.length)
-    const slash = rel.indexOf('/')
-    const dir = slash === -1 ? '(top level)' : rel.slice(0, slash)
-    const list = groups.get(dir) || []
-    list.push(f)
-    groups.set(dir, list)
-  }
-  return [...groups.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([name, files]) => ({ name, files }))
-})
-
-function fileLabel(f: ContentFile) {
-  const rel = f.path.slice(CONTENT_PREFIX.length)
-  const slash = rel.indexOf('/')
-  return slash === -1 ? rel : rel.slice(slash + 1)
-}
-
-async function loadContentTree() {
-  contentTreeLoading.value = true
-  contentError.value = ''
-  try {
-    contentTree.value = await $fetch<ContentFile[]>('/api/admin/content/tree')
-    contentTreeLoaded.value = true
-  } catch (e) {
-    contentError.value = msg(e)
-  } finally {
-    contentTreeLoading.value = false
-  }
-}
-
-function confirmDiscard() {
-  return !contentDirty.value
-    || confirm(`Discard unsaved changes to ${activePath.value || 'the new lesson'}?`)
-}
-
-async function openContentFile(path: string) {
-  if (path === activePath.value && !isNewFile.value) return
-  if (!confirmDiscard()) return
-  fileLoading.value = true
-  contentError.value = ''
-  published.value = null
-  try {
-    const r = await $fetch<{ path: string, sha: string, content: string }>('/api/admin/content/file', {
-      query: { path }
-    })
-    activePath.value = r.path
-    fileSha.value = r.sha
-    editorText.value = r.content
-    loadedText.value = r.content
-    commitMessage.value = ''
-    isNewFile.value = false
-  } catch (e) {
-    contentError.value = msg(e)
-  } finally {
-    fileLoading.value = false
-  }
-}
-
-function startNewLesson() {
-  if (!confirmDiscard()) return
-  published.value = null
-  contentError.value = ''
-  isNewFile.value = true
-  activePath.value = ''
-  fileSha.value = ''
-  newPath.value = 'content/en/<module>/<NN.slug>.md'
-  editorText.value = NEW_LESSON_TEMPLATE
-  loadedText.value = ''
-  commitMessage.value = ''
-}
-
-// Client-side mirror of the server's path rule — the server re-validates, this
-// just keeps the Publish button honest. '<' blocks the untouched placeholder.
-function validLessonPath(p: string) {
-  return p.startsWith(CONTENT_PREFIX) && p.endsWith('.md') && !p.includes('..') && !p.includes('<')
-}
-
-const publishPath = computed(() => (isNewFile.value ? newPath.value.trim() : activePath.value))
-const canPublish = computed(() =>
-  !publishing.value
-  && !fileLoading.value
-  && editorText.value.trim().length > 0
-  && validLessonPath(publishPath.value)
-  && (isNewFile.value || contentDirty.value)
-)
-
-async function publishContent() {
-  const path = publishPath.value
-  if (!validLessonPath(path)) {
-    contentError.value = 'Path must look like content/en/<module>/<NN.slug>.md.'
-    return
-  }
-  if (new TextEncoder().encode(editorText.value).length > 1024 * 1024) {
-    contentError.value = 'Content exceeds the 1 MB limit.'
-    return
-  }
-  publishing.value = true
-  contentError.value = ''
-  published.value = null
-  try {
-    const r = await $fetch<PublishResult>('/api/admin/content/file', {
-      method: 'PUT',
-      body: {
-        path,
-        content: editorText.value,
-        ...(fileSha.value ? { sha: fileSha.value } : {}),
-        ...(commitMessage.value.trim() ? { message: commitMessage.value.trim() } : {})
-      }
-    })
-    published.value = r
-    activePath.value = r.path
-    fileSha.value = r.sha
-    loadedText.value = editorText.value
-    isNewFile.value = false
-    commitMessage.value = ''
-    await loadContentTree()
-  } catch (e) {
-    contentError.value = msg(e)
-  } finally {
-    publishing.value = false
-  }
-}
-
-watch(tab, (t) => {
-  if (t === 'content' && isAdmin.value && !contentTreeLoaded.value && !contentTreeLoading.value) {
-    loadContentTree()
-  }
-})
+const roles = ['learner', 'instructor', 'moderator', 'admin']
 </script>
 
 <template>
@@ -557,7 +378,7 @@ watch(tab, (t) => {
     <!-- Signed in but not an admin: say nothing useful. The API returns 404
          for the same reason — a 403 confirms the screen exists. -->
     <UContainer
-      v-if="me?.signedIn && !isModerator"
+      v-if="me?.signedIn && !isStaff"
       class="py-20 text-center"
     >
       <p class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
@@ -568,10 +389,10 @@ watch(tab, (t) => {
       </p>
     </UContainer>
 
-    <UContainer v-else-if="isModerator">
+    <UContainer v-else-if="isStaff">
       <UPageHeader
-        :title="tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'leads' ? 'Leads' : tab === 'teams' ? 'Teams' : tab === 'guide' ? 'Guide' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? 'Content Studio' : 'Users & Roles'"
-        :description="tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'leads' ? 'Sales, quotes, teams, training, sponsors, instructors and nominations — enriched and sent to the CRM.' : tab === 'teams' ? 'Every team: seats bought, seats used, members and status.' : tab === 'guide' ? 'How to run the academy, end to end — writing, pricing, video, leads and tracking.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? 'Edit English lessons and publish them straight to GitHub.' : 'Accounts, roles and access.'"
+        :title="tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'leads' ? 'Leads' : tab === 'teams' ? 'Teams' : tab === 'guide' ? 'Guide' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? (isInstructor ? 'Instructor studio' : 'Content') : 'Users & Roles'"
+        :description="tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'leads' ? 'Sales, quotes, teams, training, sponsors, instructors and nominations — enriched and sent to the CRM.' : tab === 'teams' ? 'Every team: seats bought, seats used, members and status.' : tab === 'guide' ? 'How to run the academy, end to end — writing, pricing, video, leads and tracking.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? (isInstructor ? 'Edit the lessons you author and create new ones; an admin reviews every change.' : 'The course on GitHub: edit, create, rename and reorder lessons and sections, review instructors and credit people.') : 'Accounts, roles and access.'"
       >
         <template #headline>
           <nav
@@ -589,6 +410,7 @@ watch(tab, (t) => {
               Overview
             </UButton>
             <UButton
+              v-if="isModerator"
               icon="i-lucide-inbox"
               size="sm"
               :color="tab === 'queue' ? 'primary' : 'neutral'"
@@ -603,6 +425,7 @@ watch(tab, (t) => {
               />
             </UButton>
             <UButton
+              v-if="isModerator"
               icon="i-lucide-messages-square"
               size="sm"
               :color="tab === 'comments' ? 'primary' : 'neutral'"
@@ -622,6 +445,7 @@ watch(tab, (t) => {
               Lessons & Pro
             </UButton>
             <UButton
+              v-if="isModerator"
               icon="i-lucide-inbox"
               size="sm"
               :color="tab === 'leads' ? 'primary' : 'neutral'"
@@ -641,7 +465,7 @@ watch(tab, (t) => {
               Teams
             </UButton>
             <UButton
-              v-if="isAdmin"
+              v-if="isEditor"
               icon="i-lucide-file-pen-line"
               size="sm"
               :color="tab === 'content' ? 'primary' : 'neutral'"
@@ -690,13 +514,17 @@ watch(tab, (t) => {
           {{ error }}
         </p>
 
-        <AdminLeads v-if="tab === 'leads'" />
+        <AdminLeads v-if="tab === 'leads' && isModerator" />
         <AdminTeams v-if="tab === 'teams' && isAdmin" />
         <AdminGuide
           v-if="tab === 'guide' && isAdmin"
           @go="goToTab"
         />
-        <AdminComments v-if="tab === 'comments'" />
+        <AdminComments v-if="tab === 'comments' && isModerator" />
+        <AdminContent
+          v-if="tab === 'content' && isEditor"
+          :role="isAdmin ? 'admin' : 'instructor'"
+        />
         <AdminLessons v-if="tab === 'lessons' && isAdmin" />
 
         <!-- ========================== OVERVIEW ========================== -->
@@ -957,7 +785,7 @@ watch(tab, (t) => {
         </section>
 
         <!-- ============================ QUEUE ============================ -->
-        <section v-else-if="tab === 'queue'">
+        <section v-else-if="tab === 'queue' && isModerator">
           <div class="mb-4 flex gap-2">
             <UButton
               v-for="s in (['pending', 'approved', 'rejected'] as const)"
@@ -1060,164 +888,6 @@ watch(tab, (t) => {
               </UCard>
             </li>
           </ul>
-        </section>
-
-        <!-- =========================== CONTENT =========================== -->
-        <section v-else-if="tab === 'content' && isAdmin">
-          <p
-            v-if="contentError"
-            class="mb-4 text-sm text-error"
-            role="alert"
-          >
-            {{ contentError }}
-          </p>
-
-          <div class="grid gap-6 lg:grid-cols-[18rem_1fr]">
-            <!-- File list -->
-            <div>
-              <UButton
-                label="New lesson"
-                icon="i-lucide-file-plus-2"
-                size="sm"
-                block
-                variant="soft"
-                class="mb-4"
-                @click="startNewLesson"
-              />
-
-              <p
-                v-if="contentTreeLoading"
-                class="py-6 text-center text-sm text-(--ink2)"
-              >
-                Loading files…
-              </p>
-              <p
-                v-else-if="!contentModules.length"
-                class="py-6 text-center text-sm text-(--ink2)"
-              >
-                No files loaded.
-              </p>
-
-              <div
-                v-for="mod in contentModules"
-                :key="mod.name"
-                class="mb-4"
-              >
-                <p class="mb-1 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-                  {{ mod.name }}
-                </p>
-                <ul>
-                  <li
-                    v-for="f in mod.files"
-                    :key="f.path"
-                  >
-                    <button
-                      type="button"
-                      class="w-full truncate px-2 py-1 text-start text-sm hover:bg-(--ice)"
-                      :class="f.path === activePath && !isNewFile ? 'bg-(--ice) font-medium text-(--ink)' : 'text-(--ink2)'"
-                      :title="f.path"
-                      @click="openContentFile(f.path)"
-                    >
-                      {{ fileLabel(f) }}
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Editor -->
-            <div>
-              <p
-                v-if="!isNewFile && !activePath"
-                class="border-[1.5px] border-(--ink) bg-(--card) p-10 text-center text-sm text-(--ink2)"
-              >
-                Pick a lesson on the left, or start a new one.
-              </p>
-
-              <div
-                v-else
-                class="flex flex-col gap-3"
-              >
-                <div class="flex flex-wrap items-center gap-2">
-                  <UInput
-                    v-if="isNewFile"
-                    v-model="newPath"
-                    class="min-w-64 grow font-mono"
-                    size="sm"
-                    placeholder="content/en/<module>/<NN.slug>.md"
-                  />
-                  <code
-                    v-else
-                    class="truncate text-sm text-(--ink)"
-                  >{{ activePath }}</code>
-                  <UBadge
-                    v-if="contentDirty"
-                    label="Unsaved changes"
-                    color="warning"
-                    variant="subtle"
-                    size="sm"
-                  />
-                  <UBadge
-                    v-if="isNewFile"
-                    label="New file"
-                    color="neutral"
-                    variant="subtle"
-                    size="sm"
-                  />
-                </div>
-
-                <textarea
-                  v-model="editorText"
-                  class="h-[60vh] w-full resize-y border-[1.5px] border-(--ink) bg-(--card) p-3 font-mono text-sm text-(--ink) focus:outline-none focus:ring-2 focus:ring-(--signal)"
-                  :disabled="fileLoading"
-                  spellcheck="false"
-                  aria-label="Lesson markdown"
-                />
-
-                <div class="flex flex-wrap items-center gap-2">
-                  <UInput
-                    v-model="commitMessage"
-                    class="min-w-64 grow"
-                    size="sm"
-                    :placeholder="`content: update ${publishPath || 'lesson'} via admin studio`"
-                    aria-label="Commit message"
-                  />
-                  <UButton
-                    label="Publish to GitHub"
-                    icon="i-lucide-git-commit-horizontal"
-                    :loading="publishing"
-                    :disabled="!canPublish"
-                    @click="publishContent"
-                  />
-                </div>
-
-                <div
-                  v-if="published"
-                  class="border-[1.5px] border-(--ink) bg-(--ice) p-4 text-sm"
-                >
-                  <p class="font-semibold text-(--ink)">
-                    Published {{ published.path }}
-                  </p>
-                  <p class="mt-1 text-(--ink2)">
-                    Commit
-                    <a
-                      v-if="published.commitUrl"
-                      :href="published.commitUrl"
-                      target="_blank"
-                      rel="noopener"
-                      class="font-mono text-primary"
-                    >{{ published.commitSha.slice(0, 7) }}</a>
-                    <span
-                      v-else
-                      class="font-mono"
-                    >{{ published.commitSha.slice(0, 7) }}</span>
-                    is on main — the push triggers the translation workflow and the
-                    Pages deploy automatically; no further action needed.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
 
         <!-- ============================ USERS ============================ -->
