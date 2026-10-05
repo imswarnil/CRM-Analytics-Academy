@@ -18,7 +18,7 @@ type MinimarkNode = [string, Record<string, unknown>?, ...unknown[]]
 export interface InArticleAdOptions {
   /** Insert an ad after every Nth paragraph (default 3). */
   interval?: number
-  /** Maximum in-article ads per page (default 4). */
+  /** Maximum in-article slots per page (default 2 — one sponsor fills them all, so more is repetition). */
   max?: number
   /** Minimum number of top-level paragraphs required before injecting anything (default 3). */
   minParagraphs?: number
@@ -35,7 +35,7 @@ export function injectInArticlePromos(
   nodes: unknown[],
   options: InArticleAdOptions = {}
 ): unknown[] {
-  const { interval = 3, max = 4, minParagraphs = 3 } = options
+  const { interval = 3, max = 2, minParagraphs = 3 } = options
 
   if (!Array.isArray(nodes) || nodes.length === 0) return nodes
 

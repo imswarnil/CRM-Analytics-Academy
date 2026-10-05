@@ -49,7 +49,7 @@ const rawRoutes: string[] = existsSync('.raw-routes.json')
  * sections silently absent from the build, with no error anywhere, because
  * their slugs happen to start with the same characters as a private route.
  */
-const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api', '/team', '/join']
+const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api', '/team', '/join', '/sponsor/studio']
 
 /**
  * Pages that exist in English only (their copy is not in the i18n files).
@@ -173,8 +173,9 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' },
         { rel: 'manifest', href: '/manifest.webmanifest' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
-        { rel: 'preconnect', href: 'https://pagead2.googlesyndication.com', crossorigin: '' },
-        { rel: 'dns-prefetch', href: 'https://pagead2.googlesyndication.com' },
+        // No AdSense preconnect: promo slots now show the month's sponsor or
+        // the house placeholder, and AdSense only loads when
+        // NUXT_PUBLIC_PROMO_NETWORK=adsense (see app/utils/promoNetwork.ts).
         { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }
       ],
       script: [
@@ -216,6 +217,15 @@ export default defineNuxtConfig({
     },
     experimental: {
       sqliteConnector: 'native'
+    }
+  },
+
+  runtimeConfig: {
+    public: {
+      // Promo slots in a month with no sponsor show the house placeholder.
+      // 'adsense' shows the AdSense unit there instead. Off by default; read
+      // at build time for prerendered pages.
+      promoNetwork: ''
     }
   },
 
@@ -402,8 +412,8 @@ export default defineNuxtConfig({
     // prerender and marked noindex, but a sitemap is a positive assertion
     // that a URL is worth indexing — listing them would contradict the meta.
     exclude: [
-      '/dashboard', '/account', '/submit', '/admin', '/_studio', '/join', '/team',
-      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio', '/*/join', '/*/team',
+      '/dashboard', '/account', '/submit', '/admin', '/_studio', '/join', '/team', '/sponsor/studio',
+      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio', '/*/join', '/*/team', '/*/sponsor/studio',
       // The raw-markdown surface is for LLMs and is already advertised by
       // llms.txt. In a sitemap it would be ~780 duplicate-content URLs.
       '/raw/**'

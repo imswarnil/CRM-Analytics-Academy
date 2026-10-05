@@ -1,157 +1,97 @@
 <script setup lang="ts">
+/**
+ * A promo slot. Shows, in order of preference:
+ *
+ *   1. this month's sponsor creative for the slot's format (labelled
+ *      "Sponsored", rel="sponsored", clicks through a counting redirect,
+ *      an impression is counted once it is half in view);
+ *   2. the AdSense unit — ONLY if NUXT_PUBLIC_PROMO_NETWORK=adsense (off);
+ *   3. the house placeholder, "Promote your brand here", linking to /sponsor.
+ *
+ * The box for the slot's format is reserved from the first server render
+ * (PROMO_BOX), and all three fill exactly that box, so nothing shifts when
+ * the sponsor data arrives. Nothing is shown to Pro readers.
+ */
 import { useIntersectionObserver } from '@vueuse/core'
-import { ADSENSE_CLIENT, loadPromoScript, rememberPro, type AdPlacementName } from '~/utils/promo'
+import { PROMO_BOX, rememberPro, type PromoPlacementName } from '~/utils/promo'
 
 const props = defineProps<{
-  /** Named placement from the central config. */
-  placement: AdPlacementName
+  /** Named placement — see PROMO_PLACEMENTS in app/utils/promo.ts. */
+  placement: PromoPlacementName
 }>()
 
-const { variant, showLabel } = usePromoSlot(props.placement)
-
-const dev = import.meta.dev
+const { t } = useI18n()
+const { format, creative, ready } = usePromoSlot(props.placement)
+const network = useRuntimeConfig().public.promoNetwork === 'adsense'
 
 // No promos for Pro. A signed-in reader is held back until their progress
-// (which carries the Pro flag) has loaded, so a Pro reader is never shown one
-// for the half-second before the answer arrives. Anonymous readers are never
-// Pro and are not held.
+// (which carries the Pro flag) has loaded, so a Pro reader is never shown
+// one for the half-second before the answer arrives.
 const { pro, loaded } = useProgress()
 const { isSignedIn } = useAuth()
-const blocked = computed(() => pro.value || (isSignedIn.value && !loaded.value))
+const held = computed(() => isSignedIn.value && !loaded.value)
 watch([pro, loaded], ([isPro, isLoaded]) => {
   if (isLoaded || isPro) rememberPro(isPro)
 }, { immediate: true })
 
-const root = ref<HTMLElement | null>(null)
-const insEl = ref<HTMLElement | null>(null)
-const show = ref(false) // render <ins> only once near the viewport
-const pushed = ref(false) // duplicate-load guard
-const empty = ref(false) // collapse on no-fill
-
-// Lazy load: reveal when within 400px of the viewport, then stop observing.
-const { stop } = useIntersectionObserver(
-  root,
-  ([entry]) => {
-    if (entry?.isIntersecting) {
-      show.value = true
-      stop()
-    }
-  },
-  { rootMargin: '400px' }
-)
-
-let fillObserver: MutationObserver | null = null
-
-function watchFill() {
-  if (!insEl.value) return
-
-  fillObserver = new MutationObserver(() => {
-    const status = insEl.value?.getAttribute('data-ad-status')
-    if (status === 'unfilled') {
-      empty.value = true // graceful no-fill: remove reserved space + border
-      fillObserver?.disconnect()
-    } else if (status === 'filled') {
-      fillObserver?.disconnect()
-    }
-  })
-  fillObserver.observe(insEl.value, { attributes: true, attributeFilter: ['data-ad-status'] })
-
-  // Fallback: collapse if nothing rendered after a few seconds.
-  setTimeout(() => {
-    if (insEl.value && insEl.value.getAttribute('data-ad-status') !== 'filled' && insEl.value.offsetHeight === 0) {
-      empty.value = true
-    }
-  }, 4000)
-}
-
-async function pushAd() {
-  if (pushed.value || !insEl.value || blocked.value) return
-  try {
-    await loadPromoScript()
-  } catch {
-    // Blocked by an extension or offline: collapse the slot instead of
-    // leaving an empty frame behind.
-    empty.value = true
-    return
-  }
-  try {
-    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-    pushed.value = true
-    watchFill()
-  } catch {
-    // Script not ready yet — retry shortly.
-    setTimeout(pushAd, 300)
-  }
-}
-
-watch([show, blocked], async ([visible, isBlocked]) => {
-  if (visible && !isBlocked) {
-    await nextTick()
-    pushAd()
-  }
+const showing = computed<'skeleton' | 'creative' | 'network' | 'house'>(() => {
+  if (!ready.value || held.value) return 'skeleton'
+  if (creative.value) return 'creative'
+  return network ? 'network' : 'house'
 })
 
-// Reload the ad on every client-side navigation: tear down the old <ins>,
-// recreate it, and push again so a fresh ad is requested per page.
+// One impression per creative per page (path) per slot, when half visible.
+const box = ref<HTMLElement | null>(null)
 const route = useRoute()
-watch(() => route.fullPath, () => {
-  fillObserver?.disconnect()
-  pushed.value = false
-  empty.value = false
-  show.value = false
-  nextTick(() => {
-    show.value = true
-  })
-})
-
-onBeforeUnmount(() => {
-  stop()
-  fillObserver?.disconnect()
-})
-
-const reserveStyle = computed(() => (variant.value ? { minHeight: `${variant.value.reserve}px` } : {}))
-
-const insStyle = computed(() => {
-  const v = variant.value
-  if (!v) return {}
-  // maxWidth: 100% keeps fixed-size units (e.g. 300px) from overflowing a
-  // container narrower than that, which is what let ads spill out on phones.
-  // marginInline: auto centres the unit itself; the CSS below centres the
-  // iframe AdSense writes inside it, which is the part that actually drifts.
-  return v.width && v.height
-    ? { display: 'block', width: `${v.width}px`, height: `${v.height}px`, maxWidth: '100%', marginInline: 'auto' }
-    : { display: 'block', width: '100%', maxWidth: '100%', marginInline: 'auto' }
-})
+const counted = new Set<string>()
+useIntersectionObserver(box, ([entry]) => {
+  const c = creative.value
+  if (!entry?.isIntersecting || showing.value !== 'creative' || !c) return
+  const key = `${c.id}|${route.path}`
+  if (counted.has(key)) return
+  counted.add(key)
+  trackPromoImpression(c.id)
+}, { threshold: 0.5 })
 </script>
 
 <template>
-  <div
-    v-if="variant && !empty && !pro"
-    ref="root"
-    class="promo-slot relative mx-auto my-6 flex w-full max-w-full flex-col items-center justify-center gap-1.5 overflow-hidden border-[1.5px] border-dashed border-(--line) bg-(--card)/60 p-2"
-    :style="reserveStyle"
-    role="complementary"
-    aria-label="Advertisement"
+  <aside
+    v-if="!pro"
+    class="promo-slot my-6 w-full"
+    :aria-label="t('sponsor.slot.aria')"
   >
-    <span
-      v-if="showLabel"
-      class="select-none font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)"
+    <p class="mb-1 flex h-4 items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)">
+      <span>{{ showing === 'creative' ? t('sponsor.slot.label') : t('sponsor.slot.labelOpen') }}</span>
+      <span
+        v-if="showing === 'creative' && creative"
+        class="truncate"
+      >{{ creative.sponsor }}</span>
+    </p>
+    <div
+      v-if="showing === 'network'"
+      class="w-full"
     >
-      Advertisement
-    </span>
-
-    <ins
-      v-if="show && !blocked"
-      ref="insEl"
-      class="adsbygoogle"
-      :style="insStyle"
-      :data-ad-client="ADSENSE_CLIENT"
-      :data-ad-slot="variant.slot"
-      :data-ad-format="variant.format"
-      :data-ad-layout="variant.layout"
-      :data-ad-layout-key="variant.layoutKey || undefined"
-      :data-full-width-responsive="variant.fullWidthResponsive ? 'true' : undefined"
-      :data-adtest="dev ? 'on' : undefined"
-    />
-  </div>
+      <LazyPromoNetwork :placement="placement" />
+    </div>
+    <div
+      v-else
+      ref="box"
+      :class="PROMO_BOX[format]"
+    >
+      <PromoCreative
+        v-if="showing === 'creative' && creative"
+        :creative="creative"
+        :href="`/api/placement/go/${creative.id}`"
+      />
+      <PromoHouse
+        v-else-if="showing === 'house'"
+        :format="format"
+      />
+      <div
+        v-else
+        class="h-full w-full border-[1.5px] border-dashed border-(--line) bg-(--card)/60"
+        aria-hidden="true"
+      />
+    </div>
+  </aside>
 </template>
