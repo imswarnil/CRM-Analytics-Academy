@@ -1,0 +1,65 @@
+{
+  "$comment": "Lesson video production. See video/README.md. Nothing here is read by the site build. Secrets never go in this file: HEYGEN_API_KEY, MUX_TOKEN_ID and MUX_TOKEN_SECRET come from the environment (.env).",
+
+  "workDir": ".data/video",
+
+  "script": {
+    "wordsPerMinute": 150,
+    "maxBeatWords": 90,
+    "includeCode": true
+  },
+
+  "voice": {
+    "$comment": "No default on purpose: there is no system/default TTS. Pick one: heygen | local-clone | file. HeyGen is a cloud service and runs only when selected here or with --provider=heygen.",
+    "provider": null,
+    "heygen": {
+      "$comment": "mode 'clone' = your professional voice clone (POST /v3/models/audio/tts). mode 'voice' = any HeyGen voice (POST /v3/voices/speech).",
+      "mode": "clone",
+      "voiceId": "",
+      "language": "en",
+      "speed": 1
+    },
+    "localClone": {
+      "$comment": "Run once per beat. Placeholders: {textFile} (UTF-8 text to speak), {out} (WAV to write), {beat} (beat id). Example: python3 ~/voice-clone/speak.py --text-file {textFile} --out {out}",
+      "command": ""
+    },
+    "file": {
+      "$comment": "Bring your own narration: a WAV/MP3 you recorded. Pass --file=… or set path.",
+      "path": ""
+    }
+  },
+
+  "avatar": {
+    "$comment": "none | heygen. HeyGen renders a talking-head video of your avatar.",
+    "provider": "none",
+    "heygen": {
+      "avatarId": "",
+      "$commentVoice": "true = lip-sync to the voice stage's audio (your clone). false = let HeyGen speak the script with voiceId below.",
+      "useVoiceStage": true,
+      "voiceId": "",
+      "resolution": "1080p",
+      "aspectRatio": "16:9",
+      "pollSeconds": 20,
+      "timeoutMinutes": 45
+    }
+  },
+
+  "motion": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+
+  "edit": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "$commentRecordings": "Screen recordings for the lesson, if any: put them in <workDir>/<route>/recordings/ named beat-003.mov etc. to pin them to a beat.",
+    "captionsMaxChars": 42
+  },
+
+  "upload": {
+    "videoQuality": "basic",
+    "captions": { "languageCode": "en", "name": "English (generated)" }
+  }
+}

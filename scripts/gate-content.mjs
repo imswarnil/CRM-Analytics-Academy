@@ -110,12 +110,14 @@ function teaser(body) {
  * collection is published whole as a client-side database (dump.docs.sql), so
  * anything in it is public; the stub carries only what a locked page shows —
  * title, description, navigation, the video's (signed, useless on their own)
- * playback ids — and the teaser. Quizzes, interview answers and walkthrough
+ * playback ids — and the teaser. Authors and credits (and the YouTube
+ * `video` with its credit fields, public on YouTube anyway) are kept so a Pro
+ * lesson shows who made it. Quizzes, interview answers and walkthrough
  * scripts stay behind the paywall with the body.
  */
 function stub(data, body) {
   const keep = {}
-  for (const k of ['title', 'description', 'navigation', 'links', 'mux', 'badge']) {
+  for (const k of ['title', 'description', 'navigation', 'links', 'mux', 'badge', 'authors', 'credits', 'video']) {
     if (data[k] !== undefined) keep[k] = data[k]
   }
   keep.access = 'pro'
