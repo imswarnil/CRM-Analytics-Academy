@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import { WALL_PEOPLE } from '~/data/wall-of-fame'
 import type { ContentNavigationItem } from '@nuxt/content'
 
+/**
+ * The home page, kept to what a first-time visitor needs: what the course
+ * is (hero), what is in it (the curriculum, plotted), real builds (a showcase
+ * teaser), help when you need more than a course (the experts network), who
+ * wrote it, and the common questions. Everything is prerendered per locale;
+ * nothing here fetches at runtime.
+ */
 const { t, tm, rt, locale, locales } = useI18n()
 const localePath = useLocalePath()
 
@@ -24,8 +30,7 @@ useSeoMeta({
 defineOgImage('Docs', { title: title.value, description: description.value })
 
 // Counted from the navigation tree rather than typed, because a hardcoded
-// lesson count is wrong within a week of anybody adding a lesson -- and it was:
-// it read 49 while the course carried twice that.
+// lesson count is wrong within a week of anybody adding a lesson.
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 
 const lessonCount = computed(() =>
@@ -33,37 +38,13 @@ const lessonCount = computed(() =>
 )
 
 /**
- * The curriculum cards, derived from the same navigation tree the sidebar and
- * /curriculum read. They used to be a hardcoded array of six modules with their
- * lesson titles typed out by hand, which described a curriculum that no longer
- * exists -- six sections where there are now nineteen, and lesson names that
- * were rewritten months ago.
- *
- * Only two things stay static: which of ModuleThumb's six drawings a section
- * gets, and a one-line description. Everything else -- title, route, lesson
- * count, order -- comes from the content itself and cannot drift again.
+ * The curriculum rows, derived from the same navigation tree the sidebar and
+ * /curriculum read, so title, route, lesson count and order cannot drift.
+ * Only the one-line description per section is authored, in en.json
+ * (`home.blurbs.<section slug>`), so it is translated with everything else.
  */
-const BLURBS: Record<string, string> = {
-  'introduction': 'What the course is, who it is for, a free org, and the first dataset loaded.',
-  'foundations': 'What CRM Analytics is, the three layers, the vocabulary, and when it is the wrong tool.',
-  'setup': 'Licences, permission sets, the integration user, security predicates and sharing inheritance.',
-  'data-preparation': 'Connections, sync, recipes, buckets, missing values and de-duplication.',
-  'datasets-and-modelling': 'Grain, joins and fan-out, snapshots for history, and field metadata.',
-  'data-visualization': 'Every chart type on its own terms, and which one the question actually needs.',
-  'lenses-and-explorations': 'Exploring a dataset: groupings, measures, the three modes, and conversational queries.',
-  'saql': 'The query language itself — syntax, functions, the patterns that matter, and debugging.',
-  'designing-dashboards': 'Designing for a decision: hierarchy, formatting, widgets and performance.',
-  'interactions': 'Faceting, filters and selection — what makes a dashboard a system rather than a page.',
-  'bindings': 'One widget feeding another: selection, results, nesting, and where it turns unmaintainable.',
-  'dashboard-json': 'Under the hood: reading and editing the JSON when the builder runs out.',
-  'collaboration': 'Apps and sharing, subscriptions, annotations, embedding and governance.',
-  'apis-and-automation': 'The REST API, Python, automated dataset loads, and CI for analytics.',
-  'einstein-discovery': 'Stories, models, writing predictions back — and auditing a score before trusting it.',
-  'gtm-engineering': 'The warehouse, metric contracts, and the metric tree the builds fill in.',
-  'demand-analytics': 'AI search visibility, SEO, acquisition, campaigns, spend and attribution.',
-  'pipeline-analytics': 'Leads through to signature: routing, scoring, conversion, velocity and CPQ.',
-  'revops-analytics': 'Forecast, the ARR waterfall, consumption risk, service, and the executive board.'
-}
+const blurbs = computed(() => (tm('home.blurbs') ?? {}) as Record<string, string>)
+const blurb = (slug: string) => (blurbs.value[slug] ? rt(blurbs.value[slug]) : '')
 
 function slugOf(path: string) {
   return String(path).split('/').filter(Boolean).pop() ?? ''
@@ -78,8 +59,7 @@ const modules = computed(() =>
       n: String(i).padStart(2, '0'),
       title: String(mod.title ?? ''),
       to: String(mod.path ?? ''),
-      icon: String(mod.icon ?? 'i-lucide-book-open'),
-      desc: BLURBS[slug] ?? '',
+      desc: blurb(slug),
       lessons: ((mod.children ?? []) as ContentNavigationItem[]).map(l => ({
         title: String(l.title ?? ''),
         to: String(l.path ?? ''),
@@ -89,6 +69,9 @@ const modules = computed(() =>
   })
 )
 
+// The localized home URL: SITE.url for English, SITE.url/es for Spanish …
+const homeUrl = computed(() => `${SITE.url}${localePath('/') === '/' ? '' : localePath('/')}`)
+
 // Course rich-snippet: the site is one Course; each module is a sub-Course whose
 // lessons are its syllabus sections. Free offer + online instance keep it valid
 // for Google's Course rich result.
@@ -96,8 +79,8 @@ useJsonLd({
   '@context': 'https://schema.org',
   '@type': 'Course',
   'name': SITE.name,
-  'description': SITE.description,
-  'url': SITE.url,
+  'description': description.value,
+  'url': homeUrl.value,
   'inLanguage': bcp47.value,
   'isAccessibleForFree': true,
   'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
@@ -111,13 +94,14 @@ useJsonLd({
   'hasPart': modules.value.map(m => ({
     '@type': 'Course',
     'name': m.title,
-    'url': `${SITE.url}${m.to}`,
-    'description': m.desc,
+    'url': `${SITE.url}${localePath(m.to)}`,
+    'description': m.desc || m.title,
+    'inLanguage': bcp47.value,
     'provider': { '@type': 'Organization', 'name': SITE.name },
     'isAccessibleForFree': true,
     'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
     'hasCourseInstance': { '@type': 'CourseInstance', 'courseMode': 'online', 'courseWorkload': 'PT1H30M' },
-    'syllabusSections': m.lessons.map((l, li) => ({ '@type': 'Syllabus', 'name': l, 'position': li + 1 }))
+    'syllabusSections': m.lessons.map((l, li) => ({ '@type': 'Syllabus', 'name': l.title, 'position': li + 1 }))
   }))
 })
 
@@ -140,47 +124,52 @@ useJsonLd({
   }))
 })
 
-// ---- Blueprint page data ----------------------------------------------------
+// ---- Hero figure -------------------------------------------------------------
 
-const wallPeople = WALL_PEOPLE.slice(0, 8)
-
-const totalMinutes = computed(() => modules.value.reduce((n, m) => n + m.lessons.reduce((k, l) => k + l.minutes, 0), 0))
-const hours = computed(() => Math.round(totalMinutes.value / 60))
-
-// FIG. 01 — the Academy's own closing ARR, last twelve months, from the course
-// warehouse (public/sample-data/academy/arr_snapshots.csv). The chart the
-// course ends up building, drawn on the page that sells it.
+// The Academy's own closing ARR, last twelve months (October → September),
+// from the course warehouse (public/sample-data/academy/arr_snapshots.csv):
+// the chart the course ends up building, drawn on the page that sells it.
+// Month initials and money are formatted for the reader's locale.
 const arr = [1352, 1722, 2805, 3047, 3670, 4098, 5013, 5781, 6210, 6512, 7100, 6969]
-const months = ['O', 'N', 'D', 'J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S']
-const heroBars = arr.map((v, i) => ({
-  label: months[i]!,
-  value: v,
-  tone: (i < 4 ? 'frost' : i < 8 ? 'tide' : 'signal') as 'frost' | 'tide' | 'signal',
-  title: `${months[i]} · $${(v / 1000).toFixed(2)}M ARR`
+const money = (thousands: number, digits = 2) =>
+  new Intl.NumberFormat(bcp47.value, { style: 'currency', currency: 'USD', notation: 'compact', maximumFractionDigits: digits }).format(thousands * 1000)
+const heroBars = computed(() => arr.map((v, i) => {
+  const month = new Date(Date.UTC(2025, 9 + i, 15))
+  return {
+    label: new Intl.DateTimeFormat(bcp47.value, { month: 'narrow', timeZone: 'UTC' }).format(month),
+    value: v,
+    tone: (i < 4 ? 'frost' : i < 8 ? 'tide' : 'signal') as 'frost' | 'tide' | 'signal',
+    title: `${new Intl.DateTimeFormat(bcp47.value, { month: 'long', timeZone: 'UTC' }).format(month)} · ${money(v)}`
+  }
 }))
-const heroKpis = [
-  { label: 'ARR', value: '$6.97M', delta: '▲ 664% YoY', up: true },
-  { label: 'Win rate', value: '40.4%', delta: '▲ closed deals', up: true },
-  { label: 'NRR', value: '139.5%', delta: '▲ GRR 97.2%', up: true }
-]
+const heroTicks = computed(() => [0, 2000, 4000, 6000].map(v => money(v, 0)))
+const pct = (v: number) => new Intl.NumberFormat(bcp47.value, { style: 'percent', maximumFractionDigits: 1 }).format(v)
+const heroKpis = computed(() => [
+  { label: t('home.figure.arr'), value: money(6969), delta: t('home.figure.arrDelta', { n: pct(6.64) }) },
+  { label: t('home.figure.winRate'), value: pct(0.404), delta: t('home.figure.winRateDelta') },
+  { label: t('home.figure.nrr'), value: pct(1.395), delta: t('home.figure.nrrDelta', { n: pct(0.972) }) }
+])
 
-const ticker = ['Recipes', 'SAQL', 'Datasets', 'Grain', 'Lenses', 'Dashboards', 'Bindings', 'Security predicates', 'Einstein Discovery', 'Dashboard JSON', 'REST API', 'Metric contracts', 'ARR waterfall', 'Pipeline analytics']
+// ---- Curriculum, plotted ------------------------------------------------------
 
-const method = [
-  { n: '01', icon: 'i-lucide-crosshair', title: 'One technology, deep', text: 'Only CRM Analytics. Every lesson assumes a real Salesforce org and real data.', metric: 'Depth · 19 sections', path: 'M0 58 L40 52 L80 46 L120 40 L160 30 L200 22 L240 12' },
-  { n: '02', icon: 'i-lucide-clapperboard', title: 'Video + article lessons', text: 'Walk through it on screen, then keep a written reference with copyable SAQL.', metric: `Length · ${hours.value}h total`, path: 'M0 50 L40 44 L80 48 L120 30 L160 34 L200 18 L240 20' },
-  { n: '03', icon: 'i-lucide-package-open', title: 'One company’s data', text: 'Twenty-one CSVs describing one business. Every build reconciles with the last.', metric: 'Data · 32,000 rows', path: 'M0 60 L40 40 L80 42 L120 26 L160 28 L200 16 L240 8' },
-  { n: '04', icon: 'i-lucide-refresh-cw', title: 'Release-current', text: 'Rewritten when Salesforce renames things. Free, open source, and it stays that way.', metric: 'Cost · $0 to learn', path: 'M0 40 L40 42 L80 36 L120 38 L160 30 L200 32 L240 24' }
-]
-
-// FIG. 03 — the curriculum as stacked bars: one segment per lesson, width
-// proportional to its minutes, on a shared axis.
+// One stacked bar per section: a segment per lesson, width proportional to
+// its minutes, on a shared axis.
 const axisMax = computed(() => Math.ceil(Math.max(15, ...modules.value.map(m => m.lessons.reduce((n, l) => n + l.minutes, 0))) / 15) * 15)
 const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, (_, i) => i * 15))
 
-const teamBars = [
-  [30, 22, 18], [34, 26, 22], [38, 32, 20], [40, 30, 26], [42, 34, 26], [44, 36, 30]
-]
+// ---- Showcase teaser ---------------------------------------------------------
+
+// Read at build time like every other page here; the collection is not
+// localized, so all twelve copies show the same three builds.
+const { data: builds } = await useAsyncData('home-showcase', () =>
+  queryCollection('showcase')
+    .select('path', 'title', 'description', 'image', 'author', 'publishedAt')
+    .order('publishedAt', 'DESC')
+    .limit(3)
+    .all()
+)
+
+const expertPoints = computed(() => (tm('home.experts.points') as string[]).map(p => rt(p)))
 </script>
 
 <template>
@@ -211,15 +200,6 @@ const teamBars = [
           vector-effect="non-scaling-stroke"
         />
       </svg>
-      <div class="pointer-events-none absolute inset-x-0 bottom-3 mx-auto flex max-w-(--ui-container) justify-around px-8 font-mono text-[10px] text-(--x)">
-        <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
-      </div>
-      <!-- A drafting sketch that draws itself once on load, behind the copy. -->
-      <BpDrawing
-        seed="home-hero"
-        variant="hero"
-        class="absolute bottom-4 start-[30%] hidden w-[26rem] opacity-35 lg:block"
-      />
 
       <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[repeat(auto-fit,minmax(440px,1fr))] lg:px-8">
         <div>
@@ -253,287 +233,233 @@ const teamBars = [
           </div>
         </div>
 
-        <BpHeroSlides>
-          <template #arr>
-            <div class="p-4 sm:p-5">
-              <div class="grid grid-cols-3 border-[1.5px] border-(--line)">
-                <div
-                  v-for="(k, i) in heroKpis"
-                  :key="k.label"
-                  class="p-3"
-                  :class="i ? 'border-s-[1.5px] border-(--line)' : ''"
-                >
-                  <p class="font-mono text-[9px] uppercase tracking-[.12em] text-(--ink2)">
-                    {{ k.label }}
-                  </p>
-                  <p class="mt-1 text-2xl font-extrabold tracking-[-0.03em] text-(--ink)">
-                    {{ k.value }}
-                  </p>
-                  <p class="mt-0.5 font-mono text-[10px] text-(--signal)">
-                    {{ k.delta }}
-                  </p>
-                </div>
-              </div>
-              <div class="mt-6 ps-7">
-                <BpBarChart
-                  :bars="heroBars"
-                  :height="150"
-                  :ticks="['0', '2M', '4M', '6M']"
-                />
+        <BpFigure
+          :caption="t('home.figure.caption')"
+          :spec="t('home.figure.spec')"
+          shadow
+          class="min-w-0"
+        >
+          <div class="p-4 sm:p-5">
+            <div class="grid grid-cols-3 border-[1.5px] border-(--line)">
+              <div
+                v-for="(k, i) in heroKpis"
+                :key="k.label"
+                class="min-w-0 p-3"
+                :class="i ? 'border-s-[1.5px] border-(--line)' : ''"
+              >
+                <p class="truncate font-mono text-[9px] uppercase tracking-[.12em] text-(--ink2)">
+                  {{ k.label }}
+                </p>
+                <p class="mt-1 text-xl font-extrabold tracking-[-0.03em] text-(--ink) sm:text-2xl">
+                  {{ k.value }}
+                </p>
+                <p class="mt-0.5 truncate font-mono text-[10px] text-(--signal)">
+                  {{ k.delta }}
+                </p>
               </div>
             </div>
-          </template>
-        </BpHeroSlides>
-      </div>
-    </section>
-
-    <!-- TICKER ------------------------------------------------------------ -->
-    <div class="graph-paper-navy overflow-hidden border-b-[1.5px] border-(--ink) text-white">
-      <div class="ruler text-white/60" />
-      <div class="bp-marquee flex w-max gap-6 py-4 font-mono text-sm uppercase tracking-[.14em]">
-        <template
-          v-for="copy in 2"
-          :key="copy"
-        >
-          <span
-            v-for="w in ticker"
-            :key="`${copy}-${w}`"
-            class="flex items-center gap-6 whitespace-nowrap"
-          >
-            {{ w }}<span class="text-(--glow)">+</span>
-          </span>
-        </template>
-      </div>
-    </div>
-
-    <!-- METHOD ------------------------------------------------------------ -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end">
-        <div>
-          <p class="eyebrow">
-            Fig. 02 — Method
-          </p>
-          <h2 class="bp-h2 mt-4">
-            {{ t('home.method.title') }}
-          </h2>
-        </div>
-        <p class="bp-lead">
-          {{ t('home.method.lead') }}
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))]">
-        <article
-          v-for="m in method"
-          :key="m.n"
-          class="bp-card bp-card--hover flex min-h-72 flex-col p-6"
-        >
-          <div class="flex items-start justify-between">
-            <span class="font-mono text-xs text-(--ink2)">{{ m.n }}</span>
-            <span class="bp-iconbox"><UIcon
-              :name="m.icon"
-              class="size-5"
-            /></span>
-          </div>
-          <h3 class="bp-h3 mt-5">
-            {{ m.title }}
-          </h3>
-          <p class="mt-2 text-[15px] leading-relaxed text-(--ink2)">
-            {{ m.text }}
-          </p>
-          <div class="mt-auto pt-6">
-            <svg
-              viewBox="0 0 240 64"
-              class="h-16 w-full"
-              aria-hidden="true"
-            >
-              <path
-                :d="`${m.path} L240 64 L0 64Z`"
-                fill="var(--ice)"
-                class="bp-fade"
+            <div class="mt-6 ps-7">
+              <BpBarChart
+                :bars="heroBars"
+                :height="150"
+                :ticks="heroTicks"
               />
-              <path
-                :d="m.path"
-                fill="none"
-                stroke="var(--signal)"
-                stroke-width="2"
-                class="bp-draw"
-              />
-            </svg>
-            <p class="bp-fade mt-1 font-mono text-[10px] uppercase tracking-[.12em] text-(--signal)">
-              {{ m.metric }}
-            </p>
+            </div>
           </div>
-        </article>
+        </BpFigure>
       </div>
     </section>
 
     <!-- CURRICULUM, PLOTTED ---------------------------------------------- -->
-    <section class="graph-paper border-y-[1.5px] border-(--ink)">
+    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow">
+            {{ t('home.plot.eyebrow') }}
+          </p>
+          <h2 class="bp-h2 mt-4">
+            {{ t('home.plot.title', { sections: modules.length, lessons: lessonCount }) }}
+          </h2>
+        </div>
+        <UButton
+          :to="localePath('/curriculum')"
+          color="neutral"
+          variant="outline"
+          trailing-icon="i-lucide-arrow-right"
+        >
+          {{ t('home.plot.full') }}
+        </UButton>
+      </div>
+
+      <div class="crosshair mt-10 border-[1.5px] border-(--ink) bg-(--card)">
+        <NuxtLink
+          v-for="m in modules"
+          :key="m.to"
+          :to="localePath(m.to)"
+          :title="m.desc || undefined"
+          class="bp-row group grid items-center gap-3 border-b border-(--line) px-5 py-3.5 hover:bg-(--ice)/50 md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)_5rem]"
+        >
+          <span class="flex items-center gap-3">
+            <span class="font-mono text-xs text-(--signal)">{{ m.n }}</span>
+            <span class="truncate font-bold text-(--ink)">{{ m.title }}</span>
+          </span>
+          <span class="relative flex h-5 items-center">
+            <span
+              v-for="tk in axisTicks.slice(1, -1)"
+              :key="tk"
+              class="absolute inset-y-[-8px] border-s border-(--line)"
+              :style="{ insetInlineStart: `${(tk / axisMax) * 100}%` }"
+            />
+            <span
+              v-for="(l, li) in m.lessons"
+              :key="li"
+              class="relative h-full border-[1.5px] border-(--ink)"
+              :class="l.type === 'video' ? 'bg-(--tide)' : 'bg-(--frost)'"
+              :style="{ width: `${(l.minutes / axisMax) * 100}%`, marginInlineEnd: '-1.5px' }"
+              :title="`${l.title} · ${t('home.plot.minutes', { n: l.minutes })}`"
+            />
+          </span>
+          <span class="hidden items-center justify-end gap-1 font-mono text-xs text-(--ink2) md:flex">
+            {{ t('home.plot.minutes', { n: m.lessons.reduce((n, l) => n + l.minutes, 0) }) }}
+            <UIcon
+              name="i-lucide-arrow-right"
+              class="bp-arrow size-3.5 text-(--signal) rtl:rotate-180"
+            />
+          </span>
+        </NuxtLink>
+        <div class="hidden grid-cols-[minmax(0,17rem)_minmax(0,1fr)_5rem] gap-3 px-5 py-2 md:grid">
+          <span class="font-mono text-[10px] uppercase text-(--ink2)">{{ t('home.plot.section') }}</span>
+          <span class="relative h-4">
+            <span
+              v-for="tk in axisTicks"
+              :key="tk"
+              class="absolute -translate-x-1/2 font-mono text-[10px] text-(--ink2) rtl:translate-x-1/2"
+              :style="{ insetInlineStart: `${(tk / axisMax) * 100}%` }"
+            >{{ tk === axisMax ? t('home.plot.minutes', { n: tk }) : tk }}</span>
+          </span>
+          <span />
+        </div>
+      </div>
+      <div class="mt-4 flex gap-5 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+        <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--tide)" />{{ t('home.plot.video') }}</span>
+        <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--frost)" />{{ t('home.plot.article') }}</span>
+      </div>
+    </section>
+
+    <!-- SHOWCASE TEASER --------------------------------------------------- -->
+    <section
+      v-if="builds?.length"
+      class="graph-paper border-y-[1.5px] border-(--ink)"
+    >
       <div class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
         <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
+          <div class="max-w-2xl">
             <p class="eyebrow">
-              Fig. 03 — Curriculum, plotted
+              {{ t('home.showcase.eyebrow') }}
             </p>
             <h2 class="bp-h2 mt-4">
-              {{ modules.length }} sections, {{ lessonCount }} lessons
+              {{ t('home.showcase.title') }}
             </h2>
+            <p class="bp-lead mt-4">
+              {{ t('home.showcase.lead') }}
+            </p>
           </div>
           <UButton
-            :to="localePath('/curriculum')"
+            :to="localePath('/showcase')"
             color="neutral"
             variant="outline"
             trailing-icon="i-lucide-arrow-right"
           >
-            Full curriculum
+            {{ t('home.showcase.all') }}
           </UButton>
         </div>
-
-        <div class="crosshair mt-10 border-[1.5px] border-(--ink) bg-(--card)">
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <NuxtLink
-            v-for="m in modules"
-            :key="m.to"
-            :to="localePath(m.to)"
-            class="bp-row group grid items-center gap-3 border-b border-(--line) px-5 py-3.5 hover:bg-(--ice)/50 md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)_5rem]"
+            v-for="b in builds"
+            :key="b.path"
+            :to="localePath(b.path)"
+            class="bp-card bp-card--hover group flex flex-col"
           >
-            <span class="flex items-center gap-3">
-              <span class="font-mono text-xs text-(--signal)">{{ m.n }}</span>
-              <span class="truncate font-bold text-(--ink)">{{ m.title }}</span>
-            </span>
-            <span class="relative flex h-5 items-center">
-              <span
-                v-for="tk in axisTicks.slice(1, -1)"
-                :key="tk"
-                class="absolute inset-y-[-8px] border-s border-(--line)"
-                :style="{ left: `${(tk / axisMax) * 100}%` }"
-              />
-              <span
-                v-for="(l, li) in m.lessons"
-                :key="li"
-                class="relative h-full border-[1.5px] border-(--ink) transition-colors"
-                :class="l.type === 'video' ? 'bg-(--tide)' : 'bg-(--frost)'"
-                :style="{ width: `${(l.minutes / axisMax) * 100}%`, marginRight: '-1.5px' }"
-                :title="`${l.title} · ${l.minutes} min`"
-              />
-            </span>
-            <span class="hidden items-center justify-end gap-1 font-mono text-xs text-(--ink2) md:flex">
-              {{ m.lessons.reduce((n, l) => n + l.minutes, 0) }} min
-              <UIcon
-                name="i-lucide-arrow-right"
-                class="bp-arrow size-3.5 text-(--signal)"
-              />
-            </span>
+            <BpShowcaseThumb
+              :image="b.image"
+              :alt="b.title"
+              class="border-b-[1.5px] border-(--ink)"
+            />
+            <div class="flex grow flex-col p-5">
+              <h3 class="font-extrabold tracking-[-0.01em] text-(--ink) group-hover:text-(--signal)">
+                {{ b.title }}
+              </h3>
+              <p class="mt-2 line-clamp-2 grow text-sm text-(--ink2)">
+                {{ b.description }}
+              </p>
+              <span class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-(--signal)">
+                {{ t('showcase.viewBuild') }}
+                <UIcon
+                  name="i-lucide-arrow-right"
+                  class="size-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+                />
+              </span>
+            </div>
           </NuxtLink>
-          <div class="hidden grid-cols-[minmax(0,17rem)_minmax(0,1fr)_5rem] gap-3 px-5 py-2 md:grid">
-            <span class="font-mono text-[10px] uppercase text-(--ink2)">Section</span>
-            <span class="relative h-4">
-              <span
-                v-for="tk in axisTicks"
-                :key="tk"
-                class="absolute -translate-x-1/2 font-mono text-[10px] text-(--ink2)"
-                :style="{ left: `${(tk / axisMax) * 100}%` }"
-              >{{ tk }}{{ tk === axisMax ? ' min' : '' }}</span>
-            </span>
-            <span />
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERTS ----------------------------------------------------------- -->
+    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
+      <div class="graph-paper-navy grid items-center gap-10 border-[1.5px] border-(--ink) bg-(--navy) p-8 text-white sm:p-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+            {{ t('home.experts.eyebrow') }}
+          </p>
+          <h2 class="mt-4 text-4xl font-extrabold leading-none tracking-[-0.04em] text-white sm:text-5xl">
+            {{ t('home.experts.title') }}
+          </h2>
+          <p class="mt-5 max-w-xl text-lg text-white/80">
+            {{ t('home.experts.lead') }}
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <UButton
+              :to="localePath('/experts')"
+              size="lg"
+              color="secondary"
+              icon="i-lucide-handshake"
+            >
+              {{ t('home.experts.hire') }}
+            </UButton>
+            <UButton
+              :to="localePath('/experts/join')"
+              size="lg"
+              color="neutral"
+              variant="outline"
+              trailing-icon="i-lucide-arrow-right"
+              class="border-white/70 bg-transparent text-white hover:bg-white/10"
+            >
+              {{ t('home.experts.join') }}
+            </UButton>
           </div>
         </div>
-        <div class="mt-4 flex gap-5 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
-          <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--tide)" />Video walkthrough</span>
-          <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--frost)" />Article</span>
-        </div>
+        <ul class="border-[1.5px] border-white/60">
+          <li
+            v-for="(p, i) in expertPoints"
+            :key="p"
+            class="flex items-start gap-3 p-4"
+            :class="i ? 'border-t border-dashed border-white/30' : ''"
+          >
+            <span class="font-mono text-xs text-(--glow)">{{ String(i + 1).padStart(2, '0') }}</span>
+            <span class="text-white/90">{{ p }}</span>
+          </li>
+        </ul>
       </div>
     </section>
 
     <!-- AUTHOR ------------------------------------------------------------ -->
     <HomeAuthorSection />
 
-    <!-- WALL OF FAME -------------------------------------------------------- -->
-    <section class="border-y-[1.5px] border-(--ink) bg-(--paper2)/60">
-      <div class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-end justify-between gap-6">
-          <div class="max-w-2xl">
-            <p class="eyebrow">
-              {{ t('home.wall.eyebrow') }}
-            </p>
-            <h2 class="bp-h2 mt-4">
-              {{ t('home.wall.title') }}
-            </h2>
-            <p class="bp-lead mt-4">
-              {{ t('home.wall.lead') }}
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <UButton
-              :to="localePath('/wall-of-fame')"
-              color="neutral"
-              variant="outline"
-              trailing-icon="i-lucide-arrow-right"
-            >
-              {{ t('home.wall.see') }}
-            </UButton>
-            <UButton
-              to="/nominate"
-              icon="i-lucide-heart-handshake"
-            >
-              {{ t('wall.nominate') }}
-            </UButton>
-          </div>
-        </div>
-        <BpPolaroidWall
-          :people="wallPeople"
-          :min-slots="8"
-          :label="t('home.wall.board')"
-          class="mt-12"
-        />
-      </div>
-    </section>
-
-    <!-- TEAMS ------------------------------------------------------------- -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="graph-paper-navy grid items-center gap-10 border-[1.5px] border-(--ink) p-8 text-white sm:p-12 lg:grid-cols-2">
-        <div>
-          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
-            Fig. 04 — Teams
-          </p>
-          <h2 class="mt-4 text-4xl font-extrabold leading-none tracking-[-0.04em] text-white sm:text-5xl">
-            {{ t('home.teams.title') }}
-          </h2>
-          <p class="mt-5 max-w-md text-lg text-white/75">
-            {{ t('home.teams.lead') }}
-          </p>
-          <NuxtLink
-            to="/teams"
-            class="mt-8 inline-flex items-center gap-2 border-[1.5px] border-white bg-(--glow) px-6 py-3 font-bold text-(--navy) shadow-[5px_5px_0_rgba(255,255,255,.85)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_rgba(255,255,255,.85)]"
-          >
-            <UIcon
-              name="i-lucide-users"
-              class="size-5"
-            />
-            {{ t('home.teams.cta') }}
-          </NuxtLink>
-        </div>
-        <div>
-          <div class="flex h-56 items-end gap-3 border-s-[1.5px] border-b-[1.5px] border-white/70 px-3">
-            <div
-              v-for="(stack, i) in teamBars"
-              :key="i"
-              class="flex flex-1 flex-col-reverse"
-            >
-              <span
-                v-for="(v, j) in stack"
-                :key="j"
-                class="border border-(--navy)"
-                :style="{ height: `${v * 1.1}px`, background: ['var(--signal)', 'var(--tide)', 'var(--glow)'][j] }"
-              />
-            </div>
-          </div>
-          <div class="mt-2 flex justify-between px-3 font-mono text-[10px] uppercase text-white/60">
-            <span>Wk 1</span><span>Seats completing sections</span><span>Wk 6</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- SPONSOR ----------------------------------------------------------- -->
+    <div class="mx-auto max-w-3xl px-4 pb-10 sm:px-6">
+      <SponsorCard />
+    </div>
 
     <!-- FAQ --------------------------------------------------------------- -->
     <section

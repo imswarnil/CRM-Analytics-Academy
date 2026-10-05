@@ -281,49 +281,6 @@
       "start": "Start lesson 1",
       "curriculum": "See curriculum"
     },
-    "method": {
-      "title": "Built by someone who ships CRM Analytics for a living.",
-      "lead": "Four rules shape every lesson. Hover a card to see what it is measured by."
-    },
-    "teams": {
-      "title": "Training a whole Salesforce team?",
-      "lead": "Team plans, progress reports your manager can read, classroom batches and a curriculum fitted to your org.",
-      "cta": "See team plans"
-    },
-    "slides": {
-      "label": "Course figures",
-      "prev": "Previous figure",
-      "next": "Next figure",
-      "dataflow": "A dataflow, drawn",
-      "dataflowNote": "Sources → recipe → dataset → lens and dashboard. Built by hand in section 03.",
-      "topics": "What you will build",
-      "tiles": {
-        "ai": {
-          "title": "AI with Einstein Discovery",
-          "line": "Stories, scores, write-back"
-        },
-        "security": {
-          "title": "Security predicates",
-          "line": "Row-level security that passes audit"
-        },
-        "saql": {
-          "title": "Complex SAQL",
-          "line": "Windowing, cogroup, debugging"
-        },
-        "kpis": {
-          "title": "KPIs that hold up",
-          "line": "Metric contracts and definitions"
-        },
-        "bindings": {
-          "title": "Bindings",
-          "line": "Selection and results bindings"
-        },
-        "recipes": {
-          "title": "Data prep recipes",
-          "line": "Joins, formulas, de-duplication"
-        }
-      }
-    },
     "author": {
       "eyebrow": "Fig. 05 — The author",
       "figure": "Fig. 05 — Who teaches this",
@@ -331,12 +288,63 @@
       "more": "More about Swarnil",
       "connect": "Connect on LinkedIn"
     },
-    "wall": {
-      "eyebrow": "Fig. 06 — Wall of Fame",
-      "title": "The people who taught the rest of us.",
-      "lead": "Bloggers, authors, speakers and tool builders whose work made CRM Analytics learnable — pinned to the wall by name.",
-      "see": "See the whole wall",
-      "board": "Board — Wall of Fame"
+    "figure": {
+      "caption": "Fig. 01 — Academy ARR by month",
+      "spec": "Built in Build 14",
+      "arr": "ARR",
+      "arrDelta": "▲ {n} year on year",
+      "winRate": "Win rate",
+      "winRateDelta": "▲ closed deals",
+      "nrr": "NRR",
+      "nrrDelta": "▲ GRR {n}"
+    },
+    "plot": {
+      "eyebrow": "Fig. 02 — Curriculum, plotted",
+      "title": "{sections} sections, {lessons} lessons",
+      "full": "Full curriculum",
+      "section": "Section",
+      "minutes": "{n} min",
+      "video": "Video walkthrough",
+      "article": "Article"
+    },
+    "showcase": {
+      "eyebrow": "Fig. 03 — Showcase",
+      "title": "Dashboards built in the course",
+      "lead": "Every build comes with its KPIs, the formula behind each one and the steps to make it yourself.",
+      "all": "See all builds"
+    },
+    "experts": {
+      "eyebrow": "Fig. 04 — Experts network",
+      "title": "Need help with CRM Analytics?",
+      "lead": "We are a group of freelance CRM Analytics experts who get things done — or join us and deliver projects with the network.",
+      "hire": "Hire experts",
+      "join": "Join the network",
+      "points": [
+        "Dashboards, recipes, SAQL, security predicates and Einstein Discovery",
+        "Every project has a named lead and a second expert reviewing",
+        "Written milestones and a proper handover to your team"
+      ]
+    },
+    "blurbs": {
+      "introduction": "What the course is, who it is for, a free org, and the first dataset loaded.",
+      "foundations": "What CRM Analytics is, the three layers, the vocabulary, and when it is the wrong tool.",
+      "setup": "Licences, permission sets, the integration user, security predicates and sharing inheritance.",
+      "data-preparation": "Connections, sync, recipes, buckets, missing values and de-duplication.",
+      "datasets-and-modelling": "Grain, joins and fan-out, snapshots for history, and field metadata.",
+      "data-visualization": "Every chart type on its own terms, and which one the question actually needs.",
+      "lenses-and-explorations": "Exploring a dataset: groupings, measures, the three modes, and conversational queries.",
+      "saql": "The query language itself — syntax, functions, the patterns that matter, and debugging.",
+      "designing-dashboards": "Designing for a decision: hierarchy, formatting, widgets and performance.",
+      "interactions": "Faceting, filters and selection — what makes a dashboard a system rather than a page.",
+      "bindings": "One widget feeding another: selection, results, nesting, and where it turns unmaintainable.",
+      "dashboard-json": "Under the hood: reading and editing the JSON when the builder runs out.",
+      "collaboration": "Apps and sharing, subscriptions, annotations, embedding and governance.",
+      "apis-and-automation": "The REST API, Python, automated dataset loads, and CI for analytics.",
+      "einstein-discovery": "Stories, models, writing predictions back — and auditing a score before trusting it.",
+      "gtm-engineering": "The warehouse, metric contracts, and the metric tree the builds fill in.",
+      "demand-analytics": "AI search visibility, SEO, acquisition, campaigns, spend and attribution.",
+      "pipeline-analytics": "Leads through to signature: routing, scoring, conversion, velocity and CPQ.",
+      "revops-analytics": "Forecast, the ARR waterfall, consumption risk, service, and the executive board."
     }
   },
   "footer": {
