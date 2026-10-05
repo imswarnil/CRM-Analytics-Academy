@@ -1,3 +1,5 @@
+import type { SessionUser } from './auth'
+
 /**
  * Team helpers shared by the /api/team routes.
  */
@@ -59,4 +61,52 @@ export async function hashInviteToken(token: string): Promise<string> {
 export function newInviteToken(): string {
   const bytes = crypto.getRandomValues(new Uint8Array(24))
   return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+}
+
+/**
+ * Joins a signed-in user to an admin-granted team whose domain matches their
+ * email, when that team allows auto-join and has a seat free. Called when the
+ * learner's progress loads, so a company's people get Pro on their first visit
+ * without anyone handing out invite links.
+ *
+ * Only for a VERIFIED address: otherwise anyone could register
+ * someone@bigcorp.com and take a seat. Returns true when it joined them.
+ */
+export async function autoJoinTeam(user: SessionUser): Promise<boolean> {
+  if (!user.emailVerified) return false
+  const domain = teamEmailDomain(user.email)
+  if (!domain) return false
+  if (await findUserTeam(user.id)) return false
+
+  const sql = useDb()
+  const rows = await sql`
+    select t.id::text, t.seats, t.contact_email
+    from app.team t
+    where t.auto_join
+      and t.status = 'active'
+      and (t.current_period_end is null or t.current_period_end > now())
+      and (t.domain = ${domain} or ${domain} = any(t.extra_domains))
+      and (select count(*) from app.team_member m where m.team_id = t.id) < t.seats
+    order by t.created_at
+    limit 1
+  `
+  const team = rows[0]
+  if (!team) return false
+  await joinGrantedTeam(team.id as string, user, team.contact_email as string | null)
+  return true
+}
+
+/**
+ * Adds a user to a team. The company contact becomes its owner — a granted
+ * team starts with no owner account, and this is where it gets one.
+ */
+export async function joinGrantedTeam(teamId: string, user: { id: string, email: string }, contactEmail: string | null) {
+  const sql = useDb()
+  const owner = Boolean(contactEmail && contactEmail.toLowerCase() === user.email.toLowerCase())
+  await sql`
+    insert into app.team_member (team_id, user_id, email, role)
+    values (${teamId}::uuid, ${user.id}, ${user.email}, ${owner ? 'owner' : 'member'})
+    on conflict (team_id, user_id) do nothing
+  `
+  if (owner) await sql`update app.team set owner_user_id = ${user.id}, updated_at = now() where id = ${teamId}::uuid and owner_user_id is null`
 }

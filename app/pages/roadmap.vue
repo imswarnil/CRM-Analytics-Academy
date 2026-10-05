@@ -1,59 +1,33 @@
 <script setup lang="ts">
+const { t, tm, rt } = useI18n()
 const localePath = useLocalePath()
-const title = 'Roadmap'
-const description = 'Where CRM Analytics Academy is going: what is being built now, what comes next and what is planned later — lessons, dashboard builds, videos and site features.'
+const title = computed(() => t('roadmap.seo.title'))
+const description = computed(() => t('roadmap.seo.description'))
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
-defineOgImage('Docs', { title, description })
+defineOgImage('Docs', { title: title.value, description: description.value })
 
-usePageSchema({ name: title, description, type: 'WebPage' })
+usePageSchema(() => ({ name: title.value, description: description.value, type: 'WebPage' }))
 
-const principles = [
-  { icon: 'i-lucide-gift', title: 'Free, forever', text: 'The core course, exams and certificates stay free — funded by sponsors, ads and optional Pro.' },
-  { icon: 'i-lucide-git-fork', title: 'Open source', text: 'The whole site is on GitHub. Anyone can fix a typo, add a lesson, or ship a feature.' },
-  { icon: 'i-lucide-monitor-play', title: 'Build it, don\u2019t read it', text: 'Every hands-on lesson carries a screen walkthrough \u2014 what to click, and what is worth saying about it \u2014 plus a graded quiz.' },
-  { icon: 'i-lucide-users', title: 'Built with the community', text: 'Resources, feedback, and the guestbook are yours. The best ideas ship first.' }
+// The copy lives in i18n (`roadmap.principles`); the icons stay here, by position.
+const PRINCIPLE_ICONS = ['i-lucide-gift', 'i-lucide-git-fork', 'i-lucide-monitor-play', 'i-lucide-users']
+const principles = computed(() =>
+  (tm('roadmap.principles') as { title: string, text: string }[]).map((p, i) => ({
+    icon: PRINCIPLE_ICONS[i] ?? 'i-lucide-circle',
+    title: rt(p.title),
+    text: rt(p.text)
+  }))
+)
+
+const COLUMNS = [
+  { key: 'now', icon: 'i-lucide-check-circle-2', color: 'text-white', ring: 'bg-(--signal)' },
+  { key: 'next', icon: 'i-lucide-loader', color: 'text-(--signal)', ring: 'bg-(--ice)' },
+  { key: 'later', icon: 'i-lucide-sparkles', color: 'text-(--ink2)', ring: 'hatch bg-(--card)' }
 ]
-
-const columns = [
-  {
-    key: 'now',
-    label: 'Shipped',
-    icon: 'i-lucide-check-circle-2',
-    color: 'text-white',
-    ring: 'bg-(--signal)',
-    items: [
-      'Nineteen sections and 161 lessons, rewritten end to end',
-      'Seventeen go-to-market builds on the Academy\u2019s own business data',
-      'Screen walkthroughs on every hands-on lesson',
-      'Downloadable practice datasets, with the true totals published'
-    ]
-  },
-  {
-    key: 'next',
-    label: 'In progress',
-    icon: 'i-lucide-loader',
-    color: 'text-(--signal)',
-    ring: 'bg-(--ice)',
-    items: [
-      'Recording the walkthrough scripts as video',
-      'A browsable mirror of the org the builds are made in',
-      'Showcase write-ups for adoption and AI-search dashboards',
-      'Translations regenerating across the other eleven languages'
-    ]
-  },
-  {
-    key: 'later',
-    label: 'Later',
-    icon: 'i-lucide-sparkles',
-    color: 'text-(--ink2)',
-    ring: 'hatch bg-(--card)',
-    items: [
-      'Public learner profiles with earned certificates',
-      'Community Q&A and curated learning paths',
-      'Live cohort sessions & office hours'
-    ]
-  }
-]
+const columns = computed(() => COLUMNS.map(c => ({
+  ...c,
+  label: t(`roadmap.columns.${c.key}.label`),
+  items: (tm(`roadmap.columns.${c.key}.items`) as string[]).map(i => rt(i))
+})))
 </script>
 
 <template>
@@ -61,19 +35,34 @@ const columns = [
     <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
       <UContainer class="relative py-14 text-center sm:py-20">
         <p class="eyebrow mb-5">
-          Sheet 11 / Roadmap
+          {{ t('roadmap.hero.eyebrow') }}
         </p>
-        <h1 class="mx-auto max-w-3xl bp-h1">
-          Where we're <span class="text-gradient">headed</span>
-        </h1>
-        <p class="mx-auto mt-5 max-w-2xl bp-lead">
-          The Academy is open source and always growing. Have an idea?
-          <NuxtLink
-            to="https://github.com/imswarnil/CRM-Analytics-Academy/issues"
-            target="_blank"
-            class="text-(--signal) hover:underline"
-          >Open an issue</NuxtLink>.
-        </p>
+        <i18n-t
+          keypath="roadmap.hero.title"
+          tag="h1"
+          scope="global"
+          class="mx-auto max-w-3xl bp-h1"
+        >
+          <template #em>
+            <span class="text-gradient">{{ t('roadmap.hero.titleEm') }}</span>
+          </template>
+        </i18n-t>
+        <i18n-t
+          keypath="roadmap.hero.lead"
+          tag="p"
+          scope="global"
+          class="mx-auto mt-5 max-w-2xl bp-lead"
+        >
+          <template #issue>
+            <NuxtLink
+              to="https://github.com/imswarnil/CRM-Analytics-Academy/issues"
+              target="_blank"
+              class="text-(--signal) hover:underline"
+            >
+              {{ t('roadmap.hero.issue') }}
+            </NuxtLink>
+          </template>
+        </i18n-t>
       </UContainer>
     </section>
 
@@ -86,16 +75,22 @@ const columns = [
               name="i-lucide-telescope"
               class="size-5 text-(--signal)"
             />
-            Our vision
+            {{ t('roadmap.vision.title') }}
           </h2>
-          <p class="mt-3 text-(--ink2)">
-            Make world-class CRM Analytics skills accessible to <span class="font-medium text-(--ink)">anyone</span>, anywhere — a
-            practitioner-grade path from your first dataset to production dashboards and Einstein Discovery, without a paywall.
-          </p>
+          <i18n-t
+            keypath="roadmap.vision.body"
+            tag="p"
+            scope="global"
+            class="mt-3 text-(--ink2)"
+          >
+            <template #anyone>
+              <span class="font-medium text-(--ink)">{{ t('roadmap.vision.anyone') }}</span>
+            </template>
+          </i18n-t>
           <ul class="mt-6 space-y-4">
             <li
               v-for="p in principles"
-              :key="p.title"
+              :key="p.icon"
               class="flex gap-3"
             >
               <div class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-(--signal) ">
@@ -122,7 +117,7 @@ const columns = [
             variant="outline"
             class="mt-6 font-medium"
           >
-            Star us on GitHub
+            {{ t('roadmap.vision.star') }}
           </UButton>
         </aside>
 
@@ -161,13 +156,21 @@ const columns = [
             </ul>
           </div>
 
-          <p class="text-center text-sm text-(--ink2)">
-            Shipped already? See the
-            <NuxtLink
-              :to="localePath('/changelog')"
-              class="text-(--signal) hover:underline"
-            >changelog →</NuxtLink>
-          </p>
+          <i18n-t
+            keypath="roadmap.shipped"
+            tag="p"
+            scope="global"
+            class="text-center text-sm text-(--ink2)"
+          >
+            <template #changelog>
+              <NuxtLink
+                :to="localePath('/changelog')"
+                class="text-(--signal) hover:underline"
+              >
+                {{ t('roadmap.changelogLink') }} →
+              </NuxtLink>
+            </template>
+          </i18n-t>
         </div>
       </div>
 

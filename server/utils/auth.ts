@@ -5,6 +5,7 @@ export interface SessionUser {
   email: string
   name: string | null
   image: string | null
+  emailVerified?: boolean
 }
 
 /**

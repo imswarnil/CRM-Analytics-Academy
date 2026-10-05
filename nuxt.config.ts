@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from 'node:fs'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 // The 12 locales the site ships. `language` is the BCP-47 tag that lands in
@@ -24,6 +26,13 @@ const locales = [
 ] as const
 
 const DEFAULT_LOCALE = 'en'
+
+// Localized raw-markdown routes, written by scripts/build-search-index.mjs
+// before every build. Nothing links to them from HTML, so the crawler would
+// never reach them on its own.
+const rawRoutes: string[] = existsSync('.raw-routes.json')
+  ? JSON.parse(readFileSync('.raw-routes.json', 'utf8'))
+  : []
 
 // Routes that must never become a static file: they are personal, so a
 // prerendered copy is by definition the wrong user's view of them.
@@ -256,7 +265,8 @@ export default defineNuxtConfig({
 
     prerender: {
       routes: [
-        '/'
+        '/',
+        ...rawRoutes
       ],
       crawlLinks: true,
       autoSubfolderIndex: false,
@@ -366,6 +376,7 @@ export default defineNuxtConfig({
       {
         title: 'Tools & Community',
         links: [
+          { title: 'Other languages', href: 'https://crmanalytics.imswarnil.com/de/llms.txt', description: 'Each translated locale has its own index at /<locale>/llms.txt — es, fr, de, pt, ja, zh, hi, ar, ru, bn, ur.' },
           { title: 'MCP server', href: 'https://crmanalytics.imswarnil.com/mcp', description: 'Model Context Protocol endpoint (JSON-RPC over POST): list_curriculum, search_lessons, get_lesson — direct machine access to the curriculum.' },
           { title: 'Dashboard showcase', href: 'https://crmanalytics.imswarnil.com/showcase', description: 'Community dashboard builds with KPIs, formulas and step-by-step recipes.' },
           { title: 'Resources', href: 'https://crmanalytics.imswarnil.com/resources', description: 'Curated external CRM Analytics resources.' },
@@ -391,8 +402,8 @@ export default defineNuxtConfig({
     // prerender and marked noindex, but a sitemap is a positive assertion
     // that a URL is worth indexing — listing them would contradict the meta.
     exclude: [
-      '/dashboard', '/account', '/submit', '/admin', '/_studio',
-      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio',
+      '/dashboard', '/account', '/submit', '/admin', '/_studio', '/join', '/team',
+      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio', '/*/join', '/*/team',
       // The raw-markdown surface is for LLMs and is already advertised by
       // llms.txt. In a sitemap it would be ~780 duplicate-content URLs.
       '/raw/**'

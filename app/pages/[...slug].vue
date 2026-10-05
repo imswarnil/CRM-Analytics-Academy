@@ -38,13 +38,21 @@ const lessonKey = computed(() => normalise(route.path))
 // teaser, so the teaser is hidden rather than shown twice.
 const proUnlocked = ref(false)
 
+// True when this locale has no translation and the English page is shown.
+// Such a copy is not its own document: it points its canonical at English and
+// stays out of the index, rather than claiming to be a German page.
+const servedEnglish = useState(`served-en-${route.path}`, () => false)
+
 const { data: page } = await useAsyncData(`page-${route.path}`, () => queryCollection('docs').path(contentPath.value).first())
 if (!page.value) {
   // Some newer modules only have English content so far. Rather than 404 a
   // reader whose locale (or the language switcher) points at a path that was
   // never translated, fall back to serving the English version of the page.
   if (englishPath.value !== contentPath.value) {
-    page.value = await queryCollection('docs').path(englishPath.value).first()
+    // On the Worker (no content database) this throws; that is a missing
+    // page, not a server error.
+    page.value = await queryCollection('docs').path(englishPath.value).first().catch(() => null)
+    servedEnglish.value = Boolean(page.value)
   }
   if (!page.value) {
     throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
@@ -136,16 +144,25 @@ const sectionTitles = computed(() => {
 const crumbLabel = (seg: string) => sectionTitles.value[seg]
   ?? seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 
-// Structured data: the lesson as a learning article + a breadcrumb trail.
+if (servedEnglish.value) {
+  useHead({
+    link: [{ rel: 'canonical', href: `${SITE.url}${contentToRoutePath(englishPath.value)}` }],
+    meta: [{ name: 'robots', content: 'noindex, follow' }]
+  })
+}
+
+// Structured data: the lesson as a learning article + a breadcrumb trail. The
+// locale is part of the URL, not a level of the hierarchy, so it is not a crumb.
+const { t: tCrumb } = useI18n()
 const crumbs = computed(() => {
-  const segments = route.path.split('/').filter(Boolean)
+  const segments = route.path.split('/').filter(Boolean).filter(s => !(localeCodes as string[]).includes(s))
   const items = segments.map((seg, i) => ({
     '@type': 'ListItem',
     'position': i + 2,
-    'name': crumbLabel(seg),
-    'item': `${SITE.url}/${segments.slice(0, i + 1).join('/')}`
+    'name': i === segments.length - 1 ? (page.value?.title || crumbLabel(seg)) : crumbLabel(seg),
+    'item': `${SITE.url}${localePath(`/${segments.slice(0, i + 1).join('/')}`)}`
   }))
-  return [{ '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE.url }, ...items]
+  return [{ '@type': 'ListItem', 'position': 1, 'name': tCrumb('nav.home'), 'item': `${SITE.url}${localePath('/') === '/' ? '' : localePath('/')}` }, ...items]
 })
 
 // Visible breadcrumb trail (locale segment stripped; last crumb = page title).
@@ -157,7 +174,7 @@ const breadcrumbItems = computed(() => {
   }))
   const last = items[items.length - 1]
   if (last) last.label = page.value?.title || last.label
-  return [{ label: 'Home', icon: 'i-lucide-house', to: localePath('/') }, ...items]
+  return [{ label: tCrumb('nav.home'), icon: 'i-lucide-house', to: localePath('/') }, ...items]
 })
 
 // Edit-this-page + community links shown under the TOC ad.

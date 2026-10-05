@@ -30,11 +30,8 @@ export default defineEventHandler(async (event) => {
   const members = await sql`select count(*)::int as n from app.team_member where team_id = ${inv.team_id}`
   if (Number(members[0]?.n ?? 0) >= Number(inv.seats)) throw createError({ statusCode: 409, statusMessage: 'The team has no free seats. Ask the owner to add one.' })
 
-  await sql`
-    insert into app.team_member (team_id, user_id, email, role)
-    values (${inv.team_id}::uuid, ${user.id}, ${user.email}, 'member')
-    on conflict (team_id, user_id) do nothing
-  `
+  const contact = await sql`select contact_email from app.team where id = ${inv.team_id}::uuid`
+  await joinGrantedTeam(inv.team_id as string, user, (contact[0]?.contact_email as string | null) ?? null)
   await sql`update app.team_invite set accepted_at = now(), accepted_by = ${user.id} where id = ${inv.id}::uuid`
   return { ok: true, team: { id: inv.team_id as string, name: inv.name as string } }
 })
