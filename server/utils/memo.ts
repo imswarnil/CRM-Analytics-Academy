@@ -17,12 +17,15 @@ interface Entry<T> {
 const store = new Map<string, Entry<unknown>>()
 const MAX_ENTRIES = 1000
 
-export async function memo<T>(key: string, ttlMs: number, fn: () => Promise<T>): Promise<T> {
+export async function memo<T>(key: string, ttlMs: number, fn: () => Promise<T>, keep: (value: T) => boolean = () => true): Promise<T> {
   const now = Date.now()
   const hit = store.get(key) as Entry<T> | undefined
   if (hit && hit.expires > now) return hit.value
 
   const value = await fn()
+  // Some answers must not be remembered — a failed lookup, say, which would
+  // otherwise be served as fact for the whole TTL.
+  if (!keep(value)) return value
   if (store.size >= MAX_ENTRIES) {
     // Drop the oldest insertion — Map iterates in insertion order.
     const first = store.keys().next().value

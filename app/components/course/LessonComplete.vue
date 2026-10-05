@@ -39,7 +39,7 @@ async function toggle() {
         class="text-sm text-(--ink2)"
       >
         <ULink
-          :to="localePath('/sign-in')"
+          :to="{ path: localePath('/sign-in'), query: { redirect: $route.fullPath } }"
           class="font-semibold text-(--signal)"
         >
           {{ t('course.signIn') }}

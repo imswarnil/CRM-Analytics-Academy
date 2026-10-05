@@ -36,7 +36,7 @@ async function load() {
     const res = await $fetch<{ inquiries: Inquiry[] }>('/api/admin/inquiries', { query: { status: status.value } })
     items.value = res.inquiries
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Could not load enquiries.'
+    error.value = apiError(e) || 'Could not load enquiries.'
   } finally {
     loading.value = false
   }
@@ -47,7 +47,7 @@ async function move(item: Inquiry, next: string) {
     await $fetch('/api/admin/inquiries', { method: 'PATCH', body: { id: item.id, status: next } })
     await load()
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Could not update.'
+    error.value = apiError(e) || 'Could not update.'
   }
 }
 

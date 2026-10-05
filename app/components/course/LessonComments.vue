@@ -21,7 +21,11 @@ interface CommentItem {
 const props = defineProps<{ lessonPath: string }>()
 
 const localePath = useLocalePath()
-const { isSignedIn } = useAuth()
+const route = useRoute()
+const { isSignedIn, user } = useAuth()
+const { demo } = useProgress()
+const signInTo = computed(() => ({ path: localePath('/sign-in'), query: { redirect: `${route.path}#lesson-comments-title` } }))
+const signUpTo = computed(() => ({ path: localePath('/sign-up'), query: { redirect: `${route.path}#lesson-comments-title` } }))
 
 const root = ref<HTMLElement | null>(null)
 const comments = ref<CommentItem[]>([])
@@ -69,16 +73,29 @@ async function post(parentId: number | null) {
   posting.value = true
   error.value = ''
   try {
-    await $fetch('/api/comments', { method: 'POST', body: { path: props.lessonPath, body: text, parentId } })
+    const res = await $fetch<{ id: number, createdAt?: string }>('/api/comments', { method: 'POST', body: { path: props.lessonPath, body: text, parentId } })
+    // Shown straight away from what was sent. Reloading the list instead could
+    // land on an edge isolate that has not seen the write yet, and the comment
+    // looked as though it had never been posted.
+    comments.value = [...comments.value, {
+      id: res.id,
+      parentId,
+      body: text,
+      createdAt: res.createdAt ?? new Date().toISOString(),
+      edited: false,
+      name: user.value?.name?.trim() || 'You',
+      image: user.value?.image ?? null,
+      mine: true
+    }]
+    loaded.value = true
     if (parentId) {
       replyDraft.value = ''
       replyTo.value = null
     } else {
       draft.value = ''
     }
-    await load()
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Could not post that.'
+    error.value = apiError(e) || 'Could not post that. Please try again.'
   } finally {
     posting.value = false
   }
@@ -121,8 +138,19 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
 
     <div class="p-5 sm:p-6">
       <ClientOnly>
+        <p
+          v-if="isSignedIn && demo"
+          class="text-sm text-(--ink2)"
+        >
+          The demo account is read-only.
+          <NuxtLink
+            :to="signUpTo"
+            class="font-semibold text-(--signal) hover:underline"
+          >Create a free account</NuxtLink>
+          to ask a question or answer one.
+        </p>
         <div
-          v-if="isSignedIn"
+          v-else-if="isSignedIn"
         >
           <UTextarea
             v-model="draft"
@@ -152,9 +180,14 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
           class="text-sm text-(--ink2)"
         >
           <NuxtLink
-            :to="localePath('/sign-in')"
+            :to="signInTo"
             class="font-semibold text-(--signal) hover:underline"
           >Sign in</NuxtLink>
+          or
+          <NuxtLink
+            :to="signUpTo"
+            class="font-semibold text-(--signal) hover:underline"
+          >create a free account</NuxtLink>
           to ask a question or answer one.
         </p>
       </ClientOnly>

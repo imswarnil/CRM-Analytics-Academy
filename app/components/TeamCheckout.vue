@@ -31,7 +31,7 @@ function clamp(n: number) {
 
 async function buy() {
   if (!isSignedIn.value) {
-    await navigateTo(localePath('/sign-in'))
+    await navigateTo({ path: localePath('/sign-in'), query: { redirect: useRouter().currentRoute.value.fullPath } })
     return
   }
   error.value = ''
@@ -51,7 +51,7 @@ async function buy() {
     })
     window.location.href = url
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Checkout could not start. Please try again.'
+    error.value = apiError(e) || 'Checkout could not start. Please try again.'
     busy.value = false
   }
 }

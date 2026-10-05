@@ -330,7 +330,7 @@ const tocOpen = useCookie<boolean>('bp-toc-open', { default: () => true, sameSit
 
 async function toggleDone() {
   if (!isSignedIn.value) {
-    await navigateTo(localePath('/sign-in'))
+    await navigateTo({ path: localePath('/sign-in'), query: { redirect: useRouter().currentRoute.value.fullPath } })
     return
   }
   await setDone(route.path, !done.value)

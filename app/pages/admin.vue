@@ -134,7 +134,7 @@ async function loadStats() {
 }
 
 function msg(e: unknown) {
-  return (e as { statusMessage?: string })?.statusMessage || 'Something went wrong.'
+  return apiError(e) || 'Something went wrong.'
 }
 
 watch(isModerator, (ok) => {

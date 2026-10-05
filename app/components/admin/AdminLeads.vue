@@ -99,7 +99,7 @@ async function load() {
     pageSize.value = res.pageSize
     counts.value = res.counts
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Could not load leads.'
+    error.value = apiError(e) || 'Could not load leads.'
   } finally {
     loading.value = false
   }
@@ -146,7 +146,7 @@ async function save() {
     open.value = false
     await load()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not save', color: 'error' })
+    toast.add({ title: apiError(e) || 'Could not save', color: 'error' })
   } finally {
     saving.value = false
   }
@@ -161,7 +161,7 @@ async function enrich() {
     toast.add({ title: res.companyName ? `Enriched: ${res.companyName}` : 'Enriched', icon: 'i-lucide-sparkles' })
     load()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not enrich', color: 'error' })
+    toast.add({ title: apiError(e) || 'Could not enrich', color: 'error' })
   } finally {
     busy.value = ''
   }
@@ -180,7 +180,7 @@ async function forward() {
     })
     load()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not send', color: 'error' })
+    toast.add({ title: apiError(e) || 'Could not send', color: 'error' })
   } finally {
     busy.value = ''
   }

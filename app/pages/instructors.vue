@@ -14,7 +14,7 @@ usePageSchema({ name: title, description, type: 'WebPage' })
 const ways = [
   { n: '01', title: 'Write a lesson or lab', text: 'One topic, taught on the Academy\'s own company data, with a walkthrough and a quiz. Credited on the page.' },
   { n: '02', title: 'Own a section', text: 'Keep a whole section current across Salesforce releases, with the editor reviewing every change.' },
-  { n: '03', title: 'Run live cohorts', text: 'Teach the classroom programmes online or at a center. Paid per cohort.' },
+  { n: '03', title: 'Deliver projects', text: 'Join the experts network and share delivery of client CRM Analytics projects.' },
   { n: '04', title: 'Mentor', text: 'Office hours for teams on the Enterprise plan. Paid per hour.' }
 ]
 

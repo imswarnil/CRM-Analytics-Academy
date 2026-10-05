@@ -45,8 +45,7 @@ export default defineEventHandler(async (event) => {
   const rows = await sql`
     insert into app.comment (lesson_path, user_id, parent_id, body)
     values (${path}, ${user.id}, ${parentId}, ${text})
-    returning id
+    returning id, created_at
   `
-  forget(`comments:${path}`)
-  return { ok: true, id: Number(rows[0]?.id) }
+  return { ok: true, id: Number(rows[0]?.id), createdAt: new Date(rows[0]?.created_at as string).toISOString() }
 })

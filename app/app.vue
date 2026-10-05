@@ -24,16 +24,18 @@ const { data: navTree, refresh: refreshNav } = await useAsyncData(
 )
 
 // On a prerendered page this resolved at build time and arrives in the
-// payload. On a route the Worker renders at runtime — /dashboard, /account —
-// there is no content database bound to the Worker, so the server-side query
-// comes back empty and the curriculum reads as zero lessons.
-//
-// The browser can answer it: @nuxt/content ships the collection as a dump
-// (/dump.docs.sql) and queries it client-side. So retry there, and only when
-// the server actually returned nothing — on the 768 prerendered pages this
-// condition is false and no second query happens.
-onMounted(() => {
-  if (!navTree.value?.length) refreshNav()
+// payload. On a route the Worker renders at runtime — /dashboard, /admin —
+// there is no content database bound to the Worker, so the query comes back
+// empty. Rather than query the client-side database (a 4.5 MB download of all
+// twelve locales), borrow the tree from a prerendered page's payload, which
+// already carries exactly this locale's navigation.
+const localePathFn = useLocalePath()
+onMounted(async () => {
+  if (navTree.value?.length) return
+  const payload = await loadPayload(localePathFn('/curriculum')).catch(() => null) as { data?: Record<string, ContentNavigationItem[]> } | null
+  const tree = payload?.data?.[`navigation-${locale.value}`]
+  if (tree?.length) navTree.value = tree
+  else refreshNav()
 })
 
 // Session bootstrap. app.vue is on every page, which is what makes it the
@@ -68,15 +70,19 @@ const navigationRaw = computed<ContentNavigationItem[]>(() => {
   return english?.children ? localizeNavigation(english.children, locale.value) : []
 })
 
-const { data: allFiles } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
-  server: false
+// Site search. The sections come from public/search/<locale>.json, built by
+// scripts/build-search-index.mjs, and are fetched the first time the dialog
+// opens — never on page load. (The previous client-side content query pulled
+// the entire 12-locale database into every page view; see that script.)
+type SearchFile = { id: string, title: string, titles: string[], level: number, content: string }
+const { open: searchOpen } = useContentSearch()
+const files = ref<SearchFile[]>([])
+const searchLocale = ref<string | null>(null)
+watch([searchOpen, locale], async ([open, code]) => {
+  if (!open || searchLocale.value === code) return
+  searchLocale.value = code
+  files.value = await $fetch<SearchFile[]>(`/search/${code}.json`).catch(() => [])
 })
-// Search only the current locale; rewrite result links to localized routes.
-const files = computed(() =>
-  (allFiles.value || [])
-    .filter(f => f.id?.startsWith(`/${locale.value}/`) || f.id === `/${locale.value}`)
-    .map(f => ({ ...f, id: contentToRoutePath(f.id) }))
-)
 
 const route = useRoute()
 
@@ -154,14 +160,7 @@ useJsonLd([
     'publisher': { '@id': ORG_ID },
     'url': SITE.url,
     'description': SITE.description,
-    'inLanguage': bcp47.value,
-    // Tells search and answer engines where questions get answered on this
-    // site — the /ask page reads ?q= and runs the query immediately.
-    'potentialAction': {
-      '@type': 'SearchAction',
-      'target': { '@type': 'EntryPoint', 'urlTemplate': `${SITE.url}/ask?q={search_term_string}` },
-      'query-input': 'required name=search_term_string'
-    }
+    'inLanguage': bcp47.value
   }
 ])
 

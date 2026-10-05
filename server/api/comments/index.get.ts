@@ -3,8 +3,8 @@
  *
  * Public: a question and its answer are as useful to the next reader as to
  * the person who asked. Name and avatar only — never an email or a user id.
- * Cached for 20s per isolate, because a popular lesson is read far more often
- * than it is commented on.
+ * Not cached: an isolate-local cache could not be invalidated across the
+ * edge, so a fresh comment vanished on reload for up to 20 seconds.
  */
 export default defineEventHandler(async (event) => {
   const path = String(getQuery(event).path ?? '')
@@ -12,9 +12,8 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid lesson path' })
   }
 
-  const rows = await memo(`comments:${path}`, 20_000, () => {
-    const sql = useDb()
-    return sql`
+  const sql = useDb()
+  const rows = await sql`
       select c.id, c.parent_id, c.body, c.created_at, c.edited_at, c.user_id,
              u.name, u.image
       from app.comment c
@@ -23,7 +22,6 @@ export default defineEventHandler(async (event) => {
       order by c.created_at asc
       limit 300
     `
-  })
 
   // Whose comments are "mine" is decided here, from the session, so the
   // client never needs a user id to know which ones it may delete.

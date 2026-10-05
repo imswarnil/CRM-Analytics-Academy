@@ -8,7 +8,6 @@ const columns = computed(() => [
     label: t('footer.curriculum'),
     children: [
       { label: t('home.modules.foundations.title'), to: localePath('/foundations') },
-      { label: t('nav.ask'), to: localePath('/ask') },
       { label: 'Interview questions', to: localePath('/foundations/interview-questions') },
       { label: t('nav.resources'), to: localePath('/resources') },
       { label: t('nav.datasets'), to: localePath('/datasets') }
@@ -19,10 +18,7 @@ const columns = computed(() => [
     children: [
       { label: t('nav.wallOfFame'), to: localePath('/wall-of-fame') },
       { label: t('footer.links.nominate'), to: '/nominate' },
-      { label: t('nav.companies'), to: localePath('/companies') },
-      { label: t('nav.jobs'), to: localePath('/jobs') },
-      { label: t('nav.showcase'), to: localePath('/showcase') },
-      { label: t('nav.leaderboard'), to: localePath('/leaderboard') }
+      { label: t('nav.showcase'), to: localePath('/showcase') }
     ]
   },
   {
@@ -30,7 +26,7 @@ const columns = computed(() => [
     children: [
       { label: t('nav.about'), to: localePath('/about') },
       { label: t('nav.contribute'), to: localePath('/contribute') },
-      { label: t('footer.links.instructors'), to: '/instructors' },
+      { label: t('nav.instructors'), to: localePath('/instructors') },
       { label: t('nav.roadmap'), to: localePath('/roadmap') },
       { label: t('nav.sponsor'), to: localePath('/sponsor') },
       { label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' },
@@ -42,10 +38,8 @@ const columns = computed(() => [
     label: t('footer.academy'),
     children: [
       { label: t('nav.forTeams'), to: '/teams' },
-      { label: t('footer.links.sales'), to: '/sales' },
-      { label: t('nav.training'), to: '/training' },
-      { label: t('nav.implementation'), to: '/implementation' },
-      { label: t('footer.links.contact'), to: '/contact' }
+      { label: t('nav.experts'), to: localePath('/experts') },
+      { label: t('footer.links.contact'), to: localePath('/experts') + '#contact' }
     ]
   }
 ])
@@ -132,7 +126,7 @@ onMounted(() => {
             class="hover:text-white"
           >Privacy</NuxtLink>
           <NuxtLink
-            to="/contact"
+            :to="localePath('/experts') + '#contact'"
             class="hover:text-white"
           >Contact</NuxtLink>
         </span>
