@@ -14,6 +14,10 @@ export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
   const sql = useDb()
 
+  // A company granted Pro with auto-join: their people join on first load,
+  // before entitlement is read below. Never fails the request.
+  await autoJoinTeam(user).catch(() => false)
+
   // Points and rank ride along because the dashboard shows them next to the
   // progress they are computed from — a second round trip for two integers
   // that come out of the same request is a second chance for the two numbers
