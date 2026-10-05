@@ -78,7 +78,7 @@ const chapters: Chapter[] = [
     title: 'Leads: quotes, sales, sponsors, instructors',
     lead: 'Every form lands in Neon first, is enriched, then forwarded to Salesforce through n8n.',
     steps: [
-      { title: 'The forms', body: '/sales (quote or talk to sales), /teams (self-serve seats), /training, /implementation, /sponsor, /instructors, /nominate, /contact. Business forms require a company email — gmail, outlook, yahoo and other free domains are refused.' },
+      { title: 'The forms', body: '/teams#contact (talk to sales, quotes, invoicing), /teams (self-serve seats), /sponsor, /instructors, /nominate. Business forms require a company email — gmail, outlook, yahoo and other free domains are refused.' },
       { title: 'Enrichment', body: 'The company domain is fetched for its name, description and logo, so a lead arrives with context.' },
       { title: 'Work the pipeline', body: 'Admin → Leads: filter by type and status, set owner and notes, move new → contacted → qualified → won/lost, re-run enrichment, resend to n8n, export CSV.', to: '#leads' },
       { title: 'In Salesforce', body: 'The n8n workflow creates a Lead (LeadSource "CRM Analytics Academy") and a follow-up Task for sales and quote requests, and returns the Salesforce id to the lead row.' }
@@ -90,7 +90,7 @@ const chapters: Chapter[] = [
     title: 'Teams and self-serve',
     lead: 'A company buys seats, the buyer becomes the owner and invites colleagues from the same domain.',
     steps: [
-      { title: 'Buying', body: '/pricing → Teams, or /teams: 3–50 seats, billed annually. More than 50, invoicing or SSO → /sales.' },
+      { title: 'Buying', body: '/pricing → Teams, or /teams: 3–50 seats, billed annually. More than 50, invoicing or SSO → the sales form at /teams#contact.' },
       { title: 'Inviting', body: 'The owner opens /team, invites by email (must match the company domain or an extra domain the owner adds) and shares the invite link. Accepting uses a seat and grants Pro.' },
       { title: 'Watching', body: 'Admin → Teams lists every team, its seats used and its members.', to: '#teams' }
     ]
@@ -101,7 +101,7 @@ const chapters: Chapter[] = [
     title: 'Community',
     lead: 'Contributions come in through one stepper and are reviewed here.',
     steps: [
-      { title: 'Submissions', body: 'Dashboards, resources, lesson fixes, translations and SAQL snippets arrive at /submit and wait in Pending review. Approve to credit the author (points on the leaderboard).' },
+      { title: 'Submissions', body: 'Dashboards, resources, lesson fixes, translations and SAQL snippets arrive at /submit and wait in Pending review. Approve to credit the author (points toward their rank on /dashboard).' },
       { title: 'Showcase and resources', body: 'An approved dashboard becomes a file in content/showcase (or a Showcase entry in Payload); a resource becomes a file in content/resources.' },
       { title: 'Comments', body: 'Admin → Comments hides or restores comments on any lesson.', to: '#comments' },
       { title: 'Wall of Fame', body: 'Nominations arrive as leads of type nomination; add the person to the wall once they agree to be shown.' }
@@ -113,7 +113,7 @@ const chapters: Chapter[] = [
     title: 'Track everything',
     lead: 'Where to look to know whether it is working.',
     steps: [
-      { title: 'Learning', body: 'The KPI strip above: users, completions, quiz attempts, submissions. Each learner\'s own view is /dashboard; ranking is /leaderboard.' },
+      { title: 'Learning', body: 'The KPI strip above: users, completions, quiz attempts, submissions. Each learner\'s own view, with their rank, is /dashboard.' },
       { title: 'Traffic and search', body: 'Microsoft Clarity for behaviour; Google Search Console for queries and rich results (verify the domain and submit sitemap_index.xml); Bing gets every changed URL through IndexNow on each deploy.' },
       { title: 'Revenue', body: 'Dodo dashboard for payments; Admin → Teams for seats; entitlements live in app.entitlement.' },
       { title: 'Deploys', body: 'GitHub Actions: Translate, Deploy (lint, typecheck, build, gating check, wrangler deploy, IndexNow).' }

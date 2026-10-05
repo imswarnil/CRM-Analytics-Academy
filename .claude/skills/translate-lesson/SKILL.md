@@ -18,13 +18,16 @@ pnpm translate                    # everything that changed, all 11 targets
 pnpm translate --locales=es,fr    # just these
 pnpm translate --only=ui          # just i18n/locales/*.json
 pnpm translate --only=content     # just content/
+pnpm translate --only=transcripts # just content-transcripts/ (cue text only; timings stay byte-identical)
 pnpm translate --limit=3          # first 3 files per locale (for trying a change)
 pnpm translate --force            # ignore the manifest, redo everything
 pnpm translate --dry-run          # report only, write nothing
 ```
 
 In CI this runs automatically: `.github/workflows/translate.yml` fires on any push to
-`main` touching `content/en/**` or `i18n/locales/en.json`, and commits the translations
+`main` touching `content/en/**`, `content-transcripts/en/**`, `i18n/locales/en.json` or the
+translation scripts themselves, runs `--only=ui` and then one locale at a time
+(`scripts/translate-all.sh`), and commits the translations
 back — which then triggers the deploy.
 
 Server: set `LIBRETRANSLATE_URL` (and `LIBRETRANSLATE_API_KEY` if the instance needs one).

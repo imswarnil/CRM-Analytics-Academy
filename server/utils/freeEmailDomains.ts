@@ -1,7 +1,7 @@
 /**
  * Consumer and free email providers.
  *
- * Business forms (quotes, sales, teams, training, implementation, sponsorship)
+ * Business forms (quotes, sales, teams, sponsorship)
  * need a work address: it is how a lead is matched to a company in the CRM,
  * how its website is enriched, and how team seats are tied to one domain. A
  * personal address is fine for everything else — contact, instructor

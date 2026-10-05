@@ -14,8 +14,8 @@
  * truth — the index is deliberately monolingual) and writes
  * public/ask-index.json: one entry per lesson
  * with its route path, title, description, headings, and a plain-text
- * body capped at ~2000 chars. The /ask page ranks it client-side; the MCP
- * route (server/routes/mcp.post.ts) reads the same file through the ASSETS
+ * body capped at ~2000 chars. The MCP
+ * route (server/routes/mcp.post.ts) reads the file through the ASSETS
  * binding, because the deployed Worker has no content database at runtime.
  *
  * Runs before `nuxt build` (see package.json), the same slot as

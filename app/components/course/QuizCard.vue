@@ -6,7 +6,7 @@
  * page payload no matter what — quiz content is public, open-source markdown —
  * so a server-graded flow would only pretend to keep a secret the repo already
  * publishes. This is a learning site, not an exam: what matters is that the
- * leaderboard counts only the best attempt per quiz (app.user_points), so a
+ * dashboard rank counts only the best attempt per quiz (app.user_points), so a
  * dishonest submit gains nothing a read of the markdown would not.
  *
  * Signed-in learners get their result POSTed to /api/quiz; signed-out learners

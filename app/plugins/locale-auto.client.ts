@@ -20,7 +20,7 @@
  * so by the time this ran the cookie was always set and detection never
  * happened. Crawlers are never redirected — each locale is its own indexed URL,
  * with hreflang pointing between them — and neither are private routes or
- * the English-only pages (pricing, teams, training, implementation).
+ * the English-only pages (pricing, teams, nominate).
  */
 const COUNTRY_LOCALE: Record<string, string> = {
   // Spanish

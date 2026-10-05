@@ -82,7 +82,7 @@ async function loadIndex(event: H3Event): Promise<AskDoc[]> {
 }
 
 // ---------------------------------------------------------------------------
-// Retrieval — the same tokenizing and field-weighted scoring as /ask
+// Retrieval — tokenizing and field-weighted scoring over the search index
 // ---------------------------------------------------------------------------
 
 function tokenize(q: string): string[] {

@@ -1,7 +1,7 @@
 # Leads → n8n → Salesforce
 
-Every form on the site that is a business conversation — contact, talk to
-sales, quotes, team sign-ups, classroom seats, implementation, sponsorship,
+Every form on the site that is a business conversation — talk to sales,
+quotes, team sign-ups, sponsorship,
 instructor applications — is stored in Neon (`app.lead`) and then posted to an
 n8n webhook. n8n holds the Salesforce credentials and creates the Lead. The
 site never talks to Salesforce directly.
@@ -49,7 +49,7 @@ pnpm exec wrangler secret put N8N_WEBHOOK_URL      # the Production URL from ste
 pnpm exec wrangler secret put N8N_WEBHOOK_SECRET   # the same hex secret
 ```
 
-For local development put the same two lines in `.dev.vars`.
+For local development put the same two lines in `.env` (`pnpm dev`); `.dev.vars` is only read by `wrangler dev` (`pnpm preview`).
 
 Until both secrets exist, leads are still stored and shown in the admin with
 the status **not configured**; nothing is lost.
@@ -72,7 +72,7 @@ Sales and quote requests also get a high-priority **Task** on the new Lead.
 ## 4. Test it
 
 1. Activate the workflow.
-2. Submit the form at `/contact` (any email) or `/sales` (a work email).
+2. Submit the sales form at `/teams#contact` (a work email).
 3. In the admin console → **Leads**: the row should show **sent** and a
    Salesforce id within a few seconds. **Resend to CRM** retries a failed row.
 

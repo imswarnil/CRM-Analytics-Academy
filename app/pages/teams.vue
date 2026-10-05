@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * Self-serve teams: buy seats on a company email, invite colleagues by link,
- * see who is learning. Anything larger or invoiced goes to /sales.
+ * see who is learning. Anything larger or invoiced goes to the sales form below (#contact).
  */
 const title = 'CRM Analytics Academy for teams'
 const description = 'Give your team Pro: $15 per seat per month, billed yearly, 3–50 seats. Invite colleagues on your company domain and manage seats yourself.'

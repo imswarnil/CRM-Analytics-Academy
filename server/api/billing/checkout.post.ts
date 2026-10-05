@@ -7,7 +7,7 @@
  *
  * A team is bought on a company email: its domain becomes the team's, and
  * members must share it. Seats are the subscription's quantity (3–50);
- * larger teams, invoicing and SSO go through /sales.
+ * larger teams, invoicing and SSO go through the sales form on /teams#contact.
  */
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)

@@ -60,7 +60,7 @@ set of revenue dashboards built on one company's data. The core course is free; 
 - **161 lessons in 19 sections**, prerendered in **12 languages** (2,400+ static pages).
 - **Lesson player** — course contents sidebar with progress rings, prev / mark complete / next, a course
   timeline, collapsible table of contents, screen walkthroughs, graded quizzes and interview Q&A.
-- **Accounts and progress** (Neon Auth), points, a leaderboard, comments on every lesson, a demo account.
+- **Accounts and progress** (Neon Auth), points and a rank on the dashboard, comments on every lesson, a demo account.
 - **Pro lessons** — the body of a Pro lesson never ships in the static bundle; it is served after a
   server-side entitlement check. Payments through **Dodo Payments**; video through **Mux** (signed for Pro).
 - **Self-serve sponsorship** — one sponsor per calendar month, $99, every promo slot on the site. Live reach
@@ -68,11 +68,11 @@ set of revenue dashboards built on one company's data. The core course is free; 
   previews, impression and click counts; the house placeholder fills unsold months (no AdSense).
 - **Community** — submit resources, dashboards and lesson ideas; moderated in `/admin`; a showcase of
   dashboard write-ups with KPIs, formulas and build recipes.
-- **Business pages** — team quotations, classroom enrolment and implementation enquiries into one inbox.
-- **AI-ready** — any lesson as raw markdown at `/raw/<path>.md`, an `llms.txt`, a search page (`/ask`) and a
+- **Business pages** — team seats, sales and quote requests, sponsorships and instructor applications into one inbox.
+- **AI-ready** — any lesson as raw markdown at `/raw/<path>.md`, an `llms.txt` and a
   read-only **MCP server** at `/mcp` (`list_curriculum`, `search_lessons`, `get_lesson`).
 - **Blueprint design system** — paper/ink tokens, graph paper, crop marks, hard shadows, mono labels
-  (spec in [`docs/design-handoff-blueprint/`](./docs/design-handoff-blueprint)).
+  (the tokens and utilities are in `app/assets/css/main.css`; the primitives in `app/components/bp/`).
 - **Payload CMS** for authoring, written back to markdown so git stays the source of truth.
 
 ## Built with
@@ -81,7 +81,7 @@ set of revenue dashboards built on one company's data. The core course is free; 
 | --- | --- |
 | Framework | [Nuxt 4](https://nuxt.com) (Vue 3, Vite, Nitro), TypeScript |
 | Content | [Nuxt Content 3](https://content.nuxt.com) (markdown + MDC components), `nuxt-llms` for `llms.txt`, `/raw/*.md` for agents |
-| UI | [Nuxt UI v4](https://ui.nuxt.com), [Tailwind CSS 4](https://tailwindcss.com), the in-house **Blueprint** design system (graph paper, crop marks, hard shadows), Schibsted Grotesk + IBM Plex Mono via `@nuxt/fonts`, Lucide / Simple Icons via Iconify |
+| UI | [Nuxt UI v4](https://ui.nuxt.com), [Tailwind CSS 4](https://tailwindcss.com), the in-house **Blueprint** design system (graph paper, crop marks, hard shadows), Schibsted Grotesk + IBM Plex Mono (declared in `main.css`, fetched by the `@nuxt/fonts` that Nuxt UI bundles), Lucide / Simple Icons via Iconify |
 | i18n | `@nuxtjs/i18n` — 12 locales, 2 RTL; machine translation through a self-hosted [LibreTranslate](https://libretranslate.com) |
 | Hosting | [Cloudflare Workers](https://workers.cloudflare.com) (static assets at the edge + a Nitro Worker), Cloudflare R2 for uploads, Wrangler |
 | Database | [Neon](https://neon.tech) serverless Postgres (`@neondatabase/serverless`) |
@@ -104,8 +104,8 @@ The full, step-by-step operator's guide lives in the admin console (**/admin →
 2. **Free or Pro**: `access: pro` in the English frontmatter, the Payload field, or **/admin → Lessons & Pro**. The build gates the body and fails if anything leaks.
 3. **Video**: `pnpm video <stage> <route>` (script → voice → avatar → motion → edit → upload → captions, see `video/README.md`); captions sync daily and are translated with the content.
 4. **Publish**: `pnpm cms:pull`, commit, push — translation, build, deploy and IndexNow run in GitHub Actions.
-5. **Sell**: individuals buy Pro on `/pricing`; companies buy seats on `/teams` and invite colleagues on `/team`; bigger deals come through `/sales`.
-6. **Leads**: every form (sales, quotes, training, implementation, sponsor, instructor, nomination, contact) lands in Neon, is enriched, forwarded to Salesforce through n8n, and worked in **/admin → Leads**.
+5. **Sell**: individuals buy Pro on `/pricing`; companies buy seats on `/teams` and invite colleagues on `/team`; bigger deals come through the sales form at `/teams#contact`.
+6. **Leads**: every form (sales, quotes, team, sponsor, instructor, nomination) lands in Neon, is enriched, forwarded to Salesforce through n8n, and worked in **/admin → Leads**.
 7. **Track**: `/admin` KPIs, Clarity, Search Console, the Dodo dashboard and the GitHub Actions runs.
 
 ## The curriculum
@@ -389,7 +389,7 @@ erDiagram
 ```
 
 Views: `app.user_points` (10 per lesson, 2 per best quiz point, plus approved contributions) feeds the
-leaderboard; `app.admin_user` joins everything the admin console shows about a user.
+rank on `/dashboard`; `app.admin_user` joins everything the admin console shows about a user.
 
 ## API
 
@@ -398,7 +398,6 @@ leaderboard; `app.admin_user` joins everything the admin console shows about a u
 | GET | `/api/progress` | user | Completed lessons, points, rank, Pro flag, weekly activity |
 | POST | `/api/progress` | user (not demo) | Mark a lesson complete / incomplete |
 | POST | `/api/quiz` | user (not demo) | Record a quiz attempt |
-| GET | `/api/leaderboard` | public | All-time or last-30-days ranking |
 | GET | `/api/lesson/<locale>/<route>` | user + Pro | Full body of a Pro lesson + signed Mux token |
 | GET | `/api/lesson-block/<locale>/<route>?n=` | user + Pro | One inline `::pro` block + signed Mux tokens |
 | GET | `/api/transcript/<locale>/<route>` | user + Pro | Transcript (VTT) of a Pro lesson's video |
@@ -406,7 +405,8 @@ leaderboard; `app.admin_user` joins everything the admin console shows about a u
 | DELETE | `/api/comments/:id` | author | Delete your own comment (moderators hide via admin) |
 | GET · POST | `/api/submissions` | user | Own submissions / submit resource, dashboard, idea |
 | POST | `/api/upload` | user | Screenshot upload to R2; with `kind`, a sponsor creative (size-checked from the bytes) |
-| POST | `/api/inquiries` | public | Enrolment, quotation or implementation enquiry |
+| POST | `/api/leads` | public | Every business form (sales, quote, team, sponsor, instructor, nomination); enriched and forwarded to n8n |
+| GET | `/api/url-meta` | public | Favicon, title and description of a URL (link previews) |
 | POST | `/api/newsletter` | public | Newsletter signup (proxied to Ghost members) |
 | POST | `/api/billing/checkout` | user (not demo) | Start a Dodo checkout |
 | POST | `/api/billing/portal` | user | Billing portal link |
@@ -423,10 +423,12 @@ leaderboard; `app.admin_user` joins everything the admin console shows about a u
 | GET | `/api/geo` | public | Visitor country from the edge (first-visit language) |
 | * | `/api/auth/**` | — | Proxy to Neon Auth; `POST /api/auth/demo` signs into the demo account |
 | GET | `/api/admin/me` | user | Role and permissions of the session |
-| GET · PATCH | `/api/admin/submissions`, `/comments`, `/inquiries` | moderator | Moderation queues |
+| GET · PATCH | `/api/admin/submissions`, `/comments` | moderator | Moderation queues |
+| GET · PATCH · POST | `/api/admin/leads`, `/api/admin/teams` | admin | Leads inbox; teams (bought and granted) |
+| GET · POST · PATCH | `/api/team/**` | user | The owner's own team: members, invites, extra domains |
 | GET · PATCH · POST | `/api/admin/users` | admin | Users, roles, Pro grants |
 | GET · PATCH | `/api/admin/lessons` | admin | Access tier + Mux ids, committed to GitHub |
-| GET · PUT | `/api/admin/content/tree`, `/file` | admin · instructor | Course tree from main; read / save a lesson or person (admin → commit to main, instructor → branch + pull request) |
+| GET | `/api/admin/content/tree` · GET · PUT `/file` | admin · instructor | Course tree from main; read / save a lesson or person (admin → commit to main, instructor → branch + pull request) |
 | POST · PATCH | `/api/admin/content/lesson`, `/section` | admin · instructor | Create a lesson or section (next two-digit prefix); rename a lesson; rename a section (admin) |
 | POST | `/api/admin/content/reorder` | admin | Reorder lessons or sections: English + every locale + manifest keys, one commit |
 | GET · POST | `/api/admin/content/reviews` | admin · instructor | Review queue of instructor pull requests: publish (squash merge), request changes, close |
@@ -483,13 +485,13 @@ to a `lesson/<slug>-<id>` branch and pull request that an admin publishes from t
 
 | Page type | JSON-LD |
 |---|---|
-| Every page | `Organization` + `EducationalOrganization`, `WebSite` (+ `SearchAction` → `/ask`) |
+| Every page | `Organization` + `EducationalOrganization`, `WebSite` |
 | Home | `Course` (sections as `hasPart`), `FAQPage` |
 | Curriculum | `CollectionPage`, `BreadcrumbList`, `Course` with timed `syllabusSections` |
 | Lesson | `TechArticle`, `LearningResource`, `BreadcrumbList`, `HowTo` (walkthrough), `FAQPage` (interview), `VideoObject` (YouTube); translations linked with `workTranslation` / `translationOfWork`; Pro lessons marked `isAccessibleForFree: false` with the gated element |
 | Pricing | `Course` with real `Offer`s, `FAQPage` |
-| Teams, training, implementation | `Service` |
-| Showcase, resources, jobs, leaderboard | `CollectionPage` / `ItemList` |
+| Teams | `Service` |
+| Showcase, resources | `CollectionPage` / `ItemList` |
 | Other pages | typed `WebPage` + `BreadcrumbList` (`usePageSchema()`) |
 
 Plus: canonical and `hreflang` (with `x-default`) on every page, a per-locale sitemap index
@@ -528,13 +530,12 @@ server/
   db/*.sql            migrations, applied by hand to Neon in order
   routes/             /mcp, /raw/**, /media/**
 content/              lessons (12 locales), showcase/, resources/
-scripts/              gating, translation, search index, IndexNow, video pipeline (scripts/video), jobs
+scripts/              gating, translation, search index, IndexNow, video pipeline (scripts/video)
 content-transcripts/  lesson video captions per locale (en synced from Mux, the rest translated)
 video/                video pipeline config + guide
 cms/                  Payload CMS
 content-assets/       reusable brand, background, video and project images
-docs/                 the Blueprint design handoff
-.github/workflows/    deploy (Cloudflare), translate, jobs, Pages rollback
+.github/workflows/    deploy (Cloudflare), translate, captions, Pages rollback
 ```
 
 ## Scripts
@@ -548,11 +549,16 @@ docs/                 the Blueprint design handoff
 | `pnpm translate` | Translate changed English content and UI strings (`--locales`, `--only`, `--dry-run`) |
 | `pnpm gate` | Move Pro lesson bodies into server assets; write `app/data/lesson-meta.json` |
 | `pnpm verify:gating` | Fail if any Pro text is in the public bundle |
-| `pnpm ask:index` | Build `public/ask-index.json` for `/ask` and the MCP server |
+| `pnpm ask:index` | Build `public/ask-index.json`, the index the MCP server searches |
 | `pnpm cms:*` | Payload dev / import / pull (see above) |
 | `pnpm video <stage> <route>` | Lesson video pipeline (see `video/README.md`) |
 | `pnpm captions <route> \| --all` | Sync Mux's English captions into `content-transcripts/en/` |
 | `pnpm mux:lesson <lesson> <video>` | Upload a lesson video to Mux and write its playback id |
+| `pnpm test:vtt` | Offline checks of the VTT and `::pro` block handling (same as `pnpm video test`) |
+| `pnpm slides:lesson <route>` | Render a lesson's slide deck from its markdown |
+| `pnpm assets:build` | Rebuild `content-assets/` (brand images, motion) |
+| `pnpm i18n:review` | List translated lesson titles for a manual read-through |
+| `pnpm org:pull` · `org:open` | Salesforce CLI: pull CRM Analytics metadata into `salesforce/` / open the org |
 
 ## Local setup
 
