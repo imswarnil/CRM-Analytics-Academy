@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from 'node:fs'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 // The 12 locales the site ships. `language` is the BCP-47 tag that lands in
@@ -25,6 +27,13 @@ const locales = [
 
 const DEFAULT_LOCALE = 'en'
 
+// Localized raw-markdown routes, written by scripts/build-search-index.mjs
+// before every build. Nothing links to them from HTML, so the crawler would
+// never reach them on its own.
+const rawRoutes: string[] = existsSync('.raw-routes.json')
+  ? JSON.parse(readFileSync('.raw-routes.json', 'utf8'))
+  : []
+
 // Routes that must never become a static file: they are personal, so a
 // prerendered copy is by definition the wrong user's view of them.
 //
@@ -41,6 +50,36 @@ const DEFAULT_LOCALE = 'en'
  * their slugs happen to start with the same characters as a private route.
  */
 const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api', '/team', '/join']
+
+/**
+ * Pages that exist in English only (their copy is not in the i18n files).
+ * Under a locale prefix they used to fall through to the lesson catch-all,
+ * which queries a content database the Worker does not have — a 500. They
+ * redirect to the English page instead.
+ */
+const ENGLISH_ONLY = ['/pricing', '/teams', '/nominate']
+
+/** Pages that were removed on 2026-10-05, and where their visitors now go. */
+const RETIRED: Record<string, string> = {
+  '/jobs': '/',
+  '/companies': '/',
+  '/leaderboard': '/dashboard',
+  '/ask': '/curriculum',
+  '/training': '/experts',
+  '/sales': '/experts#contact',
+  '/contact': '/experts#contact',
+  '/implementation': '/experts'
+}
+
+const redirectRules = Object.fromEntries([
+  ...ENGLISH_ONLY.flatMap(path => locales
+    .filter(l => l.code !== DEFAULT_LOCALE)
+    .map(l => [`/${l.code}${path}`, { redirect: { to: path, statusCode: 301 } }])),
+  ...Object.entries(RETIRED).flatMap(([from, to]) => [
+    [from, { redirect: { to, statusCode: 301 } }],
+    ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => [`/${l.code}${from}`, { redirect: { to: `/${l.code}${to === '/' ? '' : to}`, statusCode: 301 } }])
+  ])
+])
 
 const privateRoutes = PRIVATE_PATHS.flatMap(route => [
   route,
@@ -180,6 +219,8 @@ export default defineNuxtConfig({
     }
   },
 
+  routeRules: redirectRules,
+
   experimental: {
     asyncContext: true,
     // Prefetch a page's payload when the pointer or focus reaches its link,
@@ -224,7 +265,8 @@ export default defineNuxtConfig({
 
     prerender: {
       routes: [
-        '/'
+        '/',
+        ...rawRoutes
       ],
       crawlLinks: true,
       autoSubfolderIndex: false,
@@ -284,28 +326,13 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     baseUrl: 'https://crmanalytics.imswarnil.com',
     locales: [...locales],
-    // Detection runs on the ROOT path only, and that limit is load-bearing.
-    //
-    // With `redirectOn: 'all'` the detector also runs while rendering a
-    // prefixed route. During prerender there is no Accept-Language header and
-    // no cookie, so it resolved to the fallback and every /es, /ja, /hi page
-    // was rendered AS ENGLISH: the navigation tree came back as the English
-    // branch, so each locale's pages linked only to English URLs. The crawler
-    // followed those, never reached a single translated lesson, and none of
-    // the 161 lessons x 11 locales was prerendered. On Cloudflare that is not
-    // a soft failure — the Worker has no D1 binding for the content database,
-    // so every one of those URLs answered 500.
-    //
-    // 'root' keeps the useful behaviour (a visitor landing on / gets their own
-    // language) without letting detection override a locale the URL already
-    // states.
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
-      alwaysRedirect: false,
-      fallbackLocale: 'en'
-    }
+    // The module's own detection is off. It ran on `/` only (`redirectOn:
+    // 'root'`, because on prefixed routes it rendered every locale as English
+    // during prerender), switched the locale mid-hydration of the English HTML
+    // — a hydration mismatch — and wrote `i18n_redirected=en` on every
+    // unprefixed page, which then silenced plugins/locale-auto.client.ts. That
+    // plugin is now the one place the first-visit language is decided.
+    detectBrowserLanguage: false
   },
 
   icon: {
@@ -349,14 +376,12 @@ export default defineNuxtConfig({
       {
         title: 'Tools & Community',
         links: [
-          { title: 'Ask the curriculum', href: 'https://crmanalytics.imswarnil.com/ask', description: 'Instant question-answering over every lesson, with links to the source passages.' },
+          { title: 'Other languages', href: 'https://crmanalytics.imswarnil.com/de/llms.txt', description: 'Each translated locale has its own index at /<locale>/llms.txt — es, fr, de, pt, ja, zh, hi, ar, ru, bn, ur.' },
           { title: 'MCP server', href: 'https://crmanalytics.imswarnil.com/mcp', description: 'Model Context Protocol endpoint (JSON-RPC over POST): list_curriculum, search_lessons, get_lesson — direct machine access to the curriculum.' },
           { title: 'Dashboard showcase', href: 'https://crmanalytics.imswarnil.com/showcase', description: 'Community dashboard builds with KPIs, formulas and step-by-step recipes.' },
           { title: 'Resources', href: 'https://crmanalytics.imswarnil.com/resources', description: 'Curated external CRM Analytics resources.' },
           { title: 'Datasets', href: 'https://crmanalytics.imswarnil.com/datasets', description: 'Practice datasets for the exercises.' },
-          { title: 'Wall of Fame', href: 'https://crmanalytics.imswarnil.com/wall-of-fame', description: 'The bloggers, authors, speakers and tool builders who taught the CRM Analytics community.' },
-          { title: 'Companies', href: 'https://crmanalytics.imswarnil.com/companies', description: 'Companies known to run CRM Analytics and the consultancies that build with it.' },
-          { title: 'Jobs', href: 'https://crmanalytics.imswarnil.com/jobs', description: 'CRM Analytics job listings, refreshed daily.' }
+          { title: 'Wall of Fame', href: 'https://crmanalytics.imswarnil.com/wall-of-fame', description: 'The bloggers, authors, speakers and tool builders who taught the CRM Analytics community.' }
         ]
       }
     ]
@@ -377,8 +402,8 @@ export default defineNuxtConfig({
     // prerender and marked noindex, but a sitemap is a positive assertion
     // that a URL is worth indexing — listing them would contradict the meta.
     exclude: [
-      '/dashboard', '/account', '/submit', '/admin', '/_studio',
-      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio',
+      '/dashboard', '/account', '/submit', '/admin', '/_studio', '/join', '/team',
+      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio', '/*/join', '/*/team',
       // The raw-markdown surface is for LLMs and is already advertised by
       // llms.txt. In a sitemap it would be ~780 duplicate-content URLs.
       '/raw/**'

@@ -47,8 +47,8 @@ async function load() {
     lesson.value = res
     emit('unlocked')
   } catch (e) {
-    const err = e as { statusCode?: number, statusMessage?: string }
-    failed.value = err.statusCode === 403 ? '' : (err.statusMessage || 'Could not load this lesson.')
+    const err = e as { statusCode?: number }
+    failed.value = err.statusCode === 403 ? '' : (apiError(e) || 'Could not load this lesson.')
   } finally {
     loading.value = false
   }
@@ -138,7 +138,7 @@ watch([pro, loaded], ([isPro]) => {
             </UButton>
             <UButton
               v-if="!isSignedIn"
-              :to="localePath('/sign-in')"
+              :to="{ path: localePath('/sign-in'), query: { redirect: $route.fullPath } }"
               size="lg"
               color="neutral"
               variant="outline"

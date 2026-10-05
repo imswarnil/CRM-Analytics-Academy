@@ -7,6 +7,5 @@ export default defineEventHandler(async (event) => {
   const sql = useDb()
   const rows = await sql`delete from app.comment where id = ${id} and user_id = ${user.id} returning lesson_path`
   if (!rows.length) throw createError({ statusCode: 404, statusMessage: 'Not found' })
-  forget(`comments:${rows[0]!.lesson_path}`)
   return { ok: true }
 })

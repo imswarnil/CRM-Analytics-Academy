@@ -15,14 +15,19 @@ import type { ContentNavigationItem } from '@nuxt/content'
  */
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 const localePath = useLocalePath()
+const route = useRoute()
+const { t, locale, locales } = useI18n()
 const { total } = useCourse()
 const { isDone, pro } = useProgress()
 const { of: metaOf } = useLessonMeta()
 
-const title = 'Curriculum'
-const description = 'Every section and lesson of the CRM Analytics Academy course, in order: orientation, the product itself, then seventeen go-to-market dashboard builds.'
+const title = computed(() => t('curriculumPage.seo.title'))
+const description = computed(() => t('curriculumPage.seo.description'))
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
-defineOgImage('Docs', { title, description })
+defineOgImage('Docs', { title: title.value, description: description.value })
+
+// BCP-47 tag of the page being rendered (en-US, de-DE …).
+const lang = computed(() => locales.value.find(l => l.code === locale.value)?.language || locale.value)
 
 interface Row {
   title: string
@@ -52,14 +57,18 @@ const sections = computed(() =>
 )
 
 // The five phases, by position, as mono labels between groups of cards.
+// Labels live under `curriculumPage.phases.<n>`.
 const PHASES = [
-  { from: 0, label: 'Phase 1 — Get oriented' },
-  { from: 1, label: 'Phase 2 — Data foundations' },
-  { from: 5, label: 'Phase 3 — Explore and build' },
-  { from: 12, label: 'Phase 4 — Ship and scale' },
-  { from: 15, label: 'Phase 5 — Go-to-market builds' }
+  { from: 0, n: 1 },
+  { from: 1, n: 2 },
+  { from: 5, n: 3 },
+  { from: 12, n: 4 },
+  { from: 15, n: 5 }
 ]
-const phaseAt = (i: number) => PHASES.find(p => p.from === i)?.label
+const phaseAt = (i: number) => {
+  const p = PHASES.find(p => p.from === i)
+  return p ? t(`curriculumPage.phases.p${p.n}`) : undefined
+}
 
 const maxLesson = computed(() => Math.max(1, ...sections.value.flatMap(s => s.lessons.map(l => l.minutes))))
 const totalHours = computed(() => Math.round(sections.value.reduce((n, s) => n + s.minutes, 0) / 60))
@@ -67,19 +76,19 @@ const totalHours = computed(() => Math.round(sections.value.reduce((n, s) => n +
 // The whole course as schema.org Course: one syllabus section per course
 // section, timed from the lessons' real lengths.
 usePageSchema(() => ({
-  name: title,
-  description,
+  name: title.value,
+  description: description.value,
   type: 'CollectionPage',
   extra: [{
     '@type': 'Course',
     'name': SITE.name,
-    'description': description,
-    'url': `${SITE.url}/curriculum`,
+    'description': description.value,
+    'url': `${SITE.url}${route.path}`,
     'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
-    'inLanguage': 'en',
+    'inLanguage': lang.value,
     'availableLanguage': ['en', 'es', 'fr', 'de', 'pt', 'ja', 'zh', 'hi', 'ar', 'ru', 'bn', 'ur'],
-    'educationalLevel': 'Beginner to advanced',
-    'teaches': 'Salesforce CRM Analytics: data preparation, datasets, SAQL, dashboards, bindings and Einstein Discovery',
+    'educationalLevel': t('curriculumPage.schema.level'),
+    'teaches': t('curriculumPage.schema.teaches'),
     'isAccessibleForFree': true,
     'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
     'hasCourseInstance': { '@type': 'CourseInstance', 'courseMode': 'online', 'courseWorkload': `PT${totalHours.value}H` },
@@ -88,7 +97,7 @@ usePageSchema(() => ({
       'name': s.title,
       'position': i + 1,
       'timeRequired': `PT${s.minutes}M`,
-      'url': `${SITE.url}${s.path}`
+      'url': `${SITE.url}${localePath(s.path)}`
     }))
   }]
 }))
@@ -111,8 +120,8 @@ function icon(l: Row) {
 <template>
   <div>
     <BpPageHeader
-      :sheet="`Sheet 01 / ${sections.length} sections / ${total} lessons / ${totalHours}h`"
-      title="Curriculum"
+      :sheet="t('curriculumPage.sheet', { sections: sections.length, lessons: total, hours: totalHours })"
+      :title="t('curriculumPage.title')"
     >
       <div class="mt-8 flex max-w-4xl items-center gap-4">
         <div class="relative h-4 flex-1 border-[1.5px] border-(--ink) bg-(--card)">
@@ -130,9 +139,9 @@ function icon(l: Row) {
           />
         </div>
         <ClientOnly>
-          <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink)">{{ doneTotal }} / {{ total }} complete</span>
+          <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink)">{{ t('curriculumPage.complete', { done: doneTotal, total }) }}</span>
           <template #fallback>
-            <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink)">0 / {{ total }} complete</span>
+            <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink)">{{ t('curriculumPage.complete', { done: 0, total }) }}</span>
           </template>
         </ClientOnly>
       </div>
@@ -141,7 +150,7 @@ function icon(l: Row) {
           :to="localePath('/introduction')"
           icon="i-lucide-play"
         >
-          Start at the beginning
+          {{ t('curriculumPage.start') }}
         </UButton>
         <UButton
           :to="localePath('/datasets')"
@@ -149,7 +158,7 @@ function icon(l: Row) {
           variant="outline"
           icon="i-lucide-database"
         >
-          Get the datasets
+          {{ t('curriculumPage.datasets') }}
         </UButton>
       </div>
     </BpPageHeader>
@@ -177,7 +186,7 @@ function icon(l: Row) {
             <span class="text-4xl font-black leading-none tracking-[-0.04em] text-(--signal)">{{ s.n }}</span>
             <span class="min-w-0 flex-1">
               <span class="block truncate text-xl font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">{{ s.title }}</span>
-              <span class="mono-label">{{ s.lessons.length }} lessons · {{ s.minutes }} min</span>
+              <span class="mono-label">{{ t('curriculumPage.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
             </span>
             <ClientOnly>
               <BpDonut :value="s.lessons.length ? doneIn(s) / s.lessons.length : 0" />
@@ -231,9 +240,9 @@ function icon(l: Row) {
                   <span
                     class="w-14 border-[1.5px] py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
                     :class="tag(l) === 'pro' ? 'border-(--line) text-(--ink2)' : 'border-(--signal) text-(--signal)'"
-                  >{{ tag(l) }}</span>
+                  >{{ t(`curriculumPage.tags.${tag(l)}`) }}</span>
                   <template #fallback>
-                    <span class="w-14 border-[1.5px] border-(--signal) py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em] text-(--signal)">{{ l.access }}</span>
+                    <span class="w-14 border-[1.5px] border-(--signal) py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em] text-(--signal)">{{ t(`curriculumPage.tags.${l.access}`) }}</span>
                   </template>
                 </ClientOnly>
               </NuxtLink>
@@ -243,10 +252,10 @@ function icon(l: Row) {
       </template>
 
       <div class="flex flex-wrap gap-5 pt-2 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
-        <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--signal)" />Video walkthrough</span>
-        <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--frost)" />Article</span>
-        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--signal) px-1 text-(--signal)">free</span>Free for everyone</span>
-        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--line) px-1">pro</span>Part of Pro</span>
+        <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--signal)" />{{ t('curriculumPage.legend.video') }}</span>
+        <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--frost)" />{{ t('curriculumPage.legend.article') }}</span>
+        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--signal) px-1 text-(--signal)">{{ t('curriculumPage.tags.free') }}</span>{{ t('curriculumPage.legend.free') }}</span>
+        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--line) px-1">{{ t('curriculumPage.tags.pro') }}</span>{{ t('curriculumPage.legend.pro') }}</span>
       </div>
     </div>
   </div>

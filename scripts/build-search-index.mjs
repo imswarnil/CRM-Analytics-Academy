@@ -1,6 +1,15 @@
 /**
- * Build the static search index behind /ask and the MCP server.
+ * Build the static search indexes: the site search (⌘K) and the MCP server.
  *
+ * 1. public/search/<locale>.json — the ⌘K dialog's sections, one file per
+ *    locale, fetched the first time a visitor opens search. This replaced
+ *    @nuxt/content's client-side search, which on EVERY page load downloaded
+ *    the whole 12-locale content database (4.5 MB on the wire), started a
+ *    SQLite wasm runtime and replayed 2,286 inserts on the main thread — to
+ *    serve a dialog almost nobody opens. It was the reason every page felt slow.
+ *
+ * 2. public/ask-index.json — the MCP server's lesson index (below).
+ * *
  * Parses every markdown file under content/en/ (English is the source of
  * truth — the index is deliberately monolingual) and writes
  * public/ask-index.json: one entry per lesson
@@ -18,7 +27,14 @@ import path from 'node:path'
 import { parse as parseYaml } from 'yaml'
 
 const ROOT = process.cwd()
-const CONTENT = path.join(ROOT, 'content', 'en')
+const CONTENT_ROOT = path.join(ROOT, 'content')
+const CONTENT = path.join(CONTENT_ROOT, 'en')
+const SEARCH_OUT = path.join(ROOT, 'public', 'search')
+const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'ja', 'zh', 'hi', 'ar', 'ru', 'bn', 'ur']
+const SECTION_CAP = 320
+const SITE = 'https://crmanalytics.imswarnil.com'
+const LLMS_BLURB = 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery. Machine-translated from English.'
+const rawRoutes = []
 const OUT = path.join(ROOT, 'public', 'ask-index.json')
 const TEXT_CAP = 2000
 
@@ -43,8 +59,8 @@ async function walk(dir, out = []) {
  * Numeric prefixes stripped, index.md collapses to the directory route —
  * matching how [...slug].vue and gate-content.mjs map content to routes.
  */
-function toRoute(file) {
-  const rel = path.relative(CONTENT, file).replace(/\.md$/, '')
+function toRoute(file, base = CONTENT) {
+  const rel = path.relative(base, file).replace(/\.md$/, '')
   const parts = rel.split(path.sep).map(p => p.replace(/^\d+\./, ''))
   const route = '/' + parts.join('/')
   return route.replace(/\/index$/, '') || '/'
@@ -137,7 +153,109 @@ function extractText(body) {
   return { headings, text: chunks.join(' ') }
 }
 
+/** The anchor id Nuxt Content gives a heading. */
+function slugify(text) {
+  return text.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\p{L}\p{N}\s-]/gu, '').trim().replace(/\s+/g, '-')
+}
+
+/**
+ * One lesson -> search sections in the shape UContentSearch expects:
+ * { id: '/route#anchor', title, titles: [ancestors], level, content }.
+ */
+function toSections(route, title, body) {
+  const sections = [{ id: route, title, titles: [], level: 1, content: '' }]
+  let current = sections[0]
+  const h2 = []
+  let inFence = false
+  let mdc = 0
+  for (const raw of body.split('\n')) {
+    const line = raw.trim()
+    if (/^(```|~~~)/.test(line)) {
+      inFence = !inFence
+      continue
+    }
+    if (inFence || line === '---' || /^#\s/.test(line)) continue
+    if (/^:{2,}[\w-]/.test(line)) {
+      mdc += 1
+      continue
+    }
+    if (/^:{2,}$/.test(line)) {
+      mdc = Math.max(0, mdc - 1)
+      continue
+    }
+    // Component props (`label: "…"`, `- value: 19`) are data, not prose.
+    if (mdc && /^(-\s+)?[\w-]+:(\s|$)/.test(line)) continue
+    const h = line.match(/^(#{2,3})\s+(.*)$/)
+    if (h) {
+      const text = cleanInline(h[2])
+      if (!text) continue
+      const level = h[1].length
+      if (level === 2) h2.splice(0, h2.length, text)
+      current = { id: `${route}#${slugify(text)}`, title: text, titles: level === 3 ? [title, ...h2] : [title], level, content: '' }
+      sections.push(current)
+      continue
+    }
+    const text = cleanInline(line)
+    if (text && current.content.length < SECTION_CAP) current.content = `${current.content} ${text}`.trim()
+  }
+  return sections
+}
+
+async function buildSearch() {
+  await mkdir(SEARCH_OUT, { recursive: true })
+  // English is the fallback for any lesson a locale has not translated yet,
+  // pointed at the locale's own URL.
+  const english = new Map()
+  for (const file of await walk(CONTENT)) english.set(path.relative(CONTENT, file), file)
+
+  for (const locale of LOCALES) {
+    const base = path.join(CONTENT_ROOT, locale)
+    const own = new Set((await walk(base)).map(f => path.relative(base, f)))
+    const rels = [...new Set([...english.keys(), ...own])]
+      .filter(rel => english.has(rel))
+      .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
+    const out = []
+    const llms = []
+    for (const rel of rels) {
+      const file = own.has(rel) ? path.join(base, rel) : english.get(rel)
+      const { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
+      const route = (locale === 'en' ? '' : `/${locale}`) + toRoute(english.get(rel))
+      const title = String(data.title ?? '')
+      // A Pro lesson is findable by its title; its body is not public text.
+      out.push(...(data.access === 'pro' ? [{ id: route, title, titles: [], level: 1, content: String(data.description ?? '') }] : toSections(route, title, body)))
+      // Only translated, free lessons get a raw copy: an English fallback is
+      // already in the English llms.txt, and a Pro body is never public.
+      if (own.has(rel) && data.access !== 'pro') {
+        llms.push({ route, raw: `/raw/${locale}${toRoute(english.get(rel))}.md`, title, description: String(data.description ?? '') })
+      }
+    }
+    await writeFile(path.join(SEARCH_OUT, `${locale}.json`), JSON.stringify(out), 'utf8')
+    if (locale !== 'en') {
+      rawRoutes.push(...llms.map(l => l.raw))
+      await mkdir(path.join(ROOT, 'public', locale), { recursive: true })
+      await writeFile(path.join(ROOT, 'public', locale, 'llms.txt'), [
+        `# CRM Analytics Academy (${locale})`,
+        '',
+        `> ${LLMS_BLURB}`,
+        '',
+        `Language: ${locale}. The English original is at ${SITE}/llms.txt.`,
+        '',
+        '## Lessons',
+        '',
+        ...llms.map(l => `- [${l.title}](${SITE}${l.raw}): ${l.description}`.trim()),
+        ''
+      ].join('\n'), 'utf8')
+    }
+  }
+  // Prerender list for the localized raw markdown (read by nuxt.config.ts).
+  await writeFile(path.join(ROOT, '.raw-routes.json'), JSON.stringify(rawRoutes), 'utf8')
+  console.log(`[search] ${LOCALES.length} locale index(es) -> public/search/`)
+}
+
 async function main() {
+  await buildSearch()
+
   // Numeric-aware sort so 2.setup precedes 10.whatever — the index order is
   // the curriculum order list_curriculum shows to MCP clients.
   const files = (await walk(CONTENT)).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))

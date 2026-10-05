@@ -54,3 +54,23 @@ export function localizeNavigation<T extends { path?: string, children?: T[] }>(
     children: item.children ? localizeNavigation(item.children, targetLocale) : undefined
   }))
 }
+
+/** Pages with no translated copy; a locale prefix would only redirect back. */
+const UNLOCALIZED = /^\/(pricing|teams|nominate|join|team|raw|api|_studio|sample-data|showcase\/)/
+
+/**
+ * A link written inside lesson markdown, pointed at the reader's locale.
+ *
+ * Lessons are authored in English with English links (`/saql/functions`), and
+ * the translator copies them verbatim, so every internal link in a German
+ * lesson used to drop the reader back into English. Site-internal paths get
+ * the locale prefix; external URLs, anchors, files and English-only pages
+ * pass through untouched.
+ */
+export function localizeHref(href: string | undefined, locale: string, localeCodes: string[]): string | undefined {
+  if (!href || locale === DEFAULT_LOCALE || !href.startsWith('/') || href.startsWith('//')) return href
+  if (UNLOCALIZED.test(href) || /\.[a-z0-9]{2,5}([?#].*)?$/i.test(href)) return href
+  const first = href.split(/[/?#]/)[1] ?? ''
+  if (localeCodes.includes(first)) return href
+  return `/${locale}${href === '/' ? '' : href}`
+}

@@ -8,13 +8,21 @@ export default eventHandler(async (event) => {
     throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
   }
 
-  const path = withLeadingSlash(slug.replace('.md', ''))
+  // The HTML canonical of an English page has no locale segment, so accept
+  // /raw/<route>.md as well as /raw/en/<route>.md.
+  const raw = withLeadingSlash(slug.replace(/\.md$/, ''))
+  const path = /^\/(en|es|fr|de|pt|ja|zh|hi|ar|ru|bn|ur)(\/|$)/.test(raw) ? raw : `/en${raw}`
 
   // Every raw page a reader may see is prerendered, so on Cloudflare this
   // handler only runs for URLs that have no file — gated lessons and typos —
   // where the Worker has no content database and the query throws. Either
   // way the right answer is 404, not a 500.
-  const page = await queryCollection(event, 'docs' as const).path(path).first().catch(() => null)
+  let page: Awaited<ReturnType<ReturnType<typeof queryCollection<'docs'>>['first']>> = null
+  try {
+    page = await queryCollection(event, 'docs' as const).path(path).first()
+  } catch {
+    // Building the query can throw too, before any promise exists.
+  }
   if (!page) {
     throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
   }

@@ -9,15 +9,15 @@ const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 
-// The six destinations from the Blueprint spec, drawn as full-height cells.
-// Everything else lives in the mobile menu and the footer.
+// The main destinations, drawn as full-height cells with an icon each. The
+// label folds away below xl so the row fits; the icon and its title remain.
 const menuItems = computed(() => [
-  { label: t('nav.home'), icon: 'i-lucide-house', to: localePath('/'), exact: true },
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
-  { label: t('nav.pricing'), icon: 'i-lucide-tag', to: '/pricing' },
   { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
+  { label: t('nav.experts'), icon: 'i-lucide-handshake', to: localePath('/experts') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') }
+  { label: t('nav.pricing'), icon: 'i-lucide-tag', to: '/pricing' },
+  { label: t('nav.sponsor'), icon: 'i-lucide-megaphone', to: localePath('/sponsor') }
 ])
 
 function isActive(item: { to: string, exact?: boolean }) {
@@ -27,39 +27,23 @@ function isActive(item: { to: string, exact?: boolean }) {
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
-  { label: t('nav.ask'), icon: 'i-lucide-sparkles', to: localePath('/ask') },
+  { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
+  { label: t('nav.instructors'), icon: 'i-lucide-users-round', to: localePath('/instructors') },
   { label: t('nav.forTeams'), icon: 'i-lucide-users', to: '/teams' },
-  { label: t('nav.training'), icon: 'i-lucide-school', to: '/training' },
-  { label: t('nav.implementation'), icon: 'i-lucide-wrench', to: '/implementation' },
-  { label: t('nav.jobs'), icon: 'i-lucide-briefcase', to: localePath('/jobs') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
-  { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
-  { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
-  { label: t('nav.sponsor'), icon: 'i-lucide-heart', to: localePath('/sponsor') },
   { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
 ])
 
+const signInTo = computed(() => ({ path: localePath('/sign-in'), query: route.path.match(/\/sign-(in|up)/) ? {} : { redirect: route.fullPath } }))
+const signUpTo = computed(() => ({ path: localePath('/sign-up'), query: route.path.match(/\/sign-(in|up)/) ? {} : { redirect: route.fullPath } }))
+
 // Account menu — the session itself is fetched once in app.vue.
 const { user, isSignedIn, signOut } = useAuth()
-const { pro } = useProgress()
-
-// Whether to show the admin console link. Asked once per session, only for a
-// signed-in user, and only on the client — the console itself enforces the
-// role on every request, so this is navigation, not access control.
-const role = ref<string | null>(null)
-watch(isSignedIn, async (ok) => {
-  if (!ok || import.meta.server) {
-    role.value = null
-    return
-  }
-  try {
-    role.value = (await $fetch<{ role: string | null }>('/api/admin/me')).role
-  } catch {
-    role.value = null
-  }
-}, { immediate: true })
+// Role arrives with progress (one request, made once a session exists). The
+// console enforces the role on every request; this is navigation only.
+const { pro, role } = useProgress()
 
 const initials = computed(() => (user.value?.name || user.value?.email || '?').trim().slice(0, 1).toUpperCase())
 
@@ -71,25 +55,28 @@ const accountItems = computed(() => [
   }],
   [
     { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
-    { label: t('nav.leaderboard'), icon: 'i-lucide-trophy', to: localePath('/leaderboard') },
     { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') },
     pro.value
       ? { label: 'Pro — active', icon: 'i-lucide-badge-check', to: localePath('/dashboard') }
       : { label: 'Upgrade to Pro', icon: 'i-lucide-sparkles', to: '/pricing', color: 'primary' as const }
   ],
-  ...(role.value === 'admin' || role.value === 'moderator'
-    ? [[{ label: 'Admin console', icon: 'i-lucide-shield', to: localePath('/admin') }]]
+  ...(role.value === 'admin' || role.value === 'moderator' || role.value === 'instructor'
+    ? [[{ label: role.value === 'instructor' ? 'Instructor studio' : 'Admin console', icon: 'i-lucide-shield', to: localePath('/admin') }]]
     : []),
   [{ label: t('nav.signOut'), icon: 'i-lucide-log-out', onSelect: () => signOut() }]
 ])
 
-// Language switcher — use setLocale so the choice is persisted (cookie) and
-// the browser-language auto-redirect doesn't bounce the user back.
+// Language switcher. The choice is written to the same cookie the first-visit
+// auto-pick reads, so picking a language here ends auto-detection for good.
+const localeChoice = useCookie<string | null>(LOCALE_CHOICE_COOKIE, { maxAge: 60 * 60 * 24 * 365, sameSite: 'lax' })
 const localeItems = computed(() =>
   locales.value.map(l => ({
     label: l.name || l.code,
     icon: l.code === locale.value ? 'i-lucide-check' : undefined,
-    onSelect: () => setLocale(l.code)
+    onSelect: () => {
+      localeChoice.value = l.code
+      setLocale(l.code)
+    }
   }))
 )
 
@@ -123,10 +110,15 @@ const fluid = computed(() =>
           v-for="item in menuItems"
           :key="item.to"
           :to="item.to"
-          class="relative flex items-center border-e border-(--line) px-4 text-[15px] font-semibold transition-colors"
+          :title="item.label"
+          class="relative flex items-center gap-2 border-e border-(--line) px-3.5 text-[15px] font-semibold transition-colors xl:px-4"
           :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
         >
-          {{ item.label }}
+          <UIcon
+            :name="item.icon"
+            class="size-4 shrink-0"
+          />
+          <span class="max-xl:sr-only">{{ item.label }}</span>
           <span
             v-if="isActive(item)"
             class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
@@ -218,17 +210,30 @@ const fluid = computed(() =>
               />
             </button>
           </UDropdownMenu>
-          <UButton
+          <div
             v-else
-            to="/pricing"
-            size="sm"
-            trailing-icon="i-lucide-arrow-up-right"
-            class="max-sm:hidden"
+            class="flex items-center gap-2"
           >
-            {{ t('nav.enroll') }}
-          </UButton>
+            <UButton
+              :to="signInTo"
+              size="sm"
+              color="neutral"
+              variant="outline"
+              icon="i-lucide-log-in"
+              class="max-sm:hidden"
+            >
+              {{ t('nav.signIn') }}
+            </UButton>
+            <UButton
+              :to="signUpTo"
+              size="sm"
+              icon="i-lucide-user-plus"
+            >
+              {{ t('nav.enrollFree') }}
+            </UButton>
+          </div>
           <template #fallback>
-            <div class="h-9 w-24 max-sm:hidden" />
+            <div class="h-9 w-44" />
           </template>
         </ClientOnly>
       </div>
@@ -246,6 +251,10 @@ const fluid = computed(() =>
             :class="'exact' in item && isActive(item as { to: string, exact?: boolean }) ? 'text-(--signal)' : 'text-(--ink)'"
           >
             <span class="font-mono text-xs text-(--signal)">{{ String(i + 1).padStart(2, '0') }}</span>
+            <UIcon
+              :name="item.icon"
+              class="size-5 shrink-0 text-(--ink2)"
+            />
             {{ item.label }}
             <UIcon
               name="i-lucide-arrow-right"

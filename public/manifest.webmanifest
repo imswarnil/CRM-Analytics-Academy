@@ -40,10 +40,10 @@
       "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
-      "name": "Ask the curriculum",
-      "short_name": "Ask",
-      "description": "Search every lesson for an answer",
-      "url": "/ask?source=pwa",
+      "name": "Curriculum",
+      "short_name": "Curriculum",
+      "description": "Every section and lesson",
+      "url": "/curriculum?source=pwa",
       "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]

@@ -4,7 +4,7 @@ import { emailDomain, isFreeEmailDomain } from '../../server/utils/freeEmailDoma
 
 /**
  * One form for every way to reach the Academy: contact, sales, quotes, team
- * sign-ups, classroom seats, implementation, sponsorship, instructor
+ * sign-ups, implementation, sponsorship, instructor
  * applications and Wall of Fame nominations.
  *
  * The contact fields are shared; `type` decides which of them are required,
@@ -13,7 +13,7 @@ import { emailDomain, isFreeEmailDomain } from '../../server/utils/freeEmailDoma
  * fields appear. Everything is validated again on the server in
  * server/utils/leads.ts; this side only gives earlier, friendlier errors.
  */
-type LeadType = 'quote' | 'sales' | 'contact' | 'instructor' | 'sponsor' | 'team' | 'nomination' | 'training' | 'implementation'
+type LeadType = 'quote' | 'sales' | 'contact' | 'instructor' | 'sponsor' | 'team' | 'nomination' | 'implementation'
 
 interface Field {
   key: string
@@ -45,7 +45,7 @@ const props = defineProps<{
   preset?: Record<string, string>
 }>()
 
-const WORK_EMAIL: LeadType[] = ['quote', 'sales', 'team', 'training', 'implementation', 'sponsor']
+const WORK_EMAIL: LeadType[] = ['quote', 'sales', 'team', 'implementation', 'sponsor']
 
 const CONFIG: Record<LeadType, TypeConfig> = {
   contact: {
@@ -69,7 +69,7 @@ const CONFIG: Record<LeadType, TypeConfig> = {
     country: true,
     seats: 'People to train',
     fields: [
-      { key: 'topic', label: 'Interested in', kind: 'select', options: ['Team licences (Pro for everyone)', 'Live or onsite training', 'Custom curriculum for our org', 'Implementation help', 'Partnership / reseller'] },
+      { key: 'topic', label: 'Interested in', kind: 'select', options: ['Team licences (Pro for everyone)', 'Custom curriculum for our org', 'Implementation help', 'Partnership / reseller'] },
       { key: 'timeline', label: 'Timeline', kind: 'select', options: ['This month', 'This quarter', 'Next quarter', 'Just exploring'] }
     ]
   },
@@ -99,20 +99,6 @@ const CONFIG: Record<LeadType, TypeConfig> = {
     seats: 'Seats',
     fields: [
       { key: 'plan', label: 'Plan', kind: 'select', options: ['Team (annual)', 'Enterprise (SSO, invoicing)'] }
-    ]
-  },
-  training: {
-    label: 'Classroom training',
-    submit: 'Reserve my seat',
-    done: 'Seat request received. The center will email you the batch dates and joining details.',
-    message: 'Anything we should know? (optional)',
-    company: 'optional',
-    role: true,
-    fields: [
-      { key: 'center', label: 'Training center', kind: 'select', options: ['Bengaluru', 'Pune', 'Hyderabad', 'London', 'Austin', 'Live online'] },
-      { key: 'track', label: 'Programme', kind: 'select', options: ['CRM Analytics Foundations (5 days)', 'Dashboards & SAQL (5 days)', 'Go-to-Market Analytics (10 days)', 'Certification bootcamp (3 days)'] },
-      { key: 'cohort', label: 'Preferred start', kind: 'select', options: ['Next available', 'Within 1 month', 'Within 3 months', 'Weekend batch'] },
-      { key: 'experience', label: 'Your experience', kind: 'select', options: ['New to Salesforce', 'Salesforce admin / user', 'Data or BI background', 'Already using CRM Analytics'] }
     ]
   },
   implementation: {

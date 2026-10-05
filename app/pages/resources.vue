@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const localePath = useLocalePath()
 const title = computed(() => t('seo.resourcesTitle'))
 const description = computed(() => t('seo.resourcesDesc'))
@@ -10,31 +10,33 @@ defineOgImage('Docs', { title: title.value, description: description.value })
 type Category = 'Docs' | 'Learning' | 'Books' | 'Blogs' | 'Tools' | 'Community'
 
 interface Resource {
-  title: string
-  desc: string
+  /** Key under `resources.items` in i18n/locales — holds the translatable title and blurb. */
+  id: string
   url: string
   category: Category
   icon: string
 }
 
 const resources: Resource[] = [
-  { title: 'CRM Analytics Help', desc: 'Salesforce\'s official product documentation, end to end.', url: 'https://help.salesforce.com/s/articleView?id=sf.bi_get_started.htm', category: 'Docs', icon: 'i-simple-icons-salesforce' },
-  { title: 'Developer Guide', desc: 'Dashboard JSON, bindings, and platform internals for builders.', url: 'https://developer.salesforce.com/docs/analytics/bindings/guide/bindings-intro.html', category: 'Docs', icon: 'i-lucide-book-open' },
-  { title: 'SAQL Reference', desc: 'The complete Salesforce Analytics Query Language reference.', url: 'https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_saql.meta/bi_dev_guide_saql/', category: 'Docs', icon: 'i-lucide-terminal' },
-  { title: 'Analytics REST API', desc: 'Query datasets and manage assets programmatically.', url: 'https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/', category: 'Docs', icon: 'i-lucide-plug' },
-  { title: 'Trailhead: CRM Analytics', desc: 'Free, hands-on, gamified modules from Salesforce.', url: 'https://trailhead.salesforce.com/en/content/learn/trails/wave_analytics_basics', category: 'Learning', icon: 'i-lucide-graduation-cap' },
-  { title: 'Trailhead: Einstein Discovery', desc: 'Build and interpret predictive models with guided projects.', url: 'https://trailhead.salesforce.com/en/content/learn/modules/einstein_discovery', category: 'Learning', icon: 'i-lucide-brain-circuit' },
-  { title: 'Learning Tableau CRM (book)', desc: 'A practical book covering datasets, dashboards, and SAQL.', url: 'https://www.packtpub.com/en-us/search?q=tableau%20crm', category: 'Books', icon: 'i-lucide-book' },
-  { title: 'Mastering Salesforce Analytics', desc: 'Deeper coverage of implementation and Einstein Discovery.', url: 'https://www.amazon.com/s?k=salesforce+crm+analytics', category: 'Books', icon: 'i-lucide-book-marked' },
-  { title: 'Salesforce Analytics Blog', desc: 'Product news, tips, and release highlights from Salesforce.', url: 'https://www.salesforce.com/blog/category/analytics/', category: 'Blogs', icon: 'i-lucide-rss' },
-  { title: 'Salesforce Ben — Analytics', desc: 'Community tutorials and opinion on the analytics ecosystem.', url: 'https://www.salesforceben.com/', category: 'Blogs', icon: 'i-lucide-newspaper' },
-  { title: 'Salesforce CLI (sf)', desc: 'Script deployments and manage analytics assets from the terminal.', url: 'https://developer.salesforce.com/tools/salesforcecli', category: 'Tools', icon: 'i-lucide-square-terminal' },
-  { title: 'Developer Edition Org', desc: 'A free Salesforce org to follow every lesson hands-on.', url: 'https://developer.salesforce.com/signup', category: 'Tools', icon: 'i-lucide-box' },
-  { title: 'VS Code + SF Extensions', desc: 'Edit dashboards, dataflows, and metadata with full tooling.', url: 'https://developer.salesforce.com/tools/vscode', category: 'Tools', icon: 'i-simple-icons-visualstudiocode' },
-  { title: 'Analytics Trailblazer Community', desc: 'Ask questions and connect with thousands of practitioners.', url: 'https://trailhead.salesforce.com/trailblazer-community/groups', category: 'Community', icon: 'i-lucide-users' },
-  { title: 'Salesforce Stack Exchange', desc: 'Q&A for tough CRM Analytics and SAQL problems.', url: 'https://salesforce.stackexchange.com/questions/tagged/einstein-analytics', category: 'Community', icon: 'i-lucide-messages-square' },
-  { title: 'r/salesforce', desc: 'Community discussion, tips, and career advice.', url: 'https://www.reddit.com/r/salesforce/', category: 'Community', icon: 'i-simple-icons-reddit' }
+  { id: 'crmaHelp', url: 'https://help.salesforce.com/s/articleView?id=sf.bi_get_started.htm', category: 'Docs', icon: 'i-simple-icons-salesforce' },
+  { id: 'devGuide', url: 'https://developer.salesforce.com/docs/analytics/bindings/guide/bindings-intro.html', category: 'Docs', icon: 'i-lucide-book-open' },
+  { id: 'saqlReference', url: 'https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_saql.meta/bi_dev_guide_saql/', category: 'Docs', icon: 'i-lucide-terminal' },
+  { id: 'restApi', url: 'https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/', category: 'Docs', icon: 'i-lucide-plug' },
+  { id: 'trailheadCrma', url: 'https://trailhead.salesforce.com/en/content/learn/trails/wave_analytics_basics', category: 'Learning', icon: 'i-lucide-graduation-cap' },
+  { id: 'trailheadDiscovery', url: 'https://trailhead.salesforce.com/en/content/learn/modules/einstein_discovery', category: 'Learning', icon: 'i-lucide-brain-circuit' },
+  { id: 'learningTableauCrm', url: 'https://www.packtpub.com/en-us/search?q=tableau%20crm', category: 'Books', icon: 'i-lucide-book' },
+  { id: 'masteringAnalytics', url: 'https://www.amazon.com/s?k=salesforce+crm+analytics', category: 'Books', icon: 'i-lucide-book-marked' },
+  { id: 'analyticsBlog', url: 'https://www.salesforce.com/blog/category/analytics/', category: 'Blogs', icon: 'i-lucide-rss' },
+  { id: 'salesforceBen', url: 'https://www.salesforceben.com/', category: 'Blogs', icon: 'i-lucide-newspaper' },
+  { id: 'sfCli', url: 'https://developer.salesforce.com/tools/salesforcecli', category: 'Tools', icon: 'i-lucide-square-terminal' },
+  { id: 'devOrg', url: 'https://developer.salesforce.com/signup', category: 'Tools', icon: 'i-lucide-box' },
+  { id: 'vscode', url: 'https://developer.salesforce.com/tools/vscode', category: 'Tools', icon: 'i-simple-icons-visualstudiocode' },
+  { id: 'trailblazerCommunity', url: 'https://trailhead.salesforce.com/trailblazer-community/groups', category: 'Community', icon: 'i-lucide-users' },
+  { id: 'stackExchange', url: 'https://salesforce.stackexchange.com/questions/tagged/einstein-analytics', category: 'Community', icon: 'i-lucide-messages-square' },
+  { id: 'reddit', url: 'https://www.reddit.com/r/salesforce/', category: 'Community', icon: 'i-simple-icons-reddit' }
 ]
+
+const categoryLabel = (key: 'All' | Category) => t(`resources.categories.${key.toLowerCase()}`)
 
 const categories: { key: 'All' | Category, icon: string }[] = [
   { key: 'All', icon: 'i-lucide-layout-grid' },
@@ -50,29 +52,22 @@ const selected = ref<'All' | Category>('All')
 const filtered = computed(() => selected.value === 'All' ? resources : resources.filter(r => r.category === selected.value))
 const countFor = (key: 'All' | Category) => key === 'All' ? resources.length : resources.filter(r => r.category === key).length
 
-useJsonLd({
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  'name': title.value,
-  'description': description.value,
-  'url': `${SITE.url}/resources`,
-  'inLanguage': locale.value
-})
+usePageSchema(() => ({ name: title.value, description: description.value, type: 'CollectionPage' }))
 </script>
 
 <template>
   <div>
     <BpPageHeader
-      :sheet="`Sheet 06 / Resources / ${resources.length} references`"
-      title="The best CRM Analytics resources"
-      lead="Docs, courses, books, blogs, tools, and communities — filter to find what you need."
+      :sheet="t('resources.header.sheet', { count: resources.length })"
+      :title="t('resources.header.title')"
+      :lead="t('resources.header.lead')"
     >
       <UButton
         :to="localePath('/submit?kind=resource')"
         icon="i-lucide-plus"
         class="mt-8"
       >
-        Suggest a resource
+        {{ t('resources.header.suggest') }}
       </UButton>
     </BpPageHeader>
 
@@ -82,7 +77,7 @@ useJsonLd({
         <aside class="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:overscroll-contain">
           <div class="border-[1.5px] border-(--ink) bg-(--card)">
             <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
-              Filter
+              {{ t('resources.filter') }}
             </p>
             <ul>
               <li
@@ -106,7 +101,7 @@ useJsonLd({
                     :name="c.icon"
                     class="size-4 shrink-0"
                   />
-                  <span class="grow text-start">{{ c.key }}</span>
+                  <span class="grow text-start">{{ categoryLabel(c.key) }}</span>
                   <span class="font-mono text-[10px] text-(--ink2)">{{ countFor(c.key) }}</span>
                 </button>
               </li>
@@ -116,13 +111,13 @@ useJsonLd({
 
         <div>
           <p class="mono-label mb-6">
-            {{ filtered.length }} resources
+            {{ t('resources.count', { count: filtered.length }) }}
           </p>
 
           <div class="grid content-start gap-6 sm:grid-cols-2 xl:grid-cols-3">
             <a
               v-for="r in filtered"
-              :key="r.title"
+              :key="r.id"
               :href="r.url"
               target="_blank"
               rel="noopener"
@@ -135,16 +130,16 @@ useJsonLd({
                 />
               </span>
               <p class="eyebrow pe-14">
-                {{ r.category }}
+                {{ categoryLabel(r.category) }}
               </p>
               <h3 class="mt-3 pe-14 text-lg font-extrabold leading-tight tracking-[-0.02em] text-(--ink)">
-                {{ r.title }}
+                {{ t(`resources.items.${r.id}.title`) }}
               </h3>
               <p class="mt-2 grow text-sm text-(--ink2)">
-                {{ r.desc }}
+                {{ t(`resources.items.${r.id}.desc`) }}
               </p>
               <span class="mt-5 border-t border-dashed border-(--line) pt-3 font-mono text-[11px] font-semibold uppercase tracking-[.12em] text-(--signal)">
-                Open ↗
+                {{ t('resources.open') }} ↗
               </span>
             </a>
           </div>
@@ -157,7 +152,7 @@ useJsonLd({
            resources should be the page that invites one. -->
       <div class="graph-paper-navy mx-auto mt-16 max-w-3xl border-[1.5px] border-(--ink) bg-(--navy) p-8 text-center text-white shadow-[10px_10px_0_var(--signal)]">
         <p class="eyebrow text-(--glow)!">
-          Submit
+          {{ t('resources.submitEyebrow') }}
         </p>
         <h2 class="mt-2 text-2xl font-extrabold tracking-[-0.02em]">
           {{ t('resources.submitTitle') }}

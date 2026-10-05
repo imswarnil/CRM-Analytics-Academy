@@ -19,6 +19,7 @@ defineI18nRoute({ locales: ['en'] })
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title: title.value, description: description.value })
+usePageSchema({ name: title.value, description: description.value, type: 'CollectionPage' })
 
 interface LessonRef {
   title: string

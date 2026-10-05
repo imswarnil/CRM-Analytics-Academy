@@ -14,6 +14,10 @@ export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
   const sql = useDb()
 
+  // A company granted Pro with auto-join: their people join on first load,
+  // before entitlement is read below. Never fails the request.
+  await autoJoinTeam(user).catch(() => false)
+
   // Points and rank ride along because the dashboard shows them next to the
   // progress they are computed from — a second round trip for two integers
   // that come out of the same request is a second chance for the two numbers
@@ -22,7 +26,7 @@ export default defineEventHandler(async (event) => {
   // Rank is computed here rather than read from a stored column: it is a
   // position in an ordering, so it changes when *other* people earn points,
   // and nothing would ever know to update this user's row.
-  const [completed, entitlement, points, activity] = await Promise.all([
+  const [completed, entitlement, points, activity, resolved, demo] = await Promise.all([
     sql`select lesson_path from app.progress where user_id = ${user.id} order by completed_at desc`,
     hasPro(user.id),
     sql`
@@ -39,7 +43,11 @@ export default defineEventHandler(async (event) => {
       from app.progress
       where user_id = ${user.id} and completed_at > now() - interval '12 weeks'
       group by 1 order by 1
-    `
+    `,
+    // Role and demo flag ride along too, so the header and the comment box
+    // know them without a second round trip after this one.
+    getRole(event),
+    isDemoUser(user.id)
   ])
 
   setResponseHeader(event, 'cache-control', 'private, no-store')
@@ -48,6 +56,8 @@ export default defineEventHandler(async (event) => {
     completed: completed.map(r => r.lesson_path as string),
     activity: activity.map(r => ({ week: r.week as string, count: Number(r.n) })),
     pro: entitlement,
+    role: resolved?.role ?? 'learner',
+    demo,
     points: Number(points[0]?.points ?? 0),
     contributions: Number(points[0]?.contributions ?? 0),
     // Unranked until they have earned something — rank 1 of nobody is not a

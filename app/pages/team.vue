@@ -47,7 +47,7 @@ async function invite() {
     inviteEmail.value = ''
     await refresh()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not create the invite', color: 'error', icon: 'i-lucide-circle-alert' })
+    toast.add({ title: apiError(e) || 'Could not create the invite', color: 'error', icon: 'i-lucide-circle-alert' })
   } finally {
     inviting.value = false
   }
@@ -66,7 +66,7 @@ async function removeMember(userId: string, you: boolean) {
     if (you) await navigateTo('/dashboard')
     else await refresh()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not remove', color: 'error' })
+    toast.add({ title: apiError(e) || 'Could not remove', color: 'error' })
   }
 }
 
@@ -86,7 +86,7 @@ async function save() {
     toast.add({ title: 'Team updated', icon: 'i-lucide-check' })
     await refresh()
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Could not save', color: 'error' })
+    toast.add({ title: apiError(e) || 'Could not save', color: 'error' })
   } finally {
     saving.value = false
   }
@@ -96,7 +96,7 @@ async function billing() {
     const { url } = await $fetch<{ url: string }>('/api/billing/portal', { method: 'POST' })
     window.location.href = url
   } catch (e) {
-    toast.add({ title: (e as { statusMessage?: string }).statusMessage || 'Billing portal unavailable', color: 'error' })
+    toast.add({ title: apiError(e) || 'Billing portal unavailable', color: 'error' })
   }
 }
 </script>
@@ -202,7 +202,7 @@ async function billing() {
               Manage billing
             </UButton>
             <UButton
-              to="/sales"
+              to="/experts#contact"
               color="neutral"
               variant="outline"
               class="border-white/60 bg-transparent text-white hover:bg-white/10"

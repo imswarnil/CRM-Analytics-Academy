@@ -156,7 +156,7 @@ function retry() {
             </p>
             <ULink
               v-else-if="!isSignedIn"
-              :to="localePath('/sign-in')"
+              :to="{ path: localePath('/sign-in'), query: { redirect: $route.fullPath } }"
               class="text-sm"
             >
               {{ t('quiz.signInToSave') }}

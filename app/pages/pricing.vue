@@ -26,12 +26,12 @@ const proFeatures = [
   'Every Pro lesson, with its quiz and interview questions',
   'Lesson videos, in your language as recordings are added',
   'No ads, anywhere on the site',
-  'Progress, points, certificates and the leaderboard'
+  'Progress, points and certificates'
 ]
 const freeFeatures = [
   'Every free lesson — most of the course',
   'The twenty-one practice datasets',
-  'Progress, points and the leaderboard',
+  'Progress, points and quiz scores',
   'Community showcase and resources'
 ]
 const teamFeatures = [
@@ -46,10 +46,10 @@ const pro$ = computed(() => billing.value === 'annual'
   : { price: '$12', per: '/ month', note: 'Billed monthly · cancel any time' })
 
 const faq = [
-  { label: 'Is the course still free?', content: 'Yes. Every lesson not marked Pro is free, with progress, points and the leaderboard. Pro pays for the free course to keep growing.' },
+  { label: 'Is the course still free?', content: 'Yes. Every lesson not marked Pro is free, with progress, points and quiz scores. Pro pays for the free course to keep growing.' },
   { label: 'What is the difference between monthly and annual?', content: 'Nothing but the price: Pro Annual is $96 a year, the same as $8 a month, against $12 month to month. Both can be cancelled from the billing portal and keep access until the paid period ends.' },
   { label: 'How do team seats work?', content: 'Buy 3 to 50 seats on your company email; you become the team owner. Invite colleagues with a link — they sign in with an address on your company domain and take a seat. Remove someone and the seat frees up.' },
-  { label: 'Can we pay by invoice, or need more than 50 seats?', content: 'Yes — talk to sales for invoicing, purchase orders, SSO, private cohorts or classroom training. We reply within two working days.' },
+  { label: 'Can we pay by invoice, or need more than 50 seats?', content: 'Yes — get in touch for invoicing, purchase orders or SSO. We reply within two working days.' },
   { label: 'Do you store my card?', content: 'No. Card details go straight to Dodo Payments; this site only ever sees whether a payment succeeded.' },
   { label: 'I bought Lifetime before. Is it still valid?', content: 'Yes. Lifetime is no longer sold, but every existing Lifetime purchase keeps Pro for good.' }
 ]
@@ -98,7 +98,7 @@ const error = ref('')
 
 async function buy(plan: 'monthly' | 'annual') {
   if (!isSignedIn.value) {
-    await navigateTo(localePath('/sign-in'))
+    await navigateTo({ path: localePath('/sign-in'), query: { redirect: useRouter().currentRoute.value.fullPath } })
     return
   }
   busy.value = plan
@@ -107,7 +107,7 @@ async function buy(plan: 'monthly' | 'annual') {
     const { url } = await $fetch<{ url: string }>('/api/billing/checkout', { method: 'POST', body: { plan } })
     window.location.href = url
   } catch (e) {
-    error.value = (e as { statusMessage?: string }).statusMessage || 'Checkout could not start. Please try again.'
+    error.value = apiError(e) || 'Checkout could not start. Please try again.'
     busy.value = ''
   }
 }
@@ -291,13 +291,13 @@ async function buy(plan: 'monthly' | 'annual') {
             Plan T2
           </p>
           <h2 class="mt-2 text-xl font-extrabold">
-            Enterprise &amp; training centres
+            Enterprise
           </h2>
           <p class="mt-4 text-4xl font-black tracking-[-0.03em]">
             Custom
           </p>
           <p class="mt-3 text-sm text-white/80">
-            More than 50 seats, invoicing and purchase orders, SSO, private cohorts, classroom delivery, or a CRM Analytics implementation alongside the training.
+            More than 50 seats, invoicing and purchase orders, SSO, or a CRM Analytics implementation from our experts network alongside the course.
           </p>
           <ul class="my-6 space-y-2 text-sm">
             <li
@@ -313,7 +313,7 @@ async function buy(plan: 'monthly' | 'annual') {
           </ul>
           <div class="mt-auto flex flex-wrap gap-3">
             <UButton
-              to="/sales"
+              to="/experts#contact"
               color="secondary"
               icon="i-lucide-message-square"
             >

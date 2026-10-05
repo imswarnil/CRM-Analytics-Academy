@@ -1,6 +1,8 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 useSeoMeta({
-  title: 'Sign in',
+  title: () => t('auth.pageSignIn'),
   // An auth screen has no business in a search index, and indexing it invites
   // people to land here instead of on the curriculum.
   robots: 'noindex, nofollow'

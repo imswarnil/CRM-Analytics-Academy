@@ -13,9 +13,12 @@
  *     language of the web for this subject (India, Pakistan, the Philippines…)
  *     are deliberately not mapped.
  *
- * The choice is written to the same `i18n_redirected` cookie the i18n module
- * uses, so it happens exactly once; the language switcher overrides it for
- * good. Crawlers are never redirected — each locale is its own indexed URL,
+ * The decision is remembered in its own cookie, `crma_locale`, which only
+ * this plugin and the language switcher write. It used to read the i18n
+ * module's `i18n_redirected` cookie instead, but the module writes that during
+ * hydration (with `en` on every unprefixed page, and on every Worker response),
+ * so by the time this ran the cookie was always set and detection never
+ * happened. Crawlers are never redirected — each locale is its own indexed URL,
  * with hreflang pointing between them — and neither are private routes or
  * the English-only pages (pricing, teams, training, implementation).
  */
@@ -51,7 +54,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
       // Composables resolved before the first await, while the Nuxt context
       // is still current.
-      const cookie = useCookie<string | null>('i18n_redirected', { maxAge: 60 * 60 * 24 * 365, sameSite: 'lax' })
+      const cookie = useCookie<string | null>(LOCALE_CHOICE_COOKIE, { maxAge: 60 * 60 * 24 * 365, sameSite: 'lax' })
+      const moduleCookie = useCookie<string | null>('i18n_redirected', { maxAge: 60 * 60 * 24 * 365, sameSite: 'lax' })
       const route = useRoute()
       const switchLocalePath = useSwitchLocalePath()
       const toast = useToast()
@@ -74,6 +78,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
 
       cookie.value = target
+      moduleCookie.value = target
       if (target === 'en') return
 
       const to = switchLocalePath(target as never)
@@ -92,6 +97,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           variant: 'outline',
           onClick: () => {
             cookie.value = 'en'
+            moduleCookie.value = 'en'
             nuxtApp.runWithContext(() => navigateTo(englishPath, { replace: true }))
           }
         }]

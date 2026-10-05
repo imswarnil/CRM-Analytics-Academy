@@ -283,15 +283,6 @@ const activityBars = computed(() => weeks.value.map((w, i) => ({
               Manage billing
             </UButton>
             <UButton
-              :to="localePath('/leaderboard')"
-              :label="t('dashboard.viewLeaderboard')"
-              icon="i-lucide-trophy"
-              color="neutral"
-              variant="outline"
-              size="sm"
-              class="border-white/60 bg-transparent text-white hover:bg-white/10"
-            />
-            <UButton
               :to="localePath('/submit')"
               :label="t('dashboard.contribute')"
               icon="i-lucide-circle-plus"

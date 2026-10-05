@@ -76,7 +76,7 @@ const outcomes = [
           Buy team seats
         </UButton>
         <UButton
-          to="/sales"
+          to="/experts#contact"
           color="neutral"
           variant="outline"
           icon="i-lucide-message-square"
@@ -141,26 +141,26 @@ const outcomes = [
             Bigger than 50 seats?
           </p>
           <h2 class="mt-3 text-2xl font-extrabold">
-            Enterprise, invoicing and training centres
+            Enterprise and invoicing
           </h2>
           <p class="mt-3 text-sm text-white/80">
-            Volume pricing, purchase orders and invoices, SSO, private cohorts, instructor-led classroom training, and CRM Analytics implementation alongside it.
+            Volume pricing, purchase orders and invoices, SSO, and — through our experts network — CRM Analytics implementation alongside it.
           </p>
           <div class="mt-auto flex flex-wrap gap-3 pt-8">
             <UButton
-              to="/sales"
+              to="/experts#contact"
               color="secondary"
               icon="i-lucide-message-square"
             >
               Talk to sales
             </UButton>
             <UButton
-              to="/training"
+              to="/experts"
               color="neutral"
               variant="outline"
               class="border-white/60 bg-transparent text-white hover:bg-white/10"
             >
-              Classroom training
+              Hire CRM Analytics experts
             </UButton>
           </div>
         </div>
