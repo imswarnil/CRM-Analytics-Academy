@@ -1,46 +1,20 @@
 <script setup lang="ts">
-const title = 'Terms of Service'
-const description = 'The terms for using CRM Analytics Academy: the free curriculum and its licence, accounts and progress, Pro purchases, community content and acceptable use.'
+const { t, tm, rt, locale } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
+const title = computed(() => t('terms.seo.title'))
+const description = computed(() => t('terms.seo.description'))
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
-defineOgImage('Docs', { title, description })
+defineOgImage('Docs', { title: title.value, description: description.value })
 
-usePageSchema({ name: title, description, type: 'WebPage' })
+usePageSchema(() => ({ name: title.value, description: description.value, type: 'WebPage' }))
 
-const sections = [
-  {
-    title: 'Using this site',
-    body: 'CRM Analytics Academy is a free, educational curriculum about Salesforce CRM Analytics. You may read, copy code snippets, and follow along in your own Salesforce org for personal or commercial learning purposes.'
-  },
-  {
-    title: 'Not an official Salesforce product',
-    body: 'This is an independent, community-built learning resource. It is not affiliated with, endorsed by, or sponsored by Salesforce, Inc. "Salesforce" and "CRM Analytics" are trademarks of Salesforce, Inc., used here for identification purposes only.'
-  },
-  {
-    title: 'Content license',
-    body: 'Lesson content lives in a public, open-source repository. See the repository\'s license file for the exact terms governing reuse and contributions.'
-  },
-  {
-    title: 'No warranty',
-    body: 'Lessons are provided "as is," without warranty of any kind. SAQL examples, recipes, and configuration steps are illustrative — always validate changes in a sandbox or Developer org before applying them to production data.'
-  },
-  {
-    title: 'Advertising',
-    body: 'This site is partly funded by Google AdSense. Ads are served by Google and its partners and are not endorsements by CRM Analytics Academy. See our Privacy Policy for details on how ad-related data is handled.'
-  },
-  {
-    title: 'Limitation of liability',
-    body: 'CRM Analytics Academy and its maintainers are not liable for any loss or damage arising from the use of this site or reliance on its content.'
-  },
-  {
-    title: 'Changes to these terms',
-    body: 'These terms may be updated as the project evolves. Continued use of the site after a change constitutes acceptance of the updated terms.'
-  },
-  {
-    title: 'Contact',
-    body: 'Questions about these terms? Open an issue on the project\'s GitHub repository.'
-  }
-]
+const sections = computed(() =>
+  (tm('terms.sections') as { title: string, body: string }[]).map(s => ({
+    title: rt(s.title),
+    body: rt(s.body)
+  }))
+)
 </script>
 
 <template>
@@ -48,14 +22,30 @@ const sections = [
     <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
       <UContainer class="relative py-16 sm:py-20">
         <p class="eyebrow mb-5">
-          Sheet 15 / Terms
+          {{ t('terms.hero.eyebrow') }}
         </p>
         <h1 class="bp-h1">
-          Terms of Service
+          {{ title }}
         </h1>
         <p class="mt-4 max-w-2xl bp-lead">
-          The ground rules for using this free curriculum.
+          {{ t('terms.hero.lead') }}
         </p>
+        <i18n-t
+          v-if="locale !== 'en'"
+          keypath="terms.englishPrevails"
+          tag="p"
+          scope="global"
+          class="mt-4 max-w-2xl text-sm text-(--ink2)"
+        >
+          <template #link>
+            <NuxtLink
+              :to="switchLocalePath('en')"
+              class="text-(--signal) hover:underline"
+            >
+              {{ t('terms.englishLink') }}
+            </NuxtLink>
+          </template>
+        </i18n-t>
       </UContainer>
     </section>
 
@@ -63,8 +53,8 @@ const sections = [
       <UContainer>
         <div class="mx-auto max-w-3xl space-y-10">
           <div
-            v-for="s in sections"
-            :key="s.title"
+            v-for="(s, i) in sections"
+            :key="i"
           >
             <h2 class="text-xl font-bold text-(--ink)">
               {{ s.title }}

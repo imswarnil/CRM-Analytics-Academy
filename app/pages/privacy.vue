@@ -1,50 +1,23 @@
 <script setup lang="ts">
-const title = 'Privacy Policy'
-const description = 'How CRM Analytics Academy handles your data: what an account stores, cookies, analytics, advertising, payments through Dodo Payments, and how to delete it all.'
+const { t, tm, rt, locale } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
+const title = computed(() => t('privacy.seo.title'))
+const description = computed(() => t('privacy.seo.description'))
 
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
-defineOgImage('Docs', { title, description })
+defineOgImage('Docs', { title: title.value, description: description.value })
 
-usePageSchema({ name: title, description, type: 'WebPage' })
+usePageSchema(() => ({ name: title.value, description: description.value, type: 'WebPage' }))
 
-const sections = [
-  {
-    title: 'What we collect',
-    body: 'We do not require an account or sign-up to read any lesson. We do not collect names, emails, or payment details. Pages you visit, your approximate location (country/region), device type, and referrer are collected automatically through the analytics and advertising tools described below.'
-  },
-  {
-    title: 'Cookies & similar technologies',
-    body: 'This site uses cookies and similar technologies for two purposes: understanding how the curriculum is used (analytics) and showing ads that help keep every lesson free (advertising). You can block or delete cookies in your browser settings at any time; the site will keep working, though personalized ads may stop.'
-  },
-  {
-    title: 'Analytics',
-    body: 'We use Google Analytics and Microsoft Clarity to see which pages are popular, where visitors come from, and how lessons are read. Clarity also records anonymized interaction data such as clicks and scrolling to help us improve page layout. Neither is used to identify you personally.'
-  },
-  {
-    title: 'Advertising — Google AdSense',
-    body: 'We run Google AdSense to fund hosting and ongoing content development. Google and its partners may use cookies (including the DoubleClick cookie) to serve ads based on your prior visits to this and other sites. You can opt out of personalized advertising by visiting Google\'s Ads Settings, or opt out of third-party vendor cookies generally by visiting www.aboutads.info.'
-  },
-  {
-    title: 'Third-party links',
-    body: 'Lessons link out to official Salesforce documentation, Trailhead, and other community resources. We are not responsible for the privacy practices of those external sites.'
-  },
-  {
-    title: 'Children\'s privacy',
-    body: 'This site is not directed at children under 13 and we do not knowingly collect data from them.'
-  },
-  {
-    title: 'Your choices',
-    body: 'You can browse this entire curriculum without enabling cookies. Most browsers let you block third-party cookies or clear them per-site. Disabling cookies may affect how ads are personalized but will not block access to any lesson.'
-  },
-  {
-    title: 'Changes to this policy',
-    body: 'This policy may be updated as the project evolves. Material changes will be reflected by an updated date on this page.'
-  },
-  {
-    title: 'Contact',
-    body: 'Questions about this policy? Open an issue on the project\'s GitHub repository.'
-  }
-]
+// Literal values kept out of the translatable copy.
+const params = { aboutAds: 'www.aboutads.info' }
+
+const sections = computed(() =>
+  (tm('privacy.sections') as { title: string, body: string }[]).map(s => ({
+    title: rt(s.title),
+    body: rt(s.body, params)
+  }))
+)
 </script>
 
 <template>
@@ -52,15 +25,30 @@ const sections = [
     <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
       <UContainer class="relative py-16 sm:py-20">
         <p class="eyebrow mb-5">
-          Sheet 14 / Privacy
+          {{ t('privacy.hero.eyebrow') }}
         </p>
         <h1 class="bp-h1">
-          Privacy Policy
+          {{ title }}
         </h1>
         <p class="mt-4 max-w-2xl bp-lead">
-          CRM Analytics Academy is a free curriculum, funded in part by advertising. Here is exactly what
-          that means for your data.
+          {{ t('privacy.hero.lead') }}
         </p>
+        <i18n-t
+          v-if="locale !== 'en'"
+          keypath="privacy.englishPrevails"
+          tag="p"
+          scope="global"
+          class="mt-4 max-w-2xl text-sm text-(--ink2)"
+        >
+          <template #link>
+            <NuxtLink
+              :to="switchLocalePath('en')"
+              class="text-(--signal) hover:underline"
+            >
+              {{ t('privacy.englishLink') }}
+            </NuxtLink>
+          </template>
+        </i18n-t>
       </UContainer>
     </section>
 
@@ -68,8 +56,8 @@ const sections = [
       <UContainer>
         <div class="mx-auto max-w-3xl space-y-10">
           <div
-            v-for="s in sections"
-            :key="s.title"
+            v-for="(s, i) in sections"
+            :key="i"
           >
             <h2 class="text-xl font-bold text-(--ink)">
               {{ s.title }}
