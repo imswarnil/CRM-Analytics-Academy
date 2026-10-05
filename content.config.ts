@@ -92,11 +92,12 @@ export default defineContentConfig({
         // a server-side entitlement check. Anything not marked ships to
         // everyone, so a lesson that should be paid and is not marked is free.
         access: z.enum(['free', 'pro']).default('free'),
-        // Mux playback ids, one per language: `mux: { en: abc, es: def }`, or a
-        // single string for English only. The player picks the reader's
-        // language and falls back to English. A free lesson's ids use Mux's
-        // public playback policy; a pro lesson's are signed, so the id is
-        // useless without the short-lived token /api/lesson mints.
+        // The lesson's ONE video: a Mux playback id. Every locale plays it;
+        // languages are captions + a transcript (content-transcripts/), not
+        // separate recordings. The old per-language map is still accepted, but
+        // only its `en` entry is used (gate-content warns). A free lesson's id
+        // uses Mux's public policy; a Pro lesson's is signed and plays only
+        // with the token /api/lesson mints after the entitlement check.
         mux: z.union([z.string(), z.record(z.string(), z.string())]).optional(),
         links: z.array(z.object({
           label: z.string(),
@@ -111,18 +112,11 @@ export default defineContentConfig({
           start: z.number().optional(),
           end: z.number().optional()
         }).optional(),
-        // Optional generated clip (scripts/lesson-to-video.mjs): a local MP4
-        // rendered above the YouTube embed. Files live in public/videos/,
-        // which is gitignored, so a clip is local until deliberately published.
-        clip: z.object({
-          src: z.string(),
-          poster: z.string().optional()
-        }).optional(),
         // The lesson's screen walkthrough, as a recording script. Rendered by
         // LessonWalkthrough where the video goes: open when the lesson has no
-        // clip/video yet, collapsed once one lands. The `say` lines are written
-        // as teaching prose rather than stage direction, so the script reads as
-        // a text tour on its own -- which is what it is until the clip exists.
+        // video yet, collapsed once one lands. The `say` lines are written as
+        // teaching prose rather than stage direction, so the script reads as a
+        // text tour on its own -- which is what it is until the video exists.
         walkthrough: z.object({
           // What to have on screen before recording starts.
           org: z.string().optional(),

@@ -13,7 +13,11 @@
  */
 export interface SignedPlayback {
   playbackId: string
+  /** aud "v": the video itself (and its text tracks). */
   token: string
+  /** aud "t" / "s": the poster and the scrubbing storyboard, signed too. */
+  thumbnailToken: string
+  storyboardToken: string
   expiresAt: number
 }
 
@@ -66,6 +70,17 @@ async function importKey(pem: string): Promise<CryptoKey> {
   )
 }
 
+/** Mux JWT audiences: v = video, t = thumbnail, s = storyboard. */
+type MuxAudience = 'v' | 't' | 's'
+
+async function signToken(key: CryptoKey, keyId: string, playbackId: string, aud: MuxAudience, exp: number): Promise<string> {
+  const header = { alg: 'RS256', typ: 'JWT', kid: keyId }
+  const payload = { sub: playbackId, aud, exp, kid: keyId }
+  const signingInput = `${base64url(JSON.stringify(header))}.${base64url(JSON.stringify(payload))}`
+  const signature = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, new TextEncoder().encode(signingInput))
+  return `${signingInput}.${base64url(signature)}`
+}
+
 export async function signMuxPlayback(playbackId: string): Promise<SignedPlayback | undefined> {
   const keyId = process.env.MUX_SIGNING_KEY_ID
   const keySecret = process.env.MUX_SIGNING_KEY_SECRET
@@ -74,27 +89,26 @@ export async function signMuxPlayback(playbackId: string): Promise<SignedPlaybac
   // build and run. Returning undefined lets the caller decide.
   if (!keyId || !keySecret) return undefined
 
-  const now = Math.floor(Date.now() / 1000)
-  const exp = now + TTL_SECONDS
-
-  const header = { alg: 'RS256', typ: 'JWT', kid: keyId }
-  const payload = {
-    sub: playbackId,
-    aud: 'v', // "v" is Mux's audience for video playback
-    exp,
-    kid: keyId
-  }
-
-  const signingInput = `${base64url(JSON.stringify(header))}.${base64url(JSON.stringify(payload))}`
+  const exp = Math.floor(Date.now() / 1000) + TTL_SECONDS
 
   // The secret arrives base64-encoded from the Mux dashboard.
   const pem = atob(keySecret.replace(/\s+/g, ''))
   const key = await importKey(pem)
-  const signature = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, new TextEncoder().encode(signingInput))
+  const [token, thumbnailToken, storyboardToken] = await Promise.all([
+    signToken(key, keyId, playbackId, 'v', exp),
+    signToken(key, keyId, playbackId, 't', exp),
+    signToken(key, keyId, playbackId, 's', exp)
+  ])
 
-  return {
-    playbackId,
-    token: `${signingInput}.${base64url(signature)}`,
-    expiresAt: exp
+  return { playbackId, token, thumbnailToken, storyboardToken, expiresAt: exp }
+}
+
+/** Sign every id in a list (a `::pro` block can hold several videos). */
+export async function signMuxPlaybacks(ids: string[]): Promise<Record<string, SignedPlayback>> {
+  const out: Record<string, SignedPlayback> = {}
+  for (const id of ids) {
+    const signed = await signMuxPlayback(id)
+    if (signed) out[id] = signed
   }
+  return out
 }

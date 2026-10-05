@@ -16,6 +16,7 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parse as parseYaml } from 'yaml'
+import { stripProBlocks } from './lib/pro-blocks.mjs'
 
 const ROOT = process.cwd()
 const CONTENT = path.join(ROOT, 'content', 'en')
@@ -151,7 +152,8 @@ async function main() {
     // prerender ignore list.
     if (data.access === 'pro') continue
 
-    const { headings, text } = extractText(body)
+    // Inline `::pro` blocks are gated text too: an index entry is public.
+    const { headings, text } = extractText(stripProBlocks(body))
     const words = text ? text.split(/\s+/).length : 0
 
     index.push({

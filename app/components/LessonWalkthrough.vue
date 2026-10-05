@@ -11,14 +11,14 @@
 //         onscreen: "Recipes ≠ dataflows"
 //         seconds: 40
 //
-// It is not a placeholder. Until a clip exists this IS the walkthrough, and it
+// It is not a placeholder. Until a video exists this IS the walkthrough, and it
 // is written to be read: the `say` lines are teaching prose, not stage
 // direction, so a reader who never watches the video still gets the tour. The
 // production metadata -- the click path, the overlay, the timing -- stays
 // visually secondary, useful to whoever records it and skippable by everyone
 // else.
 //
-// Once `clip` or `video` frontmatter lands, the lesson page passes
+// Once the lesson has a video (`mux`, or a YouTube `video`), the page passes
 // `has-video` and this collapses to a closed disclosure: the video supersedes
 // it, but the script stays available as the transcript-shaped version of the
 // same tour. <details> rather than reactive state, so it works before

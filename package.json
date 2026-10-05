@@ -33,6 +33,7 @@
     "@iconify-json/simple-icons": "^1.2.87",
     "@iconify-json/vscode-icons": "^1.2.62",
     "@microsoft/clarity": "^1.0.2",
+    "@mux/mux-player": "^3.13.4",
     "@neondatabase/auth": "^0.5.0-beta",
     "@neondatabase/serverless": "^1.1.0",
     "@nuxt/content": "^3.14.0",

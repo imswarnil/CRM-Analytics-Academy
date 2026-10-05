@@ -5,6 +5,10 @@ export interface LessonMeta {
   type: 'video' | 'article'
   access: 'free' | 'pro'
   quiz: boolean
+  /** Languages the lesson video has a transcript in, English first (from content-transcripts/). */
+  transcripts?: string[]
+  /** The Mux asset's upload date (ISO) and length in seconds, from content-transcripts/videos.json. */
+  video?: { uploadDate?: string, duration?: number }
 }
 
 const table = meta as Record<string, LessonMeta>

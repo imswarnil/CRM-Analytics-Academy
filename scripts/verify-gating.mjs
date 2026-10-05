@@ -14,6 +14,7 @@ import { readFile, readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { existsSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
+import { cuesOf } from './lib/vtt.mjs'
 
 /**
  * Recursive file walk.
@@ -41,6 +42,10 @@ async function walk(dir, match, out = []) {
 const ROOT = process.cwd()
 const PUBLIC = path.join(ROOT, '.output/public')
 const GATED = path.join(ROOT, 'server/assets/gated')
+// Inline `::pro` blocks and the transcripts of Pro videos are gated by the
+// same build step and probed the same way.
+const GATED_BLOCKS = path.join(ROOT, 'server/assets/gated-blocks')
+const GATED_TRANSCRIPTS = path.join(ROOT, 'server/assets/gated-transcripts')
 
 /**
  * Distinctive verbatim slices of the part of each lesson that must stay
@@ -87,19 +92,18 @@ async function readText(file) {
 }
 
 async function main() {
-  if (!existsSync(GATED)) {
+  const assets = [
+    ...(await walk(GATED, f => f.endsWith('.json'))),
+    ...(await walk(GATED_BLOCKS, f => f.endsWith('.json'))),
+    ...(await walk(GATED_TRANSCRIPTS, f => f.endsWith('.vtt')))
+  ]
+  if (!assets.length) {
     console.log('[verify-gating] no gated content — nothing to check')
     return
   }
   if (!existsSync(PUBLIC)) {
     console.error('[verify-gating] .output/public missing — run the build first')
     process.exit(1)
-  }
-
-  const assets = await walk(GATED, f => f.endsWith('.json'))
-  if (!assets.length) {
-    console.log('[verify-gating] no gated content — nothing to check')
-    return
   }
 
   const needles = []
@@ -115,7 +119,19 @@ async function main() {
   ]
   const stubs = (await Promise.all(publicFiles.map(f => readFile(f, 'utf8')))).join('\n')
   for (const file of assets) {
-    const { markdown, data } = JSON.parse(await readFile(file, 'utf8'))
+    // A Pro video's transcript: its cue text is the hidden content.
+    if (file.endsWith('.vtt')) {
+      const text = cuesOf(await readFile(file, 'utf8')).map(c => c.text).join('\n')
+      const found = probes(text, stubs)
+      // A very short transcript can be all filler; that is not worth failing
+      // the build over, unlike a lesson body with nothing to probe.
+      for (const p of found) needles.push({ file, probe: p })
+      continue
+    }
+    const parsed = JSON.parse(await readFile(file, 'utf8'))
+    // An inline-block file holds every `::pro` block of one lesson.
+    const markdown = parsed.blocks ? parsed.blocks.map(b => b.markdown).join('\n') : parsed.markdown
+    const data = parsed.data
     // The body is not the only thing a Pro lesson hides: the interview Q&A,
     // quiz questions and walkthrough narration ride along in `data` and are
     // served by the same entitlement check — so they are probed too. (Some
@@ -137,7 +153,7 @@ async function main() {
   // Every text-ish file, not a chosen few: the two leaks this check was
   // written to catch were in /raw/*.md and llms-full.txt, neither of which an
   // html+json allowlist would have opened.
-  const TEXTUAL = /\.(html|json|txt|sql|md|xml|js)$/i
+  const TEXTUAL = /\.(html|json|txt|sql|md|xml|js|vtt)$/i
   for (const file of await walk(PUBLIC, f => TEXTUAL.test(f))) {
     const size = (await stat(file)).size
     // The content dumps are large; read them anyway — they are the most
