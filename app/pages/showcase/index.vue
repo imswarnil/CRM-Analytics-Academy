@@ -104,7 +104,7 @@ useJsonLd({
 <template>
   <div>
     <BpPageHeader
-      :sheet="`Sheet 05 / Showcase / ${items.length} dashboards`"
+      :sheet="t('showcase.sheet', { n: items.length })"
       :title="t('showcase.title')"
       :lead="t('showcase.subtitle')"
     >
@@ -191,7 +191,7 @@ useJsonLd({
             class="grid content-start gap-6 sm:grid-cols-2"
           >
             <NuxtLink
-              v-for="(item, n) in filtered"
+              v-for="item in filtered"
               :key="item.path"
               :to="localePath(item.path)"
               class="bp-card bp-card--hover group flex flex-col"
@@ -199,26 +199,26 @@ useJsonLd({
               <BpShowcaseThumb
                 :image="item.image"
                 :alt="item.title"
-                :seed="item.path"
+                class="border-b-[1.5px] border-(--ink)"
               />
 
               <div class="flex grow flex-col p-5">
-                <p class="eyebrow">
-                  Fig. {{ String(n + 1).padStart(2, '0') }} — {{ item.domain || 'Dashboard' }}
-                </p>
-                <h3 class="mt-2 flex items-start gap-1 text-lg font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">
+                <h3 class="text-lg font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">
                   {{ item.title }}
                 </h3>
-                <p class="mt-2 grow text-sm text-(--ink2)">
+                <p class="mt-2 line-clamp-2 grow text-sm text-(--ink2)">
                   {{ item.description }}
                 </p>
 
                 <div class="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-dashed border-(--line) pt-3">
                   <span class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">{{ t('showcase.by') }} {{ item.author }}</span>
-                  <span
-                    class="border-[1.5px] px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
-                    :class="item.difficulty === 'Advanced' ? 'border-(--ink) bg-(--ink) text-(--paper)' : item.difficulty === 'Beginner' ? 'border-(--signal) text-(--signal)' : 'border-(--ink) text-(--ink)'"
-                  >{{ difficultyLabel(item.difficulty) }}</span>
+                  <span class="inline-flex items-center gap-1 text-sm font-bold text-(--signal)">
+                    {{ t('showcase.viewBuild') }}
+                    <UIcon
+                      name="i-lucide-arrow-right"
+                      class="size-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+                    />
+                  </span>
                 </div>
               </div>
             </NuxtLink>
@@ -248,7 +248,7 @@ useJsonLd({
 
           <div class="graph-paper-navy mt-12 border-[1.5px] border-(--ink) bg-(--navy) p-8 text-white">
             <p class="eyebrow text-(--glow)!">
-              Submit
+              {{ t('showcase.submitEyebrow') }}
             </p>
             <p class="mt-2 text-2xl font-extrabold tracking-[-0.02em]">
               {{ t('showcase.submit') }}

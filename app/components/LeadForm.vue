@@ -4,8 +4,9 @@ import { emailDomain, isFreeEmailDomain } from '../../server/utils/freeEmailDoma
 
 /**
  * One form for every way to reach the Academy: contact, sales, quotes, team
- * sign-ups, implementation, sponsorship, instructor
- * applications and Wall of Fame nominations.
+ * sign-ups, implementation, sponsorship, instructor applications, Wall of
+ * Fame nominations, and the experts network — project requests (`project`)
+ * and applications to join (`expert`).
  *
  * The contact fields are shared; `type` decides which of them are required,
  * whether a work email is required (business conversations — the company
@@ -13,13 +14,19 @@ import { emailDomain, isFreeEmailDomain } from '../../server/utils/freeEmailDoma
  * fields appear. Everything is validated again on the server in
  * server/utils/leads.ts; this side only gives earlier, friendlier errors.
  */
-type LeadType = 'quote' | 'sales' | 'contact' | 'instructor' | 'sponsor' | 'team' | 'nomination' | 'implementation'
+type LeadType = 'quote' | 'sales' | 'contact' | 'instructor' | 'sponsor' | 'team' | 'nomination' | 'implementation' | 'project' | 'expert'
+
+interface Option {
+  label: string
+  value: string
+}
 
 interface Field {
   key: string
   label: string
-  kind: 'select' | 'text' | 'url' | 'textarea'
-  options?: string[]
+  kind: 'select' | 'multiselect' | 'text' | 'url' | 'textarea'
+  /** Plain strings are stored as written; options store `value` and show `label`. */
+  options?: string[] | Option[]
   required?: boolean
   placeholder?: string
   wide?: boolean
@@ -35,7 +42,7 @@ interface TypeConfig {
   role?: boolean
   country?: boolean
   seats?: string
-  budget?: string[]
+  budget?: string[] | Option[]
   fields: Field[]
 }
 
@@ -45,9 +52,57 @@ const props = defineProps<{
   preset?: Record<string, string>
 }>()
 
-const WORK_EMAIL: LeadType[] = ['quote', 'sales', 'team', 'implementation', 'sponsor']
+const { t } = useI18n()
 
-const CONFIG: Record<LeadType, TypeConfig> = {
+const WORK_EMAIL: LeadType[] = ['quote', 'sales', 'team', 'implementation', 'sponsor', 'project']
+
+/** Options whose stored value is a stable key and whose label is translated. */
+function keyed(keys: readonly string[], prefix: string): Option[] {
+  return keys.map(k => ({ value: k, label: t(`${prefix}.${k}`) }))
+}
+
+// The experts network's forms are translated; the older ones are English-only
+// pages and keep their English config below.
+const EXPERT_CONFIG = computed<Record<'project' | 'expert', TypeConfig>>(() => ({
+  project: {
+    label: t('experts.form.project.label'),
+    submit: t('experts.form.project.submit'),
+    done: t('experts.form.project.done'),
+    message: t('experts.form.project.message'),
+    messageRequired: true,
+    company: 'required',
+    role: true,
+    country: true,
+    budget: keyed(['under10k', 'from10k', 'from50k', 'from150k', 'unsure'], 'experts.form.project.budgets'),
+    fields: [
+      { key: 'services', label: t('experts.form.project.services'), kind: 'multiselect', required: true, wide: true, options: keyed(PROJECT_SERVICES, 'experts.services') },
+      { key: 'orgEdition', label: t('experts.form.project.edition'), kind: 'select', options: keyed(['enterprise', 'unlimited', 'performance', 'unsure'], 'experts.form.project.editions') },
+      { key: 'dataSources', label: t('experts.form.project.data'), kind: 'select', options: keyed(['salesforce', 'warehouse', 'files', 'many'], 'experts.form.project.sources') },
+      { key: 'timeline', label: t('experts.form.project.timeline'), kind: 'select', options: keyed(['asap', 'months1to3', 'months3to6', 'exploring'], 'experts.form.project.timelines') }
+    ]
+  },
+  expert: {
+    label: t('experts.form.expert.label'),
+    submit: t('experts.form.expert.submit'),
+    done: t('experts.form.expert.done'),
+    message: t('experts.form.expert.message'),
+    messageRequired: true,
+    company: 'optional',
+    role: true,
+    country: true,
+    fields: [
+      { key: 'expertise', label: t('experts.form.expert.expertise'), kind: 'multiselect', required: true, wide: true, options: keyed(EXPERT_SKILLS, 'experts.skills') },
+      { key: 'experienceYears', label: t('experts.form.expert.years'), kind: 'select', required: true, options: keyed(EXPERT_YEARS, 'experts.years') },
+      { key: 'linkedin', label: t('experts.form.expert.linkedin'), kind: 'url', required: true, placeholder: 'https://www.linkedin.com/in/…' },
+      { key: 'portfolio', label: t('experts.form.expert.portfolio'), kind: 'url', placeholder: 'https://…' },
+      { key: 'rateBand', label: t('experts.form.expert.rate'), kind: 'select', options: keyed(EXPERT_RATES, 'experts.rates') },
+      { key: 'availability', label: t('experts.form.expert.availability'), kind: 'select', options: keyed(EXPERT_AVAILABILITY, 'experts.availability') },
+      { key: 'timezone', label: t('experts.form.expert.timezone'), kind: 'text', placeholder: t('experts.form.expert.timezonePlaceholder') }
+    ]
+  }
+}))
+
+const LEGACY_CONFIG: Record<Exclude<LeadType, 'project' | 'expert'>, TypeConfig> = {
   contact: {
     label: 'Contact',
     submit: 'Send message',
@@ -164,7 +219,10 @@ const CONFIG: Record<LeadType, TypeConfig> = {
   }
 }
 
-const config = computed(() => CONFIG[props.type])
+function configFor(type: LeadType): TypeConfig {
+  return type === 'project' || type === 'expert' ? EXPERT_CONFIG.value[type] : LEGACY_CONFIG[type]
+}
+const config = computed(() => configFor(props.type))
 const workEmail = computed(() => WORK_EMAIL.includes(props.type))
 
 const route = useRoute()
@@ -181,9 +239,13 @@ const state = reactive({
   website: '',
   details: {} as Record<string, string>
 })
+// Multi-select answers, kept apart so every single-value field stays a string.
+const multi = ref<Record<string, string[]>>({})
 
 function resetDetails() {
-  state.details = Object.fromEntries(CONFIG[props.type].fields.map(f => [f.key, props.preset?.[f.key] ?? '']))
+  const fields = configFor(props.type).fields
+  state.details = Object.fromEntries(fields.filter(f => f.kind !== 'multiselect').map(f => [f.key, props.preset?.[f.key] ?? '']))
+  multi.value = Object.fromEntries(fields.filter(f => f.kind === 'multiselect').map(f => [f.key, props.preset?.[f.key]?.split(',').filter(Boolean) ?? []]))
 }
 resetDetails()
 watch(() => props.type, resetDetails)
@@ -197,7 +259,7 @@ const emailProblem = computed(() => {
   if (!workEmail.value || !e.includes('@')) return ''
   const domain = emailDomain(e)
   return domain.includes('.') && isFreeEmailDomain(domain)
-    ? `Please use your work email — ${domain} is a personal address.`
+    ? t('leadForm.personalEmail', { domain })
     : ''
 })
 
@@ -230,6 +292,12 @@ async function submit() {
     error.value = emailProblem.value
     return
   }
+  // A required multi-select has no native `required`; check it here.
+  const missing = config.value.fields.find(f => f.kind === 'multiselect' && f.required && !multi.value[f.key]?.length)
+  if (missing) {
+    error.value = t('leadForm.pickOne', { field: missing.label })
+    return
+  }
   sending.value = true
   try {
     const q = route.query
@@ -237,12 +305,11 @@ async function submit() {
       .filter(k => typeof q[k] === 'string').map(k => [k, String(q[k])]))
     await $fetch('/api/leads', {
       method: 'POST',
-      body: { type: props.type, ...state, sourcePage: route.path, utm }
+      body: { type: props.type, ...state, details: { ...state.details, ...multi.value }, sourcePage: route.path, utm }
     })
     sent.value = true
   } catch (e) {
-    const err = e as { statusMessage?: string, data?: { statusMessage?: string } }
-    error.value = err.data?.statusMessage || err.statusMessage || 'Something went wrong. Please try again.'
+    error.value = apiError(e) || t('leadForm.failed')
   } finally {
     sending.value = false
   }
@@ -260,7 +327,7 @@ const localePath = useLocalePath()
 <template>
   <div class="crosshair relative border-[1.5px] border-(--ink) bg-(--card) p-5 shadow-[10px_10px_0_var(--ice)] sm:p-7">
     <p class="mono-label mb-5">
-      Form — {{ config.label }}
+      {{ t('leadForm.formLabel', { label: config.label }) }}
     </p>
 
     <div
@@ -275,7 +342,7 @@ const localePath = useLocalePath()
         />
       </span>
       <p class="mt-4 text-xl font-extrabold tracking-[-0.02em] text-(--ink)">
-        Sent
+        {{ t('leadForm.sent') }}
       </p>
       <p class="mt-1 max-w-sm text-(--ink2)">
         {{ config.done }}
@@ -287,7 +354,7 @@ const localePath = useLocalePath()
         size="sm"
         @click="again"
       >
-        Send another
+        {{ t('leadForm.sendAnother') }}
       </UButton>
     </div>
 
@@ -298,7 +365,7 @@ const localePath = useLocalePath()
     >
       <div class="grid gap-4 sm:grid-cols-2">
         <UFormField
-          :label="type === 'nomination' ? 'Your name' : 'Full name'"
+          :label="type === 'nomination' ? t('leadForm.yourName') : t('leadForm.fullName')"
           required
         >
           <UInput
@@ -309,8 +376,8 @@ const localePath = useLocalePath()
           />
         </UFormField>
         <UFormField
-          :label="workEmail ? 'Work email' : (type === 'nomination' ? 'Your email' : 'Email')"
-          :hint="workEmail ? 'Company domain' : undefined"
+          :label="workEmail ? t('leadForm.workEmail') : (type === 'nomination' ? t('leadForm.yourEmail') : t('leadForm.email'))"
+          :hint="workEmail ? t('leadForm.companyDomain') : undefined"
           :error="emailProblem || undefined"
           required
         >
@@ -325,7 +392,7 @@ const localePath = useLocalePath()
         </UFormField>
         <UFormField
           v-if="config.company !== 'hidden'"
-          :label="config.company === 'required' ? 'Company' : 'Company (optional)'"
+          :label="config.company === 'required' ? t('leadForm.company') : t('leadForm.companyOptional')"
           :required="config.company === 'required'"
         >
           <UInput
@@ -337,12 +404,12 @@ const localePath = useLocalePath()
         </UFormField>
         <UFormField
           v-if="config.role"
-          label="Role (optional)"
+          :label="t('leadForm.roleOptional')"
         >
           <UInput
             v-model="state.role"
             autocomplete="organization-title"
-            placeholder="e.g. Sales Ops lead"
+            :placeholder="t('leadForm.rolePlaceholder')"
             class="w-full"
           />
         </UFormField>
@@ -360,18 +427,18 @@ const localePath = useLocalePath()
         </UFormField>
         <UFormField
           v-if="config.budget"
-          label="Budget"
+          :label="t('leadForm.budget')"
         >
           <USelect
             v-model="state.budget"
             :items="config.budget"
-            placeholder="Select…"
+            :placeholder="t('leadForm.select')"
             class="w-full"
           />
         </UFormField>
         <UFormField
           v-if="config.country"
-          label="Country (optional)"
+          :label="t('leadForm.countryOptional')"
         >
           <UInput
             v-model="state.country"
@@ -381,7 +448,7 @@ const localePath = useLocalePath()
         </UFormField>
         <UFormField
           v-if="type !== 'nomination'"
-          label="Phone (optional)"
+          :label="t('leadForm.phoneOptional')"
         >
           <UInput
             v-model="state.phone"
@@ -402,7 +469,15 @@ const localePath = useLocalePath()
             v-if="f.kind === 'select'"
             v-model="state.details[f.key]"
             :items="f.options"
-            placeholder="Select…"
+            :placeholder="t('leadForm.select')"
+            class="w-full"
+          />
+          <USelect
+            v-else-if="f.kind === 'multiselect'"
+            v-model="multi[f.key]"
+            :items="f.options"
+            multiple
+            :placeholder="t('leadForm.selectMany')"
             class="w-full"
           />
           <UTextarea
@@ -479,13 +554,19 @@ const localePath = useLocalePath()
       />
 
       <div class="flex flex-wrap items-center justify-between gap-3 border-t border-dashed border-(--line) pt-5">
-        <p class="text-xs text-(--ink2)">
-          We only use these details to reply to you. See the
-          <NuxtLink
-            :to="localePath('/privacy')"
-            class="underline hover:text-(--signal)"
-          >privacy policy</NuxtLink>.
-        </p>
+        <i18n-t
+          keypath="leadForm.privacy"
+          tag="p"
+          class="text-xs text-(--ink2)"
+          scope="global"
+        >
+          <template #link>
+            <NuxtLink
+              :to="localePath('/privacy')"
+              class="underline hover:text-(--signal)"
+            >{{ t('leadForm.privacyLink') }}</NuxtLink>
+          </template>
+        </i18n-t>
         <UButton
           type="submit"
           size="lg"

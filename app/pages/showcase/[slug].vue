@@ -52,20 +52,30 @@ useJsonLd({
 <template>
   <div v-if="entry">
     <header class="graph-paper border-b-[1.5px] border-(--ink)">
-      <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div class="mx-auto max-w-(--ui-container) px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <NuxtLink
           :to="localePath('/showcase')"
           class="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2) hover:text-(--signal)"
         >
           <UIcon
             name="i-lucide-arrow-left"
-            class="size-3.5"
+            class="size-3.5 rtl:rotate-180"
           />
           {{ t('showcase.back') }}
         </NuxtLink>
 
-        <p class="eyebrow mt-6">
-          Showcase — {{ entry.domain || 'Dashboard' }} · {{ difficultyLabel(entry.difficulty) }}
+        <!-- The screenshot is the point of the page, so it leads. -->
+        <div class="mt-6 border-[1.5px] border-(--ink) bg-(--card) shadow-[6px_6px_0_var(--ink)]">
+          <BpShowcaseThumb
+            :image="entry.image"
+            :alt="entry.title"
+            :width="1200"
+            eager
+          />
+        </div>
+
+        <p class="eyebrow mt-10">
+          {{ entry.domain || t('showcase.dashboard') }} · {{ difficultyLabel(entry.difficulty) }}
         </p>
         <h1 class="bp-h2 mt-3 max-w-4xl text-(--ink)">
           {{ entry.title }}
@@ -95,23 +105,7 @@ useJsonLd({
     </header>
 
     <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 lg:px-8">
-      <!-- The screenshot is the point of the page, so it leads. -->
-      <BpFigure
-        :caption="`Fig. 01 — ${entry.title}`"
-        :spec="entry.domain"
-        ruler
-        shadow
-      >
-        <NuxtImg
-          :src="entry.image"
-          :alt="entry.title"
-          width="1200"
-          height="675"
-          class="block w-full"
-        />
-      </BpFigure>
-
-      <div class="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div class="min-w-0">
           <!-- KPIs: the table people actually come here for. -->
           <section v-if="entry.kpis?.length">

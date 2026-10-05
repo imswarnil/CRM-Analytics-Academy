@@ -281,49 +281,6 @@
       "start": "Start lesson 1",
       "curriculum": "See curriculum"
     },
-    "method": {
-      "title": "Built by someone who ships CRM Analytics for a living.",
-      "lead": "Four rules shape every lesson. Hover a card to see what it is measured by."
-    },
-    "teams": {
-      "title": "Training a whole Salesforce team?",
-      "lead": "Team plans, progress reports your manager can read, classroom batches and a curriculum fitted to your org.",
-      "cta": "See team plans"
-    },
-    "slides": {
-      "label": "Course figures",
-      "prev": "Previous figure",
-      "next": "Next figure",
-      "dataflow": "A dataflow, drawn",
-      "dataflowNote": "Sources → recipe → dataset → lens and dashboard. Built by hand in section 03.",
-      "topics": "What you will build",
-      "tiles": {
-        "ai": {
-          "title": "AI with Einstein Discovery",
-          "line": "Stories, scores, write-back"
-        },
-        "security": {
-          "title": "Security predicates",
-          "line": "Row-level security that passes audit"
-        },
-        "saql": {
-          "title": "Complex SAQL",
-          "line": "Windowing, cogroup, debugging"
-        },
-        "kpis": {
-          "title": "KPIs that hold up",
-          "line": "Metric contracts and definitions"
-        },
-        "bindings": {
-          "title": "Bindings",
-          "line": "Selection and results bindings"
-        },
-        "recipes": {
-          "title": "Data prep recipes",
-          "line": "Joins, formulas, de-duplication"
-        }
-      }
-    },
     "author": {
       "eyebrow": "Fig. 05 — The author",
       "figure": "Fig. 05 — Who teaches this",
@@ -331,12 +288,63 @@
       "more": "More about Swarnil",
       "connect": "Connect on LinkedIn"
     },
-    "wall": {
-      "eyebrow": "Fig. 06 — Wall of Fame",
-      "title": "The people who taught the rest of us.",
-      "lead": "Bloggers, authors, speakers and tool builders whose work made CRM Analytics learnable — pinned to the wall by name.",
-      "see": "See the whole wall",
-      "board": "Board — Wall of Fame"
+    "figure": {
+      "caption": "Fig. 01 — Academy ARR by month",
+      "spec": "Built in Build 14",
+      "arr": "ARR",
+      "arrDelta": "▲ {n} year on year",
+      "winRate": "Win rate",
+      "winRateDelta": "▲ closed deals",
+      "nrr": "NRR",
+      "nrrDelta": "▲ GRR {n}"
+    },
+    "plot": {
+      "eyebrow": "Fig. 02 — Curriculum, plotted",
+      "title": "{sections} sections, {lessons} lessons",
+      "full": "Full curriculum",
+      "section": "Section",
+      "minutes": "{n} min",
+      "video": "Video walkthrough",
+      "article": "Article"
+    },
+    "showcase": {
+      "eyebrow": "Fig. 03 — Showcase",
+      "title": "Dashboards built in the course",
+      "lead": "Every build comes with its KPIs, the formula behind each one and the steps to make it yourself.",
+      "all": "See all builds"
+    },
+    "experts": {
+      "eyebrow": "Fig. 04 — Experts network",
+      "title": "Need help with CRM Analytics?",
+      "lead": "We are a group of freelance CRM Analytics experts who get things done — or join us and deliver projects with the network.",
+      "hire": "Hire experts",
+      "join": "Join the network",
+      "points": [
+        "Dashboards, recipes, SAQL, security predicates and Einstein Discovery",
+        "Every project has a named lead and a second expert reviewing",
+        "Written milestones and a proper handover to your team"
+      ]
+    },
+    "blurbs": {
+      "introduction": "What the course is, who it is for, a free org, and the first dataset loaded.",
+      "foundations": "What CRM Analytics is, the three layers, the vocabulary, and when it is the wrong tool.",
+      "setup": "Licences, permission sets, the integration user, security predicates and sharing inheritance.",
+      "data-preparation": "Connections, sync, recipes, buckets, missing values and de-duplication.",
+      "datasets-and-modelling": "Grain, joins and fan-out, snapshots for history, and field metadata.",
+      "data-visualization": "Every chart type on its own terms, and which one the question actually needs.",
+      "lenses-and-explorations": "Exploring a dataset: groupings, measures, the three modes, and conversational queries.",
+      "saql": "The query language itself — syntax, functions, the patterns that matter, and debugging.",
+      "designing-dashboards": "Designing for a decision: hierarchy, formatting, widgets and performance.",
+      "interactions": "Faceting, filters and selection — what makes a dashboard a system rather than a page.",
+      "bindings": "One widget feeding another: selection, results, nesting, and where it turns unmaintainable.",
+      "dashboard-json": "Under the hood: reading and editing the JSON when the builder runs out.",
+      "collaboration": "Apps and sharing, subscriptions, annotations, embedding and governance.",
+      "apis-and-automation": "The REST API, Python, automated dataset loads, and CI for analytics.",
+      "einstein-discovery": "Stories, models, writing predictions back — and auditing a score before trusting it.",
+      "gtm-engineering": "The warehouse, metric contracts, and the metric tree the builds fill in.",
+      "demand-analytics": "AI search visibility, SEO, acquisition, campaigns, spend and attribution.",
+      "pipeline-analytics": "Leads through to signature: routing, scoring, conversion, velocity and CPQ.",
+      "revops-analytics": "Forecast, the ARR waterfall, consumption risk, service, and the executive board."
     }
   },
   "footer": {
@@ -397,7 +405,12 @@
     "submitHint": "Built something you are proud of? Open a pull request with one markdown file and it appears here.",
     "beginner": "Beginner",
     "intermediate": "Intermediate",
-    "advanced": "Advanced"
+    "advanced": "Advanced",
+    "noScreenshot": "Screenshot coming soon",
+    "viewBuild": "View the build",
+    "submitEyebrow": "Submit",
+    "sheet": "Sheet 05 / Showcase / {n} dashboards",
+    "dashboard": "Dashboard"
   },
   "course": {
     "curriculum": "Curriculum",
@@ -1375,6 +1388,289 @@
       "article": "Article",
       "free": "Free for everyone",
       "pro": "Part of Pro"
+    }
+  },
+  "leadForm": {
+    "formLabel": "Form — {label}",
+    "sent": "Sent",
+    "sendAnother": "Send another",
+    "fullName": "Full name",
+    "yourName": "Your name",
+    "workEmail": "Work email",
+    "yourEmail": "Your email",
+    "email": "Email",
+    "companyDomain": "Company domain",
+    "company": "Company",
+    "companyOptional": "Company (optional)",
+    "roleOptional": "Role (optional)",
+    "rolePlaceholder": "e.g. Sales Ops lead",
+    "budget": "Budget",
+    "countryOptional": "Country (optional)",
+    "phoneOptional": "Phone (optional)",
+    "select": "Select…",
+    "selectMany": "Select one or more…",
+    "personalEmail": "Please use your work email — {domain} is a personal address.",
+    "pickOne": "Please choose at least one option for “{field}”.",
+    "failed": "Something went wrong. Please try again.",
+    "privacy": "We only use these details to reply to you. See the {link}.",
+    "privacyLink": "privacy policy"
+  },
+  "experts": {
+    "seo": {
+      "title": "Hire CRM Analytics experts",
+      "description": "A network of freelance CRM Analytics experts who deliver dashboards, recipes, SAQL, security predicates and Einstein Discovery — every project with a named lead and a second expert reviewing.",
+      "joinTitle": "Join the CRM Analytics experts network",
+      "joinDescription": "Freelance CRM Analytics specialists: deliver real projects with a partner who reviews your work, on terms agreed per project."
+    },
+    "sheet": "Sheet 08 / Experts network",
+    "hero": {
+      "title": "Need help with CRM Analytics?",
+      "lead": "We are a group of freelance CRM Analytics specialists who get things done. Tell us what you need; we match you with a lead expert and a reviewer from the network, and both answer for the result.",
+      "hire": "Start a project",
+      "join": "Join the network",
+      "points": [
+        "One technology, deeply: only CRM Analytics",
+        "A named lead and a second expert on every project",
+        "Fixed milestones and a proper handover"
+      ]
+    },
+    "deliver": {
+      "eyebrow": "Fig. 01 — What we deliver",
+      "title": "From a single dashboard to a full rollout",
+      "lead": "The same skills the course teaches, applied to your org and your data by people who do it every week."
+    },
+    "services": {
+      "dashboards": "Dashboards",
+      "pipelines": "Recipes & data pipelines",
+      "saql": "SAQL",
+      "security": "Security predicates & sharing",
+      "einstein": "Einstein Discovery",
+      "rescue": "Rescue a stalled project",
+      "training": "Training your team"
+    },
+    "servicesDesc": {
+      "dashboards": "Executive, pipeline and service dashboards designed around a decision — fast, faceted and readable.",
+      "pipelines": "Connections, sync and recipes that turn Salesforce and external data into datasets at the right grain.",
+      "saql": "Hand-written queries for the metrics the builder cannot express: windowing, cogroup, compare tables.",
+      "security": "Row-level security predicates and sharing inheritance that hold up in an audit.",
+      "einstein": "Stories and models with predictions written back to records — and checked before anyone trusts a score.",
+      "rescue": "A project that slipped: we review what exists, fix what blocks it, and get it to a release.",
+      "training": "Hands-on sessions for your admins, analysts and developers, on your own org and data."
+    },
+    "how": {
+      "eyebrow": "Fig. 02 — How delivery works",
+      "title": "Shared responsibility, by design",
+      "lead": "Every project has a named lead who owns the outcome and a second expert who reviews the work before you see it. Nobody delivers alone.",
+      "steps": [
+        {
+          "t": "Brief",
+          "d": "You tell us the goal, the data and the deadline through the form below. No account needed."
+        },
+        {
+          "t": "Scoping call",
+          "d": "A short call to agree scope, milestones and price. You get it in writing before anything starts."
+        },
+        {
+          "t": "Lead + reviewer",
+          "d": "We match a lead expert and a reviewer from the network to your project, by skill and time zone."
+        },
+        {
+          "t": "Milestones",
+          "d": "Work ships in small, reviewed milestones. You see progress every week and sign off each one."
+        },
+        {
+          "t": "Handover",
+          "d": "Documentation, a walkthrough for your team, and everything in your org — nothing locked in our heads."
+        }
+      ]
+    },
+    "roster": {
+      "eyebrow": "Fig. 03 — The network",
+      "title": "The people who deliver",
+      "lead": "Every member is reviewed before they appear here.",
+      "years": "{n}+ yrs",
+      "linkedin": "LinkedIn",
+      "portfolio": "Portfolio",
+      "emptyTitle": "The roster is being assembled",
+      "emptyBody": "We are reviewing the first applications. You can already start a project — we match it with the right people ourselves.",
+      "emptyCta": "Apply to be one of them",
+      "loading": "Loading the roster…"
+    },
+    "faq": {
+      "title": "Questions, answered",
+      "items": [
+        {
+          "q": "Who are the experts?",
+          "a": "Independent CRM Analytics consultants, admins and developers. Each one applied, was reviewed on past work, and delivers under the network’s rules: a named lead, a second reviewer, written milestones."
+        },
+        {
+          "q": "How is a project priced?",
+          "a": "Per project, after the scoping call — a fixed price per milestone or an agreed day rate. You see the price in writing before anything starts."
+        },
+        {
+          "q": "What does “shared responsibility” mean for us?",
+          "a": "You always have one named lead to talk to, and a second expert reviews every milestone before it reaches you. If the lead becomes unavailable, the reviewer already knows the project."
+        },
+        {
+          "q": "Do you work in our org?",
+          "a": "Yes, with the access you grant — usually a sandbox first, then production for the release. Everything we build stays in your org."
+        },
+        {
+          "q": "Can you train our team as well?",
+          "a": "Yes. Many projects end with hands-on sessions on your own dashboards, and the free course stays available to everyone afterwards."
+        }
+      ]
+    },
+    "contact": {
+      "eyebrow": "Fig. 04 — Start a project",
+      "title": "Tell us what you need",
+      "lead": "A few lines are enough. We reply within two working days to set up the scoping call.",
+      "points": [
+        "Use your work email — it is how we prepare the proposal",
+        "No commitment until you approve the written scope",
+        "Your details go to our CRM only to reply to you"
+      ]
+    },
+    "join": {
+      "sheet": "Sheet 09 / Join the network",
+      "title": "Deliver CRM Analytics projects with the network",
+      "lead": "For freelancers who know CRM Analytics well and want real projects, a partner who reviews their work, and terms agreed up front.",
+      "apply": "Apply now",
+      "back": "Hire experts instead",
+      "whoEyebrow": "Fig. 01 — Who can join",
+      "whoTitle": "You might be a fit if…",
+      "who": [
+        "You have delivered CRM Analytics work for real users — dashboards, recipes, SAQL or security",
+        "You can show it: a LinkedIn profile, a portfolio, talks, posts or a repo",
+        "You work independently, or have the freedom to take freelance projects",
+        "You are happy to have your work reviewed — and to review others’"
+      ],
+      "getEyebrow": "Fig. 02 — What members get",
+      "getTitle": "Projects, partners and a fair split",
+      "get": [
+        {
+          "t": "Shared projects",
+          "d": "Requests from companies that reached the network, matched to your skills and time zone."
+        },
+        {
+          "t": "A second pair of eyes",
+          "d": "Every project pairs a lead with a reviewer, so you never carry a delivery alone."
+        },
+        {
+          "t": "Revenue agreed per project",
+          "d": "The split between lead, reviewer and the network is agreed in writing for each project, before work starts."
+        },
+        {
+          "t": "A public profile",
+          "d": "Approved members appear on the experts page with their skills and links."
+        }
+      ],
+      "expectEyebrow": "Fig. 03 — What we expect",
+      "expectTitle": "The standard we hold",
+      "expect": [
+        {
+          "t": "Quality",
+          "d": "Work that would pass your own review: tested, documented, secure by default."
+        },
+        {
+          "t": "Reviews",
+          "d": "Every milestone is reviewed by a second expert before the client sees it — yours included."
+        },
+        {
+          "t": "Communication",
+          "d": "Weekly progress the client can read, and early warning when something slips."
+        },
+        {
+          "t": "Handover",
+          "d": "Nothing left only in your head: documentation and a walkthrough at the end."
+        }
+      ],
+      "formEyebrow": "Fig. 04 — Application",
+      "formTitle": "Apply to join",
+      "formLead": "We review every application and reply within a week. Approved members are added to the roster."
+    },
+    "form": {
+      "project": {
+        "label": "Project request",
+        "submit": "Send the brief",
+        "done": "Thanks — we will reply within two working days to set up the scoping call.",
+        "message": "Describe the project: the goal, the users, the data and any deadline",
+        "services": "What do you need?",
+        "edition": "Salesforce edition",
+        "data": "Data sources",
+        "timeline": "Timeline",
+        "budgets": {
+          "under10k": "Under $10k",
+          "from10k": "$10k–$50k",
+          "from50k": "$50k–$150k",
+          "from150k": "$150k+",
+          "unsure": "Not sure yet"
+        },
+        "editions": {
+          "enterprise": "Enterprise",
+          "unlimited": "Unlimited",
+          "performance": "Performance",
+          "unsure": "Not sure"
+        },
+        "sources": {
+          "salesforce": "Salesforce only",
+          "warehouse": "Salesforce + a warehouse",
+          "files": "Salesforce + files or ERP",
+          "many": "Many systems"
+        },
+        "timelines": {
+          "asap": "As soon as possible",
+          "months1to3": "1–3 months",
+          "months3to6": "3–6 months",
+          "exploring": "Exploring"
+        }
+      },
+      "expert": {
+        "label": "Expert application",
+        "submit": "Send my application",
+        "done": "Thanks for applying — we review every application and reply within a week.",
+        "message": "A CRM Analytics project you are proud of, in a few lines",
+        "expertise": "Areas of expertise",
+        "years": "Years with CRM Analytics",
+        "linkedin": "LinkedIn profile",
+        "portfolio": "Portfolio, talk, blog or repo (optional)",
+        "rate": "Usual rate",
+        "availability": "Availability",
+        "timezone": "Time zone",
+        "timezonePlaceholder": "e.g. UTC+5:30 or Europe/Berlin"
+      }
+    },
+    "skills": {
+      "dashboards": "Dashboards",
+      "recipes": "Recipes & data prep",
+      "saql": "SAQL",
+      "security": "Security & sharing",
+      "bindings": "Bindings & interactions",
+      "json": "Dashboard JSON",
+      "einstein": "Einstein Discovery",
+      "apis": "APIs & automation",
+      "gtm": "Go-to-market analytics",
+      "training": "Training & enablement"
+    },
+    "years": {
+      "from1": "1–2 years",
+      "from3": "3–5 years",
+      "from6": "6–9 years",
+      "from10": "10+ years"
+    },
+    "rates": {
+      "under50": "Under $50 / hour",
+      "from50": "$50–$80 / hour",
+      "from80": "$80–$120 / hour",
+      "from120": "$120–$160 / hour",
+      "from160": "$160+ / hour",
+      "discuss": "Prefer to discuss"
+    },
+    "availability": {
+      "fewHours": "A few hours a week",
+      "partTime": "Part-time (10–20 h a week)",
+      "halfTime": "About half my time",
+      "fullTime": "Full-time for a project"
     }
   },
   "lesson": {
