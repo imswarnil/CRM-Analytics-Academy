@@ -142,6 +142,20 @@ const chapters: Chapter[] = [
       { title: 'How their saves arrive', body: 'Each save goes to a branch lesson/<slug>-<id> and one pull request; later saves to the same lesson update the same pull request. Content → Review queue shows each one with a per-file diff.' },
       { title: 'Publish or send back', body: 'Publish squash-merges into main (translation and deploy follow). Request changes posts your note on the pull request and shows it to the instructor in their studio. A pull request that touches anything outside content/ can only be merged on GitHub.' }
     ]
+  },
+  {
+    n: '11',
+    icon: 'i-lucide-megaphone',
+    title: 'Sponsors',
+    lead: 'One sponsor per calendar month (UTC), $99, exclusive — their creatives fill every promo slot on the site.',
+    steps: [
+      { title: 'How a month is sold', body: '/sponsor shows live reach and a twelve-month timeline. A signed-in buyer picks consecutive open months; checkout HOLDS them for 30 minutes (one live row per month, enforced by a unique index) and sends them to Dodo. Only the payment webhook turns a hold into Paid; a failed or abandoned checkout frees the month. No AdSense loads any more.' },
+      { title: 'One-time setup', body: 'Apply server/db/010_sponsors.sql to Neon. In Dodo (test mode first) create a ONE-TIME product "Sponsorship — one month", price 99 USD, tax category digital services/advertising, and put its id on the Worker. Make sure the webhook endpoint also receives payment.failed and payment.cancelled.', code: 'wrangler secret put DODO_PRODUCT_SPONSOR_MONTH\n# optional, for page views + countries on /sponsor:\nwrangler secret put CF_API_TOKEN   # token with Zone · Analytics · Read\nwrangler secret put CF_ZONE_TAG' },
+      { title: 'The sponsor studio', body: '/sponsor/studio: the sponsor sees their months, builds leaderboard (728×90 + 320×100), square (300×250 or 1:1) and text creatives with true-size previews, publishes, and watches impressions and clicks. Images go to R2 under brand/<sponsor>/ and are size-checked from the bytes.' },
+      { title: 'Moderate and book by hand', body: 'Admin → Sponsors: the booking calendar, pause / reject (with a note the sponsor sees) / restore any creative, cancel a booking, and book months for a sponsor who pays by invoice or gets a complimentary month (they need an account first).', to: '#sponsors' },
+      { title: 'Refunds', body: 'If someone pays after their hold lapsed AND another buyer took the month meanwhile, the booking is flagged "Refunds to make" in Admin → Sponsors. Refund it in the Dodo dashboard, then press Mark refunded. A cancelled paid month is also refunded in Dodo by hand.' },
+      { title: 'What readers see', body: 'With a paid sponsor: their published creative per format, labelled Sponsored, links via /api/placement/go/<id> (counts the click). Without: the house "Promote your brand here" placeholder. Pro readers see neither. Changes reach every page within ~5 minutes (edge cache). Turning AdSense back on for unsold months: build with NUXT_PUBLIC_PROMO_NETWORK=adsense.' }
+    ]
   }
 ]
 
