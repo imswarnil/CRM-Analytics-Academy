@@ -644,5 +644,92 @@
       "live": "Live",
       "building": "Building"
     }
+  },
+  "lesson": {
+    "authors": {
+      "label": "Author | Authors"
+    }
+  },
+  "credits": {
+    "title": "Credits & sources",
+    "by": "by",
+    "license": "licence: {license}",
+    "videoBy": "Video by",
+    "onYoutube": "Watch on YouTube",
+    "kinds": {
+      "video": "Video",
+      "post": "Post",
+      "article": "Article",
+      "image": "Image",
+      "dataset": "Dataset"
+    }
+  },
+  "people": {
+    "eyebrow": "Instructors & credits",
+    "title": "Instructors & credits",
+    "description": "The people behind CRM Analytics Academy: the instructors who write the lessons, the creators whose videos and posts the lessons embed, and the community that improves them.",
+    "lead": "Every lesson names who wrote it, and every video, post or dataset borrowed from someone else names who made it. This is the whole list.",
+    "groups": {
+      "instructors": {
+        "title": "Instructors",
+        "lead": "They write and maintain the lessons. Each card lists the lessons that carry their name.",
+        "empty": "No instructors listed yet."
+      },
+      "creators": {
+        "title": "Creators & writers we credit",
+        "lead": "Videos, posts and datasets by other people that lessons embed or build on — credited on the lesson and here.",
+        "empty": "No third-party work is credited yet."
+      },
+      "community": {
+        "title": "Community",
+        "lead": "Contributors who fixed, translated, reviewed or suggested lessons.",
+        "empty": "Contributors appear here once they are added to the registry."
+      }
+    },
+    "roles": {
+      "instructor": "Instructor",
+      "maintainer": "Maintainer",
+      "blogger": "Blogger",
+      "creator": "Creator",
+      "community": "Community"
+    },
+    "authored": "Wrote {n} lesson | Wrote {n} lessons",
+    "credited": "Credited in {n} lesson | Credited in {n} lessons",
+    "inLesson": "in",
+    "showAll": "Show all {n}",
+    "showLess": "Show fewer",
+    "wallLead": "The wider CRM Analytics community — bloggers, speakers and builders — has its own wall.",
+    "wallLink": "Visit the Wall of Fame",
+    "teach": {
+      "title": "Teach with us",
+      "lead": "The Academy is written by people who build CRM Analytics for a living. If that is you, there is a lesson, a lab or a cohort with your name on it.",
+      "ways": {
+        "01": {
+          "title": "Write a lesson or lab",
+          "text": "One topic, taught on the Academy's own company data, with a walkthrough and a quiz. Credited on the page."
+        },
+        "02": {
+          "title": "Own a section",
+          "text": "Keep a whole section current across Salesforce releases, with the editor reviewing every change."
+        },
+        "03": {
+          "title": "Run live cohorts",
+          "text": "Teach the classroom programmes online or at a center. Paid per cohort."
+        },
+        "04": {
+          "title": "Mentor",
+          "text": "Office hours for teams on the Enterprise plan. Paid per hour."
+        }
+      },
+      "lookingTitle": "Who we are looking for",
+      "looking": {
+        "1": "You have shipped CRM Analytics in production — recipes, SAQL, dashboards people use.",
+        "2": "You can explain why, not only how: the decision a dashboard supports, the trade-off a recipe makes.",
+        "3": "You write plainly and are happy to be edited.",
+        "4": "You can commit to keeping what you teach current after each Salesforce release."
+      },
+      "startSmall": "Prefer to start small?",
+      "contribute": "Contribute a fix or a resource first."
+    }
   }
 }

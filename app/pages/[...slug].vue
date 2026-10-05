@@ -51,6 +51,14 @@ if (!page.value) {
   }
 }
 
+// Authors (content/people) and third-party credits, read from the English
+// lesson like `mux` — see useLessonCredits.
+const { authors: lessonAuthors, credits: lessonCredits, videoCredit, authorLd, citationLd } = await useLessonCredits({
+  page,
+  contentPath: contentPath.value,
+  englishPath: englishPath.value
+})
+
 const { data: surroundRaw } = await useAsyncData(`${route.path}-surround`, async () => {
   const own = await queryCollectionItemSurroundings('docs', contentPath.value, {
     fields: ['description']
@@ -206,7 +214,8 @@ const jsonLd: any[] = [
     // The locale this page was prerendered for, not a fixed 'en'.
     'inLanguage': locales.value.find(l => l.code === locale.value)?.language || locale.value,
     'mainEntityOfPage': SITE.url + route.path,
-    'author': { '@type': 'Person', 'name': SITE.author },
+    'author': authorLd.value,
+    ...citationLd.value,
     'publisher': { '@id': ORG_ID },
     'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url },
     'timeRequired': `PT${lessonMeta.minutes}M`,
@@ -286,6 +295,9 @@ if (video?.id) {
     'uploadDate': '2021-04-01',
     'contentUrl': `https://www.youtube.com/watch?v=${video.id}`,
     'embedUrl': `https://www.youtube.com/embed/${video.id}`,
+    ...(videoCredit.value
+      ? { author: { '@type': 'Person', 'name': videoCredit.value.author, ...(videoCredit.value.authorUrl ? { url: videoCredit.value.authorUrl } : {}) } }
+      : {}),
     ...(video.start != null && video.end != null
       ? {
           hasPart: {
@@ -404,6 +416,10 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         >
           {{ page.description }}
         </p>
+        <CourseLessonAuthors
+          :authors="lessonAuthors"
+          class="mt-4"
+        />
         <div class="mt-5 flex flex-wrap items-center gap-2">
           <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">
             {{ meta.type }} · {{ meta.minutes }} min
@@ -449,6 +465,9 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           :start="page.video.start"
           :end="page.video.end"
           :title="page.title"
+          :author="videoCredit?.author"
+          :author-url="videoCredit?.authorUrl ?? undefined"
+          :credit-title="videoCredit?.title ?? undefined"
         />
         <MuxVideo
           v-else-if="lessonMux && page.access !== 'pro'"
@@ -672,6 +691,11 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
       <LessonInterview
         v-if="page.interview?.length"
         :items="page.interview"
+      />
+
+      <CourseLessonCredits
+        :credits="lessonCredits"
+        :video="videoCredit"
       />
 
       <CourseLessonComplete />

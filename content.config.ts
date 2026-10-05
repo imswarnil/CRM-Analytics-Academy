@@ -73,6 +73,31 @@ export default defineContentConfig({
       })
     }),
 
+    // The people registry: instructors, the bloggers and creators whose work
+    // lessons embed, and community contributors. One YAML file per person,
+    // content/people/<slug>.yml; lessons name their authors by that slug
+    // (`authors: [slug]`). Not localized — a name is a name. Rendered on
+    // /instructors and as the author chips under a lesson title.
+    people: defineCollection({
+      type: 'data',
+      source: 'people/*.yml',
+      schema: z.object({
+        name: z.string(),
+        role: z.enum(['instructor', 'blogger', 'creator', 'community', 'maintainer']),
+        // An http(s) URL or a /public path. Without one, initials are drawn.
+        avatar: z.string().optional(),
+        headline: z.string().optional(),
+        bio: z.string().optional(),
+        links: z.object({
+          site: z.string().url().optional(),
+          linkedin: z.string().url().optional(),
+          youtube: z.string().url().optional(),
+          x: z.string().url().optional(),
+          github: z.string().url().optional()
+        }).optional()
+      })
+    }),
+
     docs: defineCollection({
       type: 'page',
       // Content is organised per locale: content/<locale>/<module>/<lesson>.md.
@@ -81,7 +106,7 @@ export default defineContentConfig({
       source: [
         {
           include: '**',
-          exclude: ['resources/**', 'showcase/**', ...gatedFiles]
+          exclude: ['resources/**', 'showcase/**', 'people/**', ...gatedFiles]
         },
         ...(gatedFiles.length ? [{ cwd: resolve('.gated-stubs'), include: '**' }] : [])
       ],
@@ -109,8 +134,29 @@ export default defineContentConfig({
         video: z.object({
           id: z.string(),
           start: z.number().optional(),
-          end: z.number().optional()
+          end: z.number().optional(),
+          // Attribution when the video is someone else's: rendered as
+          // "Video by <author> — <title> ↗" under the embed.
+          title: z.string().optional(),
+          author: z.string().optional(),
+          authorUrl: z.string().optional()
         }).optional(),
+        // Who wrote the lesson: slugs from content/people. Declared on the
+        // English file only; translations borrow it at render time. None
+        // means the site owner.
+        authors: z.array(z.string()).optional(),
+        // Third-party work the lesson embeds or builds on. Listed under
+        // "Credits & sources" at the end of the lesson and emitted as
+        // schema.org `citation`. English only, like authors.
+        credits: z.array(z.object({
+          kind: z.enum(['video', 'post', 'article', 'image', 'dataset']),
+          title: z.string(),
+          author: z.string(),
+          authorUrl: z.string().optional(),
+          url: z.string(),
+          license: z.string().optional(),
+          note: z.string().optional()
+        })).optional(),
         // Optional generated clip (scripts/lesson-to-video.mjs): a local MP4
         // rendered above the YouTube embed. Files live in public/videos/,
         // which is gitignored, so a clip is local until deliberately published.
