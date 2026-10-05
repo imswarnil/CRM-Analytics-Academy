@@ -35,7 +35,8 @@
     "home": "Home",
     "pricing": "Pricing",
     "instructors": "Instructors & credits",
-    "enrollFree": "Enroll free"
+    "enrollFree": "Enroll free",
+    "sponsorShort": "Sponsor"
   },
   "sponsorCard": {
     "title": "Sponsor this project",

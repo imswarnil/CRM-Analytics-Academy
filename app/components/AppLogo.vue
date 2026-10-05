@@ -3,7 +3,9 @@
  * The mark: three ascending bars in an ink-bordered box — a bar chart as a
  * drafting symbol — beside the name.
  */
-defineProps<{ inverted?: boolean }>()
+// `compact` drops the word "Academy" on narrow screens, where the header row
+// would otherwise wrap or push the menu button off screen.
+defineProps<{ inverted?: boolean, compact?: boolean }>()
 </script>
 
 <template>
@@ -20,6 +22,8 @@ defineProps<{ inverted?: boolean }>()
     <span
       class="whitespace-nowrap text-[17px] font-extrabold leading-none tracking-[-0.02em]"
       :class="inverted ? 'text-white' : 'text-(--ink)'"
-    >CRM Analytics <span :class="inverted ? 'text-(--glow)' : 'text-(--signal)'">Academy</span></span>
+    >CRM Analytics<span
+      :class="[inverted ? 'text-(--glow)' : 'text-(--signal)', compact ? 'max-[420px]:hidden' : '']"
+    > Academy</span></span>
   </span>
 </template>

@@ -16,7 +16,7 @@ const menuItems = computed(() => [
   { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.pricing'), icon: 'i-lucide-tag', to: '/pricing' },
-  { label: t('nav.sponsor'), icon: 'i-lucide-megaphone', to: localePath('/sponsor') }
+  { label: t('nav.sponsorShort'), icon: 'i-lucide-megaphone', to: localePath('/sponsor') }
 ])
 
 function isActive(item: { to: string, exact?: boolean }) {
@@ -97,12 +97,12 @@ const fluid = computed(() =>
         class="shrink-0"
         aria-label="CRM Analytics Academy — home"
       >
-        <AppLogo />
+        <AppLogo compact />
       </NuxtLink>
 
       <!-- Nav cells, full header height, hairline-separated. -->
       <nav
-        class="ms-6 hidden h-16 items-stretch border-s border-(--line) min-[1060px]:flex"
+        class="ms-4 hidden h-16 items-stretch border-s border-(--line) lg:flex xl:ms-6"
         aria-label="Main"
       >
         <NuxtLink
@@ -110,14 +110,14 @@ const fluid = computed(() =>
           :key="item.to"
           :to="item.to"
           :title="item.label"
-          class="relative flex items-center gap-2 border-e border-(--line) px-3.5 text-[15px] font-semibold transition-colors xl:px-4"
+          class="relative flex items-center gap-2 border-e border-(--line) px-3 text-[15px] font-semibold whitespace-nowrap transition-colors min-[1400px]:px-4"
           :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
         >
           <UIcon
             :name="item.icon"
             class="size-4 shrink-0"
           />
-          <span class="max-xl:sr-only">{{ item.label }}</span>
+          <span class="max-[1400px]:sr-only">{{ item.label }}</span>
           <span
             v-if="isActive(item)"
             class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
@@ -127,16 +127,16 @@ const fluid = computed(() =>
     </template>
 
     <template #right>
-      <div class="ms-auto flex items-center gap-2">
+      <div class="ms-auto flex min-w-0 items-center gap-1.5 sm:gap-2">
         <UContentSearchButton
           v-if="header?.search"
           :collapsed="false"
-          class="hidden h-9 rounded-none border-[1.5px] border-(--ink) bg-(--card) px-3 font-mono text-xs text-(--ink2) ring-0 hover:bg-(--ice) sm:flex"
+          class="hidden h-9 rounded-none border-[1.5px] border-(--ink) bg-(--card) px-3 font-mono text-xs text-(--ink2) ring-0 hover:bg-(--ice) min-[1600px]:flex"
           label=""
         />
         <UContentSearchButton
           v-if="header?.search"
-          class="size-9 rounded-none border-[1.5px] border-(--ink) sm:hidden"
+          class="size-9 shrink-0 rounded-none border-[1.5px] border-(--ink) min-[1600px]:hidden"
         />
 
         <UDropdownMenu
@@ -219,7 +219,7 @@ const fluid = computed(() =>
               color="neutral"
               variant="outline"
               icon="i-lucide-log-in"
-              class="max-sm:hidden"
+              class="max-lg:hidden"
             >
               {{ t('nav.signIn') }}
             </UButton>
@@ -227,12 +227,14 @@ const fluid = computed(() =>
               :to="signUpTo"
               size="sm"
               icon="i-lucide-user-plus"
+              :aria-label="t('nav.enrollFree')"
+              class="shrink-0"
             >
-              {{ t('nav.enrollFree') }}
+              <span class="max-sm:sr-only">{{ t('nav.enrollFree') }}</span>
             </UButton>
           </div>
           <template #fallback>
-            <div class="h-9 w-44" />
+            <div class="h-9 w-9 sm:w-32" />
           </template>
         </ClientOnly>
       </div>
@@ -274,7 +276,19 @@ const fluid = computed(() =>
         </div>
       </div>
 
-      <div class="flex items-center justify-between gap-2 border-t-[1.5px] border-(--ink) px-5 py-3">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-t-[1.5px] border-(--ink) px-5 py-3">
+        <ClientOnly>
+          <UButton
+            v-if="!isSignedIn"
+            :to="signInTo"
+            icon="i-lucide-log-in"
+            color="neutral"
+            variant="outline"
+            size="sm"
+          >
+            {{ t('nav.signIn') }}
+          </UButton>
+        </ClientOnly>
         <UDropdownMenu
           :items="localeItems"
           :content="{ align: 'start' }"
