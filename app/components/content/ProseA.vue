@@ -5,7 +5,7 @@ import UiProseA from '@nuxt/ui/runtime/components/prose/A.vue'
 
 const props = defineProps<{
   href?: string
-  target?: string
+  target?: '_blank' | '_parent' | '_self' | '_top' | null
 }>()
 
 const { locale, localeCodes } = useI18n()
