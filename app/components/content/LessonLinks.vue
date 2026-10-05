@@ -22,14 +22,14 @@ function external(to: string) {
 </script>
 
 <template>
-  <div class="not-prose my-8 grid gap-3 sm:grid-cols-2">
+  <div class="not-prose my-8 grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-[repeat(2,minmax(0,1fr))]">
     <NuxtLink
       v-for="(link, i) in items"
       :key="i"
       :to="localized(link.to)"
       :target="external(link.to) ? '_blank' : undefined"
       :rel="external(link.to) ? 'noopener' : undefined"
-      class="group flex items-center gap-3 border-[1.5px] border-(--ink) bg-(--card) px-4 py-3 transition hover:border-(--signal) hover:bg-(--ice)"
+      class="group flex min-w-0 items-center gap-3 border-[1.5px] border-(--ink) bg-(--card) px-4 py-3 transition hover:border-(--signal) hover:bg-(--ice)"
     >
       <div class="flex size-9 shrink-0 items-center justify-center bg-(--ice) text-(--signal)">
         <UIcon

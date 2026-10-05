@@ -433,13 +433,13 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         <div class="flex items-center justify-between gap-3">
           <nav
             aria-label="Breadcrumb"
-            class="min-w-0"
+            class="min-w-0 flex-1"
           >
             <ol class="flex min-w-0 flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2)">
               <li
                 v-for="(c, i) in breadcrumbItems"
                 :key="c.to"
-                class="flex items-center gap-2"
+                class="flex min-w-0 max-w-full items-center gap-2"
               >
                 <span v-if="i">/</span>
                 <NuxtLink
@@ -451,7 +451,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             </ol>
           </nav>
           <UButton
-            class="lg:hidden"
+            class="shrink-0 lg:hidden"
             icon="i-lucide-list"
             color="neutral"
             variant="outline"
