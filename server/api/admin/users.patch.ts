@@ -11,8 +11,6 @@
  * roles. The ADMIN_EMAILS allowlist is the escape hatch, but it needs a
  * redeploy, so the cheap guard is worth having.
  */
-const ROLES = ['admin', 'moderator', 'learner'] as const
-
 export default defineEventHandler(async (event) => {
   const admin = await requireAdmin(event)
   const body = await readBody<{ userId?: string, role?: string, pro?: boolean }>(event)

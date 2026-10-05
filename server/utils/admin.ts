@@ -1,6 +1,9 @@
 import type { H3Event } from 'h3'
 
-export type Role = 'admin' | 'moderator' | 'learner'
+export type Role = 'admin' | 'moderator' | 'instructor' | 'learner'
+
+/** Every role app.user_role may hold, in the order the admin screen lists them. */
+export const ROLES: readonly Role[] = ['learner', 'instructor', 'moderator', 'admin']
 
 /**
  * Who is allowed to administer the site.
@@ -69,4 +72,23 @@ export async function requireModerator(event: H3Event): Promise<SessionUser> {
     throw createError({ statusCode: 404, statusMessage: 'Not found' })
   }
   return resolved.user
+}
+
+/**
+ * Gate for the content editor: admins and instructors.
+ *
+ * An instructor can reach the editor routes but not the rest of /api/admin —
+ * every other route keeps requireAdmin or requireModerator. What an instructor
+ * may change inside the editor (only lessons they author, only through a pull
+ * request) is decided per route from the role returned here.
+ */
+export async function requireEditor(event: H3Event): Promise<{ user: SessionUser, role: 'admin' | 'instructor' }> {
+  const resolved = await getRole(event)
+  if (!resolved) {
+    throw createError({ statusCode: 401, statusMessage: 'Sign in required' })
+  }
+  if (resolved.role !== 'admin' && resolved.role !== 'instructor') {
+    throw createError({ statusCode: 404, statusMessage: 'Not found' })
+  }
+  return { user: resolved.user, role: resolved.role }
 }
