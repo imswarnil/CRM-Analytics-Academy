@@ -26,6 +26,7 @@ const chapters: Chapter[] = [
     title: 'Write a lesson',
     lead: 'English is the only language written by hand. The other eleven are generated on push.',
     steps: [
+      { title: 'Or in the browser', body: 'Admin → Content edits lessons straight against GitHub: no local setup, a live preview, and every save is a commit. See "Editing content" below.', to: '#content' },
       { title: 'Open the CMS', body: 'Payload runs locally. Sign in with your admin account, then Course → Lessons → Create. Pick the section, order and slug; the body is markdown with the course\'s MDC blocks (::field-table, :lesson-links …).', code: 'pnpm cms:dev    # http://localhost:3100/admin' },
       { title: 'Or write markdown directly', body: 'Add content/en/<NN.section>/<NN.lesson>.md with two-digit prefixes. Frontmatter: title, description, navigation.title, access, mux, walkthrough, quiz, interview, links.' },
       { title: 'Preview', body: 'Run the site and open the lesson. If the sidebar looks empty, reset the dev content database.', code: 'pnpm dev\npkill -f "nuxt dev"; rm -rf .data && pnpm dev   # if the nav is empty' },
@@ -114,6 +115,32 @@ const chapters: Chapter[] = [
       { title: 'Traffic and search', body: 'Microsoft Clarity for behaviour; Google Search Console for queries and rich results (verify the domain and submit sitemap_index.xml); Bing gets every changed URL through IndexNow on each deploy.' },
       { title: 'Revenue', body: 'Dodo dashboard for payments; Admin → Teams for seats; entitlements live in app.entitlement.' },
       { title: 'Deploys', body: 'GitHub Actions: Translate, Deploy (lint, typecheck, build, gating check, wrangler deploy, IndexNow).' }
+    ]
+  },
+  {
+    n: '09',
+    icon: 'i-lucide-file-pen-line',
+    title: 'Editing content',
+    lead: 'Admin → Content reads the course from main on GitHub and writes it back as commits. The translate and deploy workflows take it from there.',
+    steps: [
+      { title: 'Open a lesson', body: 'Pick it in the course tree. The form edits title, sidebar title, description, access, authors, credits and the YouTube video (with its credit); the body is markdown with the course\'s MDC blocks and previews live. Raw file edits everything else (quiz, walkthrough, interview). Saving commits to main; if someone else committed the file since you opened it, the save is refused — reload and reapply.', to: '#content' },
+      { title: 'New lesson / new section', body: 'A new lesson goes at the end of its section with the next two-digit prefix and a slug from the title. A new section gets its .navigation.yml and a first page (01.index.md). Also add the section to LLM_SECTIONS in nuxt.config.ts so llms.txt lists it.' },
+      { title: 'Rename and reorder', body: 'Renaming changes the title only — the URL stays. Drag (or use the arrows) to reorder lessons within a section or sections in the course, then Save order: one commit renames the English files, the same paths in every translated locale, and the keys in .translation-manifest.json, so nothing is re-translated. URLs do not change, so progress and comments are unaffected.' },
+      { title: 'Authors and credits', body: 'authors: [slug] names people from content/people (none = the site owner); they show as chips under the title and in the lesson\'s JSON-LD. credits: [{ kind, title, author, authorUrl, url, license, note }] lists any third-party video, post, article, image or dataset; a credited video shows "Video by …" under the embed. Inside a body: ::youtube-embed{id="…" author="…" authorUrl="…" creditTitle="…"}. Everyone credited appears on /instructors.' },
+      { title: 'People', body: 'Content → People adds or edits content/people/<slug>.yml (name, role, avatar, headline, links). Roles: instructor, maintainer, blogger, creator, community.' },
+      { title: 'Needs', body: 'GITHUB_CONTENT_TOKEN on the Worker: a fine-grained PAT on this repository with Contents read/write and Pull requests read/write. Optional GITHUB_CONTENT_REPO and GITHUB_CONTENT_BRANCH (defaults: this repo, main).' }
+    ]
+  },
+  {
+    n: '10',
+    icon: 'i-lucide-graduation-cap',
+    title: 'Instructors',
+    lead: 'Instructors write lessons in the same editor; an admin reviews and publishes every change.',
+    steps: [
+      { title: 'Onboard one', body: '1. Content → People: add their person entry. 2. Users & Roles: set their account to instructor (create the account there if needed). 3. Content → People → Instructor accounts: link the account to their entry. Needs migration 012_instructors.sql applied.', to: '#users' },
+      { title: 'What they can do', body: 'Open /admin (the header shows "Instructor studio") and see only the content editor. They edit lessons whose authors include them and create lessons and sections; they cannot reorder, rename sections or edit people.' },
+      { title: 'How their saves arrive', body: 'Each save goes to a branch lesson/<slug>-<id> and one pull request; later saves to the same lesson update the same pull request. Content → Review queue shows each one with a per-file diff.' },
+      { title: 'Publish or send back', body: 'Publish squash-merges into main (translation and deploy follow). Request changes posts your note on the pull request and shows it to the instructor in their studio. A pull request that touches anything outside content/ can only be merged on GitHub.' }
     ]
   }
 ]

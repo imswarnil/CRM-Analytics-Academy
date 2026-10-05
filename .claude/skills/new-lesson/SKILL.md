@@ -27,12 +27,21 @@ Lessons are markdown under `content/<locale>/<NN.module>/<NN.lesson>.md`. Englis
    # interview:               # Q&A rendered after the body; also FAQPage JSON-LD
    #   - q: "Question text?"
    #     a: "Model answer."
+   # authors: [swarnil-singhai]   # slugs from content/people/; omit for the site owner
+   # credits:                 # every third-party video/post/article/image/dataset used
+   #   - kind: video          # video | post | article | image | dataset
+   #     title: "Their title"
+   #     author: "Their name"
+   #     authorUrl: "https://…"
+   #     url: "https://…"
+   # (a credited YouTube video: add title/author/authorUrl under `video:`)
    ---
 
    # <Lesson Title>
 
    <content…>
    ```
+   An author must exist as `content/people/<slug>.yml` first. Authors and credits go in the English file only.
 4. **Headings**: start with an `h1` matching the title, then `##` sections (the TOC uses these).
 5. **New top-level module?** Also:
    - add a `.navigation.yml` in the module dir (`title:` + `icon:` — a `i-lucide-*` icon), and

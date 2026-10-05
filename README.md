@@ -293,7 +293,7 @@ erDiagram
   }
   USER_ROLE {
     text user_id PK
-    text role "learner | moderator | admin"
+    text role "learner | instructor | moderator | admin"
   }
   INQUIRY {
     bigint id PK
@@ -343,7 +343,11 @@ leaderboard; `app.admin_user` joins everything the admin console shows about a u
 | GET · PATCH | `/api/admin/submissions`, `/comments`, `/inquiries` | moderator | Moderation queues |
 | GET · PATCH · POST | `/api/admin/users` | admin | Users, roles, Pro grants |
 | GET · PATCH | `/api/admin/lessons` | admin | Access tier + Mux ids, committed to GitHub |
-| GET · PUT | `/api/admin/content/tree`, `/file` | admin | In-browser lesson editor, commits to GitHub |
+| GET · PUT | `/api/admin/content/tree`, `/file` | admin · instructor | Course tree from main; read / save a lesson or person (admin → commit to main, instructor → branch + pull request) |
+| POST · PATCH | `/api/admin/content/lesson`, `/section` | admin · instructor | Create a lesson or section (next two-digit prefix); rename a lesson; rename a section (admin) |
+| POST | `/api/admin/content/reorder` | admin | Reorder lessons or sections: English + every locale + manifest keys, one commit |
+| GET · POST | `/api/admin/content/reviews` | admin · instructor | Review queue of instructor pull requests: publish (squash merge), request changes, close |
+| GET · PUT | `/api/admin/content/instructors` | admin | Link instructor accounts to people in the registry |
 | GET | `/api/admin/stats` | admin | Overview metrics |
 | GET | `/raw/<path>.md` | public | Any lesson as raw markdown |
 | GET · POST | `/mcp` | public | MCP server (JSON-RPC 2.0), read-only curriculum tools |
@@ -360,14 +364,27 @@ generated. Schema: `content.config.ts`.
 | `title`, `description`, `navigation.title` | Page title, meta description, short sidebar title |
 | `access: free \| pro` | Pro bodies are moved out of the public bundle by `gate-content.mjs` |
 | `mux: { en: id, es: id }` | Mux playback id per language; English is the fallback |
-| `video: { id, start, end }` | YouTube clip at the top of the lesson |
+| `video: { id, start, end, title?, author?, authorUrl? }` | YouTube clip at the top of the lesson; `author` credits someone else's video ("Video by …") |
+| `authors: [slug]` | Who wrote it — slugs from `content/people/`; none means the site owner. English only, translations inherit |
+| `credits[]: { kind, title, author, authorUrl?, url, license?, note? }` | Third-party video / post / article / image / dataset used in the lesson — "Credits & sources" block and JSON-LD `citation`. English only |
 | `walkthrough: { org, shots[] }` | Screen-recording script, rendered as a step-by-step tour and HowTo JSON-LD |
 | `quiz[]: { q, options[], answer }` | Graded quiz |
 | `interview[]: { q, a }` | Interview Q&A, also FAQPage JSON-LD |
 | `links[]` | Buttons in the lesson header |
 
-Collections: `docs` (lessons, all locales), `showcase` (`content/showcase/`, dashboard write-ups) and
-`resources` (`content/resources/`, curated links).
+Collections: `docs` (lessons, all locales), `showcase` (`content/showcase/`, dashboard write-ups),
+`resources` (`content/resources/`, curated links) and `people` (`content/people/<slug>.yml` — name, role
+instructor | maintainer | blogger | creator | community, avatar, headline, links), listed on `/instructors`
+together with everyone named in a lesson's credits.
+
+**Editing in the browser** — `/admin → Content` reads the course from `main` on GitHub (one GraphQL call,
+cached per commit) and writes back through the Git Data API: edit a lesson (form + markdown + live preview),
+create lessons and sections with correct prefixes, rename, and reorder. A reorder renames the English files,
+the same relative paths in every locale and the `.translation-manifest.json` keys in **one commit**, so
+nothing is re-translated and no URL changes. Admins commit to `main`; **instructors** (role `instructor`,
+linked to a person in the registry) may edit only lessons whose `authors` include them, and every save goes
+to a `lesson/<slug>-<id>` branch and pull request that an admin publishes from the review queue. Requires
+`GITHUB_CONTENT_TOKEN` with Contents + Pull requests read/write, and migration `012_instructors.sql`.
 
 ## Internationalisation
 
