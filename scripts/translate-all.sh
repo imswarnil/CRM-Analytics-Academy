@@ -39,6 +39,12 @@ for locale in $LOCALES; do
 
   node scripts/translate.mjs --only=content --locales="$locale"
   status=$?
+  # Video transcripts (content-transcripts/), same locale, same politeness.
+  if [ $status -eq 0 ] || [ $status -eq 2 ]; then
+    node scripts/translate.mjs --only=transcripts --locales="$locale"
+    t=$?
+    [ $t -ne 0 ] && status=$t
+  fi
   # 2 = some files fell back to English; they stay out of the manifest and get
   # retried on the next pass, so it is not a reason to stop.
   if [ $status -ne 0 ] && [ $status -ne 2 ]; then

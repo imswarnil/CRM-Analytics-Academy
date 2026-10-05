@@ -6,12 +6,20 @@
  *   pnpm translate --locales=es,fr     # only these locales
  *   pnpm translate --only=ui           # only i18n/locales/*.json
  *   pnpm translate --only=content      # only content/en/**
+ *   pnpm translate --only=transcripts  # only content-transcripts/en/** (video captions)
  *   pnpm translate --force             # ignore the manifest, redo everything
  *   pnpm translate --dry-run           # report what would change, write nothing
  *
  * English is the only language anyone edits. Everything under content/<locale>/
  * for locale != en, and every i18n/locales/*.json except en.json, is generated
  * output — edit the English file and re-run.
+ *
+ * Video transcripts follow the same rule. content-transcripts/en/<route>.vtt is
+ * the English caption track of a lesson's ONE video, synced from Mux's
+ * auto-generated captions by scripts/video/captions.mjs; the other locales'
+ * .vtt files are generated here. Only cue TEXT is translated — the header,
+ * NOTE blocks, cue ids and every timing line are copied byte for byte (see
+ * scripts/lib/vtt.mjs; scripts/video/test-vtt.mjs proves the round trip).
  *
  * See scripts/markdown-protect.mjs for why translation goes through HTML rather
  * than raw markdown, and scripts/i18n.config.mjs for the locale and glossary
@@ -20,11 +28,12 @@
 
 import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse as parseYaml, stringify as stringifyYaml } from 'yaml'
 import { fromTranslatedHtml, toTranslatableHtml } from './markdown-protect.mjs'
+import { translateVtt } from './lib/vtt.mjs'
 import {
   BATCH_SIZE,
   CHAR_LIMIT,
@@ -48,6 +57,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const CONTENT_DIR = join(ROOT, 'content')
 const LOCALES_DIR = join(ROOT, 'i18n', 'locales')
 const MANIFEST = join(ROOT, '.translation-manifest.json')
+const TRANSCRIPTS_DIR = join(ROOT, 'content-transcripts')
 
 const ENDPOINT = (process.env.LIBRETRANSLATE_URL || DEFAULT_ENDPOINT).replace(/\/$/, '')
 const API_KEY = process.env.LIBRETRANSLATE_API_KEY || ''
@@ -208,8 +218,10 @@ const HEADING_RE = /^(\s{0,3}#{1,6}\s+)(.*)$/
 const LIST_RE = /^(\s*(?:[-*+]|\d+[.)])\s+)(.*)$/
 const QUOTE_RE = /^(\s*>\s?)(.*)$/
 const RULE_RE = /^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/
-const MDC_OPEN_RE = /^\s*::[a-z][a-z0-9-]*/
-const MDC_CLOSE_RE = /^\s*::\s*$/
+// Two or more colons: a component nested inside another (e.g. a video inside a
+// `::pro` block) is written `:::name` / `:::`, and those markers are code too.
+const MDC_OPEN_RE = /^\s*:{2,}[a-z][a-z0-9-]*/
+const MDC_CLOSE_RE = /^\s*:{2,}\s*$/
 const TABLE_ROW_RE = /^\s*\|.*\|\s*$/
 const TABLE_SEP_RE = /^\s*\|[\s:|-]+\|\s*$/
 
@@ -694,6 +706,131 @@ async function translateContent(manifest) {
 }
 
 // ---------------------------------------------------------------------------
+// Pruning: generated files whose English source is gone
+// ---------------------------------------------------------------------------
+
+/**
+ * Delete every generated locale file whose English source no longer exists,
+ * with its manifest key.
+ *
+ * Renaming or removing an English lesson left its eleven translations behind,
+ * and an orphan is not harmless: it is still a page in the content collection,
+ * so it shadowed the renamed lesson in its locale or kept a deleted one alive
+ * at a URL nothing links to. English is the source of truth for which files
+ * exist, not only for what they say. Runs for content and transcripts, for the
+ * selected locales; `--dry-run` only reports.
+ */
+async function pruneOrphans(manifest, baseDir, keyPrefix, match) {
+  const sourceDir = join(baseDir, SOURCE_LOCALE)
+  if (!existsSync(sourceDir)) return 0
+  let removed = 0
+  for (const locale of LOCALES) {
+    const dir = join(baseDir, locale)
+    if (!existsSync(dir)) continue
+    for (const file of (await walk(dir)).filter(match)) {
+      const rel = relative(dir, file)
+      if (existsSync(join(sourceDir, rel))) continue
+      console.log(`  prune ${relative(ROOT, file)}${DRY_RUN ? '  (dry run)' : ''}`)
+      if (!DRY_RUN) await rm(file)
+      delete manifest[`${keyPrefix}${locale}:${rel}`]
+      removed++
+    }
+  }
+  if (removed && !DRY_RUN) await saveManifest(manifest)
+  return removed
+}
+
+// ---------------------------------------------------------------------------
+// Transcripts (content-transcripts/en/** → content-transcripts/<locale>/**)
+// ---------------------------------------------------------------------------
+
+/**
+ * Translate one VTT with `translateStrings(htmlFragments) → Map`, through the
+ * same protect/restore layer as prose. Exported (with an injectable
+ * translator) so the round trip can be tested offline.
+ */
+export async function translateTranscript(raw, translateStrings) {
+  // VTT markup (<v Speaker>, <b>, <c.x>, <00:01.000>, and the <br> that
+  // joins a cue's lines) is not markdown, and the protect layer would read
+  // <b> as emphasis and hand back **…**. So every tag is first swapped for a
+  // `{vtt:n}` token — protect holds brace groups as opaque atoms (they are MDC
+  // props in lessons) — and swapped back after. Not a code span: two adjacent
+  // spans would read as one double-backtick span.
+  const TOKEN = /\{vtt:(\d+)\}/g
+  const hide = (s) => {
+    const tags = []
+    return { text: s.replace(/<[^>]+>/g, t => `{vtt:${tags.push(t) - 1}}`), tags }
+  }
+  return translateVtt(raw, async (sources) => {
+    const atomsBySource = new Map()
+    const htmlBySource = new Map()
+    const tagsBySource = new Map()
+    for (const s of sources) {
+      if (htmlBySource.has(s)) continue
+      const { text, tags } = hide(s)
+      const atoms = []
+      htmlBySource.set(s, toTranslatableHtml(text, atoms))
+      atomsBySource.set(s, atoms)
+      tagsBySource.set(s, tags)
+    }
+    const translated = await translateStrings([...htmlBySource.values()])
+    const out = new Map()
+    for (const [source, html] of htmlBySource) {
+      const t = translated.get(html)
+      const restored = t == null ? null : fromTranslatedHtml(t, atomsBySource.get(source))
+      if (restored == null) continue
+      const tags = tagsBySource.get(source)
+      out.set(source, restored.replace(TOKEN, (_, i) => tags[Number(i)] ?? ''))
+    }
+    return out
+  })
+}
+
+async function translateTranscripts(manifest) {
+  const sourceDir = join(TRANSCRIPTS_DIR, SOURCE_LOCALE)
+  if (!existsSync(sourceDir)) {
+    console.log('  no content-transcripts/en — nothing to do')
+    return
+  }
+  const files = (await walk(sourceDir)).filter(f => f.endsWith('.vtt'))
+
+  for (const locale of LOCALES) {
+    const target = TARGET_LOCALES[locale]
+    let done = 0
+    let skipped = 0
+    let incomplete = 0
+
+    for (const file of files) {
+      const rel = relative(sourceDir, file)
+      const outPath = join(TRANSCRIPTS_DIR, locale, rel)
+      const raw = await readFile(file, 'utf8')
+      const hash = sha(raw)
+      // Its own key space, so a transcript can never collide with a lesson.
+      const key = `transcript:${locale}:${rel}`
+
+      if (!FORCE && manifest[key] === hash && existsSync(outPath)) {
+        skipped++
+        continue
+      }
+      if (done >= LIMIT) break
+
+      const { text, kept } = await translateTranscript(raw, strings => translateAll(strings, target))
+      await write(outPath, text)
+      if (translatedCleanly(kept)) {
+        manifest[key] = hash
+        await saveManifest(manifest)
+      } else {
+        incomplete++
+      }
+      done++
+    }
+
+    console.log(`  transcripts ${locale}: ${done} translated, ${skipped} unchanged${incomplete ? `, ${incomplete} incomplete — rerun to retry` : ''}`)
+    if (incomplete) incompleteTotal += incomplete
+  }
+}
+
+// ---------------------------------------------------------------------------
 
 async function main() {
   // The endpoint is not in the repository (it is a keyless instance and the
@@ -740,7 +877,13 @@ async function main() {
   }
   if (ONLY === 'all' || ONLY === 'content') {
     console.log('\nContent')
+    await pruneOrphans(manifest, CONTENT_DIR, '', f => /\.(md|ya?ml)$/.test(f))
     await translateContent(manifest)
+  }
+  if (ONLY === 'all' || ONLY === 'transcripts') {
+    console.log('\nTranscripts')
+    await pruneOrphans(manifest, TRANSCRIPTS_DIR, 'transcript:', f => f.endsWith('.vtt'))
+    await translateTranscripts(manifest)
   }
 
   await saveManifest(manifest)
