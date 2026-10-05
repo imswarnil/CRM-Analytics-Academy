@@ -1,4 +1,5 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, realpathSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
@@ -228,6 +229,16 @@ export default defineNuxtConfig({
       // at build time for prerendered pages.
       promoNetwork: ''
     }
+  },
+
+  // Every import of `h3` — server bundle, Vue SSR bundle and client — gets the
+  // 1.x this Nuxt and Nitro are built on. Some modules (@nuxt/content's
+  // runtime, nuxt-site-config) import h3 without declaring it and get whichever
+  // copy pnpm hoisted; after a dependency change that was devtools' h3 2.x, and
+  // every content query and every prerendered page failed ("event.req.headers
+  // .get is not a function"). h3 1.x is a direct dependency so the path exists.
+  alias: {
+    h3: realpathSync(fileURLToPath(new URL('./node_modules/h3/dist/index.mjs', import.meta.url)))
   },
 
   routeRules: redirectRules,
