@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
   })().catch(e => console.error('placement: impression write failed', e))
 
   // Answer the beacon at once; the write finishes in the background.
-  const ctx = event.context.cloudflare?.context as { waitUntil?: (p: Promise<unknown>) => void } | undefined
+  const ctx = cloudflareOf(event).context
   if (ctx?.waitUntil) ctx.waitUntil(write)
   else await write
   return null

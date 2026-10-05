@@ -56,7 +56,7 @@ async function loadIndex(event: H3Event): Promise<AskDoc[]> {
   // A string URL rather than a `new Request(...)`: on the deployed Worker both
   // work, but in `nuxt dev` the binding is emulated by miniflare across a
   // realm boundary where a Node-built Request fails to round-trip.
-  const env = event.context.cloudflare?.env as Record<string, unknown> | undefined
+  const env = cloudflareOf(event).env
   const assets = env?.ASSETS as { fetch: (req: Request | string) => Promise<Response> } | undefined
   if (assets) {
     try {
@@ -253,7 +253,7 @@ export default defineEventHandler(async (event) => {
 
   let body: { jsonrpc?: string, id?: RpcId, method?: string, params?: Record<string, unknown> }
   try {
-    body = await readBody(event)
+    body = (await readBody(event)) ?? {}
   } catch {
     return rpcError(null, -32700, 'Parse error')
   }

@@ -7,7 +7,7 @@
  * under the same name.
  */
 export default defineEventHandler(async (event) => {
-  const bucket = event.context.cloudflare?.env?.MEDIA
+  const bucket = cloudflareOf(event).env?.MEDIA
   if (!bucket) {
     throw createError({ statusCode: 503, statusMessage: 'Media is unavailable in this environment.' })
   }
@@ -24,6 +24,6 @@ export default defineEventHandler(async (event) => {
 
   setHeader(event, 'content-type', object.httpMetadata?.contentType || 'application/octet-stream')
   setHeader(event, 'cache-control', 'public, max-age=31536000, immutable')
-  setHeader(event, 'etag', object.httpEtag)
+  if (object.httpEtag) setHeader(event, 'etag', object.httpEtag)
   return object.body
 })

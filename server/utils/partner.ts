@@ -168,7 +168,7 @@ export async function edgeCached<T>(event: H3Event, key: string, ttlSeconds: num
       headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${ttlSeconds}` }
     })
     const put = cache.put(req, res).catch(() => {})
-    const ctx = event.context.cloudflare?.context as { waitUntil?: (p: Promise<unknown>) => void } | undefined
+    const ctx = cloudflareOf(event).context
     if (ctx?.waitUntil) ctx.waitUntil(put)
     else await put
   }

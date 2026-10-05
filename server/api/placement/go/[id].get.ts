@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       insert into app.sponsor_stat (creative_id, day, clicks) values (${id}::uuid, (now() at time zone 'utc')::date, 1)
       on conflict (creative_id, day) do update set clicks = app.sponsor_stat.clicks + 1
     `.then(() => {}, e => console.error('placement: click write failed', e))
-    const ctx = event.context.cloudflare?.context as { waitUntil?: (p: Promise<unknown>) => void } | undefined
+    const ctx = cloudflareOf(event).context
     if (ctx?.waitUntil) ctx.waitUntil(write)
     else await write
   }

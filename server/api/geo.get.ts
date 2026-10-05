@@ -5,7 +5,7 @@
  * stored or logged; it is the two-letter code and nothing else.
  */
 export default defineEventHandler((event) => {
-  const cf = (event.context.cloudflare?.request as { cf?: { country?: string } } | undefined)?.cf
+  const cf = cloudflareOf(event).request?.cf
   const country = cf?.country || getRequestHeader(event, 'cf-ipcountry') || ''
   setResponseHeader(event, 'cache-control', 'private, no-store')
   return { country: /^[A-Z]{2}$/.test(country) ? country : null }

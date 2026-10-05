@@ -23,7 +23,7 @@ const TYPES: Record<string, string> = {
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
 
-  const bucket = event.context.cloudflare?.env?.MEDIA
+  const bucket = cloudflareOf(event).env?.MEDIA
   if (!bucket) {
     throw createError({ statusCode: 503, statusMessage: 'Uploads are unavailable in this environment.' })
   }

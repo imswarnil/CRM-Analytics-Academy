@@ -191,7 +191,7 @@ export async function loadLead(id: number): Promise<LeadRow | null> {
 
 /** Runs after the response when the platform allows it; otherwise inline. */
 function inBackground(event: H3Event, task: Promise<unknown>) {
-  const ctx = (event.context.cloudflare as { context?: { waitUntil?: (p: Promise<unknown>) => void } } | undefined)?.context
+  const ctx = cloudflareOf(event).context
   const wait = ctx?.waitUntil?.bind(ctx) ?? (event as unknown as { waitUntil?: (p: Promise<unknown>) => void }).waitUntil?.bind(event)
   const safe = task.catch(e => console.error('[leads] background task failed', e))
   if (wait) {
