@@ -3,8 +3,8 @@ import { AUTHOR } from '~/data/author'
 
 /**
  * "Who teaches this" on the home page: the real work history, from the same
- * facts the About page uses. The portrait is Swarnil's own GitHub avatar;
- * if it fails to load, the frame falls back to his initials.
+ * facts the About page uses. The portrait is a photo of Swarnil
+ * (public/people/); if it fails to load, the frame falls back to initials.
  */
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -33,7 +33,7 @@ const photoFailed = ref(false)
                 width="288"
                 height="288"
                 loading="lazy"
-                class="size-full object-cover"
+                class="size-full object-cover object-[50%_30%] grayscale-[15%] contrast-[1.05]"
                 @error="photoFailed = true"
               >
               <span

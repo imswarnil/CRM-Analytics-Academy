@@ -28,6 +28,16 @@ logs
 
 # Personal reference PDFs (not part of the site)
 pdfs/
+/*.pdf
+
+# Regenerated creative-kit outputs: `pnpm assets:build` writes the ProRes
+# overlays, `pnpm slides:lesson` the per-lesson NLE timelines. Heavy, and
+# rebuilt on demand, so they stay out of git.
+content-assets/premiere/
+content-assets/slides/*/premiere-timeline.xml
+
+# The LinkedIn launch kit (post, carousel, screenshots) stays local.
+linkedin/
 
 # Local Salesforce project material that should never reach the public repo.
 # project/ itself is tracked (for its README); these are the things that must not be.

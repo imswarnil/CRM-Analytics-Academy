@@ -3,77 +3,137 @@
 <h1 align="center">CRM Analytics Academy</h1>
 
 <p align="center">
-  <strong>The free, open-source course for Salesforce CRM Analytics</strong> — data prep, datasets, SAQL,
-  dashboards, bindings, Einstein Discovery and seventeen go-to-market dashboard builds, in twelve languages.
+  <strong>Learn Salesforce CRM Analytics the way go-to-market teams actually use it.</strong><br>
+  Data prep, SAQL, dashboards, bindings, Einstein Discovery, and funnel, pipeline and RevOps dashboards
+  built end to end, in twelve languages. Free and open source.
 </p>
 
 <p align="center">
   <a href="https://crmanalytics.imswarnil.com"><strong>Live site</strong></a> ·
   <a href="https://crmanalytics.imswarnil.com/curriculum"><strong>Curriculum</strong></a> ·
   <a href="https://crmanalytics.imswarnil.com/introduction"><strong>Start lesson 1</strong></a> ·
+  <a href="https://crmanalytics.imswarnil.com/teams"><strong>For teams</strong></a> ·
   <a href="https://crmanalytics.imswarnil.com/contribute"><strong>Contribute</strong></a>
 </p>
 
 <p align="center">
+  <a href="https://github.com/imswarnil/CRM-Analytics-Academy/stargazers"><img src="https://img.shields.io/github/stars/imswarnil/CRM-Analytics-Academy?style=flat&logo=github&label=Star&color=2F5BEA&labelColor=0C1B33" alt="Star on GitHub"></a>
   <a href="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml"><img src="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml/badge.svg" alt="Deploy to Cloudflare Workers"></a>
-  <img src="https://img.shields.io/badge/languages-12-2F5BEA" alt="12 languages">
-  <img src="https://img.shields.io/badge/lessons-161-2F5BEA" alt="161 lessons">
+  <img src="https://img.shields.io/badge/lessons-161-2F5BEA?labelColor=0C1B33" alt="161 lessons">
+  <img src="https://img.shields.io/badge/languages-12-2F5BEA?labelColor=0C1B33" alt="12 languages">
   <img src="https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&labelColor=0C1B33" alt="Nuxt 4">
   <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?logo=cloudflare&labelColor=0C1B33" alt="Cloudflare Workers">
+  <img src="https://img.shields.io/badge/built%20with-Claude%20Code-D97757?labelColor=0C1B33" alt="Built with Claude Code">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-0F2A5C" alt="MIT license"></a>
 </p>
 
 <p align="center">
-  <img src="./.github/screenshot.png" alt="CRM Analytics Academy — Blueprint home page" width="820">
+  <img src="./.github/screenshots/home.jpg" alt="CRM Analytics Academy home page in the Blueprint design" width="860">
 </p>
 
-Salesforce CRM Analytics (formerly Wave, Einstein Analytics and Tableau CRM) is documented well in pieces
-and poorly as a path. CRM Analytics Academy is that path: **19 sections and 161 lessons** that go from
-"what is a dataset" to security predicates, complex SAQL, bindings, the dashboard JSON underneath, and a full
-set of revenue dashboards built on one company's data. The core course is free; optional **Pro** lessons fund it.
+> **Status: early days.** The curriculum is live and complete enough to learn from. Accounts, Pro,
+> teams, sponsorship and the lead pipeline are all wired, and payments still run in **test mode**.
+> The first lesson videos are being recorded. ⭐ Star the repo to follow along.
 
 ---
 
-## Contents
+## Why this exists
 
-- [Features](#features)
-- [Built with](#built-with)
-- [Operating the academy](#operating-the-academy)
-- [The curriculum](#the-curriculum)
-- [Architecture](#architecture)
-- [Request flows](#request-flows)
-- [Data model](#data-model)
-- [API](#api)
-- [Content pipeline](#content-pipeline)
-- [Internationalisation](#internationalisation)
-- [SEO](#seo)
-- [CMS (Payload)](#cms-payload)
-- [Directory map](#directory-map)
-- [Scripts](#scripts)
-- [Local setup](#local-setup)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+Salesforce CRM Analytics (formerly Wave, Einstein Analytics and Tableau CRM) is documented well in pieces
+and poorly as a path. Most of what is written about it stops at "here is a chart". Very little shows how a
+**go-to-market team** uses it: the funnel a marketing lead opens on Monday, the pipeline view a sales
+manager reads before the forecast call, the NRR waterfall RevOps takes to the board.
+
+The Academy is that path. It runs in **19 sections and 161 lessons**, from "what is a dataset" through
+security predicates, SAQL windowing, bindings and the dashboard JSON underneath, to a set of revenue
+dashboards built on one company's data. The core course is free; optional **Pro** lessons fund it.
+
+It is also a working GTM system in its own right. The Academy is a small business with leads, plans,
+seats and sponsors, and it runs on the same stack it teaches: forms feed a Salesforce org, and that org
+feeds CRM Analytics dashboards about the Academy itself.
+
+### Who it is for
+
+| You are… | Start here |
+| --- | --- |
+| New to CRM Analytics | [Introduction](https://crmanalytics.imswarnil.com/introduction) → [Basics](https://crmanalytics.imswarnil.com/foundations) |
+| A Salesforce admin or developer adding analytics | [Data Preparation](https://crmanalytics.imswarnil.com/data-preparation) → [SAQL](https://crmanalytics.imswarnil.com/saql) → [Bindings](https://crmanalytics.imswarnil.com/bindings) |
+| In RevOps, Sales Ops or Marketing Ops | [GTM Engineering](https://crmanalytics.imswarnil.com/gtm-engineering) → [Demand](https://crmanalytics.imswarnil.com/demand-analytics) → [Pipeline](https://crmanalytics.imswarnil.com/pipeline-analytics) → [RevOps & Retention](https://crmanalytics.imswarnil.com/revops-analytics) |
+| A team lead training several people | [For teams](https://crmanalytics.imswarnil.com/teams): self-serve seats, one invite link, everyone gets Pro |
+| Preparing for an interview | Every section ends with interview questions and a graded quiz |
+
+## The GTM loop, built on itself
+
+The Academy's own pipeline is part of the course material. Every business form on the site (team seats,
+the sales form, sponsorships, instructor applications) follows the path a real GTM stack would:
+
+```mermaid
+flowchart LR
+  F[Site forms<br/>/teams · /sponsor · /instructors] --> API[POST /api/leads<br/>company-email check]
+  API --> DB[(Neon Postgres<br/>app.lead)]
+  API --> EN[Enrich from the<br/>company's own site]
+  EN --> N8N[n8n webhook<br/>HMAC-signed]
+  N8N --> SF[Salesforce dev org<br/>Lead]
+  SF --> CRMA[CRM Analytics<br/>funnel · velocity · pipeline]
+  CRMA -.lessons and showcase.-> F
+```
+
+That makes the Salesforce org a live lab. The lead-funnel, lead-velocity and pipeline dashboards in the
+course can be built on real, small, honest data rather than a sample app.
+
+## A look inside
+
+| | |
+| --- | --- |
+| ![Lesson player](.github/screenshots/lesson.jpg) | ![Curriculum](.github/screenshots/curriculum.jpg) |
+| **Lesson player.** Course contents with progress, prev / mark complete / next, the course timeline, table of contents. | **Curriculum.** All 161 lessons, plotted by length, kind (video or article) and access (free or Pro). |
+| ![Showcase](.github/screenshots/showcase.jpg) | ![Arabic, right to left](.github/screenshots/lesson-ar.jpg) |
+| **Showcase.** Community dashboard write-ups with KPIs, formulas and build recipes, filterable by domain. | **Twelve languages.** Written once in English and machine-translated; Arabic and Urdu render right to left. |
+| ![Teams](.github/screenshots/teams.jpg) | ![Dark mode](.github/screenshots/lesson-dark.jpg) |
+| **For teams.** Seats from 3 to 50, one invite link, company-domain auto-join. | **Dark mode.** The same drawing, inked in reverse. |
 
 ## Features
 
-- **161 lessons in 19 sections**, prerendered in **12 languages** (2,400+ static pages).
-- **Lesson player** — course contents sidebar with progress rings, prev / mark complete / next, a course
-  timeline, collapsible table of contents, screen walkthroughs, graded quizzes and interview Q&A.
+**Learning**
+- **161 lessons in 19 sections**, prerendered in **12 languages** (2,400+ static pages); `ar` and `ur` are right to left.
+- **Lesson player** with a course-contents sidebar (collapsible to a progress-donut rail), prev / mark complete / next,
+  a course timeline, a collapsible table of contents, screen walkthroughs, graded quizzes and interview Q&A.
+- **Video with a transcript.** Each lesson has one Mux video, English captions synced from Mux and translated
+  into 11 languages, and a searchable, click-to-seek transcript panel.
+- **Datasets and a showcase** of community dashboard write-ups (KPIs, formulas, build steps), filterable by domain and difficulty.
+- **Resources.** A curated list plus community submissions, with link previews read from the submitted page.
+
+**Accounts and business**
 - **Accounts and progress** (Neon Auth), points and a rank on the dashboard, comments on every lesson, a demo account.
-- **Pro lessons** — the body of a Pro lesson never ships in the static bundle; it is served after a
-  server-side entitlement check. Payments through **Dodo Payments**; video through **Mux** (signed for Pro).
-- **Self-serve sponsorship** — one sponsor per calendar month, $99, every promo slot on the site. Live reach
-  and a twelve-month availability timeline on `/sponsor`, Dodo checkout, a sponsor studio with true-size
-  previews, impression and click counts; the house placeholder fills unsold months (no AdSense).
-- **Community** — submit resources, dashboards and lesson ideas; moderated in `/admin`; a showcase of
-  dashboard write-ups with KPIs, formulas and build recipes.
-- **Business pages** — team seats, sales and quote requests, sponsorships and instructor applications into one inbox.
-- **AI-ready** — any lesson as raw markdown at `/raw/<path>.md`, an `llms.txt` and a
-  read-only **MCP server** at `/mcp` (`list_curriculum`, `search_lessons`, `get_lesson`).
-- **Blueprint design system** — paper/ink tokens, graph paper, crop marks, hard shadows, mono labels
-  (the tokens and utilities are in `app/assets/css/main.css`; the primitives in `app/components/bp/`).
+- **Pro lessons.** The body of a Pro lesson never ships in the static bundle. It is served only after a server-side
+  entitlement check, and the build fails if any Pro text leaks. Whole lessons or inline `::pro` blocks.
+- **Pricing.** Free · Pro Monthly $12 · Pro Annual $96 · Team Seat $180/yr · Enterprise. Checkout through **Dodo Payments**.
+- **Teams.** Self-serve seats (3–50) with invite links and company-domain auto-join. Admins can also grant Pro to a company.
+- **Self-serve sponsorship.** One sponsor per calendar month fills every "Promote your brand here" slot on the site.
+  Booked and designed on `/sponsor`, counted by impressions and clicks. Pro readers see no promos.
+- **Leads.** Every form lands in Neon, is enriched, and is forwarded to Salesforce through n8n.
+
+**Platform**
+- **AI-ready.** Any lesson as raw markdown at `/raw/<path>.md`, an `llms.txt`, and a read-only **MCP server** at `/mcp`
+  (`list_curriculum`, `search_lessons`, `get_lesson`).
+- **Admin console.** Content editor that commits to GitHub, an instructor review queue, lessons & Pro, comments, leads,
+  teams, sponsors, KPIs and an operator's guide.
 - **Payload CMS** for authoring, written back to markdown so git stays the source of truth.
+- **SEO.** JSON-LD per page type, hreflang across 12 languages, a sitemap, OG images, and IndexNow after every deploy.
+- **PWA.** Installable, with an offline page.
+
+## Design: Blueprint
+
+The interface is drawn like an engineering sheet: graph paper, crosshair crop marks, rulers, 1.5px ink
+borders, hard offset shadows, square corners, and mono captions that read `FIG. 05 — THE AUTHOR`. There are
+two typefaces (**Schibsted Grotesk** and **IBM Plex Mono**) and one accent colour.
+
+- `app/assets/css/main.css` holds the tokens and utilities, and is the source of truth for the site.
+- `app/components/bp/` holds the drawing primitives: page header, figure, bar chart, donut, timeline, polaroid.
+- **[`tokens/`](tokens/)** carries the same type scale, colours, shadows, grid and motion as
+  [W3C design tokens](tokens/tokens.json), for Final Cut Pro titles, Figma, Keynote and social graphics.
+- **[`content-assets/`](content-assets/)** is the reusable creative kit: brand marks, graph-paper backgrounds
+  at every video size, lower thirds and end cards, and per-lesson slide decks.
 
 ## Built with
 
@@ -81,20 +141,39 @@ set of revenue dashboards built on one company's data. The core course is free; 
 | --- | --- |
 | Framework | [Nuxt 4](https://nuxt.com) (Vue 3, Vite, Nitro), TypeScript |
 | Content | [Nuxt Content 3](https://content.nuxt.com) (markdown + MDC components), `nuxt-llms` for `llms.txt`, `/raw/*.md` for agents |
-| UI | [Nuxt UI v4](https://ui.nuxt.com), [Tailwind CSS 4](https://tailwindcss.com), the in-house **Blueprint** design system (graph paper, crop marks, hard shadows), Schibsted Grotesk + IBM Plex Mono (declared in `main.css`, fetched by the `@nuxt/fonts` that Nuxt UI bundles), Lucide / Simple Icons via Iconify |
-| i18n | `@nuxtjs/i18n` — 12 locales, 2 RTL; machine translation through a self-hosted [LibreTranslate](https://libretranslate.com) |
+| UI | [Nuxt UI v4](https://ui.nuxt.com), [Tailwind CSS 4](https://tailwindcss.com), the in-house **Blueprint** design system, Schibsted Grotesk + IBM Plex Mono, Lucide / Simple Icons via Iconify |
 | Hosting | [Cloudflare Workers](https://workers.cloudflare.com) (static assets at the edge + a Nitro Worker), Cloudflare R2 for uploads, Wrangler |
-| Database | [Neon](https://neon.tech) serverless Postgres (`@neondatabase/serverless`) |
-| Auth | Neon Auth ([better-auth](https://better-auth.com)), a shared demo account |
+| Database | [Neon](https://neon.com) serverless Postgres (`@neondatabase/serverless`), three schemas: `app`, `neon_auth`, `payload` |
+| Auth | Neon Auth ([Better Auth](https://better-auth.com)), resolved server-side per request; a shared demo account |
 | Payments | [Dodo Payments](https://dodopayments.com) hosted checkout + Standard Webhooks (test mode) |
-| Video | [Mux](https://mux.com) (public + signed playback, one video per lesson, auto-generated captions translated into 11 languages), `<mux-player>`, an owner-run production pipeline (`pnpm video`: HeyGen or local voice clone, HyperFrames motion, Premiere via MCP) |
-| CMS | [Payload 3](https://payloadcms.com) on Next.js 15 (`cms/`), Postgres adapter in its own schema, optional R2 storage; Nuxt Studio as a lightweight in-browser editor |
+| Video | [Mux](https://mux.com): public playback for free lessons, signed for Pro, auto-generated captions translated into 11 languages, `<mux-player>` |
+| Translation | Self-hosted [LibreTranslate](https://libretranslate.com) on a Hostinger VPS, driven by GitHub Actions; only changed files are re-translated |
+| CMS | [Payload 3](https://payloadcms.com) on Next.js (`cms/`), Postgres adapter in its own schema; Nuxt Studio as a lightweight in-browser editor |
 | Automation | [n8n](https://n8n.io) webhook → Salesforce Lead (HMAC-signed), enrichment from the company's own site |
+| Salesforce | A CRM Analytics dev org (`salesforce/`, SFDX project): the lab the dashboards are built in, and where the Academy's leads land |
 | SEO | `@nuxtjs/sitemap`, `nuxt-og-image` (Takumi renderer), JSON-LD per page type, hreflang, IndexNow |
 | Analytics | Microsoft Clarity |
 | PWA | Web app manifest, service worker with an offline page, install prompt |
-| Creative | `content-assets/` — SVG/PNG/ProRes kit, After Effects ExtendScript, Premiere XML, lesson-slide generator (rsvg-convert, ffmpeg) |
-| Quality | ESLint (`@nuxt/eslint`), `vue-tsc` typecheck, a build-time gating verifier, GitHub Actions, Renovate |
+| Creative | `content-assets/` (SVG → PNG/ProRes via rsvg-convert and ffmpeg), After Effects ExtendScript, Premiere timeline XML, a lesson-slide generator; design tokens in `tokens/` for Final Cut Pro titles, and a video pipeline (`pnpm video`) |
+| CI/CD | GitHub Actions: deploy, translate, captions; Renovate for dependencies |
+| Quality | ESLint (`@nuxt/eslint`), `vue-tsc` typecheck, a build-time gating verifier |
+| Built with | [Claude Code](https://claude.com/claude-code): architecture, code, migrations, translation pipeline and this README, directed and reviewed by a human |
+
+## How it was made
+
+<p align="center"><img src=".github/screenshots/author.jpg" alt="Fig. 05 — the author section of the home page" width="760"></p>
+
+One person built this with an AI coding agent, with no team behind it. Seven years of building CRM Analytics
+dashboards for sales, marketing and RevOps teams supplied the curriculum, the opinions and the vocabulary.
+[Claude Code](https://claude.com/claude-code) supplied most of the typing.
+
+The skill that mattered was knowing what to ask for: "static-first, gate the Pro bodies at build time",
+"a Blueprint look with hard shadows and crop marks", "incremental translation keyed on a hash of the English
+source", "HMAC-sign the n8n webhook". Every one of those sentences became a working system. What stays
+human is the taste, the domain knowledge and the review.
+
+The git history (250+ commits since June 2026) is the honest record of that process, including the parts
+that broke.
 
 ## Operating the academy
 
@@ -103,10 +182,21 @@ The full, step-by-step operator's guide lives in the admin console (**/admin →
 1. **Write** a lesson in Payload (`pnpm cms:dev`) or as `content/en/<NN.section>/<NN.lesson>.md`; preview with `pnpm dev`.
 2. **Free or Pro**: `access: pro` in the English frontmatter, the Payload field, or **/admin → Lessons & Pro**. The build gates the body and fails if anything leaks.
 3. **Video**: `pnpm video <stage> <route>` (script → voice → avatar → motion → edit → upload → captions, see `video/README.md`); captions sync daily and are translated with the content.
-4. **Publish**: `pnpm cms:pull`, commit, push — translation, build, deploy and IndexNow run in GitHub Actions.
+4. **Publish**: `pnpm cms:pull`, commit, push. Translation, build, deploy and IndexNow run in GitHub Actions.
 5. **Sell**: individuals buy Pro on `/pricing`; companies buy seats on `/teams` and invite colleagues on `/team`; bigger deals come through the sales form at `/teams#contact`.
-6. **Leads**: every form (sales, quotes, team, sponsor, instructor, nomination) lands in Neon, is enriched, forwarded to Salesforce through n8n, and worked in **/admin → Leads**.
+6. **Leads**: every form lands in Neon, is enriched, is forwarded to Salesforce through n8n, and is worked in **/admin → Leads**.
 7. **Track**: `/admin` KPIs, Clarity, Search Console, the Dodo dashboard and the GitHub Actions runs.
+
+## Roadmap
+
+- [x] 161 lessons, 19 sections, 12 languages
+- [x] Accounts, progress, comments, Pro gating, teams, sponsorship, lead pipeline
+- [ ] Record and publish the lesson videos (Mux pipeline is ready; no lesson has a video yet)
+- [ ] Switch Dodo Payments from test to live
+- [ ] Publish the Academy's own GTM dashboards from the Salesforce org into the showcase
+- [ ] Deploy Payload so instructors can author without a local checkout
+
+The public roadmap is at [crmanalytics.imswarnil.com/roadmap](https://crmanalytics.imswarnil.com/roadmap).
 
 ## The curriculum
 
@@ -535,6 +625,9 @@ content-transcripts/  lesson video captions per locale (en synced from Mux, the 
 video/                video pipeline config + guide
 cms/                  Payload CMS
 content-assets/       reusable brand, background, video and project images
+tokens/               Blueprint design tokens (type, colour, grid, motion) for non-web tools
+salesforce/           SFDX project for the CRM Analytics dev org
+integrations/n8n/     the lead workflow (webhook → Salesforce)
 .github/workflows/    deploy (Cloudflare), translate, captions, Pages rollback
 ```
 
@@ -588,6 +681,9 @@ runs `translate.yml`, which commits the eleven translated locales and triggers a
 `deploy.yml` is a manual, static-only GitHub Pages fallback.
 
 ## Contributing
+
+⭐ **The simplest way to help is to [star the repo](https://github.com/imswarnil/CRM-Analytics-Academy).** It is how
+other CRM Analytics people find it.
 
 Every lesson is a markdown file — fix a typo with **Edit this page** on any lesson, or add a lesson under
 `content/en/` (never a Vue file). New UI strings go in `i18n/locales/en.json` only. Run `pnpm lint` and

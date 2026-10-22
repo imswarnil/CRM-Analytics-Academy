@@ -117,6 +117,11 @@ useJsonLd({
         </ul>
       </section>
 
+      <PromoSlot
+        placement="betweenSections"
+        class="mx-auto mt-16 max-w-3xl"
+      />
+
       <section class="graph-paper-navy mt-16 grid items-center gap-6 border-[1.5px] border-(--ink) bg-(--navy) p-8 text-white shadow-[10px_10px_0_var(--signal)] sm:p-10 md:grid-cols-[minmax(0,1fr)_auto]">
         <div>
           <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">

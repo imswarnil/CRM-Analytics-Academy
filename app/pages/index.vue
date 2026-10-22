@@ -344,6 +344,11 @@ const { data: builds } = await useAsyncData('home-showcase', () =>
       </div>
     </section>
 
+    <!-- PROMO ----------------------------------------------------------- -->
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <PromoSlot placement="belowHero" />
+    </div>
+
     <!-- SHOWCASE TEASER --------------------------------------------------- -->
     <section
       v-if="builds?.length"
@@ -402,6 +407,10 @@ const { data: builds } = await useAsyncData('home-showcase', () =>
         </div>
       </div>
     </section>
+
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <PromoSlot placement="betweenSections" />
+    </div>
 
     <!-- FOR TEAMS -------------------------------------------------------- -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 lg:px-8">

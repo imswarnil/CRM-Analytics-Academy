@@ -267,6 +267,11 @@ useJsonLd({
           </div>
         </div>
       </div>
+
+      <PromoSlot
+        placement="betweenSections"
+        class="mx-auto mt-12 max-w-3xl"
+      />
     </div>
   </div>
 </template>

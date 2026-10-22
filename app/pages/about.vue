@@ -26,7 +26,7 @@ usePageSchema(() => ({
     '@type': 'Person',
     'name': AUTHOR.name,
     'url': 'https://imswarnil.com',
-    'image': AUTHOR.avatar,
+    'image': `${SITE.url}${AUTHOR.avatar}`,
     'description': AUTHOR.summary,
     'jobTitle': AUTHOR.role,
     'worksFor': { '@type': 'Organization', 'name': AUTHOR.company },

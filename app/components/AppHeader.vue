@@ -32,7 +32,7 @@ const extraItems = computed(() => [
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
-  { label: t('nav.github'), icon: 'i-simple-icons-github', to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' }
+  { label: t('nav.github'), icon: 'i-simple-icons-github', to: SITE.github, target: '_blank' }
 ])
 
 const signInTo = computed(() => ({ path: localePath('/sign-in'), query: route.path.match(/\/sign-(in|up)/) ? {} : { redirect: route.fullPath } }))
@@ -102,7 +102,7 @@ const fluid = computed(() =>
 
       <!-- Nav cells, full header height, hairline-separated. -->
       <nav
-        class="ms-4 hidden h-16 items-stretch border-s border-(--line) lg:flex xl:ms-6"
+        class="ms-4 hidden h-16 items-stretch border-s border-(--line) lg:flex"
         aria-label="Main"
       >
         <NuxtLink
@@ -110,7 +110,7 @@ const fluid = computed(() =>
           :key="item.to"
           :to="item.to"
           :title="item.label"
-          class="relative flex items-center gap-2 border-e border-(--line) px-3 text-[15px] font-semibold whitespace-nowrap transition-colors min-[1400px]:px-4"
+          class="relative flex items-center gap-2 border-e border-(--line) px-3 text-[14px] font-semibold whitespace-nowrap transition-colors"
           :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
         >
           <UIcon
@@ -128,16 +128,29 @@ const fluid = computed(() =>
 
     <template #right>
       <div class="ms-auto flex min-w-0 items-center gap-1.5 sm:gap-2">
+        <!-- Icon-only at every width: the container stops growing at
+             --ui-container, so a wide search box never has room beside the
+             account buttons (it used to push "Sign in" onto two lines). -->
         <UContentSearchButton
           v-if="header?.search"
-          :collapsed="false"
-          class="hidden h-9 rounded-none border-[1.5px] border-(--ink) bg-(--card) px-3 font-mono text-xs text-(--ink2) ring-0 hover:bg-(--ice) min-[1600px]:flex"
-          label=""
+          class="size-9 shrink-0 rounded-none border-[1.5px] border-(--ink)"
         />
-        <UContentSearchButton
-          v-if="header?.search"
-          class="size-9 shrink-0 rounded-none border-[1.5px] border-(--ink) min-[1600px]:hidden"
-        />
+
+        <!-- Star on GitHub. A plain link: no API call, so no count to go stale
+             or to spend the anonymous GitHub rate limit. -->
+        <a
+          :href="SITE.github"
+          target="_blank"
+          rel="noopener"
+          class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) max-lg:hidden"
+          :aria-label="t('nav.starOnGithub')"
+          :title="t('nav.starOnGithub')"
+        >
+          <UIcon
+            name="i-simple-icons-github"
+            class="size-4"
+          />
+        </a>
 
         <UDropdownMenu
           :items="localeItems"
@@ -154,10 +167,6 @@ const fluid = computed(() =>
               class="size-4"
             />
             {{ locale }}
-            <UIcon
-              name="i-lucide-chevron-down"
-              class="size-3.5"
-            />
           </button>
         </UDropdownMenu>
 
@@ -211,7 +220,7 @@ const fluid = computed(() =>
           </UDropdownMenu>
           <div
             v-else
-            class="flex items-center gap-2"
+            class="flex shrink-0 flex-nowrap items-center gap-2"
           >
             <UButton
               :to="signInTo"
@@ -219,7 +228,7 @@ const fluid = computed(() =>
               color="neutral"
               variant="outline"
               icon="i-lucide-log-in"
-              class="max-lg:hidden"
+              class="shrink-0 whitespace-nowrap max-lg:hidden"
             >
               {{ t('nav.signIn') }}
             </UButton>
@@ -228,13 +237,13 @@ const fluid = computed(() =>
               size="sm"
               icon="i-lucide-user-plus"
               :aria-label="t('nav.enrollFree')"
-              class="shrink-0"
+              class="shrink-0 whitespace-nowrap"
             >
               <span class="max-sm:sr-only">{{ t('nav.enrollFree') }}</span>
             </UButton>
           </div>
           <template #fallback>
-            <div class="h-9 w-9 sm:w-32" />
+            <div class="h-9 w-9 sm:w-56" />
           </template>
         </ClientOnly>
       </div>

@@ -257,6 +257,8 @@ function icon(l: Row) {
         <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--signal) px-1 text-(--signal)">{{ t('curriculumPage.tags.free') }}</span>{{ t('curriculumPage.legend.free') }}</span>
         <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--line) px-1">{{ t('curriculumPage.tags.pro') }}</span>{{ t('curriculumPage.legend.pro') }}</span>
       </div>
+
+      <PromoSlot placement="endOfArticle" />
     </div>
   </div>
 </template>

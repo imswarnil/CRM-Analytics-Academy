@@ -43,6 +43,22 @@ const columns = computed(() => [
   }
 ])
 
+// What the site is made of, credited in the footer. Brand names, so they are
+// not translated; each links to the project's own page.
+const stack = [
+  { label: 'Nuxt', icon: 'i-simple-icons-nuxtdotjs', to: 'https://nuxt.com' },
+  { label: 'Nuxt UI', icon: 'i-lucide-component', to: 'https://ui.nuxt.com' },
+  { label: 'Tailwind CSS', icon: 'i-simple-icons-tailwindcss', to: 'https://tailwindcss.com' },
+  { label: 'Cloudflare', icon: 'i-simple-icons-cloudflare', to: 'https://workers.cloudflare.com' },
+  { label: 'Neon', icon: 'i-lucide-database', to: 'https://neon.com' },
+  { label: 'Mux', icon: 'i-lucide-clapperboard', to: 'https://www.mux.com' },
+  { label: 'LibreTranslate', icon: 'i-lucide-languages', to: 'https://libretranslate.com' },
+  { label: 'Payload', icon: 'i-simple-icons-payloadcms', to: 'https://payloadcms.com' },
+  { label: 'n8n', icon: 'i-simple-icons-n8n', to: 'https://n8n.io' },
+  { label: 'Dodo Payments', icon: 'i-lucide-credit-card', to: 'https://dodopayments.com' },
+  { label: 'Claude Code', icon: 'i-simple-icons-claude', to: 'https://claude.com/claude-code' }
+]
+
 // The honest colophon. One line per page view, chosen on the client so the
 // prerendered page has a stable first line and hydration does not mismatch.
 const quips = computed(() => [t('footer.quip.0'), t('footer.quip.1'), t('footer.quip.2')])
@@ -110,6 +126,45 @@ onMounted(() => {
             </li>
           </ul>
         </div>
+      </div>
+    </div>
+    <!-- Built with: the stack, credited -->
+    <div class="border-t border-white/15">
+      <div class="mx-auto flex max-w-(--ui-container) flex-col gap-3 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:gap-6 lg:px-8">
+        <p class="shrink-0 font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+          {{ t('footer.builtWith') }}
+        </p>
+        <ul class="flex flex-wrap gap-1.5">
+          <li
+            v-for="s in stack"
+            :key="s.label"
+          >
+            <a
+              :href="s.to"
+              target="_blank"
+              rel="noopener"
+              class="flex items-center gap-1.5 border border-white/25 px-2 py-1 font-mono text-[11px] text-white/75 hover:border-(--glow) hover:text-white"
+            >
+              <UIcon
+                :name="s.icon"
+                class="size-3.5"
+                aria-hidden="true"
+              />{{ s.label }}
+            </a>
+          </li>
+        </ul>
+        <a
+          :href="SITE.github"
+          target="_blank"
+          rel="noopener"
+          class="flex shrink-0 items-center gap-2 text-sm text-white/70 hover:text-white lg:ms-auto"
+        >
+          <UIcon
+            name="i-lucide-star"
+            class="size-4 text-(--glow)"
+            aria-hidden="true"
+          />{{ t('footer.builtWithNote') }}
+        </a>
       </div>
     </div>
     <div class="border-t border-white/15">

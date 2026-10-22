@@ -26,7 +26,8 @@
     "instructors": "Instructors & credits",
     "enrollFree": "Enroll free",
     "sponsorShort": "Sponsor",
-    "homeAria": "CRM Analytics Academy — home"
+    "homeAria": "CRM Analytics Academy — home",
+    "starOnGithub": "Star CRM Analytics Academy on GitHub"
   },
   "sponsorCard": {
     "title": "Sponsor this project"
@@ -282,7 +283,9 @@
       "0": "Made by Swarnil with an unreasonable amount of prompting and a heroic waste of tokens.",
       "1": "Hand-drawn by Swarnil, machine-assisted. The token budget is now more of a suggestion.",
       "2": "Built by Swarnil one prompt at a time — a few of them even worked on the first try."
-    }
+    },
+    "builtWith": "Built with",
+    "builtWithNote": "Open source. Star the repo, fork it, or send a pull request."
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",

@@ -11,8 +11,8 @@
    CRM Analytics Academy — "Blueprint"
 
    A technical-drawing style: graph paper, ink borders, crop marks, rulers,
-   square corners and hard offset shadows. The spec is the design handoff in
-   docs/design-handoff-blueprint/ (README + the interactive reference HTML).
+   square corners and hard offset shadows. This file is the source of truth;
+   tokens/tokens.json mirrors its values for video, Figma and the LinkedIn kit.
 
    Layers in this file, in order:
      1. Theme tokens — type, the blueprint ramp, the ink neutral, square radii

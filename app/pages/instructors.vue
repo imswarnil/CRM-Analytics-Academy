@@ -306,6 +306,11 @@ const looking = computed(() => [1, 2, 3, 4].map(i => t(`people.teach.looking.${i
         </p>
       </section>
 
+      <PromoSlot
+        placement="betweenSections"
+        class="mx-auto mt-16 max-w-3xl"
+      />
+
       <!-- Teach with us -->
       <section class="mt-24 border-t-[1.5px] border-(--ink) pt-16">
         <p class="eyebrow">
