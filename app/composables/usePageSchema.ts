@@ -9,7 +9,7 @@ interface PageSchema {
   description?: string
   /** schema.org WebPage subtype: AboutPage, CollectionPage, ContactPage, FAQPage … */
   type?: string
-  /** Crumbs between Home and this page, e.g. [{ name: 'Showcase', path: '/showcase' }]. */
+  /** Crumbs between Home and this page, e.g. [{ name: 'Resources', path: '/resources' }]. */
   trail?: { name: string, path: string }[]
   /** Further entities for this page (a Course, a Service, an ItemList …). */
   extra?: JsonLd[]

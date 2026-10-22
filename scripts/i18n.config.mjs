@@ -13,7 +13,7 @@ export const SOURCE_LOCALE = 'en'
  * Site locale code → LibreTranslate language code.
  *
  * These are deliberately not always identical: LibreTranslate speaks
- * `zh-Hans` (not `zh`) and `pt-BR` (not `pt`). Verify any new entry against
+ * `zh-Hans` (not `zh`). Verify any new entry against
  * `GET /languages` on the server before adding it — an unknown target code
  * makes the API return 400 for every request.
  */
@@ -21,7 +21,9 @@ export const TARGET_LOCALES = {
   es: 'es',
   fr: 'fr',
   de: 'de',
-  pt: 'pt-BR',
+  // The local Argos model is `pt`; LibreTranslate maps `pt-BR` to a separate
+  // `pb` model that is not installed (scripts/libretranslate.sh).
+  pt: 'pt',
   ja: 'ja',
   zh: 'zh-Hans',
   hi: 'hi',

@@ -3,8 +3,7 @@ import type { ContentNavigationItem } from '@nuxt/content'
 
 /**
  * The home page, kept to what a first-time visitor needs: what the course
- * is (hero), what is in it (the curriculum, plotted), real builds (a showcase
- * teaser), seats for teams, who
+ * is (hero), what is in it (the curriculum, plotted), a free account, who
  * wrote it, and the common questions. Everything is prerendered per locale;
  * nothing here fetches at runtime.
  */
@@ -156,18 +155,6 @@ const heroKpis = computed(() => [
 // its minutes, on a shared axis.
 const axisMax = computed(() => Math.ceil(Math.max(15, ...modules.value.map(m => m.lessons.reduce((n, l) => n + l.minutes, 0))) / 15) * 15)
 const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, (_, i) => i * 15))
-
-// ---- Showcase teaser ---------------------------------------------------------
-
-// Read at build time like every other page here; the collection is not
-// localized, so all twelve copies show the same three builds.
-const { data: builds } = await useAsyncData('home-showcase', () =>
-  queryCollection('showcase')
-    .select('path', 'title', 'description', 'image', 'author', 'publishedAt')
-    .order('publishedAt', 'DESC')
-    .limit(3)
-    .all()
-)
 </script>
 
 <template>
@@ -344,106 +331,42 @@ const { data: builds } = await useAsyncData('home-showcase', () =>
       </div>
     </section>
 
-    <!-- PROMO ----------------------------------------------------------- -->
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
-      <PromoSlot placement="belowHero" />
+      <PromoSlot unit="horizontal" />
     </div>
 
-    <!-- SHOWCASE TEASER --------------------------------------------------- -->
-    <section
-      v-if="builds?.length"
-      class="graph-paper border-y-[1.5px] border-(--ink)"
-    >
-      <div class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <div class="max-w-2xl">
-            <p class="eyebrow">
-              {{ t('home.showcase.eyebrow') }}
-            </p>
-            <h2 class="bp-h2 mt-4">
-              {{ t('home.showcase.title') }}
-            </h2>
-            <p class="bp-lead mt-4">
-              {{ t('home.showcase.lead') }}
-            </p>
-          </div>
-          <UButton
-            :to="localePath('/showcase')"
-            color="neutral"
-            variant="outline"
-            trailing-icon="i-lucide-arrow-right"
-          >
-            {{ t('home.showcase.all') }}
-          </UButton>
-        </div>
-        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <NuxtLink
-            v-for="b in builds"
-            :key="b.path"
-            :to="localePath(b.path)"
-            class="bp-card bp-card--hover group flex flex-col"
-          >
-            <BpShowcaseThumb
-              :image="b.image"
-              :alt="b.title"
-              class="border-b-[1.5px] border-(--ink)"
-            />
-            <div class="flex grow flex-col p-5">
-              <h3 class="font-extrabold tracking-[-0.01em] text-(--ink) group-hover:text-(--signal)">
-                {{ b.title }}
-              </h3>
-              <p class="mt-2 line-clamp-2 grow text-sm text-(--ink2)">
-                {{ b.description }}
-              </p>
-              <span class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-(--signal)">
-                {{ t('showcase.viewBuild') }}
-                <UIcon
-                  name="i-lucide-arrow-right"
-                  class="size-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
-                />
-              </span>
-            </div>
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
-
-    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
-      <PromoSlot placement="betweenSections" />
-    </div>
-
-    <!-- FOR TEAMS -------------------------------------------------------- -->
+    <!-- FREE ACCOUNT ----------------------------------------------------- -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 lg:px-8">
       <div class="graph-paper-navy flex flex-col gap-6 border-[1.5px] border-(--ink) p-6 text-white sm:p-10 lg:flex-row lg:items-center lg:justify-between">
         <div class="max-w-2xl">
           <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
-            {{ t('home.forTeams.eyebrow') }}
+            {{ t('home.join.eyebrow') }}
           </p>
           <h2 class="mt-3 text-2xl font-extrabold tracking-[-0.02em] sm:text-3xl">
-            {{ t('home.forTeams.title') }}
+            {{ t('home.join.title') }}
           </h2>
           <p class="mt-3 text-white/80">
-            {{ t('home.forTeams.lead') }}
+            {{ t('home.join.lead') }}
           </p>
         </div>
         <div class="flex flex-wrap gap-3">
           <UButton
-            to="/teams"
+            :to="localePath('/sign-up')"
             color="secondary"
             size="lg"
-            icon="i-lucide-users"
+            icon="i-lucide-user-plus"
           >
-            {{ t('home.forTeams.seats') }}
+            {{ t('nav.enrollFree') }}
           </UButton>
           <UButton
-            to="/teams#contact"
+            :to="localePath('/curriculum')"
             size="lg"
             color="neutral"
             variant="outline"
-            icon="i-lucide-message-square"
+            icon="i-lucide-graduation-cap"
             class="border-white/60 bg-transparent text-white hover:bg-white/10"
           >
-            {{ t('home.forTeams.sales') }}
+            {{ t('home.join.browse') }}
           </UButton>
         </div>
       </div>
@@ -451,11 +374,6 @@ const { data: builds } = await useAsyncData('home-showcase', () =>
 
     <!-- AUTHOR ------------------------------------------------------------ -->
     <HomeAuthorSection />
-
-    <!-- SPONSOR ----------------------------------------------------------- -->
-    <div class="mx-auto max-w-3xl px-4 pb-10 sm:px-6">
-      <SponsorCard />
-    </div>
 
     <!-- FAQ --------------------------------------------------------------- -->
     <section
@@ -478,5 +396,8 @@ const { data: builds } = await useAsyncData('home-showcase', () =>
         />
       </div>
     </section>
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <PromoSlot unit="responsiveLeaderboard" />
+    </div>
   </div>
 </template>

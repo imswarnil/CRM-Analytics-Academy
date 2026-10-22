@@ -296,14 +296,6 @@ export default defineAppConfig({
     search: true,
     colorMode: true,
     links: [{
-      icon: 'i-lucide-heart',
-      label: 'Sponsor this project',
-      to: 'https://github.com/sponsors/crm-analytics-academy',
-      target: '_blank',
-      color: 'primary',
-      variant: 'subtle',
-      class: 'max-sm:[&_span:last-child]:hidden'
-    }, {
       'icon': 'i-simple-icons-github',
       'to': 'https://github.com/imswarnil/CRM-Analytics-Academy',
       'target': '_blank',
@@ -318,6 +310,11 @@ export default defineAppConfig({
       'to': 'https://github.com/imswarnil/CRM-Analytics-Academy',
       'target': '_blank',
       'aria-label': 'CRM Analytics Academy on GitHub'
+    }, {
+      'icon': 'i-simple-icons-youtube',
+      'to': 'https://www.youtube.com/@crmanalyticsacademy',
+      'target': '_blank',
+      'aria-label': 'CRM Analytics Academy on YouTube'
     }]
   },
   toc: {
@@ -326,6 +323,11 @@ export default defineAppConfig({
       title: 'Community',
       edit: 'https://github.com/imswarnil/CRM-Analytics-Academy/edit/main/content',
       links: [{
+        icon: 'i-simple-icons-youtube',
+        label: 'Watch on YouTube',
+        to: 'https://www.youtube.com/@crmanalyticsacademy',
+        target: '_blank'
+      }, {
         icon: 'i-lucide-star',
         label: 'Star on GitHub',
         to: 'https://github.com/imswarnil/CRM-Analytics-Academy',

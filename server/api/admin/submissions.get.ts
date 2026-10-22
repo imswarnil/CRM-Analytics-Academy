@@ -3,12 +3,9 @@
  *
  * Oldest first, because a queue sorted newest-first is one where the oldest
  * item is never reached.
- *
- * Moderator-or-admin: reviewing submissions is the job the moderator role
- * exists for, while changing roles and creating users stays admin-only.
  */
 export default defineEventHandler(async (event) => {
-  await requireModerator(event)
+  await requireAdmin(event)
 
   const { status } = getQuery(event)
   const wanted = ['pending', 'approved', 'rejected'].includes(String(status))

@@ -3,7 +3,6 @@
   "nav": {
     "resources": "Resources",
     "about": "About",
-    "sponsor": "Sponsor this project",
     "github": "View on GitHub",
     "theme": "Toggle theme",
     "chooseLanguage": "Choose language",
@@ -11,170 +10,17 @@
     "contribute": "Contribute",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "roadmap": "Roadmap",
-    "showcase": "Showcase",
     "signIn": "Sign in",
     "signOut": "Sign out",
     "dashboard": "Dashboard",
     "account": "Account",
     "curriculum": "Curriculum",
     "submit": "Contribute a resource",
-    "wallOfFame": "Wall of Fame",
-    "forTeams": "For teams",
     "home": "Home",
-    "pricing": "Pricing",
-    "instructors": "Instructors & credits",
     "enrollFree": "Enroll free",
-    "sponsorShort": "Sponsor",
     "homeAria": "CRM Analytics Academy — home",
-    "starOnGithub": "Star CRM Analytics Academy on GitHub"
-  },
-  "sponsorCard": {
-    "title": "Sponsor this project"
-  },
-  "sponsor": {
-    "slot": {
-      "label": "Sponsored",
-      "labelOpen": "Sponsor slot",
-      "aria": "Sponsor",
-      "eyebrow": "Open slot",
-      "title": "Promote your brand here",
-      "terms": "{price}/month · one sponsor per month",
-      "textBody": "Reach CRM Analytics learners on every page — {price} a month, one sponsor at a time.",
-      "cta": "Book a month",
-      "defaultCta": "Learn more"
-    },
-    "card": {
-      "current": "This month: {name}",
-      "open": "{price}/month · one sponsor at a time"
-    },
-    "page": {
-      "seoTitle": "Sponsor the project",
-      "seoDescription": "Sponsor CRM Analytics Academy: one brand per month, every placement on the site, {price} a month. See live reach and book an open month.",
-      "sheet": "Sheet 13 / Sponsor",
-      "title": "Sponsor the project",
-      "lead": "One brand a month gets every sponsor placement on the academy — banners, rail squares and in-lesson text — in front of people learning Salesforce CRM Analytics. {price} a month. Book an open month below; it goes live on the 1st.",
-      "ctaBook": "See open months",
-      "ctaStudio": "Open the sponsor studio",
-      "offerEyebrow": "FIG. 02 — The offer",
-      "offerTitle": "{price} a month. One sponsor. Every slot.",
-      "offer": [
-        {
-          "t": "Exclusive",
-          "d": "Only one sponsor per calendar month. No rotation, no competitors next to you."
-        },
-        {
-          "t": "Every placement",
-          "d": "Your leaderboard, square and text creatives fill every slot on every page, in all twelve languages."
-        },
-        {
-          "t": "Self-serve",
-          "d": "Pay by card, design your creatives in the studio, publish — and watch impressions and clicks."
-        }
-      ],
-      "howEyebrow": "FIG. 04 — How it works",
-      "howTitle": "From booking to live in minutes",
-      "how": [
-        {
-          "t": "Pick months",
-          "d": "Choose one or more consecutive open months on the timeline."
-        },
-        {
-          "t": "Pay",
-          "d": "Secure hosted checkout. The months are held for you while you pay."
-        },
-        {
-          "t": "Build",
-          "d": "Upload images or design an ad from your logo and copy in the sponsor studio, with true-size previews."
-        },
-        {
-          "t": "Go live",
-          "d": "Publish. Your creatives replace the placeholders for every day of your months."
-        }
-      ],
-      "formatsEyebrow": "FIG. 05 — Formats",
-      "formatsTitle": "Three formats, shown at true size",
-      "formats": {
-        "leaderboard": "Leaderboard",
-        "leaderboardSpec": "728×90 · 320×100 on phones",
-        "leaderboardWhere": "Across lesson and page columns.",
-        "square": "Square",
-        "squareSpec": "300×250 · or 1:1",
-        "squareWhere": "In the lesson rail and page sidebars.",
-        "text": "Text",
-        "textSpec": "Logo · 60-character headline · 140-character line",
-        "textWhere": "Inside lessons, after the reading."
-      },
-      "faqEyebrow": "FIG. 06 — Questions",
-      "faqTitle": "Sponsorship FAQ",
-      "faqs": [
-        {
-          "q": "What do I get for {price}?",
-          "a": "Every sponsor placement on the site for one calendar month (UTC), exclusively. Nobody else is shown in those slots during your month."
-        },
-        {
-          "q": "Can I book several months?",
-          "a": "Yes — pick consecutive open months and pay once. Months that are not next to each other are separate bookings."
-        },
-        {
-          "q": "When does my sponsorship start?",
-          "a": "On the 1st of the month you booked, at 00:00 UTC. Publish your creatives any time before — they appear automatically."
-        },
-        {
-          "q": "Are Pro members shown my ad?",
-          "a": "No. Pro and team members pay for an ad-free academy, so the reach figures above are an upper bound."
-        },
-        {
-          "q": "What can't I advertise?",
-          "a": "Anything misleading, unsafe or unrelated to working professionals. Creatives can be paused or rejected with a note, and you can publish a replacement at any time."
-        },
-        {
-          "q": "Can I pay by invoice?",
-          "a": "Yes. Use the form at the bottom of this page and we will book the month for you."
-        }
-      ],
-      "invoiceEyebrow": "Invoice or bigger deal",
-      "invoiceTitle": "Prefer an invoice, or want more than slots?",
-      "invoiceLead": "Section sponsorships, dataset features and newsletter mentions — clearly labelled, never inside a lesson's teaching. Tell us what you would like to reach."
-    },
-    "reach": {
-      "eyebrow": "FIG. 01 — Live reach",
-      "title": "Who you reach",
-      "note": "Counted live from the academy's own database and Cloudflare analytics — never estimated. Updated {time}.",
-      "learners": "Learner accounts",
-      "active": "Active learners, 30 days",
-      "completed": "Lessons completed",
-      "quizzes": "Quiz attempts",
-      "comments": "Lesson comments",
-      "languages": "Languages",
-      "pageViews": "Page views, 30 days",
-      "countries": "Countries, 30 days",
-      "topCountries": "Top countries, 30 days",
-      "loading": "Counting…",
-      "unavailable": "Live figures are unavailable right now."
-    },
-    "calendar": {
-      "eyebrow": "FIG. 03 — Availability",
-      "title": "The next twelve months",
-      "lead": "One sponsor per month. Pick one or more consecutive open months.",
-      "available": "Open",
-      "booked": "Booked",
-      "bookedBy": "Booked by {name}",
-      "held": "On hold",
-      "heldHint": "Someone is checking out",
-      "closed": "Closed",
-      "mine": "Yours",
-      "selected": "Selected",
-      "summary": "No months selected | {n} month · {total} | {n} months · {total}",
-      "brandName": "Brand name",
-      "brandNamePlaceholder": "Shown on your creatives and the calendar",
-      "website": "Website",
-      "book": "Book and pay",
-      "signIn": "Sign in to book",
-      "holdNote": "Months are held for {minutes} minutes while you pay. Nothing is booked until payment succeeds.",
-      "unavailable": "Booking opens soon. Use the form below to reserve a month.",
-      "error": "The calendar could not load. Refresh to try again."
-    }
+    "starOnGithub": "Star CRM Analytics Academy on GitHub",
+    "youtube": "CRM Analytics Academy on YouTube"
   },
   "home": {
     "modules": {
@@ -234,12 +80,6 @@
       "video": "Video walkthrough",
       "article": "Article"
     },
-    "showcase": {
-      "eyebrow": "Fig. 03 — Showcase",
-      "title": "Dashboards built in the course",
-      "lead": "Every build comes with its KPIs, the formula behind each one and the steps to make it yourself.",
-      "all": "See all builds"
-    },
     "blurbs": {
       "introduction": "What the course is, who it is for, a free org, and the first dataset loaded.",
       "foundations": "What CRM Analytics is, the three layers, the vocabulary, and when it is the wrong tool.",
@@ -261,12 +101,11 @@
       "pipeline-analytics": "Leads through to signature: routing, scoring, conversion, velocity and CPQ.",
       "revops-analytics": "Forecast, the ARR waterfall, consumption risk, service, and the executive board."
     },
-    "forTeams": {
-      "eyebrow": "For teams",
-      "title": "Train your whole analytics team",
-      "lead": "Pro for everyone on your company domain, one invoice, seats you manage yourself.",
-      "seats": "Team seats",
-      "sales": "Talk to sales"
+    "join": {
+      "eyebrow": "Free account",
+      "title": "Track your progress through all 161 lessons",
+      "lead": "Every lesson is free. With an account you keep your place, build a daily streak, save lessons for later, score your quizzes and earn badges on your dashboard.",
+      "browse": "Browse the curriculum"
     }
   },
   "footer": {
@@ -274,11 +113,6 @@
     "curriculum": "Curriculum",
     "project": "Project",
     "community": "Community",
-    "academy": "Academy",
-    "links": {
-      "nominate": "Nominate for the Wall",
-      "sales": "Talk to sales"
-    },
     "quip": {
       "0": "Made by Swarnil with an unreasonable amount of prompting and a heroic waste of tokens.",
       "1": "Hand-drawn by Swarnil, machine-assisted. The token budget is now more of a suggestion.",
@@ -293,40 +127,7 @@
     "aboutTitle": "About",
     "aboutDesc": "The story behind CRM Analytics Academy — an open-source curriculum for Salesforce CRM Analytics — and the person who builds it.",
     "resourcesTitle": "Resources",
-    "resourcesDesc": "A curated list of the best Salesforce CRM Analytics resources — official docs, Trailhead, SAQL references, community, and tools.",
-    "showcaseTitle": "Dashboard Showcase",
-    "showcaseDesc": "Real CRM Analytics dashboards built by the community — the KPIs, the formulas behind them, and the techniques used to build each one."
-  },
-  "showcase": {
-    "title": "Dashboard Showcase",
-    "subtitle": "Real dashboards, with the KPIs and the thinking behind them. Filter by business area, difficulty, or the CRM Analytics techniques used.",
-    "all": "All",
-    "domain": "Business area",
-    "difficulty": "Difficulty",
-    "technique": "Technique",
-    "results": "dashboards",
-    "noResults": "No dashboards match these filters yet.",
-    "clearFilters": "Clear filters",
-    "by": "Built by",
-    "kpis": "KPIs and how they are calculated",
-    "kpiName": "Metric",
-    "kpiFormula": "How it is calculated",
-    "kpiNote": "Why",
-    "recipe": "How it was built",
-    "datasets": "Datasets used",
-    "techniques": "Techniques used",
-    "published": "Published",
-    "back": "Back to showcase",
-    "submit": "Submit your dashboard",
-    "submitHint": "Built something you are proud of? Open a pull request with one markdown file and it appears here.",
-    "beginner": "Beginner",
-    "intermediate": "Intermediate",
-    "advanced": "Advanced",
-    "noScreenshot": "Screenshot coming soon",
-    "viewBuild": "View the build",
-    "submitEyebrow": "Submit",
-    "sheet": "Sheet 05 / Showcase / {n} dashboards",
-    "dashboard": "Dashboard"
+    "resourcesDesc": "A curated list of the best Salesforce CRM Analytics resources — official docs, Trailhead, SAQL references, community, and tools."
   },
   "course": {
     "nextLesson": "Next: {title}",
@@ -339,38 +140,106 @@
     "contentsPct": "Contents · {pct}%",
     "showContents": "Show course contents",
     "collapseContents": "Collapse course contents",
-    "sectionMeta": "{lessons} lessons · {minutes}m"
+    "sectionMeta": "{lessons} lessons · {minutes}m",
+    "comingSoon": "Coming soon"
   },
   "dashboard": {
     "kicker": "Dashboard",
     "welcome": "Welcome back",
     "welcomeNamed": "Welcome back, {name}",
-    "yourProgress": "Your progress",
-    "lessonsDone": "{done} of {total} lessons",
-    "continueCta": "Resume",
-    "nothingYet": "You have not completed a lesson yet.",
-    "startFirst": "Start the first lesson",
-    "plan": "Plan",
-    "planFree": "Free",
-    "planPro": "Pro",
-    "planFreeDesc": "Core lessons are free forever.",
-    "planProDesc": "Every lesson and project is unlocked.",
-    "recentlyCompleted": "Recently completed",
+    "lead": "Pick up where you left off — one lesson a day adds up.",
+    "streakLead": "You are on a {n}-day streak. Keep it going today.",
     "statCompleted": "Completed",
     "statRemaining": "Remaining",
+    "statStreak": "Day streak",
     "statPoints": "Points",
-    "statRank": "Rank",
-    "unranked": "—",
+    "statQuiz": "Quiz average",
+    "statBadges": "Badges",
+    "lessons": "lessons",
+    "longest": "Longest {n} days",
+    "rankOf": "Rank {rank} of {n}",
+    "unranked": "Unranked",
+    "quizzesTaken": "{n} quizzes",
+    "activeDays": "{n} active days",
+    "continue": "Continue learning",
+    "lessonsDone": "{done} of {total} lessons",
+    "continueCta": "Resume",
+    "startFirst": "Start the first lesson",
+    "upNext": "Up next",
+    "goal": "This week",
+    "goalDone": "Weekly goal reached. Anything more is a bonus.",
+    "goalLeft": "{n} more to reach your weekly goal.",
+    "goalSet": "Goal",
+    "browse": "Curriculum",
     "contribute": "Contribute",
-    "upgradePro": "Upgrade to Pro",
-    "manageBilling": "Manage billing",
-    "confirmingTitle": "Confirming your payment…",
-    "confirmingDesc": "This usually takes a few seconds.",
-    "activity": "Activity, last 12 weeks",
-    "thisWeek": "{n} this week",
-    "activityAria": "Lessons completed per week, last 12 weeks: {counts}",
-    "lessonsCount": "{n} lessons",
-    "bySection": "By section"
+    "activity": "Activity, last 26 weeks",
+    "less": "Less",
+    "more": "More",
+    "bySection": "By section",
+    "saved": "Saved for later",
+    "savedEmpty": "Save a lesson with the bookmark button under its title and it will wait for you here.",
+    "unsave": "Remove from saved",
+    "quizzes": "Quiz scores",
+    "quizzesEmpty": "Lessons that end with a quiz will show your best score here.",
+    "attempts": "{n} attempts",
+    "retake": "Retake",
+    "badges": "Badges",
+    "badge": {
+      "first": {
+        "title": "First step",
+        "desc": "Complete your first lesson"
+      },
+      "ten": {
+        "title": "Ten down",
+        "desc": "Complete 10 lessons"
+      },
+      "section": {
+        "title": "Section cleared",
+        "desc": "Finish every lesson in a section"
+      },
+      "half": {
+        "title": "Halfway",
+        "desc": "Complete half the course"
+      },
+      "all": {
+        "title": "Graduate",
+        "desc": "Complete every lesson"
+      },
+      "streak3": {
+        "title": "On a roll",
+        "desc": "Learn 3 days in a row"
+      },
+      "streak7": {
+        "title": "Week streak",
+        "desc": "Learn 7 days in a row"
+      },
+      "quiz": {
+        "title": "Tested",
+        "desc": "Take your first quiz"
+      },
+      "perfect": {
+        "title": "Full marks",
+        "desc": "Score 100% on a quiz"
+      },
+      "quiz10": {
+        "title": "Quiz regular",
+        "desc": "Take 10 different quizzes"
+      },
+      "saver": {
+        "title": "Planner",
+        "desc": "Save a lesson for later"
+      },
+      "contributor": {
+        "title": "Contributor",
+        "desc": "Get a submission approved"
+      }
+    },
+    "leaderboard": "Leaderboard",
+    "leaderboardEmpty": "Nobody has earned points yet — be the first.",
+    "you": "you",
+    "pointsRule": "10 points per lesson, 2 per quiz point, 25 per approved submission (50 for a dashboard).",
+    "recentlyCompleted": "Recently completed",
+    "nothingYet": "You have not completed a lesson yet."
   },
   "auth": {
     "signInTitle": "Welcome back",
@@ -401,7 +270,7 @@
     "benefitProgress": "Progress saved across devices, lesson by lesson",
     "benefitDiscuss": "Ask questions and answer them under every lesson",
     "benefitQuizzes": "Section quizzes with your scores kept",
-    "benefitFree": "Free forever — Pro is optional",
+    "benefitFree": "Free forever — every lesson",
     "verifyTitle": "Check your inbox",
     "verifyDesc": "We sent a confirmation link to {email}. Open it, then sign in."
   },
@@ -625,29 +494,6 @@
       "links": "Links"
     }
   },
-  "wall": {
-    "eyebrow": "Community",
-    "title": "Wall of Fame",
-    "subtitle": "The people who make the CRM Analytics community what it is - the bloggers, YouTubers, authors, speakers and tool builders whose work taught the rest of us.",
-    "all": "Everyone",
-    "types": {
-      "blogger": "Blogger",
-      "youtuber": "YouTuber",
-      "author": "Author",
-      "speaker": "Speaker",
-      "builder": "Tool builder"
-    },
-    "visit": "Visit",
-    "nominateTitle": "Know someone who belongs here?",
-    "nominateDesc": "Nominate a blogger, creator or mentor whose work has helped the CRM Analytics community.",
-    "nominate": "Nominate someone",
-    "emptyPhoto": "Your photo here",
-    "emptyCaption": "Get nominated",
-    "emptyHint": "Nominate someone",
-    "filter": "Filter by kind",
-    "board": "Board",
-    "whoTitle": "Who they are"
-  },
   "quiz": {
     "title": "Check your knowledge",
     "question": "Question {n} of {total}",
@@ -781,7 +627,7 @@
     "principles": [
       {
         "title": "Open, and free at the core",
-        "desc": "No sign-up wall. The core course is free and lives in a public repo you can read, fork and improve; optional Pro lessons pay for the rest."
+        "desc": "No paywall and no sign-up wall. Every lesson is free and lives in a public repo you can read, fork and improve."
       },
       {
         "title": "A path, not a pile",
@@ -809,14 +655,13 @@
       "openSource": "Open source"
     },
     "links": {
-      "website": "Website",
-      "sponsor": "Sponsor"
+      "website": "Website"
     },
     "author": {
       "title": "Built by one developer, for the whole community",
       "p1": "Hi — I'm {name}. I build on the Salesforce platform and care a lot about making hard things approachable. I started CRM Analytics Academy after watching too many capable people bounce off the learning curve, simply because the good material was scattered, dated, or behind a paywall.",
       "p2": "So I turned what I'd learned the hard way into a structured, open path others can follow — the resource I wish I'd had when I started. Every lesson is something I'd actually want a teammate to read on their first week.",
-      "p3": "This is an ongoing, community-driven project. If it helped you, the best thanks is to {star}, suggest a topic, or contribute a lesson. Sponsorships keep it free and growing.",
+      "p3": "This is an ongoing, community-driven project. If it helped you, the best thanks is to {star}, suggest a topic, or contribute a lesson.",
       "star": "star the repo"
     },
     "cta": {
@@ -857,7 +702,6 @@
       "lessons": "Writing a lesson",
       "frontmatter": "Lesson frontmatter",
       "translations": "Translations",
-      "showcase": "Submitting a dashboard",
       "submit": "Suggesting resources",
       "code": "Code contributions",
       "stack": "Tech stack",
@@ -881,10 +725,6 @@
       {
         "title": "Improve a translation",
         "text": "Translations are machine-generated. Fix a clumsy sentence in your language — you do not need to touch English."
-      },
-      {
-        "title": "Show your dashboard",
-        "text": "Share what you built: a screenshot, the KPIs, and how you calculated them."
       }
     ],
     "submitHere": "Submit it here",
@@ -906,7 +746,7 @@
         "label": "Improve the code",
         "text": "fix a bug, refine the UI, or add a feature via a pull request."
       },
-      "outro": "Lesson and code changes go through GitHub, because every lesson is a file in the repo. Resources, showcase dashboards and lesson ideas are submitted on the site and reviewed in the admin console."
+      "outro": "Lesson and code changes go through GitHub, because every lesson is a file in the repo. Resources and lesson ideas are submitted on the site and reviewed in the admin console."
     },
     "setup": {
       "need": "You'll need {node} and {pnpm}. Then:",
@@ -928,22 +768,13 @@
     "translations": {
       "p1": "The site ships in {languages}: English (default), Spanish, French, German, Portuguese, Japanese, Chinese, Hindi, Arabic, Russian, Bengali, and Urdu. Arabic and Urdu render right-to-left.",
       "languages": "12 languages",
-      "p2": "{bold} Write the lesson in English only. When it lands on {main}, a GitHub Action runs it through LibreTranslate and commits {path} for all eleven other languages. Code blocks, SAQL, links, frontmatter keys and product names are protected and come through untouched.",
+      "p2": "{bold} Write the lesson in English only. On the next build, a LibreTranslate server running locally translates it and writes {path} for all eleven other languages. Code blocks, SAQL, links, frontmatter keys and product names are protected and come through untouched.",
       "p2Bold": "You do not translate by hand.",
       "p3": "To run it yourself: {all} (only changed files), or {subset}.",
       "p4": "{bold} If a sentence reads badly in your language, edit that locale's file directly and open a pull request — the pipeline only overwrites a file when its {english} source changes, so your fix survives.",
       "p4Bold": "Machine translation is a starting point, not the finish line.",
       "english": "English",
       "p5": "UI strings live in {path}. Add new strings to {en} only; the same run fills in the other eleven and leaves existing translations alone."
-    },
-    "showcase": {
-      "p1": "Built a CRM Analytics dashboard you're proud of? {link} — the form takes the title, the write-up and a screenshot, and a maintainer reviews it before it appears. If you would rather send a pull request, the markdown shape is below and both routes end in the same queue.",
-      "link": "Submit it to the Showcase",
-      "p2": "What makes an entry worth reading is not the screenshot, it's the {working}: which KPIs you put on it, the formula behind each one, and why you measured it that way. Say what went wrong too — the gotcha you hit is usually the most useful part.",
-      "working": "working out",
-      "p3": "{domain}, {difficulty} and {techniques} drive the filters on the showcase page, so reuse existing values where they fit. Everything except {title}, {description}, {image} and {author} is optional.",
-      "p4": "{bold} Blur or fake customer names, revenue figures and user names — the repository is public.",
-      "p4Bold": "Sanitise the screenshot first."
     },
     "submit": {
       "p1": "Found a helpful link — docs, a course, a tool, a community? {link}. Title, URL and a line on why it is worth someone's time; it lands as pending and a maintainer approves it. No GitHub account, no pull request, no waiting for a build.",
@@ -964,7 +795,7 @@
       "i18n": "{name} — 12 languages, eleven of them machine-translated from English",
       "hosting": "{workers} + {actions} — prerendered pages served as static assets, a Worker for the dynamic routes, auto-deployed on push to {main}",
       "extras": "Also in the box: {og} (social cards), {llms} (machine-readable docs), and structured data for SEO.",
-      "noDb": "Every lesson is prerendered at build time from Markdown, so you can write and preview lessons with {bold}. Accounts, progress and Pro run on Neon Postgres and only matter if you are working on those features — the README's low-level design covers them.",
+      "noDb": "Every lesson is prerendered at build time from Markdown, so you can write and preview lessons with {bold}. Accounts and progress run on Neon Postgres and only matter if you are working on those features — the README covers them.",
       "noDbBold": "no database at all"
     },
     "pr": {
@@ -982,199 +813,6 @@
       "after": "A maintainer will review, suggest tweaks if needed, and merge. Once merged, the GitHub Actions workflow builds the site and publishes it to Cloudflare automatically."
     },
     "help": "Stuck or have an idea? Open an issue or a discussion on {github}. First-time contributors are very welcome — no contribution is too small."
-  },
-  "roadmap": {
-    "seo": {
-      "title": "Roadmap",
-      "description": "Where CRM Analytics Academy is going: what is being built now, what comes next and what is planned later — lessons, dashboard builds, videos and site features."
-    },
-    "hero": {
-      "eyebrow": "Sheet 11 / Roadmap",
-      "title": "Where we're {em}",
-      "titleEm": "headed",
-      "lead": "The Academy is open source and always growing. Have an idea? {issue}.",
-      "issue": "Open an issue"
-    },
-    "vision": {
-      "title": "Our vision",
-      "body": "Make world-class CRM Analytics skills accessible to {anyone}, anywhere — a practitioner-grade path from your first dataset to production dashboards and Einstein Discovery, without a paywall.",
-      "anyone": "anyone",
-      "star": "Star us on GitHub"
-    },
-    "principles": [
-      {
-        "title": "Free, forever",
-        "text": "The core course, exams and certificates stay free — funded by sponsors, ads and optional Pro."
-      },
-      {
-        "title": "Open source",
-        "text": "The whole site is on GitHub. Anyone can fix a typo, add a lesson, or ship a feature."
-      },
-      {
-        "title": "Build it, don’t read it",
-        "text": "Every hands-on lesson carries a screen walkthrough — what to click, and what is worth saying about it — plus a graded quiz."
-      },
-      {
-        "title": "Built with the community",
-        "text": "Resources, feedback, and the guestbook are yours. The best ideas ship first."
-      }
-    ],
-    "columns": {
-      "now": {
-        "label": "Shipped",
-        "items": [
-          "Nineteen sections and 161 lessons, rewritten end to end",
-          "Seventeen go-to-market builds on the Academy’s own business data",
-          "Screen walkthroughs on every hands-on lesson",
-          "Downloadable practice datasets, with the true totals published"
-        ]
-      },
-      "next": {
-        "label": "In progress",
-        "items": [
-          "Recording the walkthrough scripts as video",
-          "A browsable mirror of the org the builds are made in",
-          "Showcase write-ups for adoption and AI-search dashboards",
-          "Translations regenerating across the other eleven languages"
-        ]
-      },
-      "later": {
-        "label": "Later",
-        "items": [
-          "Public learner profiles with earned certificates",
-          "Community Q&A and curated learning paths",
-          "Live cohort sessions & office hours"
-        ]
-      }
-    },
-    "shipped": "Shipped already? See the {changelog}",
-    "changelogLink": "changelog"
-  },
-  "changelog": {
-    "seo": {
-      "title": "Changelog",
-      "description": "What changed on CRM Analytics Academy, release by release: new lessons and sections, dashboard builds, translations, site features and fixes."
-    },
-    "hero": {
-      "eyebrow": "Sheet 12 / Changelog",
-      "title": "What's {em}",
-      "titleEm": "new",
-      "lead": "Recent updates to the Academy. Follow along on {github}."
-    },
-    "entries": [
-      {
-        "date": "September 2026",
-        "tag": "Redesign",
-        "title": "A new look, and the Academy as the company in every build",
-        "summary": "An original blue theme across the whole site, and a worked example that is finally the business behind the course.",
-        "items": [
-          "A new palette, type and component styling throughout, with a rebuilt curriculum page",
-          "The example company is now CRM Analytics Academy itself: self-serve learners, team plans, six classroom centers, certification and implementation",
-          "A new twenty-one-file warehouse — including classroom batches and enrollments — with the numbers in every lesson recomputed from it",
-          "Seventeen builds, numbered consistently across the course",
-          "Classroom training, team quotations and implementation requests, submitted on the site"
-        ]
-      },
-      {
-        "date": "September 2026",
-        "tag": "Curriculum",
-        "title": "Rewritten end to end, and reordered around the job",
-        "summary": "Every lesson replaced. The course now teaches the platform in order and then uses it on a real go-to-market problem, on one company’s data.",
-        "items": [
-          "Nineteen sections and 161 lessons, written from scratch — the product first, go-to-market engineering last",
-          "SAQL, data visualization, interactions, bindings, dashboard JSON, APIs and Einstein Discovery each promoted to a section of their own",
-          "Sixteen dashboard builds on Namilio, a fictional AI company, with published totals so you can check your own work",
-          "Screen walkthroughs on every hands-on lesson: what to have open, where to click, and what is worth saying about it",
-          "Showcase write-ups for all sixteen builds, with formulas, datasets and the recipe behind each",
-          "HowTo and LearningResource structured data, so a build lesson can answer “how do I build this” directly",
-          "Third-party training clips removed throughout — the curriculum is original work"
-        ]
-      },
-      {
-        "date": "August 2026",
-        "tag": "Platform",
-        "title": "Back to a pure static site",
-        "summary": "We removed the entire backend. The Academy is now plain Markdown, prerendered and served from GitHub Pages — faster, simpler, and with nothing to sign into.",
-        "items": [
-          "Accounts, progress tracking, graded quizzes, comments, feedback, the guestbook, and certificates have all been retired",
-          "No database and no analytics of your learning — every lesson is open to read with no sign-up",
-          "Every page is prerendered at build time, so the site loads as fast as static HTML can",
-          "Moved hosting from Vercel to GitHub Pages, deployed by GitHub Actions on every push",
-          "The old data model was retired with it"
-        ]
-      },
-      {
-        "date": "July 2026",
-        "tag": "Community",
-        "title": "Resource voting & leaderboard",
-        "summary": "The Resources page grew a community layer — vote for what helped you and see what rises to the top.",
-        "items": [
-          "Upvote any community resource (one vote per member) with a live count",
-          "Switch between the list view and a votes-based leaderboard, filterable by type",
-          "Every submission credits the member who shared it, with an optional LinkedIn link",
-          "Two-column feedback & guestbook, plus a full admin data manager for every table"
-        ]
-      },
-      {
-        "date": "July 2026",
-        "tag": "Curriculum",
-        "title": "Video-led Foundations track",
-        "summary": "We rebuilt the curriculum around short, focused video clips paired with hands-on steps.",
-        "items": [
-          "CRM Analytics Foundations + Setup & User Provisioning, taught with clip-based lessons",
-          "A fully custom video player — no YouTube branding, smooth play, and a “lesson complete” screen",
-          "Interactive lesson steps, cards, and links; interview-question study sheets per section",
-          "Members-only lessons with a soft sign-in gate"
-        ]
-      },
-      {
-        "date": "July 2026",
-        "tag": "Exams",
-        "title": "Secure exams & certificates",
-        "summary": "Graded, tamper-resistant exams that actually gate progress — and a certificate when you finish.",
-        "items": [
-          "Server-side grading — answers are never sent to the browser",
-          "A rotating question set per attempt (7 drawn from a larger pool), 85% to pass",
-          "Per-skill performance breakdown on the results screen",
-          "Shareable, downloadable certificate once every track is complete with a 75%+ average"
-        ]
-      },
-      {
-        "date": "July 2026",
-        "tag": "Members",
-        "title": "Learner dashboard & accounts",
-        "summary": "Sign in with Google and track everything in one place.",
-        "items": [
-          "Google sign-in, member profiles, and a personal dashboard",
-          "Progress-by-section rings, a skills chart, and average score at a glance",
-          "Mark lessons complete (shared across languages) and per-lesson comments",
-          "Submit resources for review and follow their status"
-        ]
-      },
-      {
-        "date": "July 2026",
-        "tag": "Platform",
-        "title": "Installable app, analytics & polish",
-        "summary": "The site became installable, measurable, and a lot more playful.",
-        "items": [
-          "Installable PWA with a service worker and offline support",
-          "Analytics wired up: Google Analytics, Microsoft Clarity, and Vercel Analytics",
-          "Refreshed theme (Space Grotesk + Plus Jakarta Sans), custom favicon, and breadcrumbs",
-          "Guestbook with drawings, and a feedback inbox with threaded replies"
-        ]
-      },
-      {
-        "date": "June 2026",
-        "tag": "Launch",
-        "title": "CRM Analytics Academy goes live",
-        "summary": "The first public release — a free, open-source curriculum built for the modern web.",
-        "items": [
-          "Free, open-source CRM Analytics curriculum, localized across 8 languages",
-          "Raw Markdown, llms.txt, and MCP tools so AI agents can read every lesson",
-          "SEO, Open Graph images, and structured data throughout"
-        ]
-      }
-    ]
   },
   "datasets": {
     "seo": {
@@ -1303,46 +941,46 @@
   "privacy": {
     "seo": {
       "title": "Privacy Policy",
-      "description": "How CRM Analytics Academy handles your data: what an account stores, cookies, analytics, advertising, payments through Dodo Payments, and how to delete it all."
+      "description": "How CRM Analytics Academy handles your data: what an account stores, our first-party analytics, Google AdSense advertising, and how to delete it all."
     },
     "hero": {
       "eyebrow": "Sheet 14 / Privacy",
-      "lead": "CRM Analytics Academy is a free curriculum, funded in part by advertising. Here is exactly what that means for your data."
+      "lead": "CRM Analytics Academy is a free curriculum, funded by advertising. Here is exactly what it stores and what the ads do."
     },
     "englishPrevails": "This policy is machine-translated from English. If the two versions differ, the English version prevails. {link}",
     "englishLink": "Read the English version",
     "sections": [
       {
         "title": "What we collect",
-        "body": "We do not require an account or sign-up to read any lesson. We do not collect names, emails, or payment details. Pages you visit, your approximate location (country/region), device type, and referrer are collected automatically through the analytics and advertising tools described below."
+        "body": "Reading a lesson needs no account. When you visit, we record the page, how long it was open, your country (from Cloudflare), your device type, browser and operating system, and the site that referred you. We do not store your IP address. Our own analytics uses no cookies; the advertising described below does."
       },
       {
-        "title": "Cookies & similar technologies",
-        "body": "This site uses cookies and similar technologies for two purposes: understanding how the curriculum is used (analytics) and showing ads that help keep every lesson free (advertising). You can block or delete cookies in your browser settings at any time; the site will keep working, though personalized ads may stop."
+        "title": "Accounts",
+        "body": "If you create an account we store your name, email address and password hash (through Neon Auth), and what you do here: lessons completed, quiz scores, saved lessons, comments and submissions. That is what powers your dashboard, streak and badges."
       },
       {
-        "title": "Analytics",
-        "body": "We use Google Analytics and Microsoft Clarity to see which pages are popular, where visitors come from, and how lessons are read. Clarity also records anonymized interaction data such as clicks and scrolling to help us improve page layout. Neither is used to identify you personally."
+        "title": "How analytics works",
+        "body": "Analytics is first-party: it is collected by this site, stored in our own database and read only by the site owner. A random visitor id is kept in your browser's local storage so repeat visits are counted once; clearing site data resets it. No data is sold or shared with advertisers."
       },
       {
         "title": "Advertising — Google AdSense",
-        "body": "We run Google AdSense to fund hosting and ongoing content development. Google and its partners may use cookies (including the DoubleClick cookie) to serve ads based on your prior visits to this and other sites. You can opt out of personalized advertising by visiting Google's Ads Settings, or opt out of third-party vendor cookies generally by visiting {aboutAds}."
+        "body": "Every lesson is free because the site shows ads from Google AdSense. Google and its partners may use cookies (including the DoubleClick cookie) to show ads based on your visits to this and other sites. You can turn off personalised advertising in Google's Ads Settings, or opt out of third-party vendor cookies at www.aboutads.info. There is nothing to buy on this site."
       },
       {
-        "title": "Third-party links",
-        "body": "Lessons link out to official Salesforce documentation, Trailhead, and other community resources. We are not responsible for the privacy practices of those external sites."
+        "title": "Third-party links and videos",
+        "body": "Lessons link out to Salesforce documentation, Trailhead and community resources, and some embed YouTube videos. Those sites have their own privacy practices; a YouTube video loads only when you play it."
       },
       {
         "title": "Children's privacy",
         "body": "This site is not directed at children under 13 and we do not knowingly collect data from them."
       },
       {
-        "title": "Your choices",
-        "body": "You can browse this entire curriculum without enabling cookies. Most browsers let you block third-party cookies or clear them per-site. Disabling cookies may affect how ads are personalized but will not block access to any lesson."
+        "title": "Deleting your data",
+        "body": "Open an issue on the project's GitHub repository or message the author, and your account and everything linked to it will be deleted."
       },
       {
         "title": "Changes to this policy",
-        "body": "This policy may be updated as the project evolves. Material changes will be reflected by an updated date on this page."
+        "body": "This policy may be updated as the project evolves. Material changes will be reflected on this page."
       },
       {
         "title": "Contact",
@@ -1353,7 +991,7 @@
   "terms": {
     "seo": {
       "title": "Terms of Service",
-      "description": "The terms for using CRM Analytics Academy: the free curriculum and its licence, accounts and progress, Pro purchases, community content and acceptable use."
+      "description": "The terms for using CRM Analytics Academy: the free curriculum and its licence, accounts and progress, advertising, community content and acceptable use."
     },
     "hero": {
       "eyebrow": "Sheet 15 / Terms",
@@ -1380,7 +1018,7 @@
       },
       {
         "title": "Advertising",
-        "body": "This site is partly funded by Google AdSense. Ads are served by Google and its partners and are not endorsements by CRM Analytics Academy. See our Privacy Policy for details on how ad-related data is handled."
+        "body": "The site is funded by Google AdSense. Ads are served by Google and its partners and are not endorsements by CRM Analytics Academy. See the Privacy Policy for how ad-related data is handled."
       },
       {
         "title": "Limitation of liability",
@@ -1419,41 +1057,14 @@
       "p5": "Phase 5 — Go-to-market builds"
     },
     "tags": {
-      "free": "free",
-      "pro": "pro",
-      "open": "open"
+      "quiz": "quiz",
+      "soon": "soon"
     },
     "legend": {
       "video": "Video walkthrough",
       "article": "Article",
-      "free": "Free for everyone",
-      "pro": "Part of Pro"
+      "quiz": "Ends with a graded quiz"
     }
-  },
-  "leadForm": {
-    "formLabel": "Form — {label}",
-    "sent": "Sent",
-    "sendAnother": "Send another",
-    "fullName": "Full name",
-    "yourName": "Your name",
-    "workEmail": "Work email",
-    "yourEmail": "Your email",
-    "email": "Email",
-    "companyDomain": "Company domain",
-    "company": "Company",
-    "companyOptional": "Company (optional)",
-    "roleOptional": "Role (optional)",
-    "rolePlaceholder": "e.g. Sales Ops lead",
-    "budget": "Budget",
-    "countryOptional": "Country (optional)",
-    "phoneOptional": "Phone (optional)",
-    "select": "Select…",
-    "selectMany": "Select one or more…",
-    "personalEmail": "Please use your work email — {domain} is a personal address.",
-    "pickOne": "Please choose at least one option for “{field}”.",
-    "failed": "Something went wrong. Please try again.",
-    "privacy": "We only use these details to reply to you. See the {link}.",
-    "privacyLink": "privacy policy"
   },
   "lesson": {
     "authors": {
@@ -1472,7 +1083,9 @@
       "openClaude": "Open in Claude",
       "copied": "Copied to clipboard",
       "failed": "Could not copy page"
-    }
+    },
+    "save": "Save for later",
+    "saved": "Saved"
   },
   "credits": {
     "title": "Credits & sources",
@@ -1487,105 +1100,6 @@
       "image": "Image",
       "dataset": "Dataset"
     }
-  },
-  "people": {
-    "eyebrow": "Instructors & credits",
-    "title": "Instructors & credits",
-    "description": "The people behind CRM Analytics Academy: the instructors who write the lessons, the creators whose videos and posts the lessons embed, and the community that improves them.",
-    "lead": "Every lesson names who wrote it, and every video, post or dataset borrowed from someone else names who made it. This is the whole list.",
-    "groups": {
-      "instructors": {
-        "title": "Instructors",
-        "lead": "They write and maintain the lessons. Each card lists the lessons that carry their name.",
-        "empty": "No instructors listed yet."
-      },
-      "creators": {
-        "title": "Creators & writers we credit",
-        "lead": "Videos, posts and datasets by other people that lessons embed or build on — credited on the lesson and here.",
-        "empty": "No third-party work is credited yet."
-      },
-      "community": {
-        "title": "Community",
-        "lead": "Contributors who fixed, translated, reviewed or suggested lessons.",
-        "empty": "Contributors appear here once they are added to the registry."
-      }
-    },
-    "roles": {
-      "instructor": "Instructor",
-      "maintainer": "Maintainer",
-      "blogger": "Blogger",
-      "creator": "Creator",
-      "community": "Community"
-    },
-    "authored": "Wrote {n} lesson | Wrote {n} lessons",
-    "credited": "Credited in {n} lesson | Credited in {n} lessons",
-    "inLesson": "in",
-    "showAll": "Show all {n}",
-    "showLess": "Show fewer",
-    "wallLead": "The wider CRM Analytics community — bloggers, speakers and builders — has its own wall.",
-    "wallLink": "Visit the Wall of Fame",
-    "teach": {
-      "title": "Teach with us",
-      "lead": "The Academy is written by people who build CRM Analytics for a living. If that is you, there is a lesson, a lab or a cohort with your name on it.",
-      "ways": {
-        "01": {
-          "title": "Write a lesson or lab",
-          "text": "One topic, taught on the Academy's own company data, with a walkthrough and a quiz. Credited on the page."
-        },
-        "02": {
-          "title": "Own a section",
-          "text": "Keep a whole section current across Salesforce releases, with the editor reviewing every change."
-        },
-        "04": {
-          "title": "Mentor",
-          "text": "Office hours for teams on the Enterprise plan. Paid per hour."
-        }
-      },
-      "lookingTitle": "Who we are looking for",
-      "looking": {
-        "1": "You have shipped CRM Analytics in production — recipes, SAQL, dashboards people use.",
-        "2": "You can explain why, not only how: the decision a dashboard supports, the trade-off a recipe makes.",
-        "3": "You write plainly and are happy to be edited.",
-        "4": "You can commit to keeping what you teach current after each Salesforce release."
-      },
-      "startSmall": "Prefer to start small?",
-      "contribute": "Contribute a fix or a resource first."
-    }
-  },
-  "pro": {
-    "lessonEyebrow": "Pro lesson — locked",
-    "lessonTitle": "The rest of this lesson is part of Pro",
-    "lessonBody": "Pro unlocks every Pro lesson, its quiz and interview questions, and the lesson videos — and pays for the rest of the course to stay free.",
-    "blockEyebrow": "Pro section — locked",
-    "blockTitle": "This section is part of Pro",
-    "blockBody": "Pro unlocks this section, every Pro lesson and the lesson videos — and pays for the rest of the course to stay free.",
-    "inside": "Inside",
-    "paragraphs": "no text | 1 paragraph | {count} paragraphs",
-    "videos": "no video | a video | {count} videos",
-    "code": "no code | 1 code example | {count} code examples",
-    "tables": "no table | 1 table | {count} tables",
-    "minutes": "about {count} min to read",
-    "seePlans": "See Pro plans",
-    "haveIt": "I already have Pro",
-    "loading": "Unlocking…",
-    "loadFailed": "This section could not be loaded. Try reloading the page.",
-    "lessonLoadFailed": "This lesson could not be loaded. Try reloading the page.",
-    "badge": "Pro"
-  },
-  "transcript": {
-    "title": "Transcript",
-    "language": "Transcript language",
-    "search": "Search the transcript",
-    "copy": "Copy",
-    "copied": "Copied",
-    "download": "Download .vtt",
-    "show": "Show transcript",
-    "hide": "Hide transcript",
-    "matches": "no matches | 1 match | {count} matches",
-    "jumpTo": "Play from {time}",
-    "note": "Captions are generated from the video automatically and machine-translated into each language.",
-    "loading": "Loading transcript…",
-    "unavailable": "The transcript is not available right now."
   },
   "comments": {
     "title": "Questions and discussion",
@@ -1620,5 +1134,13 @@
   "funnel": {
     "convertTo": "convert to {stage}",
     "logScale": "Bar lengths are logarithmic — compare the percentages, not the bars."
+  },
+  "channel": {
+    "eyebrow": "New on YouTube",
+    "title": "Watch the course on YouTube",
+    "body": "Every lesson gets a video walkthrough. Subscribe to CRM Analytics Academy and you will hear the moment a new section lands.",
+    "subscribe": "Subscribe",
+    "later": "Not now",
+    "close": "Close"
   }
 }

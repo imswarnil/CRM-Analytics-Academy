@@ -1,15 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
-
-// Pro lessons, as relative paths under content/. Written by
-// scripts/gate-content.mjs before every build; absent means nothing is gated.
-// These files are excluded from the collection — which is published whole as
-// a client-side database — and replaced by the stubs in .gated-stubs/, which
-// carry the title, navigation and a teaser but never the body.
-const gatedFiles: string[] = existsSync('.gated-files.json')
-  ? JSON.parse(readFileSync('.gated-files.json', 'utf8'))
-  : []
 
 export default defineContentConfig({
   collections: {
@@ -35,41 +24,6 @@ export default defineContentConfig({
         submittedByUrl: z.string().url().optional(),
         // Curated picks that shipped with the site, vs community submissions.
         featured: z.boolean().default(false)
-      })
-    }),
-
-    // Community dashboard showcase. One markdown file per dashboard, under
-    // content/showcase/. Rendered as a page so each entry gets its own URL and
-    // can carry a full write-up in the body (build notes, gotchas, SAQL).
-    showcase: defineCollection({
-      type: 'page',
-      source: 'showcase/**',
-      schema: z.object({
-        // Screenshot of the finished dashboard — put the file in
-        // public/showcase/ and reference it as /showcase/<name>.png
-        image: z.string(),
-        author: z.string(),
-        authorUrl: z.string().url().optional(),
-        // e.g. Sales, Service, Marketing, Finance
-        domain: z.string().optional(),
-        difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).default('Intermediate'),
-        publishedAt: z.string().optional(),
-        // Which datasets/objects it's built on.
-        datasets: z.array(z.string()).optional(),
-        // The metrics on the dashboard and how each is actually computed —
-        // this is the part people come to the showcase for.
-        kpis: z.array(z.object({
-          name: z.string(),
-          formula: z.string(),
-          note: z.string().optional()
-        })).optional(),
-        // High-level build steps (the "recipe").
-        recipe: z.array(z.object({
-          step: z.string(),
-          detail: z.string().optional()
-        })).optional(),
-        // CRM Analytics features exercised, for filtering.
-        techniques: z.array(z.string()).optional()
       })
     }),
 
@@ -103,35 +57,24 @@ export default defineContentConfig({
       // Content is organised per locale: content/<locale>/<module>/<lesson>.md.
       // The non-localized collections above live in their own top-level folders
       // and are excluded so they aren't ingested twice.
-      source: [
-        {
-          include: '**',
-          exclude: ['resources/**', 'showcase/**', 'people/**', ...gatedFiles]
-        },
-        ...(gatedFiles.length ? [{ cwd: resolve('.gated-stubs'), include: '**' }] : [])
-      ],
+      source: {
+        include: '**',
+        exclude: ['resources/**', 'people/**']
+      },
       schema: z.object({
-        // Access tier. A `pro` lesson's real file never enters this
-        // collection: scripts/gate-content.mjs swaps in a stub (title,
-        // navigation, teaser) and the body is served only by /api/lesson after
-        // a server-side entitlement check. Anything not marked ships to
-        // everyone, so a lesson that should be paid and is not marked is free.
-        access: z.enum(['free', 'pro']).default('free'),
-        // The lesson's ONE video: a Mux playback id. Every locale plays it;
-        // languages are captions + a transcript (content-transcripts/), not
-        // separate recordings. The old per-language map is still accepted, but
-        // only its `en` entry is used (gate-content warns). A free lesson's id
-        // uses Mux's public policy; a Pro lesson's is signed and plays only
-        // with the token /api/lesson mints after the entitlement check.
-        mux: z.union([z.string(), z.record(z.string(), z.string())]).optional(),
+        // A section page standing in for lessons not published yet. It is in
+        // the sidebar and llms.txt, but not in the course order or progress.
+        comingSoon: z.boolean().optional(),
         links: z.array(z.object({
           label: z.string(),
           icon: z.string(),
           to: z.string(),
           target: z.string().optional()
         })).optional(),
-        // Optional lesson video (a clip of a YouTube video). Rendered at the top
-        // of the lesson via YoutubeEmbed; also surfaced as VideoObject JSON-LD.
+        // The lesson video, on YouTube: edited in Final Cut Pro (content-creation/), uploaded,
+        // and its id set here on the English lesson — every locale plays it.
+        // Rendered at the top of the lesson via YoutubeEmbed; also surfaced as
+        // VideoObject JSON-LD. `start`/`end` clip someone else's video.
         video: z.object({
           id: z.string(),
           start: z.number().optional(),

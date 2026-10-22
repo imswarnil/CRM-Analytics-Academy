@@ -210,11 +210,9 @@ usePageSchema(() => ({
           <li>{{ t('datasets.procedure.step3') }}</li>
         </ol>
       </div>
-
-      <PromoSlot
-        placement="betweenSections"
-        class="mx-auto my-12 max-w-3xl"
-      />
+    </div>
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <PromoSlot unit="horizontal" />
     </div>
   </div>
 </template>

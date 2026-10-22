@@ -24,7 +24,6 @@ const strip = s => s.replace(/^\d+\./, '').replace(/\.md$/, '')
 function routeOf(file) {
   const parts = file.split('/')
   if (parts[0] !== 'content') return null
-  if (parts[1] === 'showcase') return `/showcase/${strip(parts[2])}`
   if (parts[1] === 'resources') return '/resources'
   if (parts.length !== 4 || !file.endsWith('.md')) return null
   const [, locale, section, lesson] = parts

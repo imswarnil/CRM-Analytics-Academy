@@ -5,7 +5,6 @@
 /* Tailwind's scanner reads "[...slug].vue" as a glob character class and
    skips it, so utilities used only in the lesson page were never generated. */
 @source "../../pages/*slug*.vue";
-@source "../../pages/showcase/*slug*.vue";
 
 /* ===========================================================================
    CRM Analytics Academy — "Blueprint"
@@ -512,13 +511,6 @@ button:hover > .bp-arrow {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
 }
-
-/* PromoSlot: AdSense replaces the <ins> contents with an iframe of its own
-   sizing, often narrower than the slot and left-aligned inside it. Centring
-   the generated child is the only way to hold it. Kept here rather than as a
-   scoped <style>, whose module URL ad blockers refuse to load. */
-.promo-slot ins { margin-inline: auto; text-align: center; }
-.promo-slot iframe { display: block; margin-inline: auto; max-width: 100%; }
 
 /* ---------------------------------------------------------------------------
    Drafting sketch (BpDrawing) — draws itself once on load

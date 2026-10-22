@@ -56,7 +56,7 @@ export function localizeNavigation<T extends { path?: string, children?: T[] }>(
 }
 
 /** Pages with no translated copy; a locale prefix would only redirect back. */
-const UNLOCALIZED = /^\/(pricing|teams|nominate|join|team|raw|api|_studio|sample-data|showcase\/)/
+const UNLOCALIZED = /^\/(raw|api|admin|_studio|sample-data)/
 
 /**
  * A link written inside lesson markdown, pointed at the reader's locale.

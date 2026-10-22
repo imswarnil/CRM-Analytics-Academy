@@ -18,7 +18,7 @@
 // visually secondary, useful to whoever records it and skippable by everyone
 // else.
 //
-// Once the lesson has a video (`mux`, or a YouTube `video`), the page passes
+// Once the lesson has a YouTube `video`, the page passes
 // `has-video` and this collapses to a closed disclosure: the video supersedes
 // it, but the script stays available as the transcript-shaped version of the
 // same tour. <details> rather than reactive state, so it works before

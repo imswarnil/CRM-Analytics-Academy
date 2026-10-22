@@ -14,7 +14,7 @@ const ACTIONS = ['approve', 'reject', 'delete'] as const
 type Action = typeof ACTIONS[number]
 
 export default defineEventHandler(async (event) => {
-  const moderator = await requireModerator(event)
+  const admin = await requireAdmin(event)
   const body = await readBody<{ id?: number, action?: string, note?: string }>(event)
 
   const id = Number(body?.id)
@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
     update app.submission
        set status = ${status},
            review_note = ${note},
-           reviewed_by = ${moderator.id},
+           reviewed_by = ${admin.id},
            reviewed_at = now()
      where id = ${id}
     returning id, status

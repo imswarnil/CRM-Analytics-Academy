@@ -1,16 +1,12 @@
 <script setup lang="ts">
 /**
- * /admin — users, roles and the moderation queue.
+ * /admin — the site owner's console: overview, traffic analytics, users,
+ * community submissions and lesson comments.
  *
- * Deliberately NOT translated. Every other user-facing string on this site
- * lives in i18n/locales/en.json and is machine-translated into eleven
- * languages; this screen is an internal tool with one operator, and putting
- * it through that pipeline would mean ~60 more keys translated into languages
- * nobody will administer the site in.
- *
- * The page is also not the security boundary. It asks /api/admin/me to decide
- * whether to render, but every route it calls re-checks the role server-side —
- * anything decided here can be skipped by not running the client.
+ * Only one account can open it (ADMIN_EMAIL in server/utils/admin.ts), and
+ * every route it calls re-checks that server-side; this page only decides
+ * whether to draw. Deliberately not translated — one operator, English.
+ * Content is edited in Nuxt Studio (/_studio), not here.
  */
 definePageMeta({
   middleware: 'auth'
@@ -21,1015 +17,516 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type AdminTab = 'overview' | 'users' | 'queue' | 'content' | 'leads' | 'teams' | 'sponsors' | 'lessons' | 'comments' | 'guide'
-const tab = ref<AdminTab>('overview')
-// The Guide's "Open" buttons jump straight to the tab a chapter describes.
-const goToTab = (t: string) => {
-  tab.value = t as AdminTab
+type Tab = 'overview' | 'analytics' | 'users' | 'submissions' | 'comments'
+const TABS: { key: Tab, label: string, icon: string }[] = [
+  { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
+  { key: 'analytics', label: 'Analytics', icon: 'i-lucide-chart-line' },
+  { key: 'users', label: 'Users', icon: 'i-lucide-users' },
+  { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
+  { key: 'comments', label: 'Comments', icon: 'i-lucide-message-square' }
+]
+const route = useRoute()
+const tab = ref<Tab>(TABS.some(t => t.key === route.query.tab) ? route.query.tab as Tab : 'overview')
+watch(tab, t => navigateTo({ query: { tab: t } }, { replace: true }))
+
+const { data: me, status: meStatus } = await useLazyAsyncData('admin-me', () =>
+  $fetch<{ signedIn: boolean, admin: boolean, email: string | null }>('/api/admin/me'), { server: false })
+const isAdmin = computed(() => Boolean(me.value?.admin))
+
+/* --- Overview --------------------------------------------------------------- */
+interface Stats {
+  totals: { users: number, pendingSubmissions: number, approvedSubmissions: number, lessonsCompleted: number, quizAttempts: number, comments: number, views7d: number, visitors7d: number, signups7d: number }
+  series: { progress: { day: string, count: number }[], signups: { day: string, count: number }[] }
+  topLessons: { path: string, count: number }[]
+  quiz: { attempts: number, avgScorePct: number }
 }
+const { data: stats } = await useLazyAsyncData('admin-stats', () => $fetch<Stats>('/api/admin/stats'), { server: false, immediate: false })
+watch(isAdmin, ok => ok && refreshNuxtData('admin-stats'), { immediate: true })
 
-const { data: me } = await useLazyAsyncData('admin-me', () =>
-  $fetch<{ signedIn: boolean, role: string | null, email?: string }>('/api/admin/me'), {
-  server: false,
-  default: () => ({ signedIn: false, role: null as string | null, email: undefined as string | undefined })
+const overviewTiles = computed(() => {
+  const t = stats.value?.totals
+  if (!t) return []
+  return [
+    { label: 'Visitors · 7 days', value: t.visitors7d, to: 'analytics' as Tab },
+    { label: 'Page views · 7 days', value: t.views7d, to: 'analytics' as Tab },
+    { label: 'Users', value: t.users, to: 'users' as Tab },
+    { label: 'New users · 7 days', value: t.signups7d, to: 'users' as Tab },
+    { label: 'Lessons completed', value: t.lessonsCompleted, to: null },
+    { label: 'Quiz attempts', value: t.quizAttempts, to: null },
+    { label: 'Pending submissions', value: t.pendingSubmissions, to: 'submissions' as Tab },
+    { label: 'Comments', value: t.comments, to: 'comments' as Tab }
+  ]
 })
+const seriesBars = (s?: { day: string, count: number }[]) => (s ?? []).map((d, i, all) => ({
+  label: i % 2 === 0 ? d.day.slice(5) : '',
+  value: d.count,
+  tone: i === all.length - 1 ? 'signal' as const : 'tide' as const,
+  title: `${d.day} · ${d.count}`
+}))
 
-const isAdmin = computed(() => me.value?.role === 'admin')
-const isModerator = computed(() => me.value?.role === 'admin' || me.value?.role === 'moderator')
-// Instructors get the content editor and nothing else; every route behind it
-// re-checks the role (requireEditor) and the ownership of each lesson.
-const isInstructor = computed(() => me.value?.role === 'instructor')
-const isEditor = computed(() => isAdmin.value || isInstructor.value)
-const isStaff = computed(() => isModerator.value || isInstructor.value)
-watch(isInstructor, (ok) => {
-  if (ok) tab.value = 'content'
-}, { immediate: true })
-
+/* --- Users ----------------------------------------------------------------- */
 interface AdminUser {
   id: string
   email: string
   name: string | null
+  image: string | null
   createdAt: string
   emailVerified: boolean
-  role: string
   points: number
   lessonsDone: number
-  pendingSubmissions: number
+  quizzes: number
+  comments: number
+  lastLessonAt: string | null
   isDemo: boolean
-  pro: boolean
-  // True when the role comes from the ADMIN_EMAILS allowlist rather than
-  // app.user_role — writing a role for them would be overridden by the env.
-  roleLocked: boolean
+  admin: boolean
+}
+const { data: users, refresh: refreshUsers } = await useLazyAsyncData('admin-users', () =>
+  $fetch<{ users: AdminUser[] }>('/api/admin/users').then(r => r.users), { server: false, immediate: false, default: () => [] })
+const userQuery = ref('')
+const shownUsers = computed(() => {
+  const q = userQuery.value.trim().toLowerCase()
+  return q ? users.value.filter(u => `${u.email} ${u.name ?? ''}`.toLowerCase().includes(q)) : users.value
+})
+const newUser = reactive({ email: '', name: '' })
+const created = ref<{ email: string, temporaryPassword: string } | null>(null)
+const busy = ref(false)
+const error = ref('')
+async function createUser() {
+  busy.value = true
+  error.value = ''
+  try {
+    created.value = await $fetch<{ email: string, temporaryPassword: string }>('/api/admin/users', { method: 'POST', body: { ...newUser } })
+    newUser.email = ''
+    newUser.name = ''
+    await refreshUsers()
+  } catch (e) {
+    error.value = apiError(e) || 'Could not create the user.'
+  } finally {
+    busy.value = false
+  }
 }
 
-interface QueueItem {
+/* --- Submissions ------------------------------------------------------------ */
+interface Submission {
   id: number
   kind: string
   title: string
   url: string | null
   description: string
   tags: string[]
-  imageUrl: string | null
   status: string
   createdAt: string
   submittedBy: { name: string | null, email: string | null }
 }
-
-interface SeriesPoint {
-  day: string
-  count: number
-}
-
-interface AdminStats {
-  totals: {
-    users: number
-    pendingSubmissions: number
-    approvedSubmissions: number
-    rejectedSubmissions: number
-    lessonsCompleted: number
-    quizAttempts: number
-  }
-  series: {
-    submissions: SeriesPoint[]
-    progress: SeriesPoint[]
-    // Empty (not zeros) when neon_auth."user" is unreadable — the chart hides.
-    signups?: SeriesPoint[]
-  }
-  topLessons?: TopLesson[]
-  quiz?: QuizStats
-}
-
-interface TopLesson {
-  path: string
-  count: number
-}
-
-interface QuizStats {
-  attempts: number
-  avgScorePct: number
-}
-
-const users = ref<AdminUser[]>([])
-const queue = ref<QueueItem[]>([])
-const stats = ref<AdminStats | null>(null)
 const queueStatus = ref<'pending' | 'approved' | 'rejected'>('pending')
-const busy = ref(false)
-const error = ref('')
-
-async function loadUsers() {
-  if (!isAdmin.value) return
-  try {
-    const r = await $fetch<{ users: AdminUser[] }>('/api/admin/users')
-    users.value = r.users
-  } catch (e) { error.value = msg(e) }
-}
-
-async function loadQueue() {
-  if (!isModerator.value) return
-  try {
-    const r = await $fetch<{ submissions: QueueItem[] }>('/api/admin/submissions', {
-      query: { status: queueStatus.value }
-    })
-    queue.value = r.submissions
-  } catch (e) { error.value = msg(e) }
-}
-
-async function loadStats() {
-  if (!isAdmin.value) return
-  try {
-    stats.value = await $fetch<AdminStats>('/api/admin/stats')
-  } catch (e) { error.value = msg(e) }
-}
-
-function msg(e: unknown) {
-  return apiError(e) || 'Something went wrong.'
-}
-
-watch(isModerator, (ok) => {
-  if (!ok) return
-  loadQueue()
-  // Moderators cannot read /api/admin/stats, so the default Overview tab is
-  // useless to them — land them on the queue instead.
-  if (!isAdmin.value && tab.value === 'overview') tab.value = 'queue'
-}, { immediate: true })
-watch(isAdmin, (ok) => {
-  if (!ok) return
-  loadUsers()
-  loadStats()
-}, { immediate: true })
-watch(queueStatus, loadQueue)
-
-/* --- Overview ----------------------------------------------------------- */
-// When the database is fresh (every number zero), the dashboard demonstrates
-// its full shape with clearly-labelled sample data instead of a wall of
-// zeros. The wobble is index math, not Math.random, so it is deterministic.
-const SAMPLE_TOTALS = {
-  users: 128,
-  pendingSubmissions: 6,
-  approvedSubmissions: 42,
-  rejectedSubmissions: 9,
-  lessonsCompleted: 913,
-  quizAttempts: 357
-}
-
-function lastDays(n: number): string[] {
-  const out: string[] = []
-  const now = Date.now()
-  for (let i = n - 1; i >= 0; i--) {
-    out.push(new Date(now - i * 86400000).toISOString().slice(0, 10))
-  }
-  return out
-}
-
-function sampleSeries(): Required<AdminStats['series']> {
-  const days = lastDays(14)
-  return {
-    submissions: days.map((day, i) => ({ day, count: 1 + ((i * 7) % 13) % 9 })),
-    progress: days.map((day, i) => ({ day, count: 3 + ((i * 5 + 4) % 11) })),
-    signups: days.map((day, i) => ({ day, count: 1 + ((i * 3 + 2) % 7) }))
-  }
-}
-
-const SAMPLE_TOP_LESSONS: TopLesson[] = [
-  { path: '/foundations/what-is-crm-analytics', count: 74 },
-  { path: '/creating-datasets/recipes-vs-dataflows', count: 61 },
-  { path: '/lenses-and-explorations/saql-basics', count: 48 },
-  { path: '/designing-dashboards/bindings', count: 39 },
-  { path: '/setup/enable-crm-analytics', count: 31 }
-]
-
-const SAMPLE_QUIZ: QuizStats = { attempts: 357, avgScorePct: 78 }
-
-function statsEmpty(s: AdminStats) {
-  return Object.values(s.totals).every(v => !v)
-    && s.series.submissions.every(p => !p.count)
-    && s.series.progress.every(p => !p.count)
-}
-
-const sampleActive = computed(() => !stats.value || statsEmpty(stats.value))
-const displayTotals = computed(() => {
-  const s = stats.value
-  return !s || statsEmpty(s) ? SAMPLE_TOTALS : s.totals
-})
-const displaySeries = computed(() => {
-  const s = stats.value
-  return !s || statsEmpty(s) ? sampleSeries() : s.series
-})
-
-const statCards = computed(() => [
-  { label: 'Users', icon: 'i-lucide-users', value: displayTotals.value.users },
-  { label: 'Pending review', icon: 'i-lucide-inbox', value: displayTotals.value.pendingSubmissions },
-  { label: 'Approved', icon: 'i-lucide-circle-check', value: displayTotals.value.approvedSubmissions },
-  { label: 'Lessons completed', icon: 'i-lucide-book-open-check', value: displayTotals.value.lessonsCompleted },
-  { label: 'Quiz attempts', icon: 'i-lucide-list-checks', value: displayTotals.value.quizAttempts }
-])
-
-// Inline SVG geometry. 280×140 viewBox, stretched to the card's width; the
-// bottom 18 units are breathing room above the baseline.
-const CHART_W = 280
-const CHART_H = 140
-const CHART_PAD = 18
-
-const submissionBars = computed(() => {
-  const s = displaySeries.value.submissions
-  const max = Math.max(1, ...s.map(p => p.count))
-  const bw = CHART_W / Math.max(1, s.length)
-  return s.map((p, i) => {
-    const h = (p.count / max) * (CHART_H - CHART_PAD - 8)
-    return {
-      x: +(i * bw + 2).toFixed(1),
-      y: +(CHART_H - CHART_PAD - h).toFixed(1),
-      w: +(bw - 4).toFixed(1),
-      h: +h.toFixed(1)
-    }
-  })
-})
-
-const progressLine = computed(() => {
-  const s = displaySeries.value.progress
-  const max = Math.max(1, ...s.map(p => p.count))
-  const step = CHART_W / Math.max(1, s.length - 1)
-  const pts = s.map((p, i) => {
-    const y = CHART_H - CHART_PAD - (p.count / max) * (CHART_H - CHART_PAD - 8)
-    return `${(i * step).toFixed(1)},${y.toFixed(1)}`
-  })
-  return {
-    line: pts.join(' '),
-    area: `0,${CHART_H - CHART_PAD} ${pts.join(' ')} ${CHART_W},${CHART_H - CHART_PAD}`
-  }
-})
-
-const displaySignups = computed(() => {
-  const s = stats.value
-  if (!s || statsEmpty(s)) return sampleSeries().signups
-  return s.series.signups ?? []
-})
-
-const signupLine = computed(() => {
-  const s = displaySignups.value
-  const max = Math.max(1, ...s.map(p => p.count))
-  const step = CHART_W / Math.max(1, s.length - 1)
-  return s.map((p, i) => {
-    const y = CHART_H - CHART_PAD - (p.count / max) * (CHART_H - CHART_PAD - 8)
-    return `${(i * step).toFixed(1)},${y.toFixed(1)}`
-  }).join(' ')
-})
-
-const displayTopLessons = computed(() => {
-  const s = stats.value
-  if (!s || statsEmpty(s)) return SAMPLE_TOP_LESSONS
-  return s.topLessons ?? []
-})
-
-const topLessonMax = computed(() => Math.max(1, ...displayTopLessons.value.map(l => l.count)))
-
-const displayQuiz = computed(() => {
-  const s = stats.value
-  if (!s || statsEmpty(s) || !s.quiz) return SAMPLE_QUIZ
-  return s.quiz
-})
-
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-function fmtDay(day: string) {
-  const parts = day.split('-')
-  const m = Number(parts[1])
-  const d = Number(parts[2])
-  if (!m || !d) return day
-  return `${MONTHS[m - 1]} ${d}`
-}
-
-// Sparse labels: only the first and last day of the window.
-const dayLabels = computed(() => {
-  const s = displaySeries.value.submissions
-  const first = s[0]
-  const last = s[s.length - 1]
-  if (!first || !last) return { first: '', last: '' }
-  return { first: fmtDay(first.day), last: fmtDay(last.day) }
-})
-
-async function setRole(u: AdminUser, role: string) {
+const { data: queue, refresh: refreshQueue } = await useLazyAsyncData('admin-queue', () =>
+  $fetch<{ submissions: Submission[] }>('/api/admin/submissions', { query: { status: queueStatus.value } }).then(r => r.submissions),
+{ server: false, immediate: false, default: () => [], watch: [queueStatus] })
+async function review(item: Submission, action: 'approve' | 'reject' | 'delete') {
   busy.value = true
-  error.value = ''
-  try {
-    await $fetch('/api/admin/users', { method: 'PATCH', body: { userId: u.id, role } })
-    await loadUsers()
-  } catch (e) {
-    error.value = msg(e)
-  } finally {
-    busy.value = false
-  }
-}
-
-async function togglePro(u: AdminUser) {
-  busy.value = true
-  error.value = ''
-  try {
-    await $fetch('/api/admin/users', { method: 'PATCH', body: { userId: u.id, pro: !u.pro } })
-    await loadUsers()
-  } catch (e) {
-    error.value = msg(e)
-  } finally {
-    busy.value = false
-  }
-}
-
-async function review(item: QueueItem, action: 'approve' | 'reject' | 'delete') {
-  // Deleting destroys the row and the person is never told why — reserved for
-  // spam, and worth a confirm because rejection is almost always the right
-  // action instead.
-  if (action === 'delete' && !confirm(`Permanently delete "${item.title}"? Rejecting instead keeps it and tells the author why.`)) return
-  busy.value = true
-  error.value = ''
   try {
     await $fetch('/api/admin/submissions', { method: 'PATCH', body: { id: item.id, action } })
-    await loadQueue()
+    await refreshQueue()
   } catch (e) {
-    error.value = msg(e)
+    error.value = apiError(e) || 'Could not update the submission.'
   } finally {
     busy.value = false
   }
 }
 
-/* --- Create user -------------------------------------------------------- */
-const newUser = reactive({ email: '', name: '', role: 'learner' })
-const created = ref<{ email: string, temporaryPassword: string } | null>(null)
+watch(isAdmin, (ok) => {
+  if (!ok) return
+  refreshUsers()
+  refreshQueue()
+}, { immediate: true })
 
-async function createUser() {
-  busy.value = true
-  error.value = ''
-  created.value = null
-  try {
-    created.value = await $fetch('/api/admin/users', { method: 'POST', body: { ...newUser } })
-    Object.assign(newUser, { email: '', name: '', role: 'learner' })
-    await loadUsers()
-  } catch (e) {
-    error.value = msg(e)
-  } finally {
-    busy.value = false
-  }
-}
-
-const roles = ['learner', 'instructor', 'moderator', 'admin']
+const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day: 'numeric', month: 'short', year: '2-digit' }) : '—'
 </script>
 
 <template>
   <div>
-    <!-- Signed in but not an admin: say nothing useful. The API returns 404
-         for the same reason — a 403 confirms the screen exists. -->
-    <UContainer
-      v-if="me?.signedIn && !isStaff"
-      class="py-20 text-center"
+    <div
+      v-if="meStatus === 'pending' || !me"
+      class="py-32 text-center font-mono text-xs uppercase tracking-[.12em] text-(--ink2)"
     >
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
+      Checking access…
+    </div>
+
+    <div
+      v-else-if="!isAdmin"
+      class="mx-auto max-w-xl py-32 text-center"
+    >
+      <p class="eyebrow">
         404
       </p>
-      <p class="mt-2 text-(--ink2)">
-        Not found.
-      </p>
-    </UContainer>
-
-    <UContainer v-else-if="isStaff">
-      <UPageHeader
-        :title="tab === 'sponsors' ? 'Sponsors' : tab === 'lessons' ? 'Lessons & Pro' : tab === 'comments' ? 'Comments' : tab === 'leads' ? 'Leads' : tab === 'teams' ? 'Teams' : tab === 'guide' ? 'Guide' : tab === 'overview' ? 'Overview' : tab === 'queue' ? 'Moderation' : tab === 'content' ? (isInstructor ? 'Instructor studio' : 'Content') : 'Users & Roles'"
-        :description="tab === 'sponsors' ? 'One sponsor per month: bookings, refunds, manual bookings and creative moderation.' : tab === 'lessons' ? 'Which lessons are Pro, and which videos each one plays.' : tab === 'comments' ? 'Lesson discussion — hide anything that should not be there.' : tab === 'leads' ? 'Sales, quotes, teams, sponsors, instructors and nominations — enriched and sent to the CRM.' : tab === 'teams' ? 'Every team: seats bought, seats used, members and status.' : tab === 'guide' ? 'How to run the academy, end to end — writing, pricing, video, leads and tracking.' : tab === 'overview' ? 'Site activity at a glance.' : tab === 'queue' ? 'Community submissions awaiting review.' : tab === 'content' ? (isInstructor ? 'Edit the lessons you author and create new ones; an admin reviews every change.' : 'The course on GitHub: edit, create, rename and reorder lessons and sections, review instructors and credit people.') : 'Accounts, roles and access.'"
+      <h1 class="bp-h2 mt-4">
+        Not found
+      </h1>
+      <UButton
+        to="/dashboard"
+        class="mt-8"
+        trailing-icon="i-lucide-arrow-right"
       >
-        <template #headline>
-          <nav
-            class="flex flex-wrap items-center gap-1 border-[1.5px] border-(--ink) bg-(--card) p-1"
-            aria-label="Admin sections"
-          >
-            <UButton
-              v-if="isAdmin"
-              icon="i-lucide-layout-dashboard"
-              size="sm"
-              :color="tab === 'overview' ? 'primary' : 'neutral'"
-              :variant="tab === 'overview' ? 'solid' : 'ghost'"
-              @click="tab = 'overview'"
-            >
-              Overview
-            </UButton>
-            <UButton
-              v-if="isModerator"
-              icon="i-lucide-inbox"
-              size="sm"
-              :color="tab === 'queue' ? 'primary' : 'neutral'"
-              :variant="tab === 'queue' ? 'solid' : 'ghost'"
-              @click="tab = 'queue'"
-            >
-              Moderation
-              <UBadge
-                v-if="queue.length && queueStatus === 'pending'"
-                :label="String(queue.length)"
-                size="sm"
-              />
-            </UButton>
-            <UButton
-              v-if="isModerator"
-              icon="i-lucide-messages-square"
-              size="sm"
-              :color="tab === 'comments' ? 'primary' : 'neutral'"
-              :variant="tab === 'comments' ? 'solid' : 'ghost'"
-              @click="tab = 'comments'"
-            >
-              Comments
-            </UButton>
-            <UButton
-              v-if="isAdmin"
-              icon="i-lucide-sparkles"
-              size="sm"
-              :color="tab === 'lessons' ? 'primary' : 'neutral'"
-              :variant="tab === 'lessons' ? 'solid' : 'ghost'"
-              @click="tab = 'lessons'"
-            >
-              Lessons & Pro
-            </UButton>
-            <UButton
-              v-if="isModerator"
-              icon="i-lucide-inbox"
-              size="sm"
-              :color="tab === 'leads' ? 'primary' : 'neutral'"
-              :variant="tab === 'leads' ? 'solid' : 'ghost'"
-              @click="tab = 'leads'"
-            >
-              Leads
-            </UButton>
-            <UButton
-              v-if="isAdmin"
-              icon="i-lucide-users-round"
-              size="sm"
-              :color="tab === 'teams' ? 'primary' : 'neutral'"
-              :variant="tab === 'teams' ? 'solid' : 'ghost'"
-              @click="tab = 'teams'"
-            >
-              Teams
-            </UButton>
-            <UButton
-              v-if="isAdmin"
-              icon="i-lucide-megaphone"
-              size="sm"
-              :color="tab === 'sponsors' ? 'primary' : 'neutral'"
-              :variant="tab === 'sponsors' ? 'solid' : 'ghost'"
-              @click="tab = 'sponsors'"
-            >
-              Sponsors
-            </UButton>
-            <UButton
-              v-if="isEditor"
-              icon="i-lucide-file-pen-line"
-              size="sm"
-              :color="tab === 'content' ? 'primary' : 'neutral'"
-              :variant="tab === 'content' ? 'solid' : 'ghost'"
-              @click="tab = 'content'"
-            >
-              Content
-            </UButton>
-            <UButton
-              v-if="isAdmin"
-              icon="i-lucide-users"
-              size="sm"
-              :color="tab === 'users' ? 'primary' : 'neutral'"
-              :variant="tab === 'users' ? 'solid' : 'ghost'"
-              @click="tab = 'users'"
-            >
-              Users & Roles
-            </UButton>
-            <UButton
-              v-if="isAdmin"
-              icon="i-lucide-book-open"
-              size="sm"
-              :color="tab === 'guide' ? 'primary' : 'neutral'"
-              :variant="tab === 'guide' ? 'solid' : 'ghost'"
-              @click="tab = 'guide'"
-            >
-              Guide
-            </UButton>
-          </nav>
-        </template>
+        Your dashboard
+      </UButton>
+    </div>
 
-        <template #links>
-          <div class="border-[1.5px] border-(--ink) bg-(--card) px-3 py-2 text-end font-mono text-[11px] text-(--ink2)">
-            <span class="block max-w-56 truncate font-semibold text-(--ink)">{{ me?.email }}</span>
-            <span class="block uppercase tracking-[.1em]">role · {{ me?.role }}</span>
-          </div>
-        </template>
-      </UPageHeader>
+    <template v-else>
+      <BpPageHeader
+        sheet="Sheet 00 / Admin"
+        title="Admin console"
+        :lead="`Signed in as ${me.email}. Content lives in Nuxt Studio.`"
+      >
+        <div class="mt-6 flex flex-wrap gap-2">
+          <UButton
+            v-for="tb in TABS"
+            :key="tb.key"
+            :icon="tb.icon"
+            :label="tb.label"
+            :color="tab === tb.key ? 'primary' : 'neutral'"
+            :variant="tab === tb.key ? 'solid' : 'outline'"
+            size="sm"
+            @click="tab = tb.key"
+          />
+          <UButton
+            to="/_studio"
+            external
+            icon="i-lucide-pen-line"
+            label="Edit content (Studio)"
+            color="neutral"
+            variant="ghost"
+            size="sm"
+            class="ms-auto"
+          />
+        </div>
+      </BpPageHeader>
 
-      <UPageBody>
-        <p
+      <div class="mx-auto max-w-(--ui-container) px-4 py-10 sm:px-6 lg:px-8">
+        <UAlert
           v-if="error"
-          class="mb-4 text-sm text-error"
-          role="alert"
+          class="mb-6"
+          color="error"
+          variant="subtle"
+          :title="error"
+          :close="{ onClick: () => { error = '' } }"
+        />
+
+        <!-- ============================ OVERVIEW ============================ -->
+        <section
+          v-if="tab === 'overview'"
+          class="space-y-6"
         >
-          {{ error }}
-        </p>
-
-        <AdminLeads v-if="tab === 'leads' && isModerator" />
-        <AdminTeams v-if="tab === 'teams' && isAdmin" />
-        <AdminSponsors v-if="tab === 'sponsors' && isAdmin" />
-        <AdminGuide
-          v-if="tab === 'guide' && isAdmin"
-          @go="goToTab"
-        />
-        <AdminComments v-if="tab === 'comments' && isModerator" />
-        <AdminContent
-          v-if="tab === 'content' && isEditor"
-          :role="isAdmin ? 'admin' : 'instructor'"
-        />
-        <AdminLessons v-if="tab === 'lessons' && isAdmin" />
-
-        <!-- ========================== OVERVIEW ========================== -->
-        <section v-if="tab === 'overview' && isAdmin">
-          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            <div
-              v-for="card in statCards"
-              :key="card.label"
-              class="border-[1.5px] border-(--ink) bg-(--card) p-4"
+          <dl class="grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-4">
+            <component
+              :is="tile.to ? 'button' : 'div'"
+              v-for="tile in overviewTiles"
+              :key="tile.label"
+              type="button"
+              class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-4 text-start"
+              :class="tile.to ? 'hover:bg-(--ice)' : ''"
+              @click="tile.to && (tab = tile.to)"
             >
-              <div class="flex items-center gap-2 text-(--ink2)">
-                <UIcon
-                  :name="card.icon"
-                  class="size-4 shrink-0"
-                />
-                <span class="truncate font-mono text-[10px] font-semibold uppercase tracking-[.12em]">{{ card.label }}</span>
-              </div>
-              <p class="mt-2 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--signal)">
-                {{ card.value.toLocaleString('en-US') }}
-              </p>
-            </div>
-          </div>
+              <dd class="mt-1 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">
+                {{ tile.value.toLocaleString() }}
+              </dd>
+              <dt class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
+                {{ tile.label }}
+              </dt>
+            </component>
+          </dl>
 
-          <div class="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-            <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
-              <div class="mb-3 flex items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-(--ink)">
-                  Submissions — last 14 days
+          <div class="grid gap-6 lg:grid-cols-2">
+            <section class="border-[1.5px] border-(--ink) bg-(--card)">
+              <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+                <p class="eyebrow">
+                  Sign-ups · 14 days
                 </p>
-                <UBadge
-                  v-if="sampleActive"
-                  label="Sample data"
-                  color="neutral"
-                  variant="subtle"
-                  size="sm"
+              </header>
+              <div class="graph-paper-fine p-5">
+                <BpBarChart
+                  :bars="seriesBars(stats?.series.signups)"
+                  :height="140"
                 />
               </div>
-              <svg
-                :viewBox="`0 0 ${CHART_W} ${CHART_H}`"
-                class="h-[140px] w-full text-primary"
-                preserveAspectRatio="none"
-                role="img"
-                aria-label="Bar chart of submissions per day over the last 14 days"
-              >
-                <line
-                  x1="0"
-                  :y1="CHART_H - CHART_PAD"
-                  :x2="CHART_W"
-                  :y2="CHART_H - CHART_PAD"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  opacity="0.2"
-                />
-                <rect
-                  v-for="(b, i) in submissionBars"
-                  :key="i"
-                  :x="b.x"
-                  :y="b.y"
-                  :width="b.w"
-                  :height="b.h"
-                  rx="1.5"
-                  fill="currentColor"
-                  opacity="0.85"
-                />
-              </svg>
-              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-(--ink2)">
-                <span>{{ dayLabels.first }}</span>
-                <span>{{ dayLabels.last }}</span>
-              </div>
-            </div>
-
-            <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
-              <div class="mb-3 flex items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-(--ink)">
-                  Lessons completed — last 14 days
+            </section>
+            <section class="border-[1.5px] border-(--ink) bg-(--card)">
+              <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+                <p class="eyebrow">
+                  Lessons completed · 14 days
                 </p>
-                <UBadge
-                  v-if="sampleActive"
-                  label="Sample data"
-                  color="neutral"
-                  variant="subtle"
-                  size="sm"
+              </header>
+              <div class="graph-paper-fine p-5">
+                <BpBarChart
+                  :bars="seriesBars(stats?.series.progress)"
+                  :height="140"
                 />
               </div>
-              <svg
-                :viewBox="`0 0 ${CHART_W} ${CHART_H}`"
-                class="h-[140px] w-full text-primary"
-                preserveAspectRatio="none"
-                role="img"
-                aria-label="Area chart of lessons completed per day over the last 14 days"
-              >
-                <line
-                  x1="0"
-                  :y1="CHART_H - CHART_PAD"
-                  :x2="CHART_W"
-                  :y2="CHART_H - CHART_PAD"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  opacity="0.2"
-                />
-                <polygon
-                  :points="progressLine.area"
-                  fill="currentColor"
-                  opacity="0.15"
-                />
-                <polyline
-                  :points="progressLine.line"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                />
-              </svg>
-              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-(--ink2)">
-                <span>{{ dayLabels.first }}</span>
-                <span>{{ dayLabels.last }}</span>
-              </div>
-            </div>
-
-            <!-- Only rendered when the series exists: neon_auth."user" may be
-               unreadable locally, and the API sends [] rather than zeros. -->
-            <div
-              v-if="displaySignups.length"
-              class="border-[1.5px] border-(--ink) bg-(--card) p-4"
-            >
-              <div class="mb-3 flex items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-(--ink)">
-                  Signups — last 14 days
+            </section>
+            <section class="border-[1.5px] border-(--ink) bg-(--card)">
+              <header class="flex justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+                <p class="eyebrow">
+                  Most completed lessons
                 </p>
-                <UBadge
-                  v-if="sampleActive"
-                  label="Sample data"
-                  color="neutral"
-                  variant="subtle"
-                  size="sm"
-                />
-              </div>
-              <svg
-                :viewBox="`0 0 ${CHART_W} ${CHART_H}`"
-                class="h-[140px] w-full text-primary"
-                preserveAspectRatio="none"
-                role="img"
-                aria-label="Line chart of signups per day over the last 14 days"
-              >
-                <line
-                  x1="0"
-                  :y1="CHART_H - CHART_PAD"
-                  :x2="CHART_W"
-                  :y2="CHART_H - CHART_PAD"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  opacity="0.2"
-                />
-                <polyline
-                  :points="signupLine"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                />
-              </svg>
-              <div class="mt-1 flex justify-between text-[10px] tabular-nums text-(--ink2)">
-                <span>{{ dayLabels.first }}</span>
-                <span>{{ dayLabels.last }}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-6 grid gap-4 lg:grid-cols-2">
-            <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
-              <div class="mb-3 flex items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-(--ink)">
-                  Top lessons
-                </p>
-                <UBadge
-                  v-if="sampleActive"
-                  label="Sample data"
-                  color="neutral"
-                  variant="subtle"
-                  size="sm"
-                />
-              </div>
+                <span class="font-mono text-xs text-(--ink2)">quiz avg {{ stats?.quiz.avgScorePct ?? 0 }}%</span>
+              </header>
               <p
-                v-if="!displayTopLessons.length"
-                class="py-6 text-center text-sm text-(--ink2)"
+                v-if="!stats?.topLessons.length"
+                class="p-5 text-sm text-(--ink2)"
               >
-                No completions yet.
+                Nothing completed yet.
               </p>
-              <ul
-                v-else
-                class="space-y-3"
+              <p
+                v-for="l in stats?.topLessons"
+                :key="l.path"
+                class="flex justify-between border-b border-dashed border-(--line) px-5 py-2 text-sm last:border-b-0"
               >
-                <li
-                  v-for="lesson in displayTopLessons"
-                  :key="lesson.path"
-                >
-                  <div class="mb-1 flex items-baseline justify-between gap-2 text-sm">
-                    <span class="truncate font-medium text-(--ink)">{{ lesson.path }}</span>
-                    <span class="shrink-0 tabular-nums text-(--ink2)">{{ lesson.count.toLocaleString('en-US') }}</span>
-                  </div>
-                  <div class="h-1.5 bg-(--ice)">
-                    <div
-                      class="h-1.5 bg-(--signal)"
-                      :style="{ width: `${Math.max(4, (lesson.count / topLessonMax) * 100)}%` }"
-                    />
-                  </div>
+                <NuxtLink
+                  :to="l.path"
+                  class="truncate font-mono text-xs hover:text-(--signal)"
+                >{{ l.path }}</NuxtLink><span class="font-mono text-xs">{{ l.count }}</span>
+              </p>
+            </section>
+            <section class="graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white">
+              <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--glow)">
+                Publishing
+              </p>
+              <ol class="mt-3 list-decimal space-y-2 ps-5 text-sm text-white/85">
+                <li>
+                  Edit English lessons in <a
+                    href="/_studio"
+                    class="underline"
+                  >Nuxt Studio</a> (commits to main) or in <code>content/en/</code>.
                 </li>
-              </ul>
-            </div>
-
-            <div class="grid content-start gap-4 sm:grid-cols-2">
-              <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
-                <div class="flex items-center justify-between gap-2 text-(--ink2)">
-                  <div class="flex items-center gap-2">
-                    <UIcon
-                      name="i-lucide-list-checks"
-                      class="size-4 shrink-0"
-                    />
-                    <span class="truncate font-mono text-[10px] font-semibold uppercase tracking-[.12em]">Quiz attempts</span>
-                  </div>
-                  <UBadge
-                    v-if="sampleActive"
-                    label="Sample data"
-                    color="neutral"
-                    variant="subtle"
-                    size="sm"
-                  />
-                </div>
-                <p class="mt-2 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--signal)">
-                  {{ displayQuiz.attempts.toLocaleString('en-US') }}
-                </p>
-              </div>
-              <div class="border-[1.5px] border-(--ink) bg-(--card) p-4">
-                <div class="flex items-center justify-between gap-2 text-(--ink2)">
-                  <div class="flex items-center gap-2">
-                    <UIcon
-                      name="i-lucide-percent"
-                      class="size-4 shrink-0"
-                    />
-                    <span class="truncate font-mono text-[10px] font-semibold uppercase tracking-[.12em]">Avg quiz score</span>
-                  </div>
-                  <UBadge
-                    v-if="sampleActive"
-                    label="Sample data"
-                    color="neutral"
-                    variant="subtle"
-                    size="sm"
-                  />
-                </div>
-                <p class="mt-2 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--signal)">
-                  {{ displayQuiz.avgScorePct }}%
-                </p>
-              </div>
-            </div>
+                <li>Locally: <code>pnpm build</code> translates into 11 languages with the local LibreTranslate.</li>
+                <li>Commit and push — Cloudflare deploys.</li>
+                <li>Videos: <code>pnpm fcp &lt;route&gt;</code> → Final Cut Pro → YouTube → <code>video: {id}</code>.</li>
+              </ol>
+            </section>
           </div>
         </section>
 
-        <!-- ============================ QUEUE ============================ -->
-        <section v-else-if="tab === 'queue' && isModerator">
-          <div class="mb-4 flex gap-2">
-            <UButton
-              v-for="s in (['pending', 'approved', 'rejected'] as const)"
-              :key="s"
-              :label="s"
-              :color="queueStatus === s ? 'primary' : 'neutral'"
-              :variant="queueStatus === s ? 'soft' : 'outline'"
-              size="xs"
-              @click="queueStatus = s"
+        <!-- ============================ ANALYTICS =========================== -->
+        <AdminAnalytics v-else-if="tab === 'analytics'" />
+
+        <!-- ============================== USERS ============================= -->
+        <section
+          v-else-if="tab === 'users'"
+          class="space-y-6"
+        >
+          <div class="flex flex-wrap items-end gap-3">
+            <UInput
+              v-model="userQuery"
+              icon="i-lucide-search"
+              placeholder="Search name or email"
+              class="w-72"
             />
-          </div>
-
-          <p
-            v-if="!queue.length"
-            class="py-12 text-center text-sm text-(--ink2)"
-          >
-            Nothing {{ queueStatus }}.
-          </p>
-
-          <ul class="space-y-4">
-            <li
-              v-for="item in queue"
-              :key="item.id"
+            <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink2)">{{ shownUsers.length }} of {{ users.length }}</span>
+            <form
+              class="ms-auto flex flex-wrap items-end gap-2"
+              @submit.prevent="createUser"
             >
-              <UCard>
-                <div class="flex flex-col gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <UBadge
-                      :label="item.kind"
-                      color="neutral"
-                      variant="subtle"
-                      size="sm"
-                    />
-                    <span class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">{{ item.submittedBy.email || 'unknown' }}</span>
-                  </div>
-
-                  <p class="font-semibold text-(--ink)">
-                    {{ item.title }}
-                  </p>
-
-                  <!-- rel="noopener nofollow" and no target-blank trust: this is an
-                     unreviewed link submitted by a stranger. -->
-                  <a
-                    v-if="item.url"
-                    :href="item.url"
-                    target="_blank"
-                    rel="noopener nofollow ugc"
-                    class="text-sm text-primary break-all"
-                  >{{ item.url }}</a>
-
-                  <p class="whitespace-pre-line text-sm text-(--ink2)">
-                    {{ item.description }}
-                  </p>
-
-                  <p
-                    v-if="item.tags.length"
-                    class="flex flex-wrap gap-1"
-                  >
-                    <UBadge
-                      v-for="tg in item.tags"
-                      :key="tg"
-                      :label="tg"
-                      color="neutral"
-                      variant="outline"
-                      size="sm"
-                    />
-                  </p>
-                </div>
-
-                <template #footer>
-                  <div class="flex flex-wrap items-center gap-2">
-                    <UButton
-                      label="Approve"
-                      icon="i-lucide-check"
-                      size="sm"
-                      :disabled="busy || item.status === 'approved'"
-                      @click="review(item, 'approve')"
-                    />
-                    <UButton
-                      label="Reject"
-                      icon="i-lucide-x"
-                      color="neutral"
-                      variant="outline"
-                      size="sm"
-                      :disabled="busy || item.status === 'rejected'"
-                      @click="review(item, 'reject')"
-                    />
-                    <UButton
-                      label="Delete"
-                      icon="i-lucide-trash-2"
-                      color="error"
-                      variant="ghost"
-                      size="sm"
-                      class="ms-auto"
-                      :disabled="busy"
-                      @click="review(item, 'delete')"
-                    />
-                  </div>
-                </template>
-              </UCard>
-            </li>
-          </ul>
-        </section>
-
-        <!-- ============================ USERS ============================ -->
-        <section v-else-if="tab === 'users' && isAdmin">
-          <UCard class="mb-8">
-            <div class="flex flex-col gap-2">
-              <p class="font-semibold text-(--ink)">
-                Create a user
-              </p>
-              <div class="grid gap-3 sm:grid-cols-4">
-                <UInput
-                  v-model="newUser.email"
-                  type="email"
-                  placeholder="email"
-                />
-                <UInput
-                  v-model="newUser.name"
-                  type="text"
-                  placeholder="name (optional)"
-                />
-                <USelect
-                  v-model="newUser.role"
-                  :items="roles"
-                />
-                <UButton
-                  label="Create"
-                  icon="i-lucide-user-plus"
-                  :disabled="busy || !newUser.email"
-                  @click="createUser"
-                />
-              </div>
-
-              <!-- Shown once. There is no email sending on this site, so this is
-                 the only time the password is visible. -->
-              <div
-                v-if="created"
-                class="mt-4 space-y-2 border-[1.5px] border-(--ink) bg-(--ice) p-4"
+              <UInput
+                v-model="newUser.email"
+                type="email"
+                required
+                placeholder="new@email.com"
+              />
+              <UInput
+                v-model="newUser.name"
+                placeholder="Name (optional)"
+              />
+              <UButton
+                type="submit"
+                icon="i-lucide-user-plus"
+                :loading="busy"
               >
-                <p class="font-semibold text-(--ink)">
-                  Created {{ created.email }}
-                </p>
-                <p class="text-sm text-(--ink2)">
-                  Temporary password — copy it now, it is not stored and will not
-                  be shown again:
-                </p>
-                <code>{{ created.temporaryPassword }}</code>
-              </div>
-            </div>
-          </UCard>
-
-          <div class="overflow-x-auto">
-            <table class="w-full min-w-[52rem] border-collapse text-sm">
-              <thead>
-                <tr class="border-b border-(--line)">
-                  <th class="px-2 py-2 text-start font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
+                Create user
+              </UButton>
+            </form>
+          </div>
+          <UAlert
+            v-if="created"
+            color="info"
+            variant="subtle"
+            icon="i-lucide-key-round"
+            :title="`Created ${created.email}`"
+            :description="`Temporary password (shown once): ${created.temporaryPassword}`"
+            :close="{ onClick: () => { created = null } }"
+          />
+          <div class="overflow-x-auto border-[1.5px] border-(--ink) bg-(--card)">
+            <table class="w-full min-w-[56rem] text-sm">
+              <thead class="bg-(--ice) font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+                <tr>
+                  <th class="px-4 py-2 text-start">
                     User
                   </th>
-                  <th class="px-2 py-2 text-start font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-                    Role
+                  <th class="px-3 py-2 text-start">
+                    Joined
                   </th>
-                  <th class="px-2 py-2 text-end font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-                    Points
-                  </th>
-                  <th class="px-2 py-2 text-end font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
+                  <th class="px-3 py-2 text-end">
                     Lessons
                   </th>
-                  <th class="px-2 py-2 text-end font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-                    Queue
+                  <th class="px-3 py-2 text-end">
+                    Quizzes
                   </th>
-                  <th class="px-2 py-2 text-end font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
-                    Pro
+                  <th class="px-3 py-2 text-end">
+                    Comments
+                  </th>
+                  <th class="px-3 py-2 text-end">
+                    Points
+                  </th>
+                  <th class="px-4 py-2 text-end">
+                    Last lesson
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="u in users"
+                  v-for="u in shownUsers"
                   :key="u.id"
-                  class="border-b border-(--line)"
+                  class="border-t border-dashed border-(--line)"
                 >
-                  <td class="px-2 py-3">
-                    <span class="font-medium text-(--ink)">{{ u.name || '—' }}</span>
-                    <span class="block text-xs text-(--ink2)">{{ u.email }}</span>
+                  <td class="px-4 py-2">
+                    <div class="flex items-center gap-2">
+                      <span class="flex size-7 flex-none items-center justify-center overflow-hidden border-[1.5px] border-(--ink) bg-(--signal) text-xs font-bold text-white">
+                        <img
+                          v-if="u.image"
+                          :src="u.image"
+                          alt=""
+                          class="size-full object-cover"
+                        >
+                        <template v-else>{{ (u.name || u.email).slice(0, 1).toUpperCase() }}</template>
+                      </span>
+                      <span class="min-w-0">
+                        <span class="block truncate font-semibold">{{ u.name || '—' }}
+                          <UBadge
+                            v-if="u.admin"
+                            label="admin"
+                            size="sm"
+                          />
+                          <UBadge
+                            v-if="u.isDemo"
+                            label="demo"
+                            size="sm"
+                            color="neutral"
+                            variant="outline"
+                          />
+                        </span>
+                        <span class="block truncate font-mono text-xs text-(--ink2)">{{ u.email }}<UIcon
+                          v-if="u.emailVerified"
+                          name="i-lucide-badge-check"
+                          class="ms-1 text-(--signal)"
+                        /></span>
+                      </span>
+                    </div>
                   </td>
-                  <td class="px-2 py-3">
-                    <select
-                      class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-1 text-sm disabled:opacity-50"
-                      :value="u.role"
-                      :disabled="busy || u.isDemo || u.roleLocked"
-                      @change="setRole(u, ($event.target as HTMLSelectElement).value)"
-                    >
-                      <option
-                        v-for="r in roles"
-                        :key="r"
-                        :value="r"
-                      >
-                        {{ r }}
-                      </option>
-                    </select>
-                    <!-- Say why it is disabled. A dead control with no
-                       explanation reads as a bug. -->
-                    <span
-                      v-if="u.roleLocked"
-                      class="mt-1 block text-xs text-(--ink2)"
-                    >set by ADMIN_EMAILS</span>
+                  <td class="px-3 py-2 font-mono text-xs">
+                    {{ date(u.createdAt) }}
                   </td>
-                  <td class="px-2 py-3 text-end tabular-nums">
-                    {{ u.points }}
-                  </td>
-                  <td class="px-2 py-3 text-end tabular-nums">
+                  <td class="px-3 py-2 text-end tabular-nums">
                     {{ u.lessonsDone }}
                   </td>
-                  <td class="px-2 py-3 text-end tabular-nums">
-                    {{ u.pendingSubmissions || '' }}
+                  <td class="px-3 py-2 text-end tabular-nums">
+                    {{ u.quizzes }}
                   </td>
-                  <td class="px-2 py-3 text-end">
-                    <UButton
-                      :label="u.pro ? 'Pro' : 'Free'"
-                      :color="u.pro ? 'primary' : 'neutral'"
-                      :variant="u.pro ? 'soft' : 'outline'"
-                      size="xs"
-                      :disabled="busy"
-                      @click="togglePro(u)"
-                    />
+                  <td class="px-3 py-2 text-end tabular-nums">
+                    {{ u.comments }}
+                  </td>
+                  <td class="px-3 py-2 text-end tabular-nums">
+                    {{ u.points }}
+                  </td>
+                  <td class="px-4 py-2 text-end font-mono text-xs">
+                    {{ date(u.lastLessonAt) }}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </section>
-      </UPageBody>
-    </UContainer>
+
+        <!-- =========================== SUBMISSIONS ========================== -->
+        <section v-else-if="tab === 'submissions'">
+          <div class="mb-4 flex gap-2">
+            <UButton
+              v-for="s in (['pending', 'approved', 'rejected'] as const)"
+              :key="s"
+              :label="s"
+              :color="queueStatus === s ? 'primary' : 'neutral'"
+              :variant="queueStatus === s ? 'solid' : 'outline'"
+              size="xs"
+              @click="queueStatus = s"
+            />
+          </div>
+          <p
+            v-if="!queue.length"
+            class="py-12 text-center text-sm text-(--ink2)"
+          >
+            Nothing {{ queueStatus }}.
+          </p>
+          <ul class="space-y-4">
+            <li
+              v-for="item in queue"
+              :key="item.id"
+              class="bp-card p-5"
+            >
+              <div class="flex flex-wrap items-center gap-2">
+                <UBadge
+                  :label="item.kind"
+                  color="neutral"
+                  variant="subtle"
+                  size="sm"
+                />
+                <span class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">{{ item.submittedBy.email || 'unknown' }} · {{ date(item.createdAt) }}</span>
+              </div>
+              <p class="mt-2 font-semibold text-(--ink)">
+                {{ item.title }}
+              </p>
+              <!-- An unreviewed link from a stranger: nofollow, ugc. -->
+              <a
+                v-if="item.url"
+                :href="item.url"
+                target="_blank"
+                rel="noopener nofollow ugc"
+                class="text-sm break-all text-(--signal)"
+              >{{ item.url }}</a>
+              <p class="mt-2 text-sm whitespace-pre-line text-(--ink2)">
+                {{ item.description }}
+              </p>
+              <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-(--line) pt-4">
+                <UButton
+                  label="Approve"
+                  icon="i-lucide-check"
+                  size="sm"
+                  :disabled="busy || item.status === 'approved'"
+                  @click="review(item, 'approve')"
+                />
+                <UButton
+                  label="Reject"
+                  icon="i-lucide-x"
+                  color="neutral"
+                  variant="outline"
+                  size="sm"
+                  :disabled="busy || item.status === 'rejected'"
+                  @click="review(item, 'reject')"
+                />
+                <UButton
+                  label="Delete"
+                  icon="i-lucide-trash-2"
+                  color="error"
+                  variant="ghost"
+                  size="sm"
+                  class="ms-auto"
+                  :disabled="busy"
+                  @click="review(item, 'delete')"
+                />
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================ COMMENTS ============================ -->
+        <AdminComments v-else-if="tab === 'comments'" />
+      </div>
+    </template>
   </div>
 </template>

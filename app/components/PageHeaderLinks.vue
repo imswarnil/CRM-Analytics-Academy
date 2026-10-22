@@ -6,15 +6,14 @@ const toast = useToast()
 const { copy, copied } = useClipboard()
 const site = useSiteConfig()
 
-// Content lives at /raw/<locale>/<path>.md — but the default locale has no
-// URL prefix (/foundations), so route.path alone 404s against the raw route.
-// Map it to the locale-prefixed content path first.
+// Raw markdown is a static file per lesson, written at build time by
+// scripts/build-search-index.mjs: /raw/<route>.md for English (no locale
+// segment, like the page URL) and /raw/<locale>/<route>.md for translations.
 const { t, locales } = useI18n()
 const localeCodes = locales.value.map(l => l.code)
 const contentPath = computed(() => routeToContentPath(route.path, localeCodes))
-const mdPath = computed(() => `${site.url}/raw${contentPath.value}.md`)
-
-const rawPath = computed(() => `/raw${contentPath.value}.md`)
+const rawPath = computed(() => `/raw${contentPath.value.replace(/^\/en(?=\/|$)/, '')}.md`)
+const mdPath = computed(() => `${site.url}${rawPath.value}`)
 
 const items = computed(() => [
   {

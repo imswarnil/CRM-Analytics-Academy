@@ -16,9 +16,9 @@ const { locale, locales: allLocales } = useI18n()
 const { data: navTree, refresh: refreshNav } = await useAsyncData(
   () => `navigation-${locale.value}`,
   async () => {
-    const own = await queryCollectionNavigation('docs', ['access']).where('path', 'LIKE', `/${locale.value}/%`)
+    const own = await queryCollectionNavigation('docs', ['comingSoon']).where('path', 'LIKE', `/${locale.value}/%`)
     if (own?.length || locale.value === DEFAULT_LOCALE) return own
-    return queryCollectionNavigation('docs', ['access']).where('path', 'LIKE', `/${DEFAULT_LOCALE}/%`)
+    return queryCollectionNavigation('docs', ['comingSoon']).where('path', 'LIKE', `/${DEFAULT_LOCALE}/%`)
   },
   { watch: [locale] }
 )
@@ -46,18 +46,7 @@ onMounted(() => {
   fetchSession()
 })
 watch(isSignedIn, ok => ok && loadProgress(), { immediate: true })
-// Pro lessons carry a badge in the rail, so nobody clicks into a paywall
-// without having been told there is one.
-function markPro(items: ContentNavigationItem[]): ContentNavigationItem[] {
-  return items.map(item => ({
-    ...item,
-    ...(item.access === 'pro' ? { badge: 'Pro' } : {}),
-    ...(item.children ? { children: markPro(item.children) } : {})
-  }))
-}
-
-const navigation = computed<ContentNavigationItem[]>(() => markPro(navigationRaw.value))
-const navigationRaw = computed<ContentNavigationItem[]>(() => {
+const navigation = computed<ContentNavigationItem[]>(() => {
   const branch = navTree.value?.find(item => item.path === `/${locale.value}`)
   if (branch?.children?.length) return localizeNavigation(branch.children)
 
@@ -150,7 +139,7 @@ useJsonLd([
     'description': SITE.description,
     'logo': { '@type': 'ImageObject', 'url': `${SITE.url}/icon-512.png`, 'width': 512, 'height': 512 },
     'founder': { '@type': 'Person', 'name': SITE.author },
-    'sameAs': [SITE.github]
+    'sameAs': [SITE.youtube, SITE.github]
   },
   {
     '@context': 'https://schema.org',
@@ -187,6 +176,8 @@ provide('navigation', navigation)
         :navigation="navigation"
       />
       <PwaInstallPrompt />
+      <PromoFloat />
+      <ChannelPopup />
     </ClientOnly>
   </UApp>
 </template>

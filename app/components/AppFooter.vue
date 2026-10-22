@@ -16,9 +16,8 @@ const columns = computed(() => [
   {
     label: t('footer.community'),
     children: [
-      { label: t('nav.wallOfFame'), to: localePath('/wall-of-fame') },
-      { label: t('footer.links.nominate'), to: '/nominate' },
-      { label: t('nav.showcase'), to: localePath('/showcase') }
+      { label: 'YouTube', to: SITE.youtube, target: '_blank' },
+      { label: t('nav.submit'), to: localePath('/submit') }
     ]
   },
   {
@@ -26,19 +25,9 @@ const columns = computed(() => [
     children: [
       { label: t('nav.about'), to: localePath('/about') },
       { label: t('nav.contribute'), to: localePath('/contribute') },
-      { label: t('nav.instructors'), to: localePath('/instructors') },
-      { label: t('nav.roadmap'), to: localePath('/roadmap') },
-      { label: t('nav.sponsor'), to: localePath('/sponsor') },
-      { label: t('nav.github'), to: 'https://github.com/imswarnil/CRM-Analytics-Academy', target: '_blank' },
+      { label: t('nav.github'), to: SITE.github, target: '_blank' },
       { label: t('nav.privacy'), to: localePath('/privacy') },
       { label: t('nav.terms'), to: localePath('/terms') }
-    ]
-  },
-  {
-    label: t('footer.academy'),
-    children: [
-      { label: t('nav.forTeams'), to: '/teams' },
-      { label: t('footer.links.sales'), to: '/teams#contact' }
     ]
   }
 ])
@@ -51,11 +40,9 @@ const stack = [
   { label: 'Tailwind CSS', icon: 'i-simple-icons-tailwindcss', to: 'https://tailwindcss.com' },
   { label: 'Cloudflare', icon: 'i-simple-icons-cloudflare', to: 'https://workers.cloudflare.com' },
   { label: 'Neon', icon: 'i-lucide-database', to: 'https://neon.com' },
-  { label: 'Mux', icon: 'i-lucide-clapperboard', to: 'https://www.mux.com' },
+  { label: 'Nuxt Studio', icon: 'i-lucide-pen-line', to: 'https://nuxt.studio' },
   { label: 'LibreTranslate', icon: 'i-lucide-languages', to: 'https://libretranslate.com' },
-  { label: 'Payload', icon: 'i-simple-icons-payloadcms', to: 'https://payloadcms.com' },
-  { label: 'n8n', icon: 'i-simple-icons-n8n', to: 'https://n8n.io' },
-  { label: 'Dodo Payments', icon: 'i-lucide-credit-card', to: 'https://dodopayments.com' },
+  { label: 'Final Cut Pro', icon: 'i-lucide-clapperboard', to: 'https://www.apple.com/final-cut-pro/' },
   { label: 'Claude Code', icon: 'i-simple-icons-claude', to: 'https://claude.com/claude-code' }
 ]
 
@@ -75,7 +62,7 @@ onMounted(() => {
   <footer class="graph-paper-navy text-white/80">
     <div class="ruler text-white/70" />
     <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
         <div>
           <NuxtLink
             :to="localePath('/')"
@@ -180,7 +167,7 @@ onMounted(() => {
             class="hover:text-white"
           >Privacy</NuxtLink>
           <NuxtLink
-            to="/teams#contact"
+            :to="localePath('/about')"
             class="hover:text-white"
           >Contact</NuxtLink>
         </span>

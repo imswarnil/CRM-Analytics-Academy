@@ -32,7 +32,9 @@ export function useCourse() {
       // A module page with no children is itself a lesson.
       const items = children.length ? children : [mod]
       items.forEach((lesson, indexInModule) => {
-        if (!lesson.path) return
+        // A "coming soon" section page is a placeholder, not a lesson: it is
+        // in the sidebar, but not in the course order or anyone's progress.
+        if (!lesson.path || (lesson as { comingSoon?: boolean }).comingSoon) return
         out.push({
           path: lesson.path,
           title: String(lesson.title ?? ''),

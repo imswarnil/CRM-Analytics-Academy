@@ -18,14 +18,16 @@
  * route (server/routes/mcp.post.ts) reads the file through the ASSETS
  * binding, because the deployed Worker has no content database at runtime.
  *
- * Runs before `nuxt build` (see package.json), the same slot as
- * gate-content.mjs. Gated lessons (`access: pro`) are excluded for the same
- * reason they are excluded from /raw: an index entry is public text.
+ * 3. public/llms.txt + public/llms-full.txt — the curriculum for AI
+ *    assistants, in learning order, and public/raw/** — every lesson as
+ *    markdown (English at /raw/<route>.md, translations at /raw/<locale>/…).
+ *    public/<locale>/llms.txt indexes each translation.
+ *
+ * Runs before `nuxt build` (scripts/prebuild.mjs).
  */
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parse as parseYaml } from 'yaml'
-import { splitProBlocks, stripProBlocks } from './lib/pro-blocks.mjs'
 
 const ROOT = process.cwd()
 const CONTENT_ROOT = path.join(ROOT, 'content')
@@ -202,6 +204,78 @@ function toSections(route, title, body) {
   return sections
 }
 
+/** A lesson as standalone markdown: its title and description, then the body. */
+function rawMarkdown(title, description, body) {
+  const lead = [`# ${title}`, '', description ? `> ${description}` : '', ''].join('\n')
+  return `${lead}\n${body.replace(/^\s*#\s+[^\n]*\n/, '').trim()}\n`
+}
+
+/**
+ * The English llms.txt and llms-full.txt, in the order the course is meant
+ * to be taken: what the Academy is, how to use it, then every section with its
+ * lessons numbered. llms-full.txt is the same list followed by every lesson's
+ * full markdown, in order — one file an assistant can read to teach the course.
+ */
+async function buildLlms() {
+  const sections = (await readdir(CONTENT, { withFileTypes: true }))
+    .filter(d => d.isDirectory())
+    .map(d => d.name)
+    .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
+  const head = [
+    '# CRM Analytics Academy',
+    '',
+    '> A free, open-source course for Salesforce CRM Analytics (formerly Tableau CRM / Einstein Analytics), taught the way go-to-market teams use it: data preparation, datasets, SAQL, dashboards, bindings, Einstein Discovery, and funnel, pipeline and RevOps dashboards built end to end.',
+    '',
+    `Site: ${SITE} · Source: https://github.com/imswarnil/CRM-Analytics-Academy · License: MIT · Author: Swarnil Singhai`,
+    '',
+    '## How to learn with this course',
+    '',
+    '- The sections are numbered and build on each other. Take them in order: Introduction → Basics → Setup → Data Preparation → Datasets → Visualization → Lenses → SAQL → Dashboard Design → Interactions → Bindings → Dashboard JSON → Collaboration → APIs → Einstein Discovery, then the three GTM tracks (Demand, Pipeline, RevOps) after GTM Engineering.',
+    '- Every lesson is free. Most end with a graded quiz and interview questions.',
+    '- Practise in a free CRM Analytics Developer Edition org (Introduction → Set up your org); the datasets are at ' + SITE + '/datasets.',
+    '- Each lesson link below is the raw markdown of that lesson. The rendered page is the same path without /raw and .md.',
+    `- Translations: the course is machine-translated into 11 languages; each has its own index at ${SITE}/<locale>/llms.txt (es, fr, de, pt, ja, zh, hi, ar, ru, bn, ur).`,
+    `- MCP: ${SITE}/mcp (list_curriculum, search_lessons, get_lesson).`,
+    ''
+  ]
+  const index = []
+  const full = []
+  let n = 0
+  for (const [i, dir] of sections.entries()) {
+    const files = (await walk(path.join(CONTENT, dir))).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
+    let title = dir.replace(/^\d+\./, '')
+    try {
+      title = String(parseYaml(await readFile(path.join(CONTENT, dir, '.navigation.yml'), 'utf8'))?.title ?? title)
+    } catch { /* no .navigation.yml: keep the folder name */ }
+    const lessons = []
+    for (const file of files) {
+      const { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
+      lessons.push({ route: toRoute(file), title: String(data.title ?? ''), description: String(data.description ?? ''), body })
+    }
+    const intro = lessons[0]?.description
+    index.push(`## ${String(i).padStart(2, '0')}. ${title}`, '', ...(intro ? [intro, ''] : []))
+    for (const l of lessons) {
+      n++
+      index.push(`- ${n}. [${l.title}](${SITE}/raw${l.route}.md): ${l.description}`.trim())
+      full.push(`---\n\nLesson ${n} · Section ${String(i).padStart(2, '0')} ${title} · ${SITE}${l.route}\n\n${rawMarkdown(l.title, l.description, l.body)}`)
+    }
+    index.push('')
+  }
+  const more = [
+    '## More',
+    '',
+    `- [Curriculum](${SITE}/curriculum): every lesson on one page, with length and kind.`,
+    `- [YouTube channel](https://www.youtube.com/@crmanalyticsacademy): the lesson videos.`,
+    `- [Datasets](${SITE}/datasets): practice data for the exercises.`,
+    `- [Resources](${SITE}/resources): curated CRM Analytics resources.`,
+    `- [Full text](${SITE}/llms-full.txt): this index followed by all ${n} lessons in order.`,
+    ''
+  ]
+  await writeFile(path.join(ROOT, 'public', 'llms.txt'), [...head, `## The curriculum (${sections.length} sections, ${n} lessons)`, '', ...index, ...more].join('\n'), 'utf8')
+  await writeFile(path.join(ROOT, 'public', 'llms-full.txt'), [...head, ...index, ...full].join('\n'), 'utf8')
+  console.log(`[llms] ${n} lessons -> public/llms.txt, public/llms-full.txt`)
+}
+
 async function buildSearch() {
   await mkdir(SEARCH_OUT, { recursive: true })
   // English is the fallback for any lesson a locale has not translated yet,
@@ -219,37 +293,19 @@ async function buildSearch() {
     const llms = []
     for (const rel of rels) {
       const file = own.has(rel) ? path.join(base, rel) : english.get(rel)
-      let { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
-      // Access is decided by the English lesson, as in gate-content.
-      const en = file === english.get(rel) ? { data, body } : parseFrontmatter(await readFile(english.get(rel), 'utf8'))
-      const enData = en.data
-      // A translation whose ::pro blocks do not match English's is withheld by
-      // gate-content (it may hold a block's text unwrapped); index English instead.
-      if (file !== english.get(rel) && splitProBlocks(body).blocks.length !== splitProBlocks(en.body).blocks.length) {
-        ;({ data, body } = en)
-        own.delete(rel)
-      }
-      const isPro = data.access === 'pro' || enData.access === 'pro'
+      const { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
       const route = (locale === 'en' ? '' : `/${locale}`) + toRoute(english.get(rel))
       const title = String(data.title ?? '')
-      // A Pro lesson is findable by its title; its body is not public text,
-      // and neither are the inline `::pro` blocks of a free one.
-      out.push(...(isPro ? [{ id: route, title, titles: [], level: 1, content: String(data.description ?? '') }] : toSections(route, title, stripProBlocks(body))))
-      // Only translated, free lessons get a raw copy: an English fallback is
-      // already in the English llms.txt, and a Pro body is never public.
-      if (own.has(rel) && !isPro) {
-        const raw = `/raw/${locale}${toRoute(english.get(rel))}.md`
+      out.push(...toSections(route, title, body))
+      // Every lesson in this locale's own words gets a raw markdown copy; an
+      // untranslated lesson is already in the English one.
+      if (own.has(rel)) {
+        const raw = locale === 'en' ? `/raw${toRoute(english.get(rel))}.md` : `/raw/${locale}${toRoute(english.get(rel))}.md`
         llms.push({ route, raw, title, description: String(data.description ?? '') })
-        // Written as a static file straight from the translated markdown.
-        // These used to be prerender routes — 1,500 trips through the Nitro
-        // renderer for what is the source file minus its frontmatter, and
-        // enough extra heap to push the build past 12 GB.
-        if (locale !== 'en') {
-          const target = path.join(ROOT, 'public', raw)
-          await mkdir(path.dirname(target), { recursive: true })
-          const lead = [`# ${title}`, '', data.description ? `> ${data.description}` : '', ''].join('\n')
-          await writeFile(target, `${lead}\n${stripProBlocks(body).replace(/^\s*#\s+[^\n]*\n/, '').trim()}\n`, 'utf8')
-        }
+        // Written as static files straight from the markdown — no renderer.
+        const target = path.join(ROOT, 'public', raw)
+        await mkdir(path.dirname(target), { recursive: true })
+        await writeFile(target, rawMarkdown(title, data.description, body), 'utf8')
       }
     }
     await writeFile(path.join(SEARCH_OUT, `${locale}.json`), JSON.stringify(out), 'utf8')
@@ -274,6 +330,7 @@ async function buildSearch() {
 
 async function main() {
   await buildSearch()
+  await buildLlms()
 
   // Numeric-aware sort so 2.setup precedes 10.whatever — the index order is
   // the curriculum order list_curriculum shows to MCP clients.
@@ -284,12 +341,7 @@ async function main() {
     const raw = await readFile(file, 'utf8')
     const { data, body } = parseFrontmatter(raw)
 
-    // Gated lessons never enter a public file — same rule as /raw and the
-    // prerender ignore list.
-    if (data.access === 'pro') continue
-
-    // Inline `::pro` blocks are gated text too: an index entry is public.
-    const { headings, text } = extractText(stripProBlocks(body))
+    const { headings, text } = extractText(body)
     const words = text ? text.split(/\s+/).length : 0
 
     index.push({

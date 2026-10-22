@@ -18,22 +18,17 @@ pnpm translate                    # everything that changed, all 11 targets
 pnpm translate --locales=es,fr    # just these
 pnpm translate --only=ui          # just i18n/locales/*.json
 pnpm translate --only=content     # just content/
-pnpm translate --only=transcripts # just content-transcripts/ (cue text only; timings stay byte-identical)
 pnpm translate --limit=3          # first 3 files per locale (for trying a change)
 pnpm translate --force            # ignore the manifest, redo everything
 pnpm translate --dry-run          # report only, write nothing
 ```
 
-In CI this runs automatically: `.github/workflows/translate.yml` fires on any push to
-`main` touching `content/en/**`, `content-transcripts/en/**`, `i18n/locales/en.json` or the
-translation scripts themselves, runs `--only=ui` and then one locale at a time
-(`scripts/translate-all.sh`), and commits the translations
-back — which then triggers the deploy.
-
-Server: set `LIBRETRANSLATE_URL` (and `LIBRETRANSLATE_API_KEY` if the instance needs one).
-Locally that lives in the gitignored `.env`; in CI it is the `LIBRETRANSLATE_URL` repository
-variable. The URL is deliberately absent from this public repo — the instance runs without
-an API key, so publishing it would expose an open translation service.
+It runs **locally only**. LibreTranslate is installed inside the repo (`.libretranslate/`,
+gitignored, ~1–2 GB of models) by `pnpm translate:setup`, once. `pnpm translate` — and
+`pnpm build`, which calls it — starts the server on 127.0.0.1:5055, translates whatever
+English changed, and stops it (`scripts/libretranslate.sh`). Nothing is hosted and CI never
+translates: commit the generated files with the English change. To point at another
+server instead, start it yourself and set `LIBRETRANSLATE_URL`.
 
 ## How it avoids corrupting markdown
 

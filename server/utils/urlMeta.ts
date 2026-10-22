@@ -1,7 +1,7 @@
 /**
  * What a URL says about itself: title, description, site name, icon, image.
  *
- * Used to enrich a lead from its company domain and, through /api/url-meta,
+ * Used through /api/url-meta
  * to show a favicon and preview beside any link a contributor pastes.
  *
  * This fetches URLs chosen by the public, so it is written as an SSRF

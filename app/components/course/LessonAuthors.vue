@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * The author chips under a lesson title: who wrote it, each linking to their
- * card on /instructors (English-only page, so the link is not localized).
+ * the About page.
  */
 import type { LessonPerson } from '~/composables/useLessonCredits'
 

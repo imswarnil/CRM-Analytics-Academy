@@ -13,10 +13,9 @@ const route = useRoute()
 // label folds away below xl so the row fits; the icon and its title remain.
 const menuItems = computed(() => [
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
-  { label: t('nav.showcase'), icon: 'i-lucide-layout-dashboard', to: localePath('/showcase') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.pricing'), icon: 'i-lucide-tag', to: '/pricing' },
-  { label: t('nav.sponsorShort'), icon: 'i-lucide-megaphone', to: localePath('/sponsor') }
+  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
+  { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') }
 ])
 
 function isActive(item: { to: string, exact?: boolean }) {
@@ -26,12 +25,8 @@ function isActive(item: { to: string, exact?: boolean }) {
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
-  { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
-  { label: t('nav.instructors'), icon: 'i-lucide-users-round', to: localePath('/instructors') },
-  { label: t('nav.forTeams'), icon: 'i-lucide-users', to: '/teams' },
-  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
-  { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
+  { label: t('nav.youtube'), icon: 'i-simple-icons-youtube', to: SITE.youtube, target: '_blank' },
   { label: t('nav.github'), icon: 'i-simple-icons-github', to: SITE.github, target: '_blank' }
 ])
 
@@ -40,9 +35,9 @@ const signUpTo = computed(() => ({ path: localePath('/sign-up'), query: route.pa
 
 // Account menu — the session itself is fetched once in app.vue.
 const { user, isSignedIn, signOut } = useAuth()
-// Role arrives with progress (one request, made once a session exists). The
-// console enforces the role on every request; this is navigation only.
-const { pro, role } = useProgress()
+// The admin flag arrives with progress (one request, made once a session
+// exists). The console checks it on every request; this is navigation only.
+const { admin } = useProgress()
 
 const initials = computed(() => (user.value?.name || user.value?.email || '?').trim().slice(0, 1).toUpperCase())
 
@@ -54,13 +49,10 @@ const accountItems = computed(() => [
   }],
   [
     { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
-    { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') },
-    pro.value
-      ? { label: 'Pro — active', icon: 'i-lucide-badge-check', to: localePath('/dashboard') }
-      : { label: 'Upgrade to Pro', icon: 'i-lucide-sparkles', to: '/pricing', color: 'primary' as const }
+    { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') }
   ],
-  ...(role.value === 'admin' || role.value === 'moderator' || role.value === 'instructor'
-    ? [[{ label: role.value === 'instructor' ? 'Instructor studio' : 'Admin console', icon: 'i-lucide-shield', to: localePath('/admin') }]]
+  ...(admin.value
+    ? [[{ label: 'Admin console', icon: 'i-lucide-shield', to: '/admin' }]]
     : []),
   [{ label: t('nav.signOut'), icon: 'i-lucide-log-out', onSelect: () => signOut() }]
 ])
@@ -136,6 +128,20 @@ const fluid = computed(() =>
           class="size-9 shrink-0 rounded-none border-[1.5px] border-(--ink)"
         />
 
+        <a
+          :href="SITE.youtube"
+          target="_blank"
+          rel="noopener"
+          class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) hover:text-[#FF0000] max-lg:hidden"
+          :aria-label="t('nav.youtube')"
+          :title="t('nav.youtube')"
+        >
+          <UIcon
+            name="i-simple-icons-youtube"
+            class="size-4"
+          />
+        </a>
+
         <!-- Star on GitHub. A plain link: no API call, so no count to go stale
              or to spend the anonymous GitHub rate limit. -->
         <a
@@ -208,10 +214,6 @@ const fluid = computed(() =>
                 >
                 <template v-else>{{ initials }}</template>
               </span>
-              <span
-                v-if="pro"
-                class="font-mono text-[10px] uppercase tracking-[.08em] text-(--signal) max-sm:hidden"
-              >Pro</span>
               <UIcon
                 name="i-lucide-chevron-down"
                 class="size-3.5 text-(--ink2)"

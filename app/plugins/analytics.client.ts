@@ -1,11 +1,90 @@
-import Clarity from '@microsoft/clarity'
-
-// Microsoft Clarity (session analytics / heatmaps). Client-only; guarded so it
-// initialises once. gtag.js is loaded via nuxt.config app.head.
-export default defineNuxtPlugin(() => {
-  try {
-    Clarity.init('xixmfuf56d')
-  } catch {
-    // never let analytics break the app
+/**
+ * First-party analytics (server/api/collect.post.ts; read in /admin →
+ * Analytics). Records a page view on every navigation, how long the page was
+ * visible, and clicks on any link to /sign-in or /sign-up.
+ *
+ * No cookies: the visitor id lives in localStorage, the session id in
+ * sessionStorage. If storage is blocked, ids are per page load and the view
+ * is still counted. Other code reports milestones with `useNuxtApp().$track`.
+ */
+export default defineNuxtPlugin((nuxtApp) => {
+  const id = () => crypto.randomUUID().replace(/-/g, '').slice(0, 24)
+  const keep = (store: Storage | undefined, key: string) => {
+    try {
+      const v = store?.getItem(key)
+      if (v) return v
+      const n = id()
+      store?.setItem(key, n)
+      return n
+    } catch {
+      return id()
+    }
   }
+  const visitor = keep(globalThis.localStorage, 'crma-v')
+  const session = keep(globalThis.sessionStorage, 'crma-s')
+  const { locale } = nuxtApp.$i18n as { locale: { value: string } }
+
+  const send = (payload: Record<string, unknown>, beacon = false) => {
+    const body = JSON.stringify({ v: visitor, s: session, ...payload })
+    if (beacon && navigator.sendBeacon) {
+      navigator.sendBeacon('/api/collect', new Blob([body], { type: 'text/plain' }))
+      return Promise.resolve(null)
+    }
+    return fetch('/api/collect', { method: 'POST', body, headers: { 'content-type': 'application/json' }, keepalive: true })
+      .then(r => (r.ok ? r.json() : null))
+      .catch(() => null)
+  }
+
+  // Time on page = time the tab was visible, not time it sat open.
+  let view: { id: number | null, visibleMs: number, since: number | null } | null = null
+  const flush = () => {
+    if (!view) return
+    const ms = view.visibleMs + (view.since ? performance.now() - view.since : 0)
+    if (view.id && ms > 500) send({ t: 'leave', id: view.id, ms: Math.round(ms) }, true)
+  }
+  const start = async (path: string) => {
+    flush()
+    const current = { id: null as number | null, visibleMs: 0, since: document.visibilityState === 'visible' ? performance.now() : null }
+    view = current
+    const res = await send({ t: 'pv', p: path, l: locale.value, r: document.referrer })
+    current.id = (res as { id?: number } | null)?.id ?? null
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (!view) return
+    if (document.visibilityState === 'hidden') {
+      if (view.since) view.visibleMs += performance.now() - view.since
+      view.since = null
+      flush()
+      // Already reported; count only the time after the reader comes back.
+      view.visibleMs = 0
+    } else {
+      view.since = performance.now()
+    }
+  })
+
+  const track = (name: string, label?: string) => send({ t: 'ev', n: name, p: location.pathname, lb: label })
+
+  // Any link to sign-in or sign-up, wherever it is on the page.
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null
+    if (!a) return
+    const url = new URL(a.href, location.href)
+    if (url.origin !== location.origin) {
+      track('outbound', url.hostname)
+      return
+    }
+    if (/\/sign-in\/?$/.test(url.pathname)) track('sign_in_click', a.textContent?.trim().slice(0, 60))
+    else if (/\/sign-up\/?$/.test(url.pathname)) track('sign_up_click', a.textContent?.trim().slice(0, 60))
+  }, { capture: true })
+
+  const router = useRouter()
+  router.afterEach((to, from) => {
+    if (to.path !== from.path || !view) start(to.path)
+  })
+  nuxtApp.hook('app:mounted', () => {
+    if (!view) start(router.currentRoute.value.path)
+  })
+
+  return { provide: { track } }
 })

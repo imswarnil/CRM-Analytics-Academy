@@ -1,67 +1,90 @@
 /**
- * The signed-in learner's progress and entitlement.
+ * Everything the signed-in learner's dashboard and the lesson player need,
+ * in one round trip: completed lessons, bookmarks, best quiz scores, points,
+ * rank, a day-by-day activity record (for the streak and the heatmap), and the
+ * top of the leaderboard.
  *
  * The user id comes from the session Neon Auth resolves, never from the
- * request — a client-supplied id would let anyone read anyone's progress by
- * changing a number.
- *
- * No lesson total here on purpose. The denominator lives in the content tree,
- * which the browser already has for the sidebar; making the server re-derive
- * it would mean querying the content collection on every dashboard load to
- * produce a number the client can count for free.
+ * request. No lesson total here: the denominator lives in the content tree,
+ * which the browser already has for the sidebar.
  */
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
   const sql = useDb()
 
-  // A company granted Pro with auto-join: their people join on first load,
-  // before entitlement is read below. Never fails the request.
-  await autoJoinTeam(user).catch(() => false)
-
-  // Points and rank ride along because the dashboard shows them next to the
-  // progress they are computed from — a second round trip for two integers
-  // that come out of the same request is a second chance for the two numbers
-  // to disagree.
-  //
-  // Rank is computed here rather than read from a stored column: it is a
-  // position in an ordering, so it changes when *other* people earn points,
-  // and nothing would ever know to update this user's row.
-  const [completed, entitlement, points, activity, resolved, demo] = await Promise.all([
-    sql`select lesson_path from app.progress where user_id = ${user.id} order by completed_at desc`,
-    hasPro(user.id),
+  const [completed, points, days, quizzes, bookmarks, leaders, demo] = await Promise.all([
+    sql`select lesson_path, completed_at from app.progress where user_id = ${user.id} order by completed_at desc`,
+    // Rank is a position in an ordering, so it is computed, never stored.
     sql`
       select p.points, p.contributions,
-             (select count(*) + 1 from app.user_points q
-               where q.points > p.points) as rank
+             (select count(*) + 1 from app.user_points q where q.points > p.points) as rank,
+             (select count(*) from app.user_points q where q.points > 0) as ranked
       from app.user_points p
       where p.user_id = ${user.id}
     `,
-    // Lessons completed per week for the last 12 weeks, for the dashboard's
-    // activity chart. Weeks with nothing are filled in on the client.
+    // Every day with any learning activity in the last year: lessons
+    // completed and quizzes taken. Drives the streak and the heatmap.
     sql`
-      select to_char(date_trunc('week', completed_at), 'YYYY-MM-DD') as week, count(*)::int as n
-      from app.progress
-      where user_id = ${user.id} and completed_at > now() - interval '12 weeks'
-      group by 1 order by 1
+      select day::text as day, sum(n)::int as n from (
+        select completed_at::date as day, count(*) as n from app.progress
+          where user_id = ${user.id} and completed_at > now() - interval '366 days' group by 1
+        union all
+        select created_at::date, count(*) from app.quiz_attempt
+          where user_id = ${user.id} and created_at > now() - interval '366 days' group by 1
+      ) a group by 1 order by 1
     `,
-    // Role and demo flag ride along too, so the header and the comment box
-    // know them without a second round trip after this one.
-    getRole(event),
+    sql`
+      select lesson_path, max(score)::int as best, max(total)::int as total, count(*)::int as attempts, max(created_at) as last_at
+      from app.quiz_attempt where user_id = ${user.id}
+      group by 1 order by last_at desc
+    `,
+    sql`select lesson_path, created_at from app.bookmark where user_id = ${user.id} order by created_at desc`,
+    sql`
+      select user_id, name, image, points, lessons_done from app.user_points
+      where points > 0 order by points desc, lessons_done desc limit 5
+    `,
     isDemoUser(user.id)
   ])
 
-  setResponseHeader(event, 'cache-control', 'private, no-store')
+  // Current streak: consecutive days with activity ending today or yesterday
+  // (a streak is not broken until a whole day passes without learning).
+  const active = new Set(days.map(r => String(r.day)))
+  const dayKey = (offset: number) => new Date(Date.now() - offset * 86_400_000).toISOString().slice(0, 10)
+  let streak = 0
+  for (let i = active.has(dayKey(0)) ? 0 : 1; active.has(dayKey(i)); i++) streak++
+  let longest = 0
+  let run = 0
+  let prev = ''
+  for (const d of [...active].sort()) {
+    run = prev && (Date.parse(d) - Date.parse(prev)) === 86_400_000 ? run + 1 : 1
+    longest = Math.max(longest, run)
+    prev = d
+  }
 
+  setResponseHeader(event, 'cache-control', 'private, no-store')
+  const pts = Number(points[0]?.points ?? 0)
   return {
     completed: completed.map(r => r.lesson_path as string),
-    activity: activity.map(r => ({ week: r.week as string, count: Number(r.n) })),
-    pro: entitlement,
-    role: resolved?.role ?? 'learner',
+    completedAt: Object.fromEntries(completed.map(r => [r.lesson_path as string, String(r.completed_at)])),
+    bookmarks: bookmarks.map(r => r.lesson_path as string),
+    quizzes: quizzes.map(r => ({ path: r.lesson_path as string, best: Number(r.best), total: Number(r.total), attempts: Number(r.attempts) })),
+    days: days.map(r => ({ day: String(r.day), count: Number(r.n) })),
+    streak,
+    longestStreak: longest,
+    admin: isAdmin(user),
     demo,
-    points: Number(points[0]?.points ?? 0),
+    points: pts,
     contributions: Number(points[0]?.contributions ?? 0),
-    // Unranked until they have earned something — rank 1 of nobody is not a
-    // fact worth showing.
-    rank: Number(points[0]?.points ?? 0) > 0 ? Number(points[0]?.rank ?? 0) : null
+    // Unranked until they have earned something.
+    rank: pts > 0 ? Number(points[0]?.rank ?? 0) : null,
+    ranked: Number(points[0]?.ranked ?? 0),
+    leaders: leaders.map(r => ({
+      me: r.user_id === user.id,
+      // First name only: the leaderboard is visible to every learner.
+      name: String(r.name || 'Learner').split(/\s+/)[0],
+      image: r.image as string | null,
+      points: Number(r.points),
+      lessons: Number(r.lessons_done)
+    }))
   }
 })

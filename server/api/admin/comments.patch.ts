@@ -1,6 +1,6 @@
 /** Hide or restore a comment. */
 export default defineEventHandler(async (event) => {
-  const user = await requireModerator(event)
+  const user = await requireAdmin(event)
   const body = await readBody<{ id?: unknown, status?: unknown }>(event)
   const id = Number(body?.id)
   const status = body?.status === 'hidden' ? 'hidden' : 'visible'

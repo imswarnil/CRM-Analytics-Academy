@@ -18,7 +18,7 @@ const localePath = useLocalePath()
 const route = useRoute()
 const { t, locale, locales } = useI18n()
 const { total } = useCourse()
-const { isDone, pro } = useProgress()
+const { isDone } = useProgress()
 const { of: metaOf } = useLessonMeta()
 
 const title = computed(() => t('curriculumPage.seo.title'))
@@ -34,7 +34,8 @@ interface Row {
   path: string
   minutes: number
   type: 'video' | 'article'
-  access: 'free' | 'pro'
+  quiz: boolean
+  soon: boolean
 }
 
 const sections = computed(() =>
@@ -43,7 +44,7 @@ const sections = computed(() =>
       .filter(l => l.path)
       .map((l) => {
         const m = metaOf(String(l.path))
-        return { title: String(l.title ?? ''), path: String(l.path), minutes: m.minutes, type: m.type, access: m.access }
+        return { title: String(l.title ?? ''), path: String(l.path), minutes: m.minutes, type: m.type, quiz: m.quiz, soon: Boolean((l as { comingSoon?: boolean }).comingSoon) }
       })
     return {
       n: String(index).padStart(2, '0'),
@@ -51,6 +52,7 @@ const sections = computed(() =>
       title: String(mod.title ?? ''),
       path: String(mod.path ?? ''),
       lessons,
+      soon: lessons.length > 0 && lessons.every(l => l.soon),
       minutes: lessons.reduce((s, l) => s + l.minutes, 0)
     }
   })
@@ -106,13 +108,9 @@ const doneIn = (s: { lessons: Row[] }) => s.lessons.filter(l => isDone(l.path)).
 const doneTotal = computed(() => sections.value.reduce((n, s) => n + doneIn(s), 0))
 const progressPct = computed(() => (total.value ? (doneTotal.value / total.value) * 100 : 0))
 
-function tag(l: Row) {
-  if (l.access === 'free') return 'free'
-  return pro.value ? 'open' : 'pro'
-}
 function icon(l: Row) {
+  if (l.soon) return 'i-lucide-hourglass'
   if (isDone(l.path)) return 'i-lucide-check'
-  if (l.access === 'pro' && !pro.value) return 'i-lucide-lock'
   return l.type === 'video' ? 'i-lucide-play' : 'i-lucide-file-text'
 }
 </script>
@@ -186,7 +184,7 @@ function icon(l: Row) {
             <span class="text-4xl font-black leading-none tracking-[-0.04em] text-(--signal)">{{ s.n }}</span>
             <span class="min-w-0 flex-1">
               <span class="block truncate text-xl font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">{{ s.title }}</span>
-              <span class="mono-label">{{ t('curriculumPage.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
+              <span class="mono-label">{{ s.soon ? t('course.comingSoon') : t('curriculumPage.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
             </span>
             <ClientOnly>
               <BpDonut :value="s.lessons.length ? doneIn(s) / s.lessons.length : 0" />
@@ -236,15 +234,10 @@ function icon(l: Row) {
                   />
                 </span>
                 <span class="w-10 text-end font-mono text-xs text-(--ink2)">{{ l.minutes }}m</span>
-                <ClientOnly>
-                  <span
-                    class="w-14 border-[1.5px] py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
-                    :class="tag(l) === 'pro' ? 'border-(--line) text-(--ink2)' : 'border-(--signal) text-(--signal)'"
-                  >{{ t(`curriculumPage.tags.${tag(l)}`) }}</span>
-                  <template #fallback>
-                    <span class="w-14 border-[1.5px] border-(--signal) py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em] text-(--signal)">{{ t(`curriculumPage.tags.${l.access}`) }}</span>
-                  </template>
-                </ClientOnly>
+                <span
+                  class="w-14 py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
+                  :class="l.soon ? 'border-[1.5px] border-(--line) text-(--ink2)' : l.quiz ? 'border-[1.5px] border-(--signal) text-(--signal)' : ''"
+                >{{ l.soon ? t('curriculumPage.tags.soon') : l.quiz ? t('curriculumPage.tags.quiz') : '' }}</span>
               </NuxtLink>
             </li>
           </ol>
@@ -254,11 +247,11 @@ function icon(l: Row) {
       <div class="flex flex-wrap gap-5 pt-2 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
         <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--signal)" />{{ t('curriculumPage.legend.video') }}</span>
         <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--frost)" />{{ t('curriculumPage.legend.article') }}</span>
-        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--signal) px-1 text-(--signal)">{{ t('curriculumPage.tags.free') }}</span>{{ t('curriculumPage.legend.free') }}</span>
-        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--line) px-1">{{ t('curriculumPage.tags.pro') }}</span>{{ t('curriculumPage.legend.pro') }}</span>
+        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--signal) px-1 text-(--signal)">{{ t('curriculumPage.tags.quiz') }}</span>{{ t('curriculumPage.legend.quiz') }}</span>
       </div>
-
-      <PromoSlot placement="endOfArticle" />
+    </div>
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <PromoSlot unit="responsiveLeaderboard" />
     </div>
   </div>
 </template>

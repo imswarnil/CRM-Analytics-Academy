@@ -21,12 +21,11 @@ const steps: { id: string, n: string, icon: string, level: Level }[] = [
   { id: 'lessons', n: '03', icon: 'i-lucide-pen-line', level: 'noCode' },
   { id: 'frontmatter', n: '04', icon: 'i-lucide-file-code-2', level: 'noCode' },
   { id: 'translations', n: '05', icon: 'i-lucide-languages', level: 'noCode' },
-  { id: 'showcase', n: '06', icon: 'i-lucide-layout-dashboard', level: 'noCode' },
-  { id: 'submit', n: '07', icon: 'i-lucide-upload', level: 'noCode' },
-  { id: 'code', n: '08', icon: 'i-lucide-code', level: 'intermediate' },
-  { id: 'stack', n: '09', icon: 'i-lucide-layers', level: 'reference' },
-  { id: 'pr', n: '10', icon: 'i-lucide-git-pull-request', level: 'beginner' },
-  { id: 'help', n: '11', icon: 'i-lucide-life-buoy', level: 'anytime' }
+  { id: 'submit', n: '06', icon: 'i-lucide-upload', level: 'noCode' },
+  { id: 'code', n: '07', icon: 'i-lucide-code', level: 'intermediate' },
+  { id: 'stack', n: '08', icon: 'i-lucide-layers', level: 'reference' },
+  { id: 'pr', n: '09', icon: 'i-lucide-git-pull-request', level: 'beginner' },
+  { id: 'help', n: '10', icon: 'i-lucide-life-buoy', level: 'anytime' }
 ]
 
 const levelColor = (l: Level): 'success' | 'primary' | 'warning' | 'neutral' =>
@@ -37,8 +36,7 @@ const levelColor = (l: Level): 'success' | 'primary' | 'warning' | 'neutral' =>
 const QUICK_STARTS = [
   { icon: 'i-lucide-type', to: '#lessons' },
   { icon: 'i-lucide-upload', to: '#submit' },
-  { icon: 'i-lucide-languages', to: '#translations' },
-  { icon: 'i-lucide-layout-dashboard', to: '#showcase' }
+  { icon: 'i-lucide-languages', to: '#translations' }
 ]
 const quickStarts = computed(() =>
   (tm('contribute.quickStarts') as { title: string, text: string }[]).map((q, i) => ({
@@ -471,89 +469,6 @@ Your content here…</code></pre>
                   </i18n-t>
                 </div>
 
-                <!-- showcase -->
-                <div
-                  v-else-if="s.id === 'showcase'"
-                  :class="prose"
-                >
-                  <i18n-t
-                    keypath="contribute.showcase.p1"
-                    tag="p"
-                    scope="global"
-                  >
-                    <template #link>
-                      <NuxtLink :to="localePath('/submit')">
-                        {{ t('contribute.showcase.link') }}
-                      </NuxtLink>
-                    </template>
-                  </i18n-t>
-                  <i18n-t
-                    keypath="contribute.showcase.p2"
-                    tag="p"
-                    scope="global"
-                  >
-                    <template #working>
-                      <strong>{{ t('contribute.showcase.working') }}</strong>
-                    </template>
-                  </i18n-t>
-                  <pre><code>---
-title: "Pipeline Health"
-description: "One-screen read on coverage, slippage and win rate."
-image: "/showcase/pipeline-health.png"
-author: "Your Name"
-authorUrl: "https://github.com/yourhandle"
-domain: "Sales"              # Sales | Service | Marketing | Finance | …
-difficulty: "Intermediate"   # Beginner | Intermediate | Advanced
-datasets: ["Opportunity", "User"]
-kpis:
-  - name: "Win Rate"
-    formula: "count() [IsWon] / count() [IsClosed]"
-    note: "Closed-only denominator, or the rate drifts all quarter."
-recipe:
-  - step: "Build at opportunity grain"
-    detail: "Account and Owner as lookups — never join line items here."
-techniques: ["Dataflow", "Faceting", "Conditional Formatting"]
----
-
-Your write-up goes here.</code></pre>
-                  <i18n-t
-                    keypath="contribute.showcase.p3"
-                    tag="p"
-                    scope="global"
-                  >
-                    <template #domain>
-                      <code>domain</code>
-                    </template>
-                    <template #difficulty>
-                      <code>difficulty</code>
-                    </template>
-                    <template #techniques>
-                      <code>techniques</code>
-                    </template>
-                    <template #title>
-                      <code>title</code>
-                    </template>
-                    <template #description>
-                      <code>description</code>
-                    </template>
-                    <template #image>
-                      <code>image</code>
-                    </template>
-                    <template #author>
-                      <code>author</code>
-                    </template>
-                  </i18n-t>
-                  <i18n-t
-                    keypath="contribute.showcase.p4"
-                    tag="p"
-                    scope="global"
-                  >
-                    <template #bold>
-                      <strong>{{ t('contribute.showcase.p4Bold') }}</strong>
-                    </template>
-                  </i18n-t>
-                </div>
-
                 <!-- submit -->
                 <div
                   v-else-if="s.id === 'submit'"
@@ -626,7 +541,7 @@ Your write-up goes here.</code></pre>
                       scope="global"
                     >
                       <template #path>
-                        <code>server/routes/raw/</code>
+                        <code>scripts/build-search-index.mjs</code>
                       </template>
                     </i18n-t>
                   </ul>
@@ -824,13 +739,11 @@ Your write-up goes here.</code></pre>
               </div>
             </section>
           </div>
-
-          <PromoSlot
-            placement="betweenSections"
-            class="mx-auto max-w-3xl"
-          />
         </div>
       </div>
     </UContainer>
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <PromoSlot unit="horizontal" />
+    </div>
   </div>
 </template>

@@ -68,8 +68,7 @@ const stack = [
 const authorLinks = computed(() => [
   { icon: 'i-simple-icons-linkedin', label: 'LinkedIn', to: 'https://www.linkedin.com/in/imswarnil/', target: '_blank' },
   { icon: 'i-simple-icons-github', label: 'GitHub', to: 'https://github.com/imswarnil', target: '_blank' },
-  { icon: 'i-lucide-globe', label: t('about.links.website'), to: 'https://imswarnil.com', target: '_blank' },
-  { icon: 'i-lucide-heart', label: t('about.links.sponsor'), to: 'https://github.com/sponsors/crm-analytics-academy', target: '_blank' }
+  { icon: 'i-lucide-globe', label: t('about.links.website'), to: 'https://imswarnil.com', target: '_blank' }
 ])
 </script>
 
@@ -179,9 +178,7 @@ const authorLinks = computed(() => [
       </div>
     </section>
 
-    <div class="mx-auto max-w-3xl px-4">
-      <PromoSlot placement="betweenSections" />
-    </div>
+    <div class="mx-auto max-w-3xl px-4" />
 
     <!-- ===================== SECTION 2 — THE AUTHOR ===================== -->
     <section class="graph-paper border-y-[1.5px] border-(--ink)">
@@ -459,5 +456,8 @@ const authorLinks = computed(() => [
         </div>
       </div>
     </section>
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <PromoSlot unit="horizontal" />
+    </div>
   </div>
 </template>

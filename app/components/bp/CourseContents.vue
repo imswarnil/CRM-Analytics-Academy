@@ -15,7 +15,7 @@ const emit = defineEmits<{ toggle: [], navigate: [] }>()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 const route = useRoute()
 const localePath = useLocalePath()
-const { isDone, pro, normalise } = useProgress()
+const { isDone, normalise } = useProgress()
 const { of: metaOf } = useLessonMeta()
 const { total } = useCourse()
 const { t } = useI18n()
@@ -26,7 +26,7 @@ const sections = computed(() =>
   (navigation.value ?? []).map((mod, index) => {
     const lessons = ((mod.children ?? []) as ContentNavigationItem[])
       .filter(l => l.path)
-      .map(l => ({ title: String(l.title ?? ''), path: String(l.path), ...metaOf(String(l.path)) }))
+      .map(l => ({ title: String(l.title ?? ''), path: String(l.path), soon: Boolean((l as { comingSoon?: boolean }).comingSoon), ...metaOf(String(l.path)) }))
     const done = lessons.filter(l => isDone(l.path)).length
     return {
       n: String(index).padStart(2, '0'),
@@ -34,6 +34,7 @@ const sections = computed(() =>
       icon: String((mod as { icon?: string }).icon ?? 'i-lucide-book-open'),
       path: String(mod.path ?? ''),
       lessons,
+      soon: lessons.length > 0 && lessons.every(l => l.soon),
       done,
       minutes: lessons.reduce((s, l) => s + l.minutes, 0),
       active: lessons.some(l => normalise(l.path) === here.value) || normalise(String(mod.path ?? '')) === here.value
@@ -56,9 +57,9 @@ const doneAll = computed(() => sections.value.reduce((n, s) => n + s.done, 0))
 const pct = computed(() => (total.value ? Math.round((doneAll.value / total.value) * 100) : 0))
 
 const isHere = (p: string) => normalise(p) === here.value
-function lessonIcon(l: { path: string, type: string, access: string }) {
+function lessonIcon(l: { path: string, type: string, soon?: boolean }) {
+  if (l.soon) return 'i-lucide-hourglass'
   if (isDone(l.path)) return 'i-lucide-check'
-  if (l.access === 'pro' && !pro.value) return 'i-lucide-lock'
   return l.type === 'video' ? 'i-lucide-play' : 'i-lucide-file-text'
 }
 
@@ -167,7 +168,7 @@ onMounted(() => revealCurrent(true))
           <span class="w-7 font-mono text-xs font-semibold text-(--signal)">{{ s.n }}</span>
           <span class="min-w-0 flex-1">
             <span class="block truncate text-sm font-bold text-(--ink)">{{ s.title }}</span>
-            <span class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ t('course.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
+            <span class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ s.soon ? t('course.comingSoon') : t('course.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
           </span>
           <!-- The section's own icon inside its progress ring. -->
           <span class="relative flex size-8 flex-none items-center justify-center">
@@ -221,8 +222,11 @@ onMounted(() => revealCurrent(true))
         </ol>
       </li>
     </ol>
-    <div class="border-t-[1.5px] border-(--ink) p-3">
-      <SponsorCard />
+    <div class="p-3">
+      <PromoSlot
+        :key="route.path"
+        unit="square300x250"
+      />
     </div>
   </div>
 </template>

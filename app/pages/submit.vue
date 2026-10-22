@@ -45,7 +45,6 @@ interface Mine {
 }
 
 const TYPES: { value: Type, kind: Kind, labelKey: string, blurbKey: string, icon: string }[] = [
-  { value: 'dashboard', kind: 'showcase', labelKey: 'submit.kindShowcase', blurbKey: 'submit.blurbShowcase', icon: 'i-lucide-chart-column' },
   { value: 'resource', kind: 'resource', labelKey: 'submit.kindResource', blurbKey: 'submit.blurbResource', icon: 'i-lucide-link' },
   { value: 'lesson', kind: 'lesson-idea', labelKey: 'submit.kindIdea', blurbKey: 'submit.blurbIdea', icon: 'i-lucide-lightbulb' },
   { value: 'translation', kind: 'lesson-idea', labelKey: 'submit.kindTranslation', blurbKey: 'submit.blurbTranslation', icon: 'i-lucide-languages' },
@@ -67,9 +66,9 @@ const { lessons } = useCourse()
 
 // A link can preselect what is being submitted: ?type=snippet, or the older
 // ?kind=showcase|resource|lesson-idea buckets.
-const LEGACY: Record<string, Type> = { 'showcase': 'dashboard', 'resource': 'resource', 'lesson-idea': 'lesson' }
+const LEGACY: Record<string, Type> = { 'showcase': 'resource', 'resource': 'resource', 'lesson-idea': 'lesson' }
 const initial = (TYPES.some(x => x.value === route.query.type) ? route.query.type : LEGACY[String(route.query.kind)]) as Type | undefined
-const type = ref<Type>(initial ?? 'dashboard')
+const type = ref<Type>(initial ?? 'resource')
 const step = ref(initial ? 1 : 0)
 
 const steps = computed(() => STEPS[type.value])

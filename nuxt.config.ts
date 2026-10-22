@@ -43,40 +43,41 @@ const DEFAULT_LOCALE = 'en'
  * sections silently absent from the build, with no error anywhere, because
  * their slugs happen to start with the same characters as a private route.
  */
-const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api', '/team', '/join', '/sponsor/studio']
+const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api']
 
-/**
- * Pages that exist in English only (their copy is not in the i18n files).
- * Under a locale prefix they used to fall through to the lesson catch-all,
- * which queries a content database the Worker does not have — a 500. They
- * redirect to the English page instead.
- */
-const ENGLISH_ONLY = ['/pricing', '/teams', '/nominate']
-
-/** Pages that were removed on 2026-10-05, and where their visitors now go. */
+/** Pages that were removed, and where their visitors now go. */
 const RETIRED: Record<string, string> = {
   '/jobs': '/',
   '/companies': '/',
   '/leaderboard': '/dashboard',
   '/ask': '/curriculum',
-  '/training': '/teams',
-  '/sales': '/teams#contact',
-  '/contact': '/teams#contact',
-  '/implementation': '/teams',
-  '/experts': '/teams',
-  '/experts/join': '/instructors'
+  '/training': '/curriculum',
+  '/sales': '/about',
+  '/contact': '/about',
+  '/implementation': '/curriculum',
+  '/experts': '/about',
+  '/experts/join': '/about',
+  // 2026-10-22: payments, teams and sponsorship removed — every lesson is free.
+  '/pricing': '/curriculum',
+  '/teams': '/curriculum',
+  '/team': '/dashboard',
+  '/join': '/sign-up',
+  '/nominate': '/about',
+  '/sponsor': '/about',
+  '/sponsor/studio': '/about',
+  // 2026-10-23: lessons published section by section; these pages retired.
+  '/showcase': '/curriculum',
+  '/showcase/**': '/curriculum',
+  '/wall-of-fame': '/resources',
+  '/instructors': '/about',
+  '/roadmap': '/curriculum',
+  '/changelog': '/about'
 }
 
-const redirectRules = Object.fromEntries([
-  ...ENGLISH_ONLY.flatMap(path => locales
-    .filter(l => l.code !== DEFAULT_LOCALE)
-    .map(l => [`/${l.code}${path}`, { redirect: { to: path, statusCode: 301 } }])),
-  ...Object.entries(RETIRED).flatMap(([from, to]) => [
-    [from, { redirect: { to, statusCode: 301 } }],
-    // /teams is English-only, so its redirects stay unprefixed.
-    ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => [`/${l.code}${from}`, { redirect: { to: to.startsWith('/teams') ? to : `/${l.code}${to === '/' ? '' : to}`, statusCode: 301 } }])
-  ])
-])
+const redirectRules = Object.fromEntries(Object.entries(RETIRED).flatMap(([from, to]) => [
+  [from, { redirect: { to, statusCode: 301 } }],
+  ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => [`/${l.code}${from}`, { redirect: { to: `/${l.code}${to === '/' ? '' : to}`, statusCode: 301 } }])
+]))
 
 const privateRoutes = PRIVATE_PATHS.flatMap(route => [
   route,
@@ -85,35 +86,6 @@ const privateRoutes = PRIVATE_PATHS.flatMap(route => [
     .map(l => `/${l.code}${route}`)
 ]).map(route => new RegExp(`^${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(/|$)`))
 
-/**
- * The curriculum, in order, for llms.txt. Slug and title only -- the lessons
- * themselves are read from the content collection by path prefix.
- *
- * Kept as data rather than as repeated config blocks so that adding a section
- * is one line here instead of a twelve-line copy-paste that somebody forgets.
- */
-const LLM_SECTIONS: [string, string][] = [
-  ['introduction', 'Introduction'],
-  ['foundations', 'CRM Analytics Basics'],
-  ['setup', 'Setup, Profiles & Security'],
-  ['data-preparation', 'Data Preparation'],
-  ['datasets-and-modelling', 'Datasets & Modelling'],
-  ['data-visualization', 'Data Visualization'],
-  ['lenses-and-explorations', 'Lenses & Exploration'],
-  ['saql', 'SAQL'],
-  ['designing-dashboards', 'Dashboard Design & UI'],
-  ['interactions', 'Interactions & Faceting'],
-  ['bindings', 'Bindings'],
-  ['dashboard-json', 'Dashboard JSON'],
-  ['collaboration', 'Collaboration & Embedding'],
-  ['apis-and-automation', 'APIs & Automation'],
-  ['einstein-discovery', 'Einstein Discovery'],
-  ['gtm-engineering', 'GTM Engineering'],
-  ['demand-analytics', 'Demand Analytics'],
-  ['pipeline-analytics', 'Pipeline Analytics'],
-  ['revops-analytics', 'RevOps & Retention']
-]
-
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -121,7 +93,6 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     'nuxt-og-image',
-    'nuxt-llms',
     '@nuxtjs/sitemap',
     '@nuxtjs/i18n',
     'nuxt-studio'
@@ -153,38 +124,22 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      // Warm up the third-party origins early, but load the scripts themselves
-      // from the end of <body> so they never compete with the critical CSS/JS
-      // for bandwidth during first paint.
-      // AdSense site ownership, now that its script loads on demand rather
-      // than in every page head.
       meta: [
-        { name: 'google-adsense-account', content: 'ca-pub-1291242080282540' },
         // PWA chrome colour — navy in the title bar when installed.
-        { name: 'theme-color', content: '#0F2A5C' }
-      ],
-      style: [
-        { innerHTML: 'html[data-pro] .promo-slot{display:none!important}' }
+        { name: 'theme-color', content: '#0F2A5C' },
+        // AdSense site ownership (ads.txt is in public/).
+        { name: 'google-adsense-account', content: 'ca-pub-1291242080282540' }
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' },
         { rel: 'manifest', href: '/manifest.webmanifest' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
-        // No AdSense preconnect: promo slots now show the month's sponsor or
-        // the house placeholder, and AdSense only loads when
-        // NUXT_PUBLIC_PROMO_NETWORK=adsense (see app/utils/promoNetwork.ts).
-        { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }
+        { rel: 'preconnect', href: 'https://pagead2.googlesyndication.com' }
       ],
+      // AdSense, loaded once. Units are <PromoSlot>s (app/utils/promo.ts for
+      // the inventory); Auto ads (incl. Vignette) are switched on in AdSense.
       script: [
-        // Before first paint: a returning Pro reader (flag kept by PromoSlot)
-        // gets <html data-pro>, and the style below hides every promo slot,
-        // so nothing is reserved and then collapsed. The AdSense library
-        // itself is no longer loaded here — PromoSlot loads it on demand, and
-        // never for Pro.
-        { innerHTML: `try{if(localStorage.getItem('crma-pro')==='1')document.documentElement.setAttribute('data-pro','')}catch(e){}`, tagPosition: 'head' },
-        // Google tag (gtag.js)
-        { src: 'https://www.googletagmanager.com/gtag/js?id=G-VJD486Z7WT', async: true, tagPosition: 'bodyClose' },
-        { innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VJD486Z7WT');`, tagPosition: 'bodyClose' }
+        { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540', async: true, crossorigin: 'anonymous' }
       ]
     }
   },
@@ -214,15 +169,6 @@ export default defineNuxtConfig({
     },
     experimental: {
       sqliteConnector: 'native'
-    }
-  },
-
-  runtimeConfig: {
-    public: {
-      // Promo slots in a month with no sponsor show the house placeholder.
-      // 'adsense' shows the AdSense unit there instead. Off by default; read
-      // at build time for prerendered pages.
-      promoNetwork: ''
     }
   },
 
@@ -265,12 +211,7 @@ export default defineNuxtConfig({
     // The whole curriculum is still prerendered into .output/public and served
     // straight off Cloudflare's edge without ever waking the Worker — the same
     // static delivery GitHub Pages gave us. The Worker only runs for what has
-    // no static file: /api/*, the signed-in surface, and the gated lessons.
-    // That is the entire reason for the move — those routes cannot exist on
-    // Pages, because Pages has no server to run them.
-    //
-    // Override with NITRO_PRESET=github_pages to build the old static-only
-    // bundle (no auth, no progress) if the Worker ever needs to be bypassed.
+    // no static file: /api/*, /mcp and the signed-in surface.
     preset: 'cloudflare_module',
 
     cloudflare: {
@@ -288,11 +229,6 @@ export default defineNuxtConfig({
       autoSubfolderIndex: false,
       // Don't abort the whole build if a single crawled route errors.
       failOnError: false,
-      // Gated lessons never enter the public bundle. scripts/gate-content.mjs
-      // writes this list from `access: pro` frontmatter before the build, and
-      // scripts/verify-gating.mjs fails the build afterwards if any of their
-      // text made it into .output/public anyway. The crawler would otherwise
-      // follow the sidebar link straight into them.
       ignore: [
         // The signed-in surface, in every locale. Prerendering it bakes the
         // logged-out shell into a public file, which then has to be corrected
@@ -306,10 +242,6 @@ export default defineNuxtConfig({
         // prerenderer ran out of memory.
         ...Object.keys(redirectRules).map(path => new RegExp(`^${path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(/|$|\\?)`)),
         new RegExp(`^/(${locales.map(l => l.code).join('|')})/(${locales.map(l => l.code).join('|')})(/|$)`),
-        // Pro lessons are NOT excluded: what prerenders for them is the public
-        // stub from .gated-stubs/ (title, teaser, paywall). The full body is
-        // only in server/assets/gated and reaches the browser through
-        // /api/lesson after an entitlement check.
         // The editor is a signed-in surface too; a prerendered copy would be
         // a logged-out shell.
         '/_studio',
@@ -322,10 +254,10 @@ export default defineNuxtConfig({
     optimizeDeps: {
       // Only packages this project depends on directly can be listed here:
       // pnpm keeps transitive packages out of the root node_modules, so Vite
-      // cannot resolve them and warns on every start. These two are imported
+      // cannot resolve them and warns on every start. This one is imported
       // from app code and are pre-bundled so the first request does not
       // trigger a "new dependencies discovered" reload.
-      include: ['@vueuse/core', '@microsoft/clarity']
+      include: ['@vueuse/core']
     }
   },
 
@@ -369,47 +301,6 @@ export default defineNuxtConfig({
     }
   },
 
-  llms: {
-    domain: 'https://crmanalytics.imswarnil.com',
-    title: 'CRM Analytics Academy',
-    description: 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery.',
-    full: {
-      title: 'CRM Analytics Academy - Full Curriculum',
-      description: 'The complete CRM Analytics Academy curriculum (English).'
-    },
-    sections: [
-      // One entry per curriculum section, generated from the list above rather
-      // than written out six times. The previous version was a hand-kept copy
-      // of a six-section course: it still pointed at /en/creating-datasets,
-      // which no longer exists, and it had never heard of the thirteen sections
-      // added since -- so llms.txt advertised roughly a third of the
-      // curriculum and silently omitted the rest.
-      ...LLM_SECTIONS.map(([slug, title]) => ({
-        title,
-        contentCollection: 'docs' as const,
-        contentFilters: [
-          { field: 'path', operator: 'LIKE' as const, value: `/en/${slug}%` },
-          // Gated lessons are excluded from the LLM corpus: llms-full.txt
-          // concatenates whole bodies, and it is a public file.
-          { field: 'access', operator: '<>' as const, value: 'pro' }
-        ]
-      })),
-      // Non-content surfaces an AI agent should know exist. When answering
-      // from this corpus, these are the pages to send people to.
-      {
-        title: 'Tools & Community',
-        links: [
-          { title: 'Other languages', href: 'https://crmanalytics.imswarnil.com/de/llms.txt', description: 'Each translated locale has its own index at /<locale>/llms.txt — es, fr, de, pt, ja, zh, hi, ar, ru, bn, ur.' },
-          { title: 'MCP server', href: 'https://crmanalytics.imswarnil.com/mcp', description: 'Model Context Protocol endpoint (JSON-RPC over POST): list_curriculum, search_lessons, get_lesson — direct machine access to the curriculum.' },
-          { title: 'Dashboard showcase', href: 'https://crmanalytics.imswarnil.com/showcase', description: 'Community dashboard builds with KPIs, formulas and step-by-step recipes.' },
-          { title: 'Resources', href: 'https://crmanalytics.imswarnil.com/resources', description: 'Curated external CRM Analytics resources.' },
-          { title: 'Datasets', href: 'https://crmanalytics.imswarnil.com/datasets', description: 'Practice datasets for the exercises.' },
-          { title: 'Wall of Fame', href: 'https://crmanalytics.imswarnil.com/wall-of-fame', description: 'The bloggers, authors, speakers and tool builders who taught the CRM Analytics community.' }
-        ]
-      }
-    ]
-  },
-
   ogImage: {
     zeroRuntime: true
   },
@@ -425,10 +316,10 @@ export default defineNuxtConfig({
     // prerender and marked noindex, but a sitemap is a positive assertion
     // that a URL is worth indexing — listing them would contradict the meta.
     exclude: [
-      '/dashboard', '/account', '/submit', '/admin', '/_studio', '/join', '/team', '/sponsor/studio',
-      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio', '/*/join', '/*/team', '/*/sponsor/studio',
+      '/dashboard', '/account', '/submit', '/admin', '/_studio',
+      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio',
       // The raw-markdown surface is for LLMs and is already advertised by
-      // llms.txt. In a sitemap it would be ~780 duplicate-content URLs.
+      // llms.txt. In a sitemap it would be duplicate content.
       '/raw/**'
     ],
     // hreflang alternates for the eleven translated locales, so a crawler

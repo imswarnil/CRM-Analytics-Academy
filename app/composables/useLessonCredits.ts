@@ -4,7 +4,7 @@
  *
  * Authors and credits are declared on the ENGLISH lesson only (translations
  * are generated and may mangle or drop the fields), so a translated page reads
- * them from the English document — the same way it borrows `mux`. Author slugs
+ * them from the English document — the same way it borrows the video. Author slugs
  * resolve against the people collection (content/people/<slug>.yml); a lesson
  * with no authors is the site owner's.
  */
@@ -17,7 +17,7 @@ export interface LessonPerson {
   avatar: string | null
   headline: string | null
   links: Record<string, string>
-  /** Their card on /instructors. */
+  /** Where their name links: the About page for the owner, their site otherwise. */
   to: string
 }
 
@@ -55,7 +55,7 @@ export function toLessonPerson(p: { stem?: string, id?: string, name: string, ro
     avatar: p.avatar ?? null,
     headline: p.headline ?? null,
     links: Object.fromEntries(Object.entries(p.links ?? {}).filter((e): e is [string, string] => typeof e[1] === 'string')),
-    to: `/instructors#${slug}`
+    to: '/about'
   }
 }
 
@@ -89,7 +89,7 @@ export async function useLessonCredits(opts: {
       avatar: null,
       headline: null,
       links: {},
-      to: `/instructors#${s}`
+      to: '/about'
     })
   })
 

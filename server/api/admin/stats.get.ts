@@ -1,9 +1,9 @@
 /**
  * Aggregate metrics for the admin overview.
  *
- * Every query is wrapped individually: on a database that has not run every
- * migration yet, a missing table zeroes its own metric instead of turning the
- * whole payload into a 500. The dashboard then renders whatever is real.
+ * Every query is wrapped individually: a missing table (a database that has
+ * not run server/db/schema.sql yet) zeroes its own metric instead of turning
+ * the whole payload into a 500.
  */
 interface SeriesPoint {
   day: string
@@ -20,7 +20,36 @@ export default defineEventHandler(async (event) => {
     approvedSubmissions: 0,
     rejectedSubmissions: 0,
     lessonsCompleted: 0,
-    quizAttempts: 0
+    quizAttempts: 0,
+    comments: 0,
+    views7d: 0,
+    visitors7d: 0,
+    signups7d: 0
+  }
+
+  try {
+    const [r] = await sql`
+      select count(*)::int as views, count(distinct visitor)::int as visitors
+      from app.page_view where created_at >= now() - interval '7 days'
+    `
+    totals.views7d = Number(r?.views ?? 0)
+    totals.visitors7d = Number(r?.visitors ?? 0)
+  } catch {
+    // Leave zero.
+  }
+
+  try {
+    const [r] = await sql`select count(*)::int as n from neon_auth."user" where "createdAt" >= now() - interval '7 days'`
+    totals.signups7d = Number(r?.n ?? 0)
+  } catch {
+    // Leave zero.
+  }
+
+  try {
+    const [r] = await sql`select count(*)::int as n from app.comment`
+    totals.comments = Number(r?.n ?? 0)
+  } catch {
+    // Leave zero.
   }
 
   try {
@@ -112,9 +141,9 @@ export default defineEventHandler(async (event) => {
   let signups: SeriesPoint[] = []
   try {
     const rows = await sql`
-      select date_trunc('day', created_at)::date::text as day, count(*)::int as n
+      select date_trunc('day', "createdAt")::date::text as day, count(*)::int as n
       from neon_auth."user"
-      where created_at >= now() - interval '14 days'
+      where "createdAt" >= now() - interval '14 days'
       group by 1
     `
     signups = dense(rows)

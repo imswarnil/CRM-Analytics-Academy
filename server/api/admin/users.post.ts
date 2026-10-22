@@ -14,8 +14,8 @@
  * band. That is a stopgap, not a good permanent answer: a password that
  * travels through a person is a password that ends up in a chat log.
  *
- * The right shape is an invite email with a single-use link. See next-steps.md
- * — Cloudflare Email Service would cover it and needs no new vendor.
+ * The right shape is an invite email with a single-use link — Cloudflare
+ * Email Service would cover it and needs no new vendor.
  * ---------------------------------------------------------------------------
  */
 function temporaryPassword(): string {
@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 503, statusMessage: 'Auth service is not configured.' })
   }
 
-  const body = await readBody<{ email?: string, name?: string, role?: string }>(event)
+  const body = await readBody<{ email?: string, name?: string }>(event)
 
   const email = String(body?.email ?? '').trim().toLowerCase()
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -55,19 +55,6 @@ export default defineEventHandler(async (event) => {
       statusCode: 409,
       statusMessage: 'Could not create that account — the address may already be registered.'
     })
-  }
-
-  // Optional role, applied after the account exists.
-  const role = String(body?.role ?? 'learner')
-  if (role !== 'learner' && (ROLES as readonly string[]).includes(role)) {
-    const sql = useDb()
-    const rows = await sql`select id::text as id from neon_auth."user" where lower(email) = ${email}`
-    if (rows[0]) {
-      await sql`
-        insert into app.user_role (user_id, role) values (${rows[0].id}, ${role})
-        on conflict (user_id) do update set role = excluded.role, granted_at = now()
-      `
-    }
   }
 
   setResponseHeader(event, 'cache-control', 'no-store')

@@ -2,7 +2,7 @@
  * GET /api/url-meta?url=https://…  →  { url, title?, description?, siteName?, icon?, image? }
  *
  * Link previews and favicons for anything a visitor pastes (resources,
- * showcase submissions, nominations). All the SSRF guarding is in
+ * submissions). All the SSRF guarding is in
  * server/utils/urlMeta.ts; this only shapes the request and caches the
  * answer, since a page's title and icon change rarely.
  */

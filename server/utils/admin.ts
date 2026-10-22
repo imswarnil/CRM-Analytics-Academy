@@ -1,94 +1,31 @@
 import type { H3Event } from 'h3'
 
-export type Role = 'admin' | 'moderator' | 'instructor' | 'learner'
-
-/** Every role app.user_role may hold, in the order the admin screen lists them. */
-export const ROLES: readonly Role[] = ['learner', 'instructor', 'moderator', 'admin']
-
 /**
- * Who is allowed to administer the site.
- *
- * Two sources, and the order matters:
- *
- *   1. ADMIN_EMAILS — a comma-separated allowlist in the Worker's secrets.
- *   2. app.user_role — roles granted through the admin screen.
- *
- * The env var exists to solve the bootstrap problem: the first admin cannot
- * be granted a role through a screen that only admins can open. It is
- * deliberately not the only mechanism, because an allowlist that has to be
- * redeployed to add a moderator is one nobody maintains.
- *
- * It is checked against the session's email — resolved by the auth service
- * from the cookie — and never against anything the client sends.
+ * The one admin. There are no roles: this address can open /admin and every
+ * /api/admin route, and nobody else can. It is compared with the session's
+ * email — resolved by Neon Auth from the cookie — never with anything the
+ * client sends.
  */
-function bootstrapAdmins(): string[] {
-  return (process.env.ADMIN_EMAILS || '')
-    .split(',')
-    .map(e => e.trim().toLowerCase())
-    .filter(Boolean)
-}
+export const ADMIN_EMAIL = 'imswarnil@gmail.com'
 
-export async function getRole(event: H3Event): Promise<{ user: SessionUser, role: Role } | null> {
-  const user = await getSessionUser(event)
-  if (!user) return null
-
-  if (bootstrapAdmins().includes(user.email.toLowerCase())) {
-    return { user, role: 'admin' }
-  }
-
-  const sql = useDb()
-  const rows = await sql`select role from app.user_role where user_id = ${user.id}`
-  return { user, role: (rows[0]?.role as Role) ?? 'learner' }
+export function isAdmin(user: SessionUser | null): boolean {
+  return !!user && user.email.toLowerCase() === ADMIN_EMAIL
 }
 
 /**
  * Gate for every admin route.
  *
- * Returns 404, not 403, for a signed-in non-admin. A 403 confirms that the
- * path exists and that they simply lack the role, which is free
- * reconnaissance; from outside, /api/admin/* should look like nothing.
- *
- * A signed-out caller still gets 401, because "sign in" is the useful answer
- * there and reveals nothing — every route on the site says that.
+ * Returns 404, not 403, for a signed-in non-admin: a 403 confirms the path
+ * exists. A signed-out caller gets 401, which reveals nothing — every route
+ * on the site says that.
  */
 export async function requireAdmin(event: H3Event): Promise<SessionUser> {
-  const resolved = await getRole(event)
-  if (!resolved) {
+  const user = await getSessionUser(event)
+  if (!user) {
     throw createError({ statusCode: 401, statusMessage: 'Sign in required' })
   }
-  if (resolved.role !== 'admin') {
+  if (!isAdmin(user)) {
     throw createError({ statusCode: 404, statusMessage: 'Not found' })
   }
-  return resolved.user
-}
-
-/** Moderators can review submissions; only admins can change roles or users. */
-export async function requireModerator(event: H3Event): Promise<SessionUser> {
-  const resolved = await getRole(event)
-  if (!resolved) {
-    throw createError({ statusCode: 401, statusMessage: 'Sign in required' })
-  }
-  if (resolved.role !== 'admin' && resolved.role !== 'moderator') {
-    throw createError({ statusCode: 404, statusMessage: 'Not found' })
-  }
-  return resolved.user
-}
-
-/**
- * Gate for the content editor: admins and instructors.
- *
- * An instructor can reach the editor routes but not the rest of /api/admin —
- * every other route keeps requireAdmin or requireModerator. What an instructor
- * may change inside the editor (only lessons they author, only through a pull
- * request) is decided per route from the role returned here.
- */
-export async function requireEditor(event: H3Event): Promise<{ user: SessionUser, role: 'admin' | 'instructor' }> {
-  const resolved = await getRole(event)
-  if (!resolved) {
-    throw createError({ statusCode: 401, statusMessage: 'Sign in required' })
-  }
-  if (resolved.role !== 'admin' && resolved.role !== 'instructor') {
-    throw createError({ statusCode: 404, statusMessage: 'Not found' })
-  }
-  return { user: resolved.user, role: resolved.role }
+  return user
 }

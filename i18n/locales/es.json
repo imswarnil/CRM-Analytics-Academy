@@ -3,7 +3,6 @@
   "nav": {
     "resources": "Recursos",
     "about": "Acerca de",
-    "sponsor": "Patrocina este proyecto",
     "github": "Ver en GitHub",
     "theme": "Cambiar tema",
     "chooseLanguage": "Elegir idioma",
@@ -11,169 +10,17 @@
     "contribute": "Contribuir",
     "privacy": "Política de privacidad",
     "terms": "Términos de servicio",
-    "roadmap": "Hoja de ruta",
-    "showcase": "Showcase",
     "signIn": "Iniciar sesión",
     "signOut": "Suscríbase",
     "dashboard": "Dashboard",
     "account": "Cuenta",
     "curriculum": "Curriculum",
     "submit": "Contribuir un recurso",
-    "wallOfFame": "Muro de la fama",
-    "forTeams": "Para equipos",
     "home": "Home",
-    "pricing": "Precios",
-    "instructors": "Instructores & acreedores",
     "enrollFree": "Ingrese gratis",
-    "sponsorShort": "Sponsor",
-    "homeAria": "CRM Analytics Academia"
-  },
-  "sponsorCard": {
-    "title": "Patrocinar este proyecto"
-  },
-  "sponsor": {
-    "slot": {
-      "label": "Patrocinado",
-      "labelOpen": "Patrocinador ranura",
-      "aria": "Sponsor",
-      "eyebrow": "Abrir ranura",
-      "title": "Promover su marca aquí",
-      "terms": "{price}/mes · un patrocinador por mes",
-      "textBody": "Alcance CRM Analytics estudiantes en cada página — {price} un mes, un patrocinador a la vez.",
-      "cta": "Reserva un mes",
-      "defaultCta": "Aprender más"
-    },
-    "card": {
-      "current": "Este mes: {name}",
-      "open": "{price}/mes · un patrocinador a la vez"
-    },
-    "page": {
-      "seoTitle": "Patrocinar el proyecto",
-      "seoDescription": "Sponsor CRM Analytics Academia: una marca por mes, cada colocación en el sitio, {price} un mes. Vea el alcance en vivo y reserve un mes abierto.",
-      "sheet": "Hoja 13 / Patrocinador",
-      "title": "Patrocinar el proyecto",
-      "lead": "Una marca al mes recibe cada asignación de patrocinadores en la academia — banners, plazas de ferrocarril y texto en línea— delante de la gente que aprende Salesforce CRM Analytics. {price} un mes. Reserve un mes abierto a continuación; va en vivo el 1er.",
-      "ctaBook": "Ver los meses abiertos",
-      "ctaStudio": "Abrir el estudio patrocinador",
-      "offerEyebrow": "FIG. 02 — La oferta",
-      "offerTitle": "{price} un mes. Un patrocinador. Cada ranura.",
-      "offer": [
-        {
-          "t": "Exclusivo",
-          "d": "Sólo un patrocinador por mes calendario. Sin rotación, sin competidores a tu lado."
-        },
-        {
-          "t": "Cada colocación",
-          "d": "Tus creadores de tabla, cuadrado y texto llenan cada ranura en cada página, en los doce idiomas."
-        },
-        {
-          "t": "Self-serve",
-          "d": "Pagar por tarjeta, diseñar sus creativos en el estudio, publicar — y ver impresiones y clics."
-        }
-      ],
-      "howEyebrow": "FIG. 04 — Cómo funciona",
-      "howTitle": "De la reserva a vivir en minutos",
-      "how": [
-        {
-          "t": "Meses",
-          "d": "Elija uno o más meses abiertos consecutivos en la línea de tiempo."
-        },
-        {
-          "t": "Pago",
-          "d": "Asegurar el registro de hospedaje. Los meses son para ti mientras pagas."
-        },
-        {
-          "t": "Build",
-          "d": "Subir imágenes o diseñar un anuncio de su logotipo y copiar en el estudio patrocinador, con vistas de tamaño real."
-        },
-        {
-          "t": "¡Viva!",
-          "d": "Publish. Sus creativos reemplazan a los propietarios por cada día de sus meses."
-        }
-      ],
-      "formatsEyebrow": "FIG. 05 — Formatos",
-      "formatsTitle": "Tres formatos, mostrados en tamaño real",
-      "formats": {
-        "leaderboard": "Leaderboard",
-        "leaderboardSpec": "728×90 · 320×100 en teléfonos",
-        "leaderboardWhere": "A través de las columnas de lección y página.",
-        "square": "Plaza",
-        "squareSpec": "300×250 · o 1:1",
-        "squareWhere": "En las barras laterales de la lección y la página.",
-        "text": "Texto",
-        "textSpec": "Logo · 60 caracteres titular · línea 140 caracteres",
-        "textWhere": "Clases internas, después de la lectura."
-      },
-      "faqEyebrow": "FIG. 06 - Preguntas",
-      "faqTitle": "Sponsorship FAQ",
-      "faqs": [
-        {
-          "q": "¿Qué obtengo para {price}?",
-          "a": "Cada asignación de patrocinadores en el sitio durante un mes calendario (UTC), exclusivamente. Nadie más se muestra en esas ranuras durante su mes."
-        },
-        {
-          "q": "¿Puedo reservar varios meses?",
-          "a": "Sí, elige meses abiertos consecutivos y paga una vez. Los meses que no están al lado del otro son reservas separadas."
-        },
-        {
-          "q": "¿Cuándo empieza mi patrocinio?",
-          "a": "El 1 del mes que reservaste, a las 00:00 UTC. Publicar tus creativos en cualquier momento antes — aparecen automáticamente."
-        },
-        {
-          "q": "¿Los miembros de Pro muestran mi anuncio?",
-          "a": "No. Pro y miembros del equipo pagan por una academia libre de anuncios, por lo que las cifras de alcance anteriores son un límite superior."
-        },
-        {
-          "q": "¿Qué no puedo anunciar?",
-          "a": "Cualquier cosa engañosa, insegura o no relacionada con los profesionales del trabajo. Los creativos pueden ser pausados o rechazados con una nota, y puede publicar un reemplazo en cualquier momento."
-        },
-        {
-          "q": "¿Puedo pagar por factura?",
-          "a": "Sí. Utilice el formulario en la parte inferior de esta página y reservaremos el mes para usted."
-        }
-      ],
-      "invoiceEyebrow": "Factura o mayor trato",
-      "invoiceTitle": "¿Prefieres una factura o quieres más que ranuras?",
-      "invoiceLead": "Patrocinios de sección, características de conjunto de datos y menciones del boletín de noticias - claramente etiquetado, nunca dentro de la enseñanza de una lección. Dinos lo que te gustaría llegar."
-    },
-    "reach": {
-      "eyebrow": "FIG. 01 - Alcance en vivo",
-      "title": "A quien se llega",
-      "note": "Contando en directo desde la propia base de datos de la academia y análisis de Cloudflare — nunca se estimó. Actualizado {time}.",
-      "learners": "Cuentas de aprendizaje",
-      "active": "Estudiantes activos, 30 días",
-      "completed": "Enseñanzas completadas",
-      "quizzes": "Quiz intenta",
-      "comments": "Comentarios de la experiencia",
-      "languages": "Idiomas",
-      "pageViews": "Vistas a la página, 30 días",
-      "countries": "Países, 30 días",
-      "topCountries": "Principales países, 30 días",
-      "loading": "Contando...",
-      "unavailable": "Las cifras en vivo no están disponibles ahora mismo."
-    },
-    "calendar": {
-      "eyebrow": "FIG. 03 - Disponibilidad",
-      "title": "Los próximos doce meses",
-      "lead": "Un patrocinador por mes. Elige uno o más meses abiertos consecutivos.",
-      "available": "Abierto",
-      "booked": "Reservado",
-      "bookedBy": "Reservado por {name}",
-      "held": "Espera.",
-      "heldHint": "Alguien está mirando hacia fuera",
-      "closed": "Cerrado",
-      "mine": "Tuyo",
-      "selected": "Seleccionado",
-      "summary": "No meses seleccionados Silencio {n} Mes {total} Silencio {n} meses · {total}",
-      "brandName": "Nombre de la marca",
-      "brandNamePlaceholder": "Mostrado en sus creativos y el calendario",
-      "website": "Sitio web",
-      "book": "Libro y pago",
-      "signIn": "Inicia sesión para reservar",
-      "holdNote": "Se celebran meses para {minutes} minutos mientras pagas. Nada se reserva hasta que el pago tenga éxito.",
-      "unavailable": "La reserva abre pronto. Utilice el siguiente formulario para reservar un mes.",
-      "error": "El calendario no podía cargar. Refresca a intentarlo de nuevo."
-    }
+    "homeAria": "CRM Analytics Academia",
+    "starOnGithub": "Star CRM Analytics Academia GitHub",
+    "youtube": "CRM Analytics Academia en YouTube"
   },
   "home": {
     "modules": {
@@ -233,12 +80,6 @@
       "video": "Video walkthrough",
       "article": "Artículo"
     },
-    "showcase": {
-      "eyebrow": "Fig. 03 — Showcase",
-      "title": "Paneles construidos en el curso",
-      "lead": "Cada construcción viene con sus KPIs, la fórmula detrás de cada uno y los pasos para hacerlo usted mismo.",
-      "all": "Ver todas las construcciones"
-    },
     "blurbs": {
       "introduction": "Qué curso es, para quién es, una org gratis y el primer conjunto de datos cargado.",
       "foundations": "¿Qué? CRM Analytics es, las tres capas, el vocabulario, y cuando es la herramienta incorrecta.",
@@ -260,12 +101,11 @@
       "pipeline-analytics": "Lleva a la firma: enrutamiento, puntuación, conversión, velocidad y CPQ.",
       "revops-analytics": "Pronóstico, la cascada ARR, el riesgo de consumo, el servicio y la junta ejecutiva."
     },
-    "forTeams": {
-      "eyebrow": "Para equipos",
-      "title": "Entrena a todo tu equipo de análisis",
-      "lead": "Pro para todos en el dominio de su empresa, una factura, asientos que usted maneja.",
-      "seats": "Asientos de equipo",
-      "sales": "Hablar con ventas"
+    "join": {
+      "eyebrow": "Cuenta gratuita",
+      "title": "Seguimiento de su progreso a través de las 161 lecciones",
+      "lead": "Cada lección es libre. Con una cuenta que guardas tu lugar, construyes una racha diaria, ahorras lecciones para más tarde, marca tus cuestionarios y gana las insignias en tu panel de control.",
+      "browse": "Examine el plan de estudios"
     }
   },
   "footer": {
@@ -273,16 +113,13 @@
     "curriculum": "Temario",
     "project": "Proyecto",
     "community": "Comunidad",
-    "academy": "Academia",
-    "links": {
-      "nominate": "Nominado para el Muro",
-      "sales": "Hablar con ventas"
-    },
     "quip": {
       "0": "Hecho por Swarnil con una cantidad irrazonable de impulso y un desperdicio heroico de fichas.",
       "1": "Traducido a mano por Swarnil, asistido a máquina. El presupuesto total es ahora más una sugerencia.",
       "2": "Construido por Swarnil un impulso a la vez, algunos de ellos incluso trabajaron en el primer intento."
-    }
+    },
+    "builtWith": "Construido",
+    "builtWithNote": "Fuente abierta. Fíjate en el repo, pídelo o envía una solicitud de tirón."
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Aprende Salesforce CRM Analytics",
@@ -290,40 +127,7 @@
     "aboutTitle": "Acerca de",
     "aboutDesc": "La historia detrás de CRM Analytics Academy, un currículo de código abierto para Salesforce CRM Analytics, y quien lo desarrolla.",
     "resourcesTitle": "Recursos",
-    "resourcesDesc": "Una lista curada de los mejores recursos de Salesforce CRM Analytics: documentación oficial, Trailhead, referencias de SAQL, comunidad y herramientas.",
-    "showcaseTitle": "Dashboard Showcase",
-    "showcaseDesc": "Real CRM Analytics dashboards construidos por la comunidad — los KPI, las fórmulas detrás de ellos, y las técnicas utilizadas para construir cada uno."
-  },
-  "showcase": {
-    "title": "Dashboard Showcase",
-    "subtitle": "Deshboards reales, con los KPI y el pensamiento detrás de ellos. Filtro por área de negocios, dificultad o CRM Analytics técnicas utilizadas.",
-    "all": "Todos",
-    "domain": "Área de negocios",
-    "difficulty": "Dificultad",
-    "technique": "Técnica",
-    "results": "dashboards",
-    "noResults": "Ningún dashboards coincide con estos filtros todavía.",
-    "clearFilters": "Filtros claros",
-    "by": "Construido por",
-    "kpis": "KPI y cómo se calculan",
-    "kpiName": "métrica",
-    "kpiFormula": "Cómo se calcula",
-    "kpiNote": "¿Por qué?",
-    "recipe": "Cómo se construyó",
-    "datasets": "Datasets used",
-    "techniques": "Técnicas utilizadas",
-    "published": "Publicado",
-    "back": "Volver al escaparate",
-    "submit": "Envíe su dashboard",
-    "submitHint": "¿Construiste algo de lo que estás orgulloso? Abra una solicitud de extracción con un archivo marcador y aparece aquí.",
-    "beginner": "Beginner",
-    "intermediate": "Intermedio",
-    "advanced": "Avances",
-    "noScreenshot": "Captura de pantalla pronto",
-    "viewBuild": "Ver la construcción",
-    "submitEyebrow": "Submit",
-    "sheet": "Hoja 05 / Showcase / {n} dashboards",
-    "dashboard": "Dashboard"
+    "resourcesDesc": "Una lista curada de los mejores recursos de Salesforce CRM Analytics: documentación oficial, Trailhead, referencias de SAQL, comunidad y herramientas."
   },
   "course": {
     "nextLesson": "Siguiente: {title}",
@@ -336,38 +140,106 @@
     "contentsPct": "Contenido · {pct}%",
     "showContents": "Mostrar contenido del curso",
     "collapseContents": "Contenido del curso de colapso",
-    "sectionMeta": "{lessons} lecciones · {minutes}m"
+    "sectionMeta": "{lessons} lecciones · {minutes}m",
+    "comingSoon": "Pronto."
   },
   "dashboard": {
     "kicker": "Dashboard",
     "welcome": "Bienvenido de nuevo",
     "welcomeNamed": "Bienvenido de nuevo, {name}",
-    "yourProgress": "Tu progreso",
-    "lessonsDone": "{done} de {total} lecciones",
-    "continueCta": "Resumen",
-    "nothingYet": "Aún no has completado una lección.",
-    "startFirst": "Empieza la primera lección",
-    "plan": "Plan",
-    "planFree": "Gratis",
-    "planPro": "Pro",
-    "planFreeDesc": "Las lecciones básicas son gratuitas para siempre.",
-    "planProDesc": "Cada lección y proyecto está desbloqueado.",
-    "recentlyCompleted": "Recientemente terminado",
+    "lead": "Recoge donde te fuiste; una lección al día se suma.",
+    "streakLead": "Estás en un {n}- día de racha. Sigue así hoy.",
     "statCompleted": "Completado",
     "statRemaining": "Permaneciendo",
+    "statStreak": "Day streak",
     "statPoints": "Puntos",
-    "statRank": "Rank",
+    "statQuiz": "Quiz promedio",
+    "statBadges": "Insignias",
+    "lessons": "lecciones",
+    "longest": "Más larga {n} días",
+    "rankOf": "Rank {rank} de {n}",
     "unranked": "—",
+    "quizzesTaken": "{n} quizzes",
+    "activeDays": "{n} días activos",
+    "continue": "Seguir aprendiendo",
+    "lessonsDone": "{done} de {total} lecciones",
+    "continueCta": "Resumen",
+    "startFirst": "Empieza la primera lección",
+    "upNext": "Siguiente",
+    "goal": "Esta semana",
+    "goalDone": "Objetivo semanal alcanzado. Cualquier cosa más es un bono.",
+    "goalLeft": "{n} más para alcanzar tu objetivo semanal.",
+    "goalSet": "Objetivo",
+    "browse": "Curriculum",
     "contribute": "Gentileza",
-    "upgradePro": "Actualización a Pro",
-    "manageBilling": "Administrar facturación",
-    "confirmingTitle": "Confirmando su pago...",
-    "confirmingDesc": "Esto normalmente lleva unos segundos.",
     "activity": "Actividad, últimas 12 semanas",
-    "thisWeek": "{n} esta semana",
-    "activityAria": "Lecciones completadas por semana, las últimas 12 semanas: {counts}",
-    "lessonsCount": "{n} lecciones",
-    "bySection": "Por sección"
+    "less": "Menos",
+    "more": "Más",
+    "bySection": "Por sección",
+    "saved": "Guardado para después",
+    "savedEmpty": "Guarda una lección con el botón marcador bajo su título y te esperará aquí.",
+    "unsave": "Eliminar de salvado",
+    "quizzes": "Puntuaciones de Quiz",
+    "quizzesEmpty": "Las lecciones que terminan con un examen mostrarán su mejor puntuación aquí.",
+    "attempts": "{n} intentos",
+    "retake": "Reto",
+    "badges": "Insignias",
+    "badge": {
+      "first": {
+        "title": "Primer paso",
+        "desc": "Completa tu primera lección"
+      },
+      "ten": {
+        "title": "Diez abajo",
+        "desc": "Clases completas"
+      },
+      "section": {
+        "title": "Sección despejada",
+        "desc": "Termina cada lección en una sección"
+      },
+      "half": {
+        "title": "Medio camino",
+        "desc": "Completa la mitad del curso"
+      },
+      "all": {
+        "title": "Graduado",
+        "desc": "Completa cada lección"
+      },
+      "streak3": {
+        "title": "En un rollo",
+        "desc": "Aprende 3 días seguidos"
+      },
+      "streak7": {
+        "title": "Semana Santa",
+        "desc": "Aprende 7 días seguidos"
+      },
+      "quiz": {
+        "title": "Pruebas",
+        "desc": "Tome su primer examen"
+      },
+      "perfect": {
+        "title": "Marcas completas",
+        "desc": "Puntaje 100% en un cuestionario"
+      },
+      "quiz10": {
+        "title": "Quiz regular",
+        "desc": "Tome 10 preguntas diferentes"
+      },
+      "saver": {
+        "title": "Planificador",
+        "desc": "Guardar una lección para después"
+      },
+      "contributor": {
+        "title": "Contributor",
+        "desc": "Obtener una presentación aprobada"
+      }
+    },
+    "leaderboard": "Leaderboard",
+    "leaderboardEmpty": "Nadie ha ganado puntos todavía, sea el primero.",
+    "you": "Tú",
+    "pointsRule": "10 puntos por lección, 2 por punto de prueba, 25 por presentación aprobada (50 por dashboard).",
+    "recentlyCompleted": "Recientemente terminado",
+    "nothingYet": "Aún no has completado una lección."
   },
   "auth": {
     "signInTitle": "Bienvenido de nuevo",
@@ -622,29 +494,6 @@
       "links": "Enlaces"
     }
   },
-  "wall": {
-    "eyebrow": "Comunidad",
-    "title": "Muro de la fama",
-    "subtitle": "La gente que hace CRM Analytics la comunidad lo que es - los bloggers, YouTubers, autores, altavoces y constructores de herramientas cuyo trabajo enseñó el resto de nosotros.",
-    "all": "Todos",
-    "types": {
-      "blogger": "Blogger",
-      "youtuber": "YouTuber",
-      "author": "Autor",
-      "speaker": "Speaker",
-      "builder": "Tool builder"
-    },
-    "visit": "Visita",
-    "nominateTitle": "¿Conoces a alguien que pertenece aquí?",
-    "nominateDesc": "Nominar a un blogger, creador o mentor cuyo trabajo ha ayudado CRM Analytics comunidad.",
-    "nominate": "Nominar a alguien",
-    "emptyPhoto": "Tu foto aquí",
-    "emptyCaption": "Nominado",
-    "emptyHint": "Nominar a alguien",
-    "filter": "Filtro por tipo",
-    "board": "Junta",
-    "whoTitle": "Quienes son"
-  },
   "quiz": {
     "title": "Comprueba tu conocimiento",
     "question": "Pregunta {n} de {total}",
@@ -806,8 +655,7 @@
       "openSource": "Fuente abierta"
     },
     "links": {
-      "website": "Sitio web",
-      "sponsor": "Sponsor"
+      "website": "Sitio web"
     },
     "author": {
       "title": "Construido por un desarrollador, para toda la comunidad",
@@ -854,7 +702,6 @@
       "lessons": "Escribir una lección",
       "frontmatter": "Lección delantera",
       "translations": "Traducciones",
-      "showcase": "Presentando un dashboard",
       "submit": "Recursos propuestos",
       "code": "Contribuciones del Código",
       "stack": "Montaje técnico",
@@ -878,10 +725,6 @@
       {
         "title": "Mejorar la traducción",
         "text": "Las traducciones se generan a máquina. Arregla una frase torpe en tu idioma — no necesitas tocar inglés."
-      },
-      {
-        "title": "Mostrar tu tablero",
-        "text": "Comparta lo que construyó: una captura de pantalla, los KPI, y cómo los calculó."
       }
     ],
     "submitHere": "Envíelo aquí.",
@@ -933,15 +776,6 @@
       "english": "Inglés",
       "p5": "UI strings live in {path}. Añadir nuevas cuerdas a {en} sólo; la misma carrera llena las otras once y deja las traducciones existentes solo."
     },
-    "showcase": {
-      "p1": "Construido CRM Analytics ¿Estás orgulloso? {link} — el formulario toma el título, el registro y una captura de pantalla, y un encargado lo revisa antes de que aparezca. Si prefiere enviar una solicitud de tirada, la forma de marcado está por debajo y ambas rutas terminan en la misma cola.",
-      "link": "Envíenlo al Showcase",
-      "p2": "Lo que hace que una entrada vale la pena leer no es la captura de pantalla, es la {working}: que KPIs pones en él, la fórmula detrás de cada uno, y por qué la midió de esa manera. Di lo que salió mal también: el Gotcha que golpeó es generalmente la parte más útil.",
-      "working": "trabajando",
-      "p3": "{domain}, {difficulty} y {techniques} conducir los filtros en la página del escaparate, así que reutiliza los valores existentes donde encajan. Todo excepto {title}, {description}, {image} y {author} es opcional.",
-      "p4": "{bold} Desenfoque o falsos nombres de clientes, cifras de ingresos y nombres de usuario — el repositorio es público.",
-      "p4Bold": "Sanitis la captura de pantalla primero."
-    },
     "submit": {
       "p1": "¿Encontró un vínculo útil: docs, un curso, una herramienta, una comunidad? {link}. Título, URL y una línea sobre por qué vale la pena el tiempo de alguien; aterriza tan pendiente y un encargado lo aprueba. No GitHub cuenta, sin petición de tirada, sin esperar a una construcción.",
       "p2": "Abrir un problema todavía funciona si lo prefiere, y también lo hace una solicitud de tirada que agrega un archivo a {path}. La forma es simplemente más rápida, y es la misma cola de moderación en el otro extremo."
@@ -979,199 +813,6 @@
       "after": "Un encargado revisará, sugerirá retoques si es necesario, y se fusionará. Una vez fusionado, el GitHub El flujo de trabajo de acciones construye el sitio y lo publica automáticamente a Cloudflare."
     },
     "help": "¿Atascado o tienes una idea? Abrir un tema o una discusión sobre {github}. Los contribuyentes de primera vez son muy bienvenidos: ninguna contribución es demasiado pequeña."
-  },
-  "roadmap": {
-    "seo": {
-      "title": "Roadmap",
-      "description": "Donde CRM Analytics La Academia va: lo que se está construyendo ahora, lo que viene después y lo que se planea más tarde — lecciones, dashboard construye, videos y características del sitio."
-    },
-    "hero": {
-      "eyebrow": "Hoja 11 / Hoja de ruta",
-      "title": "Donde estamos {em}",
-      "titleEm": "en dirección",
-      "lead": "La Academia es fuente abierta y siempre crece. ¿Tienes una idea? {issue}.",
-      "issue": "Abrir un problema"
-    },
-    "vision": {
-      "title": "Nuestra visión",
-      "body": "Hacer clase mundial CRM Analytics habilidades accesibles {anyone}, en cualquier lugar - un camino de grado profesional desde su primer conjunto de datos a paneles de producción y Einstein DiscoverySin un muro de pago.",
-      "anyone": "cualquiera",
-      "star": "Míranos. GitHub"
-    },
-    "principles": [
-      {
-        "title": "Libre, para siempre",
-        "text": "El curso básico, exámenes y certificados se mantienen libres — financiados por patrocinadores, anuncios y Pro opcional."
-      },
-      {
-        "title": "Fuente abierta",
-        "text": "Todo el sitio está en GitHub. Cualquiera puede arreglar un tipo, añadir una lección, o enviar una característica."
-      },
-      {
-        "title": "Construirlo, no lo leas",
-        "text": "Cada lección práctica lleva un paseo de pantalla — qué hacer y qué vale la pena decir al respecto— más un examen de grado."
-      },
-      {
-        "title": "Construido con la comunidad",
-        "text": "Recursos, comentarios y el libro de invitados son suyos. Las mejores ideas envían primero."
-      }
-    ],
-    "columns": {
-      "now": {
-        "label": "Cambia",
-        "items": [
-          "Diecinueve secciones y 161 lecciones, final reescrito",
-          "Diecisiete go-to-market se basan en los propios datos comerciales de la Academia",
-          "Pasillos de pantalla en cada lección práctica",
-          "Datasets de práctica descargable, con los verdaderos totales publicados"
-        ]
-      },
-      "next": {
-        "label": "En curso",
-        "items": [
-          "Grabar los scripts walkthrough como video",
-          "Un espejo sombrío de la org las construcciones se hacen en",
-          "Escríbete para la adopción y los paneles de investigación AI",
-          "Traducciones que se regeneran en los otros once idiomas"
-        ]
-      },
-      "later": {
-        "label": "Más tarde",
-        "items": [
-          "Perfiles de estudiantes públicos con certificados ganados",
-          "Comunidad Q&A y curated learning paths",
-          "Sesiones de cohorte en vivo & horas de oficina"
-        ]
-      }
-    },
-    "shipped": "¿Ya te has dado cuenta? Ver el {changelog}",
-    "changelogLink": "cambio"
-  },
-  "changelog": {
-    "seo": {
-      "title": "Cambio",
-      "description": "¿Qué cambió? CRM Analytics Academia, puesta en libertad: nuevas lecciones y secciones, dashboard construye, traducciones, características del sitio y correcciones."
-    },
-    "hero": {
-      "eyebrow": "Hoja 12 / Cambio",
-      "title": "¿Qué? {em}",
-      "titleEm": "nuevo",
-      "lead": "Actualizaciones recientes a la Academia. Seguir adelante {github}."
-    },
-    "entries": [
-      {
-        "date": "Septiembre 2026",
-        "tag": "Rediseño",
-        "title": "Una nueva mirada, y la Academia como la empresa en cada construcción",
-        "summary": "Un tema azul original en todo el sitio, y un ejemplo trabajado que es finalmente el negocio detrás del curso.",
-        "items": [
-          "Una nueva paleta, tipo y componente en todo, con una página de currículo reconstruido",
-          "La compañía de ejemplo es ahora CRM Analytics Academia en sí: estudiantes de autoservicio, planes de equipo, seis centros de aulas, certificación e implementación",
-          "Un nuevo almacén de veintiún ficheros, incluyendo lotes de aula y matrículas, con los números en cada lección recomputada de él",
-          "Diecisiete construcciones, numeradas consistentemente a lo largo del curso",
-          "Capacitación de aulas, presupuestos de equipo y solicitudes de aplicación, presentadas en el sitio"
-        ]
-      },
-      {
-        "date": "Septiembre 2026",
-        "tag": "Curriculum",
-        "title": "Reescrito final a fin, y reordenado alrededor del trabajo",
-        "summary": "Cada lección sustituyó. El curso ahora enseña la plataforma en orden y luego lo utiliza en un verdadero problema de ir al mercado, en los datos de una empresa.",
-        "items": [
-          "Diecinueve secciones y 161 lecciones, escritas desde cero — el producto primero, ingeniería de ir al mercado último",
-          "SAQL, visualización de datos, interacciones, encuadernaciones, dashboard JSON, API y Einstein Discovery cada uno ascendió a una sección propia",
-          "Dieciséis dashboard se construye en Namilio, una compañía de inteligencia artificial ficticia, con totales publicados para que pueda comprobar su propio trabajo",
-          "Pasillos de pantalla en cada lección práctica: qué hay que abrir, dónde hacer clic, y qué vale la pena decir al respecto",
-          "Escribir para todas las dieciséis construcciones, con fórmulas, conjuntos de datos y la receta detrás de cada",
-          "Cómo y aprendizajeRecurso de datos estructurados, por lo que una lección de construcción puede responder “cómo puedo construir esto” directamente",
-          "Clips de entrenamiento de terceros eliminados a lo largo de todo — el currículo es trabajo original"
-        ]
-      },
-      {
-        "date": "Agosto 2026",
-        "tag": "Plataforma",
-        "title": "Volver a un sitio estático puro",
-        "summary": "Quitamos todo el backend. La Academia es ahora simple Markdown, pre-rendered y servida de GitHub Páginas — más rápido, más simple, y sin nada que entrar.",
-        "items": [
-          "Cuentas, seguimiento de progreso, cuestionarios de calificación, comentarios, comentarios, el libro de invitados y certificados han sido retirados",
-          "Sin base de datos y sin análisis de su aprendizaje, cada lección está abierta a leer sin registro",
-          "Cada página está pre-rendered en tiempo de construcción, por lo que el sitio se carga tan rápido como HTML estático",
-          "Alojamiento en movimiento de Vercel a GitHub Páginas, desplegadas GitHub Acciones en cada empuje",
-          "El viejo modelo de datos se retiró con él"
-        ]
-      },
-      {
-        "date": "Julio 2026",
-        "tag": "Comunidad",
-        "title": "Votos de recursos & leaderboard",
-        "summary": "La página Recursos creció una capa comunitaria — votar por lo que te ayudó y ver lo que se eleva a la cima.",
-        "items": [
-          "Subir cualquier recurso comunitario (un voto por miembro) con un conteo en vivo",
-          "Interruptor entre la vista de la lista y una clasificación basada en votos, filtrable por tipo",
-          "Cada presentación acredita al miembro que lo compartió, con un enlace opcional de LinkedIn",
-          "Reacción de dos columnas & libro de invitados, además de un administrador de datos completo para cada tabla"
-        ]
-      },
-      {
-        "date": "Julio 2026",
-        "tag": "Curriculum",
-        "title": "Seguimiento de las Fundaciones dirigidas por vídeo",
-        "summary": "Reconstruimos el plan de estudios alrededor de cortos, clips de vídeo centrados junto con pasos prácticos.",
-        "items": [
-          "CRM Analytics Fundaciones + Configuración & Suministro de usuarios, impartido con lecciones basadas en clips",
-          "Un reproductor de vídeo completamente personalizado, sin marcar YouTube, un juego suave y una pantalla “completa”",
-          "Pasos interactivos de lección, tarjetas y enlaces; hojas de estudio de preguntas de entrevista por sección",
-          "Clases sólo para miembros con una puerta de entrada suave"
-        ]
-      },
-      {
-        "date": "Julio 2026",
-        "tag": "Exámenes",
-        "title": "Exámenes seguros & certificados",
-        "summary": "Graded, tamper-resistant exams that actually gate progress — and a certificate when you end.",
-        "items": [
-          "Clasificación del lado del servidor — las respuestas nunca se envían al navegador",
-          "Conjunto de preguntas rotativas por intento (7 extraído de una piscina más grande), 85% para pasar",
-          "Desglose del rendimiento por habilidad en la pantalla de resultados",
-          "Certificado compartido y descargable una vez que cada pista esté completa con un promedio de 75%+"
-        ]
-      },
-      {
-        "date": "Julio 2026",
-        "tag": "Miembros",
-        "title": "Tablero de aprendizaje & cuentas",
-        "summary": "Inicia sesión con Google y rastrea todo en un solo lugar.",
-        "items": [
-          "Bing sign-in, perfiles miembros, y un panel personal",
-          "Anillos de progreso por sección, un gráfico de habilidades, y puntuación media de un vistazo",
-          "Ver las lecciones completas (compartidas entre idiomas) y comentarios por curso",
-          "Submit resources for review and follow their status"
-        ]
-      },
-      {
-        "date": "Julio 2026",
-        "tag": "Plataforma",
-        "title": "Aplicación instalada, análisis & pulido",
-        "summary": "El sitio se hizo instalable, mensurable, y mucho más juguetón.",
-        "items": [
-          "PWA instalado con un trabajador de servicio y soporte sin conexión",
-          "Análisis conectado: Google Analytics, Microsoft Clarity y Vercel Analytics",
-          "Tema refrescado (Space Grotesk + Plus Yakarta Sans), favicon personalizado, y migas de pan",
-          "Libro de visitas con dibujos, y una caja de información con respuestas en rosca"
-        ]
-      },
-      {
-        "date": "Junio 2026",
-        "tag": "Lanzamiento",
-        "title": "CRM Analytics Academia en vivo",
-        "summary": "La primera publicación pública: un plan de estudios gratuito y de código abierto construido para la web moderna.",
-        "items": [
-          "Libre, de código abierto CRM Analytics currículo, localizado en 8 idiomas",
-          "Raw Markdown, llms.txt y herramientas MCP para que los agentes de AI puedan leer cada lección",
-          "SEO, Open Graph images, y datos estructurados a través de"
-        ]
-      }
-    ]
   },
   "datasets": {
     "seo": {
@@ -1416,41 +1057,14 @@
       "p5": "Fase 5 — Go-to-market builds"
     },
     "tags": {
-      "free": "gratis",
-      "pro": "pro",
-      "open": "abierto"
+      "quiz": "quiz",
+      "soon": "pronto"
     },
     "legend": {
       "video": "Video walkthrough",
       "article": "Artículo",
-      "free": "Libre para todos",
-      "pro": "Parte de Pro"
+      "quiz": "Fin con un examen de grado"
     }
-  },
-  "leadForm": {
-    "formLabel": "Formulario: {label}",
-    "sent": "Sent",
-    "sendAnother": "Enviar otro",
-    "fullName": "Nombre completo",
-    "yourName": "Tu nombre",
-    "workEmail": "Correo electrónico de trabajo",
-    "yourEmail": "Su correo electrónico",
-    "email": "Email",
-    "companyDomain": "Empresa dominio",
-    "company": "Company",
-    "companyOptional": "Empresa (opcional)",
-    "roleOptional": "Función (opcional)",
-    "rolePlaceholder": "por ejemplo, ventas Ops lead",
-    "budget": "Presupuesto",
-    "countryOptional": "País (opcional)",
-    "phoneOptional": "Teléfono (opcional)",
-    "select": "Seleccione...",
-    "selectMany": "Seleccione una o más...",
-    "personalEmail": "Por favor, utilice su correo electrónico de trabajo — {domain} es una dirección personal.",
-    "pickOne": "Por favor elija al menos una opción para “{field}.",
-    "failed": "Algo salió mal. Por favor, inténtalo de nuevo.",
-    "privacy": "Sólo usamos estos detalles para responderle. Ver el {link}.",
-    "privacyLink": "Política de privacidad"
   },
   "lesson": {
     "authors": {
@@ -1469,7 +1083,9 @@
       "openClaude": "Abierto en Claude",
       "copied": "Copiado para el portapapeles",
       "failed": "No se puede copiar página"
-    }
+    },
+    "save": "Guardar para después",
+    "saved": "Guardado"
   },
   "credits": {
     "title": "Créditos & fuentes",
@@ -1484,105 +1100,6 @@
       "image": "Imagen",
       "dataset": "Dataset"
     }
-  },
-  "people": {
-    "eyebrow": "Instructores & acreedores",
-    "title": "Instructores & acreedores",
-    "description": "La gente detrás CRM Analytics Academia: los instructores que escriben las lecciones, los creadores cuyos videos y publicaciones las lecciones incrustadas, y la comunidad que las mejora.",
-    "lead": "Cada nombre de lección que lo escribió, y cada video, correo o conjunto de datos prestado de otros nombres que lo hicieron. Esta es toda la lista.",
-    "groups": {
-      "instructors": {
-        "title": "Instructores",
-        "lead": "Escriben y mantienen las lecciones. Cada tarjeta enumera las lecciones que llevan su nombre.",
-        "empty": "Aún no hay instructores."
-      },
-      "creators": {
-        "title": "Creadores & escritores que acreditamos",
-        "lead": "Vídeos, publicaciones y conjuntos de datos de otras personas que las lecciones se incrustan o se construyen, acreditadas en la lección y aquí.",
-        "empty": "Todavía no se acredita ningún trabajo de terceros."
-      },
-      "community": {
-        "title": "Comunidad",
-        "lead": "Los colaboradores que fijan, traducen, revisan o sugieren lecciones.",
-        "empty": "Los colaboradores aparecen aquí una vez que se añaden al registro."
-      }
-    },
-    "roles": {
-      "instructor": "Instructor",
-      "maintainer": "Maintainer",
-      "blogger": "Blogger",
-      "creator": "Creador",
-      "community": "Comunidad"
-    },
-    "authored": "Wrote {n} lección {n} lecciones",
-    "credited": "Créditos en {n} lección {n} lecciones",
-    "inLesson": "dentro",
-    "showAll": "Mostrar todo {n}",
-    "showLess": "Mostrar menos",
-    "wallLead": "El más amplio CRM Analytics la comunidad — bloggers, altavoces y constructores— tiene su propia pared.",
-    "wallLink": "Visita el Muro de la Fama",
-    "teach": {
-      "title": "Enséñanos con nosotros",
-      "lead": "La Academia está escrita por personas que construyen CRM Analytics para vivir. Si es usted, hay una lección, un laboratorio o una cohorte con su nombre.",
-      "ways": {
-        "01": {
-          "title": "Escribe una lección o un laboratorio",
-          "text": "Un tema, enseñado en los propios datos de la compañía de la Academia, con un recorrido y una prueba. Crédito en la página."
-        },
-        "02": {
-          "title": "Poseer una sección",
-          "text": "Mantenga toda una sección actual en Salesforce versiones, con el editor revisando cada cambio."
-        },
-        "04": {
-          "title": "Mentor",
-          "text": "Horas de oficina para equipos en el plan Enterprise. Pagado por hora."
-        }
-      },
-      "lookingTitle": "Quien buscamos",
-      "looking": {
-        "1": "Has enviado CRM Analytics en producción - recetas, SAQLLa gente usa tableros.",
-        "2": "Usted puede explicar por qué, no sólo cómo: la decisión que un dashboard soporta, el intercambio de una receta hace.",
-        "3": "Escribes claramente y estás feliz de ser editado.",
-        "4": "Puedes comprometerte a mantener lo que enseñas actual después de cada uno Salesforce liberación."
-      },
-      "startSmall": "¿Prefieres empezar pequeño?",
-      "contribute": "Contribuir una solución o un recurso primero."
-    }
-  },
-  "pro": {
-    "lessonEyebrow": "Clase de pro - bloqueada",
-    "lessonTitle": "El resto de esta lección es parte de Pro",
-    "lessonBody": "Pro desbloquea cada Clase Pro, sus preguntas de preguntas de preguntas y entrevistas, y los vídeos de lección, y paga por el resto del curso para mantenerse libre.",
-    "blockEyebrow": "Sección Pro - bloqueada",
-    "blockTitle": "Esta sección es parte de Pro",
-    "blockBody": "Pro desbloquea esta sección, cada La lección Pro y los videos de la lección — y paga por el resto del curso para mantenerse libre.",
-    "inside": "Dentro",
-    "paragraphs": "no text Ø 1 párrafo ANTE {count} Párrafos",
-    "videos": "no video Silencio un video {count} videos",
-    "code": "no code ← 1 code example {count} ejemplos de código",
-    "tables": "no table ◾ 1 table ← {count} Cuadros",
-    "minutes": "sobre {count} min para leer",
-    "seePlans": "Ver planes Pro",
-    "haveIt": "Ya tengo Pro",
-    "loading": "Desbloquear...",
-    "loadFailed": "Esta sección no podría ser cargada. Intente recargar la página.",
-    "lessonLoadFailed": "Esta lección no puede ser cargada. Intente recargar la página.",
-    "badge": "Pro"
-  },
-  "transcript": {
-    "title": "Transcripción",
-    "language": "Lenguaje de transcripción",
-    "search": "Buscar la transcripción",
-    "copy": "Copiado",
-    "copied": "Copiado",
-    "download": "Descargar .vt",
-    "show": "Mostrar transcripción",
-    "hide": "Esconder la transcripción",
-    "matches": "no fósforos Silencio 1 partido Silencio {count} coincidencias",
-    "jumpTo": "Jugar desde {time}",
-    "note": "Las cápsulas se generan a partir del vídeo automáticamente y se transmiten a cada idioma.",
-    "loading": "Carga transcripción...",
-    "unavailable": "La transcripción no está disponible ahora mismo."
   },
   "comments": {
     "title": "Cuestiones y debates",
@@ -1617,5 +1134,13 @@
   "funnel": {
     "convertTo": "convertir a {stage}",
     "logScale": "Las longitudes de la barra son logarítmicas — comparar los porcentajes, no las barras."
+  },
+  "channel": {
+    "eyebrow": "Nuevo en YouTube",
+    "title": "Vea el curso en YouTube",
+    "body": "Cada lección consigue un video caminante. Suscríbete CRM Analytics Academia y usted escuchará el momento en que una nueva sección aterriza.",
+    "subscribe": "Suscríbete",
+    "later": "Ahora no.",
+    "close": "Cerca"
   }
 }

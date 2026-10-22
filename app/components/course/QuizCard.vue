@@ -26,7 +26,7 @@ const route = useRoute()
 const localePath = useLocalePath()
 const { t } = useI18n()
 const { isSignedIn } = useAuth()
-const { normalise } = useProgress()
+const { normalise, load: loadProgress } = useProgress()
 
 const total = computed(() => props.questions.length)
 const selections = ref<(number | undefined)[]>(props.questions.map(() => undefined))
@@ -62,6 +62,8 @@ async function submit() {
       }
     })
     saved.value = true
+    useNuxtApp().$track?.('quiz_submit', normalise(route.path))
+    loadProgress()
   } catch {
     // Saving is an enhancement; the learner still has their result on screen.
   } finally {

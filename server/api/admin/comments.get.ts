@@ -1,6 +1,6 @@
 /** Recent comments across all lessons, for moderation. Newest first. */
 export default defineEventHandler(async (event) => {
-  await requireModerator(event)
+  await requireAdmin(event)
   const status = getQuery(event).status === 'hidden' ? 'hidden' : 'visible'
   const sql = useDb()
   const rows = await sql`

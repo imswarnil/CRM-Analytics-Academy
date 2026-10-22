@@ -1,96 +1,84 @@
 <script setup lang="ts">
 /**
- * A promo slot. Shows, in order of preference:
+ * One AdSense unit in a Blueprint frame: an "Advertisement" label, the size
+ * written like a drawing spec, crop marks at the corners. The box is reserved
+ * from the first render (unit.minHeight), so nothing below it moves when the
+ * creative arrives.
  *
- *   1. this month's sponsor creative for the slot's format (labelled
- *      "Sponsored", rel="sponsored", clicks through a counting redirect,
- *      an impression is counted once it is half in view);
- *   2. the AdSense unit — ONLY if NUXT_PUBLIC_PROMO_NETWORK=adsense (off);
- *   3. the house placeholder, "Promote your brand here", linking to /sponsor.
+ * A new unit is requested on every page: parents render this with the route as
+ * part of their key, so navigating remounts it and pushes a fresh <ins>.
+ * In `nuxt dev` no request is made; a labelled placeholder shows the box.
  *
- * The box for the slot's format is reserved from the first server render
- * (PROMO_BOX), and all three fill exactly that box, so nothing shifts when
- * the sponsor data arrives. Nothing is shown to Pro readers.
+ * Registered globally (.global) so lesson bodies can use it — see
+ * withInArticlePromos in app/utils/promo.ts.
  */
-import { useIntersectionObserver } from '@vueuse/core'
-import { PROMO_BOX, rememberPro, type PromoPlacementName } from '~/utils/promo'
+import { PROMO_CLIENT, PROMO_UNITS, promoAllowed, type PromoUnit, type PromoUnitName } from '~/utils/promo'
 
-const props = defineProps<{
-  /** Named placement — see PROMO_PLACEMENTS in app/utils/promo.ts. */
-  placement: PromoPlacementName
-}>()
+const props = withDefaults(defineProps<{
+  unit: PromoUnitName
+  /** Hide the label row (the floating bar has its own chrome). */
+  bare?: boolean
+}>(), { bare: false })
 
-const { t } = useI18n()
-const { format, creative, ready } = usePromoSlot(props.placement)
-const network = useRuntimeConfig().public.promoNetwork === 'adsense'
+const route = useRoute()
+const u = computed<PromoUnit>(() => PROMO_UNITS[props.unit])
+const allowed = computed(() => promoAllowed(route.path))
+const dev = import.meta.dev
+const box = ref<HTMLElement | null>(null)
 
-// No promos for Pro. A signed-in reader is held back until their progress
-// (which carries the Pro flag) has loaded, so a Pro reader is never shown
-// one for the half-second before the answer arrives.
-const { pro, loaded } = useProgress()
-const { isSignedIn } = useAuth()
-const held = computed(() => isSignedIn.value && !loaded.value)
-watch([pro, loaded], ([isPro, isLoaded]) => {
-  if (isLoaded || isPro) rememberPro(isPro)
-}, { immediate: true })
-
-const showing = computed<'skeleton' | 'creative' | 'network' | 'house'>(() => {
-  if (!ready.value || held.value) return 'skeleton'
-  if (creative.value) return 'creative'
-  return network ? 'network' : 'house'
+onMounted(() => {
+  if (dev || !allowed.value) return
+  // The library is loaded once from <head> (nuxt.config); each mounted <ins>
+  // asks it for one creative.
+  try {
+    const w = window as unknown as { adsbygoogle?: unknown[] }
+    ;(w.adsbygoogle = w.adsbygoogle || []).push({})
+  } catch {
+    // A blocked or failed unit leaves an empty, labelled box — never an error.
+  }
 })
 
-// One impression per creative per page (path) per slot, when half visible.
-const box = ref<HTMLElement | null>(null)
-const route = useRoute()
-const counted = new Set<string>()
-useIntersectionObserver(box, ([entry]) => {
-  const c = creative.value
-  if (!entry?.isIntersecting || showing.value !== 'creative' || !c) return
-  const key = `${c.id}|${route.path}`
-  if (counted.has(key)) return
-  counted.add(key)
-  trackPromoImpression(c.id)
-}, { threshold: 0.5 })
+const style = computed(() => {
+  const size = u.value.size
+  return size
+    ? { display: 'inline-block', width: `${size[0]}px`, height: `${size[1]}px` }
+    : { display: 'block' }
+})
 </script>
 
 <template>
   <aside
-    v-if="!pro"
-    class="promo-slot my-6 w-full"
-    :aria-label="t('sponsor.slot.aria')"
+    v-if="allowed"
+    class="promo-slot crosshair relative mx-auto w-full"
+    :class="bare ? '' : 'my-8 border-[1.5px] border-(--ink) bg-(--card) p-3'"
+    :style="u.size && !bare ? { maxWidth: `${u.size[0] + 26}px` } : undefined"
+    aria-label="Advertisement"
   >
-    <p class="mb-1 flex h-4 items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)">
-      <span>{{ showing === 'creative' ? t('sponsor.slot.label') : t('sponsor.slot.labelOpen') }}</span>
-      <span
-        v-if="showing === 'creative' && creative"
-        class="truncate"
-      >{{ creative.sponsor }}</span>
+    <p
+      v-if="!bare"
+      class="mb-2 flex items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)"
+    >
+      <span>Advertisement</span>
+      <span>{{ u.label }}</span>
     </p>
     <div
-      v-if="showing === 'network'"
-      class="w-full"
-    >
-      <LazyPromoNetwork :placement="placement" />
-    </div>
-    <div
-      v-else
       ref="box"
-      :class="PROMO_BOX[format]"
+      class="graph-paper-fine flex items-center justify-center overflow-hidden"
+      :style="{ minHeight: `${u.minHeight}px` }"
     >
-      <PromoCreative
-        v-if="showing === 'creative' && creative"
-        :creative="creative"
-        :href="`/api/placement/go/${creative.id}`"
-      />
-      <PromoHouse
-        v-else-if="showing === 'house'"
-        :format="format"
-      />
-      <div
+      <span
+        v-if="dev"
+        class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)"
+      >{{ unit }} · {{ u.slot }}</span>
+      <ins
         v-else
-        class="h-full w-full border-[1.5px] border-dashed border-(--line) bg-(--card)/60"
-        aria-hidden="true"
+        class="adsbygoogle"
+        :style="style"
+        :data-ad-client="PROMO_CLIENT"
+        :data-ad-slot="u.slot"
+        :data-ad-format="u.format"
+        :data-ad-layout="u.layout"
+        :data-full-width-responsive="!u.size && u.format !== 'fluid' && u.format !== 'autorelaxed' ? 'true' : undefined"
       />
     </div>
   </aside>

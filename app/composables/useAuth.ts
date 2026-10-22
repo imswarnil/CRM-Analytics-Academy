@@ -37,6 +37,7 @@ export function useAuth() {
         method: 'POST',
         body: { email, password }
       })
+      useNuxtApp().$track?.('sign_in')
       return await fetchSession()
     } finally {
       pending.value = false
@@ -50,6 +51,7 @@ export function useAuth() {
         method: 'POST',
         body: { email, password, name }
       })
+      useNuxtApp().$track?.('sign_up')
       return await fetchSession()
     } finally {
       pending.value = false

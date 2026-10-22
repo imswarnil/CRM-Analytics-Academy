@@ -1,54 +1,42 @@
 /**
- * Every user, with everything app.* knows about them.
- *
- * One query against app.admin_user rather than four joined in JavaScript, so
- * the numbers on a row cannot come from different moments.
+ * Every user, with what app.* knows about them: lessons done, points, last
+ * activity and whether they are the demo account. One query, so the numbers
+ * on a row all come from the same moment.
  */
 export default defineEventHandler(async (event) => {
   await requireAdmin(event)
   const sql = useDb()
 
-  // The bootstrap allowlist is not in the database, so app.admin_user reports
-  // an ADMIN_EMAILS admin as a plain learner — they would open this screen,
-  // having passed requireAdmin, and find themselves listed as a learner with
-  // a dropdown offering to "promote" them. Overlaid here so the role shown is
-  // the role enforced.
-  const bootstrap = new Set(
-    (process.env.ADMIN_EMAILS || '')
-      .split(',')
-      .map(e => e.trim().toLowerCase())
-      .filter(Boolean)
-  )
-
   const rows = await sql`
-    select user_id, email, name, image, created_at, email_verified,
-           role, points, lessons_done, pending_submissions, is_demo, pro
-    from app.admin_user
-    order by created_at desc
-    limit 500
+    select u.id::text as id, u.email, u.name, u.image, u."createdAt" as created_at, u."emailVerified" as email_verified,
+           coalesce(p.points, 0)::int as points,
+           coalesce(p.lessons_done, 0)::int as lessons_done,
+           (select max(completed_at) from app.progress pr where pr.user_id = u.id::text) as last_lesson_at,
+           (select count(*)::int from app.quiz_attempt q where q.user_id = u.id::text) as quizzes,
+           (select count(*)::int from app.comment c where c.user_id = u.id::text) as comments,
+           exists (select 1 from app.demo_account d where d.user_id = u.id::text) as is_demo
+    from neon_auth."user" u
+    left join app.user_points p on p.user_id = u.id::text
+    order by u."createdAt" desc
+    limit 1000
   `
 
   setResponseHeader(event, 'cache-control', 'private, no-store')
-
   return {
     users: rows.map(r => ({
-      id: r.user_id as string,
+      id: r.id as string,
       email: r.email as string,
       name: r.name as string | null,
       image: r.image as string | null,
       createdAt: r.created_at,
       emailVerified: Boolean(r.email_verified),
-      role: bootstrap.has(String(r.email).toLowerCase()) ? 'admin' : (r.role as string),
-      // True when the role comes from ADMIN_EMAILS rather than app.user_role.
-      // The UI disables the dropdown for these: changing it would write a row
-      // the allowlist then overrides, so the control would appear to do
-      // nothing.
-      roleLocked: bootstrap.has(String(r.email).toLowerCase()),
       points: Number(r.points),
       lessonsDone: Number(r.lessons_done),
-      pendingSubmissions: Number(r.pending_submissions),
+      quizzes: Number(r.quizzes),
+      comments: Number(r.comments),
+      lastLessonAt: r.last_lesson_at ?? null,
       isDemo: Boolean(r.is_demo),
-      pro: Boolean(r.pro)
+      admin: String(r.email).toLowerCase() === ADMIN_EMAIL
     }))
   }
 })

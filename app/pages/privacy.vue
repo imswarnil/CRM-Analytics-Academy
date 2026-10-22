@@ -10,7 +10,7 @@ defineOgImage('Docs', { title: title.value, description: description.value })
 usePageSchema(() => ({ name: title.value, description: description.value, type: 'WebPage' }))
 
 // Literal values kept out of the translatable copy.
-const params = { aboutAds: 'www.aboutads.info' }
+const params = {}
 
 const sections = computed(() =>
   (tm('privacy.sections') as { title: string, body: string }[]).map(s => ({
@@ -66,13 +66,11 @@ const sections = computed(() =>
               {{ s.body }}
             </p>
           </div>
-
-          <PromoSlot
-            placement="betweenSections"
-            class="mx-auto my-8 max-w-3xl"
-          />
         </div>
       </UContainer>
     </section>
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <PromoSlot unit="horizontal" />
+    </div>
   </div>
 </template>
