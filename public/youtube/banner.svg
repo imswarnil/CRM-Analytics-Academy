@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1440" viewBox="0 0 2560 1440">
+  <defs>
+    <pattern id="min" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#2F5BEA" stroke-opacity=".05" stroke-width="1"/></pattern>
+    <pattern id="maj" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#2F5BEA" stroke-opacity=".11" stroke-width="1.5"/></pattern>
+    <pattern id="tick" width="16" height="22" patternUnits="userSpaceOnUse"><path d="M0.75 0V10" stroke="#0C1B33" stroke-opacity=".5" stroke-width="1.5"/></pattern>
+    <pattern id="tickL" width="80" height="22" patternUnits="userSpaceOnUse"><path d="M0.75 0V22" stroke="#0C1B33" stroke-opacity=".6" stroke-width="1.5"/></pattern>
+    <pattern id="nmin" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#A8CCF2" stroke-opacity=".05"/></pattern>
+    <pattern id="nmaj" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#A8CCF2" stroke-opacity=".11" stroke-width="1.5"/></pattern>
+  </defs>
+  <!-- TV-only area: navy graph paper -->
+  <rect width="2560" height="1440" fill="#0F2A5C"/>
+  <rect width="2560" height="1440" fill="url(#nmin)"/>
+  <rect width="2560" height="1440" fill="url(#nmaj)"/>
+  <!-- the visible strip on desktop (y 508–932): paper graph sheet -->
+  <rect x="0" y="480" width="2560" height="480" fill="#F4F7FB"/>
+  <rect x="0" y="480" width="2560" height="480" fill="url(#min)"/>
+  <rect x="0" y="480" width="2560" height="480" fill="url(#maj)"/>
+  <line x1="0" y1="480" x2="2560" y2="480" stroke="#0C1B33" stroke-width="4"/>
+  <line x1="0" y1="960" x2="2560" y2="960" stroke="#0C1B33" stroke-width="4"/>
+  <!-- rulers -->
+  <rect x="0" y="482" width="2560" height="22" fill="url(#tick)"/>
+  <rect x="0" y="482" width="2560" height="22" fill="url(#tickL)"/>
+  <rect x="0" y="936" width="2560" height="22" fill="url(#tick)" transform="rotate(180 1280 947)"/>
+  <rect x="0" y="936" width="2560" height="22" fill="url(#tickL)" transform="rotate(180 1280 947)"/>
+
+  <!-- copy (safe area x 507–2053, y 508–932) -->
+  <g font-family="IBM Plex Mono" font-weight="500" font-size="26" letter-spacing="3.6" fill="#2F5BEA">
+    <text x="560" y="600">SHEET 01 / CRM ANALYTICS ACADEMY</text>
+  </g>
+  <g font-family="Schibsted Grotesk" font-weight="900" font-size="68" letter-spacing="-2.7" fill="#0C1B33">
+    <text x="556" y="694">Learn Salesforce CRM Analytics</text>
+    <text x="556" y="772">the way it’s used <tspan fill="#2F5BEA">at work.</tspan></text>
+  </g>
+  <g font-family="IBM Plex Mono" font-size="24" letter-spacing="2.4" fill="#4A5B78">
+    <text x="560" y="872">RECIPES · SAQL · DASHBOARDS · SECURITY · EINSTEIN DISCOVERY</text>
+  </g>
+
+  <!-- figure: framed chart with hard shadow + crosshairs -->
+  <g transform="translate(1690 560)">
+    <rect x="14" y="14" width="340" height="300" fill="#0C1B33"/>
+    <rect x="0" y="0" width="340" height="300" fill="#FBFCFE" stroke="#0C1B33" stroke-width="4"/>
+    <g font-family="IBM Plex Mono" font-weight="500" font-size="16" letter-spacing="2" fill="#2F5BEA"><text x="24" y="40">FIG. 01 — PIPELINE</text></g>
+    <rect x="44" y="196" width="56" height="64" fill="#A8CCF2"/>
+    <rect x="120" y="156" width="56" height="104" fill="#3D8BD9"/>
+    <rect x="196" y="110" width="56" height="150" fill="#2F5BEA"/>
+    <rect x="272" y="74" width="40" height="186" fill="#0F2A5C"/>
+    <path d="M28 260H316" stroke="#0C1B33" stroke-width="4"/>
+    <path d="M72 186L148 146L224 100L292 64" fill="none" stroke="#3FC6DC" stroke-width="4" stroke-dasharray="10 8"/>
+    <g stroke="#0C1B33" stroke-width="3"><path d="M0 -16V16M-16 0H16"/><path d="M340 -16V16M324 0H356"/><path d="M0 284V316M-16 300H16"/><path d="M340 284V316M324 300H356"/></g>
+  </g>
+  <g font-family="IBM Plex Mono" font-size="20" letter-spacing="2" fill="#4A5B78">
+    <text x="1690" y="905">crmanalytics.imswarnil.com</text>
+  </g>
+
+  <!-- TV-only large lettering -->
+  <g font-family="IBM Plex Mono" font-weight="500" font-size="30" letter-spacing="4" fill="#3FC6DC">
+    <text x="160" y="200">SHEET 01 / CRM ANALYTICS ACADEMY</text>
+    <text x="2400" y="1290" text-anchor="end">FREE · OPEN SOURCE · 12 LANGUAGES</text>
+  </g>
+</svg>

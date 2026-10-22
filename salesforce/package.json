@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "description": "Salesforce App",
   "scripts": {
+    "academy:setup": "node scripts/academy-setup.mjs",
+    "academy:setup:dry": "node scripts/academy-setup.mjs --dry-run",
     "lint": "eslint **/{aura,lwc}/**/*.js",
     "test": "npm run test:unit",
     "test:unit": "sfdx-lwc-jest",

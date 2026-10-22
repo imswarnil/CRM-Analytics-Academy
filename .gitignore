@@ -39,13 +39,11 @@ content-assets/slides/*/premiere-timeline.xml
 # The LinkedIn launch kit (post, carousel, screenshots) stays local.
 linkedin/
 
-# Local Salesforce project material that should never reach the public repo.
-# project/ itself is tracked (for its README); these are the things that must not be.
-project/**/.sfdx/
-project/**/.sf/
-project/**/*.key
-project/**/*.crt
-project/**/auth*.json
+# Salesforce project material lives in salesforce/ (see salesforce/README.md).
+# Keys, certificates and auth files in it must never reach the public repo.
+salesforce/**/*.key
+salesforce/**/*.crt
+salesforce/**/auth*.json
 
 # Cloudflare / wrangler
 .wrangler/

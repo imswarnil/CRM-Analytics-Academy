@@ -146,11 +146,20 @@ Local values live in a **gitignored `.env`** (`.env.example` documents the shape
 - JSON-LD `inLanguage`, the canonical link and `og:locale` are all derived from the active locale (`app/app.vue`). Don't hardcode `'en'` — every locale prerenders its own copy of each page.
 - All data is either markdown frontmatter or a static array in the page that uses it (e.g. the curated list in `app/pages/resources.vue`).
 
-## The project/ folder
-`project/` holds Swarnil's local Salesforce project material (org metadata, dashboard JSON,
-SAQL scratch files). It is **outside the build**: not in `content/`, not linked from any
-page, so neither Nuxt Content nor the prerender crawler sees it. The repo is public — see
-`project/README.md` for what must be sanitised before committing.
+## The salesforce/ folder
+`salesforce/` is the SFDX project for the learning org, and **all** of Swarnil's Salesforce
+project material lives there: retrieved metadata (`force-app/`), Apex and SOQL scratch
+(`scripts/`), sample data (`data/`). It is outside the site build — not in `content/`,
+not linked from any page. Its CLI target is set in the gitignored `salesforce/.sf/config.json`
+to alias `crma-learning` (`admin@crmanalyticsacademy.com`, `00Dg500000KBfkHEAT`).
+`pnpm org:pull` retrieves the analytics metadata, `pnpm org:open` opens the org.
+`force-app/main/default/wave/` is gitignored (the org ships Salesforce sample dashboards);
+move your own builds into `salesforce/academy/` to commit them. The repo is public — see `salesforce/README.md`
+for what must never be committed.
+Learners never share this org: `salesforce/scripts/academy-setup.mjs` (zero-dependency, every
+call goes through `sf api request rest`) sets up *their own* org — permission sets, the
+`Academy_Analytics` app from `salesforce/academy/`, and the 21 CSVs as `academy_*` datasets.
+The learning org has null measure handling off, so eight blank numeric columns load as 0 there.
 
 ## Notes
 - `README.md` is the low-level design (architecture, request flows, data model, API routes); `content-assets/` holds the reusable brand, background and video-editing assets.
