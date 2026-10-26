@@ -7,7 +7,7 @@ from a lesson's markdown, and the edited Lesson 01 as a reference.
 ```
 content-creation/
 ├── lesson.mjs            pnpm fcp <route>: lesson markdown → FCPXML project + shot list
-├── kit/                  the installable CRMA Kit (107 Motion templates, music, Install.command, Guide.html)
+├── kit/                  the installable CRMA Kit (165 Motion templates, music, Install.command, Guide.html)
 ├── source/               the Python generators that built kit/ (see source/README.md)
 └── projects/
     ├── lesson-01-developer-org/   the hand-edited Lesson 01 (reference; media/ is gitignored)
@@ -20,8 +20,9 @@ content-creation/
    and [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono). Without them FCP
    substitutes Helvetica.
 2. **Kit, once and after every kit change.** Quit FCP, then double-click `content-creation/kit/Install.command`
-   (right-click → Open if macOS blocks it). It copies every `CRMA-*` folder into
-   `~/Movies/Motion Templates.localized/`.
+   (right-click → Open if macOS blocks it). It copies one `CRMA` folder into each of the Titles,
+   Transitions, Generators and Effects folders of `~/Movies/Motion Templates.localized/`, and
+   removes the `CRMA-*` folders the kit used to be split into.
 3. **Generate the project.**
    ```bash
    pnpm fcp introduction/set-up-your-org             # a route
@@ -78,25 +79,38 @@ without touching the script. The quiz answer is the one thing it cannot set: it 
 
 ## The template catalogue
 
-`kit/Guide.html` lists every template with its controls. There are 93 generic templates in the
-Guide, plus 14 baked for Lesson 01:
+`kit/Guide.html` lists every template with its controls. There are 151 generic templates in the
+Guide, plus 14 baked for Lesson 01.
 
-| Browser | Folder | Count | What |
+Each Final Cut Pro browser has **one category, CRMA**. Inside it the templates are grouped by
+theme, the second column below: on disk that is `Titles.localized/CRMA/<Group>/<Template>/`.
+Transitions have a single group, so they sit straight in `Transitions.localized/CRMA/`. A new
+group is just a new `folder` argument to `Doc(...)`; `ozml.CATEGORY` puts it under CRMA.
+
+| Browser | Group (in CRMA) | Count | What |
 | --- | --- | --- | --- |
-| Titles | CRMA-Intros | 3 | Academy Intro (8 s), Intro Short (4 s), Intro Navy, each timed to its music |
-| Titles | CRMA-Slides | 14 | Title slide, agenda, bullets, two column, icon cards and grid, process flow, big numbers, query block, query + result, quiz, summary, image + text, slide intro |
-| Titles | CRMA-Lessons | 12 | Lesson opener and introduction, step card, bullet card, checklist, icon card, note, pro tip, warning, query card, recap, up next |
-| Titles | CRMA-Lower Thirds | 10 | Instructor, guest, name rule, reveal name, topic tag, now topic (loop), source credit, icon lower third, lesson number bar, member promo bar |
-| Titles | CRMA-Titles | 10 | Sheet title, section header, definition, formula, key takeaway, quote, reveal title, stacked reveal, icon title, floating badge |
-| Titles | CRMA-Scenes | 5 | Course intro, module title, section divider, KPI figure, lesson outro |
-| Titles | CRMA-Screen Capture | 5 | Click marker, highlight box, number badge, pointer label, shortcut keys |
-| Titles | CRMA-End Screens | 5 | Become a member, membership perks, end screen subscribe, two videos, course complete |
-| Titles | CRMA-Episode 01 | 14 | Lesson 01's own copies of the slides and callouts, text baked in (`source/kit/make_ep01.py`) |
-| Transitions | CRMA-Transitions | 11 | Block sweep, sheet wipe, sheet slide, grid reveal, card stack, tile grid, iris, push blur, blinds, blueprint zoom, signal flash |
-| Generators | CRMA-Backgrounds | 3 | Graph paper, graph paper navy, drawing sheet |
-| Generators | CRMA-Elements | 3 | Countdown, logo bug, progress bar |
-| Effects | CRMA-Effects | 7 | Slow push in, blueprint tint, graph overlay, drawing sheet frame, navy vignette, signal glitch, webcam box |
-| Effects | CRMA-Screen Capture | 5 | Blueprint window, figure frame, side panel, spotlight, zoom to detail |
+| Titles | Intros | 6 | Academy Intro (8 s), Intro Short (4 s), Intro Navy, each timed to its music; Lesson Intro (light, navy) and Hook Question, 8 s |
+| Titles | Outros | 4 | Thanks for watching (light, navy), next lesson with course progress, minimal |
+| Titles | Explain | 6 | Definition, worked example, do and don't, glossary, analogy, concept map |
+| Titles | Data and Tables | 5 | Data table (highlight row pop-up), sample data builder (rows type in), dataset schema, filter rows, group by |
+| Titles | Diagrams | 6 | Join Venn (join type pop-up), join tables, append rows, recipe graph, dataflow pipeline, object model |
+| Titles | Dashboards | 6 | Dashboard mockup, KPI tiles, bar chart (highlight bar pop-up), line chart, funnel, leaderboard |
+| Titles | Screen and Camera | 4 | Screen and camera (layout pop-up), side by side, camera focus, screen with steps — drop wells for both clips |
+| Titles | Text Animations | 8 | Word by word, typewriter, highlight word, strike and replace, big statement, counter, question, keyword stack |
+| Titles | Arrows and Elements | 14 | Arrow, arrow with label, elbow, curved, double, circle highlight, draw box, underline, bracket, step badges, status stamp, data line, field tag, equation |
+| Titles | Slides | 14 | Title slide, agenda, bullets, two column, icon cards and grid, process flow, big numbers, query block, query + result, quiz, summary, image + text, slide intro |
+| Titles | Lessons | 12 | Lesson opener and introduction, step card, bullet card, checklist, icon card, note, pro tip, warning, query card, recap, up next |
+| Titles | Lower Thirds | 10 | Instructor, guest, name rule, reveal name, topic tag, now topic (loop), source credit, icon lower third, lesson number bar, member promo bar |
+| Titles | Titles | 10 | Sheet title, section header, definition, formula, key takeaway, quote, reveal title, stacked reveal, icon title, floating badge |
+| Titles | Scenes | 5 | Course intro, module title, section divider, KPI figure, lesson outro |
+| Titles | Screen Capture | 5 | Click marker, highlight box, number badge, pointer label, shortcut keys |
+| Titles | End Screens | 5 | Become a member, membership perks, end screen subscribe, two videos, course complete |
+| Titles | Episode 01 | 14 | Lesson 01's own copies of the slides and callouts, text baked in (`source/kit/make_ep01.py`) |
+| Transitions | — | 11 | Block sweep, sheet wipe, sheet slide, grid reveal, card stack, tile grid, iris, push blur, blinds, blueprint zoom, signal flash |
+| Generators | Backgrounds | 3 | Graph paper, graph paper navy, drawing sheet |
+| Generators | Elements | 3 | Countdown, logo bug, progress bar |
+| Effects | Effects | 7 | Slow push in, blueprint tint, graph overlay, drawing sheet frame, navy vignette, signal glitch, webcam box |
+| Effects | Screen Capture | 7 | Blueprint window, figure frame, side panel, spotlight, zoom to detail, camera square (corner + size pop-ups), screen with camera space |
 
 **Music** (`kit/Music/`, AAC `.m4a`): Academy Intro (8 s) and Short (4 s), Outro Sting (6 s),
 Lesson Bed (32 s seamless loop), and SFX Click, Pop, Whoosh, Riser and Logo Hit. All of it is
@@ -130,7 +144,7 @@ The values come from `tokens/tokens.json`, which mirrors `app/assets/css/main.cs
 
 `projects/lesson-01-developer-org/lesson-01-developer-org.fcpxml` is the hand-edited first
 lesson, *Free CRM Analytics Developer Org*, in FCPXML 1.14, so it needs the FCP version that wrote it or a later one. It also needs the
-`CRMA-Episode 01` titles, which Install.command installs. It corresponds to the
+`CRMA › Episode 01` titles, which Install.command installs. It corresponds to the
 lesson `introduction/set-up-your-org`, so compare it with `pnpm fcp introduction/set-up-your-org`.
 
 Its media lives in `projects/lesson-01-developer-org/media/`, which is **gitignored** (~396 MB:

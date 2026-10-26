@@ -1,7 +1,7 @@
 CRM Analytics Academy — Lesson Kit for Final Cut Pro
 =============================
 
-93 templates for CRM Analytics Academy lessons in the Blueprint style: academy intros with matching music,
+165 templates for CRM Analytics Academy lessons in the Blueprint style: academy intros with matching music,
 teaching slides (agenda, bullets, icon cards, typed SAQL query blocks, quiz …), lower thirds, lesson cards,
 titles, end screens that promote the membership, screen-capture callouts and frames, effects, transitions
 and backgrounds. Every template is editable in the Final Cut Pro Inspector — no Motion needed.
@@ -9,10 +9,11 @@ and backgrounds. Every template is editable in the Final Cut Pro Inspector — n
 Install
   1. Quit Final Cut Pro.
   2. Double-click "Install.command" (right-click → Open if macOS blocks it).
-  3. Open Final Cut Pro. Every category starts with "CRMA-" in the sidebar of
-     the Titles, Transitions, Generators and Effects browsers.
+  3. Open Final Cut Pro. Everything is in one category, "CRMA", in the sidebar of the
+     Titles, Transitions, Generators and Effects browsers, grouped inside it
+     (Slides, Lessons, Lower Thirds ...). Install.command removes the old "CRMA-*" folders.
 
-Manual install: copy the folders inside "Motion Templates" into
+Manual install: copy each "CRMA" folder inside "Motion Templates" into
   ~/Movies/Motion Templates.localized/<Titles|Transitions|Generators|Effects>.localized/
 
 Music

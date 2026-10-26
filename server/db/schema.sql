@@ -57,11 +57,12 @@ create index if not exists comment_lesson_idx on app.comment (lesson_path, creat
 create index if not exists comment_user_idx   on app.comment (user_id, created_at desc);
 create index if not exists comment_status_idx on app.comment (status, created_at desc);
 
--- Community submissions: resources, showcase dashboards, lesson ideas.
+-- Community submissions: resources, lesson ideas, Wall of Fame nominations
+-- (and historic showcase dashboards).
 create table if not exists app.submission (
   id           bigint generated always as identity primary key,
   user_id      text        not null,
-  kind         text        not null check (kind in ('resource', 'showcase', 'lesson-idea')),
+  kind         text        not null,
   title        text        not null check (length(btrim(title)) between 3 and 160),
   url          text        check (url is null or url ~* '^https?://'),
   description  text        not null check (length(btrim(description)) between 20 and 2000),
@@ -75,6 +76,10 @@ create table if not exists app.submission (
   reviewed_at  timestamptz,
   created_at   timestamptz not null default now()
 );
+-- Kinds, kept as a named constraint so it can widen without a new table.
+alter table app.submission drop constraint if exists submission_kind_check;
+alter table app.submission add constraint submission_kind_check
+  check (kind in ('resource', 'showcase', 'lesson-idea', 'nomination'));
 create index if not exists submission_status_idx on app.submission (status, created_at desc);
 create index if not exists submission_user_idx   on app.submission (user_id, created_at desc);
 create unique index if not exists submission_user_url_uniq

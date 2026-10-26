@@ -51,7 +51,8 @@ const EVENT_LABEL: Record<string, string> = {
   copy_page: 'Copied a page',
   youtube_click: 'Subscribe on YouTube (pop-up)',
   popup_close: 'Closed the YouTube pop-up',
-  promo_close: 'Closed the floating ad'
+  promo_close: 'Closed the floating ad',
+  share: 'Shared a page'
 }
 
 const bars = computed(() => (data.value?.series ?? []).map((d, i, all) => ({

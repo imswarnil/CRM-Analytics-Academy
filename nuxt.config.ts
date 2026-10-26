@@ -62,13 +62,12 @@ const RETIRED: Record<string, string> = {
   '/teams': '/curriculum',
   '/team': '/dashboard',
   '/join': '/sign-up',
-  '/nominate': '/about',
+  '/nominate': '/wall-of-fame',
   '/sponsor': '/about',
   '/sponsor/studio': '/about',
   // 2026-10-23: lessons published section by section; these pages retired.
   '/showcase': '/curriculum',
   '/showcase/**': '/curriculum',
-  '/wall-of-fame': '/resources',
   '/instructors': '/about',
   '/roadmap': '/curriculum',
   '/changelog': '/about'

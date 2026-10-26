@@ -22,7 +22,8 @@ run the scripts from anywhere:
 python3 -B content-creation/source/kit/make_crma.py              # titles, transitions, generators, effects (part 1)
 python3 -B content-creation/source/kit/make_crma.py "Step Card"  # one template, or one folder ("Lower Thirds")
 python3 -B content-creation/source/kit/make_crma2.py             # part 2: slides, end screens, intros, more
-python3 -B content-creation/source/kit/make_ep01.py "content-creation/kit/Motion Templates"   # CRMA-Episode 01 (Lesson 01's own titles)
+python3 -B content-creation/source/kit/make_crma3.py             # part 3: intros/outros, explain, tables, diagrams, dashboards, screen + camera, text, arrows
+python3 -B content-creation/source/kit/make_ep01.py "content-creation/kit/Motion Templates"   # CRMA › Episode 01 (Lesson 01's own titles)
 python3 -B content-creation/source/kit/make_crma_guide.py        # Guide.html + README.txt
 python3 -B content-creation/source/kit/make_music.py             # Music/*.wav + *.m4a (commit the .m4a only)
 python3 -B content-creation/source/kit/media.py                  # media/*.png (needs Pillow)
@@ -35,7 +36,8 @@ python3 -B content-creation/source/kit/media.py                  # media/*.png (
 | --- | --- |
 | `kit/make_crma.py` | Blueprint tokens and helpers, lower thirds, titles, lessons, screen capture, scenes, transitions, generators |
 | `kit/make_crma2.py` | Slides, end screens, intros, the extra titles and effects |
-| `kit/make_ep01.py` | `CRMA-Episode 01`: copies of the templates with Lesson 01's text baked in |
+| `kit/make_crma3.py` | Lesson intros and outros, explain slides, data tables, diagrams (joins, recipe graph, dataflow), dashboards, screen + camera layouts, text animations, arrows and elements. Measures Schibsted Grotesk Black with `fontTools` when it is installed, and estimates otherwise |
+| `kit/make_ep01.py` | `CRMA › Episode 01`: copies of the templates with Lesson 01's text baked in |
 | `kit/make_crma_guide.py` | `Guide.html` and `README.txt` |
 | `kit/make_music.py` | Intro music, outro sting, lesson bed, SFX. It is a synthesiser written in pure Python, then ffmpeg masters the result |
 | `kit/ozml.py` | The Motion (OZML) writer shared by every script |

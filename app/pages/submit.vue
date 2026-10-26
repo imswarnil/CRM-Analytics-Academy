@@ -31,8 +31,8 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Type = 'dashboard' | 'resource' | 'lesson' | 'translation' | 'snippet'
-type Kind = 'resource' | 'showcase' | 'lesson-idea'
+type Type = 'dashboard' | 'resource' | 'lesson' | 'translation' | 'snippet' | 'nominate'
+type Kind = 'resource' | 'showcase' | 'lesson-idea' | 'nomination'
 
 interface Mine {
   id: number
@@ -46,6 +46,7 @@ interface Mine {
 
 const TYPES: { value: Type, kind: Kind, labelKey: string, blurbKey: string, icon: string }[] = [
   { value: 'resource', kind: 'resource', labelKey: 'submit.kindResource', blurbKey: 'submit.blurbResource', icon: 'i-lucide-link' },
+  { value: 'nominate', kind: 'nomination', labelKey: 'submit.kindNominate', blurbKey: 'submit.blurbNominate', icon: 'i-lucide-heart-handshake' },
   { value: 'lesson', kind: 'lesson-idea', labelKey: 'submit.kindIdea', blurbKey: 'submit.blurbIdea', icon: 'i-lucide-lightbulb' },
   { value: 'translation', kind: 'lesson-idea', labelKey: 'submit.kindTranslation', blurbKey: 'submit.blurbTranslation', icon: 'i-lucide-languages' },
   { value: 'snippet', kind: 'lesson-idea', labelKey: 'submit.kindSnippet', blurbKey: 'submit.blurbSnippet', icon: 'i-lucide-code-xml' }
@@ -57,7 +58,8 @@ const STEPS: Record<Type, string[]> = {
   resource: ['submit.stepKind', 'submit.stepLink', 'submit.stepDetails', 'submit.stepReview'],
   lesson: ['submit.stepKind', 'submit.stepLesson', 'submit.stepProposal', 'submit.stepReview'],
   translation: ['submit.stepKind', 'submit.stepWhere', 'submit.stepCorrection', 'submit.stepReview'],
-  snippet: ['submit.stepKind', 'submit.stepSnippet', 'submit.stepContext', 'submit.stepReview']
+  snippet: ['submit.stepKind', 'submit.stepSnippet', 'submit.stepContext', 'submit.stepReview'],
+  nominate: ['submit.stepKind', 'submit.stepPerson', 'submit.stepWhy', 'submit.stepReview']
 }
 
 const route = useRoute()
@@ -75,6 +77,8 @@ const steps = computed(() => STEPS[type.value])
 const total = computed(() => steps.value.length)
 const isReview = computed(() => step.value === total.value - 1)
 const pad = (n: number) => String(n).padStart(2, '0')
+// Share of the form done: the review step counts as 100% once reached.
+const progressPct = computed(() => Math.round((step.value / Math.max(1, total.value - 1)) * 100))
 const typeInfo = computed(() => TYPES.find(x => x.value === type.value)!)
 
 // ---------------------------------------------------------------- state ---
@@ -136,6 +140,9 @@ const lesson = reactive({
 const tr = reactive({ locale: '', path: '', wrong: '', suggested: '', note: '' })
 
 const snip = reactive({ title: '', saql: '', what: '', dataset: '', shape: '' })
+
+const WALL_ROLES = ['blogger', 'youtuber', 'author', 'speaker', 'builder'] as const
+const nom = reactive({ name: '', role: 'blogger' as typeof WALL_ROLES[number], linkedin: '', url: '', photo: '', why: '', self: false })
 
 function toggle(list: string[], value: string) {
   const i = list.indexOf(value)
@@ -246,6 +253,14 @@ const problem = computed(() => {
       if (s === 1 && (!tr.locale || !tr.path)) return t('submit.problems.translationWhere')
       if (s === 2 && (len(tr.wrong) < 2 || len(tr.suggested) < 2)) return t('submit.problems.translationText')
       return ''
+    case 'nominate':
+      if (s === 1) {
+        if (len(nom.name) < 3) return t('submit.problems.nomName')
+        if (!isHttpUrl(nom.linkedin) && !isHttpUrl(nom.url)) return t('submit.problems.nomLink')
+        if (!optionalUrlOk(nom.linkedin) || !optionalUrlOk(nom.url) || !optionalUrlOk(nom.photo)) return t('submit.problems.nomUrls')
+      }
+      if (s === 2 && len(nom.why) < 30) return t('submit.problems.nomWhy')
+      return ''
     case 'snippet':
       if (s === 1) {
         if (len(snip.title) < 3) return t('submit.problems.snippetTitle')
@@ -345,6 +360,16 @@ const payload = computed(() => {
         details: { type: 'translation', locale: tr.locale, lessonPath: tr.path, wrong: tr.wrong.trim(), suggested: tr.suggested.trim(), note: tr.note.trim() || undefined }
       }
     }
+    case 'nominate':
+      return {
+        kind: 'nomination' as Kind,
+        title: clip(nom.name.trim(), 160),
+        url: nom.linkedin.trim() || nom.url.trim(),
+        imageUrl: nom.photo.trim() || undefined,
+        description: clip(nom.why.trim(), 2000),
+        tags: [nom.role],
+        details: { type: 'nominate', role: nom.role, linkedin: nom.linkedin.trim() || undefined, url: nom.url.trim() || undefined, photo: nom.photo.trim() || undefined, self: nom.self }
+      }
     case 'snippet':
       return {
         kind: 'lesson-idea' as Kind,
@@ -480,7 +505,22 @@ const typeLabel = (s: Mine) => {
               />{{ t(typeInfo.labelKey) }}
             </p>
           </div>
-          <ol class="mt-4 flex border-[1.5px] border-(--ink) bg-(--card)">
+          <div
+            class="mt-4 flex items-center gap-3"
+            role="progressbar"
+            :aria-valuenow="progressPct"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div class="h-2.5 flex-1 border-[1.5px] border-(--ink) bg-(--card)">
+              <div
+                class="hatch-signal h-full transition-[width] duration-500"
+                :style="{ width: `${progressPct}%` }"
+              />
+            </div>
+            <span class="font-mono text-[11px] font-semibold tabular-nums text-(--ink)">{{ progressPct }}%</span>
+          </div>
+          <ol class="mt-3 flex border-[1.5px] border-(--ink) bg-(--card)">
             <li
               v-for="(label, i) in steps"
               :key="label"
@@ -494,8 +534,17 @@ const typeLabel = (s: Mine) => {
                 :aria-current="i === step ? 'step' : undefined"
                 @click="i < step && (step = i, showProblem = false)"
               >
-                <span class="font-mono text-[10px] tracking-[.1em]">{{ pad(i + 1) }}</span>
-                <span class="hidden truncate text-xs font-bold sm:block">{{ t(label) }}</span>
+                <span class="flex items-center gap-1 font-mono text-[10px] tracking-[.1em]">
+                  <UIcon
+                    v-if="i < step"
+                    name="i-lucide-check"
+                    class="size-3"
+                  />{{ pad(i + 1) }}
+                </span>
+                <span
+                  class="truncate text-xs font-bold"
+                  :class="i === step ? 'block' : 'hidden sm:block'"
+                >{{ t(label) }}</span>
               </button>
             </li>
           </ol>
@@ -1148,6 +1197,101 @@ const typeLabel = (s: Mine) => {
                   :placeholder="t('submit.tr.notePh')"
                 />
               </UFormField>
+            </div>
+          </template>
+
+          <!-- NOMINATE -->
+          <template v-else-if="type === 'nominate'">
+            <div
+              v-if="step === 1"
+              class="grid gap-6 lg:grid-cols-2"
+            >
+              <UFormField
+                :label="t('submit.nom.name')"
+                required
+              >
+                <UInput
+                  v-model="nom.name"
+                  size="xl"
+                  class="w-full"
+                  autofocus
+                />
+              </UFormField>
+              <UFormField :label="t('submit.nom.role')">
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    v-for="r in WALL_ROLES"
+                    :key="r"
+                    type="button"
+                    class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
+                    :class="nom.role === r ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
+                    @click="nom.role = r"
+                  >
+                    {{ t(`wall.types.${r}`) }}
+                  </button>
+                </div>
+              </UFormField>
+              <UFormField
+                label="LinkedIn"
+                :help="t('submit.nom.linkHelp')"
+              >
+                <UInput
+                  v-model="nom.linkedin"
+                  class="w-full"
+                  placeholder="https://www.linkedin.com/in/…"
+                >
+                  <template #leading>
+                    <SubmitFavicon :url="nom.linkedin" />
+                  </template>
+                </UInput>
+              </UFormField>
+              <UFormField
+                :label="t('submit.nom.url')"
+                :hint="t('submit.optional')"
+              >
+                <UInput
+                  v-model="nom.url"
+                  class="w-full"
+                  placeholder="https://…"
+                >
+                  <template #leading>
+                    <SubmitFavicon :url="nom.url" />
+                  </template>
+                </UInput>
+              </UFormField>
+              <UFormField
+                :label="t('submit.nom.photo')"
+                :hint="t('submit.optional')"
+                :help="t('submit.nom.photoHelp')"
+                class="lg:col-span-2"
+              >
+                <UInput
+                  v-model="nom.photo"
+                  class="w-full"
+                  placeholder="https://…/photo.jpg"
+                />
+              </UFormField>
+            </div>
+            <div
+              v-else-if="step === 2"
+              class="space-y-5"
+            >
+              <UFormField
+                :label="t('submit.nom.why')"
+                required
+                :help="t('submit.nom.whyHelp')"
+              >
+                <UTextarea
+                  v-model="nom.why"
+                  :rows="5"
+                  autoresize
+                  class="w-full"
+                />
+              </UFormField>
+              <UCheckbox
+                v-model="nom.self"
+                :label="t('submit.nom.self')"
+              />
             </div>
           </template>
 

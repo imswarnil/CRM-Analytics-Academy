@@ -8,6 +8,7 @@
  * A new unit is requested on every page: parents render this with the route as
  * part of their key, so navigating remounts it and pushes a fresh <ins>.
  * In `nuxt dev` no request is made; a labelled placeholder shows the box.
+ * Fixed sizes that do not fit the column swap to a responsive unit first.
  *
  * Registered globally (.global) so lesson bodies can use it — see
  * withInArticlePromos in app/utils/promo.ts.
@@ -21,13 +22,28 @@ const props = withDefaults(defineProps<{
 }>(), { bare: false })
 
 const route = useRoute()
-const u = computed<PromoUnit>(() => PROMO_UNITS[props.unit])
+// The unit actually requested: the one asked for, or its responsive
+// counterpart when a fixed size is wider than the space it landed in (a
+// 728×90 in a phone column, a 336×280 in a narrow sidebar).
+const active = ref<PromoUnitName>(props.unit)
+const ready = ref(false)
+const u = computed<PromoUnit>(() => PROMO_UNITS[active.value])
 const allowed = computed(() => promoAllowed(route.path))
 const dev = import.meta.dev
 const box = ref<HTMLElement | null>(null)
 
-onMounted(() => {
+function fitUnit(width: number): PromoUnitName {
+  const size = PROMO_UNITS[props.unit].size
+  if (!size || size[0] <= width) return props.unit
+  if (size[1] > size[0] * 1.5) return 'vertical'
+  return size[0] / size[1] >= 3 ? 'horizontal' : 'square'
+}
+
+onMounted(async () => {
+  active.value = fitUnit(box.value?.clientWidth || window.innerWidth)
+  ready.value = true
   if (dev || !allowed.value) return
+  await nextTick()
   // The library is loaded once from <head> (nuxt.config); each mounted <ins>
   // asks it for one creative.
   try {
@@ -71,7 +87,7 @@ const style = computed(() => {
         class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)"
       >{{ unit }} · {{ u.slot }}</span>
       <ins
-        v-else
+        v-else-if="ready"
         class="adsbygoogle"
         :style="style"
         :data-ad-client="PROMO_CLIENT"

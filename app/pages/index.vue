@@ -3,8 +3,8 @@ import type { ContentNavigationItem } from '@nuxt/content'
 
 /**
  * The home page, kept to what a first-time visitor needs: what the course
- * is (hero), what is in it (the curriculum, plotted), a free account, who
- * wrote it, and the common questions. Everything is prerendered per locale;
+ * is (hero), what is in it (the curriculum, plotted), the project live (reach
+ * by region), a free account, the Wall of Fame, who wrote it, and the common questions. Everything is prerendered per locale;
  * nothing here fetches at runtime.
  */
 const { t, tm, rt, locale, locales } = useI18n()
@@ -59,6 +59,7 @@ const modules = computed(() =>
       title: String(mod.title ?? ''),
       to: String(mod.path ?? ''),
       desc: blurb(slug),
+      soon: ((mod.children ?? []) as { comingSoon?: boolean }[]).every(l => l.comingSoon),
       lessons: ((mod.children ?? []) as ContentNavigationItem[]).map(l => ({
         title: String(l.title ?? ''),
         to: String(l.path ?? ''),
@@ -84,6 +85,13 @@ useJsonLd({
   'isAccessibleForFree': true,
   'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
   'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
+  'sameAs': [SITE.youtube, SITE.github],
+  'about': ['Salesforce CRM Analytics', 'Tableau CRM', 'SAQL', 'Go-to-market analytics', 'RevOps dashboards'],
+  'teaches': ['Data preparation with recipes', 'Datasets and data modelling', 'SAQL', 'Dashboard design', 'Bindings', 'Einstein Discovery', 'Funnel, pipeline and RevOps dashboards'],
+  'educationalLevel': 'Beginner to advanced',
+  'coursePrerequisites': 'Basic Salesforce familiarity; a free CRM Analytics Developer Edition org',
+  'audience': { '@type': 'Audience', 'audienceType': 'Salesforce admins, developers, analysts and GTM / RevOps teams' },
+  'availableLanguage': locales.value.map(l => l.language || l.code),
   'hasCourseInstance': {
     '@type': 'CourseInstance',
     'courseMode': 'online',
@@ -100,6 +108,7 @@ useJsonLd({
     'isAccessibleForFree': true,
     'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
     'hasCourseInstance': { '@type': 'CourseInstance', 'courseMode': 'online', 'courseWorkload': 'PT1H30M' },
+    'creativeWorkStatus': m.soon ? 'Coming soon' : 'Published',
     'syllabusSections': m.lessons.map((l, li) => ({ '@type': 'Syllabus', 'name': l.title, 'position': li + 1 }))
   }))
 })
@@ -331,6 +340,9 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
       </div>
     </section>
 
+    <!-- PROJECT, LIVE ------------------------------------------------- -->
+    <HomeReachSection />
+
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
       <PromoSlot unit="horizontal" />
     </div>
@@ -371,6 +383,9 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
         </div>
       </div>
     </section>
+
+    <!-- WALL OF FAME ---------------------------------------------------- -->
+    <HomeWallSection />
 
     <!-- AUTHOR ------------------------------------------------------------ -->
     <HomeAuthorSection />

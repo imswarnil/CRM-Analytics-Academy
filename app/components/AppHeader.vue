@@ -15,6 +15,7 @@ const menuItems = computed(() => [
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
+  { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') }
 ])
 
@@ -70,17 +71,11 @@ const localeItems = computed(() =>
     }
   }))
 )
-
-// The course player and the curriculum sheet run edge to edge, so the navbar
-// does too there; everywhere else it keeps the page container.
-const fluid = computed(() =>
-  route.meta.layout === 'docs' || /^(\/[a-z]{2})?\/curriculum\/?$/.test(route.path)
-)
 </script>
 
 <template>
   <UHeader
-    :ui="{ container: fluid ? 'max-w-none' : '', center: 'hidden', left: 'lg:flex-none', right: 'lg:flex-1', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-none border-[1.5px] border-(--ink) size-9 flex items-center justify-center' }"
+    :ui="{ container: 'max-w-(--ui-container)', center: 'hidden', left: 'lg:flex-none', right: 'lg:flex-1', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-none border-[1.5px] border-(--ink) size-9 flex items-center justify-center' }"
     :to="localePath('/')"
   >
     <template #left>

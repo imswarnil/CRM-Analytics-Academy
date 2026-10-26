@@ -1,5 +1,5 @@
 /**
- * Submit a resource, a showcase dashboard, or a lesson idea.
+ * Submit a resource, a lesson idea, or a Wall of Fame nomination.
  *
  * The contribute stepper also sends `details`: the structured fields of its
  * fine-grained type (dashboard data sources and KPI formulas, a translation's
@@ -15,7 +15,7 @@
  * to give a person a useful error, the database's is to be right even if a
  * future route forgets to ask.
  */
-const KINDS = ['resource', 'showcase', 'lesson-idea'] as const
+const KINDS = ['resource', 'showcase', 'lesson-idea', 'nomination'] as const
 type Kind = typeof KINDS[number]
 
 // Fine-grained type → the moderation bucket it must be filed under.
@@ -24,7 +24,8 @@ const DETAIL_TYPES: Record<string, Kind> = {
   resource: 'resource',
   lesson: 'lesson-idea',
   translation: 'lesson-idea',
-  snippet: 'lesson-idea'
+  snippet: 'lesson-idea',
+  nominate: 'nomination'
 }
 const MAX_DETAILS_BYTES = 24_000
 

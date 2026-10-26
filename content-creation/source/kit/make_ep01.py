@@ -1,5 +1,5 @@
 """make_ep01.py — episode-specific copies of CRMA templates for
-"Lesson 01 — Create a free CRM Analytics Developer Edition org" (folder CRMA-Episode 01).
+"Lesson 01 — Create a free CRM Analytics Developer Edition org" (group Episode 01 in the CRMA category).
 
     python make_ep01.py <out_dir>
 """

@@ -5,13 +5,14 @@
  * the i18n module's server-side detection never sees most requests. This does
  * it in the browser instead, once:
  *
- *  1. The browser's languages (navigator.languages), in the reader's own order
- *     of preference. A supported one wins — including English: someone whose
- *     browser asks for English gets English, wherever they are.
- *  2. Only when no browser language is supported (Italian, Korean …) does the
- *     country decide, from /api/geo. Countries where English is the usual
- *     language of the web for this subject (India, Pakistan, the Philippines…)
- *     are deliberately not mapped.
+ *  1. The visitor's COUNTRY decides, from /api/geo (Cloudflare's cf.country),
+ *     through COUNTRY_LOCALE in shared/utils/regions.ts: Spain, Mexico or
+ *     Argentina open in Spanish, Brazil in Portuguese, Japan in Japanese…
+ *     Countries where the Salesforce world works in English (India, Pakistan,
+ *     the Philippines, the US, the UK…) are deliberately unmapped.
+ *  2. Only when the country is unmapped do the browser's languages decide
+ *     (a Spanish-language browser in the US still gets Spanish).
+ *  3. Otherwise English. A choice in the language switcher always wins after.
  *
  * The decision is remembered in its own cookie, `crma_locale`, which only
  * this plugin and the language switcher write. It used to read the i18n
@@ -22,25 +23,6 @@
  * with hreflang pointing between them — and neither are private routes or
  * the English-only pages.
  */
-const COUNTRY_LOCALE: Record<string, string> = {
-  // Spanish
-  ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es', PE: 'es', VE: 'es', EC: 'es', GT: 'es', CU: 'es', BO: 'es',
-  DO: 'es', HN: 'es', PY: 'es', SV: 'es', NI: 'es', CR: 'es', PA: 'es', UY: 'es',
-  // French
-  FR: 'fr', MC: 'fr', SN: 'fr', CI: 'fr', ML: 'fr', BF: 'fr', NE: 'fr', TG: 'fr', BJ: 'fr', GA: 'fr', CD: 'fr', CG: 'fr', HT: 'fr',
-  // German
-  DE: 'de', AT: 'de', LI: 'de',
-  // Portuguese
-  BR: 'pt', PT: 'pt', AO: 'pt', MZ: 'pt',
-  // Japanese, Chinese
-  JP: 'ja', CN: 'zh', TW: 'zh', HK: 'zh', MO: 'zh',
-  // Arabic
-  SA: 'ar', AE: 'ar', EG: 'ar', IQ: 'ar', JO: 'ar', KW: 'ar', LB: 'ar', LY: 'ar', MA: 'ar', OM: 'ar', QA: 'ar',
-  SY: 'ar', TN: 'ar', YE: 'ar', BH: 'ar', DZ: 'ar', SD: 'ar', PS: 'ar',
-  // Russian, Bengali
-  RU: 'ru', BY: 'ru', KZ: 'ru', KG: 'ru', BD: 'bn'
-}
-
 const BOT = /bot|crawl|spider|slurp|facebookexternalhit|embedly|preview|lighthouse|headless|pagespeed/i
 const PRIVATE = /^\/(api|admin|dashboard|submit|sign-in|sign-up|_studio|raw)(\/|$)/
 
@@ -71,11 +53,9 @@ export default defineNuxtPlugin((nuxtApp) => {
         .map(l => l.toLowerCase().split('-')[0]!)
         .find(l => supported.includes(l))
 
-      let target = fromBrowser
-      if (!target) {
-        const { country } = await $fetch<{ country: string | null }>('/api/geo', { timeout: 1500 }).catch(() => ({ country: null }))
-        target = (country && COUNTRY_LOCALE[country]) || 'en'
-      }
+      const { country } = await $fetch<{ country: string | null }>('/api/geo', { timeout: 1500 }).catch(() => ({ country: null }))
+      const fromCountry = country ? COUNTRY_LOCALE[country] : undefined
+      const target = (fromCountry && supported.includes(fromCountry) ? fromCountry : fromBrowser) || 'en'
 
       cookie.value = target
       moduleCookie.value = target

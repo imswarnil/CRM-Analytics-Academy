@@ -15,6 +15,7 @@ from make_titles import with_animation
 KIT_DIR = ozml.KIT                       # <repo>/content-creation/kit
 ozml.OUT = os.path.join(KIT_DIR, 'Motion Templates')
 ozml.PREFIX = 'CRMA-'
+ozml.CATEGORY = 'CRMA'                   # one CRMA category per browser; each group is a theme inside it
 
 # ------------------------------------------------------------------ Blueprint tokens (app/assets/css/main.css)
 PAPER, CARD, INK, INK2, LINE = '#F4F7FB', '#FBFCFE', '#0C1B33', '#3A4A66', '#C3D2E6'

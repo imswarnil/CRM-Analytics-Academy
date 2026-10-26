@@ -20,7 +20,8 @@
     "enrollFree": "Enroll free",
     "homeAria": "CRM Analytics Academy — home",
     "starOnGithub": "Star CRM Analytics Academy on GitHub",
-    "youtube": "CRM Analytics Academy on YouTube"
+    "youtube": "CRM Analytics Academy on YouTube",
+    "wallOfFame": "Wall of Fame"
   },
   "home": {
     "modules": {
@@ -106,6 +107,20 @@
       "title": "Track your progress through all 161 lessons",
       "lead": "Every lesson is free. With an account you keep your place, build a daily streak, save lessons for later, score your quizzes and earn badges on your dashboard.",
       "browse": "Browse the curriculum"
+    },
+    "wall": {
+      "eyebrow": "FIG. 06 — The community",
+      "all": "See the whole wall"
+    },
+    "reach": {
+      "eyebrow": "FIG. 04 — The project, live",
+      "title": "Who is learning here, and where",
+      "learners": "Learners",
+      "lessons": "Lessons completed",
+      "readers": "Readers, last 30 days",
+      "countries": "Countries",
+      "byRegion": "Readers by region",
+      "topCountries": "Top countries"
     }
   },
   "footer": {
@@ -239,7 +254,13 @@
     "you": "you",
     "pointsRule": "10 points per lesson, 2 per quiz point, 25 per approved submission (50 for a dashboard).",
     "recentlyCompleted": "Recently completed",
-    "nothingYet": "You have not completed a lesson yet."
+    "nothingYet": "You have not completed a lesson yet.",
+    "board": {
+      "global": "Global",
+      "region": "My region",
+      "country": "My country",
+      "noCountry": "Read a few lessons and your country and region boards appear here."
+    }
   },
   "auth": {
     "signInTitle": "Welcome back",
@@ -359,7 +380,11 @@
       "translationText": "Paste the wrong text and your correction.",
       "snippetTitle": "Give the snippet a title.",
       "snippetSaql": "Paste the SAQL.",
-      "snippetWhat": "Say what it does (20+ characters)."
+      "snippetWhat": "Say what it does (20+ characters).",
+      "nomName": "Add the person’s full name.",
+      "nomLink": "Add a LinkedIn profile or a website so we can credit them.",
+      "nomUrls": "Links must start with http:// or https://.",
+      "nomWhy": "Tell us in a sentence or two what they did for the community (at least 30 characters)."
     },
     "options": {
       "domains": {
@@ -492,6 +517,21 @@
       "kpis": "KPIs",
       "screenshots": "Screenshots",
       "links": "Links"
+    },
+    "kindNominate": "Nominate someone",
+    "blurbNominate": "A blogger, creator, author, speaker or tool builder who taught the CRM Analytics community — for the Wall of Fame.",
+    "stepPerson": "Person",
+    "stepWhy": "Why them",
+    "nom": {
+      "name": "Their name",
+      "role": "What they do",
+      "linkHelp": "Their LinkedIn profile, so the polaroid links to them.",
+      "url": "Website, blog or channel",
+      "photo": "Photo link",
+      "photoHelp": "Only a photo they publish themselves (e.g. their profile picture link). Without one, a drawn silhouette is shown.",
+      "why": "Why do they belong on the wall?",
+      "whyHelp": "What did they write, build or teach that helped you or others?",
+      "self": "I am nominating myself"
     }
   },
   "quiz": {
@@ -1142,5 +1182,41 @@
     "subscribe": "Subscribe",
     "later": "Not now",
     "close": "Close"
+  },
+  "wall": {
+    "eyebrow": "Community",
+    "title": "Wall of Fame",
+    "subtitle": "The people who make the CRM Analytics community what it is - the bloggers, YouTubers, authors, speakers and tool builders whose work taught the rest of us.",
+    "all": "Everyone",
+    "types": {
+      "blogger": "Blogger",
+      "youtuber": "YouTuber",
+      "author": "Author",
+      "speaker": "Speaker",
+      "builder": "Tool builder"
+    },
+    "visit": "Visit",
+    "nominateTitle": "Know someone who belongs here?",
+    "nominateDesc": "Nominate a blogger, creator or mentor whose work has helped the CRM Analytics community. Approved nominations appear on the board.",
+    "nominate": "Nominate someone",
+    "emptyPhoto": "Your photo here",
+    "emptyCaption": "Get nominated",
+    "emptyHint": "Nominate someone",
+    "filter": "Filter by kind",
+    "board": "Board",
+    "whoTitle": "Who they are"
+  },
+  "share": {
+    "label": "Share",
+    "on": "Share on {network}",
+    "more": "More ways to share",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "lessonText": "Learning “{title}” on CRM Analytics Academy — a free, open-source Salesforce CRM Analytics course.",
+    "lessonPrompt": "Found this useful? Share it with your team.",
+    "wallText": "The people who taught the CRM Analytics community — the Wall of Fame at CRM Analytics Academy.",
+    "progress": "Share my progress",
+    "progressTitle": "My CRM Analytics Academy progress",
+    "progressText": "I have completed {done} lessons on CRM Analytics Academy, with a {streak}-day streak and {badges} badges. Learning Salesforce CRM Analytics, free."
   }
 }

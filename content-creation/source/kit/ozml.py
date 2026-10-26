@@ -56,6 +56,7 @@ F_RIG, F_RIGW, F_RIGB = 9, 22, 21
 F_IMAGE, F_FILTER, F_GEN = F['66fc0d6af6a911d6a7a7000393670732'], F['deca4859b16011d7a12d0003936f6f92'], F['615c4bf6406511d88802000a95af90f2']
 F_TEXTGEN = F['6d5e3b5e92ee4a349864eb75a700d6a1']
 PREFIX = 'Custom - '          # every kit folder inside Final Cut Pro
+CATEGORY = None               # when set, ONE category per browser: <CATEGORY>/<theme>/<template>
 FLOAT, PERCENT = F['fdc1944b229111d7b1c300039389b702'], F['27f3ee8b229211d7925a00039389b702']
 GROUP_UUID, FILTER_UUID = 'ee6b4918387a11d7a02100039375d2ba', 'deca4859b16011d7a12d0003936f6f92'
 FACTORY_XML = ''.join(f'<factory id="{i + 1}" uuid="{u}"><description>{d}</description><manufacturer>Apple</manufacturer><version>1</version></factory>\n'
@@ -637,10 +638,18 @@ class Doc:
                 f'<flags>1</flags><audioTracks>0</audioTracks><timemarkerset>{markers}</timemarkerset><guideset/><curvesets selected="1"/>'
                 + project + self._rig_xml(body) + body + footage + '</scene>\n</ozml>\n')
 
+    def where(self):
+        """Category › theme inside the browser. With CATEGORY set, the old folder becomes a theme, which
+        FCP lists as a group inside the one category; a theme named after its browser is dropped."""
+        if not CATEGORY:
+            return PREFIX + self.folder
+        kind = self.KIND_DIR[self.kind]
+        return CATEGORY if self.folder == kind else os.path.join(CATEGORY, self.folder)
+
     def write(self, body, thumb_svg=None, current=None):
         xml = self.xml(body, current)
         validate(self.name, xml)
-        folder = os.path.join(OUT, self.KIND_DIR[self.kind] + '.localized', PREFIX + self.folder, self.name)
+        folder = os.path.join(OUT, self.KIND_DIR[self.kind] + '.localized', self.where(), self.name)
         shutil.rmtree(folder, ignore_errors=True)
         os.makedirs(folder)
         open(os.path.join(folder, f'{self.name}.{self.EXT[self.kind]}'), 'w', encoding='utf-8').write(xml)
@@ -650,7 +659,7 @@ class Doc:
                 shutil.copy(os.path.join(MEDIA, fn), os.path.join(folder, 'Media', fn))
         if thumb_svg:
             thumb(folder, thumb_svg)
-        print('built', self.KIND_DIR[self.kind], '›', PREFIX + self.folder, '›', self.name)
+        print('built', self.KIND_DIR[self.kind], '›', self.where().replace(os.sep, ' › '), '›', self.name)
         return folder
 
 

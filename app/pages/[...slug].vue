@@ -225,7 +225,8 @@ const jsonLd: any[] = [
     'isPartOf': { '@type': 'Course', 'name': SITE.name, 'url': SITE.url },
     'timeRequired': `PT${lessonMeta.minutes}M`,
     ...translations,
-    ...paywall
+    ...paywall,
+    ...(page.value?.comingSoon ? { creativeWorkStatus: 'Coming soon' } : {})
   },
   {
     '@context': 'https://schema.org',
@@ -462,6 +463,11 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           />
           <PageHeaderLinks />
         </div>
+        <ShareBar
+          :title="page.title"
+          :text="t('share.lessonText', { title: page.title })"
+          class="mt-4"
+        />
       </div>
     </header>
 
@@ -701,6 +707,17 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
       />
 
       <CourseLessonComplete v-if="!page.comingSoon" />
+
+      <div class="my-10 flex flex-wrap items-center justify-between gap-4 border-[1.5px] border-(--ink) bg-(--ice) p-5">
+        <p class="font-bold text-(--ink)">
+          {{ t('share.lessonPrompt') }}
+        </p>
+        <ShareBar
+          :title="page.title"
+          :text="t('share.lessonText', { title: page.title })"
+          compact
+        />
+      </div>
 
       <!-- One discussion per lesson across all languages: the path is
            locale-stripped, so a question asked on the Spanish page is there

@@ -1,7 +1,7 @@
 """make_crma_guide.py — Guide.html + README.txt for content-creation/kit (Blueprint colours and fonts, music section)."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import make_guide, make_crma, make_crma2
+import make_guide, make_crma, make_crma2, make_crma3
 
 KIT = make_crma.KIT_DIR
 OUT = os.path.join(KIT, 'Motion Templates')
@@ -12,6 +12,15 @@ BLURBS.update({
     'Titles': 'Sheet title, section header, definition, SAQL formula, key takeaway, quote — plus reveal title, stacked reveal, icon title and a floating badge that loops.',
     'Lessons': 'Lesson opener, step card, pro tip / warning / note, checklist, up next, recap — plus lesson introduction (objectives + chips), icon card, bullet card and a typed SAQL query card.',
     'Transitions': 'Sheet wipe, sheet slide, grid reveal, signal flash, blueprint zoom, block sweep, blinds, tile grid, iris, push blur, card stack.',
+    'Intros': 'Academy intro (light, navy, short) timed to its music — plus a lesson intro (module · lesson, title, length, level; light and navy) and a hook question cold open. All 8 s: lay the 8 s intro music under them.',
+    'Outros': 'Thanks for watching (light and navy) with a pulsing subscribe button, next lesson with course progress, and a minimal logo + URL outro. 8 s; the outro sting fits inside.',
+    'Explain': 'Full-frame teaching slides for one idea: definition (term, word class, plain words, example, see also), worked example (question → steps → counted answer), do / don\'t, glossary, analogy and a concept map.',
+    'Data and Tables': 'Data table with a Highlight Row pop-up, sample data builder (rows type themselves in — for "let\'s create some dummy data"), dataset schema (dimension / measure / date), filter rows (non-matching rows struck out) and group by (rows collapse into one per region).',
+    'Diagrams': 'Join Venn with a Join Type pop-up (inner, left, right, full outer), join tables (keys light up, matches link, result table), append rows, recipe graph (input → filter → join → aggregate → output), dataflow pipeline with a travelling data packet, and an object model.',
+    'Dashboards': 'A full dashboard mockup (filters, counting KPIs, bar and line widgets), KPI tiles, bar chart with a Highlight Bar pop-up, line chart, funnel and leaderboard. Bars grow and lines draw themselves.',
+    'Screen and Camera': 'Layouts with drop wells: drag your screen recording onto Screen and your camera clip onto Camera in the Inspector. Screen and camera (Layout pop-up mirrors it), side by side (tall camera), camera focus (screen inset) and screen with a step rail.',
+    'Text Animations': 'Word by word, typewriter console, highlight word (marker sweeps behind it), strike and replace, big statement, counter, question and keyword stack. Every word is its own text field.',
+    'Arrows and Elements': 'Self-drawing arrow, arrow with label, elbow, curved and double arrows, circle highlight, draw box, underline, bracket, step badges (each with its own position), status stamp (check / cross / warning / info), data line, field tag and equation. Position, Size and Rotation are in the Inspector.',
 })
 
 MUSIC = [('CRMA Academy Intro (8s)', 'Matches Academy Intro / Academy Intro Navy. Riser, logo hit at 1.0 s, beat-synced words, final chord at 5.0 s.'),
@@ -36,6 +45,8 @@ USE = ['<li><b>Intros</b> are full-frame and timed to their music — see <a hre
        '<li><b>Lower thirds, lessons and titles</b> have the <i>Animation</i> pop-up (slide, fade, pop, drop — fast or slow, or None). Text with a block reveal wipes on behind a colour bar; its colour is <i>Reveal Color</i>.</li>',
        '<li><b>End screens</b> go in the last 5–20 seconds of a YouTube video. Drop thumbnails onto the <i>Video</i> wells (or leave them empty and place YouTube\'s own end-screen elements on top). <i>Become a Member</i> and <i>Membership Perks</i> promote the academy; the button keeps pulsing.</li>',
        '<li><b>Effects</b> change the clip itself: put <i>Webcam Box</i> on your camera clip (above the screen recording) and pick a <i>Corner</i>; <i>Slow Push In</i> slowly zooms a talking head; <i>Drawing Sheet Frame</i> and <i>Figure Frame</i> put a screen recording on the blueprint sheet.</li>',
+       '<li><b>Screen and Camera</b> titles hold your footage: select the title, then in the Title Inspector click the <i>Screen</i> or <i>Camera</i> well and click the clip in the timeline or browser. Or put <i>Camera Square</i> (Effects › CRMA › Screen Capture) on the camera clip and <i>Screen with Camera Space</i> on the recording under it.</li>',
+       '<li><b>Arrows and elements</b> go above a recording: drag one in, set <i>Position</i>, <i>Size</i> and <i>Rotation</i> in the Inspector. Arrows draw themselves, then undraw at the end.</li>',
        '<li><b>Transitions</b> go on a cut; drag the edges to change speed.</li>',
        '<li>All templates use the Blueprint palette — paper <code>#F4F7FB</code>, ink <code>#0C1B33</code>, navy <code>#0F2A5C</code>, signal <code>#2F5BEA</code>, glow <code>#3FC6DC</code> — so pieces match out of the box.</li>']
 
@@ -50,10 +61,11 @@ and backgrounds. Every template is editable in the Final Cut Pro Inspector — n
 Install
   1. Quit Final Cut Pro.
   2. Double-click "Install.command" (right-click → Open if macOS blocks it).
-  3. Open Final Cut Pro. Every category starts with "CRMA-" in the sidebar of
-     the Titles, Transitions, Generators and Effects browsers.
+  3. Open Final Cut Pro. Everything is in one category, "CRMA", in the sidebar of the
+     Titles, Transitions, Generators and Effects browsers, grouped inside it
+     (Slides, Lessons, Lower Thirds ...). Install.command removes the old "CRMA-*" folders.
 
-Manual install: copy the folders inside "Motion Templates" into
+Manual install: copy each "CRMA" folder inside "Motion Templates" into
   ~/Movies/Motion Templates.localized/<Titles|Transitions|Generators|Effects>.localized/
 
 Music
@@ -75,7 +87,7 @@ Requirements
 
 
 def main():
-    make_guide.main(PREFIX='CRMA-', OUT=OUT, KIT=KIT, TITLE='CRM Analytics Academy — Lesson Kit for Final Cut Pro', ACCENT=make_crma.SIGNAL,
+    make_guide.main(PREFIX='CRMA-', CATEGORY='CRMA', OUT=OUT, KIT=KIT, TITLE='CRM Analytics Academy — Lesson Kit for Final Cut Pro', ACCENT=make_crma.SIGNAL,
                     EXTRA=BLURBS, LEAD='intros with music, teaching slides, lower thirds, lesson cards, end screens, screen-capture callouts, effects, transitions and backgrounds for CRM Analytics Academy lessons',
                     USE=USE, EXTRA_HTML=MUSIC_HTML, FONTS='<b>Schibsted Grotesk</b> and <b>IBM Plex Mono</b>',
                     NOTES='Made for Final Cut Pro 10.6+ / Motion 5.6+ (macOS). 1920×1080 at 30 fps; works in any project size (templates scale). Icons are an original set; fonts are open-licence (Schibsted Grotesk, IBM Plex Mono). Music and sound effects are original.')

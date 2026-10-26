@@ -56,10 +56,15 @@ if (argv.includes('-h') || argv.includes('--help') || argv.length === 0) {
 // ------------------------------------------------------------------ template catalogue (.moti → text layers)
 const templateCache = new Map()
 
-/** Text layers of one installed-style template, in layer order (top of the Layers list first). */
+/**
+ * Text layers of one installed-style template, in layer order (top of the Layers list first).
+ * Every template sits in one CRMA category per browser, grouped by theme (`folder`); a theme named
+ * after its browser (Transitions) is dropped, so those templates sit straight in CRMA.
+ */
 function template(kind, folder, name) {
   const ext = { Titles: 'moti', Transitions: 'motr', Effects: 'moef', Generators: 'motn' }[kind]
-  const rel = `${kind}.localized/CRMA-${folder}/${name}/${name}.${ext}`
+  const theme = folder === kind ? '' : `${folder}/`
+  const rel = `${kind}.localized/CRMA/${theme}${name}/${name}.${ext}`
   if (templateCache.has(rel)) return templateCache.get(rel)
   const file = join(TEMPLATES, rel)
   if (!existsSync(file)) throw new Error(`template not in the kit: ${rel}`)
@@ -98,12 +103,12 @@ function fontOf(ps) {
 
 if (argv[0] === '--catalog') {
   const filter = (argv[1] ?? '').toLowerCase()
-  const dir = join(TEMPLATES, 'Titles.localized')
-  for (const folder of readdirSync(dir).filter(f => f.startsWith('CRMA-')).sort()) {
+  const dir = join(TEMPLATES, 'Titles.localized', 'CRMA')
+  for (const folder of readdirSync(dir).filter(f => !f.startsWith('.')).sort()) {
     for (const name of readdirSync(join(dir, folder)).filter(n => !n.startsWith('.')).sort()) {
       if (filter && !`${folder}/${name}`.toLowerCase().includes(filter)) continue
-      const t = template('Titles', folder.slice(5), name)
-      console.log(`${folder}/${name}`)
+      const t = template('Titles', folder, name)
+      console.log(`CRMA/${folder}/${name}`)
       t.texts.forEach((x, i) => console.log(`  ${String(i + 1).padStart(2)}. ${x.layer.padEnd(18)} ${fontOf(x.font).family} ${fontOf(x.font).face} ${x.size}  "${x.text}"`))
     }
   }
@@ -458,6 +463,6 @@ writeFileSync(join(dir, `${r.slug}.md`), shotList(r))
 console.log(`${relative(REPO, file)}
   → ${relative(process.cwd(), xmlPath)}  (${mmss(r.total)}, ${r.segments.length} segments, ${r.quiz.length} quiz slides)
   → ${relative(process.cwd(), join(dir, `${r.slug}.md`))}`)
-if (!existsSync(join(INSTALLED, 'Titles.localized', 'CRMA-Slides'))) {
+if (!existsSync(join(INSTALLED, 'Titles.localized', 'CRMA', 'Slides'))) {
   console.log('\n  ! The CRMA templates are not installed. Run content-creation/kit/Install.command before importing, or the titles show as missing.')
 }

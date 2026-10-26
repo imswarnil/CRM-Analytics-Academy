@@ -124,6 +124,31 @@ const achievements = computed(() => {
 })
 const earned = computed(() => achievements.value.filter(a => a.got).length)
 
+// --- Share progress ----------------------------------------------------------------
+// A ready-to-post line built from the learner's real numbers: the most
+// shareable moment is a streak or a badge, so both are in it.
+const progressText = computed(() => t('share.progressText', {
+  done: done.value,
+  streak: data.value?.streak ?? 0,
+  badges: earned.value
+}))
+function shareProgress() {
+  const url = `${SITE.url}/?utm_source=share&utm_medium=linkedin-progress`
+  window.open(`https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(`${progressText.value}\n\n${url}`)}`, '_blank', 'noopener,noreferrer,width=640,height=640')
+  useNuxtApp().$track?.('share', 'linkedin-progress')
+}
+
+// --- Leaderboard by scope ------------------------------------------------------
+interface Ranks {
+  scope: string
+  country: string | null
+  regionName: string | null
+  rows: { me: boolean, rank: number, name: string, image: string | null, country: string | null, points: number, lessons: number }[]
+}
+const board = ref<'global' | 'region' | 'country'>('global')
+const { data: ranks } = useFetch<Ranks>('/api/leaderboard', { query: { scope: board }, server: false, watch: [board] })
+const flag = (cc: string) => /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map(c => 0x1F1E6 + c.charCodeAt(0) - 65)) : ''
+
 const tiles = computed(() => [
   { key: 'done', label: t('dashboard.statCompleted'), value: String(done.value), hint: `${percent.value}%`, accent: true },
   { key: 'remaining', label: t('dashboard.statRemaining'), value: String(remaining.value), hint: t('dashboard.lessons'), accent: false },
@@ -140,7 +165,22 @@ const tiles = computed(() => [
       :sheet="t('dashboard.kicker')"
       :title="firstName ? t('dashboard.welcomeNamed', { name: firstName }) : t('dashboard.welcome')"
       :lead="data?.streak ? t('dashboard.streakLead', { n: data.streak }) : t('dashboard.lead')"
-    />
+    >
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <UButton
+          icon="i-simple-icons-linkedin"
+          @click="shareProgress"
+        >
+          {{ t('share.progress') }}
+        </UButton>
+        <ShareBar
+          :title="t('share.progressTitle')"
+          :text="progressText"
+          path="/"
+          compact
+        />
+      </div>
+    </BpPageHeader>
 
     <div class="mx-auto max-w-(--ui-container) space-y-6 px-4 py-12 sm:px-6 lg:px-8">
       <!-- K. tiles -->
@@ -476,28 +516,39 @@ const tiles = computed(() => [
       </section>
 
       <div class="grid gap-6 lg:grid-cols-2">
-        <!-- Leaderboard -->
+        <!-- Leaderboard: global, my region, my country -->
         <section class="border-[1.5px] border-(--ink) bg-(--card)">
-          <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+          <header class="flex flex-wrap items-center justify-between gap-2 border-b-[1.5px] border-(--ink) px-5 py-3">
             <p class="eyebrow">
               Fig. 08 — {{ t('dashboard.leaderboard') }}
             </p>
-            <span class="font-mono text-xs text-(--ink2)">{{ data?.rank ? `#${data.rank}` : '' }}</span>
+            <div class="flex border-[1.5px] border-(--ink)">
+              <button
+                v-for="sc in (['global', 'region', 'country'] as const)"
+                :key="sc"
+                type="button"
+                class="border-e-[1.5px] border-(--ink) px-2.5 py-1 font-mono text-[10px] uppercase tracking-[.1em] last:border-e-0"
+                :class="board === sc ? 'bg-(--ink) text-(--paper)' : 'hover:bg-(--ice)'"
+                @click="board = sc"
+              >
+                {{ sc === 'global' ? t('dashboard.board.global') : sc === 'region' ? (ranks?.regionName || t('dashboard.board.region')) : (ranks?.country ? `${flag(ranks.country)} ${ranks.country}` : t('dashboard.board.country')) }}
+              </button>
+            </div>
           </header>
           <p
-            v-if="!data?.leaders?.length"
+            v-if="!ranks?.rows?.length"
             class="p-5 text-sm text-(--ink2)"
           >
-            {{ t('dashboard.leaderboardEmpty') }}
+            {{ board !== 'global' && !ranks?.country ? t('dashboard.board.noCountry') : t('dashboard.leaderboardEmpty') }}
           </p>
           <ol v-else>
             <li
-              v-for="(p, i) in data.leaders"
-              :key="i"
+              v-for="p in ranks.rows"
+              :key="`${p.rank}-${p.name}-${p.me}`"
               class="flex items-center gap-3 border-b border-dashed border-(--line) px-5 py-2.5 last:border-b-0"
               :class="p.me ? 'bg-(--ice)' : ''"
             >
-              <span class="w-6 font-mono text-[11px] font-semibold text-(--signal)">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span class="w-7 font-mono text-[11px] font-semibold text-(--signal)">#{{ p.rank }}</span>
               <span class="flex size-7 flex-none items-center justify-center overflow-hidden border-[1.5px] border-(--ink) bg-(--signal) text-xs font-bold text-white">
                 <img
                   v-if="p.image"
@@ -507,10 +558,12 @@ const tiles = computed(() => [
                 >
                 <template v-else>{{ p.name.slice(0, 1) }}</template>
               </span>
-              <span class="min-w-0 flex-1 truncate text-sm font-semibold text-(--ink)">{{ p.name }}<span
-                v-if="p.me"
-                class="ms-1 font-mono text-[10px] text-(--signal)"
-              >({{ t('dashboard.you') }})</span></span>
+              <span class="min-w-0 flex-1 truncate text-sm font-semibold text-(--ink)">
+                <span v-if="p.country">{{ flag(p.country) }} </span>{{ p.name }}<span
+                  v-if="p.me"
+                  class="ms-1 font-mono text-[10px] text-(--signal)"
+                >({{ t('dashboard.you') }})</span>
+              </span>
               <span class="font-mono text-xs text-(--ink2)">{{ p.lessons }} · {{ p.points }} pts</span>
             </li>
           </ol>

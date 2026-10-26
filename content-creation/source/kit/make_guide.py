@@ -47,20 +47,27 @@ def controls(path):
     return [html.unescape(n) for n in names], [html.unescape(t) for t in texts]
 
 
-def main(PREFIX='Custom - ', OUT=OUT, KIT=KIT, TITLE='Creator Kit for Final Cut Pro', ACCENT=ACCENT, EXTRA=None, LEAD=None, USE=None, EXTRA_HTML='', FONTS=None, NOTES=None):
+def main(PREFIX='Custom - ', OUT=OUT, KIT=KIT, TITLE='Creator Kit for Final Cut Pro', ACCENT=ACCENT, EXTRA=None, LEAD=None, USE=None, EXTRA_HTML='', FONTS=None, NOTES=None, CATEGORY=None):
     """LEAD / USE (list of <li> html) / EXTRA_HTML / FONTS / NOTES override the generic creator-kit wording."""
     BL = dict(BLURB, **(EXTRA or {}))
     parts = []
     counts = {}
     for kind, ext, where, how in KIND:
-        root = os.path.join(OUT, kind + '.localized')
+        root = os.path.join(OUT, kind + '.localized', CATEGORY or '')
         folders = sorted(d for d in os.listdir(root) if os.path.isdir(os.path.join(root, d)))
+        if CATEGORY and not glob.glob(os.path.join(root, folders[0], '*', f'*.{ext}')):
+            root, folders = os.path.dirname(root), [CATEGORY]        # templates sit straight in the category, no themes
+        elif CATEGORY:
+            root, folders = os.path.dirname(root), [os.path.join(CATEGORY, f) for f in folders]
         sec = [f'<section id="{kind.lower()}"><h2>{kind}</h2><p class="how"><b>Where:</b> {where}. <b>How:</b> {how}</p>']
         n = 0
         for folder in folders:
             items = sorted(glob.glob(os.path.join(root, folder, '*', f'*.{ext}')))
             n += len(items)
             plain = folder[len(PREFIX):] if folder.startswith(PREFIX) else folder
+            if CATEGORY:
+                plain = kind if folder == CATEGORY else folder[len(CATEGORY) + 1:]
+                folder = folder.replace(os.sep, ' › ')
             blurb = FUNNY_FX if (kind == 'Effects' and plain == 'Funny') else BL.get(plain, '')
             sec.append(f'<h3>{html.escape(folder)} <span class="n">{len(items)}</span></h3><p class="blurb">{blurb}</p>')
             if folder.endswith('Icons'):
@@ -77,6 +84,8 @@ def main(PREFIX='Custom - ', OUT=OUT, KIT=KIT, TITLE='Creator Kit for Final Cut 
         counts[kind] = n
         parts.append(''.join(sec) + '</section>')
     total = sum(counts.values())
+    WHERE = (f'Everything is in one category, <b>{CATEGORY}</b>, in the sidebar of each browser (Titles, Transitions, Generators, Effects); inside it the templates are grouped (Slides, Lessons, Lower Thirds …).'
+             if CATEGORY else f'Every category starts with <b>{PREFIX}</b> in the sidebar of each browser (Titles, Transitions, Generators, Effects).')
     GENERIC_USE = f'''<li><b>Titles</b> sit above your footage. Drag one from the Titles browser, trim it to the length you need — the build-in and build-out animations keep their timing, the middle stretches. Double-click text in the viewer to type; fonts, sizes and colours are in the Title Inspector (⌘4).</li>
 <li><b>Transitions</b> go on a cut. Drag the edge of the transition to change its speed; every curve scales with it.</li>
 <li><b>Generators</b> are backgrounds and elements: put a background under titles, a progress bar / live dot / divider on top of anything.</li>
@@ -112,7 +121,7 @@ ol li{{margin-bottom:8px;color:#d4d4d4}} code{{font-family:"Geist Mono",Menlo,mo
 <li>Quit Final Cut Pro.</li>
 <li>Double-click <code>Install.command</code> in this folder (if macOS blocks it: right-click → Open). It copies the four folders into <code>~/Movies/Motion Templates.localized</code> and never deletes anything of yours.</li>
 <li>Manual alternative: in Finder press <code>⇧⌘G</code>, paste <code>~/Movies/Motion Templates.localized</code>, then copy the folders inside <code>Motion Templates</code> into the matching <code>Titles.localized</code>, <code>Transitions.localized</code>, <code>Generators.localized</code> and <code>Effects.localized</code> folders (create them if they don't exist).</li>
-<li>Open Final Cut Pro. Every category starts with <b>{PREFIX}</b> in the sidebar of each browser (Titles, Transitions, Generators, Effects).</li>
+<li>Open Final Cut Pro. {WHERE}</li>
 <li>Fonts: the kit uses {FONTS or '<b>Geist</b>, <b>Geist Mono</b> and <b>Caveat</b>'} (free, open licence). If they aren't installed, Final Cut Pro substitutes Helvetica — the templates still work; pick any font in the Inspector.</li>
 </ol></div>
 

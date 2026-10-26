@@ -16,6 +16,7 @@ const columns = computed(() => [
   {
     label: t('footer.community'),
     children: [
+      { label: t('nav.wallOfFame'), to: localePath('/wall-of-fame') },
       { label: 'YouTube', to: SITE.youtube, target: '_blank' },
       { label: t('nav.submit'), to: localePath('/submit') }
     ]
