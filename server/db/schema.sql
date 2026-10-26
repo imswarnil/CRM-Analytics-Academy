@@ -126,6 +126,52 @@ create table if not exists app.event (
 );
 create index if not exists event_time_idx on app.event (created_at desc, name);
 
+-- The interview question bank: the Academy's own (source 'academy', seeded
+-- from server/db/seed/interview-questions.json by scripts/seed-interview.mjs)
+-- and community submissions (source 'community', pending until approved in
+-- /admin). The answer is markdown.
+create table if not exists app.interview_question (
+  id          bigint generated always as identity primary key,
+  slug        text        not null unique check (slug ~ '^[a-z0-9-]{3,100}$'),
+  question    text        not null check (length(btrim(question)) between 10 and 300),
+  answer_md   text        not null check (length(btrim(answer_md)) between 30 and 12000),
+  type        text        not null default 'conceptual'
+                check (type in ('conceptual', 'technical', 'scenario', 'behavioral', 'saql')),
+  topic       text        not null default 'foundations',
+  level       text        not null default 'mid' check (level in ('junior', 'mid', 'senior')),
+  company     text        check (company is null or length(btrim(company)) between 2 and 80),
+  role        text        check (role is null or length(btrim(role)) between 2 and 80),
+  source      text        not null default 'community' check (source in ('academy', 'community')),
+  status      text        not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  user_id     text,
+  review_note text,
+  upvotes     integer     not null default 0,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+create index if not exists interview_status_idx on app.interview_question (status, created_at desc);
+create index if not exists interview_topic_idx on app.interview_question (topic, type);
+
+create table if not exists app.interview_vote (
+  user_id     text   not null,
+  question_id bigint not null references app.interview_question(id) on delete cascade,
+  created_at  timestamptz not null default now(),
+  primary key (user_id, question_id)
+);
+
+-- Certification practice: one row per finished practice paper.
+create table if not exists app.exam_attempt (
+  id          bigint generated always as identity primary key,
+  user_id     text        not null,
+  paper       text        not null,
+  score       smallint    not null check (score >= 0),
+  total       smallint    not null check (total > 0),
+  seconds     integer     not null check (seconds >= 0),
+  domains     jsonb       not null default '{}'::jsonb,
+  created_at  timestamptz not null default now()
+);
+create index if not exists exam_attempt_user_idx on app.exam_attempt (user_id, paper, created_at desc);
+
 -- Points and rank for the dashboard: 10 per lesson, 2 per best quiz point,
 -- 25 per approved submission (50 for a showcase dashboard).
 create or replace view app.user_points as
