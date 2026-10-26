@@ -20,7 +20,8 @@
     "enrollFree": "مجانية",
     "homeAria": "CRM Analytics الأكاديمية - البيت",
     "starOnGithub": "ستار CRM Analytics أكاديمية GitHub",
-    "youtube": "CRM Analytics أكاديمية يوتيوب"
+    "youtube": "CRM Analytics أكاديمية يوتيوب",
+    "wallOfFame": "جدار الشهرة"
   },
   "home": {
     "modules": {
@@ -106,6 +107,20 @@
       "title": "تتبع تقدمك من خلال الـ 161 دروس",
       "lead": "كل درس مجاني مع حساب تحتفظين به في منزلك، وتبنيين شريحة يومية، وتحتفظين بالدروس في وقت لاحق، وتسجلين امتحاناتك، وتكسبين شارات على لوحك.",
       "browse": "تجميع المناهج الدراسية"
+    },
+    "wall": {
+      "eyebrow": "FIG. 06 - المجتمع المحلي",
+      "all": "انظر الحائط كله"
+    },
+    "reach": {
+      "eyebrow": "FIG. 04 - The project, live",
+      "title": "من يتعلم هنا وأين",
+      "learners": "المتعلمون",
+      "lessons": "الدروس المستفادة",
+      "readers": "القراء، 30 يوما الماضية",
+      "countries": "البلدان",
+      "byRegion": "القراء حسب المنطقة",
+      "topCountries": "البلدان الرئيسية"
     }
   },
   "footer": {
@@ -239,7 +254,13 @@
     "you": "أنت",
     "pointsRule": "10 نقاط لكل درس، 2 لكل نقطة، 25 لكل طلب موافق عليه (50 نقطة للمتابعة).",
     "recentlyCompleted": "اكتملت مؤخرا",
-    "nothingYet": "لم تستكمل درساً بعد"
+    "nothingYet": "لم تستكمل درساً بعد",
+    "board": {
+      "global": "Global",
+      "region": "منطقة بلدي",
+      "country": "بلدي",
+      "noCountry": "إقرأْ بضعة دروسِ ومجالس بلدكَ ومنطقتِكَ تَبْدو هنا."
+    }
   },
   "auth": {
     "signInTitle": "مرحباً بعودتك",
@@ -359,7 +380,11 @@
       "translationText": "قدم النص الخاطئ و تصحيحك",
       "snippetTitle": "أعطِ القنّاص لقب.",
       "snippetSaql": "باستي SAQL.",
-      "snippetWhat": "قل ما تفعله (20+ شخصيات)."
+      "snippetWhat": "قل ما تفعله (20+ شخصيات).",
+      "nomName": "يضاف الاسم الكامل للشخص.",
+      "nomLink": "أضف ملف (لينكد إن) أو موقعاً شبكياً حتى نتمكن من إئتمانهم",
+      "nomUrls": "Links must start with http:// or https://.",
+      "nomWhy": "أخبرنا في جملة أو إثنين بما فعلوه للمجتمع (على الأقل 30 شخصية)."
     },
     "options": {
       "domains": {
@@ -492,6 +517,21 @@
       "kpis": "KPIs",
       "screenshots": "Screenshots",
       "links": "الروابط"
+    },
+    "kindNominate": "تسمية شخص",
+    "blurbNominate": "مدون أو مبتكر أو مؤلف أو متحدث أو مبني أدوات علّم CRM Analytics المجتمع المحلي - لجدار الشهرة.",
+    "stepPerson": "الشخص",
+    "stepWhy": "لماذا هم",
+    "nom": {
+      "name": "أسمهم",
+      "role": "ماذا يفعلون؟",
+      "linkHelp": "ملف (لينكد إن) الخاص بهم، لذا فإنّ البولاكويد يربطهم.",
+      "url": "الموقع الشبكي أو المدونة أو القناة",
+      "photo": "وصلة الصورة",
+      "photoHelp": "فقط صورة تنشر نفسها (مثل وصلة صورها). بدون واحد، سيلوويت مَرْضُوح.",
+      "why": "لماذا تنتمي إلى الجدار؟",
+      "whyHelp": "ماذا كتبوا أو يبنون أو يعلمون الذين ساعدوك أو غيرهم؟",
+      "self": "أنا أرشح نفسي"
     }
   },
   "quiz": {
@@ -1142,5 +1182,41 @@
     "subscribe": "Subscribe",
     "later": "ليس الآن",
     "close": "اقترب"
+  },
+  "wall": {
+    "eyebrow": "المجتمع",
+    "title": "جدار الشهرة",
+    "subtitle": "الناس الذين يصنعون CRM Analytics مجتمع ما هو عليه - المدونون، يوتيوبرز، المؤلفون، المتحدثون، بناة الأدوات الذين علموا بقيتنا عملهم.",
+    "all": "الجميع",
+    "types": {
+      "blogger": "Blogger",
+      "youtuber": "YouTuber",
+      "author": "صاحب البلاغ",
+      "speaker": "المتكلم",
+      "builder": "بناة الوقود"
+    },
+    "visit": "زيارة",
+    "nominateTitle": "هل تعرف شخص ينتمي إلى هنا؟",
+    "nominateDesc": "تسمية مدون أو مبتكر أو معلم ساعد عمله CRM Analytics المجتمع وترد الترشيحات المعتمدة في مجلس الإدارة.",
+    "nominate": "تسمية شخص",
+    "emptyPhoto": "صورتك هنا",
+    "emptyCaption": "تم ترشيحه",
+    "emptyHint": "تسمية شخص",
+    "filter": "الأفلام حسب نوعها",
+    "board": "المجلس",
+    "whoTitle": "من هم"
+  },
+  "share": {
+    "label": "Share",
+    "on": "Share on {network}",
+    "more": "المزيد من الطرق لتقاسم",
+    "copy": "وصلة نسخ",
+    "copied": "لينك نسخ",
+    "lessonText": "التعلم \"{title}على CRM Analytics أكاديمية حرة ومفتوحة المصدر Salesforce CRM Analytics بالطبع",
+    "lessonPrompt": "وجدت هذا مفيدا؟ شاركه مع فريقك",
+    "wallText": "الناس الذين علموا CRM Analytics المجتمع - حائط الشهرة في CRM Analytics الأكاديمية.",
+    "progress": "شاركي تقدمي",
+    "progressTitle": "! CRM Analytics التقدم المحرز في الأكاديمية",
+    "progressText": "لقد أكملت {done} الدروس المستفادة CRM Analytics الأكاديمية، مع {streak}-العطلة اليومية {badges} شارات التعلم Salesforce CRM Analyticsحر"
   }
 }

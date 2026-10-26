@@ -20,7 +20,8 @@
     "enrollFree": "入学無料",
     "homeAria": "CRM Analytics アカデミー — ホーム",
     "starOnGithub": "ログイン CRM Analytics アカデミー GitHub",
-    "youtube": "CRM Analytics YouTubeのアカデミー"
+    "youtube": "CRM Analytics YouTubeのアカデミー",
+    "wallOfFame": "ファメの壁"
   },
   "home": {
     "modules": {
@@ -106,6 +107,20 @@
       "title": "全161レッスンで進捗状況を追跡",
       "lead": "各レッスンは無料です。 あなたの場所を保つアカウントで、毎日のストリークを構築し、後でレッスンを保存し、あなたのクイズを獲得し、ダッシュボードでバッジを獲得します。",
       "browse": "カリキュラムをブラウズ"
+    },
+    "wall": {
+      "eyebrow": "ツイート 06 — コミュニティ",
+      "all": "壁全体を見る"
+    },
+    "reach": {
+      "eyebrow": "ツイート 04 — プロジェクト、ライブ",
+      "title": "ここまで学び、どこまで",
+      "learners": "学習者",
+      "lessons": "レッスン完了",
+      "readers": "読者、最後の30日",
+      "countries": "国土交通",
+      "byRegion": "地域別リーダー",
+      "topCountries": "主要国"
     }
   },
   "footer": {
@@ -239,7 +254,13 @@
     "you": "お問い合わせ",
     "pointsRule": "1レッスンあたりの10ポイント、クイズポイントあたり2ポイント、承認された投稿ごとに25ポイント(ダッシュボード用50)。",
     "recentlyCompleted": "最近完成",
-    "nothingYet": "レッスンをまだ完了していません。"
+    "nothingYet": "レッスンをまだ完了していません。",
+    "board": {
+      "global": "グローバル",
+      "region": "私の地域",
+      "country": "私の国",
+      "noCountry": "いくつかのレッスンを読んで、あなたの国や地域のボードがここに表示されます。"
+    }
   },
   "auth": {
     "signInTitle": "歓迎の背部",
@@ -359,7 +380,11 @@
       "translationText": "間違ったテキストと修正を貼り付けます。",
       "snippetTitle": "タイトルにスニペットを与えます。",
       "snippetSaql": "ペースト SAQLお問い合わせ",
-      "snippetWhat": "(20文字以上)"
+      "snippetWhat": "(20文字以上)",
+      "nomName": "人のフルネームを追加します。",
+      "nomLink": "LinkedInプロファイルまたはウェブサイトを追加して、それらをクレジットすることができます。",
+      "nomUrls": "リンクは http:// または https:// から始まる必要があります。",
+      "nomWhy": "コミュニティ(30文字以上)で行った文章または2文字で教えてください。"
     },
     "options": {
       "domains": {
@@ -492,6 +517,21 @@
       "kpis": "KPIの特長",
       "screenshots": "スクリーンショット",
       "links": "サイトマップ"
+    },
+    "kindNominate": "誰かを指す",
+    "blurbNominate": "ブロガー、クリエイター、著者、スピーカー、またはツールビルダー CRM Analytics コミュニティ — ファムの壁のために。",
+    "stepPerson": "スタッフ",
+    "stepWhy": "なぜか",
+    "nom": {
+      "name": "お名前",
+      "role": "彼らが何をするか",
+      "linkHelp": "彼らのLinkedInのプロファイルは、ポラロイドがそれらへのリンクを結びます。",
+      "url": "ウェブサイト、ブログ、チャンネル",
+      "photo": "サイトマップ",
+      "photoHelp": "彼らが自分自身を公開する写真だけ(例えば、プロフィール画像リンク)。 1人でなければ、描画されたシルエットが表示されます。",
+      "why": "なぜ彼らは壁に所属していますか?",
+      "whyHelp": "あなたや他の人を助けたことを書いて、構築したり、教えたりしたことは何ですか?",
+      "self": "私は自分自身を推薦しています"
     }
   },
   "quiz": {
@@ -1142,5 +1182,41 @@
     "subscribe": "会員登録",
     "later": "今は今",
     "close": "閉じる"
+  },
+  "wall": {
+    "eyebrow": "コミュニティ",
+    "title": "ファメの壁",
+    "subtitle": "つくる人々 CRM Analytics コミュニティは、それが何であるか - ブロガー、YouTubers、作者、スピーカー、および私たちの残りの部分を教えたツールビルダー。",
+    "all": "スタッフ",
+    "types": {
+      "blogger": "ログイン",
+      "youtuber": "ユーチューブ",
+      "author": "プロフィール",
+      "speaker": "スピーカー",
+      "builder": "ツールビルダー"
+    },
+    "visit": "アクセス",
+    "nominateTitle": "ここに所属する人を教えてください。",
+    "nominateDesc": "仕事が助けたブロガー、クリエイター、メンターを指名 CRM Analytics コミュニティ。 承認された指名はボードに表示されます。",
+    "nominate": "誰かを指す",
+    "emptyPhoto": "写真はこちら",
+    "emptyCaption": "ノミネート",
+    "emptyHint": "誰かを指す",
+    "filter": "種類別フィルター",
+    "board": "ボード",
+    "whoTitle": "誰が"
+  },
+  "share": {
+    "label": "シェア",
+    "on": "シェアする {network}",
+    "more": "シェアするより多くの方法",
+    "copy": "コピーリンク",
+    "copied": "コピーしたリンク",
+    "lessonText": "「学び」{title}」に CRM Analytics アカデミー - 無料、オープンソース Salesforce CRM Analytics コース。",
+    "lessonPrompt": "こんな感じ? あなたのチームと共有してください。",
+    "wallText": "教えた人々 CRM Analytics コミュニティ — ファメの壁 CRM Analytics アカデミー.",
+    "progress": "進捗状況を把握",
+    "progressTitle": "マイページ CRM Analytics アカデミー進路",
+    "progressText": "完了しました {done} レッスン CRM Analytics アカデミー、アカデミー、 {streak}-day streak と {badges} バッジ。 トレーニング Salesforce CRM Analytics、自由。"
   }
 }

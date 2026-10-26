@@ -20,7 +20,8 @@
     "enrollFree": "Inscription gratuite",
     "homeAria": "CRM Analytics Académie — domicile",
     "starOnGithub": "Étoile CRM Analytics Académie GitHub",
-    "youtube": "CRM Analytics Académie sur YouTube"
+    "youtube": "CRM Analytics Académie sur YouTube",
+    "wallOfFame": "Mur de la renommée"
   },
   "home": {
     "modules": {
@@ -106,6 +107,20 @@
       "title": "Suivez vos progrès à travers les 161 leçons",
       "lead": "Chaque leçon est gratuite. Avec un compte vous gardez votre place, construisez une série quotidienne, enregistrez des leçons pour plus tard, marquez vos quiz et gagnez des badges sur votre tableau de bord.",
       "browse": "Parcourir le programme"
+    },
+    "wall": {
+      "eyebrow": "Génial. 06 — La communauté",
+      "all": "Voir tout le mur"
+    },
+    "reach": {
+      "eyebrow": "Génial. 04 — Le projet, en direct",
+      "title": "Qui apprend ici et où",
+      "learners": "Apprentis",
+      "lessons": "Enseignements achevés",
+      "readers": "Les lecteurs, les 30 derniers jours",
+      "countries": "Pays",
+      "byRegion": "Les lecteurs par région",
+      "topCountries": "Principaux pays"
     }
   },
   "footer": {
@@ -239,7 +254,13 @@
     "you": "vous",
     "pointsRule": "10 points par leçon, 2 par quiz, 25 par demande approuvée (50 pour un tableau de bord).",
     "recentlyCompleted": "Récemment achevé",
-    "nothingYet": "Vous n'avez pas encore terminé une leçon."
+    "nothingYet": "Vous n'avez pas encore terminé une leçon.",
+    "board": {
+      "global": "Mondial",
+      "region": "Ma région",
+      "country": "Mon pays",
+      "noCountry": "Lisez quelques leçons et les conseils de votre pays et de votre région apparaissent ici."
+    }
   },
   "auth": {
     "signInTitle": "Bienvenue.",
@@ -359,7 +380,11 @@
       "translationText": "Collez le mauvais texte et votre correction.",
       "snippetTitle": "Donnez un titre à l'extrait.",
       "snippetSaql": "Coller SAQL.",
-      "snippetWhat": "Dites ce qu'il fait (20+ caractères)."
+      "snippetWhat": "Dites ce qu'il fait (20+ caractères).",
+      "nomName": "Ajouter le nom complet de la personne.",
+      "nomLink": "Ajoutez un profil LinkedIn ou un site Web afin que nous puissions les créditer.",
+      "nomUrls": "Les liens doivent commencer par http:// ou https://.",
+      "nomWhy": "Dites-nous dans une phrase ou deux ce qu'ils ont fait pour la communauté (au moins 30 caractères)."
     },
     "options": {
       "domains": {
@@ -492,6 +517,21 @@
       "kpis": "ICR",
       "screenshots": "Captures d'écran",
       "links": "Liens"
+    },
+    "kindNominate": "Nommer quelqu'un",
+    "blurbNominate": "Un blogueur, un créateur, un auteur, un haut-parleur ou un constructeur d'outils CRM Analytics pour le Mur de la renommée.",
+    "stepPerson": "Personne",
+    "stepWhy": "Pourquoi eux",
+    "nom": {
+      "name": "Leur nom",
+      "role": "Ce qu'ils font",
+      "linkHelp": "Leur profil LinkedIn, donc le polaroïde se connecte à eux.",
+      "url": "Site web, blog ou canal",
+      "photo": "Lien photographique",
+      "photoHelp": "Seulement une photo qu'ils publient eux-mêmes (par exemple leur lien image de profil). Sans une, une silhouette dessinée est montrée.",
+      "why": "Pourquoi sont-ils sur le mur ?",
+      "whyHelp": "Qu'ont - ils écrit, construit ou enseigné qui vous a aidé, vous ou d'autres?",
+      "self": "Je me nomme moi-même"
     }
   },
   "quiz": {
@@ -1142,5 +1182,41 @@
     "subscribe": "Abonnez-vous",
     "later": "Pas maintenant.",
     "close": "Fermer"
+  },
+  "wall": {
+    "eyebrow": "Communauté",
+    "title": "Mur de la renommée",
+    "subtitle": "Les gens qui font CRM Analytics Ce que c'est - les blogueurs, YouTubers, auteurs, conférenciers et constructeurs d'outils dont le travail nous a appris.",
+    "all": "Tous",
+    "types": {
+      "blogger": "Blogueur",
+      "youtuber": "YouTuber",
+      "author": "Auteur",
+      "speaker": "Président",
+      "builder": "Constructeur d'outils"
+    },
+    "visit": "Visite",
+    "nominateTitle": "Tu connais quelqu'un qui est ici ?",
+    "nominateDesc": "Nommer un blogueur, un créateur ou un mentor dont le travail a CRM Analytics communautaire. Les candidatures approuvées figurent au conseil.",
+    "nominate": "Nommer quelqu'un",
+    "emptyPhoto": "Votre photo ici",
+    "emptyCaption": "Soyez nommé",
+    "emptyHint": "Nommer quelqu'un",
+    "filter": "Filtrer par type",
+    "board": "Conseil",
+    "whoTitle": "Qui ils sont"
+  },
+  "share": {
+    "label": "Partager",
+    "on": "Part sur {network}",
+    "more": "D'autres façons de partager",
+    "copy": "Copier le lien",
+    "copied": "Lien copié",
+    "lessonText": "Apprentissage{title}Sur CRM Analytics Académie — une source libre et ouverte Salesforce CRM Analytics Bien sûr.",
+    "lessonPrompt": "Tu as trouvé ça utile ? Partagez-le avec votre équipe.",
+    "wallText": "Les gens qui ont enseigné CRM Analytics communauté — le mur de la renommée à CRM Analytics Académie.",
+    "progress": "Partagez mes progrès",
+    "progressTitle": "Mon CRM Analytics Progrès de l ' Académie",
+    "progressText": "J'ai terminé. {done} leçons à tirer CRM Analytics Académie, avec une {streak}-jour et {badges} Des insignes. Apprentissage Salesforce CRM Analytics, libre."
   }
 }

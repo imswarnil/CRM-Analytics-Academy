@@ -20,7 +20,8 @@
     "enrollFree": "免费滚动",
     "homeAria": "CRM Analytics 学院——家",
     "starOnGithub": "星号 CRM Analytics 学院 GitHub",
-    "youtube": "CRM Analytics YouTube上的学院"
+    "youtube": "CRM Analytics YouTube上的学院",
+    "wallOfFame": "名人墙"
   },
   "home": {
     "modules": {
@@ -106,6 +107,20 @@
       "title": "通过全部161个课程跟踪进度",
       "lead": "每课免. 用一个账户,你保留你的地方, 建立日常的运行, 省下教训以后, 得分你的测验和赚徽章 在你的仪表板上。",
       "browse": "浏览课程"
+    },
+    "wall": {
+      "eyebrow": "费格。 06-社区",
+      "all": "见整面墙"
+    },
+    "reach": {
+      "eyebrow": "费格。 04 — 项目现场",
+      "title": "谁在这里学习,在哪里",
+      "learners": "学习者",
+      "lessons": "已完成的经验教训",
+      "readers": "读者,过去30天",
+      "countries": "国家",
+      "byRegion": "按区域分列的读者",
+      "topCountries": "顶级国家"
     }
   },
   "footer": {
@@ -239,7 +254,13 @@
     "you": "老师",
     "pointsRule": "每课10分,每考2分,每批获批呈文25分(仪表板50分).",
     "recentlyCompleted": "最近完成",
-    "nothingYet": "你还没有完成一个课程。"
+    "nothingYet": "你还没有完成一个课程。",
+    "board": {
+      "global": "全球",
+      "region": "我所在的地区",
+      "country": "我国",
+      "noCountry": "阅读一些经验教训,贵国和各地区的董事会在此出现。"
+    }
   },
   "auth": {
     "signInTitle": "欢迎回来",
@@ -359,7 +380,11 @@
       "translationText": "粘贴错误的文本和您的更正 。",
       "snippetTitle": "给片段一个标题。",
       "snippetSaql": "粘贴 SAQL。 。 。 。",
-      "snippetWhat": "说它做什么(20+字符)."
+      "snippetWhat": "说它做什么(20+字符).",
+      "nomName": "添加个人的全名。",
+      "nomLink": "添加 LinkedIn profile 或网站, 这样我们就可以信任它们 。",
+      "nomUrls": "链接必须从http://或https://开始.",
+      "nomWhy": "在一两句里告诉我们他们为社区做了什么(至少30个人物)."
     },
     "options": {
       "domains": {
@@ -492,6 +517,21 @@
       "kpis": "KPIs 软件",
       "screenshots": "截图",
       "links": "链接"
+    },
+    "kindNominate": "点名",
+    "blurbNominate": "博客、创作者、作者、演讲者或工具制作者, CRM Analytics 社区——为名人墙.",
+    "stepPerson": "个人",
+    "stepWhy": "为什么",
+    "nom": {
+      "name": "他们的名字",
+      "role": "他们做什么",
+      "linkHelp": "他们的LinkedIn profile, 所以极性连接到他们。",
+      "url": "网站、博客或频道",
+      "photo": "图片链接",
+      "photoHelp": "只有一张他们自己出版的照片(例如他们的剖面图片链接). 如果没有一个,则显示一个绘制的形状。",
+      "why": "为什么他们属于墙上?",
+      "whyHelp": "他们写了什么 造什么 教什么 帮助你或其他人?",
+      "self": "我提名我自己"
     }
   },
   "quiz": {
@@ -1142,5 +1182,41 @@
     "subscribe": "订阅",
     "later": "现在不行",
     "close": "关闭"
+  },
+  "wall": {
+    "eyebrow": "社区",
+    "title": "名人墙",
+    "subtitle": "创造 CRM Analytics 博客、YouTubers、作者、演讲者和工具制作者,",
+    "all": "每个人",
+    "types": {
+      "blogger": "博客",
+      "youtuber": "视频",
+      "author": "作者",
+      "speaker": "发言者",
+      "builder": "工具构建器"
+    },
+    "visit": "访问",
+    "nominateTitle": "知道这里的人是谁吗?",
+    "nominateDesc": "提名一名博客、创作者或导师, CRM Analytics 社区。 核准的提名出现在董事会。",
+    "nominate": "点名",
+    "emptyPhoto": "你的照片在这里",
+    "emptyCaption": "获得提名",
+    "emptyHint": "点名",
+    "filter": "按类型过滤",
+    "board": "董事会",
+    "whoTitle": "他们是谁"
+  },
+  "share": {
+    "label": "份额",
+    "on": "份额 {network}",
+    "more": "更多的分享方式",
+    "copy": "复制链接",
+    "copied": "链接复制",
+    "lessonText": "学习“{title}打开 CRM Analytics 学院——免费开放源码. Salesforce CRM Analytics 当然",
+    "lessonPrompt": "发现这个有用吗? 与你的团队分享。",
+    "wallText": "教书的人 CRM Analytics 社区——名人墙 CRM Analytics 学院.",
+    "progress": "分享我的进展",
+    "progressTitle": "и CRM Analytics 学院进步",
+    "progressText": "我讲完了 {done} 经验教训 CRM Analytics 学院,有一个 {streak}- 一天的时间和 {badges} 警徽 警徽 警徽 学习 Salesforce CRM Analytics免费的。"
   }
 }
