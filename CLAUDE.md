@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Built on **Nuxt 4 + Nuxt Content 3 + Nuxt UI v4 + Tailwind CSS 4**, styled in the Blueprint design system. It is a **markdown-driven site**: every docs page is prerendered at build time from `content/`. On top sits a small dynamic layer — **Neon Postgres + Neon Auth (better-auth)** — for accounts, the learner dashboard (progress, streaks, bookmarks, quizzes, badges, leaderboard), comments, community submissions, first-party analytics and the admin console. Server code is in `server/api/**` and `server/utils/**`; the whole schema is `server/db/schema.sql`.
 
-**Everything is free, funded by Google AdSense.** Since 2026-10-22 there is no Pro tier, no payments (Dodo), no teams, no sponsors, no leads/n8n, no Payload CMS, no Mux. Since 2026-10-23 the course is **published section by section**: only `00.introduction` has lessons; sections 01–18 are one `comingSoon: true` page each (`NN.section/01.index.md`) listing the planned lessons. The showcase, wall of fame, instructors, roadmap and changelog pages were removed. Do not reintroduce any of it; old URLs 301 via `RETIRED` in `nuxt.config.ts`. YouTube channel: `SITE.youtube` = https://www.youtube.com/@crmanalyticsacademy.
+**Everything is free, funded by Google AdSense.** Since 2026-10-22 there is no Pro tier, no payments (Dodo), no teams, no sponsors, no leads/n8n, no Payload CMS, no Mux. Since 2026-10-23 the course is **published section by section**: only `00.introduction` has lessons; sections 01–18 are one `comingSoon: true` page each (`NN.section/01.index.md`) listing the planned lessons. The showcase, instructors, roadmap and changelog pages were removed (the Wall of Fame came back on 2026-10-26). Do not reintroduce any of it; old URLs 301 via `RETIRED` in `nuxt.config.ts`. YouTube channel: `SITE.youtube` = https://www.youtube.com/@crmanalyticsacademy.
 
 ## Commands
 
@@ -72,11 +72,18 @@ English is the source of truth; the other 11 locales are generated **on this mac
 - **Admin**: `/admin` (Overview · Analytics · Users · Submissions · Comments) for **one account only**: `ADMIN_EMAIL = 'imswarnil@gmail.com'` in `server/utils/admin.ts` (`requireAdmin` → 404 for anyone else). No roles table.
 - Comments: one level of replies, keyed by locale-stripped path. Submissions: images to R2 (`MEDIA` binding), reviewed in `/admin`.
 
+### Community, reach and sharing (2026-10-26)
+- **Language by country**: `shared/utils/regions.ts` holds `COUNTRY_LOCALE` (country → site language; IN/PK/PH/US/UK deliberately unmapped = English) and `COUNTRY_REGION` / `REGIONS`. `locale-auto.client.ts` lets the country decide first, then the browser language; a switcher choice always wins.
+- **Regional leaderboard**: `GET /api/leaderboard?scope=global|region|country` — a learner's country is where they most often read from (`app.page_view`). Dashboard tabs.
+- **Project, live**: `GET /api/stats` (public aggregates, cached 10 min) → `HomeReachSection` (learners, completions, readers, countries, readers ranked by region).
+- **Wall of Fame**: curated `app/data/wall-of-fame.ts` + approved `nomination` submissions (`GET /api/wall`), merged client-side by `useWall()`; on the home page (`HomeWallSection`) and `/wall-of-fame`. Nominations come through `/submit?type=nominate` (`NOMINATE_PATH`) and are approved in /admin → Submissions.
+- **Sharing**: `ShareBar` (LinkedIn, X, WhatsApp, native, copy) on lessons and the wall; "Share my progress" on the dashboard. Shared links carry `utm_source=share&utm_medium=<network>`; clicks are `share` events.
+
 ### Theming & branding — "Blueprint"
 Engineering-drawing language: paper/ink, graph paper, crosshair crop marks, rulers, hard offset shadows, square corners, mono eyebrows ("FIG. 01 —", "SHEET 02 /"). Keep new UI in that language.
 - `app/assets/css/main.css` — tokens (`--paper`, `--card`, `--ink`, `--ink2`, `--line`, `--navy`, `--signal`, `--tide`, `--frost`, `--ice`, `--glow`; dark in `.dark`) and utilities (`graph-paper*`, `hatch`, `ruler`, `eyebrow`, `mono-label`, `crosshair`, `bp-h1/h2/h3`, `bp-lead`, `bp-prose`, `bp-card`). Colour by token, never by hex. `tokens/tokens.json` mirrors these for non-web tools — change both.
 - `app/app.config.ts` — Nuxt UI overrides. `app/components/bp/*` — drawing primitives.
-- The header is compact at every desktop width (icon-only search and GitHub): the container stops growing at `--ui-container`, so width-gated extras overflow and push "Sign in" onto two lines.
+- The header is compact (icon-only search, YouTube, GitHub) and uses the same `--ui-container` width on every page, including the lesson player.
 - ⚠️ Tailwind's scanner skips `[...slug].vue`; `main.css` names those files in `@source` lines — keep them.
 
 ### Advertising (Google AdSense)
@@ -88,6 +95,7 @@ Engineering-drawing language: paper/ink, graph paper, crosshair crop marks, rule
 
 ### Video (Final Cut Pro)
 `content-creation/` (was `fcp/`) holds the Pixelmator thumbnail templates (`content-creation/thumbnails`, `pnpm thumb`), the CRMA template kit (`content-creation/kit`, install with `Install.command`), the scripts that build it (`content-creation/source`), and `content-creation/lesson.mjs` (`pnpm fcp <route>` → FCPXML 1.11 + a recording script from the lesson's walkthrough/quiz). Export → YouTube → `video: { id }` on the English lesson. Generated projects and media are gitignored. Read `content-creation/README.md`.
+Recorded lessons (face + screen) use `pnpm obs:install` (OBS profile + scene collection "CRMA Recording", records into `content-creation/sessions/inbox/`), then `pnpm session new|import|build <slug>` (`content-creation/session.mjs`): takes sorted into camera/screen by face detection, an editable `session.yml` timeline, and an FCPXML with jump cuts, step bars, chapters and music ducked under speech. `lesson.mjs` and `session.mjs` share `fcp-shared.mjs`. `content-creation/sessions/` and `content-creation/music/` are gitignored.
 
 ## Environment variables
 
