@@ -32,8 +32,12 @@ defineOgImage('Docs', { title: title.value, description: description.value })
 // lesson count is wrong within a week of anybody adding a lesson.
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 
+// Published lessons only: a section's "coming soon" page is not a lesson.
 const lessonCount = computed(() =>
-  (navigation.value ?? []).reduce((n, m) => n + ((m.children?.length ?? 0) || 1), 0)
+  (navigation.value ?? []).reduce((n, m) => n + ((m.children ?? []) as { comingSoon?: boolean }[]).filter(l => !l.comingSoon).length, 0)
+)
+const liveSections = computed(() =>
+  (navigation.value ?? []).filter(m => ((m.children ?? []) as { comingSoon?: boolean }[]).some(l => !l.comingSoon)).length
 )
 
 /**
@@ -272,7 +276,7 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
             {{ t('home.plot.eyebrow') }}
           </p>
           <h2 class="bp-h2 mt-4">
-            {{ t('home.plot.title', { sections: modules.length, lessons: lessonCount }) }}
+            {{ t('home.plot.title', { sections: modules.length, live: liveSections, lessons: lessonCount }) }}
           </h2>
         </div>
         <UButton

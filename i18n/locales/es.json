@@ -74,7 +74,7 @@
     },
     "plot": {
       "eyebrow": "Fig. 02 — Curriculum, plotted",
-      "title": "{sections} secciones, {lessons} lecciones",
+      "title": "{lessons} lecciones publicadas en {live} de {sections} secciones",
       "full": "Plan de estudios completo",
       "section": "Sección",
       "minutes": "{n} min",
@@ -104,7 +104,7 @@
     },
     "join": {
       "eyebrow": "Cuenta gratuita",
-      "title": "Seguimiento de su progreso a través de las 161 lecciones",
+      "title": "Seguimiento de su progreso como cada sección va en vivo",
       "lead": "Cada lección es libre. Con una cuenta que guardas tu lugar, construyes una racha diaria, ahorras lecciones para más tarde, marca tus cuestionarios y gana las insignias en tu panel de control.",
       "browse": "Examine el plan de estudios"
     },

@@ -53,7 +53,12 @@ const show = computed(() => !closed.value && promoAllowed(route.path))
             />
           </button>
         </div>
-        <div class="p-1">
+        <!-- An explicit width, so PromoSlot measures the space the unit is
+             meant to fill rather than the shrink-wrapped box around it. -->
+        <div
+          class="max-w-[calc(100vw-1.25rem)] p-1"
+          :style="{ width: wide ? '736px' : '308px' }"
+        >
           <PromoSlot
             :key="route.path"
             :unit="wide ? 'leaderboard728x90' : 'mobileLeaderboard'"

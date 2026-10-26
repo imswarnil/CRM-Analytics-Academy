@@ -74,7 +74,7 @@
     },
     "plot": {
       "eyebrow": "Abb. 02 — Curriculum, aufgetragen",
-      "title": "{sections} Abschnitte, {lessons} Unterricht",
+      "title": "{lessons} Lektionen veröffentlicht in {live} von {sections} Abschnitten",
       "full": "Vollständiger Lehrplan",
       "section": "Abschnitt",
       "minutes": "{n} min.",
@@ -104,7 +104,7 @@
     },
     "join": {
       "eyebrow": "Freies Konto",
-      "title": "Verfolgen Sie Ihren Fortschritt durch alle 161 Lektionen",
+      "title": "Verfolgen Sie Ihren Fortschritt, da jeder Abschnitt live geht",
       "lead": "Jede Lektion ist kostenlos. Mit einem Konto behalten Sie Ihren Platz, bauen eine tägliche Streifen, speichern Sie Lektionen für später, punkten Sie Ihre Quiz und verdienen Sie Abzeichen auf Ihrem Dashboard.",
       "browse": "Durchsuchen des Curriculums"
     },

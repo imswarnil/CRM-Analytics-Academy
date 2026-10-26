@@ -74,7 +74,7 @@
     },
     "plot": {
       "eyebrow": "Fig. 02 — Currículo, traçado",
-      "title": "{sections} Seções, {lessons} Aulas.",
+      "title": "{lessons} lições publicadas em {live} de {sections} secções",
       "full": "Currículo completo.",
       "section": "Seção",
       "minutes": "{n} min",
@@ -104,7 +104,7 @@
     },
     "join": {
       "eyebrow": "Conta gratuita",
-      "title": "Acompanhe o seu progresso através de todas as 161 lições",
+      "title": "Acompanhe o seu progresso enquanto cada seção vai ao vivo",
       "lead": "Todas as lições são grátis. Com uma conta, você mantém seu lugar, constrói uma sequência diária, guarda aulas para mais tarde, pontua seus questionários e ganha crachás no painel.",
       "browse": "Navegue no currículo"
     },

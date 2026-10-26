@@ -74,7 +74,7 @@
     },
     "plot": {
       "eyebrow": "Fig. 02 — Curriculum, tracé",
-      "title": "{sections} sections, {lessons} Enseignements",
+      "title": "{lessons} cours publiés en {live} des {sections} sections",
       "full": "Programme complet",
       "section": "Chapitre",
       "minutes": "{n} min",
@@ -104,7 +104,7 @@
     },
     "join": {
       "eyebrow": "Compte libre",
-      "title": "Suivez vos progrès à travers les 161 leçons",
+      "title": "Suivre vos progrès comme chaque section va en direct",
       "lead": "Chaque leçon est gratuite. Avec un compte vous gardez votre place, construisez une série quotidienne, enregistrez des leçons pour plus tard, marquez vos quiz et gagnez des badges sur votre tableau de bord.",
       "browse": "Parcourir le programme"
     },
