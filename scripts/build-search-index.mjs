@@ -265,6 +265,8 @@ async function buildLlms() {
     '## More',
     '',
     `- [Curriculum](${SITE}/curriculum): every lesson on one page, with length and kind.`,
+    `- [Certification practice](${SITE}/certification): timed practice papers in the format of the CRM Analytics and Einstein Discovery Consultant exam (60 questions, 105 minutes, 68% to pass), plus a drill per exam domain.`,
+    `- [Interview questions](${SITE}/interview-questions): a growing bank of CRM Analytics interview questions with model answers, by type, topic, level and company.`,
     `- [YouTube channel](https://www.youtube.com/@crmanalyticsacademy): the lesson videos.`,
     `- [Datasets](${SITE}/datasets): practice data for the exercises.`,
     `- [Resources](${SITE}/resources): curated CRM Analytics resources.`,

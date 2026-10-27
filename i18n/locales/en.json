@@ -21,7 +21,9 @@
     "homeAria": "CRM Analytics Academy — home",
     "starOnGithub": "Star CRM Analytics Academy on GitHub",
     "youtube": "CRM Analytics Academy on YouTube",
-    "wallOfFame": "Wall of Fame"
+    "wallOfFame": "Wall of Fame",
+    "certification": "Certification",
+    "interview": "Interview Q&A"
   },
   "home": {
     "modules": {
@@ -1104,6 +1106,11 @@
       "video": "Video walkthrough",
       "article": "Article",
       "quiz": "Ends with a graded quiz"
+    },
+    "side": {
+      "progress": "Your progress",
+      "dashboard": "Open your dashboard",
+      "shareText": "A free, open-source Salesforce CRM Analytics course — the whole curriculum on one page."
     }
   },
   "lesson": {
@@ -1218,5 +1225,151 @@
     "progress": "Share my progress",
     "progressTitle": "My CRM Analytics Academy progress",
     "progressText": "I have completed {done} lessons on CRM Analytics Academy, with a {streak}-day streak and {badges} badges. Learning Salesforce CRM Analytics, free."
+  },
+  "interview": {
+    "eyebrow": "Interview questions",
+    "sheet": "Sheet 10 / Interview Q&A — {n} questions",
+    "title": "CRM Analytics interview questions",
+    "lead": "Real questions with model answers — conceptual, technical, scenario and behavioural — by topic, level and the companies that asked them. Add the ones you were asked.",
+    "seoTitle": "CRM Analytics Interview Questions and Answers",
+    "seoDesc": "{n} Salesforce CRM Analytics interview questions with model answers: SAQL, recipes, datasets, security, dashboards, bindings and Einstein Discovery, by type, level and company.",
+    "submit": "Submit a question",
+    "practiceExam": "Practice exam",
+    "shareText": "Salesforce CRM Analytics interview questions with model answers — free.",
+    "search": "Search questions",
+    "results": "{n} questions",
+    "clear": "Clear filters",
+    "empty": "No questions match these filters yet.",
+    "community": "community",
+    "filters": {
+      "type": "Type",
+      "level": "Level",
+      "topic": "Topic",
+      "company": "Company"
+    },
+    "types": {
+      "conceptual": "Conceptual",
+      "technical": "Technical",
+      "scenario": "Scenario",
+      "behavioral": "Behavioural",
+      "saql": "SAQL"
+    },
+    "levels": {
+      "junior": "Junior",
+      "mid": "Mid-level",
+      "senior": "Senior"
+    },
+    "back": "All interview questions",
+    "askedAt": "Asked at {company}",
+    "upvote": "Useful",
+    "modelAnswer": "Model answer",
+    "shareQuestion": "Interview question: {q}",
+    "betterAnswer": "Were you asked this, or something like it? Add it to the bank.",
+    "related": "Related questions",
+    "ctaTitle": "Interview questions, with answers",
+    "ctaBody": "Conceptual, technical and scenario questions by topic, level and company.",
+    "newTitle": "Submit an interview question",
+    "newLead": "Share a question you were asked — or one you ask candidates — with the answer you would give. It is reviewed before it goes live.",
+    "form": {
+      "question": "The question",
+      "questionPh": "e.g. When would you use a recipe instead of a dataflow?",
+      "answer": "Model answer",
+      "answerHelp": "Format with the toolbar: headings, bold, code, lists and links. Saved as markdown.",
+      "answerPh": "Write the answer you would give in the interview…",
+      "company": "Company that asked it",
+      "companyHelp": "Only if you are comfortable naming it.",
+      "role": "Role interviewed for",
+      "send": "Submit for review",
+      "sentTitle": "Thanks — it is in the review queue",
+      "sentBody": "Once approved it appears in the interview bank with your question and answer.",
+      "another": "Submit another",
+      "errQuestion": "Write the question (at least 10 characters).",
+      "errAnswer": "Write a model answer (at least 30 characters).",
+      "errGeneric": "Could not submit. Try again."
+    }
+  },
+  "cert": {
+    "eyebrow": "Certification practice",
+    "title": "CRM Analytics & Einstein Discovery Consultant practice exams",
+    "lead": "Five full practice papers in the real exam format — 60 questions, 105 minutes, 68% to pass — plus a timed drill for every exam domain. Free, with a full answer review.",
+    "seoTitle": "CRM Analytics and Einstein Discovery Consultant Practice Exams (Free)",
+    "seoDesc": "Free timed practice exams for the Salesforce CRM Analytics and Einstein Discovery Consultant certification: {q} questions, {m} minutes, {p}% to pass, scored by exam domain.",
+    "paperDesc": "A timed practice paper: {q} questions in {m} minutes. Pass mark {p}%. Scored by domain, with every answer reviewed.",
+    "startFirst": "Start practice paper 1",
+    "shareText": "Free timed practice exams for the CRM Analytics & Einstein Discovery Consultant certification.",
+    "facts": {
+      "questions": "Questions",
+      "minutes": "Minutes",
+      "pass": "To pass",
+      "bank": "Questions in the bank"
+    },
+    "fullEyebrow": "Full papers",
+    "fullTitle": "Practice papers — the real exam format",
+    "drillEyebrow": "Domain drills",
+    "drillTitle": "15 questions, 25 minutes, one domain",
+    "best": "Best {pct}%",
+    "attempts": "{n} attempts",
+    "notTaken": "Not taken yet",
+    "domains": "Exam domains and weights",
+    "howTitle": "How the practice exams work",
+    "how": {
+      "1": "One question at a time, with a countdown that submits the paper when it reaches zero.",
+      "2": "Flag questions for review and jump around with the navigator, as in the real exam.",
+      "3": "Your answers are kept if you refresh or close the tab, until the clock runs out.",
+      "4": "Results show a pass or fail at 68%, your score in each domain and every answer explained against the right one.",
+      "5": "Signed in, your best score for each paper is saved and shown here."
+    },
+    "disclaimer": "These are original practice questions written for CRM Analytics Academy, not real exam questions. Check the current exam guide on Trailhead for the official format and outline.",
+    "ctaTitle": "Practice for the certification",
+    "ctaBody": "Timed papers in the real exam format, scored by domain.",
+    "rules": {
+      "1": "The timer starts when you press Begin and cannot be paused.",
+      "2": "Every question has one correct answer.",
+      "3": "Flag anything you want to revisit; unanswered questions score zero.",
+      "4": "Submit when you are done, or the paper submits itself when time runs out."
+    },
+    "begin": "Begin",
+    "resume": "Resume where you left off",
+    "allPapers": "All papers",
+    "signInToSave": "Sign in to keep your scores on your dashboard.",
+    "questionOf": "Question {n} of {total}",
+    "answeredN": "{n} answered",
+    "flaggedN": "{n} flagged",
+    "timeLeft": "Time left",
+    "submit": "Submit",
+    "flag": "Flag for review",
+    "unflag": "Remove flag",
+    "prev": "Previous",
+    "next": "Next",
+    "navigator": "Questions",
+    "goTo": "Go to question {n}",
+    "legend": {
+      "answered": "Answered",
+      "open": "Open",
+      "flagged": "Flagged"
+    },
+    "confirmTitle": "Submit the paper?",
+    "confirmBody": "You have {open} unanswered and {flagged} flagged questions. Once submitted, answers cannot be changed.",
+    "keepGoing": "Keep going",
+    "submitNow": "Submit now",
+    "timeUsed": "time used {t}",
+    "passed": "Pass",
+    "failed": "Below the {p}% pass mark",
+    "scoreLine": "{score} of {total} correct",
+    "saved": "saved to your dashboard",
+    "retake": "Retake this paper",
+    "shareResult": "I scored {pct}% on {paper} — free CRM Analytics & Einstein Discovery Consultant practice exams.",
+    "byDomain": "Score by domain",
+    "review": "Review your answers",
+    "filter": {
+      "all": "All",
+      "wrong": "Wrong",
+      "flagged": "Flagged"
+    },
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "unanswered": "Unanswered",
+    "study": "Study {topic}",
+    "loading": "Loading the paper…"
   }
 }

@@ -161,94 +161,176 @@ function icon(l: Row) {
       </div>
     </BpPageHeader>
 
-    <div class="mx-auto max-w-[66rem] space-y-8 px-4 py-14 sm:px-6">
-      <template
-        v-for="s in sections"
-        :key="s.path"
-      >
-        <p
-          v-if="phaseAt(s.index)"
-          class="eyebrow pt-4"
+    <div class="mx-auto grid max-w-(--ui-container) gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-8">
+      <div class="min-w-0 space-y-8">
+        <template
+          v-for="s in sections"
+          :key="s.path"
         >
-          {{ phaseAt(s.index) }}
-        </p>
-
-        <section
-          :id="`section-${s.index}`"
-          class="scroll-mt-24 border-[1.5px] border-(--ink) bg-(--card)"
-        >
-          <NuxtLink
-            :to="localePath(s.path)"
-            class="group flex items-center gap-4 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-4"
+          <p
+            v-if="phaseAt(s.index)"
+            class="eyebrow pt-4"
           >
-            <span class="text-4xl font-black leading-none tracking-[-0.04em] text-(--signal)">{{ s.n }}</span>
-            <span class="min-w-0 flex-1">
-              <span class="block truncate text-xl font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">{{ s.title }}</span>
-              <span class="mono-label">{{ s.soon ? t('course.comingSoon') : t('curriculumPage.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
-            </span>
-            <ClientOnly>
-              <BpDonut :value="s.lessons.length ? doneIn(s) / s.lessons.length : 0" />
-              <template #fallback>
-                <BpDonut :value="0" />
-              </template>
-            </ClientOnly>
-          </NuxtLink>
+            {{ phaseAt(s.index) }}
+          </p>
 
-          <ol>
-            <li
-              v-for="l in s.lessons"
-              :key="l.path"
-              class="border-b border-dashed border-(--line) last:border-b-0"
+          <section
+            :id="`section-${s.index}`"
+            class="scroll-mt-24 border-[1.5px] border-(--ink) bg-(--card)"
+          >
+            <NuxtLink
+              :to="localePath(s.path)"
+              class="group flex items-center gap-4 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-4"
             >
-              <NuxtLink
-                :to="localePath(l.path)"
-                class="bp-row flex items-center gap-4 px-5 py-3 hover:bg-(--ice)/50"
+              <span class="text-4xl font-black leading-none tracking-[-0.04em] text-(--signal)">{{ s.n }}</span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate text-xl font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">{{ s.title }}</span>
+                <span class="mono-label">{{ s.soon ? t('course.comingSoon') : t('curriculumPage.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
+              </span>
+              <ClientOnly>
+                <BpDonut :value="s.lessons.length ? doneIn(s) / s.lessons.length : 0" />
+                <template #fallback>
+                  <BpDonut :value="0" />
+                </template>
+              </ClientOnly>
+            </NuxtLink>
+
+            <ol>
+              <li
+                v-for="l in s.lessons"
+                :key="l.path"
+                class="border-b border-dashed border-(--line) last:border-b-0"
               >
-                <ClientOnly>
-                  <span
-                    class="flex size-8 flex-none items-center justify-center border-[1.5px] border-(--ink)"
-                    :class="isDone(l.path) ? 'bg-(--signal) text-white' : 'bg-(--card) text-(--signal)'"
-                  >
-                    <UIcon
-                      :name="icon(l)"
-                      class="size-4"
-                    />
-                  </span>
-                  <template #fallback>
-                    <span class="flex size-8 flex-none items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--signal)">
+                <NuxtLink
+                  :to="localePath(l.path)"
+                  class="bp-row flex items-center gap-4 px-5 py-3 hover:bg-(--ice)/50"
+                >
+                  <ClientOnly>
+                    <span
+                      class="flex size-8 flex-none items-center justify-center border-[1.5px] border-(--ink)"
+                      :class="isDone(l.path) ? 'bg-(--signal) text-white' : 'bg-(--card) text-(--signal)'"
+                    >
                       <UIcon
-                        :name="l.type === 'video' ? 'i-lucide-play' : 'i-lucide-file-text'"
+                        :name="icon(l)"
                         class="size-4"
                       />
                     </span>
-                  </template>
-                </ClientOnly>
+                    <template #fallback>
+                      <span class="flex size-8 flex-none items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--signal)">
+                        <UIcon
+                          :name="l.type === 'video' ? 'i-lucide-play' : 'i-lucide-file-text'"
+                          class="size-4"
+                        />
+                      </span>
+                    </template>
+                  </ClientOnly>
 
-                <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ l.title }}</span>
+                  <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ l.title }}</span>
 
-                <span class="hidden w-24 justify-end sm:flex">
+                  <span class="hidden w-24 justify-end sm:flex">
+                    <span
+                      class="h-2.5 border-[1.5px] border-(--ink)"
+                      :class="l.type === 'video' ? 'bg-(--signal)' : 'bg-(--frost)'"
+                      :style="{ width: `${Math.max(8, (l.minutes / maxLesson) * 100)}%` }"
+                    />
+                  </span>
+                  <span class="w-10 text-end font-mono text-xs text-(--ink2)">{{ l.minutes }}m</span>
                   <span
-                    class="h-2.5 border-[1.5px] border-(--ink)"
-                    :class="l.type === 'video' ? 'bg-(--signal)' : 'bg-(--frost)'"
-                    :style="{ width: `${Math.max(8, (l.minutes / maxLesson) * 100)}%` }"
-                  />
-                </span>
-                <span class="w-10 text-end font-mono text-xs text-(--ink2)">{{ l.minutes }}m</span>
-                <span
-                  class="w-14 py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
-                  :class="l.soon ? 'border-[1.5px] border-(--line) text-(--ink2)' : l.quiz ? 'border-[1.5px] border-(--signal) text-(--signal)' : ''"
-                >{{ l.soon ? t('curriculumPage.tags.soon') : l.quiz ? t('curriculumPage.tags.quiz') : '' }}</span>
-              </NuxtLink>
-            </li>
-          </ol>
-        </section>
-      </template>
+                    class="w-14 py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
+                    :class="l.soon ? 'border-[1.5px] border-(--line) text-(--ink2)' : l.quiz ? 'border-[1.5px] border-(--signal) text-(--signal)' : ''"
+                  >{{ l.soon ? t('curriculumPage.tags.soon') : l.quiz ? t('curriculumPage.tags.quiz') : '' }}</span>
+                </NuxtLink>
+              </li>
+            </ol>
+          </section>
+        </template>
 
-      <div class="flex flex-wrap gap-5 pt-2 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
-        <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--signal)" />{{ t('curriculumPage.legend.video') }}</span>
-        <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--frost)" />{{ t('curriculumPage.legend.article') }}</span>
-        <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--signal) px-1 text-(--signal)">{{ t('curriculumPage.tags.quiz') }}</span>{{ t('curriculumPage.legend.quiz') }}</span>
+        <div class="flex flex-wrap gap-5 pt-2 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+          <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--signal)" />{{ t('curriculumPage.legend.video') }}</span>
+          <span class="flex items-center gap-2"><span class="h-2.5 w-6 border-[1.5px] border-(--ink) bg-(--frost)" />{{ t('curriculumPage.legend.article') }}</span>
+          <span class="flex items-center gap-2"><span class="border-[1.5px] border-(--signal) px-1 text-(--signal)">{{ t('curriculumPage.tags.quiz') }}</span>{{ t('curriculumPage.legend.quiz') }}</span>
+        </div>
       </div>
+
+      <!-- Sidebar: progress, practice, community, channel, promos -->
+      <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
+        <div class="border-[1.5px] border-(--ink) bg-(--card) p-5">
+          <p class="eyebrow">
+            {{ t('curriculumPage.side.progress') }}
+          </p>
+          <ClientOnly>
+            <p class="mt-2 text-3xl font-black tabular-nums text-(--signal)">
+              {{ doneTotal }}<span class="text-lg text-(--ink2)"> / {{ total }}</span>
+            </p>
+            <template #fallback>
+              <p class="mt-2 text-3xl font-black text-(--signal)">
+                0<span class="text-lg text-(--ink2)"> / {{ total }}</span>
+              </p>
+            </template>
+          </ClientOnly>
+          <div class="mt-3 h-2.5 border-[1.5px] border-(--ink) bg-(--paper)">
+            <div
+              class="hatch-signal h-full"
+              :style="{ width: `${progressPct}%` }"
+            />
+          </div>
+          <UButton
+            :to="localePath('/dashboard')"
+            size="sm"
+            class="mt-4"
+            trailing-icon="i-lucide-arrow-right"
+          >
+            {{ t('curriculumPage.side.dashboard') }}
+          </UButton>
+        </div>
+
+        <NuxtLink
+          :to="localePath('/certification')"
+          class="graph-paper-navy block border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white shadow-[6px_6px_0_var(--signal)]"
+        >
+          <p class="font-mono text-[10px] uppercase tracking-[.14em] text-(--glow)">{{ t('cert.eyebrow') }}</p>
+          <p class="mt-2 text-lg font-extrabold">{{ t('cert.ctaTitle') }}</p>
+          <p class="mt-1 text-sm text-white/75">{{ t('cert.ctaBody') }}</p>
+        </NuxtLink>
+
+        <NuxtLink
+          :to="localePath('/interview-questions')"
+          class="bp-card bp-card--hover block p-5"
+        >
+          <p class="eyebrow">{{ t('interview.eyebrow') }}</p>
+          <p class="mt-2 text-lg font-extrabold text-(--ink)">{{ t('interview.ctaTitle') }}</p>
+          <p class="mt-1 text-sm text-(--ink2)">{{ t('interview.ctaBody') }}</p>
+        </NuxtLink>
+
+        <a
+          :href="`${SITE.youtube}?sub_confirmation=1`"
+          target="_blank"
+          rel="noopener"
+          class="flex items-center gap-3 border-[1.5px] border-(--ink) bg-(--card) p-4 hover:bg-(--ice)"
+        >
+          <span class="flex size-10 flex-none items-center justify-center bg-[#FF0000]">
+            <UIcon
+              name="i-simple-icons-youtube"
+              class="size-5 text-white"
+            />
+          </span>
+          <span>
+            <span class="block font-bold text-(--ink)">{{ t('channel.title') }}</span>
+            <span class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">@crmanalyticsacademy</span>
+          </span>
+        </a>
+
+        <ShareBar
+          :title="t('curriculumPage.title')"
+          :text="t('curriculumPage.side.shareText')"
+        />
+
+        <PromoSlot unit="square300x250" />
+        <PromoSlot
+          unit="skyscraper300x600"
+          class="hidden lg:block"
+        />
+      </aside>
     </div>
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
       <PromoSlot unit="responsiveLeaderboard" />

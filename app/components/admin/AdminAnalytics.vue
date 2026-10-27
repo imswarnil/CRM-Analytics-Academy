@@ -52,7 +52,10 @@ const EVENT_LABEL: Record<string, string> = {
   youtube_click: 'Subscribe on YouTube (pop-up)',
   popup_close: 'Closed the YouTube pop-up',
   promo_close: 'Closed the floating ad',
-  share: 'Shared a page'
+  share: 'Shared a page',
+  exam_start: 'Started a practice exam',
+  exam_finish: 'Finished a practice exam',
+  interview_submit: 'Submitted an interview question'
 }
 
 const bars = computed(() => (data.value?.series ?? []).map((d, i, all) => ({

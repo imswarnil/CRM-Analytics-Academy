@@ -5,6 +5,8 @@
 /* Tailwind's scanner reads "[...slug].vue" as a glob character class and
    skips it, so utilities used only in the lesson page were never generated. */
 @source "../../pages/*slug*.vue";
+@source "../../pages/interview-questions/*slug*.vue";
+@source "../../pages/certification/*paper*.vue";
 
 /* ===========================================================================
    CRM Analytics Academy — "Blueprint"

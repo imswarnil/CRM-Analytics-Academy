@@ -13,7 +13,9 @@ export default defineEventHandler(async (event) => {
   RATE.set(user.id, seen && seen.resetAt > now ? { ...seen, count: seen.count + 1 } : { count: 1, resetAt: now + 3_600_000 })
 
   const body = await readBody<Record<string, unknown>>(event)
-  const fail = (m: string): never => { throw createError({ statusCode: 400, statusMessage: m }) }
+  const fail = (m: string): never => {
+    throw createError({ statusCode: 400, statusMessage: m })
+  }
   const question = String(body?.question ?? '').trim()
   const answer = String(body?.answer ?? '').trim()
   if (question.length < 10 || question.length > 300) fail('The question must be 10–300 characters.')
@@ -28,7 +30,8 @@ export default defineEventHandler(async (event) => {
 
   const sql = useDb()
   const base = slugifyQuestion(question)
-  const [{ n }] = await sql`select count(*)::int as n from app.interview_question where slug like ${`${base}%`}` as { n: number }[]
+  const [taken] = await sql`select count(*)::int as n from app.interview_question where slug like ${`${base}%`}`
+  const n = Number(taken?.n ?? 0)
   const slug = n ? `${base}-${n + 1}` : base
   const [row] = await sql`
     insert into app.interview_question (slug, question, answer_md, type, topic, level, company, role, source, status, user_id)

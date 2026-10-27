@@ -17,12 +17,13 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Tab = 'overview' | 'analytics' | 'users' | 'submissions' | 'comments'
+type Tab = 'overview' | 'analytics' | 'users' | 'submissions' | 'interview' | 'comments'
 const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
   { key: 'analytics', label: 'Analytics', icon: 'i-lucide-chart-line' },
   { key: 'users', label: 'Users', icon: 'i-lucide-users' },
   { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
+  { key: 'interview', label: 'Interview Q&A', icon: 'i-lucide-messages-square' },
   { key: 'comments', label: 'Comments', icon: 'i-lucide-message-square' }
 ]
 const route = useRoute()
@@ -134,10 +135,28 @@ async function review(item: Submission, action: 'approve' | 'reject' | 'delete')
   }
 }
 
+/* --- Interview questions ---------------------------------------------------- */
+interface InterviewItem { id: number, slug: string, question: string, answer: string, type: string, topic: string, level: string, company: string | null, role: string | null, status: string, createdAt: string, email: string | null }
+const iqStatus = ref<'pending' | 'approved' | 'rejected'>('pending')
+const { data: iq, refresh: refreshIq } = await useLazyAsyncData('admin-interview', () =>
+  $fetch<InterviewItem[]>('/api/admin/interview', { query: { status: iqStatus.value } }), { server: false, immediate: false, default: () => [], watch: [iqStatus] })
+async function reviewIq(item: InterviewItem, action: 'approve' | 'reject' | 'delete') {
+  busy.value = true
+  try {
+    await $fetch('/api/admin/interview', { method: 'PATCH', body: { id: item.id, action } })
+    await refreshIq()
+  } catch (e) {
+    error.value = apiError(e) || 'Could not update the question.'
+  } finally {
+    busy.value = false
+  }
+}
+
 watch(isAdmin, (ok) => {
   if (!ok) return
   refreshUsers()
   refreshQueue()
+  refreshIq()
 }, { immediate: true })
 
 const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day: 'numeric', month: 'short', year: '2-digit' }) : '—'
@@ -518,6 +537,83 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                   class="ms-auto"
                   :disabled="busy"
                   @click="review(item, 'delete')"
+                />
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ========================= INTERVIEW Q&A ========================== -->
+        <section v-else-if="tab === 'interview'">
+          <div class="mb-4 flex gap-2">
+            <UButton
+              v-for="st in (['pending', 'approved', 'rejected'] as const)"
+              :key="st"
+              :label="st"
+              :color="iqStatus === st ? 'primary' : 'neutral'"
+              :variant="iqStatus === st ? 'solid' : 'outline'"
+              size="xs"
+              @click="iqStatus = st"
+            />
+            <span class="ms-auto font-mono text-xs text-(--ink2)">Community submissions only; the Academy's own are seeded from server/db/seed.</span>
+          </div>
+          <p
+            v-if="!iq.length"
+            class="py-12 text-center text-sm text-(--ink2)"
+          >
+            Nothing {{ iqStatus }}.
+          </p>
+          <ul class="space-y-4">
+            <li
+              v-for="item in iq"
+              :key="item.id"
+              class="bp-card p-5"
+            >
+              <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
+                {{ item.type }} · {{ item.level }} · {{ item.topic }}<span v-if="item.company"> · {{ item.company }}</span><span v-if="item.role"> · {{ item.role }}</span> · {{ item.email || 'unknown' }} · {{ date(item.createdAt) }}
+              </p>
+              <p class="mt-2 text-lg font-bold text-(--ink)">
+                {{ item.question }}
+              </p>
+              <div class="bp-prose mt-3 max-h-80 overflow-y-auto border border-dashed border-(--line) p-3 text-sm">
+                <MDC :value="item.answer" />
+              </div>
+              <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-(--line) pt-4">
+                <UButton
+                  label="Approve"
+                  icon="i-lucide-check"
+                  size="sm"
+                  :disabled="busy || item.status === 'approved'"
+                  @click="reviewIq(item, 'approve')"
+                />
+                <UButton
+                  label="Reject"
+                  icon="i-lucide-x"
+                  color="neutral"
+                  variant="outline"
+                  size="sm"
+                  :disabled="busy || item.status === 'rejected'"
+                  @click="reviewIq(item, 'reject')"
+                />
+                <UButton
+                  v-if="item.status === 'approved'"
+                  :to="`/interview-questions/${item.slug}`"
+                  target="_blank"
+                  label="View"
+                  icon="i-lucide-external-link"
+                  color="neutral"
+                  variant="ghost"
+                  size="sm"
+                />
+                <UButton
+                  label="Delete"
+                  icon="i-lucide-trash-2"
+                  color="error"
+                  variant="ghost"
+                  size="sm"
+                  class="ms-auto"
+                  :disabled="busy"
+                  @click="reviewIq(item, 'delete')"
                 />
               </div>
             </li>
