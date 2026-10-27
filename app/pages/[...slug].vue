@@ -7,6 +7,13 @@ definePageMeta({
 })
 
 const route = useRoute()
+// Every real lesson is prerendered. When this page renders on the Worker it is
+// for a URL that has no file — a typo or a bot probing /wp-login.php — and the
+// Worker has no content database, so answer 404 before any query (each failed
+// query logged hundreds of lines to Workers Logs).
+if (import.meta.server && !import.meta.prerender && !import.meta.dev) {
+  throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
+}
 const { toc } = useAppConfig()
 const localePath = useLocalePath()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')

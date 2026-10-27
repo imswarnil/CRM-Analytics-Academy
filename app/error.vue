@@ -16,8 +16,10 @@ useSeoMeta({
   description: 'We are sorry but this page could not be found.'
 })
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
+// Never query content on the Worker (no content database there; see app.vue).
+const onWorker = import.meta.server && !import.meta.prerender && !import.meta.dev
+const { data: navigation } = await useAsyncData('navigation', () => onWorker ? Promise.resolve([]) : queryCollectionNavigation('docs'))
+const { data: files } = useLazyAsyncData('search', () => onWorker ? Promise.resolve([]) : queryCollectionSearchSections('docs'), {
   server: false
 })
 

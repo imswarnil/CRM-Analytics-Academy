@@ -52,8 +52,11 @@
     { "pattern": "crmanalytics.imswarnil.com", "custom_domain": true }
   ],
 
+  // Workers Logs: keep 10% of invocations. The free daily allowance is small,
+  // and errors still show up at that rate.
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "head_sampling_rate": 0.1
   },
 
   // Media bucket (dashboard screenshots from the submit form, lesson images).

@@ -16,6 +16,11 @@ const { locale, locales: allLocales } = useI18n()
 const { data: navTree, refresh: refreshNav } = await useAsyncData(
   () => `navigation-${locale.value}`,
   async () => {
+    // The Worker has no content database: querying it there fails and logs
+    // one error per content row (it once used most of the daily Workers Logs
+    // allowance). Prerendered pages resolve this at build time; pages the
+    // Worker renders borrow the tree in the browser (onMounted below).
+    if (import.meta.server && !import.meta.prerender && !import.meta.dev) return []
     const own = await queryCollectionNavigation('docs', ['comingSoon']).where('path', 'LIKE', `/${locale.value}/%`)
     if (own?.length || locale.value === DEFAULT_LOCALE) return own
     return queryCollectionNavigation('docs', ['comingSoon']).where('path', 'LIKE', `/${DEFAULT_LOCALE}/%`)
