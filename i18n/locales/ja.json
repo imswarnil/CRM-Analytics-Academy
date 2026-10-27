@@ -21,9 +21,9 @@
     "homeAria": "CRM Analytics アカデミー — ホーム",
     "starOnGithub": "ログイン CRM Analytics アカデミー GitHub",
     "youtube": "CRM Analytics YouTubeのアカデミー",
-    "wallOfFame": "ファメの壁",
-    "certification": "認証",
-    "interview": "インタビューQ&ツイート"
+    "wallOfFame": "殿堂",
+    "certification": "試験",
+    "interview": "インタビュー"
   },
   "home": {
     "modules": {
@@ -1192,7 +1192,7 @@
   },
   "wall": {
     "eyebrow": "コミュニティ",
-    "title": "ファメの壁",
+    "title": "殿堂",
     "subtitle": "つくる人々 CRM Analytics コミュニティは、それが何であるか - ブロガー、YouTubers、作者、スピーカー、および私たちの残りの部分を教えたツールビルダー。",
     "all": "スタッフ",
     "types": {

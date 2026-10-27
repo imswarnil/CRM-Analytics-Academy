@@ -16,7 +16,6 @@ const menuItems = computed(() => [
   { label: t('nav.certification'), icon: 'i-lucide-timer', to: localePath('/certification') },
   { label: t('nav.interview'), icon: 'i-lucide-messages-square', to: localePath('/interview-questions') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') }
 ])
 
@@ -27,6 +26,7 @@ function isActive(item: { to: string, exact?: boolean }) {
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
+  { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
   { label: t('nav.youtube'), icon: 'i-simple-icons-youtube', to: SITE.youtube, target: '_blank' },
@@ -106,7 +106,9 @@ const localeItems = computed(() =>
             :name="item.icon"
             class="size-4 shrink-0"
           />
-          <span class="max-[1400px]:sr-only">{{ item.label }}</span>
+          <!-- Text labels fit the fixed-width bar only in English; longer
+               translations show the icon, with the name as its tooltip. -->
+          <span :class="locale === 'en' ? 'max-[1400px]:sr-only' : 'sr-only'">{{ item.label }}</span>
           <span
             v-if="isActive(item)"
             class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"

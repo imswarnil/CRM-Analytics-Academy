@@ -19,8 +19,8 @@ const props = defineProps<{
 }>()
 
 const C = { paper: '#F4F7FB', ice: '#DDEBFA', ink: '#0C1B33', ink2: '#4A5B78', signal: '#2F5BEA', line: '#C3D2E6', frost: '#A8CCF2', tide: '#3D8BD9' }
-const title = computed(() => (props.title ?? '').replace(/\s+—\s+coming soon$/i, ''))
-const size = computed(() => title.value.length > 60 ? 52 : title.value.length > 36 ? 62 : 72)
+const heading = computed(() => (props.title ?? '').replace(/\s+—\s+coming soon$/i, ''))
+const size = computed(() => heading.value.length > 60 ? 50 : heading.value.length > 36 ? 60 : 70)
 </script>
 
 <template>
@@ -59,7 +59,10 @@ const size = computed(() => title.value.length > 60 ? 52 : title.value.length > 
           height="252"
           :fill="C.signal"
         /></svg>
-        <span :style="{ fontSize: '30px', fontWeight: 800, color: C.ink, letterSpacing: '-0.02em' }">CRM Analytics <span :style="{ color: C.signal }">Academy</span></span>
+        <div :style="{ display: 'flex', gap: '10px', fontSize: '30px', fontWeight: 800, letterSpacing: '-0.02em' }">
+          <span :style="{ color: C.ink }">CRM Analytics</span>
+          <span :style="{ color: C.signal }">Academy</span>
+        </div>
       </div>
 
       <!-- Body -->
@@ -68,7 +71,7 @@ const size = computed(() => title.value.length > 60 ? 52 : title.value.length > 
           v-if="headline"
           :style="{ fontSize: '22px', fontWeight: 600, color: C.signal, letterSpacing: '0.14em', textTransform: 'uppercase' }"
         >FIG. — {{ headline }}</span>
-        <span :style="{ fontSize: `${size}px`, fontWeight: 900, color: C.ink, lineHeight: 1.02, letterSpacing: '-0.04em' }">{{ title }}</span>
+        <span :style="{ fontSize: `${size}px`, fontWeight: 800, color: C.ink, lineHeight: 1.05, letterSpacing: '-0.03em' }">{{ heading }}</span>
         <span
           v-if="description"
           :style="{ fontSize: '27px', lineHeight: 1.35, color: C.ink2, lineClamp: 2, textOverflow: 'ellipsis', overflow: 'hidden' }"
