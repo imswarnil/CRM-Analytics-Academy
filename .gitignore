@@ -92,3 +92,8 @@ content-creation/source/**/__pycache__/
 
 # YouTube thumbnails: generated output (pnpm thumb) stays local.
 content-creation/thumbnails/out/
+# Recording sessions (pnpm session): the takes, music and generated projects stay on this machine.
+content-creation/sessions/
+content-creation/music/
+content-creation/tools/.bin/
+content-creation/obs/live/

@@ -7,6 +7,14 @@ from a lesson's markdown, and the edited Lesson 01 as a reference.
 ```
 content-creation/
 ├── lesson.mjs            pnpm fcp <route>: lesson markdown → FCPXML project + shot list
+├── session.mjs           pnpm session …: your recordings → an edited FCPXML project (see "Recording sessions")
+├── fcp-shared.mjs        what both share: the CRMA template catalogue, FCPXML time, the <title> writer
+├── obs/install.mjs       pnpm obs:install: the "CRMA Recording" OBS profile and scene collection
+├── obs/lesson.mjs        the words the OBS texts start with (from a session.yml)
+├── obs/fonts.py          static CRMA Grotesk cuts of Schibsted Grotesk, so OBS can draw Black/ExtraBold
+├── tools/faces.swift     face detection (macOS Vision) that tells camera takes from screen takes
+├── sessions/             GITIGNORED: inbox/ (where OBS records) and one folder per recording session
+├── music/                GITIGNORED: music beds for sessions (public/music/ is read too)
 ├── kit/                  the installable CRMA Kit (165 Motion templates, music, Install.command, Guide.html)
 ├── source/               the Python generators that built kit/ (see source/README.md)
 └── projects/
@@ -48,6 +56,63 @@ content-creation/
      id: dQw4w9WgXcQ
    ```
    Commit and push. The other 11 locales inherit it.
+
+## Recording sessions (face + screen → edited project)
+
+For lessons recorded rather than scripted: you talk to camera, share your screen, add illustrations,
+and the edit is assembled for you. Every step leaves something you can change by hand.
+
+1. **OBS, once.** Quit OBS, run `pnpm obs:install` (or `pnpm obs:install <session>` to start the texts
+   with that session's title), open OBS and pick **Profile → CRMA Recording** and **Scene Collection →
+   CRMA Recording**. Everything in it is native OBS and editable in OBS:
+   - **Scenes:** CRMA · Title (⌃⌥⌘0), CRMA · Camera (⌃⌥⌘1), CRMA · Screen (⌃⌥⌘2), CRMA · Screen + Camera (⌃⌥⌘3).
+   - **Components**, listed after them, each a scene the four nest: CRMA ◆ Paper, Logo, Brand, Name Card,
+     Live Tab, Window Bar, Lesson Column and Marks. Change one and every scene that uses it changes.
+   - **Shapes** are Color sources, **words** are Text sources in CRMA Grotesk (static cuts of Schibsted
+     Grotesk the installer adds to your fonts) and IBM Plex Mono. The lesson's words — *Lesson Title*,
+     *Lesson Eyebrow*, *Name*, *Role*, *Address* — are one source each, shared by every scene: double-click
+     one, type, and every scene shows it. Only the graph paper is an image.
+   - **Transitions:** CRMA Paper (through the paper colour), CRMA Fade (default), CRMA Slide, CRMA Swipe,
+     CRMA Wipe in the Scene Transitions dock; CRMA · Title leaves through CRMA Paper (its Transition Override).
+   ⌃⌥⌘R starts and stops recording: 1080p30 `.mov` into `content-creation/sessions/inbox/`, with noise
+   suppression, a compressor and a limiter on the mic. Running the installer again rebuilds the collection
+   (your edits in OBS are replaced; the old file is kept as a `.bak-…` next to it).
+2. **A session per lesson.** `pnpm session new window-functions --title "Window functions in SAQL"`
+   makes `sessions/window-functions/` with `camera/ screen/ images/ voiceover/` and a `session.yml`.
+   Retitle the lesson in OBS by editing the *Lesson Title* and *Lesson Eyebrow* texts.
+3. **Record.** One take per thought: switch scene, ⌃⌥⌘R, talk or demo, ⌃⌥⌘R. Order is kept by the
+   timestamp OBS puts in each file name.
+4. **Import.** `pnpm session import window-functions` moves the new takes out of the inbox. Video goes to
+   `camera/` when a large face is in at least two of five sampled frames, otherwise to `screen/`, so
+   *Screen + Camera* takes count as screen. Images go to `images/`, audio to `voiceover/`. If a guess is
+   wrong, move the file yourself. You can also drop files straight into the folders.
+5. **Build.** `pnpm session build window-functions --open`. The first build writes the timeline into
+   `session.yml` in recording order, images last. Retitle entries there (titles become chapters, step bars
+   and topic tags), reorder or delete them, add `voiceover:`, `in:`/`out:` or `jump_cuts: false`, and build
+   again. `--open` imports the result into Final Cut Pro.
+
+What the build does:
+
+| Part | How |
+| --- | --- |
+| Intro | Intros / Lesson Intro (or Navy) with `title`, `eyebrow`, `level` and the length it measures, plus the 8 s intro music |
+| Camera takes | Trimmed to the speech; pauses longer than `max_pause` (0.8 s) are cut out as jump cuts |
+| Screen takes | Trimmed by `trim` (0.6 s) at both ends, or to the speech, and keep their pauses |
+| Lower thirds | Off by default, because the CRMA OBS scenes already put your name card and the lesson title in every take. `name_card: true` adds the Instructor Card and Topic Tags, and `step_bars: true` adds a STEP n OF N bar on each screen take, for takes recorded without the CRMA scenes. `screen_style: window` adds the Blueprint Window effect to bare screen takes |
+| Voice-over | A file in `voiceover/` with the clip's name (or `voiceover:` on the entry) is laid under the clip, and the clip's own sound is muted. A screen take with no speech and no voice-over gets a to-do marker: record one in Final Cut Pro (Window → Record Voiceover) |
+| Images | On Graph Paper at 82 %, with a Source Credit caption `FIG. nn —` and the title, for `seconds` (6) |
+| Transitions | A CRMA transition wherever the kind of shot changes, if both sides have media to overlap |
+| Music | `music:` from `content-creation/music/` or `public/music/` (`auto` = the first file), looped under the lesson. It fades in after the intro, sits at `music_level` (−14 dB), and is keyframed down to `duck_level` (−28 dB) under every stretch of speech, measured with ffmpeg's silencedetect. It fades out into the outro sting |
+| Outro | `thanks`, `navy`, `next` (with `next:` and `progress:`) or `minimal` |
+| Chapters | Every entry is a chapter marker. `chapters.txt` has them as YouTube timestamps, and `edit.md` lists every shot with what was cut |
+
+Audio analysis is cached in `sessions/<slug>/.cache.json`, so later builds are instant. Needs ffmpeg
+(`brew install ffmpeg`). `import` compiles `tools/faces.swift` once, which needs Xcode or the Command
+Line Tools. The output validates against Final Cut Pro's `FCPXMLv1_11.dtd`.
+
+⚠️ `public/` is the website: anything in `public/music/` is published at
+`crmanalytics.imswarnil.com/music/…` on the next deploy. Keep music beds in `content-creation/music/`,
+which is gitignored and read first.
 
 ## What `pnpm fcp` builds
 

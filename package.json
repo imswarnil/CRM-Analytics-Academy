@@ -20,6 +20,8 @@
     "org:pull": "cd salesforce && sf project retrieve start --metadata WaveDashboard WaveRecipe WaveDataflow WaveLens WaveApplication",
     "org:open": "cd salesforce && sf org open",
     "fcp": "node content-creation/lesson.mjs",
+    "session": "node content-creation/session.mjs",
+    "obs:install": "node content-creation/obs/install.mjs",
     "thumb": "node content-creation/thumbnails/make.mjs"
   },
   "dependencies": {
