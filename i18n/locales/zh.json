@@ -21,7 +21,9 @@
     "homeAria": "CRM Analytics 学院——家",
     "starOnGithub": "星号 CRM Analytics 学院 GitHub",
     "youtube": "CRM Analytics YouTube上的学院",
-    "wallOfFame": "名人墙"
+    "wallOfFame": "名人墙",
+    "certification": "认证",
+    "interview": "访谈 Q&页:1"
   },
   "home": {
     "modules": {
@@ -1104,6 +1106,11 @@
       "video": "视频走过",
       "article": "条款",
       "quiz": "以分级考试结束"
+    },
+    "side": {
+      "progress": "你的进展",
+      "dashboard": "打开仪表板",
+      "shareText": "一个自由、开源 Salesforce CRM Analytics 课程——一页的完整课程."
     }
   },
   "lesson": {
@@ -1218,5 +1225,151 @@
     "progress": "分享我的进展",
     "progressTitle": "и CRM Analytics 学院进步",
     "progressText": "我讲完了 {done} 经验教训 CRM Analytics 学院,有一个 {streak}- 一天的时间和 {badges} 警徽 警徽 警徽 学习 Salesforce CRM Analytics免费的。"
+  },
+  "interview": {
+    "eyebrow": "面谈问题",
+    "sheet": "第10页/访谈Q&一个 - {n} 问 题",
+    "title": "CRM Analytics 面谈问题",
+    "lead": "按主题、级别和提出问题的公司,用模型回答真正的问题——概念、技术、情景和行为。 加上你被问到的那些",
+    "seoTitle": "CRM Analytics 访谈问答",
+    "seoDesc": "{n} Salesforce CRM Analytics 用模型回答的访谈问题: SAQL、食谱、数据集、安全、仪表板、装订和 Einstein Discovery按类型、级别和公司分列。",
+    "submit": "提交问题",
+    "practiceExam": "实践考试",
+    "shareText": "Salesforce CRM Analytics 用模型解答的访谈问题——免费.",
+    "search": "搜索问题",
+    "results": "{n} 问 题",
+    "clear": "清除过滤器",
+    "empty": "还没有问题符合这些过滤器 。",
+    "community": "社区",
+    "filters": {
+      "type": "类型",
+      "level": "职等",
+      "topic": "专题",
+      "company": "企业"
+    },
+    "types": {
+      "conceptual": "概念",
+      "technical": "技术",
+      "scenario": "假设",
+      "behavioral": "行为",
+      "saql": "SAQL"
+    },
+    "levels": {
+      "junior": "少年",
+      "mid": "中级",
+      "senior": "高级"
+    },
+    "back": "所有面试问题",
+    "askedAt": "问过 {company}",
+    "upvote": "有用",
+    "modelAnswer": "模型解答",
+    "shareQuestion": "访谈问题: {q}",
+    "betterAnswer": "你问过这个吗? 加入银行。",
+    "related": "有关问题",
+    "ctaTitle": "访谈问题,附有答案",
+    "ctaBody": "按专题、级别和公司分列的概念、技术和设想问题。",
+    "newTitle": "提交面试问题",
+    "newLead": "与大家分享你被问到的问题,或向候选人提问的问题,并分享你会给出的答案。 在启动前会经过审查",
+    "form": {
+      "question": "问 题",
+      "questionPh": "例如,你何时使用食谱而不是数据流?",
+      "answer": "模型解答",
+      "answerHelp": "工具栏的格式:标题、粗体、代码、列表和链接。 保存为马克下。",
+      "answerPh": "写下你在采访中给出的答案...",
+      "company": "公司问它",
+      "companyHelp": "除非你可以随便点名",
+      "role": "接受采访的角色",
+      "send": "提交供审查",
+      "sentTitle": "谢谢,这是在审查排队",
+      "sentBody": "一旦批准,它出现在采访银行 与你的问答。",
+      "another": "提交另一个",
+      "errQuestion": "写题(至少10个字符).",
+      "errAnswer": "写一个模型答案(至少30个字符).",
+      "errGeneric": "无法提交 。 再试一次"
+    }
+  },
+  "cert": {
+    "eyebrow": "认证做法",
+    "title": "CRM Analytics & Einstein Discovery 顾问执业考试",
+    "lead": "5份实际考试格式的全练习卷——60题,105分钟,68%通过——外加每个考试领域计时演练. 免费,并附有完整的回答审查.",
+    "seoTitle": "CRM Analytics 和 Einstein Discovery 顾问实践考试(免费)",
+    "seoDesc": "免费实习考试 Salesforce CRM Analytics 和 Einstein Discovery 顾问证书: {q} 问题, {m} 分钟 {p}%通过,通过考试域评分.",
+    "paperDesc": "一份定时练习文件: {q} 问题 {m} 几分钟 通行证 {p}%,按领域计分,每个答案都经过审查.",
+    "startFirst": "开始练习文件 1",
+    "shareText": "免费实习考试 CRM Analytics & Einstein Discovery 顾问认证.",
+    "facts": {
+      "questions": "问 题",
+      "minutes": "分钟",
+      "pass": "通过",
+      "bank": "银行中的问题"
+    },
+    "fullEyebrow": "全文",
+    "fullTitle": "实践论文——真实的考试格式.",
+    "drillEyebrow": "域钻",
+    "drillTitle": "15个问题,25分钟,一个领域",
+    "best": "最佳 {pct}百分比(%)",
+    "attempts": "{n} 尝试",
+    "notTaken": "尚未取用",
+    "domains": "考试域和权重",
+    "howTitle": "实践考试如何运作",
+    "how": {
+      "1": "一次一个问题,一个倒计时,当论文达到零时提交.",
+      "2": "国旗问题供审查,与航海家号一起跳转,如真实的考试.",
+      "3": "如果您刷新或关闭标签, 您的答案会被保存, 直到时钟耗尽 。",
+      "4": "结果显示68%的通过率或失败率,你在每个领域的得分和每个答案都与正确的答案相对应。",
+      "5": "签了名,你每张论文的最好成绩在这里保存和显示."
+    },
+    "disclaimer": "这些是写给 CRM Analytics 学院,不是真正的考试问题。 检查当前考试指南 Trailhead 用于正式格式和大纲。",
+    "ctaTitle": "认证做法",
+    "ctaBody": "真实考试格式计时论文,按域评分.",
+    "rules": {
+      "1": "计时器从按下 Begin 开始, 不能暂停 。",
+      "2": "每个问题都有一个正确的答案。",
+      "3": "标出任何您想要重读的标记; 未回答的问题得零分 。",
+      "4": "完成时提交, 或者在时间耗尽时提交文件 。"
+    },
+    "begin": "开始",
+    "resume": "继续你离开的地方",
+    "allPapers": "所有论文",
+    "signInToSave": "签名让你的成绩保持在仪表板上",
+    "questionOf": "问题 {n} 页:1 {total}",
+    "answeredN": "{n} 已回复",
+    "flaggedN": "{n} 标记",
+    "timeLeft": "剩余时间",
+    "submit": "提交",
+    "flag": "审查旗帜",
+    "unflag": "删除旗帜",
+    "prev": "上一个",
+    "next": "ưμ㼯A",
+    "navigator": "问 题",
+    "goTo": "继续提问 {n}",
+    "legend": {
+      "answered": "已答复",
+      "open": "打开",
+      "flagged": "标记"
+    },
+    "confirmTitle": "提交论文?",
+    "confirmBody": "你有过 {open} 未答复和 {flagged} 标记的问题。 答复一经提交,就无法更改。",
+    "keepGoing": "继续",
+    "submitNow": "现在就提交",
+    "timeUsed": "所用时间 {t}",
+    "passed": "过",
+    "failed": "下方为 {p}通过标记百分比",
+    "scoreLine": "{score} 页:1 {total} 对",
+    "saved": "保存到您的仪表板上",
+    "retake": "重收这张纸",
+    "shareResult": "我赢了 {pct}百分比在 {paper} 免费 CRM Analytics & Einstein Discovery 顾问执业考试.",
+    "byDomain": "按域分数",
+    "review": "检查您的答案",
+    "filter": {
+      "all": "全体",
+      "wrong": "错误",
+      "flagged": "标记"
+    },
+    "correct": "对",
+    "incorrect": "错误",
+    "unanswered": "未回答",
+    "study": "学习 {topic}",
+    "loading": "正在装入纸张..."
   }
 }

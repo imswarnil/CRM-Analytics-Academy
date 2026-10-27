@@ -21,7 +21,9 @@
     "homeAria": "CRM Analytics アカデミー — ホーム",
     "starOnGithub": "ログイン CRM Analytics アカデミー GitHub",
     "youtube": "CRM Analytics YouTubeのアカデミー",
-    "wallOfFame": "ファメの壁"
+    "wallOfFame": "ファメの壁",
+    "certification": "認証",
+    "interview": "インタビューQ&ツイート"
   },
   "home": {
     "modules": {
@@ -1104,6 +1106,11 @@
       "video": "ビデオウォークスルー",
       "article": "記事一覧",
       "quiz": "グレードのクイズで終了"
+    },
+    "side": {
+      "progress": "あなたの進捗状況",
+      "dashboard": "ダッシュボードを開く",
+      "shareText": "無料、オープンソース Salesforce CRM Analytics コース — 1ページ上のすべてのカリキュラム。"
     }
   },
   "lesson": {
@@ -1218,5 +1225,151 @@
     "progress": "進捗状況を把握",
     "progressTitle": "マイページ CRM Analytics アカデミー進路",
     "progressText": "完了しました {done} レッスン CRM Analytics アカデミー、アカデミー、 {streak}-day streak と {badges} バッジ。 トレーニング Salesforce CRM Analytics、自由。"
+  },
+  "interview": {
+    "eyebrow": "インタビュー質問",
+    "sheet": "シート10/インタビューQ&A — {n} お問い合わせ",
+    "title": "CRM Analytics インタビュー質問",
+    "lead": "概念的、技術的、シナリオ、行動的、トピック、レベル、およびそれらに尋ねた企業による、モデルの回答で実際の質問。 質問したものを追加してください。",
+    "seoTitle": "CRM Analytics インタビューの質問と回答",
+    "seoDesc": "{n} Salesforce CRM Analytics モデル回答のインタビュー質問: SAQL、レシピ、データセット、セキュリティ、ダッシュボード、バインディングおよび Einstein Discovery、タイプによって、レベルおよび会社。",
+    "submit": "質問を送信",
+    "practiceExam": "実践試験",
+    "shareText": "Salesforce CRM Analytics モデル回答のインタビュー質問 - 無料。",
+    "search": "よくある質問",
+    "results": "{n} お問い合わせ",
+    "clear": "フィルターをクリア",
+    "empty": "質問はこれらのフィルタにマッチしません。",
+    "community": "コミュニティ",
+    "filters": {
+      "type": "タイプ:",
+      "level": "レベル",
+      "topic": "トピック",
+      "company": "会社案内"
+    },
+    "types": {
+      "conceptual": "コンセプト",
+      "technical": "技術情報",
+      "scenario": "スケナリオ",
+      "behavioral": "ベハビオラル",
+      "saql": "SAQL"
+    },
+    "levels": {
+      "junior": "ジュニア",
+      "mid": "ミッドレベル",
+      "senior": "シニア"
+    },
+    "back": "すべてのインタビュー質問",
+    "askedAt": "お問い合わせ {company}",
+    "upvote": "お問い合わせ",
+    "modelAnswer": "モデル回答",
+    "shareQuestion": "インタビュー質問: {q}",
+    "betterAnswer": "こんなことや、そんなことを求めていますか? 銀行に追加します。",
+    "related": "関連する質問",
+    "ctaTitle": "インタビュー質問、回答",
+    "ctaBody": "トピック、レベル、企業による概念、技術的、シナリオの質問。",
+    "newTitle": "面接質問を提出する",
+    "newLead": "あなたが尋ねた質問を共有する - またはあなたが候補者に尋ねる1 - あなたが与える答えで。 ライブ前のレビューです。",
+    "form": {
+      "question": "お問い合わせ",
+      "questionPh": "例えば、データフローの代わりにレシピを使うと?",
+      "answer": "モデル回答",
+      "answerHelp": "ツールバーの形式:見出し、太字、コード、リスト、リンク。 マークダウンとして保存。",
+      "answerPh": "あなたがインタビューで与える答えを書く...",
+      "company": "お問い合わせ",
+      "companyHelp": "気持ちのいいネーミングだけ。",
+      "role": "ロールインタビュー",
+      "send": "レビューを提出する",
+      "sentTitle": "おかげで — それはレビューキューにある",
+      "sentBody": "承認すると、質問と回答で面接銀行に表示されます。",
+      "another": "別の投稿",
+      "errQuestion": "質問(10文字以上)を書いてください。",
+      "errAnswer": "モデルの回答(30文字以上)を書く。",
+      "errGeneric": "提出できません。 もう一度お試しください。"
+    }
+  },
+  "cert": {
+    "eyebrow": "認定練習",
+    "title": "CRM Analytics & Einstein Discovery コンサルタント練習試験",
+    "lead": "実際の試験フォーマットで5つのフル練習用紙 — 60の質問、105分、68%が通過する - およびすべての試験ドメインのためのタイムドドリル。 無料、完全な回答レビューで。",
+    "seoTitle": "CRM Analytics そして、 Einstein Discovery コンサルタント練習試験(無料)",
+    "seoDesc": "無料のタイムド練習試験のための Salesforce CRM Analytics そして、 Einstein Discovery コンサルタント認定: {q} お問い合わせ {m} 分、 {p}合格する%, 試験ドメインで得点.",
+    "paperDesc": "時折練習用紙: {q} お問い合わせ {m} 交通アクセス パスマーク {p}%. すべての回答がレビューされたドメインで得点.",
+    "startFirst": "練習用紙1",
+    "shareText": "無料のタイムド練習試験のための CRM Analytics & Einstein Discovery コンサルタント認定",
+    "facts": {
+      "questions": "お問い合わせ",
+      "minutes": "ミニッツ",
+      "pass": "パス",
+      "bank": "銀行の質問"
+    },
+    "fullEyebrow": "フルペーパー",
+    "fullTitle": "実践論文 — 実際の試験形式",
+    "drillEyebrow": "ドメインドリル",
+    "drillTitle": "15問、25分、1つのドメイン",
+    "best": "ベストベスト {pct}ツイート",
+    "attempts": "{n} 試み",
+    "notTaken": "まだ受けていない",
+    "domains": "Examドメインと重量",
+    "howTitle": "練習試験の仕組み",
+    "how": {
+      "1": "一度に1つの質問は、それがゼロに達すると紙を提出カウントダウンで。",
+      "2": "実際の試験と同様に、レビューとナビゲーターとジャンプするためのフラグ質問。",
+      "3": "時計が切れるまで、タブをリフレッシュしたり閉じたりすると、回答が保存されます。",
+      "4": "結果は、パスまたは68%で失敗したり、各ドメインのスコアと、すべての回答が正しいものに対して説明した。",
+      "5": "サインインすると、各論文のベストスコアが保存され、ここに表示されます。"
+    },
+    "disclaimer": "これらは、オリジナルの練習の質問です。 CRM Analytics 実際の試験質問ではなく、アカデミー。 現在の試験ガイドをチェック Trailhead 正式な形式と概要のため。",
+    "ctaTitle": "認定の練習",
+    "ctaBody": "実際の試験形式のタイムペーパー, ドメインでスコア.",
+    "rules": {
+      "1": "Beginを押すとタイマーが起動し、使用できません。",
+      "2": "すべての質問は正しい答えを持っています。",
+      "3": "再訪したいものをフラグ付けします。 未回答の質問はゼロをスコアします。",
+      "4": "完了時に提出するか、または紙は実行時に自身を提出します。"
+    },
+    "begin": "スタート",
+    "resume": "退去した場所",
+    "allPapers": "すべての論文",
+    "signInToSave": "ダッシュボードでスコアを維持するためにサインインします。",
+    "questionOf": "お問い合わせ {n} インフォメーション {total}",
+    "answeredN": "{n} お問い合わせ",
+    "flaggedN": "{n} フラグ",
+    "timeLeft": "残り時間",
+    "submit": "送信する",
+    "flag": "レビューのためのフラグ",
+    "unflag": "フラグを削除",
+    "prev": "新着情報",
+    "next": "次へ",
+    "navigator": "お問い合わせ",
+    "goTo": "お問い合わせ {n}",
+    "legend": {
+      "answered": "お問い合わせ",
+      "open": "オープン",
+      "flagged": "ログイン"
+    },
+    "confirmTitle": "紙を提出する?",
+    "confirmBody": "お問い合わせ {open} 不必要な {flagged} よくある質問 提出後、回答は変更できません。",
+    "keepGoing": "行く",
+    "submitNow": "今すぐ登録",
+    "timeUsed": "使用される時間 {t}",
+    "passed": "パス",
+    "failed": "以下 {p}% パスマーク",
+    "scoreLine": "{score} インフォメーション {total} 正しい",
+    "saved": "ダッシュボードに保存",
+    "retake": "この紙を取り戻す",
+    "shareResult": "私は得点 {pct}% の {paper} — 無料 CRM Analytics & Einstein Discovery コンサルタント練習試験",
+    "byDomain": "ドメインによるスコア",
+    "review": "回答を確認する",
+    "filter": {
+      "all": "すべて",
+      "wrong": "ログイン",
+      "flagged": "ログイン"
+    },
+    "correct": "変更について",
+    "incorrect": "エラー",
+    "unanswered": "未回答",
+    "study": "教育研究 {topic}",
+    "loading": "紙を積む..."
   }
 }

@@ -21,7 +21,9 @@
     "homeAria": "CRM Analytics الأكاديمية - البيت",
     "starOnGithub": "ستار CRM Analytics أكاديمية GitHub",
     "youtube": "CRM Analytics أكاديمية يوتيوب",
-    "wallOfFame": "جدار الشهرة"
+    "wallOfFame": "جدار الشهرة",
+    "certification": "التصديق",
+    "interview": "Interview Q&ألف"
   },
   "home": {
     "modules": {
@@ -1104,6 +1106,11 @@
       "video": "Video walkthrough",
       "article": "المادة",
       "quiz": "تنتهي بامتحان رتبي"
+    },
+    "side": {
+      "progress": "تقدمك",
+      "dashboard": "افتحي لوحتك",
+      "shareText": "مصدر حر مفتوح Salesforce CRM Analytics الدورة - المنهج الدراسي بأكمله في صفحة واحدة."
     }
   },
   "lesson": {
@@ -1218,5 +1225,151 @@
     "progress": "شاركي تقدمي",
     "progressTitle": "! CRM Analytics التقدم المحرز في الأكاديمية",
     "progressText": "لقد أكملت {done} الدروس المستفادة CRM Analytics الأكاديمية، مع {streak}-العطلة اليومية {badges} شارات التعلم Salesforce CRM Analyticsحر"
+  },
+  "interview": {
+    "eyebrow": "أسئلة مقابلة",
+    "sheet": "Sheet 10 / Interview Q&ألف - {n} أسئلة",
+    "title": "CRM Analytics أسئلة",
+    "lead": "أسئلة حقيقية ذات أجوبة نموذجية - مفاهيمية وتقنية وتصورية وسلوكية - حسب الموضوع والرتبة والشركات التي طرحتها. أضف تلك التي طلبتها",
+    "seoTitle": "CRM Analytics أسئلة وأجوبة المقابلات",
+    "seoDesc": "{n} Salesforce CRM Analytics أسئلة مقابلة مع أجوبة نموذجية: SAQLالوصفات والبيانات والأمن ولوحات المتابعة والملزمات Einstein Discoveryحسب النوع و المستوى و الشركة",
+    "submit": "تقدم سؤالاً",
+    "practiceExam": "اختبار الممارسة",
+    "shareText": "Salesforce CRM Analytics أسئلة مقابلة مع أجوبة نموذجية - مجانية",
+    "search": "أسئلة البحث",
+    "results": "{n} أسئلة",
+    "clear": "مرشحات واضحة",
+    "empty": "لا أسئلة تتطابق مع هذه المرشحات بعد",
+    "community": "المجتمعات المحلية",
+    "filters": {
+      "type": "النوع",
+      "level": "الرتبة",
+      "topic": "الموضوع",
+      "company": "Company"
+    },
+    "types": {
+      "conceptual": "المفاهيم",
+      "technical": "التقنية",
+      "scenario": "السيناريو",
+      "behavioral": "السلوك",
+      "saql": "SAQL"
+    },
+    "levels": {
+      "junior": "المبتدئ",
+      "mid": "المستوى المتوسط",
+      "senior": "كبير"
+    },
+    "back": "جميع أسئلة المقابلة",
+    "askedAt": "طلب منه {company}",
+    "upvote": "مفيد",
+    "modelAnswer": "الجواب النموذجي",
+    "shareQuestion": "سؤال مقابلة: {q}",
+    "betterAnswer": "هل سألت هذا أو شيء كهذا؟ أضفها للبنك",
+    "related": "المسائل ذات الصلة",
+    "ctaTitle": "أسئلة مقابلة مع أجوبة",
+    "ctaBody": "المسائل المفاهيمية والتقنية والسيناريو حسب الموضوع والمستوى والشركة.",
+    "newTitle": "قدم سؤال المقابلة",
+    "newLead": "تشاطر سؤالاً طُلب منك - أو سؤالاً تطرحه على المرشحين - مع الإجابة التي ستعطيها. يتم استعراضه قبل أن يبدأ مباشرة",
+    "form": {
+      "question": "السؤال",
+      "questionPh": "مثلاً، متى ستستخدم وصفة بدلاً من تدفق البيانات؟",
+      "answer": "الجواب النموذجي",
+      "answerHelp": "Format with the toolbar: headings, bold, code, lists and links. تم إنقاذه كنتيجة",
+      "answerPh": "أكتب الإجابة التي ستعطيها في المقابلة",
+      "company": "الشركة التي طلبتها",
+      "companyHelp": "فقط إذا كنت مرتاحة تسميته.",
+      "role": "دور المقابلات",
+      "send": "Submit for review",
+      "sentTitle": "شكرا - هو في قائمة الاستعراض",
+      "sentBody": "بمجرد الموافقة عليه يظهر في مصرف المقابلة مع سؤالك وجوابك",
+      "another": "تقدم آخر",
+      "errQuestion": "أكتب السؤال (على الأقل 10 شخصيات).",
+      "errAnswer": "كتابة إجابة نموذجية (على الأقل 30 شخصية).",
+      "errGeneric": "لا يمكن أن تقدم. حاول مرة أخرى."
+    }
+  },
+  "cert": {
+    "eyebrow": "ممارسة التصديق",
+    "title": "CRM Analytics & Einstein Discovery امتحانات ممارسات الخبراء الاستشاريين",
+    "lead": "خمس ورقات ممارسة كاملة في شكل امتحان حقيقي - 60 سؤالا، 105 دقائق، 68 في المائة تمر - بالإضافة إلى تدريب زمني لكل مجال من مجالات الاختبار. حر، مع استعراض كامل للإجابة.",
+    "seoTitle": "CRM Analytics و Einstein Discovery معرض ممارسات الخبراء الاستشاريين (خال)",
+    "seoDesc": "امتحانات الممارسة المجانية Salesforce CRM Analytics و Einstein Discovery شهادة الخبراء الاستشاريين: {q} أسئلة {m} دقائق {p}النسبة المئوية للمرور، مُسجلة حسب نطاق الامتحان.",
+    "paperDesc": "A timed practice paper: {q} الأسئلة المطروحة {m} دقائق علامة المرور {p}%. Scored by domain, with every answer reviewed.",
+    "startFirst": "ورقة الممارسة الأولى",
+    "shareText": "امتحانات الممارسة المجانية CRM Analytics & Einstein Discovery شهادة مستشار",
+    "facts": {
+      "questions": "المسائل",
+      "minutes": "دقائق",
+      "pass": "لتمر",
+      "bank": "أسئلة في المصرف"
+    },
+    "fullEyebrow": "الورقات الكاملة",
+    "fullTitle": "ورقات ممارسات - شكل الاختبار الحقيقي",
+    "drillEyebrow": "عمليات الحفر الرئيسية",
+    "drillTitle": "15 سؤالا، 25 دقيقة، مجال واحد",
+    "best": "أفضل {pct}النسبة المئوية",
+    "attempts": "{n} محاولات",
+    "notTaken": "لم تؤخذ بعد",
+    "domains": "المجالات والوزن",
+    "howTitle": "كيفية عمل امتحانات الممارسة",
+    "how": {
+      "1": "One question at a time, with a countdown that submit the paper when it reaches zero.",
+      "2": "أسئلة مشتعلة للاستعراض والقفز حول مع الملاح، كما في الامتحان الحقيقي.",
+      "3": "إجاباتُكَ تُبقي إذا أنت تَنْعشُ أَو تَغْلقُ الحسابَ، حتى الساعةَ تَنْفذُ.",
+      "4": "النتائج تظهر نجاحاً أو فشلاً بنسبة 68% وسجلك في كل مجال وكل إجابة موضحة ضد الشخص المناسب",
+      "5": "تم التوقيع على أفضل نتائجك لكل ورقة يتم حفظها وتظهر هنا"
+    },
+    "disclaimer": "هذه أسئلة عن الممارسة الأصلية CRM Analytics الأكاديمية، ليست أسئلة امتحان حقيقي. تحقق من دليل الامتحان الحالي Trailhead للشكل الرسمي والموجز.",
+    "ctaTitle": "ممارسة التصديق",
+    "ctaBody": "أوراق موقوتة في شكل الامتحان الحقيقي، مُسجلة حسب النطاق.",
+    "rules": {
+      "1": "الوقت يبدأ عندما تضغط على (بيجين) ولا يمكن إيقافه",
+      "2": "كل سؤال له إجابة صحيحة",
+      "3": "أشعل أي شيء تريد أن تعيد النظر فيه الأسئلة غير المجيبة صفر",
+      "4": "تقدم عندما تنتهي، أو تقدم الصحيفة نفسها عندما ينفد الوقت."
+    },
+    "begin": "ابدأ",
+    "resume": "إسترجع حيث تركت",
+    "allPapers": "جميع الأوراق",
+    "signInToSave": "وقّعْ لإبْقاء علاماتِكَ على لوحةِ الدّافئةِ.",
+    "questionOf": "سؤال {n} of of {total}",
+    "answeredN": "{n} أجب",
+    "flaggedN": "{n} أعلام",
+    "timeLeft": "الوقت المتبقي",
+    "submit": "Submit",
+    "flag": "العلم للاستعراض",
+    "unflag": "رفع العلم",
+    "prev": "سابقا",
+    "next": "التالي",
+    "navigator": "المسائل",
+    "goTo": "اذهب للسؤال {n}",
+    "legend": {
+      "answered": "أجيب",
+      "open": "مفتوح",
+      "flagged": "Flagged"
+    },
+    "confirmTitle": "تقدم الورقة؟",
+    "confirmBody": "لديك {open} غير جواب {flagged} أسئلة معلومة وبعد تقديم الردود، لا يمكن تغييرها.",
+    "keepGoing": "استمر",
+    "submitNow": "تقدم الآن",
+    "timeUsed": "الوقت المستخدم {t}",
+    "passed": "المرور",
+    "failed": "أسفل {p}النسبة المئوية",
+    "scoreLine": "{score} of of {total} صحيح",
+    "saved": "انقذت لوحتك",
+    "retake": "Retake this paper",
+    "shareResult": "لقد سجلت {pct}النسبة المئوية {paper} - مجانا CRM Analytics & Einstein Discovery امتحانات تدريب الخبراء الاستشاريين",
+    "byDomain": "النطاق",
+    "review": "راجع إجاباتك",
+    "filter": {
+      "all": "كل شيء",
+      "wrong": "خطأ",
+      "flagged": "Flagged"
+    },
+    "correct": "صحيح",
+    "incorrect": "غير صحيح",
+    "unanswered": "Unanswered",
+    "study": "الدراسة {topic}",
+    "loading": "تحمل الورقة..."
   }
 }

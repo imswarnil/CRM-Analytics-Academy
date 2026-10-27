@@ -21,7 +21,9 @@
     "homeAria": "CRM Analytics Academia",
     "starOnGithub": "Star CRM Analytics Academia GitHub",
     "youtube": "CRM Analytics Academia en YouTube",
-    "wallOfFame": "Muro de la fama"
+    "wallOfFame": "Muro de la fama",
+    "certification": "Certificación",
+    "interview": "Entrevista Q&A"
   },
   "home": {
     "modules": {
@@ -1104,6 +1106,11 @@
       "video": "Video walkthrough",
       "article": "Artículo",
       "quiz": "Fin con un examen de grado"
+    },
+    "side": {
+      "progress": "Tu progreso",
+      "dashboard": "Abre el tablero.",
+      "shareText": "Una fuente libre y abierta Salesforce CRM Analytics curso — todo el currículo en una página."
     }
   },
   "lesson": {
@@ -1218,5 +1225,151 @@
     "progress": "Comparte mi progreso",
     "progressTitle": "Mi CRM Analytics Avances de la Academia",
     "progressText": "He terminado. {done} experiencia adquirida CRM Analytics Academia, con una {streak}- día de racha y {badges} Insignias. Aprender Salesforce CRM Analytics, libre."
+  },
+  "interview": {
+    "eyebrow": "Preguntas de entrevista",
+    "sheet": "Hoja 10 / Entrevista Q&A - {n} preguntas",
+    "title": "CRM Analytics entrevistas",
+    "lead": "Cuestiones reales con respuestas modelo — conceptuales, técnicos, escenarios y comportamientos— por tema, nivel y las empresas que les hicieron. Añade los que te pidieron.",
+    "seoTitle": "CRM Analytics Preguntas y respuestas de la entrevista",
+    "seoDesc": "{n} Salesforce CRM Analytics entrevista preguntas con respuestas modelo: SAQL, recetas, datasets, seguridad, dashboards, encuadernaciones y Einstein Discovery, por tipo, nivel y compañía.",
+    "submit": "Presentar una pregunta",
+    "practiceExam": "Examen de la práctica",
+    "shareText": "Salesforce CRM Analytics entrevistar preguntas con respuestas modelo - libre.",
+    "search": "Buscar preguntas",
+    "results": "{n} preguntas",
+    "clear": "Filtros claros",
+    "empty": "Aún no hay preguntas que coincidan con estos filtros.",
+    "community": "comunidad",
+    "filters": {
+      "type": "Tipo",
+      "level": "Nivel",
+      "topic": "Tema",
+      "company": "Company"
+    },
+    "types": {
+      "conceptual": "Conceptual",
+      "technical": "Técnica",
+      "scenario": "Escenario",
+      "behavioral": "Comportamiento",
+      "saql": "SAQL"
+    },
+    "levels": {
+      "junior": "Junior",
+      "mid": "Nivel medio",
+      "senior": "Senior"
+    },
+    "back": "Todas las preguntas de entrevista",
+    "askedAt": "Preguntado {company}",
+    "upvote": "Útil",
+    "modelAnswer": "Respuesta modelo",
+    "shareQuestion": "Pregunta de entrevista: {q}",
+    "betterAnswer": "¿Te preguntaron esto o algo así? Añádalo al banco.",
+    "related": "Cuestiones conexas",
+    "ctaTitle": "Preguntas de entrevista, con respuestas",
+    "ctaBody": "Cuestiones conceptuales, técnicas y de escenario por tema, nivel y empresa.",
+    "newTitle": "Presentar una pregunta de entrevista",
+    "newLead": "Comparta una pregunta que se le hizo —o una que usted hace candidatos— con la respuesta que usted daría. Se revisa antes de que salga en vivo.",
+    "form": {
+      "question": "La cuestión",
+      "questionPh": "¿Cuándo usaría una receta en lugar de un flujo de datos?",
+      "answer": "Respuesta modelo",
+      "answerHelp": "Formato con la barra de herramientas: encabezados, bold, code, lists and links. Guardado como marcador.",
+      "answerPh": "Escribe la respuesta que darías en la entrevista...",
+      "company": "Compañía que le preguntó",
+      "companyHelp": "Sólo si estás cómodo nombrandolo.",
+      "role": "Papel entrevistado para",
+      "send": "Presentación del examen",
+      "sentTitle": "Gracias — está en la cola de revisión",
+      "sentBody": "Una vez aprobado aparece en el banco de entrevistas con su pregunta y respuesta.",
+      "another": "Enviar otro",
+      "errQuestion": "Escribe la pregunta (al menos 10 caracteres).",
+      "errAnswer": "Escribe una respuesta modelo (al menos 30 caracteres).",
+      "errGeneric": "No podía someterse. Prueba otra vez."
+    }
+  },
+  "cert": {
+    "eyebrow": "Práctica de certificación",
+    "title": "CRM Analytics & Einstein Discovery Exámenes de práctica de consultores",
+    "lead": "Cinco documentos de práctica completos en el formato de examen real — 60 preguntas, 105 minutos, 68% a pasar— más un simulacro de tiempo para cada dominio de examen. Libre, con una revisión completa de la respuesta.",
+    "seoTitle": "CRM Analytics y Einstein Discovery Exámenes de Prácticas Consultores (libre)",
+    "seoDesc": "Exámenes de práctica de tiempo libre para los Salesforce CRM Analytics y Einstein Discovery Certificación de consultores: {q} preguntas, {m} minutos, {p}% a paso, marcado por dominio de examen.",
+    "paperDesc": "Un documento de práctica temporal: {q} preguntas en {m} minutos. Marca de paso {p}%. Marcado por dominio, con cada respuesta revisada.",
+    "startFirst": "Papel de práctica de inicio 1",
+    "shareText": "Exámenes de práctica de tiempo libre para los CRM Analytics & Einstein Discovery Certificación de consultores.",
+    "facts": {
+      "questions": "Preguntas",
+      "minutes": "Minutos",
+      "pass": "Para pasar",
+      "bank": "Preguntas en el banco"
+    },
+    "fullEyebrow": "Documentos completos",
+    "fullTitle": "Documentos de práctica: el formato de examen real",
+    "drillEyebrow": "Perforaciones de dominio",
+    "drillTitle": "15 preguntas, 25 minutos, un dominio",
+    "best": "Mejor {pct}%",
+    "attempts": "{n} intentos",
+    "notTaken": "No se ha tomado aún",
+    "domains": "Exam dominios y pesos",
+    "howTitle": "Cómo funcionan los exámenes de práctica",
+    "how": {
+      "1": "Una pregunta a la vez, con una cuenta regresiva que presenta el papel cuando alcanza cero.",
+      "2": "Preguntas de bandera para revisar y saltar con el navegante, como en el examen real.",
+      "3": "Sus respuestas se guardan si se refresca o cierra la pestaña, hasta que el reloj se agote.",
+      "4": "Los resultados muestran un pase o fallan al 68%, su puntuación en cada dominio y cada respuesta explicada en contra de la derecha.",
+      "5": "Firmada, tu mejor puntuación para cada papel se guarda y se muestra aquí."
+    },
+    "disclaimer": "Estas son las preguntas originales de la práctica escritas CRM Analytics Academia, no preguntas de examen real. Consulta la guía de examen actual Trailhead para el formato oficial y el esbozo.",
+    "ctaTitle": "Práctica para la certificación",
+    "ctaBody": "Documentos programados en el formato de examen real, marcados por dominio.",
+    "rules": {
+      "1": "El temporizador comienza cuando presionas Empieza y no puede ser pausado.",
+      "2": "Cada pregunta tiene una respuesta correcta.",
+      "3": "Bandera cualquier cosa que desee volver a visitar; preguntas sin respuesta marcan cero.",
+      "4": "Presentar cuando se hace, o el papel se presenta cuando el tiempo se agota."
+    },
+    "begin": "Comienzo",
+    "resume": "Retire donde se fue",
+    "allPapers": "Todos los documentos",
+    "signInToSave": "Inicie sesión para mantener sus puntuaciones en su tablero.",
+    "questionOf": "Pregunta {n} de {total}",
+    "answeredN": "{n} respondió:",
+    "flaggedN": "{n} flagged",
+    "timeLeft": "Hora izquierda",
+    "submit": "Submit",
+    "flag": "Bandera para revisión",
+    "unflag": "Quitar bandera",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "navigator": "Preguntas",
+    "goTo": "Ir a la pregunta {n}",
+    "legend": {
+      "answered": "Respuestas",
+      "open": "Abierto",
+      "flagged": "Flagged"
+    },
+    "confirmTitle": "¿Enviar el periódico?",
+    "confirmBody": "Tienes {open} sin respuesta {flagged} preguntas insignias. Una vez presentado, no se pueden cambiar las respuestas.",
+    "keepGoing": "Sigue.",
+    "submitNow": "Presente ahora",
+    "timeUsed": "tiempo utilizado {t}",
+    "passed": "Paso",
+    "failed": "Debajo del {p}% paso marca",
+    "scoreLine": "{score} de {total} Correcto.",
+    "saved": "salvado a su tablero",
+    "retake": "Retomar este papel",
+    "shareResult": "Anoté {pct}% en {paper} libre CRM Analytics & Einstein Discovery Exámenes de práctica de consultores.",
+    "byDomain": "Puntuación por dominio",
+    "review": "Revisa tus respuestas",
+    "filter": {
+      "all": "Todos",
+      "wrong": "Wrong",
+      "flagged": "Flagged"
+    },
+    "correct": "Correcto.",
+    "incorrect": "Incorrect",
+    "unanswered": "Sin respuesta",
+    "study": "Estudio {topic}",
+    "loading": "Cargando el periódico..."
   }
 }
