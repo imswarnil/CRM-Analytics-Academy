@@ -3,13 +3,13 @@
   "nav": {
     "resources": "资源",
     "about": "关于",
-    "github": "在 GitHub 上查看",
+    "github": "视图 GitHub",
     "theme": "切换主题",
     "chooseLanguage": "选择语言",
     "datasets": "数据集",
     "contribute": "贡献",
     "privacy": "隐私政策",
-    "terms": "服务条款",
+    "terms": "服务条件",
     "signIn": "签名",
     "signOut": "签字",
     "dashboard": "电线板",
@@ -28,26 +28,26 @@
   "home": {
     "modules": {
       "foundations": {
-        "title": "基础"
+        "title": "基金会"
       }
     },
-    "faqTitle": "为你解答",
+    "faqTitle": "回答问题",
     "faqs": [
       {
-        "q": "真的免费吗？",
-        "a": "是的——每节课都免费且开源，无需注册。"
+        "q": "真的免费吗?",
+        "a": "是的——每门课都是自由开放的,不需要注册."
       },
       {
-        "q": "需要 Salesforce 组织吗？",
-        "a": "一个免费的 Developer Edition 组织足以跟随所有课程。"
+        "q": "我需要一个 Salesforce 沃尔格?",
+        "a": "免费的开发者版 org 足以跟随每一课."
       },
       {
-        "q": "需要编程经验吗？",
-        "a": "不需要。我们从 CRM 基础开始，循序渐进地引入 SAQL。"
+        "q": "我需要编码经验吗?",
+        "a": "没有 我们从客户关系管理基础开始 开始介绍 SAQL 渐渐地,一步一步地。"
       },
       {
-        "q": "这能帮助我考取认证吗？",
-        "a": "课程对齐 CRM Analytics 与 Einstein Discovery 顾问考试的主题。"
+        "q": "这能帮我得到认证吗?",
+        "a": "课程图 CRM Analytics & Einstein Discovery 顾问考试题目."
       }
     ],
     "hero": {
@@ -58,24 +58,24 @@
       "curriculum": "见课程"
     },
     "author": {
-      "eyebrow": "图05-提交人",
-      "figure": "图05——是谁教的",
-      "title": "七年上市仪表板,变成课程.",
+      "eyebrow": "费格。 05 — 提交人",
+      "figure": "费格。 05 — 谁教的这个",
+      "title": "七年上市的仪表板,变成课程.",
       "more": "更多关于斯沃尼尔",
-      "connect": "在链接上连接 内"
+      "connect": "在链接中连接"
     },
     "figure": {
-      "caption": "图1——按月分列的学院",
+      "caption": "费格。 01——按月分列的学院ARR",
       "spec": "建于建筑 14",
       "arr": "资源",
       "arrDelta": "{n} 年数",
       "winRate": "赢率",
       "winRateDelta": "已结束的交易",
-      "nrr": "核 报",
+      "nrr": "NRR 数字",
       "nrrDelta": "加纳 {n}"
     },
     "plot": {
-      "eyebrow": "图02——课程编排",
+      "eyebrow": "费格。 02 — 课程编排",
       "title": "{lessons} 发表的经验教训 {live} 页:1 {sections} 节次",
       "full": "完整课程",
       "section": "节次",
@@ -84,22 +84,22 @@
       "article": "条款"
     },
     "blurbs": {
-      "introduction": "课程是什么,是给谁的,一个免费的Org, 第一个数据集加载。",
+      "introduction": "课程是什么,是给谁的,一个免费的Org,以及第一个装入的数据集.",
       "foundations": "什麽? CRM Analytics 是,三层,词汇, 当它是错误的工具。",
       "setup": "许可证,权限集,集成用户,安全前提和共享继承.",
-      "data-preparation": "连接、同步、食谱、桶、缺失值和复制。",
-      "datasets-and-modelling": "谷物 加入 粉丝 历史快照 和实地元数据",
-      "data-visualization": "每个图表都按自己的条件排序, 而问题实际上需要哪一个。",
+      "data-preparation": "连接、同步、食谱、桶、缺失值和去重复。",
+      "datasets-and-modelling": "谷物 加入和粉丝 历史快照 和实地元数据",
+      "data-visualization": "每一个图表都按自己的条件排序, 而问题实际上需要哪个。",
       "lenses-and-explorations": "探索数据集:分组,计量,三种模式,以及对话查询.",
       "saql": "查询语言本身——语法,功能,重要模式,调试.",
       "designing-dashboards": "决定的设计:等级、格式、部件和性能。",
       "interactions": "面对,过滤和选择——是什么使得一个仪表板成为一个系统而不是一个页面.",
       "bindings": "一个部件供养另一个部件:选择、结果、筑巢以及它无法维持的地方。",
       "dashboard-json": "盖下:阅读和编辑 JSON 当建造者耗尽时。",
-      "collaboration": "应用和共享,订阅,说明,嵌入和治理.",
+      "collaboration": "应用和分享,订阅,说明,嵌入和治理.",
       "apis-and-automation": "那个 REST API, Python, 自动数据集负载, 以及用于分析的 CI.",
       "einstein-discovery": "故事,模型,写回预测——在信任它之前先审计一个分数.",
-      "gtm-engineering": "仓库 计量合同 和所建的计量树",
+      "gtm-engineering": "仓库 计量合同 以及所建的计量树",
       "demand-analytics": "AI搜索能见度,SEO,获取,运动,支出和归属.",
       "pipeline-analytics": "通向签名:路由,积分,转换,速度和CPQ.",
       "revops-analytics": "预测、ARR瀑布、消费风险、服务和执行委员会。"
@@ -126,29 +126,29 @@
     }
   },
   "footer": {
-    "tagline": "一套免费开源课程，助你精通 Salesforce CRM Analytics。",
+    "tagline": "用于掌握的免费开放源码课程 Salesforce CRM Analytics。 。 。",
     "curriculum": "课程",
     "project": "项目",
     "community": "社区",
     "quip": {
-      "0": "由史瓦尼尔用不合理的催促量和英勇的废品制造.",
+      "0": "斯沃尼尔用不合理的催促量 和英勇的废品制造出来的",
       "1": "由史瓦尼尔手绘,机器辅助. 象征性预算现在更是一个建议。",
-      "2": "由Swarnil一次一个提示建造——其中少数甚至致力于第一次尝试."
+      "2": "由Swarnil 一次一个提示建造——其中少数甚至致力于第一次尝试."
     },
     "builtWith": "与",
     "builtWithNote": "开源. 星宿,叉,或发出拉力请求."
   },
   "seo": {
-    "homeTitle": "CRM Analytics Academy — 学习 Salesforce CRM Analytics",
-    "homeDesc": "一套免费开源课程，助你精通 Salesforce CRM Analytics——从数据准备、SAQL 到仪表板和 Einstein Discovery，共两个实操模块。",
+    "homeTitle": "CRM Analytics 学院——学习 Salesforce CRM Analytics",
+    "homeDesc": "用于掌握的免费开放源码课程 Salesforce CRM Analytics 数据准备和 SAQL 到仪表盘,装订, Einstein Discovery 和上市仪表板建造。",
     "aboutTitle": "关于",
-    "aboutDesc": "CRM Analytics Academy 背后的故事——一套面向 Salesforce CRM Analytics 的开源课程，以及它的创建者。",
+    "aboutDesc": "背后的故事 CRM Analytics 学院——面向 Salesforce CRM Analytics - 以及建造它的人",
     "resourcesTitle": "资源",
-    "resourcesDesc": "精选的 Salesforce CRM Analytics 优质资源——官方文档、Trailhead、SAQL 参考、社区和工具。"
+    "resourcesDesc": "一张最好的名单 Salesforce CRM Analytics 资源——官方文件, Trailhead, (中文). SAQL 参考文献、社区和工具。"
   },
   "course": {
     "nextLesson": "下一个: {title}",
-    "markComplete": "标记为完成",
+    "markComplete": "标记为完整",
     "completed": "已完成",
     "signInToTrack": "签到追踪你的进展",
     "signIn": "签名",
@@ -157,7 +157,7 @@
     "contentsPct": "目录 · {pct}百分比(%)",
     "showContents": "显示课程内容",
     "collapseContents": "折叠课程内容",
-    "sectionMeta": "{lessons} 课程 · {minutes}页:1",
+    "sectionMeta": "{lessons} 学习 · {minutes}页:1",
     "comingSoon": "马上就来"
   },
   "dashboard": {
@@ -175,13 +175,13 @@
     "lessons": "经验教训",
     "longest": "最长 {n} 天数",
     "rankOf": "军衔 {rank} 页:1 {n}",
-    "unranked": ". . . . . .",
+    "unranked": "未排序",
     "quizzesTaken": "{n} 测验",
     "activeDays": "{n} 活动天数",
     "continue": "继续学习",
     "lessonsDone": "{done} 页:1 {total} 经验教训",
     "continueCta": "继续",
-    "startFirst": "第一课开始",
+    "startFirst": "开始第一课",
     "upNext": "下一个",
     "goal": "这周",
     "goalDone": "每周达到目标。 任何更多的都是奖金。",
@@ -189,7 +189,7 @@
     "goalSet": "目标",
     "browse": "课程",
     "contribute": "贡献",
-    "activity": "过去12周的活动",
+    "activity": "过去26周的活动",
     "less": "减",
     "more": "更多",
     "bySection": "按款次分列",
@@ -268,7 +268,7 @@
     "signInTitle": "欢迎回来",
     "signInDesc": "捡起你留下的地方",
     "signUpTitle": "免费滚动",
-    "signUpDesc": "一个免费账户:你的进度,测试分数和问题跟随你到每个设备.",
+    "signUpDesc": "一个免费的账户:你的进度,测试分数和问题跟随你到每个设备.",
     "demoCta": "只是看看吗? 以只读演示探索",
     "name": "名称",
     "email": "电子邮件",
@@ -279,27 +279,27 @@
     "errSignIn": "这些细节与账户不符。",
     "errSignUp": "无法创建该账户 。 电子邮件可能已经注册, 或者密码可能太短 。",
     "errDemo": "演示账号现在没有",
-    "haveAccount": "已经有帐户了吗?",
+    "haveAccount": "已经有帐户了?",
     "signInLink": "签名",
     "noAccount": "新来的?",
     "signUpLink": "创建账户",
     "asideTitle": "学习 CRM Analytics 工作时使用的方法。",
     "asideText": "每个课程,数据集和测验都是免费的. 一个账户只是网站对你的记忆",
-    "asideMeta": "无卡片 12种语言",
-    "eyebrowSignIn": "工作表 00 - 签名",
+    "asideMeta": "免费 —— 无卡 —— 12种语言",
+    "eyebrowSignIn": "工作表 00 — 签名",
     "eyebrowSignUp": "工作表 00 —— 注册",
     "pageSignIn": "签名",
     "pageSignUp": "免费滚动",
     "benefitProgress": "跨设备保存的进展,经验教训",
     "benefitDiscuss": "问问题,在每一个教训下回答",
-    "benefitQuizzes": "科考的成绩",
-    "benefitFree": "永远自由——Pro是可选的",
+    "benefitQuizzes": "科的测验 与你的分数保持",
+    "benefitFree": "永远自由——每一个教训",
     "verifyTitle": "检查您的收件箱",
-    "verifyDesc": "我们发送了一个确认链接 {email}。 。 。 。 打开,然后签入。"
+    "verifyDesc": "我们发送了一个确认链接 {email}打开,然后签字"
   },
   "submit": {
     "title": "对学院的贡献",
-    "subtitle": "盘子、资源、课程修正、翻译和 SAQL。 。 。 所有事情在出现前都由一个人审查 批准的工作都取决于你在仪表板上的级别",
+    "subtitle": "盘片、资源、课程修正、翻译和 SAQL所有东西在出现前都由一个人审查 批准的工作取决于你的级别",
     "kindResource": "一个资源",
     "kindShowcase": "仪表板",
     "kindIdea": "一个教训或想法",
@@ -307,8 +307,8 @@
     "urlLabel": "链接",
     "descLabel": "为什么有用?",
     "submit": "提交供审查",
-    "sentTitle": "感谢大家——这是在审查排队。",
-    "sentBody": "你们可以看到下面的情况。 批准的捐款将记入你名下 并计入你的军衔",
+    "sentTitle": "谢谢——这是在审查排队。",
+    "sentBody": "情况如下。 批准的捐款将记入你名下 并计入你的官阶",
     "another": "做点别的",
     "mine": "你的意见",
     "pending": "待审查",
@@ -331,11 +331,11 @@
     "reviewNote": "说明: {note}",
     "kindTranslation": "翻译修正",
     "kindSnippet": "页:1 SAQL 片断",
-    "blurbShowcase": "关于展示:你如何准备数据、资料来源、每个 KPI 如何计算。",
-    "blurbResource": "博客、博客或社群,",
-    "blurbIdea": "某种错误的教训 或应该存在的教训",
+    "blurbShowcase": "对于展示:你是如何准备数据,来源,每一个 KPI 和如何计算它。",
+    "blurbResource": "网页、课程、工具、博客或社区,",
+    "blurbIdea": "某种错误的教训,或应该存在的教训。",
     "blurbTranslation": "用你语言读错的机器翻译",
-    "blurbSnippet": "以它运行的数据集解决一个真实问题的查询.",
+    "blurbSnippet": "用它运行的数据集解决一个真实问题的查询.",
     "short": {
       "dashboard": "仪表板",
       "resource": "资源",
@@ -352,36 +352,36 @@
     "stepCorrection": "更正",
     "stepSnippet": "片断",
     "stepContext": "背景情况",
-    "stepOf": "步骤 {current} 页:1 {total} . . . . . . {label}",
+    "stepOf": "步骤 {current} 页:1 {total} . . . . . . . {label}",
     "stepsCount": "{n} 步骤",
     "add": "添加",
     "addSource": "添加来源",
     "removeSource": "删除源",
     "searchLessons": "搜索课程...",
-    "errGeneric": "出了点问题",
-    "errImageSize": "图像封顶为每张4MB.",
+    "errGeneric": "出问题了",
+    "errImageSize": "图像封顶为每张4 MB.",
     "errUpload": "上传失败——粘贴图像 URL 相反。",
-    "errImageUrl": "图像链接必须从http://或https://开始",
+    "errImageUrl": "图像链接必须始于 http:// 或 https://",
     "problems": {
       "dashName": "给仪表盘一个名字(3+字符).",
       "writeupUrl": "写入链接必须从http://或https://开始",
       "creditUrl": "您的链接必须从 http:// 或 https:// 开始",
-      "prep": "描述你如何准备数据(20+字符).",
+      "prep": "描述您如何准备数据( 20+ 字符) 。",
       "source": "添加至少一个数据源 。",
-      "kpi": "至少添加一个 KPI。 。 。 。",
-      "kpiFields": "每个 KPI 需要一个名称以及如何计算。",
+      "kpi": "至少添加一个 KPI。 。 。",
+      "kpiFields": "每个 KPI 需要一个名称和如何计算。",
       "resourceUrl": "粘贴链接, 从 http:// 或 https:// 开始",
       "resourceTitle": "给它一个标题(3+字符).",
       "resourceWhy": "说明为什么它有用(20+字符).",
       "lessonPick": "选课.",
-      "ideaTitle": "给教头一个标题。",
+      "ideaTitle": "给这个教训一个标题。",
       "fixBody": "描述什么是错的(20+字符).",
       "ideaBody": "大纲课(20+人物).",
       "sourceUrls": "源链接必须从http://或https://开始",
       "translationWhere": "选语言与课.",
-      "translationText": "粘贴错误的文本和您的更正 。",
+      "translationText": "粘贴错误的文本和您的更正。",
       "snippetTitle": "给片段一个标题。",
-      "snippetSaql": "粘贴 SAQL。 。 。 。",
+      "snippetSaql": "粘贴 SAQL。 。 。",
       "snippetWhat": "说它做什么(20+字符).",
       "nomName": "添加个人的全名。",
       "nomLink": "添加 LinkedIn profile 或网站, 这样我们就可以信任它们 。",
@@ -451,46 +451,46 @@
       "name": "挂板名称",
       "namePh": "按区段分列的输油管覆盖率",
       "domain": "商业领域",
-      "difficulty": "难度",
+      "difficulty": "困难",
       "writeup": "公开写作",
       "creditName": "功劳——你的名字",
-      "creditNamePh": "它应该出现在展示中",
+      "creditNamePh": "应该出现在展示中",
       "creditUrl": "功劳——你的链接",
       "tools": "与",
       "prepSteps": "筹备步骤",
       "prep": "你怎么准备的?",
       "prepHelp": "加入和为什么,你过滤出来的东西, 任何让你惊讶的东西。",
-      "prepPh": "利用账户ID增加机会;2年以上的封闭式损失被过滤掉;.",
+      "prepPh": "利用AccountId增加机会;2年以上的封闭式损失被过滤掉;.",
       "grain": "谷物",
       "grainHelp": "最终数据集的一行是什么.",
-      "grainPh": "每周每一次机会一行",
+      "grainPh": "每个机会每周一行",
       "sources": "数据来源",
       "rowsPh": "行( 可选)",
       "kpis": "KPIs——名称,计算方法,为何重要.",
       "kpiN": "KPI {n}",
       "removeKpi": "删除 KPI",
       "kpiNamePh": "赢率",
-      "kpiFormulaPh": "总数(IsWon) / 数()——超过关闭的机会,截止日期",
+      "kpiFormulaPh": "总数(IsWon)/数()——超过关闭的机会,截止日期",
       "kpiWhyPh": "为何重要(可选)",
       "addKpi": "添加一个 KPI",
-      "techniques": "使用的技术",
+      "techniques": "所用技术",
       "removeShot": "删除截图",
       "dropShot": "丢弃截图",
-      "mediaUrlPh": ". . . .  .... 粘贴图像 URL"
+      "mediaUrlPh": "...或粘贴图像 URL"
     },
     "res": {
       "linkHelp": "粘贴——我们获取标题,描述和标志.",
       "category": "类别",
       "what": "这是什么",
-      "whyHelp": "谁应读此经,其能从中得出."
+      "whyHelp": "何人应读之,其能出之."
     },
     "les": {
       "fix": "补习",
       "propose": "提出教训",
-      "which": "哪个课?",
+      "which": "哪门课?",
       "ideaTitle": "拟议课程标题",
       "ideaTitlePh": "递增数据同步而不完全重载",
-      "wrong": "有什么不对吗?",
+      "wrong": "发生什么事了?",
       "outline": "大纲",
       "wrongHelp": "引经而说其应.",
       "outlineHelp": "它教什么, 以什么顺序, 和学习者建立。",
@@ -498,12 +498,12 @@
     },
     "tr": {
       "language": "语言",
-      "languagePh": "选一种语言",
+      "languagePh": "选一个语言",
       "lesson": "课程",
       "wrong": "现在的文字",
       "suggested": "它应该说什么",
       "note": "说明",
-      "notePh": "比如,\"Grain\"是这里的一个艺术术语,不是小麦"
+      "notePh": "比如说\"Grain\"是这里的艺术术语 不是小麦"
     },
     "snip": {
       "titlePh": "按财政季度分列的共计",
@@ -541,21 +541,21 @@
     "question": "问题 {n} 页:1 {total}",
     "submit": "提交答案",
     "score": "你赢了 {score} 页:1 {total}",
-    "passed": "通过了 - 干得好!",
-    "failed": "还没有 - 重新总结教训,再试一次.",
+    "passed": "通过了 不错的工作!",
+    "failed": "还不行 重新总结一下教训 再来一次",
     "retry": "再试一次",
-    "signInToSave": "签名来保存你的分数 并赚取积分。",
+    "signInToSave": "签名来保存你的分数和获得积分。",
     "saved": "积分存下来了 数到你的分数",
     "answered": "{n} 页:1 {total} 已回复"
   },
   "resources": {
     "submitTitle": "知道属于这里的资源吗?",
-    "submitBody": "医生,一个课程,一个工具,一个社区——任何教你的东西 CRM Analytics。 。 。 标题、链接和一条线, 维护者会在出现前审查它.",
+    "submitBody": "医生,一个课程,一个工具,一个社区——任何教你的东西 CRM Analytics标题、链接和一条线说明为什么值得一个人花时间。 一个维护者在它出现之前就审查它.",
     "submitCta": "提交资源",
     "header": {
       "sheet": "第06页/资源 {count} 参考文献",
       "title": "最好的一个 CRM Analytics 资源",
-      "lead": "Docs,课程,书籍,博客,工具,和社区 ——过滤以找到你需要的东西.",
+      "lead": "医生,课程,书籍,博客,工具,和社区——过滤以找到你需要的东西.",
       "suggest": "建议资源"
     },
     "filter": "过滤器",
@@ -578,7 +578,7 @@
       },
       "devGuide": {
         "title": "开发者指南",
-        "desc": "电线板 JSON,绑定,和平台内部用于建设者."
+        "desc": "电线板 JSON,捆绑,和平台内部供建设者使用."
       },
       "saqlReference": {
         "title": "SAQL 参考",
@@ -589,24 +589,24 @@
         "desc": "查询数据集并按程序管理资产。"
       },
       "trailheadCrma": {
-        "title": "Trailhead编号 : CRM Analytics",
-        "desc": "免费、手动、游戏化模块 Salesforce。 。 。 。"
+        "title": "Trailhead数字 : CRM Analytics",
+        "desc": "免费、手动、游戏化模块 Salesforce。 。 。"
       },
       "trailheadDiscovery": {
-        "title": "Trailhead编号 : Einstein Discovery",
-        "desc": "以导引项目构建和解读预测模型."
+        "title": "Trailhead数字 : Einstein Discovery",
+        "desc": "用导引项目构建和解读预测模型."
       },
       "learningTableauCrm": {
         "title": "学习 Tableau CRM (书).",
-        "desc": "一本涵盖数据集、仪表板和 SAQL。 。 。 。"
+        "desc": "一本涵盖数据集、仪表板和 SAQL。 。 。"
       },
       "masteringAnalytics": {
         "title": "掌握 Salesforce 分析",
-        "desc": "更深入地报道执行情况和 Einstein Discovery。 。 。 。"
+        "desc": "更深入地报道执行情况 Einstein Discovery。 。 。"
       },
       "analyticsBlog": {
         "title": "Salesforce 分析博客",
-        "desc": "产品新闻、提示和发布要闻 Salesforce。 。 。 。"
+        "desc": "产品新闻、提示和发布要闻 Salesforce。 。 。"
       },
       "salesforceBen": {
         "title": "Salesforce Ben——分析",
@@ -614,7 +614,7 @@
       },
       "sfCli": {
         "title": "Salesforce CLI (sf) 联合国",
-        "desc": "脚本部署并管理来自终端的分析资产."
+        "desc": "脚本部署和管理终端的分析资产."
       },
       "devOrg": {
         "title": "开发者版块",
@@ -622,7 +622,7 @@
       },
       "vscode": {
         "title": "VS 代码 + SF 扩展",
-        "desc": "编辑仪表板,数据流,以及具有完整工具的元数据."
+        "desc": "编辑仪表板,数据流,以及带有完整工具的元数据."
       },
       "trailblazerCommunity": {
         "title": "分析 Trailblazer Community",
@@ -661,34 +661,34 @@
     },
     "project": {
       "eyebrow": "§01——项目",
-      "title": "伟大的分析学不应该被锁起来",
-      "p1": "学习 CRM Analytics 通常指将分散的docs,昂贵的课程和过时的博客文章缝合在一起. 结果是陡峭的,孤独的攀登——尽管平台一点击就真正强大.",
-      "p2": "{name} 将你从“什么是CRM” 带回来, Salesforce。 。 。 。 它现在和将来都是自由和开放的来源。",
-      "p3": "一切众生悉皆开示. 发现错误还是要添加食谱? 打开拉动请求——每个加入的学习者的课程会变得更好."
+      "title": "伟大的分析学 不应该被锁起来",
+      "p1": "学习 CRM Analytics 通常指将分散的docs,昂贵的课程和过时的博客文章缝合在一起. 结果是一个陡峭,孤独的攀登——尽管平台一点击就真正强大.",
+      "p2": "{name} 将你从“CRM是什么”中 带入一个可解释的预测 Salesforce它现在是,并且永远是,自由和开放的源。",
+      "p3": "一切众生悉皆开示. 发现错误还是想要添加食谱? 打开拉动请求——每个加入的学习者的课程会变得更好."
     },
     "principles": [
       {
         "title": "打开和自由的核心",
-        "desc": "没有注册墙。 核心课程是免费的,生活在一个可以阅读、叉子和改进的公开课程中;可选的Pro课程为其余课程付费。"
+        "desc": "没有付费墙和注册墙。 每一课都是免费的,生活在一个你可以读到,叉子和改良的公开回波中."
       },
       {
         "title": "一条路,不是一堆",
-        "desc": "十九节相互借鉴——从何而来. CRM Analytics 是,通过 SAQL 和仪表板设计, 17个上市仪表板 在学院自己的商业数据。"
+        "desc": "十九节相互借鉴——从何而来. CRM Analytics 即,通过 SAQL 和仪表板设计,到17个市场仪表板 学院自己的商业数据。"
       },
       {
         "title": "默认操作",
-        "desc": "真实 SAQL食谱,和仪表板的例子 你可以直接粘贴到自己的矿石。"
+        "desc": "真实 SAQL食谱,还有仪表板的例子 你可以直接粘贴到自己的鸟类。"
       },
       {
-        "title": "人工智能",
-        "desc": "每个页面都以Markdown和超过MCP发布,因此助手可以从源头进行教学."
+        "title": "AI - 本土",
+        "desc": "每个页面都以Markdown和超过MCP的形式发布,因此助手可以从源头进行教学."
       }
     ],
     "principleLabel": "原则 {n}",
-    "curriculumAtGlance": "课程简介",
+    "curriculumAtGlance": "一览课程",
     "instructor": {
-      "eyebrow": "第02节——教员",
-      "caption": "图01——教官",
+      "eyebrow": "§02——教员",
+      "caption": "费格。 01 — 教官",
       "spec": "创建者 & 维护者"
     },
     "stats": {
@@ -701,9 +701,9 @@
     },
     "author": {
       "title": "由开发商为整个社区建造",
-      "p1": "顿... {name}。 。 。 。 我继续发展 Salesforce 并非常关心 使艰难的事情可以接近。 我开始 CRM Analytics 学院在看着太多有能力的人跳出学习曲线后,仅仅因为好的材料是分散的,过时的,或者在付费墙后面的.",
-      "p2": "所以我将我所学到的艰难的路变成了一条有条理的,开放的路,其他人可以走——我希望我开始的时候拥有的资源。 每个课都是我真正想要的 一个队友在他们的第一周阅读。",
-      "p3": "这是一个持续的、由社区推动的项目。 如果帮助你,最好的感谢是 {star},建议一个主题,或提供经验教训。 赞助保持了它的自由和增长.",
+      "p1": "顿... {name}。我以 Salesforce 并非常关心 使艰难的事情可以接近。 我开始 CRM Analytics 学院在看着太多有能力的人跳出学习曲线后,仅仅因为好的材料是分散的,过时的,或者在付费墙后面的.",
+      "p2": "所以我将我所学到的艰难的路变成一条有条理的,开放的路,其他人可以走——我希望我开始的时候拥有的资源。 每个课程都是我真正想要的 一个队友在他们的第一周阅读。",
+      "p3": "这是一个持续的、由社区推动的项目。 如果帮助你,最好的感谢是 {star},建议一个主题,或提供经验教训。",
       "star": "恒星重播"
     },
     "cta": {
@@ -717,17 +717,17 @@
   "contribute": {
     "seo": {
       "title": "贡献",
-      "description": "完整贡献指南:在本地设置,编写和翻译课程,建议资源,遵循代码样式,并打开拉动请求."
+      "description": "完整贡献指南:在本地设置,编写和翻译课程,推荐资源,遵循代码风格,并打开拉动请求."
     },
     "hero": {
       "eyebrow": "第10页/贡献方指南",
-      "title": "帮助构建 {em}",
+      "title": "帮助建立 {em}",
       "titleEm": "社区",
-      "lead": "所有你需要添加的课程,翻译内容,建议资源,或者改进代码.",
+      "lead": "所有你需要添加的教训,翻译内容,建议资源,或改进代码.",
       "github": "视图 GitHub",
       "suggest": "建议资源"
     },
-    "stepper": "导游,一步一步",
+    "stepper": "向导,一步一步",
     "stepLabel": "步骤 {n}",
     "levels": {
       "startHere": "从这里开始",
@@ -739,7 +739,7 @@
       "anytime": "随时"
     },
     "steps": {
-      "ways": "B. 作出贡献的方法",
+      "ways": "作出贡献的方法",
       "setup": "本地设置",
       "lessons": "写课",
       "frontmatter": "课程前题",
@@ -752,13 +752,13 @@
     },
     "welcome": {
       "title": "新来的? 你正是这个目标",
-      "body": "你不需要成为一个 CRM Analytics 专家或开发者帮助。 在下面挑一个小的第一步——大多数需要几分钟时间和需要 {zero}。 。 。 。 我们回顾一切,并乐于指导你们。",
-      "zero": "零码"
+      "body": "你不需要成为一个 CRM Analytics 专家或开发者帮助。 在下面挑一个小的第一步——大多数需要几分钟时间和需要 {zero}我们回顾一切,并乐于指导你们。",
+      "zero": "0 代码"
     },
     "quickStarts": [
       {
-        "title": "修正一个字型",
-        "text": "将“编辑此页”点击任何课程, GitHub 编辑表单。 完全没有设置。"
+        "title": "修补一个类型",
+        "text": "将“编辑此页面”点击任何课程, GitHub 编辑表单。 完全没有设置。"
       },
       {
         "title": "共享资源",
@@ -766,15 +766,15 @@
       },
       {
         "title": "改进翻译",
-        "text": "翻译由机器产生. 用你的语言修补一个笨拙的句子——你不需要触摸英语."
+        "text": "翻译由机器产生. 用你的语言修补一句笨拙的句子——你不需要碰英语."
       }
     ],
     "submitHere": "交给你",
     "ways": {
-      "intro": "帮助有四种主要方式——选择任何适合你的时间和技能的方法:",
+      "intro": "帮助有四种主要方法——选择任何适合你的时间和技能的方法:",
       "write": {
         "label": "写或修补课程",
-        "text": "改进措辞,修正错误,或添加全新的教训(Markdown,不需要编码)."
+        "text": "改进措辞,修正错误,或者添加全新课程(Markdown,不需要编码)."
       },
       "translate": {
         "label": "翻译",
@@ -788,84 +788,84 @@
         "label": "改进代码",
         "text": "修补一个错误, 完善 UI, 或者通过拉请求添加一个特性 。"
       },
-      "outro": "课程和代码更改通过 GitHub,因为每一课都是在repo中的文件. 资源、展示仪表板和经验教训构想在网站上提交,并在管理控制台审查。"
+      "outro": "课程和代码更改通过 GitHub,因为每个课都是 档案在repo。 资源与经验构想在网站上提交,并在管理控制台进行审查。"
     },
     "setup": {
-      "need": "你会需要 {node} 和 {pnpm}。 。 。 。 然后说:",
+      "need": "你会需要 {node} 和 {pnpm}。然后:",
       "checks": "在承诺之前,总是进行两次检查(没有测试跑者):",
       "tipLabel": "提示 :",
-      "tip": "{label} 如果 Docs 侧边栏在 dev 中看起来是空的, 则本地内容数据库会停滞 。 用它来修补 {cmd}。 。 。 。"
+      "tip": "{label} 如果 Docs 侧边栏在 dev 中看起来是空的, 则本地内容数据库会变质 。 用它来修补 {cmd}。 。 。"
     },
     "lessons": {
-      "p1": "课程是简单的马克下 {path}。 。 。 。 英国人住在 {en}。 。 。 。 数字前缀设置顺序 :",
-      "p2": "要添加一个教训,请在模块中创建一个带有下一个数字的新文件(例如. {example}),从顶级标题开始,用Markdown写. 使用 {h2} 对于各节,它们成为目录。 坚持务实,以身作则.",
-      "p3": "修补一个小字,只要使用 {edit} 链接在任何课程的底部——打开一个 GitHub 编辑表单。",
+      "p1": "经验教训是简单的马克下 {path}. 英语 {en}。数字前缀设置了顺序 :",
+      "p2": "要添加一个教训,请在模块中创建一个带有下一个数字的新文件(例如. {example}),从顶级标题开始,用Markdown写. 使用 {h2} 就各节而言,它们成为目录。 坚持务实,以身作则.",
+      "p3": "为了修复一个小字型,只要使用 {edit} 在任何课程的底部链接——它打开一个 GitHub 编辑表单。",
       "editLabel": "“编辑本页”"
     },
     "frontmatter": {
       "intro": "每一课从一个开始 YAML 前题块 :",
-      "p1": "{title} 和 {description} 需要; {video} 和 {interview} 是可选的。 一个新的 {module} 还需要一个 {nav} (与 {navTitle} 还有一个 {icon}),并新增一节 {llms} 配置为 {config}。 。 。 。",
+      "p1": "{title} 和 {description} 需要; {video} 和 {interview} 选项。 一个新的 {module} 还需要一个 {nav} (与 {navTitle} 一个 {icon}),并新增一节 {llms} 配置为 {config}。 。 。",
       "module": "顶级模块"
     },
     "translations": {
-      "p1": "现场船只在 {languages}:英语(默认),西班牙语,法语,德语,葡萄牙语,日语,汉语,印地语,阿拉伯语,俄语,孟加拉语,乌尔都语. 阿拉伯语和乌尔都语从右到左。",
+      "p1": "现场船只在 {languages}: 英语(默认)、西班牙语、法语、德语、葡萄牙语、日语、中文、印地语、阿拉伯语、俄语、孟加拉语、乌尔都语。",
       "languages": "12种语言",
-      "p2": "{bold} 只用英语写课程 当它降落时 {main}页:1 GitHub 行动通过Libre Translate 运行并承诺 {path} 所有11种其他语言。 代码块, SAQL,链接,前题密钥和产品名称都受到保护,并且不受影响。",
+      "p2": "{bold} 只用英语写课。 在下一个架构中, 一个运行于本地的 LibreTranslate 服务器会翻译并写入 {path} 其他11种语言。 代码块, SAQL,链接,前题密钥和产品名称都受到保护,并不受影响。",
       "p2Bold": "你不能用手翻译。",
-      "p3": "亲自操作: {all} (仅更改文件),或 {subset}。 。 。 。",
+      "p3": "亲自操作: {all} (仅更改文件),或 {subset}。 。 。",
       "p4": "{bold} 如果句子读写不当,请直接编辑该语区的文件,并打开拉动请求——当一个文件被删除时,管道只覆盖它。 {english} 源变化,所以你的固定生存。",
       "p4Bold": "机器翻译是一个起点,而不是终点.",
       "english": "联合国",
-      "p5": "用户界面字符串居住 {path}。 。 。 。 添加新字符串到 {en} 仅此而已; 同一行将填充其他十一行, 仅保留现有的翻译。"
+      "p5": "用户界面字符串居住 {path}添加新字符串到 {en} 仅此而已;同一行将填充其他十一行,而仅保留现有的翻译。"
     },
     "submit": {
-      "p1": "找到一个有用的链接——Docs,一个课程,一个工具,一个社区? {link}。 。 。 。 标题, URL 并且说明为什么它值得别人花时间。它作为等待而降落,并且是一个维护者批准它。 没有 GitHub 账户,没有拉请求,没有等待建设。",
-      "p2": "如果您喜欢打开一个问题, 打开一个问题仍然有效, 拖动请求也会添加一个文件到 {path}。 。 。 形式简单更快,在另一端也是同样的节制队列."
+      "p1": "找到一个有用的链接——Docs,一个课程,一个工具,一个社区? {link}标题 URL 以及为什么它值得别人花时间的台词,它作为待决物降落,并且由维护者批准。 没有 GitHub 账户,没有拉动请求,没有等待建设。",
+      "p2": "如果您喜欢打开一个问题, 打开一个问题仍然有效, 并且拉动请求添加一个文件到 {path}。表单简单更快,是另一端相同的节制队列。"
     },
     "code": {
-      "p1": "堆叠是 {stack}。 。 。 。 密钥文件夹 :",
+      "p1": "堆叠是 {stack}关键文件夹 :",
       "content": "{path} ——课(马克当).",
       "app": "{pages}, (中文). {components}, (中文). {composables} ——应用UI.",
-      "raw": "{path} ——AI代理和爬行者的原始标记表面.",
-      "p2": "样式规则由ESLint执行:没有后面的逗号,1TBS支架,2-空格缩进,每行有一个接口成员. 运行 {cmd} 到自动格式。 与周围的代码的常规相匹配."
+      "raw": "{path} ——人工智能特工和爬行者的原始标记表面.",
+      "p2": "样式规则由 ESLint 执行:没有后面的逗号, 1TBS 支架, 2- 空格缩进, 每行有一个接口成员. 运行 {cmd} 到自动格式。 与周围的代码的常规相匹配."
     },
     "stack": {
-      "intro": "整个网站都是开源的——以下是它赋予的权力:",
+      "intro": "整个网站都是开源的——这是它赋予的权力:",
       "nuxt": "{name} (Vue 3 + Nitro) — 框架, SSR + 前置",
       "content": "{name} - 在Markdown编写课程,服务于SQLite",
-      "ui": "{ui} + 键 {tailwind} 组件和样式",
-      "i18n": "{name} - 12种语文,其中11种用英语翻译",
-      "hosting": "{workers} + 键 {actions} ——预发页面充当静态资产,是动态线路的工人,自动部署在推往 {main}",
-      "extras": "还在盒子里: {og} (社会卡), {llms} (机器可读文件),和SEO的结构化数据.",
-      "noDb": "每门课都是在建校时从Markdown预发的,这样您就可以用 {bold}。 。 。 Neon Postgres上的帐号,进度和Pro运行,并且只有在你正在研究这些特性时才重要——README的低级设计覆盖了它们.",
+      "ui": "{ui} + 键 {tailwind} 组件和造型",
+      "i18n": "{name} 12种语言,其中11种用英语翻译",
+      "hosting": "{workers} + 键 {actions} ——预发页面充当静态资产,动态线路的工人,自动部署在推往 {main}",
+      "extras": "还在盒子里: {og} (社会卡), {llms} (机器可读文件),以及SEO的结构数据.",
+      "noDb": "每门课都是在 Markdown 的建设时段预发的, 这样您就可以写和预览课程 {bold}. Neon Postgres的帐目和进展,并且只有在你正在研究这些特性时才重要——README覆盖这些特性.",
       "noDbBold": "没有数据库"
     },
     "pr": {
-      "branch": "{bold} 关 {main}编号 : {cmd}",
+      "branch": "{bold} 关 {main}数字 : {cmd}",
       "branchBold": "处",
-      "change": "{bold} 预览 {cmd}。 。 。 。",
-      "changeBold": "做你的零钱",
-      "verify": "{bold}编号 : {lint} 和 {typecheck} 都通过。",
+      "change": "{bold} 预览 {cmd}。 。 。",
+      "changeBold": "换零钱吧",
+      "verify": "{bold}数字 : {lint} 和 {typecheck} 都通过。",
       "verifyBold": "校验",
-      "commit": "{bold} 有明确的信息, {push} 敬你的叉子们",
+      "commit": "{bold} 带一个明确的信息, {push} 到你的叉子边",
       "commitBold": "提交",
       "pushBold": "推动",
       "open": "{bold} 反对 {main}描述改变和原因",
       "openBold": "打开 PR",
-      "after": "维护者将进行审查,必要时提出调整建议,并合并。 合并后 GitHub 动作工作流程构建网站并自动发布到Cloudflare."
+      "after": "维护者将进行审查,必要时提出调整意见,然后合并。 合并后 GitHub 动作工作流程构建网站并自动发布到Cloudflare."
     },
-    "help": "粘着还是有什么想法? 开放议题或讨论 {github}。 。 。 第一次捐款者非常受欢迎——任何捐款都不算太少。"
+    "help": "粘着还是有什么想法? 开放议题或讨论 {github}12. 第一次捐款者非常受欢迎——没有太少。"
   },
   "datasets": {
     "seo": {
       "title": "数据集",
-      "description": "课程仓库: CRM Analytics 学院自己的商业数据——账户,管道,订阅,课堂批量和入学——作为免费的CSV加载到您 CRM Analytics 沃尔格。"
+      "description": "课程仓库: CRM Analytics 学院自己的商业数据——账户,管道,订阅,教室批量和入学——作为免费的CSV加载到您的 CRM Analytics 沃尔格。"
     },
     "schemaName": "CRM Analytics 学院教学仓库",
     "header": {
       "sheet": "第05页/课程仓库",
-      "title": "一个公司的数据,每个建设在课程",
-      "lead": "CRM Analytics 学院自己的业务:学习者和团队计划,企业交易的管道,6个教室中心以及每个出售的座位. 从第一个仪表板到执行理事会的每一个课 都用它来装"
+      "title": "一个公司的数据,每一个建设在课程",
+      "lead": "CRM Analytics 学院自己的业务:学习者和团队计划,企业交易的管道,六个教室中心和每个出售的座位. 从第一个仪表板到执行理事会的每一个课 都放在上面"
     },
     "stats": {
       "files": "文件",
@@ -879,9 +879,9 @@
     "rows": "{count} 行数",
     "procedure": {
       "title": "程序 - 装入您的矿石中",
-      "step1": "内 Analytics Studio,创建名为 {app}。 。 。 。",
+      "step1": "内 Analytics Studio,创建名为 {app}。 。 。",
       "step2": "打开 {path} 一次上传一个文件到应用程序中。",
-      "step3": "在建立这个页面之前先检查行数——一个短数几乎总是一个划界者或日期格式的问题.",
+      "step3": "在建立这个页面之前先检查行数——一个短数几乎总是一个划界者或日期格式问题.",
       "pathDataManager": "Data Manager",
       "pathCreateDataset": "创建数据集",
       "pathCsvFile": "CSV 文件"
@@ -900,7 +900,7 @@
       },
       "contacts": {
         "grain": "联系人",
-        "desc": "从个人学习者到L的人&D经理,拥有经济买家和冠军旗帜."
+        "desc": "从个人学习者到L的人&D经理,拥有经济买家和冠军旗."
       },
       "products": {
         "grain": "提议",
@@ -908,30 +908,30 @@
       },
       "reps": {
         "grain": "代表",
-        "desc": "共有企业、特别提款权、业务流程评估、解决方案顾问和中央管理系统,并设有配额和坡道。"
+        "desc": "共有企业、特别提款权、商业争端解决、解决方案顾问和中央管理系统,并设有配额和坡道。"
       },
       "centers": {
         "grain": "培训中心",
-        "desc": "设有座位、每月固定费用和地区六个中心。"
+        "desc": "六个中心,有座位、每月固定费用和地区。"
       },
       "campaigns": {
         "grain": "运动",
-        "desc": "支出加上线索,管道和赢得的收入 从细节行计算。"
+        "desc": "支出加上线索 管道 和赢得的收入 从细节行计算。"
       },
       "marketing_spend": {
-        "grain": "月份x频道x区域",
-        "desc": "金融界对支出的看法,在一种刻意不同的谷物上."
+        "grain": "月份×频道×区域",
+        "desc": "金融对支出的看法, 故意不同的谷物。"
       },
       "web_sessions": {
         "grain": "日×频道×页",
-        "desc": "GA4-形状的流量带有注册,课程开始和引用请求."
+        "desc": "GA4 - 形状的流量,有注册,课程开始和引用请求."
       },
       "seo_keywords": {
         "grain": "周×关键字",
         "desc": "Rank, CTR 以及AI Overview是否点击."
       },
       "llm_visibility": {
-        "grain": "月 × 引擎 × 提示 × 运行",
+        "grain": "月   引擎   提示   运行",
         "desc": "当有人问助理如何学习时 学院的名字是 CRM Analytics? 。 。 。"
       },
       "leads": {
@@ -940,11 +940,11 @@
       },
       "opportunities": {
         "grain": "机会",
-        "desc": "新建业务,扩建,上市和续建,设有试点和供应商评审大门."
+        "desc": "新建经营,扩建,上市和续建,设有试点和供应商评审闸门."
       },
       "opportunity_products": {
         "grain": "机会的提供",
-        "desc": "折合率准确到机会的线性项目。 粉丝课住在这里。"
+        "desc": "折价折合到机会的细线项目。 粉丝课住在这里。"
       },
       "quotes": {
         "grain": "机会x版本",
@@ -952,7 +952,7 @@
       },
       "usage_monthly": {
         "grain": "月份x账户x提供",
-        "desc": "购买的座椅和预付公用池与使用的座椅——延长的主要指标。"
+        "desc": "购买的座椅和预付公用池与使用的座椅——更新的主要指标。"
       },
       "arr_snapshots": {
         "grain": "月份x账户",
@@ -960,14 +960,14 @@
       },
       "cases": {
         "grain": "大小写",
-        "desc": "对解放军的支持,根源和询问AI偏移."
+        "desc": "支持解放军,根源和询问AI偏移."
       },
       "csat_surveys": {
         "grain": "调查答复",
         "desc": "CSAT和核动力源,故意分开。"
       },
       "platform_health_daily": {
-        "grain": "* 提供",
+        "grain": "日 度 提供",
         "desc": "错误,延迟和事件——\"是我们吗?\"桌子."
       },
       "batches": {
@@ -983,57 +983,57 @@
   "privacy": {
     "seo": {
       "title": "隐私政策",
-      "description": "怎么样 CRM Analytics Academy处理你的数据:一个账户存储什么,饼干,分析,广告,通过Dodo付款支付,以及如何删除全部."
+      "description": "怎么样 CRM Analytics Academy处理你的数据:什么是账户存储,我们的第一党分析,Google AdSense广告,以及如何删除全部."
     },
     "hero": {
       "eyebrow": "第14页/隐私",
-      "lead": "CRM Analytics 学院是免费课程,部分资金来自广告. 这就是你数据的意义所在"
+      "lead": "CRM Analytics 学院是免费课程,由广告资助. 这正是它储存的东西 广告做什么。"
     },
     "englishPrevails": "这项政策用英语翻译。 如果两种版本不同,则以英文版本为准. {link}",
     "englishLink": "阅读英文版",
     "sections": [
       {
-        "title": "我们收集的",
-        "body": "我们不需要账户或注册来阅读任何课程。 我们不收集姓名、电子邮件或付款详情。 您访问的页面、 大致位置( 国家/ 区域)、 设备类型、 参考器等, 均通过下面描述的分析和广告工具自动收集 。"
+        "title": "我们收集的东西",
+        "body": "阅读课程不需要账号。 当您访问时, 我们记录了网页, 开放时间、 国家(来自Cloudflare), 设备类型、浏览器和操作系统, 我们不存储你的IP地址。 我们自己的分析方法不使用饼干;下面描述的广告就是如此。"
       },
       {
-        "title": "饼干 & 类似技术",
-        "body": "这个网站使用cookie和类似技术有两个目的:了解课程的使用方式(分析)和显示有助于保持每门课自由的广告(广告). 您可以在任何时候在浏览器设置中屏蔽或删除 cookie;网站会继续工作,尽管个性化的广告可能会停止."
+        "title": "账户",
+        "body": "如果您创建了一个账户, 我们会存储您的姓名、 电子邮件地址和密码散列( 通过 Neon Auth) , 以及您在此所做的: 课程完成、 测试分数、 保存课程、 评论和提交 。 这就是你的仪表板 纹章和徽章的力量"
       },
       {
-        "title": "分析",
-        "body": "我们用Google Analytics和Microsoft Clarity来查看哪些网页很受欢迎,访问者来自何处,以及如何阅读课程。 清晰度还记录匿名互动数据,如点击和滚动,帮助我们改进页面布局. 也不是用来确认你个人身份的"
+        "title": "分析方法如何运作",
+        "body": "分析是第一方面:它由这个网站收集,储存在我们自己的数据库中,只由网站所有者阅读. 在您的浏览器的本地存储中保留了随机访问者 ID, 因此重复访问被计算一次; 清除站点数据重置它 。 不与广告商出售或共享数据。"
       },
       {
-        "title": "广告——Google AdSense",
-        "body": "我们管理Google AdSense,为托管和持续的内容开发提供资金。 Google及其合作伙伴可能利用cookie(包括DoubleClick cookie)来服务基于您之前访问此网站和其他网站的广告. 您可以通过访问 Google 的 Ads 设置选择退出个性化广告, 也可以通过访问选择退出第三方供应商 cookie {aboutAds}。 。 。 。"
+        "title": "广告——Google Adsense",
+        "body": "每个课程都是免费的,因为网站展示了Google AdSense的广告. Google及其合作伙伴可能使用cookie(包括DoubleClick cookie)来显示基于您访问此网站和其他网站的广告. 您可以在 Google 的 Ads 设置中关闭个性化的广告, 或者选择退出第三方的销售商 cookie 。 www.aboutads.info。 这个网站没什么可买的"
       },
       {
-        "title": "第三方链接",
-        "body": "经验教训与官方联系 Salesforce 文档, Trailhead和其他社区资源。 我们对这些外部网站的隐私做法不负责任。"
+        "title": "第三方链接和视频",
+        "body": "经验教训与 Salesforce 文档, Trailhead 以及一些嵌入YouTube的视频 这些网站有自己的隐私做法;YouTube视频只在播放时才加载."
       },
       {
         "title": "儿童的隐私",
-        "body": "这个网站不是针对13岁以下儿童的,我们不知情地从他们那里收集数据。"
+        "body": "这个网站不是针对13岁以下儿童的,我们也不在知情的情况下从他们那里收集数据。"
       },
       {
-        "title": "你的选择",
-        "body": "你可以浏览整个课程 而不启用饼干。 大多数浏览器都让你屏蔽第三方饼干,或者每个网站清除. 失效的饼干可能会影响广告如何个性化,但不会阻碍获得任何课程."
+        "title": "删除您的数据",
+        "body": "在项目上打开一期 GitHub 寄存器或信件,以及您的账户和与其相关的所有信息将被删除。"
       },
       {
         "title": "这项政策的改变",
-        "body": "这项政策可随着项目的发展而更新。 在本页上更新的日期将反映实质性变化。"
+        "body": "这项政策可随着项目的发展而更新。 本页将反映重大变动。"
       },
       {
         "title": "联系人",
-        "body": "关于这项政策的问题? 打开项目上的一期 GitHub 数据库。"
+        "body": "关于这个政策的问题? 在项目上打开一期 GitHub 数据库。"
       }
     ]
   },
   "terms": {
     "seo": {
       "title": "服务条件",
-      "description": "使用术语 CRM Analytics 学院:免费课程及其许可证、账目和进展、Pro购买、社区内容和可接受用途。"
+      "description": "使用术语 CRM Analytics 学院:免费课程及其许可证、账目和进展、广告、社区内容和可接受用途。"
     },
     "hero": {
       "eyebrow": "第15页/术语",
@@ -1043,12 +1043,12 @@
     "englishLink": "阅读英文版",
     "sections": [
       {
-        "title": "使用此网站",
-        "body": "CRM Analytics 学校是免费的教学课程 Salesforce CRM Analytics。 。 。 你可以阅读,复制代码片段, 并跟着你自己的 Salesforce 用于个人或商业学习目的。"
+        "title": "使用这个网站",
+        "body": "CRM Analytics 学校是免费的教学课程 Salesforce CRM Analytics。您可以阅读、复制代码片段,并随行 Salesforce 用于个人或商业学习目的。"
       },
       {
         "title": "不是官员 Salesforce 产品",
-        "body": "这是一个独立、社区建设的学习资源。 它不附属于、不获得或赞助 Salesforce联合国Salesforce\" 和 \"CRM Analytics\" 是: Salesforce,Inc.),仅用于鉴定目的."
+        "body": "这是一个独立、社区建设的学习资源。 它不附属于、不获得或赞助 Salesforce联合国Salesforce\" 和 \"CRM Analytics\" 是 Salesforce,Inc.,仅用于身份识别目的."
       },
       {
         "title": "内容许可证",
@@ -1056,15 +1056,15 @@
       },
       {
         "title": "没有担保",
-        "body": "提供\"照旧\"的教训,没有任何形式的保证. SAQL 实例、食谱和配置步骤是说明性的——总是在应用到生产数据之前验证沙盒或开发商的更改。"
+        "body": "提供“照旧”的经验,没有任何形式的保证。 SAQL 实例、食谱和配置步骤是说明性的——总是在应用到生产数据之前验证沙盒或开发商的更改。"
       },
       {
         "title": "广告",
-        "body": "这个网站由Google AdSense提供部分资金. 广告由Google及其合作伙伴提供服务,而不是由Google及其合作伙伴认可。 CRM Analytics 学院. 关于如何处理广告相关数据的详情,请参见隐私政策。"
+        "body": "该网站由Google AdSense资助. 广告由Google及其合作伙伴提供服务,不是由Google及其合作伙伴背书。 CRM Analytics 学院. 关于如何处理广告相关数据,请参见隐私政策。"
       },
       {
         "title": "赔偿责任的限制",
-        "body": "CRM Analytics 学院及其维护者不承担因使用本站点或依赖其内容而造成的任何损失或损害的责任."
+        "body": "CRM Analytics 学院及其维护者不为使用该场地或依赖其内容而造成的任何损失或损害承担责任。"
       },
       {
         "title": "修改这些术语",
@@ -1072,7 +1072,7 @@
       },
       {
         "title": "联系人",
-        "body": "关于这些术语的问题? 打开项目上的一期 GitHub 数据库。"
+        "body": "关于这些术语的问题? 在项目上打开一期 GitHub 数据库。"
       }
     ]
   },
@@ -1085,17 +1085,17 @@
       "level": "开始到高级",
       "teaches": "Salesforce CRM Analytics: 数据编制、数据集、 SAQL、仪表板、装订和 Einstein Discovery"
     },
-    "sheet": "01号工作表/ {sections} 节/ {lessons} 经验教训/ {hours}页:1",
+    "sheet": "第01页/ {sections} 节/ {lessons} 经验教训/ {hours}页:1",
     "title": "课程",
     "complete": "{done} 页:1 {total} 完成",
     "start": "从头开始",
     "datasets": "获取数据集",
-    "sectionMeta": "{lessons} 课程 · {minutes} 分钟",
+    "sectionMeta": "{lessons} 学习 · {minutes} 分钟",
     "phases": {
       "p1": "第一阶段——面向目标",
       "p2": "第二阶段——数据基础.",
       "p3": "第三阶段——探索和建设.",
-      "p4": "第4阶段——船舶和规模",
+      "p4": "阶段4——船舶和规模",
       "p5": "第5阶段——上市建设."
     },
     "tags": {
@@ -1124,7 +1124,7 @@
     "copy": {
       "page": "复制页面",
       "menu": "打开复制动作菜单",
-      "markdownLink": "复制马克下行链接",
+      "markdownLink": "复制 Markdown 链接",
       "viewMarkdown": "视图为 Markdown",
       "openChatgpt": "在 ChatGPT 中打开",
       "openClaude": "在克劳德打开",
@@ -1137,7 +1137,7 @@
   "credits": {
     "title": "贷项 & 来源",
     "by": "由",
-    "license": "许可证: {license}",
+    "license": "许可证 : {license}",
     "videoBy": "视频由",
     "onYoutube": "在YouTube上观看",
     "kinds": {
@@ -1158,14 +1158,14 @@
     "placeholder": "问一个问题或分享你是如何解决的...",
     "hint": "纯文字. 友善点——其他学习者也正在通过这项工作。",
     "post": "员额",
-    "empty": "还没有问题 如果这课上有些事不明确的话 可能不止你一个人",
+    "empty": "还没有问题 如果这课上有些事不清楚的话 可能不止你一个人",
     "reply": "答复",
     "replyPlaceholder": "写回信...",
     "cancel": "取消",
     "delete": "删除",
     "you": "你们",
     "errLoad": "无法装入注释 。",
-    "errPost": "无法张贴 。 请再试一次",
+    "errPost": "无法发布 。 请再试一次",
     "errDelete": "无法删除该注释 。"
   },
   "buildBrief": {
@@ -1180,7 +1180,7 @@
   },
   "funnel": {
     "convertTo": "转换为 {stage}",
-    "logScale": "栏长度为对数——比较百分数而不是栏."
+    "logScale": "栏长为对数——比较百分数而不是栏."
   },
   "channel": {
     "eyebrow": "YouTube上的新内容",

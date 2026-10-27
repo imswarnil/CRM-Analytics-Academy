@@ -3,22 +3,22 @@
   "nav": {
     "resources": "Recursos",
     "about": "Sobre",
-    "github": "Ver no GitHub",
-    "theme": "Alternar tema",
+    "github": "Ver em GitHub",
+    "theme": "Alternar o tema",
     "chooseLanguage": "Escolher idioma",
     "datasets": "Conjuntos de dados",
     "contribute": "Contribuir",
     "privacy": "Política de Privacidade",
-    "terms": "Termos de Serviço",
-    "signIn": "Assine.",
-    "signOut": "Assine.",
+    "terms": "Termos de serviço",
+    "signIn": "Iniciar sessão",
+    "signOut": "Sair",
     "dashboard": "Painel",
-    "account": "Conta.",
+    "account": "Conta",
     "curriculum": "Currículo",
     "submit": "Contribuir com um recurso",
-    "home": "Casa",
-    "enrollFree": "Inscreva-se gratuitamente",
-    "homeAria": "CRM Analytics Academia - lar",
+    "home": "Principal",
+    "enrollFree": "Inscrição gratuita",
+    "homeAria": "CRM Analytics Academia — lar",
     "starOnGithub": "Estrela CRM Analytics Academia em GitHub",
     "youtube": "CRM Analytics Academia no YouTube",
     "wallOfFame": "Muro da Fama",
@@ -28,81 +28,81 @@
   "home": {
     "modules": {
       "foundations": {
-        "title": "Fundamentos"
+        "title": "Fundações"
       }
     },
     "faqTitle": "Perguntas, respondidas",
     "faqs": [
       {
-        "q": "É realmente grátis?",
-        "a": "Sim — cada lição é gratuita e de código aberto, sem necessidade de cadastro."
+        "q": "É mesmo de graça?",
+        "a": "Sim — cada lição é livre e de código aberto, sem necessidade de inscrição."
       },
       {
-        "q": "Preciso de uma org do Salesforce?",
-        "a": "Uma org Developer Edition gratuita basta para acompanhar todas as lições."
+        "q": "Eu preciso de um... Salesforce org?",
+        "a": "Uma org gratuito Developer Edition é suficiente para acompanhar todas as lições."
       },
       {
-        "q": "Preciso de experiência em código?",
-        "a": "Não. Começamos pelo básico de CRM e introduzimos SAQL aos poucos."
+        "q": "Preciso de experiência em codificação?",
+        "a": "Não. Partimos do básico do CRM e introduzimos SAQL gradualmente, passo a passo."
       },
       {
-        "q": "Isso ajuda a me certificar?",
-        "a": "O currículo se alinha aos temas do exame de consultor de CRM Analytics e Einstein Discovery."
+        "q": "Isto vai ajudar-me a ser certificada?",
+        "a": "Os mapas curriculares para o CRM Analytics & Einstein Discovery Tópicos de exame de consultor."
       }
     ],
     "hero": {
-      "eyebrow": "Atualizado para o atual Salesforce Soltar",
-      "title": "Aprenda. Salesforce CRM Analytics A forma como é usado no trabalho.",
-      "lead": "Livre, aulas práticas sobre receitas, SAQL, painéis, segurança e Einstein Discovery - construído com base em dados reais de uma empresa.",
-      "start": "Comece a lição 1",
-      "curriculum": "Veja o currículo."
+      "eyebrow": "Atualizado para o atual Salesforce lançamento",
+      "title": "Aprender Salesforce CRM Analytics a forma como é usado no trabalho.",
+      "lead": "Livre, aulas práticas sobre receitas, SAQL, painéis, segurança e Einstein Discovery — com base nos dados reais de uma empresa.",
+      "start": "Iniciar a lição 1",
+      "curriculum": "Ver currículo"
     },
     "author": {
       "eyebrow": "Fig. 05 — O autor",
-      "figure": "Fig. 05 — Quem ensina isso?",
-      "title": "Sete anos de painéis de compras, viraram um curso.",
+      "figure": "Fig. 05 — Quem ensina isto",
+      "title": "Sete anos de painéis de compras, transformaram-se num curso.",
       "more": "Mais sobre Swarnil",
-      "connect": "Conectar em Linked In"
+      "connect": "Conectar no LinkedIn"
     },
     "figure": {
-      "caption": "Fig. 01: Academia ARR por mês",
-      "spec": "Construído em construção 14",
+      "caption": "Fig. 01 — ARR da Academia por mês",
+      "spec": "Construído em Construção 14",
       "arr": "ARR",
       "arrDelta": "{n} Ano após ano",
       "winRate": "Taxa de vitória",
-      "winRateDelta": "Negócio fechado.",
+      "winRateDelta": "negócios fechados",
       "nrr": "NRR",
       "nrrDelta": "GRR {n}"
     },
     "plot": {
-      "eyebrow": "Fig. 02 — Currículo, traçado",
+      "eyebrow": "Fig. 02 — Currículo, plotado",
       "title": "{lessons} lições publicadas em {live} de {sections} secções",
-      "full": "Currículo completo.",
-      "section": "Seção",
+      "full": "Currículo completo",
+      "section": "Secção",
       "minutes": "{n} min",
-      "video": "Vídeo passeando",
-      "article": "Artigo"
+      "video": "Passeio de vídeo",
+      "article": "Artigo.o"
     },
     "blurbs": {
       "introduction": "O que o curso é, para quem é, uma org livre, e o primeiro conjunto de dados carregado.",
       "foundations": "O quê? CRM Analytics é, as três camadas, o vocabulário, e quando é a ferramenta errada.",
-      "setup": "Licenças, conjuntos de permissão, o usuário de integração, a segurança predica e compartilha a herança.",
-      "data-preparation": "Conexões, sincronização, receitas, baldes, valores perdidos e desduplicação.",
-      "datasets-and-modelling": "Grãos, juntas e fãs, fotos para história e metadados de campo.",
+      "setup": "Licenças, conjuntos de permissões, o usuário de integração, a segurança predica e compartilha a herança.",
+      "data-preparation": "Conexões, sincronização, receitas, baldes, valores em falta e de-duplicação.",
+      "datasets-and-modelling": "Grain, junts e fan-out, instantâneos para histórico e metadados de campo.",
       "data-visualization": "Cada gráfico tipo em seus próprios termos, e qual a questão realmente precisa.",
-      "lenses-and-explorations": "Explorando um conjunto de dados: agrupamentos, medidas, os três modos, e consultas conversacionais.",
-      "saql": "A linguagem de consulta em si - sintaxe, funções, os padrões que importam, e depuração.",
+      "lenses-and-explorations": "Explorando um conjunto de dados: agrupamentos, medidas, os três modos e consultas conversacionais.",
+      "saql": "A própria linguagem de consulta — sintaxe, funções, padrões que importam e depuração.",
       "designing-dashboards": "Projetando para uma decisão: hierarquia, formatação, widgets e desempenho.",
-      "interactions": "Rosto, filtros e seleção - o que faz de um painel um sistema em vez de uma página.",
-      "bindings": "Um widget alimentando outro: seleção, resultados, nidificação, e onde fica intolerável.",
-      "dashboard-json": "Debaixo do capô: leitura e edição do JSON Quando o construtor acabar.",
+      "interactions": "Rosto, filtros e seleção — o que torna um painel um sistema em vez de uma página.",
+      "bindings": "Um widget alimentando outro: seleção, resultados, aninhamento, e onde ele se torna ininterruptível.",
+      "dashboard-json": "Sob o capô: leitura e edição do JSON Quando o construtor acabar.",
       "collaboration": "Aplicativos e compartilhamento, assinaturas, anotações, incorporação e governança.",
-      "apis-and-automation": "O REST API, Python, carregamentos automatizados de dados, e CI para análise.",
-      "einstein-discovery": "Histórias, modelos, previsões de escrita e auditorias antes de confiar.",
-      "gtm-engineering": "O armazém, contratos métricos, e a árvore métrica que as construções preenchem.",
-      "demand-analytics": "AI busca visibilidade, SEO, aquisição, campanhas, gastos e atribuição.",
-      "pipeline-analytics": "Leva à assinatura: roteamento, pontuação, conversão, velocidade e CPQ.",
-      "revops-analytics": "Previsão, cachoeira ARR, risco de consumo, serviço, e o conselho executivo."
+      "apis-and-automation": "A REST API, Python, cargas automatizadas de dataset e CI para análise.",
+      "einstein-discovery": "Histórias, modelos, previsões de escrita — e auditoria de uma pontuação antes de confiar nela.",
+      "gtm-engineering": "O armazém, contratos métricos e a árvore métrica que as construções preenchem.",
+      "demand-analytics": "AI busca visibilidade, SEO, aquisição, campanhas, gastar e atribuição.",
+      "pipeline-analytics": "Leva até a assinatura: roteamento, pontuação, conversão, velocidade e CPQ.",
+      "revops-analytics": "Previsão, cachoeira ARR, risco de consumo, serviço e conselho executivo."
     },
     "join": {
       "eyebrow": "Conta gratuita",
@@ -126,48 +126,48 @@
     }
   },
   "footer": {
-    "tagline": "Um currículo gratuito e de código aberto para dominar o Salesforce CRM Analytics.",
+    "tagline": "Um currículo livre e de código aberto para o domínio Salesforce CRM Analytics.",
     "curriculum": "Currículo",
     "project": "Projeto",
     "community": "Comunidade",
     "quip": {
-      "0": "Feito por Swarnil com uma quantidade irracional de incitação e um heróico desperdício de fichas.",
-      "1": "Desenhado à mão por Swarnil, assistido por máquina. O orçamento é mais uma sugestão.",
-      "2": "Construído por Swarnil um prompt de cada vez - alguns deles até mesmo trabalhou na primeira tentativa."
+      "0": "Feito por Swarnil com uma quantidade razoável de incitação e um desperdício heróico de fichas.",
+      "1": "Desenhado à mão pelo Swarnil, assistido por máquina. O orçamento simbólico é agora mais uma sugestão.",
+      "2": "Construído por Swarnil um prompt de cada vez — alguns deles até mesmo trabalharam na primeira tentativa."
     },
     "builtWith": "Construído com",
     "builtWithNote": "Código aberto. Star o repo, garfo-lo, ou enviar um pedido de pull."
   },
   "seo": {
-    "homeTitle": "CRM Analytics Academy — Aprenda Salesforce CRM Analytics",
-    "homeDesc": "Um currículo gratuito e de código aberto para dominar o Salesforce CRM Analytics — da preparação de dados e SAQL a dashboards e Einstein Discovery, em dois módulos práticos.",
+    "homeTitle": "CRM Analytics Academia — Aprenda Salesforce CRM Analytics",
+    "homeDesc": "Um currículo livre e de código aberto para o domínio Salesforce CRM Analytics — da preparação dos dados e SAQL a painéis, encadernação, Einstein Discovery e o painel vai para o mercado.",
     "aboutTitle": "Sobre",
-    "aboutDesc": "A história por trás da CRM Analytics Academy, um currículo de código aberto para Salesforce CRM Analytics, e quem o desenvolve.",
+    "aboutDesc": "A história por trás CRM Analytics Academia — um currículo de código aberto para Salesforce CRM Analytics — e a pessoa que a constrói.",
     "resourcesTitle": "Recursos",
-    "resourcesDesc": "Uma lista selecionada dos melhores recursos de Salesforce CRM Analytics — documentação oficial, Trailhead, referências de SAQL, comunidade e ferramentas."
+    "resourcesDesc": "Uma lista dos melhores Salesforce CRM Analytics recursos — documentos oficiais, Trailhead, SAQL referências, comunidade e ferramentas."
   },
   "course": {
     "nextLesson": "Próximo: {title}",
     "markComplete": "Marcar como completo",
-    "completed": "Concluído.",
-    "signInToTrack": "Assine para rastrear seu progresso.",
-    "signIn": "Assine.",
-    "courseProgress": "Progresso em curso.",
+    "completed": "Concluído",
+    "signInToTrack": "Entre para acompanhar o seu progresso.",
+    "signIn": "Iniciar sessão",
+    "courseProgress": "Progresso do curso",
     "contents": "Conteúdo do curso",
     "contentsPct": "Conteúdo · {pct}%",
-    "showContents": "Mostre o conteúdo do curso.",
+    "showContents": "Mostrar o conteúdo do curso",
     "collapseContents": "Recolher o conteúdo do curso",
-    "sectionMeta": "{lessons} Aulas... {minutes}M",
+    "sectionMeta": "{lessons} lições · {minutes}m",
     "comingSoon": "Em breve."
   },
   "dashboard": {
     "kicker": "Painel",
     "welcome": "Bem-vindo de volta.",
-    "welcomeNamed": "Bem-vindo de volta, {name}",
+    "welcomeNamed": "Bem-vindo de volta. {name}",
     "lead": "Continue de onde parou — uma lição por dia se soma.",
     "streakLead": "Você está em um {n}- dia de sorte. Continua hoje.",
-    "statCompleted": "Concluído.",
-    "statRemaining": "Restando",
+    "statCompleted": "Concluído",
+    "statRemaining": "Restante",
     "statStreak": "Raia diurna",
     "statPoints": "Pontos",
     "statQuiz": "Média do questionário",
@@ -179,9 +179,9 @@
     "quizzesTaken": "{n} quizzes",
     "activeDays": "{n} dias ativos",
     "continue": "Continuar a aprender",
-    "lessonsDone": "{done} de {total} Aulas.",
-    "continueCta": "Retomar",
-    "startFirst": "Comece a primeira lição.",
+    "lessonsDone": "{done} de {total} lições",
+    "continueCta": "Continuar",
+    "startFirst": "Iniciar a primeira lição",
     "upNext": "Próxima",
     "goal": "Esta semana",
     "goalDone": "Meta semanal alcançada. Qualquer coisa mais é um bónus.",
@@ -192,7 +192,7 @@
     "activity": "Actividade, nas últimas 26 semanas",
     "less": "Menos",
     "more": "Mais",
-    "bySection": "Por seção",
+    "bySection": "Por secção",
     "saved": "Salvo para mais tarde",
     "savedEmpty": "Salve uma lição com o botão de favoritos sob seu título e ele irá esperar por você aqui.",
     "unsave": "Remover do salvo",
@@ -255,7 +255,7 @@
     "leaderboardEmpty": "Ninguém ganhou pontos ainda — seja o primeiro.",
     "you": "você",
     "pointsRule": "10 pontos por aula, 2 por teste, 25 por submissão aprovada (50 para um painel).",
-    "recentlyCompleted": "Recentemente concluída.",
+    "recentlyCompleted": "Terminado recentemente",
     "nothingYet": "Você ainda não completou uma lição.",
     "board": {
       "global": "Global",
@@ -266,121 +266,121 @@
   },
   "auth": {
     "signInTitle": "Bem-vindo de volta.",
-    "signInDesc": "Continue exatamente de onde parou.",
-    "signUpTitle": "Inscreva-se gratuitamente",
-    "signUpDesc": "Uma conta grátis: seu progresso, notas e perguntas seguem todos os dispositivos.",
-    "demoCta": "Só olhando? Explore com a demonstração somente leitura",
+    "signInDesc": "Continua exactamente onde paraste.",
+    "signUpTitle": "Inscrição gratuita",
+    "signUpDesc": "Uma conta gratuita: seu progresso, pontuação de questionário e perguntas seguem você para cada dispositivo.",
+    "demoCta": "Só a olhar? Explore com a demonstração somente leitura",
     "name": "Nome",
-    "email": "E-mail",
+    "email": "E- mail",
     "password": "Senha",
-    "passwordHint": "Pelo menos 8 caracteres.",
-    "submitSignIn": "Assine.",
+    "passwordHint": "Pelo menos 8 caracteres",
+    "submitSignIn": "Iniciar sessão",
     "submitSignUp": "Criar conta",
-    "errSignIn": "Esses detalhes não batem com uma conta.",
+    "errSignIn": "Esses detalhes não correspondem a uma conta.",
     "errSignUp": "Não foi possível criar essa conta. O e-mail já pode estar registrado, ou a senha pode ser muito curta.",
-    "errDemo": "A conta demo está indisponível agora.",
+    "errDemo": "A conta de demonstração não está disponível neste momento.",
     "haveAccount": "Já tem uma conta?",
-    "signInLink": "Assine.",
+    "signInLink": "Iniciar sessão",
     "noAccount": "Nova aqui?",
     "signUpLink": "Criar uma conta",
-    "asideTitle": "Aprenda. CRM Analytics A forma como é usado no trabalho.",
-    "asideText": "Cada lição, dataset e quiz é grátis. Uma conta é só como o site lembra de você.",
+    "asideTitle": "Aprender CRM Analytics a forma como é utilizado no trabalho.",
+    "asideText": "Cada lição, conjunto de dados e questionário é gratuito. Uma conta é apenas como o site se lembra de você.",
     "asideMeta": "Livre · sem cartão · 12 idiomas",
-    "eyebrowSignIn": "Folha 00 - Iniciar sessão",
-    "eyebrowSignUp": "Folha 00 - Inscrição",
-    "pageSignIn": "Assine.",
-    "pageSignUp": "Inscreva-se gratuitamente",
-    "benefitProgress": "Progresso salvo em dispositivos, lição por lição.",
-    "benefitDiscuss": "Faça perguntas e responda a cada lição.",
-    "benefitQuizzes": "Seção perguntas com suas pontuações mantidas",
+    "eyebrowSignIn": "Folha 00 — Iniciar sessão",
+    "eyebrowSignUp": "Folha 00 — Registo",
+    "pageSignIn": "Iniciar sessão",
+    "pageSignUp": "Inscrição gratuita",
+    "benefitProgress": "Progresso salvo entre dispositivos, lição por lição",
+    "benefitDiscuss": "Faça perguntas e responda sob todas as lições",
+    "benefitQuizzes": "Testes de secção com as suas pontuações mantidas",
     "benefitFree": "Livre para sempre — todas as lições",
-    "verifyTitle": "Verifique sua caixa de entrada.",
-    "verifyDesc": "Enviamos um link de confirmação para {email}. Abra, então assine."
+    "verifyTitle": "Verifique sua caixa de entrada",
+    "verifyDesc": "Enviamos um link de confirmação para {email}Abre-a e depois assina."
   },
   "submit": {
-    "title": "Contribua para a Academia",
-    "subtitle": "Dashboards, recursos, correção de lições, traduções e SAQL. Tudo é revisado por uma pessoa antes de aparecer, e o trabalho aprovado conta para sua posição no painel.",
-    "kindResource": "Um recurso.",
-    "kindShowcase": "Um painel.",
-    "kindIdea": "Uma lição fixa ou idéia",
+    "title": "Contribuir para a Academia",
+    "subtitle": "Painel, recursos, correções de lições, traduções e SAQLTudo é revisado por uma pessoa antes de aparecer, e o trabalho aprovado conta para sua posição no painel.",
+    "kindResource": "Um recurso",
+    "kindShowcase": "Um painel",
+    "kindIdea": "Uma lição de correção ou idéia",
     "titleLabel": "Título",
-    "urlLabel": "Link",
+    "urlLabel": "Ligação",
     "descLabel": "Por que é útil?",
-    "submit": "Submeta-se para revisão.",
-    "sentTitle": "Obrigado, está na fila de revisão.",
+    "submit": "Enviar para revisão",
+    "sentTitle": "Obrigado — está na fila de revisão.",
     "sentBody": "Você verá seu status abaixo. Contribuições aprovadas são creditadas a você e contam para sua posição no painel.",
-    "another": "Contribua com outra coisa.",
-    "mine": "Suas observações.",
-    "pending": "Revisão pendente",
-    "approved": "Aprovado.",
-    "rejected": "Não aceito.",
-    "none": "Nada ainda, sua primeira contribuição aparecerá aqui com seu status de revisão.",
+    "another": "Contribuir para outra coisa",
+    "mine": "As suas observações",
+    "pending": "Reexame pendente",
+    "approved": "Aprovado",
+    "rejected": "Não aceite",
+    "none": "Nada ainda — sua primeira contribuição aparecerá aqui com seu status de revisão.",
     "stepKind": "Tipo",
     "stepDetails": "Detalhes",
     "stepMedia": "KPIs & mídia",
     "stepReview": "Revisão",
-    "next": "Próximo... {step}",
-    "back": "Para trás.",
-    "optional": "Opcional.",
-    "photosLabel": "Capturas de tela - até {max}",
+    "next": "Próxima — {step}",
+    "back": "Voltar",
+    "optional": "Opcional",
+    "photosLabel": "Imagens — até {max}",
     "uploading": "Enviando...",
-    "reviewHint": "Isso é exatamente o que será enviado para revisão.",
-    "sheet": "Folha 07 / Contribua",
-    "received": "Recebido.",
-    "mineTitle": "O que você enviou",
+    "reviewHint": "Isto é exatamente o que será enviado para revisão.",
+    "sheet": "Folha 07 / Contribuir",
+    "received": "Recebido",
+    "mineTitle": "O que enviou",
     "reviewNote": "Nota: {note}",
     "kindTranslation": "Uma correção de tradução",
-    "kindSnippet": "A SAQL Snippet",
-    "blurbShowcase": "Para a apresentação: como você preparou os dados, as fontes, cada KPI e como é calculado.",
-    "blurbResource": "Uma página médica, curso, ferramenta, blog ou comunidade vale o tempo de alguém.",
-    "blurbIdea": "Algo errado em uma lição, ou uma lição que deveria existir.",
-    "blurbTranslation": "Uma tradução automática que lê errado no seu idioma.",
+    "kindSnippet": "A SAQL trecho",
+    "blurbShowcase": "Para a mostra: como você preparou os dados, as fontes, cada KPI e como é calculado.",
+    "blurbResource": "Uma página de documentos, curso, ferramenta, blog ou comunidade vale o tempo de alguém.",
+    "blurbIdea": "Algo errado numa lição, ou uma lição que deveria existir.",
+    "blurbTranslation": "Uma tradução automática que lê errado em seu idioma.",
     "blurbSnippet": "Uma consulta que resolve um problema real, com o conjunto de dados em que é executado.",
     "short": {
-      "dashboard": "Painel",
+      "dashboard": "painel",
       "resource": "recurso",
-      "lesson": "lição.",
-      "translation": "Tradução",
-      "snippet": "Snippet"
+      "lesson": "lição",
+      "translation": "tradução",
+      "snippet": "trecho"
     },
     "stepDashboard": "Painel",
     "stepData": "Dados",
-    "stepLink": "Link",
+    "stepLink": "Ligação",
     "stepLesson": "Lição",
     "stepProposal": "Proposta",
-    "stepWhere": "Onde?",
-    "stepCorrection": "Correção",
+    "stepWhere": "Onde",
+    "stepCorrection": "Correcção",
     "stepSnippet": "Excerto",
     "stepContext": "Contexto",
-    "stepOf": "Passo {current} / {total} - O quê? {label}",
-    "stepsCount": "{n} Passos",
+    "stepOf": "Passo {current} / {total} — {label}",
+    "stepsCount": "{n} passos",
     "add": "Adicionar",
-    "addSource": "Adicione uma fonte",
+    "addSource": "Adicionar uma fonte",
     "removeSource": "Remover fonte",
-    "searchLessons": "Aulas de busca...",
-    "errGeneric": "Algo deu errado.",
-    "errImageSize": "As imagens estão a 4 MB cada.",
-    "errUpload": "O carregamento falhou - cole uma imagem URL Em vez disso.",
-    "errImageUrl": "Links de imagem devem começar com http:// ou https://",
+    "searchLessons": "Aulas de pesquisa...",
+    "errGeneric": "Algo correu mal.",
+    "errImageSize": "As imagens são fechadas a 4 MB cada.",
+    "errUpload": "O envio falhou — colar uma imagem URL Em vez disso.",
+    "errImageUrl": "As ligações de imagem devem começar por http:// ou https://",
     "problems": {
       "dashName": "Dê ao painel um nome (3+ caracteres).",
-      "writeupUrl": "O link deve começar com http://ou https://",
-      "creditUrl": "Seu link deve começar com http://ou https://",
-      "prep": "Descreva como preparou os dados (20+ caracteres).",
-      "source": "Adicione pelo menos uma fonte de dados.",
-      "kpi": "Adicione pelo menos um. KPI.",
-      "kpiFields": "Cada KPI Precisa de um nome e como é calculado.",
-      "resourceUrl": "Colar o link, começando com http:// ou https://",
+      "writeupUrl": "A ligação de escrita deve começar com http:// ou https://",
+      "creditUrl": "A sua ligação deve começar por http:// ou https://",
+      "prep": "Descreva como você preparou os dados (20+ caracteres).",
+      "source": "Adicionar pelo menos uma fonte de dados.",
+      "kpi": "Adicionar pelo menos um KPI.",
+      "kpiFields": "Cada KPI precisa de um nome e como é calculado.",
+      "resourceUrl": "Colar o link, começando por http:// ou https://",
       "resourceTitle": "Dê-lhe um título (3+ caracteres).",
-      "resourceWhy": "Diga por que é útil (20+ personagens).",
-      "lessonPick": "Escolha a lição.",
+      "resourceWhy": "Diga por que é útil (20+ caracteres).",
+      "lessonPick": "Escolhe a lição.",
       "ideaTitle": "Dê um título à ideia da lição.",
-      "fixBody": "Descreva o que está errado (20+ personagens).",
-      "ideaBody": "Esboce a lição (20+ personagens).",
-      "sourceUrls": "Links de origem devem começar com http:// ou https://",
-      "translationWhere": "Escolha a língua e a lição.",
-      "translationText": "Cole o texto errado e sua correção.",
-      "snippetTitle": "Dê ao excerto um título.",
+      "fixBody": "Descreva o que está errado (20+ caracteres).",
+      "ideaBody": "Delineie a lição (20+ caracteres).",
+      "sourceUrls": "As ligações de origem devem começar por http:// ou https://",
+      "translationWhere": "Escolhe a língua e a lição.",
+      "translationText": "Colar o texto errado e sua correção.",
+      "snippetTitle": "Dê ao trecho um título.",
       "snippetSaql": "Colar o SAQL.",
       "snippetWhat": "Diga o que ele faz (20+ caracteres).",
       "nomName": "Adicione o nome completo da pessoa.",
@@ -392,55 +392,55 @@
       "domains": {
         "sales": "Vendas",
         "service": "Serviço",
-        "marketing": "Marketing",
+        "marketing": "Comercialização",
         "finance": "Finanças",
-        "other": "Outro"
+        "other": "Outros"
       },
       "difficulties": {
-        "beginner": "Iniciante.",
-        "intermediate": "Intermediário.",
-        "advanced": "Avançado."
+        "beginner": "Iniciante",
+        "intermediate": "Intermediário",
+        "advanced": "Avançado"
       },
       "prepTools": {
-        "recipe": "Receita",
+        "recipe": "Receitas",
         "dataflow": "Dataflow",
-        "sync": "Sincronização de dados / conector",
-        "csv": "CSV upload",
+        "sync": "Sincronização dos dados / conector",
+        "csv": "CSV enviar",
         "api": "Dados externos API"
       },
       "prepSteps": {
-        "joins": "Junta-se a mim e aumenta.",
+        "joins": "Junta-se / aumenta",
         "filters": "Filtros",
-        "formulas": "Campos de Fórmula",
+        "formulas": "Campos de fórmulas",
         "aggregations": "Agregações",
-        "append": "Anexar",
+        "append": "Adicionar",
         "bucketing": "Baldeamento",
-        "dates": "Manuseio de datas.",
+        "dates": "Tratamento de datas",
         "dedupe": "Desduplicação"
       },
       "sourceTypes": {
         "sfObject": "Salesforce objeto",
         "csv": "CSV",
         "connector": "Conector externo",
-        "snowflake": "Floco de neve",
-        "database": "Outro banco de dados",
-        "other": "Outro"
+        "snowflake": "Floco de Neve",
+        "database": "Outra base de dados",
+        "other": "Outros"
       },
       "techniques": {
-        "bindings": "Encadernação",
+        "bindings": "Ligações",
         "saql": "SAQL",
-        "compareTables": "Compare as tabelas.",
-        "windowing": "Janelas",
-        "predicates": "Predicações de segurança",
-        "faceting": "Rosto",
+        "compareTables": "Comparar tabelas",
+        "windowing": "Janela",
+        "predicates": "Predicados de segurança",
+        "faceting": "Faceamento",
         "dynamicFilters": "Filtros dinâmicos",
-        "actions": "Ações",
+        "actions": "Acções",
         "discovery": "Einstein Discovery",
-        "mobile": "Layout móvel"
+        "mobile": "Disposição móvel"
       },
       "categories": {
-        "docs": "Docs.",
-        "learning": "Aprendendo.",
+        "docs": "Docs",
+        "learning": "Aprendizagem",
         "books": "Livros",
         "blogs": "Blogs",
         "tools": "Ferramentas",
@@ -449,76 +449,76 @@
     },
     "dash": {
       "name": "Nome do painel",
-      "namePh": "Cobertura do tubo por segmento",
-      "domain": "Domínio de negócios",
+      "namePh": "Cobertura da tubulação por segmento",
+      "domain": "Domínio empresarial",
       "difficulty": "Dificuldade",
       "writeup": "Escrita pública",
-      "creditName": "Crédito, seu nome.",
-      "creditNamePh": "Como deveria aparecer na mostra",
-      "creditUrl": "Crédito, sua ligação.",
+      "creditName": "Crédito — o seu nome",
+      "creditNamePh": "Como deveria aparecer na vitrine",
+      "creditUrl": "Crédito — a sua ligação",
       "tools": "Construído com",
-      "prepSteps": "Passos de preparação",
+      "prepSteps": "Etapas de preparação",
       "prep": "Como você preparou os dados?",
-      "prepHelp": "A união e o porquê, o que filtraram, tudo o que te surpreendeu.",
-      "prepPh": "Oportunidades aumentadas com Conta na AccountId, fechada-perdida mais de 2 anos filtrada;...",
-      "grain": "Grão",
+      "prepHelp": "A união e porquê, o que filtraste, tudo o que te surpreendeu.",
+      "prepPh": "Oportunidades aumentadas com Conta no AccountId; fechado-perdido mais de 2 anos filtrado; ...",
+      "grain": "Grãos",
       "grainHelp": "O que é uma linha do conjunto de dados final.",
-      "grainPh": "Uma fileira por oportunidade por semana.",
+      "grainPh": "Uma linha por oportunidade por semana de instantâneo",
       "sources": "Fontes de dados",
       "rowsPh": "Linhas (opcional)",
-      "kpis": "KPIs - nome, como é calculado, por que importa",
+      "kpis": "KPIs — nome, como é calculado, por que importa",
       "kpiN": "KPI {n}",
-      "removeKpi": "Remova KPI",
+      "removeKpi": "Remover KPI",
       "kpiNamePh": "Taxa de vitória",
-      "kpiFormulaPh": "Sum (IsWon) / count () - sobre oportunidades fechadas, por data próxima",
-      "kpiWhyPh": "Por que importa (opcional)",
-      "addKpi": "Adicione um. KPI",
-      "techniques": "Técnicas usadas",
+      "kpiFormulaPh": "soma(IsWon) / count() — sobre oportunidades fechadas, por data próxima",
+      "kpiWhyPh": "Por que isso importa (opcional)",
+      "addKpi": "Adicionar um KPI",
+      "techniques": "Técnicas utilizadas",
       "removeShot": "Remover imagem",
       "dropShot": "Soltar imagem",
-      "mediaUrlPh": "... ou colar uma imagem URL"
+      "mediaUrlPh": "...ou colar uma imagem URL"
     },
     "res": {
-      "linkHelp": "Colar, pegar o título, descrição e logotipo.",
+      "linkHelp": "Colá-lo — buscamos o título, descrição e logotipo.",
       "category": "Categoria",
-      "what": "O que é isso?",
-      "whyHelp": "Quem deveria ler, e o que ganharão com isso."
+      "what": "O que é",
+      "whyHelp": "Quem deve lê-lo, e o que eles vão ganhar com isso."
     },
     "les": {
-      "fix": "Conserte uma lição.",
-      "propose": "Proponha uma lição.",
+      "fix": "Corrigir uma lição",
+      "propose": "Propor uma lição",
       "which": "Que lição?",
-      "ideaTitle": "Título proposto da lição.",
-      "ideaTitlePh": "Sincronização de dados incrementais sem recarga completa",
-      "wrong": "O que há de errado?",
+      "ideaTitle": "Título da lição proposta",
+      "ideaTitlePh": "Sincronização incremental de dados sem recargas completas",
+      "wrong": "O que se passa?",
       "outline": "Contorno",
-      "wrongHelp": "Cite a passagem e diga o que deve dizer.",
-      "outlineHelp": "O que ensina, em que ordem, e o que o aprendiz constrói.",
-      "sources": "Fontes: opcional."
+      "wrongHelp": "Citar a passagem e dizer o que deve dizer.",
+      "outlineHelp": "O que ensina, em que ordem e o que o aprendiz constrói.",
+      "sources": "Fontes — facultativas"
     },
     "tr": {
-      "language": "Linguagem",
-      "languagePh": "Escolha uma língua.",
+      "language": "Língua",
+      "languagePh": "Escolha um idioma",
       "lesson": "Lição",
       "wrong": "O texto como ele lê agora",
-      "suggested": "O que deveria dizer?",
-      "note": "Nota.",
-      "notePh": "Por exemplo, \"Grão\" é um termo de arte aqui, não trigo."
+      "suggested": "O que deveria dizer",
+      "note": "Nota",
+      "notePh": "Por exemplo, \"Grão\" é um termo de arte aqui, não trigo"
     },
     "snip": {
-      "titlePh": "Correndo por trimestre fiscal",
-      "what": "O que ele faz?",
-      "dataset": "Dataset",
+      "titlePh": "Total da execução por trimestre fiscal",
+      "what": "O que faz?",
+      "dataset": "Conjunto de dados",
       "shape": "Forma do conjunto de dados",
       "shapeHelp": "Os campos que a consulta precisa, com tipos."
     },
     "review": {
       "summary": "Resumo",
-      "domainLevel": "Nível de domínio",
+      "domainLevel": "Domínio · nível",
       "rows": "{n} linhas",
       "kpis": "KPIs",
-      "screenshots": "Capturas de tela",
-      "links": "Links"
+      "screenshots": "Imagens",
+      "links": "Ligações"
     },
     "kindNominate": "Nomeia alguém.",
     "blurbNominate": "Um blogueiro, criador, autor, palestrante ou construtor de ferramentas que ensinou o CRM Analytics comunidade — pelo Muro da Fama.",
@@ -537,35 +537,35 @@
     }
   },
   "quiz": {
-    "title": "Verifique seu conhecimento.",
+    "title": "Verifique o seu conhecimento",
     "question": "Pergunta {n} de {total}",
     "submit": "Enviar respostas",
     "score": "Você marcou. {score} de {total}",
-    "passed": "Bom trabalho!",
-    "failed": "Ainda não. Reveja as lições e tente novamente.",
-    "retry": "Tente novamente.",
-    "signInToSave": "Assine para salvar sua pontuação e ganhar pontos.",
-    "saved": "Pontuação salva, conta para seus pontos.",
-    "answered": "{n} de {total} Respondedo."
+    "passed": "Passado - bom trabalho!",
+    "failed": "Ainda não - reveja as lições e tente novamente.",
+    "retry": "Tenta outra vez.",
+    "signInToSave": "Inicie sessão para salvar sua pontuação e ganhar pontos.",
+    "saved": "Pontuação salva - conta para seus pontos.",
+    "answered": "{n} de {total} respondido"
   },
   "resources": {
     "submitTitle": "Conhece um recurso que pertence aqui?",
-    "submitBody": "Doutores, um curso, uma ferramenta, uma comunidade - qualquer coisa que lhe ensinou algo sobre CRM Analytics. Título, link e uma linha sobre porque vale o tempo de alguém. Um mantenedor revisou antes de aparecer.",
+    "submitBody": "Docs, um curso, uma ferramenta, uma comunidade — qualquer coisa que lhe ensinou algo sobre CRM Analytics. Título, link e uma linha sobre por que vale o tempo de alguém. Um mantenedor revê-o antes de aparecer.",
     "submitCta": "Enviar um recurso",
     "header": {
       "sheet": "Folha 06 / Recursos / {count} referências",
       "title": "O melhor. CRM Analytics recursos",
-      "lead": "Doutores, cursos, livros, blogs, ferramentas e comunidades, filtro para encontrar o que você precisa.",
+      "lead": "Docs, cursos, livros, blogs, ferramentas e comunidades — filtre para encontrar o que você precisa.",
       "suggest": "Sugerir um recurso"
     },
     "filter": "Filtro",
     "count": "{count} recursos",
-    "open": "Abra.",
-    "submitEyebrow": "Submeta-se.",
+    "open": "Abrir",
+    "submitEyebrow": "Enviar",
     "categories": {
-      "all": "Todos",
-      "docs": "Docs.",
-      "learning": "Aprendendo.",
+      "all": "Tudo",
+      "docs": "Docs",
+      "learning": "Aprendizagem",
       "books": "Livros",
       "blogs": "Blogs",
       "tools": "Ferramentas",
@@ -573,20 +573,20 @@
     },
     "items": {
       "crmaHelp": {
-        "title": "CRM Analytics Socorro!",
+        "title": "CRM Analytics Ajuda",
         "desc": "SalesforceA documentação oficial do produto, fim a fim."
       },
       "devGuide": {
         "title": "Guia do Desenvolvedor",
-        "desc": "Painel JSON, encadernos, e plataformas internas para construtores."
+        "desc": "Painel JSON, encadernos, e internos de plataforma para construtores."
       },
       "saqlReference": {
         "title": "SAQL Referência",
-        "desc": "O completo Salesforce Referência de Linguagem de Análise."
+        "desc": "Completa Salesforce Análise Consulta Linguagem referência."
       },
       "restApi": {
         "title": "Analytics REST API",
-        "desc": "Consultar conjuntos de dados e gerenciar recursos programaticamente."
+        "desc": "Consultar conjuntos de dados e gerenciar ativos programáticamente."
       },
       "trailheadCrma": {
         "title": "Trailhead: CRM Analytics",
@@ -597,74 +597,74 @@
         "desc": "Construir e interpretar modelos preditivos com projetos guiados."
       },
       "learningTableauCrm": {
-        "title": "Aprendendo. Tableau CRM (livro)",
-        "desc": "Um livro prático cobrindo conjuntos de dados, painéis, e SAQL."
+        "title": "Aprendizagem Tableau CRM (livro)",
+        "desc": "Um livro prático que abrange conjuntos de dados, painéis e SAQL."
       },
       "masteringAnalytics": {
-        "title": "Mestre. Salesforce Análise",
-        "desc": "Mais profunda cobertura de implementação e Einstein Discovery."
+        "title": "Dominação Salesforce Análise",
+        "desc": "Cobertura mais profunda da implementação e Einstein Discovery."
       },
       "analyticsBlog": {
-        "title": "Salesforce Blog de análise",
-        "desc": "Notícias de produtos, dicas e destaques de Salesforce."
+        "title": "Salesforce Blog de Análise",
+        "desc": "Notícias do produto, dicas e destaques de lançamento Salesforce."
       },
       "salesforceBen": {
-        "title": "Salesforce Ben — Analytics",
+        "title": "Salesforce Ben — Análise",
         "desc": "Tutoriais comunitários e opinião sobre o ecossistema analítico."
       },
       "sfCli": {
         "title": "Salesforce CLI (sf)",
-        "desc": "Implantações de scripts e gerenciar ativos de análise do terminal."
+        "desc": "Implantações de script e gerenciar ativos de análise do terminal."
       },
       "devOrg": {
-        "title": "Org da edição de desenvolvedores",
-        "desc": "Um livre Salesforce Org para seguir cada lição prática."
+        "title": "Org de Edição de Desenvolvedor",
+        "desc": "Um livre Salesforce para seguir todas as lições práticas."
       },
       "vscode": {
-        "title": "Código VS + SF Extensões",
-        "desc": "Edita painéis, fluxos de dados e metadados com ferramentas completas."
+        "title": "Código VS + Extensões SF",
+        "desc": "Edite painéis, fluxos de dados e metadados com ferramentas completas."
       },
       "trailblazerCommunity": {
         "title": "Análise Trailblazer Community",
-        "desc": "Faça perguntas e se conecte com milhares de praticantes."
+        "desc": "Faça perguntas e conecte-se com milhares de praticantes."
       },
       "stackExchange": {
-        "title": "Salesforce Troca de pilhas.",
-        "desc": "Q.&Um para o duro CRM Analytics e SAQL Problemas."
+        "title": "Salesforce Troca de pilhas",
+        "desc": "Q&A para duro CRM Analytics e SAQL Problemas."
       },
       "reddit": {
-        "title": "Força de vendas",
+        "title": "r/salesforce",
         "desc": "Discussão comunitária, dicas e conselhos de carreira."
       }
     }
   },
   "localeAuto": {
-    "switched": "Mostrando esta página em {language}",
-    "keepEnglish": "Mantenha o inglês."
+    "switched": "Mostrar esta página em {language}",
+    "keepEnglish": "Manter o Inglês"
   },
   "about": {
     "work": {
-      "eyebrow": "§ 03 - O trabalho",
+      "eyebrow": "§ 03 — O trabalho",
       "title": "Sete anos de análise de mercado.",
       "highlights": "Destaques",
       "experience": "Experiência",
       "education": "Educação",
-      "skills": "Habilidades.",
+      "skills": "Habilidades",
       "projects": "Também construído por Swarnil",
-      "live": "Viva!",
+      "live": "Vivo",
       "building": "Edifício"
     },
     "header": {
       "sheet": "Folha 07 / Sobre",
-      "title": "Fazendo CRM Analytics Apreensível para todos.",
-      "lead": "Duas coisas para saber: o que é esse projeto, e quem o constrói."
+      "title": "Fazendo CRM Analytics aprender para todos",
+      "lead": "Duas coisas a saber: o que é este projecto e quem o constrói."
     },
     "project": {
-      "eyebrow": "§ 01 — O projeto",
-      "title": "Grande aprendizado analítico não deveria ser trancado.",
-      "p1": "Aprendendo. CRM Analytics Geralmente significa costurar doutores dispersos, cursos caros, e posts desatualizados. O resultado é uma subida íngremes e solitária — mesmo que a plataforma seja genuinamente poderosa uma vez que estala.",
-      "p2": "{name} existe para corrigir isso: um currículo coerente, moderno, dirigido pela comunidade que te leva de \"o que é um CRM?\" todo o caminho para implantar uma previsão explicável de volta para Salesforce. É, e sempre será, livre e de código aberto.",
-      "p3": "Tudo está escrito em aberto. Encontrar um erro ou quer adicionar uma receita? Abra um pedido de pull - o currículo fica melhor com cada aluno que se junta."
+      "eyebrow": "§ 01 — O projecto",
+      "title": "Ótima aprendizagem analítica não deve ser trancada",
+      "p1": "Aprendizagem CRM Analytics geralmente significa costurar juntos documentos dispersos, cursos caros, e posts desatualizados no blog. O resultado é uma subida íngreme e solitária — embora a plataforma seja genuinamente poderosa quando estala.",
+      "p2": "{name} existe para corrigir isso: um currículo coerente, moderno, baseado na comunidade que o leva de \"o que é um CRM?\" todo o caminho para implantar uma previsão explicável de volta para Salesforce. É, e sempre será, livre e de código aberto.",
+      "p3": "Está tudo escrito em aberto. Encontrar um erro ou quer adicionar uma receita? Abra um pedido de pull — o currículo fica melhor com cada aluno que participa."
     },
     "principles": [
       {
@@ -673,310 +673,310 @@
       },
       {
         "title": "Um caminho, não uma pilha",
-        "desc": "Dezenove seções se constroem entre si. CRM Analytics é, através SAQL e design de painel, para dezessete painéis de mercado nos dados de negócios da própria Academia."
+        "desc": "Dezenove seções se constroem umas sobre as outras — de que CRM Analytics é, através SAQL e design de painel, para dezessete painéis ir-para-mercado nos dados de negócios da própria Academia."
       },
       {
-        "title": "Mãos para cima por padrão",
-        "desc": "Real. SAQL, receitas, e exemplos de painel você pode colar diretamente em sua própria org."
+        "title": "Ativar manualmente por padrão",
+        "desc": "Real SAQL, receitas e exemplos de painel que você pode colar diretamente em sua própria org."
       },
       {
-        "title": "Al-Native",
-        "desc": "Todas as páginas são publicadas como Markdown e sobre MCP, assim os assistentes podem ensinar a partir da fonte."
+        "title": "Al-native",
+        "desc": "Cada página é publicada como Markdown e sobre MCP, para que os assistentes possam ensinar a partir da fonte."
       }
     ],
     "principleLabel": "Princípio {n}",
-    "curriculumAtGlance": "O currículo em um relance",
+    "curriculumAtGlance": "O currículo de relance",
     "instructor": {
       "eyebrow": "§ 02 — O instrutor",
       "caption": "Fig. 01 — Instrutor",
-      "spec": "Criador & Mantenedor"
+      "spec": "Criador & mantenedor"
     },
     "stats": {
-      "sections": "Seções",
+      "sections": "Secções",
       "lessons": "Lições",
-      "openSource": "Código aberto."
+      "openSource": "Código aberto"
     },
     "links": {
-      "website": "Site"
+      "website": "Sítio Web"
     },
     "author": {
-      "title": "Construído por um desenvolvedor, para toda a comunidade.",
-      "p1": "Oi, eu sou... {name}. Eu construo sobre o Salesforce plataforma e se importa muito em tornar as coisas difíceis acessíveis. Eu comecei. CRM Analytics Academia depois de ver muitas pessoas capazes saltar fora da curva de aprendizagem, simplesmente porque o material bom foi espalhado, datado, ou atrás de um paywall.",
-      "p2": "Então transformei o que aprendi da maneira mais difícil em um caminho estruturado e aberto que outros podem seguir, o recurso que eu gostaria de ter tido quando comecei. Cada lição é algo que quero que um colega leia na primeira semana.",
+      "title": "Construído por um desenvolvedor, para toda a comunidade",
+      "p1": "Olá. {name}Eu construo sobre o Salesforce plataforma e cuidado muito sobre tornar as coisas difíceis acessível. Eu comecei. CRM Analytics Academia depois de assistir muitas pessoas capazes saltar da curva de aprendizagem, simplesmente porque o bom material foi espalhado, datado, ou atrás de um paywall.",
+      "p2": "Então transformei o que aprendi da maneira mais difícil em um caminho estruturado e aberto que outros podem seguir — o recurso que eu gostaria de ter tido quando comecei. Todas as lições são algo que quero que um colega leia na primeira semana.",
       "p3": "Este é um projeto em curso, dirigido pela comunidade. Se te ajudou, o melhor agradecimento é {star}, sugerir um tópico, ou contribuir com uma lição.",
-      "star": "Estrelar o Repo"
+      "star": "estrelar o repo"
     },
     "cta": {
-      "eyebrow": "Comece.",
-      "title": "Comece a aprender hoje.",
-      "body": "É grátis, aberto e construído para levá-lo do CRM básico todo o caminho para certificado.",
-      "start": "Comece com Fundações.",
-      "github": "Estrelar GitHub"
+      "eyebrow": "Iniciar",
+      "title": "Começar a aprender hoje",
+      "body": "É gratuito, aberto e construído para levá-lo do CRM básico todo o caminho para certificado.",
+      "start": "Iniciar com as fundações",
+      "github": "Estrelar em GitHub"
     }
   },
   "contribute": {
     "seo": {
       "title": "Contribuir",
-      "description": "Guia de contribuição completa: configurar localmente, escrever e traduzir lições, sugerir recursos, seguir o estilo de código, e abrir um pedido de pull."
+      "description": "Guia completo do contribuidor: configure localmente, escreva e traduza lições, sugira recursos, siga o estilo de código e abra uma solicitação de pull."
     },
     "hero": {
-      "eyebrow": "Folha 10 / Guia Contribuinte",
-      "title": "Ajude a construir o {em}",
-      "titleEm": "Comunidade",
-      "lead": "Tudo que você precisa para adicionar uma lição, traduzir conteúdo, sugerir um recurso, ou melhorar o código.",
-      "github": "Veja. GitHub",
+      "eyebrow": "Folha 10 / Guia do contribuidor",
+      "title": "Ajuda a construir o {em}",
+      "titleEm": "comunidade",
+      "lead": "Tudo que você precisa para adicionar uma lição, traduzir conteúdo, sugerir um recurso ou melhorar o código.",
+      "github": "Ver em GitHub",
       "suggest": "Sugerir um recurso"
     },
     "stepper": "O guia, passo a passo",
     "stepLabel": "Passo {n}",
     "levels": {
-      "startHere": "Comece aqui.",
-      "noCode": "Sem código.",
-      "beginner": "Iniciante.",
-      "intermediate": "Intermediário.",
-      "advanced": "Avançado.",
+      "startHere": "Começa aqui.",
+      "noCode": "Nenhum código",
+      "beginner": "Iniciante",
+      "intermediate": "Intermediário",
+      "advanced": "Avançado",
       "reference": "Referência",
-      "anytime": "Quando quiser."
+      "anytime": "A qualquer hora"
     },
     "steps": {
-      "ways": "Maneiras de contribuir",
-      "setup": "Armação local",
+      "ways": "Formas de contribuir",
+      "setup": "Configuração local",
       "lessons": "Escrevendo uma lição",
-      "frontmatter": "Lição de matéria frontal",
+      "frontmatter": "Material frontal da lição",
       "translations": "Traduções",
-      "submit": "Sugerindo recursos",
-      "code": "Cotizações de código",
+      "submit": "Recursos sugeridos",
+      "code": "Contribuições de código",
       "stack": "Pilha de tecnologia",
       "pr": "Abrindo um pedido de pull",
-      "help": "Conseguir ajuda."
+      "help": "Obter ajuda"
     },
     "welcome": {
-      "title": "Nova aqui? Você é exatamente para quem isso é.",
-      "body": "Você não precisa ser um CRM Analytics Perito ou desenvolvedor para ajudar. Escolha um pequeno primeiro passo abaixo, a maioria leva alguns minutos e precisa {zero}. Revisamos tudo e estamos felizes em guiá-lo.",
-      "zero": "Código zero."
+      "title": "Nova aqui? Tu és exactamente para quem isto é.",
+      "body": "Não precisas de ser CRM Analytics especialista ou um desenvolvedor para ajudar. Escolha um pequeno primeiro passo abaixo — a maioria leva alguns minutos e precisa {zero}. Nós revisamos tudo e estamos felizes em guiá-lo.",
+      "zero": "código zero"
     },
     "quickStarts": [
       {
-        "title": "Corrija um erro de digitação.",
-        "text": "Aperte \"Editar esta página\" em qualquer lição - ele abre um GitHub formulário de edição. Nenhuma armação."
+        "title": "Corrigir um erro de erro",
+        "text": "Pressione “Editar esta página” em qualquer lição — abre um GitHub formulário de edição. Não há nenhuma armadilha."
       },
       {
-        "title": "Compartilhar um recurso",
-        "text": "Encontrou uma ótima ligação? Abra um problema e adicionaremos na biblioteca."
+        "title": "Partilhar um recurso",
+        "text": "Encontraste uma boa ligação? Abra um problema e vamos adicioná-lo à biblioteca."
       },
       {
-        "title": "Melhore uma tradução",
-        "text": "Traduções são geradas por máquinas. Conserte uma frase desastrada na sua língua. Não precisa tocar em inglês."
+        "title": "Melhorar uma tradução",
+        "text": "As traduções são geradas por máquinas. Fixar uma frase desajeitado em seu idioma — você não precisa tocar em inglês."
       }
     ],
-    "submitHere": "Envie aqui.",
+    "submitHere": "Enviar aqui",
     "ways": {
-      "intro": "Há quatro maneiras principais de ajudar. Escolha o que se adequa ao seu tempo e habilidades.",
+      "intro": "Há quatro maneiras principais de ajudar — escolher o que se adequa ao seu tempo e habilidades:",
       "write": {
-        "label": "Escreva ou conserte uma lição",
-        "text": "Melhore a redação, corrija erros, ou adicione uma nova lição (Markdown, sem necessidade de codificação)."
+        "label": "Escrever ou corrigir uma lição",
+        "text": "melhorar a redação, corrigir erros ou adicionar uma lição totalmente nova (Markdown, sem necessidade de codificação)."
       },
       "translate": {
         "label": "Traduzir",
-        "text": "Traga uma lição ou a UI para uma das línguas do site."
+        "text": "trazer uma lição ou a UI para uma das línguas do site."
       },
       "resource": {
         "label": "Sugerir um recurso",
-        "text": "Compartilhar uma grande página de documentos, curso, ferramenta, ou comunidade. {link} - Vai para uma fila de moderação, não um GitHub Problema."
+        "text": "compartilhar uma ótima página de documentos, curso, ferramenta ou comunidade. {link} — entra numa fila de moderação, não numa GitHub Questão."
       },
       "code": {
-        "label": "Melhore o código.",
-        "text": "Conserte um bug, refine a UI, ou adicione um recurso através de um pedido de pull."
+        "label": "Melhorar o código",
+        "text": "corrigir um bug, refinar a interface ou adicionar um recurso através de uma solicitação de pull."
       },
       "outro": "Mudanças de lição e código passam GitHub, porque cada lição é um arquivo no repositório. Recursos e ideias de aula são enviados no site e revisados no console de administração."
     },
     "setup": {
-      "need": "Você vai precisar {node} e {pnpm}. Então:",
-      "checks": "Antes de cometer, sempre faça as duas verificações.",
+      "need": "Vais precisar. {node} e {pnpm}Então...",
+      "checks": "Antes de cometer, execute sempre as duas verificações (não há corredor de teste):",
       "tipLabel": "Dica:",
-      "tip": "{label} Se a barra lateral do Docs parece vazia no Dev, o banco de dados de conteúdo local ficou velho. Conserte com {cmd}."
+      "tip": "{label} Se a barra lateral do Docs parecer vazia no dev, o banco de dados de conteúdo local ficou obsoleto. Consertar com {cmd}."
     },
     "lessons": {
-      "p1": "Lições são simples Markdown sob {path}. O inglês vive em {en}. Os prefixos de número definiram a ordem:",
-      "p2": "Para adicionar uma lição, crie um novo arquivo com o próximo número em um módulo (por exemplo: {example}Comece com um cabeçalho de alto nível, e escreva em Markdown. Use {h2} para seções, elas se tornam o índice. Mantenha-o prático e conduzido por exemplo.",
-      "p3": "Para corrigir um pequeno erro, basta usar o {edit} Elo no fundo de qualquer lição - ele abre um GitHub formulário de edição.",
-      "editLabel": "\"Editar esta página\""
+      "p1": "As lições são simples Markdown sob {path}. Inglês vive em {en}. Os prefixos de número definem a ordem:",
+      "p2": "Para adicionar uma lição, crie um novo arquivo com o próximo número em um módulo (e.g. {example}), começar com um cabeçalho de topo, e escrever em Markdown. Utilização {h2} para as secções — tornam-se o índice. Mantenha-o prático e conduzido por exemplo.",
+      "p3": "Para corrigir um pequeno erro de digitação, basta usar o {edit} link no fundo de qualquer lição — abre um GitHub formulário de edição.",
+      "editLabel": "“Editar esta página”"
     },
     "frontmatter": {
-      "intro": "Cada lição começa com um YAML Bloco de matéria frontal:",
-      "p1": "{title} e {description} são necessários; {video} e {interview} são opcionais. Um novo {module} Também precisa de um {nav} (com {navTitle} e um {icon}) e uma nova seção no {llms} configure {config}.",
-      "module": "Módulo de nível superior"
+      "intro": "Cada lição começa com um YAML bloco de matéria frontal:",
+      "p1": "{title} e {description} São necessários; {video} e {interview} são facultativos. Uma nova {module} também precisa de uma {nav} (com {navTitle} e um {icon}) e uma nova secção no {llms} configure {config}.",
+      "module": "módulo de nível superior"
     },
     "translations": {
-      "p1": "O local está pronto. {languages}: Inglês (padrão), espanhol, francês, alemão, português, japonês, chinês, hindi, árabe, russo, bengali e urdu. Árabe e Urdu, da direita para a esquerda.",
+      "p1": "O site embarca em {languages}: Inglês, espanhol, francês, alemão, português, japonês, chinês, hindi, árabe, russo, bengali e urdu.",
       "languages": "12 línguas",
       "p2": "{bold} Escreva a lição apenas em inglês. Na compilação seguinte, um servidor LibreTranslate rodando localmente traduz e escreve {path} para as outras onze línguas. Blocos de código, SAQL, links, chaves de matéria frontal e nomes de produtos são protegidos e vêm através intocado.",
-      "p2Bold": "Você não traduz à mão.",
-      "p3": "Para dirigir você mesmo. {all} (apenas arquivos alterados), ou {subset}.",
-      "p4": "{bold} Se uma frase lê mal em sua língua, edite o arquivo do locale diretamente e abra um pedido de pull - o pipeline só substitui um arquivo quando seu {english} A fonte muda, então sua correção sobrevive.",
-      "p4Bold": "Tradução automática é um ponto de partida, não a linha de chegada.",
+      "p2Bold": "Não se traduz à mão.",
+      "p3": "Para o gerires tu. {all} (apenas ficheiros alterados), ou {subset}.",
+      "p4": "{bold} Se uma frase lê mal em seu idioma, edite o arquivo desse locale diretamente e abra um pedido de pull — o pipeline só substitui um arquivo quando seu {english} A fonte muda, por isso a tua solução sobrevive.",
+      "p4Bold": "Tradução de máquina é um ponto de partida, não a linha de chegada.",
       "english": "Inglês",
-      "p5": "As cordas de UI vivem em {path}. Adicione novas cordas para {en} A mesma corrida preenche as outras onze e deixa as traduções existentes sozinhas."
+      "p5": "Correntes de interface em que vivem {path}. Adicionar novos textos a {en} apenas; a mesma execução preenche os outros onze e deixa traduções existentes sozinho."
     },
     "submit": {
-      "p1": "Encontrou uma ligação útil - doutores, um curso, uma ferramenta, uma comunidade? {link}. Título, URL e uma linha sobre por que vale o tempo de alguém, ele pousa como pendente e um mantenedor aprova. Não. GitHub Conta, sem pedido, sem esperar por uma construção.",
-      "p2": "Abrir um problema ainda funciona se você preferir, assim como um pedido de pull adicionando um arquivo para {path}. A forma é simplesmente mais rápida, e é a mesma fila de moderação do outro lado."
+      "p1": "Encontrou um link útil — documentos, um curso, uma ferramenta, uma comunidade? {link}Título, URL e uma linha sobre por que vale o tempo de alguém; pousa como pendente e um mantenedor o aprova. Não GitHub conta, sem pedido de puxamento, sem esperar por uma construção.",
+      "p2": "A abertura de um problema ainda funciona se você preferir, e uma solicitação de pull adding a file to {path}O formulário é simplesmente mais rápido, e é a mesma fila de moderação na outra extremidade."
     },
     "code": {
       "p1": "A pilha é {stack}. Pastas de chaves:",
-      "content": "{path} - as lições (Markdown).",
-      "app": "{pages}, {components}, {composables} - O aplicativo UI.",
-      "raw": "{path} - A superfície crua para agentes de IA e rastejantes.",
-      "p2": "Regras de estilo são impostas pela ESLint: sem vírgulas, aparelho 1TBS, indentação de 2 espaços e um membro de interface por linha. Corra. {cmd} Para autoformatar. Combine as convenções do código circundante."
+      "content": "{path} — as lições (Markdown).",
+      "app": "{pages}, {components}, {composables} — a aplicação UI.",
+      "raw": "{path} — a superfície de marcação bruta dos agentes de IA e dos rastejantes.",
+      "p2": "Regras de estilo são aplicadas pelo ESLint: sem vírgulas, chaves 1TBS, indentação de 2 espaços e um membro de interface por linha. Executar {cmd} para autoformatar. Coincidir com as convenções do código circundante."
     },
     "stack": {
-      "intro": "Todo o site é de código aberto. Aqui está o que o alimenta:",
-      "nuxt": "{name} (Vue 3 + Nitro) - o framework, SSR + pré-rendering",
-      "content": "{name} — lições de Markdown, servidas por SQLite",
-      "ui": "{ui} + {tailwind} - componentes e estilo",
-      "i18n": "{name} - 12 idiomas, 11 deles traduzidos por máquina do inglês.",
-      "hosting": "{workers} + {actions} - Páginas pré-renderizadas serviam como ativos estáticos, um trabalhador para as rotas dinâmicas, auto-empregadas para {main}",
-      "extras": "Também na caixa: {og} (cartões sociais), {llms} E dados estruturados para SEO.",
+      "intro": "Todo o site é de código aberto — eis o que o alimenta:",
+      "nuxt": "{name} (Vue 3 + Nitro) — quadro, RSE + pré-renderização",
+      "content": "{name} — aulas de autoria em Markdown, servidas a partir de SQLite",
+      "ui": "{ui} + {tailwind} — componentes e estilo",
+      "i18n": "{name} — 12 línguas, onze delas traduzidas por máquina em inglês",
+      "hosting": "{workers} + {actions} — as páginas pré-renderizadas serviam de activos estáticos, um trabalhador para as rotas dinâmicas, {main}",
+      "extras": "Também na caixa: {og} (cartões sociais), {llms} (docs legíveis por máquina) e dados estruturados para SEO.",
       "noDb": "Cada lição é pré-renderizada no tempo de construção de Markdown, para que você possa escrever e visualizar lições com {bold}. Contas e progresso executados em Neon Postgres e só importa se você estiver trabalhando sobre esses recursos — o README cobre-os.",
-      "noDbBold": "Nenhum banco de dados."
+      "noDbBold": "nenhuma base de dados"
     },
     "pr": {
-      "branch": "{bold} Off {main}: {cmd}",
-      "branchBold": "Branch.",
-      "change": "{bold} e visualizá-lo com {cmd}.",
-      "changeBold": "Faça seu troco.",
-      "verify": "{bold}: {lint} e {typecheck} Os dois passam.",
+      "branch": "{bold} desligado {main}: {cmd}",
+      "branchBold": "Ramo",
+      "change": "{bold} e visualizá- lo com {cmd}.",
+      "changeBold": "Faz o teu troco.",
+      "verify": "{bold}: {lint} e {typecheck} Ambos passam.",
       "verifyBold": "Verificar",
-      "commit": "{bold} com uma mensagem clara e {push} ao seu garfo.",
-      "commitBold": "Comprometer",
-      "pushBold": "Empurre.",
+      "commit": "{bold} com uma mensagem clara e {push} ao teu garfo.",
+      "commitBold": "Enviar",
+      "pushBold": "empurrar",
       "open": "{bold} contra {main}, descrevendo o que mudou e porquê.",
-      "openBold": "Abra um PR",
-      "after": "Um mantenedor vai rever, sugerir ajustes se necessário, e se fundir. Uma vez fundido, o GitHub O fluxo de trabalho de ações constrói o site e publica automaticamente para Cloudflare."
+      "openBold": "Abrir uma PR",
+      "after": "Um mantenedor irá rever, sugerir ajustes se necessário e mesclar. Após a fusão, o GitHub O fluxo de trabalho de ações constrói o site e o publica automaticamente para o Cloudflare."
     },
-    "help": "Preso ou tem uma ideia? Abra uma questão ou uma discussão sobre {github}. Os primeiros colaboradores são muito bem-vindos. Nenhuma contribuição é muito pequena."
+    "help": "Preso ou com uma ideia? Abra uma edição ou uma discussão sobre {github}Os contribuintes pela primeira vez são muito bem-vindos — nenhum contributo é demasiado pequeno."
   },
   "datasets": {
     "seo": {
-      "title": "Datasets",
-      "description": "O armazém do curso: CRM Analytics Dados de negócios da Academia - contas, oleoduto, assinaturas, grupos de sala de aula e inscrições - como CSVs livres para carregar em seu CRM Analytics Org."
+      "title": "Conjuntos de dados",
+      "description": "O armazém do curso: CRM Analytics Dados de negócios próprios da Academia — contas, gasodutos, assinaturas, lotes de sala de aula e inscrições — como CSVs livres para carregar em seu CRM Analytics org."
     },
-    "schemaName": "CRM Analytics Depósito de ensino da Academia",
+    "schemaName": "CRM Analytics Armazém de ensino da Academia",
     "header": {
-      "sheet": "Folha 05 / O armazém de curso",
-      "title": "Dados de uma empresa, cada construção no curso.",
-      "lead": "CRM Analytics Negócios próprios da Academia: aprendizes e planos de equipe, um oleoduto de negócios corporativos, seis centros de sala de aula e cada assento vendido neles. Coloque na sua org uma vez e todas as lições do primeiro painel para o conselho executivo vão nele."
+      "sheet": "Folha 05 / O armazém do curso",
+      "title": "Dados de uma empresa, cada construção no curso",
+      "lead": "CRM Analytics Negócios próprios da Academia: aprendizes e planos de equipe, um pipeline de negócios corporativos, seis centros de sala de aula e cada assento vendido neles. Carregue-o em sua org uma vez e todas as lições do primeiro painel para o conselho executivo é executado nele."
     },
     "stats": {
-      "files": "Arquivos",
-      "rows": "Filas",
+      "files": "Ficheiros",
+      "rows": "Linhas",
       "window": "Janela"
     },
-    "guide": "Leia o guia de dados.",
+    "guide": "Leia o guia de dados",
     "manifest": "Manifesto",
-    "table": "Mesa {n}",
-    "rowPer": "Uma fileira por",
+    "table": "Quadro {n}",
+    "rowPer": "uma linha por",
     "rows": "{count} linhas",
     "procedure": {
-      "title": "Procedimento - carregando-o em sua org.",
+      "title": "Procedimento — carregá-lo na sua org",
       "step1": "In Analytics Studio, criar um aplicativo chamado {app}.",
-      "step2": "Abra. {path} e colocar um arquivo de cada vez no aplicativo.",
-      "step3": "Verifique a contagem de linhas com esta página antes de construir sobre ele - uma contagem curta é quase sempre um delimitador ou data-formato problema.",
+      "step2": "Abrir {path} e carregar um arquivo de cada vez para esse aplicativo.",
+      "step3": "Verifique a contagem de linhas nesta página antes de construir nela — uma contagem curta é quase sempre um problema delimitador ou formato de data.",
       "pathDataManager": "Data Manager",
       "pathCreateDataset": "Criar conjunto de dados",
-      "pathCsvFile": "CSV Arquivo"
+      "pathCsvFile": "CSV Ficheiro"
     },
     "groups": {
       "dimensions": "Dimensões",
-      "marketing": "Marketing e demanda",
+      "marketing": "Comercialização e procura",
       "pipeline": "Pipeline",
       "customers": "Clientes e receita",
-      "classroom": "Sala de aula."
+      "classroom": "Sala de aula"
     },
     "files": {
       "accounts": {
-        "grain": "Conta",
-        "desc": "Clientes de alunos individuais para SIs globais: segmento, região, RRA, saúde, nível de apoio."
+        "grain": "conta",
+        "desc": "Clientes de alunos individuais para SIs globais: segmento, região, ARR, saúde, nível de apoio."
       },
       "contacts": {
-        "grain": "Contato",
-        "desc": "Personas de Individual Learner a L&Gerente D, com comprador econômico e bandeiras de campeão."
+        "grain": "contacto",
+        "desc": "Personas de aprendiz individual a L&D Gerente, com comprador econômico e bandeiras de campeão."
       },
       "products": {
-        "grain": "Oferecendo",
+        "grain": "oferta",
         "desc": "Academy Pro, plano de equipe, programa empresarial, dias de assento, vales e serviços."
       },
       "reps": {
-        "grain": "Rep",
-        "desc": "AEs, SDRs, BDRs, consultores de soluções e CSMs, com cota e rampa."
+        "grain": "rep",
+        "desc": "AEs, SDRs, BDRs, consultores de soluções e CSMs, com quota e rampa."
       },
       "centers": {
-        "grain": "Centro de treinamento",
+        "grain": "centro de treinamento",
         "desc": "Seis centros com assentos, custo fixo mensal e região."
       },
       "campaigns": {
         "grain": "campanha",
-        "desc": "Gastar mais leads, oleoduto e ganhar receitas calculadas das filas de detalhes."
+        "desc": "Gaste mais leads, pipeline e ganhou receita calculada a partir das linhas de detalhe."
       },
       "marketing_spend": {
-        "grain": "Mês × canal × região",
-        "desc": "A visão financeira do gasto, em um grão deliberadamente diferente."
+        "grain": "mês × canal × região",
+        "desc": "A visão financeira do gasto, a um grão deliberadamente diferente."
       },
       "web_sessions": {
-        "grain": "Dia × Canal × Página",
-        "desc": "Tráfego em forma de GA4 com inscrições, curso começa e cita pedidos."
+        "grain": "dia × canal × página",
+        "desc": "O tráfego em forma de GA4 com inscrições, inícios de curso e pedidos de citação."
       },
       "seo_keywords": {
-        "grain": "Semana × palavra-chave",
-        "desc": "Rank, CTR e se uma visão geral da IA levou o clique."
+        "grain": "semana × palavra- chave",
+        "desc": "Rank, CTR e se uma visão geral de IA tomou o clique."
       },
       "llm_visibility": {
-        "grain": "Mês × motor × prompt × corrida",
-        "desc": "A Academia é nomeada quando alguém pergunta a um assistente como aprender CRM Analytics?"
+        "grain": "mês × motor × prompt × funcionamento",
+        "desc": "Tem o nome da Academia quando alguém pergunta a um assistente como aprender CRM Analytics?"
       },
       "leads": {
-        "grain": "Liderar",
-        "desc": "Cada estágio tem sua própria data, então a velocidade é mensurável. Sinais de curso livre incluídos."
+        "grain": "chumbo",
+        "desc": "Cada estágio tem sua própria data, então a velocidade é mensurável. Sinais de livre curso incluídos."
       },
       "opportunities": {
-        "grain": "Oportunidade",
-        "desc": "Novos negócios, expansão, upsell e renovação, com portões de revisão piloto e vendedor."
+        "grain": "oportunidade",
+        "desc": "Novos negócios, expansão, upsell e renovação, com portões piloto e de revisão de fornecedores."
       },
       "opportunity_products": {
-        "grain": "Oportunidade × oferta",
-        "desc": "Itens de linha cuja ARR equivale exatamente à oportunidade. A aula de fãs vive aqui."
+        "grain": "oportunidade × oferta",
+        "desc": "Artigos de linha cuja ARR equivale exatamente à oportunidade. A aula de fãs vive aqui."
       },
       "quotes": {
-        "grain": "Oportunidade × Versão",
+        "grain": "oportunidade × versão",
         "desc": "Cada versão de citação, desconto e cadeia de aprovação."
       },
       "usage_monthly": {
-        "grain": "Mês × conta × oferta",
-        "desc": "Assentos e piscinas pré-pagos comprados vs usado - o principal indicador de renovação."
+        "grain": "mês × conta × oferta",
+        "desc": "Assentos e piscinas pré-pagos comprados vs usados — o principal indicador de renovação."
       },
       "arr_snapshots": {
-        "grain": "Mês × conta",
+        "grain": "mês × conta",
         "desc": "A cachoeira ARR: nova, expansão, contração e churn."
       },
       "cases": {
-        "grain": "Caso",
-        "desc": "Apoio com SLA, causa básica e deflexão de IA."
+        "grain": "caso",
+        "desc": "Suporte com SLA, causa raiz e deflexão AI Ask."
       },
       "csat_surveys": {
-        "grain": "Resposta da pesquisa",
+        "grain": "resposta da pesquisa",
         "desc": "CSAT e NPS, mantidos separados de propósito."
       },
       "platform_health_daily": {
-        "grain": "Dia × Oferta",
-        "desc": "Erros, latência e incidentes, a mesa \"foi nós\"?"
+        "grain": "dia × oferta",
+        "desc": "Erros, latência e incidentes — a tabela \"foi nós?\"."
       },
       "batches": {
-        "grain": "Lote",
+        "grain": "lote",
         "desc": "Cada grupo de sala de aula: centro, programa, assentos vendidos, utilização e receita."
       },
       "enrollments": {
         "grain": "assento",
-        "desc": "Uma fila por assento do aluno: individual ou corporativo, preço pago, conclusão, certificação."
+        "desc": "Uma linha por assento do aluno: individual ou corporativo, preço pago, conclusão, certificação."
       }
     }
   },
@@ -989,11 +989,11 @@
       "eyebrow": "Folha 14 / Privacidade",
       "lead": "CRM Analytics A Academia é um currículo gratuito, financiado pela publicidade. Aqui está exatamente o que armazena e o que os anúncios fazem."
     },
-    "englishPrevails": "Esta política é traduzida por máquina do inglês. Se as duas versões diferem, a versão inglesa prevalece. {link}",
-    "englishLink": "Leia a versão em inglês.",
+    "englishPrevails": "Esta política é traduzida por máquina em inglês. Se as duas versões diferem, a versão em inglês prevalece. {link}",
+    "englishLink": "Leia a versão em inglês",
     "sections": [
       {
-        "title": "O que coletamos",
+        "title": "O que recolhemos",
         "body": "Ler uma lição não precisa de conta. Quando você visita, gravamos a página, por quanto tempo ela estava aberta, seu país (de Cloudflare), seu tipo de dispositivo, navegador e sistema operacional e o site que o indicou. Nós não armazenamos seu endereço IP. Nossa própria análise não usa cookies; a publicidade descrita abaixo usa."
       },
       {
@@ -1005,7 +1005,7 @@
         "body": "O Analytics é de primeira: é coletado por este site, armazenado em nosso próprio banco de dados e lido apenas pelo proprietário do site. Um id de visitante aleatório é mantido no armazenamento local do seu navegador para que as visitas repetidas sejam contadas uma vez; limpar os dados do site o redefiniu. Nenhum dado é vendido ou compartilhado com anunciantes."
       },
       {
-        "title": "Publicidade: Google AdSense",
+        "title": "Publicidade — Google AdSense",
         "body": "Cada lição é gratuita porque o site mostra anúncios do Google AdSense. A Google e seus parceiros podem usar cookies (incluindo o cookie DoubleClick) para mostrar anúncios com base em suas visitas a este e outros sites. Você pode desativar a publicidade personalizada nas Configurações de anúncios do Google ou optar por não ter cookies de terceiros no www.aboutads.info. Não há nada para comprar neste site."
       },
       {
@@ -1013,50 +1013,50 @@
         "body": "Lições link para fora Salesforce documentação, Trailhead e recursos comunitários, e alguns incorporam vídeos do YouTube. Esses sites têm suas próprias práticas de privacidade; um vídeo do YouTube carrega somente quando você o reproduz."
       },
       {
-        "title": "Privacidade infantil.",
-        "body": "Este site não é direcionado para crianças menores de 13 anos e não coletamos dados deles."
+        "title": "Privacidade das crianças",
+        "body": "Este site não é direcionado para crianças menores de 13 anos e não coletamos dados deles com conhecimento de causa."
       },
       {
         "title": "Excluindo seus dados",
         "body": "Abrir uma edição sobre o projeto GitHub repositório ou mensagem o autor, e sua conta e tudo o que está ligado a ele será excluído."
       },
       {
-        "title": "Mudanças nesta política",
+        "title": "Alterações a esta política",
         "body": "Esta política pode ser atualizada à medida que o projeto evolui. Mudanças materiais serão refletidas nesta página."
       },
       {
-        "title": "Contato",
-        "body": "Perguntas sobre essa política? Abra uma edição sobre o projeto GitHub repositório."
+        "title": "Contacto",
+        "body": "Perguntas sobre esta política? Abrir uma edição sobre o projeto GitHub repositório."
       }
     ]
   },
   "terms": {
     "seo": {
-      "title": "Termos de Serviço",
+      "title": "Termos de serviço",
       "description": "Os termos para usar CRM Analytics Academia: o currículo gratuito e sua licença, contas e progresso, publicidade, conteúdo comunitário e uso aceitável."
     },
     "hero": {
       "eyebrow": "Folha 15 / Termos",
       "lead": "As regras básicas para usar este currículo gratuito."
     },
-    "englishPrevails": "Esses termos são traduzidos por máquina em inglês. Se as duas versões diferem, a versão inglesa prevalece. {link}",
-    "englishLink": "Leia a versão em inglês.",
+    "englishPrevails": "Estes termos são traduzidos por máquina em inglês. Se as duas versões diferem, a versão em inglês prevalece. {link}",
+    "englishLink": "Leia a versão em inglês",
     "sections": [
       {
         "title": "Usando este site",
-        "body": "CRM Analytics A Academia é um currículo educacional sobre Salesforce CRM Analytics. Você pode ler, copiar trechos de código, e seguir em seu próprio Salesforce org para fins pessoais ou comerciais."
+        "body": "CRM Analytics Academia é um currículo gratuito, educacional sobre Salesforce CRM Analytics. Você pode ler, copiar trechos de código, e seguir em seu próprio Salesforce org para fins de aprendizagem pessoal ou comercial."
       },
       {
-        "title": "Não um oficial. Salesforce produto",
-        "body": "Este é um recurso de aprendizagem independente, construído pela comunidade. Ele não é afiliado, apoiado por, ou patrocinado por Salesforce, Inc. \"Salesforce\"e\"CRM Analytics\"são marcas registradas de Salesforce, Inc., usado aqui apenas para fins de identificação."
+        "title": "Não um oficial Salesforce produto",
+        "body": "Este é um recurso de aprendizagem independente, construído pela comunidade. Não é afiliado com, endossado por, ou patrocinado por Salesforce, Inc. \"Salesforce\"e\"CRM Analytics\" são marcas comerciais de Salesforce, Inc., usado aqui apenas para fins de identificação."
       },
       {
         "title": "Licença de conteúdo",
-        "body": "O conteúdo da lição vive em um repositório público de código aberto. Veja o arquivo de licença do repositório para saber os termos exatos de reutilização e contribuições."
+        "body": "O conteúdo da lição vive em um repositório público de código aberto. Veja o arquivo de licença do repositório para os termos exatos que regem a reutilização e as contribuições."
       },
       {
-        "title": "Sem garantia.",
-        "body": "Lições são fornecidas \"como é\", sem garantia de qualquer tipo. SAQL Exemplos, receitas e passos de configuração são ilustrativos, sempre validam mudanças em uma caixa de areia ou em uma organização de desenvolvedores antes de aplicá-las aos dados de produção."
+        "title": "Sem garantia",
+        "body": "Lições são fornecidas \"como é\", sem garantia de qualquer tipo. SAQL exemplos, receitas e etapas de configuração são ilustrativas — sempre valide as alterações em uma caixa de areia ou Developer org antes de aplicá-las aos dados de produção."
       },
       {
         "title": "Publicidade",
@@ -1064,47 +1064,47 @@
       },
       {
         "title": "Limitação da responsabilidade",
-        "body": "CRM Analytics Academia e seus mantenedores não são responsáveis por qualquer perda ou dano decorrente do uso deste site ou confiança em seu conteúdo."
+        "body": "CRM Analytics A Academia e seus mantenedores não são responsáveis por qualquer perda ou dano decorrente do uso deste site ou confiança em seu conteúdo."
       },
       {
-        "title": "Mudanças nestes termos",
-        "body": "Esses termos podem ser atualizados à medida que o projeto evolui. O uso contínuo do site após uma mudança constitui aceitação dos termos atualizados."
+        "title": "Alterações a estes termos",
+        "body": "Estes termos podem ser atualizados à medida que o projeto evolui. O uso contínuo do site após uma alteração constitui aceitação dos termos atualizados."
       },
       {
-        "title": "Contato",
-        "body": "Perguntas sobre esses termos? Abra uma edição sobre o projeto GitHub repositório."
+        "title": "Contacto",
+        "body": "Perguntas sobre estes termos? Abrir uma edição sobre o projeto GitHub repositório."
       }
     ]
   },
   "curriculumPage": {
     "seo": {
       "title": "Currículo",
-      "description": "Cada seção e lição do CRM Analytics Curso da Academia, em ordem: orientação, o produto em si, em seguida, dezessete prédios do painel de compras."
+      "description": "Cada seção e lição do CRM Analytics Curso de academia, em ordem: orientação, o produto em si, em seguida, dezessete construir painel de compras."
     },
     "schema": {
-      "level": "Iniciante para avançar",
-      "teaches": "Salesforce CRM Analytics: preparação de dados, conjuntos de dados, SAQL, painéis, amarras e Einstein Discovery"
+      "level": "Iniciante ao avanço",
+      "teaches": "Salesforce CRM Analytics: preparação de dados, conjuntos de dados, SAQL, painéis, ligações e Einstein Discovery"
     },
-    "sheet": "Folha 01 / {sections} Seções / {lessons} Lições. {hours}H",
+    "sheet": "Folha 01 / {sections} secções / {lessons} lições / {hours}h",
     "title": "Currículo",
     "complete": "{done} / {total} completo",
-    "start": "Comece do começo.",
-    "datasets": "Pegue os conjuntos de dados.",
-    "sectionMeta": "{lessons} Aulas... {minutes} min",
+    "start": "Iniciar no início",
+    "datasets": "Obter os conjuntos de dados",
+    "sectionMeta": "{lessons} lições · {minutes} min",
     "phases": {
-      "p1": "Fase 1 - Se orientar.",
+      "p1": "Fase 1 — Orientar",
       "p2": "Fase 2 — Fundamentos de dados",
-      "p3": "Fase 3 - Explorar e construir",
-      "p4": "Fase 4 - Nave e escala",
-      "p5": "Fase 5 - Construção do mercado"
+      "p3": "Fase 3 — Explorar e construir",
+      "p4": "Fase 4 — Navio e escala",
+      "p5": "Fase 5 — Construção do mercado"
     },
     "tags": {
       "quiz": "questionário",
       "soon": "logo"
     },
     "legend": {
-      "video": "Vídeo passeando",
-      "article": "Artigo",
+      "video": "Passeio de vídeo",
+      "article": "Artigo.o",
       "quiz": "Termina com um questionário classificado"
     },
     "side": {
@@ -1118,69 +1118,69 @@
       "label": "Autores"
     },
     "toc": {
-      "show": "Mostrar índice",
-      "collapse": "Recolher índice"
+      "show": "Mostrar o índice",
+      "collapse": "Recolher o índice"
     },
     "copy": {
       "page": "Copiar página",
-      "menu": "Abrir menu de ações de cópia",
-      "markdownLink": "Copiar link Markdown",
-      "viewMarkdown": "Veja como Markdown",
-      "openChatgpt": "Abra em ChatGPT",
-      "openClaude": "Abra em Claude.",
-      "copied": "Copiado para a prancheta",
+      "menu": "Abrir o menu de ações de cópia",
+      "markdownLink": "Copiar link de marcação para baixo",
+      "viewMarkdown": "Ver como Marcação",
+      "openChatgpt": "Abrir no ChatGPT",
+      "openClaude": "Aberto em Claude",
+      "copied": "Copiado para a área de transferência",
       "failed": "Não foi possível copiar a página"
     },
     "save": "Salvar para mais tarde",
     "saved": "Gravado"
   },
   "credits": {
-    "title": "Créditos & Fontes",
+    "title": "Créditos & fontes",
     "by": "por",
     "license": "Licença: {license}",
     "videoBy": "Vídeo por",
     "onYoutube": "Assista no YouTube",
     "kinds": {
       "video": "Vídeo",
-      "post": "Post",
-      "article": "Artigo",
+      "post": "Publicação",
+      "article": "Artigo.o",
       "image": "Imagem",
-      "dataset": "Dataset"
+      "dataset": "Conjunto de dados"
     }
   },
   "comments": {
-    "title": "Perguntas e discussão",
-    "demoReadOnly": "A conta demo é só leitura. {link} para fazer uma pergunta ou responder uma.",
-    "createAccount": "Crie uma conta grátis.",
+    "title": "Perguntas e discussões",
+    "demoReadOnly": "A conta demo é somente leitura. {link} para fazer uma pergunta ou responder uma.",
+    "createAccount": "Criar uma conta gratuita",
     "signInPrompt": "{signIn} ou {signUp} para fazer uma pergunta ou responder uma.",
-    "signIn": "Assine.",
-    "createAccountLower": "Criar uma conta gratuita",
-    "placeholder": "Faça uma pergunta ou compartilhe como resolveu...",
-    "hint": "Mensagem simples. Seja gentil, outros alunos estão trabalhando nisso também.",
-    "post": "Post",
-    "empty": "Sem perguntas ainda. Se algo nesta lição não era claro, você provavelmente não é o único.",
-    "reply": "Responda.",
+    "signIn": "Iniciar sessão",
+    "createAccountLower": "criar uma conta gratuita",
+    "placeholder": "Faça uma pergunta ou compartilhe como você resolveu...",
+    "hint": "Texto simples. Seja bondoso — outros alunos também estão trabalhando nisso.",
+    "post": "Publicação",
+    "empty": "Ainda não tenho perguntas. Se algo nesta lição não era claro, você provavelmente não é o único.",
+    "reply": "Responder",
     "replyPlaceholder": "Escreva uma resposta...",
     "cancel": "Cancelar",
     "delete": "Apagar",
-    "you": "Você.",
-    "errLoad": "Comentários não puderam ser carregados.",
-    "errPost": "Não poderia postar isso. Por favor, tente de novo.",
-    "errDelete": "Não pude apagar esse comentário."
+    "you": "Você",
+    "errLoad": "Não foi possível carregar os comentários.",
+    "errPost": "Não foi possível publicar isso. Por favor, tente novamente.",
+    "errDelete": "Não foi possível apagar esse comentário."
   },
   "buildBrief": {
-    "title": "Construir breve",
-    "audience": "Quem abre?",
+    "title": "Resumo de compilação",
+    "audience": "Quem o abre?",
     "when": "Quando",
-    "question": "A pergunta que ele responde",
-    "decision": "A decisão muda",
-    "success": "Como sabemos que funcionou?",
+    "question": "A pergunta que responde",
+    "decision": "A decisão que altera",
+    "success": "Como sabemos que funcionou",
     "notInScope": "Deliberadamente não aqui.",
     "builtOn": "Construído em"
   },
   "funnel": {
-    "convertTo": "Converta-se para {stage}",
-    "logScale": "O comprimento da barra é logarítmico. Compare as porcentagens, não as barras."
+    "convertTo": "converter para {stage}",
+    "logScale": "Os comprimentos das barras são logarítmicos — compare as percentagens, não as barras."
   },
   "channel": {
     "eyebrow": "Novo no YouTube",
