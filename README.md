@@ -255,7 +255,6 @@ public/               icons, PWA, sample data, ads.txt, robots.txt (search, raw 
 | `pnpm fcp <route>` | Generate a Final Cut Pro project and recording script for a lesson |
 | `pnpm thumb <style> …` | Render a YouTube thumbnail from the Pixelmator templates |
 | `pnpm lint` / `pnpm typecheck` | The CI gates |
-| `pnpm org:pull` · `org:open` | Salesforce CLI: pull CRM Analytics metadata / open the org |
 
 ## Local setup
 

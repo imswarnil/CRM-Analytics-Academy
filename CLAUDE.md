@@ -124,7 +124,7 @@ project material lives there: retrieved metadata (`force-app/`), Apex and SOQL s
 (`scripts/`), sample data (`data/`). It is outside the site build — not in `content/`,
 not linked from any page. Its CLI target is set in the gitignored `salesforce/.sf/config.json`
 to alias `crma-learning` (`admin@crmanalyticsacademy.com`, `00Dg500000KBfkHEAT`).
-`pnpm org:pull` retrieves the analytics metadata, `pnpm org:open` opens the org.
+The `org:pull` / `org:open` shortcuts were removed on 2026-10-28 while the org is frozen — run `sf` from `salesforce/` by hand only when Swarnil asks.
 `force-app/main/default/wave/` is gitignored (the org ships Salesforce sample dashboards);
 move your own builds into `salesforce/academy/` to commit them. The repo is public — see `salesforce/README.md`
 for what must never be committed.

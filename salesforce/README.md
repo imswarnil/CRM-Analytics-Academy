@@ -41,7 +41,7 @@ once to learn what the upload checks; use the script to skip the other twenty.
 
 ```
 academy/      the course's own assets, deployed to learners' orgs — commit here
-force-app/    whatever `pnpm org:pull` retrieves (wave/ is gitignored)
+force-app/    whatever `sf project retrieve start` retrieves (wave/ is gitignored)
 scripts/      academy-setup.mjs, plus Apex and SOQL scratch
 ```
 
@@ -60,8 +60,8 @@ Nothing here is tied to a particular org, username or namespace.
 ## Working with it
 
 ```
-pnpm org:pull     # retrieve analytics metadata into force-app/
-pnpm org:open     # open the default org in a browser
+sf project retrieve start --metadata WaveDashboard WaveRecipe WaveDataflow WaveLens WaveApplication
+sf org open
 ```
 
 Retrieve freely; commit deliberately. `salesforce/force-app/main/default/wave/`

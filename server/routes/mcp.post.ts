@@ -77,7 +77,7 @@ async function loadIndex(event: H3Event): Promise<AskDoc[]> {
     indexCache = JSON.parse(await readFile('public/ask-index.json', 'utf8')) as AskDoc[]
     return indexCache
   } catch {
-    throw createError({ statusCode: 503, statusMessage: 'Search index unavailable. Run `pnpm ask:index`.' })
+    throw createError({ statusCode: 503, statusMessage: 'Search index unavailable. Run `pnpm build`.' })
   }
 }
 
