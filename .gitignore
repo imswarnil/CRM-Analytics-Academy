@@ -52,6 +52,7 @@ public/llms.txt
 public/llms-full.txt
 public/*/llms.txt
 public/raw/
+public/exam/
 
 # Salesforce CLI auth state. `.sf/` and `.sfdx/` hold ORG ACCESS TOKENS — a
 # refresh token in one of these is a live, password-free login to the org, so

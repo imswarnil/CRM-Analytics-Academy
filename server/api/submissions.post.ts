@@ -22,6 +22,7 @@ type Kind = typeof KINDS[number]
 const DETAIL_TYPES: Record<string, Kind> = {
   dashboard: 'showcase',
   resource: 'resource',
+  company: 'resource',
   lesson: 'lesson-idea',
   translation: 'lesson-idea',
   snippet: 'lesson-idea',
@@ -49,6 +50,7 @@ function fail(message: string): never {
 
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
+  await rateLimit(event, 'submit', 20, 60)
 
   // The demo account is shared, so anything it submits is written by "whoever
   // clicked demo last" and cannot be moderated back to a person.

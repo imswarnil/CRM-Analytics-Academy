@@ -9,6 +9,12 @@ interface Row {
   visitors: number
   avgSeconds: number
 }
+interface ConvRow {
+  key: string
+  visitors: number
+  signups: number
+  learners: number
+}
 interface Analytics {
   days: number
   totals: { views: number, visitors: number, sessions: number, avgSeconds: number, medianSeconds: number, signedInVisitors: number, bouncePct: number, liveNow: number }
@@ -22,6 +28,9 @@ interface Analytics {
   locales: Row[]
   events: { name: string, count: number, visitors: number }[]
   authClicks: { name: string, path: string, label: string | null, count: number }[]
+  funnel: { step: string, count: number }[]
+  conversionBySource: ConvRow[]
+  conversionByLanding: ConvRow[]
   recent: { path: string, country: string | null, device: string, browser: string | null, seconds: number, at: string, signedIn: boolean }[]
 }
 
@@ -29,6 +38,14 @@ const days = ref(30)
 const { data, status, refresh } = await useLazyAsyncData('admin-analytics', () =>
   $fetch<Analytics>('/api/admin/analytics', { query: { days: days.value } }), { server: false, watch: [days] })
 
+const FUNNEL_LABEL: Record<string, string> = {
+  visitors: 'Visitors',
+  engaged: 'Engaged (2+ pages or 30 s+)',
+  clicked: 'Clicked sign-up',
+  signed_up: 'Signed up',
+  learned: 'Took a learning action'
+}
+const rate = (n: number, d: number) => d ? `${Math.round(1000 * n / d) / 10}%` : '—'
 const fmtSec = (s: number) => s >= 60 ? `${Math.floor(s / 60)}m ${s % 60}s` : `${s}s`
 const flag = (cc: string) => /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map(c => 0x1F1E6 + c.charCodeAt(0) - 65)) : '🌐'
 const countryName = (cc: string) => {
@@ -55,7 +72,8 @@ const EVENT_LABEL: Record<string, string> = {
   share: 'Shared a page',
   exam_start: 'Started a practice exam',
   exam_finish: 'Finished a practice exam',
-  interview_submit: 'Submitted an interview question'
+  interview_submit: 'Submitted an interview question',
+  contribute: 'Sent a contribution'
 }
 
 const bars = computed(() => (data.value?.series ?? []).map((d, i, all) => ({
@@ -153,6 +171,103 @@ const signUps = computed(() => data.value?.events.find(e => e.name === 'sign_up'
           />
         </div>
       </section>
+
+      <!-- Conversion: visitor → learner -->
+      <section class="border-[1.5px] border-(--ink) bg-(--card)">
+        <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+          <p class="eyebrow">
+            Conversion funnel · per visitor
+          </p>
+        </header>
+        <ol class="grid gap-px bg-(--line) sm:grid-cols-5">
+          <li
+            v-for="(f, i) in data.funnel"
+            :key="f.step"
+            class="bg-(--card) p-4"
+          >
+            <p class="text-3xl font-extrabold tabular-nums text-(--ink)">
+              {{ f.count.toLocaleString() }}
+            </p>
+            <p class="mt-1 text-sm font-semibold text-(--ink)">
+              {{ FUNNEL_LABEL[f.step] ?? f.step }}
+            </p>
+            <p class="mt-1 font-mono text-[11px] text-(--ink2)">
+              <template v-if="i">
+                {{ rate(f.count, data.funnel[i - 1]!.count) }} of previous · {{ rate(f.count, data.funnel[0]!.count) }} of all
+              </template>
+              <template v-else>
+                100%
+              </template>
+            </p>
+            <div class="mt-3 h-1.5 bg-(--ice)">
+              <div
+                class="h-full bg-(--signal)"
+                :style="{ width: rate(f.count, data.funnel[0]!.count) === '—' ? '0%' : rate(f.count, data.funnel[0]!.count) }"
+              />
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <div class="grid gap-6 lg:grid-cols-2">
+        <section
+          v-for="block in [{ title: 'Conversion by source', rows: data.conversionBySource }, { title: 'Conversion by landing page', rows: data.conversionByLanding }]"
+          :key="block.title"
+          class="border-[1.5px] border-(--ink) bg-(--card)"
+        >
+          <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+            <p class="eyebrow">
+              {{ block.title }}
+            </p>
+          </header>
+          <table class="w-full text-sm">
+            <thead class="font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)">
+              <tr>
+                <th class="px-5 py-2 text-start">
+                  {{ block.title.endsWith('source') ? 'Source' : 'Landing page' }}
+                </th>
+                <th class="px-3 py-2 text-end">
+                  Visitors
+                </th>
+                <th class="px-3 py-2 text-end">
+                  Sign-ups
+                </th>
+                <th class="px-5 py-2 text-end">
+                  Rate
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="r in block.rows"
+                :key="r.key"
+                class="border-t border-dashed border-(--line)"
+              >
+                <td class="max-w-0 truncate px-5 py-2 font-medium text-(--ink)">
+                  {{ r.key }}
+                </td>
+                <td class="px-3 py-2 text-end tabular-nums">
+                  {{ r.visitors }}
+                </td>
+                <td class="px-3 py-2 text-end tabular-nums">
+                  {{ r.signups }}
+                </td>
+                <td class="px-5 py-2 text-end font-mono tabular-nums text-(--signal)">
+                  {{ rate(r.signups, r.visitors) }}
+                </td>
+              </tr>
+              <tr v-if="!block.rows.length">
+                <td
+                  colspan="4"
+                  class="px-5 py-4 text-(--ink2)"
+                >
+                  No data yet.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
 
       <!-- Sign-in / sign-up funnel -->
       <section class="border-[1.5px] border-(--ink) bg-(--card)">

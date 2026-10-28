@@ -23,6 +23,15 @@ export default defineEventHandler(async (event) => {
   const target = `${base}/${path}${search ? `?${search}` : ''}`
 
   const method = event.method
+  // Bot protection on the two endpoints that create sessions or accounts:
+  // the human-check token travels in a header and is not forwarded.
+  if (method === 'POST' && /^(sign-up|sign-in)\/email$/.test(path)) {
+    await guard(event, path.startsWith('sign-up') ? 'sign-up' : 'sign-in', {
+      limit: path.startsWith('sign-up') ? 5 : 20,
+      perMinutes: 60,
+      token: getRequestHeader(event, 'x-human-token')
+    })
+  }
   const body = ['GET', 'HEAD'].includes(method) ? undefined : await readRawBody(event)
 
   const upstream = await fetch(target, {

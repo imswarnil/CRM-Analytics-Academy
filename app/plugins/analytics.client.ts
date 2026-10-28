@@ -46,7 +46,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     flush()
     const current = { id: null as number | null, visibleMs: 0, since: document.visibilityState === 'visible' ? performance.now() : null }
     view = current
-    const res = await send({ t: 'pv', p: path, l: locale.value, r: document.referrer })
+    const res = await send({ t: 'pv', p: path, l: locale.value, r: document.referrer, u: new URLSearchParams(location.search).get('utm_source') ?? '' })
     current.id = (res as { id?: number } | null)?.id ?? null
   }
 

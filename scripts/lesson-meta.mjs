@@ -23,6 +23,8 @@ async function walk(dir) {
   const out = []
   for (const e of await readdir(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name)
+    // Interview questions and exam banks are their own collections, not lessons.
+    if (e.isDirectory() && (e.name === 'interview-questions' || e.name === 'exam')) continue
     if (e.isDirectory()) out.push(...await walk(p))
     else if (e.name.endsWith('.md')) out.push(p)
   }

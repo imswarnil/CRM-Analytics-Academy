@@ -8,7 +8,7 @@
  * was, clock included); a signed-in learner's finished attempt is saved to
  * /api/exam-attempt. No promos while the clock runs.
  */
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const { isSignedIn } = useAuth()
@@ -40,8 +40,28 @@ const resumable = ref(false)
 const reviewFilter = ref<'all' | 'wrong' | 'flagged'>('all')
 let timer: ReturnType<typeof setInterval> | undefined
 
+// Focus mode: no site chrome, promos or pop-ups while the clock runs; the
+// browser goes full-screen when it allows, and leaving asks first.
+const focus = useState('exam-focus', () => false)
+watch(phase, (p) => {
+  focus.value = p === 'running'
+  if (p === 'running') document.documentElement.requestFullscreen?.().catch(() => {})
+  else if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {})
+})
+function guard(e: BeforeUnloadEvent) {
+  if (phase.value === 'running') e.preventDefault()
+}
+onMounted(() => window.addEventListener('beforeunload', guard))
+onBeforeUnmount(() => {
+  focus.value = false
+  window.removeEventListener('beforeunload', guard)
+})
+
 onMounted(async () => {
-  const bank = (await import('~/data/exam-bank.json')).default as BankQuestion[]
+  // The bank in the reader's language, translated by the build from English
+  // (content/<locale>/exam → public/exam/<locale>.json).
+  const bank = await $fetch<BankQuestion[]>(`/exam/${locale.value}.json`)
+    .catch(() => $fetch<BankQuestion[]>('/exam/en.json'))
   questions.value = buildPaper(bank, paper)
   try {
     const s = JSON.parse(localStorage.getItem(KEY) || 'null') as Saved | null
@@ -240,7 +260,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
 
     <!-- RUNNING -->
     <template v-else-if="phase === 'running' && current">
-      <div class="sticky top-16 z-30 border-b-[1.5px] border-(--ink) bg-(--paper)">
+      <div class="sticky top-0 z-30 border-b-[1.5px] border-(--ink) bg-(--paper)">
         <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <span class="font-bold text-(--ink)">{{ paper!.title }}</span>
           <span class="mono-label">{{ t('cert.questionOf', { n: index + 1, total: questions.length }) }} · {{ t('cert.answeredN', { n: answered }) }} · {{ t('cert.flaggedN', { n: flagged }) }}</span>
@@ -333,7 +353,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           </footer>
         </section>
 
-        <aside class="lg:sticky lg:top-36 lg:self-start">
+        <aside class="lg:sticky lg:top-24 lg:self-start">
           <p class="mono-label mb-2">
             {{ t('cert.navigator') }}
           </p>

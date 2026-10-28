@@ -10,7 +10,8 @@
 const GHOST_URL = process.env.NEWSLETTER_GHOST_URL || 'https://imswarnil.com'
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody<{ email?: string }>(event).catch(() => null)
+  const body = await readBody<{ email?: string, website?: string, token?: string }>(event).catch(() => null)
+  await guard(event, 'newsletter', { limit: 5, perMinutes: 60, token: body?.token, honeypot: body?.website })
   const email = String(body?.email ?? '').trim()
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
     throw createError({ statusCode: 400, statusMessage: 'A valid email is required.' })

@@ -46,12 +46,15 @@ const redirectTo = computed(() => {
   return raw.startsWith('/') && !raw.startsWith('//') ? raw : localePath('/dashboard')
 })
 
+const humanToken = ref('')
+const humanCheck = ref<{ reset: () => void } | null>(null)
+
 async function submit() {
   error.value = ''
   try {
     const user = isSignUp.value
-      ? await signUp(email.value, password.value, name.value)
-      : await signIn(email.value, password.value)
+      ? await signUp(email.value, password.value, name.value, humanToken.value)
+      : await signIn(email.value, password.value, humanToken.value)
 
     if (!user && isSignUp.value) {
       verifyEmail.value = true
@@ -68,6 +71,8 @@ async function submit() {
     // Deliberately not "no account with that email" — telling an attacker
     // which addresses are registered is free account enumeration.
     error.value = isSignUp.value ? t('auth.errSignUp') : t('auth.errSignIn')
+    // A Turnstile token is single-use.
+    humanCheck.value?.reset()
   }
 }
 
@@ -196,6 +201,11 @@ async function demo() {
               required
             />
           </UFormField>
+
+          <HumanCheck
+            ref="humanCheck"
+            v-model="humanToken"
+          />
 
           <UAlert
             v-if="error"

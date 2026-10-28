@@ -9,6 +9,7 @@ const MAX_PER_WINDOW = 8
 
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
+  await rateLimit(event, 'comment', 30, 60)
   if (await isDemoUser(user.id)) {
     throw createError({ statusCode: 403, statusMessage: 'The demo account cannot comment.' })
   }

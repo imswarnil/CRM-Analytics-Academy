@@ -45,10 +45,10 @@ onMounted(async () => {
 
 // Session bootstrap. app.vue is on every page, which is what makes it the
 // right place for the single fetch; progress loads once a session exists.
-const { isSignedIn, fetchSession } = useAuth()
+const { isSignedIn, restoreSession } = useAuth()
 const { load: loadProgress } = useProgress()
 onMounted(() => {
-  fetchSession()
+  restoreSession()
 })
 watch(isSignedIn, ok => ok && loadProgress(), { immediate: true })
 const navigation = computed<ContentNavigationItem[]>(() => {
@@ -159,13 +159,17 @@ useJsonLd([
 ])
 
 provide('navigation', navigation)
+
+// Exam focus mode: while a practice paper's clock runs, the site chrome,
+// promos and pop-ups step aside (set by pages/certification/[paper].vue).
+const focus = useState('exam-focus', () => false)
 </script>
 
 <template>
   <UApp>
     <NuxtLoadingIndicator />
 
-    <AppHeader />
+    <AppHeader v-if="!focus" />
 
     <UMain>
       <NuxtLayout>
@@ -173,16 +177,18 @@ provide('navigation', navigation)
       </NuxtLayout>
     </UMain>
 
-    <AppFooter />
+    <AppFooter v-if="!focus" />
 
     <ClientOnly>
       <LazyUContentSearch
         :files="files"
         :navigation="navigation"
       />
-      <PwaInstallPrompt />
-      <PromoFloat />
-      <ChannelPopup />
+      <template v-if="!focus">
+        <PwaInstallPrompt />
+        <PromoFloat />
+        <ChannelPopup />
+      </template>
     </ClientOnly>
   </UApp>
 </template>

@@ -159,6 +159,38 @@ watch(isAdmin, (ok) => {
   refreshIq()
 }, { immediate: true })
 
+// Live counts beside each section, and the overview's to-do list.
+const pendingIq = computed(() => iqStatus.value === 'pending' ? iq.value.length : 0)
+function badge(key: Tab) {
+  if (key === 'submissions') return stats.value?.totals.pendingSubmissions ?? 0
+  if (key === 'interview') return pendingIq.value
+  return 0
+}
+const attention = computed(() => [
+  { tab: 'submissions' as Tab, icon: 'i-lucide-inbox', n: badge('submissions'), label: `${badge('submissions')} submission(s) to review` },
+  { tab: 'interview' as Tab, icon: 'i-lucide-messages-square', n: pendingIq.value, label: `${pendingIq.value} interview question(s) to review` }
+].filter(a => a.n > 0))
+
+// The services this site runs on, one click away.
+const SERVICES = [
+  { label: 'Cloudflare', icon: 'i-simple-icons-cloudflare', to: 'https://dash.cloudflare.com/389ebc0d5a66f36d522736d3dac41aae/workers/services/view/crm-analytics-academy/production' },
+  { label: 'Neon', icon: 'i-lucide-database', to: 'https://console.neon.tech/' },
+  { label: 'AdSense', icon: 'i-simple-icons-googleadsense', to: 'https://adsense.google.com/' },
+  { label: 'Search Console', icon: 'i-simple-icons-googlesearchconsole', to: 'https://search.google.com/search-console?resource_id=sc-domain%3Aimswarnil.com' },
+  { label: 'YouTube Studio', icon: 'i-simple-icons-youtube', to: 'https://studio.youtube.com/' },
+  { label: 'Deploys', icon: 'i-simple-icons-githubactions', to: 'https://github.com/imswarnil/CRM-Analytics-Academy/actions' }
+]
+
+// Keyboard: 1–6 switch sections (ignored while typing).
+function onKey(e: KeyboardEvent) {
+  const el = e.target as HTMLElement | null
+  if (e.metaKey || e.ctrlKey || e.altKey || el?.closest('input, textarea, select, [contenteditable]')) return
+  const t = TABS[Number(e.key) - 1]
+  if (t) tab.value = t.key
+}
+onMounted(() => window.addEventListener('keydown', onKey))
+onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
+
 const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day: 'numeric', month: 'short', year: '2-digit' }) : '—'
 </script>
 
@@ -198,430 +230,493 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
       >
         <div class="mt-6 flex flex-wrap gap-2">
           <UButton
-            v-for="tb in TABS"
-            :key="tb.key"
-            :icon="tb.icon"
-            :label="tb.label"
-            :color="tab === tb.key ? 'primary' : 'neutral'"
-            :variant="tab === tb.key ? 'solid' : 'outline'"
-            size="sm"
-            @click="tab = tb.key"
-          />
-          <UButton
             to="/_studio"
             external
             icon="i-lucide-pen-line"
             label="Edit content (Studio)"
+          />
+          <UButton
+            v-for="l in SERVICES"
+            :key="l.label"
+            :to="l.to"
+            target="_blank"
+            :icon="l.icon"
+            :label="l.label"
             color="neutral"
-            variant="ghost"
-            size="sm"
-            class="ms-auto"
+            variant="outline"
           />
         </div>
       </BpPageHeader>
 
-      <div class="mx-auto max-w-(--ui-container) px-4 py-10 sm:px-6 lg:px-8">
-        <UAlert
-          v-if="error"
-          class="mb-6"
-          color="error"
-          variant="subtle"
-          :title="error"
-          :close="{ onClick: () => { error = '' } }"
-        />
-
-        <!-- ============================ OVERVIEW ============================ -->
-        <section
-          v-if="tab === 'overview'"
-          class="space-y-6"
+      <div class="mx-auto grid max-w-(--ui-container) gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[13rem_minmax(0,1fr)] lg:px-8">
+        <nav
+          class="lg:sticky lg:top-24 lg:self-start"
+          aria-label="Admin sections"
         >
-          <dl class="grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-4">
-            <component
-              :is="tile.to ? 'button' : 'div'"
-              v-for="tile in overviewTiles"
-              :key="tile.label"
-              type="button"
-              class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-4 text-start"
-              :class="tile.to ? 'hover:bg-(--ice)' : ''"
-              @click="tile.to && (tab = tile.to)"
+          <ul class="flex gap-1 overflow-x-auto lg:flex-col">
+            <li
+              v-for="(tb, i) in TABS"
+              :key="tb.key"
             >
-              <dd class="mt-1 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">
-                {{ tile.value.toLocaleString() }}
-              </dd>
-              <dt class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
-                {{ tile.label }}
-              </dt>
-            </component>
-          </dl>
-
-          <div class="grid gap-6 lg:grid-cols-2">
-            <section class="border-[1.5px] border-(--ink) bg-(--card)">
-              <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
-                <p class="eyebrow">
-                  Sign-ups · 14 days
-                </p>
-              </header>
-              <div class="graph-paper-fine p-5">
-                <BpBarChart
-                  :bars="seriesBars(stats?.series.signups)"
-                  :height="140"
+              <button
+                type="button"
+                class="flex min-h-11 w-full items-center gap-3 whitespace-nowrap px-3 text-start text-[15px] font-semibold"
+                :class="tab === tb.key ? 'bg-(--ink) text-(--paper)' : 'text-(--ink) hover:bg-(--ice)'"
+                :aria-current="tab === tb.key ? 'page' : undefined"
+                @click="tab = tb.key"
+              >
+                <UIcon
+                  :name="tb.icon"
+                  class="size-5 shrink-0"
                 />
-              </div>
-            </section>
-            <section class="border-[1.5px] border-(--ink) bg-(--card)">
-              <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
-                <p class="eyebrow">
-                  Lessons completed · 14 days
-                </p>
-              </header>
-              <div class="graph-paper-fine p-5">
-                <BpBarChart
-                  :bars="seriesBars(stats?.series.progress)"
-                  :height="140"
-                />
-              </div>
-            </section>
-            <section class="border-[1.5px] border-(--ink) bg-(--card)">
-              <header class="flex justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
-                <p class="eyebrow">
-                  Most completed lessons
-                </p>
-                <span class="font-mono text-xs text-(--ink2)">quiz avg {{ stats?.quiz.avgScorePct ?? 0 }}%</span>
-              </header>
-              <p
-                v-if="!stats?.topLessons.length"
-                class="p-5 text-sm text-(--ink2)"
-              >
-                Nothing completed yet.
-              </p>
-              <p
-                v-for="l in stats?.topLessons"
-                :key="l.path"
-                class="flex justify-between border-b border-dashed border-(--line) px-5 py-2 text-sm last:border-b-0"
-              >
-                <NuxtLink
-                  :to="l.path"
-                  class="truncate font-mono text-xs hover:text-(--signal)"
-                >{{ l.path }}</NuxtLink><span class="font-mono text-xs">{{ l.count }}</span>
-              </p>
-            </section>
-            <section class="graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white">
-              <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--glow)">
-                Publishing
-              </p>
-              <ol class="mt-3 list-decimal space-y-2 ps-5 text-sm text-white/85">
-                <li>
-                  Edit English lessons in <a
-                    href="/_studio"
-                    class="underline"
-                  >Nuxt Studio</a> (commits to main) or in <code>content/en/</code>.
-                </li>
-                <li>Locally: <code>pnpm build</code> translates into 11 languages with the local LibreTranslate.</li>
-                <li>Commit and push — Cloudflare deploys.</li>
-                <li>Videos: <code>pnpm fcp &lt;route&gt;</code> → Final Cut Pro → YouTube → <code>video: {id}</code>.</li>
-              </ol>
-            </section>
-          </div>
-        </section>
+                <span class="flex-1">{{ tb.label }}</span>
+                <span
+                  v-if="badge(tb.key)"
+                  class="min-w-6 bg-(--signal) px-1.5 text-center font-mono text-xs text-white"
+                >{{ badge(tb.key) }}</span>
+                <kbd class="hidden font-mono text-[10px] opacity-50 lg:inline">{{ i + 1 }}</kbd>
+              </button>
+            </li>
+          </ul>
+        </nav>
 
-        <!-- ============================ ANALYTICS =========================== -->
-        <AdminAnalytics v-else-if="tab === 'analytics'" />
-
-        <!-- ============================== USERS ============================= -->
-        <section
-          v-else-if="tab === 'users'"
-          class="space-y-6"
-        >
-          <div class="flex flex-wrap items-end gap-3">
-            <UInput
-              v-model="userQuery"
-              icon="i-lucide-search"
-              placeholder="Search name or email"
-              class="w-72"
-            />
-            <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink2)">{{ shownUsers.length }} of {{ users.length }}</span>
-            <form
-              class="ms-auto flex flex-wrap items-end gap-2"
-              @submit.prevent="createUser"
-            >
-              <UInput
-                v-model="newUser.email"
-                type="email"
-                required
-                placeholder="new@email.com"
-              />
-              <UInput
-                v-model="newUser.name"
-                placeholder="Name (optional)"
-              />
-              <UButton
-                type="submit"
-                icon="i-lucide-user-plus"
-                :loading="busy"
-              >
-                Create user
-              </UButton>
-            </form>
-          </div>
+        <div class="min-w-0">
           <UAlert
-            v-if="created"
-            color="info"
+            v-if="error"
+            class="mb-6"
+            color="error"
             variant="subtle"
-            icon="i-lucide-key-round"
-            :title="`Created ${created.email}`"
-            :description="`Temporary password (shown once): ${created.temporaryPassword}`"
-            :close="{ onClick: () => { created = null } }"
+            :title="error"
+            :close="{ onClick: () => { error = '' } }"
           />
-          <div class="overflow-x-auto border-[1.5px] border-(--ink) bg-(--card)">
-            <table class="w-full min-w-[56rem] text-sm">
-              <thead class="bg-(--ice) font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
-                <tr>
-                  <th class="px-4 py-2 text-start">
-                    User
-                  </th>
-                  <th class="px-3 py-2 text-start">
-                    Joined
-                  </th>
-                  <th class="px-3 py-2 text-end">
-                    Lessons
-                  </th>
-                  <th class="px-3 py-2 text-end">
-                    Quizzes
-                  </th>
-                  <th class="px-3 py-2 text-end">
-                    Comments
-                  </th>
-                  <th class="px-3 py-2 text-end">
-                    Points
-                  </th>
-                  <th class="px-4 py-2 text-end">
-                    Last lesson
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="u in shownUsers"
-                  :key="u.id"
-                  class="border-t border-dashed border-(--line)"
+
+          <!-- ============================ OVERVIEW ============================ -->
+          <section
+            v-if="tab === 'overview'"
+            class="space-y-6"
+          >
+            <div
+              v-if="attention.length"
+              class="border-[1.5px] border-(--ink) bg-(--ice) p-5"
+            >
+              <p class="eyebrow">
+                Needs your attention
+              </p>
+              <ul class="mt-3 flex flex-wrap gap-3">
+                <li
+                  v-for="a in attention"
+                  :key="a.label"
                 >
-                  <td class="px-4 py-2">
-                    <div class="flex items-center gap-2">
-                      <span class="flex size-7 flex-none items-center justify-center overflow-hidden border-[1.5px] border-(--ink) bg-(--signal) text-xs font-bold text-white">
-                        <img
-                          v-if="u.image"
-                          :src="u.image"
-                          alt=""
-                          class="size-full object-cover"
-                        >
-                        <template v-else>{{ (u.name || u.email).slice(0, 1).toUpperCase() }}</template>
-                      </span>
-                      <span class="min-w-0">
-                        <span class="block truncate font-semibold">{{ u.name || '—' }}
-                          <UBadge
-                            v-if="u.admin"
-                            label="admin"
-                            size="sm"
-                          />
-                          <UBadge
-                            v-if="u.isDemo"
-                            label="demo"
-                            size="sm"
-                            color="neutral"
-                            variant="outline"
-                          />
+                  <UButton
+                    :icon="a.icon"
+                    :label="a.label"
+                    @click="tab = a.tab"
+                  />
+                </li>
+              </ul>
+            </div>
+            <p
+              v-else
+              class="flex items-center gap-2 border-[1.5px] border-dashed border-(--line) p-4 text-(--ink2)"
+            >
+              <UIcon
+                name="i-lucide-circle-check"
+                class="size-5 text-(--signal)"
+              /> Inbox zero — nothing waiting for review.
+            </p>
+
+            <dl class="grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-4">
+              <component
+                :is="tile.to ? 'button' : 'div'"
+                v-for="tile in overviewTiles"
+                :key="tile.label"
+                type="button"
+                class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-4 text-start"
+                :class="tile.to ? 'hover:bg-(--ice)' : ''"
+                @click="tile.to && (tab = tile.to)"
+              >
+                <dd class="mt-1 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">
+                  {{ tile.value.toLocaleString() }}
+                </dd>
+                <dt class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
+                  {{ tile.label }}
+                </dt>
+              </component>
+            </dl>
+
+            <div class="grid gap-6 lg:grid-cols-2">
+              <section class="border-[1.5px] border-(--ink) bg-(--card)">
+                <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+                  <p class="eyebrow">
+                    Sign-ups · 14 days
+                  </p>
+                </header>
+                <div class="graph-paper-fine p-5">
+                  <BpBarChart
+                    :bars="seriesBars(stats?.series.signups)"
+                    :height="140"
+                  />
+                </div>
+              </section>
+              <section class="border-[1.5px] border-(--ink) bg-(--card)">
+                <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+                  <p class="eyebrow">
+                    Lessons completed · 14 days
+                  </p>
+                </header>
+                <div class="graph-paper-fine p-5">
+                  <BpBarChart
+                    :bars="seriesBars(stats?.series.progress)"
+                    :height="140"
+                  />
+                </div>
+              </section>
+              <section class="border-[1.5px] border-(--ink) bg-(--card)">
+                <header class="flex justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+                  <p class="eyebrow">
+                    Most completed lessons
+                  </p>
+                  <span class="font-mono text-xs text-(--ink2)">quiz avg {{ stats?.quiz.avgScorePct ?? 0 }}%</span>
+                </header>
+                <p
+                  v-if="!stats?.topLessons.length"
+                  class="p-5 text-sm text-(--ink2)"
+                >
+                  Nothing completed yet.
+                </p>
+                <p
+                  v-for="l in stats?.topLessons"
+                  :key="l.path"
+                  class="flex justify-between border-b border-dashed border-(--line) px-5 py-2 text-sm last:border-b-0"
+                >
+                  <NuxtLink
+                    :to="l.path"
+                    class="truncate font-mono text-xs hover:text-(--signal)"
+                  >{{ l.path }}</NuxtLink><span class="font-mono text-xs">{{ l.count }}</span>
+                </p>
+              </section>
+              <section class="graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white">
+                <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--glow)">
+                  Publishing
+                </p>
+                <ol class="mt-3 list-decimal space-y-2 ps-5 text-sm text-white/85">
+                  <li>
+                    Edit English lessons in <a
+                      href="/_studio"
+                      class="underline"
+                    >Nuxt Studio</a> (commits to main) or in <code>content/en/</code>.
+                  </li>
+                  <li>Locally: <code>pnpm build</code> translates into 11 languages with the local LibreTranslate.</li>
+                  <li>Commit and push — Cloudflare deploys.</li>
+                  <li>Videos: <code>pnpm fcp &lt;route&gt;</code> → Final Cut Pro → YouTube → <code>video: {id}</code>.</li>
+                </ol>
+              </section>
+            </div>
+          </section>
+
+          <!-- ============================ ANALYTICS =========================== -->
+          <AdminAnalytics v-else-if="tab === 'analytics'" />
+
+          <!-- ============================== USERS ============================= -->
+          <section
+            v-else-if="tab === 'users'"
+            class="space-y-6"
+          >
+            <div class="flex flex-wrap items-end gap-3">
+              <UInput
+                v-model="userQuery"
+                icon="i-lucide-search"
+                placeholder="Search name or email"
+                class="w-72"
+              />
+              <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink2)">{{ shownUsers.length }} of {{ users.length }}</span>
+              <form
+                class="ms-auto flex flex-wrap items-end gap-2"
+                @submit.prevent="createUser"
+              >
+                <UInput
+                  v-model="newUser.email"
+                  type="email"
+                  required
+                  placeholder="new@email.com"
+                />
+                <UInput
+                  v-model="newUser.name"
+                  placeholder="Name (optional)"
+                />
+                <UButton
+                  type="submit"
+                  icon="i-lucide-user-plus"
+                  :loading="busy"
+                >
+                  Create user
+                </UButton>
+              </form>
+            </div>
+            <UAlert
+              v-if="created"
+              color="info"
+              variant="subtle"
+              icon="i-lucide-key-round"
+              :title="`Created ${created.email}`"
+              :description="`Temporary password (shown once): ${created.temporaryPassword}`"
+              :close="{ onClick: () => { created = null } }"
+            />
+            <div class="overflow-x-auto border-[1.5px] border-(--ink) bg-(--card)">
+              <table class="w-full min-w-[56rem] text-sm">
+                <thead class="bg-(--ice) font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+                  <tr>
+                    <th class="px-4 py-2 text-start">
+                      User
+                    </th>
+                    <th class="px-3 py-2 text-start">
+                      Joined
+                    </th>
+                    <th class="px-3 py-2 text-end">
+                      Lessons
+                    </th>
+                    <th class="px-3 py-2 text-end">
+                      Quizzes
+                    </th>
+                    <th class="px-3 py-2 text-end">
+                      Comments
+                    </th>
+                    <th class="px-3 py-2 text-end">
+                      Points
+                    </th>
+                    <th class="px-4 py-2 text-end">
+                      Last lesson
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="u in shownUsers"
+                    :key="u.id"
+                    class="border-t border-dashed border-(--line)"
+                  >
+                    <td class="px-4 py-2">
+                      <div class="flex items-center gap-2">
+                        <span class="flex size-7 flex-none items-center justify-center overflow-hidden border-[1.5px] border-(--ink) bg-(--signal) text-xs font-bold text-white">
+                          <img
+                            v-if="u.image"
+                            :src="u.image"
+                            alt=""
+                            class="size-full object-cover"
+                          >
+                          <template v-else>{{ (u.name || u.email).slice(0, 1).toUpperCase() }}</template>
                         </span>
-                        <span class="block truncate font-mono text-xs text-(--ink2)">{{ u.email }}<UIcon
-                          v-if="u.emailVerified"
-                          name="i-lucide-badge-check"
-                          class="ms-1 text-(--signal)"
-                        /></span>
-                      </span>
-                    </div>
-                  </td>
-                  <td class="px-3 py-2 font-mono text-xs">
-                    {{ date(u.createdAt) }}
-                  </td>
-                  <td class="px-3 py-2 text-end tabular-nums">
-                    {{ u.lessonsDone }}
-                  </td>
-                  <td class="px-3 py-2 text-end tabular-nums">
-                    {{ u.quizzes }}
-                  </td>
-                  <td class="px-3 py-2 text-end tabular-nums">
-                    {{ u.comments }}
-                  </td>
-                  <td class="px-3 py-2 text-end tabular-nums">
-                    {{ u.points }}
-                  </td>
-                  <td class="px-4 py-2 text-end font-mono text-xs">
-                    {{ date(u.lastLessonAt) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
+                        <span class="min-w-0">
+                          <span class="block truncate font-semibold">{{ u.name || '—' }}
+                            <UBadge
+                              v-if="u.admin"
+                              label="admin"
+                              size="sm"
+                            />
+                            <UBadge
+                              v-if="u.isDemo"
+                              label="demo"
+                              size="sm"
+                              color="neutral"
+                              variant="outline"
+                            />
+                          </span>
+                          <span class="block truncate font-mono text-xs text-(--ink2)">{{ u.email }}<UIcon
+                            v-if="u.emailVerified"
+                            name="i-lucide-badge-check"
+                            class="ms-1 text-(--signal)"
+                          /></span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="px-3 py-2 font-mono text-xs">
+                      {{ date(u.createdAt) }}
+                    </td>
+                    <td class="px-3 py-2 text-end tabular-nums">
+                      {{ u.lessonsDone }}
+                    </td>
+                    <td class="px-3 py-2 text-end tabular-nums">
+                      {{ u.quizzes }}
+                    </td>
+                    <td class="px-3 py-2 text-end tabular-nums">
+                      {{ u.comments }}
+                    </td>
+                    <td class="px-3 py-2 text-end tabular-nums">
+                      {{ u.points }}
+                    </td>
+                    <td class="px-4 py-2 text-end font-mono text-xs">
+                      {{ date(u.lastLessonAt) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-        <!-- =========================== SUBMISSIONS ========================== -->
-        <section v-else-if="tab === 'submissions'">
-          <div class="mb-4 flex gap-2">
-            <UButton
-              v-for="s in (['pending', 'approved', 'rejected'] as const)"
-              :key="s"
-              :label="s"
-              :color="queueStatus === s ? 'primary' : 'neutral'"
-              :variant="queueStatus === s ? 'solid' : 'outline'"
-              size="xs"
-              @click="queueStatus = s"
-            />
-          </div>
-          <p
-            v-if="!queue.length"
-            class="py-12 text-center text-sm text-(--ink2)"
-          >
-            Nothing {{ queueStatus }}.
-          </p>
-          <ul class="space-y-4">
-            <li
-              v-for="item in queue"
-              :key="item.id"
-              class="bp-card p-5"
+          <!-- =========================== SUBMISSIONS ========================== -->
+          <section v-else-if="tab === 'submissions'">
+            <div class="mb-4 flex gap-2">
+              <UButton
+                v-for="s in (['pending', 'approved', 'rejected'] as const)"
+                :key="s"
+                :label="s"
+                :color="queueStatus === s ? 'primary' : 'neutral'"
+                :variant="queueStatus === s ? 'solid' : 'outline'"
+                size="xs"
+                @click="queueStatus = s"
+              />
+            </div>
+            <p
+              v-if="!queue.length"
+              class="py-12 text-center text-sm text-(--ink2)"
             >
-              <div class="flex flex-wrap items-center gap-2">
-                <UBadge
-                  :label="item.kind"
-                  color="neutral"
-                  variant="subtle"
-                  size="sm"
-                />
-                <span class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">{{ item.submittedBy.email || 'unknown' }} · {{ date(item.createdAt) }}</span>
-              </div>
-              <p class="mt-2 font-semibold text-(--ink)">
-                {{ item.title }}
-              </p>
-              <!-- An unreviewed link from a stranger: nofollow, ugc. -->
-              <a
-                v-if="item.url"
-                :href="item.url"
-                target="_blank"
-                rel="noopener nofollow ugc"
-                class="text-sm break-all text-(--signal)"
-              >{{ item.url }}</a>
-              <p class="mt-2 text-sm whitespace-pre-line text-(--ink2)">
-                {{ item.description }}
-              </p>
-              <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-(--line) pt-4">
-                <UButton
-                  label="Approve"
-                  icon="i-lucide-check"
-                  size="sm"
-                  :disabled="busy || item.status === 'approved'"
-                  @click="review(item, 'approve')"
-                />
-                <UButton
-                  label="Reject"
-                  icon="i-lucide-x"
-                  color="neutral"
-                  variant="outline"
-                  size="sm"
-                  :disabled="busy || item.status === 'rejected'"
-                  @click="review(item, 'reject')"
-                />
-                <UButton
-                  label="Delete"
-                  icon="i-lucide-trash-2"
-                  color="error"
-                  variant="ghost"
-                  size="sm"
-                  class="ms-auto"
-                  :disabled="busy"
-                  @click="review(item, 'delete')"
-                />
-              </div>
-            </li>
-          </ul>
-        </section>
-
-        <!-- ========================= INTERVIEW Q&A ========================== -->
-        <section v-else-if="tab === 'interview'">
-          <div class="mb-4 flex gap-2">
-            <UButton
-              v-for="st in (['pending', 'approved', 'rejected'] as const)"
-              :key="st"
-              :label="st"
-              :color="iqStatus === st ? 'primary' : 'neutral'"
-              :variant="iqStatus === st ? 'solid' : 'outline'"
-              size="xs"
-              @click="iqStatus = st"
-            />
-            <span class="ms-auto font-mono text-xs text-(--ink2)">Community submissions only; the Academy's own are seeded from server/db/seed.</span>
-          </div>
-          <p
-            v-if="!iq.length"
-            class="py-12 text-center text-sm text-(--ink2)"
-          >
-            Nothing {{ iqStatus }}.
-          </p>
-          <ul class="space-y-4">
-            <li
-              v-for="item in iq"
-              :key="item.id"
-              class="bp-card p-5"
-            >
-              <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
-                {{ item.type }} · {{ item.level }} · {{ item.topic }}<span v-if="item.company"> · {{ item.company }}</span><span v-if="item.role"> · {{ item.role }}</span> · {{ item.email || 'unknown' }} · {{ date(item.createdAt) }}
-              </p>
-              <p class="mt-2 text-lg font-bold text-(--ink)">
-                {{ item.question }}
-              </p>
-              <div class="bp-prose mt-3 max-h-80 overflow-y-auto border border-dashed border-(--line) p-3 text-sm">
-                <MDC :value="item.answer" />
-              </div>
-              <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-(--line) pt-4">
-                <UButton
-                  label="Approve"
-                  icon="i-lucide-check"
-                  size="sm"
-                  :disabled="busy || item.status === 'approved'"
-                  @click="reviewIq(item, 'approve')"
-                />
-                <UButton
-                  label="Reject"
-                  icon="i-lucide-x"
-                  color="neutral"
-                  variant="outline"
-                  size="sm"
-                  :disabled="busy || item.status === 'rejected'"
-                  @click="reviewIq(item, 'reject')"
-                />
-                <UButton
-                  v-if="item.status === 'approved'"
-                  :to="`/interview-questions/${item.slug}`"
+              Nothing {{ queueStatus }}.
+            </p>
+            <ul class="space-y-4">
+              <li
+                v-for="item in queue"
+                :key="item.id"
+                class="bp-card p-5"
+              >
+                <div class="flex flex-wrap items-center gap-2">
+                  <UBadge
+                    :label="item.kind"
+                    color="neutral"
+                    variant="subtle"
+                    size="sm"
+                  />
+                  <span class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">{{ item.submittedBy.email || 'unknown' }} · {{ date(item.createdAt) }}</span>
+                </div>
+                <p class="mt-2 font-semibold text-(--ink)">
+                  {{ item.title }}
+                </p>
+                <!-- An unreviewed link from a stranger: nofollow, ugc. -->
+                <a
+                  v-if="item.url"
+                  :href="item.url"
                   target="_blank"
-                  label="View"
-                  icon="i-lucide-external-link"
-                  color="neutral"
-                  variant="ghost"
-                  size="sm"
-                />
-                <UButton
-                  label="Delete"
-                  icon="i-lucide-trash-2"
-                  color="error"
-                  variant="ghost"
-                  size="sm"
-                  class="ms-auto"
-                  :disabled="busy"
-                  @click="reviewIq(item, 'delete')"
-                />
-              </div>
-            </li>
-          </ul>
-        </section>
+                  rel="noopener nofollow ugc"
+                  class="text-sm break-all text-(--signal)"
+                >{{ item.url }}</a>
+                <p class="mt-2 text-sm whitespace-pre-line text-(--ink2)">
+                  {{ item.description }}
+                </p>
+                <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-(--line) pt-4">
+                  <UButton
+                    label="Approve"
+                    icon="i-lucide-check"
+                    size="sm"
+                    :disabled="busy || item.status === 'approved'"
+                    @click="review(item, 'approve')"
+                  />
+                  <UButton
+                    label="Reject"
+                    icon="i-lucide-x"
+                    color="neutral"
+                    variant="outline"
+                    size="sm"
+                    :disabled="busy || item.status === 'rejected'"
+                    @click="review(item, 'reject')"
+                  />
+                  <UButton
+                    label="Delete"
+                    icon="i-lucide-trash-2"
+                    color="error"
+                    variant="ghost"
+                    size="sm"
+                    class="ms-auto"
+                    :disabled="busy"
+                    @click="review(item, 'delete')"
+                  />
+                </div>
+              </li>
+            </ul>
+          </section>
 
-        <!-- ============================ COMMENTS ============================ -->
-        <AdminComments v-else-if="tab === 'comments'" />
+          <!-- ========================= INTERVIEW Q&A ========================== -->
+          <section v-else-if="tab === 'interview'">
+            <p class="mb-4 border-s-[3px] border-(--signal) bg-(--ice) px-4 py-3 text-sm text-(--ink)">
+              Approving does not publish yet: your next local <code>pnpm build</code> writes approved questions to
+              <code>content/en/interview-questions/</code>, translates them, and they go live with the push.
+            </p>
+            <div class="mb-4 flex gap-2">
+              <UButton
+                v-for="st in (['pending', 'approved', 'rejected'] as const)"
+                :key="st"
+                :label="st"
+                :color="iqStatus === st ? 'primary' : 'neutral'"
+                :variant="iqStatus === st ? 'solid' : 'outline'"
+                size="xs"
+                @click="iqStatus = st"
+              />
+              <span class="ms-auto font-mono text-xs text-(--ink2)">Community submissions only; the Academy's own are seeded from server/db/seed.</span>
+            </div>
+            <p
+              v-if="!iq.length"
+              class="py-12 text-center text-sm text-(--ink2)"
+            >
+              Nothing {{ iqStatus }}.
+            </p>
+            <ul class="space-y-4">
+              <li
+                v-for="item in iq"
+                :key="item.id"
+                class="bp-card p-5"
+              >
+                <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
+                  {{ item.type }} · {{ item.level }} · {{ item.topic }}<span v-if="item.company"> · {{ item.company }}</span><span v-if="item.role"> · {{ item.role }}</span> · {{ item.email || 'unknown' }} · {{ date(item.createdAt) }}
+                </p>
+                <p class="mt-2 text-lg font-bold text-(--ink)">
+                  {{ item.question }}
+                </p>
+                <div class="bp-prose mt-3 max-h-80 overflow-y-auto border border-dashed border-(--line) p-3 text-sm">
+                  <MDC :value="item.answer" />
+                </div>
+                <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-(--line) pt-4">
+                  <UButton
+                    label="Approve"
+                    icon="i-lucide-check"
+                    size="sm"
+                    :disabled="busy || item.status === 'approved'"
+                    @click="reviewIq(item, 'approve')"
+                  />
+                  <UButton
+                    label="Reject"
+                    icon="i-lucide-x"
+                    color="neutral"
+                    variant="outline"
+                    size="sm"
+                    :disabled="busy || item.status === 'rejected'"
+                    @click="reviewIq(item, 'reject')"
+                  />
+                  <UButton
+                    v-if="item.status === 'approved'"
+                    :to="`/interview-questions/${item.slug}`"
+                    target="_blank"
+                    label="View"
+                    icon="i-lucide-external-link"
+                    color="neutral"
+                    variant="ghost"
+                    size="sm"
+                  />
+                  <UButton
+                    label="Delete"
+                    icon="i-lucide-trash-2"
+                    color="error"
+                    variant="ghost"
+                    size="sm"
+                    class="ms-auto"
+                    :disabled="busy"
+                    @click="reviewIq(item, 'delete')"
+                  />
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- ============================ COMMENTS ============================ -->
+          <AdminComments v-else-if="tab === 'comments'" />
+        </div>
       </div>
     </template>
   </div>

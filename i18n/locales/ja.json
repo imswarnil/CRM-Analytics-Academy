@@ -23,7 +23,8 @@
     "youtube": "CRM Analytics YouTubeのアカデミー",
     "wallOfFame": "ファメの壁",
     "certification": "試験",
-    "interview": "インタビュー"
+    "interview": "インタビュー",
+    "companies": "会社案内"
   },
   "home": {
     "modules": {
@@ -296,245 +297,6 @@
     "benefitFree": "すべてのレッスン",
     "verifyTitle": "受信トレイをチェック",
     "verifyDesc": "確認リンクをお送りしました {email}. それを開き、サインインします。"
-  },
-  "submit": {
-    "title": "アカデミーへの貢献",
-    "subtitle": "ダッシュボード、リソース、レッスンの修正、翻訳、 SAQL. すべてが表示される前に人によってレビューされ、承認された仕事はダッシュボードのあなたのランクに向かってカウントします。",
-    "kindResource": "リソース",
-    "kindShowcase": "ダッシュボード",
-    "kindIdea": "レッスンの修正やアイデア",
-    "titleLabel": "タイトル",
-    "urlLabel": "サイトマップ",
-    "descLabel": "なぜ役に立つのか?",
-    "submit": "レビューを提出する",
-    "sentTitle": "ありがとうございます — レビュー キューです。",
-    "sentBody": "下記のステータスが表示されます。 承認されたコントリビューションは、ダッシュボードでランクに向かってクレジットされます。",
-    "another": "何かを他のものにする",
-    "mine": "あなたの投稿",
-    "pending": "ペンディングレビュー",
-    "approved": "承認済み",
-    "rejected": "受付不可",
-    "none": "あなたの最初の投稿は、レビューステータスでここに表示されます。",
-    "stepKind": "タイプ:",
-    "stepDetails": "ニュース",
-    "stepMedia": "KPIの特長 & メディア",
-    "stepReview": "レビュー",
-    "next": "次へ — {step}",
-    "back": "バックナンバー",
-    "optional": "オプション",
-    "photosLabel": "スクリーンショット — まで {max}",
-    "uploading": "アップロード...",
-    "reviewHint": "これは、レビューのために送信されるものです。",
-    "sheet": "シート07/貢献",
-    "received": "受付開始",
-    "mineTitle": "送信されたもの",
-    "reviewNote": "注意: {note}",
-    "kindTranslation": "翻訳修正",
-    "kindSnippet": "ツイート SAQL スニペット",
-    "blurbShowcase": "ショーケース:データ、ソース、すべてのものを準備する方法 KPI 計算方法",
-    "blurbResource": "ドキュメントページ、コース、ツール、ブログ、コミュニティが誰かの時間を価値あるものにします。",
-    "blurbIdea": "レッスンに誤ったこと、または存在すべきレッスン。",
-    "blurbTranslation": "あなたの言語で誤って読む機械翻訳。",
-    "blurbSnippet": "実際の問題を解決するクエリ、データセットで実行します。",
-    "short": {
-      "dashboard": "ダッシュボード",
-      "resource": "リソース",
-      "lesson": "レッスン",
-      "translation": "インフォメーション",
-      "snippet": "スニペット"
-    },
-    "stepDashboard": "ダッシュボード",
-    "stepData": "データデータ",
-    "stepLink": "サイトマップ",
-    "stepLesson": "レッスン",
-    "stepProposal": "ソリューション",
-    "stepWhere": "どこまでも",
-    "stepCorrection": "修正方法",
-    "stepSnippet": "スニペット",
-    "stepContext": "コンテンツ",
-    "stepOf": "ステップステップ {current} ・ {total} — — — {label}",
-    "stepsCount": "{n} ステップステップ",
-    "add": "追加する",
-    "addSource": "ソースを追加する",
-    "removeSource": "ソースを削除",
-    "searchLessons": "レッスン検索",
-    "errGeneric": "何かが間違っていた。",
-    "errImageSize": "各4MBで撮影した画像は4MBです。",
-    "errUpload": "アップロード失敗 — 画像を貼り付ける URL 代わりに。",
-    "errImageUrl": "画像リンクは http:// または https:// から始まる必要があります。",
-    "problems": {
-      "dashName": "ダッシュボードに名前(3+文字)をつけます。",
-      "writeupUrl": "書込みリンクは http:// または https:// から始まる必要があります。",
-      "creditUrl": "あなたのリンクは http:// または https:// から始まる必要があります。",
-      "prep": "データ(20文字以上)を準備する方法を説明してください。",
-      "source": "少なくとも1つのデータソースを追加します。",
-      "kpi": "少なくとも 1 つを追加 KPIお問い合わせ",
-      "kpiFields": "お問い合わせ KPI 名前と計算方法が必要です。",
-      "resourceUrl": "http:// または https:// から始まるリンクを貼り付ける",
-      "resourceTitle": "タイトル(3+文字)",
-      "resourceWhy": "なぜそれが役に立つのか(20+文字)。",
-      "lessonPick": "レッスンを選ぶ",
-      "ideaTitle": "レッスンのアイデアをタイトルに。",
-      "fixBody": "間違った20文字以上の文字を記述します。",
-      "ideaBody": "レッスン概要(20文字以上)",
-      "sourceUrls": "ソースリンクは http:// または https:// から始まる必要があります。",
-      "translationWhere": "言語とレッスンを選ぶ",
-      "translationText": "間違ったテキストと修正を貼り付けます。",
-      "snippetTitle": "タイトルをスニペットに与える。",
-      "snippetSaql": "ペースト SAQLお問い合わせ",
-      "snippetWhat": "(20文字以上)",
-      "nomName": "人のフルネームを追加します。",
-      "nomLink": "LinkedInプロファイルまたはウェブサイトを追加して、それらをクレジットすることができます。",
-      "nomUrls": "リンクは http:// または https:// から始まる必要があります。",
-      "nomWhy": "コミュニティ(30文字以上)で行った文章または2文字で教えてください。"
-    },
-    "options": {
-      "domains": {
-        "sales": "販売価格",
-        "service": "サービス",
-        "marketing": "マーケティング",
-        "finance": "ファイナンス",
-        "other": "その他"
-      },
-      "difficulties": {
-        "beginner": "初心者向け",
-        "intermediate": "中出し",
-        "advanced": "アドバンスト"
-      },
-      "prepTools": {
-        "recipe": "レシピ",
-        "dataflow": "Dataflow",
-        "sync": "データ同期/コネクター",
-        "csv": "CSV アップロード",
-        "api": "外部データ API"
-      },
-      "prepSteps": {
-        "joins": "参加/参加",
-        "filters": "フィルター",
-        "formulas": "フォーミュラフィールド",
-        "aggregations": "集計",
-        "append": "お問い合わせ",
-        "bucketing": "バケット",
-        "dates": "日付の処理",
-        "dedupe": "デジュプリケーション"
-      },
-      "sourceTypes": {
-        "sfObject": "Salesforce オブジェクト",
-        "csv": "CSV",
-        "connector": "外部コネクタ",
-        "snowflake": "スノーフレーク",
-        "database": "その他のデータベース",
-        "other": "その他"
-      },
-      "techniques": {
-        "bindings": "ビンディング",
-        "saql": "SAQL",
-        "compareTables": "テーブルを比較する",
-        "windowing": "ウィンドウズ",
-        "predicates": "セキュリティの述語",
-        "faceting": "フェイス",
-        "dynamicFilters": "動的フィルタ",
-        "actions": "アクション",
-        "discovery": "Einstein Discovery",
-        "mobile": "モバイルレイアウト"
-      },
-      "categories": {
-        "docs": "ドキュメント",
-        "learning": "トレーニング",
-        "books": "出版書籍",
-        "blogs": "ブログ",
-        "tools": "ツール",
-        "community": "コミュニティ"
-      }
-    },
-    "dash": {
-      "name": "ダッシュボード名",
-      "namePh": "セグメント別パイプラインカバレッジ",
-      "domain": "ビジネスドメイン",
-      "difficulty": "難易度",
-      "writeup": "パブリック・ライティング・アップ",
-      "creditName": "クレジット — あなたの名前",
-      "creditNamePh": "ショーケースに表示されるように",
-      "creditUrl": "あなたのリンク",
-      "tools": "組み込み",
-      "prepSteps": "準備手順",
-      "prep": "データの準備はどうすればよいですか?",
-      "prepHelp": "参加と理由、フィルターを抜いたもの、驚いたもの。",
-      "prepPh": "AccountId のアカウントで拡張された機会; 2 年以上経過したクローズド・ロスト フィルタアウト; ...",
-      "grain": "ログイン",
-      "grainHelp": "最終データセットの1列は?",
-      "grainPh": "スナップショット週あたりの機会1列",
-      "sources": "データソース",
-      "rowsPh": "列(任意)",
-      "kpis": "KPI — 名前、計算方法、なぜ重要か",
-      "kpiN": "KPI {n}",
-      "removeKpi": "削除 KPI",
-      "kpiNamePh": "ウィンレート",
-      "kpiFormulaPh": "sum(IsWon) / count() — クローズドな機会を超える",
-      "kpiWhyPh": "なぜ重要なのか(オプション)",
-      "addKpi": "追加する KPI",
-      "techniques": "使用される技術",
-      "removeShot": "スクリーンショットを削除",
-      "dropShot": "ドロップスクリーンショット",
-      "mediaUrlPh": "...または画像を貼り付ける URL"
-    },
-    "res": {
-      "linkHelp": "それを貼り付ける — タイトル、説明、ロゴを取得します。",
-      "category": "カテゴリー",
-      "what": "それが何か",
-      "whyHelp": "誰がそれを読んでおくべきか、そしてそれらがそこから出てきます。"
-    },
-    "les": {
-      "fix": "レッスンの修正",
-      "propose": "レッスンの提案",
-      "which": "どのレッスンですか?",
-      "ideaTitle": "レッスンタイトル",
-      "ideaTitlePh": "完全リロードなしのデータ同期",
-      "wrong": "何が間違っていますか?",
-      "outline": "会社概要",
-      "wrongHelp": "通路を引用し、それが言うべきことを言う。",
-      "outlineHelp": "何を教えているのか、どのような順序で、そして学習者が構築するのか。",
-      "sources": "ソース — オプション"
-    },
-    "tr": {
-      "language": "日本語 English",
-      "languagePh": "言語を選ぶ",
-      "lesson": "レッスン",
-      "wrong": "今読むようにテキスト",
-      "suggested": "言うべきこと",
-      "note": "お問い合わせ",
-      "notePh": "例えば「Grain」は小麦ではなく、ここに芸術の用語です"
-    },
-    "snip": {
-      "titlePh": "四半期ごとの累計ランニング",
-      "what": "それは何をしますか?",
-      "dataset": "データセット",
-      "shape": "データセット形状",
-      "shapeHelp": "クエリニーズのフィールドには、タイプがあります。"
-    },
-    "review": {
-      "summary": "ニュース",
-      "domainLevel": "ドメイン・レベル",
-      "rows": "{n} ログイン",
-      "kpis": "KPIの特長",
-      "screenshots": "スクリーンショット",
-      "links": "サイトマップ"
-    },
-    "kindNominate": "誰かを指す",
-    "blurbNominate": "ブロガー、クリエイター、著者、スピーカー、またはツールビルダー CRM Analytics コミュニティ — ファムの壁のために。",
-    "stepPerson": "スタッフ",
-    "stepWhy": "なぜか",
-    "nom": {
-      "name": "お名前",
-      "role": "彼らが何をするか",
-      "linkHelp": "彼らのLinkedInのプロファイルは、ポラロイドがそれらへのリンクを結びます。",
-      "url": "ウェブサイト、ブログ、チャンネル",
-      "photo": "サイトマップ",
-      "photoHelp": "彼らが自分自身を公開する写真だけ(例えば、プロフィール画像リンク)。 1人でなければ、描画されたシルエットが表示されます。",
-      "why": "なぜ彼らは壁に所属していますか?",
-      "whyHelp": "あなたや他の人を助けたことを書いて、構築したり、教えたりしたことは何ですか?",
-      "self": "私は自分自身を推薦しています"
-    }
   },
   "quiz": {
     "title": "知識のチェック",
@@ -1371,5 +1133,126 @@
     "unanswered": "未回答",
     "study": "教育研究 {topic}",
     "loading": "紙を積む..."
+  },
+  "companies": {
+    "eyebrow": "会社案内",
+    "seoTitle": "企業利用・採用 Salesforce CRM Analytics",
+    "seoDesc": "{n} 使用する企業 Salesforce CRM Analytics, 雇用 CRM Analytics 開発者、コンサルタント、アーキテクト CRM Analytics 練習 — それぞれが公開ソースを持つ。",
+    "sheet": "シート 07 / アセンブリ · {n} お問い合わせ",
+    "title": "誰が使用し、のために雇うか CRM Analytics",
+    "lead": "運営会社 CRM Analytics、それを知っているか、または顧客のためにそれを造る人々を雇って下さい。 すべてのエントリは、それが休む公開ソースへのリンク.",
+    "suggest": "会社の提案",
+    "prepare": "インタビューの準備",
+    "filter": "フィルター会社",
+    "all": "すべて",
+    "kinds": {
+      "uses": "利用する",
+      "hires": "リクルート",
+      "partner": "コンサルティングパートナー"
+    },
+    "sourceTypes": {
+      "customer-story": "顧客事例",
+      "case-study": "ケーススタディ",
+      "job-posting": "求人情報",
+      "partner-page": "パートナーページ",
+      "talk": "会議トーク",
+      "other": "ソース"
+    },
+    "disclaimer": "公開ソースからコンパイル、最終チェック {date}. リストは承認ではなく、ジョブ投稿は閉じます。現在の状態のソースに従ってください。 ここに所属する会社、または削除すべき会社を知っていますか? 公開リンクで提案する。"
+  },
+  "contrib": {
+    "eyebrow": "貢献する",
+    "title": "アカデミーで何かを共有",
+    "lead": "あなたが持っているものを選んで、数行に記入し、送信してください。 人は、何かが公開される前に、すべての貢献を読んで、あなたのランクに向かって承認されたもの。",
+    "pick": "あなたが共有しているものは何ですか?",
+    "types": {
+      "resource": {
+        "label": "便利なリンク",
+        "hint": "あなたを助けた記事、ビデオ、ツール、またはドキュメント。"
+      },
+      "company": {
+        "label": "会社案内",
+        "hint": "利用目的 CRM Analytics またはそれのために雇う - パブリックソースで。"
+      },
+      "nominate": {
+        "label": "誰かを指す",
+        "hint": "ファメの壁に値する人。 お問い合わせ"
+      },
+      "lesson": {
+        "label": "レッスンの修正やアイデア",
+        "hint": "レッスンで何か問題、またはあなたがカバーしたいトピック。"
+      },
+      "translation": {
+        "label": "翻訳修正",
+        "hint": "あなたの言語で誤った文章を読みます。"
+      }
+    },
+    "f": {
+      "company": "会社名",
+      "companyKind": "ソースショーとは何ですか?",
+      "name": "お名前",
+      "link": "サイトマップ",
+      "source": "ソースリンク",
+      "profile": "リンクインまたはウェブサイト",
+      "title": "タイトル",
+      "role": "彼らは...",
+      "self": "私は自分自身を推薦しています",
+      "fix": "レッスンの修正",
+      "idea": "レッスンを提案する",
+      "whichLesson": "どのレッスンですか? (タイトルまたはリンク)",
+      "ideaTitle": "レッスンは?",
+      "language": "日本語 English",
+      "page": "どのページ?",
+      "wrong": "今言うこと"
+    },
+    "ph": {
+      "company": "例:アカム株式会社",
+      "source": "求人投稿、顧客ストーリー、またはその名のケーススタディ CRM Analyticsお問い合わせ",
+      "page": "ページのリンクやタイトルを貼り付けます。"
+    },
+    "body": {
+      "resource": "なぜ役に立つのか?",
+      "company": "ソースは何と言っていますか?",
+      "nominate": "なぜ彼らはそれに値するのですか?",
+      "lesson": "それを記述して下さい",
+      "translation": "言うべきこと"
+    },
+    "bodyHelp": "いくつかの文章はたくさんあります。",
+    "optional": "オプション",
+    "roles": {
+      "learner": "学習者",
+      "mentor": "メンター",
+      "creator": "クリエイター",
+      "contributor": "コントリビューター"
+    },
+    "send": "レビューの送信",
+    "reviewed": "通常、数日以内の人によるレビュー。",
+    "thanks": "ありがとうございます。それはレビューキューにあります。",
+    "thanksBody": "ダッシュボードのステータスを下回ることもできます。",
+    "another": "別の共有",
+    "toDashboard": "ダッシュボードに移動",
+    "mine": "あなたの貢献",
+    "status": {
+      "pending": "レビュー",
+      "approved": "承認済み",
+      "rejected": "受付不可"
+    },
+    "err": {
+      "pick": "あなたが最初に共有しているものを選ぶ。",
+      "link": "https:// で始まるリンクを追加します。",
+      "source": "表示されるパブリックリンクを追加します。",
+      "title": "タイトル(3文字以上)を追加します。",
+      "why": "少なくとも文(20文字以上)を書きます。",
+      "company": "会社の名前を追加します。",
+      "name": "名前を追加します。",
+      "locale": "言語を選ぶ",
+      "page": "どのページにあるかを言ってください。",
+      "correction": "それが言うものと、それが言うべきものの両方に記入してください。",
+      "generic": "行っていません。 お問い合わせ"
+    }
+  },
+  "dash": {
+    "examTitle": "認証の信頼性",
+    "examSummary": "{taken} 取られたペーパー · 最もよい {best}%・パスマーク {pass}ツイート"
   }
 }

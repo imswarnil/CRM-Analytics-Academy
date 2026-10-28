@@ -23,7 +23,8 @@
     "youtube": "CRM Analytics Academia no YouTube",
     "wallOfFame": "Muro da Fama",
     "certification": "Exames",
-    "interview": "Entrevistas"
+    "interview": "Entrevistas",
+    "companies": "Empresas"
   },
   "home": {
     "modules": {
@@ -296,245 +297,6 @@
     "benefitFree": "Livre para sempre — todas as lições",
     "verifyTitle": "Verifique sua caixa de entrada",
     "verifyDesc": "Enviamos um link de confirmação para {email}Abre-a e depois assina."
-  },
-  "submit": {
-    "title": "Contribuir para a Academia",
-    "subtitle": "Painel, recursos, correções de lições, traduções e SAQLTudo é revisado por uma pessoa antes de aparecer, e o trabalho aprovado conta para sua posição no painel.",
-    "kindResource": "Um recurso",
-    "kindShowcase": "Um painel",
-    "kindIdea": "Uma lição de correção ou idéia",
-    "titleLabel": "Título",
-    "urlLabel": "Ligação",
-    "descLabel": "Por que é útil?",
-    "submit": "Enviar para revisão",
-    "sentTitle": "Obrigado — está na fila de revisão.",
-    "sentBody": "Você verá seu status abaixo. Contribuições aprovadas são creditadas a você e contam para sua posição no painel.",
-    "another": "Contribuir para outra coisa",
-    "mine": "As suas observações",
-    "pending": "Reexame pendente",
-    "approved": "Aprovado",
-    "rejected": "Não aceite",
-    "none": "Nada ainda — sua primeira contribuição aparecerá aqui com seu status de revisão.",
-    "stepKind": "Tipo",
-    "stepDetails": "Detalhes",
-    "stepMedia": "KPIs & mídia",
-    "stepReview": "Revisão",
-    "next": "Próxima — {step}",
-    "back": "Voltar",
-    "optional": "Opcional",
-    "photosLabel": "Imagens — até {max}",
-    "uploading": "Enviando...",
-    "reviewHint": "Isto é exatamente o que será enviado para revisão.",
-    "sheet": "Folha 07 / Contribuir",
-    "received": "Recebido",
-    "mineTitle": "O que enviou",
-    "reviewNote": "Nota: {note}",
-    "kindTranslation": "Uma correção de tradução",
-    "kindSnippet": "A SAQL trecho",
-    "blurbShowcase": "Para a mostra: como você preparou os dados, as fontes, cada KPI e como é calculado.",
-    "blurbResource": "Uma página de documentos, curso, ferramenta, blog ou comunidade vale o tempo de alguém.",
-    "blurbIdea": "Algo errado numa lição, ou uma lição que deveria existir.",
-    "blurbTranslation": "Uma tradução automática que lê errado em seu idioma.",
-    "blurbSnippet": "Uma consulta que resolve um problema real, com o conjunto de dados em que é executado.",
-    "short": {
-      "dashboard": "painel",
-      "resource": "recurso",
-      "lesson": "lição",
-      "translation": "tradução",
-      "snippet": "trecho"
-    },
-    "stepDashboard": "Painel",
-    "stepData": "Dados",
-    "stepLink": "Ligação",
-    "stepLesson": "Lição",
-    "stepProposal": "Proposta",
-    "stepWhere": "Onde",
-    "stepCorrection": "Correcção",
-    "stepSnippet": "Excerto",
-    "stepContext": "Contexto",
-    "stepOf": "Passo {current} / {total} — {label}",
-    "stepsCount": "{n} passos",
-    "add": "Adicionar",
-    "addSource": "Adicionar uma fonte",
-    "removeSource": "Remover fonte",
-    "searchLessons": "Aulas de pesquisa...",
-    "errGeneric": "Algo correu mal.",
-    "errImageSize": "As imagens são fechadas a 4 MB cada.",
-    "errUpload": "O envio falhou — colar uma imagem URL Em vez disso.",
-    "errImageUrl": "As ligações de imagem devem começar por http:// ou https://",
-    "problems": {
-      "dashName": "Dê ao painel um nome (3+ caracteres).",
-      "writeupUrl": "A ligação de escrita deve começar com http:// ou https://",
-      "creditUrl": "A sua ligação deve começar por http:// ou https://",
-      "prep": "Descreva como você preparou os dados (20+ caracteres).",
-      "source": "Adicionar pelo menos uma fonte de dados.",
-      "kpi": "Adicionar pelo menos um KPI.",
-      "kpiFields": "Cada KPI precisa de um nome e como é calculado.",
-      "resourceUrl": "Colar o link, começando por http:// ou https://",
-      "resourceTitle": "Dê-lhe um título (3+ caracteres).",
-      "resourceWhy": "Diga por que é útil (20+ caracteres).",
-      "lessonPick": "Escolhe a lição.",
-      "ideaTitle": "Dê um título à ideia da lição.",
-      "fixBody": "Descreva o que está errado (20+ caracteres).",
-      "ideaBody": "Delineie a lição (20+ caracteres).",
-      "sourceUrls": "As ligações de origem devem começar por http:// ou https://",
-      "translationWhere": "Escolhe a língua e a lição.",
-      "translationText": "Colar o texto errado e sua correção.",
-      "snippetTitle": "Dê ao trecho um título.",
-      "snippetSaql": "Colar o SAQL.",
-      "snippetWhat": "Diga o que ele faz (20+ caracteres).",
-      "nomName": "Adicione o nome completo da pessoa.",
-      "nomLink": "Adicione um perfil do LinkedIn ou um site para que possamos creditá-los.",
-      "nomUrls": "As ligações devem começar por http:// ou https://.",
-      "nomWhy": "Conte-nos em uma ou duas frases o que eles fizeram pela comunidade (pelo menos 30 caracteres)."
-    },
-    "options": {
-      "domains": {
-        "sales": "Vendas",
-        "service": "Serviço",
-        "marketing": "Comercialização",
-        "finance": "Finanças",
-        "other": "Outros"
-      },
-      "difficulties": {
-        "beginner": "Iniciante",
-        "intermediate": "Intermediário",
-        "advanced": "Avançado"
-      },
-      "prepTools": {
-        "recipe": "Receitas",
-        "dataflow": "Dataflow",
-        "sync": "Sincronização dos dados / conector",
-        "csv": "CSV enviar",
-        "api": "Dados externos API"
-      },
-      "prepSteps": {
-        "joins": "Junta-se / aumenta",
-        "filters": "Filtros",
-        "formulas": "Campos de fórmulas",
-        "aggregations": "Agregações",
-        "append": "Adicionar",
-        "bucketing": "Baldeamento",
-        "dates": "Tratamento de datas",
-        "dedupe": "Desduplicação"
-      },
-      "sourceTypes": {
-        "sfObject": "Salesforce objeto",
-        "csv": "CSV",
-        "connector": "Conector externo",
-        "snowflake": "Floco de Neve",
-        "database": "Outra base de dados",
-        "other": "Outros"
-      },
-      "techniques": {
-        "bindings": "Ligações",
-        "saql": "SAQL",
-        "compareTables": "Comparar tabelas",
-        "windowing": "Janela",
-        "predicates": "Predicados de segurança",
-        "faceting": "Faceamento",
-        "dynamicFilters": "Filtros dinâmicos",
-        "actions": "Acções",
-        "discovery": "Einstein Discovery",
-        "mobile": "Disposição móvel"
-      },
-      "categories": {
-        "docs": "Docs",
-        "learning": "Aprendizagem",
-        "books": "Livros",
-        "blogs": "Blogs",
-        "tools": "Ferramentas",
-        "community": "Comunidade"
-      }
-    },
-    "dash": {
-      "name": "Nome do painel",
-      "namePh": "Cobertura da tubulação por segmento",
-      "domain": "Domínio empresarial",
-      "difficulty": "Dificuldade",
-      "writeup": "Escrita pública",
-      "creditName": "Crédito — o seu nome",
-      "creditNamePh": "Como deveria aparecer na vitrine",
-      "creditUrl": "Crédito — a sua ligação",
-      "tools": "Construído com",
-      "prepSteps": "Etapas de preparação",
-      "prep": "Como você preparou os dados?",
-      "prepHelp": "A união e porquê, o que filtraste, tudo o que te surpreendeu.",
-      "prepPh": "Oportunidades aumentadas com Conta no AccountId; fechado-perdido mais de 2 anos filtrado; ...",
-      "grain": "Grãos",
-      "grainHelp": "O que é uma linha do conjunto de dados final.",
-      "grainPh": "Uma linha por oportunidade por semana de instantâneo",
-      "sources": "Fontes de dados",
-      "rowsPh": "Linhas (opcional)",
-      "kpis": "KPIs — nome, como é calculado, por que importa",
-      "kpiN": "KPI {n}",
-      "removeKpi": "Remover KPI",
-      "kpiNamePh": "Taxa de vitória",
-      "kpiFormulaPh": "soma(IsWon) / count() — sobre oportunidades fechadas, por data próxima",
-      "kpiWhyPh": "Por que isso importa (opcional)",
-      "addKpi": "Adicionar um KPI",
-      "techniques": "Técnicas utilizadas",
-      "removeShot": "Remover imagem",
-      "dropShot": "Soltar imagem",
-      "mediaUrlPh": "...ou colar uma imagem URL"
-    },
-    "res": {
-      "linkHelp": "Colá-lo — buscamos o título, descrição e logotipo.",
-      "category": "Categoria",
-      "what": "O que é",
-      "whyHelp": "Quem deve lê-lo, e o que eles vão ganhar com isso."
-    },
-    "les": {
-      "fix": "Corrigir uma lição",
-      "propose": "Propor uma lição",
-      "which": "Que lição?",
-      "ideaTitle": "Título da lição proposta",
-      "ideaTitlePh": "Sincronização incremental de dados sem recargas completas",
-      "wrong": "O que se passa?",
-      "outline": "Contorno",
-      "wrongHelp": "Citar a passagem e dizer o que deve dizer.",
-      "outlineHelp": "O que ensina, em que ordem e o que o aprendiz constrói.",
-      "sources": "Fontes — facultativas"
-    },
-    "tr": {
-      "language": "Língua",
-      "languagePh": "Escolha um idioma",
-      "lesson": "Lição",
-      "wrong": "O texto como ele lê agora",
-      "suggested": "O que deveria dizer",
-      "note": "Nota",
-      "notePh": "Por exemplo, \"Grão\" é um termo de arte aqui, não trigo"
-    },
-    "snip": {
-      "titlePh": "Total da execução por trimestre fiscal",
-      "what": "O que faz?",
-      "dataset": "Conjunto de dados",
-      "shape": "Forma do conjunto de dados",
-      "shapeHelp": "Os campos que a consulta precisa, com tipos."
-    },
-    "review": {
-      "summary": "Resumo",
-      "domainLevel": "Domínio · nível",
-      "rows": "{n} linhas",
-      "kpis": "KPIs",
-      "screenshots": "Imagens",
-      "links": "Ligações"
-    },
-    "kindNominate": "Nomeia alguém.",
-    "blurbNominate": "Um blogueiro, criador, autor, palestrante ou construtor de ferramentas que ensinou o CRM Analytics comunidade — pelo Muro da Fama.",
-    "stepPerson": "Pessoa",
-    "stepWhy": "Por que eles?",
-    "nom": {
-      "name": "O seu nome",
-      "role": "O que eles fazem",
-      "linkHelp": "O perfil do LinkedIn deles, por isso a polaróide liga-se a eles.",
-      "url": "Site, blog ou canal",
-      "photo": "Ligação fotográfica",
-      "photoHelp": "Apenas uma foto que eles mesmos publicam (por exemplo, seu link de imagem de perfil). Sem um, uma silhueta desenhada é mostrada.",
-      "why": "Porque é que eles pertencem à parede?",
-      "whyHelp": "O que escreveram, construíram ou ensinaram que ajudavam você ou outros?",
-      "self": "Estou a nomear-me"
-    }
   },
   "quiz": {
     "title": "Verifique o seu conhecimento",
@@ -1371,5 +1133,126 @@
     "unanswered": "Sem resposta",
     "study": "Estudo {topic}",
     "loading": "Carregando o papel..."
+  },
+  "companies": {
+    "eyebrow": "Empresas",
+    "seoTitle": "Empresas que utilizam e contratam Salesforce CRM Analytics",
+    "seoDesc": "{n} empresas que utilizam Salesforce CRM Analytics, contrato CRM Analytics desenvolvedores, consultores e arquitetos, ou executar uma CRM Analytics prática — cada um com uma fonte pública.",
+    "sheet": "FICHA 07 / EMPRESAS · {n} FORMADO",
+    "title": "Quem utiliza e contrata CRM Analytics",
+    "lead": "Empresas que operam CRM Analytics, contratar pessoas que sabem disso, ou construí-lo para clientes. Todas as ligações de entrada à fonte pública em que se baseia.",
+    "suggest": "Sugerir uma empresa",
+    "prepare": "Prepare-se para a entrevista",
+    "filter": "Empresas de filtragem",
+    "all": "Tudo",
+    "kinds": {
+      "uses": "Usa- o",
+      "hires": "Contratação",
+      "partner": "Parceiro de consultoria"
+    },
+    "sourceTypes": {
+      "customer-story": "História do cliente",
+      "case-study": "Estudo de caso",
+      "job-posting": "Publicação de tarefas",
+      "partner-page": "Página do parceiro",
+      "talk": "Conferência",
+      "other": "Origem"
+    },
+    "disclaimer": "Compilado a partir de fontes públicas, última verificação {date}. Uma listagem não é um endosso, e as postagens de trabalho fecham - siga a fonte do estado atual. Conheces uma empresa que pertence aqui, ou que deve ser removida? Sugeri-lo com uma ligação pública."
+  },
+  "contrib": {
+    "eyebrow": "Contribuir",
+    "title": "Compartilhe algo com a Academia",
+    "lead": "Escolha o que tem, preencha algumas linhas, envie. Uma pessoa lê cada contribuição antes de qualquer coisa ir a público, e aprovado contam para o seu posto.",
+    "pick": "O que estás a partilhar?",
+    "types": {
+      "resource": {
+        "label": "Uma ligação útil",
+        "hint": "Um artigo, vídeo, ferramenta ou documento que o ajudou."
+      },
+      "company": {
+        "label": "Uma empresa",
+        "hint": "Um que usa CRM Analytics ou contrata para isso — com uma fonte pública."
+      },
+      "nominate": {
+        "label": "Nomeia alguém.",
+        "hint": "Uma pessoa que merece o Muro da Fama. Podes ser tu."
+      },
+      "lesson": {
+        "label": "Uma lição de correção ou idéia",
+        "hint": "Algo errado em uma lição, ou um tópico que você quer coberto."
+      },
+      "translation": {
+        "label": "Uma correção de tradução",
+        "hint": "Uma frase que lê mal na sua língua."
+      }
+    },
+    "f": {
+      "company": "Nome da empresa",
+      "companyKind": "O que mostra a fonte?",
+      "name": "O seu nome",
+      "link": "Ligação",
+      "source": "Ligação de origem",
+      "profile": "LinkedIn ou site",
+      "title": "Título",
+      "role": "Eles são...",
+      "self": "Estou a nomear-me",
+      "fix": "Corrigir uma lição",
+      "idea": "Sugerir uma lição",
+      "whichLesson": "Que lição? (título ou ligação)",
+      "ideaTitle": "Sobre o que deve ser a lição?",
+      "language": "Língua",
+      "page": "Qual página?",
+      "wrong": "O que diz agora"
+    },
+    "ph": {
+      "company": "Por exemplo, Acme Corp",
+      "source": "Um post de trabalho, história do cliente ou estudo de caso que nomeie CRM Analytics.",
+      "page": "Colar o link da página ou seu título."
+    },
+    "body": {
+      "resource": "Por que é útil?",
+      "company": "O que diz a fonte?",
+      "nominate": "Por que merecem isso?",
+      "lesson": "Descrever",
+      "translation": "O que deveria dizer"
+    },
+    "bodyHelp": "Algumas frases são suficientes.",
+    "optional": "Opcional",
+    "roles": {
+      "learner": "Aprendiz",
+      "mentor": "Mentor",
+      "creator": "Criador",
+      "contributor": "Contribuidor"
+    },
+    "send": "Enviar para revisão",
+    "reviewed": "Revisado por uma pessoa, geralmente em poucos dias.",
+    "thanks": "Obrigado — está na fila de revisão.",
+    "thanksBody": "Você pode seguir seu status abaixo e em seu painel.",
+    "another": "Partilhar outro",
+    "toDashboard": "Vai para o meu painel",
+    "mine": "As suas contribuições",
+    "status": {
+      "pending": "Em reexame",
+      "approved": "Aprovado",
+      "rejected": "Não aceite"
+    },
+    "err": {
+      "pick": "Escolha o que você está compartilhando primeiro.",
+      "link": "Adicionar um link que começa com https://",
+      "source": "Adicione o link público que o mostra.",
+      "title": "Adicione um título (3 caracteres ou mais).",
+      "why": "Escreva pelo menos uma frase (20 caracteres ou mais).",
+      "company": "Adicione o nome da empresa.",
+      "name": "Adicione o nome deles.",
+      "locale": "Escolhe a língua.",
+      "page": "Diz em que página está.",
+      "correction": "Preencha o que diz e o que deve dizer.",
+      "generic": "Isso não passou. Por favor, tente novamente."
+    }
+  },
+  "dash": {
+    "examTitle": "Preparação da certificação",
+    "examSummary": "{taken} papéis tomados · melhor {best}% · marca de passagem {pass}%"
   }
 }

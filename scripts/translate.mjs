@@ -335,9 +335,15 @@ function collectYamlStrings(node, out) {
   }
   for (const [key, value] of Object.entries(node)) {
     if (typeof value === 'string' && TRANSLATABLE_KEYS.includes(key)) out.push(value)
+    // A list of plain strings under a translatable key (a quiz's `options`).
+    else if (isStringList(value) && TRANSLATABLE_KEYS.includes(key)) value.forEach(v => out.push(v))
     else collectYamlStrings(value, out)
   }
   return out
+}
+
+function isStringList(value) {
+  return Array.isArray(value) && value.length > 0 && value.every(v => typeof v === 'string')
 }
 
 function applyYamlStrings(node, lookup) {
@@ -347,7 +353,9 @@ function applyYamlStrings(node, lookup) {
   for (const [key, value] of Object.entries(node)) {
     out[key] = typeof value === 'string' && TRANSLATABLE_KEYS.includes(key)
       ? (lookup(value) ?? value)
-      : applyYamlStrings(value, lookup)
+      : isStringList(value) && TRANSLATABLE_KEYS.includes(key)
+        ? value.map(v => lookup(v) ?? v)
+        : applyYamlStrings(value, lookup)
   }
   return out
 }

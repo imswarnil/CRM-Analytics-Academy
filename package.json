@@ -22,7 +22,8 @@
     "fcp": "node content-creation/lesson.mjs",
     "session": "node content-creation/session.mjs",
     "obs:install": "node content-creation/obs/install.mjs",
-    "thumb": "node content-creation/thumbnails/make.mjs"
+    "thumb": "node content-creation/thumbnails/make.mjs",
+    "dataset": "node scripts/gen-academy-dataset.mjs"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.114",

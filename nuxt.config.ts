@@ -1,4 +1,4 @@
-import { readFileSync, realpathSync } from 'node:fs'
+import { realpathSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -48,7 +48,6 @@ const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api']
 /** Pages that were removed, and where their visitors now go. */
 const RETIRED: Record<string, string> = {
   '/jobs': '/',
-  '/companies': '/',
   '/leaderboard': '/dashboard',
   '/ask': '/curriculum',
   '/training': '/curriculum',
@@ -77,18 +76,6 @@ const redirectRules = Object.fromEntries(Object.entries(RETIRED).flatMap(([from,
   [from, { redirect: { to, statusCode: 301 } }],
   ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => [`/${l.code}${from}`, { redirect: { to: `/${l.code}${to === '/' ? '' : to}`, statusCode: 301 } }])
 ]))
-
-/**
- * Public pages rendered by the Worker from Neon rather than prerendered: the
- * interview question bank changes as the community submits, and CI has no
- * database. They stay in the sitemap (urls below) and are cached at the edge.
- */
-const SERVER_RENDERED = ['/interview-questions']
-const serverRendered = SERVER_RENDERED.flatMap(route => [route, ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => `/${l.code}${route}`)])
-  .map(route => new RegExp(`^${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(/|$|\\?)`))
-
-// Interview question URLs for the sitemap, from the Academy's seed set.
-const interviewUrls: string[] = ['/interview-questions', ...JSON.parse(readFileSync(fileURLToPath(new URL('./server/db/seed/interview-questions.json', import.meta.url)), 'utf8')).map((q: { slug: string }) => `/interview-questions/${q.slug}`)]
 
 const privateRoutes = PRIVATE_PATHS.flatMap(route => [
   route,
@@ -183,6 +170,14 @@ export default defineNuxtConfig({
     }
   },
 
+  runtimeConfig: {
+    public: {
+      // Cloudflare Turnstile site key (public by design). Empty = the human
+      // check is off; the server skips it too while TURNSTILE_SECRET_KEY is unset.
+      turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+    }
+  },
+
   // Every import of `h3` — server bundle, Vue SSR bundle and client — gets the
   // 1.x this Nuxt and Nitro are built on. Some modules (@nuxt/content's
   // runtime, nuxt-site-config) import h3 without declaring it and get whichever
@@ -193,11 +188,7 @@ export default defineNuxtConfig({
     h3: realpathSync(fileURLToPath(new URL('./node_modules/h3/dist/index.mjs', import.meta.url)))
   },
 
-  routeRules: {
-    ...redirectRules,
-    '/interview-questions': { swr: 300 },
-    '/interview-questions/**': { swr: 300 }
-  },
+  routeRules: redirectRules,
 
   experimental: {
     asyncContext: true,
@@ -250,7 +241,6 @@ export default defineNuxtConfig({
         // on the client on every visit — a flash of the wrong state, and files
         // that exist only to be replaced.
         ...privateRoutes,
-        ...serverRendered,
         // Redirect sources are answered by the Worker (routeRules above), and
         // must never be crawled: rendered through the lesson catch-all, each
         // one advertised hreflang alternates like /ja/ru/jobs, whose
@@ -338,8 +328,6 @@ export default defineNuxtConfig({
       // llms.txt. In a sitemap it would be duplicate content.
       '/raw/**'
     ],
-    // Server-rendered pages the prerender never sees.
-    urls: interviewUrls,
     // hreflang alternates for the eleven translated locales, so a crawler
     // serves the right language rather than treating twelve copies of a
     // lesson as duplicates of each other.

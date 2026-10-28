@@ -250,7 +250,11 @@ export default defineAppConfig({
       h1: { slots: { base: 'font-black tracking-[-0.045em]' } },
       h2: { slots: { base: 'font-extrabold tracking-[-0.03em] pt-8 border-t border-dashed border-(--line) mt-10' } },
       h3: { slots: { base: 'font-extrabold tracking-[-0.02em]' } },
-      p: { base: 'leading-7.5 text-(--ink)' },
+      // Reading size per Apple's HIG: 18px body, 19px from tablet up, with
+      // generous leading. Lists and table cells follow the paragraphs.
+      p: { base: 'text-[1.125rem] sm:text-[1.1875rem] leading-[1.75] text-(--ink)' },
+      li: { base: 'text-[1.125rem] sm:text-[1.1875rem] leading-[1.7]' },
+      td: { base: 'text-base border-(--line) first:border-s-0 last:border-e-0' },
       a: { base: 'border-(--signal)/30' },
       code: {
         variants: {
@@ -272,8 +276,7 @@ export default defineAppConfig({
           base: 'rounded-none'
         }
       },
-      th: { base: 'bg-(--ice) font-mono text-[10px] uppercase tracking-[.1em] text-(--ink) border-(--line) first:border-s-0 border-t-0 last:border-e-0' },
-      td: { base: 'border-(--line) first:border-s-0 last:border-e-0' },
+      th: { base: 'bg-(--ice) font-mono text-xs uppercase tracking-[.1em] text-(--ink) border-(--line) first:border-s-0 border-t-0 last:border-e-0' },
       blockquote: { base: 'border-s-[3px] border-(--signal) bg-(--ice) not-italic ps-4 py-2 pe-3 text-(--ink)' },
       callout: {
         slots: {

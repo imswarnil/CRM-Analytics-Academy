@@ -226,7 +226,7 @@ h1, h2, h3, h4 {
 }
 @utility eyebrow {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: .14em;
   text-transform: uppercase;
@@ -234,7 +234,7 @@ h1, h2, h3, h4 {
 }
 @utility mono-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--ink2);
@@ -322,7 +322,7 @@ h1, h2, h3, h4 {
   color: var(--ink);
 }
 .bp-lead {
-  font-size: clamp(16px, 1.4vw, 19px);
+  font-size: clamp(18px, 1.5vw, 21px);
   line-height: 1.6;
   color: var(--ink2);
 }
@@ -429,6 +429,17 @@ button:hover > .bp-arrow {
   overscroll-behavior: contain;
   scrollbar-width: thin;
   border-left: 1.5px solid var(--ink);
+}
+
+/* Apple HIG, inside Blueprint: nothing tappable smaller than 44pt on a
+   touch screen, and the reading column kept to a comfortable measure. */
+@media (pointer: coarse) {
+  button, [role="button"], a.bp-row, input[type="checkbox"] + label {
+    min-height: 44px;
+  }
+}
+.bp-prose > :where(p, ul, ol, blockquote) {
+  max-width: 72ch;
 }
 
 /* Lesson prose inside the player: § numbered headings. */

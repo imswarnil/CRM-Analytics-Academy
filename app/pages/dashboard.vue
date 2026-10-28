@@ -157,6 +157,13 @@ const tiles = computed(() => [
   { key: 'quiz', label: t('dashboard.statQuiz'), value: quizzes.value.length ? `${quizAvg.value}%` : '—', hint: t('dashboard.quizzesTaken', { n: quizzes.value.length }), accent: false },
   { key: 'badges', label: t('dashboard.statBadges'), value: `${earned.value}/${achievements.value.length}`, hint: t('dashboard.activeDays', { n: activeDays.value }), accent: true }
 ])
+
+// Certification readiness: best score per practice paper.
+const { data: exams } = useLazyAsyncData('my-exams', () =>
+  $fetch<Record<string, { best: number, attempts: number }>>('/api/exam-attempt'), { server: false, default: () => ({}) as Record<string, { best: number, attempts: number }> })
+const examRows = computed(() => PAPERS.map(p => ({ ...p, result: exams.value?.[p.id] })))
+const examBest = computed(() => Math.max(0, ...Object.values(exams.value ?? {}).map(e => e.best)))
+const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
 </script>
 
 <template>
@@ -327,6 +334,45 @@ const tiles = computed(() => [
           </div>
         </section>
       </div>
+
+      <!-- Certification readiness -->
+      <section class="border-[1.5px] border-(--ink) bg-(--card)">
+        <header class="flex flex-wrap items-center justify-between gap-3 border-b-[1.5px] border-(--ink) px-5 py-3">
+          <p class="eyebrow">
+            {{ t('dash.examTitle') }}
+          </p>
+          <p class="font-mono text-xs text-(--ink2)">
+            {{ t('dash.examSummary', { taken: examTaken, best: examBest, pass: EXAM.passPct }) }}
+          </p>
+        </header>
+        <ul class="grid gap-px bg-(--line) sm:grid-cols-2 lg:grid-cols-4">
+          <li
+            v-for="p in examRows"
+            :key="p.id"
+            class="bg-(--card)"
+          >
+            <NuxtLink
+              :to="localePath(`/certification/${p.id}`)"
+              class="flex min-h-16 items-center justify-between gap-3 px-4 py-3 hover:bg-(--ice)"
+            >
+              <span class="min-w-0">
+                <span class="block truncate font-semibold text-(--ink)">{{ p.title }}</span>
+                <span class="font-mono text-[11px] text-(--ink2)">{{ p.questions }} Q · {{ p.minutes }} min</span>
+              </span>
+              <span
+                v-if="p.result"
+                class="font-mono text-lg font-bold tabular-nums"
+                :class="p.result.best >= EXAM.passPct ? 'text-(--signal)' : 'text-(--ink2)'"
+              >{{ p.result.best }}%</span>
+              <UIcon
+                v-else
+                name="i-lucide-play"
+                class="size-5 text-(--ink2)"
+              />
+            </NuxtLink>
+          </li>
+        </ul>
+      </section>
 
       <!-- Activity heatmap -->
       <section class="border-[1.5px] border-(--ink) bg-(--card)">

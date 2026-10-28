@@ -23,7 +23,8 @@
     "youtube": "CRM Analytics Academy on YouTube",
     "wallOfFame": "Wall of Fame",
     "certification": "Exams",
-    "interview": "Interviews"
+    "interview": "Interviews",
+    "companies": "Companies"
   },
   "home": {
     "modules": {
@@ -296,245 +297,6 @@
     "benefitFree": "Free forever — every lesson",
     "verifyTitle": "Check your inbox",
     "verifyDesc": "We sent a confirmation link to {email}. Open it, then sign in."
-  },
-  "submit": {
-    "title": "Contribute to the Academy",
-    "subtitle": "Dashboards, resources, lesson fixes, translations and SAQL. Everything is reviewed by a person before it appears, and approved work counts toward your rank on the dashboard.",
-    "kindResource": "A resource",
-    "kindShowcase": "A dashboard",
-    "kindIdea": "A lesson fix or idea",
-    "titleLabel": "Title",
-    "urlLabel": "Link",
-    "descLabel": "Why is it useful?",
-    "submit": "Submit for review",
-    "sentTitle": "Thank you — it is in the review queue.",
-    "sentBody": "You will see its status below. Approved contributions are credited to you and count toward your rank on the dashboard.",
-    "another": "Contribute something else",
-    "mine": "Your submissions",
-    "pending": "Pending review",
-    "approved": "Approved",
-    "rejected": "Not accepted",
-    "none": "Nothing yet — your first contribution will show up here with its review status.",
-    "stepKind": "Type",
-    "stepDetails": "Details",
-    "stepMedia": "KPIs & media",
-    "stepReview": "Review",
-    "next": "Next — {step}",
-    "back": "Back",
-    "optional": "Optional",
-    "photosLabel": "Screenshots — up to {max}",
-    "uploading": "Uploading...",
-    "reviewHint": "This is exactly what will be sent for review.",
-    "sheet": "Sheet 07 / Contribute",
-    "received": "Received",
-    "mineTitle": "What you have sent",
-    "reviewNote": "Note: {note}",
-    "kindTranslation": "A translation fix",
-    "kindSnippet": "A SAQL snippet",
-    "blurbShowcase": "For the showcase: how you prepared the data, the sources, every KPI and how it is calculated.",
-    "blurbResource": "A docs page, course, tool, blog or community worth someone’s time.",
-    "blurbIdea": "Something wrong in a lesson, or a lesson that should exist.",
-    "blurbTranslation": "A machine translation that reads wrong in your language.",
-    "blurbSnippet": "A query that solves a real problem, with the dataset it runs on.",
-    "short": {
-      "dashboard": "dashboard",
-      "resource": "resource",
-      "lesson": "lesson",
-      "translation": "translation",
-      "snippet": "snippet"
-    },
-    "stepDashboard": "Dashboard",
-    "stepData": "Data",
-    "stepLink": "Link",
-    "stepLesson": "Lesson",
-    "stepProposal": "Proposal",
-    "stepWhere": "Where",
-    "stepCorrection": "Correction",
-    "stepSnippet": "Snippet",
-    "stepContext": "Context",
-    "stepOf": "Step {current} / {total} — {label}",
-    "stepsCount": "{n} steps",
-    "add": "Add",
-    "addSource": "Add a source",
-    "removeSource": "Remove source",
-    "searchLessons": "Search lessons…",
-    "errGeneric": "Something went wrong.",
-    "errImageSize": "Images are capped at 4 MB each.",
-    "errUpload": "Upload failed — paste an image URL instead.",
-    "errImageUrl": "Image links must start with http:// or https://",
-    "problems": {
-      "dashName": "Give the dashboard a name (3+ characters).",
-      "writeupUrl": "The write-up link must start with http:// or https://",
-      "creditUrl": "Your link must start with http:// or https://",
-      "prep": "Describe how you prepared the data (20+ characters).",
-      "source": "Add at least one data source.",
-      "kpi": "Add at least one KPI.",
-      "kpiFields": "Every KPI needs a name and how it is calculated.",
-      "resourceUrl": "Paste the link, starting with http:// or https://",
-      "resourceTitle": "Give it a title (3+ characters).",
-      "resourceWhy": "Say why it is useful (20+ characters).",
-      "lessonPick": "Pick the lesson.",
-      "ideaTitle": "Give the lesson idea a title.",
-      "fixBody": "Describe what is wrong (20+ characters).",
-      "ideaBody": "Outline the lesson (20+ characters).",
-      "sourceUrls": "Source links must start with http:// or https://",
-      "translationWhere": "Pick the language and the lesson.",
-      "translationText": "Paste the wrong text and your correction.",
-      "snippetTitle": "Give the snippet a title.",
-      "snippetSaql": "Paste the SAQL.",
-      "snippetWhat": "Say what it does (20+ characters).",
-      "nomName": "Add the person’s full name.",
-      "nomLink": "Add a LinkedIn profile or a website so we can credit them.",
-      "nomUrls": "Links must start with http:// or https://.",
-      "nomWhy": "Tell us in a sentence or two what they did for the community (at least 30 characters)."
-    },
-    "options": {
-      "domains": {
-        "sales": "Sales",
-        "service": "Service",
-        "marketing": "Marketing",
-        "finance": "Finance",
-        "other": "Other"
-      },
-      "difficulties": {
-        "beginner": "Beginner",
-        "intermediate": "Intermediate",
-        "advanced": "Advanced"
-      },
-      "prepTools": {
-        "recipe": "Recipe",
-        "dataflow": "Dataflow",
-        "sync": "Data sync / connector",
-        "csv": "CSV upload",
-        "api": "External data API"
-      },
-      "prepSteps": {
-        "joins": "Joins / augments",
-        "filters": "Filters",
-        "formulas": "Formula fields",
-        "aggregations": "Aggregations",
-        "append": "Append",
-        "bucketing": "Bucketing",
-        "dates": "Date handling",
-        "dedupe": "Deduplication"
-      },
-      "sourceTypes": {
-        "sfObject": "Salesforce object",
-        "csv": "CSV",
-        "connector": "External connector",
-        "snowflake": "Snowflake",
-        "database": "Other database",
-        "other": "Other"
-      },
-      "techniques": {
-        "bindings": "Bindings",
-        "saql": "SAQL",
-        "compareTables": "Compare tables",
-        "windowing": "Windowing",
-        "predicates": "Security predicates",
-        "faceting": "Faceting",
-        "dynamicFilters": "Dynamic filters",
-        "actions": "Actions",
-        "discovery": "Einstein Discovery",
-        "mobile": "Mobile layout"
-      },
-      "categories": {
-        "docs": "Docs",
-        "learning": "Learning",
-        "books": "Books",
-        "blogs": "Blogs",
-        "tools": "Tools",
-        "community": "Community"
-      }
-    },
-    "dash": {
-      "name": "Dashboard name",
-      "namePh": "Pipeline coverage by segment",
-      "domain": "Business domain",
-      "difficulty": "Difficulty",
-      "writeup": "Public write-up",
-      "creditName": "Credit — your name",
-      "creditNamePh": "As it should appear on the showcase",
-      "creditUrl": "Credit — your link",
-      "tools": "Built with",
-      "prepSteps": "Preparation steps",
-      "prep": "How did you prepare the data?",
-      "prepHelp": "The joins and why, what you filtered out, anything that surprised you.",
-      "prepPh": "Opportunities augmented with Account on AccountId; closed-lost older than 2 years filtered out; …",
-      "grain": "Grain",
-      "grainHelp": "What one row of the final dataset is.",
-      "grainPh": "One row per opportunity per snapshot week",
-      "sources": "Data sources",
-      "rowsPh": "Rows (optional)",
-      "kpis": "KPIs — name, how it is calculated, why it matters",
-      "kpiN": "KPI {n}",
-      "removeKpi": "Remove KPI",
-      "kpiNamePh": "Win rate",
-      "kpiFormulaPh": "sum(IsWon) / count() — over closed opportunities, by close date",
-      "kpiWhyPh": "Why it matters (optional)",
-      "addKpi": "Add a KPI",
-      "techniques": "Techniques used",
-      "removeShot": "Remove screenshot",
-      "dropShot": "Drop screenshot",
-      "mediaUrlPh": "…or paste an image URL"
-    },
-    "res": {
-      "linkHelp": "Paste it — we fetch the title, description and logo.",
-      "category": "Category",
-      "what": "What it is",
-      "whyHelp": "Who should read it, and what they will get out of it."
-    },
-    "les": {
-      "fix": "Fix a lesson",
-      "propose": "Propose a lesson",
-      "which": "Which lesson?",
-      "ideaTitle": "Proposed lesson title",
-      "ideaTitlePh": "Incremental data sync without full reloads",
-      "wrong": "What is wrong?",
-      "outline": "Outline",
-      "wrongHelp": "Quote the passage and say what it should say.",
-      "outlineHelp": "What it teaches, in what order, and what the learner builds.",
-      "sources": "Sources — optional"
-    },
-    "tr": {
-      "language": "Language",
-      "languagePh": "Pick a language",
-      "lesson": "Lesson",
-      "wrong": "The text as it reads now",
-      "suggested": "What it should say",
-      "note": "Note",
-      "notePh": "e.g. 'Grain' is a term of art here, not wheat"
-    },
-    "snip": {
-      "titlePh": "Running total by fiscal quarter",
-      "what": "What does it do?",
-      "dataset": "Dataset",
-      "shape": "Dataset shape",
-      "shapeHelp": "The fields the query needs, with types."
-    },
-    "review": {
-      "summary": "Summary",
-      "domainLevel": "Domain · level",
-      "rows": "{n} rows",
-      "kpis": "KPIs",
-      "screenshots": "Screenshots",
-      "links": "Links"
-    },
-    "kindNominate": "Nominate someone",
-    "blurbNominate": "A blogger, creator, author, speaker or tool builder who taught the CRM Analytics community — for the Wall of Fame.",
-    "stepPerson": "Person",
-    "stepWhy": "Why them",
-    "nom": {
-      "name": "Their name",
-      "role": "What they do",
-      "linkHelp": "Their LinkedIn profile, so the polaroid links to them.",
-      "url": "Website, blog or channel",
-      "photo": "Photo link",
-      "photoHelp": "Only a photo they publish themselves (e.g. their profile picture link). Without one, a drawn silhouette is shown.",
-      "why": "Why do they belong on the wall?",
-      "whyHelp": "What did they write, build or teach that helped you or others?",
-      "self": "I am nominating myself"
-    }
   },
   "quiz": {
     "title": "Check your knowledge",
@@ -1371,5 +1133,126 @@
     "unanswered": "Unanswered",
     "study": "Study {topic}",
     "loading": "Loading the paper…"
+  },
+  "companies": {
+    "eyebrow": "Companies",
+    "seoTitle": "Companies using and hiring for Salesforce CRM Analytics",
+    "seoDesc": "{n} companies that use Salesforce CRM Analytics, hire CRM Analytics developers, consultants and architects, or run a CRM Analytics practice — each with a public source.",
+    "sheet": "SHEET 07 / COMPANIES · {n} SOURCED",
+    "title": "Who uses and hires for CRM Analytics",
+    "lead": "Companies that run CRM Analytics, hire people who know it, or build it for clients. Every entry links to the public source it rests on.",
+    "suggest": "Suggest a company",
+    "prepare": "Prepare for the interview",
+    "filter": "Filter companies",
+    "all": "All",
+    "kinds": {
+      "uses": "Uses it",
+      "hires": "Hiring",
+      "partner": "Consulting partner"
+    },
+    "sourceTypes": {
+      "customer-story": "Customer story",
+      "case-study": "Case study",
+      "job-posting": "Job posting",
+      "partner-page": "Partner page",
+      "talk": "Conference talk",
+      "other": "Source"
+    },
+    "disclaimer": "Compiled from public sources, last checked {date}. A listing is not an endorsement, and job postings close — follow the source for the current state. Know a company that belongs here, or one that should be removed? Suggest it with a public link."
+  },
+  "contrib": {
+    "eyebrow": "Contribute",
+    "title": "Share something with the Academy",
+    "lead": "Pick what you have, fill in a few lines, send. A person reads every contribution before anything goes public, and approved ones count toward your rank.",
+    "pick": "What are you sharing?",
+    "types": {
+      "resource": {
+        "label": "A useful link",
+        "hint": "An article, video, tool or doc that helped you."
+      },
+      "company": {
+        "label": "A company",
+        "hint": "One that uses CRM Analytics or hires for it — with a public source."
+      },
+      "nominate": {
+        "label": "Nominate someone",
+        "hint": "A person who deserves the Wall of Fame. It can be you."
+      },
+      "lesson": {
+        "label": "A lesson fix or idea",
+        "hint": "Something wrong in a lesson, or a topic you want covered."
+      },
+      "translation": {
+        "label": "A translation fix",
+        "hint": "A sentence that reads wrong in your language."
+      }
+    },
+    "f": {
+      "company": "Company name",
+      "companyKind": "What does the source show?",
+      "name": "Their name",
+      "link": "Link",
+      "source": "Source link",
+      "profile": "LinkedIn or website",
+      "title": "Title",
+      "role": "They are a…",
+      "self": "I am nominating myself",
+      "fix": "Fix a lesson",
+      "idea": "Suggest a lesson",
+      "whichLesson": "Which lesson? (title or link)",
+      "ideaTitle": "What should the lesson be about?",
+      "language": "Language",
+      "page": "Which page?",
+      "wrong": "What it says now"
+    },
+    "ph": {
+      "company": "e.g. Acme Corp",
+      "source": "A job post, customer story or case study that names CRM Analytics.",
+      "page": "Paste the page link or its title."
+    },
+    "body": {
+      "resource": "Why is it useful?",
+      "company": "What does the source say?",
+      "nominate": "Why do they deserve it?",
+      "lesson": "Describe it",
+      "translation": "What it should say"
+    },
+    "bodyHelp": "A few sentences is plenty.",
+    "optional": "Optional",
+    "roles": {
+      "learner": "Learner",
+      "mentor": "Mentor",
+      "creator": "Creator",
+      "contributor": "Contributor"
+    },
+    "send": "Send for review",
+    "reviewed": "Reviewed by a person, usually within a few days.",
+    "thanks": "Thank you — it's in the review queue.",
+    "thanksBody": "You can follow its status below and on your dashboard.",
+    "another": "Share another",
+    "toDashboard": "Go to my dashboard",
+    "mine": "Your contributions",
+    "status": {
+      "pending": "In review",
+      "approved": "Approved",
+      "rejected": "Not accepted"
+    },
+    "err": {
+      "pick": "Pick what you are sharing first.",
+      "link": "Add a link that starts with https://",
+      "source": "Add the public link that shows it.",
+      "title": "Add a title (3 characters or more).",
+      "why": "Write at least a sentence (20 characters or more).",
+      "company": "Add the company's name.",
+      "name": "Add their name.",
+      "locale": "Pick the language.",
+      "page": "Say which page it is on.",
+      "correction": "Fill in both what it says and what it should say.",
+      "generic": "That didn't go through. Please try again."
+    }
+  },
+  "dash": {
+    "examTitle": "Certification readiness",
+    "examSummary": "{taken} papers taken · best {best}% · pass mark {pass}%"
   }
 }

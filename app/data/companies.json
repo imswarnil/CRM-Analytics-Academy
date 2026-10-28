@@ -1,0 +1,341 @@
+{
+ "checked": "2026-10-28",
+ "companies": [
+  {
+   "name": "RBC Wealth Management (U.S.)",
+   "kind": "uses",
+   "industry": "Wealth management / financial services",
+   "evidence": [
+    {
+     "title": "RBC Wealth Management customer story (Salesforce)",
+     "url": "https://www.salesforce.com/ca/resources/customer-stories/scalable-wealth-management-solution-rbc-us/",
+     "type": "customer-story",
+     "note": "Salesforce customer story listing CRM Analytics among the products used; managers and executives view employee and branch performance by portfolio value, revenue and active campaigns."
+    }
+   ]
+  },
+  {
+   "name": "Capital One",
+   "kind": "uses",
+   "industry": "Banking",
+   "evidence": [
+    {
+     "title": "Tableau CRM: What Is It Good For? (Silverline blog)",
+     "url": "https://silverlinecrm.com/blog/financial-services/tableau-crm-what-is-it-good-for/",
+     "type": "talk",
+     "note": "Interview with a Senior Data Analysis Manager in Capital One's Small Business Banking team, who says the team had used Tableau CRM for about 18 months and that its pipeline dashboard is the most used."
+    }
+   ]
+  },
+  {
+   "name": "Accenture",
+   "kind": "uses",
+   "industry": "Professional services / consulting",
+   "evidence": [
+    {
+     "title": "Accenture serves up data for all via Salesforce Wave analytics (TechTarget)",
+     "url": "https://www.techtarget.com/searchcustomerexperience/feature/Accenture-serves-up-data-for-all-via-Salesforce-Wave-analytics",
+     "type": "other",
+     "note": "Article reports that Accenture adopted Salesforce Wave Analytics Cloud and was in the early phases of the rollout."
+    },
+    {
+     "title": "Inside Accenture: Driving Sales Efficiencies With Einstein Analytics (Salesforce video)",
+     "url": "https://www.salesforce.com/video/3634338/",
+     "type": "talk",
+     "note": "Salesforce video describing Accenture using Einstein Analytics within its own sales organization."
+    }
+   ]
+  },
+  {
+   "name": "Allianz Global Investors",
+   "kind": "uses",
+   "industry": "Asset management",
+   "evidence": [
+    {
+     "title": "Dreamforce 2017 - using Einstein Analytics to get leadership off PowerPoint (diginomica)",
+     "url": "https://diginomica.com/2017/11/06/dreamforce-2017-using-einstein-analytics-get-leadership-off-powerpoint/",
+     "type": "talk",
+     "note": "Its head of CRM and analytics described choosing Einstein Analytics for its Salesforce integration and access controls, and using it for revenue and pipeline data."
+    }
+   ]
+  },
+  {
+   "name": "Posten Norge",
+   "kind": "uses",
+   "industry": "Postal and logistics",
+   "evidence": [
+    {
+     "title": "Dreamforce 2017 - using Einstein Analytics to get leadership off PowerPoint (diginomica)",
+     "url": "https://diginomica.com/2017/11/06/dreamforce-2017-using-einstein-analytics-get-leadership-off-powerpoint/",
+     "type": "talk",
+     "note": "Its CRM development manager described moving sales analytics from Qlik to Einstein Analytics embedded in Salesforce."
+    }
+   ]
+  },
+  {
+   "name": "Shazam",
+   "kind": "uses",
+   "industry": "Media / music technology",
+   "evidence": [
+    {
+     "title": "Shazam turns media data into sales magic with Tableau CRM (Salesforce)",
+     "url": "https://www.salesforce.com/ca/customer-stories/shazam/",
+     "type": "customer-story",
+     "note": "Salesforce customer story stating that with Tableau CRM, Shazam leadership can visualize its data."
+    }
+   ]
+  },
+  {
+   "name": "NI (National Instruments)",
+   "kind": "uses",
+   "industry": "Test and measurement equipment",
+   "evidence": [
+    {
+     "title": "NI transforms revenue operations with insights from CRM Analytics and Tableau (Salesforce)",
+     "url": "https://salesforce.com/resources/customer-stories/ni-transforms-revenue-operations-using-crm-analytics-and-tableau",
+     "type": "customer-story",
+     "note": "Salesforce customer story on NI's revenue operations team adding CRM Analytics alongside its existing Tableau Server deployment."
+    },
+    {
+     "title": "NI's Analytics Journey: Increasing Revenue Operations Accessibility to Clear and Actionable Insights (Tableau Conference 2022)",
+     "url": "https://www.tableau.com/events/tc/2022/nis-analytics-journey-increasing-revenue-operations-accessibility-clear-and",
+     "type": "talk",
+     "note": "Conference session describing NI's hybrid Tableau Server and CRM analytics setup for revenue operations."
+    }
+   ]
+  },
+  {
+   "name": "Telstra",
+   "kind": "uses",
+   "industry": "Telecommunications",
+   "evidence": [
+    {
+     "title": "How Telstra Transformed their Customer Experience (Tableau Conference 2021)",
+     "url": "https://tableau.com/de-de/events/tc/2021/how-telstra-transformed-their-customer-experience",
+     "type": "talk",
+     "note": "Session description says Tableau CRM surfaces contextually relevant insights to help Telstra's sales and service teams."
+    }
+   ]
+  },
+  {
+   "name": "Riley Children's Foundation",
+   "kind": "uses",
+   "industry": "Nonprofit / fundraising",
+   "evidence": [
+    {
+     "title": "Riley Children's Foundation: Unlocking the Power of Data-Driven Fundraising (Tableau Conference 2022)",
+     "url": "https://www.tableau.com/events/tc/2022/riley-childrens-foundation-unlocking-power-data-driven-fundraising",
+     "type": "talk",
+     "note": "Session covers the foundation's move to Salesforce and then CRM Analytics, and the dashboards built for fundraising staff."
+    }
+   ]
+  },
+  {
+   "name": "voestalpine",
+   "kind": "uses",
+   "industry": "Steel and technology manufacturing",
+   "evidence": [
+    {
+     "title": "voestalpine launches new products and services to customers with CRM Analytics (Tableau)",
+     "url": "https://www.tableau.com/ja-jp/solutions/customer/voestalpines-launches-new-products-and-services-to-customers-with-CRM-analytics",
+     "type": "customer-story",
+     "note": "Tableau customer story on voestalpine's CRM Analytics rollout, with interactive dashboards replacing spreadsheet and slide reporting."
+    }
+   ]
+  },
+  {
+   "name": "GE Capital",
+   "kind": "uses",
+   "industry": "Financial services",
+   "evidence": [
+    {
+     "title": "The Salesforce Wave Rolls Past Its First 100 Days (CMSWire)",
+     "url": "https://www.cmswire.com/cms/analytics/the-salesforce-wave-rolls-past-its-first-100-days-027921.php",
+     "type": "other",
+     "note": "Article names GE Capital as an early pilot client of Salesforce Wave (Analytics Cloud) and says GE Aviation later became a customer."
+    }
+   ]
+  },
+  {
+   "name": "EMC",
+   "kind": "uses",
+   "industry": "Data storage / IT",
+   "evidence": [
+    {
+     "title": "The Salesforce Wave Rolls Past Its First 100 Days (CMSWire)",
+     "url": "https://www.cmswire.com/cms/analytics/the-salesforce-wave-rolls-past-its-first-100-days-027921.php",
+     "type": "other",
+     "note": "Article names EMC as an early pilot client of Salesforce Wave (Analytics Cloud)."
+    }
+   ]
+  },
+  {
+   "name": "Houghton Mifflin Harcourt",
+   "kind": "uses",
+   "industry": "Education publishing",
+   "evidence": [
+    {
+     "title": "The Salesforce Wave Rolls Past Its First 100 Days (CMSWire)",
+     "url": "https://www.cmswire.com/cms/analytics/the-salesforce-wave-rolls-past-its-first-100-days-027921.php",
+     "type": "other",
+     "note": "A Salesforce executive quoted in the article names Houghton Mifflin Harcourt as a Wave Analytics customer."
+    }
+   ]
+  },
+  {
+   "name": "Deloitte",
+   "kind": "hires",
+   "industry": "Professional services / consulting",
+   "evidence": [
+    {
+     "title": "Software Specialist Engineer II - Assistant Manager - Salesforce Einstein/CRM Analytics - Hyderabad (Deloitte USI careers)",
+     "url": "https://usijobs.deloitte.com/en_US/careersUSI/JobDetail/USI-EH-27-MF-L40-Software-Specialist-Engineer-II-Salesforce-Einstein-CRM-Analytics-Hyderabad/354639",
+     "type": "job-posting",
+     "note": "Job posting (may expire) requiring Salesforce CRM Analytics (formerly Einstein Analytics/Tableau CRM) expertise."
+    }
+   ]
+  },
+  {
+   "name": "Vector Solutions",
+   "kind": "hires",
+   "industry": "Training and workforce software",
+   "evidence": [
+    {
+     "title": "CRM Analytics Engineer - Vector Solutions (Insight Partners job board)",
+     "url": "https://jobs.insightpartners.com/companies/vector-solutions/jobs/87487328-crm-analytics-engineer",
+     "type": "job-posting",
+     "note": "Job posting (may expire) for a CRM Analytics Engineer in Cincinnati, OH, working within Salesforce and CRM Analytics (CRMA) on datasets, dashboards and reporting."
+    }
+   ]
+  },
+  {
+   "name": "Birlasoft",
+   "kind": "hires",
+   "industry": "IT services",
+   "evidence": [
+    {
+     "title": "Salesforce CRM Analytics Specialist - Pune (Birlasoft careers)",
+     "url": "https://jobs.birlasoft.com/job/Pune-Salesforce-CRM-Analytics-Specialist-INDI/56989044/",
+     "type": "job-posting",
+     "note": "Job posting (may expire) for a Salesforce CRM Analytics Specialist at Birlasoft's Pune office."
+    }
+   ]
+  },
+  {
+   "name": "Slalom",
+   "kind": "partner",
+   "industry": "Consulting / Salesforce partner",
+   "evidence": [
+    {
+     "title": "Slalom Consulting Limited service listing (UK G-Cloud 14 Digital Marketplace)",
+     "url": "https://www.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-14/services/112841644013255",
+     "type": "partner-page",
+     "note": "Service listing states that Slalom's experts can implement and enhance Tableau CRM / CRM Analytics to provide embedded analytics."
+    }
+   ]
+  },
+  {
+   "name": "Atrium",
+   "kind": "partner",
+   "industry": "Consulting / Salesforce partner",
+   "evidence": [
+    {
+     "title": "Anticipate your customers' needs and act on them with CRM Analytics (Atrium)",
+     "url": "https://atrium.ai/partners/salesforce/",
+     "type": "partner-page",
+     "note": "Partner page describes a CRM Analytics starter engagement that stands up visualizations from Atrium's pre-built accelerators."
+    }
+   ]
+  },
+  {
+   "name": "TechForce Services",
+   "kind": "partner",
+   "industry": "Consulting / Salesforce partner",
+   "evidence": [
+    {
+     "title": "Salesforce CRM Analytics Consulting Services (TechForce Services, Australia)",
+     "url": "https://www.techforceservices.com/au/salesforce-analytics-services/",
+     "type": "partner-page",
+     "note": "Service page offering Salesforce CRM Analytics consulting with dashboards, integrations and predictive insights."
+    },
+    {
+     "title": "Salesforce Analytics Services (TechForce Services, India)",
+     "url": "https://www.techforceservices.com/in/salesforce-analytics-services/",
+     "type": "partner-page",
+     "note": "Regional service page for the same CRM Analytics consulting offering."
+    }
+   ]
+  },
+  {
+   "name": "Folio3",
+   "kind": "partner",
+   "industry": "Software and consulting / Salesforce partner",
+   "evidence": [
+    {
+     "title": "Salesforce CRM Analytics Consulting Service (Folio3)",
+     "url": "https://crm.folio3.com/crm-analytics-consulting-service/",
+     "type": "partner-page",
+     "note": "Service page offering Salesforce CRM Analytics consulting, implementation and setup."
+    }
+   ]
+  },
+  {
+   "name": "Flexsin Technologies",
+   "kind": "partner",
+   "industry": "IT services / Salesforce partner",
+   "evidence": [
+    {
+     "title": "Salesforce CRM Analytics, Tableau Consulting Services (Flexsin)",
+     "url": "https://www.flexsin.com/salesforce/salesforce-analytics-consulting/",
+     "type": "partner-page",
+     "note": "Service page offering Salesforce CRM Analytics consulting and implementation."
+    }
+   ]
+  },
+  {
+   "name": "LevelShift",
+   "kind": "partner",
+   "industry": "Consulting / Salesforce partner",
+   "evidence": [
+    {
+     "title": "Salesforce CRM Analytics Services (LevelShift)",
+     "url": "https://levelshift.com/services/salesforce/crm-analytics",
+     "type": "partner-page",
+     "note": "Service page offering CRM Analytics reporting views, predictive insights and data-source connections."
+    }
+   ]
+  },
+  {
+   "name": "Cyntexa",
+   "kind": "partner",
+   "industry": "IT services / Salesforce partner",
+   "evidence": [
+    {
+     "title": "Data Management and Dashboard Implementation using Einstein Analytics (Cyntexa case study)",
+     "url": "https://cyntexa.com/case-study/data-management-and-dashboard-implementation-using-einstein-analytics/",
+     "type": "case-study",
+     "note": "Case study describing Einstein Analytics datasets and dashboards Cyntexa built for an unnamed London computer services client."
+    },
+    {
+     "title": "Einstein Dashboard and Mobile App Implementation (Cyntexa case study)",
+     "url": "https://cyntexa.com/case-study/einstein-dashboard-and-mobile-app-implementation/",
+     "type": "case-study",
+     "note": "Second Einstein dashboard implementation case study published by Cyntexa."
+    }
+   ]
+  },
+  {
+   "name": "Grazitti Interactive",
+   "kind": "partner",
+   "industry": "IT and marketing services / Salesforce partner",
+   "evidence": [
+    {
+     "title": "Migrating from Salesforce Reports and Dashboards to Einstein Analytics (Grazitti case study PDF)",
+     "url": "https://pages.grazitti.com/rs/690-NGB-767/images/migrating-from-salesforce-reports-and-dashboards-to-einstein-analytics.pdf",
+     "type": "case-study",
+     "note": "Grazitti-published case study on moving a customer from standard Salesforce reports and dashboards to Einstein Analytics."
+    }
+   ]
+  }
+ ]
+}

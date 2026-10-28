@@ -1,1641 +1,447 @@
 <script setup lang="ts">
 /**
- * The contribute stepper.
+ * Contribute — one calm page, no stepper.
  *
- * Step one picks what is being contributed; every later step is specific to
- * that choice — a dashboard asks how the data was prepared, where it came
- * from and how each KPI is calculated; a resource starts from its link and
- * previews it; a translation fix asks for the wrong and the corrected text.
- * Each step validates before Next, Back keeps everything, and a review step
- * shows exactly what will be sent.
+ * 1. Pick what you are sharing (five choices, each one line long).
+ * 2. Fill in a short form: two to four fields, every one labelled with what
+ *    it is for. One Submit button.
+ * 3. See it in "Your contributions" with its review status.
  *
- * Everything posts to /api/submissions: `kind` is one of the three moderation
- * buckets, `details` carries the structured fields of the fine-grained type.
- * Every string the contributor reads goes through t('submit.*'). The option
- * values (domains, techniques, source types…) stay English because they are
- * what the API stores and the admin console reads; only their labels are
- * translated.
+ * Everything posts to /api/submissions: `kind` is the moderation bucket,
+ * `details.type` what it really is. Nothing is public until approved in
+ * /admin. Old links (?kind=resource, ?type=lesson) still land on the right
+ * form.
  */
-import { hostOf, isHttpUrl, type UrlMeta } from '~/utils/urlMeta'
+import { isHttpUrl } from '~/utils/urlMeta'
 
-definePageMeta({
-  // Personal and auth-gated, like /dashboard: never prerendered, never
-  // indexed. The real enforcement is server-side on /api/submissions.
-  middleware: 'auth'
-})
+definePageMeta({ middleware: 'auth' })
 
 const { t, locales } = useI18n()
-
-useSeoMeta({
-  title: t('nav.contribute'),
-  robots: 'noindex, nofollow'
-})
-
-type Type = 'dashboard' | 'resource' | 'lesson' | 'translation' | 'snippet' | 'nominate'
-type Kind = 'resource' | 'showcase' | 'lesson-idea' | 'nomination'
-
-interface Mine {
-  id: number
-  kind: string
-  type: Type | null
-  title: string
-  url: string | null
-  status: 'pending' | 'approved' | 'rejected'
-  reviewNote: string | null
-}
-
-const TYPES: { value: Type, kind: Kind, labelKey: string, blurbKey: string, icon: string }[] = [
-  { value: 'resource', kind: 'resource', labelKey: 'submit.kindResource', blurbKey: 'submit.blurbResource', icon: 'i-lucide-link' },
-  { value: 'nominate', kind: 'nomination', labelKey: 'submit.kindNominate', blurbKey: 'submit.blurbNominate', icon: 'i-lucide-heart-handshake' },
-  { value: 'lesson', kind: 'lesson-idea', labelKey: 'submit.kindIdea', blurbKey: 'submit.blurbIdea', icon: 'i-lucide-lightbulb' },
-  { value: 'translation', kind: 'lesson-idea', labelKey: 'submit.kindTranslation', blurbKey: 'submit.blurbTranslation', icon: 'i-lucide-languages' },
-  { value: 'snippet', kind: 'lesson-idea', labelKey: 'submit.kindSnippet', blurbKey: 'submit.blurbSnippet', icon: 'i-lucide-code-xml' }
-]
-
-/** Step labels, as i18n keys — the first and last are shared by every type. */
-const STEPS: Record<Type, string[]> = {
-  dashboard: ['submit.stepKind', 'submit.stepDashboard', 'submit.stepData', 'submit.stepMedia', 'submit.stepReview'],
-  resource: ['submit.stepKind', 'submit.stepLink', 'submit.stepDetails', 'submit.stepReview'],
-  lesson: ['submit.stepKind', 'submit.stepLesson', 'submit.stepProposal', 'submit.stepReview'],
-  translation: ['submit.stepKind', 'submit.stepWhere', 'submit.stepCorrection', 'submit.stepReview'],
-  snippet: ['submit.stepKind', 'submit.stepSnippet', 'submit.stepContext', 'submit.stepReview'],
-  nominate: ['submit.stepKind', 'submit.stepPerson', 'submit.stepWhy', 'submit.stepReview']
-}
-
-const route = useRoute()
 const localePath = useLocalePath()
-const { lessons } = useCourse()
+const route = useRoute()
+useSeoMeta({ title: t('contrib.title'), robots: 'noindex, nofollow' })
 
-// A link can preselect what is being submitted: ?type=snippet, or the older
-// ?kind=showcase|resource|lesson-idea buckets.
-const LEGACY: Record<string, Type> = { 'showcase': 'resource', 'resource': 'resource', 'lesson-idea': 'lesson' }
-const initial = (TYPES.some(x => x.value === route.query.type) ? route.query.type : LEGACY[String(route.query.kind)]) as Type | undefined
-const type = ref<Type>(initial ?? 'resource')
-const step = ref(initial ? 1 : 0)
+type Type = 'resource' | 'company' | 'nominate' | 'lesson' | 'translation'
+type Kind = 'resource' | 'lesson-idea' | 'nomination'
 
-const steps = computed(() => STEPS[type.value])
-const total = computed(() => steps.value.length)
-const isReview = computed(() => step.value === total.value - 1)
-const pad = (n: number) => String(n).padStart(2, '0')
-// Share of the form done: the review step counts as 100% once reached.
-const progressPct = computed(() => Math.round((step.value / Math.max(1, total.value - 1)) * 100))
-const typeInfo = computed(() => TYPES.find(x => x.value === type.value)!)
+const TYPES: { value: Type, icon: string }[] = [
+  { value: 'resource', icon: 'i-lucide-link' },
+  { value: 'company', icon: 'i-lucide-building-2' },
+  { value: 'nominate', icon: 'i-lucide-award' },
+  { value: 'lesson', icon: 'i-lucide-lightbulb' },
+  { value: 'translation', icon: 'i-lucide-languages' }
+]
+const LEGACY: Record<string, Type> = { 'resource': 'resource', 'lesson-idea': 'lesson', 'nomination': 'nominate', 'snippet': 'lesson', 'dashboard': 'resource' }
+const fromQuery = String(route.query.type ?? route.query.kind ?? '')
+const type = ref<Type | null>(TYPES.some(x => x.value === fromQuery) ? fromQuery as Type : LEGACY[fromQuery] ?? null)
 
-// ---------------------------------------------------------------- state ---
-
-/**
- * An option list. `value` is what the API receives and what the admin console
- * and the showcase filters compare against, so it stays English; the label the
- * contributor sees is `t(key)`.
- */
-interface Option {
-  id: string
-  value: string
-  key: string
-}
-const options = (group: string, entries: Record<string, string>): Option[] =>
-  Object.entries(entries).map(([id, value]) => ({ id, value, key: `submit.options.${group}.${id}` }))
-const optionLabel = (list: Option[], value: string) => {
-  const hit = list.find(o => o.value === value)
-  return hit ? t(hit.key) : value
-}
-
-const DOMAINS = options('domains', { sales: 'Sales', service: 'Service', marketing: 'Marketing', finance: 'Finance', other: 'Other' })
-const DIFFICULTIES = options('difficulties', { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' })
-const PREP_TOOLS = options('prepTools', { recipe: 'Recipe', dataflow: 'Dataflow', sync: 'Data sync / connector', csv: 'CSV upload', api: 'External data API' })
-const PREP_STEPS = options('prepSteps', { joins: 'Joins / augments', filters: 'Filters', formulas: 'Formula fields', aggregations: 'Aggregations', append: 'Append', bucketing: 'Bucketing', dates: 'Date handling', dedupe: 'Deduplication' })
-const SOURCE_TYPES = options('sourceTypes', { sfObject: 'Salesforce object', csv: 'CSV', connector: 'External connector', snowflake: 'Snowflake', database: 'Other database', other: 'Other' })
-const TECHNIQUES = options('techniques', { bindings: 'Bindings', saql: 'SAQL', compareTables: 'Compare tables', windowing: 'Windowing', predicates: 'Security predicates', faceting: 'Faceting', dynamicFilters: 'Dynamic filters', actions: 'Actions', discovery: 'Einstein Discovery', mobile: 'Mobile layout' })
-const CATEGORIES = options('categories', { docs: 'Docs', learning: 'Learning', books: 'Books', blogs: 'Blogs', tools: 'Tools', community: 'Community' })
-const sourceTypeItems = computed(() => SOURCE_TYPES.map(o => ({ label: t(o.key), value: o.value })))
-
-const dash = reactive({
-  name: '',
-  domain: 'Sales',
-  difficulty: 'Intermediate',
-  tools: [] as string[],
-  prepSteps: [] as string[],
-  prep: '',
-  grain: '',
-  sources: [{ type: 'Salesforce object', name: '', rows: '' }],
-  kpis: [{ name: '', formula: '', why: '' }],
-  techniques: [] as string[],
-  media: [] as { url: string, key?: string }[],
-  mediaUrl: '',
-  writeup: '',
-  creditName: '',
-  creditUrl: ''
-})
-
-const res = reactive({ url: '', title: '', description: '', category: 'Docs', why: '', siteName: '', icon: '' })
-
-const lesson = reactive({
-  mode: 'fix' as 'fix' | 'idea',
-  path: '',
-  ideaTitle: '',
+// One flat form; each type uses the fields it needs.
+const form = reactive({
+  url: '',
+  title: '',
   body: '',
-  sources: [{ url: '' }]
+  company: '',
+  companyKind: 'uses' as 'uses' | 'hires' | 'partner',
+  role: 'learner' as string,
+  self: false,
+  lessonMode: 'fix' as 'fix' | 'idea',
+  locale: '' as string,
+  wrong: '',
+  website: '' // honeypot — hidden from people
 })
+const CATEGORIES = ['uses', 'hires', 'partner'] as const
+const ROLES = ['learner', 'mentor', 'creator', 'contributor'] as const
+const localeItems = computed(() => locales.value.filter(l => l.code !== 'en').map(l => ({ label: l.name ?? l.code, value: l.code as string })))
 
-const tr = reactive({ locale: '', path: '', wrong: '', suggested: '', note: '' })
-
-const snip = reactive({ title: '', saql: '', what: '', dataset: '', shape: '' })
-
-const WALL_ROLES = ['blogger', 'youtuber', 'author', 'speaker', 'builder'] as const
-const nom = reactive({ name: '', role: 'blogger' as typeof WALL_ROLES[number], linkedin: '', url: '', photo: '', why: '', self: false })
-
-function toggle(list: string[], value: string) {
-  const i = list.indexOf(value)
-  if (i >= 0) list.splice(i, 1)
-  else list.push(value)
-}
-
-const lessonItems = computed(() => lessons.value.map(l => ({ label: `${l.moduleTitle} — ${l.title}`, value: l.path })))
-const lessonLabel = (path: string) => lessonItems.value.find(l => l.value === path)?.label ?? path
-const localeItems = computed(() => locales.value.filter(l => l.code !== 'en').map(l => ({ label: `${l.name} (${l.code})`, value: String(l.code) })))
-
-function onResourceMeta(meta: UrlMeta) {
-  res.siteName = meta.siteName ?? ''
-  res.icon = meta.icon ?? ''
-  if (!res.title.trim() && meta.title) res.title = meta.title.slice(0, 160)
-  if (!res.description.trim() && meta.description) res.description = meta.description.slice(0, 400)
-}
-
-// ---------------------------------------------------------------- media ---
-// /api/upload answers 503 in local dev (no R2 binding), so a failed upload is
-// a message, never a blocker — an image URL works as well.
-const MAX_MEDIA = 4
-const MAX_BYTES = 4 * 1024 * 1024
-const uploading = ref(false)
-const mediaError = ref('')
-
-async function onFiles(e: Event) {
-  const input = e.target as HTMLInputElement
-  const files = Array.from(input.files ?? [])
-  input.value = ''
-  mediaError.value = ''
-  for (const file of files) {
-    if (dash.media.length >= MAX_MEDIA) break
-    if (file.size > MAX_BYTES) {
-      mediaError.value = t('submit.errImageSize')
-      continue
-    }
-    const body = new FormData()
-    body.append('file', file)
-    uploading.value = true
-    try {
-      const up = await $fetch<{ key: string, url: string }>('/api/upload', { method: 'POST', body })
-      dash.media.push({ url: new URL(up.url, window.location.origin).toString(), key: up.key })
-    } catch (err) {
-      mediaError.value = messageOf(err, t('submit.errUpload'))
-    } finally {
-      uploading.value = false
-    }
-  }
-}
-
-function addMediaUrl() {
-  const url = dash.mediaUrl.trim()
-  if (!isHttpUrl(url)) {
-    mediaError.value = t('submit.errImageUrl')
-    return
-  }
-  if (dash.media.length >= MAX_MEDIA) return
-  dash.media.push({ url })
-  dash.mediaUrl = ''
-  mediaError.value = ''
-}
-
-// ----------------------------------------------------------- validation ---
-
-const optionalUrlOk = (u: string) => !u.trim() || isHttpUrl(u)
 const len = (s: string) => s.trim().length
 
-/** Why the current step cannot continue, or '' when it can. */
+/** The first problem with the form, in words, or '' when it can be sent. */
 const problem = computed(() => {
-  const s = step.value
-  if (s === 0) return ''
   switch (type.value) {
-    case 'dashboard':
-      if (s === 1) {
-        if (len(dash.name) < 3) return t('submit.problems.dashName')
-        if (!optionalUrlOk(dash.writeup)) return t('submit.problems.writeupUrl')
-        if (!optionalUrlOk(dash.creditUrl)) return t('submit.problems.creditUrl')
-      }
-      if (s === 2) {
-        if (len(dash.prep) < 20) return t('submit.problems.prep')
-        if (!dash.sources.some(x => len(x.name))) return t('submit.problems.source')
-      }
-      if (s === 3) {
-        const kpis = dash.kpis.filter(k => len(k.name) || len(k.formula))
-        if (!kpis.length) return t('submit.problems.kpi')
-        if (kpis.some(k => !len(k.name) || !len(k.formula))) return t('submit.problems.kpiFields')
-      }
-      return ''
     case 'resource':
-      if (s === 1 && !isHttpUrl(res.url)) return t('submit.problems.resourceUrl')
-      if (s === 2) {
-        if (len(res.title) < 3) return t('submit.problems.resourceTitle')
-        if (len(res.why) < 20) return t('submit.problems.resourceWhy')
-      }
+      if (!isHttpUrl(form.url)) return t('contrib.err.link')
+      if (len(form.title) < 3) return t('contrib.err.title')
+      if (len(form.body) < 20) return t('contrib.err.why')
+      return ''
+    case 'company':
+      if (len(form.company) < 2) return t('contrib.err.company')
+      if (!isHttpUrl(form.url)) return t('contrib.err.source')
+      if (len(form.body) < 20) return t('contrib.err.why')
+      return ''
+    case 'nominate':
+      if (len(form.title) < 3) return t('contrib.err.name')
+      if (form.url && !isHttpUrl(form.url)) return t('contrib.err.link')
+      if (len(form.body) < 20) return t('contrib.err.why')
       return ''
     case 'lesson':
-      if (s === 1) {
-        if (lesson.mode === 'fix' && !lesson.path) return t('submit.problems.lessonPick')
-        if (lesson.mode === 'idea' && len(lesson.ideaTitle) < 3) return t('submit.problems.ideaTitle')
-      }
-      if (s === 2) {
-        if (len(lesson.body) < 20) return lesson.mode === 'fix' ? t('submit.problems.fixBody') : t('submit.problems.ideaBody')
-        if (lesson.sources.some(x => !optionalUrlOk(x.url))) return t('submit.problems.sourceUrls')
-      }
+      if (len(form.title) < 3) return t('contrib.err.title')
+      if (len(form.body) < 20) return t('contrib.err.why')
       return ''
     case 'translation':
-      if (s === 1 && (!tr.locale || !tr.path)) return t('submit.problems.translationWhere')
-      if (s === 2 && (len(tr.wrong) < 2 || len(tr.suggested) < 2)) return t('submit.problems.translationText')
-      return ''
-    case 'nominate':
-      if (s === 1) {
-        if (len(nom.name) < 3) return t('submit.problems.nomName')
-        if (!isHttpUrl(nom.linkedin) && !isHttpUrl(nom.url)) return t('submit.problems.nomLink')
-        if (!optionalUrlOk(nom.linkedin) || !optionalUrlOk(nom.url) || !optionalUrlOk(nom.photo)) return t('submit.problems.nomUrls')
-      }
-      if (s === 2 && len(nom.why) < 30) return t('submit.problems.nomWhy')
-      return ''
-    case 'snippet':
-      if (s === 1) {
-        if (len(snip.title) < 3) return t('submit.problems.snippetTitle')
-        if (len(snip.saql) < 10) return t('submit.problems.snippetSaql')
-      }
-      if (s === 2 && len(snip.what) < 20) return t('submit.problems.snippetWhat')
+      if (!form.locale) return t('contrib.err.locale')
+      if (len(form.title) < 3) return t('contrib.err.page')
+      if (len(form.wrong) < 2 || len(form.body) < 2) return t('contrib.err.correction')
       return ''
   }
-  return ''
+  return t('contrib.err.pick')
 })
 
-const showProblem = ref(false)
-function next() {
-  if (problem.value) {
-    showProblem.value = true
-    return
-  }
-  showProblem.value = false
-  step.value = Math.min(step.value + 1, total.value - 1)
-}
-function back() {
-  showProblem.value = false
-  step.value = Math.max(step.value - 1, 0)
-}
-function choose(t: Type) {
-  type.value = t
-  step.value = 1
-  showProblem.value = false
-}
+const clip = (s: string, n: number) => (s.trim().length > n ? `${s.trim().slice(0, n - 1)}…` : s.trim())
 
-// -------------------------------------------------------------- payload ---
-
-const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1)}…` : s)
-
-const dashSources = computed(() => dash.sources.filter(x => len(x.name)).map(x => ({ type: x.type, name: x.name.trim(), rows: x.rows.trim() || undefined })))
-const dashKpis = computed(() => dash.kpis.filter(k => len(k.name)).map(k => ({ name: k.name.trim(), formula: k.formula.trim(), why: k.why.trim() || undefined })))
-
-/** Everything the review step shows and the API receives. */
-const payload = computed(() => {
+function payload() {
   switch (type.value) {
-    case 'dashboard': {
-      const sources = dashSources.value
-      const kpis = dashKpis.value
-      const description = [
-        dash.prep.trim(),
-        kpis.length ? `\nKPIs:\n${kpis.map(k => `- ${k.name}: ${k.formula}`).join('\n')}` : ''
-      ].join('')
-      return {
-        kind: 'showcase' as Kind,
-        title: clip(dash.name.trim(), 160),
-        url: dash.writeup.trim() || undefined,
-        imageUrl: dash.media[0]?.url,
-        description: clip(description, 2000),
-        tags: dash.techniques.slice(0, 8),
-        details: {
-          type: 'dashboard',
-          domain: dash.domain,
-          difficulty: dash.difficulty,
-          prep: { tools: dash.tools, steps: dash.prepSteps, notes: dash.prep.trim(), grain: dash.grain.trim() || undefined },
-          sources,
-          kpis,
-          techniques: dash.techniques,
-          media: dash.media.map(m => m.url),
-          credit: len(dash.creditName) || len(dash.creditUrl) ? { name: dash.creditName.trim(), url: dash.creditUrl.trim() || undefined } : undefined
-        }
-      }
-    }
     case 'resource':
-      return {
-        kind: 'resource' as Kind,
-        title: clip(res.title.trim(), 160),
-        url: res.url.trim(),
-        description: clip(res.why.trim(), 2000),
-        tags: [res.category.toLowerCase()],
-        details: { type: 'resource', category: res.category, summary: res.description.trim() || undefined, siteName: res.siteName || undefined, icon: res.icon || undefined }
-      }
-    case 'lesson': {
-      const sources = lesson.sources.map(x => x.url.trim()).filter(Boolean)
-      const title = lesson.mode === 'fix' ? `Fix: ${lessonLabel(lesson.path)}` : `Lesson idea: ${lesson.ideaTitle.trim()}`
-      return {
-        kind: 'lesson-idea' as Kind,
-        title: clip(title, 160),
-        url: sources[0],
-        description: clip(lesson.body.trim(), 2000),
-        tags: [lesson.mode === 'fix' ? 'lesson-fix' : 'lesson-idea'],
-        details: { type: 'lesson', mode: lesson.mode, lessonPath: lesson.mode === 'fix' ? lesson.path : undefined, ideaTitle: lesson.mode === 'idea' ? lesson.ideaTitle.trim() : undefined, sources }
-      }
-    }
-    case 'translation': {
-      const description = `Wrong (${tr.locale}): ${tr.wrong.trim()}\nSuggested: ${tr.suggested.trim()}${tr.note.trim() ? `\nNote: ${tr.note.trim()}` : ''}`
-      return {
-        kind: 'lesson-idea' as Kind,
-        title: clip(`Translation (${tr.locale}): ${lessonLabel(tr.path)}`, 160),
-        url: undefined,
-        description: clip(description, 2000),
-        tags: ['translation', tr.locale],
-        details: { type: 'translation', locale: tr.locale, lessonPath: tr.path, wrong: tr.wrong.trim(), suggested: tr.suggested.trim(), note: tr.note.trim() || undefined }
-      }
-    }
+      return { kind: 'resource' as Kind, title: clip(form.title, 160), url: form.url.trim(), description: clip(form.body, 2000), details: { type: 'resource' } }
+    case 'company':
+      return { kind: 'resource' as Kind, title: clip(form.company, 160), url: form.url.trim(), description: clip(form.body, 2000), tags: ['company', form.companyKind], details: { type: 'company', category: form.companyKind } }
     case 'nominate':
-      return {
-        kind: 'nomination' as Kind,
-        title: clip(nom.name.trim(), 160),
-        url: nom.linkedin.trim() || nom.url.trim(),
-        imageUrl: nom.photo.trim() || undefined,
-        description: clip(nom.why.trim(), 2000),
-        tags: [nom.role],
-        details: { type: 'nominate', role: nom.role, linkedin: nom.linkedin.trim() || undefined, url: nom.url.trim() || undefined, photo: nom.photo.trim() || undefined, self: nom.self }
-      }
-    case 'snippet':
+      return { kind: 'nomination' as Kind, title: clip(form.title, 160), url: form.url.trim() || undefined, description: clip(form.body, 2000), tags: [form.role], details: { type: 'nominate', role: form.role, self: form.self } }
+    case 'lesson':
+      return { kind: 'lesson-idea' as Kind, title: clip(`${form.lessonMode === 'fix' ? 'Fix' : 'Idea'}: ${form.title}`, 160), description: clip(form.body, 2000), tags: [form.lessonMode === 'fix' ? 'lesson-fix' : 'lesson-idea'], details: { type: 'lesson', mode: form.lessonMode } }
+    case 'translation':
       return {
         kind: 'lesson-idea' as Kind,
-        title: clip(snip.title.trim(), 160),
-        url: undefined,
-        description: clip(snip.what.trim(), 2000),
-        tags: ['saql'],
-        details: { type: 'snippet', saql: snip.saql.trim(), dataset: snip.dataset.trim() || undefined, shape: snip.shape.trim() || undefined }
+        title: clip(`Translation (${form.locale}): ${form.title}`, 160),
+        description: clip(`Wrong: ${form.wrong}\nSuggested: ${form.body}`, 2000),
+        tags: ['translation', form.locale],
+        details: { type: 'translation', locale: form.locale, lessonPath: form.title.trim(), wrong: form.wrong.trim(), suggested: form.body.trim() }
       }
   }
-  throw new Error('unknown type')
-})
-
-/** Every link anywhere in the form, for the review step's favicon list. */
-const allLinks = computed(() => {
-  const links: string[] = []
-  if (type.value === 'dashboard') links.push(dash.writeup, dash.creditUrl, ...dash.media.map(m => m.url))
-  if (type.value === 'resource') links.push(res.url)
-  if (type.value === 'lesson') links.push(...lesson.sources.map(s => s.url))
-  return [...new Set(links.map(l => l.trim()).filter(isHttpUrl))]
-})
-
-// ---------------------------------------------------------------- send ----
+  throw new Error('pick a type')
+}
 
 const sending = ref(false)
 const sent = ref(false)
+const tried = ref(false)
 const error = ref('')
 
-function messageOf(e: unknown, fallback = t('submit.errGeneric')) {
-  const err = e as { statusMessage?: string, data?: { statusMessage?: string } }
-  return err?.data?.statusMessage || err?.statusMessage || fallback
-}
-
-function reset() {
-  Object.assign(dash, { name: '', domain: 'Sales', difficulty: 'Intermediate', tools: [], prepSteps: [], prep: '', grain: '', sources: [{ type: 'Salesforce object', name: '', rows: '' }], kpis: [{ name: '', formula: '', why: '' }], techniques: [], media: [], mediaUrl: '', writeup: '', creditName: '', creditUrl: '' })
-  Object.assign(res, { url: '', title: '', description: '', category: 'Docs', why: '', siteName: '', icon: '' })
-  Object.assign(lesson, { mode: 'fix', path: '', ideaTitle: '', body: '', sources: [{ url: '' }] })
-  Object.assign(tr, { locale: '', path: '', wrong: '', suggested: '', note: '' })
-  Object.assign(snip, { title: '', saql: '', what: '', dataset: '', shape: '' })
-}
-
 async function send() {
+  tried.value = true
   error.value = ''
+  if (problem.value || form.website) return
   sending.value = true
   try {
-    await $fetch('/api/submissions', { method: 'POST', body: payload.value })
+    await $fetch('/api/submissions', { method: 'POST', body: payload() })
+    useNuxtApp().$track?.('contribute', type.value ?? '')
     sent.value = true
-    reset()
-    step.value = 0
+    tried.value = false
+    Object.assign(form, { url: '', title: '', body: '', company: '', wrong: '', self: false })
     await refreshMine()
   } catch (e) {
-    // The API's statusMessage is written to be read by a person (including
-    // the 429 rate-limit message), so it is shown as-is.
-    error.value = messageOf(e)
+    const err = e as { statusMessage?: string, data?: { statusMessage?: string } }
+    error.value = err?.data?.statusMessage || err?.statusMessage || t('contrib.err.generic')
   } finally {
     sending.value = false
   }
 }
 
-const { data: mine, refresh: refreshMine } = await useLazyAsyncData('my-submissions', () =>
-  $fetch<{ submissions: Mine[] }>('/api/submissions'), {
-  server: false,
-  default: () => ({ submissions: [] as Mine[] })
-})
-
-const STATUS: Record<Mine['status'], { key: string, cls: string }> = {
-  pending: { key: 'submit.pending', cls: 'border-(--line) text-(--ink2)' },
-  approved: { key: 'submit.approved', cls: 'border-(--signal) text-(--signal)' },
-  rejected: { key: 'submit.rejected', cls: 'border-error text-error' }
+function choose(v: Type) {
+  type.value = v
+  sent.value = false
+  tried.value = false
+  error.value = ''
 }
-/** The one-word kind shown beside a past submission; older rows only have a bucket. */
-const typeLabel = (s: Mine) => {
-  const type = s.type ?? LEGACY[s.kind]
-  return type ? t(`submit.short.${type}`) : s.kind
+
+interface Mine {
+  id: number
+  kind: string
+  type: string | null
+  title: string
+  status: 'pending' | 'approved' | 'rejected'
+  reviewNote: string | null
+}
+const { data: mine, refresh: refreshMine } = await useLazyAsyncData('my-submissions', () =>
+  $fetch<{ submissions: Mine[] }>('/api/submissions'), { server: false, default: () => ({ submissions: [] as Mine[] }) })
+const STATUS: Record<Mine['status'], string> = {
+  pending: 'border-(--line) text-(--ink2)',
+  approved: 'border-(--signal) text-(--signal)',
+  rejected: 'border-error text-error'
 }
 </script>
 
 <template>
-  <div>
-    <BpPageHeader
-      :sheet="t('submit.sheet')"
-      :title="t('submit.title')"
-      :lead="t('submit.subtitle')"
-    />
+  <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <p class="eyebrow">
+      {{ t('contrib.eyebrow') }}
+    </p>
+    <h1 class="bp-h2 mt-3">
+      {{ t('contrib.title') }}
+    </h1>
+    <p class="bp-lead mt-3">
+      {{ t('contrib.lead') }}
+    </p>
 
-    <div class="mx-auto max-w-[76rem] px-4 py-12 sm:px-6">
-      <!-- Sent -->
-      <div
-        v-if="sent"
-        class="crosshair border-[1.5px] border-(--ink) bg-(--card) p-10 text-center shadow-[10px_10px_0_var(--ice)]"
-      >
-        <span class="mx-auto flex size-14 items-center justify-center border-[1.5px] border-(--ink) bg-(--signal) text-white">
+    <!-- 1. What are you sharing? -->
+    <fieldset class="mt-10">
+      <legend class="text-lg font-bold text-(--ink)">
+        <span class="font-mono text-(--signal)">1</span> · {{ t('contrib.pick') }}
+      </legend>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        <button
+          v-for="ty in TYPES"
+          :key="ty.value"
+          type="button"
+          class="flex min-h-16 items-start gap-3 border-[1.5px] p-4 text-start transition-colors"
+          :class="type === ty.value ? 'border-(--ink) bg-(--ice) shadow-[4px_4px_0_var(--ink)]' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
+          :aria-pressed="type === ty.value"
+          @click="choose(ty.value)"
+        >
           <UIcon
-            name="i-lucide-check"
-            class="size-7"
+            :name="ty.icon"
+            class="mt-0.5 size-6 shrink-0 text-(--signal)"
           />
-        </span>
-        <p class="eyebrow mt-6">
-          {{ t('submit.received') }}
-        </p>
-        <h2 class="bp-h3 mt-2">
-          {{ t('submit.sentTitle') }}
-        </h2>
-        <p class="mx-auto mt-3 max-w-lg text-(--ink2)">
-          {{ t('submit.sentBody') }}
-        </p>
+          <span>
+            <span class="block text-[17px] font-bold text-(--ink)">{{ t(`contrib.types.${ty.value}.label`) }}</span>
+            <span class="mt-0.5 block text-[15px] leading-snug text-(--ink2)">{{ t(`contrib.types.${ty.value}.hint`) }}</span>
+          </span>
+        </button>
+      </div>
+    </fieldset>
+
+    <!-- 2. The short form -->
+    <form
+      v-if="type && !sent"
+      class="mt-10 space-y-6"
+      novalidate
+      @submit.prevent="send"
+    >
+      <p class="text-lg font-bold text-(--ink)">
+        <span class="font-mono text-(--signal)">2</span> · {{ t(`contrib.types.${type}.label`) }}
+      </p>
+
+      <!-- honeypot: invisible to people, filled in by naive bots -->
+      <input
+        v-model="form.website"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+        class="absolute -left-[9999px] size-px opacity-0"
+      >
+
+      <template v-if="type === 'company'">
+        <UFormField
+          :label="t('contrib.f.company')"
+          required
+        >
+          <UInput
+            v-model="form.company"
+            size="xl"
+            class="w-full"
+            :placeholder="t('contrib.ph.company')"
+          />
+        </UFormField>
+        <UFormField :label="t('contrib.f.companyKind')">
+          <URadioGroup
+            v-model="form.companyKind"
+            orientation="horizontal"
+            :items="CATEGORIES.map(c => ({ label: t(`companies.kinds.${c}`), value: c }))"
+          />
+        </UFormField>
+      </template>
+
+      <UFormField
+        v-if="type === 'nominate'"
+        :label="t('contrib.f.name')"
+        required
+      >
+        <UInput
+          v-model="form.title"
+          size="xl"
+          class="w-full"
+        />
+      </UFormField>
+
+      <template v-if="type === 'lesson'">
+        <URadioGroup
+          v-model="form.lessonMode"
+          orientation="horizontal"
+          :items="[{ label: t('contrib.f.fix'), value: 'fix' }, { label: t('contrib.f.idea'), value: 'idea' }]"
+        />
+        <UFormField
+          :label="form.lessonMode === 'fix' ? t('contrib.f.whichLesson') : t('contrib.f.ideaTitle')"
+          required
+        >
+          <UInput
+            v-model="form.title"
+            size="xl"
+            class="w-full"
+          />
+        </UFormField>
+      </template>
+
+      <template v-if="type === 'translation'">
+        <UFormField
+          :label="t('contrib.f.language')"
+          required
+        >
+          <USelect
+            v-model="form.locale"
+            :items="localeItems"
+            size="xl"
+            class="w-full"
+          />
+        </UFormField>
+        <UFormField
+          :label="t('contrib.f.page')"
+          :hint="t('contrib.ph.page')"
+          required
+        >
+          <UInput
+            v-model="form.title"
+            size="xl"
+            class="w-full"
+          />
+        </UFormField>
+        <UFormField
+          :label="t('contrib.f.wrong')"
+          required
+        >
+          <UTextarea
+            v-model="form.wrong"
+            :rows="2"
+            autoresize
+            class="w-full"
+          />
+        </UFormField>
+      </template>
+
+      <UFormField
+        v-if="type === 'resource' || type === 'company' || type === 'nominate'"
+        :label="type === 'company' ? t('contrib.f.source') : type === 'nominate' ? t('contrib.f.profile') : t('contrib.f.link')"
+        :hint="type === 'nominate' ? t('contrib.optional') : undefined"
+        :help="type === 'company' ? t('contrib.ph.source') : undefined"
+        :required="type !== 'nominate'"
+      >
+        <UInput
+          v-model="form.url"
+          type="url"
+          inputmode="url"
+          size="xl"
+          class="w-full"
+          placeholder="https://"
+        />
+      </UFormField>
+
+      <UFormField
+        v-if="type === 'resource'"
+        :label="t('contrib.f.title')"
+        required
+      >
+        <UInput
+          v-model="form.title"
+          size="xl"
+          class="w-full"
+        />
+      </UFormField>
+
+      <UFormField
+        v-if="type === 'nominate'"
+        :label="t('contrib.f.role')"
+      >
+        <URadioGroup
+          v-model="form.role"
+          orientation="horizontal"
+          :items="ROLES.map(r => ({ label: t(`contrib.roles.${r}`), value: r as string }))"
+        />
+      </UFormField>
+
+      <UFormField
+        :label="t(`contrib.body.${type}`)"
+        :help="t('contrib.bodyHelp')"
+        required
+      >
+        <UTextarea
+          v-model="form.body"
+          :rows="5"
+          autoresize
+          class="w-full"
+        />
+      </UFormField>
+
+      <UCheckbox
+        v-if="type === 'nominate'"
+        v-model="form.self"
+        :label="t('contrib.f.self')"
+      />
+
+      <UAlert
+        v-if="(tried && problem) || error"
+        color="error"
+        variant="subtle"
+        icon="i-lucide-circle-alert"
+        :description="error || problem"
+      />
+
+      <div class="flex flex-wrap items-center gap-4">
         <UButton
-          class="mt-6"
+          type="submit"
+          size="xl"
+          :loading="sending"
+          icon="i-lucide-send"
+        >
+          {{ t('contrib.send') }}
+        </UButton>
+        <p class="text-[15px] text-(--ink2)">
+          {{ t('contrib.reviewed') }}
+        </p>
+      </div>
+    </form>
+
+    <div
+      v-if="sent"
+      class="mt-10 border-[1.5px] border-(--ink) bg-(--ice) p-6"
+    >
+      <p class="text-xl font-bold text-(--ink)">
+        {{ t('contrib.thanks') }}
+      </p>
+      <p class="mt-2 text-(--ink2)">
+        {{ t('contrib.thanksBody') }}
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <UButton
           icon="i-lucide-plus"
           @click="sent = false"
         >
-          {{ t('submit.another') }}
+          {{ t('contrib.another') }}
+        </UButton>
+        <UButton
+          :to="localePath('/dashboard')"
+          color="neutral"
+          variant="outline"
+        >
+          {{ t('contrib.toDashboard') }}
         </UButton>
       </div>
-
-      <div
-        v-else
-        class="crosshair border-[1.5px] border-(--ink) bg-(--card) shadow-[10px_10px_0_var(--ice)]"
-      >
-        <!-- Stepper header -->
-        <div class="border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-5 sm:px-8">
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <p class="font-mono text-xs font-semibold uppercase tracking-[.14em] text-(--signal)">
-              {{ t('submit.stepOf', { current: pad(step + 1), total: pad(total), label: t(steps[step]!) }) }}
-            </p>
-            <p
-              v-if="step > 0"
-              class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2)"
-            >
-              <UIcon
-                :name="typeInfo.icon"
-                class="size-4"
-              />{{ t(typeInfo.labelKey) }}
-            </p>
-          </div>
-          <div
-            class="mt-4 flex items-center gap-3"
-            role="progressbar"
-            :aria-valuenow="progressPct"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            <div class="h-2.5 flex-1 border-[1.5px] border-(--ink) bg-(--card)">
-              <div
-                class="hatch-signal h-full transition-[width] duration-500"
-                :style="{ width: `${progressPct}%` }"
-              />
-            </div>
-            <span class="font-mono text-[11px] font-semibold tabular-nums text-(--ink)">{{ progressPct }}%</span>
-          </div>
-          <ol class="mt-3 flex border-[1.5px] border-(--ink) bg-(--card)">
-            <li
-              v-for="(label, i) in steps"
-              :key="label"
-              class="relative flex-1 border-e-[1.5px] border-(--ink) last:border-e-0"
-            >
-              <button
-                type="button"
-                class="flex h-full w-full flex-col items-start gap-0.5 px-3 py-2 text-start transition-colors disabled:cursor-not-allowed"
-                :class="i < step ? 'bg-(--tide) text-white' : i === step ? 'bg-(--signal) text-white' : 'hatch text-(--ink2)'"
-                :disabled="i > step"
-                :aria-current="i === step ? 'step' : undefined"
-                @click="i < step && (step = i, showProblem = false)"
-              >
-                <span class="flex items-center gap-1 font-mono text-[10px] tracking-[.1em]">
-                  <UIcon
-                    v-if="i < step"
-                    name="i-lucide-check"
-                    class="size-3"
-                  />{{ pad(i + 1) }}
-                </span>
-                <span
-                  class="truncate text-xs font-bold"
-                  :class="i === step ? 'block' : 'hidden sm:block'"
-                >{{ t(label) }}</span>
-              </button>
-            </li>
-          </ol>
-        </div>
-
-        <div class="px-5 py-8 sm:px-8">
-          <!-- STEP 1: type -->
-          <div
-            v-if="step === 0"
-            class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            <button
-              v-for="ty in TYPES"
-              :key="ty.value"
-              type="button"
-              class="bp-card bp-card--hover group flex flex-col items-start gap-3 p-6 text-start"
-              :class="type === ty.value ? 'ring-2 ring-(--signal)' : ''"
-              @click="choose(ty.value)"
-            >
-              <span class="bp-iconbox size-11">
-                <UIcon
-                  :name="ty.icon"
-                  class="size-5"
-                />
-              </span>
-              <span class="text-lg font-extrabold text-(--ink)">{{ t(ty.labelKey) }}</span>
-              <span class="text-sm text-(--ink2)">{{ t(ty.blurbKey) }}</span>
-              <span class="mt-auto font-mono text-[10px] uppercase tracking-[.12em] text-(--signal)">{{ t('submit.stepsCount', { n: STEPS[ty.value].length - 1 }) }} →</span>
-            </button>
-          </div>
-
-          <!-- DASHBOARD -->
-          <template v-else-if="type === 'dashboard'">
-            <div
-              v-if="step === 1"
-              class="grid gap-6 lg:grid-cols-2"
-            >
-              <UFormField
-                :label="t('submit.dash.name')"
-                required
-                class="lg:col-span-2"
-              >
-                <UInput
-                  v-model="dash.name"
-                  size="xl"
-                  :placeholder="t('submit.dash.namePh')"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField :label="t('submit.dash.domain')">
-                <div class="flex flex-wrap gap-2">
-                  <button
-                    v-for="d in DOMAINS"
-                    :key="d.id"
-                    type="button"
-                    class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                    :class="dash.domain === d.value ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
-                    @click="dash.domain = d.value"
-                  >
-                    {{ t(d.key) }}
-                  </button>
-                </div>
-              </UFormField>
-              <UFormField :label="t('submit.dash.difficulty')">
-                <div class="flex flex-wrap gap-2">
-                  <button
-                    v-for="d in DIFFICULTIES"
-                    :key="d.id"
-                    type="button"
-                    class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                    :class="dash.difficulty === d.value ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
-                    @click="dash.difficulty = d.value"
-                  >
-                    {{ t(d.key) }}
-                  </button>
-                </div>
-              </UFormField>
-              <UFormField
-                :label="t('submit.dash.writeup')"
-                :hint="t('submit.optional')"
-                class="lg:col-span-2"
-              >
-                <UInput
-                  v-model="dash.writeup"
-                  placeholder="https://…"
-                  class="w-full"
-                >
-                  <template #leading>
-                    <SubmitFavicon
-                      :url="dash.writeup"
-                      :size="18"
-                    />
-                  </template>
-                </UInput>
-              </UFormField>
-              <UFormField
-                :label="t('submit.dash.creditName')"
-                :hint="t('submit.optional')"
-              >
-                <UInput
-                  v-model="dash.creditName"
-                  :placeholder="t('submit.dash.creditNamePh')"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('submit.dash.creditUrl')"
-                :hint="t('submit.optional')"
-              >
-                <UInput
-                  v-model="dash.creditUrl"
-                  placeholder="https://linkedin.com/in/…"
-                  class="w-full"
-                >
-                  <template #leading>
-                    <SubmitFavicon
-                      :url="dash.creditUrl"
-                      :size="18"
-                    />
-                  </template>
-                </UInput>
-              </UFormField>
-            </div>
-
-            <div
-              v-else-if="step === 2"
-              class="space-y-8"
-            >
-              <div class="grid gap-6 lg:grid-cols-2">
-                <UFormField :label="t('submit.dash.tools')">
-                  <div class="flex flex-wrap gap-2">
-                    <button
-                      v-for="x in PREP_TOOLS"
-                      :key="x.id"
-                      type="button"
-                      class="flex items-center gap-1.5 border-[1.5px] px-3 py-1.5 text-sm"
-                      :class="dash.tools.includes(x.value) ? 'border-(--signal) bg-(--ice) font-semibold text-(--signal)' : 'border-(--line) hover:border-(--ink)'"
-                      @click="toggle(dash.tools, x.value)"
-                    >
-                      <UIcon
-                        :name="dash.tools.includes(x.value) ? 'i-lucide-square-check' : 'i-lucide-square'"
-                        class="size-4"
-                      />{{ t(x.key) }}
-                    </button>
-                  </div>
-                </UFormField>
-                <UFormField :label="t('submit.dash.prepSteps')">
-                  <div class="flex flex-wrap gap-2">
-                    <button
-                      v-for="x in PREP_STEPS"
-                      :key="x.id"
-                      type="button"
-                      class="flex items-center gap-1.5 border-[1.5px] px-3 py-1.5 text-sm"
-                      :class="dash.prepSteps.includes(x.value) ? 'border-(--signal) bg-(--ice) font-semibold text-(--signal)' : 'border-(--line) hover:border-(--ink)'"
-                      @click="toggle(dash.prepSteps, x.value)"
-                    >
-                      <UIcon
-                        :name="dash.prepSteps.includes(x.value) ? 'i-lucide-square-check' : 'i-lucide-square'"
-                        class="size-4"
-                      />{{ t(x.key) }}
-                    </button>
-                  </div>
-                </UFormField>
-              </div>
-              <UFormField
-                :label="t('submit.dash.prep')"
-                required
-                :help="t('submit.dash.prepHelp')"
-              >
-                <UTextarea
-                  v-model="dash.prep"
-                  :rows="6"
-                  autoresize
-                  class="w-full"
-                  :placeholder="t('submit.dash.prepPh')"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('submit.dash.grain')"
-                :hint="t('submit.optional')"
-                :help="t('submit.dash.grainHelp')"
-              >
-                <UInput
-                  v-model="dash.grain"
-                  class="w-full"
-                  :placeholder="t('submit.dash.grainPh')"
-                />
-              </UFormField>
-
-              <div>
-                <p class="mono-label mb-3">
-                  {{ t('submit.dash.sources') }}
-                </p>
-                <div class="border-[1.5px] border-(--ink)">
-                  <div
-                    v-for="(src, i) in dash.sources"
-                    :key="i"
-                    class="grid items-center gap-3 border-b border-dashed border-(--line) p-3 last:border-b-0 sm:grid-cols-[12rem_minmax(0,1fr)_9rem_auto]"
-                  >
-                    <USelect
-                      v-model="src.type"
-                      :items="sourceTypeItems"
-                      class="w-full"
-                    />
-                    <UInput
-                      v-model="src.name"
-                      placeholder="Opportunity / opportunities.csv / SALES.PIPELINE"
-                      class="w-full"
-                    />
-                    <UInput
-                      v-model="src.rows"
-                      :placeholder="t('submit.dash.rowsPh')"
-                      class="w-full"
-                    />
-                    <UButton
-                      icon="i-lucide-trash-2"
-                      color="neutral"
-                      variant="ghost"
-                      square
-                      :aria-label="t('submit.removeSource')"
-                      :disabled="dash.sources.length === 1"
-                      @click="dash.sources.splice(i, 1)"
-                    />
-                  </div>
-                </div>
-                <UButton
-                  class="mt-3"
-                  icon="i-lucide-plus"
-                  color="neutral"
-                  variant="outline"
-                  size="sm"
-                  :disabled="dash.sources.length >= 12"
-                  @click="dash.sources.push({ type: 'Salesforce object', name: '', rows: '' })"
-                >
-                  {{ t('submit.addSource') }}
-                </UButton>
-              </div>
-            </div>
-
-            <div
-              v-else-if="step === 3"
-              class="space-y-8"
-            >
-              <div>
-                <p class="mono-label mb-3">
-                  {{ t('submit.dash.kpis') }}
-                </p>
-                <div class="space-y-4">
-                  <div
-                    v-for="(k, i) in dash.kpis"
-                    :key="i"
-                    class="border-[1.5px] border-(--ink)"
-                  >
-                    <div class="flex items-center justify-between border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2">
-                      <span class="font-mono text-[11px] font-semibold uppercase tracking-[.1em] text-(--signal)">{{ t('submit.dash.kpiN', { n: pad(i + 1) }) }}</span>
-                      <UButton
-                        icon="i-lucide-trash-2"
-                        color="neutral"
-                        variant="ghost"
-                        size="xs"
-                        square
-                        :aria-label="t('submit.dash.removeKpi')"
-                        :disabled="dash.kpis.length === 1"
-                        @click="dash.kpis.splice(i, 1)"
-                      />
-                    </div>
-                    <div class="grid gap-3 p-3 lg:grid-cols-[16rem_minmax(0,1fr)]">
-                      <UInput
-                        v-model="k.name"
-                        :placeholder="t('submit.dash.kpiNamePh')"
-                        class="w-full"
-                      />
-                      <UTextarea
-                        v-model="k.formula"
-                        :rows="2"
-                        autoresize
-                        :placeholder="t('submit.dash.kpiFormulaPh')"
-                        class="w-full"
-                        :ui="{ base: 'font-mono text-sm' }"
-                      />
-                      <UInput
-                        v-model="k.why"
-                        :placeholder="t('submit.dash.kpiWhyPh')"
-                        class="w-full lg:col-span-2"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <UButton
-                  class="mt-3"
-                  icon="i-lucide-plus"
-                  color="neutral"
-                  variant="outline"
-                  size="sm"
-                  :disabled="dash.kpis.length >= 12"
-                  @click="dash.kpis.push({ name: '', formula: '', why: '' })"
-                >
-                  {{ t('submit.dash.addKpi') }}
-                </UButton>
-              </div>
-
-              <UFormField :label="t('submit.dash.techniques')">
-                <div class="flex flex-wrap gap-2">
-                  <button
-                    v-for="x in TECHNIQUES"
-                    :key="x.id"
-                    type="button"
-                    class="border-[1.5px] px-3 py-1.5 font-mono text-xs uppercase tracking-[.06em]"
-                    :class="dash.techniques.includes(x.value) ? 'border-(--signal) bg-(--signal) text-white' : 'border-(--line) hover:border-(--ink)'"
-                    @click="toggle(dash.techniques, x.value)"
-                  >
-                    {{ t(x.key) }}
-                  </button>
-                </div>
-              </UFormField>
-
-              <div>
-                <p class="mono-label mb-3">
-                  {{ t('submit.photosLabel', { max: MAX_MEDIA }) }}
-                </p>
-                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                  <div
-                    v-for="(m, i) in dash.media"
-                    :key="m.url"
-                    class="relative aspect-video border-[1.5px] border-(--ink) bg-(--ice)"
-                  >
-                    <img
-                      :src="m.url"
-                      alt=""
-                      class="size-full object-cover"
-                      referrerpolicy="no-referrer"
-                    >
-                    <UButton
-                      class="absolute end-1 top-1"
-                      icon="i-lucide-x"
-                      size="xs"
-                      color="neutral"
-                      square
-                      :aria-label="t('submit.dash.removeShot')"
-                      @click="dash.media.splice(i, 1)"
-                    />
-                  </div>
-                  <label
-                    v-if="dash.media.length < MAX_MEDIA"
-                    class="graph-paper-fine flex aspect-video cursor-pointer flex-col items-center justify-center gap-2 border-[1.5px] border-dashed border-(--ink2) font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2) hover:border-(--signal) hover:text-(--signal)"
-                  >
-                    <UIcon
-                      :name="uploading ? 'i-lucide-loader-circle' : 'i-lucide-image-plus'"
-                      class="size-6"
-                      :class="uploading ? 'animate-spin' : ''"
-                    />
-                    {{ uploading ? t('submit.uploading') : t('submit.dash.dropShot') }}
-                    <input
-                      type="file"
-                      accept="image/png,image/jpeg,image/webp"
-                      multiple
-                      class="sr-only"
-                      @change="onFiles"
-                    >
-                  </label>
-                </div>
-                <div class="mt-3 flex gap-2">
-                  <UInput
-                    v-model="dash.mediaUrl"
-                    :placeholder="t('submit.dash.mediaUrlPh')"
-                    class="flex-1"
-                    @keydown.enter.prevent="addMediaUrl"
-                  />
-                  <UButton
-                    color="neutral"
-                    variant="outline"
-                    :disabled="!dash.mediaUrl.trim() || dash.media.length >= MAX_MEDIA"
-                    @click="addMediaUrl"
-                  >
-                    {{ t('submit.add') }}
-                  </UButton>
-                </div>
-                <p
-                  v-if="mediaError"
-                  class="mt-2 text-sm text-warning"
-                >
-                  {{ mediaError }}
-                </p>
-              </div>
-            </div>
-          </template>
-
-          <!-- RESOURCE -->
-          <template v-else-if="type === 'resource'">
-            <div
-              v-if="step === 1"
-              class="space-y-5"
-            >
-              <UFormField
-                :label="t('submit.urlLabel')"
-                required
-                :help="t('submit.res.linkHelp')"
-              >
-                <UInput
-                  v-model="res.url"
-                  size="xl"
-                  placeholder="https://…"
-                  class="w-full"
-                  autofocus
-                >
-                  <template #leading>
-                    <SubmitFavicon :url="res.url" />
-                  </template>
-                </UInput>
-              </UFormField>
-              <SubmitUrlPreview
-                :url="res.url"
-                @meta="onResourceMeta"
-              />
-            </div>
-            <div
-              v-else-if="step === 2"
-              class="grid gap-6 lg:grid-cols-2"
-            >
-              <SubmitUrlPreview
-                :url="res.url"
-                class="lg:col-span-2"
-              />
-              <UFormField
-                :label="t('submit.titleLabel')"
-                required
-              >
-                <UInput
-                  v-model="res.title"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField :label="t('submit.res.category')">
-                <div class="flex flex-wrap gap-2">
-                  <button
-                    v-for="c in CATEGORIES"
-                    :key="c.id"
-                    type="button"
-                    class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                    :class="res.category === c.value ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
-                    @click="res.category = c.value"
-                  >
-                    {{ t(c.key) }}
-                  </button>
-                </div>
-              </UFormField>
-              <UFormField
-                :label="t('submit.res.what')"
-                :hint="t('submit.optional')"
-                class="lg:col-span-2"
-              >
-                <UTextarea
-                  v-model="res.description"
-                  :rows="2"
-                  autoresize
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('submit.descLabel')"
-                required
-                :help="t('submit.res.whyHelp')"
-                class="lg:col-span-2"
-              >
-                <UTextarea
-                  v-model="res.why"
-                  :rows="4"
-                  autoresize
-                  class="w-full"
-                />
-              </UFormField>
-            </div>
-          </template>
-
-          <!-- LESSON -->
-          <template v-else-if="type === 'lesson'">
-            <div
-              v-if="step === 1"
-              class="space-y-6"
-            >
-              <div class="inline-flex border-[1.5px] border-(--ink)">
-                <button
-                  v-for="m in (['fix', 'idea'] as const)"
-                  :key="m"
-                  type="button"
-                  class="px-5 py-2 font-mono text-xs font-semibold uppercase tracking-[.1em]"
-                  :class="lesson.mode === m ? 'bg-(--ink) text-(--paper)' : 'hover:bg-(--ice)'"
-                  @click="lesson.mode = m"
-                >
-                  {{ m === 'fix' ? t('submit.les.fix') : t('submit.les.propose') }}
-                </button>
-              </div>
-              <UFormField
-                v-if="lesson.mode === 'fix'"
-                :label="t('submit.les.which')"
-                required
-              >
-                <USelectMenu
-                  v-model="lesson.path"
-                  :items="lessonItems"
-                  value-key="value"
-                  :placeholder="t('submit.searchLessons')"
-                  size="xl"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                v-else
-                :label="t('submit.les.ideaTitle')"
-                required
-              >
-                <UInput
-                  v-model="lesson.ideaTitle"
-                  size="xl"
-                  class="w-full"
-                  :placeholder="t('submit.les.ideaTitlePh')"
-                />
-              </UFormField>
-            </div>
-            <div
-              v-else-if="step === 2"
-              class="space-y-6"
-            >
-              <UFormField
-                :label="lesson.mode === 'fix' ? t('submit.les.wrong') : t('submit.les.outline')"
-                required
-                :help="lesson.mode === 'fix' ? t('submit.les.wrongHelp') : t('submit.les.outlineHelp')"
-              >
-                <UTextarea
-                  v-model="lesson.body"
-                  :rows="8"
-                  autoresize
-                  class="w-full"
-                />
-              </UFormField>
-              <div>
-                <p class="mono-label mb-3">
-                  {{ t('submit.les.sources') }}
-                </p>
-                <div class="space-y-2">
-                  <div
-                    v-for="(src, i) in lesson.sources"
-                    :key="i"
-                    class="flex gap-2"
-                  >
-                    <UInput
-                      v-model="src.url"
-                      placeholder="https://help.salesforce.com/…"
-                      class="flex-1"
-                    >
-                      <template #leading>
-                        <SubmitFavicon
-                          :url="src.url"
-                          :size="18"
-                        />
-                      </template>
-                    </UInput>
-                    <UButton
-                      icon="i-lucide-trash-2"
-                      color="neutral"
-                      variant="ghost"
-                      square
-                      :aria-label="t('submit.removeSource')"
-                      :disabled="lesson.sources.length === 1"
-                      @click="lesson.sources.splice(i, 1)"
-                    />
-                  </div>
-                </div>
-                <UButton
-                  class="mt-3"
-                  icon="i-lucide-plus"
-                  color="neutral"
-                  variant="outline"
-                  size="sm"
-                  :disabled="lesson.sources.length >= 6"
-                  @click="lesson.sources.push({ url: '' })"
-                >
-                  {{ t('submit.addSource') }}
-                </UButton>
-              </div>
-            </div>
-          </template>
-
-          <!-- TRANSLATION -->
-          <template v-else-if="type === 'translation'">
-            <div
-              v-if="step === 1"
-              class="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]"
-            >
-              <UFormField
-                :label="t('submit.tr.language')"
-                required
-              >
-                <USelect
-                  v-model="tr.locale"
-                  :items="localeItems"
-                  :placeholder="t('submit.tr.languagePh')"
-                  size="xl"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('submit.tr.lesson')"
-                required
-              >
-                <USelectMenu
-                  v-model="tr.path"
-                  :items="lessonItems"
-                  value-key="value"
-                  :placeholder="t('submit.searchLessons')"
-                  size="xl"
-                  class="w-full"
-                />
-              </UFormField>
-            </div>
-            <div
-              v-else-if="step === 2"
-              class="grid gap-6 lg:grid-cols-2"
-            >
-              <UFormField
-                :label="t('submit.tr.wrong')"
-                required
-              >
-                <UTextarea
-                  v-model="tr.wrong"
-                  :rows="6"
-                  autoresize
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('submit.tr.suggested')"
-                required
-              >
-                <UTextarea
-                  v-model="tr.suggested"
-                  :rows="6"
-                  autoresize
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('submit.tr.note')"
-                :hint="t('submit.optional')"
-                class="lg:col-span-2"
-              >
-                <UInput
-                  v-model="tr.note"
-                  class="w-full"
-                  :placeholder="t('submit.tr.notePh')"
-                />
-              </UFormField>
-            </div>
-          </template>
-
-          <!-- NOMINATE -->
-          <template v-else-if="type === 'nominate'">
-            <div
-              v-if="step === 1"
-              class="grid gap-6 lg:grid-cols-2"
-            >
-              <UFormField
-                :label="t('submit.nom.name')"
-                required
-              >
-                <UInput
-                  v-model="nom.name"
-                  size="xl"
-                  class="w-full"
-                  autofocus
-                />
-              </UFormField>
-              <UFormField :label="t('submit.nom.role')">
-                <div class="flex flex-wrap gap-2">
-                  <button
-                    v-for="r in WALL_ROLES"
-                    :key="r"
-                    type="button"
-                    class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                    :class="nom.role === r ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
-                    @click="nom.role = r"
-                  >
-                    {{ t(`wall.types.${r}`) }}
-                  </button>
-                </div>
-              </UFormField>
-              <UFormField
-                label="LinkedIn"
-                :help="t('submit.nom.linkHelp')"
-              >
-                <UInput
-                  v-model="nom.linkedin"
-                  class="w-full"
-                  placeholder="https://www.linkedin.com/in/…"
-                >
-                  <template #leading>
-                    <SubmitFavicon :url="nom.linkedin" />
-                  </template>
-                </UInput>
-              </UFormField>
-              <UFormField
-                :label="t('submit.nom.url')"
-                :hint="t('submit.optional')"
-              >
-                <UInput
-                  v-model="nom.url"
-                  class="w-full"
-                  placeholder="https://…"
-                >
-                  <template #leading>
-                    <SubmitFavicon :url="nom.url" />
-                  </template>
-                </UInput>
-              </UFormField>
-              <UFormField
-                :label="t('submit.nom.photo')"
-                :hint="t('submit.optional')"
-                :help="t('submit.nom.photoHelp')"
-                class="lg:col-span-2"
-              >
-                <UInput
-                  v-model="nom.photo"
-                  class="w-full"
-                  placeholder="https://…/photo.jpg"
-                />
-              </UFormField>
-            </div>
-            <div
-              v-else-if="step === 2"
-              class="space-y-5"
-            >
-              <UFormField
-                :label="t('submit.nom.why')"
-                required
-                :help="t('submit.nom.whyHelp')"
-              >
-                <UTextarea
-                  v-model="nom.why"
-                  :rows="5"
-                  autoresize
-                  class="w-full"
-                />
-              </UFormField>
-              <UCheckbox
-                v-model="nom.self"
-                :label="t('submit.nom.self')"
-              />
-            </div>
-          </template>
-
-          <!-- SNIPPET -->
-          <template v-else-if="type === 'snippet'">
-            <div
-              v-if="step === 1"
-              class="space-y-6"
-            >
-              <UFormField
-                :label="t('submit.titleLabel')"
-                required
-              >
-                <UInput
-                  v-model="snip.title"
-                  size="xl"
-                  class="w-full"
-                  :placeholder="t('submit.snip.titlePh')"
-                />
-              </UFormField>
-              <UFormField
-                label="SAQL"
-                required
-              >
-                <UTextarea
-                  v-model="snip.saql"
-                  :rows="12"
-                  autoresize
-                  spellcheck="false"
-                  class="w-full"
-                  :ui="{ base: 'bg-[#07122A] font-mono text-sm text-[#DDEBFA] placeholder:text-[#7FB2EA]/60' }"
-                  placeholder="q = load &quot;opportunities&quot;;&#10;q = group q by 'CloseDate_Year';&#10;q = foreach q generate 'CloseDate_Year', sum('Amount') as 'total';"
-                />
-              </UFormField>
-            </div>
-            <div
-              v-else-if="step === 2"
-              class="grid gap-6 lg:grid-cols-2"
-            >
-              <UFormField
-                :label="t('submit.snip.what')"
-                required
-                class="lg:col-span-2"
-              >
-                <UTextarea
-                  v-model="snip.what"
-                  :rows="4"
-                  autoresize
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('submit.snip.dataset')"
-                :hint="t('submit.optional')"
-              >
-                <UInput
-                  v-model="snip.dataset"
-                  class="w-full"
-                  placeholder="opportunities"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('submit.snip.shape')"
-                :hint="t('submit.optional')"
-                :help="t('submit.snip.shapeHelp')"
-              >
-                <UTextarea
-                  v-model="snip.shape"
-                  :rows="3"
-                  autoresize
-                  class="w-full"
-                  :ui="{ base: 'font-mono text-sm' }"
-                  placeholder="CloseDate (date), Amount (measure), StageName (dimension)"
-                />
-              </UFormField>
-            </div>
-          </template>
-
-          <!-- REVIEW (all types) -->
-          <div
-            v-if="isReview"
-            class="space-y-6"
-          >
-            <p class="text-(--ink2)">
-              {{ t('submit.reviewHint') }}
-            </p>
-            <dl class="border-[1.5px] border-(--ink)">
-              <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                <dt class="mono-label">
-                  {{ t('submit.stepKind') }}
-                </dt>
-                <dd class="flex items-center gap-2 font-semibold">
-                  <UIcon
-                    :name="typeInfo.icon"
-                    class="size-4 text-(--signal)"
-                  />{{ t(typeInfo.labelKey) }}
-                </dd>
-              </div>
-              <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                <dt class="mono-label">
-                  {{ t('submit.titleLabel') }}
-                </dt>
-                <dd class="font-semibold">
-                  {{ payload.title }}
-                </dd>
-              </div>
-              <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                <dt class="mono-label">
-                  {{ t('submit.review.summary') }}
-                </dt>
-                <dd class="whitespace-pre-line text-sm text-(--ink2)">
-                  {{ payload.description }}
-                </dd>
-              </div>
-
-              <template v-if="type === 'dashboard'">
-                <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                  <dt class="mono-label">
-                    {{ t('submit.review.domainLevel') }}
-                  </dt>
-                  <dd>{{ optionLabel(DOMAINS, dash.domain) }} · {{ optionLabel(DIFFICULTIES, dash.difficulty) }}</dd>
-                </div>
-                <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                  <dt class="mono-label">
-                    {{ t('submit.dash.sources') }}
-                  </dt>
-                  <dd>
-                    <ul class="space-y-1 text-sm">
-                      <li
-                        v-for="s in dashSources"
-                        :key="s.name"
-                      >
-                        <span class="font-mono text-[11px] uppercase text-(--ink2)">{{ optionLabel(SOURCE_TYPES, s.type) }}</span> — {{ s.name }}<span v-if="s.rows"> · {{ t('submit.review.rows', { n: s.rows }) }}</span>
-                      </li>
-                    </ul>
-                  </dd>
-                </div>
-                <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                  <dt class="mono-label">
-                    {{ t('submit.review.kpis') }}
-                  </dt>
-                  <dd>
-                    <ul class="space-y-2 text-sm">
-                      <li
-                        v-for="k in dashKpis"
-                        :key="k.name"
-                      >
-                        <span class="font-bold">{{ k.name }}</span>
-                        <code class="mt-1 block bg-(--ice) px-2 py-1 font-mono text-xs">{{ k.formula }}</code>
-                      </li>
-                    </ul>
-                  </dd>
-                </div>
-                <div
-                  v-if="dash.techniques.length"
-                  class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]"
-                >
-                  <dt class="mono-label">
-                    {{ t('submit.dash.techniques') }}
-                  </dt>
-                  <dd class="flex flex-wrap gap-1.5">
-                    <span
-                      v-for="x in dash.techniques"
-                      :key="x"
-                      class="border border-(--signal) px-2 py-0.5 font-mono text-[10px] uppercase text-(--signal)"
-                    >{{ optionLabel(TECHNIQUES, x) }}</span>
-                  </dd>
-                </div>
-                <div
-                  v-if="dash.media.length"
-                  class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]"
-                >
-                  <dt class="mono-label">
-                    {{ t('submit.review.screenshots') }}
-                  </dt>
-                  <dd class="flex flex-wrap gap-2">
-                    <img
-                      v-for="m in dash.media"
-                      :key="m.url"
-                      :src="m.url"
-                      alt=""
-                      referrerpolicy="no-referrer"
-                      class="h-16 w-28 border border-(--ink) object-cover"
-                    >
-                  </dd>
-                </div>
-              </template>
-
-              <template v-else-if="type === 'lesson' && lesson.mode === 'fix'">
-                <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                  <dt class="mono-label">
-                    {{ t('submit.tr.lesson') }}
-                  </dt>
-                  <dd>
-                    <NuxtLink
-                      :to="localePath(lesson.path)"
-                      target="_blank"
-                      class="text-(--signal) underline"
-                    >{{ lessonLabel(lesson.path) }}</NuxtLink>
-                  </dd>
-                </div>
-              </template>
-
-              <template v-else-if="type === 'snippet'">
-                <div class="grid gap-1 border-b border-dashed border-(--line) p-4 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                  <dt class="mono-label">
-                    SAQL
-                  </dt>
-                  <dd>
-                    <pre class="overflow-x-auto border border-(--ink) bg-[#07122A] p-3 font-mono text-xs text-[#DDEBFA]">{{ snip.saql }}</pre>
-                  </dd>
-                </div>
-              </template>
-
-              <div
-                v-if="allLinks.length"
-                class="grid gap-1 p-4 sm:grid-cols-[12rem_minmax(0,1fr)]"
-              >
-                <dt class="mono-label">
-                  {{ t('submit.review.links') }}
-                </dt>
-                <dd>
-                  <ul class="space-y-2">
-                    <li
-                      v-for="l in allLinks"
-                      :key="l"
-                      class="flex min-w-0 items-center gap-2 text-sm"
-                    >
-                      <SubmitFavicon :url="l" />
-                      <a
-                        :href="l"
-                        target="_blank"
-                        rel="noopener nofollow"
-                        class="truncate text-(--signal) underline"
-                      >{{ l }}</a>
-                    </li>
-                  </ul>
-                </dd>
-              </div>
-            </dl>
-            <p
-              v-if="error"
-              class="border-[1.5px] border-error bg-error/10 px-4 py-3 text-sm text-error"
-            >
-              {{ error }}
-            </p>
-          </div>
-
-          <!-- Validation message -->
-          <p
-            v-if="showProblem && problem"
-            class="mt-6 flex items-center gap-2 border-[1.5px] border-dashed border-warning px-4 py-3 text-sm text-warning"
-            role="alert"
-          >
-            <UIcon
-              name="i-lucide-triangle-alert"
-              class="size-4 flex-none"
-            />{{ problem }}
-          </p>
-        </div>
-
-        <!-- Footer controls -->
-        <div
-          v-if="step > 0"
-          class="flex items-center justify-between gap-3 border-t-[1.5px] border-(--ink) px-5 py-4 sm:px-8"
-        >
-          <UButton
-            icon="i-lucide-arrow-left"
-            color="neutral"
-            variant="outline"
-            size="lg"
-            @click="back"
-          >
-            {{ t('submit.back') }}
-          </UButton>
-          <UButton
-            v-if="!isReview"
-            trailing-icon="i-lucide-arrow-right"
-            size="lg"
-            @click="next"
-          >
-            {{ t('submit.next', { step: t(steps[step + 1]!) }) }}
-          </UButton>
-          <UButton
-            v-else
-            icon="i-lucide-send"
-            size="lg"
-            :loading="sending"
-            @click="send"
-          >
-            {{ t('submit.submit') }}
-          </UButton>
-        </div>
-      </div>
-
-      <!-- Your submissions -->
-      <section class="mt-16">
-        <p class="eyebrow">
-          Fig. 02 — {{ t('submit.mine') }}
-        </p>
-        <h2 class="bp-h3 mt-2">
-          {{ t('submit.mineTitle') }}
-        </h2>
-        <p
-          v-if="!mine?.submissions?.length"
-          class="mt-6 border-[1.5px] border-dashed border-(--line) p-6 text-center text-sm text-(--ink2)"
-        >
-          {{ t('submit.none') }}
-        </p>
-        <ul
-          v-else
-          class="mt-6 border-[1.5px] border-(--ink) bg-(--card)"
-        >
-          <li
-            v-for="s in mine.submissions"
-            :key="s.id"
-            class="flex flex-wrap items-center gap-3 border-b border-dashed border-(--line) px-4 py-3 last:border-b-0"
-          >
-            <SubmitFavicon
-              v-if="s.url"
-              :url="s.url"
-            />
-            <span class="w-24 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ typeLabel(s) }}</span>
-            <span class="min-w-0 flex-1">
-              <span class="block truncate font-semibold text-(--ink)">{{ s.title }}</span>
-              <a
-                v-if="s.url"
-                :href="s.url"
-                target="_blank"
-                rel="noopener nofollow"
-                class="block truncate font-mono text-[11px] text-(--signal)"
-              >{{ hostOf(s.url) }}</a>
-              <span
-                v-if="s.reviewNote"
-                class="block text-xs text-(--ink2)"
-              >{{ t('submit.reviewNote', { note: s.reviewNote }) }}</span>
-            </span>
-            <span
-              class="border-[1.5px] px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
-              :class="STATUS[s.status].cls"
-            >{{ t(STATUS[s.status].key) }}</span>
-          </li>
-        </ul>
-      </section>
     </div>
+
+    <!-- 3. Yours -->
+    <section
+      v-if="mine?.submissions?.length"
+      class="mt-14"
+    >
+      <h2 class="text-lg font-bold text-(--ink)">
+        {{ t('contrib.mine') }}
+      </h2>
+      <ul class="mt-4 divide-y divide-(--line) border-[1.5px] border-(--line) bg-(--card)">
+        <li
+          v-for="s in mine.submissions"
+          :key="s.id"
+          class="flex flex-wrap items-center gap-3 px-4 py-3"
+        >
+          <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ s.title }}</span>
+          <span
+            class="border-[1.5px] px-2 py-0.5 font-mono text-[11px] uppercase"
+            :class="STATUS[s.status]"
+          >{{ t(`contrib.status.${s.status}`) }}</span>
+          <p
+            v-if="s.reviewNote"
+            class="w-full text-sm text-(--ink2)"
+          >
+            {{ s.reviewNote }}
+          </p>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>

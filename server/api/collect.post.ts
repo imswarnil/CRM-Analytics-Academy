@@ -15,7 +15,7 @@
  */
 const BOT = /bot|crawl|spider|slurp|headless|lighthouse|preview|facebookexternalhit|embedly|monitor|curl|wget|python|node-fetch/i
 const ID = /^[a-z0-9]{8,40}$/i
-const EVENTS = new Set(['sign_in_click', 'sign_up_click', 'sign_up', 'sign_in', 'lesson_complete', 'quiz_submit', 'search_open', 'outbound', 'bookmark', 'copy_page', 'youtube_click', 'popup_close', 'promo_close', 'share', 'exam_start', 'exam_finish', 'interview_submit'])
+const EVENTS = new Set(['sign_in_click', 'sign_up_click', 'sign_up', 'sign_in', 'lesson_complete', 'quiz_submit', 'search_open', 'outbound', 'bookmark', 'copy_page', 'youtube_click', 'popup_close', 'promo_close', 'share', 'exam_start', 'exam_finish', 'interview_submit', 'contribute'])
 
 function device(ua: string): 'desktop' | 'mobile' | 'tablet' {
   if (/ipad|tablet|kindle|silk|playbook|(android(?!.*mobile))/i.test(ua)) return 'tablet'
@@ -96,6 +96,10 @@ export default defineEventHandler(async (event) => {
     const host = new URL(clip(body.r, 500)).hostname.replace(/^www\./, '')
     if (host && host !== getRequestHost(event).replace(/^www\./, '')) referrer = host
   } catch { /* direct or invalid */ }
+  // A campaign tag (?utm_source=linkedin) beats the referrer: most apps and
+  // email clients send none, so tagged links are the only way to see them.
+  const utm = clip(body.u, 40).toLowerCase().replace(/[^a-z0-9._-]/g, '')
+  if (utm) referrer = `utm:${utm}`
 
   const rows = await sql`
     insert into app.page_view (visitor, session, user_id, path, locale, referrer, country, device, browser, os)

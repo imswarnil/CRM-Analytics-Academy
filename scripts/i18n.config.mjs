@@ -156,6 +156,8 @@ export const TRANSLATABLE_KEYS = [
   'note',
   'q',
   'a',
+  // Quiz and exam answer options — a list of strings.
+  'options',
   'summary',
   'caption',
   'alt'

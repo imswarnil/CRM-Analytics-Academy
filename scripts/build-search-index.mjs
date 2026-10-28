@@ -40,7 +40,9 @@ const LLMS_BLURB = 'A free, open-source curriculum for mastering Salesforce CRM 
 const OUT = path.join(ROOT, 'public', 'ask-index.json')
 const TEXT_CAP = 2000
 
-/** Recursive file walk (same hand-rolled shape as gate-content.mjs). */
+const NON_LESSON = new Set(['interview-questions', 'exam'])
+
+/** Recursive file walk, lessons only. */
 async function walk(dir, out = []) {
   let entries
   try {
@@ -50,6 +52,8 @@ async function walk(dir, out = []) {
   }
   for (const entry of entries) {
     const full = path.join(dir, entry.name)
+    // Interview questions and exam banks are their own collections, not lessons.
+    if (entry.isDirectory() && NON_LESSON.has(entry.name)) continue
     if (entry.isDirectory()) await walk(full, out)
     else if (full.endsWith('.md')) out.push(full)
   }
@@ -218,7 +222,7 @@ function rawMarkdown(title, description, body) {
  */
 async function buildLlms() {
   const sections = (await readdir(CONTENT, { withFileTypes: true }))
-    .filter(d => d.isDirectory())
+    .filter(d => d.isDirectory() && !NON_LESSON.has(d.name))
     .map(d => d.name)
     .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
   const head = [
@@ -273,7 +277,9 @@ async function buildLlms() {
     `- [Full text](${SITE}/llms-full.txt): this index followed by all ${n} lessons in order.`,
     ''
   ]
-  await writeFile(path.join(ROOT, 'public', 'llms.txt'), [...head, `## The curriculum (${sections.length} sections, ${n} lessons)`, '', ...index, ...more].join('\n'), 'utf8')
+  const interview = await interviewLlmsLines()
+  const interviewBlock = interview.length ? [`## Interview questions (${interview.length})`, '', ...interview, ''] : []
+  await writeFile(path.join(ROOT, 'public', 'llms.txt'), [...head, `## The curriculum (${sections.length} sections, ${n} lessons)`, '', ...index, ...interviewBlock, ...more].join('\n'), 'utf8')
   await writeFile(path.join(ROOT, 'public', 'llms-full.txt'), [...head, ...index, ...full].join('\n'), 'utf8')
   console.log(`[llms] ${n} lessons -> public/llms.txt, public/llms-full.txt`)
 }
@@ -330,9 +336,53 @@ async function buildSearch() {
   console.log(`[search] ${LOCALES.length} locale index(es) -> public/search/`)
 }
 
+/**
+ * The exam runner's question bank, per locale: public/exam/<locale>.json,
+ * from content/<locale>/exam/*.md (translated by the build). A locale whose
+ * domain file is missing borrows the English one.
+ */
+async function buildExamBanks() {
+  const dir = path.join(ROOT, 'public', 'exam')
+  await mkdir(dir, { recursive: true })
+  const domains = (await readdir(path.join(CONTENT, 'exam')).catch(() => [])).filter(f => f.endsWith('.md'))
+  for (const locale of LOCALES) {
+    // Section titles in this locale, for the runner's "Study <section>" links.
+    const titles = {}
+    for (const d of await readdir(path.join(CONTENT_ROOT, locale), { withFileTypes: true }).catch(() => [])) {
+      const m = d.isDirectory() && d.name.match(/^\d+\.(.+)$/)
+      if (!m) continue
+      const nav = await readFile(path.join(CONTENT_ROOT, locale, d.name, '.navigation.yml'), 'utf8').catch(() => '')
+      const tm = nav.match(/^title:\s*['"]?(.+?)['"]?\s*$/m)
+      if (tm) titles[m[1]] = tm[1]
+    }
+    const bank = []
+    for (const f of domains) {
+      const own = path.join(CONTENT_ROOT, locale, 'exam', f)
+      const raw = await readFile(own, 'utf8').catch(() => readFile(path.join(CONTENT, 'exam', f), 'utf8'))
+      const { data } = parseFrontmatter(raw)
+      for (const q of data.quiz ?? []) bank.push({ ...q, domain: data.domain, topicTitle: titles[q.topic] ?? q.topic })
+    }
+    await writeFile(path.join(dir, `${locale}.json`), JSON.stringify(bank), 'utf8')
+  }
+  console.log(`[exam] ${LOCALES.length} locale bank(s) -> public/exam/`)
+}
+
+/** Every interview question, in llms.txt terms: title, page URL, short answer. */
+async function interviewLlmsLines() {
+  const dir = path.join(CONTENT, 'interview-questions')
+  const files = (await readdir(dir).catch(() => [])).filter(f => f.endsWith('.md')).sort()
+  const lines = []
+  for (const f of files) {
+    const { data } = parseFrontmatter(await readFile(path.join(dir, f), 'utf8'))
+    lines.push(`- [${data.title}](${SITE}/interview-questions/${f.replace(/\.md$/, '')}): ${data.description ?? ''}`.trim())
+  }
+  return lines
+}
+
 async function main() {
   await buildSearch()
   await buildLlms()
+  await buildExamBanks()
 
   // Numeric-aware sort so 2.setup precedes 10.whatever — the index order is
   // the curriculum order list_curriculum shows to MCP clients.

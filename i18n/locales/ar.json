@@ -23,7 +23,8 @@
     "youtube": "CRM Analytics أكاديمية يوتيوب",
     "wallOfFame": "جدار الشهرة",
     "certification": "Exams",
-    "interview": "المقابلات"
+    "interview": "المقابلات",
+    "companies": "الشركات"
   },
   "home": {
     "modules": {
@@ -296,245 +297,6 @@
     "benefitFree": "حر للأبد كل درس",
     "verifyTitle": "تحقق من صندوقك",
     "verifyDesc": "أرسلنا رابط تأكيد {email}افتحه، ثم وقع عليه."
-  },
-  "submit": {
-    "title": "المساهمة في الأكاديمية",
-    "subtitle": "لوحات العمل، والموارد، وإصلاح الدروس، والترجمة، SAQLكل شيء يتم استعراضه من قبل شخص قبل ظهوره و العمل الموافق عليه يحسب نحو رتبتك على لوحة التحكم",
-    "kindResource": "A resource",
-    "kindShowcase": "لوح ضارب",
-    "kindIdea": "إصلاح الدرس أو فكرة",
-    "titleLabel": "العنوان",
-    "urlLabel": "Link",
-    "descLabel": "لماذا هو مفيد؟",
-    "submit": "Submit for review",
-    "sentTitle": "شكراً لك - إنه في طابور الاستعراض",
-    "sentBody": "سترى مركزها أدناه التبرعات الموافق عليها تُقيد لك وتعتمد على رتبتك على لوحة التحكم",
-    "another": "المساهمة بشيء آخر",
-    "mine": "ملاحظاتكم",
-    "pending": "استعراض انتظار",
-    "approved": "الوظائف المعتمدة",
-    "rejected": "غير مقبولة",
-    "none": "لا شيء حتى الآن - ستظهر مساهمتك الأولى هنا بحالة استعراضها.",
-    "stepKind": "النوع",
-    "stepDetails": "التفاصيل",
-    "stepMedia": "KPIs & وسائط الإعلام",
-    "stepReview": "الاستعراض",
-    "next": "التالي: {step}",
-    "back": "العودة",
-    "optional": "الاختياري",
-    "photosLabel": "طلقات نارية - حتى {max}",
-    "uploading": "تحميل...",
-    "reviewHint": "هذا بالضبط ما سيرسل لإعادة النظر",
-    "sheet": "Sheet 07 / Contribute",
-    "received": "وردت",
-    "mineTitle": "ما أرسلته",
-    "reviewNote": "ملاحظة: {note}",
-    "kindTranslation": "إصلاح الترجمة",
-    "kindSnippet": "ألف SAQL !",
-    "blurbShowcase": "للعرض: كيف أعدت البيانات، المصادر، كل KPI وكيف يتم حسابها",
-    "blurbResource": "A docs page, course, tool, blog or community worth someone’s time.",
-    "blurbIdea": "شيء خاطئ في درس أو درس يجب أن يكون موجوداً",
-    "blurbTranslation": "ترجمة آليّة تقرأ خطأ في لغتك",
-    "blurbSnippet": "سؤال يحل مشكلة حقيقية مع البيانات التي يجريها",
-    "short": {
-      "dashboard": "لوحة",
-      "resource": "الموارد",
-      "lesson": "الدرس",
-      "translation": "الترجمة التحريرية",
-      "snippet": "!"
-    },
-    "stepDashboard": "لوحة",
-    "stepData": "البيانات",
-    "stepLink": "Link",
-    "stepLesson": "الدرس",
-    "stepProposal": "المقترح",
-    "stepWhere": "أين",
-    "stepCorrection": "تصحيح",
-    "stepSnippet": "سنيبل",
-    "stepContext": "السياق",
-    "stepOf": "الخطوة {current} / {total} - {label}",
-    "stepsCount": "{n} الخطوات",
-    "add": "مضاف",
-    "addSource": "يضاف مصدر",
-    "removeSource": "مصدر الإزالة",
-    "searchLessons": "بحث الدروس...",
-    "errGeneric": "حدث شيء خاطئ",
-    "errImageSize": "الصور مجهزة في 4 إم بي",
-    "errUpload": "التحميل فشل - استنشق صورة URL بدلاً من ذلك",
-    "errImageUrl": "Image links must start with http:/// or https://",
-    "problems": {
-      "dashName": "أعطِ لوحةِ الداشنة a اسم (3+ شخصيات).",
-      "writeupUrl": "The write-up link must start with http:// or https://",
-      "creditUrl": "رباطك يجب أن يبدأ في http:// أو https://",
-      "prep": "يرجى بيان كيفية إعداد البيانات (20+ شخصيات).",
-      "source": "إضافة مصدر بيانات واحد على الأقل.",
-      "kpi": "إضافة واحدة على الأقل KPI.",
-      "kpiFields": "كل شيء KPI يحتاج إلى اسم وكيفية حسابه",
-      "resourceUrl": "Paste the link, starting with http:// or https://",
-      "resourceTitle": "أعطه عنوان (3+ شخصيات).",
-      "resourceWhy": "قل لماذا هو مفيد (20+ شخصيات).",
-      "lessonPick": "اختر الدرس",
-      "ideaTitle": "أعطي فكرة الدرس عنواناً",
-      "fixBody": "Describe what is wrong (20+ characters).",
-      "ideaBody": "توضيح الدرس (20+ شخصيات).",
-      "sourceUrls": "يجب أن تبدأ وصلات المصادر في الموقع التالي:",
-      "translationWhere": "اختر اللغة والدرس",
-      "translationText": "قدم النص الخاطئ و تصحيحك",
-      "snippetTitle": "أعطِ القنّاص لقب.",
-      "snippetSaql": "باستي SAQL.",
-      "snippetWhat": "قل ما تفعله (20+ شخصيات).",
-      "nomName": "يضاف الاسم الكامل للشخص.",
-      "nomLink": "أضف ملف (لينكد إن) أو موقعاً شبكياً حتى نتمكن من إئتمانهم",
-      "nomUrls": "Links must start with http:// or https://.",
-      "nomWhy": "أخبرنا في جملة أو إثنين بما فعلوه للمجتمع (على الأقل 30 شخصية)."
-    },
-    "options": {
-      "domains": {
-        "sales": "مبيعات",
-        "service": "الخدمات",
-        "marketing": "التسويق",
-        "finance": "التمويل",
-        "other": "Other"
-      },
-      "difficulties": {
-        "beginner": "Beginner",
-        "intermediate": "الوسيط",
-        "advanced": "السلف"
-      },
-      "prepTools": {
-        "recipe": "الوصف",
-        "dataflow": "Dataflow",
-        "sync": "تزامن البيانات/الربط",
-        "csv": "CSV تحميل",
-        "api": "البيانات الخارجية API"
-      },
-      "prepSteps": {
-        "joins": "فرص العمل/الزيادات",
-        "filters": "الأفلام",
-        "formulas": "حقول الاستمارة",
-        "aggregations": "التجميع",
-        "append": "التذييل",
-        "bucketing": "التصفيق",
-        "dates": "التاريخ",
-        "dedupe": "الوصف"
-      },
-      "sourceTypes": {
-        "sfObject": "Salesforce الجسم",
-        "csv": "CSV",
-        "connector": "الموصل الخارجي",
-        "snowflake": "Snowflake",
-        "database": "قاعدة بيانات أخرى",
-        "other": "Other"
-      },
-      "techniques": {
-        "bindings": "اللبنات",
-        "saql": "SAQL",
-        "compareTables": "جداول مقارنة",
-        "windowing": "Windowing",
-        "predicates": "القواعد الأمنية",
-        "faceting": "مواجهة",
-        "dynamicFilters": "مرشحات الديناميكية",
-        "actions": "الإجراءات",
-        "discovery": "Einstein Discovery",
-        "mobile": "مخططات متنقلة"
-      },
-      "categories": {
-        "docs": "Docs",
-        "learning": "التعلم",
-        "books": "الكتب",
-        "blogs": "المدونات",
-        "tools": "الأدوات",
-        "community": "المجتمع"
-      }
-    },
-    "dash": {
-      "name": "اسم داش",
-      "namePh": "التغطية بالخط الحاسوبي حسب القطاع",
-      "domain": "مجال الأعمال",
-      "difficulty": "صعوبة",
-      "writeup": "الكتابة العامة",
-      "creditName": "الائتمان - اسمك",
-      "creditNamePh": "كما يجب أن تظهر على المسلسل",
-      "creditUrl": "الائتمان - وصلة الخاص بك",
-      "tools": "البناء مع",
-      "prepSteps": "الخطوات التحضيرية",
-      "prep": "كيف أعدت البيانات؟",
-      "prepHelp": "الإنضمام والسبب، ما قمت به، أي شيء فاجئك.",
-      "prepPh": "(أ) زيادة الفرص مع حساب المحاسبة - 1؛ الخسارة المغلقة أكبر من سنتين؛ ...",
-      "grain": "Grain",
-      "grainHelp": "ما هو الصف الأول من مجموعة البيانات النهائية.",
-      "grainPh": "صف واحد لكل فرصة لكل أسبوع",
-      "sources": "مصادر البيانات",
-      "rowsPh": "(اختياري)",
-      "kpis": "KPIs - name, how it is calculated, why it matters",
-      "kpiN": "KPI {n}",
-      "removeKpi": "إزالة الألغام KPI",
-      "kpiNamePh": "معدل الفوز",
-      "kpiFormulaPh": "المبلغ )أيزوون( /عد - على الفرص المغلقة، بحلول موعد قريب",
-      "kpiWhyPh": "لماذا يهم (اختياري)",
-      "addKpi": "مضافا إليه KPI",
-      "techniques": "التقنيات المستخدمة",
-      "removeShot": "طلقات الشاشة",
-      "dropShot": "الشاشة",
-      "mediaUrlPh": "أو نعطي صورة URL"
-    },
-    "res": {
-      "linkHelp": "معذره - نجلب العنوان والوصف والشعار.",
-      "category": "الفئة",
-      "what": "ما هو عليه",
-      "whyHelp": "من يجب أن يقرأه وماذا سيخرجون منه"
-    },
-    "les": {
-      "fix": "اصلح الدرس",
-      "propose": "عرض درس",
-      "which": "أي درس؟",
-      "ideaTitle": "عنوان الدرس المقترح",
-      "ideaTitlePh": "تزامن البيانات الإضافية دون إعادة تحميل كاملة",
-      "wrong": "ما الخطب؟",
-      "outline": "الخطوط الخارجية",
-      "wrongHelp": "قم بسحب الممر وقل ما يجب أن يقوله",
-      "outlineHelp": "ما يعلمه، في أي ترتيب، وما الذي يبنيه المتعلم.",
-      "sources": "المصادر - الاختيارية"
-    },
-    "tr": {
-      "language": "اللغة",
-      "languagePh": "اختر لغة",
-      "lesson": "الدرس",
-      "wrong": "النص كما يلي:",
-      "suggested": "ماذا يجب أن يقول",
-      "note": "ملاحظة",
-      "notePh": "على سبيل المثال \"الغرين\" مصطلح فن هنا وليس قمح"
-    },
-    "snip": {
-      "titlePh": "المجموع حسب الربع المالي",
-      "what": "ماذا تفعل؟",
-      "dataset": "البيانات",
-      "shape": "شكل البيانات",
-      "shapeHelp": "الحقول التي يحتاجها الاستفسار، مع الأنواع."
-    },
-    "review": {
-      "summary": "موجز",
-      "domainLevel": "الرتبة الرئيسية؛",
-      "rows": "{n} الصفوف",
-      "kpis": "KPIs",
-      "screenshots": "Screenshots",
-      "links": "الروابط"
-    },
-    "kindNominate": "تسمية شخص",
-    "blurbNominate": "مدون أو مبتكر أو مؤلف أو متحدث أو مبني أدوات علّم CRM Analytics المجتمع المحلي - لجدار الشهرة.",
-    "stepPerson": "الشخص",
-    "stepWhy": "لماذا هم",
-    "nom": {
-      "name": "أسمهم",
-      "role": "ماذا يفعلون؟",
-      "linkHelp": "ملف (لينكد إن) الخاص بهم، لذا فإنّ البولاكويد يربطهم.",
-      "url": "الموقع الشبكي أو المدونة أو القناة",
-      "photo": "وصلة الصورة",
-      "photoHelp": "فقط صورة تنشر نفسها (مثل وصلة صورها). بدون واحد، سيلوويت مَرْضُوح.",
-      "why": "لماذا تنتمي إلى الجدار؟",
-      "whyHelp": "ماذا كتبوا أو يبنون أو يعلمون الذين ساعدوك أو غيرهم؟",
-      "self": "أنا أرشح نفسي"
-    }
   },
   "quiz": {
     "title": "تحقق من معرفتك",
@@ -1371,5 +1133,126 @@
     "unanswered": "Unanswered",
     "study": "الدراسة {topic}",
     "loading": "تحمل الورقة..."
+  },
+  "companies": {
+    "eyebrow": "الشركات",
+    "seoTitle": "الشركات التي تستخدم وتستخدمها Salesforce CRM Analytics",
+    "seoDesc": "{n} الشركات التي تستخدم Salesforce CRM Analyticsالاستئجار CRM Analytics المطورون والاستشاريون والمهندسون المعماريون أو يديرون CRM Analytics الممارسة - لكل منها مصدر عام.",
+    "sheet": "SheET 07 / CompANIES · {n} SOURCED",
+    "title": "من يستخدم ويستأجر CRM Analytics",
+    "lead": "الشركات التي تجري CRM Analyticsاستأجر الناس الذين يعرفون ذلك، أو بناءه للعملاء. كلّ وصلة دخول إلى المصدر العامّة ترتكز عليها.",
+    "suggest": "اقتراح شركة",
+    "prepare": "إعداد المقابلة",
+    "filter": "شركات الأفلام",
+    "all": "كل شيء",
+    "kinds": {
+      "uses": "استخدمه",
+      "hires": "الاستيعاب",
+      "partner": "شريك استشاري"
+    },
+    "sourceTypes": {
+      "customer-story": "قصة العملاء",
+      "case-study": "دراسة حالة إفرادية",
+      "job-posting": "الوظائف",
+      "partner-page": "صفحة الشركاء",
+      "talk": "كلام المؤتمر",
+      "other": "المصدر"
+    },
+    "disclaimer": "مجمعة من مصادر عامة، تم التحقق من آخر {date}- إن الإدراج في القائمة ليس إقرارا، كما أن الوظائف مقربة - تتبع مصدر الدولة الحالية. هل تعرف شركة تنتمي إلى هنا أو شركة يجب إزالتها؟ إقترحها بعلاقة عامة"
+  },
+  "contrib": {
+    "eyebrow": "المساهمة",
+    "title": "شارك شيء مع الأكاديمية",
+    "lead": "اختر ما لديك واملأ بعض الخطوط وارسل أي شخص يقرأ كل مساهمة قبل أن يصبح أي شيء علنياً، والمعتمدون يحسبون نحو رتبتك.",
+    "pick": "ماذا تتشارك؟",
+    "types": {
+      "resource": {
+        "label": "رابطة مفيدة",
+        "hint": "مقال أو فيديو أو أداة أو طبيب يساعدك"
+      },
+      "company": {
+        "label": "شركة",
+        "hint": "واحدة تستخدم CRM Analytics أو استئجارها - مع مصدر عام."
+      },
+      "nominate": {
+        "label": "تسمية شخص",
+        "hint": "شخص يستحق حائط الشهرة يمكن أن يكون أنت"
+      },
+      "lesson": {
+        "label": "إصلاح الدرس أو فكرة",
+        "hint": "شيء خاطئ في درس أو موضوع تريد تغطيته"
+      },
+      "translation": {
+        "label": "إصلاح الترجمة",
+        "hint": "حكم خاطئ في لغتك"
+      }
+    },
+    "f": {
+      "company": "اسم الشركة",
+      "companyKind": "ماذا يظهر المصدر؟",
+      "name": "أسمهم",
+      "link": "Link",
+      "source": "الصلة بين المصادر",
+      "profile": "LinkedIn or website",
+      "title": "العنوان",
+      "role": "إنهم...",
+      "self": "أنا أرشح نفسي",
+      "fix": "اصلح الدرس",
+      "idea": "اقتراح درس",
+      "whichLesson": "أي درس؟ (الملكية أو الرابط)",
+      "ideaTitle": "عن ماذا يجب أن يكون الدرس؟",
+      "language": "اللغة",
+      "page": "أي صفحة؟",
+      "wrong": "ما تقوله الآن"
+    },
+    "ph": {
+      "company": "e.g. Acme Corp",
+      "source": "وظيفة أو قصة عمل أو دراسة إفرادية CRM Analytics.",
+      "page": "استلموا الصفحة أو عنوانها."
+    },
+    "body": {
+      "resource": "لماذا هو مفيد؟",
+      "company": "ماذا يقول المصدر؟",
+      "nominate": "لماذا يستحقون ذلك؟",
+      "lesson": "صفها",
+      "translation": "ماذا يجب أن يقول"
+    },
+    "bodyHelp": "بعض الجمل كثيرة",
+    "optional": "الاختياري",
+    "roles": {
+      "learner": "Learner",
+      "mentor": "معلم",
+      "creator": "Creator",
+      "contributor": "المساهم"
+    },
+    "send": "إرسال للمراجعة",
+    "reviewed": "يراجعها شخص، عادة في غضون بضعة أيام.",
+    "thanks": "شكراً لكِ، إنه في قائمة المراجعة",
+    "thanksBody": "يمكنك أن تتبع مركزها أسفل وعلى لوحة القيادة الخاصة بك.",
+    "another": "حصة أخرى",
+    "toDashboard": "اذهب إلى لوحتي",
+    "mine": "مساهماتك",
+    "status": {
+      "pending": "قيد الاستعراض",
+      "approved": "الوظائف المعتمدة",
+      "rejected": "غير مقبولة"
+    },
+    "err": {
+      "pick": "إختر ما تتشاركه أولاً",
+      "link": "يضاف رابط يبدأ بالموقع التالي:",
+      "source": "أضف الرابط العام الذي يظهره",
+      "title": "يضاف لقب )٣ شخصيات أو أكثر(.",
+      "why": "أكتب على الأقل جملة (20 شخصية أو أكثر).",
+      "company": "أضف اسم الشركة",
+      "name": "أضف أسمهم",
+      "locale": "اختر اللغة",
+      "page": "قل أي صفحة هي عليه.",
+      "correction": "املأ كل ما تقوله وما يجب أن تقوله",
+      "generic": "هذا لم يمر حاول مرة أخرى"
+    }
+  },
+  "dash": {
+    "examTitle": "استعداد التصديق",
+    "examSummary": "{taken} أفضل الورقات {best}النسبة المئوية {pass}النسبة المئوية"
   }
 }

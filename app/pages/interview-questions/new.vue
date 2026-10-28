@@ -175,7 +175,7 @@ async function send() {
           </UFormField>
           <UFormField
             :label="t('interview.form.company')"
-            :hint="t('submit.optional')"
+            :hint="t('contrib.optional')"
             :help="t('interview.form.companyHelp')"
           >
             <UInput
@@ -186,7 +186,7 @@ async function send() {
           </UFormField>
           <UFormField
             :label="t('interview.form.role')"
-            :hint="t('submit.optional')"
+            :hint="t('contrib.optional')"
           >
             <UInput
               v-model="form.role"

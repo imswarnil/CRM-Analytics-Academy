@@ -53,6 +53,8 @@ There is **no test runner** — `lint` and `typecheck` are the only verification
 ### Static-first constraints
 - Curriculum pages stay prerendered and must not gain fetches that can't run at build time. Dynamic behaviour belongs on `/dashboard`, `/submit`, `/admin`, `/api/**` (`PRIVATE_PATHS` in `nuxt.config.ts`, never prerendered).
 - `nitro.preset: 'cloudflare_module'`; `wrangler.jsonc` serves `.output/public`; only misses reach the Worker. Auth is resolved server-side per request (`server/utils/auth.ts`).
+- ⚠️ **The Worker has no content database.** Any `queryCollection*` that runs on the Worker fails and logs one error *per content row* — that once used 90% of the daily Workers Logs allowance. Content queries are guarded with `import.meta.server && !import.meta.prerender && !import.meta.dev` (app.vue, error.vue, `[...slug].vue`, `interview-questions/[slug].vue`): unknown lesson/question URLs answer 404 before querying. Keep that guard on any new content page. Workers Logs is sampled at 10% (`head_sampling_rate` in `wrangler.jsonc`).
+- **Keep Worker work small.** The session is only fetched when the `crma_signed_in` hint cookie exists (`useAuth().restoreSession()`), so anonymous visitors and crawlers cost no `/api/auth/get-session`; private pages still check every time via the `auth` middleware.
 
 ### LLM surface
 - `scripts/build-search-index.mjs` writes `public/llms.txt` (what the course is, how to take it, every section and lesson **in learning order** with raw links), `public/llms-full.txt` (that plus every lesson's markdown, in order), `public/<locale>/llms.txt`, `public/raw/**` and the ⌘K search + MCP indexes. Sections come from the folder order — nothing to register.
@@ -62,14 +64,24 @@ There is **no test runner** — `lint` and `typecheck` are the only verification
 English is the source of truth; the other 11 locales are generated **on this machine** and committed.
 - `scripts/libretranslate.sh` — installs LibreTranslate (Python 3.11 via `uv`) and its models into `.libretranslate/` (gitignored), and `run`s a command with the server on 127.0.0.1:5055, stopping it afterwards.
 - `pnpm translate` = `libretranslate.sh run -- node scripts/translate.mjs`; `pnpm build` calls it first unless `CI` or `SKIP_TRANSLATE` is set. CI never translates.
-- `scripts/translate.mjs` (driver, incremental), `scripts/markdown-protect.mjs` (**read its header before touching it**), `scripts/i18n.config.mjs` (locale map: `zh-Hans`, `pt-BR`), `.translation-manifest.json` (hashes of the English source).
-- Hand-fix a bad translation by editing the locale file; it is only regenerated when its English source changes.
+- `scripts/translate.mjs` (driver, incremental), `scripts/markdown-protect.mjs` (**read its header before touching it**), `scripts/i18n.config.mjs` (locale map: `zh-Hans`, `pt`), `.translation-manifest.json` (hashes of the English source).
+- **Never hand-edit a translation.** Everything not English comes from LibreTranslate; fix the English source and re-run. `options` lists (quiz/exam answers) are translated too.
+
+### Interview questions, practice exams, companies (2026-10-28)
+- **Interview Q&A are content**: `content/<locale>/interview-questions/<slug>.md` (collection `interview`; frontmatter `title` = the question, `description`, `type`, `topic` = section slug, `level`, optional `company`/`role`, `source`). The body is the model answer. English is written; the build translates. `/interview-questions` groups by course section (in course order) with type/level/company filters; `[slug].vue` has QAPage JSON-LD. Upvotes are `app.interview_upvote` (by slug), counts via cached `GET /api/interview/votes`.
+- Community questions are submitted at `/interview-questions/new` → `app.interview_question` (pending) → approved in /admin → `scripts/pull-interview.mjs` (run by `prebuild` locally) writes them as English files → translated → pushed.
+- **Exams**: `content/<locale>/exam/<domain>.md` (collection `exam`, a `quiz[]` of `{ id, q, options, answer, topic }` per domain; `options` is translated). `build-search-index.mjs` writes `public/exam/<locale>.json` (gitignored), which `certification/[paper].vue` fetches. Paper rules live in `app/utils/exam.ts`. While a paper runs the page is in **focus mode** (`useState('exam-focus')`): no header, footer, promos or pop-ups; full-screen when allowed; leaving asks first.
+- **Companies**: `app/data/companies.json` — only companies with a public source that names CRM Analytics/Tableau CRM/Einstein Analytics (customer story, case study, partner page, job post). Never add one without a source. Suggestions arrive as `/submit?type=company` (kind `resource`, `details.type = company`).
+
+### Bot protection
+`server/utils/guard.ts`: honeypot (`website` field), per-action rate limit keyed by a SHA-256 of action + client address (`app.rate_hit`, no addresses stored), and **Cloudflare Turnstile** (`<HumanCheck>` on sign-in/sign-up; token in `x-human-token`, verified in the auth proxy). Turnstile is off until `NUXT_PUBLIC_TURNSTILE_SITE_KEY` (repo variable `TURNSTILE_SITE_KEY` for CI builds) and the Worker secret `TURNSTILE_SECRET_KEY` are set. Comments, submissions, interview posts and demo sign-in are rate limited.
 
 ### Accounts, dashboard, analytics, admin
 - **Schema**: `server/db/schema.sql` (idempotent: `progress`, `quiz_attempt`, `bookmark`, `comment`, `submission`, `demo_account`, `page_view`, `event`, view `user_points`). Apply with `psql "$DATABASE_URL" -f server/db/schema.sql`. `cleanup-2026-10-22.sql` was the one-off drop of the retired tables. Neon Auth's `neon_auth."user"` uses camelCase columns (`"createdAt"`, `"emailVerified"`).
 - **Dashboard** (`app/pages/dashboard.vue`) reads one request, `GET /api/progress` (completions, bookmarks, best quizzes, activity days → streak, points/rank, top-5 leaderboard), shared through `useProgress()`. The weekly goal is per-browser (localStorage); badges are computed client-side.
 - **Analytics**: `app/plugins/analytics.client.ts` beacons page views, visible time on page and clicks on any `/sign-in` or `/sign-up` link to `POST /api/collect`; `useNuxtApp().$track(name, label)` records milestones (`sign_up`, `sign_in`, `lesson_complete`, `quiz_submit`, `bookmark`, …; allow-list in `collect.post.ts`). Our analytics sets no cookies and stores no IPs; bots are dropped. No Google Analytics or Clarity.
-- **Admin**: `/admin` (Overview · Analytics · Users · Submissions · Comments) for **one account only**: `ADMIN_EMAIL = 'imswarnil@gmail.com'` in `server/utils/admin.ts` (`requireAdmin` → 404 for anyone else). No roles table.
+- **Conversion**: /admin → Analytics shows a per-visitor funnel (visitors → engaged → sign-up click → signed up → learning action) and sign-up rate by source and by landing page. A `?utm_source=` on any link overrides the referrer (stored as `utm:<source>`); ShareBar tags its links `utm_source=<network>&utm_medium=share`.
+- **Admin**: `/admin` (Overview · Analytics · Users · Submissions · Interview Q&A · Comments; sidebar with pending counts, keys 1–6, links to Cloudflare/Neon/AdSense/Search Console/YouTube/Actions) for **one account only**: `ADMIN_EMAIL = 'imswarnil@gmail.com'` in `server/utils/admin.ts` (`requireAdmin` → 404 for anyone else). No roles table.
 - Comments: one level of replies, keyed by locale-stripped path. Submissions: images to R2 (`MEDIA` binding), reviewed in `/admin`.
 
 ### Community, reach and sharing (2026-10-26)
@@ -77,7 +89,7 @@ English is the source of truth; the other 11 locales are generated **on this mac
 - **Regional leaderboard**: `GET /api/leaderboard?scope=global|region|country` — a learner's country is where they most often read from (`app.page_view`). Dashboard tabs.
 - **Project, live**: `GET /api/stats` (public aggregates, cached 10 min) → `HomeReachSection` (learners, completions, readers, countries, readers ranked by region).
 - **Wall of Fame**: curated `app/data/wall-of-fame.ts` + approved `nomination` submissions (`GET /api/wall`), merged client-side by `useWall()`; on the home page (`HomeWallSection`) and `/wall-of-fame`. Nominations come through `/submit?type=nominate` (`NOMINATE_PATH`) and are approved in /admin → Submissions.
-- **Sharing**: `ShareBar` (LinkedIn, X, WhatsApp, native, copy) on lessons and the wall; "Share my progress" on the dashboard. Shared links carry `utm_source=share&utm_medium=<network>`; clicks are `share` events.
+- **Sharing**: `ShareBar` (LinkedIn, X, WhatsApp, native, copy) on lessons and the wall; "Share my progress" on the dashboard. Shared links carry `utm_source=<network>&utm_medium=share`; clicks are `share` events.
 
 ### Theming & branding — "Blueprint"
 Engineering-drawing language: paper/ink, graph paper, crosshair crop marks, rulers, hard offset shadows, square corners, mono eyebrows ("FIG. 01 —", "SHEET 02 /"). Keep new UI in that language.
@@ -99,7 +111,7 @@ Recorded lessons (face + screen) use `pnpm obs:install` (OBS profile + scene col
 
 ## Environment variables
 
-Local values in a **gitignored `.env`** (`.env.example` documents the shape). Production secrets live on the Worker (`wrangler secret put`): `DATABASE_URL`, `NEON_AUTH_*`, `DEMO_USER_*`, `STUDIO_GITHUB_*`, optional `NEWSLETTER_GHOST_URL`.
+Local values in a **gitignored `.env`** (`.env.example` documents the shape). Production secrets live on the Worker (`wrangler secret put`): `DATABASE_URL`, `NEON_AUTH_*`, `DEMO_USER_*`, `STUDIO_GITHUB_*`, `TURNSTILE_SECRET_KEY`, optional `NEWSLETTER_GHOST_URL`.
 
 ## Conventions
 - Internal links: `useLocalePath()` / `localePath('/path')`. New user-facing strings go in `i18n/locales/en.json` **only**; `pnpm translate` fills the other 11 (`fallbackLocale` is `en`). `/admin` is English-only and not translated.

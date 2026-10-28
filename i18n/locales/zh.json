@@ -23,7 +23,8 @@
     "youtube": "CRM Analytics YouTube上的学院",
     "wallOfFame": "名人墙",
     "certification": "考试",
-    "interview": "面谈"
+    "interview": "面谈",
+    "companies": "公司"
   },
   "home": {
     "modules": {
@@ -296,245 +297,6 @@
     "benefitFree": "永远自由——每一个教训",
     "verifyTitle": "检查您的收件箱",
     "verifyDesc": "我们发送了一个确认链接 {email}打开,然后签字"
-  },
-  "submit": {
-    "title": "对学院的贡献",
-    "subtitle": "盘片、资源、课程修正、翻译和 SAQL所有东西在出现前都由一个人审查 批准的工作取决于你的级别",
-    "kindResource": "一个资源",
-    "kindShowcase": "仪表板",
-    "kindIdea": "一个教训或想法",
-    "titleLabel": "标题",
-    "urlLabel": "链接",
-    "descLabel": "为什么有用?",
-    "submit": "提交供审查",
-    "sentTitle": "谢谢——这是在审查排队。",
-    "sentBody": "情况如下。 批准的捐款将记入你名下 并计入你的官阶",
-    "another": "做点别的",
-    "mine": "你的意见",
-    "pending": "待审查",
-    "approved": "核定数",
-    "rejected": "不接受",
-    "none": "你的第一个贡献将随审查状况而出现。",
-    "stepKind": "类型",
-    "stepDetails": "细节",
-    "stepMedia": "KPIs 软件 & 媒体",
-    "stepReview": "审查",
-    "next": "下一个 {step}",
-    "back": "回来",
-    "optional": "可选",
-    "photosLabel": "截图——最多 {max}",
-    "uploading": "正在上传...",
-    "reviewHint": "这正是将送交审查的内容。",
-    "sheet": "第07页/贡献",
-    "received": "实收",
-    "mineTitle": "你送来的东西",
-    "reviewNote": "说明: {note}",
-    "kindTranslation": "翻译修正",
-    "kindSnippet": "页:1 SAQL 片断",
-    "blurbShowcase": "对于展示:你是如何准备数据,来源,每一个 KPI 和如何计算它。",
-    "blurbResource": "网页、课程、工具、博客或社区,",
-    "blurbIdea": "某种错误的教训,或应该存在的教训。",
-    "blurbTranslation": "用你语言读错的机器翻译",
-    "blurbSnippet": "用它运行的数据集解决一个真实问题的查询.",
-    "short": {
-      "dashboard": "仪表板",
-      "resource": "资源",
-      "lesson": "教训",
-      "translation": "翻译",
-      "snippet": "片断"
-    },
-    "stepDashboard": "电线板",
-    "stepData": "数据",
-    "stepLink": "链接",
-    "stepLesson": "课程",
-    "stepProposal": "提议",
-    "stepWhere": "何处",
-    "stepCorrection": "更正",
-    "stepSnippet": "片断",
-    "stepContext": "背景情况",
-    "stepOf": "步骤 {current} 页:1 {total} . . . . . . . {label}",
-    "stepsCount": "{n} 步骤",
-    "add": "添加",
-    "addSource": "添加来源",
-    "removeSource": "删除源",
-    "searchLessons": "搜索课程...",
-    "errGeneric": "出问题了",
-    "errImageSize": "图像封顶为每张4 MB.",
-    "errUpload": "上传失败——粘贴图像 URL 相反。",
-    "errImageUrl": "图像链接必须始于 http:// 或 https://",
-    "problems": {
-      "dashName": "给仪表盘一个名字(3+字符).",
-      "writeupUrl": "写入链接必须从http://或https://开始",
-      "creditUrl": "您的链接必须从 http:// 或 https:// 开始",
-      "prep": "描述您如何准备数据( 20+ 字符) 。",
-      "source": "添加至少一个数据源 。",
-      "kpi": "至少添加一个 KPI。 。 。",
-      "kpiFields": "每个 KPI 需要一个名称和如何计算。",
-      "resourceUrl": "粘贴链接, 从 http:// 或 https:// 开始",
-      "resourceTitle": "给它一个标题(3+字符).",
-      "resourceWhy": "说明为什么它有用(20+字符).",
-      "lessonPick": "选课.",
-      "ideaTitle": "给这个教训一个标题。",
-      "fixBody": "描述什么是错的(20+字符).",
-      "ideaBody": "大纲课(20+人物).",
-      "sourceUrls": "源链接必须从http://或https://开始",
-      "translationWhere": "选语言与课.",
-      "translationText": "粘贴错误的文本和您的更正。",
-      "snippetTitle": "给片段一个标题。",
-      "snippetSaql": "粘贴 SAQL。 。 。",
-      "snippetWhat": "说它做什么(20+字符).",
-      "nomName": "添加个人的全名。",
-      "nomLink": "添加 LinkedIn profile 或网站, 这样我们就可以信任它们 。",
-      "nomUrls": "链接必须从http://或https://开始.",
-      "nomWhy": "在一两句里告诉我们他们为社区做了什么(至少30个人物)."
-    },
-    "options": {
-      "domains": {
-        "sales": "销售",
-        "service": "服务",
-        "marketing": "营销",
-        "finance": "财务",
-        "other": "其他人员"
-      },
-      "difficulties": {
-        "beginner": "初学者",
-        "intermediate": "中级",
-        "advanced": "高级"
-      },
-      "prepTools": {
-        "recipe": "食谱",
-        "dataflow": "Dataflow",
-        "sync": "数据同步/ 连接器",
-        "csv": "CSV 上传",
-        "api": "外部数据 API"
-      },
-      "prepSteps": {
-        "joins": "加入/扩充",
-        "filters": "过滤器",
-        "formulas": "公式字段",
-        "aggregations": "合计",
-        "append": "附录",
-        "bucketing": "击球",
-        "dates": "处理日期",
-        "dedupe": "复制"
-      },
-      "sourceTypes": {
-        "sfObject": "Salesforce 对象",
-        "csv": "CSV",
-        "connector": "外部连接器",
-        "snowflake": "雪花",
-        "database": "其他数据库",
-        "other": "其他人员"
-      },
-      "techniques": {
-        "bindings": "约束",
-        "saql": "SAQL",
-        "compareTables": "比较表格",
-        "windowing": "窗口",
-        "predicates": "安全前提",
-        "faceting": "面对",
-        "dynamicFilters": "动态过滤器",
-        "actions": "行动",
-        "discovery": "Einstein Discovery",
-        "mobile": "移动布局"
-      },
-      "categories": {
-        "docs": "文档",
-        "learning": "学习",
-        "books": "书籍",
-        "blogs": "博客",
-        "tools": "工具",
-        "community": "社区"
-      }
-    },
-    "dash": {
-      "name": "挂板名称",
-      "namePh": "按区段分列的输油管覆盖率",
-      "domain": "商业领域",
-      "difficulty": "困难",
-      "writeup": "公开写作",
-      "creditName": "功劳——你的名字",
-      "creditNamePh": "应该出现在展示中",
-      "creditUrl": "功劳——你的链接",
-      "tools": "与",
-      "prepSteps": "筹备步骤",
-      "prep": "你怎么准备的?",
-      "prepHelp": "加入和为什么,你过滤出来的东西, 任何让你惊讶的东西。",
-      "prepPh": "利用AccountId增加机会;2年以上的封闭式损失被过滤掉;.",
-      "grain": "谷物",
-      "grainHelp": "最终数据集的一行是什么.",
-      "grainPh": "每个机会每周一行",
-      "sources": "数据来源",
-      "rowsPh": "行( 可选)",
-      "kpis": "KPIs——名称,计算方法,为何重要.",
-      "kpiN": "KPI {n}",
-      "removeKpi": "删除 KPI",
-      "kpiNamePh": "赢率",
-      "kpiFormulaPh": "总数(IsWon)/数()——超过关闭的机会,截止日期",
-      "kpiWhyPh": "为何重要(可选)",
-      "addKpi": "添加一个 KPI",
-      "techniques": "所用技术",
-      "removeShot": "删除截图",
-      "dropShot": "丢弃截图",
-      "mediaUrlPh": "...或粘贴图像 URL"
-    },
-    "res": {
-      "linkHelp": "粘贴——我们获取标题,描述和标志.",
-      "category": "类别",
-      "what": "这是什么",
-      "whyHelp": "何人应读之,其能出之."
-    },
-    "les": {
-      "fix": "补习",
-      "propose": "提出教训",
-      "which": "哪门课?",
-      "ideaTitle": "拟议课程标题",
-      "ideaTitlePh": "递增数据同步而不完全重载",
-      "wrong": "发生什么事了?",
-      "outline": "大纲",
-      "wrongHelp": "引经而说其应.",
-      "outlineHelp": "它教什么, 以什么顺序, 和学习者建立。",
-      "sources": "来源——可选"
-    },
-    "tr": {
-      "language": "语言",
-      "languagePh": "选一个语言",
-      "lesson": "课程",
-      "wrong": "现在的文字",
-      "suggested": "它应该说什么",
-      "note": "说明",
-      "notePh": "比如说\"Grain\"是这里的艺术术语 不是小麦"
-    },
-    "snip": {
-      "titlePh": "按财政季度分列的共计",
-      "what": "这有什么用?",
-      "dataset": "数据集",
-      "shape": "数据集形状",
-      "shapeHelp": "查询需要的字段,有类型。"
-    },
-    "review": {
-      "summary": "目 录",
-      "domainLevel": "域 一级",
-      "rows": "{n} 行数",
-      "kpis": "KPIs 软件",
-      "screenshots": "截图",
-      "links": "链接"
-    },
-    "kindNominate": "点名",
-    "blurbNominate": "博客、创作者、作者、演讲者或工具制作者, CRM Analytics 社区——为名人墙.",
-    "stepPerson": "个人",
-    "stepWhy": "为什么",
-    "nom": {
-      "name": "他们的名字",
-      "role": "他们做什么",
-      "linkHelp": "他们的LinkedIn profile, 所以极性连接到他们。",
-      "url": "网站、博客或频道",
-      "photo": "图片链接",
-      "photoHelp": "只有一张他们自己出版的照片(例如他们的剖面图片链接). 如果没有一个,则显示一个绘制的形状。",
-      "why": "为什么他们属于墙上?",
-      "whyHelp": "他们写了什么 造什么 教什么 帮助你或其他人?",
-      "self": "我提名我自己"
-    }
   },
   "quiz": {
     "title": "检查你的知识",
@@ -1371,5 +1133,126 @@
     "unanswered": "未回答",
     "study": "学习 {topic}",
     "loading": "正在装入纸张..."
+  },
+  "companies": {
+    "eyebrow": "公司",
+    "seoTitle": "使用和雇用 Salesforce CRM Analytics",
+    "seoDesc": "{n} 公司 Salesforce CRM Analytics,雇用 CRM Analytics 开发者、顾问和建筑师,或 CRM Analytics 实践——每个都有公共来源。",
+    "sheet": "Sheet 07 / Companys → (中文(简体) ). {n} 存档",
+    "title": "谁使用和雇用 CRM Analytics",
+    "lead": "运营公司 CRM Analytics雇佣知道的人 或为客户建造 它所依赖的每一个公共来源的条目链接。",
+    "suggest": "建议公司",
+    "prepare": "准备面谈",
+    "filter": "过滤公司",
+    "all": "全体",
+    "kinds": {
+      "uses": "用起来",
+      "hires": "聘用",
+      "partner": "咨询伙伴"
+    },
+    "sourceTypes": {
+      "customer-story": "客户故事",
+      "case-study": "个案研究",
+      "job-posting": "职位",
+      "partner-page": "合作伙伴页面",
+      "talk": "会话",
+      "other": "来源"
+    },
+    "disclaimer": "由公共来源汇编, 上次检查 {date}列名不是认可,职位公布是贴近的——沿用目前状况的来源。 知道这里的一家公司,还是应该拆掉的? 与大众连结建议."
+  },
+  "contrib": {
+    "eyebrow": "贡献",
+    "title": "与学院分享一些东西",
+    "lead": "选什么,填写几行,发送。 一个人在一切公之于众之前 都会读到所有的贡献 被批准的人就数到你的级别",
+    "pick": "你们分享什么?",
+    "types": {
+      "resource": {
+        "label": "一个有用的链接",
+        "hint": "一篇文章,视频,工具或医生帮助你。"
+      },
+      "company": {
+        "label": "一个公司",
+        "hint": "一个使用 CRM Analytics 或为此雇用人员——有公共来源。"
+      },
+      "nominate": {
+        "label": "点名",
+        "hint": "一个值得名人之墙的人 可能就是你们"
+      },
+      "lesson": {
+        "label": "一个教训或想法",
+        "hint": "课上有些不对劲,或者你想讨论的话题"
+      },
+      "translation": {
+        "label": "翻译修正",
+        "hint": "用你语言读错的句子"
+      }
+    },
+    "f": {
+      "company": "公司名称",
+      "companyKind": "源头显示什么?",
+      "name": "他们的名字",
+      "link": "链接",
+      "source": "源链接",
+      "profile": "链接或网站",
+      "title": "标题",
+      "role": "他们是...",
+      "self": "我提名我自己",
+      "fix": "补习",
+      "idea": "给点教训吧",
+      "whichLesson": "哪门课? (标题或链接)",
+      "ideaTitle": "教训应该是什么?",
+      "language": "语言",
+      "page": "哪页?",
+      "wrong": "现在写什么?"
+    },
+    "ph": {
+      "company": "例如,Acme公司",
+      "source": "工作帖子、客户故事或个案研究 CRM Analytics。 。 。",
+      "page": "粘贴页面链接或标题。"
+    },
+    "body": {
+      "resource": "为什么有用?",
+      "company": "线人怎么说?",
+      "nominate": "他们为什么应该这样?",
+      "lesson": "说吧",
+      "translation": "它应该说什么"
+    },
+    "bodyHelp": "几句无量.",
+    "optional": "可选",
+    "roles": {
+      "learner": "学习者",
+      "mentor": "辅导员",
+      "creator": "创建者",
+      "contributor": "贡献者"
+    },
+    "send": "发送审查",
+    "reviewed": "由一个人审查,通常在几天之内。",
+    "thanks": "谢谢——在评论排队.",
+    "thanksBody": "你可以跟踪它的状态 在你的仪表板上",
+    "another": "分享另一个",
+    "toDashboard": "去我的仪表盘",
+    "mine": "你的贡献",
+    "status": {
+      "pending": "审查中",
+      "approved": "核定数",
+      "rejected": "不接受"
+    },
+    "err": {
+      "pick": "先选择你分享的东西",
+      "link": "添加从 https:// 开始的链接",
+      "source": "添加显示它的公共链接.",
+      "title": "添加标题( 3 个字符或更多) 。",
+      "why": "至少写一句(20个字符或以上).",
+      "company": "增加公司名称.",
+      "name": "增其名号.",
+      "locale": "选语言.",
+      "page": "说在哪个页面上。",
+      "correction": "兼填其言及应说法.",
+      "generic": "那没有通过。 请再试一次"
+    }
+  },
+  "dash": {
+    "examTitle": "核证准备情况",
+    "examSummary": "{taken} · 最佳 {best}* 通过标记 {pass}百分比(%)"
   }
 }

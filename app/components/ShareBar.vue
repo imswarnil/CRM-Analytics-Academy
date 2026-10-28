@@ -23,7 +23,7 @@ onMounted(() => {
   canNative.value = typeof navigator !== 'undefined' && 'share' in navigator
 })
 
-const link = (medium: string) => `${SITE.url}${props.path || route.path}?utm_source=share&utm_medium=${medium}`
+const link = (medium: string) => `${SITE.url}${props.path || route.path}?utm_source=${medium}&utm_medium=share`
 const body = computed(() => props.text || props.title)
 
 function open(network: 'linkedin' | 'x' | 'whatsapp') {

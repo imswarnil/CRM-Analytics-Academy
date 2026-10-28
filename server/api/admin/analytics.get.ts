@@ -59,6 +59,38 @@ export default defineEventHandler(async (event) => {
     `
   ])
 
+  // Conversion. Per visitor in the window: engaged (2+ views or 30 s+),
+  // clicked sign-up, signed up, and took a learning action. Sources and
+  // landing pages come from each visitor's first view in the window.
+  const perVisitor = `
+    v as (select visitor, count(*) as n, sum(duration_ms) as d from app.page_view where created_at >= $1 group by visitor),
+    e as (select visitor,
+                 bool_or(name = 'sign_up_click') as clicked,
+                 bool_or(name = 'sign_up') as signed_up,
+                 bool_or(name in ('lesson_complete', 'quiz_submit', 'exam_start', 'exam_finish')) as learned
+          from app.event where created_at >= $1 group by visitor),
+    f as (select distinct on (visitor) visitor, path, referrer from app.page_view where created_at >= $1 order by visitor, created_at)`
+  const [conv, bySource, byLanding] = await Promise.all([
+    sql.query(`with ${perVisitor}
+      select count(*)::int as visitors,
+             count(*) filter (where v.n >= 2 or v.d >= 30000)::int as engaged,
+             count(*) filter (where e.clicked)::int as clicked,
+             count(*) filter (where e.signed_up)::int as signed_up,
+             count(*) filter (where e.learned)::int as learned
+      from v left join e using (visitor)`, [since]),
+    sql.query(`with ${perVisitor}
+      select coalesce(nullif(regexp_replace(coalesce(f.referrer, ''), '^https?://(www\\.)?([^/]+).*$', '\\2'), ''), 'direct') as key,
+             count(*)::int as visitors, count(*) filter (where e.signed_up)::int as signups,
+             count(*) filter (where e.learned)::int as learners
+      from f left join e using (visitor) group by 1 order by visitors desc limit 12`, [since]),
+    sql.query(`with ${perVisitor}
+      select f.path as key, count(*)::int as visitors, count(*) filter (where e.signed_up)::int as signups,
+             count(*) filter (where e.learned)::int as learners
+      from f left join e using (visitor) group by 1 order by visitors desc limit 15`, [since])
+  ])
+  const c = conv[0] ?? {}
+  const convRows = (list: Record<string, unknown>[]) => list.map(r => ({ key: String(r.key), visitors: Number(r.visitors), signups: Number(r.signups), learners: Number(r.learners) }))
+
   // Bounce: sessions with exactly one view.
   const [bounce] = await sql`
     select coalesce(round(100.0 * count(*) filter (where n = 1) / nullif(count(*), 0)), 0)::int as pct
@@ -90,6 +122,15 @@ export default defineEventHandler(async (event) => {
       liveNow: Number(live[0]?.n ?? 0)
     },
     series: dense,
+    funnel: [
+      { step: 'visitors', count: Number(c.visitors ?? 0) },
+      { step: 'engaged', count: Number(c.engaged ?? 0) },
+      { step: 'clicked', count: Number(c.clicked ?? 0) },
+      { step: 'signed_up', count: Number(c.signed_up ?? 0) },
+      { step: 'learned', count: Number(c.learned ?? 0) }
+    ],
+    conversionBySource: convRows(bySource),
+    conversionByLanding: convRows(byLanding),
     pages: rows(pages),
     countries: rows(countries),
     devices: rows(devices),

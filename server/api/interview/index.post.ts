@@ -6,6 +6,7 @@ const RATE = new Map<string, { count: number, resetAt: number }>()
 
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
+  await rateLimit(event, 'interview', 10, 60)
   if (await isDemoUser(user.id)) throw createError({ statusCode: 403, statusMessage: 'The demo account cannot submit.' })
   const now = Date.now()
   const seen = RATE.get(user.id)

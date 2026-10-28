@@ -4,7 +4,7 @@
  * 105 minutes, 68% to pass, weighted across six domains. Check the current
  * Trailhead exam guide before relying on the numbers; they live only here.
  *
- * The questions are the Academy's own (app/data/exam-bank.json, extracted from
+ * The questions are the Academy's own (content/en/exam/*.md, translated by the build; extracted from
  * the course's quizzes) — original practice material, never real exam items.
  * Papers are built deterministically, so "Paper 3" is always the same paper.
  */
@@ -16,7 +16,6 @@ export interface BankQuestion {
   domain: ExamDomain
   topic: string
   topicTitle: string
-  lesson: string
 }
 
 export const EXAM = {

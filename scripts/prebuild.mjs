@@ -2,6 +2,7 @@
 /**
  * Everything `pnpm build` does before `nuxt build`:
  *
+ *   0. pull       — approved community interview questions → English files
  *   1. translate  — only on your machine: starts the local LibreTranslate in
  *                   .libretranslate/, translates whatever English changed into
  *                   the other 11 locales, stops it. Skipped in CI (the
@@ -22,6 +23,12 @@ const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const run = (cmd, args) => {
   const r = spawnSync(cmd, args, { cwd: ROOT, stdio: 'inherit' })
   if (r.status !== 0) process.exit(r.status ?? 1)
+}
+
+// Approved community interview questions become English source files first,
+// so the translation below covers them (needs DATABASE_URL; never in CI).
+if (!process.env.CI && existsSync(path.join(ROOT, '.env'))) {
+  run('node', ['--env-file=.env', 'scripts/pull-interview.mjs'])
 }
 
 if (process.env.CI || process.env.SKIP_TRANSLATE) {

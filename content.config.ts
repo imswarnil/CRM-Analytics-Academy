@@ -27,6 +27,44 @@ export default defineContentConfig({
       })
     }),
 
+    // The interview question bank, one file per question, per locale:
+    // content/<locale>/interview-questions/<slug>.md. English is written (or
+    // pulled from approved community submissions by scripts/pull-interview.mjs);
+    // the other locales are translated by the build like lessons. The body is
+    // the model answer.
+    interview: defineCollection({
+      type: 'page',
+      source: '*/interview-questions/*.md',
+      schema: z.object({
+        type: z.enum(['conceptual', 'technical', 'scenario', 'behavioral', 'saql']).default('conceptual'),
+        topic: z.string(),
+        level: z.enum(['junior', 'mid', 'senior']).default('mid'),
+        company: z.string().optional(),
+        role: z.string().optional(),
+        source: z.enum(['academy', 'community']).default('academy')
+      })
+    }),
+
+    // Certification practice questions, one file per exam domain, per locale:
+    // content/<locale>/exam/<domain>.md. Translated by the build (q and
+    // options); scripts/build-search-index.mjs writes public/exam/<locale>.json
+    // for the exam runner.
+    exam: defineCollection({
+      type: 'data',
+      source: '*/exam/*.md',
+      schema: z.object({
+        title: z.string(),
+        domain: z.string(),
+        quiz: z.array(z.object({
+          id: z.string(),
+          q: z.string(),
+          options: z.array(z.string()),
+          answer: z.number().int(),
+          topic: z.string()
+        }))
+      })
+    }),
+
     // The people registry: instructors, the bloggers and creators whose work
     // lessons embed, and community contributors. One YAML file per person,
     // content/people/<slug>.yml; lessons name their authors by that slug
@@ -59,7 +97,7 @@ export default defineContentConfig({
       // and are excluded so they aren't ingested twice.
       source: {
         include: '**',
-        exclude: ['resources/**', 'people/**']
+        exclude: ['resources/**', 'people/**', '*/interview-questions/**', '*/exam/**']
       },
       schema: z.object({
         // A section page standing in for lessons not published yet. It is in

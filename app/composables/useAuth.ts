@@ -20,6 +20,12 @@ export function useAuth() {
   const user = useState<AuthUser | null>('auth-user', () => null)
   const pending = useState('auth-pending', () => false)
 
+  // A first-party, non-secret hint that this browser has signed in. Pages
+  // only ask the Worker for a session when it is present, so anonymous
+  // visitors and crawlers never cost a request. The real session cookie is
+  // httpOnly; this one carries nothing but "1".
+  const hint = useCookie<string | null>('crma_signed_in', { maxAge: 60 * 60 * 24 * 30, sameSite: 'lax', path: '/' })
+
   async function fetchSession() {
     try {
       const res = await $fetch<{ user?: AuthUser }>('/api/auth/get-session')
@@ -27,14 +33,16 @@ export function useAuth() {
     } catch {
       user.value = null
     }
+    hint.value = user.value ? '1' : null
     return user.value
   }
 
-  async function signIn(email: string, password: string) {
+  async function signIn(email: string, password: string, humanToken = '') {
     pending.value = true
     try {
       await $fetch('/api/auth/sign-in/email', {
         method: 'POST',
+        headers: humanToken ? { 'x-human-token': humanToken } : undefined,
         body: { email, password }
       })
       useNuxtApp().$track?.('sign_in')
@@ -44,11 +52,12 @@ export function useAuth() {
     }
   }
 
-  async function signUp(email: string, password: string, name: string) {
+  async function signUp(email: string, password: string, name: string, humanToken = '') {
     pending.value = true
     try {
       await $fetch('/api/auth/sign-up/email', {
         method: 'POST',
+        headers: humanToken ? { 'x-human-token': humanToken } : undefined,
         body: { email, password, name }
       })
       useNuxtApp().$track?.('sign_up')
@@ -78,8 +87,14 @@ export function useAuth() {
       // UI signed in after the user asked to leave is the worse failure.
     } finally {
       user.value = null
+      hint.value = null
       pending.value = false
     }
+  }
+
+  /** The session, but only for a browser that has signed in before. */
+  async function restoreSession() {
+    if (hint.value) await fetchSession()
   }
 
   return {
@@ -87,6 +102,7 @@ export function useAuth() {
     pending,
     isSignedIn: computed(() => Boolean(user.value)),
     fetchSession,
+    restoreSession,
     signIn,
     signUp,
     signInAsDemo,

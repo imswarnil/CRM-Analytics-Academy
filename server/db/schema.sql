@@ -126,8 +126,9 @@ create table if not exists app.event (
 );
 create index if not exists event_time_idx on app.event (created_at desc, name);
 
--- The interview question bank: the Academy's own (source 'academy', seeded
--- from server/db/seed/interview-questions.json by scripts/seed-interview.mjs)
+-- Community interview questions awaiting review. The published bank is
+-- content/en/interview-questions/*.md; approved rows here are written there
+-- by scripts/pull-interview.mjs (source 'academy' rows are the old seed)
 -- and community submissions (source 'community', pending until approved in
 -- /admin). The answer is markdown.
 create table if not exists app.interview_question (
@@ -152,12 +153,16 @@ create table if not exists app.interview_question (
 create index if not exists interview_status_idx on app.interview_question (status, created_at desc);
 create index if not exists interview_topic_idx on app.interview_question (topic, type);
 
-create table if not exists app.interview_vote (
-  user_id     text   not null,
-  question_id bigint not null references app.interview_question(id) on delete cascade,
-  created_at  timestamptz not null default now(),
-  primary key (user_id, question_id)
+-- Upvotes on interview questions, keyed by the question's slug (questions
+-- live in content files; community ones also have a row above).
+drop table if exists app.interview_vote;
+create table if not exists app.interview_upvote (
+  user_id    text not null,
+  slug       text not null check (slug ~ '^[a-z0-9-]{3,100}$'),
+  created_at timestamptz not null default now(),
+  primary key (user_id, slug)
 );
+create index if not exists interview_upvote_slug_idx on app.interview_upvote (slug);
 
 -- Certification practice: one row per finished practice paper.
 create table if not exists app.exam_attempt (
@@ -208,3 +213,11 @@ from neon_auth."user" u
 left join lesson_points  l on l.user_id = u.id::text
 left join quiz_points    q on q.user_id = u.id::text
 left join contrib_points c on c.user_id = u.id::text;
+
+-- Rate limiting for public write endpoints (server/utils/guard.ts). The key is
+-- a SHA-256 of action + client address, so no address is stored.
+create table if not exists app.rate_hit (
+  key text not null,
+  at  timestamptz not null default now()
+);
+create index if not exists rate_hit_key_at_idx on app.rate_hit (key, at);

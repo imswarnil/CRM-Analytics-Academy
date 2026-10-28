@@ -16,6 +16,7 @@ const WINDOW_MS = 60_000
 const MAX_PER_WINDOW = 5
 
 export default defineEventHandler(async (event) => {
+  await rateLimit(event, 'demo', 10, 60)
   const email = process.env.DEMO_USER_EMAIL
   const password = process.env.DEMO_USER_PASSWORD
   const base = process.env.NEON_AUTH_BASE_URL

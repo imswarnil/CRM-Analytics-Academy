@@ -26,6 +26,7 @@ function isActive(item: { to: string, exact?: boolean }) {
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
+  { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },
   { label: t('nav.contribute'), icon: 'i-lucide-git-pull-request', to: localePath('/contribute') },
