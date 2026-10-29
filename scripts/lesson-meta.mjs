@@ -46,7 +46,8 @@ for (const file of (await walk(EN)).sort()) {
   meta[route] = {
     minutes: Math.max(3, Math.round(body.split(/\s+/).filter(Boolean).length / 200 + spoken / 60)),
     type: data.video?.id || data.walkthrough?.shots?.length ? 'video' : 'article',
-    quiz: Array.isArray(data.quiz) && data.quiz.length > 0
+    quiz: Array.isArray(data.quiz) && data.quiz.length > 0,
+    ...(data.access === 'pro' ? { pro: true } : {})
   }
 }
 

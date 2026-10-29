@@ -24,7 +24,8 @@
     "wallOfFame": "Muro da Fama",
     "certification": "Exames",
     "interview": "Entrevistas",
-    "companies": "Empresas"
+    "companies": "Empresas",
+    "pro": "Pro"
   },
   "home": {
     "modules": {
@@ -873,7 +874,10 @@
       "progress": "O seu progresso",
       "dashboard": "Abra o painel",
       "shareText": "Um livre, código aberto Salesforce CRM Analytics curso — todo o currículo em uma página."
-    }
+    },
+    "waiting": "{n} alunos à espera",
+    "notifyMe": "Avisa-me quando abrires.",
+    "notifying": "Estás na lista."
   },
   "lesson": {
     "authors": {
@@ -1253,6 +1257,121 @@
   },
   "dash": {
     "examTitle": "Preparação da certificação",
-    "examSummary": "{taken} papéis tomados · melhor {best}% · marca de passagem {pass}%"
+    "examSummary": "{taken} papéis tomados · melhor {best}% · marca de passagem {pass}%",
+    "proTitle": "Desbloquear as lições Pro",
+    "proBody": "Perspectivas completas, testes e avaliações de exames — e ajuda quando você está preso.",
+    "proActive": "Você é um membro Pro",
+    "proActiveBody": "Cada lição Pro está aberta para você. Obrigado por apoiar a Academia."
+  },
+  "pro": {
+    "eyebrow": "Lição profissional",
+    "tag": "Pro",
+    "lockedTitle": "Esta lição é para membros Pro",
+    "lockedBody": "Você leu a abertura de “{title}O resto — o exame completo, o questionário e as perguntas de entrevista — faz parte do Pro.",
+    "perkLessons": "Cada lição Pro, como cada seção é publicada",
+    "perkExams": "Avaliação completa da resposta em todos os cinco exames práticos",
+    "perkNoPromos": "Nenhum anúncio em qualquer lugar no site",
+    "perkCommunity": "Respostas prioritárias às suas perguntas",
+    "signUpFirst": "Crie sua conta gratuita",
+    "getPro": "Obter Pro",
+    "signUpHint": "Uma conta gratuita já remove todos os anúncios. Pro é um passo depois."
+  },
+  "store": {
+    "eyebrow": "Pro",
+    "seoTitle": "CRM Analytics Pro, treinamento e planos de equipe",
+    "seoDesc": "Afiliação profissional, um bootcamp de certificação, preparação de entrevista, orientação, avaliação de painel e treinamento de equipe para Salesforce CRM Analytics.",
+    "title": "Vá mais longe com CRM Analytics",
+    "lead": "Tudo de graça fica livre. Estes são para quando você quiser mais — as aulas completas do Pro, um caminho treinado para a certificação, ou ajuda para sua equipe.",
+    "youArePro": "Você é um membro Pro",
+    "individual": "Por ti",
+    "business": "Para a tua equipa",
+    "popular": "Mais populares",
+    "talk": "Vamos conversar.",
+    "getIt": "Vai buscá-lo.",
+    "unit": {
+      "perMonth": "/ mês",
+      "once": "uma vez",
+      "perSession": "/ sessão",
+      "perSeat": "/sede/ano"
+    },
+    "requestTitle": "Pedido {product}",
+    "sentTitle": "Obrigado — o seu pedido chegou.",
+    "sentBody": "Swarnil responderá por e-mail dentro de dois dias úteis com os próximos passos.",
+    "needsAccount": "Isso é adicionado à sua conta da Academia, então ela começa com uma conta gratuita (que também desliga todos os anúncios).",
+    "f": {
+      "firstName": "Nome próprio",
+      "lastName": "Sobrenome",
+      "email": "E- mail",
+      "company": "Empresa",
+      "title": "Título da tarefa",
+      "teamSize": "Tamanho da equipe",
+      "phone": "Telefone",
+      "message": "Alguma coisa que devamos saber?"
+    },
+    "send": "Enviar pedido",
+    "noCharge": "Aqui nada é cobrado. Você receberá uma resposta por e-mail."
+  },
+  "products": {
+    "pro": {
+      "name": "Participação profissional",
+      "tagline": "Cada lição Pro, revisão completa do exame, sem anúncios.",
+      "f1": "Todas as lições Pro, conforme cada seção é publicada",
+      "f2": "Avaliação completa de respostas sobre os cinco exames práticos",
+      "f3": "Painéis e receitas para download",
+      "f4": "Sem anúncios em qualquer lugar",
+      "f5": "Respostas prioritárias nas observações"
+    },
+    "bootcamp": {
+      "name": "Bootcamp de certificação",
+      "tagline": "Seis semanas, treinada, para o exame de Consultor.",
+      "f1": "Sessão ao vivo semanal e plano de estudo",
+      "f2": "Trabalhos de prática com feedback",
+      "f3": "Participação profissional incluída",
+      "f4": "Suporte de repetição se você não passar"
+    },
+    "interview-prep": {
+      "name": "Preparação da entrevista",
+      "tagline": "Uma entrevista simulada e comentários escritos.",
+      "f1": "60 minutos de entrevista técnica simulada",
+      "f2": "SAQL e perguntas de cenário de painel",
+      "f3": "Feedback escrito dentro de 48 horas",
+      "f4": "Uma sessão de acompanhamento para praticar novamente"
+    },
+    "mentoring": {
+      "name": "1:1 orientação",
+      "tagline": "Uma hora no que quer que estejas preso.",
+      "f1": "60 minutos sobre o vídeo",
+      "f2": "A tua org, os teus painéis, as tuas perguntas",
+      "f3": "Notas e ligações posteriores"
+    },
+    "dashboard-review": {
+      "name": "Análise do painel",
+      "tagline": "O teu painel, analisado por um especialista.",
+      "f1": "Desempenho, SAQL e revisão vinculativa",
+      "f2": "Verificação de segurança e partilha",
+      "f3": "Um relatório escrito com correções"
+    },
+    "team": {
+      "name": "Formação em equipa",
+      "tagline": "Pro para toda a sua equipe de análise.",
+      "f1": "Pró para cada assento",
+      "f2": "Relatório de progresso dos gestores",
+      "f3": "Um Q vivo&A por trimestre",
+      "f4": "Faturação"
+    },
+    "consulting": {
+      "name": "Execução & consulta",
+      "tagline": "Compilar CRM Analytics com alguém que o fez.",
+      "f1": "Dados, receitas e design de segurança",
+      "f2": "Painéis que seus executivos usarão",
+      "f3": "Einstein Discovery modelos",
+      "f4": "Entrega e treinamento para sua equipe"
+    }
+  },
+  "human": {
+    "working": "Verificando que você é humano...",
+    "done": "Verificado — você é humano",
+    "retry": "A verificação falhou — tente novamente",
+    "wait": "Um momento — ainda verificando se você é humano."
   }
 }

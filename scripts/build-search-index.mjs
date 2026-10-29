@@ -25,6 +25,7 @@
  *
  * Runs before `nuxt build` (scripts/prebuild.mjs).
  */
+import { existsSync, readFileSync } from 'node:fs'
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parse as parseYaml } from 'yaml'
@@ -41,6 +42,16 @@ const OUT = path.join(ROOT, 'public', 'ask-index.json')
 const TEXT_CAP = 2000
 
 const NON_LESSON = new Set(['interview-questions', 'exam'])
+
+// Pro lessons publish only their stub (scripts/gate-content.mjs): the search
+// index, /raw/*.md and llms-full.txt never carry a members-only body.
+const GATED = new Set(existsSync(path.join(ROOT, '.gated-files.json'))
+  ? JSON.parse(readFileSync(path.join(ROOT, '.gated-files.json'), 'utf8'))
+  : [])
+function readLesson(file) {
+  const rel = path.relative(CONTENT_ROOT, file)
+  return readFile(GATED.has(rel) ? path.join(ROOT, '.gated-stubs', rel) : file, 'utf8')
+}
 
 /** Recursive file walk, lessons only. */
 async function walk(dir, out = []) {
@@ -253,7 +264,7 @@ async function buildLlms() {
     } catch { /* no .navigation.yml: keep the folder name */ }
     const lessons = []
     for (const file of files) {
-      const { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
+      const { data, body } = parseFrontmatter(await readLesson(file))
       lessons.push({ route: toRoute(file), title: String(data.title ?? ''), description: String(data.description ?? ''), body })
     }
     const intro = lessons[0]?.description
@@ -301,7 +312,7 @@ async function buildSearch() {
     const llms = []
     for (const rel of rels) {
       const file = own.has(rel) ? path.join(base, rel) : english.get(rel)
-      const { data, body } = parseFrontmatter(await readFile(file, 'utf8'))
+      const { data, body } = parseFrontmatter(await readLesson(file))
       const route = (locale === 'en' ? '' : `/${locale}`) + toRoute(english.get(rel))
       const title = String(data.title ?? '')
       out.push(...toSections(route, title, body))
@@ -390,7 +401,7 @@ async function main() {
   const index = []
 
   for (const file of files) {
-    const raw = await readFile(file, 'utf8')
+    const raw = await readLesson(file)
     const { data, body } = parseFrontmatter(raw)
 
     const { headings, text } = extractText(body)

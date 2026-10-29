@@ -5,9 +5,8 @@ import type { H3Event } from 'h3'
  *
  *   1. honeypot  — a hidden `website` field real people never fill in
  *   2. rate limit — per action and client address (hashed), counted in Neon
- *   3. Turnstile — Cloudflare's invisible challenge, verified server-side.
- *      Active only once TURNSTILE_SECRET_KEY (Worker) and
- *      NUXT_PUBLIC_TURNSTILE_SITE_KEY (build) are set; until then it passes.
+ *   3. captcha   — the site's own proof-of-work check (server/utils/pow.ts),
+ *      solved silently in the browser by <HumanCheck>
  *
  * Call `await guard(event, 'comment', { limit: 10, perMinutes: 60, token })`
  * before doing any work.
@@ -18,17 +17,8 @@ export async function guard(event: H3Event, action: string, opts: { limit: numbe
   await rateLimit(event, action, opts.limit, opts.perMinutes)
 }
 
-export async function verifyHuman(event: H3Event, token?: string | null) {
-  const secret = process.env.TURNSTILE_SECRET_KEY
-  if (!secret) return
-  if (!token) throw createError({ statusCode: 403, statusMessage: 'Please complete the human check.' })
-  const form = new URLSearchParams({ secret, response: token })
-  const ip = clientAddress(event)
-  if (ip) form.set('remoteip', ip)
-  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body: form })
-    .then(r => r.json() as Promise<{ success?: boolean }>)
-    .catch(() => ({ success: false }))
-  if (!res.success) throw createError({ statusCode: 403, statusMessage: 'The human check failed. Please try again.' })
+export async function verifyHuman(_event: H3Event, token?: string | null) {
+  await verifyPow(token)
 }
 
 export async function rateLimit(event: H3Event, action: string, limit: number, perMinutes: number) {

@@ -39,5 +39,6 @@ if (process.env.CI || process.env.SKIP_TRANSLATE) {
   run('bash', ['scripts/libretranslate.sh', 'run', '--', 'node', 'scripts/translate.mjs'])
 }
 
+run('node', ['scripts/gate-content.mjs'])
 run('node', ['scripts/lesson-meta.mjs'])
 run('node', ['scripts/build-search-index.mjs'])

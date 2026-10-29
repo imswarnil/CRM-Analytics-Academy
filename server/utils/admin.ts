@@ -7,9 +7,12 @@ import type { H3Event } from 'h3'
  * client sends.
  */
 export const ADMIN_EMAIL = 'imswarnil@gmail.com'
+// Pinned as well as the email: both must match, so an account re-created with
+// this address (or any auth-provider mix-up over email) can never be admin.
+export const ADMIN_USER_ID = '9ed1bb02-420c-4d52-a2ed-fe5eb9d4f67c'
 
 export function isAdmin(user: SessionUser | null): boolean {
-  return !!user && user.email.toLowerCase() === ADMIN_EMAIL
+  return !!user && user.id === ADMIN_USER_ID && user.email.toLowerCase() === ADMIN_EMAIL
 }
 
 /**

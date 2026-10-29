@@ -24,7 +24,8 @@
     "wallOfFame": "Wall of Fame",
     "certification": "Prüfungen",
     "interview": "Interviews",
-    "companies": "Unternehmen"
+    "companies": "Unternehmen",
+    "pro": "Prod"
   },
   "home": {
     "modules": {
@@ -873,7 +874,10 @@
       "progress": "Ihre Fortschritte",
       "dashboard": "Öffnen Sie Ihr Dashboard",
       "shareText": "Eine freie, Open Source Salesforce CRM Analytics Kurs - der gesamte Lehrplan auf einer Seite."
-    }
+    },
+    "waiting": "{n} Lernende warten",
+    "notifyMe": "Benachrichtigen Sie mich, wenn es öffnet",
+    "notifying": "Du bist auf der Liste"
   },
   "lesson": {
     "authors": {
@@ -1253,6 +1257,121 @@
   },
   "dash": {
     "examTitle": "Zertifizierungsbereitschaft",
-    "examSummary": "{taken} Papiere genommen · Best {best}% · Passmarke {pass}%"
+    "examSummary": "{taken} Papiere genommen · Best {best}% · Passmarke {pass}%",
+    "proTitle": "Entsperren Sie die Pro Lektionen",
+    "proBody": "Vollständige Walkthroughs, Quiz und Prüfungsbesprechungen - und helfen, wenn Sie stecken bleiben.",
+    "proActive": "Sie sind ein Pro Mitglied",
+    "proActiveBody": "Jede pro-lektion steht ihnen offen. Vielen Dank für die Unterstützung der Akademie."
+  },
+  "pro": {
+    "eyebrow": "Pro Lektion",
+    "tag": "Prod",
+    "lockedTitle": "Diese Lektion ist für Pro Mitglieder",
+    "lockedBody": "Sie haben die Eröffnung von „{title}Der Rest – der komplette Walkthrough, das Quiz und die Interviewfragen – ist Teil von Pro.",
+    "perkLessons": "Jede Pro-Lektion, da jeder Abschnitt veröffentlicht wird",
+    "perkExams": "Vollständige Antwort Review auf alle fünf Praxisprüfungen",
+    "perkNoPromos": "Keine Werbung überall auf der Website",
+    "perkCommunity": "Prioritäre Antworten auf Ihre Fragen",
+    "signUpFirst": "Erstellen Sie Ihr kostenloses Konto",
+    "getPro": "Get Pro",
+    "signUpHint": "Ein kostenloses Konto entfernt bereits jede Anzeige. Pro ist ein Schritt danach."
+  },
+  "store": {
+    "eyebrow": "Prod",
+    "seoTitle": "CRM Analytics Pro, Training und Teampläne",
+    "seoDesc": "Pro-Mitgliedschaft, ein Zertifizierungs-Bootcamp, Interviewvorbereitung, Mentoring, Dashboard-Reviews und Teamtraining für Salesforce CRM Analytics.",
+    "title": "Weiter geht es mit CRM Analytics",
+    "lead": "Alles freie bleibt frei. Diese sind für den Fall, dass Sie mehr wollen - die vollständigen Pro-Lektionen, einen gecoachten Weg zur Zertifizierung oder Hilfe für Ihr Team.",
+    "youArePro": "Sie sind ein Pro Mitglied",
+    "individual": "Für dich",
+    "business": "Für Ihr Team",
+    "popular": "Am beliebtesten",
+    "talk": "Lass uns reden",
+    "getIt": "Holen Sie sich",
+    "unit": {
+      "perMonth": "/ Monat",
+      "once": "einmalig",
+      "perSession": "/ Sitzung",
+      "perSeat": "/ Sitz / Jahr"
+    },
+    "requestTitle": "Antrag {product}",
+    "sentTitle": "Danke - Ihre Anfrage ist da.",
+    "sentBody": "Swarnil wird innerhalb von zwei Arbeitstagen mit den nächsten Schritten per E-Mail antworten.",
+    "needsAccount": "Dies wird Ihrem Academy-Konto hinzugefügt, so dass es mit einem kostenlosen Konto beginnt (das auch jede Anzeige ausschaltet).",
+    "f": {
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail",
+      "company": "Unternehmen",
+      "title": "Berufsbezeichnung",
+      "teamSize": "Größe des Teams",
+      "phone": "Telefon",
+      "message": "Was sollten wir wissen?"
+    },
+    "send": "Send Request",
+    "noCharge": "Hier wird nichts berechnet. Sie erhalten eine Antwort per E-Mail."
+  },
+  "products": {
+    "pro": {
+      "name": "Pro Mitgliedschaft",
+      "tagline": "Jede pro-lektion, vollständige prüfungsprüfung, keine werbung.",
+      "f1": "Alle Pro-Lektionen, da jeder Abschnitt veröffentlicht wird",
+      "f2": "Vollständige Antwortprüfung zu den fünf Praxisprüfungen",
+      "f3": "Herunterladbare Dashboards und Rezepte",
+      "f4": "Keine Werbung überall",
+      "f5": "Prioritäre Antworten in den Kommentaren"
+    },
+    "bootcamp": {
+      "name": "Zertifizierungsbootcamp",
+      "tagline": "Sechs Wochen, gecoacht, zur Beraterprüfung.",
+      "f1": "Wöchentliche Live-Sitzung und Studienplan",
+      "f2": "Bewertete Praxispapiere mit Feedback",
+      "f3": "Pro Mitgliedschaft inklusive",
+      "f4": "Retake Support, wenn Sie nicht passieren"
+    },
+    "interview-prep": {
+      "name": "Interview Prep",
+      "tagline": "Ein Mock-Interview und schriftliches Feedback.",
+      "f1": "60-minütiges simuliertes technisches Interview",
+      "f2": "SAQL Fragen zum Dashboard-Szenario",
+      "f3": "Schriftliches Feedback innerhalb von 48 Stunden",
+      "f4": "Eine Folgesitzung, um wieder zu üben"
+    },
+    "mentoring": {
+      "name": "1:1 Mentoring",
+      "tagline": "Eine stunde auf was auch immer sie stecken.",
+      "f1": "60 Minuten über Video",
+      "f2": "Deine Org, deine Dashboards, deine Fragen",
+      "f3": "Notizen und Links danach"
+    },
+    "dashboard-review": {
+      "name": "Dashboard-Überprüfung",
+      "tagline": "Ihr Dashboard, überprüft von einem Experten.",
+      "f1": "Leistung, SAQL und verbindliche Überprüfung",
+      "f2": "Überprüfung der Sicherheit und des Teilens",
+      "f3": "Ein schriftlicher Bericht mit Fixes"
+    },
+    "team": {
+      "name": "Teamschulung",
+      "tagline": "Pro für Ihr gesamtes Analyseteam.",
+      "f1": "Pro für jeden Sitz",
+      "f2": "Fortschrittsberichterstattung für Führungskräfte",
+      "f3": "Ein Lebend-Q&A pro Quartal",
+      "f4": "Rechnungsstellung"
+    },
+    "consulting": {
+      "name": "Durchführung & Beratung",
+      "tagline": "Bau CRM Analytics Mit jemandem, der hat.",
+      "f1": "Daten, Rezepte und Sicherheitsdesign",
+      "f2": "Dashboards, die Ihre Führungskräfte verwenden werden",
+      "f3": "Einstein Discovery Modelle",
+      "f4": "Übergabe und Training für Ihr Team"
+    }
+  },
+  "human": {
+    "working": "Zu prüfen, ob du menschlich bist...",
+    "done": "Verifiziert – Du bist ein Mensch",
+    "retry": "Der Check ist fehlgeschlagen - versuchen Sie es erneut",
+    "wait": "Einen Moment - immer noch zu überprüfen, dass du menschlich bist."
   }
 }

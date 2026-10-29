@@ -160,288 +160,303 @@ const STATUS: Record<Mine['status'], string> = {
 </script>
 
 <template>
-  <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-    <p class="eyebrow">
-      {{ t('contrib.eyebrow') }}
-    </p>
-    <h1 class="bp-h2 mt-3">
-      {{ t('contrib.title') }}
-    </h1>
-    <p class="bp-lead mt-3">
-      {{ t('contrib.lead') }}
-    </p>
-
-    <!-- 1. What are you sharing? -->
-    <fieldset class="mt-10">
-      <legend class="text-lg font-bold text-(--ink)">
-        <span class="font-mono text-(--signal)">1</span> · {{ t('contrib.pick') }}
-      </legend>
-      <div class="mt-4 grid gap-3 sm:grid-cols-2">
-        <button
-          v-for="ty in TYPES"
-          :key="ty.value"
-          type="button"
-          class="flex min-h-16 items-start gap-3 border-[1.5px] p-4 text-start transition-colors"
-          :class="type === ty.value ? 'border-(--ink) bg-(--ice) shadow-[4px_4px_0_var(--ink)]' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
-          :aria-pressed="type === ty.value"
-          @click="choose(ty.value)"
-        >
-          <UIcon
-            :name="ty.icon"
-            class="mt-0.5 size-6 shrink-0 text-(--signal)"
-          />
-          <span>
-            <span class="block text-[17px] font-bold text-(--ink)">{{ t(`contrib.types.${ty.value}.label`) }}</span>
-            <span class="mt-0.5 block text-[15px] leading-snug text-(--ink2)">{{ t(`contrib.types.${ty.value}.hint`) }}</span>
-          </span>
-        </button>
+  <!-- One screen on desktop: the choice (and your past contributions) on the
+       left, the short form on the right — nothing below the fold. -->
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 lg:min-h-[calc(100dvh-var(--ui-header-height))] lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:py-10">
+    <div class="space-y-5 lg:sticky lg:top-24">
+      <div>
+        <p class="eyebrow">
+          {{ t('contrib.eyebrow') }}
+        </p>
+        <h1 class="mt-2 text-3xl font-extrabold tracking-[-0.03em] text-(--ink)">
+          {{ t('contrib.title') }}
+        </h1>
+        <p class="mt-2 text-[15px] leading-relaxed text-(--ink2)">
+          {{ t('contrib.lead') }}
+        </p>
       </div>
-    </fieldset>
 
-    <!-- 2. The short form -->
-    <form
-      v-if="type && !sent"
-      class="mt-10 space-y-6"
-      novalidate
-      @submit.prevent="send"
-    >
-      <p class="text-lg font-bold text-(--ink)">
-        <span class="font-mono text-(--signal)">2</span> · {{ t(`contrib.types.${type}.label`) }}
+      <!-- 1. What are you sharing? -->
+      <fieldset>
+        <legend class="text-[15px] font-bold text-(--ink)">
+          <span class="font-mono text-(--signal)">1</span> · {{ t('contrib.pick') }}
+        </legend>
+        <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+          <button
+            v-for="ty in TYPES"
+            :key="ty.value"
+            type="button"
+            class="flex min-h-11 items-start gap-3 border-[1.5px] px-3 py-2.5 text-start transition-colors"
+            :class="type === ty.value ? 'border-(--ink) bg-(--ice) shadow-[4px_4px_0_var(--ink)]' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
+            :aria-pressed="type === ty.value"
+            @click="choose(ty.value)"
+          >
+            <UIcon
+              :name="ty.icon"
+              class="mt-0.5 size-5 shrink-0 text-(--signal)"
+            />
+            <span>
+              <span class="block text-[15px] font-bold text-(--ink)">{{ t(`contrib.types.${ty.value}.label`) }}</span>
+              <span class="block text-[13px] leading-snug text-(--ink2)">{{ t(`contrib.types.${ty.value}.hint`) }}</span>
+            </span>
+          </button>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="min-w-0">
+      <p
+        v-if="!type && !sent"
+        class="flex min-h-64 items-center justify-center border-[1.5px] border-dashed border-(--line) p-8 text-center text-(--ink2)"
+      >
+        {{ t('contrib.err.pick') }}
       </p>
 
-      <!-- honeypot: invisible to people, filled in by naive bots -->
-      <input
-        v-model="form.website"
-        name="website"
-        tabindex="-1"
-        autocomplete="off"
-        aria-hidden="true"
-        class="absolute -left-[9999px] size-px opacity-0"
+      <!-- 2. The short form -->
+      <form
+        v-if="type && !sent"
+        class="space-y-5 border-[1.5px] border-(--ink) bg-(--card) p-5 sm:p-6"
+        novalidate
+        @submit.prevent="send"
       >
+        <p class="text-lg font-bold text-(--ink)">
+          <span class="font-mono text-(--signal)">2</span> · {{ t(`contrib.types.${type}.label`) }}
+        </p>
 
-      <template v-if="type === 'company'">
+        <!-- honeypot: invisible to people, filled in by naive bots -->
+        <input
+          v-model="form.website"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+          class="absolute -left-[9999px] size-px opacity-0"
+        >
+
+        <template v-if="type === 'company'">
+          <UFormField
+            :label="t('contrib.f.company')"
+            required
+          >
+            <UInput
+              v-model="form.company"
+              size="lg"
+              class="w-full"
+              :placeholder="t('contrib.ph.company')"
+            />
+          </UFormField>
+          <UFormField :label="t('contrib.f.companyKind')">
+            <URadioGroup
+              v-model="form.companyKind"
+              orientation="horizontal"
+              :items="CATEGORIES.map(c => ({ label: t(`companies.kinds.${c}`), value: c }))"
+            />
+          </UFormField>
+        </template>
+
         <UFormField
-          :label="t('contrib.f.company')"
+          v-if="type === 'nominate'"
+          :label="t('contrib.f.name')"
           required
         >
           <UInput
-            v-model="form.company"
-            size="xl"
+            v-model="form.title"
+            size="lg"
             class="w-full"
-            :placeholder="t('contrib.ph.company')"
           />
         </UFormField>
-        <UFormField :label="t('contrib.f.companyKind')">
+
+        <template v-if="type === 'lesson'">
           <URadioGroup
-            v-model="form.companyKind"
+            v-model="form.lessonMode"
             orientation="horizontal"
-            :items="CATEGORIES.map(c => ({ label: t(`companies.kinds.${c}`), value: c }))"
+            :items="[{ label: t('contrib.f.fix'), value: 'fix' }, { label: t('contrib.f.idea'), value: 'idea' }]"
+          />
+          <UFormField
+            :label="form.lessonMode === 'fix' ? t('contrib.f.whichLesson') : t('contrib.f.ideaTitle')"
+            required
+          >
+            <UInput
+              v-model="form.title"
+              size="lg"
+              class="w-full"
+            />
+          </UFormField>
+        </template>
+
+        <template v-if="type === 'translation'">
+          <UFormField
+            :label="t('contrib.f.language')"
+            required
+          >
+            <USelect
+              v-model="form.locale"
+              :items="localeItems"
+              size="lg"
+              class="w-full"
+            />
+          </UFormField>
+          <UFormField
+            :label="t('contrib.f.page')"
+            :hint="t('contrib.ph.page')"
+            required
+          >
+            <UInput
+              v-model="form.title"
+              size="lg"
+              class="w-full"
+            />
+          </UFormField>
+          <UFormField
+            :label="t('contrib.f.wrong')"
+            required
+          >
+            <UTextarea
+              v-model="form.wrong"
+              :rows="2"
+              autoresize
+              class="w-full"
+            />
+          </UFormField>
+        </template>
+
+        <UFormField
+          v-if="type === 'resource' || type === 'company' || type === 'nominate'"
+          :label="type === 'company' ? t('contrib.f.source') : type === 'nominate' ? t('contrib.f.profile') : t('contrib.f.link')"
+          :hint="type === 'nominate' ? t('contrib.optional') : undefined"
+          :help="type === 'company' ? t('contrib.ph.source') : undefined"
+          :required="type !== 'nominate'"
+        >
+          <UInput
+            v-model="form.url"
+            type="url"
+            inputmode="url"
+            size="lg"
+            class="w-full"
+            placeholder="https://"
           />
         </UFormField>
-      </template>
 
-      <UFormField
-        v-if="type === 'nominate'"
-        :label="t('contrib.f.name')"
-        required
-      >
-        <UInput
-          v-model="form.title"
-          size="xl"
-          class="w-full"
-        />
-      </UFormField>
-
-      <template v-if="type === 'lesson'">
-        <URadioGroup
-          v-model="form.lessonMode"
-          orientation="horizontal"
-          :items="[{ label: t('contrib.f.fix'), value: 'fix' }, { label: t('contrib.f.idea'), value: 'idea' }]"
-        />
         <UFormField
-          :label="form.lessonMode === 'fix' ? t('contrib.f.whichLesson') : t('contrib.f.ideaTitle')"
+          v-if="type === 'resource'"
+          :label="t('contrib.f.title')"
           required
         >
           <UInput
             v-model="form.title"
-            size="xl"
+            size="lg"
             class="w-full"
           />
         </UFormField>
-      </template>
 
-      <template v-if="type === 'translation'">
         <UFormField
-          :label="t('contrib.f.language')"
-          required
+          v-if="type === 'nominate'"
+          :label="t('contrib.f.role')"
         >
-          <USelect
-            v-model="form.locale"
-            :items="localeItems"
-            size="xl"
-            class="w-full"
+          <URadioGroup
+            v-model="form.role"
+            orientation="horizontal"
+            :items="ROLES.map(r => ({ label: t(`contrib.roles.${r}`), value: r as string }))"
           />
         </UFormField>
+
         <UFormField
-          :label="t('contrib.f.page')"
-          :hint="t('contrib.ph.page')"
-          required
-        >
-          <UInput
-            v-model="form.title"
-            size="xl"
-            class="w-full"
-          />
-        </UFormField>
-        <UFormField
-          :label="t('contrib.f.wrong')"
+          :label="t(`contrib.body.${type}`)"
+          :help="t('contrib.bodyHelp')"
           required
         >
           <UTextarea
-            v-model="form.wrong"
-            :rows="2"
+            v-model="form.body"
+            :rows="4"
             autoresize
             class="w-full"
           />
         </UFormField>
-      </template>
 
-      <UFormField
-        v-if="type === 'resource' || type === 'company' || type === 'nominate'"
-        :label="type === 'company' ? t('contrib.f.source') : type === 'nominate' ? t('contrib.f.profile') : t('contrib.f.link')"
-        :hint="type === 'nominate' ? t('contrib.optional') : undefined"
-        :help="type === 'company' ? t('contrib.ph.source') : undefined"
-        :required="type !== 'nominate'"
-      >
-        <UInput
-          v-model="form.url"
-          type="url"
-          inputmode="url"
-          size="xl"
-          class="w-full"
-          placeholder="https://"
+        <UCheckbox
+          v-if="type === 'nominate'"
+          v-model="form.self"
+          :label="t('contrib.f.self')"
         />
-      </UFormField>
 
-      <UFormField
-        v-if="type === 'resource'"
-        :label="t('contrib.f.title')"
-        required
-      >
-        <UInput
-          v-model="form.title"
-          size="xl"
-          class="w-full"
+        <UAlert
+          v-if="(tried && problem) || error"
+          color="error"
+          variant="subtle"
+          icon="i-lucide-circle-alert"
+          :description="error || problem"
         />
-      </UFormField>
 
-      <UFormField
-        v-if="type === 'nominate'"
-        :label="t('contrib.f.role')"
-      >
-        <URadioGroup
-          v-model="form.role"
-          orientation="horizontal"
-          :items="ROLES.map(r => ({ label: t(`contrib.roles.${r}`), value: r as string }))"
-        />
-      </UFormField>
-
-      <UFormField
-        :label="t(`contrib.body.${type}`)"
-        :help="t('contrib.bodyHelp')"
-        required
-      >
-        <UTextarea
-          v-model="form.body"
-          :rows="5"
-          autoresize
-          class="w-full"
-        />
-      </UFormField>
-
-      <UCheckbox
-        v-if="type === 'nominate'"
-        v-model="form.self"
-        :label="t('contrib.f.self')"
-      />
-
-      <UAlert
-        v-if="(tried && problem) || error"
-        color="error"
-        variant="subtle"
-        icon="i-lucide-circle-alert"
-        :description="error || problem"
-      />
-
-      <div class="flex flex-wrap items-center gap-4">
-        <UButton
-          type="submit"
-          size="xl"
-          :loading="sending"
-          icon="i-lucide-send"
-        >
-          {{ t('contrib.send') }}
-        </UButton>
-        <p class="text-[15px] text-(--ink2)">
-          {{ t('contrib.reviewed') }}
-        </p>
-      </div>
-    </form>
-
-    <div
-      v-if="sent"
-      class="mt-10 border-[1.5px] border-(--ink) bg-(--ice) p-6"
-    >
-      <p class="text-xl font-bold text-(--ink)">
-        {{ t('contrib.thanks') }}
-      </p>
-      <p class="mt-2 text-(--ink2)">
-        {{ t('contrib.thanksBody') }}
-      </p>
-      <div class="mt-4 flex flex-wrap gap-3">
-        <UButton
-          icon="i-lucide-plus"
-          @click="sent = false"
-        >
-          {{ t('contrib.another') }}
-        </UButton>
-        <UButton
-          :to="localePath('/dashboard')"
-          color="neutral"
-          variant="outline"
-        >
-          {{ t('contrib.toDashboard') }}
-        </UButton>
-      </div>
-    </div>
-
-    <!-- 3. Yours -->
-    <section
-      v-if="mine?.submissions?.length"
-      class="mt-14"
-    >
-      <h2 class="text-lg font-bold text-(--ink)">
-        {{ t('contrib.mine') }}
-      </h2>
-      <ul class="mt-4 divide-y divide-(--line) border-[1.5px] border-(--line) bg-(--card)">
-        <li
-          v-for="s in mine.submissions"
-          :key="s.id"
-          class="flex flex-wrap items-center gap-3 px-4 py-3"
-        >
-          <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ s.title }}</span>
-          <span
-            class="border-[1.5px] px-2 py-0.5 font-mono text-[11px] uppercase"
-            :class="STATUS[s.status]"
-          >{{ t(`contrib.status.${s.status}`) }}</span>
-          <p
-            v-if="s.reviewNote"
-            class="w-full text-sm text-(--ink2)"
+        <div class="flex flex-wrap items-center gap-4">
+          <UButton
+            type="submit"
+            size="lg"
+            :loading="sending"
+            icon="i-lucide-send"
           >
-            {{ s.reviewNote }}
+            {{ t('contrib.send') }}
+          </UButton>
+          <p class="text-[15px] text-(--ink2)">
+            {{ t('contrib.reviewed') }}
           </p>
-        </li>
-      </ul>
-    </section>
+        </div>
+      </form>
+
+      <div
+        v-if="sent"
+        class="border-[1.5px] border-(--ink) bg-(--ice) p-6"
+      >
+        <p class="text-xl font-bold text-(--ink)">
+          {{ t('contrib.thanks') }}
+        </p>
+        <p class="mt-2 text-(--ink2)">
+          {{ t('contrib.thanksBody') }}
+        </p>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <UButton
+            icon="i-lucide-plus"
+            @click="sent = false"
+          >
+            {{ t('contrib.another') }}
+          </UButton>
+          <UButton
+            :to="localePath('/dashboard')"
+            color="neutral"
+            variant="outline"
+          >
+            {{ t('contrib.toDashboard') }}
+          </UButton>
+        </div>
+      </div>
+
+      <!-- 3. Yours -->
+      <section
+        v-if="mine?.submissions?.length"
+        class="mt-8"
+      >
+        <h2 class="text-lg font-bold text-(--ink)">
+          {{ t('contrib.mine') }}
+        </h2>
+        <ul class="mt-4 divide-y divide-(--line) border-[1.5px] border-(--line) bg-(--card)">
+          <li
+            v-for="s in mine.submissions"
+            :key="s.id"
+            class="flex flex-wrap items-center gap-3 px-4 py-3"
+          >
+            <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ s.title }}</span>
+            <span
+              class="border-[1.5px] px-2 py-0.5 font-mono text-[11px] uppercase"
+              :class="STATUS[s.status]"
+            >{{ t(`contrib.status.${s.status}`) }}</span>
+            <p
+              v-if="s.reviewNote"
+              class="w-full text-sm text-(--ink2)"
+            >
+              {{ s.reviewNote }}
+            </p>
+          </li>
+        </ul>
+      </section>
+    </div>
   </div>
 </template>

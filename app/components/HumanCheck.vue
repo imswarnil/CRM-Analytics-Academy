@@ -1,60 +1,84 @@
 <script setup lang="ts">
 /**
- * Cloudflare Turnstile — the invisible "are you human" check on sign-up and
- * sign-in. Renders nothing until NUXT_PUBLIC_TURNSTILE_SITE_KEY is set; the
- * script loads only when a form that needs it is on screen. The token goes
- * to the server, which verifies it (server/utils/guard.ts).
+ * The site's own captcha (server/utils/pow.ts): fetches a proof-of-work
+ * challenge and solves it in the background while the visitor fills in the
+ * form — nothing to click, no third party. The solution is the v-model token
+ * the form sends with its request; `reset()` fetches a new one after a
+ * failed submit, because each solution is accepted once.
  */
 const token = defineModel<string>({ default: '' })
-const siteKey = useRuntimeConfig().public.turnstileSiteKey as string
-const el = ref<HTMLElement | null>(null)
-let widgetId: string | undefined
+const { t } = useI18n()
+const state = ref<'idle' | 'working' | 'done' | 'error'>('idle')
 
-interface Turnstile {
-  render: (el: HTMLElement, o: Record<string, unknown>) => string
-  reset: (id?: string) => void
-  remove: (id?: string) => void
-}
-const api = () => (window as unknown as { turnstile?: Turnstile }).turnstile
-
-function load(): Promise<void> {
-  if (api()) return Promise.resolve()
-  return new Promise((resolve, reject) => {
-    const s = document.createElement('script')
-    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-    s.async = true
-    s.onload = () => resolve()
-    s.onerror = reject
-    document.head.appendChild(s)
-  })
+interface Challenge {
+  salt: string
+  challenge: string
+  max: number
+  expires: number
+  signature: string
 }
 
-onMounted(async () => {
-  if (!siteKey || !el.value) return
-  await load().catch(() => null)
-  const t = api()
-  if (!t || !el.value) return
-  widgetId = t.render(el.value, {
-    'sitekey': siteKey,
-    'appearance': 'interaction-only',
-    'callback': (v: string) => { token.value = v },
-    'expired-callback': () => { token.value = '' },
-    'error-callback': () => { token.value = '' }
-  })
-})
-onBeforeUnmount(() => widgetId && api()?.remove(widgetId))
+const enc = new TextEncoder()
+async function sha256(s: string) {
+  const buf = await crypto.subtle.digest('SHA-256', enc.encode(s))
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('')
+}
 
-defineExpose({
-  reset: () => {
-    token.value = ''
-    if (widgetId) api()?.reset(widgetId)
+let run = 0
+async function solve() {
+  const mine = ++run
+  token.value = ''
+  state.value = 'working'
+  try {
+    const c = await $fetch<Challenge>('/api/challenge')
+    for (let n = 0; n <= c.max; n++) {
+      if (mine !== run) return
+      if (await sha256(c.salt + n) === c.challenge) {
+        token.value = btoa(JSON.stringify({ salt: c.salt, number: n, challenge: c.challenge, expires: c.expires, signature: c.signature }))
+        state.value = 'done'
+        // Re-solve shortly before it expires, for a form left open.
+        setTimeout(() => mine === run && solve(), Math.max(30_000, c.expires - Date.now() - 30_000))
+        return
+      }
+    }
+    state.value = 'error'
+  } catch {
+    state.value = 'error'
   }
+}
+
+onMounted(solve)
+onBeforeUnmount(() => {
+  run++
 })
+defineExpose({ reset: solve })
 </script>
 
 <template>
-  <div
-    v-if="siteKey"
-    ref="el"
-  />
+  <p
+    class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[.1em]"
+    :class="state === 'error' ? 'text-error' : 'text-(--ink2)'"
+    role="status"
+    aria-live="polite"
+  >
+    <UIcon
+      :name="state === 'done' ? 'i-lucide-shield-check' : state === 'error' ? 'i-lucide-shield-alert' : 'i-lucide-loader-circle'"
+      class="size-4"
+      :class="[state === 'done' ? 'text-(--signal)' : '', state === 'working' || state === 'idle' ? 'animate-spin' : '']"
+    />
+    <template v-if="state === 'done'">
+      {{ t('human.done') }}
+    </template>
+    <button
+      v-else-if="state === 'error'"
+      type="button"
+      class="underline"
+      @click="solve"
+    >
+      {{ t('human.retry') }}
+    </button>
+    <template v-else>
+      {{ t('human.working') }}
+    </template>
+  </p>
 </template>

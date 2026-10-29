@@ -14,7 +14,9 @@ export default defineEventHandler(async (event) => {
            (select max(completed_at) from app.progress pr where pr.user_id = u.id::text) as last_lesson_at,
            (select count(*)::int from app.quiz_attempt q where q.user_id = u.id::text) as quizzes,
            (select count(*)::int from app.comment c where c.user_id = u.id::text) as comments,
-           exists (select 1 from app.demo_account d where d.user_id = u.id::text) as is_demo
+           exists (select 1 from app.demo_account d where d.user_id = u.id::text) as is_demo,
+           (select e.expires_at from app.entitlement e where e.user_id = u.id::text and e.pro and (e.expires_at is null or e.expires_at > now())) as pro_until,
+           exists (select 1 from app.entitlement e where e.user_id = u.id::text and e.pro and (e.expires_at is null or e.expires_at > now())) as pro
     from neon_auth."user" u
     left join app.user_points p on p.user_id = u.id::text
     order by u."createdAt" desc
@@ -36,6 +38,8 @@ export default defineEventHandler(async (event) => {
       comments: Number(r.comments),
       lastLessonAt: r.last_lesson_at ?? null,
       isDemo: Boolean(r.is_demo),
+      pro: Boolean(r.pro),
+      proUntil: r.pro_until ?? null,
       admin: String(r.email).toLowerCase() === ADMIN_EMAIL
     }))
   }

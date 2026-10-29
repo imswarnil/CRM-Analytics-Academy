@@ -57,8 +57,8 @@ const RETIRED: Record<string, string> = {
   '/experts': '/about',
   '/experts/join': '/about',
   // 2026-10-22: payments, teams and sponsorship removed — every lesson is free.
-  '/pricing': '/curriculum',
-  '/teams': '/curriculum',
+  '/pricing': '/pro',
+  '/teams': '/pro',
   '/team': '/dashboard',
   '/join': '/sign-up',
   '/nominate': '/wall-of-fame',
@@ -76,6 +76,21 @@ const redirectRules = Object.fromEntries(Object.entries(RETIRED).flatMap(([from,
   [from, { redirect: { to, statusCode: 301 } }],
   ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => [`/${l.code}${from}`, { redirect: { to: `/${l.code}${to === '/' ? '' : to}`, statusCode: 301 } }])
 ]))
+
+// Security headers on everything the Worker answers (pages it renders, the
+// API). Static files get the same set from public/_headers. The CSP is narrow
+// on purpose: AdSense loads scripts from many Google hosts, so a script
+// allow-list would silently break the promos; this one blocks framing,
+// plugins, <base> hijacking and off-site form posts.
+const SECURITY_HEADERS = {
+  'Strict-Transport-Security': 'max-age=63072000; includeSubDomains',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'SAMEORIGIN',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), usb=(), payment=(), browsing-topics=()',
+  'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+  'Content-Security-Policy': 'frame-ancestors \'self\'; object-src \'none\'; base-uri \'self\'; form-action \'self\'; upgrade-insecure-requests'
+}
 
 const privateRoutes = PRIVATE_PATHS.flatMap(route => [
   route,
@@ -137,6 +152,9 @@ export default defineNuxtConfig({
       // AdSense, loaded once. Units are <PromoSlot>s (app/utils/promo.ts for
       // the inventory); Auto ads (incl. Vignette) are switched on in AdSense.
       script: [
+        // Members see no promos at all — not even Auto ads. This runs before
+        // the library loads; useAuth sets the cookie on sign-in.
+        { innerHTML: 'if(/(?:^|; )crma_signed_in=1/.test(document.cookie)){(window.adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1}', tagPosition: 'head' },
         { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540', async: true, crossorigin: 'anonymous' }
       ]
     }
@@ -167,15 +185,10 @@ export default defineNuxtConfig({
     },
     experimental: {
       sqliteConnector: 'native'
-    }
-  },
-
-  runtimeConfig: {
-    public: {
-      // Cloudflare Turnstile site key (public by design). Empty = the human
-      // check is off; the server skips it too while TURNSTILE_SECRET_KEY is unset.
-      turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || ''
-    }
+    },
+    // CONTENT_LOCAL_DB gives a build its own content database file, so it can
+    // run while a dev server holds .data/content/contents.sqlite open.
+    ...(process.env.CONTENT_LOCAL_DB ? { _localDatabase: { type: 'sqlite' as const, filename: process.env.CONTENT_LOCAL_DB } } : {})
   },
 
   // Every import of `h3` — server bundle, Vue SSR bundle and client — gets the
@@ -188,7 +201,10 @@ export default defineNuxtConfig({
     h3: realpathSync(fileURLToPath(new URL('./node_modules/h3/dist/index.mjs', import.meta.url)))
   },
 
-  routeRules: redirectRules,
+  routeRules: {
+    ...redirectRules,
+    '/**': { headers: SECURITY_HEADERS }
+  },
 
   experimental: {
     asyncContext: true,

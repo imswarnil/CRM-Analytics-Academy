@@ -1,0 +1,11 @@
+# Security headers for every static file Cloudflare serves from the edge.
+# The Worker's own responses get the same set from SECURITY_HEADERS in
+# nuxt.config.ts — keep the two in step.
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=(), payment=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Content-Security-Policy: frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests

@@ -61,6 +61,11 @@ async function submit() {
       return
     }
     if (!user) throw new Error('no session')
+    // Came from "Notify me" on a coming-soon section: put them on its list.
+    const notify = String(route.query.notify ?? '')
+    if (/^[a-z0-9-]{2,60}$/.test(notify)) {
+      await $fetch('/api/waitlist', { method: 'POST', body: { section: notify, join: true } }).catch(() => null)
+    }
     await router.push(redirectTo.value)
   } catch (e) {
     const message = apiError(e)
@@ -71,7 +76,7 @@ async function submit() {
     // Deliberately not "no account with that email" — telling an attacker
     // which addresses are registered is free account enumeration.
     error.value = isSignUp.value ? t('auth.errSignUp') : t('auth.errSignIn')
-    // A Turnstile token is single-use.
+    // A captcha solution is single-use.
     humanCheck.value?.reset()
   }
 }

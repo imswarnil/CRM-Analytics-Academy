@@ -36,6 +36,7 @@ interface Row {
   type: 'video' | 'article'
   quiz: boolean
   soon: boolean
+  pro: boolean
 }
 
 const sections = computed(() =>
@@ -44,7 +45,7 @@ const sections = computed(() =>
       .filter(l => l.path)
       .map((l) => {
         const m = metaOf(String(l.path))
-        return { title: String(l.title ?? ''), path: String(l.path), minutes: m.minutes, type: m.type, quiz: m.quiz, soon: Boolean((l as { comingSoon?: boolean }).comingSoon) }
+        return { title: String(l.title ?? ''), path: String(l.path), minutes: m.minutes, type: m.type, quiz: m.quiz, pro: Boolean(m.pro), soon: Boolean((l as { comingSoon?: boolean }).comingSoon) }
       })
     return {
       n: String(index).padStart(2, '0'),
@@ -107,6 +108,30 @@ usePageSchema(() => ({
 const doneIn = (s: { lessons: Row[] }) => s.lessons.filter(l => isDone(l.path)).length
 const doneTotal = computed(() => sections.value.reduce((n, s) => n + doneIn(s), 0))
 const progressPct = computed(() => (total.value ? (doneTotal.value / total.value) * 100 : 0))
+
+// Coming-soon sections: "notify me" — a free account is the price of a seat
+// on the list, and the count of who is already waiting is shown to everyone.
+const { isSignedIn } = useAuth()
+const { data: progressData } = useProgress()
+const sectionKey = (path: string) => path.replace(/^\/[a-z]{2}(?=\/)/, '').split('/').filter(Boolean)[0] ?? ''
+const { data: waiting, refresh: refreshWaiting } = useLazyAsyncData('waitlist-counts', () => $fetch<Record<string, number>>('/api/waitlist'), { server: false, default: () => ({}) as Record<string, number> })
+const mine = ref<Set<string>>(new Set())
+watch(() => progressData.value?.waitlist, w => (mine.value = new Set(w ?? [])), { immediate: true })
+async function notifyMe(path: string) {
+  const key = sectionKey(path)
+  if (!isSignedIn.value) {
+    await navigateTo({ path: localePath('/sign-up'), query: { redirect: route.fullPath, notify: key } })
+    return
+  }
+  const res = await $fetch<{ waiting: boolean }>('/api/waitlist', { method: 'POST', body: { section: key } }).catch(() => null)
+  if (!res) return
+  const next = new Set(mine.value)
+  if (res.waiting) next.add(key)
+  else next.delete(key)
+  mine.value = next
+  if (res.waiting) useNuxtApp().$track?.('waitlist', key)
+  refreshWaiting()
+}
 
 function icon(l: Row) {
   if (l.soon) return 'i-lucide-hourglass'
@@ -236,13 +261,45 @@ function icon(l: Row) {
                   </span>
                   <span class="w-10 text-end font-mono text-xs text-(--ink2)">{{ l.minutes }}m</span>
                   <span
+                    v-if="l.pro"
+                    class="flex items-center gap-1 bg-(--ink) px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em] text-(--glow)"
+                  ><UIcon
+                    name="i-lucide-lock-keyhole"
+                    class="size-3"
+                  />{{ t('pro.tag') }}</span>
+                  <span
                     class="w-14 py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
                     :class="l.soon ? 'border-[1.5px] border-(--line) text-(--ink2)' : l.quiz ? 'border-[1.5px] border-(--signal) text-(--signal)' : ''"
                   >{{ l.soon ? t('curriculumPage.tags.soon') : l.quiz ? t('curriculumPage.tags.quiz') : '' }}</span>
                 </NuxtLink>
               </li>
             </ol>
+
+            <!-- Coming soon: claim a seat on the list. -->
+            <div
+              v-if="s.soon"
+              class="flex flex-wrap items-center justify-between gap-3 border-t-[1.5px] border-(--ink) bg-(--paper) px-5 py-3"
+            >
+              <p class="font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2)">
+                <ClientOnly>{{ t('curriculumPage.waiting', { n: waiting[sectionKey(s.path)] ?? 0 }) }}</ClientOnly>
+              </p>
+              <UButton
+                size="sm"
+                :icon="mine.has(sectionKey(s.path)) ? 'i-lucide-bell-ring' : 'i-lucide-bell-plus'"
+                :color="mine.has(sectionKey(s.path)) ? 'neutral' : 'primary'"
+                :variant="mine.has(sectionKey(s.path)) ? 'outline' : 'solid'"
+                @click="notifyMe(s.path)"
+              >
+                {{ mine.has(sectionKey(s.path)) ? t('curriculumPage.notifying') : t('curriculumPage.notifyMe') }}
+              </UButton>
+            </div>
           </section>
+
+          <PromoSlot
+            v-if="s.index % 4 === 3"
+            :key="`promo-${s.index}`"
+            unit="horizontal"
+          />
         </template>
 
         <div class="flex flex-wrap gap-5 pt-2 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">

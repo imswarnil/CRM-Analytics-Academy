@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "bash scripts/dev.sh",
-    "build": "node scripts/prebuild.mjs && NODE_OPTIONS=--max-old-space-size=12288 nuxt build",
+    "build": "node scripts/prebuild.mjs && NODE_OPTIONS=--max-old-space-size=12288 nuxt build && node scripts/verify-gating.mjs",
     "preview": "pnpm build && wrangler dev",
     "translate": "bash scripts/libretranslate.sh run -- node scripts/translate.mjs",
     "translate:setup": "bash scripts/libretranslate.sh setup",
@@ -34,9 +34,10 @@
     "@vueuse/core": "^14.3.0",
     "h3": "^1.15.11",
     "minimark": "^0.2.0",
-    "nuxt": "^4.4.8",
+    "nuxt": "^4.6.3",
     "nuxt-og-image": "^6.7.0",
     "nuxt-studio": "^1.7.0",
+    "remark-emoji": "^5.0.2",
     "tailwindcss": "^4.3.1"
   },
   "devDependencies": {

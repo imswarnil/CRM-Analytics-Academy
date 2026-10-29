@@ -17,10 +17,11 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Tab = 'overview' | 'analytics' | 'users' | 'submissions' | 'interview' | 'comments'
+type Tab = 'overview' | 'analytics' | 'leads' | 'users' | 'submissions' | 'interview' | 'comments'
 const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
   { key: 'analytics', label: 'Analytics', icon: 'i-lucide-chart-line' },
+  { key: 'leads', label: 'Leads', icon: 'i-lucide-handshake' },
   { key: 'users', label: 'Users', icon: 'i-lucide-users' },
   { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
   { key: 'interview', label: 'Interview Q&A', icon: 'i-lucide-messages-square' },
@@ -36,7 +37,7 @@ const isAdmin = computed(() => Boolean(me.value?.admin))
 
 /* --- Overview --------------------------------------------------------------- */
 interface Stats {
-  totals: { users: number, pendingSubmissions: number, approvedSubmissions: number, lessonsCompleted: number, quizAttempts: number, comments: number, views7d: number, visitors7d: number, signups7d: number }
+  totals: { users: number, pendingSubmissions: number, approvedSubmissions: number, lessonsCompleted: number, quizAttempts: number, comments: number, views7d: number, visitors7d: number, signups7d: number, proMembers: number, newLeads: number, leads30d: number, wonLeads: number, waitlist: number }
   series: { progress: { day: string, count: number }[], signups: { day: string, count: number }[] }
   topLessons: { path: string, count: number }[]
   quiz: { attempts: number, avgScorePct: number }
@@ -54,6 +55,10 @@ const overviewTiles = computed(() => {
     { label: 'New users · 7 days', value: t.signups7d, to: 'users' as Tab },
     { label: 'Lessons completed', value: t.lessonsCompleted, to: null },
     { label: 'Quiz attempts', value: t.quizAttempts, to: null },
+    { label: 'Pro members', value: t.proMembers, to: 'users' as Tab },
+    { label: 'New leads', value: t.newLeads, to: 'leads' as Tab },
+    { label: 'Leads · 30 days', value: t.leads30d, to: 'leads' as Tab },
+    { label: 'On section waitlists', value: t.waitlist, to: null },
     { label: 'Pending submissions', value: t.pendingSubmissions, to: 'submissions' as Tab },
     { label: 'Comments', value: t.comments, to: 'comments' as Tab }
   ]
@@ -80,6 +85,8 @@ interface AdminUser {
   lastLessonAt: string | null
   isDemo: boolean
   admin: boolean
+  pro: boolean
+  proUntil: string | null
 }
 const { data: users, refresh: refreshUsers } = await useLazyAsyncData('admin-users', () =>
   $fetch<{ users: AdminUser[] }>('/api/admin/users').then(r => r.users), { server: false, immediate: false, default: () => [] })
@@ -102,6 +109,18 @@ async function createUser() {
     await refreshUsers()
   } catch (e) {
     error.value = apiError(e) || 'Could not create the user.'
+  } finally {
+    busy.value = false
+  }
+}
+
+async function setPro(u: AdminUser, pro: boolean, months?: number) {
+  busy.value = true
+  try {
+    await $fetch('/api/admin/pro', { method: 'POST', body: { userId: u.id, pro, months } })
+    await refreshUsers()
+  } catch (e) {
+    error.value = apiError(e) || 'Could not change Pro.'
   } finally {
     busy.value = false
   }
@@ -163,10 +182,12 @@ watch(isAdmin, (ok) => {
 const pendingIq = computed(() => iqStatus.value === 'pending' ? iq.value.length : 0)
 function badge(key: Tab) {
   if (key === 'submissions') return stats.value?.totals.pendingSubmissions ?? 0
+  if (key === 'leads') return stats.value?.totals.newLeads ?? 0
   if (key === 'interview') return pendingIq.value
   return 0
 }
 const attention = computed(() => [
+  { tab: 'leads' as Tab, icon: 'i-lucide-handshake', n: badge('leads'), label: `${badge('leads')} new lead(s) to follow up` },
   { tab: 'submissions' as Tab, icon: 'i-lucide-inbox', n: badge('submissions'), label: `${badge('submissions')} submission(s) to review` },
   { tab: 'interview' as Tab, icon: 'i-lucide-messages-square', n: pendingIq.value, label: `${pendingIq.value} interview question(s) to review` }
 ].filter(a => a.n > 0))
@@ -181,7 +202,7 @@ const SERVICES = [
   { label: 'Deploys', icon: 'i-simple-icons-githubactions', to: 'https://github.com/imswarnil/CRM-Analytics-Academy/actions' }
 ]
 
-// Keyboard: 1–6 switch sections (ignored while typing).
+// Keyboard: 1–7 switch sections (ignored while typing).
 function onKey(e: KeyboardEvent) {
   const el = e.target as HTMLElement | null
   if (e.metaKey || e.ctrlKey || e.altKey || el?.closest('input, textarea, select, [contenteditable]')) return
@@ -417,6 +438,9 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
           <!-- ============================ ANALYTICS =========================== -->
           <AdminAnalytics v-else-if="tab === 'analytics'" />
 
+          <!-- ============================== LEADS ============================= -->
+          <AdminLeads v-else-if="tab === 'leads'" />
+
           <!-- ============================== USERS ============================= -->
           <section
             v-else-if="tab === 'users'"
@@ -487,6 +511,9 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                     <th class="px-4 py-2 text-end">
                       Last lesson
                     </th>
+                    <th class="px-4 py-2 text-end">
+                      Pro
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -546,6 +573,39 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                     </td>
                     <td class="px-4 py-2 text-end font-mono text-xs">
                       {{ date(u.lastLessonAt) }}
+                    </td>
+                    <td class="px-4 py-2 text-end">
+                      <div class="flex items-center justify-end gap-1">
+                        <span
+                          v-if="u.pro"
+                          class="font-mono text-[11px] text-(--signal)"
+                        >{{ u.proUntil ? `until ${date(u.proUntil)}` : 'no end' }}</span>
+                        <UButton
+                          v-if="!u.pro"
+                          size="xs"
+                          label="Grant 12 mo"
+                          :disabled="busy"
+                          @click="setPro(u, true, 12)"
+                        />
+                        <UButton
+                          v-if="!u.pro"
+                          size="xs"
+                          color="neutral"
+                          variant="outline"
+                          label="1 mo"
+                          :disabled="busy"
+                          @click="setPro(u, true, 1)"
+                        />
+                        <UButton
+                          v-else
+                          size="xs"
+                          color="neutral"
+                          variant="ghost"
+                          label="Revoke"
+                          :disabled="busy"
+                          @click="setPro(u, false)"
+                        />
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -670,7 +730,10 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                   {{ item.question }}
                 </p>
                 <div class="bp-prose mt-3 max-h-80 overflow-y-auto border border-dashed border-(--line) p-3 text-sm">
-                  <MDC :value="item.answer" />
+                  <!-- Shown as plain text: this is unreviewed community input,
+                       and rendering it would run its markup in the admin's
+                       session. -->
+                  <pre class="whitespace-pre-wrap font-sans text-sm text-(--ink)">{{ item.answer }}</pre>
                 </div>
                 <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-(--line) pt-4">
                   <UButton

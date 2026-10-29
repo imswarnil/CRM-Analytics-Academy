@@ -46,6 +46,18 @@ export default defineNuxtPlugin((nuxtApp) => {
     flush()
     const current = { id: null as number | null, visibleMs: 0, since: document.visibilityState === 'visible' ? performance.now() : null }
     view = current
+    // The visit's first source, kept for the session so a lead can say
+    // where the person came from (POST /api/leads → Salesforce).
+    try {
+      if (!sessionStorage.getItem('crma-source')) {
+        const utm = new URLSearchParams(location.search).get('utm_source')
+        let ref = ''
+        try {
+          ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''
+        } catch { /* invalid referrer */ }
+        sessionStorage.setItem('crma-source', utm ? `utm:${utm}` : ref && ref !== location.hostname ? ref : 'direct')
+      }
+    } catch { /* storage blocked */ }
     const res = await send({ t: 'pv', p: path, l: locale.value, r: document.referrer, u: new URLSearchParams(location.search).get('utm_source') ?? '' })
     current.id = (res as { id?: number } | null)?.id ?? null
   }

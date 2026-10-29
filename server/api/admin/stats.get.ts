@@ -24,7 +24,29 @@ export default defineEventHandler(async (event) => {
     comments: 0,
     views7d: 0,
     visitors7d: 0,
-    signups7d: 0
+    signups7d: 0,
+    proMembers: 0,
+    newLeads: 0,
+    leads30d: 0,
+    wonLeads: 0,
+    waitlist: 0
+  }
+
+  // Monetization: members, the lead pipeline and the section waitlists.
+  try {
+    const [r] = await sql`
+      select (select count(*)::int from app.entitlement where pro and (expires_at is null or expires_at > now())) as pro,
+             (select count(*)::int from app.lead where status = 'new') as new_leads,
+             (select count(*)::int from app.lead where created_at >= now() - interval '30 days') as leads30,
+             (select count(*)::int from app.lead where status = 'won') as won,
+             (select count(distinct user_id)::int from app.waitlist) as waitlist`
+    totals.proMembers = Number(r?.pro ?? 0)
+    totals.newLeads = Number(r?.new_leads ?? 0)
+    totals.leads30d = Number(r?.leads30 ?? 0)
+    totals.wonLeads = Number(r?.won ?? 0)
+    totals.waitlist = Number(r?.waitlist ?? 0)
+  } catch {
+    // Leave zero.
   }
 
   try {

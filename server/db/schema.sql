@@ -221,3 +221,56 @@ create table if not exists app.rate_hit (
   at  timestamptz not null default now()
 );
 create index if not exists rate_hit_key_at_idx on app.rate_hit (key, at);
+
+-- Pro membership. No payment processor: a buyer's request becomes a lead
+-- (app.lead, mirrored to Salesforce by Web-to-Lead) and the owner grants
+-- access in /admin → Users. `expires_at` null = no end date.
+create table if not exists app.entitlement (
+  user_id    text primary key,
+  pro        boolean not null default true,
+  product    text not null default 'pro',
+  note       text,
+  expires_at timestamptz,
+  granted_at timestamptz not null default now()
+);
+
+-- Every "Get it" request from /pro and the product pages. Also sent to
+-- Salesforce as a Lead (server/utils/salesforce.ts); `sf_status` records how
+-- that went.
+create table if not exists app.lead (
+  id          bigint generated always as identity primary key,
+  product     text not null,
+  first_name  text,
+  last_name   text not null,
+  email       text not null,
+  company     text,
+  title       text,
+  country     text,
+  phone       text,
+  team_size   text,
+  message     text,
+  user_id     text,
+  locale      text,
+  source      text,
+  landing     text,
+  lessons_done integer not null default 0,
+  points      integer not null default 0,
+  status      text not null default 'new' check (status in ('new', 'contacted', 'won', 'lost')),
+  sf_status   text not null default 'pending',
+  created_at  timestamptz not null default now()
+);
+create index if not exists lead_created_idx on app.lead (created_at desc);
+
+-- "Notify me" on coming-soon sections — signed-in learners only.
+create table if not exists app.waitlist (
+  user_id    text not null,
+  section    text not null check (section ~ '^[a-z0-9-]{2,60}$'),
+  created_at timestamptz not null default now(),
+  primary key (user_id, section)
+);
+
+-- Spent proof-of-work challenges (server/utils/pow.ts): each solves once.
+create table if not exists app.used_challenge (
+  challenge text primary key,
+  at        timestamptz not null default now()
+);

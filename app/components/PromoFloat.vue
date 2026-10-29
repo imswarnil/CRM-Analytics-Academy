@@ -28,7 +28,8 @@ function close() {
   useNuxtApp().$track?.('promo_close', route.path)
 }
 
-const show = computed(() => !closed.value && promoAllowed(route.path))
+const promoFree = usePromoFree()
+const show = computed(() => !closed.value && promoAllowed(route.path) && !promoFree.value)
 </script>
 
 <template>

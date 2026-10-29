@@ -24,7 +24,8 @@
     "wallOfFame": "Wall of Fame",
     "certification": "Exams",
     "interview": "Interviews",
-    "companies": "Companies"
+    "companies": "Companies",
+    "pro": "Pro"
   },
   "home": {
     "modules": {
@@ -873,7 +874,10 @@
       "progress": "Your progress",
       "dashboard": "Open your dashboard",
       "shareText": "A free, open-source Salesforce CRM Analytics course — the whole curriculum on one page."
-    }
+    },
+    "waiting": "{n} learners waiting",
+    "notifyMe": "Notify me when it opens",
+    "notifying": "You're on the list"
   },
   "lesson": {
     "authors": {
@@ -1253,6 +1257,121 @@
   },
   "dash": {
     "examTitle": "Certification readiness",
-    "examSummary": "{taken} papers taken · best {best}% · pass mark {pass}%"
+    "examSummary": "{taken} papers taken · best {best}% · pass mark {pass}%",
+    "proTitle": "Unlock the Pro lessons",
+    "proBody": "Full walkthroughs, quizzes and exam reviews — and help when you are stuck.",
+    "proActive": "You are a Pro member",
+    "proActiveBody": "Every Pro lesson is open to you. Thank you for supporting the Academy."
+  },
+  "pro": {
+    "eyebrow": "Pro lesson",
+    "tag": "Pro",
+    "lockedTitle": "This lesson is for Pro members",
+    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — is part of Pro.",
+    "perkLessons": "Every Pro lesson, as each section is published",
+    "perkExams": "Full answer review on all five practice exams",
+    "perkNoPromos": "No ads anywhere on the site",
+    "perkCommunity": "Priority answers to your questions",
+    "signUpFirst": "Create your free account",
+    "getPro": "Get Pro",
+    "signUpHint": "A free account already removes every ad. Pro is one step after it."
+  },
+  "store": {
+    "eyebrow": "Pro",
+    "seoTitle": "CRM Analytics Pro, training and team plans",
+    "seoDesc": "Pro membership, a certification bootcamp, interview prep, mentoring, dashboard reviews and team training for Salesforce CRM Analytics.",
+    "title": "Go further with CRM Analytics",
+    "lead": "Everything free stays free. These are for when you want more — the full Pro lessons, a coached path to certification, or help for your team.",
+    "youArePro": "You are a Pro member",
+    "individual": "For you",
+    "business": "For your team",
+    "popular": "Most popular",
+    "talk": "Let's talk",
+    "getIt": "Get it",
+    "unit": {
+      "perMonth": "/ month",
+      "once": "one-time",
+      "perSession": "/ session",
+      "perSeat": "/ seat / year"
+    },
+    "requestTitle": "Request {product}",
+    "sentTitle": "Thanks — your request is in.",
+    "sentBody": "Swarnil will reply by email within two working days with the next steps.",
+    "needsAccount": "This is added to your Academy account, so it starts with a free account (which also turns off every ad).",
+    "f": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "company": "Company",
+      "title": "Job title",
+      "teamSize": "Team size",
+      "phone": "Phone",
+      "message": "Anything we should know?"
+    },
+    "send": "Send request",
+    "noCharge": "Nothing is charged here. You will get a reply by email."
+  },
+  "products": {
+    "pro": {
+      "name": "Pro membership",
+      "tagline": "Every Pro lesson, full exam review, no ads.",
+      "f1": "All Pro lessons, as each section is published",
+      "f2": "Full answer review on the five practice exams",
+      "f3": "Downloadable dashboards and recipes",
+      "f4": "No ads anywhere",
+      "f5": "Priority answers in the comments"
+    },
+    "bootcamp": {
+      "name": "Certification bootcamp",
+      "tagline": "Six weeks, coached, to the Consultant exam.",
+      "f1": "Weekly live session and study plan",
+      "f2": "Graded practice papers with feedback",
+      "f3": "Pro membership included",
+      "f4": "Retake support if you do not pass"
+    },
+    "interview-prep": {
+      "name": "Interview prep",
+      "tagline": "A mock interview and written feedback.",
+      "f1": "60-minute mock technical interview",
+      "f2": "SAQL and dashboard scenario questions",
+      "f3": "Written feedback within 48 hours",
+      "f4": "A follow-up session to practise again"
+    },
+    "mentoring": {
+      "name": "1:1 mentoring",
+      "tagline": "An hour on whatever you are stuck on.",
+      "f1": "60 minutes over video",
+      "f2": "Your org, your dashboards, your questions",
+      "f3": "Notes and links afterwards"
+    },
+    "dashboard-review": {
+      "name": "Dashboard review",
+      "tagline": "Your dashboard, reviewed by an expert.",
+      "f1": "Performance, SAQL and binding review",
+      "f2": "Security and sharing check",
+      "f3": "A written report with fixes"
+    },
+    "team": {
+      "name": "Team training",
+      "tagline": "Pro for your whole analytics team.",
+      "f1": "Pro for every seat",
+      "f2": "Progress reporting for managers",
+      "f3": "One live Q&A per quarter",
+      "f4": "Invoiced billing"
+    },
+    "consulting": {
+      "name": "Implementation & consulting",
+      "tagline": "Build CRM Analytics with someone who has.",
+      "f1": "Data, recipes and security design",
+      "f2": "Dashboards your executives will use",
+      "f3": "Einstein Discovery models",
+      "f4": "Handover and training for your team"
+    }
+  },
+  "human": {
+    "working": "Checking you are human…",
+    "done": "Verified — you are human",
+    "retry": "The check failed — try again",
+    "wait": "One moment — still checking you are human."
   }
 }

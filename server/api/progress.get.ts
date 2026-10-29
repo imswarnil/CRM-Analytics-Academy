@@ -63,7 +63,14 @@ export default defineEventHandler(async (event) => {
 
   setResponseHeader(event, 'cache-control', 'private, no-store')
   const pts = Number(points[0]?.points ?? 0)
+  const [pro, waitlist] = await Promise.all([
+    hasPro(user.id),
+    useDb()`select section from app.waitlist where user_id = ${user.id}`
+  ])
+
   return {
+    pro,
+    waitlist: waitlist.map(r => String(r.section)),
     completed: completed.map(r => r.lesson_path as string),
     completedAt: Object.fromEntries(completed.map(r => [r.lesson_path as string, String(r.completed_at)])),
     bookmarks: bookmarks.map(r => r.lesson_path as string),

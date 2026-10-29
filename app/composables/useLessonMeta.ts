@@ -4,6 +4,8 @@ export interface LessonMeta {
   minutes: number
   type: 'video' | 'article'
   quiz: boolean
+  /** Members only (`access: pro` on the English lesson). */
+  pro?: boolean
 }
 
 const table = meta as Record<string, LessonMeta>

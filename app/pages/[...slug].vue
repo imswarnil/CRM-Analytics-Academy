@@ -378,7 +378,25 @@ const timeline = computed(() => courseLessons.value.map((l) => {
   return { value: m.minutes, tone, title: l.title, to: localePath(l.path) }
 }))
 
-const lessonVideo = computed(() => page.value?.video ?? englishVideo.value)
+// Pro lessons: the prerendered page is a teaser stub (scripts/gate-content.mjs).
+// Members fetch the real body, quiz, interview, walkthrough and video.
+interface ProLesson {
+  markdown: string
+  quiz?: NonNullable<NonNullable<typeof page.value>['quiz']>
+  interview?: { q: string, a: string }[]
+  walkthrough?: NonNullable<typeof page.value>['walkthrough']
+  video?: { id: string, start?: number, end?: number }
+}
+const isProLesson = computed(() => page.value?.access === 'pro')
+const { pro: member, loaded: progressLoaded } = useProgress()
+const { data: proLesson, status: proStatus } = useLazyAsyncData(`pro-${route.path}`, () =>
+  isProLesson.value && member.value ? $fetch<ProLesson>(`/api/lesson${page.value!.path}`) : Promise.resolve(null), { server: false, watch: [member] })
+const unlocked = computed(() => Boolean(proLesson.value?.markdown))
+const lesson = computed(() => unlocked.value
+  ? { ...page.value!, quiz: proLesson.value!.quiz ?? page.value!.quiz, interview: proLesson.value!.interview, walkthrough: proLesson.value!.walkthrough }
+  : page.value!)
+
+const lessonVideo = computed(() => (unlocked.value ? proLesson.value?.video : null) ?? page.value?.video ?? englishVideo.value)
 const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
 const lessonNo = computed(() => String(position.value).padStart(3, '0'))
 </script>
@@ -580,10 +598,15 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         </ClientOnly>
       </div>
 
+      <PromoSlot
+        :key="`top-${route.path}`"
+        unit="leaderboard728x90"
+      />
+
       <LessonWalkthrough
-        v-if="page.walkthrough?.shots?.length"
-        :shots="page.walkthrough.shots"
-        :org="page.walkthrough.org"
+        v-if="lesson.walkthrough?.shots?.length"
+        :shots="lesson.walkthrough.shots"
+        :org="lesson.walkthrough.org"
         :has-video="Boolean(lessonVideo?.id)"
       />
 
@@ -614,13 +637,24 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
 
       <div
         class="relative xl:grid xl:gap-10"
-        :class="tocOpen ? 'xl:grid-cols-[minmax(0,1fr)_12rem]' : 'xl:grid-cols-[minmax(0,1fr)_2.25rem]'"
+        :class="tocOpen ? 'xl:grid-cols-[minmax(0,1fr)_20.5rem]' : 'xl:grid-cols-[minmax(0,1fr)_2.25rem]'"
       >
         <div class="bp-prose min-w-0">
-          <ContentRenderer
-            v-if="renderedPage"
-            :value="renderedPage"
+          <MDC
+            v-if="unlocked"
+            :value="proLesson!.markdown"
           />
+          <template v-else>
+            <ContentRenderer
+              v-if="renderedPage"
+              :value="renderedPage"
+            />
+            <CourseProLockedCard
+              v-if="isProLesson"
+              :loading="proStatus === 'pending' || (member && !progressLoaded)"
+              :lesson-title="page.title"
+            />
+          </template>
         </div>
 
         <aside
@@ -690,22 +724,25 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
                 />{{ l.label }}
               </NuxtLink>
             </div>
+            <!-- A large square right under the contents, then a tall unit
+                 that stays in view while the lesson scrolls. -->
             <PromoSlot
-              unit="skyscraper160x600"
-              class="sticky top-24 mt-6"
+              unit="square300x250"
+              class="mt-6"
             />
+            <PromoSlot unit="skyscraper300x600" />
           </div>
         </aside>
       </div>
 
       <CourseQuizCard
-        v-if="page.quiz?.length"
-        :questions="page.quiz"
+        v-if="lesson.quiz?.length"
+        :questions="lesson.quiz"
       />
 
       <LessonInterview
-        v-if="page.interview?.length"
-        :items="page.interview"
+        v-if="lesson.interview?.length"
+        :items="lesson.interview"
       />
 
       <CourseLessonCredits

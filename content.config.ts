@@ -1,4 +1,12 @@
+import { existsSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
+
+// Pro lessons, as paths under content/, written by scripts/gate-content.mjs
+// before every build. Absent means nothing is gated.
+const gatedFiles: string[] = existsSync('.gated-files.json')
+  ? JSON.parse(readFileSync('.gated-files.json', 'utf8'))
+  : []
 
 export default defineContentConfig({
   collections: {
@@ -95,14 +103,22 @@ export default defineContentConfig({
       // Content is organised per locale: content/<locale>/<module>/<lesson>.md.
       // The non-localized collections above live in their own top-level folders
       // and are excluded so they aren't ingested twice.
-      source: {
-        include: '**',
-        exclude: ['resources/**', 'people/**', '*/interview-questions/**', '*/exam/**']
-      },
+      // Pro lessons are swapped for their public stubs (scripts/gate-content.mjs):
+      // this collection ships to the browser whole, so a body that must stay
+      // private can never be in it.
+      source: [
+        {
+          include: '**',
+          exclude: ['resources/**', 'people/**', '*/interview-questions/**', '*/exam/**', ...gatedFiles]
+        },
+        ...(gatedFiles.length ? [{ cwd: resolve('.gated-stubs'), include: '**' }] : [])
+      ],
       schema: z.object({
         // A section page standing in for lessons not published yet. It is in
         // the sidebar and llms.txt, but not in the course order or progress.
         comingSoon: z.boolean().optional(),
+        // `pro` = members only. Set on the English lesson; translations follow.
+        access: z.enum(['free', 'pro']).optional(),
         links: z.array(z.object({
           label: z.string(),
           icon: z.string(),

@@ -8,6 +8,8 @@ export interface ProgressData {
   longestStreak: number
   admin: boolean
   demo: boolean
+  pro: boolean
+  waitlist: string[]
   points: number
   contributions: number
   rank: number | null
@@ -35,6 +37,7 @@ export function useProgress() {
 
   const admin = computed(() => Boolean(data.value?.admin))
   const demo = computed(() => Boolean(data.value?.demo))
+  const pro = computed(() => Boolean(data.value?.pro))
   const points = computed(() => data.value?.points ?? 0)
   const rank = computed(() => data.value?.rank ?? null)
 
@@ -96,5 +99,5 @@ export function useProgress() {
     }
   }
 
-  return { completed, bookmarks, data, admin, demo, points, rank, loaded, load, isDone, setDone, isSaved, setSaved, normalise }
+  return { completed, bookmarks, data, admin, demo, pro, points, rank, loaded, load, isDone, setDone, isSaved, setSaved, normalise }
 }

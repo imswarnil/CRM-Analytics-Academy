@@ -16,7 +16,7 @@ const menuItems = computed(() => [
   { label: t('nav.certification'), icon: 'i-lucide-timer', to: localePath('/certification') },
   { label: t('nav.interview'), icon: 'i-lucide-messages-square', to: localePath('/interview-questions') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
-  { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') }
+  { label: t('nav.pro'), icon: 'i-lucide-sparkles', to: localePath('/pro') }
 ])
 
 function isActive(item: { to: string, exact?: boolean }) {
@@ -26,6 +26,7 @@ function isActive(item: { to: string, exact?: boolean }) {
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
+  { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
   { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
   { label: t('nav.about'), icon: 'i-lucide-badge-info', to: localePath('/about') },

@@ -24,7 +24,8 @@
     "wallOfFame": "Muro de la fama",
     "certification": "Exámenes",
     "interview": "Entrevistas",
-    "companies": "Empresas"
+    "companies": "Empresas",
+    "pro": "Pro"
   },
   "home": {
     "modules": {
@@ -873,7 +874,10 @@
       "progress": "Tu progreso",
       "dashboard": "Abre el tablero.",
       "shareText": "Una fuente libre y abierta Salesforce CRM Analytics curso — todo el currículo en una página."
-    }
+    },
+    "waiting": "{n} estudiantes esperando",
+    "notifyMe": "Avisadme cuando se abra.",
+    "notifying": "Estás en la lista."
   },
   "lesson": {
     "authors": {
@@ -1253,6 +1257,121 @@
   },
   "dash": {
     "examTitle": "Preparación para la certificación",
-    "examSummary": "{taken} Documentos tomados · mejor {best}% · marca de pase {pass}%"
+    "examSummary": "{taken} Documentos tomados · mejor {best}% · marca de pase {pass}%",
+    "proTitle": "Desbloquear las lecciones de Pro",
+    "proBody": "Paseos completos, cuestionarios y exámenes — y ayuda cuando estás atascado.",
+    "proActive": "Eres un miembro de Pro",
+    "proActiveBody": "Cada lección de Pro está abierta a usted. Gracias por apoyar a la Academia."
+  },
+  "pro": {
+    "eyebrow": "Lección profesional",
+    "tag": "Pro",
+    "lockedTitle": "Esta lección es para los miembros de Pro",
+    "lockedBody": "Has leído la apertura de “{title}. El resto, el recorrido completo, el examen y las preguntas de la entrevista, es parte de Pro.",
+    "perkLessons": "Cada lección Pro, como cada sección se publica",
+    "perkExams": "Revisión completa de la respuesta en los cinco exámenes de práctica",
+    "perkNoPromos": "No hay anuncios en ninguna parte del sitio",
+    "perkCommunity": "Respuestas prioritarias a sus preguntas",
+    "signUpFirst": "Cree su cuenta gratuita",
+    "getPro": "Get Pro",
+    "signUpHint": "Una cuenta gratuita ya elimina cada anuncio. Pro es un paso después."
+  },
+  "store": {
+    "eyebrow": "Pro",
+    "seoTitle": "CRM Analytics Pro, capacitación y planes de equipo",
+    "seoDesc": "Pro membresía, un bootcamp de certificación, preparación de entrevistas, mentoría, exámenes de panel de control y entrenamiento de equipo para Salesforce CRM Analytics.",
+    "title": "Sigue adelante. CRM Analytics",
+    "lead": "Todo gratis permanece libre. Estos son para cuando usted desea más — las lecciones completas de Pro, un camino entrenado para la certificación, o ayuda para su equipo.",
+    "youArePro": "Eres un miembro de Pro",
+    "individual": "Para ti",
+    "business": "Para tu equipo",
+    "popular": "Más popular",
+    "talk": "Hablemos.",
+    "getIt": "Consíguelo.",
+    "unit": {
+      "perMonth": "/ mes",
+      "once": "una vez",
+      "perSession": "/ sesión",
+      "perSeat": "/ asiento / año"
+    },
+    "requestTitle": "Solicitud {product}",
+    "sentTitle": "Gracias — su solicitud está dentro.",
+    "sentBody": "Swarnil responderá por correo electrónico dentro de dos días hábiles con los siguientes pasos.",
+    "needsAccount": "Esto se añade a su cuenta de la Academia, por lo que comienza con una cuenta gratuita (que también apaga cada anuncio).",
+    "f": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "company": "Company",
+      "title": "Título de trabajo",
+      "teamSize": "Tamaño del equipo",
+      "phone": "Teléfono",
+      "message": "¿Algo que debamos saber?"
+    },
+    "send": "Enviar solicitud",
+    "noCharge": "Aquí no se cobra nada. Usted recibirá una respuesta por correo electrónico."
+  },
+  "products": {
+    "pro": {
+      "name": "Miembros pro",
+      "tagline": "Cada lección de Pro, examen completo, sin anuncios.",
+      "f1": "Todas las lecciones de Pro, como cada sección se publica",
+      "f2": "Revisión completa de la respuesta sobre los cinco exámenes de práctica",
+      "f3": "Deshboards y recetas descargables",
+      "f4": "No hay anuncios en ningún lugar",
+      "f5": "Respuestas prioritarias en los comentarios"
+    },
+    "bootcamp": {
+      "name": "Certificación bootcamp",
+      "tagline": "Seis semanas, entrenadas, al examen de consultores.",
+      "f1": "Sesión semanal en vivo y plan de estudio",
+      "f2": "Documentos de práctica con resultados",
+      "f3": "Pro membresía incluida",
+      "f4": "Retomar soporte si no pasa"
+    },
+    "interview-prep": {
+      "name": "Prep",
+      "tagline": "Una entrevista falsa y una retroalimentación escrita.",
+      "f1": "Entrevista técnica de 60 minutos",
+      "f2": "SAQL y preguntas de escenario de dashboard",
+      "f3": "Opinión escrita dentro de 48 horas",
+      "f4": "A follow-up session to practise again"
+    },
+    "mentoring": {
+      "name": "1:1 mentoría",
+      "tagline": "Una hora en lo que estés atrapado.",
+      "f1": "60 minutos con video",
+      "f2": "Tu org, tus tableros, tus preguntas",
+      "f3": "Notas y enlaces después"
+    },
+    "dashboard-review": {
+      "name": "Revisión del panel",
+      "tagline": "Su panel, revisado por un experto.",
+      "f1": "Performance, SAQL y examen obligatorio",
+      "f2": "Control de seguridad y participación",
+      "f3": "Un informe escrito con correcciones"
+    },
+    "team": {
+      "name": "Capacitación en equipo",
+      "tagline": "Pro para todo tu equipo de análisis.",
+      "f1": "Pro para cada asiento",
+      "f2": "Presentación de informes sobre los progresos realizados para los administradores",
+      "f3": "One live Q&A por trimestre",
+      "f4": "Facturación facturada"
+    },
+    "consulting": {
+      "name": "Aplicación & consultoría",
+      "tagline": "Build CRM Analytics con alguien que tiene.",
+      "f1": "Datos, recetas y diseño de seguridad",
+      "f2": "Dashboards sus ejecutivos usarán",
+      "f3": "Einstein Discovery modelos",
+      "f4": "Entrega y entrenamiento para su equipo"
+    }
+  },
+  "human": {
+    "working": "Comprobando que eres humano...",
+    "done": "Verificado - eres humano",
+    "retry": "El cheque falló - probar de nuevo",
+    "wait": "Un momento, aún comprobando que eres humano."
   }
 }

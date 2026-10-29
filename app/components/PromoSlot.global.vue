@@ -28,7 +28,8 @@ const route = useRoute()
 const active = ref<PromoUnitName>(props.unit)
 const ready = ref(false)
 const u = computed<PromoUnit>(() => PROMO_UNITS[active.value])
-const allowed = computed(() => promoAllowed(route.path))
+const promoFree = usePromoFree()
+const allowed = computed(() => promoAllowed(route.path) && !promoFree.value)
 const dev = import.meta.dev
 const box = ref<HTMLElement | null>(null)
 

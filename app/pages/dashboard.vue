@@ -335,6 +335,25 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </section>
       </div>
 
+      <!-- Pro: status for members, the next step for everyone else -->
+      <NuxtLink
+        :to="localePath('/pro')"
+        class="graph-paper-navy flex flex-wrap items-center gap-4 border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white shadow-[8px_8px_0_var(--signal)]"
+      >
+        <UIcon
+          :name="data?.pro ? 'i-lucide-badge-check' : 'i-lucide-sparkles'"
+          class="size-8 text-(--glow)"
+        />
+        <span class="min-w-0 flex-1">
+          <span class="block text-lg font-extrabold">{{ data?.pro ? t('dash.proActive') : t('dash.proTitle') }}</span>
+          <span class="block text-sm text-white/75">{{ data?.pro ? t('dash.proActiveBody') : t('dash.proBody') }}</span>
+        </span>
+        <span
+          v-if="!data?.pro"
+          class="border-[1.5px] border-white bg-white px-4 py-2 font-bold text-(--navy)"
+        >{{ t('pro.getPro') }} →</span>
+      </NuxtLink>
+
       <!-- Certification readiness -->
       <section class="border-[1.5px] border-(--ink) bg-(--card)">
         <header class="flex flex-wrap items-center justify-between gap-3 border-b-[1.5px] border-(--ink) px-5 py-3">

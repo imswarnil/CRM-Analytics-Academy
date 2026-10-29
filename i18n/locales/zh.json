@@ -24,7 +24,8 @@
     "wallOfFame": "名人墙",
     "certification": "考试",
     "interview": "面谈",
-    "companies": "公司"
+    "companies": "公司",
+    "pro": "赞成:"
   },
   "home": {
     "modules": {
@@ -873,7 +874,10 @@
       "progress": "你的进展",
       "dashboard": "打开仪表板",
       "shareText": "一个自由、开源 Salesforce CRM Analytics 课程——一页的完整课程."
-    }
+    },
+    "waiting": "{n} 学习者等待",
+    "notifyMe": "打开时通知我",
+    "notifying": "你在名单上"
   },
   "lesson": {
     "authors": {
@@ -1253,6 +1257,121 @@
   },
   "dash": {
     "examTitle": "核证准备情况",
-    "examSummary": "{taken} · 最佳 {best}* 通过标记 {pass}百分比(%)"
+    "examSummary": "{taken} · 最佳 {best}* 通过标记 {pass}百分比(%)",
+    "proTitle": "解锁 Pro 课程",
+    "proBody": "全面走过,考试和考试审查——当你被卡住时提供帮助.",
+    "proActive": "你是职业会员",
+    "proActiveBody": "每个专业课程都是对你的开放。 谢谢你对学院的支持"
+  },
+  "pro": {
+    "eyebrow": "专业课",
+    "tag": "赞成:",
+    "lockedTitle": "这个教训是给支持党的",
+    "lockedBody": "你已读到“......{title}其余的——完全走过、问答和面试问题——是Pro的一部分。",
+    "perkLessons": "每个专业课程,每个部分都出版",
+    "perkExams": "所有五个实践考试的完整答复审查",
+    "perkNoPromos": "现场没有广告",
+    "perkCommunity": "优先回答您的问题",
+    "signUpFirst": "创建您的自由账户",
+    "getPro": "获取 Pro",
+    "signUpHint": "一个免费账户已经删除了每个广告 。 Pro是之后的一步。"
+  },
+  "store": {
+    "eyebrow": "赞成:",
+    "seoTitle": "CRM Analytics 专业、培训和团队计划",
+    "seoDesc": "专业会员、认证新营、面试准备、辅导、仪表板审查和团队培训 Salesforce CRM Analytics。 。 。",
+    "title": "更进一步 CRM Analytics",
+    "lead": "一切自由无碍. 这些是当你们想要更多的时候——完全的Pro课程,导师认证之路,或者帮助你们的团队.",
+    "youArePro": "你是职业会员",
+    "individual": "给你",
+    "business": "为了你的团队",
+    "popular": "最受欢迎的",
+    "talk": "我们谈谈",
+    "getIt": "拿着",
+    "unit": {
+      "perMonth": "月数",
+      "once": "一次性",
+      "perSession": "届会",
+      "perSeat": "/座位/年份"
+    },
+    "requestTitle": "请求 {product}",
+    "sentTitle": "谢谢,你的请求已经受理了",
+    "sentBody": "Swarnil将在两个工作日内用电子邮件回复下一步。",
+    "needsAccount": "这个被加进了你的Academy账户,所以它从免费账户开始(它也关闭了每一个广告).",
+    "f": {
+      "firstName": "名称",
+      "lastName": "姓",
+      "email": "电子邮件",
+      "company": "企业",
+      "title": "职称",
+      "teamSize": "团队规模",
+      "phone": "电话",
+      "message": "有什么我们该知道的吗?"
+    },
+    "send": "发送请求",
+    "noCharge": "这里没有收费 你将通过电子邮件得到答复。"
+  },
+  "products": {
+    "pro": {
+      "name": "赞成成员",
+      "tagline": "每个专业课程, 考试审查, 没有广告。",
+      "f1": "所有专业课程,随着每一节的出版",
+      "f2": "对五次实践考试的全面答复审查",
+      "f3": "可下载的仪表板和食谱",
+      "f4": "没有广告",
+      "f5": "评论中的优先答复"
+    },
+    "bootcamp": {
+      "name": "认证启动营地",
+      "tagline": "六个星期,教练, 参加顾问考试。",
+      "f1": "每周现场会议和学习计划",
+      "f2": "附有反馈的分级实务文件",
+      "f3": "包括赞成的成员",
+      "f4": "未通过时重新获取支持"
+    },
+    "interview-prep": {
+      "name": "面试准备",
+      "tagline": "模拟采访和书面反馈.",
+      "f1": "60分钟模拟技术访谈",
+      "f2": "SAQL 和仪表板设想问题",
+      "f3": "48小时内的书面反馈",
+      "f4": "再次举行后续会议"
+    },
+    "mentoring": {
+      "name": "1:1 辅导",
+      "tagline": "一个小时,无论你被卡住。",
+      "f1": "视频60分钟",
+      "f2": "你的鸟类,你的仪表板,你的问题",
+      "f3": "其后的说明和链接"
+    },
+    "dashboard-review": {
+      "name": "盘片审查",
+      "tagline": "您的仪表板, 一个专家审查。",
+      "f1": "成绩 SAQL 和具有约束力的审查",
+      "f2": "安全和共享检查",
+      "f3": "附有修正的书面报告"
+    },
+    "team": {
+      "name": "团队培训",
+      "tagline": "为你整个分析组准备",
+      "f1": "每个座位的推荐",
+      "f2": "管理人员的进度报告",
+      "f3": "一个活的Q&每季度一个",
+      "f4": "发票账单"
+    },
+    "consulting": {
+      "name": "执行情况 & 咨询",
+      "tagline": "构建 CRM Analytics 和曾经有过的人",
+      "f1": "数据、食谱和安全设计",
+      "f2": "你高管们会用的板子",
+      "f3": "Einstein Discovery 模型",
+      "f4": "移交和训练你的团队"
+    }
+  },
+  "human": {
+    "working": "检查你是人类...",
+    "done": "验证过,你是人类",
+    "retry": "检查失败 —— 再次尝试",
+    "wait": "等一等,你还是人"
   }
 }

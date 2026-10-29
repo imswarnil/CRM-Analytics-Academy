@@ -260,7 +260,10 @@ h1, h2, h3, h4 {
      Positions are anchored to the nearest edge (right 6px, bottom 6px …)
      rather than computed from percentages, so the vertical arm lands on the
      1.5px border line exactly — at any card size. */
-  inset: -6px;
+  /* An absolute box is measured from the PADDING edge — inside the border —
+     so the overhang adds the border width (--cross-bw, 1.5px by default) to
+     put each "+" on the outer corner, not one border-width inside it. */
+  inset: calc(-6px - var(--cross-bw, 1.5px));
   pointer-events: none;
   z-index: 2;
   --c: linear-gradient(var(--x), var(--x));

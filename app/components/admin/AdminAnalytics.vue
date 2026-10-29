@@ -73,7 +73,11 @@ const EVENT_LABEL: Record<string, string> = {
   exam_start: 'Started a practice exam',
   exam_finish: 'Finished a practice exam',
   interview_submit: 'Submitted an interview question',
-  contribute: 'Sent a contribution'
+  contribute: 'Sent a contribution',
+  product_view: 'Opened a product request',
+  lead: 'Requested a product (lead)',
+  waitlist: 'Joined a section waitlist',
+  pro_locked: 'Hit a Pro lesson without Pro'
 }
 
 const bars = computed(() => (data.value?.series ?? []).map((d, i, all) => ({

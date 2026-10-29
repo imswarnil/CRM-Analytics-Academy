@@ -22,17 +22,20 @@
  "/introduction/set-up-your-org": {
   "minutes": 13,
   "type": "video",
-  "quiz": false
+  "quiz": false,
+  "pro": true
  },
  "/introduction/a-tour-of-analytics-studio": {
   "minutes": 12,
   "type": "video",
-  "quiz": true
+  "quiz": true,
+  "pro": true
  },
  "/introduction/how-to-study-this": {
   "minutes": 7,
   "type": "article",
-  "quiz": false
+  "quiz": false,
+  "pro": true
  },
  "/introduction/faq": {
   "minutes": 6,

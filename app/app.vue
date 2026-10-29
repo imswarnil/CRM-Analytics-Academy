@@ -97,7 +97,8 @@ useHead({
     { rel: 'manifest', href: '/manifest.webmanifest' }
   ]
 })
-useHead(i18nHead)
+// Nuxt 4.6 narrowed useHead's input type; the ref is still accepted at runtime.
+useHead(i18nHead as unknown as Parameters<typeof useHead>[0])
 
 // useLocaleHead emits the hreflang alternates and <html lang/dir>, but not a
 // canonical, so add one. Every locale prerenders its own copy of a page and each
@@ -176,6 +177,18 @@ const focus = useState('exam-focus', () => false)
         <NuxtPage />
       </NuxtLayout>
     </UMain>
+
+    <!-- One more unit on every page, above the footer; PromoSlot itself
+         skips members and the pages promos never appear on. -->
+    <div
+      v-if="!focus"
+      class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8"
+    >
+      <PromoSlot
+        :key="`footer-${route.path}`"
+        unit="leaderboard980x90"
+      />
+    </div>
 
     <AppFooter v-if="!focus" />
 
