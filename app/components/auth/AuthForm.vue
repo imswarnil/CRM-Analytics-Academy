@@ -103,7 +103,7 @@ async function demo() {
             :to="localePath('/')"
             class="mb-8 block"
           >
-            <AppLogo class="text-white" />
+            <AppLogo inverted />
           </NuxtLink>
           <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
             {{ t('auth.asideMeta') }}

@@ -103,3 +103,8 @@ content-creation/obs/live/
 .gated-stubs/
 .gated-files.json
 server/assets/gated/
+
+# HyperFrames working files (the finished film is .github/demo/).
+demo-video/renders/
+demo-video/.hyperframes/
+demo-video/node_modules/

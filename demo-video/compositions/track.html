@@ -1,0 +1,35 @@
+<template>
+  <style>
+    @font-face { font-family: 'Schibsted Grotesk'; src: url('assets/fonts/SchibstedGrotesk.ttf'); font-weight: 400 900; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #F4F7FB; font-family: 'Schibsted Grotesk', sans-serif; color: #0C1B33; }
+    #root .grid { position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(47,91,234,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.07) 1px, transparent 1px),
+        linear-gradient(rgba(47,91,234,.032) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.032) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px; }
+    #root .eyebrow { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: .12em; text-transform: uppercase; color: #2F5BEA; }
+    #root .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #root .cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: block; }
+    #root .sheet { box-shadow: 10px 10px 0 #0C1B33; outline: 1.5px solid #0C1B33; }
+    #root .tb { position: absolute; right: 110px; bottom: 96px; width: 660px; padding: 26px 32px 30px; background: #FBFCFE; border: 1.5px solid #0C1B33; box-shadow: 10px 10px 0 #0C1B33; }
+    #root .tb .line { margin-top: 10px; font-size: 60px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+    #root .w { display: inline-block; }
+
+  </style>
+  <div data-hf-id="hf-l066" id="root" data-composition-id="track" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-kxq8" class="grid"></div>
+    <div data-hf-id="hf-c2f9" id="track-cam" class="cam clip" data-start="0" data-duration="3.5" data-track-index="1"><img data-hf-id="hf-7o05" src="assets/screens/dash.jpg" alt="The learner dashboard"></div>
+    <div data-hf-id="hf-fulp" id="track-tb" class="tb clip" data-start="1.2" data-duration="2.3" data-track-index="3">
+      <p data-hf-id="hf-jt7g" class="eyebrow">Sheet 05 / Track</p>
+      <p data-hf-id="hf-j7r1" class="line"><span data-hf-id="hf-j1t4" class="w track-w">Streaks,</span> <span data-hf-id="hf-dnnm" class="w track-w">points,</span> <span data-hf-id="hf-yjsl" class="w track-w">badges</span></p>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#track-cam', { clipPath: 'circle(0% at 50% 45%)' }, { clipPath: 'circle(80% at 50% 45%)', duration: 0.35, ease: 'power3.in' }, 0)
+    tl.fromTo('#track-cam', { x: 0, y: 0, scale: 1 }, { x: 960 - 1.35 * 960, y: 460 - 1.35 * 640, scale: 1.35, duration: 0.9, ease: 'power2.inOut' }, 0.6)
+    tl.fromTo('#track-tb', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.45, ease: 'expo.out' }, 1.2)
+    tl.fromTo('.track-w', { color: '#C3D2E6' }, { color: '#0C1B33', duration: 0.12, stagger: 0.08, ease: 'none' }, 1.4)
+
+    window.__timelines["track"] = tl;
+  </script>
+</template>

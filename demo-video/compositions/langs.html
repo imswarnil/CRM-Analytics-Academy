@@ -1,0 +1,48 @@
+<template>
+  <style>
+    @font-face { font-family: 'Schibsted Grotesk'; src: url('assets/fonts/SchibstedGrotesk.ttf'); font-weight: 400 900; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #F4F7FB; font-family: 'Schibsted Grotesk', sans-serif; color: #0C1B33; }
+    #root .grid { position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(47,91,234,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.07) 1px, transparent 1px),
+        linear-gradient(rgba(47,91,234,.032) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.032) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px; }
+    #root .eyebrow { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: .12em; text-transform: uppercase; color: #2F5BEA; }
+    #root .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #root .cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: block; }
+    #root .sheet { box-shadow: 10px 10px 0 #0C1B33; outline: 1.5px solid #0C1B33; }
+    #root .tb { position: absolute; right: 110px; bottom: 96px; width: 660px; padding: 26px 32px 30px; background: #FBFCFE; border: 1.5px solid #0C1B33; box-shadow: 10px 10px 0 #0C1B33; }
+    #root .tb .line { margin-top: 10px; font-size: 60px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+    #root .w { display: inline-block; }
+
+  </style>
+  <div data-hf-id="hf-a1ks" id="root" data-composition-id="langs" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-kxq8" class="grid"></div>
+    <div data-hf-id="hf-3vii" id="langs-cam-en" class="cam clip" data-start="0" data-duration="0.755" data-track-index="1"><img data-hf-id="hf-8n67" src="assets/screens/lesson-en.jpg" alt="The lesson in English"></div>
+    <div data-hf-id="hf-5avj" id="langs-cam-fr" class="cam clip" data-start="0.755" data-duration="0.51" data-track-index="1"><img data-hf-id="hf-lz0o" src="assets/screens/lesson-fr.jpg" alt="The lesson in French"></div>
+    <div data-hf-id="hf-lp5s" id="langs-cam-ja" class="cam clip" data-start="1.265" data-duration="0.49" data-track-index="1"><img data-hf-id="hf-korc" src="assets/screens/lesson-ja.jpg" alt="The lesson in Japanese"></div>
+    <div data-hf-id="hf-7o9f" id="langs-cam-ar" class="cam clip" data-start="1.755" data-duration="1.245" data-track-index="1"><img data-hf-id="hf-3vpt" src="assets/screens/lesson-ar.jpg" alt="The lesson in Arabic"></div>
+    <div data-hf-id="hf-zth4" id="langs-tb" class="tb clip" data-start="0" data-duration="3" data-track-index="3">
+      <p data-hf-id="hf-dacq" class="eyebrow">Sheet 03 / Your language</p>
+      <p data-hf-id="hf-2am1" class="line">The same lesson in <span data-hf-id="hf-y28r" id="langs-slot" style="display:inline-block;position:relative;height:1.02em;width:7.2em;vertical-align:bottom;overflow:hidden"><span data-hf-id="hf-hubs" id="langs-n0" style="position:absolute;left:0;top:0;color:#2F5BEA">English</span><span data-hf-id="hf-runv" id="langs-n1" style="position:absolute;left:0;top:0;color:#2F5BEA">French</span><span data-hf-id="hf-2tf1" id="langs-n2" style="position:absolute;left:0;top:0;color:#2F5BEA">Japanese</span><span data-hf-id="hf-wctt" id="langs-n3" style="position:absolute;left:0;top:0;color:#2F5BEA">Arabic</span><span data-hf-id="hf-pjk8" id="langs-n4" style="position:absolute;left:0;top:0;color:#2F5BEA">12 languages</span></span></p>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#langs-cam-en', { x: 760 - 1.6 * 650, y: 400 - 1.6 * 230, scale: 1.6 }, { x: 760 - 1.66 * 650, y: 400 - 1.66 * 230, scale: 1.66, duration: 0.755, ease: 'none' }, 0)
+    tl.fromTo('#langs-cam-fr', { x: 760 - 1.6 * 650, y: 400 - 1.6 * 230, scale: 1.6 }, { x: 760 - 1.66 * 650, y: 400 - 1.66 * 230, scale: 1.66, duration: 0.51, ease: 'none' }, 0.755)
+    tl.fromTo('#langs-cam-ja', { x: 760 - 1.6 * 650, y: 400 - 1.6 * 230, scale: 1.6 }, { x: 760 - 1.66 * 650, y: 400 - 1.66 * 230, scale: 1.66, duration: 0.49, ease: 'none' }, 1.265)
+    tl.fromTo('#langs-cam-ar', { x: 1100 - 1.6 * 1270, y: 400 - 1.6 * 230, scale: 1.6 }, { x: 1100 - 1.66 * 1270, y: 400 - 1.66 * 230, scale: 1.66, duration: 1.245, ease: 'none' }, 1.755)
+    tl.fromTo('#langs-tb', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.45, ease: 'expo.out' }, 0.05)
+    tl.fromTo('#langs-n0', { yPercent: 0 }, { yPercent: 0, duration: 0.14, ease: 'power3.out' }, 0)
+    tl.fromTo('#langs-n0', { yPercent: 0 }, { yPercent: -100, duration: 0.12, ease: 'power3.in', immediateRender: false }, 0.755)
+    tl.fromTo('#langs-n1', { yPercent: 100 }, { yPercent: 0, duration: 0.14, ease: 'power3.out' }, 0.755)
+    tl.fromTo('#langs-n1', { yPercent: 0 }, { yPercent: -100, duration: 0.12, ease: 'power3.in', immediateRender: false }, 1.265)
+    tl.fromTo('#langs-n2', { yPercent: 100 }, { yPercent: 0, duration: 0.14, ease: 'power3.out' }, 1.265)
+    tl.fromTo('#langs-n2', { yPercent: 0 }, { yPercent: -100, duration: 0.12, ease: 'power3.in', immediateRender: false }, 1.755)
+    tl.fromTo('#langs-n3', { yPercent: 100 }, { yPercent: 0, duration: 0.14, ease: 'power3.out' }, 1.755)
+    tl.fromTo('#langs-n3', { yPercent: 0 }, { yPercent: -100, duration: 0.12, ease: 'power3.in', immediateRender: false }, 2.265)
+    tl.fromTo('#langs-n4', { yPercent: 100 }, { yPercent: 0, duration: 0.14, ease: 'power3.out' }, 2.265)
+
+    window.__timelines["langs"] = tl;
+  </script>
+</template>

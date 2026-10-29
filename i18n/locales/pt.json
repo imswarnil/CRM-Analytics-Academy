@@ -37,7 +37,7 @@
     "faqs": [
       {
         "q": "É mesmo de graça?",
-        "a": "Sim — cada lição é livre e de código aberto, sem necessidade de inscrição."
+        "a": "Sim — a maioria das lições são gratuitas e de código aberto, sem necessidade de inscrição. Algumas lições práticas fazem parte do Pro."
       },
       {
         "q": "Eu preciso de um... Salesforce org?",
@@ -109,7 +109,7 @@
     "join": {
       "eyebrow": "Conta gratuita",
       "title": "Acompanhe o seu progresso enquanto cada seção vai ao vivo",
-      "lead": "Todas as lições são grátis. Com uma conta, você mantém seu lugar, constrói uma sequência diária, guarda aulas para mais tarde, pontua seus questionários e ganha crachás no painel.",
+      "lead": "A maioria das lições são grátis. Com uma conta gratuita, você lê sem anúncios, mantém seu lugar, constrói uma sequência diária, economiza aulas para mais tarde, pontua seus questionários e ganha crachás no painel.",
       "browse": "Navegue no currículo"
     },
     "wall": {
@@ -286,7 +286,7 @@
     "noAccount": "Nova aqui?",
     "signUpLink": "Criar uma conta",
     "asideTitle": "Aprender CRM Analytics a forma como é utilizado no trabalho.",
-    "asideText": "Cada lição, conjunto de dados e questionário é gratuito. Uma conta é apenas como o site se lembra de você.",
+    "asideText": "A maioria das lições, cada conjunto de dados e cada questionário são gratuitos. Assinado, você lê sem anúncios e o site se lembra do seu lugar.",
     "asideMeta": "Livre · sem cartão · 12 idiomas",
     "eyebrowSignIn": "Folha 00 — Iniciar sessão",
     "eyebrowSignUp": "Folha 00 — Registo",
@@ -295,7 +295,7 @@
     "benefitProgress": "Progresso salvo entre dispositivos, lição por lição",
     "benefitDiscuss": "Faça perguntas e responda sob todas as lições",
     "benefitQuizzes": "Testes de secção com as suas pontuações mantidas",
-    "benefitFree": "Livre para sempre — todas as lições",
+    "benefitFree": "Sem anúncios enquanto você estiver conectado",
     "verifyTitle": "Verifique sua caixa de entrada",
     "verifyDesc": "Enviamos um link de confirmação para {email}Abre-a e depois assina."
   },
@@ -432,7 +432,7 @@
     "principles": [
       {
         "title": "Abra, e livre no núcleo",
-        "desc": "Sem parede de pagamento e sem parede de inscrição. Cada lição é gratuita e vive em um repo público que você pode ler, garfo e melhorar."
+        "desc": "Nenhuma parede de inscrição. A maioria das lições são gratuitas e vivem em um repositório público que você pode ler, garfo e melhorar; algumas lições práticas fazem parte do Pro."
       },
       {
         "title": "Um caminho, não uma pilha",

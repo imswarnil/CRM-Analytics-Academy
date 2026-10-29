@@ -37,7 +37,7 @@
     "faqs": [
       {
         "q": "Is it really free?",
-        "a": "Yes — every lesson is free and open source, with no sign-up required."
+        "a": "Yes — most lessons are free and open source, with no sign-up required. A few hands-on lessons are part of Pro."
       },
       {
         "q": "Do I need a Salesforce org?",
@@ -109,7 +109,7 @@
     "join": {
       "eyebrow": "Free account",
       "title": "Track your progress as every section goes live",
-      "lead": "Every lesson is free. With an account you keep your place, build a daily streak, save lessons for later, score your quizzes and earn badges on your dashboard.",
+      "lead": "Most lessons are free. With a free account you read without ads, keep your place, build a daily streak, save lessons for later, score your quizzes and earn badges on your dashboard.",
       "browse": "Browse the curriculum"
     },
     "wall": {
@@ -286,7 +286,7 @@
     "noAccount": "New here?",
     "signUpLink": "Create an account",
     "asideTitle": "Learn CRM Analytics the way it is used at work.",
-    "asideText": "Every lesson, dataset and quiz is free. An account is only how the site remembers you.",
+    "asideText": "Most lessons, every dataset and every quiz are free. Signed in, you read without ads and the site remembers your place.",
     "asideMeta": "Free · no card · 12 languages",
     "eyebrowSignIn": "Sheet 00 — Sign in",
     "eyebrowSignUp": "Sheet 00 — Enroll",
@@ -295,7 +295,7 @@
     "benefitProgress": "Progress saved across devices, lesson by lesson",
     "benefitDiscuss": "Ask questions and answer them under every lesson",
     "benefitQuizzes": "Section quizzes with your scores kept",
-    "benefitFree": "Free forever — every lesson",
+    "benefitFree": "No ads while you are signed in",
     "verifyTitle": "Check your inbox",
     "verifyDesc": "We sent a confirmation link to {email}. Open it, then sign in."
   },
@@ -432,7 +432,7 @@
     "principles": [
       {
         "title": "Open, and free at the core",
-        "desc": "No paywall and no sign-up wall. Every lesson is free and lives in a public repo you can read, fork and improve."
+        "desc": "No sign-up wall. Most lessons are free and live in a public repo you can read, fork and improve; a few hands-on lessons are part of Pro."
       },
       {
         "title": "A path, not a pile",

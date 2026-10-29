@@ -1,0 +1,29 @@
+<template>
+  <style>
+    @font-face { font-family: 'Schibsted Grotesk'; src: url('assets/fonts/SchibstedGrotesk.ttf'); font-weight: 400 900; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #F4F7FB; font-family: 'Schibsted Grotesk', sans-serif; color: #0C1B33; }
+    #root .grid { position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(47,91,234,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.07) 1px, transparent 1px),
+        linear-gradient(rgba(47,91,234,.032) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.032) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px; }
+    #root .eyebrow { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: .12em; text-transform: uppercase; color: #2F5BEA; }
+    #root .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #root .cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: block; }
+    #root .sheet { box-shadow: 10px 10px 0 #0C1B33; outline: 1.5px solid #0C1B33; }
+    #root .tb { position: absolute; right: 110px; bottom: 96px; width: 660px; padding: 26px 32px 30px; background: #FBFCFE; border: 1.5px solid #0C1B33; box-shadow: 10px 10px 0 #0C1B33; }
+    #root .tb .line { margin-top: 10px; font-size: 60px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+    #root .w { display: inline-block; }
+
+    #claim-l { position: absolute; left: 160px; top: 330px; font-size: 128px; font-weight: 800; letter-spacing: -0.045em; line-height: 1.04; }
+
+  </style>
+  <div data-hf-id="hf-dc55" id="root" data-composition-id="claim" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-kxq8" class="grid"></div>
+    <p data-hf-id="hf-8ilp" id="claim-l" class="clip" data-start="0" data-duration="2.7" data-track-index="2"><span data-hf-id="hf-vcqi" class="w claim-w">Learn</span> <span data-hf-id="hf-6lso" class="w claim-w">CRM</span> <span data-hf-id="hf-5f8s" class="w claim-w">Analytics</span> <br data-hf-id="hf-x5px"><span data-hf-id="hf-1zjb" class="w claim-w">the</span> <span data-hf-id="hf-ke1v" class="w claim-w">way</span> <span data-hf-id="hf-pf7f" class="w claim-w">it's</span> <span data-hf-id="hf-6m75" class="w claim-w">used</span> <span data-hf-id="hf-x1pd" class="w claim-w">at</span> <span data-hf-id="hf-0oe8" class="w claim-w" style="color:#2F5BEA">work.</span></p>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('.claim-w', { opacity: 0, filter: 'blur(6px)' }, { opacity: 1, filter: 'blur(0px)', duration: 0.13, stagger: 0.067, ease: 'power2.out' }, 0.1)
+    window.__timelines["claim"] = tl;
+  </script>
+</template>

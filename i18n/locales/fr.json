@@ -37,7 +37,7 @@
     "faqs": [
       {
         "q": "C'est vraiment gratuit ?",
-        "a": "Oui — chaque leçon est libre et open source, sans inscription requise."
+        "a": "Oui — la plupart des cours sont gratuits et ouverts, sans inscription requise. Quelques leçons pratiques font partie de Pro."
       },
       {
         "q": "J'ai besoin d'un Salesforce - Quoi ?",
@@ -109,7 +109,7 @@
     "join": {
       "eyebrow": "Compte libre",
       "title": "Suivre vos progrès comme chaque section va en direct",
-      "lead": "Chaque leçon est gratuite. Avec un compte vous gardez votre place, construisez une série quotidienne, enregistrez des leçons pour plus tard, marquez vos quiz et gagnez des badges sur votre tableau de bord.",
+      "lead": "La plupart des leçons sont gratuites. Avec un compte gratuit que vous lisez sans annonces, gardez votre place, construisez une série quotidienne, enregistrez des leçons pour plus tard, marquez vos quiz et gagnez des badges sur votre tableau de bord.",
       "browse": "Parcourir le programme"
     },
     "wall": {
@@ -286,7 +286,7 @@
     "noAccount": "Nouveau ici ?",
     "signUpLink": "Créer un compte",
     "asideTitle": "Apprendre CRM Analytics la façon dont il est utilisé au travail.",
-    "asideText": "Chaque leçon, jeu de données et quiz est gratuit. Un compte est seulement comment le site se souvient de vous.",
+    "asideText": "La plupart des leçons, chaque jeu de données et chaque quiz sont gratuits. Signé, vous lisez sans annonces et le site se souvient de votre place.",
     "asideMeta": "Gratuit · pas de carte · 12 langues",
     "eyebrowSignIn": "Feuille 00 — Signalisation",
     "eyebrowSignUp": "Feuille 00 — Inscription",
@@ -295,7 +295,7 @@
     "benefitProgress": "Progrès enregistrés sur les appareils, leçon par leçon",
     "benefitDiscuss": "Posez des questions et répondez à chaque leçon",
     "benefitQuizzes": "Quiz de section avec vos scores conservés",
-    "benefitFree": "Libéré pour toujours — chaque leçon",
+    "benefitFree": "Pas d'annonces pendant que vous êtes connecté",
     "verifyTitle": "Vérifiez votre boîte de réception",
     "verifyDesc": "Nous avons envoyé un lien de confirmation à {email}. Ouvrez-le, puis connectez-vous."
   },
@@ -432,7 +432,7 @@
     "principles": [
       {
         "title": "Ouvert, et libre au cœur",
-        "desc": "Pas de barrière et pas de barrière. Chaque leçon est gratuite et vit dans une repo publique que vous pouvez lire, bifurquer et améliorer."
+        "desc": "Pas de mur d'inscription. La plupart des leçons sont gratuites et vivent dans une repo publique que vous pouvez lire, bifurquer et améliorer; quelques leçons pratiques font partie de Pro."
       },
       {
         "title": "Un chemin, pas une pile",

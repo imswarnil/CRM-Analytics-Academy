@@ -1,0 +1,59 @@
+<template>
+  <style>
+    @font-face { font-family: 'Schibsted Grotesk'; src: url('assets/fonts/SchibstedGrotesk.ttf'); font-weight: 400 900; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #F4F7FB; font-family: 'Schibsted Grotesk', sans-serif; color: #0C1B33; }
+    #root .grid { position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(47,91,234,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.07) 1px, transparent 1px),
+        linear-gradient(rgba(47,91,234,.032) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.032) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px; }
+    #root .eyebrow { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: .12em; text-transform: uppercase; color: #2F5BEA; }
+    #root .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #root .cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: block; }
+    #root .sheet { box-shadow: 10px 10px 0 #0C1B33; outline: 1.5px solid #0C1B33; }
+    #root .tb { position: absolute; right: 110px; bottom: 96px; width: 660px; padding: 26px 32px 30px; background: #FBFCFE; border: 1.5px solid #0C1B33; box-shadow: 10px 10px 0 #0C1B33; }
+    #root .tb .line { margin-top: 10px; font-size: 60px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+    #root .w { display: inline-block; }
+
+    #root .cell { position: absolute; width: 400px; height: 225px; overflow: hidden; background: #FBFCFE; outline: 1.5px solid #0C1B33; box-shadow: 8px 8px 0 #0C1B33; }
+    #root .cell img { width: 100%; height: 100%; display: block; }
+    #payoff-band { position: absolute; left: 100px; top: 700px; width: 1720px; height: 190px; overflow: hidden; border-top: 1.5px solid #0C1B33; }
+    #payoff-eb { position: absolute; left: 100px; top: 652px; }
+    #root .num { position: absolute; left: 0; top: 28px; white-space: nowrap; font-size: 104px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; color: #0C1B33; }
+    #root .num b { color: #2F5BEA; font-weight: 800; }
+
+  </style>
+  <div data-hf-id="hf-s4vk" id="root" data-composition-id="payoff" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-kxq8" class="grid"></div>
+    <div data-hf-id="hf-w7sc" id="payoff-c0" class="cell clip" data-start="0" data-duration="5.3" data-track-index="1" style="left:100px;top:110px"><img data-hf-id="hf-keao" src="assets/screens/home.jpg" alt=""></div>
+    <div data-hf-id="hf-0vsf" id="payoff-c1" class="cell clip" data-start="0" data-duration="5.3" data-track-index="1" style="left:540px;top:110px"><img data-hf-id="hf-vpww" src="assets/screens/curriculum.jpg" alt=""></div>
+    <div data-hf-id="hf-semy" id="payoff-c2" class="cell clip" data-start="0" data-duration="5.3" data-track-index="1" style="left:980px;top:110px"><img data-hf-id="hf-hd2d" src="assets/screens/lesson-en.jpg" alt=""></div>
+    <div data-hf-id="hf-lftd" id="payoff-c3" class="cell clip" data-start="0" data-duration="5.3" data-track-index="1" style="left:1420px;top:110px"><img data-hf-id="hf-0xjr" src="assets/screens/iq.jpg" alt=""></div>
+    <div data-hf-id="hf-bus9" id="payoff-c4" class="cell clip" data-start="0" data-duration="5.3" data-track-index="1" style="left:100px;top:375px"><img data-hf-id="hf-akgo" src="assets/screens/lesson-fr.jpg" alt=""></div>
+    <div data-hf-id="hf-z7fy" id="payoff-c5" class="cell clip" data-start="0" data-duration="5.3" data-track-index="1" style="left:540px;top:375px"><img data-hf-id="hf-pmew" src="assets/screens/exam.jpg" alt=""></div>
+    <div data-hf-id="hf-yctz" id="payoff-c6" class="cell clip" data-start="0" data-duration="5.3" data-track-index="1" style="left:980px;top:375px"><img data-hf-id="hf-ii8h" src="assets/screens/dash.jpg" alt=""></div>
+    <div data-hf-id="hf-y9rk" id="payoff-c7" class="cell clip" data-start="0" data-duration="5.3" data-track-index="1" style="left:1420px;top:375px"><img data-hf-id="hf-hol8" src="assets/screens/pro.jpg" alt=""></div>
+    <p data-hf-id="hf-yn1y" id="payoff-eb" class="eyebrow clip" data-start="0.9" data-duration="4.4" data-track-index="2">Free · crmanalytics.imswarnil.com</p>
+    <div data-hf-id="hf-3lfo" id="payoff-band" class="clip" data-start="0.9" data-duration="4.4" data-track-index="2"><span data-hf-id="hf-fezz" id="payoff-n0" class="num"><b data-hf-id="hf-mqn3">19</b> sections</span><span data-hf-id="hf-64ec" id="payoff-n1" class="num"><b data-hf-id="hf-tqtd">150</b> interview questions</span><span data-hf-id="hf-hot8" id="payoff-n2" class="num"><b data-hf-id="hf-upv4">5</b> practice exams</span><span data-hf-id="hf-50j7" id="payoff-n3" class="num"><b data-hf-id="hf-j5vu">12</b> languages</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#payoff-c0', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.4, ease: 'expo.out' }, 0.35)
+    tl.fromTo('#payoff-c1', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.4, ease: 'expo.out' }, 0.41)
+    tl.fromTo('#payoff-c2', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.4, ease: 'expo.out' }, 0.47)
+    tl.fromTo('#payoff-c3', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.4, ease: 'expo.out' }, 0.53)
+    tl.fromTo('#payoff-c4', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.4, ease: 'expo.out' }, 0.59)
+    tl.fromTo('#payoff-c5', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.4, ease: 'expo.out' }, 0.65)
+    tl.fromTo('#payoff-c6', { x: -980, y: -375, width: 1920, height: 1080 }, { x: 0, y: 0, width: 400, height: 225, duration: 0.7, ease: 'power3.inOut' }, 0)
+    tl.fromTo('#payoff-c7', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.4, ease: 'expo.out' }, 0.77)
+    tl.fromTo('#payoff-n0', { yPercent: 110, opacity: 0, filter: 'blur(6px)' }, { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 0.3, ease: 'expo.out' }, 0.765)
+    tl.fromTo('#payoff-n0', { yPercent: 0, opacity: 1 }, { yPercent: -110, opacity: 0, duration: 0.14, ease: 'power3.in', immediateRender: false }, 1.565)
+    tl.fromTo('#payoff-n1', { yPercent: 110, opacity: 0, filter: 'blur(6px)' }, { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 0.3, ease: 'expo.out' }, 1.7650000000000001)
+    tl.fromTo('#payoff-n1', { yPercent: 0, opacity: 1 }, { yPercent: -110, opacity: 0, duration: 0.14, ease: 'power3.in', immediateRender: false }, 2.5650000000000004)
+    tl.fromTo('#payoff-n2', { yPercent: 110, opacity: 0, filter: 'blur(6px)' }, { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 0.3, ease: 'expo.out' }, 2.765)
+    tl.fromTo('#payoff-n2', { yPercent: 0, opacity: 1 }, { yPercent: -110, opacity: 0, duration: 0.14, ease: 'power3.in', immediateRender: false }, 3.5650000000000004)
+    tl.fromTo('#payoff-n3', { yPercent: 110, opacity: 0, filter: 'blur(6px)' }, { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 0.3, ease: 'expo.out' }, 3.765)
+    tl.fromTo('#payoff-band', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.5, ease: 'power2.inOut' }, 0.9)
+
+    window.__timelines["payoff"] = tl;
+  </script>
+</template>

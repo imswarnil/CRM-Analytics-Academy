@@ -202,8 +202,11 @@ const tocBottomLinks = computed(() => {
 })
 
 const lessonMeta = useLessonMeta().of(route.path)
-// Every lesson is free; structured data says so.
-const paywall = { isAccessibleForFree: true }
+// Free lessons say so; Pro lessons use Google's paywalled-content markup,
+// pointing at the locked card that stands in for the members-only part.
+const paywall = page.value?.access === 'pro'
+  ? { isAccessibleForFree: false, hasPart: { '@type': 'WebPageElement', 'isAccessibleForFree': false, 'cssSelector': '.pro-locked' } }
+  : { isAccessibleForFree: true }
 
 // Every lesson exists in twelve languages at twelve URLs. The English one is
 // the original; the rest say they are translations of it, and it lists them —

@@ -20,7 +20,7 @@ const PERKS = ['perkLessons', 'perkExams', 'perkNoPromos', 'perkCommunity'] as c
 
 <template>
   <section
-    class="crosshair relative my-10 border-[1.5px] border-(--ink) bg-(--card)"
+    class="pro-locked crosshair relative my-10 border-[1.5px] border-(--ink) bg-(--card)"
     :aria-busy="props.loading"
   >
     <!-- The teaser above fades into the card, so the cut reads as deliberate. -->

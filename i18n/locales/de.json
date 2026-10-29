@@ -37,7 +37,7 @@
     "faqs": [
       {
         "q": "Ist es wirklich kostenlos?",
-        "a": "Ja - jede Lektion ist kostenlos und Open Source, ohne Anmeldung erforderlich."
+        "a": "Ja - die meisten Lektionen sind kostenlos und Open Source, ohne Anmeldung erforderlich. Ein paar praktische Lektionen sind Teil von Pro."
       },
       {
         "q": "Brauche ich eine Salesforce Org?",
@@ -109,7 +109,7 @@
     "join": {
       "eyebrow": "Freies Konto",
       "title": "Verfolgen Sie Ihren Fortschritt, da jeder Abschnitt live geht",
-      "lead": "Jede Lektion ist kostenlos. Mit einem Konto behalten Sie Ihren Platz, bauen eine tägliche Streifen, speichern Sie Lektionen für später, punkten Sie Ihre Quiz und verdienen Sie Abzeichen auf Ihrem Dashboard.",
+      "lead": "Die meisten Lektionen sind kostenlos. Mit einem kostenlosen Konto lesen Sie ohne Werbung, behalten Ihren Platz, bauen eine tägliche Streifen, speichern Sie Lektionen für später, punkten Sie Ihre Quiz und verdienen Sie Abzeichen auf Ihrem Dashboard.",
       "browse": "Durchsuchen des Curriculums"
     },
     "wall": {
@@ -286,7 +286,7 @@
     "noAccount": "Neu hier?",
     "signUpLink": "Erstellen Sie ein Konto",
     "asideTitle": "Lernen CRM Analytics die Art und Weise, wie es bei der Arbeit verwendet wird.",
-    "asideText": "Jede Lektion, jeder Datensatz und jedes Quiz ist kostenlos. Ein Konto ist nur, wie sich die Website an Sie erinnert.",
+    "asideText": "Die meisten Lektionen, jeder Datensatz und jedes Quiz sind kostenlos. Angemeldet, lesen Sie ohne Werbung und die Website erinnert sich an Ihren Platz.",
     "asideMeta": "Kostenlos · keine Karte · 12 Sprachen",
     "eyebrowSignIn": "Blatt 00 — Anmelden",
     "eyebrowSignUp": "Blatt 00 — Einschreibung",
@@ -295,7 +295,7 @@
     "benefitProgress": "Fortschritt über Geräte hinweg gespeichert, Lektion für Lektion",
     "benefitDiscuss": "Stellen Sie Fragen und beantworten Sie sie unter jeder Lektion",
     "benefitQuizzes": "Abschnitt Quiz mit Ihren Partituren gehalten",
-    "benefitFree": "Für immer frei – jede Lektion",
+    "benefitFree": "Keine Werbung, während Sie angemeldet sind",
     "verifyTitle": "Überprüfen Sie Ihren Posteingang",
     "verifyDesc": "Wir haben einen Bestätigungslink an {email}Öffnen Sie es und melden Sie sich dann an."
   },
@@ -432,7 +432,7 @@
     "principles": [
       {
         "title": "Offen und frei im Kern",
-        "desc": "Keine Paywall und keine Anmeldemauer. Jede Lektion ist kostenlos und lebt in einem öffentlichen Repo, das Sie lesen, abzweigen und verbessern können."
+        "desc": "Keine Anmeldemauer. Die meisten lektionen sind kostenlos und leben in einem öffentlichen repo, das sie lesen, abzweigen und verbessern können; ein paar praktische lektionen sind teil von pro."
       },
       {
         "title": "Ein Weg, kein Haufen",

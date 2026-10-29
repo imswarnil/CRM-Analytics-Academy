@@ -37,7 +37,7 @@
     "faqs": [
       {
         "q": "¿Es realmente gratis?",
-        "a": "Sí — cada lección es libre y de código abierto, sin necesidad de registro."
+        "a": "Sí — la mayoría de las lecciones son de código abierto y libre, sin necesidad de registro. Algunas lecciones prácticas son parte de Pro."
       },
       {
         "q": "Necesito un Salesforce ¿Org?",
@@ -109,7 +109,7 @@
     "join": {
       "eyebrow": "Cuenta gratuita",
       "title": "Seguimiento de su progreso como cada sección va en vivo",
-      "lead": "Cada lección es libre. Con una cuenta que guardas tu lugar, construyes una racha diaria, ahorras lecciones para más tarde, marca tus cuestionarios y gana las insignias en tu panel de control.",
+      "lead": "La mayoría de las lecciones son gratuitas. Con una cuenta gratuita que lee sin anuncios, mantenga su lugar, construya una racha diaria, ahorre lecciones para más tarde, marque sus cuestionarios y obtenga insignias en su panel de control.",
       "browse": "Examine el plan de estudios"
     },
     "wall": {
@@ -286,7 +286,7 @@
     "noAccount": "¿Eres nuevo aquí?",
     "signUpLink": "Crear una cuenta",
     "asideTitle": "Aprender CRM Analytics como se utiliza en el trabajo.",
-    "asideText": "Cada lección, conjunto de datos y cuestionario es gratis. Una cuenta es sólo cómo el sitio te recuerda.",
+    "asideText": "La mayoría de las lecciones, cada conjunto de datos y cada prueba son libres. Iniciada, lee sin anuncios y el sitio recuerda su lugar.",
     "asideMeta": "Gratis · sin tarjeta · 12 idiomas",
     "eyebrowSignIn": "Hoja 00 - Inicia sesión",
     "eyebrowSignUp": "Hoja 00 - Inscribirse",
@@ -295,7 +295,7 @@
     "benefitProgress": "Progresos guardados en los dispositivos, lección por lección",
     "benefitDiscuss": "Hacer preguntas y responderlas bajo cada lección",
     "benefitQuizzes": "Pruebas de sección con tus puntajes guardados",
-    "benefitFree": "Libre para siempre - cada lección",
+    "benefitFree": "No hay anuncios mientras se firman en",
     "verifyTitle": "Revisa tu buzón de entrada",
     "verifyDesc": "Enviamos un enlace de confirmación a {email}Ábrelo y luego firma."
   },
@@ -432,7 +432,7 @@
     "principles": [
       {
         "title": "Abierto y libre en el núcleo",
-        "desc": "Sin muro de pago y sin muro de registro. Cada lección es gratuita y vive en un repo público que puede leer, tenedor y mejorar."
+        "desc": "No hay muro de registro. La mayoría de las lecciones son gratuitas y viven en un repo público que puede leer, tenedor y mejorar; algunas lecciones prácticas son parte de Pro."
       },
       {
         "title": "Un camino, no un montón",

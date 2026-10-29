@@ -1,0 +1,35 @@
+<template>
+  <style>
+    @font-face { font-family: 'Schibsted Grotesk'; src: url('assets/fonts/SchibstedGrotesk.ttf'); font-weight: 400 900; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #F4F7FB; font-family: 'Schibsted Grotesk', sans-serif; color: #0C1B33; }
+    #root .grid { position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(47,91,234,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.07) 1px, transparent 1px),
+        linear-gradient(rgba(47,91,234,.032) 1px, transparent 1px), linear-gradient(90deg, rgba(47,91,234,.032) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px; }
+    #root .eyebrow { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: .12em; text-transform: uppercase; color: #2F5BEA; }
+    #root .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #root .cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: block; }
+    #root .sheet { box-shadow: 10px 10px 0 #0C1B33; outline: 1.5px solid #0C1B33; }
+    #root .tb { position: absolute; right: 110px; bottom: 96px; width: 660px; padding: 26px 32px 30px; background: #FBFCFE; border: 1.5px solid #0C1B33; box-shadow: 10px 10px 0 #0C1B33; }
+    #root .tb .line { margin-top: 10px; font-size: 60px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+    #root .w { display: inline-block; }
+
+  </style>
+  <div data-hf-id="hf-zw33" id="root" data-composition-id="learn" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-kxq8" class="grid"></div>
+    <div data-hf-id="hf-lq2a" id="learn-cam" class="cam clip" data-start="0" data-duration="3.5" data-track-index="1"><img data-hf-id="hf-pmqp" src="assets/screens/curriculum.jpg" alt="The curriculum page"></div>
+    <div data-hf-id="hf-2qdv" id="learn-tb" class="tb clip" data-start="1.25" data-duration="2.25" data-track-index="3">
+      <p data-hf-id="hf-hles" class="eyebrow">Sheet 02 / Learn</p>
+      <p data-hf-id="hf-j7r1" class="line"><span data-hf-id="hf-e0vo" class="w learn-w">19</span> <span data-hf-id="hf-sihi" class="w learn-w">sections,</span> <span data-hf-id="hf-dja1" class="w learn-w">in</span> <span data-hf-id="hf-cclq" class="w learn-w">order</span></p>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#learn-cam', { x: 520, filter: 'blur(18px)' }, { x: 0, filter: 'blur(0px)', duration: 0.3, ease: 'expo.out' }, 0)
+    tl.fromTo('#learn-cam', { y: 0, scale: 1 }, { x: 900 - 1.45 * 780, y: 470 - 1.45 * 830, scale: 1.45, duration: 0.9, ease: 'power2.inOut' }, 0.7)
+    tl.fromTo('#learn-tb', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.45, ease: 'expo.out' }, 1.25)
+    tl.fromTo('.learn-w', { color: '#C3D2E6' }, { color: '#0C1B33', duration: 0.12, stagger: 0.08, ease: 'none' }, 1.45)
+
+    window.__timelines["learn"] = tl;
+  </script>
+</template>

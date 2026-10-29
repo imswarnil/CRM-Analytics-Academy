@@ -5,7 +5,7 @@
 <p align="center">
   <strong>Learn Salesforce CRM Analytics the way go-to-market teams actually use it.</strong><br>
   Data prep, SAQL, dashboards, bindings, Einstein Discovery, and funnel, pipeline and RevOps dashboards
-  built end to end, in twelve languages. Every lesson is free and open source.
+  built end to end, in twelve languages. Most lessons are free and open source; a few hands-on ones are Pro.
 </p>
 
 <p align="center">
@@ -22,14 +22,15 @@
   <a href="https://www.youtube.com/@crmanalyticsacademy"><img src="https://img.shields.io/badge/YouTube-@crmanalyticsacademy-FF0000?logo=youtube&labelColor=0C1B33" alt="YouTube channel"></a>
   <img src="https://img.shields.io/badge/sections-19-2F5BEA?labelColor=0C1B33" alt="19 sections">
   <img src="https://img.shields.io/badge/languages-12-2F5BEA?labelColor=0C1B33" alt="12 languages">
-  <img src="https://img.shields.io/badge/price-free-3FC6DC?labelColor=0C1B33" alt="Free">
+  <img src="https://img.shields.io/badge/price-free%20%2B%20Pro-3FC6DC?labelColor=0C1B33" alt="Free, with Pro">
   <img src="https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&labelColor=0C1B33" alt="Nuxt 4">
   <img src="https://img.shields.io/badge/built%20with-Claude%20Code-D97757?labelColor=0C1B33" alt="Built with Claude Code">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-0F2A5C" alt="MIT license"></a>
 </p>
 
 <p align="center">
-  <img src="./.github/screenshots/home.jpg" alt="CRM Analytics Academy home page in the Blueprint design" width="860">
+  <a href="./.github/demo/crma-academy-demo.mp4"><img src="./.github/demo/crma-academy-demo-poster.jpg" alt="Watch the 30-second tour of CRM Analytics Academy" width="860"></a><br>
+  <sub>▶ <a href="./.github/demo/crma-academy-demo.mp4"><strong>Watch the 30-second tour</strong></a> — one real interview question, followed through the site. Made with HyperFrames from the live site's own screens (<code>demo-video/</code>).</sub>
 </p>
 
 ---
@@ -86,14 +87,25 @@ and a leaderboard.
 - Daily **streak** and longest streak, a **weekly goal** you set, a 26-week **activity heatmap**.
 - **Saved lessons**, **quiz scores** with retake prompts, **12 badges**, a top-5 **leaderboard**.
 
+**Pro and products** (no payment processor)
+- Lessons marked `access: pro` are members-only: the build ships a teaser, the Worker serves the rest to Pro
+  members, and the build fails if any members-only passage is public (`scripts/verify-gating.mjs`).
+- `/pro` sells Pro, a certification bootcamp, interview prep, mentoring, dashboard reviews, team training and
+  consulting. "Get it" files a lead — saved in Neon and sent to **Salesforce as a Lead by Web-to-Lead** (no
+  credentials, no API user). Access is granted by hand in `/admin`.
+- Coming-soon sections have a **Notify me** waitlist (free account), with the count of who is waiting.
+
 **Admin console** (`/admin`, one account only)
-- **Overview** — visitors, views, users, sign-ups, completions, quizzes, submissions, comments.
+- **Overview** — visitors, views, users, sign-ups, Pro members, leads, waitlists, completions, submissions.
+- **Leads** — every product request, its Salesforce status, and a new → contacted → won/lost pipeline.
+- **Conversion** — a per-visitor funnel (visit → engaged → sign-up click → sign-up → learning) and sign-up
+  rate by source and landing page.
 - **Analytics** — first-party traffic: visitors, sessions, time on page, bounce, countries, devices, browsers,
   OS, referrers, languages, top pages, **sign-in / sign-up clicks** by page, live feed.
 - **Users**, **Submissions** (approve / reject) and **Comments** (hide / restore).
 - Content is edited in **Nuxt Studio** (`/_studio`), which commits markdown to GitHub.
 
-**Advertising** (Google AdSense — the only income)
+**Advertising** (Google AdSense — readers who are signed in see none)
 - Every placement is a `<PromoSlot>` in a Blueprint frame (label, size spec, crop marks), its space reserved
   so nothing jumps, and a fresh unit is requested on every page view.
 - In-article units inside lessons, a sticky skyscraper under the table of contents, a unit in the course
@@ -101,6 +113,12 @@ and a leaderboard.
   leaderboard. Inventory and slot ids: `app/utils/promo.ts`. `public/ads.txt` is published.
 - A timed "subscribe on YouTube" card once per first session (AdSense units are never placed in pop-ups;
   Vignette ads come from AdSense Auto ads).
+
+**Security**
+- The site's own **proof-of-work captcha** (no third party) on sign-in, sign-up and lead forms, a honeypot, and
+  per-address rate limits stored as hashes.
+- Security headers on every response (HSTS, nosniff, frame and base-uri limits), a CSRF origin check on the API,
+  escaped JSON-LD, sanitised community content, and an admin pinned to one account.
 
 **Platform**
 - **AI-ready** — `llms.txt` lists the course in learning order, `llms-full.txt` holds every lesson, any lesson is
@@ -280,6 +298,14 @@ is ever empty in dev, the Nuxt Content dev database is stale: `rm -rf .data && p
 3. Commit everything (English, translations, `.translation-manifest.json`) and push to `main`.
    `.github/workflows/deploy-cloudflare.yml` lints, typechecks, builds and deploys to Cloudflare, then pings
    IndexNow. Runtime secrets live on the Worker (`wrangler secret put …`; names in `.env.example`).
+
+## The demo film
+
+`demo-video/` is a [HyperFrames](https://hyperframes.heygen.com) project: HTML scenes rendered frame by frame
+from real screenshots of the live site. `SPEC.md` is the brief, `STORYLINES.md` the alternatives, `REVIEW.md` the
+check. Edit the scenes, then `cd demo-video && npm run render`. The music and effects are the Academy's own
+CRMA kit; to score it with TheFatRat's "Unity", add your copy as `demo-video/assets/audio/unity.mp3`, point the
+`bed` audio at it, re-render, and credit TheFatRat wherever the video is posted.
 
 ## How it was made
 
