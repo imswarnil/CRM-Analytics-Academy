@@ -59,7 +59,6 @@ const RETIRED: Record<string, string> = {
   // 2026-10-22: payments, teams and sponsorship removed — every lesson is free.
   '/pricing': '/pro',
   '/teams': '/pro',
-  '/team': '/dashboard',
   '/join': '/sign-up',
   '/nominate': '/wall-of-fame',
   '/sponsor': '/about',
