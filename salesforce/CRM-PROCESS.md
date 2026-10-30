@@ -121,20 +121,30 @@ cd salesforce
 sf project deploy start --source-dir crm --target-org crma-learning --wait 10
 
 # 2. the Academy section on the existing layouts
-sf project retrieve start --target-org crma-learning --output-dir .crm-layouts \
+sf project retrieve start --target-org crma-learning --target-metadata-dir .crm-layouts-md --unzip \
   --metadata "Layout:Lead-Lead Layout" "Layout:Account-Account Layout" \
              "Layout:Contact-Contact Layout" "Layout:Opportunity-Opportunity Layout"
+mkdir -p .crm-layouts && for f in .crm-layouts-md/unpackaged/unpackaged/layouts/*.layout; do
+  cp "$f" ".crm-layouts/$(basename "$f" .layout).layout-meta.xml"; done
 node scripts/crm-layouts.mjs .crm-layouts
 sf project deploy start --source-dir crm/main/default/layouts --target-org crma-learning --wait 10
 
-# 3. products, price books and demo data — one Apex run (also assigns the permission set)
+# 3. products, price books and demo data — one Apex run. Assign the permission
+#    set FIRST: anonymous Apex compiles against your own field access.
+sf org assign permset --name Academy_CRM_Access --target-org crma-learning
 sf apex run --file scripts/apex/crm-seed.apex --target-org crma-learning
 
 # 4. the Web-to-Lead field ids → paste into server/utils/salesforce.ts (LEAD_FIELDS)
 node scripts/lead-field-ids.mjs --target-org crma-learning
 ```
 
-Remove the demo data with `scripts/apex/crm-seed-remove.apex`.
+Remove the demo data with `scripts/apex/crm-seed-remove.apex`. Demo records are
+found by their `example.com` website and `@example.com` emails.
+
+**Deployed to `crma-learning` on 2026-10-30**: 41 components, the Academy section
+on the four standard layouts, the seed (3 products, 2 price books, 5
+organisations, 9 contacts, 6 deals, 5 seats, 13 leads, 10 tasks, one converted
+lead) and `LEAD_FIELDS` wired into `server/utils/salesforce.ts`.
 
 Web-to-Lead must be enabled (*Setup → Web-to-Lead*). Do **not** add validation
 rules on Lead: Web-to-Lead drops a lead that fails one, silently.

@@ -18,7 +18,19 @@ const ENDPOINT = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encodin
  * salesforce/academy (README "Prospecting CRM"): `node salesforce/scripts/
  * lead-field-ids.mjs` prints this map.
  */
-export const LEAD_FIELDS: Partial<Record<'interest' | 'lessons' | 'points' | 'source' | 'landing' | 'firstLanding' | 'viewsBefore' | 'locale' | 'userId' | 'seats' | 'orgKind', string>> = {}
+export const LEAD_FIELDS: Partial<Record<'interest' | 'lessons' | 'points' | 'source' | 'landing' | 'firstLanding' | 'viewsBefore' | 'locale' | 'userId' | 'seats' | 'orgKind', string>> = {
+  interest: '00Ng500000VRIjv',
+  lessons: '00Ng500000VRIjw',
+  locale: '00Ng500000VRIjx',
+  points: '00Ng500000VRIjy',
+  userId: '00Ng500000VRIjz',
+  firstLanding: '00Ng500000VRIk0',
+  landing: '00Ng500000VRIk1',
+  orgKind: '00Ng500000VRIk2',
+  seats: '00Ng500000VRIk3',
+  source: '00Ng500000VRIk4',
+  viewsBefore: '00Ng500000VRIk5'
+}
 
 export interface LeadForSalesforce {
   product: string

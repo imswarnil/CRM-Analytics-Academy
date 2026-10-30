@@ -4,15 +4,16 @@
 //
 // One call on purpose: the org was frozen once, so nothing here loops over the
 // API. Safe to re-run — it stops if the demo data is already there (remove it
-// with scripts/apex/crm-seed-remove.apex). Every demo record carries
-// "[academy-demo]" in its description; every email is @example.com.
+// with scripts/apex/crm-seed-remove.apex). Every demo account's Website is on
+// example.com and every demo email is @example.com — that is how the remove
+// script finds them (Description cannot be filtered in SOQL).
 //
 // Points, not money (yet): the "Academy Points" price book holds prices in
 // points (the org's currency symbol shows, the number is points); the
 // Standard Price Book holds the USD price each plan will have later.
 
 String TAG = '[academy-demo]';
-if ([SELECT COUNT() FROM Account WHERE Description LIKE '%[academy-demo]%'] > 0) {
+if ([SELECT COUNT() FROM Pricebook2 WHERE Name = 'Academy Points'] > 0) {
     System.debug('Academy demo data already present — nothing to do.');
 } else {
 
@@ -50,10 +51,10 @@ if ([SELECT COUNT() FROM Account WHERE Description LIKE '%[academy-demo]%'] > 0)
     // --- Organisations ---------------------------------------------------------------
     List<Account> orgs = new List<Account>{
         new Account(Name = 'Northwind Analytics', Industry = 'Technology', Org_Type__c = 'company', Academy_Plan__c = 'seats', Seats_Purchased__c = 25, Join_Code__c = 'NWND7K2Q', Seat_Term_End__c = Date.today().addMonths(11), Website = 'https://example.com/northwind', Description = 'Analytics consultancy training its delivery team. ' + TAG),
-        new Account(Name = 'Lakeside University', Industry = 'Education', Org_Type__c = 'university', Academy_Plan__c = 'free', Description = 'Business school; wants seats for an MBA analytics elective. ' + TAG),
-        new Account(Name = 'Brightpath Consulting', Industry = 'Consulting', Org_Type__c = 'team', Academy_Plan__c = 'seats', Seats_Purchased__c = 8, Join_Code__c = 'BRPT4M8X', Seat_Term_End__c = Date.today().addMonths(5), Description = 'Small Salesforce partner team. ' + TAG),
-        new Account(Name = 'Sierra Health Group', Industry = 'Healthcare', Org_Type__c = 'company', Academy_Plan__c = 'free', Description = 'RevOps team moving reports to CRM Analytics. ' + TAG),
-        new Account(Name = 'Kaveri Institute of Technology', Industry = 'Education', Org_Type__c = 'university', Academy_Plan__c = 'free', Description = 'Engineering college; placement cell asked for Salesforce analytics training. ' + TAG)
+        new Account(Name = 'Lakeside University', Website = 'https://example.com/lakeside', Industry = 'Education', Org_Type__c = 'university', Academy_Plan__c = 'free', Description = 'Business school; wants seats for an MBA analytics elective. ' + TAG),
+        new Account(Name = 'Brightpath Consulting', Website = 'https://example.com/brightpath', Industry = 'Consulting', Org_Type__c = 'team', Academy_Plan__c = 'seats', Seats_Purchased__c = 8, Join_Code__c = 'BRPT4M8X', Seat_Term_End__c = Date.today().addMonths(5), Description = 'Small Salesforce partner team. ' + TAG),
+        new Account(Name = 'Sierra Health Group', Website = 'https://example.com/sierra', Industry = 'Healthcare', Org_Type__c = 'company', Academy_Plan__c = 'free', Description = 'RevOps team moving reports to CRM Analytics. ' + TAG),
+        new Account(Name = 'Kaveri Institute of Technology', Website = 'https://example.com/kaveri', Industry = 'Education', Org_Type__c = 'university', Academy_Plan__c = 'free', Description = 'Engineering college; placement cell asked for Salesforce analytics training. ' + TAG)
     };
     insert orgs;
 
@@ -138,7 +139,7 @@ if ([SELECT COUNT() FROM Account WHERE Description LIKE '%[academy-demo]%'] > 0)
         lc.setConvertedStatus(converted.MasterLabel);
         lc.setOpportunityName('Orbit Retail — 20 seats');
         Database.LeadConvertResult r = Database.convertLead(lc);
-        update new Account(Id = r.getAccountId(), Org_Type__c = 'company', Academy_Plan__c = 'free', Description = 'Converted from a site lead. ' + TAG);
+        update new Account(Id = r.getAccountId(), Website = 'https://example.com/orbit', Org_Type__c = 'company', Academy_Plan__c = 'free', Description = 'Converted from a site lead. ' + TAG);
         update new Opportunity(Id = r.getOpportunityId(), StageName = 'Needs Analysis', CloseDate = Date.today().addDays(45), Seats__c = 20, Paid_In__c = 'points', Points_Amount__c = 20 * 12 * 1000, LeadSource = 'Web', Description = TAG);
     } catch (Exception e) { System.debug('Lead conversion skipped: ' + e.getMessage()); }
 

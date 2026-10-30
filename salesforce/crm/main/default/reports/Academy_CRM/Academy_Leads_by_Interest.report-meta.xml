@@ -3,7 +3,6 @@
     <columns><field>FIRST_NAME</field></columns>
     <columns><field>LAST_NAME</field></columns>
     <columns><field>COMPANY</field></columns>
-    <columns><field>Lead.Academy_Interest__c</field></columns>
     <columns><field>Lead.Seats_Requested__c</field></columns>
     <columns><field>Lead.Lead_Score__c</field></columns>
     <columns><field>STATUS</field></columns>
