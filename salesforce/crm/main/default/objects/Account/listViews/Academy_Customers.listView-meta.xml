@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Customers</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Motion__c</columns>
+    <columns>Academy_Plan__c</columns>
+    <columns>MRR__c</columns>
+    <columns>ARR__c</columns>
+    <columns>Seats_Purchased__c</columns>
+    <columns>Pro_Until__c</columns>
+    <columns>Customer_Since__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Lifecycle_Stage__c</field>
+        <operation>equals</operation>
+        <value>customer</value>
+    </filters>
+    <label>Academy - Customers</label>
+</ListView>

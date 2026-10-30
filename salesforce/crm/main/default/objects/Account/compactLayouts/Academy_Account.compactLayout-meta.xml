@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Account</fullName>
+    <fields>Name</fields>
+    <fields>Lifecycle_Stage__c</fields>
+    <fields>Motion__c</fields>
+    <fields>Academy_Plan__c</fields>
+    <fields>MRR__c</fields>
+    <fields>ARR__c</fields>
+    <fields>Active_Seats__c</fields>
+    <fields>Pro_Until__c</fields>
+    <label>Academy</label>
+</CompactLayout>

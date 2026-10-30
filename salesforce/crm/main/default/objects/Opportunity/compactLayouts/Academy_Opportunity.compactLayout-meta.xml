@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Opportunity</fullName>
+    <fields>Name</fields>
+    <fields>AccountId</fields>
+    <fields>StageName</fields>
+    <fields>Amount</fields>
+    <fields>CloseDate</fields>
+    <fields>Seats__c</fields>
+    <fields>Paid_In__c</fields>
+    <fields>Points_Amount__c</fields>
+    <label>Academy</label>
+</CompactLayout>

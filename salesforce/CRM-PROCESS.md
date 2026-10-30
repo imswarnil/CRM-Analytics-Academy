@@ -13,7 +13,12 @@ in this file lives in `salesforce/crm/` (metadata) and `salesforce/scripts/`
 
 | Piece | What it is for |
 | --- | --- |
-| **Academy CRM** app | Home, Leads, Accounts, Contacts, Opportunities, Products, Price Books, Seat Assignments, Tasks, Reports, Dashboards |
+| Standard **Sales** app | Its own tabs plus Products, Price Books and Seat Assignments; the **Academy Sales Home** page (lifecycle funnel, hot and self-serve leads, open seat deals, customers, leads by source, seat pipeline) |
+| Standard **Service Console** | Plus Seat Assignments, for helping members with their seats |
+| GTM fields | `Lifecycle_Stage__c` (Lead → MQL → SQL → Opportunity → Customer → Churned) and `Motion__c` (self-serve / sales-led) on Lead, Account and Contact; `MRR__c`, `ARR__c`, `Customer_Since__c`, `Pro_Until__c`, `Points_Spent__c` on Account |
+| **AcademyLeadTrigger** + `AcademyLeadEvents` | Folds the site's events into one record per person (below) |
+| Record headers | Compact layouts *Academy* on Lead, Account and Opportunity — grade, score, lifecycle, motion, MRR in the highlights panel |
+| List views | Academy - Hot leads, Self-serve sign-ups, Seat requests (Lead); Open seat deals (Opportunity); Customers (Account) |
 | Lead fields | Everything the site sends by Web-to-Lead: `Academy_Interest__c`, `Seats_Requested__c`, `Org_Type__c`, `Traffic_Source__c` (first source), `First_Landing_Page__c`, `Landing_Page__c` (asked from), `Views_Before_Lead__c`, `Academy_Lessons_Done__c`, `Academy_Points__c`, `Academy_Locale__c`, `Academy_User_Id__c` |
 | `Lead_Score__c`, `Lead_Grade__c` | Formula, 0–100: interest (seats 40, consulting 30, set-up 20, other 10) + learning done (3 per lesson, max 30) + seats (20 for 20+, 10 for 5+) + 10 if they hold an account. Hot ≥ 60, Warm ≥ 30, Cold |
 | Account fields | `Org_Type__c` (company / team / university), `Academy_Plan__c`, `Seats_Purchased__c`, `Seats_Used__c`, `Active_Seats__c` (roll-up), `Join_Code__c`, `Seat_Term_End__c` |
@@ -26,6 +31,23 @@ in this file lives in `salesforce/crm/` (metadata) and `salesforce/scripts/`
 | **Academy CRM Access** permission set | The app, the new object and every Academy field |
 
 ## The process, step by step
+
+### 0. Self-serve, end to end (automatic)
+
+Every event reaches Salesforce by Web-to-Lead with `Academy_Event__c` and the
+person's `Academy_User_Id__c`; `AcademyLeadEvents` (a queued job the trigger
+starts) folds it into their one record and deletes the duplicate:
+
+| On the site | In Salesforce |
+| --- | --- |
+| **Signs up** | a Lead, Lifecycle **Lead**, Motion **Self-serve**, with first source, first page and pages read |
+| **Buys Pro** (points today, money later) | the lead is **converted**: Account (Lifecycle **Customer**, Self-serve, Plan Pro, MRR 12, Customer since, Pro until, Points spent), Contact (Pro), and a **Closed Won** opportunity for the month |
+| **Buys again** | a renewal opportunity, Pro until +30 days, Points spent +1,000 |
+| **Asks for seats / help** | its own Lead, Lifecycle **SQL**, Motion **Sales-led** — a sales conversation, steps 1–8 below |
+
+Duplicate rules alert on the same person twice, which is exactly what the job
+reconciles, so its writes allow the save. The job runs inside Salesforce: no
+login, nothing that can lock a user.
 
 ### 1. A visitor becomes a lead (automatic)
 
@@ -138,13 +160,23 @@ sf apex run --file scripts/apex/crm-seed.apex --target-org crma-learning
 node scripts/lead-field-ids.mjs --target-org crma-learning
 ```
 
+Then once: `sf apex run --file scripts/apex/crm-gtm-backfill.apex` gives
+existing records their lifecycle, motion and MRR.
+
+**Make the Academy home active (two clicks):** Setup → Lightning App Builder →
+*Academy Sales Home* → Edit → **Activation** → *App default* → Sales. (The
+Metadata API refused the home override for this org, so it is not deployed.)
+
 Remove the demo data with `scripts/apex/crm-seed-remove.apex`. Demo records are
 found by their `example.com` website and `@example.com` emails.
 
 **Deployed to `crma-learning` on 2026-10-30**: 41 components, the Academy section
 on the four standard layouts, the seed (3 products, 2 price books, 5
 organisations, 9 contacts, 6 deals, 5 seats, 13 leads, 10 tasks, one converted
-lead) and `LEAD_FIELDS` wired into `server/utils/salesforce.ts`.
+lead) and `LEAD_FIELDS` wired into `server/utils/salesforce.ts`. Later the same
+day: moved to the standard Sales and Service apps (the custom *Academy CRM*
+app was deleted), GTM fields, the event automation (2 Apex tests passing),
+compact layouts, list views, report charts and the home page.
 
 Web-to-Lead must be enabled (*Setup → Web-to-Lead*). Do **not** add validation
 rules on Lead: Web-to-Lead drops a lead that fails one, silently.

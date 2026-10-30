@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Self_Serve</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.COMPANY</columns>
+    <columns>Lead_Grade__c</columns>
+    <columns>Lead_Score__c</columns>
+    <columns>Lifecycle_Stage__c</columns>
+    <columns>Motion__c</columns>
+    <columns>Academy_Interest__c</columns>
+    <columns>Seats_Requested__c</columns>
+    <columns>Traffic_Source__c</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Motion__c</field>
+        <operation>equals</operation>
+        <value>self-serve</value>
+    </filters>
+    <label>Academy - Self-serve sign-ups</label>
+</ListView>

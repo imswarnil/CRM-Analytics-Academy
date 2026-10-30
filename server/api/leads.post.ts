@@ -68,6 +68,7 @@ export default defineEventHandler(async (event) => {
     returning id`
 
   const sf = await sendLeadToSalesforce({
+    event: 'request',
     product: interest,
     firstName,
     lastName,

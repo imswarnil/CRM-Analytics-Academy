@@ -23,7 +23,10 @@ const MAP = {
   Academy_Locale__c: 'locale',
   Academy_User_Id__c: 'userId',
   Seats_Requested__c: 'seats',
-  Org_Type__c: 'orgKind'
+  Org_Type__c: 'orgKind',
+  Academy_Event__c: 'event',
+  Lifecycle_Stage__c: 'lifecycle',
+  Motion__c: 'motion'
 }
 const q = `SELECT DeveloperName, DurableId FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = 'Lead' AND QualifiedApiName LIKE '%__c'`
 const out = JSON.parse(execFileSync('sf', ['data', 'query', '--use-tooling-api', '--json', '--query', q, ...org], { encoding: 'utf8' }))

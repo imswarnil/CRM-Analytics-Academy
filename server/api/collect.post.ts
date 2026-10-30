@@ -108,7 +108,7 @@ export default defineEventHandler(async (event) => {
     // How this account found us, frozen at sign-up: the visitor's first view
     // and the sign-up link they clicked last.
     if (name === 'sign_up' && user) {
-      await sql`
+      const first = await sql`
         insert into app.user_attribution (user_id, visitor, first_source, first_landing, first_seen, signup_path, signup_label, views_before)
         select ${user.id}, ${visitor},
                coalesce((array_agg(v.referrer order by v.created_at))[1], 'direct'),
@@ -119,7 +119,11 @@ export default defineEventHandler(async (event) => {
                count(v.*)::int
         from app.page_view v where v.visitor = ${visitor}
         on conflict (user_id) do nothing
+        returning user_id
       `
+      // First time only (the insert above is once per account): the new
+      // account becomes a self-serve lead in Salesforce.
+      if (first.length) event.waitUntil(sendAcademyEvent('signup', user))
     }
     return { ok: true }
   }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Event__c</fullName>
+    <description>What the site reported: signup, redeem or request. The Academy lead automation applies it to the person's existing record and removes the duplicate.</description>
+    <externalId>false</externalId>
+    <label>Academy event</label>
+    <length>20</length>
+    <unique>false</unique>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+</CustomField>

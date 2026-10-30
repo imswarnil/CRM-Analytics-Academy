@@ -37,6 +37,8 @@ export default defineEventHandler(async (event) => {
   if (!spent?.length) throw createError({ statusCode: 402, statusMessage: `You need ${PRO_POINTS} points — keep learning to earn the rest.` })
 
   const [ent] = await sql`select expires_at from app.entitlement where user_id = ${user.id}`
+  // Paid (in points): Salesforce turns them into a self-serve customer.
+  event.waitUntil(sendAcademyEvent('redeem', user))
   setResponseHeader(event, 'cache-control', 'no-store')
   return { ok: true, balance: await pointsBalance(user.id), proUntil: ent?.expires_at ?? null }
 })
