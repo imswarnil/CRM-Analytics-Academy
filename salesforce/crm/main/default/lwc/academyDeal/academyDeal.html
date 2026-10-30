@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Academy deal" icon-name="standard:opportunity">
+        <span slot="actions" class={paidClass}>Paid in {paidIn}</span>
+        <div class="slds-p-horizontal_medium">
+            <div class="slds-grid slds-gutters_small slds-wrap">
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+                    <p class="slds-text-title_caps">Seats</p>
+                    <p class="slds-text-heading_medium">{seats}</p>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+                    <p class="slds-text-title_caps">Points</p>
+                    <p class="slds-text-heading_medium">{points}</p>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+                    <p class="slds-text-title_caps">List value</p>
+                    <p class="slds-text-heading_medium">{amount}</p>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4">
+                    <p class="slds-text-title_caps">Per seat / month</p>
+                    <p class="slds-text-heading_medium">{perSeat}</p>
+                </div>
+            </div>
+            <template lwc:if={won}>
+                <p class="slds-text-body_small slds-m-top_small">Won — create the organisation in the Academy admin (Seats) and send its admin the join code.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

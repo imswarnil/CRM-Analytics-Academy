@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title={title} icon-name="standard:team_member">
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={code}>
+                <p class="slds-m-bottom_small">
+                    Join code <span class="slds-badge slds-badge_inverse">{code}</span>
+                    <template lwc:if={term}><span class="slds-text-color_weak"> · seats until {term}</span></template>
+                </p>
+                <p class="slds-text-body_small slds-m-bottom_small"><a href={joinLink} target="_blank">{joinLink}</a></p>
+            </template>
+            <template lwc:if={hasRows}>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col">Member</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Joined</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="r">
+                            <tr key={r.id}>
+                                <td class="slds-truncate">{r.member}</td>
+                                <td>{r.role}</td>
+                                <td>{r.joined}</td>
+                                <td><span class={r.statusClass}>{r.statusLabel}</span></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak">No seats taken yet.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

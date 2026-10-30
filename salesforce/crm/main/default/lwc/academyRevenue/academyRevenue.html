@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Academy revenue" icon-name="standard:currency">
+        <span slot="actions" class={proClass}>{proText}</span>
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">The Academy fields are not readable for this user.</p>
+            </template>
+            <div class="slds-grid slds-gutters_small slds-wrap">
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4 slds-m-bottom_small">
+                    <p class="slds-text-title_caps">MRR</p>
+                    <p class="slds-text-heading_medium">{mrr}</p>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4 slds-m-bottom_small">
+                    <p class="slds-text-title_caps">ARR</p>
+                    <p class="slds-text-heading_medium">{arr}</p>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4 slds-m-bottom_small">
+                    <p class="slds-text-title_caps">Points spent</p>
+                    <p class="slds-text-heading_medium">{points}</p>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4 slds-m-bottom_small">
+                    <p class="slds-text-title_caps">Plan · since</p>
+                    <p class="slds-text-heading_medium">{plan}</p>
+                    <p class="slds-text-body_small slds-text-color_weak">{since}</p>
+                </div>
+            </div>
+            <template lwc:if={hasSeats}>
+                <p class="slds-text-title_caps slds-m-top_small slds-m-bottom_xx-small">Seats {active} of {seats} used</p>
+                <lightning-progress-bar value={seatPct} size="large"></lightning-progress-bar>
+                <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">{seatHint}</p>
+            </template>
+            <p class="slds-text-body_small slds-text-color_weak slds-m-top_small">List prices; paid in points while the Academy has no payments.</p>
+        </div>
+    </lightning-card>
+</template>

@@ -18,6 +18,8 @@ in this file lives in `salesforce/crm/` (metadata) and `salesforce/scripts/`
 | GTM fields | `Lifecycle_Stage__c` (Lead → MQL → SQL → Opportunity → Customer → Churned) and `Motion__c` (self-serve / sales-led) on Lead, Account and Contact; `MRR__c`, `ARR__c`, `Customer_Since__c`, `Pro_Until__c`, `Points_Spent__c` on Account |
 | **AcademyLeadTrigger** + `AcademyLeadEvents` | Folds the site's events into one record per person (below) |
 | Record headers | Compact layouts *Academy* on Lead, Account and Opportunity — grade, score, lifecycle, motion, MRR in the highlights panel |
+| **Record pages** (org default, every app) | *Academy Lead / Contact / Account / Opportunity Record Page*: highlights, the Academy widgets, details, activity, related lists |
+| **LWC widgets** (`crm/main/default/lwc`) | **Academy Journey** (Lead, Contact, Account): the lifecycle path, motion, score and grade, first source, first page, pages read. **Academy Revenue** (Account): MRR, ARR, points spent, Pro days left, seats used. **Academy Seats** (Account): members, roles, status and the join code. **Academy Deal** (Opportunity): seats, points, list value per seat per month. No Apex — Lightning Data Service only |
 | List views | Academy - Hot leads, Self-serve sign-ups, Seat requests (Lead); Open seat deals (Opportunity); Customers (Account) |
 | Lead fields | Everything the site sends by Web-to-Lead: `Academy_Interest__c`, `Seats_Requested__c`, `Org_Type__c`, `Traffic_Source__c` (first source), `First_Landing_Page__c`, `Landing_Page__c` (asked from), `Views_Before_Lead__c`, `Academy_Lessons_Done__c`, `Academy_Points__c`, `Academy_Locale__c`, `Academy_User_Id__c` |
 | `Lead_Score__c`, `Lead_Grade__c` | Formula, 0–100: interest (seats 40, consulting 30, set-up 20, other 10) + learning done (3 per lesson, max 30) + seats (20 for 20+, 10 for 5+) + 10 if they hold an account. Hot ≥ 60, Warm ≥ 30, Cold |
@@ -159,6 +161,9 @@ sf apex run --file scripts/apex/crm-seed.apex --target-org crma-learning
 # 4. the Web-to-Lead field ids → paste into server/utils/salesforce.ts (LEAD_FIELDS)
 node scripts/lead-field-ids.mjs --target-org crma-learning
 ```
+
+More demo records (a full funnel, self-serve customers with monthly Pro deals,
+seat members, meetings, support cases): `scripts/apex/crm-seed-funnel.apex`.
 
 Then once: `sf apex run --file scripts/apex/crm-gtm-backfill.apex` gives
 existing records their lifecycle, motion and MRR.

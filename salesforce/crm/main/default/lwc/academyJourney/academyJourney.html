@@ -1,0 +1,53 @@
+<template>
+    <lightning-card title="Academy journey" icon-name="standard:path_experience">
+        <span slot="actions" class={motionClass}>{motionLabel}</span>
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">The Academy fields are not readable for this user (permission set Academy CRM Access).</p>
+            </template>
+            <template lwc:if={churned}>
+                <p class="slds-text-color_error slds-m-bottom_small">Churned — no longer a customer.</p>
+            </template>
+            <div class="slds-path">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div class="slds-path__scroller">
+                            <div class="slds-path__scroller_inner">
+                                <ul class="slds-path__nav" role="listbox">
+                                    <template for:each={steps} for:item="s">
+                                        <li key={s.value} class={s.className} role="presentation">
+                                            <span class="slds-path__link" role="option">
+                                                <span class="slds-path__title">{s.label}</span>
+                                            </span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <template lwc:if={isLead}>
+                <div class="slds-grid slds-grid_vertical-align-center slds-m-top_medium">
+                    <div class="slds-col slds-size_2-of-3 slds-p-right_small">
+                        <p class="slds-text-title_caps slds-m-bottom_xx-small">Lead score {score} / 100</p>
+                        <lightning-progress-bar value={score} size="large"></lightning-progress-bar>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-text-align_right">
+                        <span class={gradeClass}>{grade}</span>
+                    </div>
+                </div>
+                <template lwc:if={hasFacts}>
+                    <dl class="slds-m-top_medium">
+                        <template for:each={facts} for:item="f">
+                            <div key={f.label} class="slds-grid slds-p-vertical_xx-small slds-border_bottom">
+                                <dt class="slds-col slds-size_1-of-2 slds-text-color_weak slds-truncate">{f.label}</dt>
+                                <dd class="slds-col slds-size_1-of-2 slds-truncate">{f.value}</dd>
+                            </div>
+                        </template>
+                    </dl>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>
