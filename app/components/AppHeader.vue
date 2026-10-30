@@ -15,6 +15,7 @@ const menuItems = computed(() => [
   { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
   { label: t('nav.certification'), icon: 'i-lucide-timer', to: localePath('/certification') },
   { label: t('nav.interview'), icon: 'i-lucide-messages-square', to: localePath('/interview-questions') },
+  { label: t('nav.visualiser'), icon: 'i-lucide-workflow', to: localePath('/visualiser') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.pro'), icon: 'i-lucide-sparkles', to: localePath('/pro') }
 ])
@@ -54,6 +55,7 @@ const accountItems = computed(() => [
   }],
   [
     { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
+    { label: t('nav.team'), icon: 'i-lucide-building-2', to: localePath('/team') },
     { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') }
   ],
   ...(admin.value

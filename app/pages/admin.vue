@@ -17,11 +17,12 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Tab = 'overview' | 'analytics' | 'leads' | 'users' | 'submissions' | 'interview' | 'comments'
+type Tab = 'overview' | 'analytics' | 'leads' | 'seats' | 'users' | 'submissions' | 'interview' | 'comments'
 const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
   { key: 'analytics', label: 'Analytics', icon: 'i-lucide-chart-line' },
   { key: 'leads', label: 'Leads', icon: 'i-lucide-handshake' },
+  { key: 'seats', label: 'Seats', icon: 'i-lucide-building-2' },
   { key: 'users', label: 'Users', icon: 'i-lucide-users' },
   { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
   { key: 'interview', label: 'Interview Q&A', icon: 'i-lucide-messages-square' },
@@ -79,6 +80,12 @@ interface AdminUser {
   createdAt: string
   emailVerified: boolean
   points: number
+  balance: number
+  org: string | null
+  source: string | null
+  firstLanding: string | null
+  signupFrom: string | null
+  viewsBefore: number | null
   lessonsDone: number
   quizzes: number
   comments: number
@@ -439,7 +446,13 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
           <AdminAnalytics v-else-if="tab === 'analytics'" />
 
           <!-- ============================== LEADS ============================= -->
-          <AdminLeads v-else-if="tab === 'leads'" />
+          <AdminLeads
+            v-else-if="tab === 'leads'"
+            @org-created="tab = 'seats'"
+          />
+
+          <!-- ============================== SEATS ============================= -->
+          <AdminSeats v-else-if="tab === 'seats'" />
 
           <!-- ============================== USERS ============================= -->
           <section
@@ -553,6 +566,11 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                             name="i-lucide-badge-check"
                             class="ms-1 text-(--signal)"
                           /></span>
+                          <span
+                            v-if="u.source || u.org"
+                            class="block truncate font-mono text-[11px] text-(--ink2)"
+                            :title="[u.firstLanding && `first page ${u.firstLanding}`, u.signupFrom && `signed up via ${u.signupFrom}`, u.viewsBefore !== null && `${u.viewsBefore} views before`].filter(Boolean).join(' · ')"
+                          ><template v-if="u.org">◆ {{ u.org }} · </template><template v-if="u.source">from {{ u.source }}</template><template v-if="u.signupFrom"> · {{ u.signupFrom }}</template></span>
                         </span>
                       </div>
                     </td>
@@ -568,8 +586,11 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                     <td class="px-3 py-2 text-end tabular-nums">
                       {{ u.comments }}
                     </td>
-                    <td class="px-3 py-2 text-end tabular-nums">
-                      {{ u.points }}
+                    <td
+                      class="px-3 py-2 text-end tabular-nums"
+                      :title="`earned ${u.points} · balance ${u.balance}`"
+                    >
+                      {{ u.points }} <span class="block font-mono text-[11px] text-(--ink2)">bal {{ u.balance }}</span>
                     </td>
                     <td class="px-4 py-2 text-end font-mono text-xs">
                       {{ date(u.lastLessonAt) }}

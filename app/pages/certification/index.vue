@@ -3,6 +3,10 @@
  * Certification practice: the exam's format and domains, five full practice
  * papers in the real exam's shape, and a timed drill per domain. Prerendered;
  * a signed-in learner's best scores load in the browser.
+ *
+ * A paper opens in its own window (`?w=1`, focus mode, a ✕ to close) so the
+ * course stays where the learner left it; best scores refresh when they come
+ * back to this tab. Modified clicks and blocked pop-ups fall back to a link.
  */
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -16,6 +20,23 @@ onMounted(async () => {
 watch(isSignedIn, async (ok) => {
   if (ok) best.value = await $fetch<typeof best.value>('/api/exam-attempt').catch(() => ({}))
 })
+const refreshBest = async () => {
+  if (isSignedIn.value) best.value = await $fetch<typeof best.value>('/api/exam-attempt').catch(() => best.value)
+}
+onMounted(() => window.addEventListener('focus', refreshBest))
+onBeforeUnmount(() => window.removeEventListener('focus', refreshBest))
+
+function openPaper(e: MouseEvent, id: string) {
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+  e.preventDefault()
+  const url = `${localePath(`/certification/${id}`)}?w=1`
+  const w = Math.min(1400, screen.availWidth)
+  const h = Math.min(900, screen.availHeight)
+  const win = window.open(url, 'crma-exam', `popup,width=${w},height=${h},left=${(screen.availWidth - w) / 2},top=${(screen.availHeight - h) / 2}`)
+  useNuxtApp().$track?.('exam_open', id)
+  if (win) win.focus()
+  else navigateTo(url)
+}
 
 const full = PAPERS.filter(p => p.kind === 'full')
 const drills = PAPERS.filter(p => p.kind === 'drill')
@@ -54,8 +75,9 @@ usePageSchema(() => ({
       <div class="mt-6 flex flex-wrap gap-3">
         <UButton
           :to="localePath('/certification/paper-1')"
-          icon="i-lucide-timer"
+          icon="i-lucide-external-link"
           size="lg"
+          @click="openPaper($event, 'paper-1')"
         >
           {{ t('cert.startFirst') }}
         </UButton>
@@ -104,6 +126,7 @@ usePageSchema(() => ({
                 :key="p.id"
                 :to="localePath(`/certification/${p.id}`)"
                 class="bp-card bp-card--hover group flex flex-col p-5"
+                @click="openPaper($event, p.id)"
               >
                 <span class="mono-label">{{ p.questions }} Q · {{ p.minutes }} min</span>
                 <span class="mt-2 text-xl font-extrabold text-(--ink) group-hover:text-(--signal)">{{ p.title }}</span>
@@ -135,6 +158,7 @@ usePageSchema(() => ({
                 <NuxtLink
                   :to="localePath(`/certification/${p.id}`)"
                   class="flex items-center gap-4 px-5 py-3 hover:bg-(--ice)"
+                  @click="openPaper($event, p.id)"
                 >
                   <span class="w-12 font-mono text-xs font-semibold text-(--signal)">{{ DOMAINS[p.domain!].weight }}%</span>
                   <span class="min-w-0 flex-1 font-semibold text-(--ink)">{{ p.title }}</span>

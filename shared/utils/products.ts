@@ -1,37 +1,49 @@
 /**
- * What the Academy sells (shared: the /pro page and POST /api/leads read it). There is no checkout: "Get it" files a lead
- * (POST /api/leads → app.lead + a Salesforce Lead via Web-to-Lead) and the
- * owner follows up, invoices, and grants access in /admin.
+ * The Academy's three plans (shared: /pro, POST /api/leads, POST /api/redeem,
+ * the Salesforce price book in salesforce/academy).
  *
- * Prices are shown as the price; nothing here charges anyone. Product names,
- * taglines and features are translated through i18n (`products.<id>.*`);
- * the ids are what the lead and Salesforce record.
+ *   free   everything public, no ads once signed in
+ *   pro    every Pro lesson — paid in POINTS for now: every account starts
+ *          with WELCOME_POINTS and earns more by learning
+ *   seats  Pro for a company, team or university, per seat — a request
+ *          (a lead), never self-serve; the owner sets the seats in /admin
+ *
+ * `price` is what the plan will cost in money later; it is shown as "later"
+ * and nothing charges it. Copy is i18n (`products.<id>.*`); the id is what a
+ * lead and Salesforce record.
  */
-export type ProductId = 'pro' | 'bootcamp' | 'mentoring' | 'dashboard-review' | 'interview-prep' | 'team' | 'consulting'
+export type ProductId = 'free' | 'pro' | 'seats'
+
+export const WELCOME_POINTS = 1000
+/** Points for one Pro period, and its length in days. */
+export const PRO_POINTS = 1000
+export const PRO_DAYS = 30
 
 export interface Product {
   id: ProductId
   icon: string
-  /** Display price, e.g. "$12"; null = "Let's talk". */
+  /** Cost in points per period; null = not bought with points. */
+  points: number | null
+  /** The money price it will have, e.g. "$12" (seats: per seat per month, volume-quoted). */
   price: string | null
-  /** i18n key suffix for the unit: perMonth, perYear, once, perSeat. */
-  unit?: 'perMonth' | 'once' | 'perSession' | 'perSeat'
+  unit?: 'perMonth' | 'perSeat'
   /** How many feature lines exist under products.<id>.f1…fN. */
   features: number
   audience: 'individual' | 'business'
-  /** Pro is granted to an account, so asking for it needs one. */
-  needsAccount: boolean
   featured?: boolean
 }
 
 export const PRODUCTS: Product[] = [
-  { id: 'pro', icon: 'i-lucide-sparkles', price: '$12', unit: 'perMonth', features: 5, audience: 'individual', needsAccount: true, featured: true },
-  { id: 'bootcamp', icon: 'i-lucide-graduation-cap', price: '$299', unit: 'once', features: 4, audience: 'individual', needsAccount: true },
-  { id: 'interview-prep', icon: 'i-lucide-messages-square', price: '$99', unit: 'once', features: 4, audience: 'individual', needsAccount: false },
-  { id: 'mentoring', icon: 'i-lucide-video', price: '$79', unit: 'perSession', features: 3, audience: 'individual', needsAccount: false },
-  { id: 'dashboard-review', icon: 'i-lucide-scan-search', price: '$149', unit: 'once', features: 3, audience: 'business', needsAccount: false },
-  { id: 'team', icon: 'i-lucide-users', price: '$180', unit: 'perSeat', features: 4, audience: 'business', needsAccount: false },
-  { id: 'consulting', icon: 'i-lucide-briefcase-business', price: null, features: 4, audience: 'business', needsAccount: false }
+  { id: 'free', icon: 'i-lucide-book-open', points: 0, price: '$0', features: 5, audience: 'individual' },
+  { id: 'pro', icon: 'i-lucide-sparkles', points: PRO_POINTS, price: '$12', unit: 'perMonth', features: 5, audience: 'individual', featured: true },
+  { id: 'seats', icon: 'i-lucide-building-2', points: null, price: '$15', unit: 'perSeat', features: 5, audience: 'business' }
 ]
+
+/** Organisations that can ask for seats. */
+export const ORG_KINDS = ['company', 'team', 'university'] as const
+export type OrgKind = typeof ORG_KINDS[number]
+
+/** Anything a lead can be about: a plan, or an interest from elsewhere on the site. */
+export const LEAD_INTERESTS = ['pro', 'seats', 'salesforce-setup', 'consulting', 'mentoring'] as const
 
 export const productById = (id: string) => PRODUCTS.find(p => p.id === id)

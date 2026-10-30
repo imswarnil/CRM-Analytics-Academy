@@ -25,7 +25,9 @@
     "certification": "Exams",
     "interview": "Interviews",
     "companies": "Companies",
-    "pro": "Pro"
+    "pro": "Pro",
+    "visualiser": "Visualisers",
+    "team": "My organisation"
   },
   "home": {
     "modules": {
@@ -1052,7 +1054,10 @@
       "errQuestion": "Write the question (at least 10 characters).",
       "errAnswer": "Write a model answer (at least 30 characters).",
       "errGeneric": "Could not submit. Try again."
-    }
+    },
+    "prev": "Previous question",
+    "next": "Next question",
+    "close": "Close"
   },
   "cert": {
     "eyebrow": "Certification practice",
@@ -1136,7 +1141,11 @@
     "incorrect": "Incorrect",
     "unanswered": "Unanswered",
     "study": "Study {topic}",
-    "loading": "Loading the paper…"
+    "loading": "Loading the paper…",
+    "close": "Close the exam",
+    "leaveTitle": "Leave this exam?",
+    "leaveBody": "The clock is running. Your answers stay saved on this device, and you can resume until the time runs out.",
+    "leave": "Leave"
   },
   "companies": {
     "eyebrow": "Companies",
@@ -1261,7 +1270,8 @@
     "proTitle": "Unlock the Pro lessons",
     "proBody": "Full walkthroughs, quizzes and exam reviews — and help when you are stuck.",
     "proActive": "You are a Pro member",
-    "proActiveBody": "Every Pro lesson is open to you. Thank you for supporting the Academy."
+    "proActiveBody": "Every Pro lesson is open to you. Thank you for supporting the Academy.",
+    "walletHint": "Pro costs {n} points. Every lesson and quiz earns more."
   },
   "pro": {
     "eyebrow": "Pro lesson",
@@ -1273,31 +1283,25 @@
     "perkNoPromos": "No ads anywhere on the site",
     "perkCommunity": "Priority answers to your questions",
     "signUpFirst": "Create your free account",
-    "getPro": "Get Pro",
-    "signUpHint": "A free account already removes every ad. Pro is one step after it."
+    "getPro": "Get Pro with points",
+    "signUpHint": "A free account removes every ad and comes with 1,000 points — enough for your first month of Pro. Learning earns the next.",
+    "freeTag": "Free",
+    "freeLesson": "Free lesson"
   },
   "store": {
     "eyebrow": "Pro",
-    "seoTitle": "CRM Analytics Pro, training and team plans",
-    "seoDesc": "Pro membership, a certification bootcamp, interview prep, mentoring, dashboard reviews and team training for Salesforce CRM Analytics.",
-    "title": "Go further with CRM Analytics",
-    "lead": "Everything free stays free. These are for when you want more — the full Pro lessons, a coached path to certification, or help for your team.",
+    "seoTitle": "CRM Analytics Academy plans: Free, Pro and team seats",
+    "seoDesc": "Learn Salesforce CRM Analytics free. Pro lessons are unlocked with points you earn by learning; companies, teams and universities can request Pro seats.",
+    "title": "Three plans, one course",
+    "lead": "Everything public stays free. Pro is bought with points: every account starts with 1,000, enough for the first month, and learning earns more. Organisations ask for seats.",
     "youArePro": "You are a Pro member",
-    "individual": "For you",
-    "business": "For your team",
     "popular": "Most popular",
-    "talk": "Let's talk",
-    "getIt": "Get it",
     "unit": {
       "perMonth": "/ month",
-      "once": "one-time",
-      "perSession": "/ session",
-      "perSeat": "/ seat / year"
+      "perSeat": "/ seat / month"
     },
-    "requestTitle": "Request {product}",
     "sentTitle": "Thanks — your request is in.",
     "sentBody": "Swarnil will reply by email within two working days with the next steps.",
-    "needsAccount": "This is added to your Academy account, so it starts with a free account (which also turns off every ad).",
     "f": {
       "firstName": "First name",
       "lastName": "Last name",
@@ -1309,63 +1313,35 @@
       "message": "Anything we should know?"
     },
     "send": "Send request",
-    "noCharge": "Nothing is charged here. You will get a reply by email."
+    "noCharge": "Nothing is charged here. You will get a reply by email within two working days."
   },
   "products": {
+    "free": {
+      "name": "Free",
+      "tagline": "The whole public course, for everyone.",
+      "f1": "Every free lesson, quiz and walkthrough",
+      "f2": "Five practice exams and the interview bank",
+      "f3": "The SAQL, recipe and dataflow visualisers",
+      "f4": "No ads once you sign in",
+      "f5": "1,000 points to start — a month of Pro"
+    },
     "pro": {
-      "name": "Pro membership",
-      "tagline": "Every Pro lesson, full exam review, no ads.",
+      "name": "Pro",
+      "tagline": "Every Pro lesson — paid in points while the Academy is new.",
       "f1": "All Pro lessons, as each section is published",
-      "f2": "Full answer review on the five practice exams",
+      "f2": "Full answer review on the practice exams",
       "f3": "Downloadable dashboards and recipes",
       "f4": "No ads anywhere",
       "f5": "Priority answers in the comments"
     },
-    "bootcamp": {
-      "name": "Certification bootcamp",
-      "tagline": "Six weeks, coached, to the Consultant exam.",
-      "f1": "Weekly live session and study plan",
-      "f2": "Graded practice papers with feedback",
-      "f3": "Pro membership included",
-      "f4": "Retake support if you do not pass"
-    },
-    "interview-prep": {
-      "name": "Interview prep",
-      "tagline": "A mock interview and written feedback.",
-      "f1": "60-minute mock technical interview",
-      "f2": "SAQL and dashboard scenario questions",
-      "f3": "Written feedback within 48 hours",
-      "f4": "A follow-up session to practise again"
-    },
-    "mentoring": {
-      "name": "1:1 mentoring",
-      "tagline": "An hour on whatever you are stuck on.",
-      "f1": "60 minutes over video",
-      "f2": "Your org, your dashboards, your questions",
-      "f3": "Notes and links afterwards"
-    },
-    "dashboard-review": {
-      "name": "Dashboard review",
-      "tagline": "Your dashboard, reviewed by an expert.",
-      "f1": "Performance, SAQL and binding review",
-      "f2": "Security and sharing check",
-      "f3": "A written report with fixes"
-    },
-    "team": {
-      "name": "Team training",
-      "tagline": "Pro for your whole analytics team.",
-      "f1": "Pro for every seat",
-      "f2": "Progress reporting for managers",
-      "f3": "One live Q&A per quarter",
-      "f4": "Invoiced billing"
-    },
-    "consulting": {
-      "name": "Implementation & consulting",
-      "tagline": "Build CRM Analytics with someone who has.",
-      "f1": "Data, recipes and security design",
-      "f2": "Dashboards your executives will use",
-      "f3": "Einstein Discovery models",
-      "f4": "Handover and training for your team"
+    "seats": {
+      "name": "Teams and universities",
+      "tagline": "Pro for a company, a team or a class — per seat.",
+      "f1": "Pro for every seat, joined with one code",
+      "f2": "An admin view of who is learning and how far",
+      "f3": "Add or free seats at any time",
+      "f4": "Volume pricing for universities",
+      "f5": "Invoiced billing, one contact"
     }
   },
   "human": {
@@ -1373,5 +1349,284 @@
     "done": "Verified — you are human",
     "retry": "The check failed — try again",
     "wait": "One moment — still checking you are human."
+  },
+  "plans": {
+    "balance": "{n} points",
+    "proUntil": "Pro until {date}",
+    "seatOf": "Pro through {org}",
+    "noEnd": "no end date",
+    "free": "Free",
+    "pointsPer": "points / {days} days",
+    "laterPrice": "Later {price} a month",
+    "volume": "Volume pricing on request",
+    "startLearning": "Start learning",
+    "signUpFor": "Sign up — get {n} points",
+    "redeem": "Unlock Pro for {n} points",
+    "extend": "Add {days} more days",
+    "short": "You need {n} more points.",
+    "earn": "Earn them in the course",
+    "redeemed": "You are Pro until {date}. Enjoy every lesson.",
+    "requestSeats": "Request seats",
+    "haveCode": "I have a join code",
+    "pointsEyebrow": "How points work",
+    "pointsTitle": "Your first month is on us; learning pays for the rest",
+    "earnRow": {
+      "welcome": "when you create your account",
+      "lesson": "for every lesson you complete",
+      "quiz": "for every correct quiz answer",
+      "contribution": "for every approved contribution"
+    },
+    "requestTitle": "Ask for seats or help",
+    "requestLead": "Seats for your company, team or university — or help with your own Salesforce org. Every request is answered by a person.",
+    "f": {
+      "interest": "What do you need?",
+      "orgKind": "Organisation",
+      "seats": "Seats",
+      "orgName": "Organisation name"
+    },
+    "interest": {
+      "seats": "Seats for my organisation",
+      "salesforce-setup": "Help setting up CRM Analytics",
+      "consulting": "Consulting",
+      "mentoring": "1:1 mentoring"
+    },
+    "kind": {
+      "company": "Company",
+      "team": "Team",
+      "university": "University"
+    }
+  },
+  "team": {
+    "title": "My organisation",
+    "lead": "Seats for companies, teams and universities. Join with the code your admin gave you; while your organisation has seats, you are Pro.",
+    "code": "Join code",
+    "codeHint": "8 letters and digits",
+    "join": "Take my seat",
+    "noCode": "No code yet?",
+    "request": "Ask for seats for your organisation",
+    "seats": "{used} of {seats} seats used",
+    "youArePro": "Your seat includes Pro.",
+    "until": "Seats run until {date}.",
+    "adminTitle": "You manage this organisation",
+    "share": "Share this code or link with the people who should get a seat. Each person who joins uses one seat.",
+    "copyLink": "Copy join link",
+    "member": "Member",
+    "lessons": "Lessons",
+    "points": "Points",
+    "free": "Free this seat"
+  },
+  "vis": {
+    "eyebrow": "Visualisers",
+    "title": "See how CRM Analytics runs your data",
+    "lead": "Three live models — a SAQL query, a Data Prep recipe and a dataflow — that run step by step on the same small dataset, so you can watch every row move.",
+    "seoTitle": "SAQL, recipe and dataflow visualisers for CRM Analytics",
+    "seoDesc": "Interactive, step-by-step visualisers for Salesforce CRM Analytics: SAQL execution, recipe joins and functions, and dataflow order of execution. Free, in your browser.",
+    "open": "Open",
+    "dataEyebrow": "The sample data",
+    "dataTitle": "Small on purpose",
+    "dataLead": "Every visualiser runs on these rows. They are chosen to show the edge cases: an account with no opportunities, an opportunity whose account does not exist, an account with several deals, a missing amount and a chain of managers.",
+    "noRows": "No rows.",
+    "first": "First step",
+    "prev": "Previous step",
+    "next": "Next step",
+    "last": "Last step",
+    "play": "Play",
+    "pause": "Pause",
+    "scrub": "Step",
+    "stepOf": "Step {n} of {total}",
+    "lineOf": "Line {n}",
+    "rowsIn": "{n} in",
+    "rowsOut": "{n} rows",
+    "groupsOut": "{n} groups",
+    "keysOut": "{n} keys",
+    "showAfter": "Show the result",
+    "showBefore": "Show what was dropped",
+    "kept": "kept",
+    "dropped": "dropped",
+    "value": "Value",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "toCourse": "Back to the course",
+    "legend": {
+      "matched": "matched",
+      "unmatched": "no match",
+      "fanout": "matched more than once",
+      "multi": "several matches"
+    },
+    "saql": {
+      "title": "SAQL visualiser",
+      "card": "Build a query from load, filter, group, cogroup, foreach, order and limit, then watch the stream after every line.",
+      "lead": "Build a query, or start from an example, and step through it line by line. Every statement shows the stream it received and the stream it handed on.",
+      "seoTitle": "SAQL visualiser: step through a CRM Analytics query",
+      "seoDesc": "Watch SAQL execute line by line: load, filter, group, cogroup with inner, left, right and full joins, foreach, order and limit, on real rows.",
+      "query": "The query",
+      "groupAll": "group by all",
+      "addField": "Add a field",
+      "presets": {
+        "pipelineByStage": "Pipeline by stage",
+        "filterThenGroup": "Filter, then group",
+        "having": "Filter after foreach",
+        "cogroupAccounts": "Cogroup with accounts",
+        "cogroupLeft": "Full outer cogroup",
+        "topN": "Top 3 deals",
+        "mistake": "A common mistake"
+      },
+      "explain": {
+        "load": "Loads the dataset {name}: {n} rows, {cols} fields. Nothing is filtered or grouped yet — every later line works on this stream.",
+        "filter": "Keeps the rows where {field} passes the test: {kept} kept, {dropped} dropped. Filtering before a group means fewer rows to group, which is why it usually comes first.",
+        "group": "Groups the stream by {by}: {n} rows fall into {groups} groups. Nothing is added up yet — a grouped stream holds the rows until foreach says what to compute.",
+        "groupAll": "Puts all {n} rows into a single group, so foreach can compute totals across everything.",
+        "cogroup_inner": "Cogroups on {by} = {withBy}. {keys} keys appear on either side; an inner cogroup keeps only the {kept} found on both sides and drops {dropped}.",
+        "cogroup_left": "Left cogroup on {by} = {withBy}: every key from the left side is kept, with or without a match — {kept} of {keys} keys, {dropped} dropped.",
+        "cogroup_right": "Right cogroup on {by} = {withBy}: every key from the right side is kept — {kept} of {keys} keys, {dropped} dropped.",
+        "cogroup_full": "Full outer cogroup on {by} = {withBy}: every key from either side is kept, matched or not — all {kept} keys.",
+        "foreach": "Projects each row into {cols} fields, keeping {n} rows.",
+        "foreachCollapse": "Computes {cols} fields for each group, so every group becomes one row: {n} rows out. This is the line where totals, counts and averages appear.",
+        "order": "Sorts the stream by {field}, {dir}. The rows are the same — only their order changes.",
+        "limit": "Keeps the first {n} rows and drops the rest. Without an order before it, which rows survive is not defined.",
+        "noDataset": "There is no dataset called {name}.",
+        "filterGrouped": "SAQL cannot filter a grouped stream. Filter before the group, or run foreach first and filter its result — that is how a HAVING is written in SAQL.",
+        "groupTwice": "This stream is already grouped. Run foreach first, then group its result.",
+        "cogroupGrouped": "Cogroup works on ungrouped streams. Move it before the group.",
+        "foreachEmpty": "A foreach needs at least one field.",
+        "foreachAggUngrouped": "{field} uses an aggregate, but the stream is not grouped. Add a group before this foreach, or group by all.",
+        "foreachNotKey": "{field} is not a group key, so foreach cannot project it as it is — wrap it in an aggregate such as first, sum or count.",
+        "orderGrouped": "Order a grouped stream after foreach, when each group is one row.",
+        "limitGrouped": "Limit a grouped stream after foreach."
+      },
+      "notes": {
+        "order": {
+          "title": "Top to bottom",
+          "body": "Each SAQL line takes the stream from the line before and hands on a new one. The engine may optimise, but what you read is the order the result is defined in."
+        },
+        "group": {
+          "title": "Group, then foreach",
+          "body": "Group only sorts rows into buckets. Foreach turns each bucket into one row, and only then can you filter, order or limit by a total."
+        },
+        "cogroup": {
+          "title": "Cogroup is a join by key",
+          "body": "Both sides are grouped by their key and paired. Inner keeps keys on both sides; left, right and full keep the unmatched keys too, with empty values."
+        }
+      }
+    },
+    "recipe": {
+      "title": "Recipe visualiser",
+      "card": "A Data Prep recipe as a graph: every join type, formula and date function, window functions, append and aggregate, in execution order.",
+      "lead": "Pick an example, change any node — the join type, the keys, the formulas — and step through the recipe in the order it runs, with each node’s rows.",
+      "seoTitle": "Recipe visualiser: CRM Analytics Data Prep joins, functions and execution order",
+      "seoDesc": "Step through a CRM Analytics recipe: lookup, left, right, inner and outer joins with row counts, date and text formula functions, window functions, append and aggregate.",
+      "graph": "Recipe graph — the number is the execution order",
+      "joinType": "Join type",
+      "leftKey": "Left key",
+      "rightKey": "Right key",
+      "compare": "The same join, every type",
+      "left": "Left input",
+      "output": "Join output",
+      "groupBy": "Group by",
+      "addMeasure": "Add a measure",
+      "addFromCatalogue": "Add more functions from the catalogue below.",
+      "addFn": "Add {fn}",
+      "catalogue": "Function catalogue",
+      "catalogueTitle": "Every formula, run on a real row",
+      "presets": {
+        "pipelineByRegion": "Filter, transform, lookup, aggregate",
+        "joinTypes": "Join types",
+        "windowFns": "Window functions",
+        "dates": "Date functions",
+        "appendHistory": "Append history"
+      },
+      "nodes": {
+        "input": "Input",
+        "filter": "Filter",
+        "transform": "Transform",
+        "join": "Join",
+        "append": "Append",
+        "aggregate": "Aggregate",
+        "output": "Output"
+      },
+      "cats": {
+        "date": "Date",
+        "text": "Text",
+        "number": "Number",
+        "logic": "Logic and nulls",
+        "window": "Window (multiple rows)"
+      },
+      "explain": {
+        "input": "Reads {name}: {n} rows. Inputs run first — nothing downstream can start until its inputs have.",
+        "filter": "Keeps rows where {field} passes the test: {kept} kept, {dropped} dropped.",
+        "transform": "Adds {n} calculated columns, one function at a time, in the order listed — a later formula can use an earlier one. The row count never changes in a transform.",
+        "join_lookup": "Lookup on {key}: every left row is kept exactly once and takes the first match. {left} rows in, {out} out — a lookup can never multiply rows. {unmatched} left rows found no match and got empty values.",
+        "join_left": "Left join on {key}: every left row is kept, and a row with several matches is repeated once per match. {left} rows in, {out} out; {unmatched} without a match.",
+        "join_right": "Right join on {key}: every right row is kept; left rows without a match are dropped. {out} rows out; {unmatchedRight} right rows had no left partner.",
+        "join_inner": "Inner join on {key}: only rows with a match on both sides. {left} left rows in, {out} out; {unmatched} left rows dropped.",
+        "join_outer": "Full outer join on {key}: every row from both sides, matched where possible. {out} rows out; {unmatched} left and {unmatchedRight} right rows without a partner.",
+        "append": "Stacks the inputs one under the other: {parts} rows make {n}. Columns are matched by name.",
+        "aggregate": "Groups {n} rows by {by} into {groups} rows and computes the measures. The grain changes here — one row per group.",
+        "output": "Writes {n} rows with {cols} columns to the dataset {name}. The output runs last."
+      },
+      "notes": {
+        "order": {
+          "title": "Order of execution",
+          "body": "A node runs once every node it reads from has run. Branches that do not depend on each other can run in any order; the result is the same."
+        },
+        "joins": {
+          "title": "Choose the join by the grain",
+          "body": "Lookup keeps the left grain and never adds rows. Left, inner and outer joins repeat a row for every match — check the row count after every join."
+        },
+        "grain": {
+          "title": "Transform before you aggregate",
+          "body": "Window functions and formulas see individual rows. After an aggregate, only the group-level values are left."
+        }
+      }
+    },
+    "dataflow": {
+      "title": "Dataflow visualiser",
+      "card": "A dataflow’s JSON beside its graph: digest, augment, computeExpression, computeRelative, flatten and register, run in dependency waves.",
+      "lead": "Switch nodes on and off and watch the JSON, the graph and the data change together. Step through the order the dataflow runs in.",
+      "seoTitle": "Dataflow visualiser: CRM Analytics dataflow JSON and execution order",
+      "seoDesc": "See how a CRM Analytics dataflow runs: sfdcDigest, filter, augment with LookupSingleValue or LookupMultiValue, computeExpression, computeRelative, flatten, sliceDataset and sfdcRegister with a security predicate.",
+      "graph": "Dataflow graph — W is the wave",
+      "waves": "Dependency waves",
+      "wave": "Wave {n}",
+      "wavesNote": "Nodes in the same wave depend on nothing in that wave, so they can run in parallel. The order of keys in the JSON does not matter.",
+      "leftOpps": "Opportunities left, accounts right",
+      "leftAccounts": "Accounts left, opportunities right",
+      "opts": {
+        "filter": "Filter",
+        "flatten": "Flatten",
+        "computeRelative": "computeRelative",
+        "security": "Security predicate"
+      },
+      "explain": {
+        "sfdcDigest": "Extracts {n} rows of {object} from Salesforce, with the {fields} fields listed. Digests have no sources, so they all run in the first wave.",
+        "edgemart": "Reads the existing dataset {object}: {n} rows.",
+        "filter": "Applies {filter}: {kept} rows kept, {dropped} dropped. In dataflow filter syntax, N means not equal.",
+        "augmentSingle": "Augments on {key}: each of the {left} left rows takes the selected fields from its match. Augment always keeps every left row once; {unmatched} found no match.",
+        "augmentSingleWarn": "Augments on {key}, but {multi} left rows have more than one match. LookupSingleValue then keeps just one of them, and which one is not defined — the number can change between runs.",
+        "augmentMulti": "LookupMultiValue on {key}: when a left row has several matches, their values are kept together in a multi-value field. Still one row per left row; {multi} rows have several matches.",
+        "computeExpression": "Adds {n} fields calculated from each row on its own, with SAQL expressions.",
+        "computeRelative": "Adds fields that look at other rows in the same partition ({partition}, ordered by {order}): the previous deal’s amount and the first close date.",
+        "flatten": "Turns the manager hierarchy into a list of every manager above each user, and a path. Security predicates use it so managers see their team’s rows.",
+        "sliceDataset": "Drops {fields} from the dataset — fields nobody needs, or that must not be exposed.",
+        "append": "Stacks the sources into {n} rows.",
+        "register": "Registers {n} rows as the dataset {alias}. Without a predicate, anyone with access to the app sees every row.",
+        "registerSecure": "Registers {n} rows as {alias} with the security predicate {predicate}: each user sees only rows owned by them or by people who report to them."
+      },
+      "notes": {
+        "order": {
+          "title": "Dependencies, not position",
+          "body": "A node runs when its sources have. That is why digests run together first and register runs last, wherever they sit in the JSON."
+        },
+        "augment": {
+          "title": "Augment never adds rows",
+          "body": "Put the grain you want on the left. Single value picks one match; multi value keeps all of them in one field. Neither repeats the left row."
+        },
+        "recipes": {
+          "title": "Dataflows and recipes",
+          "body": "Recipes are the newer tool and do the same jobs with joins, formulas and a visual editor. Dataflows still run in many orgs — read both."
+        }
+      }
+    }
   }
 }

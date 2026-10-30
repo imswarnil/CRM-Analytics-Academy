@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The member holding the seat.</description>
+    <label>Member</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Seat Assignments</relationshipLabel>
+    <relationshipName>Seat_Assignments</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

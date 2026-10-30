@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Built on **Nuxt 4 + Nuxt Content 3 + Nuxt UI v4 + Tailwind CSS 4**, styled in the Blueprint design system. It is a **markdown-driven site**: every docs page is prerendered at build time from `content/`. On top sits a small dynamic layer — **Neon Postgres + Neon Auth (better-auth)** — for accounts, the learner dashboard (progress, streaks, bookmarks, quizzes, badges, leaderboard), comments, community submissions, first-party analytics and the admin console. Server code is in `server/api/**` and `server/utils/**`; the whole schema is `server/db/schema.sql`.
 
-**Free to read, funded by AdSense — plus Pro (since 2026-10-29).** Most lessons are free and ad-supported; **signed-in members see no promos at all** (`usePromoFree`, and an inline head script pauses AdSense Auto ads for them). Lessons marked `access: pro` are for Pro members. There is still **no payment processor**: `/pro` lists the products (`shared/utils/products.ts`), and "Get it" files a lead (`POST /api/leads` → `app.lead` + a Salesforce Lead by Web-to-Lead); Swarnil follows up and grants Pro in /admin → Users. Removed on 2026-10-22 and not coming back: Dodo payments, teams-as-a-product, sponsors, n8n, Payload, Mux. The course is **published section by section**: only `00.introduction` has lessons; sections 01–18 are one `comingSoon: true` page each, with a "Notify me" waitlist (`app.waitlist`, signed-in only). YouTube channel: `SITE.youtube` = https://www.youtube.com/@crmanalyticsacademy.
+**Free to read, funded by AdSense — plus Pro, paid in points (since 2026-10-29).** Most lessons are free and ad-supported; **signed-in members see no promos at all** (`usePromoFree`, and an inline head script pauses AdSense Auto ads for them). Lessons marked `access: pro` are for Pro members. **Three plans only** (`shared/utils/products.ts`): Free; **Pro, bought with points** (every account starts with `WELCOME_POINTS` = 1,000; Pro is `PRO_POINTS` = 1,000 per `PRO_DAYS` = 30, so the welcome points buy the first month and learning earns the next — `POST /api/redeem`); and **seats** for companies, teams and universities, a request (`POST /api/leads` → `app.lead` + a Salesforce Lead by Web-to-Lead) that becomes an organisation in /admin → Seats; members join at `/team` with an 8-character code. There is still **no payment processor**; the money price each plan will have is shown as "later". Removed on 2026-10-22 and not coming back: Dodo payments, sponsors, n8n, Payload, Mux. The course is **published section by section**: only `00.introduction` has lessons; sections 01–18 are one `comingSoon: true` page each, with a "Notify me" waitlist (`app.waitlist`, signed-in only); `CURRICULUM.md` is the plan for every section. YouTube channel: `SITE.youtube` = https://www.youtube.com/@crmanalyticsacademy.
 
 ## Commands
 
@@ -22,6 +22,8 @@ pnpm preview          # build, then run the Worker bundle locally with wrangler 
 pnpm translate        # translate changed English via the local LibreTranslate (see below)
 pnpm translate:setup  # once: install LibreTranslate + models into .libretranslate/
 pnpm fcp <route>      # Final Cut Pro project + recording script for a lesson (content-creation/README.md)
+pnpm new-lesson       # scaffold a lesson: numbered file, full frontmatter, free/pro, quiz stubs
+pnpm lesson:check     # numbering, frontmatter, quiz answers, internal links
 pnpm lint             # eslint .   (run after editing)
 pnpm typecheck        # nuxt typecheck (vue-tsc)  (run after editing)
 ```
@@ -75,9 +77,21 @@ English is the source of truth; the other 11 locales are generated **on this mac
 
 ### Pro lessons, products and leads
 - **Gating**: `access: pro` on the ENGLISH lesson (translations follow). `scripts/gate-content.mjs` (run by prebuild, CI too) moves each Pro body into `server/assets/gated/<locale>/<route>.json` (bundled into the Worker only) and swaps a teaser stub into the content collection (`.gated-stubs/`, `.gated-files.json` — all gitignored). `GET /api/lesson/<locale>/<route>` returns the body after `hasPro()` (`server/utils/entitlement.ts`, `app.entitlement`). The lesson page shows the teaser + `CourseProLockedCard`, or the member's full lesson via `<MDC>`. The search index, `/raw/*.md` and llms-full read the stubs. **`pnpm build` ends with `scripts/verify-gating.mjs`, which fails the build if any Pro passage is public** (it decodes the content dumps too).
-- **Products** (`shared/utils/products.ts`): Pro, bootcamp, interview prep, mentoring, dashboard review, team training, consulting. Copy is i18n (`products.<id>.*`). `needsAccount` products require sign-in to request.
-- **Salesforce**: `server/utils/salesforce.ts` posts each lead to Web-to-Lead for org `00Dg500000KBfkHEAT` — no credentials, no API user, nothing that can lock a Salesforce user. Custom Lead fields (product, lessons, points, source, landing, locale, user id, team size) are mapped by 15-char field id in `LEAD_FIELDS` once deployed from `salesforce/academy/`. `app.lead.sf_status` records each send. ⚠️ The org was frozen once: never script logins or bulk API calls against it.
-- **Admin**: Leads tab (pipeline at list price, move new → contacted → won/lost), Pro grant/revoke per user, monetization tiles on Overview.
+- **Plans** (`shared/utils/products.ts`): `free`, `pro` (points), `seats` (request). Copy is i18n (`products.<id>.*`, `plans.*`). Lead interests (`LEAD_INTERESTS`): seats, salesforce-setup, consulting, mentoring.
+- **Salesforce**: `server/utils/salesforce.ts` posts each lead to Web-to-Lead for org `00Dg500000KBfkHEAT` — no credentials, no API user, nothing that can lock a Salesforce user. Custom Lead fields (interest, lessons, points, first source, landing, first landing, views before, locale, user id, seats, org type) are mapped by 15-char field id in `LEAD_FIELDS` once deployed from `salesforce/crm/` (`salesforce/scripts/lead-field-ids.mjs` prints the map). `app.lead.sf_status` records each send. ⚠️ The org was frozen once: never script logins or bulk API calls against it.
+- **Admin**: Leads tab (seat pipeline per year, move new → contacted → won/lost, "Create org"), Seats tab, Pro grant/revoke per user, each user's points balance and where they came from.
+
+### Points, seats and attribution (2026-10-29)
+- **Points**: spendable balance = welcome + earned (`app.user_points`, which the leaderboard still ranks) + `app.points_ledger` (spends, refunds, admin adjustments) — the view `app.wallet`. `POST /api/redeem` spends under an advisory lock in one transaction. `hasPro()` (`server/utils/entitlement.ts`) = own entitlement **or** a seat in an active `app.org`.
+- **Seats**: `app.org` (kind, seats, join code, end date) + `app.org_member` (one org per user). /admin → Seats creates and resizes orgs (Leads → "Create org" from a seats request); `/team` joins with a code, and the org's admin sees members and frees seats. Seat count is enforced inside the join transaction.
+- **Attribution**: `app.user_attribution` is written once at the `sign_up` event (first source, first page, the sign-up link clicked, views before). Leads carry the visitor id, first source/landing and views before. /admin → Analytics has a buying-intent row (pricing view → plan click → redeem / lead / seat) and sign-ups and leads by first source.
+
+### Visualisers (`/visualiser`, 2026-10-29)
+SAQL (`/visualiser/saql`), recipe (`/visualiser/recipe`) and dataflow (`/visualiser/dataflow`): prerendered pages whose engines (`app/utils/vis/*.ts` — a teaching model of SAQL, recipe nodes incl. every join type and a formula/date/window function catalogue, dataflow JSON with dependency waves) run in the browser on `app/utils/vis/data.ts`. Shared UI: `components/vis/{Table,Dag,Player}.vue`. The SAQL query lives in the URL hash so a link reproduces it. No fetches — keep it that way.
+
+### Interview questions and exam windows
+- `/interview-questions` is a **parent route** (`pages/interview-questions.vue`): the list stays, a question (`[slug].vue`) opens in a drawer over it with its own permalink, keeping the filters; ←/→/Esc work. `new.vue` renders on its own. The list comes from `useInterviewRows()` (Worker-guarded).
+- `/certification` opens papers in their own window (`?w=1`): focus mode throughout, a ✕ that asks before leaving a running paper.
 
 ### Bot protection and security
 - **Headers**: `SECURITY_HEADERS` in `nuxt.config.ts` (Worker responses) and `public/_headers` (static files) — HSTS, nosniff, SAMEORIGIN, a narrow CSP (`frame-ancestors`, `object-src`, `base-uri`, `form-action`; no script allow-list because AdSense needs many Google hosts). Keep the two in step.
@@ -142,6 +156,7 @@ The `org:pull` / `org:open` shortcuts were removed on 2026-10-28 while the org i
 `force-app/main/default/wave/` is gitignored (the org ships Salesforce sample dashboards);
 move your own builds into `salesforce/academy/` to commit them. The repo is public — see `salesforce/README.md`
 for what must never be committed.
+**The org is also the Academy's own CRM** — `salesforce/crm/` (its own package directory, never deployed to learners): Lead fields for everything Web-to-Lead sends plus `Lead_Score__c`/`Lead_Grade__c`, Account/Contact/Opportunity seat fields, the `Seat_Assignment__c` object, the **Academy CRM** app, the `Academy_CRM_Access` permission set and three reports. Products and the points price book are seeded by `scripts/apex/crm-seed.apex` (one Apex run). `salesforce/CRM-PROCESS.md` is the prospecting process and the deploy steps; `scripts/lead-field-ids.mjs` prints `LEAD_FIELDS` for `server/utils/salesforce.ts` after the deploy.
 Learners never share this org: `salesforce/scripts/academy-setup.mjs` (zero-dependency, every
 call goes through `sf api request rest`) sets up *their own* org — permission sets, the
 `Academy_Analytics` app from `salesforce/academy/`, and the 21 CSVs as `academy_*` datasets.

@@ -8,7 +8,7 @@ definePageMeta({
 
 const { user } = useAuth()
 const localePath = useLocalePath()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 useSeoMeta({
   title: 'Dashboard',
@@ -209,6 +209,28 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
           </dt>
         </div>
       </dl>
+
+      <!-- Points wallet: what they can spend, and what Pro costs -->
+      <div class="flex flex-wrap items-center gap-4 border-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
+        <UIcon
+          name="i-lucide-coins"
+          class="size-6 text-(--signal)"
+        />
+        <p class="font-semibold text-(--ink)">
+          {{ t('plans.balance', { n: (data?.balance ?? WELCOME_POINTS).toLocaleString(locale) }) }}
+        </p>
+        <p class="text-sm text-(--ink2)">
+          {{ data?.pro ? (data.org ? t('plans.seatOf', { org: data.org }) : t('store.youArePro')) : t('dash.walletHint', { n: PRO_POINTS.toLocaleString(locale) }) }}
+        </p>
+        <UButton
+          :to="localePath('/pro')"
+          size="sm"
+          class="ms-auto"
+          :icon="data?.pro ? 'i-lucide-calendar-plus' : 'i-lucide-sparkles'"
+        >
+          {{ data?.pro ? t('plans.extend', { days: PRO_DAYS }) : t('pro.getPro') }}
+        </UButton>
+      </div>
 
       <div class="grid gap-6 lg:grid-cols-3">
         <!-- Continue + up next -->

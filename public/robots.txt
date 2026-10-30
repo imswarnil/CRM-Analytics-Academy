@@ -6,6 +6,7 @@ Allow: /
 Disallow: /admin
 Disallow: /dashboard
 Disallow: /submit
+Disallow: /team
 Disallow: /api/
 
 # Explicit allow for common AI/LLM crawlers, so there's no ambiguity.

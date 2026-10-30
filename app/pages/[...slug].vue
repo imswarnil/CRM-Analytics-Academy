@@ -467,6 +467,14 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           class="mt-4"
         />
         <div class="mt-5 flex flex-wrap items-center gap-2">
+          <span
+            v-if="!page.comingSoon"
+            class="flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
+            :class="isProLesson ? 'bg-(--ink) text-(--glow)' : 'border-[1.5px] border-(--signal) text-(--signal)'"
+          ><UIcon
+            :name="isProLesson ? (unlocked ? 'i-lucide-lock-keyhole-open' : 'i-lucide-lock-keyhole') : 'i-lucide-gift'"
+            class="size-3"
+          />{{ isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
           <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">
             {{ meta.type }} · {{ meta.minutes }} min
           </span>

@@ -25,7 +25,9 @@
     "certification": "考试",
     "interview": "面谈",
     "companies": "公司",
-    "pro": "赞成:"
+    "pro": "赞成:",
+    "visualiser": "视觉师",
+    "team": "我的组织"
   },
   "home": {
     "modules": {
@@ -1052,7 +1054,10 @@
       "errQuestion": "写题(至少10个字符).",
       "errAnswer": "写一个模型答案(至少30个字符).",
       "errGeneric": "无法提交 。 再试一次"
-    }
+    },
+    "prev": "上一个问题",
+    "next": "下个问题",
+    "close": "关闭"
   },
   "cert": {
     "eyebrow": "认证做法",
@@ -1136,7 +1141,11 @@
     "incorrect": "错误",
     "unanswered": "未回答",
     "study": "学习 {topic}",
-    "loading": "正在装入纸张..."
+    "loading": "正在装入纸张...",
+    "close": "考试结束",
+    "leaveTitle": "离开考试?",
+    "leaveBody": "钟在运行。 您的答案保存在这个设备上, 您可以恢复到时间耗尽为止 。",
+    "leave": "离开"
   },
   "companies": {
     "eyebrow": "公司",
@@ -1261,7 +1270,8 @@
     "proTitle": "解锁 Pro 课程",
     "proBody": "全面走过,考试和考试审查——当你被卡住时提供帮助.",
     "proActive": "你是职业会员",
-    "proActiveBody": "每个专业课程都是对你的开放。 谢谢你对学院的支持"
+    "proActiveBody": "每个专业课程都是对你的开放。 谢谢你对学院的支持",
+    "walletHint": "费用 {n} 点。 每一课和测验都赚得更多。"
   },
   "pro": {
     "eyebrow": "专业课",
@@ -1273,31 +1283,25 @@
     "perkNoPromos": "现场没有广告",
     "perkCommunity": "优先回答您的问题",
     "signUpFirst": "创建您的自由账户",
-    "getPro": "获取 Pro",
-    "signUpHint": "一个免费账户已经删除了每个广告 。 Pro是之后的一步。"
+    "getPro": "获得 Pro 分数",
+    "signUpHint": "一个免费的帐号可以删除每个广告,并带来1000分的分数——足够你第一个月的Pro. Learning赚取下一个.",
+    "freeTag": "免费",
+    "freeLesson": "免费课程"
   },
   "store": {
     "eyebrow": "赞成:",
-    "seoTitle": "CRM Analytics 专业、培训和团队计划",
-    "seoDesc": "专业会员、认证新营、面试准备、辅导、仪表板审查和团队培训 Salesforce CRM Analytics。 。 。",
-    "title": "更进一步 CRM Analytics",
-    "lead": "一切自由无碍. 这些是当你们想要更多的时候——完全的Pro课程,导师认证之路,或者帮助你们的团队.",
+    "seoTitle": "CRM Analytics 学院计划:自由、专业和团队席位",
+    "seoDesc": "学习 Salesforce CRM Analytics 免费。 Pro课程会解锁通过学习获得的积分;公司,团队和大学可以申请Pro席位.",
+    "title": "三个计划,一个课程",
+    "lead": "一切大众不离不离. Pro是用积分买的:每个账户从1000开始,足够第一个月,学习赚得更多. 组织要求获得席位。",
     "youArePro": "你是职业会员",
-    "individual": "给你",
-    "business": "为了你的团队",
     "popular": "最受欢迎的",
-    "talk": "我们谈谈",
-    "getIt": "拿着",
     "unit": {
       "perMonth": "月数",
-      "once": "一次性",
-      "perSession": "届会",
-      "perSeat": "/座位/年份"
+      "perSeat": "/座位/月份"
     },
-    "requestTitle": "请求 {product}",
     "sentTitle": "谢谢,你的请求已经受理了",
     "sentBody": "Swarnil将在两个工作日内用电子邮件回复下一步。",
-    "needsAccount": "这个被加进了你的Academy账户,所以它从免费账户开始(它也关闭了每一个广告).",
     "f": {
       "firstName": "名称",
       "lastName": "姓",
@@ -1309,63 +1313,35 @@
       "message": "有什么我们该知道的吗?"
     },
     "send": "发送请求",
-    "noCharge": "这里没有收费 你将通过电子邮件得到答复。"
+    "noCharge": "这里没有收费 您将在两个工作日内收到电子邮件回复。"
   },
   "products": {
+    "free": {
+      "name": "免费",
+      "tagline": "整个公共课程,每个人。",
+      "f1": "每一次免费的课,考试和走过",
+      "f2": "五次练习考试和面试库",
+      "f3": "那个 SAQL、食谱和数据流可视化器",
+      "f4": "签入后没有广告",
+      "f5": "1 000分开始——一个月的Pro"
+    },
     "pro": {
-      "name": "赞成成员",
-      "tagline": "每个专业课程, 考试审查, 没有广告。",
+      "name": "赞成:",
+      "tagline": "每个专业课程——在学院新开课时按分数支付.",
       "f1": "所有专业课程,随着每一节的出版",
-      "f2": "对五次实践考试的全面答复审查",
+      "f2": "对执业考试的全面答复审查",
       "f3": "可下载的仪表板和食谱",
       "f4": "没有广告",
       "f5": "评论中的优先答复"
     },
-    "bootcamp": {
-      "name": "认证启动营地",
-      "tagline": "六个星期,教练, 参加顾问考试。",
-      "f1": "每周现场会议和学习计划",
-      "f2": "附有反馈的分级实务文件",
-      "f3": "包括赞成的成员",
-      "f4": "未通过时重新获取支持"
-    },
-    "interview-prep": {
-      "name": "面试准备",
-      "tagline": "模拟采访和书面反馈.",
-      "f1": "60分钟模拟技术访谈",
-      "f2": "SAQL 和仪表板设想问题",
-      "f3": "48小时内的书面反馈",
-      "f4": "再次举行后续会议"
-    },
-    "mentoring": {
-      "name": "1:1 辅导",
-      "tagline": "一个小时,无论你被卡住。",
-      "f1": "视频60分钟",
-      "f2": "你的鸟类,你的仪表板,你的问题",
-      "f3": "其后的说明和链接"
-    },
-    "dashboard-review": {
-      "name": "盘片审查",
-      "tagline": "您的仪表板, 一个专家审查。",
-      "f1": "成绩 SAQL 和具有约束力的审查",
-      "f2": "安全和共享检查",
-      "f3": "附有修正的书面报告"
-    },
-    "team": {
-      "name": "团队培训",
-      "tagline": "为你整个分析组准备",
-      "f1": "每个座位的推荐",
-      "f2": "管理人员的进度报告",
-      "f3": "一个活的Q&每季度一个",
-      "f4": "发票账单"
-    },
-    "consulting": {
-      "name": "执行情况 & 咨询",
-      "tagline": "构建 CRM Analytics 和曾经有过的人",
-      "f1": "数据、食谱和安全设计",
-      "f2": "你高管们会用的板子",
-      "f3": "Einstein Discovery 模型",
-      "f4": "移交和训练你的团队"
+    "seats": {
+      "name": "团队和大学",
+      "tagline": "公司、团队或班级的Pro——每个座位。",
+      "f1": "每一个座位都有一个代码",
+      "f2": "对谁在学习 有多远的观察",
+      "f3": "随时增加或免费座位",
+      "f4": "大学数量定价",
+      "f5": "发票账单,一个联系人"
     }
   },
   "human": {
@@ -1373,5 +1349,284 @@
     "done": "验证过,你是人类",
     "retry": "检查失败 —— 再次尝试",
     "wait": "等一等,你还是人"
+  },
+  "plans": {
+    "balance": "{n} 点",
+    "proUntil": "专业 {date}",
+    "seatOf": "Pro通过 {org}",
+    "noEnd": "无结束日期",
+    "free": "免费",
+    "pointsPer": "点数 / {days} 天数",
+    "laterPrice": "回头见 {price} 一个月",
+    "volume": "应请求进行数量定价",
+    "startLearning": "开始学习",
+    "signUpFor": "注册 - 得到 {n} 点",
+    "redeem": "解锁 Pro {n} 点",
+    "extend": "添加 {days} 更多天数",
+    "short": "惠璶 {n} 更多点。",
+    "earn": "在课程中挣钱",
+    "redeemed": "你是专业的,直到 {date}好好享受每一课",
+    "requestSeats": "请求席位",
+    "haveCode": "我有密码",
+    "pointsEyebrow": "点数如何工作",
+    "pointsTitle": "你的第一个月就到我们这儿了 剩下的就靠学习了",
+    "earnRow": {
+      "welcome": "当你创建您的账户时",
+      "lesson": "你完成的每一课",
+      "quiz": "每一次正确的答题",
+      "contribution": "每笔核定捐款"
+    },
+    "requestTitle": "询问座位或帮助",
+    "requestLead": "你的公司、团队或大学的座位 或帮助你自己 Salesforce 沃尔格。 每个请求都由一个人回答.",
+    "f": {
+      "interest": "你还需要什么?",
+      "orgKind": "日历",
+      "seats": "席位",
+      "orgName": "组织名称"
+    },
+    "interest": {
+      "seats": "我组织的座位",
+      "salesforce-setup": "帮助设置 CRM Analytics",
+      "consulting": "咨询",
+      "mentoring": "1:1 辅导"
+    },
+    "kind": {
+      "company": "企业",
+      "team": "团队",
+      "university": "大学"
+    }
+  },
+  "team": {
+    "title": "我的组织",
+    "lead": "公司、团队和大学的席位。 加入你的管理员给你的代码; 虽然你的组织有席位,但你是专业的。",
+    "code": "密码",
+    "codeHint": "8个字母和数字",
+    "join": "请坐",
+    "noCode": "没有密码吗?",
+    "request": "申请组织席位",
+    "seats": "{used} 页:1 {seats} 使用的座位",
+    "youArePro": "您的座位包括Pro。",
+    "until": "座位一直运行到 {date}。 。 。",
+    "adminTitle": "你管理这个组织",
+    "share": "和应该坐到座位的人分享这个代码或链接. 参会者各用一席.",
+    "copyLink": "复制加入链接",
+    "member": "成员",
+    "lessons": "经验教训",
+    "points": "点",
+    "free": "空出这个座位"
+  },
+  "vis": {
+    "eyebrow": "视觉师",
+    "title": "看怎么样 CRM Analytics 运行数据",
+    "lead": "三个现场模特儿——a SAQL 查询, a Data Prep 食谱和数据流——在同一个小数据集上一步步运行,这样你就可以观看每一行的移动.",
+    "seoTitle": "SAQL,用于 CRM Analytics",
+    "seoDesc": "交互式、逐步的视觉设计器 Salesforce CRM Analytics数字 : SAQL 执行, 食谱结合和函数, 以及执行的数据流顺序。 免费,在您的浏览器中。",
+    "open": "打开",
+    "dataEyebrow": "样本数据",
+    "dataTitle": "故意小数",
+    "dataLead": "每个视觉师都跑在这些排. 它们被选中来显示边缘情况:一个没有机会的账户,一个没有机会的账户,一个有几笔交易的账户,一个缺失的金额和一系列管理人员。",
+    "noRows": "无行.",
+    "first": "第一步",
+    "prev": "前一个步骤",
+    "next": "下一步",
+    "last": "最后一个步骤",
+    "play": "播放",
+    "pause": "暂停",
+    "scrub": "步骤",
+    "stepOf": "步骤 {n} 页:1 {total}",
+    "lineOf": "行线 {n}",
+    "rowsIn": "{n} 输入",
+    "rowsOut": "{n} 行数",
+    "groupsOut": "{n} 组合",
+    "keysOut": "{n} 密钥",
+    "showAfter": "显示结果",
+    "showBefore": "显示已丢弃的东西",
+    "kept": "保留",
+    "dropped": "丢弃",
+    "value": "数值",
+    "moveUp": "向上移动",
+    "moveDown": "向下移动",
+    "remove": "删除",
+    "toCourse": "回到航线上",
+    "legend": {
+      "matched": "匹配",
+      "unmatched": "无匹配",
+      "fanout": "多次对齐",
+      "multi": "多个匹配"
+    },
+    "saql": {
+      "title": "SAQL 视觉",
+      "card": "从负载,过滤器,组,组,前置,顺序和限制中构建一个查询,然后在每行之后监视流.",
+      "lead": "构建查询,或从示例开始,并逐行通过。 每一份声明都显示它收到的溪流和它交出的溪流.",
+      "seoTitle": "SAQL 视觉器: 步进 a CRM Analytics 查询",
+      "seoDesc": "看着 SAQL 按行执行:负载,过滤器,组,与内,左,右和全结合的组合,前排,顺序和限制,在真实行上.",
+      "query": "查询",
+      "groupAll": "由所有人员分组",
+      "addField": "添加字段",
+      "presets": {
+        "pipelineByStage": "按阶段划分的管道",
+        "filterThenGroup": "过滤器, 然后分组",
+        "having": "擦完后过滤",
+        "cogroupAccounts": "有账户的组合",
+        "cogroupLeft": "完整的外侧组合",
+        "topN": "前3个交易",
+        "mistake": "一个常见的错误"
+      },
+      "explain": {
+        "load": "装入数据集 {name}数字 : {n} 排队 {cols} 字段。 没有任何东西被过滤或分组——每一个后来的线路都在这个溪流上工作.",
+        "filter": "将行保留在 {field} 通过测试 : {kept} 留着 {dropped} 掉下来了 在组前过滤意味着对组的行数减少,这也是它通常先出现的原因.",
+        "group": "将流组为 {by}数字 : {n} 行落为 {groups} 组合。 没有任何东西被加起来——一个分组的溪流支撑着行,直到预言说出什么来计算.",
+        "groupAll": "装上所有 {n} 排成一个组,所以forec可以计算所有东西的总和.",
+        "cogroup_inner": "组合打开 {by} = {withBy}。 。 。 {keys} 键出现在两侧; 内侧组合仅保留 {kept} 发现在两侧和下降 {dropped}。 。 。",
+        "cogroup_left": "左侧组合开启 {by} = {withBy}:左侧的每把钥匙都保存着,无论有没有匹配—— {kept} 页:1 {keys} 键, {dropped} 掉下来了",
+        "cogroup_right": "右侧组合 {by} = {withBy}:右侧的每一个键都保留着—— {kept} 页:1 {keys} 键, {dropped} 掉下来了",
+        "cogroup_full": "完整的外侧组合 {by} = {withBy}: 任何一方的每一个键都保留、匹配或不匹配——全部 {kept} 键。",
+        "foreach": "每行项目 {cols} 字段,保留 {n} 数行.",
+        "foreachCollapse": "计算 {cols} 每个组的字段,所以每个组变为一行: {n} 排队 此行显示总数,计数和平均值.",
+        "order": "将溪流排序 {field}, (中文). {dir}. 各行相同——只有其顺序变化.",
+        "limit": "保留第一个 {n} 排行而下别. 在它之前没有命令,没有定义哪个行生存.",
+        "noDataset": "没有数据集叫做 {name}。 。 。",
+        "filterGrouped": "SAQL 无法过滤组流。 在组前过滤, 或先运行前置然后过滤结果—— 这就是 HAVING 如何写入的 SAQL。 。 。",
+        "groupTwice": "此流已分组 。 先跑先跑,然后组合结果",
+        "cogroupGrouped": "联组在未分组的溪流上工作. 移动它之前组。",
+        "foreachEmpty": "一个前排至少需要一个字段。",
+        "foreachAggUngrouped": "{field} 使用集合,但流没有分组。 在此前加一组, 或者全部加一组 。",
+        "foreachNotKey": "{field} 不是一个组合键,因此,无法按原样投影——将其包成一个集合,如第一,总和或计数.",
+        "orderGrouped": "当每组为一行时,在前排后排列一组流。",
+        "limitGrouped": "过滤后限制分组流 。"
+      },
+      "notes": {
+        "order": {
+          "title": "从上到下",
+          "body": "每个 SAQL 线条从线条上取出溪流,然后手放在一个新的线条上。 引擎可能优化,但您读到的是结果被定义的顺序."
+        },
+        "group": {
+          "title": "组合,然后放进去",
+          "body": "只将各种行组合成桶。 Foreach将每桶变成一排,只有这样,才能过滤,订购或限制一个总数."
+        },
+        "cogroup": {
+          "title": "组合是密钥的组合",
+          "body": "双方按键组合并配对. 内部保留两侧的密钥;左,右和全保存未匹配的密钥,并带有空值."
+        }
+      }
+    },
+    "recipe": {
+      "title": "食谱视觉器",
+      "card": "页:1 Data Prep 配方作为图:每个关联类型,公式和日期函数,窗口函数,附件和汇总,按执行顺序排列.",
+      "lead": "选择一个例子,改变任何节点——结合类型,密钥,公式——并按其运行的顺序步入食谱,每个节点的行.",
+      "seoTitle": "食谱视觉器 : CRM Analytics Data Prep 合并、函数和执行命令",
+      "seoDesc": "步进a CRM Analytics 食谱:向上,向左,向右,向内和向外与行计数,日期和文本公式函数,窗口函数,附件和集合结合.",
+      "graph": "道具图——数字是执行命令",
+      "joinType": "加入类型",
+      "leftKey": "左键",
+      "rightKey": "右键",
+      "compare": "同样的加入,每种类型",
+      "left": "左侧输入",
+      "output": "加入输出",
+      "groupBy": "分组",
+      "addMeasure": "添加计量",
+      "addFromCatalogue": "从以下目录中添加更多功能.",
+      "addFn": "添加 {fn}",
+      "catalogue": "函数目录",
+      "catalogueTitle": "每一种配方,在真正的一行运行",
+      "presets": {
+        "pipelineByRegion": "过滤、转换、查找、聚合",
+        "joinTypes": "加入类型",
+        "windowFns": "窗口功能",
+        "dates": "日期函数",
+        "appendHistory": "附加历史"
+      },
+      "nodes": {
+        "input": "投入",
+        "filter": "过滤器",
+        "transform": "变形",
+        "join": "联合",
+        "append": "附录",
+        "aggregate": "合计",
+        "output": "产出"
+      },
+      "cats": {
+        "date": "日期",
+        "text": "文字",
+        "number": "数目",
+        "logic": "逻辑和无效",
+        "window": "窗口( 多行)"
+      },
+      "explain": {
+        "input": "阅读 {name}数字 : {n} 数行. 投入首先进行——在其投入到位之前,任何下游都无法开始。",
+        "filter": "保持行间 {field} 通过测试 : {kept} 留着 {dropped} 掉下来了",
+        "transform": "添加数 {n} 计算列,一次一个函数,按列出的顺序——后一个公式可以使用较早的公式. 行数在变换中永远不会改变.",
+        "join_lookup": "寻找 {key}:每个左行都保留一次,并进行第一次比赛. {left} 排队 {out} 出局——一看就永远无法乘数行. {unmatched} 左行找不到匹配并获得空值。",
+        "join_left": "左侧加盟 {key}:每个左行保留,每对匹配一次重复一个有多个匹配的行. {left} 排队 {out} 输出; {unmatched} 没有匹配。",
+        "join_right": "右转 {key}:每个右行都保留;左行没有匹配的则被丢弃. {out} 排队; {unmatchedRight} 右排没有左搭档",
+        "join_inner": "内部加入 {key}:只有两侧有匹配的行. {left} 左排进去, {out} 输出; {unmatched} 左排掉下来。",
+        "join_outer": "完全外侧加盟 {key}:两侧的每一行,尽可能匹配. {out} 排队; {unmatched} 左转 {unmatchedRight} 右行无伴侣.",
+        "append": "将输入内容堆放在另一个下方: {parts} 行数 {n}。栏名对应。",
+        "aggregate": "组 {n} 逐行排列 {by} 输入 {groups} 排行计算措施。 这里的谷物变化——每组一行.",
+        "output": "写作 {n} 带行 {cols} 数据集的列 {name}。输出为最后一个。"
+      },
+      "notes": {
+        "order": {
+          "title": "执行顺序",
+          "body": "一个节点一旦它读到的每个节点都运行。 不互相依赖的分支可以按任何顺序运行;结果相同."
+        },
+        "joins": {
+          "title": "由种子选择组合",
+          "body": "寻找保留了左方的谷物,从不添加行. 左,内和外结合每场比赛都会重复一行——在每次结合之后检查行数."
+        },
+        "grain": {
+          "title": "组合前的变形",
+          "body": "窗口函数和公式参见单个行. 在集合后,仅剩组级值。"
+        }
+      }
+    },
+    "dataflow": {
+      "title": "Dataflow 视觉",
+      "card": "数据流 JSON 除了它的图:消化、增强、计算压缩、计算、平整和登记,在依赖波中运行。",
+      "lead": "打开和关闭节点并观看 JSON,图表和数据一起变化。 跳过数据流运行的顺序 。",
+      "seoTitle": "Dataflow 视觉器 : CRM Analytics 数据流动 JSON 和执行命令",
+      "seoDesc": "看怎么样 CRM Analytics 数据流运行:sfdcDigest,过滤器,与LookupSingleValue或Lookup MultiValue相加,计算Express,计算Relative,平坦,切片Dataset和带有安全上游的sfdcRegister.",
+      "graph": "Dataflow 图片:W是波",
+      "waves": "依赖波",
+      "wave": "挥手 {n}",
+      "wavesNote": "同一波中的节点依赖于该波中的无节点,因此可以平行运行. 键在 JSON 没关系。",
+      "leftOpps": "左边的机会,右边的账户",
+      "leftAccounts": "账号左,机会右",
+      "opts": {
+        "filter": "过滤器",
+        "flatten": "平整",
+        "computeRelative": "计算",
+        "security": "安全前提"
+      },
+      "explain": {
+        "sfdcDigest": "摘录 {n} 行数 {object} 从 Salesforce,与 {fields} 字段列出。 文摘没有来源,所以都跑在第一波.",
+        "edgemart": "读取现有的数据集 {object}数字 : {n} 数行.",
+        "filter": "应用 {filter}数字 : {kept} 保持行数 {dropped} 掉下来了 在数据流过滤语法中,N表示不等于.",
+        "augmentSingle": "增减 {key}: 每一个 {left} 左行取其匹配中选定的字段。 增量总是保持每左行一次; {unmatched} 没有发现匹配的 。",
+        "augmentSingleWarn": "增减 {key}不过 {multi} 左行有多个匹配。 LookupSingleValue然后只保留其中之一,而哪一个没有定义——数字可以在运行之间变化.",
+        "augmentMulti": "查询多版本 {key}:当一个左行有数个匹配时,它们的值被保存在一个多值字段中. 仍然每左排一排; {multi} 行有数种相.",
+        "computeExpression": "添加数 {n} 字段自每行独立计算, SAQL 表达法。",
+        "computeRelative": "添加查看同一分区中其他行的字段({partition},则命令 {order}:前期交易金额和第一个结束日期.",
+        "flatten": "将管理器等级表转换为每个用户以上每个管理器的列表,以及路径. 安保人员会用它,",
+        "sliceDataset": "滴数 {fields} 从数据集来看——无人需要的字段,或不能暴露。",
+        "append": "将源头堆成 {n} 数行.",
+        "register": "登记册 {n} 作为数据集的行 {alias}没有前置设备,任何访问应用程序的人都可以看到每一行。",
+        "registerSecure": "登记册 {n} 行为 {alias} 安全前提 {predicate}:每个用户只看到他们或向其报告的人所拥有的行."
+      },
+      "notes": {
+        "order": {
+          "title": "依赖性,而不是位置",
+          "body": "一个节点运行 当它的源有。 所以文摘先排行 登记再排行 JSON。 。 。"
+        },
+        "augment": {
+          "title": "缩写从不添加行",
+          "body": "把你想要的谷物放在左边。 单值选择一个匹配;多值将其全部保存在一个领域. 既不复左行."
+        },
+        "recipes": {
+          "title": "数据流和食谱",
+          "body": "食谱是较新的工具,用加入,公式和视觉编辑器做同样的工作. 数据流仍然在很多块中运行——读两个字."
+        }
+      }
+    }
   }
 }

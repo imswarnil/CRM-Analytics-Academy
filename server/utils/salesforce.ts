@@ -13,12 +13,15 @@
 export const SF_ORG_ID = '00Dg500000KBfkHEAT'
 const ENDPOINT = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8'
 
-/** Custom Lead field → its Web-to-Lead id (00N…). Filled after the deploy. */
-export const LEAD_FIELDS: Partial<Record<'product' | 'lessons' | 'points' | 'source' | 'landing' | 'locale' | 'userId' | 'teamSize', string>> = {}
+/**
+ * Custom Lead field → its Web-to-Lead id (00N…). Filled from the deploy of
+ * salesforce/academy (README "Prospecting CRM"): `node salesforce/scripts/
+ * lead-field-ids.mjs` prints this map.
+ */
+export const LEAD_FIELDS: Partial<Record<'interest' | 'lessons' | 'points' | 'source' | 'landing' | 'firstLanding' | 'viewsBefore' | 'locale' | 'userId' | 'seats' | 'orgKind', string>> = {}
 
 export interface LeadForSalesforce {
   product: string
-  productName: string
   firstName?: string | null
   lastName: string
   email: string
@@ -26,12 +29,15 @@ export interface LeadForSalesforce {
   title?: string | null
   country?: string | null
   phone?: string | null
-  teamSize?: string | null
+  seats?: number | null
+  orgKind?: string | null
   message?: string | null
   lessonsDone: number
   points: number
   source?: string | null
   landing?: string | null
+  firstLanding?: string | null
+  viewsBefore?: number | null
   locale?: string | null
   userId?: string | null
 }
@@ -39,12 +45,14 @@ export interface LeadForSalesforce {
 /** Sends one lead. Resolves to 'sent' or 'failed:<reason>' — never throws. */
 export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<string> {
   const description = [
-    `Product: ${lead.productName} (${lead.product})`,
+    `Interest: ${lead.product}`,
     lead.message ? `Message: ${lead.message}` : '',
     `Academy: ${lead.lessonsDone} lessons done, ${lead.points} points${lead.userId ? `, user ${lead.userId}` : ', no account'}`,
-    lead.teamSize ? `Team size: ${lead.teamSize}` : '',
+    lead.seats ? `Seats: ${lead.seats}${lead.orgKind ? ` (${lead.orgKind})` : ''}` : '',
     lead.source ? `Source: ${lead.source}` : '',
-    lead.landing ? `First page: ${lead.landing}` : ''
+    lead.firstLanding ? `First page: ${lead.firstLanding}` : '',
+    lead.landing ? `Asked from: ${lead.landing}` : '',
+    lead.viewsBefore ? `Pages read before asking: ${lead.viewsBefore}` : ''
   ].filter(Boolean).join('\n')
 
   const form = new URLSearchParams({
@@ -62,8 +70,9 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
     description: description.slice(0, 32000)
   })
   const custom: [keyof typeof LEAD_FIELDS, string | number | null | undefined][] = [
-    ['product', lead.product], ['lessons', lead.lessonsDone], ['points', lead.points], ['source', lead.source],
-    ['landing', lead.landing], ['locale', lead.locale], ['userId', lead.userId], ['teamSize', lead.teamSize]
+    ['interest', lead.product], ['lessons', lead.lessonsDone], ['points', lead.points], ['source', lead.source],
+    ['landing', lead.landing], ['firstLanding', lead.firstLanding], ['viewsBefore', lead.viewsBefore], ['locale', lead.locale],
+    ['userId', lead.userId], ['seats', lead.seats], ['orgKind', lead.orgKind]
   ]
   for (const [k, v] of custom) {
     const id = LEAD_FIELDS[k]

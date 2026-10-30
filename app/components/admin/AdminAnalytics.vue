@@ -30,13 +30,30 @@ interface Analytics {
   authClicks: { name: string, path: string, label: string | null, count: number }[]
   funnel: { step: string, count: number }[]
   conversionBySource: ConvRow[]
+  intent: { step: string, count: number }[]
+  leadSources: { key: string, count: number, seats: number, won: number }[]
+  signupSources: { key: string, count: number, views: number }[]
+  interests: { key: string, count: number }[]
+  humansOnly: boolean
+  bots: { views: number, unverifiedViews: number, visitors: number, unverifiedVisitors: number, dropped: { reason: string, count: number }[] }
+  journeys: { visitor: string, source: string, country: string | null, device: string | null, firstAt: string, lastAt: string, seconds: number, signedIn: boolean, human: boolean, steps: { kind: string, label: string, at: string, seconds: number | null }[] }[]
   conversionByLanding: ConvRow[]
   recent: { path: string, country: string | null, device: string, browser: string | null, seconds: number, at: string, signedIn: boolean }[]
 }
 
 const days = ref(30)
+// Humans only by default: a visitor counts once their browser showed a real
+// interaction. Off = every recorded view, bots that ran JavaScript included.
+const humansOnly = ref(true)
 const { data, status, refresh } = await useLazyAsyncData('admin-analytics', () =>
-  $fetch<Analytics>('/api/admin/analytics', { query: { days: days.value } }), { server: false, watch: [days] })
+  $fetch<Analytics>('/api/admin/analytics', { query: { days: days.value, humans: humansOnly.value ? 1 : 0 } }), { server: false, watch: [days, humansOnly] })
+const DROP_LABEL: Record<string, string> = { ua: 'crawler user agent', automation: 'automated browser', flood: 'flooding (120+ views in 10 min)' }
+const openJourney = ref<string | null>(null)
+const ago = (d: string) => {
+  const m = Math.round((Date.now() - new Date(d).getTime()) / 60_000)
+  return m < 60 ? `${m}m ago` : m < 1440 ? `${Math.round(m / 60)}h ago` : `${Math.round(m / 1440)}d ago`
+}
+const STEP_ICON: Record<string, string> = { sign_up: 'i-lucide-user-plus', sign_up_click: 'i-lucide-mouse-pointer-click', sign_in: 'i-lucide-log-in', lead: 'i-lucide-handshake', redeem: 'i-lucide-coins', org_join: 'i-lucide-building-2', pricing_view: 'i-lucide-tag', plan_click: 'i-lucide-mouse-pointer-click', lesson_complete: 'i-lucide-check-circle', quiz_submit: 'i-lucide-list-checks', exam_start: 'i-lucide-timer', pro_locked: 'i-lucide-lock', outbound: 'i-lucide-external-link', youtube_click: 'i-simple-icons-youtube' }
 
 const FUNNEL_LABEL: Record<string, string> = {
   visitors: 'Visitors',
@@ -44,6 +61,15 @@ const FUNNEL_LABEL: Record<string, string> = {
   clicked: 'Clicked sign-up',
   signed_up: 'Signed up',
   learned: 'Took a learning action'
+}
+const INTENT_LABEL: Record<string, string> = {
+  pricing: 'Opened the pricing page',
+  locked: 'Hit a Pro lesson without Pro',
+  plan_click: 'Clicked a plan',
+  redeemed: 'Bought Pro with points',
+  leads: 'Sent a request (lead)',
+  org_join: 'Took an organisation seat',
+  salesforce: 'Showed Salesforce interest'
 }
 const rate = (n: number, d: number) => d ? `${Math.round(1000 * n / d) / 10}%` : '—'
 const fmtSec = (s: number) => s >= 60 ? `${Math.floor(s / 60)}m ${s % 60}s` : `${s}s`
@@ -77,7 +103,14 @@ const EVENT_LABEL: Record<string, string> = {
   product_view: 'Opened a product request',
   lead: 'Requested a product (lead)',
   waitlist: 'Joined a section waitlist',
-  pro_locked: 'Hit a Pro lesson without Pro'
+  pro_locked: 'Hit a Pro lesson without Pro',
+  pricing_view: 'Opened the pricing page',
+  plan_click: 'Clicked a plan',
+  redeem: 'Bought Pro with points',
+  org_join: 'Joined an organisation',
+  salesforce_interest: 'Showed Salesforce interest',
+  visualiser_run: 'Ran a visualiser',
+  exam_open: 'Opened an exam window'
 }
 
 const bars = computed(() => (data.value?.series ?? []).map((d, i, all) => ({
@@ -121,6 +154,15 @@ const signUps = computed(() => data.value?.events.find(e => e.name === 'sign_up'
         :variant="days === d ? 'solid' : 'outline'"
         @click="days = d"
       />
+      <UButton
+        :icon="humansOnly ? 'i-lucide-user-check' : 'i-lucide-bot'"
+        size="xs"
+        :color="humansOnly ? 'primary' : 'neutral'"
+        :variant="humansOnly ? 'solid' : 'outline'"
+        @click="humansOnly = !humansOnly"
+      >
+        {{ humansOnly ? 'Humans only' : 'All traffic' }}
+      </UButton>
       <UButton
         icon="i-lucide-refresh-cw"
         size="xs"
@@ -266,6 +308,235 @@ const signUps = computed(() => data.value?.events.find(e => e.name === 'sign_up'
                   class="px-5 py-4 text-(--ink2)"
                 >
                   No data yet.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+      <!-- Humans vs bots -->
+      <section class="border-[1.5px] border-(--ink) bg-(--card)">
+        <header class="flex flex-wrap items-center gap-3 border-b-[1.5px] border-(--ink) px-5 py-3">
+          <p class="eyebrow">
+            Humans vs bots
+          </p>
+          <span class="font-mono text-xs text-(--ink2)">{{ humansOnly ? 'every number on this page counts humans only' : 'showing all traffic, unverified visitors included' }}</span>
+        </header>
+        <dl class="grid grid-cols-2 gap-px bg-(--line) sm:grid-cols-4">
+          <div class="bg-(--card) p-4">
+            <dd class="text-2xl font-black tabular-nums text-(--signal)">
+              {{ data.bots.visitors - data.bots.unverifiedVisitors }}
+            </dd>
+            <dt class="font-mono text-[11px] uppercase text-(--ink2)">
+              human visitors
+            </dt>
+          </div>
+          <div class="bg-(--card) p-4">
+            <dd class="text-2xl font-black tabular-nums text-(--ink)">
+              {{ data.bots.unverifiedVisitors }}
+            </dd>
+            <dt class="font-mono text-[11px] uppercase text-(--ink2)">
+              unverified (no interaction) · {{ rate(data.bots.unverifiedViews, data.bots.views) }} of views
+            </dt>
+          </div>
+          <div
+            v-for="d in data.bots.dropped"
+            :key="d.reason"
+            class="bg-(--card) p-4"
+          >
+            <dd class="text-2xl font-black tabular-nums text-error">
+              {{ d.count }}
+            </dd>
+            <dt class="font-mono text-[11px] uppercase text-(--ink2)">
+              blocked · {{ DROP_LABEL[d.reason] ?? d.reason }}
+            </dt>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Journeys: how people arrive and what they do -->
+      <section class="border-[1.5px] border-(--ink) bg-(--card)">
+        <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+          <p class="eyebrow">
+            Visitor journeys · latest {{ data.journeys.length }}
+          </p>
+        </header>
+        <ul>
+          <li
+            v-for="j in data.journeys"
+            :key="j.visitor + j.lastAt"
+            class="border-b border-dashed border-(--line) last:border-b-0"
+          >
+            <button
+              type="button"
+              class="flex w-full flex-wrap items-center gap-x-3 gap-y-1 px-5 py-2.5 text-start text-sm hover:bg-(--ice)"
+              @click="openJourney = openJourney === j.visitor ? null : j.visitor"
+            >
+              <span>{{ j.country ? flag(j.country) : '🌐' }}</span>
+              <span class="font-semibold text-(--ink)">{{ j.source }}</span>
+              <UIcon
+                name="i-lucide-arrow-right"
+                class="text-(--ink2)"
+              />
+              <span class="max-w-60 truncate font-mono text-xs text-(--ink)">{{ j.steps.find(s => s.kind === 'view')?.label ?? '—' }}</span>
+              <span class="font-mono text-xs text-(--ink2)">{{ j.steps.filter(s => s.kind === 'view').length }} pages · {{ fmtSec(j.seconds) }} · {{ j.device }}</span>
+              <span
+                v-for="e in j.steps.filter(s => s.kind === 'event' && /^(sign_up|lead|redeem|org_join)/.test(s.label))"
+                :key="e.at + e.label"
+                class="bg-(--signal) px-1.5 font-mono text-[10px] uppercase text-white"
+              >{{ e.label.split(' · ')[0] }}</span>
+              <span
+                v-if="j.signedIn"
+                class="border border-(--signal) px-1.5 font-mono text-[10px] uppercase text-(--signal)"
+              >member</span>
+              <span
+                v-if="!j.human"
+                class="border border-(--line) px-1.5 font-mono text-[10px] uppercase text-(--ink2)"
+              >unverified</span>
+              <span class="ms-auto font-mono text-[11px] text-(--ink2)">{{ ago(j.lastAt) }}</span>
+            </button>
+            <ol
+              v-if="openJourney === j.visitor"
+              class="space-y-1 border-t border-dashed border-(--line) bg-(--paper) px-5 py-3"
+            >
+              <li
+                v-for="s in j.steps"
+                :key="s.at + s.label"
+                class="flex items-center gap-3 font-mono text-xs"
+              >
+                <span class="w-16 text-(--ink2)">{{ new Date(s.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }}</span>
+                <UIcon
+                  :name="s.kind === 'view' ? 'i-lucide-file-text' : STEP_ICON[s.label.split(' · ')[0]!] ?? 'i-lucide-zap'"
+                  class="size-3.5"
+                  :class="s.kind === 'view' ? 'text-(--ink2)' : 'text-(--signal)'"
+                />
+                <span :class="s.kind === 'view' ? 'text-(--ink)' : 'font-semibold text-(--signal)'">{{ s.label }}</span>
+                <span
+                  v-if="s.seconds"
+                  class="text-(--ink2)"
+                >{{ fmtSec(s.seconds) }}</span>
+              </li>
+            </ol>
+          </li>
+          <li
+            v-if="!data.journeys.length"
+            class="px-5 py-4 text-sm text-(--ink2)"
+          >
+            No visitors in this window.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Buying intent and where leads / sign-ups come from -->
+      <section class="border-[1.5px] border-(--ink) bg-(--card)">
+        <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+          <p class="eyebrow">
+            Buying intent · distinct visitors
+          </p>
+        </header>
+        <ol class="grid gap-px bg-(--line) sm:grid-cols-4 lg:grid-cols-7">
+          <li
+            v-for="f in data.intent"
+            :key="f.step"
+            class="bg-(--card) p-4"
+          >
+            <p class="text-2xl font-black tabular-nums text-(--ink)">
+              {{ f.count }}
+            </p>
+            <p class="mt-1 font-mono text-[11px] uppercase tracking-[.06em] text-(--ink2)">
+              {{ INTENT_LABEL[f.step] ?? f.step }}
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <div class="grid gap-6 lg:grid-cols-3">
+        <section class="border-[1.5px] border-(--ink) bg-(--card)">
+          <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+            <p class="eyebrow">
+              Sign-ups by first source
+            </p>
+          </header>
+          <table class="w-full text-sm">
+            <tbody>
+              <tr
+                v-for="r in data.signupSources"
+                :key="r.key"
+                class="border-t border-dashed border-(--line)"
+              >
+                <td class="max-w-0 truncate px-5 py-2 font-medium text-(--ink)">
+                  {{ r.key }}
+                </td>
+                <td class="px-3 py-2 text-end tabular-nums">
+                  {{ r.count }}
+                </td>
+                <td class="px-5 py-2 text-end font-mono text-xs text-(--ink2)">
+                  {{ r.views }} views first
+                </td>
+              </tr>
+              <tr v-if="!data.signupSources.length">
+                <td class="px-5 py-4 text-(--ink2)">
+                  No sign-ups with a recorded source yet.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section class="border-[1.5px] border-(--ink) bg-(--card)">
+          <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+            <p class="eyebrow">
+              Leads by first source
+            </p>
+          </header>
+          <table class="w-full text-sm">
+            <tbody>
+              <tr
+                v-for="r in data.leadSources"
+                :key="r.key"
+                class="border-t border-dashed border-(--line)"
+              >
+                <td class="max-w-0 truncate px-5 py-2 font-medium text-(--ink)">
+                  {{ r.key }}
+                </td>
+                <td class="px-3 py-2 text-end tabular-nums">
+                  {{ r.count }}
+                </td>
+                <td class="px-5 py-2 text-end font-mono text-xs text-(--ink2)">
+                  {{ r.seats }} seats · {{ r.won }} won
+                </td>
+              </tr>
+              <tr v-if="!data.leadSources.length">
+                <td class="px-5 py-4 text-(--ink2)">
+                  No leads in this window.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section class="border-[1.5px] border-(--ink) bg-(--card)">
+          <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+            <p class="eyebrow">
+              Leads by interest
+            </p>
+          </header>
+          <table class="w-full text-sm">
+            <tbody>
+              <tr
+                v-for="r in data.interests"
+                :key="r.key"
+                class="border-t border-dashed border-(--line)"
+              >
+                <td class="px-5 py-2 font-medium text-(--ink)">
+                  {{ r.key }}
+                </td>
+                <td class="px-5 py-2 text-end tabular-nums">
+                  {{ r.count }}
+                </td>
+              </tr>
+              <tr v-if="!data.interests.length">
+                <td class="px-5 py-4 text-(--ink2)">
+                  No leads in this window.
                 </td>
               </tr>
             </tbody>

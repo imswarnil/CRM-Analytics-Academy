@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Seats__c</fullName>
+    <description>Active seat assignments (roll-up).</description>
+    <externalId>false</externalId>
+    <label>Active seats</label>
+    <summaryFilterItems>
+        <field>Seat_Assignment__c.Status__c</field>
+        <operation>equals</operation>
+        <value>active</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Seat_Assignment__c.Account__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

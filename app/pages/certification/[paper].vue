@@ -7,6 +7,10 @@
  * Progress is kept in localStorage (a refresh or a closed tab resumes where it
  * was, clock included); a signed-in learner's finished attempt is saved to
  * /api/exam-attempt. No promos while the clock runs.
+ *
+ * /certification opens papers in their own window (`?w=1`): the whole window
+ * is in focus mode from the start, and the ✕ in the corner closes it (asking
+ * first while the clock runs). Without a window it goes back to /certification.
  */
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
@@ -43,8 +47,22 @@ let timer: ReturnType<typeof setInterval> | undefined
 // Focus mode: no site chrome, promos or pop-ups while the clock runs; the
 // browser goes full-screen when it allows, and leaving asks first.
 const focus = useState('exam-focus', () => false)
+const windowed = route.query.w === '1'
+const leaveOpen = ref(false)
+focus.value = windowed
+function close(confirmed = false) {
+  if (phase.value === 'running' && !confirmed) {
+    leaveOpen.value = true
+    return
+  }
+  leaveOpen.value = false
+  if (phase.value === 'running') phase.value = 'intro'
+  // window.close() only works on a window a script opened; otherwise go back.
+  if (windowed && window.opener) window.close()
+  else navigateTo(localePath('/certification'))
+}
 watch(phase, (p) => {
-  focus.value = p === 'running'
+  focus.value = windowed || p === 'running'
   if (p === 'running') document.documentElement.requestFullscreen?.().catch(() => {})
   else if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {})
 })
@@ -176,6 +194,42 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
 
 <template>
   <div>
+    <!-- Close: the exam window, or back to every paper -->
+    <UButton
+      icon="i-lucide-x"
+      color="neutral"
+      variant="outline"
+      size="lg"
+      square
+      class="fixed end-3 top-3 z-50 bg-(--card)"
+      :aria-label="t('cert.close')"
+      @click="close()"
+    />
+    <UModal
+      v-model:open="leaveOpen"
+      :title="t('cert.leaveTitle')"
+      :description="t('cert.leaveBody')"
+    >
+      <template #footer>
+        <div class="flex w-full justify-end gap-2">
+          <UButton
+            color="neutral"
+            variant="outline"
+            @click="leaveOpen = false"
+          >
+            {{ t('cert.keepGoing') }}
+          </UButton>
+          <UButton
+            color="error"
+            icon="i-lucide-log-out"
+            @click="close(true)"
+          >
+            {{ t('cert.leave') }}
+          </UButton>
+        </div>
+      </template>
+    </UModal>
+
     <!-- INTRO -->
     <template v-if="phase === 'intro'">
       <BpPageHeader
@@ -261,7 +315,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
     <!-- RUNNING -->
     <template v-else-if="phase === 'running' && current">
       <div class="sticky top-0 z-30 border-b-[1.5px] border-(--ink) bg-(--paper)">
-        <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center gap-4 py-3 ps-4 pe-16 sm:ps-6 lg:ps-8">
           <span class="font-bold text-(--ink)">{{ paper!.title }}</span>
           <span class="mono-label">{{ t('cert.questionOf', { n: index + 1, total: questions.length }) }} · {{ t('cert.answeredN', { n: answered }) }} · {{ t('cert.flaggedN', { n: flagged }) }}</span>
           <span

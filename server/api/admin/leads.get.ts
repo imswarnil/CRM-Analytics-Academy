@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const rows = /^(new|contacted|won|lost)$/.test(status)
     ? await sql`select * from app.lead where status = ${status} order by created_at desc limit 500`
     : await sql`select * from app.lead order by created_at desc limit 500`
-  const totals = await sql`select product, status, count(*)::int as n from app.lead group by 1, 2`
+  const totals = await sql`select product, status, count(*)::int as n, coalesce(sum(seats), 0)::int as seats from app.lead group by 1, 2`
   setResponseHeader(event, 'cache-control', 'private, no-store')
   return {
     leads: rows.map(r => ({
@@ -14,8 +14,10 @@ export default defineEventHandler(async (event) => {
       email: String(r.email), company: r.company as string | null, title: r.title as string | null, country: r.country as string | null,
       phone: r.phone as string | null, teamSize: r.team_size as string | null, message: r.message as string | null,
       userId: r.user_id as string | null, source: r.source as string | null, landing: r.landing as string | null,
-      lessonsDone: Number(r.lessons_done), points: Number(r.points), status: String(r.status), sfStatus: String(r.sf_status), createdAt: r.created_at
+      lessonsDone: Number(r.lessons_done), points: Number(r.points), status: String(r.status), sfStatus: String(r.sf_status), createdAt: r.created_at,
+      seats: r.seats === null ? null : Number(r.seats), orgKind: r.org_kind as string | null, firstLanding: r.first_landing as string | null,
+      viewsBefore: r.views_before === null ? null : Number(r.views_before)
     })),
-    totals: totals.map(r => ({ product: String(r.product), status: String(r.status), count: Number(r.n) }))
+    totals: totals.map(r => ({ product: String(r.product), status: String(r.status), count: Number(r.n), seats: Number(r.seats) }))
   }
 })

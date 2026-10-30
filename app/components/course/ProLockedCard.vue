@@ -1,8 +1,8 @@
 <script setup lang="ts">
 /**
  * The end of a Pro lesson's teaser for anyone without Pro. Signed out: the
- * free account comes first (and with it, no promos). Signed in: request Pro,
- * which files a lead the owner answers — there is no checkout.
+ * free account comes first (it brings WELCOME_POINTS and no promos). Signed
+ * in: Pro is bought with points on /pro — there is no checkout.
  */
 const props = defineProps<{
   lessonTitle: string
@@ -13,9 +13,10 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const { isSignedIn } = useAuth()
-const proTo = computed(() => ({ path: localePath('/pro'), query: { product: 'pro', lesson: route.path } }))
+const proTo = computed(() => ({ path: localePath('/pro'), query: { from: route.path } }))
 const signUpTo = computed(() => ({ path: localePath('/sign-up'), query: { redirect: route.fullPath } }))
 const PERKS = ['perkLessons', 'perkExams', 'perkNoPromos', 'perkCommunity'] as const
+onMounted(() => useNuxtApp().$track?.('pro_locked', route.path))
 </script>
 
 <template>

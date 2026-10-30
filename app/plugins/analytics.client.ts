@@ -3,6 +3,11 @@
  * Analytics). Records a page view on every navigation, how long the page was
  * visible, and clicks on any link to /sign-in or /sign-up.
  *
+ * Humans vs bots: an automated browser (navigator.webdriver, a headless user
+ * agent) sends `a: 1` and is dropped and counted by the server. Everyone else
+ * is marked human on their first real interaction — a tap, a key, a scroll or
+ * a few mouse movements — once per browser (`crma-h` in localStorage).
+ *
  * No cookies: the visitor id lives in localStorage, the session id in
  * sessionStorage. If storage is blocked, ids are per page load and the view
  * is still counted. Other code reports milestones with `useNuxtApp().$track`.
@@ -24,8 +29,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   const session = keep(globalThis.sessionStorage, 'crma-s')
   const { locale } = nuxtApp.$i18n as { locale: { value: string } }
 
+  const automated = Boolean((navigator as Navigator & { webdriver?: boolean }).webdriver) || /headless/i.test(navigator.userAgent)
   const send = (payload: Record<string, unknown>, beacon = false) => {
-    const body = JSON.stringify({ v: visitor, s: session, ...payload })
+    const body = JSON.stringify({ v: visitor, s: session, ...(automated ? { a: 1 } : {}), ...payload })
     if (beacon && navigator.sendBeacon) {
       navigator.sendBeacon('/api/collect', new Blob([body], { type: 'text/plain' }))
       return Promise.resolve(null)
@@ -74,6 +80,27 @@ export default defineNuxtPlugin((nuxtApp) => {
       view.since = performance.now()
     }
   })
+
+  // The first real interaction marks this browser human (once).
+  let human = false
+  try {
+    human = localStorage.getItem('crma-h') === '1'
+  } catch { /* storage blocked */ }
+  if (!human && !automated) {
+    let moves = 0
+    const mark = (e: Event) => {
+      if (e.type === 'mousemove' && ++moves < 4) return
+      if (!view?.id) return // wait until the view is recorded
+      human = true
+      try {
+        localStorage.setItem('crma-h', '1')
+      } catch { /* storage blocked */ }
+      send({ t: 'human' })
+      for (const t of TYPES) window.removeEventListener(t, mark, true)
+    }
+    const TYPES = ['pointerdown', 'keydown', 'scroll', 'touchstart', 'mousemove'] as const
+    for (const t of TYPES) window.addEventListener(t, mark, { capture: true, passive: true })
+  }
 
   const track = (name: string, label?: string) => send({ t: 'ev', n: name, p: location.pathname, lb: label })
 

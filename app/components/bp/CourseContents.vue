@@ -15,7 +15,7 @@ const emit = defineEmits<{ toggle: [], navigate: [] }>()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 const route = useRoute()
 const localePath = useLocalePath()
-const { isDone, normalise } = useProgress()
+const { isDone, normalise, pro: hasPro } = useProgress()
 const { of: metaOf } = useLessonMeta()
 const { total } = useCourse()
 const { t } = useI18n()
@@ -209,6 +209,17 @@ onMounted(() => revealCurrent(true))
                 :class="isDone(l.path) ? 'text-(--signal)' : 'text-(--ink2)'"
               />
               <span class="min-w-0 flex-1 truncate">{{ l.title }}</span>
+              <!-- Free or Pro, on every lesson: Pro is locked unless the reader has it. -->
+              <span
+                v-if="!l.soon"
+                class="flex flex-none items-center gap-0.5 px-1 font-mono text-[9px] font-semibold uppercase tracking-[.08em]"
+                :class="l.pro ? 'bg-(--ink) text-(--glow)' : 'border border-(--line) text-(--ink2)'"
+                :title="l.pro ? t('pro.eyebrow') : t('pro.freeLesson')"
+              ><UIcon
+                v-if="l.pro && !hasPro"
+                name="i-lucide-lock-keyhole"
+                class="size-2.5"
+              />{{ l.pro ? t('pro.tag') : t('pro.freeTag') }}</span>
               <span class="flex w-8 justify-end">
                 <span
                   class="h-1.5"

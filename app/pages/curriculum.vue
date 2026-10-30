@@ -268,6 +268,10 @@ function icon(l: Row) {
                     class="size-3"
                   />{{ t('pro.tag') }}</span>
                   <span
+                    v-else-if="!l.soon"
+                    class="border-[1.5px] border-(--line) px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em] text-(--ink2)"
+                  >{{ t('pro.freeTag') }}</span>
+                  <span
                     class="w-14 py-0.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
                     :class="l.soon ? 'border-[1.5px] border-(--line) text-(--ink2)' : l.quiz ? 'border-[1.5px] border-(--signal) text-(--signal)' : ''"
                   >{{ l.soon ? t('curriculumPage.tags.soon') : l.quiz ? t('curriculumPage.tags.quiz') : '' }}</span>

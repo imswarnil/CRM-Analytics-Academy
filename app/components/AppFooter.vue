@@ -11,6 +11,10 @@ const columns = computed(() => [
       { label: t('home.modules.foundations.title'), to: localePath('/foundations') },
       { label: t('nav.certification'), to: localePath('/certification') },
       { label: t('nav.interview'), to: localePath('/interview-questions') },
+      { label: t('nav.visualiser'), to: localePath('/visualiser') },
+      { label: t('vis.saql.title'), to: localePath('/visualiser/saql') },
+      { label: t('vis.recipe.title'), to: localePath('/visualiser/recipe') },
+      { label: t('vis.dataflow.title'), to: localePath('/visualiser/dataflow') },
       { label: t('nav.resources'), to: localePath('/resources') },
       { label: t('nav.datasets'), to: localePath('/datasets') }
     ]
@@ -27,6 +31,7 @@ const columns = computed(() => [
     label: t('footer.project'),
     children: [
       { label: t('nav.about'), to: localePath('/about') },
+      { label: t('nav.pro'), to: localePath('/pro') },
       { label: t('nav.contribute'), to: localePath('/contribute') },
       { label: t('nav.github'), to: SITE.github, target: '_blank' },
       { label: t('nav.privacy'), to: localePath('/privacy') },

@@ -9,6 +9,12 @@ export interface ProgressData {
   admin: boolean
   demo: boolean
   pro: boolean
+  /** Spendable points: the welcome grant + earned − spent. */
+  balance: number
+  /** When Pro ends: an ISO date, 'never', or null without Pro of their own. */
+  proUntil: string | null
+  /** The organisation whose seat they hold, if any. */
+  org: string | null
   waitlist: string[]
   points: number
   contributions: number
@@ -39,6 +45,7 @@ export function useProgress() {
   const demo = computed(() => Boolean(data.value?.demo))
   const pro = computed(() => Boolean(data.value?.pro))
   const points = computed(() => data.value?.points ?? 0)
+  const balance = computed(() => data.value?.balance ?? WELCOME_POINTS)
   const rank = computed(() => data.value?.rank ?? null)
 
   function normalise(path: string) {
@@ -99,5 +106,5 @@ export function useProgress() {
     }
   }
 
-  return { completed, bookmarks, data, admin, demo, pro, points, rank, loaded, load, isDone, setDone, isSaved, setSaved, normalise }
+  return { completed, bookmarks, data, admin, demo, pro, points, balance, rank, loaded, load, isDone, setDone, isSaved, setSaved, normalise }
 }

@@ -25,7 +25,9 @@
     "certification": "Examens",
     "interview": "Entretiens",
     "companies": "Entreprises",
-    "pro": "Pour"
+    "pro": "Pour",
+    "visualiser": "Visualiseurs",
+    "team": "Mon organisation"
   },
   "home": {
     "modules": {
@@ -1052,7 +1054,10 @@
       "errQuestion": "Écrivez la question (au moins 10 caractères).",
       "errAnswer": "Écrire une réponse modèle (au moins 30 caractères).",
       "errGeneric": "Impossible de se soumettre. Essaie encore."
-    }
+    },
+    "prev": "Question précédente",
+    "next": "Question suivante",
+    "close": "Fermer"
   },
   "cert": {
     "eyebrow": "Pratique de certification",
@@ -1136,7 +1141,11 @@
     "incorrect": "Erreur",
     "unanswered": "Sans réponse",
     "study": "Etude {topic}",
-    "loading": "Chargement du papier..."
+    "loading": "Chargement du papier...",
+    "close": "Ferme l'examen",
+    "leaveTitle": "Quitter cet examen ?",
+    "leaveBody": "L'horloge tourne. Vos réponses restent sauvegardées sur cet appareil, et vous pouvez reprendre jusqu'à ce que le temps s'épuise.",
+    "leave": "Congé"
   },
   "companies": {
     "eyebrow": "Entreprises",
@@ -1261,7 +1270,8 @@
     "proTitle": "Débloquer les leçons Pro",
     "proBody": "Passages complets, quiz et examens — et aidez quand vous êtes coincé.",
     "proActive": "Vous êtes membre Pro",
-    "proActiveBody": "Chaque leçon Pro est ouverte à vous. Merci d'avoir soutenu l'Académie."
+    "proActiveBody": "Chaque leçon Pro est ouverte à vous. Merci d'avoir soutenu l'Académie.",
+    "walletHint": "Coûts pro {n} et des points. Chaque leçon et quizz gagne plus."
   },
   "pro": {
     "eyebrow": "Cours pro",
@@ -1273,31 +1283,25 @@
     "perkNoPromos": "Aucune annonce sur le site",
     "perkCommunity": "Réponses prioritaires à vos questions",
     "signUpFirst": "Créez votre compte gratuit",
-    "getPro": "Obtenez Pro",
-    "signUpHint": "Un compte libre supprime déjà chaque annonce. Pro est une étape après."
+    "getPro": "Obtenez Pro avec des points",
+    "signUpHint": "Un compte gratuit supprime chaque annonce et vient avec 1000 points — assez pour votre premier mois de Pro. L'apprentissage gagne le prochain.",
+    "freeTag": "Gratuit",
+    "freeLesson": "Cours gratuit"
   },
   "store": {
     "eyebrow": "Pour",
-    "seoTitle": "CRM Analytics Pro, formation et plans d'équipe",
-    "seoDesc": "L'adhésion pro, un bootcamp de certification, la préparation d'entrevues, le mentorat, les examens de tableau de bord et la formation d'équipe pour Salesforce CRM Analytics.",
-    "title": "Aller plus loin avec CRM Analytics",
-    "lead": "Tout libre reste libre. Ceux-ci sont pour quand vous voulez plus — les leçons complètes Pro, un chemin entraîné à la certification, ou aider pour votre équipe.",
+    "seoTitle": "CRM Analytics Plans de l'Académie: Gratuit, Pro et des sièges d'équipe",
+    "seoDesc": "Apprendre Salesforce CRM Analytics gratuitement. Les cours pro sont débloqués avec des points que vous gagnez par apprentissage; les entreprises, les équipes et les universités peuvent demander des sièges Pro.",
+    "title": "Trois plans, un cours",
+    "lead": "Tout le public reste libre. Pro est acheté avec des points: chaque compte commence par 1000, assez pour le premier mois, et l'apprentissage gagne plus. Les organisations demandent des sièges.",
     "youArePro": "Vous êtes membre Pro",
-    "individual": "Pour toi",
-    "business": "Pour votre équipe",
     "popular": "Les plus populaires",
-    "talk": "Parlons.",
-    "getIt": "Prends-le.",
     "unit": {
       "perMonth": "/ mois",
-      "once": "une fois",
-      "perSession": "/ session",
-      "perSeat": "/ siège / année"
+      "perSeat": "/ siège / mois"
     },
-    "requestTitle": "Demande {product}",
     "sentTitle": "Merci — votre demande est acceptée.",
     "sentBody": "Swarnil répondra par email dans les deux jours ouvrables avec les prochaines étapes.",
-    "needsAccount": "Ceci est ajouté à votre compte Academy, donc il commence par un compte gratuit (qui éteint également chaque annonce).",
     "f": {
       "firstName": "Prénom",
       "lastName": "Nom de famille",
@@ -1309,63 +1313,35 @@
       "message": "On devrait savoir quelque chose ?"
     },
     "send": "Envoyer la demande",
-    "noCharge": "Rien n'est inculpé ici. Vous recevrez une réponse par email."
+    "noCharge": "Rien n'est inculpé ici. Vous recevrez une réponse par email dans les deux jours ouvrables."
   },
   "products": {
+    "free": {
+      "name": "Gratuit",
+      "tagline": "Tout le cours public, pour tout le monde.",
+      "f1": "Chaque leçon gratuite, quiz et parcours",
+      "f2": "Cinq examens de pratique et la banque d'entrevues",
+      "f3": "Les SAQL, visualisateurs de recettes et de flux de données",
+      "f4": "Pas de publicité une fois que vous vous êtes connecté",
+      "f5": "1 000 points pour commencer — un mois de Pro"
+    },
     "pro": {
-      "name": "Membres pro",
-      "tagline": "Chaque leçon Pro, examen complet, aucune annonce.",
+      "name": "Pour",
+      "tagline": "Chaque leçon de pro - payé en points alors que l'Académie est nouvelle.",
       "f1": "Toutes les leçons Pro, chaque section étant publiée",
-      "f2": "Examen complet des cinq examens de pratique",
+      "f2": "Examen complet des réponses aux examens de pratique",
       "f3": "Tableau de bord et recettes téléchargeables",
       "f4": "Pas de publicité nulle part",
       "f5": "Réponses prioritaires dans les commentaires"
     },
-    "bootcamp": {
-      "name": "Camp de démarrage de certification",
-      "tagline": "Six semaines, entraîné, à l'examen de consultant.",
-      "f1": "Session hebdomadaire en direct et plan d'étude",
-      "f2": "Documents de pratique classés avec rétroaction",
-      "f3": "Membre pro inclus",
-      "f4": "Reprendre le support si vous ne passez pas"
-    },
-    "interview-prep": {
-      "name": "Préparation de l'entrevue",
-      "tagline": "Une interview simulée et des commentaires écrits.",
-      "f1": "Entretien technique simulé de 60 minutes",
-      "f2": "SAQL et questions sur le scénario du tableau de bord",
-      "f3": "Commentaires écrits dans les 48 heures",
-      "f4": "Une séance de suivi pour une nouvelle pratique"
-    },
-    "mentoring": {
-      "name": "1:1 encadrement",
-      "tagline": "Une heure sur ce que tu es coincé.",
-      "f1": "60 minutes sur vidéo",
-      "f2": "Votre org, vos tableaux de bord, vos questions",
-      "f3": "Notes et liens après"
-    },
-    "dashboard-review": {
-      "name": "Examen du tableau de bord",
-      "tagline": "Votre tableau de bord, examiné par un expert.",
-      "f1": "Résultats SAQL et l ' examen obligatoire",
-      "f2": "Contrôle de sécurité et de partage",
-      "f3": "Un rapport écrit avec des corrections"
-    },
-    "team": {
-      "name": "Formation des équipes",
-      "tagline": "Pro pour toute votre équipe analytique.",
-      "f1": "Pro pour chaque siège",
-      "f2": "Rapports d ' activité à l ' intention des cadres",
-      "f3": "Un en direct Q&A par trimestre",
-      "f4": "Facturation facturée"
-    },
-    "consulting": {
-      "name": "Mise en œuvre & conseil",
-      "tagline": "Construire CRM Analytics avec quelqu'un qui l'a fait.",
-      "f1": "Données, recettes et conception de sécurité",
-      "f2": "Tableau de bord que vos cadres utiliseront",
-      "f3": "Einstein Discovery modèles",
-      "f4": "Remise et formation pour votre équipe"
+    "seats": {
+      "name": "Équipes et universités",
+      "tagline": "Pro pour une entreprise, une équipe ou une classe — par siège.",
+      "f1": "Pro pour chaque siège, joint avec un code",
+      "f2": "Une vue administrative de qui apprend et jusqu'où",
+      "f3": "Ajouter ou libérer des sièges à tout moment",
+      "f4": "Prix en volume pour les universités",
+      "f5": "Facturation facturée, un seul contact"
     }
   },
   "human": {
@@ -1373,5 +1349,284 @@
     "done": "Vérifié — vous êtes humain",
     "retry": "La vérification a échoué — essayez à nouveau",
     "wait": "Un moment — toujours à vérifier que vous êtes humain."
+  },
+  "plans": {
+    "balance": "{n} Paragraphes",
+    "proUntil": "Pro jusqu'à {date}",
+    "seatOf": "Pour {org}",
+    "noEnd": "Aucune date de fin",
+    "free": "Gratuit",
+    "pointsPer": "points / {days} jours",
+    "laterPrice": "Plus tard {price} un mois",
+    "volume": "Prix en volume sur demande",
+    "startLearning": "Commencez à apprendre",
+    "signUpFor": "Inscrivez-vous — obtenez {n} Paragraphes",
+    "redeem": "Débloquer Pro pour {n} Paragraphes",
+    "extend": "Ajouter {days} plus de jours",
+    "short": "Vous avez besoin {n} plus de points.",
+    "earn": "Gagner dans le cours",
+    "redeemed": "Vous êtes pro jusqu'à {date}. Profitez de chaque leçon.",
+    "requestSeats": "Demander des sièges",
+    "haveCode": "J'ai un code d'adhésion",
+    "pointsEyebrow": "Comment les points fonctionnent",
+    "pointsTitle": "Votre premier mois est sur nous; apprendre paie pour le reste",
+    "earnRow": {
+      "welcome": "lorsque vous créez votre compte",
+      "lesson": "pour chaque leçon que vous terminez",
+      "quiz": "pour chaque réponse correcte",
+      "contribution": "pour chaque contribution approuvée"
+    },
+    "requestTitle": "Demander des sièges ou de l'aide",
+    "requestLead": "Sièges pour votre entreprise, votre équipe ou votre université — ou pour vous aider Salesforce Il n'y a pas de problème. Chaque demande est répondue par une personne.",
+    "f": {
+      "interest": "De quoi avez-vous besoin ?",
+      "orgKind": "Organisation",
+      "seats": "Sièges",
+      "orgName": "Nom de l'organisation"
+    },
+    "interest": {
+      "seats": "Sièges pour mon organisation",
+      "salesforce-setup": "Aide à la mise en place CRM Analytics",
+      "consulting": "Conseil",
+      "mentoring": "1:1 encadrement"
+    },
+    "kind": {
+      "company": "Société",
+      "team": "Équipe",
+      "university": "Université"
+    }
+  },
+  "team": {
+    "title": "Mon organisation",
+    "lead": "Sièges pour entreprises, équipes et universités. Rejoignez le code que votre administrateur vous a donné ; alors que votre organisation a des sièges, vous êtes Pro.",
+    "code": "Rejoindre le code",
+    "codeHint": "8 lettres et chiffres",
+    "join": "Asseyez-vous.",
+    "noCode": "Pas encore de code ?",
+    "request": "Demandez des sièges pour votre organisation",
+    "seats": "{used} des {seats} Sièges utilisés",
+    "youArePro": "Votre siège comprend Pro.",
+    "until": "Les sièges courent jusqu'à {date}.",
+    "adminTitle": "Vous dirigez cette organisation",
+    "share": "Partagez ce code ou un lien avec les personnes qui devraient obtenir un siège. Chaque personne qui se joint utilise un siège.",
+    "copyLink": "Copier le lien de jointure",
+    "member": "État",
+    "lessons": "Enseignements",
+    "points": "Paragraphes",
+    "free": "Libérez ce siège"
+  },
+  "vis": {
+    "eyebrow": "Visualiseurs",
+    "title": "Voir comment CRM Analytics exécute vos données",
+    "lead": "Trois modèles en direct SAQL requête, une Data Prep recette et un flux de données — qui exécutent étape par étape sur le même petit jeu de données, de sorte que vous pouvez regarder chaque rangée se déplacer.",
+    "seoTitle": "SAQL, visualiseurs de recettes et de flux de données pour CRM Analytics",
+    "seoDesc": "Visualiseurs interactifs étape par étape pour Salesforce CRM Analytics: SAQL exécution, recette rejoint et fonctions, et ordre de flux de données de l'exécution. Gratuit, dans votre navigateur.",
+    "open": "Ouvrir",
+    "dataEyebrow": "Les données de l'échantillon",
+    "dataTitle": "Petit objectif",
+    "dataLead": "Chaque visualisateur court sur ces rangées. Ils sont choisis pour montrer les cas de bord: un compte sans opportunité, une opportunité dont le compte n'existe pas, un compte avec plusieurs transactions, un montant manquant et une chaîne de gestionnaires.",
+    "noRows": "Pas de rangées.",
+    "first": "Première étape",
+    "prev": "Étape précédente",
+    "next": "Prochaine étape",
+    "last": "Dernière étape",
+    "play": "Jouer",
+    "pause": "Pause",
+    "scrub": "Étape",
+    "stepOf": "Étape {n} des {total}",
+    "lineOf": "Ligne {n}",
+    "rowsIn": "{n} en",
+    "rowsOut": "{n} lignes",
+    "groupsOut": "{n} groupes",
+    "keysOut": "{n} clés",
+    "showAfter": "Afficher le résultat",
+    "showBefore": "Montrez ce qui a été abandonné",
+    "kept": "conservé",
+    "dropped": "laissé tomber",
+    "value": "Valeur",
+    "moveUp": "En haut",
+    "moveDown": "Baissez-vous",
+    "remove": "Supprimer",
+    "toCourse": "Retour au cours",
+    "legend": {
+      "matched": "correspond",
+      "unmatched": "Pas de correspondance",
+      "fanout": "plus d'une fois",
+      "multi": "plusieurs matches"
+    },
+    "saql": {
+      "title": "SAQL visualiseur",
+      "card": "Construisez une requête à partir de charge, filtre, groupe, cogroupe, pour chaque, ordre et limite, puis regardez le flux après chaque ligne.",
+      "lead": "Construisez une requête, ou commencez à partir d'un exemple, et passez-la en ligne par ligne. Chaque déclaration montre le flux qu'elle a reçu et le flux qu'elle a transmis.",
+      "seoTitle": "SAQL visualiseur: pas à travers un CRM Analytics requête",
+      "seoDesc": "Regardez SAQL exécuter la ligne par ligne: charge, filtre, groupe, cogroupe avec les jointures internes, gauche, droite et pleine, pour chaque, ordre et limite, sur les lignes réelles.",
+      "query": "La requête",
+      "groupAll": "groupe par tous",
+      "addField": "Ajouter un champ",
+      "presets": {
+        "pipelineByStage": "Pipeline par étape",
+        "filterThenGroup": "Filtre, puis groupe",
+        "having": "Filtre après chaque",
+        "cogroupAccounts": "Cogroupe avec les comptes",
+        "cogroupLeft": "Cogroupe extérieur complet",
+        "topN": "Les 3 meilleures offres",
+        "mistake": "Une erreur courante"
+      },
+      "explain": {
+        "load": "Charge l'ensemble de données {name}: {n} lignes, {cols} les champs. Rien n'est encore filtré ou groupé — chaque ligne ultérieure fonctionne sur ce flux.",
+        "filter": "Garde les lignes où {field} satisfait à l'essai: {kept} conservé, {dropped} tombé. Filtrage devant un groupe signifie moins de lignes à groupe, c'est pourquoi il vient habituellement en premier.",
+        "group": "Groupe le flux par {by}: {n} rangées tombent dans {groups} les groupes. Rien n'est encore additionné — un flux groupé tient les lignes jusqu'à ce que chacun sache quoi calculer.",
+        "groupAll": "Tout mettre {n} rangées en un seul groupe, donc pourchaque peut calculer des totaux sur tout.",
+        "cogroup_inner": "Groupes {by} = {withBy}. {keys} les touches apparaissent de part et d'autre; un cogroupe interne ne conserve que les {kept} trouvé des deux côtés et des gouttes {dropped}.",
+        "cogroup_left": "Cogroupe gauche {by} = {withBy}: chaque clé du côté gauche est conservée, avec ou sans correspondance {kept} des {keys} les clés, {dropped} tombé.",
+        "cogroup_right": "Cogroupe de droite sur {by} = {withBy}: chaque clé du côté droit est conservée — {kept} des {keys} les clés, {dropped} tombé.",
+        "cogroup_full": "Cogroupe extérieur complet sur {by} = {withBy}: chaque clé de chaque côté est conservée, assortie ou non — tous {kept} les clés.",
+        "foreach": "Projets {cols} les champs, {n} rangées.",
+        "foreachCollapse": "Calculs {cols} champs pour chaque groupe, de sorte que chaque groupe devient une ligne: {n} Des rangées. C'est la ligne où apparaissent les totaux, les dénombrements et les moyennes.",
+        "order": "Trie le flux par {field}, {dir}. Les lignes sont les mêmes — seulement leurs changements d'ordre.",
+        "limit": "Garde la première {n} rangées et baisse le reste. Sans ordre préalable, les lignes qui survivent ne sont pas définies.",
+        "noDataset": "Il n'y a pas d'ensemble de données appelé {name}.",
+        "filterGrouped": "SAQL ne peut pas filtrer un flux groupé. Filtrer avant le groupe, ou exécuter chaque premier et filtrer son résultat — c'est ainsi qu'un HAVING est écrit dans SAQL.",
+        "groupTwice": "Ce flux est déjà groupé. Exécutez d'abord foreach, puis groupez son résultat.",
+        "cogroupGrouped": "Cogroup travaille sur des flux non groupés. Déplacez-le devant le groupe.",
+        "foreachEmpty": "Une foreach a besoin d'au moins un champ.",
+        "foreachAggUngrouped": "{field} utilise un agrégat, mais le flux n'est pas groupé. Ajoutez un groupe avant ce pourchaque, ou groupe par tous.",
+        "foreachNotKey": "{field} n'est pas une clé de groupe, de sorte que chacun ne peut pas la projeter telle qu'elle est — enveloppez-la dans un ensemble comme le premier, la somme ou le compte.",
+        "orderGrouped": "Commandez un flux groupé après chaque course, lorsque chaque groupe est d'une ligne.",
+        "limitGrouped": "Limiter un flux groupé après chaque foreach."
+      },
+      "notes": {
+        "order": {
+          "title": "De haut en bas",
+          "body": "Chaque SAQL ligne prend le flux de la ligne avant et la main sur une nouvelle. Le moteur peut optimiser, mais ce que vous lisez est l'ordre dans lequel le résultat est défini."
+        },
+        "group": {
+          "title": "Groupe, puis pour chaque",
+          "body": "Le groupe trie seulement les rangées en seaux. Pourchaque tourne chaque seau en une ligne, et seulement alors vous pouvez filtrer, commander ou limiter d'un total."
+        },
+        "cogroup": {
+          "title": "Le cogroupe est une jointure par clé",
+          "body": "Les deux côtés sont groupés par leur clé et appariés. L'intérieur conserve les touches des deux côtés; gauche, droite et pleine gardent les touches non appariées aussi, avec des valeurs vides."
+        }
+      }
+    },
+    "recipe": {
+      "title": "Visualiseur de recettes",
+      "card": "A Data Prep recette en tant que graphique: chaque type de joint, formule et fonction de date, fonctions de fenêtre, appendice et agrégat, en ordre d'exécution.",
+      "lead": "Choisissez un exemple, changez n'importe quel nœud — le type de jointure, les clés, les formules — et passez à travers la recette dans l'ordre où elle s'exécute, avec chaque ligne de nœud.",
+      "seoTitle": "Visualiseur de recettes: CRM Analytics Data Prep joint, fonctions et ordre d'exécution",
+      "seoDesc": "Passez par un CRM Analytics recette: recherche, gauche, droite, intérieure et extérieure joint avec le nombre de lignes, la date et le texte des fonctions de formule, les fonctions de fenêtre, l'appendice et l'agrégat.",
+      "graph": "Graphique de recette — le numéro est l'ordre d'exécution",
+      "joinType": "Type de joint",
+      "leftKey": "Clé gauche",
+      "rightKey": "Clé droite",
+      "compare": "La même jointure, chaque type",
+      "left": "Entrée gauche",
+      "output": "Joindre la sortie",
+      "groupBy": "Groupe par",
+      "addMeasure": "Ajouter une mesure",
+      "addFromCatalogue": "Ajoutez d'autres fonctions du catalogue ci-dessous.",
+      "addFn": "Ajouter {fn}",
+      "catalogue": "Catalogue des fonctions",
+      "catalogueTitle": "Chaque formule, courir sur une vraie ligne",
+      "presets": {
+        "pipelineByRegion": "Filtre, transformation, recherche, agrégat",
+        "joinTypes": "Joindre les types",
+        "windowFns": "Fonctions de la fenêtre",
+        "dates": "Fonctions de date",
+        "appendHistory": "Ajouter l'historique"
+      },
+      "nodes": {
+        "input": "Entrée",
+        "filter": "Filtre",
+        "transform": "Transformer",
+        "join": "Rejoignez",
+        "append": "Annexe",
+        "aggregate": "Total",
+        "output": "Produit"
+      },
+      "cats": {
+        "date": "Date",
+        "text": "Texte",
+        "number": "Numéro",
+        "logic": "Logique et nuls",
+        "window": "Fenêtre (lignes multiples)"
+      },
+      "explain": {
+        "input": "Lecture {name}: {n} rangées. Les entrées s'exécutent en premier — rien en aval ne peut démarrer jusqu'à ce que ses entrées aient.",
+        "filter": "Garde des lignes où {field} satisfait à l'essai: {kept} conservé, {dropped} tombé.",
+        "transform": "Ajoute {n} les colonnes calculées, une fonction à la fois, dans l'ordre indiqué — une formule ultérieure peut utiliser une première. Le nombre de rangées ne change jamais dans une transformation.",
+        "join_lookup": "Recherche {key}: chaque rang gauche est conservé exactement une fois et prend le premier match. {left} rangées en, {out} out — une recherche ne peut jamais multiplier les rangées. {unmatched} Les lignes de gauche n'ont trouvé aucune correspondance et ont obtenu des valeurs vides.",
+        "join_left": "A gauche {key}: chaque rangée gauche est conservée, et une rangée avec plusieurs matches est répétée une fois par match. {left} rangées en, {out} sortie; {unmatched} sans égal.",
+        "join_right": "Joignez-vous à droite {key}: chaque rangée droite est conservée ; les rangées gauches sans correspondance sont abandonnées. {out} les lignes sortantes; {unmatchedRight} les rangées droites n'avaient pas de partenaire gauche.",
+        "join_inner": "Rejoignez intérieure {key}: seulement les rangées avec une correspondance des deux côtés. {left} rangées gauches, {out} sortie; {unmatched} Les rangées gauches sont tombées.",
+        "join_outer": "Pleine jointure extérieure sur {key}: chaque rang des deux côtés, assorti autant que possible. {out} les lignes sortantes; {unmatched} gauche et {unmatchedRight} rangées droites sans partenaire.",
+        "append": "Place les entrées l'une sous l'autre : {parts} lignes faites {n}. Les colonnes sont appariées par nom.",
+        "aggregate": "Groupes {n} lignes par {by} dans {groups} et calcule les mesures. Le grain change ici — une rangée par groupe.",
+        "output": "Écrit {n} rangées avec {cols} colonnes de l'ensemble de données {name}. La sortie dure."
+      },
+      "notes": {
+        "order": {
+          "title": "Ordre d'exécution",
+          "body": "Un noeud s'exécute une fois que chaque noeud qu'il lit a couru. Les branches qui ne dépendent pas les unes des autres peuvent fonctionner dans n'importe quel ordre; le résultat est le même."
+        },
+        "joins": {
+          "title": "Choisissez la jointure par le grain",
+          "body": "Lookup garde le grain gauche et n'ajoute jamais de rangées. À gauche, à l'intérieur et à l'extérieur, les jointures répètent une rangée pour chaque match — vérifiez le nombre de rangées après chaque jointure."
+        },
+        "grain": {
+          "title": "Transformer avant d'agréger",
+          "body": "Les fonctions de la fenêtre et les formules voient les lignes individuelles. Après un agrégat, seules les valeurs de niveau de groupe sont laissées."
+        }
+      }
+    },
+    "dataflow": {
+      "title": "Dataflow visualiseur",
+      "card": "Un flux de données JSON à côté de son graphique: digérer, augmenter, calculerExpression, calculerRelative, aplatir et enregistrer, courir dans les ondes de dépendance.",
+      "lead": "Allumez et désactivez les nœuds et regardez JSON, le graphique et les données changent ensemble. Passez par l'ordre dans lequel le flux de données s'exécute.",
+      "seoTitle": "Dataflow Visualiseur: CRM Analytics flux de données JSON et ordre d'exécution",
+      "seoDesc": "Voir comment CRM Analytics dataflow runs: sfdcDigest, filtre, augmente avec LookupSingleValue ou LookupMultiValue, calculExpression, calculRelative, aplati, trancheDataset et sfdcInscrivez avec un prédicat de sécurité.",
+      "graph": "Dataflow graphique — W est la vague",
+      "waves": "Courbes de dépendance",
+      "wave": "Vague {n}",
+      "wavesNote": "Les nœuds dans la même vague ne dépendent de rien dans cette vague, donc ils peuvent courir en parallèle. L'ordre des clés dans le JSON Peu importe.",
+      "leftOpps": "Opportunités gauche, comptes droite",
+      "leftAccounts": "Comptes à gauche, possibilités à droite",
+      "opts": {
+        "filter": "Filtre",
+        "flatten": "Aplati",
+        "computeRelative": "calculRelative",
+        "security": "Prédicat de sécurité"
+      },
+      "explain": {
+        "sfdcDigest": "Extraits {n} rangées de {object} de Salesforce, avec {fields} les champs énumérés. Les digests n'ont aucune source, donc ils courent tous dans la première vague.",
+        "edgemart": "Lit l'ensemble de données existant {object}: {n} rangées.",
+        "filter": "S'applique {filter}: {kept} rangées conservées, {dropped} tombé. Dans la syntaxe du filtre de flux de données, N signifie pas égal.",
+        "augmentSingle": "Augmentations {key}: chacune des {left} Les lignes de gauche prennent les champs sélectionnés de son match. Augmente toujours chaque rang gauche une fois; {unmatched} Je n'ai trouvé aucune correspondance.",
+        "augmentSingleWarn": "Augmentations {key}mais {multi} Les rangées de gauche ont plus d'une correspondance. LookupSingleValue conserve alors un seul d'entre eux, et celui-ci n'est pas défini — le nombre peut changer d'exécution.",
+        "augmentMulti": "RechercherMultiValeur sur {key}: lorsqu'une ligne de gauche a plusieurs correspondances, leurs valeurs sont conservées ensemble dans un champ multi-valeurs. Encore une rangée par rangée gauche; {multi} les rangées ont plusieurs correspondances.",
+        "computeExpression": "Ajoute {n} les champs calculés à partir de chaque ligne séparément, avec SAQL expressions.",
+        "computeRelative": "Ajoute des champs qui regardent d'autres lignes dans la même partition ({partition}, commandé par {order}): le montant de la transaction précédente et la première date de clôture.",
+        "flatten": "Transforme la hiérarchie du gestionnaire en une liste de chaque gestionnaire au-dessus de chaque utilisateur, et un chemin. Les prédicats de sécurité l'utilisent donc les gestionnaires voient leurs lignes d'équipe.",
+        "sliceDataset": "Gouttes {fields} de l'ensemble de données — les champs dont personne n'a besoin ou qui ne doivent pas être exposés.",
+        "append": "Frappe les sources dans {n} rangées.",
+        "register": "Registres {n} lignes comme ensemble de données {alias}. Sans prédicat, quiconque a accès à l'application voit chaque ligne.",
+        "registerSecure": "Registres {n} lignes comme {alias} avec le prédicat de sécurité {predicate}: chaque utilisateur ne voit que des lignes appartenant à eux ou à des personnes qui leur rendent compte."
+      },
+      "notes": {
+        "order": {
+          "title": "Dépendances, pas position",
+          "body": "Un nœud court quand ses sources l'ont fait. C'est pourquoi les digests courent ensemble d'abord et les registres courent en dernier, où qu'ils siègent dans le JSON."
+        },
+        "augment": {
+          "title": "Augmenter n'ajoute jamais de lignes",
+          "body": "Mets le grain que tu veux à gauche. La valeur unique choisit une seule correspondance; la valeur multiple les garde tous dans un seul champ. Ni ne répète la rangée gauche."
+        },
+        "recipes": {
+          "title": "Flux de données et recettes",
+          "body": "Les recettes sont l'outil le plus récent et font les mêmes tâches avec des jointures, des formules et un éditeur visuel. Les flux de données s'effectuent toujours dans de nombreux orgnes — lisez les deux."
+        }
+      }
+    }
   }
 }

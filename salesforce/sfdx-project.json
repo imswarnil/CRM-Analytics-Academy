@@ -6,6 +6,9 @@
     },
     {
       "path": "academy"
+    },
+    {
+      "path": "crm"
     }
   ],
   "name": "salesforce",

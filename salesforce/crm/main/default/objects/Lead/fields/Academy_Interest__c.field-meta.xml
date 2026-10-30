@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Interest__c</fullName>
+    <description>What the person asked for on the site (POST /api/leads).</description>
+    <label>Academy interest</label>
+    <externalId>false</externalId>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>pro</fullName>
+                <default>false</default>
+                <label>Pro (points)</label>
+            </value>
+            <value>
+                <fullName>seats</fullName>
+                <default>false</default>
+                <label>Seats for an organisation</label>
+            </value>
+            <value>
+                <fullName>salesforce-setup</fullName>
+                <default>false</default>
+                <label>Salesforce / CRM Analytics set-up</label>
+            </value>
+            <value>
+                <fullName>consulting</fullName>
+                <default>false</default>
+                <label>Consulting</label>
+            </value>
+            <value>
+                <fullName>mentoring</fullName>
+                <default>false</default>
+                <label>1:1 mentoring</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

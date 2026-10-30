@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Score__c</fullName>
+    <description>Fit and intent, 0–100: interest, learning done, seats, and whether they hold an account.</description>
+    <label>Lead score</label>
+    <externalId>false</externalId>
+    <formula>MIN(100, CASE(Academy_Interest__c, "seats", 40, "consulting", 30, "salesforce-setup", 20, 10) + MIN(30, Academy_Lessons_Done__c * 3) + IF(Seats_Requested__c &gt;= 20, 20, IF(Seats_Requested__c &gt;= 5, 10, 0)) + IF(ISBLANK(Academy_User_Id__c), 0, 10))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+</CustomField>

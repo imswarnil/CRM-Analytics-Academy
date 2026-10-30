@@ -43,7 +43,7 @@ const DEFAULT_LOCALE = 'en'
  * sections silently absent from the build, with no error anywhere, because
  * their slugs happen to start with the same characters as a private route.
  */
-const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api']
+const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/team', '/api']
 
 /** Pages that were removed, and where their visitors now go. */
 const RETIRED: Record<string, string> = {

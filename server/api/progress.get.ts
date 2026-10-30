@@ -63,13 +63,20 @@ export default defineEventHandler(async (event) => {
 
   setResponseHeader(event, 'cache-control', 'private, no-store')
   const pts = Number(points[0]?.points ?? 0)
-  const [pro, waitlist] = await Promise.all([
+  const [pro, waitlist, wallet, ent, org] = await Promise.all([
     hasPro(user.id),
-    useDb()`select section from app.waitlist where user_id = ${user.id}`
+    sql`select section from app.waitlist where user_id = ${user.id}`,
+    pointsBalance(user.id),
+    sql`select expires_at from app.entitlement where user_id = ${user.id} and pro and (expires_at is null or expires_at > now())`,
+    sql`select o.name from app.org_member m join app.org o on o.id = m.org_id where m.user_id = ${user.id}`
   ])
 
   return {
     pro,
+    // Spendable points (welcome + earned − spent); `points` stays the earned total the leaderboard ranks.
+    balance: wallet,
+    proUntil: ent[0] ? (ent[0].expires_at ?? 'never') : null,
+    org: org[0] ? String(org[0].name) : null,
     waitlist: waitlist.map(r => String(r.section)),
     completed: completed.map(r => r.lesson_path as string),
     completedAt: Object.fromEntries(completed.map(r => [r.lesson_path as string, String(r.completed_at)])),

@@ -274,3 +274,113 @@ create table if not exists app.used_challenge (
   challenge text primary key,
   at        timestamptz not null default now()
 );
+
+-- ---------------------------------------------------------------------------
+-- Points as a currency (2026-10-29). Every account starts with WELCOME (1,000)
+-- points; learning earns more (app.user_points, which the leaderboard still
+-- ranks on); points are spent on Pro. The spendable balance is
+--   welcome + earned + sum(ledger)
+-- so nothing is ever written to "give" points: only spends, refunds and admin
+-- adjustments are rows. Real money replaces this later; the ledger stays.
+create table if not exists app.points_ledger (
+  id         bigint generated always as identity primary key,
+  user_id    text        not null,
+  delta      integer     not null check (delta <> 0),
+  reason     text        not null check (reason in ('redeem_pro', 'refund', 'admin', 'bonus')),
+  note       text,
+  created_at timestamptz not null default now()
+);
+create index if not exists points_ledger_user_idx on app.points_ledger (user_id, created_at desc);
+
+create or replace view app.wallet as
+select p.user_id,
+       1000                                   as welcome,
+       p.points                               as earned,
+       coalesce(l.spent, 0)::int              as spent,
+       coalesce(l.adjusted, 0)::int           as adjusted,
+       (1000 + p.points + coalesce(l.net, 0))::int as balance
+from app.user_points p
+left join (
+  select user_id,
+         sum(delta)::int                                         as net,
+         -sum(delta) filter (where reason = 'redeem_pro')        as spent,
+         sum(delta) filter (where reason <> 'redeem_pro')        as adjusted
+  from app.points_ledger group by user_id
+) l on l.user_id = p.user_id;
+
+-- Seats for companies, teams and universities. The owner creates the org in
+-- /admin from a lead and sets `seats`; members join with the join code and
+-- each member is Pro while the org is active. One org per user.
+create table if not exists app.org (
+  id          bigint generated always as identity primary key,
+  name        text        not null check (length(btrim(name)) between 2 and 120),
+  kind        text        not null default 'company' check (kind in ('company', 'team', 'university')),
+  seats       integer     not null check (seats between 1 and 10000),
+  join_code   text        not null unique check (join_code ~ '^[A-Z0-9]{8}$'),
+  domain      text        check (domain is null or domain ~ '^[a-z0-9.-]+\.[a-z]{2,}$'),
+  lead_id     bigint,
+  note        text,
+  expires_at  timestamptz,
+  created_at  timestamptz not null default now()
+);
+
+create table if not exists app.org_member (
+  org_id    bigint      not null references app.org(id) on delete cascade,
+  user_id   text        not null,
+  role      text        not null default 'member' check (role in ('admin', 'member')),
+  joined_at timestamptz not null default now(),
+  primary key (org_id, user_id)
+);
+create unique index if not exists org_member_user_uniq on app.org_member (user_id);
+
+-- Where each account came from, written once at sign-up from the visitor's
+-- own first page view (app.page_view) — so "how did they find us" survives
+-- after the analytics window moves on.
+create table if not exists app.user_attribution (
+  user_id        text primary key,
+  visitor        text,
+  first_source   text,
+  first_landing  text,
+  first_seen     timestamptz,
+  signup_path    text,
+  signup_label   text,
+  views_before   integer not null default 0,
+  created_at     timestamptz not null default now()
+);
+
+-- Leads remember the visitor too, so a lead's whole path is visible.
+alter table app.lead add column if not exists visitor text;
+alter table app.lead add column if not exists seats integer;
+alter table app.lead add column if not exists org_kind text;
+alter table app.lead add column if not exists interest text;
+alter table app.lead add column if not exists first_landing text;
+alter table app.lead add column if not exists views_before integer;
+
+-- ---------------------------------------------------------------------------
+-- Humans vs bots (2026-10-30). A visitor becomes human the first time the
+-- browser reports a real interaction (tap, key, scroll, mouse movement — see
+-- plugins/analytics.client.ts). /admin → Analytics reads the human_* views by
+-- default. Visitors from before the signal existed count as human if any of
+-- their views reported visible time (bots rarely send the leave beacon).
+create table if not exists app.human_visitor (
+  visitor text primary key,
+  at      timestamptz not null default now()
+);
+insert into app.human_visitor (visitor)
+  select distinct visitor from app.page_view where duration_ms > 0
+  on conflict do nothing;
+
+create or replace view app.human_page_view as
+  select p.* from app.page_view p where exists (select 1 from app.human_visitor h where h.visitor = p.visitor);
+create or replace view app.human_event as
+  select e.* from app.event e where exists (select 1 from app.human_visitor h where h.visitor = e.visitor);
+create index if not exists page_view_visitor_idx on app.page_view (visitor, created_at);
+create index if not exists event_visitor_idx on app.event (visitor, created_at);
+
+-- Requests dropped as bots, per day and reason (user agent, flood, automation).
+create table if not exists app.bot_drop (
+  day    date not null default current_date,
+  reason text not null,
+  n      integer not null default 0,
+  primary key (day, reason)
+);
