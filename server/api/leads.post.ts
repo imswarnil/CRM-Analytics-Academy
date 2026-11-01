@@ -26,15 +26,17 @@ export default defineEventHandler(async (event) => {
 
   const email = clean(user?.email ?? body.email, 254).toLowerCase()
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) throw createError({ statusCode: 400, statusMessage: 'A valid email is required.' })
-  const lastName = clean(body.lastName, 80)
-  if (lastName.length < 1) throw createError({ statusCode: 400, statusMessage: 'Your last name is required.' })
-  const firstName = clean(body.firstName, 40) || null
+  // One name field; split for Salesforce. Falls back to the email's name part.
+  const fullName = clean(body.name ?? [body.firstName, body.lastName].filter(Boolean).join(' '), 120) || clean(user?.name, 120) || email.split('@')[0]!
+  const [firstRaw, ...restName] = fullName.split(/\s+/)
+  const lastName = restName.length ? restName.join(' ') : firstRaw!
+  const firstName = restName.length ? firstRaw! : null
   const company = clean(body.company, 120) || null
-  if (business && !company) throw createError({ statusCode: 400, statusMessage: 'Your organisation is required.' })
+  if (business && !company && interest !== 'seats') throw createError({ statusCode: 400, statusMessage: 'Your organisation is required.' })
   const orgKind = ORG_KINDS.includes(body.orgKind as OrgKind) ? body.orgKind as OrgKind : null
   const seatsRaw = Math.round(Number(body.seats))
   const seats = interest === 'seats' && seatsRaw >= 1 && seatsRaw <= 10000 ? seatsRaw : null
-  if (interest === 'seats' && !seats) throw createError({ statusCode: 400, statusMessage: 'How many seats do you need?' })
+
   const title = clean(body.title, 80) || null
   const phone = clean(body.phone, 40).replace(/[^\d+().\s-]/g, '') || null
   const message = clean(body.message, 2000) || null

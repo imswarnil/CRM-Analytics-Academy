@@ -175,6 +175,9 @@ const focus = computed(() => Boolean(route.meta.focus) || focusState.value)
     <NuxtLoadingIndicator />
 
     <AppHeader />
+    <ClientOnly>
+      <SponsorBanner />
+    </ClientOnly>
 
     <UMain>
       <NuxtLayout>

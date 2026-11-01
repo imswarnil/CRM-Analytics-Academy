@@ -25,7 +25,7 @@
     "certification": "Exámenes",
     "interview": "Entrevistas",
     "companies": "Empresas",
-    "pro": "Acceso",
+    "pro": "Precios",
     "visualiser": "Visualisers",
     "team": "Mi organización"
   },
@@ -1273,31 +1273,36 @@
     "proBody": "Paseos completos, cuestionarios y exámenes — y ayuda cuando estás atascado.",
     "proActive": "Eres un miembro de Pro",
     "proActiveBody": "Cada lección de Pro está abierta a usted. Gracias por apoyar a la Academia.",
-    "walletHint": "{points} comprar puntos {sessions} más sesiones.",
-    "recentSessions": "Tu última {n} períodos de sesiones",
-    "morePacks": "Sesiones y paquetes"
+    "proPlan": "{plan}",
+    "teamSeat": "Pro a través {org}",
+    "freePlan": "Plan libre",
+    "renewsOn": "Renovaciones en {date}",
+    "endsOn": "Finales en {date}",
+    "upgradeHint": "Pro desbloquea cada lección pagada de {price} un mes.",
+    "manageBilling": "Administrar facturación",
+    "manageTeam": "Equipo de gestión"
   },
   "pro": {
-    "eyebrow": "Clase de los miembros",
-    "tag": "Miembros",
-    "lockedTitle": "Inicie sesión para leer el resto",
-    "lockedBody": "Has leído la apertura de “{title}. El resto, el recorrido completo, el examen y las preguntas de la entrevista, es para los estudiantes que se inscriben, y la apertura utiliza una sesión.",
-    "perkLessons": "Cada lección de miembros, como cada sección se publica",
-    "perkExams": "Tus resultados de progreso, rachas y exámenes guardados",
+    "eyebrow": "Lección profesional",
+    "tag": "Pro",
+    "lockedTitle": "Esta lección es parte de Pro",
+    "lockedBody": "Has leído la apertura de “{title}”. El resto, el recorrido completo, el examen y las preguntas de la entrevista, está en Pro.",
+    "perkLessons": "Cada lección Pro, como cada sección se publica",
+    "perkExams": "Revisión completa de la respuesta en cada examen de la práctica",
     "perkNoPromos": "No hay anuncios en ningún lugar",
-    "perkCommunity": "100 sesiones y 1.000 puntos para empezar",
+    "perkCommunity": "Deshboards y recetas descargables",
     "signUpFirst": "Cree su cuenta gratuita",
-    "getPro": "Sesiones y paquetes",
-    "signUpHint": "Una cuenta gratuita viene con 100 sesiones y 1.000 puntos. Sin pagos, nunca.",
+    "getPro": "Get Pro",
+    "signUpHint": "Comience con una cuenta gratuita — cada lección gratuita, sin tarjeta necesaria.",
     "freeTag": "Gratis",
     "freeLesson": "Lección gratuita"
   },
   "store": {
-    "eyebrow": "Acceso",
-    "seoTitle": "CRM Analytics Acceso a la academia: sesiones libres, puntos y organizaciones",
-    "seoDesc": "Aprender Salesforce CRM Analytics gratis: 10 sesiones sin cuenta, 100 con una, paquetes de 10 por 100 puntos ganados por aprendizaje, ilimitado para empresas y universidades. Sin pagos, nunca.",
-    "title": "Gratis para aprender, justo para usar",
-    "lead": "Cada página es libre de abrir. Las sesiones lo mantienen justo: diez sin una cuenta, cien con uno, más para los puntos que ganas aprendiendo y ilimitado para las organizaciones. Sin pagos, nunca.",
+    "eyebrow": "Precios",
+    "seoTitle": "CRM Analytics Precio de la Academia: Gratis, Pro y Equipos",
+    "seoDesc": "Aprender Salesforce CRM Analytics gratis, o obtener Pro por cada lección pagada y sin anuncios — $15 al mes o $150 al año. Los equipos pagan $10 por asiento al mes.",
+    "title": "Aprende gratis. Vaya Pro cuando esté listo.",
+    "lead": "Cada lección libre permanece libre. Pro desbloquea toda la plataforma por un precio; los equipos pagan por asiento.",
     "popular": "Más popular",
     "sentTitle": "Gracias — su solicitud está dentro.",
     "sentBody": "Swarnil responderá por correo electrónico dentro de dos días hábiles con los siguientes pasos.",
@@ -1315,35 +1320,31 @@
     "noCharge": "No hay nada que pagar: la Academia se ejecuta en puntos. Usted recibirá una respuesta por correo electrónico dentro de dos días hábiles."
   },
   "products": {
-    "visitor": {
-      "name": "Visitante",
-      "tagline": "Pruébalo sin una cuenta.",
-      "f1": "Cada lección, respuesta de entrevista y visualizador",
-      "f2": "Una sesión = una página, volver a leer ese día es gratis",
-      "f3": "Reiniciar cada 30 días"
+    "free": {
+      "name": "Gratis",
+      "tagline": "Empezar a aprender hoy — ninguna tarjeta necesaria.",
+      "f1": "Cada lección libre, examen y caminar",
+      "f2": "SAQL, receta y visualización de flujo de datos",
+      "f3": "Cinco exámenes de práctica y 150 respuestas de entrevista",
+      "f4": "Avances, rachas y la cabecera"
     },
-    "account": {
-      "name": "Cuenta gratuita",
-      "tagline": "Inscríbete y las sesiones suben diez veces.",
-      "f1": "90 sesiones más arriba de las diez primeras",
-      "f2": "{welcome} puntos para empezar, más para cada lección",
-      "f3": "Clases de los miembros, progreso, rachas, la clasificación",
-      "f4": "No hay anuncios en ningún lugar una vez que usted firma"
+    "pro": {
+      "name": "Pro",
+      "tagline": "Toda la plataforma — cada lección pagada, sin anuncios.",
+      "f1": "Cada lección Pro, como cada sección se publica",
+      "f2": "Revisión completa de la respuesta en cada examen de la práctica",
+      "f3": "Paneles descargables, recetas y conjuntos de datos",
+      "f4": "No hay anuncios en ningún lugar",
+      "f5": "Cancelar en cualquier momento de su tablero"
     },
-    "pack": {
-      "name": "Paquete de sesión",
-      "tagline": "¿Huir? Sube con puntos — nunca dinero.",
-      "f1": "Diez sesiones más para {points} puntos",
-      "f2": "Compra uno, tres o cinco a la vez",
-      "f3": "Los puntos provienen del aprendizaje y la contribución"
-    },
-    "seats": {
-      "name": "Organizaciones",
-      "tagline": "Unlimited for a company, team or university.",
-      "f1": "Sesiones ilimitadas para cada miembro",
-      "f2": "Únase con un código — o automáticamente con un dominio de correo electrónico de trabajo",
-      "f3": "Una visión de administración de quién está aprendiendo y hasta dónde",
-      "f4": "Siempre gratis: pregunte, y lo arreglamos"
+    "team": {
+      "name": "Equipos",
+      "tagline": "Pro para su equipo - pagar por asiento.",
+      "f1": "Pro para cada asiento",
+      "f2": "Asigne asientos por correo electrónico, o permita que su dominio de empresa se una",
+      "f3": "Agregar o quitar asientos en cualquier momento - facturación sigue",
+      "f4": "Vea quién está aprendiendo y hasta dónde",
+      "f5": "Un administrador, una factura"
     }
   },
   "human": {
@@ -1353,59 +1354,59 @@
     "wait": "Un momento, aún comprobando que eres humano."
   },
   "plans": {
+    "monthly": "Mensual",
+    "yearly": "anual · ahorro {n}%",
+    "forever": "para siempre",
+    "perMonth": "/ mes",
+    "perSeat": "/ asiento / mes",
+    "perMonthShort": "/mo",
+    "billedYearly": "Billed {price} una vez al año",
     "startLearning": "Empieza a aprender",
-    "requestSeats": "Solicitud de asientos",
-    "haveCode": "Tengo un código de unión",
-    "pointsEyebrow": "Puntos, no pagos",
-    "pointsTitle": "Aprender gana los puntos que compran más aprendizaje",
-    "earnRow": {
-      "welcome": "cuando creas tu cuenta",
-      "lesson": "para cada lección que completa",
-      "quiz": "para cada respuesta correcta",
-      "contribution": "para cada contribución aprobada"
-    },
-    "requestTitle": "Solicitar asientos o ayuda",
-    "requestLead": "Asientos para su empresa, equipo o universidad - o ayudar con su propio Salesforce org. Cada solicitud es contestada por una persona.",
-    "f": {
-      "interest": "¿Qué necesitas?",
-      "orgKind": "Organización",
-      "seats": "Asientos",
-      "orgName": "Nombre de la organización"
-    },
+    "getPro": "Get Pro",
+    "youArePro": "Tienes Pro",
+    "teamName": "Nombre del equipo",
+    "seatsN": "{n} asientos",
+    "fewer": "Menos asientos",
+    "more": "Más asientos",
+    "buyTeam": "Comprar asientos",
+    "stripeNote": "Los pagos son manejados por Stripe. Cancele o cambie de asiento en cualquier momento.",
+    "cancelled": "El checkout fue cancelado, nada fue cargado.",
+    "proMonthly": "Pro mensual",
+    "proYearly": "Pro anual",
+    "teamSeat": "Asiento de equipo",
+    "requestTitle": "Habla con nosotros",
+    "requestLead": "Ayuda a configurar CRM Analytics, consultoría, mentoría o una gran organización - una línea es suficiente.",
+    "messagePlaceholder": "¿Qué necesitas? (opcional)",
     "interest": {
-      "seats": "Asientos para mi organización",
-      "salesforce-setup": "Ayuda a configurar CRM Analytics",
+      "salesforce-setup": "Ayuda de configuración",
+      "seats": "Gran organización",
       "consulting": "Consultoría",
-      "mentoring": "1:1 mentoría"
+      "mentoring": "Mentoring"
     },
     "kind": {
       "company": "Company",
       "team": "Equipo",
       "university": "University"
     },
-    "yourSessions": "Sus sesiones",
-    "unlimited": "Unlimited",
-    "accountNote": "Las sesiones nunca expiran. Releer una página el mismo día es gratis.",
-    "visitorNote": "Sin una cuenta: estos reinician cada uno {days} días. Inscríbase por noventa más.",
-    "pointsLabel": "Puntos",
-    "organisation": "Organización",
-    "sessions": "períodos de sesiones",
-    "sessionsFor": "períodos de sesiones {points} puntos",
-    "sessionsPer": "sesiones {days} días",
-    "youHaveAccount": "Ve a tu tablero.",
-    "buyN": "{n} × {points} pts",
-    "bought": "{n} sesiones añadidas. Feliz aprendizaje."
+    "pointsEyebrow": "Puntos",
+    "pointsTitle": "Los puntos son para el líder",
+    "earnRow": {
+      "welcome": "cuando creas tu cuenta",
+      "lesson": "para cada lección que completa",
+      "quiz": "para cada respuesta correcta",
+      "contribution": "para cada contribución aprobada"
+    }
   },
   "team": {
-    "title": "Mi organización",
-    "lead": "Acceso ilimitado a empresas, equipos y universidades. Únete al código que tu administrador te dio, o regístrate con tu correo electrónico de trabajo si tu organización está en la lista.",
+    "title": "Mi equipo",
+    "lead": "Pro para cada asiento. Únete al código que tu administrador te dio, o accede con el correo electrónico que tu administrador agregó.",
     "code": "Unirse al código",
     "codeHint": "8 letras y dígitos",
     "join": "Siéntate.",
     "noCode": "¿Aún no hay código?",
     "request": "Solicitar asientos para su organización",
     "seats": "{used} de {seats} asientos utilizados",
-    "youArePro": "Su asiento le da sesiones ilimitadas.",
+    "youArePro": "Su asiento incluye Pro.",
     "until": "Los asientos corren hasta {date}.",
     "adminTitle": "Usted administra esta organización",
     "share": "Comparte este código o enlace con las personas que deben tomar asiento. Cada persona que se une utiliza un asiento.",
@@ -1415,7 +1416,19 @@
     "points": "Puntos",
     "free": "Libre este asiento",
     "domains": "Cualquier persona con un verificado {domains} email se une automáticamente.",
-    "sessions": "Período de sesiones"
+    "sessions": "Período de sesiones",
+    "paid": "Pago recibido — su equipo está listo. Asigne asientos abajo.",
+    "activating": "Pago recibido: creación de su equipo. Esto lleva unos segundos.",
+    "seatsTitle": "Asientos",
+    "seatsUsed": "{used} de {seats} asientos asignados",
+    "saveSeats": "Puestos de actualización",
+    "billing": "Facturación y facturas",
+    "assignTitle": "Siéntese.",
+    "emailsPlaceholder": "Correos electrónicos de trabajo, separados por comas",
+    "assign": "Asientos de asignación",
+    "domainsTitle": "Su dominio de la empresa",
+    "saveDomains": "Guardar",
+    "domainsHint": "Cualquier persona que se inscriba con un correo electrónico verificado en este dominio toma un asiento gratis automáticamente."
   },
   "vis": {
     "eyebrow": "Visualisers",
@@ -1643,18 +1656,83 @@
     "beatAfter": "resultado"
   },
   "meter": {
-    "eyebrow": "Período de sesiones {used} de {allowance}",
-    "wallTitle": "Has usado tus sesiones",
-    "wallTitleAnon": "Esa era tu {n} sesiones libres",
-    "wallBody": "Arriba con un paquete: {sessions} períodos de sesiones {points} puntos. Los puntos vienen de aprender, nunca dinero.",
-    "wallBodyAnon": "Crear una cuenta gratuita {more} más sesiones y 1.000 puntos — o volver cuando sus sesiones se reanuden, dentro de {days} días.",
-    "signUp": "Crear una cuenta gratuita {more} más sesiones",
-    "buy": "Comprar {sessions} períodos de sesiones {points} puntos",
-    "balance": "Tienes {n} puntos",
-    "earn": "Puntos de cierre: compartir un recurso (+25)",
-    "org": "¿Aprendiendo con tu equipo? Las organizaciones son ilimitadas",
-    "home": "Volver a la página principal",
-    "low": "{n} sesiones izquierda",
-    "left": "{n} de {allowance} sesiones izquierda"
+    "eyebrow": "Página {used} de {allowance}",
+    "wallTitleAnon": "Has leído tu {n} páginas libres",
+    "wallBodyAnon": "Cree una cuenta gratuita para seguir leyendo — cada lección gratuita, los visualizadores y su progreso, sin necesidad de tarjeta.",
+    "signUp": "Crear una cuenta gratuita",
+    "signIn": "Ya tengo una cuenta.",
+    "low": "{n} páginas libres izquierda — una cuenta libre elimina el límite",
+    "left": "{n} de {allowance} páginas libres izquierda"
+  },
+  "sponsor": {
+    "label": "Sponsor",
+    "eyebrow": "Sponsor",
+    "title": "Sponsor the Academy",
+    "lead": "Una bandera en cada página, vista por la gente Salesforce CRM Analytics. Diseñar usted mismo y ver los clics.",
+    "seoTitle": "Sponsor CRM Analytics Academia",
+    "seoDesc": "Ponga su producto delante de Salesforce CRM Analytics constructores: un banner en todo el sitio que usted diseña, con vistas, clics y CTR rastreado.",
+    "previewEyebrow": "Lo que funciona en cada página",
+    "perk1": "En cada página, para cada lector",
+    "perk2": "Su logotipo, palabras, colores y enlace",
+    "perk3": "Vistas, clics y CTR por día y página",
+    "perk4": "Un pago, sin suscripción",
+    "days": "{n} días",
+    "oneTime": "una vez",
+    "company": "Company",
+    "send": "Solicitud de patrocinio",
+    "how": "Respondemos con una factura de Stripe. Mientras tanto, puedes diseñar tu banner.",
+    "sentTitle": "Gracias — su solicitud está dentro.",
+    "sentBody": "Usted recibirá una factura de Stripe por correo electrónico. Diseña tu banner ahora; va en vivo una vez pagado y aprobado.",
+    "designNow": "Diseña mi banner",
+    "fromPrice": "Desde {price}"
+  },
+  "studio": {
+    "title": "Estudio patrocinador",
+    "none": "Todavía no hay patrocinios.",
+    "design": "Tu bandera",
+    "results": "Resultados",
+    "saved": "Salvado.",
+    "submitted": "Enviado para su aprobación.",
+    "publish": "Publish",
+    "saveDraft": "Proyecto de resolución",
+    "payInvoice": "Factura de pago",
+    "views": "Vistas",
+    "clicks": "Clicks",
+    "ctr": "Tasa de seguimiento",
+    "byDay": "Por día — clics / vistas",
+    "topPages": "Principales páginas",
+    "noData": "Aún no hay datos.",
+    "f": {
+      "headline": "Título",
+      "body": "Una línea más (opcional)",
+      "cta": "Etiquetas de botón",
+      "logo": "Descargar logo",
+      "changeLogo": "Cambio de imagen",
+      "bg": "Antecedentes",
+      "fg": "Texto",
+      "accent": "Button"
+    },
+    "status": {
+      "requested": "Solicitudes",
+      "invoiced": "Factura enviada",
+      "paid": "Pagado",
+      "live": "Vivir",
+      "ended": "Ended",
+      "cancelled": "Cancelada"
+    },
+    "next": {
+      "requested": "Le enviaremos una factura de Stripe.",
+      "invoiced": "Paga la factura para reservar tus fechas.",
+      "paid": "Pagado — va en vivo una vez que su banner es aprobado.",
+      "live": "Tu banner está en cada página.",
+      "ended": "Este patrocinio ha terminado.",
+      "cancelled": "Cancelado."
+    },
+    "creative": {
+      "draft": "Proyecto",
+      "submitted": "Esperando aprobación",
+      "approved": "Aprobado",
+      "changes": "Cambios solicitados"
+    }
   }
 }

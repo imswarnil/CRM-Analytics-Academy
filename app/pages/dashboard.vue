@@ -9,9 +9,17 @@ definePageMeta({
 const { user } = useAuth()
 const localePath = useLocalePath()
 const { t, locale } = useI18n()
-const { status: meter, refresh: refreshMeter } = useMeter()
-const { data: history } = useLazyFetch<{ sessions: { path: string, day: string }[], packs: { sessions: number, points: number }[] }>('/api/meter/history', { server: false })
-onMounted(() => refreshMeter())
+interface Billing { pro: boolean, subscription: { plan: string, status: string, periodEnd: string | null, cancelAtPeriodEnd: boolean } | null, team: { name: string, admin: boolean } | null }
+const { data: billing } = useLazyFetch<Billing>('/api/billing', { server: false })
+const opening = ref(false)
+async function openPortal() {
+  opening.value = true
+  try {
+    window.location.href = (await $fetch<{ url: string }>('/api/billing/portal', { method: 'POST', body: {} })).url
+  } catch {
+    opening.value = false
+  }
+}
 
 useSeoMeta({
   title: 'Dashboard',
@@ -213,67 +221,58 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </div>
       </dl>
 
-      <!-- Sessions and points: what is left, what to do about it -->
-      <div class="grid gap-px border-[1.5px] border-(--ink) bg-(--line) md:grid-cols-[1.2fr_1fr_1.4fr]">
-        <div class="bg-(--ice) px-5 py-4">
-          <p class="eyebrow">
-            {{ t('plans.yourSessions') }}
+      <!-- Plan: Pro, a team seat, or the upgrade -->
+      <div class="flex flex-wrap items-center gap-4 border-[1.5px] border-(--ink) bg-(--ice) px-5 py-4">
+        <UIcon
+          :name="data?.pro ? 'i-lucide-badge-check' : 'i-lucide-sparkles'"
+          class="size-6 text-(--signal)"
+        />
+        <div class="min-w-0 flex-1">
+          <p class="font-bold text-(--ink)">
+            {{ billing?.subscription && data?.pro ? t('dash.proPlan', { plan: t(`plans.${billing.subscription.plan}`) }) : data?.org ? t('dash.teamSeat', { org: data.org }) : data?.pro ? t('plans.youArePro') : t('dash.freePlan') }}
           </p>
           <p
-            v-if="meter?.unlimited"
-            class="mt-1 text-2xl font-black text-(--signal)"
+            v-if="billing?.subscription?.periodEnd"
+            class="text-sm text-(--ink2)"
           >
-            {{ t('plans.unlimited') }}<span
-              v-if="data?.org"
-              class="text-sm font-semibold text-(--ink2)"
-            > · {{ data.org }}</span>
+            {{ billing.subscription.cancelAtPeriodEnd ? t('dash.endsOn', { date: new Date(billing.subscription.periodEnd).toLocaleDateString(locale) }) : t('dash.renewsOn', { date: new Date(billing.subscription.periodEnd).toLocaleDateString(locale) }) }}
           </p>
-          <template v-else-if="meter">
-            <p class="mt-1 text-2xl font-black tabular-nums text-(--ink)">
-              {{ meter.remaining }} <span class="text-sm font-semibold text-(--ink2)">/ {{ meter.allowance }}</span>
-            </p>
-            <UProgress
-              :model-value="meter.allowance ? Math.round((meter.used / meter.allowance) * 100) : 0"
-              size="sm"
-              class="mt-2"
-            />
-          </template>
-        </div>
-        <div class="bg-(--card) px-5 py-4">
-          <p class="eyebrow">
-            {{ t('plans.pointsLabel') }}
-          </p>
-          <p class="mt-1 flex items-center gap-2 text-2xl font-black tabular-nums text-(--ink)">
-            <UIcon
-              name="i-lucide-coins"
-              class="size-5 text-(--signal)"
-            />{{ (data?.balance ?? WELCOME_POINTS).toLocaleString(locale) }}
-          </p>
-          <p class="text-xs text-(--ink2)">
-            {{ t('dash.walletHint', { points: PACK_POINTS, sessions: PACK_SESSIONS }) }}
-          </p>
-        </div>
-        <div class="flex flex-col justify-between gap-3 bg-(--card) px-5 py-4">
-          <p class="text-sm text-(--ink2)">
-            {{ t('dash.recentSessions', { n: history?.sessions.length ?? 0 }) }}
-          </p>
-          <div class="flex flex-wrap gap-1">
-            <NuxtLink
-              v-for="h in (history?.sessions ?? []).slice(0, 6)"
-              :key="h.path + h.day"
-              :to="localePath(h.path)"
-              class="max-w-full truncate border border-(--line) px-1.5 py-0.5 font-mono text-[11px] text-(--ink2) hover:border-(--ink) hover:text-(--ink)"
-            >{{ h.path }}</NuxtLink>
-          </div>
-          <UButton
-            :to="localePath('/pro')"
-            size="sm"
-            icon="i-lucide-ticket"
-            class="self-start"
+          <p
+            v-else-if="!data?.pro"
+            class="text-sm text-(--ink2)"
           >
-            {{ t('dash.morePacks') }}
-          </UButton>
+            {{ t('dash.upgradeHint', { price: `$${PRICES.proMonthly.usd}` }) }}
+          </p>
         </div>
+        <UButton
+          v-if="billing?.subscription"
+          size="sm"
+          color="neutral"
+          variant="outline"
+          icon="i-lucide-credit-card"
+          :loading="opening"
+          @click="openPortal"
+        >
+          {{ t('dash.manageBilling') }}
+        </UButton>
+        <UButton
+          v-else-if="!data?.pro"
+          :to="localePath('/pro')"
+          size="sm"
+          icon="i-lucide-sparkles"
+        >
+          {{ t('plans.getPro') }}
+        </UButton>
+        <UButton
+          v-if="billing?.team?.admin"
+          :to="localePath('/team')"
+          size="sm"
+          color="neutral"
+          variant="outline"
+          icon="i-lucide-users"
+        >
+          {{ t('dash.manageTeam') }}
+        </UButton>
       </div>
 
       <div class="grid gap-6 lg:grid-cols-3">

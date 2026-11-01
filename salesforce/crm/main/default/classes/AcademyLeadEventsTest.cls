@@ -51,6 +51,26 @@ private class AcademyLeadEventsTest {
         System.assertEquals(200, [SELECT Amount FROM Opportunity LIMIT 1].Amount);
     }
 
+    @IsTest static void stripeSubscriptionAndTeamBecomeRevenue() {
+        Lead pro = event('subscribe', 'u-4');
+        pro.Description = 'Purchase: proYearly · 150 USD · 1 seat(s) (subscribe).';
+        put(new List<Lead>{ pro });
+        AcademyLeadEvents.run(new Set<Id>{ pro.Id });
+        Account a = [SELECT Academy_Plan__c, MRR__c, Lifecycle_Stage__c FROM Account LIMIT 1];
+        System.assertEquals('pro', a.Academy_Plan__c);
+        System.assertEquals(12.5, a.MRR__c);
+        System.assertEquals(150, [SELECT Amount FROM Opportunity WHERE Name = 'Pro — yearly' LIMIT 1].Amount);
+
+        Lead team = event('team', 'u-4');
+        team.Description = 'Purchase: teamSeat · 50 USD · 5 seat(s) (team).';
+        put(new List<Lead>{ team });
+        AcademyLeadEvents.run(new Set<Id>{ team.Id });
+        Account after = [SELECT Academy_Plan__c, Seats_Purchased__c, MRR__c FROM Account LIMIT 1];
+        System.assertEquals('seats', after.Academy_Plan__c);
+        System.assertEquals(5, after.Seats_Purchased__c);
+        System.assertEquals(50, after.MRR__c);
+    }
+
     @IsTest static void duplicateSignupIsRemovedAndRequestsStaySalesLed() {
         Lead first = event('signup', 'u-2');
         Lead dup = event('signup', 'u-2');

@@ -43,7 +43,7 @@ const DEFAULT_LOCALE = 'en'
  * sections silently absent from the build, with no error anywhere, because
  * their slugs happen to start with the same characters as a private route.
  */
-const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/team', '/api']
+const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/team', '/sponsor/studio', '/api']
 
 /** Pages that were removed, and where their visitors now go. */
 const RETIRED: Record<string, string> = {
@@ -61,8 +61,6 @@ const RETIRED: Record<string, string> = {
   '/teams': '/pro',
   '/join': '/sign-up',
   '/nominate': '/wall-of-fame',
-  '/sponsor': '/about',
-  '/sponsor/studio': '/about',
   // 2026-10-23: lessons published section by section; these pages retired.
   '/showcase': '/curriculum',
   '/showcase/**': '/curriculum',

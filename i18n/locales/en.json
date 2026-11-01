@@ -25,7 +25,7 @@
     "certification": "Exams",
     "interview": "Interviews",
     "companies": "Companies",
-    "pro": "Access",
+    "pro": "Pricing",
     "visualiser": "Visualisers",
     "team": "My organisation"
   },
@@ -1273,31 +1273,36 @@
     "proBody": "Full walkthroughs, quizzes and exam reviews — and help when you are stuck.",
     "proActive": "You are a Pro member",
     "proActiveBody": "Every Pro lesson is open to you. Thank you for supporting the Academy.",
-    "walletHint": "{points} points buy {sessions} more sessions.",
-    "recentSessions": "Your last {n} sessions",
-    "morePacks": "Sessions and packs"
+    "proPlan": "{plan}",
+    "teamSeat": "Pro through {org}",
+    "freePlan": "Free plan",
+    "renewsOn": "Renews on {date}",
+    "endsOn": "Ends on {date}",
+    "upgradeHint": "Pro unlocks every paid lesson from {price} a month.",
+    "manageBilling": "Manage billing",
+    "manageTeam": "Manage team"
   },
   "pro": {
-    "eyebrow": "Members lesson",
-    "tag": "Members",
-    "lockedTitle": "Sign in to read the rest",
-    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — is for signed-in learners, and opening it uses one session.",
-    "perkLessons": "Every members lesson, as each section is published",
-    "perkExams": "Your progress, streaks and exam scores saved",
+    "eyebrow": "Pro lesson",
+    "tag": "Pro",
+    "lockedTitle": "This lesson is part of Pro",
+    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — is in Pro.",
+    "perkLessons": "Every Pro lesson, as each section is published",
+    "perkExams": "Full answer review on every practice exam",
     "perkNoPromos": "No ads anywhere",
-    "perkCommunity": "100 sessions and 1,000 points to start",
+    "perkCommunity": "Downloadable dashboards and recipes",
     "signUpFirst": "Create your free account",
-    "getPro": "Sessions and packs",
-    "signUpHint": "A free account comes with 100 sessions and 1,000 points. No payments, ever.",
+    "getPro": "Get Pro",
+    "signUpHint": "Start with a free account — every free lesson, no card needed.",
     "freeTag": "Free",
     "freeLesson": "Free lesson"
   },
   "store": {
-    "eyebrow": "Access",
-    "seoTitle": "CRM Analytics Academy access: free sessions, points and organisations",
-    "seoDesc": "Learn Salesforce CRM Analytics free: 10 sessions without an account, 100 with one, packs of 10 for 100 points earned by learning, unlimited for companies and universities. No payments, ever.",
-    "title": "Free to learn, fair to use",
-    "lead": "Every page is free to open. Sessions keep it fair: ten without an account, a hundred with one, more for points you earn by learning — and unlimited for organisations. No payments, ever.",
+    "eyebrow": "Pricing",
+    "seoTitle": "CRM Analytics Academy pricing: Free, Pro and Teams",
+    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every paid lesson and no ads — $15 a month or $150 a year. Teams pay $10 per seat per month.",
+    "title": "Learn free. Go Pro when you are ready.",
+    "lead": "Every free lesson stays free. Pro unlocks the whole platform for one price; teams pay per seat.",
     "popular": "Most popular",
     "sentTitle": "Thanks — your request is in.",
     "sentBody": "Swarnil will reply by email within two working days with the next steps.",
@@ -1315,35 +1320,31 @@
     "noCharge": "There is nothing to pay — the Academy runs on points. You will get a reply by email within two working days."
   },
   "products": {
-    "visitor": {
-      "name": "Visitor",
-      "tagline": "Try it without an account.",
-      "f1": "Every lesson, interview answer and visualiser",
-      "f2": "One session = one page, re-reading it that day is free",
-      "f3": "Resets every 30 days"
+    "free": {
+      "name": "Free",
+      "tagline": "Start learning today — no card needed.",
+      "f1": "Every free lesson, quiz and walkthrough",
+      "f2": "SAQL, recipe and dataflow visualisers",
+      "f3": "Five practice exams and 150 interview answers",
+      "f4": "Progress, streaks and the leaderboard"
     },
-    "account": {
-      "name": "Free account",
-      "tagline": "Sign up and the sessions go up ten-fold.",
-      "f1": "Ninety more sessions on top of the first ten",
-      "f2": "{welcome} points to start, more for every lesson",
-      "f3": "Members lessons, progress, streaks, the leaderboard",
-      "f4": "No ads anywhere once you sign in"
+    "pro": {
+      "name": "Pro",
+      "tagline": "The whole platform — every paid lesson, no ads.",
+      "f1": "Every Pro lesson, as each section is published",
+      "f2": "Full answer review on every practice exam",
+      "f3": "Downloadable dashboards, recipes and datasets",
+      "f4": "No ads anywhere",
+      "f5": "Cancel any time from your dashboard"
     },
-    "pack": {
-      "name": "Session pack",
-      "tagline": "Run out? Top up with points — never money.",
-      "f1": "Ten more sessions for {points} points",
-      "f2": "Buy one, three or five at a time",
-      "f3": "Points come from learning and contributing"
-    },
-    "seats": {
-      "name": "Organisations",
-      "tagline": "Unlimited for a company, team or university.",
-      "f1": "Unlimited sessions for every member",
-      "f2": "Join with a code — or automatically with a work email domain",
-      "f3": "An admin view of who is learning and how far",
-      "f4": "Always free: ask, and we set it up"
+    "team": {
+      "name": "Teams",
+      "tagline": "Pro for your team — pay per seat.",
+      "f1": "Pro for every seat",
+      "f2": "Assign seats by email, or let your company domain join",
+      "f3": "Add or remove seats any time — billing follows",
+      "f4": "See who is learning and how far",
+      "f5": "One admin, one invoice"
     }
   },
   "human": {
@@ -1353,59 +1354,59 @@
     "wait": "One moment — still checking you are human."
   },
   "plans": {
+    "monthly": "Monthly",
+    "yearly": "Yearly · save {n}%",
+    "forever": "forever",
+    "perMonth": "/ month",
+    "perSeat": "/ seat / month",
+    "perMonthShort": "/mo",
+    "billedYearly": "Billed {price} once a year",
     "startLearning": "Start learning",
-    "requestSeats": "Request seats",
-    "haveCode": "I have a join code",
-    "pointsEyebrow": "Points, not payments",
-    "pointsTitle": "Learning earns the points that buy more learning",
-    "earnRow": {
-      "welcome": "when you create your account",
-      "lesson": "for every lesson you complete",
-      "quiz": "for every correct quiz answer",
-      "contribution": "for every approved contribution"
-    },
-    "requestTitle": "Ask for seats or help",
-    "requestLead": "Seats for your company, team or university — or help with your own Salesforce org. Every request is answered by a person.",
-    "f": {
-      "interest": "What do you need?",
-      "orgKind": "Organisation",
-      "seats": "Seats",
-      "orgName": "Organisation name"
-    },
+    "getPro": "Get Pro",
+    "youArePro": "You have Pro",
+    "teamName": "Team name",
+    "seatsN": "{n} seats",
+    "fewer": "Fewer seats",
+    "more": "More seats",
+    "buyTeam": "Buy seats",
+    "stripeNote": "Payments are handled by Stripe. Cancel or change seats any time.",
+    "cancelled": "Checkout was cancelled — nothing was charged.",
+    "proMonthly": "Pro monthly",
+    "proYearly": "Pro yearly",
+    "teamSeat": "Team seat",
+    "requestTitle": "Talk to us",
+    "requestLead": "Help setting up CRM Analytics, consulting, mentoring, or a large organisation — one line is enough.",
+    "messagePlaceholder": "What do you need? (optional)",
     "interest": {
-      "seats": "Seats for my organisation",
-      "salesforce-setup": "Help setting up CRM Analytics",
+      "salesforce-setup": "Set-up help",
+      "seats": "Large organisation",
       "consulting": "Consulting",
-      "mentoring": "1:1 mentoring"
+      "mentoring": "Mentoring"
     },
     "kind": {
       "company": "Company",
       "team": "Team",
       "university": "University"
     },
-    "yourSessions": "Your sessions",
-    "unlimited": "Unlimited",
-    "accountNote": "Sessions never expire. Re-reading a page the same day is free.",
-    "visitorNote": "Without an account: these reset every {days} days. Sign up for ninety more.",
-    "pointsLabel": "Points",
-    "organisation": "Organisation",
-    "sessions": "sessions",
-    "sessionsFor": "sessions for {points} points",
-    "sessionsPer": "sessions every {days} days",
-    "youHaveAccount": "Go to your dashboard",
-    "buyN": "{n} × · {points} pts",
-    "bought": "{n} sessions added. Happy learning."
+    "pointsEyebrow": "Points",
+    "pointsTitle": "Points are for the leaderboard",
+    "earnRow": {
+      "welcome": "when you create your account",
+      "lesson": "for every lesson you complete",
+      "quiz": "for every correct quiz answer",
+      "contribution": "for every approved contribution"
+    }
   },
   "team": {
-    "title": "My organisation",
-    "lead": "Unlimited access for companies, teams and universities. Join with the code your admin gave you — or sign up with your work email if your organisation is on the list.",
+    "title": "My team",
+    "lead": "Pro for every seat. Join with the code your admin gave you, or sign in with the email your admin added.",
     "code": "Join code",
     "codeHint": "8 letters and digits",
     "join": "Take my seat",
     "noCode": "No code yet?",
     "request": "Ask for seats for your organisation",
     "seats": "{used} of {seats} seats used",
-    "youArePro": "Your seat gives you unlimited sessions.",
+    "youArePro": "Your seat includes Pro.",
     "until": "Seats run until {date}.",
     "adminTitle": "You manage this organisation",
     "share": "Share this code or link with the people who should get a seat. Each person who joins uses one seat.",
@@ -1415,7 +1416,19 @@
     "points": "Points",
     "free": "Free this seat",
     "domains": "Anyone with a verified {domains} email joins automatically.",
-    "sessions": "Sessions"
+    "sessions": "Sessions",
+    "paid": "Payment received — your team is ready. Assign seats below.",
+    "activating": "Payment received — setting up your team. This takes a few seconds.",
+    "seatsTitle": "Seats",
+    "seatsUsed": "{used} of {seats} seats assigned",
+    "saveSeats": "Update seats",
+    "billing": "Billing and invoices",
+    "assignTitle": "Give someone a seat",
+    "emailsPlaceholder": "Work emails, separated by commas",
+    "assign": "Assign seats",
+    "domainsTitle": "Your company domain",
+    "saveDomains": "Save",
+    "domainsHint": "Anyone who signs in with a verified email at this domain takes a free seat automatically."
   },
   "vis": {
     "eyebrow": "Visualisers",
@@ -1643,18 +1656,83 @@
     "beatAfter": "result"
   },
   "meter": {
-    "eyebrow": "Session {used} of {allowance}",
-    "wallTitle": "You have used your sessions",
-    "wallTitleAnon": "That was your {n} free sessions",
-    "wallBody": "Top up with a pack — {sessions} sessions for {points} points. Points come from learning, never money.",
-    "wallBodyAnon": "Create a free account for {more} more sessions and 1,000 points — or come back when your sessions reset, within {days} days.",
-    "signUp": "Create a free account — {more} more sessions",
-    "buy": "Buy {sessions} sessions for {points} points",
-    "balance": "You have {n} points",
-    "earn": "Earn points: share a resource (+25)",
-    "org": "Learning with your team? Organisations are unlimited",
-    "home": "Back to the home page",
-    "low": "{n} sessions left",
-    "left": "{n} of {allowance} sessions left"
+    "eyebrow": "Page {used} of {allowance}",
+    "wallTitleAnon": "You have read your {n} free pages",
+    "wallBodyAnon": "Create a free account to keep reading — every free lesson, the visualisers and your progress, with no card needed.",
+    "signUp": "Create a free account",
+    "signIn": "I already have an account",
+    "low": "{n} free pages left — a free account removes the limit",
+    "left": "{n} of {allowance} free pages left"
+  },
+  "sponsor": {
+    "label": "Sponsor",
+    "eyebrow": "Sponsor",
+    "title": "Sponsor the Academy",
+    "lead": "One banner on every page, seen by people building on Salesforce CRM Analytics. Design it yourself and watch the clicks.",
+    "seoTitle": "Sponsor CRM Analytics Academy",
+    "seoDesc": "Put your product in front of Salesforce CRM Analytics builders: a sitewide banner you design yourself, with views, clicks and CTR tracked.",
+    "previewEyebrow": "What runs on every page",
+    "perk1": "On every page, for every reader",
+    "perk2": "Your logo, words, colours and link",
+    "perk3": "Views, clicks and CTR by day and page",
+    "perk4": "One payment — no subscription",
+    "days": "{n} days",
+    "oneTime": "one-time",
+    "company": "Company",
+    "send": "Request sponsorship",
+    "how": "We reply with a Stripe invoice. Meanwhile you can design your banner.",
+    "sentTitle": "Thanks — your request is in.",
+    "sentBody": "You will receive a Stripe invoice by email. Design your banner now; it goes live once paid and approved.",
+    "designNow": "Design my banner",
+    "fromPrice": "From {price}"
+  },
+  "studio": {
+    "title": "Sponsor studio",
+    "none": "No sponsorships yet.",
+    "design": "Your banner",
+    "results": "Results",
+    "saved": "Saved.",
+    "submitted": "Sent for approval.",
+    "publish": "Publish",
+    "saveDraft": "Save draft",
+    "payInvoice": "Pay invoice",
+    "views": "Views",
+    "clicks": "Clicks",
+    "ctr": "Click-through rate",
+    "byDay": "By day — clicks / views",
+    "topPages": "Top pages",
+    "noData": "No data yet.",
+    "f": {
+      "headline": "Headline",
+      "body": "One more line (optional)",
+      "cta": "Button label",
+      "logo": "Upload logo",
+      "changeLogo": "Change logo",
+      "bg": "Background",
+      "fg": "Text",
+      "accent": "Button"
+    },
+    "status": {
+      "requested": "Requested",
+      "invoiced": "Invoice sent",
+      "paid": "Paid",
+      "live": "Live",
+      "ended": "Ended",
+      "cancelled": "Cancelled"
+    },
+    "next": {
+      "requested": "We will email you a Stripe invoice.",
+      "invoiced": "Pay the invoice to book your dates.",
+      "paid": "Paid — it goes live once your banner is approved.",
+      "live": "Your banner is on every page.",
+      "ended": "This sponsorship has ended.",
+      "cancelled": "Cancelled."
+    },
+    "creative": {
+      "draft": "Draft",
+      "submitted": "Waiting for approval",
+      "approved": "Approved",
+      "changes": "Changes requested"
+    }
   }
 }

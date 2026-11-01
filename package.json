@@ -13,6 +13,7 @@
     "translate:setup": "bash scripts/libretranslate.sh setup",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
+    "stripe:setup": "node scripts/stripe-setup.mjs",
     "new-lesson": "node scripts/new-lesson.mjs",
     "lesson:check": "node scripts/lesson-check.mjs",
     "postinstall": "nuxt prepare",

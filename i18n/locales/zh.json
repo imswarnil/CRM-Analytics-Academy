@@ -25,7 +25,7 @@
     "certification": "考试",
     "interview": "面谈",
     "companies": "公司",
-    "pro": "访问",
+    "pro": "定价",
     "visualiser": "视觉师",
     "team": "我的组织"
   },
@@ -1273,31 +1273,36 @@
     "proBody": "全面走过,考试和考试审查——当你被卡住时提供帮助.",
     "proActive": "你是职业会员",
     "proActiveBody": "每个专业课程都是对你的开放。 谢谢你对学院的支持",
-    "walletHint": "{points} 积分购买 {sessions} 更多的会议。",
-    "recentSessions": "你最后一个 {n} 届会",
-    "morePacks": "会话和包装"
+    "proPlan": "{plan}",
+    "teamSeat": "Pro通过 {org}",
+    "freePlan": "免费计划",
+    "renewsOn": "续订 {date}",
+    "endsOn": "结束 {date}",
+    "upgradeHint": "Pro解锁所有付费课程 {price} 一个月",
+    "manageBilling": "管理计费",
+    "manageTeam": "管理团队"
   },
   "pro": {
-    "eyebrow": "成员经验教训",
-    "tag": "成员",
-    "lockedTitle": "签名读完其他的",
-    "lockedBody": "你已读到“......{title}其余的——完全通过、考试和面试问题——是供报名学习者使用的,开课时使用一次。",
-    "perkLessons": "每个成员的课程,随着每个部分的出版",
-    "perkExams": "你的成绩,成绩和考试成绩",
+    "eyebrow": "专业课",
+    "tag": "赞成:",
+    "lockedTitle": "这个课是Pro的一部分",
+    "lockedBody": "你已读到“......{title}其余的——全程、问答和面试问题——都在Pro。",
+    "perkLessons": "每个专业课程,每个部分都出版",
+    "perkExams": "每一次练习考试的完整回答审查",
     "perkNoPromos": "没有广告",
-    "perkCommunity": "100届和1 000分要开始",
+    "perkCommunity": "可下载的仪表板和食谱",
     "signUpFirst": "创建您的自由账户",
-    "getPro": "会话和包装",
-    "signUpHint": "一个免费的账户有100个课和1000分。 没有付款,永远。",
+    "getPro": "获取 Pro",
+    "signUpHint": "从免费账户开始——每一次免费课,不需要卡片.",
     "freeTag": "免费",
     "freeLesson": "免费课程"
   },
   "store": {
-    "eyebrow": "访问",
-    "seoTitle": "CRM Analytics 学院入学:免费上课、点数和组织",
-    "seoDesc": "学习 Salesforce CRM Analytics 免费:10个没有账户的课,100个有账户的课,每学分100分的课包为10个课包,对公司和大学无限制。 没有付款,永远。",
-    "title": "自由学习,公平使用",
-    "lead": "每页都可以自由打开. 课程保持公平:10次没有帐户,100次有帐户,更多的是学习所得的分数——组织不受限制。 没有付款,永远。",
+    "eyebrow": "定价",
+    "seoTitle": "CRM Analytics 学院定价:免费、专业和团队",
+    "seoDesc": "学习 Salesforce CRM Analytics 免费的,或者每一次付费的课都得到Pro,没有广告——每月15美元或每年150美元. 球队每个座位每月支付10美元.",
+    "title": "学解脱. 等你准备好了再去专业学校",
+    "lead": "每一次免费的课都是免费的 Pro以一个价格解锁整个平台;球队每个座位付费.",
     "popular": "最受欢迎的",
     "sentTitle": "谢谢,你的请求已经受理了",
     "sentBody": "Swarnil将在两个工作日内用电子邮件回复下一步。",
@@ -1315,35 +1320,31 @@
     "noCharge": "没有什么可付的——学院靠点数运转。 您将在两个工作日内收到电子邮件回复。"
   },
   "products": {
-    "visitor": {
-      "name": "访客",
-      "tagline": "试无帐.",
-      "f1": "每个课程,采访回答和视觉",
-      "f2": "一课=一页,当天免费重读",
-      "f3": "每30天更换一次"
+    "free": {
+      "name": "免费",
+      "tagline": "今天开始学习——不需要卡片.",
+      "f1": "每一次免费的课,考试和走过",
+      "f2": "SAQL、食谱和数据流可视化器",
+      "f3": "5次练习考试和150次面试答复",
+      "f4": "进步、进步和领导牌"
     },
-    "account": {
-      "name": "自由账户",
-      "tagline": "报名,会话增加十倍.",
-      "f1": "前十届以上还有九十届",
-      "f2": "{welcome} 开始点,每个课都多点",
-      "f3": "成员教训,进步,成绩,领导板",
-      "f4": "签了名就哪儿都没有广告"
+    "pro": {
+      "name": "赞成:",
+      "tagline": "整个平台——每个付费课,没有广告.",
+      "f1": "每个专业课程,每个部分都出版",
+      "f2": "每一次练习考试的完整回答审查",
+      "f3": "可下载的仪表板、食谱和数据集",
+      "f4": "没有广告",
+      "f5": "从仪表板上取消任何时间"
     },
-    "pack": {
-      "name": "会话包",
-      "tagline": "逃跑吗? 顶端是点数——永远不要钱.",
-      "f1": "10届 {points} 点",
-      "f2": "一次买一、三、五",
-      "f3": "点来自学习和贡献"
-    },
-    "seats": {
-      "name": "组织",
-      "tagline": "公司、团队或大学不受限制。",
-      "f1": "每个成员的无限制会议",
-      "f2": "加入代码——或自动加入工作电子邮件域名",
-      "f3": "对谁在学习 有多远的观察",
-      "f4": "总是自由:问,我们设置它"
+    "team": {
+      "name": "团队",
+      "tagline": "球队的球员,每个席位的工资。",
+      "f1": "每个座位的推荐",
+      "f2": "通过电子邮件指定座位, 或让您的公司域名加入",
+      "f3": "随时增加或取消席位——计费如下",
+      "f4": "看看谁在学习 有多远",
+      "f5": "一个管理员,一张发票"
     }
   },
   "human": {
@@ -1353,59 +1354,59 @@
     "wait": "等一等,你还是人"
   },
   "plans": {
+    "monthly": "每月",
+    "yearly": "年度 · 保存 {n}百分比(%)",
+    "forever": "永远",
+    "perMonth": "月数",
+    "perSeat": "/座位/月份",
+    "perMonthShort": "/模数",
+    "billedYearly": "计费 {price} 每年一次",
     "startLearning": "开始学习",
-    "requestSeats": "请求席位",
-    "haveCode": "我有密码",
-    "pointsEyebrow": "点数,不是付款",
-    "pointsTitle": "学习能赢得更多学习的分数",
-    "earnRow": {
-      "welcome": "当你创建您的账户时",
-      "lesson": "你完成的每一课",
-      "quiz": "每一次正确的答题",
-      "contribution": "每笔核定捐款"
-    },
-    "requestTitle": "询问座位或帮助",
-    "requestLead": "你的公司、团队或大学的座位 或帮助你自己 Salesforce 沃尔格。 每个请求都由一个人回答.",
-    "f": {
-      "interest": "你还需要什么?",
-      "orgKind": "日历",
-      "seats": "席位",
-      "orgName": "组织名称"
-    },
+    "getPro": "获取 Pro",
+    "youArePro": "你有职业",
+    "teamName": "团队名称",
+    "seatsN": "{n} 席位",
+    "fewer": "减少席位",
+    "more": "增加席位",
+    "buyTeam": "买座位",
+    "stripeNote": "付款由施特列处理。 随时取消或更换座位.",
+    "cancelled": "离职被取消——没有收取任何费用.",
+    "proMonthly": "专业每月",
+    "proYearly": "每年",
+    "teamSeat": "团队席位",
+    "requestTitle": "跟我们谈谈",
+    "requestLead": "帮助设置 CRM Analytics咨询、指导或大型组织——一行就够了。",
+    "messagePlaceholder": "你还需要什么? (可选)",
     "interest": {
-      "seats": "我组织的座位",
-      "salesforce-setup": "帮助设置 CRM Analytics",
+      "salesforce-setup": "设置帮助",
+      "seats": "大型组织",
       "consulting": "咨询",
-      "mentoring": "1:1 辅导"
+      "mentoring": "辅导"
     },
     "kind": {
       "company": "企业",
       "team": "团队",
       "university": "大学"
     },
-    "yourSessions": "你们的会议",
-    "unlimited": "无限制",
-    "accountNote": "会话从未到期. 同日重读一页免费.",
-    "visitorNote": "没有账户 : 这些重置 {days} 几天时间 更签九十.",
-    "pointsLabel": "点",
-    "organisation": "日历",
-    "sessions": "届会",
-    "sessionsFor": "届会 {points} 点",
-    "sessionsPer": "每届会议 {days} 天数",
-    "youHaveAccount": "去你的仪表盘",
-    "buyN": "{n} × • {points} 点",
-    "bought": "{n} 增加了会议。 学习快乐."
+    "pointsEyebrow": "点",
+    "pointsTitle": "标点为主板",
+    "earnRow": {
+      "welcome": "当你创建您的账户时",
+      "lesson": "你完成的每一课",
+      "quiz": "每一次正确的答题",
+      "contribution": "每笔核定捐款"
+    }
   },
   "team": {
-    "title": "我的组织",
-    "lead": "公司,团队和大学的无限制准入. 加入您的管理员给你的代码, 或者在您的组织在名单上时使用您的工作电子邮件 。",
+    "title": "我的团队",
+    "lead": "普为每座. 加入您的管理员给你的代码, 或者加入您管理员添加的电子邮件 。",
     "code": "密码",
     "codeHint": "8个字母和数字",
     "join": "请坐",
     "noCode": "没有密码吗?",
     "request": "申请组织席位",
     "seats": "{used} 页:1 {seats} 使用的座位",
-    "youArePro": "你的座位给你无限的课。",
+    "youArePro": "您的座位包括Pro。",
     "until": "座位一直运行到 {date}。 。 。",
     "adminTitle": "你管理这个组织",
     "share": "和应该坐到座位的人分享这个代码或链接. 参会者各用一席.",
@@ -1415,7 +1416,19 @@
     "points": "点",
     "free": "空出这个座位",
     "domains": "任何有经过验证的 {domains} 电子邮件自动加入。",
-    "sessions": "会议"
+    "sessions": "会议",
+    "paid": "收到付款了 你的团队准备好了 在下面分配座位",
+    "activating": "收到付款 组建你的团队 这需要几秒钟。",
+    "seatsTitle": "席位",
+    "seatsUsed": "{used} 页:1 {seats} 分配席位",
+    "saveSeats": "更新席位",
+    "billing": "账单和发票",
+    "assignTitle": "给人坐下",
+    "emailsPlaceholder": "工作电子邮件, 用逗号分隔",
+    "assign": "分配席位",
+    "domainsTitle": "您的公司域名",
+    "saveDomains": "保存",
+    "domainsHint": "任何使用此域的已验证邮件签名的人自动获得一个免费座位."
   },
   "vis": {
     "eyebrow": "视觉师",
@@ -1643,18 +1656,83 @@
     "beatAfter": "结果"
   },
   "meter": {
-    "eyebrow": "届会 {used} 页:1 {allowance}",
-    "wallTitle": "你用了你的课",
-    "wallTitleAnon": "这是你的 {n} 免费会议",
-    "wallBody": "上面有一个包 - {sessions} 届会 {points} 点。 积分来自学习,从不花钱.",
-    "wallBodyAnon": "创建空账户 {more} 更多会话和1000分——或当您的会话重设时,在 {days} 几天时间。",
-    "signUp": "创建一个自由账户—— {more} 更多会议",
-    "buy": "买 {sessions} 届会 {points} 点",
-    "balance": "你有过 {n} 点",
-    "earn": "收益点:共享资源(+25)",
-    "org": "与你的团队学习? 组织是无限的",
-    "home": "回主页",
-    "low": "{n} 左侧会话",
-    "left": "{n} 页:1 {allowance} 左侧会话"
+    "eyebrow": "页次 {used} 页:1 {allowance}",
+    "wallTitleAnon": "你读过你的 {n} 免费页面",
+    "wallBodyAnon": "创建一个免费的账户来继续阅读——每个免费的课,视觉师和你的进步,不需要卡片.",
+    "signUp": "创建自由账户",
+    "signIn": "我已经有帐户了",
+    "low": "{n} 左侧的自由页面——自由账户删除限制",
+    "left": "{n} 页:1 {allowance} 左侧自由页面"
+  },
+  "sponsor": {
+    "label": "发起人",
+    "eyebrow": "发起人",
+    "title": "赞助学院",
+    "lead": "每一页上都有一条横幅 被人们看到 Salesforce CRM Analytics自己设计 并观看点击。",
+    "seoTitle": "发起人 CRM Analytics 学院",
+    "seoDesc": "把你的产品放在前面 Salesforce CRM Analytics 构建者:您自己设计的全站式横幅,有视图,点击和CTR跟踪.",
+    "previewEyebrow": "每页的运行内容",
+    "perk1": "每页,每个读者",
+    "perk2": "您的标志、 文字、 颜色和链接",
+    "perk3": "视图、点击和逐日及逐页 CTR",
+    "perk4": "1次付款——不订阅",
+    "days": "{n} 天数",
+    "oneTime": "一次性",
+    "company": "企业",
+    "send": "请求赞助",
+    "how": "我们用一张纸条回信 同时你可以设计你的旗帜。",
+    "sentTitle": "谢谢,你的请求已经受理了",
+    "sentBody": "您将会通过电子邮件收到一张Frede发票。 现在设计你的旗子,它一付钱就生效",
+    "designNow": "设计我的旗帜",
+    "fromPrice": "从 {price}"
+  },
+  "studio": {
+    "title": "主办工作室",
+    "none": "还没有赞助。",
+    "design": "你的旗帜",
+    "results": "结果",
+    "saved": "获救.",
+    "submitted": "送报批准.",
+    "publish": "发布",
+    "saveDraft": "保存草稿",
+    "payInvoice": "付款发票",
+    "views": "视图",
+    "clicks": "点击",
+    "ctr": "点击率",
+    "byDay": "白天——点击/浏览",
+    "topPages": "顶端页面",
+    "noData": "还没有数据。",
+    "f": {
+      "headline": "标题",
+      "body": "再来一行( 可选)",
+      "cta": "按钮标签",
+      "logo": "上传标志",
+      "changeLogo": "更改标志",
+      "bg": "背景情况",
+      "fg": "文字",
+      "accent": "按钮"
+    },
+    "status": {
+      "requested": "请求",
+      "invoiced": "发送发票",
+      "paid": "已支付",
+      "live": "现场直播",
+      "ended": "结束",
+      "cancelled": "已取消"
+    },
+    "next": {
+      "requested": "我们会给你发一张纸条发票",
+      "invoiced": "付发票订日期",
+      "paid": "支付——一旦你的旗帜被批准,它就会开始直播.",
+      "live": "你的旗帜在每一页。",
+      "ended": "这种赞助已经结束。",
+      "cancelled": "已经取消。"
+    },
+    "creative": {
+      "draft": "草案",
+      "submitted": "等待核准",
+      "approved": "核定数",
+      "changes": "要求的更改"
+    }
   }
 }

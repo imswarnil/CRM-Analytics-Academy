@@ -1,92 +1,67 @@
 <script setup lang="ts">
 /**
- * /pro — how access works, usage-based and never money: sessions, paid in
- * points (shared/utils/products.ts). A visitor gets ANON_SESSIONS sessions; an
- * account ACCOUNT_SESSIONS and WELCOME_POINTS points; packs of PACK_SESSIONS
- * cost PACK_POINTS points (POST /api/meter/buy); organisations get unlimited
- * access by request (POST /api/leads → app.lead + Salesforce) or by their
- * verified email domain. The same form takes Salesforce set-up, consulting
- * and mentoring requests, so every buying signal lands in one place.
+ * /pro — the plans (shared/utils/products.ts), paid through Stripe Checkout:
+ *
+ *   Free   every free lesson and tool, unlimited once signed in
+ *   Pro    every paid lesson, no ads — monthly or yearly (POST /api/billing/checkout)
+ *   Team   Pro per seat; the buyer is the admin and assigns seats at /team
+ *          (POST /api/billing/team)
+ *
+ * Access is granted by the Stripe webhook, never by this page. Below the
+ * plans: sponsors (/sponsor) and a three-field "talk to us" form for set-up
+ * help, consulting and large organisations (POST /api/leads → Salesforce).
  */
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const { user, isSignedIn } = useAuth()
-const { balance, data: progress, load } = useProgress()
-const { status: meter, refresh: refreshMeter, buy } = useMeter()
+const { pro: isPro } = useProgress()
 const track = (name: string, label?: string) => useNuxtApp().$track?.(name, label)
+onMounted(() => track('pricing_view', String(route.query.from ?? '')))
 
-onMounted(() => {
-  track('pricing_view', String(route.query.from ?? ''))
-  refreshMeter()
-})
+const usd = (n: number, digits = 0) => new Intl.NumberFormat(locale.value, { style: 'currency', currency: 'USD', maximumFractionDigits: digits, minimumFractionDigits: digits }).format(n)
+const yearly = ref(true)
+const proPrice = computed(() => (yearly.value ? PRICES.proYearly.usd / 12 : PRICES.proMonthly.usd))
+const saving = Math.round((1 - PRICES.proYearly.usd / (PRICES.proMonthly.usd * 12)) * 100)
 
-/* --- Packs, bought with points ----------------------------------------------- */
-const buying = ref(0)
-const buyError = ref('')
-const bought = ref(0)
-async function buyPacks(n: number) {
-  track('plan_click', `pack-${n}`)
+const team = reactive({ name: '', seats: 5 })
+const busy = ref('')
+const error = ref('')
+const cancelled = computed(() => route.query.checkout === 'cancelled')
+
+async function go(kind: 'pro' | 'team') {
+  track('plan_click', kind)
   if (!isSignedIn.value) {
-    await navigateTo({ path: localePath('/sign-up'), query: { redirect: localePath('/pro') } })
+    await navigateTo({ path: localePath('/sign-up'), query: { redirect: `${localePath('/pro')}#plans` } })
     return
   }
-  buying.value = n
-  buyError.value = ''
+  busy.value = kind
+  error.value = ''
   try {
-    await buy(n)
-    bought.value = n * PACK_SESSIONS
-    await load()
+    const res = kind === 'pro'
+      ? await $fetch<{ url: string }>('/api/billing/checkout', { method: 'POST', body: { plan: yearly.value ? 'proYearly' : 'proMonthly', locale: locale.value } })
+      : await $fetch<{ url: string }>('/api/billing/team', { method: 'POST', body: { name: team.name || `${user.value?.name ?? 'My'} team`, seats: team.seats } })
+    window.location.href = res.url
   } catch (e) {
-    buyError.value = apiError(e) || t('contrib.err.generic')
-  } finally {
-    buying.value = 0
+    error.value = apiError(e) || t('contrib.err.generic')
+    busy.value = ''
   }
 }
 
-/* --- Requests: seats and other help ---------------------------------------- */
-type Interest = 'seats' | 'salesforce-setup' | 'consulting' | 'mentoring'
-const INTERESTS: Interest[] = ['seats', 'salesforce-setup', 'consulting', 'mentoring']
-const initial = String(route.query.product ?? route.query.interest ?? '')
-const form = reactive({
-  interest: (INTERESTS.includes(initial as Interest) ? initial : 'seats') as Interest,
-  orgKind: 'company' as OrgKind,
-  seats: 10,
-  firstName: '',
-  lastName: '',
-  email: '',
-  company: '',
-  title: '',
-  phone: '',
-  message: '',
-  website: ''
-})
-watch(user, (u) => {
-  if (!u) return
-  const [first, ...rest] = (u.name ?? '').split(' ')
-  form.firstName ||= first ?? ''
-  form.lastName ||= rest.join(' ')
-  form.email ||= u.email
-}, { immediate: true })
-
+/* --- Talk to us: three fields --------------------------------------------------- */
+type Interest = 'salesforce-setup' | 'seats' | 'consulting' | 'mentoring'
+const INTERESTS: Interest[] = ['salesforce-setup', 'seats', 'consulting', 'mentoring']
+const form = reactive({ interest: 'salesforce-setup' as Interest, email: '', message: '', website: '' })
+watch(user, u => (form.email ||= u?.email ?? ''), { immediate: true })
 const token = ref('')
 const human = ref<{ reset: () => void } | null>(null)
 const sending = ref(false)
 const sent = ref(false)
-const error = ref('')
-
-function ask(interest: Interest) {
-  form.interest = interest
-  sent.value = false
-  track('plan_click', interest)
-  if (interest === 'salesforce-setup') track('salesforce_interest', 'pro')
-  nextTick(() => document.getElementById('request')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
-}
-
+const formError = ref('')
 async function send() {
-  error.value = ''
+  formError.value = ''
   if (!token.value) {
-    error.value = t('human.wait')
+    formError.value = t('human.wait')
     return
   }
   sending.value = true
@@ -97,23 +72,12 @@ async function send() {
       source = sessionStorage.getItem('crma-source') ?? ''
       visitor = localStorage.getItem('crma-v') ?? ''
     } catch { /* storage blocked */ }
-    await $fetch('/api/leads', {
-      method: 'POST',
-      body: {
-        ...form,
-        product: form.interest,
-        seats: form.interest === 'seats' ? form.seats : undefined,
-        token: token.value,
-        locale: locale.value,
-        source,
-        visitor,
-        landing: String(route.query.from ?? route.query.lesson ?? '') || undefined
-      }
-    })
+    await $fetch('/api/leads', { method: 'POST', body: { product: form.interest, email: form.email, message: form.message, website: form.website, token: token.value, locale: locale.value, source, visitor, landing: '/pro' } })
     sent.value = true
     track('lead', form.interest)
+    if (form.interest === 'salesforce-setup') track('salesforce_interest', 'pro')
   } catch (e) {
-    error.value = apiError(e) || t('contrib.err.generic')
+    formError.value = apiError(e) || t('contrib.err.generic')
     human.value?.reset()
   } finally {
     sending.value = false
@@ -123,19 +87,22 @@ async function send() {
 const title = computed(() => t('store.seoTitle'))
 const description = computed(() => t('store.seoDesc'))
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
-defineOgImage('Docs', { title: t('store.title'), description: description.value, headline: t('store.eyebrow'), spec: 'SESSIONS · POINTS · ORGANISATIONS' })
+defineOgImage('Docs', { title: t('store.title'), description: description.value, headline: t('store.eyebrow'), spec: `PRO ${usd(PRICES.proMonthly.usd)}/MO · TEAMS ${usd(PRICES.teamSeat.usd)}/SEAT` })
 usePageSchema(() => ({
   name: title.value,
   description: description.value,
   type: 'WebPage',
   trail: [{ name: t('store.eyebrow'), path: '/pro' }],
   extra: [{
-    '@type': 'ItemList',
-    'itemListElement': PRODUCTS.map((p, i) => ({
-      '@type': 'ListItem',
-      'position': i + 1,
-      'item': { '@type': 'Product', 'name': t(`products.${p.id}.name`), 'description': t(`products.${p.id}.tagline`), 'brand': { '@type': 'Organization', 'name': SITE.name }, 'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' } }
-    }))
+    '@type': 'Product',
+    'name': `${SITE.name} Pro`,
+    'description': t('products.pro.tagline'),
+    'brand': { '@type': 'Organization', 'name': SITE.name },
+    'offers': [
+      { '@type': 'Offer', 'name': 'Monthly', 'price': String(PRICES.proMonthly.usd), 'priceCurrency': 'USD' },
+      { '@type': 'Offer', 'name': 'Yearly', 'price': String(PRICES.proYearly.usd), 'priceCurrency': 'USD' },
+      { '@type': 'Offer', 'name': 'Team seat (monthly)', 'price': String(PRICES.teamSeat.usd), 'priceCurrency': 'USD' }
+    ]
   }]
 }))
 </script>
@@ -143,7 +110,7 @@ usePageSchema(() => ({
 <template>
   <div>
     <BpPageHeader
-      sheet="SHEET 09 / ACCESS"
+      sheet="SHEET 09 / PLANS"
       :title="t('store.title')"
       :lead="t('store.lead')"
     >
@@ -154,60 +121,35 @@ usePageSchema(() => ({
       />
     </BpPageHeader>
 
-    <div class="mx-auto max-w-(--ui-container) space-y-12 px-4 py-12 sm:px-6 lg:px-8">
-      <!-- Where you stand -->
-      <ClientOnly>
-        <section
-          v-if="meter"
-          class="grid gap-px border-[1.5px] border-(--ink) bg-(--line) sm:grid-cols-4"
-        >
-          <div class="bg-(--card) p-5 sm:col-span-2">
-            <p class="eyebrow">
-              {{ t('plans.yourSessions') }}
-            </p>
-            <p
-              v-if="meter.unlimited"
-              class="mt-2 text-3xl font-black text-(--signal)"
-            >
-              {{ t('plans.unlimited') }} <span
-                v-if="meter.via && !['admin', 'crawler', 'grant'].includes(meter.via)"
-                class="text-base font-semibold text-(--ink2)"
-              >· {{ meter.via }}</span>
-            </p>
-            <template v-else>
-              <p class="mt-2 text-3xl font-black tabular-nums text-(--ink)">
-                {{ meter.remaining }} <span class="text-base font-semibold text-(--ink2)">/ {{ meter.allowance }}</span>
-              </p>
-              <UProgress
-                :model-value="meter.allowance ? Math.round((meter.used / meter.allowance) * 100) : 0"
-                class="mt-3"
-              />
-              <p class="mt-2 text-sm text-(--ink2)">
-                {{ meter.signedIn ? t('plans.accountNote') : t('plans.visitorNote', { days: meter.windowDays ?? ANON_WINDOW_DAYS }) }}
-              </p>
-            </template>
-          </div>
-          <div class="bg-(--card) p-5">
-            <p class="eyebrow">
-              {{ t('plans.pointsLabel') }}
-            </p>
-            <p class="mt-2 text-3xl font-black tabular-nums text-(--ink)">
-              {{ isSignedIn ? balance.toLocaleString(locale) : '—' }}
-            </p>
-          </div>
-          <div class="bg-(--card) p-5">
-            <p class="eyebrow">
-              {{ t('plans.organisation') }}
-            </p>
-            <p class="mt-2 text-lg font-bold text-(--ink)">
-              {{ progress?.org ?? '—' }}
-            </p>
-          </div>
-        </section>
-      </ClientOnly>
+    <div
+      id="plans"
+      class="mx-auto max-w-(--ui-container) scroll-mt-24 space-y-12 px-4 py-12 sm:px-6 lg:px-8"
+    >
+      <UAlert
+        v-if="cancelled"
+        color="neutral"
+        variant="subtle"
+        icon="i-lucide-circle-x"
+        :description="t('plans.cancelled')"
+      />
 
-      <!-- The four ways in -->
-      <ul class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <!-- Monthly / yearly -->
+      <div class="flex justify-center">
+        <div class="inline-flex border-[1.5px] border-(--ink) bg-(--card) p-1">
+          <button
+            v-for="y in [false, true]"
+            :key="String(y)"
+            type="button"
+            class="px-4 py-1.5 text-sm font-semibold"
+            :class="yearly === y ? 'bg-(--ink) text-(--paper)' : 'text-(--ink)'"
+            @click="yearly = y"
+          >
+            {{ y ? t('plans.yearly', { n: saving }) : t('plans.monthly') }}
+          </button>
+        </div>
+      </div>
+
+      <ul class="grid gap-6 lg:grid-cols-3">
         <li
           v-for="p in PRODUCTS"
           :key="p.id"
@@ -232,8 +174,14 @@ usePageSchema(() => ({
               {{ t(`products.${p.id}.tagline`) }}
             </p>
             <p class="mt-4 flex items-baseline gap-1">
-              <span class="text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">{{ p.id === 'visitor' ? ANON_SESSIONS : p.id === 'account' ? ACCOUNT_SESSIONS : p.id === 'pack' ? PACK_SESSIONS : '∞' }}</span>
-              <span class="font-mono text-xs text-(--ink2)">{{ p.id === 'pack' ? t('plans.sessionsFor', { points: PACK_POINTS }) : p.id === 'visitor' ? t('plans.sessionsPer', { days: ANON_WINDOW_DAYS }) : t('plans.sessions') }}</span>
+              <span class="text-4xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">{{ p.id === 'free' ? usd(0) : p.id === 'pro' ? usd(proPrice, yearly ? 2 : 0) : usd(PRICES.teamSeat.usd) }}</span>
+              <span class="font-mono text-xs text-(--ink2)">{{ p.id === 'free' ? t('plans.forever') : p.id === 'pro' ? t('plans.perMonth') : t('plans.perSeat') }}</span>
+            </p>
+            <p
+              v-if="p.id === 'pro' && yearly"
+              class="mt-1 font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)"
+            >
+              {{ t('plans.billedYearly', { price: usd(PRICES.proYearly.usd) }) }}
             </p>
             <ul class="mt-4 flex-1 space-y-2">
               <li
@@ -244,132 +192,112 @@ usePageSchema(() => ({
                 <UIcon
                   name="i-lucide-check"
                   class="mt-0.5 size-4 shrink-0 text-(--signal)"
-                />{{ t(`products.${p.id}.f${n}`, { welcome: WELCOME_POINTS.toLocaleString(locale), points: PACK_POINTS }) }}
+                />{{ t(`products.${p.id}.f${n}`) }}
               </li>
             </ul>
 
-            <!-- Visitor -->
+            <!-- Free -->
             <UButton
-              v-if="p.id === 'visitor'"
+              v-if="p.id === 'free'"
               class="mt-6"
               block
               size="lg"
               variant="outline"
               color="neutral"
-              icon="i-lucide-book-open"
-              :to="localePath('/curriculum')"
+              :icon="isSignedIn ? 'i-lucide-book-open' : 'i-lucide-user-plus'"
+              :to="isSignedIn ? localePath('/curriculum') : localePath('/sign-up')"
             >
-              {{ t('plans.startLearning') }}
+              {{ isSignedIn ? t('plans.startLearning') : t('pro.signUpFirst') }}
             </UButton>
 
-            <!-- Account -->
+            <!-- Pro -->
             <UButton
-              v-else-if="p.id === 'account'"
+              v-else-if="p.id === 'pro'"
               class="mt-6"
               block
               size="lg"
-              :icon="isSignedIn ? 'i-lucide-check' : 'i-lucide-user-plus'"
-              :to="isSignedIn ? localePath('/dashboard') : localePath('/sign-up')"
-              @click="track('plan_click', 'account')"
+              :icon="isPro ? 'i-lucide-badge-check' : 'i-lucide-sparkles'"
+              :loading="busy === 'pro'"
+              :disabled="isPro"
+              @click="go('pro')"
             >
-              {{ isSignedIn ? t('plans.youHaveAccount') : t('pro.signUpFirst') }}
+              {{ isPro ? t('plans.youArePro') : t('plans.getPro') }}
             </UButton>
 
-            <!-- Packs -->
-            <div
-              v-else-if="p.id === 'pack'"
-              class="mt-6 space-y-2"
-            >
-              <div class="grid grid-cols-3 gap-2">
-                <UButton
-                  v-for="n in [1, 3, 5]"
-                  :key="n"
-                  block
-                  :variant="n === 1 ? 'solid' : 'outline'"
-                  :color="n === 1 ? 'primary' : 'neutral'"
-                  :loading="buying === n"
-                  @click="buyPacks(n)"
-                >
-                  {{ t('plans.buyN', { n, points: n * PACK_POINTS }) }}
-                </UButton>
-              </div>
-              <UAlert
-                v-if="bought"
-                color="primary"
-                variant="subtle"
-                icon="i-lucide-party-popper"
-                :description="t('plans.bought', { n: bought })"
-              />
-              <UAlert
-                v-if="buyError"
-                color="error"
-                variant="subtle"
-                :description="buyError"
-              />
-            </div>
-
-            <!-- Organisations -->
+            <!-- Team: name + seats, then checkout -->
             <div
               v-else
               class="mt-6 space-y-2"
             >
+              <UInput
+                v-model="team.name"
+                :placeholder="t('plans.teamName')"
+                size="lg"
+                class="w-full"
+              />
+              <div class="flex items-center gap-2">
+                <UButton
+                  icon="i-lucide-minus"
+                  color="neutral"
+                  variant="outline"
+                  square
+                  :aria-label="t('plans.fewer')"
+                  :disabled="team.seats <= TEAM_MIN_SEATS"
+                  @click="team.seats--"
+                />
+                <span class="min-w-24 text-center font-semibold tabular-nums text-(--ink)">{{ t('plans.seatsN', { n: team.seats }) }}</span>
+                <UButton
+                  icon="i-lucide-plus"
+                  color="neutral"
+                  variant="outline"
+                  square
+                  :aria-label="t('plans.more')"
+                  @click="team.seats++"
+                />
+                <span class="ms-auto font-mono text-sm tabular-nums text-(--ink2)">{{ usd(team.seats * PRICES.teamSeat.usd) }}{{ t('plans.perMonthShort') }}</span>
+              </div>
               <UButton
                 block
                 size="lg"
-                icon="i-lucide-arrow-right"
-                @click="ask('seats')"
+                icon="i-lucide-users"
+                :loading="busy === 'team'"
+                @click="go('team')"
               >
-                {{ t('plans.requestSeats') }}
-              </UButton>
-              <UButton
-                block
-                size="sm"
-                variant="link"
-                color="neutral"
-                icon="i-lucide-key-round"
-                :to="localePath('/team')"
-              >
-                {{ t('plans.haveCode') }}
+                {{ t('plans.buyTeam') }}
               </UButton>
             </div>
           </div>
         </li>
       </ul>
+      <UAlert
+        v-if="error"
+        color="error"
+        variant="subtle"
+        :description="error"
+      />
+      <p class="text-center text-sm text-(--ink2)">
+        {{ t('plans.stripeNote') }}
+      </p>
 
       <PromoSlot unit="leaderboard728x90" />
 
-      <!-- How points work -->
-      <section class="grid gap-6 border-[1.5px] border-(--ink) bg-(--card) p-6 md:grid-cols-[1fr_2fr]">
-        <div>
-          <p class="eyebrow">
-            {{ t('plans.pointsEyebrow') }}
-          </p>
-          <h2 class="bp-h3 mt-2">
-            {{ t('plans.pointsTitle') }}
-          </h2>
-        </div>
-        <dl class="grid gap-px bg-(--line) sm:grid-cols-4">
-          <div
-            v-for="row in [
-              { k: 'welcome', v: `+${WELCOME_POINTS}` },
-              { k: 'lesson', v: '+10' },
-              { k: 'quiz', v: '+2' },
-              { k: 'contribution', v: '+25' }
-            ]"
-            :key="row.k"
-            class="bg-(--card) p-4"
-          >
-            <dd class="text-2xl font-black tabular-nums text-(--signal)">
-              {{ row.v }}
-            </dd>
-            <dt class="mt-1 text-sm text-(--ink2)">
-              {{ t(`plans.earnRow.${row.k}`) }}
-            </dt>
-          </div>
-        </dl>
-      </section>
+      <!-- Sponsors -->
+      <NuxtLink
+        :to="localePath('/sponsor')"
+        class="graph-paper-navy flex flex-wrap items-center gap-4 border-[1.5px] border-(--ink) bg-(--navy) p-6 text-white shadow-[8px_8px_0_var(--signal)]"
+      >
+        <UIcon
+          name="i-lucide-megaphone"
+          class="size-8 text-(--glow)"
+        />
+        <span class="min-w-0 flex-1">
+          <span class="block text-xl font-extrabold">{{ t('sponsor.title') }}</span>
+          <span class="block text-sm text-white/75">{{ t('sponsor.lead') }}</span>
+        </span>
+        <span class="font-mono text-xs uppercase tracking-[.12em] text-(--glow)">{{ t('sponsor.fromPrice', { price: usd(PRICES.sponsorWeek.usd) }) }} →</span>
+      </NuxtLink>
 
-      <!-- Requests -->
+      <!-- Talk to us -->
       <section
         id="request"
         class="mx-auto max-w-2xl scroll-mt-24 border-[1.5px] border-(--ink) bg-(--card)"
@@ -382,22 +310,15 @@ usePageSchema(() => ({
             {{ t('plans.requestLead') }}
           </p>
         </header>
-
-        <div
+        <p
           v-if="sent"
-          class="p-6"
+          class="p-6 text-(--ink)"
         >
-          <p class="text-xl font-bold text-(--ink)">
-            {{ t('store.sentTitle') }}
-          </p>
-          <p class="mt-2 text-(--ink2)">
-            {{ t('store.sentBody') }}
-          </p>
-        </div>
-
+          {{ t('store.sentBody') }}
+        </p>
         <form
           v-else
-          class="grid gap-5 p-6 sm:grid-cols-2"
+          class="grid gap-4 p-6"
           @submit.prevent="send"
         >
           <input
@@ -408,150 +329,52 @@ usePageSchema(() => ({
             aria-hidden="true"
             class="absolute -left-[9999px] size-px opacity-0"
           >
-          <UFormField
-            :label="t('plans.f.interest')"
-            class="sm:col-span-2"
-          >
-            <div class="flex flex-wrap gap-2">
-              <button
-                v-for="i in INTERESTS"
-                :key="i"
-                type="button"
-                class="border-[1.5px] px-3 py-1.5 text-[15px] font-semibold"
-                :class="form.interest === i ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
-                @click="ask(i)"
-              >
-                {{ t(`plans.interest.${i}`) }}
-              </button>
-            </div>
-          </UFormField>
-          <template v-if="form.interest === 'seats'">
-            <UFormField :label="t('plans.f.orgKind')">
-              <USelect
-                v-model="form.orgKind"
-                :items="ORG_KINDS.map(k => ({ label: t(`plans.kind.${k}`), value: k }))"
-                size="xl"
-                class="w-full"
-              />
-            </UFormField>
-            <UFormField
-              :label="t('plans.f.seats')"
-              required
+          <div class="flex flex-wrap gap-2">
+            <button
+              v-for="i in INTERESTS"
+              :key="i"
+              type="button"
+              class="border-[1.5px] px-3 py-1.5 text-[15px] font-semibold"
+              :class="form.interest === i ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
+              @click="form.interest = i"
             >
-              <UInput
-                v-model.number="form.seats"
-                type="number"
-                min="1"
-                max="10000"
-                size="xl"
-                class="w-full"
-              />
-            </UFormField>
-          </template>
-          <UFormField :label="t('store.f.firstName')">
-            <UInput
-              v-model="form.firstName"
-              autocomplete="given-name"
-              size="xl"
-              class="w-full"
-            />
-          </UFormField>
-          <UFormField
-            :label="t('store.f.lastName')"
-            required
-          >
-            <UInput
-              v-model="form.lastName"
-              autocomplete="family-name"
-              size="xl"
-              class="w-full"
-              required
-            />
-          </UFormField>
-          <UFormField
-            :label="t('store.f.email')"
-            required
-            class="sm:col-span-2"
-          >
-            <UInput
-              v-model="form.email"
-              type="email"
-              autocomplete="email"
-              size="xl"
-              class="w-full"
-              :disabled="isSignedIn"
-              required
-            />
-          </UFormField>
-          <UFormField
-            :label="form.interest === 'seats' ? t('plans.f.orgName') : t('store.f.company')"
-            :required="form.interest === 'seats' || form.interest === 'consulting'"
-          >
-            <UInput
-              v-model="form.company"
-              autocomplete="organization"
-              size="xl"
-              class="w-full"
-            />
-          </UFormField>
-          <UFormField :label="t('store.f.title')">
-            <UInput
-              v-model="form.title"
-              autocomplete="organization-title"
-              size="xl"
-              class="w-full"
-            />
-          </UFormField>
-          <UFormField
-            :label="t('store.f.phone')"
-            :hint="t('contrib.optional')"
-            class="sm:col-span-2"
-          >
-            <UInput
-              v-model="form.phone"
-              type="tel"
-              autocomplete="tel"
-              size="xl"
-              class="w-full"
-            />
-          </UFormField>
-          <UFormField
-            :label="t('store.f.message')"
-            :hint="t('contrib.optional')"
-            class="sm:col-span-2"
-          >
-            <UTextarea
-              v-model="form.message"
-              :rows="3"
-              autoresize
-              class="w-full"
-            />
-          </UFormField>
-          <div class="space-y-4 sm:col-span-2">
-            <HumanCheck
-              ref="human"
-              v-model="token"
-            />
-            <UAlert
-              v-if="error"
-              color="error"
-              variant="subtle"
-              icon="i-lucide-circle-alert"
-              :description="error"
-            />
-            <UButton
-              type="submit"
-              size="xl"
-              block
-              :loading="sending"
-              icon="i-lucide-send"
-            >
-              {{ t('store.send') }}
-            </UButton>
-            <p class="text-sm text-(--ink2)">
-              {{ t('store.noCharge') }}
-            </p>
+              {{ t(`plans.interest.${i}`) }}
+            </button>
           </div>
+          <UInput
+            v-model="form.email"
+            type="email"
+            :placeholder="t('store.f.email')"
+            size="xl"
+            autocomplete="email"
+            :disabled="isSignedIn"
+            required
+          />
+          <UTextarea
+            v-model="form.message"
+            :placeholder="t('plans.messagePlaceholder')"
+            :rows="2"
+            autoresize
+          />
+          <HumanCheck
+            ref="human"
+            v-model="token"
+          />
+          <UAlert
+            v-if="formError"
+            color="error"
+            variant="subtle"
+            :description="formError"
+          />
+          <UButton
+            type="submit"
+            size="xl"
+            block
+            :loading="sending"
+            icon="i-lucide-send"
+          >
+            {{ t('store.send') }}
+          </UButton>
         </form>
       </section>
 

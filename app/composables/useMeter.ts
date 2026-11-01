@@ -30,18 +30,10 @@ export function useMeter() {
     status.value = res.status
     blocked.value = !res.ok
     if (res.charged && !res.status.unlimited && res.status.remaining <= 3) {
-      toast.add({ title: t('meter.low', { n: res.status.remaining }), icon: 'i-lucide-ticket', color: 'warning' })
+      toast.add({ title: t('meter.low', { n: res.status.remaining }), icon: 'i-lucide-book-open', color: 'warning' })
     }
     if (!res.ok) useNuxtApp().$track?.('meter_wall', path)
   }
 
-  async function buy(packs = 1) {
-    const res = await $fetch<{ balance: number, status: MeterStatus }>('/api/meter/buy', { method: 'POST', body: { packs } })
-    status.value = res.status
-    blocked.value = false
-    useNuxtApp().$track?.('pack_buy', String(packs))
-    return res
-  }
-
-  return { status, blocked, refresh, open, buy }
+  return { status, blocked, refresh, open }
 }

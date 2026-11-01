@@ -38,18 +38,20 @@ export const LEAD_FIELDS: Partial<Record<'interest' | 'lessons' | 'points' | 'so
 /**
  * What happened on the site. Salesforce's AcademyLeadEvents job folds each
  * event into the person's one record (salesforce/CRM-PROCESS.md):
- *   signup  → a self-serve lead
- *   pack    → a self-serve customer: a session pack bought with points
- *             (redeem is the retired Pro purchase, still understood)
- *   request → a sales-led lead (seats, set-up, consulting, mentoring)
+ *   signup    → a self-serve lead
+ *   subscribe → a self-serve customer: Pro bought with Stripe (MRR)
+ *   team      → a customer account: team seats bought with Stripe (MRR)
+ *   sponsor   → a paid sponsorship (one-time)
+ *   request   → a sales-led lead (seats, sponsorship, set-up, consulting…)
+ *   pack / redeem → retired point purchases, still understood
  */
-export type AcademyEvent = 'signup' | 'pack' | 'redeem' | 'request'
+export type AcademyEvent = 'signup' | 'subscribe' | 'team' | 'sponsor' | 'pack' | 'redeem' | 'request'
 
 export interface LeadForSalesforce {
   event: AcademyEvent
   product?: string | null
-  /** A pack purchase: what was bought. */
-  pack?: { packs: number, points: number, sessions: number } | null
+  /** A purchase: the plan (PRICES key), what it is worth in USD, and seats. */
+  purchase?: { plan: string, usd: number, seats: number } | null
   firstName?: string | null
   lastName: string
   email: string
@@ -75,9 +77,9 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
   const description = [
     lead.event === 'signup'
       ? 'Signed up on the site (self-serve).'
-      : lead.event === 'pack'
-        ? `Bought ${lead.pack?.packs ?? 1} session pack(s): ${lead.pack?.sessions ?? 10} sessions for ${lead.pack?.points ?? 100} points (self-serve).`
-        : lead.event === 'redeem' ? 'Bought Pro with points (self-serve).' : `Interest: ${lead.product}`,
+      : lead.purchase
+        ? `Purchase: ${lead.purchase.plan} · ${lead.purchase.usd} USD · ${lead.purchase.seats} seat(s) (${lead.event}).`
+        : `Interest: ${lead.product}`,
     lead.message ? `Message: ${lead.message}` : '',
     `Academy: ${lead.lessonsDone} lessons done, ${lead.points} points${lead.userId ? `, user ${lead.userId}` : ', no account'}`,
     lead.seats ? `Seats: ${lead.seats}${lead.orgKind ? ` (${lead.orgKind})` : ''}` : '',
@@ -102,8 +104,8 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
     description: description.slice(0, 32000)
   })
   const custom: [keyof typeof LEAD_FIELDS, string | number | null | undefined][] = [
-    ['event', lead.event], ['motion', lead.event === 'request' ? 'sales-led' : 'self-serve'],
-    ['lifecycle', lead.event === 'redeem' || lead.event === 'pack' ? 'customer' : lead.event === 'request' ? 'sql' : 'lead'],
+    ['event', lead.event], ['motion', ['request', 'team', 'sponsor'].includes(lead.event) ? 'sales-led' : 'self-serve'],
+    ['lifecycle', ['subscribe', 'team', 'sponsor', 'redeem', 'pack'].includes(lead.event) ? 'customer' : lead.event === 'request' ? 'sql' : 'lead'],
     ['interest', lead.product], ['lessons', lead.lessonsDone], ['points', lead.points], ['source', lead.source],
     ['landing', lead.landing], ['firstLanding', lead.firstLanding], ['viewsBefore', lead.viewsBefore], ['locale', lead.locale],
     ['userId', lead.userId], ['seats', lead.seats], ['orgKind', lead.orgKind]
@@ -126,7 +128,7 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
  * Academy knows about them. Never throws: Salesforce being down must not
  * break a sign-up or a purchase.
  */
-export async function sendAcademyEvent(event: 'signup' | 'pack', user: { id: string, email: string, name?: string | null }, pack?: { packs: number, points: number, sessions: number }): Promise<string> {
+export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 'sponsor', user: { id: string, email: string, name?: string | null }, purchase?: { plan: string, usd: number, seats: number }): Promise<string> {
   try {
     const sql = useDb()
     const [[stats], [attr]] = await Promise.all([
@@ -136,8 +138,8 @@ export async function sendAcademyEvent(event: 'signup' | 'pack', user: { id: str
     const [first, ...rest] = String(user.name || user.email.split('@')[0]).trim().split(/\s+/)
     return await sendLeadToSalesforce({
       event,
-      product: null,
-      pack: pack ?? null,
+      product: event === 'sponsor' ? 'sponsorship' : event === 'team' ? 'seats' : event === 'subscribe' ? 'pro' : null,
+      purchase: purchase ?? null,
       firstName: rest.length ? first : null,
       lastName: rest.length ? rest.join(' ') : first || 'Learner',
       email: user.email,

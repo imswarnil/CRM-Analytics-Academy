@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
     sql`
       insert into app.org_member (org_id, user_id)
       select ${org.id}, ${user.id}
-      where (select count(*) from app.org_member where org_id = ${org.id}) < ${org.seats}
+      where (select count(*) from app.org_member where org_id = ${org.id}) + (select count(*) from app.org_invite where org_id = ${org.id}) < ${org.seats}
       on conflict do nothing
       returning org_id`
   ])

@@ -1,15 +1,15 @@
 import type { H3Event } from 'h3'
 
 /**
- * Usage-based access: sessions, paid in points (shared/utils/products.ts has
- * the numbers). One session = one metered page the first time it is opened on
- * a day; re-reading it that day is free.
+ * The visitor meter — a sign-up funnel, not a paywall. Without an account a
+ * reader gets ANON_SESSIONS metered pages (a lesson, an interview answer, a
+ * visualiser; re-reading one the same day is free) per hashed IP per
+ * ANON_WINDOW_DAYS, then the wall asks them to sign up. Any account is
+ * unlimited on free content; paid lessons need Pro (server/utils/entitlement.ts).
  *
- *   anonymous   ANON_SESSIONS per hashed IP per ANON_WINDOW_DAYS
- *   account     ACCOUNT_SESSIONS in total, plus every pack in app.session_ledger
- *   unlimited   admin, an admin grant (app.entitlement), or a seat in an active
- *               organisation — including one joined automatically because the
- *               account's VERIFIED email domain is on the organisation's list
+ * Signing in also settles organisation seats: an email invited to a team
+ * (app.org_invite) takes its seat, and a VERIFIED email on an organisation's
+ * domain list joins while seats last.
  *
  * The IP is never stored: the subject is a SHA-256 of it with the site's
  * secret. Crawlers are never metered (the pages are public and prerendered;
@@ -35,49 +35,47 @@ async function subjectOf(event: H3Event, user: SessionUser | null) {
   return `ip:${(await sha256(`meter:${clientAddress(event) ?? 'unknown'}:${await secretKey()}`)).slice(0, 40)}`
 }
 
-/** Joins the user to an organisation whose domain list has their verified email domain. */
-async function joinByDomain(user: SessionUser): Promise<void> {
-  if (!user.emailVerified) return
-  const domain = user.email.split('@')[1]?.toLowerCase()
-  if (!domain) return
+/**
+ * Seats on sign-in: an invitation to this email takes its seat (the invite is
+ * the seat, already counted); otherwise a verified email on an organisation's
+ * domain list joins while seats last.
+ */
+export async function claimSeat(user: SessionUser): Promise<void> {
   const sql = useDb()
+  const email = user.email.toLowerCase()
+  const [invite] = await sql`
+    select i.org_id from app.org_invite i join app.org o on o.id = i.org_id
+    where lower(i.email) = ${email} and o.status = 'active'
+      and not exists (select 1 from app.org_member m where m.user_id = ${user.id}) limit 1`
+  if (invite) {
+    await sql.transaction([
+      sql`insert into app.org_member (org_id, user_id) values (${invite.org_id}, ${user.id}) on conflict do nothing`,
+      sql`delete from app.org_invite where org_id = ${invite.org_id} and lower(email) = ${email}`
+    ])
+    return
+  }
+  if (!user.emailVerified) return
+  const domain = email.split('@')[1]
+  if (!domain) return
   const [org] = await sql`
     select o.id from app.org o
-    where ${domain} = any(o.domains) and (o.expires_at is null or o.expires_at > now())
-      and (select count(*) from app.org_member m where m.org_id = o.id) < o.seats
+    where ${domain} = any(o.domains) and o.status = 'active' and (o.expires_at is null or o.expires_at > now())
+      and (select count(*) from app.org_member m where m.org_id = o.id) + (select count(*) from app.org_invite i where i.org_id = o.id) < o.seats
       and not exists (select 1 from app.org_member m where m.user_id = ${user.id})
     order by o.created_at limit 1`
   if (org) await sql`insert into app.org_member (org_id, user_id) values (${org.id}, ${user.id}) on conflict do nothing`
-}
-
-async function unlimitedVia(user: SessionUser | null): Promise<string | null> {
-  if (!user) return null
-  if (isAdmin(user)) return 'admin'
-  await joinByDomain(user).catch(() => {})
-  const sql = useDb()
-  const [row] = await sql`
-    select (select o.name from app.org_member m join app.org o on o.id = m.org_id
-            where m.user_id = ${user.id} and (o.expires_at is null or o.expires_at > now()) limit 1) as org,
-           exists (select 1 from app.entitlement e where e.user_id = ${user.id} and e.pro and (e.expires_at is null or e.expires_at > now())) as grant`
-  return row?.org ? String(row.org) : row?.grant ? 'grant' : null
 }
 
 export async function meterStatus(event: H3Event, user: SessionUser | null): Promise<MeterStatus> {
   if (!user && BOT.test(getRequestHeader(event, 'user-agent') ?? '')) {
     return { signedIn: false, unlimited: true, via: 'crawler', allowance: 0, used: 0, remaining: 0, bought: 0, windowDays: null }
   }
-  const via = await unlimitedVia(user)
+  if (user) {
+    await claimSeat(user).catch(() => {})
+    return { signedIn: true, unlimited: true, via: 'account', allowance: 0, used: 0, remaining: 0, bought: 0, windowDays: null }
+  }
   const subject = await subjectOf(event, user)
   const sql = useDb()
-  if (user) {
-    const [row] = await sql`
-      select (select count(*)::int from app.meter_view where subject = ${subject}) as used,
-             (select coalesce(sum(sessions), 0)::int from app.session_ledger where user_id = ${user.id}) as bought`
-    const used = Number(row?.used ?? 0)
-    const bought = Number(row?.bought ?? 0)
-    const allowance = ACCOUNT_SESSIONS + bought
-    return { signedIn: true, unlimited: Boolean(via), via, allowance, used, remaining: Math.max(0, allowance - used), bought, windowDays: null }
-  }
   const [row] = await sql`
     select count(*)::int as used from app.meter_view
     where subject = ${subject} and created_at > now() - make_interval(days => ${ANON_WINDOW_DAYS})`
@@ -97,8 +95,7 @@ export async function chargeSession(event: H3Event, user: SessionUser | null, pa
   const sql = useDb()
   const [seen] = await sql`select 1 from app.meter_view where subject = ${subject} and path = ${path} and day = current_date`
   if (seen) return { ok: true, charged: false, status }
-  // Accounts count every session ever; anonymous visitors only the window.
-  const days = user ? 36500 : ANON_WINDOW_DAYS
+  const days = ANON_WINDOW_DAYS
   const [, inserted] = await sql.transaction([
     sql`select pg_advisory_xact_lock(hashtext(${subject}))`,
     sql`

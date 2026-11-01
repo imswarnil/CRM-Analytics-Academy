@@ -1,15 +1,19 @@
 /**
- * Whether a user has Pro right now — the one definition every route uses.
- * Pro comes from either their own entitlement (points or an admin grant) or a
- * seat in an active organisation (app.org_member).
+ * Whether a user has Pro right now — the one definition every route uses:
+ * an admin grant (app.entitlement), a Stripe subscription that is active,
+ * trialing or past due (app.subscription, kept by the webhook), or a seat in
+ * an active organisation (a paid team or one made by hand in /admin).
  */
 export async function hasPro(userId: string): Promise<boolean> {
   const rows = await useDb()`
     select 1 from app.entitlement
     where user_id = ${userId} and pro and (expires_at is null or expires_at > now())
     union all
+    select 1 from app.subscription
+    where user_id = ${userId} and status in ('active', 'trialing', 'past_due')
+    union all
     select 1 from app.org_member m join app.org o on o.id = m.org_id
-    where m.user_id = ${userId} and (o.expires_at is null or o.expires_at > now())
+    where m.user_id = ${userId} and o.status = 'active' and (o.expires_at is null or o.expires_at > now())
     limit 1`
   return rows.length > 0
 }

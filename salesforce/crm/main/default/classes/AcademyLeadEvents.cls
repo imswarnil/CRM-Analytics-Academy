@@ -26,22 +26,44 @@ public without sharing class AcademyLeadEvents implements Queueable {
     public static final Integer PACK_POINTS = 100;
     public static final Integer PACK_SESSIONS = 10;
 
-    /** What one purchase event bought: points spent and sessions, read from the lead's description. */
+    /**
+     * What one purchase event bought, read from the lead's description:
+     * Stripe purchases (subscribe, team, sponsor) as "Purchase: <plan> · <usd> USD
+     * · <n> seat(s)", retired point purchases (pack, redeem) as before.
+     */
     public class Purchase {
-        public Integer points;
-        public Integer sessions;
+        public String kind;
+        public String plan = '';
+        public Decimal usd = 0;
+        public Integer seats = 0;
+        public Integer points = 0;
+        public Integer sessions = 0;
         public Boolean pack;
         Purchase(Lead e) {
-            pack = e.Academy_Event__c == 'pack';
-            points = pack ? PACK_POINTS : PRO_POINTS;
-            sessions = pack ? PACK_SESSIONS : 0;
+            kind = e.Academy_Event__c;
+            pack = kind == 'pack';
             String d = e.Description == null ? '' : e.Description;
-            Matcher m = Pattern.compile('(\\d+) sessions for (\\d+) points').matcher(d);
-            if (pack && m.find()) {
-                sessions = Integer.valueOf(m.group(1));
-                points = Integer.valueOf(m.group(2));
+            if (pack) {
+                points = PACK_POINTS;
+                sessions = PACK_SESSIONS;
+                Matcher m = Pattern.compile('(\\d+) sessions for (\\d+) points').matcher(d);
+                if (m.find()) {
+                    sessions = Integer.valueOf(m.group(1));
+                    points = Integer.valueOf(m.group(2));
+                }
+            } else if (kind == 'redeem') {
+                points = PRO_POINTS;
+            } else {
+                Matcher m = Pattern.compile('Purchase: (\\w+) · ([0-9.]+) USD · (\\d+) seat').matcher(d);
+                if (m.find()) {
+                    plan = m.group(1);
+                    usd = Decimal.valueOf(m.group(2));
+                    seats = Integer.valueOf(m.group(3));
+                }
             }
         }
+        public Boolean paidInMoney() { return kind == 'subscribe' || kind == 'team' || kind == 'sponsor'; }
+        public Decimal mrr() { return kind == 'subscribe' ? (plan == 'proYearly' ? (usd / 12).setScale(2) : usd) : kind == 'team' ? usd : 0; }
     }
 
     private final Set<Id> leadIds;
@@ -92,7 +114,7 @@ public without sharing class AcademyLeadEvents implements Queueable {
                 }
                 continue;
             }
-            if (ev == 'redeem' || ev == 'pack') {
+            if (ev == 'redeem' || ev == 'pack' || ev == 'subscribe' || ev == 'team' || ev == 'sponsor') {
                 Purchase buy = new Purchase(e);
                 if (c != null && c.AccountId != null) {
                     if (!renewals.containsKey(c.AccountId)) renewals.put(c.AccountId, new List<Purchase>());
@@ -158,16 +180,9 @@ public without sharing class AcademyLeadEvents implements Queueable {
                 continue;
             }
             Purchase buy = buys.get(r.getLeadId());
-            Account a = new Account(Id = r.getAccountId(), Lifecycle_Stage__c = 'customer', Motion__c = 'self-serve',
-                Customer_Since__c = Date.today(), Points_Spent__c = buy.points);
-            if (buy.pack) {
-                a.Academy_Plan__c = 'usage';
-                a.Sessions_Bought__c = buy.sessions;
-            } else {
-                a.Academy_Plan__c = 'pro';
-                a.MRR__c = PRO_MRR;
-                a.Pro_Until__c = Date.today().addDays(PRO_DAYS);
-            }
+            Account a = new Account(Id = r.getAccountId(), Lifecycle_Stage__c = 'customer', Customer_Since__c = Date.today(),
+                Motion__c = buy.kind == 'sponsor' ? 'sales-led' : 'self-serve');
+            applyTo(a, buy);
             accounts.add(a);
             // Custom lead fields do not carry over on conversion unless mapped in
             // Setup, so the user id — which renewals find the person by — is set here.
@@ -182,20 +197,11 @@ public without sharing class AcademyLeadEvents implements Queueable {
 
     private static void renew(Map<Id, List<Purchase>> purchases) {
         if (purchases.isEmpty()) return;
-        List<Account> accounts = [SELECT Id, Pro_Until__c, Points_Spent__c, Sessions_Bought__c, Customer_Since__c, MRR__c FROM Account WHERE Id IN :purchases.keySet()];
+        List<Account> accounts = [SELECT Id, Pro_Until__c, Points_Spent__c, Sessions_Bought__c, Customer_Since__c, MRR__c, Seats_Purchased__c FROM Account WHERE Id IN :purchases.keySet()];
         List<Opportunity> deals = new List<Opportunity>();
         for (Account a : accounts) {
             for (Purchase buy : purchases.get(a.Id)) {
-                a.Points_Spent__c = (a.Points_Spent__c == null ? 0 : a.Points_Spent__c) + buy.points;
-                if (buy.pack) {
-                    a.Sessions_Bought__c = (a.Sessions_Bought__c == null ? 0 : a.Sessions_Bought__c) + buy.sessions;
-                    a.Academy_Plan__c = 'usage';
-                } else {
-                    Date startFrom = a.Pro_Until__c != null && a.Pro_Until__c > Date.today() ? a.Pro_Until__c : Date.today();
-                    a.Pro_Until__c = startFrom.addDays(PRO_DAYS);
-                    a.Academy_Plan__c = 'pro';
-                    if (a.MRR__c == null || a.MRR__c < PRO_MRR) a.MRR__c = PRO_MRR;
-                }
+                applyTo(a, buy);
                 deals.add(deal(a.Id, buy, false));
             }
             a.Lifecycle_Stage__c = 'customer';
@@ -205,7 +211,37 @@ public without sharing class AcademyLeadEvents implements Queueable {
         save(deals, true);
     }
 
+    /** What a purchase does to the account's plan and revenue fields. */
+    private static void applyTo(Account a, Purchase buy) {
+        if (buy.points > 0) a.Points_Spent__c = (a.Points_Spent__c == null ? 0 : a.Points_Spent__c) + buy.points;
+        if (buy.kind == 'subscribe') {
+            a.Academy_Plan__c = 'pro';
+            a.MRR__c = buy.mrr();
+        } else if (buy.kind == 'team') {
+            a.Academy_Plan__c = 'seats';
+            a.Org_Type__c = 'team';
+            a.Seats_Purchased__c = buy.seats;
+            a.MRR__c = buy.mrr();
+        } else if (buy.pack) {
+            a.Academy_Plan__c = 'usage';
+            a.Sessions_Bought__c = (a.Sessions_Bought__c == null ? 0 : a.Sessions_Bought__c) + buy.sessions;
+        } else if (buy.kind == 'redeem') {
+            Date startFrom = a.Pro_Until__c != null && a.Pro_Until__c > Date.today() ? a.Pro_Until__c : Date.today();
+            a.Pro_Until__c = startFrom.addDays(PRO_DAYS);
+            a.Academy_Plan__c = 'pro';
+            if (a.MRR__c == null || a.MRR__c < PRO_MRR) a.MRR__c = PRO_MRR;
+        }
+        if (a.Customer_Since__c == null) a.Customer_Since__c = Date.today();
+    }
+
     private static Opportunity deal(Id accountId, Purchase buy, Boolean first) {
+        if (buy.paidInMoney()) {
+            String name = buy.kind == 'subscribe' ? (buy.plan == 'proYearly' ? 'Pro — yearly' : 'Pro — monthly')
+                : buy.kind == 'team' ? 'Team — ' + buy.seats + ' seats (monthly)' : 'Sponsorship — ' + buy.plan;
+            return new Opportunity(AccountId = accountId, Name = name, StageName = 'Closed Won', CloseDate = Date.today(),
+                Amount = buy.usd, Paid_In__c = 'usd', Seats__c = buy.kind == 'team' ? buy.seats : (buy.kind == 'subscribe' ? 1 : null),
+                LeadSource = 'Web', Description = 'Paid through Stripe on the site.');
+        }
         if (!buy.pack) return proDeal(accountId, first ? 'Pro — self-serve (first month)' : 'Pro — self-serve renewal');
         // Valued in points — the Academy never takes money; Amount carries the points.
         return new Opportunity(AccountId = accountId, Name = 'Session pack — ' + buy.sessions + ' sessions', StageName = 'Closed Won',

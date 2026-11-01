@@ -14,7 +14,7 @@ const route = useRoute()
 const { load } = useProgress()
 
 interface Member { userId: string, role: string, joinedAt: string, name: string | null, email: string | null, lessons: number, points: number, sessions: number }
-interface Org { name: string, kind: string, seats: number, used: number, expiresAt: string | null, role: string, joinCode: string | null, domains: string[], members: Member[] }
+interface Org { name: string, kind: string, seats: number, used: number, invited: number, expiresAt: string | null, role: string, joinCode: string | null, domains: string[], billing: string, invites: string[], members: Member[] }
 const { data, refresh } = await useLazyAsyncData('my-org', () => $fetch<{ org: Org | null }>('/api/org').then(r => r.org), { server: false })
 
 const code = ref(String(route.query.code ?? ''))
@@ -42,6 +42,46 @@ async function remove(m: Member) {
     error.value = apiError(e) || t('contrib.err.generic')
   }
 }
+/* --- Admin: seats, people, domains, billing ------------------------------------ */
+const justPaid = computed(() => route.query.checkout === 'success')
+const seatsDraft = ref(0)
+watch(data, o => (seatsDraft.value = o?.seats ?? 0), { immediate: true })
+const emails = ref('')
+const domainsDraft = ref('')
+watch(data, o => (domainsDraft.value = (o?.domains ?? []).join(', ')), { immediate: true })
+const working = ref('')
+async function act(kind: string, fn: () => Promise<unknown>) {
+  working.value = kind
+  error.value = ''
+  try {
+    await fn()
+    await refresh()
+  } catch (e) {
+    error.value = apiError(e) || t('contrib.err.generic')
+  } finally {
+    working.value = ''
+  }
+}
+// Back from Stripe before its webhook landed: look again for a few seconds.
+onMounted(() => {
+  if (!justPaid.value) return
+  let tries = 0
+  const timer = setInterval(async () => {
+    if (data.value || ++tries > 10) return clearInterval(timer)
+    await refresh()
+  }, 3000)
+})
+const saveSeats = () => act('seats', () => $fetch('/api/billing/seats', { method: 'POST', body: { seats: seatsDraft.value } }))
+const invite = () => act('invite', async () => {
+  await $fetch('/api/org/invite', { method: 'POST', body: { emails: emails.value } })
+  emails.value = ''
+})
+const uninvite = (email: string) => act('invite', () => $fetch('/api/org/invite', { method: 'DELETE', body: { email } }))
+const saveDomains = () => act('domains', () => $fetch('/api/org/domains', { method: 'POST', body: { domains: domainsDraft.value } }))
+const billing = () => act('billing', async () => {
+  window.location.href = (await $fetch<{ url: string }>('/api/billing/portal', { method: 'POST', body: { team: true } })).url
+})
+
 const joinLink = computed(() => (data.value?.joinCode ? `${SITE.url}${localePath('/team')}?code=${data.value.joinCode}` : ''))
 const copied = ref(false)
 async function copy() {
@@ -68,6 +108,14 @@ useSeoMeta({ title: () => t('team.title'), robots: 'noindex' })
         variant="subtle"
         icon="i-lucide-circle-alert"
         :description="error"
+      />
+
+      <UAlert
+        v-if="justPaid && !data"
+        color="primary"
+        variant="subtle"
+        icon="i-lucide-loader"
+        :description="t('team.activating')"
       />
 
       <!-- No seat yet: join -->
@@ -140,6 +188,141 @@ useSeoMeta({ title: () => t('team.title'), robots: 'noindex' })
               {{ t('team.until', { date: new Date(data.expiresAt).toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' }) }) }}
             </p>
           </div>
+        </section>
+
+        <UAlert
+          v-if="justPaid"
+          color="primary"
+          variant="subtle"
+          icon="i-lucide-party-popper"
+          :description="t('team.paid')"
+        />
+
+        <!-- Admin tools: seats, people by email, company domains, billing -->
+        <section
+          v-if="data.role === 'admin'"
+          class="grid gap-px border-[1.5px] border-(--ink) bg-(--line) md:grid-cols-2"
+        >
+          <div class="space-y-3 bg-(--card) p-5">
+            <p class="eyebrow">
+              {{ t('team.seatsTitle') }}
+            </p>
+            <p class="text-sm text-(--ink2)">
+              {{ t('team.seatsUsed', { used: data.used + data.invited, seats: data.seats }) }}
+            </p>
+            <div
+              v-if="data.billing === 'stripe'"
+              class="flex flex-wrap items-center gap-2"
+            >
+              <UButton
+                icon="i-lucide-minus"
+                color="neutral"
+                variant="outline"
+                square
+                :aria-label="t('plans.fewer')"
+                @click="seatsDraft = Math.max(TEAM_MIN_SEATS, seatsDraft - 1)"
+              />
+              <span class="min-w-20 text-center font-semibold tabular-nums">{{ t('plans.seatsN', { n: seatsDraft }) }}</span>
+              <UButton
+                icon="i-lucide-plus"
+                color="neutral"
+                variant="outline"
+                square
+                :aria-label="t('plans.more')"
+                @click="seatsDraft++"
+              />
+              <UButton
+                size="sm"
+                :disabled="seatsDraft === data.seats"
+                :loading="working === 'seats'"
+                @click="saveSeats"
+              >
+                {{ t('team.saveSeats') }}
+              </UButton>
+            </div>
+            <UButton
+              v-if="data.billing === 'stripe'"
+              size="sm"
+              color="neutral"
+              variant="outline"
+              icon="i-lucide-credit-card"
+              :loading="working === 'billing'"
+              @click="billing"
+            >
+              {{ t('team.billing') }}
+            </UButton>
+          </div>
+          <form
+            class="space-y-3 bg-(--card) p-5"
+            @submit.prevent="invite"
+          >
+            <p class="eyebrow">
+              {{ t('team.assignTitle') }}
+            </p>
+            <UTextarea
+              v-model="emails"
+              :rows="2"
+              autoresize
+              :placeholder="t('team.emailsPlaceholder')"
+              class="w-full"
+            />
+            <UButton
+              type="submit"
+              size="sm"
+              icon="i-lucide-user-plus"
+              :loading="working === 'invite'"
+              :disabled="!emails.trim()"
+            >
+              {{ t('team.assign') }}
+            </UButton>
+            <ul
+              v-if="data.invites.length"
+              class="flex flex-wrap gap-1.5"
+            >
+              <li
+                v-for="e in data.invites"
+                :key="e"
+                class="flex items-center gap-1 border border-(--line) px-2 py-0.5 font-mono text-xs"
+              >
+                {{ e }}
+                <button
+                  type="button"
+                  class="text-(--ink2) hover:text-error"
+                  :aria-label="t('team.free')"
+                  @click="uninvite(e)"
+                >
+                  ×
+                </button>
+              </li>
+            </ul>
+          </form>
+          <form
+            class="space-y-3 bg-(--card) p-5 md:col-span-2"
+            @submit.prevent="saveDomains"
+          >
+            <p class="eyebrow">
+              {{ t('team.domainsTitle') }}
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <UInput
+                v-model="domainsDraft"
+                placeholder="yourcompany.com"
+                class="min-w-64 flex-1"
+              />
+              <UButton
+                type="submit"
+                size="sm"
+                variant="outline"
+                color="neutral"
+                :loading="working === 'domains'"
+              >
+                {{ t('team.saveDomains') }}
+              </UButton>
+            </div>
+            <p class="text-xs text-(--ink2)">
+              {{ t('team.domainsHint') }}
+            </p>
+          </form>
         </section>
 
         <!-- The org's admin -->

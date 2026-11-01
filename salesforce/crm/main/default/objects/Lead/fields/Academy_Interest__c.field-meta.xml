@@ -22,6 +22,11 @@
                 <label>Seats for an organisation</label>
             </value>
             <value>
+                <fullName>sponsorship</fullName>
+                <default>false</default>
+                <label>Sponsorship</label>
+            </value>
+            <value>
                 <fullName>salesforce-setup</fullName>
                 <default>false</default>
                 <label>Salesforce / CRM Analytics set-up</label>

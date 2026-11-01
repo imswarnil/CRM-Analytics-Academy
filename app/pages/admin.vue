@@ -17,12 +17,13 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Tab = 'overview' | 'analytics' | 'leads' | 'seats' | 'users' | 'submissions' | 'interview' | 'comments'
+type Tab = 'overview' | 'analytics' | 'leads' | 'revenue' | 'seats' | 'users' | 'submissions' | 'interview' | 'comments'
 const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
   { key: 'analytics', label: 'Analytics', icon: 'i-lucide-chart-line' },
   { key: 'leads', label: 'Leads', icon: 'i-lucide-handshake' },
-  { key: 'seats', label: 'Seats', icon: 'i-lucide-building-2' },
+  { key: 'revenue', label: 'Revenue & sponsors', icon: 'i-lucide-badge-dollar-sign' },
+  { key: 'seats', label: 'Teams & orgs', icon: 'i-lucide-building-2' },
   { key: 'users', label: 'Users', icon: 'i-lucide-users' },
   { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
   { key: 'interview', label: 'Interview Q&A', icon: 'i-lucide-messages-square' },
@@ -81,8 +82,7 @@ interface AdminUser {
   emailVerified: boolean
   points: number
   balance: number
-  sessionsUsed: number
-  sessionsBought: number
+  plan: string | null
   org: string | null
   source: string | null
   firstLanding: string | null
@@ -453,6 +453,9 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
             @org-created="tab = 'seats'"
           />
 
+          <!-- ======================= REVENUE & SPONSORS ====================== -->
+          <AdminSponsors v-else-if="tab === 'revenue'" />
+
           <!-- ============================== SEATS ============================= -->
           <AdminSeats v-else-if="tab === 'seats'" />
 
@@ -592,7 +595,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                       class="px-3 py-2 text-end tabular-nums"
                       :title="`earned ${u.points} · balance ${u.balance}`"
                     >
-                      {{ u.points }} <span class="block font-mono text-[11px] text-(--ink2)">bal {{ u.balance }} · {{ u.sessionsUsed }}/{{ ACCOUNT_SESSIONS + u.sessionsBought }} sess</span>
+                      {{ u.points }} <span class="block font-mono text-[11px] text-(--ink2)">{{ u.plan ?? 'free' }}</span>
                     </td>
                     <td class="px-4 py-2 text-end font-mono text-xs">
                       {{ date(u.lastLessonAt) }}

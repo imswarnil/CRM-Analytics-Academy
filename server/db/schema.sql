@@ -426,3 +426,80 @@ alter table app.points_ledger add constraint points_ledger_reason_check
 -- Organisations can be joined automatically by verified email domain.
 alter table app.org add column if not exists domains text[] not null default '{}';
 update app.org set domains = array[domain] where domain is not null and domains = '{}';
+
+-- ---------------------------------------------------------------------------
+-- Stripe (2026-11-03): Pro subscriptions, team seats, sponsorships. Stripe is
+-- the source of truth; these rows are what its webhook (server/api/stripe/
+-- webhook.post.ts) last told us. Session packs (above) are retired; the
+-- tables stay so history is not lost.
+
+-- One Pro subscription per user.
+create table if not exists app.subscription (
+  user_id             text primary key,
+  stripe_customer     text not null,
+  stripe_subscription text not null unique,
+  plan                text not null,          -- PRICES key: proMonthly | proYearly
+  status              text not null,          -- Stripe status: active, trialing, past_due, canceled…
+  current_period_end  timestamptz,
+  cancel_at_period_end boolean not null default false,
+  updated_at          timestamptz not null default now()
+);
+
+-- Teams are organisations (app.org) paid by Stripe: seats = the subscription
+-- quantity. Organisations made by hand in /admin have billing = 'manual'.
+alter table app.org add column if not exists billing text not null default 'manual';
+alter table app.org add column if not exists stripe_customer text;
+alter table app.org add column if not exists stripe_subscription text;
+alter table app.org add column if not exists status text not null default 'active';
+alter table app.org add column if not exists admin_user_id text;
+create unique index if not exists org_stripe_subscription_uniq on app.org (stripe_subscription) where stripe_subscription is not null;
+
+-- Seats assigned by email: whoever signs in with that address takes the seat.
+create table if not exists app.org_invite (
+  org_id     bigint not null references app.org(id) on delete cascade,
+  email      text   not null check (email ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$'),
+  created_at timestamptz not null default now(),
+  primary key (org_id, email)
+);
+create index if not exists org_invite_email_idx on app.org_invite (email);
+
+-- Sponsorships: requested in one short form, invoiced through Stripe, designed
+-- and published by the sponsor, approved by the owner, live for `days` days
+-- from the moment it is both paid and approved.
+create table if not exists app.sponsor (
+  id              bigint generated always as identity primary key,
+  owner_user_id   text,                    -- the sponsor's Academy account (portal access)
+  email           text not null,
+  company         text not null check (length(btrim(company)) between 2 and 120),
+  package         text not null,           -- PRICES key: sponsorWeek | sponsorMonth
+  days            integer not null,
+  status          text not null default 'requested'
+                    check (status in ('requested', 'invoiced', 'paid', 'live', 'ended', 'cancelled')),
+  creative        jsonb not null default '{}'::jsonb,   -- logo, headline, body, cta, url, colours
+  creative_status text not null default 'draft' check (creative_status in ('draft', 'submitted', 'approved', 'changes')),
+  review_note     text,
+  stripe_customer text,
+  stripe_invoice  text,
+  invoice_url     text,
+  starts_at       timestamptz,
+  ends_at         timestamptz,
+  created_at      timestamptz not null default now()
+);
+create index if not exists sponsor_live_idx on app.sponsor (status, starts_at, ends_at);
+
+-- Sponsor analytics, one row per sponsor, day and page.
+create table if not exists app.sponsor_stat (
+  sponsor_id bigint not null references app.sponsor(id) on delete cascade,
+  day        date   not null default current_date,
+  path       text   not null,
+  views      integer not null default 0,
+  clicks     integer not null default 0,
+  primary key (sponsor_id, day, path)
+);
+
+-- Stripe webhook events already handled (Stripe retries; handle each once).
+create table if not exists app.stripe_event (
+  id         text primary key,
+  type       text not null,
+  created_at timestamptz not null default now()
+);

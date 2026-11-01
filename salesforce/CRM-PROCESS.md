@@ -43,7 +43,11 @@ starts) folds it into their one record and deletes the duplicate:
 | On the site | In Salesforce |
 | --- | --- |
 | **Signs up** | a Lead, Lifecycle **Lead**, Motion **Self-serve**, with first source, first page and pages read |
-| **Buys a session pack** (points — the Academy never takes money) | the lead is **converted**: Account (Lifecycle **Customer**, Self-serve, Plan **Usage**, Sessions bought, Points spent, Customer since), Contact, and a **Closed Won** deal valued in points (`Session pack — 10 sessions`, Amount 100) |
+| **Subscribes to Pro** (Stripe) | converted: Account (Customer, Self-serve, Plan Pro, **MRR 15** or 12.50 for yearly), Contact, Closed Won deal *Pro — monthly/yearly* in USD |
+| **Buys a team** (Stripe, per seat) | Account (Plan Seats, Org type Team, Seats purchased, **MRR seats × 10**), Closed Won deal *Team — N seats* |
+| **Asks to sponsor** (/sponsor) | Lead, interest **Sponsorship**, Lifecycle SQL, Sales-led, score 40+ — send the Stripe invoice from /admin → Revenue & sponsors |
+| **Pays a sponsorship** (Stripe invoice) | Customer, Sales-led, Closed Won deal *Sponsorship — 7/30 days* in USD |
+| **Buys a session pack** (retired points era) | the lead is **converted**: Account (Lifecycle **Customer**, Self-serve, Plan **Usage**, Sessions bought, Points spent, Customer since), Contact, and a **Closed Won** deal valued in points (`Session pack — 10 sessions`, Amount 100) |
 | **Buys again** | another pack deal; Sessions bought and Points spent go up |
 | **Asks for seats / help** | its own Lead, Lifecycle **SQL**, Motion **Sales-led** — a sales conversation, steps 1–8 below |
 
@@ -162,7 +166,8 @@ sf apex run --file scripts/apex/crm-seed.apex --target-org crma-learning
 node scripts/lead-field-ids.mjs --target-org crma-learning
 ```
 
-Usage products (Session Pack, Organisation Seat; Pro retired) and demo packs:
+SaaS products with USD prices (Pro monthly/yearly, Team seat, Sponsorship 7/30 days):
+`scripts/apex/crm-seed-saas.apex`. Earlier, usage products and demo packs:
 `scripts/apex/crm-seed-usage.apex` (safe to re-run).
 
 More demo records (a full funnel, self-serve customers with monthly Pro deals,
