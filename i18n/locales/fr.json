@@ -25,7 +25,7 @@
     "certification": "Examens",
     "interview": "Entretiens",
     "companies": "Entreprises",
-    "pro": "Pour",
+    "pro": "Accès",
     "visualiser": "Visualiseurs",
     "team": "Mon organisation"
   },
@@ -383,7 +383,7 @@
       },
       "devOrg": {
         "title": "Édition développeur Org",
-        "desc": "Un libre Salesforce Pour suivre toutes les leçons."
+        "desc": "Un libre Salesforce org où vous pouvez suivre chaque leçon pratique."
       },
       "vscode": {
         "title": "Code VS + Extensions SF",
@@ -613,7 +613,7 @@
       "verify": "{bold}: {lint} et {typecheck} Les deux passent.",
       "verifyBold": "Vérifier",
       "commit": "{bold} avec un message clair et {push} à votre fourchette.",
-      "commitBold": "S'engager",
+      "commitBold": "Faire le changement",
       "pushBold": "Pousser",
       "open": "{bold} contre {main}, décrivant ce qui a changé et pourquoi.",
       "openBold": "Ouvrir un PR",
@@ -1273,30 +1273,31 @@
     "proBody": "Passages complets, quiz et examens — et aidez quand vous êtes coincé.",
     "proActive": "Vous êtes membre Pro",
     "proActiveBody": "Chaque leçon Pro est ouverte à vous. Merci d'avoir soutenu l'Académie.",
-    "walletHint": "Coûts pro {n} et des points. Chaque leçon et quizz gagne plus."
+    "walletHint": "{points} achat de points {sessions} d'autres séances.",
+    "recentSessions": "Votre dernier {n} Séances",
+    "morePacks": "Sessions et paquets"
   },
   "pro": {
-    "eyebrow": "Cours pro",
-    "tag": "Pour",
-    "lockedTitle": "Cette leçon est pour les membres Pro",
-    "lockedBody": "Tu as lu l'ouverture de{title}Le reste — le tour complet, le quiz et les questions d'entrevue — fait partie de Pro.",
-    "perkLessons": "Chaque leçon Pro, comme chaque section est publiée",
-    "perkExams": "Examen complet des réponses aux cinq examens de pratique",
-    "perkNoPromos": "Aucune annonce sur le site",
-    "perkCommunity": "Réponses prioritaires à vos questions",
+    "eyebrow": "Cours des membres",
+    "tag": "Membres",
+    "lockedTitle": "Connectez-vous pour lire le reste",
+    "lockedBody": "Tu as lu l'ouverture de{title}Le reste — le passage complet, le quiz et les questions d'entrevue — s'adresse aux apprenants inscrits et l'ouverture d'une séance.",
+    "perkLessons": "Chaque leçon des membres, comme chaque section est publiée",
+    "perkExams": "Vos progrès, stries et scores d'examen enregistrés",
+    "perkNoPromos": "Pas de publicité nulle part",
+    "perkCommunity": "100 sessions et 1 000 points de départ",
     "signUpFirst": "Créez votre compte gratuit",
-    "getPro": "Obtenez Pro avec des points",
-    "signUpHint": "Un compte gratuit supprime chaque annonce et vient avec 1000 points — assez pour votre premier mois de Pro. L'apprentissage gagne le prochain.",
+    "getPro": "Sessions et paquets",
+    "signUpHint": "Un compte gratuit est livré avec 100 sessions et 1000 points. Jamais de paiement.",
     "freeTag": "Gratuit",
     "freeLesson": "Cours gratuit"
   },
   "store": {
-    "eyebrow": "Pour",
-    "seoTitle": "CRM Analytics Plans de l'Académie: Gratuit, Pro et des sièges d'équipe",
-    "seoDesc": "Apprendre Salesforce CRM Analytics gratuitement. Les cours pro sont débloqués avec des points que vous gagnez par l'apprentissage — aucun paiement, jamais. Les entreprises, les équipes et les universités peuvent demander des sièges Pro.",
-    "title": "Trois plans, un cours",
-    "lead": "Tout le public reste libre. Pro est acheté avec des points: chaque compte commence par 1000, assez pour le premier mois, et l'apprentissage gagne plus. Les organisations demandent des sièges.",
-    "youArePro": "Vous êtes membre Pro",
+    "eyebrow": "Accès",
+    "seoTitle": "CRM Analytics Accès à l'Académie: sessions, points et organisations gratuits",
+    "seoDesc": "Apprendre Salesforce CRM Analytics gratuit: 10 sessions sans compte, 100 avec un, packs de 10 pour 100 points gagnés par l'apprentissage, illimité pour les entreprises et les universités. Jamais de paiement.",
+    "title": "Libre à apprendre, équitable à utiliser",
+    "lead": "Chaque page est libre d'ouvrir. Les sessions sont équitables: dix sans compte, cent avec un, plus pour les points que vous gagnez par apprentissage — et illimité pour les organisations. Jamais de paiement.",
     "popular": "Les plus populaires",
     "sentTitle": "Merci — votre demande est acceptée.",
     "sentBody": "Swarnil répondra par email dans les deux jours ouvrables avec les prochaines étapes.",
@@ -1314,32 +1315,35 @@
     "noCharge": "Il n'y a rien à payer, l'Académie fonctionne sur des points. Vous recevrez une réponse par email dans les deux jours ouvrables."
   },
   "products": {
-    "free": {
-      "name": "Gratuit",
-      "tagline": "Tout le cours public, pour tout le monde.",
-      "f1": "Chaque leçon gratuite, quiz et parcours",
-      "f2": "Cinq examens de pratique et la banque d'entrevues",
-      "f3": "Les SAQL, visualisateurs de recettes et de flux de données",
-      "f4": "Pas de publicité une fois que vous vous êtes connecté",
-      "f5": "1 000 points pour commencer — un mois de Pro"
+    "visitor": {
+      "name": "Visiteur",
+      "tagline": "Essayez sans compte.",
+      "f1": "Chaque leçon, réponse à l'entrevue et visualisation",
+      "f2": "Une session = une page, la relire ce jour-là est gratuite",
+      "f3": "Réinitialise tous les 30 jours"
     },
-    "pro": {
-      "name": "Pour",
-      "tagline": "Chaque leçon de pro - payé en points alors que l'Académie est nouvelle.",
-      "f1": "Toutes les leçons Pro, chaque section étant publiée",
-      "f2": "Examen complet des réponses aux examens de pratique",
-      "f3": "Tableau de bord et recettes téléchargeables",
-      "f4": "Pas de publicité nulle part",
-      "f5": "Réponses prioritaires dans les commentaires"
+    "account": {
+      "name": "Compte libre",
+      "tagline": "Inscrivez-vous et les séances seront multipliées par dix.",
+      "f1": "Quatre-vingt-dix sessions supplémentaires en plus des dix premières",
+      "f2": "{welcome} points de départ, plus pour chaque leçon",
+      "f3": "Membres leçons, progrès, stries, le classement",
+      "f4": "Aucune publicité une fois que vous vous êtes connecté"
+    },
+    "pack": {
+      "name": "Dossier de session",
+      "tagline": "Courir ? Compléter avec des points — jamais d'argent.",
+      "f1": "Dix sessions supplémentaires pour {points} Paragraphes",
+      "f2": "Achetez un, trois ou cinq à la fois",
+      "f3": "Les points proviennent de l'apprentissage et de la contribution"
     },
     "seats": {
-      "name": "Équipes et universités",
-      "tagline": "Pro pour une entreprise, une équipe ou une classe — par siège.",
-      "f1": "Pro pour chaque siège, joint avec un code",
-      "f2": "Une vue administrative de qui apprend et jusqu'où",
-      "f3": "Ajouter ou libérer des sièges à tout moment",
-      "f4": "Les membres gagnent des points comme tout le monde",
-      "f5": "Un seul contact, rien à payer"
+      "name": "Organisations",
+      "tagline": "Illimité pour une entreprise, une équipe ou une université.",
+      "f1": "Sessions illimitées pour chaque membre",
+      "f2": "Rejoignez un code — ou automatiquement avec un domaine de travail de messagerie",
+      "f3": "Une vue administrative de qui apprend et jusqu'où",
+      "f4": "Toujours libre: demandez, et nous l'avons mis en place"
     }
   },
   "human": {
@@ -1349,23 +1353,11 @@
     "wait": "Un moment — toujours à vérifier que vous êtes humain."
   },
   "plans": {
-    "balance": "{n} Paragraphes",
-    "proUntil": "Pro jusqu'à {date}",
-    "seatOf": "Pour {org}",
-    "noEnd": "Aucune date de fin",
-    "free": "Gratuit",
-    "pointsPer": "points / {days} jours",
     "startLearning": "Commencez à apprendre",
-    "signUpFor": "Inscrivez-vous — obtenez {n} Paragraphes",
-    "redeem": "Débloquer Pro pour {n} Paragraphes",
-    "extend": "Ajouter {days} plus de jours",
-    "short": "Vous avez besoin {n} plus de points.",
-    "earn": "Gagner dans le cours",
-    "redeemed": "Vous êtes pro jusqu'à {date}. Profitez de chaque leçon.",
     "requestSeats": "Demander des sièges",
     "haveCode": "J'ai un code d'adhésion",
     "pointsEyebrow": "Points et non paiements",
-    "pointsTitle": "Votre premier mois est sur nous; apprendre paie pour le reste",
+    "pointsTitle": "L'apprentissage gagne les points qui achètent plus d'apprentissage",
     "earnRow": {
       "welcome": "lorsque vous créez votre compte",
       "lesson": "pour chaque leçon que vous terminez",
@@ -1391,18 +1383,29 @@
       "team": "Équipe",
       "university": "Université"
     },
-    "byRequest": "Sur demande"
+    "yourSessions": "Vos séances",
+    "unlimited": "Illimité",
+    "accountNote": "Les sessions n'expirent jamais. Relire une page le même jour est gratuit.",
+    "visitorNote": "Sans compte : ceux-ci réinitialisent chaque {days} jours. Inscrivez-vous pour 90 de plus.",
+    "pointsLabel": "Paragraphes",
+    "organisation": "Organisation",
+    "sessions": "Séances",
+    "sessionsFor": "pour les {points} Paragraphes",
+    "sessionsPer": "sessions {days} jours",
+    "youHaveAccount": "Allez dans votre tableau de bord",
+    "buyN": "{n} × · {points} pts",
+    "bought": "{n} des séances supplémentaires. Bon apprentissage."
   },
   "team": {
     "title": "Mon organisation",
-    "lead": "Sièges pour entreprises, équipes et universités. Rejoignez le code que votre administrateur vous a donné ; alors que votre organisation a des sièges, vous êtes Pro.",
+    "lead": "Accès illimité pour les entreprises, les équipes et les universités. Rejoignez le code que votre administrateur vous a donné — ou inscrivez-vous à votre email de travail si votre organisation est sur la liste.",
     "code": "Rejoindre le code",
     "codeHint": "8 lettres et chiffres",
     "join": "Asseyez-vous.",
     "noCode": "Pas encore de code ?",
     "request": "Demandez des sièges pour votre organisation",
     "seats": "{used} des {seats} Sièges utilisés",
-    "youArePro": "Votre siège comprend Pro.",
+    "youArePro": "Votre siège vous donne des sessions illimitées.",
     "until": "Les sièges courent jusqu'à {date}.",
     "adminTitle": "Vous dirigez cette organisation",
     "share": "Partagez ce code ou un lien avec les personnes qui devraient obtenir un siège. Chaque personne qui se joint utilise un siège.",
@@ -1410,7 +1413,9 @@
     "member": "État",
     "lessons": "Enseignements",
     "points": "Paragraphes",
-    "free": "Libérez ce siège"
+    "free": "Libérez ce siège",
+    "domains": "Toute personne avec une vérification {domains} e-mail rejoint automatiquement.",
+    "sessions": "Séances"
   },
   "vis": {
     "eyebrow": "Visualiseurs",
@@ -1636,5 +1641,20 @@
     "howToRead": "Comment lire ceci",
     "beatBefore": "ce qui se passe",
     "beatAfter": "résultat"
+  },
+  "meter": {
+    "eyebrow": "Séance {used} des {allowance}",
+    "wallTitle": "Vous avez utilisé vos sessions",
+    "wallTitleAnon": "C'était votre {n} sessions gratuites",
+    "wallBody": "Garnir d'un paquet — {sessions} pour les {points} et des points. Les points viennent de l'apprentissage, jamais de l'argent.",
+    "wallBodyAnon": "Créer un compte gratuit pour {more} plus de sessions et 1 000 points — ou revenir lorsque vos sessions se réinitialisent {days} jours.",
+    "signUp": "Créer un compte gratuit — {more} Autres sessions",
+    "buy": "Acheter {sessions} pour les {points} Paragraphes",
+    "balance": "Vous avez {n} Paragraphes",
+    "earn": "Gagnez des points : partagez une ressource (+25)",
+    "org": "Apprendre avec votre équipe ? Les organisations sont illimitées",
+    "home": "Retour à la page d'accueil",
+    "low": "{n} à gauche",
+    "left": "{n} des {allowance} à gauche"
   }
 }

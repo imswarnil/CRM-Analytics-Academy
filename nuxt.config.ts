@@ -272,15 +272,6 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (/node_modules\/(\.pnpm\/[^/]+\/node_modules\/)?(nuxt-studio|@tiptap|prosemirror-[a-z-]+|marked|@shikijs|shiki)\//.test(id)) return 'studio-editor'
-          }
-        }
-      }
-    },
     optimizeDeps: {
       // Only packages this project depends on directly can be listed here:
       // pnpm keeps transitive packages out of the root node_modules, so Vite
@@ -291,15 +282,15 @@ export default defineNuxtConfig({
     }
   },
 
-  // Load time: Nuxt Studio's editor (tiptap, prosemirror, marked, the
-  // highlighter) only matters to the one person editing at /_studio, yet it
-  // was preloaded or prefetched on every page — ~360 KB gzipped before a
-  // reader saw a word. It now gets its own chunk, and that chunk is never
-  // preloaded or prefetched: it downloads when the editor actually opens.
+  // Load time: Nuxt Studio's editor only matters to the one person editing at
+  // /_studio, yet its chunks were prefetched on every page. Chunks built from
+  // nuxt-studio are never preloaded or prefetched now; they download when the
+  // editor actually opens. (Forcing marked/shiki into an editor chunk was
+  // tried and made it worse: the site's own MDC rendering imports them.)
   hooks: {
     'build:manifest': (manifest) => {
       for (const chunk of Object.values(manifest)) {
-        if (/nuxt-studio|studio-editor/.test(chunk.file + (chunk.src ?? ''))) {
+        if (/nuxt-studio/.test(chunk.src ?? '')) {
           chunk.preload = false
           chunk.prefetch = false
         }

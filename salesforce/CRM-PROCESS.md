@@ -43,8 +43,8 @@ starts) folds it into their one record and deletes the duplicate:
 | On the site | In Salesforce |
 | --- | --- |
 | **Signs up** | a Lead, Lifecycle **Lead**, Motion **Self-serve**, with first source, first page and pages read |
-| **Buys Pro** (points today, money later) | the lead is **converted**: Account (Lifecycle **Customer**, Self-serve, Plan Pro, MRR 12, Customer since, Pro until, Points spent), Contact (Pro), and a **Closed Won** opportunity for the month |
-| **Buys again** | a renewal opportunity, Pro until +30 days, Points spent +1,000 |
+| **Buys a session pack** (points — the Academy never takes money) | the lead is **converted**: Account (Lifecycle **Customer**, Self-serve, Plan **Usage**, Sessions bought, Points spent, Customer since), Contact, and a **Closed Won** deal valued in points (`Session pack — 10 sessions`, Amount 100) |
+| **Buys again** | another pack deal; Sessions bought and Points spent go up |
 | **Asks for seats / help** | its own Lead, Lifecycle **SQL**, Motion **Sales-led** — a sales conversation, steps 1–8 below |
 
 Duplicate rules alert on the same person twice, which is exactly what the job
@@ -161,6 +161,9 @@ sf apex run --file scripts/apex/crm-seed.apex --target-org crma-learning
 # 4. the Web-to-Lead field ids → paste into server/utils/salesforce.ts (LEAD_FIELDS)
 node scripts/lead-field-ids.mjs --target-org crma-learning
 ```
+
+Usage products (Session Pack, Organisation Seat; Pro retired) and demo packs:
+`scripts/apex/crm-seed-usage.apex` (safe to re-run).
 
 More demo records (a full funnel, self-serve customers with monthly Pro deals,
 seat members, meetings, support cases): `scripts/apex/crm-seed-funnel.apex`.

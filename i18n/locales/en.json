@@ -383,7 +383,7 @@
       },
       "devOrg": {
         "title": "Developer Edition Org",
-        "desc": "A free Salesforce org to follow every lesson hands-on."
+        "desc": "A free Salesforce org where you can follow every lesson hands-on."
       },
       "vscode": {
         "title": "VS Code + SF Extensions",
@@ -613,7 +613,7 @@
       "verify": "{bold}: {lint} and {typecheck} both pass.",
       "verifyBold": "Verify",
       "commit": "{bold} with a clear message and {push} to your fork.",
-      "commitBold": "Commit",
+      "commitBold": "Commit the change",
       "pushBold": "push",
       "open": "{bold} against {main}, describing what changed and why.",
       "openBold": "Open a PR",

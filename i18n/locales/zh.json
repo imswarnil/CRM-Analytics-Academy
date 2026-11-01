@@ -25,7 +25,7 @@
     "certification": "考试",
     "interview": "面谈",
     "companies": "公司",
-    "pro": "赞成:",
+    "pro": "访问",
     "visualiser": "视觉师",
     "team": "我的组织"
   },
@@ -383,7 +383,7 @@
       },
       "devOrg": {
         "title": "开发者版块",
-        "desc": "A free Salesforce org to follow every lesson hands-on."
+        "desc": "免费的 Salesforce org 在那里你可以跟随每门课的实践。"
       },
       "vscode": {
         "title": "VS 代码 + SF 扩展",
@@ -613,7 +613,7 @@
       "verify": "{bold}数字 : {lint} 和 {typecheck} 都通过。",
       "verifyBold": "校验",
       "commit": "{bold} 带一个明确的信息, {push} 到你的叉子边",
-      "commitBold": "提交",
+      "commitBold": "提交更改",
       "pushBold": "推动",
       "open": "{bold} 反对 {main}描述改变和原因",
       "openBold": "打开 PR",
@@ -1273,30 +1273,31 @@
     "proBody": "全面走过,考试和考试审查——当你被卡住时提供帮助.",
     "proActive": "你是职业会员",
     "proActiveBody": "每个专业课程都是对你的开放。 谢谢你对学院的支持",
-    "walletHint": "费用 {n} 点。 每一课和测验都赚得更多。"
+    "walletHint": "{points} 积分购买 {sessions} 更多的会议。",
+    "recentSessions": "你最后一个 {n} 届会",
+    "morePacks": "会话和包装"
   },
   "pro": {
-    "eyebrow": "专业课",
-    "tag": "赞成:",
-    "lockedTitle": "这个教训是给支持党的",
-    "lockedBody": "你已读到“......{title}其余的——完全走过、问答和面试问题——是Pro的一部分。",
-    "perkLessons": "每个专业课程,每个部分都出版",
-    "perkExams": "所有五个实践考试的完整答复审查",
-    "perkNoPromos": "现场没有广告",
-    "perkCommunity": "优先回答您的问题",
+    "eyebrow": "成员经验教训",
+    "tag": "成员",
+    "lockedTitle": "签名读完其他的",
+    "lockedBody": "你已读到“......{title}其余的——完全通过、考试和面试问题——是供报名学习者使用的,开课时使用一次。",
+    "perkLessons": "每个成员的课程,随着每个部分的出版",
+    "perkExams": "你的成绩,成绩和考试成绩",
+    "perkNoPromos": "没有广告",
+    "perkCommunity": "100届和1 000分要开始",
     "signUpFirst": "创建您的自由账户",
-    "getPro": "获得 Pro 分数",
-    "signUpHint": "一个免费的帐号可以删除每个广告,并带来1000分的分数——足够你第一个月的Pro. Learning赚取下一个.",
+    "getPro": "会话和包装",
+    "signUpHint": "一个免费的账户有100个课和1000分。 没有付款,永远。",
     "freeTag": "免费",
     "freeLesson": "免费课程"
   },
   "store": {
-    "eyebrow": "赞成:",
-    "seoTitle": "CRM Analytics 学院计划:自由、专业和团队席位",
-    "seoDesc": "学习 Salesforce CRM Analytics 免费。 Pro的教训是用学习所得的分数解锁的——永远没有报酬。 公司,团队和大学可以要求Pro席位.",
-    "title": "三个计划,一个课程",
-    "lead": "一切大众不离不离. Pro是用积分买的:每个账户从1000开始,足够第一个月,学习赚得更多. 组织要求获得席位。",
-    "youArePro": "你是职业会员",
+    "eyebrow": "访问",
+    "seoTitle": "CRM Analytics 学院入学:免费上课、点数和组织",
+    "seoDesc": "学习 Salesforce CRM Analytics 免费:10个没有账户的课,100个有账户的课,每学分100分的课包为10个课包,对公司和大学无限制。 没有付款,永远。",
+    "title": "自由学习,公平使用",
+    "lead": "每页都可以自由打开. 课程保持公平:10次没有帐户,100次有帐户,更多的是学习所得的分数——组织不受限制。 没有付款,永远。",
     "popular": "最受欢迎的",
     "sentTitle": "谢谢,你的请求已经受理了",
     "sentBody": "Swarnil将在两个工作日内用电子邮件回复下一步。",
@@ -1314,32 +1315,35 @@
     "noCharge": "没有什么可付的——学院靠点数运转。 您将在两个工作日内收到电子邮件回复。"
   },
   "products": {
-    "free": {
-      "name": "免费",
-      "tagline": "整个公共课程,每个人。",
-      "f1": "每一次免费的课,考试和走过",
-      "f2": "五次练习考试和面试库",
-      "f3": "那个 SAQL、食谱和数据流可视化器",
-      "f4": "签入后没有广告",
-      "f5": "1 000分开始——一个月的Pro"
+    "visitor": {
+      "name": "访客",
+      "tagline": "试无帐.",
+      "f1": "每个课程,采访回答和视觉",
+      "f2": "一课=一页,当天免费重读",
+      "f3": "每30天更换一次"
     },
-    "pro": {
-      "name": "赞成:",
-      "tagline": "每个专业课程——在学院新开课时按分数支付.",
-      "f1": "所有专业课程,随着每一节的出版",
-      "f2": "对执业考试的全面答复审查",
-      "f3": "可下载的仪表板和食谱",
-      "f4": "没有广告",
-      "f5": "评论中的优先答复"
+    "account": {
+      "name": "自由账户",
+      "tagline": "报名,会话增加十倍.",
+      "f1": "前十届以上还有九十届",
+      "f2": "{welcome} 开始点,每个课都多点",
+      "f3": "成员教训,进步,成绩,领导板",
+      "f4": "签了名就哪儿都没有广告"
+    },
+    "pack": {
+      "name": "会话包",
+      "tagline": "逃跑吗? 顶端是点数——永远不要钱.",
+      "f1": "10届 {points} 点",
+      "f2": "一次买一、三、五",
+      "f3": "点来自学习和贡献"
     },
     "seats": {
-      "name": "团队和大学",
-      "tagline": "公司、团队或班级的Pro——每个座位。",
-      "f1": "每一个座位都有一个代码",
-      "f2": "对谁在学习 有多远的观察",
-      "f3": "随时增加或免费座位",
-      "f4": "会员总是像其他人一样赚点钱",
-      "f5": "一个联系人,没有报酬"
+      "name": "组织",
+      "tagline": "公司、团队或大学不受限制。",
+      "f1": "每个成员的无限制会议",
+      "f2": "加入代码——或自动加入工作电子邮件域名",
+      "f3": "对谁在学习 有多远的观察",
+      "f4": "总是自由:问,我们设置它"
     }
   },
   "human": {
@@ -1349,23 +1353,11 @@
     "wait": "等一等,你还是人"
   },
   "plans": {
-    "balance": "{n} 点",
-    "proUntil": "专业 {date}",
-    "seatOf": "Pro通过 {org}",
-    "noEnd": "无结束日期",
-    "free": "免费",
-    "pointsPer": "点数 / {days} 天数",
     "startLearning": "开始学习",
-    "signUpFor": "注册 - 得到 {n} 点",
-    "redeem": "解锁 Pro {n} 点",
-    "extend": "添加 {days} 更多天数",
-    "short": "惠璶 {n} 更多点。",
-    "earn": "在课程中挣钱",
-    "redeemed": "你是专业的,直到 {date}好好享受每一课",
     "requestSeats": "请求席位",
     "haveCode": "我有密码",
     "pointsEyebrow": "点数,不是付款",
-    "pointsTitle": "你的第一个月就到我们这儿了 剩下的就靠学习了",
+    "pointsTitle": "学习能赢得更多学习的分数",
     "earnRow": {
       "welcome": "当你创建您的账户时",
       "lesson": "你完成的每一课",
@@ -1391,18 +1383,29 @@
       "team": "团队",
       "university": "大学"
     },
-    "byRequest": "根据请求"
+    "yourSessions": "你们的会议",
+    "unlimited": "无限制",
+    "accountNote": "会话从未到期. 同日重读一页免费.",
+    "visitorNote": "没有账户 : 这些重置 {days} 几天时间 更签九十.",
+    "pointsLabel": "点",
+    "organisation": "日历",
+    "sessions": "届会",
+    "sessionsFor": "届会 {points} 点",
+    "sessionsPer": "每届会议 {days} 天数",
+    "youHaveAccount": "去你的仪表盘",
+    "buyN": "{n} × • {points} 点",
+    "bought": "{n} 增加了会议。 学习快乐."
   },
   "team": {
     "title": "我的组织",
-    "lead": "公司、团队和大学的席位。 加入你的管理员给你的代码; 虽然你的组织有席位,但你是专业的。",
+    "lead": "公司,团队和大学的无限制准入. 加入您的管理员给你的代码, 或者在您的组织在名单上时使用您的工作电子邮件 。",
     "code": "密码",
     "codeHint": "8个字母和数字",
     "join": "请坐",
     "noCode": "没有密码吗?",
     "request": "申请组织席位",
     "seats": "{used} 页:1 {seats} 使用的座位",
-    "youArePro": "您的座位包括Pro。",
+    "youArePro": "你的座位给你无限的课。",
     "until": "座位一直运行到 {date}。 。 。",
     "adminTitle": "你管理这个组织",
     "share": "和应该坐到座位的人分享这个代码或链接. 参会者各用一席.",
@@ -1410,7 +1413,9 @@
     "member": "成员",
     "lessons": "经验教训",
     "points": "点",
-    "free": "空出这个座位"
+    "free": "空出这个座位",
+    "domains": "任何有经过验证的 {domains} 电子邮件自动加入。",
+    "sessions": "会议"
   },
   "vis": {
     "eyebrow": "视觉师",
@@ -1636,5 +1641,20 @@
     "howToRead": "如何读这个",
     "beatBefore": "发生什么事",
     "beatAfter": "结果"
+  },
+  "meter": {
+    "eyebrow": "届会 {used} 页:1 {allowance}",
+    "wallTitle": "你用了你的课",
+    "wallTitleAnon": "这是你的 {n} 免费会议",
+    "wallBody": "上面有一个包 - {sessions} 届会 {points} 点。 积分来自学习,从不花钱.",
+    "wallBodyAnon": "创建空账户 {more} 更多会话和1000分——或当您的会话重设时,在 {days} 几天时间。",
+    "signUp": "创建一个自由账户—— {more} 更多会议",
+    "buy": "买 {sessions} 届会 {points} 点",
+    "balance": "你有过 {n} 点",
+    "earn": "收益点:共享资源(+25)",
+    "org": "与你的团队学习? 组织是无限的",
+    "home": "回主页",
+    "low": "{n} 左侧会话",
+    "left": "{n} 页:1 {allowance} 左侧会话"
   }
 }
