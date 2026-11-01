@@ -72,6 +72,11 @@ usePageSchema(() => ({
           {{ t('companies.prepare') }}
         </UButton>
       </div>
+      <ShareBar
+        class="mt-6"
+        :title="t('companies.title')"
+        :text="t('companies.lead')"
+      />
     </BpPageHeader>
 
     <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 lg:px-8">
@@ -139,6 +144,9 @@ usePageSchema(() => ({
       <p class="mt-8 max-w-3xl text-sm leading-relaxed text-(--ink2)">
         {{ t('companies.disclaimer', { date: data.checked }) }}
       </p>
+    </div>
+    <div class="mx-auto max-w-(--ui-container) px-4 pb-12 sm:px-6 lg:px-8">
+      <PromoSlot unit="multiplexHorizontal" />
     </div>
   </div>
 </template>

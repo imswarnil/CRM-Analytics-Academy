@@ -197,6 +197,7 @@ const focus = computed(() => Boolean(route.meta.focus) || focusState.value)
     <AppFooter v-if="!focus" />
 
     <ClientOnly>
+      <MeterWall />
       <LazyUContentSearch
         :files="files"
         :navigation="navigation"

@@ -81,6 +81,8 @@ interface AdminUser {
   emailVerified: boolean
   points: number
   balance: number
+  sessionsUsed: number
+  sessionsBought: number
   org: string | null
   source: string | null
   firstLanding: string | null
@@ -590,7 +592,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                       class="px-3 py-2 text-end tabular-nums"
                       :title="`earned ${u.points} · balance ${u.balance}`"
                     >
-                      {{ u.points }} <span class="block font-mono text-[11px] text-(--ink2)">bal {{ u.balance }}</span>
+                      {{ u.points }} <span class="block font-mono text-[11px] text-(--ink2)">bal {{ u.balance }} · {{ u.sessionsUsed }}/{{ ACCOUNT_SESSIONS + u.sessionsBought }} sess</span>
                     </td>
                     <td class="px-4 py-2 text-end font-mono text-xs">
                       {{ date(u.lastLessonAt) }}

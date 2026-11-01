@@ -416,6 +416,12 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
       </div>
     </section>
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+      <div class="mb-6 flex justify-center">
+        <ShareBar
+          :title="t('seo.homeTitle')"
+          :text="t('seo.homeDesc')"
+        />
+      </div>
       <PromoSlot unit="responsiveLeaderboard" />
     </div>
   </div>

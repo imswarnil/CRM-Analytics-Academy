@@ -35,7 +35,12 @@
 
     // Don't let the asset layer answer a miss with its own 404 — a miss is
     // exactly what has to reach the Worker.
-    "not_found_handling": "none"
+    "not_found_handling": "none",
+
+    // The home page runs the Worker first so it can open in the visitor's
+    // language by country (server/middleware/home-locale.ts). Every other
+    // page is still served straight from the edge.
+    "run_worker_first": ["/"]
   },
 
   // Keep the *.workers.dev hostname alive. Declaring `routes` below turns it

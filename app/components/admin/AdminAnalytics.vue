@@ -35,6 +35,7 @@ interface Analytics {
   signupSources: { key: string, count: number, views: number }[]
   interests: { key: string, count: number }[]
   humansOnly: boolean
+  usage: { sessions: number, accountReaders: number, anonReaders: number, anonExhausted: number, packs: number, packSessions: number, packPoints: number, walls: number, wallVisitors: number, days: { day: string, account: number, anon: number }[], pages: { key: string, count: number }[] }
   bots: { views: number, unverifiedViews: number, visitors: number, unverifiedVisitors: number, dropped: { reason: string, count: number }[] }
   journeys: { visitor: string, source: string, country: string | null, device: string | null, firstAt: string, lastAt: string, seconds: number, signedIn: boolean, human: boolean, steps: { kind: string, label: string, at: string, seconds: number | null }[] }[]
   conversionByLanding: ConvRow[]
@@ -49,6 +50,7 @@ const { data, status, refresh } = await useLazyAsyncData('admin-analytics', () =
   $fetch<Analytics>('/api/admin/analytics', { query: { days: days.value, humans: humansOnly.value ? 1 : 0 } }), { server: false, watch: [days, humansOnly] })
 const DROP_LABEL: Record<string, string> = { ua: 'crawler user agent', automation: 'automated browser', flood: 'flooding (120+ views in 10 min)' }
 const openJourney = ref<string | null>(null)
+const usageMax = computed(() => Math.max(1, ...(data.value?.usage.days ?? []).map(d => d.account + d.anon)))
 const ago = (d: string) => {
   const m = Math.round((Date.now() - new Date(d).getTime()) / 60_000)
   return m < 60 ? `${m}m ago` : m < 1440 ? `${Math.round(m / 60)}h ago` : `${Math.round(m / 1440)}d ago`
@@ -110,6 +112,8 @@ const EVENT_LABEL: Record<string, string> = {
   org_join: 'Joined an organisation',
   salesforce_interest: 'Showed Salesforce interest',
   visualiser_run: 'Ran a visualiser',
+  meter_wall: 'Hit the sessions wall',
+  pack_buy: 'Bought a session pack',
   exam_open: 'Opened an exam window'
 }
 
@@ -314,6 +318,83 @@ const signUps = computed(() => data.value?.events.find(e => e.name === 'sign_up'
           </table>
         </section>
       </div>
+
+      <!-- Usage: sessions, walls, packs -->
+      <section class="border-[1.5px] border-(--ink) bg-(--card)">
+        <header class="flex flex-wrap items-center gap-3 border-b-[1.5px] border-(--ink) px-5 py-3">
+          <p class="eyebrow">
+            Usage · sessions
+          </p>
+          <span class="font-mono text-xs text-(--ink2)">one session = one metered page the first time it opens on a day</span>
+        </header>
+        <dl class="grid grid-cols-2 gap-px bg-(--line) sm:grid-cols-4 lg:grid-cols-7">
+          <div
+            v-for="tile in [
+              { label: 'Sessions', value: data.usage.sessions },
+              { label: 'Account readers', value: data.usage.accountReaders },
+              { label: 'Anonymous readers', value: data.usage.anonReaders },
+              { label: 'Anonymous out of sessions', value: data.usage.anonExhausted },
+              { label: 'Walls hit', value: `${data.usage.walls} · ${data.usage.wallVisitors} people` },
+              { label: 'Packs bought', value: `${data.usage.packs} · ${data.usage.packSessions} sessions` },
+              { label: 'Points spent on packs', value: data.usage.packPoints }
+            ]"
+            :key="tile.label"
+            class="bg-(--card) p-4"
+          >
+            <dd class="text-xl font-black tabular-nums text-(--ink)">
+              {{ tile.value }}
+            </dd>
+            <dt class="mt-1 font-mono text-[11px] uppercase tracking-[.06em] text-(--ink2)">
+              {{ tile.label }}
+            </dt>
+          </div>
+        </dl>
+        <div class="grid gap-6 p-5 lg:grid-cols-[2fr_1fr]">
+          <div>
+            <p class="mono-label mb-2">
+              Sessions per day — <span class="text-(--signal)">accounts</span> / <span class="text-(--ink2)">anonymous</span>
+            </p>
+            <div class="flex h-36 items-end gap-0.5">
+              <div
+                v-for="d in data.usage.days"
+                :key="d.day"
+                class="flex flex-1 flex-col justify-end"
+                :title="`${d.day} · ${d.account} account · ${d.anon} anonymous`"
+              >
+                <span
+                  class="block bg-(--frost)"
+                  :style="{ height: `${(d.anon / usageMax) * 9}rem` }"
+                />
+                <span
+                  class="block bg-(--signal)"
+                  :style="{ height: `${(d.account / usageMax) * 9}rem` }"
+                />
+              </div>
+              <p
+                v-if="!data.usage.days.length"
+                class="text-sm text-(--ink2)"
+              >
+                No sessions yet.
+              </p>
+            </div>
+          </div>
+          <div>
+            <p class="mono-label mb-2">
+              Most-opened pages
+            </p>
+            <ol class="space-y-1 text-sm">
+              <li
+                v-for="p in data.usage.pages"
+                :key="p.key"
+                class="flex gap-2"
+              >
+                <span class="min-w-0 flex-1 truncate font-mono text-xs text-(--ink)">{{ p.key }}</span>
+                <span class="tabular-nums text-(--ink2)">{{ p.count }}</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
 
       <!-- Humans vs bots -->
       <section class="border-[1.5px] border-(--ink) bg-(--card)">

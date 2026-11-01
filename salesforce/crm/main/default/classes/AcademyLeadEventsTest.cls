@@ -37,6 +37,20 @@ private class AcademyLeadEventsTest {
         System.assertEquals(2000, [SELECT Points_Spent__c FROM Account LIMIT 1].Points_Spent__c);
     }
 
+    @IsTest static void packPurchaseMakesAUsageCustomer() {
+        put(new List<Lead>{ event('signup', 'u-3') });
+        Lead buy = event('pack', 'u-3');
+        buy.Description = 'Bought 2 session pack(s): 20 sessions for 200 points (self-serve).';
+        put(new List<Lead>{ buy });
+        AcademyLeadEvents.run(new Set<Id>{ buy.Id });
+        Account a = [SELECT Academy_Plan__c, Sessions_Bought__c, Points_Spent__c, Lifecycle_Stage__c FROM Account LIMIT 1];
+        System.assertEquals('usage', a.Academy_Plan__c);
+        System.assertEquals(20, a.Sessions_Bought__c);
+        System.assertEquals(200, a.Points_Spent__c);
+        System.assertEquals('customer', a.Lifecycle_Stage__c);
+        System.assertEquals(200, [SELECT Amount FROM Opportunity LIMIT 1].Amount);
+    }
+
     @IsTest static void duplicateSignupIsRemovedAndRequestsStaySalesLed() {
         Lead first = event('signup', 'u-2');
         Lead dup = event('signup', 'u-2');

@@ -5,7 +5,7 @@
     <fields>Lifecycle_Stage__c</fields>
     <fields>Motion__c</fields>
     <fields>Academy_Plan__c</fields>
-    <fields>MRR__c</fields>
+    <fields>Sessions_Bought__c</fields>
     <fields>ARR__c</fields>
     <fields>Active_Seats__c</fields>
     <fields>Pro_Until__c</fields>

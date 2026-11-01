@@ -36,7 +36,13 @@ usePageSchema(() => ({
       sheet="FIG. V / VISUALISERS"
       :title="t('vis.title')"
       :lead="t('vis.lead')"
-    />
+    >
+      <ShareBar
+        class="mt-6"
+        :title="t('vis.title')"
+        :text="t('vis.lead')"
+      />
+    </BpPageHeader>
     <div class="mx-auto max-w-(--ui-container) space-y-12 px-4 py-12 sm:px-6 lg:px-8">
       <ul class="grid gap-6 md:grid-cols-3">
         <li
@@ -61,6 +67,8 @@ usePageSchema(() => ({
         </li>
       </ul>
 
+      <PromoSlot unit="responsiveLeaderboard" />
+
       <section>
         <p class="eyebrow">
           {{ t('vis.dataEyebrow') }}
@@ -80,6 +88,8 @@ usePageSchema(() => ({
           />
         </div>
       </section>
+
+      <PromoSlot unit="multiplexHorizontal" />
     </div>
   </div>
 </template>

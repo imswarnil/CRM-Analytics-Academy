@@ -19,7 +19,7 @@ const sha256 = async (s: string) => hex(await crypto.subtle.digest('SHA-256', en
 // CAPTCHA_SECRET when set; otherwise a key derived from DATABASE_URL, which is
 // already a Worker secret and never public — so the check works with no setup.
 let derived: string | undefined
-async function secretKey() {
+export async function secretKey() {
   if (process.env.CAPTCHA_SECRET) return process.env.CAPTCHA_SECRET
   if (!process.env.DATABASE_URL) throw createError({ statusCode: 500, statusMessage: 'No key for the human check' })
   derived ??= await sha256(`crma-captcha:${process.env.DATABASE_URL}`)

@@ -123,6 +123,11 @@ usePageSchema(() => ({
           {{ t('datasets.manifest') }}
         </UButton>
       </div>
+      <ShareBar
+        class="mt-6"
+        :title="t('datasets.header.title')"
+        :text="t('datasets.header.lead')"
+      />
     </BpPageHeader>
 
     <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
@@ -213,6 +218,9 @@ usePageSchema(() => ({
     </div>
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
       <PromoSlot unit="horizontal" />
+    </div>
+    <div class="mx-auto max-w-(--ui-container) px-4 pb-12 sm:px-6 lg:px-8">
+      <PromoSlot unit="multiplexHorizontal" />
     </div>
   </div>
 </template>

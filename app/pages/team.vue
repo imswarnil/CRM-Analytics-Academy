@@ -13,8 +13,8 @@ const localePath = useLocalePath()
 const route = useRoute()
 const { load } = useProgress()
 
-interface Member { userId: string, role: string, joinedAt: string, name: string | null, email: string | null, lessons: number, points: number }
-interface Org { name: string, kind: string, seats: number, used: number, expiresAt: string | null, role: string, joinCode: string | null, members: Member[] }
+interface Member { userId: string, role: string, joinedAt: string, name: string | null, email: string | null, lessons: number, points: number, sessions: number }
+interface Org { name: string, kind: string, seats: number, used: number, expiresAt: string | null, role: string, joinCode: string | null, domains: string[], members: Member[] }
 const { data, refresh } = await useLazyAsyncData('my-org', () => $fetch<{ org: Org | null }>('/api/org').then(r => r.org), { server: false })
 
 const code = ref(String(route.query.code ?? ''))
@@ -128,6 +128,12 @@ useSeoMeta({ title: () => t('team.title'), robots: 'noindex' })
               />{{ t('team.youArePro') }}
             </p>
             <p
+              v-if="data.domains.length"
+              class="text-sm text-(--ink2)"
+            >
+              {{ t('team.domains', { domains: data.domains.map(d => `@${d}`).join(', ') }) }}
+            </p>
+            <p
               v-if="data.expiresAt"
               class="text-sm text-(--ink2)"
             >
@@ -174,6 +180,9 @@ useSeoMeta({ title: () => t('team.title'), robots: 'noindex' })
                 <th class="px-3 py-2 text-end">
                   {{ t('team.points') }}
                 </th>
+                <th class="px-3 py-2 text-end">
+                  {{ t('team.sessions') }}
+                </th>
                 <th class="px-6 py-2" />
               </tr>
             </thead>
@@ -192,6 +201,9 @@ useSeoMeta({ title: () => t('team.title'), robots: 'noindex' })
                 </td>
                 <td class="px-3 py-2 text-end tabular-nums">
                   {{ m.points }}
+                </td>
+                <td class="px-3 py-2 text-end tabular-nums">
+                  {{ m.sessions }}
                 </td>
                 <td class="px-6 py-2 text-end">
                   <UButton

@@ -78,7 +78,13 @@ const authorLinks = computed(() => [
       :sheet="t('about.header.sheet')"
       :title="t('about.header.title')"
       :lead="t('about.header.lead')"
-    />
+    >
+      <ShareBar
+        class="mt-6"
+        :title="t('about.header.title')"
+        :text="t('about.header.lead')"
+      />
+    </BpPageHeader>
 
     <!-- ===================== SECTION 1 — THE PROJECT ===================== -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">

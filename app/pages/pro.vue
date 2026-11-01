@@ -1,51 +1,48 @@
 <script setup lang="ts">
 /**
- * /pro — the three plans, points only (no payments). Free; Pro, bought with
- * POINTS (every account starts with WELCOME_POINTS and learning earns more —
- * POST /api/redeem); and seats
- * for a company, team or university, which is a request (POST /api/leads →
- * app.lead + Salesforce) the owner turns into an organisation in /admin.
- * The same form takes other requests (Salesforce set-up help, consulting,
- * mentoring), so every buying signal lands in one place.
+ * /pro — how access works, usage-based and never money: sessions, paid in
+ * points (shared/utils/products.ts). A visitor gets ANON_SESSIONS sessions; an
+ * account ACCOUNT_SESSIONS and WELCOME_POINTS points; packs of PACK_SESSIONS
+ * cost PACK_POINTS points (POST /api/meter/buy); organisations get unlimited
+ * access by request (POST /api/leads → app.lead + Salesforce) or by their
+ * verified email domain. The same form takes Salesforce set-up, consulting
+ * and mentoring requests, so every buying signal lands in one place.
  */
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const { user, isSignedIn } = useAuth()
-const { pro: isMember, balance, data: progress, load } = useProgress()
+const { balance, data: progress, load } = useProgress()
+const { status: meter, refresh: refreshMeter, buy } = useMeter()
 const track = (name: string, label?: string) => useNuxtApp().$track?.(name, label)
 
-onMounted(() => track('pricing_view', String(route.query.from ?? '')))
+onMounted(() => {
+  track('pricing_view', String(route.query.from ?? ''))
+  refreshMeter()
+})
 
-/* --- Pro with points -------------------------------------------------------- */
-const redeeming = ref(false)
-const redeemError = ref('')
-const redeemed = ref(false)
-const short = computed(() => Math.max(PRO_POINTS - balance.value, 0))
-async function redeem() {
-  track('plan_click', 'pro')
+/* --- Packs, bought with points ----------------------------------------------- */
+const buying = ref(0)
+const buyError = ref('')
+const bought = ref(0)
+async function buyPacks(n: number) {
+  track('plan_click', `pack-${n}`)
   if (!isSignedIn.value) {
     await navigateTo({ path: localePath('/sign-up'), query: { redirect: localePath('/pro') } })
     return
   }
-  redeeming.value = true
-  redeemError.value = ''
+  buying.value = n
+  buyError.value = ''
   try {
-    await $fetch('/api/redeem', { method: 'POST', body: { plan: 'pro' } })
-    redeemed.value = true
-    track('redeem', 'pro')
+    await buy(n)
+    bought.value = n * PACK_SESSIONS
     await load()
   } catch (e) {
-    redeemError.value = apiError(e) || t('contrib.err.generic')
+    buyError.value = apiError(e) || t('contrib.err.generic')
   } finally {
-    redeeming.value = false
+    buying.value = 0
   }
 }
-const proUntil = computed(() => {
-  const u = progress.value?.proUntil
-  if (!u) return null
-  return u === 'never' ? t('plans.noEnd') : new Date(u).toLocaleDateString(locale.value, { day: 'numeric', month: 'long', year: 'numeric' })
-})
 
 /* --- Requests: seats and other help ---------------------------------------- */
 type Interest = 'seats' | 'salesforce-setup' | 'consulting' | 'mentoring'
@@ -126,7 +123,7 @@ async function send() {
 const title = computed(() => t('store.seoTitle'))
 const description = computed(() => t('store.seoDesc'))
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
-defineOgImage('Docs', { title: t('store.title'), description: description.value, headline: t('store.eyebrow'), spec: 'FREE · PRO · SEATS' })
+defineOgImage('Docs', { title: t('store.title'), description: description.value, headline: t('store.eyebrow'), spec: 'SESSIONS · POINTS · ORGANISATIONS' })
 usePageSchema(() => ({
   name: title.value,
   description: description.value,
@@ -137,12 +134,7 @@ usePageSchema(() => ({
     'itemListElement': PRODUCTS.map((p, i) => ({
       '@type': 'ListItem',
       'position': i + 1,
-      'item': {
-        '@type': 'Product',
-        'name': t(`products.${p.id}.name`),
-        'description': t(`products.${p.id}.tagline`),
-        'brand': { '@type': 'Organization', 'name': SITE.name }
-      }
+      'item': { '@type': 'Product', 'name': t(`products.${p.id}.name`), 'description': t(`products.${p.id}.tagline`), 'brand': { '@type': 'Organization', 'name': SITE.name }, 'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' } }
     }))
   }]
 }))
@@ -151,34 +143,71 @@ usePageSchema(() => ({
 <template>
   <div>
     <BpPageHeader
-      sheet="SHEET 09 / PLANS"
+      sheet="SHEET 09 / ACCESS"
       :title="t('store.title')"
       :lead="t('store.lead')"
     >
-      <div
-        v-if="isSignedIn"
-        class="mt-6 flex flex-wrap items-center gap-3"
-      >
-        <p class="inline-flex items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) px-4 py-2 font-semibold text-(--ink)">
-          <UIcon
-            name="i-lucide-coins"
-            class="size-5 text-(--signal)"
-          />{{ t('plans.balance', { n: balance.toLocaleString(locale) }) }}
-        </p>
-        <p
-          v-if="isMember"
-          class="inline-flex items-center gap-2 border-[1.5px] border-(--signal) bg-(--ice) px-4 py-2 font-semibold text-(--ink)"
-        >
-          <UIcon
-            name="i-lucide-badge-check"
-            class="size-5 text-(--signal)"
-          />{{ progress?.org ? t('plans.seatOf', { org: progress.org }) : proUntil ? t('plans.proUntil', { date: proUntil }) : t('store.youArePro') }}
-        </p>
-      </div>
+      <ShareBar
+        class="mt-6"
+        :title="t('store.title')"
+        :text="t('store.seoDesc')"
+      />
     </BpPageHeader>
 
-    <div class="mx-auto max-w-(--ui-container) space-y-14 px-4 py-12 sm:px-6 lg:px-8">
-      <ul class="grid gap-6 lg:grid-cols-3">
+    <div class="mx-auto max-w-(--ui-container) space-y-12 px-4 py-12 sm:px-6 lg:px-8">
+      <!-- Where you stand -->
+      <ClientOnly>
+        <section
+          v-if="meter"
+          class="grid gap-px border-[1.5px] border-(--ink) bg-(--line) sm:grid-cols-4"
+        >
+          <div class="bg-(--card) p-5 sm:col-span-2">
+            <p class="eyebrow">
+              {{ t('plans.yourSessions') }}
+            </p>
+            <p
+              v-if="meter.unlimited"
+              class="mt-2 text-3xl font-black text-(--signal)"
+            >
+              {{ t('plans.unlimited') }} <span
+                v-if="meter.via && !['admin', 'crawler', 'grant'].includes(meter.via)"
+                class="text-base font-semibold text-(--ink2)"
+              >· {{ meter.via }}</span>
+            </p>
+            <template v-else>
+              <p class="mt-2 text-3xl font-black tabular-nums text-(--ink)">
+                {{ meter.remaining }} <span class="text-base font-semibold text-(--ink2)">/ {{ meter.allowance }}</span>
+              </p>
+              <UProgress
+                :model-value="meter.allowance ? Math.round((meter.used / meter.allowance) * 100) : 0"
+                class="mt-3"
+              />
+              <p class="mt-2 text-sm text-(--ink2)">
+                {{ meter.signedIn ? t('plans.accountNote') : t('plans.visitorNote', { days: meter.windowDays ?? ANON_WINDOW_DAYS }) }}
+              </p>
+            </template>
+          </div>
+          <div class="bg-(--card) p-5">
+            <p class="eyebrow">
+              {{ t('plans.pointsLabel') }}
+            </p>
+            <p class="mt-2 text-3xl font-black tabular-nums text-(--ink)">
+              {{ isSignedIn ? balance.toLocaleString(locale) : '—' }}
+            </p>
+          </div>
+          <div class="bg-(--card) p-5">
+            <p class="eyebrow">
+              {{ t('plans.organisation') }}
+            </p>
+            <p class="mt-2 text-lg font-bold text-(--ink)">
+              {{ progress?.org ?? '—' }}
+            </p>
+          </div>
+        </section>
+      </ClientOnly>
+
+      <!-- The four ways in -->
+      <ul class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         <li
           v-for="p in PRODUCTS"
           :key="p.id"
@@ -202,29 +231,10 @@ usePageSchema(() => ({
             <p class="mt-1 text-[15px] leading-snug text-(--ink2)">
               {{ t(`products.${p.id}.tagline`) }}
             </p>
-
-            <!-- Price: points now, money later -->
-            <div class="mt-4">
-              <p
-                v-if="p.id === 'free'"
-                class="text-3xl font-black tracking-[-0.03em] text-(--ink)"
-              >
-                {{ t('plans.free') }}
-              </p>
-              <template v-else-if="p.points">
-                <p class="flex items-baseline gap-1">
-                  <span class="text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">{{ p.points.toLocaleString(locale) }}</span>
-                  <span class="font-mono text-xs text-(--ink2)">{{ t('plans.pointsPer', { days: PRO_DAYS }) }}</span>
-                </p>
-              </template>
-              <p
-                v-else
-                class="text-3xl font-black tracking-[-0.03em] text-(--ink)"
-              >
-                {{ t('plans.byRequest') }}
-              </p>
-            </div>
-
+            <p class="mt-4 flex items-baseline gap-1">
+              <span class="text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">{{ p.id === 'visitor' ? ANON_SESSIONS : p.id === 'account' ? ACCOUNT_SESSIONS : p.id === 'pack' ? PACK_SESSIONS : '∞' }}</span>
+              <span class="font-mono text-xs text-(--ink2)">{{ p.id === 'pack' ? t('plans.sessionsFor', { points: PACK_POINTS }) : p.id === 'visitor' ? t('plans.sessionsPer', { days: ANON_WINDOW_DAYS }) : t('plans.sessions') }}</span>
+            </p>
             <ul class="mt-4 flex-1 space-y-2">
               <li
                 v-for="n in p.features"
@@ -234,65 +244,71 @@ usePageSchema(() => ({
                 <UIcon
                   name="i-lucide-check"
                   class="mt-0.5 size-4 shrink-0 text-(--signal)"
-                />{{ t(`products.${p.id}.f${n}`) }}
+                />{{ t(`products.${p.id}.f${n}`, { welcome: WELCOME_POINTS.toLocaleString(locale), points: PACK_POINTS }) }}
               </li>
             </ul>
 
-            <!-- Free -->
+            <!-- Visitor -->
             <UButton
-              v-if="p.id === 'free'"
+              v-if="p.id === 'visitor'"
               class="mt-6"
               block
               size="lg"
               variant="outline"
               color="neutral"
-              :icon="isSignedIn ? 'i-lucide-check' : 'i-lucide-user-plus'"
-              :to="isSignedIn ? localePath('/curriculum') : localePath('/sign-up')"
+              icon="i-lucide-book-open"
+              :to="localePath('/curriculum')"
             >
-              {{ isSignedIn ? t('plans.startLearning') : t('pro.signUpFirst') }}
+              {{ t('plans.startLearning') }}
             </UButton>
 
-            <!-- Pro, with points -->
-            <div
-              v-else-if="p.id === 'pro'"
-              class="mt-6 space-y-3"
+            <!-- Account -->
+            <UButton
+              v-else-if="p.id === 'account'"
+              class="mt-6"
+              block
+              size="lg"
+              :icon="isSignedIn ? 'i-lucide-check' : 'i-lucide-user-plus'"
+              :to="isSignedIn ? localePath('/dashboard') : localePath('/sign-up')"
+              @click="track('plan_click', 'account')"
             >
-              <UButton
-                block
-                size="lg"
-                :icon="redeemed ? 'i-lucide-badge-check' : 'i-lucide-coins'"
-                :loading="redeeming"
-                :disabled="isSignedIn && short > 0"
-                @click="redeem"
-              >
-                {{ !isSignedIn ? t('plans.signUpFor', { n: WELCOME_POINTS.toLocaleString(locale) }) : isMember ? t('plans.extend', { days: PRO_DAYS }) : t('plans.redeem', { n: PRO_POINTS.toLocaleString(locale) }) }}
-              </UButton>
-              <p
-                v-if="isSignedIn && short > 0"
-                class="text-sm text-(--ink2)"
-              >
-                {{ t('plans.short', { n: short.toLocaleString(locale) }) }}
-                <NuxtLink
-                  :to="localePath('/curriculum')"
-                  class="font-semibold text-(--signal) hover:underline"
-                >{{ t('plans.earn') }}</NuxtLink>
-              </p>
+              {{ isSignedIn ? t('plans.youHaveAccount') : t('pro.signUpFirst') }}
+            </UButton>
+
+            <!-- Packs -->
+            <div
+              v-else-if="p.id === 'pack'"
+              class="mt-6 space-y-2"
+            >
+              <div class="grid grid-cols-3 gap-2">
+                <UButton
+                  v-for="n in [1, 3, 5]"
+                  :key="n"
+                  block
+                  :variant="n === 1 ? 'solid' : 'outline'"
+                  :color="n === 1 ? 'primary' : 'neutral'"
+                  :loading="buying === n"
+                  @click="buyPacks(n)"
+                >
+                  {{ t('plans.buyN', { n, points: n * PACK_POINTS }) }}
+                </UButton>
+              </div>
               <UAlert
-                v-if="redeemed"
+                v-if="bought"
                 color="primary"
                 variant="subtle"
                 icon="i-lucide-party-popper"
-                :description="t('plans.redeemed', { date: proUntil ?? '' })"
+                :description="t('plans.bought', { n: bought })"
               />
               <UAlert
-                v-if="redeemError"
+                v-if="buyError"
                 color="error"
                 variant="subtle"
-                :description="redeemError"
+                :description="buyError"
               />
             </div>
 
-            <!-- Seats -->
+            <!-- Organisations -->
             <div
               v-else
               class="mt-6 space-y-2"
@@ -319,6 +335,8 @@ usePageSchema(() => ({
           </div>
         </li>
       </ul>
+
+      <PromoSlot unit="leaderboard728x90" />
 
       <!-- How points work -->
       <section class="grid gap-6 border-[1.5px] border-(--ink) bg-(--card) p-6 md:grid-cols-[1fr_2fr]">

@@ -44,6 +44,8 @@ const { user, isSignedIn, signOut } = useAuth()
 // The admin flag arrives with progress (one request, made once a session
 // exists). The console checks it on every request; this is navigation only.
 const { admin } = useProgress()
+// Sessions left (useMeter, filled by the first metered page) — hidden when unlimited.
+const { status: meter } = useMeter()
 
 const initials = computed(() => (user.value?.name || user.value?.email || '?').trim().slice(0, 1).toUpperCase())
 
@@ -81,7 +83,7 @@ const localeItems = computed(() =>
 
 <template>
   <UHeader
-    :ui="{ container: 'max-w-(--ui-container)', center: 'hidden', left: 'lg:flex-none', right: 'lg:flex-1', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-none border-[1.5px] border-(--ink) size-9 flex items-center justify-center' }"
+    :ui="{ container: 'max-w-(--ui-container)', center: 'hidden', left: 'lg:min-w-0 lg:flex-1', right: 'lg:flex-none', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-none border-[1.5px] border-(--ink) size-9 flex items-center justify-center' }"
     :to="localePath('/')"
   >
     <template #left>
@@ -94,39 +96,57 @@ const localeItems = computed(() =>
       </NuxtLink>
 
       <!-- Nav cells, full header height, hairline-separated. -->
+      <!-- The nav takes whatever width the buttons leave (a container), and
+           shows labels only when they fit in it — in any language. -->
       <nav
-        class="ms-4 hidden h-16 items-stretch border-s border-(--line) lg:flex"
+        class="@container ms-4 hidden h-16 min-w-0 flex-1 items-stretch lg:flex"
         aria-label="Main"
       >
-        <NuxtLink
-          v-for="item in menuItems"
-          :key="item.to"
-          :to="item.to"
-          :title="item.label"
-          class="relative flex items-center gap-1.5 border-e border-(--line) px-2.5 text-[13px] font-semibold whitespace-nowrap transition-colors min-[1440px]:px-3"
-          :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
-        >
-          <UIcon
-            :name="item.icon"
-            class="size-4 shrink-0"
-          />
-          <!-- Labels only where the whole bar fits beside the account
-               buttons (1440px+, English); otherwise the icon, named by its
-               tooltip. Longer translations are always icon-only. -->
-          <span :class="locale === 'en' ? 'max-[1439px]:sr-only' : 'sr-only'">{{ item.label }}</span>
-          <span
-            v-if="isActive(item)"
-            class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
-          />
-        </NuxtLink>
+        <div class="flex min-w-0 items-stretch overflow-hidden border-s border-(--line)">
+          <NuxtLink
+            v-for="item in menuItems"
+            :key="item.to"
+            :to="item.to"
+            :title="item.label"
+            class="relative flex min-w-0 items-center gap-1.5 border-e border-(--line) px-2.5 text-[13px] font-semibold whitespace-nowrap transition-colors @min-[52rem]:px-3"
+            :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
+          >
+            <UIcon
+              :name="item.icon"
+              class="size-4 shrink-0"
+            />
+            <!-- Labels in every language once the nav has 34rem; past that the
+               cells shrink together and a long label ends in an ellipsis (the
+               tooltip has it in full). Narrower: the icon alone. -->
+            <span class="sr-only @min-[34rem]:not-sr-only @min-[34rem]:block @min-[34rem]:truncate">{{ item.label }}</span>
+            <span
+              v-if="isActive(item)"
+              class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
+            />
+          </NuxtLink>
+        </div>
       </nav>
     </template>
 
     <template #right>
-      <div class="ms-auto flex min-w-0 items-center gap-1.5 sm:gap-2">
+      <div class="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
         <!-- Icon-only at every width: the container stops growing at
              --ui-container, so a wide search box never has room beside the
              account buttons (it used to push "Sign in" onto two lines). -->
+        <ClientOnly>
+          <NuxtLink
+            v-if="meter && !meter.unlimited"
+            :to="localePath('/pro')"
+            class="flex h-9 shrink-0 items-center gap-1.5 border-[1.5px] px-2.5 font-mono text-xs tabular-nums"
+            :class="meter.remaining <= 3 ? 'border-error bg-error/10 text-error' : 'border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice)'"
+            :title="t('meter.left', { n: meter.remaining, allowance: meter.allowance })"
+          >
+            <UIcon
+              name="i-lucide-ticket"
+              class="size-4"
+            />{{ meter.remaining }}
+          </NuxtLink>
+        </ClientOnly>
         <UContentSearchButton
           v-if="header?.search"
           class="size-9 shrink-0 rounded-none border-[1.5px] border-(--ink)"

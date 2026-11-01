@@ -1,14 +1,28 @@
 /**
  * Create or change an organisation's seats.
  *
- *   { name, kind, seats, months?, domain?, leadId?, note?, adminEmail? }   create
- *   { id, seats?, months?, note?, regenerateCode?, adminEmail? }             update
+ *   { name, kind, seats, months?, domains?, leadId?, note?, adminEmail? }   create
+ *   { id, seats?, months?, note?, domains?, regenerateCode?, adminEmail? }   update
+ *
+ * `domains`: a list (or comma-separated string) of email domains. Anyone whose
+ * VERIFIED email is on one joins automatically while seats last (server/utils/meter.ts).
  *   { id, removeUserId }                                                     free a seat
  *   { id, delete: true }                                                     remove the org
  *
  * `adminEmail` makes that existing account the org's admin (taking a seat).
  * `months` sets the end date from today; 0 = no end date.
  */
+const DOMAIN = /^[a-z0-9-]+(\.[a-z0-9-]+)+$/
+// Public mail providers can never be an organisation's domain.
+const PUBLIC_MAIL = new Set(['gmail.com', 'googlemail.com', 'outlook.com', 'hotmail.com', 'live.com', 'yahoo.com', 'icloud.com', 'me.com', 'proton.me', 'protonmail.com', 'aol.com', 'gmx.com', 'yandex.com', 'mail.com', 'zoho.com', 'qq.com', '163.com', 'rediffmail.com'])
+function parseDomains(v: unknown): string[] | undefined {
+  if (v === undefined) return undefined
+  const list = (Array.isArray(v) ? v : String(v).split(/[,\s]+/)).map(d => String(d).trim().toLowerCase().replace(/^@/, '')).filter(Boolean)
+  const bad = list.find(d => !DOMAIN.test(d) || PUBLIC_MAIL.has(d))
+  if (bad) throw createError({ statusCode: 400, statusMessage: `${bad} cannot be an organisation domain.` })
+  return [...new Set(list)].slice(0, 20)
+}
+
 const clean = (v: unknown, n: number) => [...String(v ?? '')].map(c => (c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127 ? ' ' : c)).join('').trim().slice(0, n)
 
 export default defineEventHandler(async (event) => {
@@ -36,10 +50,10 @@ export default defineEventHandler(async (event) => {
     const name = clean(body.name, 120)
     const kind = ORG_KINDS.includes(body.kind as OrgKind) ? body.kind as OrgKind : 'company'
     if (name.length < 2 || seats === undefined) throw createError({ statusCode: 400, statusMessage: 'A name and a seat count are required.' })
-    const domain = clean(body.domain, 120).toLowerCase() || null
+    const domains = parseDomains(body.domains ?? body.domain) ?? []
     const [row] = await sql`
-      insert into app.org (name, kind, seats, join_code, domain, lead_id, note, expires_at)
-      values (${name}, ${kind}, ${seats}, ${newJoinCode()}, ${domain}, ${Number(body.leadId) || null}, ${clean(body.note, 300) || null}, ${expires ?? null})
+      insert into app.org (name, kind, seats, join_code, domains, lead_id, note, expires_at)
+      values (${name}, ${kind}, ${seats}, ${newJoinCode()}, ${domains}, ${Number(body.leadId) || null}, ${clean(body.note, 300) || null}, ${expires ?? null})
       returning id`
     orgId = Number(row!.id)
     if (body.leadId) await sql`update app.lead set status = 'won' where id = ${Number(body.leadId)}`
@@ -52,6 +66,8 @@ export default defineEventHandler(async (event) => {
     if (expires !== undefined) await sql`update app.org set expires_at = ${expires} where id = ${orgId}`
     if (body.note !== undefined) await sql`update app.org set note = ${clean(body.note, 300) || null} where id = ${orgId}`
     if (body.regenerateCode) await sql`update app.org set join_code = ${newJoinCode()} where id = ${orgId}`
+    const domains = parseDomains(body.domains)
+    if (domains) await sql`update app.org set domains = ${domains} where id = ${orgId}`
   }
 
   const adminEmail = clean(body.adminEmail, 254).toLowerCase()

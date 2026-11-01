@@ -221,6 +221,11 @@
         <field>Account.ARR__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Sessions_Bought__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Academy CRM Access</label>
     <objectPermissions>

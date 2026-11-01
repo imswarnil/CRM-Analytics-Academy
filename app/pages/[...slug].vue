@@ -393,9 +393,13 @@ interface ProLesson {
   video?: { id: string, start?: number, end?: number }
 }
 const isProLesson = computed(() => page.value?.access === 'pro')
-const { pro: member, loaded: progressLoaded } = useProgress()
+// Member lessons: any signed-in reader with a session (or unlimited access)
+// gets the body; the API charges the session, and with none left the meter
+// wall (MeterWall) explains how to get more.
+const { isSignedIn: member } = useAuth()
+const { loaded: progressLoaded } = useProgress()
 const { data: proLesson, status: proStatus } = useLazyAsyncData(`pro-${route.path}`, () =>
-  isProLesson.value && member.value ? $fetch<ProLesson>(`/api/lesson${page.value!.path}`) : Promise.resolve(null), { server: false, watch: [member] })
+  isProLesson.value && member.value ? $fetch<ProLesson>(`/api/lesson${page.value!.path}`).catch(() => null) : Promise.resolve(null), { server: false, watch: [member] })
 const unlocked = computed(() => Boolean(proLesson.value?.markdown))
 const lesson = computed(() => unlocked.value
   ? { ...page.value!, quiz: proLesson.value!.quiz ?? page.value!.quiz, interview: proLesson.value!.interview, walkthrough: proLesson.value!.walkthrough }

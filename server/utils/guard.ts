@@ -31,11 +31,11 @@ export async function rateLimit(event: H3Event, action: string, limit: number, p
   if (Math.random() < 0.02) await sql`delete from app.rate_hit where at < now() - interval '1 day'`
 }
 
-function clientAddress(event: H3Event) {
+export function clientAddress(event: H3Event) {
   return getRequestHeader(event, 'cf-connecting-ip') ?? getRequestIP(event, { xForwardedFor: true }) ?? null
 }
 
-async function sha256(text: string) {
+export async function sha256(text: string) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('')
 }

@@ -8,13 +8,14 @@ import SINCE from '@salesforce/schema/Account.Customer_Since__c';
 import PLAN from '@salesforce/schema/Account.Academy_Plan__c';
 import SEATS from '@salesforce/schema/Account.Seats_Purchased__c';
 import ACTIVE from '@salesforce/schema/Account.Active_Seats__c';
+import SESSIONS from '@salesforce/schema/Account.Sessions_Bought__c';
 
 /**
- * The account's revenue at a glance: MRR and ARR (list price — paid in points
- * while the Academy has no payments), points spent, days of Pro left, and
- * seats used against seats bought.
+ * The account's value at a glance — in points, since the Academy never takes
+ * money: points spent, sessions bought, MRR/ARR at list value for the old Pro
+ * months, days of Pro left, and seats used against seats bought.
  */
-const FIELDS = [MRR, ARR, POINTS, PRO_UNTIL, SINCE, PLAN, SEATS, ACTIVE];
+const FIELDS = [MRR, ARR, POINTS, PRO_UNTIL, SINCE, PLAN, SEATS, ACTIVE, SESSIONS];
 const money = (n) => (n === null || n === undefined ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n));
 
 export default class AcademyRevenue extends LightningElement {
@@ -32,7 +33,8 @@ export default class AcademyRevenue extends LightningElement {
     get mrr() { return money(this.v(MRR)); }
     get arr() { return money(this.v(ARR)); }
     get points() { const p = this.v(POINTS); return p ? Number(p).toLocaleString('en-US') : '0'; }
-    get plan() { return { free: 'Free', pro: 'Pro', seats: 'Seats' }[this.v(PLAN)] ?? '—'; }
+    get plan() { return { free: 'Free', pro: 'Pro', usage: 'Usage', seats: 'Seats' }[this.v(PLAN)] ?? '—'; }
+    get sessions() { const s = this.v(SESSIONS); return s ? Number(s).toLocaleString('en-US') : '0'; }
     get since() { return this.v(SINCE) ?? '—'; }
     get daysLeft() {
         const u = this.v(PRO_UNTIL);

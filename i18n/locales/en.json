@@ -25,7 +25,7 @@
     "certification": "Exams",
     "interview": "Interviews",
     "companies": "Companies",
-    "pro": "Pro",
+    "pro": "Access",
     "visualiser": "Visualisers",
     "team": "My organisation"
   },
@@ -1273,30 +1273,31 @@
     "proBody": "Full walkthroughs, quizzes and exam reviews — and help when you are stuck.",
     "proActive": "You are a Pro member",
     "proActiveBody": "Every Pro lesson is open to you. Thank you for supporting the Academy.",
-    "walletHint": "Pro costs {n} points. Every lesson and quiz earns more."
+    "walletHint": "{points} points buy {sessions} more sessions.",
+    "recentSessions": "Your last {n} sessions",
+    "morePacks": "Sessions and packs"
   },
   "pro": {
-    "eyebrow": "Pro lesson",
-    "tag": "Pro",
-    "lockedTitle": "This lesson is for Pro members",
-    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — is part of Pro.",
-    "perkLessons": "Every Pro lesson, as each section is published",
-    "perkExams": "Full answer review on all five practice exams",
-    "perkNoPromos": "No ads anywhere on the site",
-    "perkCommunity": "Priority answers to your questions",
+    "eyebrow": "Members lesson",
+    "tag": "Members",
+    "lockedTitle": "Sign in to read the rest",
+    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — is for signed-in learners, and opening it uses one session.",
+    "perkLessons": "Every members lesson, as each section is published",
+    "perkExams": "Your progress, streaks and exam scores saved",
+    "perkNoPromos": "No ads anywhere",
+    "perkCommunity": "100 sessions and 1,000 points to start",
     "signUpFirst": "Create your free account",
-    "getPro": "Get Pro with points",
-    "signUpHint": "A free account removes every ad and comes with 1,000 points — enough for your first month of Pro. Learning earns the next.",
+    "getPro": "Sessions and packs",
+    "signUpHint": "A free account comes with 100 sessions and 1,000 points. No payments, ever.",
     "freeTag": "Free",
     "freeLesson": "Free lesson"
   },
   "store": {
-    "eyebrow": "Pro",
-    "seoTitle": "CRM Analytics Academy plans: Free, Pro and team seats",
-    "seoDesc": "Learn Salesforce CRM Analytics free. Pro lessons are unlocked with points you earn by learning — no payments, ever. Companies, teams and universities can ask for Pro seats.",
-    "title": "Three plans, one course",
-    "lead": "Everything public stays free. Pro is bought with points: every account starts with 1,000, enough for the first month, and learning earns more. Organisations ask for seats.",
-    "youArePro": "You are a Pro member",
+    "eyebrow": "Access",
+    "seoTitle": "CRM Analytics Academy access: free sessions, points and organisations",
+    "seoDesc": "Learn Salesforce CRM Analytics free: 10 sessions without an account, 100 with one, packs of 10 for 100 points earned by learning, unlimited for companies and universities. No payments, ever.",
+    "title": "Free to learn, fair to use",
+    "lead": "Every page is free to open. Sessions keep it fair: ten without an account, a hundred with one, more for points you earn by learning — and unlimited for organisations. No payments, ever.",
     "popular": "Most popular",
     "sentTitle": "Thanks — your request is in.",
     "sentBody": "Swarnil will reply by email within two working days with the next steps.",
@@ -1314,32 +1315,35 @@
     "noCharge": "There is nothing to pay — the Academy runs on points. You will get a reply by email within two working days."
   },
   "products": {
-    "free": {
-      "name": "Free",
-      "tagline": "The whole public course, for everyone.",
-      "f1": "Every free lesson, quiz and walkthrough",
-      "f2": "Five practice exams and the interview bank",
-      "f3": "The SAQL, recipe and dataflow visualisers",
-      "f4": "No ads once you sign in",
-      "f5": "1,000 points to start — a month of Pro"
+    "visitor": {
+      "name": "Visitor",
+      "tagline": "Try it without an account.",
+      "f1": "Every lesson, interview answer and visualiser",
+      "f2": "One session = one page, re-reading it that day is free",
+      "f3": "Resets every 30 days"
     },
-    "pro": {
-      "name": "Pro",
-      "tagline": "Every Pro lesson — paid in points while the Academy is new.",
-      "f1": "All Pro lessons, as each section is published",
-      "f2": "Full answer review on the practice exams",
-      "f3": "Downloadable dashboards and recipes",
-      "f4": "No ads anywhere",
-      "f5": "Priority answers in the comments"
+    "account": {
+      "name": "Free account",
+      "tagline": "Sign up and the sessions go up ten-fold.",
+      "f1": "Ninety more sessions on top of the first ten",
+      "f2": "{welcome} points to start, more for every lesson",
+      "f3": "Members lessons, progress, streaks, the leaderboard",
+      "f4": "No ads anywhere once you sign in"
+    },
+    "pack": {
+      "name": "Session pack",
+      "tagline": "Run out? Top up with points — never money.",
+      "f1": "Ten more sessions for {points} points",
+      "f2": "Buy one, three or five at a time",
+      "f3": "Points come from learning and contributing"
     },
     "seats": {
-      "name": "Teams and universities",
-      "tagline": "Pro for a company, a team or a class — per seat.",
-      "f1": "Pro for every seat, joined with one code",
-      "f2": "An admin view of who is learning and how far",
-      "f3": "Add or free seats at any time",
-      "f4": "Members keep earning points like everyone else",
-      "f5": "One contact, nothing to pay"
+      "name": "Organisations",
+      "tagline": "Unlimited for a company, team or university.",
+      "f1": "Unlimited sessions for every member",
+      "f2": "Join with a code — or automatically with a work email domain",
+      "f3": "An admin view of who is learning and how far",
+      "f4": "Always free: ask, and we set it up"
     }
   },
   "human": {
@@ -1349,23 +1353,11 @@
     "wait": "One moment — still checking you are human."
   },
   "plans": {
-    "balance": "{n} points",
-    "proUntil": "Pro until {date}",
-    "seatOf": "Pro through {org}",
-    "noEnd": "no end date",
-    "free": "Free",
-    "pointsPer": "points / {days} days",
     "startLearning": "Start learning",
-    "signUpFor": "Sign up — get {n} points",
-    "redeem": "Unlock Pro for {n} points",
-    "extend": "Add {days} more days",
-    "short": "You need {n} more points.",
-    "earn": "Earn them in the course",
-    "redeemed": "You are Pro until {date}. Enjoy every lesson.",
     "requestSeats": "Request seats",
     "haveCode": "I have a join code",
     "pointsEyebrow": "Points, not payments",
-    "pointsTitle": "Your first month is on us; learning pays for the rest",
+    "pointsTitle": "Learning earns the points that buy more learning",
     "earnRow": {
       "welcome": "when you create your account",
       "lesson": "for every lesson you complete",
@@ -1391,18 +1383,29 @@
       "team": "Team",
       "university": "University"
     },
-    "byRequest": "By request"
+    "yourSessions": "Your sessions",
+    "unlimited": "Unlimited",
+    "accountNote": "Sessions never expire. Re-reading a page the same day is free.",
+    "visitorNote": "Without an account: these reset every {days} days. Sign up for ninety more.",
+    "pointsLabel": "Points",
+    "organisation": "Organisation",
+    "sessions": "sessions",
+    "sessionsFor": "sessions for {points} points",
+    "sessionsPer": "sessions every {days} days",
+    "youHaveAccount": "Go to your dashboard",
+    "buyN": "{n} × · {points} pts",
+    "bought": "{n} sessions added. Happy learning."
   },
   "team": {
     "title": "My organisation",
-    "lead": "Seats for companies, teams and universities. Join with the code your admin gave you; while your organisation has seats, you are Pro.",
+    "lead": "Unlimited access for companies, teams and universities. Join with the code your admin gave you — or sign up with your work email if your organisation is on the list.",
     "code": "Join code",
     "codeHint": "8 letters and digits",
     "join": "Take my seat",
     "noCode": "No code yet?",
     "request": "Ask for seats for your organisation",
     "seats": "{used} of {seats} seats used",
-    "youArePro": "Your seat includes Pro.",
+    "youArePro": "Your seat gives you unlimited sessions.",
     "until": "Seats run until {date}.",
     "adminTitle": "You manage this organisation",
     "share": "Share this code or link with the people who should get a seat. Each person who joins uses one seat.",
@@ -1410,7 +1413,9 @@
     "member": "Member",
     "lessons": "Lessons",
     "points": "Points",
-    "free": "Free this seat"
+    "free": "Free this seat",
+    "domains": "Anyone with a verified {domains} email joins automatically.",
+    "sessions": "Sessions"
   },
   "vis": {
     "eyebrow": "Visualisers",
@@ -1636,5 +1641,20 @@
     "howToRead": "How to read this",
     "beatBefore": "what happens",
     "beatAfter": "result"
+  },
+  "meter": {
+    "eyebrow": "Session {used} of {allowance}",
+    "wallTitle": "You have used your sessions",
+    "wallTitleAnon": "That was your {n} free sessions",
+    "wallBody": "Top up with a pack — {sessions} sessions for {points} points. Points come from learning, never money.",
+    "wallBodyAnon": "Create a free account for {more} more sessions and 1,000 points — or come back when your sessions reset, within {days} days.",
+    "signUp": "Create a free account — {more} more sessions",
+    "buy": "Buy {sessions} sessions for {points} points",
+    "balance": "You have {n} points",
+    "earn": "Earn points: share a resource (+25)",
+    "org": "Learning with your team? Organisations are unlimited",
+    "home": "Back to the home page",
+    "low": "{n} sessions left",
+    "left": "{n} of {allowance} sessions left"
   }
 }

@@ -38,14 +38,18 @@ export const LEAD_FIELDS: Partial<Record<'interest' | 'lessons' | 'points' | 'so
 /**
  * What happened on the site. Salesforce's AcademyLeadEvents job folds each
  * event into the person's one record (salesforce/CRM-PROCESS.md):
- *   signup  → a self-serve lead          redeem → a self-serve customer
+ *   signup  → a self-serve lead
+ *   pack    → a self-serve customer: a session pack bought with points
+ *             (redeem is the retired Pro purchase, still understood)
  *   request → a sales-led lead (seats, set-up, consulting, mentoring)
  */
-export type AcademyEvent = 'signup' | 'redeem' | 'request'
+export type AcademyEvent = 'signup' | 'pack' | 'redeem' | 'request'
 
 export interface LeadForSalesforce {
   event: AcademyEvent
   product?: string | null
+  /** A pack purchase: what was bought. */
+  pack?: { packs: number, points: number, sessions: number } | null
   firstName?: string | null
   lastName: string
   email: string
@@ -69,7 +73,11 @@ export interface LeadForSalesforce {
 /** Sends one lead. Resolves to 'sent' or 'failed:<reason>' — never throws. */
 export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<string> {
   const description = [
-    lead.event === 'signup' ? 'Signed up on the site (self-serve).' : lead.event === 'redeem' ? 'Bought Pro with points (self-serve).' : `Interest: ${lead.product}`,
+    lead.event === 'signup'
+      ? 'Signed up on the site (self-serve).'
+      : lead.event === 'pack'
+        ? `Bought ${lead.pack?.packs ?? 1} session pack(s): ${lead.pack?.sessions ?? 10} sessions for ${lead.pack?.points ?? 100} points (self-serve).`
+        : lead.event === 'redeem' ? 'Bought Pro with points (self-serve).' : `Interest: ${lead.product}`,
     lead.message ? `Message: ${lead.message}` : '',
     `Academy: ${lead.lessonsDone} lessons done, ${lead.points} points${lead.userId ? `, user ${lead.userId}` : ', no account'}`,
     lead.seats ? `Seats: ${lead.seats}${lead.orgKind ? ` (${lead.orgKind})` : ''}` : '',
@@ -95,7 +103,7 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
   })
   const custom: [keyof typeof LEAD_FIELDS, string | number | null | undefined][] = [
     ['event', lead.event], ['motion', lead.event === 'request' ? 'sales-led' : 'self-serve'],
-    ['lifecycle', lead.event === 'redeem' ? 'customer' : lead.event === 'request' ? 'sql' : 'lead'],
+    ['lifecycle', lead.event === 'redeem' || lead.event === 'pack' ? 'customer' : lead.event === 'request' ? 'sql' : 'lead'],
     ['interest', lead.product], ['lessons', lead.lessonsDone], ['points', lead.points], ['source', lead.source],
     ['landing', lead.landing], ['firstLanding', lead.firstLanding], ['viewsBefore', lead.viewsBefore], ['locale', lead.locale],
     ['userId', lead.userId], ['seats', lead.seats], ['orgKind', lead.orgKind]
@@ -118,7 +126,7 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
  * Academy knows about them. Never throws: Salesforce being down must not
  * break a sign-up or a purchase.
  */
-export async function sendAcademyEvent(event: 'signup' | 'redeem', user: { id: string, email: string, name?: string | null }): Promise<string> {
+export async function sendAcademyEvent(event: 'signup' | 'pack', user: { id: string, email: string, name?: string | null }, pack?: { packs: number, points: number, sessions: number }): Promise<string> {
   try {
     const sql = useDb()
     const [[stats], [attr]] = await Promise.all([
@@ -128,7 +136,8 @@ export async function sendAcademyEvent(event: 'signup' | 'redeem', user: { id: s
     const [first, ...rest] = String(user.name || user.email.split('@')[0]).trim().split(/\s+/)
     return await sendLeadToSalesforce({
       event,
-      product: event === 'redeem' ? 'pro' : null,
+      product: null,
+      pack: pack ?? null,
       firstName: rest.length ? first : null,
       lastName: rest.length ? rest.join(' ') : first || 'Learner',
       email: user.email,

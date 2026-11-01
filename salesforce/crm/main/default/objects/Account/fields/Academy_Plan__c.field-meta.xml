@@ -22,6 +22,11 @@
                 <label>Pro</label>
             </value>
             <value>
+                <fullName>usage</fullName>
+                <default>false</default>
+                <label>Usage (sessions)</label>
+            </value>
+            <value>
                 <fullName>seats</fullName>
                 <default>false</default>
                 <label>Seats</label>

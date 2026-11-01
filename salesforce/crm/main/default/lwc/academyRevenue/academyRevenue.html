@@ -15,6 +15,10 @@
                     <p class="slds-text-heading_medium">{arr}</p>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4 slds-m-bottom_small">
+                    <p class="slds-text-title_caps">Sessions bought</p>
+                    <p class="slds-text-heading_medium">{sessions}</p>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-4 slds-m-bottom_small">
                     <p class="slds-text-title_caps">Points spent</p>
                     <p class="slds-text-heading_medium">{points}</p>
                 </div>
@@ -29,7 +33,7 @@
                 <lightning-progress-bar value={seatPct} size="large"></lightning-progress-bar>
                 <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">{seatHint}</p>
             </template>
-            <p class="slds-text-body_small slds-text-color_weak slds-m-top_small">List prices; paid in points while the Academy has no payments.</p>
+            <p class="slds-text-body_small slds-text-color_weak slds-m-top_small">The Academy never takes money: everything here is points.</p>
         </div>
     </lightning-card>
 </template>

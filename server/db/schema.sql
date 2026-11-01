@@ -303,8 +303,8 @@ from app.user_points p
 left join (
   select user_id,
          sum(delta)::int                                         as net,
-         -sum(delta) filter (where reason = 'redeem_pro')        as spent,
-         sum(delta) filter (where reason <> 'redeem_pro')        as adjusted
+         -sum(delta) filter (where reason in ('redeem_pro', 'session_pack')) as spent,
+         sum(delta) filter (where reason not in ('redeem_pro', 'session_pack')) as adjusted
   from app.points_ledger group by user_id
 ) l on l.user_id = p.user_id;
 
@@ -384,3 +384,45 @@ create table if not exists app.bot_drop (
   n      integer not null default 0,
   primary key (day, reason)
 );
+
+-- ---------------------------------------------------------------------------
+-- Usage-based access (2026-11-01). The Academy never takes money: access is
+-- metered in SESSIONS and paid for in points. One session = one metered page
+-- (a lesson, an interview answer, a visualiser) the first time it is opened
+-- on a given day; re-reading it that day is free.
+--
+--   anonymous   ANON_SESSIONS per hashed IP per 30 days (no address stored)
+--   account     ACCOUNT_SESSIONS in total (the anonymous ten plus ninety),
+--               plus every pack bought: PACK_SESSIONS for PACK_POINTS points
+--   unlimited   members of an active organisation, admin grants (entitlement)
+--
+-- Constants live in shared/utils/products.ts; server/utils/meter.ts applies them.
+create table if not exists app.meter_view (
+  subject    text        not null,              -- 'u:<user id>' or 'ip:<sha256>'
+  path       text        not null,
+  day        date        not null default current_date,
+  created_at timestamptz not null default now(),
+  primary key (subject, path, day)
+);
+create index if not exists meter_view_subject_idx on app.meter_view (subject, created_at desc);
+create index if not exists meter_view_time_idx on app.meter_view (created_at desc);
+
+-- Sessions added to an account: packs bought with points, admin grants.
+create table if not exists app.session_ledger (
+  id         bigint generated always as identity primary key,
+  user_id    text        not null,
+  sessions   integer     not null check (sessions <> 0),
+  points     integer     not null default 0,
+  reason     text        not null check (reason in ('pack', 'admin', 'refund')),
+  created_at timestamptz not null default now()
+);
+create index if not exists session_ledger_user_idx on app.session_ledger (user_id, created_at desc);
+
+-- Points can now be spent on session packs.
+alter table app.points_ledger drop constraint if exists points_ledger_reason_check;
+alter table app.points_ledger add constraint points_ledger_reason_check
+  check (reason in ('redeem_pro', 'session_pack', 'refund', 'admin', 'bonus'));
+
+-- Organisations can be joined automatically by verified email domain.
+alter table app.org add column if not exists domains text[] not null default '{}';
+update app.org set domains = array[domain] where domain is not null and domains = '{}';

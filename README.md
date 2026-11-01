@@ -28,10 +28,6 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-0F2A5C" alt="MIT license"></a>
 </p>
 
-<p align="center">
-  <a href="./.github/demo/crma-academy-demo.mp4"><img src="./.github/demo/crma-academy-demo-poster.jpg" alt="Watch the 30-second tour of CRM Analytics Academy" width="860"></a><br>
-  <sub>▶ <a href="./.github/demo/crma-academy-demo.mp4"><strong>Watch the 30-second tour</strong></a> — one real interview question, followed through the site. Made with HyperFrames from the live site's own screens (<code>demo-video/</code>).</sub>
-</p>
 
 ---
 
@@ -299,13 +295,12 @@ is ever empty in dev, the Nuxt Content dev database is stale: `rm -rf .data && p
    `.github/workflows/deploy-cloudflare.yml` lints, typechecks, builds and deploys to Cloudflare, then pings
    IndexNow. Runtime secrets live on the Worker (`wrangler secret put …`; names in `.env.example`).
 
-## The demo film
+## The opener film
 
-`demo-video/` is a [HyperFrames](https://hyperframes.heygen.com) project: HTML scenes rendered frame by frame
-from real screenshots of the live site. `SPEC.md` is the brief, `STORYLINES.md` the alternatives, `REVIEW.md` the
-check. Edit the scenes, then `cd demo-video && npm run render`. The music and effects are the Academy's own
-CRMA kit; to score it with TheFatRat's "Unity", add your copy as `demo-video/assets/audio/unity.mp3`, point the
-`bed` audio at it, re-render, and credit TheFatRat wherever the video is posted.
+`pnpm fcp:demo` writes a Final Cut Pro project (`content-creation/projects/demo-film/demo-film.fcpxml`): a
+motion-graphics opener built only from the Academy's CRMA kit — animated titles, transitions, music and sound
+effects, no screenshots. Install the kit (`content-creation/kit/Install.command`), then File → Import → XML.
+The copy lives in `content-creation/demo.mjs`.
 
 ## How it was made
 

@@ -74,6 +74,11 @@ const railOpen = ref(true)
         </button>
       </nav>
       <div class="ms-auto flex items-center gap-1.5">
+        <ShareBar
+          :title="props.title"
+          compact
+          class="max-md:hidden"
+        />
         <UButton
           icon="i-lucide-panel-left"
           color="neutral"
@@ -104,6 +109,12 @@ const railOpen = ref(true)
         class="min-h-0 overflow-y-auto border-e-[1.5px] border-(--ink) bg-(--card) max-lg:hidden"
       >
         <slot name="rail" />
+        <div class="border-t-[1.5px] border-(--ink) p-3">
+          <PromoSlot
+            :key="`vis-rail-${step}`"
+            unit="square250"
+          />
+        </div>
       </aside>
       <section class="graph-paper relative min-h-0 overflow-y-auto bg-(--paper) p-4 sm:p-5">
         <span

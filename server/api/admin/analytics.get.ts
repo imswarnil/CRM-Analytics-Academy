@@ -153,6 +153,25 @@ export default defineEventHandler(async (event) => {
              ) x) as steps
       from recent r order by r.last_at desc`
   ])
+  // Usage: sessions charged (accounts vs anonymous), walls, packs, top pages.
+  const [usageDays, usageTotals, usagePages, walls] = await Promise.all([
+    sql`
+      select day::text as day,
+             count(*) filter (where subject like 'u:%')::int as account,
+             count(*) filter (where subject like 'ip:%')::int as anon
+      from app.meter_view where created_at >= ${since} group by 1 order by 1`,
+    sql`
+      select (select count(*)::int from app.meter_view where created_at >= ${since}) as sessions,
+             (select count(distinct subject)::int from app.meter_view where created_at >= ${since} and subject like 'u:%') as account_readers,
+             (select count(distinct subject)::int from app.meter_view where created_at >= ${since} and subject like 'ip:%') as anon_readers,
+             (select count(*)::int from (select subject from app.meter_view where subject like 'ip:%' and created_at > now() - interval '30 days' group by subject having count(*) >= ${ANON_SESSIONS}) x) as anon_exhausted,
+             (select count(*)::int from app.session_ledger where reason = 'pack' and created_at >= ${since}) as packs,
+             (select coalesce(sum(sessions), 0)::int from app.session_ledger where reason = 'pack' and created_at >= ${since}) as pack_sessions,
+             (select coalesce(sum(points), 0)::int from app.session_ledger where reason = 'pack' and created_at >= ${since}) as pack_points`,
+    sql`select path as key, count(*)::int as n from app.meter_view where created_at >= ${since} group by 1 order by n desc limit 12`,
+    sql`select count(*)::int as n, count(distinct visitor)::int as visitors from ${EV} where name = 'meter_wall' and created_at >= ${since}`
+  ])
+  const u = usageTotals[0] ?? {}
   const b = botRow[0] ?? {}
   const i = intent[0] ?? {}
   const c = conv[0] ?? {}
@@ -197,6 +216,19 @@ export default defineEventHandler(async (event) => {
       { step: 'learned', count: Number(c.learned ?? 0) }
     ],
     humansOnly: humans,
+    usage: {
+      sessions: Number(u.sessions ?? 0),
+      accountReaders: Number(u.account_readers ?? 0),
+      anonReaders: Number(u.anon_readers ?? 0),
+      anonExhausted: Number(u.anon_exhausted ?? 0),
+      packs: Number(u.packs ?? 0),
+      packSessions: Number(u.pack_sessions ?? 0),
+      packPoints: Number(u.pack_points ?? 0),
+      walls: Number(walls[0]?.n ?? 0),
+      wallVisitors: Number(walls[0]?.visitors ?? 0),
+      days: usageDays.map(r => ({ day: String(r.day), account: Number(r.account), anon: Number(r.anon) })),
+      pages: usagePages.map(r => ({ key: String(r.key), count: Number(r.n) }))
+    },
     bots: {
       views: Number(b.views ?? 0),
       unverifiedViews: Number(b.unverified_views ?? 0),

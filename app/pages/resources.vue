@@ -69,6 +69,11 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
       >
         {{ t('resources.header.suggest') }}
       </UButton>
+      <ShareBar
+        class="mt-6"
+        :title="t('resources.header.title')"
+        :text="t('resources.header.lead')"
+      />
     </BpPageHeader>
 
     <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
@@ -172,6 +177,9 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
     </div>
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
       <PromoSlot unit="horizontal" />
+    </div>
+    <div class="mx-auto max-w-(--ui-container) px-4 pb-12 sm:px-6 lg:px-8">
+      <PromoSlot unit="multiplexHorizontal" />
     </div>
   </div>
 </template>

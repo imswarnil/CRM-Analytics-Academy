@@ -5,7 +5,7 @@
  * join code to its admin; members join at /team. Seats can grow or shrink
  * (never below the seats in use) and an org can carry an end date.
  */
-interface Member { userId: string, role: string, name: string | null, email: string | null, lessons: number, joinedAt: string }
+interface Member { userId: string, role: string, name: string | null, email: string | null, lessons: number, sessions: number, joinedAt: string }
 interface Org {
   id: number
   name: string
@@ -13,7 +13,7 @@ interface Org {
   seats: number
   used: number
   joinCode: string
-  domain: string | null
+  domains: string[]
   leadId: number | null
   note: string | null
   expiresAt: string | null
@@ -23,7 +23,9 @@ interface Org {
 
 const { data, refresh } = await useLazyAsyncData('admin-orgs', () => $fetch<{ orgs: Org[] }>('/api/admin/orgs').then(r => r.orgs), { server: false, default: () => [] })
 
-const draft = reactive({ name: '', kind: 'company' as OrgKind, seats: 10, months: 12, adminEmail: '', note: '' })
+const draft = reactive({ name: '', kind: 'company' as OrgKind, seats: 10, months: 12, adminEmail: '', note: '', domains: '' })
+// Domain lists being edited, per org.
+const domainEdits = reactive<Record<number, string>>({})
 const error = ref('')
 const busy = ref(false)
 async function post(body: Record<string, unknown>) {
@@ -42,7 +44,7 @@ async function post(body: Record<string, unknown>) {
 }
 async function create() {
   if (await post({ ...draft, adminEmail: draft.adminEmail || undefined })) {
-    Object.assign(draft, { name: '', seats: 10, adminEmail: '', note: '' })
+    Object.assign(draft, { name: '', seats: 10, adminEmail: '', note: '', domains: '' })
   }
 }
 const date = (d: string | null) => (d ? new Date(d).toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' }) : 'no end')
@@ -117,9 +119,14 @@ const seatTotals = computed(() => ({
         placeholder="Admin's email (optional)"
       />
       <UInput
+        v-model="draft.domains"
+        placeholder="Email domains, e.g. acme.com, acme.co.uk"
+        class="sm:col-span-2"
+      />
+      <UInput
         v-model="draft.note"
-        placeholder="Note (invoice, contact…)"
-        class="sm:col-span-5"
+        placeholder="Note (contact, context…)"
+        class="sm:col-span-3"
       />
       <UButton
         type="submit"
@@ -200,12 +207,34 @@ const seatTotals = computed(() => ({
             Remove org
           </UButton>
         </div>
-        <p
-          v-if="o.note"
-          class="px-4 pb-3 text-sm text-(--ink2)"
+        <form
+          class="flex flex-wrap items-center gap-2 px-4 pb-3"
+          @submit.prevent="post({ id: o.id, domains: domainEdits[o.id] ?? o.domains.join(', ') })"
         >
-          {{ o.note }}
-        </p>
+          <UIcon
+            name="i-lucide-at-sign"
+            class="size-4 text-(--ink2)"
+          />
+          <UInput
+            :model-value="domainEdits[o.id] ?? o.domains.join(', ')"
+            size="xs"
+            class="min-w-64 flex-1"
+            placeholder="Whitelisted email domains — verified emails join automatically"
+            @update:model-value="domainEdits[o.id] = String($event)"
+          />
+          <UButton
+            type="submit"
+            size="xs"
+            variant="outline"
+            color="neutral"
+          >
+            Save domains
+          </UButton>
+          <span
+            v-if="o.note"
+            class="w-full text-sm text-(--ink2)"
+          >{{ o.note }}</span>
+        </form>
         <table
           v-if="o.members.length"
           class="w-full border-t-[1.5px] border-(--line) text-sm"
@@ -226,7 +255,7 @@ const seatTotals = computed(() => ({
                 {{ m.email }}
               </td>
               <td class="px-4 py-2 font-mono tabular-nums text-(--ink2)">
-                {{ m.lessons }} lessons
+                {{ m.lessons }} lessons · {{ m.sessions }} sessions
               </td>
               <td class="px-4 py-2 text-end">
                 <UButton

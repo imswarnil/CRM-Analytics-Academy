@@ -1,0 +1,1214 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 4,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 2 has 4 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/demo-video/compositions/exam.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 2 has 4 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/demo-video/compositions/hook.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 1 has 4 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/demo-video/compositions/langs.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 1 has 8 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/swarnil/Swarnil/crmanalytics.imswarnil.com/demo-video/compositions/payoff.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      }
+    ],
+    "filesScanned": 10
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 2,
+    "warningCount": 0,
+    "infoCount": 13,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 20.279,
+        "selector": "#payoff-n1",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 266.39,
+          "top": 846.83,
+          "right": 1235.34,
+          "bottom": 890,
+          "width": 968.95,
+          "height": 43.17
+        },
+        "containerSelector": "#payoff-n2",
+        "text": "150 interview questions",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 266.39,
+          "y": 846.83,
+          "width": 968.95,
+          "height": 43.17
+        },
+        "firstSeen": 20.279,
+        "lastSeen": 21.285,
+        "occurrences": 7,
+        "heldMs": 1006.0000000000002,
+        "times": [
+          20.279,
+          20.447,
+          20.615,
+          20.782,
+          20.95,
+          21.117,
+          21.285
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 21.667,
+        "selector": "#payoff-n2",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 161.44,
+          "top": 846.83,
+          "right": 917.7,
+          "bottom": 890,
+          "width": 756.26,
+          "height": 43.17
+        },
+        "containerSelector": "#payoff-n3",
+        "text": "5 practice exams",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 161.44,
+          "y": 846.83,
+          "width": 756.26,
+          "height": 43.17
+        },
+        "firstSeen": 20.279,
+        "lastSeen": 22.291,
+        "occurrences": 14,
+        "heldMs": 2012.0000000000005,
+        "times": [
+          20.279,
+          20.447,
+          20.615,
+          20.782,
+          20.95,
+          21.117,
+          21.285,
+          21.453,
+          21.62,
+          21.667,
+          21.788,
+          21.955,
+          22.123,
+          22.291
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 5,
+        "selector": "#reveal-cam",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -210,
+          "top": -268,
+          "right": 2670,
+          "bottom": 1352,
+          "width": 2880,
+          "height": 1620
+        },
+        "containerSelector": "#reveal > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 210,
+          "right": 750,
+          "top": 268,
+          "bottom": 272
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "2.5",
+          "data-track-index": "1"
+        },
+        "sourceFile": "compositions/reveal.html",
+        "bbox": {
+          "x": -210,
+          "y": -268,
+          "width": 2880,
+          "height": 1620
+        },
+        "firstSeen": 5,
+        "lastSeen": 5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#learn-cam",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -231,
+          "top": -733.5,
+          "right": 2553,
+          "bottom": 832.5,
+          "width": 2784,
+          "height": 1566
+        },
+        "containerSelector": "#learn > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 231,
+          "right": 633,
+          "top": 733.5
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "3.5",
+          "data-track-index": "1"
+        },
+        "sourceFile": "compositions/learn.html",
+        "bbox": {
+          "x": -231,
+          "y": -733.5,
+          "width": 2784,
+          "height": 1566
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 10.894,
+        "selector": "#langs-n2",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1183,
+          "top": 891.81,
+          "right": 1459.86,
+          "bottom": 912.93,
+          "width": 276.86,
+          "height": 21.12
+        },
+        "containerSelector": "#langs-n3",
+        "text": "Japanese",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/langs.html",
+        "bbox": {
+          "x": 1183,
+          "y": 891.81,
+          "width": 276.86,
+          "height": 21.12
+        },
+        "firstSeen": 10.894,
+        "lastSeen": 10.894,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          10.894
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 11.667,
+        "selector": "#langs-n4",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 1183,
+          "top": 899.86,
+          "right": 1539.23,
+          "bottom": 956.03,
+          "width": 356.23,
+          "height": 56.17
+        },
+        "containerSelector": "#langs-slot",
+        "text": "12 languages",
+        "fixHint": "Text is 356px x 56px inside 432px x 61px and overflows by up to 3px; increase the container height to at least ~64px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 1183,
+          "top": 891.81,
+          "right": 1615,
+          "bottom": 953,
+          "width": 432,
+          "height": 61.19
+        },
+        "overflow": {
+          "bottom": 3.03
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/langs.html",
+        "bbox": {
+          "x": 1183,
+          "y": 899.86,
+          "width": 356.23,
+          "height": 56.17
+        },
+        "firstSeen": 11.667,
+        "lastSeen": 11.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 11.667,
+        "selector": "#langs-cam-ar",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -987.8,
+          "top": 21.89,
+          "right": 2168.49,
+          "bottom": 1797.31,
+          "width": 3156.29,
+          "height": 1775.41
+        },
+        "containerSelector": "#langs > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 987.8,
+          "right": 248.49,
+          "bottom": 717.31
+        },
+        "dataAttributes": {
+          "data-start": "1.755",
+          "data-duration": "1.245",
+          "data-track-index": "1"
+        },
+        "sourceFile": "compositions/langs.html",
+        "bbox": {
+          "x": -987.8,
+          "y": 21.89,
+          "width": 3156.29,
+          "height": 1775.41
+        },
+        "firstSeen": 11.667,
+        "lastSeen": 11.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 15,
+        "selector": "#exam-cam",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -2392,
+          "top": 248.4,
+          "right": 2216,
+          "bottom": 2840.4,
+          "width": 4608,
+          "height": 2592
+        },
+        "containerSelector": "#exam > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 2392,
+          "right": 296,
+          "bottom": 1760.4
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "3.5",
+          "data-track-index": "1"
+        },
+        "sourceFile": "compositions/exam.html",
+        "bbox": {
+          "x": -2392,
+          "y": 248.4,
+          "width": 4608,
+          "height": 2592
+        },
+        "firstSeen": 15,
+        "lastSeen": 15,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          15
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 15,
+        "selector": "#exam-cam",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -2392,
+          "top": 248.4,
+          "right": 2216,
+          "bottom": 2840.4,
+          "width": 4608,
+          "height": 2592
+        },
+        "containerSelector": "#exam > div:nth-of-type(1)",
+        "text": "104:54",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "3.5",
+          "data-track-index": "1"
+        },
+        "sourceFile": "compositions/exam.html",
+        "bbox": {
+          "x": -2392,
+          "y": 248.4,
+          "width": 4608,
+          "height": 2592
+        },
+        "firstSeen": 15,
+        "lastSeen": 15,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          15
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 18.333,
+        "selector": "#track-cam",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -336,
+          "top": -286,
+          "right": 2256,
+          "bottom": 1172,
+          "width": 2592,
+          "height": 1458
+        },
+        "containerSelector": "#track > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 336,
+          "right": 336,
+          "top": 286,
+          "bottom": 92
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "3.5",
+          "data-track-index": "1"
+        },
+        "sourceFile": "compositions/track.html",
+        "bbox": {
+          "x": -336,
+          "y": -286,
+          "width": 2592,
+          "height": 1458
+        },
+        "firstSeen": 18.333,
+        "lastSeen": 18.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          18.333
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#payoff-n2",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 161.44,
+          "top": 866.16,
+          "right": 917.7,
+          "bottom": 968.63,
+          "width": 756.26,
+          "height": 102.47
+        },
+        "containerSelector": "#payoff-band",
+        "text": "practice exams",
+        "fixHint": "Text is 756px x 102px inside 1720px x 190px and overflows by up to 79px; increase the container height to at least ~269px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 100,
+          "top": 700,
+          "right": 1820,
+          "bottom": 890,
+          "width": 1720,
+          "height": 190
+        },
+        "overflow": {
+          "bottom": 78.63
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 161.44,
+          "y": 866.16,
+          "width": 756.26,
+          "height": 102.47
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#payoff-n3",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 199.41,
+          "top": 872.66,
+          "right": 711.23,
+          "bottom": 970.01,
+          "width": 511.82,
+          "height": 97.35
+        },
+        "containerSelector": "#payoff-band",
+        "text": "languages",
+        "fixHint": "Text is 512px x 97px inside 1720px x 190px and overflows by up to 80px; increase the container height to at least ~270px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 100,
+          "top": 700,
+          "right": 1820,
+          "bottom": 890,
+          "width": 1720,
+          "height": 190
+        },
+        "overflow": {
+          "bottom": 80.01
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 199.41,
+          "y": 872.66,
+          "width": 511.82,
+          "height": 97.35
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#payoff-n3 > b:nth-of-type(1)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 100,
+          "top": 874.33,
+          "right": 199.41,
+          "bottom": 948.83,
+          "width": 99.41,
+          "height": 74.5
+        },
+        "containerSelector": "#payoff-band",
+        "text": "12",
+        "fixHint": "Text is 99px x 75px inside 1720px x 190px and overflows by up to 59px; increase the container height to at least ~249px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 100,
+          "top": 700,
+          "right": 1820,
+          "bottom": 890,
+          "width": 1720,
+          "height": 190
+        },
+        "overflow": {
+          "bottom": 58.83
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 100,
+          "y": 874.33,
+          "width": 99.41,
+          "height": 74.5
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#payoff-n2",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 100,
+          "top": 854.83,
+          "right": 917.7,
+          "bottom": 969.22,
+          "width": 817.7,
+          "height": 114.39
+        },
+        "containerSelector": "#payoff-band",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 100,
+          "top": 700,
+          "right": 1820,
+          "bottom": 890,
+          "width": 1720,
+          "height": 190
+        },
+        "overflow": {
+          "bottom": 79.22
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 100,
+          "y": 854.83,
+          "width": 817.7,
+          "height": 114.39
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#payoff-n3",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 100,
+          "top": 854.83,
+          "right": 711.23,
+          "bottom": 969.22,
+          "width": 611.23,
+          "height": 114.39
+        },
+        "containerSelector": "#payoff-band",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 100,
+          "top": 700,
+          "right": 1820,
+          "bottom": 890,
+          "width": 1720,
+          "height": 190
+        },
+        "overflow": {
+          "bottom": 79.22
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 100,
+          "y": 854.83,
+          "width": 611.23,
+          "height": 114.39
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      }
+    ],
+    "duration": 30,
+    "samples": [
+      1.667,
+      5,
+      8.333,
+      11.667,
+      15,
+      18.333,
+      21.667,
+      25,
+      28.333
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 15,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      1.667,
+      8.333,
+      15,
+      21.667,
+      28.333
+    ],
+    "checked": 24,
+    "passed": 24
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 14,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 2 text elements stay under it for 0.5 s or more, the smallest \"Interview question · technical\" at 22 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Interview question · technical",
+        "selector": "#hook-eb",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 160,
+          "y": 392,
+          "width": 488.41,
+          "height": 29
+        },
+        "time": 0.125,
+        "times": [
+          0.125,
+          2
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 2.875,
+        "elements": [
+          {
+            "selector": "#hook-eb",
+            "text": "Interview question · technical",
+            "fontPx": 22,
+            "time": 0.125,
+            "seconds": 2.875
+          },
+          {
+            "selector": "#hook-dim",
+            "text": "You will be asked this. Here is where you learn it.",
+            "fontPx": 22,
+            "time": 2,
+            "seconds": 1
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"How does differ from SQL? SAQL\" (6 words) is on screen 0.84 s (±0.01 s), under its 1.72 s floor: hold it about 0.5 s + 0.3 s a word (2.30 s here) before it leaves or changes; see references/motion.md.",
+        "text": "How does differ from SQL? SAQL",
+        "selector": "#reveal-q",
+        "dataAttributes": {},
+        "sourceFile": "compositions/reveal.html",
+        "bbox": {
+          "x": 160,
+          "y": 428,
+          "width": 1428.5,
+          "height": 119
+        },
+        "time": 3,
+        "words": 6,
+        "seconds": 0.836,
+        "floorSeconds": 1.725
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"CRM Analytics Academy\" renders at 22 px for 1.25 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "CRM Analytics Academy",
+        "selector": "#reveal-tb > p:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/reveal.html",
+        "bbox": {
+          "x": 1183,
+          "y": 791.63,
+          "width": 341.89,
+          "height": 29
+        },
+        "time": 4.25,
+        "times": [
+          4.25
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 1.25,
+        "elements": [
+          {
+            "selector": "#reveal-tb > p:nth-of-type(1)",
+            "text": "CRM Analytics Academy",
+            "fontPx": 22,
+            "time": 4.25,
+            "seconds": 1.25
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"Sheet 02 / Learn\" renders at 22 px for 2.13 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Sheet 02 / Learn",
+        "selector": "#learn-tb > p:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/learn.html",
+        "bbox": {
+          "x": 1183,
+          "y": 852.81,
+          "width": 260.48,
+          "height": 29
+        },
+        "time": 6.875,
+        "times": [
+          6.875
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 2.125,
+        "elements": [
+          {
+            "selector": "#learn-tb > p:nth-of-type(1)",
+            "text": "Sheet 02 / Learn",
+            "fontPx": 22,
+            "time": 6.875,
+            "seconds": 2.125
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"Sheet 03 / Your language\" renders at 22 px for 2.88 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Sheet 03 / Your language",
+        "selector": "#langs-tb > p:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/langs.html",
+        "bbox": {
+          "x": 1183,
+          "y": 791.63,
+          "width": 390.73,
+          "height": 29
+        },
+        "time": 9.125,
+        "times": [
+          9.125
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 2.875,
+        "elements": [
+          {
+            "selector": "#langs-tb > p:nth-of-type(1)",
+            "text": "Sheet 03 / Your language",
+            "fontPx": 22,
+            "time": 9.125,
+            "seconds": 2.875
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 2 text elements stay under it for 0.5 s or more, the smallest \"104:57\" at 19 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "104:57",
+        "selector": "#exam-t0",
+        "dataAttributes": {},
+        "sourceFile": "compositions/exam.html",
+        "bbox": {
+          "x": 1382,
+          "y": 22,
+          "width": 69.55,
+          "height": 24
+        },
+        "time": 12.125,
+        "times": [
+          12.125,
+          13.375
+        ],
+        "fontPx": 19,
+        "floorPx": 28,
+        "seconds": 0.75,
+        "elements": [
+          {
+            "selector": "#exam-t0",
+            "text": "104:57",
+            "fontPx": 19,
+            "time": 12.125,
+            "seconds": 0.75
+          },
+          {
+            "selector": "#exam-tb > p:nth-of-type(1)",
+            "text": "Sheet 04 / Practise",
+            "fontPx": 22,
+            "time": 13.375,
+            "seconds": 2.125
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"104:57\" (2 words) is on screen 0.30 s (±0.01 s), under its 0.40 s floor: hold it about 0.5 s + 0.3 s a word (1.10 s here) before it leaves or changes; see references/motion.md.",
+        "text": "104:57",
+        "selector": "#exam-t0",
+        "dataAttributes": {},
+        "sourceFile": "compositions/exam.html",
+        "bbox": {
+          "x": 1240.69,
+          "y": 108.29,
+          "width": 99.6400000000001,
+          "height": 34.39
+        },
+        "time": 12.703,
+        "words": 2,
+        "seconds": 0.297,
+        "floorSeconds": 0.4
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"Sheet 05 / Track\" renders at 22 px for 2.25 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Sheet 05 / Track",
+        "selector": "#track-tb > p:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/track.html",
+        "bbox": {
+          "x": 1183,
+          "y": 791.63,
+          "width": 260.48,
+          "height": 29
+        },
+        "time": 16.75,
+        "times": [
+          16.75
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 2.25,
+        "elements": [
+          {
+            "selector": "#track-tb > p:nth-of-type(1)",
+            "text": "Sheet 05 / Track",
+            "fontPx": 22,
+            "time": 16.75,
+            "seconds": 2.25
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"Free · crmanalytics.imswarnil.com\" renders at 22 px for 4.50 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Free · crmanalytics.imswarnil.com",
+        "selector": "#payoff-eb",
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 100,
+          "y": 660,
+          "width": 537.25,
+          "height": 29
+        },
+        "time": 20,
+        "times": [
+          20
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 4.5,
+        "elements": [
+          {
+            "selector": "#payoff-eb",
+            "text": "Free · crmanalytics.imswarnil.com",
+            "fontPx": 22,
+            "time": 20,
+            "seconds": 4.5
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Learn CRM Analytics the way it's used at work.\" (9 words) is on screen 2.36 s (±0.01 s), under its 2.40 s floor: hold it about 0.5 s + 0.3 s a word (3.20 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Learn CRM Analytics the way it's used at work.",
+        "selector": "#claim-l",
+        "dataAttributes": {},
+        "sourceFile": "compositions/claim.html",
+        "bbox": {
+          "x": 160,
+          "y": 317,
+          "width": 650,
+          "height": 158
+        },
+        "time": 24.641,
+        "words": 9,
+        "seconds": 2.359,
+        "floorSeconds": 2.4
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"CRM Analytics Academy\" (3 words) is on screen 1.67 s (±0.01 s), under the 2.00 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "CRM Analytics Academy",
+        "selector": "#end-name",
+        "dataAttributes": {},
+        "sourceFile": "compositions/endcard.html",
+        "bbox": {
+          "x": 682.72,
+          "y": 415,
+          "width": 452.94000000000005,
+          "height": 80
+        },
+        "time": 28.336,
+        "words": 3,
+        "seconds": 1.668,
+        "floorSeconds": 2
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"crmanalytics.imswarnil.com\" (3 words) is on screen 1.20 s (±0.01 s), under the 2.00 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "crmanalytics.imswarnil.com",
+        "selector": "#end-url",
+        "dataAttributes": {},
+        "sourceFile": "compositions/endcard.html",
+        "bbox": {
+          "x": 637.59,
+          "y": 590,
+          "width": 644.82,
+          "height": 52
+        },
+        "time": 28.805,
+        "words": 3,
+        "seconds": 1.199,
+        "floorSeconds": 2
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"Free · Nuxt · Neon · Cloudflare · LibreTranslate · Salesf...\" (6 words) is on screen 0.93 s (±0.01 s), under the 2.00 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "Free · Nuxt · Neon · Cloudflare · LibreTranslate · Salesforce",
+        "selector": "#end-tools",
+        "dataAttributes": {},
+        "sourceFile": "compositions/endcard.html",
+        "bbox": {
+          "x": 418.31,
+          "y": 670,
+          "width": 1083.36,
+          "height": 32
+        },
+        "time": 29.07,
+        "words": 6,
+        "seconds": 0.934,
+        "floorSeconds": 2
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"Free · Nuxt · Neon · Cloudflare · LibreTransl...\" renders at 24 px for 0.88 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Free · Nuxt · Neon · Cloudflare · LibreTranslate · Salesforce",
+        "selector": "#end-tools",
+        "dataAttributes": {},
+        "sourceFile": "compositions/endcard.html",
+        "bbox": {
+          "x": 418.31,
+          "y": 670,
+          "width": 1083.36,
+          "height": 32
+        },
+        "time": 29.125,
+        "times": [
+          29.125
+        ],
+        "fontPx": 24,
+        "floorPx": 28,
+        "seconds": 0.875,
+        "elements": [
+          {
+            "selector": "#end-tools",
+            "text": "Free · Nuxt · Neon · Cloudflare · LibreTranslate · Salesforce",
+            "fontPx": 24,
+            "time": 29.125,
+            "seconds": 0.875
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 240
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}
