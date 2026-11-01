@@ -161,16 +161,20 @@ useJsonLd([
 
 provide('navigation', navigation)
 
-// Exam focus mode: while a practice paper's clock runs, the site chrome,
-// promos and pop-ups step aside (set by pages/certification/[paper].vue).
-const focus = useState('exam-focus', () => false)
+// Focus mode (a practice paper, a visualiser): the navbar stays; the footer,
+// promos and pop-ups step aside so the page can fit the viewport.
+// Pages declare it with definePageMeta({ focus: true }) — known before
+// anything renders, so the server never sends a footer the page hides; the
+// state is for a page that switches it at runtime.
+const focusState = useState('exam-focus', () => false)
+const focus = computed(() => Boolean(route.meta.focus) || focusState.value)
 </script>
 
 <template>
   <UApp>
     <NuxtLoadingIndicator />
 
-    <AppHeader v-if="!focus" />
+    <AppHeader />
 
     <UMain>
       <NuxtLayout>

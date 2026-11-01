@@ -12,8 +12,9 @@
 import { type DfOptions, DEFAULT_DF_OPTIONS, buildDataflow, dataflowPlan, runDataflow, sourcesOf } from '~/utils/vis/dataflow'
 import type { DagNode } from '~/components/vis/Dag.vue'
 
+definePageMeta({ focus: true })
+
 const { t } = useI18n()
-const localePath = useLocalePath()
 
 const opts = reactive<DfOptions>({ ...DEFAULT_DF_OPTIONS })
 const df = computed(() => buildDataflow(opts))
@@ -22,7 +23,7 @@ const plan = computed(() => dataflowPlan(df.value))
 const step = ref(0)
 watch(df, () => (step.value = Math.min(step.value, results.value.length - 1)))
 const current = computed(() => results.value[Math.min(step.value, results.value.length - 1)])
-const showBefore = ref(true)
+const caption = computed(() => (current.value ? t(`vis.dataflow.explain.${current.value.explain}`, current.value.params) : ''))
 
 const dag = computed<DagNode[]>(() => Object.entries(df.value).map(([name, n]) => ({
   id: name,
@@ -66,19 +67,28 @@ usePageSchema(() => ({
 </script>
 
 <template>
-  <div>
-    <BpPageHeader
-      sheet="FIG. V3 / DATAFLOW"
-      :title="t('vis.dataflow.title')"
-      :lead="t('vis.dataflow.lead')"
-    >
-      <div class="mt-6 flex flex-wrap items-center gap-2">
+  <VisShell
+    v-model:step="step"
+    sheet="FIG. V3 / DATAFLOW"
+    :title="t('vis.dataflow.title')"
+    :count="results.length"
+    :caption="caption"
+    :eyebrow="current ? `${t('vis.stepOf', { n: current.order, total: results.length })} · ${current.action} · ${t('vis.dataflow.wave', { n: current.wave })}` : ''"
+    :edit-label="t('vis.dataflow.editJson')"
+    :stamp="current?.action ?? ''"
+  >
+    <!-- Rail: options and the waves -->
+    <template #rail>
+      <div class="space-y-2 border-b-[1.5px] border-(--ink) p-4">
+        <p class="mono-label">
+          {{ t('vis.dataflow.build') }}
+        </p>
         <button
           v-for="tg in TOGGLES"
           :key="tg.key"
           type="button"
-          class="flex items-center gap-1.5 border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-          :class="opts[tg.key] ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
+          class="flex w-full items-center gap-2 border-[1.5px] px-2.5 py-1.5 text-sm font-semibold"
+          :class="opts[tg.key] ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--paper) hover:border-(--ink)'"
           :aria-pressed="opts[tg.key]"
           @click="opts[tg.key] = !opts[tg.key]"
         >
@@ -87,157 +97,120 @@ usePageSchema(() => ({
         <USelect
           v-model="opts.augmentOperation"
           :items="['LookupSingleValue', 'LookupMultiValue']"
+          size="sm"
+          class="w-full"
         />
         <USelect
           v-model="opts.augmentFrom"
           :items="[{ label: t('vis.dataflow.leftOpps'), value: 'opportunities' }, { label: t('vis.dataflow.leftAccounts'), value: 'accounts' }]"
+          size="sm"
+          class="w-full"
         />
       </div>
-    </BpPageHeader>
-
-    <div class="mx-auto max-w-(--ui-container) space-y-6 px-4 py-10 sm:px-6 lg:px-8">
-      <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <div class="min-w-0 space-y-3">
-          <p class="eyebrow">
-            {{ t('vis.dataflow.graph') }}
+      <p class="bg-(--ice) px-4 py-2 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)">
+        {{ t('vis.dataflow.waves') }}
+      </p>
+      <ol>
+        <li
+          v-for="w in waves"
+          :key="w.wave"
+          class="border-b border-dashed border-(--line) px-4 py-2"
+        >
+          <p class="font-mono text-[11px] uppercase tracking-[.1em] text-(--signal)">
+            {{ t('vis.dataflow.wave', { n: w.wave }) }}
           </p>
-          <VisDag
-            :nodes="dag"
-            :active="current?.name ?? null"
-            :done-up-to="(current?.order ?? 1) - 1"
-            @select="select"
-          />
-        </div>
-        <!-- Waves -->
-        <div class="space-y-3">
-          <p class="eyebrow">
-            {{ t('vis.dataflow.waves') }}
-          </p>
-          <ol class="border-[1.5px] border-(--ink) bg-(--card)">
-            <li
-              v-for="w in waves"
-              :key="w.wave"
-              class="border-b border-dashed border-(--line) px-4 py-2 last:border-b-0"
+          <p class="mt-1 flex flex-wrap gap-1">
+            <button
+              v-for="n in w.names"
+              :key="n"
+              type="button"
+              class="border px-1.5 font-mono text-[11px]"
+              :class="current?.name === n ? 'border-(--signal) bg-(--signal) text-white' : 'border-(--line) hover:border-(--ink)'"
+              @click="select(n)"
             >
-              <p class="font-mono text-[11px] uppercase tracking-[.1em] text-(--signal)">
-                {{ t('vis.dataflow.wave', { n: w.wave }) }}
-              </p>
-              <p class="mt-0.5 flex flex-wrap gap-1">
-                <button
-                  v-for="n in w.names"
-                  :key="n"
-                  type="button"
-                  class="border px-1.5 font-mono text-[11px]"
-                  :class="current?.name === n ? 'border-(--signal) bg-(--signal) text-white' : 'border-(--line) hover:border-(--ink)'"
-                  @click="select(n)"
-                >
-                  {{ n }}
-                </button>
-              </p>
-            </li>
-          </ol>
-          <p class="text-sm leading-relaxed text-(--ink2)">
-            {{ t('vis.dataflow.wavesNote') }}
+              {{ n }}
+            </button>
           </p>
-        </div>
-      </div>
-
-      <VisPlayer
-        v-model="step"
-        :count="results.length"
-      />
-
-      <div
-        v-if="current"
-        class="grid gap-6 lg:grid-cols-[24rem_minmax(0,1fr)]"
-      >
-        <!-- The JSON, the current node lit -->
-        <div class="border-[1.5px] border-(--ink) bg-(--navy) graph-paper-navy lg:max-h-[38rem] lg:overflow-y-auto">
-          <p class="sticky top-0 border-b-[1.5px] border-(--ink) bg-(--navy) px-3 py-1.5 font-mono text-[10px] uppercase tracking-[.14em] text-(--glow)">
-            dataflow.json
-          </p>
-          <pre class="p-3 text-[11.5px] leading-relaxed text-white/50"><code>{<template
-            v-for="(n, name, i) in df"
-            :key="name"
-          ><span
-            class="block cursor-pointer whitespace-pre"
-            :class="name === current.name ? 'bg-(--signal)/90 text-white' : results.find(r => r.name === name)!.order < current.order ? 'text-white/85' : ''"
-            @click="select(String(name))"
-          >  "{{ name }}": {{ json(n).replace(/\n/g, '\n  ') }}{{ i < Object.keys(df).length - 1 ? ',' : '' }}</span></template>}</code></pre>
-        </div>
-
-        <section class="min-w-0 space-y-4">
-          <div class="border-[1.5px] border-(--ink) bg-(--card) p-5">
-            <p class="eyebrow">
-              {{ t('vis.stepOf', { n: current.order, total: results.length }) }} · {{ current.action }} · {{ t('vis.dataflow.wave', { n: current.wave }) }}
-            </p>
-            <p class="mt-2 text-[17px] leading-relaxed text-(--ink)">
-              {{ t(`vis.dataflow.explain.${current.explain}`, current.params) }}
-            </p>
-            <p class="mt-3 flex flex-wrap items-center gap-3 font-mono text-xs text-(--ink2)">
-              <span class="border-[1.5px] border-(--ink) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: current.rowsIn }) }}</span>
-              <UIcon name="i-lucide-arrow-right" />
-              <span class="border-[1.5px] border-(--signal) px-2 py-0.5 tabular-nums text-(--signal)">{{ t('vis.rowsOut', { n: current.rows.length }) }}</span>
-              <UButton
-                v-if="current.before"
-                size="xs"
-                color="neutral"
-                variant="outline"
-                class="ms-auto"
-                @click="showBefore = !showBefore"
-              >
-                {{ showBefore ? t('vis.showAfter') : t('vis.showBefore') }}
-              </UButton>
-            </p>
-            <p
-              v-if="current.action === 'augment'"
-              class="mt-3 flex flex-wrap gap-3 font-mono text-[11px] text-(--ink2)"
-            >
-              <span class="flex items-center gap-1"><span class="inline-block size-3 bg-(--signal)" />{{ t('vis.legend.matched') }}</span>
-              <span class="flex items-center gap-1"><span class="inline-block size-3 bg-warning" />{{ t('vis.legend.unmatched') }}</span>
-              <span class="flex items-center gap-1"><span class="inline-block size-3 bg-(--glow)" />{{ t('vis.legend.multi') }}</span>
-            </p>
-          </div>
-          <VisTable
-            :rows="current.before && showBefore ? current.before : current.rows"
-            :marks="current.marks"
-            :new-cols="current.newCols"
-            :drop-cols="current.dropCols"
-          />
-        </section>
-      </div>
-
-      <div class="grid gap-4 border-[1.5px] border-(--ink) bg-(--ice) p-5 md:grid-cols-3">
+        </li>
+      </ol>
+      <details class="px-4 py-3 text-sm">
+        <summary class="cursor-pointer font-bold text-(--ink)">
+          {{ t('vis.howToRead') }}
+        </summary>
+        <p class="mt-2 leading-relaxed text-(--ink2)">
+          {{ t('vis.dataflow.wavesNote') }}
+        </p>
         <div
           v-for="k in ['order', 'augment', 'recipes']"
           :key="k"
+          class="mt-3"
         >
-          <p class="font-bold text-(--ink)">
+          <p class="font-semibold text-(--ink)">
             {{ t(`vis.dataflow.notes.${k}.title`) }}
           </p>
-          <p class="mt-1 text-sm leading-relaxed text-(--ink2)">
+          <p class="mt-1 leading-relaxed text-(--ink2)">
             {{ t(`vis.dataflow.notes.${k}.body`) }}
           </p>
         </div>
+      </details>
+    </template>
+
+    <!-- Stage: the graph, then this node's rows -->
+    <template #stage="{ beat }">
+      <VisDag
+        :nodes="dag"
+        :active="current?.name ?? null"
+        :done-up-to="(current?.order ?? 1) - 1"
+        max-height="12rem"
+        @select="select"
+      />
+      <div
+        v-if="current"
+        :key="current.name"
+        class="mt-4"
+      >
+        <div class="mb-3 flex flex-wrap items-center gap-2 font-mono text-xs">
+          <span class="bg-(--ink) px-2 py-0.5 text-(--paper)">{{ current.order }}. {{ current.name }}</span>
+          <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: current.rowsIn }) }}</span>
+          <UIcon
+            name="i-lucide-arrow-right"
+            class="text-(--ink2)"
+          />
+          <span class="border-[1.5px] border-(--signal) bg-(--card) px-2 py-0.5 tabular-nums text-(--signal)">{{ t('vis.rowsOut', { n: current.rows.length }) }}</span>
+          <template v-if="current.action === 'augment'">
+            <span class="ms-2 flex items-center gap-1"><span class="inline-block size-2.5 bg-(--signal)" />{{ t('vis.legend.matched') }}</span>
+            <span class="flex items-center gap-1"><span class="inline-block size-2.5 bg-warning" />{{ t('vis.legend.unmatched') }}</span>
+            <span class="flex items-center gap-1"><span class="inline-block size-2.5 bg-(--glow)" />{{ t('vis.legend.multi') }}</span>
+          </template>
+          <span
+            v-if="current.before"
+            class="ms-2 uppercase tracking-[.1em] text-(--ink2)"
+          >{{ beat === 'before' ? t('vis.beatBefore') : t('vis.beatAfter') }}</span>
+        </div>
+        <VisCards
+          :rows="beat === 'before' && current.before ? current.before : current.rows"
+          :marks="current.marks"
+          :new-cols="current.newCols"
+          :drop-cols="current.dropCols"
+        />
       </div>
-      <div class="flex flex-wrap gap-3">
-        <UButton
-          :to="localePath('/visualiser/recipe')"
-          icon="i-lucide-workflow"
-          variant="outline"
-          color="neutral"
-        >
-          {{ t('vis.recipe.title') }}
-        </UButton>
-        <UButton
-          :to="localePath('/visualiser/saql')"
-          icon="i-lucide-terminal"
-          variant="outline"
-          color="neutral"
-        >
-          {{ t('vis.saql.title') }}
-        </UButton>
+    </template>
+
+    <!-- Edit: the JSON, the running node lit -->
+    <template #edit>
+      <div class="border-[1.5px] border-(--ink) bg-(--navy) graph-paper-navy">
+        <p class="sticky top-0 border-b-[1.5px] border-(--ink) bg-(--navy) px-3 py-1.5 font-mono text-[10px] uppercase tracking-[.14em] text-(--glow)">
+          dataflow.json
+        </p>
+        <pre class="p-3 text-[11.5px] leading-relaxed text-white/50"><code>{<template
+          v-for="(n, name, i) in df"
+          :key="name"
+        ><span
+          class="block cursor-pointer whitespace-pre"
+          :class="name === current?.name ? 'bg-(--signal)/90 text-white' : results.find(r => r.name === name)!.order < (current?.order ?? 0) ? 'text-white/85' : ''"
+          @click="select(String(name))"
+        >  "{{ name }}": {{ json(n).replace(/\n/g, '\n  ') }}{{ i < Object.keys(df).length - 1 ? ',' : '' }}</span></template>}</code></pre>
       </div>
-    </div>
-  </div>
+    </template>
+  </VisShell>
 </template>

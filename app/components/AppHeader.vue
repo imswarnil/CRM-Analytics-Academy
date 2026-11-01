@@ -103,16 +103,17 @@ const localeItems = computed(() =>
           :key="item.to"
           :to="item.to"
           :title="item.label"
-          class="relative flex items-center gap-2 border-e border-(--line) px-3 text-[14px] font-semibold whitespace-nowrap transition-colors"
+          class="relative flex items-center gap-1.5 border-e border-(--line) px-2.5 text-[13px] font-semibold whitespace-nowrap transition-colors min-[1440px]:px-3"
           :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
         >
           <UIcon
             :name="item.icon"
             class="size-4 shrink-0"
           />
-          <!-- Text labels fit the fixed-width bar only in English; longer
-               translations show the icon, with the name as its tooltip. -->
-          <span :class="locale === 'en' ? 'max-[1400px]:sr-only' : 'sr-only'">{{ item.label }}</span>
+          <!-- Labels only where the whole bar fits beside the account
+               buttons (1440px+, English); otherwise the icon, named by its
+               tooltip. Longer translations are always icon-only. -->
+          <span :class="locale === 'en' ? 'max-[1439px]:sr-only' : 'sr-only'">{{ item.label }}</span>
           <span
             v-if="isActive(item)"
             class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
@@ -135,7 +136,7 @@ const localeItems = computed(() =>
           :href="SITE.youtube"
           target="_blank"
           rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) hover:text-[#FF0000] max-lg:hidden"
+          class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) hover:text-[#FF0000] max-[1599px]:hidden"
           :aria-label="t('nav.youtube')"
           :title="t('nav.youtube')"
         >
@@ -151,7 +152,7 @@ const localeItems = computed(() =>
           :href="SITE.github"
           target="_blank"
           rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) max-lg:hidden"
+          class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) max-[1599px]:hidden"
           :aria-label="t('nav.starOnGithub')"
           :title="t('nav.starOnGithub')"
         >

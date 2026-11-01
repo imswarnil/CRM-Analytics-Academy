@@ -1,0 +1,161 @@
+<script setup lang="ts">
+/**
+ * The frame every visualiser plays in — exactly one viewport under the navbar,
+ * no footer (focus mode), nothing below the fold:
+ *
+ *   top     title, presets, Edit (a side panel with the editor)
+ *   left    the rail: the code or the execution order, clickable
+ *   centre  the stage — the motion graphic
+ *   bottom  the narration (written out, whiteboard style) and the player
+ *
+ * Every step plays in two beats: `before` (what is about to happen — rows a
+ * filter drops are struck through) for BEAT ms, then `after` (the result).
+ * The stage slot receives the beat.
+ */
+const props = withDefaults(defineProps<{
+  sheet: string
+  title: string
+  count: number
+  caption: string
+  eyebrow?: string
+  error?: boolean
+  presets?: { id: string, label: string }[]
+  preset?: string
+  editLabel?: string
+  /** The operation, stamped large across the stage each step (GROUP BY, LOOKUP JOIN…). */
+  stamp?: string
+}>(), { presets: () => [], preset: '', eyebrow: '', error: false, editLabel: '', stamp: '' })
+const step = defineModel<number>('step', { required: true })
+const emit = defineEmits<{ preset: [id: string] }>()
+const { t } = useI18n()
+
+const focus = useState('exam-focus', () => false)
+focus.value = true
+onBeforeUnmount(() => (focus.value = false))
+
+const BEAT = 1300
+const beat = ref<'before' | 'after'>('after')
+let beatTimer: ReturnType<typeof setTimeout> | undefined
+watch(step, () => {
+  clearTimeout(beatTimer)
+  beat.value = 'before'
+  beatTimer = setTimeout(() => (beat.value = 'after'), BEAT)
+}, { immediate: true })
+onBeforeUnmount(() => clearTimeout(beatTimer))
+
+const editOpen = ref(false)
+const railOpen = ref(true)
+</script>
+
+<template>
+  <div class="flex h-[calc(100dvh-var(--ui-header-height))] flex-col overflow-hidden">
+    <!-- Top: title, presets, edit -->
+    <header class="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-2 border-b-[1.5px] border-(--ink) bg-(--card) px-4 py-2.5 sm:px-6">
+      <div class="flex min-w-0 items-baseline gap-3">
+        <span class="font-mono text-[10px] uppercase tracking-[.14em] text-(--signal)">{{ props.sheet }}</span>
+        <h1 class="truncate text-lg font-extrabold tracking-[-0.02em] text-(--ink)">
+          {{ props.title }}
+        </h1>
+      </div>
+      <nav
+        v-if="props.presets.length"
+        class="flex min-w-0 flex-1 gap-1.5 overflow-x-auto"
+        :aria-label="t('vis.examples')"
+      >
+        <button
+          v-for="p in props.presets"
+          :key="p.id"
+          type="button"
+          class="shrink-0 border-[1.5px] px-2.5 py-1 text-[13px] font-semibold"
+          :class="props.preset === p.id ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--paper) hover:border-(--ink)'"
+          @click="emit('preset', p.id)"
+        >
+          {{ p.label }}
+        </button>
+      </nav>
+      <div class="ms-auto flex items-center gap-1.5">
+        <UButton
+          icon="i-lucide-panel-left"
+          color="neutral"
+          variant="ghost"
+          size="sm"
+          square
+          class="max-lg:hidden"
+          :aria-label="t('vis.toggleRail')"
+          @click="railOpen = !railOpen"
+        />
+        <UButton
+          icon="i-lucide-sliders-horizontal"
+          size="sm"
+          @click="editOpen = true"
+        >
+          {{ props.editLabel || t('vis.edit') }}
+        </UButton>
+      </div>
+    </header>
+
+    <!-- Middle: rail + stage -->
+    <div
+      class="grid min-h-0 flex-1"
+      :class="railOpen ? 'lg:grid-cols-[19rem_minmax(0,1fr)]' : 'grid-cols-1'"
+    >
+      <aside
+        v-if="railOpen"
+        class="min-h-0 overflow-y-auto border-e-[1.5px] border-(--ink) bg-(--card) max-lg:hidden"
+      >
+        <slot name="rail" />
+      </aside>
+      <section class="graph-paper relative min-h-0 overflow-y-auto bg-(--paper) p-4 sm:p-5">
+        <span
+          v-if="props.stamp"
+          :key="`${step}-${props.stamp}`"
+          class="vis-stamp pointer-events-none absolute end-4 top-3 z-0 select-none font-mono text-4xl font-black uppercase tracking-[-0.02em] text-(--signal)/15 sm:text-6xl"
+          aria-hidden="true"
+        >{{ props.stamp }}</span>
+        <slot
+          name="stage"
+          :beat="beat"
+        />
+      </section>
+    </div>
+
+    <!-- Bottom: narration + player -->
+    <footer class="grid shrink-0 gap-3 border-t-[1.5px] border-(--ink) bg-(--card) px-4 py-3 sm:px-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+      <VisCaption
+        :text="props.caption"
+        :eyebrow="props.eyebrow"
+        :error="props.error"
+      />
+      <VisPlayer
+        v-model="step"
+        :count="props.count"
+        :interval="3400"
+        autoplay
+        class="lg:min-w-[30rem]"
+      />
+    </footer>
+
+    <USlideover
+      v-model:open="editOpen"
+      side="right"
+      :title="props.editLabel || t('vis.edit')"
+      :ui="{ content: 'max-w-xl' }"
+    >
+      <template #body>
+        <slot name="edit" />
+      </template>
+    </USlideover>
+  </div>
+</template>
+
+<style scoped>
+.vis-stamp {
+  animation: stamp 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+@keyframes stamp {
+  from { opacity: 0; transform: scale(1.6) rotate(-6deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vis-stamp { animation: none; }
+}
+</style>

@@ -39,7 +39,8 @@ export function useProgress() {
   const data = useState<ProgressData | null>('progress-data', () => null)
   const loaded = useState('progress-loaded', () => false)
   const { isSignedIn } = useAuth()
-  const { locales } = useI18n()
+  const { locales, t } = useI18n()
+  const toast = useToast()
 
   const admin = computed(() => Boolean(data.value?.admin))
   const demo = computed(() => Boolean(data.value?.demo))
@@ -81,7 +82,15 @@ export function useProgress() {
     completed.value = next
     try {
       await $fetch('/api/progress', { method: 'POST', body: { lessonPath: key, done } })
-      if (done) useNuxtApp().$track?.('lesson_complete', key)
+      // Every lesson is worth 10 points; say so, with what there is to spend.
+      if (data.value) {
+        const delta = done ? 10 : -10
+        data.value = { ...data.value, points: data.value.points + delta, balance: data.value.balance + delta }
+      }
+      if (done) {
+        useNuxtApp().$track?.('lesson_complete', key)
+        toast.add({ title: t('lesson.pointsEarned', { n: (data.value?.balance ?? WELCOME_POINTS).toLocaleString() }), icon: 'i-lucide-coins', color: 'primary' })
+      }
     } catch {
       completed.value = previous
     }

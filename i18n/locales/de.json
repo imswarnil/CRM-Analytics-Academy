@@ -900,7 +900,8 @@
       "failed": "konnte die Seite nicht kopieren"
     },
     "save": "Speichern für später",
-    "saved": "Gerettet"
+    "saved": "Gerettet",
+    "pointsEarned": "+10 Punkte — {n} für Ausgaben"
   },
   "credits": {
     "title": "Kredite & Quellen",
@@ -1262,7 +1263,8 @@
       "page": "Sagen Sie, auf welcher Seite es ist.",
       "correction": "Füllen Sie beides aus, was es sagt und was es sagen soll.",
       "generic": "Das ging nicht durch. Bitte versuchen Sie es noch einmal."
-    }
+    },
+    "pointsBadge": "+25 Punkte für jeden genehmigten Beitrag"
   },
   "dash": {
     "examTitle": "Zertifizierungsbereitschaft",
@@ -1291,15 +1293,11 @@
   "store": {
     "eyebrow": "Prod",
     "seoTitle": "CRM Analytics Academy-Pläne: Free, Pro und Teamsitze",
-    "seoDesc": "Lernen Salesforce CRM Analytics frei. Pro-Lektionen werden mit Punkten freigeschaltet, die Sie durch Lernen verdienen; Unternehmen, Teams und Universitäten können Pro-Sitze anfordern.",
+    "seoDesc": "Lernen Salesforce CRM Analytics frei. Profi-Lektionen werden mit Punkten freigeschaltet, die Sie durch Lernen verdienen - keine Zahlungen, niemals. Unternehmen, Teams und Universitäten können Pro-Sitze anfordern.",
     "title": "Drei Pläne, ein Kurs",
     "lead": "Alles Öffentliche bleibt frei. Pro wird mit Punkten gekauft: Jedes Konto beginnt mit 1.000, genug für den ersten Monat, und Lernen verdient mehr. Organisationen verlangen Sitze.",
     "youArePro": "Sie sind ein Pro Mitglied",
     "popular": "Am beliebtesten",
-    "unit": {
-      "perMonth": "/ Monat",
-      "perSeat": "/ Sitz / Monat"
-    },
     "sentTitle": "Danke - Ihre Anfrage ist da.",
     "sentBody": "Swarnil wird innerhalb von zwei Arbeitstagen mit den nächsten Schritten per E-Mail antworten.",
     "f": {
@@ -1313,7 +1311,7 @@
       "message": "Was sollten wir wissen?"
     },
     "send": "Send Request",
-    "noCharge": "Hier wird nichts berechnet. Sie erhalten eine Antwort per E-Mail innerhalb von zwei Arbeitstagen."
+    "noCharge": "Es gibt nichts zu bezahlen - die Akademie läuft auf Punkte. Sie erhalten eine Antwort per E-Mail innerhalb von zwei Arbeitstagen."
   },
   "products": {
     "free": {
@@ -1340,8 +1338,8 @@
       "f1": "Pro für jeden Sitzplatz, verbunden mit einem Code",
       "f2": "Eine Admin-Ansicht darüber, wer lernt und wie weit",
       "f3": "Sitzplätze jederzeit hinzufügen oder freigeben",
-      "f4": "Volumenpreise für Hochschulen",
-      "f5": "Rechnungsstellung, ein Kontakt"
+      "f4": "Mitglieder sammeln Punkte wie alle anderen",
+      "f5": "Ein Kontakt, nichts zu bezahlen"
     }
   },
   "human": {
@@ -1357,8 +1355,6 @@
     "noEnd": "kein Enddatum",
     "free": "frei",
     "pointsPer": "Punkte / {days} Tage",
-    "laterPrice": "Später {price} ein Monat",
-    "volume": "Volumenpreis auf Anfrage",
     "startLearning": "Starten Sie das Lernen",
     "signUpFor": "Melden Sie sich an — erhalten {n} Punkte",
     "redeem": "Unlock Pro für {n} Punkte",
@@ -1368,7 +1364,7 @@
     "redeemed": "Du bist Pro bis {date}Genießen Sie jede Lektion.",
     "requestSeats": "Antragssitze",
     "haveCode": "Ich habe einen Join Code",
-    "pointsEyebrow": "Wie Punkte funktionieren",
+    "pointsEyebrow": "Punkte, nicht Zahlungen",
     "pointsTitle": "Dein erster Monat ist bei uns; Lernen zahlt sich für den Rest aus",
     "earnRow": {
       "welcome": "Wenn Sie Ihr Konto erstellen",
@@ -1394,7 +1390,8 @@
       "company": "Unternehmen",
       "team": "Team",
       "university": "Universität"
-    }
+    },
+    "byRequest": "Auf Ersuchen"
   },
   "team": {
     "title": "Meine Organisation",
@@ -1508,7 +1505,8 @@
           "title": "Cogroup ist ein Join by Key",
           "body": "Beide Seiten werden nach ihrem Schlüssel gruppiert und gepaart. Inner behält die Tasten auf beiden Seiten; links, rechts und voll behalten auch die unübertroffenen Tasten mit leeren Werten."
         }
-      }
+      },
+      "shareHint": "Die Adressleiste behält Ihre Abfrage: Kopieren Sie sie, um genau diese Abfrage in diesem Schritt zu teilen."
     },
     "recipe": {
       "title": "Rezeptvisualisierer",
@@ -1578,7 +1576,9 @@
           "title": "Transformieren, bevor Sie aggregieren",
           "body": "Fensterfunktionen und Formeln siehe einzelne Zeilen. Nach einem Aggregat bleiben nur die Werte auf Gruppenebene übrig."
         }
-      }
+      },
+      "editNodes": "Bearbeiten Sie das Rezept",
+      "order": "Vollstreckungsanordnung"
     },
     "dataflow": {
       "title": "Dataflow Visualisierung",
@@ -1626,7 +1626,15 @@
           "title": "Datenflüsse und Rezepte",
           "body": "Rezepte sind das neuere Tool und erledigen die gleichen Aufgaben mit Joins, Formeln und einem visuellen Editor. Datenflüsse laufen immer noch in vielen Orgs - lesen Sie beides."
         }
-      }
-    }
+      },
+      "editJson": "Dataflow JSON",
+      "build": "Aufbau des Datenflusses"
+    },
+    "edit": "Edit",
+    "examples": "Beispiele",
+    "toggleRail": "Zeigen oder Ausblenden der Seitenplatte",
+    "howToRead": "Wie man das liest",
+    "beatBefore": "Was passiert",
+    "beatAfter": "Ergebnis"
   }
 }

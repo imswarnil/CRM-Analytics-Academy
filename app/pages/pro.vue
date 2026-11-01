@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /**
- * /pro — the three plans. Free; Pro, bought with POINTS (every account starts
- * with WELCOME_POINTS and learning earns more — POST /api/redeem); and seats
+ * /pro — the three plans, points only (no payments). Free; Pro, bought with
+ * POINTS (every account starts with WELCOME_POINTS and learning earns more —
+ * POST /api/redeem); and seats
  * for a company, team or university, which is a request (POST /api/leads →
  * app.lead + Salesforce) the owner turns into an organisation in /admin.
  * The same form takes other requests (Salesforce set-up help, consulting,
@@ -215,19 +216,13 @@ usePageSchema(() => ({
                   <span class="text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">{{ p.points.toLocaleString(locale) }}</span>
                   <span class="font-mono text-xs text-(--ink2)">{{ t('plans.pointsPer', { days: PRO_DAYS }) }}</span>
                 </p>
-                <p class="mt-1 font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)">
-                  {{ t('plans.laterPrice', { price: p.price }) }}
-                </p>
               </template>
-              <template v-else>
-                <p class="flex items-baseline gap-1">
-                  <span class="text-3xl font-black tracking-[-0.03em] text-(--ink)">{{ p.price }}</span>
-                  <span class="font-mono text-xs text-(--ink2)">{{ t('store.unit.perSeat') }}</span>
-                </p>
-                <p class="mt-1 font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)">
-                  {{ t('plans.volume') }}
-                </p>
-              </template>
+              <p
+                v-else
+                class="text-3xl font-black tracking-[-0.03em] text-(--ink)"
+              >
+                {{ t('plans.byRequest') }}
+              </p>
             </div>
 
             <ul class="mt-4 flex-1 space-y-2">

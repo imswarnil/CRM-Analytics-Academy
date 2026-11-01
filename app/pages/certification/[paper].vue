@@ -8,10 +8,14 @@
  * was, clock included); a signed-in learner's finished attempt is saved to
  * /api/exam-attempt. No promos while the clock runs.
  *
- * /certification opens papers in their own window (`?w=1`): the whole window
- * is in focus mode from the start, and the ✕ in the corner closes it (asking
- * first while the clock runs). Without a window it goes back to /certification.
+ * The paper stays in the site's window with the navbar, but nothing else: no
+ * footer, promos or pop-ups (focus mode, the whole time the page is open), and
+ * while the clock runs the paper fits the viewport — the question and the
+ * navigator scroll inside it, the page never does. The ✕ goes back to every
+ * paper, asking first while the clock runs.
  */
+definePageMeta({ focus: true })
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
@@ -44,12 +48,10 @@ const resumable = ref(false)
 const reviewFilter = ref<'all' | 'wrong' | 'flagged'>('all')
 let timer: ReturnType<typeof setInterval> | undefined
 
-// Focus mode: no site chrome, promos or pop-ups while the clock runs; the
-// browser goes full-screen when it allows, and leaving asks first.
+// Focus mode for the whole page: no footer, promos or pop-ups.
 const focus = useState('exam-focus', () => false)
-const windowed = route.query.w === '1'
+focus.value = true
 const leaveOpen = ref(false)
-focus.value = windowed
 function close(confirmed = false) {
   if (phase.value === 'running' && !confirmed) {
     leaveOpen.value = true
@@ -57,15 +59,8 @@ function close(confirmed = false) {
   }
   leaveOpen.value = false
   if (phase.value === 'running') phase.value = 'intro'
-  // window.close() only works on a window a script opened; otherwise go back.
-  if (windowed && window.opener) window.close()
-  else navigateTo(localePath('/certification'))
+  navigateTo(localePath('/certification'))
 }
-watch(phase, (p) => {
-  focus.value = windowed || p === 'running'
-  if (p === 'running') document.documentElement.requestFullscreen?.().catch(() => {})
-  else if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {})
-})
 function guard(e: BeforeUnloadEvent) {
   if (phase.value === 'running') e.preventDefault()
 }
@@ -201,7 +196,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
       variant="outline"
       size="lg"
       square
-      class="fixed end-3 top-3 z-50 bg-(--card)"
+      class="fixed end-3 top-[calc(var(--ui-header-height)+0.75rem)] z-40 bg-(--card)"
       :aria-label="t('cert.close')"
       @click="close()"
     />
@@ -313,8 +308,11 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
     </template>
 
     <!-- RUNNING -->
-    <template v-else-if="phase === 'running' && current">
-      <div class="sticky top-0 z-30 border-b-[1.5px] border-(--ink) bg-(--paper)">
+    <div
+      v-else-if="phase === 'running' && current"
+      class="flex h-[calc(100dvh-var(--ui-header-height))] flex-col overflow-hidden"
+    >
+      <div class="z-30 shrink-0 border-b-[1.5px] border-(--ink) bg-(--paper)">
         <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center gap-4 py-3 ps-4 pe-16 sm:ps-6 lg:ps-8">
           <span class="font-bold text-(--ink)">{{ paper!.title }}</span>
           <span class="mono-label">{{ t('cert.questionOf', { n: index + 1, total: questions.length }) }} · {{ t('cert.answeredN', { n: answered }) }} · {{ t('cert.flaggedN', { n: flagged }) }}</span>
@@ -338,9 +336,9 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         </div>
       </div>
 
-      <div class="mx-auto grid max-w-(--ui-container) gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:px-8">
-        <section class="border-[1.5px] border-(--ink) bg-(--card)">
-          <header class="flex flex-wrap items-center justify-between gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
+      <div class="mx-auto grid min-h-0 w-full max-w-(--ui-container) flex-1 gap-6 px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:px-8">
+        <section class="flex min-h-0 flex-col border-[1.5px] border-(--ink) bg-(--card)">
+          <header class="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
             <p class="eyebrow">
               Q.{{ String(index + 1).padStart(2, '0') }} — {{ DOMAINS[current.domain].label }}
             </p>
@@ -354,7 +352,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
               {{ flags[index] ? t('cert.unflag') : t('cert.flag') }}
             </UButton>
           </header>
-          <div class="p-5 sm:p-8">
+          <div class="min-h-0 flex-1 overflow-y-auto p-5 sm:p-8">
             <h1 class="text-xl font-bold leading-snug text-(--ink)">
               {{ current.q }}
             </h1>
@@ -380,7 +378,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
               </button>
             </div>
           </div>
-          <footer class="flex items-center justify-between gap-3 border-t-[1.5px] border-(--ink) px-5 py-4">
+          <footer class="flex shrink-0 items-center justify-between gap-3 border-t-[1.5px] border-(--ink) px-5 py-3">
             <UButton
               icon="i-lucide-arrow-left"
               color="neutral"
@@ -407,7 +405,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           </footer>
         </section>
 
-        <aside class="lg:sticky lg:top-24 lg:self-start">
+        <aside class="min-h-0 overflow-y-auto max-lg:hidden">
           <p class="mono-label mb-2">
             {{ t('cert.navigator') }}
           </p>
@@ -465,7 +463,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           </div>
         </template>
       </UModal>
-    </template>
+    </div>
 
     <!-- RESULTS -->
     <template v-else-if="phase === 'done'">

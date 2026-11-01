@@ -14,12 +14,16 @@
  */
 import { isHttpUrl } from '~/utils/urlMeta'
 
-definePageMeta({ middleware: 'auth' })
+definePageMeta({ focus: true, middleware: 'auth' })
 
 const { t, locales } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 useSeoMeta({ title: t('contrib.title'), robots: 'noindex, nofollow' })
+// One screen, like a practice paper: the navbar stays, no footer or promos.
+const focus = useState('exam-focus', () => false)
+focus.value = true
+onBeforeUnmount(() => (focus.value = false))
 
 type Type = 'resource' | 'company' | 'nominate' | 'lesson' | 'translation'
 type Kind = 'resource' | 'lesson-idea' | 'nomination'
@@ -160,10 +164,11 @@ const STATUS: Record<Mine['status'], string> = {
 </script>
 
 <template>
-  <!-- One screen on desktop: the choice (and your past contributions) on the
-       left, the short form on the right — nothing below the fold. -->
-  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 lg:min-h-[calc(100dvh-var(--ui-header-height))] lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:py-10">
-    <div class="space-y-5 lg:sticky lg:top-24">
+  <!-- One screen on desktop, exactly the viewport: the choice on the left,
+       the short form (and your past contributions) on the right, scrolling
+       inside its own column if it must — the page itself never does. -->
+  <div class="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 lg:h-[calc(100dvh-var(--ui-header-height))] lg:grid-cols-[20rem_minmax(0,1fr)] lg:overflow-hidden">
+    <div class="space-y-4 lg:min-h-0 lg:overflow-y-auto">
       <div>
         <p class="eyebrow">
           {{ t('contrib.eyebrow') }}
@@ -174,6 +179,12 @@ const STATUS: Record<Mine['status'], string> = {
         <p class="mt-2 text-[15px] leading-relaxed text-(--ink2)">
           {{ t('contrib.lead') }}
         </p>
+        <p class="mt-3 inline-flex items-center gap-2 border-[1.5px] border-(--signal) bg-(--ice) px-3 py-1 font-semibold text-(--ink)">
+          <UIcon
+            name="i-lucide-coins"
+            class="size-4 text-(--signal)"
+          />{{ t('contrib.pointsBadge') }}
+        </p>
       </div>
 
       <!-- 1. What are you sharing? -->
@@ -181,12 +192,12 @@ const STATUS: Record<Mine['status'], string> = {
         <legend class="text-[15px] font-bold text-(--ink)">
           <span class="font-mono text-(--signal)">1</span> · {{ t('contrib.pick') }}
         </legend>
-        <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+        <div class="mt-3 grid gap-1.5 sm:grid-cols-2 lg:grid-cols-1">
           <button
             v-for="ty in TYPES"
             :key="ty.value"
             type="button"
-            class="flex min-h-11 items-start gap-3 border-[1.5px] px-3 py-2.5 text-start transition-colors"
+            class="flex min-h-11 items-start gap-3 border-[1.5px] px-3 py-2 text-start transition-colors"
             :class="type === ty.value ? 'border-(--ink) bg-(--ice) shadow-[4px_4px_0_var(--ink)]' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
             :aria-pressed="type === ty.value"
             @click="choose(ty.value)"
@@ -204,7 +215,7 @@ const STATUS: Record<Mine['status'], string> = {
       </fieldset>
     </div>
 
-    <div class="min-w-0">
+    <div class="min-w-0 lg:min-h-0 lg:overflow-y-auto lg:pe-1">
       <p
         v-if="!type && !sent"
         class="flex min-h-64 items-center justify-center border-[1.5px] border-dashed border-(--line) p-8 text-center text-(--ink2)"

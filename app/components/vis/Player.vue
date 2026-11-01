@@ -3,7 +3,7 @@
  * Step controls shared by the visualisers: first / previous / play / next /
  * last, a scrubber, and the arrow keys. `modelValue` is the step index.
  */
-const props = defineProps<{ count: number }>()
+const props = withDefaults(defineProps<{ count: number, interval?: number, autoplay?: boolean }>(), { interval: 1600, autoplay: false })
 const { $track } = useNuxtApp()
 const step = defineModel<number>({ required: true })
 const { t } = useI18n()
@@ -11,6 +11,10 @@ const route = useRoute()
 const playing = ref(false)
 let timer: ReturnType<typeof setInterval> | undefined
 
+defineExpose({ stop: () => {
+  playing.value = false
+  clearInterval(timer)
+} })
 function go(i: number) {
   step.value = Math.min(Math.max(i, 0), Math.max(props.count - 1, 0))
 }
@@ -27,14 +31,18 @@ function toggle() {
     } else {
       go(step.value + 1)
     }
-  }, 1600)
+  }, props.interval)
 }
 function onKey(e: KeyboardEvent) {
   if ((e.target as HTMLElement | null)?.closest?.('input, textarea, select, [contenteditable]')) return
   if (e.key === 'ArrowRight') go(step.value + 1)
   else if (e.key === 'ArrowLeft') go(step.value - 1)
 }
-onMounted(() => window.addEventListener('keydown', onKey))
+onMounted(() => {
+  window.addEventListener('keydown', onKey)
+  // A motion graphic plays by itself the first time; any key or click takes over.
+  if (props.autoplay && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) toggle()
+})
 onBeforeUnmount(() => {
   clearInterval(timer)
   window.removeEventListener('keydown', onKey)

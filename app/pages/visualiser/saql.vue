@@ -13,8 +13,9 @@ import type { Cmp } from '~/utils/vis/data'
 import { DATASETS, columnsOf } from '~/utils/vis/data'
 import { type Gen, type GenAgg, type Join, type SaqlStep, type View, SAQL_PRESETS, runSaql, saqlLines } from '~/utils/vis/saql'
 
+definePageMeta({ focus: true })
+
 const { t } = useI18n()
-const localePath = useLocalePath()
 
 const presetId = ref('pipelineByStage')
 const steps = ref<SaqlStep[]>(structuredClone(SAQL_PRESETS[0]!.steps))
@@ -28,8 +29,9 @@ function usePreset(id: string) {
 const snapshots = computed(() => runSaql(steps.value))
 const lines = computed(() => saqlLines(steps.value))
 const snap = computed(() => snapshots.value[Math.min(step.value, snapshots.value.length - 1)])
-const showBefore = ref(true)
-const shown = computed<View | undefined>(() => (snap.value?.before && showBefore.value ? snap.value.before : snap.value?.view))
+const presetList = computed(() => SAQL_PRESETS.map(p => ({ id: p.id, label: t(`vis.saql.presets.${p.id}`) })))
+const caption = computed(() => (snap.value ? t(`vis.saql.explain.${snap.value.explain}`, snap.value.params) : ''))
+const shownFor = (beat: 'before' | 'after'): View | undefined => (beat === 'before' && snap.value?.before ? snap.value.before : snap.value?.view)
 
 // Fields a statement can name: whatever the stream held before it.
 function fieldsOfView(v?: View): string[] {
@@ -128,32 +130,162 @@ usePageSchema(() => ({
 </script>
 
 <template>
-  <div>
-    <BpPageHeader
-      sheet="FIG. V1 / SAQL"
-      :title="t('vis.saql.title')"
-      :lead="t('vis.saql.lead')"
-    >
-      <div class="mt-6 flex flex-wrap gap-2">
-        <button
-          v-for="p in SAQL_PRESETS"
-          :key="p.id"
-          type="button"
-          class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-          :class="presetId === p.id ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
-          @click="usePreset(p.id)"
-        >
-          {{ t(`vis.saql.presets.${p.id}`) }}
-        </button>
-      </div>
-    </BpPageHeader>
-
-    <div class="mx-auto grid max-w-(--ui-container) gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[26rem_minmax(0,1fr)] lg:px-8">
-      <!-- The query: statements, editable -->
-      <aside class="space-y-4 lg:sticky lg:top-24 lg:self-start">
-        <p class="eyebrow">
-          {{ t('vis.saql.query') }}
+  <VisShell
+    v-model:step="step"
+    sheet="FIG. V1 / SAQL"
+    :title="t('vis.saql.title')"
+    :count="snapshots.length"
+    :caption="caption"
+    :eyebrow="snap ? `${t('vis.lineOf', { n: snap.line + 1 })} · ${steps[snap.line]?.op}` : ''"
+    :error="Boolean(snap?.error)"
+    :presets="presetList"
+    :preset="presetId"
+    :edit-label="t('vis.saql.query')"
+    :stamp="snap ? (steps[snap.line]?.op === 'cogroup' ? `cogroup ${(steps[snap.line] as { join: string }).join}` : steps[snap.line]?.op === 'group' ? 'group by' : steps[snap.line]?.op) : ''"
+    @preset="usePreset"
+  >
+    <!-- Rail: the query itself, the running line lit -->
+    <template #rail>
+      <div class="bg-(--navy) graph-paper-navy">
+        <p class="border-b border-white/20 px-4 py-2 font-mono text-[10px] uppercase tracking-[.14em] text-(--glow)">
+          SAQL
         </p>
+        <pre class="overflow-x-auto py-2 text-[12px] leading-relaxed text-white"><code><span
+          v-for="(l, i) in lines"
+          :key="i"
+          class="block cursor-pointer whitespace-pre px-4 py-0.5 transition-colors"
+          :class="i === step ? 'bg-(--signal) text-white' : i < step ? 'text-white' : 'text-white/40'"
+          @click="step = i"
+        >{{ l }}</span></code></pre>
+      </div>
+      <ol class="divide-y divide-dashed divide-(--line)">
+        <li
+          v-for="(sn, i) in snapshots"
+          :key="i"
+        >
+          <button
+            type="button"
+            class="flex w-full items-center gap-2 px-4 py-2 text-start text-sm"
+            :class="i === step ? 'bg-(--ice) font-bold text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
+            @click="step = i"
+          >
+            <span class="w-5 font-mono text-xs">{{ i + 1 }}</span>
+            <span class="font-mono text-xs uppercase">{{ steps[i]?.op }}</span>
+            <span
+              class="ms-auto font-mono text-[11px] tabular-nums"
+              :class="sn.error ? 'text-error' : 'text-(--ink2)'"
+            >{{ sn.error ? '✕' : `${sn.rowsIn} → ${sn.rowsOut}` }}</span>
+          </button>
+        </li>
+      </ol>
+      <details class="border-t-[1.5px] border-(--ink) px-4 py-3 text-sm">
+        <summary class="cursor-pointer font-bold text-(--ink)">
+          {{ t('vis.howToRead') }}
+        </summary>
+        <div
+          v-for="k in ['order', 'group', 'cogroup']"
+          :key="k"
+          class="mt-3"
+        >
+          <p class="font-semibold text-(--ink)">
+            {{ t(`vis.saql.notes.${k}.title`) }}
+          </p>
+          <p class="mt-1 leading-relaxed text-(--ink2)">
+            {{ t(`vis.saql.notes.${k}.body`) }}
+          </p>
+        </div>
+      </details>
+    </template>
+
+    <!-- Stage: the stream after this line, animated -->
+    <template #stage="{ beat }">
+      <template
+        v-for="v in [shownFor(beat)]"
+        :key="`stage-${v?.kind}`"
+      >
+        <template v-if="v && snap">
+          <div class="mb-3 flex flex-wrap items-center gap-2 font-mono text-xs">
+            <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: snap.rowsIn }) }}</span>
+            <UIcon
+              name="i-lucide-arrow-right"
+              class="text-(--ink2)"
+            />
+            <span class="border-[1.5px] border-(--signal) bg-(--card) px-2 py-0.5 tabular-nums text-(--signal)">{{ v.kind === 'rows' ? t('vis.rowsOut', { n: snap.rowsOut }) : v.kind === 'groups' ? t('vis.groupsOut', { n: v.groups.length }) : t('vis.keysOut', { n: v.groups.length }) }}</span>
+            <span
+              v-if="snap.before"
+              class="ms-2 uppercase tracking-[.1em] text-(--ink2)"
+            >{{ beat === 'before' ? t('vis.beatBefore') : t('vis.beatAfter') }}</span>
+          </div>
+          <VisCards
+            v-if="v.kind === 'rows'"
+            :rows="v.rows"
+            :marks="v.marks"
+            :new-cols="v.newCols"
+          />
+          <!-- Groups: a lane per key -->
+          <div
+            v-else-if="v.kind === 'groups'"
+            class="grid gap-3 [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))]"
+          >
+            <div
+              v-for="(g, gi) in v.groups"
+              :key="g.key"
+              class="vis-lane border-[1.5px] border-(--ink) bg-(--card)"
+              :style="{ '--i': gi }"
+            >
+              <p class="flex items-center justify-between border-b-[1.5px] border-(--ink) bg-(--ice) px-2.5 py-1 font-mono text-xs">
+                <span class="truncate font-bold text-(--ink)">{{ g.key }}</span>
+                <span class="text-(--ink2)">{{ g.rows.length }}</span>
+              </p>
+              <VisCards
+                :rows="g.rows"
+                :max="3"
+                dense
+                class="p-2"
+              />
+            </div>
+          </div>
+          <!-- Cogroup: each key, both sides -->
+          <div
+            v-else
+            class="grid gap-3 [grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))]"
+          >
+            <div
+              v-for="(g, gi) in v.groups"
+              :key="g.key"
+              class="vis-lane border-[1.5px] bg-(--card)"
+              :class="g.kept ? 'border-(--ink)' : 'border-dashed border-error opacity-60'"
+              :style="{ '--i': gi }"
+            >
+              <p class="flex items-center gap-2 border-b-[1.5px] border-(--ink) px-2.5 py-1 font-mono text-xs">
+                <span class="font-bold text-(--ink)">{{ g.key }}</span>
+                <span class="text-(--ink2)">a {{ g.a.length }} · b {{ g.b.length }}</span>
+                <span
+                  class="ms-auto uppercase"
+                  :class="g.kept ? 'text-(--signal)' : 'text-error'"
+                >{{ g.kept ? t('vis.kept') : t('vis.dropped') }}</span>
+              </p>
+              <div class="grid grid-cols-2 gap-2 p-2">
+                <VisCards
+                  :rows="g.a"
+                  :max="2"
+                  dense
+                />
+                <VisCards
+                  :rows="g.b"
+                  :max="2"
+                  dense
+                />
+              </div>
+            </div>
+          </div>
+        </template>
+      </template>
+    </template>
+
+    <!-- Edit: the statements -->
+    <template #edit>
+      <div class="space-y-4">
         <ol class="space-y-2">
           <li
             v-for="(s, i) in steps"
@@ -351,155 +483,23 @@ usePageSchema(() => ({
             {{ op }}
           </UButton>
         </div>
-
-        <!-- The generated SAQL, the current line lit -->
-        <div class="border-[1.5px] border-(--ink) bg-(--navy) graph-paper-navy">
-          <p class="border-b-[1.5px] border-(--ink) px-3 py-1.5 font-mono text-[10px] uppercase tracking-[.14em] text-(--glow)">
-            SAQL
-          </p>
-          <pre class="overflow-x-auto p-3 text-[12.5px] leading-relaxed text-white"><code><span
-            v-for="(l, i) in lines"
-            :key="i"
-            class="block cursor-pointer whitespace-pre px-1"
-            :class="i === step ? 'bg-(--signal) text-white' : i < step ? 'text-white' : 'text-white/45'"
-            @click="step = i"
-          >{{ l }}</span></code></pre>
-        </div>
-      </aside>
-
-      <!-- Execution -->
-      <section class="min-w-0 space-y-5">
-        <VisPlayer
-          v-model="step"
-          :count="snapshots.length"
-        />
-
-        <div
-          v-if="snap"
-          class="border-[1.5px] bg-(--card) p-5"
-          :class="snap.error ? 'border-error' : 'border-(--ink)'"
-        >
-          <p class="eyebrow">
-            {{ t('vis.lineOf', { n: snap.line + 1 }) }} · {{ steps[snap.line]?.op }}
-          </p>
-          <p class="mt-2 text-[17px] leading-relaxed text-(--ink)">
-            {{ t(`vis.saql.explain.${snap.explain}`, snap.params) }}
-          </p>
-          <p class="mt-3 flex flex-wrap items-center gap-3 font-mono text-xs text-(--ink2)">
-            <span class="border-[1.5px] border-(--ink) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: snap.rowsIn }) }}</span>
-            <UIcon name="i-lucide-arrow-right" />
-            <span class="border-[1.5px] border-(--signal) px-2 py-0.5 tabular-nums text-(--signal)">{{ snap.view.kind === 'rows' ? t('vis.rowsOut', { n: snap.rowsOut }) : snap.view.kind === 'groups' ? t('vis.groupsOut', { n: snap.view.groups.length }) : t('vis.keysOut', { n: snap.view.groups.length }) }}</span>
-            <UButton
-              v-if="snap.before"
-              size="xs"
-              color="neutral"
-              variant="outline"
-              class="ms-auto"
-              :icon="showBefore ? 'i-lucide-eye' : 'i-lucide-eye-off'"
-              @click="showBefore = !showBefore"
-            >
-              {{ showBefore ? t('vis.showAfter') : t('vis.showBefore') }}
-            </UButton>
-          </p>
-        </div>
-
-        <template v-if="shown">
-          <!-- Rows -->
-          <VisTable
-            v-if="shown.kind === 'rows'"
-            :key="`r${step}`"
-            :rows="shown.rows"
-            :marks="shown.marks"
-            :new-cols="shown.newCols"
-          />
-          <!-- Groups: one bucket per key -->
-          <div
-            v-else-if="shown.kind === 'groups'"
-            :key="`g${step}`"
-            class="grid gap-4 md:grid-cols-2"
-          >
-            <VisTable
-              v-for="g in shown.groups"
-              :key="g.key"
-              :rows="g.rows"
-              :caption="`${shown.by.join(', ') || 'all'} = ${g.key} · ${g.rows.length}`"
-            />
-          </div>
-          <!-- Cogroup: each key's rows from both sides -->
-          <div
-            v-else
-            :key="`p${step}`"
-            class="space-y-3"
-          >
-            <div
-              v-for="g in shown.groups"
-              :key="g.key"
-              class="border-[1.5px] bg-(--card)"
-              :class="g.kept ? 'border-(--ink)' : 'border-dashed border-error opacity-60'"
-            >
-              <p class="flex items-center gap-2 border-b-[1.5px] border-(--ink) px-3 py-1.5 font-mono text-xs">
-                <span class="font-bold text-(--ink)">{{ g.key }}</span>
-                <span class="text-(--ink2)">a: {{ g.a.length }} · b: {{ g.b.length }}</span>
-                <span
-                  class="ms-auto uppercase tracking-[.08em]"
-                  :class="g.kept ? 'text-(--signal)' : 'text-error'"
-                >{{ g.kept ? t('vis.kept') : t('vis.dropped') }}</span>
-              </p>
-              <div class="grid gap-2 p-2 md:grid-cols-2">
-                <VisTable
-                  :rows="g.a"
-                  :caption="`a · ${shown.left}`"
-                />
-                <VisTable
-                  :rows="g.b"
-                  :caption="`b · ${shown.right}`"
-                />
-              </div>
-            </div>
-          </div>
-        </template>
-
-        <!-- How to read it -->
-        <div class="grid gap-4 border-[1.5px] border-(--ink) bg-(--ice) p-5 md:grid-cols-3">
-          <div
-            v-for="k in ['order', 'group', 'cogroup']"
-            :key="k"
-          >
-            <p class="font-bold text-(--ink)">
-              {{ t(`vis.saql.notes.${k}.title`) }}
-            </p>
-            <p class="mt-1 text-sm leading-relaxed text-(--ink2)">
-              {{ t(`vis.saql.notes.${k}.body`) }}
-            </p>
-          </div>
-        </div>
-        <div class="flex flex-wrap gap-3">
-          <UButton
-            :to="localePath('/visualiser/recipe')"
-            icon="i-lucide-workflow"
-            variant="outline"
-            color="neutral"
-          >
-            {{ t('vis.recipe.title') }}
-          </UButton>
-          <UButton
-            :to="localePath('/visualiser/dataflow')"
-            icon="i-lucide-git-fork"
-            variant="outline"
-            color="neutral"
-          >
-            {{ t('vis.dataflow.title') }}
-          </UButton>
-          <UButton
-            :to="localePath('/curriculum')"
-            icon="i-lucide-book-open"
-            variant="ghost"
-            color="neutral"
-          >
-            {{ t('vis.toCourse') }}
-          </UButton>
-        </div>
-      </section>
-    </div>
-  </div>
+        <p class="text-sm text-(--ink2)">
+          {{ t('vis.saql.shareHint') }}
+        </p>
+      </div>
+    </template>
+  </VisShell>
 </template>
+
+<style scoped>
+.vis-lane {
+  animation: lane-in 0.45s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes lane-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vis-lane { animation: none; }
+}
+</style>

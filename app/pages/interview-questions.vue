@@ -39,6 +39,8 @@ const q = ref(String(route.query.q ?? ''))
 const filterQuery = computed(() => ({ type: type.value || undefined, level: level.value || undefined, company: company.value || undefined, q: q.value || undefined }))
 watch(filterQuery, query => navigateTo({ query }, { replace: true }))
 const linkTo = (r: InterviewRow) => ({ path: localePath(`/interview-questions/${slugOf(r.path)}`), query: filterQuery.value })
+// The open row's link closes it.
+const rowTo = (r: InterviewRow) => (openSlug.value === slugOf(r.path) ? { path: localePath('/interview-questions'), query: filterQuery.value } : linkTo(r))
 
 const filtered = computed(() => {
   const needle = q.value.trim().toLowerCase()
@@ -167,6 +169,8 @@ onMounted(async () => {
         <p class="mono-label">
           {{ t('interview.results', { n: filtered.length }) }}
         </p>
+        <!-- An open question the filters hide still shows, above the list. -->
+        <NuxtPage v-if="openSlug && !ordered.some(r => slugOf(r.path) === openSlug)" />
         <section
           v-for="(g, gi) in groups"
           :id="`topic-${g.key}`"
@@ -183,10 +187,11 @@ onMounted(async () => {
               class="bp-card bp-card--hover"
             >
               <NuxtLink
-                :to="linkTo(r)"
+                :to="rowTo(r)"
                 class="group block p-5"
                 :class="openSlug === slugOf(r.path) ? 'bg-(--ice)' : ''"
                 :aria-current="openSlug === slugOf(r.path) ? 'page' : undefined"
+                :aria-expanded="openSlug === slugOf(r.path)"
               >
                 <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] uppercase tracking-[.08em]">
                   <span class="border-[1.5px] border-(--signal) px-1.5 py-0.5 text-(--signal)">{{ t(`interview.types.${r.type}`) }}</span>
@@ -211,6 +216,8 @@ onMounted(async () => {
                   {{ r.description }}
                 </p>
               </NuxtLink>
+              <!-- The open question expands here, under its own row. -->
+              <NuxtPage v-if="openSlug === slugOf(r.path)" />
             </li>
           </ol>
           <PromoSlot
@@ -226,8 +233,5 @@ onMounted(async () => {
         </p>
       </div>
     </div>
-
-    <!-- The open question (child route): a drawer over the list. -->
-    <NuxtPage />
   </div>
 </template>

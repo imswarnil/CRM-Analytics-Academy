@@ -14,8 +14,9 @@ import { DATASETS, columnsOf, fmt } from '~/utils/vis/data'
 import { type FnId, type JoinType, type RecipeNode, FN_IDS, FUNCTIONS, JOIN_TYPES, RECIPE_PRESETS, inputsOf, runRecipe } from '~/utils/vis/recipe'
 import type { DagNode } from '~/components/vis/Dag.vue'
 
+definePageMeta({ focus: true })
+
 const { t } = useI18n()
-const localePath = useLocalePath()
 
 const presetId = ref(RECIPE_PRESETS[0]!.id)
 const nodes = ref<RecipeNode[]>(structuredClone(RECIPE_PRESETS[0]!.nodes))
@@ -29,7 +30,8 @@ function usePreset(id: string) {
 const results = computed(() => runRecipe(nodes.value))
 const current = computed(() => results.value[Math.min(step.value, results.value.length - 1)])
 const node = computed(() => nodes.value.find(n => n.id === current.value?.id))
-const showBefore = ref(true)
+const presetList = computed(() => RECIPE_PRESETS.map(p => ({ id: p.id, label: t(`vis.recipe.presets.${p.id}`) })))
+const caption = computed(() => (current.value ? t(`vis.recipe.explain.${current.value.explain}`, current.value.params) : ''))
 
 const ICON: Record<RecipeNode['type'], string> = { input: 'i-lucide-database', filter: 'i-lucide-filter', transform: 'i-lucide-function-square', join: 'i-lucide-merge', append: 'i-lucide-rows-3', aggregate: 'i-lucide-sigma', output: 'i-lucide-hard-drive-download' }
 const subOf = (n: RecipeNode) => n.type === 'input'
@@ -126,47 +128,143 @@ usePageSchema(() => ({
 </script>
 
 <template>
-  <div>
-    <BpPageHeader
-      sheet="FIG. V2 / RECIPE"
-      :title="t('vis.recipe.title')"
-      :lead="t('vis.recipe.lead')"
-    >
-      <div class="mt-6 flex flex-wrap gap-2">
-        <button
-          v-for="p in RECIPE_PRESETS"
-          :key="p.id"
-          type="button"
-          class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-          :class="presetId === p.id ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
-          @click="usePreset(p.id)"
+  <VisShell
+    v-model:step="step"
+    sheet="FIG. V2 / RECIPE"
+    :title="t('vis.recipe.title')"
+    :count="results.length"
+    :caption="caption"
+    :eyebrow="current && node ? `${t('vis.stepOf', { n: current.order, total: results.length })} · ${t(`vis.recipe.nodes.${node.type}`)}` : ''"
+    :presets="presetList"
+    :preset="presetId"
+    :edit-label="t('vis.recipe.editNodes')"
+    :stamp="node ? (node.type === 'join' ? `${node.join} join` : node.type) : ''"
+    @preset="usePreset"
+  >
+    <!-- Rail: the execution order -->
+    <template #rail>
+      <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)">
+        {{ t('vis.recipe.order') }}
+      </p>
+      <ol class="divide-y divide-dashed divide-(--line)">
+        <li
+          v-for="(r, i) in results"
+          :key="r.id"
         >
-          {{ t(`vis.recipe.presets.${p.id}`) }}
+          <button
+            type="button"
+            class="flex w-full items-center gap-2.5 px-4 py-2 text-start text-sm"
+            :class="i === step ? 'bg-(--ice) font-bold text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
+            @click="step = i"
+          >
+            <span
+              class="flex size-5 shrink-0 items-center justify-center font-mono text-[11px]"
+              :class="i <= step ? 'bg-(--ink) text-(--paper)' : 'border border-(--line) text-(--ink2)'"
+            >{{ r.order }}</span>
+            <UIcon
+              :name="ICON[nodes.find(n => n.id === r.id)!.type]"
+              class="size-4 shrink-0"
+            />
+            <span class="min-w-0 flex-1 truncate">{{ r.id }}</span>
+            <span class="font-mono text-[11px] tabular-nums text-(--ink2)">{{ r.rowsIn }} → {{ r.rows.length }}</span>
+          </button>
+        </li>
+      </ol>
+      <div
+        v-if="node?.type === 'join'"
+        class="border-t-[1.5px] border-(--ink) px-4 py-3"
+      >
+        <p class="mono-label mb-2">
+          {{ t('vis.recipe.compare') }}
+        </p>
+        <button
+          v-for="c in joinCounts"
+          :key="c.join"
+          type="button"
+          class="flex w-full items-center justify-between px-2 py-1 font-mono text-xs"
+          :class="c.join === node.join ? 'bg-(--ink) text-(--paper)' : 'hover:bg-(--ice)'"
+          @click="node.join = c.join"
+        >
+          <span>{{ c.join }}</span><span class="tabular-nums">{{ t('vis.rowsOut', { n: c.rows }) }}</span>
         </button>
       </div>
-    </BpPageHeader>
+      <details class="border-t-[1.5px] border-(--ink) px-4 py-3 text-sm">
+        <summary class="cursor-pointer font-bold text-(--ink)">
+          {{ t('vis.howToRead') }}
+        </summary>
+        <div
+          v-for="k in ['order', 'joins', 'grain']"
+          :key="k"
+          class="mt-3"
+        >
+          <p class="font-semibold text-(--ink)">
+            {{ t(`vis.recipe.notes.${k}.title`) }}
+          </p>
+          <p class="mt-1 leading-relaxed text-(--ink2)">
+            {{ t(`vis.recipe.notes.${k}.body`) }}
+          </p>
+        </div>
+      </details>
+    </template>
 
-    <div class="mx-auto max-w-(--ui-container) space-y-6 px-4 py-10 sm:px-6 lg:px-8">
-      <p class="eyebrow">
-        {{ t('vis.recipe.graph') }}
-      </p>
+    <!-- Stage: the graph, then this node's rows -->
+    <template #stage="{ beat }">
       <VisDag
         :nodes="dag"
         :active="current?.id ?? null"
         :done-up-to="(current?.order ?? 1) - 1"
+        max-height="11rem"
         @select="select"
       />
-      <VisPlayer
-        v-model="step"
-        :count="results.length"
-      />
-
       <div
         v-if="current && node"
-        class="grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)]"
+        :key="current.id"
+        class="mt-4"
       >
-        <!-- The node: what it does, editable -->
-        <aside class="space-y-4">
+        <div class="mb-3 flex flex-wrap items-center gap-2 font-mono text-xs">
+          <span class="flex items-center gap-1.5 bg-(--ink) px-2 py-0.5 text-(--paper)"><UIcon
+            :name="ICON[node.type]"
+            class="size-3.5"
+          />{{ current.order }}. {{ t(`vis.recipe.nodes.${node.type}`) }} · {{ node.id }}</span>
+          <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: current.rowsIn }) }}</span>
+          <UIcon
+            name="i-lucide-arrow-right"
+            class="text-(--ink2)"
+          />
+          <span class="border-[1.5px] border-(--signal) bg-(--card) px-2 py-0.5 tabular-nums text-(--signal)">{{ t('vis.rowsOut', { n: current.rows.length }) }}</span>
+          <template v-if="node.type === 'join'">
+            <span class="ms-2 flex items-center gap-1"><span class="inline-block size-2.5 bg-(--signal)" />{{ t('vis.legend.matched') }}</span>
+            <span class="flex items-center gap-1"><span class="inline-block size-2.5 bg-warning" />{{ t('vis.legend.unmatched') }}</span>
+            <span class="flex items-center gap-1"><span class="inline-block size-2.5 bg-(--glow)" />{{ t('vis.legend.fanout') }}</span>
+          </template>
+          <span
+            v-if="current.before || node.type === 'join'"
+            class="ms-2 uppercase tracking-[.1em] text-(--ink2)"
+          >{{ beat === 'before' ? t('vis.beatBefore') : t('vis.beatAfter') }}</span>
+        </div>
+        <!-- Before: the input, marked. After: the output. -->
+        <VisCards
+          v-if="beat === 'before' && node.type === 'join'"
+          :rows="joinLeftRows"
+          :marks="current.marks"
+        />
+        <VisCards
+          v-else-if="beat === 'before' && current.before"
+          :rows="current.before"
+          :marks="current.marks"
+        />
+        <VisCards
+          v-else
+          :rows="current.rows"
+          :new-cols="current.newCols"
+        />
+      </div>
+    </template>
+
+    <!-- Edit: the node, and every function -->
+    <template #edit>
+      <div class="space-y-5">
+        <template v-if="current && node">
           <div class="border-[1.5px] border-(--ink) bg-(--card)">
             <p class="flex items-center gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2">
               <UIcon
@@ -338,136 +436,47 @@ usePageSchema(() => ({
               </p>
             </div>
           </div>
-        </aside>
-
-        <!-- What it produced -->
-        <section class="min-w-0 space-y-4">
-          <div class="border-[1.5px] border-(--ink) bg-(--card) p-5">
-            <p class="eyebrow">
-              {{ t('vis.stepOf', { n: current.order, total: results.length }) }} · {{ t(`vis.recipe.nodes.${node.type}`) }}
-            </p>
-            <p class="mt-2 text-[17px] leading-relaxed text-(--ink)">
-              {{ t(`vis.recipe.explain.${current.explain}`, current.params) }}
-            </p>
-            <p class="mt-3 flex flex-wrap items-center gap-3 font-mono text-xs text-(--ink2)">
-              <span class="border-[1.5px] border-(--ink) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: current.rowsIn }) }}</span>
-              <UIcon name="i-lucide-arrow-right" />
-              <span class="border-[1.5px] border-(--signal) px-2 py-0.5 tabular-nums text-(--signal)">{{ t('vis.rowsOut', { n: current.rows.length }) }}</span>
-              <UButton
-                v-if="current.before"
-                size="xs"
-                color="neutral"
-                variant="outline"
-                class="ms-auto"
-                @click="showBefore = !showBefore"
-              >
-                {{ showBefore ? t('vis.showAfter') : t('vis.showBefore') }}
-              </UButton>
-            </p>
-            <p
-              v-if="node.type === 'join'"
-              class="mt-3 flex flex-wrap gap-3 font-mono text-[11px] text-(--ink2)"
+        </template>
+        <section class="space-y-4 border-t-[1.5px] border-(--ink) pt-5">
+          <p class="eyebrow">
+            {{ t('vis.recipe.catalogue') }}
+          </p>
+          <h2 class="bp-h3">
+            {{ t('vis.recipe.catalogueTitle') }}
+          </h2>
+          <div class="grid gap-4">
+            <div
+              v-for="cat in CATS"
+              :key="cat"
+              class="border-[1.5px] border-(--ink) bg-(--card)"
             >
-              <span class="flex items-center gap-1"><span class="inline-block size-3 bg-(--signal)" />{{ t('vis.legend.matched') }}</span>
-              <span class="flex items-center gap-1"><span class="inline-block size-3 bg-warning" />{{ t('vis.legend.unmatched') }}</span>
-              <span class="flex items-center gap-1"><span class="inline-block size-3 bg-(--glow)" />{{ t('vis.legend.fanout') }}</span>
-            </p>
+              <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-bold text-(--ink)">
+                {{ t(`vis.recipe.cats.${cat}`) }}
+              </p>
+              <ul>
+                <li
+                  v-for="fn in FN_IDS.filter(f => FUNCTIONS[f].cat === cat)"
+                  :key="fn"
+                  class="flex items-start gap-3 border-b border-dashed border-(--line) px-4 py-2 last:border-b-0"
+                >
+                  <div class="min-w-0 flex-1">
+                    <code class="block break-all font-mono text-xs text-(--ink)">{{ example(fn).formula }}</code>
+                    <span class="font-mono text-[11px] text-(--ink2)">{{ example(fn).input }} → <b class="text-(--signal)">{{ example(fn).output }}</b></span>
+                  </div>
+                  <UButton
+                    size="xs"
+                    variant="outline"
+                    color="neutral"
+                    icon="i-lucide-plus"
+                    :aria-label="t('vis.recipe.addFn', { fn })"
+                    @click="addFn(fn)"
+                  />
+                </li>
+              </ul>
+            </div>
           </div>
-
-          <!-- A join shows its left input marked, then the output -->
-          <template v-if="node.type === 'join'">
-            <VisTable
-              :rows="joinLeftRows"
-              :marks="current.marks"
-              :caption="`${t('vis.recipe.left')} · ${node.left}`"
-            />
-            <VisTable
-              :rows="current.rows"
-              :new-cols="current.newCols"
-              :caption="t('vis.recipe.output')"
-            />
-          </template>
-          <VisTable
-            v-else
-            :rows="current.before && showBefore ? current.before : current.rows"
-            :marks="current.before && showBefore ? current.marks : undefined"
-            :new-cols="current.newCols"
-          />
         </section>
       </div>
-
-      <!-- Function catalogue -->
-      <section class="space-y-4 pt-6">
-        <p class="eyebrow">
-          {{ t('vis.recipe.catalogue') }}
-        </p>
-        <h2 class="bp-h3">
-          {{ t('vis.recipe.catalogueTitle') }}
-        </h2>
-        <div class="grid gap-6 lg:grid-cols-2">
-          <div
-            v-for="cat in CATS"
-            :key="cat"
-            class="border-[1.5px] border-(--ink) bg-(--card)"
-          >
-            <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-bold text-(--ink)">
-              {{ t(`vis.recipe.cats.${cat}`) }}
-            </p>
-            <ul>
-              <li
-                v-for="fn in FN_IDS.filter(f => FUNCTIONS[f].cat === cat)"
-                :key="fn"
-                class="flex items-start gap-3 border-b border-dashed border-(--line) px-4 py-2 last:border-b-0"
-              >
-                <div class="min-w-0 flex-1">
-                  <code class="block break-all font-mono text-xs text-(--ink)">{{ example(fn).formula }}</code>
-                  <span class="font-mono text-[11px] text-(--ink2)">{{ example(fn).input }} → <b class="text-(--signal)">{{ example(fn).output }}</b></span>
-                </div>
-                <UButton
-                  size="xs"
-                  variant="outline"
-                  color="neutral"
-                  icon="i-lucide-plus"
-                  :aria-label="t('vis.recipe.addFn', { fn })"
-                  @click="addFn(fn)"
-                />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <div class="grid gap-4 border-[1.5px] border-(--ink) bg-(--ice) p-5 md:grid-cols-3">
-        <div
-          v-for="k in ['order', 'joins', 'grain']"
-          :key="k"
-        >
-          <p class="font-bold text-(--ink)">
-            {{ t(`vis.recipe.notes.${k}.title`) }}
-          </p>
-          <p class="mt-1 text-sm leading-relaxed text-(--ink2)">
-            {{ t(`vis.recipe.notes.${k}.body`) }}
-          </p>
-        </div>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <UButton
-          :to="localePath('/visualiser/saql')"
-          icon="i-lucide-terminal"
-          variant="outline"
-          color="neutral"
-        >
-          {{ t('vis.saql.title') }}
-        </UButton>
-        <UButton
-          :to="localePath('/visualiser/dataflow')"
-          icon="i-lucide-git-fork"
-          variant="outline"
-          color="neutral"
-        >
-          {{ t('vis.dataflow.title') }}
-        </UButton>
-      </div>
-    </div>
-  </div>
+    </template>
+  </VisShell>
 </template>

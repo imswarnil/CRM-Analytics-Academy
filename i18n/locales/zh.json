@@ -900,7 +900,8 @@
       "failed": "无法复制页面"
     },
     "save": "保存为以后",
-    "saved": "已保存"
+    "saved": "已保存",
+    "pointsEarned": "+10 点—— {n} 开支"
   },
   "credits": {
     "title": "贷项 & 来源",
@@ -1262,7 +1263,8 @@
       "page": "说在哪个页面上。",
       "correction": "兼填其言及应说法.",
       "generic": "那没有通过。 请再试一次"
-    }
+    },
+    "pointsBadge": "每笔核定捐款加25分"
   },
   "dash": {
     "examTitle": "核证准备情况",
@@ -1291,15 +1293,11 @@
   "store": {
     "eyebrow": "赞成:",
     "seoTitle": "CRM Analytics 学院计划:自由、专业和团队席位",
-    "seoDesc": "学习 Salesforce CRM Analytics 免费。 Pro课程会解锁通过学习获得的积分;公司,团队和大学可以申请Pro席位.",
+    "seoDesc": "学习 Salesforce CRM Analytics 免费。 Pro的教训是用学习所得的分数解锁的——永远没有报酬。 公司,团队和大学可以要求Pro席位.",
     "title": "三个计划,一个课程",
     "lead": "一切大众不离不离. Pro是用积分买的:每个账户从1000开始,足够第一个月,学习赚得更多. 组织要求获得席位。",
     "youArePro": "你是职业会员",
     "popular": "最受欢迎的",
-    "unit": {
-      "perMonth": "月数",
-      "perSeat": "/座位/月份"
-    },
     "sentTitle": "谢谢,你的请求已经受理了",
     "sentBody": "Swarnil将在两个工作日内用电子邮件回复下一步。",
     "f": {
@@ -1313,7 +1311,7 @@
       "message": "有什么我们该知道的吗?"
     },
     "send": "发送请求",
-    "noCharge": "这里没有收费 您将在两个工作日内收到电子邮件回复。"
+    "noCharge": "没有什么可付的——学院靠点数运转。 您将在两个工作日内收到电子邮件回复。"
   },
   "products": {
     "free": {
@@ -1340,8 +1338,8 @@
       "f1": "每一个座位都有一个代码",
       "f2": "对谁在学习 有多远的观察",
       "f3": "随时增加或免费座位",
-      "f4": "大学数量定价",
-      "f5": "发票账单,一个联系人"
+      "f4": "会员总是像其他人一样赚点钱",
+      "f5": "一个联系人,没有报酬"
     }
   },
   "human": {
@@ -1357,8 +1355,6 @@
     "noEnd": "无结束日期",
     "free": "免费",
     "pointsPer": "点数 / {days} 天数",
-    "laterPrice": "回头见 {price} 一个月",
-    "volume": "应请求进行数量定价",
     "startLearning": "开始学习",
     "signUpFor": "注册 - 得到 {n} 点",
     "redeem": "解锁 Pro {n} 点",
@@ -1368,7 +1364,7 @@
     "redeemed": "你是专业的,直到 {date}好好享受每一课",
     "requestSeats": "请求席位",
     "haveCode": "我有密码",
-    "pointsEyebrow": "点数如何工作",
+    "pointsEyebrow": "点数,不是付款",
     "pointsTitle": "你的第一个月就到我们这儿了 剩下的就靠学习了",
     "earnRow": {
       "welcome": "当你创建您的账户时",
@@ -1394,7 +1390,8 @@
       "company": "企业",
       "team": "团队",
       "university": "大学"
-    }
+    },
+    "byRequest": "根据请求"
   },
   "team": {
     "title": "我的组织",
@@ -1508,7 +1505,8 @@
           "title": "组合是密钥的组合",
           "body": "双方按键组合并配对. 内部保留两侧的密钥;左,右和全保存未匹配的密钥,并带有空值."
         }
-      }
+      },
+      "shareHint": "地址栏保留您的查询 : 复制它以在此步骤完全共享此查询 。"
     },
     "recipe": {
       "title": "食谱视觉器",
@@ -1578,7 +1576,9 @@
           "title": "组合前的变形",
           "body": "窗口函数和公式参见单个行. 在集合后,仅剩组级值。"
         }
-      }
+      },
+      "editNodes": "编辑食谱",
+      "order": "执行令"
     },
     "dataflow": {
       "title": "Dataflow 视觉",
@@ -1626,7 +1626,15 @@
           "title": "数据流和食谱",
           "body": "食谱是较新的工具,用加入,公式和视觉编辑器做同样的工作. 数据流仍然在很多块中运行——读两个字."
         }
-      }
-    }
+      },
+      "editJson": "Dataflow JSON",
+      "build": "构建数据流"
+    },
+    "edit": "编辑",
+    "examples": "实例",
+    "toggleRail": "显示或隐藏侧面板",
+    "howToRead": "如何读这个",
+    "beatBefore": "发生什么事",
+    "beatAfter": "结果"
   }
 }

@@ -3,14 +3,14 @@
  * the Salesforce price book in salesforce/academy).
  *
  *   free   everything public, no ads once signed in
- *   pro    every Pro lesson — paid in POINTS for now: every account starts
- *          with WELCOME_POINTS and earns more by learning
+ *   pro    every Pro lesson, paid in POINTS: every account starts with
+ *          WELCOME_POINTS and earns more by learning and contributing
  *   seats  Pro for a company, team or university, per seat — a request
  *          (a lead), never self-serve; the owner sets the seats in /admin
  *
- * `price` is what the plan will cost in money later; it is shown as "later"
- * and nothing charges it. Copy is i18n (`products.<id>.*`); the id is what a
- * lead and Salesforce record.
+ * The Academy is points only: no payments, no money prices (decided
+ * 2026-11-01). Copy is i18n (`products.<id>.*`); the id is what a lead and
+ * Salesforce record.
  */
 export type ProductId = 'free' | 'pro' | 'seats'
 
@@ -24,9 +24,6 @@ export interface Product {
   icon: string
   /** Cost in points per period; null = not bought with points. */
   points: number | null
-  /** The money price it will have, e.g. "$12" (seats: per seat per month, volume-quoted). */
-  price: string | null
-  unit?: 'perMonth' | 'perSeat'
   /** How many feature lines exist under products.<id>.f1…fN. */
   features: number
   audience: 'individual' | 'business'
@@ -34,9 +31,9 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
-  { id: 'free', icon: 'i-lucide-book-open', points: 0, price: '$0', features: 5, audience: 'individual' },
-  { id: 'pro', icon: 'i-lucide-sparkles', points: PRO_POINTS, price: '$12', unit: 'perMonth', features: 5, audience: 'individual', featured: true },
-  { id: 'seats', icon: 'i-lucide-building-2', points: null, price: '$15', unit: 'perSeat', features: 5, audience: 'business' }
+  { id: 'free', icon: 'i-lucide-book-open', points: 0, features: 5, audience: 'individual' },
+  { id: 'pro', icon: 'i-lucide-sparkles', points: PRO_POINTS, features: 5, audience: 'individual', featured: true },
+  { id: 'seats', icon: 'i-lucide-building-2', points: null, features: 5, audience: 'business' }
 ]
 
 /** Organisations that can ask for seats. */

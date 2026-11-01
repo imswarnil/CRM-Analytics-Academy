@@ -15,7 +15,7 @@ export interface DagNode {
   /** A dataflow's parallel wave, shown beside the order. */
   wave?: number
 }
-const props = defineProps<{ nodes: DagNode[], active: string | null, doneUpTo: number }>()
+const props = withDefaults(defineProps<{ nodes: DagNode[], active: string | null, doneUpTo: number, maxHeight?: string }>(), { maxHeight: '15rem' })
 const emit = defineEmits<{ select: [id: string] }>()
 
 const W = 168
@@ -57,13 +57,13 @@ const state = (n: DagNode) => (n.id === props.active ? 'active' : n.order <= pro
 </script>
 
 <template>
-  <div class="overflow-x-auto border-[1.5px] border-(--ink) bg-(--paper) graph-paper p-3">
+  <div class="border-[1.5px] border-(--ink) bg-(--card) p-2">
     <svg
-      :width="layout.width"
-      :height="layout.height"
       :viewBox="`0 0 ${layout.width} ${layout.height}`"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
-      class="block"
+      class="block h-auto w-full"
+      :style="{ maxHeight: props.maxHeight }"
     >
       <defs>
         <marker
@@ -87,6 +87,7 @@ const state = (n: DagNode) => (n.id === props.active ? 'active' : n.order <= pro
         :stroke="e.done ? 'var(--signal)' : 'var(--ink2)'"
         stroke-width="1.5"
         :stroke-dasharray="e.done ? undefined : '4 3'"
+        :class="e.done ? 'vis-edge--done' : ''"
         marker-end="url(#vis-arrow)"
       />
       <g
@@ -103,6 +104,7 @@ const state = (n: DagNode) => (n.id === props.active ? 'active' : n.order <= pro
         <rect
           :width="W"
           :height="H"
+          :class="state(n) === 'active' ? 'vis-node--active' : ''"
           :fill="state(n) === 'active' ? 'var(--signal)' : 'var(--card)'"
           stroke="var(--ink)"
           stroke-width="1.5"
@@ -140,3 +142,24 @@ const state = (n: DagNode) => (n.id === props.active ? 'active' : n.order <= pro
     </svg>
   </div>
 </template>
+
+<style scoped>
+.vis-edge--done {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: draw-edge 0.7s ease-out forwards;
+}
+.vis-node--active {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes draw-edge {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes pulse {
+  50% { opacity: 0.82; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vis-edge--done { animation: none; stroke-dashoffset: 0; }
+  .vis-node--active { animation: none; }
+}
+</style>

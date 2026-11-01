@@ -354,6 +354,8 @@ const meta = computed(() => metaOf(route.path))
 const done = computed(() => isDone(route.path))
 const mobileContents = useState('bp-contents-mobile', () => false)
 const tocOpen = useCookie<boolean>('bp-toc-open', { default: () => true, sameSite: 'lax' })
+// About one square per two minutes of reading, between 2 and 8.
+const tocSquares = computed(() => Math.min(8, Math.max(2, Math.round(metaOf(route.path).minutes / 2))))
 
 const saved = computed(() => isSaved(route.path))
 async function toggleSaved() {
@@ -689,10 +691,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             />
             <span class="font-mono text-[10px] uppercase tracking-[.15em] text-(--ink2) [writing-mode:vertical-rl]">{{ toc?.title || 'On this page' }}</span>
           </div>
-          <div
-            v-else
-            class="sticky top-24"
-          >
+          <div v-else>
             <div class="mb-3 flex items-center justify-between gap-2">
               <p class="mono-label">
                 {{ toc?.title || 'On this page' }}
@@ -735,13 +734,15 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
                 />{{ l.label }}
               </NuxtLink>
             </div>
-            <!-- A large square right under the contents, then a tall unit
-                 that stays in view while the lesson scrolls. -->
-            <PromoSlot
-              unit="square300x250"
-              class="mt-6"
-            />
-            <PromoSlot unit="skyscraper300x600" />
+            <!-- Squares down the whole column, one per stretch of lesson:
+                 the longer the lesson, the more of them fit beside it. -->
+            <div class="mt-6 space-y-6">
+              <PromoSlot
+                v-for="n in tocSquares"
+                :key="`toc-square-${n}-${route.path}`"
+                :unit="n % 2 ? 'square300x250' : 'square'"
+              />
+            </div>
           </div>
         </aside>
       </div>

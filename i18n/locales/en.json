@@ -900,7 +900,8 @@
       "failed": "Could not copy page"
     },
     "save": "Save for later",
-    "saved": "Saved"
+    "saved": "Saved",
+    "pointsEarned": "+10 points — {n} to spend"
   },
   "credits": {
     "title": "Credits & sources",
@@ -1262,7 +1263,8 @@
       "page": "Say which page it is on.",
       "correction": "Fill in both what it says and what it should say.",
       "generic": "That didn't go through. Please try again."
-    }
+    },
+    "pointsBadge": "+25 points for every approved contribution"
   },
   "dash": {
     "examTitle": "Certification readiness",
@@ -1291,15 +1293,11 @@
   "store": {
     "eyebrow": "Pro",
     "seoTitle": "CRM Analytics Academy plans: Free, Pro and team seats",
-    "seoDesc": "Learn Salesforce CRM Analytics free. Pro lessons are unlocked with points you earn by learning; companies, teams and universities can request Pro seats.",
+    "seoDesc": "Learn Salesforce CRM Analytics free. Pro lessons are unlocked with points you earn by learning — no payments, ever. Companies, teams and universities can ask for Pro seats.",
     "title": "Three plans, one course",
     "lead": "Everything public stays free. Pro is bought with points: every account starts with 1,000, enough for the first month, and learning earns more. Organisations ask for seats.",
     "youArePro": "You are a Pro member",
     "popular": "Most popular",
-    "unit": {
-      "perMonth": "/ month",
-      "perSeat": "/ seat / month"
-    },
     "sentTitle": "Thanks — your request is in.",
     "sentBody": "Swarnil will reply by email within two working days with the next steps.",
     "f": {
@@ -1313,7 +1311,7 @@
       "message": "Anything we should know?"
     },
     "send": "Send request",
-    "noCharge": "Nothing is charged here. You will get a reply by email within two working days."
+    "noCharge": "There is nothing to pay — the Academy runs on points. You will get a reply by email within two working days."
   },
   "products": {
     "free": {
@@ -1340,8 +1338,8 @@
       "f1": "Pro for every seat, joined with one code",
       "f2": "An admin view of who is learning and how far",
       "f3": "Add or free seats at any time",
-      "f4": "Volume pricing for universities",
-      "f5": "Invoiced billing, one contact"
+      "f4": "Members keep earning points like everyone else",
+      "f5": "One contact, nothing to pay"
     }
   },
   "human": {
@@ -1357,8 +1355,6 @@
     "noEnd": "no end date",
     "free": "Free",
     "pointsPer": "points / {days} days",
-    "laterPrice": "Later {price} a month",
-    "volume": "Volume pricing on request",
     "startLearning": "Start learning",
     "signUpFor": "Sign up — get {n} points",
     "redeem": "Unlock Pro for {n} points",
@@ -1368,7 +1364,7 @@
     "redeemed": "You are Pro until {date}. Enjoy every lesson.",
     "requestSeats": "Request seats",
     "haveCode": "I have a join code",
-    "pointsEyebrow": "How points work",
+    "pointsEyebrow": "Points, not payments",
     "pointsTitle": "Your first month is on us; learning pays for the rest",
     "earnRow": {
       "welcome": "when you create your account",
@@ -1394,7 +1390,8 @@
       "company": "Company",
       "team": "Team",
       "university": "University"
-    }
+    },
+    "byRequest": "By request"
   },
   "team": {
     "title": "My organisation",
@@ -1508,7 +1505,8 @@
           "title": "Cogroup is a join by key",
           "body": "Both sides are grouped by their key and paired. Inner keeps keys on both sides; left, right and full keep the unmatched keys too, with empty values."
         }
-      }
+      },
+      "shareHint": "The address bar keeps your query: copy it to share exactly this query at this step."
     },
     "recipe": {
       "title": "Recipe visualiser",
@@ -1578,7 +1576,9 @@
           "title": "Transform before you aggregate",
           "body": "Window functions and formulas see individual rows. After an aggregate, only the group-level values are left."
         }
-      }
+      },
+      "editNodes": "Edit the recipe",
+      "order": "Execution order"
     },
     "dataflow": {
       "title": "Dataflow visualiser",
@@ -1626,7 +1626,15 @@
           "title": "Dataflows and recipes",
           "body": "Recipes are the newer tool and do the same jobs with joins, formulas and a visual editor. Dataflows still run in many orgs — read both."
         }
-      }
-    }
+      },
+      "editJson": "Dataflow JSON",
+      "build": "Build the dataflow"
+    },
+    "edit": "Edit",
+    "examples": "Examples",
+    "toggleRail": "Show or hide the side panel",
+    "howToRead": "How to read this",
+    "beatBefore": "what happens",
+    "beatAfter": "result"
   }
 }

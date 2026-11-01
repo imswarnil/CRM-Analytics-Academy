@@ -38,10 +38,8 @@ const { data, refresh, status } = await useLazyAsyncData('admin-leads', () =>
   $fetch<{ leads: Lead[], totals: { product: string, status: string, count: number, seats: number }[] }>('/api/admin/leads', { query: { status: filter.value } }),
 { server: false, watch: [filter] })
 
-// Pipeline at list price per year: seats × the seat price × 12; other
-// interests are quoted, so they count as leads, not money.
-const seatPrice = Number(productById('seats')?.price?.replace(/[^\d.]/g, '') ?? 0)
-const value = (t: { seats: number }) => t.seats * seatPrice * 12
+// The Academy is points only, so the pipeline is counted in seats.
+const value = (t: { seats: number }) => t.seats
 const pipeline = computed(() => (data.value?.totals ?? []).filter(t => t.status === 'new' || t.status === 'contacted').reduce((s, t) => s + value(t), 0))
 const won = computed(() => (data.value?.totals ?? []).filter(t => t.status === 'won').reduce((s, t) => s + value(t), 0))
 const emit = defineEmits<{ orgCreated: [] }>()
@@ -77,8 +75,8 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
         v-for="tile in [
           { label: 'New leads', value: count('new') },
           { label: 'Contacted', value: count('contacted') },
-          { label: 'Open seat pipeline · $/yr', value: `$${pipeline.toLocaleString()}` },
-          { label: 'Won seats · $/yr', value: `$${won.toLocaleString()}` }
+          { label: 'Seats in open requests', value: pipeline.toLocaleString() },
+          { label: 'Seats won', value: won.toLocaleString() }
         ]"
         :key="tile.label"
         class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-4"
