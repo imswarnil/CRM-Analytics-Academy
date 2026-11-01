@@ -1,5 +1,8 @@
 # Salesforce project
 
+> **Learning Salesforce itself?** Start with [`LEARNING.md`](LEARNING.md): admin,
+> developer and DevOps modules, each built on the real metadata in this folder.
+
 An SFDX project for whichever org this course is being practised in. It lives
 inside the site's repository on purpose: the lessons describe builds in a real
 org, and the metadata for those builds belongs beside the lessons.

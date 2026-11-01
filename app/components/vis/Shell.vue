@@ -8,9 +8,8 @@
  *   centre  the stage — the motion graphic
  *   bottom  the narration (written out, whiteboard style) and the player
  *
- * Every step plays in two beats: `before` (what is about to happen — rows a
- * filter drops are struck through) for BEAT ms, then `after` (the result).
- * The stage slot receives the beat.
+ * The stage (usually a VisFlow) animates each step itself; the player waits
+ * long enough for a step's flow to finish before moving on.
  */
 const props = withDefaults(defineProps<{
   sheet: string
@@ -22,9 +21,7 @@ const props = withDefaults(defineProps<{
   presets?: { id: string, label: string }[]
   preset?: string
   editLabel?: string
-  /** The operation, stamped large across the stage each step (GROUP BY, LOOKUP JOIN…). */
-  stamp?: string
-}>(), { presets: () => [], preset: '', eyebrow: '', error: false, editLabel: '', stamp: '' })
+}>(), { presets: () => [], preset: '', eyebrow: '', error: false, editLabel: '' })
 const step = defineModel<number>('step', { required: true })
 const emit = defineEmits<{ preset: [id: string] }>()
 const { t } = useI18n()
@@ -32,16 +29,6 @@ const { t } = useI18n()
 const focus = useState('exam-focus', () => false)
 focus.value = true
 onBeforeUnmount(() => (focus.value = false))
-
-const BEAT = 1300
-const beat = ref<'before' | 'after'>('after')
-let beatTimer: ReturnType<typeof setTimeout> | undefined
-watch(step, () => {
-  clearTimeout(beatTimer)
-  beat.value = 'before'
-  beatTimer = setTimeout(() => (beat.value = 'after'), BEAT)
-}, { immediate: true })
-onBeforeUnmount(() => clearTimeout(beatTimer))
 
 const editOpen = ref(false)
 const railOpen = ref(true)
@@ -117,16 +104,7 @@ const railOpen = ref(true)
         </div>
       </aside>
       <section class="graph-paper relative min-h-0 overflow-y-auto bg-(--paper) p-4 sm:p-5">
-        <span
-          v-if="props.stamp"
-          :key="`${step}-${props.stamp}`"
-          class="vis-stamp pointer-events-none absolute end-4 top-3 z-0 select-none font-mono text-4xl font-black uppercase tracking-[-0.02em] text-(--signal)/15 sm:text-6xl"
-          aria-hidden="true"
-        >{{ props.stamp }}</span>
-        <slot
-          name="stage"
-          :beat="beat"
-        />
+        <slot name="stage" />
       </section>
     </div>
 
@@ -140,7 +118,7 @@ const railOpen = ref(true)
       <VisPlayer
         v-model="step"
         :count="props.count"
-        :interval="3400"
+        :interval="7000"
         autoplay
         class="lg:min-w-[30rem]"
       />
@@ -158,15 +136,3 @@ const railOpen = ref(true)
     </USlideover>
   </div>
 </template>
-
-<style scoped>
-.vis-stamp {
-  animation: stamp 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) both;
-}
-@keyframes stamp {
-  from { opacity: 0; transform: scale(1.6) rotate(-6deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .vis-stamp { animation: none; }
-}
-</style>

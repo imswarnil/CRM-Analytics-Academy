@@ -18,7 +18,10 @@ export function useMeter() {
   const status = useState<MeterStatus | null>('meter-status', () => null)
   const blocked = useState('meter-blocked', () => false)
   const toast = useToast()
-  const { t } = useI18n()
+  // Not useI18n(): plugins/meter.client.ts calls this outside any component,
+  // where useI18n() throws (vue-i18n error 26) and takes the whole app down.
+  const i18n = useNuxtApp().$i18n as { t: (k: string, p?: Record<string, unknown>) => string }
+  const t = (key: string, params?: Record<string, unknown>) => i18n.t(key, params)
 
   async function refresh() {
     status.value = await $fetch<MeterStatus>('/api/meter').catch(() => status.value)

@@ -42,6 +42,13 @@ const waves = computed(() => {
   for (const [n, w] of Object.entries(plan.value.wave)) (by[w] ??= []).push(n)
   return Object.entries(by).map(([w, names]) => ({ wave: Number(w), names }))
 })
+const srcs = computed(() => (current.value ? sourcesOf(df.value[current.value.name]!) : []))
+const rowsOf = (name?: string) => (name ? results.value.find(r => r.name === name)?.rows ?? [] : [])
+const ICON: Record<string, string> = { sfdcDigest: 'i-lucide-cloud-download', edgemart: 'i-lucide-database', filter: 'i-lucide-filter', augment: 'i-lucide-merge', computeExpression: 'i-lucide-function-square', computeRelative: 'i-lucide-arrow-left-right', flatten: 'i-lucide-network', sliceDataset: 'i-lucide-columns-3', append: 'i-lucide-rows-3', sfdcRegister: 'i-lucide-hard-drive-upload' }
+const detailOf = (name: string) => {
+  const p = df.value[name]?.parameters ?? {}
+  return String(p.filter ?? p.operation ?? p.object ?? p.alias ?? (Array.isArray(p.fields) ? (p.fields as { name: string }[]).map(f => f.name).join(', ') : ''))
+}
 const json = (v: unknown) => JSON.stringify(v, null, 2)
 
 const TOGGLES: { key: 'filter' | 'flatten' | 'computeRelative' | 'security' }[] = [{ key: 'filter' }, { key: 'flatten' }, { key: 'computeRelative' }, { key: 'security' }]
@@ -75,7 +82,6 @@ usePageSchema(() => ({
     :caption="caption"
     :eyebrow="current ? `${t('vis.stepOf', { n: current.order, total: results.length })} · ${current.action} · ${t('vis.dataflow.wave', { n: current.wave })}` : ''"
     :edit-label="t('vis.dataflow.editJson')"
-    :stamp="current?.action ?? ''"
   >
     <!-- Rail: options and the waves -->
     <template #rail>
@@ -156,44 +162,32 @@ usePageSchema(() => ({
     </template>
 
     <!-- Stage: the graph, then this node's rows -->
-    <template #stage="{ beat }">
+    <template #stage>
       <VisDag
         :nodes="dag"
         :active="current?.name ?? null"
         :done-up-to="(current?.order ?? 1) - 1"
-        max-height="12rem"
+        max-height="7.5rem"
         @select="select"
       />
-      <div
+      <VisFlow
         v-if="current"
-        :key="current.name"
-        class="mt-4"
-      >
-        <div class="mb-3 flex flex-wrap items-center gap-2 font-mono text-xs">
-          <span class="bg-(--ink) px-2 py-0.5 text-(--paper)">{{ current.order }}. {{ current.name }}</span>
-          <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: current.rowsIn }) }}</span>
-          <UIcon
-            name="i-lucide-arrow-right"
-            class="text-(--ink2)"
-          />
-          <span class="border-[1.5px] border-(--signal) bg-(--card) px-2 py-0.5 tabular-nums text-(--signal)">{{ t('vis.rowsOut', { n: current.rows.length }) }}</span>
-          <template v-if="current.action === 'augment'">
-            <span class="ms-2 flex items-center gap-1"><span class="inline-block size-2.5 bg-(--signal)" />{{ t('vis.legend.matched') }}</span>
-            <span class="flex items-center gap-1"><span class="inline-block size-2.5 bg-warning" />{{ t('vis.legend.unmatched') }}</span>
-            <span class="flex items-center gap-1"><span class="inline-block size-2.5 bg-(--glow)" />{{ t('vis.legend.multi') }}</span>
-          </template>
-          <span
-            v-if="current.before"
-            class="ms-2 uppercase tracking-[.1em] text-(--ink2)"
-          >{{ beat === 'before' ? t('vis.beatBefore') : t('vis.beatAfter') }}</span>
-        </div>
-        <VisCards
-          :rows="beat === 'before' && current.before ? current.before : current.rows"
-          :marks="current.marks"
-          :new-cols="current.newCols"
-          :drop-cols="current.dropCols"
-        />
-      </div>
+        class="mt-5"
+        :step-key="`${current.name}-${step}-${JSON.stringify(opts)}`"
+        :op="current.action"
+        :icon="ICON[current.action] ?? 'i-lucide-box'"
+        :detail="detailOf(current.name)"
+        :source="srcs.length ? '' : current.name"
+        :input="current.before ?? rowsOf(srcs[0])"
+        :input-label="current.action === 'augment' ? srcs[0] : srcs.join(' + ')"
+        :side="current.action === 'augment' ? rowsOf(srcs[1]) : current.action === 'append' ? undefined : undefined"
+        :side-label="srcs[1] ?? ''"
+        :output="current.rows"
+        :output-label="current.name"
+        :marks="current.marks"
+        :new-cols="current.newCols"
+        :drop-cols="current.dropCols"
+      />
     </template>
 
     <!-- Edit: the JSON, the running node lit -->

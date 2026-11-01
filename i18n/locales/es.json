@@ -1559,7 +1559,8 @@
         "join": "Únase",
         "append": "Apéndice",
         "aggregate": "Aggregate",
-        "output": "Producto"
+        "output": "Producto",
+        "drop": "Quitar columnas"
       },
       "cats": {
         "date": "Fecha",
@@ -1579,7 +1580,8 @@
         "join_outer": "Afiliación externa completa {key}: cada fila de ambos lados, coincide donde sea posible. {out} filas fuera; {unmatched} izquierda y izquierda {unmatchedRight} filas derechas sin pareja.",
         "append": "Ataque las entradas uno bajo el otro: {parts} hileras hacen {n}Las columnas son iguales por nombre.",
         "aggregate": "Grupos {n} filas por {by} en {groups} hilera y computa las medidas. El grano cambia aquí, una fila por grupo.",
-        "output": "Escribe {n} filas con {cols} columnas al conjunto de datos {name}La salida dura."
+        "output": "Escribe {n} filas con {cols} columnas al conjunto de datos {name}La salida dura.",
+        "drop": "Caídas {n} columnas ({fields}) de cada fila: las filas se quedan, sólo se estrechan, por lo que el próximo nodo tiene menos que moverse."
       },
       "notes": {
         "order": {
@@ -1653,7 +1655,22 @@
     "toggleRail": "Mostrar o ocultar el panel lateral",
     "howToRead": "Cómo leer esto",
     "beatBefore": "¿Qué pasa?",
-    "beatAfter": "resultado"
+    "beatAfter": "resultado",
+    "flow": {
+      "input": "Input",
+      "lookup": "Mirador",
+      "output": "Producto",
+      "source": "Fuente",
+      "waiting": "Esperando filas",
+      "queued": "Queued",
+      "processing": "Filas procesadas: {n} / {total}",
+      "done": "Hecho",
+      "droppedRows": "{n} filas caídas",
+      "droppedCols": "{n} columnas caídas",
+      "newCols": "{n} nuevas columnas",
+      "more": "+ {n} más",
+      "groups": "{n} grupos"
+    }
   },
   "meter": {
     "eyebrow": "Página {used} de {allowance}",

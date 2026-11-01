@@ -33,7 +33,7 @@ const node = computed(() => nodes.value.find(n => n.id === current.value?.id))
 const presetList = computed(() => RECIPE_PRESETS.map(p => ({ id: p.id, label: t(`vis.recipe.presets.${p.id}`) })))
 const caption = computed(() => (current.value ? t(`vis.recipe.explain.${current.value.explain}`, current.value.params) : ''))
 
-const ICON: Record<RecipeNode['type'], string> = { input: 'i-lucide-database', filter: 'i-lucide-filter', transform: 'i-lucide-function-square', join: 'i-lucide-merge', append: 'i-lucide-rows-3', aggregate: 'i-lucide-sigma', output: 'i-lucide-hard-drive-download' }
+const ICON: Record<RecipeNode['type'], string> = { input: 'i-lucide-database', filter: 'i-lucide-filter', transform: 'i-lucide-function-square', join: 'i-lucide-merge', append: 'i-lucide-rows-3', aggregate: 'i-lucide-sigma', drop: 'i-lucide-columns-3', output: 'i-lucide-hard-drive-download' }
 const subOf = (n: RecipeNode) => n.type === 'input'
   ? n.dataset
   : n.type === 'join'
@@ -44,7 +44,9 @@ const subOf = (n: RecipeNode) => n.type === 'input'
         ? `by ${n.by.join(', ') || '—'}`
         : n.type === 'filter'
           ? `${n.field} ${n.cmp} ${n.value}`
-          : n.type === 'output' ? n.name : n.type
+          : n.type === 'drop'
+            ? `− ${n.fields.join(', ')}`
+            : n.type === 'output' ? n.name : n.type
 const dag = computed<DagNode[]>(() => nodes.value.map(n => ({
   id: n.id,
   label: `${t(`vis.recipe.nodes.${n.type}`)} · ${n.id}`,
@@ -65,10 +67,31 @@ const fieldsFor = (n: RecipeNode | undefined, which = 0) => {
   return res ? columnsOf(res.rows) : []
 }
 
-const joinLeftRows = computed(() => {
+/* --- The flow stage: what goes into the node --------------------------------------- */
+const rowsOf = (id: string) => results.value.find(r => r.id === id)?.rows ?? []
+const flowIn = computed(() => {
   const n = node.value
-  return n?.type === 'join' ? results.value.find(r => r.id === n.left)?.rows ?? [] : []
+  const c = current.value
+  if (!n || !c || n.type === 'input') return { rows: [], label: '', side: undefined, sideLabel: '' }
+  if (n.type === 'join') return { rows: rowsOf(n.left), label: n.left, side: rowsOf(n.right), sideLabel: n.right }
+  if (n.type === 'filter') return { rows: c.before ?? rowsOf(n.input), label: n.input, side: undefined, sideLabel: '' }
+  const ins = inputsOf(n)
+  return { rows: ins.flatMap(rowsOf), label: ins.join(' + '), side: undefined, sideLabel: '' }
 })
+const detailOf = (n: RecipeNode) => n.type === 'join'
+  ? `${n.leftKey} = ${n.prefix}.${n.rightKey}`
+  : n.type === 'transform'
+    ? n.fns.map(f => `${f.fn}(${f.field})`).join(', ')
+    : n.type === 'aggregate'
+      ? `${n.measures.map(m => `${m.agg}(${m.field})`).join(', ')} by ${n.by.join(', ') || '—'}`
+      : n.type === 'drop' ? n.fields.join(', ') : subOf(n)
+const focusOf = (n: RecipeNode): string[] => n.type === 'filter'
+  ? [n.field]
+  : n.type === 'join'
+    ? [n.leftKey, n.rightKey]
+    : n.type === 'aggregate'
+      ? [...n.by, ...n.measures.map(m => m.field)]
+      : n.type === 'transform' ? n.fns.map(f => f.field) : []
 
 /* --- Join comparison ------------------------------------------------------------ */
 const joinCounts = computed(() => {
@@ -138,7 +161,6 @@ usePageSchema(() => ({
     :presets="presetList"
     :preset="presetId"
     :edit-label="t('vis.recipe.editNodes')"
-    :stamp="node ? (node.type === 'join' ? `${node.join} join` : node.type) : ''"
     @preset="usePreset"
   >
     <!-- Rail: the execution order -->
@@ -207,58 +229,34 @@ usePageSchema(() => ({
       </details>
     </template>
 
-    <!-- Stage: the graph, then this node's rows -->
-    <template #stage="{ beat }">
+    <!-- Stage: a mini map of the recipe, then this node with its rows flowing through -->
+    <template #stage>
       <VisDag
         :nodes="dag"
         :active="current?.id ?? null"
         :done-up-to="(current?.order ?? 1) - 1"
-        max-height="11rem"
+        max-height="7.5rem"
         @select="select"
       />
-      <div
+      <VisFlow
         v-if="current && node"
-        :key="current.id"
-        class="mt-4"
-      >
-        <div class="mb-3 flex flex-wrap items-center gap-2 font-mono text-xs">
-          <span class="flex items-center gap-1.5 bg-(--ink) px-2 py-0.5 text-(--paper)"><UIcon
-            :name="ICON[node.type]"
-            class="size-3.5"
-          />{{ current.order }}. {{ t(`vis.recipe.nodes.${node.type}`) }} · {{ node.id }}</span>
-          <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: current.rowsIn }) }}</span>
-          <UIcon
-            name="i-lucide-arrow-right"
-            class="text-(--ink2)"
-          />
-          <span class="border-[1.5px] border-(--signal) bg-(--card) px-2 py-0.5 tabular-nums text-(--signal)">{{ t('vis.rowsOut', { n: current.rows.length }) }}</span>
-          <template v-if="node.type === 'join'">
-            <span class="ms-2 flex items-center gap-1"><span class="inline-block size-2.5 bg-(--signal)" />{{ t('vis.legend.matched') }}</span>
-            <span class="flex items-center gap-1"><span class="inline-block size-2.5 bg-warning" />{{ t('vis.legend.unmatched') }}</span>
-            <span class="flex items-center gap-1"><span class="inline-block size-2.5 bg-(--glow)" />{{ t('vis.legend.fanout') }}</span>
-          </template>
-          <span
-            v-if="current.before || node.type === 'join'"
-            class="ms-2 uppercase tracking-[.1em] text-(--ink2)"
-          >{{ beat === 'before' ? t('vis.beatBefore') : t('vis.beatAfter') }}</span>
-        </div>
-        <!-- Before: the input, marked. After: the output. -->
-        <VisCards
-          v-if="beat === 'before' && node.type === 'join'"
-          :rows="joinLeftRows"
-          :marks="current.marks"
-        />
-        <VisCards
-          v-else-if="beat === 'before' && current.before"
-          :rows="current.before"
-          :marks="current.marks"
-        />
-        <VisCards
-          v-else
-          :rows="current.rows"
-          :new-cols="current.newCols"
-        />
-      </div>
+        class="mt-5"
+        :step-key="`${presetId}-${current.id}-${step}`"
+        :op="node.type === 'join' ? `${node.join} join` : t(`vis.recipe.nodes.${node.type}`)"
+        :icon="ICON[node.type]"
+        :detail="detailOf(node)"
+        :source="node.type === 'input' ? node.dataset : ''"
+        :input="flowIn.rows"
+        :input-label="flowIn.label"
+        :side="flowIn.side"
+        :side-label="flowIn.sideLabel"
+        :output="current.rows"
+        :output-label="node.id"
+        :marks="current.marks"
+        :new-cols="current.newCols"
+        :drop-cols="current.dropCols"
+        :focus="focusOf(node)"
+      />
     </template>
 
     <!-- Edit: the node, and every function -->
@@ -421,6 +419,15 @@ usePageSchema(() => ({
                 >
                   {{ t('vis.recipe.addMeasure') }}
                 </UButton>
+              </template>
+              <template v-else-if="node.type === 'drop'">
+                <USelectMenu
+                  v-model="node.fields"
+                  :items="fieldsFor(node)"
+                  multiple
+                  class="w-full"
+                  :placeholder="t('vis.recipe.nodes.drop')"
+                />
               </template>
               <template v-else-if="node.type === 'output'">
                 <UInput

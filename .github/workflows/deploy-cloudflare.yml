@@ -3,6 +3,9 @@ name: Deploy to Cloudflare Workers
 on:
   push:
     branches: [main]
+    # salesforce/ is its own project with its own pipeline (salesforce.yml):
+    # a commit that only touches it does not rebuild the site.
+    paths-ignore: ['salesforce/**', '.github/workflows/salesforce.yml']
   # Lets you re-deploy from the Actions tab without pushing a commit.
   workflow_dispatch:
 

@@ -1559,7 +1559,8 @@
         "join": "Join",
         "append": "Append",
         "aggregate": "Aggregate",
-        "output": "Output"
+        "output": "Output",
+        "drop": "Remove columns"
       },
       "cats": {
         "date": "Date",
@@ -1579,7 +1580,8 @@
         "join_outer": "Full outer join on {key}: every row from both sides, matched where possible. {out} rows out; {unmatched} left and {unmatchedRight} right rows without a partner.",
         "append": "Stacks the inputs one under the other: {parts} rows make {n}. Columns are matched by name.",
         "aggregate": "Groups {n} rows by {by} into {groups} rows and computes the measures. The grain changes here — one row per group.",
-        "output": "Writes {n} rows with {cols} columns to the dataset {name}. The output runs last."
+        "output": "Writes {n} rows with {cols} columns to the dataset {name}. The output runs last.",
+        "drop": "Drops {n} columns ({fields}) from every row: the rows stay, they just get narrower, so the next node has less to move."
       },
       "notes": {
         "order": {
@@ -1653,7 +1655,22 @@
     "toggleRail": "Show or hide the side panel",
     "howToRead": "How to read this",
     "beatBefore": "what happens",
-    "beatAfter": "result"
+    "beatAfter": "result",
+    "flow": {
+      "input": "Input",
+      "lookup": "Lookup side",
+      "output": "Output",
+      "source": "Source",
+      "waiting": "Waiting for rows",
+      "queued": "Queued",
+      "processing": "Rows processed: {n} / {total}",
+      "done": "Done",
+      "droppedRows": "{n} rows dropped",
+      "droppedCols": "{n} columns dropped",
+      "newCols": "{n} new columns",
+      "more": "+ {n} more",
+      "groups": "{n} groups"
+    }
   },
   "meter": {
     "eyebrow": "Page {used} of {allowance}",

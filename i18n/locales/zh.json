@@ -1559,7 +1559,8 @@
         "join": "联合",
         "append": "附录",
         "aggregate": "合计",
-        "output": "产出"
+        "output": "产出",
+        "drop": "删除列"
       },
       "cats": {
         "date": "日期",
@@ -1579,7 +1580,8 @@
         "join_outer": "完全外侧加盟 {key}:两侧的每一行,尽可能匹配. {out} 排队; {unmatched} 左转 {unmatchedRight} 右行无伴侣.",
         "append": "将输入内容堆放在另一个下方: {parts} 行数 {n}。栏名对应。",
         "aggregate": "组 {n} 逐行排列 {by} 输入 {groups} 排行计算措施。 这里的谷物变化——每组一行.",
-        "output": "写作 {n} 带行 {cols} 数据集的列 {name}。输出为最后一个。"
+        "output": "写作 {n} 带行 {cols} 数据集的列 {name}。输出为最后一个。",
+        "drop": "滴数 {n} 栏({fields})从每行:行停留,只是变窄,所以下一个节点的移动较少."
       },
       "notes": {
         "order": {
@@ -1653,7 +1655,22 @@
     "toggleRail": "显示或隐藏侧面板",
     "howToRead": "如何读这个",
     "beatBefore": "发生什么事",
-    "beatAfter": "结果"
+    "beatAfter": "结果",
+    "flow": {
+      "input": "投入",
+      "lookup": "搜索侧",
+      "output": "产出",
+      "source": "来源",
+      "waiting": "等待行数",
+      "queued": "队列",
+      "processing": "已处理行 : {n} 页:1 {total}",
+      "done": "完成",
+      "droppedRows": "{n} 空行数",
+      "droppedCols": "{n} 已删除列",
+      "newCols": "{n} 新栏",
+      "more": "+ 键 {n} 更多",
+      "groups": "{n} 组合"
+    }
   },
   "meter": {
     "eyebrow": "页次 {used} 页:1 {allowance}",

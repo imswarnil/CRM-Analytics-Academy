@@ -9,7 +9,8 @@
  * Prerendered; everything runs in the browser on the sample data
  * (app/utils/vis).
  */
-import type { Cmp } from '~/utils/vis/data'
+import type { Cmp, Row } from '~/utils/vis/data'
+import type { FlowGroup } from '~/components/vis/Flow.vue'
 import { DATASETS, columnsOf } from '~/utils/vis/data'
 import { type Gen, type GenAgg, type Join, type SaqlStep, type View, SAQL_PRESETS, runSaql, saqlLines } from '~/utils/vis/saql'
 
@@ -31,7 +32,45 @@ const lines = computed(() => saqlLines(steps.value))
 const snap = computed(() => snapshots.value[Math.min(step.value, snapshots.value.length - 1)])
 const presetList = computed(() => SAQL_PRESETS.map(p => ({ id: p.id, label: t(`vis.saql.presets.${p.id}`) })))
 const caption = computed(() => (snap.value ? t(`vis.saql.explain.${snap.value.explain}`, snap.value.params) : ''))
-const shownFor = (beat: 'before' | 'after'): View | undefined => (beat === 'before' && snap.value?.before ? snap.value.before : snap.value?.view)
+
+/* --- The flow stage --------------------------------------------------------------- */
+const flat = (v?: View): { rows: Row[], groups?: FlowGroup[] } => {
+  if (!v) return { rows: [] }
+  if (v.kind === 'rows') return { rows: v.rows }
+  if (v.kind === 'groups') return { rows: [], groups: v.groups.map(g => ({ key: g.key, rows: g.rows })) }
+  return { rows: [], groups: v.groups.map(g => ({ key: g.key, rows: g.a, b: g.b, dropped: !g.kept })) }
+}
+// What the statement found: its own `before` (marked), else the previous line's stream.
+const inView = computed(() => {
+  const s = snap.value
+  if (!s || steps.value[s.line]?.op === 'load') return { rows: [] as Row[] }
+  if (s.before?.kind === 'rows') return { rows: s.before.rows }
+  return flat(snapshots.value[step.value - 1]?.view)
+})
+const outView = computed(() => {
+  const s = snap.value
+  if (s?.before?.kind === 'pairs') return flat(s.before)
+  return flat(s?.view)
+})
+const marks = computed(() => (snap.value?.before?.kind === 'rows' ? snap.value.before.marks : undefined))
+const sideRows = computed(() => {
+  const s = steps.value[snap.value?.line ?? 0]
+  return s?.op === 'cogroup' ? DATASETS[s.with]?.rows ?? [] : undefined
+})
+const focus = computed<string[]>(() => {
+  const s = steps.value[snap.value?.line ?? 0]
+  if (!s) return []
+  if (s.op === 'filter' || s.op === 'order') return [s.field]
+  if (s.op === 'group') return s.by
+  if (s.op === 'cogroup') return [s.by, s.withBy]
+  if (s.op === 'foreach') return s.gen.map(g => g.field)
+  return []
+})
+const ICON: Record<string, string> = { load: 'i-lucide-database', filter: 'i-lucide-filter', group: 'i-lucide-boxes', cogroup: 'i-lucide-merge', foreach: 'i-lucide-columns-3', order: 'i-lucide-arrow-down-wide-narrow', limit: 'i-lucide-scissors' }
+const opLabel = computed(() => {
+  const s = steps.value[snap.value?.line ?? 0]
+  return !s ? '' : s.op === 'cogroup' ? `cogroup ${s.join}` : s.op === 'group' ? 'group by' : s.op === 'foreach' ? 'foreach generate' : s.op
+})
 
 // Fields a statement can name: whatever the stream held before it.
 function fieldsOfView(v?: View): string[] {
@@ -141,7 +180,6 @@ usePageSchema(() => ({
     :presets="presetList"
     :preset="presetId"
     :edit-label="t('vis.saql.query')"
-    :stamp="snap ? (steps[snap.line]?.op === 'cogroup' ? `cogroup ${(steps[snap.line] as { join: string }).join}` : steps[snap.line]?.op === 'group' ? 'group by' : steps[snap.line]?.op) : ''"
     @preset="usePreset"
   >
     <!-- Rail: the query itself, the running line lit -->
@@ -198,89 +236,26 @@ usePageSchema(() => ({
     </template>
 
     <!-- Stage: the stream after this line, animated -->
-    <template #stage="{ beat }">
-      <template
-        v-for="v in [shownFor(beat)]"
-        :key="`stage-${v?.kind}`"
-      >
-        <template v-if="v && snap">
-          <div class="mb-3 flex flex-wrap items-center gap-2 font-mono text-xs">
-            <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 tabular-nums">{{ t('vis.rowsIn', { n: snap.rowsIn }) }}</span>
-            <UIcon
-              name="i-lucide-arrow-right"
-              class="text-(--ink2)"
-            />
-            <span class="border-[1.5px] border-(--signal) bg-(--card) px-2 py-0.5 tabular-nums text-(--signal)">{{ v.kind === 'rows' ? t('vis.rowsOut', { n: snap.rowsOut }) : v.kind === 'groups' ? t('vis.groupsOut', { n: v.groups.length }) : t('vis.keysOut', { n: v.groups.length }) }}</span>
-            <span
-              v-if="snap.before"
-              class="ms-2 uppercase tracking-[.1em] text-(--ink2)"
-            >{{ beat === 'before' ? t('vis.beatBefore') : t('vis.beatAfter') }}</span>
-          </div>
-          <VisCards
-            v-if="v.kind === 'rows'"
-            :rows="v.rows"
-            :marks="v.marks"
-            :new-cols="v.newCols"
-          />
-          <!-- Groups: a lane per key -->
-          <div
-            v-else-if="v.kind === 'groups'"
-            class="grid gap-3 [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))]"
-          >
-            <div
-              v-for="(g, gi) in v.groups"
-              :key="g.key"
-              class="vis-lane border-[1.5px] border-(--ink) bg-(--card)"
-              :style="{ '--i': gi }"
-            >
-              <p class="flex items-center justify-between border-b-[1.5px] border-(--ink) bg-(--ice) px-2.5 py-1 font-mono text-xs">
-                <span class="truncate font-bold text-(--ink)">{{ g.key }}</span>
-                <span class="text-(--ink2)">{{ g.rows.length }}</span>
-              </p>
-              <VisCards
-                :rows="g.rows"
-                :max="3"
-                dense
-                class="p-2"
-              />
-            </div>
-          </div>
-          <!-- Cogroup: each key, both sides -->
-          <div
-            v-else
-            class="grid gap-3 [grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))]"
-          >
-            <div
-              v-for="(g, gi) in v.groups"
-              :key="g.key"
-              class="vis-lane border-[1.5px] bg-(--card)"
-              :class="g.kept ? 'border-(--ink)' : 'border-dashed border-error opacity-60'"
-              :style="{ '--i': gi }"
-            >
-              <p class="flex items-center gap-2 border-b-[1.5px] border-(--ink) px-2.5 py-1 font-mono text-xs">
-                <span class="font-bold text-(--ink)">{{ g.key }}</span>
-                <span class="text-(--ink2)">a {{ g.a.length }} · b {{ g.b.length }}</span>
-                <span
-                  class="ms-auto uppercase"
-                  :class="g.kept ? 'text-(--signal)' : 'text-error'"
-                >{{ g.kept ? t('vis.kept') : t('vis.dropped') }}</span>
-              </p>
-              <div class="grid grid-cols-2 gap-2 p-2">
-                <VisCards
-                  :rows="g.a"
-                  :max="2"
-                  dense
-                />
-                <VisCards
-                  :rows="g.b"
-                  :max="2"
-                  dense
-                />
-              </div>
-            </div>
-          </div>
-        </template>
-      </template>
+    <template #stage>
+      <VisFlow
+        v-if="snap"
+        :step-key="`${step}-${snap.code}`"
+        :op="opLabel"
+        :icon="ICON[steps[snap.line]?.op ?? 'load'] ?? 'i-lucide-box'"
+        :detail="snap.code"
+        :source="steps[snap.line]?.op === 'load' ? (steps[snap.line] as { dataset: string }).dataset : ''"
+        :input="inView.rows"
+        :input-groups="inView.groups"
+        :input-label="snap.line ? steps[snap.line - 1]?.op : ''"
+        :side="sideRows"
+        :side-label="steps[snap.line]?.op === 'cogroup' ? (steps[snap.line] as { with: string }).with : ''"
+        :output="snap.error ? [] : outView.rows"
+        :output-groups="snap.error ? undefined : outView.groups"
+        :marks="marks"
+        :new-cols="snap.view.kind === 'rows' ? snap.view.newCols : undefined"
+        :focus="focus"
+        :error="Boolean(snap.error)"
+      />
     </template>
 
     <!-- Edit: the statements -->
@@ -490,16 +465,3 @@ usePageSchema(() => ({
     </template>
   </VisShell>
 </template>
-
-<style scoped>
-.vis-lane {
-  animation: lane-in 0.45s cubic-bezier(0.3, 1.4, 0.5, 1) both;
-  animation-delay: calc(var(--i, 0) * 70ms);
-}
-@keyframes lane-in {
-  from { opacity: 0; transform: translateY(14px) scale(0.96); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .vis-lane { animation: none; }
-}
-</style>

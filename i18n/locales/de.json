@@ -1559,7 +1559,8 @@
         "join": "Beitritt",
         "append": "Anlage",
         "aggregate": "Aggregat",
-        "output": "Output"
+        "output": "Output",
+        "drop": "Spalten entfernen"
       },
       "cats": {
         "date": "Datum",
@@ -1579,7 +1580,8 @@
         "join_outer": "Volle äußere Verbindung am {key}: jede Reihe von beiden Seiten, soweit möglich abgestimmt. {out} Zeilen aus; {unmatched} links und {unmatchedRight} rechte Reihen ohne Partner.",
         "append": "Stapelt die Inputs untereinander: {parts} Reihen machen {n}Spalten werden nach Namen abgeglichen.",
         "aggregate": "Gruppen {n} Zeilen von {by} in {groups} Zeilen und Berechnungen der Maßnahmen. Das Korn ändert sich hier - eine Reihe pro Gruppe.",
-        "output": "Schreibweise {n} Zeilen mit {cols} Spalten zum Datensatz {name}Der Output läuft zuletzt."
+        "output": "Schreibweise {n} Zeilen mit {cols} Spalten zum Datensatz {name}Der Output läuft zuletzt.",
+        "drop": "Tropfen {n} Spalten (){fields}) aus jeder Zeile: Die Zeilen bleiben, sie werden nur schmaler, so dass der nächste Knoten weniger zu bewegen hat."
       },
       "notes": {
         "order": {
@@ -1653,7 +1655,22 @@
     "toggleRail": "Zeigen oder Ausblenden der Seitenplatte",
     "howToRead": "Wie man das liest",
     "beatBefore": "Was passiert",
-    "beatAfter": "Ergebnis"
+    "beatAfter": "Ergebnis",
+    "flow": {
+      "input": "Input",
+      "lookup": "Lookup-Seite",
+      "output": "Output",
+      "source": "Quelle",
+      "waiting": "Warten auf Zeilen",
+      "queued": "Schlange",
+      "processing": "Verarbeitete Zeilen: {n} / {total}",
+      "done": "Geschehen",
+      "droppedRows": "{n} Zeilen fallen gelassen",
+      "droppedCols": "{n} Kolonnen fallen gelassen",
+      "newCols": "{n} Neue Spalten",
+      "more": "+ {n} mehr",
+      "groups": "{n} Gruppen"
+    }
   },
   "meter": {
     "eyebrow": "Seite {used} von {allowance}",

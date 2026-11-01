@@ -1559,7 +1559,8 @@
         "join": "Rejoignez",
         "append": "Annexe",
         "aggregate": "Total",
-        "output": "Produit"
+        "output": "Produit",
+        "drop": "Supprimer les colonnes"
       },
       "cats": {
         "date": "Date",
@@ -1579,7 +1580,8 @@
         "join_outer": "Pleine jointure extérieure sur {key}: chaque rang des deux côtés, assorti autant que possible. {out} les lignes sortantes; {unmatched} gauche et {unmatchedRight} rangées droites sans partenaire.",
         "append": "Place les entrées l'une sous l'autre : {parts} lignes faites {n}. Les colonnes sont appariées par nom.",
         "aggregate": "Groupes {n} lignes par {by} dans {groups} et calcule les mesures. Le grain change ici — une rangée par groupe.",
-        "output": "Écrit {n} rangées avec {cols} colonnes de l'ensemble de données {name}. La sortie dure."
+        "output": "Écrit {n} rangées avec {cols} colonnes de l'ensemble de données {name}. La sortie dure.",
+        "drop": "Gouttes {n} colonnes ({fields}) de chaque rangée : les rangées restent, elles se rétrécissent, donc le prochain noeud a moins à déplacer."
       },
       "notes": {
         "order": {
@@ -1653,7 +1655,22 @@
     "toggleRail": "Afficher ou masquer le panneau latéral",
     "howToRead": "Comment lire ceci",
     "beatBefore": "ce qui se passe",
-    "beatAfter": "résultat"
+    "beatAfter": "résultat",
+    "flow": {
+      "input": "Entrée",
+      "lookup": "Côté recherche",
+      "output": "Produit",
+      "source": "Source",
+      "waiting": "Attendre les lignes",
+      "queued": "Saisie",
+      "processing": "Lignes traitées : {n} / {total}",
+      "done": "Fait",
+      "droppedRows": "{n} rangées abandonnées",
+      "droppedCols": "{n} colonnes abandonnées",
+      "newCols": "{n} nouvelles colonnes",
+      "more": "+ {n} plus",
+      "groups": "{n} groupes"
+    }
   },
   "meter": {
     "eyebrow": "Page {used} des {allowance}",

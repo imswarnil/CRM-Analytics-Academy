@@ -1,0 +1,88 @@
+name: Salesforce CI/CD
+
+# The Salesforce half of the repo (salesforce/) gets its own pipeline, the same
+# shape a real Salesforce team uses:
+#
+#   1. checks    every push and PR that touches salesforce/ — LWC lint and LWC
+#                Jest tests. Runs on GitHub only; never logs in to any org.
+#   2. validate  a check-only deploy of crm/ with its Apex tests, against the
+#                org. Nothing changes in the org; it proves the deploy would
+#                succeed and returns a job id.
+#   3. deploy    a quick deploy of that validated job id — the release.
+#
+# Steps 2 and 3 run ONLY when started by hand from the Actions tab
+# (workflow_dispatch) and ONLY if the SF_AUTH_URL secret exists. The org was
+# frozen once; a pipeline must never log in on every push. See
+# salesforce/LEARNING.md → "Module 9 — CI/CD" for how to create the secret.
+
+on:
+  push:
+    branches: [main]
+    paths: ['salesforce/**', '.github/workflows/salesforce.yml']
+  pull_request:
+    paths: ['salesforce/**', '.github/workflows/salesforce.yml']
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'validate = check-only deploy with tests; deploy = validate, then release it'
+        type: choice
+        options: [validate, deploy]
+        default: validate
+
+concurrency:
+  group: salesforce-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: salesforce
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - name: Lint LWC
+        run: npx eslint "crm/**/lwc/**/*.js"
+      - name: LWC Jest tests
+        run: npx sfdx-lwc-jest --coverage
+
+  org:
+    if: github.event_name == 'workflow_dispatch'
+    needs: checks
+    runs-on: ubuntu-latest
+    environment: salesforce-org
+    env:
+      SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Stop if no org is connected
+        run: |
+          if [ -z "$SF_AUTH_URL" ]; then
+            echo "::warning::SF_AUTH_URL is not set — nothing to validate against. See salesforce/LEARNING.md, Module 9."
+            exit 1
+          fi
+      - run: npm install --global @salesforce/cli
+      - name: Authorise (one login, stored refresh token)
+        run: |
+          echo "$SF_AUTH_URL" > auth.txt
+          sf org login sfdx-url --sfdx-url-file auth.txt --alias ci-org
+          rm auth.txt
+      - name: Validate (check-only, runs the Apex tests)
+        id: validate
+        run: |
+          sf project deploy validate --source-dir crm --target-org ci-org \
+            --test-level RunSpecifiedTests --tests AcademyLeadEventsTest \
+            --wait 30 --json > validate.json || { cat validate.json; exit 1; }
+          echo "job=$(jq -r '.result.id' validate.json)" >> "$GITHUB_OUTPUT"
+          jq -r '.result | "Validated \(.id): \(.numberComponentsDeployed) components, \(.numberTestsCompleted) tests"' validate.json
+      - name: Release the validated deploy
+        if: inputs.action == 'deploy'
+        run: sf project deploy quick --job-id "${{ steps.validate.outputs.job }}" --target-org ci-org --wait 30

@@ -21,7 +21,8 @@ const LOCALES = new Set(['es', 'fr', 'de', 'pt', 'ja', 'zh', 'hi', 'ar', 'ru', '
 const COOKIE = 'crma_locale'
 
 export default defineEventHandler(async (event) => {
-  if (event.method !== 'GET' || getRequestURL(event).pathname !== '/') return
+  // Dev emulates an ASSETS binding that cannot serve the page: let Nuxt render it.
+  if (import.meta.dev || event.method !== 'GET' || getRequestURL(event).pathname !== '/') return
   const cf = cloudflareOf(event)
   const assets = cf.env?.ASSETS as { fetch: (r: Request) => Promise<Response> } | undefined
   if (!assets) return

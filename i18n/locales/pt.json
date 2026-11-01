@@ -1559,7 +1559,8 @@
         "join": "Entrar",
         "append": "Adicionar",
         "aggregate": "Agregado",
-        "output": "Saída"
+        "output": "Saída",
+        "drop": "Remover colunas"
       },
       "cats": {
         "date": "Data",
@@ -1579,7 +1580,8 @@
         "join_outer": "Junção exterior completa em {key}: todas as fileiras de ambos os lados, sempre que possível. {out} linhas para fora; {unmatched} esquerda e {unmatchedRight} linhas direitas sem parceiro.",
         "append": "Empilha as entradas uma sob a outra: {parts} linhas fazem {n}. As colunas são correspondentes pelo nome.",
         "aggregate": "Grupos {n} linhas por {by} em {groups} linhas e calcula as medidas. O grão muda aqui — uma fileira por grupo.",
-        "output": "Gravações {n} linhas com {cols} colunas para o conjunto de dados {name}. A saída é a última."
+        "output": "Gravações {n} linhas com {cols} colunas para o conjunto de dados {name}. A saída é a última.",
+        "drop": "Gotas {n} colunas ({fields}) a partir de cada linha: as linhas ficam, elas apenas ficam mais estreitas, então o próximo nó tem menos para mover."
       },
       "notes": {
         "order": {
@@ -1653,7 +1655,22 @@
     "toggleRail": "Mostrar ou ocultar o painel lateral",
     "howToRead": "Como ler isto",
     "beatBefore": "o que acontece",
-    "beatAfter": "resultado"
+    "beatAfter": "resultado",
+    "flow": {
+      "input": "Entrada",
+      "lookup": "Procurar do lado",
+      "output": "Saída",
+      "source": "Origem",
+      "waiting": "À espera de linhas",
+      "queued": "Em fila",
+      "processing": "Linhas processadas: {n} / {total}",
+      "done": "Feito",
+      "droppedRows": "{n} linhas largadas",
+      "droppedCols": "{n} colunas deixadas cair",
+      "newCols": "{n} novas colunas",
+      "more": "+ {n} mais",
+      "groups": "{n} grupos"
+    }
   },
   "meter": {
     "eyebrow": "Página {used} de {allowance}",

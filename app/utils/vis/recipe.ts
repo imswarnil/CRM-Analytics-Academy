@@ -29,6 +29,7 @@ export type RecipeNode
     | { id: string, type: 'join', left: string, right: string, join: JoinType, leftKey: string, rightKey: string, prefix: string }
     | { id: string, type: 'append', inputs: string[] }
     | { id: string, type: 'aggregate', input: string, by: string[], measures: { field: string, agg: Agg, as: string }[] }
+    | { id: string, type: 'drop', input: string, fields: string[] }
     | { id: string, type: 'output', input: string, name: string }
 
 export const inputsOf = (n: RecipeNode): string[] =>
@@ -133,6 +134,8 @@ export interface NodeResult {
   /** For a filter: every input row, marked kept or dropped. */
   before?: Row[]
   newCols?: string[]
+  /** For drop columns: the columns removed. */
+  dropCols?: string[]
   explain: string
   params: Record<string, string | number>
   rowsIn: number
@@ -233,6 +236,10 @@ export function runRecipe(nodes: RecipeNode[]): NodeResult[] {
         ...Object.fromEntries(n.measures.map(m => [m.as, aggregate(g, m.agg, m.field)]))
       }) as Row)
       results.set(id, { ...base, rows, newCols: n.measures.map(m => m.as), explain: 'aggregate', params: { by: n.by.join(', ') || '—', groups: rows.length, n: input.length }, rowsIn: input.length })
+    } else if (n.type === 'drop') {
+      const input = inRows(n.input)
+      const rows = input.map(r => Object.fromEntries(Object.entries(r).filter(([k]) => !n.fields.includes(k))) as Row)
+      results.set(id, { ...base, rows, dropCols: n.fields, explain: 'drop', params: { fields: n.fields.join(', ') || '—', n: n.fields.length }, rowsIn: input.length })
     } else if (n.type === 'output') {
       const rows = inRows(n.input)
       results.set(id, { ...base, rows, explain: 'output', params: { name: n.name, n: rows.length, cols: Object.keys(rows[0] ?? {}).filter(k => !k.startsWith('__')).length }, rowsIn: rows.length })
@@ -255,7 +262,8 @@ export const RECIPE_PRESETS: { id: string, nodes: RecipeNode[] }[] = [
         { fn: 'coalesce', field: 'Amount', as: 'Amount_filled', arg: '0' },
         { fn: 'bucket', field: 'Amount', as: 'DealSize' }
       ] },
-      { id: 'join', type: 'join', left: 'dates', right: 'accounts', join: 'lookup', leftKey: 'AccountId', rightKey: 'Id', prefix: 'Account' },
+      { id: 'slim', type: 'drop', input: 'dates', fields: ['OwnerId', 'CloseQuarter'] },
+      { id: 'join', type: 'join', left: 'slim', right: 'accounts', join: 'lookup', leftKey: 'AccountId', rightKey: 'Id', prefix: 'Account' },
       { id: 'agg', type: 'aggregate', input: 'join', by: ['Account.Region'], measures: [{ field: 'Amount_filled', agg: 'sum', as: 'Pipeline' }, { field: 'Id', agg: 'count', as: 'Deals' }] },
       { id: 'out', type: 'output', input: 'agg', name: 'pipeline_by_region' }
     ]
