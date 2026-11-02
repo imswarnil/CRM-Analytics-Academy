@@ -396,7 +396,8 @@
       "region": "My region",
       "country": "My country",
       "noCountry": "Read a few lessons and your country and region boards appear here."
-    }
+    },
+    "practice": "Practice tools"
   },
   "auth": {
     "signInTitle": "Welcome back",

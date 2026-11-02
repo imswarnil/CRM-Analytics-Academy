@@ -396,7 +396,8 @@
       "region": "A minha região",
       "country": "O meu país",
       "noCountry": "Leia algumas lições e seus conselhos de país e região aparecer aqui."
-    }
+    },
+    "practice": "Ferramentas práticas"
   },
   "auth": {
     "signInTitle": "Bem-vindo de volta.",

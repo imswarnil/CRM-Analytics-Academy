@@ -195,7 +195,26 @@ function badge(key: Tab) {
   if (key === 'interview') return pendingIq.value
   return 0
 }
+/* Money first: MRR, ARR and what pays for the site (GET /api/admin/revenue). */
+interface Revenue { configured: boolean, mrr: number, pro: { monthly: number, yearly: number, cancelling: number, mrr: number }, teams: { count: number, seats: number, mrr: number }, sponsors: { live: number, open: number, review: number, income: number } }
+const { data: revenue } = await useLazyAsyncData('admin-revenue-overview', () => $fetch<Revenue>('/api/admin/revenue'), { server: false, immediate: false })
+watch(isAdmin, ok => ok && refreshNuxtData('admin-revenue-overview'), { immediate: true })
+const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+const moneyTiles = computed(() => {
+  const r = revenue.value
+  if (!r) return []
+  return [
+    { label: 'MRR', value: usd(r.mrr), note: `Pro ${usd(r.pro.mrr)} · Teams ${usd(r.teams.mrr)}`, icon: 'i-lucide-trending-up' },
+    { label: 'ARR', value: usd(r.mrr * 12), note: 'MRR × 12', icon: 'i-lucide-calendar-range' },
+    { label: 'Pro subscribers', value: String(r.pro.monthly + r.pro.yearly), note: `${r.pro.monthly} monthly · ${r.pro.yearly} yearly${r.pro.cancelling ? ` · ${r.pro.cancelling} cancelling` : ''}`, icon: 'i-lucide-sparkles' },
+    { label: 'Teams', value: String(r.teams.count), note: `${r.teams.seats} paid seats`, icon: 'i-lucide-building-2' },
+    { label: 'Sponsors live', value: String(r.sponsors.live), note: `${r.sponsors.open} open requests`, icon: 'i-lucide-megaphone' },
+    { label: 'Sponsor income', value: usd(r.sponsors.income), note: 'paid, live and ended', icon: 'i-lucide-badge-dollar-sign' }
+  ]
+})
+
 const attention = computed(() => [
+  { tab: 'revenue' as Tab, icon: 'i-lucide-megaphone', n: revenue.value?.sponsors.review ?? 0, label: `${revenue.value?.sponsors.review ?? 0} sponsor creative(s) to approve` },
   { tab: 'leads' as Tab, icon: 'i-lucide-handshake', n: badge('leads'), label: `${badge('leads')} new lead(s) to follow up` },
   { tab: 'submissions' as Tab, icon: 'i-lucide-inbox', n: badge('submissions'), label: `${badge('submissions')} submission(s) to review` },
   { tab: 'interview' as Tab, icon: 'i-lucide-messages-square', n: pendingIq.value, label: `${pendingIq.value} interview question(s) to review` }
@@ -208,6 +227,7 @@ const SERVICES = [
   { label: 'AdSense', icon: 'i-simple-icons-googleadsense', to: 'https://adsense.google.com/' },
   { label: 'Search Console', icon: 'i-simple-icons-googlesearchconsole', to: 'https://search.google.com/search-console?resource_id=sc-domain%3Aimswarnil.com' },
   { label: 'YouTube Studio', icon: 'i-simple-icons-youtube', to: 'https://studio.youtube.com/' },
+  { label: 'Stripe', icon: 'i-simple-icons-stripe', to: 'https://dashboard.stripe.com/' },
   { label: 'Deploys', icon: 'i-simple-icons-githubactions', to: 'https://github.com/imswarnil/CRM-Analytics-Academy/actions' }
 ]
 
@@ -325,6 +345,34 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
             v-if="tab === 'overview'"
             class="space-y-6"
           >
+            <!-- Money -->
+            <div
+              v-if="moneyTiles.length"
+              class="grid gap-px border-[1.5px] border-(--ink) bg-(--ink) sm:grid-cols-3 xl:grid-cols-6"
+            >
+              <button
+                v-for="m in moneyTiles"
+                :key="m.label"
+                type="button"
+                class="flex flex-col gap-1 bg-(--card) p-4 text-start hover:bg-(--ice)"
+                @click="tab = 'revenue'"
+              >
+                <span class="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)"><UIcon
+                  :name="m.icon"
+                  class="size-3.5"
+                />{{ m.label }}</span>
+                <span class="text-2xl font-black tabular-nums text-(--ink)">{{ m.value }}</span>
+                <span class="truncate text-xs text-(--ink2)">{{ m.note }}</span>
+              </button>
+            </div>
+            <UAlert
+              v-if="revenue && !revenue.configured"
+              color="warning"
+              variant="subtle"
+              icon="i-lucide-construction"
+              title="Stripe is not connected yet"
+              description="Run pnpm stripe:setup, then set STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET on the Worker. Revenue stays at zero until then."
+            />
             <div
               v-if="attention.length"
               class="border-[1.5px] border-(--ink) bg-(--ice) p-5"

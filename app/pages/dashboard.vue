@@ -257,7 +257,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </UButton>
         <UButton
           v-else-if="!data?.pro"
-          :to="localePath('/pro')"
+          :to="localePath('/account')"
           size="sm"
           icon="i-lucide-sparkles"
         >
@@ -265,7 +265,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </UButton>
         <UButton
           v-if="billing?.team?.admin"
-          :to="localePath('/team')"
+          :to="localePath('/account')"
           size="sm"
           color="neutral"
           variant="outline"
@@ -274,6 +274,33 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
           {{ t('dash.manageTeam') }}
         </UButton>
       </div>
+
+      <!-- Practice: the interactive tools, one click away -->
+      <nav
+        class="flex gap-2 overflow-x-auto pb-1"
+        :aria-label="t('dashboard.practice')"
+      >
+        <NuxtLink
+          v-for="tool in [{ id: 'saql', icon: 'i-lucide-terminal' }, { id: 'recipe', icon: 'i-lucide-workflow' }, { id: 'dataflow', icon: 'i-lucide-git-fork' }, { id: 'functions', icon: 'i-lucide-function-square' }, { id: 'joins', icon: 'i-lucide-merge' }, { id: 'bindings', icon: 'i-lucide-link' }]"
+          :key="tool.id"
+          :to="localePath(`/visualiser/${tool.id}`)"
+          class="flex shrink-0 items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) px-3 py-2 text-sm font-semibold text-(--ink) hover:bg-(--ice)"
+        >
+          <UIcon
+            :name="tool.icon"
+            class="size-4 text-(--signal)"
+          />{{ t(`vis.${tool.id}.title`) }}
+        </NuxtLink>
+        <NuxtLink
+          :to="localePath('/certification')"
+          class="flex shrink-0 items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) px-3 py-2 text-sm font-semibold text-(--ink) hover:bg-(--ice)"
+        >
+          <UIcon
+            name="i-lucide-timer"
+            class="size-4 text-(--signal)"
+          />{{ t('nav.certification') }}
+        </NuxtLink>
+      </nav>
 
       <div class="grid gap-6 lg:grid-cols-3">
         <!-- Continue + up next -->

@@ -396,7 +396,8 @@
       "region": "我所在的地区",
       "country": "我国",
       "noCountry": "阅读一些经验教训,贵国和各地区的董事会在此出现。"
-    }
+    },
+    "practice": "实践工具"
   },
   "auth": {
     "signInTitle": "欢迎回来",
