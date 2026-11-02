@@ -12,7 +12,7 @@
 import type { Agg, Cmp } from '~/utils/vis/data'
 import { DATASETS, columnsOf, fmt } from '~/utils/vis/data'
 import { type FnId, type JoinType, type RecipeNode, FN_IDS, FUNCTIONS, JOIN_TYPES, RECIPE_PRESETS, inputsOf, runRecipe } from '~/utils/vis/recipe'
-import type { DagNode } from '~/components/vis/Dag.vue'
+import type { CanvasNode } from '~/components/vis/Canvas.vue'
 
 definePageMeta({ focus: true })
 
@@ -47,13 +47,6 @@ const subOf = (n: RecipeNode) => n.type === 'input'
           : n.type === 'drop'
             ? `− ${n.fields.join(', ')}`
             : n.type === 'output' ? n.name : n.type
-const dag = computed<DagNode[]>(() => nodes.value.map(n => ({
-  id: n.id,
-  label: `${t(`vis.recipe.nodes.${n.type}`)} · ${n.id}`,
-  sub: subOf(n),
-  inputs: inputsOf(n),
-  order: results.value.find(r => r.id === n.id)?.order ?? 99
-})))
 const select = (id: string) => {
   const i = results.value.findIndex(r => r.id === id)
   if (i >= 0) step.value = i
@@ -67,17 +60,22 @@ const fieldsFor = (n: RecipeNode | undefined, which = 0) => {
   return res ? columnsOf(res.rows) : []
 }
 
-/* --- The flow stage: what goes into the node --------------------------------------- */
-const rowsOf = (id: string) => results.value.find(r => r.id === id)?.rows ?? []
-const flowIn = computed(() => {
-  const n = node.value
-  const c = current.value
-  if (!n || !c || n.type === 'input') return { rows: [], label: '', side: undefined, sideLabel: '' }
-  if (n.type === 'join') return { rows: rowsOf(n.left), label: n.left, side: rowsOf(n.right), sideLabel: n.right }
-  if (n.type === 'filter') return { rows: c.before ?? rowsOf(n.input), label: n.input, side: undefined, sideLabel: '' }
-  const ins = inputsOf(n)
-  return { rows: ins.flatMap(rowsOf), label: ins.join(' + '), side: undefined, sideLabel: '' }
-})
+/* --- The canvas: every node with its output rows ------------------------------------ */
+const KIND: Partial<Record<RecipeNode['type'], string>> = { input: 'source' }
+const canvas = computed<CanvasNode[]>(() => results.value.map((r) => {
+  const n = nodes.value.find(x => x.id === r.id)!
+  return {
+    id: n.id,
+    name: n.type === 'input' ? n.dataset : n.id,
+    label: n.type === 'join' ? `${n.join} join` : t(`vis.recipe.nodes.${n.type}`),
+    detail: n.type === 'input' ? t('vis.rowsIn', { n: r.rows.length }) : detailOf(n),
+    icon: ICON[n.type],
+    kind: KIND[n.type] ?? n.type,
+    inputs: inputsOf(n),
+    order: r.order,
+    rows: r.rows
+  }
+}))
 const detailOf = (n: RecipeNode) => n.type === 'join'
   ? `${n.leftKey} = ${n.prefix}.${n.rightKey}`
   : n.type === 'transform'
@@ -161,6 +159,7 @@ usePageSchema(() => ({
     :presets="presetList"
     :preset="presetId"
     :edit-label="t('vis.recipe.editNodes')"
+    :rail="false"
     @preset="usePreset"
   >
     <!-- Rail: the execution order -->
@@ -229,33 +228,18 @@ usePageSchema(() => ({
       </details>
     </template>
 
-    <!-- Stage: a mini map of the recipe, then this node with its rows flowing through -->
+    <!-- Stage: the whole recipe on a canvas, the camera on this node -->
     <template #stage>
-      <VisDag
-        :nodes="dag"
-        :active="current?.id ?? null"
-        :done-up-to="(current?.order ?? 1) - 1"
-        max-height="7.5rem"
-        @select="select"
-      />
-      <VisFlow
+      <VisCanvas
         v-if="current && node"
-        class="mt-5"
+        :nodes="canvas"
+        :active="current.id"
         :step-key="`${presetId}-${current.id}-${step}`"
-        :op="node.type === 'join' ? `${node.join} join` : t(`vis.recipe.nodes.${node.type}`)"
-        :icon="ICON[node.type]"
-        :detail="detailOf(node)"
-        :source="node.type === 'input' ? node.dataset : ''"
-        :input="flowIn.rows"
-        :input-label="flowIn.label"
-        :side="flowIn.side"
-        :side-label="flowIn.sideLabel"
-        :output="current.rows"
-        :output-label="node.id"
         :marks="current.marks"
         :new-cols="current.newCols"
         :drop-cols="current.dropCols"
         :focus="focusOf(node)"
+        @select="select"
       />
     </template>
 

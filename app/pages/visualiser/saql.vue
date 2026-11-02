@@ -10,7 +10,7 @@
  * (app/utils/vis).
  */
 import type { Cmp, Row } from '~/utils/vis/data'
-import type { FlowGroup } from '~/components/vis/Flow.vue'
+import type { CanvasGroup, CanvasNode } from '~/components/vis/Canvas.vue'
 import { DATASETS, columnsOf } from '~/utils/vis/data'
 import { type Gen, type GenAgg, type Join, type SaqlStep, type View, SAQL_PRESETS, runSaql, saqlLines } from '~/utils/vis/saql'
 
@@ -34,29 +34,36 @@ const presetList = computed(() => SAQL_PRESETS.map(p => ({ id: p.id, label: t(`v
 const caption = computed(() => (snap.value ? t(`vis.saql.explain.${snap.value.explain}`, snap.value.params) : ''))
 
 /* --- The flow stage --------------------------------------------------------------- */
-const flat = (v?: View): { rows: Row[], groups?: FlowGroup[] } => {
+const flat = (v?: View): { rows: Row[], groups?: CanvasGroup[] } => {
   if (!v) return { rows: [] }
   if (v.kind === 'rows') return { rows: v.rows }
   if (v.kind === 'groups') return { rows: [], groups: v.groups.map(g => ({ key: g.key, rows: g.rows })) }
   return { rows: [], groups: v.groups.map(g => ({ key: g.key, rows: g.a, b: g.b, dropped: !g.kept })) }
 }
-// What the statement found: its own `before` (marked), else the previous line's stream.
-const inView = computed(() => {
-  const s = snap.value
-  if (!s || steps.value[s.line]?.op === 'load') return { rows: [] as Row[] }
-  if (s.before?.kind === 'rows') return { rows: s.before.rows }
-  return flat(snapshots.value[step.value - 1]?.view)
-})
-const outView = computed(() => {
-  const s = snap.value
-  if (s?.before?.kind === 'pairs') return flat(s.before)
-  return flat(s?.view)
-})
+const KIND: Record<string, string> = { load: 'source', filter: 'filter', group: 'aggregate', cogroup: 'join', foreach: 'transform', order: 'sort', limit: 'filter' }
+const labelOf = (s: SaqlStep) => (s.op === 'cogroup' ? `cogroup ${s.join}` : s.op === 'group' ? 'group by' : s.op === 'foreach' ? 'foreach generate' : s.op)
+// One node per statement (each reads the one before), plus the dataset a cogroup brings in.
+const canvas = computed<CanvasNode[]>(() => snapshots.value.flatMap((sn, i) => {
+  const s = steps.value[sn.line]!
+  const v = flat(sn.view)
+  const side = s.op === 'cogroup' ? `ds:${s.with}` : ''
+  const node: CanvasNode = {
+    id: `s${i}`,
+    name: s.op === 'load' ? s.dataset : `line ${sn.line + 1}`,
+    label: labelOf(s),
+    detail: sn.code.replace(/^q = /, ''),
+    icon: ICON[s.op] ?? 'i-lucide-box',
+    kind: KIND[s.op] ?? 'transform',
+    inputs: [...(i ? [`s${i - 1}`] : []), ...(side ? [side] : [])],
+    order: i + 1,
+    rows: sn.error ? undefined : v.rows,
+    groups: sn.error ? undefined : v.groups,
+    error: Boolean(sn.error)
+  }
+  if (!side || s.op !== 'cogroup') return [node]
+  return [{ id: side, name: s.with, label: 'load', detail: t('vis.rowsIn', { n: DATASETS[s.with]?.rows.length ?? 0 }), icon: 'i-lucide-database', kind: 'source', inputs: [], order: i + 0.5, rows: DATASETS[s.with]?.rows ?? [] }, node]
+}))
 const marks = computed(() => (snap.value?.before?.kind === 'rows' ? snap.value.before.marks : undefined))
-const sideRows = computed(() => {
-  const s = steps.value[snap.value?.line ?? 0]
-  return s?.op === 'cogroup' ? DATASETS[s.with]?.rows ?? [] : undefined
-})
 const focus = computed<string[]>(() => {
   const s = steps.value[snap.value?.line ?? 0]
   if (!s) return []
@@ -67,10 +74,6 @@ const focus = computed<string[]>(() => {
   return []
 })
 const ICON: Record<string, string> = { load: 'i-lucide-database', filter: 'i-lucide-filter', group: 'i-lucide-boxes', cogroup: 'i-lucide-merge', foreach: 'i-lucide-columns-3', order: 'i-lucide-arrow-down-wide-narrow', limit: 'i-lucide-scissors' }
-const opLabel = computed(() => {
-  const s = steps.value[snap.value?.line ?? 0]
-  return !s ? '' : s.op === 'cogroup' ? `cogroup ${s.join}` : s.op === 'group' ? 'group by' : s.op === 'foreach' ? 'foreach generate' : s.op
-})
 
 // Fields a statement can name: whatever the stream held before it.
 function fieldsOfView(v?: View): string[] {
@@ -237,24 +240,15 @@ usePageSchema(() => ({
 
     <!-- Stage: the stream after this line, animated -->
     <template #stage>
-      <VisFlow
+      <VisCanvas
         v-if="snap"
+        :nodes="canvas"
+        :active="`s${Math.min(step, snapshots.length - 1)}`"
         :step-key="`${step}-${snap.code}`"
-        :op="opLabel"
-        :icon="ICON[steps[snap.line]?.op ?? 'load'] ?? 'i-lucide-box'"
-        :detail="snap.code"
-        :source="steps[snap.line]?.op === 'load' ? (steps[snap.line] as { dataset: string }).dataset : ''"
-        :input="inView.rows"
-        :input-groups="inView.groups"
-        :input-label="snap.line ? steps[snap.line - 1]?.op : ''"
-        :side="sideRows"
-        :side-label="steps[snap.line]?.op === 'cogroup' ? (steps[snap.line] as { with: string }).with : ''"
-        :output="snap.error ? [] : outView.rows"
-        :output-groups="snap.error ? undefined : outView.groups"
         :marks="marks"
         :new-cols="snap.view.kind === 'rows' ? snap.view.newCols : undefined"
         :focus="focus"
-        :error="Boolean(snap.error)"
+        @select="id => (step = Number(id.slice(1)))"
       />
     </template>
 

@@ -20,6 +20,35 @@ const menuItems = computed(() => [
   { label: t('nav.pro'), icon: 'i-lucide-sparkles', to: localePath('/pro') }
 ])
 
+// Labels or icons: measured, so no language or button set ever clips a label.
+const navEl = ref<HTMLElement | null>(null)
+const navInner = ref<HTMLElement | null>(null)
+const compact = ref(false)
+let needed = 0
+function fit() {
+  const nav = navEl.value
+  const inner = navInner.value
+  if (!nav || !inner || !nav.clientWidth) return
+  if (!compact.value) {
+    needed = inner.scrollWidth
+    if (needed > nav.clientWidth) compact.value = true
+  } else if (needed && nav.clientWidth >= needed) {
+    compact.value = false
+  }
+}
+let navRo: ResizeObserver | undefined
+onMounted(() => {
+  navRo = new ResizeObserver(() => fit())
+  if (navEl.value) navRo.observe(navEl.value)
+  fit()
+})
+onBeforeUnmount(() => navRo?.disconnect())
+watch(locale, () => {
+  compact.value = false
+  needed = 0
+  nextTick(fit)
+})
+
 function isActive(item: { to: string, exact?: boolean }) {
   if (item.exact) return route.path === item.to || route.path === `${item.to}/`
   return route.path === item.to || route.path.startsWith(`${item.to}/`)
@@ -27,6 +56,7 @@ function isActive(item: { to: string, exact?: boolean }) {
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
+  { label: t('nav.course'), icon: 'i-lucide-rocket', to: localePath('/course') },
   { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
   { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
@@ -57,6 +87,7 @@ const accountItems = computed(() => [
   }],
   [
     { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
+    { label: t('nav.billing'), icon: 'i-lucide-credit-card', to: localePath('/account') },
     { label: t('nav.team'), icon: 'i-lucide-building-2', to: localePath('/team') },
     { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') }
   ],
@@ -99,26 +130,30 @@ const localeItems = computed(() =>
       <!-- The nav takes whatever width the buttons leave (a container), and
            shows labels only when they fit in it — in any language. -->
       <nav
-        class="@container ms-4 hidden h-16 min-w-0 flex-1 items-stretch lg:flex"
+        ref="navEl"
+        class="ms-4 hidden h-16 min-w-0 flex-1 items-stretch overflow-hidden lg:flex"
         aria-label="Main"
       >
-        <div class="flex min-w-0 items-stretch overflow-hidden border-s border-(--line)">
+        <div
+          ref="navInner"
+          class="flex w-max items-stretch border-s border-(--line)"
+        >
           <NuxtLink
             v-for="item in menuItems"
             :key="item.to"
             :to="item.to"
             :title="item.label"
-            class="relative flex min-w-0 items-center gap-1.5 border-e border-(--line) px-2.5 text-[13px] font-semibold whitespace-nowrap transition-colors @min-[52rem]:px-3"
+            class="relative flex shrink-0 items-center gap-1.5 border-e border-(--line) px-3 text-[13px] font-semibold whitespace-nowrap transition-colors"
             :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
           >
             <UIcon
               :name="item.icon"
               class="size-4 shrink-0"
             />
-            <!-- Labels in every language once the nav has 34rem; past that the
-               cells shrink together and a long label ends in an ellipsis (the
-               tooltip has it in full). Narrower: the icon alone. -->
-            <span class="sr-only @min-[34rem]:not-sr-only @min-[34rem]:block @min-[34rem]:truncate">{{ item.label }}</span>
+            <!-- A label is never cut: all of them in full when they fit (in the
+               current language, signed in or out), else every cell is its icon
+               with the label as tooltip. Measured, see `fit`. -->
+            <span :class="compact ? 'sr-only' : 'block'">{{ item.label }}</span>
             <span
               v-if="isActive(item)"
               class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"

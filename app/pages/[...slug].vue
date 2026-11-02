@@ -737,6 +737,10 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             </div>
             <!-- Squares down the whole column, one per stretch of lesson:
                  the longer the lesson, the more of them fit beside it. -->
+            <SponsorBanner
+              format="tile"
+              class="mt-6"
+            />
             <div class="mt-6 space-y-6">
               <PromoSlot
                 v-for="n in tocSquares"
@@ -747,6 +751,11 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           </div>
         </aside>
       </div>
+
+      <SponsorBanner
+        format="card"
+        class="my-10"
+      />
 
       <CourseQuizCard
         v-if="lesson.quiz?.length"

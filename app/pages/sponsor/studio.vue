@@ -1,7 +1,10 @@
 <script setup lang="ts">
 /**
- * /sponsor/studio — the sponsor's own space: design the banner (logo, two
- * lines, a button, three colours) with a live preview of exactly what runs,
+ * /sponsor/studio — the sponsor's own space: design the creative (photo, logo,
+ * title, tagline, description, price, website, button and link; a colour
+ * theme or any three colours, layout, corners, font) with a live preview of
+ * every format it runs in — the bar on desktop and phone, the end-of-lesson
+ * card and the contents tile —
  * publish it for approval, pay the invoice, and watch views, clicks and CTR
  * by day and by page. Signed-in; a request made with the same email before
  * signing up appears here automatically.
@@ -30,10 +33,25 @@ const localePath = useLocalePath()
 const { data, refresh } = await useLazyFetch<{ sponsorships: Sponsorship[] }>('/api/sponsor/mine', { server: false })
 const selected = ref<number | null>(null)
 const current = computed(() => data.value?.sponsorships.find(s => s.id === selected.value) ?? data.value?.sponsorships[0] ?? null)
-const draft = reactive({ logo: '', headline: '', body: '', cta: '', url: '', bg: '#0c1b33', fg: '#ffffff', accent: '#2f5bea' })
+const BLANK = { logo: '', photo: '', headline: '', tagline: '', body: '', price: '', website: '', cta: '', url: '', bg: '#0c1b33', fg: '#ffffff', accent: '#2f5bea', layout: 'image', radius: 'rounded', font: 'sans' }
+const draft = reactive({ ...BLANK })
 watch(current, (s) => {
-  if (s) Object.assign(draft, { logo: '', headline: '', body: '', cta: '', url: '', bg: '#0c1b33', fg: '#ffffff', accent: '#2f5bea' }, s.creative)
+  if (s) Object.assign(draft, BLANK, s.creative)
 }, { immediate: true })
+
+// Ready-made colour sets; any colour can still be changed after.
+const THEMES = [
+  { id: 'midnight', bg: '#0c1b33', fg: '#ffffff', accent: '#2f5bea' },
+  { id: 'paper', bg: '#fbfaf6', fg: '#111827', accent: '#111827' },
+  { id: 'sunset', bg: '#2b1055', fg: '#ffffff', accent: '#ff7a59' },
+  { id: 'forest', bg: '#0f2e24', fg: '#eafff5', accent: '#10b981' },
+  { id: 'electric', bg: '#0b0b0f', fg: '#ffffff', accent: '#84cc16' },
+  { id: 'blush', bg: '#fff1f2', fg: '#4c0519', accent: '#e11d48' }
+]
+const useTheme = (th: typeof THEMES[number]) => Object.assign(draft, { bg: th.bg, fg: th.fg, accent: th.accent })
+const OPTIONS = { layout: ['image', 'side', 'text'], radius: ['square', 'rounded', 'pill'], font: ['sans', 'serif', 'mono'] } as const
+// What still stops publishing, in the order the form asks for it.
+const missing = computed(() => (['headline', 'cta', 'url'] as const).filter(k => !draft[k]))
 
 const saving = ref(false)
 const error = ref('')
@@ -54,20 +72,20 @@ async function save(submit: boolean) {
   }
 }
 
-const uploading = ref(false)
-async function upload(e: Event) {
+const uploading = ref<'' | 'logo' | 'photo'>('')
+async function upload(e: Event, field: 'logo' | 'photo') {
   const file = (e.target as HTMLInputElement).files?.[0]
   if (!file) return
-  uploading.value = true
+  uploading.value = field
   error.value = ''
   try {
     const fd = new FormData()
     fd.append('file', file)
-    draft.logo = (await $fetch<{ url: string }>('/api/upload', { method: 'POST', body: fd })).url
+    draft[field] = (await $fetch<{ url: string }>('/api/upload', { method: 'POST', body: fd })).url
   } catch (err) {
     error.value = apiError(err) || t('contrib.err.generic')
   } finally {
-    uploading.value = false
+    uploading.value = ''
   }
 }
 
@@ -148,7 +166,7 @@ useSeoMeta({ title: () => t('studio.title'), robots: 'noindex' })
         </UButton>
       </div>
 
-      <!-- Design + preview -->
+      <!-- Designer: the form, and every format it runs in -->
       <section class="space-y-4">
         <div class="flex flex-wrap items-center gap-3">
           <h2 class="bp-h3">
@@ -166,96 +184,280 @@ useSeoMeta({ title: () => t('studio.title'), robots: 'noindex' })
           icon="i-lucide-message-square"
           :description="current.reviewNote"
         />
-        <div class="border-[1.5px] border-(--ink) shadow-[6px_6px_0_var(--ink)]">
-          <SponsorCard
-            :company="current.company"
-            :creative="draft"
-            preview
-          />
-        </div>
-        <form
-          class="grid gap-4 border-[1.5px] border-(--ink) bg-(--card) p-5 md:grid-cols-2"
-          @submit.prevent="save(true)"
-        >
-          <UInput
-            v-model="draft.headline"
-            :placeholder="t('studio.f.headline')"
-            maxlength="70"
-            size="lg"
-          />
-          <UInput
-            v-model="draft.body"
-            :placeholder="t('studio.f.body')"
-            maxlength="140"
-            size="lg"
-          />
-          <UInput
-            v-model="draft.cta"
-            :placeholder="t('studio.f.cta')"
-            maxlength="24"
-            size="lg"
-          />
-          <UInput
-            v-model="draft.url"
-            type="url"
-            placeholder="https://"
-            size="lg"
-          />
-          <div class="flex flex-wrap items-center gap-4 md:col-span-2">
-            <label class="flex cursor-pointer items-center gap-2 border-[1.5px] border-(--line) px-3 py-2 text-sm font-semibold hover:border-(--ink)">
-              <UIcon
-                :name="uploading ? 'i-lucide-loader' : 'i-lucide-image-up'"
-                class="size-4"
-                :class="uploading ? 'animate-spin' : ''"
-              />{{ draft.logo ? t('studio.f.changeLogo') : t('studio.f.logo') }}
-              <input
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                class="sr-only"
-                @change="upload"
+
+        <div class="grid items-start gap-6 xl:grid-cols-[minmax(0,26rem)_minmax(0,1fr)]">
+          <form
+            class="space-y-6 border-[1.5px] border-(--ink) bg-(--card) p-5"
+            @submit.prevent="save(true)"
+          >
+            <!-- Content -->
+            <fieldset class="space-y-3">
+              <legend class="mono-label mb-2">
+                {{ t('studio.g.content') }}
+              </legend>
+              <div class="grid grid-cols-2 gap-3">
+                <label
+                  v-for="f in (['photo', 'logo'] as const)"
+                  :key="f"
+                  class="group relative flex aspect-[16/10] cursor-pointer flex-col items-center justify-center gap-1 overflow-hidden border-[1.5px] border-dashed border-(--line) text-xs font-semibold text-(--ink2) hover:border-(--ink)"
+                >
+                  <img
+                    v-if="draft[f]"
+                    :src="draft[f]"
+                    alt=""
+                    class="absolute inset-0 size-full"
+                    :class="f === 'photo' ? 'object-cover' : 'object-contain p-4'"
+                  >
+                  <span
+                    class="relative z-10 flex items-center gap-1.5 bg-(--card)/90 px-2 py-1"
+                    :class="draft[f] ? 'opacity-0 group-hover:opacity-100' : ''"
+                  >
+                    <UIcon
+                      :name="uploading === f ? 'i-lucide-loader' : 'i-lucide-image-up'"
+                      class="size-4"
+                      :class="uploading === f ? 'animate-spin' : ''"
+                    />{{ t(`studio.f.${f}`) }}
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    class="sr-only"
+                    @change="upload($event, f)"
+                  >
+                </label>
+              </div>
+              <UFormField
+                :label="t('studio.f.headline')"
+                required
               >
-            </label>
-            <label
-              v-for="c in (['bg', 'fg', 'accent'] as const)"
-              :key="c"
-              class="flex items-center gap-2 text-sm text-(--ink2)"
-            >
-              <input
-                v-model="draft[c]"
-                type="color"
-                class="size-8 cursor-pointer border-[1.5px] border-(--ink)"
-              >{{ t(`studio.f.${c}`) }}
-            </label>
+                <UInput
+                  v-model="draft.headline"
+                  maxlength="70"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField :label="t('studio.f.tagline')">
+                <UInput
+                  v-model="draft.tagline"
+                  maxlength="80"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField :label="t('studio.f.body')">
+                <UTextarea
+                  v-model="draft.body"
+                  maxlength="220"
+                  :rows="3"
+                  autoresize
+                  class="w-full"
+                />
+              </UFormField>
+              <div class="grid grid-cols-2 gap-3">
+                <UFormField :label="t('studio.f.price')">
+                  <UInput
+                    v-model="draft.price"
+                    maxlength="30"
+                    :placeholder="t('studio.f.pricePh')"
+                    class="w-full"
+                  />
+                </UFormField>
+                <UFormField
+                  :label="t('studio.f.cta')"
+                  required
+                >
+                  <UInput
+                    v-model="draft.cta"
+                    maxlength="24"
+                    class="w-full"
+                  />
+                </UFormField>
+              </div>
+              <UFormField
+                :label="t('studio.f.url')"
+                required
+              >
+                <UInput
+                  v-model="draft.url"
+                  type="url"
+                  placeholder="https://"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField :label="t('studio.f.website')">
+                <UInput
+                  v-model="draft.website"
+                  maxlength="60"
+                  placeholder="example.com"
+                  class="w-full"
+                />
+              </UFormField>
+            </fieldset>
+
+            <!-- Style -->
+            <fieldset class="space-y-4">
+              <legend class="mono-label mb-2">
+                {{ t('studio.g.style') }}
+              </legend>
+              <div class="grid grid-cols-6 gap-2">
+                <button
+                  v-for="th in THEMES"
+                  :key="th.id"
+                  type="button"
+                  class="flex aspect-square items-end justify-end border-[1.5px] p-1"
+                  :class="draft.bg === th.bg && draft.accent === th.accent ? 'border-(--ink) ring-2 ring-(--signal)' : 'border-(--line)'"
+                  :style="{ background: th.bg }"
+                  :title="th.id"
+                  :aria-label="th.id"
+                  @click="useTheme(th)"
+                >
+                  <span
+                    class="size-3 rounded-full"
+                    :style="{ background: th.accent }"
+                  />
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-4">
+                <label
+                  v-for="k in (['bg', 'fg', 'accent'] as const)"
+                  :key="k"
+                  class="flex items-center gap-2 text-sm text-(--ink2)"
+                >
+                  <input
+                    v-model="draft[k]"
+                    type="color"
+                    class="size-8 cursor-pointer border-[1.5px] border-(--ink)"
+                  >{{ t(`studio.f.${k}`) }}
+                </label>
+              </div>
+              <div
+                v-for="(list, k) in OPTIONS"
+                :key="k"
+                class="flex flex-wrap items-center gap-2"
+              >
+                <span class="w-20 text-sm text-(--ink2)">{{ t(`studio.f.${k}`) }}</span>
+                <button
+                  v-for="o in list"
+                  :key="o"
+                  type="button"
+                  class="border-[1.5px] px-2.5 py-1 text-xs font-semibold"
+                  :class="draft[k] === o ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
+                  @click="draft[k] = o"
+                >
+                  {{ t(`studio.o.${o}`) }}
+                </button>
+              </div>
+            </fieldset>
+
+            <div class="space-y-3 border-t-[1.5px] border-(--line) pt-4">
+              <p
+                v-if="missing.length"
+                class="text-xs text-(--ink2)"
+              >
+                {{ t('studio.missing', { fields: missing.map(m => t(`studio.f.${m}`)).join(', ') }) }}
+              </p>
+              <div class="flex flex-wrap items-center gap-3">
+                <UButton
+                  type="submit"
+                  icon="i-lucide-send"
+                  :loading="saving"
+                  :disabled="missing.length > 0"
+                >
+                  {{ t('studio.publish') }}
+                </UButton>
+                <UButton
+                  color="neutral"
+                  variant="outline"
+                  :loading="saving"
+                  @click="save(false)"
+                >
+                  {{ t('studio.saveDraft') }}
+                </UButton>
+                <span
+                  v-if="saved"
+                  class="text-sm text-(--signal)"
+                >{{ saved }}</span>
+              </div>
+              <UAlert
+                v-if="error"
+                color="error"
+                variant="subtle"
+                :description="error"
+              />
+            </div>
+          </form>
+
+          <!-- Every format, as readers will see it -->
+          <div class="space-y-6 xl:sticky xl:top-[calc(var(--ui-header-height)+1rem)]">
+            <div>
+              <p class="mono-label mb-2">
+                {{ t('studio.fmt.bar') }}
+              </p>
+              <div class="overflow-hidden border-[1.5px] border-(--ink) bg-(--paper)">
+                <div class="flex h-8 items-center gap-2 border-b border-(--line) bg-(--card) px-3">
+                  <span class="size-2 rounded-full bg-(--line)" /><span class="h-2 w-24 bg-(--line)" /><span class="ms-auto h-2 w-16 bg-(--line)" />
+                </div>
+                <SponsorCard
+                  :company="current.company"
+                  :creative="draft"
+                  preview
+                />
+                <div class="space-y-2 p-4">
+                  <span class="block h-3 w-1/2 bg-(--line)" /><span class="block h-2 w-5/6 bg-(--line)/60" />
+                </div>
+              </div>
+            </div>
+            <div class="grid gap-6 md:grid-cols-[minmax(0,1fr)_16rem]">
+              <div>
+                <p class="mono-label mb-2">
+                  {{ t('studio.fmt.card') }}
+                </p>
+                <div class="space-y-3 border-[1.5px] border-(--ink) bg-(--paper) p-4">
+                  <span class="block h-2 w-full bg-(--line)/60" /><span class="block h-2 w-4/5 bg-(--line)/60" />
+                  <SponsorCard
+                    :company="current.company"
+                    :creative="draft"
+                    format="card"
+                    preview
+                  />
+                  <span class="block h-2 w-2/3 bg-(--line)/60" />
+                </div>
+              </div>
+              <div>
+                <p class="mono-label mb-2">
+                  {{ t('studio.fmt.tile') }}
+                </p>
+                <div class="space-y-3 border-[1.5px] border-(--ink) bg-(--paper) p-3">
+                  <span class="block h-2 w-1/2 bg-(--line)" /><span class="block h-2 w-3/4 bg-(--line)/60" /><span class="block h-2 w-2/3 bg-(--line)/60" />
+                  <SponsorCard
+                    :company="current.company"
+                    :creative="draft"
+                    format="tile"
+                    preview
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <p class="mono-label mb-2">
+                {{ t('studio.fmt.phone') }}
+              </p>
+              <div class="mx-auto w-[22rem] max-w-full overflow-hidden rounded-[2rem] border-[6px] border-(--ink) bg-(--paper)">
+                <div class="flex h-9 items-center justify-between border-b border-(--line) bg-(--card) px-4">
+                  <span class="h-2 w-16 bg-(--line)" /><span class="size-4 bg-(--line)" />
+                </div>
+                <SponsorCard
+                  :company="current.company"
+                  :creative="draft"
+                  preview
+                  narrow
+                />
+                <div class="space-y-2 p-4">
+                  <span class="block h-3 w-2/3 bg-(--line)" /><span class="block h-2 w-full bg-(--line)/60" /><span class="block h-2 w-5/6 bg-(--line)/60" />
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="flex flex-wrap items-center gap-3 md:col-span-2">
-            <UButton
-              type="submit"
-              icon="i-lucide-send"
-              :loading="saving"
-            >
-              {{ t('studio.publish') }}
-            </UButton>
-            <UButton
-              color="neutral"
-              variant="outline"
-              :loading="saving"
-              @click="save(false)"
-            >
-              {{ t('studio.saveDraft') }}
-            </UButton>
-            <span
-              v-if="saved"
-              class="text-sm text-(--signal)"
-            >{{ saved }}</span>
-          </div>
-          <UAlert
-            v-if="error"
-            color="error"
-            variant="subtle"
-            class="md:col-span-2"
-            :description="error"
-          />
-        </form>
+        </div>
       </section>
 
       <!-- Results -->

@@ -27,7 +27,9 @@
     "companies": "公司",
     "pro": "定价",
     "visualiser": "视觉师",
-    "team": "我的组织"
+    "team": "我的组织",
+    "billing": "计划和账单",
+    "course": "课程"
   },
   "home": {
     "modules": {
@@ -151,18 +153,146 @@
     "resourcesDesc": "一张最好的名单 Salesforce CRM Analytics 资源——官方文件, Trailhead, (中文). SAQL 参考文献、社区和工具。"
   },
   "course": {
-    "nextLesson": "下一个: {title}",
-    "markComplete": "标记为完整",
-    "completed": "已完成",
-    "signInToTrack": "签到追踪你的进展",
-    "signIn": "签名",
-    "courseProgress": "课程进度",
-    "contents": "课程内容",
-    "contentsPct": "目录 · {pct}百分比(%)",
-    "showContents": "显示课程内容",
-    "collapseContents": "折叠课程内容",
-    "sectionMeta": "{lessons} 学习 · {minutes}页:1",
-    "comingSoon": "马上就来"
+    "seo": {
+      "title": "学习 Salesforce CRM Analytics: 免费课程",
+      "description": "免费的、实用的 Salesforce CRM Analytics: 数据准备, SAQL仪表板,装订, Einstein Discovery 和部署,建造在自己的矿石。"
+    },
+    "hero": {
+      "eyebrow": "那个 CRM Analytics 课程",
+      "title": "构建真实 CRM Analytics 仪表板,从0到工作准备。",
+      "lead": "短视频课,亲身操作在自己的免费Org中建立,每门课和练习考试结束后的测试. 开始自由,用你的语言。",
+      "note": "没有卡片需要。 免费的课程保持自由。"
+    },
+    "stats": {
+      "sections": "节次",
+      "lessons": "经验教训",
+      "languages": "语言",
+      "cost": "开始"
+    },
+    "cta": {
+      "start": "免费开课",
+      "continue": "继续学习",
+      "curriculum": "见全部课程"
+    },
+    "outcomes": {
+      "eyebrow": "你会做什么",
+      "title": "雇主要求的六种技能 CRM Analytics 角色",
+      "prep": {
+        "title": "编制配方数据",
+        "body": "连接、过滤、转换和聚合 Salesforce 和外部数据输入干净的数据集。"
+      },
+      "saql": {
+        "title": "写入 SAQL",
+        "body": "装入,过滤,组,组和项目,并知道每行对溪流的作用."
+      },
+      "dash": {
+        "title": "设计人们使用的仪表板",
+        "body": "图表,表格,过滤器和布局可以回答销售和服务团队实际提出的问题."
+      },
+      "bind": {
+        "title": "让仪表板互动",
+        "body": "捆绑和正面 让一个选择驱动整个仪表板。"
+      },
+      "discovery": {
+        "title": "预估 Einstein Discovery",
+        "body": "构建一个模型,阅读其故事,并将预测投放到人们工作的地方."
+      },
+      "deploy": {
+        "title": "保证安全并运送",
+        "body": "行级安全,分享遗产和在兽人之间移动工作."
+      }
+    },
+    "how": {
+      "eyebrow": "如何运作",
+      "title": "四步,每节课",
+      "watch": {
+        "title": "看着",
+        "body": "短片或文章解释了一个想法。"
+      },
+      "build": {
+        "title": "构建",
+        "body": "你一个人免费建造的 CRM Analytics org,在课程数据集。"
+      },
+      "check": {
+        "title": "检查",
+        "body": "课后的测验告诉你什么卡住了。"
+      },
+      "prove": {
+        "title": "证明",
+        "body": "时间练习考试让你准备好 认证。"
+      }
+    },
+    "path": {
+      "eyebrow": "路径",
+      "title": "从您的第一个数据集到部署",
+      "lead": "{open} 页:1 {total} 区域已打开;其余部分逐个到达。",
+      "soon": "快点",
+      "lessons": "{n} 经验教训"
+    },
+    "tools": {
+      "eyebrow": "包含",
+      "title": "单击的工具",
+      "open": "打开",
+      "visualiser": {
+        "title": "视觉师",
+        "body": "看着 SAQL,食谱和数据流运行,逐行排列."
+      },
+      "exams": {
+        "title": "实践考试",
+        "body": "时间文件像真正的认证。"
+      },
+      "interview": {
+        "title": "面谈问题",
+        "body": "真正的问题与模型解答, 按主题。"
+      },
+      "datasets": {
+        "title": "课程数据集",
+        "body": "21个CSV 在一个命令中装入您的 Org."
+      }
+    },
+    "who": {
+      "eyebrow": "给谁的",
+      "title": "给同事做的 Salesforce 数据",
+      "admin": {
+        "title": "Salesforce 管理员",
+        "body": "在您已经运行的内容中添加分析,并成为回答数据问题的人."
+      },
+      "analyst": {
+        "title": "分析员",
+        "body": "从电子表格和报告转到数据集, SAQL 和仪表板 人们信任。"
+      },
+      "consultant": {
+        "title": "咨询人",
+        "body": "交付 CRM Analytics 以真实模式保存的项目。"
+      },
+      "career": {
+        "title": "职业变革者",
+        "body": "通往专家的自由、结构化的路径 Salesforce 技术,还有面试准备。"
+      }
+    },
+    "price": {
+      "eyebrow": "定价",
+      "title": "开始免费。 值得的时候升级",
+      "free": {
+        "name": "免费",
+        "body": "每个免费的课,考试和工具,在每种语言中,都有广告.",
+        "cta": "免费开始"
+      },
+      "pro": {
+        "name": "赞成:",
+        "body": "每一个课程,包括Pro的, 没有广告。 每月或每年一次。",
+        "cta": "获取 Pro"
+      },
+      "team": {
+        "name": "团队",
+        "body": "为你整个团队做职业 你买座椅,然后用电子邮件或密码送出去",
+        "cta": "买座位"
+      }
+    },
+    "final": {
+      "title": "你的第一个仪表盘是一门课了。",
+      "lead": "创建自由账户并开始引入. 需要一分钟。"
+    }
   },
   "dashboard": {
     "kicker": "电线板",
@@ -1670,6 +1800,13 @@
       "newCols": "{n} 新栏",
       "more": "+ 键 {n} 更多",
       "groups": "{n} 组合"
+    },
+    "canvas": {
+      "newCol": "新栏",
+      "hint": "拖曳到四周, 滚动到缩放",
+      "zoomIn": "缩放",
+      "zoomOut": "缩小",
+      "recenter": "再来一步"
     }
   },
   "meter": {
@@ -1721,13 +1858,22 @@
     "noData": "还没有数据。",
     "f": {
       "headline": "标题",
-      "body": "再来一行( 可选)",
+      "body": "说明",
       "cta": "按钮标签",
-      "logo": "上传标志",
+      "logo": "日志",
       "changeLogo": "更改标志",
       "bg": "背景情况",
       "fg": "文字",
-      "accent": "按钮"
+      "accent": "按钮",
+      "photo": "图片",
+      "tagline": "标记",
+      "price": "价格或报价",
+      "pricePh": "每月49美元",
+      "url": "链接",
+      "website": "显示的网站",
+      "layout": "版式",
+      "radius": "转角",
+      "font": "字体"
     },
     "status": {
       "requested": "请求",
@@ -1750,6 +1896,64 @@
       "submitted": "等待核准",
       "approved": "核定数",
       "changes": "要求的更改"
-    }
+    },
+    "g": {
+      "content": "内容",
+      "style": "样式"
+    },
+    "o": {
+      "image": "顶部照片",
+      "side": "照片旁边",
+      "text": "仅限文本",
+      "square": "方块",
+      "rounded": "四舍五入",
+      "pill": "药丸",
+      "sans": "圣诞",
+      "serif": "赛里夫",
+      "mono": "单曲"
+    },
+    "fmt": {
+      "bar": "顶端栏,每页",
+      "card": "每一课都结束了",
+      "tile": "除了课程内容",
+      "phone": "手机的顶端栏"
+    },
+    "missing": "要出版,请加上: {fields}"
+  },
+  "account": {
+    "title": "计划和账单",
+    "lead": "你的计划,你的团队 和你的付款,在一个地方。",
+    "yourPlan": "你的计划",
+    "plan": {
+      "free": "免费",
+      "proMonthly": "专业,每月",
+      "proYearly": "赞成,每年",
+      "teamSeat": "团队席位在 {team}",
+      "teamAdmin": "{team}",
+      "granted": "赞成:"
+    },
+    "planNote": {
+      "free": "每个免费的课程和工具,都有广告。",
+      "proMonthly": "每课,无广告.",
+      "proYearly": "每课,无广告.",
+      "teamSeat": "你们的队伍为你们的座位付费. 每课,无广告.",
+      "teamAdmin": "你管理这支队伍 并支付它的座位。",
+      "granted": "Pro是学院给你的"
+    },
+    "manage": "贺卡、发票和注销",
+    "notConfigured": "正在建立支付机制。 等他们准备好就开价了",
+    "upgrade": "升级",
+    "forMe": "对我来说",
+    "forTeam": "为了我的团队",
+    "haveCode": "有你们队的密码吗?",
+    "seats": "席位",
+    "seatsNote": "{used} 正在使用中, {invited} 邀请 {free} 免费",
+    "changeSeats": "增加或取消席位",
+    "invite": "邀请人",
+    "invitePh": "以逗号或新行分隔的电子邮件",
+    "sendInvites": "发送邀请",
+    "invited": "请客 他们签了那封邮件就坐好了",
+    "copyLink": "复制加入链接",
+    "allMembers": "成员和领域"
   }
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * The visitor wall: shown over a metered page when someone WITHOUT an account
- * has opened their ANON_SESSIONS free pages (plugins/meter.client.ts). A free
+ * has opened their ANON_SESSIONS free pages (charged with each page view). A free
  * account is unlimited on free content, so the only ask is to sign up. The
  * navbar stays usable.
  */

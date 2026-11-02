@@ -2,7 +2,12 @@
  * First-party analytics: page views, time on page and a few named clicks.
  * Sent by app/plugins/analytics.client.ts, read by /admin → Analytics.
  *
- *   { t: 'pv', v, s, p, l, r }      a page view → returns { id }
+ *   { t: 'pv', v, s, p, l, r, pr?, m?, sb? }
+ *                                   a page view → returns { id, meter?, sponsor? }.
+ *                                   One request does what used to take four:
+ *                                   pr = { id, ms } times the previous view,
+ *                                   m: 1 charges the reading meter, sb: 1 picks
+ *                                   the sponsor banner and counts its view.
  *   { t: 'leave', v, id, ms }       time spent on that view
  *   { t: 'ev', v, s, n, p, lb }     a named event (sign_in_click, sign_up_click, …)
  *   { t: 'human', v }               the browser saw a real interaction → app.human_visitor
@@ -129,8 +134,6 @@ export default defineEventHandler(async (event) => {
   }
 
   if (body.t !== 'pv') throw createError({ statusCode: 400, statusMessage: 'Unknown type' })
-  const [flood] = await sql`select count(*)::int as n from app.page_view where visitor = ${visitor} and created_at > now() - interval '10 minutes'`
-  if (Number(flood?.n ?? 0) >= FLOOD) return dropBot('flood')
 
   const cf = cloudflareOf(event).request?.cf
   const country = cf?.country || getRequestHeader(event, 'cf-ipcountry') || ''
@@ -144,11 +147,41 @@ export default defineEventHandler(async (event) => {
   const utm = clip(body.u, 40).toLowerCase().replace(/[^a-z0-9._-]/g, '')
   if (utm) referrer = `utm:${utm}`
 
+  // The flood check and the insert in one round trip: no row back = flood.
   const rows = await sql`
     insert into app.page_view (visitor, session, user_id, path, locale, referrer, country, device, browser, os)
-    values (${visitor}, ${session}, ${user?.id ?? null}, ${path}, ${clip(body.l, 5) || 'en'}, ${referrer},
-            ${/^[A-Z]{2}$/.test(country) ? country : null}, ${device(ua)}, ${browser(ua)}, ${os(ua)})
+    select ${visitor}, ${session}, ${user?.id ?? null}, ${path}, ${clip(body.l, 5) || 'en'}, ${referrer},
+           ${/^[A-Z]{2}$/.test(country) ? country : null}, ${device(ua)}, ${browser(ua)}, ${os(ua)}
+    where (select count(*) from app.page_view where visitor = ${visitor} and created_at > now() - interval '10 minutes') < ${FLOOD}
     returning id
   `
-  return { id: Number(rows[0]?.id) }
+  if (!rows.length) return dropBot('flood')
+  const id = Number(rows[0]!.id)
+  const out: Record<string, unknown> = { id }
+  const work: Promise<unknown>[] = []
+
+  // Everything else a page view used to cost its own Worker request:
+  // the previous page's reading time…
+  const prev = body.pr as { id?: unknown, ms?: unknown } | undefined
+  const prevId = Number(prev?.id)
+  const prevMs = Math.min(Math.max(Math.round(Number(prev?.ms) || 0), 0), 30 * 60_000)
+  if (Number.isInteger(prevId) && prevId > 0 && prevMs > 0) {
+    work.push(sql`update app.page_view set duration_ms = greatest(duration_ms, ${prevMs}) where id = ${prevId} and visitor = ${visitor}`)
+  }
+  // …the reading meter (lessons, answers, visualisers)…
+  if (body.m === 1) {
+    const clean = path.split('?')[0]!.replace(/^\/(es|fr|de|pt|ja|zh|hi|ar|ru|bn|ur)(?=\/|$)/, '').replace(/\/+$/, '') || '/'
+    if (/^\/[a-z0-9/-]*$/.test(clean) && isMeteredPath(clean)) work.push(chargeSession(event, user, clean).then(m => (out.meter = m)))
+    else out.meter = { ok: true, charged: false }
+  }
+  // …and the sponsor banner: chosen here, in turn, and its view counted.
+  if (body.sb === 1) {
+    work.push(liveSponsors().then(async (live) => {
+      const pick = live.length ? live[id % live.length]! : null
+      out.sponsor = pick
+      if (pick) await countSponsor(pick.id, 'view', path)
+    }).catch(() => null))
+  }
+  await Promise.all(work)
+  return out
 })

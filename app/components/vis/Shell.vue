@@ -8,7 +8,7 @@
  *   centre  the stage — the motion graphic
  *   bottom  the narration (written out, whiteboard style) and the player
  *
- * The stage (usually a VisFlow) animates each step itself; the player waits
+ * The stage (a VisCanvas) animates each step itself; the player waits
  * long enough for a step's flow to finish before moving on.
  */
 const props = withDefaults(defineProps<{
@@ -21,7 +21,9 @@ const props = withDefaults(defineProps<{
   presets?: { id: string, label: string }[]
   preset?: string
   editLabel?: string
-}>(), { presets: () => [], preset: '', eyebrow: '', error: false, editLabel: '' })
+  /** Whether the left rail starts open (on large screens). */
+  rail?: boolean
+}>(), { presets: () => [], preset: '', eyebrow: '', error: false, editLabel: '', rail: true })
 const step = defineModel<number>('step', { required: true })
 const emit = defineEmits<{ preset: [id: string] }>()
 const { t } = useI18n()
@@ -31,7 +33,7 @@ focus.value = true
 onBeforeUnmount(() => (focus.value = false))
 
 const editOpen = ref(false)
-const railOpen = ref(true)
+const railOpen = ref(props.rail)
 </script>
 
 <template>
@@ -103,7 +105,7 @@ const railOpen = ref(true)
           />
         </div>
       </aside>
-      <section class="graph-paper relative min-h-0 overflow-y-auto bg-(--paper) p-4 sm:p-5">
+      <section class="relative min-h-0 overflow-hidden bg-[#0b1020] max-lg:min-h-[60dvh]">
         <slot name="stage" />
       </section>
     </div>

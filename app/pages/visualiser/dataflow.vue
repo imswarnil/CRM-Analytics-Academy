@@ -10,7 +10,7 @@
  * Prerendered; runs in the browser on the sample data (app/utils/vis).
  */
 import { type DfOptions, DEFAULT_DF_OPTIONS, buildDataflow, dataflowPlan, runDataflow, sourcesOf } from '~/utils/vis/dataflow'
-import type { DagNode } from '~/components/vis/Dag.vue'
+import type { CanvasNode } from '~/components/vis/Canvas.vue'
 
 definePageMeta({ focus: true })
 
@@ -25,13 +25,17 @@ watch(df, () => (step.value = Math.min(step.value, results.value.length - 1)))
 const current = computed(() => results.value[Math.min(step.value, results.value.length - 1)])
 const caption = computed(() => (current.value ? t(`vis.dataflow.explain.${current.value.explain}`, current.value.params) : ''))
 
-const dag = computed<DagNode[]>(() => Object.entries(df.value).map(([name, n]) => ({
-  id: name,
-  label: name.replace(/_/g, ' '),
-  sub: n.action,
-  inputs: sourcesOf(n),
-  order: results.value.find(r => r.name === name)?.order ?? 99,
-  wave: plan.value.wave[name]
+const KIND: Record<string, string> = { sfdcDigest: 'source', edgemart: 'source', filter: 'filter', augment: 'join', computeExpression: 'transform', computeRelative: 'transform', flatten: 'transform', sliceDataset: 'drop', append: 'append', sfdcRegister: 'output' }
+const canvas = computed<CanvasNode[]>(() => results.value.map(r => ({
+  id: r.name,
+  name: `${r.name} · W${r.wave}`,
+  label: r.action,
+  detail: detailOf(r.name),
+  icon: ICON[r.action] ?? 'i-lucide-box',
+  kind: KIND[r.action] ?? 'transform',
+  inputs: sourcesOf(df.value[r.name]!),
+  order: r.order,
+  rows: r.rows
 })))
 const select = (id: string) => {
   const i = results.value.findIndex(r => r.name === id)
@@ -42,8 +46,6 @@ const waves = computed(() => {
   for (const [n, w] of Object.entries(plan.value.wave)) (by[w] ??= []).push(n)
   return Object.entries(by).map(([w, names]) => ({ wave: Number(w), names }))
 })
-const srcs = computed(() => (current.value ? sourcesOf(df.value[current.value.name]!) : []))
-const rowsOf = (name?: string) => (name ? results.value.find(r => r.name === name)?.rows ?? [] : [])
 const ICON: Record<string, string> = { sfdcDigest: 'i-lucide-cloud-download', edgemart: 'i-lucide-database', filter: 'i-lucide-filter', augment: 'i-lucide-merge', computeExpression: 'i-lucide-function-square', computeRelative: 'i-lucide-arrow-left-right', flatten: 'i-lucide-network', sliceDataset: 'i-lucide-columns-3', append: 'i-lucide-rows-3', sfdcRegister: 'i-lucide-hard-drive-upload' }
 const detailOf = (name: string) => {
   const p = df.value[name]?.parameters ?? {}
@@ -163,30 +165,15 @@ usePageSchema(() => ({
 
     <!-- Stage: the graph, then this node's rows -->
     <template #stage>
-      <VisDag
-        :nodes="dag"
-        :active="current?.name ?? null"
-        :done-up-to="(current?.order ?? 1) - 1"
-        max-height="7.5rem"
-        @select="select"
-      />
-      <VisFlow
+      <VisCanvas
         v-if="current"
-        class="mt-5"
+        :nodes="canvas"
+        :active="current.name"
         :step-key="`${current.name}-${step}-${JSON.stringify(opts)}`"
-        :op="current.action"
-        :icon="ICON[current.action] ?? 'i-lucide-box'"
-        :detail="detailOf(current.name)"
-        :source="srcs.length ? '' : current.name"
-        :input="current.before ?? rowsOf(srcs[0])"
-        :input-label="current.action === 'augment' ? srcs[0] : srcs.join(' + ')"
-        :side="current.action === 'augment' ? rowsOf(srcs[1]) : current.action === 'append' ? undefined : undefined"
-        :side-label="srcs[1] ?? ''"
-        :output="current.rows"
-        :output-label="current.name"
         :marks="current.marks"
         :new-cols="current.newCols"
         :drop-cols="current.dropCols"
+        @select="select"
       />
     </template>
 

@@ -8,10 +8,26 @@
  * is marked human on their first real interaction — a tap, a key, a scroll or
  * a few mouse movements — once per browser (`crma-h` in localStorage).
  *
+ * One request per page view: the view also carries the previous page's
+ * reading time, charges the reading meter and returns the sponsor banner to
+ * show (counting its view). Only a tab being hidden sends a beacon of its own.
+ *
  * No cookies: the visitor id lives in localStorage, the session id in
  * sessionStorage. If storage is blocked, ids are per page load and the view
  * is still counted. Other code reports milestones with `useNuxtApp().$track`.
  */
+interface SponsorLive {
+  id: number
+  company: string
+  creative: Record<string, string>
+}
+interface CollectReply {
+  id?: number
+  ok?: boolean
+  meter?: Parameters<ReturnType<typeof useMeter>['apply']>[0]
+  sponsor?: SponsorLive | null
+}
+
 export default defineNuxtPlugin((nuxtApp) => {
   const id = () => crypto.randomUUID().replace(/-/g, '').slice(0, 24)
   const keep = (store: Storage | undefined, key: string) => {
@@ -48,8 +64,12 @@ export default defineNuxtPlugin((nuxtApp) => {
     const ms = view.visibleMs + (view.since ? performance.now() - view.since : 0)
     if (view.id && ms > 500) send({ t: 'leave', id: view.id, ms: Math.round(ms) }, true)
   }
+  const meter = useMeter()
+  const sponsor = useState<SponsorLive | null>('sponsor-current', () => null)
+  const fallback = useState('collect-blocked', () => false)
   const start = async (path: string) => {
-    flush()
+    // The previous page's reading time rides on this view (no request of its own).
+    const prev = view?.id ? { id: view.id, ms: Math.round(view.visibleMs + (view.since ? performance.now() - view.since : 0)) } : undefined
     const current = { id: null as number | null, visibleMs: 0, since: document.visibilityState === 'visible' ? performance.now() : null }
     view = current
     // The visit's first source, kept for the session so a lead can say
@@ -64,8 +84,15 @@ export default defineNuxtPlugin((nuxtApp) => {
         sessionStorage.setItem('crma-source', utm ? `utm:${utm}` : ref && ref !== location.hostname ? ref : 'direct')
       }
     } catch { /* storage blocked */ }
-    const res = await send({ t: 'pv', p: path, l: locale.value, r: document.referrer, u: new URLSearchParams(location.search).get('utm_source') ?? '' })
-    current.id = (res as { id?: number } | null)?.id ?? null
+    const res = await send({ t: 'pv', p: path, l: locale.value, r: document.referrer, u: new URLSearchParams(location.search).get('utm_source') ?? '', pr: prev && prev.ms > 500 ? prev : undefined, m: 1, sb: 1 }) as CollectReply | null
+    current.id = res?.id ?? null
+    if (res?.meter) meter.apply(res.meter, path)
+    if (res && 'sponsor' in res) sponsor.value = res.sponsor ?? null
+    // Blocked (an extension, a network error): the meter and the banner ask for themselves.
+    if (!res) {
+      fallback.value = true
+      meter.open(path)
+    }
   }
 
   document.addEventListener('visibilitychange', () => {

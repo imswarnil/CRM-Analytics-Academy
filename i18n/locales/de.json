@@ -27,7 +27,9 @@
     "companies": "Unternehmen",
     "pro": "Preisgestaltung",
     "visualiser": "Visualisierer",
-    "team": "Meine Organisation"
+    "team": "Meine Organisation",
+    "billing": "Plan und Abrechnung",
+    "course": "Der Kurs"
   },
   "home": {
     "modules": {
@@ -151,18 +153,146 @@
     "resourcesDesc": "Eine kuratierte Liste der Besten Salesforce CRM Analytics Ressourcen — amtliche Dokumente, Trailhead, SAQL Referenzen, Community und Tools."
   },
   "course": {
-    "nextLesson": "Nächste: {title}",
-    "markComplete": "Vollständige Kennzeichnung",
-    "completed": "Abgeschlossen",
-    "signInToTrack": "Melden Sie sich an, um Ihren Fortschritt zu verfolgen.",
-    "signIn": "Zeichen",
-    "courseProgress": "Kursfortschritt",
-    "contents": "Kursinhalte",
-    "contentsPct": "Inhalt · {pct}%",
-    "showContents": "Kursinhalte anzeigen",
-    "collapseContents": "Inhalt des Kollapskurses",
-    "sectionMeta": "{lessons} Lektionen · {minutes}m",
-    "comingSoon": "Bald kommen"
+    "seo": {
+      "title": "Lernen Salesforce CRM Analytics: Der freie Kurs",
+      "description": "Ein kostenloser, praktischer Kurs in Salesforce CRM Analytics: Datenvorbereitung, SAQL, Dashboards, Bindungen, Einstein Discovery und Deployment, eingebaut in deiner eigenen Organisation."
+    },
+    "hero": {
+      "eyebrow": "Die CRM Analytics Kurs",
+      "title": "Baut real CRM Analytics Dashboards, von Null bis Job-ready.",
+      "lead": "Kurze Videostunden, praktische Aufbauten der eigenen freien Org, ein Quiz nach jeder Lektion und Übungsprüfungen am Ende. Starten Sie kostenlos, in Ihrer Sprache.",
+      "note": "Keine Karte erforderlich. Freier Unterricht bleibt frei."
+    },
+    "stats": {
+      "sections": "Abschnitte",
+      "lessons": "Unterricht",
+      "languages": "Sprachen",
+      "cost": "Beginn"
+    },
+    "cta": {
+      "start": "Starten Sie den Kurs kostenlos",
+      "continue": "Weiter Lernen",
+      "curriculum": "Siehe den vollständigen Lehrplan"
+    },
+    "outcomes": {
+      "eyebrow": "Was du tun kannst",
+      "title": "Sechs Fähigkeiten Arbeitgeber fragen in CRM Analytics Rollen",
+      "prep": {
+        "title": "Bereiten Sie Daten mit Rezepten vor",
+        "body": "Join, Filter, Transformation und Aggregation Salesforce und externe Daten in saubere Datensätze."
+      },
+      "saql": {
+        "title": "Schreiben SAQL",
+        "body": "Laden, filtern, gruppe, cogruppe und projekt, und wissen, was jede linie mit dem stream macht."
+      },
+      "dash": {
+        "title": "Design-Dashboards, die Menschen verwenden",
+        "body": "Diagramme, Tabellen, Filter und Layouts, die die Fragen beantworten, die Vertriebs- und Serviceteams tatsächlich stellen."
+      },
+      "bind": {
+        "title": "Dashboards interaktiv gestalten",
+        "body": "Bindungen und Facettierungen, die eine Wahl das gesamte Armaturenbrett steuern lassen."
+      },
+      "discovery": {
+        "title": "Vorhersagen mit Einstein Discovery",
+        "body": "Bauen Sie ein Modell, lesen Sie seine Geschichten und setzen Sie Vorhersagen, wo Menschen arbeiten."
+      },
+      "deploy": {
+        "title": "Sichern und versenden",
+        "body": "Row-Level-Sicherheit, gemeinsame Vererbung und bewegliche Arbeit zwischen Orgs."
+      }
+    },
+    "how": {
+      "eyebrow": "Wie es funktioniert",
+      "title": "Vier Schritte, jede Lektion",
+      "watch": {
+        "title": "Uhrzeit",
+        "body": "Ein kurzes Video oder ein Artikel erklärt eine Idee."
+      },
+      "build": {
+        "title": "Bau",
+        "body": "Du baust es selbst in einem freien CRM Analytics org, auf den Kursdatensätzen."
+      },
+      "check": {
+        "title": "Überprüfung",
+        "body": "Ein Quiz nach der Lektion sagt Ihnen, was stecken geblieben ist."
+      },
+      "prove": {
+        "title": "Prove",
+        "body": "Zeitgesteuerte Praxisprüfungen bereiten Sie auf die Zertifizierung vor."
+      }
+    },
+    "path": {
+      "eyebrow": "Der Weg",
+      "title": "Vom ersten Datensatz bis zur Bereitstellung",
+      "lead": "{open} von {total} Abschnitte sind jetzt geöffnet; der Rest kommt Abschnitt für Abschnitt.",
+      "soon": "Bald",
+      "lessons": "{n} Unterricht"
+    },
+    "tools": {
+      "eyebrow": "Eingeschlossen",
+      "title": "Tools, die es zum Klicken bringen",
+      "open": "Offen",
+      "visualiser": {
+        "title": "Visualisierer",
+        "body": "Uhrzeit SAQL, Rezepte und Datenflüsse laufen, Zeile für Zeile."
+      },
+      "exams": {
+        "title": "Praxisprüfungen",
+        "body": "Zeitgesteuerte Papiere wie die echte Zertifizierung."
+      },
+      "interview": {
+        "title": "Interviewfragen",
+        "body": "Echte Fragen mit Modellantworten, nach Thema."
+      },
+      "datasets": {
+        "title": "Kursdatensätze",
+        "body": "21 CSVs, die Sie in einem Befehl in Ihre Org laden können."
+      }
+    },
+    "who": {
+      "eyebrow": "Für wen es ist",
+      "title": "Gemacht für Menschen, die mit Salesforce Daten",
+      "admin": {
+        "title": "Salesforce Admins",
+        "body": "Fügen Sie Analysen zu dem hinzu, was Sie bereits ausführen, und werden Sie die Person, die die Datenfragen beantwortet."
+      },
+      "analyst": {
+        "title": "Analysten",
+        "body": "Wechsel von Tabellenkalkulationen und Berichten zu Datensätzen, SAQL Dashboards vertrauen Menschen."
+      },
+      "consultant": {
+        "title": "Berater",
+        "body": "Lieferung CRM Analytics Projekte mit Mustern, die in echten Orgs halten."
+      },
+      "career": {
+        "title": "Karrierewechsler",
+        "body": "Ein freier, strukturierter Weg zum Spezialisten Salesforce Geschick, mit interview prep."
+      }
+    },
+    "price": {
+      "eyebrow": "Preisgestaltung",
+      "title": "Start frei. Upgrade, wenn es sich lohnt.",
+      "free": {
+        "name": "frei",
+        "body": "Jede kostenlose Lektion, Quiz und Tool, in jeder Sprache, mit Werbung.",
+        "cta": "Start frei"
+      },
+      "pro": {
+        "name": "Prod",
+        "body": "Jede Lektion, einschließlich Pro, und keine Werbung. Monatlich oder jährlich.",
+        "cta": "Get Pro"
+      },
+      "team": {
+        "name": "Teams",
+        "body": "Pro für Ihr gesamtes Team. Sie kaufen Sitzplätze und verteilen sie per E-Mail oder Code.",
+        "cta": "Sitzplätze kaufen"
+      }
+    },
+    "final": {
+      "title": "Ihr erstes Dashboard ist eine Stunde entfernt.",
+      "lead": "Erstellen Sie ein kostenloses Konto und beginnen Sie mit der Einführung. Es dauert eine Minute."
+    }
   },
   "dashboard": {
     "kicker": "Dashboard",
@@ -1670,6 +1800,13 @@
       "newCols": "{n} Neue Spalten",
       "more": "+ {n} mehr",
       "groups": "{n} Gruppen"
+    },
+    "canvas": {
+      "newCol": "neue Spalte",
+      "hint": "Drag, um sich umzusehen, scrollen zum Zoom",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom raus",
+      "recenter": "Folge dem Schritt noch einmal"
     }
   },
   "meter": {
@@ -1720,14 +1857,23 @@
     "topPages": "Obere Seiten",
     "noData": "Noch keine Daten.",
     "f": {
-      "headline": "Überschrift",
-      "body": "Eine weitere Zeile (fakultativ)",
+      "headline": "Titel",
+      "body": "Beschreibung",
       "cta": "Knopfetikett",
-      "logo": "Logo hochladen",
+      "logo": "Logo",
       "changeLogo": "Änderungslogo",
       "bg": "Hintergrund",
       "fg": "Text",
-      "accent": "Button"
+      "accent": "Button",
+      "photo": "Foto",
+      "tagline": "Tagline",
+      "price": "Preis oder Angebot",
+      "pricePh": "Ab 49 USD pro Monat",
+      "url": "Link",
+      "website": "Website gezeigt",
+      "layout": "Layout",
+      "radius": "Ecken",
+      "font": "Schriftzug"
     },
     "status": {
       "requested": "Gefordert",
@@ -1750,6 +1896,64 @@
       "submitted": "Warten auf Genehmigung",
       "approved": "Zugelassen",
       "changes": "Geforderte Änderungen"
-    }
+    },
+    "g": {
+      "content": "Inhalt",
+      "style": "Stil"
+    },
+    "o": {
+      "image": "Foto oben",
+      "side": "Foto nebenan",
+      "text": "Nur Text",
+      "square": "Quadrat",
+      "rounded": "abgerundet",
+      "pill": "Pille",
+      "sans": "Sans",
+      "serif": "Serif",
+      "mono": "Mono"
+    },
+    "fmt": {
+      "bar": "Top Bar, jede Seite",
+      "card": "Ende jeder Lektion",
+      "tile": "Neben den Unterrichtsinhalten",
+      "phone": "Top Bar auf einem Telefon"
+    },
+    "missing": "Um zu veröffentlichen, fügen Sie hinzu: {fields}"
+  },
+  "account": {
+    "title": "Plan und Abrechnung",
+    "lead": "Ihr Plan, Ihr Team und Ihre Zahlungen, an einem Ort.",
+    "yourPlan": "Dein Plan",
+    "plan": {
+      "free": "frei",
+      "proMonthly": "Pro, monatlich",
+      "proYearly": "Pro, jährlich",
+      "teamSeat": "Mannschaftssitz in {team}",
+      "teamAdmin": "{team}",
+      "granted": "Prod"
+    },
+    "planNote": {
+      "free": "Jede kostenlose lektion und tool, mit anzeigen.",
+      "proMonthly": "Jede Lektion, keine Werbung.",
+      "proYearly": "Jede Lektion, keine Werbung.",
+      "teamSeat": "Ihr Team zahlt für Ihren Sitzplatz. Jede Lektion, keine Werbung.",
+      "teamAdmin": "Sie leiten dieses Team und bezahlen für seine Sitze.",
+      "granted": "Pro wurde Ihnen von der Akademie gegeben."
+    },
+    "manage": "Karten, Rechnungen und Stornierung",
+    "notConfigured": "Zahlungen werden eingerichtet. Der Kauf wird geöffnet, sobald er fertig ist.",
+    "upgrade": "Upgrade",
+    "forMe": "Für mich",
+    "forTeam": "Für mein Team",
+    "haveCode": "Haben Sie einen Join-Code von Ihrem Team?",
+    "seats": "Sitze",
+    "seatsNote": "{used} im Gebrauch, {invited} eingeladen, {free} frei",
+    "changeSeats": "Sitze hinzufügen oder entfernen",
+    "invite": "Menschen einladen",
+    "invitePh": "E-Mails, getrennt durch Kommas oder neue Zeilen",
+    "sendInvites": "Einladungen senden",
+    "invited": "Eingeladen. Sie bekommen einen Platz, wenn sie sich mit dieser E-Mail anmelden.",
+    "copyLink": "Copy Join Link",
+    "allMembers": "Mitglieder und Domains"
   }
 }

@@ -27,7 +27,9 @@
     "companies": "Entreprises",
     "pro": "Prix",
     "visualiser": "Visualiseurs",
-    "team": "Mon organisation"
+    "team": "Mon organisation",
+    "billing": "Planification et facturation",
+    "course": "Le cours"
   },
   "home": {
     "modules": {
@@ -151,18 +153,146 @@
     "resourcesDesc": "Une liste des meilleurs Salesforce CRM Analytics ressources — documents officiels, Trailhead, SAQL références, communauté et outils."
   },
   "course": {
-    "nextLesson": "Suivant : {title}",
-    "markComplete": "Marquer comme terminé",
-    "completed": "Achevé",
-    "signInToTrack": "Connectez-vous pour suivre vos progrès.",
-    "signIn": "Connexion",
-    "courseProgress": "Progrès réalisés",
-    "contents": "Contenu du cours",
-    "contentsPct": "Sommaire {pct}%",
-    "showContents": "Afficher le contenu du cours",
-    "collapseContents": "Réduire le contenu du cours",
-    "sectionMeta": "{lessons} leçons {minutes}m",
-    "comingSoon": "Bientôt"
+    "seo": {
+      "title": "Apprendre Salesforce CRM Analytics: le cours gratuit",
+      "description": "Un cours gratuit et pratique Salesforce CRM Analytics: préparation des données, SAQL, tableaux de bord, fixations, Einstein Discovery et le déploiement, construit dans votre propre org."
+    },
+    "hero": {
+      "eyebrow": "Les CRM Analytics cours",
+      "title": "Construire réel CRM Analytics tableaux de bord, de zéro à prêt à travailler.",
+      "lead": "Cours vidéo courts, pratique construit dans votre propre org libre, un quiz après chaque leçon et les examens de pratique à la fin. Commencez gratuitement, dans votre langue.",
+      "note": "Pas besoin de carte. Les leçons gratuites restent gratuites."
+    },
+    "stats": {
+      "sections": "sections",
+      "lessons": "Enseignements",
+      "languages": "langues",
+      "cost": "pour commencer"
+    },
+    "cta": {
+      "start": "Commencez le cours gratuitement",
+      "continue": "Continuer à apprendre",
+      "curriculum": "Voir le programme complet"
+    },
+    "outcomes": {
+      "eyebrow": "Ce que vous pourrez faire",
+      "title": "Six compétences que les employeurs demandent CRM Analytics Rôles",
+      "prep": {
+        "title": "Préparer les données avec les recettes",
+        "body": "Joindre, filtrer, transformer et agréger Salesforce et des données externes dans des ensembles de données propres."
+      },
+      "saql": {
+        "title": "Écrire SAQL",
+        "body": "Charger, filtrer, grouper, cogrouper et projetr, et savoir ce que chaque ligne fait au flux."
+      },
+      "dash": {
+        "title": "Design tableaux de bord que les gens utilisent",
+        "body": "Graphiques, tableaux, filtres et mises en page qui répondent aux questions que les équipes de vente et de service posent réellement."
+      },
+      "bind": {
+        "title": "Faire des tableaux de bord interactifs",
+        "body": "Reliure et facette qui laissent un choix conduire tout le tableau de bord."
+      },
+      "discovery": {
+        "title": "Prévoir avec Einstein Discovery",
+        "body": "Construire un modèle, lire ses histoires et mettre des prédictions où les gens travaillent."
+      },
+      "deploy": {
+        "title": "Sécurisez et expédiez-le",
+        "body": "Sécurité au niveau de la ligne, partage de l'héritage et déplacement du travail entre les orgs."
+      }
+    },
+    "how": {
+      "eyebrow": "Comment ça marche",
+      "title": "Quatre étapes, chaque leçon",
+      "watch": {
+        "title": "Regardez",
+        "body": "Une courte vidéo ou un article explique une idée."
+      },
+      "build": {
+        "title": "Construire",
+        "body": "Vous le construisez vous-même dans un libre CRM Analytics org, sur les ensembles de données du cours."
+      },
+      "check": {
+        "title": "Vérifier",
+        "body": "Un quiz après la leçon vous dit ce qui est resté."
+      },
+      "prove": {
+        "title": "Prouvez",
+        "body": "Les examens de pratique chronométrés vous préparent pour la certification."
+      }
+    },
+    "path": {
+      "eyebrow": "Le chemin",
+      "title": "De votre premier jeu de données au déploiement",
+      "lead": "{open} des {total} les sections sont ouvertes maintenant; les autres arrivent section par section.",
+      "soon": "Bientôt",
+      "lessons": "{n} Enseignements"
+    },
+    "tools": {
+      "eyebrow": "Inclus",
+      "title": "Outils qui le font cliquer",
+      "open": "Ouvrir",
+      "visualiser": {
+        "title": "Visualiseurs",
+        "body": "Regardez SAQL, recettes et flux de données, ligne par ligne."
+      },
+      "exams": {
+        "title": "Examens pratiques",
+        "body": "Des papiers chronométrés comme la vraie certification."
+      },
+      "interview": {
+        "title": "Questions d'entretien",
+        "body": "De vraies questions avec des réponses modèles, par sujet."
+      },
+      "datasets": {
+        "title": "Ensembles de données de cours",
+        "body": "Vingt et un CSV à charger dans votre org en une seule commande."
+      }
+    },
+    "who": {
+      "eyebrow": "Pour qui c'est",
+      "title": "Fait pour les personnes qui travaillent avec Salesforce données",
+      "admin": {
+        "title": "Salesforce Administrateurs",
+        "body": "Ajoutez l'analyse à ce que vous exécutez déjà, et devenez la personne qui répond aux questions de données."
+      },
+      "analyst": {
+        "title": "Analystes",
+        "body": "Passer des feuilles de calcul et des rapports aux ensembles de données, SAQL et les tableaux de bord font confiance aux gens."
+      },
+      "consultant": {
+        "title": "Consultants",
+        "body": "Livraison CRM Analytics les projets avec des modèles qui tiennent en place dans les orgs réels."
+      },
+      "career": {
+        "title": "Changements de carrière",
+        "body": "Un chemin libre et structuré vers un spécialiste Salesforce compétence, avec la préparation d'entrevue."
+      }
+    },
+    "price": {
+      "eyebrow": "Prix",
+      "title": "Commencez gratuitement. Mettre à niveau quand ça en vaut la peine.",
+      "free": {
+        "name": "Gratuit",
+        "body": "Chaque leçon gratuite, quiz et outil, dans chaque langue, avec des annonces.",
+        "cta": "Démarrer gratuitement"
+      },
+      "pro": {
+        "name": "Pour",
+        "body": "Chaque leçon, y compris les leçons Pro, et pas de publicité. Mensuel ou annuel.",
+        "cta": "Obtenez Pro"
+      },
+      "team": {
+        "name": "Équipes",
+        "body": "Pro pour toute votre équipe. Vous achetez des sièges et les distribuez par courriel ou par code.",
+        "cta": "Acheter des sièges"
+      }
+    },
+    "final": {
+      "title": "Votre premier tableau de bord est une leçon.",
+      "lead": "Créez un compte gratuit et commencez par l'introduction. Ça prend une minute."
+    }
   },
   "dashboard": {
     "kicker": "Tableau de bord",
@@ -1670,6 +1800,13 @@
       "newCols": "{n} nouvelles colonnes",
       "more": "+ {n} plus",
       "groups": "{n} groupes"
+    },
+    "canvas": {
+      "newCol": "nouvelle colonne",
+      "hint": "glisser pour regarder autour, défiler pour zoomer",
+      "zoomIn": "Zoom dans",
+      "zoomOut": "Zoom arrière",
+      "recenter": "Suivez encore l'étape"
     }
   },
   "meter": {
@@ -1720,14 +1857,23 @@
     "topPages": "Haut de page",
     "noData": "Pas encore de données.",
     "f": {
-      "headline": "Entête",
-      "body": "Une dernière ligne (facultative)",
+      "headline": "Titre",
+      "body": "Désignation des marchandises",
       "cta": "Étiquette du bouton",
-      "logo": "Télécharger le logo",
+      "logo": "Logo",
       "changeLogo": "Modifier le logo",
       "bg": "Historique",
       "fg": "Texte",
-      "accent": "Bouton"
+      "accent": "Bouton",
+      "photo": "Photo",
+      "tagline": "Étiquette",
+      "price": "Prix ou offre",
+      "pricePh": "A partir de 49 USD par mois",
+      "url": "Lien",
+      "website": "Site Web affiché",
+      "layout": "Mise en page",
+      "radius": "Coins",
+      "font": "Police"
     },
     "status": {
       "requested": "Demande",
@@ -1750,6 +1896,64 @@
       "submitted": "En attente d'approbation",
       "approved": "Approuvé",
       "changes": "Modifications demandées"
-    }
+    },
+    "g": {
+      "content": "Contenu",
+      "style": "Style"
+    },
+    "o": {
+      "image": "Photo en haut",
+      "side": "Photo à côté",
+      "text": "Texte seulement",
+      "square": "Carré",
+      "rounded": "arrondi",
+      "pill": "Pill",
+      "sans": "Sans",
+      "serif": "Serif",
+      "mono": "Mono"
+    },
+    "fmt": {
+      "bar": "Barre supérieure, chaque page",
+      "card": "Fin de chaque leçon",
+      "tile": "À côté du contenu de la leçon",
+      "phone": "Barre supérieure sur un téléphone"
+    },
+    "missing": "Pour publier, ajouter : {fields}"
+  },
+  "account": {
+    "title": "Planification et facturation",
+    "lead": "Votre plan, votre équipe et vos paiements, en un seul endroit.",
+    "yourPlan": "Votre plan",
+    "plan": {
+      "free": "Gratuit",
+      "proMonthly": "Pro, mensuel",
+      "proYearly": "Pro, annuel",
+      "teamSeat": "Siège de l'équipe {team}",
+      "teamAdmin": "{team}",
+      "granted": "Pour"
+    },
+    "planNote": {
+      "free": "Chaque leçon et outil gratuit, avec des annonces.",
+      "proMonthly": "Chaque leçon, pas de pub.",
+      "proYearly": "Chaque leçon, pas de pub.",
+      "teamSeat": "Votre équipe paie pour votre place. Chaque leçon, pas de pub.",
+      "teamAdmin": "Vous dirigez cette équipe et payez ses sièges.",
+      "granted": "Pro vous a été donné par l'Académie."
+    },
+    "manage": "Cartes, factures et annulation",
+    "notConfigured": "Des paiements sont en cours de constitution. L'achat ouvrira une fois qu'ils seront prêts.",
+    "upgrade": "Mise à jour",
+    "forMe": "Pour moi",
+    "forTeam": "Pour mon équipe",
+    "haveCode": "Vous avez un code de votre équipe ?",
+    "seats": "Sièges",
+    "seatsNote": "{used} utilisés, {invited} invités, {free} gratuit",
+    "changeSeats": "Ajouter ou supprimer des sièges",
+    "invite": "Inviter les gens",
+    "invitePh": "Courriels séparés par des virgules ou de nouvelles lignes",
+    "sendInvites": "Envoyer des invitations",
+    "invited": "Invité. Ils ont un siège quand ils se connectent avec ce courriel.",
+    "copyLink": "Copier le lien de jointure",
+    "allMembers": "Membres et domaines"
   }
 }

@@ -27,7 +27,9 @@
     "companies": "Empresas",
     "pro": "Precios",
     "visualiser": "Visualisers",
-    "team": "Mi organización"
+    "team": "Mi organización",
+    "billing": "Plan y facturación",
+    "course": "El curso"
   },
   "home": {
     "modules": {
@@ -151,18 +153,146 @@
     "resourcesDesc": "Una lista curada de lo mejor Salesforce CRM Analytics recursos — documentos oficiales, Trailhead, SAQL referencias, comunidad e instrumentos."
   },
   "course": {
-    "nextLesson": "Siguiente: {title}",
-    "markComplete": "Marca como completo",
-    "completed": "Completado",
-    "signInToTrack": "Inicie sesión para seguir su progreso.",
-    "signIn": "Iniciar sesión",
-    "courseProgress": "Progresos realizados",
-    "contents": "Contenido del curso",
-    "contentsPct": "Contenido · {pct}%",
-    "showContents": "Mostrar contenido del curso",
-    "collapseContents": "Contenido del curso de colapso",
-    "sectionMeta": "{lessons} lecciones · {minutes}m",
-    "comingSoon": "Pronto."
+    "seo": {
+      "title": "Aprender Salesforce CRM Analytics: el curso gratis",
+      "description": "Un curso libre y práctico en Salesforce CRM Analytics: preparación de datos, SAQL, dashboards, bindings, Einstein Discovery y despliegue, construido en su propia org."
+    },
+    "hero": {
+      "eyebrow": "El CRM Analytics Claro.",
+      "title": "Construir real CRM Analytics dashboards, de cero a trabajo listo.",
+      "lead": "Clases de video cortas, manos a mano se construye en su propia org gratis, un examen después de cada lección y exámenes de práctica al final. Empieza libre, en tu idioma.",
+      "note": "No necesita tarjeta. Las clases gratis permanecen libres."
+    },
+    "stats": {
+      "sections": "secciones",
+      "lessons": "lecciones",
+      "languages": "idiomas",
+      "cost": "para empezar"
+    },
+    "cta": {
+      "start": "Iniciar el curso gratis",
+      "continue": "Seguir aprendiendo",
+      "curriculum": "Ver el currículo completo"
+    },
+    "outcomes": {
+      "eyebrow": "Lo que usted será capaz de hacer",
+      "title": "Seis habilidades que los empleadores piden CRM Analytics Funciones",
+      "prep": {
+        "title": "Preparar datos con recetas",
+        "body": "Únete, filtra, transforma y agrega Salesforce y datos externos en conjuntos de datos limpios."
+      },
+      "saql": {
+        "title": "Escriba SAQL",
+        "body": "Cargar, filtrar, grupo, cogrupo y proyecto, y saber lo que cada línea hace a la corriente."
+      },
+      "dash": {
+        "title": "Dibujos de diseño que usan las personas",
+        "body": "Gráficos, tablas, filtros y diseños que responden a las preguntas que hacen los equipos de ventas y servicios."
+      },
+      "bind": {
+        "title": "Hacer dashboards interactivo",
+        "body": "Encuadernaciones y caras que permiten una elección conducir todo el tablero."
+      },
+      "discovery": {
+        "title": "Predecir con Einstein Discovery",
+        "body": "Construir un modelo, leer sus historias y poner predicciones donde la gente trabaja."
+      },
+      "deploy": {
+        "title": "Asegure y envíelo",
+        "body": "Seguridad de nivel de fila, compartir la herencia y mover el trabajo entre orgs."
+      }
+    },
+    "how": {
+      "eyebrow": "Cómo funciona",
+      "title": "Cuatro pasos, cada lección",
+      "watch": {
+        "title": "Watch",
+        "body": "Un breve video o artículo explica una idea."
+      },
+      "build": {
+        "title": "Build",
+        "body": "Lo construyes tú mismo en un libre CRM Analytics org, en los conjuntos de datos del curso."
+      },
+      "check": {
+        "title": "Check",
+        "body": "Una prueba después de la lección te dice lo que se quedó."
+      },
+      "prove": {
+        "title": "Probar",
+        "body": "Los exámenes de práctica programados te preparan para la certificación."
+      }
+    },
+    "path": {
+      "eyebrow": "El camino",
+      "title": "Desde el primer conjunto de datos hasta el despliegue",
+      "lead": "{open} de {total} las secciones están abiertas ahora; el resto llegan sección por sección.",
+      "soon": "Pronto.",
+      "lessons": "{n} lecciones"
+    },
+    "tools": {
+      "eyebrow": "Incluido",
+      "title": "Herramientas que hacen clic",
+      "open": "Abierto",
+      "visualiser": {
+        "title": "Visualisers",
+        "body": "Watch SAQL, recetas y flujos de datos corren, fila por fila."
+      },
+      "exams": {
+        "title": "Examen de prácticas",
+        "body": "Documentos programados como la certificación real."
+      },
+      "interview": {
+        "title": "Preguntas de entrevista",
+        "body": "Preguntas reales con respuestas modelo, por tema."
+      },
+      "datasets": {
+        "title": "Conjuntos de datos del curso",
+        "body": "Veintiuno CSVs para cargar en su org en un comando."
+      }
+    },
+    "who": {
+      "eyebrow": "Para quién es",
+      "title": "Hecho para personas que trabajan con Salesforce datos",
+      "admin": {
+        "title": "Salesforce administradores",
+        "body": "Añadir análisis a lo que ya se ejecuta, y convertirse en la persona que responde a las preguntas de los datos."
+      },
+      "analyst": {
+        "title": "Analistas",
+        "body": "Mover de hojas de cálculo e informes a conjuntos de datos, SAQL y dashboards la gente confía."
+      },
+      "consultant": {
+        "title": "Consultores",
+        "body": "Entrega CRM Analytics proyectos con patrones que se mantienen en orgs reales."
+      },
+      "career": {
+        "title": "Cambios profesionales",
+        "body": "Un camino libre y estructurado a un especialista Salesforce habilidad, con la preparación de la entrevista."
+      }
+    },
+    "price": {
+      "eyebrow": "Precios",
+      "title": "Empieza libre. Actualizar cuando vale la pena.",
+      "free": {
+        "name": "Gratis",
+        "body": "Cada lección gratuita, cuestionario y herramienta, en cada idioma, con anuncios.",
+        "cta": "Empieza gratis"
+      },
+      "pro": {
+        "name": "Pro",
+        "body": "Cada lección incluyendo los Pro, y sin anuncios. Mensual o anual.",
+        "cta": "Get Pro"
+      },
+      "team": {
+        "name": "Equipos",
+        "body": "Pro para todo tu equipo. Compras asientos y los entregas por correo electrónico o código.",
+        "cta": "Comprar asientos"
+      }
+    },
+    "final": {
+      "title": "Tu primer tablero es una lección.",
+      "lead": "Crear una cuenta gratuita y comenzar con la introducción. Toma un minuto."
+    }
   },
   "dashboard": {
     "kicker": "Dashboard",
@@ -1670,6 +1800,13 @@
       "newCols": "{n} nuevas columnas",
       "more": "+ {n} más",
       "groups": "{n} grupos"
+    },
+    "canvas": {
+      "newCol": "nueva columna",
+      "hint": "arrastrar a mirar alrededor, desplazarse para ampliar",
+      "zoomIn": "Zoom en",
+      "zoomOut": "Fuera.",
+      "recenter": "Seguir el paso de nuevo"
     }
   },
   "meter": {
@@ -1721,13 +1858,22 @@
     "noData": "Aún no hay datos.",
     "f": {
       "headline": "Título",
-      "body": "Una línea más (opcional)",
+      "body": "Descripción",
       "cta": "Etiquetas de botón",
-      "logo": "Descargar logo",
+      "logo": "Logotipos",
       "changeLogo": "Cambio de imagen",
       "bg": "Antecedentes",
       "fg": "Texto",
-      "accent": "Button"
+      "accent": "Button",
+      "photo": "Foto",
+      "tagline": "Tagline",
+      "price": "Precio o oferta",
+      "pricePh": "Desde 49 USD al mes",
+      "url": "Enlace",
+      "website": "Sitio web mostrado",
+      "layout": "A ti",
+      "radius": "Corners",
+      "font": "Fuente"
     },
     "status": {
       "requested": "Solicitudes",
@@ -1750,6 +1896,64 @@
       "submitted": "Esperando aprobación",
       "approved": "Aprobado",
       "changes": "Cambios solicitados"
-    }
+    },
+    "g": {
+      "content": "Índice",
+      "style": "Estilo"
+    },
+    "o": {
+      "image": "Foto arriba",
+      "side": "Foto al lado",
+      "text": "Texto sólo",
+      "square": "Plaza",
+      "rounded": "Redonda",
+      "pill": "Pill",
+      "sans": "Sans",
+      "serif": "Serif",
+      "mono": "Mono"
+    },
+    "fmt": {
+      "bar": "Top bar, cada página",
+      "card": "Fin de cada lección",
+      "tile": "Aparte del contenido de la lección",
+      "phone": "Top bar en un teléfono"
+    },
+    "missing": "Para publicar, añadir: {fields}"
+  },
+  "account": {
+    "title": "Plan y facturación",
+    "lead": "Tu plan, tu equipo y tus pagos, en un lugar.",
+    "yourPlan": "Tu plan",
+    "plan": {
+      "free": "Gratis",
+      "proMonthly": "Pro, mensual",
+      "proYearly": "Pro, anual",
+      "teamSeat": "Asiento de equipo en {team}",
+      "teamAdmin": "{team}",
+      "granted": "Pro"
+    },
+    "planNote": {
+      "free": "Cada lección y herramienta gratis, con anuncios.",
+      "proMonthly": "Cada lección, sin anuncios.",
+      "proYearly": "Cada lección, sin anuncios.",
+      "teamSeat": "Tu equipo paga tu asiento. Cada lección, sin anuncios.",
+      "teamAdmin": "Tú diriges este equipo y pagas sus asientos.",
+      "granted": "Pro te fue dado por la Academia."
+    },
+    "manage": "Tarjetas, facturas y cancelación",
+    "notConfigured": "Se están estableciendo pagos. La compra se abrirá una vez estén listos.",
+    "upgrade": "Actualización",
+    "forMe": "Para mí",
+    "forTeam": "Para mi equipo",
+    "haveCode": "¿Tienes un código de unión de tu equipo?",
+    "seats": "Asientos",
+    "seatsNote": "{used} en uso, {invited} invitado, {free} gratis",
+    "changeSeats": "Agregar o quitar asientos",
+    "invite": "Invitar a la gente",
+    "invitePh": "Correos electrónicos, separados por comas o nuevas líneas",
+    "sendInvites": "Enviar invitaciones",
+    "invited": "Invitado. Se sientan cuando se firman con ese correo electrónico.",
+    "copyLink": "Copiar enlace para unir",
+    "allMembers": "Miembros y dominios"
   }
 }
