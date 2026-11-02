@@ -9,16 +9,15 @@
  * Prerendered; everything runs in the browser on the sample data
  * (app/utils/vis).
  */
-import type { Cmp, Row } from '~/utils/vis/data'
-import type { CanvasGroup, CanvasNode } from '~/components/vis/Canvas.vue'
-import { DATASETS, columnsOf } from '~/utils/vis/data'
+import { type Cmp, type Row, DATASETS, columnsOf, fmt } from '~/utils/vis/data'
+import type { CanvasGroup, CanvasNode, Check } from '~/components/vis/Canvas.vue'
 import { type Gen, type GenAgg, type Join, type SaqlStep, type View, SAQL_PRESETS, runSaql, saqlLines } from '~/utils/vis/saql'
 
 definePageMeta({ focus: true })
 
 const { t } = useI18n()
 
-const presetId = ref('pipelineByStage')
+const presetId = ref(SAQL_PRESETS[0]!.id)
 const steps = ref<SaqlStep[]>(structuredClone(SAQL_PRESETS[0]!.steps))
 const step = ref(0)
 function usePreset(id: string) {
@@ -63,6 +62,37 @@ const canvas = computed<CanvasNode[]>(() => snapshots.value.flatMap((sn, i) => {
   if (!side || s.op !== 'cogroup') return [node]
   return [{ id: side, name: s.with, label: 'load', detail: t('vis.rowsIn', { n: DATASETS[s.with]?.rows.length ?? 0 }), icon: 'i-lucide-database', kind: 'source', inputs: [], order: i + 0.5, rows: DATASETS[s.with]?.rows ?? [] }, node]
 }))
+/* Row by row, for the inspector: what this statement does to each row or group. */
+const label = (r: Row) => String(r.Name ?? r.Id ?? r.__id ?? '—')
+const checks = computed<Check[]>(() => {
+  const sn = snap.value
+  const s = steps.value[sn?.line ?? 0]
+  if (!sn || !s || sn.error) return []
+  const prev = snapshots.value[step.value - 1]?.view
+  if (s.op === 'filter' && sn.before?.kind === 'rows') {
+    const m = sn.before.marks ?? {}
+    const test = `${s.cmp} ${s.value}`
+    return sn.before.rows.map(r => ({ id: String(r.__id), label: label(r), test: `${s.field} = ${fmt(r[s.field] ?? null)}`, ok: m[String(r.__id)] !== 'dropped', note: m[String(r.__id)] !== 'dropped' ? t('vis.check.kept', { test }) : t('vis.check.dropped', { test }) }))
+  }
+  if (s.op === 'limit' && sn.before?.kind === 'rows') {
+    return sn.before.rows.map((r, i) => ({ id: String(r.__id), label: label(r), test: t('vis.check.position', { n: i + 1 }), ok: i < s.n, note: i < s.n ? t('vis.check.inLimit', { n: s.n }) : t('vis.check.pastLimit', { n: s.n }) }))
+  }
+  if (s.op === 'group' && prev?.kind === 'rows') {
+    return prev.rows.slice(0, 8).map(r => ({ id: String(r.__id), label: label(r), test: s.by.map(b => `${b} = ${fmt(r[b] ?? null)}`).join(', ') || t('vis.check.allRows'), ok: true, note: t('vis.check.group', { key: s.by.map(b => fmt(r[b] ?? null)).join(' · ') || t('vis.check.allRows') }) }))
+  }
+  if (s.op === 'foreach' && prev && prev.kind !== 'rows' && sn.view.kind === 'rows') {
+    const out = sn.view.rows
+    return prev.groups.slice(0, 8).map((g, i) => ({ label: g.key, test: s.gen.map(x => (x.agg ? `${x.agg}(${x.field})` : x.field)).join(', '), ok: true, note: s.gen.map(x => `${x.as} = ${fmt(out[i]?.[x.as] ?? null)}`).join(' · ') }))
+  }
+  if (s.op === 'cogroup' && sn.before?.kind === 'pairs') {
+    return sn.before.groups.map(g => ({ label: g.key, test: `a ${g.a.length} · b ${g.b.length}`, ok: g.kept, note: g.kept ? t('vis.check.keyKept') : t('vis.check.keyDropped', { join: s.join }) }))
+  }
+  if (s.op === 'order' && sn.view.kind === 'rows') {
+    return sn.view.rows.slice(0, 8).map((r, i) => ({ id: String(r.__id), label: label(r), test: `${s.field} = ${fmt(r[s.field] ?? null)}`, ok: true, note: t('vis.check.position', { n: i + 1 }) }))
+  }
+  return []
+})
+
 const marks = computed(() => (snap.value?.before?.kind === 'rows' ? snap.value.before.marks : undefined))
 const focus = computed<string[]>(() => {
   const s = steps.value[snap.value?.line ?? 0]
@@ -248,6 +278,7 @@ usePageSchema(() => ({
         :marks="marks"
         :new-cols="snap.view.kind === 'rows' ? snap.view.newCols : undefined"
         :focus="focus"
+        :checks="checks"
         @select="id => (step = Number(id.slice(1)))"
       />
     </template>

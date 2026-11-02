@@ -1615,7 +1615,8 @@
         "cogroupAccounts": "Cogrupo con cuentas",
         "cogroupLeft": "Cogrupo externo completo",
         "topN": "Principales 3 ofertas",
-        "mistake": "Un error común"
+        "mistake": "Un error común",
+        "fullPipeline": "Cada declaración"
       },
       "explain": {
         "load": "Carga el conjunto de datos {name}: {n} filas, {cols} campos. Nada es filtrado o agrupado todavía — cada línea posterior funciona en este flujo.",
@@ -1806,7 +1807,167 @@
       "hint": "arrastrar a mirar alrededor, desplazarse para ampliar",
       "zoomIn": "Zoom en",
       "zoomOut": "Fuera.",
-      "recenter": "Seguir el paso de nuevo"
+      "recenter": "Seguir el paso de nuevo",
+      "rowByRow": "Rema por fila"
+    },
+    "check": {
+      "kept": "guardado: pasa {test}",
+      "dropped": "caído: necesita {test}",
+      "match": "un partido: la fila derecha se une a",
+      "fanout": "{n} fósforos: la fila se repite, una vez por partido",
+      "multi": "varios partidos: mantenido como lista",
+      "noMatchKept": "sin partido: mantenido, lado derecho vacío",
+      "noMatchDropped": "no partido: caído",
+      "partition": "partición",
+      "allRows": "todas las filas",
+      "group": "va al grupo {key}",
+      "position": "posición {n}",
+      "inLimit": "guardado: dentro del primero {n}",
+      "pastLimit": "caído: pasado el primero {n}",
+      "keyKept": "mantenido: ambos lados tienen esta llave",
+      "keyDropped": "caído por el {join} cogroup"
+    },
+    "functions": {
+      "title": "Función de laboratorio",
+      "card": "Elija cualquier función de fórmula de receta, apunte a una columna y observe que corre fila por fila. Pruebe sus propios valores, vea ventanas y particiones.",
+      "seoTitle": "CRM Analytics funciones de fórmula, fila por fila: to date, año, concat, rango y más",
+      "seoDesc": "Un laboratorio interactivo CRM Analytics Data Prep funciones de fórmula: fechas, texto, números, lógica y funciones de ventana con particiones, ejecutar fila por fila en datos reales.",
+      "formula": "La fórmula, como está escrita en una transformación",
+      "column": "Columna",
+      "argument": "Argumento",
+      "tryValue": "Prueba tu propio valor",
+      "rowHead": "Fila",
+      "all": "Cada función",
+      "row": "{name}: lecturas {field} = {input} y escribe {output}.",
+      "windowNote": "Una función de ventana lee otras filas también. Las filas con el mismo valor de partición comparten un color; las filas iluminadas son las que la fila actual puede ver."
+    },
+    "joins": {
+      "title": "Se une a visualiser",
+      "card": "Una unión, una fila a la vez: líneas a cada partido, lo que cada tipo de unión mantiene, fan-out, y las filas nada coinciden.",
+      "seoTitle": "CRM Analytics la receta se une, visualizado: mirador, izquierda, derecha, interior y exterior",
+      "seoDesc": "Mira a CRM Analytics receta únete a correr fila por fila: llaves de juego, filas sin igual, fan-out y qué aspecto, izquierda, derecha, interior y exterior se unen.",
+      "about": "Acerca de las uniones",
+      "flip": "Flip lados",
+      "left": "Izquierda",
+      "right": "Bien.",
+      "output": "Producto",
+      "rowsOut": "{n} filas fuera",
+      "empty": "Nada todavía: paso por las filas izquierdas.",
+      "what": {
+        "lookup": "Lookup: cada fila izquierda una vez, con su primer partido o vacío.",
+        "left": "Izquierda: cada fila izquierda, repetida una vez por partido, vacía cuando ninguna.",
+        "right": "Derecha: cada fila derecha, con sus fósforos; las filas izquierdas sin fósforos se bajan.",
+        "inner": "Interior: sólo filas que coinciden en ambos lados.",
+        "outer": "Exterior: todo de ambos lados, igualado donde puede ser."
+      },
+      "fate": {
+        "joined": "{row}: {key} = {value} encuentra un partido, así que la fila se une.",
+        "fanout": "{row}: {key} = {value} hallazgos {n} fósforos, así que la fila aparece {n} veces.",
+        "lookupFirst": "{row}: {key} = {value} hallazgos {n} fósforos; la búsqueda toma sólo el primero.",
+        "leftOnly": "{row}: {key} = {value} no encuentra coincidencia; la fila se mantiene con un lado derecho vacío.",
+        "dropped": "{row}: {key} = {value} no encuentra coincidencia, así que esta unión lo deja caer."
+      },
+      "rightKept": "{n} {side} las filas no coinciden con nada; esta unión las mantiene con un lado izquierdo vacío.",
+      "rightDropped": "{n} {side} Las filas no coinciden con nada y se quedan fuera. {total} filas en la salida.",
+      "kind": {
+        "joined": "unidos",
+        "fanout": "repetido (fan-out)",
+        "leftOnly": "izquierda sólo",
+        "rightOnly": "derecho sólo"
+      }
+    },
+    "bindings": {
+      "title": "Bindings visualiser",
+      "card": "Haga clic en un gráfico y siga la selección en otra consulta: columna(), cell(), asObject, asString, asEquality, and the SAQL escriben.",
+      "seoTitle": "CRM Analytics fijaciones, visualizadas: selección y fijación de resultados paso a paso",
+      "seoDesc": "Mira cómo CRM Analytics dashboard binding works: a selection or result, column() or cell(), asObject, asString or asEquality, and the SAQL reescribe.",
+      "about": "Acerca de vinculantes",
+      "chart": "Pipeline por etapa",
+      "chain": "La obligación, la resolución",
+      "table": "Tratos",
+      "multi": "Multi-select",
+      "clickHint": "Haga clic en una barra para seleccionarla.",
+      "resultHint": "Un resultado vinculante lee todo el resultado: aquí, la primera fila.",
+      "kind": {
+        "selection": "Selección vinculante",
+        "result": "Limitación de resultados"
+      },
+      "stage": {
+        "source": "Fuente",
+        "data": "Obtener los datos",
+        "serialise": "Serialise",
+        "inject": "Inyecte la consulta",
+        "run": "Corre la consulta"
+      },
+      "say": {
+        "source": "La unión comienza desde la etapa 1.{kind}: las filas detrás {values}.",
+        "data": "columna() saca los valores de StageName de esas filas (cell() tomaría un valor).",
+        "serialise": ".{ser}() convierte los valores en texto SAQL puede leer.",
+        "inject": "El {mustache} en q deals es reemplazado por ese texto antes de enviar la consulta.",
+        "run": "q deals funciona de nuevo con el nuevo filtro: {n} filas."
+      },
+      "brokenNote": "asString se une a varios valores en una cuerda que ninguna fila iguala, así que nada vuelve. Use comoObjeto o calidad asE para múltiples valores.",
+      "notes": {
+        "what": {
+          "title": "Qué vinculante es",
+          "body": "Una unión es una {mustache} expresión dentro de una consulta o una propiedad widget. Antes de que la consulta funcione, el dashboard lo reemplaza con texto tomado de otro paso."
+        },
+        "selection": {
+          "title": "Selección vinculante",
+          "body": "Lee lo que el usuario ha seleccionado en otro paso. Cambia cada vez que hacen clic."
+        },
+        "result": {
+          "title": "Limitación de resultados",
+          "body": "Lee el resultado de otro paso, por ejemplo su primera fila, si se selecciona o no algo."
+        },
+        "asObject": {
+          "title": "comoObjeto()",
+          "body": "Escribe los valores como SAQL literales: una lista de la columna(), un valor de la célula()."
+        },
+        "asString": {
+          "title": "asString()",
+          "body": "Escribe texto sencillo sin citas. Bien por un valor dentro de una cadena que se construye; mal por varios valores."
+        },
+        "asEquality": {
+          "title": "asEquality(field)",
+          "body": "Escribe toda una condición, campo == valor o campo en [valores], listo para un filtro."
+        },
+        "faceting": {
+          "title": "¿Encuadernaciones o caras?",
+          "body": "Filtros faciales cada paso en el mismo conjunto de datos sin código. Los enlaces son para otros conjuntos de datos, o para cambiar medidas, agrupaciones y propiedades."
+        }
+      }
+    },
+    "fn": {
+      "year": "Toma el año fuera de una cita.",
+      "quarter": "Da el cuarto del año, 1 a 4.",
+      "month": "Da el número de mes, 1 a 12.",
+      "day": "Da el día del mes.",
+      "day_of_week": "Da el día de la semana, 1 (domingo) a 7 (Sábado).",
+      "week": "Da la semana ISO del año.",
+      "date_trunc_month": "Mueva una fecha de regreso al primer día de su mes, así que fechas grupo por mes.",
+      "add_months": "Añade una serie de meses a una fecha, para las renovaciones y las fechas debidas.",
+      "date_diff_days": "Cuenta los días entre dos fechas.",
+      "days_until_today": "Cuenta los días de una fecha a hoy: cuán viejo es un registro.",
+      "last_day": "Da el último día del mes de la fecha.",
+      "to_date": "Convierte el texto en un formato conocido en una fecha real, por lo que las funciones de fecha y los filtros de fecha funcionan en él.",
+      "upper": "convierte el texto en capitales.",
+      "lower": "Convierte el texto en letras pequeñas.",
+      "concat": "Une textos juntos en uno.",
+      "substr": "Forma parte de un texto, por posición y longitud.",
+      "length": "Cuenta los personajes en un texto.",
+      "replace": "Reemplaza cada partido de un texto con otro.",
+      "round": "Redondea un número; una posición negativa ronda a decenas, cientos o miles.",
+      "multiply": "Multiplica un número, para impuestos, moneda o margen.",
+      "abs": "Elimina la señal de un número.",
+      "coalesce": "Da el primer valor que no es nulo: un defecto para los valores perdidos.",
+      "bucket": "Ordenar valores en rangos nombrados con caso de cuándo.",
+      "case_won": "Convierte una condición en 1 o 0, por lo que se puede resumir.",
+      "is_null": "Cuenta los valores perdidos aparte de los actuales.",
+      "running_total": "Añade una fila de columna después de fila, en orden, reiniciando para cada partición.",
+      "rank": "Números filas por un valor dentro de su partición: 1 es el más alto.",
+      "lag": "Lee el valor de la fila anterior en la partición.",
+      "share_of_partition": "Da la parte de cada fila del total de su partición, en porcentaje."
     }
   },
   "meter": {

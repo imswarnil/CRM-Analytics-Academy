@@ -24,6 +24,16 @@ export interface CanvasGroup {
   b?: Row[]
   dropped?: boolean
 }
+export interface Check {
+  id?: string
+  /** The row, by name. */
+  label: string
+  /** What was evaluated: "StageName = Closed Lost", "year(CloseDate) → 2026". */
+  test: string
+  ok: boolean
+  /** The outcome in words: "kept", "dropped: needs != Closed Lost", "2 matches". */
+  note?: string
+}
 export interface CanvasNode {
   id: string
   /** The node's own name (recipe node id, dataflow node, dataset). */
@@ -49,7 +59,15 @@ const props = withDefaults(defineProps<{
   newCols?: string[]
   dropCols?: string[]
   focus?: string[]
-}>(), { focus: () => [] })
+  /**
+   * The node's work, one row at a time, shown while it runs: what it read
+   * from the row, the test or formula, and the outcome. `id` lights that row
+   * in the input table.
+   */
+  checks?: Check[]
+  /** A window's partition column: rows are striped by its value. */
+  partition?: string
+}>(), { focus: () => [], checks: () => [], partition: '' })
 const emit = defineEmits<{ select: [id: string] }>()
 const { t } = useI18n()
 
@@ -59,7 +77,9 @@ const TW = 330
 const GAP = 18
 const COLW = 450
 const ROWH = 370
-const ROWS = 5
+const ROWS = 4
+const CHECK_MS = 430
+const CHECKS_SHOWN = 8
 const COLS = 4
 const TITLE = ['Name', 'Account', 'StageName', 'Region', 'AccountId', 'Id']
 const KIND: Record<string, string> = {
@@ -157,7 +177,13 @@ function runPackets(start: number) {
 }
 
 const droppedRows = computed(() => inputIds.value.flatMap(i => node(i)?.rows ?? []).filter(r => props.marks?.[String(r.__id)] === 'dropped'))
-const PROCESS_MS = computed(() => 1300 + (droppedRows.value.length || dropped.value.length ? 500 : 0))
+const checks = computed(() => props.checks.slice(0, CHECKS_SHOWN))
+const PROCESS_MS = computed(() => Math.max(1300 + (droppedRows.value.length || dropped.value.length ? 500 : 0), checks.value.length * CHECK_MS + 500))
+/* Row-wise: which check the node is on, and the input row it lights. */
+const checkAt = ref(-1)
+const nowRow = computed(() => (phase.value === 'process' ? checks.value[checkAt.value]?.id ?? '' : ''))
+// The player waits for this (VisPlayer reads it) so long steps are never cut.
+const busyUntil = useState('vis-busy-until', () => 0)
 
 function play() {
   stop()
@@ -165,11 +191,14 @@ function play() {
   if (import.meta.server || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     phase.value = 'out'
     processed.value = inCount.value
+    if (import.meta.client) busyUntil.value = 0
     return
   }
   phase.value = 'move'
   processed.value = 0
+  checkAt.value = -1
   const MOVE = 1000
+  busyUntil.value = performance.now() + MOVE + flowMs.value + PROCESS_MS.value + 2600
   timers.push(setTimeout(() => {
     phase.value = 'flow'
     nextTick(() => runPackets(performance.now()))
@@ -182,6 +211,8 @@ function play() {
       const k = Math.min(1, (now - start) / (PROCESS_MS.value - 200))
       const n = Math.round(k * inCount.value)
       if (n !== processed.value) processed.value = n
+      const c = Math.min(checks.value.length - 1, Math.floor((now - start) / CHECK_MS))
+      if (c !== checkAt.value) checkAt.value = c
       if (k < 1) raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
@@ -216,6 +247,20 @@ function colsOf(n: CanvasNode) {
   return order.slice(0, Math.max(COLS, Math.min(wanted.length + 1, 6)))
 }
 const markOf = (r: Row) => props.marks?.[String(r.__id)] ?? ''
+const PART = ['#60a5fa', '#f472b6', '#fbbf24', '#34d399', '#a78bfa', '#fb923c', '#22d3ee']
+const partColour = computed(() => {
+  const key = props.partition
+  const map = new Map<string, string>()
+  if (!key) return map
+  for (const n of props.nodes) {
+    for (const r of n.rows ?? []) {
+      const v = String(r[key] ?? 'null')
+      if (!map.has(v)) map.set(v, PART[map.size % PART.length]!)
+    }
+  }
+  return map
+})
+const stripe = (r: Row) => (props.partition && props.partition in r ? partColour.value.get(String(r[props.partition] ?? 'null')) : undefined)
 const titleOf = (r: Row) => {
   const k = TITLE.find(c => r[c] !== undefined && r[c] !== null) ?? Object.keys(r).find(c => !c.startsWith('__'))
   return k ? fmt(r[k] ?? null) : '—'
@@ -247,7 +292,8 @@ const auto = computed(() => {
     // Inputs are framed by their card plus the top of their table, so far-apart
     // inputs do not push the camera out to a speck.
     const table = n && (id !== props.active ? showTable(n) && inputIds.value.length < 2 : out && !n.error)
-    return { x0: p.x, y0: p.y - 40, x1: p.x + (table ? TW : W), y1: p.y + H + (table ? GAP + tableH(n) : 30) }
+    const inspect = id === props.active && !out && checks.value.length > 0
+    return { x0: p.x, y0: p.y - 40, x1: p.x + (table || inspect ? TW : W), y1: p.y + H + (table ? GAP + tableH(n) : inspect ? GAP + 60 + Math.min(checks.value.length, 5) * 34 : 30) }
   })
   const x0 = Math.min(...boxes.map(b => b.x0))
   const y0 = Math.min(...boxes.map(b => b.y0))
@@ -471,6 +517,46 @@ const badges = computed(() => {
           >{{ b.text }}</span>
         </div>
 
+        <!-- Row by row: what the node does to each row, while it runs -->
+        <div
+          v-if="stateOf(n) === 'active' && (phase === 'process' || phase === 'flow') && checks.length"
+          class="cv-inspect absolute overflow-hidden"
+          :style="{ top: `${H + GAP}px`, width: `${TW}px` }"
+        >
+          <p class="cv-table__head flex items-center gap-2">
+            <UIcon
+              name="i-lucide-scan-line"
+              class="size-3.5"
+            />{{ t('vis.canvas.rowByRow') }}
+            <span class="ms-auto tabular-nums">{{ Math.max(0, checkAt + 1) }} / {{ props.checks.length }}</span>
+          </p>
+          <TransitionGroup
+            tag="ul"
+            name="cv-check"
+          >
+            <li
+              v-for="(c, ci) in checks.slice(Math.max(0, checkAt - 4), Math.max(0, checkAt) + 1)"
+              :key="`${c.id ?? ci}-${c.label}`"
+              class="cv-check flex items-start gap-2 px-3 py-1.5"
+              :class="c === checks[checkAt] ? 'cv-check--now' : 'opacity-60'"
+            >
+              <span
+                class="mt-[3px] flex size-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
+                :class="c.ok ? 'bg-[#34d399] text-[#052e1f]' : 'bg-[#fb7185] text-[#1a0b10]'"
+              >{{ c.ok ? '✓' : '✕' }}</span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate text-[12.5px] font-semibold text-[#e6ecff]">{{ c.label }}</span>
+                <span class="block truncate font-mono text-[11px] text-[#b6c2e2]">{{ c.test }}</span>
+                <span
+                  v-if="c.note"
+                  class="block truncate text-[11px]"
+                  :class="c.ok ? 'text-[#6ee7b7]' : 'text-[#fda4af]'"
+                >{{ c.note }}</span>
+              </span>
+            </li>
+          </TransitionGroup>
+        </div>
+
         <!-- The node's rows -->
         <div
           v-if="showTable(n)"
@@ -531,11 +617,12 @@ const badges = computed(() => {
                 :key="String(r.__id ?? i)"
                 class="cv-row"
                 :class="[
+                  inputIds.includes(n.id) && nowRow && nowRow === String(r.__id) ? 'cv-row--now' : '',
                   inputIds.includes(n.id) && at('process') && markOf(r) === 'dropped' ? 'cv-row--dropped' : '',
                   inputIds.includes(n.id) && at('process') && markOf(r) === 'unmatched' ? 'cv-row--warn' : '',
                   inputIds.includes(n.id) && at('process') && (markOf(r) === 'fanout' || markOf(r) === 'multi') ? 'cv-row--multi' : ''
                 ]"
-                :style="{ '--i': i }"
+                :style="{ '--i': i, 'boxShadow': stripe(r) ? `inset 3px 0 0 ${stripe(r)}` : undefined }"
               >
                 <td
                   v-for="c in colsOf(n)"
@@ -723,6 +810,19 @@ const badges = computed(() => {
 }
 .cv-row { font-size: 12.5px; color: #cbd5e1; border-bottom: 1px solid #18213a; transition: background 0.3s, color 0.3s; }
 .cv-row:last-child { border-bottom: 0; }
+.cv-row--now { background: color-mix(in srgb, var(--c) 22%, transparent); outline: 1px solid var(--c); outline-offset: -1px; }
+.cv-inspect {
+  border-radius: 14px;
+  background: #0f1628;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, #222d47);
+  box-shadow: 0 16px 40px -18px rgb(0 0 0 / 0.8);
+  animation: unfold 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+}
+.cv-check { border-bottom: 1px solid #18213a; transition: opacity 0.3s; }
+.cv-check--now { background: color-mix(in srgb, var(--c) 12%, transparent); }
+.cv-check-enter-active { transition: opacity 0.25s, transform 0.25s; }
+.cv-check-enter-from { opacity: 0; transform: translateY(8px); }
+.cv-check-leave-active { display: none; }
 .cv-row--dropped { background: rgb(251 113 133 / 0.14); color: #fda4af; text-decoration: line-through; }
 .cv-row--warn { background: rgb(251 191 36 / 0.12); }
 .cv-row--multi { background: rgb(167 139 250 / 0.14); }

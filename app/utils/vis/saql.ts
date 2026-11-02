@@ -250,6 +250,19 @@ export function runSaql(steps: SaqlStep[]): Snapshot[] {
 /** Ready-made queries, each showing one idea. */
 export const SAQL_PRESETS: { id: string, steps: SaqlStep[] }[] = [
   {
+    // Every statement in one query, in the order SAQL runs them.
+    id: 'fullPipeline',
+    steps: [
+      { op: 'load', dataset: 'opportunities' },
+      { op: 'filter', field: 'StageName', cmp: '!=', value: 'Closed Lost' },
+      { op: 'group', by: ['AccountId'] },
+      { op: 'foreach', gen: [{ field: 'AccountId', as: 'AccountId' }, { field: 'Id', agg: 'count', as: 'deals' }, { field: 'Amount', agg: 'sum', as: 'pipeline' }] },
+      { op: 'filter', field: 'deals', cmp: '>=', value: '2' },
+      { op: 'order', field: 'pipeline', dir: 'desc' },
+      { op: 'limit', n: 2 }
+    ]
+  },
+  {
     id: 'pipelineByStage',
     steps: [
       { op: 'load', dataset: 'opportunities' },

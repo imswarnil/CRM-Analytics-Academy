@@ -1615,7 +1615,8 @@
         "cogroupAccounts": "有账户的组合",
         "cogroupLeft": "完整的外侧组合",
         "topN": "前3个交易",
-        "mistake": "一个常见的错误"
+        "mistake": "一个常见的错误",
+        "fullPipeline": "每个声明"
       },
       "explain": {
         "load": "装入数据集 {name}数字 : {n} 排队 {cols} 字段。 没有任何东西被过滤或分组——每一个后来的线路都在这个溪流上工作.",
@@ -1806,7 +1807,167 @@
       "hint": "拖曳到四周, 滚动到缩放",
       "zoomIn": "缩放",
       "zoomOut": "缩小",
-      "recenter": "再来一步"
+      "recenter": "再来一步",
+      "rowByRow": "逐行排列"
+    },
+    "check": {
+      "kept": "保存:通过 {test}",
+      "dropped": "丢弃:需要 {test}",
+      "match": "一对:右行加入",
+      "fanout": "{n} 匹配: 重复行, 每次匹配一次",
+      "multi": "多个匹配: 保留为列表",
+      "noMatchKept": "无匹配: 保留, 右侧为空",
+      "noMatchDropped": "无匹配: 已丢弃",
+      "partition": "分区",
+      "allRows": "所有行",
+      "group": "转到组 {key}",
+      "position": "职位 {n}",
+      "inLimit": "保存: 在第一个 {n}",
+      "pastLimit": "已删除: 超过第一个 {n}",
+      "keyKept": "保存: 双方都有此密钥",
+      "keyDropped": "掉下来的 {join} 组合"
+    },
+    "functions": {
+      "title": "函数实验室",
+      "card": "选择任意的食谱公式函数,将其指向一列并逐行观察. 尝试自己的值, 查看窗口和分区 。",
+      "seoTitle": "CRM Analytics 公式函数, 逐行: 到  日期、 年份、 集合、 级别及更多",
+      "seoDesc": "一个交互式实验室 CRM Analytics Data Prep 公式函数:日期、文本、数字、逻辑和带有分区的窗口函数,在真实数据上逐行运行。",
+      "formula": "变换时的公式",
+      "column": "栏",
+      "argument": "参数",
+      "tryValue": "试试你自己的值",
+      "rowHead": "线条",
+      "all": "每一个函数",
+      "row": "{name}: 读 {field} = {input} 写作 {output}。 。 。",
+      "windowNote": "窗口函数也读取其他行 。 具有相同分区值的行共享一个颜色;点亮的行是当前行可以看到的行."
+    },
+    "joins": {
+      "title": "加入可视化器",
+      "card": "一个加入,一个一行:每对匹配的线条,每个加入类型所保持的,扇形的,行无匹配.",
+      "seoTitle": "CRM Analytics 食谱加入,可视化:仰视,左,右,内和外",
+      "seoDesc": "当心 CRM Analytics 食谱逐行加入:匹配密钥,未匹配的行,扇形出局以及什么看,左,右,内和外结合保持.",
+      "about": "关于加入",
+      "flip": "翻转侧面",
+      "left": "左边",
+      "right": "对",
+      "output": "产出",
+      "rowsOut": "{n} 逐行删除",
+      "empty": "还没有,走进左排",
+      "what": {
+        "lookup": "查看:每左行一次,第一对或空.",
+        "left": "左:每左行,每对比赛重复一次,无时空.",
+        "right": "右:每右行,与其对齐;左行无对齐,则弃之.",
+        "inner": "内饰:只有两侧对齐的行.",
+        "outer": "外方:两边的一切,相配之处."
+      },
+      "fate": {
+        "joined": "{row}数字 : {key} = {value} 找到一个匹配的,所以行加入。",
+        "fanout": "{row}数字 : {key} = {value} 发现 {n} 匹配,所以该行出现 {n} 时间。",
+        "lookupFirst": "{row}数字 : {key} = {value} 发现 {n} 匹配; 查找仅需要第一个。",
+        "leftOnly": "{row}数字 : {key} = {value} 找不到匹配; 右侧为空 。",
+        "dropped": "{row}数字 : {key} = {value} 找不到匹配的, 所以这个加起来就掉了."
+      },
+      "rightKept": "{n} {side} 行匹配无; 此加盟保留它们为空的左侧 。",
+      "rightDropped": "{n} {side} 行与无相配,被排除在外。 {total} 输出中的行。",
+      "kind": {
+        "joined": "已加入",
+        "fanout": "重复(退出)",
+        "leftOnly": "仅剩",
+        "rightOnly": "仅对"
+      }
+    },
+    "bindings": {
+      "title": "装订可视化",
+      "card": "单击图表并跟随选择到另一个查询:列()、单元格(),作为对象、字符串、质量和 SAQL 他们写。",
+      "seoTitle": "CRM Analytics 装订,可视化:选择和结果装订逐步",
+      "seoDesc": "看怎么样 CRM Analytics 仪表板绑定工作:选择或结果、列()或单元格(),作为对象、字符串或等值,以及 SAQL 它重写。",
+      "about": "关于绑定",
+      "chart": "按阶段划分的管道",
+      "chain": "具有约束力的,解决",
+      "table": "交易",
+      "multi": "多选择",
+      "clickHint": "单击栏来选择它。",
+      "resultHint": "绑定的结果读取整个结果:这里,第一行。",
+      "kind": {
+        "selection": "选择绑定",
+        "result": "结果约束"
+      },
+      "stage": {
+        "source": "来源",
+        "data": "获取数据",
+        "serialise": "序列",
+        "inject": "输入查询",
+        "run": "运行查询"
+      },
+      "say": {
+        "source": "装订从第 1阶段开始.{kind}: 后面的行数 {values}。 。 。",
+        "data": "列 () 从这些行中拖出 StageName 值( cell () ) 。",
+        "serialise": "。 。 。{ser}() 将数值变为文本 SAQL 可以读。",
+        "inject": "那个 {mustache} 在 q deals 中,在发送查询前由该文本替换。",
+        "run": "q  deals 再次使用新过滤器运行 : {n} 数行."
+      },
+      "brokenNote": "asString 将数个值合并到一个字符串中,而该字符串中无一行等值,所以没有任何结果。 对多个值使用对象或等值。",
+      "notes": {
+        "what": {
+          "title": "多么有约束力",
+          "body": "约束是 {mustache} 在查询或部件属性中表达式。 在查询运行前,仪表板用从另一步骤取来的文字来代替."
+        },
+        "selection": {
+          "title": "选择绑定",
+          "body": "读取用户在另一步骤中选择的内容。 每次点击都会变"
+        },
+        "result": {
+          "title": "结果约束",
+          "body": "读取另一步骤的结果,例如其第一行,无论是否选择任何东西。"
+        },
+        "asObject": {
+          "title": "作为对象( )",
+          "body": "将数值写入为 SAQL 字节:来自列()的列表,来自单元格()的一个值。"
+        },
+        "asString": {
+          "title": "作为 String ()",
+          "body": "写纯文字无引文. 在字符串中一个值对您自己建构是好的; 对多个值是错误的。"
+        },
+        "asEquality": {
+          "title": "asEqual( 字段)",
+          "body": "写一个完整的条件,字段 == 值或字段在[值]中,准备进行过滤."
+        },
+        "faceting": {
+          "title": "捆绑还是脸部?",
+          "body": "面对面过滤同一数据集上没有代码的每个步骤。 约束适用于其他数据集,或用于改变措施、组合和属性。"
+        }
+      }
+    },
+    "fn": {
+      "year": "取年离约.",
+      "quarter": "给出一年的季度,1比4.",
+      "month": "给出月号,1比12.",
+      "day": "赐月日.",
+      "day_of_week": "赐周一日(星期天)至七日(星期六).",
+      "week": "给出当年的ISO周.",
+      "date_trunc_month": "将日期移动到月的第一天, 所以日期按月分组 。",
+      "add_months": "为续约和到期日增加若干个月。",
+      "date_diff_days": "计算两个日期之间的天数。",
+      "days_until_today": "计算日期到今天的天数:记录的年代.",
+      "last_day": "给出日期月的最后一天。",
+      "to_date": "将已知格式的文本转换为真实日期,因此日期函数和日期过滤器可以对其工作.",
+      "upper": "将文本变成首都。",
+      "lower": "将文字变为小字母.",
+      "concat": "将文本合并为一个文本。",
+      "substr": "按位置和长度列出案文的一部分。",
+      "length": "计算文本中的字符。",
+      "replace": "用一个文本替换每个文本的匹配。",
+      "round": "轮数;负位数轮数为数万,百或千.",
+      "multiply": "乘数,为税,货币或差值.",
+      "abs": "删除数字的符号。",
+      "coalesce": "给出不为无效的第一个值:缺失值的默认值。",
+      "bucket": "将值按大小写排序为命名区域。",
+      "case_won": "将一个条件变为1或0,所以可以归纳.",
+      "is_null": "显示除当前值之外的缺失值 。",
+      "running_total": "按顺序在行后添加一列,为每个分区重新启动。",
+      "rank": "数字行按其分区内的值:1是最高的.",
+      "lag": "从分区中的上一行读取值。",
+      "share_of_partition": "以百分比表示每一行在分区总数中的份额。"
     }
   },
   "meter": {

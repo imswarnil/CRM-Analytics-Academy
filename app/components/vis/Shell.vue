@@ -120,7 +120,7 @@ const railOpen = ref(props.rail)
       <VisPlayer
         v-model="step"
         :count="props.count"
-        :interval="7000"
+        :interval="2500"
         autoplay
         class="lg:min-w-[30rem]"
       />

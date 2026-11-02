@@ -10,7 +10,8 @@
  * Prerendered; runs in the browser on the sample data (app/utils/vis).
  */
 import { type DfOptions, DEFAULT_DF_OPTIONS, buildDataflow, dataflowPlan, runDataflow, sourcesOf } from '~/utils/vis/dataflow'
-import type { CanvasNode } from '~/components/vis/Canvas.vue'
+import type { CanvasNode, Check } from '~/components/vis/Canvas.vue'
+import { type Row, fmt } from '~/utils/vis/data'
 
 definePageMeta({ focus: true })
 
@@ -51,6 +52,38 @@ const detailOf = (name: string) => {
   const p = df.value[name]?.parameters ?? {}
   return String(p.filter ?? p.operation ?? p.object ?? p.alias ?? (Array.isArray(p.fields) ? (p.fields as { name: string }[]).map(f => f.name).join(', ') : ''))
 }
+/* Row by row, for the inspector. */
+const label = (r: Row) => String(r.Name ?? r.Id ?? r.__id ?? '—')
+const rowsOfNode = (name?: string) => (name ? results.value.find(r => r.name === name)?.rows ?? [] : [])
+const checks = computed<Check[]>(() => {
+  const c = current.value
+  const n = c ? df.value[c.name] : undefined
+  if (!c || !n) return []
+  const p = n.parameters
+  if (c.action === 'filter' && c.before) {
+    const [field, op, value] = String(p.filter).split(':')
+    const test = `${op === 'N' ? '!=' : '=='} ${value}`
+    return c.before.map(r => ({ id: String(r.__id), label: label(r), test: `${field} = ${fmt(r[field!] ?? null)}`, ok: c.marks?.[String(r.__id)] !== 'dropped', note: c.marks?.[String(r.__id)] !== 'dropped' ? t('vis.check.kept', { test }) : t('vis.check.dropped', { test }) }))
+  }
+  if (c.action === 'augment') {
+    const lk = (p.left_key as string[])[0]!
+    return rowsOfNode(String(p.left)).map((r) => {
+      const m = c.marks?.[String(r.__id)]
+      return { id: String(r.__id), label: label(r), test: `${lk} = ${fmt(r[lk] ?? null)}`, ok: m !== 'unmatched', note: m === 'unmatched' ? t('vis.check.noMatchKept') : m === 'multi' ? t('vis.check.multi') : t('vis.check.match') }
+    })
+  }
+  if (c.action === 'computeExpression' || c.action === 'computeRelative') {
+    const newCol = c.newCols?.[0] ?? ''
+    const part = c.action === 'computeRelative' ? (p.partitionBy as string[])[0]! : ''
+    return rowsOfNode(String(p.source)).slice(0, 8).map((r) => {
+      const out = c.rows.find(x => x.__id === r.__id)
+      return { id: String(r.__id), label: label(r), test: part ? `${t('vis.check.partition')} ${part} = ${fmt(r[part] ?? null)}` : `Amount = ${fmt(r.Amount ?? null)}`, ok: true, note: `${newCol} → ${fmt(out?.[newCol] ?? null)}` }
+    })
+  }
+  return []
+})
+const partition = computed(() => (current.value?.action === 'computeRelative' ? String((df.value[current.value.name]?.parameters.partitionBy as string[] | undefined)?.[0] ?? '') : ''))
+
 const json = (v: unknown) => JSON.stringify(v, null, 2)
 
 const TOGGLES: { key: 'filter' | 'flatten' | 'computeRelative' | 'security' }[] = [{ key: 'filter' }, { key: 'flatten' }, { key: 'computeRelative' }, { key: 'security' }]
@@ -173,6 +206,8 @@ usePageSchema(() => ({
         :marks="current.marks"
         :new-cols="current.newCols"
         :drop-cols="current.dropCols"
+        :checks="checks"
+        :partition="partition"
         @select="select"
       />
     </template>

@@ -1615,7 +1615,8 @@
         "cogroupAccounts": "Cogroup with accounts",
         "cogroupLeft": "Full outer cogroup",
         "topN": "Top 3 deals",
-        "mistake": "A common mistake"
+        "mistake": "A common mistake",
+        "fullPipeline": "Every statement"
       },
       "explain": {
         "load": "Loads the dataset {name}: {n} rows, {cols} fields. Nothing is filtered or grouped yet — every later line works on this stream.",
@@ -1806,7 +1807,167 @@
       "hint": "drag to look around, scroll to zoom",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "recenter": "Follow the step again"
+      "recenter": "Follow the step again",
+      "rowByRow": "Row by row"
+    },
+    "check": {
+      "kept": "kept: it passes {test}",
+      "dropped": "dropped: it needs {test}",
+      "match": "one match: the right row joins on",
+      "fanout": "{n} matches: the row is repeated, once per match",
+      "multi": "several matches: kept as a list",
+      "noMatchKept": "no match: kept, right side empty",
+      "noMatchDropped": "no match: dropped",
+      "partition": "partition",
+      "allRows": "all rows",
+      "group": "goes to the group {key}",
+      "position": "position {n}",
+      "inLimit": "kept: within the first {n}",
+      "pastLimit": "dropped: past the first {n}",
+      "keyKept": "kept: both sides have this key",
+      "keyDropped": "dropped by the {join} cogroup"
+    },
+    "functions": {
+      "title": "Function lab",
+      "card": "Pick any recipe formula function, point it at a column and watch it run row by row. Try your own values, see windows and partitions.",
+      "seoTitle": "CRM Analytics formula functions, row by row: to_date, year, concat, rank and more",
+      "seoDesc": "An interactive lab for CRM Analytics Data Prep formula functions: dates, text, numbers, logic and window functions with partitions, run row by row on real data.",
+      "formula": "The formula, as written in a transform",
+      "column": "Column",
+      "argument": "Argument",
+      "tryValue": "Try your own value",
+      "rowHead": "Row",
+      "all": "Every function",
+      "row": "{name}: reads {field} = {input} and writes {output}.",
+      "windowNote": "A window function reads other rows too. Rows with the same partition value share a colour; the lit rows are the ones the current row can see."
+    },
+    "joins": {
+      "title": "Joins visualiser",
+      "card": "One join, one row at a time: lines to every match, what each join type keeps, fan-out, and the rows nothing matched.",
+      "seoTitle": "CRM Analytics recipe joins, visualised: lookup, left, right, inner and outer",
+      "seoDesc": "Watch a CRM Analytics recipe join run row by row: matching keys, unmatched rows, fan-out and what lookup, left, right, inner and outer joins keep.",
+      "about": "About joins",
+      "flip": "Flip sides",
+      "left": "Left",
+      "right": "Right",
+      "output": "Output",
+      "rowsOut": "{n} rows out",
+      "empty": "Nothing yet: step through the left rows.",
+      "what": {
+        "lookup": "Lookup: every left row once, with its first match or empty.",
+        "left": "Left: every left row, repeated once per match, empty when none.",
+        "right": "Right: every right row, with its matches; left rows with no match are dropped.",
+        "inner": "Inner: only rows that match on both sides.",
+        "outer": "Outer: everything from both sides, matched where it can be."
+      },
+      "fate": {
+        "joined": "{row}: {key} = {value} finds one match, so the row joins.",
+        "fanout": "{row}: {key} = {value} finds {n} matches, so the row appears {n} times.",
+        "lookupFirst": "{row}: {key} = {value} finds {n} matches; lookup takes only the first.",
+        "leftOnly": "{row}: {key} = {value} finds no match; the row is kept with an empty right side.",
+        "dropped": "{row}: {key} = {value} finds no match, so this join drops it."
+      },
+      "rightKept": "{n} {side} rows matched nothing; this join keeps them with an empty left side.",
+      "rightDropped": "{n} {side} rows matched nothing and are left out. {total} rows in the output.",
+      "kind": {
+        "joined": "joined",
+        "fanout": "repeated (fan-out)",
+        "leftOnly": "left only",
+        "rightOnly": "right only"
+      }
+    },
+    "bindings": {
+      "title": "Bindings visualiser",
+      "card": "Click a chart and follow the selection into another query: column(), cell(), asObject, asString, asEquality, and the SAQL they write.",
+      "seoTitle": "CRM Analytics bindings, visualised: selection and result bindings step by step",
+      "seoDesc": "See how a CRM Analytics dashboard binding works: a selection or result, column() or cell(), asObject, asString or asEquality, and the SAQL it rewrites.",
+      "about": "About bindings",
+      "chart": "Pipeline by stage",
+      "chain": "The binding, resolving",
+      "table": "Deals",
+      "multi": "Multi-select",
+      "clickHint": "Click a bar to select it.",
+      "resultHint": "A result binding reads the whole result: here, the first row.",
+      "kind": {
+        "selection": "Selection binding",
+        "result": "Result binding"
+      },
+      "stage": {
+        "source": "Source",
+        "data": "Get the data",
+        "serialise": "Serialise",
+        "inject": "Inject into the query",
+        "run": "Run the query"
+      },
+      "say": {
+        "source": "The binding starts from stage_1.{kind}: the rows behind {values}.",
+        "data": "column() pulls the StageName values out of those rows (cell() would take one value).",
+        "serialise": ".{ser}() turns the values into text SAQL can read.",
+        "inject": "The {mustache} in q_deals is replaced by that text before the query is sent.",
+        "run": "q_deals runs again with the new filter: {n} rows."
+      },
+      "brokenNote": "asString joins several values into one string that no row equals, so nothing comes back. Use asObject or asEquality for multiple values.",
+      "notes": {
+        "what": {
+          "title": "What a binding is",
+          "body": "A binding is a {mustache} expression inside a query or a widget property. Before the query runs, the dashboard replaces it with text taken from another step."
+        },
+        "selection": {
+          "title": "Selection binding",
+          "body": "Reads what the user selected in another step. It changes every time they click."
+        },
+        "result": {
+          "title": "Result binding",
+          "body": "Reads the result of another step, for example its first row, whether or not anything is selected."
+        },
+        "asObject": {
+          "title": "asObject()",
+          "body": "Writes the values as SAQL literals: a list from column(), one value from cell()."
+        },
+        "asString": {
+          "title": "asString()",
+          "body": "Writes plain text with no quotes. Good for one value inside a string you build yourself; wrong for several values."
+        },
+        "asEquality": {
+          "title": "asEquality(field)",
+          "body": "Writes a whole condition, field == value or field in [values], ready for a filter."
+        },
+        "faceting": {
+          "title": "Bindings or faceting?",
+          "body": "Faceting filters every step on the same dataset with no code. Bindings are for other datasets, or for changing measures, groupings and properties."
+        }
+      }
+    },
+    "fn": {
+      "year": "Takes the year out of a date.",
+      "quarter": "Gives the quarter of the year, 1 to 4.",
+      "month": "Gives the month number, 1 to 12.",
+      "day": "Gives the day of the month.",
+      "day_of_week": "Gives the day of the week, 1 (Sunday) to 7 (Saturday).",
+      "week": "Gives the ISO week of the year.",
+      "date_trunc_month": "Moves a date back to the first day of its month, so dates group by month.",
+      "add_months": "Adds a number of months to a date, for renewals and due dates.",
+      "date_diff_days": "Counts the days between two dates.",
+      "days_until_today": "Counts the days from a date to today: how old a record is.",
+      "last_day": "Gives the last day of the date’s month.",
+      "to_date": "Turns text in a known format into a real date, so date functions and date filters work on it.",
+      "upper": "Turns text into capitals.",
+      "lower": "Turns text into small letters.",
+      "concat": "Joins texts together into one.",
+      "substr": "Takes part of a text, by position and length.",
+      "length": "Counts the characters in a text.",
+      "replace": "Replaces every match of one text with another.",
+      "round": "Rounds a number; a negative position rounds to tens, hundreds or thousands.",
+      "multiply": "Multiplies a number, for tax, currency or margin.",
+      "abs": "Removes the sign of a number.",
+      "coalesce": "Gives the first value that is not null: a default for missing values.",
+      "bucket": "Sorts values into named ranges with case when.",
+      "case_won": "Turns a condition into 1 or 0, so it can be summed.",
+      "is_null": "Tells missing values apart from present ones.",
+      "running_total": "Adds up a column row after row, in order, restarting for every partition.",
+      "rank": "Numbers rows by a value inside their partition: 1 is the highest.",
+      "lag": "Reads the value from the previous row in the partition.",
+      "share_of_partition": "Gives each row’s share of its partition’s total, in percent."
     }
   },
   "meter": {

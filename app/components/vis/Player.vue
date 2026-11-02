@@ -9,6 +9,7 @@ const step = defineModel<number>({ required: true })
 const { t } = useI18n()
 const route = useRoute()
 const playing = ref(false)
+const busyUntil = useState('vis-busy-until', () => 0)
 let timer: ReturnType<typeof setInterval> | undefined
 
 defineExpose({ stop: () => {
@@ -24,14 +25,19 @@ function toggle() {
   if (!playing.value) return
   if (step.value >= props.count - 1) go(0)
   $track?.('visualiser_run', route.path)
+  let last = performance.now()
   timer = setInterval(() => {
+    const now = performance.now()
+    // A step that is still animating (VisCanvas sets vis-busy-until) is never cut.
+    if (now - last < props.interval || now < busyUntil.value) return
+    last = now
     if (step.value >= props.count - 1) {
       playing.value = false
       clearInterval(timer)
     } else {
       go(step.value + 1)
     }
-  }, props.interval)
+  }, 250)
 }
 function onKey(e: KeyboardEvent) {
   if ((e.target as HTMLElement | null)?.closest?.('input, textarea, select, [contenteditable]')) return

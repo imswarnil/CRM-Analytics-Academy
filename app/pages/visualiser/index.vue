@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /**
- * /visualiser — the three execution visualisers (SAQL, recipe, dataflow) and
+ * /visualiser — the execution visualisers (SAQL, recipe, dataflow), the
+ * function lab, joins and bindings, and
  * the sample data they all run on. Prerendered; links into each.
  */
 import { DATASETS } from '~/utils/vis/data'
@@ -11,7 +12,10 @@ const localePath = useLocalePath()
 const TOOLS = [
   { id: 'saql', icon: 'i-lucide-terminal', spec: 'V1' },
   { id: 'recipe', icon: 'i-lucide-workflow', spec: 'V2' },
-  { id: 'dataflow', icon: 'i-lucide-git-fork', spec: 'V3' }
+  { id: 'dataflow', icon: 'i-lucide-git-fork', spec: 'V3' },
+  { id: 'functions', icon: 'i-lucide-function-square', spec: 'V4' },
+  { id: 'joins', icon: 'i-lucide-merge', spec: 'V5' },
+  { id: 'bindings', icon: 'i-lucide-link', spec: 'V6' }
 ] as const
 
 const title = computed(() => t('vis.seoTitle'))

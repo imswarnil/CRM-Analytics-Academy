@@ -9,10 +9,9 @@
  *
  * Prerendered; runs in the browser on the sample data (app/utils/vis).
  */
-import type { Agg, Cmp } from '~/utils/vis/data'
-import { DATASETS, columnsOf, fmt } from '~/utils/vis/data'
+import { type Agg, type Cmp, type Row, DATASETS, columnsOf, fmt } from '~/utils/vis/data'
 import { type FnId, type JoinType, type RecipeNode, FN_IDS, FUNCTIONS, JOIN_TYPES, RECIPE_PRESETS, inputsOf, runRecipe } from '~/utils/vis/recipe'
-import type { CanvasNode } from '~/components/vis/Canvas.vue'
+import type { CanvasNode, Check } from '~/components/vis/Canvas.vue'
 
 definePageMeta({ focus: true })
 
@@ -76,6 +75,49 @@ const canvas = computed<CanvasNode[]>(() => results.value.map((r) => {
     rows: r.rows
   }
 }))
+/* Row by row: what this node does to each row, for the inspector. */
+const label = (r: Row) => String(r.Name ?? r.Account ?? r.Id ?? r.__id ?? '—')
+const rowsOf = (id: string) => results.value.find(r => r.id === id)?.rows ?? []
+const checks = computed<Check[]>(() => {
+  const n = node.value
+  const c = current.value
+  if (!n || !c) return []
+  if (n.type === 'filter') {
+    return (c.before ?? []).map((r) => {
+      const ok = c.marks?.[String(r.__id)] !== 'dropped'
+      const test = `${n.cmp} ${n.value}`
+      return { id: String(r.__id), label: label(r), test: `${n.field} = ${fmt(r[n.field] ?? null)}`, ok, note: ok ? t('vis.check.kept', { test }) : t('vis.check.dropped', { test }) }
+    })
+  }
+  if (n.type === 'join') {
+    const right = rowsOf(n.right)
+    return rowsOf(n.left).map((r) => {
+      const hits = right.filter(x => x[n.rightKey] !== null && x[n.rightKey] === r[n.leftKey]).length
+      const note = hits
+        ? (hits > 1 && n.join !== 'lookup' ? t('vis.check.fanout', { n: hits }) : t('vis.check.match'))
+        : t(n.join === 'inner' || n.join === 'right' ? 'vis.check.noMatchDropped' : 'vis.check.noMatchKept')
+      return { id: String(r.__id), label: label(r), test: `${n.leftKey} = ${fmt(r[n.leftKey] ?? null)} → ${n.prefix}.${n.rightKey}`, ok: hits > 0, note }
+    })
+  }
+  if (n.type === 'transform') {
+    const f = n.fns[0]
+    if (!f) return []
+    return rowsOf(n.input).slice(0, 8).map((r) => {
+      const out = c.rows.find(x => x.__id === r.__id)
+      const part = f.partition ? ` · ${t('vis.check.partition')} ${f.partition} = ${fmt(r[f.partition] ?? null)}` : ''
+      return { id: String(r.__id), label: label(r), test: `${FUNCTIONS[f.fn].formula(f)}${part}`, ok: true, note: `${f.as} → ${fmt(out?.[f.as] ?? null)}` }
+    })
+  }
+  if (n.type === 'aggregate') {
+    return rowsOf(n.input).slice(0, 8).map((r) => {
+      const key = n.by.map(b => fmt(r[b] ?? null)).join(' · ') || t('vis.check.allRows')
+      return { id: String(r.__id), label: label(r), test: n.by.map(b => `${b} = ${fmt(r[b] ?? null)}`).join(', ') || t('vis.check.allRows'), ok: true, note: t('vis.check.group', { key }) }
+    })
+  }
+  return []
+})
+const partition = computed(() => (node.value?.type === 'transform' ? node.value.fns.find(f => f.partition)?.partition ?? '' : ''))
+
 const detailOf = (n: RecipeNode) => n.type === 'join'
   ? `${n.leftKey} = ${n.prefix}.${n.rightKey}`
   : n.type === 'transform'
@@ -239,6 +281,8 @@ usePageSchema(() => ({
         :new-cols="current.newCols"
         :drop-cols="current.dropCols"
         :focus="focusOf(node)"
+        :checks="checks"
+        :partition="partition"
         @select="select"
       />
     </template>

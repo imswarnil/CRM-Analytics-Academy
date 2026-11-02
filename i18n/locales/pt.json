@@ -1615,7 +1615,8 @@
         "cogroupAccounts": "Cogrupo com contas",
         "cogroupLeft": "Cogrupo externo completo",
         "topN": "Top 3 ofertas",
-        "mistake": "Um erro comum"
+        "mistake": "Um erro comum",
+        "fullPipeline": "Cada declaração"
       },
       "explain": {
         "load": "Carrega o conjunto de dados {name}: {n} linhas, {cols} Campos. Nada é filtrado ou agrupado ainda — cada linha posterior funciona neste fluxo.",
@@ -1806,7 +1807,167 @@
       "hint": "arrastar para olhar ao redor, rolar para ampliar",
       "zoomIn": "Ampliar",
       "zoomOut": "Reduzir",
-      "recenter": "Siga o passo novamente"
+      "recenter": "Siga o passo novamente",
+      "rowByRow": "Linha por linha"
+    },
+    "check": {
+      "kept": "mantido: passa {test}",
+      "dropped": "queda: precisa {test}",
+      "match": "uma correspondência: a linha direita junta- se a",
+      "fanout": "{n} corresponde: a linha é repetida, uma vez por correspondência",
+      "multi": "várias ocorrências: mantida como uma lista",
+      "noMatchKept": "sem correspondência: mantido, do lado direito vazio",
+      "noMatchDropped": "sem correspondência: deixado cair",
+      "partition": "partição",
+      "allRows": "todas as linhas",
+      "group": "vai para o grupo {key}",
+      "position": "posição {n}",
+      "inLimit": "mantido: dentro do primeiro {n}",
+      "pastLimit": "caiu: passado o primeiro {n}",
+      "keyKept": "mantido: ambos os lados têm esta chave",
+      "keyDropped": "queda pela {join} cogrupo"
+    },
+    "functions": {
+      "title": "Laboratório de funções",
+      "card": "Escolha qualquer função de fórmula de receita, aponte-a para uma coluna e observe-a correr linha por linha. Tente seus próprios valores, veja janelas e partições.",
+      "seoTitle": "CRM Analytics funções de fórmula, linha por linha: data, ano, concat, rank e muito mais",
+      "seoDesc": "Um laboratório interativo para CRM Analytics Data Prep funções de fórmula: datas, texto, números, lógica e funções de janela com partições, executar linha por linha em dados reais.",
+      "formula": "A fórmula, como escrito em uma transformação",
+      "column": "Coluna",
+      "argument": "Argumento",
+      "tryValue": "Tente o seu próprio valor",
+      "rowHead": "Linha",
+      "all": "Cada função",
+      "row": "{name}: leituras {field} = {input} e escreve {output}.",
+      "windowNote": "Uma função de janela também lê outras linhas. Linhas com o mesmo valor da partição partilham uma cor; as linhas acesas são as que a linha actual pode ver."
+    },
+    "joins": {
+      "title": "Junta-se ao visualizador",
+      "card": "Uma entrada, uma linha de cada vez: linhas para cada partida, o que cada tipo de junção mantém, o leque e as linhas nada corresponderam.",
+      "seoTitle": "CRM Analytics receita junta, visualizado: olhar para cima, esquerda, direita, interior e exterior",
+      "seoDesc": "Observar a CRM Analytics receita juntar linha de execução por linha: correspondência de teclas, linhas incomparáveis, leque-out e que procura, esquerda, direita, interior e exterior junta manter.",
+      "about": "Sobre as entradas",
+      "flip": "Inverter os lados",
+      "left": "Esquerda",
+      "right": "Direita",
+      "output": "Saída",
+      "rowsOut": "{n} linhas para fora",
+      "empty": "Nada ainda: atravesse as fileiras esquerdas.",
+      "what": {
+        "lookup": "Procurar: cada fila à esquerda uma vez, com o seu primeiro jogo ou vazio.",
+        "left": "Esquerda: cada linha esquerda, repetida uma vez por partida, vazia quando nenhuma.",
+        "right": "Direita: todas as fileiras direitas, com as suas correspondências; as fileiras esquerdas sem correspondência são retiradas.",
+        "inner": "Inner: apenas linhas que coincidem em ambos os lados.",
+        "outer": "Exterior: tudo de ambos os lados, combinando onde pode ser."
+      },
+      "fate": {
+        "joined": "{row}: {key} = {value} encontra uma correspondência, por isso a fila junta-se.",
+        "fanout": "{row}: {key} = {value} encontra {n} corresponde, então a linha aparece {n} Tempos.",
+        "lookupFirst": "{row}: {key} = {value} encontra {n} partidas; procura leva apenas o primeiro.",
+        "leftOnly": "{row}: {key} = {value} não encontra correspondência; a linha é mantida com um lado direito vazio.",
+        "dropped": "{row}: {key} = {value} Não há correspondência, por isso esta junta deixa cair."
+      },
+      "rightKept": "{n} {side} as linhas não correspondem a nada; esta junção mantém- nas com um lado esquerdo vazio.",
+      "rightDropped": "{n} {side} As linhas não combinam com nada e ficam de fora. {total} linhas na saída.",
+      "kind": {
+        "joined": "associado",
+        "fanout": "repetidos (fan- out)",
+        "leftOnly": "apenas à esquerda",
+        "rightOnly": "somente direito"
+      }
+    },
+    "bindings": {
+      "title": "Visualizador de ligações",
+      "card": "Clique em um gráfico e siga a seleção em outra consulta: column(), cell(), asObject, asString, asEquality, and the SAQL escrevem.",
+      "seoTitle": "CRM Analytics vinculações, visualizadas: seleção e vinculações de resultados passo a passo",
+      "seoDesc": "Ver como um CRM Analytics a ligação ao painel funciona: uma seleção ou resultado, column() ou cell(), comoObject, asString ou asEquality, e o SAQL Reescreve.",
+      "about": "Sobre as ligações",
+      "chart": "Pipeline por estágio",
+      "chain": "A ligação, a resolução",
+      "table": "Ofertas",
+      "multi": "Multi- selecção",
+      "clickHint": "Clique em uma barra para selecioná-la.",
+      "resultHint": "Uma ligação de resultados lê o resultado inteiro: aqui, a primeira linha.",
+      "kind": {
+        "selection": "Ligação à selecção",
+        "result": "Ligação de resultados"
+      },
+      "stage": {
+        "source": "Origem",
+        "data": "Obter os dados",
+        "serialise": "Serialização",
+        "inject": "Injetar na consulta",
+        "run": "Executar a pesquisa"
+      },
+      "say": {
+        "source": "A ligação começa a partir do stage 1.{kind}: as fileiras atrás {values}.",
+        "data": "column () puxa os valores StageName para fora dessas linhas (cell() tomaria um valor).",
+        "serialise": ".{ser}() transforma os valores em texto SAQL sabe ler.",
+        "inject": "A {mustache} em q deals é substituído por esse texto antes da consulta ser enviada.",
+        "run": "q deals é executado novamente com o novo filtro: {n} Filas."
+      },
+      "brokenNote": "asString junta vários valores em uma string que nenhuma linha é igual, então nada volta. Use comoObject ou comoEquality para múltiplos valores.",
+      "notes": {
+        "what": {
+          "title": "O que é uma ligação",
+          "body": "Uma ligação é uma {mustache} expressão dentro de uma pesquisa ou uma propriedade widget. Antes de a consulta ser executada, o painel substitui-a por texto tirado de outro passo."
+        },
+        "selection": {
+          "title": "Ligação à selecção",
+          "body": "Lê o que o utilizador selecionou noutra etapa. Muda sempre que clicam."
+        },
+        "result": {
+          "title": "Ligação de resultados",
+          "body": "Lê o resultado de outro passo, por exemplo, sua primeira linha, se algo está ou não selecionado."
+        },
+        "asObject": {
+          "title": "asObject ()",
+          "body": "Escreve os valores como SAQL literals: uma lista de column(), um valor de cell()."
+        },
+        "asString": {
+          "title": "asString ()",
+          "body": "Escreve texto simples sem citações. Bom para um valor dentro de uma string que você mesmo constrói; errado para vários valores."
+        },
+        "asEquality": {
+          "title": "asEquality( campo)",
+          "body": "Escreve uma condição inteira, campo == valor ou campo em [valores], pronto para um filtro."
+        },
+        "faceting": {
+          "title": "Atar ou enfrentar?",
+          "body": "O rosto filtra cada passo no mesmo conjunto de dados sem código. As ligações são para outros conjuntos de dados, ou para alterar medidas, agrupamentos e propriedades."
+        }
+      }
+    },
+    "fn": {
+      "year": "Tira o ano de um encontro.",
+      "quarter": "Dá o trimestre do ano, 1 a 4.",
+      "month": "Dá o número do mês, 1 a 12.",
+      "day": "Dá o dia do mês.",
+      "day_of_week": "Dá o dia da semana, 1 (domingo) a 7 (sábado).",
+      "week": "Dá a semana ISO do ano.",
+      "date_trunc_month": "Muda uma data de volta para o primeiro dia de seu mês, então datas grupo por mês.",
+      "add_months": "Adiciona um número de meses a uma data, para renovações e datas de vencimento.",
+      "date_diff_days": "Conta os dias entre duas datas.",
+      "days_until_today": "Conta os dias de uma data até hoje: quão antigo é um recorde.",
+      "last_day": "Dá o último dia do mês da data.",
+      "to_date": "Transforma o texto em um formato conhecido em uma data real, então funções de data e filtros de data funcionam nele.",
+      "upper": "Transforma texto em maiúsculas.",
+      "lower": "Transforma texto em letras pequenas.",
+      "concat": "Junta textos em um.",
+      "substr": "Toma parte de um texto, por posição e comprimento.",
+      "length": "Conta os caracteres num texto.",
+      "replace": "Substitui cada correspondência de um texto por outro.",
+      "round": "Roda um número; uma posição negativa gira para dezenas, centenas ou milhares.",
+      "multiply": "Multiplica um número, para impostos, moeda ou margem.",
+      "abs": "Remove o sinal de um número.",
+      "coalesce": "Dá o primeiro valor que não é nulo: um padrão para valores em falta.",
+      "bucket": "Ordena os valores em intervalos nomeados com maiúsculas quando.",
+      "case_won": "Transforma uma condição em 1 ou 0, para que possa ser somado.",
+      "is_null": "Indica valores em falta para além dos actuais.",
+      "running_total": "Adiciona uma linha de coluna após linha, em ordem, reiniciando para cada partição.",
+      "rank": "Números linhas por um valor dentro de sua partição: 1 é o mais alto.",
+      "lag": "Lê o valor da linha anterior na partição.",
+      "share_of_partition": "Dá a parte de cada linha do total de sua partição, em porcentagem."
     }
   },
   "meter": {

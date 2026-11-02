@@ -1615,7 +1615,8 @@
         "cogroupAccounts": "Cogroupe avec les comptes",
         "cogroupLeft": "Cogroupe extérieur complet",
         "topN": "Les 3 meilleures offres",
-        "mistake": "Une erreur courante"
+        "mistake": "Une erreur courante",
+        "fullPipeline": "Chaque déclaration"
       },
       "explain": {
         "load": "Charge l'ensemble de données {name}: {n} lignes, {cols} les champs. Rien n'est encore filtré ou groupé — chaque ligne ultérieure fonctionne sur ce flux.",
@@ -1806,7 +1807,167 @@
       "hint": "glisser pour regarder autour, défiler pour zoomer",
       "zoomIn": "Zoom dans",
       "zoomOut": "Zoom arrière",
-      "recenter": "Suivez encore l'étape"
+      "recenter": "Suivez encore l'étape",
+      "rowByRow": "Ligne par ligne"
+    },
+    "check": {
+      "kept": "gardé: il passe {test}",
+      "dropped": "lâché: il a besoin {test}",
+      "match": "un match: le rang droit rejoint",
+      "fanout": "{n} matches: la ligne est répétée, une fois par match",
+      "multi": "plusieurs matches: conservés comme une liste",
+      "noMatchKept": "pas de correspondance: gardé, côté droit vide",
+      "noMatchDropped": "pas de correspondance: laissé tomber",
+      "partition": "partition",
+      "allRows": "toutes les lignes",
+      "group": "va au groupe {key}",
+      "position": "position {n}",
+      "inLimit": "conservé: dans la première {n}",
+      "pastLimit": "largué: après le premier {n}",
+      "keyKept": "gardé: les deux côtés ont cette clé",
+      "keyDropped": "par les {join} cogroupe"
+    },
+    "functions": {
+      "title": "Laboratoire de fonction",
+      "card": "Choisissez n'importe quelle fonction de formule de recette, pointez-la à une colonne et regardez-la courir rang par rang. Essayez vos propres valeurs, voyez les fenêtres et les partitions.",
+      "seoTitle": "CRM Analytics fonctions de formule, rang par rang: to date, année, concat, rang et plus",
+      "seoDesc": "Un laboratoire interactif pour CRM Analytics Data Prep fonctions de formule : dates, texte, nombres, fonctions logiques et fenêtres avec partitions, exécuter ligne par ligne sur les données réelles.",
+      "formula": "La formule, telle qu'écrite dans une transformation",
+      "column": "Colonne",
+      "argument": "Argument",
+      "tryValue": "Essayez votre propre valeur",
+      "rowHead": "Ligne",
+      "all": "Chaque fonction",
+      "row": "{name}: lit {field} = {input} et écrit {output}.",
+      "windowNote": "Une fonction de fenêtre lit aussi d'autres lignes. Les lignes avec la même valeur de partition partagent une couleur; les lignes éclairées sont celles que la ligne courante peut voir."
+    },
+    "joins": {
+      "title": "Joindre le visualisateur",
+      "card": "Une jointure, une ligne à la fois : lignes à chaque match, ce que chaque type joint conserve, fan-out, et les lignes rien ne correspond.",
+      "seoTitle": "CRM Analytics recette rejointe, visualisée: recherche, gauche, droite, intérieure et extérieure",
+      "seoDesc": "Regardez CRM Analytics recette joignez-vous rang par rang : touches correspondantes, lignes inégalées, fan-out et ce que la recherche, gauche, droite, intérieur et externe joint garder.",
+      "about": "A propos des jointures",
+      "flip": "Sur les côtés",
+      "left": "Gauche",
+      "right": "Droite",
+      "output": "Produit",
+      "rowsOut": "{n} rangées",
+      "empty": "Rien pour l'instant : passez par les rangées de gauche.",
+      "what": {
+        "lookup": "Lookup: chaque rangée gauche une fois, avec son premier match ou vide.",
+        "left": "Gauche : chaque rangée gauche, répétée une fois par match, vide quand aucune.",
+        "right": "Droite : chaque rangée droite, avec ses correspondances ; les rangées gauches sans correspondance sont abandonnées.",
+        "inner": "Intérieur : seulement les rangées qui correspondent des deux côtés.",
+        "outer": "Extérieur: tout de part et d'autre, assorti où il peut être."
+      },
+      "fate": {
+        "joined": "{row}: {key} = {value} trouve une correspondance, donc la rangée se joint.",
+        "fanout": "{row}: {key} = {value} trouve {n} matches, donc la ligne apparaît {n} temps.",
+        "lookupFirst": "{row}: {key} = {value} trouve {n} matches; la recherche ne prend que la première.",
+        "leftOnly": "{row}: {key} = {value} ne trouve aucune correspondance; la rangée est conservée avec un côté droit vide.",
+        "dropped": "{row}: {key} = {value} ne trouve pas de correspondance, donc cette jointure la lâche."
+      },
+      "rightKept": "{n} {side} les lignes ne correspondaient à rien ; cette jointure les garde avec un côté gauche vide.",
+      "rightDropped": "{n} {side} les lignes ne correspondaient à rien et sont laissées de côté. {total} lignes dans la sortie.",
+      "kind": {
+        "joined": "rejoint",
+        "fanout": "répétés (refusé)",
+        "leftOnly": "laissé seulement",
+        "rightOnly": "droit seulement"
+      }
+    },
+    "bindings": {
+      "title": "Visualiseur de liaison",
+      "card": "Cliquez sur un graphique et suivez la sélection dans une autre requête : column(), cell(), asObject, asString, asEquality, and the SAQL Ils écrivent.",
+      "seoTitle": "CRM Analytics fixations visualisées : sélection et fixations des résultats étape par étape",
+      "seoDesc": "Voir comment CRM Analytics travail de reliure du tableau de bord: une sélection ou un résultat, colonne() ou cellule(), comme objet, asString ou asEquality, et la SAQL il réécrit.",
+      "about": "Sur les liaisons",
+      "chart": "Pipeline par étape",
+      "chain": "L'obligation, la résolution",
+      "table": "Marchés",
+      "multi": "Sélection multiple",
+      "clickHint": "Cliquez sur une barre pour la sélectionner.",
+      "resultHint": "Une reliure de résultat lit tout le résultat : ici, la première rangée.",
+      "kind": {
+        "selection": "Reliure de sélection",
+        "result": "Résultat contraignant"
+      },
+      "stage": {
+        "source": "Source",
+        "data": "Obtenez les données",
+        "serialise": "Série",
+        "inject": "Injecter dans la requête",
+        "run": "Exécuter la requête"
+      },
+      "say": {
+        "source": "La liaison commence par stage 1.{kind}: les rangées derrière {values}.",
+        "data": "column() retire les valeurs de StageName de ces lignes (cell() prendrait une valeur).",
+        "serialise": ".{ser}() transforme les valeurs en texte SAQL peut lire.",
+        "inject": "Les {mustache} dans q deals est remplacé par ce texte avant l'envoi de la requête.",
+        "run": "q deals fonctionne à nouveau avec le nouveau filtre : {n} rangées."
+      },
+      "brokenNote": "asString joint plusieurs valeurs en une seule chaîne qu'aucune ligne n'égale, donc rien ne revient. Utilisez commeObject ou commeEquality pour plusieurs valeurs.",
+      "notes": {
+        "what": {
+          "title": "Quelle obligation",
+          "body": "Une liaison est une {mustache} expression dans une requête ou une propriété de widget. Avant que la requête ne s'exécute, le tableau de bord le remplace par du texte pris d'une autre étape."
+        },
+        "selection": {
+          "title": "Reliure de sélection",
+          "body": "Lit ce que l'utilisateur a sélectionné dans une autre étape. Ça change chaque fois qu'ils cliquent."
+        },
+        "result": {
+          "title": "Résultat contraignant",
+          "body": "Lit le résultat d'une autre étape, par exemple sa première ligne, que quelque chose soit sélectionné ou non."
+        },
+        "asObject": {
+          "title": "en objet()",
+          "body": "Écrit les valeurs comme SAQL littérales : une liste de colonne(), une valeur de cellule()."
+        },
+        "asString": {
+          "title": "asString()",
+          "body": "Écrit un texte simple sans citations. Bon pour une valeur à l'intérieur d'une chaîne que vous construisez vous-même; mauvais pour plusieurs valeurs."
+        },
+        "asEquality": {
+          "title": "enEquality(champ)",
+          "body": "Écrit une condition complète, champ == valeur ou champ dans [valeurs], prêt pour un filtre."
+        },
+        "faceting": {
+          "title": "Reliure ou facette ?",
+          "body": "Faceting filtre chaque étape sur le même ensemble de données sans code. Les liens s'appliquent à d'autres ensembles de données ou à des mesures, groupements et propriétés changeants."
+        }
+      }
+    },
+    "fn": {
+      "year": "Ça prend l'année sans rendez-vous.",
+      "quarter": "Donne le trimestre de l'année, 1 à 4.",
+      "month": "Donne le numéro du mois, 1 à 12.",
+      "day": "Donne le jour du mois.",
+      "day_of_week": "Donne le jour de la semaine, 1 (dimanche) à 7 (samedi).",
+      "week": "Donne la semaine ISO de l'année.",
+      "date_trunc_month": "Déplace une date de retour au premier jour de son mois, donc dates groupe par mois.",
+      "add_months": "Ajoute un certain nombre de mois à une date, pour les renouvellements et les dates d'échéance.",
+      "date_diff_days": "Compte les jours entre deux dates.",
+      "days_until_today": "Compte les jours d'une date à aujourd'hui: quel âge un record est.",
+      "last_day": "Donne le dernier jour du mois de date.",
+      "to_date": "Transforme le texte dans un format connu en une date réelle, donc les fonctions de date et les filtres de date fonctionnent dessus.",
+      "upper": "Transforme le texte en capitales.",
+      "lower": "Transforme le texte en petites lettres.",
+      "concat": "Regroupe les textes en un seul.",
+      "substr": "Prend une partie d'un texte, par position et par longueur.",
+      "length": "Compte les caractères dans un texte.",
+      "replace": "Remplace chaque correspondance d'un texte par un autre.",
+      "round": "Tourne un nombre; une position négative tourne à des dizaines, des centaines ou des milliers.",
+      "multiply": "Multiplie un nombre, pour l'impôt, la monnaie ou la marge.",
+      "abs": "Supprime le signe d'un numéro.",
+      "coalesce": "Donne la première valeur qui n'est pas null : une valeur par défaut pour les valeurs manquantes.",
+      "bucket": "Trie les valeurs dans des plages nommées avec le cas quand.",
+      "case_won": "Transforme une condition en 1 ou 0, donc on peut la résumer.",
+      "is_null": "Ça indique des valeurs manquantes en dehors des valeurs actuelles.",
+      "running_total": "Ajoute une ligne de colonne après la ligne, dans l'ordre, redémarrer pour chaque partition.",
+      "rank": "Nombres lignes par une valeur à l'intérieur de leur partition : 1 est la plus élevée.",
+      "lag": "Lis la valeur de la ligne précédente dans la partition.",
+      "share_of_partition": "Donne à chaque rangée la part de sa partition, en pourcentage."
     }
   },
   "meter": {

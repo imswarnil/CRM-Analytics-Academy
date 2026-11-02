@@ -1615,7 +1615,8 @@
         "cogroupAccounts": "Cogroup mit Konten",
         "cogroupLeft": "Volle äußere Cogruppe",
         "topN": "Top 3 Deals",
-        "mistake": "Ein häufiger Fehler"
+        "mistake": "Ein häufiger Fehler",
+        "fullPipeline": "Jede Aussage"
       },
       "explain": {
         "load": "Laden Sie den Dataset {name}: {n} Zeilen, {cols} Felder. Nichts wird noch gefiltert oder gruppiert - jede spätere zeile funktioniert mit diesem stream.",
@@ -1806,7 +1807,167 @@
       "hint": "Drag, um sich umzusehen, scrollen zum Zoom",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom raus",
-      "recenter": "Folge dem Schritt noch einmal"
+      "recenter": "Folge dem Schritt noch einmal",
+      "rowByRow": "Zeile für Zeile"
+    },
+    "check": {
+      "kept": "gehalten: es geht {test}",
+      "dropped": "fallen gelassen: es braucht {test}",
+      "match": "Ein Spiel: Die rechte Reihe schließt sich an",
+      "fanout": "{n} Matches: Die Reihe wird einmal pro Match wiederholt",
+      "multi": "Mehrere Übereinstimmungen: als Liste beibehalten",
+      "noMatchKept": "keine Übereinstimmung: gehalten, rechte Seite leer",
+      "noMatchDropped": "No match: fallen gelassen",
+      "partition": "Trennwand",
+      "allRows": "alle Zeilen",
+      "group": "geht zur Gruppe {key}",
+      "position": "Position {n}",
+      "inLimit": "gehalten: innerhalb der ersten {n}",
+      "pastLimit": "fallen gelassen: vorbei an der ersten {n}",
+      "keyKept": "Keeped: Beide Seiten haben diesen Schlüssel",
+      "keyDropped": "fallen gelassen von der {join} Co-Gruppe"
+    },
+    "functions": {
+      "title": "Funktionslabor",
+      "card": "Wählen Sie eine Rezeptformelfunktion aus, richten Sie sie auf eine Spalte und beobachten Sie, wie sie Zeile für Zeile ausgeführt wird. Probieren Sie Ihre eigenen Werte aus, siehe Fenster und Partitionen.",
+      "seoTitle": "CRM Analytics Formelfunktionen, Zeile für Zeile: to date, year, concat, rank und mehr",
+      "seoDesc": "Ein interaktives Labor für CRM Analytics Data Prep Formelfunktionen: Datums-, Text-, Zahlen-, Logik- und Fensterfunktionen mit Partitionen, zeilenweise auf realen Daten ausgeführt.",
+      "formula": "Die Formel, wie in einer Transformation geschrieben",
+      "column": "Säule",
+      "argument": "Argumentation",
+      "tryValue": "Versuchen Sie Ihren eigenen Wert",
+      "rowHead": "Reihe",
+      "all": "Jede Funktion",
+      "row": "{name}: liest {field} = {input} und schreibt {output}.",
+      "windowNote": "Eine Fensterfunktion liest auch andere Zeilen. Zeilen mit dem gleichen Partitionswert teilen sich eine Farbe; die beleuchteten Zeilen sind diejenigen, die die aktuelle Zeile sehen kann."
+    },
+    "joins": {
+      "title": "Joins Visualizer",
+      "card": "Ein Join, eine Zeile nach der anderen: Zeilen zu jedem Match, was jeder Join-Typ behält, Fan-Out und die Zeilen nichts übereinstimmen.",
+      "seoTitle": "CRM Analytics Rezept verbindet, visualisiert: Lookup, links, rechts, innen und außen",
+      "seoDesc": "Uhr a CRM Analytics Rezept Join laufen Reihe für Reihe: passende Tasten, unübertroffene Reihen, Fan-Out und was Lookup, links, rechts, innen und außen verbindet halten.",
+      "about": "Über Joins",
+      "flip": "Klappseiten",
+      "left": "Links",
+      "right": "rechts",
+      "output": "Output",
+      "rowsOut": "{n} Zeilen aus",
+      "empty": "Noch nichts: Schritt durch die linken Reihen.",
+      "what": {
+        "lookup": "Lookup: jede linke Reihe einmal, mit ihrem ersten Match oder leer.",
+        "left": "Links: jede linke Reihe, einmal pro Spiel wiederholt, leer, wenn keine.",
+        "right": "Rechts: jede rechte Reihe mit ihren Übereinstimmungen; linke Reihen ohne Übereinstimmung werden fallen gelassen.",
+        "inner": "Innere: nur Reihen, die auf beiden Seiten übereinstimmen.",
+        "outer": "Äußer: alles von beiden Seiten, abgestimmt, wo es sein kann."
+      },
+      "fate": {
+        "joined": "{row}: {key} = {value} Findet eine Übereinstimmung, so dass die Reihe verbindet.",
+        "fanout": "{row}: {key} = {value} Funde {n} Übereinstimmungen, so dass die Zeile erscheint {n} Zeiten.",
+        "lookupFirst": "{row}: {key} = {value} Funde {n} Spiele; Lookup nimmt nur die erste.",
+        "leftOnly": "{row}: {key} = {value} findet keine Übereinstimmung; die Reihe wird mit einer leeren rechten Seite gehalten.",
+        "dropped": "{row}: {key} = {value} Findet keine Übereinstimmung, also lässt diese Verknüpfung sie fallen."
+      },
+      "rightKept": "{n} {side} Zeilen passten nichts; diese Verbindung hält sie mit einer leeren linken Seite.",
+      "rightDropped": "{n} {side} Zeilen passen nicht zusammen und werden ausgelassen. {total} Zeilen im Output.",
+      "kind": {
+        "joined": "verbunden",
+        "fanout": "wiederholt (Fan-out)",
+        "leftOnly": "nur links",
+        "rightOnly": "nur rechts"
+      }
+    },
+    "bindings": {
+      "title": "Bindungsvisualisierer",
+      "card": "Klicken Sie auf ein Diagramm und folgen Sie der Auswahl in eine andere Abfrage: column(), cell(), asObject, asString, asEquality und SAQL Sie schreiben.",
+      "seoTitle": "CRM Analytics Bindungen, visualisiert: Auswahl und Ergebnisbindungen Schritt für Schritt",
+      "seoDesc": "Sehen Sie, wie ein CRM Analytics Dashboard-Bindung funktioniert: eine Auswahl oder ein Ergebnis, column() oder cell(), asObject, asString oder asEquality und SAQL es umschreibt.",
+      "about": "Über Bindungen",
+      "chart": "Pipeline nach Phase",
+      "chain": "Bindung, Auflösung",
+      "table": "Geschäfte",
+      "multi": "Mehrfachauswahl",
+      "clickHint": "Klicken Sie auf eine Bar, um es auszuwählen.",
+      "resultHint": "Eine Ergebnisbindung liest das gesamte Ergebnis: hier die erste Zeile.",
+      "kind": {
+        "selection": "Auswahl verbindlich",
+        "result": "Ergebnisbindung"
+      },
+      "stage": {
+        "source": "Quelle",
+        "data": "Holen Sie sich die Daten",
+        "serialise": "Serialisierung",
+        "inject": "Injizieren in die Abfrage",
+        "run": "Führen Sie die Abfrage aus"
+      },
+      "say": {
+        "source": "Die Bindung beginnt bei stage 1.{kind}: Die Reihen dahinter {values}.",
+        "data": "column() zieht die StageName-Werte aus diesen Zeilen (cell() würde einen Wert nehmen).",
+        "serialise": ".{ser}() verwandelt die Werte in Text SAQL kann lesen.",
+        "inject": "Die {mustache} in q deals wird durch diesen Text ersetzt, bevor die Abfrage gesendet wird.",
+        "run": "q deals läuft wieder mit dem neuen Filter: {n} Zeilen."
+      },
+      "brokenNote": "asString verbindet mehrere Werte zu einer Zeichenfolge, die keine Zeile gleicht, so dass nichts zurückkommt. Verwenden Sie asObject oder asEquality für mehrere Werte.",
+      "notes": {
+        "what": {
+          "title": "Was eine Bindung ist",
+          "body": "Eine Bindung ist eine {mustache} Ausdruck innerhalb einer Abfrage oder einer Widget-Eigenschaft. Bevor die Abfrage ausgeführt wird, ersetzt das Dashboard sie durch Text aus einem anderen Schritt."
+        },
+        "selection": {
+          "title": "Auswahl verbindlich",
+          "body": "Lesen Sie, was der Benutzer in einem anderen Schritt ausgewählt hat. Es ändert sich jedes Mal, wenn sie klicken."
+        },
+        "result": {
+          "title": "Ergebnisbindung",
+          "body": "Lesen Sie das Ergebnis eines anderen Schritts, z. B. die erste Zeile, ob etwas ausgewählt ist oder nicht."
+        },
+        "asObject": {
+          "title": "asObject()",
+          "body": "Schreibt die Werte als SAQL Literale: eine Liste aus column(), ein Wert aus cell()."
+        },
+        "asString": {
+          "title": "asString()",
+          "body": "Schreibt einfachen Text ohne Zitate. Gut für einen Wert innerhalb einer Zeichenfolge, die Sie selbst erstellen; falsch für mehrere Werte."
+        },
+        "asEquality": {
+          "title": "asEquality(Feld)",
+          "body": "Schreibt eine ganze Bedingung, Feld == Wert oder Feld in [Werte], bereit für einen Filter."
+        },
+        "faceting": {
+          "title": "Bindings oder Faceting?",
+          "body": "Faceting filtert jeden Schritt im selben Datensatz ohne Code. Bindungen sind für andere Datensätze oder zur Änderung von Maßnahmen, Gruppierungen und Eigenschaften."
+        }
+      }
+    },
+    "fn": {
+      "year": "Nimmt das jahr aus einem datum.",
+      "quarter": "Gibt das Quartal des Jahres, 1 bis 4.",
+      "month": "Gibt die Monatszahl 1 bis 12 an.",
+      "day": "Gibt den Tag des Monats an.",
+      "day_of_week": "Gibt den Wochentag 1 (Sonntag) bis 7 (Samstag) an.",
+      "week": "Gibt die ISO-Woche des Jahres.",
+      "date_trunc_month": "Verschiebt ein Datum auf den ersten Tag seines Monats zurück, so dass die Daten nach Monat gruppiert werden.",
+      "add_months": "Fügt eine Anzahl von Monaten zu einem Datum hinzu, für Verlängerungen und Fälligkeitsdaten.",
+      "date_diff_days": "Zählt die Tage zwischen zwei Daten.",
+      "days_until_today": "Zählt die Tage von einem Datum bis heute: wie alt ein Rekord ist.",
+      "last_day": "Gibt den letzten Tag des Monats des Datums an.",
+      "to_date": "Verwandelt Text in einem bekannten Format in ein reales Datum, so dass Datumsfunktionen und Datumsfilter daran arbeiten.",
+      "upper": "Verwandelt Text in Großbuchstaben.",
+      "lower": "Verwandelt Text in kleine Buchstaben.",
+      "concat": "Verbindet Texte zu einem.",
+      "substr": "Nimmt einen Teil eines Textes, nach Position und Länge.",
+      "length": "Zählt die Zeichen in einem Text.",
+      "replace": "Ersetzt jede Übereinstimmung eines Textes durch einen anderen.",
+      "round": "Rundet eine Zahl; eine negative Position rundet auf Dutzende, Hunderte oder Tausende.",
+      "multiply": "Multipliziert eine Zahl, für Steuern, Währung oder Margin.",
+      "abs": "Entfernt das Zeichen einer Zahl.",
+      "coalesce": "Gibt den ersten Wert an, der nicht null ist: ein Standard für fehlende Werte.",
+      "bucket": "Ordnet Werte in benannte Bereiche mit Fall wann.",
+      "case_won": "Verwandelt eine Bedingung in 1 oder 0, so dass sie summiert werden kann.",
+      "is_null": "Erzählt fehlende Werte abgesehen von den gegenwärtigen.",
+      "running_total": "Addiert eine Spalte Zeile für Zeile, um für jede Partition neu zu starten.",
+      "rank": "Zahlenreihen durch einen Wert innerhalb ihrer Partition: 1 ist die höchste.",
+      "lag": "Lies den Wert aus der vorherigen Zeile in der Partition.",
+      "share_of_partition": "Gibt den Anteil jeder Zeile an der Gesamtpartition in Prozent an."
     }
   },
   "meter": {
