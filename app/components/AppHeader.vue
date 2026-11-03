@@ -24,13 +24,16 @@ const menuItems = computed(() => [
 // every width); once mounted, a hidden copy with labels is measured and the
 // labels appear only if all of them fit — so nothing jumps or squeezes.
 const navEl = ref<HTMLElement | null>(null)
-const measureEl = ref<HTMLElement | null>(null)
-const compact = ref(true)
+const rowProbe = ref<HTMLElement | null>(null)
+const stackProbe = ref<HTMLElement | null>(null)
+// row: icon and label side by side · stack: icon over a small label (half
+// the width) · icon: icons alone, the last resort. Starts as stack, which
+// fits at ordinary laptop widths, so the first paint already has titles.
+const mode = ref<'row' | 'stack' | 'icon'>('stack')
 function fit() {
   const nav = navEl.value
-  const probe = measureEl.value
-  if (!nav || !probe || !nav.clientWidth) return
-  compact.value = probe.scrollWidth > nav.clientWidth
+  if (!nav || !nav.clientWidth || !rowProbe.value || !stackProbe.value) return
+  mode.value = rowProbe.value.scrollWidth <= nav.clientWidth ? 'row' : stackProbe.value.scrollWidth <= nav.clientWidth ? 'stack' : 'icon'
 }
 let navRo: ResizeObserver | undefined
 onMounted(() => {
@@ -126,17 +129,31 @@ const localeItems = computed(() =>
         class="relative ms-4 hidden h-16 min-w-0 flex-1 items-stretch overflow-hidden lg:flex"
         aria-label="Main"
       >
-        <!-- Hidden copy with labels, measured by fit() -->
+        <!-- Hidden copies of both labelled layouts, measured by fit() -->
         <div
-          ref="measureEl"
-          class="pointer-events-none invisible absolute flex w-max"
+          class="pointer-events-none invisible absolute flex flex-col"
           aria-hidden="true"
         >
-          <span
-            v-for="item in menuItems"
-            :key="item.to"
-            class="flex items-center gap-1.5 border-e px-3 text-[13px] font-semibold whitespace-nowrap"
-          ><span class="size-4" />{{ item.label }}</span>
+          <div
+            ref="rowProbe"
+            class="flex w-max"
+          >
+            <span
+              v-for="item in menuItems"
+              :key="item.to"
+              class="flex items-center gap-1.5 border-e px-3 text-[13px] font-semibold whitespace-nowrap"
+            ><span class="size-4" />{{ item.label }}</span>
+          </div>
+          <div
+            ref="stackProbe"
+            class="flex w-max"
+          >
+            <span
+              v-for="item in menuItems"
+              :key="item.to"
+              class="border-e px-2 text-[11px] font-semibold whitespace-nowrap"
+            >{{ item.label }}</span>
+          </div>
         </div>
         <div class="flex w-max items-stretch border-s border-(--line)">
           <NuxtLink
@@ -144,17 +161,19 @@ const localeItems = computed(() =>
             :key="item.to"
             :to="item.to"
             :title="item.label"
-            class="relative flex shrink-0 items-center gap-1.5 border-e border-(--line) px-3 text-[13px] font-semibold whitespace-nowrap transition-colors"
-            :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'"
+            class="relative flex shrink-0 border-e border-(--line) font-semibold whitespace-nowrap transition-colors"
+            :class="[
+              mode === 'stack' ? 'flex-col items-center justify-center gap-1 px-2 text-[11px]' : 'items-center gap-1.5 px-3 text-[13px]',
+              isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'
+            ]"
           >
             <UIcon
               :name="item.icon"
               class="size-4 shrink-0"
             />
-            <!-- A label is never cut: all of them in full when they fit (in the
-               current language, signed in or out), else every cell is its icon
-               with the label as tooltip. Measured, see `fit`. -->
-            <span :class="compact ? 'sr-only' : 'block'">{{ item.label }}</span>
+            <!-- Never a cut label: in a row when they all fit, stacked under
+                 the icon when that fits, else icons with the label as tooltip. -->
+            <span :class="mode === 'icon' ? 'sr-only' : 'block leading-none'">{{ item.label }}</span>
             <span
               v-if="isActive(item)"
               class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
