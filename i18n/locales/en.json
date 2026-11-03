@@ -29,7 +29,72 @@
     "visualiser": "Visualisers",
     "team": "My organisation",
     "billing": "Plan and billing",
-    "course": "The course"
+    "course": "The course",
+    "learn": "Learn",
+    "menu": {
+      "learn": {
+        "start": {
+          "title": "Start here",
+          "body": "Every section and lesson, in order."
+        },
+        "course": {
+          "title": "The course",
+          "body": "What you will learn, and how."
+        },
+        "exams": {
+          "title": "Practice exams",
+          "body": "Timed papers like the certification."
+        },
+        "interview": {
+          "title": "Interview questions",
+          "body": "Real questions with model answers."
+        },
+        "resources": {
+          "title": "Resources",
+          "body": "The best docs, blogs and tools."
+        },
+        "datasets": {
+          "title": "Datasets",
+          "body": "The course data, ready to load."
+        },
+        "cta": {
+          "title": "Start with lesson 1",
+          "body": "Free, about ten minutes, in your language.",
+          "button": "Start learning"
+        }
+      },
+      "tools": {
+        "saql": {
+          "title": "SAQL",
+          "body": "Watch a query run, line by line."
+        },
+        "recipe": {
+          "title": "Recipes",
+          "body": "Data Prep nodes, in execution order."
+        },
+        "joins": {
+          "title": "Joins",
+          "body": "Lookup, left, right, inner, outer."
+        },
+        "functions": {
+          "title": "Functions",
+          "body": "toDate, year, rank and more, row by row."
+        },
+        "bindings": {
+          "title": "Bindings",
+          "body": "How one widget filters another."
+        },
+        "security": {
+          "title": "Security",
+          "body": "Who sees which rows, and why."
+        },
+        "cta": {
+          "title": "See CRM Analytics work",
+          "body": "Interactive, step by step, no org needed.",
+          "button": "All visualisers"
+        }
+      }
+    }
   },
   "home": {
     "modules": {

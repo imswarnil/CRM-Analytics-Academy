@@ -9,14 +9,50 @@ const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 
-// The main destinations, drawn as full-height cells with an icon each. The
-// label folds away below xl so the row fits; the icon and its title remain.
+// The bar has three entries, so their titles always fit: two open a panel
+// (features stacked in a two-column grid, and a call to action beside them),
+// one is a plain link. The phone menu lists every destination.
+interface Feature { key: string, icon: string, to: string, tint: string }
+interface Group { key: 'learn' | 'tools', icon: string, items: Feature[], cta: { to: string, icon: string } }
+const GROUPS: Group[] = [
+  {
+    key: 'learn',
+    icon: 'i-lucide-graduation-cap',
+    items: [
+      { key: 'start', icon: 'i-lucide-map', to: '/curriculum', tint: '#2563eb' },
+      { key: 'course', icon: 'i-lucide-rocket', to: '/course', tint: '#7c3aed' },
+      { key: 'exams', icon: 'i-lucide-timer', to: '/certification', tint: '#d97706' },
+      { key: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions', tint: '#059669' },
+      { key: 'resources', icon: 'i-lucide-library-big', to: '/resources', tint: '#db2777' },
+      { key: 'datasets', icon: 'i-lucide-database', to: '/datasets', tint: '#0891b2' }
+    ],
+    cta: { to: '/introduction', icon: 'i-lucide-play' }
+  },
+  {
+    key: 'tools',
+    icon: 'i-lucide-workflow',
+    items: [
+      { key: 'saql', icon: 'i-lucide-terminal', to: '/visualiser/saql', tint: '#2563eb' },
+      { key: 'recipe', icon: 'i-lucide-workflow', to: '/visualiser/recipe', tint: '#7c3aed' },
+      { key: 'joins', icon: 'i-lucide-merge', to: '/visualiser/joins', tint: '#059669' },
+      { key: 'functions', icon: 'i-lucide-function-square', to: '/visualiser/functions', tint: '#d97706' },
+      { key: 'bindings', icon: 'i-lucide-link', to: '/visualiser/bindings', tint: '#db2777' },
+      { key: 'security', icon: 'i-lucide-shield-check', to: '/visualiser/security', tint: '#0891b2' }
+    ],
+    cta: { to: '/visualiser', icon: 'i-lucide-layout-grid' }
+  }
+]
+const groupActive = (g: Group) => g.items.some(i => isActive({ to: localePath(i.to) }))
+// For the measuring probes and the phone menu: one row per entry.
 const menuItems = computed(() => [
-  { label: t('nav.curriculum'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
-  { label: t('nav.certification'), icon: 'i-lucide-timer', to: localePath('/certification') },
-  { label: t('nav.interview'), icon: 'i-lucide-messages-square', to: localePath('/interview-questions') },
+  { label: t('nav.learn'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
   { label: t('nav.visualiser'), icon: 'i-lucide-workflow', to: localePath('/visualiser') },
-  { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
+  { label: t('nav.pro'), icon: 'i-lucide-sparkles', to: localePath('/pro') }
+])
+const openGroup = ref<string | null>(null)
+watch(() => route.fullPath, () => (openGroup.value = null))
+const phoneItems = computed(() => [
+  ...GROUPS.flatMap(g => g.items.map(i => ({ label: t(`nav.menu.${g.key}.${i.key}.title`), icon: i.icon, to: localePath(i.to) }))),
   { label: t('nav.pro'), icon: 'i-lucide-sparkles', to: localePath('/pro') }
 ])
 
@@ -156,26 +192,116 @@ const localeItems = computed(() =>
           </div>
         </div>
         <div class="flex w-max items-stretch border-s border-(--line)">
+          <!-- Learn ▾ and Visualisers ▾: a panel of features and a call to action -->
+          <UPopover
+            v-for="g in GROUPS"
+            :key="g.key"
+            :open="openGroup === g.key"
+            mode="hover"
+            :open-delay="60"
+            :close-delay="140"
+            :content="{ align: 'start', sideOffset: 0 }"
+            :ui="{ content: 'rounded-none border-[1.5px] border-(--ink) shadow-[6px_6px_0_var(--ink)]' }"
+            @update:open="(o: boolean) => (openGroup = o ? g.key : (openGroup === g.key ? null : openGroup))"
+          >
+            <button
+              type="button"
+              class="relative flex shrink-0 border-e border-(--line) font-semibold whitespace-nowrap transition-colors"
+              :class="[
+                mode === 'stack' ? 'flex-col items-center justify-center gap-1 px-3 text-[11px]' : 'items-center gap-1.5 px-3.5 text-[13px]',
+                groupActive(g) || openGroup === g.key ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'
+              ]"
+              :aria-expanded="openGroup === g.key"
+              @click="openGroup = openGroup === g.key ? null : g.key"
+            >
+              <UIcon
+                :name="g.icon"
+                class="size-4 shrink-0"
+              />
+              <span
+                class="flex items-center gap-0.5"
+                :class="mode === 'icon' ? 'sr-only' : 'leading-none'"
+              >{{ g.key === 'learn' ? t('nav.learn') : t('nav.visualiser') }}<UIcon
+                name="i-lucide-chevron-down"
+                class="size-3 transition-transform"
+                :class="openGroup === g.key ? 'rotate-180' : ''"
+              /></span>
+              <span
+                v-if="groupActive(g)"
+                class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
+              />
+            </button>
+            <template #content>
+              <div class="grid w-[min(46rem,calc(100vw-2rem))] grid-cols-[minmax(0,1fr)_14rem] bg-(--card)">
+                <!-- Features, stacked in two columns -->
+                <ul class="grid grid-cols-2 gap-1 p-3">
+                  <li
+                    v-for="i in g.items"
+                    :key="i.key"
+                  >
+                    <NuxtLink
+                      :to="localePath(i.to)"
+                      class="group flex items-start gap-3 rounded-lg p-2.5 hover:bg-(--ice)"
+                      @click="openGroup = null"
+                    >
+                      <span
+                        class="flex size-9 shrink-0 items-center justify-center rounded-lg"
+                        :style="{ background: `color-mix(in srgb, ${i.tint} 14%, transparent)`, color: i.tint }"
+                      >
+                        <UIcon
+                          :name="i.icon"
+                          class="size-[18px]"
+                        />
+                      </span>
+                      <span class="min-w-0">
+                        <span class="block text-sm font-bold text-(--ink) group-hover:text-(--signal)">{{ t(`nav.menu.${g.key}.${i.key}.title`) }}</span>
+                        <span class="block text-xs leading-snug text-(--ink2)">{{ t(`nav.menu.${g.key}.${i.key}.body`) }}</span>
+                      </span>
+                    </NuxtLink>
+                  </li>
+                </ul>
+                <!-- Call to action -->
+                <div class="flex flex-col justify-between gap-4 border-s-[1.5px] border-(--ink) bg-(--navy) p-5 text-white">
+                  <div>
+                    <UIcon
+                      :name="g.cta.icon"
+                      class="size-7 text-(--glow)"
+                    />
+                    <p class="mt-3 text-lg font-extrabold leading-tight">
+                      {{ t(`nav.menu.${g.key}.cta.title`) }}
+                    </p>
+                    <p class="mt-1.5 text-sm text-white/70">
+                      {{ t(`nav.menu.${g.key}.cta.body`) }}
+                    </p>
+                  </div>
+                  <UButton
+                    :to="localePath(g.cta.to)"
+                    color="secondary"
+                    trailing-icon="i-lucide-arrow-right"
+                    @click="openGroup = null"
+                  >
+                    {{ t(`nav.menu.${g.key}.cta.button`) }}
+                  </UButton>
+                </div>
+              </div>
+            </template>
+          </UPopover>
+          <!-- Pricing: a plain link -->
           <NuxtLink
-            v-for="item in menuItems"
-            :key="item.to"
-            :to="item.to"
-            :title="item.label"
+            :to="localePath('/pro')"
             class="relative flex shrink-0 border-e border-(--line) font-semibold whitespace-nowrap transition-colors"
             :class="[
-              mode === 'stack' ? 'flex-col items-center justify-center gap-1 px-2 text-[11px]' : 'items-center gap-1.5 px-3 text-[13px]',
-              isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'
+              mode === 'stack' ? 'flex-col items-center justify-center gap-1 px-3 text-[11px]' : 'items-center gap-1.5 px-3.5 text-[13px]',
+              isActive({ to: localePath('/pro') }) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'
             ]"
           >
             <UIcon
-              :name="item.icon"
+              name="i-lucide-sparkles"
               class="size-4 shrink-0"
             />
-            <!-- Never a cut label: in a row when they all fit, stacked under
-                 the icon when that fits, else icons with the label as tooltip. -->
-            <span :class="mode === 'icon' ? 'sr-only' : 'block leading-none'">{{ item.label }}</span>
+            <span :class="mode === 'icon' ? 'sr-only' : 'block leading-none'">{{ t('nav.pro') }}</span>
             <span
-              v-if="isActive(item)"
+              v-if="isActive({ to: localePath('/pro') })"
               class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
             />
           </NuxtLink>
@@ -335,7 +461,7 @@ const localeItems = computed(() =>
         <!-- Numbered rows, as in the spec's mobile menu. -->
         <nav class="border-b-[1.5px] border-(--ink)">
           <NuxtLink
-            v-for="(item, i) in [...menuItems, ...extraItems]"
+            v-for="(item, i) in [...phoneItems, ...extraItems.filter(x => !phoneItems.some(p => p.to === x.to))]"
             :key="item.to"
             :to="item.to"
             class="bp-row flex items-center gap-4 border-b border-(--line) px-5 py-3.5 text-lg font-bold last:border-b-0"
