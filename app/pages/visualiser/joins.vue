@@ -83,8 +83,14 @@ const caption = computed(() => {
   return t(`vis.joins.fate.${plan.value.fate[step.value]}`, { row: String(l.Name), key: lk.value, value: fmt(l[lk.value] ?? null), n: matchesOf(l).length })
 })
 
-/* Venn: which regions the join keeps. */
-const keeps = computed(() => ({ left: ['lookup', 'left', 'outer'].includes(join.value), both: true, right: ['right', 'outer'].includes(join.value) }))
+/* The Venn regions every join type keeps, for its thumbnail. */
+const VENN: Record<JoinType, { left: boolean, right: boolean }> = {
+  lookup: { left: true, right: false },
+  left: { left: true, right: false },
+  right: { left: false, right: true },
+  inner: { left: false, right: false },
+  outer: { left: true, right: true }
+}
 const KIND_TONE: Record<Out['kind'], string> = { joined: '#34d399', fanout: '#a78bfa', leftOnly: '#fbbf24', rightOnly: '#60a5fa' }
 
 const title = computed(() => t('vis.joins.seoTitle'))
@@ -108,99 +114,90 @@ usePageSchema(() => ({
     :count="count"
     :caption="caption"
     :eyebrow="`${join} join · ${lName}.${lk} = ${rName}.${rk}`"
-    :presets="JOIN_TYPES.map(j => ({ id: j, label: `${j} join` }))"
-    :preset="join"
     :rail="false"
     :edit-label="t('vis.joins.about')"
-    @preset="(id: string) => (join = id as JoinType)"
   >
     <template #stage>
       <div class="jn absolute inset-0 overflow-y-auto p-5 sm:p-7">
         <div class="mx-auto max-w-6xl space-y-6">
-          <div class="flex flex-wrap items-center gap-6">
-            <!-- Venn -->
-            <svg
-              viewBox="0 0 180 100"
-              class="h-24 w-44 shrink-0"
-              role="img"
-              :aria-label="`${join} join`"
+          <!-- Join types, as thumbnails -->
+          <div class="grid grid-cols-5 gap-2 sm:gap-3">
+            <button
+              v-for="j in JOIN_TYPES"
+              :key="j"
+              type="button"
+              class="jn-type"
+              :class="join === j ? 'on' : ''"
+              :aria-pressed="join === j"
+              @click="join = j"
             >
-              <defs>
-                <clipPath id="jn-l"><circle
-                  cx="65"
-                  cy="50"
-                  r="40"
-                /></clipPath>
-                <clipPath id="jn-r"><circle
-                  cx="115"
-                  cy="50"
-                  r="40"
-                /></clipPath>
-              </defs>
-              <circle
-                cx="65"
-                cy="50"
-                r="40"
-                :fill="keeps.left ? '#fbbf24' : 'transparent'"
-                :fill-opacity="keeps.left ? 0.55 : 0"
-              />
-              <circle
-                cx="115"
-                cy="50"
-                r="40"
-                :fill="keeps.right ? '#60a5fa' : 'transparent'"
-                :fill-opacity="keeps.right ? 0.55 : 0"
-              />
-              <circle
-                cx="115"
-                cy="50"
-                r="40"
-                clip-path="url(#jn-l)"
-                fill="#34d399"
-                fill-opacity="0.9"
-              />
-              <circle
-                cx="65"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke="#cbd5e1"
-                stroke-width="1.5"
-              />
-              <circle
-                cx="115"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke="#cbd5e1"
-                stroke-width="1.5"
-              />
-              <text
-                x="38"
-                y="54"
-                font-size="10"
-                fill="#0b1020"
-                font-weight="700"
-              >{{ keeps.left ? 'L' : '' }}</text>
-              <text
-                x="136"
-                y="54"
-                font-size="10"
-                fill="#0b1020"
-                font-weight="700"
-              >{{ keeps.right ? 'R' : '' }}</text>
-            </svg>
-            <div class="min-w-0 flex-1">
-              <p class="text-xl font-bold text-[#f1f5ff]">
+              <svg
+                viewBox="0 0 120 70"
+                class="h-12 w-full sm:h-14"
+                aria-hidden="true"
+              >
+                <defs>
+                  <clipPath :id="`jt-${j}`"><circle
+                    cx="45"
+                    cy="35"
+                    r="27"
+                  /></clipPath>
+                </defs>
+                <circle
+                  cx="45"
+                  cy="35"
+                  r="27"
+                  :fill="VENN[j].left ? '#f59e0b' : 'none'"
+                  fill-opacity="0.55"
+                />
+                <circle
+                  cx="75"
+                  cy="35"
+                  r="27"
+                  :fill="VENN[j].right ? '#3b82f6' : 'none'"
+                  fill-opacity="0.55"
+                />
+                <circle
+                  cx="75"
+                  cy="35"
+                  r="27"
+                  :clip-path="`url(#jt-${j})`"
+                  fill="#10b981"
+                />
+                <circle
+                  cx="45"
+                  cy="35"
+                  r="27"
+                  fill="none"
+                  stroke="#475569"
+                  stroke-width="1.5"
+                />
+                <circle
+                  cx="75"
+                  cy="35"
+                  r="27"
+                  fill="none"
+                  stroke="#475569"
+                  stroke-width="1.5"
+                />
+              </svg>
+              <span class="mt-1 block text-[13px] font-bold capitalize">{{ j }}</span>
+            </button>
+          </div>
+
+          <!-- What this join does, when you would use it, and what is happening now -->
+          <div class="grid gap-3 md:grid-cols-[minmax(0,1fr)_auto]">
+            <div>
+              <p class="text-lg font-bold text-[#0b1220]">
                 {{ t(`vis.joins.what.${join}`) }}
               </p>
-              <p class="mt-1 font-mono text-sm text-[#8b97b8]">
-                {{ lName }}.{{ lk }} = {{ rName }}.{{ rk }} · {{ t('vis.joins.rowsOut', { n: total }) }}
+              <p class="mt-1 text-sm text-[#475569]">
+                <b>{{ t('vis.joins.useWhen') }}</b> {{ t(`vis.joins.use.${join}`) }}
               </p>
             </div>
             <button
               type="button"
-              class="jn-btn"
+              class="jn-btn self-start"
               @click="flip = !flip"
             >
               <UIcon
@@ -209,6 +206,10 @@ usePageSchema(() => ({
               />{{ t('vis.joins.flip') }}
             </button>
           </div>
+          <p class="jn-now">
+            <span class="font-mono text-xs font-bold text-[#d97706]">{{ step + 1 }}/{{ count }}</span>
+            {{ caption }}
+          </p>
 
           <!-- Left · lines · right -->
           <div class="grid grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] items-start">
@@ -220,7 +221,7 @@ usePageSchema(() => ({
                 v-for="(r, i) in L"
                 :key="String(r.Id)"
                 class="jn-row"
-                :class="[i === step ? 'jn-row--now' : '', i < step ? 'opacity-55' : '', i < step && plan.fate[i] === 'dropped' ? 'line-through text-[#fda4af]' : '']"
+                :class="[i === step ? 'jn-row--now' : '', i < step ? 'opacity-55' : '', i < step && plan.fate[i] === 'dropped' ? 'line-through text-[#be123c]' : '']"
               >
                 <span class="truncate font-semibold">{{ r.Name }}</span><span class="font-mono text-[#fbbf24]">{{ fmt(r[lk] ?? null) }}</span>
               </div>
@@ -237,7 +238,7 @@ usePageSchema(() => ({
                 :key="`${step}-${i}`"
                 :d="`M0,${ln.y1} C40,${ln.y1} 40,${ln.y2} 80,${ln.y2}`"
                 fill="none"
-                :stroke="ln.keep ? '#34d399' : '#5d6a8a'"
+                :stroke="ln.keep ? '#34d399' : '#94a3b8'"
                 stroke-width="2.5"
                 :stroke-dasharray="ln.keep ? '200' : '4 4'"
                 class="jn-line"
@@ -287,22 +288,22 @@ usePageSchema(() => ({
                 />
                 <span
                   class="truncate"
-                  :class="o.l ? '' : 'italic text-[#5d6a8a]'"
+                  :class="o.l ? '' : 'italic text-[#94a3b8]'"
                 >{{ o.l ? `${o.l.Name} · ${fmt(o.l[lk] ?? null)}` : 'null' }}</span>
                 <span
                   class="truncate"
-                  :class="o.r ? '' : 'italic text-[#5d6a8a]'"
+                  :class="o.r ? '' : 'italic text-[#94a3b8]'"
                 >{{ o.r ? `${fmt(o.r[rk] ?? null)} · ${o.r.Name}` : 'null' }}</span>
               </div>
             </TransitionGroup>
             <p
               v-if="!output.length"
-              class="px-4 py-3 text-sm text-[#5d6a8a]"
+              class="px-4 py-3 text-sm text-[#94a3b8]"
             >
               {{ t('vis.joins.empty') }}
             </p>
           </div>
-          <div class="flex flex-wrap gap-4 font-mono text-[11px] text-[#8b97b8]">
+          <div class="flex flex-wrap gap-4 font-mono text-[11px] text-[#64748b]">
             <span
               v-for="(c, k) in KIND_TONE"
               :key="k"
@@ -335,18 +336,22 @@ usePageSchema(() => ({
 </template>
 
 <style scoped>
-.jn { background: #0b1020; background-image: radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1.2px); background-size: 22px 22px; color: #cbd5e1; }
-.jn-table { border-radius: 14px; background: #0f1628; border: 1px solid #222d47; overflow: hidden; }
-.jn-head { height: 36px; display: flex; align-items: center; padding: 0 14px; font: 600 11px ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #8b97b8; background: #131c33; border-bottom: 1px solid #222d47; }
-.jn-row { height: 40px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 14px; font-size: 13px; color: #e6ecff; border-bottom: 1px solid #18213a; transition: background 0.3s, opacity 0.3s; }
+.jn { background: #f6f7fb; background-image: radial-gradient(rgb(15 23 42 / 0.09) 1px, transparent 1.2px); background-size: 22px 22px; color: #334155; }
+.jn-table { border-radius: 14px; background: #ffffff; border: 1px solid #e3e8f0; overflow: hidden; }
+.jn-head { height: 36px; display: flex; align-items: center; padding: 0 14px; font: 600 11px ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; background: #f3f5f9; border-bottom: 1px solid #e3e8f0; }
+.jn-row { height: 40px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 14px; font-size: 13px; color: #0f172a; border-bottom: 1px solid #eef1f6; transition: background 0.3s, opacity 0.3s; }
 .jn-row:last-child { border-bottom: 0; }
-.jn-orow { display: grid; grid-template-columns: 1rem minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: center; height: 40px; padding: 0 14px; font-size: 13px; color: #e6ecff; border-bottom: 1px solid #18213a; }
+.jn-orow { display: grid; grid-template-columns: 1rem minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: center; height: 40px; padding: 0 14px; font-size: 13px; color: #0f172a; border-bottom: 1px solid #eef1f6; }
 .jn-row--now { background: rgb(251 191 36 / 0.16); outline: 1px solid #fbbf24; outline-offset: -1px; }
 .jn-row--hit { background: rgb(52 211 153 / 0.16); }
 .jn-row--right { background: rgb(96 165 250 / 0.16); }
 .jn-line { animation: draw 0.6s ease-out both; stroke-dashoffset: 0; }
 @keyframes draw { from { stroke-dashoffset: 200; } }
-.jn-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px; background: #121a2e; border: 1px solid #26324d; color: #e6ecff; font-size: 13px; font-weight: 600; }
+.jn-type { border-radius: 14px; border: 1.5px solid #e3e8f0; background: #fff; padding: 8px 6px 10px; color: #334155; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+.jn-type:hover { border-color: #94a3b8; transform: translateY(-1px); }
+.jn-type.on { border-color: #059669; box-shadow: 0 0 0 3px rgb(16 185 129 / 0.18); color: #065f46; }
+.jn-now { display: flex; gap: 10px; align-items: baseline; border-radius: 12px; background: #fffbeb; border: 1px solid #fde68a; padding: 10px 14px; font-size: 15px; color: #1f2937; }
+.jn-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px; background: #ffffff; border: 1px solid #dfe4ee; color: #0f172a; font-size: 13px; font-weight: 600; }
 .jn-btn:hover { border-color: #60a5fa; }
 .jn-out-enter-active { transition: opacity 0.35s, transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1); }
 .jn-out-enter-from { opacity: 0; transform: translateX(-16px); }

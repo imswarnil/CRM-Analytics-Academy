@@ -40,5 +40,7 @@ if (process.env.CI || process.env.SKIP_TRANSLATE) {
 }
 
 run('node', ['scripts/gate-content.mjs'])
+// Resource thumbnails need the network; CI uses the committed file.
+if (!process.env.CI) run('node', ['scripts/resource-previews.mjs'])
 run('node', ['scripts/lesson-meta.mjs'])
 run('node', ['scripts/build-search-index.mjs'])

@@ -14,7 +14,7 @@
     "signOut": "Déconnexion",
     "dashboard": "Tableau de bord",
     "account": "Compte",
-    "curriculum": "Programmes",
+    "curriculum": "Commencez ici.",
     "submit": "Apporter une ressource",
     "home": "Sommaire",
     "enrollFree": "Inscription gratuite",
@@ -61,7 +61,7 @@
       "title": "Apprendre Salesforce CRM Analytics la façon dont il est utilisé au travail.",
       "lead": "Cours pratiques gratuits sur les recettes, SAQL, tableaux de bord, sécurité et Einstein Discovery — construite sur des données réelles d'une entreprise.",
       "start": "Début de la leçon 1",
-      "curriculum": "Voir programme"
+      "curriculum": "Commencez ici."
     },
     "author": {
       "eyebrow": "Fig. 05 — L'auteur",
@@ -129,6 +129,24 @@
       "countries": "Pays",
       "byRegion": "Les lecteurs par région",
       "topCountries": "Principaux pays"
+    },
+    "inside": {
+      "lessons": {
+        "title": "Quelques leçons, étape par étape",
+        "body": "Vidéo et texte, un quiz après chacun, en 12 langues."
+      },
+      "visualisers": {
+        "title": "Voir ça courir",
+        "body": "Regardez SAQL, recettes, jointures et fixations travaillent rang par rang."
+      },
+      "exams": {
+        "title": "Examens pratiques",
+        "body": "Des papiers chronométrés comme la vraie certification."
+      },
+      "interview": {
+        "title": "Questions d'entretien",
+        "body": "De vraies questions avec des réponses modèles, par sujet."
+      }
     }
   },
   "footer": {
@@ -172,7 +190,7 @@
     "cta": {
       "start": "Commencez le cours gratuitement",
       "continue": "Continuer à apprendre",
-      "curriculum": "Voir le programme complet"
+      "curriculum": "Commencez ici."
     },
     "outcomes": {
       "eyebrow": "Ce que vous pourrez faire",
@@ -982,7 +1000,7 @@
       "teaches": "Salesforce CRM Analytics: préparation des données, ensembles de données, SAQL, tableaux de bord, fixations et Einstein Discovery"
     },
     "sheet": "Feuille 01 / {sections} sections / {lessons} leçons / {hours}h",
-    "title": "Programmes",
+    "title": "Commencez ici.",
     "complete": "{done} / {total} terminée",
     "start": "Commencez au début",
     "datasets": "Obtenez les ensembles de données",
@@ -1010,7 +1028,8 @@
     },
     "waiting": "{n} apprenants en attente",
     "notifyMe": "Prévenez-moi quand ça ouvrira.",
-    "notifying": "Vous êtes sur la liste"
+    "notifying": "Vous êtes sur la liste",
+    "toolsTitle": "Voir l'exécution : outils de pratique"
   },
   "lesson": {
     "authors": {
@@ -1189,7 +1208,14 @@
     },
     "prev": "Question précédente",
     "next": "Question suivante",
-    "close": "Fermer"
+    "close": "Fermer",
+    "view": {
+      "list": "Liste",
+      "grid": "Cartes"
+    },
+    "editOnGithub": "Améliorer cette réponse sur GitHub",
+    "answersTitle": "Réponses de la communauté",
+    "answersLead": "Lisez comment les autres y répondent ou ajoutez le vôtre."
   },
   "cert": {
     "eyebrow": "Pratique de certification",
@@ -1809,7 +1835,8 @@
       "zoomIn": "Zoom dans",
       "zoomOut": "Zoom arrière",
       "recenter": "Suivez encore l'étape",
-      "rowByRow": "Ligne par ligne"
+      "rowByRow": "Ligne par ligne",
+      "order": "Ordre d'exécution"
     },
     "check": {
       "kept": "gardé: il passe {test}",
@@ -1875,6 +1902,14 @@
         "fanout": "répétés (refusé)",
         "leftOnly": "laissé seulement",
         "rightOnly": "droit seulement"
+      },
+      "useWhen": "Utilisez-le lorsque :",
+      "use": {
+        "lookup": "vous voulez ajouter le nom de compte et la région à chaque opportunité, sans jamais dupliquer une opportunité.",
+        "left": "vous voulez chaque Compte avec toutes ses possibilités, et voyez toujours les Comptes qui n'en ont pas.",
+        "right": "le bon côté est ce que vous devez garder : chaque compte, qu'il s'agisse ou non d'un point Opportunity.",
+        "inner": "vous ne vous souciez que des documents qui existent des deux côtés, comme Opportunités dont le compte est connu.",
+        "outer": "vous conciliez deux systèmes et devez voir ce qui manque de chaque côté."
       }
     },
     "bindings": {
@@ -1969,6 +2004,54 @@
       "rank": "Nombres lignes par une valeur à l'intérieur de leur partition : 1 est la plus élevée.",
       "lag": "Lis la valeur de la ligne précédente dans la partition.",
       "share_of_partition": "Donne à chaque rangée la part de sa partition, en pourcentage."
+    },
+    "security": {
+      "title": "Visualiseur de sécurité",
+      "card": "Choisissez qui est connecté et regardez la sécurité au niveau de la rangée décider, rang par rang, ce qu'ils peuvent voir.",
+      "seoTitle": "CRM Analytics prédicats de sécurité, visualisés: niveau de sécurité ligne par étape",
+      "seoDesc": "Voir comment CRM Analytics prédicat de sécurité fonctionne : $User. Id est rempli, chaque ligne est cochée contre le propriétaire et la hiérarchie du gestionnaire, et seulement les lignes correspondantes atteignent le tableau de bord.",
+      "about": "Sur les prédicats de sécurité",
+      "whoLooks": "Qui est connecté",
+      "predicate": "Le prédicat de sécurité de l'ensemble de données",
+      "reportsTo": "rapports à {name}",
+      "topBoss": "aucun gestionnaire",
+      "noPredicate": "Pas de prédicat : tout le monde voit chaque rangée",
+      "preds": {
+        "own": "Seulement mes dossiers",
+        "team": "Mes disques et mon équipe",
+        "none": "Pas de sécurité"
+      },
+      "atQuery": "Lorsque le tableau de bord interroge le jeu de données",
+      "step0": "{name} ouvre le tableau de bord. Avant de lire une ligne, $User. Id dans le prédicat devient leur identifiant utilisateur.",
+      "row": "Ligne",
+      "rows": "lignes",
+      "sees": "Quoi ? {name} voir",
+      "pipeline": "Total du pipeline",
+      "why": {
+        "none": "visible: l'ensemble de données n'a pas de prédicat.",
+        "own": "visible : ils le possèdent.",
+        "team": "visible: {owner} se rapporte à eux, donc ils sont dans la rangée de ManagerChain.",
+        "teamOff": "caché : {owner} Ce prédicat ne vérifie que le propriétaire.",
+        "no": "caché : {owner} Il est propriétaire et ils ne sont pas dans cette rangée de ManagerChain."
+      },
+      "notes": {
+        "what": {
+          "title": "Quel prédicat de sécurité",
+          "body": "Un filtre stocké sur l'ensemble de données. CRM Analytics l'ajoute à chaque requête sur cet ensemble de données, pour chaque utilisateur, avant tout filtre de tableau de bord. Une rangée qui échoue ne rejoint jamais le tableau de bord."
+        },
+        "user": {
+          "title": "Champs $User",
+          "body": "$Utilisateur. Id, $User. UserRoleId et d'autres champs $User sont remplacés par les valeurs user=s connectées lorsque la requête s'exécute, donc un prédicat donne à chaque personne ses propres lignes."
+        },
+        "flatten": {
+          "title": "Les hiérarchies doivent être aplaties",
+          "body": "Pour permettre aux gestionnaires de voir leur équipe, une recette ou un flux de données aplatit la hiérarchie des rôles ou des gestionnaires dans un champ multi-valeurs (ici ManagerChain). Le prédicat vérifie ensuite si l'utilisateur y est n'importe où."
+        },
+        "sharing": {
+          "title": "Prédice ou partage de l'héritage?",
+          "body": "Partage des copies d'héritage Salesforce partage pour les objets pris en charge. Un prédicat est pour tout le reste, ou quand vous voulez une règle plus simple."
+        }
+      }
     }
   },
   "meter": {
@@ -2116,6 +2199,12 @@
     "sendInvites": "Envoyer des invitations",
     "invited": "Invité. Ils ont un siège quand ils se connectent avec ce courriel.",
     "copyLink": "Copier le lien de jointure",
-    "allMembers": "Membres et domaines"
+    "allMembers": "Membres et domaines",
+    "giveAccess": "Donnez accès à votre équipe",
+    "giveAccessLead": "Trois façons, utilisez n'importe lequel d'entre eux: inviter les gens par email, laisser chacun avec votre entreprise email rejoindre, ou partager le lien de jointure.",
+    "domains": "Domaines de courriel de l'entreprise",
+    "saveDomains": "Enregistrer",
+    "domainsHint": "Toute personne qui s'inscrit avec l'un de ces domaines de messagerie prend une place libre automatiquement.",
+    "domainsSaved": "Sauvé. Les personnes avec ces domaines de messagerie se joignent automatiquement alors que les sièges sont libres."
   }
 }

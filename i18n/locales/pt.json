@@ -14,7 +14,7 @@
     "signOut": "Sair",
     "dashboard": "Painel",
     "account": "Conta",
-    "curriculum": "Currículo",
+    "curriculum": "Começa aqui.",
     "submit": "Contribuir com um recurso",
     "home": "Principal",
     "enrollFree": "Inscrição gratuita",
@@ -61,7 +61,7 @@
       "title": "Aprender Salesforce CRM Analytics a forma como é usado no trabalho.",
       "lead": "Livre, aulas práticas sobre receitas, SAQL, painéis, segurança e Einstein Discovery — com base nos dados reais de uma empresa.",
       "start": "Iniciar a lição 1",
-      "curriculum": "Ver currículo"
+      "curriculum": "Começa aqui."
     },
     "author": {
       "eyebrow": "Fig. 05 — O autor",
@@ -129,6 +129,24 @@
       "countries": "Países",
       "byRegion": "Leitores por região",
       "topCountries": "Países de topo"
+    },
+    "inside": {
+      "lessons": {
+        "title": "Aulas curtas, passo a passo",
+        "body": "Vídeo e texto, um questionário após cada, em 12 idiomas."
+      },
+      "visualisers": {
+        "title": "Vê-lo correr",
+        "body": "Observar SAQL, receitas, ligações e ligações linha de trabalho por linha."
+      },
+      "exams": {
+        "title": "Exames práticos",
+        "body": "Papéis cronometrados como a verdadeira certificação."
+      },
+      "interview": {
+        "title": "Perguntas de entrevista",
+        "body": "Perguntas reais com respostas modelo, por tópico."
+      }
     }
   },
   "footer": {
@@ -172,7 +190,7 @@
     "cta": {
       "start": "Iniciar o curso grátis",
       "continue": "Continuar a aprender",
-      "curriculum": "Ver o currículo completo"
+      "curriculum": "Começa aqui."
     },
     "outcomes": {
       "eyebrow": "O que poderás fazer",
@@ -982,7 +1000,7 @@
       "teaches": "Salesforce CRM Analytics: preparação de dados, conjuntos de dados, SAQL, painéis, ligações e Einstein Discovery"
     },
     "sheet": "Folha 01 / {sections} secções / {lessons} lições / {hours}h",
-    "title": "Currículo",
+    "title": "Começa aqui.",
     "complete": "{done} / {total} completo",
     "start": "Iniciar no início",
     "datasets": "Obter os conjuntos de dados",
@@ -1010,7 +1028,8 @@
     },
     "waiting": "{n} alunos à espera",
     "notifyMe": "Avisa-me quando abrires.",
-    "notifying": "Estás na lista."
+    "notifying": "Estás na lista.",
+    "toolsTitle": "Veja-o correr: ferramentas de prática"
   },
   "lesson": {
     "authors": {
@@ -1189,7 +1208,14 @@
     },
     "prev": "Pergunta anterior",
     "next": "Próxima pergunta",
-    "close": "Fechar"
+    "close": "Fechar",
+    "view": {
+      "list": "Lista",
+      "grid": "Cartões"
+    },
+    "editOnGithub": "Melhorar esta resposta sobre GitHub",
+    "answersTitle": "Respostas da comunidade",
+    "answersLead": "Leia como outros respondem ou adicione o seu."
   },
   "cert": {
     "eyebrow": "Prática de certificação",
@@ -1809,7 +1835,8 @@
       "zoomIn": "Ampliar",
       "zoomOut": "Reduzir",
       "recenter": "Siga o passo novamente",
-      "rowByRow": "Linha por linha"
+      "rowByRow": "Linha por linha",
+      "order": "Ordem de execução"
     },
     "check": {
       "kept": "mantido: passa {test}",
@@ -1875,6 +1902,14 @@
         "fanout": "repetidos (fan- out)",
         "leftOnly": "apenas à esquerda",
         "rightOnly": "somente direito"
+      },
+      "useWhen": "Use- o quando:",
+      "use": {
+        "lookup": "você quer adicionar o nome e a região da Conta a cada oportunidade, sem nunca duplicar uma oportunidade.",
+        "left": "você quer cada Conta com todas as suas Oportunidades, e ainda ver Contas que não têm nenhuma.",
+        "right": "o lado direito é o que você deve manter: cada Conta, se uma oportunidade ou não aponta para ele.",
+        "inner": "você só se importa com registros que existem em ambos os lados, como Oportunidades cuja Conta é conhecida.",
+        "outer": "Você está reconciliando dois sistemas e precisa ver o que está faltando em ambos os lados."
       }
     },
     "bindings": {
@@ -1969,6 +2004,54 @@
       "rank": "Números linhas por um valor dentro de sua partição: 1 é o mais alto.",
       "lag": "Lê o valor da linha anterior na partição.",
       "share_of_partition": "Dá a parte de cada linha do total de sua partição, em porcentagem."
+    },
+    "security": {
+      "title": "Visualizador de previsão de segurança",
+      "card": "Escolha quem está logado e assistir segurança de nível de linha decidir, linha por linha, o que eles podem ver.",
+      "seoTitle": "CRM Analytics Predicados de segurança, visualizados: passo a passo",
+      "seoDesc": "Ver como um CRM Analytics Predicar segurança funciona: $User. O ID é preenchido, cada linha é verificada com o proprietário e a hierarquia do gerente, e apenas linhas correspondentes chegam ao painel.",
+      "about": "Sobre os predicados de segurança",
+      "whoLooks": "Quem está logado",
+      "predicate": "O predicado de segurança do conjunto de dados",
+      "reportsTo": "relatórios para {name}",
+      "topBoss": "sem gerente",
+      "noPredicate": "Nenhum predicado: todo mundo vê cada linha",
+      "preds": {
+        "own": "Só os meus discos.",
+        "team": "Meus discos e de minha equipe",
+        "none": "Sem segurança"
+      },
+      "atQuery": "Quando o painel consulta o conjunto de dados",
+      "step0": "{name} abre o painel. Antes de qualquer linha é lido, $User. Id no predicado torna-se seu ID de usuário.",
+      "row": "Linha",
+      "rows": "linhas",
+      "sees": "O quê? {name} ver",
+      "pipeline": "O total do oleoduto",
+      "why": {
+        "none": "visível: o conjunto de dados não tem predicado.",
+        "own": "visível: eles são os donos.",
+        "team": "visível: {owner} relata-lhes, por isso estão na linha do ManagerChain.",
+        "teamOff": "oculto: {owner} reporta-se a eles, mas este predicado só verifica o proprietário.",
+        "no": "oculto: {owner} possui-o e eles não estão na linha ManagerChain."
+      },
+      "notes": {
+        "what": {
+          "title": "O que é um predicado de segurança",
+          "body": "Um filtro armazenado no conjunto de dados. CRM Analytics adiciona-o a cada consulta nesse conjunto de dados, para cada usuário, antes de qualquer filtro de painel. Uma linha que falha nunca atinge o painel."
+        },
+        "user": {
+          "title": "Campos $User",
+          "body": "$User. Id, $User. UserRoleId e outros campos $User são substituídos pelos valores do usuário logado quando a consulta é executada, então um predicado dá a cada pessoa suas próprias linhas."
+        },
+        "flatten": {
+          "title": "As hierarquias precisam de um achate",
+          "body": "Para deixar os gerentes verem sua equipe, uma receita ou fluxo de dados achata o papel ou hierarquia de gerente em um campo multi-valor (aqui ManagerChain). O predicado então verifica se o usuário está em qualquer lugar nele."
+        },
+        "sharing": {
+          "title": "Predicar ou partilhar herança?",
+          "body": "Partilhar cópias de herança Salesforce partilha de objectos suportados. Um predicado é para tudo o resto, ou quando você quer uma regra mais simples."
+        }
+      }
     }
   },
   "meter": {
@@ -2116,6 +2199,12 @@
     "sendInvites": "Enviar convites",
     "invited": "Convidado. Ficam sentados quando entram com aquele e-mail.",
     "copyLink": "Copiar a ligação de ligação",
-    "allMembers": "Membros e domínios"
+    "allMembers": "Membros e domínios",
+    "giveAccess": "Dê acesso à sua equipa",
+    "giveAccessLead": "Três maneiras, use qualquer uma delas: convidar pessoas por e-mail, deixar todos com o e-mail da sua empresa participar, ou compartilhar o link de adesão.",
+    "domains": "Domínios de email da empresa",
+    "saveDomains": "Gravar",
+    "domainsHint": "Qualquer pessoa que se inscreva com um desses domínios de e-mail toma um assento livre automaticamente.",
+    "domainsSaved": "Salvo. As pessoas com estes domínios de e-mail agora se unem automaticamente enquanto os assentos estão livres."
   }
 }

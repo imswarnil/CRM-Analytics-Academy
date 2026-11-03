@@ -205,11 +205,6 @@ const focus = computed(() => Boolean(route.meta.focus) || focusState.value)
         :files="files"
         :navigation="navigation"
       />
-      <template v-if="!focus">
-        <PwaInstallPrompt />
-        <PromoFloat />
-        <ChannelPopup />
-      </template>
     </ClientOnly>
   </UApp>
 </template>

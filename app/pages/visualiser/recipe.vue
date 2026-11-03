@@ -274,6 +274,7 @@ usePageSchema(() => ({
     <template #stage>
       <VisCanvas
         v-if="current && node"
+        :say="caption"
         :nodes="canvas"
         :active="current.id"
         :step-key="`${presetId}-${current.id}-${step}`"

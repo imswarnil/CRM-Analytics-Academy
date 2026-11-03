@@ -24,12 +24,13 @@ const yearly = ref(true)
 const proPrice = computed(() => (yearly.value ? PRICES.proYearly.usd / 12 : PRICES.proMonthly.usd))
 const saving = Math.round((1 - PRICES.proYearly.usd / (PRICES.proMonthly.usd * 12)) * 100)
 
-const team = reactive({ name: '', seats: 5 })
 const busy = ref('')
+const talkOpen = ref(route.hash === '#request')
 const error = ref('')
 const cancelled = computed(() => route.query.checkout === 'cancelled')
 
-async function go(kind: 'pro' | 'team') {
+// Teams pick their seats on /account; Pro goes straight to Stripe.
+async function go(kind: 'pro') {
   track('plan_click', kind)
   if (!isSignedIn.value) {
     await navigateTo({ path: localePath('/sign-up'), query: { redirect: `${localePath('/pro')}#plans` } })
@@ -38,9 +39,7 @@ async function go(kind: 'pro' | 'team') {
   busy.value = kind
   error.value = ''
   try {
-    const res = kind === 'pro'
-      ? await $fetch<{ url: string }>('/api/billing/checkout', { method: 'POST', body: { plan: yearly.value ? 'proYearly' : 'proMonthly', locale: locale.value } })
-      : await $fetch<{ url: string }>('/api/billing/team', { method: 'POST', body: { name: team.name || `${user.value?.name ?? 'My'} team`, seats: team.seats } })
+    const res = await $fetch<{ url: string }>('/api/billing/checkout', { method: 'POST', body: { plan: yearly.value ? 'proYearly' : 'proMonthly', locale: locale.value } })
     window.location.href = res.url
   } catch (e) {
     error.value = apiError(e) || t('contrib.err.generic')
@@ -109,21 +108,18 @@ usePageSchema(() => ({
 
 <template>
   <div>
-    <BpPageHeader
-      sheet="SHEET 09 / PLANS"
-      :title="t('store.title')"
-      :lead="t('store.lead')"
-    >
-      <ShareBar
-        class="mt-6"
-        :title="t('store.title')"
-        :text="t('store.seoDesc')"
-      />
-    </BpPageHeader>
+    <section class="mx-auto max-w-5xl px-4 pt-16 pb-6 text-center sm:px-6">
+      <h1 class="text-4xl font-black tracking-[-0.03em] text-(--ink) sm:text-5xl">
+        {{ t('store.title') }}
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-(--ink2)">
+        {{ t('store.lead') }}
+      </p>
+    </section>
 
     <div
       id="plans"
-      class="mx-auto max-w-(--ui-container) scroll-mt-24 space-y-12 px-4 py-12 sm:px-6 lg:px-8"
+      class="mx-auto max-w-5xl scroll-mt-24 space-y-10 px-4 pb-20 sm:px-6"
     >
       <UAlert
         v-if="cancelled"
@@ -135,13 +131,13 @@ usePageSchema(() => ({
 
       <!-- Monthly / yearly -->
       <div class="flex justify-center">
-        <div class="inline-flex border-[1.5px] border-(--ink) bg-(--card) p-1">
+        <div class="inline-flex rounded-full border border-(--line) bg-(--card) p-1">
           <button
             v-for="y in [false, true]"
             :key="String(y)"
             type="button"
-            class="px-4 py-1.5 text-sm font-semibold"
-            :class="yearly === y ? 'bg-(--ink) text-(--paper)' : 'text-(--ink)'"
+            class="rounded-full px-4 py-1.5 text-sm font-semibold"
+            :class="yearly === y ? 'bg-(--ink) text-(--paper)' : 'text-(--ink2)'"
             @click="yearly = y"
           >
             {{ y ? t('plans.yearly', { n: saving }) : t('plans.monthly') }}
@@ -149,124 +145,79 @@ usePageSchema(() => ({
         </div>
       </div>
 
-      <ul class="grid gap-6 lg:grid-cols-3">
+      <ul class="grid gap-5 md:grid-cols-3">
         <li
           v-for="p in PRODUCTS"
           :key="p.id"
-          class="crosshair flex flex-col border-[1.5px] border-(--ink) bg-(--card)"
-          :class="p.featured ? 'shadow-[8px_8px_0_var(--signal)]' : ''"
+          class="flex flex-col rounded-2xl border bg-(--card) p-6"
+          :class="p.featured ? 'border-(--signal) ring-2 ring-(--signal)/20' : 'border-(--line)'"
         >
-          <div class="flex items-center justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+          <p class="flex items-center gap-2 text-lg font-bold text-(--ink)">
             <UIcon
               :name="p.icon"
-              class="size-6 text-(--signal)"
-            />
+              class="size-5 text-(--signal)"
+            />{{ t(`products.${p.id}.name`) }}
             <span
               v-if="p.featured"
-              class="bg-(--signal) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.12em] text-white"
+              class="ms-auto rounded-full bg-(--signal)/10 px-2 py-0.5 text-xs font-semibold text-(--signal)"
             >{{ t('store.popular') }}</span>
-          </div>
-          <div class="flex flex-1 flex-col p-5">
-            <h2 class="text-xl font-extrabold text-(--ink)">
-              {{ t(`products.${p.id}.name`) }}
-            </h2>
-            <p class="mt-1 text-[15px] leading-snug text-(--ink2)">
-              {{ t(`products.${p.id}.tagline`) }}
-            </p>
-            <p class="mt-4 flex items-baseline gap-1">
-              <span class="text-4xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">{{ p.id === 'free' ? usd(0) : p.id === 'pro' ? usd(proPrice, yearly ? 2 : 0) : usd(PRICES.teamSeat.usd) }}</span>
-              <span class="font-mono text-xs text-(--ink2)">{{ p.id === 'free' ? t('plans.forever') : p.id === 'pro' ? t('plans.perMonth') : t('plans.perSeat') }}</span>
-            </p>
-            <p
-              v-if="p.id === 'pro' && yearly"
-              class="mt-1 font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)"
+          </p>
+          <p class="mt-4 flex items-baseline gap-1">
+            <span class="text-4xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">{{ p.id === 'free' ? usd(0) : p.id === 'pro' ? usd(proPrice, yearly ? 2 : 0) : usd(PRICES.teamSeat.usd) }}</span>
+            <span class="text-sm text-(--ink2)">{{ p.id === 'free' ? t('plans.forever') : p.id === 'pro' ? t('plans.perMonth') : t('plans.perSeat') }}</span>
+          </p>
+          <p class="mt-1 min-h-5 text-xs text-(--ink2)">
+            {{ p.id === 'pro' && yearly ? t('plans.billedYearly', { price: usd(PRICES.proYearly.usd) }) : '' }}
+          </p>
+          <p class="mt-3 text-[15px] text-(--ink2)">
+            {{ t(`products.${p.id}.tagline`) }}
+          </p>
+          <ul class="mt-5 flex-1 space-y-2">
+            <li
+              v-for="n in Math.min(p.features, 4)"
+              :key="n"
+              class="flex items-start gap-2 text-[15px] text-(--ink)"
             >
-              {{ t('plans.billedYearly', { price: usd(PRICES.proYearly.usd) }) }}
-            </p>
-            <ul class="mt-4 flex-1 space-y-2">
-              <li
-                v-for="n in p.features"
-                :key="n"
-                class="flex items-start gap-2 text-[15px] text-(--ink)"
-              >
-                <UIcon
-                  name="i-lucide-check"
-                  class="mt-0.5 size-4 shrink-0 text-(--signal)"
-                />{{ t(`products.${p.id}.f${n}`) }}
-              </li>
-            </ul>
-
-            <!-- Free -->
-            <UButton
-              v-if="p.id === 'free'"
-              class="mt-6"
-              block
-              size="lg"
-              variant="outline"
-              color="neutral"
-              :icon="isSignedIn ? 'i-lucide-book-open' : 'i-lucide-user-plus'"
-              :to="isSignedIn ? localePath('/curriculum') : localePath('/sign-up')"
-            >
-              {{ isSignedIn ? t('plans.startLearning') : t('pro.signUpFirst') }}
-            </UButton>
-
-            <!-- Pro -->
-            <UButton
-              v-else-if="p.id === 'pro'"
-              class="mt-6"
-              block
-              size="lg"
-              :icon="isPro ? 'i-lucide-badge-check' : 'i-lucide-sparkles'"
-              :loading="busy === 'pro'"
-              :disabled="isPro"
-              @click="go('pro')"
-            >
-              {{ isPro ? t('plans.youArePro') : t('plans.getPro') }}
-            </UButton>
-
-            <!-- Team: name + seats, then checkout -->
-            <div
-              v-else
-              class="mt-6 space-y-2"
-            >
-              <UInput
-                v-model="team.name"
-                :placeholder="t('plans.teamName')"
-                size="lg"
-                class="w-full"
-              />
-              <div class="flex items-center gap-2">
-                <UButton
-                  icon="i-lucide-minus"
-                  color="neutral"
-                  variant="outline"
-                  square
-                  :aria-label="t('plans.fewer')"
-                  :disabled="team.seats <= TEAM_MIN_SEATS"
-                  @click="team.seats--"
-                />
-                <span class="min-w-24 text-center font-semibold tabular-nums text-(--ink)">{{ t('plans.seatsN', { n: team.seats }) }}</span>
-                <UButton
-                  icon="i-lucide-plus"
-                  color="neutral"
-                  variant="outline"
-                  square
-                  :aria-label="t('plans.more')"
-                  @click="team.seats++"
-                />
-                <span class="ms-auto font-mono text-sm tabular-nums text-(--ink2)">{{ usd(team.seats * PRICES.teamSeat.usd) }}{{ t('plans.perMonthShort') }}</span>
-              </div>
-              <UButton
-                block
-                size="lg"
-                icon="i-lucide-users"
-                :loading="busy === 'team'"
-                @click="go('team')"
-              >
-                {{ t('plans.buyTeam') }}
-              </UButton>
-            </div>
-          </div>
+              <UIcon
+                name="i-lucide-check"
+                class="mt-0.5 size-4 shrink-0 text-(--signal)"
+              />{{ t(`products.${p.id}.f${n}`) }}
+            </li>
+          </ul>
+          <UButton
+            v-if="p.id === 'free'"
+            class="mt-6"
+            block
+            size="lg"
+            variant="outline"
+            color="neutral"
+            :to="isSignedIn ? localePath('/curriculum') : localePath('/sign-up')"
+          >
+            {{ isSignedIn ? t('plans.startLearning') : t('pro.signUpFirst') }}
+          </UButton>
+          <UButton
+            v-else-if="p.id === 'pro'"
+            class="mt-6"
+            block
+            size="lg"
+            :loading="busy === 'pro'"
+            :disabled="isPro"
+            @click="go('pro')"
+          >
+            {{ isPro ? t('plans.youArePro') : t('plans.getPro') }}
+          </UButton>
+          <UButton
+            v-else
+            class="mt-6"
+            block
+            size="lg"
+            variant="outline"
+            color="neutral"
+            :to="isSignedIn ? localePath('/account') : { path: localePath('/sign-up'), query: { redirect: localePath('/account') } }"
+            @click="track('plan_click', 'team')"
+          >
+            {{ t('plans.buyTeam') }}
+          </UButton>
         </li>
       </ul>
       <UAlert
@@ -276,49 +227,52 @@ usePageSchema(() => ({
         :description="error"
       />
       <p class="text-center text-sm text-(--ink2)">
-        {{ t('plans.stripeNote') }}
+        <UIcon
+          name="i-lucide-lock"
+          class="me-1 inline size-4 align-[-3px]"
+        />{{ t('plans.stripeNote') }}
       </p>
 
-      <PromoSlot unit="leaderboard728x90" />
+      <!-- Sponsors, and talking to a person: one line each -->
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-(--line) pt-8 text-sm">
+        <NuxtLink
+          :to="localePath('/sponsor')"
+          class="inline-flex items-center gap-1.5 font-semibold text-(--ink) hover:text-(--signal)"
+        >
+          <UIcon
+            name="i-lucide-megaphone"
+            class="size-4"
+          />{{ t('sponsor.title') }} · {{ t('sponsor.fromPrice', { price: usd(PRICES.sponsorWeek.usd) }) }}
+        </NuxtLink>
+        <button
+          type="button"
+          class="inline-flex items-center gap-1.5 font-semibold text-(--ink) hover:text-(--signal)"
+          @click="talkOpen = !talkOpen"
+        >
+          <UIcon
+            name="i-lucide-message-circle"
+            class="size-4"
+          />{{ t('plans.requestTitle') }}
+        </button>
+      </div>
 
-      <!-- Sponsors -->
-      <NuxtLink
-        :to="localePath('/sponsor')"
-        class="graph-paper-navy flex flex-wrap items-center gap-4 border-[1.5px] border-(--ink) bg-(--navy) p-6 text-white shadow-[8px_8px_0_var(--signal)]"
-      >
-        <UIcon
-          name="i-lucide-megaphone"
-          class="size-8 text-(--glow)"
-        />
-        <span class="min-w-0 flex-1">
-          <span class="block text-xl font-extrabold">{{ t('sponsor.title') }}</span>
-          <span class="block text-sm text-white/75">{{ t('sponsor.lead') }}</span>
-        </span>
-        <span class="font-mono text-xs uppercase tracking-[.12em] text-(--glow)">{{ t('sponsor.fromPrice', { price: usd(PRICES.sponsorWeek.usd) }) }} →</span>
-      </NuxtLink>
-
-      <!-- Talk to us -->
       <section
+        v-if="talkOpen"
         id="request"
-        class="mx-auto max-w-2xl scroll-mt-24 border-[1.5px] border-(--ink) bg-(--card)"
+        class="mx-auto max-w-xl scroll-mt-24 rounded-2xl border border-(--line) bg-(--card) p-6"
       >
-        <header class="border-b-[1.5px] border-(--ink) bg-(--ice) px-6 py-4">
-          <p class="font-bold text-(--ink)">
-            {{ t('plans.requestTitle') }}
-          </p>
-          <p class="mt-1 text-sm text-(--ink2)">
-            {{ t('plans.requestLead') }}
-          </p>
-        </header>
+        <p class="text-sm text-(--ink2)">
+          {{ t('plans.requestLead') }}
+        </p>
         <p
           v-if="sent"
-          class="p-6 text-(--ink)"
+          class="mt-4 text-(--ink)"
         >
           {{ t('store.sentBody') }}
         </p>
         <form
           v-else
-          class="grid gap-4 p-6"
+          class="mt-4 grid gap-3"
           @submit.prevent="send"
         >
           <input
@@ -334,8 +288,8 @@ usePageSchema(() => ({
               v-for="i in INTERESTS"
               :key="i"
               type="button"
-              class="border-[1.5px] px-3 py-1.5 text-[15px] font-semibold"
-              :class="form.interest === i ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
+              class="rounded-full border px-3 py-1 text-sm font-semibold"
+              :class="form.interest === i ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
               @click="form.interest = i"
             >
               {{ t(`plans.interest.${i}`) }}
@@ -345,7 +299,7 @@ usePageSchema(() => ({
             v-model="form.email"
             type="email"
             :placeholder="t('store.f.email')"
-            size="xl"
+            size="lg"
             autocomplete="email"
             :disabled="isSignedIn"
             required
@@ -368,8 +322,7 @@ usePageSchema(() => ({
           />
           <UButton
             type="submit"
-            size="xl"
-            block
+            size="lg"
             :loading="sending"
             icon="i-lucide-send"
           >
@@ -377,8 +330,6 @@ usePageSchema(() => ({
           </UButton>
         </form>
       </section>
-
-      <PromoSlot unit="multiplexHorizontal" />
     </div>
   </div>
 </template>

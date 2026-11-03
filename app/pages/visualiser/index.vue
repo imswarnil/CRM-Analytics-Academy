@@ -15,7 +15,8 @@ const TOOLS = [
   { id: 'dataflow', icon: 'i-lucide-git-fork', spec: 'V3' },
   { id: 'functions', icon: 'i-lucide-function-square', spec: 'V4' },
   { id: 'joins', icon: 'i-lucide-merge', spec: 'V5' },
-  { id: 'bindings', icon: 'i-lucide-link', spec: 'V6' }
+  { id: 'bindings', icon: 'i-lucide-link', spec: 'V6' },
+  { id: 'security', icon: 'i-lucide-shield-check', spec: 'V7' }
 ] as const
 
 const title = computed(() => t('vis.seoTitle'))

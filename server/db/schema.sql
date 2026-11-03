@@ -503,3 +503,9 @@ create table if not exists app.stripe_event (
   type       text not null,
   created_at timestamptz not null default now()
 );
+
+-- 2026-11-03: indexes for the two lookups that ran without one — a reader's
+-- own upvotes (GET /api/interview/votes) and a member's page views (the
+-- regional leaderboard and attribution).
+create index if not exists interview_upvote_user_idx on app.interview_upvote (user_id);
+create index if not exists page_view_user_idx on app.page_view (user_id, created_at) where user_id is not null;

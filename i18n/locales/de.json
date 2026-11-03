@@ -14,7 +14,7 @@
     "signOut": "Abmelden",
     "dashboard": "Dashboard",
     "account": "Konto",
-    "curriculum": "Lehrplan",
+    "curriculum": "Beginnen Sie hier",
     "submit": "Beitragen einer Ressource",
     "home": "Zuhause",
     "enrollFree": "Frei einschreiben",
@@ -61,7 +61,7 @@
       "title": "Lernen Salesforce CRM Analytics die Art, wie es bei der Arbeit verwendet wird.",
       "lead": "Kostenloser, praktischer Unterricht über Rezepte, SAQLDashboards, Sicherheit und Einstein Discovery Basierend auf den realen Daten eines Unternehmens.",
       "start": "Beginn der Lektion 1",
-      "curriculum": "Siehe Lehrplan"
+      "curriculum": "Beginnen Sie hier"
     },
     "author": {
       "eyebrow": "Fig. 05 — Der Autor",
@@ -129,6 +129,24 @@
       "countries": "Länder",
       "byRegion": "Leser nach Region",
       "topCountries": "Top-Länder"
+    },
+    "inside": {
+      "lessons": {
+        "title": "Kurzunterricht, Schritt für Schritt",
+        "body": "Video und Text, jeweils ein Quiz nacheinander, in 12 Sprachen."
+      },
+      "visualisers": {
+        "title": "Sehen Sie es laufen",
+        "body": "Uhrzeit SAQL, Rezepturen, Verknüpfungen und Bindungen arbeiten Reihe für Reihe."
+      },
+      "exams": {
+        "title": "Praxisprüfungen",
+        "body": "Zeitgesteuerte Papiere wie die echte Zertifizierung."
+      },
+      "interview": {
+        "title": "Interviewfragen",
+        "body": "Echte Fragen mit Modellantworten, nach Thema."
+      }
     }
   },
   "footer": {
@@ -172,7 +190,7 @@
     "cta": {
       "start": "Starten Sie den Kurs kostenlos",
       "continue": "Weiter Lernen",
-      "curriculum": "Siehe den vollständigen Lehrplan"
+      "curriculum": "Beginnen Sie hier"
     },
     "outcomes": {
       "eyebrow": "Was du tun kannst",
@@ -982,7 +1000,7 @@
       "teaches": "Salesforce CRM Analytics: Datenvorbereitung, Datensätze, SAQL, Dashboards, Bindungen und Einstein Discovery"
     },
     "sheet": "Blatt 01 / {sections} Abschnitte / {lessons} Unterrichtsstunden / {hours}h",
-    "title": "Lehrplan",
+    "title": "Beginnen Sie hier",
     "complete": "{done} / {total} vollständig",
     "start": "Beginnen Sie am Anfang",
     "datasets": "Holen Sie sich die Datasets",
@@ -1010,7 +1028,8 @@
     },
     "waiting": "{n} Lernende warten",
     "notifyMe": "Benachrichtigen Sie mich, wenn es öffnet",
-    "notifying": "Du bist auf der Liste"
+    "notifying": "Du bist auf der Liste",
+    "toolsTitle": "See it run: Übungswerkzeuge"
   },
   "lesson": {
     "authors": {
@@ -1189,7 +1208,14 @@
     },
     "prev": "Vorherige Frage",
     "next": "Nächste Frage",
-    "close": "Schließen"
+    "close": "Schließen",
+    "view": {
+      "list": "Liste",
+      "grid": "Karten"
+    },
+    "editOnGithub": "Verbessern Sie diese Antwort auf GitHub",
+    "answersTitle": "Antworten aus der Community",
+    "answersLead": "Lesen Sie, wie andere es beantworten, oder fügen Sie Ihre eigenen hinzu."
   },
   "cert": {
     "eyebrow": "Zertifizierungspraxis",
@@ -1809,7 +1835,8 @@
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom raus",
       "recenter": "Folge dem Schritt noch einmal",
-      "rowByRow": "Zeile für Zeile"
+      "rowByRow": "Zeile für Zeile",
+      "order": "Ausführungsordnung"
     },
     "check": {
       "kept": "gehalten: es geht {test}",
@@ -1875,6 +1902,14 @@
         "fanout": "wiederholt (Fan-out)",
         "leftOnly": "nur links",
         "rightOnly": "nur rechts"
+      },
+      "useWhen": "Verwenden Sie es, wenn:",
+      "use": {
+        "lookup": "Sie möchten den Namen und die Region des Kontos zu jeder Gelegenheit hinzufügen, ohne jemals eine Gelegenheit zu duplizieren.",
+        "left": "Sie möchten jedes Konto mit all seinen Möglichkeiten und sehen immer noch Konten, die keine haben.",
+        "right": "Die rechte Seite ist das, was Sie behalten müssen: jedes Konto, ob eine Gelegenheit darauf zeigt oder nicht.",
+        "inner": "Sie interessieren sich nur für Aufzeichnungen, die auf beiden Seiten vorhanden sind, wie Opportunities, deren Konto bekannt ist.",
+        "outer": "Sie versöhnen zwei Systeme und müssen sehen, was auf beiden Seiten fehlt."
       }
     },
     "bindings": {
@@ -1969,6 +2004,54 @@
       "rank": "Zahlenreihen durch einen Wert innerhalb ihrer Partition: 1 ist die höchste.",
       "lag": "Lies den Wert aus der vorherigen Zeile in der Partition.",
       "share_of_partition": "Gibt den Anteil jeder Zeile an der Gesamtpartition in Prozent an."
+    },
+    "security": {
+      "title": "Sicherheitsprädikatvisualisierung",
+      "card": "Wählen Sie aus, wer eingeloggt ist, und beobachten Sie, wie die Sicherheit auf Zeilenebene zeilenweise entscheidet, was sie sehen können.",
+      "seoTitle": "CRM Analytics Sicherheitsprädikate, visualisiert: Sicherheit auf Zeilenebene Schritt für Schritt",
+      "seoDesc": "Sehen Sie, wie ein CRM Analytics Sicherheitsprädikat funktioniert: $User. Die ID wird ausgefüllt, jede Zeile wird mit der Besitzer- und Managerhierarchie verglichen und nur übereinstimmende Zeilen erreichen das Dashboard.",
+      "about": "Über Sicherheitsprädikate",
+      "whoLooks": "Wer ist eingeloggt",
+      "predicate": "Sicherheitsprädikat des Datasets",
+      "reportsTo": "Berichterstattung {name}",
+      "topBoss": "kein Manager",
+      "noPredicate": "Kein Prädikat: Jeder sieht jede Zeile",
+      "preds": {
+        "own": "Nur meine Aufzeichnungen",
+        "team": "Meine Aufzeichnungen und die meines Teams",
+        "none": "Keine Sicherheit"
+      },
+      "atQuery": "Wenn das Dashboard den Datensatz abfragt",
+      "step0": "{name} öffnet das Dashboard. Bevor eine Zeile gelesen wird, $User. Id im Prädikat wird zu ihrer Benutzer-ID.",
+      "row": "Reihe",
+      "rows": "Reihen",
+      "sees": "Was {name} Sees",
+      "pipeline": "Ihre Pipeline insgesamt",
+      "why": {
+        "none": "sichtbar: Der Datensatz hat kein Prädikat.",
+        "own": "sichtbar: Sie besitzen es.",
+        "team": "sichtbar: {owner} berichtet ihnen, so sind sie in der ManagerChain der Zeile.",
+        "teamOff": "versteckt: {owner} berichtet ihnen, aber dieses Prädikat überprüft nur den Besitzer.",
+        "no": "versteckt: {owner} Besitzt es und sie sind nicht in dieser Reihe ManagerChain."
+      },
+      "notes": {
+        "what": {
+          "title": "Was für ein Sicherheitsprädikat ist",
+          "body": "Ein Filter, der im Dataset gespeichert ist. CRM Analytics fügt es jeder Abfrage in diesem Datensatz für jeden Benutzer vor einem Dashboard-Filter hinzu. Eine Zeile, die fehlschlägt, erreicht nie das Dashboard."
+        },
+        "user": {
+          "title": "$Benutzerfelder",
+          "body": "$Benutzer. Id, $Benutzer. UserRoleId und andere $User-Felder werden durch die angemeldeten Benutzerwerte ersetzt, wenn die Abfrage ausgeführt wird, so dass ein Prädikat jeder Person ihre eigenen Zeilen gibt."
+        },
+        "flatten": {
+          "title": "Hierarchien brauchen eine Abflachung",
+          "body": "Damit Manager ihr Team sehen können, flacht ein Rezept oder Datenfluss die Rollen- oder Managerhierarchie in ein Multi-Value-Feld (hier ManagerChain). Das Prädikat prüft dann, ob sich der Benutzer irgendwo darin befindet."
+        },
+        "sharing": {
+          "title": "Vorhersagen oder gemeinsame Erbschaft?",
+          "body": "Gemeinsame Vererbungskopien Salesforce Teilen für unterstützte Objekte. Ein Prädikat ist für alles andere, oder wenn Sie eine einfachere Regel wollen."
+        }
+      }
     }
   },
   "meter": {
@@ -2116,6 +2199,12 @@
     "sendInvites": "Einladungen senden",
     "invited": "Eingeladen. Sie bekommen einen Platz, wenn sie sich mit dieser E-Mail anmelden.",
     "copyLink": "Copy Join Link",
-    "allMembers": "Mitglieder und Domains"
+    "allMembers": "Mitglieder und Domains",
+    "giveAccess": "Geben Sie Ihrem Team Zugang",
+    "giveAccessLead": "Verwenden Sie drei Möglichkeiten: Laden Sie Personen per E-Mail ein, lassen Sie alle mit Ihrer Firmen-E-Mail beitreten oder teilen Sie den Link.",
+    "domains": "E-Mail-Domains von Unternehmen",
+    "saveDomains": "Sparen",
+    "domainsHint": "Wer sich bei einer dieser E-Mail-Domains anmeldet, nimmt automatisch einen freien Platz ein.",
+    "domainsSaved": "Gerettet. Personen mit diesen E-Mail-Domains treten jetzt automatisch bei, während die Plätze frei sind."
   }
 }

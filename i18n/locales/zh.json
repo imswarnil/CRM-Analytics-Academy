@@ -14,7 +14,7 @@
     "signOut": "签字",
     "dashboard": "电线板",
     "account": "账户",
-    "curriculum": "课程",
+    "curriculum": "从这里开始",
     "submit": "贡献资源",
     "home": "页 次",
     "enrollFree": "免费滚动",
@@ -61,7 +61,7 @@
       "title": "学习 Salesforce CRM Analytics 工作时使用的方法。",
       "lead": "免费的,实际操作的课程 关于食谱, SAQL、仪表板、安保和 Einstein Discovery ——以一家公司的真实数据为基础.",
       "start": "开始上课 1",
-      "curriculum": "见课程"
+      "curriculum": "从这里开始"
     },
     "author": {
       "eyebrow": "费格。 05 — 提交人",
@@ -129,6 +129,24 @@
       "countries": "国家",
       "byRegion": "按区域分列的读者",
       "topCountries": "顶级国家"
+    },
+    "inside": {
+      "lessons": {
+        "title": "短训,逐步",
+        "body": "视频和文字,每集后一个测验,以12种语言进行."
+      },
+      "visualisers": {
+        "title": "看它跑起来",
+        "body": "看着 SAQL,食谱,加入和捆绑 工作行逐行。"
+      },
+      "exams": {
+        "title": "实践考试",
+        "body": "时间文件像真正的认证。"
+      },
+      "interview": {
+        "title": "面谈问题",
+        "body": "真正的问题与模型解答, 按主题。"
+      }
     }
   },
   "footer": {
@@ -172,7 +190,7 @@
     "cta": {
       "start": "免费开课",
       "continue": "继续学习",
-      "curriculum": "见全部课程"
+      "curriculum": "从这里开始"
     },
     "outcomes": {
       "eyebrow": "你会做什么",
@@ -982,7 +1000,7 @@
       "teaches": "Salesforce CRM Analytics: 数据编制、数据集、 SAQL、仪表板、装订和 Einstein Discovery"
     },
     "sheet": "第01页/ {sections} 节/ {lessons} 经验教训/ {hours}页:1",
-    "title": "课程",
+    "title": "从这里开始",
     "complete": "{done} 页:1 {total} 完成",
     "start": "从头开始",
     "datasets": "获取数据集",
@@ -1010,7 +1028,8 @@
     },
     "waiting": "{n} 学习者等待",
     "notifyMe": "打开时通知我",
-    "notifying": "你在名单上"
+    "notifying": "你在名单上",
+    "toolsTitle": "见它运行:练习工具"
   },
   "lesson": {
     "authors": {
@@ -1189,7 +1208,14 @@
     },
     "prev": "上一个问题",
     "next": "下个问题",
-    "close": "关闭"
+    "close": "关闭",
+    "view": {
+      "list": "列表",
+      "grid": "纸牌"
+    },
+    "editOnGithub": "改进答案 GitHub",
+    "answersTitle": "社区的答复",
+    "answersLead": "读别人如何回答,或加自己的."
   },
   "cert": {
     "eyebrow": "认证做法",
@@ -1809,7 +1835,8 @@
       "zoomIn": "缩放",
       "zoomOut": "缩小",
       "recenter": "再来一步",
-      "rowByRow": "逐行排列"
+      "rowByRow": "逐行排列",
+      "order": "执行顺序"
     },
     "check": {
       "kept": "保存:通过 {test}",
@@ -1875,6 +1902,14 @@
         "fanout": "重复(退出)",
         "leftOnly": "仅剩",
         "rightOnly": "仅对"
+      },
+      "useWhen": "当:",
+      "use": {
+        "lookup": "您想要将账户的名称和区域添加到每个机会中,而不重复机会。",
+        "left": "您希望每个账户都有它的所有机会,并且仍然看到没有账户的账户。",
+        "right": "右侧是您必须保存的:每个账户,无论是否有机会。",
+        "inner": "您只关心两边都存在的记录, 像是已知账户的“机会”。",
+        "outer": "您正在调和两个系统,需要看到 缺少在两侧。"
       }
     },
     "bindings": {
@@ -1969,6 +2004,54 @@
       "rank": "数字行按其分区内的值:1是最高的.",
       "lag": "从分区中的上一行读取值。",
       "share_of_partition": "以百分比表示每一行在分区总数中的份额。"
+    },
+    "security": {
+      "title": "安全上游视觉器",
+      "card": "选择谁在登录 并看行级安全决定, 逐行, 他们可以看到什么。",
+      "seoTitle": "CRM Analytics 安保上游,可视化:逐行安保",
+      "seoDesc": "看怎么样 CRM Analytics 安全前提作品:$User. Id被填入,每行对照所有者和经理等级进行检查,只有匹配的行到达仪表板.",
+      "about": "关于安全前提",
+      "whoLooks": "谁在登录",
+      "predicate": "数据集的安全前提",
+      "reportsTo": "报告 {name}",
+      "topBoss": "无管理器",
+      "noPredicate": "无上游: 每个人都看到每一行",
+      "preds": {
+        "own": "只有我的记录",
+        "team": "我的唱片和我的团队",
+        "none": "没有安保"
+      },
+      "atQuery": "当仪表盘查询数据集时",
+      "step0": "{name} 打开仪表盘 在读任何行之前,$User。 在上游的ID成为他们的用户代号.",
+      "row": "线条",
+      "rows": "行数",
+      "sees": "什麽? {name} 看见",
+      "pipeline": "管道合计",
+      "why": {
+        "none": "可见:数据集没有上游。",
+        "own": "可见:他们拥有它。",
+        "team": "可见 : {owner} 因此,他们是排长Chan。",
+        "teamOff": "隐藏 : {owner} 报告给他们,但这个前提 只检查所有者。",
+        "no": "隐藏 : {owner} 他们并不在此列,"
+      },
+      "notes": {
+        "what": {
+          "title": "安全前提是什么?",
+          "body": "存储在数据集中的过滤器 。 CRM Analytics 在任何仪表盘过滤器之前,将它添加到所有用户的数据集中。 失败的一排永远无法到达仪表板"
+        },
+        "user": {
+          "title": "用户字段",
+          "body": "用户。 Id, $User. (美国英语). UserRoleId 和其他 $User 字段在查询运行时被登录的用户值所取代,所以一个上游给每个人自己的行."
+        },
+        "flatten": {
+          "title": "等级需要平整",
+          "body": "要让管理者看到他们的团队,一个食谱或数据流将角色或管理者等级平整为一个多值字段(这里是ManagerChain). 上游检查用户是否在其中的任何地方。"
+        },
+        "sharing": {
+          "title": "优先还是分享遗产?",
+          "body": "分享遗产副本 Salesforce 共享支持对象。 上游是其他一切, 或者当你想要一个更简单的规则。"
+        }
+      }
     }
   },
   "meter": {
@@ -2116,6 +2199,12 @@
     "sendInvites": "发送邀请",
     "invited": "请客 他们签了那封邮件就坐好了",
     "copyLink": "复制加入链接",
-    "allMembers": "成员和领域"
+    "allMembers": "成员和领域",
+    "giveAccess": "让你的团队进入",
+    "giveAccessLead": "三种方式,使用其中的任何一种:通过电子邮件邀请人,让所有与你公司电子邮件的人加入,或者共享加入链接.",
+    "domains": "公司电子邮件域",
+    "saveDomains": "保存",
+    "domainsHint": "任何使用这些电子邮件域名签名的人自动获得一个免费席位。",
+    "domainsSaved": "获救. 拥有这些电子邮件域的人现在自动加入,"
   }
 }

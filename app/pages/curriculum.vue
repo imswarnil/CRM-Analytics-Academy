@@ -39,6 +39,16 @@ interface Row {
   pro: boolean
 }
 
+// A thumbnail per section: its icon on a soft colour, the same colours in turn.
+const TONES = [
+  { bg: '#dbeafe', fg: '#1d4ed8' }, { bg: '#fef3c7', fg: '#b45309' }, { bg: '#ede9fe', fg: '#6d28d9' },
+  { bg: '#d1fae5', fg: '#047857' }, { bg: '#fce7f3', fg: '#be185d' }, { bg: '#e0f2fe', fg: '#0369a1' }
+]
+const TOOLS = [
+  { id: 'functions', icon: 'i-lucide-function-square' }, { id: 'joins', icon: 'i-lucide-merge' },
+  { id: 'saql', icon: 'i-lucide-terminal' }, { id: 'recipe', icon: 'i-lucide-workflow' },
+  { id: 'bindings', icon: 'i-lucide-link' }, { id: 'security', icon: 'i-lucide-shield-check' }
+]
 const sections = computed(() =>
   (navigation.value ?? []).map((mod, index) => {
     const lessons: Row[] = ((mod.children ?? []) as ContentNavigationItem[])
@@ -52,6 +62,8 @@ const sections = computed(() =>
       index,
       title: String(mod.title ?? ''),
       path: String(mod.path ?? ''),
+      icon: String((mod as { icon?: string }).icon ?? 'i-lucide-book-open'),
+      tone: TONES[index % TONES.length]!,
       lessons,
       soon: lessons.length > 0 && lessons.every(l => l.soon),
       minutes: lessons.reduce((s, l) => s + l.minutes, 0)
@@ -188,6 +200,25 @@ function icon(l: Row) {
 
     <div class="mx-auto grid max-w-(--ui-container) gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-8">
       <div class="min-w-0 space-y-8">
+        <!-- Practice tools: see SAQL, recipes, joins and functions run -->
+        <div class="border-[1.5px] border-(--ink) bg-(--card) p-5">
+          <p class="eyebrow">
+            {{ t('curriculumPage.toolsTitle') }}
+          </p>
+          <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+            <NuxtLink
+              v-for="tool in TOOLS"
+              :key="tool.id"
+              :to="localePath(`/visualiser/${tool.id}`)"
+              class="flex items-center gap-2 border-[1.5px] border-(--line) px-3 py-2 text-sm font-semibold text-(--ink) hover:border-(--ink) hover:bg-(--ice)"
+            >
+              <UIcon
+                :name="tool.icon"
+                class="size-4 text-(--signal)"
+              />{{ t(`vis.${tool.id}.title`) }}
+            </NuxtLink>
+          </div>
+        </div>
         <template
           v-for="s in sections"
           :key="s.path"
@@ -207,7 +238,16 @@ function icon(l: Row) {
               :to="localePath(s.path)"
               class="group flex items-center gap-4 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-4"
             >
-              <span class="text-4xl font-black leading-none tracking-[-0.04em] text-(--signal)">{{ s.n }}</span>
+              <span
+                class="relative flex size-16 shrink-0 items-center justify-center"
+                :style="{ background: s.tone.bg, color: s.tone.fg }"
+              >
+                <UIcon
+                  :name="s.icon"
+                  class="size-8"
+                />
+                <span class="absolute -bottom-1.5 -end-1.5 bg-(--ink) px-1 font-mono text-[11px] font-bold text-(--paper)">{{ s.n }}</span>
+              </span>
               <span class="min-w-0 flex-1">
                 <span class="block truncate text-xl font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">{{ s.title }}</span>
                 <span class="mono-label">{{ s.soon ? t('course.comingSoon') : t('curriculumPage.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>

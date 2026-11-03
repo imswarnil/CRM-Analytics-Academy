@@ -1,4 +1,13 @@
 <script setup lang="ts">
+/**
+ * /resources — the best links for learning CRM Analytics, by category, as
+ * cards or a list. Thumbnails are each page's own preview image, fetched once
+ * at build time (scripts/resource-previews.mjs → app/data/resource-previews.json);
+ * a link without one gets its icon on a colour tile and the site's favicon.
+ * Nothing on this page calls the Worker.
+ */
+import previews from '~/data/resource-previews.json'
+
 const { t } = useI18n()
 const localePath = useLocalePath()
 const title = computed(() => t('seo.resourcesTitle'))
@@ -49,6 +58,22 @@ const categories: { key: 'All' | Category, icon: string }[] = [
 ]
 
 const selected = ref<'All' | Category>('All')
+const view = ref<'grid' | 'list'>('grid')
+onMounted(() => {
+  try {
+    if (localStorage.getItem('crma-res-view') === 'list') view.value = 'list'
+  } catch { /* storage blocked */ }
+})
+watch(view, (v) => {
+  try {
+    localStorage.setItem('crma-res-view', v)
+  } catch { /* storage blocked */ }
+})
+const imageOf = (url: string) => (previews as Record<string, string>)[url] ?? ''
+const TILE: Record<Category, { bg: string, fg: string }> = {
+  Docs: { bg: '#dbeafe', fg: '#1d4ed8' }, Learning: { bg: '#d1fae5', fg: '#047857' }, Books: { bg: '#fef3c7', fg: '#b45309' },
+  Blogs: { bg: '#fce7f3', fg: '#be185d' }, Tools: { bg: '#ede9fe', fg: '#6d28d9' }, Community: { bg: '#e0f2fe', fg: '#0369a1' }
+}
 const filtered = computed(() => selected.value === 'All' ? resources : resources.filter(r => r.category === selected.value))
 const countFor = (key: 'All' | Category) => key === 'All' ? resources.length : resources.filter(r => r.category === key).length
 
@@ -115,37 +140,83 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
         </aside>
 
         <div>
-          <p class="mono-label mb-6">
-            {{ t('resources.count', { count: filtered.length }) }}
-          </p>
+          <div class="mb-6 flex items-center justify-between gap-3">
+            <p class="mono-label">
+              {{ t('resources.count', { count: filtered.length }) }}
+            </p>
+            <div class="flex border-[1.5px] border-(--ink)">
+              <button
+                v-for="v in (['grid', 'list'] as const)"
+                :key="v"
+                type="button"
+                class="flex items-center gap-1.5 px-3 py-1 text-sm font-semibold"
+                :class="view === v ? 'bg-(--ink) text-(--paper)' : 'text-(--ink) hover:bg-(--ice)'"
+                :aria-pressed="view === v"
+                @click="view = v"
+              >
+                <UIcon
+                  :name="v === 'grid' ? 'i-lucide-layout-grid' : 'i-lucide-list'"
+                  class="size-4"
+                />{{ t(`interview.view.${v === 'grid' ? 'grid' : 'list'}`) }}
+              </button>
+            </div>
+          </div>
 
-          <div class="grid content-start gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div :class="view === 'grid' ? 'grid content-start gap-6 sm:grid-cols-2 xl:grid-cols-3' : 'space-y-3'">
             <a
               v-for="r in filtered"
               :key="r.id"
               :href="r.url"
               target="_blank"
               rel="noopener"
-              class="bp-card bp-card--hover group flex flex-col p-5"
+              class="bp-card bp-card--hover group overflow-hidden"
+              :class="view === 'grid' ? 'flex flex-col' : 'flex items-center gap-4 p-3'"
             >
-              <span class="bp-iconbox absolute end-4 top-4 text-(--signal)">
+              <!-- Thumbnail: the page's own image, or its icon on a colour tile -->
+              <span
+                class="relative flex shrink-0 items-center justify-center overflow-hidden"
+                :class="view === 'grid' ? 'aspect-[16/8] w-full border-b-[1.5px] border-(--ink)' : 'size-16'"
+                :style="imageOf(r.url) ? undefined : { background: TILE[r.category].bg, color: TILE[r.category].fg }"
+              >
+                <img
+                  v-if="imageOf(r.url)"
+                  :src="imageOf(r.url)"
+                  :alt="t(`resources.items.${r.id}.title`)"
+                  loading="lazy"
+                  referrerpolicy="no-referrer"
+                  class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                >
                 <UIcon
+                  v-else
                   :name="r.icon"
-                  class="size-5"
+                  :class="view === 'grid' ? 'size-12' : 'size-7'"
                 />
+                <img
+                  v-if="view === 'grid'"
+                  :src="fallbackIcon(r.url)"
+                  alt=""
+                  loading="lazy"
+                  class="absolute bottom-2 start-2 size-6 rounded bg-white p-0.5 shadow"
+                >
               </span>
-              <p class="eyebrow pe-14">
-                {{ categoryLabel(r.category) }}
-              </p>
-              <h3 class="mt-3 pe-14 text-lg font-extrabold leading-tight tracking-[-0.02em] text-(--ink)">
-                {{ t(`resources.items.${r.id}.title`) }}
-              </h3>
-              <p class="mt-2 grow text-sm text-(--ink2)">
-                {{ t(`resources.items.${r.id}.desc`) }}
-              </p>
-              <span class="mt-5 border-t border-dashed border-(--line) pt-3 font-mono text-[11px] font-semibold uppercase tracking-[.12em] text-(--signal)">
-                {{ t('resources.open') }} ↗
+              <span :class="view === 'grid' ? 'flex grow flex-col p-5' : 'min-w-0 flex-1'">
+                <span class="eyebrow">{{ categoryLabel(r.category) }} · {{ hostOf(r.url) }}</span>
+                <span
+                  class="mt-1.5 block font-extrabold leading-tight tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)"
+                  :class="view === 'grid' ? 'text-lg' : 'text-base'"
+                >
+                  {{ t(`resources.items.${r.id}.title`) }}
+                </span>
+                <span
+                  class="mt-1.5 block text-sm text-(--ink2)"
+                  :class="view === 'grid' ? 'grow' : 'line-clamp-1'"
+                >{{ t(`resources.items.${r.id}.desc`) }}</span>
               </span>
+              <UIcon
+                v-if="view === 'list'"
+                name="i-lucide-arrow-up-right"
+                class="size-5 shrink-0 text-(--ink2)"
+              />
             </a>
           </div>
         </div>

@@ -651,7 +651,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
 
       <div
         class="relative xl:grid xl:gap-10"
-        :class="tocOpen ? 'xl:grid-cols-[minmax(0,1fr)_20.5rem]' : 'xl:grid-cols-[minmax(0,1fr)_2.25rem]'"
+        :class="tocOpen ? 'xl:grid-cols-[minmax(0,1fr)_16.5rem]' : 'xl:grid-cols-[minmax(0,1fr)_2.25rem]'"
       >
         <div class="bp-prose min-w-0">
           <MDC
@@ -745,7 +745,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
               <PromoSlot
                 v-for="n in tocSquares"
                 :key="`toc-square-${n}-${route.path}`"
-                :unit="n % 2 ? 'square300x250' : 'square'"
+                :unit="'square250'"
               />
             </div>
           </div>

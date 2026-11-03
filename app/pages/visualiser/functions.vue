@@ -138,13 +138,13 @@ usePageSchema(() => ({
         <div class="mx-auto max-w-5xl space-y-6">
           <!-- The formula, as written in a transform -->
           <div>
-            <p class="font-mono text-[11px] uppercase tracking-[.16em] text-[#8b97b8]">
+            <p class="font-mono text-[11px] uppercase tracking-[.16em] text-[#64748b]">
               {{ t('vis.functions.formula') }}
             </p>
             <p class="lab-formula mt-2 break-words font-mono text-lg sm:text-2xl">
-              <span class="text-[#6ee7b7]">result</span> = {{ def.formula(f) }}
+              <span class="text-[#047857]">result</span> = {{ def.formula(f) }}
             </p>
-            <p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#cbd5e1]">
+            <p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#334155]">
               {{ t(`vis.fn.${f.fn}`) }}
             </p>
           </div>
@@ -211,7 +211,7 @@ usePageSchema(() => ({
               </label>
               <UIcon
                 name="i-lucide-arrow-right"
-                class="mb-2.5 size-5 text-[#8b97b8]"
+                class="mb-2.5 size-5 text-[#64748b]"
               />
               <span class="lab-out mb-1 px-3 py-1.5 font-mono text-sm">{{ customOut ?? '—' }}</span>
             </div>
@@ -220,7 +220,7 @@ usePageSchema(() => ({
           <!-- Row by row -->
           <div class="lab-table overflow-hidden">
             <div class="lab-head grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_2.5rem_minmax(0,1.2fr)] gap-3 px-4 py-2">
-              <span>{{ t('vis.functions.rowHead') }}</span><span>{{ f.field }}</span><span /><span class="text-[#6ee7b7]">result</span>
+              <span>{{ t('vis.functions.rowHead') }}</span><span>{{ f.field }}</span><span /><span class="text-[#047857]">result</span>
             </div>
             <div
               v-for="(r, i) in ROWS"
@@ -230,15 +230,15 @@ usePageSchema(() => ({
               :style="f.partition && isWindow ? { boxShadow: `inset 4px 0 0 ${partOf.get(String(r[f.partition]))}` } : undefined"
               @click="step = i"
             >
-              <span class="truncate text-sm font-semibold text-[#e6ecff]">{{ r.Name }}<span
+              <span class="truncate text-sm font-semibold text-[#0f172a]">{{ r.Name }}<span
                 v-if="isWindow && f.partition"
-                class="ms-2 font-mono text-[11px] font-normal text-[#8b97b8]"
+                class="ms-2 font-mono text-[11px] font-normal text-[#64748b]"
               >{{ f.partition }}={{ r[f.partition] }}</span></span>
               <span
                 class="truncate font-mono text-sm"
-                :class="r[f.field] === null ? 'italic text-[#5d6a8a]' : 'text-[#cbd5e1]'"
+                :class="r[f.field] === null ? 'italic text-[#94a3b8]' : 'text-[#334155]'"
               >{{ fmt(r[f.field] ?? null) }}</span>
-              <span class="text-center text-[#8b97b8]">
+              <span class="text-center text-[#64748b]">
                 <UIcon
                   :name="i === step ? 'i-lucide-cog' : 'i-lucide-arrow-right'"
                   class="size-4"
@@ -247,13 +247,13 @@ usePageSchema(() => ({
               </span>
               <span
                 class="truncate font-mono text-sm"
-                :class="i <= step ? 'lab-done text-[#6ee7b7]' : 'text-[#3b4766]'"
+                :class="i <= step ? 'lab-done text-[#047857]' : 'text-[#cbd5e1]'"
               >{{ i <= step ? fmt(outputs[i] ?? null) : '…' }}</span>
             </div>
           </div>
           <p
             v-if="isWindow"
-            class="text-sm text-[#8b97b8]"
+            class="text-sm text-[#64748b]"
           >
             {{ t('vis.functions.windowNote') }}
           </p>
@@ -283,17 +283,17 @@ usePageSchema(() => ({
 </template>
 
 <style scoped>
-.lab { background: #0b1020; background-image: radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1.2px); background-size: 22px 22px; color: #cbd5e1; }
-.lab-formula { color: #f1f5ff; text-shadow: 0 0 30px rgb(167 139 250 / 0.35); }
-.lab-field { display: flex; flex-direction: column; gap: 4px; font: 600 10px ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: #8b97b8; }
-.lab-field select, .lab-field input { background: #121a2e; border: 1px solid #26324d; border-radius: 10px; color: #e6ecff; padding: 7px 10px; font: 13px ui-monospace, monospace; letter-spacing: 0; text-transform: none; min-width: 9rem; }
-.lab-out { background: rgb(52 211 153 / 0.12); border: 1px solid rgb(52 211 153 / 0.4); color: #6ee7b7; border-radius: 10px; }
-.lab-table { border-radius: 16px; background: #0f1628; border: 1px solid #222d47; }
-.lab-head { font: 600 11px ui-monospace, monospace; color: #8b97b8; background: #131c33; border-bottom: 1px solid #222d47; }
-.lab-row { border-bottom: 1px solid #18213a; transition: background 0.3s; }
+.lab { background: #f6f7fb; background-image: radial-gradient(rgb(15 23 42 / 0.09) 1px, transparent 1.2px); background-size: 22px 22px; color: #334155; }
+.lab-formula { color: #0b1220; text-shadow: 0 0 30px rgb(167 139 250 / 0.35); }
+.lab-field { display: flex; flex-direction: column; gap: 4px; font: 600 10px ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: #64748b; }
+.lab-field select, .lab-field input { background: #ffffff; border: 1px solid #dfe4ee; border-radius: 10px; color: #0f172a; padding: 7px 10px; font: 13px ui-monospace, monospace; letter-spacing: 0; text-transform: none; min-width: 9rem; }
+.lab-out { background: rgb(52 211 153 / 0.12); border: 1px solid rgb(52 211 153 / 0.4); color: #047857; border-radius: 10px; }
+.lab-table { border-radius: 16px; background: #ffffff; border: 1px solid #e3e8f0; }
+.lab-head { font: 600 11px ui-monospace, monospace; color: #64748b; background: #f3f5f9; border-bottom: 1px solid #e3e8f0; }
+.lab-row { border-bottom: 1px solid #eef1f6; transition: background 0.3s; }
 .lab-row:last-child { border-bottom: 0; }
 .lab-row--now { background: rgb(167 139 250 / 0.16); outline: 1px solid #a78bfa; outline-offset: -1px; }
-.lab-row--frame { background: rgb(96 165 250 / 0.08); }
+.lab-row--frame { background: rgb(96 165 250 / 0.06); }
 .lab-done { animation: done 0.5s ease-out; }
 @keyframes done { from { background: #34d399; color: #052e1f; } }
 @media (prefers-reduced-motion: reduce) { .lab-done { animation: none; } }

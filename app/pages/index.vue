@@ -136,31 +136,13 @@ useJsonLd({
   }))
 })
 
-// ---- Hero figure -------------------------------------------------------------
-
-// The Academy's own closing ARR, last twelve months (October → September),
-// from the course warehouse (public/sample-data/academy/arr_snapshots.csv):
-// the chart the course ends up building, drawn on the page that sells it.
-// Month initials and money are formatted for the reader's locale.
-const arr = [1352, 1722, 2805, 3047, 3670, 4098, 5013, 5781, 6210, 6512, 7100, 6969]
-const money = (thousands: number, digits = 2) =>
-  new Intl.NumberFormat(bcp47.value, { style: 'currency', currency: 'USD', notation: 'compact', maximumFractionDigits: digits }).format(thousands * 1000)
-const heroBars = computed(() => arr.map((v, i) => {
-  const month = new Date(Date.UTC(2025, 9 + i, 15))
-  return {
-    label: new Intl.DateTimeFormat(bcp47.value, { month: 'narrow', timeZone: 'UTC' }).format(month),
-    value: v,
-    tone: (i < 4 ? 'frost' : i < 8 ? 'tide' : 'signal') as 'frost' | 'tide' | 'signal',
-    title: `${new Intl.DateTimeFormat(bcp47.value, { month: 'long', timeZone: 'UTC' }).format(month)} · ${money(v)}`
-  }
-}))
-const heroTicks = computed(() => [0, 2000, 4000, 6000].map(v => money(v, 0)))
-const pct = (v: number) => new Intl.NumberFormat(bcp47.value, { style: 'percent', maximumFractionDigits: 1 }).format(v)
-const heroKpis = computed(() => [
-  { label: t('home.figure.arr'), value: money(6969), delta: t('home.figure.arrDelta', { n: pct(6.64) }) },
-  { label: t('home.figure.winRate'), value: pct(0.404), delta: t('home.figure.winRateDelta') },
-  { label: t('home.figure.nrr'), value: pct(1.395), delta: t('home.figure.nrrDelta', { n: pct(0.972) }) }
-])
+// ---- Hero: what is inside, each a link ------------------------------------------
+const INSIDE = [
+  { k: 'lessons', icon: 'i-lucide-graduation-cap', to: '/curriculum', bg: '#dbeafe', fg: '#1d4ed8' },
+  { k: 'visualisers', icon: 'i-lucide-workflow', to: '/visualiser', bg: '#ede9fe', fg: '#6d28d9' },
+  { k: 'exams', icon: 'i-lucide-timer', to: '/certification', bg: '#fef3c7', fg: '#b45309' },
+  { k: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions', bg: '#d1fae5', fg: '#047857' }
+]
 
 // ---- Curriculum, plotted ------------------------------------------------------
 
@@ -173,45 +155,19 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
 <template>
   <div>
     <!-- HERO ------------------------------------------------------------- -->
-    <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
-      <!-- faint area chart behind everything -->
-      <svg
-        class="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] w-full"
-        viewBox="0 0 1200 400"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M0 360 L100 330 L200 340 L300 290 L400 300 L500 250 L600 262 L700 210 L800 220 L900 170 L1000 180 L1100 130 L1200 110 L1200 400 L0 400Z"
-          fill="var(--ice)"
-          fill-opacity=".55"
-          stroke="var(--frost)"
-          stroke-width="1.5"
-          vector-effect="non-scaling-stroke"
-        />
-        <path
-          d="M0 380 L150 370 L300 355 L450 350 L600 330 L750 318 L900 300 L1050 285 L1200 270"
-          fill="none"
-          stroke="var(--frost)"
-          stroke-width="1.5"
-          stroke-dasharray="6 6"
-          vector-effect="non-scaling-stroke"
-        />
-      </svg>
-
-      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[repeat(auto-fit,minmax(440px,1fr))] lg:px-8">
+    <section class="border-b border-(--line)">
+      <div class="mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:px-8">
         <div>
-          <p class="eyebrow flex items-center gap-2">
-            <span class="inline-block size-2 bg-(--glow)" />
+          <p class="eyebrow">
             {{ t('home.hero.eyebrow') }}
           </p>
-          <h1 class="bp-h1 mt-5">
+          <h1 class="mt-4 text-4xl font-black leading-[1.05] tracking-[-0.035em] text-(--ink) sm:text-5xl">
             {{ t('home.hero.title') }}
           </h1>
-          <p class="bp-lead mt-6 max-w-xl">
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-(--ink2)">
             {{ t('home.hero.lead') }}
           </p>
-          <div class="mt-8 flex flex-wrap gap-4">
+          <div class="mt-8 flex flex-wrap gap-3">
             <UButton
               :to="localePath('/introduction')"
               size="lg"
@@ -231,40 +187,36 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
           </div>
         </div>
 
-        <BpFigure
-          :caption="t('home.figure.caption')"
-          :spec="t('home.figure.spec')"
-          shadow
-          class="min-w-0"
-        >
-          <div class="p-4 sm:p-5">
-            <div class="grid grid-cols-3 border-[1.5px] border-(--line)">
-              <div
-                v-for="(k, i) in heroKpis"
-                :key="k.label"
-                class="min-w-0 p-3"
-                :class="i ? 'border-s-[1.5px] border-(--line)' : ''"
+        <!-- What is inside, plainly -->
+        <ul class="divide-y divide-(--line) rounded-2xl border border-(--line) bg-(--card)">
+          <li
+            v-for="f in INSIDE"
+            :key="f.k"
+          >
+            <NuxtLink
+              :to="localePath(f.to)"
+              class="group flex items-center gap-4 p-5 hover:bg-(--ice)/60"
+            >
+              <span
+                class="flex size-12 shrink-0 items-center justify-center rounded-xl"
+                :style="{ background: f.bg, color: f.fg }"
               >
-                <p class="truncate font-mono text-[9px] uppercase tracking-[.12em] text-(--ink2)">
-                  {{ k.label }}
-                </p>
-                <p class="mt-1 text-xl font-extrabold tracking-[-0.03em] text-(--ink) sm:text-2xl">
-                  {{ k.value }}
-                </p>
-                <p class="mt-0.5 truncate font-mono text-[10px] text-(--signal)">
-                  <span aria-hidden="true">▲</span> {{ k.delta }}
-                </p>
-              </div>
-            </div>
-            <div class="mt-6 ps-7">
-              <BpBarChart
-                :bars="heroBars"
-                :height="150"
-                :ticks="heroTicks"
+                <UIcon
+                  :name="f.icon"
+                  class="size-6"
+                />
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block font-bold text-(--ink) group-hover:text-(--signal)">{{ t(`home.inside.${f.k}.title`) }}</span>
+                <span class="block text-sm text-(--ink2)">{{ t(`home.inside.${f.k}.body`) }}</span>
+              </span>
+              <UIcon
+                name="i-lucide-arrow-right"
+                class="size-4 text-(--ink2) transition-transform group-hover:translate-x-1"
               />
-            </div>
-          </div>
-        </BpFigure>
+            </NuxtLink>
+          </li>
+        </ul>
       </div>
     </section>
 

@@ -21,7 +21,7 @@ interface Billing {
   subscription: { plan: string, status: string, periodEnd: string | null, cancelAtPeriodEnd: boolean } | null
   team: { id: number, name: string, seats: number, status: string, billing: string, admin: boolean } | null
 }
-interface Org { name: string, seats: number, used: number, invited: number, joinCode: string | null, role: string, invites: string[] }
+interface Org { name: string, seats: number, used: number, invited: number, joinCode: string | null, role: string, invites: string[], domains: string[] }
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
@@ -82,6 +82,24 @@ async function invite() {
     await $fetch('/api/org/invite', { method: 'POST', body: { emails: emails.value } })
     emails.value = ''
     inviteMsg.value = t('account.invited')
+    await refreshOrg()
+  } catch (e) {
+    error.value = apiError(e) || t('contrib.err.generic')
+  } finally {
+    busy.value = ''
+  }
+}
+// Third way in: everyone signing in with the company's email domain.
+const domains = ref('')
+watch(org, o => (domains.value = (o?.domains ?? []).join(', ')), { immediate: true })
+const domainMsg = ref('')
+async function saveDomains() {
+  busy.value = 'domains'
+  error.value = ''
+  domainMsg.value = ''
+  try {
+    await $fetch('/api/org/domains', { method: 'POST', body: { domains: domains.value } })
+    domainMsg.value = t('account.domainsSaved')
     await refreshOrg()
   } catch (e) {
     error.value = apiError(e) || t('contrib.err.generic')
@@ -239,7 +257,10 @@ useSeoMeta({ title: () => t('account.title'), robots: 'noindex' })
             @submit.prevent="invite"
           >
             <p class="mono-label">
-              {{ t('account.invite') }}
+              {{ t('account.giveAccess') }}
+            </p>
+            <p class="text-sm text-(--ink2)">
+              {{ t('account.giveAccessLead') }}
             </p>
             <UTextarea
               v-model="emails"
@@ -261,6 +282,29 @@ useSeoMeta({ title: () => t('account.title'), robots: 'noindex' })
                 v-if="inviteMsg"
                 class="text-sm text-(--signal)"
               >{{ inviteMsg }}</span>
+            </div>
+            <div class="space-y-2 border-t border-dashed border-(--line) pt-3">
+              <p class="mono-label">
+                {{ t('account.domains') }}
+              </p>
+              <div class="flex gap-2">
+                <UInput
+                  v-model="domains"
+                  class="flex-1"
+                  placeholder="yourcompany.com"
+                />
+                <UButton
+                  color="neutral"
+                  variant="outline"
+                  :loading="busy === 'domains'"
+                  @click="saveDomains"
+                >
+                  {{ t('account.saveDomains') }}
+                </UButton>
+              </div>
+              <p class="text-xs text-(--ink2)">
+                {{ domainMsg || t('account.domainsHint') }}
+              </p>
             </div>
             <div
               v-if="joinLink"

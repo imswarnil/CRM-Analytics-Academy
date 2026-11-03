@@ -67,7 +67,9 @@ const props = withDefaults(defineProps<{
   checks?: Check[]
   /** A window's partition column: rows are striped by its value. */
   partition?: string
-}>(), { focus: () => [], checks: () => [], partition: '' })
+  /** What this step does, in plain words — shown on the canvas, in the step's title card. */
+  say?: string
+}>(), { focus: () => [], checks: () => [], partition: '', say: '' })
 const emit = defineEmits<{ select: [id: string] }>()
 const { t } = useI18n()
 
@@ -83,10 +85,10 @@ const CHECKS_SHOWN = 8
 const COLS = 4
 const TITLE = ['Name', 'Account', 'StageName', 'Region', 'AccountId', 'Id']
 const KIND: Record<string, string> = {
-  source: '#60a5fa', filter: '#fbbf24', transform: '#a78bfa', join: '#34d399', append: '#2dd4bf',
-  aggregate: '#f472b6', drop: '#fb7185', sort: '#7dd3fc', output: '#22d3ee'
+  source: '#2563eb', filter: '#d97706', transform: '#7c3aed', join: '#059669', append: '#0d9488',
+  aggregate: '#db2777', drop: '#e11d48', sort: '#0284c7', output: '#0891b2'
 }
-const colorOf = (n?: CanvasNode) => KIND[n?.kind ?? ''] ?? '#94a3b8'
+const colorOf = (n?: CanvasNode) => KIND[n?.kind ?? ''] ?? '#64748b'
 
 /* --- Layout -------------------------------------------------------------------- */
 const byId = computed(() => new Map(props.nodes.map(n => [n.id, n])))
@@ -122,6 +124,7 @@ const world = computed(() => {
 /* --- Who is who this step ------------------------------------------------------------ */
 const act = computed(() => node(props.active))
 const actOrder = computed(() => act.value?.order ?? 0)
+const orderList = computed(() => [...props.nodes].sort((a, b) => a.order - b.order))
 const inputIds = computed(() => (act.value?.inputs ?? []).filter(i => byId.value.has(i)))
 const stateOf = (n: CanvasNode) => (n.id === props.active ? 'active' : n.order < actOrder.value ? 'done' : 'pending')
 const involved = (id: string) => id === props.active || inputIds.value.includes(id)
@@ -266,7 +269,7 @@ const titleOf = (r: Row) => {
   return k ? fmt(r[k] ?? null) : '—'
 }
 const showTable = (n: CanvasNode) => !n.error && (stateOf(n) === 'done' || (stateOf(n) === 'active' && phase.value === 'out'))
-const tableH = (n: CanvasNode) => (n.groups ? 44 + Math.min(n.groups.length, ROWS) * 36 + 24 : 44 + Math.min(n.rows?.length ?? 0, ROWS) * 29 + 26)
+const tableH = (n: CanvasNode) => (n.groups ? 44 + Math.min(n.groups.length, ROWS) * 36 : 44 + Math.min(n.rows?.length ?? 0, ROWS) * 29)
 
 /* --- Camera ------------------------------------------------------------------- */
 const viewport = ref<HTMLElement | null>(null)
@@ -299,7 +302,7 @@ const auto = computed(() => {
   const y0 = Math.min(...boxes.map(b => b.y0))
   const x1 = Math.max(...boxes.map(b => b.x1))
   const y1 = Math.max(...boxes.map(b => b.y1))
-  const TOP = 64
+  const TOP = 130
   const pad = Math.min(80, vw.value * 0.06)
   const s = Math.min(1.12, Math.max(0.3, Math.min((vw.value - 2 * pad) / (x1 - x0), (vh.value - TOP - 2 * pad) / (y1 - y0))))
   return { tx: vw.value / 2 - ((x0 + x1) / 2) * s, ty: (vh.value + TOP) / 2 - ((y0 + y1) / 2) * s, s }
@@ -419,7 +422,7 @@ const badges = computed(() => {
           <path
             :d="e.d"
             fill="none"
-            :stroke="e.st === 'pending' ? '#2a3550' : e.color"
+            :stroke="e.st === 'pending' ? '#cbd5e1' : e.color"
             :stroke-width="e.st === 'live' ? 3 : 2"
             :stroke-dasharray="e.st === 'pending' ? '6 7' : e.st === 'live' && phase === 'flow' ? '2 10' : undefined"
             :class="e.st === 'live' && phase === 'flow' ? 'cv-march' : ''"
@@ -464,10 +467,10 @@ const badges = computed(() => {
           </span>
           <span class="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3">
             <span class="cv-node__label truncate">{{ n.label }}</span>
-            <span class="truncate font-mono text-[11px] text-[#8b97b8]">{{ n.name }}</span>
+            <span class="truncate font-mono text-[11px] text-[#64748b]">{{ n.name }}</span>
             <span
               v-if="n.detail"
-              class="truncate font-mono text-[11px] text-[#b6c2e2]"
+              class="truncate font-mono text-[11px] text-[#475569]"
               :title="n.detail"
             >{{ n.detail }}</span>
           </span>
@@ -475,7 +478,7 @@ const badges = computed(() => {
           <!-- Progress, while it works -->
           <span
             v-if="stateOf(n) === 'active' && at('process') && !n.error"
-            class="absolute inset-x-3 bottom-1.5 h-[3px] overflow-hidden rounded-full bg-white/10"
+            class="absolute inset-x-3 bottom-1.5 h-[3px] overflow-hidden rounded-full bg-[#e2e8f0]"
           >
             <span
               class="block h-full rounded-full bg-(--c) transition-[width] duration-150"
@@ -499,7 +502,7 @@ const badges = computed(() => {
             v-for="(x, i) in ejected"
             :key="x.k"
             class="cv-eject absolute whitespace-nowrap rounded-md px-2 py-0.5 font-mono text-[11px]"
-            :class="x.col ? 'border border-[#fb7185] text-[#fb7185] line-through' : 'bg-[#fb7185] text-[#1a0b10]'"
+            :class="x.col ? 'border border-[#fb7185] text-[#fb7185] line-through' : 'bg-[#fb7185] text-[#ffffff]'"
             :style="{ 'left': `${W - 30}px`, 'top': `${10 + i * 6}px`, '--i': i }"
           >{{ x.text }}</span>
         </template>
@@ -513,7 +516,7 @@ const badges = computed(() => {
             v-for="b in badges"
             :key="b.text"
             class="cv-badge rounded-full px-2 py-0.5 font-mono text-[11px]"
-            :class="b.tone === 'bad' ? 'bg-[#fb7185]/15 text-[#fda4af]' : 'bg-[#34d399]/15 text-[#6ee7b7]'"
+            :class="b.tone === 'bad' ? 'bg-[#fb7185]/15 text-[#be123c]' : 'bg-[#34d399]/15 text-[#047857]'"
           >{{ b.text }}</span>
         </div>
 
@@ -542,15 +545,15 @@ const badges = computed(() => {
             >
               <span
                 class="mt-[3px] flex size-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
-                :class="c.ok ? 'bg-[#34d399] text-[#052e1f]' : 'bg-[#fb7185] text-[#1a0b10]'"
+                :class="c.ok ? 'bg-[#34d399] text-[#052e1f]' : 'bg-[#fb7185] text-[#ffffff]'"
               >{{ c.ok ? '✓' : '✕' }}</span>
               <span class="min-w-0 flex-1">
-                <span class="block truncate text-[12.5px] font-semibold text-[#e6ecff]">{{ c.label }}</span>
-                <span class="block truncate font-mono text-[11px] text-[#b6c2e2]">{{ c.test }}</span>
+                <span class="block truncate text-[12.5px] font-semibold text-[#0f172a]">{{ c.label }}</span>
+                <span class="block truncate font-mono text-[11px] text-[#475569]">{{ c.test }}</span>
                 <span
                   v-if="c.note"
                   class="block truncate text-[11px]"
-                  :class="c.ok ? 'text-[#6ee7b7]' : 'text-[#fda4af]'"
+                  :class="c.ok ? 'text-[#047857]' : 'text-[#be123c]'"
                 >{{ c.note }}</span>
               </span>
             </li>
@@ -574,7 +577,7 @@ const badges = computed(() => {
               class="cv-row flex items-center gap-2 px-3 py-1.5"
               :style="{ '--i': gi }"
             >
-              <b class="max-w-[9rem] truncate text-[#e6ecff]">{{ g.key }}</b>
+              <b class="max-w-[9rem] truncate text-[#0f172a]">{{ g.key }}</b>
               <span class="flex min-w-0 flex-1 gap-1 overflow-hidden">
                 <span
                   v-for="(r, ri) in [...g.rows, ...(g.b ?? [])].slice(0, 3)"
@@ -583,7 +586,7 @@ const badges = computed(() => {
                   :style="{ opacity: 0.45 + ri * 0.2 }"
                 />
               </span>
-              <span class="shrink-0 font-mono text-[11px] text-[#8b97b8]">{{ g.rows.length }}<template v-if="g.b"> · {{ g.b.length }}</template></span>
+              <span class="shrink-0 font-mono text-[11px] text-[#64748b]">{{ g.rows.length }}<template v-if="g.b"> · {{ g.b.length }}</template></span>
             </div>
           </template>
           <table
@@ -600,7 +603,7 @@ const badges = computed(() => {
                   <div
                     class="cv-cell truncate"
                     :class="[
-                      n.id === props.active && lit.includes(c) ? 'cv-lit text-[#6ee7b7]' : '',
+                      n.id === props.active && lit.includes(c) ? 'cv-lit text-[#047857]' : '',
                       inputIds.includes(n.id) && dropped.includes(c) && at('flow') ? 'text-[#fb7185] line-through' : '',
                       inputIds.includes(n.id) && dropped.includes(c) && at('process') ? 'cv-fold' : '',
                       props.focus.includes(c) && involved(n.id) ? 'text-(--c)' : ''
@@ -632,9 +635,9 @@ const badges = computed(() => {
                   <div
                     class="cv-cell truncate"
                     :class="[
-                      n.id === props.active && lit.includes(c) ? 'bg-[#34d399]/10 text-[#d1fae5]' : '',
+                      n.id === props.active && lit.includes(c) ? 'bg-[#34d399]/10 text-[#065f46]' : '',
                       inputIds.includes(n.id) && dropped.includes(c) && at('process') ? 'cv-fold' : '',
-                      r[c] === null || r[c] === undefined ? 'italic text-[#5d6a8a]' : ''
+                      r[c] === null || r[c] === undefined ? 'italic text-[#94a3b8]' : ''
                     ]"
                   >
                     {{ fmt(r[c] ?? null) }}
@@ -645,36 +648,67 @@ const badges = computed(() => {
           </table>
           <p
             v-if="!n.groups && !(n.rows ?? []).length"
-            class="px-3 py-3 text-center text-[12px] text-[#8b97b8]"
+            class="px-3 py-3 text-center text-[12px] text-[#64748b]"
           >
             {{ t('vis.noRows') }}
-          </p>
-          <p
-            v-if="(n.groups?.filter(g => !g.dropped).length ?? n.rows?.length ?? 0) > ROWS"
-            class="cv-more"
-          >
-            {{ t('vis.flow.more', { n: (n.groups?.filter(g => !g.dropped).length ?? n.rows?.length ?? 0) - ROWS }) }}
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Title card for the step -->
+    <!-- The engine's order of execution: every node, in the order it runs -->
+    <ol
+      class="cv-order absolute left-1/2 top-3 z-10 flex max-w-[calc(100%-2rem)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-full px-2 py-1.5"
+      :aria-label="t('vis.canvas.order')"
+      @pointerdown.stop
+    >
+      <li
+        v-for="(n, i) in orderList"
+        :key="n.id"
+        class="flex shrink-0 items-center gap-1"
+      >
+        <button
+          type="button"
+          class="cv-order__item"
+          :class="n.id === props.active ? 'on' : n.order < actOrder ? 'done' : ''"
+          :style="{ '--c': colorOf(n) }"
+          :title="`${n.order}. ${n.label} · ${n.name}`"
+          @click="emit('select', n.id)"
+        >
+          <span class="font-mono">{{ n.order }}</span><span class="max-sm:hidden">{{ n.label }}</span>
+        </button>
+        <UIcon
+          v-if="i < orderList.length - 1"
+          name="i-lucide-chevron-right"
+          class="size-3 text-[#94a3b8]"
+        />
+      </li>
+    </ol>
+
+    <!-- Title card: the step, and what it does in plain words -->
     <div
       v-if="act"
       :key="`title-${props.stepKey}`"
-      class="cv-title pointer-events-none absolute left-5 top-4 flex items-center gap-3"
+      class="cv-title pointer-events-none absolute left-4 top-16 z-10 max-w-[min(26rem,calc(100%-2rem))]"
       :style="{ '--c': colorOf(act) }"
     >
-      <span class="cv-title__num">{{ String(act.order).padStart(2, '0') }}</span>
-      <span class="flex flex-col leading-tight">
-        <span class="text-[18px] font-bold text-[#f1f5ff]">{{ act.label }}</span>
-        <span class="font-mono text-[12px] text-[#8b97b8]">{{ act.name }}</span>
-      </span>
+      <p class="flex items-center gap-2.5">
+        <span class="cv-title__num">{{ String(act.order).padStart(2, '0') }}</span>
+        <span class="flex flex-col leading-tight">
+          <span class="text-[17px] font-bold text-[#0b1220]">{{ act.label }}</span>
+          <span class="font-mono text-[11.5px] text-[#64748b]">{{ act.name }}</span>
+        </span>
+      </p>
+      <p
+        v-if="props.say"
+        class="cv-say mt-2 text-[14px] leading-snug text-[#334155]"
+      >
+        {{ props.say }}
+      </p>
     </div>
 
     <!-- Legend and camera controls -->
-    <div class="pointer-events-none absolute bottom-3 left-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] text-[#8b97b8]">
+    <div class="pointer-events-none absolute bottom-3 left-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] text-[#64748b]">
       <span class="flex items-center gap-1.5"><i class="inline-block size-2 rounded-full bg-[#fb7185]" />{{ t('vis.dropped') }}</span>
       <span class="flex items-center gap-1.5"><i class="inline-block size-2 rounded-full bg-[#34d399]" />{{ t('vis.canvas.newCol') }}</span>
       <span class="flex items-center gap-1.5"><i class="inline-block size-2 rounded-full bg-[#fbbf24]" />{{ t('vis.legend.unmatched') }}</span>
@@ -704,19 +738,19 @@ const badges = computed(() => {
 
 <style scoped>
 .cv {
-  background-color: #0b1020;
-  background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1.2px), radial-gradient(ellipse at 30% 20%, rgb(96 165 250 / 0.08), transparent 60%);
+  background-color: #f6f7fb;
+  background-image: radial-gradient(rgb(15 23 42 / 0.09) 1px, transparent 1.2px), radial-gradient(ellipse at 30% 20%, rgb(96 165 250 / 0.06), transparent 60%);
   background-size: 22px 22px, 100% 100%;
   touch-action: none;
-  color: #cbd5e1;
+  color: #334155;
 }
 .cv-world--glide {
   transition: transform 1.05s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .cv-node {
   border-radius: 16px;
-  background: #121a2e;
-  border: 1.5px solid #26324d;
+  background: #ffffff;
+  border: 1.5px solid #dfe4ee;
   overflow: hidden;
   transition: box-shadow 0.4s, border-color 0.4s, transform 0.4s, opacity 0.4s;
 }
@@ -731,7 +765,7 @@ const badges = computed(() => {
 .cv-node__label {
   font-size: 16px;
   font-weight: 700;
-  color: #f1f5ff;
+  color: #0b1220;
   letter-spacing: -0.01em;
 }
 .cv-node__order {
@@ -739,14 +773,14 @@ const badges = computed(() => {
   right: 10px;
   top: 8px;
   font: 600 11px/1 ui-monospace, monospace;
-  color: #5d6a8a;
+  color: #94a3b8;
 }
 .cv-node--pending {
   background: transparent;
   border-style: dashed;
   opacity: 0.45;
 }
-.cv-node--pending .cv-node__icon { background: transparent; color: #5d6a8a; }
+.cv-node--pending .cv-node__icon { background: transparent; color: #94a3b8; }
 .cv-node--active {
   border-color: var(--c);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 18%, transparent), 0 18px 50px -12px color-mix(in srgb, var(--c) 55%, transparent);
@@ -768,13 +802,13 @@ const badges = computed(() => {
 @keyframes blink { 50% { opacity: 0.3; } }
 .cv-table {
   border-radius: 14px;
-  background: #0f1628;
-  border: 1px solid #222d47;
-  box-shadow: 0 16px 40px -18px rgb(0 0 0 / 0.8);
+  background: #ffffff;
+  border: 1px solid #e3e8f0;
+  box-shadow: 0 10px 30px -18px rgb(15 23 42 / 0.25);
   transition: opacity 0.4s;
 }
 .cv-table--new {
-  border-color: color-mix(in srgb, var(--c) 55%, #222d47);
+  border-color: color-mix(in srgb, var(--c) 55%, #e3e8f0);
   animation: unfold 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
   transform-origin: top center;
 }
@@ -792,41 +826,40 @@ const badges = computed(() => {
   font: 600 11px ui-monospace, monospace;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #8b97b8;
-  border-bottom: 1px solid #222d47;
+  color: #64748b;
+  border-bottom: 1px solid #e3e8f0;
 }
 .cv-th {
   padding: 0;
   text-align: start;
   font: 600 11px ui-monospace, monospace;
-  color: #8b97b8;
-  background: #131c33;
-  border-bottom: 1px solid #222d47;
+  color: #64748b;
+  background: #f3f5f9;
+  border-bottom: 1px solid #e3e8f0;
 }
 .cv-cell {
   max-width: 140px;
   padding: 6px 10px;
   white-space: nowrap;
 }
-.cv-row { font-size: 12.5px; color: #cbd5e1; border-bottom: 1px solid #18213a; transition: background 0.3s, color 0.3s; }
+.cv-row { font-size: 12.5px; color: #334155; border-bottom: 1px solid #eef1f6; transition: background 0.3s, color 0.3s; }
 .cv-row:last-child { border-bottom: 0; }
 .cv-row--now { background: color-mix(in srgb, var(--c) 22%, transparent); outline: 1px solid var(--c); outline-offset: -1px; }
 .cv-inspect {
   border-radius: 14px;
-  background: #0f1628;
-  border: 1px solid color-mix(in srgb, var(--c) 45%, #222d47);
-  box-shadow: 0 16px 40px -18px rgb(0 0 0 / 0.8);
+  background: #ffffff;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, #e3e8f0);
+  box-shadow: 0 10px 30px -18px rgb(15 23 42 / 0.25);
   animation: unfold 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
 }
-.cv-check { border-bottom: 1px solid #18213a; transition: opacity 0.3s; }
+.cv-check { border-bottom: 1px solid #eef1f6; transition: opacity 0.3s; }
 .cv-check--now { background: color-mix(in srgb, var(--c) 12%, transparent); }
 .cv-check-enter-active { transition: opacity 0.25s, transform 0.25s; }
 .cv-check-enter-from { opacity: 0; transform: translateY(8px); }
 .cv-check-leave-active { display: none; }
-.cv-row--dropped { background: rgb(251 113 133 / 0.14); color: #fda4af; text-decoration: line-through; }
+.cv-row--dropped { background: rgb(251 113 133 / 0.14); color: #be123c; text-decoration: line-through; }
 .cv-row--warn { background: rgb(251 191 36 / 0.12); }
 .cv-row--multi { background: rgb(167 139 250 / 0.14); }
-.cv-more { padding: 5px 12px; font: 11px ui-monospace, monospace; color: #5d6a8a; border-top: 1px solid #18213a; }
 .cv-fold { animation: fold 0.8s cubic-bezier(0.6, 0, 0.4, 1) forwards; }
 @keyframes fold {
   35% { opacity: 0.5; max-width: 140px; }
@@ -846,6 +879,11 @@ const badges = computed(() => {
 @keyframes pop { from { opacity: 0; transform: scale(0.6); } }
 .cv-march { animation: march 0.6s linear infinite; }
 @keyframes march { to { stroke-dashoffset: -12; } }
+.cv-order { background: rgb(255 255 255 / 0.92); border: 1px solid #e3e8f0; box-shadow: 0 6px 20px -12px rgb(15 23 42 / 0.3); backdrop-filter: blur(6px); }
+.cv-order__item { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #64748b; white-space: nowrap; transition: background 0.3s, color 0.3s; }
+.cv-order__item.done { color: #334155; }
+.cv-order__item.on { background: var(--c); color: #fff; }
+.cv-say { background: rgb(255 255 255 / 0.9); border: 1px solid #e3e8f0; border-left: 3px solid var(--c); border-radius: 10px; padding: 8px 12px; box-shadow: 0 6px 20px -14px rgb(15 23 42 / 0.3); }
 .cv-title { animation: title 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
 .cv-title__num {
   font: 800 30px/1 ui-monospace, monospace;
@@ -855,7 +893,7 @@ const badges = computed(() => {
 @keyframes title { from { opacity: 0; transform: translateY(-10px); } }
 .cv-ctrl {
   display: flex; width: 32px; height: 32px; align-items: center; justify-content: center;
-  border-radius: 10px; background: #121a2e; border: 1px solid #26324d; color: #cbd5e1;
+  border-radius: 10px; background: #ffffff; border: 1px solid #dfe4ee; color: #334155;
 }
 .cv-ctrl:hover { border-color: #60a5fa; color: #fff; }
 @media (prefers-reduced-motion: reduce) {

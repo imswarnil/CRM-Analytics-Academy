@@ -6,7 +6,10 @@
  *   top     title, presets, Edit (a side panel with the editor)
  *   left    the rail: the code or the execution order, clickable
  *   centre  the stage — the motion graphic
- *   bottom  the narration (written out, whiteboard style) and the player
+ *   (top)   the player — play / step / position — in the same bar
+ *
+ * No narration bar: each stage explains its step where it happens (the
+ * canvas title card, the joins and bindings panels).
  *
  * The stage (a VisCanvas) animates each step itself; the player waits
  * long enough for a step's flow to finish before moving on.
@@ -63,6 +66,12 @@ const railOpen = ref(props.rail)
         </button>
       </nav>
       <div class="ms-auto flex items-center gap-1.5">
+        <VisPlayer
+          v-model="step"
+          :count="props.count"
+          :interval="2500"
+          autoplay
+        />
         <ShareBar
           :title="props.title"
           compact
@@ -105,26 +114,12 @@ const railOpen = ref(props.rail)
           />
         </div>
       </aside>
-      <section class="relative min-h-0 overflow-hidden bg-[#0b1020] max-lg:min-h-[60dvh]">
+      <section class="relative min-h-0 overflow-hidden bg-[#f6f7fb] max-lg:min-h-[60dvh]">
         <slot name="stage" />
       </section>
     </div>
 
     <!-- Bottom: narration + player -->
-    <footer class="grid shrink-0 gap-3 border-t-[1.5px] border-(--ink) bg-(--card) px-4 py-3 sm:px-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-      <VisCaption
-        :text="props.caption"
-        :eyebrow="props.eyebrow"
-        :error="props.error"
-      />
-      <VisPlayer
-        v-model="step"
-        :count="props.count"
-        :interval="2500"
-        autoplay
-        class="lg:min-w-[30rem]"
-      />
-    </footer>
 
     <USlideover
       v-model:open="editOpen"

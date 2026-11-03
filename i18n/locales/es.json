@@ -14,7 +14,7 @@
     "signOut": "Suscríbase",
     "dashboard": "Dashboard",
     "account": "Cuenta",
-    "curriculum": "Curriculum",
+    "curriculum": "Empieza aquí.",
     "submit": "Contribuir un recurso",
     "home": "Inicio",
     "enrollFree": "Ingrese gratis",
@@ -61,7 +61,7 @@
       "title": "Aprender Salesforce CRM Analytics la forma en que se utiliza en el trabajo.",
       "lead": "Clases gratuitas y prácticas sobre recetas, SAQL, tableros, seguridad y Einstein Discovery — construido sobre los datos reales de una empresa.",
       "start": "Comience la lección 1",
-      "curriculum": "Ver currículo"
+      "curriculum": "Empieza aquí."
     },
     "author": {
       "eyebrow": "Fig. 05 - El autor",
@@ -129,6 +129,24 @@
       "countries": "Países",
       "byRegion": "Readers by region",
       "topCountries": "Principales países"
+    },
+    "inside": {
+      "lessons": {
+        "title": "Lecciones cortas, paso a paso",
+        "body": "Video y texto, una prueba después de cada uno, en 12 idiomas."
+      },
+      "visualisers": {
+        "title": "Ve a correr.",
+        "body": "Watch SAQL, recetas, uniones y encuadernaciones trabajan fila por fila."
+      },
+      "exams": {
+        "title": "Examen de prácticas",
+        "body": "Documentos programados como la certificación real."
+      },
+      "interview": {
+        "title": "Preguntas de entrevista",
+        "body": "Preguntas reales con respuestas modelo, por tema."
+      }
     }
   },
   "footer": {
@@ -172,7 +190,7 @@
     "cta": {
       "start": "Iniciar el curso gratis",
       "continue": "Seguir aprendiendo",
-      "curriculum": "Ver el currículo completo"
+      "curriculum": "Empieza aquí."
     },
     "outcomes": {
       "eyebrow": "Lo que usted será capaz de hacer",
@@ -982,7 +1000,7 @@
       "teaches": "Salesforce CRM Analytics: preparación de datos, conjuntos de datos, SAQL, dashboards, bindings y Einstein Discovery"
     },
     "sheet": "Hoja 01 / {sections} secciones / {lessons} lecciones / {hours}h",
-    "title": "Curriculum",
+    "title": "Empieza aquí.",
     "complete": "{done} / {total} completo",
     "start": "Comience al principio",
     "datasets": "Obtenga los conjuntos de datos",
@@ -1010,7 +1028,8 @@
     },
     "waiting": "{n} estudiantes esperando",
     "notifyMe": "Avisadme cuando se abra.",
-    "notifying": "Estás en la lista."
+    "notifying": "Estás en la lista.",
+    "toolsTitle": "Ver la ejecución: herramientas de práctica"
   },
   "lesson": {
     "authors": {
@@ -1189,7 +1208,14 @@
     },
     "prev": "Pregunta anterior",
     "next": "Siguiente pregunta",
-    "close": "Cerca"
+    "close": "Cerca",
+    "view": {
+      "list": "Lista",
+      "grid": "Tarjetas"
+    },
+    "editOnGithub": "Mejorar esta respuesta GitHub",
+    "answersTitle": "Respuestas de la comunidad",
+    "answersLead": "Lea cómo los demás lo responden, o agregue el suyo."
   },
   "cert": {
     "eyebrow": "Práctica de certificación",
@@ -1809,7 +1835,8 @@
       "zoomIn": "Zoom en",
       "zoomOut": "Fuera.",
       "recenter": "Seguir el paso de nuevo",
-      "rowByRow": "Rema por fila"
+      "rowByRow": "Rema por fila",
+      "order": "Orden de ejecución"
     },
     "check": {
       "kept": "guardado: pasa {test}",
@@ -1875,6 +1902,14 @@
         "fanout": "repetido (fan-out)",
         "leftOnly": "izquierda sólo",
         "rightOnly": "derecho sólo"
+      },
+      "useWhen": "Úsalo cuando:",
+      "use": {
+        "lookup": "desea añadir el nombre y la región de la Cuenta a cada oportunidad, sin duplicar nunca una oportunidad.",
+        "left": "desea que cada Cuenta con todas sus Oportunidades, y todavía vea Cuentas que no tienen ninguna.",
+        "right": "el lado derecho es lo que debe mantener: cada cuenta, ya sea o no una oportunidad apunta a ella.",
+        "inner": "sólo te importan los registros que existen en ambos lados, como Oportunidades cuya Cuenta es conocida.",
+        "outer": "estás conciliando dos sistemas y necesitas ver lo que falta en ambos lados."
       }
     },
     "bindings": {
@@ -1969,6 +2004,54 @@
       "rank": "Números filas por un valor dentro de su partición: 1 es el más alto.",
       "lag": "Lee el valor de la fila anterior en la partición.",
       "share_of_partition": "Da la parte de cada fila del total de su partición, en porcentaje."
+    },
+    "security": {
+      "title": "Visualizador de seguridad predicado",
+      "card": "Elija quién está conectado y vea la seguridad de nivel de fila decidir, fila por fila, lo que pueden ver.",
+      "seoTitle": "CRM Analytics predicados de seguridad, visualizados: seguridad de nivel de filas paso a paso",
+      "seoDesc": "Mira cómo CRM Analytics El predicado de seguridad funciona: $User. Id está llenado, cada fila se revisa contra el propietario y la jerarquía de gerente, y sólo filas iguales alcanzan el tablero.",
+      "about": "Acerca de los problemas de seguridad",
+      "whoLooks": "Quién está conectado",
+      "predicate": "La situación de seguridad del conjunto de datos",
+      "reportsTo": "informes a {name}",
+      "topBoss": "no manager",
+      "noPredicate": "No predicar: todo el mundo ve cada fila",
+      "preds": {
+        "own": "Sólo mis registros",
+        "team": "Mis discos y mi equipo",
+        "none": "No hay seguridad"
+      },
+      "atQuery": "Cuando el panel consulta el conjunto de datos",
+      "step0": "{name} abre el tablero. Antes de leer cualquier fila, $User. Id in the predicate se convierte en su usuario id.",
+      "row": "Fila",
+      "rows": "filas",
+      "sees": "¿Qué? {name} vers",
+      "pipeline": "Su oleoducto total",
+      "why": {
+        "none": "visible: el conjunto de datos no tiene predicación.",
+        "own": "visible: ellos lo poseen.",
+        "team": "visible: {owner} les informa, así que están en la fila de ManagerChain.",
+        "teamOff": "escondido: {owner} les informa, pero este predicado sólo revisa al dueño.",
+        "no": "escondido: {owner} lo posee y no están en esa fila de ManagerChain."
+      },
+      "notes": {
+        "what": {
+          "title": "Lo que es un problema de seguridad",
+          "body": "Un filtro almacenado en el conjunto de datos. CRM Analytics lo añade a cada consulta en ese conjunto de datos, para cada usuario, antes de cualquier filtro de panel. Una fila que falla nunca llega al tablero."
+        },
+        "user": {
+          "title": "Campos de usuario",
+          "body": "$User. Id, $User. UserRoleId y otros campos $User se reemplazan con los valores del usuario conectado cuando la consulta se ejecuta, por lo que un predicado da a cada persona sus propias filas."
+        },
+        "flatten": {
+          "title": "Las Jerarquías necesitan un plano",
+          "body": "Para dejar a los administradores ver su equipo, una receta o flujo de datos aplana el papel o la jerarquía de gerentes en un campo de multivalor (aquí ManagerChain). El predicado entonces comprueba si el usuario está en cualquier lugar."
+        },
+        "sharing": {
+          "title": "Predicar o compartir la herencia?",
+          "body": "Compartir copias de la herencia Salesforce compartir para objetos soportados. Un predicado es para todo lo demás, o cuando quieres una regla más simple."
+        }
+      }
     }
   },
   "meter": {
@@ -2116,6 +2199,12 @@
     "sendInvites": "Enviar invitaciones",
     "invited": "Invitado. Se sientan cuando se firman con ese correo electrónico.",
     "copyLink": "Copiar enlace para unir",
-    "allMembers": "Miembros y dominios"
+    "allMembers": "Miembros y dominios",
+    "giveAccess": "Dar acceso a su equipo",
+    "giveAccessLead": "Tres maneras, utilizar cualquiera de ellos: invitar a personas por correo electrónico, dejar que todos con su compañía email se unan, o compartir el enlace de la unión.",
+    "domains": "E-mail de la empresa dominios",
+    "saveDomains": "Guardar",
+    "domainsHint": "Cualquier persona que se inscriba con uno de estos dominios de correo electrónico toma un asiento gratis automáticamente.",
+    "domainsSaved": "Salvado. Las personas con estos dominios de correo electrónico ahora se unen automáticamente mientras que los asientos son libres."
   }
 }

@@ -200,6 +200,7 @@ usePageSchema(() => ({
     <template #stage>
       <VisCanvas
         v-if="current"
+        :say="caption"
         :nodes="canvas"
         :active="current.name"
         :step-key="`${current.name}-${step}-${JSON.stringify(opts)}`"

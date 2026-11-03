@@ -133,6 +133,11 @@ usePageSchema(() => ({
             </label>
           </div>
 
+          <p class="bd-now">
+            <span class="font-mono text-xs font-bold text-[#2563eb]">{{ step + 1 }}/5</span>
+            {{ caption }}
+          </p>
+
           <div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
             <!-- Widget 1: the chart -->
             <div
@@ -151,16 +156,16 @@ usePageSchema(() => ({
                   :disabled="kind === 'result'"
                   @click="click(b.stage)"
                 >
-                  <span class="w-28 shrink-0 truncate text-[13px] text-[#cbd5e1]">{{ b.stage }}</span>
-                  <span class="relative h-7 flex-1 overflow-hidden rounded-md bg-[#18213a]">
+                  <span class="w-28 shrink-0 truncate text-[13px] text-[#334155]">{{ b.stage }}</span>
+                  <span class="relative h-7 flex-1 overflow-hidden rounded-md bg-[#eef1f6]">
                     <span
                       class="absolute inset-y-0 left-0 rounded-md transition-all duration-500"
-                      :style="{ width: `${(b.sum / max) * 100}%`, background: values.includes(b.stage) ? '#60a5fa' : '#2a3a5e' }"
+                      :style="{ width: `${(b.sum / max) * 100}%`, background: values.includes(b.stage) ? '#60a5fa' : '#cbd5e1' }"
                     />
                     <span class="relative z-10 flex h-full items-center px-2 font-mono text-[11px] text-white">{{ money(b.sum) }}</span>
                   </span>
                 </button>
-                <p class="pt-1 text-xs text-[#8b97b8]">
+                <p class="pt-1 text-xs text-[#64748b]">
                   {{ kind === 'result' ? t('vis.bindings.resultHint') : t('vis.bindings.clickHint') }}
                 </p>
               </div>
@@ -171,7 +176,7 @@ usePageSchema(() => ({
               <p class="bd-title">
                 {{ t('vis.bindings.chain') }}
               </p>
-              <ol class="divide-y divide-[#18213a]">
+              <ol class="divide-y divide-[#eef1f6]">
                 <li
                   class="bd-stage"
                   :class="step === 0 ? 'now' : step > 0 ? 'done' : ''"
@@ -236,12 +241,12 @@ usePageSchema(() => ({
               <p class="bd-title">
                 4 · {{ t('vis.bindings.stage.inject') }} · q_deals
               </p>
-              <pre class="overflow-x-auto p-4 font-mono text-[12.5px] leading-relaxed text-[#cbd5e1]"><code>q = load "opportunities";
+              <pre class="overflow-x-auto p-4 font-mono text-[12.5px] leading-relaxed text-[#334155]"><code>q = load "opportunities";
 <span :class="step >= 3 ? 'bd-inject' : 'bd-raw'">{{ step >= 3 ? resolvedLine : filterLine }}</span>
 q = foreach q generate 'Name', 'StageName', 'Amount';</code></pre>
               <p
                 v-if="broken && step >= 3"
-                class="px-4 pb-4 text-sm text-[#fda4af]"
+                class="px-4 pb-4 text-sm text-[#be123c]"
               >
                 {{ t('vis.bindings.brokenNote') }}
               </p>
@@ -261,22 +266,22 @@ q = foreach q generate 'Name', 'StageName', 'Amount';</code></pre>
                 <div
                   v-for="(r, i) in rows.slice(0, 6)"
                   :key="String(r.Id)"
-                  class="flex items-center justify-between gap-3 border-b border-[#18213a] px-4 py-2 text-[13px]"
+                  class="flex items-center justify-between gap-3 border-b border-[#eef1f6] px-4 py-2 text-[13px]"
                   :style="{ transitionDelay: `${i * 70}ms` }"
                 >
-                  <span class="truncate text-[#e6ecff]">{{ r.Name }}</span>
-                  <span class="shrink-0 font-mono text-[#8b97b8]">{{ r.StageName }} · {{ fmt(r.Amount ?? null) }}</span>
+                  <span class="truncate text-[#0f172a]">{{ r.Name }}</span>
+                  <span class="shrink-0 font-mono text-[#64748b]">{{ r.StageName }} · {{ fmt(r.Amount ?? null) }}</span>
                 </div>
               </TransitionGroup>
               <p
                 v-if="step >= 4 && !rows.length"
-                class="px-4 py-3 text-sm text-[#fda4af]"
+                class="px-4 py-3 text-sm text-[#be123c]"
               >
                 {{ t('vis.noRows') }}
               </p>
               <p
                 v-if="step < 4"
-                class="px-4 py-6 text-center font-mono text-xs uppercase tracking-[.12em] text-[#5d6a8a]"
+                class="px-4 py-6 text-center font-mono text-xs uppercase tracking-[.12em] text-[#94a3b8]"
               >
                 {{ t('vis.flow.waiting') }}
               </p>
@@ -305,24 +310,25 @@ q = foreach q generate 'Name', 'StageName', 'Amount';</code></pre>
 </template>
 
 <style scoped>
-.bd { background: #0b1020; background-image: radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1.2px); background-size: 22px 22px; color: #cbd5e1; }
-.bd-card { border-radius: 16px; background: #0f1628; border: 1px solid #222d47; overflow: hidden; transition: border-color 0.4s, box-shadow 0.4s; }
+.bd { background: #f6f7fb; background-image: radial-gradient(rgb(15 23 42 / 0.09) 1px, transparent 1.2px); background-size: 22px 22px; color: #334155; }
+.bd-now { display: flex; gap: 10px; align-items: baseline; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; padding: 10px 14px; font-size: 15px; color: #1f2937; }
+.bd-card { border-radius: 16px; background: #ffffff; border: 1px solid #e3e8f0; overflow: hidden; transition: border-color 0.4s, box-shadow 0.4s; }
 .bd-card--now { border-color: #60a5fa; box-shadow: 0 0 0 4px rgb(96 165 250 / 0.15), 0 18px 50px -14px rgb(96 165 250 / 0.5); }
-.bd-title { padding: 10px 16px; font: 600 11px ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #8b97b8; background: #131c33; border-bottom: 1px solid #222d47; }
-.bd-seg { display: inline-flex; border-radius: 10px; border: 1px solid #26324d; background: #121a2e; overflow: hidden; color: #cbd5e1; min-height: 34px; }
+.bd-title { padding: 10px 16px; font: 600 11px ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; background: #f3f5f9; border-bottom: 1px solid #e3e8f0; }
+.bd-seg { display: inline-flex; border-radius: 10px; border: 1px solid #dfe4ee; background: #ffffff; overflow: hidden; color: #334155; min-height: 34px; }
 .bd-seg button { padding: 6px 12px; font-size: 13px; }
-.bd-seg button.on { background: #60a5fa; color: #0b1020; font-weight: 700; }
+.bd-seg button.on { background: #60a5fa; color: #f6f7fb; font-weight: 700; }
 .bd-stage { display: flex; gap: 12px; padding: 12px 16px; transition: background 0.4s, opacity 0.4s; }
 .bd-stage.now { background: rgb(96 165 250 / 0.12); }
 .bd-stage.wait { opacity: 0.4; }
-.bd-stage code { display: block; margin-top: 2px; font: 13px ui-monospace, monospace; color: #f1f5ff; word-break: break-all; }
-.bd-n { display: flex; width: 24px; height: 24px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 999px; background: #26324d; color: #e6ecff; font: 700 12px ui-monospace, monospace; }
-.bd-stage.now .bd-n, .bd-stage.done .bd-n { background: #60a5fa; color: #0b1020; }
-.bd-label { font: 600 10px ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.12em; color: #8b97b8; }
-.bd-val { margin-top: 4px; font: 12.5px ui-monospace, monospace; color: #6ee7b7; word-break: break-all; animation: val 0.5s ease-out both; }
+.bd-stage code { display: block; margin-top: 2px; font: 13px ui-monospace, monospace; color: #0b1220; word-break: break-all; }
+.bd-n { display: flex; width: 24px; height: 24px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 999px; background: #dfe4ee; color: #0f172a; font: 700 12px ui-monospace, monospace; }
+.bd-stage.now .bd-n, .bd-stage.done .bd-n { background: #60a5fa; color: #f6f7fb; }
+.bd-label { font: 600 10px ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.12em; color: #64748b; }
+.bd-val { margin-top: 4px; font: 12.5px ui-monospace, monospace; color: #047857; word-break: break-all; animation: val 0.5s ease-out both; }
 @keyframes val { from { opacity: 0; transform: translateY(-4px); } }
 .bd-raw { color: #fbbf24; }
-.bd-inject { color: #6ee7b7; background: rgb(52 211 153 / 0.12); animation: inject 0.8s ease-out both; }
+.bd-inject { color: #047857; background: rgb(52 211 153 / 0.12); animation: inject 0.8s ease-out both; }
 @keyframes inject { from { background: #34d399; color: #052e1f; } }
 .bd-row-enter-active { transition: opacity 0.35s, transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1); }
 .bd-row-enter-from { opacity: 0; transform: translateX(-14px); }

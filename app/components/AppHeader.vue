@@ -20,21 +20,17 @@ const menuItems = computed(() => [
   { label: t('nav.pro'), icon: 'i-lucide-sparkles', to: localePath('/pro') }
 ])
 
-// Labels or icons: measured, so no language or button set ever clips a label.
+// Labels or icons, never a clipped label. The server renders icons (right at
+// every width); once mounted, a hidden copy with labels is measured and the
+// labels appear only if all of them fit — so nothing jumps or squeezes.
 const navEl = ref<HTMLElement | null>(null)
-const navInner = ref<HTMLElement | null>(null)
-const compact = ref(false)
-let needed = 0
+const measureEl = ref<HTMLElement | null>(null)
+const compact = ref(true)
 function fit() {
   const nav = navEl.value
-  const inner = navInner.value
-  if (!nav || !inner || !nav.clientWidth) return
-  if (!compact.value) {
-    needed = inner.scrollWidth
-    if (needed > nav.clientWidth) compact.value = true
-  } else if (needed && nav.clientWidth >= needed) {
-    compact.value = false
-  }
+  const probe = measureEl.value
+  if (!nav || !probe || !nav.clientWidth) return
+  compact.value = probe.scrollWidth > nav.clientWidth
 }
 let navRo: ResizeObserver | undefined
 onMounted(() => {
@@ -43,11 +39,7 @@ onMounted(() => {
   fit()
 })
 onBeforeUnmount(() => navRo?.disconnect())
-watch(locale, () => {
-  compact.value = false
-  needed = 0
-  nextTick(fit)
-})
+watch(locale, () => nextTick(fit))
 
 function isActive(item: { to: string, exact?: boolean }) {
   if (item.exact) return route.path === item.to || route.path === `${item.to}/`
@@ -131,13 +123,22 @@ const localeItems = computed(() =>
            shows labels only when they fit in it — in any language. -->
       <nav
         ref="navEl"
-        class="ms-4 hidden h-16 min-w-0 flex-1 items-stretch overflow-hidden lg:flex"
+        class="relative ms-4 hidden h-16 min-w-0 flex-1 items-stretch overflow-hidden lg:flex"
         aria-label="Main"
       >
+        <!-- Hidden copy with labels, measured by fit() -->
         <div
-          ref="navInner"
-          class="flex w-max items-stretch border-s border-(--line)"
+          ref="measureEl"
+          class="pointer-events-none invisible absolute flex w-max"
+          aria-hidden="true"
         >
+          <span
+            v-for="item in menuItems"
+            :key="item.to"
+            class="flex items-center gap-1.5 border-e px-3 text-[13px] font-semibold whitespace-nowrap"
+          ><span class="size-4" />{{ item.label }}</span>
+        </div>
+        <div class="flex w-max items-stretch border-s border-(--line)">
           <NuxtLink
             v-for="item in menuItems"
             :key="item.to"

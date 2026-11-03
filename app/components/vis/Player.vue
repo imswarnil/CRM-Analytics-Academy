@@ -57,59 +57,32 @@ watch(() => props.count, () => go(step.value))
 </script>
 
 <template>
-  <div class="flex flex-wrap items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) px-3 py-2">
-    <UButton
-      icon="i-lucide-skip-back"
-      color="neutral"
-      variant="ghost"
-      size="sm"
-      square
-      :aria-label="t('vis.first')"
-      @click="go(0)"
-    />
+  <div class="flex items-center gap-1 border-[1.5px] border-(--ink) bg-(--card) px-1.5 py-1">
     <UButton
       icon="i-lucide-chevron-left"
       color="neutral"
       variant="ghost"
-      size="sm"
+      size="xs"
       square
       :aria-label="t('vis.prev')"
       @click="go(step - 1)"
     />
     <UButton
       :icon="playing ? 'i-lucide-pause' : 'i-lucide-play'"
-      size="sm"
+      size="xs"
+      square
+      :aria-label="playing ? t('vis.pause') : t('vis.play')"
       @click="toggle"
-    >
-      {{ playing ? t('vis.pause') : t('vis.play') }}
-    </UButton>
+    />
     <UButton
       icon="i-lucide-chevron-right"
       color="neutral"
       variant="ghost"
-      size="sm"
+      size="xs"
       square
       :aria-label="t('vis.next')"
       @click="go(step + 1)"
     />
-    <UButton
-      icon="i-lucide-skip-forward"
-      color="neutral"
-      variant="ghost"
-      size="sm"
-      square
-      :aria-label="t('vis.last')"
-      @click="go(count - 1)"
-    />
-    <input
-      type="range"
-      min="0"
-      :max="Math.max(count - 1, 0)"
-      :value="step"
-      class="min-w-24 flex-1 accent-(--signal)"
-      :aria-label="t('vis.scrub')"
-      @input="go(Number(($event.target as HTMLInputElement).value))"
-    >
-    <span class="font-mono text-xs tabular-nums text-(--ink2)">{{ t('vis.stepOf', { n: step + 1, total: count }) }}</span>
+    <span class="px-1 font-mono text-xs tabular-nums text-(--ink2)">{{ step + 1 }}/{{ count }}</span>
   </div>
 </template>

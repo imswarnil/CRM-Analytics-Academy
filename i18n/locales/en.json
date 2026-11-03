@@ -14,7 +14,7 @@
     "signOut": "Sign out",
     "dashboard": "Dashboard",
     "account": "Account",
-    "curriculum": "Curriculum",
+    "curriculum": "Start here",
     "submit": "Contribute a resource",
     "home": "Home",
     "enrollFree": "Enroll free",
@@ -61,7 +61,7 @@
       "title": "Learn Salesforce CRM Analytics the way it’s used at work.",
       "lead": "Free, hands-on lessons on recipes, SAQL, dashboards, security and Einstein Discovery — built on one company’s real data.",
       "start": "Start lesson 1",
-      "curriculum": "See curriculum"
+      "curriculum": "Start here"
     },
     "author": {
       "eyebrow": "Fig. 05 — The author",
@@ -129,6 +129,24 @@
       "countries": "Countries",
       "byRegion": "Readers by region",
       "topCountries": "Top countries"
+    },
+    "inside": {
+      "lessons": {
+        "title": "Short lessons, step by step",
+        "body": "Video and text, a quiz after each, in 12 languages."
+      },
+      "visualisers": {
+        "title": "See it run",
+        "body": "Watch SAQL, recipes, joins and bindings work row by row."
+      },
+      "exams": {
+        "title": "Practice exams",
+        "body": "Timed papers like the real certification."
+      },
+      "interview": {
+        "title": "Interview questions",
+        "body": "Real questions with model answers, by topic."
+      }
     }
   },
   "footer": {
@@ -172,7 +190,7 @@
     "cta": {
       "start": "Start the course free",
       "continue": "Continue learning",
-      "curriculum": "See the full curriculum"
+      "curriculum": "Start here"
     },
     "outcomes": {
       "eyebrow": "What you will be able to do",
@@ -982,7 +1000,7 @@
       "teaches": "Salesforce CRM Analytics: data preparation, datasets, SAQL, dashboards, bindings and Einstein Discovery"
     },
     "sheet": "Sheet 01 / {sections} sections / {lessons} lessons / {hours}h",
-    "title": "Curriculum",
+    "title": "Start here",
     "complete": "{done} / {total} complete",
     "start": "Start at the beginning",
     "datasets": "Get the datasets",
@@ -1010,7 +1028,8 @@
     },
     "waiting": "{n} learners waiting",
     "notifyMe": "Notify me when it opens",
-    "notifying": "You're on the list"
+    "notifying": "You're on the list",
+    "toolsTitle": "See it run: practice tools"
   },
   "lesson": {
     "authors": {
@@ -1189,7 +1208,14 @@
     },
     "prev": "Previous question",
     "next": "Next question",
-    "close": "Close"
+    "close": "Close",
+    "view": {
+      "list": "List",
+      "grid": "Cards"
+    },
+    "editOnGithub": "Improve this answer on GitHub",
+    "answersTitle": "Answers from the community",
+    "answersLead": "Read how others answer it, or add your own."
   },
   "cert": {
     "eyebrow": "Certification practice",
@@ -1809,7 +1835,8 @@
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
       "recenter": "Follow the step again",
-      "rowByRow": "Row by row"
+      "rowByRow": "Row by row",
+      "order": "Order of execution"
     },
     "check": {
       "kept": "kept: it passes {test}",
@@ -1875,6 +1902,14 @@
         "fanout": "repeated (fan-out)",
         "leftOnly": "left only",
         "rightOnly": "right only"
+      },
+      "useWhen": "Use it when:",
+      "use": {
+        "lookup": "you want to add the Account’s name and region to every Opportunity, without ever duplicating an Opportunity.",
+        "left": "you want every Account with all of its Opportunities, and still see Accounts that have none.",
+        "right": "the right side is what you must keep: every Account, whether or not an Opportunity points at it.",
+        "inner": "you only care about records that exist on both sides, like Opportunities whose Account is known.",
+        "outer": "you are reconciling two systems and need to see what is missing on either side."
       }
     },
     "bindings": {
@@ -1969,6 +2004,54 @@
       "rank": "Numbers rows by a value inside their partition: 1 is the highest.",
       "lag": "Reads the value from the previous row in the partition.",
       "share_of_partition": "Gives each row’s share of its partition’s total, in percent."
+    },
+    "security": {
+      "title": "Security predicate visualiser",
+      "card": "Pick who is logged in and watch row-level security decide, row by row, what they can see.",
+      "seoTitle": "CRM Analytics security predicates, visualised: row-level security step by step",
+      "seoDesc": "See how a CRM Analytics security predicate works: $User.Id is filled in, every row is checked against the owner and the manager hierarchy, and only matching rows reach the dashboard.",
+      "about": "About security predicates",
+      "whoLooks": "Who is logged in",
+      "predicate": "The dataset’s security predicate",
+      "reportsTo": "reports to {name}",
+      "topBoss": "no manager",
+      "noPredicate": "No predicate: everyone sees every row",
+      "preds": {
+        "own": "Only my records",
+        "team": "My records and my team’s",
+        "none": "No security"
+      },
+      "atQuery": "When the dashboard queries the dataset",
+      "step0": "{name} opens the dashboard. Before any row is read, $User.Id in the predicate becomes their user id.",
+      "row": "Row",
+      "rows": "rows",
+      "sees": "What {name} sees",
+      "pipeline": "Their pipeline total",
+      "why": {
+        "none": "visible: the dataset has no predicate.",
+        "own": "visible: they own it.",
+        "team": "visible: {owner} reports to them, so they are in the row’s ManagerChain.",
+        "teamOff": "hidden: {owner} reports to them, but this predicate only checks the owner.",
+        "no": "hidden: {owner} owns it and they are not in that row’s ManagerChain."
+      },
+      "notes": {
+        "what": {
+          "title": "What a security predicate is",
+          "body": "A filter stored on the dataset. CRM Analytics adds it to every query on that dataset, for every user, before any dashboard filter. A row that fails it never reaches the dashboard."
+        },
+        "user": {
+          "title": "$User fields",
+          "body": "$User.Id, $User.UserRoleId and other $User fields are replaced with the logged-in user’s values when the query runs, so one predicate gives each person their own rows."
+        },
+        "flatten": {
+          "title": "Hierarchies need a flatten",
+          "body": "To let managers see their team, a recipe or dataflow flattens the role or manager hierarchy into a multi-value field (here ManagerChain). The predicate then checks whether the user is anywhere in it."
+        },
+        "sharing": {
+          "title": "Predicate or sharing inheritance?",
+          "body": "Sharing inheritance copies Salesforce sharing for supported objects. A predicate is for everything else, or when you want a simpler rule."
+        }
+      }
     }
   },
   "meter": {
@@ -2116,6 +2199,12 @@
     "sendInvites": "Send invites",
     "invited": "Invited. They get a seat when they sign in with that email.",
     "copyLink": "Copy join link",
-    "allMembers": "Members and domains"
+    "allMembers": "Members and domains",
+    "giveAccess": "Give your team access",
+    "giveAccessLead": "Three ways, use any of them: invite people by email, let everyone with your company email join, or share the join link.",
+    "domains": "Company email domains",
+    "saveDomains": "Save",
+    "domainsHint": "Anyone who signs in with one of these email domains takes a free seat automatically.",
+    "domainsSaved": "Saved. People with these email domains now join automatically while seats are free."
   }
 }

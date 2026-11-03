@@ -272,6 +272,7 @@ usePageSchema(() => ({
     <template #stage>
       <VisCanvas
         v-if="snap"
+        :say="caption"
         :nodes="canvas"
         :active="`s${Math.min(step, snapshots.length - 1)}`"
         :step-key="`${step}-${snap.code}`"

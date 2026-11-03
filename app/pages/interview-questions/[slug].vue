@@ -43,37 +43,26 @@ const { data: q } = await useAsyncData(`interview-${locale.value}-${slug}`, asyn
   ?? (locale.value === DEFAULT_LOCALE ? null : await queryCollection('interview').path(`/${DEFAULT_LOCALE}/interview-questions/${slug}`).first()))
 if (!q.value) throw createError({ statusCode: 404, statusMessage: 'Question not found', fatal: true })
 
-const { data: related } = await useAsyncData(`interview-related-${locale.value}-${slug}`, () =>
-  queryCollection('interview')
-    .where('path', 'LIKE', `/${locale.value}/interview-questions/%`)
-    .where('topic', '=', q.value!.topic)
-    .select('path', 'title')
-    .limit(7)
-    .all(), { default: () => [] })
-const relatedList = computed(() => (related.value ?? []).filter(r => !r.path.endsWith(`/${slug}`)).slice(0, 6))
-
-// Upvotes — public counts, the reader's own vote once signed in.
+// Upvotes — from the shared, cached counts (useInterviewVotes): no request on open.
 const { isSignedIn } = useAuth()
-const votes = ref(0)
-const voted = ref(false)
-onMounted(async () => {
-  const res = await $fetch<{ counts: Record<string, number>, mine: string[] }>('/api/interview/votes').catch(() => null)
-  if (res) {
-    votes.value = res.counts[slug] ?? 0
-    voted.value = res.mine.includes(slug)
-  }
-})
+const { counts, mine, load, set } = useInterviewVotes()
+const votes = computed(() => counts.value[slug] ?? 0)
+const voted = computed(() => mine.value.includes(slug))
+onMounted(load)
 async function vote() {
   if (!isSignedIn.value) {
     await navigateTo({ path: localePath('/sign-in'), query: { redirect: route.fullPath } })
     return
   }
   const res = await $fetch<{ voted: boolean, upvotes: number }>(`/api/interview/${slug}/vote`, { method: 'POST' }).catch(() => null)
-  if (res) {
-    voted.value = res.voted
-    votes.value = res.upvotes
-  }
+  if (res) set(slug, res.voted, res.upvotes)
 }
+
+// Community answers: the comment thread of this question, loaded only when
+// opened, so reading a question costs the Worker nothing.
+const showAnswers = ref(false)
+// The English source of the model answer, for "Edit on GitHub".
+const editUrl = `${SITE.github}/edit/main/content/en/interview-questions/${slug}.md`
 
 const title = q.value.title
 const description = q.value.description ?? ''
@@ -193,37 +182,51 @@ usePageSchema({
         unit="horizontal"
       />
 
-      <div class="mt-5 grid gap-4 sm:grid-cols-2">
-        <div
-          v-if="relatedList.length"
-          class="border-[1.5px] border-(--ink) bg-(--card)"
+      <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+        <a
+          :href="editUrl"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-1.5 font-semibold text-(--ink2) hover:text-(--signal)"
+        ><UIcon
+          name="i-simple-icons-github"
+          class="size-4"
+        />{{ t('interview.editOnGithub') }}</a>
+        <NuxtLink
+          :to="localePath('/interview-questions/new')"
+          class="inline-flex items-center gap-1.5 font-semibold text-(--ink2) hover:text-(--signal)"
+        ><UIcon
+          name="i-lucide-square-pen"
+          class="size-4"
+        />{{ t('interview.submit') }}</NuxtLink>
+      </div>
+
+      <!-- Answers from the community -->
+      <div class="mt-6 border-[1.5px] border-(--ink) bg-(--card)">
+        <button
+          v-if="!showAnswers"
+          type="button"
+          class="flex w-full items-center gap-3 px-5 py-4 text-start hover:bg-(--ice)"
+          @click="showAnswers = true"
         >
-          <p class="eyebrow border-b-[1.5px] border-(--ink) px-4 py-2.5">
-            {{ t('interview.related') }}
-          </p>
-          <ul>
-            <li
-              v-for="r in relatedList.slice(0, 4)"
-              :key="r.path"
-              class="border-b border-dashed border-(--line) last:border-b-0"
-            >
-              <NuxtLink
-                :to="localePath(`/interview-questions/${r.path.split('/').pop()}`)"
-                class="block px-4 py-2.5 text-[15px] font-semibold leading-snug text-(--ink) hover:bg-(--ice) hover:text-(--signal)"
-              >{{ r.title }}</NuxtLink>
-            </li>
-          </ul>
-        </div>
-        <div class="flex flex-col justify-between gap-4 border-[1.5px] border-(--ink) bg-(--ice) p-5">
-          <p class="font-bold text-(--ink)">
-            {{ t('interview.betterAnswer') }}
-          </p>
-          <UButton
-            :to="localePath('/interview-questions/new')"
-            icon="i-lucide-square-pen"
-          >
-            {{ t('interview.submit') }}
-          </UButton>
+          <UIcon
+            name="i-lucide-messages-square"
+            class="size-5 text-(--signal)"
+          />
+          <span class="flex-1">
+            <span class="block font-bold text-(--ink)">{{ t('interview.answersTitle') }}</span>
+            <span class="block text-sm text-(--ink2)">{{ t('interview.answersLead') }}</span>
+          </span>
+          <UIcon
+            name="i-lucide-chevron-down"
+            class="size-5 text-(--ink2)"
+          />
+        </button>
+        <div
+          v-else
+          class="px-5 py-2"
+        >
+          <CourseLessonComments :lesson-path="`/interview-questions/${slug}`" />
         </div>
       </div>
     </div>
