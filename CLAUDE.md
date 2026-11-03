@@ -18,7 +18,8 @@ Package manager is **pnpm** (`packageManager: pnpm@11.9.0`). Do **not** use npm.
 pnpm install          # deps (runs `nuxt prepare` via postinstall)
 pnpm dev              # dev server → http://localhost:3000
 pnpm build            # scripts/prebuild.mjs (translate locally → lesson meta → search/llms/raw) → nuxt build
-pnpm preview          # build, then run the Worker bundle locally with wrangler dev
+pnpm preview          # build WITHOUT translating, then run the Worker bundle locally (wrangler dev)
+pnpm preview:last     # serve the last build again, no rebuild
 pnpm translate        # translate changed English via the local LibreTranslate (see below)
 pnpm translate:setup  # once: install LibreTranslate + models into .libretranslate/
 pnpm fcp <route>      # Final Cut Pro project + recording script for a lesson (content-creation/README.md)

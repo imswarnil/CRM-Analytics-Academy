@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "bash scripts/dev.sh",
     "build": "node scripts/prebuild.mjs && NODE_OPTIONS=--max-old-space-size=12288 nuxt build && NODE_OPTIONS=--max-old-space-size=8192 node scripts/verify-gating.mjs",
-    "preview": "pnpm build && wrangler dev",
+    "preview": "SKIP_TRANSLATE=1 pnpm build && wrangler dev",
+    "preview:last": "wrangler dev",
     "translate": "bash scripts/libretranslate.sh run -- node scripts/translate.mjs",
     "translate:setup": "bash scripts/libretranslate.sh setup",
     "lint": "eslint .",
