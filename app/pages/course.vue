@@ -23,7 +23,7 @@ const sections = computed(() => (navigation.value ?? []).map((m, i) => ({
 })))
 const open = computed(() => sections.value.filter(s => !s.soon).length)
 
-const OUTCOMES = ['prep', 'saql', 'dash', 'bind', 'discovery', 'deploy'] as const
+const OUTCOMES = ['prep', 'saql', 'dash', 'bind', 'discovery', 'ai', 'deploy'] as const
 const STEPS = [
   { k: 'watch', icon: 'i-lucide-play' },
   { k: 'build', icon: 'i-lucide-hammer' },
@@ -129,7 +129,11 @@ usePageSchema(() => ({
           :key="o"
           class="border-[1.5px] border-(--ink) bg-(--card) p-6 shadow-[4px_4px_0_var(--ink)]"
         >
-          <span class="font-mono text-xs text-(--signal)">0{{ i + 1 }}</span>
+          <span class="font-mono text-xs text-(--signal)">0{{ i + 1 }}<UIcon
+            v-if="o === 'ai'"
+            name="i-lucide-sparkles"
+            class="ms-1.5 inline size-3.5 align-[-2px]"
+          /></span>
           <h3 class="mt-2 text-lg font-bold text-(--ink)">
             {{ t(`course.outcomes.${o}.title`) }}
           </h3>

@@ -124,9 +124,14 @@
     "hero": {
       "eyebrow": "Updated for the current Salesforce release",
       "title": "Learn Salesforce CRM Analytics the way it’s used at work.",
-      "lead": "Free, hands-on lessons on recipes, SAQL, dashboards, security and Einstein Discovery — built on one company’s real data.",
-      "start": "Start lesson 1",
-      "curriculum": "Start here"
+      "lead": "Free, hands-on lessons on recipes, SAQL, dashboards, security and Einstein Discovery, and how to use AI with all of it — built on one company’s real data.",
+      "start": "Start free with lesson 1",
+      "curriculum": "Start here",
+      "proof": {
+        "free": "Free, no card",
+        "languages": "12 languages",
+        "ai": "Includes AI for analytics"
+      }
     },
     "author": {
       "eyebrow": "Fig. 05 — The author",
@@ -212,6 +217,32 @@
         "title": "Interview questions",
         "body": "Real questions with model answers, by topic."
       }
+    },
+    "story": {
+      "label": "What you will build, step by step",
+      "step": "What you will build",
+      "data": {
+        "title": "Bring in your data",
+        "body": "Salesforce objects and CSV files become one CRM Analytics dataset."
+      },
+      "recipe": {
+        "title": "Shape it with a recipe",
+        "body": "Join, filter and group it in Data Prep, with no code."
+      },
+      "saql": {
+        "title": "Ask it in SAQL",
+        "body": "Write the queries behind every chart, and know what each line does."
+      },
+      "dashboard": {
+        "title": "Build the dashboard",
+        "body": "Charts, numbers and filters your sales team will actually use."
+      },
+      "ai": {
+        "title": "Add AI",
+        "body": "Predict outcomes with Einstein and use AI assistants to write SAQL and explain results.",
+        "ask": "Which deals will close this quarter?",
+        "answer": "Three deals are likely to close. Acme’s renewal is the safest bet."
+      }
     }
   },
   "footer": {
@@ -283,6 +314,10 @@
       "deploy": {
         "title": "Secure and ship it",
         "body": "Row-level security, sharing inheritance and moving work between orgs."
+      },
+      "ai": {
+        "title": "Use AI with CRM Analytics",
+        "body": "Predict with Einstein, and use AI assistants to write SAQL, formulas and dashboard summaries you can check."
       }
     },
     "how": {

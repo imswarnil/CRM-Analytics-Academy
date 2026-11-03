@@ -136,14 +136,6 @@ useJsonLd({
   }))
 })
 
-// ---- Hero: what is inside, each a link ------------------------------------------
-const INSIDE = [
-  { k: 'lessons', icon: 'i-lucide-graduation-cap', to: '/curriculum', bg: '#dbeafe', fg: '#1d4ed8' },
-  { k: 'visualisers', icon: 'i-lucide-workflow', to: '/visualiser', bg: '#ede9fe', fg: '#6d28d9' },
-  { k: 'exams', icon: 'i-lucide-timer', to: '/certification', bg: '#fef3c7', fg: '#b45309' },
-  { k: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions', bg: '#d1fae5', fg: '#047857' }
-]
-
 // ---- Curriculum, plotted ------------------------------------------------------
 
 // One stacked bar per section: a segment per lesson, width proportional to
@@ -170,8 +162,9 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
           <div class="mt-8 flex flex-wrap gap-3">
             <UButton
               :to="localePath('/introduction')"
-              size="lg"
+              size="xl"
               icon="i-lucide-play"
+              class="shadow-[0_10px_30px_-10px_rgb(37_99_235/0.6)]"
             >
               {{ t('home.hero.start') }}
             </UButton>
@@ -185,38 +178,22 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
               {{ t('home.hero.curriculum') }}
             </UButton>
           </div>
+          <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-(--ink2)">
+            <li
+              v-for="p in ['free', 'languages', 'ai']"
+              :key="p"
+              class="flex items-center gap-1.5"
+            >
+              <UIcon
+                :name="p === 'ai' ? 'i-lucide-sparkles' : 'i-lucide-check'"
+                class="size-4 text-(--signal)"
+              />{{ t(`home.hero.proof.${p}`) }}
+            </li>
+          </ul>
         </div>
 
-        <!-- What is inside, plainly -->
-        <ul class="divide-y divide-(--line) rounded-2xl border border-(--line) bg-(--card)">
-          <li
-            v-for="f in INSIDE"
-            :key="f.k"
-          >
-            <NuxtLink
-              :to="localePath(f.to)"
-              class="group flex items-center gap-4 p-5 hover:bg-(--ice)/60"
-            >
-              <span
-                class="flex size-12 shrink-0 items-center justify-center rounded-xl"
-                :style="{ background: f.bg, color: f.fg }"
-              >
-                <UIcon
-                  :name="f.icon"
-                  class="size-6"
-                />
-              </span>
-              <span class="min-w-0 flex-1">
-                <span class="block font-bold text-(--ink) group-hover:text-(--signal)">{{ t(`home.inside.${f.k}.title`) }}</span>
-                <span class="block text-sm text-(--ink2)">{{ t(`home.inside.${f.k}.body`) }}</span>
-              </span>
-              <UIcon
-                name="i-lucide-arrow-right"
-                class="size-4 text-(--ink2) transition-transform group-hover:translate-x-1"
-              />
-            </NuxtLink>
-          </li>
-        </ul>
+        <!-- What you will build, as a story -->
+        <HomeStory class="min-w-0" />
       </div>
     </section>
 
