@@ -322,7 +322,6 @@
     "signInDesc": "Pick up exactly where you left off.",
     "signUpTitle": "Enroll free",
     "signUpDesc": "One free account: your progress, quiz scores and questions follow you to every device.",
-    "demoCta": "Just looking? Explore with the read-only demo",
     "name": "Name",
     "email": "Email",
     "password": "Password",
@@ -348,7 +347,9 @@
     "benefitQuizzes": "Section quizzes with your scores kept",
     "benefitFree": "No ads while you are signed in",
     "verifyTitle": "Check your inbox",
-    "verifyDesc": "We sent a confirmation link to {email}. Open it, then sign in."
+    "verifyDesc": "We sent a confirmation link to {email}. Open it, then sign in.",
+    "testRide": "Test ride",
+    "testRideHint": "Just looking? Take a test ride — no account needed."
   },
   "quiz": {
     "title": "Check your knowledge",

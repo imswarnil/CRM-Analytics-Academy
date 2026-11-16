@@ -322,7 +322,6 @@
     "signInDesc": "Continua exactamente onde paraste.",
     "signUpTitle": "Inscrição gratuita",
     "signUpDesc": "Uma conta gratuita: seu progresso, pontuação de questionário e perguntas seguem você para cada dispositivo.",
-    "demoCta": "Só a olhar? Explore com a demonstração somente leitura",
     "name": "Nome",
     "email": "E- mail",
     "password": "Senha",
@@ -348,7 +347,9 @@
     "benefitQuizzes": "Testes de secção com as suas pontuações mantidas",
     "benefitFree": "Sem anúncios enquanto você estiver conectado",
     "verifyTitle": "Verifique sua caixa de entrada",
-    "verifyDesc": "Enviamos um link de confirmação para {email}Abre-a e depois assina."
+    "verifyDesc": "Enviamos um link de confirmação para {email}Abre-a e depois assina.",
+    "testRide": "Passeio de teste",
+    "testRideHint": "Só a olhar? Faça um teste — não é necessário prestar atenção."
   },
   "quiz": {
     "title": "Verifique o seu conhecimento",

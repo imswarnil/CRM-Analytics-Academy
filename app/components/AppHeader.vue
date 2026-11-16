@@ -255,8 +255,24 @@ const localeItems = computed(() =>
 
         <!-- One fixed-width slot whether signed in or not, so the bar keeps
              its shape (and the nav its titles) across sign-in. -->
-        <div class="flex w-[7.5rem] shrink-0 justify-end">
+        <div class="flex w-[15rem] shrink-0 items-center justify-end gap-2 max-sm:w-auto">
           <ClientOnly>
+            <UButton
+              v-if="isSignedIn"
+              :to="localePath('/dashboard')"
+              size="md"
+              color="neutral"
+              variant="outline"
+              icon="i-lucide-layout-dashboard"
+              class="h-9 w-[7rem] justify-center rounded-full max-sm:hidden"
+            >
+              {{ t('nav.dashboard') }}
+            </UButton>
+            <TestRide
+              v-else
+              variant="outline"
+              class="h-9 w-[7rem] justify-center max-sm:hidden"
+            />
             <UDropdownMenu
               v-if="isSignedIn"
               :items="accountItems"
@@ -264,7 +280,7 @@ const localeItems = computed(() =>
             >
               <button
                 type="button"
-                class="flex h-9 w-full items-center gap-2 rounded-full border border-(--line) bg-(--card) ps-0.5 pe-3 text-sm font-medium text-(--ink) hover:bg-(--ice)"
+                class="flex h-9 w-[7.5rem] items-center gap-2 rounded-full border border-(--line) bg-(--card) ps-0.5 pe-3 text-sm font-medium text-(--ink) hover:bg-(--ice)"
                 :aria-label="user?.name || user?.email || t('nav.account')"
               >
                 <span class="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--signal) text-sm font-semibold text-white">
@@ -283,9 +299,8 @@ const localeItems = computed(() =>
               v-else
               :to="signInTo"
               size="md"
-              block
               icon="i-lucide-log-in"
-              class="h-9 rounded-full"
+              class="h-9 w-[7.5rem] justify-center rounded-full"
             >
               {{ t('nav.signIn') }}
             </UButton>

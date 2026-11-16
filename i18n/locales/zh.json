@@ -322,7 +322,6 @@
     "signInDesc": "捡起你留下的地方",
     "signUpTitle": "免费滚动",
     "signUpDesc": "一个免费的账户:你的进度,测试分数和问题跟随你到每个设备.",
-    "demoCta": "只是看看吗? 以只读演示探索",
     "name": "名称",
     "email": "电子邮件",
     "password": "密码",
@@ -348,7 +347,9 @@
     "benefitQuizzes": "科的测验 与你的分数保持",
     "benefitFree": "签名时没有广告",
     "verifyTitle": "检查您的收件箱",
-    "verifyDesc": "我们发送了一个确认链接 {email}打开,然后签字"
+    "verifyDesc": "我们发送了一个确认链接 {email}打开,然后签字",
+    "testRide": "试车",
+    "testRideHint": "只是看看吗? 试乘——不需要账号."
   },
   "quiz": {
     "title": "检查你的知识",

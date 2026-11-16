@@ -10,7 +10,7 @@ const props = defineProps<{
   mode: 'sign-in' | 'sign-up'
 }>()
 
-const { signIn, signUp, signInAsDemo, pending } = useAuth()
+const { signIn, signUp, pending } = useAuth()
 const localePath = useLocalePath()
 const route = useRoute()
 const router = useRouter()
@@ -78,16 +78,6 @@ async function submit() {
     error.value = isSignUp.value ? t('auth.errSignUp') : t('auth.errSignIn')
     // A captcha solution is single-use.
     humanCheck.value?.reset()
-  }
-}
-
-async function demo() {
-  error.value = ''
-  try {
-    await signInAsDemo()
-    await router.push(redirectTo.value)
-  } catch {
-    error.value = t('auth.errDemo')
   }
 }
 </script>
@@ -232,19 +222,14 @@ async function demo() {
 
         <!-- The demo is the secondary path: below the form, so the screen has
              one primary action. It is read-only (no comments, no progress). -->
-        <div class="border-t border-dashed border-(--line) pt-4 text-center">
-          <button
-            type="button"
-            class="inline-flex items-center gap-1.5 text-sm font-semibold text-(--ink2) hover:text-(--signal)"
-            :disabled="pending"
-            @click="demo"
-          >
-            <UIcon
-              name="i-lucide-eye"
-              class="size-4"
-            />
-            {{ t('auth.demoCta') }}
-          </button>
+        <div class="flex flex-col items-center gap-2 border-t border-dashed border-(--line) pt-4 text-center">
+          <p class="text-sm text-(--ink2)">
+            {{ t('auth.testRideHint') }}
+          </p>
+          <TestRide
+            variant="outline"
+            block
+          />
         </div>
 
         <p class="text-center font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)">

@@ -322,7 +322,6 @@
     "signInDesc": "Recoge exactamente donde te fuiste.",
     "signUpTitle": "Ingrese gratis",
     "signUpDesc": "Una cuenta gratuita: tu progreso, puntajes de prueba y preguntas te siguen a cada dispositivo.",
-    "demoCta": "¿Buscando? Explore con la demo sólo lectura",
     "name": "Nombre",
     "email": "Correo electrónico",
     "password": "Contraseña",
@@ -348,7 +347,9 @@
     "benefitQuizzes": "Pruebas de sección con tus puntajes guardados",
     "benefitFree": "No hay anuncios mientras se firman en",
     "verifyTitle": "Revisa tu buzón de entrada",
-    "verifyDesc": "Enviamos un enlace de confirmación a {email}Ábrelo y luego firma."
+    "verifyDesc": "Enviamos un enlace de confirmación a {email}Ábrelo y luego firma.",
+    "testRide": "Piloto de prueba",
+    "testRideHint": "¿Buscando? Tome un paseo de prueba, sin cuenta necesaria."
   },
   "quiz": {
     "title": "Comprueba tu conocimiento",

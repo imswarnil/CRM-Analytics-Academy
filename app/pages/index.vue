@@ -8,6 +8,7 @@ import type { ContentNavigationItem } from '@nuxt/content'
  */
 const { t, tm, rt, locale, locales } = useI18n()
 const localePath = useLocalePath()
+const { isSignedIn } = useAuth()
 
 // The BCP-47 tag of the locale this copy of the page is prerendered for —
 // every language emits its own JSON-LD, so 'en' hardcoded here would tell
@@ -177,6 +178,13 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
             >
               {{ t('home.hero.curriculum') }}
             </UButton>
+            <ClientOnly>
+              <TestRide
+                v-if="!isSignedIn"
+                size="lg"
+                variant="soft"
+              />
+            </ClientOnly>
           </div>
           <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-(--ink2)">
             <li

@@ -1968,7 +1968,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:fr": {
     "language": "ba118bf7fc9c1aed",
@@ -3939,7 +3941,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:de": {
     "language": "ba118bf7fc9c1aed",
@@ -5910,7 +5914,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:pt": {
     "language": "ba118bf7fc9c1aed",
@@ -7881,7 +7887,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:ja": {
     "language": "ba118bf7fc9c1aed",
@@ -9852,7 +9860,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:zh": {
     "language": "ba118bf7fc9c1aed",
@@ -11823,7 +11833,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:hi": {
     "language": "ba118bf7fc9c1aed",
@@ -13794,7 +13806,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:ar": {
     "language": "ba118bf7fc9c1aed",
@@ -15765,7 +15779,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:ru": {
     "language": "ba118bf7fc9c1aed",
@@ -17736,7 +17752,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:bn": {
     "language": "ba118bf7fc9c1aed",
@@ -19707,7 +19725,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "ui:ur": {
     "language": "ba118bf7fc9c1aed",
@@ -21678,7 +21698,9 @@
     "youtube.result.verified": "bfa7409f764695d3",
     "youtube.result.not-subscribed": "ee27147ab90775a7",
     "youtube.result.linked-elsewhere": "4bd36c75fc82336b",
-    "youtube.result.error": "9f90bcf8542be0f2"
+    "youtube.result.error": "9f90bcf8542be0f2",
+    "auth.testRide": "447668917e808461",
+    "auth.testRideHint": "b9643bcfcde07a34"
   },
   "es:00.introduction/.navigation.yml": "5c90bb1c0862d266",
   "es:00.introduction/01.index.md": "b0ebc438f5e62670",

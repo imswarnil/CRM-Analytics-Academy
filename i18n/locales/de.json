@@ -322,7 +322,6 @@
     "signInDesc": "Nimm genau dort an, wo du aufgehört hast.",
     "signUpTitle": "Frei einschreiben",
     "signUpDesc": "Ein kostenloses Konto: Ihre Fortschritte, Quizergebnisse und Fragen folgen Ihnen zu jedem Gerät.",
-    "demoCta": "Nur schauen? Entdecken Sie mit der Read-only-Demo",
     "name": "Name",
     "email": "E-Mail",
     "password": "Passwort",
@@ -348,7 +347,9 @@
     "benefitQuizzes": "Abschnitt Quiz mit Ihren Partituren gehalten",
     "benefitFree": "Keine Werbung, während Sie angemeldet sind",
     "verifyTitle": "Überprüfen Sie Ihren Posteingang",
-    "verifyDesc": "Wir haben einen Bestätigungslink an {email}Öffnen Sie es und melden Sie sich dann an."
+    "verifyDesc": "Wir haben einen Bestätigungslink an {email}Öffnen Sie es und melden Sie sich dann an.",
+    "testRide": "Prüffahrt",
+    "testRideHint": "Nur schauen? Machen Sie eine Testfahrt - kein Konto erforderlich."
   },
   "quiz": {
     "title": "Überprüfen Sie Ihr Wissen",
