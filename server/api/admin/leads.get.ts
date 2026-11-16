@@ -15,8 +15,8 @@ export default defineEventHandler(async (event) => {
       phone: r.phone as string | null, teamSize: r.team_size as string | null, message: r.message as string | null,
       userId: r.user_id as string | null, source: r.source as string | null, landing: r.landing as string | null,
       lessonsDone: Number(r.lessons_done), points: Number(r.points), status: String(r.status), sfStatus: String(r.sf_status), createdAt: r.created_at,
-      seats: r.seats === null ? null : Number(r.seats), orgKind: r.org_kind as string | null, firstLanding: r.first_landing as string | null,
-      viewsBefore: r.views_before === null ? null : Number(r.views_before)
+      seats: r.seats === null ? null : Number(r.seats), orgKind: r.org_kind as string | null, firstLanding: null as string | null,
+      viewsBefore: null as number | null
     })),
     totals: totals.map(r => ({ product: String(r.product), status: String(r.status), count: Number(r.n), seats: Number(r.seats) }))
   }

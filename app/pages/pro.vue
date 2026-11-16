@@ -60,15 +60,9 @@ async function send() {
   }
   sending.value = true
   try {
-    let source = ''
-    let visitor = ''
-    try {
-      source = sessionStorage.getItem('crma-source') ?? ''
-      visitor = localStorage.getItem('crma-v') ?? ''
-    } catch { /* storage blocked */ }
-    await $fetch('/api/leads', { method: 'POST', body: { product: form.interest, email: form.email, message: form.message, website: form.website, token: token.value, locale: locale.value, source, visitor, landing: '/pro' } })
+    const source = new URLSearchParams(location.search).get('utm_source') ?? ''
+    await $fetch('/api/leads', { method: 'POST', body: { product: form.interest, email: form.email, message: form.message, website: form.website, token: token.value, locale: locale.value, source, landing: '/pro' } })
     sent.value = true
-    track('lead', form.interest)
   } catch (e) {
     formError.value = apiError(e) || t('contrib.err.generic')
     human.value?.reset()

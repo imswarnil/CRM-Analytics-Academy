@@ -131,10 +131,7 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
 export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 'sponsor', user: { id: string, email: string, name?: string | null }, purchase?: { plan: string, usd: number, seats: number }): Promise<string> {
   try {
     const sql = useDb()
-    const [[stats], [attr]] = await Promise.all([
-      sql`select lessons_done, points from app.user_points where user_id = ${user.id}`,
-      sql`select first_source, first_landing, views_before from app.user_attribution where user_id = ${user.id}`
-    ])
+    const [stats] = await sql`select lessons_done, points from app.user_points where user_id = ${user.id}`
     const [first, ...rest] = String(user.name || user.email.split('@')[0]).trim().split(/\s+/)
     return await sendLeadToSalesforce({
       event,
@@ -145,9 +142,9 @@ export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 
       email: user.email,
       lessonsDone: Number(stats?.lessons_done ?? 0),
       points: Number(stats?.points ?? 0),
-      source: (attr?.first_source as string | null) ?? null,
-      firstLanding: (attr?.first_landing as string | null) ?? null,
-      viewsBefore: attr?.views_before === undefined || attr?.views_before === null ? null : Number(attr.views_before),
+      source: null,
+      firstLanding: null,
+      viewsBefore: null,
       userId: user.id
     })
   } catch (e) {

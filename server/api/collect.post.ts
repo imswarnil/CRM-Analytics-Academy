@@ -31,17 +31,13 @@ export default defineEventHandler(async (event) => {
   const user = await getSessionUser(event).catch(() => null)
   const sql = useDb()
   await sql`
-    insert into app.event (visitor, session, user_id, name, path, label)
-    values (${visitor}, ${visitor}, ${user?.id ?? null}, ${name}, ${path}, ${clip(body.lb, 200) || null})
+    insert into app.event (visitor, user_id, name, path, label)
+    values (${visitor}, ${user?.id ?? null}, ${name}, ${path}, ${clip(body.lb, 200) || null})
   `
+  // An account's first sign_up becomes a self-serve lead in Salesforce.
   if (name === 'sign_up' && user) {
-    const first = await sql`
-      insert into app.user_attribution (user_id, visitor, first_source, first_landing, first_seen, views_before)
-      values (${user.id}, ${visitor}, 'direct', ${path}, now(), 0)
-      on conflict (user_id) do nothing
-      returning user_id
-    `
-    if (first.length) event.waitUntil(sendAcademyEvent('signup', user))
+    const [row] = await sql`select count(*)::int as n from app.event where user_id = ${user.id} and name = 'sign_up'`
+    if (Number(row?.n) === 1) event.waitUntil(sendAcademyEvent('signup', user))
   }
   return { ok: true }
 })

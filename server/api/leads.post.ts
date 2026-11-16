@@ -3,13 +3,8 @@
  * interest raised elsewhere (Salesforce set-up help, consulting, mentoring):
  * one row in app.lead → a Salesforce Lead by Web-to-Lead.
  *
- * No payment is taken. Pro itself is bought with points (POST /api/redeem),
- * so it never becomes a lead. The owner follows up, and for seats creates the
- * organisation in /admin → Seats.
- *
- * Attribution: the browser sends its analytics visitor id; the visitor's own
- * first page view gives the source and landing page, and their view count
- * says how much they read before asking.
+ * No payment is taken here (All Access is a Stripe checkout); the owner
+ * follows up by email.
  */
 // Control characters out (they could break a Salesforce field or a log line).
 const clean = (v: unknown, n: number) => [...String(v ?? '')].map(c => (c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127 ? ' ' : c)).join('').trim().slice(0, n)
@@ -43,24 +38,18 @@ export default defineEventHandler(async (event) => {
   const country = clean(cloudflareOf(event).request?.cf?.country ?? getRequestHeader(event, 'cf-ipcountry'), 2) || null
   const locale = clean(body.locale, 5) || null
   const landing = clean(body.landing, 200) || null
-  const visitor = /^[a-z0-9]{8,40}$/i.test(String(body.visitor ?? '')) ? String(body.visitor) : null
 
   const sql = useDb()
   const stats = user ? await sql`select lessons_done, points from app.user_points where user_id = ${user.id}` : []
-  const first: Record<string, unknown>[] = []
   const lessonsDone = Number(stats[0]?.lessons_done ?? 0)
   const points = Number(stats[0]?.points ?? 0)
-  // The visitor's first recorded source beats the session's: it is how they
-  // found the Academy, not how they came back today.
-  const source = clean(first[0]?.source, 60) || clean(body.source, 60) || 'direct'
-  const firstLanding = clean(first[0]?.landing, 200) || null
-  const viewsBefore = first[0] ? Number(first[0].views) : null
+  const source = clean(body.source, 60) || 'direct'
 
   const [row] = await sql`
     insert into app.lead (product, first_name, last_name, email, company, title, country, phone, team_size, message, user_id, locale, source, landing,
-                          lessons_done, points, visitor, seats, org_kind, interest, first_landing, views_before)
+                          lessons_done, points, seats, org_kind, interest)
     values (${interest}, ${firstName}, ${lastName}, ${email}, ${company}, ${title}, ${country}, ${phone}, ${seats ? String(seats) : null}, ${message},
-            ${user?.id ?? null}, ${locale}, ${source}, ${landing}, ${lessonsDone}, ${points}, ${visitor}, ${seats}, ${orgKind}, ${interest}, ${firstLanding}, ${viewsBefore})
+            ${user?.id ?? null}, ${locale}, ${source}, ${landing}, ${lessonsDone}, ${points}, ${seats}, ${orgKind}, ${interest})
     returning id`
 
   const sf = await sendLeadToSalesforce({
@@ -79,9 +68,7 @@ export default defineEventHandler(async (event) => {
     lessonsDone,
     points,
     source,
-    landing: landing ?? firstLanding,
-    firstLanding,
-    viewsBefore,
+    landing,
     locale,
     userId: user?.id ?? null
   })

@@ -11,9 +11,8 @@ export default defineEventHandler(async (event) => {
     select u.id::text as id, u.email, u.name, u.image, u."createdAt" as created_at, u."emailVerified" as email_verified,
            coalesce(p.points, 0)::int as points,
            coalesce(p.lessons_done, 0)::int as lessons_done,
-           coalesce(w.balance, 1000)::int as balance,
+           (1000 + coalesce(p.points, 0))::int as balance,
            (select case when y.subscribed then 'youtube' end from app.youtube_link y where y.user_id = u.id::text) as plan,
-           a.first_source, a.first_landing, a.signup_path, a.signup_label, a.views_before,
            null::text as org,
            (select max(completed_at) from app.progress pr where pr.user_id = u.id::text) as last_lesson_at,
            (select count(*)::int from app.quiz_attempt q where q.user_id = u.id::text) as quizzes,
@@ -23,8 +22,6 @@ export default defineEventHandler(async (event) => {
            exists (select 1 from app.entitlement e where e.user_id = u.id::text and e.pro and (e.expires_at is null or e.expires_at > now())) as pro
     from neon_auth."user" u
     left join app.user_points p on p.user_id = u.id::text
-    left join app.wallet w on w.user_id = u.id::text
-    left join app.user_attribution a on a.user_id = u.id::text
     order by u."createdAt" desc
     limit 1000
   `
@@ -42,11 +39,11 @@ export default defineEventHandler(async (event) => {
       balance: Number(r.balance),
       plan: (r.plan as string | null) ?? null,
       org: r.org as string | null,
-      // How they found the Academy and what made them sign up (app.user_attribution).
-      source: r.first_source as string | null,
-      firstLanding: r.first_landing as string | null,
-      signupFrom: r.signup_path ? `${r.signup_label ?? 'link'} on ${r.signup_path}` : null,
-      viewsBefore: r.views_before === null || r.views_before === undefined ? null : Number(r.views_before),
+      // Attribution was retired with page-view analytics (2026-11-16).
+      source: null as string | null,
+      firstLanding: null as string | null,
+      signupFrom: null as string | null,
+      viewsBefore: null as number | null,
       lessonsDone: Number(r.lessons_done),
       quizzes: Number(r.quizzes),
       comments: Number(r.comments),

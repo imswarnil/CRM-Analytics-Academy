@@ -5,7 +5,19 @@
 -- Safe to re-run: everything is `if not exists` / `or replace`. Users and
 -- sessions live in Neon Auth's own schema (neon_auth."user"), which this file
 -- never touches; everything the site owns is in schema `app`, keyed by the
--- Neon Auth user id as text.
+-- Neon Auth user id as text (no foreign key into neon_auth: Neon manages it).
+--
+-- Design rules: one fact in one place (counts and points are views, never
+-- stored twice); a primary key on every table that has a natural one; an
+-- index only where a query in server/ needs it and no primary key covers it;
+-- short-lived rows (rate_hit, used_challenge) are pruned by the code that
+-- writes them. Retired objects are dropped by dated cleanup-*.sql files.
+--
+--   learner   progress · quiz_attempt · bookmark · exam_attempt   (+ view user_points)
+--   access    entitlement (All Access) · youtube_link (subscribers) · stripe_event
+--   community comment · submission · interview_question · interview_upvote
+--   business  lead · event (milestones)
+--   security  rate_hit · used_challenge · demo_account
 
 create schema if not exists app;
 
@@ -17,7 +29,6 @@ create table if not exists app.progress (
   completed_at timestamptz not null default now(),
   primary key (user_id, lesson_path)
 );
-create index if not exists progress_user_idx on app.progress (user_id);
 create index if not exists progress_time_idx on app.progress (completed_at desc);
 
 -- Every graded quiz attempt; the best score per lesson counts.
@@ -91,12 +102,11 @@ create table if not exists app.demo_account (
   user_id text primary key
 );
 
--- Clicks and milestones: sign_in_click, sign_up_click, sign_up, sign_in,
--- lesson_complete, quiz_submit, search_open, outbound.
+-- Milestones only (server/api/collect.post.ts): sign_up, sign_in,
+-- lesson_complete, exam_finish, youtube_verified, checkout. No page views.
 create table if not exists app.event (
   id         bigint generated always as identity primary key,
   visitor    text        not null,
-  session    text        not null,
   user_id    text,
   name       text        not null check (name ~ '^[a-z_]{2,40}$'),
   path       text        not null,
@@ -104,6 +114,8 @@ create table if not exists app.event (
   created_at timestamptz not null default now()
 );
 create index if not exists event_time_idx on app.event (created_at desc, name);
+-- "Is this the account's first sign_up?" (collect.post.ts)
+create index if not exists event_user_name_idx on app.event (user_id, name) where user_id is not null;
 
 -- Community interview questions awaiting review. The published bank is
 -- content/en/interview-questions/*.md; approved rows here are written there
@@ -201,9 +213,9 @@ create table if not exists app.rate_hit (
 );
 create index if not exists rate_hit_key_at_idx on app.rate_hit (key, at);
 
--- Pro membership. No payment processor: a buyer's request becomes a lead
--- (app.lead, mirrored to Salesforce by Web-to-Lead) and the owner grants
--- access in /admin → Users. `expires_at` null = no end date.
+-- All Access. Written by the Stripe webhook (product 'all-access', one
+-- payment, no end date) or by an admin grant in /admin → Users (any product,
+-- optional `expires_at`). Read only through accessFor() in entitlement.ts.
 create table if not exists app.entitlement (
   user_id    text primary key,
   pro        boolean not null default true,
@@ -213,9 +225,8 @@ create table if not exists app.entitlement (
   granted_at timestamptz not null default now()
 );
 
--- Every "Get it" request from /pro and the product pages. Also sent to
--- Salesforce as a Lead (server/utils/salesforce.ts); `sf_status` records how
--- that went.
+-- "Talk to us" requests from /pro. Also sent to Salesforce as a Lead
+-- (server/utils/salesforce.ts); `sf_status` records how that went.
 create table if not exists app.lead (
   id          bigint generated always as identity primary key,
   product     text not null,
@@ -234,6 +245,9 @@ create table if not exists app.lead (
   landing     text,
   lessons_done integer not null default 0,
   points      integer not null default 0,
+  seats       integer,
+  org_kind    text,
+  interest    text,
   status      text not null default 'new' check (status in ('new', 'contacted', 'won', 'lost')),
   sf_status   text not null default 'pending',
   created_at  timestamptz not null default now()
@@ -246,80 +260,12 @@ create table if not exists app.used_challenge (
   at        timestamptz not null default now()
 );
 
--- ---------------------------------------------------------------------------
--- Points as a currency (2026-10-29). Every account starts with WELCOME (1,000)
--- points; learning earns more (app.user_points, which the leaderboard still
--- ranks on); points are spent on Pro. The spendable balance is
---   welcome + earned + sum(ledger)
--- so nothing is ever written to "give" points: only spends, refunds and admin
--- adjustments are rows. Real money replaces this later; the ledger stays.
-create table if not exists app.points_ledger (
-  id         bigint generated always as identity primary key,
-  user_id    text        not null,
-  delta      integer     not null check (delta <> 0),
-  reason     text        not null check (reason in ('redeem_pro', 'refund', 'admin', 'bonus')),
-  note       text,
-  created_at timestamptz not null default now()
-);
-create index if not exists points_ledger_user_idx on app.points_ledger (user_id, created_at desc);
-
-create or replace view app.wallet as
-select p.user_id,
-       1000                                   as welcome,
-       p.points                               as earned,
-       coalesce(l.spent, 0)::int              as spent,
-       coalesce(l.adjusted, 0)::int           as adjusted,
-       (1000 + p.points + coalesce(l.net, 0))::int as balance
-from app.user_points p
-left join (
-  select user_id,
-         sum(delta)::int                                         as net,
-         -sum(delta) filter (where reason in ('redeem_pro', 'session_pack')) as spent,
-         sum(delta) filter (where reason not in ('redeem_pro', 'session_pack')) as adjusted
-  from app.points_ledger group by user_id
-) l on l.user_id = p.user_id;
-
--- Where each account came from, written once at sign-up from the visitor's
--- own first milestone — so "how did they find us" survives
--- after the analytics window moves on.
-create table if not exists app.user_attribution (
-  user_id        text primary key,
-  visitor        text,
-  first_source   text,
-  first_landing  text,
-  first_seen     timestamptz,
-  signup_path    text,
-  signup_label   text,
-  views_before   integer not null default 0,
-  created_at     timestamptz not null default now()
-);
-
--- Leads remember the visitor too, so a lead's whole path is visible.
-alter table app.lead add column if not exists visitor text;
-alter table app.lead add column if not exists seats integer;
-alter table app.lead add column if not exists org_kind text;
-alter table app.lead add column if not exists interest text;
-alter table app.lead add column if not exists first_landing text;
-alter table app.lead add column if not exists views_before integer;
-
--- Points ledger reasons (spends are retired; history is kept).
-alter table app.points_ledger drop constraint if exists points_ledger_reason_check;
-alter table app.points_ledger add constraint points_ledger_reason_check
-  check (reason in ('redeem_pro', 'session_pack', 'refund', 'admin', 'bonus'));
-
--- (Page views, the reading meter, Teams, sponsors, section waitlists and Pro
--- subscriptions were retired on 2026-11-16 — cleanup-2026-11-16.sql drops
--- their tables.)
-
 -- Stripe webhook events already handled (Stripe retries; handle each once).
 create table if not exists app.stripe_event (
   id         text primary key,
   type       text not null,
   created_at timestamptz not null default now()
 );
-
--- A reader's own upvotes (GET /api/interview/votes).
-create index if not exists interview_upvote_user_idx on app.interview_upvote (user_id);
 
 -- YouTube subscribers (2026-11-16). A learner verifies, with Google, that they
 -- subscribe to the channel; `access: youtube` lessons open while verified_at

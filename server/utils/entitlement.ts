@@ -23,8 +23,8 @@ export async function hasPro(userId: string): Promise<boolean> {
   return (await accessFor(userId)) === 'pro'
 }
 
-/** The spendable points balance (welcome + earned + ledger). */
+/** Points shown to the learner: the welcome grant + what they earned. */
 export async function pointsBalance(userId: string): Promise<number> {
-  const [row] = await useDb()`select balance from app.wallet where user_id = ${userId}`
-  return Number(row?.balance ?? WELCOME_POINTS)
+  const [row] = await useDb()`select points from app.user_points where user_id = ${userId}`
+  return WELCOME_POINTS + Number(row?.points ?? 0)
 }
