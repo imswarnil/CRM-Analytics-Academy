@@ -204,7 +204,7 @@ const tocBottomLinks = computed(() => {
 const lessonMeta = useLessonMeta().of(route.path)
 // Free lessons say so; Pro lessons use Google's paywalled-content markup,
 // pointing at the locked card that stands in for the members-only part.
-const paywall = page.value?.access === 'pro'
+const paywall = page.value?.access === 'pro' || page.value?.access === 'youtube'
   ? { isAccessibleForFree: false, hasPart: { '@type': 'WebPageElement', 'isAccessibleForFree': false, 'cssSelector': '.pro-locked' } }
   : { isAccessibleForFree: true }
 
@@ -392,9 +392,11 @@ interface ProLesson {
   walkthrough?: NonNullable<typeof page.value>['walkthrough']
   video?: { id: string, start?: number, end?: number }
 }
-const isProLesson = computed(() => page.value?.access === 'pro')
-// Paid lessons: Pro (a subscription, a team seat or a grant) gets the body.
-const { pro: member, loaded: progressLoaded } = useProgress()
+const needs = computed<Access>(() => accessOf(page.value?.access))
+const isProLesson = computed(() => needs.value !== 'free')
+// Gated lessons: YouTube subscribers (access: youtube) or All Access (access: pro).
+const { access: held, loaded: progressLoaded } = useProgress()
+const member = computed(() => canOpen(held.value, needs.value))
 const { data: proLesson, status: proStatus } = useLazyAsyncData(`pro-${route.path}`, () =>
   isProLesson.value && member.value ? $fetch<ProLesson>(`/api/lesson${page.value!.path}`).catch(() => null) : Promise.resolve(null), { server: false, watch: [member] })
 const unlocked = computed(() => Boolean(proLesson.value?.markdown))
@@ -477,7 +479,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           ><UIcon
             :name="isProLesson ? (unlocked ? 'i-lucide-lock-keyhole-open' : 'i-lucide-lock-keyhole') : 'i-lucide-gift'"
             class="size-3"
-          />{{ isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
+          />{{ needs === 'youtube' ? t('youtube.tag') : isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
           <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">
             {{ meta.type }} · {{ meta.minutes }} min
           </span>
@@ -665,6 +667,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             />
             <CourseProLockedCard
               v-if="isProLesson"
+              :needs="needs"
               :loading="proStatus === 'pending' || (member && !progressLoaded)"
               :lesson-title="page.title"
             />
@@ -737,10 +740,6 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             </div>
             <!-- Squares down the whole column, one per stretch of lesson:
                  the longer the lesson, the more of them fit beside it. -->
-            <SponsorBanner
-              format="tile"
-              class="mt-6"
-            />
             <div class="mt-6 space-y-6">
               <PromoSlot
                 v-for="n in tocSquares"
@@ -751,11 +750,6 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           </div>
         </aside>
       </div>
-
-      <SponsorBanner
-        format="card"
-        class="my-10"
-      />
 
       <CourseQuizCard
         v-if="lesson.quiz?.length"

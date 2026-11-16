@@ -117,8 +117,9 @@ export default defineContentConfig({
         // A section page standing in for lessons not published yet. It is in
         // the sidebar and llms.txt, but not in the course order or progress.
         comingSoon: z.boolean().optional(),
-        // `pro` = members only. Set on the English lesson; translations follow.
-        access: z.enum(['free', 'pro']).optional(),
+        // `youtube` = verified YouTube subscribers, `pro` = All Access. Set on
+        // the English lesson; translations follow (scripts/gate-content.mjs).
+        access: z.enum(['free', 'youtube', 'pro']).optional(),
         links: z.array(z.object({
           label: z.string(),
           icon: z.string(),

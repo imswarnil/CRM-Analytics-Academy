@@ -9,53 +9,17 @@ const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 
-// The bar has three entries, so their titles always fit: two open a panel
-// (features stacked in a two-column grid, and a call to action beside them),
-// one is a plain link. The phone menu lists every destination.
-interface Feature { key: string, icon: string, to: string, tint: string }
-interface Group { key: 'learn' | 'tools', icon: string, items: Feature[], cta: { to: string, icon: string } }
-const GROUPS: Group[] = [
-  {
-    key: 'learn',
-    icon: 'i-lucide-graduation-cap',
-    items: [
-      { key: 'start', icon: 'i-lucide-map', to: '/curriculum', tint: '#2563eb' },
-      { key: 'course', icon: 'i-lucide-rocket', to: '/course', tint: '#7c3aed' },
-      { key: 'exams', icon: 'i-lucide-timer', to: '/certification', tint: '#d97706' },
-      { key: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions', tint: '#059669' },
-      { key: 'resources', icon: 'i-lucide-library-big', to: '/resources', tint: '#db2777' },
-      { key: 'datasets', icon: 'i-lucide-database', to: '/datasets', tint: '#0891b2' }
-    ],
-    cta: { to: '/introduction', icon: 'i-lucide-play' }
-  },
-  {
-    key: 'tools',
-    icon: 'i-lucide-workflow',
-    items: [
-      { key: 'saql', icon: 'i-lucide-terminal', to: '/visualiser/saql', tint: '#2563eb' },
-      { key: 'recipe', icon: 'i-lucide-workflow', to: '/visualiser/recipe', tint: '#7c3aed' },
-      { key: 'joins', icon: 'i-lucide-merge', to: '/visualiser/joins', tint: '#059669' },
-      { key: 'functions', icon: 'i-lucide-function-square', to: '/visualiser/functions', tint: '#d97706' },
-      { key: 'bindings', icon: 'i-lucide-link', to: '/visualiser/bindings', tint: '#db2777' },
-      { key: 'security', icon: 'i-lucide-shield-check', to: '/visualiser/security', tint: '#0891b2' }
-    ],
-    cta: { to: '/visualiser', icon: 'i-lucide-layout-grid' }
-  }
-]
-const groupActive = (g: Group) => g.items.some(i => isActive({ to: localePath(i.to) }))
-// For the measuring probes and the phone menu: one row per entry.
-const menuItems = computed(() => [
-  { label: t('nav.learn'), icon: 'i-lucide-graduation-cap', to: localePath('/curriculum') },
-  { label: t('nav.visualiser'), icon: 'i-lucide-workflow', to: localePath('/visualiser') },
-  { label: t('nav.pro'), icon: 'i-lucide-sparkles', to: localePath('/pro') }
-])
-const openGroup = ref<string | null>(null)
-watch(() => route.fullPath, () => (openGroup.value = null))
-const phoneItems = computed(() => [
-  ...GROUPS.flatMap(g => g.items.map(i => ({ label: t(`nav.menu.${g.key}.${i.key}.title`), icon: i.icon, to: localePath(i.to) }))),
-  { label: t('nav.pro'), icon: 'i-lucide-sparkles', to: localePath('/pro') }
-])
-
+// Four plain links, the same for everyone: signed in or out, the bar never
+// changes shape. The account slot on the right has one fixed width in both
+// states, so the room left for the links (and whether titles fit) is too.
+const NAV = [
+  { key: 'course', icon: 'i-lucide-graduation-cap', to: '/curriculum' },
+  { key: 'exam', icon: 'i-lucide-timer', to: '/certification' },
+  { key: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions' },
+  { key: 'pricing', icon: 'i-lucide-sparkles', to: '/pro' }
+] as const
+const menuItems = computed(() => NAV.map(n => ({ label: t(`nav.main.${n.key}`), icon: n.icon, to: localePath(n.to) })))
+const phoneItems = menuItems
 // Labels or icons, never a clipped label. The server renders icons (right at
 // every width); once mounted, a hidden copy with labels is measured and the
 // labels appear only if all of them fit — so nothing jumps or squeezes.
@@ -87,7 +51,7 @@ function isActive(item: { to: string, exact?: boolean }) {
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
-  { label: t('nav.course'), icon: 'i-lucide-rocket', to: localePath('/course') },
+  { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
   { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
   { label: t('nav.datasets'), icon: 'i-lucide-database', to: localePath('/datasets') },
@@ -98,15 +62,12 @@ const extraItems = computed(() => [
 ])
 
 const signInTo = computed(() => ({ path: localePath('/sign-in'), query: route.path.match(/\/sign-(in|up)/) ? {} : { redirect: route.fullPath } }))
-const signUpTo = computed(() => ({ path: localePath('/sign-up'), query: route.path.match(/\/sign-(in|up)/) ? {} : { redirect: route.fullPath } }))
 
 // Account menu — the session itself is fetched once in app.vue.
 const { user, isSignedIn, signOut } = useAuth()
 // The admin flag arrives with progress (one request, made once a session
 // exists). The console checks it on every request; this is navigation only.
 const { admin } = useProgress()
-// Sessions left (useMeter, filled by the first metered page) — hidden when unlimited.
-const { status: meter } = useMeter()
 
 const initials = computed(() => (user.value?.name || user.value?.email || '?').trim().slice(0, 1).toUpperCase())
 
@@ -119,7 +80,6 @@ const accountItems = computed(() => [
   [
     { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
     { label: t('nav.billing'), icon: 'i-lucide-credit-card', to: localePath('/account') },
-    { label: t('nav.team'), icon: 'i-lucide-building-2', to: localePath('/team') },
     { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') }
   ],
   ...(admin.value
@@ -145,7 +105,7 @@ const localeItems = computed(() =>
 
 <template>
   <UHeader
-    :ui="{ container: 'max-w-(--ui-container)', center: 'hidden', left: 'lg:min-w-0 lg:flex-1', right: 'lg:flex-none', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-none border-[1.5px] border-(--ink) size-9 flex items-center justify-center' }"
+    :ui="{ container: 'max-w-(--ui-container)', center: 'hidden', left: 'lg:min-w-0 lg:flex-1', right: 'lg:flex-none', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-full border border-(--line) size-9 flex items-center justify-center' }"
     :to="localePath('/')"
   >
     <template #left>
@@ -177,8 +137,8 @@ const localeItems = computed(() =>
             <span
               v-for="item in menuItems"
               :key="item.to"
-              class="flex items-center gap-1.5 border-e px-3 text-[13px] font-semibold whitespace-nowrap"
-            ><span class="size-4" />{{ item.label }}</span>
+              class="flex items-center px-3.5 text-[14px] font-medium whitespace-nowrap"
+            >{{ item.label }}</span>
           </div>
           <div
             ref="stackProbe"
@@ -187,122 +147,30 @@ const localeItems = computed(() =>
             <span
               v-for="item in menuItems"
               :key="item.to"
-              class="border-e px-2 text-[11px] font-semibold whitespace-nowrap"
+              class="px-3 text-[11px] font-medium whitespace-nowrap"
             >{{ item.label }}</span>
           </div>
         </div>
-        <div class="flex w-max items-stretch border-s border-(--line)">
-          <!-- Learn ▾ and Visualisers ▾: a panel of features and a call to action -->
-          <UPopover
-            v-for="g in GROUPS"
-            :key="g.key"
-            :open="openGroup === g.key"
-            mode="hover"
-            :open-delay="60"
-            :close-delay="140"
-            :content="{ align: 'start', sideOffset: 0 }"
-            :ui="{ content: 'rounded-none border-[1.5px] border-(--ink) shadow-[6px_6px_0_var(--ink)]' }"
-            @update:open="(o: boolean) => (openGroup = o ? g.key : (openGroup === g.key ? null : openGroup))"
-          >
-            <button
-              type="button"
-              class="relative flex shrink-0 border-e border-(--line) font-semibold whitespace-nowrap transition-colors"
-              :class="[
-                mode === 'stack' ? 'flex-col items-center justify-center gap-1 px-3 text-[11px]' : 'items-center gap-1.5 px-3.5 text-[13px]',
-                groupActive(g) || openGroup === g.key ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'
-              ]"
-              :aria-expanded="openGroup === g.key"
-              @click="openGroup = openGroup === g.key ? null : g.key"
-            >
-              <UIcon
-                :name="g.icon"
-                class="size-4 shrink-0"
-              />
-              <span
-                class="flex items-center gap-0.5"
-                :class="mode === 'icon' ? 'sr-only' : 'leading-none'"
-              >{{ g.key === 'learn' ? t('nav.learn') : t('nav.visualiser') }}<UIcon
-                name="i-lucide-chevron-down"
-                class="size-3 transition-transform"
-                :class="openGroup === g.key ? 'rotate-180' : ''"
-              /></span>
-              <span
-                v-if="groupActive(g)"
-                class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
-              />
-            </button>
-            <template #content>
-              <div class="grid w-[min(46rem,calc(100vw-2rem))] grid-cols-[minmax(0,1fr)_14rem] bg-(--card)">
-                <!-- Features, stacked in two columns -->
-                <ul class="grid grid-cols-2 gap-1 p-3">
-                  <li
-                    v-for="i in g.items"
-                    :key="i.key"
-                  >
-                    <NuxtLink
-                      :to="localePath(i.to)"
-                      class="group flex items-start gap-3 rounded-lg p-2.5 hover:bg-(--ice)"
-                      @click="openGroup = null"
-                    >
-                      <span
-                        class="flex size-9 shrink-0 items-center justify-center rounded-lg"
-                        :style="{ background: `color-mix(in srgb, ${i.tint} 14%, transparent)`, color: i.tint }"
-                      >
-                        <UIcon
-                          :name="i.icon"
-                          class="size-[18px]"
-                        />
-                      </span>
-                      <span class="min-w-0">
-                        <span class="block text-sm font-bold text-(--ink) group-hover:text-(--signal)">{{ t(`nav.menu.${g.key}.${i.key}.title`) }}</span>
-                        <span class="block text-xs leading-snug text-(--ink2)">{{ t(`nav.menu.${g.key}.${i.key}.body`) }}</span>
-                      </span>
-                    </NuxtLink>
-                  </li>
-                </ul>
-                <!-- Call to action -->
-                <div class="flex flex-col justify-between gap-4 border-s-[1.5px] border-(--ink) bg-(--navy) p-5 text-white">
-                  <div>
-                    <UIcon
-                      :name="g.cta.icon"
-                      class="size-7 text-(--glow)"
-                    />
-                    <p class="mt-3 text-lg font-extrabold leading-tight">
-                      {{ t(`nav.menu.${g.key}.cta.title`) }}
-                    </p>
-                    <p class="mt-1.5 text-sm text-white/70">
-                      {{ t(`nav.menu.${g.key}.cta.body`) }}
-                    </p>
-                  </div>
-                  <UButton
-                    :to="localePath(g.cta.to)"
-                    color="secondary"
-                    trailing-icon="i-lucide-arrow-right"
-                    @click="openGroup = null"
-                  >
-                    {{ t(`nav.menu.${g.key}.cta.button`) }}
-                  </UButton>
-                </div>
-              </div>
-            </template>
-          </UPopover>
-          <!-- Pricing: a plain link -->
+        <div class="flex w-max items-stretch">
           <NuxtLink
-            :to="localePath('/pro')"
-            class="relative flex shrink-0 border-e border-(--line) font-semibold whitespace-nowrap transition-colors"
+            v-for="item in menuItems"
+            :key="item.to"
+            :to="item.to"
+            class="relative flex shrink-0 rounded-full font-medium whitespace-nowrap transition-colors"
             :class="[
-              mode === 'stack' ? 'flex-col items-center justify-center gap-1 px-3 text-[11px]' : 'items-center gap-1.5 px-3.5 text-[13px]',
-              isActive({ to: localePath('/pro') }) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--ice)/60'
+              mode === 'stack' ? 'flex-col items-center justify-center gap-1 px-3 text-[11px]' : 'items-center gap-1.5 px-3.5 text-[14px]',
+              isActive(item) ? 'text-(--ink)' : 'text-(--ink2) hover:text-(--ink)'
             ]"
           >
             <UIcon
-              name="i-lucide-sparkles"
+              :name="item.icon"
               class="size-4 shrink-0"
+              :class="mode === 'row' ? 'hidden' : ''"
             />
-            <span :class="mode === 'icon' ? 'sr-only' : 'block leading-none'">{{ t('nav.pro') }}</span>
+            <span :class="mode === 'icon' ? 'sr-only' : 'block leading-none'">{{ item.label }}</span>
             <span
-              v-if="isActive({ to: localePath('/pro') })"
-              class="absolute inset-x-0 bottom-0 h-[3px] bg-(--signal)"
+              v-if="isActive(item)"
+              class="absolute inset-x-3 bottom-3 h-[2px] rounded-full bg-(--signal)"
             />
           </NuxtLink>
         </div>
@@ -314,30 +182,16 @@ const localeItems = computed(() =>
         <!-- Icon-only at every width: the container stops growing at
              --ui-container, so a wide search box never has room beside the
              account buttons (it used to push "Sign in" onto two lines). -->
-        <ClientOnly>
-          <NuxtLink
-            v-if="meter && !meter.unlimited"
-            :to="localePath('/pro')"
-            class="flex h-9 shrink-0 items-center gap-1.5 border-[1.5px] px-2.5 font-mono text-xs tabular-nums"
-            :class="meter.remaining <= 3 ? 'border-error bg-error/10 text-error' : 'border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice)'"
-            :title="t('meter.left', { n: meter.remaining, allowance: meter.allowance })"
-          >
-            <UIcon
-              name="i-lucide-ticket"
-              class="size-4"
-            />{{ meter.remaining }}
-          </NuxtLink>
-        </ClientOnly>
         <UContentSearchButton
           v-if="header?.search"
-          class="size-9 shrink-0 rounded-none border-[1.5px] border-(--ink)"
+          class="size-9 shrink-0 rounded-full border border-(--line)"
         />
 
         <a
           :href="SITE.youtube"
           target="_blank"
           rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) hover:text-[#FF0000] max-[1599px]:hidden"
+          class="flex size-9 shrink-0 items-center justify-center rounded-full border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) hover:text-[#FF0000] max-[1599px]:hidden"
           :aria-label="t('nav.youtube')"
           :title="t('nav.youtube')"
         >
@@ -353,7 +207,7 @@ const localeItems = computed(() =>
           :href="SITE.github"
           target="_blank"
           rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) max-[1599px]:hidden"
+          class="flex size-9 shrink-0 items-center justify-center rounded-full border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) max-[1599px]:hidden"
           :aria-label="t('nav.starOnGithub')"
           :title="t('nav.starOnGithub')"
         >
@@ -370,7 +224,7 @@ const localeItems = computed(() =>
         >
           <button
             type="button"
-            class="flex h-9 items-center gap-1.5 border-[1.5px] border-(--ink) bg-(--card) px-2.5 font-mono text-xs uppercase text-(--ink) hover:bg-(--ice)"
+            class="flex h-9 items-center gap-1.5 rounded-full border border-(--line) bg-(--card) px-2.5 font-mono text-xs uppercase text-(--ink) hover:bg-(--ice)"
             :aria-label="t('nav.chooseLanguage')"
           >
             <UIcon
@@ -385,7 +239,7 @@ const localeItems = computed(() =>
           <button
             v-if="header?.colorMode"
             type="button"
-            class="group flex size-9 items-center justify-center border-[1.5px] border-(--ink) bg-(--card) text-(--ink) hover:bg-(--ice) max-lg:hidden"
+            class="group flex size-9 items-center justify-center rounded-full border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) max-lg:hidden"
             :aria-label="t('nav.theme')"
             @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
           >
@@ -399,60 +253,47 @@ const localeItems = computed(() =>
           </template>
         </ClientOnly>
 
-        <ClientOnly>
-          <UDropdownMenu
-            v-if="isSignedIn"
-            :items="accountItems"
-            :content="{ align: 'end' }"
-          >
-            <button
-              type="button"
-              class="flex h-9 items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) pe-2.5 hover:bg-(--ice)"
-              :aria-label="user?.name || user?.email || t('nav.account')"
+        <!-- One fixed-width slot whether signed in or not, so the bar keeps
+             its shape (and the nav its titles) across sign-in. -->
+        <div class="flex w-[7.5rem] shrink-0 justify-end">
+          <ClientOnly>
+            <UDropdownMenu
+              v-if="isSignedIn"
+              :items="accountItems"
+              :content="{ align: 'end' }"
             >
-              <span class="flex size-[33px] items-center justify-center overflow-hidden border-e-[1.5px] border-(--ink) bg-(--signal) font-bold text-white">
-                <img
-                  v-if="user?.image"
-                  :src="user.image"
-                  alt=""
-                  class="size-full object-cover"
-                >
-                <template v-else>{{ initials }}</template>
-              </span>
-              <UIcon
-                name="i-lucide-chevron-down"
-                class="size-3.5 text-(--ink2)"
-              />
-            </button>
-          </UDropdownMenu>
-          <div
-            v-else
-            class="flex shrink-0 flex-nowrap items-center gap-2"
-          >
+              <button
+                type="button"
+                class="flex h-9 w-full items-center gap-2 rounded-full border border-(--line) bg-(--card) ps-0.5 pe-3 text-sm font-medium text-(--ink) hover:bg-(--ice)"
+                :aria-label="user?.name || user?.email || t('nav.account')"
+              >
+                <span class="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--signal) text-sm font-semibold text-white">
+                  <img
+                    v-if="user?.image"
+                    :src="user.image"
+                    alt=""
+                    class="size-full object-cover"
+                  >
+                  <template v-else>{{ initials }}</template>
+                </span>
+                <span class="truncate">{{ t('nav.account') }}</span>
+              </button>
+            </UDropdownMenu>
             <UButton
+              v-else
               :to="signInTo"
-              size="sm"
-              color="neutral"
-              variant="outline"
+              size="md"
+              block
               icon="i-lucide-log-in"
-              class="shrink-0 whitespace-nowrap max-lg:hidden"
+              class="h-9 rounded-full"
             >
               {{ t('nav.signIn') }}
             </UButton>
-            <UButton
-              :to="signUpTo"
-              size="sm"
-              icon="i-lucide-user-plus"
-              :aria-label="t('nav.enrollFree')"
-              class="shrink-0 whitespace-nowrap"
-            >
-              <span class="max-sm:sr-only">{{ t('nav.enrollFree') }}</span>
-            </UButton>
-          </div>
-          <template #fallback>
-            <div class="h-9 w-9 sm:w-56" />
-          </template>
-        </ClientOnly>
+            <template #fallback>
+              <div class="h-9 w-full" />
+            </template>
+          </ClientOnly>
+        </div>
       </div>
     </template>
 
@@ -480,7 +321,10 @@ const localeItems = computed(() =>
           </NuxtLink>
         </nav>
 
-        <div class="p-5">
+        <div
+          v-if="navigation?.length"
+          class="p-5"
+        >
           <p class="eyebrow mb-3">
             Course contents
           </p>
@@ -517,7 +361,7 @@ const localeItems = computed(() =>
             size="sm"
           />
         </UDropdownMenu>
-        <UColorModeButton class="rounded-none border-[1.5px] border-(--ink)" />
+        <UColorModeButton class="rounded-full border border-(--line)" />
       </div>
     </template>
   </UHeader>

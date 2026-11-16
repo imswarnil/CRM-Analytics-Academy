@@ -1,15 +1,16 @@
 /**
- * The full body of a paid lesson (`access: pro`) — for Pro: a subscription, a
- * team seat or an admin grant (hasPro, server/utils/entitlement.ts).
+ * The full body of a gated lesson — `access: youtube` for verified YouTube
+ * subscribers, `access: pro` for All Access (server/utils/entitlement.ts).
  *
  *   GET /api/lesson/<locale>/<route>     e.g. /api/lesson/en/introduction/set-up-your-org
  *
  * scripts/gate-content.mjs moves Pro bodies into server/assets/gated/ (bundled
  * into the Worker, never into .output/public); this is the only way to read
- * one, and it checks Pro first. Returns the markdown (rendered with <MDC>) and
+ * one, and it checks access first. Returns the markdown (rendered with <MDC>) and
  * the quiz, interview, walkthrough and video the public stub leaves out.
  */
 interface GatedLesson {
+  access?: Access
   markdown: string
   data: Record<string, unknown>
 }
@@ -24,8 +25,9 @@ export default defineEventHandler(async (event) => {
   if (!lesson) throw createError({ statusCode: 404, statusMessage: 'Lesson not found' })
 
   const user = await requireUser(event)
-  if (!(await hasPro(user.id))) {
-    throw createError({ statusCode: 403, statusMessage: 'This lesson is part of Pro.' })
+  const needs = accessOf(lesson.access ?? 'pro')
+  if (!canOpen(await accessFor(user.id), needs)) {
+    throw createError({ statusCode: 403, statusMessage: needs === 'youtube' ? 'This lesson is for YouTube subscribers.' : 'This lesson is part of All Access.' })
   }
   setResponseHeader(event, 'cache-control', 'private, no-store')
   return { markdown: lesson.markdown, ...lesson.data }

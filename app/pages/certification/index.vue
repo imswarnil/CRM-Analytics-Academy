@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
- * Certification practice: the exam's format and domains, five full practice
- * papers in the real exam's shape, and a timed drill per domain. Prerendered;
+ * Certification practice: the exam's format and domains, and one full
+ * practice paper in the real exam's shape. Prerendered;
  * a signed-in learner's best scores load in the browser.
  */
 const { t } = useI18n()
@@ -17,7 +17,6 @@ watch(isSignedIn, async (ok) => {
   if (ok) best.value = await $fetch<typeof best.value>('/api/exam-attempt').catch(() => ({}))
 })
 const full = PAPERS.filter(p => p.kind === 'full')
-const drills = PAPERS.filter(p => p.kind === 'drill')
 const domainList = Object.entries(DOMAINS).map(([key, d]) => ({ key, ...d }))
 
 const title = computed(() => t('cert.seoTitle'))
@@ -115,32 +114,6 @@ usePageSchema(() => ({
                 </span>
               </NuxtLink>
             </div>
-          </section>
-
-          <!-- Domain drills -->
-          <section>
-            <p class="eyebrow">
-              {{ t('cert.drillEyebrow') }}
-            </p>
-            <h2 class="bp-h3 mt-2">
-              {{ t('cert.drillTitle') }}
-            </h2>
-            <ul class="mt-5 border-[1.5px] border-(--ink) bg-(--card)">
-              <li
-                v-for="p in drills"
-                :key="p.id"
-                class="border-b border-dashed border-(--line) last:border-b-0"
-              >
-                <NuxtLink
-                  :to="localePath(`/certification/${p.id}`)"
-                  class="flex items-center gap-4 px-5 py-3 hover:bg-(--ice)"
-                >
-                  <span class="w-12 font-mono text-xs font-semibold text-(--signal)">{{ DOMAINS[p.domain!].weight }}%</span>
-                  <span class="min-w-0 flex-1 font-semibold text-(--ink)">{{ p.title }}</span>
-                  <span class="font-mono text-[11px] text-(--ink2)">{{ best[p.id] ? t('cert.best', { pct: best[p.id]!.best }) : `${p.questions} Q · ${p.minutes} min` }}</span>
-                </NuxtLink>
-              </li>
-            </ul>
           </section>
 
           <!-- How it works -->

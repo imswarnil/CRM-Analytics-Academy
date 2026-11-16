@@ -8,18 +8,8 @@ definePageMeta({
 
 const { user } = useAuth()
 const localePath = useLocalePath()
-const { t, locale } = useI18n()
-interface Billing { pro: boolean, subscription: { plan: string, status: string, periodEnd: string | null, cancelAtPeriodEnd: boolean } | null, team: { name: string, admin: boolean } | null }
-const { data: billing } = useLazyFetch<Billing>('/api/billing', { server: false })
-const opening = ref(false)
-async function openPortal() {
-  opening.value = true
-  try {
-    window.location.href = (await $fetch<{ url: string }>('/api/billing/portal', { method: 'POST', body: {} })).url
-  } catch {
-    opening.value = false
-  }
-}
+const { t } = useI18n()
+const { access } = useProgress()
 
 useSeoMeta({
   title: 'Dashboard',
@@ -156,9 +146,7 @@ interface Ranks {
   regionName: string | null
   rows: { me: boolean, rank: number, name: string, image: string | null, country: string | null, points: number, lessons: number }[]
 }
-const board = ref<'global' | 'region' | 'country'>('global')
-const { data: ranks } = useFetch<Ranks>('/api/leaderboard', { query: { scope: board }, server: false, watch: [board] })
-const flag = (cc: string) => /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map(c => 0x1F1E6 + c.charCodeAt(0) - 65)) : ''
+const { data: ranks } = useFetch<Ranks>('/api/leaderboard', { server: false })
 
 const tiles = computed(() => [
   { key: 'done', label: t('dashboard.statCompleted'), value: String(done.value), hint: `${percent.value}%`, accent: true },
@@ -201,6 +189,35 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
     </BpPageHeader>
 
     <div class="mx-auto max-w-(--ui-container) space-y-6 px-4 py-12 sm:px-6 lg:px-8">
+      <!-- Access: what this learner can open, and the next step up -->
+      <div class="flex flex-wrap items-center gap-4 rounded-3xl border border-(--line) bg-(--card) px-6 py-5">
+        <UIcon
+          :name="access === 'pro' ? 'i-lucide-infinity' : access === 'youtube' ? 'i-simple-icons-youtube' : 'i-lucide-book-open'"
+          class="size-6"
+          :class="access === 'youtube' ? 'text-[#FF0000]' : 'text-(--signal)'"
+        />
+        <div class="min-w-0 flex-1">
+          <p class="font-semibold text-(--ink)">
+            {{ t(`plans.${access === 'pro' ? 'all-access' : access}.name`) }}
+          </p>
+          <p class="text-sm text-(--ink2)">
+            {{ t(`plans.${access === 'pro' ? 'all-access' : access}.tagline`) }}
+          </p>
+        </div>
+        <YoutubeUnlock
+          v-if="access === 'free'"
+          size="md"
+        />
+        <UButton
+          v-if="access !== 'pro'"
+          :to="localePath('/pro')"
+          class="rounded-full"
+          icon="i-lucide-infinity"
+        >
+          {{ t('plans.all-access.cta', { price: `$${PRICES.allAccess.usd}` }) }}
+        </UButton>
+      </div>
+
       <!-- K. tiles -->
       <dl class="grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-3 lg:grid-cols-6">
         <div
@@ -221,76 +238,11 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </div>
       </dl>
 
-      <!-- Plan: Pro, a team seat, or the upgrade -->
-      <div class="flex flex-wrap items-center gap-4 border-[1.5px] border-(--ink) bg-(--ice) px-5 py-4">
-        <UIcon
-          :name="data?.pro ? 'i-lucide-badge-check' : 'i-lucide-sparkles'"
-          class="size-6 text-(--signal)"
-        />
-        <div class="min-w-0 flex-1">
-          <p class="font-bold text-(--ink)">
-            {{ billing?.subscription && data?.pro ? t('dash.proPlan', { plan: t(`plans.${billing.subscription.plan}`) }) : data?.org ? t('dash.teamSeat', { org: data.org }) : data?.pro ? t('plans.youArePro') : t('dash.freePlan') }}
-          </p>
-          <p
-            v-if="billing?.subscription?.periodEnd"
-            class="text-sm text-(--ink2)"
-          >
-            {{ billing.subscription.cancelAtPeriodEnd ? t('dash.endsOn', { date: new Date(billing.subscription.periodEnd).toLocaleDateString(locale) }) : t('dash.renewsOn', { date: new Date(billing.subscription.periodEnd).toLocaleDateString(locale) }) }}
-          </p>
-          <p
-            v-else-if="!data?.pro"
-            class="text-sm text-(--ink2)"
-          >
-            {{ t('dash.upgradeHint', { price: `$${PRICES.proMonthly.usd}` }) }}
-          </p>
-        </div>
-        <UButton
-          v-if="billing?.subscription"
-          size="sm"
-          color="neutral"
-          variant="outline"
-          icon="i-lucide-credit-card"
-          :loading="opening"
-          @click="openPortal"
-        >
-          {{ t('dash.manageBilling') }}
-        </UButton>
-        <UButton
-          v-else-if="!data?.pro"
-          :to="localePath('/account')"
-          size="sm"
-          icon="i-lucide-sparkles"
-        >
-          {{ t('plans.getPro') }}
-        </UButton>
-        <UButton
-          v-if="billing?.team?.admin"
-          :to="localePath('/account')"
-          size="sm"
-          color="neutral"
-          variant="outline"
-          icon="i-lucide-users"
-        >
-          {{ t('dash.manageTeam') }}
-        </UButton>
-      </div>
-
       <!-- Practice: the interactive tools, one click away -->
       <nav
         class="flex gap-2 overflow-x-auto pb-1"
         :aria-label="t('dashboard.practice')"
       >
-        <NuxtLink
-          v-for="tool in [{ id: 'saql', icon: 'i-lucide-terminal' }, { id: 'recipe', icon: 'i-lucide-workflow' }, { id: 'dataflow', icon: 'i-lucide-git-fork' }, { id: 'functions', icon: 'i-lucide-function-square' }, { id: 'joins', icon: 'i-lucide-merge' }, { id: 'bindings', icon: 'i-lucide-link' }]"
-          :key="tool.id"
-          :to="localePath(`/visualiser/${tool.id}`)"
-          class="flex shrink-0 items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) px-3 py-2 text-sm font-semibold text-(--ink) hover:bg-(--ice)"
-        >
-          <UIcon
-            :name="tool.icon"
-            class="size-4 text-(--signal)"
-          />{{ t(`vis.${tool.id}.title`) }}
-        </NuxtLink>
         <NuxtLink
           :to="localePath('/certification')"
           class="flex shrink-0 items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) px-3 py-2 text-sm font-semibold text-(--ink) hover:bg-(--ice)"
@@ -673,30 +625,18 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
       </section>
 
       <div class="grid gap-6 lg:grid-cols-2">
-        <!-- Leaderboard: global, my region, my country -->
+        <!-- Leaderboard -->
         <section class="border-[1.5px] border-(--ink) bg-(--card)">
           <header class="flex flex-wrap items-center justify-between gap-2 border-b-[1.5px] border-(--ink) px-5 py-3">
             <p class="eyebrow">
               Fig. 08 — {{ t('dashboard.leaderboard') }}
             </p>
-            <div class="flex border-[1.5px] border-(--ink)">
-              <button
-                v-for="sc in (['global', 'region', 'country'] as const)"
-                :key="sc"
-                type="button"
-                class="border-e-[1.5px] border-(--ink) px-2.5 py-1 font-mono text-[10px] uppercase tracking-[.1em] last:border-e-0"
-                :class="board === sc ? 'bg-(--ink) text-(--paper)' : 'hover:bg-(--ice)'"
-                @click="board = sc"
-              >
-                {{ sc === 'global' ? t('dashboard.board.global') : sc === 'region' ? (ranks?.regionName || t('dashboard.board.region')) : (ranks?.country ? `${flag(ranks.country)} ${ranks.country}` : t('dashboard.board.country')) }}
-              </button>
-            </div>
           </header>
           <p
             v-if="!ranks?.rows?.length"
             class="p-5 text-sm text-(--ink2)"
           >
-            {{ board !== 'global' && !ranks?.country ? t('dashboard.board.noCountry') : t('dashboard.leaderboardEmpty') }}
+            {{ t('dashboard.leaderboardEmpty') }}
           </p>
           <ol v-else>
             <li
@@ -716,7 +656,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
                 <template v-else>{{ p.name.slice(0, 1) }}</template>
               </span>
               <span class="min-w-0 flex-1 truncate text-sm font-semibold text-(--ink)">
-                <span v-if="p.country">{{ flag(p.country) }} </span>{{ p.name }}<span
+                {{ p.name }}<span
                   v-if="p.me"
                   class="ms-1 font-mono text-[10px] text-(--signal)"
                 >({{ t('dashboard.you') }})</span>

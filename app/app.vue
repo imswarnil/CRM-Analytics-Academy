@@ -161,7 +161,7 @@ useJsonLd([
 
 provide('navigation', navigation)
 
-// Focus mode (a practice paper, a visualiser): the navbar stays; the footer,
+// Focus mode (a practice paper): the navbar stays; the footer,
 // promos and pop-ups step aside so the page can fit the viewport.
 // Pages declare it with definePageMeta({ focus: true }) — known before
 // anything renders, so the server never sends a footer the page hides; the
@@ -175,9 +175,6 @@ const focus = computed(() => Boolean(route.meta.focus) || focusState.value)
     <NuxtLoadingIndicator />
 
     <AppHeader />
-    <ClientOnly>
-      <SponsorBanner />
-    </ClientOnly>
 
     <UMain>
       <NuxtLayout>
@@ -200,7 +197,6 @@ const focus = computed(() => Boolean(route.meta.focus) || focusState.value)
     <AppFooter v-if="!focus" />
 
     <ClientOnly>
-      <MeterWall />
       <LazyUContentSearch
         :files="files"
         :navigation="navigation"

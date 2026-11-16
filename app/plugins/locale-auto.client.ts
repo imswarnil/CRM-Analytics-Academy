@@ -5,7 +5,7 @@
  * the i18n module's server-side detection never sees most requests. This does
  * it in the browser instead, once:
  *
- *  1. The visitor's COUNTRY decides, from /api/geo (Cloudflare's cf.country),
+ *  1. The visitor's COUNTRY decides on the server (home-locale middleware),
  *     through COUNTRY_LOCALE in shared/utils/regions.ts: Spain, Mexico or
  *     Argentina open in Spanish, Brazil in Portuguese, Japan in Japanese…
  *     Countries where the Salesforce world works in English (India, Pakistan,
@@ -53,9 +53,9 @@ export default defineNuxtPlugin((nuxtApp) => {
         .map(l => l.toLowerCase().split('-')[0]!)
         .find(l => supported.includes(l))
 
-      const { country } = await $fetch<{ country: string | null }>('/api/geo', { timeout: 1500 }).catch(() => ({ country: null }))
-      const fromCountry = country ? COUNTRY_LOCALE[country] : undefined
-      const target = (fromCountry && supported.includes(fromCountry) ? fromCountry : fromBrowser) || 'en'
+      // The country already decided on the server (server/middleware/home-locale.ts);
+      // here only the browser's language is consulted, with no request.
+      const target = fromBrowser || 'en'
 
       cookie.value = target
       moduleCookie.value = target

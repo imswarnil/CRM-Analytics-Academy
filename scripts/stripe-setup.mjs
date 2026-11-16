@@ -4,7 +4,7 @@
  * shared/utils/products.ts) — run it yourself, with your own key:
  *
  *   pnpm stripe:setup                 # products + prices (safe to re-run)
- *   pnpm stripe:setup --webhook       # also the customer portal and the webhook
+ *   pnpm stripe:setup --webhook       # also the webhook
  *
  * Reads STRIPE_SECRET_KEY from the environment or .env (use a sk_test_… key
  * first). Prices are matched by lookup_key: an unchanged price is left alone;
@@ -35,16 +35,8 @@ const WEBHOOK_URL = urlAt >= 0 ? args[urlAt + 1] : 'https://crmanalytics.imswarn
 
 // Mirror of PRICES in shared/utils/products.ts (kept in step by hand: two places, one review).
 const PRODUCTS = [
-  { id: 'crma_pro', name: 'CRM Analytics Academy Pro', description: 'Every Pro lesson, full exam review, no ads.', prices: [
-    { key: 'crma_pro_monthly', usd: 15, interval: 'month' },
-    { key: 'crma_pro_yearly', usd: 150, interval: 'year' }
-  ] },
-  { id: 'crma_team_seat', name: 'CRM Analytics Academy Team seat', description: 'Pro for one member of a team, per month.', prices: [
-    { key: 'crma_team_seat_monthly', usd: 10, interval: 'month' }
-  ] },
-  { id: 'crma_sponsor', name: 'CRM Analytics Academy Sponsorship', description: 'A sitewide sponsor banner with tracked views and clicks.', prices: [
-    { key: 'crma_sponsor_7d', usd: 99 },
-    { key: 'crma_sponsor_30d', usd: 299 }
+  { id: 'crma_all_access', name: 'CRM Analytics Academy — All Access', description: 'Every lesson, exam and dataset on the platform. One payment, no subscription.', prices: [
+    { key: 'crma_all_access', usd: 99 }
   ] }
 ]
 
@@ -95,22 +87,9 @@ for (const p of PRODUCTS) {
 }
 
 if (args.includes('--webhook')) {
-  const proPrices = (await stripe('GET', 'prices', { lookup_keys: ['crma_pro_monthly', 'crma_pro_yearly'], active: true })).data
-  const portal = await stripe('POST', 'billing_portal/configurations', {
-    business_profile: { headline: 'CRM Analytics Academy — manage your plan' },
-    features: {
-      invoice_history: { enabled: true },
-      payment_method_update: { enabled: true },
-      customer_update: { enabled: true, allowed_updates: ['email', 'address', 'tax_id'] },
-      subscription_cancel: { enabled: true, mode: 'at_period_end' },
-      subscription_update: { enabled: true, default_allowed_updates: ['price', 'quantity'], proration_behavior: 'create_prorations', products: [{ product: 'crma_pro', prices: proPrices.map(p => p.id) }] }
-    },
-    default_return_url: WEBHOOK_URL.replace(/\/api\/stripe\/webhook$/, '/dashboard')
-  })
-  console.log(`\n+ customer portal configuration ${portal.id} (set it as default in the dashboard if it is not)`)
   const hook = await stripe('POST', 'webhook_endpoints', {
     url: WEBHOOK_URL,
-    enabled_events: ['checkout.session.completed', 'customer.subscription.created', 'customer.subscription.updated', 'customer.subscription.deleted', 'invoice.paid'],
+    enabled_events: ['checkout.session.completed', 'charge.refunded'],
     description: 'CRM Analytics Academy'
   })
   console.log(`+ webhook ${hook.url}`)

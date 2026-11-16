@@ -3,8 +3,7 @@
  * /admin → Leads: seat requests from /pro and interests raised elsewhere
  * (Salesforce set-up, consulting, mentoring). Each one is also a Lead in
  * Salesforce (the "SF" tag says whether Web-to-Lead accepted it). Move a lead
- * through new → contacted → won/lost; a seats lead becomes an organisation
- * with one click ("Create org"), which marks it won.
+ * through new → contacted → won/lost.
  */
 interface Lead {
   id: number
@@ -42,23 +41,6 @@ const { data, refresh, status } = await useLazyAsyncData('admin-leads', () =>
 const value = (t: { seats: number }) => t.seats
 const pipeline = computed(() => (data.value?.totals ?? []).filter(t => t.status === 'new' || t.status === 'contacted').reduce((s, t) => s + value(t), 0))
 const won = computed(() => (data.value?.totals ?? []).filter(t => t.status === 'won').reduce((s, t) => s + value(t), 0))
-const emit = defineEmits<{ orgCreated: [] }>()
-const orgError = ref('')
-async function createOrg(lead: Lead) {
-  orgError.value = ''
-  const body = { name: lead.company ?? lead.lastName, kind: lead.orgKind ?? 'company', seats: lead.seats ?? 5, months: 12, leadId: lead.id, adminEmail: lead.email }
-  try {
-    await $fetch('/api/admin/orgs', { method: 'POST', body }).catch(async (e) => {
-      // Not signed up yet: create the org without an admin; add one later in Seats.
-      if ((e as { statusCode?: number }).statusCode === 404) return $fetch('/api/admin/orgs', { method: 'POST', body: { ...body, adminEmail: undefined } })
-      throw e
-    })
-    await refresh()
-    emit('orgCreated')
-  } catch (e) {
-    orgError.value = apiError(e) || 'Could not create the organisation.'
-  }
-}
 const count = (st: string) => (data.value?.totals ?? []).filter(t => t.status === st).reduce((s, t) => s + t.count, 0)
 
 async function move(lead: Lead, to: string) {
@@ -108,12 +90,6 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
     >
       No leads here yet. They arrive from /pro.
     </p>
-    <UAlert
-      v-if="orgError"
-      color="error"
-      variant="subtle"
-      :description="orgError"
-    />
 
     <ul class="space-y-3">
       <li
@@ -160,14 +136,6 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
             :color="l.status === st ? 'primary' : 'neutral'"
             :variant="l.status === st ? 'solid' : 'outline'"
             @click="move(l, st)"
-          />
-          <UButton
-            v-if="l.product === 'seats' && l.status !== 'won'"
-            label="Create org"
-            icon="i-lucide-building-2"
-            size="xs"
-            class="ms-auto"
-            @click="createOrg(l)"
           />
         </div>
       </li>

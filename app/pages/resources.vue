@@ -170,12 +170,12 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
               target="_blank"
               rel="noopener"
               class="bp-card bp-card--hover group overflow-hidden"
-              :class="view === 'grid' ? 'flex flex-col' : 'flex items-center gap-4 p-3'"
+              :class="view === 'grid' ? 'flex flex-col' : 'flex items-center gap-3 p-3 sm:gap-4'"
             >
               <!-- Thumbnail: the page's own image, or its icon on a colour tile -->
               <span
                 class="relative flex shrink-0 items-center justify-center overflow-hidden"
-                :class="view === 'grid' ? 'aspect-[16/8] w-full border-b-[1.5px] border-(--ink)' : 'size-16'"
+                :class="view === 'grid' ? 'aspect-[16/8] w-full border-b-[1.5px] border-(--ink)' : 'size-12 sm:size-16'"
                 :style="imageOf(r.url) ? undefined : { background: TILE[r.category].bg, color: TILE[r.category].fg }"
               >
                 <img
@@ -189,14 +189,14 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
                 <UIcon
                   v-else
                   :name="r.icon"
-                  :class="view === 'grid' ? 'size-12' : 'size-7'"
+                  :class="view === 'grid' ? 'size-9 sm:size-12' : 'size-6 sm:size-7'"
                 />
                 <img
                   v-if="view === 'grid'"
                   :src="fallbackIcon(r.url)"
                   alt=""
                   loading="lazy"
-                  class="absolute bottom-2 start-2 size-6 rounded bg-white p-0.5 shadow"
+                  class="absolute bottom-2 start-2 size-5 rounded bg-white p-0.5 shadow sm:size-6"
                 >
               </span>
               <span :class="view === 'grid' ? 'flex grow flex-col p-5' : 'min-w-0 flex-1'">

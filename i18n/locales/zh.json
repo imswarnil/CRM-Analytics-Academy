@@ -26,10 +26,13 @@
     "interview": "面谈",
     "companies": "公司",
     "pro": "定价",
-    "visualiser": "视觉师",
-    "team": "我的组织",
-    "billing": "计划和账单",
-    "course": "课程"
+    "billing": "访问",
+    "main": {
+      "course": "课程",
+      "exam": "实践考试",
+      "interview": "访谈 Q&页:1",
+      "pricing": "定价"
+    }
   },
   "home": {
     "modules": {
@@ -59,9 +62,14 @@
     "hero": {
       "eyebrow": "当前更新 Salesforce 释放",
       "title": "学习 Salesforce CRM Analytics 工作时使用的方法。",
-      "lead": "免费的,实际操作的课程 关于食谱, SAQL、仪表板、安保和 Einstein Discovery ——以一家公司的真实数据为基础.",
-      "start": "开始上课 1",
-      "curriculum": "从这里开始"
+      "lead": "免费的,实际操作的课程 关于食谱, SAQL、仪表板、安保和 Einstein Discovery以及如何使用AI,",
+      "start": "第1课免费开始",
+      "curriculum": "从这里开始",
+      "proof": {
+        "free": "免费,没有牌",
+        "languages": "12种语言",
+        "ai": "包括分析的AI"
+      }
     },
     "author": {
       "eyebrow": "费格。 05 — 提交人",
@@ -147,6 +155,32 @@
         "title": "面谈问题",
         "body": "真正的问题与模型解答, 按主题。"
       }
+    },
+    "story": {
+      "label": "你将建设什么,一步一步",
+      "step": "你会建造什么",
+      "data": {
+        "title": "带上你的数据",
+        "body": "Salesforce 对象和 CSV 文件变成一个 CRM Analytics 数据集。"
+      },
+      "recipe": {
+        "title": "用配方塑造它",
+        "body": "加入、过滤和分组 Data Prep没有密码"
+      },
+      "saql": {
+        "title": "问吧 SAQL",
+        "body": "将查询写在每个图表后面, 并知道每行做什么。"
+      },
+      "dashboard": {
+        "title": "构建仪表板",
+        "body": "图表,数字和过滤器 您的销售团队将实际使用。"
+      },
+      "ai": {
+        "title": "添加人工智能",
+        "body": "与爱因斯坦一起预测结果,并使用AI助手编写 SAQL 并解释结果。",
+        "ask": "什么交易会结束这个季度?",
+        "answer": "三笔交易有可能结束。 Acme的续约是最安全的赌注。"
+      }
     }
   },
   "footer": {
@@ -171,146 +205,18 @@
     "resourcesDesc": "一张最好的名单 Salesforce CRM Analytics 资源——官方文件, Trailhead, (中文). SAQL 参考文献、社区和工具。"
   },
   "course": {
-    "seo": {
-      "title": "学习 Salesforce CRM Analytics: 免费课程",
-      "description": "免费的、实用的 Salesforce CRM Analytics: 数据准备, SAQL仪表板,装订, Einstein Discovery 和部署,建造在自己的矿石。"
-    },
-    "hero": {
-      "eyebrow": "那个 CRM Analytics 课程",
-      "title": "构建真实 CRM Analytics 仪表板,从0到工作准备。",
-      "lead": "短视频课,亲身操作在自己的免费Org中建立,每门课和练习考试结束后的测试. 开始自由,用你的语言。",
-      "note": "没有卡片需要。 免费的课程保持自由。"
-    },
-    "stats": {
-      "sections": "节次",
-      "lessons": "经验教训",
-      "languages": "语言",
-      "cost": "开始"
-    },
-    "cta": {
-      "start": "免费开课",
-      "continue": "继续学习",
-      "curriculum": "从这里开始"
-    },
-    "outcomes": {
-      "eyebrow": "你会做什么",
-      "title": "雇主要求的六种技能 CRM Analytics 角色",
-      "prep": {
-        "title": "编制配方数据",
-        "body": "连接、过滤、转换和聚合 Salesforce 和外部数据输入干净的数据集。"
-      },
-      "saql": {
-        "title": "写入 SAQL",
-        "body": "装入,过滤,组,组和项目,并知道每行对溪流的作用."
-      },
-      "dash": {
-        "title": "设计人们使用的仪表板",
-        "body": "图表,表格,过滤器和布局可以回答销售和服务团队实际提出的问题."
-      },
-      "bind": {
-        "title": "让仪表板互动",
-        "body": "捆绑和正面 让一个选择驱动整个仪表板。"
-      },
-      "discovery": {
-        "title": "预估 Einstein Discovery",
-        "body": "构建一个模型,阅读其故事,并将预测投放到人们工作的地方."
-      },
-      "deploy": {
-        "title": "保证安全并运送",
-        "body": "行级安全,分享遗产和在兽人之间移动工作."
-      }
-    },
-    "how": {
-      "eyebrow": "如何运作",
-      "title": "四步,每节课",
-      "watch": {
-        "title": "看着",
-        "body": "短片或文章解释了一个想法。"
-      },
-      "build": {
-        "title": "构建",
-        "body": "你一个人免费建造的 CRM Analytics org,在课程数据集。"
-      },
-      "check": {
-        "title": "检查",
-        "body": "课后的测验告诉你什么卡住了。"
-      },
-      "prove": {
-        "title": "证明",
-        "body": "时间练习考试让你准备好 认证。"
-      }
-    },
-    "path": {
-      "eyebrow": "路径",
-      "title": "从您的第一个数据集到部署",
-      "lead": "{open} 页:1 {total} 区域已打开;其余部分逐个到达。",
-      "soon": "快点",
-      "lessons": "{n} 经验教训"
-    },
-    "tools": {
-      "eyebrow": "包含",
-      "title": "单击的工具",
-      "open": "打开",
-      "visualiser": {
-        "title": "视觉师",
-        "body": "看着 SAQL,食谱和数据流运行,逐行排列."
-      },
-      "exams": {
-        "title": "实践考试",
-        "body": "时间文件像真正的认证。"
-      },
-      "interview": {
-        "title": "面谈问题",
-        "body": "真正的问题与模型解答, 按主题。"
-      },
-      "datasets": {
-        "title": "课程数据集",
-        "body": "21个CSV 在一个命令中装入您的 Org."
-      }
-    },
-    "who": {
-      "eyebrow": "给谁的",
-      "title": "给同事做的 Salesforce 数据",
-      "admin": {
-        "title": "Salesforce 管理员",
-        "body": "在您已经运行的内容中添加分析,并成为回答数据问题的人."
-      },
-      "analyst": {
-        "title": "分析员",
-        "body": "从电子表格和报告转到数据集, SAQL 和仪表板 人们信任。"
-      },
-      "consultant": {
-        "title": "咨询人",
-        "body": "交付 CRM Analytics 以真实模式保存的项目。"
-      },
-      "career": {
-        "title": "职业变革者",
-        "body": "通往专家的自由、结构化的路径 Salesforce 技术,还有面试准备。"
-      }
-    },
-    "price": {
-      "eyebrow": "定价",
-      "title": "开始免费。 值得的时候升级",
-      "free": {
-        "name": "免费",
-        "body": "每个免费的课,考试和工具,在每种语言中,都有广告.",
-        "cta": "免费开始"
-      },
-      "pro": {
-        "name": "赞成:",
-        "body": "每一个课程,包括Pro的, 没有广告。 每月或每年一次。",
-        "cta": "获取 Pro"
-      },
-      "team": {
-        "name": "团队",
-        "body": "为你整个团队做职业 你买座椅,然后用电子邮件或密码送出去",
-        "cta": "买座位"
-      }
-    },
-    "final": {
-      "title": "你的第一个仪表盘是一门课了。",
-      "lead": "创建自由账户并开始引入. 需要一分钟。"
-    }
+    "collapseContents": "折叠课程内容",
+    "comingSoon": "马上就来",
+    "completed": "已完成",
+    "contents": "课程内容",
+    "contentsPct": "目录 · {pct}百分比(%)",
+    "courseProgress": "课程进度",
+    "markComplete": "标记为完整",
+    "nextLesson": "下一个: {title}",
+    "sectionMeta": "{lessons} 学习 · {minutes}页:1",
+    "showContents": "显示课程内容",
+    "signIn": "签名",
+    "signInToTrack": "签到追踪你的进展"
   },
   "dashboard": {
     "kicker": "电线板",
@@ -409,12 +315,6 @@
     "pointsRule": "每课10分,每考2分,每批获批呈文25分(仪表板50分).",
     "recentlyCompleted": "最近完成",
     "nothingYet": "你还没有完成一个课程。",
-    "board": {
-      "global": "全球",
-      "region": "我所在的地区",
-      "country": "我国",
-      "noCountry": "阅读一些经验教训,贵国和各地区的董事会在此出现。"
-    },
     "practice": "实践工具"
   },
   "auth": {
@@ -993,43 +893,19 @@
   "curriculumPage": {
     "seo": {
       "title": "课程",
-      "description": "每一节和教训 CRM Analytics 学院课程,顺序:定向,产品本身,然后十七个上市仪表板构建."
+      "description": "那个 CRM Analytics 学院课程:每个出版的章节和课目,按顺序排列,按每节录制."
     },
-    "schema": {
-      "level": "开始到高级",
-      "teaches": "Salesforce CRM Analytics: 数据编制、数据集、 SAQL、仪表板、装订和 Einstein Discovery"
+    "hero": {
+      "title": "学习 CRM Analytics。 。 。",
+      "lead": "真实上市数据短视频课. 新课先上YouTube.",
+      "youtube": "在YouTube上订阅",
+      "pricing": "见定价"
     },
-    "sheet": "第01页/ {sections} 节/ {lessons} 经验教训/ {hours}页:1",
-    "title": "从这里开始",
-    "complete": "{done} 页:1 {total} 完成",
-    "start": "从头开始",
-    "datasets": "获取数据集",
-    "sectionMeta": "{lessons} 学习 · {minutes} 分钟",
-    "phases": {
-      "p1": "第一阶段——面向目标",
-      "p2": "第二阶段——数据基础.",
-      "p3": "第三阶段——探索和建设.",
-      "p4": "阶段4——船舶和规模",
-      "p5": "第5阶段——上市建设."
+    "empty": {
+      "title": "初学正录.",
+      "body": "课程从头开始,一次上课。 在YouTube上订户,他们发布当天就在这里为你开放."
     },
-    "tags": {
-      "quiz": "测验",
-      "soon": "马上就"
-    },
-    "legend": {
-      "video": "视频走过",
-      "article": "条款",
-      "quiz": "以分级考试结束"
-    },
-    "side": {
-      "progress": "你的进展",
-      "dashboard": "打开仪表板",
-      "shareText": "一个自由、开源 Salesforce CRM Analytics 课程——一页的完整课程."
-    },
-    "waiting": "{n} 学习者等待",
-    "notifyMe": "打开时通知我",
-    "notifying": "你在名单上",
-    "toolsTitle": "见它运行:练习工具"
+    "section": "节次 {n}"
   },
   "lesson": {
     "authors": {
@@ -1429,38 +1305,23 @@
     "proTitle": "解锁 Pro 课程",
     "proBody": "全面走过,考试和考试审查——当你被卡住时提供帮助.",
     "proActive": "你是职业会员",
-    "proActiveBody": "每个专业课程都是对你的开放。 谢谢你对学院的支持",
-    "proPlan": "{plan}",
-    "teamSeat": "Pro通过 {org}",
-    "freePlan": "免费计划",
-    "renewsOn": "续订 {date}",
-    "endsOn": "结束 {date}",
-    "upgradeHint": "Pro解锁所有付费课程 {price} 一个月",
-    "manageBilling": "管理计费",
-    "manageTeam": "管理团队"
+    "proActiveBody": "每个专业课程都是对你的开放。 谢谢你对学院的支持"
   },
   "pro": {
-    "eyebrow": "专业课",
-    "tag": "赞成:",
-    "lockedTitle": "这个课是Pro的一部分",
-    "lockedBody": "你已读到“......{title}其余的——全程、问答和面试问题——都在Pro。",
-    "perkLessons": "每个专业课程,每个部分都出版",
-    "perkExams": "每一次练习考试的完整回答审查",
-    "perkNoPromos": "没有广告",
-    "perkCommunity": "可下载的仪表板和食谱",
-    "signUpFirst": "创建您的自由账户",
-    "getPro": "获取 Pro",
-    "signUpHint": "从免费账户开始——每一次免费课,不需要卡片.",
+    "eyebrow": "所有访问课程",
+    "tag": "所有访问",
+    "lockedTitle": "此课是 All Access 的一部分",
+    "lockedBody": "你已读到“......{title}其余部分——全部通过、问答和面试问题——与All Access一起出现。",
+    "getPro": "获取全部访问... {price}",
     "freeTag": "免费",
     "freeLesson": "免费课程"
   },
   "store": {
     "eyebrow": "定价",
-    "seoTitle": "CRM Analytics 学院定价:免费、专业和团队",
-    "seoDesc": "学习 Salesforce CRM Analytics 免费的,或者每一次付费的课都得到Pro,没有广告——每月15美元或每年150美元. 球队每个座位每月支付10美元.",
-    "title": "学解脱. 等你准备好了再去专业学校",
-    "lead": "每一次免费的课都是免费的 Pro以一个价格解锁整个平台;球队每个座位付费.",
-    "popular": "最受欢迎的",
+    "seoTitle": "CRM Analytics 学院定价:免费,YouTube用户和All Access",
+    "seoDesc": "学习 Salesforce CRM Analytics 免费,通过在YouTube上签名解锁订阅者课程,或者以一美元99美元付费获得All Access到整个平台.",
+    "title": "简单的定价。",
+    "lead": "自由开始。 用户免费. 一付一切众生.",
     "sentTitle": "谢谢,你的请求已经受理了",
     "sentBody": "Swarnil将在两个工作日内用电子邮件回复下一步。",
     "f": {
@@ -1473,36 +1334,7 @@
       "phone": "电话",
       "message": "有什么我们该知道的吗?"
     },
-    "send": "发送请求",
-    "noCharge": "没有什么可付的——学院靠点数运转。 您将在两个工作日内收到电子邮件回复。"
-  },
-  "products": {
-    "free": {
-      "name": "免费",
-      "tagline": "今天开始学习——不需要卡片.",
-      "f1": "每一次免费的课,考试和走过",
-      "f2": "SAQL、食谱和数据流可视化器",
-      "f3": "5次练习考试和150次面试答复",
-      "f4": "进步、进步和领导牌"
-    },
-    "pro": {
-      "name": "赞成:",
-      "tagline": "整个平台——每个付费课,没有广告.",
-      "f1": "每个专业课程,每个部分都出版",
-      "f2": "每一次练习考试的完整回答审查",
-      "f3": "可下载的仪表板、食谱和数据集",
-      "f4": "没有广告",
-      "f5": "从仪表板上取消任何时间"
-    },
-    "team": {
-      "name": "团队",
-      "tagline": "球队的球员,每个席位的工资。",
-      "f1": "每个座位的推荐",
-      "f2": "通过电子邮件指定座位, 或让您的公司域名加入",
-      "f3": "随时增加或取消席位——计费如下",
-      "f4": "看看谁在学习 有多远",
-      "f5": "一个管理员,一张发票"
-    }
+    "send": "发送请求"
   },
   "human": {
     "working": "检查你是人类...",
@@ -1511,579 +1343,52 @@
     "wait": "等一等,你还是人"
   },
   "plans": {
-    "monthly": "每月",
-    "yearly": "年度 · 保存 {n}百分比(%)",
-    "forever": "永远",
-    "perMonth": "月数",
-    "perSeat": "/座位/月份",
-    "perMonthShort": "/模数",
-    "billedYearly": "计费 {price} 每年一次",
     "startLearning": "开始学习",
-    "getPro": "获取 Pro",
-    "youArePro": "你有职业",
-    "teamName": "团队名称",
-    "seatsN": "{n} 席位",
-    "fewer": "减少席位",
-    "more": "增加席位",
-    "buyTeam": "买座位",
     "stripeNote": "付款由施特列处理。 随时取消或更换座位.",
     "cancelled": "离职被取消——没有收取任何费用.",
-    "proMonthly": "专业每月",
-    "proYearly": "每年",
-    "teamSeat": "团队席位",
     "requestTitle": "跟我们谈谈",
     "requestLead": "帮助设置 CRM Analytics咨询、指导或大型组织——一行就够了。",
     "messagePlaceholder": "你还需要什么? (可选)",
     "interest": {
+      "seats": "培训一个团队",
       "salesforce-setup": "设置帮助",
-      "seats": "大型组织",
       "consulting": "咨询",
       "mentoring": "辅导"
     },
-    "kind": {
-      "company": "企业",
-      "team": "团队",
-      "university": "大学"
+    "best": "所有的东西",
+    "current": "你有这个",
+    "footnote": "一次付款,不订阅,不续约. 训练整个团队?",
+    "free": {
+      "name": "免费",
+      "tagline": "今天开始学习,不需要卡片。",
+      "unit": "永远",
+      "cta": "向大家开放",
+      "f1": "每个免费的课",
+      "f2": "执业考试",
+      "f3": "访谈问答",
+      "f4": "进展、 记录和有自由账户的导板"
     },
-    "pointsEyebrow": "点",
-    "pointsTitle": "标点为主板",
-    "earnRow": {
-      "welcome": "当你创建您的账户时",
-      "lesson": "你完成的每一课",
-      "quiz": "每一次正确的答题",
-      "contribution": "每笔核定捐款"
+    "youtube": {
+      "name": "YouTube 用户",
+      "tagline": "订阅频道并解锁订阅者课程.",
+      "unit": "免费订阅",
+      "f1": "一切免费",
+      "f2": "每个订阅者课程",
+      "f3": "发布当天的新视频",
+      "f4": "点击一次以您的 Google 账户验证"
+    },
+    "all-access": {
+      "name": "所有访问",
+      "tagline": "整个平台,永远,用一个付款。",
+      "unit": "一次",
+      "cta": "获取全部访问... {price}",
+      "f1": "每一个课程,订阅者和溢价",
+      "f2": "每个数据集:营销,网络,线索,机会,合同,CPQ",
+      "f3": "对执业考试的全面答复审查",
+      "f4": "可下载的仪表板和食谱",
+      "f5": "没有广告",
+      "f6": "以后增加的每个课程,包括"
     }
-  },
-  "team": {
-    "title": "我的团队",
-    "lead": "普为每座. 加入您的管理员给你的代码, 或者加入您管理员添加的电子邮件 。",
-    "code": "密码",
-    "codeHint": "8个字母和数字",
-    "join": "请坐",
-    "noCode": "没有密码吗?",
-    "request": "申请组织席位",
-    "seats": "{used} 页:1 {seats} 使用的座位",
-    "youArePro": "您的座位包括Pro。",
-    "until": "座位一直运行到 {date}。 。 。",
-    "adminTitle": "你管理这个组织",
-    "share": "和应该坐到座位的人分享这个代码或链接. 参会者各用一席.",
-    "copyLink": "复制加入链接",
-    "member": "成员",
-    "lessons": "经验教训",
-    "points": "点",
-    "free": "空出这个座位",
-    "domains": "任何有经过验证的 {domains} 电子邮件自动加入。",
-    "sessions": "会议",
-    "paid": "收到付款了 你的团队准备好了 在下面分配座位",
-    "activating": "收到付款 组建你的团队 这需要几秒钟。",
-    "seatsTitle": "席位",
-    "seatsUsed": "{used} 页:1 {seats} 分配席位",
-    "saveSeats": "更新席位",
-    "billing": "账单和发票",
-    "assignTitle": "给人坐下",
-    "emailsPlaceholder": "工作电子邮件, 用逗号分隔",
-    "assign": "分配席位",
-    "domainsTitle": "您的公司域名",
-    "saveDomains": "保存",
-    "domainsHint": "任何使用此域的已验证邮件签名的人自动获得一个免费座位."
-  },
-  "vis": {
-    "eyebrow": "视觉师",
-    "title": "看怎么样 CRM Analytics 运行数据",
-    "lead": "三个现场模特儿——a SAQL 查询, a Data Prep 食谱和数据流——在同一个小数据集上一步步运行,这样你就可以观看每一行的移动.",
-    "seoTitle": "SAQL,用于 CRM Analytics",
-    "seoDesc": "交互式、逐步的视觉设计器 Salesforce CRM Analytics数字 : SAQL 执行, 食谱结合和函数, 以及执行的数据流顺序。 免费,在您的浏览器中。",
-    "open": "打开",
-    "dataEyebrow": "样本数据",
-    "dataTitle": "故意小数",
-    "dataLead": "每个视觉师都跑在这些排. 它们被选中来显示边缘情况:一个没有机会的账户,一个没有机会的账户,一个有几笔交易的账户,一个缺失的金额和一系列管理人员。",
-    "noRows": "无行.",
-    "first": "第一步",
-    "prev": "前一个步骤",
-    "next": "下一步",
-    "last": "最后一个步骤",
-    "play": "播放",
-    "pause": "暂停",
-    "scrub": "步骤",
-    "stepOf": "步骤 {n} 页:1 {total}",
-    "lineOf": "行线 {n}",
-    "rowsIn": "{n} 输入",
-    "rowsOut": "{n} 行数",
-    "groupsOut": "{n} 组合",
-    "keysOut": "{n} 密钥",
-    "showAfter": "显示结果",
-    "showBefore": "显示已丢弃的东西",
-    "kept": "保留",
-    "dropped": "丢弃",
-    "value": "数值",
-    "moveUp": "向上移动",
-    "moveDown": "向下移动",
-    "remove": "删除",
-    "toCourse": "回到航线上",
-    "legend": {
-      "matched": "匹配",
-      "unmatched": "无匹配",
-      "fanout": "多次对齐",
-      "multi": "多个匹配"
-    },
-    "saql": {
-      "title": "SAQL 视觉",
-      "card": "从负载,过滤器,组,组,前置,顺序和限制中构建一个查询,然后在每行之后监视流.",
-      "lead": "构建查询,或从示例开始,并逐行通过。 每一份声明都显示它收到的溪流和它交出的溪流.",
-      "seoTitle": "SAQL 视觉器: 步进 a CRM Analytics 查询",
-      "seoDesc": "看着 SAQL 按行执行:负载,过滤器,组,与内,左,右和全结合的组合,前排,顺序和限制,在真实行上.",
-      "query": "查询",
-      "groupAll": "由所有人员分组",
-      "addField": "添加字段",
-      "presets": {
-        "pipelineByStage": "按阶段划分的管道",
-        "filterThenGroup": "过滤器, 然后分组",
-        "having": "擦完后过滤",
-        "cogroupAccounts": "有账户的组合",
-        "cogroupLeft": "完整的外侧组合",
-        "topN": "前3个交易",
-        "mistake": "一个常见的错误",
-        "fullPipeline": "每个声明"
-      },
-      "explain": {
-        "load": "装入数据集 {name}数字 : {n} 排队 {cols} 字段。 没有任何东西被过滤或分组——每一个后来的线路都在这个溪流上工作.",
-        "filter": "将行保留在 {field} 通过测试 : {kept} 留着 {dropped} 掉下来了 在组前过滤意味着对组的行数减少,这也是它通常先出现的原因.",
-        "group": "将流组为 {by}数字 : {n} 行落为 {groups} 组合。 没有任何东西被加起来——一个分组的溪流支撑着行,直到预言说出什么来计算.",
-        "groupAll": "装上所有 {n} 排成一个组,所以forec可以计算所有东西的总和.",
-        "cogroup_inner": "组合打开 {by} = {withBy}。 。 。 {keys} 键出现在两侧; 内侧组合仅保留 {kept} 发现在两侧和下降 {dropped}。 。 。",
-        "cogroup_left": "左侧组合开启 {by} = {withBy}:左侧的每把钥匙都保存着,无论有没有匹配—— {kept} 页:1 {keys} 键, {dropped} 掉下来了",
-        "cogroup_right": "右侧组合 {by} = {withBy}:右侧的每一个键都保留着—— {kept} 页:1 {keys} 键, {dropped} 掉下来了",
-        "cogroup_full": "完整的外侧组合 {by} = {withBy}: 任何一方的每一个键都保留、匹配或不匹配——全部 {kept} 键。",
-        "foreach": "每行项目 {cols} 字段,保留 {n} 数行.",
-        "foreachCollapse": "计算 {cols} 每个组的字段,所以每个组变为一行: {n} 排队 此行显示总数,计数和平均值.",
-        "order": "将溪流排序 {field}, (中文). {dir}. 各行相同——只有其顺序变化.",
-        "limit": "保留第一个 {n} 排行而下别. 在它之前没有命令,没有定义哪个行生存.",
-        "noDataset": "没有数据集叫做 {name}。 。 。",
-        "filterGrouped": "SAQL 无法过滤组流。 在组前过滤, 或先运行前置然后过滤结果—— 这就是 HAVING 如何写入的 SAQL。 。 。",
-        "groupTwice": "此流已分组 。 先跑先跑,然后组合结果",
-        "cogroupGrouped": "联组在未分组的溪流上工作. 移动它之前组。",
-        "foreachEmpty": "一个前排至少需要一个字段。",
-        "foreachAggUngrouped": "{field} 使用集合,但流没有分组。 在此前加一组, 或者全部加一组 。",
-        "foreachNotKey": "{field} 不是一个组合键,因此,无法按原样投影——将其包成一个集合,如第一,总和或计数.",
-        "orderGrouped": "当每组为一行时,在前排后排列一组流。",
-        "limitGrouped": "过滤后限制分组流 。"
-      },
-      "notes": {
-        "order": {
-          "title": "从上到下",
-          "body": "每个 SAQL 线条从线条上取出溪流,然后手放在一个新的线条上。 引擎可能优化,但您读到的是结果被定义的顺序."
-        },
-        "group": {
-          "title": "组合,然后放进去",
-          "body": "只将各种行组合成桶。 Foreach将每桶变成一排,只有这样,才能过滤,订购或限制一个总数."
-        },
-        "cogroup": {
-          "title": "组合是密钥的组合",
-          "body": "双方按键组合并配对. 内部保留两侧的密钥;左,右和全保存未匹配的密钥,并带有空值."
-        }
-      },
-      "shareHint": "地址栏保留您的查询 : 复制它以在此步骤完全共享此查询 。"
-    },
-    "recipe": {
-      "title": "食谱视觉器",
-      "card": "页:1 Data Prep 配方作为图:每个关联类型,公式和日期函数,窗口函数,附件和汇总,按执行顺序排列.",
-      "lead": "选择一个例子,改变任何节点——结合类型,密钥,公式——并按其运行的顺序步入食谱,每个节点的行.",
-      "seoTitle": "食谱视觉器 : CRM Analytics Data Prep 合并、函数和执行命令",
-      "seoDesc": "步进a CRM Analytics 食谱:向上,向左,向右,向内和向外与行计数,日期和文本公式函数,窗口函数,附件和集合结合.",
-      "graph": "道具图——数字是执行命令",
-      "joinType": "加入类型",
-      "leftKey": "左键",
-      "rightKey": "右键",
-      "compare": "同样的加入,每种类型",
-      "left": "左侧输入",
-      "output": "加入输出",
-      "groupBy": "分组",
-      "addMeasure": "添加计量",
-      "addFromCatalogue": "从以下目录中添加更多功能.",
-      "addFn": "添加 {fn}",
-      "catalogue": "函数目录",
-      "catalogueTitle": "每一种配方,在真正的一行运行",
-      "presets": {
-        "pipelineByRegion": "过滤、转换、查找、聚合",
-        "joinTypes": "加入类型",
-        "windowFns": "窗口功能",
-        "dates": "日期函数",
-        "appendHistory": "附加历史"
-      },
-      "nodes": {
-        "input": "投入",
-        "filter": "过滤器",
-        "transform": "变形",
-        "join": "联合",
-        "append": "附录",
-        "aggregate": "合计",
-        "output": "产出",
-        "drop": "删除列"
-      },
-      "cats": {
-        "date": "日期",
-        "text": "文字",
-        "number": "数目",
-        "logic": "逻辑和无效",
-        "window": "窗口( 多行)"
-      },
-      "explain": {
-        "input": "阅读 {name}数字 : {n} 数行. 投入首先进行——在其投入到位之前,任何下游都无法开始。",
-        "filter": "保持行间 {field} 通过测试 : {kept} 留着 {dropped} 掉下来了",
-        "transform": "添加数 {n} 计算列,一次一个函数,按列出的顺序——后一个公式可以使用较早的公式. 行数在变换中永远不会改变.",
-        "join_lookup": "寻找 {key}:每个左行都保留一次,并进行第一次比赛. {left} 排队 {out} 出局——一看就永远无法乘数行. {unmatched} 左行找不到匹配并获得空值。",
-        "join_left": "左侧加盟 {key}:每个左行保留,每对匹配一次重复一个有多个匹配的行. {left} 排队 {out} 输出; {unmatched} 没有匹配。",
-        "join_right": "右转 {key}:每个右行都保留;左行没有匹配的则被丢弃. {out} 排队; {unmatchedRight} 右排没有左搭档",
-        "join_inner": "内部加入 {key}:只有两侧有匹配的行. {left} 左排进去, {out} 输出; {unmatched} 左排掉下来。",
-        "join_outer": "完全外侧加盟 {key}:两侧的每一行,尽可能匹配. {out} 排队; {unmatched} 左转 {unmatchedRight} 右行无伴侣.",
-        "append": "将输入内容堆放在另一个下方: {parts} 行数 {n}。栏名对应。",
-        "aggregate": "组 {n} 逐行排列 {by} 输入 {groups} 排行计算措施。 这里的谷物变化——每组一行.",
-        "output": "写作 {n} 带行 {cols} 数据集的列 {name}。输出为最后一个。",
-        "drop": "滴数 {n} 栏({fields})从每行:行停留,只是变窄,所以下一个节点的移动较少."
-      },
-      "notes": {
-        "order": {
-          "title": "执行顺序",
-          "body": "一个节点一旦它读到的每个节点都运行。 不互相依赖的分支可以按任何顺序运行;结果相同."
-        },
-        "joins": {
-          "title": "由种子选择组合",
-          "body": "寻找保留了左方的谷物,从不添加行. 左,内和外结合每场比赛都会重复一行——在每次结合之后检查行数."
-        },
-        "grain": {
-          "title": "组合前的变形",
-          "body": "窗口函数和公式参见单个行. 在集合后,仅剩组级值。"
-        }
-      },
-      "editNodes": "编辑食谱",
-      "order": "执行令"
-    },
-    "dataflow": {
-      "title": "Dataflow 视觉",
-      "card": "数据流 JSON 除了它的图:消化、增强、计算压缩、计算、平整和登记,在依赖波中运行。",
-      "lead": "打开和关闭节点并观看 JSON,图表和数据一起变化。 跳过数据流运行的顺序 。",
-      "seoTitle": "Dataflow 视觉器 : CRM Analytics 数据流动 JSON 和执行命令",
-      "seoDesc": "看怎么样 CRM Analytics 数据流运行:sfdcDigest,过滤器,与LookupSingleValue或Lookup MultiValue相加,计算Express,计算Relative,平坦,切片Dataset和带有安全上游的sfdcRegister.",
-      "graph": "Dataflow 图片:W是波",
-      "waves": "依赖波",
-      "wave": "挥手 {n}",
-      "wavesNote": "同一波中的节点依赖于该波中的无节点,因此可以平行运行. 键在 JSON 没关系。",
-      "leftOpps": "左边的机会,右边的账户",
-      "leftAccounts": "账号左,机会右",
-      "opts": {
-        "filter": "过滤器",
-        "flatten": "平整",
-        "computeRelative": "计算",
-        "security": "安全前提"
-      },
-      "explain": {
-        "sfdcDigest": "摘录 {n} 行数 {object} 从 Salesforce,与 {fields} 字段列出。 文摘没有来源,所以都跑在第一波.",
-        "edgemart": "读取现有的数据集 {object}数字 : {n} 数行.",
-        "filter": "应用 {filter}数字 : {kept} 保持行数 {dropped} 掉下来了 在数据流过滤语法中,N表示不等于.",
-        "augmentSingle": "增减 {key}: 每一个 {left} 左行取其匹配中选定的字段。 增量总是保持每左行一次; {unmatched} 没有发现匹配的 。",
-        "augmentSingleWarn": "增减 {key}不过 {multi} 左行有多个匹配。 LookupSingleValue然后只保留其中之一,而哪一个没有定义——数字可以在运行之间变化.",
-        "augmentMulti": "查询多版本 {key}:当一个左行有数个匹配时,它们的值被保存在一个多值字段中. 仍然每左排一排; {multi} 行有数种相.",
-        "computeExpression": "添加数 {n} 字段自每行独立计算, SAQL 表达法。",
-        "computeRelative": "添加查看同一分区中其他行的字段({partition},则命令 {order}:前期交易金额和第一个结束日期.",
-        "flatten": "将管理器等级表转换为每个用户以上每个管理器的列表,以及路径. 安保人员会用它,",
-        "sliceDataset": "滴数 {fields} 从数据集来看——无人需要的字段,或不能暴露。",
-        "append": "将源头堆成 {n} 数行.",
-        "register": "登记册 {n} 作为数据集的行 {alias}没有前置设备,任何访问应用程序的人都可以看到每一行。",
-        "registerSecure": "登记册 {n} 行为 {alias} 安全前提 {predicate}:每个用户只看到他们或向其报告的人所拥有的行."
-      },
-      "notes": {
-        "order": {
-          "title": "依赖性,而不是位置",
-          "body": "一个节点运行 当它的源有。 所以文摘先排行 登记再排行 JSON。 。 。"
-        },
-        "augment": {
-          "title": "缩写从不添加行",
-          "body": "把你想要的谷物放在左边。 单值选择一个匹配;多值将其全部保存在一个领域. 既不复左行."
-        },
-        "recipes": {
-          "title": "数据流和食谱",
-          "body": "食谱是较新的工具,用加入,公式和视觉编辑器做同样的工作. 数据流仍然在很多块中运行——读两个字."
-        }
-      },
-      "editJson": "Dataflow JSON",
-      "build": "构建数据流"
-    },
-    "edit": "编辑",
-    "examples": "实例",
-    "toggleRail": "显示或隐藏侧面板",
-    "howToRead": "如何读这个",
-    "beatBefore": "发生什么事",
-    "beatAfter": "结果",
-    "flow": {
-      "input": "投入",
-      "lookup": "搜索侧",
-      "output": "产出",
-      "source": "来源",
-      "waiting": "等待行数",
-      "queued": "队列",
-      "processing": "已处理行 : {n} 页:1 {total}",
-      "done": "完成",
-      "droppedRows": "{n} 空行数",
-      "droppedCols": "{n} 已删除列",
-      "newCols": "{n} 新栏",
-      "more": "+ 键 {n} 更多",
-      "groups": "{n} 组合"
-    },
-    "canvas": {
-      "newCol": "新栏",
-      "hint": "拖曳到四周, 滚动到缩放",
-      "zoomIn": "缩放",
-      "zoomOut": "缩小",
-      "recenter": "再来一步",
-      "rowByRow": "逐行排列",
-      "order": "执行顺序"
-    },
-    "check": {
-      "kept": "保存:通过 {test}",
-      "dropped": "丢弃:需要 {test}",
-      "match": "一对:右行加入",
-      "fanout": "{n} 匹配: 重复行, 每次匹配一次",
-      "multi": "多个匹配: 保留为列表",
-      "noMatchKept": "无匹配: 保留, 右侧为空",
-      "noMatchDropped": "无匹配: 已丢弃",
-      "partition": "分区",
-      "allRows": "所有行",
-      "group": "转到组 {key}",
-      "position": "职位 {n}",
-      "inLimit": "保存: 在第一个 {n}",
-      "pastLimit": "已删除: 超过第一个 {n}",
-      "keyKept": "保存: 双方都有此密钥",
-      "keyDropped": "掉下来的 {join} 组合"
-    },
-    "functions": {
-      "title": "函数实验室",
-      "card": "选择任意的食谱公式函数,将其指向一列并逐行观察. 尝试自己的值, 查看窗口和分区 。",
-      "seoTitle": "CRM Analytics 公式函数, 逐行: 到  日期、 年份、 集合、 级别及更多",
-      "seoDesc": "一个交互式实验室 CRM Analytics Data Prep 公式函数:日期、文本、数字、逻辑和带有分区的窗口函数,在真实数据上逐行运行。",
-      "formula": "变换时的公式",
-      "column": "栏",
-      "argument": "参数",
-      "tryValue": "试试你自己的值",
-      "rowHead": "线条",
-      "all": "每一个函数",
-      "row": "{name}: 读 {field} = {input} 写作 {output}。 。 。",
-      "windowNote": "窗口函数也读取其他行 。 具有相同分区值的行共享一个颜色;点亮的行是当前行可以看到的行."
-    },
-    "joins": {
-      "title": "加入可视化器",
-      "card": "一个加入,一个一行:每对匹配的线条,每个加入类型所保持的,扇形的,行无匹配.",
-      "seoTitle": "CRM Analytics 食谱加入,可视化:仰视,左,右,内和外",
-      "seoDesc": "当心 CRM Analytics 食谱逐行加入:匹配密钥,未匹配的行,扇形出局以及什么看,左,右,内和外结合保持.",
-      "about": "关于加入",
-      "flip": "翻转侧面",
-      "left": "左边",
-      "right": "对",
-      "output": "产出",
-      "rowsOut": "{n} 逐行删除",
-      "empty": "还没有,走进左排",
-      "what": {
-        "lookup": "查看:每左行一次,第一对或空.",
-        "left": "左:每左行,每对比赛重复一次,无时空.",
-        "right": "右:每右行,与其对齐;左行无对齐,则弃之.",
-        "inner": "内饰:只有两侧对齐的行.",
-        "outer": "外方:两边的一切,相配之处."
-      },
-      "fate": {
-        "joined": "{row}数字 : {key} = {value} 找到一个匹配的,所以行加入。",
-        "fanout": "{row}数字 : {key} = {value} 发现 {n} 匹配,所以该行出现 {n} 时间。",
-        "lookupFirst": "{row}数字 : {key} = {value} 发现 {n} 匹配; 查找仅需要第一个。",
-        "leftOnly": "{row}数字 : {key} = {value} 找不到匹配; 右侧为空 。",
-        "dropped": "{row}数字 : {key} = {value} 找不到匹配的, 所以这个加起来就掉了."
-      },
-      "rightKept": "{n} {side} 行匹配无; 此加盟保留它们为空的左侧 。",
-      "rightDropped": "{n} {side} 行与无相配,被排除在外。 {total} 输出中的行。",
-      "kind": {
-        "joined": "已加入",
-        "fanout": "重复(退出)",
-        "leftOnly": "仅剩",
-        "rightOnly": "仅对"
-      },
-      "useWhen": "当:",
-      "use": {
-        "lookup": "您想要将账户的名称和区域添加到每个机会中,而不重复机会。",
-        "left": "您希望每个账户都有它的所有机会,并且仍然看到没有账户的账户。",
-        "right": "右侧是您必须保存的:每个账户,无论是否有机会。",
-        "inner": "您只关心两边都存在的记录, 像是已知账户的“机会”。",
-        "outer": "您正在调和两个系统,需要看到 缺少在两侧。"
-      }
-    },
-    "bindings": {
-      "title": "装订可视化",
-      "card": "单击图表并跟随选择到另一个查询:列()、单元格(),作为对象、字符串、质量和 SAQL 他们写。",
-      "seoTitle": "CRM Analytics 装订,可视化:选择和结果装订逐步",
-      "seoDesc": "看怎么样 CRM Analytics 仪表板绑定工作:选择或结果、列()或单元格(),作为对象、字符串或等值,以及 SAQL 它重写。",
-      "about": "关于绑定",
-      "chart": "按阶段划分的管道",
-      "chain": "具有约束力的,解决",
-      "table": "交易",
-      "multi": "多选择",
-      "clickHint": "单击栏来选择它。",
-      "resultHint": "绑定的结果读取整个结果:这里,第一行。",
-      "kind": {
-        "selection": "选择绑定",
-        "result": "结果约束"
-      },
-      "stage": {
-        "source": "来源",
-        "data": "获取数据",
-        "serialise": "序列",
-        "inject": "输入查询",
-        "run": "运行查询"
-      },
-      "say": {
-        "source": "装订从第 1阶段开始.{kind}: 后面的行数 {values}。 。 。",
-        "data": "列 () 从这些行中拖出 StageName 值( cell () ) 。",
-        "serialise": "。 。 。{ser}() 将数值变为文本 SAQL 可以读。",
-        "inject": "那个 {mustache} 在 q deals 中,在发送查询前由该文本替换。",
-        "run": "q  deals 再次使用新过滤器运行 : {n} 数行."
-      },
-      "brokenNote": "asString 将数个值合并到一个字符串中,而该字符串中无一行等值,所以没有任何结果。 对多个值使用对象或等值。",
-      "notes": {
-        "what": {
-          "title": "多么有约束力",
-          "body": "约束是 {mustache} 在查询或部件属性中表达式。 在查询运行前,仪表板用从另一步骤取来的文字来代替."
-        },
-        "selection": {
-          "title": "选择绑定",
-          "body": "读取用户在另一步骤中选择的内容。 每次点击都会变"
-        },
-        "result": {
-          "title": "结果约束",
-          "body": "读取另一步骤的结果,例如其第一行,无论是否选择任何东西。"
-        },
-        "asObject": {
-          "title": "作为对象( )",
-          "body": "将数值写入为 SAQL 字节:来自列()的列表,来自单元格()的一个值。"
-        },
-        "asString": {
-          "title": "作为 String ()",
-          "body": "写纯文字无引文. 在字符串中一个值对您自己建构是好的; 对多个值是错误的。"
-        },
-        "asEquality": {
-          "title": "asEqual( 字段)",
-          "body": "写一个完整的条件,字段 == 值或字段在[值]中,准备进行过滤."
-        },
-        "faceting": {
-          "title": "捆绑还是脸部?",
-          "body": "面对面过滤同一数据集上没有代码的每个步骤。 约束适用于其他数据集,或用于改变措施、组合和属性。"
-        }
-      }
-    },
-    "fn": {
-      "year": "取年离约.",
-      "quarter": "给出一年的季度,1比4.",
-      "month": "给出月号,1比12.",
-      "day": "赐月日.",
-      "day_of_week": "赐周一日(星期天)至七日(星期六).",
-      "week": "给出当年的ISO周.",
-      "date_trunc_month": "将日期移动到月的第一天, 所以日期按月分组 。",
-      "add_months": "为续约和到期日增加若干个月。",
-      "date_diff_days": "计算两个日期之间的天数。",
-      "days_until_today": "计算日期到今天的天数:记录的年代.",
-      "last_day": "给出日期月的最后一天。",
-      "to_date": "将已知格式的文本转换为真实日期,因此日期函数和日期过滤器可以对其工作.",
-      "upper": "将文本变成首都。",
-      "lower": "将文字变为小字母.",
-      "concat": "将文本合并为一个文本。",
-      "substr": "按位置和长度列出案文的一部分。",
-      "length": "计算文本中的字符。",
-      "replace": "用一个文本替换每个文本的匹配。",
-      "round": "轮数;负位数轮数为数万,百或千.",
-      "multiply": "乘数,为税,货币或差值.",
-      "abs": "删除数字的符号。",
-      "coalesce": "给出不为无效的第一个值:缺失值的默认值。",
-      "bucket": "将值按大小写排序为命名区域。",
-      "case_won": "将一个条件变为1或0,所以可以归纳.",
-      "is_null": "显示除当前值之外的缺失值 。",
-      "running_total": "按顺序在行后添加一列,为每个分区重新启动。",
-      "rank": "数字行按其分区内的值:1是最高的.",
-      "lag": "从分区中的上一行读取值。",
-      "share_of_partition": "以百分比表示每一行在分区总数中的份额。"
-    },
-    "security": {
-      "title": "安全上游视觉器",
-      "card": "选择谁在登录 并看行级安全决定, 逐行, 他们可以看到什么。",
-      "seoTitle": "CRM Analytics 安保上游,可视化:逐行安保",
-      "seoDesc": "看怎么样 CRM Analytics 安全前提作品:$User. Id被填入,每行对照所有者和经理等级进行检查,只有匹配的行到达仪表板.",
-      "about": "关于安全前提",
-      "whoLooks": "谁在登录",
-      "predicate": "数据集的安全前提",
-      "reportsTo": "报告 {name}",
-      "topBoss": "无管理器",
-      "noPredicate": "无上游: 每个人都看到每一行",
-      "preds": {
-        "own": "只有我的记录",
-        "team": "我的唱片和我的团队",
-        "none": "没有安保"
-      },
-      "atQuery": "当仪表盘查询数据集时",
-      "step0": "{name} 打开仪表盘 在读任何行之前,$User。 在上游的ID成为他们的用户代号.",
-      "row": "线条",
-      "rows": "行数",
-      "sees": "什麽? {name} 看见",
-      "pipeline": "管道合计",
-      "why": {
-        "none": "可见:数据集没有上游。",
-        "own": "可见:他们拥有它。",
-        "team": "可见 : {owner} 因此,他们是排长Chan。",
-        "teamOff": "隐藏 : {owner} 报告给他们,但这个前提 只检查所有者。",
-        "no": "隐藏 : {owner} 他们并不在此列,"
-      },
-      "notes": {
-        "what": {
-          "title": "安全前提是什么?",
-          "body": "存储在数据集中的过滤器 。 CRM Analytics 在任何仪表盘过滤器之前,将它添加到所有用户的数据集中。 失败的一排永远无法到达仪表板"
-        },
-        "user": {
-          "title": "用户字段",
-          "body": "用户。 Id, $User. (美国英语). UserRoleId 和其他 $User 字段在查询运行时被登录的用户值所取代,所以一个上游给每个人自己的行."
-        },
-        "flatten": {
-          "title": "等级需要平整",
-          "body": "要让管理者看到他们的团队,一个食谱或数据流将角色或管理者等级平整为一个多值字段(这里是ManagerChain). 上游检查用户是否在其中的任何地方。"
-        },
-        "sharing": {
-          "title": "优先还是分享遗产?",
-          "body": "分享遗产副本 Salesforce 共享支持对象。 上游是其他一切, 或者当你想要一个更简单的规则。"
-        }
-      }
-    }
-  },
-  "meter": {
-    "eyebrow": "页次 {used} 页:1 {allowance}",
-    "wallTitleAnon": "你读过你的 {n} 免费页面",
-    "wallBodyAnon": "创建一个免费的账户来继续阅读——每个免费的课,视觉师和你的进步,不需要卡片.",
-    "signUp": "创建自由账户",
-    "signIn": "我已经有帐户了",
-    "low": "{n} 左侧的自由页面——自由账户删除限制",
-    "left": "{n} 页:1 {allowance} 左侧自由页面"
-  },
-  "sponsor": {
-    "label": "发起人",
-    "eyebrow": "发起人",
-    "title": "赞助学院",
-    "lead": "每一页上都有一条横幅 被人们看到 Salesforce CRM Analytics自己设计 并观看点击。",
-    "seoTitle": "发起人 CRM Analytics 学院",
-    "seoDesc": "把你的产品放在前面 Salesforce CRM Analytics 构建者:您自己设计的全站式横幅,有视图,点击和CTR跟踪.",
-    "previewEyebrow": "每页的运行内容",
-    "perk1": "每页,每个读者",
-    "perk2": "您的标志、 文字、 颜色和链接",
-    "perk3": "视图、点击和逐日及逐页 CTR",
-    "perk4": "1次付款——不订阅",
-    "days": "{n} 天数",
-    "oneTime": "一次性",
-    "company": "企业",
-    "send": "请求赞助",
-    "how": "我们用一张纸条回信 同时你可以设计你的旗帜。",
-    "sentTitle": "谢谢,你的请求已经受理了",
-    "sentBody": "您将会通过电子邮件收到一张Frede发票。 现在设计你的旗子,它一付钱就生效",
-    "designNow": "设计我的旗帜",
-    "fromPrice": "从 {price}"
   },
   "studio": {
     "title": "主办工作室",
@@ -2166,45 +1471,26 @@
     "missing": "要出版,请加上: {fields}"
   },
   "account": {
-    "title": "计划和账单",
-    "lead": "你的计划,你的团队 和你的付款,在一个地方。",
-    "yourPlan": "你的计划",
-    "plan": {
-      "free": "免费",
-      "proMonthly": "专业,每月",
-      "proYearly": "赞成,每年",
-      "teamSeat": "团队席位在 {team}",
-      "teamAdmin": "{team}",
-      "granted": "赞成:"
-    },
-    "planNote": {
-      "free": "每个免费的课程和工具,都有广告。",
-      "proMonthly": "每课,无广告.",
-      "proYearly": "每课,无广告.",
-      "teamSeat": "你们的队伍为你们的座位付费. 每课,无广告.",
-      "teamAdmin": "你管理这支队伍 并支付它的座位。",
-      "granted": "Pro是学院给你的"
-    },
-    "manage": "贺卡、发票和注销",
-    "notConfigured": "正在建立支付机制。 等他们准备好就开价了",
-    "upgrade": "升级",
-    "forMe": "对我来说",
-    "forTeam": "为了我的团队",
-    "haveCode": "有你们队的密码吗?",
-    "seats": "席位",
-    "seatsNote": "{used} 正在使用中, {invited} 邀请 {free} 免费",
-    "changeSeats": "增加或取消席位",
-    "invite": "邀请人",
-    "invitePh": "以逗号或新行分隔的电子邮件",
-    "sendInvites": "发送邀请",
-    "invited": "请客 他们签了那封邮件就坐好了",
-    "copyLink": "复制加入链接",
-    "allMembers": "成员和领域",
-    "giveAccess": "让你的团队进入",
-    "giveAccessLead": "三种方式,使用其中的任何一种:通过电子邮件邀请人,让所有与你公司电子邮件的人加入,或者共享加入链接.",
-    "domains": "公司电子邮件域",
-    "saveDomains": "保存",
-    "domainsHint": "任何使用这些电子邮件域名签名的人自动获得一个免费席位。",
-    "domainsSaved": "获救. 拥有这些电子邮件域的人现在自动加入,"
+    "title": "您的访问",
+    "current": "你可以打开",
+    "youtubeVerified": "已验证的订阅者% 1 {date}",
+    "boughtOn": "买的 {date}永远是你的",
+    "comparePlans": "比较计划"
+  },
+  "youtube": {
+    "tag": "订阅者",
+    "subscribe": "订阅 & 解锁",
+    "verify": "我已经订了",
+    "signInFirst": "签名打开",
+    "unlocked": "解锁——感谢签名",
+    "lockedEyebrow": "对YouTube用户而言",
+    "lockedTitle": "在YouTube上订阅以继续阅读",
+    "lockedBody": "你已读到“......{title}” 频道的订阅者可以免费获取其余内容:在这里订阅或确认您已经使用您的Google账户。",
+    "result": {
+      "verified": "已验.",
+      "not-subscribed": "Google的账号还没有订阅频道 使用“订阅” & 解锁”或选择您订阅的账户。",
+      "linked-elsewhere": "那个YouTube的账户 已经解锁了另一个Academy的账户",
+      "error": "Google没有完成检查. 请再试一次"
+    }
   }
 }

@@ -27,8 +27,10 @@ const run = (cmd, args) => {
 
 // Approved community interview questions become English source files first,
 // so the translation below covers them (needs DATABASE_URL; never in CI).
+// A database that cannot be reached only skips the pull; it never fails the build.
 if (!process.env.CI && existsSync(path.join(ROOT, '.env'))) {
-  run('node', ['--env-file=.env', 'scripts/pull-interview.mjs'])
+  const r = spawnSync('node', ['--env-file=.env', 'scripts/pull-interview.mjs'], { cwd: ROOT, stdio: 'inherit' })
+  if (r.status !== 0) console.warn('[prebuild] could not pull community interview questions (database unreachable?) — building with what is committed')
 }
 
 if (process.env.CI || process.env.SKIP_TRANSLATE) {

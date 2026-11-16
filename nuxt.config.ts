@@ -43,7 +43,7 @@ const DEFAULT_LOCALE = 'en'
  * sections silently absent from the build, with no error anywhere, because
  * their slugs happen to start with the same characters as a private route.
  */
-const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/team', '/sponsor/studio', '/api']
+const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api']
 
 /** Pages that were removed, and where their visitors now go. */
 const RETIRED: Record<string, string> = {
@@ -66,7 +66,17 @@ const RETIRED: Record<string, string> = {
   '/showcase/**': '/curriculum',
   '/instructors': '/about',
   '/roadmap': '/curriculum',
-  '/changelog': '/about'
+  '/changelog': '/about',
+  // 2026-11-16: the platform simplified — visualisers, the course pitch page,
+  // Teams and sponsors retired; the curriculum restarts from scratch.
+  '/visualiser': '/curriculum',
+  '/visualiser/**': '/curriculum',
+  '/course': '/curriculum',
+  '/introduction': '/curriculum',
+  '/introduction/**': '/curriculum',
+  '/team': '/account',
+  '/sponsor': '/pro',
+  '/sponsor/**': '/pro'
 }
 
 const redirectRules = Object.fromEntries(Object.entries(RETIRED).flatMap(([from, to]) => [

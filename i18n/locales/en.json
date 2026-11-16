@@ -26,74 +26,12 @@
     "interview": "Interviews",
     "companies": "Companies",
     "pro": "Pricing",
-    "visualiser": "Visualisers",
-    "team": "My organisation",
-    "billing": "Plan and billing",
-    "course": "The course",
-    "learn": "Learn",
-    "menu": {
-      "learn": {
-        "start": {
-          "title": "Start here",
-          "body": "Every section and lesson, in order."
-        },
-        "course": {
-          "title": "The course",
-          "body": "What you will learn, and how."
-        },
-        "exams": {
-          "title": "Practice exams",
-          "body": "Timed papers like the certification."
-        },
-        "interview": {
-          "title": "Interview questions",
-          "body": "Real questions with model answers."
-        },
-        "resources": {
-          "title": "Resources",
-          "body": "The best docs, blogs and tools."
-        },
-        "datasets": {
-          "title": "Datasets",
-          "body": "The course data, ready to load."
-        },
-        "cta": {
-          "title": "Start with lesson 1",
-          "body": "Free, about ten minutes, in your language.",
-          "button": "Start learning"
-        }
-      },
-      "tools": {
-        "saql": {
-          "title": "SAQL",
-          "body": "Watch a query run, line by line."
-        },
-        "recipe": {
-          "title": "Recipes",
-          "body": "Data Prep nodes, in execution order."
-        },
-        "joins": {
-          "title": "Joins",
-          "body": "Lookup, left, right, inner, outer."
-        },
-        "functions": {
-          "title": "Functions",
-          "body": "toDate, year, rank and more, row by row."
-        },
-        "bindings": {
-          "title": "Bindings",
-          "body": "How one widget filters another."
-        },
-        "security": {
-          "title": "Security",
-          "body": "Who sees which rows, and why."
-        },
-        "cta": {
-          "title": "See CRM Analytics work",
-          "body": "Interactive, step by step, no org needed.",
-          "button": "All visualisers"
-        }
-      }
+    "billing": "Access",
+    "main": {
+      "course": "Course",
+      "exam": "Practice exam",
+      "interview": "Interview Q&A",
+      "pricing": "Pricing"
     }
   },
   "home": {
@@ -267,150 +205,18 @@
     "resourcesDesc": "A curated list of the best Salesforce CRM Analytics resources — official docs, Trailhead, SAQL references, community, and tools."
   },
   "course": {
-    "seo": {
-      "title": "Learn Salesforce CRM Analytics: the free course",
-      "description": "A free, hands-on course in Salesforce CRM Analytics: data prep, SAQL, dashboards, bindings, Einstein Discovery and deployment, built in your own org."
-    },
-    "hero": {
-      "eyebrow": "The CRM Analytics course",
-      "title": "Build real CRM Analytics dashboards, from zero to job-ready.",
-      "lead": "Short video lessons, hands-on builds in your own free org, a quiz after every lesson and practice exams at the end. Start free, in your language.",
-      "note": "No card needed. Free lessons stay free."
-    },
-    "stats": {
-      "sections": "sections",
-      "lessons": "lessons",
-      "languages": "languages",
-      "cost": "to start"
-    },
-    "cta": {
-      "start": "Start the course free",
-      "continue": "Continue learning",
-      "curriculum": "Start here"
-    },
-    "outcomes": {
-      "eyebrow": "What you will be able to do",
-      "title": "Six skills employers ask for in CRM Analytics roles",
-      "prep": {
-        "title": "Prepare data with recipes",
-        "body": "Join, filter, transform and aggregate Salesforce and external data into clean datasets."
-      },
-      "saql": {
-        "title": "Write SAQL",
-        "body": "Load, filter, group, cogroup and project, and know what each line does to the stream."
-      },
-      "dash": {
-        "title": "Design dashboards people use",
-        "body": "Charts, tables, filters and layouts that answer the questions sales and service teams actually ask."
-      },
-      "bind": {
-        "title": "Make dashboards interactive",
-        "body": "Bindings and faceting that let one choice drive the whole dashboard."
-      },
-      "discovery": {
-        "title": "Predict with Einstein Discovery",
-        "body": "Build a model, read its stories and put predictions where people work."
-      },
-      "deploy": {
-        "title": "Secure and ship it",
-        "body": "Row-level security, sharing inheritance and moving work between orgs."
-      },
-      "ai": {
-        "title": "Use AI with CRM Analytics",
-        "body": "Predict with Einstein, and use AI assistants to write SAQL, formulas and dashboard summaries you can check."
-      }
-    },
-    "how": {
-      "eyebrow": "How it works",
-      "title": "Four steps, every lesson",
-      "watch": {
-        "title": "Watch",
-        "body": "A short video or article explains one idea."
-      },
-      "build": {
-        "title": "Build",
-        "body": "You build it yourself in a free CRM Analytics org, on the course datasets."
-      },
-      "check": {
-        "title": "Check",
-        "body": "A quiz after the lesson tells you what stuck."
-      },
-      "prove": {
-        "title": "Prove",
-        "body": "Timed practice exams get you ready for the certification."
-      }
-    },
-    "path": {
-      "eyebrow": "The path",
-      "title": "From your first dataset to deployment",
-      "lead": "{open} of {total} sections are open now; the rest arrive section by section.",
-      "soon": "Soon",
-      "lessons": "{n} lessons"
-    },
-    "tools": {
-      "eyebrow": "Included",
-      "title": "Tools that make it click",
-      "open": "Open",
-      "visualiser": {
-        "title": "Visualisers",
-        "body": "Watch SAQL, recipes and dataflows run, row by row."
-      },
-      "exams": {
-        "title": "Practice exams",
-        "body": "Timed papers like the real certification."
-      },
-      "interview": {
-        "title": "Interview questions",
-        "body": "Real questions with model answers, by topic."
-      },
-      "datasets": {
-        "title": "Course datasets",
-        "body": "Twenty-one CSVs to load into your org in one command."
-      }
-    },
-    "who": {
-      "eyebrow": "Who it is for",
-      "title": "Made for people who work with Salesforce data",
-      "admin": {
-        "title": "Salesforce admins",
-        "body": "Add analytics to what you already run, and become the person who answers the data questions."
-      },
-      "analyst": {
-        "title": "Analysts",
-        "body": "Move from spreadsheets and reports to datasets, SAQL and dashboards people trust."
-      },
-      "consultant": {
-        "title": "Consultants",
-        "body": "Deliver CRM Analytics projects with patterns that hold up in real orgs."
-      },
-      "career": {
-        "title": "Career changers",
-        "body": "A free, structured path to a specialist Salesforce skill, with interview prep."
-      }
-    },
-    "price": {
-      "eyebrow": "Pricing",
-      "title": "Start free. Upgrade when it is worth it.",
-      "free": {
-        "name": "Free",
-        "body": "Every free lesson, quiz and tool, in every language, with ads.",
-        "cta": "Start free"
-      },
-      "pro": {
-        "name": "Pro",
-        "body": "Every lesson including Pro ones, and no ads. Monthly or yearly.",
-        "cta": "Get Pro"
-      },
-      "team": {
-        "name": "Teams",
-        "body": "Pro for your whole team. You buy seats and hand them out by email or code.",
-        "cta": "Buy seats"
-      }
-    },
-    "final": {
-      "title": "Your first dashboard is one lesson away.",
-      "lead": "Create a free account and start with the introduction. It takes a minute."
-    }
+    "collapseContents": "Collapse course contents",
+    "comingSoon": "Coming soon",
+    "completed": "Completed",
+    "contents": "Course contents",
+    "contentsPct": "Contents · {pct}%",
+    "courseProgress": "Course progress",
+    "markComplete": "Mark as complete",
+    "nextLesson": "Next: {title}",
+    "sectionMeta": "{lessons} lessons · {minutes}m",
+    "showContents": "Show course contents",
+    "signIn": "Sign in",
+    "signInToTrack": "Sign in to track your progress."
   },
   "dashboard": {
     "kicker": "Dashboard",
@@ -509,12 +315,6 @@
     "pointsRule": "10 points per lesson, 2 per quiz point, 25 per approved submission (50 for a dashboard).",
     "recentlyCompleted": "Recently completed",
     "nothingYet": "You have not completed a lesson yet.",
-    "board": {
-      "global": "Global",
-      "region": "My region",
-      "country": "My country",
-      "noCountry": "Read a few lessons and your country and region boards appear here."
-    },
     "practice": "Practice tools"
   },
   "auth": {
@@ -1093,43 +893,19 @@
   "curriculumPage": {
     "seo": {
       "title": "Curriculum",
-      "description": "Every section and lesson of the CRM Analytics Academy course, in order: orientation, the product itself, then seventeen go-to-market dashboard builds."
+      "description": "The CRM Analytics Academy course: every published section and lesson, in order, as each one is recorded."
     },
-    "schema": {
-      "level": "Beginner to advanced",
-      "teaches": "Salesforce CRM Analytics: data preparation, datasets, SAQL, dashboards, bindings and Einstein Discovery"
+    "hero": {
+      "title": "Learn CRM Analytics.",
+      "lead": "Short video lessons on real go-to-market data. New lessons arrive on YouTube first.",
+      "youtube": "Subscribe on YouTube",
+      "pricing": "See pricing"
     },
-    "sheet": "Sheet 01 / {sections} sections / {lessons} lessons / {hours}h",
-    "title": "Start here",
-    "complete": "{done} / {total} complete",
-    "start": "Start at the beginning",
-    "datasets": "Get the datasets",
-    "sectionMeta": "{lessons} lessons · {minutes} min",
-    "phases": {
-      "p1": "Phase 1 — Get oriented",
-      "p2": "Phase 2 — Data foundations",
-      "p3": "Phase 3 — Explore and build",
-      "p4": "Phase 4 — Ship and scale",
-      "p5": "Phase 5 — Go-to-market builds"
+    "empty": {
+      "title": "The first lessons are being recorded.",
+      "body": "The course is starting over, one lesson at a time. Subscribe on YouTube and they open here for you the day they are published."
     },
-    "tags": {
-      "quiz": "quiz",
-      "soon": "soon"
-    },
-    "legend": {
-      "video": "Video walkthrough",
-      "article": "Article",
-      "quiz": "Ends with a graded quiz"
-    },
-    "side": {
-      "progress": "Your progress",
-      "dashboard": "Open your dashboard",
-      "shareText": "A free, open-source Salesforce CRM Analytics course — the whole curriculum on one page."
-    },
-    "waiting": "{n} learners waiting",
-    "notifyMe": "Notify me when it opens",
-    "notifying": "You're on the list",
-    "toolsTitle": "See it run: practice tools"
+    "section": "Section {n}"
   },
   "lesson": {
     "authors": {
@@ -1529,38 +1305,23 @@
     "proTitle": "Unlock the Pro lessons",
     "proBody": "Full walkthroughs, quizzes and exam reviews — and help when you are stuck.",
     "proActive": "You are a Pro member",
-    "proActiveBody": "Every Pro lesson is open to you. Thank you for supporting the Academy.",
-    "proPlan": "{plan}",
-    "teamSeat": "Pro through {org}",
-    "freePlan": "Free plan",
-    "renewsOn": "Renews on {date}",
-    "endsOn": "Ends on {date}",
-    "upgradeHint": "Pro unlocks every paid lesson from {price} a month.",
-    "manageBilling": "Manage billing",
-    "manageTeam": "Manage team"
+    "proActiveBody": "Every Pro lesson is open to you. Thank you for supporting the Academy."
   },
   "pro": {
-    "eyebrow": "Pro lesson",
-    "tag": "Pro",
-    "lockedTitle": "This lesson is part of Pro",
-    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — is in Pro.",
-    "perkLessons": "Every Pro lesson, as each section is published",
-    "perkExams": "Full answer review on every practice exam",
-    "perkNoPromos": "No ads anywhere",
-    "perkCommunity": "Downloadable dashboards and recipes",
-    "signUpFirst": "Create your free account",
-    "getPro": "Get Pro",
-    "signUpHint": "Start with a free account — every free lesson, no card needed.",
+    "eyebrow": "All Access lesson",
+    "tag": "All Access",
+    "lockedTitle": "This lesson is part of All Access",
+    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — comes with All Access.",
+    "getPro": "Get All Access · {price}",
     "freeTag": "Free",
     "freeLesson": "Free lesson"
   },
   "store": {
     "eyebrow": "Pricing",
-    "seoTitle": "CRM Analytics Academy pricing: Free, Pro and Teams",
-    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every paid lesson and no ads — $15 a month or $150 a year. Teams pay $10 per seat per month.",
-    "title": "Learn free. Go Pro when you are ready.",
-    "lead": "Every free lesson stays free. Pro unlocks the whole platform for one price; teams pay per seat.",
-    "popular": "Most popular",
+    "seoTitle": "CRM Analytics Academy pricing: Free, YouTube subscribers and All Access",
+    "seoDesc": "Learn Salesforce CRM Analytics free, unlock subscriber lessons by subscribing on YouTube, or get All Access to the whole platform with one $99 payment.",
+    "title": "Simple pricing.",
+    "lead": "Free to start. Free for subscribers. One payment for everything.",
     "sentTitle": "Thanks — your request is in.",
     "sentBody": "Swarnil will reply by email within two working days with the next steps.",
     "f": {
@@ -1573,36 +1334,7 @@
       "phone": "Phone",
       "message": "Anything we should know?"
     },
-    "send": "Send request",
-    "noCharge": "There is nothing to pay — the Academy runs on points. You will get a reply by email within two working days."
-  },
-  "products": {
-    "free": {
-      "name": "Free",
-      "tagline": "Start learning today — no card needed.",
-      "f1": "Every free lesson, quiz and walkthrough",
-      "f2": "SAQL, recipe and dataflow visualisers",
-      "f3": "Five practice exams and 150 interview answers",
-      "f4": "Progress, streaks and the leaderboard"
-    },
-    "pro": {
-      "name": "Pro",
-      "tagline": "The whole platform — every paid lesson, no ads.",
-      "f1": "Every Pro lesson, as each section is published",
-      "f2": "Full answer review on every practice exam",
-      "f3": "Downloadable dashboards, recipes and datasets",
-      "f4": "No ads anywhere",
-      "f5": "Cancel any time from your dashboard"
-    },
-    "team": {
-      "name": "Teams",
-      "tagline": "Pro for your team — pay per seat.",
-      "f1": "Pro for every seat",
-      "f2": "Assign seats by email, or let your company domain join",
-      "f3": "Add or remove seats any time — billing follows",
-      "f4": "See who is learning and how far",
-      "f5": "One admin, one invoice"
-    }
+    "send": "Send request"
   },
   "human": {
     "working": "Checking you are human…",
@@ -1611,579 +1343,52 @@
     "wait": "One moment — still checking you are human."
   },
   "plans": {
-    "monthly": "Monthly",
-    "yearly": "Yearly · save {n}%",
-    "forever": "forever",
-    "perMonth": "/ month",
-    "perSeat": "/ seat / month",
-    "perMonthShort": "/mo",
-    "billedYearly": "Billed {price} once a year",
     "startLearning": "Start learning",
-    "getPro": "Get Pro",
-    "youArePro": "You have Pro",
-    "teamName": "Team name",
-    "seatsN": "{n} seats",
-    "fewer": "Fewer seats",
-    "more": "More seats",
-    "buyTeam": "Buy seats",
     "stripeNote": "Payments are handled by Stripe. Cancel or change seats any time.",
     "cancelled": "Checkout was cancelled — nothing was charged.",
-    "proMonthly": "Pro monthly",
-    "proYearly": "Pro yearly",
-    "teamSeat": "Team seat",
     "requestTitle": "Talk to us",
     "requestLead": "Help setting up CRM Analytics, consulting, mentoring, or a large organisation — one line is enough.",
     "messagePlaceholder": "What do you need? (optional)",
     "interest": {
+      "seats": "Training a team",
       "salesforce-setup": "Set-up help",
-      "seats": "Large organisation",
       "consulting": "Consulting",
       "mentoring": "Mentoring"
     },
-    "kind": {
-      "company": "Company",
-      "team": "Team",
-      "university": "University"
+    "best": "Everything",
+    "current": "You have this",
+    "footnote": "One payment, no subscription, no renewals. Training a whole team?",
+    "free": {
+      "name": "Free",
+      "tagline": "Start learning today, no card needed.",
+      "unit": "forever",
+      "cta": "Open to everyone",
+      "f1": "Every free lesson",
+      "f2": "The practice exam",
+      "f3": "Interview questions and answers",
+      "f4": "Progress, streaks and the leaderboard with a free account"
     },
-    "pointsEyebrow": "Points",
-    "pointsTitle": "Points are for the leaderboard",
-    "earnRow": {
-      "welcome": "when you create your account",
-      "lesson": "for every lesson you complete",
-      "quiz": "for every correct quiz answer",
-      "contribution": "for every approved contribution"
+    "youtube": {
+      "name": "YouTube subscriber",
+      "tagline": "Subscribe to the channel and unlock the subscriber lessons.",
+      "unit": "free with a subscription",
+      "f1": "Everything in Free",
+      "f2": "Every subscriber lesson",
+      "f3": "New videos the day they are published",
+      "f4": "Verified with your Google account in one click"
+    },
+    "all-access": {
+      "name": "All Access",
+      "tagline": "The whole platform, for good, with one payment.",
+      "unit": "once",
+      "cta": "Get All Access · {price}",
+      "f1": "Every lesson, subscriber and premium",
+      "f2": "Every dataset: marketing, web, leads, opportunities, contracts, CPQ",
+      "f3": "Full answer review on the practice exam",
+      "f4": "Downloadable dashboards and recipes",
+      "f5": "No ads anywhere",
+      "f6": "Every lesson added later, included"
     }
-  },
-  "team": {
-    "title": "My team",
-    "lead": "Pro for every seat. Join with the code your admin gave you, or sign in with the email your admin added.",
-    "code": "Join code",
-    "codeHint": "8 letters and digits",
-    "join": "Take my seat",
-    "noCode": "No code yet?",
-    "request": "Ask for seats for your organisation",
-    "seats": "{used} of {seats} seats used",
-    "youArePro": "Your seat includes Pro.",
-    "until": "Seats run until {date}.",
-    "adminTitle": "You manage this organisation",
-    "share": "Share this code or link with the people who should get a seat. Each person who joins uses one seat.",
-    "copyLink": "Copy join link",
-    "member": "Member",
-    "lessons": "Lessons",
-    "points": "Points",
-    "free": "Free this seat",
-    "domains": "Anyone with a verified {domains} email joins automatically.",
-    "sessions": "Sessions",
-    "paid": "Payment received — your team is ready. Assign seats below.",
-    "activating": "Payment received — setting up your team. This takes a few seconds.",
-    "seatsTitle": "Seats",
-    "seatsUsed": "{used} of {seats} seats assigned",
-    "saveSeats": "Update seats",
-    "billing": "Billing and invoices",
-    "assignTitle": "Give someone a seat",
-    "emailsPlaceholder": "Work emails, separated by commas",
-    "assign": "Assign seats",
-    "domainsTitle": "Your company domain",
-    "saveDomains": "Save",
-    "domainsHint": "Anyone who signs in with a verified email at this domain takes a free seat automatically."
-  },
-  "vis": {
-    "eyebrow": "Visualisers",
-    "title": "See how CRM Analytics runs your data",
-    "lead": "Three live models — a SAQL query, a Data Prep recipe and a dataflow — that run step by step on the same small dataset, so you can watch every row move.",
-    "seoTitle": "SAQL, recipe and dataflow visualisers for CRM Analytics",
-    "seoDesc": "Interactive, step-by-step visualisers for Salesforce CRM Analytics: SAQL execution, recipe joins and functions, and dataflow order of execution. Free, in your browser.",
-    "open": "Open",
-    "dataEyebrow": "The sample data",
-    "dataTitle": "Small on purpose",
-    "dataLead": "Every visualiser runs on these rows. They are chosen to show the edge cases: an account with no opportunities, an opportunity whose account does not exist, an account with several deals, a missing amount and a chain of managers.",
-    "noRows": "No rows.",
-    "first": "First step",
-    "prev": "Previous step",
-    "next": "Next step",
-    "last": "Last step",
-    "play": "Play",
-    "pause": "Pause",
-    "scrub": "Step",
-    "stepOf": "Step {n} of {total}",
-    "lineOf": "Line {n}",
-    "rowsIn": "{n} in",
-    "rowsOut": "{n} rows",
-    "groupsOut": "{n} groups",
-    "keysOut": "{n} keys",
-    "showAfter": "Show the result",
-    "showBefore": "Show what was dropped",
-    "kept": "kept",
-    "dropped": "dropped",
-    "value": "Value",
-    "moveUp": "Move up",
-    "moveDown": "Move down",
-    "remove": "Remove",
-    "toCourse": "Back to the course",
-    "legend": {
-      "matched": "matched",
-      "unmatched": "no match",
-      "fanout": "matched more than once",
-      "multi": "several matches"
-    },
-    "saql": {
-      "title": "SAQL visualiser",
-      "card": "Build a query from load, filter, group, cogroup, foreach, order and limit, then watch the stream after every line.",
-      "lead": "Build a query, or start from an example, and step through it line by line. Every statement shows the stream it received and the stream it handed on.",
-      "seoTitle": "SAQL visualiser: step through a CRM Analytics query",
-      "seoDesc": "Watch SAQL execute line by line: load, filter, group, cogroup with inner, left, right and full joins, foreach, order and limit, on real rows.",
-      "query": "The query",
-      "groupAll": "group by all",
-      "addField": "Add a field",
-      "presets": {
-        "pipelineByStage": "Pipeline by stage",
-        "filterThenGroup": "Filter, then group",
-        "having": "Filter after foreach",
-        "cogroupAccounts": "Cogroup with accounts",
-        "cogroupLeft": "Full outer cogroup",
-        "topN": "Top 3 deals",
-        "mistake": "A common mistake",
-        "fullPipeline": "Every statement"
-      },
-      "explain": {
-        "load": "Loads the dataset {name}: {n} rows, {cols} fields. Nothing is filtered or grouped yet — every later line works on this stream.",
-        "filter": "Keeps the rows where {field} passes the test: {kept} kept, {dropped} dropped. Filtering before a group means fewer rows to group, which is why it usually comes first.",
-        "group": "Groups the stream by {by}: {n} rows fall into {groups} groups. Nothing is added up yet — a grouped stream holds the rows until foreach says what to compute.",
-        "groupAll": "Puts all {n} rows into a single group, so foreach can compute totals across everything.",
-        "cogroup_inner": "Cogroups on {by} = {withBy}. {keys} keys appear on either side; an inner cogroup keeps only the {kept} found on both sides and drops {dropped}.",
-        "cogroup_left": "Left cogroup on {by} = {withBy}: every key from the left side is kept, with or without a match — {kept} of {keys} keys, {dropped} dropped.",
-        "cogroup_right": "Right cogroup on {by} = {withBy}: every key from the right side is kept — {kept} of {keys} keys, {dropped} dropped.",
-        "cogroup_full": "Full outer cogroup on {by} = {withBy}: every key from either side is kept, matched or not — all {kept} keys.",
-        "foreach": "Projects each row into {cols} fields, keeping {n} rows.",
-        "foreachCollapse": "Computes {cols} fields for each group, so every group becomes one row: {n} rows out. This is the line where totals, counts and averages appear.",
-        "order": "Sorts the stream by {field}, {dir}. The rows are the same — only their order changes.",
-        "limit": "Keeps the first {n} rows and drops the rest. Without an order before it, which rows survive is not defined.",
-        "noDataset": "There is no dataset called {name}.",
-        "filterGrouped": "SAQL cannot filter a grouped stream. Filter before the group, or run foreach first and filter its result — that is how a HAVING is written in SAQL.",
-        "groupTwice": "This stream is already grouped. Run foreach first, then group its result.",
-        "cogroupGrouped": "Cogroup works on ungrouped streams. Move it before the group.",
-        "foreachEmpty": "A foreach needs at least one field.",
-        "foreachAggUngrouped": "{field} uses an aggregate, but the stream is not grouped. Add a group before this foreach, or group by all.",
-        "foreachNotKey": "{field} is not a group key, so foreach cannot project it as it is — wrap it in an aggregate such as first, sum or count.",
-        "orderGrouped": "Order a grouped stream after foreach, when each group is one row.",
-        "limitGrouped": "Limit a grouped stream after foreach."
-      },
-      "notes": {
-        "order": {
-          "title": "Top to bottom",
-          "body": "Each SAQL line takes the stream from the line before and hands on a new one. The engine may optimise, but what you read is the order the result is defined in."
-        },
-        "group": {
-          "title": "Group, then foreach",
-          "body": "Group only sorts rows into buckets. Foreach turns each bucket into one row, and only then can you filter, order or limit by a total."
-        },
-        "cogroup": {
-          "title": "Cogroup is a join by key",
-          "body": "Both sides are grouped by their key and paired. Inner keeps keys on both sides; left, right and full keep the unmatched keys too, with empty values."
-        }
-      },
-      "shareHint": "The address bar keeps your query: copy it to share exactly this query at this step."
-    },
-    "recipe": {
-      "title": "Recipe visualiser",
-      "card": "A Data Prep recipe as a graph: every join type, formula and date function, window functions, append and aggregate, in execution order.",
-      "lead": "Pick an example, change any node — the join type, the keys, the formulas — and step through the recipe in the order it runs, with each node’s rows.",
-      "seoTitle": "Recipe visualiser: CRM Analytics Data Prep joins, functions and execution order",
-      "seoDesc": "Step through a CRM Analytics recipe: lookup, left, right, inner and outer joins with row counts, date and text formula functions, window functions, append and aggregate.",
-      "graph": "Recipe graph — the number is the execution order",
-      "joinType": "Join type",
-      "leftKey": "Left key",
-      "rightKey": "Right key",
-      "compare": "The same join, every type",
-      "left": "Left input",
-      "output": "Join output",
-      "groupBy": "Group by",
-      "addMeasure": "Add a measure",
-      "addFromCatalogue": "Add more functions from the catalogue below.",
-      "addFn": "Add {fn}",
-      "catalogue": "Function catalogue",
-      "catalogueTitle": "Every formula, run on a real row",
-      "presets": {
-        "pipelineByRegion": "Filter, transform, lookup, aggregate",
-        "joinTypes": "Join types",
-        "windowFns": "Window functions",
-        "dates": "Date functions",
-        "appendHistory": "Append history"
-      },
-      "nodes": {
-        "input": "Input",
-        "filter": "Filter",
-        "transform": "Transform",
-        "join": "Join",
-        "append": "Append",
-        "aggregate": "Aggregate",
-        "output": "Output",
-        "drop": "Remove columns"
-      },
-      "cats": {
-        "date": "Date",
-        "text": "Text",
-        "number": "Number",
-        "logic": "Logic and nulls",
-        "window": "Window (multiple rows)"
-      },
-      "explain": {
-        "input": "Reads {name}: {n} rows. Inputs run first — nothing downstream can start until its inputs have.",
-        "filter": "Keeps rows where {field} passes the test: {kept} kept, {dropped} dropped.",
-        "transform": "Adds {n} calculated columns, one function at a time, in the order listed — a later formula can use an earlier one. The row count never changes in a transform.",
-        "join_lookup": "Lookup on {key}: every left row is kept exactly once and takes the first match. {left} rows in, {out} out — a lookup can never multiply rows. {unmatched} left rows found no match and got empty values.",
-        "join_left": "Left join on {key}: every left row is kept, and a row with several matches is repeated once per match. {left} rows in, {out} out; {unmatched} without a match.",
-        "join_right": "Right join on {key}: every right row is kept; left rows without a match are dropped. {out} rows out; {unmatchedRight} right rows had no left partner.",
-        "join_inner": "Inner join on {key}: only rows with a match on both sides. {left} left rows in, {out} out; {unmatched} left rows dropped.",
-        "join_outer": "Full outer join on {key}: every row from both sides, matched where possible. {out} rows out; {unmatched} left and {unmatchedRight} right rows without a partner.",
-        "append": "Stacks the inputs one under the other: {parts} rows make {n}. Columns are matched by name.",
-        "aggregate": "Groups {n} rows by {by} into {groups} rows and computes the measures. The grain changes here — one row per group.",
-        "output": "Writes {n} rows with {cols} columns to the dataset {name}. The output runs last.",
-        "drop": "Drops {n} columns ({fields}) from every row: the rows stay, they just get narrower, so the next node has less to move."
-      },
-      "notes": {
-        "order": {
-          "title": "Order of execution",
-          "body": "A node runs once every node it reads from has run. Branches that do not depend on each other can run in any order; the result is the same."
-        },
-        "joins": {
-          "title": "Choose the join by the grain",
-          "body": "Lookup keeps the left grain and never adds rows. Left, inner and outer joins repeat a row for every match — check the row count after every join."
-        },
-        "grain": {
-          "title": "Transform before you aggregate",
-          "body": "Window functions and formulas see individual rows. After an aggregate, only the group-level values are left."
-        }
-      },
-      "editNodes": "Edit the recipe",
-      "order": "Execution order"
-    },
-    "dataflow": {
-      "title": "Dataflow visualiser",
-      "card": "A dataflow’s JSON beside its graph: digest, augment, computeExpression, computeRelative, flatten and register, run in dependency waves.",
-      "lead": "Switch nodes on and off and watch the JSON, the graph and the data change together. Step through the order the dataflow runs in.",
-      "seoTitle": "Dataflow visualiser: CRM Analytics dataflow JSON and execution order",
-      "seoDesc": "See how a CRM Analytics dataflow runs: sfdcDigest, filter, augment with LookupSingleValue or LookupMultiValue, computeExpression, computeRelative, flatten, sliceDataset and sfdcRegister with a security predicate.",
-      "graph": "Dataflow graph — W is the wave",
-      "waves": "Dependency waves",
-      "wave": "Wave {n}",
-      "wavesNote": "Nodes in the same wave depend on nothing in that wave, so they can run in parallel. The order of keys in the JSON does not matter.",
-      "leftOpps": "Opportunities left, accounts right",
-      "leftAccounts": "Accounts left, opportunities right",
-      "opts": {
-        "filter": "Filter",
-        "flatten": "Flatten",
-        "computeRelative": "computeRelative",
-        "security": "Security predicate"
-      },
-      "explain": {
-        "sfdcDigest": "Extracts {n} rows of {object} from Salesforce, with the {fields} fields listed. Digests have no sources, so they all run in the first wave.",
-        "edgemart": "Reads the existing dataset {object}: {n} rows.",
-        "filter": "Applies {filter}: {kept} rows kept, {dropped} dropped. In dataflow filter syntax, N means not equal.",
-        "augmentSingle": "Augments on {key}: each of the {left} left rows takes the selected fields from its match. Augment always keeps every left row once; {unmatched} found no match.",
-        "augmentSingleWarn": "Augments on {key}, but {multi} left rows have more than one match. LookupSingleValue then keeps just one of them, and which one is not defined — the number can change between runs.",
-        "augmentMulti": "LookupMultiValue on {key}: when a left row has several matches, their values are kept together in a multi-value field. Still one row per left row; {multi} rows have several matches.",
-        "computeExpression": "Adds {n} fields calculated from each row on its own, with SAQL expressions.",
-        "computeRelative": "Adds fields that look at other rows in the same partition ({partition}, ordered by {order}): the previous deal’s amount and the first close date.",
-        "flatten": "Turns the manager hierarchy into a list of every manager above each user, and a path. Security predicates use it so managers see their team’s rows.",
-        "sliceDataset": "Drops {fields} from the dataset — fields nobody needs, or that must not be exposed.",
-        "append": "Stacks the sources into {n} rows.",
-        "register": "Registers {n} rows as the dataset {alias}. Without a predicate, anyone with access to the app sees every row.",
-        "registerSecure": "Registers {n} rows as {alias} with the security predicate {predicate}: each user sees only rows owned by them or by people who report to them."
-      },
-      "notes": {
-        "order": {
-          "title": "Dependencies, not position",
-          "body": "A node runs when its sources have. That is why digests run together first and register runs last, wherever they sit in the JSON."
-        },
-        "augment": {
-          "title": "Augment never adds rows",
-          "body": "Put the grain you want on the left. Single value picks one match; multi value keeps all of them in one field. Neither repeats the left row."
-        },
-        "recipes": {
-          "title": "Dataflows and recipes",
-          "body": "Recipes are the newer tool and do the same jobs with joins, formulas and a visual editor. Dataflows still run in many orgs — read both."
-        }
-      },
-      "editJson": "Dataflow JSON",
-      "build": "Build the dataflow"
-    },
-    "edit": "Edit",
-    "examples": "Examples",
-    "toggleRail": "Show or hide the side panel",
-    "howToRead": "How to read this",
-    "beatBefore": "what happens",
-    "beatAfter": "result",
-    "flow": {
-      "input": "Input",
-      "lookup": "Lookup side",
-      "output": "Output",
-      "source": "Source",
-      "waiting": "Waiting for rows",
-      "queued": "Queued",
-      "processing": "Rows processed: {n} / {total}",
-      "done": "Done",
-      "droppedRows": "{n} rows dropped",
-      "droppedCols": "{n} columns dropped",
-      "newCols": "{n} new columns",
-      "more": "+ {n} more",
-      "groups": "{n} groups"
-    },
-    "canvas": {
-      "newCol": "new column",
-      "hint": "drag to look around, scroll to zoom",
-      "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out",
-      "recenter": "Follow the step again",
-      "rowByRow": "Row by row",
-      "order": "Order of execution"
-    },
-    "check": {
-      "kept": "kept: it passes {test}",
-      "dropped": "dropped: it needs {test}",
-      "match": "one match: the right row joins on",
-      "fanout": "{n} matches: the row is repeated, once per match",
-      "multi": "several matches: kept as a list",
-      "noMatchKept": "no match: kept, right side empty",
-      "noMatchDropped": "no match: dropped",
-      "partition": "partition",
-      "allRows": "all rows",
-      "group": "goes to the group {key}",
-      "position": "position {n}",
-      "inLimit": "kept: within the first {n}",
-      "pastLimit": "dropped: past the first {n}",
-      "keyKept": "kept: both sides have this key",
-      "keyDropped": "dropped by the {join} cogroup"
-    },
-    "functions": {
-      "title": "Function lab",
-      "card": "Pick any recipe formula function, point it at a column and watch it run row by row. Try your own values, see windows and partitions.",
-      "seoTitle": "CRM Analytics formula functions, row by row: to_date, year, concat, rank and more",
-      "seoDesc": "An interactive lab for CRM Analytics Data Prep formula functions: dates, text, numbers, logic and window functions with partitions, run row by row on real data.",
-      "formula": "The formula, as written in a transform",
-      "column": "Column",
-      "argument": "Argument",
-      "tryValue": "Try your own value",
-      "rowHead": "Row",
-      "all": "Every function",
-      "row": "{name}: reads {field} = {input} and writes {output}.",
-      "windowNote": "A window function reads other rows too. Rows with the same partition value share a colour; the lit rows are the ones the current row can see."
-    },
-    "joins": {
-      "title": "Joins visualiser",
-      "card": "One join, one row at a time: lines to every match, what each join type keeps, fan-out, and the rows nothing matched.",
-      "seoTitle": "CRM Analytics recipe joins, visualised: lookup, left, right, inner and outer",
-      "seoDesc": "Watch a CRM Analytics recipe join run row by row: matching keys, unmatched rows, fan-out and what lookup, left, right, inner and outer joins keep.",
-      "about": "About joins",
-      "flip": "Flip sides",
-      "left": "Left",
-      "right": "Right",
-      "output": "Output",
-      "rowsOut": "{n} rows out",
-      "empty": "Nothing yet: step through the left rows.",
-      "what": {
-        "lookup": "Lookup: every left row once, with its first match or empty.",
-        "left": "Left: every left row, repeated once per match, empty when none.",
-        "right": "Right: every right row, with its matches; left rows with no match are dropped.",
-        "inner": "Inner: only rows that match on both sides.",
-        "outer": "Outer: everything from both sides, matched where it can be."
-      },
-      "fate": {
-        "joined": "{row}: {key} = {value} finds one match, so the row joins.",
-        "fanout": "{row}: {key} = {value} finds {n} matches, so the row appears {n} times.",
-        "lookupFirst": "{row}: {key} = {value} finds {n} matches; lookup takes only the first.",
-        "leftOnly": "{row}: {key} = {value} finds no match; the row is kept with an empty right side.",
-        "dropped": "{row}: {key} = {value} finds no match, so this join drops it."
-      },
-      "rightKept": "{n} {side} rows matched nothing; this join keeps them with an empty left side.",
-      "rightDropped": "{n} {side} rows matched nothing and are left out. {total} rows in the output.",
-      "kind": {
-        "joined": "joined",
-        "fanout": "repeated (fan-out)",
-        "leftOnly": "left only",
-        "rightOnly": "right only"
-      },
-      "useWhen": "Use it when:",
-      "use": {
-        "lookup": "you want to add the Account’s name and region to every Opportunity, without ever duplicating an Opportunity.",
-        "left": "you want every Account with all of its Opportunities, and still see Accounts that have none.",
-        "right": "the right side is what you must keep: every Account, whether or not an Opportunity points at it.",
-        "inner": "you only care about records that exist on both sides, like Opportunities whose Account is known.",
-        "outer": "you are reconciling two systems and need to see what is missing on either side."
-      }
-    },
-    "bindings": {
-      "title": "Bindings visualiser",
-      "card": "Click a chart and follow the selection into another query: column(), cell(), asObject, asString, asEquality, and the SAQL they write.",
-      "seoTitle": "CRM Analytics bindings, visualised: selection and result bindings step by step",
-      "seoDesc": "See how a CRM Analytics dashboard binding works: a selection or result, column() or cell(), asObject, asString or asEquality, and the SAQL it rewrites.",
-      "about": "About bindings",
-      "chart": "Pipeline by stage",
-      "chain": "The binding, resolving",
-      "table": "Deals",
-      "multi": "Multi-select",
-      "clickHint": "Click a bar to select it.",
-      "resultHint": "A result binding reads the whole result: here, the first row.",
-      "kind": {
-        "selection": "Selection binding",
-        "result": "Result binding"
-      },
-      "stage": {
-        "source": "Source",
-        "data": "Get the data",
-        "serialise": "Serialise",
-        "inject": "Inject into the query",
-        "run": "Run the query"
-      },
-      "say": {
-        "source": "The binding starts from stage_1.{kind}: the rows behind {values}.",
-        "data": "column() pulls the StageName values out of those rows (cell() would take one value).",
-        "serialise": ".{ser}() turns the values into text SAQL can read.",
-        "inject": "The {mustache} in q_deals is replaced by that text before the query is sent.",
-        "run": "q_deals runs again with the new filter: {n} rows."
-      },
-      "brokenNote": "asString joins several values into one string that no row equals, so nothing comes back. Use asObject or asEquality for multiple values.",
-      "notes": {
-        "what": {
-          "title": "What a binding is",
-          "body": "A binding is a {mustache} expression inside a query or a widget property. Before the query runs, the dashboard replaces it with text taken from another step."
-        },
-        "selection": {
-          "title": "Selection binding",
-          "body": "Reads what the user selected in another step. It changes every time they click."
-        },
-        "result": {
-          "title": "Result binding",
-          "body": "Reads the result of another step, for example its first row, whether or not anything is selected."
-        },
-        "asObject": {
-          "title": "asObject()",
-          "body": "Writes the values as SAQL literals: a list from column(), one value from cell()."
-        },
-        "asString": {
-          "title": "asString()",
-          "body": "Writes plain text with no quotes. Good for one value inside a string you build yourself; wrong for several values."
-        },
-        "asEquality": {
-          "title": "asEquality(field)",
-          "body": "Writes a whole condition, field == value or field in [values], ready for a filter."
-        },
-        "faceting": {
-          "title": "Bindings or faceting?",
-          "body": "Faceting filters every step on the same dataset with no code. Bindings are for other datasets, or for changing measures, groupings and properties."
-        }
-      }
-    },
-    "fn": {
-      "year": "Takes the year out of a date.",
-      "quarter": "Gives the quarter of the year, 1 to 4.",
-      "month": "Gives the month number, 1 to 12.",
-      "day": "Gives the day of the month.",
-      "day_of_week": "Gives the day of the week, 1 (Sunday) to 7 (Saturday).",
-      "week": "Gives the ISO week of the year.",
-      "date_trunc_month": "Moves a date back to the first day of its month, so dates group by month.",
-      "add_months": "Adds a number of months to a date, for renewals and due dates.",
-      "date_diff_days": "Counts the days between two dates.",
-      "days_until_today": "Counts the days from a date to today: how old a record is.",
-      "last_day": "Gives the last day of the date’s month.",
-      "to_date": "Turns text in a known format into a real date, so date functions and date filters work on it.",
-      "upper": "Turns text into capitals.",
-      "lower": "Turns text into small letters.",
-      "concat": "Joins texts together into one.",
-      "substr": "Takes part of a text, by position and length.",
-      "length": "Counts the characters in a text.",
-      "replace": "Replaces every match of one text with another.",
-      "round": "Rounds a number; a negative position rounds to tens, hundreds or thousands.",
-      "multiply": "Multiplies a number, for tax, currency or margin.",
-      "abs": "Removes the sign of a number.",
-      "coalesce": "Gives the first value that is not null: a default for missing values.",
-      "bucket": "Sorts values into named ranges with case when.",
-      "case_won": "Turns a condition into 1 or 0, so it can be summed.",
-      "is_null": "Tells missing values apart from present ones.",
-      "running_total": "Adds up a column row after row, in order, restarting for every partition.",
-      "rank": "Numbers rows by a value inside their partition: 1 is the highest.",
-      "lag": "Reads the value from the previous row in the partition.",
-      "share_of_partition": "Gives each row’s share of its partition’s total, in percent."
-    },
-    "security": {
-      "title": "Security predicate visualiser",
-      "card": "Pick who is logged in and watch row-level security decide, row by row, what they can see.",
-      "seoTitle": "CRM Analytics security predicates, visualised: row-level security step by step",
-      "seoDesc": "See how a CRM Analytics security predicate works: $User.Id is filled in, every row is checked against the owner and the manager hierarchy, and only matching rows reach the dashboard.",
-      "about": "About security predicates",
-      "whoLooks": "Who is logged in",
-      "predicate": "The dataset’s security predicate",
-      "reportsTo": "reports to {name}",
-      "topBoss": "no manager",
-      "noPredicate": "No predicate: everyone sees every row",
-      "preds": {
-        "own": "Only my records",
-        "team": "My records and my team’s",
-        "none": "No security"
-      },
-      "atQuery": "When the dashboard queries the dataset",
-      "step0": "{name} opens the dashboard. Before any row is read, $User.Id in the predicate becomes their user id.",
-      "row": "Row",
-      "rows": "rows",
-      "sees": "What {name} sees",
-      "pipeline": "Their pipeline total",
-      "why": {
-        "none": "visible: the dataset has no predicate.",
-        "own": "visible: they own it.",
-        "team": "visible: {owner} reports to them, so they are in the row’s ManagerChain.",
-        "teamOff": "hidden: {owner} reports to them, but this predicate only checks the owner.",
-        "no": "hidden: {owner} owns it and they are not in that row’s ManagerChain."
-      },
-      "notes": {
-        "what": {
-          "title": "What a security predicate is",
-          "body": "A filter stored on the dataset. CRM Analytics adds it to every query on that dataset, for every user, before any dashboard filter. A row that fails it never reaches the dashboard."
-        },
-        "user": {
-          "title": "$User fields",
-          "body": "$User.Id, $User.UserRoleId and other $User fields are replaced with the logged-in user’s values when the query runs, so one predicate gives each person their own rows."
-        },
-        "flatten": {
-          "title": "Hierarchies need a flatten",
-          "body": "To let managers see their team, a recipe or dataflow flattens the role or manager hierarchy into a multi-value field (here ManagerChain). The predicate then checks whether the user is anywhere in it."
-        },
-        "sharing": {
-          "title": "Predicate or sharing inheritance?",
-          "body": "Sharing inheritance copies Salesforce sharing for supported objects. A predicate is for everything else, or when you want a simpler rule."
-        }
-      }
-    }
-  },
-  "meter": {
-    "eyebrow": "Page {used} of {allowance}",
-    "wallTitleAnon": "You have read your {n} free pages",
-    "wallBodyAnon": "Create a free account to keep reading — every free lesson, the visualisers and your progress, with no card needed.",
-    "signUp": "Create a free account",
-    "signIn": "I already have an account",
-    "low": "{n} free pages left — a free account removes the limit",
-    "left": "{n} of {allowance} free pages left"
-  },
-  "sponsor": {
-    "label": "Sponsor",
-    "eyebrow": "Sponsor",
-    "title": "Sponsor the Academy",
-    "lead": "One banner on every page, seen by people building on Salesforce CRM Analytics. Design it yourself and watch the clicks.",
-    "seoTitle": "Sponsor CRM Analytics Academy",
-    "seoDesc": "Put your product in front of Salesforce CRM Analytics builders: a sitewide banner you design yourself, with views, clicks and CTR tracked.",
-    "previewEyebrow": "What runs on every page",
-    "perk1": "On every page, for every reader",
-    "perk2": "Your logo, words, colours and link",
-    "perk3": "Views, clicks and CTR by day and page",
-    "perk4": "One payment — no subscription",
-    "days": "{n} days",
-    "oneTime": "one-time",
-    "company": "Company",
-    "send": "Request sponsorship",
-    "how": "We reply with a Stripe invoice. Meanwhile you can design your banner.",
-    "sentTitle": "Thanks — your request is in.",
-    "sentBody": "You will receive a Stripe invoice by email. Design your banner now; it goes live once paid and approved.",
-    "designNow": "Design my banner",
-    "fromPrice": "From {price}"
   },
   "studio": {
     "title": "Sponsor studio",
@@ -2266,45 +1471,26 @@
     "missing": "To publish, add: {fields}"
   },
   "account": {
-    "title": "Plan and billing",
-    "lead": "Your plan, your team and your payments, in one place.",
-    "yourPlan": "Your plan",
-    "plan": {
-      "free": "Free",
-      "proMonthly": "Pro, monthly",
-      "proYearly": "Pro, yearly",
-      "teamSeat": "Team seat in {team}",
-      "teamAdmin": "{team}",
-      "granted": "Pro"
-    },
-    "planNote": {
-      "free": "Every free lesson and tool, with ads.",
-      "proMonthly": "Every lesson, no ads.",
-      "proYearly": "Every lesson, no ads.",
-      "teamSeat": "Your team pays for your seat. Every lesson, no ads.",
-      "teamAdmin": "You run this team and pay for its seats.",
-      "granted": "Pro was given to you by the Academy."
-    },
-    "manage": "Cards, invoices and cancelling",
-    "notConfigured": "Payments are being set up. Buying will open once they are ready.",
-    "upgrade": "Upgrade",
-    "forMe": "For me",
-    "forTeam": "For my team",
-    "haveCode": "Have a join code from your team?",
-    "seats": "Seats",
-    "seatsNote": "{used} in use, {invited} invited, {free} free",
-    "changeSeats": "Add or remove seats",
-    "invite": "Invite people",
-    "invitePh": "Emails, separated by commas or new lines",
-    "sendInvites": "Send invites",
-    "invited": "Invited. They get a seat when they sign in with that email.",
-    "copyLink": "Copy join link",
-    "allMembers": "Members and domains",
-    "giveAccess": "Give your team access",
-    "giveAccessLead": "Three ways, use any of them: invite people by email, let everyone with your company email join, or share the join link.",
-    "domains": "Company email domains",
-    "saveDomains": "Save",
-    "domainsHint": "Anyone who signs in with one of these email domains takes a free seat automatically.",
-    "domainsSaved": "Saved. People with these email domains now join automatically while seats are free."
+    "title": "Your access",
+    "current": "You can open",
+    "youtubeVerified": "Verified subscriber · checked {date}",
+    "boughtOn": "Bought on {date}. Yours for good.",
+    "comparePlans": "Compare plans"
+  },
+  "youtube": {
+    "tag": "Subscribers",
+    "subscribe": "Subscribe & unlock",
+    "verify": "I already subscribe",
+    "signInFirst": "Sign in to unlock",
+    "unlocked": "Unlocked — thanks for subscribing",
+    "lockedEyebrow": "For YouTube subscribers",
+    "lockedTitle": "Subscribe on YouTube to keep reading",
+    "lockedBody": "You have read the opening of “{title}”. Subscribers to the channel get the rest, free: subscribe here or confirm you already do, with your Google account.",
+    "result": {
+      "verified": "Verified.",
+      "not-subscribed": "That Google account does not subscribe to the channel yet. Use “Subscribe & unlock”, or pick the account you subscribe with.",
+      "linked-elsewhere": "That YouTube account already unlocked another Academy account.",
+      "error": "Google did not complete the check. Please try again."
+    }
   }
 }

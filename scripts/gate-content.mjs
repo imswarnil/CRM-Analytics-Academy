@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /**
- * Pro lessons: keeps their bodies out of everything public.
+ * Gated lessons: keeps their bodies out of everything public.
  *
- * A lesson is Pro when its ENGLISH frontmatter says `access: pro`; every
- * translation follows. For each such lesson, in every locale that has it:
+ * A lesson is gated when its ENGLISH frontmatter says `access: youtube`
+ * (YouTube subscribers) or `access: pro` (All Access); every translation
+ * follows. For each such lesson, in every locale that has it:
  *
  *   server/assets/gated/<locale>/<route>.json   the full markdown + the quiz,
  *                                               interview and walkthrough —
@@ -67,7 +68,8 @@ const locales = (await readdir(CONTENT, { withFileTypes: true }))
 const gated = []
 for (const en of await walk(path.join(CONTENT, 'en'))) {
   const rel = path.relative(path.join(CONTENT, 'en'), en)
-  if (split(await readFile(en, 'utf8')).data.access !== 'pro') continue
+  const access = split(await readFile(en, 'utf8')).data.access
+  if (access !== 'pro' && access !== 'youtube') continue
   for (const locale of locales) {
     const file = path.join(CONTENT, locale, rel)
     if (!existsSync(file)) continue
@@ -76,9 +78,9 @@ for (const en of await walk(path.join(CONTENT, 'en'))) {
     const asset = path.join(ASSETS, `${route}.json`)
     await mkdir(path.dirname(asset), { recursive: true })
     const extra = Object.fromEntries(PRIVATE_FIELDS.filter(k => data[k] !== undefined).map(k => [k, data[k]]))
-    await writeFile(asset, JSON.stringify({ markdown: body, data: extra }))
+    await writeFile(asset, JSON.stringify({ access, markdown: body, data: extra }))
 
-    const stub = { ...data, access: 'pro' }
+    const stub = { ...data, access }
     for (const k of PRIVATE_FIELDS) delete stub[k]
     const out = path.join(STUBS, locale, rel)
     await mkdir(path.dirname(out), { recursive: true })
@@ -87,4 +89,4 @@ for (const en of await walk(path.join(CONTENT, 'en'))) {
   }
 }
 await writeFile(LIST, JSON.stringify(gated, null, 2))
-console.log(`[gate] ${gated.length} Pro lesson file(s) gated across ${locales.length} locales`)
+console.log(`[gate] ${gated.length} gated lesson file(s) gated across ${locales.length} locales`)

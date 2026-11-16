@@ -3,8 +3,7 @@ import type { ContentNavigationItem } from '@nuxt/content'
 
 /**
  * The home page, kept to what a first-time visitor needs: what the course
- * is (hero), what is in it (the curriculum, plotted), the project live (reach
- * by region), a free account, the Wall of Fame, who wrote it, and the common questions. Everything is prerendered per locale;
+ * is (hero), what is in it (the curriculum, plotted, once published), a free account, the Wall of Fame, who wrote it, and the common questions. Everything is prerendered per locale;
  * nothing here fetches at runtime.
  */
 const { t, tm, rt, locale, locales } = useI18n()
@@ -161,12 +160,13 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <UButton
-              :to="localePath('/introduction')"
+              :to="SITE.youtube"
+              target="_blank"
               size="xl"
-              icon="i-lucide-play"
-              class="shadow-[0_10px_30px_-10px_rgb(37_99_235/0.6)]"
+              icon="i-simple-icons-youtube"
+              class="rounded-full bg-[#FF0000] text-white hover:bg-[#d90000]"
             >
-              {{ t('home.hero.start') }}
+              {{ t('curriculumPage.hero.youtube') }}
             </UButton>
             <UButton
               :to="localePath('/curriculum')"
@@ -272,9 +272,6 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
         <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--frost)" />{{ t('home.plot.article') }}</span>
       </div>
     </section>
-
-    <!-- PROJECT, LIVE ------------------------------------------------- -->
-    <HomeReachSection />
 
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
       <PromoSlot unit="horizontal" />

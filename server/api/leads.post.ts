@@ -46,14 +46,8 @@ export default defineEventHandler(async (event) => {
   const visitor = /^[a-z0-9]{8,40}$/i.test(String(body.visitor ?? '')) ? String(body.visitor) : null
 
   const sql = useDb()
-  const [stats, first] = await Promise.all([
-    user ? sql`select lessons_done, points from app.user_points where user_id = ${user.id}` : Promise.resolve([]),
-    visitor
-      ? sql`
-          select (array_agg(referrer order by created_at))[1] as source, (array_agg(path order by created_at))[1] as landing, count(*)::int as views
-          from app.page_view where visitor = ${visitor}`
-      : Promise.resolve([])
-  ])
+  const stats = user ? await sql`select lessons_done, points from app.user_points where user_id = ${user.id}` : []
+  const first: Record<string, unknown>[] = []
   const lessonsDone = Number(stats[0]?.lessons_done ?? 0)
   const points = Number(stats[0]?.points ?? 0)
   // The visitor's first recorded source beats the session's: it is how they

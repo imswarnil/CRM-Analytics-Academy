@@ -1,18 +1,18 @@
-/** The signed-in user's billing: their Pro subscription and any team they run or belong to. */
+/** The signed-in user's access: what they hold and how they got it. */
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
   const sql = useDb()
-  const [[sub], [team]] = await Promise.all([
-    sql`select plan, status, current_period_end, cancel_at_period_end from app.subscription where user_id = ${user.id}`,
-    sql`select o.id, o.name, o.seats, o.status, o.billing, o.admin_user_id = ${user.id} as admin from app.org o
-        left join app.org_member m on m.org_id = o.id and m.user_id = ${user.id}
-        where m.user_id is not null or o.admin_user_id = ${user.id} order by (o.status = 'active') desc, o.id desc limit 1`
+  const [[ent], [yt], access] = await Promise.all([
+    sql`select product, granted_at from app.entitlement where user_id = ${user.id} and pro and (expires_at is null or expires_at > now())`,
+    sql`select subscribed, verified_at from app.youtube_link where user_id = ${user.id}`,
+    accessFor(user.id)
   ])
   setResponseHeader(event, 'cache-control', 'private, no-store')
   return {
     configured: stripeConfigured(),
-    pro: await hasPro(user.id),
-    subscription: sub ? { plan: String(sub.plan), status: String(sub.status), periodEnd: sub.current_period_end, cancelAtPeriodEnd: Boolean(sub.cancel_at_period_end) } : null,
-    team: team ? { id: Number(team.id), name: String(team.name), seats: Number(team.seats), status: String(team.status), billing: String(team.billing), admin: Boolean(team.admin) } : null
+    access,
+    pro: access === 'pro',
+    purchase: ent ? { product: String(ent.product), at: ent.granted_at as string } : null,
+    youtube: yt ? { subscribed: Boolean(yt.subscribed), verifiedAt: yt.verified_at as string } : null
   }
 })

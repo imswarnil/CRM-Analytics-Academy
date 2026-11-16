@@ -91,27 +91,6 @@ create table if not exists app.demo_account (
   user_id text primary key
 );
 
--- First-party analytics (see server/api/collect.post.ts). No cookies and no
--- IP addresses: `visitor` is a random id kept in the browser's localStorage,
--- `session` one kept in sessionStorage. Country comes from Cloudflare.
-create table if not exists app.page_view (
-  id         bigint generated always as identity primary key,
-  visitor    text        not null,
-  session    text        not null,
-  user_id    text,
-  path       text        not null,
-  locale     text        not null default 'en',
-  referrer   text,
-  country    text,
-  device     text        not null default 'desktop' check (device in ('desktop', 'mobile', 'tablet')),
-  browser    text,
-  os         text,
-  duration_ms integer    not null default 0 check (duration_ms >= 0),
-  created_at timestamptz not null default now()
-);
-create index if not exists page_view_time_idx on app.page_view (created_at desc);
-create index if not exists page_view_path_idx on app.page_view (path, created_at desc);
-
 -- Clicks and milestones: sign_in_click, sign_up_click, sign_up, sign_in,
 -- lesson_complete, quiz_submit, search_open, outbound.
 create table if not exists app.event (
@@ -261,14 +240,6 @@ create table if not exists app.lead (
 );
 create index if not exists lead_created_idx on app.lead (created_at desc);
 
--- "Notify me" on coming-soon sections — signed-in learners only.
-create table if not exists app.waitlist (
-  user_id    text not null,
-  section    text not null check (section ~ '^[a-z0-9-]{2,60}$'),
-  created_at timestamptz not null default now(),
-  primary key (user_id, section)
-);
-
 -- Spent proof-of-work challenges (server/utils/pow.ts): each solves once.
 create table if not exists app.used_challenge (
   challenge text primary key,
@@ -308,33 +279,8 @@ left join (
   from app.points_ledger group by user_id
 ) l on l.user_id = p.user_id;
 
--- Seats for companies, teams and universities. The owner creates the org in
--- /admin from a lead and sets `seats`; members join with the join code and
--- each member is Pro while the org is active. One org per user.
-create table if not exists app.org (
-  id          bigint generated always as identity primary key,
-  name        text        not null check (length(btrim(name)) between 2 and 120),
-  kind        text        not null default 'company' check (kind in ('company', 'team', 'university')),
-  seats       integer     not null check (seats between 1 and 10000),
-  join_code   text        not null unique check (join_code ~ '^[A-Z0-9]{8}$'),
-  domain      text        check (domain is null or domain ~ '^[a-z0-9.-]+\.[a-z]{2,}$'),
-  lead_id     bigint,
-  note        text,
-  expires_at  timestamptz,
-  created_at  timestamptz not null default now()
-);
-
-create table if not exists app.org_member (
-  org_id    bigint      not null references app.org(id) on delete cascade,
-  user_id   text        not null,
-  role      text        not null default 'member' check (role in ('admin', 'member')),
-  joined_at timestamptz not null default now(),
-  primary key (org_id, user_id)
-);
-create unique index if not exists org_member_user_uniq on app.org_member (user_id);
-
 -- Where each account came from, written once at sign-up from the visitor's
--- own first page view (app.page_view) — so "how did they find us" survives
+-- own first milestone — so "how did they find us" survives
 -- after the analytics window moves on.
 create table if not exists app.user_attribution (
   user_id        text primary key,
@@ -356,146 +302,14 @@ alter table app.lead add column if not exists interest text;
 alter table app.lead add column if not exists first_landing text;
 alter table app.lead add column if not exists views_before integer;
 
--- ---------------------------------------------------------------------------
--- Humans vs bots (2026-10-30). A visitor becomes human the first time the
--- browser reports a real interaction (tap, key, scroll, mouse movement — see
--- plugins/analytics.client.ts). /admin → Analytics reads the human_* views by
--- default. Visitors from before the signal existed count as human if any of
--- their views reported visible time (bots rarely send the leave beacon).
-create table if not exists app.human_visitor (
-  visitor text primary key,
-  at      timestamptz not null default now()
-);
-insert into app.human_visitor (visitor)
-  select distinct visitor from app.page_view where duration_ms > 0
-  on conflict do nothing;
-
-create or replace view app.human_page_view as
-  select p.* from app.page_view p where exists (select 1 from app.human_visitor h where h.visitor = p.visitor);
-create or replace view app.human_event as
-  select e.* from app.event e where exists (select 1 from app.human_visitor h where h.visitor = e.visitor);
-create index if not exists page_view_visitor_idx on app.page_view (visitor, created_at);
-create index if not exists event_visitor_idx on app.event (visitor, created_at);
-
--- Requests dropped as bots, per day and reason (user agent, flood, automation).
-create table if not exists app.bot_drop (
-  day    date not null default current_date,
-  reason text not null,
-  n      integer not null default 0,
-  primary key (day, reason)
-);
-
--- ---------------------------------------------------------------------------
--- Usage-based access (2026-11-01). The Academy never takes money: access is
--- metered in SESSIONS and paid for in points. One session = one metered page
--- (a lesson, an interview answer, a visualiser) the first time it is opened
--- on a given day; re-reading it that day is free.
---
---   anonymous   ANON_SESSIONS per hashed IP per 30 days (no address stored)
---   account     ACCOUNT_SESSIONS in total (the anonymous ten plus ninety),
---               plus every pack bought: PACK_SESSIONS for PACK_POINTS points
---   unlimited   members of an active organisation, admin grants (entitlement)
---
--- Constants live in shared/utils/products.ts; server/utils/meter.ts applies them.
-create table if not exists app.meter_view (
-  subject    text        not null,              -- 'u:<user id>' or 'ip:<sha256>'
-  path       text        not null,
-  day        date        not null default current_date,
-  created_at timestamptz not null default now(),
-  primary key (subject, path, day)
-);
-create index if not exists meter_view_subject_idx on app.meter_view (subject, created_at desc);
-create index if not exists meter_view_time_idx on app.meter_view (created_at desc);
-
--- Sessions added to an account: packs bought with points, admin grants.
-create table if not exists app.session_ledger (
-  id         bigint generated always as identity primary key,
-  user_id    text        not null,
-  sessions   integer     not null check (sessions <> 0),
-  points     integer     not null default 0,
-  reason     text        not null check (reason in ('pack', 'admin', 'refund')),
-  created_at timestamptz not null default now()
-);
-create index if not exists session_ledger_user_idx on app.session_ledger (user_id, created_at desc);
-
--- Points can now be spent on session packs.
+-- Points ledger reasons (spends are retired; history is kept).
 alter table app.points_ledger drop constraint if exists points_ledger_reason_check;
 alter table app.points_ledger add constraint points_ledger_reason_check
   check (reason in ('redeem_pro', 'session_pack', 'refund', 'admin', 'bonus'));
 
--- Organisations can be joined automatically by verified email domain.
-alter table app.org add column if not exists domains text[] not null default '{}';
-update app.org set domains = array[domain] where domain is not null and domains = '{}';
-
--- ---------------------------------------------------------------------------
--- Stripe (2026-11-03): Pro subscriptions, team seats, sponsorships. Stripe is
--- the source of truth; these rows are what its webhook (server/api/stripe/
--- webhook.post.ts) last told us. Session packs (above) are retired; the
--- tables stay so history is not lost.
-
--- One Pro subscription per user.
-create table if not exists app.subscription (
-  user_id             text primary key,
-  stripe_customer     text not null,
-  stripe_subscription text not null unique,
-  plan                text not null,          -- PRICES key: proMonthly | proYearly
-  status              text not null,          -- Stripe status: active, trialing, past_due, canceled…
-  current_period_end  timestamptz,
-  cancel_at_period_end boolean not null default false,
-  updated_at          timestamptz not null default now()
-);
-
--- Teams are organisations (app.org) paid by Stripe: seats = the subscription
--- quantity. Organisations made by hand in /admin have billing = 'manual'.
-alter table app.org add column if not exists billing text not null default 'manual';
-alter table app.org add column if not exists stripe_customer text;
-alter table app.org add column if not exists stripe_subscription text;
-alter table app.org add column if not exists status text not null default 'active';
-alter table app.org add column if not exists admin_user_id text;
-create unique index if not exists org_stripe_subscription_uniq on app.org (stripe_subscription) where stripe_subscription is not null;
-
--- Seats assigned by email: whoever signs in with that address takes the seat.
-create table if not exists app.org_invite (
-  org_id     bigint not null references app.org(id) on delete cascade,
-  email      text   not null check (email ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$'),
-  created_at timestamptz not null default now(),
-  primary key (org_id, email)
-);
-create index if not exists org_invite_email_idx on app.org_invite (email);
-
--- Sponsorships: requested in one short form, invoiced through Stripe, designed
--- and published by the sponsor, approved by the owner, live for `days` days
--- from the moment it is both paid and approved.
-create table if not exists app.sponsor (
-  id              bigint generated always as identity primary key,
-  owner_user_id   text,                    -- the sponsor's Academy account (portal access)
-  email           text not null,
-  company         text not null check (length(btrim(company)) between 2 and 120),
-  package         text not null,           -- PRICES key: sponsorWeek | sponsorMonth
-  days            integer not null,
-  status          text not null default 'requested'
-                    check (status in ('requested', 'invoiced', 'paid', 'live', 'ended', 'cancelled')),
-  creative        jsonb not null default '{}'::jsonb,   -- logo, headline, body, cta, url, colours
-  creative_status text not null default 'draft' check (creative_status in ('draft', 'submitted', 'approved', 'changes')),
-  review_note     text,
-  stripe_customer text,
-  stripe_invoice  text,
-  invoice_url     text,
-  starts_at       timestamptz,
-  ends_at         timestamptz,
-  created_at      timestamptz not null default now()
-);
-create index if not exists sponsor_live_idx on app.sponsor (status, starts_at, ends_at);
-
--- Sponsor analytics, one row per sponsor, day and page.
-create table if not exists app.sponsor_stat (
-  sponsor_id bigint not null references app.sponsor(id) on delete cascade,
-  day        date   not null default current_date,
-  path       text   not null,
-  views      integer not null default 0,
-  clicks     integer not null default 0,
-  primary key (sponsor_id, day, path)
-);
+-- (Page views, the reading meter, Teams, sponsors, section waitlists and Pro
+-- subscriptions were retired on 2026-11-16 — cleanup-2026-11-16.sql drops
+-- their tables.)
 
 -- Stripe webhook events already handled (Stripe retries; handle each once).
 create table if not exists app.stripe_event (
@@ -504,8 +318,18 @@ create table if not exists app.stripe_event (
   created_at timestamptz not null default now()
 );
 
--- 2026-11-03: indexes for the two lookups that ran without one — a reader's
--- own upvotes (GET /api/interview/votes) and a member's page views (the
--- regional leaderboard and attribution).
+-- A reader's own upvotes (GET /api/interview/votes).
 create index if not exists interview_upvote_user_idx on app.interview_upvote (user_id);
-create index if not exists page_view_user_idx on app.page_view (user_id, created_at) where user_id is not null;
+
+-- YouTube subscribers (2026-11-16). A learner verifies, with Google, that they
+-- subscribe to the channel; `access: youtube` lessons open while verified_at
+-- is within YOUTUBE_RECHECK_DAYS. One Google account unlocks one Academy
+-- account (google_sub is unique), so a subscription cannot be shared. No
+-- Google token is stored: it is used once and revoked.
+create table if not exists app.youtube_link (
+  user_id      text primary key,
+  google_sub   text not null unique,
+  google_email text,
+  subscribed   boolean not null default false,
+  verified_at  timestamptz not null default now()
+);

@@ -45,9 +45,9 @@ export interface Paper {
   domain?: ExamDomain
 }
 
+// One set: a single full practice paper in the real exam's shape.
 export const PAPERS: Paper[] = [
-  ...[1, 2, 3, 4, 5].map(n => ({ id: `paper-${n}`, title: `Practice paper ${n}`, kind: 'full' as const, questions: EXAM.questions, minutes: EXAM.minutes })),
-  ...(Object.keys(DOMAINS) as ExamDomain[]).map(d => ({ id: `drill-${d}`, title: DOMAINS[d].label, kind: 'drill' as const, questions: 15, minutes: 25, domain: d }))
+  { id: 'paper-1', title: 'Practice exam', kind: 'full', questions: EXAM.questions, minutes: EXAM.minutes }
 ]
 
 /** A stable pseudo-random generator from a string seed (mulberry32). */

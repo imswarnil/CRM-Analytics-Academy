@@ -96,7 +96,6 @@ const fm = [
   '## Build it',
   '',
   '::note{icon="i-lucide-workflow"}',
-  'Watch it run: link the visualiser preset that shows this — [/visualiser/saql](/visualiser/saql), [/visualiser/recipe](/visualiser/recipe) or [/visualiser/dataflow](/visualiser/dataflow).',
   '::',
   '',
   '## Check yourself',

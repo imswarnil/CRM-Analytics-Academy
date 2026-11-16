@@ -1,83 +1,51 @@
 <script setup lang="ts">
 /**
- * The end of a Pro lesson's teaser for anyone without Pro. Signed out: the
- * free account comes first (it brings WELCOME_POINTS and no promos). Signed
- * in: Pro is bought with points on /pro — there is no checkout.
+ * The end of a gated lesson's teaser. `youtube` lessons open for verified
+ * subscribers of the channel (or All Access); `pro` lessons for All Access.
  */
 const props = defineProps<{
   lessonTitle: string
+  needs: Access
   loading?: boolean
 }>()
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
-const { isSignedIn } = useAuth()
 const proTo = computed(() => ({ path: localePath('/pro'), query: { from: route.path } }))
-const signUpTo = computed(() => ({ path: localePath('/sign-up'), query: { redirect: route.fullPath } }))
-const PERKS = ['perkLessons', 'perkExams', 'perkNoPromos', 'perkCommunity'] as const
-onMounted(() => useNuxtApp().$track?.('pro_locked', route.path))
 </script>
 
 <template>
   <section
-    class="pro-locked crosshair relative my-10 border-[1.5px] border-(--ink) bg-(--card)"
+    class="pro-locked relative my-10 overflow-hidden rounded-2xl border border-(--line) bg-(--card) shadow-sm"
     :aria-busy="props.loading"
   >
-    <!-- The teaser above fades into the card, so the cut reads as deliberate. -->
     <div class="pointer-events-none absolute -top-24 inset-x-0 h-24 bg-gradient-to-b from-transparent to-(--paper)" />
-    <div class="graph-paper-navy flex items-center gap-3 border-b-[1.5px] border-(--ink) bg-(--navy) px-6 py-4 text-white">
-      <UIcon
-        name="i-lucide-lock-keyhole"
-        class="size-6 text-(--glow)"
-      />
-      <p class="font-mono text-xs uppercase tracking-[.14em] text-(--glow)">
-        {{ t('pro.eyebrow') }}
-      </p>
-    </div>
     <div class="p-6 sm:p-8">
-      <h2 class="text-2xl font-extrabold tracking-[-0.02em] text-(--ink)">
-        {{ t('pro.lockedTitle') }}
+      <p class="flex items-center gap-2 text-sm font-semibold text-(--ink2)">
+        <UIcon
+          :name="props.needs === 'youtube' ? 'i-simple-icons-youtube' : 'i-lucide-lock-keyhole'"
+          class="size-4"
+          :class="props.needs === 'youtube' ? 'text-[#FF0000]' : ''"
+        />{{ props.needs === 'youtube' ? t('youtube.lockedEyebrow') : t('pro.eyebrow') }}
+      </p>
+      <h2 class="mt-2 text-2xl font-bold tracking-tight text-(--ink)">
+        {{ props.needs === 'youtube' ? t('youtube.lockedTitle') : t('pro.lockedTitle') }}
       </h2>
       <p class="mt-2 text-[17px] leading-relaxed text-(--ink2)">
-        {{ t('pro.lockedBody', { title: props.lessonTitle }) }}
+        {{ props.needs === 'youtube' ? t('youtube.lockedBody', { title: props.lessonTitle }) : t('pro.lockedBody', { title: props.lessonTitle }) }}
       </p>
-      <ul class="mt-5 grid gap-3 sm:grid-cols-2">
-        <li
-          v-for="p in PERKS"
-          :key="p"
-          class="flex items-start gap-2 text-[15px] text-(--ink)"
-        >
-          <UIcon
-            name="i-lucide-check"
-            class="mt-0.5 size-5 shrink-0 text-(--signal)"
-          />{{ t(`pro.${p}`) }}
-        </li>
-      </ul>
-      <div class="mt-7 flex flex-wrap items-center gap-3">
-        <UButton
-          v-if="!isSignedIn"
-          :to="signUpTo"
-          size="xl"
-          icon="i-lucide-user-plus"
-        >
-          {{ t('pro.signUpFirst') }}
-        </UButton>
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <YoutubeUnlock v-if="props.needs === 'youtube'" />
         <UButton
           :to="proTo"
-          size="xl"
-          :color="isSignedIn ? 'primary' : 'neutral'"
-          :variant="isSignedIn ? 'solid' : 'outline'"
-          icon="i-lucide-sparkles"
+          size="lg"
+          :color="props.needs === 'youtube' ? 'neutral' : 'primary'"
+          :variant="props.needs === 'youtube' ? 'ghost' : 'solid'"
+          icon="i-lucide-infinity"
         >
-          {{ t('pro.getPro') }}
+          {{ t('pro.getPro', { price: `$${PRICES.allAccess.usd}` }) }}
         </UButton>
-        <p
-          v-if="!isSignedIn"
-          class="w-full text-sm text-(--ink2)"
-        >
-          {{ t('pro.signUpHint') }}
-        </p>
       </div>
     </div>
   </section>

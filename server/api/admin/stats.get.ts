@@ -32,30 +32,19 @@ export default defineEventHandler(async (event) => {
     waitlist: 0
   }
 
-  // Monetization: members, the lead pipeline and the section waitlists.
+  // Members (All Access), the lead pipeline and verified YouTube subscribers (`waitlist`, kept for the client shape).
   try {
     const [r] = await sql`
       select (select count(*)::int from app.entitlement where pro and (expires_at is null or expires_at > now())) as pro,
              (select count(*)::int from app.lead where status = 'new') as new_leads,
              (select count(*)::int from app.lead where created_at >= now() - interval '30 days') as leads30,
              (select count(*)::int from app.lead where status = 'won') as won,
-             (select count(distinct user_id)::int from app.waitlist) as waitlist`
+             (select count(*)::int from app.youtube_link where subscribed) as waitlist`
     totals.proMembers = Number(r?.pro ?? 0)
     totals.newLeads = Number(r?.new_leads ?? 0)
     totals.leads30d = Number(r?.leads30 ?? 0)
     totals.wonLeads = Number(r?.won ?? 0)
     totals.waitlist = Number(r?.waitlist ?? 0)
-  } catch {
-    // Leave zero.
-  }
-
-  try {
-    const [r] = await sql`
-      select count(*)::int as views, count(distinct visitor)::int as visitors
-      from app.page_view where created_at >= now() - interval '7 days'
-    `
-    totals.views7d = Number(r?.views ?? 0)
-    totals.visitors7d = Number(r?.visitors ?? 0)
   } catch {
     // Leave zero.
   }

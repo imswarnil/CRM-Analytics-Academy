@@ -17,13 +17,10 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Tab = 'overview' | 'analytics' | 'leads' | 'revenue' | 'seats' | 'users' | 'submissions' | 'interview' | 'comments'
+type Tab = 'overview' | 'leads' | 'users' | 'submissions' | 'interview' | 'comments'
 const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
-  { key: 'analytics', label: 'Analytics', icon: 'i-lucide-chart-line' },
   { key: 'leads', label: 'Leads', icon: 'i-lucide-handshake' },
-  { key: 'revenue', label: 'Revenue & sponsors', icon: 'i-lucide-badge-dollar-sign' },
-  { key: 'seats', label: 'Teams & orgs', icon: 'i-lucide-building-2' },
   { key: 'users', label: 'Users', icon: 'i-lucide-users' },
   { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
   { key: 'interview', label: 'Interview Q&A', icon: 'i-lucide-messages-square' },
@@ -51,16 +48,14 @@ const overviewTiles = computed(() => {
   const t = stats.value?.totals
   if (!t) return []
   return [
-    { label: 'Visitors · 7 days', value: t.visitors7d, to: 'analytics' as Tab },
-    { label: 'Page views · 7 days', value: t.views7d, to: 'analytics' as Tab },
     { label: 'Users', value: t.users, to: 'users' as Tab },
     { label: 'New users · 7 days', value: t.signups7d, to: 'users' as Tab },
     { label: 'Lessons completed', value: t.lessonsCompleted, to: null },
     { label: 'Quiz attempts', value: t.quizAttempts, to: null },
-    { label: 'Pro members', value: t.proMembers, to: 'users' as Tab },
+    { label: 'All Access members', value: t.proMembers, to: 'users' as Tab },
     { label: 'New leads', value: t.newLeads, to: 'leads' as Tab },
     { label: 'Leads · 30 days', value: t.leads30d, to: 'leads' as Tab },
-    { label: 'On section waitlists', value: t.waitlist, to: null },
+    { label: 'YouTube subscribers verified', value: t.waitlist, to: 'users' as Tab },
     { label: 'Pending submissions', value: t.pendingSubmissions, to: 'submissions' as Tab },
     { label: 'Comments', value: t.comments, to: 'comments' as Tab }
   ]
@@ -195,8 +190,8 @@ function badge(key: Tab) {
   if (key === 'interview') return pendingIq.value
   return 0
 }
-/* Money first: MRR, ARR and what pays for the site (GET /api/admin/revenue). */
-interface Revenue { configured: boolean, mrr: number, pro: { monthly: number, yearly: number, cancelling: number, mrr: number }, teams: { count: number, seats: number, mrr: number }, sponsors: { live: number, open: number, review: number, income: number } }
+/* Money first: All Access sales and YouTube subscribers (GET /api/admin/revenue). */
+interface Revenue { configured: boolean, allAccess: { sold: number, income: number, granted: number }, youtube: { verified: number, notSubscribed: number } }
 const { data: revenue } = await useLazyAsyncData('admin-revenue-overview', () => $fetch<Revenue>('/api/admin/revenue'), { server: false, immediate: false })
 watch(isAdmin, ok => ok && refreshNuxtData('admin-revenue-overview'), { immediate: true })
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -204,17 +199,13 @@ const moneyTiles = computed(() => {
   const r = revenue.value
   if (!r) return []
   return [
-    { label: 'MRR', value: usd(r.mrr), note: `Pro ${usd(r.pro.mrr)} · Teams ${usd(r.teams.mrr)}`, icon: 'i-lucide-trending-up' },
-    { label: 'ARR', value: usd(r.mrr * 12), note: 'MRR × 12', icon: 'i-lucide-calendar-range' },
-    { label: 'Pro subscribers', value: String(r.pro.monthly + r.pro.yearly), note: `${r.pro.monthly} monthly · ${r.pro.yearly} yearly${r.pro.cancelling ? ` · ${r.pro.cancelling} cancelling` : ''}`, icon: 'i-lucide-sparkles' },
-    { label: 'Teams', value: String(r.teams.count), note: `${r.teams.seats} paid seats`, icon: 'i-lucide-building-2' },
-    { label: 'Sponsors live', value: String(r.sponsors.live), note: `${r.sponsors.open} open requests`, icon: 'i-lucide-megaphone' },
-    { label: 'Sponsor income', value: usd(r.sponsors.income), note: 'paid, live and ended', icon: 'i-lucide-badge-dollar-sign' }
+    { label: 'All Access income', value: usd(r.allAccess.income), note: `${r.allAccess.sold} sold at ${usd(PRICES.allAccess.usd)}`, icon: 'i-lucide-badge-dollar-sign' },
+    { label: 'Granted by hand', value: String(r.allAccess.granted), note: 'admin grants', icon: 'i-lucide-gift' },
+    { label: 'YouTube verified', value: String(r.youtube.verified), note: `${r.youtube.notSubscribed} checked, not subscribed`, icon: 'i-simple-icons-youtube' }
   ]
 })
 
 const attention = computed(() => [
-  { tab: 'revenue' as Tab, icon: 'i-lucide-megaphone', n: revenue.value?.sponsors.review ?? 0, label: `${revenue.value?.sponsors.review ?? 0} sponsor creative(s) to approve` },
   { tab: 'leads' as Tab, icon: 'i-lucide-handshake', n: badge('leads'), label: `${badge('leads')} new lead(s) to follow up` },
   { tab: 'submissions' as Tab, icon: 'i-lucide-inbox', n: badge('submissions'), label: `${badge('submissions')} submission(s) to review` },
   { tab: 'interview' as Tab, icon: 'i-lucide-messages-square', n: pendingIq.value, label: `${pendingIq.value} interview question(s) to review` }
@@ -348,14 +339,14 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
             <!-- Money -->
             <div
               v-if="moneyTiles.length"
-              class="grid gap-px border-[1.5px] border-(--ink) bg-(--ink) sm:grid-cols-3 xl:grid-cols-6"
+              class="grid gap-px border-[1.5px] border-(--ink) bg-(--ink) sm:grid-cols-3"
             >
               <button
                 v-for="m in moneyTiles"
                 :key="m.label"
                 type="button"
                 class="flex flex-col gap-1 bg-(--card) p-4 text-start hover:bg-(--ice)"
-                @click="tab = 'revenue'"
+                @click="tab = 'users'"
               >
                 <span class="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)"><UIcon
                   :name="m.icon"
@@ -493,19 +484,15 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
           </section>
 
           <!-- ============================ ANALYTICS =========================== -->
-          <AdminAnalytics v-else-if="tab === 'analytics'" />
 
           <!-- ============================== LEADS ============================= -->
           <AdminLeads
             v-else-if="tab === 'leads'"
-            @org-created="tab = 'seats'"
           />
 
           <!-- ======================= REVENUE & SPONSORS ====================== -->
-          <AdminSponsors v-else-if="tab === 'revenue'" />
 
           <!-- ============================== SEATS ============================= -->
-          <AdminSeats v-else-if="tab === 'seats'" />
 
           <!-- ============================== USERS ============================= -->
           <section

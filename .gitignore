@@ -109,3 +109,6 @@ salesforce/.crm-layouts/
 salesforce/.crm-layouts-md/
 salesforce/.obj/
 salesforce/.std/
+
+# AI lesson videos (HyperFrames + HeyGen): generated projects, avatar clips, renders
+content-creation/ai/projects/

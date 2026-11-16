@@ -72,13 +72,3 @@ export async function verifyStripeSignature(payload: string, header: string | un
     return diff === 0
   })
 }
-
-/** The Stripe customer for an Academy user, created once and remembered on their subscription row. */
-export async function customerFor(user: SessionUser): Promise<string> {
-  const [row] = await useDb()`select stripe_customer from app.subscription where user_id = ${user.id}`
-  if (row?.stripe_customer) return String(row.stripe_customer)
-  const found = await stripe<{ data: { id: string }[] }>('GET', 'customers', { email: user.email, limit: 1 })
-  if (found.data[0]) return found.data[0].id
-  const c = await stripe<{ id: string }>('POST', 'customers', { email: user.email, name: user.name ?? undefined, metadata: { academy_user_id: user.id } })
-  return c.id
-}

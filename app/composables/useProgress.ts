@@ -9,13 +9,12 @@ export interface ProgressData {
   admin: boolean
   demo: boolean
   pro: boolean
+  /** The highest access level held: free, youtube or pro (All Access). */
+  access: Access
   /** Spendable points: the welcome grant + earned − spent. */
   balance: number
   /** When Pro ends: an ISO date, 'never', or null without Pro of their own. */
   proUntil: string | null
-  /** The organisation whose seat they hold, if any. */
-  org: string | null
-  waitlist: string[]
   points: number
   contributions: number
   rank: number | null
@@ -45,6 +44,7 @@ export function useProgress() {
   const admin = computed(() => Boolean(data.value?.admin))
   const demo = computed(() => Boolean(data.value?.demo))
   const pro = computed(() => Boolean(data.value?.pro))
+  const access = computed<Access>(() => data.value?.access ?? 'free')
   const points = computed(() => data.value?.points ?? 0)
   const balance = computed(() => data.value?.balance ?? WELCOME_POINTS)
   const rank = computed(() => data.value?.rank ?? null)
@@ -115,5 +115,5 @@ export function useProgress() {
     }
   }
 
-  return { completed, bookmarks, data, admin, demo, pro, points, balance, rank, loaded, load, isDone, setDone, isSaved, setSaved, normalise }
+  return { completed, bookmarks, data, admin, demo, pro, access, points, balance, rank, loaded, load, isDone, setDone, isSaved, setSaved, normalise }
 }

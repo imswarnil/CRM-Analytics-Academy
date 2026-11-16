@@ -7,15 +7,9 @@ const columns = computed(() => [
   {
     label: t('footer.curriculum'),
     children: [
-      { label: t('nav.course'), to: localePath('/course') },
       { label: t('nav.curriculum'), to: localePath('/curriculum') },
-      { label: t('home.modules.foundations.title'), to: localePath('/foundations') },
       { label: t('nav.certification'), to: localePath('/certification') },
       { label: t('nav.interview'), to: localePath('/interview-questions') },
-      { label: t('nav.visualiser'), to: localePath('/visualiser') },
-      { label: t('vis.saql.title'), to: localePath('/visualiser/saql') },
-      { label: t('vis.recipe.title'), to: localePath('/visualiser/recipe') },
-      { label: t('vis.dataflow.title'), to: localePath('/visualiser/dataflow') },
       { label: t('nav.resources'), to: localePath('/resources') },
       { label: t('nav.datasets'), to: localePath('/datasets') }
     ]
