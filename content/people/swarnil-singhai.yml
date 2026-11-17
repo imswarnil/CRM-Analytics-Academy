@@ -2,7 +2,7 @@
 # `authors:`. Facts only (see app/data/author.ts for where they come from).
 name: "Swarnil Singhai"
 role: "maintainer"
-avatar: "/people/swarnil-singhai.jpg"
+avatar: "/people/placeholder.svg"
 headline: "Salesforce engineer, seven years in go-to-market analytics. Writes and maintains the Academy."
 links:
   site: "https://imswarnil.com"

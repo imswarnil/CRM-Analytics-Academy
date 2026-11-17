@@ -32,7 +32,8 @@
       "exam": "Practice exam",
       "interview": "Interview Q&A",
       "pricing": "Pricing"
-    }
+    },
+    "team": "Team"
   },
   "home": {
     "modules": {
@@ -60,16 +61,17 @@
       }
     ],
     "hero": {
-      "eyebrow": "Updated for the current Salesforce release",
-      "title": "Learn Salesforce CRM Analytics the way it’s used at work.",
-      "lead": "Free, hands-on lessons on recipes, SAQL, dashboards, security and Einstein Discovery, and how to use AI with all of it — built on one company’s real data.",
-      "start": "Start free with lesson 1",
+      "eyebrow": "Salesforce CRM Analytics, taught on real GTM data",
+      "title": "Become the CRM Analytics expert your team relies on.",
+      "lead": "Hands-on lessons on recipes, SAQL, dashboards, security and Einstein Discovery — built on one company’s marketing, pipeline and revenue data.",
+      "start": "Start learning free",
       "curriculum": "Start here",
       "proof": {
         "free": "Free, no card",
         "languages": "12 languages",
         "ai": "Includes AI for analytics"
-      }
+      },
+      "pricing": "See plans"
     },
     "author": {
       "eyebrow": "The author",
@@ -904,7 +906,7 @@
     },
     "empty": {
       "title": "The first lessons are being recorded.",
-      "body": "The course is starting over, one lesson at a time. Subscribe on YouTube and they open here for you the day they are published."
+      "body": "The course is being rebuilt, one lesson at a time. Follow on YouTube to get each one the day it is published — or take a test ride of the platform now."
     },
     "section": "Section {n}"
   },
@@ -1309,20 +1311,21 @@
     "proActiveBody": "Every Pro lesson is open to you. Thank you for supporting the Academy."
   },
   "pro": {
-    "eyebrow": "All Access lesson",
-    "tag": "All Access",
-    "lockedTitle": "This lesson is part of All Access",
-    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — comes with All Access.",
-    "getPro": "Get All Access · {price}",
+    "eyebrow": "Pro lesson",
+    "tag": "Pro",
+    "lockedTitle": "This lesson is part of Pro",
+    "lockedBody": "You have read the opening of “{title}”. The rest — the full walkthrough, the quiz and the interview questions — is in Pro.",
+    "getPro": "Get Pro · {monthly}/mo or {lifetime} once",
     "freeTag": "Free",
-    "freeLesson": "Free lesson"
+    "freeLesson": "Free lesson",
+    "forTeams": "For teams and colleges"
   },
   "store": {
     "eyebrow": "Pricing",
-    "seoTitle": "CRM Analytics Academy pricing: Free, YouTube subscribers and All Access",
-    "seoDesc": "Learn Salesforce CRM Analytics free, unlock subscriber lessons by subscribing on YouTube, or get All Access to the whole platform with one $99 payment.",
-    "title": "Simple pricing.",
-    "lead": "Free to start. Free for subscribers. One payment for everything.",
+    "seoTitle": "CRM Analytics Academy pricing: Free, Pro Monthly, Pro Lifetime, Teams",
+    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $15 a month or $99 once. Seats for companies and colleges.",
+    "title": "Learn free. Go Pro when you are ready.",
+    "lead": "Every free lesson stays free. Pro unlocks the whole platform — monthly, or once for life. Companies and colleges buy seats.",
     "sentTitle": "Thanks — your request is in.",
     "sentBody": "Swarnil will reply by email within two working days with the next steps.",
     "f": {
@@ -1351,44 +1354,69 @@
     "requestLead": "Help setting up CRM Analytics, consulting, mentoring, or a large organisation — one line is enough.",
     "messagePlaceholder": "What do you need? (optional)",
     "interest": {
-      "seats": "Training a team",
+      "seats": "Seats for my organisation",
       "salesforce-setup": "Set-up help",
       "consulting": "Consulting",
       "mentoring": "Mentoring"
     },
-    "best": "Everything",
-    "current": "You have this",
-    "footnote": "One payment, no subscription, no renewals. Training a whole team?",
+    "best": "Most popular",
+    "current": "You have Pro",
+    "forYou": "For you",
+    "forOrgs": "For companies, colleges and teams",
+    "goPro": "Go Pro · from {price}/mo",
+    "footnote": "Prices in USD. Cancel monthly any time; lifetime is one payment, no renewals.",
+    "orgName": "Company, college or team name",
+    "seats": "Seats",
+    "kind": {
+      "company": "Company",
+      "college": "College",
+      "team": "Team"
+    },
     "free": {
       "name": "Free",
-      "tagline": "Start learning today, no card needed.",
+      "tagline": "Start today. No card needed.",
       "unit": "forever",
-      "cta": "Open to everyone",
+      "cta": "Start learning",
       "f1": "Every free lesson",
       "f2": "The practice exam",
       "f3": "Interview questions and answers",
-      "f4": "Progress, streaks and the leaderboard with a free account"
+      "f4": "Progress, streaks and the leaderboard"
     },
-    "youtube": {
-      "name": "YouTube subscriber",
-      "tagline": "Subscribe to the channel and unlock the subscriber lessons.",
-      "unit": "free with a subscription",
-      "f1": "Everything in Free",
-      "f2": "Every subscriber lesson",
-      "f3": "New videos the day they are published",
-      "f4": "Verified with your Google account in one click"
+    "pro": {
+      "name": "Pro",
+      "tagline": "Every lesson, dataset and exam review — with no ads."
     },
-    "all-access": {
-      "name": "All Access",
-      "tagline": "The whole platform, for good, with one payment.",
-      "unit": "once",
-      "cta": "Get All Access · {price}",
-      "f1": "Every lesson, subscriber and premium",
+    "monthly": {
+      "name": "Pro Monthly",
+      "tagline": "Everything, while you are learning. Cancel any time.",
+      "unit": "per month",
+      "cta": "Start Pro Monthly",
+      "f1": "Every lesson, free and Pro",
       "f2": "Every dataset: marketing, web, leads, opportunities, contracts, CPQ",
       "f3": "Full answer review on the practice exam",
       "f4": "Downloadable dashboards and recipes",
-      "f5": "No ads anywhere",
-      "f6": "Every lesson added later, included"
+      "f5": "No ads anywhere"
+    },
+    "lifetime": {
+      "name": "Pro Lifetime",
+      "tagline": "Everything, for good. One payment.",
+      "unit": "once",
+      "cta": "Buy Pro Lifetime",
+      "f1": "Everything in Pro Monthly",
+      "f2": "Every lesson added later, included",
+      "f3": "No subscription, no renewals",
+      "f4": "Certificate-ready practice, forever",
+      "f5": "No ads anywhere"
+    },
+    "teams": {
+      "name": "Teams & institutions",
+      "tagline": "Pro for every seat — for companies training analysts, colleges teaching students, and teams.",
+      "cta": "Request seats",
+      "f1": "Pro for every member",
+      "f2": "One join code; colleges can limit it to their email domain",
+      "f3": "Seat management and progress for admins",
+      "f4": "Invoiced billing and volume pricing",
+      "f5": "Onboarding help for your org"
     }
   },
   "studio": {
@@ -1472,26 +1500,33 @@
     "missing": "To publish, add: {fields}"
   },
   "account": {
-    "title": "Your access",
-    "current": "You can open",
-    "youtubeVerified": "Verified subscriber · checked {date}",
-    "boughtOn": "Bought on {date}. Yours for good.",
-    "comparePlans": "Compare plans"
+    "title": "Your plan",
+    "current": "Your plan",
+    "renewsOn": "Renews on {date}",
+    "endsOn": "Ends on {date}",
+    "boughtOn": "Pro Lifetime, bought on {date}. Yours for good.",
+    "granted": "Pro, granted by the Academy.",
+    "seat": "A seat with {org}.",
+    "manage": "Manage billing",
+    "yourTeam": "Your team",
+    "haveCode": "Have a join code?"
   },
-  "youtube": {
-    "tag": "Subscribers",
-    "subscribe": "Subscribe & unlock",
-    "verify": "I already subscribe",
-    "signInFirst": "Sign in to unlock",
-    "unlocked": "Unlocked — thanks for subscribing",
-    "lockedEyebrow": "For YouTube subscribers",
-    "lockedTitle": "Subscribe on YouTube to keep reading",
-    "lockedBody": "You have read the opening of “{title}”. Subscribers to the channel get the rest, free: subscribe here or confirm you already do, with your Google account.",
-    "result": {
-      "verified": "Verified.",
-      "not-subscribed": "That Google account does not subscribe to the channel yet. Use “Subscribe & unlock”, or pick the account you subscribe with.",
-      "linked-elsewhere": "That YouTube account already unlocked another Academy account.",
-      "error": "Google did not complete the check. Please try again."
-    }
+  "team": {
+    "title": "Join your organisation",
+    "lead": "Your company, college or team gave you an 8-character code. Enter it to get Pro on their seat.",
+    "codePlaceholder": "JOIN CODE",
+    "join": "Join",
+    "noCode": "No code yet?",
+    "request": "Ask about seats for your organisation",
+    "active": "Your Pro seat is active",
+    "ended": "This organisation’s seats have ended",
+    "seatsUsed": "{used} of {seats} seats used",
+    "codeLabel": "Join code",
+    "domainOnly": "Only verified emails at {domain} can join.",
+    "copyLink": "Copy join link",
+    "copied": "Copied",
+    "lessons": "{n} lessons done",
+    "admin": "Admin",
+    "remove": "Free seat"
   }
 }

@@ -88,6 +88,7 @@ export function useAuth() {
     } finally {
       user.value = null
       hint.value = null
+      useCookie<string | null>('crma_pro', { path: '/' }).value = null
       pending.value = false
     }
   }

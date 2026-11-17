@@ -59,6 +59,8 @@ export function useProgress() {
     try {
       const res = await $fetch<ProgressData>('/api/progress')
       data.value = res
+      // The no-promos hint for Pro (usePromoFree and the AdSense head script).
+      useCookie<string | null>('crma_pro', { maxAge: 60 * 60 * 24 * 30, sameSite: 'lax', path: '/' }).value = res.pro ? '1' : null
       completed.value = new Set(res.completed)
       bookmarks.value = new Set(res.bookmarks)
       loaded.value = true

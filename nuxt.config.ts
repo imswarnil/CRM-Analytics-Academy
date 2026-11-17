@@ -43,7 +43,7 @@ const DEFAULT_LOCALE = 'en'
  * sections silently absent from the build, with no error anywhere, because
  * their slugs happen to start with the same characters as a private route.
  */
-const PRIVATE_PATHS = ['/dashboard', '/account', '/submit', '/admin', '/api']
+const PRIVATE_PATHS = ['/dashboard', '/account', '/team', '/submit', '/admin', '/api']
 
 /** Pages that were removed, and where their visitors now go. */
 const RETIRED: Record<string, string> = {
@@ -67,14 +67,13 @@ const RETIRED: Record<string, string> = {
   '/instructors': '/about',
   '/roadmap': '/curriculum',
   '/changelog': '/about',
-  // 2026-11-16: the platform simplified — visualisers, the course pitch page,
-  // Teams and sponsors retired; the curriculum restarts from scratch.
+  // 2026-11-16: the platform simplified — visualisers, the course pitch page
+  // and sponsors retired; the curriculum restarts from scratch.
   '/visualiser': '/curriculum',
   '/visualiser/**': '/curriculum',
   '/course': '/curriculum',
   '/introduction': '/curriculum',
   '/introduction/**': '/curriculum',
-  '/team': '/account',
   '/sponsor': '/pro',
   '/sponsor/**': '/pro'
 }
@@ -146,7 +145,7 @@ export default defineNuxtConfig({
     head: {
       meta: [
         // PWA chrome colour — navy in the title bar when installed.
-        { name: 'theme-color', content: '#0F2A5C' },
+        { name: 'theme-color', content: '#032D60' },
         // AdSense site ownership (ads.txt is in public/).
         { name: 'google-adsense-account', content: 'ca-pub-1291242080282540' }
       ],
@@ -159,9 +158,9 @@ export default defineNuxtConfig({
       // AdSense, loaded once. Units are <PromoSlot>s (app/utils/promo.ts for
       // the inventory); Auto ads (incl. Vignette) are switched on in AdSense.
       script: [
-        // Members see no promos at all — not even Auto ads. This runs before
-        // the library loads; useAuth sets the cookie on sign-in.
-        { innerHTML: 'if(/(?:^|; )crma_signed_in=1/.test(document.cookie)){(window.adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1}', tagPosition: 'head' },
+        // Pro members see no promos at all — not even Auto ads. This runs
+        // before the library loads; useProgress sets the cookie.
+        { innerHTML: 'if(/(?:^|; )crma_pro=1/.test(document.cookie)){(window.adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1}', tagPosition: 'head' },
         { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1291242080282540', async: true, crossorigin: 'anonymous' }
       ]
     }
@@ -196,6 +195,15 @@ export default defineNuxtConfig({
     // CONTENT_LOCAL_DB gives a build its own content database file, so it can
     // run while a dev server holds .data/content/contents.sqlite open.
     ...(process.env.CONTENT_LOCAL_DB ? { _localDatabase: { type: 'sqlite' as const, filename: process.env.CONTENT_LOCAL_DB } } : {})
+  },
+
+  // GTM integrations — static, no Worker requests (admin → Integrations).
+  // Set NUXT_PUBLIC_CF_BEACON_TOKEN / NUXT_PUBLIC_GSC_VERIFICATION at build time.
+  runtimeConfig: {
+    public: {
+      cfBeaconToken: '',
+      gscVerification: ''
+    }
   },
 
   // Every import of `h3` — server bundle, Vue SSR bundle and client — gets the

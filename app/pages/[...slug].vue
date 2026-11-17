@@ -204,7 +204,7 @@ const tocBottomLinks = computed(() => {
 const lessonMeta = useLessonMeta().of(route.path)
 // Free lessons say so; Pro lessons use Google's paywalled-content markup,
 // pointing at the locked card that stands in for the members-only part.
-const paywall = page.value?.access === 'pro' || page.value?.access === 'youtube'
+const paywall = page.value?.access === 'pro'
   ? { isAccessibleForFree: false, hasPart: { '@type': 'WebPageElement', 'isAccessibleForFree': false, 'cssSelector': '.pro-locked' } }
   : { isAccessibleForFree: true }
 
@@ -394,7 +394,7 @@ interface ProLesson {
 }
 const needs = computed<Access>(() => accessOf(page.value?.access))
 const isProLesson = computed(() => needs.value !== 'free')
-// Gated lessons: YouTube subscribers (access: youtube) or All Access (access: pro).
+// Pro lessons (access: pro): monthly, lifetime or a team seat gets the body.
 const { access: held, loaded: progressLoaded } = useProgress()
 const member = computed(() => canOpen(held.value, needs.value))
 const { data: proLesson, status: proStatus } = useLazyAsyncData(`pro-${route.path}`, () =>
@@ -479,7 +479,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           ><UIcon
             :name="isProLesson ? (unlocked ? 'i-lucide-lock-keyhole-open' : 'i-lucide-lock-keyhole') : 'i-lucide-gift'"
             class="size-3"
-          />{{ needs === 'youtube' ? t('youtube.tag') : isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
+          />{{ isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
           <span class="border border-(--line) bg-(--card) px-2 py-0.5 font-medium text-[11px] rounded-2xl">
             {{ meta.type }} · {{ meta.minutes }} min
           </span>
@@ -667,7 +667,6 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             />
             <CourseProLockedCard
               v-if="isProLesson"
-              :needs="needs"
               :loading="proStatus === 'pending' || (member && !progressLoaded)"
               :lesson-title="page.title"
             />

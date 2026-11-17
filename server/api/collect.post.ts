@@ -8,7 +8,7 @@
  */
 const BOT = /bot|crawl|spider|slurp|headless|lighthouse|preview|facebookexternalhit|embedly|monitor|curl|wget|python|node-fetch/i
 const ID = /^[a-z0-9]{8,40}$/i
-const EVENTS = new Set(['sign_up', 'sign_in', 'lesson_complete', 'exam_finish', 'youtube_verified', 'checkout'])
+const EVENTS = new Set(['sign_up', 'sign_in', 'lesson_complete', 'exam_finish', 'checkout'])
 
 const clip = (v: unknown, n: number) => (typeof v === 'string' ? v.slice(0, n) : '')
 
@@ -37,7 +37,8 @@ export default defineEventHandler(async (event) => {
   // An account's first sign_up becomes a self-serve lead in Salesforce.
   if (name === 'sign_up' && user) {
     const [row] = await sql`select count(*)::int as n from app.event where user_id = ${user.id} and name = 'sign_up'`
-    if (Number(row?.n) === 1) event.waitUntil(sendAcademyEvent('signup', user))
+    // The label of a sign_up is the visitor's first touch (utm/referrer/direct).
+    if (Number(row?.n) === 1) event.waitUntil(sendAcademyEvent('signup', user, undefined, clip(body.lb, 60).replace(/[^a-z0-9./_-]/gi, '') || 'direct'))
   }
   return { ok: true }
 })

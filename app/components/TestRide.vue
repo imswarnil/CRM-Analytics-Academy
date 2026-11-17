@@ -26,7 +26,7 @@ async function ride() {
     :variant="props.variant"
     :loading="pending"
     icon="i-lucide-car-front"
-    class="rounded-full whitespace-nowrap"
+    class="whitespace-nowrap"
     @click="ride"
   >
     {{ t('auth.testRide') }}

@@ -4,7 +4,7 @@
  * shared/utils/products.ts) — run it yourself, with your own key:
  *
  *   pnpm stripe:setup                 # products + prices (safe to re-run)
- *   pnpm stripe:setup --webhook       # also the webhook
+ *   pnpm stripe:setup --webhook       # also the customer portal and the webhook
  *
  * Reads STRIPE_SECRET_KEY from the environment or .env (use a sk_test_… key
  * first). Prices are matched by lookup_key: an unchanged price is left alone;
@@ -35,8 +35,9 @@ const WEBHOOK_URL = urlAt >= 0 ? args[urlAt + 1] : 'https://crmanalytics.imswarn
 
 // Mirror of PRICES in shared/utils/products.ts (kept in step by hand: two places, one review).
 const PRODUCTS = [
-  { id: 'crma_all_access', name: 'CRM Analytics Academy — All Access', description: 'Every lesson, exam and dataset on the platform. One payment, no subscription.', prices: [
-    { key: 'crma_all_access', usd: 99 }
+  { id: 'crma_pro', name: 'CRM Analytics Academy Pro', description: 'Every lesson, the full exam review and every dataset, with no ads.', prices: [
+    { key: 'crma_pro_monthly', usd: 15, interval: 'month' },
+    { key: 'crma_pro_lifetime', usd: 99 }
   ] }
 ]
 
@@ -87,9 +88,20 @@ for (const p of PRODUCTS) {
 }
 
 if (args.includes('--webhook')) {
+  // The customer portal Pro Monthly members use to change card or cancel.
+  const portal = await stripe('POST', 'billing_portal/configurations', {
+    business_profile: { headline: 'CRM Analytics Academy — manage Pro' },
+    features: {
+      invoice_history: { enabled: true },
+      payment_method_update: { enabled: true },
+      subscription_cancel: { enabled: true, mode: 'at_period_end' }
+    },
+    default_return_url: WEBHOOK_URL.replace(/\/api\/stripe\/webhook$/, '/account')
+  })
+  console.log(`+ customer portal configuration ${portal.id} (make it the default in the Stripe dashboard if it is not)`)
   const hook = await stripe('POST', 'webhook_endpoints', {
     url: WEBHOOK_URL,
-    enabled_events: ['checkout.session.completed', 'charge.refunded'],
+    enabled_events: ['checkout.session.completed', 'customer.subscription.updated', 'customer.subscription.deleted', 'charge.refunded'],
     description: 'CRM Analytics Academy'
   })
   console.log(`+ webhook ${hook.url}`)

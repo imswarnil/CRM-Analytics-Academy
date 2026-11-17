@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1440" viewBox="0 0 2560 1440">
+  <rect width="2560" height="1440" fill="#001A3E"/>
+  <defs><pattern id="g" width="80" height="80" patternUnits="userSpaceOnUse">
+    <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgb(124,190,255)" stroke-opacity="0.07" stroke-width="1"/>
+  </pattern></defs>
+  <rect width="2560" height="1440" fill="url(#g)"/>
+  <rect width="2560" height="10" fill="#0176D3"/>
+  <circle cx="2380" cy="760" r="430" fill="none" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+  <circle cx="120" cy="80" r="260" fill="none" stroke="#FFFFFF" stroke-opacity=".1" stroke-width="2"/>
+  <g opacity=".08">
+  <rect x="2050" y="1201" width="48.4" height="99" rx="6.6" fill="#B0D7FF"/>
+  <rect x="2135.8" y="1141.6" width="48.4" height="158.4" rx="6.6" fill="#1B96FF"/>
+  <rect x="2221.6" y="1080" width="48.4" height="220" rx="6.6" fill="#0176D3"/></g>
+  <text x="1567" y="520.5" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#7CBEFF" fill-opacity=".45">/* prep. query. show. */</text>
+  <g>
+  <rect x="547" y="681" width="33" height="67.5" rx="4.5" fill="#B0D7FF"/>
+  <rect x="605.5" y="640.5" width="33" height="108" rx="4.5" fill="#1B96FF"/>
+  <rect x="664" y="598.5" width="33" height="150" rx="4.5" fill="#0176D3"/></g>
+  <text font-family="Switzer, Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="800" font-size="104" letter-spacing="-3" fill="#FFFFFF">
+    <tspan x="757" y="658.5">CRM Analytics</tspan>
+    <tspan x="757" y="758.5">Academy<tspan fill="#1B96FF">.</tspan></tspan>
+  </text>
+  <line x1="1507" y1="598.5" x2="1507" y2="758.5" stroke="#FFFFFF" stroke-opacity=".2" stroke-width="2"/>
+  <text font-family="Switzer, Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="38" fill="#FFFFFF" fill-opacity=".88">
+    <tspan x="1547" y="648.5">Salesforce CRM Analytics,</tspan>
+    <tspan x="1547" y="696.5">taught on real GTM data.</tspan>
+  </text>
+  <text x="1547" y="748.5" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="700" letter-spacing="4" fill="#1B96FF">// NEW LESSON EVERY WEEK</text>
+  <line x1="507" y1="836.5" x2="2053" y2="836.5" stroke="#FFFFFF" stroke-opacity=".14"/>
+  <line x1="507" y1="912.5" x2="2053" y2="912.5" stroke="#FFFFFF" stroke-opacity=".14"/>
+    <text x="547" y="882.5" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="600" letter-spacing="3" fill="#7CBEFF">RECIPES</text><line x1="706" y1="860.5" x2="706" y2="890.5" stroke="#FFFFFF" stroke-opacity=".15"/>
+    <text x="740" y="882.5" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="600" letter-spacing="3" fill="#7CBEFF">SAQL</text><line x1="848" y1="860.5" x2="848" y2="890.5" stroke="#FFFFFF" stroke-opacity=".15"/>
+    <text x="882" y="882.5" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="600" letter-spacing="3" fill="#7CBEFF">DASHBOARDS</text><line x1="1092" y1="860.5" x2="1092" y2="890.5" stroke="#FFFFFF" stroke-opacity=".15"/>
+    <text x="1126" y="882.5" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="600" letter-spacing="3" fill="#7CBEFF">SECURITY</text><line x1="1302" y1="860.5" x2="1302" y2="890.5" stroke="#FFFFFF" stroke-opacity=".15"/>
+    <text x="1336" y="882.5" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="600" letter-spacing="3" fill="#7CBEFF">EINSTEIN DISCOVERY</text>
+</svg>

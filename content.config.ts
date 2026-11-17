@@ -117,16 +117,16 @@ export default defineContentConfig({
         // A section page standing in for lessons not published yet. It is in
         // the sidebar and llms.txt, but not in the course order or progress.
         comingSoon: z.boolean().optional(),
-        // `youtube` = verified YouTube subscribers, `pro` = All Access. Set on
-        // the English lesson; translations follow (scripts/gate-content.mjs).
-        access: z.enum(['free', 'youtube', 'pro']).optional(),
+        // `pro` = Pro members (monthly, lifetime or a team seat). Set on the
+        // English lesson; translations follow (scripts/gate-content.mjs).
+        access: z.enum(['free', 'pro']).optional(),
         links: z.array(z.object({
           label: z.string(),
           icon: z.string(),
           to: z.string(),
           target: z.string().optional()
         })).optional(),
-        // The lesson video, on YouTube: edited in Final Cut Pro (content-creation/), uploaded,
+        // The lesson video, on YouTube: uploaded,
         // and its id set here on the English lesson — every locale plays it.
         // Rendered at the top of the lesson via YoutubeEmbed; also surfaced as
         // VideoObject JSON-LD. `start`/`end` clip someone else's video.

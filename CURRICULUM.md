@@ -174,7 +174,7 @@ seat deals, seat assignments.
 1. `pnpm new-lesson` — pick the section, title, access (free/pro), video or
    article. It writes the file with numbered name and full frontmatter.
 2. Write the body in English only. Add `quiz`, `interview` and, for recorded
-   lessons, the `walkthrough` script (`content-creation/README.md`).
+   lessons, the `walkthrough` script.
 3. Link the visualiser preset the lesson uses.
 4. `pnpm lesson:check` — frontmatter, numbering, links, quiz answers in range.
 5. `pnpm build` translates the other 11 languages and gates Pro bodies.

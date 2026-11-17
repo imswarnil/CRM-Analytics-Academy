@@ -24,7 +24,7 @@ The other way to create a lesson is **Nuxt Studio** at `/_studio` (commits to `m
    title: <Lesson Title>
    description: <One-sentence summary — used for SEO and the OG image.>
    # Optional:
-   # video:                   # the lesson video on YouTube (made with `pnpm fcp <route>`, see content-creation/README.md)
+   # video:                   # the lesson video on YouTube
    #   id: <youtube-id>
    #   start: 0
    #   end: 120

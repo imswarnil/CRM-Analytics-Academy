@@ -1,16 +1,23 @@
-/** Money and members for the admin overview: All Access sales and verified YouTube subscribers. */
+/** Money and members for the admin overview: MRR, lifetime sales, grants and team seats. */
 export default defineEventHandler(async (event) => {
   await requireAdmin(event)
   const [r] = await useDb()`
-    select (select count(*)::int from app.entitlement where product = 'all-access') as sold,
-           (select count(*)::int from app.entitlement where product <> 'all-access' and pro and (expires_at is null or expires_at > now())) as granted,
-           (select count(*)::int from app.youtube_link where subscribed) as youtube,
-           (select count(*)::int from app.youtube_link where not subscribed) as not_subscribed`
+    select (select count(*)::int from app.subscription where status in ('active', 'trialing', 'past_due')) as monthly,
+           (select count(*)::int from app.subscription where status in ('active', 'trialing') and cancel_at_period_end) as cancelling,
+           (select count(*)::int from app.entitlement where product = 'lifetime') as lifetime,
+           (select count(*)::int from app.entitlement where product = 'grant' and (expires_at is null or expires_at > now())) as granted,
+           (select count(*)::int from app.org where status = 'active') as orgs,
+           (select coalesce(sum(seats), 0)::int from app.org where status = 'active') as seats,
+           (select count(*)::int from app.org_member) as seats_used`
   setResponseHeader(event, 'cache-control', 'private, no-store')
-  const sold = Number(r?.sold ?? 0)
+  const monthly = Number(r?.monthly ?? 0)
+  const lifetime = Number(r?.lifetime ?? 0)
   return {
     configured: stripeConfigured(),
-    allAccess: { sold, income: sold * PRICES.allAccess.usd, granted: Number(r?.granted ?? 0) },
-    youtube: { verified: Number(r?.youtube ?? 0), notSubscribed: Number(r?.not_subscribed ?? 0) }
+    mrr: monthly * PRICES.monthly.usd,
+    monthly: { active: monthly, cancelling: Number(r?.cancelling ?? 0) },
+    lifetime: { sold: lifetime, income: lifetime * PRICES.lifetime.usd },
+    granted: Number(r?.granted ?? 0),
+    teams: { orgs: Number(r?.orgs ?? 0), seats: Number(r?.seats ?? 0), used: Number(r?.seats_used ?? 0) }
   }
 })

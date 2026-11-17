@@ -189,32 +189,34 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
     </BpPageHeader>
 
     <div class="mx-auto max-w-(--ui-container) space-y-6 px-4 py-12 sm:px-6 lg:px-8">
-      <!-- Access: what this learner can open, and the next step up -->
-      <div class="flex flex-wrap items-center gap-4 rounded-3xl border border-(--line) bg-(--card) px-6 py-5">
+      <!-- Plan: what this learner has, and the next step up -->
+      <div class="flex flex-wrap items-center gap-4 rounded-[6px] border border-(--line) bg-(--card) px-6 py-5">
         <UIcon
-          :name="access === 'pro' ? 'i-lucide-infinity' : access === 'youtube' ? 'i-simple-icons-youtube' : 'i-lucide-book-open'"
-          class="size-6"
-          :class="access === 'youtube' ? 'text-[#FF0000]' : 'text-(--signal)'"
+          :name="access === 'pro' ? 'i-lucide-sparkles' : 'i-lucide-book-open'"
+          class="size-6 text-(--signal)"
         />
         <div class="min-w-0 flex-1">
           <p class="font-semibold text-(--ink)">
-            {{ t(`plans.${access === 'pro' ? 'all-access' : access}.name`) }}
+            {{ access === 'pro' ? t('plans.pro.name') : t('plans.free.name') }}
           </p>
           <p class="text-sm text-(--ink2)">
-            {{ t(`plans.${access === 'pro' ? 'all-access' : access}.tagline`) }}
+            {{ access === 'pro' ? t('plans.pro.tagline') : t('plans.free.tagline') }}
           </p>
         </div>
-        <YoutubeUnlock
-          v-if="access === 'free'"
-          size="md"
-        />
         <UButton
           v-if="access !== 'pro'"
           :to="localePath('/pro')"
-          class="rounded-full"
-          icon="i-lucide-infinity"
+          icon="i-lucide-sparkles"
         >
-          {{ t('plans.all-access.cta', { price: `$${PRICES.allAccess.usd}` }) }}
+          {{ t('plans.goPro', { price: `$${PRICES.monthly.usd}` }) }}
+        </UButton>
+        <UButton
+          :to="localePath('/account')"
+          color="neutral"
+          variant="ghost"
+          icon="i-lucide-settings"
+        >
+          {{ t('nav.billing') }}
         </UButton>
       </div>
 

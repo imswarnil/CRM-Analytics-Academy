@@ -11,19 +11,19 @@ defineProps<{ inverted?: boolean, compact?: boolean }>()
 <template>
   <span class="flex items-center gap-[11px]">
     <span
-      class="flex size-[34px] flex-none items-end gap-[3px] border p-[6px]"
-      :class="inverted ? 'border-white/80 bg-white/5' : 'border-(--line) bg-(--card)'"
+      class="flex size-[34px] flex-none items-end gap-[3px] rounded-[6px] p-[7px]"
+      :class="inverted ? 'bg-white/10' : 'bg-blueprint-800'"
       aria-hidden="true"
     >
-      <span class="h-[30%] flex-1 bg-(--frost)" />
-      <span class="h-[60%] flex-1 bg-(--tide)" />
-      <span class="h-full flex-1 bg-(--signal)" />
+      <span class="h-[45%] flex-1 rounded-[1px] bg-blueprint-200" />
+      <span class="h-[72%] flex-1 rounded-[1px] bg-blueprint-400" />
+      <span class="h-full flex-1 rounded-[1px] bg-blueprint-500" />
     </span>
     <span
-      class="whitespace-nowrap text-[17px] font-semibold leading-none tracking-[-0.02em]"
+      class="whitespace-nowrap text-[17px] font-bold leading-none tracking-[-0.02em]"
       :class="inverted ? 'text-white' : 'text-(--ink)'"
     >CRM Analytics<span
-      :class="[inverted ? 'text-(--glow)' : 'text-(--signal)', compact ? 'max-[420px]:hidden' : '']"
+      :class="[inverted ? 'text-blueprint-300' : 'text-(--signal)', compact ? 'max-[420px]:hidden' : '']"
     > Academy</span></span>
   </span>
 </template>

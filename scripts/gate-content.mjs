@@ -2,9 +2,8 @@
 /**
  * Gated lessons: keeps their bodies out of everything public.
  *
- * A lesson is gated when its ENGLISH frontmatter says `access: youtube`
- * (YouTube subscribers) or `access: pro` (All Access); every translation
- * follows. For each such lesson, in every locale that has it:
+ * A lesson is gated when its ENGLISH frontmatter says `access: pro`; every
+ * translation follows. For each such lesson, in every locale that has it:
  *
  *   server/assets/gated/<locale>/<route>.json   the full markdown + the quiz,
  *                                               interview and walkthrough —
@@ -69,7 +68,7 @@ const gated = []
 for (const en of await walk(path.join(CONTENT, 'en'))) {
   const rel = path.relative(path.join(CONTENT, 'en'), en)
   const access = split(await readFile(en, 'utf8')).data.access
-  if (access !== 'pro' && access !== 'youtube') continue
+  if (access !== 'pro') continue
   for (const locale of locales) {
     const file = path.join(CONTENT, locale, rel)
     if (!existsSync(file)) continue

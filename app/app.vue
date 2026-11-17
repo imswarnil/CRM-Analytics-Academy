@@ -88,7 +88,7 @@ useHead({
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     // Matches manifest.webmanifest; a stale value here shows as the wrong
     // colour in the Android status bar of an installed app.
-    { name: 'theme-color', content: '#0F2A5C' }
+    { name: 'theme-color', content: '#032D60' }
   ],
   link: [
     { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
@@ -97,6 +97,16 @@ useHead({
     { rel: 'manifest', href: '/manifest.webmanifest' }
   ]
 })
+// GTM integrations that cost the Worker nothing (admin → Integrations):
+// Cloudflare Web Analytics loads its own beacon; Search Console reads a meta tag.
+const { public: gtm } = useRuntimeConfig()
+useHead({
+  meta: gtm.gscVerification ? [{ name: 'google-site-verification', content: String(gtm.gscVerification) }] : [],
+  script: gtm.cfBeaconToken
+    ? [{ 'src': 'https://static.cloudflareinsights.com/beacon.min.js', 'defer': true, 'data-cf-beacon': JSON.stringify({ token: gtm.cfBeaconToken }) }]
+    : []
+})
+
 // Nuxt 4.6 narrowed useHead's input type; the ref is still accepted at runtime.
 useHead(i18nHead as unknown as Parameters<typeof useHead>[0])
 

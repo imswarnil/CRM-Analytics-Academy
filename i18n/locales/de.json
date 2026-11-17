@@ -32,7 +32,8 @@
       "exam": "Praxisprüfung",
       "interview": "Interview Q&A",
       "pricing": "Preisgestaltung"
-    }
+    },
+    "team": "Team"
   },
   "home": {
     "modules": {
@@ -60,16 +61,17 @@
       }
     ],
     "hero": {
-      "eyebrow": "Aktualisiert für die aktuelle Salesforce Freigabe",
-      "title": "Lernen Salesforce CRM Analytics die Art, wie es bei der Arbeit verwendet wird.",
-      "lead": "Kostenloser, praktischer Unterricht über Rezepte, SAQLDashboards, Sicherheit und Einstein Discovery, und wie man KI mit all dem nutzt - basierend auf den realen Daten eines Unternehmens.",
-      "start": "Starten Sie kostenlos mit Lektion 1",
+      "eyebrow": "Salesforce CRM Analytics, unterrichtet über echte GTM-Daten",
+      "title": "Werden CRM Analytics Experte, auf den sich Ihr Team verlässt.",
+      "lead": "praktische Lektionen zu Rezepten, SAQLDashboards, Sicherheit und Einstein Discovery - auf den Marketing-, Pipeline- und Umsatzdaten eines Unternehmens aufbauen.",
+      "start": "Starten Sie das Lernen kostenlos",
       "curriculum": "Beginnen Sie hier",
       "proof": {
         "free": "Frei, keine Karte",
         "languages": "12 Sprachen",
         "ai": "Enthält AI für Analytics"
-      }
+      },
+      "pricing": "Siehe Pläne"
     },
     "author": {
       "eyebrow": "Der Autor",
@@ -904,7 +906,7 @@
     },
     "empty": {
       "title": "Die ersten Lektionen werden aufgezeichnet.",
-      "body": "Der Kurs beginnt von vorne, eine Lektion nach der anderen. Abonnieren sie sich auf youtube und sie öffnen hier für sie den tag, an dem sie veröffentlicht werden."
+      "body": "Der Kurs wird neu aufgebaut, eine Lektion nach der anderen. Folgen Sie auf YouTube, um jeden am Tag seiner Veröffentlichung zu erhalten - oder nehmen Sie jetzt eine Testfahrt der Plattform."
     },
     "section": "Abschnitt {n}"
   },
@@ -1309,20 +1311,21 @@
     "proActiveBody": "Jede pro-lektion steht ihnen offen. Vielen Dank für die Unterstützung der Akademie."
   },
   "pro": {
-    "eyebrow": "All Access Lektion",
-    "tag": "Alle Zugriffe",
-    "lockedTitle": "Diese Lektion ist Teil von All Access",
-    "lockedBody": "Sie haben die Eröffnung von „{title}Der Rest - die vollständige Walkthrough, das Quiz und die Interviewfragen - kommt mit All Access.",
-    "getPro": "Alle Zugriffe erhalten · {price}",
+    "eyebrow": "Pro Lektion",
+    "tag": "Prod",
+    "lockedTitle": "Diese Lektion ist Teil von Pro",
+    "lockedBody": "Sie haben die Eröffnung von „{title}Der Rest – der vollständige Walkthrough, das Quiz und die Interviewfragen – ist in Pro.",
+    "getPro": "Pro erhalten · {monthly}/mo oder {lifetime} einmal",
     "freeTag": "frei",
-    "freeLesson": "Freie Lektion"
+    "freeLesson": "Freie Lektion",
+    "forTeams": "Für Teams und Colleges"
   },
   "store": {
     "eyebrow": "Preisgestaltung",
-    "seoTitle": "CRM Analytics Academy-Preise: Kostenlos, YouTube-Abonnenten und All Access",
-    "seoDesc": "Lernen Salesforce CRM Analytics Freischalten Sie Abonnentenstunden kostenlos, indem Sie auf YouTube abonnieren, oder erhalten Sie All Access zur gesamten Plattform mit einer Zahlung von 99 US-Dollar.",
-    "title": "Einfache Preisgestaltung.",
-    "lead": "Frei zu starten. Kostenlos für Abonnenten. Eine Zahlung für alles.",
+    "seoTitle": "CRM Analytics Academy-Preise: Kostenlos, Pro Monthly, Pro Lifetime, Teams",
+    "seoDesc": "Lernen Salesforce CRM Analytics Kostenlos, oder erhalten Sie Pro für jede Lektion, Datensatz und Prüfungsüberprüfung ohne Werbung - $ 15 pro Monat oder $ 99 einmal. Sitze für Unternehmen und Hochschulen.",
+    "title": "Lernen Sie kostenlos. Pro, wenn du bereit bist.",
+    "lead": "Jede kostenlose Lektion bleibt frei. Pro entsperrt die gesamte Plattform - monatlich oder einmal für das Leben. Unternehmen und Hochschulen kaufen Sitze.",
     "sentTitle": "Danke - Ihre Anfrage ist da.",
     "sentBody": "Swarnil wird innerhalb von zwei Arbeitstagen mit den nächsten Schritten per E-Mail antworten.",
     "f": {
@@ -1351,44 +1354,69 @@
     "requestLead": "Hilfe beim Einrichten CRM AnalyticsBeratung, Mentoring oder eine große Organisation - eine Linie reicht aus.",
     "messagePlaceholder": "Was brauchen Sie? (fakultativ)",
     "interest": {
-      "seats": "Training eines Teams",
+      "seats": "Sitze für meine Organisation",
       "salesforce-setup": "Aufbauhilfe",
       "consulting": "Beratung",
       "mentoring": "Mentoring"
     },
-    "best": "Alles",
-    "current": "Du hast das",
-    "footnote": "Eine Zahlung, kein Abonnement, keine Verlängerungen. Ein ganzes Team trainieren?",
+    "best": "Am beliebtesten",
+    "current": "Sie haben Pro",
+    "forYou": "Für dich",
+    "forOrgs": "Für Unternehmen, Colleges und Teams",
+    "goPro": "Go Pro · von {price}/mo",
+    "footnote": "Preise in USD. Stornieren Sie monatlich jederzeit; Lebensdauer ist eine Zahlung, keine Verlängerungen.",
+    "orgName": "Name des Unternehmens, Colleges oder Teams",
+    "seats": "Sitze",
+    "kind": {
+      "company": "Unternehmen",
+      "college": "Hochschule",
+      "team": "Team"
+    },
     "free": {
       "name": "frei",
-      "tagline": "Lernen Sie noch heute, keine Karte erforderlich.",
+      "tagline": "Fangen Sie noch heute an. Keine Karte erforderlich.",
       "unit": "für immer",
-      "cta": "Offen für alle",
+      "cta": "Starten Sie das Lernen",
       "f1": "Jede kostenlose Lektion",
       "f2": "Die Praxisprüfung",
       "f3": "Interview Fragen und Antworten",
-      "f4": "Fortschritt, Streifen und die Rangliste mit einem kostenlosen Konto"
+      "f4": "Fortschritt, Streifen und Rangliste"
     },
-    "youtube": {
-      "name": "YouTube-Abonnent",
-      "tagline": "Abonnieren Sie den Kanal und entsperren Sie die Abonnentenlektionen.",
-      "unit": "Kostenlos mit einem Abonnement",
-      "f1": "Alles kostenlos",
-      "f2": "Jede Teilnehmerstunde",
-      "f3": "Neue Videos am Tag ihrer Veröffentlichung",
-      "f4": "Verifiziert mit Ihrem Google-Konto in einem Klick"
+    "pro": {
+      "name": "Prod",
+      "tagline": "Jede Lektion, jeder Datensatz und jede Prüfungsüberprüfung - ohne Werbung."
     },
-    "all-access": {
-      "name": "Alle Zugriffe",
-      "tagline": "Die gesamte Plattform, für immer, mit einer Zahlung.",
-      "unit": "einmal",
-      "cta": "Alle Zugriffe erhalten · {price}",
-      "f1": "Jede Lektion, Abonnenten und Premium",
+    "monthly": {
+      "name": "Pro Monat",
+      "tagline": "Alles, während Sie lernen. Jederzeit absagen.",
+      "unit": "pro Monat",
+      "cta": "Pro Monatlich starten",
+      "f1": "Jede Lektion, kostenlos und Pro",
       "f2": "Jeder Datensatz: Marketing, Web, Leads, Chancen, Verträge, CPQ",
       "f3": "Vollständige Antwortprüfung zur Praxisprüfung",
       "f4": "Herunterladbare Dashboards und Rezepte",
-      "f5": "Keine Werbung überall",
-      "f6": "Jede später hinzugefügte Lektion, inklusive"
+      "f5": "Keine Werbung überall"
+    },
+    "lifetime": {
+      "name": "Pro Lifetime",
+      "tagline": "Alles, zum Guten. Eine Zahlung.",
+      "unit": "einmal",
+      "cta": "Pro Lifetime kaufen",
+      "f1": "Alles in Pro Monthly",
+      "f2": "Jede später hinzugefügte Lektion, inklusive",
+      "f3": "Kein Abonnement, keine Verlängerungen",
+      "f4": "Zertifikatsfähige Praxis, für immer",
+      "f5": "Keine Werbung überall"
+    },
+    "teams": {
+      "name": "Teams & Institute",
+      "tagline": "Pro für jeden Sitz - für Unternehmen, die Analysten ausbilden, Colleges, die Studenten unterrichten, und Teams.",
+      "cta": "Antragssitze",
+      "f1": "Pro für jedes Mitglied",
+      "f2": "Ein Join-Code; Colleges können ihn auf ihre E-Mail-Domain beschränken",
+      "f3": "Sitzplatzmanagement und Fortschritt für Admins",
+      "f4": "Rechnungsstellung und Volumenpreis",
+      "f5": "Onboarding Hilfe für Ihre Org"
     }
   },
   "studio": {
@@ -1472,26 +1500,33 @@
     "missing": "Um zu veröffentlichen, fügen Sie hinzu: {fields}"
   },
   "account": {
-    "title": "Ihr Zugang",
-    "current": "Sie können öffnen",
-    "youtubeVerified": "Verifizierter Abonnent · geprüft {date}",
-    "boughtOn": "gekauft am {date}Deine für immer.",
-    "comparePlans": "Vergleich der Pläne"
+    "title": "Dein Plan",
+    "current": "Dein Plan",
+    "renewsOn": "Verlängerungen am {date}",
+    "endsOn": "Enden am {date}",
+    "boughtOn": "Pro Lifetime, gekauft auf {date}Deine für immer.",
+    "granted": "Pro, gewährt von der Akademie.",
+    "seat": "Ein Sitz mit {org}.",
+    "manage": "Verwalten der Abrechnung",
+    "yourTeam": "Dein Team",
+    "haveCode": "Haben Sie einen Join Code?"
   },
-  "youtube": {
-    "tag": "Abonnenten",
-    "subscribe": "Subscribe & Entriegelung",
-    "verify": "Ich abonniere bereits",
-    "signInFirst": "Anmelden zum Entsperren",
-    "unlocked": "Unlocked – danke fürs Abonnieren",
-    "lockedEyebrow": "Für YouTube-Abonnenten",
-    "lockedTitle": "Abonnieren Sie auf YouTube, um weiter zu lesen",
-    "lockedBody": "Sie haben die Eröffnung von „{title}Abonnenten des Kanals erhalten den Rest, kostenlos: abonnieren Sie hier oder bestätigen Sie, dass Sie dies bereits tun, mit Ihrem Google-Konto.",
-    "result": {
-      "verified": "Verifiziert.",
-      "not-subscribed": "Dieses Google-Konto abonniert den Kanal noch nicht. Verwenden Sie „Subscribe & Entsperren, oder wählen Sie das Konto, mit dem Sie abonnieren.",
-      "linked-elsewhere": "Dieser YouTube-Account hat bereits einen anderen Academy-Account freigeschaltet.",
-      "error": "Google hat den Scheck nicht abgeschlossen. Bitte versuchen Sie es noch einmal."
-    }
+  "team": {
+    "title": "Treten Sie Ihrer Organisation bei",
+    "lead": "Ihr Unternehmen, College oder Team gab Ihnen einen 8-stelligen Code. Geben Sie es ein, um Pro auf ihren Sitz zu bekommen.",
+    "codePlaceholder": "GEMEINSAMER CODE",
+    "join": "Beitritt",
+    "noCode": "Noch kein Code?",
+    "request": "Fragen Sie nach Sitzplätzen für Ihre Organisation",
+    "active": "Ihr Pro-Sitzplatz ist aktiv",
+    "ended": "Sitze dieser Organisation sind beendet",
+    "seatsUsed": "{used} von {seats} Sitze verwendet",
+    "codeLabel": "Join-Code",
+    "domainOnly": "Nur verifizierte E-Mails bei {domain} kann beitreten.",
+    "copyLink": "Copy Join Link",
+    "copied": "kopiert",
+    "lessons": "{n} Lektionen",
+    "admin": "Admin",
+    "remove": "Freier Sitz"
   }
 }

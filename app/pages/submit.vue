@@ -179,7 +179,7 @@ const STATUS: Record<Mine['status'], string> = {
           target="_blank"
           size="sm"
           icon="i-simple-icons-youtube"
-          class="rounded-full bg-[#FF0000] text-white hover:bg-[#d90000]"
+          class="bg-[#FF0000] text-white hover:bg-[#d90000]"
         >
           {{ t('contrib.ctaYoutube') }}
         </UButton>
@@ -190,7 +190,6 @@ const STATUS: Record<Mine['status'], string> = {
           color="neutral"
           variant="outline"
           icon="i-simple-icons-github"
-          class="rounded-full"
         >
           {{ t('contrib.ctaGithub') }}
         </UButton>
@@ -479,7 +478,7 @@ const STATUS: Record<Mine['status'], string> = {
             <UButton
               type="submit"
               size="lg"
-              class="rounded-full px-6"
+              class="px-6"
               :loading="sending"
               icon="i-lucide-send"
             >
@@ -507,7 +506,7 @@ const STATUS: Record<Mine['status'], string> = {
           <div class="mt-6 flex flex-wrap justify-center gap-3">
             <UButton
               icon="i-lucide-plus"
-              class="rounded-full"
+
               @click="sent = false"
             >
               {{ t('contrib.another') }}
@@ -516,7 +515,6 @@ const STATUS: Record<Mine['status'], string> = {
               :to="localePath('/dashboard')"
               color="neutral"
               variant="outline"
-              class="rounded-full"
             >
               {{ t('contrib.toDashboard') }}
             </UButton>

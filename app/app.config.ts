@@ -1,9 +1,9 @@
 export default defineAppConfig({
   ui: {
-    // The Academy's look (2026-11-17, after Apple's HIG): continuous rounded
-    // corners, hairline (--line) borders, soft shadows, sentence-case labels.
-    // The colour ramps live in main.css: blueprint (primary), glow (the cyan
-    // accent) and ink (the neutral).
+    // The Namaste Salesforce design system (2026-11-17): Salesforce blue as the
+    // only signal, 4px controls, 6px cards, hairline borders, near-flat
+    // elevation, uppercase tracked labels. Ramps live in main.css: blueprint
+    // (the brand ramp), glow (an alias of it) and ink (the warm neutral).
     colors: {
       primary: 'blueprint',
       secondary: 'glow',
@@ -15,7 +15,7 @@ export default defineAppConfig({
     // ease-out colour changes. Hover always tints; press scales slightly.
     button: {
       slots: {
-        base: 'rounded-full font-semibold transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[.98] motion-reduce:transition-none motion-reduce:active:scale-100'
+        base: 'rounded-[4px] font-semibold transition-[background-color,color,box-shadow] duration-150 ease-out motion-reduce:transition-none'
       },
       variants: {
         size: {
@@ -30,12 +30,12 @@ export default defineAppConfig({
         {
           color: 'primary',
           variant: 'solid',
-          class: 'bg-(--signal) text-white shadow-[0_1px_2px_rgb(12_27_51/.08),0_8px_20px_-10px_var(--signal)] hover:bg-blueprint-700 dark:text-(--on) dark:hover:bg-blueprint-400'
+          class: 'bg-(--signal) text-white hover:bg-blueprint-600 active:bg-blueprint-700 dark:text-white dark:hover:bg-blueprint-500'
         },
         {
           color: 'neutral',
           variant: 'outline',
-          class: 'bg-(--card) text-(--ink) ring-1 ring-inset ring-(--line) hover:bg-(--ice)/70 hover:ring-(--ink2)/30'
+          class: 'bg-(--card) text-(--signal) ring-1 ring-inset ring-(--line) hover:bg-(--ice) hover:ring-(--signal)/40'
         },
         {
           color: 'neutral',
@@ -61,12 +61,12 @@ export default defineAppConfig({
     },
     badge: {
       slots: {
-        base: 'rounded-full font-medium text-[11px]'
+        base: 'rounded-full font-bold uppercase tracking-[.09em] text-[10px]'
       }
     },
     card: {
       slots: {
-        root: 'rounded-2xl border border-(--line) bg-(--card) ring-0 divide-y divide-(--line)',
+        root: 'rounded-[6px] border border-(--line) bg-(--card) ring-0 divide-y divide-(--line)',
         header: 'px-5 py-4',
         body: 'px-5 py-5',
         footer: 'px-5 py-4'
@@ -74,36 +74,36 @@ export default defineAppConfig({
     },
     input: {
       slots: {
-        base: 'rounded-xl bg-(--card) ring-1 ring-(--line) focus-visible:ring-2 focus-visible:ring-(--signal)'
+        base: 'rounded-[4px] bg-(--card) ring-1 ring-(--line) focus-visible:ring-2 focus-visible:ring-(--signal)'
       }
     },
     textarea: {
       slots: {
-        base: 'rounded-xl bg-(--card) ring-1 ring-(--line) focus-visible:ring-2 focus-visible:ring-(--signal)'
+        base: 'rounded-[4px] bg-(--card) ring-1 ring-(--line) focus-visible:ring-2 focus-visible:ring-(--signal)'
       }
     },
     select: {
       slots: {
-        base: 'rounded-xl bg-(--card) ring-1 ring-(--line)',
-        content: 'rounded-xl ring-1 ring-(--line) shadow-xl'
+        base: 'rounded-[4px] bg-(--card) ring-1 ring-(--line)',
+        content: 'rounded-[6px] ring-1 ring-(--line) shadow-[0_4px_16px_-8px_rgb(0_0_0/.18)]'
       }
     },
     selectMenu: {
       slots: {
-        base: 'rounded-xl bg-(--card) ring-1 ring-(--line)',
-        content: 'rounded-xl ring-1 ring-(--line) shadow-xl'
+        base: 'rounded-[4px] bg-(--card) ring-1 ring-(--line)',
+        content: 'rounded-[6px] ring-1 ring-(--line) shadow-[0_4px_16px_-8px_rgb(0_0_0/.18)]'
       }
     },
     dropdownMenu: {
       slots: {
-        content: 'rounded-2xl p-1 ring-1 ring-(--line) bg-(--card) shadow-xl',
-        item: 'rounded-lg',
-        label: 'text-xs font-medium text-(--ink2)'
+        content: 'rounded-[6px] p-1 ring-1 ring-(--line) bg-(--card) shadow-[0_4px_16px_-8px_rgb(0_0_0/.18)]',
+        item: 'rounded-[4px]',
+        label: 'text-[11px] font-bold uppercase tracking-[.09em] text-(--label)'
       }
     },
     formField: {
       slots: {
-        label: 'text-sm font-medium text-(--ink)',
+        label: 'text-sm font-semibold text-(--ink)',
         help: 'text-(--ink2)'
       }
     },
@@ -116,7 +116,7 @@ export default defineAppConfig({
     },
     modal: {
       slots: {
-        content: 'rounded-3xl ring-1 ring-(--line) bg-(--card) shadow-2xl',
+        content: 'rounded-[8px] ring-1 ring-(--line) bg-(--card) shadow-[0_4px_16px_-8px_rgb(0_0_0/.18)]',
         header: 'border-b border-(--line)'
       }
     },
@@ -162,7 +162,7 @@ export default defineAppConfig({
     // ---- Chrome -----------------------------------------------------------
     header: {
       slots: {
-        root: 'h-16 bg-[color-mix(in_oklab,var(--paper)_80%,transparent)] backdrop-blur-xl backdrop-saturate-150 border-b border-(--line)',
+        root: 'h-16 bg-(--card)/95 backdrop-blur border-b border-(--line)',
         container: 'max-w-(--ui-container)',
         content: 'bg-(--paper)'
       }
@@ -174,7 +174,7 @@ export default defineAppConfig({
     },
     navigationMenu: {
       slots: {
-        link: 'font-medium rounded-full'
+        link: 'font-semibold rounded-[4px]'
       }
     },
 

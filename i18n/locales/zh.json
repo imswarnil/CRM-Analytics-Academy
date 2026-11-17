@@ -32,7 +32,8 @@
       "exam": "实践考试",
       "interview": "访谈 Q&页:1",
       "pricing": "定价"
-    }
+    },
+    "team": "团队"
   },
   "home": {
     "modules": {
@@ -60,16 +61,17 @@
       }
     ],
     "hero": {
-      "eyebrow": "当前更新 Salesforce 释放",
-      "title": "学习 Salesforce CRM Analytics 工作时使用的方法。",
-      "lead": "免费的,实际操作的课程 关于食谱, SAQL、仪表板、安保和 Einstein Discovery以及如何使用AI,",
-      "start": "第1课免费开始",
+      "eyebrow": "Salesforce CRM Analytics,教授真正的GTM数据",
+      "title": "成为 CRM Analytics 专家你的团队依赖。",
+      "lead": "关于食谱的实践课程, SAQL、仪表板、安保和 Einstein Discovery 以一家公司的销售、管道和收入数据为基础。",
+      "start": "开始免费学习",
       "curriculum": "从这里开始",
       "proof": {
         "free": "免费,没有牌",
         "languages": "12种语言",
         "ai": "包括分析的AI"
-      }
+      },
+      "pricing": "见计划"
     },
     "author": {
       "eyebrow": "提交人",
@@ -904,7 +906,7 @@
     },
     "empty": {
       "title": "初学正录.",
-      "body": "课程从头开始,一次上课。 在YouTube上订户,他们发布当天就在这里为你开放."
+      "body": "课程正在重建中,一个一个教训。 在YouTube上追踪,"
     },
     "section": "节次 {n}"
   },
@@ -1309,20 +1311,21 @@
     "proActiveBody": "每个专业课程都是对你的开放。 谢谢你对学院的支持"
   },
   "pro": {
-    "eyebrow": "所有访问课程",
-    "tag": "所有访问",
-    "lockedTitle": "此课是 All Access 的一部分",
-    "lockedBody": "你已读到“......{title}其余部分——全部通过、问答和面试问题——与All Access一起出现。",
-    "getPro": "获取全部访问... {price}",
+    "eyebrow": "专业课",
+    "tag": "赞成:",
+    "lockedTitle": "这个课是Pro的一部分",
+    "lockedBody": "你已读到“......{title}其余的——全程、问答和面试问题——都在Pro。",
+    "getPro": "获得职业... {monthly}/mo或(或) {lifetime} 一次",
     "freeTag": "免费",
-    "freeLesson": "免费课程"
+    "freeLesson": "免费课程",
+    "forTeams": "团队和学院"
   },
   "store": {
     "eyebrow": "定价",
-    "seoTitle": "CRM Analytics 学院定价:免费,YouTube用户和All Access",
-    "seoDesc": "学习 Salesforce CRM Analytics 免费,通过在YouTube上签名解锁订阅者课程,或者以一美元99美元付费获得All Access到整个平台.",
-    "title": "简单的定价。",
-    "lead": "自由开始。 用户免费. 一付一切众生.",
+    "seoTitle": "CRM Analytics 学院定价:免费、Pro月刊、Pro Lifetime、Teams",
+    "seoDesc": "学习 Salesforce CRM Analytics 免费,或为每门课获得Pro,数据集和考试审查,没有广告——每月15美元或99美元一次. 公司和学院的座位。",
+    "title": "学解脱. 等你准备好了再去专业学校",
+    "lead": "每一次免费的课都是免费的 Pro解锁整个平台——每月,或终身一次. 公司和学院购买座位.",
     "sentTitle": "谢谢,你的请求已经受理了",
     "sentBody": "Swarnil将在两个工作日内用电子邮件回复下一步。",
     "f": {
@@ -1351,44 +1354,69 @@
     "requestLead": "帮助设置 CRM Analytics咨询、指导或大型组织——一行就够了。",
     "messagePlaceholder": "你还需要什么? (可选)",
     "interest": {
-      "seats": "培训一个团队",
+      "seats": "我组织的座位",
       "salesforce-setup": "设置帮助",
       "consulting": "咨询",
       "mentoring": "辅导"
     },
-    "best": "所有的东西",
-    "current": "你有这个",
-    "footnote": "一次付款,不订阅,不续约. 训练整个团队?",
+    "best": "最受欢迎的",
+    "current": "你有职业",
+    "forYou": "给你",
+    "forOrgs": "公司、学院和团队",
+    "goPro": "Go pro —— 来自 {price}/模数",
+    "footnote": "价格为美元。 任何时间取消每月一次;一生一次,不得续签.",
+    "orgName": "公司、大学或团队名称",
+    "seats": "席位",
+    "kind": {
+      "company": "企业",
+      "college": "学院",
+      "team": "团队"
+    },
     "free": {
       "name": "免费",
-      "tagline": "今天开始学习,不需要卡片。",
+      "tagline": "从今天开始。 没有卡片需要。",
       "unit": "永远",
-      "cta": "向大家开放",
+      "cta": "开始学习",
       "f1": "每个免费的课",
       "f2": "执业考试",
       "f3": "访谈问答",
-      "f4": "进展、 记录和有自由账户的导板"
+      "f4": "进步、进步和领导牌"
     },
-    "youtube": {
-      "name": "YouTube 用户",
-      "tagline": "订阅频道并解锁订阅者课程.",
-      "unit": "免费订阅",
-      "f1": "一切免费",
-      "f2": "每个订阅者课程",
-      "f3": "发布当天的新视频",
-      "f4": "点击一次以您的 Google 账户验证"
+    "pro": {
+      "name": "赞成:",
+      "tagline": "每课,数据集和考试审查——没有广告."
     },
-    "all-access": {
-      "name": "所有访问",
-      "tagline": "整个平台,永远,用一个付款。",
-      "unit": "一次",
-      "cta": "获取全部访问... {price}",
-      "f1": "每一个课程,订阅者和溢价",
+    "monthly": {
+      "name": "专业每月",
+      "tagline": "所有的东西,当你学习。 随时取消",
+      "unit": "每月",
+      "cta": "每月开始",
+      "f1": "每门课,免费的,专业的",
       "f2": "每个数据集:营销,网络,线索,机会,合同,CPQ",
       "f3": "对执业考试的全面答复审查",
       "f4": "可下载的仪表板和食谱",
-      "f5": "没有广告",
-      "f6": "以后增加的每个课程,包括"
+      "f5": "没有广告"
+    },
+    "lifetime": {
+      "name": "终身",
+      "tagline": "所有的一切,为好。 一次付款。",
+      "unit": "一次",
+      "cta": "购买终身",
+      "f1": "专业月刊上的一切",
+      "f2": "以后增加的每个课程,包括",
+      "f3": "不订阅,不续订",
+      "f4": "证书准备练习,永远",
+      "f5": "没有广告"
+    },
+    "teams": {
+      "name": "团队 & 机构",
+      "tagline": "每一个席位都是职业——公司培训分析师、教授学生的学院和团队。",
+      "cta": "请求席位",
+      "f1": "向每个成员推荐",
+      "f2": "一个加入代码; 学院可以限制在他们的电子邮件域",
+      "f3": "席位管理和管理人员的进展情况",
+      "f4": "发票和数量定价",
+      "f5": "为您提供登机帮助"
     }
   },
   "studio": {
@@ -1472,26 +1500,33 @@
     "missing": "要出版,请加上: {fields}"
   },
   "account": {
-    "title": "您的访问",
-    "current": "你可以打开",
-    "youtubeVerified": "已验证的订阅者% 1 {date}",
-    "boughtOn": "买的 {date}永远是你的",
-    "comparePlans": "比较计划"
+    "title": "你的计划",
+    "current": "你的计划",
+    "renewsOn": "续订 {date}",
+    "endsOn": "结束 {date}",
+    "boughtOn": "Pro Lifetime, 买下 {date}永远是你的",
+    "granted": "Pro,由学院授予.",
+    "seat": "一个座位 {org}。 。 。",
+    "manage": "管理计费",
+    "yourTeam": "你的团队",
+    "haveCode": "有密码吗?"
   },
-  "youtube": {
-    "tag": "订阅者",
-    "subscribe": "订阅 & 解锁",
-    "verify": "我已经订了",
-    "signInFirst": "签名打开",
-    "unlocked": "解锁——感谢签名",
-    "lockedEyebrow": "对YouTube用户而言",
-    "lockedTitle": "在YouTube上订阅以继续阅读",
-    "lockedBody": "你已读到“......{title}” 频道的订阅者可以免费获取其余内容:在这里订阅或确认您已经使用您的Google账户。",
-    "result": {
-      "verified": "已验.",
-      "not-subscribed": "Google的账号还没有订阅频道 使用“订阅” & 解锁”或选择您订阅的账户。",
-      "linked-elsewhere": "那个YouTube的账户 已经解锁了另一个Academy的账户",
-      "error": "Google没有完成检查. 请再试一次"
-    }
+  "team": {
+    "title": "加入你的组织",
+    "lead": "你的公司、大学或团队给了你8个特征代码 输入让Pro上他们的座位.",
+    "codePlaceholder": "联合代码",
+    "join": "联合",
+    "noCode": "没有密码吗?",
+    "request": "询问您的组织位置",
+    "active": "您的 Pro 座位已激活",
+    "ended": "这个组织的席位已经结束了",
+    "seatsUsed": "{used} 页:1 {seats} 使用的座位",
+    "codeLabel": "密码",
+    "domainOnly": "只有已核实的邮件 {domain} 能够加入。",
+    "copyLink": "复制加入链接",
+    "copied": "复制",
+    "lessons": "{n} 经验教训",
+    "admin": "管理员",
+    "remove": "空闲座位"
   }
 }

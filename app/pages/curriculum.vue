@@ -48,15 +48,15 @@ usePageSchema(() => ({
     'isAccessibleForFree': true,
     'offers': [
       { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
-      { '@type': 'Offer', 'category': 'All Access', 'price': String(PRICES.allAccess.usd), 'priceCurrency': 'USD' }
+      { '@type': 'Offer', 'category': 'Pro (monthly)', 'price': String(PRICES.monthly.usd), 'priceCurrency': 'USD' },
+      { '@type': 'Offer', 'category': 'Pro (lifetime)', 'price': String(PRICES.lifetime.usd), 'priceCurrency': 'USD' }
     ]
   }]
 }))
 
 const TAG: Record<Access, { icon: string, key: string, cls: string }> = {
   free: { icon: 'i-lucide-gift', key: 'pro.freeLesson', cls: 'text-(--ink2)' },
-  youtube: { icon: 'i-simple-icons-youtube', key: 'youtube.tag', cls: 'text-[#FF0000]' },
-  pro: { icon: 'i-lucide-infinity', key: 'pro.tag', cls: 'text-(--signal)' }
+  pro: { icon: 'i-lucide-sparkles', key: 'pro.tag', cls: 'text-(--signal)' }
 }
 </script>
 
@@ -77,7 +77,7 @@ const TAG: Record<Access, { icon: string, key: string, cls: string }> = {
             target="_blank"
             size="xl"
             icon="i-simple-icons-youtube"
-            class="rounded-full bg-[#FF0000] text-white hover:bg-[#d90000]"
+            class="bg-[#FF0000] text-white hover:bg-[#d90000]"
           >
             {{ t('curriculumPage.hero.youtube') }}
           </UButton>
@@ -86,7 +86,7 @@ const TAG: Record<Access, { icon: string, key: string, cls: string }> = {
             size="xl"
             color="neutral"
             variant="outline"
-            class="rounded-full"
+
             trailing-icon="i-lucide-arrow-right"
           >
             {{ t('curriculumPage.hero.pricing') }}
@@ -111,8 +111,15 @@ const TAG: Record<Access, { icon: string, key: string, cls: string }> = {
         <p class="mx-auto mt-2 max-w-md text-(--ink2)">
           {{ t('curriculumPage.empty.body') }}
         </p>
-        <div class="mt-6 flex justify-center">
-          <YoutubeUnlock />
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <UButton
+            :to="SITE.youtube"
+            target="_blank"
+            icon="i-simple-icons-youtube"
+          >
+            {{ t('curriculumPage.hero.youtube') }}
+          </UButton>
+          <TestRide variant="outline" />
         </div>
       </div>
 

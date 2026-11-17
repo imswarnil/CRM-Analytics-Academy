@@ -9,74 +9,73 @@
 @source "../../pages/certification/*paper*.vue";
 
 /* ===========================================================================
-   CRM Analytics Academy — "Blueprint"
+   CRM Analytics Academy — on the Namaste Salesforce design system
 
-   A technical-drawing style: graph paper, ink borders, crop marks, rulers,
-   square corners and hard offset shadows. This file is the source of truth;
-   tokens/tokens.json mirrors its values for video, Figma and the LinkedIn kit.
+   Tokens from ~/Developer/namaste-salesforce (sfdc/src/tokens): one signal
+   colour (Salesforce blue #0176D3), deep navy, white cards on a sunken grey
+   page, hairline #DDDBDA borders, near-flat elevation, 4px controls and 6px
+   cards, Figtree for everything, uppercase tracked labels. Dark mode is the
+   brand's navy "console", never a generic slate.
 
-   Layers in this file, in order:
-     1. Theme tokens — type, the blueprint ramp, the ink neutral, square radii
-     2. Semantic tokens — Nuxt UI's --ui-* mapped onto paper and ink, light/dark
-     3. Signature utilities — graph-paper, crosshair, ruler, hard-shadow, …
-     4. Motion — the one easing curve and the hover language
-     5. Layout — the lesson player grid
-     6. Compatibility — class names existing markup uses, restyled
+   The --paper/--card/--ink/--signal… names are this site's semantic API and
+   are kept so every component reads the new values without edits.
 =========================================================================== */
 
 @theme static {
   --container-8xl: 82.5rem;
 
-  --font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-sans: 'Figtree', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Labels and data are Figtree too (uppercase, tracked); code is the system mono. */
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Blueprint — the primary ramp. 500 is "signal". */
-  --color-blueprint-50: #F4F7FB;
-  --color-blueprint-100: #DDEBFA;
-  --color-blueprint-200: #A8CCF2;
-  --color-blueprint-300: #7FB2EA;
-  --color-blueprint-400: #3D8BD9;
-  --color-blueprint-500: #2F5BEA;
-  --color-blueprint-600: #2549C4;
-  --color-blueprint-700: #1C3A9C;
-  --color-blueprint-800: #15306F;
-  --color-blueprint-900: #0F2A5C;
-  --color-blueprint-950: #07122A;
+  /* Brand — the Namaste Salesforce ramp (named `blueprint` for Nuxt UI). 500 is the signal. */
+  --color-blueprint-50: #eef6ff;
+  --color-blueprint-100: #d8edff;
+  --color-blueprint-200: #b0d7ff;
+  --color-blueprint-300: #7cbeff;
+  --color-blueprint-400: #1b96ff;
+  --color-blueprint-500: #0176d3;
+  --color-blueprint-600: #0b5cab;
+  --color-blueprint-700: #03386b;
+  --color-blueprint-800: #032d60;
+  --color-blueprint-900: #001a3e;
+  --color-blueprint-950: #000f26;
 
-  /* Glow — the cyan accent, used sparingly: hovered bars, done states. */
-  --color-glow-50: #ECFAFD;
-  --color-glow-100: #CFF3F8;
-  --color-glow-200: #A3E7F1;
-  --color-glow-300: #6FD8E8;
-  --color-glow-400: #3FC6DC;
-  --color-glow-500: #22AEC6;
-  --color-glow-600: #1B8CA2;
-  --color-glow-700: #1A6F82;
-  --color-glow-800: #1B5A69;
-  --color-glow-900: #1A4B58;
-  --color-glow-950: #0B303A;
+  /* Secondary — an alias of the brand ramp: the system has one signal colour. */
+  --color-glow-50: #eef6ff;
+  --color-glow-100: #d8edff;
+  --color-glow-200: #b0d7ff;
+  --color-glow-300: #7cbeff;
+  --color-glow-400: #1b96ff;
+  --color-glow-500: #0176d3;
+  --color-glow-600: #0b5cab;
+  --color-glow-700: #03386b;
+  --color-glow-800: #032d60;
+  --color-glow-900: #001a3e;
+  --color-glow-950: #000f26;
 
-  /* Ink — the neutral, from paper to the darkest line. */
-  --color-ink-50: #F4F7FB;
-  --color-ink-100: #E8EFF8;
-  --color-ink-200: #C3D2E6;
-  --color-ink-300: #A3B5CF;
-  --color-ink-400: #7E93B5;
-  --color-ink-500: #5E7295;
-  --color-ink-600: #4A5B78;
-  --color-ink-700: #33445F;
-  --color-ink-800: #1E2E4A;
-  --color-ink-900: #0C1B33;
-  --color-ink-950: #07122A;
+  /* Neutral — warm Salesforce greys, ink #181818 to page #f4f6f8. */
+  --color-ink-50: #f4f6f8;
+  --color-ink-100: #ecebea;
+  --color-ink-200: #dddbda;
+  --color-ink-300: #c9c7c5;
+  --color-ink-400: #a8a6a3;
+  --color-ink-500: #706e6b;
+  --color-ink-600: #5c5a57;
+  --color-ink-700: #444444;
+  --color-ink-800: #2b2826;
+  --color-ink-900: #181818;
+  --color-ink-950: #080707;
 
-  /* Soft, continuous corners (Apple HIG): small controls 8–12px, cards 16–24px. */
-  --radius-xs: 0.25rem;
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.625rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 1rem;
-  --radius-3xl: 1.5rem;
+  /* Near-flat geometry: controls 4px, cards 6px, large panels 8px. Pills only
+     for true pills (tags, segmented controls) via rounded-full. */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 6px;
+  --radius-2xl: 6px;
+  --radius-3xl: 8px;
 
   --tracking-tight: -0.02em;
   --tracking-tighter: -0.04em;
@@ -91,26 +90,27 @@
    2. Semantic tokens
 --------------------------------------------------------------------------- */
 :root {
-  --paper: #F4F7FB;
-  --paper2: #E8EFF8;
-  --card: #FBFCFE;
-  --ink: #0C1B33;
-  --ink2: #4A5B78;
-  --line: #C3D2E6;
-  --navy: #0F2A5C;
-  --signal: #2F5BEA;
-  --tide: #3D8BD9;
-  --frost: #A8CCF2;
-  --ice: #DDEBFA;
-  --glow: #3FC6DC;
+  --paper: #f4f6f8;   /* page (Namaste surface-sunken) */
+  --paper2: #ecebea;
+  --card: #ffffff;    /* surface / raised */
+  --ink: #181818;
+  --ink2: #5c5a57;    /* muted reading ink, 6.9:1 */
+  --label: #45566b;   /* uppercase structural labels */
+  --line: #dddbda;    /* hairline */
+  --navy: #032d60;    /* brand-800 */
+  --signal: #0176d3;  /* brand-500, the only signal colour */
+  --tide: #1b96ff;
+  --frost: #b0d7ff;
+  --ice: #eef6ff;     /* brand-50, tinted fills */
+  --glow: #1b96ff;
   --on: #fff;
-  --rmin: rgba(47, 91, 234, .032);
-  --rmaj: rgba(47, 91, 234, .07);
-  --x: #7E93B5;
+  --rmin: rgba(3, 45, 96, .03);
+  --rmaj: rgba(3, 45, 96, .055);
+  --x: #a8a6a3;
 
   --ui-primary: var(--signal);
   --ui-secondary: var(--glow);
-  --ui-radius: 0.375rem;
+  --ui-radius: 0.25rem;
   --ui-container: var(--container-8xl);
   --ui-header-height: 4rem;
 
@@ -134,19 +134,21 @@
 }
 
 .dark {
-  --paper: #0A1428;
-  --paper2: #0D1A33;
-  --card: #0F1C36;
-  --ink: #E6EEFA;
-  --ink2: #9DB0CF;
-  --line: #24385F;
-  --navy: #07122A;
-  --signal: #6E93FF;
-  --tide: #5BA6EC;
-  --frost: #2B4A7C;
-  --ice: #16274A;
-  --glow: #5ED8EA;
-  --on: #06112A;
+  /* The navy console (Namaste dark): surfaces from the brand navy. */
+  --paper: #02080f;
+  --paper2: #051222;
+  --card: #081a30;
+  --ink: #eaf2fb;
+  --ink2: #7fa0c2;
+  --label: #8fb3d9;
+  --line: rgba(124, 190, 255, .16);
+  --navy: #001a3e;
+  --signal: #1b96ff;
+  --tide: #7cbeff;
+  --frost: #03386b;
+  --ice: rgba(27, 150, 255, .12);
+  --glow: #7cbeff;
+  --on: #ffffff;
   --rmin: rgba(168, 204, 242, .035);
   --rmaj: rgba(168, 204, 242, .075);
   --x: #4F6A96;
@@ -206,19 +208,21 @@ h1, h2, h3, h4 {
   border: 1px solid var(--line);
 }
 @utility hard-shadow {
-  box-shadow: 0 1px 2px rgb(12 27 51 / .04), 0 12px 32px -16px rgb(12 27 51 / .22);
+  box-shadow: 0 4px 16px -8px rgb(0 0 0 / .18);
 }
 @utility eyebrow {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
   color: var(--signal);
 }
 @utility mono-label {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0;
-  color: var(--ink2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--label);
 }
 /* Diagonal hatching: Pro lessons in charts, progress fills. */
 @utility hatch {
@@ -245,25 +249,25 @@ h1, h2, h3, h4 {
 /* Type scale from the spec. */
 .bp-h1 {
   font-weight: 700;
-  font-size: clamp(40px, 5.6vw, 68px);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-  text-wrap: balance;
-}
-.bp-h2 {
-  font-weight: 700;
-  font-size: clamp(28px, 3.6vw, 44px);
+  font-size: clamp(2.5rem, 1.55rem + 2.6vw, 3.75rem);
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: var(--ink);
   text-wrap: balance;
 }
-.bp-h3 {
-  font-weight: 600;
-  font-size: 21px;
-  line-height: 1.2;
+.bp-h2 {
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+  line-height: 1.15;
   letter-spacing: -0.015em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.bp-h3 {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
   color: var(--ink);
 }
 .bp-lead {
@@ -282,16 +286,17 @@ h1, h2, h3, h4 {
   position: relative;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 1.25rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 0 rgb(0 0 0 / .02);
   transition:
     transform .2s var(--ease-out-im),
     box-shadow .2s var(--ease-out-im),
     border-color .2s;
 }
 .bp-card--hover:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in oklab, var(--signal) 35%, var(--line));
-  box-shadow: 0 1px 2px rgb(12 27 51 / .04), 0 18px 40px -20px rgb(12 27 51 / .28);
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--signal) 55%, transparent);
+  box-shadow: 0 4px 16px -8px rgb(0 0 0 / .18);
 }
 .bp-card--hover:active {
   transform: none;
@@ -305,7 +310,7 @@ h1, h2, h3, h4 {
   width: 44px;
   height: 44px;
   flex: none;
-  border-radius: 0.875rem;
+  border-radius: 6px;
   background: var(--ice);
   color: var(--signal);
   transition: background-color .2s, color .2s, transform .2s var(--ease-out-im);

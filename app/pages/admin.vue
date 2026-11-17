@@ -17,14 +17,16 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Tab = 'overview' | 'leads' | 'users' | 'submissions' | 'interview' | 'comments'
+type Tab = 'overview' | 'leads' | 'teams' | 'users' | 'submissions' | 'interview' | 'comments' | 'integrations'
 const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
   { key: 'leads', label: 'Leads', icon: 'i-lucide-handshake' },
+  { key: 'teams', label: 'Teams', icon: 'i-lucide-building-2' },
   { key: 'users', label: 'Users', icon: 'i-lucide-users' },
   { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
   { key: 'interview', label: 'Interview Q&A', icon: 'i-lucide-messages-square' },
-  { key: 'comments', label: 'Comments', icon: 'i-lucide-message-square' }
+  { key: 'comments', label: 'Comments', icon: 'i-lucide-message-square' },
+  { key: 'integrations', label: 'Integrations', icon: 'i-lucide-plug' }
 ]
 const route = useRoute()
 const tab = ref<Tab>(TABS.some(t => t.key === route.query.tab) ? route.query.tab as Tab : 'overview')
@@ -52,10 +54,10 @@ const overviewTiles = computed(() => {
     { label: 'New users · 7 days', value: t.signups7d, to: 'users' as Tab },
     { label: 'Lessons completed', value: t.lessonsCompleted, to: null },
     { label: 'Quiz attempts', value: t.quizAttempts, to: null },
-    { label: 'All Access members', value: t.proMembers, to: 'users' as Tab },
+    { label: 'Pro members', value: t.proMembers, to: 'users' as Tab },
     { label: 'New leads', value: t.newLeads, to: 'leads' as Tab },
     { label: 'Leads · 30 days', value: t.leads30d, to: 'leads' as Tab },
-    { label: 'YouTube subscribers verified', value: t.waitlist, to: 'users' as Tab },
+    { label: 'Team seats in use', value: t.waitlist, to: 'teams' as Tab },
     { label: 'Pending submissions', value: t.pendingSubmissions, to: 'submissions' as Tab },
     { label: 'Comments', value: t.comments, to: 'comments' as Tab }
   ]
@@ -191,7 +193,7 @@ function badge(key: Tab) {
   return 0
 }
 /* Money first: All Access sales and YouTube subscribers (GET /api/admin/revenue). */
-interface Revenue { configured: boolean, allAccess: { sold: number, income: number, granted: number }, youtube: { verified: number, notSubscribed: number } }
+interface Revenue { configured: boolean, mrr: number, monthly: { active: number, cancelling: number }, lifetime: { sold: number, income: number }, granted: number, teams: { orgs: number, seats: number, used: number } }
 const { data: revenue } = await useLazyAsyncData('admin-revenue-overview', () => $fetch<Revenue>('/api/admin/revenue'), { server: false, immediate: false })
 watch(isAdmin, ok => ok && refreshNuxtData('admin-revenue-overview'), { immediate: true })
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -199,9 +201,9 @@ const moneyTiles = computed(() => {
   const r = revenue.value
   if (!r) return []
   return [
-    { label: 'All Access income', value: usd(r.allAccess.income), note: `${r.allAccess.sold} sold at ${usd(PRICES.allAccess.usd)}`, icon: 'i-lucide-badge-dollar-sign' },
-    { label: 'Granted by hand', value: String(r.allAccess.granted), note: 'admin grants', icon: 'i-lucide-gift' },
-    { label: 'YouTube verified', value: String(r.youtube.verified), note: `${r.youtube.notSubscribed} checked, not subscribed`, icon: 'i-simple-icons-youtube' }
+    { label: 'MRR', value: usd(r.mrr), note: `${r.monthly.active} on Pro Monthly${r.monthly.cancelling ? ` · ${r.monthly.cancelling} cancelling` : ''}`, icon: 'i-lucide-trending-up' },
+    { label: 'Lifetime sales', value: usd(r.lifetime.income), note: `${r.lifetime.sold} at ${usd(PRICES.lifetime.usd)}`, icon: 'i-lucide-infinity' },
+    { label: 'Team seats', value: `${r.teams.used}/${r.teams.seats}`, note: `${r.teams.orgs} organisation(s) · ${r.granted} granted by hand`, icon: 'i-lucide-building-2' }
   ]
 })
 
@@ -222,7 +224,7 @@ const SERVICES = [
   { label: 'Deploys', icon: 'i-simple-icons-githubactions', to: 'https://github.com/imswarnil/CRM-Analytics-Academy/actions' }
 ]
 
-// Keyboard: 1–7 switch sections (ignored while typing).
+// Keyboard: 1–8 switch sections (ignored while typing).
 function onKey(e: KeyboardEvent) {
   const el = e.target as HTMLElement | null
   if (e.metaKey || e.ctrlKey || e.altKey || el?.closest('input, textarea, select, [contenteditable]')) return
@@ -477,7 +479,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                   </li>
                   <li>Locally: <code>pnpm build</code> translates into 11 languages with the local LibreTranslate.</li>
                   <li>Commit and push — Cloudflare deploys.</li>
-                  <li>Videos: <code>pnpm fcp &lt;route&gt;</code> → Final Cut Pro → YouTube → <code>video: {id}</code>.</li>
+                  <li>Videos: record → YouTube → <code>video: {id}</code> on the English lesson.</li>
                 </ol>
               </section>
             </div>
@@ -840,6 +842,8 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
 
           <!-- ============================ COMMENTS ============================ -->
           <AdminComments v-else-if="tab === 'comments'" />
+          <AdminTeams v-else-if="tab === 'teams'" />
+          <AdminIntegrations v-else-if="tab === 'integrations'" />
         </div>
       </div>
     </template>

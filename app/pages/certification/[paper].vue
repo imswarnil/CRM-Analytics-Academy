@@ -221,14 +221,14 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           <UButton
             color="neutral"
             variant="ghost"
-            class="rounded-full"
+
             @click="leaveOpen = false"
           >
             {{ t('cert.keepGoing') }}
           </UButton>
           <UButton
             color="error"
-            class="rounded-full"
+
             icon="i-lucide-log-out"
             @click="close(true)"
           >
@@ -294,7 +294,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
       <div class="mt-10 flex flex-wrap items-center gap-3">
         <UButton
           size="xl"
-          class="rounded-full px-7"
+          class="px-7"
           icon="i-lucide-play"
           :loading="!questions.length"
           @click="start()"
@@ -306,7 +306,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           size="xl"
           color="neutral"
           variant="outline"
-          class="rounded-full"
+
           icon="i-lucide-history"
           @click="start(true)"
         >
@@ -340,7 +340,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             color="neutral"
             variant="ghost"
             square
-            class="rounded-full"
+
             :aria-label="t('cert.close')"
             @click="close()"
           />
@@ -368,7 +368,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             />{{ clock }}
           </span>
           <UButton
-            class="rounded-full max-sm:hidden"
+            class="max-sm:hidden"
             @click="confirmOpen = true"
           >
             {{ t('cert.submit') }}
@@ -425,7 +425,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
               icon="i-lucide-arrow-left"
               color="neutral"
               variant="ghost"
-              class="rounded-full"
+
               :disabled="index === 0"
               @click="index--"
             >
@@ -434,7 +434,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             <UButton
               v-if="index < questions.length - 1"
               trailing-icon="i-lucide-arrow-right"
-              class="rounded-full"
+
               @click="index++"
             >
               {{ t('cert.next') }}
@@ -442,7 +442,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             <UButton
               v-else
               icon="i-lucide-send"
-              class="rounded-full"
+
               @click="confirmOpen = true"
             >
               {{ t('cert.submit') }}
@@ -494,14 +494,14 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             <UButton
               color="neutral"
               variant="ghost"
-              class="rounded-full"
+
               @click="confirmOpen = false"
             >
               {{ t('cert.keepGoing') }}
             </UButton>
             <UButton
               icon="i-lucide-send"
-              class="rounded-full"
+
               @click="finish"
             >
               {{ t('cert.submitNow') }}
@@ -557,7 +557,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           <UButton
             icon="i-lucide-rotate-ccw"
             size="lg"
-            class="rounded-full"
+
             @click="retake"
           >
             {{ t('cert.retake') }}

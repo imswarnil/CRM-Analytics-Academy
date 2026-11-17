@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Instructor">
+  <rect width="512" height="512" fill="#032D60"/>
+  <circle cx="256" cy="204" r="92" fill="#0176D3"/>
+  <path d="M84 512c0-95 77-172 172-172s172 77 172 172z" fill="#0176D3"/>
+  <circle cx="256" cy="204" r="92" fill="none" stroke="#1B96FF" stroke-width="6" opacity=".5"/>
+</svg>

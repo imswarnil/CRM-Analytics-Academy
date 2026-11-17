@@ -75,6 +75,7 @@ const accountItems = computed(() => [
   [
     { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
     { label: t('nav.billing'), icon: 'i-lucide-credit-card', to: localePath('/account') },
+    { label: t('nav.team'), icon: 'i-lucide-building-2', to: localePath('/team') },
     { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') }
   ],
   ...(admin.value
@@ -100,7 +101,7 @@ const localeItems = computed(() =>
 
 <template>
   <UHeader
-    :ui="{ container: 'max-w-(--ui-container)', center: 'hidden', left: 'lg:min-w-0 lg:flex-1', right: 'lg:flex-none', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-full border border-(--line) size-9 flex items-center justify-center' }"
+    :ui="{ container: 'max-w-(--ui-container)', center: 'hidden', left: 'lg:min-w-0 lg:flex-1', right: 'lg:flex-none', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-[4px] border border-(--line) size-9 flex items-center justify-center' }"
     :to="localePath('/')"
   >
     <template #left>
@@ -142,8 +143,8 @@ const localeItems = computed(() =>
             :key="item.to"
             :to="item.to"
             :title="mode === 'icon' ? item.label : undefined"
-            class="group flex h-9 shrink-0 items-center gap-2 rounded-full px-3.5 text-[14px] font-medium whitespace-nowrap transition-colors duration-150"
-            :class="isActive(item) ? 'bg-(--ice) text-(--ink)' : 'text-(--ink2) hover:bg-(--ice)/70 hover:text-(--ink)'"
+            class="group flex h-9 shrink-0 items-center gap-2 rounded-[4px] px-3.5 text-[14px] font-semibold whitespace-nowrap transition-colors duration-150"
+            :class="isActive(item) ? 'bg-(--ice) text-(--signal)' : 'text-(--ink) hover:bg-(--paper) hover:text-(--signal)'"
             :aria-current="isActive(item) ? 'page' : undefined"
           >
             <UIcon
@@ -164,14 +165,14 @@ const localeItems = computed(() =>
              account buttons (it used to push "Sign in" onto two lines). -->
         <UContentSearchButton
           v-if="header?.search"
-          class="size-9 shrink-0 rounded-full border border-(--line)"
+          class="size-9 shrink-0 rounded-[4px] border border-(--line)"
         />
 
         <a
           :href="SITE.youtube"
           target="_blank"
           rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center rounded-full border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) hover:text-[#FF0000] max-[1599px]:hidden"
+          class="flex size-9 shrink-0 items-center justify-center rounded-[4px] border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) hover:text-[#FF0000] max-[1599px]:hidden"
           :aria-label="t('nav.youtube')"
           :title="t('nav.youtube')"
         >
@@ -187,7 +188,7 @@ const localeItems = computed(() =>
           :href="SITE.github"
           target="_blank"
           rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center rounded-full border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) max-[1599px]:hidden"
+          class="flex size-9 shrink-0 items-center justify-center rounded-[4px] border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) max-[1599px]:hidden"
           :aria-label="t('nav.starOnGithub')"
           :title="t('nav.starOnGithub')"
         >
@@ -204,7 +205,7 @@ const localeItems = computed(() =>
         >
           <button
             type="button"
-            class="flex h-9 items-center gap-1.5 rounded-full border border-(--line) bg-(--card) px-2.5 font-mono text-xs uppercase text-(--ink) hover:bg-(--ice)"
+            class="flex h-9 items-center gap-1.5 rounded-[4px] border border-(--line) bg-(--card) px-2.5 font-mono text-xs uppercase text-(--ink) hover:bg-(--ice)"
             :aria-label="t('nav.chooseLanguage')"
           >
             <UIcon
@@ -219,7 +220,7 @@ const localeItems = computed(() =>
           <button
             v-if="header?.colorMode"
             type="button"
-            class="group flex size-9 items-center justify-center rounded-full border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) max-lg:hidden"
+            class="group flex size-9 items-center justify-center rounded-[4px] border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) max-lg:hidden"
             :aria-label="t('nav.theme')"
             @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
           >
@@ -244,7 +245,7 @@ const localeItems = computed(() =>
               color="neutral"
               variant="outline"
               icon="i-lucide-layout-dashboard"
-              class="h-9 w-[7rem] justify-center rounded-full max-sm:hidden"
+              class="h-9 w-[7rem] justify-center max-sm:hidden"
             >
               {{ t('nav.dashboard') }}
             </UButton>
@@ -260,7 +261,7 @@ const localeItems = computed(() =>
             >
               <button
                 type="button"
-                class="flex h-9 w-[7.5rem] items-center gap-2 rounded-full border border-(--line) bg-(--card) ps-0.5 pe-3 text-sm font-medium text-(--ink) hover:bg-(--ice)"
+                class="flex h-9 items-center gap-2 rounded-[4px] border border-(--line) bg-(--card) ps-0.5 pe-0.5 text-sm font-medium text-(--ink) hover:bg-(--ice) sm:w-[7.5rem] sm:pe-3"
                 :aria-label="user?.name || user?.email || t('nav.account')"
               >
                 <span class="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--signal) text-sm font-semibold text-white">
@@ -272,7 +273,7 @@ const localeItems = computed(() =>
                   >
                   <template v-else>{{ initials }}</template>
                 </span>
-                <span class="truncate">{{ t('nav.account') }}</span>
+                <span class="truncate max-sm:hidden">{{ t('nav.account') }}</span>
               </button>
             </UDropdownMenu>
             <UButton
@@ -280,9 +281,10 @@ const localeItems = computed(() =>
               :to="signInTo"
               size="md"
               icon="i-lucide-log-in"
-              class="h-9 w-[7.5rem] justify-center rounded-full"
+              class="h-9 justify-center sm:w-[7.5rem]"
+              :aria-label="t('nav.signIn')"
             >
-              {{ t('nav.signIn') }}
+              <span class="max-sm:sr-only">{{ t('nav.signIn') }}</span>
             </UButton>
             <template #fallback>
               <div class="h-9 w-full" />
@@ -356,7 +358,7 @@ const localeItems = computed(() =>
             size="sm"
           />
         </UDropdownMenu>
-        <UColorModeButton class="rounded-full border border-(--line)" />
+        <UColorModeButton class="rounded-[4px] border border-(--line)" />
       </div>
     </template>
   </UHeader>

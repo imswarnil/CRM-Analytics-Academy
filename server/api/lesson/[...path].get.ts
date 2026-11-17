@@ -1,6 +1,6 @@
 /**
- * The full body of a gated lesson — `access: youtube` for verified YouTube
- * subscribers, `access: pro` for All Access (server/utils/entitlement.ts).
+ * The full body of a Pro lesson (`access: pro`) — for Pro members: monthly,
+ * lifetime or a team seat (server/utils/entitlement.ts).
  *
  *   GET /api/lesson/<locale>/<route>     e.g. /api/lesson/en/introduction/set-up-your-org
  *
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
   const needs = accessOf(lesson.access ?? 'pro')
   if (!canOpen(await accessFor(user.id), needs)) {
-    throw createError({ statusCode: 403, statusMessage: needs === 'youtube' ? 'This lesson is for YouTube subscribers.' : 'This lesson is part of All Access.' })
+    throw createError({ statusCode: 403, statusMessage: 'This lesson is part of Pro.' })
   }
   setResponseHeader(event, 'cache-control', 'private, no-store')
   return { markdown: lesson.markdown, ...lesson.data }

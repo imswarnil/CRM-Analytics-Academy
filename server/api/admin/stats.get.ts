@@ -32,14 +32,14 @@ export default defineEventHandler(async (event) => {
     waitlist: 0
   }
 
-  // Members (All Access), the lead pipeline and verified YouTube subscribers (`waitlist`, kept for the client shape).
+  // Members (All Access), the lead pipeline and team seats in use (`waitlist`, kept for the client shape).
   try {
     const [r] = await sql`
-      select (select count(*)::int from app.entitlement where pro and (expires_at is null or expires_at > now())) as pro,
+      select (select count(*)::int from app.entitlement where expires_at is null or expires_at > now()) + (select count(*)::int from app.subscription where status in ('active', 'trialing', 'past_due')) as pro,
              (select count(*)::int from app.lead where status = 'new') as new_leads,
              (select count(*)::int from app.lead where created_at >= now() - interval '30 days') as leads30,
              (select count(*)::int from app.lead where status = 'won') as won,
-             (select count(*)::int from app.youtube_link where subscribed) as waitlist`
+             (select count(*)::int from app.org_member) as waitlist`
     totals.proMembers = Number(r?.pro ?? 0)
     totals.newLeads = Number(r?.new_leads ?? 0)
     totals.leads30d = Number(r?.leads30 ?? 0)

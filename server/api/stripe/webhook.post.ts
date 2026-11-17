@@ -3,15 +3,44 @@
  * handled once (app.stripe_event). Subscribe the endpoint to:
  *
  *   checkout.session.completed
+ *   customer.subscription.updated · customer.subscription.deleted
  *   charge.refunded
  *
- * All Access is one payment: a completed, paid checkout writes the buyer's
- * app.entitlement row (no expiry); a full refund removes it. The buyer reaches
- * Salesforce as a Web-to-Lead event.
+ * Lifetime: a paid checkout writes app.entitlement; a full refund removes it.
+ * Monthly: app.subscription mirrors the subscription. New customers reach
+ * Salesforce as Web-to-Lead events.
  */
+interface StripeSubscription {
+  id: string
+  customer: string
+  status: string
+  cancel_at_period_end: boolean
+  current_period_end?: number
+  items?: { data: { current_period_end?: number, price?: { unit_amount?: number } }[] }
+  metadata: Record<string, string>
+}
+
 async function userById(id: string) {
   const [u] = await useDb()`select id::text as id, email, name from neon_auth."user" where id::text = ${id}`
   return u ? { id: String(u.id), email: String(u.email), name: u.name as string | null } : null
+}
+
+async function syncSubscription(sub: StripeSubscription) {
+  const userId = sub.metadata?.user_id
+  if (sub.metadata?.kind !== 'monthly' || !userId) return
+  const end = sub.current_period_end ?? sub.items?.data[0]?.current_period_end
+  const sql = useDb()
+  const [before] = await sql`select status from app.subscription where user_id = ${userId}`
+  await sql`
+    insert into app.subscription (user_id, stripe_customer, stripe_subscription, status, current_period_end, cancel_at_period_end, updated_at)
+    values (${userId}, ${sub.customer}, ${sub.id}, ${sub.status}, ${end ? new Date(end * 1000).toISOString() : null}, ${sub.cancel_at_period_end}, now())
+    on conflict (user_id) do update set stripe_customer = excluded.stripe_customer, stripe_subscription = excluded.stripe_subscription,
+      status = excluded.status, current_period_end = excluded.current_period_end,
+      cancel_at_period_end = excluded.cancel_at_period_end, updated_at = now()`
+  if (!before && ['active', 'trialing'].includes(sub.status)) {
+    const user = await userById(userId)
+    if (user) await sendAcademyEvent('subscribe', user, { plan: 'monthly', usd: (sub.items?.data[0]?.price?.unit_amount ?? 0) / 100, seats: 1 })
+  }
 }
 
 export default defineEventHandler(async (event) => {
@@ -27,21 +56,24 @@ export default defineEventHandler(async (event) => {
   try {
     const obj = evt.data.object
     const meta = (obj.metadata ?? {}) as Record<string, string>
-    if (evt.type === 'checkout.session.completed' && meta.kind === 'all_access' && meta.user_id && obj.payment_status === 'paid') {
-      const added = await sql`
-        insert into app.entitlement (user_id, pro, product, note)
-        values (${meta.user_id}, true, 'all-access', ${`stripe ${String(obj.id)}`})
-        on conflict (user_id) do update set pro = true, product = 'all-access', expires_at = null, note = excluded.note
-        returning user_id`
-      const user = added.length ? await userById(meta.user_id) : null
-      if (user) await sendAcademyEvent('subscribe', user, { plan: 'allAccess', usd: Number(obj.amount_total ?? 0) / 100, seats: 1 })
+    if (evt.type === 'checkout.session.completed') {
+      if (meta.kind === 'lifetime' && meta.user_id && obj.payment_status === 'paid') {
+        await sql`
+          insert into app.entitlement (user_id, product, note, expires_at)
+          values (${meta.user_id}, 'lifetime', ${`stripe ${String(obj.id)}`}, null)
+          on conflict (user_id) do update set product = 'lifetime', expires_at = null, note = excluded.note`
+        const user = await userById(meta.user_id)
+        if (user) await sendAcademyEvent('subscribe', user, { plan: 'lifetime', usd: Number(obj.amount_total ?? 0) / 100, seats: 1 })
+      } else if (meta.kind === 'monthly' && typeof obj.subscription === 'string') {
+        await syncSubscription(await stripe<StripeSubscription>('GET', `subscriptions/${obj.subscription}`))
+      }
+    } else if (evt.type === 'customer.subscription.updated' || evt.type === 'customer.subscription.deleted') {
+      await syncSubscription(obj as unknown as StripeSubscription)
     } else if (evt.type === 'charge.refunded' && obj.refunded === true && typeof obj.payment_intent === 'string') {
       // A charge does not carry the checkout's metadata: find the session.
       const found = await stripe<{ data: { metadata?: Record<string, string> }[] }>('GET', 'checkout/sessions', { payment_intent: obj.payment_intent, limit: 1 })
       const m = found.data[0]?.metadata
-      if (m?.kind === 'all_access' && m.user_id) {
-        await sql`delete from app.entitlement where user_id = ${m.user_id} and product = 'all-access'`
-      }
+      if (m?.kind === 'lifetime' && m.user_id) await sql`delete from app.entitlement where user_id = ${m.user_id} and product = 'lifetime'`
     }
   } catch (e) {
     // Let Stripe retry: forget that this event was handled.

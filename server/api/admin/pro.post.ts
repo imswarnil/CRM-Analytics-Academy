@@ -11,14 +11,15 @@ export default defineEventHandler(async (event) => {
   const [exists] = await sql`select 1 as ok from neon_auth."user" where id::text = ${userId}`
   if (!exists) throw createError({ statusCode: 404, statusMessage: 'No such user' })
   if (!body?.pro) {
-    await sql`delete from app.entitlement where user_id = ${userId}`
+    await sql`delete from app.entitlement where user_id = ${userId} and product = 'grant'`
     return { pro: false }
   }
   const months = Number(body.months)
   const expires = Number.isFinite(months) && months > 0 ? new Date(Date.now() + Math.min(months, 120) * 30.44 * 86_400_000).toISOString() : null
   const note = String(body.note ?? '').slice(0, 200) || null
   await sql`
-    insert into app.entitlement (user_id, pro, note, expires_at) values (${userId}, true, ${note}, ${expires})
-    on conflict (user_id) do update set pro = true, note = excluded.note, expires_at = excluded.expires_at, granted_at = now()`
+    insert into app.entitlement (user_id, product, note, expires_at) values (${userId}, 'grant', ${note}, ${expires})
+    on conflict (user_id) do update set note = excluded.note, expires_at = excluded.expires_at, granted_at = now()
+    where app.entitlement.product = 'grant'`
   return { pro: true, expiresAt: expires }
 })

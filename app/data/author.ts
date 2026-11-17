@@ -24,8 +24,8 @@ export interface AuthorProject {
 export const AUTHOR = {
   name: 'Swarnil Singhai',
   initials: 'SS',
-  // Served from public/people/ (a cropped portrait), not the GitHub avatar.
-  avatar: '/people/swarnil-singhai.jpg',
+  // A neutral placeholder until a portrait is chosen (public/people/).
+  avatar: '/people/placeholder.svg',
   role: 'Salesforce Engineer',
   company: 'Education First',
   place: 'Budapest, Hungary',

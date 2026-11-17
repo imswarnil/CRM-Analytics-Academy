@@ -128,7 +128,7 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
  * Academy knows about them. Never throws: Salesforce being down must not
  * break a sign-up or a purchase.
  */
-export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 'sponsor', user: { id: string, email: string, name?: string | null }, purchase?: { plan: string, usd: number, seats: number }): Promise<string> {
+export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 'sponsor', user: { id: string, email: string, name?: string | null }, purchase?: { plan: string, usd: number, seats: number }, source?: string | null): Promise<string> {
   try {
     const sql = useDb()
     const [stats] = await sql`select lessons_done, points from app.user_points where user_id = ${user.id}`
@@ -142,7 +142,7 @@ export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 
       email: user.email,
       lessonsDone: Number(stats?.lessons_done ?? 0),
       points: Number(stats?.points ?? 0),
-      source: null,
+      source: source ?? null,
       firstLanding: null,
       viewsBefore: null,
       userId: user.id

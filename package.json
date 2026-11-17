@@ -17,13 +17,7 @@
     "stripe:setup": "node scripts/stripe-setup.mjs",
     "new-lesson": "node scripts/new-lesson.mjs",
     "lesson:check": "node scripts/lesson-check.mjs",
-    "postinstall": "nuxt prepare",
-    "fcp": "node content-creation/lesson.mjs",
-    "fcp:demo": "node content-creation/demo.mjs",
-    "session": "node content-creation/session.mjs",
-    "obs:install": "node content-creation/obs/install.mjs",
-    "thumb": "node content-creation/thumbnails/make.mjs",
-    "video": "node content-creation/ai/build.mjs"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.114",

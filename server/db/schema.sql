@@ -14,7 +14,7 @@
 -- writes them. Retired objects are dropped by dated cleanup-*.sql files.
 --
 --   learner   progress · quiz_attempt · bookmark · exam_attempt   (+ view user_points)
---   access    entitlement (All Access) · youtube_link (subscribers) · stripe_event
+--   access    entitlement (lifetime / grants) · subscription (monthly) · org + org_member (seats) · stripe_event
 --   community comment · submission · interview_question · interview_upvote
 --   business  lead · event (milestones)
 --   security  rate_hit · used_challenge · demo_account
@@ -103,7 +103,7 @@ create table if not exists app.demo_account (
 );
 
 -- Milestones only (server/api/collect.post.ts): sign_up, sign_in,
--- lesson_complete, exam_finish, youtube_verified, checkout. No page views.
+-- lesson_complete, exam_finish, checkout. No page views.
 create table if not exists app.event (
   id         bigint generated always as identity primary key,
   visitor    text        not null,
@@ -213,13 +213,12 @@ create table if not exists app.rate_hit (
 );
 create index if not exists rate_hit_key_at_idx on app.rate_hit (key, at);
 
--- All Access. Written by the Stripe webhook (product 'all-access', one
--- payment, no end date) or by an admin grant in /admin → Users (any product,
--- optional `expires_at`). Read only through accessFor() in entitlement.ts.
+-- Pro that does not renew: a lifetime purchase (Stripe webhook, product
+-- 'lifetime', no end date) or an admin grant in /admin → Users (product
+-- 'grant', optional `expires_at`). Read only through accessFor().
 create table if not exists app.entitlement (
   user_id    text primary key,
-  pro        boolean not null default true,
-  product    text not null default 'pro',
+  product    text not null default 'grant' check (product in ('lifetime', 'grant')),
   note       text,
   expires_at timestamptz,
   granted_at timestamptz not null default now()
@@ -267,15 +266,39 @@ create table if not exists app.stripe_event (
   created_at timestamptz not null default now()
 );
 
--- YouTube subscribers (2026-11-16). A learner verifies, with Google, that they
--- subscribe to the channel; `access: youtube` lessons open while verified_at
--- is within YOUTUBE_RECHECK_DAYS. One Google account unlocks one Academy
--- account (google_sub is unique), so a subscription cannot be shared. No
--- Google token is stored: it is used once and revoked.
-create table if not exists app.youtube_link (
-  user_id      text primary key,
-  google_sub   text not null unique,
-  google_email text,
-  subscribed   boolean not null default false,
-  verified_at  timestamptz not null default now()
+-- Pro Monthly: one row per user, mirroring the Stripe subscription (the
+-- webhook is the only writer). Pro while status is active, trialing or past_due.
+create table if not exists app.subscription (
+  user_id              text primary key,
+  stripe_customer      text not null,
+  stripe_subscription  text not null unique,
+  status               text not null,
+  current_period_end   timestamptz,
+  cancel_at_period_end boolean not null default false,
+  updated_at           timestamptz not null default now()
+);
+
+-- Teams & institutions (B2B): an organisation buys N seats through a sales
+-- conversation; the owner creates it in /admin. Members join with the join
+-- code — and, when `domain` is set (a college), only with a verified email
+-- at that domain. One organisation per learner.
+create table if not exists app.org (
+  id         bigint generated always as identity primary key,
+  name       text        not null check (length(btrim(name)) between 2 and 120),
+  kind       text        not null default 'company' check (kind in ('company', 'college', 'team')),
+  seats      integer     not null check (seats between 1 and 100000),
+  join_code  text        not null unique check (join_code ~ '^[A-Z0-9]{8}$'),
+  domain     text        check (domain is null or domain ~ '^[a-z0-9.-]+\.[a-z]{2,}$'),
+  status     text        not null default 'active' check (status in ('active', 'ended')),
+  expires_at timestamptz,
+  lead_id    bigint,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists app.org_member (
+  org_id    bigint      not null references app.org(id) on delete cascade,
+  user_id   text        not null unique,
+  role      text        not null default 'member' check (role in ('admin', 'member')),
+  joined_at timestamptz not null default now(),
+  primary key (org_id, user_id)
 );

@@ -10,8 +10,8 @@
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#F4F7FB",
-  "theme_color": "#0F2A5C",
+  "background_color": "#032D60",
+  "theme_color": "#032D60",
   "categories": ["education", "productivity"],
   "prefer_related_applications": false,
   "icons": [

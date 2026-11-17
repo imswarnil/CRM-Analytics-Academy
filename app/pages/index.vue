@@ -146,47 +146,52 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
 
 <template>
   <div>
-    <!-- HERO ------------------------------------------------------------- -->
-    <section class="border-b border-(--line)">
-      <div class="mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:px-8">
+    <!-- HERO: the navy title band (Namaste Salesforce) ---------------------- -->
+    <section class="relative overflow-hidden bg-(--navy) text-white">
+      <!-- hairline grid on navy, the system's one texture -->
+      <div
+        class="pointer-events-none absolute inset-0 opacity-100"
+        style="background-image: linear-gradient(rgb(124 190 255 / .08) 1px, transparent 1px), linear-gradient(90deg, rgb(124 190 255 / .08) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(to bottom, #000 40%, transparent)"
+        aria-hidden="true"
+      />
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.05fr_1fr] lg:px-8">
         <div>
-          <p class="eyebrow">
-            {{ t('home.hero.eyebrow') }}
+          <p class="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[.09em] text-blueprint-200">
+            <span class="size-1.5 rounded-full bg-blueprint-400" />{{ t('home.hero.eyebrow') }}
           </p>
-          <h1 class="mt-4 text-4xl font-bold leading-[1.05] tracking-tight text-(--ink) sm:text-5xl">
+          <h1 class="mt-5 text-4xl font-bold leading-[1.06] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
             {{ t('home.hero.title') }}
           </h1>
-          <p class="mt-5 max-w-xl text-lg leading-relaxed text-(--ink2)">
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
             {{ t('home.hero.lead') }}
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <UButton
-              :to="SITE.youtube"
-              target="_blank"
-              size="xl"
-              icon="i-simple-icons-youtube"
-              class="rounded-full bg-[#FF0000] text-white hover:bg-[#d90000]"
-            >
-              {{ t('curriculumPage.hero.youtube') }}
-            </UButton>
-            <UButton
               :to="localePath('/curriculum')"
-              size="lg"
-              color="neutral"
-              variant="outline"
+              size="xl"
               trailing-icon="i-lucide-arrow-right"
             >
-              {{ t('home.hero.curriculum') }}
+              {{ t('home.hero.start') }}
+            </UButton>
+            <UButton
+              :to="localePath('/pro')"
+              size="xl"
+              color="neutral"
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/30 hover:bg-white/10 hover:text-white"
+            >
+              {{ t('home.hero.pricing') }}
             </UButton>
             <ClientOnly>
               <TestRide
                 v-if="!isSignedIn"
-                size="lg"
-                variant="soft"
+                size="xl"
+                variant="ghost"
+                class="text-blueprint-200 hover:bg-white/10 hover:text-white"
               />
             </ClientOnly>
           </div>
-          <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-(--ink2)">
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70">
             <li
               v-for="p in ['free', 'languages', 'ai']"
               :key="p"
@@ -194,19 +199,22 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
             >
               <UIcon
                 :name="p === 'ai' ? 'i-lucide-sparkles' : 'i-lucide-check'"
-                class="size-4 text-(--signal)"
+                class="size-4 text-blueprint-300"
               />{{ t(`home.hero.proof.${p}`) }}
             </li>
           </ul>
         </div>
 
-        <!-- What you will build, as a story -->
+        <!-- The product, as a story: what you will build -->
         <HomeStory class="min-w-0" />
       </div>
     </section>
 
-    <!-- CURRICULUM, PLOTTED ---------------------------------------------- -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
+    <!-- CURRICULUM, PLOTTED (only once lessons are published) ------------ -->
+    <section
+      v-if="lessonCount"
+      class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8"
+    >
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p class="eyebrow">

@@ -63,7 +63,7 @@ usePageSchema(() => ({
           :to="localePath(`/certification/${paper.id}`)"
           size="xl"
           icon="i-lucide-play"
-          class="rounded-full px-7"
+          class="px-7"
         >
           {{ t('cert.startFirst') }}
         </UButton>

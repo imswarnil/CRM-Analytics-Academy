@@ -12,14 +12,15 @@ export default defineEventHandler(async (event) => {
            coalesce(p.points, 0)::int as points,
            coalesce(p.lessons_done, 0)::int as lessons_done,
            (1000 + coalesce(p.points, 0))::int as balance,
-           (select case when y.subscribed then 'youtube' end from app.youtube_link y where y.user_id = u.id::text) as plan,
-           null::text as org,
+           coalesce((select 'monthly · ' || s.status from app.subscription s where s.user_id = u.id::text),
+                    (select e.product from app.entitlement e where e.user_id = u.id::text)) as plan,
+           (select o.name from app.org_member m join app.org o on o.id = m.org_id where m.user_id = u.id::text) as org,
            (select max(completed_at) from app.progress pr where pr.user_id = u.id::text) as last_lesson_at,
            (select count(*)::int from app.quiz_attempt q where q.user_id = u.id::text) as quizzes,
            (select count(*)::int from app.comment c where c.user_id = u.id::text) as comments,
            exists (select 1 from app.demo_account d where d.user_id = u.id::text) as is_demo,
-           (select e.expires_at from app.entitlement e where e.user_id = u.id::text and e.pro and (e.expires_at is null or e.expires_at > now())) as pro_until,
-           exists (select 1 from app.entitlement e where e.user_id = u.id::text and e.pro and (e.expires_at is null or e.expires_at > now())) as pro
+           (select e.expires_at from app.entitlement e where e.user_id = u.id::text and (e.expires_at is null or e.expires_at > now())) as pro_until,
+           exists (select 1 from app.entitlement e where e.user_id = u.id::text and e.product = 'grant' and (e.expires_at is null or e.expires_at > now())) as pro
     from neon_auth."user" u
     left join app.user_points p on p.user_id = u.id::text
     order by u."createdAt" desc

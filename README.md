@@ -74,7 +74,7 @@ and a leaderboard.
 - **19 sections in 12 languages** — the Introduction is live; every other section has a "coming soon" page listing its planned lessons, so the outline is public, indexable and in `llms.txt` from day one.
 - **Lesson player** — course-contents sidebar (collapsible to a progress-donut rail), prev / mark complete / next,
   a course timeline, table of contents, screen walkthroughs, graded quizzes, interview Q&A, comments.
-- **Lesson videos** made in Final Cut Pro with the Academy's own template kit (`content-creation/`) and played from YouTube.
+- **Lesson videos** published on YouTube and embedded in each lesson.
 - **Datasets** (the Academy's own fictional business as CSVs) and curated **resources** with community
   submissions.
 
@@ -131,7 +131,7 @@ flowchart LR
     MD[content/en/*.md<br/>or Nuxt Studio] --> B[pnpm build]
     LT[(LibreTranslate<br/>.libretranslate/)] <--> B
     B -->|11 locales + llms.txt| G[git push]
-    FCP[Final Cut Pro<br/>content-creation/ kit] --> YT[YouTube] -.video id.-> MD
+    REC[Recorded lesson] --> YT[YouTube] -.video id.-> MD
   end
   G --> CI[GitHub Actions<br/>lint · typecheck · build]
   CI --> CF
@@ -162,7 +162,7 @@ English source of every file), stops it, and the result is committed. CI never t
 | Auth | Neon Auth ([Better Auth](https://better-auth.com)), resolved server-side per request; a shared demo account |
 | Analytics | First-party: `app.page_view` + `app.event`, read in `/admin → Analytics` |
 | Translation | [LibreTranslate](https://libretranslate.com), installed locally, run by `pnpm build` |
-| Video | [Final Cut Pro](https://www.apple.com/final-cut-pro/) with the CRMA template kit (`content-creation/`), published on YouTube |
+| Video | Published on YouTube, embedded per lesson |
 | i18n | `@nuxtjs/i18n` — 12 locales, 2 RTL |
 | SEO | `@nuxtjs/sitemap`, `nuxt-og-image`, JSON-LD, hreflang, IndexNow |
 | Quality | ESLint, `vue-tsc`, GitHub Actions |
@@ -227,22 +227,12 @@ One idempotent file, [`server/db/schema.sql`](server/db/schema.sql). Users live 
 The admin is one fixed address (`ADMIN_EMAIL` in `server/utils/admin.ts`); every admin route returns 404 to
 anyone else.
 
-## Making a lesson video
+## Design: Namaste Salesforce
 
-```bash
-pnpm fcp introduction/set-up-your-org     # writes an FCPXML project + a recording script
-```
-
-Import the `.fcpxml` into Final Cut Pro (the CRMA titles, music and transitions are in `content-creation/kit`, installed by
-`content-creation/kit/Install.command`), drop your screen recordings onto the placeholders, export, upload to YouTube and
-add `video: { id: <youtubeId> }` to the English lesson. Every language plays the same video. Full guide:
-[`content-creation/README.md`](content-creation/README.md).
-
-## Design: Blueprint
-
-Graph paper, crosshair crop marks, rulers, 1.5px ink borders, hard offset shadows, square corners, mono
-captions (`FIG. 05 — THE AUTHOR`), two typefaces and one accent. `app/assets/css/main.css` is the source of
-truth; [`tokens/`](tokens/) mirrors it as W3C design tokens for Final Cut Pro, Figma and social graphics.
+The site runs on the Namaste Salesforce design system: Salesforce blue `#0176D3` as the only signal colour,
+deep navy for title bands and dark mode, white cards on a light grey page, hairline borders, near-flat
+elevation, 4px controls and 6px cards, Figtree type and short uppercase labels. `app/assets/css/main.css` is
+the source of truth; `brand/` holds the logo mark, icons and YouTube art.
 
 ## Directory map
 
@@ -251,8 +241,7 @@ app/                  pages, components (bp/ = Blueprint primitives), composable
 content/              lessons in 12 locales, resources/, people/
 server/api/           the routes above · server/db/schema.sql · server/routes/ (mcp, media)
 scripts/              prebuild, translate + libretranslate.sh, lesson-meta, search/llms index, indexnow
-content-creation/     Final Cut Pro kit + `pnpm fcp` projects, Pixelmator thumbnail templates (`pnpm thumb`)
-tokens/               Blueprint design tokens
+brand/                logo mark, icons and YouTube channel art (node brand/build.mjs)
 salesforce/           SFDX project for the CRM Analytics dev org the course is built in
 public/               icons, PWA, sample data, ads.txt, robots.txt (search, raw and llms files are generated)
 ```
@@ -266,7 +255,6 @@ public/               icons, PWA, sample data, ads.txt, robots.txt (search, raw 
 | `pnpm preview` | Build, then run the Worker locally with `wrangler dev` |
 | `pnpm translate` | Translate what changed (`--locales=es,fr`, `--only=ui\|content`, `--force`, `--dry-run`) |
 | `pnpm translate:setup` | Install LibreTranslate and its models into `.libretranslate/` (once, ~1–2 GB) |
-| `pnpm fcp <route>` | Generate a Final Cut Pro project and recording script for a lesson |
 | `pnpm thumb <style> …` | Render a YouTube thumbnail from the Pixelmator templates |
 | `pnpm lint` / `pnpm typecheck` | The CI gates |
 
@@ -294,13 +282,6 @@ is ever empty in dev, the Nuxt Content dev database is stale: `rm -rf .data && p
 3. Commit everything (English, translations, `.translation-manifest.json`) and push to `main`.
    `.github/workflows/deploy-cloudflare.yml` lints, typechecks, builds and deploys to Cloudflare, then pings
    IndexNow. Runtime secrets live on the Worker (`wrangler secret put …`; names in `.env.example`).
-
-## The opener film
-
-`pnpm fcp:demo` writes a Final Cut Pro project (`content-creation/projects/demo-film/demo-film.fcpxml`): a
-motion-graphics opener built only from the Academy's CRMA kit — animated titles, transitions, music and sound
-effects, no screenshots. Install the kit (`content-creation/kit/Install.command`), then File → Import → XML.
-The copy lives in `content-creation/demo.mjs`.
 
 ## How it was made
 
