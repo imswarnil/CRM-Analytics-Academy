@@ -19,7 +19,7 @@ const sections = computed(() =>
 
 <template>
   <div>
-    <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
+    <section class="graph-paper relative overflow-hidden border-b border-(--line)">
       <UContainer class="relative py-16 sm:py-20">
         <p class="eyebrow mb-5">
           {{ t('terms.hero.eyebrow') }}

@@ -229,7 +229,7 @@ const SAQL = ['q = load "opportunities";', 'q = filter q by StageName != "Closed
             >
               <span class="block text-[11px] font-bold text-slate-500">{{ k.l }}</span>
               <span
-                class="block text-xl font-black"
+                class="block text-xl font-bold"
                 :style="{ color: k.c }"
               >{{ k.v }}</span>
             </div>
@@ -279,7 +279,7 @@ const SAQL = ['q = load "opportunities";', 'q = filter q by StageName != "Closed
 
     <!-- Caption -->
     <figcaption class="border-t border-(--line) px-5 py-4">
-      <p class="font-mono text-[11px] font-bold uppercase tracking-[.14em] text-[#2563eb]">
+      <p class="font-medium text-[11px] font-bold text-[#2563eb]">
         {{ at + 1 }} / {{ FRAMES.length }} · {{ t('home.story.step') }}
       </p>
       <Transition

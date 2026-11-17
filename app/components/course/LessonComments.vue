@@ -117,13 +117,13 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
 <template>
   <section
     ref="root"
-    class="mt-12 border-[1.5px] border-(--ink) bg-(--card)"
+    class="mt-12 border border-(--line) bg-(--card) rounded-2xl"
     aria-labelledby="lesson-comments-title"
   >
-    <div class="flex items-center justify-between gap-3 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
+    <div class="flex items-center justify-between gap-3 border-b border-(--line) bg-(--ice) px-5 py-3">
       <h2
         id="lesson-comments-title"
-        class="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[.12em] text-(--signal)"
+        class="flex items-center gap-2 font-medium text-xs font-semibold text-(--signal)"
       >
         <UIcon
           name="i-lucide-messages-square"
@@ -133,7 +133,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
       </h2>
       <span
         v-if="loaded && comments.length"
-        class="border-[1.5px] border-(--ink) bg-(--card) px-2 font-mono text-[11px] font-semibold"
+        class="border border-(--line) bg-(--card) px-2 font-mono text-[11px] font-semibold rounded-2xl"
       >{{ comments.length }}</span>
     </div>
 
@@ -165,7 +165,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
             class="w-full"
           />
           <div class="mt-2 flex items-center justify-between gap-3">
-            <p class="font-mono text-[10px] uppercase tracking-[.06em] text-(--ink2)">
+            <p class="font-medium text-[11px] text-(--ink2)">
               {{ t('comments.hint') }}
             </p>
             <UButton
@@ -250,7 +250,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                 <button
                   v-if="isSignedIn"
                   type="button"
-                  class="font-mono uppercase tracking-[.08em] text-(--ink2) hover:text-(--signal)"
+                  class="font-medium text-(--ink2) hover:text-(--signal)"
                   @click="replyTo = replyTo === c.id ? null : c.id"
                 >
                   {{ t('comments.reply') }}
@@ -258,7 +258,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                 <button
                   v-if="c.mine"
                   type="button"
-                  class="font-mono uppercase tracking-[.08em] text-(--ink2) hover:text-error"
+                  class="font-medium text-(--ink2) hover:text-error"
                   @click="remove(c.id)"
                 >
                   {{ t('comments.delete') }}
@@ -267,7 +267,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
 
               <ul
                 v-if="c.replies.length"
-                class="mt-4 space-y-3 border-s-[1.5px] border-(--signal) ps-4"
+                class="mt-4 space-y-3 border-s border-(--signal) ps-4"
               >
                 <li
                   v-for="r in c.replies"
@@ -290,7 +290,7 @@ const when = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day:
                     <button
                       v-if="r.mine"
                       type="button"
-                      class="mt-1 font-mono text-xs uppercase tracking-[.08em] text-(--ink2) hover:text-error"
+                      class="mt-1 font-medium text-xs text-(--ink2) hover:text-error"
                       @click="remove(r.id)"
                     >
                       {{ t('comments.delete') }}

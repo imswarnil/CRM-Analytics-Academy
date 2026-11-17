@@ -16,7 +16,7 @@ onMounted(async () => {
 watch(isSignedIn, async (ok) => {
   if (ok) best.value = await $fetch<typeof best.value>('/api/exam-attempt').catch(() => ({}))
 })
-const full = PAPERS.filter(p => p.kind === 'full')
+const paper = PAPERS[0]!
 const domainList = Object.entries(DOMAINS).map(([key, d]) => ({ key, ...d }))
 
 const title = computed(() => t('cert.seoTitle'))
@@ -43,133 +43,133 @@ usePageSchema(() => ({
 </script>
 
 <template>
-  <div>
-    <BpPageHeader
-      :sheet="t('cert.eyebrow')"
-      :title="t('cert.title')"
-      :lead="t('cert.lead')"
-    >
-      <div class="mt-6 flex flex-wrap gap-3">
+  <div class="bg-(--paper)">
+    <!-- Hero: what it is, one action -->
+    <section class="mx-auto max-w-3xl px-4 pt-16 pb-10 text-center sm:pt-24">
+      <span class="inline-flex items-center gap-1.5 rounded-full bg-(--ice) px-3 py-1 text-xs font-medium text-(--ink2)">
+        <UIcon
+          name="i-lucide-badge-check"
+          class="size-3.5 text-(--signal)"
+        />{{ t('cert.eyebrow') }}
+      </span>
+      <h1 class="mt-5 text-4xl font-bold tracking-tight text-(--ink) sm:text-5xl">
+        {{ t('cert.title') }}
+      </h1>
+      <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-(--ink2)">
+        {{ t('cert.lead') }}
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <UButton
-          :to="localePath('/certification/paper-1')"
-          icon="i-lucide-timer"
-          size="lg"
+          :to="localePath(`/certification/${paper.id}`)"
+          size="xl"
+          icon="i-lucide-play"
+          class="rounded-full px-7"
         >
           {{ t('cert.startFirst') }}
         </UButton>
         <ShareBar
           :title="t('cert.title')"
           :text="t('cert.shareText')"
+          compact
         />
       </div>
-    </BpPageHeader>
+      <ClientOnly>
+        <p
+          v-if="best[paper.id]"
+          class="mt-4 text-sm text-(--ink2)"
+        >
+          <span :class="best[paper.id]!.best >= EXAM.passPct ? 'font-semibold text-(--signal)' : ''">{{ t('cert.best', { pct: best[paper.id]!.best }) }}</span>
+          · {{ t('cert.attempts', { n: best[paper.id]!.attempts }) }}
+        </p>
+      </ClientOnly>
+    </section>
 
-    <div class="mx-auto max-w-(--ui-container) space-y-10 px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl space-y-6 px-4 pb-20 sm:px-6">
       <!-- The format -->
-      <dl class="grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) lg:grid-cols-4">
+      <dl class="grid grid-cols-2 overflow-hidden rounded-3xl border border-(--line) bg-(--card) sm:grid-cols-4">
         <div
-          v-for="(f, n) in [
-            { label: t('cert.facts.questions'), value: EXAM.questions },
-            { label: t('cert.facts.minutes'), value: EXAM.minutes },
-            { label: t('cert.facts.pass'), value: `${EXAM.passPct}%` },
-            { label: t('cert.facts.bank'), value: 367 }
+          v-for="f in [
+            { icon: 'i-lucide-list-checks', label: t('cert.facts.questions'), value: EXAM.questions },
+            { icon: 'i-lucide-timer', label: t('cert.facts.minutes'), value: EXAM.minutes },
+            { icon: 'i-lucide-target', label: t('cert.facts.pass'), value: `${EXAM.passPct}%` },
+            { icon: 'i-lucide-library', label: t('cert.facts.bank'), value: 367 }
           ]"
           :key="f.label"
-          class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-5"
+          class="flex flex-col items-center gap-1 border-(--line) px-4 py-7 not-last:border-e max-sm:nth-2:border-e-0 max-sm:[&:nth-child(-n+2)]:border-b"
         >
-          <dd class="mt-2 text-4xl font-black tabular-nums tracking-[-0.03em] text-(--signal)">
+          <UIcon
+            :name="f.icon"
+            class="size-5 text-(--signal)"
+          />
+          <dd class="text-3xl font-semibold tabular-nums tracking-tight text-(--ink)">
             {{ f.value }}
           </dd>
-          <dt class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
-            K.0{{ n + 1 }} — {{ f.label }}
+          <dt class="text-xs font-medium text-(--ink2)">
+            {{ f.label }}
           </dt>
         </div>
       </dl>
 
-      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <div class="space-y-10">
-          <!-- Full papers -->
-          <section>
-            <p class="eyebrow">
-              {{ t('cert.fullEyebrow') }}
-            </p>
-            <h2 class="bp-h3 mt-2">
-              {{ t('cert.fullTitle') }}
-            </h2>
-            <div class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              <NuxtLink
-                v-for="p in full"
-                :key="p.id"
-                :to="localePath(`/certification/${p.id}`)"
-                class="bp-card bp-card--hover group flex flex-col p-5"
-              >
-                <span class="mono-label">{{ p.questions }} Q · {{ p.minutes }} min</span>
-                <span class="mt-2 text-xl font-extrabold text-(--ink) group-hover:text-(--signal)">{{ p.title }}</span>
-                <span class="mt-auto pt-4 font-mono text-xs">
-                  <template v-if="best[p.id]">
-                    <span :class="best[p.id]!.best >= EXAM.passPct ? 'text-(--signal)' : 'text-(--ink2)'">{{ t('cert.best', { pct: best[p.id]!.best }) }}</span>
-                    · {{ t('cert.attempts', { n: best[p.id]!.attempts }) }}
-                  </template>
-                  <template v-else>{{ t('cert.notTaken') }} →</template>
-                </span>
-              </NuxtLink>
-            </div>
-          </section>
+      <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+        <!-- How it works -->
+        <section class="rounded-3xl border border-(--line) bg-(--card) p-6 sm:p-8">
+          <h2 class="text-lg font-semibold text-(--ink)">
+            {{ t('cert.howTitle') }}
+          </h2>
+          <ul class="mt-5 space-y-3 text-[15px] leading-relaxed text-(--ink2)">
+            <li
+              v-for="i in 5"
+              :key="i"
+              class="flex gap-3"
+            >
+              <UIcon
+                name="i-lucide-check"
+                class="mt-1 size-4 flex-none text-(--signal)"
+              />{{ t(`cert.how.${i}`) }}
+            </li>
+          </ul>
+          <p class="mt-6 rounded-2xl bg-(--ice) px-4 py-3 text-sm text-(--ink2)">
+            {{ t('cert.disclaimer') }}
+          </p>
+        </section>
 
-          <!-- How it works -->
-          <section class="border-[1.5px] border-(--ink) bg-(--card) p-6">
-            <h2 class="bp-h3">
-              {{ t('cert.howTitle') }}
-            </h2>
-            <ul class="mt-4 space-y-2 text-(--ink2)">
-              <li
-                v-for="i in 5"
-                :key="i"
-                class="flex gap-3"
-              >
-                <UIcon
-                  name="i-lucide-check"
-                  class="mt-1 size-4 flex-none text-(--signal)"
-                />{{ t(`cert.how.${i}`) }}
-              </li>
-            </ul>
-            <p class="mt-4 text-sm text-(--ink2)">
-              {{ t('cert.disclaimer') }}
-            </p>
-          </section>
-        </div>
-
-        <!-- Sidebar: domain weights -->
-        <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
-          <div class="border-[1.5px] border-(--ink) bg-(--card)">
-            <p class="eyebrow border-b-[1.5px] border-(--ink) px-4 py-3">
+        <!-- Domain weights -->
+        <aside class="space-y-6">
+          <section class="rounded-3xl border border-(--line) bg-(--card) p-6">
+            <h2 class="text-sm font-semibold text-(--ink)">
               {{ t('cert.domains') }}
-            </p>
-            <ul class="p-4">
+            </h2>
+            <ul class="mt-4 space-y-3">
               <li
                 v-for="d in domainList"
                 :key="d.key"
-                class="py-1.5"
               >
                 <div class="flex justify-between text-sm">
-                  <span class="font-semibold text-(--ink)">{{ d.label }}</span><span class="font-mono text-xs text-(--ink2)">{{ d.weight }}%</span>
+                  <span class="text-(--ink)">{{ d.label }}</span><span class="tabular-nums text-(--ink2)">{{ d.weight }}%</span>
                 </div>
-                <div class="mt-1 h-2 border border-(--ink) bg-(--paper)">
+                <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-(--line)">
                   <div
-                    class="h-full bg-(--signal)"
+                    class="h-full rounded-full bg-(--signal)"
                     :style="{ width: `${d.weight * 4}%` }"
                   />
                 </div>
               </li>
             </ul>
-          </div>
+          </section>
           <NuxtLink
             :to="localePath('/interview-questions')"
-            class="graph-paper-navy block border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white shadow-[6px_6px_0_var(--signal)]"
+            class="group block rounded-3xl bg-(--navy) p-6 text-white transition-transform hover:-translate-y-0.5"
           >
-            <p class="font-mono text-[10px] uppercase tracking-[.14em] text-(--glow)">{{ t('interview.eyebrow') }}</p>
-            <p class="mt-2 text-lg font-extrabold">{{ t('interview.ctaTitle') }}</p>
-            <p class="mt-1 text-sm text-white/75">{{ t('interview.ctaBody') }}</p>
+            <UIcon
+              name="i-lucide-messages-square"
+              class="size-5 text-(--glow)"
+            />
+            <p class="mt-3 text-lg font-semibold">{{ t('interview.ctaTitle') }}</p>
+            <p class="mt-1 text-sm text-white/70">{{ t('interview.ctaBody') }}</p>
+            <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-(--glow)">{{ t('interview.eyebrow') }}<UIcon
+              name="i-lucide-arrow-right"
+              class="size-4 transition-transform group-hover:translate-x-0.5"
+            /></span>
           </NuxtLink>
           <PromoSlot unit="square300x250" />
         </aside>

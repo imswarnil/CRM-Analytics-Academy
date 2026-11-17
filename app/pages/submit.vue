@@ -157,317 +157,372 @@ interface Mine {
 const { data: mine, refresh: refreshMine } = await useLazyAsyncData('my-submissions', () =>
   $fetch<{ submissions: Mine[] }>('/api/submissions'), { server: false, default: () => ({ submissions: [] as Mine[] }) })
 const STATUS: Record<Mine['status'], string> = {
-  pending: 'border-(--line) text-(--ink2)',
-  approved: 'border-(--signal) text-(--signal)',
-  rejected: 'border-error text-error'
+  pending: 'bg-(--ice) text-(--ink2)',
+  approved: 'bg-(--signal)/12 text-(--signal)',
+  rejected: 'bg-error/10 text-error'
 }
 </script>
 
 <template>
-  <!-- One screen on desktop, exactly the viewport: the choice on the left,
-       the short form (and your past contributions) on the right, scrolling
+  <!-- Exactly the viewport on desktop: a slim bar of calls to action, then
+       the choice on the left and the form on the right, each scrolling
        inside its own column if it must — the page itself never does. -->
-  <div class="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 lg:h-[calc(100dvh-var(--ui-header-height))] lg:grid-cols-[20rem_minmax(0,1fr)] lg:overflow-hidden">
-    <div class="space-y-4 lg:min-h-0 lg:overflow-y-auto">
-      <div>
-        <p class="eyebrow">
-          {{ t('contrib.eyebrow') }}
+  <div class="flex flex-col bg-(--paper) lg:h-[calc(100dvh-var(--ui-header-height))] lg:overflow-hidden">
+    <!-- Calls to action: above everything, not in a hero -->
+    <div class="shrink-0 border-b border-(--line) bg-(--card)">
+      <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5 sm:px-6">
+        <p class="me-auto text-sm text-(--ink2)">
+          {{ t('contrib.ctaLine') }}
         </p>
-        <h1 class="mt-2 text-3xl font-extrabold tracking-[-0.03em] text-(--ink)">
-          {{ t('contrib.title') }}
-        </h1>
-        <p class="mt-2 text-[15px] leading-relaxed text-(--ink2)">
-          {{ t('contrib.lead') }}
-        </p>
-        <p class="mt-3 inline-flex items-center gap-2 border-[1.5px] border-(--signal) bg-(--ice) px-3 py-1 font-semibold text-(--ink)">
-          <UIcon
-            name="i-lucide-coins"
-            class="size-4 text-(--signal)"
-          />{{ t('contrib.pointsBadge') }}
-        </p>
+        <UButton
+          :to="SITE.youtube"
+          target="_blank"
+          size="sm"
+          icon="i-simple-icons-youtube"
+          class="rounded-full bg-[#FF0000] text-white hover:bg-[#d90000]"
+        >
+          {{ t('contrib.ctaYoutube') }}
+        </UButton>
+        <UButton
+          :to="SITE.github"
+          target="_blank"
+          size="sm"
+          color="neutral"
+          variant="outline"
+          icon="i-simple-icons-github"
+          class="rounded-full"
+        >
+          {{ t('contrib.ctaGithub') }}
+        </UButton>
       </div>
-
-      <!-- 1. What are you sharing? -->
-      <fieldset>
-        <legend class="text-[15px] font-bold text-(--ink)">
-          <span class="font-mono text-(--signal)">1</span> · {{ t('contrib.pick') }}
-        </legend>
-        <div class="mt-3 grid gap-1.5 sm:grid-cols-2 lg:grid-cols-1">
-          <button
-            v-for="ty in TYPES"
-            :key="ty.value"
-            type="button"
-            class="flex min-h-11 items-start gap-3 border-[1.5px] px-3 py-2 text-start transition-colors"
-            :class="type === ty.value ? 'border-(--ink) bg-(--ice) shadow-[4px_4px_0_var(--ink)]' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
-            :aria-pressed="type === ty.value"
-            @click="choose(ty.value)"
-          >
-            <UIcon
-              :name="ty.icon"
-              class="mt-0.5 size-5 shrink-0 text-(--signal)"
-            />
-            <span>
-              <span class="block text-[15px] font-bold text-(--ink)">{{ t(`contrib.types.${ty.value}.label`) }}</span>
-              <span class="block text-[13px] leading-snug text-(--ink2)">{{ t(`contrib.types.${ty.value}.hint`) }}</span>
-            </span>
-          </button>
-        </div>
-      </fieldset>
     </div>
 
-    <div class="min-w-0 lg:min-h-0 lg:overflow-y-auto lg:pe-1">
-      <p
-        v-if="!type && !sent"
-        class="flex min-h-64 items-center justify-center border-[1.5px] border-dashed border-(--line) p-8 text-center text-(--ink2)"
-      >
-        {{ t('contrib.err.pick') }}
-      </p>
-
-      <!-- 2. The short form -->
-      <form
-        v-if="type && !sent"
-        class="space-y-5 border-[1.5px] border-(--ink) bg-(--card) p-5 sm:p-6"
-        novalidate
-        @submit.prevent="send"
-      >
-        <p class="text-lg font-bold text-(--ink)">
-          <span class="font-mono text-(--signal)">2</span> · {{ t(`contrib.types.${type}.label`) }}
-        </p>
-
-        <!-- honeypot: invisible to people, filled in by naive bots -->
-        <input
-          v-model="form.website"
-          name="website"
-          tabindex="-1"
-          autocomplete="off"
-          aria-hidden="true"
-          class="absolute -left-[9999px] size-px opacity-0"
-        >
-
-        <template v-if="type === 'company'">
-          <UFormField
-            :label="t('contrib.f.company')"
-            required
-          >
-            <UInput
-              v-model="form.company"
-              size="lg"
-              class="w-full"
-              :placeholder="t('contrib.ph.company')"
-            />
-          </UFormField>
-          <UFormField :label="t('contrib.f.companyKind')">
-            <URadioGroup
-              v-model="form.companyKind"
-              orientation="horizontal"
-              :items="CATEGORIES.map(c => ({ label: t(`companies.kinds.${c}`), value: c }))"
-            />
-          </UFormField>
-        </template>
-
-        <UFormField
-          v-if="type === 'nominate'"
-          :label="t('contrib.f.name')"
-          required
-        >
-          <UInput
-            v-model="form.title"
-            size="lg"
-            class="w-full"
-          />
-        </UFormField>
-
-        <template v-if="type === 'lesson'">
-          <URadioGroup
-            v-model="form.lessonMode"
-            orientation="horizontal"
-            :items="[{ label: t('contrib.f.fix'), value: 'fix' }, { label: t('contrib.f.idea'), value: 'idea' }]"
-          />
-          <UFormField
-            :label="form.lessonMode === 'fix' ? t('contrib.f.whichLesson') : t('contrib.f.ideaTitle')"
-            required
-          >
-            <UInput
-              v-model="form.title"
-              size="lg"
-              class="w-full"
-            />
-          </UFormField>
-        </template>
-
-        <template v-if="type === 'translation'">
-          <UFormField
-            :label="t('contrib.f.language')"
-            required
-          >
-            <USelect
-              v-model="form.locale"
-              :items="localeItems"
-              size="lg"
-              class="w-full"
-            />
-          </UFormField>
-          <UFormField
-            :label="t('contrib.f.page')"
-            :hint="t('contrib.ph.page')"
-            required
-          >
-            <UInput
-              v-model="form.title"
-              size="lg"
-              class="w-full"
-            />
-          </UFormField>
-          <UFormField
-            :label="t('contrib.f.wrong')"
-            required
-          >
-            <UTextarea
-              v-model="form.wrong"
-              :rows="2"
-              autoresize
-              class="w-full"
-            />
-          </UFormField>
-        </template>
-
-        <UFormField
-          v-if="type === 'resource' || type === 'company' || type === 'nominate'"
-          :label="type === 'company' ? t('contrib.f.source') : type === 'nominate' ? t('contrib.f.profile') : t('contrib.f.link')"
-          :hint="type === 'nominate' ? t('contrib.optional') : undefined"
-          :help="type === 'company' ? t('contrib.ph.source') : undefined"
-          :required="type !== 'nominate'"
-        >
-          <UInput
-            v-model="form.url"
-            type="url"
-            inputmode="url"
-            size="lg"
-            class="w-full"
-            placeholder="https://"
-          />
-        </UFormField>
-
-        <UFormField
-          v-if="type === 'resource'"
-          :label="t('contrib.f.title')"
-          required
-        >
-          <UInput
-            v-model="form.title"
-            size="lg"
-            class="w-full"
-          />
-        </UFormField>
-
-        <UFormField
-          v-if="type === 'nominate'"
-          :label="t('contrib.f.role')"
-        >
-          <URadioGroup
-            v-model="form.role"
-            orientation="horizontal"
-            :items="ROLES.map(r => ({ label: t(`contrib.roles.${r}`), value: r as string }))"
-          />
-        </UFormField>
-
-        <UFormField
-          :label="t(`contrib.body.${type}`)"
-          :help="t('contrib.bodyHelp')"
-          required
-        >
-          <UTextarea
-            v-model="form.body"
-            :rows="4"
-            autoresize
-            class="w-full"
-          />
-        </UFormField>
-
-        <UCheckbox
-          v-if="type === 'nominate'"
-          v-model="form.self"
-          :label="t('contrib.f.self')"
-        />
-
-        <UAlert
-          v-if="(tried && problem) || error"
-          color="error"
-          variant="subtle"
-          icon="i-lucide-circle-alert"
-          :description="error || problem"
-        />
-
-        <div class="flex flex-wrap items-center gap-4">
-          <UButton
-            type="submit"
-            size="lg"
-            :loading="sending"
-            icon="i-lucide-send"
-          >
-            {{ t('contrib.send') }}
-          </UButton>
-          <p class="text-[15px] text-(--ink2)">
-            {{ t('contrib.reviewed') }}
+    <div class="mx-auto grid w-full min-h-0 max-w-6xl flex-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[19rem_minmax(0,1fr)]">
+      <!-- 1. What are you sharing? -->
+      <div class="flex min-h-0 flex-col gap-5 lg:overflow-y-auto lg:pe-1">
+        <div>
+          <h1 class="text-2xl font-semibold tracking-tight text-(--ink)">
+            {{ t('contrib.title') }}
+          </h1>
+          <p class="mt-1.5 text-sm leading-relaxed text-(--ink2)">
+            {{ t('contrib.lead') }}
+          </p>
+          <p class="mt-3 inline-flex items-center gap-1.5 rounded-full bg-(--ice) px-3 py-1 text-xs font-medium text-(--ink)">
+            <UIcon
+              name="i-lucide-coins"
+              class="size-3.5 text-(--signal)"
+            />{{ t('contrib.pointsBadge') }}
           </p>
         </div>
-      </form>
 
-      <div
-        v-if="sent"
-        class="border-[1.5px] border-(--ink) bg-(--ice) p-6"
-      >
-        <p class="text-xl font-bold text-(--ink)">
-          {{ t('contrib.thanks') }}
-        </p>
-        <p class="mt-2 text-(--ink2)">
-          {{ t('contrib.thanksBody') }}
-        </p>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <UButton
-            icon="i-lucide-plus"
-            @click="sent = false"
-          >
-            {{ t('contrib.another') }}
-          </UButton>
-          <UButton
-            :to="localePath('/dashboard')"
-            color="neutral"
-            variant="outline"
-          >
-            {{ t('contrib.toDashboard') }}
-          </UButton>
-        </div>
+        <fieldset>
+          <legend class="mb-2 text-xs font-medium text-(--ink2)">
+            {{ t('contrib.pick') }}
+          </legend>
+          <div class="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-1">
+            <button
+              v-for="ty in TYPES"
+              :key="ty.value"
+              type="button"
+              class="group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-start transition-colors duration-150"
+              :class="type === ty.value ? 'bg-(--card) ring-1 ring-(--signal) shadow-sm' : 'hover:bg-(--card)'"
+              :aria-pressed="type === ty.value"
+              @click="choose(ty.value)"
+            >
+              <span
+                class="flex size-9 shrink-0 items-center justify-center rounded-xl transition-colors"
+                :class="type === ty.value ? 'bg-(--signal) text-white' : 'bg-(--ice) text-(--signal)'"
+              >
+                <UIcon
+                  :name="ty.icon"
+                  class="size-[18px]"
+                />
+              </span>
+              <span class="min-w-0">
+                <span class="block text-sm font-semibold text-(--ink)">{{ t(`contrib.types.${ty.value}.label`) }}</span>
+                <span class="line-clamp-2 block text-xs leading-snug text-(--ink2)">{{ t(`contrib.types.${ty.value}.hint`) }}</span>
+              </span>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- 3. Yours -->
+        <section
+          v-if="mine?.submissions?.length"
+          class="max-lg:order-last"
+        >
+          <h2 class="mb-2 text-xs font-medium text-(--ink2)">
+            {{ t('contrib.mine') }}
+          </h2>
+          <ul class="divide-y divide-(--line) overflow-hidden rounded-2xl border border-(--line) bg-(--card)">
+            <li
+              v-for="s in mine.submissions"
+              :key="s.id"
+              class="flex flex-wrap items-center gap-2 px-3 py-2.5"
+            >
+              <span class="min-w-0 flex-1 truncate text-sm text-(--ink)">{{ s.title }}</span>
+              <span
+                class="rounded-full px-2 py-0.5 text-[11px] font-medium"
+                :class="STATUS[s.status]"
+              >{{ t(`contrib.status.${s.status}`) }}</span>
+              <p
+                v-if="s.reviewNote"
+                class="w-full text-xs text-(--ink2)"
+              >
+                {{ s.reviewNote }}
+              </p>
+            </li>
+          </ul>
+        </section>
       </div>
 
-      <!-- 3. Yours -->
-      <section
-        v-if="mine?.submissions?.length"
-        class="mt-8"
-      >
-        <h2 class="text-lg font-bold text-(--ink)">
-          {{ t('contrib.mine') }}
-        </h2>
-        <ul class="mt-4 divide-y divide-(--line) border-[1.5px] border-(--line) bg-(--card)">
-          <li
-            v-for="s in mine.submissions"
-            :key="s.id"
-            class="flex flex-wrap items-center gap-3 px-4 py-3"
-          >
-            <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ s.title }}</span>
-            <span
-              class="border-[1.5px] px-2 py-0.5 font-mono text-[11px] uppercase"
-              :class="STATUS[s.status]"
-            >{{ t(`contrib.status.${s.status}`) }}</span>
-            <p
-              v-if="s.reviewNote"
-              class="w-full text-sm text-(--ink2)"
-            >
-              {{ s.reviewNote }}
+      <!-- 2. The short form -->
+      <div class="flex min-h-0 min-w-0 flex-col">
+        <div
+          v-if="!type && !sent"
+          class="flex min-h-64 flex-1 flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-(--line) p-8 text-center text-(--ink2)"
+        >
+          <UIcon
+            name="i-lucide-mouse-pointer-click"
+            class="size-7 text-(--signal)"
+          />
+          {{ t('contrib.err.pick') }}
+        </div>
+
+        <form
+          v-if="type && !sent"
+          class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-3xl border border-(--line) bg-(--card) shadow-[0_20px_60px_-40px_var(--navy)]"
+          novalidate
+          @submit.prevent="send"
+        >
+          <header class="flex shrink-0 items-center gap-3 border-b border-(--line) px-6 py-4">
+            <UIcon
+              :name="TYPES.find(x => x.value === type)!.icon"
+              class="size-5 text-(--signal)"
+            />
+            <p class="text-base font-semibold text-(--ink)">
+              {{ t(`contrib.types.${type}.label`) }}
             </p>
-          </li>
-        </ul>
-      </section>
+          </header>
+
+          <div class="min-h-0 flex-1 space-y-5 overflow-y-auto px-6 py-5">
+            <!-- honeypot: invisible to people, filled in by naive bots -->
+            <input
+              v-model="form.website"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              class="absolute -left-[9999px] size-px opacity-0"
+            >
+
+            <template v-if="type === 'company'">
+              <UFormField
+                :label="t('contrib.f.company')"
+                required
+              >
+                <UInput
+                  v-model="form.company"
+                  size="lg"
+                  class="w-full"
+                  :placeholder="t('contrib.ph.company')"
+                />
+              </UFormField>
+              <UFormField :label="t('contrib.f.companyKind')">
+                <URadioGroup
+                  v-model="form.companyKind"
+                  orientation="horizontal"
+                  :items="CATEGORIES.map(c => ({ label: t(`companies.kinds.${c}`), value: c }))"
+                />
+              </UFormField>
+            </template>
+
+            <UFormField
+              v-if="type === 'nominate'"
+              :label="t('contrib.f.name')"
+              required
+            >
+              <UInput
+                v-model="form.title"
+                size="lg"
+                class="w-full"
+              />
+            </UFormField>
+
+            <template v-if="type === 'lesson'">
+              <URadioGroup
+                v-model="form.lessonMode"
+                orientation="horizontal"
+                :items="[{ label: t('contrib.f.fix'), value: 'fix' }, { label: t('contrib.f.idea'), value: 'idea' }]"
+              />
+              <UFormField
+                :label="form.lessonMode === 'fix' ? t('contrib.f.whichLesson') : t('contrib.f.ideaTitle')"
+                required
+              >
+                <UInput
+                  v-model="form.title"
+                  size="lg"
+                  class="w-full"
+                />
+              </UFormField>
+            </template>
+
+            <template v-if="type === 'translation'">
+              <UFormField
+                :label="t('contrib.f.language')"
+                required
+              >
+                <USelect
+                  v-model="form.locale"
+                  :items="localeItems"
+                  size="lg"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField
+                :label="t('contrib.f.page')"
+                :hint="t('contrib.ph.page')"
+                required
+              >
+                <UInput
+                  v-model="form.title"
+                  size="lg"
+                  class="w-full"
+                />
+              </UFormField>
+              <UFormField
+                :label="t('contrib.f.wrong')"
+                required
+              >
+                <UTextarea
+                  v-model="form.wrong"
+                  :rows="2"
+                  autoresize
+                  class="w-full"
+                />
+              </UFormField>
+            </template>
+
+            <UFormField
+              v-if="type === 'resource' || type === 'company' || type === 'nominate'"
+              :label="type === 'company' ? t('contrib.f.source') : type === 'nominate' ? t('contrib.f.profile') : t('contrib.f.link')"
+              :hint="type === 'nominate' ? t('contrib.optional') : undefined"
+              :help="type === 'company' ? t('contrib.ph.source') : undefined"
+              :required="type !== 'nominate'"
+            >
+              <UInput
+                v-model="form.url"
+                type="url"
+                inputmode="url"
+                size="lg"
+                class="w-full"
+                placeholder="https://"
+              />
+            </UFormField>
+
+            <UFormField
+              v-if="type === 'resource'"
+              :label="t('contrib.f.title')"
+              required
+            >
+              <UInput
+                v-model="form.title"
+                size="lg"
+                class="w-full"
+              />
+            </UFormField>
+
+            <UFormField
+              v-if="type === 'nominate'"
+              :label="t('contrib.f.role')"
+            >
+              <URadioGroup
+                v-model="form.role"
+                orientation="horizontal"
+                :items="ROLES.map(r => ({ label: t(`contrib.roles.${r}`), value: r as string }))"
+              />
+            </UFormField>
+
+            <UFormField
+              :label="t(`contrib.body.${type}`)"
+              :help="t('contrib.bodyHelp')"
+              required
+            >
+              <UTextarea
+                v-model="form.body"
+                :rows="4"
+                autoresize
+                :maxrows="10"
+                class="w-full"
+              />
+            </UFormField>
+
+            <UCheckbox
+              v-if="type === 'nominate'"
+              v-model="form.self"
+              :label="t('contrib.f.self')"
+            />
+
+            <UAlert
+              v-if="(tried && problem) || error"
+              color="error"
+              variant="subtle"
+              icon="i-lucide-circle-alert"
+              :description="error || problem"
+            />
+          </div>
+
+          <footer class="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-(--line) px-6 py-4">
+            <p class="text-sm text-(--ink2)">
+              {{ t('contrib.reviewed') }}
+            </p>
+            <UButton
+              type="submit"
+              size="lg"
+              class="rounded-full px-6"
+              :loading="sending"
+              icon="i-lucide-send"
+            >
+              {{ t('contrib.send') }}
+            </UButton>
+          </footer>
+        </form>
+
+        <div
+          v-if="sent"
+          class="flex flex-1 flex-col items-center justify-center rounded-3xl border border-(--line) bg-(--card) p-10 text-center"
+        >
+          <span class="flex size-14 items-center justify-center rounded-full bg-(--signal)/12">
+            <UIcon
+              name="i-lucide-check"
+              class="size-7 text-(--signal)"
+            />
+          </span>
+          <p class="mt-5 text-xl font-semibold text-(--ink)">
+            {{ t('contrib.thanks') }}
+          </p>
+          <p class="mt-2 max-w-md text-(--ink2)">
+            {{ t('contrib.thanksBody') }}
+          </p>
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <UButton
+              icon="i-lucide-plus"
+              class="rounded-full"
+              @click="sent = false"
+            >
+              {{ t('contrib.another') }}
+            </UButton>
+            <UButton
+              :to="localePath('/dashboard')"
+              color="neutral"
+              variant="outline"
+              class="rounded-full"
+            >
+              {{ t('contrib.toDashboard') }}
+            </UButton>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

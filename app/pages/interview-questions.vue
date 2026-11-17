@@ -160,7 +160,7 @@ onMounted(loadVotes)
           :placeholder="t('interview.search')"
           class="w-full"
         />
-        <div class="flex border-[1.5px] border-(--ink)">
+        <div class="flex border border-(--line)">
           <button
             v-for="v in (['list', 'grid'] as const)"
             :key="v"
@@ -210,8 +210,8 @@ onMounted(loadVotes)
               v-for="[k, n] in facet(group.key)"
               :key="k"
               type="button"
-              class="border-[1.5px] px-3 py-1.5 text-[15px] font-semibold"
-              :class="group.model === k ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
+              class="border px-3 py-1.5 text-[15px] font-semibold"
+              :class="group.model === k ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--line)'"
               @click="group.set(group.model === k ? '' : k)"
             >
               {{ group.name(k) }} <span class="font-mono text-xs opacity-60">{{ n }}</span>
@@ -254,13 +254,13 @@ onMounted(loadVotes)
                 :aria-current="openSlug === slugOf(r.path) ? 'page' : undefined"
                 :aria-expanded="openSlug === slugOf(r.path)"
               >
-                <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] uppercase tracking-[.08em]">
+                <div class="flex flex-wrap items-center gap-1.5 font-medium text-[11px]">
                   <span class="me-1 font-bold text-(--ink2)">#{{ numberOf.get(r.path) }}</span>
-                  <span class="border-[1.5px] border-(--signal) px-1.5 py-0.5 text-(--signal)">{{ t(`interview.types.${r.type}`) }}</span>
-                  <span class="border-[1.5px] border-(--line) px-1.5 py-0.5 text-(--ink2)">{{ t(`interview.levels.${r.level}`) }}</span>
+                  <span class="border border-(--signal) px-1.5 py-0.5 text-(--signal)">{{ t(`interview.types.${r.type}`) }}</span>
+                  <span class="border border-(--line) px-1.5 py-0.5 text-(--ink2)">{{ t(`interview.levels.${r.level}`) }}</span>
                   <span
                     v-if="r.company"
-                    class="border-[1.5px] border-(--ink) bg-(--ink) px-1.5 py-0.5 text-(--paper)"
+                    class="border border-(--line) bg-(--ink) px-1.5 py-0.5 text-(--paper)"
                   >{{ r.company }}</span>
                   <span
                     v-if="r.source === 'community'"
@@ -295,7 +295,7 @@ onMounted(loadVotes)
         </section>
         <p
           v-if="!filtered.length"
-          class="border-[1.5px] border-dashed border-(--line) p-8 text-center text-(--ink2)"
+          class="border border-dashed border-(--line) p-8 text-center text-(--ink2)"
         >
           {{ t('interview.empty') }}
         </p>

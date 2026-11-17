@@ -41,18 +41,18 @@ defineProps<{
       <li
         v-for="(s, i) in items"
         :key="i"
-        class="flex w-[calc(100%-2rem)] shrink-0 snap-start flex-col border-[1.5px] border-(--ink) graph-paper-fine bg-(--card) p-5 sm:w-[19rem]"
+        class="flex w-[calc(100%-2rem)] shrink-0 snap-start flex-col border border-(--line) graph-paper-fine bg-(--card) p-5 sm:w-[19rem] rounded-2xl"
       >
         <div class="mb-3 flex items-center justify-between gap-2">
           <span
             v-if="s.kicker"
-            class="bg-(--ice) px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--signal)"
+            class="bg-(--ice) px-2 py-0.5 font-medium text-[11px] font-semibold text-(--signal)"
           >
             {{ s.kicker }}
           </span>
           <span
             v-else
-            class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)"
+            class="font-medium text-[11px] font-semibold text-(--ink2)"
           >
             {{ String(i + 1).padStart(2, '0') }} / {{ String(items.length).padStart(2, '0') }}
           </span>

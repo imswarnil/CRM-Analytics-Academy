@@ -38,9 +38,9 @@ defineProps<{
     <div
       v-for="(o, i) in items"
       :key="i"
-      class="flex flex-col overflow-hidden border-[1.5px] border-(--ink) bg-(--card)"
+      class="flex flex-col overflow-hidden border border-(--line) bg-(--card) rounded-2xl"
     >
-      <div class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-3">
+      <div class="border-b border-(--line) bg-(--ice) px-4 py-3">
         <div class="flex items-center gap-2">
           <UIcon
             v-if="o.icon"

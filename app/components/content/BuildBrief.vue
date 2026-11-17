@@ -40,13 +40,13 @@ defineProps<{
 </script>
 
 <template>
-  <section class="not-prose my-8 overflow-hidden border-[1.5px] border-(--ink) bg-(--card)">
-    <header class="flex flex-wrap items-center gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
+  <section class="not-prose my-8 overflow-hidden border border-(--line) bg-(--card) rounded-2xl">
+    <header class="flex flex-wrap items-center gap-2 border-b border-(--line) bg-(--ice) px-5 py-3">
       <UIcon
         name="i-lucide-clipboard-list"
         class="size-4 shrink-0 text-(--signal)"
       />
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--signal)">
+      <p class="font-medium text-[11px] font-semibold text-(--signal)">
         {{ t('buildBrief.title') }}
       </p>
       <h4 class="ml-auto text-sm font-semibold text-(--ink)">
@@ -56,7 +56,7 @@ defineProps<{
 
     <dl class="grid gap-x-6 gap-y-4 p-5 sm:grid-cols-2">
       <div>
-        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
+        <dt class="font-medium text-[11px] font-semibold text-(--ink2)">
           {{ t('buildBrief.audience') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
@@ -64,7 +64,7 @@ defineProps<{
         </dd>
       </div>
       <div v-if="cadence">
-        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
+        <dt class="font-medium text-[11px] font-semibold text-(--ink2)">
           {{ t('buildBrief.when') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
@@ -72,7 +72,7 @@ defineProps<{
         </dd>
       </div>
       <div class="sm:col-span-2">
-        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
+        <dt class="font-medium text-[11px] font-semibold text-(--ink2)">
           {{ t('buildBrief.question') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
@@ -80,7 +80,7 @@ defineProps<{
         </dd>
       </div>
       <div class="sm:col-span-2">
-        <dt class="flex items-center gap-1 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--signal)">
+        <dt class="flex items-center gap-1 font-medium text-[11px] font-semibold text-(--signal)">
           <UIcon
             name="i-lucide-git-branch"
             class="size-3"
@@ -92,7 +92,7 @@ defineProps<{
         </dd>
       </div>
       <div v-if="success">
-        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
+        <dt class="font-medium text-[11px] font-semibold text-(--ink2)">
           {{ t('buildBrief.success') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
@@ -100,7 +100,7 @@ defineProps<{
         </dd>
       </div>
       <div v-if="notInScope?.length">
-        <dt class="font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">
+        <dt class="font-medium text-[11px] font-semibold text-(--ink2)">
           {{ t('buildBrief.notInScope') }}
         </dt>
         <dd class="mt-1 text-sm leading-snug text-(--ink2)">
@@ -113,11 +113,11 @@ defineProps<{
       v-if="datasets?.length"
       class="flex flex-wrap items-center gap-1.5 border-t border-dashed border-(--line) px-5 py-3"
     >
-      <span class="mr-1 font-mono text-[10px] font-semibold uppercase tracking-[.12em] text-(--ink2)">{{ t('buildBrief.builtOn') }}</span>
+      <span class="mr-1 font-medium text-[11px] font-semibold text-(--ink2)">{{ t('buildBrief.builtOn') }}</span>
       <code
         v-for="(d, i) in datasets"
         :key="i"
-        class="border-[1.5px] border-(--ink) bg-(--card) px-1.5 py-0.5 font-mono text-[11px] text-(--ink2)"
+        class="border border-(--line) bg-(--card) px-1.5 py-0.5 font-mono text-[11px] text-(--ink2) rounded-2xl"
       >{{ d }}</code>
     </footer>
   </section>

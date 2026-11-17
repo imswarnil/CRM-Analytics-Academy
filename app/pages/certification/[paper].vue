@@ -11,8 +11,8 @@
  * The paper stays in the site's window with the navbar, but nothing else: no
  * footer, promos or pop-ups (focus mode, the whole time the page is open), and
  * while the clock runs the paper fits the viewport — the question and the
- * navigator scroll inside it, the page never does. The ✕ goes back to every
- * paper, asking first while the clock runs.
+ * navigator scroll inside it, the page never does. The ✕ goes back to the
+ * exam page, asking first while the clock runs. Keyboard: A–D / 1–4, ← →, F.
  */
 definePageMeta({ focus: true })
 
@@ -177,7 +177,29 @@ const reviewList = computed(() => questions.value
   .filter(({ i }) => reviewFilter.value === 'all' || (reviewFilter.value === 'wrong' ? !correct(i) : flags.value[i])))
 
 const letter = (i: number) => String.fromCharCode(65 + i)
-const sectionPath = (topic: string) => localePath(`/${topic}`)
+const facts = computed(() => [
+  { icon: 'i-lucide-list-checks', value: paper!.questions, label: t('cert.facts.questions') },
+  { icon: 'i-lucide-timer', value: paper!.minutes, label: t('cert.facts.minutes') },
+  { icon: 'i-lucide-target', value: `${EXAM.passPct}%`, label: t('cert.facts.pass') }
+])
+
+// Keyboard: A–D or 1–4 answer, ← → move, F flags. Ignored while typing or in a dialog.
+function onKey(e: KeyboardEvent) {
+  if (phase.value !== 'running' || confirmOpen.value || leaveOpen.value || e.metaKey || e.ctrlKey || e.altKey) return
+  if ((e.target as HTMLElement | null)?.closest('input, textarea, [contenteditable]')) return
+  const q = current.value
+  if (!q) return
+  const k = e.key.toLowerCase()
+  const pick = '1234'.indexOf(k) >= 0 ? '1234'.indexOf(k) : 'abcd'.indexOf(k)
+  if (pick >= 0 && pick < q.options.length) answers.value[index.value] = pick
+  else if (k === 'arrowright' && index.value < questions.value.length - 1) index.value++
+  else if (k === 'arrowleft' && index.value > 0) index.value--
+  else if (k === 'f') flags.value[index.value] = !flags.value[index.value]
+  else return
+  e.preventDefault()
+}
+onMounted(() => window.addEventListener('keydown', onKey))
+onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 function retake() {
   try {
     localStorage.removeItem(KEY)
@@ -188,18 +210,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
 </script>
 
 <template>
-  <div>
-    <!-- Close: the exam window, or back to every paper -->
-    <UButton
-      icon="i-lucide-x"
-      color="neutral"
-      variant="outline"
-      size="lg"
-      square
-      class="fixed end-3 top-[calc(var(--ui-header-height)+0.75rem)] z-40 bg-(--card)"
-      :aria-label="t('cert.close')"
-      @click="close()"
-    />
+  <div class="min-h-[calc(100dvh-var(--ui-header-height))] bg-(--paper)">
     <UModal
       v-model:open="leaveOpen"
       :title="t('cert.leaveTitle')"
@@ -209,13 +220,15 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         <div class="flex w-full justify-end gap-2">
           <UButton
             color="neutral"
-            variant="outline"
+            variant="ghost"
+            class="rounded-full"
             @click="leaveOpen = false"
           >
             {{ t('cert.keepGoing') }}
           </UButton>
           <UButton
             color="error"
+            class="rounded-full"
             icon="i-lucide-log-out"
             @click="close(true)"
           >
@@ -225,100 +238,127 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
       </template>
     </UModal>
 
-    <!-- INTRO -->
-    <template v-if="phase === 'intro'">
-      <BpPageHeader
-        :sheet="t('cert.eyebrow')"
-        :title="paper!.title"
-        :lead="description"
-      />
-      <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <div class="crosshair border-[1.5px] border-(--ink) bg-(--card) p-6 shadow-[10px_10px_0_var(--ice)] sm:p-8">
-          <dl class="grid grid-cols-3 gap-4">
-            <div>
-              <dt class="mono-label">
-                {{ t('cert.facts.questions') }}
-              </dt><dd class="text-3xl font-black text-(--signal)">
-                {{ paper!.questions }}
-              </dd>
-            </div>
-            <div>
-              <dt class="mono-label">
-                {{ t('cert.facts.minutes') }}
-              </dt><dd class="text-3xl font-black text-(--signal)">
-                {{ paper!.minutes }}
-              </dd>
-            </div>
-            <div>
-              <dt class="mono-label">
-                {{ t('cert.facts.pass') }}
-              </dt><dd class="text-3xl font-black text-(--signal)">
-                {{ EXAM.passPct }}%
-              </dd>
-            </div>
-          </dl>
-          <ul class="mt-6 space-y-2 text-sm text-(--ink2)">
-            <li
-              v-for="i in 4"
-              :key="i"
-              class="flex gap-2"
-            >
-              <UIcon
-                name="i-lucide-dot"
-                class="mt-0.5 size-4 flex-none"
-              />{{ t(`cert.rules.${i}`) }}
-            </li>
-          </ul>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <UButton
-              size="lg"
-              icon="i-lucide-play"
-              :disabled="!questions.length"
-              @click="start()"
-            >
-              {{ t('cert.begin') }}
-            </UButton>
-            <UButton
-              v-if="resumable"
-              size="lg"
-              color="neutral"
-              variant="outline"
-              icon="i-lucide-history"
-              @click="start(true)"
-            >
-              {{ t('cert.resume') }}
-            </UButton>
-            <UButton
-              :to="localePath('/certification')"
-              size="lg"
-              color="neutral"
-              variant="ghost"
-            >
-              {{ t('cert.allPapers') }}
-            </UButton>
-          </div>
-          <p
-            v-if="!isSignedIn"
-            class="mt-4 text-xs text-(--ink2)"
-          >
-            {{ t('cert.signInToSave') }}
-          </p>
-        </div>
-      </div>
-    </template>
+    <!-- INTRO ---------------------------------------------------------- -->
+    <section
+      v-if="phase === 'intro'"
+      class="mx-auto max-w-2xl px-4 py-16 sm:py-24"
+    >
+      <NuxtLink
+        :to="localePath('/certification')"
+        class="inline-flex items-center gap-1 text-sm font-medium text-(--ink2) hover:text-(--ink)"
+      >
+        <UIcon
+          name="i-lucide-chevron-left"
+          class="size-4"
+        />{{ t('cert.eyebrow') }}
+      </NuxtLink>
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-(--ink) sm:text-5xl">
+        {{ paper!.title }}
+      </h1>
+      <p class="mt-3 text-lg text-(--ink2)">
+        {{ EXAM.name }}
+      </p>
 
-    <!-- RUNNING -->
+      <dl class="mt-10 grid grid-cols-3 overflow-hidden rounded-3xl border border-(--line) bg-(--card)">
+        <div
+          v-for="f in facts"
+          :key="f.label"
+          class="flex flex-col items-center gap-1 border-e border-(--line) px-4 py-6 last:border-e-0"
+        >
+          <UIcon
+            :name="f.icon"
+            class="size-5 text-(--signal)"
+          />
+          <dd class="text-3xl font-semibold tabular-nums tracking-tight text-(--ink)">
+            {{ f.value }}
+          </dd>
+          <dt class="text-xs font-medium text-(--ink2)">
+            {{ f.label }}
+          </dt>
+        </div>
+      </dl>
+
+      <ul class="mt-8 space-y-3">
+        <li
+          v-for="i in 4"
+          :key="i"
+          class="flex gap-3 text-[15px] leading-relaxed text-(--ink2)"
+        >
+          <UIcon
+            name="i-lucide-check"
+            class="mt-1 size-4 flex-none text-(--signal)"
+          />{{ t(`cert.rules.${i}`) }}
+        </li>
+      </ul>
+
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <UButton
+          size="xl"
+          class="rounded-full px-7"
+          icon="i-lucide-play"
+          :loading="!questions.length"
+          @click="start()"
+        >
+          {{ t('cert.begin') }}
+        </UButton>
+        <UButton
+          v-if="resumable"
+          size="xl"
+          color="neutral"
+          variant="outline"
+          class="rounded-full"
+          icon="i-lucide-history"
+          @click="start(true)"
+        >
+          {{ t('cert.resume') }}
+        </UButton>
+      </div>
+      <p class="mt-5 flex items-center gap-2 text-sm text-(--ink2)">
+        <UIcon
+          name="i-lucide-keyboard"
+          class="size-4"
+        />{{ t('cert.keys') }}
+      </p>
+      <p
+        v-if="!isSignedIn"
+        class="mt-2 text-sm text-(--ink2)"
+      >
+        {{ t('cert.signInToSave') }}
+      </p>
+    </section>
+
+    <!-- RUNNING -------------------------------------------------------- -->
     <div
       v-else-if="phase === 'running' && current"
       class="flex h-[calc(100dvh-var(--ui-header-height))] flex-col overflow-hidden"
     >
-      <div class="z-30 shrink-0 border-b-[1.5px] border-(--ink) bg-(--paper)">
-        <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center gap-4 py-3 ps-4 pe-16 sm:ps-6 lg:ps-8">
-          <span class="font-bold text-(--ink)">{{ paper!.title }}</span>
-          <span class="mono-label">{{ t('cert.questionOf', { n: index + 1, total: questions.length }) }} · {{ t('cert.answeredN', { n: answered }) }} · {{ t('cert.flaggedN', { n: flagged }) }}</span>
+      <!-- Top bar: progress, clock, submit, close -->
+      <div class="shrink-0 border-b border-(--line) bg-(--card)/80 backdrop-blur">
+        <div class="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3 sm:px-6">
+          <UButton
+            icon="i-lucide-x"
+            color="neutral"
+            variant="ghost"
+            square
+            class="rounded-full"
+            :aria-label="t('cert.close')"
+            @click="close()"
+          />
+          <div class="min-w-0 flex-1">
+            <p class="truncate text-sm font-medium text-(--ink)">
+              {{ t('cert.questionOf', { n: index + 1, total: questions.length }) }}
+              <span class="text-(--ink2)">· {{ t('cert.answeredN', { n: answered }) }}<template v-if="flagged"> · {{ t('cert.flaggedN', { n: flagged }) }}</template></span>
+            </p>
+            <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-(--line)">
+              <div
+                class="h-full rounded-full bg-(--signal) transition-[width] duration-300"
+                :style="{ width: `${(answered / questions.length) * 100}%` }"
+              />
+            </div>
+          </div>
           <span
-            class="ms-auto flex items-center gap-2 border-[1.5px] px-3 py-1 font-mono text-lg font-bold tabular-nums"
-            :class="remaining < 600_000 ? 'border-error bg-error text-white' : 'border-(--ink) bg-(--card) text-(--ink)'"
+            class="flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-sm font-semibold tabular-nums"
+            :class="remaining < 600_000 ? 'bg-error/10 text-error' : 'bg-(--ice) text-(--ink)'"
             role="timer"
             :aria-label="t('cert.timeLeft')"
           >
@@ -328,7 +368,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             />{{ clock }}
           </span>
           <UButton
-            icon="i-lucide-send"
+            class="rounded-full max-sm:hidden"
             @click="confirmOpen = true"
           >
             {{ t('cert.submit') }}
@@ -336,28 +376,30 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         </div>
       </div>
 
-      <div class="mx-auto grid min-h-0 w-full max-w-(--ui-container) flex-1 gap-6 px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:px-8">
-        <section class="flex min-h-0 flex-col border-[1.5px] border-(--ink) bg-(--card)">
-          <header class="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
-            <p class="eyebrow">
-              Q.{{ String(index + 1).padStart(2, '0') }} — {{ DOMAINS[current.domain].label }}
-            </p>
-            <UButton
-              :icon="flags[index] ? 'i-lucide-flag-off' : 'i-lucide-flag'"
-              size="xs"
-              :color="flags[index] ? 'warning' : 'neutral'"
-              :variant="flags[index] ? 'solid' : 'outline'"
-              @click="flags[index] = !flags[index]"
-            >
-              {{ flags[index] ? t('cert.unflag') : t('cert.flag') }}
-            </UButton>
-          </header>
-          <div class="min-h-0 flex-1 overflow-y-auto p-5 sm:p-8">
-            <h1 class="text-xl font-bold leading-snug text-(--ink)">
+      <div class="mx-auto grid min-h-0 w-full max-w-5xl flex-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_15rem]">
+        <!-- The question -->
+        <section class="flex min-h-0 flex-col overflow-hidden rounded-3xl border border-(--line) bg-(--card) shadow-[0_20px_60px_-40px_var(--navy)]">
+          <div class="min-h-0 flex-1 overflow-y-auto p-6 sm:p-10">
+            <div class="flex items-center justify-between gap-3">
+              <span class="rounded-full bg-(--ice) px-3 py-1 text-xs font-medium text-(--ink2)">{{ DOMAINS[current.domain].label }}</span>
+              <button
+                type="button"
+                class="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors"
+                :class="flags[index] ? 'bg-warning/15 text-warning' : 'text-(--ink2) hover:bg-(--ice) hover:text-(--ink)'"
+                :aria-pressed="flags[index]"
+                @click="flags[index] = !flags[index]"
+              >
+                <UIcon
+                  :name="flags[index] ? 'i-lucide-flag' : 'i-lucide-flag'"
+                  class="size-3.5"
+                />{{ flags[index] ? t('cert.unflag') : t('cert.flag') }}
+              </button>
+            </div>
+            <h1 class="mt-5 text-xl font-semibold leading-snug tracking-tight text-(--ink) sm:text-2xl">
               {{ current.q }}
             </h1>
             <div
-              class="mt-6 space-y-3"
+              class="mt-8 space-y-3"
               role="radiogroup"
             >
               <button
@@ -366,23 +408,24 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
                 type="button"
                 role="radio"
                 :aria-checked="answers[index] === oi"
-                class="flex w-full items-start gap-3 border-[1.5px] p-4 text-start transition-colors"
-                :class="answers[index] === oi ? 'border-(--signal) bg-(--ice) shadow-[3px_3px_0_var(--signal)]' : 'border-(--ink) hover:bg-(--ice)/60'"
+                class="group flex w-full items-center gap-4 rounded-2xl border p-4 text-start transition-all duration-150"
+                :class="answers[index] === oi ? 'border-(--signal) bg-(--signal)/8 ring-1 ring-(--signal)' : 'border-(--line) hover:border-(--ink2)/40 hover:bg-(--ice)/60'"
                 @click="answers[index] = oi"
               >
                 <span
-                  class="flex size-7 flex-none items-center justify-center border-[1.5px] font-mono text-xs font-bold"
-                  :class="answers[index] === oi ? 'border-(--signal) bg-(--signal) text-white' : 'border-(--ink)'"
+                  class="flex size-8 flex-none items-center justify-center rounded-full text-sm font-semibold transition-colors"
+                  :class="answers[index] === oi ? 'bg-(--signal) text-white' : 'bg-(--ice) text-(--ink2) group-hover:text-(--ink)'"
                 >{{ letter(oi) }}</span>
-                <span class="pt-0.5 text-(--ink)">{{ opt }}</span>
+                <span class="text-[15px] leading-relaxed text-(--ink)">{{ opt }}</span>
               </button>
             </div>
           </div>
-          <footer class="flex shrink-0 items-center justify-between gap-3 border-t-[1.5px] border-(--ink) px-5 py-3">
+          <footer class="flex shrink-0 items-center justify-between gap-3 border-t border-(--line) px-6 py-4">
             <UButton
               icon="i-lucide-arrow-left"
               color="neutral"
-              variant="outline"
+              variant="ghost"
+              class="rounded-full"
               :disabled="index === 0"
               @click="index--"
             >
@@ -391,6 +434,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             <UButton
               v-if="index < questions.length - 1"
               trailing-icon="i-lucide-arrow-right"
+              class="rounded-full"
               @click="index++"
             >
               {{ t('cert.next') }}
@@ -398,6 +442,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             <UButton
               v-else
               icon="i-lucide-send"
+              class="rounded-full"
               @click="confirmOpen = true"
             >
               {{ t('cert.submit') }}
@@ -405,33 +450,32 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           </footer>
         </section>
 
+        <!-- Navigator -->
         <aside class="min-h-0 overflow-y-auto max-lg:hidden">
-          <p class="mono-label mb-2">
+          <p class="mb-3 text-xs font-medium text-(--ink2)">
             {{ t('cert.navigator') }}
           </p>
-          <div class="grid grid-cols-8 gap-1.5 lg:grid-cols-6">
+          <div class="grid grid-cols-6 gap-1.5">
             <button
               v-for="(_, qi) in questions"
               :key="qi"
               type="button"
-              class="relative flex aspect-square items-center justify-center border-[1.5px] font-mono text-[11px]"
-              :class="[
-                qi === index ? 'border-(--signal) bg-(--signal) text-white' : answers[qi] !== null ? 'border-(--ink) bg-(--tide) text-white' : 'border-(--line) bg-(--card) text-(--ink2)'
-              ]"
+              class="relative flex aspect-square items-center justify-center rounded-lg text-[11px] font-medium tabular-nums transition-colors"
+              :class="qi === index ? 'bg-(--ink) text-(--paper)' : answers[qi] !== null ? 'bg-(--signal)/15 text-(--signal) hover:bg-(--signal)/25' : 'bg-(--card) text-(--ink2) ring-1 ring-(--line) hover:ring-(--ink2)/40'"
               :aria-label="t('cert.goTo', { n: qi + 1 })"
               @click="index = qi"
             >
               {{ qi + 1 }}
               <span
                 v-if="flags[qi]"
-                class="absolute -end-1 -top-1 size-2.5 border border-(--ink) bg-warning"
+                class="absolute -end-0.5 -top-0.5 size-2 rounded-full bg-warning ring-2 ring-(--paper)"
               />
             </button>
           </div>
-          <div class="mt-3 flex flex-wrap gap-3 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 bg-(--tide)" />{{ t('cert.legend.answered') }}</span>
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--line)" />{{ t('cert.legend.open') }}</span>
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 bg-warning" />{{ t('cert.legend.flagged') }}</span>
+          <div class="mt-4 space-y-1.5 text-xs text-(--ink2)">
+            <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-sm bg-(--signal)/30" />{{ t('cert.legend.answered') }}</span>
+            <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-sm ring-1 ring-(--line)" />{{ t('cert.legend.open') }}</span>
+            <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-full bg-warning" />{{ t('cert.legend.flagged') }}</span>
           </div>
         </aside>
       </div>
@@ -449,13 +493,15 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           <div class="flex w-full justify-end gap-2">
             <UButton
               color="neutral"
-              variant="outline"
+              variant="ghost"
+              class="rounded-full"
               @click="confirmOpen = false"
             >
               {{ t('cert.keepGoing') }}
             </UButton>
             <UButton
               icon="i-lucide-send"
+              class="rounded-full"
               @click="finish"
             >
               {{ t('cert.submitNow') }}
@@ -465,134 +511,157 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
       </UModal>
     </div>
 
-    <!-- RESULTS -->
-    <template v-else-if="phase === 'done'">
-      <div class="mx-auto max-w-(--ui-container) space-y-8 px-4 py-12 sm:px-6 lg:px-8">
-        <section
-          class="border-[1.5px] border-(--ink) p-8 text-white shadow-[10px_10px_0_var(--ink)]"
-          :class="passed ? 'graph-paper-navy bg-(--navy)' : 'bg-(--ink)'"
-        >
-          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
-            {{ paper!.title }} · {{ t('cert.timeUsed', { t: used }) }}
-          </p>
-          <div class="mt-3 flex flex-wrap items-end gap-6">
-            <span class="text-7xl font-black tabular-nums tracking-[-0.04em]">{{ pct }}%</span>
-            <span class="pb-3 text-2xl font-extrabold">{{ passed ? t('cert.passed') : t('cert.failed', { p: EXAM.passPct }) }}</span>
-          </div>
-          <p class="mt-2 text-white/75">
-            {{ t('cert.scoreLine', { score, total: questions.length }) }}
-            <span v-if="saved"> · {{ t('cert.saved') }}</span>
-          </p>
-          <div class="mt-6 flex flex-wrap items-center gap-3">
-            <UButton
-              icon="i-lucide-rotate-ccw"
-              color="secondary"
-              @click="retake"
-            >
-              {{ t('cert.retake') }}
-            </UButton>
-            <UButton
-              :to="localePath('/certification')"
-              color="neutral"
-              variant="outline"
-              class="border-white/60 bg-transparent text-white hover:bg-white/10"
-            >
-              {{ t('cert.allPapers') }}
-            </UButton>
-            <ShareBar
-              :title="paper!.title"
-              :text="shareText"
-              path="/certification"
-              compact
-              class="[&_button]:bg-white"
+    <!-- RESULTS -------------------------------------------------------- -->
+    <div
+      v-else-if="phase === 'done'"
+      class="mx-auto max-w-3xl space-y-8 px-4 py-14 sm:px-6"
+    >
+      <section class="rounded-3xl border border-(--line) bg-(--card) p-8 text-center sm:p-12">
+        <div class="relative mx-auto size-40">
+          <svg
+            viewBox="0 0 120 120"
+            class="size-full -rotate-90"
+            aria-hidden="true"
+          >
+            <circle
+              cx="60"
+              cy="60"
+              r="52"
+              fill="none"
+              stroke="var(--line)"
+              stroke-width="10"
             />
-          </div>
-        </section>
+            <circle
+              cx="60"
+              cy="60"
+              r="52"
+              fill="none"
+              :stroke="passed ? 'var(--signal)' : 'var(--ui-warning)'"
+              stroke-width="10"
+              stroke-linecap="round"
+              :stroke-dasharray="`${(pct / 100) * 326.7} 326.7`"
+            />
+          </svg>
+          <span class="absolute inset-0 flex items-center justify-center text-4xl font-semibold tabular-nums tracking-tight text-(--ink)">{{ pct }}%</span>
+        </div>
+        <p
+          class="mt-6 text-2xl font-semibold tracking-tight"
+          :class="passed ? 'text-(--signal)' : 'text-(--ink)'"
+        >
+          {{ passed ? t('cert.passed') : t('cert.failed', { p: EXAM.passPct }) }}
+        </p>
+        <p class="mt-1 text-(--ink2)">
+          {{ t('cert.scoreLine', { score, total: questions.length }) }} · {{ t('cert.timeUsed', { t: used }) }}<span v-if="saved"> · {{ t('cert.saved') }}</span>
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <UButton
+            icon="i-lucide-rotate-ccw"
+            size="lg"
+            class="rounded-full"
+            @click="retake"
+          >
+            {{ t('cert.retake') }}
+          </UButton>
+          <ShareBar
+            :title="paper!.title"
+            :text="shareText"
+            path="/certification"
+            compact
+          />
+        </div>
+      </section>
 
-        <section class="border-[1.5px] border-(--ink) bg-(--card)">
-          <p class="eyebrow border-b-[1.5px] border-(--ink) px-5 py-3">
-            {{ t('cert.byDomain') }}
-          </p>
-          <ul class="p-5">
-            <li
-              v-for="(d, key) in byDomain"
-              :key="key"
-              class="py-2"
-            >
-              <div class="flex justify-between text-sm">
-                <span class="font-semibold">{{ DOMAINS[key as ExamDomain].label }}</span>
-                <span class="font-mono text-xs">{{ d.score }}/{{ d.total }} · {{ Math.round((d.score / d.total) * 100) }}%</span>
-              </div>
-              <div class="mt-1 h-2.5 border-[1.5px] border-(--ink) bg-(--paper)">
-                <div
-                  class="h-full"
-                  :class="d.score / d.total >= EXAM.passPct / 100 ? 'bg-(--signal)' : 'bg-warning'"
-                  :style="{ width: `${(d.score / d.total) * 100}%` }"
-                />
-              </div>
-            </li>
-          </ul>
-        </section>
-
-        <PromoSlot unit="horizontal" />
-
-        <section>
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <h2 class="bp-h3">
-              {{ t('cert.review') }}
-            </h2>
-            <div class="flex border-[1.5px] border-(--ink)">
-              <button
-                v-for="f in (['all', 'wrong', 'flagged'] as const)"
-                :key="f"
-                type="button"
-                class="border-e-[1.5px] border-(--ink) px-3 py-1 font-mono text-[11px] uppercase last:border-e-0"
-                :class="reviewFilter === f ? 'bg-(--ink) text-(--paper)' : 'hover:bg-(--ice)'"
-                @click="reviewFilter = f"
-              >
-                {{ t(`cert.filter.${f}`) }}
-              </button>
+      <section class="rounded-3xl border border-(--line) bg-(--card) p-6 sm:p-8">
+        <h2 class="text-lg font-semibold text-(--ink)">
+          {{ t('cert.byDomain') }}
+        </h2>
+        <ul class="mt-5 space-y-4">
+          <li
+            v-for="(d, key) in byDomain"
+            :key="key"
+          >
+            <div class="flex justify-between text-sm">
+              <span class="font-medium text-(--ink)">{{ DOMAINS[key as ExamDomain].label }}</span>
+              <span class="tabular-nums text-(--ink2)">{{ d.score }}/{{ d.total }} · {{ Math.round((d.score / d.total) * 100) }}%</span>
             </div>
-          </div>
-          <ol class="mt-4 space-y-4">
-            <li
-              v-for="{ q, i } in reviewList"
-              :key="q.id"
-              class="border-[1.5px] bg-(--card) p-5"
-              :class="correct(i) ? 'border-(--ink)' : 'border-warning'"
+            <div class="mt-2 h-2 overflow-hidden rounded-full bg-(--line)">
+              <div
+                class="h-full rounded-full"
+                :class="d.score / d.total >= EXAM.passPct / 100 ? 'bg-(--signal)' : 'bg-warning'"
+                :style="{ width: `${(d.score / d.total) * 100}%` }"
+              />
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <PromoSlot unit="horizontal" />
+
+      <section>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-lg font-semibold text-(--ink)">
+            {{ t('cert.review') }}
+          </h2>
+          <div class="inline-flex rounded-full bg-(--ice) p-1">
+            <button
+              v-for="f in (['all', 'wrong', 'flagged'] as const)"
+              :key="f"
+              type="button"
+              class="rounded-full px-3.5 py-1 text-sm font-medium transition-colors"
+              :class="reviewFilter === f ? 'bg-(--card) text-(--ink) shadow-sm' : 'text-(--ink2) hover:text-(--ink)'"
+              @click="reviewFilter = f"
             >
-              <p class="mono-label">
-                Q.{{ i + 1 }} · {{ DOMAINS[q.domain].label }} ·
-                <span :class="correct(i) ? 'text-(--signal)' : 'text-warning'">{{ correct(i) ? t('cert.correct') : answers[i] === null ? t('cert.unanswered') : t('cert.incorrect') }}</span>
-              </p>
-              <p class="mt-2 font-semibold text-(--ink)">
-                {{ q.q }}
-              </p>
-              <ul class="mt-3 space-y-1.5 text-sm">
-                <li
-                  v-for="(opt, oi) in q.options"
-                  :key="oi"
-                  class="flex gap-2 border px-3 py-1.5"
-                  :class="oi === q.answer ? 'border-(--signal) bg-(--ice) font-semibold' : oi === answers[i] ? 'border-warning line-through' : 'border-transparent text-(--ink2)'"
-                >
-                  <span class="font-mono">{{ letter(oi) }}.</span>{{ opt }}
-                </li>
-              </ul>
-              <NuxtLink
-                :to="sectionPath(q.topic)"
-                class="mt-3 inline-block font-mono text-[11px] uppercase tracking-[.08em] text-(--signal) hover:underline"
-              >{{ t('cert.study', { topic: q.topicTitle }) }} →</NuxtLink>
-            </li>
-          </ol>
-        </section>
-      </div>
-    </template>
+              {{ t(`cert.filter.${f}`) }}
+            </button>
+          </div>
+        </div>
+        <ol class="mt-5 space-y-4">
+          <li
+            v-for="{ q, i } in reviewList"
+            :key="q.id"
+            class="rounded-3xl border border-(--line) bg-(--card) p-6"
+          >
+            <p class="flex flex-wrap items-center gap-2 text-xs font-medium text-(--ink2)">
+              <span>{{ t('cert.questionOf', { n: i + 1, total: questions.length }) }}</span>
+              <span>·</span>
+              <span>{{ DOMAINS[q.domain].label }}</span>
+              <span
+                class="ms-auto rounded-full px-2.5 py-0.5"
+                :class="correct(i) ? 'bg-(--signal)/12 text-(--signal)' : 'bg-warning/15 text-warning'"
+              >{{ correct(i) ? t('cert.correct') : answers[i] === null ? t('cert.unanswered') : t('cert.incorrect') }}</span>
+            </p>
+            <p class="mt-3 font-semibold leading-snug text-(--ink)">
+              {{ q.q }}
+            </p>
+            <ul class="mt-4 space-y-2 text-sm">
+              <li
+                v-for="(opt, oi) in q.options"
+                :key="oi"
+                class="flex items-start gap-3 rounded-xl px-3 py-2"
+                :class="oi === q.answer ? 'bg-(--signal)/10 font-medium text-(--ink)' : oi === answers[i] ? 'bg-warning/10 text-(--ink2) line-through' : 'text-(--ink2)'"
+              >
+                <span class="w-4 font-semibold">{{ letter(oi) }}</span>{{ opt }}
+                <UIcon
+                  v-if="oi === q.answer"
+                  name="i-lucide-check"
+                  class="ms-auto mt-0.5 size-4 flex-none text-(--signal)"
+                />
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+    </div>
 
     <div
       v-else
-      class="py-32 text-center font-mono text-xs uppercase tracking-[.12em] text-(--ink2)"
+      class="flex h-[60vh] items-center justify-center"
     >
-      {{ t('cert.loading') }}
+      <UIcon
+        name="i-lucide-loader-circle"
+        class="size-6 animate-spin text-(--ink2)"
+        :aria-label="t('cert.loading')"
+      />
     </div>
   </div>
 </template>

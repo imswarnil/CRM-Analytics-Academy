@@ -87,8 +87,8 @@ usePageSchema(() => ({
       >
         <button
           type="button"
-          class="min-h-11 border-[1.5px] px-4 text-[15px] font-semibold"
-          :class="!kind ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
+          class="min-h-11 border px-4 text-[15px] font-semibold"
+          :class="!kind ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--line)'"
           @click="kind = ''"
         >
           {{ t('companies.all') }} <span class="font-mono text-xs opacity-60">{{ companies.length }}</span>
@@ -97,8 +97,8 @@ usePageSchema(() => ({
           v-for="k in KINDS"
           :key="k"
           type="button"
-          class="min-h-11 border-[1.5px] px-4 text-[15px] font-semibold"
-          :class="kind === k ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--ink)'"
+          class="min-h-11 border px-4 text-[15px] font-semibold"
+          :class="kind === k ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--line)'"
           @click="kind = k"
         >
           {{ t(`companies.kinds.${k}`) }} <span class="font-mono text-xs opacity-60">{{ count(k) }}</span>
@@ -111,7 +111,7 @@ usePageSchema(() => ({
           :key="c.name"
           class="bp-card flex flex-col p-5"
         >
-          <p class="font-mono text-[11px] uppercase tracking-[.08em] text-(--signal)">
+          <p class="font-medium text-[11px] text-(--signal)">
             {{ t(`companies.kinds.${c.kind}`) }} · <span class="text-(--ink2)">{{ c.industry }}</span>
           </p>
           <h2 class="mt-2 text-xl font-bold text-(--ink)">

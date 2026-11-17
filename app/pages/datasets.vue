@@ -86,17 +86,17 @@ usePageSchema(() => ({
       :title="t('datasets.header.title')"
       :lead="t('datasets.header.lead')"
     >
-      <dl class="mt-8 inline-grid grid-cols-3 border-[1.5px] border-(--ink) bg-(--card)">
+      <dl class="mt-8 inline-grid grid-cols-3 border border-(--line) bg-(--card) rounded-2xl">
         <div
           v-for="(s, n) in stats"
           :key="n"
           class="flex flex-col-reverse px-5 py-3"
-          :class="n ? 'border-s-[1.5px] border-(--ink)' : ''"
+          :class="n ? 'border-s border-(--line)' : ''"
         >
-          <dd class="text-2xl font-black tracking-[-0.03em] text-(--ink)">
+          <dd class="text-2xl font-bold tracking-tight text-(--ink)">
             {{ s.value }}
           </dd>
-          <dt class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+          <dt class="font-medium text-[11px] text-(--ink2)">
             {{ s.label }}
           </dt>
         </div>
@@ -139,7 +139,7 @@ usePageSchema(() => ({
           <p class="eyebrow">
             {{ t('datasets.table', { n: `0${gi + 1}` }) }}
           </p>
-          <h2 class="mt-2 flex items-center gap-3 text-2xl font-extrabold tracking-[-0.02em] text-(--ink)">
+          <h2 class="mt-2 flex items-center gap-3 text-2xl font-semibold tracking-[-0.02em] text-(--ink)">
             <span class="bp-iconbox size-9!">
               <UIcon
                 :name="g.icon"
@@ -148,7 +148,7 @@ usePageSchema(() => ({
             </span>
             {{ t(`datasets.groups.${g.id}`) }}
           </h2>
-          <div class="mt-5 border-[1.5px] border-(--ink) bg-(--card)">
+          <div class="mt-5 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
             <div
               v-for="f in g.files"
               :key="f"
@@ -163,7 +163,7 @@ usePageSchema(() => ({
                 </p>
               </div>
               <div class="w-44 shrink-0">
-                <p class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+                <p class="font-medium text-[11px] text-(--ink2)">
                   {{ t('datasets.rowPer') }}
                 </p>
                 <p class="text-sm text-(--ink)">
@@ -189,8 +189,8 @@ usePageSchema(() => ({
         </section>
       </div>
 
-      <div class="graph-paper-navy mt-14 border-[1.5px] border-(--ink) bg-(--navy) p-6 text-white">
-        <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+      <div class="graph-paper-navy mt-14 border border-(--line) bg-(--navy) p-6 text-white">
+        <p class="font-medium text-[11px] text-(--glow)">
           {{ t('datasets.procedure.title') }}
         </p>
         <ol class="mt-4 list-inside list-decimal space-y-2 text-sm text-white/80">

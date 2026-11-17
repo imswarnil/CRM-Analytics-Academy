@@ -79,9 +79,9 @@ function retry() {
 </script>
 
 <template>
-  <section class="not-prose my-12 border-[1.5px] border-(--ink) bg-(--card)">
-    <header class="flex items-center gap-3 border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
-      <span class="flex size-9 items-center justify-center border-[1.5px] border-(--ink) bg-(--card)">
+  <section class="not-prose my-12 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+    <header class="flex items-center gap-3 border-b border-(--line) bg-(--ice) px-5 py-3">
+      <span class="flex size-9 items-center justify-center border border-(--line) bg-(--card) rounded-2xl">
         <UIcon
           name="i-lucide-clipboard-check"
           class="size-5 text-(--signal)"
@@ -91,7 +91,7 @@ function retry() {
         <p class="eyebrow">
           Check — {{ t('quiz.title') }}
         </p>
-        <p class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">
+        <p class="font-medium text-[11px] text-(--ink2)">
           {{ t('quiz.answered', { n: answeredCount, total }) }}
         </p>
       </div>
@@ -125,7 +125,7 @@ function retry() {
       </li>
     </ol>
 
-    <footer class="border-t-[1.5px] border-(--ink) p-5">
+    <footer class="border-t border-(--line) p-5">
       <UButton
         v-if="!submitted"
         :label="t('quiz.submit')"

@@ -69,7 +69,7 @@ async function send() {
     <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
       <div
         v-if="sent"
-        class="border-[1.5px] border-(--ink) bg-(--card) p-8 text-center"
+        class="border border-(--line) bg-(--card) p-8 text-center rounded-2xl"
       >
         <UIcon
           name="i-lucide-circle-check"
@@ -100,7 +100,7 @@ async function send() {
 
       <form
         v-else
-        class="crosshair space-y-6 border-[1.5px] border-(--ink) bg-(--card) p-6 shadow-[10px_10px_0_var(--ice)] sm:p-8"
+        class="crosshair space-y-6 border border-(--line) bg-(--card) p-6 shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)] sm:p-8 rounded-2xl"
         @submit.prevent="send"
       >
         <UFormField
@@ -120,7 +120,7 @@ async function send() {
           required
           :help="t('interview.form.answerHelp')"
         >
-          <div class="border-[1.5px] border-(--ink) bg-(--paper)">
+          <div class="border border-(--line) bg-(--paper)">
             <UEditor
               v-slot="{ editor }"
               v-model="form.answer"
@@ -131,7 +131,7 @@ async function send() {
               <UEditorToolbar
                 :editor="editor"
                 :items="toolbar"
-                class="-mx-4 -mt-3 mb-3 border-b-[1.5px] border-(--ink) bg-(--card) px-2 py-1"
+                class="-mx-4 -mt-3 mb-3 border-b border-(--line) bg-(--card) px-2 py-1"
               />
             </UEditor>
           </div>
@@ -144,8 +144,8 @@ async function send() {
                 v-for="ty in TYPES"
                 :key="ty"
                 type="button"
-                class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                :class="form.type === ty ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
+                class="border px-3 py-1.5 text-sm font-semibold"
+                :class="form.type === ty ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--line)'"
                 @click="form.type = ty"
               >
                 {{ t(`interview.types.${ty}`) }}
@@ -158,8 +158,8 @@ async function send() {
                 v-for="lv in LEVELS"
                 :key="lv"
                 type="button"
-                class="border-[1.5px] px-3 py-1.5 text-sm font-semibold"
-                :class="form.level === lv ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
+                class="border px-3 py-1.5 text-sm font-semibold"
+                :class="form.level === lv ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--line)'"
                 @click="form.level = lv"
               >
                 {{ t(`interview.levels.${lv}`) }}
@@ -198,7 +198,7 @@ async function send() {
 
         <p
           v-if="(showProblem && problem) || error"
-          class="flex items-center gap-2 border-[1.5px] border-dashed border-warning px-4 py-3 text-sm text-warning"
+          class="flex items-center gap-2 border border-dashed border-warning px-4 py-3 text-sm text-warning"
           role="alert"
         >
           <UIcon
@@ -207,7 +207,7 @@ async function send() {
           />{{ error || problem }}
         </p>
 
-        <div class="flex justify-end border-t-[1.5px] border-(--ink) pt-5">
+        <div class="flex justify-end border-t border-(--line) pt-5">
           <UButton
             type="submit"
             size="lg"

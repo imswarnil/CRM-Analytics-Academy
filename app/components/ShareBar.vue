@@ -57,7 +57,7 @@ async function copy() {
   <div class="flex flex-wrap items-center gap-1.5">
     <span
       v-if="!compact"
-      class="me-1 font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)"
+      class="me-1 font-medium text-[11px] text-(--ink2)"
     >{{ t('share.label') }}</span>
     <UButton
       icon="i-simple-icons-linkedin"

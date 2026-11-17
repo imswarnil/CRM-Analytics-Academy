@@ -18,7 +18,7 @@ watch(() => props.url, async (url) => {
 
 <template>
   <span
-    class="inline-flex flex-none items-center justify-center overflow-hidden border border-(--line) bg-(--card)"
+    class="inline-flex flex-none items-center justify-center overflow-hidden border border-(--line) bg-(--card) rounded-2xl"
     :style="{ width: `${size}px`, height: `${size}px` }"
   >
     <img

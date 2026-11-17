@@ -54,8 +54,8 @@ const fmt = (v: number) => props.format ? props.format(v) : String(v)
         v-for="(b, i) in bars"
         :key="i"
         :to="b.to"
-        class="relative min-w-0 flex-1 border-(--ink) transition-[background-color,transform] duration-200"
-        :class="[b.tone === 'hatch' ? 'hatch' : '', hover === i ? 'z-10 scale-x-105' : '', dense ? 'border-x-0 border-t' : 'border-[1.5px]']"
+        class="relative min-w-0 flex-1 border-(--line) transition-[background-color,transform] duration-200"
+        :class="[b.tone === 'hatch' ? 'hatch' : '', hover === i ? 'z-10 scale-x-105' : '', dense ? 'border-x-0 border-t' : 'border']"
         :style="{ height: `${Math.max(2, (b.value / max) * 100)}%`, background: fill(b, i) }"
         @mouseenter="hover = i"
         @mouseleave="hover = null"
@@ -63,7 +63,7 @@ const fmt = (v: number) => props.format ? props.format(v) : String(v)
         @blur="hover = null"
       >
         <template v-if="hover === i">
-          <span class="pointer-events-none absolute -top-[200px] bottom-0 left-1/2 border-l border-dashed border-(--ink)" />
+          <span class="pointer-events-none absolute -top-[200px] bottom-0 left-1/2 border-l border-dashed border-(--line)" />
           <span class="pointer-events-none absolute -top-8 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap bg-(--ink) px-2 py-1 font-mono text-[10px] text-(--paper)">
             {{ b.title ?? `${b.label} · ${fmt(b.value)}` }}
           </span>

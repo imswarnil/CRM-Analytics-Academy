@@ -68,7 +68,7 @@ function width(v: number) {
         v-for="(s, i) in props.stages"
         :key="i"
       >
-        <div class="border-[1.5px] border-(--ink) bg-(--card) p-3">
+        <div class="border border-(--line) bg-(--card) p-3 overflow-hidden rounded-2xl">
           <div class="mb-2 flex items-baseline justify-between gap-3">
             <p class="text-sm font-semibold text-(--ink)">
               {{ s.label }}
@@ -78,7 +78,7 @@ function width(v: number) {
             </p>
           </div>
           <div
-            class="h-2.5 overflow-hidden border border-(--ink) bg-(--paper)"
+            class="h-2.5 overflow-hidden border border-(--line) bg-(--paper)"
             aria-hidden="true"
           >
             <div

@@ -415,7 +415,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
     class="min-w-0"
   >
     <!-- Lesson header: crumbs, drawing number, title -->
-    <header class="graph-paper border-b-[1.5px] border-(--ink)">
+    <header class="graph-paper border-b border-(--line)">
       <!-- Same column as the lesson body below, so the title lines up with the
            text whether the course contents are open or collapsed. -->
       <div class="mx-auto max-w-[68rem] px-4 pb-8 pt-6 sm:px-8">
@@ -424,7 +424,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             aria-label="Breadcrumb"
             class="min-w-0 flex-1"
           >
-            <ol class="flex min-w-0 flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2)">
+            <ol class="flex min-w-0 flex-wrap items-center gap-x-2 font-medium text-[11px] text-(--ink2)">
               <li
                 v-for="(c, i) in breadcrumbItems"
                 :key="c.to"
@@ -474,13 +474,13 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         <div class="mt-5 flex flex-wrap items-center gap-2">
           <span
             v-if="!page.comingSoon"
-            class="flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
-            :class="isProLesson ? 'bg-(--ink) text-(--glow)' : 'border-[1.5px] border-(--signal) text-(--signal)'"
+            class="flex items-center gap-1 px-2 py-0.5 font-medium text-[11px] font-semibold"
+            :class="isProLesson ? 'bg-(--ink) text-(--glow)' : 'border border-(--signal) text-(--signal)'"
           ><UIcon
             :name="isProLesson ? (unlocked ? 'i-lucide-lock-keyhole-open' : 'i-lucide-lock-keyhole') : 'i-lucide-gift'"
             class="size-3"
           />{{ needs === 'youtube' ? t('youtube.tag') : isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
-          <span class="border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]">
+          <span class="border border-(--line) bg-(--card) px-2 py-0.5 font-medium text-[11px] rounded-2xl">
             {{ meta.type }} · {{ meta.minutes }} min
           </span>
           <ClientOnly>
@@ -536,7 +536,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
       <!-- Prev / mark complete / next -->
       <div
         v-if="!page.comingSoon"
-        class="mb-8 grid items-stretch border-[1.5px] border-(--ink) bg-(--card)"
+        class="mb-8 grid items-stretch border border-(--line) bg-(--card) rounded-2xl"
         style="grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr)"
       >
         <NuxtLink
@@ -549,7 +549,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             class="size-4 flex-none transition-transform group-hover:-translate-x-0.5"
           />
           <span class="min-w-0">
-            <span class="block font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">Previous</span>
+            <span class="block font-medium text-[11px] text-(--ink2)">Previous</span>
             <span class="block truncate text-sm font-semibold">{{ previous.title }}</span>
           </span>
         </NuxtLink>
@@ -557,7 +557,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
         <ClientOnly>
           <button
             type="button"
-            class="flex items-center gap-2 border-x-[1.5px] border-(--ink) px-4 font-mono text-[11px] font-semibold uppercase tracking-[.1em] transition-colors"
+            class="flex items-center gap-2 border-x border-(--line) px-4 font-medium text-[11px] font-semibold transition-colors"
             :class="done ? 'bg-(--glow) text-(--ink)' : 'hover:bg-(--ice)'"
             @click="toggleDone"
           >
@@ -568,7 +568,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             <span class="hidden sm:inline">{{ done ? 'Completed' : 'Mark complete' }}</span>
           </button>
           <template #fallback>
-            <span class="border-x-[1.5px] border-(--ink) px-4" />
+            <span class="border-x border-(--line) px-4" />
           </template>
         </ClientOnly>
         <NuxtLink
@@ -577,7 +577,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
           class="group flex min-w-0 items-center justify-end gap-2 px-3 py-2.5 text-end hover:bg-(--ice)"
         >
           <span class="min-w-0">
-            <span class="block font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">Next</span>
+            <span class="block font-medium text-[11px] text-(--ink2)">Next</span>
             <span class="block truncate text-sm font-semibold">{{ next.title }}</span>
           </span>
           <UIcon
@@ -591,16 +591,16 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
       <!-- Course timeline -->
       <div
         v-if="!page.comingSoon"
-        class="mb-10 border-[1.5px] border-(--ink) bg-(--card) p-4"
+        class="mb-10 border border-(--line) bg-(--card) p-4 rounded-2xl"
       >
         <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
           <p class="mono-label">
             Course timeline — lesson {{ position }} of {{ courseTotal }}
           </p>
-          <div class="flex flex-wrap gap-3 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--ink) bg-(--signal)" />Here</span>
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--ink) bg-(--tide)" />Done</span>
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--ink) bg-(--ice)" />Open</span>
+          <div class="flex flex-wrap gap-3 font-medium text-[11px] text-(--ink2)">
+            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--line) bg-(--signal)" />Here</span>
+            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--line) bg-(--tide)" />Done</span>
+            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--line) bg-(--ice)" />Open</span>
           </div>
         </div>
         <ClientOnly>
@@ -628,9 +628,9 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
 
       <details
         v-if="page?.body?.toc?.links?.length"
-        class="group mb-8 border-[1.5px] border-(--ink) bg-(--card) xl:hidden"
+        class="group mb-8 border border-(--line) bg-(--card) xl:hidden rounded-2xl"
       >
-        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-mono text-[11px] uppercase tracking-[.1em]">
+        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-medium text-[11px]">
           {{ toc?.title || 'On this page' }}
           <UIcon
             name="i-lucide-chevron-down"
@@ -693,7 +693,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
               :aria-label="t('lesson.toc.show')"
               @click="tocOpen = true"
             />
-            <span class="font-mono text-[10px] uppercase tracking-[.15em] text-(--ink2) [writing-mode:vertical-rl]">{{ toc?.title || 'On this page' }}</span>
+            <span class="font-medium text-[11px] text-(--ink2) [writing-mode:vertical-rl]">{{ toc?.title || 'On this page' }}</span>
           </div>
           <div v-else>
             <div class="mb-3 flex items-center justify-between gap-2">
@@ -710,7 +710,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
                 @click="tocOpen = false"
               />
             </div>
-            <ul class="space-y-2 border-s-[1.5px] border-(--ink) text-[13px]">
+            <ul class="space-y-2 border-s border-(--line) text-[13px]">
               <li
                 v-for="l in page.body.toc.links"
                 :key="l.id"
@@ -730,7 +730,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
                 :key="l.label"
                 :to="l.to"
                 :target="l.target"
-                class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2) hover:text-(--signal)"
+                class="flex items-center gap-2 font-medium text-[11px] text-(--ink2) hover:text-(--signal)"
               >
                 <UIcon
                   :name="l.icon"
@@ -768,7 +768,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
 
       <CourseLessonComplete v-if="!page.comingSoon" />
 
-      <div class="my-10 flex flex-wrap items-center justify-between gap-4 border-[1.5px] border-(--ink) bg-(--ice) p-5">
+      <div class="my-10 flex flex-wrap items-center justify-between gap-4 border border-(--line) bg-(--ice) p-5">
         <p class="font-bold text-(--ink)">
           {{ t('share.lessonPrompt') }}
         </p>

@@ -97,14 +97,14 @@ usePageSchema({
   <section
     v-if="q"
     ref="panel"
-    class="vis-expand border-t-[1.5px] border-(--ink) bg-(--paper)"
+    class="vis-expand border-t border-(--line) bg-(--paper)"
     :aria-label="q.title"
   >
     <!-- Bar: position in the list, previous / next, close -->
     <div class="flex items-center gap-2 border-b border-dashed border-(--line) px-5 py-2">
       <span
         v-if="role"
-        class="border-[1.5px] border-(--line) px-1.5 py-0.5 font-mono text-[11px] uppercase text-(--ink2)"
+        class="border border-(--line) px-1.5 py-0.5 font-mono text-[11px] uppercase text-(--ink2)"
       >{{ role }}</span>
       <span
         v-if="drawer && drawer.neighbours.value.position"
@@ -168,8 +168,8 @@ usePageSchema({
         />
       </div>
 
-      <div class="mt-5 border-[1.5px] border-(--ink) bg-(--card)">
-        <p class="eyebrow border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-2.5">
+      <div class="mt-5 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+        <p class="eyebrow border-b border-(--line) bg-(--ice) px-5 py-2.5">
           {{ t('interview.modelAnswer') }}
         </p>
         <div class="bp-prose px-5 py-4">
@@ -202,7 +202,7 @@ usePageSchema({
       </div>
 
       <!-- Answers from the community -->
-      <div class="mt-6 border-[1.5px] border-(--ink) bg-(--card)">
+      <div class="mt-6 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
         <button
           v-if="!showAnswers"
           type="button"

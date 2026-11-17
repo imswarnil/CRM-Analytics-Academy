@@ -72,7 +72,7 @@ defineExpose({ reset: solve })
 <template>
   <p
     ref="root"
-    class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[.1em]"
+    class="flex items-center gap-2 font-medium text-[11px]"
     :class="state === 'error' ? 'text-error' : 'text-(--ink2)'"
     role="status"
     aria-live="polite"

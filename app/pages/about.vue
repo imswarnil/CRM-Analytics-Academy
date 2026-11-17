@@ -119,7 +119,7 @@ const authorLinks = computed(() => [
             <span
               v-for="tech in stack"
               :key="tech.label"
-              class="inline-flex items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) px-2.5 py-1 font-mono text-[11px] uppercase tracking-[.06em] text-(--ink)"
+              class="inline-flex items-center gap-2 border border-(--line) bg-(--card) px-2.5 py-1 font-medium text-[11px] text-(--ink) rounded-2xl"
             >
               <UIcon
                 :name="tech.icon"
@@ -147,7 +147,7 @@ const authorLinks = computed(() => [
               <p class="mono-label mt-4">
                 {{ t('about.principleLabel', { n: String(n + 1).padStart(2, '0') }) }}
               </p>
-              <h3 class="mt-1 font-extrabold text-(--ink)">
+              <h3 class="mt-1 font-semibold text-(--ink)">
                 {{ p.title }}
               </h3>
               <p class="mt-1.5 text-sm text-(--ink2)">
@@ -156,8 +156,8 @@ const authorLinks = computed(() => [
             </div>
           </div>
 
-          <div class="border-[1.5px] border-(--ink) bg-(--card)">
-            <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
+          <div class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+            <p class="border-b border-(--line) bg-(--ice) px-4 py-2 font-medium text-[11px] font-semibold">
               {{ t('about.curriculumAtGlance') }}
             </p>
             <ul class="max-h-96 overflow-y-auto">
@@ -187,7 +187,7 @@ const authorLinks = computed(() => [
     <div class="mx-auto max-w-3xl px-4" />
 
     <!-- ===================== SECTION 2 — THE AUTHOR ===================== -->
-    <section class="graph-paper border-y-[1.5px] border-(--ink)">
+    <section class="graph-paper border-y border-(--line)">
       <div class="mx-auto grid max-w-(--ui-container) gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 lg:px-8">
         <!-- Instructor card -->
         <div>
@@ -202,11 +202,11 @@ const authorLinks = computed(() => [
           >
             <div class="p-8">
               <div class="flex items-center gap-5">
-                <span class="flex size-20 flex-none items-center justify-center border-[1.5px] border-(--ink) bg-(--signal) text-3xl font-black tracking-[-0.04em] text-white">
+                <span class="flex size-20 flex-none items-center justify-center border border-(--line) bg-(--signal) text-3xl font-bold tracking-tight text-white">
                   SS
                 </span>
                 <div>
-                  <h3 class="text-2xl font-extrabold tracking-[-0.02em] text-(--ink)">
+                  <h3 class="text-2xl font-semibold tracking-[-0.02em] text-(--ink)">
                     {{ AUTHOR.name }}
                   </h3>
                   <p class="mono-label mt-1">
@@ -215,28 +215,28 @@ const authorLinks = computed(() => [
                 </div>
               </div>
 
-              <dl class="mt-6 grid grid-cols-3 border-[1.5px] border-(--ink)">
-                <div class="border-e-[1.5px] border-(--ink) p-3 text-center">
-                  <dt class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+              <dl class="mt-6 grid grid-cols-3 border border-(--line)">
+                <div class="border-e border-(--line) p-3 text-center">
+                  <dt class="font-medium text-[11px] text-(--ink2)">
                     {{ t('about.stats.sections') }}
                   </dt>
-                  <dd class="mt-1 text-2xl font-black tracking-[-0.03em] text-(--ink)">
+                  <dd class="mt-1 text-2xl font-bold tracking-tight text-(--ink)">
                     {{ navigation.length }}
                   </dd>
                 </div>
-                <div class="border-e-[1.5px] border-(--ink) p-3 text-center">
-                  <dt class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+                <div class="border-e border-(--line) p-3 text-center">
+                  <dt class="font-medium text-[11px] text-(--ink2)">
                     {{ t('about.stats.lessons') }}
                   </dt>
-                  <dd class="mt-1 text-2xl font-black tracking-[-0.03em] text-(--ink)">
+                  <dd class="mt-1 text-2xl font-bold tracking-tight text-(--ink)">
                     {{ total }}
                   </dd>
                 </div>
                 <div class="p-3 text-center">
-                  <dt class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+                  <dt class="font-medium text-[11px] text-(--ink2)">
                     {{ t('about.stats.openSource') }}
                   </dt>
-                  <dd class="mt-1 text-2xl font-black tracking-[-0.03em] text-(--signal)">
+                  <dd class="mt-1 text-2xl font-bold tracking-tight text-(--signal)">
                     100%
                   </dd>
                 </div>
@@ -331,18 +331,18 @@ const authorLinks = computed(() => [
 
         <!-- Experience + education -->
         <div class="space-y-6">
-          <div class="border-[1.5px] border-(--ink) bg-(--card)">
-            <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
+          <div class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+            <p class="border-b border-(--line) bg-(--ice) px-4 py-2 font-medium text-[11px] font-semibold">
               {{ t('about.work.experience') }}
             </p>
             <ol class="relative px-4 py-2">
               <li
                 v-for="r in AUTHOR.roles"
                 :key="r.company"
-                class="relative border-s-[1.5px] border-(--line) py-3 ps-5"
+                class="relative border-s border-(--line) py-3 ps-5"
               >
                 <span
-                  class="absolute -start-[7px] top-4 size-3 border-[1.5px] border-(--ink)"
+                  class="absolute -start-[7px] top-4 size-3 border border-(--line)"
                   :class="r.current ? 'bg-(--signal)' : 'bg-(--card)'"
                 />
                 <p class="font-mono text-[11px] text-(--ink2)">
@@ -354,7 +354,7 @@ const authorLinks = computed(() => [
               </li>
             </ol>
           </div>
-          <div class="flex items-start gap-4 border-[1.5px] border-(--ink) bg-(--card) p-4">
+          <div class="flex items-start gap-4 border border-(--line) bg-(--card) p-4 overflow-hidden rounded-2xl">
             <span class="bp-iconbox text-(--signal)">
               <UIcon
                 name="i-lucide-graduation-cap"
@@ -377,8 +377,8 @@ const authorLinks = computed(() => [
       </div>
 
       <!-- Skills -->
-      <div class="mt-12 border-[1.5px] border-(--ink) bg-(--card)">
-        <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
+      <div class="mt-12 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+        <p class="border-b border-(--line) bg-(--ice) px-4 py-2 font-medium text-[11px] font-semibold">
           {{ t('about.work.skills') }}
         </p>
         <dl class="divide-y divide-dashed divide-(--line)">
@@ -387,14 +387,14 @@ const authorLinks = computed(() => [
             :key="g.group"
             class="grid gap-3 px-4 py-3 md:grid-cols-[8rem_minmax(0,1fr)] md:items-baseline"
           >
-            <dt class="font-mono text-[11px] font-semibold uppercase tracking-[.12em] text-(--signal)">
+            <dt class="font-medium text-[11px] font-semibold text-(--signal)">
               {{ g.group }}
             </dt>
             <dd class="flex flex-wrap gap-1.5">
               <span
                 v-for="s in g.items"
                 :key="s"
-                class="border-[1.5px] border-(--ink) px-2 py-0.5 text-[12px] text-(--ink)"
+                class="border border-(--line) px-2 py-0.5 text-[12px] text-(--ink)"
               >{{ s }}</span>
             </dd>
           </div>
@@ -415,21 +415,21 @@ const authorLinks = computed(() => [
           class="bp-card bp-card--hover flex flex-col p-4"
         >
           <span class="flex items-center justify-between gap-2">
-            <span class="font-extrabold text-(--ink)">{{ p.name }}</span>
+            <span class="font-semibold text-(--ink)">{{ p.name }}</span>
             <span
-              class="border-[1.5px] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[.1em]"
+              class="border px-1.5 py-0.5 font-medium text-[11px]"
               :class="p.status === 'live' ? 'border-(--signal) text-(--signal)' : 'border-(--line) text-(--ink2)'"
             >{{ p.status === 'live' ? t('about.work.live') : t('about.work.building') }}</span>
           </span>
           <span class="mt-2 text-sm text-(--ink2)">{{ p.blurb }}</span>
-          <span class="mt-auto pt-3 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ p.stack }}</span>
+          <span class="mt-auto pt-3 font-medium text-[11px] text-(--ink2)">{{ p.stack }}</span>
         </a>
       </div>
     </section>
 
     <!-- ============================ CTA ============================ -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) px-6 py-16 text-center text-white shadow-[10px_10px_0_var(--signal)] sm:px-12">
+      <div class="graph-paper-navy border border-(--line) bg-(--navy) px-6 py-16 text-center text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)] sm:px-12">
         <p class="eyebrow text-(--glow)!">
           {{ t('about.cta.eyebrow') }}
         </p>
@@ -441,7 +441,7 @@ const authorLinks = computed(() => [
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
           <UButton
-            :to="localePath('/foundations')"
+            :to="localePath('/curriculum')"
             size="xl"
             color="secondary"
             trailing-icon="i-lucide-arrow-right"

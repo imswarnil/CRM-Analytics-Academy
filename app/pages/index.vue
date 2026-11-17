@@ -153,7 +153,7 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
           <p class="eyebrow">
             {{ t('home.hero.eyebrow') }}
           </p>
-          <h1 class="mt-4 text-4xl font-black leading-[1.05] tracking-[-0.035em] text-(--ink) sm:text-5xl">
+          <h1 class="mt-4 text-4xl font-bold leading-[1.05] tracking-tight text-(--ink) sm:text-5xl">
             {{ t('home.hero.title') }}
           </h1>
           <p class="mt-5 max-w-xl text-lg leading-relaxed text-(--ink2)">
@@ -226,7 +226,7 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
         </UButton>
       </div>
 
-      <div class="crosshair mt-10 border-[1.5px] border-(--ink) bg-(--card)">
+      <div class="crosshair mt-10 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
         <NuxtLink
           v-for="m in modules"
           :key="m.to"
@@ -248,7 +248,7 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
             <span
               v-for="(l, li) in m.lessons"
               :key="li"
-              class="relative h-full border-[1.5px] border-(--ink)"
+              class="relative h-full border border-(--line)"
               :class="l.type === 'video' ? 'bg-(--tide)' : 'bg-(--frost)'"
               :style="{ width: `${(l.minutes / axisMax) * 100}%`, marginInlineEnd: '-1.5px' }"
               :title="`${l.title} · ${t('home.plot.minutes', { n: l.minutes })}`"
@@ -275,9 +275,9 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
           <span />
         </div>
       </div>
-      <div class="mt-4 flex gap-5 font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
-        <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--tide)" />{{ t('home.plot.video') }}</span>
-        <span class="flex items-center gap-2"><span class="size-3 border-[1.5px] border-(--ink) bg-(--frost)" />{{ t('home.plot.article') }}</span>
+      <div class="mt-4 flex gap-5 font-medium text-[11px] text-(--ink2)">
+        <span class="flex items-center gap-2"><span class="size-3 border border-(--line) bg-(--tide)" />{{ t('home.plot.video') }}</span>
+        <span class="flex items-center gap-2"><span class="size-3 border border-(--line) bg-(--frost)" />{{ t('home.plot.article') }}</span>
       </div>
     </section>
 
@@ -287,12 +287,12 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
 
     <!-- FREE ACCOUNT ----------------------------------------------------- -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 lg:px-8">
-      <div class="graph-paper-navy flex flex-col gap-6 border-[1.5px] border-(--ink) p-6 text-white sm:p-10 lg:flex-row lg:items-center lg:justify-between">
+      <div class="graph-paper-navy flex flex-col gap-6 border border-(--line) p-6 text-white sm:p-10 lg:flex-row lg:items-center lg:justify-between">
         <div class="max-w-2xl">
-          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+          <p class="font-medium text-[11px] text-(--glow)">
             {{ t('home.join.eyebrow') }}
           </p>
-          <h2 class="mt-3 text-2xl font-extrabold tracking-[-0.02em] sm:text-3xl">
+          <h2 class="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
             {{ t('home.join.title') }}
           </h2>
           <p class="mt-3 text-white/80">
@@ -333,9 +333,9 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
       v-if="faqItems.length"
       class="mx-auto max-w-3xl px-4 pb-20 sm:px-6"
     >
-      <div class="border-[1.5px] border-(--ink) bg-(--card)">
-        <div class="flex items-center justify-between border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-4">
-          <h2 class="text-xl font-extrabold text-(--ink)">
+      <div class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+        <div class="flex items-center justify-between border-b border-(--line) bg-(--ice) px-5 py-4">
+          <h2 class="text-xl font-semibold text-(--ink)">
             {{ t('home.faqTitle') }}
           </h2>
           <UIcon

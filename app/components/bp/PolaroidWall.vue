@@ -15,7 +15,7 @@ const empties = computed(() => Math.max(0, props.minSlots - props.people.length)
   <div class="bp-wall crosshair px-6 pb-12 pt-14 sm:px-10">
     <span
       v-if="label"
-      class="absolute start-4 top-3 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)"
+      class="absolute start-4 top-3 font-medium text-[11px] text-(--ink2)"
     >{{ label }}</span>
     <div class="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 sm:gap-x-10 lg:grid-cols-4">
       <BpPolaroid

@@ -25,7 +25,7 @@ const photoFailed = ref(false)
           class="mt-4"
         >
           <div class="grid grid-cols-[7.5rem_minmax(0,1fr)] items-center gap-5 p-5 sm:grid-cols-[9rem_minmax(0,1fr)]">
-            <div class="relative aspect-square overflow-hidden border-[1.5px] border-(--ink) bg-(--signal)">
+            <div class="relative aspect-square overflow-hidden border border-(--line) bg-(--signal)">
               <img
                 v-if="!photoFailed"
                 :src="AUTHOR.avatar"
@@ -38,11 +38,11 @@ const photoFailed = ref(false)
               >
               <span
                 v-else
-                class="flex size-full items-center justify-center text-4xl font-black tracking-[-0.04em] text-white"
+                class="flex size-full items-center justify-center text-4xl font-bold tracking-tight text-white"
               >{{ AUTHOR.initials }}</span>
             </div>
             <div class="min-w-0">
-              <h3 class="text-2xl font-extrabold tracking-[-0.02em] text-(--ink)">
+              <h3 class="text-2xl font-semibold tracking-[-0.02em] text-(--ink)">
                 {{ AUTHOR.name }}
               </h3>
               <p class="mono-label mt-1">
@@ -64,7 +64,7 @@ const photoFailed = ref(false)
               </div>
             </div>
           </div>
-          <ol class="border-t-[1.5px] border-(--ink)">
+          <ol class="border-t border-(--line)">
             <li
               v-for="r in AUTHOR.roles"
               :key="r.company"
@@ -91,7 +91,7 @@ const photoFailed = ref(false)
           <li
             v-for="(h, i) in AUTHOR.highlights"
             :key="i"
-            class="flex gap-3 border-[1.5px] border-(--ink) bg-(--card) p-4"
+            class="flex gap-3 border border-(--line) bg-(--card) p-4 rounded-2xl"
           >
             <span class="font-mono text-xs font-semibold text-(--signal)">{{ String(i + 1).padStart(2, '0') }}</span>
             <span class="text-[15px] leading-relaxed text-(--ink2)">{{ h }}</span>

@@ -29,7 +29,7 @@ function external(to: string) {
       :to="localized(link.to)"
       :target="external(link.to) ? '_blank' : undefined"
       :rel="external(link.to) ? 'noopener' : undefined"
-      class="group flex min-w-0 items-center gap-3 border-[1.5px] border-(--ink) bg-(--card) px-4 py-3 transition hover:border-(--signal) hover:bg-(--ice)"
+      class="group flex min-w-0 items-center gap-3 border border-(--line) bg-(--card) px-4 py-3 transition hover:border-(--signal) hover:bg-(--ice) rounded-2xl"
     >
       <div class="flex size-9 shrink-0 items-center justify-center bg-(--ice) text-(--signal)">
         <UIcon

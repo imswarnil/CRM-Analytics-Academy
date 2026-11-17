@@ -20,20 +20,15 @@ const NAV = [
 ] as const
 const menuItems = computed(() => NAV.map(n => ({ label: t(`nav.main.${n.key}`), icon: n.icon, to: localePath(n.to) })))
 const phoneItems = menuItems
-// Labels or icons, never a clipped label. The server renders icons (right at
-// every width); once mounted, a hidden copy with labels is measured and the
-// labels appear only if all of them fit — so nothing jumps or squeezes.
+// Icon + label, or icons alone — never a clipped label. Once mounted, a hidden
+// copy with labels is measured and the labels stay only if all of them fit.
 const navEl = ref<HTMLElement | null>(null)
 const rowProbe = ref<HTMLElement | null>(null)
-const stackProbe = ref<HTMLElement | null>(null)
-// row: icon and label side by side · stack: icon over a small label (half
-// the width) · icon: icons alone, the last resort. Starts as stack, which
-// fits at ordinary laptop widths, so the first paint already has titles.
-const mode = ref<'row' | 'stack' | 'icon'>('stack')
+const mode = ref<'row' | 'icon'>('row')
 function fit() {
   const nav = navEl.value
-  if (!nav || !nav.clientWidth || !rowProbe.value || !stackProbe.value) return
-  mode.value = rowProbe.value.scrollWidth <= nav.clientWidth ? 'row' : stackProbe.value.scrollWidth <= nav.clientWidth ? 'stack' : 'icon'
+  if (!nav || !nav.clientWidth || !rowProbe.value) return
+  mode.value = rowProbe.value.scrollWidth + 4 * menuItems.value.length <= nav.clientWidth ? 'row' : 'icon'
 }
 let navRo: ResizeObserver | undefined
 onMounted(() => {
@@ -122,10 +117,10 @@ const localeItems = computed(() =>
            shows labels only when they fit in it — in any language. -->
       <nav
         ref="navEl"
-        class="relative ms-4 hidden h-16 min-w-0 flex-1 items-stretch overflow-hidden lg:flex"
+        class="relative ms-4 hidden h-16 min-w-0 flex-1 items-center overflow-hidden lg:flex"
         aria-label="Main"
       >
-        <!-- Hidden copies of both labelled layouts, measured by fit() -->
+        <!-- A hidden labelled copy, measured by fit() -->
         <div
           class="pointer-events-none invisible absolute flex flex-col"
           aria-hidden="true"
@@ -137,41 +132,26 @@ const localeItems = computed(() =>
             <span
               v-for="item in menuItems"
               :key="item.to"
-              class="flex items-center px-3.5 text-[14px] font-medium whitespace-nowrap"
-            >{{ item.label }}</span>
-          </div>
-          <div
-            ref="stackProbe"
-            class="flex w-max"
-          >
-            <span
-              v-for="item in menuItems"
-              :key="item.to"
-              class="px-3 text-[11px] font-medium whitespace-nowrap"
-            >{{ item.label }}</span>
+              class="flex items-center gap-2 px-3.5 text-[14px] font-medium whitespace-nowrap"
+            ><span class="size-4" />{{ item.label }}</span>
           </div>
         </div>
-        <div class="flex w-max items-stretch">
+        <div class="flex w-max items-center gap-1">
           <NuxtLink
             v-for="item in menuItems"
             :key="item.to"
             :to="item.to"
-            class="relative flex shrink-0 rounded-full font-medium whitespace-nowrap transition-colors"
-            :class="[
-              mode === 'stack' ? 'flex-col items-center justify-center gap-1 px-3 text-[11px]' : 'items-center gap-1.5 px-3.5 text-[14px]',
-              isActive(item) ? 'text-(--ink)' : 'text-(--ink2) hover:text-(--ink)'
-            ]"
+            :title="mode === 'icon' ? item.label : undefined"
+            class="group flex h-9 shrink-0 items-center gap-2 rounded-full px-3.5 text-[14px] font-medium whitespace-nowrap transition-colors duration-150"
+            :class="isActive(item) ? 'bg-(--ice) text-(--ink)' : 'text-(--ink2) hover:bg-(--ice)/70 hover:text-(--ink)'"
+            :aria-current="isActive(item) ? 'page' : undefined"
           >
             <UIcon
               :name="item.icon"
-              class="size-4 shrink-0"
-              :class="mode === 'row' ? 'hidden' : ''"
+              class="size-4 shrink-0 transition-colors"
+              :class="isActive(item) ? 'text-(--signal)' : 'text-(--ink2) group-hover:text-(--signal)'"
             />
-            <span :class="mode === 'icon' ? 'sr-only' : 'block leading-none'">{{ item.label }}</span>
-            <span
-              v-if="isActive(item)"
-              class="absolute inset-x-3 bottom-3 h-[2px] rounded-full bg-(--signal)"
-            />
+            <span :class="mode === 'icon' ? 'sr-only' : 'leading-none'">{{ item.label }}</span>
           </NuxtLink>
         </div>
       </nav>
@@ -315,7 +295,7 @@ const localeItems = computed(() =>
     <template #body>
       <div class="min-h-0 flex-1 overflow-y-auto">
         <!-- Numbered rows, as in the spec's mobile menu. -->
-        <nav class="border-b-[1.5px] border-(--ink)">
+        <nav class="border-b border-(--line)">
           <NuxtLink
             v-for="(item, i) in [...phoneItems, ...extraItems.filter(x => !phoneItems.some(p => p.to === x.to))]"
             :key="item.to"
@@ -351,7 +331,7 @@ const localeItems = computed(() =>
         </div>
       </div>
 
-      <div class="flex flex-wrap items-center justify-between gap-2 border-t-[1.5px] border-(--ink) px-5 py-3">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-t border-(--line) px-5 py-3">
         <ClientOnly>
           <UButton
             v-if="!isSignedIn"

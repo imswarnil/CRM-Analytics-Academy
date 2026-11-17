@@ -36,12 +36,12 @@ const items = computed<LessonCreditItem[]>(() => {
 <template>
   <section
     v-if="items.length"
-    class="my-10 border-[1.5px] border-(--ink) bg-(--card)"
+    class="my-10 border border-(--line) bg-(--card) rounded-2xl"
     aria-labelledby="lesson-credits"
   >
     <h2
       id="lesson-credits"
-      class="border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[.12em] text-(--ink)"
+      class="border-b border-(--line) bg-(--ice) px-4 py-2 font-medium text-[11px] font-semibold text-(--ink)"
     >
       {{ t('credits.title') }}
     </h2>
@@ -57,7 +57,7 @@ const items = computed<LessonCreditItem[]>(() => {
         />
         <div class="min-w-0 text-sm">
           <p class="text-(--ink)">
-            <span class="me-1.5 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ t(`credits.kinds.${c.kind}`) }}</span>
+            <span class="me-1.5 font-medium text-[11px] text-(--ink2)">{{ t(`credits.kinds.${c.kind}`) }}</span>
             <a
               :href="c.url"
               target="_blank"

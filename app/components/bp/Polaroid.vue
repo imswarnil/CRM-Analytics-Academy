@@ -35,7 +35,7 @@ const pinned = computed(() => seeded(key.value, 5) > 0.55)
     <!-- Photo -->
     <div
       class="relative aspect-square overflow-hidden"
-      :class="person ? 'bg-(--ice)' : 'border-[1.5px] border-dashed border-(--tide) bg-(--paper)'"
+      :class="person ? 'bg-(--ice)' : 'border border-dashed border-(--tide) bg-(--paper)'"
     >
       <img
         v-if="person?.photo"
@@ -53,7 +53,7 @@ const pinned = computed(() => seeded(key.value, 5) > 0.55)
           name="i-lucide-user-round"
           class="absolute bottom-0 left-1/2 size-[70%] -translate-x-1/2 text-(--tide)"
         />
-        <span class="absolute end-2 top-2 flex size-7 items-center justify-center border-[1.5px] border-(--ink) bg-white text-(--signal)">
+        <span class="absolute end-2 top-2 flex size-7 items-center justify-center border border-(--line) bg-white text-(--signal)">
           <UIcon
             :name="WALL_TYPE_ICONS[person.type]"
             class="size-3.5"
@@ -68,7 +68,7 @@ const pinned = computed(() => seeded(key.value, 5) > 0.55)
           name="i-lucide-camera"
           class="size-7 text-(--tide)"
         />
-        <span class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">{{ t('wall.emptyPhoto') }}</span>
+        <span class="font-medium text-[11px] text-(--ink2)">{{ t('wall.emptyPhoto') }}</span>
       </div>
     </div>
 
@@ -82,7 +82,7 @@ const pinned = computed(() => seeded(key.value, 5) > 0.55)
           class="bp-polaroid__caption block truncate text-[#0C1B33] after:absolute after:inset-0"
         >{{ person.name }}</a>
         <span class="mt-0.5 flex items-center justify-between gap-2">
-          <span class="font-mono text-[9.5px] uppercase tracking-[.12em] text-[#3D4E6B]">{{ t(`wall.types.${person.type}`) }}</span>
+          <span class="font-medium text-[9.5px] text-[#3D4E6B]">{{ t(`wall.types.${person.type}`) }}</span>
           <a
             v-if="person.url"
             :href="person.url"
@@ -103,7 +103,7 @@ const pinned = computed(() => seeded(key.value, 5) > 0.55)
           :to="localePath(NOMINATE_PATH)"
           class="bp-polaroid__caption block text-(--signal) after:absolute after:inset-0"
         >{{ t('wall.emptyCaption') }}</NuxtLink>
-        <span class="mt-0.5 block font-mono text-[9.5px] uppercase tracking-[.12em] text-[#3D4E6B]">{{ t('wall.emptyHint') }}</span>
+        <span class="mt-0.5 block font-medium text-[9.5px] text-[#3D4E6B]">{{ t('wall.emptyHint') }}</span>
       </template>
     </figcaption>
   </figure>

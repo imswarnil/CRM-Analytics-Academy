@@ -75,9 +75,9 @@ const span = (n?: number) => SPANS[Math.min(12, Math.max(1, n ?? 4))]
 
 <template>
   <figure class="not-prose my-8">
-    <div class="overflow-hidden border-[1.5px] border-(--ink) bg-(--card)">
+    <div class="overflow-hidden border border-(--line) bg-(--card) rounded-2xl">
       <!-- chrome -->
-      <div class="flex items-center gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2">
+      <div class="flex items-center gap-2 border-b border-(--line) bg-(--ice) px-3 py-2">
         <span
           class="flex gap-1.5"
           aria-hidden="true"
@@ -106,12 +106,12 @@ const span = (n?: number) => SPANS[Math.min(12, Math.max(1, n ?? 4))]
       <!-- global filters -->
       <div
         v-if="props.filters?.length"
-        class="flex flex-wrap gap-1.5 border-b-[1.5px] border-(--ink) bg-(--paper) px-3 py-2"
+        class="flex flex-wrap gap-1.5 border-b border-(--line) bg-(--paper) px-3 py-2"
       >
         <span
           v-for="(f, i) in props.filters"
           :key="i"
-          class="inline-flex items-center gap-1 border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 text-[11px] text-(--ink2)"
+          class="inline-flex items-center gap-1 border border-(--line) bg-(--card) px-2 py-0.5 text-[11px] text-(--ink2) rounded-2xl"
         >
           <UIcon
             name="i-lucide-chevron-down"
@@ -126,7 +126,7 @@ const span = (n?: number) => SPANS[Math.min(12, Math.max(1, n ?? 4))]
         <div
           v-for="(w, i) in props.widgets"
           :key="i"
-          class="flex min-h-[64px] flex-col justify-between border border-dashed border-(--line) bg-(--card) p-2.5"
+          class="flex min-h-[64px] flex-col justify-between border border-dashed border-(--line) bg-(--card) p-2.5 rounded-2xl"
           :class="span(w.span)"
         >
           <div class="flex items-start gap-1.5">

@@ -47,11 +47,11 @@ const runtime = computed(() => {
 
 <template>
   <details
-    class="not-prose group mb-8 border-[1.5px] border-(--ink) bg-(--card)"
+    class="not-prose group mb-8 border border-(--line) bg-(--card) rounded-2xl"
     :open="!hasVideo"
   >
     <summary class="flex cursor-pointer list-none items-center gap-3 bg-(--ice) px-4 py-3 hover:bg-(--frost)/40">
-      <span class="flex size-8 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--card)">
+      <span class="flex size-8 shrink-0 items-center justify-center border border-(--line) bg-(--card) rounded-2xl">
         <UIcon
           name="i-lucide-monitor-play"
           class="size-4 text-(--signal)"
@@ -67,7 +67,7 @@ const runtime = computed(() => {
       </span>
       <span
         v-if="runtime"
-        class="shrink-0 border-[1.5px] border-(--ink) bg-(--card) px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.08em]"
+        class="shrink-0 border border-(--line) bg-(--card) px-2 py-0.5 font-medium text-[11px] rounded-2xl"
       >
         {{ runtime }}
       </span>
@@ -77,7 +77,7 @@ const runtime = computed(() => {
       />
     </summary>
 
-    <div class="border-t-[1.5px] border-(--ink) px-4 py-5">
+    <div class="border-t border-(--line) px-4 py-5">
       <p
         v-if="org"
         class="mb-5 flex items-start gap-2 border border-dashed border-(--line) px-3 py-2 text-xs text-(--ink2)"
@@ -86,7 +86,7 @@ const runtime = computed(() => {
           name="i-lucide-crosshair"
           class="mt-0.5 size-3.5 shrink-0 text-(--signal)"
         />
-        <span><span class="font-mono font-semibold uppercase tracking-[.08em] text-(--ink)">Have open:</span> {{ org }}</span>
+        <span><span class="font-medium font-semibold text-(--ink)">Have open:</span> {{ org }}</span>
       </p>
 
       <ol class="space-y-6">
@@ -96,7 +96,7 @@ const runtime = computed(() => {
           :key="i"
           class="flex gap-3"
         >
-          <span class="mt-0.5 flex size-7 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--signal) font-mono text-xs font-semibold leading-none text-white">
+          <span class="mt-0.5 flex size-7 shrink-0 items-center justify-center border border-(--line) bg-(--signal) font-mono text-xs font-semibold leading-none text-white">
             {{ String(i + 1).padStart(2, '0') }}
           </span>
           <div class="min-w-0 flex-1">

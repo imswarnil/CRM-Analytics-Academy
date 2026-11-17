@@ -67,7 +67,7 @@ useJsonLd({
     <div class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
       <!-- Filter strip -->
       <div
-        class="mx-auto mb-10 flex w-fit max-w-full flex-wrap justify-center border-[1.5px] border-(--ink) bg-(--card)"
+        class="mx-auto mb-10 flex w-fit max-w-full flex-wrap justify-center border border-(--line) bg-(--card) rounded-2xl"
         role="group"
         :aria-label="t('wall.filter')"
       >
@@ -75,7 +75,7 @@ useJsonLd({
           v-for="key in (['all', ...WALL_TYPES] as const)"
           :key="key"
           type="button"
-          class="flex items-center gap-2 border-e-[1.5px] border-(--ink) px-4 py-2 font-mono text-[11px] uppercase tracking-[.1em] transition-colors last:border-e-0"
+          class="flex items-center gap-2 border-e border-(--line) px-4 py-2 font-medium text-[11px] transition-colors last:border-e-0"
           :class="selected === key ? 'bg-(--ink) text-(--paper)' : 'text-(--ink) hover:bg-(--ice)'"
           :aria-pressed="selected === key"
           @click="selected = key"
@@ -105,7 +105,7 @@ useJsonLd({
           <li
             v-for="p in filtered"
             :key="p.name"
-            class="border-[1.5px] border-(--ink) bg-(--card) p-4"
+            class="border border-(--line) bg-(--card) p-4 rounded-2xl"
           >
             <p class="mono-label">
               {{ t(`wall.types.${p.type}`) }}
@@ -114,7 +114,7 @@ useJsonLd({
               :href="p.linkedin"
               target="_blank"
               rel="noopener"
-              class="mt-1 block font-extrabold text-(--ink) hover:text-(--signal)"
+              class="mt-1 block font-semibold text-(--ink) hover:text-(--signal)"
             >{{ p.name }}</a>
             <p class="mt-1.5 text-sm text-(--ink2)">
               {{ p.desc }}
@@ -128,12 +128,12 @@ useJsonLd({
         class="mx-auto mt-16 max-w-3xl"
       />
 
-      <section class="graph-paper-navy mt-16 grid items-center gap-6 border-[1.5px] border-(--ink) bg-(--navy) p-8 text-white shadow-[10px_10px_0_var(--signal)] sm:p-10 md:grid-cols-[minmax(0,1fr)_auto]">
+      <section class="graph-paper-navy mt-16 grid items-center gap-6 border border-(--line) bg-(--navy) p-8 text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)] sm:p-10 md:grid-cols-[minmax(0,1fr)_auto]">
         <div>
-          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+          <p class="font-medium text-[11px] text-(--glow)">
             {{ t('wall.eyebrow') }}
           </p>
-          <h2 class="mt-3 text-3xl font-extrabold tracking-[-0.03em]">
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight">
             {{ t('wall.nominateTitle') }}
           </h2>
           <p class="mt-3 max-w-xl text-white/80">

@@ -65,13 +65,13 @@ function peak(spark: number[]) {
     <div
       v-for="(k, i) in props.items"
       :key="i"
-      class="flex flex-col justify-between gap-3 border-[1.5px] border-(--ink) bg-(--card) p-4"
+      class="flex flex-col justify-between gap-3 border border-(--line) bg-(--card) p-4 rounded-2xl"
     >
       <div>
-        <p class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+        <p class="font-medium text-[11px] text-(--ink2)">
           {{ k.label }}
         </p>
-        <p class="mt-1 text-3xl font-black tabular-nums leading-none tracking-[-0.03em] text-(--ink)">
+        <p class="mt-1 text-3xl font-bold tabular-nums leading-none tracking-tight text-(--ink)">
           {{ k.value }}
         </p>
         <p

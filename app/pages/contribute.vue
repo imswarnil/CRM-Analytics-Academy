@@ -54,7 +54,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
 <template>
   <div>
     <!-- Hero -->
-    <section class="graph-paper relative overflow-hidden border-b-[1.5px] border-(--ink)">
+    <section class="graph-paper relative overflow-hidden border-b border-(--line)">
       <UContainer class="relative py-14 text-center sm:py-20">
         <p class="eyebrow mb-5">
           {{ t('contribute.hero.eyebrow') }}
@@ -114,7 +114,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 :href="`#${s.id}`"
                 class="group relative flex items-center gap-3 py-1.5 pl-0 pr-2 text-sm text-(--ink2) transition hover:text-(--signal)"
               >
-                <span class="relative z-10 flex size-7 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-[11px] font-bold text-(--ink2) transition group-hover:border-(--signal) group-hover:text-(--signal)">
+                <span class="relative z-10 flex size-7 shrink-0 items-center justify-center border border-(--line) bg-(--ice) text-[11px] font-bold text-(--ink2) transition group-hover:border-(--signal) group-hover:text-(--signal)">
                   {{ Number(s.n) }}
                 </span>
                 <span class="min-w-0 flex-1 truncate font-medium">{{ t(`contribute.steps.${s.id}`) }}</span>
@@ -135,7 +135,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
         <!-- Timeline body -->
         <div class="space-y-8">
           <!-- New-contributor welcome + quick starts -->
-          <div class="border border-(--ink) bg-(--ice) p-6 sm:p-8">
+          <div class="border border-(--line) bg-(--ice) p-6 sm:p-8">
             <div class="flex items-center gap-2">
               <UIcon
                 name="i-lucide-hand-heart"
@@ -160,9 +160,9 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 v-for="q in quickStarts"
                 :key="q.to"
                 :href="q.to"
-                class="group border-[1.5px] border-(--ink) bg-(--card) p-4 transition hover:-translate-y-0.5 hover:border-(--signal) hover:shadow-[4px_4px_0_var(--ink)]"
+                class="group border border-(--line) bg-(--card) p-4 transition hover:-translate-y-0.5 hover:border-(--signal) hover:shadow-[0_18px_40px_-20px_rgb(12_27_51/.3)] rounded-2xl"
               >
-                <div class="flex size-9 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-(--signal) ">
+                <div class="flex size-9 items-center justify-center border border-(--line) bg-(--ice) text-(--signal)">
                   <UIcon
                     :name="q.icon"
                     class="size-4.5"
@@ -184,7 +184,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
 
           <div class="relative space-y-8">
             <!-- vertical timeline rail (desktop) -->
-            <span class="absolute bottom-6 left-5 top-6 hidden border-s-[1.5px] border-dashed border-(--signal) sm:block" />
+            <span class="absolute bottom-6 left-5 top-6 hidden border-s border-dashed border-(--signal) sm:block" />
 
             <section
               v-for="s in steps"
@@ -192,13 +192,13 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
               :key="s.id"
               class="relative scroll-mt-24 sm:pl-16"
             >
-              <div class="absolute left-0 top-0 hidden size-11 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) text-(--signal) sm:flex">
+              <div class="absolute left-0 top-0 hidden size-11 items-center justify-center border border-(--line) bg-(--ice) text-(--signal) sm:flex">
                 <UIcon
                   :name="s.icon"
                   class="size-5"
                 />
               </div>
-              <div class="border-[1.5px] border-(--ink) bg-(--card) p-6 sm:p-8">
+              <div class="border border-(--line) bg-(--card) p-6 sm:p-8 overflow-hidden rounded-2xl">
                 <div class="mb-1 flex items-center gap-2">
                   <p class="text-xs font-semibold uppercase tracking-widest text-(--signal)">
                     {{ t('contribute.stepLabel', { n: s.n }) }}

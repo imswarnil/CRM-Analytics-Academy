@@ -72,14 +72,14 @@
       }
     },
     "author": {
-      "eyebrow": "Fig. 05 — The author",
-      "figure": "Fig. 05 — Who teaches this",
+      "eyebrow": "The author",
+      "figure": "Who teaches this",
       "title": "Seven years of go-to-market dashboards, turned into a course.",
       "more": "More about Swarnil",
       "connect": "Connect on LinkedIn"
     },
     "figure": {
-      "caption": "Fig. 01 — Academy ARR by month",
+      "caption": "Academy ARR by month",
       "spec": "Built in Build 14",
       "arr": "ARR",
       "arrDelta": "{n} year on year",
@@ -89,7 +89,7 @@
       "nrrDelta": "GRR {n}"
     },
     "plot": {
-      "eyebrow": "Fig. 02 — Curriculum, plotted",
+      "eyebrow": "The curriculum",
       "title": "{lessons} lessons published in {live} of {sections} sections",
       "full": "Full curriculum",
       "section": "Section",
@@ -125,11 +125,11 @@
       "browse": "Browse the curriculum"
     },
     "wall": {
-      "eyebrow": "FIG. 06 — The community",
+      "eyebrow": "The community",
       "all": "See the whole wall"
     },
     "reach": {
-      "eyebrow": "FIG. 04 — The project, live",
+      "eyebrow": "The project, live",
       "title": "Who is learning here, and where",
       "learners": "Learners",
       "lessons": "Lessons completed",
@@ -338,8 +338,8 @@
     "asideTitle": "Learn CRM Analytics the way it is used at work.",
     "asideText": "Most lessons, every dataset and every quiz are free. Signed in, you read without ads and the site remembers your place.",
     "asideMeta": "Free · no card · 12 languages",
-    "eyebrowSignIn": "Sheet 00 — Sign in",
-    "eyebrowSignUp": "Sheet 00 — Enroll",
+    "eyebrowSignIn": "Sign in",
+    "eyebrowSignUp": "Enroll",
     "pageSignIn": "Sign in",
     "pageSignUp": "Enroll free",
     "benefitProgress": "Progress saved across devices, lesson by lesson",
@@ -368,7 +368,7 @@
     "submitBody": "Docs, a course, a tool, a community — anything that taught you something about CRM Analytics. Title, link and one line on why it is worth someone’s time. A maintainer reviews it before it appears.",
     "submitCta": "Submit a resource",
     "header": {
-      "sheet": "Sheet 06 / Resources / {count} references",
+      "sheet": "Resources · {count} references",
       "title": "The best CRM Analytics resources",
       "lead": "Docs, courses, books, blogs, tools, and communities — filter to find what you need.",
       "suggest": "Suggest a resource"
@@ -470,7 +470,7 @@
       "building": "Building"
     },
     "header": {
-      "sheet": "Sheet 07 / About",
+      "sheet": "About",
       "title": "Making CRM Analytics learnable for everyone",
       "lead": "Two things to know: what this project is, and who builds it."
     },
@@ -503,7 +503,7 @@
     "curriculumAtGlance": "The curriculum at a glance",
     "instructor": {
       "eyebrow": "§ 02 — The instructor",
-      "caption": "Fig. 01 — Instructor",
+      "caption": "Instructor",
       "spec": "Creator & maintainer"
     },
     "stats": {
@@ -535,7 +535,7 @@
       "description": "Full contributor guide: set up locally, write and translate lessons, suggest resources, follow the code style, and open a pull request."
     },
     "hero": {
-      "eyebrow": "Sheet 10 / Contributor guide",
+      "eyebrow": "Contributor guide",
       "title": "Help build the {em}",
       "titleEm": "community",
       "lead": "Everything you need to add a lesson, translate content, suggest a resource, or improve the code.",
@@ -678,7 +678,7 @@
     },
     "schemaName": "CRM Analytics Academy teaching warehouse",
     "header": {
-      "sheet": "Sheet 05 / The course warehouse",
+      "sheet": "The course warehouse",
       "title": "One company's data, every build in the course",
       "lead": "CRM Analytics Academy's own business: learners and team plans, a pipeline of corporate deals, six classroom centers and every seat sold in them. Load it into your org once and every lesson from the first dashboard to the executive board runs on it."
     },
@@ -801,7 +801,7 @@
       "description": "How CRM Analytics Academy handles your data: what an account stores, our first-party analytics, Google AdSense advertising, and how to delete it all."
     },
     "hero": {
-      "eyebrow": "Sheet 14 / Privacy",
+      "eyebrow": "Privacy",
       "lead": "CRM Analytics Academy is a free curriculum, funded by advertising. Here is exactly what it stores and what the ads do."
     },
     "englishPrevails": "This policy is machine-translated from English. If the two versions differ, the English version prevails. {link}",
@@ -851,7 +851,7 @@
       "description": "The terms for using CRM Analytics Academy: the free curriculum and its licence, accounts and progress, advertising, community content and acceptable use."
     },
     "hero": {
-      "eyebrow": "Sheet 15 / Terms",
+      "eyebrow": "Terms",
       "lead": "The ground rules for using this free curriculum."
     },
     "englishPrevails": "These terms are machine-translated from English. If the two versions differ, the English version prevails. {link}",
@@ -1024,7 +1024,7 @@
   },
   "interview": {
     "eyebrow": "Interview questions",
-    "sheet": "Sheet 10 / Interview Q&A — {n} questions",
+    "sheet": "Interview Q&A · {n} questions",
     "title": "CRM Analytics interview questions",
     "lead": "Real questions with model answers — conceptual, technical, scenario and behavioural — by topic, level and the companies that asked them. Add the ones you were asked.",
     "seoTitle": "CRM Analytics Interview Questions and Answers",
@@ -1097,11 +1097,11 @@
   "cert": {
     "eyebrow": "Certification practice",
     "title": "CRM Analytics & Einstein Discovery Consultant practice exams",
-    "lead": "Five full practice papers in the real exam format — 60 questions, 105 minutes, 68% to pass — plus a timed drill for every exam domain. Free, with a full answer review.",
+    "lead": "One full practice exam in the real format — 60 questions, 105 minutes, 68% to pass. Free, scored by domain, with every answer reviewed.",
     "seoTitle": "CRM Analytics and Einstein Discovery Consultant Practice Exams (Free)",
     "seoDesc": "Free timed practice exams for the Salesforce CRM Analytics and Einstein Discovery Consultant certification: {q} questions, {m} minutes, {p}% to pass, scored by exam domain.",
     "paperDesc": "A timed practice paper: {q} questions in {m} minutes. Pass mark {p}%. Scored by domain, with every answer reviewed.",
-    "startFirst": "Start practice paper 1",
+    "startFirst": "Start the practice exam",
     "shareText": "Free timed practice exams for the CRM Analytics & Einstein Discovery Consultant certification.",
     "facts": {
       "questions": "Questions",
@@ -1109,10 +1109,7 @@
       "pass": "To pass",
       "bank": "Questions in the bank"
     },
-    "fullEyebrow": "Full papers",
-    "fullTitle": "Practice papers — the real exam format",
-    "drillEyebrow": "Domain drills",
-    "drillTitle": "15 questions, 25 minutes, one domain",
+    "fullTitle": "The practice exam — the real format",
     "best": "Best {pct}%",
     "attempts": "{n} attempts",
     "notTaken": "Not taken yet",
@@ -1123,7 +1120,7 @@
       "2": "Flag questions for review and jump around with the navigator, as in the real exam.",
       "3": "Your answers are kept if you refresh or close the tab, until the clock runs out.",
       "4": "Results show a pass or fail at 68%, your score in each domain and every answer explained against the right one.",
-      "5": "Signed in, your best score for each paper is saved and shown here."
+      "5": "Signed in, your best score is saved to your dashboard."
     },
     "disclaimer": "These are original practice questions written for CRM Analytics Academy, not real exam questions. Check the current exam guide on Trailhead for the official format and outline.",
     "ctaTitle": "Practice for the certification",
@@ -1175,18 +1172,18 @@
     "correct": "Correct",
     "incorrect": "Incorrect",
     "unanswered": "Unanswered",
-    "study": "Study {topic}",
     "loading": "Loading the paper…",
     "close": "Close the exam",
     "leaveTitle": "Leave this exam?",
     "leaveBody": "The clock is running. Your answers stay saved on this device, and you can resume until the time runs out.",
-    "leave": "Leave"
+    "leave": "Leave",
+    "keys": "Keyboard: A–D to answer, ← → to move, F to flag."
   },
   "companies": {
     "eyebrow": "Companies",
     "seoTitle": "Companies using and hiring for Salesforce CRM Analytics",
     "seoDesc": "{n} companies that use Salesforce CRM Analytics, hire CRM Analytics developers, consultants and architects, or run a CRM Analytics practice — each with a public source.",
-    "sheet": "SHEET 07 / COMPANIES · {n} SOURCED",
+    "sheet": "Companies · {n} sourced",
     "title": "Who uses and hires for CRM Analytics",
     "lead": "Companies that run CRM Analytics, hire people who know it, or build it for clients. Every entry links to the public source it rests on.",
     "suggest": "Suggest a company",
@@ -1298,7 +1295,10 @@
       "correction": "Fill in both what it says and what it should say.",
       "generic": "That didn't go through. Please try again."
     },
-    "pointsBadge": "+25 points for every approved contribution"
+    "pointsBadge": "+25 points for every approved contribution",
+    "ctaLine": "New lessons land on YouTube first. The whole Academy is open source.",
+    "ctaYoutube": "Subscribe",
+    "ctaGithub": "Star on GitHub"
   },
   "dash": {
     "examTitle": "Certification readiness",

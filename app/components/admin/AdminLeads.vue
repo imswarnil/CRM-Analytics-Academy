@@ -52,7 +52,7 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
 
 <template>
   <section class="space-y-6">
-    <dl class="grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-4">
+    <dl class="grid grid-cols-2 border-s border-t border-(--line) sm:grid-cols-4">
       <div
         v-for="tile in [
           { label: 'New leads', value: count('new') },
@@ -61,12 +61,12 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
           { label: 'Seats won', value: won.toLocaleString() }
         ]"
         :key="tile.label"
-        class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-4"
+        class="flex flex-col-reverse border-e border-b border-(--line) bg-(--card) p-4"
       >
-        <dd class="mt-1 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">
+        <dd class="mt-1 text-3xl font-bold tabular-nums tracking-tight text-(--ink)">
           {{ tile.value }}
         </dd>
-        <dt class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
+        <dt class="font-medium text-[11px] text-(--ink2)">
           {{ tile.label }}
         </dt>
       </div>
@@ -86,7 +86,7 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
 
     <p
       v-if="status !== 'pending' && !data?.leads.length"
-      class="border-[1.5px] border-dashed border-(--line) p-8 text-center text-(--ink2)"
+      class="border border-dashed border-(--line) p-8 text-center text-(--ink2)"
     >
       No leads here yet. They arrive from /pro.
     </p>
@@ -95,7 +95,7 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
       <li
         v-for="l in data?.leads"
         :key="l.id"
-        class="border-[1.5px] border-(--ink) bg-(--card) p-4"
+        class="border border-(--line) bg-(--card) p-4 rounded-2xl"
       >
         <div class="flex flex-wrap items-center gap-2">
           <span class="bg-(--ink) px-2 py-0.5 font-mono text-[11px] uppercase text-(--paper)">{{ l.product }}</span>

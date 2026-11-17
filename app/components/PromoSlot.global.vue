@@ -67,13 +67,13 @@ const style = computed(() => {
   <aside
     v-if="allowed"
     class="promo-slot crosshair relative mx-auto w-full"
-    :class="bare ? '' : 'my-8 border-[1.5px] border-(--ink) bg-(--card) p-3'"
+    :class="bare ? '' : 'my-8 rounded-2xl border border-(--line) bg-(--card) p-3'"
     :style="u.size && !bare ? { maxWidth: `${u.size[0] + 26}px` } : undefined"
     aria-label="Advertisement"
   >
     <p
       v-if="!bare"
-      class="mb-2 flex items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[.14em] text-(--ink2)"
+      class="mb-2 flex items-center justify-between gap-3 font-medium text-[11px] text-(--ink2)"
     >
       <span>Advertisement</span>
       <span>{{ u.label }}</span>
@@ -85,7 +85,7 @@ const style = computed(() => {
     >
       <span
         v-if="dev"
-        class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)"
+        class="font-medium text-[11px] text-(--ink2)"
       >{{ unit }} · {{ u.slot }}</span>
       <ins
         v-else-if="ready"

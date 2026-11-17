@@ -35,7 +35,7 @@ onBeforeUnmount(() => clearTimeout(timer))
 <template>
   <div
     v-if="isHttpUrl(url)"
-    class="flex gap-4 border-[1.5px] border-(--ink) bg-(--card) p-4"
+    class="flex gap-4 border border-(--line) bg-(--card) p-4 rounded-2xl"
     aria-live="polite"
   >
     <SubmitFavicon
@@ -43,7 +43,7 @@ onBeforeUnmount(() => clearTimeout(timer))
       :size="44"
     />
     <div class="min-w-0 flex-1">
-      <p class="font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+      <p class="font-medium text-[11px] text-(--ink2)">
         {{ meta?.siteName || hostOf(url) }}
       </p>
       <template v-if="loading">

@@ -239,7 +239,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
   <div>
     <div
       v-if="meStatus === 'pending' || !me"
-      class="py-32 text-center font-mono text-xs uppercase tracking-[.12em] text-(--ink2)"
+      class="py-32 text-center font-medium text-xs text-(--ink2)"
     >
       Checking access…
     </div>
@@ -339,7 +339,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
             <!-- Money -->
             <div
               v-if="moneyTiles.length"
-              class="grid gap-px border-[1.5px] border-(--ink) bg-(--ink) sm:grid-cols-3"
+              class="grid gap-px border border-(--line) bg-(--ink) sm:grid-cols-3"
             >
               <button
                 v-for="m in moneyTiles"
@@ -348,11 +348,11 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                 class="flex flex-col gap-1 bg-(--card) p-4 text-start hover:bg-(--ice)"
                 @click="tab = 'users'"
               >
-                <span class="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)"><UIcon
+                <span class="flex items-center gap-1.5 font-medium text-[11px] text-(--ink2)"><UIcon
                   :name="m.icon"
                   class="size-3.5"
                 />{{ m.label }}</span>
-                <span class="text-2xl font-black tabular-nums text-(--ink)">{{ m.value }}</span>
+                <span class="text-2xl font-bold tabular-nums text-(--ink)">{{ m.value }}</span>
                 <span class="truncate text-xs text-(--ink2)">{{ m.note }}</span>
               </button>
             </div>
@@ -366,7 +366,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
             />
             <div
               v-if="attention.length"
-              class="border-[1.5px] border-(--ink) bg-(--ice) p-5"
+              class="border border-(--line) bg-(--ice) p-5"
             >
               <p class="eyebrow">
                 Needs your attention
@@ -386,7 +386,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
             </div>
             <p
               v-else
-              class="flex items-center gap-2 border-[1.5px] border-dashed border-(--line) p-4 text-(--ink2)"
+              class="flex items-center gap-2 border border-dashed border-(--line) p-4 text-(--ink2)"
             >
               <UIcon
                 name="i-lucide-circle-check"
@@ -394,28 +394,28 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
               /> Inbox zero — nothing waiting for review.
             </p>
 
-            <dl class="grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-4">
+            <dl class="grid grid-cols-2 border-s border-t border-(--line) sm:grid-cols-4">
               <component
                 :is="tile.to ? 'button' : 'div'"
                 v-for="tile in overviewTiles"
                 :key="tile.label"
                 type="button"
-                class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-4 text-start"
+                class="flex flex-col-reverse border-e border-b border-(--line) bg-(--card) p-4 text-start"
                 :class="tile.to ? 'hover:bg-(--ice)' : ''"
                 @click="tile.to && (tab = tile.to)"
               >
-                <dd class="mt-1 text-3xl font-black tabular-nums tracking-[-0.03em] text-(--ink)">
+                <dd class="mt-1 text-3xl font-bold tabular-nums tracking-tight text-(--ink)">
                   {{ tile.value.toLocaleString() }}
                 </dd>
-                <dt class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
+                <dt class="font-medium text-[11px] text-(--ink2)">
                   {{ tile.label }}
                 </dt>
               </component>
             </dl>
 
             <div class="grid gap-6 lg:grid-cols-2">
-              <section class="border-[1.5px] border-(--ink) bg-(--card)">
-                <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+              <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+                <header class="border-b border-(--line) px-5 py-3">
                   <p class="eyebrow">
                     Sign-ups · 14 days
                   </p>
@@ -427,8 +427,8 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                   />
                 </div>
               </section>
-              <section class="border-[1.5px] border-(--ink) bg-(--card)">
-                <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+              <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+                <header class="border-b border-(--line) px-5 py-3">
                   <p class="eyebrow">
                     Lessons completed · 14 days
                   </p>
@@ -440,8 +440,8 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                   />
                 </div>
               </section>
-              <section class="border-[1.5px] border-(--ink) bg-(--card)">
-                <header class="flex justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+              <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+                <header class="flex justify-between border-b border-(--line) px-5 py-3">
                   <p class="eyebrow">
                     Most completed lessons
                   </p>
@@ -464,8 +464,8 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                   >{{ l.path }}</NuxtLink><span class="font-mono text-xs">{{ l.count }}</span>
                 </p>
               </section>
-              <section class="graph-paper-navy border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white">
-                <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--glow)">
+              <section class="graph-paper-navy border border-(--line) bg-(--navy) p-5 text-white">
+                <p class="font-medium text-[11px] text-(--glow)">
                   Publishing
                 </p>
                 <ol class="mt-3 list-decimal space-y-2 ps-5 text-sm text-white/85">
@@ -506,7 +506,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                 placeholder="Search name or email"
                 class="w-72"
               />
-              <span class="font-mono text-xs uppercase tracking-[.1em] text-(--ink2)">{{ shownUsers.length }} of {{ users.length }}</span>
+              <span class="font-medium text-xs text-(--ink2)">{{ shownUsers.length }} of {{ users.length }}</span>
               <form
                 class="ms-auto flex flex-wrap items-end gap-2"
                 @submit.prevent="createUser"
@@ -539,9 +539,9 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
               :description="`Temporary password (shown once): ${created.temporaryPassword}`"
               :close="{ onClick: () => { created = null } }"
             />
-            <div class="overflow-x-auto border-[1.5px] border-(--ink) bg-(--card)">
+            <div class="overflow-x-auto border border-(--line) bg-(--card) rounded-2xl">
               <table class="w-full min-w-[56rem] text-sm">
-                <thead class="bg-(--ice) font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+                <thead class="bg-(--ice) font-medium text-[11px] text-(--ink2)">
                   <tr>
                     <th class="px-4 py-2 text-start">
                       User
@@ -577,7 +577,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                   >
                     <td class="px-4 py-2">
                       <div class="flex items-center gap-2">
-                        <span class="flex size-7 flex-none items-center justify-center overflow-hidden border-[1.5px] border-(--ink) bg-(--signal) text-xs font-bold text-white">
+                        <span class="flex size-7 flex-none items-center justify-center overflow-hidden border border-(--line) bg-(--signal) text-xs font-bold text-white">
                           <img
                             v-if="u.image"
                             :src="u.image"
@@ -706,7 +706,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                     variant="subtle"
                     size="sm"
                   />
-                  <span class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">{{ item.submittedBy.email || 'unknown' }} · {{ date(item.createdAt) }}</span>
+                  <span class="font-medium text-[11px] text-(--ink2)">{{ item.submittedBy.email || 'unknown' }} · {{ date(item.createdAt) }}</span>
                 </div>
                 <p class="mt-2 font-semibold text-(--ink)">
                   {{ item.title }}
@@ -784,7 +784,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
                 :key="item.id"
                 class="bp-card p-5"
               >
-                <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
+                <p class="font-medium text-[11px] text-(--ink2)">
                   {{ item.type }} · {{ item.level }} · {{ item.topic }}<span v-if="item.company"> · {{ item.company }}</span><span v-if="item.role"> · {{ item.role }}</span> · {{ item.email || 'unknown' }} · {{ date(item.createdAt) }}
                 </p>
                 <p class="mt-2 text-lg font-bold text-(--ink)">

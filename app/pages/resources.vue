@@ -105,8 +105,8 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
       <div class="grid gap-10 lg:grid-cols-[210px_minmax(0,1fr)]">
         <!-- Left filter -->
         <aside class="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:overscroll-contain">
-          <div class="border-[1.5px] border-(--ink) bg-(--card)">
-            <p class="border-b-[1.5px] border-(--ink) bg-(--ice) px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[.12em]">
+          <div class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+            <p class="border-b border-(--line) bg-(--ice) px-3 py-2 font-medium text-[11px] font-semibold">
               {{ t('resources.filter') }}
             </p>
             <ul>
@@ -144,7 +144,7 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
             <p class="mono-label">
               {{ t('resources.count', { count: filtered.length }) }}
             </p>
-            <div class="flex border-[1.5px] border-(--ink)">
+            <div class="flex border border-(--line)">
               <button
                 v-for="v in (['grid', 'list'] as const)"
                 :key="v"
@@ -175,7 +175,7 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
               <!-- Thumbnail: the page's own image, or its icon on a colour tile -->
               <span
                 class="relative flex shrink-0 items-center justify-center overflow-hidden"
-                :class="view === 'grid' ? 'aspect-[16/8] w-full border-b-[1.5px] border-(--ink)' : 'size-12 sm:size-16'"
+                :class="view === 'grid' ? 'aspect-[16/8] w-full border-b border-(--line)' : 'size-12 sm:size-16'"
                 :style="imageOf(r.url) ? undefined : { background: TILE[r.category].bg, color: TILE[r.category].fg }"
               >
                 <img
@@ -202,7 +202,7 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
               <span :class="view === 'grid' ? 'flex grow flex-col p-5' : 'min-w-0 flex-1'">
                 <span class="eyebrow">{{ categoryLabel(r.category) }} · {{ hostOf(r.url) }}</span>
                 <span
-                  class="mt-1.5 block font-extrabold leading-tight tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)"
+                  class="mt-1.5 block font-semibold leading-tight tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)"
                   :class="view === 'grid' ? 'text-lg' : 'text-base'"
                 >
                   {{ t(`resources.items.${r.id}.title`) }}
@@ -226,11 +226,11 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
            a real barrier for the people most likely to know a good link. There
            is a database and a moderated form now, so the page that lists
            resources should be the page that invites one. -->
-      <div class="graph-paper-navy mx-auto mt-16 max-w-3xl border-[1.5px] border-(--ink) bg-(--navy) p-8 text-center text-white shadow-[10px_10px_0_var(--signal)]">
+      <div class="graph-paper-navy mx-auto mt-16 max-w-3xl border border-(--line) bg-(--navy) p-8 text-center text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)]">
         <p class="eyebrow text-(--glow)!">
           {{ t('resources.submitEyebrow') }}
         </p>
-        <h2 class="mt-2 text-2xl font-extrabold tracking-[-0.02em]">
+        <h2 class="mt-2 text-2xl font-semibold tracking-[-0.02em]">
           {{ t('resources.submitTitle') }}
         </h2>
         <p class="mx-auto mt-2 max-w-xl text-sm text-white/80">

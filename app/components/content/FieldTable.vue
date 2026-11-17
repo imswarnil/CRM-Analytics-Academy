@@ -43,10 +43,10 @@ const badge = (role?: string) => COLOURS[role ?? ''] ?? 'text-(--ink2) border bo
 </script>
 
 <template>
-  <div class="not-prose my-8 overflow-hidden border-[1.5px] border-(--ink)">
+  <div class="not-prose my-8 overflow-hidden border border-(--line)">
     <div
       v-if="dataset"
-      class="flex flex-wrap items-baseline justify-between gap-2 border-b-[1.5px] border-(--ink) bg-(--ice) px-4 py-2.5"
+      class="flex flex-wrap items-baseline justify-between gap-2 border-b border-(--line) bg-(--ice) px-4 py-2.5"
     >
       <p class="flex items-center gap-2 font-mono text-xs font-semibold text-(--ink)">
         <UIcon
@@ -64,7 +64,7 @@ const badge = (role?: string) => COLOURS[role ?? ''] ?? 'text-(--ink2) border bo
     </div>
     <div class="overflow-x-auto">
       <table class="w-full text-left text-sm">
-        <thead class="bg-(--paper) font-mono text-[10px] uppercase tracking-[.1em] text-(--ink2)">
+        <thead class="bg-(--paper) font-medium text-[11px] text-(--ink2)">
           <tr>
             <th
               scope="col"
@@ -97,7 +97,7 @@ const badge = (role?: string) => COLOURS[role ?? ''] ?? 'text-(--ink2) border bo
             </td>
             <td class="whitespace-nowrap px-4 py-2.5">
               <span
-                class="px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[.08em]"
+                class="px-1.5 py-0.5 font-medium text-[11px] font-semibold"
                 :class="badge(f.role)"
               >{{ f.role || f.type || '—' }}</span>
               <span

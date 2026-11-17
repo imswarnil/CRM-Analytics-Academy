@@ -232,7 +232,7 @@ usePageSchema(() => ({
               :key="i"
               type="button"
               class="rounded-full border px-3 py-1 text-sm font-semibold"
-              :class="form.interest === i ? 'border-(--ink) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--ink)'"
+              :class="form.interest === i ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) hover:border-(--line)'"
               @click="form.interest = i"
             >
               {{ t(`plans.interest.${i}`) }}

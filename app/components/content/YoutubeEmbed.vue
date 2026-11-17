@@ -55,7 +55,7 @@ const src = computed(() => {
     v-if="author"
     class="not-prose m-0"
   >
-    <div class="aspect-video w-full overflow-hidden border-[1.5px] border-(--ink) bg-(--ink)">
+    <div class="aspect-video w-full overflow-hidden border border-(--line) bg-(--ink)">
       <iframe
         :src="src"
         :title="title || creditTitle"
@@ -66,7 +66,7 @@ const src = computed(() => {
         allowfullscreen
       />
     </div>
-    <figcaption class="mt-2 flex flex-wrap items-baseline gap-x-1.5 font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)">
+    <figcaption class="mt-2 flex flex-wrap items-baseline gap-x-1.5 font-medium text-[11px] text-(--ink2)">
       <UIcon
         name="i-lucide-video"
         class="size-3.5 self-center text-(--signal)"
@@ -94,7 +94,7 @@ const src = computed(() => {
   </figure>
   <div
     v-else
-    class="aspect-video w-full overflow-hidden border-[1.5px] border-(--ink) bg-(--ink)"
+    class="aspect-video w-full overflow-hidden border border-(--line) bg-(--ink)"
   >
     <iframe
       :src="src"

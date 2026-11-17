@@ -22,7 +22,7 @@ async function toggle() {
 
 <template>
   <div
-    class="mt-12 flex flex-wrap items-center justify-between gap-4 border-[1.5px] border-(--ink) p-4 transition-colors"
+    class="mt-12 flex flex-wrap items-center justify-between gap-4 border border-(--line) p-4 transition-colors"
     :class="done ? 'bg-(--ice)' : 'graph-paper-fine bg-(--card)'"
   >
     <ClientOnly>

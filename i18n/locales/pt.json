@@ -72,14 +72,14 @@
       }
     },
     "author": {
-      "eyebrow": "Fig. 05 — O autor",
-      "figure": "Fig. 05 — Quem ensina isto",
+      "eyebrow": "O autor",
+      "figure": "Quem ensina isto?",
       "title": "Sete anos de painéis de compras, transformaram-se num curso.",
       "more": "Mais sobre Swarnil",
       "connect": "Conectar no LinkedIn"
     },
     "figure": {
-      "caption": "Fig. 01 — ARR da Academia por mês",
+      "caption": "Academia ARR por mês",
       "spec": "Construído em Construção 14",
       "arr": "ARR",
       "arrDelta": "{n} Ano após ano",
@@ -89,7 +89,7 @@
       "nrrDelta": "GRR {n}"
     },
     "plot": {
-      "eyebrow": "Fig. 02 — Currículo, plotado",
+      "eyebrow": "O currículo",
       "title": "{lessons} lições publicadas em {live} de {sections} secções",
       "full": "Currículo completo",
       "section": "Secção",
@@ -125,11 +125,11 @@
       "browse": "Navegue no currículo"
     },
     "wall": {
-      "eyebrow": "FIG. 06 — A comunidade",
+      "eyebrow": "A comunidade",
       "all": "Veja a parede inteira"
     },
     "reach": {
-      "eyebrow": "FIG. 04 — O projecto, ao vivo",
+      "eyebrow": "O projeto, ao vivo",
       "title": "Quem está aprendendo aqui, e onde",
       "learners": "Alunos",
       "lessons": "Lições concluídas",
@@ -338,8 +338,8 @@
     "asideTitle": "Aprender CRM Analytics a forma como é utilizado no trabalho.",
     "asideText": "A maioria das lições, cada conjunto de dados e cada questionário são gratuitos. Assinado, você lê sem anúncios e o site se lembra do seu lugar.",
     "asideMeta": "Livre · sem cartão · 12 idiomas",
-    "eyebrowSignIn": "Folha 00 — Iniciar sessão",
-    "eyebrowSignUp": "Folha 00 — Registo",
+    "eyebrowSignIn": "Iniciar sessão",
+    "eyebrowSignUp": "Inscrição",
     "pageSignIn": "Iniciar sessão",
     "pageSignUp": "Inscrição gratuita",
     "benefitProgress": "Progresso salvo entre dispositivos, lição por lição",
@@ -368,7 +368,7 @@
     "submitBody": "Docs, um curso, uma ferramenta, uma comunidade — qualquer coisa que lhe ensinou algo sobre CRM Analytics. Título, link e uma linha sobre por que vale o tempo de alguém. Um mantenedor revê-o antes de aparecer.",
     "submitCta": "Enviar um recurso",
     "header": {
-      "sheet": "Folha 06 / Recursos / {count} referências",
+      "sheet": "Recursos · {count} referências",
       "title": "O melhor. CRM Analytics recursos",
       "lead": "Docs, cursos, livros, blogs, ferramentas e comunidades — filtre para encontrar o que você precisa.",
       "suggest": "Sugerir um recurso"
@@ -470,7 +470,7 @@
       "building": "Edifício"
     },
     "header": {
-      "sheet": "Folha 07 / Sobre",
+      "sheet": "Sobre",
       "title": "Fazendo CRM Analytics aprender para todos",
       "lead": "Duas coisas a saber: o que é este projecto e quem o constrói."
     },
@@ -503,7 +503,7 @@
     "curriculumAtGlance": "O currículo de relance",
     "instructor": {
       "eyebrow": "§ 02 — O instrutor",
-      "caption": "Fig. 01 — Instrutor",
+      "caption": "Instrutor",
       "spec": "Criador & mantenedor"
     },
     "stats": {
@@ -535,7 +535,7 @@
       "description": "Guia completo do contribuidor: configure localmente, escreva e traduza lições, sugira recursos, siga o estilo de código e abra uma solicitação de pull."
     },
     "hero": {
-      "eyebrow": "Folha 10 / Guia do contribuidor",
+      "eyebrow": "Guia do contribuidor",
       "title": "Ajuda a construir o {em}",
       "titleEm": "comunidade",
       "lead": "Tudo que você precisa para adicionar uma lição, traduzir conteúdo, sugerir um recurso ou melhorar o código.",
@@ -678,7 +678,7 @@
     },
     "schemaName": "CRM Analytics Armazém de ensino da Academia",
     "header": {
-      "sheet": "Folha 05 / O armazém do curso",
+      "sheet": "O armazém do curso",
       "title": "Dados de uma empresa, cada construção no curso",
       "lead": "CRM Analytics Negócios próprios da Academia: aprendizes e planos de equipe, um pipeline de negócios corporativos, seis centros de sala de aula e cada assento vendido neles. Carregue-o em sua org uma vez e todas as lições do primeiro painel para o conselho executivo é executado nele."
     },
@@ -801,7 +801,7 @@
       "description": "Como CRM Analytics A Academia lida com seus dados: o que uma conta armazena, nossa análise de primeira parte, publicidade do Google AdSense e como excluir tudo."
     },
     "hero": {
-      "eyebrow": "Folha 14 / Privacidade",
+      "eyebrow": "Privacidade",
       "lead": "CRM Analytics A Academia é um currículo gratuito, financiado pela publicidade. Aqui está exatamente o que armazena e o que os anúncios fazem."
     },
     "englishPrevails": "Esta política é traduzida por máquina em inglês. Se as duas versões diferem, a versão em inglês prevalece. {link}",
@@ -851,7 +851,7 @@
       "description": "Os termos para usar CRM Analytics Academia: o currículo gratuito e sua licença, contas e progresso, publicidade, conteúdo comunitário e uso aceitável."
     },
     "hero": {
-      "eyebrow": "Folha 15 / Termos",
+      "eyebrow": "Termos",
       "lead": "As regras básicas para usar este currículo gratuito."
     },
     "englishPrevails": "Estes termos são traduzidos por máquina em inglês. Se as duas versões diferem, a versão em inglês prevalece. {link}",
@@ -1024,7 +1024,7 @@
   },
   "interview": {
     "eyebrow": "Perguntas de entrevista",
-    "sheet": "Folha 10 / Entrevista Q&A — {n} perguntas",
+    "sheet": "Entrevista Q&A · {n} perguntas",
     "title": "CRM Analytics perguntas de entrevista",
     "lead": "Perguntas reais com respostas modelo — conceptuais, técnicas, cenários e comportamentais — por tópico, nível e as empresas que lhes perguntaram. Adicione os que lhe pediram.",
     "seoTitle": "CRM Analytics Entrevista Perguntas e Respostas",
@@ -1097,11 +1097,11 @@
   "cert": {
     "eyebrow": "Prática de certificação",
     "title": "CRM Analytics & Einstein Discovery Exames de prática de consultores",
-    "lead": "Cinco trabalhos de prática completa no formato real do exame — 60 perguntas, 105 minutos, 68% para passar — mais uma broca cronometrada para cada domínio do exame. Livre, com uma avaliação completa.",
+    "lead": "Um exame completo de prática em formato real — 60 perguntas, 105 minutos, 68% para passar. Livre, pontuado por domínio, com todas as respostas analisadas.",
     "seoTitle": "CRM Analytics e Einstein Discovery Exames de Prática de Consultores (gratuito)",
     "seoDesc": "Exames de prática de tempo livre para Salesforce CRM Analytics e Einstein Discovery Certificação do consultor: {q} perguntas, {m} minutos, {p}% para passar, pontuado pelo domínio do exame.",
     "paperDesc": "Um papel de treino cronometrado: {q} perguntas em {m} minutos. Marca de passagem {p}%. Pontuação por domínio, com cada resposta analisada.",
-    "startFirst": "Iniciar a prática papel 1",
+    "startFirst": "Iniciar o exame de prática",
     "shareText": "Exames de prática de tempo livre para CRM Analytics & Einstein Discovery Certificação de consultor.",
     "facts": {
       "questions": "Perguntas",
@@ -1109,10 +1109,7 @@
       "pass": "Passar",
       "bank": "Perguntas no banco"
     },
-    "fullEyebrow": "Documentos completos",
-    "fullTitle": "Documentos práticos — formato real do exame",
-    "drillEyebrow": "Perfurações de domínio",
-    "drillTitle": "15 perguntas, 25 minutos, um domínio",
+    "fullTitle": "O exame prático — o formato real",
     "best": "Melhor {pct}%",
     "attempts": "{n} tentativas",
     "notTaken": "Ainda não tomado",
@@ -1123,7 +1120,7 @@
       "2": "Marque perguntas para revisão e pule com o navegador, como no exame real.",
       "3": "Suas respostas são mantidas se você atualizar ou fechar a aba, até que o relógio se esgote.",
       "4": "Os resultados mostram um passe ou falha em 68%, sua pontuação em cada domínio e cada resposta explicada contra a direita.",
-      "5": "Assinado, sua melhor pontuação para cada papel é salva e mostrada aqui."
+      "5": "Assinado, sua melhor pontuação é salva em seu painel."
     },
     "disclaimer": "Estas são perguntas práticas originais escritas para CRM Analytics Academia, não são perguntas reais. Verifique o guia de exame atual sobre Trailhead Para o formato e contorno oficiais.",
     "ctaTitle": "Prática para a certificação",
@@ -1175,18 +1172,18 @@
     "correct": "Correcto",
     "incorrect": "Incorrecto",
     "unanswered": "Sem resposta",
-    "study": "Estudo {topic}",
     "loading": "Carregando o papel...",
     "close": "Fechar o exame",
     "leaveTitle": "Deixar este exame?",
     "leaveBody": "O relógio está a correr. Suas respostas permanecem salvas neste dispositivo, e você pode retomar até que o tempo se esgote.",
-    "leave": "Sair"
+    "leave": "Sair",
+    "keys": "Teclado: A–D para responder, ← → para mover, F para bandeira."
   },
   "companies": {
     "eyebrow": "Empresas",
     "seoTitle": "Empresas que utilizam e contratam Salesforce CRM Analytics",
     "seoDesc": "{n} empresas que utilizam Salesforce CRM Analytics, contrato CRM Analytics desenvolvedores, consultores e arquitetos, ou executar uma CRM Analytics prática — cada um com uma fonte pública.",
-    "sheet": "FICHA 07 / EMPRESAS · {n} FORMADO",
+    "sheet": "Empresas · {n} fonte",
     "title": "Quem utiliza e contrata CRM Analytics",
     "lead": "Empresas que operam CRM Analytics, contratar pessoas que sabem disso, ou construí-lo para clientes. Todas as ligações de entrada à fonte pública em que se baseia.",
     "suggest": "Sugerir uma empresa",
@@ -1298,7 +1295,10 @@
       "correction": "Preencha o que diz e o que deve dizer.",
       "generic": "Isso não passou. Por favor, tente novamente."
     },
-    "pointsBadge": "+25 pontos para cada contribuição aprovada"
+    "pointsBadge": "+25 pontos para cada contribuição aprovada",
+    "ctaLine": "Novas lições chegam ao YouTube primeiro. Toda a Academia é de código aberto.",
+    "ctaYoutube": "Subscrever",
+    "ctaGithub": "Estrelar em GitHub"
   },
   "dash": {
     "examTitle": "Preparação da certificação",

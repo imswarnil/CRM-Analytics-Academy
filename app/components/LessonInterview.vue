@@ -11,7 +11,7 @@ defineProps<{
     v-if="items.length"
     class="not-prose my-12"
   >
-    <div class="mb-5 flex items-end justify-between gap-4 border-b-[1.5px] border-(--ink) pb-3">
+    <div class="mb-5 flex items-end justify-between gap-4 border-b border-(--line) pb-3">
       <div>
         <p class="eyebrow">
           Interview prep
@@ -20,7 +20,7 @@ defineProps<{
           Interview questions
         </h2>
       </div>
-      <p class="max-w-xs text-end font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">
+      <p class="max-w-xs text-end font-medium text-[11px] text-(--ink2)">
         {{ items.length }} questions · rehearse each aloud
       </p>
     </div>
@@ -29,10 +29,10 @@ defineProps<{
       <li
         v-for="(item, i) in items"
         :key="i"
-        class="border-[1.5px] border-(--ink) bg-(--card)"
+        class="border border-(--line) bg-(--card) rounded-2xl"
       >
         <div class="flex items-start gap-3 border-b border-dashed border-(--line) px-4 py-3">
-          <span class="flex size-7 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--signal) font-mono text-xs font-semibold text-white">
+          <span class="flex size-7 shrink-0 items-center justify-center border border-(--line) bg-(--signal) font-mono text-xs font-semibold text-white">
             Q{{ i + 1 }}
           </span>
           <p class="pt-0.5 text-sm font-bold text-(--ink)">
@@ -40,7 +40,7 @@ defineProps<{
           </p>
         </div>
         <div class="flex items-start gap-3 px-4 py-3">
-          <span class="mt-0.5 flex size-7 shrink-0 items-center justify-center border-[1.5px] border-(--ink) bg-(--ice) font-mono text-xs font-semibold text-(--ink)">
+          <span class="mt-0.5 flex size-7 shrink-0 items-center justify-center border border-(--line) bg-(--ice) font-mono text-xs font-semibold text-(--ink)">
             A
           </span>
           <p class="text-sm leading-relaxed text-(--ink2)">

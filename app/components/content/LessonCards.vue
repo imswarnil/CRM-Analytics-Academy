@@ -22,7 +22,7 @@ defineProps<{
     <div
       v-for="(card, i) in items"
       :key="i"
-      class="group border-[1.5px] border-(--ink) bg-(--card) p-5 transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:border-(--signal) hover:shadow-[4px_4px_0_var(--ink)]"
+      class="group border border-(--line) bg-(--card) p-5 transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:border-(--signal) hover:shadow-[0_18px_40px_-20px_rgb(12_27_51/.3)] rounded-2xl"
     >
       <div
         v-if="card.icon"

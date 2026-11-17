@@ -116,7 +116,7 @@ onMounted(() => revealCurrent(true))
         />
       </span>
     </NuxtLink>
-    <span class="mt-2 font-mono text-[10px] uppercase tracking-[.15em] text-(--ink2) [writing-mode:vertical-rl]">{{ t('course.contentsPct', { pct }) }}</span>
+    <span class="mt-2 font-medium text-[11px] text-(--ink2) [writing-mode:vertical-rl]">{{ t('course.contentsPct', { pct }) }}</span>
   </div>
 
   <!-- Full list -->
@@ -125,7 +125,7 @@ onMounted(() => revealCurrent(true))
     ref="list"
     class="graph-paper-fine min-h-full"
   >
-    <div class="sticky top-0 z-10 border-b-[1.5px] border-(--ink) bg-(--paper) px-4 py-3">
+    <div class="sticky top-0 z-10 border-b border-(--line) bg-(--paper) px-4 py-3">
       <div class="flex items-center justify-between gap-2">
         <p class="eyebrow">
           {{ t('course.contents') }}
@@ -142,7 +142,7 @@ onMounted(() => revealCurrent(true))
         />
       </div>
       <div class="mt-2 flex items-center gap-3">
-        <div class="h-2.5 flex-1 border-[1.5px] border-(--ink) bg-(--card)">
+        <div class="h-2.5 flex-1 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
           <div
             class="hatch-signal h-full"
             :style="{ width: `${pct}%` }"
@@ -168,7 +168,7 @@ onMounted(() => revealCurrent(true))
           <span class="w-7 font-mono text-xs font-semibold text-(--signal)">{{ s.n }}</span>
           <span class="min-w-0 flex-1">
             <span class="block truncate text-sm font-bold text-(--ink)">{{ s.title }}</span>
-            <span class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ s.soon ? t('course.comingSoon') : t('course.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
+            <span class="font-medium text-[11px] text-(--ink2)">{{ s.soon ? t('course.comingSoon') : t('course.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
           </span>
           <!-- The section's own icon inside its progress ring. -->
           <span class="relative flex size-8 flex-none items-center justify-center">
@@ -212,7 +212,7 @@ onMounted(() => revealCurrent(true))
               <!-- Free or Pro, on every lesson: Pro is locked unless the reader has it. -->
               <span
                 v-if="!l.soon"
-                class="flex flex-none items-center gap-0.5 px-1 font-mono text-[9px] font-semibold uppercase tracking-[.08em]"
+                class="flex flex-none items-center gap-0.5 px-1 font-medium text-[11px] font-semibold"
                 :class="l.pro ? 'bg-(--ink) text-(--glow)' : 'border border-(--line) text-(--ink2)'"
                 :title="l.pro ? t('pro.eyebrow') : t('pro.freeLesson')"
               ><UIcon

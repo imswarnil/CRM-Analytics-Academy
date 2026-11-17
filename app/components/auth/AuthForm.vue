@@ -86,8 +86,8 @@ async function submit() {
   <!-- Blueprint auth: a graph-paper sheet with one ink-framed card on it —
        what an account gets you on the left, the form on the right. -->
   <div class="graph-paper flex min-h-[calc(100vh-var(--ui-header-height))] items-center justify-center p-4 sm:p-10">
-    <div class="crosshair grid w-full max-w-4xl border-[1.5px] border-(--ink) bg-(--card) shadow-[10px_10px_0_var(--ice)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-      <aside class="graph-paper-navy hidden flex-col justify-between gap-8 border-e-[1.5px] border-(--ink) p-8 text-white md:flex">
+    <div class="crosshair grid w-full max-w-4xl border border-(--line) bg-(--card) shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] overflow-hidden rounded-2xl">
+      <aside class="graph-paper-navy hidden flex-col justify-between gap-8 border-e border-(--line) p-8 text-white md:flex">
         <div>
           <NuxtLink
             :to="localePath('/')"
@@ -95,10 +95,10 @@ async function submit() {
           >
             <AppLogo inverted />
           </NuxtLink>
-          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+          <p class="font-medium text-[11px] text-(--glow)">
             {{ t('auth.asideMeta') }}
           </p>
-          <h2 class="mt-3 text-2xl font-extrabold tracking-[-0.02em]">
+          <h2 class="mt-3 text-2xl font-semibold tracking-[-0.02em]">
             {{ t('auth.asideTitle') }}
           </h2>
           <p class="mt-3 text-sm leading-relaxed text-white/75">
@@ -232,7 +232,7 @@ async function submit() {
           />
         </div>
 
-        <p class="text-center font-mono text-[11px] uppercase tracking-[.08em] text-(--ink2)">
+        <p class="text-center font-medium text-[11px] text-(--ink2)">
           <template v-if="isSignUp">
             {{ t('auth.haveAccount') }}
             <ULink

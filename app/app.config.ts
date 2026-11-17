@@ -1,8 +1,9 @@
 export default defineAppConfig({
   ui: {
-    // Blueprint (docs/design-handoff-blueprint). Square corners, 1.5px ink
-    // borders, hard offset shadows, mono labels. The ramps live in main.css:
-    // blueprint (primary), glow (the cyan accent) and ink (the neutral).
+    // The Academy's look (2026-11-17, after Apple's HIG): continuous rounded
+    // corners, hairline (--line) borders, soft shadows, sentence-case labels.
+    // The colour ramps live in main.css: blueprint (primary), glow (the cyan
+    // accent) and ink (the neutral).
     colors: {
       primary: 'blueprint',
       secondary: 'glow',
@@ -10,161 +11,158 @@ export default defineAppConfig({
     },
 
     // ---- Primitives -------------------------------------------------------
+    // Apple-like: pill buttons, hairline borders, soft shadows, quick
+    // ease-out colour changes. Hover always tints; press scales slightly.
     button: {
       slots: {
-        // The press: one pixel down-right while the hard shadow shrinks by the
-        // same pixel, so the shadow's outer edge never moves and nothing around
-        // the button shifts. Only transform and box-shadow animate (120ms,
-        // ease-out); colours change at once. Reduced motion gets the same one-pixel
-        // state change with no transition.
-        base: 'rounded-none font-bold border-[1.5px] border-transparent transition-[transform,box-shadow] duration-[120ms] ease-out motion-reduce:transition-none'
+        base: 'rounded-full font-semibold transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[.98] motion-reduce:transition-none motion-reduce:active:scale-100'
       },
       variants: {
         size: {
-          xs: { base: 'h-7 px-2 text-xs' },
-          sm: { base: 'h-9 px-3 text-sm' },
-          md: { base: 'h-11 px-4 text-sm' },
-          lg: { base: 'h-13 px-6 text-[15px]' },
-          xl: { base: 'h-14 px-7 text-base' }
+          xs: { base: 'h-7 px-2.5 text-xs' },
+          sm: { base: 'h-8 px-3 text-sm' },
+          md: { base: 'h-10 px-4 text-sm' },
+          lg: { base: 'h-11 px-5 text-[15px]' },
+          xl: { base: 'h-12 px-6 text-base' }
         }
       },
       compoundVariants: [
         {
           color: 'primary',
           variant: 'solid',
-          class: 'border-(--ink) bg-(--signal) text-white shadow-[5px_5px_0_var(--ink)] hover:bg-blueprint-900 active:translate-x-px active:translate-y-px active:shadow-[4px_4px_0_var(--ink)] dark:text-(--on) dark:hover:bg-blueprint-300'
+          class: 'bg-(--signal) text-white shadow-[0_1px_2px_rgb(12_27_51/.08),0_8px_20px_-10px_var(--signal)] hover:bg-blueprint-700 dark:text-(--on) dark:hover:bg-blueprint-400'
         },
         {
           color: 'neutral',
           variant: 'outline',
-          class: 'border-(--ink) bg-(--card) text-(--ink) ring-0 hover:bg-(--ice) active:translate-x-px active:translate-y-px'
+          class: 'bg-(--card) text-(--ink) ring-1 ring-inset ring-(--line) hover:bg-(--ice)/70 hover:ring-(--ink2)/30'
         },
         {
           color: 'neutral',
           variant: 'solid',
-          class: 'border-(--ink) bg-(--ink) text-(--paper) hover:bg-(--signal) hover:text-white active:translate-x-px active:translate-y-px'
+          class: 'bg-(--ink) text-(--paper) hover:bg-(--ink)/85'
         },
         {
           color: 'primary',
           variant: 'outline',
-          class: 'border-(--signal) text-(--signal) ring-0 hover:bg-(--ice) active:translate-x-px active:translate-y-px'
+          class: 'text-(--signal) ring-1 ring-inset ring-(--signal)/40 hover:bg-(--signal)/8'
         },
         {
           color: 'primary',
           variant: 'soft',
-          class: 'bg-(--ice) text-(--signal) border-(--line) hover:border-(--ink)'
+          class: 'bg-(--signal)/10 text-(--signal) hover:bg-(--signal)/16'
         },
         {
           color: 'neutral',
           variant: 'ghost',
-          class: 'text-(--ink) hover:bg-(--ice)'
+          class: 'text-(--ink2) hover:bg-(--ice)/70 hover:text-(--ink)'
         }
       ]
     },
     badge: {
       slots: {
-        base: 'rounded-none font-mono uppercase tracking-[.08em] text-[10px] font-medium'
+        base: 'rounded-full font-medium text-[11px]'
       }
     },
     card: {
       slots: {
-        root: 'rounded-none border-[1.5px] border-(--ink) bg-(--card) ring-0 divide-y-[1.5px] divide-(--ink)',
-        header: 'bg-(--ice) px-5 py-4',
+        root: 'rounded-2xl border border-(--line) bg-(--card) ring-0 divide-y divide-(--line)',
+        header: 'px-5 py-4',
         body: 'px-5 py-5',
         footer: 'px-5 py-4'
       }
     },
     input: {
       slots: {
-        base: 'rounded-none bg-(--card) ring-[1.5px] ring-(--ink) focus-visible:ring-(--signal)'
+        base: 'rounded-xl bg-(--card) ring-1 ring-(--line) focus-visible:ring-2 focus-visible:ring-(--signal)'
       }
     },
     textarea: {
       slots: {
-        base: 'rounded-none bg-(--card) ring-[1.5px] ring-(--ink) focus-visible:ring-(--signal)'
+        base: 'rounded-xl bg-(--card) ring-1 ring-(--line) focus-visible:ring-2 focus-visible:ring-(--signal)'
       }
     },
     select: {
       slots: {
-        base: 'rounded-none bg-(--card) ring-[1.5px] ring-(--ink)',
-        content: 'rounded-none ring-[1.5px] ring-(--ink) shadow-[5px_5px_0_var(--ink)]'
+        base: 'rounded-xl bg-(--card) ring-1 ring-(--line)',
+        content: 'rounded-xl ring-1 ring-(--line) shadow-xl'
       }
     },
     selectMenu: {
       slots: {
-        base: 'rounded-none bg-(--card) ring-[1.5px] ring-(--ink)',
-        content: 'rounded-none ring-[1.5px] ring-(--ink) shadow-[5px_5px_0_var(--ink)]'
+        base: 'rounded-xl bg-(--card) ring-1 ring-(--line)',
+        content: 'rounded-xl ring-1 ring-(--line) shadow-xl'
       }
     },
     dropdownMenu: {
       slots: {
-        content: 'rounded-none ring-[1.5px] ring-(--ink) bg-(--card) shadow-[5px_5px_0_var(--ink)]',
-        item: 'rounded-none',
-        label: 'font-mono text-[10px] uppercase tracking-[.1em]'
+        content: 'rounded-2xl p-1 ring-1 ring-(--line) bg-(--card) shadow-xl',
+        item: 'rounded-lg',
+        label: 'text-xs font-medium text-(--ink2)'
       }
     },
     formField: {
       slots: {
-        label: 'font-mono text-[11px] uppercase tracking-[.1em] text-(--ink2)',
+        label: 'text-sm font-medium text-(--ink)',
         help: 'text-(--ink2)'
       }
     },
     tabs: {
       slots: {
-        list: 'rounded-none border-[1.5px] border-(--ink) p-0 bg-(--card)',
-        trigger: 'rounded-none font-bold data-[state=active]:bg-(--ink) data-[state=active]:text-(--paper)',
+        list: 'rounded-full bg-(--ice) p-1',
+        trigger: 'rounded-full font-medium data-[state=active]:bg-(--card) data-[state=active]:text-(--ink) data-[state=active]:shadow-sm',
         indicator: 'hidden'
       }
     },
     modal: {
       slots: {
-        content: 'rounded-none border-[1.5px] border-(--ink) ring-0 bg-(--card) shadow-[10px_10px_0_var(--signal)]',
-        header: 'border-b-[1.5px] border-(--ink) bg-(--ice)'
+        content: 'rounded-3xl ring-1 ring-(--line) bg-(--card) shadow-2xl',
+        header: 'border-b border-(--line)'
       }
     },
     slideover: {
       slots: {
-        content: 'rounded-none border-l-[1.5px] border-(--ink) ring-0 bg-(--paper)'
+        content: 'ring-0 border-l border-(--line) bg-(--paper)'
       }
     },
     accordion: {
       slots: {
-        item: 'border-b border-dashed border-(--line) last:border-b-0',
-        trigger: 'font-bold text-(--ink)'
+        item: 'border-b border-(--line) last:border-b-0',
+        trigger: 'font-semibold text-(--ink)'
       }
     },
     progress: {
       slots: {
-        base: 'rounded-none border-[1.5px] border-(--ink) h-3 bg-(--card)',
-        indicator: 'rounded-none bg-[repeating-linear-gradient(135deg,var(--color-blueprint-500)_0_6px,var(--color-blueprint-400)_6px_12px)]'
+        base: 'rounded-full h-2 bg-(--line)',
+        indicator: 'rounded-full bg-(--signal)'
       }
     },
     alert: {
       slots: {
-        root: 'rounded-none border-[1.5px] border-(--ink)'
+        root: 'rounded-2xl'
       }
     },
     avatar: {
       slots: {
-        root: 'rounded-none border-[1.5px] border-(--ink)'
+        root: 'rounded-full'
       }
     },
     skeleton: {
-      base: 'rounded-none bg-(--ice)'
+      base: 'rounded-xl bg-(--ice)'
     },
     tooltip: {
       slots: {
-        content: 'rounded-none bg-(--ink) text-(--paper) font-mono text-[11px] ring-0'
+        content: 'rounded-lg bg-(--ink) text-(--paper) text-xs ring-0'
       }
     },
     kbd: {
-      base: 'rounded-none font-mono'
+      base: 'rounded-md'
     },
 
     // ---- Chrome -----------------------------------------------------------
     header: {
       slots: {
-        root: 'h-16 bg-[color-mix(in_oklab,var(--paper)_88%,transparent)] backdrop-blur-md border-b-[1.5px] border-(--ink)',
+        root: 'h-16 bg-[color-mix(in_oklab,var(--paper)_80%,transparent)] backdrop-blur-xl backdrop-saturate-150 border-b border-(--line)',
         container: 'max-w-(--ui-container)',
         content: 'bg-(--paper)'
       }
@@ -176,7 +174,7 @@ export default defineAppConfig({
     },
     navigationMenu: {
       slots: {
-        link: 'font-semibold rounded-none'
+        link: 'font-medium rounded-full'
       }
     },
 
@@ -184,29 +182,29 @@ export default defineAppConfig({
     pageHeader: {
       slots: {
         root: 'border-b-0 pt-2 pb-6',
-        headline: 'mb-3 font-mono text-[11px] uppercase tracking-[.14em] text-(--signal)',
-        title: 'text-4xl sm:text-5xl font-black tracking-[-0.04em] text-(--ink)',
+        headline: 'mb-3 text-sm font-semibold text-(--signal)',
+        title: 'text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-(--ink)',
         description: 'text-lg text-(--ink2)'
       }
     },
     pageSection: {
       slots: {
-        headline: 'font-mono text-[11px] uppercase tracking-[.14em] text-(--signal)',
-        title: 'text-3xl sm:text-5xl font-extrabold tracking-[-0.04em] text-(--ink)',
+        headline: 'text-sm font-semibold text-(--signal)',
+        title: 'text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-(--ink)',
         description: 'text-lg text-(--ink2)'
       }
     },
     pageCard: {
       slots: {
-        root: 'rounded-none',
+        root: 'rounded-2xl',
         leadingIcon: 'size-5 shrink-0 text-(--signal)',
-        title: 'text-base font-extrabold text-(--ink)',
+        title: 'text-base font-semibold text-(--ink)',
         description: 'text-[15px] text-(--ink2)'
       },
       variants: {
         variant: {
-          outline: { root: 'bg-(--card) ring-0 border-[1.5px] border-(--ink)' },
-          subtle: { root: 'bg-(--card) ring-0 border-[1.5px] border-(--ink)' }
+          outline: { root: 'bg-(--card) ring-0 border border-(--line)' },
+          subtle: { root: 'bg-(--card) ring-0 border border-(--line)' }
         }
       }
     },
@@ -214,13 +212,13 @@ export default defineAppConfig({
     // ---- Docs -------------------------------------------------------------
     contentNavigation: {
       slots: {
-        trigger: 'font-bold text-(--ink)',
-        link: 'text-sm rounded-none before:rounded-none',
+        trigger: 'font-semibold text-(--ink)',
+        link: 'text-sm rounded-lg before:rounded-lg',
         listWithChildren: 'ms-4 border-s border-(--line)'
       },
       variants: {
         active: {
-          true: { link: 'text-(--signal) font-bold before:bg-(--ice)' }
+          true: { link: 'text-(--signal) font-semibold before:bg-(--ice)' }
         }
       }
     },
@@ -228,28 +226,28 @@ export default defineAppConfig({
       slots: {
         root: 'lg:mx-0 lg:px-0 lg:backdrop-blur-none lg:max-h-none lg:overflow-visible bg-transparent',
         container: 'lg:pt-2 lg:pb-2 border-0',
-        trigger: 'font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)',
+        trigger: 'text-xs font-semibold text-(--ink2)',
         link: 'py-[0.2rem]'
       }
     },
     contentSurround: {
       slots: {
-        link: 'rounded-none border-[1.5px] border-(--ink) bg-(--card) hover:bg-(--card) hover:shadow-[4px_4px_0_var(--ink)] hover:-translate-x-px hover:-translate-y-px transition-[transform,box-shadow] duration-[160ms] ease-out motion-reduce:transition-none px-5 py-6',
-        linkLeading: 'rounded-none bg-(--ice) ring-[1.5px] ring-(--ink) group-hover:bg-(--signal)',
+        link: 'rounded-2xl border border-(--line) bg-(--card) hover:bg-(--card) hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-20px_rgb(12_27_51/.28)] transition-[transform,box-shadow] duration-200 ease-out motion-reduce:transition-none px-5 py-6',
+        linkLeading: 'rounded-xl bg-(--ice) ring-0 group-hover:bg-(--signal)',
         linkLeadingIcon: 'text-(--signal) group-hover:text-white'
       }
     },
     contentSearch: {
       slots: {
-        modal: 'rounded-none border-[1.5px] border-(--ink) ring-0 shadow-[10px_10px_0_var(--signal)]'
+        modal: 'rounded-3xl ring-1 ring-(--line) shadow-2xl'
       }
     },
 
     // ---- Prose (lesson bodies) ---------------------------------------------
     prose: {
-      h1: { slots: { base: 'font-black tracking-[-0.045em]' } },
-      h2: { slots: { base: 'font-extrabold tracking-[-0.03em] pt-8 border-t border-dashed border-(--line) mt-10' } },
-      h3: { slots: { base: 'font-extrabold tracking-[-0.02em]' } },
+      h1: { slots: { base: 'font-bold tracking-[-0.03em]' } },
+      h2: { slots: { base: 'font-semibold tracking-[-0.02em] mt-12' } },
+      h3: { slots: { base: 'font-semibold tracking-[-0.015em]' } },
       // Reading size per Apple's HIG: 18px body, 19px from tablet up, with
       // generous leading. Lists and table cells follow the paragraphs.
       p: { base: 'text-[1.125rem] sm:text-[1.1875rem] leading-[1.75] text-(--ink)' },
@@ -259,28 +257,28 @@ export default defineAppConfig({
       code: {
         variants: {
           color: {
-            neutral: 'rounded-none border border-(--line) bg-(--ice) text-(--ink)'
+            neutral: 'rounded-md border border-(--line) bg-(--ice) text-(--ink)'
           }
         }
       },
       pre: {
         slots: {
           root: 'my-6',
-          base: 'rounded-none border-[1.5px] border-(--ink) bg-[#07122A] text-[#DDEBFA]',
-          header: 'rounded-none border-[1.5px] border-b-0 border-(--ink) bg-(--ice) font-mono text-xs'
+          base: 'rounded-2xl border border-(--line) bg-[#07122A] text-[#DDEBFA]',
+          header: 'rounded-t-2xl border border-b-0 border-(--line) bg-(--ice) font-mono text-xs'
         }
       },
       table: {
         slots: {
-          root: 'rounded-none border-[1.5px] border-(--ink)',
-          base: 'rounded-none'
+          root: 'rounded-2xl border border-(--line)',
+          base: ''
         }
       },
-      th: { base: 'bg-(--ice) font-mono text-xs uppercase tracking-[.1em] text-(--ink) border-(--line) first:border-s-0 border-t-0 last:border-e-0' },
-      blockquote: { base: 'border-s-[3px] border-(--signal) bg-(--ice) not-italic ps-4 py-2 pe-3 text-(--ink)' },
+      th: { base: 'bg-(--ice) text-xs font-semibold text-(--ink) border-(--line) first:border-s-0 border-t-0 last:border-e-0' },
+      blockquote: { base: 'rounded-e-xl border-s-[3px] border-(--signal) bg-(--ice) not-italic ps-4 py-2 pe-3 text-(--ink)' },
       callout: {
         slots: {
-          base: 'rounded-none border-dashed border-[1.5px]'
+          base: 'rounded-2xl border'
         }
       }
     }

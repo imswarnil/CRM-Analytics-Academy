@@ -218,22 +218,22 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </UButton>
       </div>
 
-      <!-- K. tiles -->
-      <dl class="grid grid-cols-2 border-s-[1.5px] border-t-[1.5px] border-(--ink) sm:grid-cols-3 lg:grid-cols-6">
+      <!-- Stat tiles -->
+      <dl class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-(--line) bg-(--line) sm:grid-cols-3 lg:grid-cols-6">
         <div
-          v-for="(tile, n) in tiles"
+          v-for="tile in tiles"
           :key="tile.key"
-          class="flex flex-col-reverse border-e-[1.5px] border-b-[1.5px] border-(--ink) bg-(--card) p-4"
+          class="flex flex-col-reverse bg-(--card) p-4"
         >
           <dd>
             <span
-              class="mt-2 block text-3xl font-black tabular-nums tracking-[-0.03em]"
+              class="mt-2 block text-3xl font-bold tabular-nums tracking-tight"
               :class="tile.accent ? 'text-(--signal)' : 'text-(--ink)'"
             >{{ tile.value }}</span>
-            <span class="font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">{{ tile.hint }}</span>
+            <span class="font-medium text-[11px] text-(--ink2)">{{ tile.hint }}</span>
           </dd>
-          <dt class="truncate font-mono text-[10px] uppercase tracking-[.12em] text-(--ink2)">
-            K.0{{ n + 1 }} — {{ tile.label }}
+          <dt class="truncate font-medium text-[11px] text-(--ink2)">
+            {{ tile.label }}
           </dt>
         </div>
       </dl>
@@ -245,7 +245,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
       >
         <NuxtLink
           :to="localePath('/certification')"
-          class="flex shrink-0 items-center gap-2 border-[1.5px] border-(--ink) bg-(--card) px-3 py-2 text-sm font-semibold text-(--ink) hover:bg-(--ice)"
+          class="flex shrink-0 items-center gap-2 border border-(--line) bg-(--card) px-3 py-2 text-sm font-semibold text-(--ink) hover:bg-(--ice) rounded-2xl"
         >
           <UIcon
             name="i-lucide-timer"
@@ -256,16 +256,16 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
 
       <div class="grid gap-6 lg:grid-cols-3">
         <!-- Continue + up next -->
-        <section class="border-[1.5px] border-(--ink) bg-(--card) lg:col-span-2">
-          <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) bg-(--ice) px-5 py-3">
+        <section class="border border-(--line) bg-(--card) lg:col-span-2 overflow-hidden rounded-2xl">
+          <header class="flex items-center justify-between border-b border-(--line) bg-(--ice) px-5 py-3">
             <p class="eyebrow">
-              Fig. 01 — {{ t('dashboard.continue') }}
+              {{ t('dashboard.continue') }}
             </p>
             <span class="font-mono text-xs font-semibold tabular-nums">{{ t('dashboard.lessonsDone', { done, total }) }}</span>
           </header>
           <div class="p-5">
             <div
-              class="relative h-4 border-[1.5px] border-(--ink) bg-(--paper)"
+              class="relative h-4 border border-(--line) bg-(--paper)"
               role="progressbar"
               :aria-valuenow="percent"
               aria-valuemin="0"
@@ -273,13 +273,13 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
               :aria-label="t('course.courseProgress')"
             >
               <div
-                class="hatch-signal h-full border-e-[1.5px] border-(--ink) transition-[width] duration-700"
+                class="hatch-signal h-full border-e border-(--line) transition-[width] duration-700"
                 :style="{ width: `${percent}%` }"
               />
               <span
                 v-for="i in 9"
                 :key="i"
-                class="absolute inset-y-0 border-s border-(--ink)"
+                class="absolute inset-y-0 border-s border-(--line)"
                 :style="{ left: `${i * 10}%` }"
               />
             </div>
@@ -289,7 +289,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
               :to="localePath(resume.path)"
               class="bp-card bp-card--hover group mt-5 flex items-center gap-4 p-5"
             >
-              <span class="flex size-12 flex-none items-center justify-center border-[1.5px] border-(--ink) bg-(--signal) text-white">
+              <span class="flex size-12 flex-none items-center justify-center border border-(--line) bg-(--signal) text-white">
                 <UIcon
                   :name="metaOf(resume.path).type === 'video' ? 'i-lucide-play' : 'i-lucide-book-open'"
                   class="size-6"
@@ -297,7 +297,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
               </span>
               <span class="min-w-0 flex-1">
                 <span class="mono-label block">{{ resume.moduleTitle }} · {{ metaOf(resume.path).minutes }} min</span>
-                <span class="block truncate text-xl font-extrabold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">{{ resume.title }}</span>
+                <span class="block truncate text-xl font-semibold tracking-[-0.02em] text-(--ink) group-hover:text-(--signal)">{{ resume.title }}</span>
               </span>
               <span class="hidden font-bold text-(--signal) sm:block">{{ done ? t('dashboard.continueCta') : t('dashboard.startFirst') }} →</span>
             </NuxtLink>
@@ -327,15 +327,15 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </section>
 
         <!-- Weekly goal -->
-        <section class="graph-paper-navy flex flex-col border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white shadow-[8px_8px_0_var(--signal)]">
-          <p class="font-mono text-[10px] uppercase tracking-[.12em] text-(--glow)">
-            Fig. 02 — {{ t('dashboard.goal') }}
+        <section class="graph-paper-navy flex flex-col border border-(--line) bg-(--navy) p-5 text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)]">
+          <p class="font-medium text-[11px] text-(--glow)">
+            {{ t('dashboard.goal') }}
           </p>
           <div class="mt-4 flex items-end gap-3">
-            <span class="text-5xl font-black tabular-nums tracking-[-0.04em]">{{ thisWeek }}</span>
+            <span class="text-5xl font-bold tabular-nums tracking-tight">{{ thisWeek }}</span>
             <span class="pb-2 font-mono text-sm text-white/70">/ {{ goal }} {{ t('dashboard.lessons') }}</span>
           </div>
-          <div class="mt-4 h-3 border-[1.5px] border-white/60">
+          <div class="mt-4 h-3 border border-white/60">
             <div
               class="h-full bg-(--glow) transition-[width] duration-700"
               :style="{ width: `${goalPct}%` }"
@@ -345,12 +345,12 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
             {{ goalPct >= 100 ? t('dashboard.goalDone') : t('dashboard.goalLeft', { n: Math.max(0, goal - thisWeek) }) }}
           </p>
           <div class="mt-4 flex items-center gap-2">
-            <span class="font-mono text-[10px] uppercase tracking-[.1em] text-white/60">{{ t('dashboard.goalSet') }}</span>
+            <span class="font-medium text-[11px] text-white/60">{{ t('dashboard.goalSet') }}</span>
             <button
               v-for="g in [2, 3, 5, 7, 10]"
               :key="g"
               type="button"
-              class="size-8 border-[1.5px] font-mono text-xs"
+              class="size-8 border font-mono text-xs"
               :class="g === goal ? 'border-(--glow) bg-(--glow) text-(--navy)' : 'border-white/40 text-white hover:border-white'"
               @click="goal = g"
             >
@@ -382,25 +382,25 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
       <!-- Pro: status for members, the next step for everyone else -->
       <NuxtLink
         :to="localePath('/pro')"
-        class="graph-paper-navy flex flex-wrap items-center gap-4 border-[1.5px] border-(--ink) bg-(--navy) p-5 text-white shadow-[8px_8px_0_var(--signal)]"
+        class="graph-paper-navy flex flex-wrap items-center gap-4 border border-(--line) bg-(--navy) p-5 text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)]"
       >
         <UIcon
           :name="data?.pro ? 'i-lucide-badge-check' : 'i-lucide-sparkles'"
           class="size-8 text-(--glow)"
         />
         <span class="min-w-0 flex-1">
-          <span class="block text-lg font-extrabold">{{ data?.pro ? t('dash.proActive') : t('dash.proTitle') }}</span>
+          <span class="block text-lg font-semibold">{{ data?.pro ? t('dash.proActive') : t('dash.proTitle') }}</span>
           <span class="block text-sm text-white/75">{{ data?.pro ? t('dash.proActiveBody') : t('dash.proBody') }}</span>
         </span>
         <span
           v-if="!data?.pro"
-          class="border-[1.5px] border-white bg-white px-4 py-2 font-bold text-(--navy)"
+          class="border border-white bg-white px-4 py-2 font-bold text-(--navy)"
         >{{ t('pro.getPro') }} →</span>
       </NuxtLink>
 
       <!-- Certification readiness -->
-      <section class="border-[1.5px] border-(--ink) bg-(--card)">
-        <header class="flex flex-wrap items-center justify-between gap-3 border-b-[1.5px] border-(--ink) px-5 py-3">
+      <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+        <header class="flex flex-wrap items-center justify-between gap-3 border-b border-(--line) px-5 py-3">
           <p class="eyebrow">
             {{ t('dash.examTitle') }}
           </p>
@@ -438,12 +438,12 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
       </section>
 
       <!-- Activity heatmap -->
-      <section class="border-[1.5px] border-(--ink) bg-(--card)">
-        <header class="flex flex-wrap items-center justify-between gap-2 border-b-[1.5px] border-(--ink) px-5 py-3">
+      <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+        <header class="flex flex-wrap items-center justify-between gap-2 border-b border-(--line) px-5 py-3">
           <p class="eyebrow">
-            Fig. 03 — {{ t('dashboard.activity') }}
+            {{ t('dashboard.activity') }}
           </p>
-          <span class="font-mono text-xs uppercase tracking-[.08em] text-(--ink2)">{{ t('dashboard.activeDays', { n: activeDays }) }} · {{ t('dashboard.longest', { n: data?.longestStreak ?? 0 }) }}</span>
+          <span class="font-medium text-xs text-(--ink2)">{{ t('dashboard.activeDays', { n: activeDays }) }} · {{ t('dashboard.longest', { n: data?.longestStreak ?? 0 }) }}</span>
         </header>
         <div class="overflow-x-auto p-5">
           <div class="flex min-w-max gap-[3px]">
@@ -461,7 +461,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
               />
             </div>
           </div>
-          <div class="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2)">
+          <div class="mt-3 flex items-center gap-2 font-medium text-[11px] text-(--ink2)">
             {{ t('dashboard.less') }}
             <span
               v-for="n in [0, 1, 2, 3]"
@@ -476,10 +476,10 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
 
       <div class="grid gap-6 lg:grid-cols-3">
         <!-- By section -->
-        <section class="border-[1.5px] border-(--ink) bg-(--card)">
-          <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+        <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+          <header class="flex items-center justify-between border-b border-(--line) px-5 py-3">
             <p class="eyebrow">
-              Fig. 04 — {{ t('dashboard.bySection') }}
+              {{ t('dashboard.bySection') }}
             </p>
             <span class="font-mono text-xs text-(--ink2)">{{ sectionsDone }}/{{ bySection.length }}</span>
           </header>
@@ -508,10 +508,10 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </section>
 
         <!-- Saved -->
-        <section class="border-[1.5px] border-(--ink) bg-(--card)">
-          <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+        <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+          <header class="flex items-center justify-between border-b border-(--line) px-5 py-3">
             <p class="eyebrow">
-              Fig. 05 — {{ t('dashboard.saved') }}
+              {{ t('dashboard.saved') }}
             </p>
             <span class="font-mono text-xs text-(--ink2)">{{ saved.length }}</span>
           </header>
@@ -554,10 +554,10 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </section>
 
         <!-- Quizzes -->
-        <section class="border-[1.5px] border-(--ink) bg-(--card)">
-          <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+        <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+          <header class="flex items-center justify-between border-b border-(--line) px-5 py-3">
             <p class="eyebrow">
-              Fig. 06 — {{ t('dashboard.quizzes') }}
+              {{ t('dashboard.quizzes') }}
             </p>
             <span class="font-mono text-xs text-(--ink2)">{{ quizzes.length ? `${quizAvg}%` : '' }}</span>
           </header>
@@ -585,8 +585,8 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
                   <span class="font-mono text-[10px] text-(--ink2)">{{ q.best }}/{{ q.total }} · {{ t('dashboard.attempts', { n: q.attempts }) }}</span>
                 </span>
                 <span
-                  class="border-[1.5px] px-1.5 py-0.5 font-mono text-[10px] font-semibold"
-                  :class="q.pct >= 70 ? 'border-(--signal) text-(--signal)' : 'border-(--ink) bg-(--ink) text-(--paper)'"
+                  class="border px-1.5 py-0.5 font-mono text-[10px] font-semibold"
+                  :class="q.pct >= 70 ? 'border-(--signal) text-(--signal)' : 'border-(--line) bg-(--ink) text-(--paper)'"
                 >{{ q.pct >= 70 ? `${q.pct}%` : t('dashboard.retake') }}</span>
               </NuxtLink>
             </li>
@@ -595,10 +595,10 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
       </div>
 
       <!-- Achievements -->
-      <section class="border-[1.5px] border-(--ink) bg-(--card)">
-        <header class="flex items-center justify-between border-b-[1.5px] border-(--ink) px-5 py-3">
+      <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+        <header class="flex items-center justify-between border-b border-(--line) px-5 py-3">
           <p class="eyebrow">
-            Fig. 07 — {{ t('dashboard.badges') }}
+            {{ t('dashboard.badges') }}
           </p>
           <span class="font-mono text-xs text-(--ink2)">{{ earned }}/{{ achievements.length }}</span>
         </header>
@@ -606,12 +606,12 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
           <li
             v-for="a in achievements"
             :key="a.key"
-            class="flex flex-col items-center gap-2 border-[1.5px] p-4 text-center"
-            :class="a.got ? 'border-(--ink) bg-(--ice) shadow-[3px_3px_0_var(--ink)]' : 'border-dashed border-(--line) opacity-60'"
+            class="flex flex-col items-center gap-2 border p-4 text-center"
+            :class="a.got ? 'border-(--line) bg-(--ice) shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)]' : 'border-dashed border-(--line) opacity-60'"
           >
             <span
-              class="flex size-10 items-center justify-center border-[1.5px]"
-              :class="a.got ? 'border-(--ink) bg-(--signal) text-white' : 'border-(--line) text-(--ink2)'"
+              class="flex size-10 items-center justify-center border"
+              :class="a.got ? 'border-(--line) bg-(--signal) text-white' : 'border-(--line) text-(--ink2)'"
             >
               <UIcon
                 :name="a.got ? a.icon : 'i-lucide-lock'"
@@ -626,10 +626,10 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
 
       <div class="grid gap-6 lg:grid-cols-2">
         <!-- Leaderboard -->
-        <section class="border-[1.5px] border-(--ink) bg-(--card)">
-          <header class="flex flex-wrap items-center justify-between gap-2 border-b-[1.5px] border-(--ink) px-5 py-3">
+        <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+          <header class="flex flex-wrap items-center justify-between gap-2 border-b border-(--line) px-5 py-3">
             <p class="eyebrow">
-              Fig. 08 — {{ t('dashboard.leaderboard') }}
+              {{ t('dashboard.leaderboard') }}
             </p>
           </header>
           <p
@@ -646,7 +646,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
               :class="p.me ? 'bg-(--ice)' : ''"
             >
               <span class="w-7 font-mono text-[11px] font-semibold text-(--signal)">#{{ p.rank }}</span>
-              <span class="flex size-7 flex-none items-center justify-center overflow-hidden border-[1.5px] border-(--ink) bg-(--signal) text-xs font-bold text-white">
+              <span class="flex size-7 flex-none items-center justify-center overflow-hidden border border-(--line) bg-(--signal) text-xs font-bold text-white">
                 <img
                   v-if="p.image"
                   :src="p.image"
@@ -670,10 +670,10 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </section>
 
         <!-- Recently completed -->
-        <section class="border-[1.5px] border-(--ink) bg-(--card)">
-          <header class="border-b-[1.5px] border-(--ink) px-5 py-3">
+        <section class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+          <header class="border-b border-(--line) px-5 py-3">
             <p class="eyebrow">
-              Fig. 09 — {{ t('dashboard.recentlyCompleted') }}
+              {{ t('dashboard.recentlyCompleted') }}
             </p>
           </header>
           <p
@@ -692,14 +692,14 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
                 :to="localePath(lesson.path)"
                 class="flex items-center gap-3 px-5 py-2.5 text-sm hover:bg-(--ice)"
               >
-                <span class="flex size-6 flex-none items-center justify-center border-[1.5px] border-(--ink) bg-(--signal) text-white">
+                <span class="flex size-6 flex-none items-center justify-center border border-(--line) bg-(--signal) text-white">
                   <UIcon
                     name="i-lucide-check"
                     class="size-3.5"
                   />
                 </span>
                 <span class="min-w-0 flex-1 truncate font-semibold text-(--ink)">{{ lesson.title }}</span>
-                <span class="hidden shrink-0 truncate font-mono text-[10px] uppercase tracking-[.08em] text-(--ink2) sm:block">{{ lesson.moduleTitle }}</span>
+                <span class="hidden shrink-0 truncate font-medium text-[11px] text-(--ink2) sm:block">{{ lesson.moduleTitle }}</span>
               </NuxtLink>
             </li>
           </ul>

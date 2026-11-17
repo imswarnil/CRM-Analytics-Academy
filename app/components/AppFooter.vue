@@ -84,7 +84,7 @@ onMounted(() => {
               target="_blank"
               rel="noopener"
               :aria-label="link['aria-label']"
-              class="flex size-9 items-center justify-center border-[1.5px] border-white/40 text-white hover:border-(--glow) hover:text-(--glow)"
+              class="flex size-9 items-center justify-center border border-white/40 text-white hover:border-(--glow) hover:text-(--glow)"
             >
               <UIcon
                 :name="link.icon"
@@ -98,7 +98,7 @@ onMounted(() => {
           v-for="col in columns"
           :key="col.label"
         >
-          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+          <p class="font-medium text-[11px] text-(--glow)">
             {{ col.label }}
           </p>
           <ul class="mt-4 space-y-2.5">
@@ -121,7 +121,7 @@ onMounted(() => {
     <!-- Built with: the stack, credited -->
     <div class="border-t border-white/15">
       <div class="mx-auto flex max-w-(--ui-container) flex-col gap-3 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:gap-6 lg:px-8">
-        <p class="shrink-0 font-mono text-[11px] uppercase tracking-[.14em] text-(--glow)">
+        <p class="shrink-0 font-medium text-[11px] text-(--glow)">
           {{ t('footer.builtWith') }}
         </p>
         <ul class="flex flex-wrap gap-1.5">
@@ -158,7 +158,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="border-t border-white/15">
-      <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center justify-between gap-3 px-4 py-4 font-mono text-[11px] uppercase tracking-[.1em] text-white/60 sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-center justify-between gap-3 px-4 py-4 font-medium text-[11px] text-white/60 sm:px-6 lg:px-8">
         <span>© {{ new Date().getFullYear() }} CRM Analytics Academy — not affiliated with Salesforce, Inc.</span>
         <span class="flex gap-5">
           <NuxtLink

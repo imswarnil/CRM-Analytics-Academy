@@ -72,14 +72,14 @@
       }
     },
     "author": {
-      "eyebrow": "费格。 05 — 提交人",
-      "figure": "费格。 05 — 谁教的这个",
+      "eyebrow": "提交人",
+      "figure": "谁教的这个",
       "title": "七年上市的仪表板,变成课程.",
       "more": "更多关于斯沃尼尔",
       "connect": "在链接中连接"
     },
     "figure": {
-      "caption": "费格。 01——按月分列的学院ARR",
+      "caption": "按月计算",
       "spec": "建于建筑 14",
       "arr": "资源",
       "arrDelta": "{n} 年数",
@@ -89,7 +89,7 @@
       "nrrDelta": "加纳 {n}"
     },
     "plot": {
-      "eyebrow": "费格。 02 — 课程编排",
+      "eyebrow": "课程",
       "title": "{lessons} 发表的经验教训 {live} 页:1 {sections} 节次",
       "full": "完整课程",
       "section": "节次",
@@ -125,11 +125,11 @@
       "browse": "浏览课程"
     },
     "wall": {
-      "eyebrow": "费格。 06-社区",
+      "eyebrow": "社区",
       "all": "见整面墙"
     },
     "reach": {
-      "eyebrow": "费格。 04 — 项目现场",
+      "eyebrow": "项目,现场直播",
       "title": "谁在这里学习,在哪里",
       "learners": "学习者",
       "lessons": "已完成的经验教训",
@@ -338,8 +338,8 @@
     "asideTitle": "学习 CRM Analytics 工作时使用的方法。",
     "asideText": "大多数课程,每个数据集和每个测验都是免费的. 签了字,你不用广告就看书 网站记得你的位置",
     "asideMeta": "免费 —— 无卡 —— 12种语言",
-    "eyebrowSignIn": "工作表 00 — 签名",
-    "eyebrowSignUp": "工作表 00 —— 注册",
+    "eyebrowSignIn": "签名",
+    "eyebrowSignUp": "输入",
     "pageSignIn": "签名",
     "pageSignUp": "免费滚动",
     "benefitProgress": "跨设备保存的进展,经验教训",
@@ -368,7 +368,7 @@
     "submitBody": "医生,一个课程,一个工具,一个社区——任何教你的东西 CRM Analytics标题、链接和一条线说明为什么值得一个人花时间。 一个维护者在它出现之前就审查它.",
     "submitCta": "提交资源",
     "header": {
-      "sheet": "第06页/资源 {count} 参考文献",
+      "sheet": "资源 {count} 参考文献",
       "title": "最好的一个 CRM Analytics 资源",
       "lead": "医生,课程,书籍,博客,工具,和社区——过滤以找到你需要的东西.",
       "suggest": "建议资源"
@@ -470,7 +470,7 @@
       "building": "大楼"
     },
     "header": {
-      "sheet": "工作表 07 / 关于",
+      "sheet": "关于",
       "title": "制作 CRM Analytics 人人都可以学习",
       "lead": "有两件事要知道: 这个项目是什么,是谁建造的。"
     },
@@ -503,7 +503,7 @@
     "curriculumAtGlance": "一览课程",
     "instructor": {
       "eyebrow": "§02——教员",
-      "caption": "费格。 01 — 教官",
+      "caption": "教官",
       "spec": "创建者 & 维护者"
     },
     "stats": {
@@ -535,7 +535,7 @@
       "description": "完整贡献指南:在本地设置,编写和翻译课程,推荐资源,遵循代码风格,并打开拉动请求."
     },
     "hero": {
-      "eyebrow": "第10页/贡献方指南",
+      "eyebrow": "贡献者指南",
       "title": "帮助建立 {em}",
       "titleEm": "社区",
       "lead": "所有你需要添加的教训,翻译内容,建议资源,或改进代码.",
@@ -678,7 +678,7 @@
     },
     "schemaName": "CRM Analytics 学院教学仓库",
     "header": {
-      "sheet": "第05页/课程仓库",
+      "sheet": "课程仓库",
       "title": "一个公司的数据,每一个建设在课程",
       "lead": "CRM Analytics 学院自己的业务:学习者和团队计划,企业交易的管道,六个教室中心和每个出售的座位. 从第一个仪表板到执行理事会的每一个课 都放在上面"
     },
@@ -801,7 +801,7 @@
       "description": "怎么样 CRM Analytics Academy处理你的数据:什么是账户存储,我们的第一党分析,Google AdSense广告,以及如何删除全部."
     },
     "hero": {
-      "eyebrow": "第14页/隐私",
+      "eyebrow": "隐私",
       "lead": "CRM Analytics 学院是免费课程,由广告资助. 这正是它储存的东西 广告做什么。"
     },
     "englishPrevails": "这项政策用英语翻译。 如果两种版本不同,则以英文版本为准. {link}",
@@ -851,7 +851,7 @@
       "description": "使用术语 CRM Analytics 学院:免费课程及其许可证、账目和进展、广告、社区内容和可接受用途。"
     },
     "hero": {
-      "eyebrow": "第15页/术语",
+      "eyebrow": "术语",
       "lead": "使用这种免费课程的基本规则。"
     },
     "englishPrevails": "这些术语是用英语翻译的机器。 如果两种版本不同,则以英文版本为准. {link}",
@@ -1024,7 +1024,7 @@
   },
   "interview": {
     "eyebrow": "面谈问题",
-    "sheet": "第10页/访谈Q&一个 - {n} 问 题",
+    "sheet": "访谈 Q&一个 {n} 问 题",
     "title": "CRM Analytics 面谈问题",
     "lead": "按主题、级别和提出问题的公司,用模型回答真正的问题——概念、技术、情景和行为。 加上你被问到的那些",
     "seoTitle": "CRM Analytics 访谈问答",
@@ -1097,11 +1097,11 @@
   "cert": {
     "eyebrow": "认证做法",
     "title": "CRM Analytics & Einstein Discovery 顾问执业考试",
-    "lead": "5份实际考试格式的全练习卷——60题,105分钟,68%通过——外加每个考试领域计时演练. 免费,并附有完整的回答审查.",
+    "lead": "一次真实格式的完全练习考试——60题105分钟68%通过. 自由,按域评分,每个答案都经过审查.",
     "seoTitle": "CRM Analytics 和 Einstein Discovery 顾问实践考试(免费)",
     "seoDesc": "免费实习考试 Salesforce CRM Analytics 和 Einstein Discovery 顾问证书: {q} 问题, {m} 分钟 {p}%通过,通过考试域评分.",
     "paperDesc": "一份定时练习文件: {q} 问题 {m} 几分钟 通行证 {p}%,按领域计分,每个答案都经过审查.",
-    "startFirst": "开始练习文件 1",
+    "startFirst": "开始练习考试",
     "shareText": "免费实习考试 CRM Analytics & Einstein Discovery 顾问认证.",
     "facts": {
       "questions": "问 题",
@@ -1109,10 +1109,7 @@
       "pass": "通过",
       "bank": "银行中的问题"
     },
-    "fullEyebrow": "全文",
-    "fullTitle": "实践论文——真实的考试格式.",
-    "drillEyebrow": "域钻",
-    "drillTitle": "15个问题,25分钟,一个领域",
+    "fullTitle": "练习考试——真实形式.",
     "best": "最佳 {pct}百分比(%)",
     "attempts": "{n} 尝试",
     "notTaken": "尚未取用",
@@ -1123,7 +1120,7 @@
       "2": "国旗问题供审查,与航海家号一起跳转,如真实的考试.",
       "3": "如果您刷新或关闭标签, 您的答案会被保存, 直到时钟耗尽 。",
       "4": "结果显示68%的通过率或失败率,你在每个领域的得分和每个答案都与正确的答案相对应。",
-      "5": "签了名,你每张论文的最好成绩在这里保存和显示."
+      "5": "签了字,你最好的分数就存到你的仪表板上了"
     },
     "disclaimer": "这些是写给 CRM Analytics 学院,不是真正的考试问题。 检查当前考试指南 Trailhead 用于正式格式和大纲。",
     "ctaTitle": "认证做法",
@@ -1175,18 +1172,18 @@
     "correct": "对",
     "incorrect": "错误",
     "unanswered": "未回答",
-    "study": "学习 {topic}",
     "loading": "正在装入纸张...",
     "close": "考试结束",
     "leaveTitle": "离开考试?",
     "leaveBody": "钟在运行。 您的答案保存在这个设备上, 您可以恢复到时间耗尽为止 。",
-    "leave": "离开"
+    "leave": "离开",
+    "keys": "键盘:A–D对答,QQ~移动,F对旗."
   },
   "companies": {
     "eyebrow": "公司",
     "seoTitle": "使用和雇用 Salesforce CRM Analytics",
     "seoDesc": "{n} 公司 Salesforce CRM Analytics,雇用 CRM Analytics 开发者、顾问和建筑师,或 CRM Analytics 实践——每个都有公共来源。",
-    "sheet": "Sheet 07 / Companys → (中文(简体) ). {n} 存档",
+    "sheet": "公司 {n} 来源",
     "title": "谁使用和雇用 CRM Analytics",
     "lead": "运营公司 CRM Analytics雇佣知道的人 或为客户建造 它所依赖的每一个公共来源的条目链接。",
     "suggest": "建议公司",
@@ -1298,7 +1295,10 @@
       "correction": "兼填其言及应说法.",
       "generic": "那没有通过。 请再试一次"
     },
-    "pointsBadge": "每笔核定捐款加25分"
+    "pointsBadge": "每笔核定捐款加25分",
+    "ctaLine": "新课先登陆YouTube. 全学院开源.",
+    "ctaYoutube": "订阅",
+    "ctaGithub": "开动 GitHub"
   },
   "dash": {
     "examTitle": "核证准备情况",
