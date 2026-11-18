@@ -227,7 +227,7 @@ const heroStats = computed(() => [
               :class="topic === k ? 'bg-(--ice) font-semibold text-(--signal)' : 'text-(--ink) hover:bg-(--paper2)'"
               @click="topic = topic === k ? '' : k"
             >
-              <span class="truncate">{{ sectionTitle(k) }}</span><span class="font-mono text-xs opacity-60">{{ n }}</span>
+              <span class="truncate first-letter:uppercase">{{ sectionTitle(k) }}</span><span class="font-mono text-xs opacity-60">{{ n }}</span>
             </button>
           </div>
         </div>
@@ -259,7 +259,7 @@ const heroStats = computed(() => [
       </aside>
 
       <!-- Questions, by section -->
-      <div class="min-w-0 space-y-12">
+      <div class="min-w-0 space-y-8">
         <p class="mono-label">
           {{ t('interview.results', { n: filtered.length }) }}
         </p>
@@ -273,20 +273,38 @@ const heroStats = computed(() => [
           :key="g.key"
           class="scroll-mt-24"
         >
-          <h2 class="bp-h3 flex items-baseline gap-3">
+          <h2 class="bp-h3 flex items-baseline gap-3 first-letter:uppercase">
             {{ g.title }}<span class="font-mono text-sm text-(--ink2)">{{ g.items.length }}</span>
           </h2>
           <ol
             class="mt-4"
-            :class="view === 'grid' ? 'grid gap-4 sm:grid-cols-2 xl:grid-cols-3' : 'space-y-3'"
+            :class="view === 'grid' ? 'grid gap-4 sm:grid-cols-2 xl:grid-cols-3' : 'divide-y divide-(--line) overflow-hidden rounded-[6px] border border-(--line) bg-(--card)'"
           >
             <li
               v-for="r in g.items"
               :key="r.path"
-              class="bp-card bp-card--hover"
-              :class="view === 'grid' && openSlug === slugOf(r.path) ? 'sm:col-span-2 xl:col-span-3' : ''"
+              :class="view === 'grid' ? ['bp-card bp-card--hover', openSlug === slugOf(r.path) ? 'sm:col-span-2 xl:col-span-3' : ''] : ''"
             >
+              <!-- List: one line per question. Cards: tags, title and a short answer preview. -->
               <NuxtLink
+                v-if="view === 'list'"
+                :to="rowTo(r)"
+                class="group flex items-center gap-3 px-5 py-3.5 transition-colors hover:bg-(--ice)/60"
+                :class="openSlug === slugOf(r.path) ? 'bg-(--ice)' : ''"
+                :aria-current="openSlug === slugOf(r.path) ? 'page' : undefined"
+                :aria-expanded="openSlug === slugOf(r.path)"
+              >
+                <span class="w-9 shrink-0 text-xs font-bold tabular-nums text-(--label)">#{{ numberOf.get(r.path) }}</span>
+                <span class="min-w-0 flex-1 font-semibold leading-snug text-(--ink) group-hover:text-(--signal)">{{ r.title }}</span>
+                <span class="hidden shrink-0 rounded-full bg-(--ice) px-2 py-0.5 text-[11px] font-semibold text-(--signal) sm:inline">{{ t(`interview.types.${r.type}`) }}</span>
+                <span class="hidden w-16 shrink-0 text-end text-xs text-(--ink2) md:inline">{{ t(`interview.levels.${r.level}`) }}</span>
+                <UIcon
+                  :name="openSlug === slugOf(r.path) ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
+                  class="size-4 shrink-0 text-(--ink2)"
+                />
+              </NuxtLink>
+              <NuxtLink
+                v-else
                 :to="rowTo(r)"
                 class="group block p-5"
                 :class="openSlug === slugOf(r.path) ? 'bg-(--ice)' : ''"
@@ -295,11 +313,11 @@ const heroStats = computed(() => [
               >
                 <div class="flex flex-wrap items-center gap-1.5 font-medium text-[11px]">
                   <span class="me-1 font-bold text-(--ink2)">#{{ numberOf.get(r.path) }}</span>
-                  <span class="border border-(--signal) px-1.5 py-0.5 text-(--signal)">{{ t(`interview.types.${r.type}`) }}</span>
-                  <span class="border border-(--line) px-1.5 py-0.5 text-(--ink2)">{{ t(`interview.levels.${r.level}`) }}</span>
+                  <span class="rounded-full bg-(--ice) px-2 py-0.5 text-(--signal)">{{ t(`interview.types.${r.type}`) }}</span>
+                  <span class="rounded-full border border-(--line) px-2 py-0.5 text-(--ink2)">{{ t(`interview.levels.${r.level}`) }}</span>
                   <span
                     v-if="r.company"
-                    class="border border-(--line) bg-(--ink) px-1.5 py-0.5 text-(--paper)"
+                    class="rounded-full bg-(--navy) px-2 py-0.5 text-white"
                   >{{ r.company }}</span>
                   <span
                     v-if="r.source === 'community'"
@@ -310,16 +328,10 @@ const heroStats = computed(() => [
                     class="size-4"
                   />{{ votes[slugOf(r.path)] ?? 0 }}</span>
                 </div>
-                <h3
-                  class="mt-3 font-bold leading-snug text-(--ink) group-hover:text-(--signal)"
-                  :class="view === 'grid' ? 'text-lg' : 'text-xl'"
-                >
+                <h3 class="mt-3 text-lg font-bold leading-snug text-(--ink) group-hover:text-(--signal)">
                   {{ r.title }}
                 </h3>
-                <p
-                  class="mt-2 leading-relaxed text-(--ink2)"
-                  :class="view === 'grid' ? 'line-clamp-3 text-[15px]' : 'line-clamp-2 text-[17px]'"
-                >
+                <p class="mt-2 line-clamp-2 text-[15px] leading-relaxed text-(--ink2)">
                   {{ r.description }}
                 </p>
               </NuxtLink>
@@ -327,8 +339,9 @@ const heroStats = computed(() => [
               <NuxtPage v-if="openSlug === slugOf(r.path)" />
             </li>
           </ol>
+          <!-- Two units on the whole list, not one per few sections. -->
           <PromoSlot
-            v-if="gi % 3 === 1"
+            v-if="gi === 1 || gi === 5"
             unit="horizontal"
           />
         </section>

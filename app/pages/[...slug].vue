@@ -354,8 +354,6 @@ const meta = computed(() => metaOf(route.path))
 const done = computed(() => isDone(route.path))
 const mobileContents = useState('bp-contents-mobile', () => false)
 const tocOpen = useCookie<boolean>('bp-toc-open', { default: () => true, sameSite: 'lax' })
-// About one square per two minutes of reading, between 2 and 8.
-const tocSquares = computed(() => Math.min(8, Math.max(2, Math.round(metaOf(route.path).minutes / 2))))
 
 const saved = computed(() => isSaved(route.path))
 async function toggleSaved() {
@@ -426,7 +424,7 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
           >
             <ol class="flex min-w-0 flex-wrap items-center gap-x-2 text-sm text-(--ink2)">
               <li
-                v-for="(c, i) in breadcrumbItems"
+                v-for="(c, i) in breadcrumbItems.slice(0, -1)"
                 :key="c.to"
                 class="flex min-w-0 max-w-full items-center gap-2"
               >
@@ -434,7 +432,6 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
                 <NuxtLink
                   :to="c.to"
                   class="truncate hover:text-(--signal)"
-                  :class="i === breadcrumbItems.length - 1 ? 'text-(--ink)' : ''"
                 >{{ c.label }}</NuxtLink>
               </li>
             </ol>
@@ -457,40 +454,43 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
                 {{ t('course.comingSoon') }} — {{ page.navigation && typeof page.navigation === 'object' ? page.navigation.title : headline }}
               </template>
               <template v-else>
-                {{ t('curriculumPage.section', { n: (current?.moduleIndex ?? 0) + 1 }) }} · {{ current && current.indexInModule > 0 ? t('lesson.number', { n: current.indexInModule }) : t('lesson.overview') }} — {{ current?.moduleTitle || headline }}
+                {{ t('curriculumPage.section', { n: (current?.moduleIndex ?? 0) + 1 }) }} · {{ current && current.indexInModule > 0 ? t('lesson.number', { n: current.indexInModule }) : t('lesson.overview') }}
               </template>
             </p>
-            <h1 class="bp-h1 mt-3 max-w-4xl text-(--ink)">
+            <h1 class="mt-3 max-w-3xl text-3xl font-bold leading-[1.12] tracking-[-0.02em] text-(--ink) sm:text-4xl lg:text-[2.625rem]">
               {{ page.title }}
             </h1>
             <p
               v-if="page.description"
-              class="bp-lead mt-4 max-w-3xl"
+              class="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-(--ink2)"
             >
               {{ page.description }}
             </p>
-            <CourseLessonAuthors
-              :authors="lessonAuthors"
-              class="mt-4"
-            />
-            <div class="mt-5 flex flex-wrap items-center gap-2">
+            <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-(--ink2)">
               <span
                 v-if="!page.comingSoon"
-                class="flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold uppercase tracking-[.06em]"
-                :class="isProLesson ? 'bg-(--navy) text-white' : 'bg-success/10 text-success'"
+                class="flex items-center gap-1.5 font-semibold"
+                :class="isProLesson ? 'text-(--ink)' : 'text-success'"
               ><UIcon
                 :name="isProLesson ? (unlocked ? 'i-lucide-lock-keyhole-open' : 'i-lucide-lock-keyhole') : 'i-lucide-gift'"
-                class="size-3"
+                class="size-4"
               />{{ isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
-              <span class="rounded-full border border-(--line) bg-(--card) px-2.5 py-1 text-xs font-medium text-(--ink2)">
-                {{ meta.type }} · {{ meta.minutes }} min
+              <span class="flex items-center gap-1.5">
+                <UIcon
+                  :name="meta.type === 'video' ? 'i-lucide-circle-play' : 'i-lucide-clock'"
+                  class="size-4"
+                />{{ meta.minutes }} min
               </span>
+              <span
+                class="h-4 w-px bg-(--line)"
+                aria-hidden="true"
+              />
               <ClientOnly>
                 <UButton
                   :icon="saved ? 'i-lucide-bookmark-check' : 'i-lucide-bookmark'"
                   size="xs"
                   :color="saved ? 'primary' : 'neutral'"
-                  :variant="saved ? 'solid' : 'outline'"
+                  variant="ghost"
                   @click="toggleSaved"
                 >
                   {{ saved ? t('lesson.saved') : t('lesson.save') }}
@@ -506,11 +506,6 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
               />
               <PageHeaderLinks />
             </div>
-            <ShareBar
-              :title="page.title"
-              :text="t('share.lessonText', { title: page.title })"
-              class="mt-4"
-            />
           </div>
           <CourseLessonArt
             :image="page.image"
@@ -548,7 +543,7 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
       <!-- Prev / mark complete / next -->
       <div
         v-if="!page.comingSoon"
-        class="mb-8 grid items-stretch border border-(--line) bg-(--card) rounded-2xl"
+        class="mb-8 grid items-stretch rounded-[6px] border border-(--line) bg-(--card)"
         style="grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr)"
       >
         <NuxtLink
@@ -625,11 +620,6 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
           </template>
         </ClientOnly>
       </div>
-
-      <PromoSlot
-        :key="`top-${route.path}`"
-        unit="leaderboard728x90"
-      />
 
       <LessonWalkthrough
         v-if="lesson.walkthrough?.shots?.length"
@@ -749,19 +739,12 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
                 />{{ l.label }}
               </NuxtLink>
             </div>
-            <!-- Squares down the whole column, one per stretch of lesson:
-                 the longer the lesson, the more of them fit beside it. -->
-            <SponsorInvite
-              compact
+            <!-- One unit beside the lesson, nothing more. -->
+            <PromoSlot
+              :key="`toc-square-${route.path}`"
+              unit="square250"
               class="mt-6"
             />
-            <div class="mt-6 space-y-6">
-              <PromoSlot
-                v-for="n in tocSquares"
-                :key="`toc-square-${n}-${route.path}`"
-                :unit="'square250'"
-              />
-            </div>
           </div>
         </aside>
       </div>
@@ -776,6 +759,10 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
         :items="lesson.interview"
       />
 
+      <CourseLessonAuthors
+        :authors="lessonAuthors"
+        class="mt-10"
+      />
       <CourseLessonCredits
         :credits="lessonCredits"
         :video="videoCredit"
@@ -783,7 +770,7 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
 
       <CourseLessonComplete v-if="!page.comingSoon" />
 
-      <div class="my-10 flex flex-wrap items-center justify-between gap-4 border border-(--line) bg-(--ice) p-5">
+      <div class="my-10 flex flex-wrap items-center justify-between gap-4 rounded-[6px] border border-(--line) bg-(--ice) p-5">
         <p class="font-bold text-(--ink)">
           {{ t('share.lessonPrompt') }}
         </p>

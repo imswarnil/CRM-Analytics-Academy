@@ -192,18 +192,6 @@ const focus = computed(() => Boolean(route.meta.focus) || focusState.value)
       </NuxtLayout>
     </UMain>
 
-    <!-- One more unit on every page, above the footer; PromoSlot itself
-         skips members and the pages promos never appear on. -->
-    <div
-      v-if="!focus"
-      class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8"
-    >
-      <PromoSlot
-        :key="`footer-${route.path}`"
-        unit="leaderboard980x90"
-      />
-    </div>
-
     <AppFooter v-if="!focus" />
 
     <ClientOnly>

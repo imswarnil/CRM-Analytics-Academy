@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
 import { ROADMAP } from '~/data/roadmap'
+import { AUTHOR } from '~/data/author'
 
 /**
  * The home page, kept to what a first-time visitor needs: what the course
@@ -146,6 +147,12 @@ const heroFacts = computed(() => [
   { icon: 'i-lucide-languages', value: '7', label: t('home.facts.languages') },
   { icon: 'i-lucide-badge-dollar-sign', value: t('home.facts.freeValue'), label: t('home.facts.free') }
 ])
+const howSteps = [
+  { key: 'watch', icon: 'i-lucide-circle-play' },
+  { key: 'read', icon: 'i-lucide-book-open' },
+  { key: 'quiz', icon: 'i-lucide-list-checks' },
+  { key: 'notes', icon: 'i-lucide-notebook-pen' }
+]
 </script>
 
 <template>
@@ -195,28 +202,6 @@ const heroFacts = computed(() => [
               />
             </ClientOnly>
           </div>
-          <div class="mt-10 flex items-center gap-4">
-            <!-- What you will work with, as a stack of tiles -->
-            <div
-              class="flex -space-x-2.5"
-              aria-hidden="true"
-            >
-              <span
-                v-for="(ic, k) in ['i-simple-icons-salesforce', 'i-lucide-database', 'i-lucide-workflow', 'i-lucide-layout-dashboard', 'i-lucide-sparkles']"
-                :key="ic"
-                class="hero-stack flex size-10 items-center justify-center rounded-full border-2 border-(--navy) text-white"
-                :style="{ background: ['#0176D3', '#0B5CAB', '#1B96FF', '#014486', '#3A49DA'][k], animationDelay: `${k * 80}ms` }"
-              >
-                <UIcon
-                  :name="ic"
-                  class="size-[1.125rem]"
-                />
-              </span>
-            </div>
-            <p class="text-sm leading-snug text-white/75">
-              {{ t('home.hero.stack') }}
-            </p>
-          </div>
         </div>
 
         <!-- The product, as a story: what you will build -->
@@ -250,9 +235,6 @@ const heroFacts = computed(() => [
       </div>
     </section>
 
-    <!-- HOW YOU WILL LEARN IT ------------------------------------------- -->
-    <HomeApproach />
-
     <!-- THE COURSE, SECTION BY SECTION (all planned; live ones link) ---- -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
       <div class="flex flex-wrap items-end justify-between gap-4">
@@ -277,7 +259,27 @@ const heroFacts = computed(() => [
         </UButton>
       </div>
 
-      <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- How every lesson works, as four steps -->
+      <ol class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <li
+          v-for="(st, k) in howSteps"
+          :key="st.key"
+          class="flex items-center gap-3 rounded-[6px] border border-(--line) bg-(--card) px-4 py-3"
+        >
+          <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-(--ice) text-(--signal)">
+            <UIcon
+              :name="st.icon"
+              class="size-[1.125rem]"
+            />
+          </span>
+          <span class="min-w-0">
+            <span class="block text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">{{ k + 1 }}</span>
+            <span class="block truncate text-sm font-semibold text-(--ink)">{{ t(`home.how.${st.key}`) }}</span>
+          </span>
+        </li>
+      </ol>
+
+      <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <li
           v-for="(s, i) in path"
           :key="s.key"
@@ -300,7 +302,7 @@ const heroFacts = computed(() => [
                 <span
                   class="ms-auto rounded-full px-2 py-0.5 text-[10px]"
                   :class="s.live ? 'bg-success/10 text-success' : 'bg-(--paper2) text-(--ink2)'"
-                >{{ s.live ? t('curriculumPage.lessons', { n: s.live }) : t('curriculumPage.coming') }}</span>
+                >{{ s.live ? lessonsLabel(t, s.live) : t('curriculumPage.coming') }}</span>
               </p>
               <h3 class="mt-2 text-lg font-bold leading-snug text-(--ink) group-hover:text-(--signal)">
                 {{ t(`roadmap.${s.key}.title`) }}
@@ -323,60 +325,13 @@ const heroFacts = computed(() => [
 
     <!-- WHAT IT COSTS ---------------------------------------------------- -->
     <HomeCompare />
-    <div class="mx-auto max-w-(--ui-container) px-4 pb-6 sm:px-6 lg:px-8">
-      <SponsorInvite />
-    </div>
-
-    <!-- FREE ACCOUNT ----------------------------------------------------- -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 lg:px-8">
-      <div class="graph-paper-navy flex flex-col gap-6 border border-(--line) p-6 text-white sm:p-10 lg:flex-row lg:items-center lg:justify-between">
-        <div class="max-w-2xl">
-          <p class="font-medium text-[11px] text-(--glow)">
-            {{ t('home.join.eyebrow') }}
-          </p>
-          <h2 class="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
-            {{ t('home.join.title') }}
-          </h2>
-          <p class="mt-3 text-white/80">
-            {{ t('home.join.lead') }}
-          </p>
-        </div>
-        <div class="flex flex-wrap gap-3">
-          <UButton
-            :to="localePath('/sign-up')"
-            color="secondary"
-            size="lg"
-            icon="i-lucide-user-plus"
-          >
-            {{ t('nav.enrollFree') }}
-          </UButton>
-          <UButton
-            :to="localePath('/start')"
-            size="lg"
-            color="neutral"
-            variant="outline"
-            icon="i-lucide-graduation-cap"
-            class="border-white/60 bg-transparent text-white hover:bg-white/10"
-          >
-            {{ t('home.join.browse') }}
-          </UButton>
-        </div>
-      </div>
-    </section>
-
-    <!-- WALL OF FAME ---------------------------------------------------- -->
-    <HomeWallSection />
-
-    <!-- AUTHOR ------------------------------------------------------------ -->
-    <HomeAuthorSection />
-
     <!-- FAQ --------------------------------------------------------------- -->
     <section
       v-if="faqItems.length"
       class="mx-auto max-w-3xl px-4 pb-20 sm:px-6"
     >
-      <div class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
-        <div class="flex items-center justify-between border-b border-(--line) bg-(--ice) px-5 py-4">
+      <div class="overflow-hidden rounded-[6px] border border-(--line) bg-(--card)">
+        <div class="flex items-center justify-between border-b border-(--line) px-5 py-4">
           <h2 class="text-xl font-semibold text-(--ink)">
             {{ t('home.faqTitle') }}
           </h2>
@@ -391,14 +346,37 @@ const heroFacts = computed(() => [
         />
       </div>
     </section>
-    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
-      <div class="mb-6 flex justify-center">
-        <ShareBar
-          :title="t('seo.homeTitle')"
-          :text="t('seo.homeDesc')"
-        />
+    <!-- ONE CLOSING ACTION -->
+    <section class="relative overflow-hidden border-t border-(--line) bg-(--card)">
+      <BpFloatCharts />
+      <div class="relative mx-auto flex max-w-(--ui-container) flex-col items-center px-4 py-16 text-center sm:px-6 lg:px-8">
+        <h2 class="max-w-2xl text-3xl font-bold tracking-[-0.02em] text-(--ink) sm:text-4xl">
+          {{ t('home.close.title') }}
+        </h2>
+        <p class="mt-3 max-w-xl text-(--ink2)">
+          {{ t('home.close.lead') }}
+        </p>
+        <UButton
+          :to="localePath('/start')"
+          size="xl"
+          trailing-icon="i-lucide-arrow-right"
+          class="mt-8"
+        >
+          {{ t('home.hero.start') }}
+        </UButton>
+        <NuxtLink
+          :to="localePath('/about')"
+          class="mt-8 flex items-center gap-3 text-sm text-(--ink2) hover:text-(--signal)"
+        >
+          <img
+            :src="AUTHOR.avatar"
+            alt=""
+            class="size-8 rounded-full bg-(--ice) object-cover"
+            loading="lazy"
+          >
+          {{ t('home.close.author') }}
+        </NuxtLink>
       </div>
-      <PromoSlot unit="responsiveLeaderboard" />
-    </div>
+    </section>
   </div>
 </template>

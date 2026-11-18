@@ -4,7 +4,7 @@
     "resources": "Resources",
     "about": "About",
     "github": "View on GitHub",
-    "theme": "Toggle theme",
+    "theme": "Theme",
     "chooseLanguage": "Choose language",
     "datasets": "Datasets",
     "contribute": "Contribute",
@@ -265,7 +265,7 @@
     },
     "path": {
       "title": "Seven sections, from the data model to the dashboards people open every morning.",
-      "lead": "{lessons} lessons are out now. The rest arrive section by section, each with a video, a quiz and a page of notes."
+      "lead": "{lessons} lessons out now — the rest arrive section by section."
     },
     "facts": {
       "sections": "course sections, in order",
@@ -273,20 +273,25 @@
       "languages": "languages, incl. Hindi",
       "freeValue": "Free",
       "free": "to start, no card"
+    },
+    "how": {
+      "watch": "Watch the video",
+      "read": "Read the lesson",
+      "quiz": "Take the quiz",
+      "notes": "Keep the notes"
+    },
+    "close": {
+      "title": "Your first dashboard starts with lesson 1.",
+      "lead": "Free to start. Ten minutes a day is enough.",
+      "author": "Taught by Swarnil Singhai, CRM Analytics consultant"
     }
   },
   "footer": {
-    "tagline": "A free, open-source curriculum for mastering Salesforce CRM Analytics.",
-    "curriculum": "Curriculum",
+    "tagline": "Learn Salesforce CRM Analytics, from the data model to the dashboards people use.",
     "project": "Project",
     "community": "Community",
-    "quip": {
-      "0": "Made by Swarnil, one dashboard at a time.",
-      "1": "Written and recorded by Swarnil, between real Salesforce projects.",
-      "2": "Built by Swarnil for everyone who has been handed CRM Analytics and told to figure it out."
-    },
-    "builtWith": "Built with",
-    "builtWithNote": "Open source. Star the repo, fork it, or send a pull request."
+    "learn": "Learn",
+    "notAffiliated": "Not affiliated with Salesforce, Inc."
   },
   "seo": {
     "homeTitle": "CRM Analytics Academy — Learn Salesforce CRM Analytics",
@@ -552,74 +557,26 @@
   },
   "about": {
     "work": {
-      "eyebrow": "§ 03 — The work",
-      "title": "Seven years of go-to-market analytics.",
-      "highlights": "Highlights",
-      "experience": "Experience",
-      "education": "Education",
-      "skills": "Skills",
-      "projects": "Also built by Swarnil",
-      "live": "Live",
-      "building": "Building"
+      "title": "Seven years of go-to-market analytics"
     },
     "header": {
       "sheet": "About",
       "title": "Making CRM Analytics learnable for everyone",
       "lead": "Two things to know: what this project is, and who builds it."
     },
-    "project": {
-      "eyebrow": "§ 01 — The project",
-      "title": "Great analytics learning shouldn't be locked away",
-      "p1": "Learning CRM Analytics usually means stitching together scattered docs, expensive courses, and out-of-date blog posts. The result is a steep, lonely climb — even though the platform is genuinely powerful once it clicks.",
-      "p2": "{name} exists to fix that: one coherent, modern, community-driven curriculum that takes you from \"what is a CRM?\" all the way to deploying an explainable prediction back into Salesforce. It is, and always will be, free and open source.",
-      "p3": "Everything is written in the open. Spot a mistake or want to add a recipe? Open a pull request — the curriculum gets better with every learner who joins in."
-    },
-    "principles": [
-      {
-        "title": "Open, and free at the core",
-        "desc": "No sign-up wall. Most lessons are free and live in a public repo you can read, fork and improve; a few hands-on lessons are part of Pro."
-      },
-      {
-        "title": "A path, not a pile",
-        "desc": "Nineteen sections build on each other — from what CRM Analytics is, through SAQL and dashboard design, to seventeen go-to-market dashboards on the Academy’s own business data."
-      },
-      {
-        "title": "Hands-on by default",
-        "desc": "Real SAQL, recipes, and dashboard examples you can paste straight into your own org."
-      },
-      {
-        "title": "AI-native",
-        "desc": "Every page is published as Markdown and over MCP, so assistants can teach from the source."
-      }
-    ],
-    "principleLabel": "Principle {n}",
-    "curriculumAtGlance": "The curriculum at a glance",
-    "instructor": {
-      "eyebrow": "§ 02 — The instructor",
-      "caption": "Instructor",
-      "spec": "Creator & maintainer"
-    },
     "stats": {
-      "sections": "Sections",
-      "lessons": "Lessons",
-      "openSource": "Open source"
+      "years": "years in GTM",
+      "sections": "course sections",
+      "languages": "languages"
     },
-    "links": {
-      "website": "Website"
-    },
-    "author": {
-      "title": "Built by one developer, for the whole community",
-      "p1": "Hi — I'm {name}. I build on the Salesforce platform and care a lot about making hard things approachable. I started CRM Analytics Academy after watching too many capable people bounce off the learning curve, simply because the good material was scattered, dated, or behind a paywall.",
-      "p2": "So I turned what I'd learned the hard way into a structured, open path others can follow — the resource I wish I'd had when I started. Every lesson is something I'd actually want a teammate to read on their first week.",
-      "p3": "This is an ongoing, community-driven project. If it helped you, the best thanks is to {star}, suggest a topic, or contribute a lesson.",
-      "star": "star the repo"
-    },
-    "cta": {
-      "eyebrow": "Start",
-      "title": "Start learning today",
-      "body": "It's free, open, and built to take you from CRM basics all the way to certified.",
-      "start": "Start with Foundations",
-      "github": "Star on GitHub"
+    "page": {
+      "title": "Taught by someone who builds these dashboards for a living.",
+      "lead": "I spent seven years turning pipeline, CPQ and product data into dashboards sales teams open every morning. This course is that work, in order, for anyone who wants to learn it.",
+      "pillars": {
+        "free": "Free to start",
+        "path": "A path, not a pile",
+        "hands": "Built on real data"
+      }
     }
   },
   "contribute": {
@@ -628,141 +585,47 @@
       "description": "Full contributor guide: set up locally, write and translate lessons, suggest resources, follow the code style, and open a pull request."
     },
     "hero": {
-      "eyebrow": "Contributor guide",
+      "eyebrow": "Contribute",
       "title": "Help build the {em}",
       "titleEm": "community",
       "lead": "Everything you need to add a lesson, translate content, suggest a resource, or improve the code.",
       "github": "View on GitHub",
       "suggest": "Suggest a resource"
     },
-    "stepper": "The guide, step by step",
-    "stepLabel": "Step {n}",
-    "levels": {
-      "startHere": "Start here",
-      "noCode": "No code",
-      "beginner": "Beginner",
-      "intermediate": "Intermediate",
-      "advanced": "Advanced",
-      "reference": "Reference",
-      "anytime": "Anytime"
-    },
-    "steps": {
-      "ways": "Ways to contribute",
-      "setup": "Local setup",
-      "lessons": "Writing a lesson",
-      "frontmatter": "Lesson frontmatter",
-      "translations": "Translations",
-      "submit": "Suggesting resources",
-      "code": "Code contributions",
-      "stack": "Tech stack",
-      "pr": "Opening a pull request",
-      "help": "Getting help"
-    },
-    "welcome": {
-      "title": "New here? You're exactly who this is for.",
-      "body": "You don't need to be a CRM Analytics expert or a developer to help. Pick a tiny first step below — most take a few minutes and need {zero}. We review everything and are happy to guide you.",
-      "zero": "zero code"
-    },
-    "quickStarts": [
-      {
-        "title": "Fix a typo",
-        "text": "Hit “Edit this page” on any lesson — it opens a GitHub edit form. No setup at all."
+    "page": {
+      "title": "Help make the course better.",
+      "lead": "Share what helped you, point out what is wrong, or improve the code. A person reviews everything.",
+      "ways": {
+        "resource": {
+          "title": "Share a resource",
+          "text": "An article, video or tool that helped you learn.",
+          "cta": "Share a link"
+        },
+        "lesson": {
+          "title": "Fix or suggest a lesson",
+          "text": "Something unclear or wrong, or a topic you want covered.",
+          "cta": "Send a fix"
+        },
+        "translation": {
+          "title": "Improve a translation",
+          "text": "A sentence that reads wrong in your language.",
+          "cta": "Suggest wording"
+        },
+        "code": {
+          "title": "Improve the code",
+          "text": "The site is open source. Fix a bug or add a feature.",
+          "cta": "Read the guide"
+        }
       },
-      {
-        "title": "Share a resource",
-        "text": "Found a great link? Open an issue and we will add it to the library."
+      "nextTitle": "What happens next",
+      "next": {
+        "1": "You send it — it takes a minute.",
+        "2": "A person reviews it, usually within a few days.",
+        "3": "Approved ones go live and earn you points."
       },
-      {
-        "title": "Improve a translation",
-        "text": "Translations are machine-generated. Fix a clumsy sentence in your language — you do not need to touch English."
-      }
-    ],
-    "submitHere": "Submit it here",
-    "ways": {
-      "intro": "There are four main ways to help — pick whatever fits your time and skills:",
-      "write": {
-        "label": "Write or fix a lesson",
-        "text": "improve wording, fix errors, or add a whole new lesson (Markdown, no coding needed)."
-      },
-      "translate": {
-        "label": "Translate",
-        "text": "bring a lesson or the UI into one of the site's languages."
-      },
-      "resource": {
-        "label": "Suggest a resource",
-        "text": "share a great docs page, course, tool, or community. {link} — it goes into a moderation queue, not a GitHub issue."
-      },
-      "code": {
-        "label": "Improve the code",
-        "text": "fix a bug, refine the UI, or add a feature via a pull request."
-      },
-      "outro": "Lesson and code changes go through GitHub, because every lesson is a file in the repo. Resources and lesson ideas are submitted on the site and reviewed in the admin console."
-    },
-    "setup": {
-      "need": "You'll need {node} and {pnpm}. Then:",
-      "checks": "Before committing, always run the two checks (there's no test runner):",
-      "tipLabel": "Tip:",
-      "tip": "{label} if the docs sidebar ever looks empty in dev, the local content database went stale. Fix it with {cmd}."
-    },
-    "lessons": {
-      "p1": "Lessons are plain Markdown under {path}. English lives in {en}. The number prefixes set the order:",
-      "p2": "To add a lesson, create a new file with the next number in a module (e.g. {example}), start with a top-level heading, and write in Markdown. Use {h2} for sections — they become the table of contents. Keep it practical and example-led.",
-      "p3": "To fix a small typo, just use the {edit} link at the bottom of any lesson — it opens a GitHub edit form.",
-      "editLabel": "“Edit this page”"
-    },
-    "frontmatter": {
-      "intro": "Each lesson starts with a YAML frontmatter block:",
-      "p1": "{title} and {description} are required; {video} and {interview} are optional. A new {module} also needs a {nav} (with {navTitle} and an {icon}) and a new section in the {llms} config in {config}.",
-      "module": "top-level module"
-    },
-    "translations": {
-      "p1": "The site ships in {languages}: English (default), Spanish, Portuguese, German, French, Japanese and Hindi.",
-      "languages": "7 languages",
-      "p2": "{bold} Write the lesson in English only. On the next build, a LibreTranslate server running locally translates it and writes {path} for the four other languages. Code blocks, SAQL, links, frontmatter keys and product names are protected and come through untouched.",
-      "p2Bold": "You do not translate by hand.",
-      "p3": "To run it yourself: {all} (only changed files), or {subset}.",
-      "p4": "{bold} If a sentence reads badly in your language, edit that locale's file directly and open a pull request — the pipeline only overwrites a file when its {english} source changes, so your fix survives.",
-      "p4Bold": "Machine translation is a starting point, not the finish line.",
-      "english": "English",
-      "p5": "UI strings live in {path}. Add new strings to {en} only; the same run fills in the other four and leaves existing translations alone."
-    },
-    "submit": {
-      "p1": "Found a helpful link — docs, a course, a tool, a community? {link}. Title, URL and a line on why it is worth someone's time; it lands as pending and a maintainer approves it. No GitHub account, no pull request, no waiting for a build.",
-      "p2": "Opening an issue still works if you prefer it, and so does a pull request adding a file to {path}. The form is simply faster, and it is the same moderation queue at the other end."
-    },
-    "code": {
-      "p1": "The stack is {stack}. Key folders:",
-      "content": "{path} — the lessons (Markdown).",
-      "app": "{pages}, {components}, {composables} — the app UI.",
-      "raw": "{path} — the raw-markdown surface for AI agents and crawlers.",
-      "p2": "Style rules are enforced by ESLint: no trailing commas, 1TBS braces, 2-space indent, and one interface member per line. Run {cmd} to auto-format. Match the surrounding code's conventions."
-    },
-    "stack": {
-      "intro": "The whole site is open source — here's what powers it:",
-      "nuxt": "{name} (Vue 3 + Nitro) — the framework, SSR + prerendering",
-      "content": "{name} — lessons authored in Markdown, served from SQLite",
-      "ui": "{ui} + {tailwind} — components and styling",
-      "i18n": "{name} — 7 languages, six of them translated from English",
-      "hosting": "{workers} + {actions} — prerendered pages served as static assets, a Worker for the dynamic routes, auto-deployed on push to {main}",
-      "extras": "Also in the box: {og} (social cards), {llms} (machine-readable docs), and structured data for SEO.",
-      "noDb": "Every lesson is prerendered at build time from Markdown, so you can write and preview lessons with {bold}. Accounts and progress run on Neon Postgres and only matter if you are working on those features — the README covers them.",
-      "noDbBold": "no database at all"
-    },
-    "pr": {
-      "branch": "{bold} off {main}: {cmd}",
-      "branchBold": "Branch",
-      "change": "{bold} and preview it with {cmd}.",
-      "changeBold": "Make your change",
-      "verify": "{bold}: {lint} and {typecheck} both pass.",
-      "verifyBold": "Verify",
-      "commit": "{bold} with a clear message and {push} to your fork.",
-      "commitBold": "Commit the change",
-      "pushBold": "push",
-      "open": "{bold} against {main}, describing what changed and why.",
-      "openBold": "Open a PR",
-      "after": "A maintainer will review, suggest tweaks if needed, and merge. Once merged, the GitHub Actions workflow builds the site and publishes it to Cloudflare automatically."
-    },
-    "help": "Stuck or have an idea? Open an issue or a discussion on {github}. First-time contributors are very welcome — no contribution is too small."
+      "help": "Stuck or have a question?",
+      "helpLink": "Open an issue on GitHub"
+    }
   },
   "datasets": {
     "seo": {
@@ -1010,7 +873,8 @@
       "2": "The lesson, with diagrams and a worked example",
       "3": "A quiz and the interview questions",
       "4": "Downloadable notes when the section is complete"
-    }
+    },
+    "lessonOne": "1 lesson"
   },
   "lesson": {
     "authors": {

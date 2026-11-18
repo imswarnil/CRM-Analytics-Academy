@@ -4,7 +4,6 @@ import type { ContentNavigationItem } from '@nuxt/content'
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { header } = useAppConfig()
-const colorMode = useColorMode()
 const { t, locale, locales, setLocale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
@@ -16,7 +15,6 @@ const NAV = [
   { key: 'course', icon: 'i-lucide-flag', to: '/start' },
   { key: 'exam', icon: 'i-lucide-timer', to: '/certification' },
   { key: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions' },
-  { key: 'jobs', icon: 'i-lucide-briefcase-business', to: '/jobs' },
   { key: 'pricing', icon: 'i-lucide-sparkles', to: '/pro' }
 ] as const
 const menuItems = computed(() => NAV.map(n => ({ label: t(`nav.main.${n.key}`), icon: n.icon, to: localePath(n.to) })))
@@ -47,6 +45,8 @@ function isActive(item: { to: string, exact?: boolean }) {
 
 // The rest of the site, for the mobile slideover only.
 const extraItems = computed(() => [
+  { label: t('nav.jobs'), icon: 'i-lucide-briefcase-business', to: localePath('/jobs') },
+  { label: t('nav.notes'), icon: 'i-lucide-notebook-pen', to: localePath('/notes') },
   { label: t('nav.resources'), icon: 'i-lucide-library-big', to: localePath('/resources') },
   { label: t('nav.wallOfFame'), icon: 'i-lucide-heart-handshake', to: localePath('/wall-of-fame') },
   { label: t('nav.companies'), icon: 'i-lucide-building-2', to: localePath('/companies') },
@@ -191,51 +191,6 @@ const localeItems = computed(() =>
               />{{ locale }}
             </button>
           </UDropdownMenu>
-          <ClientOnly>
-            <button
-              v-if="header?.colorMode"
-              type="button"
-              class="nav-icon max-lg:hidden"
-              :aria-label="t('nav.theme')"
-              :title="t('nav.theme')"
-              @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
-            >
-              <UIcon
-                :name="colorMode.value === 'dark' ? 'i-lucide-sun' : 'i-lucide-moon'"
-                class="size-[1.125rem]"
-              />
-            </button>
-            <template #fallback>
-              <span class="nav-icon max-lg:hidden" />
-            </template>
-          </ClientOnly>
-          <a
-            :href="SITE.youtube"
-            target="_blank"
-            rel="noopener"
-            class="nav-icon max-xl:hidden hover:text-[#FF0000]"
-            :aria-label="t('nav.youtube')"
-            :title="t('nav.youtube')"
-          >
-            <UIcon
-              name="i-simple-icons-youtube"
-              class="size-[1.125rem]"
-            />
-          </a>
-          <!-- Star on GitHub: a plain link, no API call. -->
-          <a
-            :href="SITE.github"
-            target="_blank"
-            rel="noopener"
-            class="nav-icon max-xl:hidden"
-            :aria-label="t('nav.starOnGithub')"
-            :title="t('nav.starOnGithub')"
-          >
-            <UIcon
-              name="i-simple-icons-github"
-              class="size-[1.125rem]"
-            />
-          </a>
         </div>
 
         <span
@@ -245,7 +200,7 @@ const localeItems = computed(() =>
 
         <!-- Account: one fixed-width slot either way, so the bar keeps its
              shape across sign-in. Dashboard and admin live in the menu. -->
-        <div class="flex shrink-0 items-center justify-end gap-2 sm:w-[11.5rem]">
+        <div class="flex shrink-0 items-center justify-end gap-2 sm:w-[8.5rem]">
           <ClientOnly>
             <UDropdownMenu
               v-if="isSignedIn"
@@ -274,11 +229,6 @@ const localeItems = computed(() =>
               </button>
             </UDropdownMenu>
             <template v-else>
-              <TestRide
-                variant="ghost"
-                color="neutral"
-                class="h-9 max-xl:hidden"
-              />
               <UButton
                 :to="signInTo"
                 size="md"

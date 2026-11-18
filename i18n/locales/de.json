@@ -4,7 +4,7 @@
     "resources": "Ressourcen",
     "about": "Über",
     "github": "Ansicht am GitHub",
-    "theme": "Umschaltthema",
+    "theme": "Thema",
     "chooseLanguage": "Wählen Sie die Sprache",
     "datasets": "Datensätze",
     "contribute": "Beitrag",
@@ -265,7 +265,7 @@
     },
     "path": {
       "title": "Sieben Abschnitte, vom Datenmodell bis zu den Dashboards, die jeden Morgen geöffnet werden.",
-      "lead": "{lessons} Die Lektionen sind jetzt raus. Der Rest kommt Abschnitt für Abschnitt an, jeweils mit einem Video, einem Quiz und einer Notizseite."
+      "lead": "{lessons} Lektionen jetzt - der Rest kommt Abschnitt für Abschnitt."
     },
     "facts": {
       "sections": "Kursabschnitte, in der Reihenfolge",
@@ -273,20 +273,25 @@
       "languages": "Sprachen, inkl. Hindi",
       "freeValue": "frei",
       "free": "zu starten, keine Karte"
+    },
+    "how": {
+      "watch": "Sehen Sie sich das Video an",
+      "read": "Lesen Sie die Lektion",
+      "quiz": "Mach das Quiz",
+      "notes": "Halten Sie die Notizen"
+    },
+    "close": {
+      "title": "Dein erstes Dashboard beginnt mit Lektion 1.",
+      "lead": "Frei zu starten. Zehn Minuten am Tag sind genug.",
+      "author": "Gelehrt von Swarnil Singhai, CRM Analytics Berater"
     }
   },
   "footer": {
-    "tagline": "Ein kostenloses, Open-Source-Curriculum für das Mastering Salesforce CRM Analytics.",
-    "curriculum": "Lehrplan",
+    "tagline": "Lernen Salesforce CRM Analytics, vom Datenmodell bis zu den Dashboards, die Menschen verwenden.",
     "project": "Projekt",
     "community": "Gemeinschaft",
-    "quip": {
-      "0": "Hergestellt von Swarnil, ein Dashboard nach dem anderen.",
-      "1": "Geschrieben und aufgezeichnet von Swarnil, zwischen real Salesforce Projekte.",
-      "2": "Gebaut von Swarnil für alle, die übergeben wurden CRM Analytics und sagte, es herauszufinden."
-    },
-    "builtWith": "Gebaut mit",
-    "builtWithNote": "Open Source. Starren Sie das Repo, forken Sie es ab oder senden Sie eine Pull-Anfrage."
+    "learn": "Lernen",
+    "notAffiliated": "Nicht verbunden mit Salesforce, Inc."
   },
   "seo": {
     "homeTitle": "CRM Analytics Akademie - Lernen Salesforce CRM Analytics",
@@ -552,74 +557,26 @@
   },
   "about": {
     "work": {
-      "eyebrow": "§ 03 — Die Arbeit",
-      "title": "Sieben Jahre Go-to-Market Analytics.",
-      "highlights": "Highlights",
-      "experience": "Erfahrung",
-      "education": "Bildung",
-      "skills": "Fähigkeiten",
-      "projects": "Auch gebaut von Swarnil",
-      "live": "Lebend",
-      "building": "Gebäude"
+      "title": "Sieben Jahre Go-to-Market Analytics"
     },
     "header": {
       "sheet": "Über",
       "title": "Herstellung CRM Analytics Lernbar für alle",
       "lead": "Zwei Dinge zu wissen: Was dieses Projekt ist und wer es baut."
     },
-    "project": {
-      "eyebrow": "§ 01 — Das Projekt",
-      "title": "Große Analytics Learning sollte nicht weggesperrt werden",
-      "p1": "Lernen CRM Analytics bedeutet normalerweise, verstreute Dokumente, teure Kurse und veraltete Blog-Posts zusammenzufügen. Das Ergebnis ist ein steiler, einsamer Aufstieg - obwohl die Plattform wirklich mächtig ist, sobald sie klickt.",
-      "p2": "{name} existiert, um das zu beheben: ein kohärentes, modernes, community-gesteuertes Curriculum, das Sie von \"Was ist ein CRM?\" bis hin zur Bereitstellung einer erklärbaren Vorhersage zurück in SalesforceEs ist und wird immer frei und Open Source sein.",
-      "p3": "Alles steht offen. Erkennen Sie einen Fehler oder möchten Sie ein Rezept hinzufügen? Öffnen Sie eine Pull-Anfrage - der Lehrplan wird mit jedem Lernenden, der mitmacht, besser."
-    },
-    "principles": [
-      {
-        "title": "Offen und frei im Kern",
-        "desc": "Keine Anmeldemauer. Die meisten lektionen sind kostenlos und leben in einem öffentlichen repo, das sie lesen, abzweigen und verbessern können; ein paar praktische lektionen sind teil von pro."
-      },
-      {
-        "title": "Ein Weg, kein Haufen",
-        "desc": "Neunzehn Abschnitte bauen aufeinander auf - von dem, was CRM Analytics ist, durch SAQL und Dashboard-Design, bis zu siebzehn Go-to-Market-Dashboards auf den eigenen Geschäftsdaten der Akademie."
-      },
-      {
-        "title": "Hands-on standardmäßig",
-        "desc": "Real SAQLRezepte und dashboard-beispiele, die sie direkt in ihre eigene organisation einfügen können."
-      },
-      {
-        "title": "AI-native",
-        "desc": "Jede Seite wird als Markdown und über MCP veröffentlicht, so dass Assistenten von der Quelle aus unterrichten können."
-      }
-    ],
-    "principleLabel": "Grundsatz {n}",
-    "curriculumAtGlance": "Der Lehrplan auf einen Blick",
-    "instructor": {
-      "eyebrow": "§ 02 — Der Ausbilder",
-      "caption": "Ausbilder",
-      "spec": "Schöpfer & Maintainer"
-    },
     "stats": {
-      "sections": "Abschnitte",
-      "lessons": "Lehren",
-      "openSource": "Open Source"
+      "years": "Jahre in GTM",
+      "sections": "Streckenabschnitte",
+      "languages": "Sprachen"
     },
-    "links": {
-      "website": "Website"
-    },
-    "author": {
-      "title": "Gebaut von einem Entwickler, für die ganze Community",
-      "p1": "Hi — Ich bin {name}Ich baue auf der Salesforce Plattform und kümmern sich viel darum, harte dinge zugänglich zu machen. Ich begann CRM Analytics Akademie, nachdem zu viele fähige Leute von der Lernkurve abgeprallt sind, einfach weil das gute Material verstreut, datiert oder hinter einer Paywall war.",
-      "p2": "Also verwandelte ich das, was ich auf die harte Tour gelernt hatte, in einen strukturierten, offenen Weg, dem andere folgen können - die Ressource, die ich mir gewünscht hatte, als ich anfing. Jede Lektion ist etwas, was ich eigentlich möchte, dass ein Teamkollege in der ersten Woche liest.",
-      "p3": "Dies ist ein laufendes, Community-getriebenes Projekt. Wenn es Ihnen geholfen hat, ist der beste Dank {star}, ein Thema vorschlagen oder eine Lektion beisteuern.",
-      "star": "Star der Repo"
-    },
-    "cta": {
-      "eyebrow": "Beginn",
-      "title": "Beginnen Sie heute mit dem Lernen",
-      "body": "Es ist kostenlos, offen und gebaut, um Sie von CRM-Grundlagen bis hin zu zertifizierten zu führen.",
-      "start": "Beginnen Sie mit Foundations",
-      "github": "Stern auf GitHub"
+    "page": {
+      "title": "Unterrichtet von jemandem, der diese Dashboards für seinen Lebensunterhalt baut.",
+      "lead": "Ich verbrachte sieben Jahre damit, Pipeline-, CPQ- und Produktdaten in Dashboards zu verwandeln, die jeden Morgen geöffnet sind. Dieser Kurs ist, dass Arbeit, in Ordnung, für jeden, der es lernen will.",
+      "pillars": {
+        "free": "Freier Start",
+        "path": "Ein Weg, kein Haufen",
+        "hands": "Basierend auf realen Daten"
+      }
     }
   },
   "contribute": {
@@ -628,141 +585,47 @@
       "description": "Vollständige Anleitung für Mitwirkende: Lokal einrichten, Lektionen schreiben und übersetzen, Ressourcen vorschlagen, dem Codestil folgen und eine Pull-Anfrage öffnen."
     },
     "hero": {
-      "eyebrow": "Leitfaden des Beitragenden",
+      "eyebrow": "Beitrag",
       "title": "Helfen Sie beim Aufbau {em}",
       "titleEm": "Gemeinschaft",
       "lead": "Alles, was Sie brauchen, um eine Lektion hinzuzufügen, Inhalte zu übersetzen, eine Ressource vorzuschlagen oder den Code zu verbessern.",
       "github": "Ansicht am GitHub",
       "suggest": "Eine Ressource vorschlagen"
     },
-    "stepper": "Der Guide, Schritt für Schritt",
-    "stepLabel": "Schritt {n}",
-    "levels": {
-      "startHere": "Beginnen Sie hier",
-      "noCode": "Kein Code",
-      "beginner": "Anfänger",
-      "intermediate": "Zwischenprodukt",
-      "advanced": "Fortgeschritten",
-      "reference": "Referenznummer",
-      "anytime": "jederzeit"
-    },
-    "steps": {
-      "ways": "Wege zum Beitrag",
-      "setup": "Lokale Einrichtung",
-      "lessons": "Eine Lektion schreiben",
-      "frontmatter": "Lektion Frontmatter",
-      "translations": "Übersetzungen",
-      "submit": "Vorgeschlagene Ressourcen",
-      "code": "Codebeiträge",
-      "stack": "Tech-Stack",
-      "pr": "Eröffnung einer Pull Request",
-      "help": "Hilfe bekommen"
-    },
-    "welcome": {
-      "title": "Neu hier? Du bist genau für wen das ist.",
-      "body": "Du musst nicht ein CRM Analytics Experten oder Entwickler zu helfen. Wählen Sie einen kleinen ersten Schritt unten - die meisten dauern ein paar Minuten und brauchen {zero}Wir überprüfen alles und führen Sie gerne.",
-      "zero": "Nullcode"
-    },
-    "quickStarts": [
-      {
-        "title": "Behebe einen Tippfehler",
-        "text": "Klicken sie auf \"diese seite bearbeiten\" in jeder lektion - es öffnet eine. GitHub Formular bearbeiten. Kein Setup überhaupt."
+    "page": {
+      "title": "Helfen Sie, den Kurs besser zu machen.",
+      "lead": "Teilen Sie, was Ihnen geholfen hat, weisen Sie darauf hin, was falsch ist, oder verbessern Sie den Code. Eine Person überprüft alles.",
+      "ways": {
+        "resource": {
+          "title": "Teilen einer Ressource",
+          "text": "Ein Artikel, Video oder Tool, das Ihnen beim Lernen geholfen hat.",
+          "cta": "Einen Link teilen"
+        },
+        "lesson": {
+          "title": "Fix oder Vorschlag einer Lektion",
+          "text": "Etwas unklares oder falsches oder ein thema, das sie abdecken möchten.",
+          "cta": "Senden Sie einen Fix"
+        },
+        "translation": {
+          "title": "Verbessern einer Übersetzung",
+          "text": "Ein Satz, der sich in Ihrer Sprache falsch liest.",
+          "cta": "Vorgeschlagene Formulierung"
+        },
+        "code": {
+          "title": "Verbessern Sie den Code",
+          "text": "Die Website ist Open Source. Behebe einen Bug oder füge ein Feature hinzu.",
+          "cta": "Lesen Sie den Leitfaden"
+        }
       },
-      {
-        "title": "Teilen einer Ressource",
-        "text": "Haben Sie einen tollen Link gefunden? Öffnen Sie ein Problem und wir werden es der Bibliothek hinzufügen."
+      "nextTitle": "Was als nächstes passiert",
+      "next": {
+        "1": "Sie senden es - es dauert eine Minute.",
+        "2": "Eine Person überprüft es, normalerweise innerhalb weniger Tage.",
+        "3": "Genehmigte gehen live und verdienen Punkte."
       },
-      {
-        "title": "Verbessern einer Übersetzung",
-        "text": "Übersetzungen werden maschinell erzeugt. Beheben Sie einen ungeschickten Satz in Ihrer Sprache - Sie müssen kein Englisch berühren."
-      }
-    ],
-    "submitHere": "Hier einreichen",
-    "ways": {
-      "intro": "Es gibt vier Hauptmöglichkeiten, um zu helfen - wählen Sie, was zu Ihrer Zeit und Ihren Fähigkeiten passt:",
-      "write": {
-        "label": "Schreibe oder fixiere eine Lektion",
-        "text": "Verbessern Sie den Wortlaut, beheben Sie Fehler oder fügen Sie eine ganz neue Lektion hinzu (Markdown, keine Codierung erforderlich)."
-      },
-      "translate": {
-        "label": "Übersetzen",
-        "text": "Bringen Sie eine Lektion oder die Benutzeroberfläche in eine der Sprachen der Website."
-      },
-      "resource": {
-        "label": "Eine Ressource vorschlagen",
-        "text": "Teilen Sie eine großartige Docs-Seite, einen Kurs, ein Tool oder eine Community. {link} - es geht in eine Moderationswarteschlange, nicht in eine GitHub Ausgabe."
-      },
-      "code": {
-        "label": "Verbessern Sie den Code",
-        "text": "Beheben Sie einen Fehler, verfeinern Sie die Benutzeroberfläche oder fügen Sie eine Funktion über eine Pull-Anfrage hinzu."
-      },
-      "outro": "Lektion und Code-Änderungen gehen durch GitHub, weil jede Lektion eine Datei im Repo ist. Ressourcen und Unterrichtsideen werden auf der Website eingereicht und in der Admin-Konsole überprüft."
-    },
-    "setup": {
-      "need": "Du wirst brauchen {node} und {pnpm}. Dann:",
-      "checks": "Führen Sie vor dem Begehen immer die beiden Prüfungen aus (es gibt keinen Testläufer):",
-      "tipLabel": "Tipp:",
-      "tip": "{label} Wenn die docs sidebar jemals im dev leer aussieht, ist die lokale inhaltsdatenbank veraltet. Fix it mit {cmd}."
-    },
-    "lessons": {
-      "p1": "Lektionen sind einfach Markdown unter {path}Englisch lebt in {en}Die Anzahl der Präfixe legt die Reihenfolge fest:",
-      "p2": "Um eine Lektion hinzuzufügen, erstellen Sie eine neue Datei mit der nächsten Nummer in einem Modul (z.B. {example}Beginnen Sie mit einer Top-Level-Überschrift und schreiben Sie in Markdown. Verwendung {h2} für Abschnitte - sie werden zum Inhaltsverzeichnis. Halten Sie es praktisch und exemplarisch.",
-      "p3": "Um einen kleinen Tippfehler zu beheben, verwenden Sie einfach die {edit} Link am ende jeder lektion — es öffnet eine. GitHub Formular bearbeiten.",
-      "editLabel": "„Bearbeiten Sie diese Seite"
-    },
-    "frontmatter": {
-      "intro": "Jede Lektion beginnt mit einem YAML Frontmatterblock:",
-      "p1": "{title} und {description} erforderlich sind; {video} und {interview} sind optional. Eine neue {module} Auch braucht ein {nav} (mit) {navTitle} und ein {icon}) und ein neuer Abschnitt im {llms} config in {config}.",
-      "module": "Top-Level-Modul"
-    },
-    "translations": {
-      "p1": "Der Standort Schiffe in {languages}: Englisch (Standard), Spanisch, Portugiesisch, Deutsch, Französisch, Japanisch und Hindi.",
-      "languages": "7 Sprachen",
-      "p2": "{bold} Schreibe die Lektion nur auf Englisch. Beim nächsten Build übersetzt ein LibreTranslate-Server, der lokal ausgeführt wird, ihn und schreibt {path} für die vier anderen Sprachen. Codeblöcke, SAQL, Links, Frontmatterschlüssel und Produktnamen sind geschützt und kommen unberührt durch.",
-      "p2Bold": "Sie übersetzen nicht von Hand.",
-      "p3": "Um es selbst auszuführen: {all} (nur geänderte Dateien) oder {subset}.",
-      "p4": "{bold} Wenn sich ein Satz in Ihrer Sprache schlecht liest, bearbeiten Sie die Datei dieses Gebietsschemas direkt und öffnen Sie eine Pull-Anfrage - die Pipeline überschreibt eine Datei nur, wenn sie {english} Die Quelle ändert sich, so dass Ihr Fix überlebt.",
-      "p4Bold": "Maschinelle Übersetzung ist ein Ausgangspunkt, nicht die Ziellinie.",
-      "english": "Englisch",
-      "p5": "UI Strings leben in {path}Fügen Sie neue Strings hinzu {en} Nur; der gleiche lauf füllt die anderen vier aus und lässt bestehende Übersetzungen in ruhe."
-    },
-    "submit": {
-      "p1": "Haben Sie einen hilfreichen Link gefunden - Dokumente, einen Kurs, ein Tool, eine Community? {link}. Titel, URL und eine Zeile darüber, warum es jemandes Zeit wert ist; es landet als anhängig und ein Maintainer genehmigt es. Nein GitHub Account, keine Pull Request, kein Warten auf einen Build.",
-      "p2": "Das Öffnen eines Problems funktioniert immer noch, wenn Sie es bevorzugen, ebenso wie eine Pull-Anfrage zum Hinzufügen einer Datei {path}Die Form ist einfach schneller, und es ist die gleiche Moderationswarteschlange am anderen Ende."
-    },
-    "code": {
-      "p1": "Der Stapel ist {stack}Schlüsselordner:",
-      "content": "{path} - die Lektionen (Markdown).",
-      "app": "{pages}, {components}, {composables} Die App UI.",
-      "raw": "{path} — die Rohmarkdown-Oberfläche für KI-Agenten und Crawler.",
-      "p2": "Stilregeln werden von ESLint durchgesetzt: keine Nachkommas, 1TBS-Spannungen, 2-Raum-Einrückung und ein Schnittstellenelement pro Zeile. Lauf {cmd} Autoformat. Passen Sie die Konventionen des umgebenden Codes an."
-    },
-    "stack": {
-      "intro": "Die ganze Website ist Open Source - hier ist, was macht es:",
-      "nuxt": "{name} (Vue 3 + Nitro) — Rahmen, SSR + Prerendering",
-      "content": "{name} - Lektionen verfasst in Markdown, serviert von SQLite",
-      "ui": "{ui} + {tailwind} — Komponenten und Styling",
-      "i18n": "{name} — 7 Sprachen, sechs davon aus dem Englischen übersetzt",
-      "hosting": "{workers} + {actions} — vorgerenderte Seiten dienten als statische Assets, ein Worker für die dynamischen Routen, automatisch auf Push zu {main}",
-      "extras": "Auch in der Box: {og} (Sozialkarten), {llms} (maschinenlesbare Dokumente) und strukturierte Daten für SEO.",
-      "noDb": "Jede Lektion wird zur Build-Zeit von Markdown vorgerendert, sodass Sie Lektionen mit {bold}Accounts und Fortschritte laufen auf Neon Postgres und sind nur wichtig, wenn Sie an diesen Funktionen arbeiten - die README deckt sie ab.",
-      "noDbBold": "Keine Datenbank überhaupt"
-    },
-    "pr": {
-      "branch": "{bold} ausgeschaltet {main}: {cmd}",
-      "branchBold": "Zweigstelle",
-      "change": "{bold} und Vorschau mit {cmd}.",
-      "changeBold": "Machen Sie Ihre Veränderung",
-      "verify": "{bold}: {lint} und {typecheck} Beide gehen durch.",
-      "verifyBold": "Überprüfung",
-      "commit": "{bold} mit einer klaren Botschaft und {push} auf deine Gabel.",
-      "commitBold": "Begehen Sie die Änderung",
-      "pushBold": "Schub",
-      "open": "{bold} gegen {main}Beschreibung, was sich geändert hat und warum.",
-      "openBold": "Eröffnung einer PR",
-      "after": "Ein Maintainer wird überprüfen, bei Bedarf Optimierungen vorschlagen und zusammenführen. Einmal verschmolzen, GitHub Actions Workflow erstellt die Website und veröffentlicht sie automatisch in Cloudflare."
-    },
-    "help": "Stuck oder haben Sie eine Idee? Öffnen Sie ein Thema oder eine Diskussion über {github}Erstbeitragende sind sehr willkommen – kein Beitrag ist zu gering."
+      "help": "Stuck oder haben Sie eine Frage?",
+      "helpLink": "Öffnen Sie ein Problem auf GitHub"
+    }
   },
   "datasets": {
     "seo": {
@@ -1010,7 +873,8 @@
       "3": "Ein Quiz und die Interviewfragen",
       "4": "Herunterladbare Notizen, wenn der Abschnitt abgeschlossen ist",
       "title": "Wie jede Lektion funktioniert"
-    }
+    },
+    "lessonOne": "1 Lektion"
   },
   "lesson": {
     "authors": {

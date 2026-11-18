@@ -56,7 +56,7 @@ export function promoAllowed(path: string): boolean {
  * ContentRenderer as <PromoSlot unit="inArticle">, which is why PromoSlot is
  * registered globally.
  */
-export function withInArticlePromos<T extends unknown[]>(nodes: T, every = 6, max = 4): T {
+export function withInArticlePromos<T extends unknown[]>(nodes: T, every = 8, max = 2): T {
   const out: unknown[] = []
   let count = 0
   let placed = 0

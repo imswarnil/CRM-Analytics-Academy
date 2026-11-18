@@ -69,8 +69,6 @@ const sections = computed(() =>
         </div>
       </UContainer>
     </section>
-    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
-      <PromoSlot unit="horizontal" />
-    </div>
+    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8" />
   </div>
 </template>

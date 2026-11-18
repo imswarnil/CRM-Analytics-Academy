@@ -187,7 +187,7 @@ usePageSchema(() => ({
                     <span
                       v-else
                       class="block text-xs text-(--signal)"
-                    >{{ t('curriculumPage.lessons', { n: s.live }) }}</span>
+                    >{{ lessonsLabel(t, s.live) }}</span>
                   </ClientOnly>
                 </span>
               </a>
@@ -213,7 +213,7 @@ usePageSchema(() => ({
             </span>
             <div class="min-w-0 flex-1">
               <p class="mono-label">
-                {{ t('curriculumPage.section', { n: s.n }) }} · {{ t('curriculumPage.lessons', { n: s.rows.length }) }}
+                {{ t('curriculumPage.section', { n: s.n }) }} · {{ lessonsLabel(t, s.rows.length) }}
               </p>
               <h2 class="mt-1 text-xl font-bold tracking-tight text-(--ink)">
                 <NuxtLink

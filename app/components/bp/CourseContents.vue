@@ -296,11 +296,5 @@ onMounted(() => revealCurrent(true))
         </ol>
       </li>
     </ol>
-    <div class="p-3">
-      <PromoSlot
-        :key="route.path"
-        unit="square300x250"
-      />
-    </div>
   </div>
 </template>

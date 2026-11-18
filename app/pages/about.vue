@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import type { ContentNavigationItem } from '@nuxt/content'
 import { AUTHOR } from '~/data/author'
+import { ROADMAP } from '~/data/roadmap'
 
-const { t, tm, rt } = useI18n()
+const { t } = useI18n()
 const localePath = useLocalePath()
-const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
-const { total } = useCourse()
 const title = computed(() => t('seo.aboutTitle'))
 const description = computed(() => t('seo.aboutDesc'))
 
@@ -38,432 +36,145 @@ usePageSchema(() => ({
   }]
 }))
 
-// The copy lives in i18n (`about.principles`); the icons stay here, by position.
-const PRINCIPLE_ICONS = ['i-lucide-unlock', 'i-lucide-route', 'i-lucide-square-code', 'i-lucide-bot']
-const principles = computed(() =>
-  (tm('about.principles') as { title: string, desc: string }[]).map((p, i) => ({
-    icon: PRINCIPLE_ICONS[i] ?? 'i-lucide-circle',
-    title: rt(p.title),
-    desc: rt(p.desc)
-  }))
-)
-
-// Every section of the course, straight from the navigation tree.
-const modules = computed(() => (navigation.value ?? []).map((m, i) => ({
-  n: String(i).padStart(2, '0'),
-  label: String(m.title ?? ''),
-  to: String(m.path ?? '/')
-})))
-
-// Product names, not translated.
-const stack = [
-  { icon: 'i-simple-icons-nuxt', label: 'Nuxt 4' },
-  { icon: 'i-simple-icons-vuedotjs', label: 'Vue 3' },
-  { icon: 'i-simple-icons-tailwindcss', label: 'Tailwind CSS 4' },
-  { icon: 'i-lucide-file-text', label: 'Nuxt Content' },
-  { icon: 'i-lucide-plug', label: 'MCP server' },
-  { icon: 'i-simple-icons-salesforce', label: 'CRM Analytics' }
+const PILLARS = [
+  { key: 'free', icon: 'i-lucide-gift' },
+  { key: 'path', icon: 'i-lucide-route' },
+  { key: 'hands', icon: 'i-lucide-square-code' }
 ]
-
-const authorLinks = computed(() => [
-  { icon: 'i-simple-icons-linkedin', label: 'LinkedIn', to: 'https://www.linkedin.com/in/imswarnil/', target: '_blank' },
-  { icon: 'i-simple-icons-github', label: 'GitHub', to: 'https://github.com/imswarnil', target: '_blank' },
-  { icon: 'i-lucide-globe', label: t('about.links.website'), to: 'https://imswarnil.com', target: '_blank' }
+const stats = computed(() => [
+  { value: '7+', label: t('about.stats.years') },
+  { value: String(ROADMAP.length), label: t('about.stats.sections') },
+  { value: '7', label: t('about.stats.languages') }
 ])
+const links = AUTHOR.social.filter(s => ['linkedin', 'github', 'site'].includes(s.key))
 </script>
 
 <template>
   <div>
-    <BpPageHeader
-      :sheet="t('about.header.sheet')"
-      :title="t('about.header.title')"
-      :lead="t('about.header.lead')"
-    >
-      <ShareBar
-        class="mt-6"
-        :title="t('about.header.title')"
-        :text="t('about.header.lead')"
-      />
-    </BpPageHeader>
-
-    <!-- ===================== SECTION 1 — THE PROJECT ===================== -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-        <!-- Narrative -->
+    <!-- Who and why -->
+    <section class="relative overflow-hidden border-b border-(--line) bg-(--card)">
+      <BpFloatCharts />
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:px-8">
         <div>
           <p class="eyebrow">
-            {{ t('about.project.eyebrow') }}
+            {{ t('about.header.sheet') }}
           </p>
-          <h2 class="bp-h2 mt-3 text-(--ink)">
-            {{ t('about.project.title') }}
-          </h2>
-          <div class="mt-6 space-y-4 text-lg text-(--ink2)">
-            <p>
-              {{ t('about.project.p1') }}
-            </p>
-            <i18n-t
-              keypath="about.project.p2"
-              tag="p"
-              scope="global"
-            >
-              <template #name>
-                <strong class="text-(--ink)">{{ SITE.name }}</strong>
-              </template>
-            </i18n-t>
-            <p>
-              {{ t('about.project.p3') }}
-            </p>
-          </div>
-
-          <div class="mt-8 flex flex-wrap gap-2">
-            <span
-              v-for="tech in stack"
-              :key="tech.label"
-              class="inline-flex items-center gap-2 border border-(--line) bg-(--card) px-2.5 py-1 font-medium text-[11px] text-(--ink) rounded-2xl"
-            >
-              <UIcon
-                :name="tech.icon"
-                class="size-3.5 text-(--signal)"
-              />
-              {{ tech.label }}
-            </span>
-          </div>
-        </div>
-
-        <!-- Principles + curriculum -->
-        <div class="space-y-6">
-          <div class="grid gap-5 sm:grid-cols-2">
-            <div
-              v-for="(p, n) in principles"
-              :key="p.title"
-              class="bp-card bp-card--hover p-5"
-            >
-              <span class="bp-iconbox text-(--signal)">
-                <UIcon
-                  :name="p.icon"
-                  class="size-5"
-                />
-              </span>
-              <p class="mono-label mt-4">
-                {{ t('about.principleLabel', { n: String(n + 1).padStart(2, '0') }) }}
-              </p>
-              <h3 class="mt-1 font-semibold text-(--ink)">
-                {{ p.title }}
-              </h3>
-              <p class="mt-1.5 text-sm text-(--ink2)">
-                {{ p.desc }}
-              </p>
-            </div>
-          </div>
-
-          <div class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
-            <p class="border-b border-(--line) bg-(--ice) px-4 py-2 font-medium text-[11px] font-semibold">
-              {{ t('about.curriculumAtGlance') }}
-            </p>
-            <ul class="max-h-96 overflow-y-auto">
-              <li
-                v-for="m in modules"
-                :key="m.n"
-                class="border-b border-dashed border-(--line) last:border-b-0"
-              >
-                <NuxtLink
-                  :to="localePath(m.to)"
-                  class="bp-row group flex items-center gap-3 px-4 py-3 hover:bg-(--ice)/50"
-                >
-                  <span class="font-mono text-xs font-semibold text-(--signal)">{{ m.n }}</span>
-                  <span class="text-sm font-semibold text-(--ink)">{{ m.label }}</span>
-                  <UIcon
-                    name="i-lucide-arrow-right"
-                    class="ms-auto size-4 text-(--ink2) transition group-hover:translate-x-0.5 group-hover:text-(--signal)"
-                  />
-                </NuxtLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="mx-auto max-w-3xl px-4" />
-
-    <!-- ===================== SECTION 2 — THE AUTHOR ===================== -->
-    <section class="graph-paper border-y border-(--line)">
-      <div class="mx-auto grid max-w-(--ui-container) gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 lg:px-8">
-        <!-- Instructor card -->
-        <div>
-          <p class="eyebrow">
-            {{ t('about.instructor.eyebrow') }}
+          <h1 class="mt-3 text-3xl font-bold tracking-[-0.02em] text-(--ink) sm:text-4xl">
+            {{ t('about.page.title') }}
+          </h1>
+          <p class="mt-4 max-w-xl text-[1.0625rem] leading-relaxed text-(--ink2)">
+            {{ t('about.page.lead') }}
           </p>
-          <BpFigure
-            :caption="t('about.instructor.caption')"
-            :spec="t('about.instructor.spec')"
-            shadow
-            class="mt-4"
-          >
-            <div class="p-8">
-              <div class="flex items-center gap-5">
-                <span class="flex size-20 flex-none items-center justify-center border border-(--line) bg-(--signal) text-3xl font-bold tracking-tight text-white">
-                  SS
-                </span>
-                <div>
-                  <h3 class="text-2xl font-semibold tracking-[-0.02em] text-(--ink)">
-                    {{ AUTHOR.name }}
-                  </h3>
-                  <p class="mono-label mt-1">
-                    {{ AUTHOR.role }} · {{ AUTHOR.company }}
-                  </p>
-                </div>
-              </div>
-
-              <dl class="mt-6 grid grid-cols-3 border border-(--line)">
-                <div class="border-e border-(--line) p-3 text-center">
-                  <dt class="font-medium text-[11px] text-(--ink2)">
-                    {{ t('about.stats.sections') }}
-                  </dt>
-                  <dd class="mt-1 text-2xl font-bold tracking-tight text-(--ink)">
-                    {{ navigation.length }}
-                  </dd>
-                </div>
-                <div class="border-e border-(--line) p-3 text-center">
-                  <dt class="font-medium text-[11px] text-(--ink2)">
-                    {{ t('about.stats.lessons') }}
-                  </dt>
-                  <dd class="mt-1 text-2xl font-bold tracking-tight text-(--ink)">
-                    {{ total }}
-                  </dd>
-                </div>
-                <div class="p-3 text-center">
-                  <dt class="font-medium text-[11px] text-(--ink2)">
-                    {{ t('about.stats.openSource') }}
-                  </dt>
-                  <dd class="mt-1 text-2xl font-bold tracking-tight text-(--signal)">
-                    100%
-                  </dd>
-                </div>
-              </dl>
-
-              <div class="mt-6 flex flex-wrap gap-2">
-                <UButton
-                  v-for="l in authorLinks"
-                  :key="l.to"
-                  :icon="l.icon"
-                  :to="l.to"
-                  :target="l.target"
-                  :label="l.label"
-                  color="neutral"
-                  variant="outline"
-                  size="sm"
-                />
-              </div>
-            </div>
-          </BpFigure>
-        </div>
-
-        <!-- Author narrative -->
-        <div class="flex flex-col justify-center">
-          <h2 class="bp-h2 text-(--ink)">
-            {{ t('about.author.title') }}
-          </h2>
-          <div class="mt-6 space-y-4 text-lg text-(--ink2)">
-            <i18n-t
-              keypath="about.author.p1"
-              tag="p"
-              scope="global"
-            >
-              <template #name>
-                <strong class="text-(--ink)">Swarnil</strong>
-              </template>
-            </i18n-t>
-            <p>
-              {{ t('about.author.p2') }}
-            </p>
-            <i18n-t
-              keypath="about.author.p3"
-              tag="p"
-              scope="global"
-            >
-              <template #star>
-                <NuxtLink
-                  to="https://github.com/imswarnil/CRM-Analytics-Academy"
-                  target="_blank"
-                  class="font-semibold text-(--signal) underline-offset-4 hover:underline"
-                >
-                  {{ t('about.author.star') }}
-                </NuxtLink>
-              </template>
-            </i18n-t>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== SECTION 3 — THE WORK ===================== -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <p class="eyebrow">
-        {{ t('about.work.eyebrow') }}
-      </p>
-      <div class="mt-3 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end">
-        <h2 class="bp-h2">
-          {{ t('about.work.title') }}
-        </h2>
-        <p class="bp-lead">
-          {{ AUTHOR.summary }}
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-        <!-- Highlights -->
-        <div>
-          <p class="mono-label">
-            {{ t('about.work.highlights') }}
-          </p>
-          <ol class="mt-3 space-y-3">
+          <ul class="mt-8 grid gap-3 sm:grid-cols-3">
             <li
-              v-for="(h, i) in AUTHOR.highlights"
-              :key="i"
-              class="bp-card bp-card--hover flex gap-4 p-5"
+              v-for="p in PILLARS"
+              :key="p.key"
+              class="rounded-[6px] border border-(--line) bg-(--paper) p-4"
             >
-              <span class="font-mono text-xs font-semibold text-(--signal)">{{ String(i + 1).padStart(2, '0') }}</span>
-              <span class="text-[15px] leading-relaxed text-(--ink2)">{{ h }}</span>
+              <UIcon
+                :name="p.icon"
+                class="size-5 text-(--signal)"
+              />
+              <p class="mt-2 font-semibold text-(--ink)">
+                {{ t(`about.page.pillars.${p.key}`) }}
+              </p>
             </li>
-          </ol>
+          </ul>
         </div>
 
-        <!-- Experience + education -->
-        <div class="space-y-6">
-          <div class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
-            <p class="border-b border-(--line) bg-(--ice) px-4 py-2 font-medium text-[11px] font-semibold">
-              {{ t('about.work.experience') }}
-            </p>
-            <ol class="relative px-4 py-2">
-              <li
-                v-for="r in AUTHOR.roles"
-                :key="r.company"
-                class="relative border-s border-(--line) py-3 ps-5"
-              >
-                <span
-                  class="absolute -start-[7px] top-4 size-3 border border-(--line)"
-                  :class="r.current ? 'bg-(--signal)' : 'bg-(--card)'"
-                />
-                <p class="font-mono text-[11px] text-(--ink2)">
-                  {{ r.years }} · {{ r.place }}
-                </p>
-                <p class="mt-0.5 font-bold text-(--ink)">
-                  {{ r.title }} <span class="font-normal text-(--ink2)">· {{ r.company }}</span>
-                </p>
-              </li>
-            </ol>
-          </div>
-          <div class="flex items-start gap-4 border border-(--line) bg-(--card) p-4 overflow-hidden rounded-2xl">
-            <span class="bp-iconbox text-(--signal)">
-              <UIcon
-                name="i-lucide-graduation-cap"
-                class="size-5"
-              />
-            </span>
+        <!-- The instructor -->
+        <div class="rounded-[6px] border border-(--line) bg-(--card) p-6">
+          <div class="flex items-center gap-4">
+            <img
+              :src="AUTHOR.avatar"
+              alt=""
+              class="size-16 rounded-full bg-(--ice) object-cover"
+            >
             <div>
-              <p class="mono-label">
-                {{ t('about.work.education') }}
-              </p>
-              <p class="mt-1 font-bold text-(--ink)">
-                {{ AUTHOR.education.degree }}
+              <p class="text-xl font-bold text-(--ink)">
+                {{ AUTHOR.name }}
               </p>
               <p class="text-sm text-(--ink2)">
-                {{ AUTHOR.education.school }} · {{ AUTHOR.education.years }}
+                {{ AUTHOR.role }} · {{ AUTHOR.company }}
               </p>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Skills -->
-      <div class="mt-12 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
-        <p class="border-b border-(--line) bg-(--ice) px-4 py-2 font-medium text-[11px] font-semibold">
-          {{ t('about.work.skills') }}
-        </p>
-        <dl class="divide-y divide-dashed divide-(--line)">
-          <div
-            v-for="g in AUTHOR.skills"
-            :key="g.group"
-            class="grid gap-3 px-4 py-3 md:grid-cols-[8rem_minmax(0,1fr)] md:items-baseline"
-          >
-            <dt class="font-medium text-[11px] font-semibold text-(--signal)">
-              {{ g.group }}
-            </dt>
-            <dd class="flex flex-wrap gap-1.5">
-              <span
-                v-for="s in g.items"
-                :key="s"
-                class="border border-(--line) px-2 py-0.5 text-[12px] text-(--ink)"
-              >{{ s }}</span>
-            </dd>
+          <dl class="mt-6 grid grid-cols-3 divide-x divide-(--line) rounded-[6px] border border-(--line)">
+            <div
+              v-for="st in stats"
+              :key="st.label"
+              class="px-3 py-3 text-center"
+            >
+              <dd class="text-2xl font-bold tabular-nums text-(--ink)">
+                {{ st.value }}
+              </dd>
+              <dt class="text-xs text-(--ink2)">
+                {{ st.label }}
+              </dt>
+            </div>
+          </dl>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <UButton
+              v-for="l in links"
+              :key="l.key"
+              :to="l.url"
+              target="_blank"
+              :icon="l.icon"
+              size="sm"
+              color="neutral"
+              variant="outline"
+            >
+              {{ l.label }}
+            </UButton>
           </div>
-        </dl>
-      </div>
-
-      <!-- Other things he builds -->
-      <p class="mono-label mt-12">
-        {{ t('about.work.projects') }}
-      </p>
-      <div class="mt-3 grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr))]">
-        <a
-          v-for="p in AUTHOR.projects"
-          :key="p.name"
-          :href="p.url"
-          target="_blank"
-          rel="noopener"
-          class="bp-card bp-card--hover flex flex-col p-4"
-        >
-          <span class="flex items-center justify-between gap-2">
-            <span class="font-semibold text-(--ink)">{{ p.name }}</span>
-            <span
-              class="border px-1.5 py-0.5 font-medium text-[11px]"
-              :class="p.status === 'live' ? 'border-(--signal) text-(--signal)' : 'border-(--line) text-(--ink2)'"
-            >{{ p.status === 'live' ? t('about.work.live') : t('about.work.building') }}</span>
-          </span>
-          <span class="mt-2 text-sm text-(--ink2)">{{ p.blurb }}</span>
-          <span class="mt-auto pt-3 font-medium text-[11px] text-(--ink2)">{{ p.stack }}</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ============================ CTA ============================ -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="graph-paper-navy border border-(--line) bg-(--navy) px-6 py-16 text-center text-white sm:px-12">
-        <p class="eyebrow text-(--glow)!">
-          {{ t('about.cta.eyebrow') }}
-        </p>
-        <h2 class="bp-h2 mt-3 text-white">
-          {{ t('about.cta.title') }}
-        </h2>
-        <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">
-          {{ t('about.cta.body') }}
-        </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <UButton
-            :to="localePath('/start')"
-            size="xl"
-            color="secondary"
-            trailing-icon="i-lucide-arrow-right"
-          >
-            {{ t('about.cta.start') }}
-          </UButton>
-          <UButton
-            to="https://github.com/imswarnil/CRM-Analytics-Academy"
-            target="_blank"
-            size="xl"
-            color="neutral"
-            variant="outline"
-            icon="i-simple-icons-github"
-            class="border-white/60 bg-transparent text-white hover:bg-white/10"
-          >
-            {{ t('about.cta.github') }}
-          </UButton>
         </div>
       </div>
     </section>
-    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
-      <PromoSlot unit="horizontal" />
-    </div>
+
+    <!-- The work, as a timeline -->
+    <section class="mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
+      <h2 class="bp-h3">
+        {{ t('about.work.title') }}
+      </h2>
+      <ol class="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+        <li
+          v-for="r in AUTHOR.roles"
+          :key="r.years"
+          class="rounded-[6px] border bg-(--card) p-5"
+          :class="r.current ? 'border-(--signal)' : 'border-(--line)'"
+        >
+          <p class="text-xs font-bold uppercase tracking-[.09em] text-(--label)">
+            {{ r.years }}
+          </p>
+          <p class="mt-2 font-bold text-(--ink)">
+            {{ r.title }}
+          </p>
+          <p class="text-sm text-(--ink2)">
+            {{ r.company }} · {{ r.place }}
+          </p>
+        </li>
+      </ol>
+      <ul class="mt-8 grid gap-3 md:grid-cols-2">
+        <li
+          v-for="h in AUTHOR.highlights.slice(0, 2)"
+          :key="h"
+          class="flex gap-3 text-[0.9375rem] leading-relaxed text-(--ink)"
+        >
+          <UIcon
+            name="i-lucide-check"
+            class="mt-1 size-4 shrink-0 text-(--signal)"
+          />{{ h }}
+        </li>
+      </ul>
+      <div class="mt-10">
+        <UButton
+          :to="localePath('/start')"
+          size="lg"
+          trailing-icon="i-lucide-arrow-right"
+        >
+          {{ t('nav.main.course') }}
+        </UButton>
+      </div>
+    </section>
   </div>
 </template>
