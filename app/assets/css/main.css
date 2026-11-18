@@ -596,3 +596,11 @@ button:hover > .bp-arrow {
   from { opacity: 0; transform: translateY(8px) scale(.8); }
   to { opacity: 1; transform: none; }
 }
+
+/* Saving the practice certificate prints only the certificate, landscape. */
+@media print {
+  body.printing-cert * { visibility: hidden; }
+  body.printing-cert .cert-print, body.printing-cert .cert-print * { visibility: visible; }
+  body.printing-cert .cert-print { position: absolute; inset: 0; margin: 0 auto; max-width: 720px; }
+  body.printing-cert .no-print { display: none !important; }
+}

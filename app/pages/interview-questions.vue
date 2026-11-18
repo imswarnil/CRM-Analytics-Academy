@@ -116,39 +116,77 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 const { counts: votes, load: loadVotes } = useInterviewVotes()
 onMounted(loadVotes)
+const promoFree = usePromoFree()
+const heroStats = computed(() => [
+  { label: t('interview.statQuestions'), value: rows.value?.length ?? 0 },
+  { label: t('interview.statTopics'), value: topics.value.length }
+])
 </script>
 
 <template>
   <NuxtPage v-if="standalone" />
   <div v-else>
-    <BpPageHeader
-      :sheet="t('interview.sheet', { n: rows?.length ?? 0 })"
-      :title="t('interview.title')"
-      :lead="t('interview.lead')"
-    >
-      <div class="mt-6 flex flex-wrap items-center gap-3">
-        <UButton
-          :to="localePath('/interview-questions/new')"
-          icon="i-lucide-square-pen"
-          size="lg"
-        >
-          {{ t('interview.submit') }}
-        </UButton>
-        <UButton
-          :to="localePath('/certification')"
-          color="neutral"
-          variant="outline"
-          size="lg"
-          icon="i-lucide-timer"
-        >
-          {{ t('interview.practiceExam') }}
-        </UButton>
-        <ShareBar
-          :title="t('interview.title')"
-          :text="t('interview.shareText')"
-        />
+    <!-- Hero: the pitch on the left, one square unit on the right -->
+    <section class="relative overflow-hidden border-b border-(--line) bg-(--card)">
+      <BpFloatCharts />
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-8">
+        <div class="max-w-2xl">
+          <p class="eyebrow">
+            {{ t('interview.sheet', { n: rows?.length ?? 0 }) }}
+          </p>
+          <h1 class="bp-h1 mt-3">
+            {{ t('interview.title') }}
+          </h1>
+          <p class="bp-lead mt-4">
+            {{ t('interview.lead') }}
+          </p>
+          <div class="mt-7 flex flex-wrap items-center gap-3">
+            <UButton
+              :to="localePath('/interview-questions/new')"
+              icon="i-lucide-square-pen"
+              size="lg"
+            >
+              {{ t('interview.submit') }}
+            </UButton>
+            <UButton
+              :to="localePath('/certification')"
+              color="neutral"
+              variant="outline"
+              size="lg"
+              icon="i-lucide-timer"
+            >
+              {{ t('interview.practiceExam') }}
+            </UButton>
+          </div>
+        </div>
+        <div class="hidden justify-center lg:flex">
+          <ClientOnly>
+            <PromoSlot
+              v-if="!promoFree"
+              unit="square300x250"
+              class="!my-0"
+            />
+            <div
+              v-else
+              class="grid w-full grid-cols-2 gap-3"
+            >
+              <div
+                v-for="st in heroStats"
+                :key="st.label"
+                class="rounded-[6px] border border-(--line) bg-(--paper) p-4"
+              >
+                <p class="text-2xl font-bold tabular-nums text-(--ink)">
+                  {{ st.value }}
+                </p>
+                <p class="text-xs text-(--ink2)">
+                  {{ st.label }}
+                </p>
+              </div>
+            </div>
+          </ClientOnly>
+        </div>
       </div>
-    </BpPageHeader>
+    </section>
 
     <div class="mx-auto grid max-w-(--ui-container) gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[17rem_minmax(0,1fr)] lg:px-8">
       <!-- Filters -->
@@ -160,13 +198,13 @@ onMounted(loadVotes)
           :placeholder="t('interview.search')"
           class="w-full"
         />
-        <div class="flex border border-(--line)">
+        <div class="flex rounded-[4px] bg-(--paper2) p-1">
           <button
             v-for="v in (['list', 'grid'] as const)"
             :key="v"
             type="button"
-            class="flex flex-1 items-center justify-center gap-1.5 py-1.5 text-sm font-semibold"
-            :class="view === v ? 'bg-(--ink) text-(--paper)' : 'text-(--ink) hover:bg-(--ice)'"
+            class="flex flex-1 items-center justify-center gap-1.5 rounded-[4px] py-1.5 text-sm font-semibold transition-colors"
+            :class="view === v ? 'bg-(--card) text-(--ink)' : 'text-(--ink2) hover:text-(--ink)'"
             :aria-pressed="view === v"
             @click="view = v"
           >
@@ -185,8 +223,8 @@ onMounted(loadVotes)
               v-for="[k, n] in topics"
               :key="k"
               type="button"
-              class="flex items-center justify-between gap-2 border-s-[3px] px-2.5 py-1 text-start text-[14px]"
-              :class="topic === k ? 'border-(--signal) bg-(--ice) font-bold text-(--signal)' : 'border-transparent text-(--ink) hover:bg-(--ice)'"
+              class="flex items-center justify-between gap-2 rounded-[4px] px-2.5 py-1.5 text-start text-[14px] transition-colors"
+              :class="topic === k ? 'bg-(--ice) font-semibold text-(--signal)' : 'text-(--ink) hover:bg-(--paper2)'"
               @click="topic = topic === k ? '' : k"
             >
               <span class="truncate">{{ sectionTitle(k) }}</span><span class="font-mono text-xs opacity-60">{{ n }}</span>
@@ -210,15 +248,14 @@ onMounted(loadVotes)
               v-for="[k, n] in facet(group.key)"
               :key="k"
               type="button"
-              class="border px-3 py-1.5 text-[15px] font-semibold"
-              :class="group.model === k ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--line)'"
+              class="rounded-full border px-3 py-1 text-sm font-medium transition-colors"
+              :class="group.model === k ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) bg-(--card) text-(--ink2) hover:border-(--signal)'"
               @click="group.set(group.model === k ? '' : k)"
             >
               {{ group.name(k) }} <span class="font-mono text-xs opacity-60">{{ n }}</span>
             </button>
           </div>
         </div>
-        <PromoSlot unit="square250" />
       </aside>
 
       <!-- Questions, by section -->
@@ -226,6 +263,8 @@ onMounted(loadVotes)
         <p class="mono-label">
           {{ t('interview.results', { n: filtered.length }) }}
         </p>
+        <!-- No question open: the index child, which only sets the list's SEO. -->
+        <NuxtPage v-if="!openSlug" />
         <!-- An open question the filters hide still shows, above the list. -->
         <NuxtPage v-if="openSlug && !ordered.some(r => slugOf(r.path) === openSlug)" />
         <section
@@ -299,6 +338,17 @@ onMounted(loadVotes)
         >
           {{ t('interview.empty') }}
         </p>
+        <!-- Share, after the content -->
+        <div class="flex flex-wrap items-center justify-between gap-3 rounded-[6px] border border-(--line) bg-(--card) px-5 py-4">
+          <p class="font-semibold text-(--ink)">
+            {{ t('interview.shareTitle') }}
+          </p>
+          <ShareBar
+            :title="t('interview.title')"
+            :text="t('interview.shareText')"
+            compact
+          />
+        </div>
       </div>
     </div>
   </div>

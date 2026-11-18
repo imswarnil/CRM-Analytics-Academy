@@ -8,7 +8,8 @@ import { ROADMAP } from '~/data/roadmap'
  */
 import type { NotesCollectionItem } from '@nuxt/content'
 
-const props = defineProps<{ sheet: NotesCollectionItem }>()
+// `anchor: false` for copies (gallery, zoom) so the page has one id per sheet.
+const props = withDefaults(defineProps<{ sheet: NotesCollectionItem, anchor?: boolean }>(), { anchor: true })
 const { t } = useI18n()
 const localePath = useLocalePath()
 const sheet = computed(() => props.sheet)
@@ -18,7 +19,7 @@ const section = computed(() => ROADMAP.find(s => s.slug === props.sheet.section)
 
 <template>
   <article
-    :id="slug"
+    :id="anchor ? slug : undefined"
     class="sheet mx-auto max-w-[52rem] scroll-mt-24 px-4"
   >
     <div class="paper">

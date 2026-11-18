@@ -47,21 +47,81 @@ usePageSchema(() => ({
 
 <template>
   <div class="notes-page bg-(--paper)">
-    <!-- PRODUCT HERO --------------------------------------------------- -->
-    <section class="no-print relative overflow-hidden border-b border-(--line) bg-(--card)">
-      <BpFloatCharts />
-      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:px-8">
-        <div>
+    <!-- PRODUCT: gallery on the left, the product card on the right -->
+    <section class="no-print border-b border-(--line) bg-(--card)">
+      <div class="mx-auto grid max-w-(--ui-container) gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:px-8 lg:py-14">
+        <NotesGallery :sheets="ready.map(r => r.sheet!)" />
+
+        <div class="lg:sticky lg:top-24 lg:self-start">
           <p class="eyebrow">
             {{ t('notes.eyebrow') }}
           </p>
-          <h1 class="bp-h1 mt-3">
+          <h1 class="mt-3 text-3xl font-bold leading-tight tracking-[-0.02em] text-(--ink) sm:text-4xl">
             {{ t('notes.productTitle') }}
           </h1>
-          <p class="bp-lead mt-4 max-w-xl">
+          <a
+            href="#reviews"
+            class="mt-3 inline-flex items-center gap-1.5 text-sm text-(--ink2) hover:text-(--signal)"
+          >
+            <UIcon
+              name="i-lucide-star"
+              class="size-4 text-amber-500"
+            />
+            {{ t('notes.readReviews') }}
+          </a>
+          <p class="mt-4 text-[1.0625rem] leading-relaxed text-(--ink2)">
             {{ t('notes.lead') }}
           </p>
-          <ul class="mt-6 grid gap-2.5 sm:grid-cols-2">
+
+          <div class="mt-6 rounded-[6px] border border-(--line) p-5">
+            <div class="flex items-baseline justify-between gap-3">
+              <p class="text-3xl font-bold text-(--ink)">
+                {{ t('notes.free') }}
+              </p>
+              <p class="text-sm text-(--ink2)">
+                {{ t('notes.status', { ready: ready.length, total: rows.length }) }}
+              </p>
+            </div>
+            <div class="mt-3 h-1.5 overflow-hidden rounded-full bg-(--line)">
+              <div
+                class="h-full rounded-full bg-(--signal)"
+                :style="{ width: `${(ready.length / rows.length) * 100}%` }"
+              />
+            </div>
+            <p class="mt-4 text-xs font-bold uppercase tracking-[.09em] text-(--label)">
+              {{ t('notes.formats') }}
+            </p>
+            <div class="mt-2 flex flex-wrap gap-2">
+              <span
+                v-for="f in ['PDF', 'Markdown', 'Print', 'Offline']"
+                :key="f"
+                class="rounded-full border border-(--line) px-3 py-1 text-sm font-medium text-(--ink)"
+              >{{ f }}</span>
+            </div>
+            <div class="mt-5 grid gap-2 sm:grid-cols-2">
+              <UButton
+                v-if="ready.length"
+                size="xl"
+                icon="i-lucide-file-down"
+                block
+                @click="print"
+              >
+                {{ t('notes.pdfAll') }}
+              </UButton>
+              <UButton
+                href="#preview"
+                size="xl"
+                color="neutral"
+                variant="outline"
+                icon="i-lucide-book-open"
+                block
+              >
+                {{ t('notes.readOnline') }}
+              </UButton>
+            </div>
+          </div>
+
+          <ul class="mt-6 space-y-2.5">
             <li
               v-for="(f, i) in ['f1', 'f2', 'f3', 'f4']"
               :key="f"
@@ -73,71 +133,6 @@ usePageSchema(() => ({
               />{{ t(`notes.features.${f}`) }}
             </li>
           </ul>
-          <div class="mt-8 flex flex-wrap items-center gap-3">
-            <UButton
-              v-if="ready.length"
-              size="xl"
-              icon="i-lucide-file-down"
-              @click="print"
-            >
-              {{ t('notes.pdfAll') }}
-            </UButton>
-            <UButton
-              href="#preview"
-              size="xl"
-              color="neutral"
-              variant="outline"
-              icon="i-lucide-eye"
-            >
-              {{ t('notes.seePreview') }}
-            </UButton>
-          </div>
-          <p class="mt-4 text-sm text-(--ink2)">
-            {{ t('notes.status', { ready: ready.length, total: rows.length }) }} · {{ t('notes.free') }}
-          </p>
-        </div>
-
-        <!-- A stack of sheets -->
-        <div
-          class="relative mx-auto h-80 w-full max-w-md"
-          aria-hidden="true"
-        >
-          <div
-            v-for="k in [2, 1, 0]"
-            :key="k"
-            class="notes-mock absolute inset-x-6 top-4 bottom-0 rounded-[4px] border border-(--line)"
-            :style="{ transform: `rotate(${[-1.5, 2.5, -4][k]}deg) translate(${k * 14}px, ${k * 10}px)`, zIndex: 3 - k }"
-          >
-            <template v-if="k === 0">
-              <p class="hand-title">
-                {{ ready[0]?.title ?? t('notes.title') }}
-              </p>
-              <svg
-                viewBox="0 0 220 90"
-                class="mx-6 mt-3 w-[70%]"
-              >
-                <path
-                  d="M8 82 L8 8 M8 82 L212 82"
-                  class="hand-ink"
-                />
-                <rect
-                  v-for="(h, i) in [30, 46, 38, 60, 72]"
-                  :key="i"
-                  :x="22 + i * 38"
-                  :y="82 - h"
-                  width="24"
-                  :height="h"
-                  class="hand-bar"
-                />
-              </svg>
-              <p class="hand-line mx-6 mt-3">
-                <mark>Objects</mark> are tables · <mark>records</mark> are rows
-              </p>
-              <p class="hand-line mx-6">
-                Lookup ≠ master-detail → sharing!
-              </p>
-            </template>
-          </div>
         </div>
       </div>
     </section>
@@ -189,12 +184,13 @@ usePageSchema(() => ({
         <h2 class="no-print bp-h2">
           {{ t('notes.previewTitle') }}
         </h2>
-        <div class="mt-8 space-y-12">
+        <div class="mt-8 space-y-12 pb-10">
           <div
-            v-for="r in ready"
+            v-for="(r, k) in ready"
             :id="r.slug"
             :key="r.slug"
-            class="scroll-mt-24 space-y-3"
+            class="stack-card scroll-mt-24 space-y-3"
+            :style="{ '--stack': k }"
           >
             <div class="no-print mx-auto flex max-w-[52rem] flex-wrap items-center justify-between gap-2 px-4">
               <NuxtLink
@@ -218,7 +214,10 @@ usePageSchema(() => ({
               class="preview-frame relative"
               :class="{ open: open.has(r.slug) }"
             >
-              <NotesSheet :sheet="r.sheet!" />
+              <NotesSheet
+                :sheet="r.sheet!"
+                :anchor="false"
+              />
               <div
                 v-if="!open.has(r.slug)"
                 class="no-print absolute inset-x-0 bottom-0 flex h-48 items-end justify-center bg-gradient-to-t from-(--paper2) to-transparent pb-6"
@@ -244,7 +243,10 @@ usePageSchema(() => ({
 
     <!-- REVIEWS + COMMENTS -------------------------------------------- -->
     <section class="no-print mx-auto max-w-(--ui-container) space-y-14 px-4 py-14 sm:px-6 lg:px-8">
-      <div>
+      <div
+        id="reviews"
+        class="scroll-mt-24"
+      >
         <h2 class="bp-h2 mb-8">
           {{ t('reviews.heading') }}
         </h2>
@@ -273,6 +275,13 @@ usePageSchema(() => ({
 .hand-ink { stroke: #23324a; stroke-width: 2; fill: none; stroke-linecap: round; }
 .hand-bar { fill: #1b96ff; opacity: .75; stroke: #0b3b78; stroke-width: 1.5; }
 .preview-frame:not(.open) { max-height: 46rem; overflow: hidden; }
+/* Sheets pile up as you scroll: each one sticks a little lower than the last. */
+@media (min-width: 1024px) {
+  .stack-card { position: sticky; top: calc(5.5rem + var(--stack) * 1.25rem); }
+}
+@media print {
+  .stack-card { position: static !important; }
+}
 @media print {
   .preview-frame { max-height: none !important; overflow: visible !important; }
 }

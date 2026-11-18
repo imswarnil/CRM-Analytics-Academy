@@ -1192,7 +1192,10 @@
     },
     "editOnGithub": "Melhorar esta resposta sobre GitHub",
     "answersTitle": "Respostas da comunidade",
-    "answersLead": "Leia como outros respondem ou adicione o seu."
+    "answersLead": "Leia como outros respondem ou adicione o seu.",
+    "shareTitle": "Conhece alguém que se prepare para uma entrevista? Manda-lhes esta lista.",
+    "statQuestions": "perguntas",
+    "statTopics": "tópicos"
   },
   "cert": {
     "eyebrow": "Prática de certificação",
@@ -1277,7 +1280,27 @@
     "leaveTitle": "Deixar este exame?",
     "leaveBody": "O relógio está a correr. Suas respostas permanecem salvas neste dispositivo, e você pode retomar até que o tempo se esgote.",
     "leave": "Sair",
-    "keys": "Teclado: A–D para responder, ← → para mover, F para bandeira."
+    "keys": "Teclado: A–D para responder, ← → para mover, F para bandeira.",
+    "earn": "Passe e ganhe seu certificado",
+    "papersTitle": "Artigos de prática",
+    "paperLine": "{q} perguntas · {m} minutos · {p}% a passar",
+    "morePapers": "Vêm aí mais jornais.",
+    "morePapersBody": "Novos artigos chegam à medida que se publicam seções, cada uma com perguntas novas.",
+    "paper": {
+      "issuer": "CRM Analytics Academia",
+      "kicker": "Certificado de realização",
+      "title": "CRM Analytics Consultor — Exame de Prática",
+      "awarded": "Isto certifica que",
+      "yourName": "Seu nome",
+      "score": "Pontuação",
+      "date": "Data",
+      "id": "ID Credencial",
+      "signer": "Swarnil Singhai, instrutor.",
+      "sample": "AMOSTRA",
+      "note": "Concedido por CRM Analytics Academia para passar no exame de prática. Não é um Salesforce Credencial e não está afiliado a Salesforce.",
+      "download": "Gravar como PDF",
+      "yours": "O seu certificado"
+    }
   },
   "companies": {
     "eyebrow": "Empresas",
@@ -1409,7 +1432,23 @@
       "dataset": "Conjunto de dados"
     },
     "anySection": "Qualquer / não tenho certeza",
-    "preview": "Antevisão na página de recursos"
+    "preview": "Antevisão na página de recursos",
+    "steps": {
+      "choose": "Escolher",
+      "details": "Detalhes",
+      "review": "Revisão"
+    },
+    "stepsLabel": "Passos",
+    "stepOf": "Passo {n} de {total}",
+    "next": "Revisão",
+    "back": "Voltar",
+    "reviewLead": "Vê o que estás a enviar. Uma pessoa revisá-lo antes que tudo vá a público.",
+    "sum": {
+      "kind": "Tipo",
+      "title": "Título",
+      "link": "Ligação",
+      "details": "Detalhes"
+    }
   },
   "dash": {
     "examTitle": "Preparação da certificação",
@@ -1432,7 +1471,7 @@
   "store": {
     "eyebrow": "Preços",
     "seoTitle": "CRM Analytics Preço da Academia: Grátis, Pro Mensal, Pro Lifetime, Equipes",
-    "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $19 por mês ou $149 uma vez. Assentos para empresas e faculdades.",
+    "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $19 por mês ou $299 uma vez. Assentos para empresas e faculdades.",
     "title": "Aprendam de graça. Vá Pro quando você estiver pronto.",
     "lead": "Todas as aulas grátis permanecem livres. Pro desbloqueia toda a plataforma — mensal, ou uma vez para a vida. Empresas e faculdades compram lugares.",
     "sentTitle": "Obrigado — o seu pedido chegou.",
@@ -1447,7 +1486,9 @@
       "phone": "Telefone",
       "message": "Alguma coisa que devamos saber?"
     },
-    "send": "Enviar pedido"
+    "send": "Enviar pedido",
+    "toPlans": "Veja os planos",
+    "toCompare": "Comparar com treinamento em sala de aula"
   },
   "human": {
     "working": "Verificando que você é humano...",
@@ -1770,7 +1811,18 @@
     "insideTitle": "O que está dentro",
     "ready": "Pronto",
     "previewTitle": "Visualizar as folhas",
-    "readAll": "Leia a folha inteira"
+    "readAll": "Leia a folha inteira",
+    "readReviews": "Leia as opiniões",
+    "readOnline": "Ler online",
+    "formats": "Formatos",
+    "gallery": {
+      "label": "Galeria de notas",
+      "cover": "As notas",
+      "formats": "PDF e Markdown",
+      "zoom": "Ampliar",
+      "prev": "Anterior",
+      "next": "Próxima"
+    }
   },
   "jobs": {
     "eyebrow": "Empregos esta semana",

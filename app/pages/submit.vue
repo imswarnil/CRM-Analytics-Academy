@@ -1,11 +1,11 @@
 <script setup lang="ts">
 /**
- * Contribute — one calm page, no stepper.
+ * Contribute — a three-step wizard.
  *
- * 1. Pick what you are sharing (five choices, each one line long).
- * 2. Fill in a short form: two to four fields, every one labelled with what
- *    it is for. One Submit button.
- * 3. See it in "Your contributions" with its review status.
+ * 1. Choose what you are sharing (five cards).
+ * 2. Details: only the fields that type needs, each labelled with its purpose.
+ * 3. Review what will be sent, then send. It then appears under
+ *    "Your contributions" with its review status.
  *
  * Everything posts to /api/submissions: `kind` is the moderation bucket,
  * `details.type` what it really is. Nothing is public until approved in
@@ -15,16 +15,12 @@
 import { isHttpUrl } from '~/utils/urlMeta'
 import { ROADMAP } from '~/data/roadmap'
 
-definePageMeta({ focus: true, middleware: 'auth' })
+definePageMeta({ middleware: 'auth' })
 
 const { t, locales } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 useSeoMeta({ title: t('contrib.title'), robots: 'noindex, nofollow' })
-// One screen, like a practice paper: the navbar stays, no footer or promos.
-const focus = useState('exam-focus', () => false)
-focus.value = true
-onBeforeUnmount(() => (focus.value = false))
 
 type Type = 'resource' | 'company' | 'nominate' | 'lesson' | 'translation'
 type Kind = 'resource' | 'lesson-idea' | 'nomination'
@@ -170,12 +166,44 @@ async function send() {
   }
 }
 
+// The wizard: 1 choose → 2 details → 3 review and send.
+const step = ref(type.value ? 2 : 1)
 function choose(v: Type) {
   type.value = v
   sent.value = false
   tried.value = false
   error.value = ''
+  step.value = 2
 }
+function next() {
+  tried.value = true
+  if (problem.value) return
+  tried.value = false
+  step.value = 3
+}
+function back() {
+  error.value = ''
+  step.value = Math.max(1, step.value - 1)
+}
+function restart() {
+  sent.value = false
+  type.value = null
+  step.value = 1
+}
+// What will be sent, in words, for the review step.
+const summary = computed(() => {
+  if (!type.value) return []
+  const p = payload()
+  const rows: { label: string, value: string }[] = [{ label: t('contrib.sum.kind'), value: t(`contrib.types.${type.value}.label`) }]
+  if (p.title) rows.push({ label: t('contrib.sum.title'), value: p.title })
+  if (p.url) rows.push({ label: t('contrib.sum.link'), value: p.url })
+  if (type.value === 'resource') {
+    rows.push({ label: t('contrib.f.resType'), value: t(`contrib.resTypes.${form.resType}`) })
+    if (form.section) rows.push({ label: t('contrib.f.section'), value: t(`roadmap.${form.section}.title`) })
+  }
+  if (p.description) rows.push({ label: t('contrib.sum.details'), value: p.description })
+  return rows
+})
 
 interface Mine {
   id: number
@@ -195,13 +223,10 @@ const STATUS: Record<Mine['status'], string> = {
 </script>
 
 <template>
-  <!-- Exactly the viewport on desktop: a slim bar of calls to action, then
-       the choice on the left and the form on the right, each scrolling
-       inside its own column if it must — the page itself never does. -->
-  <div class="flex flex-col bg-(--paper) lg:h-[calc(100dvh-var(--ui-header-height))] lg:overflow-hidden">
-    <!-- Calls to action: above everything, not in a hero -->
-    <div class="shrink-0 border-b border-(--line) bg-(--card)">
-      <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5 sm:px-6">
+  <div class="min-h-[calc(100dvh-var(--ui-header-height))] bg-(--paper)">
+    <!-- Calls to action, above everything -->
+    <div class="border-b border-(--line) bg-(--card)">
+      <div class="mx-auto flex max-w-4xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5 sm:px-6">
         <p class="me-auto text-sm text-(--ink2)">
           {{ t('contrib.ctaLine') }}
         </p>
@@ -227,149 +252,168 @@ const STATUS: Record<Mine['status'], string> = {
       </div>
     </div>
 
-    <div class="mx-auto grid w-full min-h-0 max-w-6xl flex-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[19rem_minmax(0,1fr)]">
-      <!-- 1. What are you sharing? -->
-      <div class="flex min-h-0 flex-col gap-5 lg:overflow-y-auto lg:pe-1">
-        <div>
-          <h1 class="text-2xl font-semibold tracking-tight text-(--ink)">
-            {{ t('contrib.title') }}
-          </h1>
-          <p class="mt-1.5 text-sm leading-relaxed text-(--ink2)">
-            {{ t('contrib.lead') }}
-          </p>
-          <p class="mt-3 inline-flex items-center gap-1.5 rounded-full bg-(--ice) px-3 py-1 text-xs font-medium text-(--ink)">
+    <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+      <div class="text-center">
+        <h1 class="bp-h2">
+          {{ t('contrib.title') }}
+        </h1>
+        <p class="mx-auto mt-2 max-w-xl text-(--ink2)">
+          {{ t('contrib.lead') }}
+        </p>
+      </div>
+
+      <!-- Steps -->
+      <ol
+        v-if="!sent"
+        class="mx-auto mt-8 flex max-w-xl items-center"
+        :aria-label="t('contrib.stepsLabel')"
+      >
+        <li
+          v-for="(label, i) in [t('contrib.steps.choose'), t('contrib.steps.details'), t('contrib.steps.review')]"
+          :key="i"
+          class="flex flex-1 items-center gap-2 last:flex-none"
+          :aria-current="step === i + 1 ? 'step' : undefined"
+        >
+          <button
+            type="button"
+            class="flex items-center gap-2 text-sm font-semibold disabled:cursor-default"
+            :disabled="i + 1 > step"
+            @click="i + 1 < step && (step = i + 1)"
+          >
+            <span
+              class="flex size-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-bold transition-colors"
+              :class="step > i + 1 ? 'border-(--signal) bg-(--signal) text-white' : step === i + 1 ? 'border-(--signal) text-(--signal)' : 'border-(--line) text-(--ink2)'"
+            >
+              <UIcon
+                v-if="step > i + 1"
+                name="i-lucide-check"
+                class="size-4"
+              />
+              <template v-else>{{ i + 1 }}</template>
+            </span>
+            <span
+              class="max-sm:hidden"
+              :class="step >= i + 1 ? 'text-(--ink)' : 'text-(--ink2)'"
+            >{{ label }}</span>
+          </button>
+          <span
+            v-if="i < 2"
+            class="mx-3 h-0.5 flex-1 rounded-full"
+            :class="step > i + 1 ? 'bg-(--signal)' : 'bg-(--line)'"
+          />
+        </li>
+      </ol>
+
+      <!-- STEP 1: what are you sharing? -->
+      <div
+        v-if="!sent && step === 1"
+        class="mt-8"
+      >
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <button
+            v-for="ty in TYPES"
+            :key="ty.value"
+            type="button"
+            class="group flex flex-col items-start gap-3 rounded-[6px] border bg-(--card) p-5 text-start transition-colors"
+            :class="type === ty.value ? 'border-(--signal) bg-(--ice)' : 'border-(--line) hover:border-(--signal)'"
+            :aria-pressed="type === ty.value"
+            @click="choose(ty.value)"
+          >
+            <span class="flex size-11 items-center justify-center rounded-[6px] bg-(--ice) text-(--signal) transition-colors group-hover:bg-(--signal) group-hover:text-white">
+              <UIcon
+                :name="ty.icon"
+                class="size-5"
+              />
+            </span>
+            <span class="text-base font-bold text-(--ink)">{{ t(`contrib.types.${ty.value}.label`) }}</span>
+            <span class="text-sm leading-snug text-(--ink2)">{{ t(`contrib.types.${ty.value}.hint`) }}</span>
+          </button>
+        </div>
+        <p class="mt-6 text-center">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-(--ice) px-3 py-1 text-xs font-medium text-(--ink)">
             <UIcon
               name="i-lucide-coins"
               class="size-3.5 text-(--signal)"
             />{{ t('contrib.pointsBadge') }}
-          </p>
-        </div>
-
-        <fieldset>
-          <legend class="mb-2 text-xs font-medium text-(--ink2)">
-            {{ t('contrib.pick') }}
-          </legend>
-          <div class="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-1">
-            <button
-              v-for="ty in TYPES"
-              :key="ty.value"
-              type="button"
-              class="group flex items-center gap-3 rounded-[6px] px-3 py-2.5 text-start transition-colors duration-150"
-              :class="type === ty.value ? 'bg-(--card) ring-1 ring-(--signal)' : 'hover:bg-(--card)'"
-              :aria-pressed="type === ty.value"
-              @click="choose(ty.value)"
-            >
-              <span
-                class="flex size-9 shrink-0 items-center justify-center rounded-[4px] transition-colors"
-                :class="type === ty.value ? 'bg-(--signal) text-white' : 'bg-(--ice) text-(--signal)'"
-              >
-                <UIcon
-                  :name="ty.icon"
-                  class="size-[18px]"
-                />
-              </span>
-              <span class="min-w-0">
-                <span class="block text-sm font-semibold text-(--ink)">{{ t(`contrib.types.${ty.value}.label`) }}</span>
-                <span class="line-clamp-2 block text-xs leading-snug text-(--ink2)">{{ t(`contrib.types.${ty.value}.hint`) }}</span>
-              </span>
-            </button>
-          </div>
-        </fieldset>
-
-        <!-- 3. Yours -->
-        <section
-          v-if="mine?.submissions?.length"
-          class="max-lg:order-last"
-        >
-          <h2 class="mb-2 text-xs font-medium text-(--ink2)">
-            {{ t('contrib.mine') }}
-          </h2>
-          <ul class="divide-y divide-(--line) overflow-hidden rounded-[6px] border border-(--line) bg-(--card)">
-            <li
-              v-for="s in mine.submissions"
-              :key="s.id"
-              class="flex flex-wrap items-center gap-2 px-3 py-2.5"
-            >
-              <span class="min-w-0 flex-1 truncate text-sm text-(--ink)">{{ s.title }}</span>
-              <span
-                class="rounded-full px-2 py-0.5 text-[11px] font-medium"
-                :class="STATUS[s.status]"
-              >{{ t(`contrib.status.${s.status}`) }}</span>
-              <p
-                v-if="s.reviewNote"
-                class="w-full text-xs text-(--ink2)"
-              >
-                {{ s.reviewNote }}
-              </p>
-            </li>
-          </ul>
-        </section>
+          </span>
+        </p>
       </div>
 
-      <!-- 2. The short form -->
-      <div class="flex min-h-0 min-w-0 flex-col">
-        <div
-          v-if="!type && !sent"
-          class="flex min-h-64 flex-1 flex-col items-center justify-center gap-3 rounded-[6px] border border-dashed border-(--line) p-8 text-center text-(--ink2)"
-        >
-          <UIcon
-            name="i-lucide-mouse-pointer-click"
-            class="size-7 text-(--signal)"
-          />
-          {{ t('contrib.err.pick') }}
-        </div>
-
-        <form
-          v-if="type && !sent"
-          class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[6px] border border-(--line) bg-(--card)"
-          novalidate
-          @submit.prevent="send"
-        >
-          <header class="flex shrink-0 items-center gap-3 border-b border-(--line) px-6 py-4">
+      <!-- STEP 2 + 3 -->
+      <form
+        v-if="!sent && step > 1 && type"
+        class="mt-8 overflow-hidden rounded-[6px] border border-(--line) bg-(--card)"
+        novalidate
+        @submit.prevent="step === 2 ? next() : send()"
+      >
+        <header class="flex items-center gap-3 border-b border-(--line) px-6 py-4">
+          <span class="flex size-9 items-center justify-center rounded-[4px] bg-(--ice) text-(--signal)">
             <UIcon
               :name="TYPES.find(x => x.value === type)!.icon"
-              class="size-5 text-(--signal)"
+              class="size-5"
             />
-            <p class="text-base font-semibold text-(--ink)">
-              {{ t(`contrib.types.${type}.label`) }}
-            </p>
-          </header>
+          </span>
+          <p class="text-base font-bold text-(--ink)">
+            {{ t(`contrib.types.${type}.label`) }}
+          </p>
+          <span class="ms-auto text-xs font-bold uppercase tracking-[.09em] text-(--label)">{{ t('contrib.stepOf', { n: step, total: 3 }) }}</span>
+        </header>
 
-          <div class="min-h-0 flex-1 space-y-5 overflow-y-auto px-6 py-5">
-            <!-- honeypot: invisible to people, filled in by naive bots -->
-            <input
-              v-model="form.website"
-              name="website"
-              tabindex="-1"
-              autocomplete="off"
-              aria-hidden="true"
-              class="absolute -left-[9999px] size-px opacity-0"
-            >
+        <div
+          v-show="step === 2"
+          class="space-y-5 px-6 py-6"
+        >
+          <!-- honeypot: invisible to people, filled in by naive bots -->
+          <input
+            v-model="form.website"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+            class="absolute -left-[9999px] size-px opacity-0"
+          >
 
-            <template v-if="type === 'company'">
-              <UFormField
-                :label="t('contrib.f.company')"
-                required
-              >
-                <UInput
-                  v-model="form.company"
-                  size="lg"
-                  class="w-full"
-                  :placeholder="t('contrib.ph.company')"
-                />
-              </UFormField>
-              <UFormField :label="t('contrib.f.companyKind')">
-                <URadioGroup
-                  v-model="form.companyKind"
-                  orientation="horizontal"
-                  :items="CATEGORIES.map(c => ({ label: t(`companies.kinds.${c}`), value: c }))"
-                />
-              </UFormField>
-            </template>
-
+          <template v-if="type === 'company'">
             <UFormField
-              v-if="type === 'nominate'"
-              :label="t('contrib.f.name')"
+              :label="t('contrib.f.company')"
+              required
+            >
+              <UInput
+                v-model="form.company"
+                size="lg"
+                class="w-full"
+                :placeholder="t('contrib.ph.company')"
+              />
+            </UFormField>
+            <UFormField :label="t('contrib.f.companyKind')">
+              <URadioGroup
+                v-model="form.companyKind"
+                orientation="horizontal"
+                :items="CATEGORIES.map(c => ({ label: t(`companies.kinds.${c}`), value: c }))"
+              />
+            </UFormField>
+          </template>
+
+          <UFormField
+            v-if="type === 'nominate'"
+            :label="t('contrib.f.name')"
+            required
+          >
+            <UInput
+              v-model="form.title"
+              size="lg"
+              class="w-full"
+            />
+          </UFormField>
+
+          <template v-if="type === 'lesson'">
+            <URadioGroup
+              v-model="form.lessonMode"
+              orientation="horizontal"
+              :items="[{ label: t('contrib.f.fix'), value: 'fix' }, { label: t('contrib.f.idea'), value: 'idea' }]"
+            />
+            <UFormField
+              :label="form.lessonMode === 'fix' ? t('contrib.f.whichLesson') : t('contrib.f.ideaTitle')"
               required
             >
               <UInput
@@ -378,111 +422,23 @@ const STATUS: Record<Mine['status'], string> = {
                 class="w-full"
               />
             </UFormField>
+          </template>
 
-            <template v-if="type === 'lesson'">
-              <URadioGroup
-                v-model="form.lessonMode"
-                orientation="horizontal"
-                :items="[{ label: t('contrib.f.fix'), value: 'fix' }, { label: t('contrib.f.idea'), value: 'idea' }]"
-              />
-              <UFormField
-                :label="form.lessonMode === 'fix' ? t('contrib.f.whichLesson') : t('contrib.f.ideaTitle')"
-                required
-              >
-                <UInput
-                  v-model="form.title"
-                  size="lg"
-                  class="w-full"
-                />
-              </UFormField>
-            </template>
-
-            <template v-if="type === 'translation'">
-              <UFormField
-                :label="t('contrib.f.language')"
-                required
-              >
-                <USelect
-                  v-model="form.locale"
-                  :items="localeItems"
-                  size="lg"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('contrib.f.page')"
-                :hint="t('contrib.ph.page')"
-                required
-              >
-                <UInput
-                  v-model="form.title"
-                  size="lg"
-                  class="w-full"
-                />
-              </UFormField>
-              <UFormField
-                :label="t('contrib.f.wrong')"
-                required
-              >
-                <UTextarea
-                  v-model="form.wrong"
-                  :rows="2"
-                  autoresize
-                  class="w-full"
-                />
-              </UFormField>
-            </template>
-
+          <template v-if="type === 'translation'">
             <UFormField
-              v-if="type === 'resource' || type === 'company' || type === 'nominate'"
-              :label="type === 'company' ? t('contrib.f.source') : type === 'nominate' ? t('contrib.f.profile') : t('contrib.f.link')"
-              :hint="type === 'nominate' ? t('contrib.optional') : undefined"
-              :help="type === 'company' ? t('contrib.ph.source') : undefined"
-              :required="type !== 'nominate'"
+              :label="t('contrib.f.language')"
+              required
             >
-              <UInput
-                v-model="form.url"
-                type="url"
-                inputmode="url"
+              <USelect
+                v-model="form.locale"
+                :items="localeItems"
                 size="lg"
                 class="w-full"
-                placeholder="https://"
-                @blur="type === 'resource' && guessTitle()"
               />
             </UFormField>
-
-            <template v-if="type === 'resource'">
-              <UFormField :label="t('contrib.f.resType')">
-                <div class="flex flex-wrap gap-1.5">
-                  <button
-                    v-for="r in RES_TYPES"
-                    :key="r.value"
-                    type="button"
-                    class="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors"
-                    :class="form.resType === r.value ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) text-(--ink2) hover:border-(--signal)'"
-                    :aria-pressed="form.resType === r.value"
-                    @click="form.resType = r.value"
-                  >
-                    <UIcon
-                      :name="r.icon"
-                      class="size-4"
-                    />{{ t(`contrib.resTypes.${r.value}`) }}
-                  </button>
-                </div>
-              </UFormField>
-              <UFormField :label="t('contrib.f.section')">
-                <USelect
-                  v-model="form.section"
-                  :items="sectionItems"
-                  size="lg"
-                  class="w-full"
-                />
-              </UFormField>
-            </template>
-
             <UFormField
-              v-if="type === 'resource'"
-              :label="t('contrib.f.title')"
+              :label="t('contrib.f.page')"
+              :hint="t('contrib.ph.page')"
               required
             >
               <UInput
@@ -491,80 +447,190 @@ const STATUS: Record<Mine['status'], string> = {
                 class="w-full"
               />
             </UFormField>
-
             <UFormField
-              v-if="type === 'nominate'"
-              :label="t('contrib.f.role')"
-            >
-              <URadioGroup
-                v-model="form.role"
-                orientation="horizontal"
-                :items="ROLES.map(r => ({ label: t(`contrib.roles.${r}`), value: r as string }))"
-              />
-            </UFormField>
-
-            <UFormField
-              :label="t(`contrib.body.${type}`)"
-              :help="t('contrib.bodyHelp')"
+              :label="t('contrib.f.wrong')"
               required
             >
               <UTextarea
-                v-model="form.body"
-                :rows="4"
+                v-model="form.wrong"
+                :rows="2"
                 autoresize
-                :maxrows="10"
                 class="w-full"
               />
             </UFormField>
+          </template>
 
-            <UCheckbox
-              v-if="type === 'nominate'"
-              v-model="form.self"
-              :label="t('contrib.f.self')"
+          <UFormField
+            v-if="type === 'resource' || type === 'company' || type === 'nominate'"
+            :label="type === 'company' ? t('contrib.f.source') : type === 'nominate' ? t('contrib.f.profile') : t('contrib.f.link')"
+            :hint="type === 'nominate' ? t('contrib.optional') : undefined"
+            :help="type === 'company' ? t('contrib.ph.source') : undefined"
+            :required="type !== 'nominate'"
+          >
+            <UInput
+              v-model="form.url"
+              type="url"
+              inputmode="url"
+              size="lg"
+              class="w-full"
+              placeholder="https://"
+              @blur="type === 'resource' && guessTitle()"
             />
+          </UFormField>
 
-            <!-- How it will look on /resources once approved -->
-            <div
-              v-if="type === 'resource' && (form.title || host)"
-              class="rounded-[6px] border border-dashed border-(--line) bg-(--paper) p-4"
-            >
-              <p class="mb-3 text-[10px] font-bold uppercase tracking-[.09em] text-(--label)">
-                {{ t('contrib.preview') }}
-              </p>
-              <div class="flex items-start gap-3 rounded-[6px] border border-(--line) bg-(--card) p-4">
-                <span class="flex size-10 shrink-0 items-center justify-center rounded-[4px] bg-(--ice) text-(--signal)">
+          <template v-if="type === 'resource'">
+            <UFormField :label="t('contrib.f.resType')">
+              <div class="flex flex-wrap gap-1.5">
+                <button
+                  v-for="r in RES_TYPES"
+                  :key="r.value"
+                  type="button"
+                  class="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors"
+                  :class="form.resType === r.value ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) text-(--ink2) hover:border-(--signal)'"
+                  :aria-pressed="form.resType === r.value"
+                  @click="form.resType = r.value"
+                >
                   <UIcon
-                    :name="RES_TYPES.find(r => r.value === form.resType)!.icon"
-                    class="size-5"
-                  />
-                </span>
-                <div class="min-w-0">
-                  <p class="font-bold text-(--ink)">
-                    {{ form.title || t('contrib.f.title') }}
-                  </p>
-                  <p class="mt-0.5 line-clamp-2 text-sm text-(--ink2)">
-                    {{ form.body || t('contrib.body.resource') }}
-                  </p>
-                  <p class="mt-2 text-xs font-medium text-(--signal)">
-                    {{ host || 'example.com' }}<template v-if="form.section">
-                      · {{ t(`roadmap.${form.section}.title`) }}
-                    </template>
-                  </p>
-                </div>
+                    :name="r.icon"
+                    class="size-4"
+                  />{{ t(`contrib.resTypes.${r.value}`) }}
+                </button>
+              </div>
+            </UFormField>
+            <UFormField :label="t('contrib.f.section')">
+              <USelect
+                v-model="form.section"
+                :items="sectionItems"
+                size="lg"
+                class="w-full"
+              />
+            </UFormField>
+          </template>
+
+          <UFormField
+            v-if="type === 'resource'"
+            :label="t('contrib.f.title')"
+            required
+          >
+            <UInput
+              v-model="form.title"
+              size="lg"
+              class="w-full"
+            />
+          </UFormField>
+
+          <UFormField
+            v-if="type === 'nominate'"
+            :label="t('contrib.f.role')"
+          >
+            <URadioGroup
+              v-model="form.role"
+              orientation="horizontal"
+              :items="ROLES.map(r => ({ label: t(`contrib.roles.${r}`), value: r as string }))"
+            />
+          </UFormField>
+
+          <UFormField
+            :label="t(`contrib.body.${type}`)"
+            :help="t('contrib.bodyHelp')"
+            required
+          >
+            <UTextarea
+              v-model="form.body"
+              :rows="4"
+              autoresize
+              :maxrows="10"
+              class="w-full"
+            />
+          </UFormField>
+
+          <UCheckbox
+            v-if="type === 'nominate'"
+            v-model="form.self"
+            :label="t('contrib.f.self')"
+          />
+
+          <!-- How it will look on /resources once approved -->
+          <div
+            v-if="type === 'resource' && (form.title || host)"
+            class="rounded-[6px] border border-dashed border-(--line) bg-(--paper) p-4"
+          >
+            <p class="mb-3 text-[10px] font-bold uppercase tracking-[.09em] text-(--label)">
+              {{ t('contrib.preview') }}
+            </p>
+            <div class="flex items-start gap-3 rounded-[6px] border border-(--line) bg-(--card) p-4">
+              <span class="flex size-10 shrink-0 items-center justify-center rounded-[4px] bg-(--ice) text-(--signal)">
+                <UIcon
+                  :name="RES_TYPES.find(r => r.value === form.resType)!.icon"
+                  class="size-5"
+                />
+              </span>
+              <div class="min-w-0">
+                <p class="font-bold text-(--ink)">
+                  {{ form.title || t('contrib.f.title') }}
+                </p>
+                <p class="mt-0.5 line-clamp-2 text-sm text-(--ink2)">
+                  {{ form.body || t('contrib.body.resource') }}
+                </p>
+                <p class="mt-2 text-xs font-medium text-(--signal)">
+                  {{ host || 'example.com' }}<template v-if="form.section">
+                    · {{ t(`roadmap.${form.section}.title`) }}
+                  </template>
+                </p>
               </div>
             </div>
-
-            <UAlert
-              v-if="(tried && problem) || error"
-              color="error"
-              variant="subtle"
-              icon="i-lucide-circle-alert"
-              :description="error || problem"
-            />
           </div>
+        </div>
 
-          <footer class="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-(--line) px-6 py-4">
-            <p class="text-sm text-(--ink2)">
+        <!-- Review -->
+        <div
+          v-if="step === 3"
+          class="space-y-4 px-6 py-6"
+        >
+          <p class="text-(--ink2)">
+            {{ t('contrib.reviewLead') }}
+          </p>
+          <dl class="divide-y divide-(--line) overflow-hidden rounded-[6px] border border-(--line)">
+            <div
+              v-for="row in summary"
+              :key="row.label"
+              class="grid gap-1 px-4 py-3 sm:grid-cols-[10rem_minmax(0,1fr)]"
+            >
+              <dt class="text-sm font-semibold text-(--ink2)">
+                {{ row.label }}
+              </dt>
+              <dd class="whitespace-pre-line break-words text-(--ink)">
+                {{ row.value }}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="px-6">
+          <UAlert
+            v-if="(tried && problem) || error"
+            color="error"
+            variant="subtle"
+            icon="i-lucide-circle-alert"
+            :description="error || problem"
+            class="mb-4"
+          />
+        </div>
+
+        <footer class="flex flex-wrap items-center justify-between gap-3 border-t border-(--line) px-6 py-4">
+          <UButton
+            color="neutral"
+            variant="ghost"
+            icon="i-lucide-arrow-left"
+            @click="back"
+          >
+            {{ t('contrib.back') }}
+          </UButton>
+          <div class="flex items-center gap-3">
+            <p
+              v-if="step === 3"
+              class="text-sm text-(--ink2) max-sm:hidden"
+            >
               {{ t('contrib.reviewed') }}
             </p>
             <UButton
@@ -572,47 +638,77 @@ const STATUS: Record<Mine['status'], string> = {
               size="lg"
               class="px-6"
               :loading="sending"
-              icon="i-lucide-send"
+              :icon="step === 3 ? 'i-lucide-send' : undefined"
+              :trailing-icon="step === 2 ? 'i-lucide-arrow-right' : undefined"
             >
-              {{ t('contrib.send') }}
-            </UButton>
-          </footer>
-        </form>
-
-        <div
-          v-if="sent"
-          class="flex flex-1 flex-col items-center justify-center rounded-[6px] border border-(--line) bg-(--card) p-10 text-center"
-        >
-          <span class="flex size-14 items-center justify-center rounded-full bg-(--signal)/12">
-            <UIcon
-              name="i-lucide-check"
-              class="size-7 text-(--signal)"
-            />
-          </span>
-          <p class="mt-5 text-xl font-semibold text-(--ink)">
-            {{ t('contrib.thanks') }}
-          </p>
-          <p class="mt-2 max-w-md text-(--ink2)">
-            {{ t('contrib.thanksBody') }}
-          </p>
-          <div class="mt-6 flex flex-wrap justify-center gap-3">
-            <UButton
-              icon="i-lucide-plus"
-
-              @click="sent = false"
-            >
-              {{ t('contrib.another') }}
-            </UButton>
-            <UButton
-              :to="localePath('/dashboard')"
-              color="neutral"
-              variant="outline"
-            >
-              {{ t('contrib.toDashboard') }}
+              {{ step === 2 ? t('contrib.next') : t('contrib.send') }}
             </UButton>
           </div>
+        </footer>
+      </form>
+
+      <!-- Sent -->
+      <div
+        v-if="sent"
+        class="mt-10 flex flex-col items-center rounded-[6px] border border-(--line) bg-(--card) p-10 text-center"
+      >
+        <span class="flex size-14 items-center justify-center rounded-full bg-(--signal)/12">
+          <UIcon
+            name="i-lucide-check"
+            class="size-7 text-(--signal)"
+          />
+        </span>
+        <p class="mt-5 text-xl font-semibold text-(--ink)">
+          {{ t('contrib.thanks') }}
+        </p>
+        <p class="mt-2 max-w-md text-(--ink2)">
+          {{ t('contrib.thanksBody') }}
+        </p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <UButton
+            icon="i-lucide-plus"
+            @click="restart"
+          >
+            {{ t('contrib.another') }}
+          </UButton>
+          <UButton
+            :to="localePath('/dashboard')"
+            color="neutral"
+            variant="outline"
+          >
+            {{ t('contrib.toDashboard') }}
+          </UButton>
         </div>
       </div>
+
+      <!-- Yours -->
+      <section
+        v-if="mine?.submissions?.length"
+        class="mt-12"
+      >
+        <h2 class="mono-label mb-3">
+          {{ t('contrib.mine') }}
+        </h2>
+        <ul class="divide-y divide-(--line) overflow-hidden rounded-[6px] border border-(--line) bg-(--card)">
+          <li
+            v-for="sub in mine.submissions"
+            :key="sub.id"
+            class="flex flex-wrap items-center gap-2 px-4 py-3"
+          >
+            <span class="min-w-0 flex-1 truncate text-sm text-(--ink)">{{ sub.title }}</span>
+            <span
+              class="rounded-full px-2 py-0.5 text-[11px] font-medium"
+              :class="STATUS[sub.status]"
+            >{{ t(`contrib.status.${sub.status}`) }}</span>
+            <p
+              v-if="sub.reviewNote"
+              class="w-full text-xs text-(--ink2)"
+            >
+              {{ sub.reviewNote }}
+            </p>
+          </li>
+        </ul>
+      </section>
     </div>
   </div>
 </template>

@@ -128,19 +128,19 @@ usePageSchema(() => ({
       </div>
     </section>
 
-    <div class="mx-auto grid max-w-(--ui-container) gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[14rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[14rem_minmax(0,1fr)_17rem]">
+    <div class="mx-auto grid max-w-(--ui-container) gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[16rem_minmax(0,1fr)_17rem]">
       <!-- Left: the path — one tile per section on a connecting line -->
       <aside class="hidden lg:block">
         <nav
-          class="sticky top-24"
+          class="sticky top-24 rounded-[6px] border border-(--line) bg-(--card) p-4"
           :aria-label="t('curriculumPage.sidebar')"
         >
-          <p class="mono-label mb-4 px-1">
+          <p class="mono-label mb-3 px-1">
             {{ t('curriculumPage.sidebar') }}
           </p>
           <ol class="relative">
             <span
-              class="absolute start-[1.1875rem] top-5 bottom-5 w-px bg-(--line)"
+              class="absolute start-[1.25rem] top-5 bottom-5 w-px bg-(--line)"
               aria-hidden="true"
             />
             <li

@@ -29,7 +29,7 @@ export interface Price {
 
 export const PRICES = {
   monthly: { key: 'crma_pro_monthly', usd: 19, interval: 'month' },
-  lifetime: { key: 'crma_pro_lifetime', usd: 149 }
+  lifetime: { key: 'crma_pro_lifetime', usd: 299 }
 } as const satisfies Record<string, Price>
 export type PaidPlan = keyof typeof PRICES
 

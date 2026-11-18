@@ -104,6 +104,21 @@ usePageSchema(() => ({
         <p class="bp-lead mx-auto mt-4 max-w-xl">
           {{ t('store.lead') }}
         </p>
+        <div class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold">
+          <a
+            href="#plans"
+            class="text-(--signal) hover:underline"
+          >{{ t('store.toPlans') }}</a>
+          <a
+            href="#compare"
+            class="inline-flex items-center gap-1 text-(--signal) hover:underline"
+          >
+            <UIcon
+              name="i-lucide-scale"
+              class="size-4"
+            />{{ t('store.toCompare') }}
+          </a>
+        </div>
       </div>
     </section>
 
@@ -324,6 +339,14 @@ usePageSchema(() => ({
       <p class="text-center text-sm text-(--ink2)">
         {{ t('plans.footnote') }}
       </p>
+    </div>
+
+    <!-- How the price compares with classroom training -->
+    <div
+      id="compare"
+      class="scroll-mt-20 border-t border-(--line) bg-(--card)"
+    >
+      <HomeCompare />
     </div>
   </div>
 </template>

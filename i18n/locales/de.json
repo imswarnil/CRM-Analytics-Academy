@@ -1192,7 +1192,10 @@
     },
     "editOnGithub": "Verbessern Sie diese Antwort auf GitHub",
     "answersTitle": "Antworten aus der Community",
-    "answersLead": "Lesen Sie, wie andere es beantworten, oder fügen Sie Ihre eigenen hinzu."
+    "answersLead": "Lesen Sie, wie andere es beantworten, oder fügen Sie Ihre eigenen hinzu.",
+    "shareTitle": "Kennen Sie jemanden, der sich auf ein Interview vorbereitet? Schicke ihnen diese Liste.",
+    "statQuestions": "Fragen",
+    "statTopics": "Themen"
   },
   "cert": {
     "eyebrow": "Zertifizierungspraxis",
@@ -1277,7 +1280,27 @@
     "leaveTitle": "Verlassen Sie diese Prüfung?",
     "leaveBody": "Die Uhr läuft. Ihre Antworten bleiben auf diesem Gerät gespeichert und Sie können bis zum Ablauf der Zeit fortfahren.",
     "leave": "Urlaub",
-    "keys": "Tastatur: A-D zu beantworten, ← → zu bewegen, F zu Flag."
+    "keys": "Tastatur: A-D zu beantworten, ← → zu bewegen, F zu Flag.",
+    "earn": "Pass und verdienen Sie Ihr Zertifikat",
+    "papersTitle": "Praxispapiere",
+    "paperLine": "{q} Fragen · {m} Minuten · {p}% zu überschreiten",
+    "morePapers": "Mehr Papiere kommen",
+    "morePapersBody": "Neue Papiere kommen an, wenn Abschnitte veröffentlicht werden, jede mit neuen Fragen.",
+    "paper": {
+      "issuer": "CRM Analytics Akademie",
+      "kicker": "Leistungsnachweis",
+      "title": "CRM Analytics Berater — Praxisprüfung",
+      "awarded": "Damit wird bescheinigt, dass",
+      "yourName": "Dein Name",
+      "score": "Score",
+      "date": "Datum",
+      "id": "Kennung",
+      "signer": "Swarnil Singhai, Ausbilder",
+      "sample": "PROBE",
+      "note": "Ausgezeichnet von CRM Analytics Akademie für das Bestehen ihrer Praxisprüfung. Es ist keine Salesforce Credential und ist nicht mit Salesforce.",
+      "download": "Speichern als PDF",
+      "yours": "Ihr Zertifikat"
+    }
   },
   "companies": {
     "eyebrow": "Unternehmen",
@@ -1409,7 +1432,23 @@
       "dataset": "Datensatz"
     },
     "anySection": "Irgendwelche / nicht sicher",
-    "preview": "Vorschau auf der Ressourcenseite"
+    "preview": "Vorschau auf der Ressourcenseite",
+    "steps": {
+      "choose": "Wählen",
+      "details": "Einzelheiten",
+      "review": "Überprüfung"
+    },
+    "stepsLabel": "Stufen",
+    "stepOf": "Schritt {n} von {total}",
+    "next": "Überprüfung",
+    "back": "Rücken",
+    "reviewLead": "Überprüfen Sie, was Sie senden. Eine Person überprüft es, bevor etwas an die Öffentlichkeit geht.",
+    "sum": {
+      "kind": "Typ",
+      "title": "Titel",
+      "link": "Link",
+      "details": "Einzelheiten"
+    }
   },
   "dash": {
     "examTitle": "Zertifizierungsbereitschaft",
@@ -1432,7 +1471,7 @@
   "store": {
     "eyebrow": "Preisgestaltung",
     "seoTitle": "CRM Analytics Academy-Preise: Kostenlos, Pro Monthly, Pro Lifetime, Teams",
-    "seoDesc": "Lernen Salesforce CRM Analytics Pro für jede lektion, datensatz und prüfungsprüfung ohne werbung — $19 pro monat oder $149 einmal. Sitze für Unternehmen und Hochschulen.",
+    "seoDesc": "Lernen Salesforce CRM Analytics Kostenlos, oder erhalten Sie Pro für jede Lektion, Datensatz und Prüfung Überprüfung ohne Werbung - $ 19 pro Monat oder $ 299 einmal. Sitze für Unternehmen und Hochschulen.",
     "title": "Lernen Sie kostenlos. Pro, wenn du bereit bist.",
     "lead": "Jede kostenlose Lektion bleibt frei. Pro entsperrt die gesamte Plattform - monatlich oder einmal für das Leben. Unternehmen und Hochschulen kaufen Sitze.",
     "sentTitle": "Danke - Ihre Anfrage ist da.",
@@ -1447,7 +1486,9 @@
       "phone": "Telefon",
       "message": "Was sollten wir wissen?"
     },
-    "send": "Send Request"
+    "send": "Send Request",
+    "toPlans": "Siehe die Pläne",
+    "toCompare": "Vergleichen Sie das Klassenzimmertraining"
   },
   "human": {
     "working": "Zu prüfen, ob du menschlich bist...",
@@ -1770,7 +1811,18 @@
     "insideTitle": "Was ist drin",
     "ready": "Fertig",
     "previewTitle": "Vorschau der Blätter",
-    "readAll": "Lesen Sie das ganze Blatt"
+    "readAll": "Lesen Sie das ganze Blatt",
+    "readReviews": "Lesen Sie die Reviews",
+    "readOnline": "Lesen Sie online",
+    "formats": "Formate",
+    "gallery": {
+      "label": "Notizengalerie",
+      "cover": "Die Anmerkungen",
+      "formats": "PDF und Markdown",
+      "zoom": "Zoom in",
+      "prev": "Früher",
+      "next": "Nächster Artikel"
+    }
   },
   "jobs": {
     "eyebrow": "Jobs diese Woche",

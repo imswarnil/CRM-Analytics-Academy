@@ -1192,7 +1192,10 @@
     },
     "editOnGithub": "Improve this answer on GitHub",
     "answersTitle": "Answers from the community",
-    "answersLead": "Read how others answer it, or add your own."
+    "answersLead": "Read how others answer it, or add your own.",
+    "shareTitle": "Know someone preparing for an interview? Send them this list.",
+    "statQuestions": "questions",
+    "statTopics": "topics"
   },
   "cert": {
     "eyebrow": "Certification practice",
@@ -1277,7 +1280,27 @@
     "leaveTitle": "Leave this exam?",
     "leaveBody": "The clock is running. Your answers stay saved on this device, and you can resume until the time runs out.",
     "leave": "Leave",
-    "keys": "Keyboard: A–D to answer, ← → to move, F to flag."
+    "keys": "Keyboard: A–D to answer, ← → to move, F to flag.",
+    "earn": "Pass and earn your certificate",
+    "papersTitle": "Practice papers",
+    "paperLine": "{q} questions · {m} minutes · {p}% to pass",
+    "morePapers": "More papers are coming",
+    "morePapersBody": "New papers arrive as sections are published, each with fresh questions.",
+    "paper": {
+      "issuer": "CRM Analytics Academy",
+      "kicker": "Certificate of achievement",
+      "title": "CRM Analytics Consultant — Practice Exam",
+      "awarded": "This certifies that",
+      "yourName": "Your Name",
+      "score": "Score",
+      "date": "Date",
+      "id": "Credential ID",
+      "signer": "Swarnil Singhai, instructor",
+      "sample": "SAMPLE",
+      "note": "Awarded by CRM Analytics Academy for passing its practice exam. It is not a Salesforce credential and is not affiliated with Salesforce.",
+      "download": "Save as PDF",
+      "yours": "Your certificate"
+    }
   },
   "companies": {
     "eyebrow": "Companies",
@@ -1409,7 +1432,23 @@
       "dataset": "Dataset"
     },
     "anySection": "Any / not sure",
-    "preview": "Preview on the resources page"
+    "preview": "Preview on the resources page",
+    "steps": {
+      "choose": "Choose",
+      "details": "Details",
+      "review": "Review"
+    },
+    "stepsLabel": "Steps",
+    "stepOf": "Step {n} of {total}",
+    "next": "Review",
+    "back": "Back",
+    "reviewLead": "Check what you are sending. A person reviews it before anything goes public.",
+    "sum": {
+      "kind": "Type",
+      "title": "Title",
+      "link": "Link",
+      "details": "Details"
+    }
   },
   "dash": {
     "examTitle": "Certification readiness",
@@ -1432,7 +1471,7 @@
   "store": {
     "eyebrow": "Pricing",
     "seoTitle": "CRM Analytics Academy pricing: Free, Pro Monthly, Pro Lifetime, Teams",
-    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $19 a month or $149 once. Seats for companies and colleges.",
+    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $19 a month or $299 once. Seats for companies and colleges.",
     "title": "Learn free. Go Pro when you are ready.",
     "lead": "Every free lesson stays free. Pro unlocks the whole platform — monthly, or once for life. Companies and colleges buy seats.",
     "sentTitle": "Thanks — your request is in.",
@@ -1447,7 +1486,9 @@
       "phone": "Phone",
       "message": "Anything we should know?"
     },
-    "send": "Send request"
+    "send": "Send request",
+    "toPlans": "See the plans",
+    "toCompare": "Compare with classroom training"
   },
   "human": {
     "working": "Checking you are human…",
@@ -1770,7 +1811,18 @@
     "insideTitle": "What's inside",
     "ready": "Ready",
     "previewTitle": "Preview the sheets",
-    "readAll": "Read the whole sheet"
+    "readAll": "Read the whole sheet",
+    "readReviews": "Read the reviews",
+    "readOnline": "Read online",
+    "formats": "Formats",
+    "gallery": {
+      "label": "Notes gallery",
+      "cover": "The notes",
+      "formats": "PDF and Markdown",
+      "zoom": "Zoom in",
+      "prev": "Previous",
+      "next": "Next"
+    }
   },
   "jobs": {
     "eyebrow": "Jobs this week",

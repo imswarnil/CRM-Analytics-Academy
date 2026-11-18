@@ -19,7 +19,7 @@ definePageMeta({ focus: true })
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
-const { isSignedIn } = useAuth()
+const { isSignedIn, user } = useAuth()
 
 const paper = PAPERS.find(p => p.id === route.params.paper)
 if (!paper) throw createError({ statusCode: 404, statusMessage: 'Paper not found', fatal: true })
@@ -159,6 +159,19 @@ const correct = (i: number) => answers.value[i] === questions.value[i]?.answer
 const score = computed(() => questions.value.reduce((n, _, i) => n + (correct(i) ? 1 : 0), 0))
 const pct = computed(() => questions.value.length ? Math.round((score.value / questions.value.length) * 100) : 0)
 const passed = computed(() => pct.value >= EXAM.passPct)
+// A practice credential id: paper, date and a short hash of the account, so
+// it reads like a real one without claiming to be verifiable.
+const credentialId = computed(() => {
+  const seed = `${user.value?.id ?? 'guest'}-${paper?.id}`
+  let h = 0
+  for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  return `CRMA-PX1-${new Date().getFullYear()}-${h.toString(36).toUpperCase().slice(0, 6).padStart(6, '0')}`
+})
+function printCertificate() {
+  document.body.classList.add('printing-cert')
+  window.print()
+  document.body.classList.remove('printing-cert')
+}
 const byDomain = computed(() => {
   const out: Record<string, { score: number, total: number }> = {}
   questions.value.forEach((q, i) => {
@@ -568,6 +581,28 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             path="/certification"
             compact
           />
+        </div>
+      </section>
+
+      <!-- Passed: the certificate, ready to save -->
+      <section
+        v-if="passed"
+        class="cert-print space-y-4"
+      >
+        <CourseCertificate
+          :name="user?.name || ''"
+          :score="pct"
+          :credential="credentialId"
+        />
+        <div class="no-print flex justify-center">
+          <UButton
+            icon="i-lucide-file-down"
+            color="neutral"
+            variant="outline"
+            @click="printCertificate"
+          >
+            {{ t('cert.paper.download') }}
+          </UButton>
         </div>
       </section>
 

@@ -65,6 +65,9 @@ const { user, isSignedIn, signOut } = useAuth()
 // exists). The console checks it on every request; this is navigation only.
 const { admin } = useProgress()
 
+// Shown for the admin account; the console itself re-checks id + email on
+// every request, so this only decides whether the link appears.
+const isAdminUser = computed(() => admin.value || user.value?.email?.toLowerCase() === 'imswarnil@gmail.com')
 const initials = computed(() => (user.value?.name || user.value?.email || '?').trim().slice(0, 1).toUpperCase())
 const firstName = computed(() => (user.value?.name || '').trim().split(/\s+/)[0] || t('nav.account'))
 
@@ -81,7 +84,7 @@ const accountItems = computed(() => [
     { label: t('nav.team'), icon: 'i-lucide-building-2', to: localePath('/team') },
     { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') }
   ],
-  ...(admin.value
+  ...(isAdminUser.value
     ? [[{ label: 'Admin console', icon: 'i-lucide-shield-check', to: '/admin', color: 'primary' as const }]]
     : []),
   [{ label: t('nav.signOut'), icon: 'i-lucide-log-out', onSelect: () => signOut() }]

@@ -37,7 +37,7 @@ const WEBHOOK_URL = urlAt >= 0 ? args[urlAt + 1] : 'https://crmanalytics.imswarn
 const PRODUCTS = [
   { id: 'crma_pro', name: 'CRM Analytics Academy Pro', description: 'Every lesson, the full exam review and every dataset, with no ads.', prices: [
     { key: 'crma_pro_monthly', usd: 19, interval: 'month' },
-    { key: 'crma_pro_lifetime', usd: 149 }
+    { key: 'crma_pro_lifetime', usd: 299 }
   ] }
 ]
 

@@ -1192,7 +1192,10 @@
     },
     "editOnGithub": "この回答を改善 GitHub",
     "answersTitle": "コミュニティからの回答",
-    "answersLead": "他の人がそれをどのように反応するか、または自分自身を追加してください。"
+    "answersLead": "他の人がそれをどのように反応するか、または自分自身を追加してください。",
+    "shareTitle": "インタビューの準備をする人を教えてください。 このリストを送信します。",
+    "statQuestions": "お問い合わせ",
+    "statTopics": "トピックス"
   },
   "cert": {
     "eyebrow": "認定練習",
@@ -1277,7 +1280,27 @@
     "leaveTitle": "この試験を残す?",
     "leaveBody": "時計は動く。 回答は、このデバイスに保存され、時間が切れるまで再開できます。",
     "leave": "ふりがな",
-    "keys": "キーボード: 回答する A-D, ← → 移動, F フラグに."
+    "keys": "キーボード: 回答する A-D, ← → 移動, F フラグに.",
+    "earn": "証明書を渡すと、あなたの証明書を獲得",
+    "papersTitle": "練習用紙",
+    "paperLine": "{q} お問い合わせ {m} 分・・・ {p}渡る%",
+    "morePapers": "より多くの紙が来ています",
+    "morePapersBody": "新しい論文はセクションが公開され、それぞれに新鮮な質問があります。",
+    "paper": {
+      "issuer": "CRM Analytics アカデミー",
+      "kicker": "業績の証明",
+      "title": "CRM Analytics コンサルタント — 実践試験",
+      "awarded": "この認証は、",
+      "yourName": "あなたの名前",
+      "score": "スコア",
+      "date": "生年月日",
+      "id": "認証ID",
+      "signer": "スワルニシンハイ、インストラクター",
+      "sample": "サンプル",
+      "note": "受賞作品 CRM Analytics 実践試験合格のためのアカデミー。 それはない Salesforce 資格と提携していない Salesforceお問い合わせ",
+      "download": "PDFとして保存",
+      "yours": "あなたの証明書"
+    }
   },
   "companies": {
     "eyebrow": "会社案内",
@@ -1409,7 +1432,23 @@
       "dataset": "データセット"
     },
     "anySection": "すべて / 確認しない",
-    "preview": "リソースページのプレビュー"
+    "preview": "リソースページのプレビュー",
+    "steps": {
+      "choose": "お問い合わせ",
+      "details": "ニュース",
+      "review": "レビュー"
+    },
+    "stepsLabel": "ステップ",
+    "stepOf": "ステップステップ {n} インフォメーション {total}",
+    "next": "レビュー",
+    "back": "バックナンバー",
+    "reviewLead": "送信内容をご確認ください。 何かが公開される前にレビューする人。",
+    "sum": {
+      "kind": "タイプ:",
+      "title": "タイトル",
+      "link": "サイトマップ",
+      "details": "ニュース"
+    }
   },
   "dash": {
     "examTitle": "認証の信頼性",
@@ -1432,7 +1471,7 @@
   "store": {
     "eyebrow": "料金について",
     "seoTitle": "CRM Analytics アカデミー価格:無料、プロマンスリー、プロライフタイム、チーム",
-    "seoDesc": "学びます Salesforce CRM Analytics 無料、または広告なしのすべてのレッスン、データセット、試験レビューのためにプロを取得する - $ 19 月または$ 149 1回。 企業や大学の座席。",
+    "seoDesc": "学びます Salesforce CRM Analytics 無料、または広告なしのすべてのレッスン、データセット、試験レビューのためにプロを取得する - $ 19 月または$ 299 一度。 企業や大学の座席。",
     "title": "無料学習 準備ができたらプロに行く。",
     "lead": "無料レッスンは無料でご利用いただけます。 プロはプラットフォーム全体をロック解除します。 企業や大学は座席を購入します。.",
     "sentTitle": "ありがとうございます。",
@@ -1447,7 +1486,9 @@
       "phone": "電話番号",
       "message": "お問い合わせ"
     },
-    "send": "リクエストを送信"
+    "send": "リクエストを送信",
+    "toPlans": "プランを見る",
+    "toCompare": "教室のトレーニングと比較"
   },
   "human": {
     "working": "人間であることを確認する...",
@@ -1770,7 +1811,18 @@
     "insideTitle": "内なるもの",
     "ready": "レディー",
     "previewTitle": "シートをプレビュー",
-    "readAll": "シート全体を読む"
+    "readAll": "シート全体を読む",
+    "readReviews": "レビューを読む",
+    "readOnline": "オンラインで読む",
+    "formats": "フォーマット",
+    "gallery": {
+      "label": "ノートギャラリー",
+      "cover": "ノート",
+      "formats": "PDFとマークダウン",
+      "zoom": "ズームイン",
+      "prev": "新着情報",
+      "next": "次へ"
+    }
   },
   "jobs": {
     "eyebrow": "今週の仕事",
