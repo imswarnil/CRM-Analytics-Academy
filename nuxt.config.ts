@@ -3,7 +3,9 @@ import { fileURLToPath } from 'node:url'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-// The 12 locales the site ships. `language` is the BCP-47 tag that lands in
+// The 5 locales the site ships (2026-11-18: the biggest Salesforce markets
+// and the highest ad rates — English, Spanish, Portuguese, Japanese, German).
+// The seven retired locales 301 to English (DROPPED_LOCALES below). `language` is the BCP-47 tag that lands in
 // <html lang> and in the hreflang alternates; `dir` drives <html dir> so Arabic
 // and Urdu lay out right-to-left.
 //
@@ -14,16 +16,9 @@ import { fileURLToPath } from 'node:url'
 const locales = [
   { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
   { code: 'es', language: 'es-ES', name: 'Español', file: 'es.json' },
-  { code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json' },
   { code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json' },
   { code: 'pt', language: 'pt-BR', name: 'Português', file: 'pt.json' },
-  { code: 'ja', language: 'ja-JP', name: '日本語', file: 'ja.json' },
-  { code: 'zh', language: 'zh-CN', name: '中文', file: 'zh.json' },
-  { code: 'hi', language: 'hi-IN', name: 'हिन्दी', file: 'hi.json' },
-  { code: 'ar', language: 'ar-SA', name: 'العربية', file: 'ar.json', dir: 'rtl' },
-  { code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru.json' },
-  { code: 'bn', language: 'bn-BD', name: 'বাংলা', file: 'bn.json' },
-  { code: 'ur', language: 'ur-PK', name: 'اردو', file: 'ur.json', dir: 'rtl' }
+  { code: 'ja', language: 'ja-JP', name: '日本語', file: 'ja.json' }
 ] as const
 
 const DEFAULT_LOCALE = 'en'
@@ -47,7 +42,6 @@ const PRIVATE_PATHS = ['/dashboard', '/account', '/team', '/submit', '/admin', '
 
 /** Pages that were removed, and where their visitors now go. */
 const RETIRED: Record<string, string> = {
-  '/jobs': '/',
   '/leaderboard': '/dashboard',
   '/ask': '/start',
   '/training': '/start',
@@ -78,6 +72,12 @@ const RETIRED: Record<string, string> = {
   '/introduction/**': '/start',
   '/sponsor/**': '/sponsor'
 }
+
+const DROPPED_LOCALES = ['fr', 'zh', 'hi', 'ar', 'ru', 'bn', 'ur']
+const droppedRules = Object.fromEntries(DROPPED_LOCALES.flatMap(c => [
+  [`/${c}`, { redirect: { to: '/', statusCode: 301 } }],
+  [`/${c}/**`, { redirect: { to: '/**', statusCode: 301 } }]
+]))
 
 const redirectRules = Object.fromEntries(Object.entries(RETIRED).flatMap(([from, to]) => [
   [from, { redirect: { to, statusCode: 301 } }],
@@ -219,6 +219,7 @@ export default defineNuxtConfig({
 
   routeRules: {
     ...redirectRules,
+    ...droppedRules,
     '/**': { headers: SECURITY_HEADERS }
   },
 
@@ -364,7 +365,7 @@ export default defineNuxtConfig({
     zeroRuntime: true
   },
 
-  // The site had no sitemap at all: 780 prerendered pages across 12 locales
+  // The site had no sitemap at all: hundreds of prerendered pages across the locales
   // and nothing telling a crawler they exist beyond following links.
   //
   // The module reads the prerendered routes, so the sitemap is generated from

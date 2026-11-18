@@ -128,7 +128,7 @@ useJsonLd({
         class="mx-auto mt-16 max-w-3xl"
       />
 
-      <section class="graph-paper-navy mt-16 grid items-center gap-6 border border-(--line) bg-(--navy) p-8 text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)] sm:p-10 md:grid-cols-[minmax(0,1fr)_auto]">
+      <section class="graph-paper-navy mt-16 grid items-center gap-6 border border-(--line) bg-(--navy) p-8 text-white sm:p-10 md:grid-cols-[minmax(0,1fr)_auto]">
         <div>
           <p class="font-medium text-[11px] text-(--glow)">
             {{ t('wall.eyebrow') }}

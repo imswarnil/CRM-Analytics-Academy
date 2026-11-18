@@ -16,6 +16,7 @@ const NAV = [
   { key: 'course', icon: 'i-lucide-graduation-cap', to: '/start' },
   { key: 'exam', icon: 'i-lucide-timer', to: '/certification' },
   { key: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions' },
+  { key: 'jobs', icon: 'i-lucide-briefcase-business', to: '/jobs' },
   { key: 'pricing', icon: 'i-lucide-sparkles', to: '/pro' }
 ] as const
 const menuItems = computed(() => NAV.map(n => ({ label: t(`nav.main.${n.key}`), icon: n.icon, to: localePath(n.to) })))
@@ -172,7 +173,7 @@ const localeItems = computed(() =>
           :href="SITE.youtube"
           target="_blank"
           rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center rounded-[4px] border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) hover:text-[#FF0000] max-[1599px]:hidden"
+          class="flex size-9 shrink-0 items-center justify-center rounded-[4px] border border-(--line) bg-(--card) text-[#FF0000] hover:bg-(--ice) max-lg:hidden"
           :aria-label="t('nav.youtube')"
           :title="t('nav.youtube')"
         >
@@ -188,7 +189,7 @@ const localeItems = computed(() =>
           :href="SITE.github"
           target="_blank"
           rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center rounded-[4px] border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) max-[1599px]:hidden"
+          class="flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-[4px] border border-(--line) bg-(--card) px-2.5 text-sm font-semibold text-(--ink) hover:bg-(--ice) max-lg:hidden"
           :aria-label="t('nav.starOnGithub')"
           :title="t('nav.starOnGithub')"
         >
@@ -196,6 +197,11 @@ const localeItems = computed(() =>
             name="i-simple-icons-github"
             class="size-4"
           />
+          <UIcon
+            name="i-lucide-star"
+            class="size-3.5 text-amber-500 max-xl:hidden"
+          />
+          <span class="max-xl:hidden">{{ t('nav.star') }}</span>
         </a>
 
         <UDropdownMenu

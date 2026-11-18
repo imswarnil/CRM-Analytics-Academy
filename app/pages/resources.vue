@@ -74,7 +74,12 @@ const TILE: Record<Category, { bg: string, fg: string }> = {
   Docs: { bg: '#dbeafe', fg: '#1d4ed8' }, Learning: { bg: '#d1fae5', fg: '#047857' }, Books: { bg: '#fef3c7', fg: '#b45309' },
   Blogs: { bg: '#fce7f3', fg: '#be185d' }, Tools: { bg: '#ede9fe', fg: '#6d28d9' }, Community: { bg: '#e0f2fe', fg: '#0369a1' }
 }
-const filtered = computed(() => selected.value === 'All' ? resources : resources.filter(r => r.category === selected.value))
+const query = ref('')
+const filtered = computed(() => {
+  const q = query.value.trim().toLowerCase()
+  return (selected.value === 'All' ? resources : resources.filter(r => r.category === selected.value))
+    .filter(r => !q || `${t(`resources.items.${r.id}.title`)} ${t(`resources.items.${r.id}.desc`)} ${r.category}`.toLowerCase().includes(q))
+})
 const countFor = (key: 'All' | Category) => key === 'All' ? resources.length : resources.filter(r => r.category === key).length
 
 usePageSchema(() => ({ name: title.value, description: description.value, type: 'CollectionPage' }))
@@ -105,15 +110,21 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
       <div class="grid gap-10 lg:grid-cols-[210px_minmax(0,1fr)]">
         <!-- Left filter -->
         <aside class="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:overscroll-contain">
-          <div class="border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
-            <p class="border-b border-(--line) bg-(--ice) px-3 py-2 font-medium text-[11px] font-semibold">
+          <UInput
+            v-model="query"
+            icon="i-lucide-search"
+            :placeholder="t('resources.search')"
+            class="mb-4 w-full"
+          />
+          <div class="overflow-hidden rounded-[6px] border border-(--line) bg-(--card)">
+            <p class="mono-label border-b border-(--line) px-3 py-2.5">
               {{ t('resources.filter') }}
             </p>
             <ul>
               <li
                 v-for="c in categories"
                 :key="c.key"
-                class="border-b border-dashed border-(--line) last:border-b-0"
+                class="border-b border-(--line) last:border-b-0"
               >
                 <button
                   type="button"
@@ -132,7 +143,7 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
                     class="size-4 shrink-0"
                   />
                   <span class="grow text-start">{{ categoryLabel(c.key) }}</span>
-                  <span class="font-mono text-[10px] text-(--ink2)">{{ countFor(c.key) }}</span>
+                  <span class="text-xs tabular-nums text-(--ink2)">{{ countFor(c.key) }}</span>
                 </button>
               </li>
             </ul>
@@ -144,13 +155,13 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
             <p class="mono-label">
               {{ t('resources.count', { count: filtered.length }) }}
             </p>
-            <div class="flex border border-(--line)">
+            <div class="inline-flex rounded-[4px] bg-(--paper2) p-1">
               <button
                 v-for="v in (['grid', 'list'] as const)"
                 :key="v"
                 type="button"
-                class="flex items-center gap-1.5 px-3 py-1 text-sm font-semibold"
-                :class="view === v ? 'bg-(--ink) text-(--paper)' : 'text-(--ink) hover:bg-(--ice)'"
+                class="flex items-center gap-1.5 rounded-[4px] px-3 py-1 text-sm font-semibold transition-colors"
+                :class="view === v ? 'bg-(--card) text-(--ink)' : 'text-(--ink2) hover:text-(--ink)'"
                 :aria-pressed="view === v"
                 @click="view = v"
               >
@@ -226,7 +237,7 @@ usePageSchema(() => ({ name: title.value, description: description.value, type: 
            a real barrier for the people most likely to know a good link. There
            is a database and a moderated form now, so the page that lists
            resources should be the page that invites one. -->
-      <div class="graph-paper-navy mx-auto mt-16 max-w-3xl border border-(--line) bg-(--navy) p-8 text-center text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)]">
+      <div class="graph-paper-navy mx-auto mt-16 max-w-3xl border border-(--line) bg-(--navy) p-8 text-center text-white">
         <p class="eyebrow text-(--glow)!">
           {{ t('resources.submitEyebrow') }}
         </p>

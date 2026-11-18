@@ -31,12 +31,15 @@
       "course": "Curso",
       "exam": "Examen de la práctica",
       "interview": "Entrevista Q&A",
-      "pricing": "Precios"
+      "pricing": "Precios",
+      "jobs": "Trabajos"
     },
     "team": "Equipo",
     "forTeams": "Para equipos y universidades",
     "sponsor": "Sponsor",
-    "notes": "Notas"
+    "notes": "Notas",
+    "star": "Star",
+    "jobs": "Trabajos"
   },
   "home": {
     "modules": {
@@ -71,7 +74,7 @@
       "curriculum": "Empieza aquí.",
       "proof": {
         "free": "Libre, sin tarjeta",
-        "languages": "12 idiomas",
+        "languages": "5 idiomas",
         "ai": "Incluye AI para análisis"
       },
       "pricing": "Ver planes"
@@ -146,7 +149,7 @@
     "inside": {
       "lessons": {
         "title": "Lecciones cortas, paso a paso",
-        "body": "Video y texto, una prueba después de cada uno, en 12 idiomas."
+        "body": "Video y texto, una prueba después de cada uno, en 5 idiomas."
       },
       "visualisers": {
         "title": "Ve a correr.",
@@ -414,7 +417,7 @@
     "signUpLink": "Crear una cuenta",
     "asideTitle": "Aprender CRM Analytics como se utiliza en el trabajo.",
     "asideText": "La mayoría de las lecciones, cada conjunto de datos y cada prueba son libres. Iniciada, lee sin anuncios y el sitio recuerda su lugar.",
-    "asideMeta": "Gratis · sin tarjeta · 12 idiomas",
+    "asideMeta": "Gratis · sin tarjeta · 5 idiomas",
     "eyebrowSignIn": "Iniciar sesión",
     "eyebrowSignUp": "Inscripción",
     "pageSignIn": "Iniciar sesión",
@@ -528,7 +531,8 @@
         "title": "r/salesforce",
         "desc": "Debate comunitario, consejos y asesoramiento profesional."
       }
-    }
+    },
+    "search": "Recursos de búsqueda"
   },
   "localeAuto": {
     "switched": "Mostrando esta página en {language}",
@@ -700,15 +704,15 @@
       "module": "módulo de alto nivel"
     },
     "translations": {
-      "p1": "El sitio nave en {languages}: Inglés (por defecto), español, francés, alemán, portugués, japonés, chino, hindi, árabe, ruso, bengalí y urdu. árabe y urdu dan derecho a la izquierda.",
-      "languages": "12 idiomas",
-      "p2": "{bold} Escribe la lección en inglés solamente. En la siguiente construcción, un servidor LibreTranslate ejecuta localmente lo traduce y escribe {path} para todos los once idiomas. Códigos bloqueados, SAQL, enlaces, llaves de primera y nombres de productos están protegidos y vienen a través de intactos.",
+      "p1": "El sitio nave en {languages}: Inglés (por defecto), español, portugués, japonés y alemán - el mayor Salesforce mercados.",
+      "languages": "5 idiomas",
+      "p2": "{bold} Escribe la lección en inglés solamente. En la siguiente construcción, un servidor LibreTranslate ejecuta localmente lo traduce y escribe {path} para los otros cuatro idiomas. Códigos bloqueados, SAQL, enlaces, llaves de primera y nombres de productos están protegidos y vienen a través de intactos.",
       "p2Bold": "No traduces a mano.",
       "p3": "Para ejecutarlo usted mismo: {all} (sólo los archivos cambiados), o {subset}.",
       "p4": "{bold} Si una frase lee mal en su idioma, edite el archivo de locale directamente y abra una solicitud de tirada, el oleoducto solo sobrescribe un archivo cuando su archivo {english} la fuente cambia, así que tu solución sobrevive.",
       "p4Bold": "La traducción automática es un punto de partida, no la línea de meta.",
       "english": "Inglés",
-      "p5": "UI cuerdas viven en {path}. Añadir nuevas cuerdas a {en} sólo; la misma carrera se llena en las otras once y deja las traducciones existentes solas."
+      "p5": "UI cuerdas viven en {path}. Añadir nuevas cuerdas a {en} sólo; la misma carrera llena los otros cuatro y deja las traducciones existentes solos."
     },
     "submit": {
       "p1": "¿Encontró un vínculo útil: docs, un curso, una herramienta, una comunidad? {link}Título, URL y una línea sobre por qué vale la pena el tiempo de alguien; aterriza tan pendiente y un encargado lo aprueba. No GitHub cuenta, sin petición de tirada, sin esperar a una construcción.",
@@ -726,7 +730,7 @@
       "nuxt": "{name} (Vuestro 3 + Nitro) - el marco, SSR + prerendering",
       "content": "{name} — lecciones autorizadas en Markdown, servidas desde SQLite",
       "ui": "{ui} + {tailwind} - componentes y estilo",
-      "i18n": "{name} — 12 idiomas, once de ellos traducidos a máquina del inglés",
+      "i18n": "{name} — 5 idiomas, cuatro de ellos traducidos del inglés",
       "hosting": "{workers} + {actions} — páginas pre-rendered servían como activos estáticos, un Trabajador para las rutas dinámicas, auto-deplorado en empujar a {main}",
       "extras": "También en la caja: {og} (tarjetas sociales) {llms} (Docs legibles por máquina), y datos estructurados para SEO.",
       "noDb": "Cada lección es pre-rendered en tiempo de construcción de Markdown, por lo que puede escribir y previsualizar lecciones con {bold}Las cuentas y el progreso se ejecutan en Neon Postgres y sólo importa si usted está trabajando en esas características — el README las cubre.",
@@ -1016,7 +1020,10 @@
     },
     "save": "Guardar para después",
     "saved": "Guardado",
-    "pointsEarned": "+10 puntos — {n} para gastar"
+    "pointsEarned": "+10 puntos — {n} para gastar",
+    "number": "Lección {n}",
+    "overview": "Sinopsis",
+    "video": "video"
   },
   "credits": {
     "title": "Créditos & fuentes",
@@ -1690,7 +1697,7 @@
     "slotCta": "Conviértete en patrocinador",
     "eyebrow": "Sponsor the Academy",
     "title": "Llegar a la gente que construye Salesforce análisis.",
-    "lead": "Salesforce administradores, analistas, ingenieros GTM y equipos RevOps aprenden CRM Analytics aquí, en 12 idiomas. Los patrocinadores apoyan lecciones gratuitas y aparecen donde ya están los alumnos.",
+    "lead": "Salesforce administradores, analistas, ingenieros GTM y equipos RevOps aprenden CRM Analytics aquí, en 5 idiomas. Los patrocinadores apoyan lecciones gratuitas y aparecen donde ya están los alumnos.",
     "whereTitle": "Donde aparecen los patrocinadores",
     "where": {
       "lessons": {
@@ -1726,10 +1733,44 @@
     "eyebrow": "Notas",
     "title": "Notas de la sección",
     "suffix": "Notas",
-    "lead": "Cada sección terminada en una hoja de estilo manuscrito, con los diagramas — leer aquí, guardarlo como un PDF o descargar el Markdown.",
+    "lead": "Cada sección terminada en una hoja de estilo manuscrito, con los diagramas. Léalos aquí, guarda todos ellos como un PDF, o descarga cada uno como Markdown.",
     "seoTitle": "CRM Analytics notas — hojas de estudio descargables",
     "pdf": "Descargar PDF",
     "markdown": "Descargar Markdown",
-    "open": "Abra las notas"
+    "open": "Abra las notas",
+    "pdfAll": "Descargar todo como PDF",
+    "index": "Índice",
+    "openSingle": "Abra esta hoja por su cuenta"
+  },
+  "jobs": {
+    "eyebrow": "Trabajos esta semana",
+    "title": "CRM Analytics puestos de trabajo, esta semana.",
+    "lead": "Papeles que piden CRM Analytics, Tableau CRM o Einstein Analytics, recogidos todos los días de toda la web - más reciente primero, refrescado cada semana.",
+    "homeTitle": "Nuevo CRM Analytics empleos esta semana",
+    "all": "Ver cada trabajo",
+    "updated": "Actualizado {date}",
+    "search": "Título de búsqueda, empresa, habilidad",
+    "remote": "Remoto sólo",
+    "remoteTag": "Remoto",
+    "level": "Nivel",
+    "levels": {
+      "all": "Todos",
+      "junior": "Junior",
+      "mid": "Mid",
+      "senior": "Senior",
+      "lead": "Lead"
+    },
+    "view": {
+      "week": "Esta semana",
+      "today": "Hoy"
+    },
+    "count": "{n} empleo",
+    "apply": "Aplicar",
+    "emptyTitle": "Los primeros listados están en camino.",
+    "emptyBody": "Nuevo CRM Analytics los papeles aparecerán aquí todos los días, con una ronda semanal completa los domingos. Mientras tanto, prepárate para ellos.",
+    "emptyCta": "Empieza a aprender",
+    "noMatch": "Ningún trabajo coincide con estos filtros.",
+    "seoTitle": "CRM Analytics empleos esta semana — Tableau CRM y Einstein Analytics Funciones",
+    "seoDesc": "Salesforce CRM Analytics, Tableau CRM y Einstein Analytics trabajos publicados esta semana, el más nuevo primero, refrescado diariamente."
   }
 }

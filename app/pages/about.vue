@@ -429,7 +429,7 @@ const authorLinks = computed(() => [
 
     <!-- ============================ CTA ============================ -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="graph-paper-navy border border-(--line) bg-(--navy) px-6 py-16 text-center text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)] sm:px-12">
+      <div class="graph-paper-navy border border-(--line) bg-(--navy) px-6 py-16 text-center text-white sm:px-12">
         <p class="eyebrow text-(--glow)!">
           {{ t('about.cta.eyebrow') }}
         </p>

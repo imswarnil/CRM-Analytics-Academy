@@ -296,6 +296,9 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
       <PromoSlot unit="horizontal" />
     </div>
 
+    <!-- JOBS THIS WEEK (hidden until the feed has postings) ----------- -->
+    <HomeJobs />
+
     <!-- WHAT IT COSTS ---------------------------------------------------- -->
     <HomeCompare />
     <div class="mx-auto max-w-(--ui-container) px-4 pb-6 sm:px-6 lg:px-8">

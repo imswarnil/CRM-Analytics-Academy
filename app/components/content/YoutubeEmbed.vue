@@ -30,6 +30,8 @@ const props = withDefaults(defineProps<{
   author?: string
   authorUrl?: string
   creditTitle?: string
+  /** A dubbed upload per site language, e.g. { es: 'abc123' } — overrides `id` in that language. */
+  ids?: Record<string, string>
 }>(), {
   start: 0,
   end: undefined,
@@ -38,14 +40,22 @@ const props = withDefaults(defineProps<{
   authorUrl: undefined,
   creditTitle: undefined
 })
-const { t } = useI18n()
-const watchUrl = computed(() => `https://www.youtube.com/watch?v=${props.id}${props.start ? `&t=${props.start}s` : ''}`)
+const { t, locale } = useI18n()
+// The video follows the site language: a dubbed upload when the lesson has one
+// for this language; otherwise the original with the player, its audio track
+// (when the upload has multi-language audio) and captions in this language.
+const videoId = computed(() => props.ids?.[locale.value] || props.id)
+const watchUrl = computed(() => `https://www.youtube.com/watch?v=${videoId.value}${props.start ? `&t=${props.start}s` : ''}`)
 
 const src = computed(() => {
-  const q = new URLSearchParams({ rel: '0', modestbranding: '1', playsinline: '1' })
+  const q = new URLSearchParams({ rel: '0', modestbranding: '1', playsinline: '1', hl: locale.value })
+  if (locale.value !== 'en' && !props.ids?.[locale.value]) {
+    q.set('cc_lang_pref', locale.value)
+    q.set('cc_load_policy', '1')
+  }
   if (props.start) q.set('start', String(props.start))
   if (props.end) q.set('end', String(props.end))
-  return `https://www.youtube-nocookie.com/embed/${props.id}?${q.toString()}`
+  return `https://www.youtube-nocookie.com/embed/${videoId.value}?${q.toString()}`
 })
 </script>
 

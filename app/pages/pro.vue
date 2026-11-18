@@ -129,7 +129,7 @@ usePageSchema(() => ({
             v-for="p in PLANS.filter(x => x.audience === 'b2c')"
             :key="p.id"
             class="relative flex flex-col rounded-[6px] border bg-(--card) p-6"
-            :class="p.featured ? 'border-(--signal) shadow-[0_0_0_1px_var(--signal)]' : 'border-(--line)'"
+            :class="p.featured ? 'border-(--signal)' : 'border-(--line)'"
           >
             <span
               v-if="p.featured"

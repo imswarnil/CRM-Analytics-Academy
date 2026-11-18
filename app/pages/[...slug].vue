@@ -406,7 +406,6 @@ const lesson = computed(() => unlocked.value
 
 const lessonVideo = computed(() => (unlocked.value ? proLesson.value?.video : null) ?? page.value?.video ?? englishVideo.value)
 const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
-const lessonNo = computed(() => String(position.value).padStart(2, '0'))
 </script>
 
 <template>
@@ -418,13 +417,14 @@ const lessonNo = computed(() => String(position.value).padStart(2, '0'))
     <header class="border-b border-(--line) bg-(--card)">
       <!-- Same column as the lesson body below, so the title lines up with the
            text whether the course contents are open or collapsed. -->
-      <div class="mx-auto max-w-[68rem] px-4 pb-8 pt-6 sm:px-8">
-        <div class="flex items-center justify-between gap-3">
+      <div class="relative mx-auto max-w-[76rem] overflow-hidden px-4 pb-10 pt-6 sm:px-8">
+        <BpFloatCharts />
+        <div class="relative flex items-center justify-between gap-3">
           <nav
             aria-label="Breadcrumb"
             class="min-w-0 flex-1"
           >
-            <ol class="flex min-w-0 flex-wrap items-center gap-x-2 font-medium text-[11px] text-(--ink2)">
+            <ol class="flex min-w-0 flex-wrap items-center gap-x-2 text-sm text-(--ink2)">
               <li
                 v-for="(c, i) in breadcrumbItems"
                 :key="c.to"
@@ -450,65 +450,76 @@ const lessonNo = computed(() => String(position.value).padStart(2, '0'))
           />
         </div>
 
-        <p class="eyebrow mt-6">
-          <template v-if="page.comingSoon">
-            {{ t('course.comingSoon') }} — {{ page.navigation && typeof page.navigation === 'object' ? page.navigation.title : headline }}
-          </template>
-          <template v-else>
-            Lesson {{ lessonNo }} / {{ courseTotal }} — {{ current?.moduleTitle || headline }}
-          </template>
-        </p>
-        <h1 class="bp-h2 mt-3 max-w-4xl text-(--ink)">
-          {{ page.title }}
-        </h1>
-        <p
-          v-if="page.description"
-          class="bp-lead mt-4 max-w-3xl"
-        >
-          {{ page.description }}
-        </p>
-        <CourseLessonAuthors
-          :authors="lessonAuthors"
-          class="mt-4"
-        />
-        <div class="mt-5 flex flex-wrap items-center gap-2">
-          <span
-            v-if="!page.comingSoon"
-            class="flex items-center gap-1 px-2 py-0.5 font-medium text-[11px] font-semibold"
-            :class="isProLesson ? 'bg-(--ink) text-(--glow)' : 'border border-(--signal) text-(--signal)'"
-          ><UIcon
-            :name="isProLesson ? (unlocked ? 'i-lucide-lock-keyhole-open' : 'i-lucide-lock-keyhole') : 'i-lucide-gift'"
-            class="size-3"
-          />{{ isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
-          <span class="border border-(--line) bg-(--card) px-2 py-0.5 font-medium text-[11px] rounded-2xl">
-            {{ meta.type }} · {{ meta.minutes }} min
-          </span>
-          <ClientOnly>
-            <UButton
-              :icon="saved ? 'i-lucide-bookmark-check' : 'i-lucide-bookmark'"
-              size="xs"
-              :color="saved ? 'primary' : 'neutral'"
-              :variant="saved ? 'solid' : 'outline'"
-              @click="toggleSaved"
+        <div class="relative mt-6 grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <div class="min-w-0">
+            <p class="eyebrow">
+              <template v-if="page.comingSoon">
+                {{ t('course.comingSoon') }} — {{ page.navigation && typeof page.navigation === 'object' ? page.navigation.title : headline }}
+              </template>
+              <template v-else>
+                {{ t('curriculumPage.section', { n: (current?.moduleIndex ?? 0) + 1 }) }} · {{ current && current.indexInModule > 0 ? t('lesson.number', { n: current.indexInModule }) : t('lesson.overview') }} — {{ current?.moduleTitle || headline }}
+              </template>
+            </p>
+            <h1 class="bp-h1 mt-3 max-w-4xl text-(--ink)">
+              {{ page.title }}
+            </h1>
+            <p
+              v-if="page.description"
+              class="bp-lead mt-4 max-w-3xl"
             >
-              {{ saved ? t('lesson.saved') : t('lesson.save') }}
-            </UButton>
-          </ClientOnly>
-          <UButton
-            v-for="(link, index) in page.links"
-            :key="index"
-            v-bind="link"
-            size="xs"
-            color="neutral"
-            variant="outline"
+              {{ page.description }}
+            </p>
+            <CourseLessonAuthors
+              :authors="lessonAuthors"
+              class="mt-4"
+            />
+            <div class="mt-5 flex flex-wrap items-center gap-2">
+              <span
+                v-if="!page.comingSoon"
+                class="flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold uppercase tracking-[.06em]"
+                :class="isProLesson ? 'bg-(--navy) text-white' : 'bg-success/10 text-success'"
+              ><UIcon
+                :name="isProLesson ? (unlocked ? 'i-lucide-lock-keyhole-open' : 'i-lucide-lock-keyhole') : 'i-lucide-gift'"
+                class="size-3"
+              />{{ isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
+              <span class="rounded-full border border-(--line) bg-(--card) px-2.5 py-1 text-xs font-medium text-(--ink2)">
+                {{ meta.type }} · {{ meta.minutes }} min
+              </span>
+              <ClientOnly>
+                <UButton
+                  :icon="saved ? 'i-lucide-bookmark-check' : 'i-lucide-bookmark'"
+                  size="xs"
+                  :color="saved ? 'primary' : 'neutral'"
+                  :variant="saved ? 'solid' : 'outline'"
+                  @click="toggleSaved"
+                >
+                  {{ saved ? t('lesson.saved') : t('lesson.save') }}
+                </UButton>
+              </ClientOnly>
+              <UButton
+                v-for="(link, index) in page.links"
+                :key="index"
+                v-bind="link"
+                size="xs"
+                color="neutral"
+                variant="outline"
+              />
+              <PageHeaderLinks />
+            </div>
+            <ShareBar
+              :title="page.title"
+              :text="t('share.lessonText', { title: page.title })"
+              class="mt-4"
+            />
+          </div>
+          <CourseLessonArt
+            :image="page.image"
+            :icon="current?.moduleIcon"
+            :section="current?.moduleTitle || headline"
+            :minutes="meta.minutes"
+            :video="Boolean(lessonVideo?.id)"
           />
-          <PageHeaderLinks />
         </div>
-        <ShareBar
-          :title="page.title"
-          :text="t('share.lessonText', { title: page.title })"
-          class="mt-4"
-        />
       </div>
     </header>
 
@@ -530,6 +541,7 @@ const lessonNo = computed(() => String(position.value).padStart(2, '0'))
           :author="videoCredit?.author"
           :author-url="videoCredit?.authorUrl ?? undefined"
           :credit-title="videoCredit?.title ?? undefined"
+          :ids="(lessonVideo as { ids?: Record<string, string> }).ids"
         />
       </BpFigure>
 
@@ -653,7 +665,7 @@ const lessonNo = computed(() => String(position.value).padStart(2, '0'))
 
       <div
         class="relative xl:grid xl:gap-10"
-        :class="tocOpen ? 'xl:grid-cols-[minmax(0,1fr)_16.5rem]' : 'xl:grid-cols-[minmax(0,1fr)_2.25rem]'"
+        :class="tocOpen ? 'xl:grid-cols-[minmax(0,1fr)_13rem]' : 'xl:grid-cols-[minmax(0,1fr)_2.25rem]'"
       >
         <div class="bp-prose min-w-0">
           <MDC

@@ -329,7 +329,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
         </section>
 
         <!-- Weekly goal -->
-        <section class="graph-paper-navy flex flex-col border border-(--line) bg-(--navy) p-5 text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)]">
+        <section class="graph-paper-navy flex flex-col border border-(--line) bg-(--navy) p-5 text-white">
           <p class="font-medium text-[11px] text-(--glow)">
             {{ t('dashboard.goal') }}
           </p>
@@ -384,7 +384,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
       <!-- Pro: status for members, the next step for everyone else -->
       <NuxtLink
         :to="localePath('/pro')"
-        class="graph-paper-navy flex flex-wrap items-center gap-4 border border-(--line) bg-(--navy) p-5 text-white shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)]"
+        class="graph-paper-navy flex flex-wrap items-center gap-4 border border-(--line) bg-(--navy) p-5 text-white"
       >
         <UIcon
           :name="data?.pro ? 'i-lucide-badge-check' : 'i-lucide-sparkles'"
@@ -609,7 +609,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
             v-for="a in achievements"
             :key="a.key"
             class="flex flex-col items-center gap-2 border p-4 text-center"
-            :class="a.got ? 'border-(--line) bg-(--ice) shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)]' : 'border-dashed border-(--line) opacity-60'"
+            :class="a.got ? 'border-(--line) bg-(--ice)' : 'border-dashed border-(--line) opacity-60'"
           >
             <span
               class="flex size-10 items-center justify-center border"

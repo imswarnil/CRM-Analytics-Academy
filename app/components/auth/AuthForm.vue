@@ -86,7 +86,7 @@ async function submit() {
   <!-- Blueprint auth: a graph-paper sheet with one ink-framed card on it —
        what an account gets you on the left, the form on the right. -->
   <div class="graph-paper flex min-h-[calc(100vh-var(--ui-header-height))] items-center justify-center p-4 sm:p-10">
-    <div class="crosshair grid w-full max-w-4xl border border-(--line) bg-(--card) shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] overflow-hidden rounded-2xl">
+    <div class="crosshair grid w-full max-w-4xl border border-(--line) bg-(--card) md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] overflow-hidden rounded-2xl">
       <aside class="graph-paper-navy hidden flex-col justify-between gap-8 border-e border-(--line) p-8 text-white md:flex">
         <div>
           <NuxtLink

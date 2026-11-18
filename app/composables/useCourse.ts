@@ -13,6 +13,7 @@ export interface CourseLesson {
   path: string
   title: string
   moduleTitle: string
+  moduleIcon: string
   moduleIndex: number
   indexInModule: number
   lessonsInModule: number
@@ -39,6 +40,7 @@ export function useCourse() {
           path: lesson.path,
           title: String(lesson.title ?? ''),
           moduleTitle: String(mod.title ?? ''),
+          moduleIcon: String((mod as { icon?: string }).icon ?? 'i-lucide-book-open'),
           moduleIndex,
           indexInModule,
           lessonsInModule: items.length

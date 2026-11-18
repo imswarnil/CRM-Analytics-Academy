@@ -19,18 +19,11 @@ export const SOURCE_LOCALE = 'en'
  */
 export const TARGET_LOCALES = {
   es: 'es',
-  fr: 'fr',
   de: 'de',
   // The local Argos model is `pt`; LibreTranslate maps `pt-BR` to a separate
   // `pb` model that is not installed (scripts/libretranslate.sh).
   pt: 'pt',
-  ja: 'ja',
-  zh: 'zh-Hans',
-  hi: 'hi',
-  ar: 'ar',
-  ru: 'ru',
-  bn: 'bn',
-  ur: 'ur'
+  ja: 'ja'
 }
 
 /**
@@ -43,20 +36,13 @@ export const TARGET_LOCALES = {
 export const NATIVE_NAMES = {
   en: 'English',
   es: 'Espa\u00f1ol',
-  fr: 'Fran\u00e7ais',
   de: 'Deutsch',
   pt: 'Portugu\u00eas',
-  ja: '\u65e5\u672c\u8a9e',
-  zh: '\u4e2d\u6587',
-  hi: '\u0939\u093f\u0928\u094d\u0926\u0940',
-  ar: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
-  ru: '\u0420\u0443\u0441\u0441\u043a\u0438\u0439',
-  bn: '\u09ac\u09be\u0982\u09b2\u09be',
-  ur: '\u0627\u0631\u062f\u0648'
+  ja: '\u65e5\u672c\u8a9e'
 }
 
 /** Locales that read right-to-left (mirrors `dir: 'rtl'` in nuxt.config.ts). */
-export const RTL_LOCALES = ['ar', 'ur']
+export const RTL_LOCALES = []
 
 /**
  * Terms that must survive translation untouched.

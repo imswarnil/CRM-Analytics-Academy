@@ -282,16 +282,14 @@ h1, h2, h3, h4 {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: 0 1px 0 rgb(0 0 0 / .02);
   transition:
     transform .2s var(--ease-out-im),
     box-shadow .2s var(--ease-out-im),
     border-color .2s;
 }
 .bp-card--hover:hover {
-  transform: translateY(-1px);
-  border-color: color-mix(in oklab, var(--signal) 55%, transparent);
-  box-shadow: 0 4px 16px -8px rgb(0 0 0 / .18);
+  border-color: var(--signal);
+  background-color: color-mix(in oklab, var(--ice) 45%, var(--card));
 }
 .bp-card--hover:active {
   transform: none;
@@ -355,7 +353,7 @@ button:hover > .bp-arrow {
 }
 @media (min-width: 1024px) {
   .bp-player {
-    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-columns: minmax(0, 1fr) 320px;
     transition: grid-template-columns .3s var(--ease-out-im);
   }
   .bp-player--collapsed {
@@ -415,11 +413,10 @@ button:hover > .bp-arrow {
   font-variant-numeric: tabular-nums;
 }
 .im-card-hover {
-  transition: transform .25s var(--ease-bounce), box-shadow .25s var(--ease-bounce);
+  transition: border-color .2s, background-color .2s;
 }
 .im-card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 6px 6px 0 var(--ink);
+  border-color: var(--signal);
 }
 .text-gradient {
   color: var(--signal);

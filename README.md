@@ -5,7 +5,7 @@
 <p align="center">
   <strong>Learn Salesforce CRM Analytics the way go-to-market teams actually use it.</strong><br>
   Data prep, SAQL, dashboards, bindings, Einstein Discovery, and funnel, pipeline and RevOps dashboards
-  built end to end, in twelve languages. Most lessons are free and open source; a few hands-on ones are Pro.
+  built end to end, in five languages (English, Spanish, Portuguese, Japanese, German). Most lessons are free and open source; a few hands-on ones are Pro.
 </p>
 
 <p align="center">
@@ -21,7 +21,7 @@
   <a href="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml"><img src="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml/badge.svg" alt="Deploy to Cloudflare Workers"></a>
   <a href="https://www.youtube.com/@crmanalyticsacademy"><img src="https://img.shields.io/badge/YouTube-@crmanalyticsacademy-FF0000?logo=youtube&labelColor=0C1B33" alt="YouTube channel"></a>
   <img src="https://img.shields.io/badge/sections-7-0176D3?labelColor=032D60" alt="7 sections">
-  <img src="https://img.shields.io/badge/languages-12-2F5BEA?labelColor=0C1B33" alt="12 languages">
+  <img src="https://img.shields.io/badge/languages-5-0176D3?labelColor=0C1B33" alt="5 languages">
   <img src="https://img.shields.io/badge/price-free%20%2B%20Pro-3FC6DC?labelColor=0C1B33" alt="Free, with Pro">
   <img src="https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&labelColor=0C1B33" alt="Nuxt 4">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-0F2A5C" alt="MIT license"></a>
@@ -68,7 +68,7 @@ A free account adds progress, streaks, saved lessons, quiz scores and a leaderbo
 ## Features
 
 **Learning**
-- **7 sections in 12 languages** — the whole plan is public on /start and in `llms.txt`; lessons appear as they are recorded.
+- **7 sections in 5 languages** — the whole plan is public on /start and in `llms.txt`; lessons appear as they are recorded.
 - **Lesson player** — course-contents sidebar (collapsible to a progress-donut rail), prev / mark complete / next,
   a course timeline, table of contents, screen walkthroughs, graded quizzes, interview Q&A, comments.
 - **Lesson videos** published on YouTube and embedded in each lesson.
@@ -117,7 +117,7 @@ A free account adds progress, streaks, saved lessons, quiz scores and a leaderbo
 - **AI-ready** — `llms.txt` lists the course in learning order, `llms-full.txt` holds every lesson, any lesson is
   raw markdown at `/raw/<path>.md`, and a read-only **MCP server** at `/mcp`.
 - **Privacy-friendly analytics** — no cookies, no IP addresses, no third-party trackers.
-- **SEO** — JSON-LD per page type, hreflang across 12 languages, sitemap, OG images, IndexNow after deploys.
+- **SEO** — JSON-LD per page type, hreflang across 5 languages, sitemap, OG images, IndexNow after deploys.
 - **PWA** — installable, with an offline page.
 
 ## How it works
@@ -127,7 +127,7 @@ flowchart LR
   subgraph Mac[Your machine]
     MD[content/en/*.md<br/>or Nuxt Studio] --> B[pnpm build]
     LT[(LibreTranslate<br/>.libretranslate/)] <--> B
-    B -->|11 locales + llms.txt| G[git push]
+    B -->|4 locales + llms.txt| G[git push]
     REC[Recorded lesson] --> YT[YouTube] -.video id.-> MD
   end
   G --> CI[GitHub Actions<br/>lint · typecheck · build]
@@ -160,7 +160,7 @@ English source of every file), stops it, and the result is committed. CI never t
 | Analytics | Cloudflare Web Analytics + Search Console; milestones in `app.event`; first-touch source into Salesforce |
 | Translation | [LibreTranslate](https://libretranslate.com), installed locally, run by `pnpm build` |
 | Video | Published on YouTube, embedded per lesson |
-| i18n | `@nuxtjs/i18n` — 12 locales, 2 RTL |
+| i18n | `@nuxtjs/i18n` — 5 locales (en, es, pt, de, ja) |
 | SEO | `@nuxtjs/sitemap`, `nuxt-og-image`, JSON-LD, hreflang, IndexNow |
 | Quality | ESLint, `vue-tsc`, GitHub Actions |
 
@@ -234,7 +234,7 @@ the source of truth; `brand/` holds the logo mark, icons and YouTube art.
 
 ```text
 app/                  pages, components (bp/ = shared primitives), composables, plugins
-content/              lessons in 12 locales, resources/, people/
+content/              lessons in 5 locales, resources/, people/
 server/api/           the routes above · server/db/schema.sql · server/routes/ (mcp, media)
 scripts/              prebuild, translate + libretranslate.sh, lesson-meta, search/llms index, indexnow
 brand/                logo mark, icons and YouTube channel art (node brand/build.mjs)
@@ -274,7 +274,7 @@ is ever empty in dev, the Nuxt Content dev database is stale: `rm -rf .data && p
 ## Publishing
 
 1. Edit English in `content/en/` (or in Nuxt Studio, then `git pull`).
-2. `pnpm build` — translates the change into 11 languages and checks the build.
+2. `pnpm build` — translates the change into 4 languages and checks the build.
 3. Commit everything (English, translations, `.translation-manifest.json`) and push to `main`.
    `.github/workflows/deploy-cloudflare.yml` lints, typechecks, builds and deploys to Cloudflare, then pings
    IndexNow. Runtime secrets live on the Worker (`wrangler secret put …`; names in `.env.example`).

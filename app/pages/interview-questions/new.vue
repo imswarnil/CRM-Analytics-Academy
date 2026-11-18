@@ -100,7 +100,7 @@ async function send() {
 
       <form
         v-else
-        class="crosshair space-y-6 border border-(--line) bg-(--card) p-6 shadow-[0_12px_32px_-18px_rgb(12_27_51/.3)] sm:p-8 rounded-2xl"
+        class="crosshair space-y-6 border border-(--line) bg-(--card) p-6 sm:p-8 rounded-2xl"
         @submit.prevent="send"
       >
         <UFormField

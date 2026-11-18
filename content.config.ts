@@ -129,6 +129,9 @@ export default defineContentConfig({
         // A section page standing in for lessons not published yet. It is in
         // the sidebar and llms.txt, but not in the course order or progress.
         comingSoon: z.boolean().optional(),
+        // A hero image for the lesson (public/ path). Without one, the hero
+        // shows an illustration for its section (LessonArt.vue).
+        image: z.string().optional(),
         // `pro` = Pro members (monthly, lifetime or a team seat). Set on the
         // English lesson; translations follow (scripts/gate-content.mjs).
         access: z.enum(['free', 'pro']).optional(),
@@ -144,6 +147,9 @@ export default defineContentConfig({
         // VideoObject JSON-LD. `start`/`end` clip someone else's video.
         video: z.object({
           id: z.string(),
+          // Dubbed uploads by site language (es, pt, ja, de); the player
+          // otherwise shows `id` with captions in the reader's language.
+          ids: z.record(z.string(), z.string()).optional(),
           start: z.number().optional(),
           end: z.number().optional(),
           // Attribution when the video is someone else's: rendered as

@@ -14,20 +14,12 @@ export const COUNTRY_LOCALE: Record<string, string> = {
   // Spanish
   ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es', PE: 'es', VE: 'es', EC: 'es', GT: 'es', CU: 'es', BO: 'es',
   DO: 'es', HN: 'es', PY: 'es', SV: 'es', NI: 'es', CR: 'es', PA: 'es', UY: 'es', PR: 'es', GQ: 'es',
-  // French
-  FR: 'fr', MC: 'fr', SN: 'fr', CI: 'fr', ML: 'fr', BF: 'fr', NE: 'fr', TG: 'fr', BJ: 'fr', GA: 'fr', CD: 'fr', CG: 'fr', HT: 'fr',
-  GN: 'fr', CM: 'fr', MG: 'fr', LU: 'fr',
   // German
   DE: 'de', AT: 'de', LI: 'de', CH: 'de',
   // Portuguese
   BR: 'pt', PT: 'pt', AO: 'pt', MZ: 'pt', CV: 'pt',
-  // Japanese, Chinese
-  JP: 'ja', CN: 'zh', TW: 'zh', HK: 'zh', MO: 'zh',
-  // Arabic
-  SA: 'ar', AE: 'ar', EG: 'ar', IQ: 'ar', JO: 'ar', KW: 'ar', LB: 'ar', LY: 'ar', MA: 'ar', OM: 'ar', QA: 'ar',
-  SY: 'ar', TN: 'ar', YE: 'ar', BH: 'ar', DZ: 'ar', SD: 'ar', PS: 'ar', MR: 'ar',
-  // Russian, Bengali
-  RU: 'ru', BY: 'ru', KZ: 'ru', KG: 'ru', TJ: 'ru', UZ: 'ru', BD: 'bn'
+  // Japanese
+  JP: 'ja'
 }
 
 export const REGIONS = {

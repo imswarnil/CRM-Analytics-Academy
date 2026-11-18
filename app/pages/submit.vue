@@ -290,7 +290,7 @@ const STATUS: Record<Mine['status'], string> = {
 
         <form
           v-if="type && !sent"
-          class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-3xl border border-(--line) bg-(--card) shadow-[0_20px_60px_-40px_var(--navy)]"
+          class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-3xl border border-(--line) bg-(--card)"
           novalidate
           @submit.prevent="send"
         >

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
+import { ROADMAP } from '~/data/roadmap'
 
 /**
  * The player's course contents: every section with its number, lesson count,
@@ -41,6 +42,17 @@ const sections = computed(() =>
     }
   })
 )
+
+// The planned sections not published yet, from the course plan, so the
+// sidebar always shows the whole path. Their lessons are titles, not links.
+const slugOf = (p: string) => p.replace(/\/+$/, '').split('/').pop() ?? ''
+const upcoming = computed(() => {
+  const live = new Set(sections.value.map(s => slugOf(s.path)))
+  return ROADMAP.map((r, i) => ({ ...r, n: String(i + 1).padStart(2, '0') }))
+    .filter(r => !live.has(r.slug))
+    .map(r => ({ ...r, title: t(`roadmap.${r.key}.title`), lessonTitles: Array.from({ length: r.lessons }, (_, k) => t(`roadmap.${r.key}.l${k + 1}`)) }))
+})
+const openSoon = ref<string | null>(null)
 
 // Sections the reader opened by hand, on top of the one they are in.
 const open = ref(new Set<string>())
@@ -87,7 +99,7 @@ onMounted(() => revealCurrent(true))
   <!-- Collapsed rail -->
   <div
     v-if="props.collapsed"
-    class="graph-paper-fine flex min-h-full flex-col items-center gap-3 py-4"
+    class="flex min-h-full flex-col items-center gap-3 py-4"
   >
     <UButton
       icon="i-lucide-panel-right-open"
@@ -123,9 +135,9 @@ onMounted(() => revealCurrent(true))
   <div
     v-else
     ref="list"
-    class="graph-paper-fine min-h-full"
+    class="min-h-full bg-(--card)"
   >
-    <div class="sticky top-0 z-10 border-b border-(--line) bg-(--paper) px-4 py-3">
+    <div class="sticky top-0 z-10 border-b border-(--line) bg-(--card) px-4 py-3">
       <div class="flex items-center justify-between gap-2">
         <p class="eyebrow">
           {{ t('course.contents') }}
@@ -142,13 +154,13 @@ onMounted(() => revealCurrent(true))
         />
       </div>
       <div class="mt-2 flex items-center gap-3">
-        <div class="h-2.5 flex-1 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
+        <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-(--line)">
           <div
-            class="hatch-signal h-full"
+            class="h-full rounded-full bg-(--signal)"
             :style="{ width: `${pct}%` }"
           />
         </div>
-        <span class="font-mono text-[10px] text-(--ink2)">{{ doneAll }}/{{ total }}</span>
+        <span class="text-xs font-semibold tabular-nums text-(--ink2)">{{ doneAll }}/{{ total }}</span>
       </div>
     </div>
 
@@ -165,10 +177,10 @@ onMounted(() => revealCurrent(true))
           :aria-expanded="isOpen(s)"
           @click="toggleSection(s.path)"
         >
-          <span class="w-7 font-mono text-xs font-semibold text-(--signal)">{{ s.n }}</span>
+          <span class="w-6 text-xs font-bold tabular-nums text-(--signal)">{{ s.n }}</span>
           <span class="min-w-0 flex-1">
-            <span class="block truncate text-sm font-bold text-(--ink)">{{ s.title }}</span>
-            <span class="font-medium text-[11px] text-(--ink2)">{{ s.soon ? t('course.comingSoon') : t('course.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
+            <span class="block truncate text-[0.9375rem] font-bold text-(--ink)">{{ s.title }}</span>
+            <span class="text-xs text-(--ink2)">{{ s.soon ? t('course.comingSoon') : t('course.sectionMeta', { lessons: s.lessons.length, minutes: s.minutes }) }}</span>
           </span>
           <!-- The section's own icon inside its progress ring. -->
           <span class="relative flex size-8 flex-none items-center justify-center">
@@ -182,6 +194,11 @@ onMounted(() => revealCurrent(true))
               :class="s.lessons.length && s.done === s.lessons.length ? 'text-white' : 'text-(--signal)'"
             />
           </span>
+          <UIcon
+            name="i-lucide-chevron-down"
+            class="size-4 shrink-0 text-(--ink2) transition-transform"
+            :class="isOpen(s) ? 'rotate-180' : ''"
+          />
         </button>
 
         <ol
@@ -195,7 +212,7 @@ onMounted(() => revealCurrent(true))
             <NuxtLink
               :to="localePath(l.path)"
               :aria-current="isHere(l.path) ? 'page' : undefined"
-              class="relative flex items-center gap-2.5 py-2 pe-4 ps-11 text-[13px] hover:bg-(--ice)/60"
+              class="relative flex items-center gap-2.5 py-2.5 pe-4 ps-10 text-sm hover:bg-(--ice)/60"
               :class="isHere(l.path) ? 'bg-(--card) font-bold text-(--signal)' : 'text-(--ink)'"
               @click="emit('navigate')"
             >
@@ -212,8 +229,8 @@ onMounted(() => revealCurrent(true))
               <!-- Free or Pro, on every lesson: Pro is locked unless the reader has it. -->
               <span
                 v-if="!l.soon"
-                class="flex flex-none items-center gap-0.5 px-1 font-medium text-[11px] font-semibold"
-                :class="l.pro ? 'bg-(--ink) text-(--glow)' : 'border border-(--line) text-(--ink2)'"
+                class="flex flex-none items-center gap-0.5 rounded-full px-1.5 text-[10px] font-bold uppercase tracking-[.06em]"
+                :class="l.pro ? 'bg-(--navy) text-white' : 'bg-success/10 text-success'"
                 :title="l.pro ? t('pro.eyebrow') : t('pro.freeLesson')"
               ><UIcon
                 v-if="l.pro && !hasPro"
@@ -227,8 +244,54 @@ onMounted(() => revealCurrent(true))
                   :style="{ width: `${Math.max(12, (l.minutes / maxMin) * 100)}%` }"
                 />
               </span>
-              <span class="w-7 text-end font-mono text-[10px] text-(--ink2)">{{ l.minutes }}m</span>
+              <span class="w-8 text-end text-xs tabular-nums text-(--ink2)">{{ l.minutes }}m</span>
             </NuxtLink>
+          </li>
+        </ol>
+      </li>
+      <!-- Planned sections: the rest of the path -->
+      <li
+        v-for="u in upcoming"
+        :key="u.key"
+        class="border-b border-(--line)"
+      >
+        <button
+          type="button"
+          class="flex w-full items-center gap-3 px-4 py-3 text-start hover:bg-(--paper)"
+          :aria-expanded="openSoon === u.key"
+          @click="openSoon = openSoon === u.key ? null : u.key"
+        >
+          <span class="w-6 text-xs font-bold tabular-nums text-(--label)">{{ u.n }}</span>
+          <span class="min-w-0 flex-1">
+            <span class="block truncate text-[0.9375rem] font-semibold text-(--ink2)">{{ u.title }}</span>
+            <span class="text-xs text-(--label)">{{ t('course.comingSoon') }}</span>
+          </span>
+          <span class="flex size-8 flex-none items-center justify-center rounded-full bg-(--paper)">
+            <UIcon
+              :name="u.icon"
+              class="size-3.5 text-(--label)"
+            />
+          </span>
+          <UIcon
+            name="i-lucide-chevron-down"
+            class="size-4 shrink-0 text-(--ink2) transition-transform"
+            :class="openSoon === u.key ? 'rotate-180' : ''"
+          />
+        </button>
+        <ol
+          v-if="openSoon === u.key"
+          class="pb-2"
+        >
+          <li
+            v-for="(title, k) in u.lessonTitles"
+            :key="k"
+            class="flex items-center gap-2.5 py-2 pe-4 ps-10 text-sm text-(--ink2)"
+          >
+            <UIcon
+              name="i-lucide-circle-dashed"
+              class="size-3.5 flex-none text-(--x)"
+            />
+            <span class="min-w-0 flex-1 truncate">{{ title }}</span>
           </li>
         </ol>
       </li>

@@ -160,7 +160,7 @@ const prose = 'prose prose-neutral mt-4 max-w-none dark:prose-invert prose-a:tex
                 v-for="q in quickStarts"
                 :key="q.to"
                 :href="q.to"
-                class="group border border-(--line) bg-(--card) p-4 transition hover:-translate-y-0.5 hover:border-(--signal) hover:shadow-[0_18px_40px_-20px_rgb(12_27_51/.3)] rounded-2xl"
+                class="group border border-(--line) bg-(--card) p-4 transition hover:-translate-y-0.5 hover:border-(--signal) rounded-2xl"
               >
                 <div class="flex size-9 items-center justify-center border border-(--line) bg-(--ice) text-(--signal)">
                   <UIcon

@@ -40,10 +40,6 @@ const score = computed(() =>
 )
 const passed = computed(() => score.value / total.value >= 0.7)
 
-function itemsFor(question: QuizQuestion) {
-  return question.options.map((label, value) => ({ label, value }))
-}
-
 async function submit() {
   if (answeredCount.value < total.value || submitted.value) return
   submitted.value = true
@@ -79,55 +75,75 @@ function retry() {
 </script>
 
 <template>
-  <section class="not-prose my-12 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
-    <header class="flex items-center gap-3 border-b border-(--line) bg-(--ice) px-5 py-3">
-      <span class="flex size-9 items-center justify-center border border-(--line) bg-(--card) rounded-2xl">
+  <section class="not-prose my-12 overflow-hidden rounded-[6px] border border-(--line) bg-(--card)">
+    <header class="flex items-center gap-3 border-b border-(--line) px-6 py-4">
+      <span class="flex size-10 items-center justify-center rounded-[6px] bg-(--ice) text-(--signal)">
         <UIcon
           name="i-lucide-clipboard-check"
-          class="size-5 text-(--signal)"
+          class="size-5"
         />
       </span>
       <div class="min-w-0 flex-1">
-        <p class="eyebrow">
-          Check — {{ t('quiz.title') }}
+        <p class="text-lg font-bold text-(--ink)">
+          {{ t('quiz.title') }}
         </p>
-        <p class="font-medium text-[11px] text-(--ink2)">
+        <p class="text-sm text-(--ink2)">
           {{ t('quiz.answered', { n: answeredCount, total }) }}
         </p>
       </div>
     </header>
 
-    <ol class="divide-y divide-dashed divide-(--line)">
+    <ol class="divide-y divide-(--line)">
       <li
         v-for="(question, i) in questions"
         :key="i"
-        class="relative p-5 transition-colors"
-        :class="submitted
-          ? (selections[i] === question.answer ? 'bg-success/5' : 'bg-error/5')
-          : ''"
+        class="relative p-6"
       >
-        <span
-          v-if="submitted"
-          class="absolute inset-y-0 start-0 w-[3px]"
-          :class="selections[i] === question.answer ? 'bg-success' : 'bg-error'"
-        />
-        <p class="mono-label mb-1">
+        <p class="mono-label mb-2">
           {{ t('quiz.question', { n: i + 1, total }) }}
         </p>
-        <p class="mb-3 font-semibold text-(--ink)">
+        <p class="mb-4 text-lg font-semibold leading-snug text-(--ink)">
           {{ question.q }}
         </p>
-        <URadioGroup
-          v-model="selections[i]"
-          :items="itemsFor(question)"
-          :disabled="submitted"
-        />
+        <div
+          class="space-y-2.5"
+          role="radiogroup"
+        >
+          <button
+            v-for="(opt, oi) in question.options"
+            :key="oi"
+            type="button"
+            role="radio"
+            :aria-checked="selections[i] === oi"
+            :disabled="submitted"
+            class="flex w-full items-center gap-3 rounded-[6px] border p-3.5 text-start text-base leading-relaxed transition-colors"
+            :class="[
+              submitted && oi === question.answer ? 'border-success bg-success/10'
+              : submitted && selections[i] === oi ? 'border-error bg-error/10'
+                : selections[i] === oi ? 'border-(--signal) bg-(--ice)'
+                  : 'border-(--line) hover:border-(--signal)/50 hover:bg-(--ice)/50'
+            ]"
+            @click="selections[i] = oi"
+          >
+            <span
+              class="flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+              :class="selections[i] === oi ? 'bg-(--signal) text-white' : 'bg-(--paper) text-(--ink2)'"
+            >{{ String.fromCharCode(65 + oi) }}</span>
+            <span class="text-(--ink)">{{ opt }}</span>
+            <UIcon
+              v-if="submitted && oi === question.answer"
+              name="i-lucide-check"
+              class="ms-auto size-5 shrink-0 text-success"
+            />
+          </button>
+        </div>
       </li>
     </ol>
 
-    <footer class="border-t border-(--line) p-5">
+    <footer class="border-t border-(--line) p-6">
       <UButton
         v-if="!submitted"
+        size="lg"
         :label="t('quiz.submit')"
         :disabled="answeredCount < total"
         @click="submit"

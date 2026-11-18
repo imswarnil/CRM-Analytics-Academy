@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
     ...(plan === 'monthly' ? { subscription_data: { metadata: meta } } : { payment_intent_data: { metadata: meta } }),
     success_url: `${origin}/dashboard?checkout=success`,
     cancel_url: `${origin}/pro?checkout=cancelled`,
-    locale: ['es', 'fr', 'de', 'pt', 'ja', 'zh', 'ru'].includes(String(body?.locale)) ? body!.locale : 'auto'
+    locale: ['es', 'de', 'pt', 'ja'].includes(String(body?.locale)) ? body!.locale : 'auto'
   })
   return { url: session.url }
 })
