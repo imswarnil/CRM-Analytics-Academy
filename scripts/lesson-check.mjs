@@ -17,7 +17,7 @@ import { parse } from 'yaml'
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const EN = path.join(ROOT, 'content/en')
-const SKIP = new Set(['interview-questions', 'exam'])
+const SKIP = new Set(['interview-questions', 'exam', 'notes'])
 const errors = []
 const warnings = []
 

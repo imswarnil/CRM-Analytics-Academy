@@ -14,7 +14,7 @@
     "signOut": "Sign out",
     "dashboard": "Dashboard",
     "account": "Account",
-    "curriculum": "Start here",
+    "curriculum": "Start learning",
     "submit": "Contribute a resource",
     "home": "Home",
     "enrollFree": "Enroll free",
@@ -33,7 +33,10 @@
       "interview": "Interview Q&A",
       "pricing": "Pricing"
     },
-    "team": "Team"
+    "team": "Team",
+    "forTeams": "For teams and colleges",
+    "sponsor": "Sponsor",
+    "notes": "Notes"
   },
   "home": {
     "modules": {
@@ -183,6 +186,78 @@
         "ask": "Which deals will close this quarter?",
         "answer": "Three deals are likely to close. Acme’s renewal is the safest bet."
       }
+    },
+    "approach": {
+      "eyebrow": "How you will learn it",
+      "title": "From the Salesforce platform to the dashboards revenue teams open every week.",
+      "lead": "Most courses start with charts. This one starts with the data underneath them, because that is where dashboards go right or wrong.",
+      "step": "Step {n}",
+      "patterns": "Dashboards you will build",
+      "cta": "See the full course",
+      "steps": {
+        "platform": {
+          "title": "Understand the platform",
+          "body": "Objects, fields, relationships and the data model behind every sales and marketing report."
+        },
+        "build": {
+          "title": "Build on it",
+          "body": "A small app of your own, data in and out through integrations, and enough Apex and LWC to read what developers write."
+        },
+        "gtm": {
+          "title": "Learn how GTM works",
+          "body": "Funnel, pipeline and revenue metrics — what marketing, sales and RevOps actually measure, and why."
+        },
+        "architecture": {
+          "title": "Design the data architecture",
+          "body": "Data stored in several places — Salesforce, web, marketing, billing — brought into one model with recipes and datasets."
+        },
+        "dashboards": {
+          "title": "Build the dashboards everyone uses",
+          "body": "KPI, snapshot, change, conversion and adoption dashboards, with the definitions written down."
+        },
+        "advanced": {
+          "title": "Make them work for people",
+          "body": "Bindings and interactions, sharing and row-level security, embedding in Lightning and beyond."
+        }
+      },
+      "pattern": {
+        "kpi": "KPI",
+        "snapshot": "Snapshot",
+        "change": "Change analytics",
+        "conversion": "Conversion",
+        "adoption": "Adoption",
+        "bindings": "Bindings",
+        "sharing": "Sharing",
+        "embedding": "Embedding"
+      }
+    },
+    "compare": {
+      "eyebrow": "What it costs",
+      "title": "The same skills, for a fraction of a classroom course.",
+      "lead": "Instructor-led CRM Analytics classes cost hundreds to thousands of dollars per course. Here the first lessons are free, and everything is one subscription — or one payment.",
+      "option": "Option",
+      "price": "Price",
+      "perDay": "for {n} day",
+      "perDays": "for {n} days",
+      "selfPaced": "self-paced modules",
+      "academyUnit": "free to start · Pro {monthly}/mo or once for life",
+      "source": "Listed price",
+      "yes": "Yes",
+      "no": "No",
+      "cols": {
+        "anytime": "Learn any time",
+        "gtm": "Real GTM dashboards",
+        "practice": "Certification practice",
+        "keep": "Keep access"
+      },
+      "rows": {
+        "ilt201": "Instructor-led class: Lenses, Dashboards and Apps (ANC201)",
+        "ilt301": "Instructor-led class: Implement and Manage CRM Analytics (ANC301)",
+        "trailhead": "Trailhead modules",
+        "academy": "CRM Analytics Academy"
+      },
+      "note": "Public list prices from an authorised Salesforce training partner, checked {date}; your region and currency may differ. The certification exam itself is a separate fee paid to Salesforce.",
+      "cta": "See plans"
     }
   },
   "footer": {
@@ -191,9 +266,9 @@
     "project": "Project",
     "community": "Community",
     "quip": {
-      "0": "Made by Swarnil with an unreasonable amount of prompting and a heroic waste of tokens.",
-      "1": "Hand-drawn by Swarnil, machine-assisted. The token budget is now more of a suggestion.",
-      "2": "Built by Swarnil one prompt at a time — a few of them even worked on the first try."
+      "0": "Made by Swarnil, one dashboard at a time.",
+      "1": "Written and recorded by Swarnil, between real Salesforce projects.",
+      "2": "Built by Swarnil for everyone who has been handed CRM Analytics and told to figure it out."
     },
     "builtWith": "Built with",
     "builtWithNote": "Open source. Star the repo, fork it, or send a pull request."
@@ -1368,7 +1443,8 @@
       "seats": "Seats for my organisation",
       "salesforce-setup": "Set-up help",
       "consulting": "Consulting",
-      "mentoring": "Mentoring"
+      "mentoring": "Mentoring",
+      "sponsorship": "Sponsorship"
     },
     "best": "Most popular",
     "current": "You have Pro",
@@ -1538,7 +1614,13 @@
     "copied": "Copied",
     "lessons": "{n} lessons done",
     "admin": "Admin",
-    "remove": "Free seat"
+    "remove": "Free seat",
+    "assign": "Assign seats by email",
+    "assignHint": "Each person gets Pro the next time they sign in with that address — no code needed.",
+    "emailsPlaceholder": "Paste email addresses — one per line, or separated by commas",
+    "assignButton": "Assign seats",
+    "invited": "{n} people invited.",
+    "withdraw": "Withdraw invite"
   },
   "roadmap": {
     "s01": {
@@ -1600,5 +1682,54 @@
       "l3": "APIs and automation",
       "l4": "Performance and governance"
     }
+  },
+  "sponsor": {
+    "slotLabel": "Sponsor",
+    "slotTitle": "Your brand here",
+    "slotBody": "Reach Salesforce admins, analysts and RevOps teams while they learn.",
+    "slotCta": "Become a sponsor",
+    "eyebrow": "Sponsor the Academy",
+    "title": "Reach the people who build Salesforce analytics.",
+    "lead": "Salesforce admins, analysts, GTM engineers and RevOps teams learn CRM Analytics here, in 12 languages. Sponsors support free lessons and appear where learners already are.",
+    "whereTitle": "Where sponsors appear",
+    "where": {
+      "lessons": {
+        "title": "Beside every lesson",
+        "body": "A card in the lesson sidebar, next to the content people came for."
+      },
+      "start": {
+        "title": "On the course page",
+        "body": "Under the course plan that every new learner reads."
+      },
+      "home": {
+        "title": "On the home page",
+        "body": "One placement, below the price comparison."
+      },
+      "newsletter": {
+        "title": "In the lesson videos",
+        "body": "A short mention in the YouTube lessons, on request."
+      }
+    },
+    "rules": "One sponsor at a time, clearly labelled, never in a pop-up, never shown to Pro members. Relevant to Salesforce, data or revenue teams only.",
+    "formTitle": "Ask about dates and pricing",
+    "company": "Company",
+    "message": "What would you like to promote, and when?",
+    "send": "Send request",
+    "seoTitle": "Sponsor CRM Analytics Academy",
+    "seoDesc": "Reach Salesforce admins, analysts and RevOps teams learning CRM Analytics. One clearly labelled sponsor at a time, beside lessons and on the course page."
+  },
+  "pwa": {
+    "install": "Install app",
+    "iosTip": "In Safari, tap Share, then “Add to Home Screen”. The course then opens like an app and works offline."
+  },
+  "notes": {
+    "eyebrow": "Notes",
+    "title": "Section notes",
+    "suffix": "notes",
+    "lead": "Each finished section on one handwritten-style sheet, with the diagrams — read it here, save it as a PDF or download the Markdown.",
+    "seoTitle": "CRM Analytics notes — downloadable study sheets",
+    "pdf": "Download PDF",
+    "markdown": "Download Markdown",
+    "open": "Open the notes"
   }
 }

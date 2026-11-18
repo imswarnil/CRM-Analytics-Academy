@@ -41,7 +41,7 @@ const LLMS_BLURB = 'A free, open-source curriculum for mastering Salesforce CRM 
 const OUT = path.join(ROOT, 'public', 'ask-index.json')
 const TEXT_CAP = 2000
 
-const NON_LESSON = new Set(['interview-questions', 'exam'])
+const NON_LESSON = new Set(['interview-questions', 'exam', 'notes'])
 
 // Pro lessons publish only their stub (scripts/gate-content.mjs): the search
 // index, /raw/*.md and llms-full.txt never carry a members-only body.
@@ -239,18 +239,18 @@ async function buildLlms() {
   const head = [
     '# CRM Analytics Academy',
     '',
-    '> A free, open-source course for Salesforce CRM Analytics (formerly Tableau CRM / Einstein Analytics), taught the way go-to-market teams use it: data preparation, datasets, SAQL, dashboards, bindings, Einstein Discovery, and funnel, pipeline and RevOps dashboards built end to end.',
+    '> A course for Salesforce CRM Analytics (formerly Tableau CRM / Einstein Analytics), taught the way go-to-market teams use it: first the Salesforce platform and its data model, then GTM basics, then data architecture across many sources, then the dashboards revenue teams use every week (KPI, snapshot, change analytics, conversion, adoption), then bindings, sharing and embedding. Every lesson has a video.',
     '',
-    `Site: ${SITE} · Source: https://github.com/imswarnil/CRM-Analytics-Academy · License: MIT · Author: Swarnil Singhai`,
+    `Site: ${SITE} · Course page: ${SITE}/start · Source: https://github.com/imswarnil/CRM-Analytics-Academy · License: MIT · Author: Swarnil Singhai`,
     '',
     '## How to learn with this course',
     '',
-    '- The sections are numbered and build on each other. Take them in order: Introduction → Basics → Setup → Data Preparation → Datasets → Visualization → Lenses → SAQL → Dashboard Design → Interactions → Bindings → Dashboard JSON → Collaboration → APIs → Einstein Discovery, then the three GTM tracks (Demand, Pipeline, RevOps) after GTM Engineering.',
-    '- Most lessons are free and ad-supported; lessons marked Pro are for members. Pro is bought with points earned by learning (every account starts with 1,000), so anyone who studies can unlock it; companies, teams and universities can ask for Pro seats. Most lessons end with a graded quiz and interview questions.',
-    '- Learning paths: from scratch (Introduction → Basics → Setup → Data Preparation → Datasets → Visualization → Lenses → Dashboard Design → SAQL); for data engineers (Introduction → Data Preparation → Datasets → SAQL → Setup → APIs → Dashboard JSON); AI with CRM Analytics (Introduction → Basics → Datasets → Einstein Discovery → SAQL → APIs).',
-    '- Practise in a free CRM Analytics Developer Edition org (Introduction → Set up your org); the datasets are at ' + SITE + '/datasets.',
+    '- The sections are numbered and build on each other; take them in order: Salesforce Foundations → GTM Basics → Data Architecture → Dashboards Every GTM Team Uses → Interactions and Bindings → Sharing, Embedding and Apps → Advanced. The course is published lesson by lesson; ' + SITE + '/start shows the whole plan and what is live.',
+    '- Free lessons are open to everyone. Pro (monthly, or one lifetime payment) unlocks every lesson, every dataset and the full exam review with no ads. Companies, colleges and teams buy seats for their people.',
+    '- Every lesson opens with what it teaches, ends with a quiz and interview questions, and embeds its YouTube video.',
+    '- Practise in a free Salesforce Developer Edition org; the datasets are at ' + SITE + '/datasets.',
     '- Each lesson link below is the raw markdown of that lesson. The rendered page is the same path without /raw and .md.',
-    `- Translations: the course is machine-translated into 11 languages; each has its own index at ${SITE}/<locale>/llms.txt (es, fr, de, pt, ja, zh, hi, ar, ru, bn, ur).`,
+    `- Translations: every lesson is machine-translated into 11 languages; each has its own index at ${SITE}/<locale>/llms.txt (es, fr, de, pt, ja, zh, hi, ar, ru, bn, ur).`,
     `- MCP: ${SITE}/mcp (list_curriculum, search_lessons, get_lesson).`,
     ''
   ]
@@ -269,19 +269,20 @@ async function buildLlms() {
       lessons.push({ route: toRoute(file), title: String(data.title ?? ''), description: String(data.description ?? ''), body })
     }
     const intro = lessons[0]?.description
-    index.push(`## ${String(i).padStart(2, '0')}. ${title}`, '', ...(intro ? [intro, ''] : []))
+    const num = dir.match(/^(\d+)\./)?.[1] ?? String(i).padStart(2, '0')
+    index.push(`## ${num}. ${title}`, '', ...(intro ? [intro, ''] : []))
     for (const l of lessons) {
       n++
       index.push(`- ${n}. [${l.title}](${SITE}/raw${l.route}.md): ${l.description}`.trim())
-      full.push(`---\n\nLesson ${n} · Section ${String(i).padStart(2, '0')} ${title} · ${SITE}${l.route}\n\n${rawMarkdown(l.title, l.description, l.body)}`)
+      full.push(`---\n\nLesson ${n} · Section ${num} ${title} · ${SITE}${l.route}\n\n${rawMarkdown(l.title, l.description, l.body)}`)
     }
     index.push('')
   }
   const more = [
     '## More',
     '',
-    `- [Curriculum](${SITE}/start): every lesson on one page, with length, kind, and Free or Pro.`,
-    `- [Plans](${SITE}/pro): Free; Pro for 1,000 points per 30 days — the welcome points buy the first month; per-seat Pro for companies, teams and universities (by request).`,
+    `- [Start](${SITE}/start): the whole course on one page — every planned lesson, what is live, length and Free or Pro.`,
+    `- [Plans](${SITE}/pro): Free; Pro Monthly; Pro Lifetime (one payment); Teams & institutions — seats for companies, colleges and teams.`,
     `- [Certification practice](${SITE}/certification): one timed practice exam in the format of the CRM Analytics and Einstein Discovery Consultant exam (60 questions, 105 minutes, 68% to pass).`,
     `- [Interview questions](${SITE}/interview-questions): a growing bank of CRM Analytics interview questions with model answers, by type, topic, level and company.`,
     `- [YouTube channel](https://www.youtube.com/@crmanalyticsacademy): the lesson videos.`,
@@ -392,10 +393,44 @@ async function interviewLlmsLines() {
   return lines
 }
 
+/**
+ * public/offline-pages.json — what the service worker saves for offline use
+ * after install: the core pages and every English lesson (each with its Nuxt
+ * payload, so moving between them works without a connection).
+ */
+async function buildOfflineList() {
+  const lessons = (await walk(CONTENT)).sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).map(f => toRoute(f))
+  const notesDir = path.join(CONTENT, 'notes')
+  const notes = existsSync(notesDir) ? (await readdir(notesDir)).filter(f => f.endsWith('.md')).map(f => `/notes/${f.replace(/\.md$/, '')}`) : []
+  const pages = ['/', '/start', '/pro', '/certification', '/certification/paper-1', '/interview-questions', '/notes', ...notes, ...lessons]
+  const urls = [...pages.flatMap(p => [p, `${p === '/' ? '' : p}/_payload.json`]), '/exam/en.json', '/search/en.json']
+  await writeFile(path.join(ROOT, 'public', 'offline-pages.json'), JSON.stringify({ urls }), 'utf8')
+  console.log(`[offline] ${pages.length} pages -> public/offline-pages.json`)
+}
+
+/** public/notes/<locale>/<section>.md — each notes sheet as a Markdown download. */
+async function buildNotesDownloads() {
+  let n = 0
+  for (const locale of await readdir(CONTENT_ROOT)) {
+    const dir = path.join(CONTENT_ROOT, locale, 'notes')
+    if (!existsSync(dir)) continue
+    const outDir = path.join(ROOT, 'public', 'notes', locale)
+    await mkdir(outDir, { recursive: true })
+    for (const f of (await readdir(dir)).filter(f => f.endsWith('.md'))) {
+      const { data, body } = parseFrontmatter(await readFile(path.join(dir, f), 'utf8'))
+      await writeFile(path.join(outDir, f), `# ${data.title}\n\n${data.description ? `${data.description}\n\n` : ''}${body.trim()}\n\n— ${SITE}/notes/${f.replace(/\.md$/, '')}\n`, 'utf8')
+      n++
+    }
+  }
+  console.log(`[notes] ${n} sheet(s) -> public/notes/`)
+}
+
 async function main() {
   await buildSearch()
+  await buildNotesDownloads()
   await buildLlms()
   await buildExamBanks()
+  await buildOfflineList()
 
   // Numeric-aware sort so 2.setup precedes 10.whatever — the index order is
   // the curriculum order list_curriculum shows to MCP clients.

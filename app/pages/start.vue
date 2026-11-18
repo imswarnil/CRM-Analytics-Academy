@@ -287,7 +287,18 @@ usePageSchema(() => ({
                 />{{ t(`curriculumPage.how.${i}`) }}
               </li>
             </ul>
+            <UButton
+              :to="localePath('/notes')"
+              size="sm"
+              color="neutral"
+              variant="outline"
+              icon="i-lucide-notebook-pen"
+              class="mt-4"
+            >
+              {{ t('notes.title') }}
+            </UButton>
           </section>
+          <SponsorInvite compact />
           <PromoSlot unit="square300x250" />
         </div>
       </aside>

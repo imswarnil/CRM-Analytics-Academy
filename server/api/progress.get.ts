@@ -10,6 +10,9 @@
  */
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
+  // A seat waiting for this email (invite or college domain) is claimed now,
+  // so Pro is on from the first page after sign-in.
+  await claimSeat(user).catch(() => false)
   const sql = useDb()
 
   const [completed, points, days, quizzes, bookmarks, leaders, demo] = await Promise.all([

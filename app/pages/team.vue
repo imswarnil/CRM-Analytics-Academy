@@ -7,7 +7,7 @@
 definePageMeta({ middleware: 'auth' })
 
 interface Member { userId: string, name: string | null, email: string, role: string, lessons: number, joinedAt: string }
-interface Org { name: string, kind: string, seats: number, used: number, active: boolean, expiresAt: string | null, role: string, joinCode: string | null, domain: string | null, members: Member[] }
+interface Org { name: string, kind: string, seats: number, used: number, active: boolean, expiresAt: string | null, role: string, joinCode: string | null, domain: string | null, autoJoin?: boolean, invites?: string[], members: Member[] }
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -29,6 +29,23 @@ async function join() {
   } finally {
     joining.value = false
   }
+}
+const inviteText = ref('')
+const inviteMsg = ref('')
+async function invite() {
+  inviteMsg.value = ''
+  try {
+    const res = await $fetch<{ added: number }>('/api/org/invite', { method: 'POST', body: { emails: inviteText.value } })
+    inviteMsg.value = t('team.invited', { n: res.added })
+    inviteText.value = ''
+    await refresh()
+  } catch (e) {
+    inviteMsg.value = apiError(e) || t('contrib.err.generic')
+  }
+}
+async function withdraw(email: string) {
+  await $fetch('/api/org/invite', { method: 'DELETE', body: { email } })
+  await refresh()
 }
 async function remove(m: Member) {
   await $fetch('/api/org/members', { method: 'DELETE', body: { userId: m.userId } })
@@ -145,6 +162,61 @@ useSeoMeta({ title: () => t('team.title'), robots: 'noindex' })
             {{ copied ? t('team.copied') : t('team.copyLink') }}
           </UButton>
         </div>
+        <form
+          class="space-y-2 border-b border-(--line) p-6"
+          @submit.prevent="invite"
+        >
+          <p class="mono-label">
+            {{ t('team.assign') }}
+          </p>
+          <p class="text-sm text-(--ink2)">
+            {{ t('team.assignHint') }}
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <UTextarea
+              v-model="inviteText"
+              :rows="2"
+              autoresize
+              :placeholder="t('team.emailsPlaceholder')"
+              class="min-w-0 flex-1"
+            />
+            <UButton
+              type="submit"
+              icon="i-lucide-send"
+            >
+              {{ t('team.assignButton') }}
+            </UButton>
+          </div>
+          <p
+            v-if="inviteMsg"
+            class="text-sm text-(--ink2)"
+          >
+            {{ inviteMsg }}
+          </p>
+          <ul
+            v-if="data.org.invites?.length"
+            class="flex flex-wrap gap-2 pt-1"
+          >
+            <li
+              v-for="em in data.org.invites"
+              :key="em"
+              class="flex items-center gap-1 rounded-full border border-(--line) bg-(--paper) py-0.5 ps-3 pe-1 text-xs text-(--ink)"
+            >
+              {{ em }}
+              <button
+                type="button"
+                class="flex size-5 items-center justify-center rounded-full text-(--ink2) hover:bg-(--line)"
+                :aria-label="t('team.withdraw')"
+                @click="withdraw(em)"
+              >
+                <UIcon
+                  name="i-lucide-x"
+                  class="size-3"
+                />
+              </button>
+            </li>
+          </ul>
+        </form>
         <ul class="divide-y divide-(--line)">
           <li
             v-for="m in data.org.members"

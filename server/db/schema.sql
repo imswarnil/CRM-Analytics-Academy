@@ -302,3 +302,16 @@ create table if not exists app.org_member (
   joined_at timestamptz not null default now(),
   primary key (org_id, user_id)
 );
+
+-- Provisioning (2026-11-18). Seats assigned by email ahead of time: whoever
+-- signs in with that verified address takes the seat on their next visit
+-- (GET /api/org). `auto_join` lets anyone with a verified email at the org's
+-- domain claim a seat without a code — for a college's students.
+create table if not exists app.org_invite (
+  org_id     bigint      not null references app.org(id) on delete cascade,
+  email      text        not null check (email ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$'),
+  created_at timestamptz not null default now(),
+  primary key (org_id, email)
+);
+create index if not exists org_invite_email_idx on app.org_invite (email);
+alter table app.org add column if not exists auto_join boolean not null default false;

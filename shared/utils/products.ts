@@ -65,4 +65,4 @@ export const ORG_KINDS = ['company', 'college', 'team'] as const
 export type OrgKind = typeof ORG_KINDS[number]
 
 /** Anything a lead can be about. */
-export const LEAD_INTERESTS = ['seats', 'salesforce-setup', 'consulting', 'mentoring'] as const
+export const LEAD_INTERESTS = ['seats', 'sponsorship', 'salesforce-setup', 'consulting', 'mentoring'] as const

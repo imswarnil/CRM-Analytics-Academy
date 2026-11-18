@@ -76,8 +76,7 @@ const RETIRED: Record<string, string> = {
   '/curriculum': '/start',
   '/introduction': '/start',
   '/introduction/**': '/start',
-  '/sponsor': '/pro',
-  '/sponsor/**': '/pro'
+  '/sponsor/**': '/sponsor'
 }
 
 const redirectRules = Object.fromEntries(Object.entries(RETIRED).flatMap(([from, to]) => [

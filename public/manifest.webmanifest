@@ -2,49 +2,106 @@
   "id": "/?source=pwa",
   "name": "CRM Analytics Academy",
   "short_name": "CRMA Academy",
-  "description": "The free, open-source course for Salesforce CRM Analytics: data prep, SAQL, dashboards, bindings, Einstein Discovery and go-to-market dashboard builds, in twelve languages.",
+  "description": "Learn Salesforce CRM Analytics the way GTM teams use it: the Salesforce data model, data architecture, and the dashboards revenue teams open every week. Works offline.",
   "lang": "en",
   "dir": "ltr",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "any",
   "background_color": "#032D60",
   "theme_color": "#032D60",
-  "categories": ["education", "productivity"],
+  "categories": [
+    "education",
+    "productivity"
+  ],
   "prefer_related_applications": false,
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
-    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
   ],
   "screenshots": [
-    { "src": "/pwa/screenshot-wide.png", "sizes": "1280x720", "type": "image/png", "form_factor": "wide", "label": "The lesson player: the lesson, its video and the course contents" },
-    { "src": "/pwa/screenshot-narrow.png", "sizes": "720x1280", "type": "image/png", "form_factor": "narrow", "label": "The curriculum on a phone" }
+    {
+      "src": "/pwa/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "The lesson player: the lesson, its video and the course contents"
+    },
+    {
+      "src": "/pwa/screenshot-narrow.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "The course on a phone"
+    }
   ],
   "shortcuts": [
     {
-      "name": "Curriculum",
-      "short_name": "Curriculum",
-      "description": "Every section and lesson, in order",
-      "url": "/curriculum?source=pwa",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+      "name": "Start learning",
+      "short_name": "Course",
+      "description": "The whole course, in order",
+      "url": "/start?source=pwa",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Continue learning",
       "short_name": "Dashboard",
       "description": "Your progress and where you left off",
       "url": "/dashboard?source=pwa",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
-      "name": "Curriculum",
-      "short_name": "Curriculum",
-      "description": "Every section and lesson",
-      "url": "/curriculum?source=pwa",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+      "name": "Practice exam",
+      "short_name": "Exam",
+      "description": "The timed certification practice exam",
+      "url": "/certification?source=pwa",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

@@ -210,6 +210,9 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
       </div>
     </section>
 
+    <!-- HOW YOU WILL LEARN IT ------------------------------------------- -->
+    <HomeApproach />
+
     <!-- CURRICULUM, PLOTTED (only once lessons are published) ------------ -->
     <section
       v-if="lessonCount"
@@ -291,6 +294,12 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
 
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
       <PromoSlot unit="horizontal" />
+    </div>
+
+    <!-- WHAT IT COSTS ---------------------------------------------------- -->
+    <HomeCompare />
+    <div class="mx-auto max-w-(--ui-container) px-4 pb-6 sm:px-6 lg:px-8">
+      <SponsorInvite />
     </div>
 
     <!-- FREE ACCOUNT ----------------------------------------------------- -->

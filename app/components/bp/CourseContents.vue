@@ -29,7 +29,7 @@ const sections = computed(() =>
       .map(l => ({ title: String(l.title ?? ''), path: String(l.path), soon: Boolean((l as { comingSoon?: boolean }).comingSoon), ...metaOf(String(l.path)) }))
     const done = lessons.filter(l => isDone(l.path)).length
     return {
-      n: String(index).padStart(2, '0'),
+      n: String(index + 1).padStart(2, '0'),
       title: String(mod.title ?? ''),
       icon: String((mod as { icon?: string }).icon ?? 'i-lucide-book-open'),
       path: String(mod.path ?? ''),

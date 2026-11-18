@@ -1,7 +1,8 @@
 /**
  * Create or change an organisation (admin only).
- *   create: { name, kind, seats, months?, domain?, adminEmail?, leadId? }
- *   update: { id, seats?, months?, status? }
+ *   create: { name, kind, seats, months?, domain?, autoJoin?, adminEmail?, invites?, leadId? }
+ *   update: { id, seats?, months?, status?, autoJoin?, invites? }
+ * `invites` is a pasted list of emails; each claims a seat on sign-in.
  * The admin email, if it belongs to an account, becomes the org's admin.
  */
 export default defineEventHandler(async (event) => {
@@ -19,9 +20,11 @@ export default defineEventHandler(async (event) => {
       update app.org set
         seats = coalesce(${Number.isFinite(seats) && seats > 0 ? seats : null}, seats),
         expires_at = case when ${Boolean(b.months)} then ${expires}::timestamptz else expires_at end,
-        status = coalesce(${status}, status)
+        status = coalesce(${status}, status),
+        auto_join = coalesce(${typeof b.autoJoin === 'boolean' ? b.autoJoin : null}, auto_join)
       where id = ${id}`
-    return { ok: true }
+    const invited = await addInvites(id, parseEmails(b.invites))
+    return { ok: true, invited }
   }
 
   const name = String(b.name ?? '').trim().slice(0, 120)
@@ -30,8 +33,8 @@ export default defineEventHandler(async (event) => {
   if (name.length < 2 || !(seats >= 1)) throw createError({ statusCode: 400, statusMessage: 'Name and seats are required.' })
   if (domain && !/^[a-z0-9.-]+\.[a-z]{2,}$/.test(domain)) throw createError({ statusCode: 400, statusMessage: 'Bad domain.' })
   const [org] = await sql`
-    insert into app.org (name, kind, seats, join_code, domain, expires_at, lead_id)
-    values (${name}, ${kind}, ${seats}, ${newJoinCode()}, ${domain}, ${expires}, ${b.leadId ? Number(b.leadId) : null})
+    insert into app.org (name, kind, seats, join_code, domain, auto_join, expires_at, lead_id)
+    values (${name}, ${kind}, ${seats}, ${newJoinCode()}, ${domain}, ${Boolean(b.autoJoin) && Boolean(domain)}, ${expires}, ${b.leadId ? Number(b.leadId) : null})
     returning id, join_code`
   const email = String(b.adminEmail ?? '').trim().toLowerCase()
   if (email) {
@@ -39,5 +42,6 @@ export default defineEventHandler(async (event) => {
     if (u) await sql`insert into app.org_member (org_id, user_id, role) values (${org!.id}, ${u.id}, 'admin') on conflict (user_id) do nothing`
   }
   if (b.leadId) await sql`update app.lead set status = 'won' where id = ${Number(b.leadId)}`
-  return { id: Number(org!.id), joinCode: String(org!.join_code) }
+  const invited = await addInvites(Number(org!.id), parseEmails(b.invites))
+  return { id: Number(org!.id), joinCode: String(org!.join_code), invited }
 })

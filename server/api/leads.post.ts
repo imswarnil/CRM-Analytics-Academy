@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
   const interest = clean(body.product, 40)
   if (!(LEAD_INTERESTS as readonly string[]).includes(interest)) throw createError({ statusCode: 400, statusMessage: 'Pick what you are interested in.' })
-  const business = interest === 'seats' || interest === 'consulting'
+  const business = interest === 'seats' || interest === 'consulting' || interest === 'sponsorship'
   const user = await getSessionUser(event).catch(() => null)
 
   const email = clean(user?.email ?? body.email, 254).toLowerCase()

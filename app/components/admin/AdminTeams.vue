@@ -15,9 +15,11 @@ interface Org {
   status: string
   expiresAt: string | null
   adminEmail: string | null
+  invited: number
+  autoJoin: boolean
 }
 const { data, refresh } = await useLazyFetch<{ orgs: Org[] }>('/api/admin/orgs', { server: false, default: () => ({ orgs: [] }) })
-const draft = reactive({ name: '', kind: 'company' as OrgKind, seats: 10, months: 12, domain: '', adminEmail: '' })
+const draft = reactive({ name: '', kind: 'company' as OrgKind, seats: 10, months: 12, domain: '', autoJoin: false, adminEmail: '', invites: '' })
 const busy = ref(false)
 const error = ref('')
 const created = ref('')
@@ -29,7 +31,7 @@ async function create() {
   try {
     const res = await $fetch<{ joinCode: string }>('/api/admin/orgs', { method: 'POST', body: { ...draft } })
     created.value = res.joinCode
-    Object.assign(draft, { name: '', seats: 10, domain: '', adminEmail: '' })
+    Object.assign(draft, { name: '', seats: 10, domain: '', autoJoin: false, adminEmail: '', invites: '' })
     await refresh()
   } catch (e) {
     error.value = apiError(e) || 'Could not create the organisation.'
@@ -37,7 +39,14 @@ async function create() {
     busy.value = false
   }
 }
-async function update(o: Org, change: { seats?: number, status?: string, months?: number }) {
+const inviting = ref<number | null>(null)
+const inviteText = ref('')
+async function sendInvites(o: Org) {
+  await update(o, { invites: inviteText.value })
+  inviteText.value = ''
+  inviting.value = null
+}
+async function update(o: Org, change: { seats?: number, status?: string, months?: number, autoJoin?: boolean, invites?: string }) {
   await $fetch('/api/admin/orgs', { method: 'POST', body: { id: o.id, ...change } })
   await refresh()
 }
@@ -84,6 +93,19 @@ const date = (d: string | null) => (d ? new Date(d).toLocaleDateString([], { day
         type="email"
         placeholder="Their admin's email"
         class="lg:col-span-3"
+      />
+      <UCheckbox
+        v-model="draft.autoJoin"
+        :disabled="!draft.domain"
+        label="Anyone with a verified email at the domain gets a seat (colleges)"
+        class="lg:col-span-3"
+      />
+      <UTextarea
+        v-model="draft.invites"
+        :rows="2"
+        autoresize
+        placeholder="Assign seats by email — paste a list (comma, space or new line). Each person gets Pro when they sign in with that address."
+        class="sm:col-span-2 lg:col-span-6"
       />
       <UButton
         type="submit"
@@ -147,6 +169,16 @@ const date = (d: string | null) => (d ? new Date(d).toLocaleDateString([], { day
             </td>
             <td class="px-4 py-3 tabular-nums">
               {{ o.used }} / {{ o.seats }}
+              <p
+                v-if="o.invited || o.autoJoin"
+                class="text-xs text-(--ink2)"
+              >
+                <template v-if="o.invited">
+                  {{ o.invited }} invited
+                </template><template v-if="o.autoJoin">
+                  · domain auto-join
+                </template>
+              </p>
             </td>
             <td class="px-4 py-3 font-mono">
               {{ o.joinCode }}
@@ -170,12 +202,50 @@ const date = (d: string | null) => (d ? new Date(d).toLocaleDateString([], { day
               <UButton
                 size="xs"
                 color="neutral"
+                variant="outline"
+                icon="i-lucide-mail-plus"
+                class="ms-1"
+                @click="inviting = inviting === o.id ? null : o.id"
+              >
+                Invite
+              </UButton>
+              <UButton
+                size="xs"
+                color="neutral"
                 variant="ghost"
                 class="ms-1"
                 @click="update(o, { status: o.status === 'active' ? 'ended' : 'active' })"
               >
                 {{ o.status === 'active' ? 'End' : 'Reactivate' }}
               </UButton>
+            </td>
+          </tr>
+          <tr
+            v-for="o in data.orgs.filter(x => x.id === inviting)"
+            :key="`invite-${o.id}`"
+          >
+            <td
+              colspan="6"
+              class="bg-(--paper) px-4 py-3"
+            >
+              <form
+                class="flex flex-wrap gap-2"
+                @submit.prevent="sendInvites(o)"
+              >
+                <UTextarea
+                  v-model="inviteText"
+                  :rows="2"
+                  autoresize
+                  :placeholder="`Emails for ${o.name}, one per line or comma-separated`"
+                  class="min-w-0 flex-1"
+                />
+                <UButton
+                  type="submit"
+                  icon="i-lucide-send"
+                >
+                  Assign seats
+                </UButton>
+              </form>
             </td>
           </tr>
         </tbody>

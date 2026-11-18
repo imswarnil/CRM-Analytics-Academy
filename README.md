@@ -20,11 +20,10 @@
   <a href="https://github.com/imswarnil/CRM-Analytics-Academy/stargazers"><img src="https://img.shields.io/github/stars/imswarnil/CRM-Analytics-Academy?style=flat&logo=github&label=Star&color=2F5BEA&labelColor=0C1B33" alt="Star on GitHub"></a>
   <a href="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml"><img src="https://github.com/imswarnil/CRM-Analytics-Academy/actions/workflows/deploy-cloudflare.yml/badge.svg" alt="Deploy to Cloudflare Workers"></a>
   <a href="https://www.youtube.com/@crmanalyticsacademy"><img src="https://img.shields.io/badge/YouTube-@crmanalyticsacademy-FF0000?logo=youtube&labelColor=0C1B33" alt="YouTube channel"></a>
-  <img src="https://img.shields.io/badge/sections-19-2F5BEA?labelColor=0C1B33" alt="19 sections">
+  <img src="https://img.shields.io/badge/sections-7-0176D3?labelColor=032D60" alt="7 sections">
   <img src="https://img.shields.io/badge/languages-12-2F5BEA?labelColor=0C1B33" alt="12 languages">
   <img src="https://img.shields.io/badge/price-free%20%2B%20Pro-3FC6DC?labelColor=0C1B33" alt="Free, with Pro">
   <img src="https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&labelColor=0C1B33" alt="Nuxt 4">
-  <img src="https://img.shields.io/badge/built%20with-Claude%20Code-D97757?labelColor=0C1B33" alt="Built with Claude Code">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-0F2A5C" alt="MIT license"></a>
 </p>
 
@@ -38,15 +37,16 @@ and poorly as a path. Most of what is written about it stops at "here is a chart
 **go-to-market team** uses it: the funnel a marketing lead opens on Monday, the pipeline view a sales
 manager reads before the forecast call, the NRR waterfall RevOps takes to the board.
 
-The Academy is that path: **19 sections**, from "what is a dataset" through security
-predicates, SAQL windowing, bindings and the dashboard JSON underneath, to a set of revenue dashboards built
-on one company's data. **Everything is free** — no paywall, funded by ads. A free account adds a
-dashboard that keeps you going: progress, a daily streak, a weekly goal, saved lessons, quiz scores, badges
-and a leaderboard.
+The Academy is that path, in **7 sections**: the Salesforce platform and its data model, GTM basics, data
+architecture across many sources, the dashboards revenue teams use every week (KPI, snapshot, change,
+conversion, adoption), then bindings, sharing, embedding and Einstein Discovery. The first lessons are
+**free**; Pro (monthly, or one lifetime payment) opens everything, and companies and colleges buy seats.
+A free account adds progress, streaks, saved lessons, quiz scores and a leaderboard.
 
-> **Published section by section.** The Introduction is live; the other 18 sections are being written and
-> recorded, and each one's page already lists its planned lessons. Videos land on
-> [YouTube @crmanalyticsacademy](https://www.youtube.com/@crmanalyticsacademy) as each section ships.
+> **Published lesson by lesson.** Every lesson has a video on
+> [YouTube @crmanalyticsacademy](https://www.youtube.com/@crmanalyticsacademy), embedded on its page, and each
+> finished section gets a downloadable notes sheet. [/start](https://crmanalytics.imswarnil.com/start) shows the
+> whole plan and what is live.
 
 | You are… | Start here |
 | --- | --- |
@@ -60,18 +60,15 @@ and a leaderboard.
 
 | | |
 | --- | --- |
-| ![Lesson player](.github/screenshots/lesson.jpg) | ![Curriculum](.github/screenshots/curriculum.jpg) |
-| **Lesson player.** Course contents with progress, prev / mark complete / next, the course timeline, save for later. | **Curriculum.** Every section, plotted by length and kind; sections still being written are marked "soon". |
-| ![Arabic, right to left](.github/screenshots/lesson-ar.jpg) | ![Dark mode](.github/screenshots/lesson-dark.jpg) |
-| **Twelve languages.** Written once in English and machine-translated locally; Arabic and Urdu render right to left. | **Dark mode.** The same drawing, inked in reverse. |
+| ![Home](.github/screenshots/home.jpg) | ![The course](.github/screenshots/start.jpg) |
+| **Home.** What you will build and how the course is taught. | **The course.** Every section in order, what is live and what is coming. |
 
-
-<p align="center"><img src=".github/screenshots/dashboard.jpg" alt="Learner dashboard" width="760"><br><sub><strong>Your dashboard.</strong> Continue, up next, streak, weekly goal, activity heatmap, saved lessons, quizzes, badges.</sub></p>
+<p align="center"><img src=".github/screenshots/lesson.jpg" alt="A lesson" width="760"><br><sub><strong>A lesson.</strong> The video, an animated opener, the lesson, the quiz, and the course beside it.</sub></p>
 
 ## Features
 
 **Learning**
-- **19 sections in 12 languages** — the Introduction is live; every other section has a "coming soon" page listing its planned lessons, so the outline is public, indexable and in `llms.txt` from day one.
+- **7 sections in 12 languages** — the whole plan is public on /start and in `llms.txt`; lessons appear as they are recorded.
 - **Lesson player** — course-contents sidebar (collapsible to a progress-donut rail), prev / mark complete / next,
   a course timeline, table of contents, screen walkthroughs, graded quizzes, interview Q&A, comments.
 - **Lesson videos** published on YouTube and embedded in each lesson.
@@ -101,8 +98,8 @@ and a leaderboard.
 - **Users**, **Submissions** (approve / reject) and **Comments** (hide / restore).
 - Content is edited in **Nuxt Studio** (`/_studio`), which commits markdown to GitHub.
 
-**Advertising** (Google AdSense — readers who are signed in see none)
-- Every placement is a `<PromoSlot>` in a Blueprint frame (label, size spec, crop marks), its space reserved
+**Advertising** (Google AdSense — Pro members see none)
+- Every placement is a `<PromoSlot>` in a labelled frame, its space reserved
   so nothing jumps, and a fresh unit is requested on every page view.
 - In-article units inside lessons, a sticky skyscraper under the table of contents, a unit in the course
   sidebar, a multiplex block after each lesson, a leaderboard on content pages, and a closable floating
@@ -156,17 +153,16 @@ English source of every file), stops it, and the result is committed. CI never t
 | --- | --- |
 | Framework | [Nuxt 4](https://nuxt.com) (Vue 3, Vite, Nitro), TypeScript |
 | Content | [Nuxt Content 3](https://content.nuxt.com) (markdown + MDC components), edited in [Nuxt Studio](https://nuxt.studio) |
-| UI | [Nuxt UI v4](https://ui.nuxt.com), [Tailwind CSS 4](https://tailwindcss.com), the in-house **Blueprint** design system, Schibsted Grotesk + IBM Plex Mono |
+| UI | [Nuxt UI v4](https://ui.nuxt.com), [Tailwind CSS 4](https://tailwindcss.com), the **Namaste Salesforce** design system, Figtree |
 | Hosting | [Cloudflare Workers](https://workers.cloudflare.com) (static assets + one Worker), R2 for submission images |
 | Database | [Neon](https://neon.com) serverless Postgres — `server/db/schema.sql` |
 | Auth | Neon Auth ([Better Auth](https://better-auth.com)), resolved server-side per request; a shared demo account |
-| Analytics | First-party: `app.page_view` + `app.event`, read in `/admin → Analytics` |
+| Analytics | Cloudflare Web Analytics + Search Console; milestones in `app.event`; first-touch source into Salesforce |
 | Translation | [LibreTranslate](https://libretranslate.com), installed locally, run by `pnpm build` |
 | Video | Published on YouTube, embedded per lesson |
 | i18n | `@nuxtjs/i18n` — 12 locales, 2 RTL |
 | SEO | `@nuxtjs/sitemap`, `nuxt-og-image`, JSON-LD, hreflang, IndexNow |
 | Quality | ESLint, `vue-tsc`, GitHub Actions |
-| Built with | [Claude Code](https://claude.com/claude-code) — directed and reviewed by a human |
 
 ## The curriculum
 
@@ -237,7 +233,7 @@ the source of truth; `brand/` holds the logo mark, icons and YouTube art.
 ## Directory map
 
 ```text
-app/                  pages, components (bp/ = Blueprint primitives), composables, plugins
+app/                  pages, components (bp/ = shared primitives), composables, plugins
 content/              lessons in 12 locales, resources/, people/
 server/api/           the routes above · server/db/schema.sql · server/routes/ (mcp, media)
 scripts/              prebuild, translate + libretranslate.sh, lesson-meta, search/llms index, indexnow
@@ -283,12 +279,13 @@ is ever empty in dev, the Nuxt Content dev database is stale: `rm -rf .data && p
    `.github/workflows/deploy-cloudflare.yml` lints, typechecks, builds and deploys to Cloudflare, then pings
    IndexNow. Runtime secrets live on the Worker (`wrangler secret put …`; names in `.env.example`).
 
-## How it was made
+## Why I made this
 
-One person built this with an AI coding agent. Seven years of building CRM Analytics dashboards for sales,
-marketing and RevOps teams supplied the curriculum, the opinions and the vocabulary;
-[Claude Code](https://claude.com/claude-code) supplied most of the typing. What stays human is the taste, the
-domain knowledge and the review. The git history is the honest record, including the parts that broke.
+I have spent seven years building CRM Analytics dashboards for sales, marketing and RevOps teams. Most of
+what made those dashboards work — the data model under them, the metric definitions people argued about,
+the reasons a dashboard got opened every Monday or never at all — is not in any official course. This is the
+course I wish I'd had: built on one company's real go-to-market data, recorded lesson by lesson, and open
+for anyone to learn from. — Swarnil
 
 ## Contributing
 

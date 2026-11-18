@@ -406,7 +406,7 @@ const lesson = computed(() => unlocked.value
 
 const lessonVideo = computed(() => (unlocked.value ? proLesson.value?.video : null) ?? page.value?.video ?? englishVideo.value)
 const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
-const lessonNo = computed(() => String(position.value).padStart(3, '0'))
+const lessonNo = computed(() => String(position.value).padStart(2, '0'))
 </script>
 
 <template>
@@ -415,7 +415,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
     class="min-w-0"
   >
     <!-- Lesson header: crumbs, drawing number, title -->
-    <header class="graph-paper border-b border-(--line)">
+    <header class="border-b border-(--line) bg-(--card)">
       <!-- Same column as the lesson body below, so the title lines up with the
            text whether the course contents are open or collapsed. -->
       <div class="mx-auto max-w-[68rem] px-4 pb-8 pt-6 sm:px-8">
@@ -516,7 +516,7 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
       <!-- The media, framed as a figure -->
       <BpFigure
         v-if="hasMedia"
-        :caption="`Fig. ${lessonNo} — ${page.title}`"
+        :caption="page.title"
         :spec="`${meta.minutes} min`"
         ruler
         class="mb-8"
@@ -739,6 +739,10 @@ const lessonNo = computed(() => String(position.value).padStart(3, '0'))
             </div>
             <!-- Squares down the whole column, one per stretch of lesson:
                  the longer the lesson, the more of them fit beside it. -->
+            <SponsorInvite
+              compact
+              class="mt-6"
+            />
             <div class="mt-6 space-y-6">
               <PromoSlot
                 v-for="n in tocSquares"

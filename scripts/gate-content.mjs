@@ -30,7 +30,7 @@ const CONTENT = path.join(ROOT, 'content')
 const STUBS = path.join(ROOT, '.gated-stubs')
 const ASSETS = path.join(ROOT, 'server', 'assets', 'gated')
 const LIST = path.join(ROOT, '.gated-files.json')
-const NON_LESSON = new Set(['interview-questions', 'exam'])
+const NON_LESSON = new Set(['interview-questions', 'exam', 'notes'])
 // Fields only members get; the stub never carries them.
 const PRIVATE_FIELDS = ['quiz', 'interview', 'walkthrough', 'video']
 

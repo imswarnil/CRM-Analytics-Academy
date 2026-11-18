@@ -4,14 +4,16 @@
  */
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
+  await claimSeat(user).catch(() => false)
   const sql = useDb()
   const [org] = await sql`
-    select o.id, o.name, o.kind, o.seats, o.join_code, o.domain, o.status, o.expires_at, m.role,
+    select o.id, o.name, o.kind, o.seats, o.join_code, o.domain, o.auto_join, o.status, o.expires_at, m.role,
            (select count(*)::int from app.org_member x where x.org_id = o.id) as used
     from app.org_member m join app.org o on o.id = m.org_id where m.user_id = ${user.id}`
   setResponseHeader(event, 'cache-control', 'private, no-store')
   if (!org) return { org: null }
   const admin = org.role === 'admin'
+  const invites = admin ? await sql`select email from app.org_invite where org_id = ${org.id} order by created_at` : []
   const members = admin
     ? await sql`
         select m.user_id, m.role, m.joined_at, u.name, u.email, coalesce(p.lessons_done, 0)::int as lessons
@@ -30,6 +32,8 @@ export default defineEventHandler(async (event) => {
       role: String(org.role),
       joinCode: admin ? String(org.join_code) : null,
       domain: (org.domain as string | null) ?? null,
+      autoJoin: Boolean(org.auto_join),
+      invites: invites.map(r => String(r.email)),
       members: members.map(r => ({ userId: String(r.user_id), name: r.name as string | null, email: String(r.email), role: String(r.role), lessons: Number(r.lessons), joinedAt: r.joined_at as string }))
     }
   }

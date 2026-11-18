@@ -57,6 +57,18 @@ export default defineContentConfig({
     // content/<locale>/exam/<domain>.md. Translated by the build (q and
     // options); scripts/build-search-index.mjs writes public/exam/<locale>.json
     // for the exam runner.
+    // Section notes (handwritten style, downloadable): one file per finished
+    // section, per locale — content/<locale>/notes/<section-slug>.md. The body
+    // is markdown with hand-drawn figures (::hand-chart). Translated by the
+    // build like lessons.
+    notes: defineCollection({
+      type: 'page',
+      source: '*/notes/*.md',
+      schema: z.object({
+        section: z.string(),
+        lessons: z.number().int().optional()
+      })
+    }),
     exam: defineCollection({
       type: 'data',
       source: '*/exam/*.md',
@@ -109,7 +121,7 @@ export default defineContentConfig({
       source: [
         {
           include: '**',
-          exclude: ['resources/**', 'people/**', '*/interview-questions/**', '*/exam/**', ...gatedFiles]
+          exclude: ['resources/**', 'people/**', '*/interview-questions/**', '*/exam/**', '*/notes/**', ...gatedFiles]
         },
         ...(gatedFiles.length ? [{ cwd: resolve('.gated-stubs'), include: '**' }] : [])
       ],

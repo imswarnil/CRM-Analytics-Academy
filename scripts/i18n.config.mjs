@@ -162,7 +162,9 @@ export const TRANSLATABLE_KEYS = [
   'caption',
   'alt',
   // A lesson hero's "in this lesson" list (::lesson-hero).
-  'points'
+  'points',
+  // A notes sheet's hand-drawn figure (::hand-chart) — its axis and box labels.
+  'labels'
 ]
 
 /**

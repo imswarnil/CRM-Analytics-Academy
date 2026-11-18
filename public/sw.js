@@ -1,21 +1,26 @@
-// CRM Analytics Academy service worker.
+// CRM Analytics Academy service worker — the offline app.
 //
-//   /_nuxt/ and static files   cache-first (content-hashed, safe to keep)
-//   public pages (lessons …)   network-first, cached copy when offline
-//   private pages and /api/    never cached — they are per-user
-//   an uncached page offline   /offline.html
+//   install      precache the shell: the offline page and the core pages
+//   activate     then, in the background, save every page listed in
+//                /offline-pages.json (built by scripts/build-search-index.mjs):
+//                the course page, the exam and its question bank, every
+//                English lesson and its Nuxt payload
+//   /_nuxt/, images, fonts   cache-first (content-hashed, safe to keep)
+//   public pages, payloads   network-first; the saved copy when offline
+//   private pages and /api/  never cached — they are per-user
+//   an unsaved page offline  /offline.html
 //
-// Bump CACHE_NAME whenever a release must invalidate what returning visitors
-// already hold: `activate` deletes every cache that isn't the current name.
-//   v3 = purge error pages poisoned during the Vercel→Pages move.
+// Bump CACHE_NAME when a release must invalidate what returning visitors hold:
+// `activate` deletes every cache that is not the current name.
 //   v4 = Blueprint redesign; private routes excluded; offline page.
-const CACHE_NAME = 'crma-v4'
+//   v5 = Namaste design; course at /start; full offline save of the course.
+const CACHE_NAME = 'crma-v5'
 const OFFLINE_URL = '/offline.html'
+const SHELL = [OFFLINE_URL, '/', '/start', '/icon.svg', '/manifest.webmanifest']
 const STATIC_ASSET_RE = /\/_nuxt\/|\.(?:png|jpg|jpeg|svg|webp|ico|woff2?)$/
-// Signed-in, per-user or server-rendered-per-request: caching any of these
-// would hand one visit's page to the next (or to another account on the same
-// device).
-const PRIVATE_RE = /^\/(?:[a-z]{2}\/)?(?:api|admin|dashboard|submit|sign-in|sign-up|_studio|raw|media|mcp)(?:\/|$)/
+// Signed-in, per-user or rendered per request: caching any of these would hand
+// one visit's page to the next (or to another account on the same device).
+const PRIVATE_RE = /^\/(?:[a-z]{2}\/)?(?:api|admin|dashboard|account|team|submit|sign-in|sign-up|_studio|raw|media|mcp)(?:\/|$)/
 
 // Only ever store a real, complete, same-origin success — a cached 404/5xx
 // would otherwise be replayed forever.
@@ -24,15 +29,43 @@ function isCacheable(res) {
 }
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.add(OFFLINE_URL)).then(() => self.skipWaiting()))
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      // One failed page must not fail the install: add each on its own.
+      .then(cache => Promise.all(SHELL.map(url => cache.add(url).catch(() => null))))
+      .then(() => self.skipWaiting())
+  )
 })
+
+// Save the course for offline use, a few requests at a time, after activation.
+async function saveCourse() {
+  try {
+    const res = await fetch('/offline-pages.json', { cache: 'no-store' })
+    if (!res.ok) return
+    const { urls } = await res.json()
+    const cache = await caches.open(CACHE_NAME)
+    for (let i = 0; i < urls.length; i += 4) {
+      await Promise.all(urls.slice(i, i + 4).map(async (url) => {
+        if (await cache.match(url)) return
+        const r = await fetch(url).catch(() => null)
+        if (isCacheable(r)) await cache.put(url, r)
+      }))
+    }
+  } catch { /* offline saving is best-effort */ }
+}
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
       .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
       .then(() => self.clients.claim())
+      .then(() => saveCourse())
   )
+})
+
+// The page can ask for a refresh of the offline copy ("Save for offline").
+self.addEventListener('message', (event) => {
+  if (event.data === 'save-course') event.waitUntil(saveCourse())
 })
 
 function putInCache(request, response) {
@@ -68,7 +101,7 @@ self.addEventListener('fetch', (event) => {
         putInCache(request, res)
         return res
       })
-      .catch(() => caches.match(request).then((cached) => {
+      .catch(() => caches.match(request, { ignoreSearch: true }).then((cached) => {
         if (cached) return cached
         if (request.mode === 'navigate') return caches.match(OFFLINE_URL)
         return Response.error()

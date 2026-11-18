@@ -14,7 +14,7 @@
     "signOut": "签字",
     "dashboard": "电线板",
     "account": "账户",
-    "curriculum": "从这里开始",
+    "curriculum": "开始学习",
     "submit": "贡献资源",
     "home": "页 次",
     "enrollFree": "免费滚动",
@@ -33,7 +33,10 @@
       "interview": "访谈 Q&页:1",
       "pricing": "定价"
     },
-    "team": "团队"
+    "team": "团队",
+    "forTeams": "团队和学院",
+    "sponsor": "发起人",
+    "notes": "页:1"
   },
   "home": {
     "modules": {
@@ -183,6 +186,78 @@
         "ask": "什么交易会结束这个季度?",
         "answer": "三笔交易有可能结束。 Acme的续约是最安全的赌注。"
       }
+    },
+    "approach": {
+      "eyebrow": "你怎么学的?",
+      "title": "从 Salesforce 收入团队每周开放。",
+      "lead": "大多数课程从图表开始。 这个从它们下面的数据开始 因为这就是仪表板对错的地方",
+      "step": "步骤 {n}",
+      "patterns": "您将建造的板",
+      "cta": "见全程",
+      "steps": {
+        "platform": {
+          "title": "了解这个平台",
+          "body": "每份销售和营销报告背后的对象,领域,关系和数据模型."
+        },
+        "build": {
+          "title": "继续",
+          "body": "一个小的应用 自己的,数据进出 通过整合,和足够 Apex 和 LWC 读取开发者所写的 。"
+        },
+        "gtm": {
+          "title": "学习 GTM 如何工作",
+          "body": "漏斗、管道和收入衡量标准——什么营销、销售和RevOps实际衡量以及为什么。"
+        },
+        "architecture": {
+          "title": "设计数据架构",
+          "body": "数据储存在几个地方—— Salesforce,网络,营销,计费——带来了一个带有食谱和数据集的模型."
+        },
+        "dashboards": {
+          "title": "构建每个人使用的仪表板",
+          "body": "KPI,快照,更改,转换和采用仪表板,并写下定义."
+        },
+        "advanced": {
+          "title": "让他们为人工作",
+          "body": "捆绑和互动,共享和行级安全,嵌入在闪电内外."
+        }
+      },
+      "pattern": {
+        "kpi": "KPI",
+        "snapshot": "抓图",
+        "change": "更改分析",
+        "conversion": "改划",
+        "adoption": "收 养",
+        "bindings": "约束",
+        "sharing": "共享",
+        "embedding": "嵌入"
+      }
+    },
+    "compare": {
+      "eyebrow": "付出的代价",
+      "title": "同样的技能, 一小部分的课堂课程。",
+      "lead": "教官领导 CRM Analytics 每门课程花费数百到数千美元。 在此,第一个课程是免费的,一切都是一次订阅——或一次付款。",
+      "option": "选项",
+      "price": "价格",
+      "perDay": "(单位:千美元) {n} 日数",
+      "perDays": "(单位:千美元) {n} 天数",
+      "selfPaced": "自定节奏模块",
+      "academyUnit": "\\ Pro {monthly}或终身",
+      "source": "上市价格",
+      "yes": "对",
+      "no": "没有",
+      "cols": {
+        "anytime": "随时学习",
+        "gtm": "真正的GTM仪表板",
+        "practice": "认证做法",
+        "keep": "继续访问"
+      },
+      "rows": {
+        "ilt201": "教师领导班级: Lenses、板板和Apps(ANC201)",
+        "ilt301": "教员领导班级:执行和管理 CRM Analytics (ANC301号)",
+        "trailhead": "Trailhead 模块",
+        "academy": "CRM Analytics 学院"
+      },
+      "note": "授权的公开清单价格 Salesforce 培训伙伴,检查 {date};您的区域和货币可能有所不同。 认证考试本身是单独支付给 Salesforce。 。 。",
+      "cta": "见计划"
     }
   },
   "footer": {
@@ -191,9 +266,9 @@
     "project": "项目",
     "community": "社区",
     "quip": {
-      "0": "斯沃尼尔用不合理的催促量 和英勇的废品制造出来的",
-      "1": "由史瓦尼尔手绘,机器辅助. 象征性预算现在更是一个建议。",
-      "2": "由Swarnil 一次一个提示建造——其中少数甚至致力于第一次尝试."
+      "0": "由斯沃尼尔制作,一次一个仪表板.",
+      "1": "由史瓦尼尔编写和录制,介于真实之间 Salesforce 项目。",
+      "2": "斯沃尼尔为所有被移交的人建造的 CRM Analytics 并告诉它想清楚。"
     },
     "builtWith": "与",
     "builtWithNote": "开源. 星宿,叉,或发出拉力请求."
@@ -1368,7 +1443,8 @@
       "seats": "我组织的座位",
       "salesforce-setup": "设置帮助",
       "consulting": "咨询",
-      "mentoring": "辅导"
+      "mentoring": "辅导",
+      "sponsorship": "赞助"
     },
     "best": "最受欢迎的",
     "current": "你有职业",
@@ -1538,7 +1614,13 @@
     "copied": "复制",
     "lessons": "{n} 经验教训",
     "admin": "管理员",
-    "remove": "空闲座位"
+    "remove": "空闲座位",
+    "assign": "通过电子邮件指定座位",
+    "assignHint": "每个人都得到 下次他们用那个地址签字时,请说明——不需要代码。",
+    "emailsPlaceholder": "粘贴电子邮件地址——每行一个,或用逗号分隔",
+    "assignButton": "分配席位",
+    "invited": "{n} 人们邀请。",
+    "withdraw": "撤回邀请"
   },
   "roadmap": {
     "s01": {
@@ -1600,5 +1682,54 @@
       "l3": "API和自动化",
       "l4": "业绩和治理"
     }
+  },
+  "sponsor": {
+    "slotLabel": "发起人",
+    "slotTitle": "你的品牌在这里",
+    "slotBody": "到达 Salesforce 管理员,分析员和RevOps团队一边学习.",
+    "slotCta": "成为提案国",
+    "eyebrow": "赞助学院",
+    "title": "联系建设者 Salesforce 分析学。",
+    "lead": "Salesforce 管理员、分析员、GTM工程师和RevOps团队学习 CRM Analytics 这里,12种语言。 赞助者支持免费课程,并在已经学习的地方出现。",
+    "whereTitle": "提案国出现的地方",
+    "where": {
+      "lessons": {
+        "title": "除了每一个教训",
+        "body": "在课边栏的一张卡片,旁边是人们来找的内容."
+      },
+      "start": {
+        "title": "在课程页面",
+        "body": "根据每个新学习者阅读的课程计划."
+      },
+      "home": {
+        "title": "在主页",
+        "body": "一次安置,低于价格比较."
+      },
+      "newsletter": {
+        "title": "在教学录像里",
+        "body": "在YouTube的课上,"
+      }
+    },
+    "rules": "一次有一个赞助商,标签清晰,从未出现过,从未向Pro会员展示过. 相关 Salesforce只有数据或收入小组。",
+    "formTitle": "询问日期和定价",
+    "company": "企业",
+    "message": "你想宣传什么,什么时候?",
+    "send": "发送请求",
+    "seoTitle": "发起人 CRM Analytics 学院",
+    "seoDesc": "到达 Salesforce 管理人员、分析员和RevOps团队学习 CRM Analytics除了课程和课程页外,一个有明确标签的赞助商。"
+  },
+  "pwa": {
+    "install": "安装应用程序",
+    "iosTip": "在《Safari》中,将“Share”,然后“添加到家庭屏幕”。 课程然后像一个应用软件一样打开,然后线下工作."
+  },
+  "notes": {
+    "eyebrow": "页:1",
+    "title": "部分说明",
+    "suffix": "说明",
+    "lead": "每个完成的部分在一个手写式的表单上,都有图表——在这里读,保存为PDF或下载Markdown.",
+    "seoTitle": "CRM Analytics 说明——可下载的学习表",
+    "pdf": "下载 PDF",
+    "markdown": "下载标记",
+    "open": "打开笔记"
   }
 }

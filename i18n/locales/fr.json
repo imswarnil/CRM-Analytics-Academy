@@ -14,7 +14,7 @@
     "signOut": "Déconnexion",
     "dashboard": "Tableau de bord",
     "account": "Compte",
-    "curriculum": "Commencez ici.",
+    "curriculum": "Commencez à apprendre",
     "submit": "Apporter une ressource",
     "home": "Sommaire",
     "enrollFree": "Inscription gratuite",
@@ -33,7 +33,10 @@
       "interview": "Entretien Q&A",
       "pricing": "Prix"
     },
-    "team": "Équipe"
+    "team": "Équipe",
+    "forTeams": "Pour les équipes et les collèges",
+    "sponsor": "Parrain",
+    "notes": "Annexe"
   },
   "home": {
     "modules": {
@@ -183,6 +186,78 @@
         "ask": "Quels sont les contrats qui vont fermer ce trimestre ?",
         "answer": "Trois transactions seront probablement closes. Le renouvellement de l'acme est le plus sûr pari."
       }
+    },
+    "approach": {
+      "eyebrow": "Comment vous allez l'apprendre",
+      "title": "Des Salesforce plate-forme aux équipes de recettes des tableaux de bord ouverts chaque semaine.",
+      "lead": "La plupart des cours commencent par des graphiques. Celui-ci commence avec les données sous elles, parce que c'est là que les tableaux de bord vont à droite ou à tort.",
+      "step": "Étape {n}",
+      "patterns": "Tableaux de bord que vous allez construire",
+      "cta": "Voir le cours complet",
+      "steps": {
+        "platform": {
+          "title": "Comprendre la plateforme",
+          "body": "Objets, champs, relations et le modèle de données derrière chaque rapport de vente et de marketing."
+        },
+        "build": {
+          "title": "Bâtir dessus",
+          "body": "Une petite application de votre propre, les données dans et dehors par des intégrations, et assez Apex et LWC pour lire ce que les développeurs écrivent."
+        },
+        "gtm": {
+          "title": "Découvrez comment GTM fonctionne",
+          "body": "Mesure de l'entonnoir, du pipeline et des revenus — ce que la commercialisation, les ventes et les Ops mesurent réellement, et pourquoi."
+        },
+        "architecture": {
+          "title": "Concevoir l'architecture des données",
+          "body": "Données stockées en plusieurs endroits — Salesforce, web, marketing, facturation — apporté dans un modèle avec des recettes et des ensembles de données."
+        },
+        "dashboards": {
+          "title": "Construire les tableaux de bord que tout le monde utilise",
+          "body": "KPI, snapshot, change, conversion et adoption des tableaux de bord, avec les définitions écrites."
+        },
+        "advanced": {
+          "title": "Faites-les travailler pour les gens",
+          "body": "Reliures et interactions, partage et sécurité au niveau des rangées, intégrant dans Lightning et au-delà."
+        }
+      },
+      "pattern": {
+        "kpi": "KPI",
+        "snapshot": "Capture instantanée",
+        "change": "Changer l'analyse",
+        "conversion": "Conversion",
+        "adoption": "Adoption",
+        "bindings": "Reliures",
+        "sharing": "Partage",
+        "embedding": "Intégration"
+      }
+    },
+    "compare": {
+      "eyebrow": "Ce que ça coûte",
+      "title": "Les mêmes compétences, pour une fraction d'un cours de classe.",
+      "lead": "Instructeur CRM Analytics les cours coûtent des centaines à des milliers de dollars par cours. Ici, les premières leçons sont gratuites, et tout est un abonnement — ou un paiement.",
+      "option": "Option",
+      "price": "Prix",
+      "perDay": "pour {n} jour",
+      "perDays": "pour {n} jours",
+      "selfPaced": "modules auto-rapides",
+      "academyUnit": "libre de démarrer · Pro {monthly}/mois ou une fois pour la vie",
+      "source": "Prix indiqué",
+      "yes": "Oui",
+      "no": "Numéro",
+      "cols": {
+        "anytime": "Apprendre à tout moment",
+        "gtm": "Tableau de bord GTM réel",
+        "practice": "Pratique de certification",
+        "keep": "Garder l'accès"
+      },
+      "rows": {
+        "ilt201": "Classe des instructeurs: LensesTableau de bord et applications (ANC201)",
+        "ilt301": "Classe dirigée par l'instructeur: Mettre en œuvre et gérer CRM Analytics (ANC301)",
+        "trailhead": "Trailhead modules",
+        "academy": "CRM Analytics Académie"
+      },
+      "note": "Prix de liste publique à partir d'un Salesforce partenaire de formation, vérifié {date}; votre région et votre monnaie peuvent différer. L'examen de certification lui-même est un frais distinct payé à Salesforce.",
+      "cta": "Voir plans"
     }
   },
   "footer": {
@@ -191,9 +266,9 @@
     "project": "Projet",
     "community": "Communauté",
     "quip": {
-      "0": "Fait par Swarnil avec une quantité déraisonnable d'incitation et un gaspillage héroïque de jetons.",
-      "1": "Tiré à la main par Swarnil, assisté par machine. Le budget symbolique est maintenant plutôt une suggestion.",
-      "2": "Construit par Swarnil une prompt à la fois — certains d'entre eux ont même travaillé sur la première tentative."
+      "0": "Fait par Swarnil, un tableau de bord à la fois.",
+      "1": "Ecrit et enregistré par Swarnil, entre réel Salesforce projets.",
+      "2": "Construit par Swarnil pour tous ceux qui ont été remis CRM Analytics et a dit de le découvrir."
     },
     "builtWith": "Construit avec",
     "builtWithNote": "Ouvrez la source. Etoile la repo, fourche-la, ou envoie une demande de tirage."
@@ -1368,7 +1443,8 @@
       "seats": "Sièges pour mon organisation",
       "salesforce-setup": "Aide à la configuration",
       "consulting": "Conseil",
-      "mentoring": "Mentorat"
+      "mentoring": "Mentorat",
+      "sponsorship": "Parrainage"
     },
     "best": "Les plus populaires",
     "current": "Vous avez Pro",
@@ -1538,7 +1614,13 @@
     "copied": "Copié",
     "lessons": "{n} Enseignements tirés",
     "admin": "Administrateur",
-    "remove": "Siège libre"
+    "remove": "Siège libre",
+    "assign": "Attribuer des sièges par courriel",
+    "assignHint": "Chaque personne obtient Pro la prochaine fois qu'ils se connectent avec cette adresse — aucun code n'est nécessaire.",
+    "emailsPlaceholder": "Coller les adresses e-mail — une par ligne, ou séparées par des virgules",
+    "assignButton": "Attribuer des sièges",
+    "invited": "{n} Les gens invités.",
+    "withdraw": "Retirez l'invitation"
   },
   "roadmap": {
     "s01": {
@@ -1600,5 +1682,54 @@
       "l3": "API et automatisation",
       "l4": "Rendement et gouvernance"
     }
+  },
+  "sponsor": {
+    "slotLabel": "Parrain",
+    "slotTitle": "Votre marque ici",
+    "slotBody": "Portée Salesforce les administrateurs, les analystes et les équipes de RevOps tout en apprenant.",
+    "slotCta": "Devenez sponsor",
+    "eyebrow": "Parrainer l'Académie",
+    "title": "Atteindre les gens qui construisent Salesforce analytique.",
+    "lead": "Salesforce admins, analystes, ingénieurs GTM et équipes RevOps apprennent CRM Analytics ici, en 12 langues. Les sponsors soutiennent les leçons gratuites et apparaissent là où les apprenants sont déjà.",
+    "whereTitle": "Où apparaissent les sponsors",
+    "where": {
+      "lessons": {
+        "title": "A côté de chaque leçon",
+        "body": "Une carte dans la barre latérale de la leçon, à côté du contenu les gens sont venus pour."
+      },
+      "start": {
+        "title": "Sur la page du cours",
+        "body": "Selon le plan de cours que chaque nouvel apprenant lit."
+      },
+      "home": {
+        "title": "Sur la page d'accueil",
+        "body": "Un placement, en dessous de la comparaison des prix."
+      },
+      "newsletter": {
+        "title": "Dans les vidéos de la leçon",
+        "body": "Une brève mention dans les leçons YouTube, sur demande."
+      }
+    },
+    "rules": "Un sponsor à la fois, clairement étiqueté, jamais dans un pop-up, jamais montré aux membres Pro. Objet Salesforce, données ou équipes de revenus seulement.",
+    "formTitle": "Demandez des dates et des prix",
+    "company": "Société",
+    "message": "Que voulez-vous promouvoir, et quand ?",
+    "send": "Envoyer la demande",
+    "seoTitle": "Parrain CRM Analytics Académie",
+    "seoDesc": "Portée Salesforce les administrateurs, les analystes et les équipes de RevOps CRM Analytics. Un parrain clairement étiqueté à la fois, à côté des leçons et sur la page du cours."
+  },
+  "pwa": {
+    "install": "Installer l'application",
+    "iosTip": "Dans Safari, appuyez sur Partager, puis sur Ajouter à l'écran d'accueil. Le cours s'ouvre alors comme une application et fonctionne hors ligne."
+  },
+  "notes": {
+    "eyebrow": "Annexe",
+    "title": "Notes de section",
+    "suffix": "Annexe",
+    "lead": "Chaque section terminée sur une feuille de style manuscrit, avec les diagrammes — lisez-la ici, enregistrez-la en format PDF ou téléchargez le Markdown.",
+    "seoTitle": "CRM Analytics notes — feuilles d'étude téléchargeables",
+    "pdf": "Télécharger le PDF",
+    "markdown": "Télécharger Markdown",
+    "open": "Ouvrir les notes"
   }
 }

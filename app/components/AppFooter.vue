@@ -8,6 +8,7 @@ const columns = computed(() => [
     label: t('footer.curriculum'),
     children: [
       { label: t('nav.curriculum'), to: localePath('/start') },
+      { label: t('nav.notes'), to: localePath('/notes') },
       { label: t('nav.certification'), to: localePath('/certification') },
       { label: t('nav.interview'), to: localePath('/interview-questions') },
       { label: t('nav.resources'), to: localePath('/resources') },
@@ -27,6 +28,8 @@ const columns = computed(() => [
     children: [
       { label: t('nav.about'), to: localePath('/about') },
       { label: t('nav.pro'), to: localePath('/pro') },
+      { label: t('nav.forTeams'), to: `${localePath('/pro')}#teams` },
+      { label: t('nav.sponsor'), to: localePath('/sponsor') },
       { label: t('nav.contribute'), to: localePath('/contribute') },
       { label: t('nav.github'), to: SITE.github, target: '_blank' },
       { label: t('nav.privacy'), to: localePath('/privacy') },
@@ -45,11 +48,10 @@ const stack = [
   { label: 'Neon', icon: 'i-lucide-database', to: 'https://neon.com' },
   { label: 'Nuxt Studio', icon: 'i-lucide-pen-line', to: 'https://nuxt.studio' },
   { label: 'LibreTranslate', icon: 'i-lucide-languages', to: 'https://libretranslate.com' },
-  { label: 'Final Cut Pro', icon: 'i-lucide-clapperboard', to: 'https://www.apple.com/final-cut-pro/' },
-  { label: 'Claude Code', icon: 'i-simple-icons-claude', to: 'https://claude.com/claude-code' }
+  { label: 'Salesforce', icon: 'i-simple-icons-salesforce', to: 'https://www.salesforce.com/analytics/crm/' }
 ]
 
-// The honest colophon. One line per page view, chosen on the client so the
+// The colophon. One line per page view, chosen on the client so the
 // prerendered page has a stable first line and hydration does not mismatch.
 const quips = computed(() => [t('footer.quip.0'), t('footer.quip.1'), t('footer.quip.2')])
 const quip = ref(0)
@@ -59,11 +61,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- Navy, with a ruler strip along the top edge and mono uppercase type,
-       as in the Blueprint spec. Custom markup rather than UFooter, because
-       the columns sit on a dark ground the component does not theme. -->
-  <footer class="graph-paper-navy text-white/80">
-    <div class="ruler text-white/70" />
+  <!-- The navy footer (Namaste Salesforce). Custom markup rather than
+       UFooter, because the columns sit on a dark ground it does not theme. -->
+  <footer class="bg-(--navy) text-white/80">
     <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 lg:px-8">
       <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
         <div>
@@ -76,6 +76,7 @@ onMounted(() => {
           <p class="mt-4 max-w-xs text-sm text-white/65">
             {{ t('footer.tagline') }}
           </p>
+          <InstallApp class="mt-5 [&_button]:border-white/25 [&_button]:bg-transparent [&_button]:text-white [&_button]:ring-white/25 [&_button:hover]:bg-white/10" />
           <div class="mt-5 flex gap-2">
             <a
               v-for="(link, index) of footer?.links ?? []"
@@ -84,7 +85,7 @@ onMounted(() => {
               target="_blank"
               rel="noopener"
               :aria-label="link['aria-label']"
-              class="flex size-9 items-center justify-center border border-white/40 text-white hover:border-(--glow) hover:text-(--glow)"
+              class="flex size-9 items-center justify-center rounded-[4px] border border-white/25 text-white transition-colors hover:border-white/60 hover:bg-white/10"
             >
               <UIcon
                 :name="link.icon"
@@ -98,7 +99,7 @@ onMounted(() => {
           v-for="col in columns"
           :key="col.label"
         >
-          <p class="font-medium text-[11px] text-(--glow)">
+          <p class="text-xs font-bold uppercase tracking-[.09em] text-blueprint-300">
             {{ col.label }}
           </p>
           <ul class="mt-4 space-y-2.5">
