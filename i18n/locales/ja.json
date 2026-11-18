@@ -77,7 +77,8 @@
         "languages": "5つの言語",
         "ai": "分析のためのAIが含まれています"
       },
-      "pricing": "プランを見る"
+      "pricing": "プランを見る",
+      "stack": "Salesforce, レシピ, データセット, ダッシュボードとアインスタイン, 1 つの実際の会社."
     },
     "author": {
       "eyebrow": "著者名",
@@ -261,6 +262,10 @@
       },
       "note": "承認されたから公開リストの価格 Salesforce トレーニングパートナー、チェック {date}; あなたの地域と通貨は異なる場合があります。 認定試験自体は、別途費用が支払われます Salesforceお問い合わせ",
       "cta": "プランを見る"
+    },
+    "path": {
+      "title": "データモデルからダッシュボードまでの7つのセクションが毎日開いている。",
+      "lead": "{lessons} レッスンが始まりました。 残りの部分はセクション、ビデオ、クイズ、メモのページで各セクションに到着します。"
     }
   },
   "footer": {
@@ -1343,7 +1348,9 @@
       "ideaTitle": "レッスンは?",
       "language": "日本語 English",
       "page": "どのページ?",
-      "wrong": "今言うこと"
+      "wrong": "今言うこと",
+      "resType": "お問い合わせ",
+      "section": "コースのどの部分が役立ちますか?"
     },
     "ph": {
       "company": "例:アカム株式会社",
@@ -1393,7 +1400,16 @@
     "pointsBadge": "すべての承認された貢献のための+25ポイント",
     "ctaLine": "YouTubeで最初に新しいレッスンができました。 アカデミー全体がオープンソースです。",
     "ctaYoutube": "会員登録",
-    "ctaGithub": "スターオン GitHub"
+    "ctaGithub": "スターオン GitHub",
+    "resTypes": {
+      "article": "記事一覧",
+      "video": "ビデオ",
+      "tool": "ツール",
+      "docs": "ドキュメント",
+      "dataset": "データセット"
+    },
+    "anySection": "すべて / 確認しない",
+    "preview": "リソースページのプレビュー"
   },
   "dash": {
     "examTitle": "認証の信頼性",
@@ -1740,7 +1756,21 @@
     "open": "メモを開く",
     "pdfAll": "PDFファイルのダウンロード",
     "index": "インデックス",
-    "openSingle": "このシートを自分で開く"
+    "openSingle": "このシートを自分で開く",
+    "productTitle": "CRM Analytics メモ — 数ページのコース全体",
+    "features": {
+      "f1": "セクション、ショート、ポイントごとの1ページ",
+      "f2": "手描き図とチャート",
+      "f3": "プリント用のPDF、独自のノートのマークダウン",
+      "f4": "英語、スペイン語、ポルトガル語、ドイツ語、日本語"
+    },
+    "seePreview": "プレビューを見る",
+    "status": "{ready} インフォメーション {total} セクションの準備",
+    "free": "無料",
+    "insideTitle": "内なるもの",
+    "ready": "レディー",
+    "previewTitle": "シートをプレビュー",
+    "readAll": "シート全体を読む"
   },
   "jobs": {
     "eyebrow": "今週の仕事",
@@ -1772,5 +1802,22 @@
     "noMatch": "ジョブはこれらのフィルタにマッチしません。",
     "seoTitle": "CRM Analytics 今週の仕事 — Tableau CRM そして、 Einstein Analytics ロール",
     "seoDesc": "Salesforce CRM Analytics, Tableau CRM そして、 Einstein Analytics 週に投稿されたジョブ, 最初に更新, 毎日の更新."
+  },
+  "reviews": {
+    "heading": "学習者とは",
+    "title": "評価",
+    "count": "{n} レビュー",
+    "none": "評価はまだありません。",
+    "write": "これらのメモを評価する",
+    "stars": "あなたの評価",
+    "nStars": "{n} 5つ星ホテル",
+    "placeholder": "お役に立ちましたか? 何が欠けている?",
+    "send": "投稿レビュー",
+    "thanks": "ありがとうございます。",
+    "signIn": "メモを評価するためにサインインします。",
+    "beFirst": "レビューはありません。 これらのメモを最初に評価する。",
+    "errStars": "星の格付けを選ぶ。",
+    "errText": "少なくとも文を書く。",
+    "errGeneric": "そのレビューを投稿できませんでした。 もう一度お試しください。"
   }
 }

@@ -66,11 +66,13 @@ const { user, isSignedIn, signOut } = useAuth()
 const { admin } = useProgress()
 
 const initials = computed(() => (user.value?.name || user.value?.email || '?').trim().slice(0, 1).toUpperCase())
+const firstName = computed(() => (user.value?.name || '').trim().split(/\s+/)[0] || t('nav.account'))
 
 const accountItems = computed(() => [
   [{
     type: 'label' as const,
     label: user.value?.name || user.value?.email || t('nav.account'),
+    description: user.value?.name ? user.value?.email : undefined,
     avatar: user.value?.image ? { src: user.value.image } : undefined
   }],
   [
@@ -80,7 +82,7 @@ const accountItems = computed(() => [
     { label: t('nav.submit'), icon: 'i-lucide-circle-plus', to: localePath('/submit') }
   ],
   ...(admin.value
-    ? [[{ label: 'Admin console', icon: 'i-lucide-shield', to: '/admin' }]]
+    ? [[{ label: 'Admin console', icon: 'i-lucide-shield-check', to: '/admin', color: 'primary' as const }]]
     : []),
   [{ label: t('nav.signOut'), icon: 'i-lucide-log-out', onSelect: () => signOut() }]
 ])
@@ -160,106 +162,88 @@ const localeItems = computed(() =>
     </template>
 
     <template #right>
-      <div class="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
-        <!-- Icon-only at every width: the container stops growing at
-             --ui-container, so a wide search box never has room beside the
-             account buttons (it used to push "Sign in" onto two lines). -->
-        <UContentSearchButton
-          v-if="header?.search"
-          class="size-9 shrink-0 rounded-[4px] border border-(--line)"
+      <div class="ms-auto flex shrink-0 items-center gap-1">
+        <!-- Quiet tools: borderless icons, one group. -->
+        <div class="flex items-center gap-0.5">
+          <UContentSearchButton
+            v-if="header?.search"
+            class="nav-icon"
+            variant="ghost"
+            color="neutral"
+          />
+          <UDropdownMenu
+            :items="localeItems"
+            :content="{ align: 'end' }"
+            class="max-lg:hidden"
+          >
+            <button
+              type="button"
+              class="nav-icon w-auto gap-1 px-2 text-xs font-bold uppercase"
+              :aria-label="t('nav.chooseLanguage')"
+              :title="t('nav.chooseLanguage')"
+            >
+              <UIcon
+                name="i-lucide-globe"
+                class="size-[1.125rem]"
+              />{{ locale }}
+            </button>
+          </UDropdownMenu>
+          <ClientOnly>
+            <button
+              v-if="header?.colorMode"
+              type="button"
+              class="nav-icon max-lg:hidden"
+              :aria-label="t('nav.theme')"
+              :title="t('nav.theme')"
+              @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
+            >
+              <UIcon
+                :name="colorMode.value === 'dark' ? 'i-lucide-sun' : 'i-lucide-moon'"
+                class="size-[1.125rem]"
+              />
+            </button>
+            <template #fallback>
+              <span class="nav-icon max-lg:hidden" />
+            </template>
+          </ClientOnly>
+          <a
+            :href="SITE.youtube"
+            target="_blank"
+            rel="noopener"
+            class="nav-icon max-xl:hidden hover:text-[#FF0000]"
+            :aria-label="t('nav.youtube')"
+            :title="t('nav.youtube')"
+          >
+            <UIcon
+              name="i-simple-icons-youtube"
+              class="size-[1.125rem]"
+            />
+          </a>
+          <!-- Star on GitHub: a plain link, no API call. -->
+          <a
+            :href="SITE.github"
+            target="_blank"
+            rel="noopener"
+            class="nav-icon max-xl:hidden"
+            :aria-label="t('nav.starOnGithub')"
+            :title="t('nav.starOnGithub')"
+          >
+            <UIcon
+              name="i-simple-icons-github"
+              class="size-[1.125rem]"
+            />
+          </a>
+        </div>
+
+        <span
+          class="mx-2 h-6 w-px bg-(--line) max-sm:hidden"
+          aria-hidden="true"
         />
 
-        <a
-          :href="SITE.youtube"
-          target="_blank"
-          rel="noopener"
-          class="flex size-9 shrink-0 items-center justify-center rounded-[4px] border border-(--line) bg-(--card) text-[#FF0000] hover:bg-(--ice) max-lg:hidden"
-          :aria-label="t('nav.youtube')"
-          :title="t('nav.youtube')"
-        >
-          <UIcon
-            name="i-simple-icons-youtube"
-            class="size-4"
-          />
-        </a>
-
-        <!-- Star on GitHub. A plain link: no API call, so no count to go stale
-             or to spend the anonymous GitHub rate limit. -->
-        <a
-          :href="SITE.github"
-          target="_blank"
-          rel="noopener"
-          class="flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-[4px] border border-(--line) bg-(--card) px-2.5 text-sm font-semibold text-(--ink) hover:bg-(--ice) max-lg:hidden"
-          :aria-label="t('nav.starOnGithub')"
-          :title="t('nav.starOnGithub')"
-        >
-          <UIcon
-            name="i-simple-icons-github"
-            class="size-4"
-          />
-          <UIcon
-            name="i-lucide-star"
-            class="size-3.5 text-amber-500 max-xl:hidden"
-          />
-          <span class="max-xl:hidden">{{ t('nav.star') }}</span>
-        </a>
-
-        <UDropdownMenu
-          :items="localeItems"
-          :content="{ align: 'end' }"
-          class="max-lg:hidden"
-        >
-          <button
-            type="button"
-            class="flex h-9 items-center gap-1.5 rounded-[4px] border border-(--line) bg-(--card) px-2.5 font-mono text-xs uppercase text-(--ink) hover:bg-(--ice)"
-            :aria-label="t('nav.chooseLanguage')"
-          >
-            <UIcon
-              name="i-lucide-languages"
-              class="size-4"
-            />
-            {{ locale }}
-          </button>
-        </UDropdownMenu>
-
-        <ClientOnly>
-          <button
-            v-if="header?.colorMode"
-            type="button"
-            class="group flex size-9 items-center justify-center rounded-[4px] border border-(--line) bg-(--card) text-(--ink) hover:bg-(--ice) max-lg:hidden"
-            :aria-label="t('nav.theme')"
-            @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
-          >
-            <UIcon
-              :name="colorMode.value === 'dark' ? 'i-lucide-sun' : 'i-lucide-moon'"
-              class="size-4 transition-transform duration-300 ease-[cubic-bezier(.3,1.5,.5,1)] group-hover:rotate-90"
-            />
-          </button>
-          <template #fallback>
-            <div class="size-9 max-lg:hidden" />
-          </template>
-        </ClientOnly>
-
-        <!-- One fixed-width slot whether signed in or not, so the bar keeps
-             its shape (and the nav its titles) across sign-in. -->
-        <div class="flex w-[15rem] shrink-0 items-center justify-end gap-2 max-sm:w-auto">
+        <!-- Account: one fixed-width slot either way, so the bar keeps its
+             shape across sign-in. Dashboard and admin live in the menu. -->
+        <div class="flex shrink-0 items-center justify-end gap-2 sm:w-[11.5rem]">
           <ClientOnly>
-            <UButton
-              v-if="isSignedIn"
-              :to="localePath('/dashboard')"
-              size="md"
-              color="neutral"
-              variant="outline"
-              icon="i-lucide-layout-dashboard"
-              class="h-9 w-[7rem] justify-center max-sm:hidden"
-            >
-              {{ t('nav.dashboard') }}
-            </UButton>
-            <TestRide
-              v-else
-              variant="outline"
-              class="h-9 w-[7rem] justify-center max-sm:hidden"
-            />
             <UDropdownMenu
               v-if="isSignedIn"
               :items="accountItems"
@@ -267,7 +251,7 @@ const localeItems = computed(() =>
             >
               <button
                 type="button"
-                class="flex h-9 items-center gap-2 rounded-[4px] border border-(--line) bg-(--card) ps-0.5 pe-0.5 text-sm font-medium text-(--ink) hover:bg-(--ice) sm:w-[7.5rem] sm:pe-3"
+                class="flex h-9 max-w-full items-center gap-2 rounded-full ps-0.5 pe-2 text-sm font-semibold text-(--ink) hover:bg-(--paper2)"
                 :aria-label="user?.name || user?.email || t('nav.account')"
               >
                 <span class="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--signal) text-sm font-semibold text-white">
@@ -279,19 +263,28 @@ const localeItems = computed(() =>
                   >
                   <template v-else>{{ initials }}</template>
                 </span>
-                <span class="truncate max-sm:hidden">{{ t('nav.account') }}</span>
+                <span class="truncate max-sm:hidden">{{ firstName }}</span>
+                <UIcon
+                  name="i-lucide-chevron-down"
+                  class="size-4 shrink-0 text-(--ink2) max-sm:hidden"
+                />
               </button>
             </UDropdownMenu>
-            <UButton
-              v-else
-              :to="signInTo"
-              size="md"
-              icon="i-lucide-log-in"
-              class="h-9 justify-center sm:w-[7.5rem]"
-              :aria-label="t('nav.signIn')"
-            >
-              <span class="max-sm:sr-only">{{ t('nav.signIn') }}</span>
-            </UButton>
+            <template v-else>
+              <TestRide
+                variant="ghost"
+                color="neutral"
+                class="h-9 max-xl:hidden"
+              />
+              <UButton
+                :to="signInTo"
+                size="md"
+                class="h-9 justify-center whitespace-nowrap px-4"
+                :aria-label="t('nav.signIn')"
+              >
+                {{ t('nav.signIn') }}
+              </UButton>
+            </template>
             <template #fallback>
               <div class="h-9 w-full" />
             </template>
@@ -369,3 +362,17 @@ const localeItems = computed(() =>
     </template>
   </UHeader>
 </template>
+
+<style scoped>
+.nav-icon {
+  display: inline-flex;
+  height: 2.25rem;
+  min-width: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: var(--ink2);
+  transition: background-color .15s, color .15s;
+}
+.nav-icon:hover { background: var(--paper2); color: var(--ink); }
+</style>

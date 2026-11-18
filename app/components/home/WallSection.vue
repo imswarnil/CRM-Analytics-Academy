@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import { WALL_PEOPLE } from '~/data/wall-of-fame'
 /**
  * The Wall of Fame on the home page: the first eight people on the board, and
  * the way to nominate someone. Curated people render at build time; approved
- * community nominations join in the browser (useWall).
+ * community nominations are added on /wall-of-fame only.
  */
 const { t } = useI18n()
 const localePath = useLocalePath()
-const { people } = useWall()
-const shown = computed(() => people.value.slice(0, 8))
+// Curated people only: no request on the home page. The full wall, with
+// approved community nominations, is on /wall-of-fame.
+const people = WALL_PEOPLE
+const shown = people.slice(0, 8)
 </script>
 
 <template>

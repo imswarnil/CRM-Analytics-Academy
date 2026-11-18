@@ -77,7 +77,8 @@
         "languages": "5 Sprachen",
         "ai": "Enthält AI für Analytics"
       },
-      "pricing": "Siehe Pläne"
+      "pricing": "Siehe Pläne",
+      "stack": "SalesforceRezepte, datensätze, dashboards und einstein, auf einer echten firma."
     },
     "author": {
       "eyebrow": "Der Autor",
@@ -261,6 +262,10 @@
       },
       "note": "Öffentliche Listenpreise von einer autorisierten Salesforce Ausbildungspartner, geprüft {date}Ihre Region und Währung können sich unterscheiden. Die Zertifizierungsprüfung selbst ist eine separate Gebühr, die an Salesforce.",
       "cta": "Siehe Pläne"
+    },
+    "path": {
+      "title": "Sieben Abschnitte, vom Datenmodell bis zu den Dashboards, die jeden Morgen geöffnet werden.",
+      "lead": "{lessons} Die Lektionen sind jetzt raus. Der Rest kommt Abschnitt für Abschnitt an, jeweils mit einem Video, einem Quiz und einer Notizseite."
     }
   },
   "footer": {
@@ -1343,7 +1348,9 @@
       "ideaTitle": "Worum sollte die Lektion gehen?",
       "language": "Sprache",
       "page": "Welche Seite?",
-      "wrong": "Was es jetzt sagt"
+      "wrong": "Was es jetzt sagt",
+      "resType": "Was ist das?",
+      "section": "Bei welchem Teil des Kurses hilft es?"
     },
     "ph": {
       "company": "z. B. Acme Corp.",
@@ -1393,7 +1400,16 @@
     "pointsBadge": "+25 Punkte für jeden genehmigten Beitrag",
     "ctaLine": "Neue Lektionen landen zuerst auf YouTube. Die gesamte Akademie ist Open Source.",
     "ctaYoutube": "Subscribe",
-    "ctaGithub": "Stern auf GitHub"
+    "ctaGithub": "Stern auf GitHub",
+    "resTypes": {
+      "article": "Artikel",
+      "video": "Video",
+      "tool": "Werkzeug",
+      "docs": "Docs",
+      "dataset": "Datensatz"
+    },
+    "anySection": "Irgendwelche / nicht sicher",
+    "preview": "Vorschau auf der Ressourcenseite"
   },
   "dash": {
     "examTitle": "Zertifizierungsbereitschaft",
@@ -1740,7 +1756,21 @@
     "open": "Noten öffnen",
     "pdfAll": "Download als PDF",
     "index": "Index",
-    "openSingle": "Öffnen Sie dieses Blatt von selbst"
+    "openSingle": "Öffnen Sie dieses Blatt von selbst",
+    "productTitle": "CRM Analytics Notizen — der ganze Kurs auf einigen Seiten",
+    "features": {
+      "f1": "Eine Seite pro Abschnitt, kurz und auf den Punkt",
+      "f2": "Handgezeichnete Diagramme und Diagramme",
+      "f3": "PDF für Print, Markdown für eigene Notizen",
+      "f4": "Englisch, Spanisch, Portugiesisch, Deutsch und Japanisch"
+    },
+    "seePreview": "Sehen Sie eine Preview",
+    "status": "{ready} von {total} Abschnitte bereit",
+    "free": "frei",
+    "insideTitle": "Was ist drin",
+    "ready": "Fertig",
+    "previewTitle": "Vorschau der Blätter",
+    "readAll": "Lesen Sie das ganze Blatt"
   },
   "jobs": {
     "eyebrow": "Jobs diese Woche",
@@ -1772,5 +1802,22 @@
     "noMatch": "Keine Jobs passen zu diesen Filtern.",
     "seoTitle": "CRM Analytics Jobs diese Woche - Tableau CRM und Einstein Analytics Rollen",
     "seoDesc": "Salesforce CRM Analytics, Tableau CRM und Einstein Analytics Jobs, die diese Woche veröffentlicht wurden, neueste zuerst, täglich aktualisiert."
+  },
+  "reviews": {
+    "heading": "Was Lernende sagen",
+    "title": "Ratings",
+    "count": "{n} Überprüfungen",
+    "none": "Noch keine Ratings.",
+    "write": "Bewerten Sie diese Notes",
+    "stars": "Dein Rating",
+    "nStars": "{n} Von 5 Sternen",
+    "placeholder": "Was hat dir geholfen? Was fehlt?",
+    "send": "Nachprüfung",
+    "thanks": "Danke - Ihre Bewertung ist veröffentlicht.",
+    "signIn": "Melden Sie sich an, um die Notizen zu bewerten.",
+    "beFirst": "Noch keine Reviews. Seien Sie der Erste, der diese Notizen bewertet.",
+    "errStars": "Wählen Sie eine Sternbewertung.",
+    "errText": "Schreibe mindestens einen Satz.",
+    "errGeneric": "Konnte diese Überprüfung nicht veröffentlichen. Versuchen Sie es noch einmal."
   }
 }

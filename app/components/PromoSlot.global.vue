@@ -40,19 +40,46 @@ function fitUnit(width: number): PromoUnitName {
   return size[0] / size[1] >= 3 ? 'horizontal' : 'square'
 }
 
-onMounted(async () => {
-  active.value = fitUnit(box.value?.clientWidth || window.innerWidth)
-  ready.value = true
-  if (dev || !allowed.value) return
-  await nextTick()
-  // The library is loaded once from <head> (nuxt.config); each mounted <ins>
-  // asks it for one creative.
+// A unit is requested only when it comes near the screen: pages load faster,
+// and every impression is a viewable one (which is what advertisers pay for).
+// If AdSense has nothing to show, the frame collapses instead of sitting empty.
+const shown = ref(false)
+const unfilled = ref(false)
+const ins = ref<HTMLElement | null>(null)
+let io: IntersectionObserver | undefined
+let mo: MutationObserver | undefined
+
+function request() {
   try {
     const w = window as unknown as { adsbygoogle?: unknown[] }
     ;(w.adsbygoogle = w.adsbygoogle || []).push({})
   } catch {
-    // A blocked or failed unit leaves an empty, labelled box — never an error.
+    // A blocked or failed unit simply stays collapsed — never an error.
   }
+}
+
+onMounted(() => {
+  active.value = fitUnit(box.value?.clientWidth || window.innerWidth)
+  ready.value = true
+  if (dev || !allowed.value || !box.value) return
+  io = new IntersectionObserver(async (entries) => {
+    if (!entries.some(e => e.isIntersecting)) return
+    io?.disconnect()
+    shown.value = true
+    await nextTick()
+    if (ins.value) {
+      mo = new MutationObserver(() => {
+        if (ins.value?.dataset.adStatus === 'unfilled') unfilled.value = true
+      })
+      mo.observe(ins.value, { attributes: true, attributeFilter: ['data-ad-status'] })
+    }
+    request()
+  }, { rootMargin: '600px 0px' })
+  io.observe(box.value)
+})
+onBeforeUnmount(() => {
+  io?.disconnect()
+  mo?.disconnect()
 })
 
 const style = computed(() => {
@@ -65,22 +92,21 @@ const style = computed(() => {
 
 <template>
   <aside
-    v-if="allowed"
-    class="promo-slot crosshair relative mx-auto w-full"
-    :class="bare ? '' : 'my-8 rounded-2xl border border-(--line) bg-(--card) p-3'"
+    v-if="allowed && !unfilled"
+    class="promo-slot relative mx-auto w-full"
+    :class="bare ? '' : 'my-8 rounded-[6px] border border-(--line) bg-(--card) p-3'"
     :style="u.size && !bare ? { maxWidth: `${u.size[0] + 26}px` } : undefined"
     aria-label="Advertisement"
   >
     <p
       v-if="!bare"
-      class="mb-2 flex items-center justify-between gap-3 font-medium text-[11px] text-(--ink2)"
+      class="mb-2 text-[10px] font-bold uppercase tracking-[.09em] text-(--label)"
     >
-      <span>Advertisement</span>
-      <span>{{ u.label }}</span>
+      Advertisement
     </p>
     <div
       ref="box"
-      class="graph-paper-fine flex items-center justify-center overflow-hidden"
+      class="flex items-center justify-center overflow-hidden"
       :style="{ minHeight: `${u.minHeight}px` }"
     >
       <span
@@ -88,7 +114,8 @@ const style = computed(() => {
         class="font-medium text-[11px] text-(--ink2)"
       >{{ unit }} · {{ u.slot }}</span>
       <ins
-        v-else-if="ready"
+        v-else-if="ready && shown"
+        ref="ins"
         class="adsbygoogle"
         :style="style"
         :data-ad-client="PROMO_CLIENT"

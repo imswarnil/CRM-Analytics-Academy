@@ -573,3 +573,26 @@ button:hover > .bp-arrow {
     transition: none;
   }
 }
+
+/* ---- Motion: sections rise in as they scroll into view (CSS only, no JS).
+   Browsers without scroll-driven animations just show the content. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-stack { animation: stack-pop .5s cubic-bezier(.3, 1.4, .5, 1) both; }
+}
+@keyframes stack-pop {
+  from { opacity: 0; transform: translateY(8px) scale(.8); }
+  to { opacity: 1; transform: none; }
+}

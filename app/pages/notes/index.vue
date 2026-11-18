@@ -23,18 +23,12 @@ const rows = computed(() => ROADMAP.map((s, i) => {
 }))
 const ready = computed(() => rows.value.filter(r => r.sheet))
 
-const active = ref('')
-onMounted(() => {
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) active.value = e.target.id
-  }, { rootMargin: '-25% 0px -65% 0px' })
-  for (const r of ready.value) {
-    const el = document.getElementById(r.slug)
-    if (el) io.observe(el)
-  }
-  onBeforeUnmount(() => io.disconnect())
-})
-const print = () => window.print()
+const print = () => {
+  // Print every sheet in full, whatever is expanded on screen.
+  window.print()
+}
+const open = reactive(new Set<string>())
+const NuxtLink = resolveComponent('NuxtLink')
 
 const title = computed(() => t('notes.seoTitle'))
 const description = computed(() => t('notes.lead'))
@@ -53,106 +47,233 @@ usePageSchema(() => ({
 
 <template>
   <div class="notes-page bg-(--paper)">
+    <!-- PRODUCT HERO --------------------------------------------------- -->
     <section class="no-print relative overflow-hidden border-b border-(--line) bg-(--card)">
       <BpFloatCharts />
-      <div class="relative mx-auto flex max-w-(--ui-container) flex-wrap items-end justify-between gap-6 px-4 py-12 sm:px-6 lg:px-8">
-        <div class="max-w-2xl">
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:px-8">
+        <div>
           <p class="eyebrow">
             {{ t('notes.eyebrow') }}
           </p>
           <h1 class="bp-h1 mt-3">
-            {{ t('notes.title') }}
+            {{ t('notes.productTitle') }}
           </h1>
-          <p class="bp-lead mt-4">
+          <p class="bp-lead mt-4 max-w-xl">
             {{ t('notes.lead') }}
           </p>
+          <ul class="mt-6 grid gap-2.5 sm:grid-cols-2">
+            <li
+              v-for="(f, i) in ['f1', 'f2', 'f3', 'f4']"
+              :key="f"
+              class="flex items-start gap-2.5 text-(--ink)"
+            >
+              <UIcon
+                :name="['i-lucide-file-text', 'i-lucide-chart-column', 'i-lucide-file-down', 'i-lucide-languages'][i]!"
+                class="mt-0.5 size-5 shrink-0 text-(--signal)"
+              />{{ t(`notes.features.${f}`) }}
+            </li>
+          </ul>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <UButton
+              v-if="ready.length"
+              size="xl"
+              icon="i-lucide-file-down"
+              @click="print"
+            >
+              {{ t('notes.pdfAll') }}
+            </UButton>
+            <UButton
+              href="#preview"
+              size="xl"
+              color="neutral"
+              variant="outline"
+              icon="i-lucide-eye"
+            >
+              {{ t('notes.seePreview') }}
+            </UButton>
+          </div>
+          <p class="mt-4 text-sm text-(--ink2)">
+            {{ t('notes.status', { ready: ready.length, total: rows.length }) }} · {{ t('notes.free') }}
+          </p>
         </div>
-        <UButton
-          v-if="ready.length"
-          size="lg"
-          icon="i-lucide-file-down"
-          @click="print"
+
+        <!-- A stack of sheets -->
+        <div
+          class="relative mx-auto h-80 w-full max-w-md"
+          aria-hidden="true"
         >
-          {{ t('notes.pdfAll') }}
-        </UButton>
+          <div
+            v-for="k in [2, 1, 0]"
+            :key="k"
+            class="notes-mock absolute inset-x-6 top-4 bottom-0 rounded-[4px] border border-(--line)"
+            :style="{ transform: `rotate(${[-1.5, 2.5, -4][k]}deg) translate(${k * 14}px, ${k * 10}px)`, zIndex: 3 - k }"
+          >
+            <template v-if="k === 0">
+              <p class="hand-title">
+                {{ ready[0]?.title ?? t('notes.title') }}
+              </p>
+              <svg
+                viewBox="0 0 220 90"
+                class="mx-6 mt-3 w-[70%]"
+              >
+                <path
+                  d="M8 82 L8 8 M8 82 L212 82"
+                  class="hand-ink"
+                />
+                <rect
+                  v-for="(h, i) in [30, 46, 38, 60, 72]"
+                  :key="i"
+                  :x="22 + i * 38"
+                  :y="82 - h"
+                  width="24"
+                  :height="h"
+                  class="hand-bar"
+                />
+              </svg>
+              <p class="hand-line mx-6 mt-3">
+                <mark>Objects</mark> are tables · <mark>records</mark> are rows
+              </p>
+              <p class="hand-line mx-6">
+                Lookup ≠ master-detail → sharing!
+              </p>
+            </template>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div class="mx-auto grid max-w-(--ui-container) gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[15rem_minmax(0,1fr)] lg:px-8">
-      <!-- Index -->
-      <aside class="no-print">
-        <nav
-          class="space-y-1 lg:sticky lg:top-24"
-          :aria-label="t('notes.index')"
-        >
-          <p class="mono-label mb-3 px-3">
-            {{ t('notes.index') }}
-          </p>
-          <template
-            v-for="r in rows"
-            :key="r.slug"
-          >
-            <a
-              v-if="r.sheet"
-              :href="`#${r.slug}`"
-              class="flex items-center gap-2.5 rounded-[4px] px-3 py-2 text-[0.9375rem] transition-colors"
-              :class="active === r.slug ? 'bg-(--ice) font-semibold text-(--signal)' : 'text-(--ink) hover:bg-(--paper2)'"
-            >
-              <UIcon
-                :name="r.icon"
-                class="size-4 shrink-0"
-              />
-              <span class="min-w-0 flex-1 truncate">{{ r.title }}</span>
-            </a>
-            <span
-              v-else
-              class="flex items-center gap-2.5 px-3 py-2 text-[0.9375rem] text-(--ink2)"
-            >
-              <UIcon
-                :name="r.icon"
-                class="size-4 shrink-0 opacity-60"
-              />
-              <span class="min-w-0 flex-1 truncate">{{ r.title }}</span>
-              <span class="text-[10px] font-bold uppercase tracking-[.09em] text-(--label)">{{ t('curriculumPage.coming') }}</span>
-            </span>
-          </template>
-        </nav>
-      </aside>
-
-      <!-- Every sheet -->
-      <div class="min-w-0 space-y-10">
-        <div
-          v-for="r in ready"
+    <!-- WHAT'S INSIDE -------------------------------------------------- -->
+    <section class="no-print mx-auto max-w-(--ui-container) px-4 py-14 sm:px-6 lg:px-8">
+      <h2 class="bp-h2">
+        {{ t('notes.insideTitle') }}
+      </h2>
+      <ol class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <li
+          v-for="r in rows"
           :key="r.slug"
-          class="space-y-3"
         >
-          <div class="no-print mx-auto flex max-w-[52rem] items-center justify-between gap-2 px-4">
-            <NuxtLink
-              :to="localePath(`/notes/${r.slug}`)"
-              class="text-sm font-semibold text-(--signal) hover:underline"
+          <component
+            :is="r.sheet ? NuxtLink : 'div'"
+            v-bind="r.sheet ? { to: `#${r.slug}` } : {}"
+            class="flex h-full items-center gap-3 rounded-[6px] border border-(--line) bg-(--card) p-4"
+            :class="r.sheet ? 'transition-colors hover:border-(--signal)' : 'opacity-70'"
+          >
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-[4px]"
+              :class="r.sheet ? 'bg-(--signal) text-white' : 'bg-(--paper2) text-(--ink2)'"
             >
-              {{ t('notes.openSingle') }} →
-            </NuxtLink>
-            <UButton
-              :href="`/notes/${r.sheet!.path.startsWith(`/${DEFAULT_LOCALE}/`) ? DEFAULT_LOCALE : locale}/${r.slug}.md`"
-              download
-              size="sm"
-              color="neutral"
-              variant="outline"
-              icon="i-lucide-file-text"
+              <UIcon
+                :name="r.icon"
+                class="size-5"
+              />
+            </span>
+            <span class="min-w-0">
+              <span class="block text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">{{ t('curriculumPage.section', { n: r.n }) }}</span>
+              <span class="block truncate font-semibold text-(--ink)">{{ r.title }}</span>
+              <span
+                class="block text-xs"
+                :class="r.sheet ? 'text-success' : 'text-(--ink2)'"
+              >{{ r.sheet ? t('notes.ready') : t('curriculumPage.coming') }}</span>
+            </span>
+          </component>
+        </li>
+      </ol>
+    </section>
+
+    <!-- PREVIEW: every sheet, clipped until opened (prints in full) ---- -->
+    <section
+      id="preview"
+      class="scroll-mt-20 border-y border-(--line) bg-(--paper2)/60 py-14"
+    >
+      <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
+        <h2 class="no-print bp-h2">
+          {{ t('notes.previewTitle') }}
+        </h2>
+        <div class="mt-8 space-y-12">
+          <div
+            v-for="r in ready"
+            :id="r.slug"
+            :key="r.slug"
+            class="scroll-mt-24 space-y-3"
+          >
+            <div class="no-print mx-auto flex max-w-[52rem] flex-wrap items-center justify-between gap-2 px-4">
+              <NuxtLink
+                :to="localePath(`/notes/${r.slug}`)"
+                class="text-sm font-semibold text-(--signal) hover:underline"
+              >
+                {{ t('notes.openSingle') }} →
+              </NuxtLink>
+              <UButton
+                :href="`/notes/${r.sheet!.path.startsWith(`/${DEFAULT_LOCALE}/`) ? DEFAULT_LOCALE : locale}/${r.slug}.md`"
+                download
+                size="sm"
+                color="neutral"
+                variant="outline"
+                icon="i-lucide-file-text"
+              >
+                {{ t('notes.markdown') }}
+              </UButton>
+            </div>
+            <div
+              class="preview-frame relative"
+              :class="{ open: open.has(r.slug) }"
             >
-              {{ t('notes.markdown') }}
-            </UButton>
+              <NotesSheet :sheet="r.sheet!" />
+              <div
+                v-if="!open.has(r.slug)"
+                class="no-print absolute inset-x-0 bottom-0 flex h-48 items-end justify-center bg-gradient-to-t from-(--paper2) to-transparent pb-6"
+              >
+                <UButton
+                  icon="i-lucide-chevrons-down"
+                  @click="open.add(r.slug)"
+                >
+                  {{ t('notes.readAll') }}
+                </UButton>
+              </div>
+            </div>
           </div>
-          <NotesSheet :sheet="r.sheet!" />
+          <p
+            v-if="!ready.length"
+            class="text-(--ink2)"
+          >
+            {{ t('curriculumPage.coming') }}
+          </p>
         </div>
-        <p
-          v-if="!ready.length"
-          class="text-(--ink2)"
-        >
-          {{ t('curriculumPage.coming') }}
-        </p>
       </div>
-    </div>
+    </section>
+
+    <!-- REVIEWS + COMMENTS -------------------------------------------- -->
+    <section class="no-print mx-auto max-w-(--ui-container) space-y-14 px-4 py-14 sm:px-6 lg:px-8">
+      <div>
+        <h2 class="bp-h2 mb-8">
+          {{ t('reviews.heading') }}
+        </h2>
+        <ProductReviews
+          product="notes"
+          :name="t('notes.productTitle')"
+        />
+      </div>
+      <div class="max-w-3xl">
+        <CourseLessonComments lesson-path="/notes" />
+      </div>
+    </section>
   </div>
 </template>
+
+<style scoped>
+.notes-mock {
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 27px, #cfe0f3 27px 28px),
+    #fffdf7;
+  box-shadow: none;
+}
+.hand-title { margin: 22px 24px 0; font-family: Caveat, Kalam, cursive; font-size: 30px; font-weight: 700; color: #0b3b78; line-height: 1.1; }
+.hand-line { font-family: Kalam, Caveat, cursive; font-size: 15px; color: #23324a; line-height: 28px; }
+.hand-line mark { background: #fff1a8; padding: 0 3px; }
+.hand-ink { stroke: #23324a; stroke-width: 2; fill: none; stroke-linecap: round; }
+.hand-bar { fill: #1b96ff; opacity: .75; stroke: #0b3b78; stroke-width: 1.5; }
+.preview-frame:not(.open) { max-height: 46rem; overflow: hidden; }
+@media print {
+  .preview-frame { max-height: none !important; overflow: visible !important; }
+}
+</style>

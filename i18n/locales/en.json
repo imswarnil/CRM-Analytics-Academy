@@ -77,7 +77,8 @@
         "languages": "5 languages",
         "ai": "Includes AI for analytics"
       },
-      "pricing": "See plans"
+      "pricing": "See plans",
+      "stack": "Salesforce, recipes, datasets, dashboards and Einstein, on one real company."
     },
     "author": {
       "eyebrow": "The author",
@@ -261,6 +262,10 @@
       },
       "note": "Public list prices from an authorised Salesforce training partner, checked {date}; your region and currency may differ. The certification exam itself is a separate fee paid to Salesforce.",
       "cta": "See plans"
+    },
+    "path": {
+      "title": "Seven sections, from the data model to the dashboards people open every morning.",
+      "lead": "{lessons} lessons are out now. The rest arrive section by section, each with a video, a quiz and a page of notes."
     }
   },
   "footer": {
@@ -1343,7 +1348,9 @@
       "ideaTitle": "What should the lesson be about?",
       "language": "Language",
       "page": "Which page?",
-      "wrong": "What it says now"
+      "wrong": "What it says now",
+      "resType": "What kind is it?",
+      "section": "Which part of the course does it help with?"
     },
     "ph": {
       "company": "e.g. Acme Corp",
@@ -1393,7 +1400,16 @@
     "pointsBadge": "+25 points for every approved contribution",
     "ctaLine": "New lessons land on YouTube first. The whole Academy is open source.",
     "ctaYoutube": "Subscribe",
-    "ctaGithub": "Star on GitHub"
+    "ctaGithub": "Star on GitHub",
+    "resTypes": {
+      "article": "Article",
+      "video": "Video",
+      "tool": "Tool",
+      "docs": "Docs",
+      "dataset": "Dataset"
+    },
+    "anySection": "Any / not sure",
+    "preview": "Preview on the resources page"
   },
   "dash": {
     "examTitle": "Certification readiness",
@@ -1740,7 +1756,21 @@
     "open": "Open the notes",
     "pdfAll": "Download all as PDF",
     "index": "Index",
-    "openSingle": "Open this sheet on its own"
+    "openSingle": "Open this sheet on its own",
+    "productTitle": "CRM Analytics notes — the whole course on a few pages",
+    "features": {
+      "f1": "One page per section, short and to the point",
+      "f2": "Hand-drawn diagrams and charts",
+      "f3": "PDF for print, Markdown for your own notes",
+      "f4": "In English, Spanish, Portuguese, German and Japanese"
+    },
+    "seePreview": "See a preview",
+    "status": "{ready} of {total} sections ready",
+    "free": "Free",
+    "insideTitle": "What's inside",
+    "ready": "Ready",
+    "previewTitle": "Preview the sheets",
+    "readAll": "Read the whole sheet"
   },
   "jobs": {
     "eyebrow": "Jobs this week",
@@ -1772,5 +1802,22 @@
     "noMatch": "No jobs match these filters.",
     "seoTitle": "CRM Analytics jobs this week — Tableau CRM and Einstein Analytics roles",
     "seoDesc": "Salesforce CRM Analytics, Tableau CRM and Einstein Analytics jobs posted this week, newest first, refreshed daily."
+  },
+  "reviews": {
+    "heading": "What learners say",
+    "title": "Ratings",
+    "count": "{n} reviews",
+    "none": "No ratings yet.",
+    "write": "Rate these notes",
+    "stars": "Your rating",
+    "nStars": "{n} out of 5 stars",
+    "placeholder": "What helped you? What is missing?",
+    "send": "Post review",
+    "thanks": "Thanks — your review is posted.",
+    "signIn": "Sign in to rate the notes.",
+    "beFirst": "No reviews yet. Be the first to rate these notes.",
+    "errStars": "Pick a star rating.",
+    "errText": "Write at least a sentence.",
+    "errGeneric": "Could not post that review. Try again."
   }
 }

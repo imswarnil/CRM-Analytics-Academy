@@ -93,8 +93,9 @@ usePageSchema(() => ({
 <template>
   <div>
     <!-- Hero -->
-    <section class="border-b border-(--line) bg-(--card)">
-      <div class="mx-auto flex max-w-(--ui-container) flex-wrap items-end justify-between gap-6 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+    <section class="relative overflow-hidden border-b border-(--line) bg-(--card)">
+      <BpFloatCharts />
+      <div class="relative mx-auto flex max-w-(--ui-container) flex-wrap items-end justify-between gap-6 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div class="max-w-2xl">
           <p class="eyebrow">
             {{ t('curriculumPage.hero.eyebrow') }}
@@ -128,29 +129,70 @@ usePageSchema(() => ({
     </section>
 
     <div class="mx-auto grid max-w-(--ui-container) gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[14rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[14rem_minmax(0,1fr)_17rem]">
-      <!-- Left: sections -->
+      <!-- Left: the path — one tile per section on a connecting line -->
       <aside class="hidden lg:block">
         <nav
-          class="sticky top-24 space-y-1"
+          class="sticky top-24"
           :aria-label="t('curriculumPage.sidebar')"
         >
-          <p class="mono-label mb-3 px-3">
+          <p class="mono-label mb-4 px-1">
             {{ t('curriculumPage.sidebar') }}
           </p>
-          <a
-            v-for="s in sections"
-            :key="s.key"
-            :href="`#${s.key}`"
-            class="flex items-center gap-2.5 rounded-[4px] px-3 py-2 text-[0.9375rem] transition-colors"
-            :class="active === s.key ? 'bg-(--ice) font-semibold text-(--signal)' : 'text-(--ink) hover:bg-(--paper2)'"
-          >
-            <span class="w-5 text-xs font-bold tabular-nums text-(--label)">{{ String(s.n).padStart(2, '0') }}</span>
-            <span class="min-w-0 flex-1 truncate">{{ s.title }}</span>
+          <ol class="relative">
             <span
-              v-if="s.live"
-              class="size-1.5 rounded-full bg-(--signal)"
+              class="absolute start-[1.1875rem] top-5 bottom-5 w-px bg-(--line)"
+              aria-hidden="true"
             />
-          </a>
+            <li
+              v-for="s in sections"
+              :key="s.key"
+              class="relative"
+            >
+              <a
+                :href="`#${s.key}`"
+                class="group flex items-center gap-3 rounded-[6px] py-2 pe-2 transition-colors"
+                :aria-current="active === s.key ? 'step' : undefined"
+              >
+                <span
+                  class="relative z-[1] flex size-10 shrink-0 items-center justify-center rounded-[6px] border transition-colors"
+                  :class="active === s.key
+                    ? 'border-(--signal) bg-(--signal) text-white'
+                    : s.live ? 'border-(--signal) bg-(--card) text-(--signal)' : 'border-(--line) bg-(--card) text-(--ink2) group-hover:border-(--signal)'"
+                >
+                  <UIcon
+                    :name="s.icon"
+                    class="size-[1.125rem]"
+                  />
+                </span>
+                <span class="min-w-0 flex-1">
+                  <span class="block text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">{{ t('curriculumPage.section', { n: s.n }) }}</span>
+                  <span
+                    class="block truncate text-[0.9375rem] leading-snug"
+                    :class="active === s.key ? 'font-semibold text-(--signal)' : 'text-(--ink) group-hover:text-(--signal)'"
+                  >{{ s.title }}</span>
+                  <span
+                    v-if="!s.live"
+                    class="block text-xs text-(--ink2)"
+                  >{{ t('curriculumPage.coming') }}</span>
+                  <ClientOnly v-else>
+                    <span
+                      v-if="isSignedIn"
+                      class="mt-1 block h-1 overflow-hidden rounded-full bg-(--line)"
+                    >
+                      <span
+                        class="block h-full rounded-full bg-(--signal)"
+                        :style="{ width: `${(doneIn(s) / s.live) * 100}%` }"
+                      />
+                    </span>
+                    <span
+                      v-else
+                      class="block text-xs text-(--signal)"
+                    >{{ t('curriculumPage.lessons', { n: s.live }) }}</span>
+                  </ClientOnly>
+                </span>
+              </a>
+            </li>
+          </ol>
         </nav>
       </aside>
 
@@ -162,7 +204,7 @@ usePageSchema(() => ({
           :key="s.key"
           class="scroll-mt-24 overflow-hidden rounded-[6px] border border-(--line) bg-(--card)"
         >
-          <header class="flex flex-wrap items-start gap-4 border-b border-(--line) px-6 py-5">
+          <header class="flex flex-wrap items-start gap-4 border-b border-(--line) px-6 py-5 sm:flex-nowrap">
             <span class="flex size-11 shrink-0 items-center justify-center rounded-[6px] bg-(--ice) text-(--signal)">
               <UIcon
                 :name="s.icon"
@@ -187,6 +229,10 @@ usePageSchema(() => ({
                 {{ s.blurb }}
               </p>
             </div>
+            <CourseSectionArt
+              :section="s.key"
+              class="hidden w-36 shrink-0 sm:block"
+            />
             <ClientOnly>
               <span
                 v-if="s.live && isSignedIn"

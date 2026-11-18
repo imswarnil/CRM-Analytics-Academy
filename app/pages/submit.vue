@@ -13,6 +13,7 @@
  * form.
  */
 import { isHttpUrl } from '~/utils/urlMeta'
+import { ROADMAP } from '~/data/roadmap'
 
 definePageMeta({ focus: true, middleware: 'auth' })
 
@@ -51,9 +52,39 @@ const form = reactive({
   lessonMode: 'fix' as 'fix' | 'idea',
   locale: '' as string,
   wrong: '',
+  resType: 'article' as ResType,
+  section: '' as string,
   website: '' // honeypot — hidden from people
 })
 const CATEGORIES = ['uses', 'hires', 'partner'] as const
+type ResType = 'article' | 'video' | 'tool' | 'docs' | 'dataset'
+const RES_TYPES: { value: ResType, icon: string }[] = [
+  { value: 'article', icon: 'i-lucide-file-text' },
+  { value: 'video', icon: 'i-lucide-circle-play' },
+  { value: 'tool', icon: 'i-lucide-wrench' },
+  { value: 'docs', icon: 'i-lucide-book-open' },
+  { value: 'dataset', icon: 'i-lucide-database' }
+]
+const sectionItems = computed(() => [{ label: t('contrib.anySection'), value: '' }, ...ROADMAP.map(r => ({ label: t(`roadmap.${r.key}.title`), value: r.key }))])
+// The link's host, for the preview and a title guess.
+const host = computed(() => {
+  try {
+    return isHttpUrl(form.url) ? new URL(form.url.trim()).hostname.replace(/^www\./, '') : ''
+  } catch {
+    return ''
+  }
+})
+function guessTitle() {
+  if (form.title.trim() || !isHttpUrl(form.url)) return
+  try {
+    const u = new URL(form.url.trim())
+    const last = u.pathname.split('/').filter(Boolean).pop() ?? ''
+    const words = decodeURIComponent(last).replace(/\.[a-z]+$/i, '').replace(/[-_]+/g, ' ').trim()
+    if (words.length > 3) form.title = words.charAt(0).toUpperCase() + words.slice(1)
+  } catch {
+    // not a URL yet
+  }
+}
 const ROLES = ['learner', 'mentor', 'creator', 'contributor'] as const
 const localeItems = computed(() => locales.value.filter(l => l.code !== 'en').map(l => ({ label: l.name ?? l.code, value: l.code as string })))
 
@@ -95,7 +126,7 @@ const clip = (s: string, n: number) => (s.trim().length > n ? `${s.trim().slice(
 function payload() {
   switch (type.value) {
     case 'resource':
-      return { kind: 'resource' as Kind, title: clip(form.title, 160), url: form.url.trim(), description: clip(form.body, 2000), details: { type: 'resource' } }
+      return { kind: 'resource' as Kind, title: clip(form.title, 160), url: form.url.trim(), description: clip(form.body, 2000), tags: [form.resType, ...(form.section ? [form.section] : [])], details: { type: 'resource', resType: form.resType, section: form.section || undefined } }
     case 'company':
       return { kind: 'resource' as Kind, title: clip(form.company, 160), url: form.url.trim(), description: clip(form.body, 2000), tags: ['company', form.companyKind], details: { type: 'company', category: form.companyKind } }
     case 'nominate':
@@ -129,7 +160,7 @@ async function send() {
     useNuxtApp().$track?.('contribute', type.value ?? '')
     sent.value = true
     tried.value = false
-    Object.assign(form, { url: '', title: '', body: '', company: '', wrong: '', self: false })
+    Object.assign(form, { url: '', title: '', body: '', company: '', wrong: '', self: false, section: '' })
     await refreshMine()
   } catch (e) {
     const err = e as { statusMessage?: string, data?: { statusMessage?: string } }
@@ -223,13 +254,13 @@ const STATUS: Record<Mine['status'], string> = {
               v-for="ty in TYPES"
               :key="ty.value"
               type="button"
-              class="group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-start transition-colors duration-150"
-              :class="type === ty.value ? 'bg-(--card) ring-1 ring-(--signal) shadow-sm' : 'hover:bg-(--card)'"
+              class="group flex items-center gap-3 rounded-[6px] px-3 py-2.5 text-start transition-colors duration-150"
+              :class="type === ty.value ? 'bg-(--card) ring-1 ring-(--signal)' : 'hover:bg-(--card)'"
               :aria-pressed="type === ty.value"
               @click="choose(ty.value)"
             >
               <span
-                class="flex size-9 shrink-0 items-center justify-center rounded-xl transition-colors"
+                class="flex size-9 shrink-0 items-center justify-center rounded-[4px] transition-colors"
                 :class="type === ty.value ? 'bg-(--signal) text-white' : 'bg-(--ice) text-(--signal)'"
               >
                 <UIcon
@@ -253,7 +284,7 @@ const STATUS: Record<Mine['status'], string> = {
           <h2 class="mb-2 text-xs font-medium text-(--ink2)">
             {{ t('contrib.mine') }}
           </h2>
-          <ul class="divide-y divide-(--line) overflow-hidden rounded-2xl border border-(--line) bg-(--card)">
+          <ul class="divide-y divide-(--line) overflow-hidden rounded-[6px] border border-(--line) bg-(--card)">
             <li
               v-for="s in mine.submissions"
               :key="s.id"
@@ -279,7 +310,7 @@ const STATUS: Record<Mine['status'], string> = {
       <div class="flex min-h-0 min-w-0 flex-col">
         <div
           v-if="!type && !sent"
-          class="flex min-h-64 flex-1 flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-(--line) p-8 text-center text-(--ink2)"
+          class="flex min-h-64 flex-1 flex-col items-center justify-center gap-3 rounded-[6px] border border-dashed border-(--line) p-8 text-center text-(--ink2)"
         >
           <UIcon
             name="i-lucide-mouse-pointer-click"
@@ -290,7 +321,7 @@ const STATUS: Record<Mine['status'], string> = {
 
         <form
           v-if="type && !sent"
-          class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-3xl border border-(--line) bg-(--card)"
+          class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[6px] border border-(--line) bg-(--card)"
           novalidate
           @submit.prevent="send"
         >
@@ -416,8 +447,38 @@ const STATUS: Record<Mine['status'], string> = {
                 size="lg"
                 class="w-full"
                 placeholder="https://"
+                @blur="type === 'resource' && guessTitle()"
               />
             </UFormField>
+
+            <template v-if="type === 'resource'">
+              <UFormField :label="t('contrib.f.resType')">
+                <div class="flex flex-wrap gap-1.5">
+                  <button
+                    v-for="r in RES_TYPES"
+                    :key="r.value"
+                    type="button"
+                    class="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors"
+                    :class="form.resType === r.value ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) text-(--ink2) hover:border-(--signal)'"
+                    :aria-pressed="form.resType === r.value"
+                    @click="form.resType = r.value"
+                  >
+                    <UIcon
+                      :name="r.icon"
+                      class="size-4"
+                    />{{ t(`contrib.resTypes.${r.value}`) }}
+                  </button>
+                </div>
+              </UFormField>
+              <UFormField :label="t('contrib.f.section')">
+                <USelect
+                  v-model="form.section"
+                  :items="sectionItems"
+                  size="lg"
+                  class="w-full"
+                />
+              </UFormField>
+            </template>
 
             <UFormField
               v-if="type === 'resource'"
@@ -462,6 +523,37 @@ const STATUS: Record<Mine['status'], string> = {
               :label="t('contrib.f.self')"
             />
 
+            <!-- How it will look on /resources once approved -->
+            <div
+              v-if="type === 'resource' && (form.title || host)"
+              class="rounded-[6px] border border-dashed border-(--line) bg-(--paper) p-4"
+            >
+              <p class="mb-3 text-[10px] font-bold uppercase tracking-[.09em] text-(--label)">
+                {{ t('contrib.preview') }}
+              </p>
+              <div class="flex items-start gap-3 rounded-[6px] border border-(--line) bg-(--card) p-4">
+                <span class="flex size-10 shrink-0 items-center justify-center rounded-[4px] bg-(--ice) text-(--signal)">
+                  <UIcon
+                    :name="RES_TYPES.find(r => r.value === form.resType)!.icon"
+                    class="size-5"
+                  />
+                </span>
+                <div class="min-w-0">
+                  <p class="font-bold text-(--ink)">
+                    {{ form.title || t('contrib.f.title') }}
+                  </p>
+                  <p class="mt-0.5 line-clamp-2 text-sm text-(--ink2)">
+                    {{ form.body || t('contrib.body.resource') }}
+                  </p>
+                  <p class="mt-2 text-xs font-medium text-(--signal)">
+                    {{ host || 'example.com' }}<template v-if="form.section">
+                      · {{ t(`roadmap.${form.section}.title`) }}
+                    </template>
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <UAlert
               v-if="(tried && problem) || error"
               color="error"
@@ -489,7 +581,7 @@ const STATUS: Record<Mine['status'], string> = {
 
         <div
           v-if="sent"
-          class="flex flex-1 flex-col items-center justify-center rounded-3xl border border-(--line) bg-(--card) p-10 text-center"
+          class="flex flex-1 flex-col items-center justify-center rounded-[6px] border border-(--line) bg-(--card) p-10 text-center"
         >
           <span class="flex size-14 items-center justify-center rounded-full bg-(--signal)/12">
             <UIcon

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
+import { ROADMAP } from '~/data/roadmap'
 
 /**
  * The home page, kept to what a first-time visitor needs: what the course
@@ -36,9 +37,6 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
 const lessonCount = computed(() =>
   (navigation.value ?? []).reduce((n, m) => n + ((m.children ?? []) as { comingSoon?: boolean }[]).filter(l => !l.comingSoon).length, 0)
 )
-const liveSections = computed(() =>
-  (navigation.value ?? []).filter(m => ((m.children ?? []) as { comingSoon?: boolean }[]).some(l => !l.comingSoon)).length
-)
 
 /**
  * The curriculum rows, derived from the same navigation tree the sidebar and
@@ -54,6 +52,13 @@ function slugOf(path: string) {
 }
 
 const { of: lessonMeta } = useLessonMeta()
+// Every planned section (app/data/roadmap.ts); `live` counts its published
+// lessons, not counting the section's own overview page.
+const path = computed(() => ROADMAP.map((sec) => {
+  const mod = (navigation.value ?? []).find(m => slugOf(String(m.path ?? '')) === sec.slug)
+  const kids = (mod?.children ?? []) as { comingSoon?: boolean, path?: string }[]
+  return { ...sec, live: kids.filter(l => !l.comingSoon && l.path !== mod?.path).length }
+}))
 
 const modules = computed(() =>
   (navigation.value ?? []).map((mod, i) => {
@@ -135,13 +140,6 @@ useJsonLd({
     'acceptedAnswer': { '@type': 'Answer', 'text': f.a }
   }))
 })
-
-// ---- Curriculum, plotted ------------------------------------------------------
-
-// One stacked bar per section: a segment per lesson, width proportional to
-// its minutes, on a shared axis.
-const axisMax = computed(() => Math.ceil(Math.max(15, ...modules.value.map(m => m.lessons.reduce((n, l) => n + l.minutes, 0))) / 15) * 15)
-const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, (_, i) => i * 15))
 </script>
 
 <template>
@@ -191,7 +189,29 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
               />
             </ClientOnly>
           </div>
-          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70">
+          <div class="mt-10 flex items-center gap-4">
+            <!-- What you will work with, as a stack of tiles -->
+            <div
+              class="flex -space-x-2.5"
+              aria-hidden="true"
+            >
+              <span
+                v-for="(ic, k) in ['i-simple-icons-salesforce', 'i-lucide-database', 'i-lucide-workflow', 'i-lucide-layout-dashboard', 'i-lucide-sparkles']"
+                :key="ic"
+                class="hero-stack flex size-10 items-center justify-center rounded-full border-2 border-(--navy) text-white"
+                :style="{ background: ['#0176D3', '#0B5CAB', '#1B96FF', '#014486', '#3A49DA'][k], animationDelay: `${k * 80}ms` }"
+              >
+                <UIcon
+                  :name="ic"
+                  class="size-[1.125rem]"
+                />
+              </span>
+            </div>
+            <p class="text-sm leading-snug text-white/75">
+              {{ t('home.hero.stack') }}
+            </p>
+          </div>
+          <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70">
             <li
               v-for="p in ['free', 'languages', 'ai']"
               :key="p"
@@ -213,19 +233,19 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
     <!-- HOW YOU WILL LEARN IT ------------------------------------------- -->
     <HomeApproach />
 
-    <!-- CURRICULUM, PLOTTED (only once lessons are published) ------------ -->
-    <section
-      v-if="lessonCount"
-      class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8"
-    >
+    <!-- THE COURSE, SECTION BY SECTION (all planned; live ones link) ---- -->
+    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
       <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
+        <div class="reveal">
           <p class="eyebrow">
             {{ t('home.plot.eyebrow') }}
           </p>
-          <h2 class="bp-h2 mt-4">
-            {{ t('home.plot.title', { sections: modules.length, live: liveSections, lessons: lessonCount }) }}
+          <h2 class="bp-h2 mt-4 max-w-2xl">
+            {{ t('home.path.title') }}
           </h2>
+          <p class="bp-lead mt-3 max-w-2xl">
+            {{ t('home.path.lead', { lessons: lessonCount }) }}
+          </p>
         </div>
         <UButton
           :to="localePath('/start')"
@@ -237,59 +257,41 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
         </UButton>
       </div>
 
-      <div class="crosshair mt-10 border border-(--line) bg-(--card) overflow-hidden rounded-2xl">
-        <NuxtLink
-          v-for="m in modules"
-          :key="m.to"
-          :to="localePath(m.to)"
-          :title="m.desc || undefined"
-          class="bp-row group grid items-center gap-3 border-b border-(--line) px-5 py-3.5 hover:bg-(--ice)/50 md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)_5rem]"
+      <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <li
+          v-for="(s, i) in path"
+          :key="s.key"
+          class="reveal"
         >
-          <span class="flex items-center gap-3">
-            <span class="font-mono text-xs text-(--signal)">{{ m.n }}</span>
-            <span class="truncate font-bold text-(--ink)">{{ m.title }}</span>
-          </span>
-          <span class="relative flex h-5 items-center">
-            <span
-              v-for="tk in axisTicks.slice(1, -1)"
-              :key="tk"
-              class="absolute inset-y-[-8px] border-s border-(--line)"
-              :style="{ insetInlineStart: `${(tk / axisMax) * 100}%` }"
+          <NuxtLink
+            :to="localePath(`/start#${s.key}`)"
+            class="bp-card bp-card--hover group flex h-full flex-col overflow-hidden"
+          >
+            <CourseSectionArt
+              :section="s.key"
+              class="w-full border-b border-(--line)"
             />
-            <span
-              v-for="(l, li) in m.lessons"
-              :key="li"
-              class="relative h-full border border-(--line)"
-              :class="l.type === 'video' ? 'bg-(--tide)' : 'bg-(--frost)'"
-              :style="{ width: `${(l.minutes / axisMax) * 100}%`, marginInlineEnd: '-1.5px' }"
-              :title="`${l.title} · ${t('home.plot.minutes', { n: l.minutes })}`"
-            />
-          </span>
-          <span class="hidden items-center justify-end gap-1 font-mono text-xs text-(--ink2) md:flex">
-            {{ t('home.plot.minutes', { n: m.lessons.reduce((n, l) => n + l.minutes, 0) }) }}
-            <UIcon
-              name="i-lucide-arrow-right"
-              class="bp-arrow size-3.5 text-(--signal) rtl:rotate-180"
-            />
-          </span>
-        </NuxtLink>
-        <div class="hidden grid-cols-[minmax(0,17rem)_minmax(0,1fr)_5rem] gap-3 px-5 py-2 md:grid">
-          <span class="font-mono text-[10px] uppercase text-(--ink2)">{{ t('home.plot.section') }}</span>
-          <span class="relative h-4">
-            <span
-              v-for="tk in axisTicks"
-              :key="tk"
-              class="absolute -translate-x-1/2 font-mono text-[10px] text-(--ink2) rtl:translate-x-1/2"
-              :style="{ insetInlineStart: `${(tk / axisMax) * 100}%` }"
-            >{{ tk === axisMax ? t('home.plot.minutes', { n: tk }) : tk }}</span>
-          </span>
-          <span />
-        </div>
-      </div>
-      <div class="mt-4 flex gap-5 font-medium text-[11px] text-(--ink2)">
-        <span class="flex items-center gap-2"><span class="size-3 border border-(--line) bg-(--tide)" />{{ t('home.plot.video') }}</span>
-        <span class="flex items-center gap-2"><span class="size-3 border border-(--line) bg-(--frost)" />{{ t('home.plot.article') }}</span>
-      </div>
+            <div class="flex flex-1 flex-col p-5">
+              <p class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">
+                <UIcon
+                  :name="s.icon"
+                  class="size-4 text-(--signal)"
+                />{{ t('curriculumPage.section', { n: i + 1 }) }}
+                <span
+                  class="ms-auto rounded-full px-2 py-0.5 text-[10px]"
+                  :class="s.live ? 'bg-success/10 text-success' : 'bg-(--paper2) text-(--ink2)'"
+                >{{ s.live ? t('curriculumPage.lessons', { n: s.live }) : t('curriculumPage.coming') }}</span>
+              </p>
+              <h3 class="mt-2 text-lg font-bold leading-snug text-(--ink) group-hover:text-(--signal)">
+                {{ t(`roadmap.${s.key}.title`) }}
+              </h3>
+              <p class="mt-1.5 text-[0.9375rem] leading-relaxed text-(--ink2)">
+                {{ t(`roadmap.${s.key}.blurb`) }}
+              </p>
+            </div>
+          </NuxtLink>
+        </li>
+      </ol>
     </section>
 
     <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
