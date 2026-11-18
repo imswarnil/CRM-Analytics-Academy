@@ -1,1 +1,12 @@
-{}
+{
+ "/salesforce-foundations": {
+  "minutes": 3,
+  "type": "article",
+  "quiz": false
+ },
+ "/salesforce-foundations/objects-fields-and-relationships": {
+  "minutes": 5,
+  "type": "article",
+  "quiz": true
+ }
+}

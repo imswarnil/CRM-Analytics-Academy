@@ -1,12 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
-  <defs><radialGradient id="r" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#032D60"/><stop offset="1" stop-color="#001A3E"/></radialGradient></defs>
+  <defs><radialGradient id="r" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#0B3B78"/><stop offset="1" stop-color="#001A3E"/></radialGradient></defs>
   <rect width="800" height="800" fill="url(#r)"/>
-  <defs><pattern id="g" width="64" height="64" patternUnits="userSpaceOnUse">
-    <path d="M 64 0 L 0 0 0 64" fill="none" stroke="rgb(124,190,255)" stroke-opacity="0.08" stroke-width="1"/>
-  </pattern></defs>
-  <rect width="800" height="800" fill="url(#g)"/>
-  <circle cx="400" cy="400" r="336" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="2"/>
-  <rect x="270" y="403" width="57.2" height="117" rx="7.8" fill="#B0D7FF"/>
-  <rect x="371.4" y="332.8" width="57.2" height="187.2" rx="7.8" fill="#1B96FF"/>
-  <rect x="472.8" y="260" width="57.2" height="260" rx="7.8" fill="#0176D3"/>
+  <rect x="220" y="428.79999999999995" width="93.60000000000001" height="151.2" rx="18" fill="#7CBEFF"/>
+  <rect x="353.20000000000005" y="328" width="93.60000000000001" height="251.99999999999997" rx="18" fill="#1B96FF"/>
+  <rect x="486.4" y="220" width="93.60000000000001" height="360" rx="18" fill="#FFFFFF"/>
 </svg>

@@ -1,0 +1,26 @@
+/**
+ * The course plan, section by section (mirrors CURRICULUM.md). /start renders
+ * it: a lesson that exists in content/ links to its page; the rest show as
+ * "coming". Wording lives in i18n (`roadmap.<key>.title|blurb|l1…lN`) so it
+ * is translated with everything else; this file only holds structure.
+ *
+ * `slug` is the content folder without its number (content/en/01.salesforce-
+ * foundations → salesforce-foundations); a planned section has one already so
+ * its URLs are stable from the day it is published.
+ */
+export interface RoadmapSection {
+  key: string
+  slug: string
+  icon: string
+  lessons: number
+}
+
+export const ROADMAP: RoadmapSection[] = [
+  { key: 's01', slug: 'salesforce-foundations', icon: 'i-lucide-database', lessons: 4 },
+  { key: 's02', slug: 'gtm-basics', icon: 'i-lucide-funnel', lessons: 4 },
+  { key: 's03', slug: 'data-architecture', icon: 'i-lucide-network', lessons: 5 },
+  { key: 's04', slug: 'gtm-dashboards', icon: 'i-lucide-layout-dashboard', lessons: 6 },
+  { key: 's05', slug: 'interactions-and-bindings', icon: 'i-lucide-link-2', lessons: 4 },
+  { key: 's06', slug: 'sharing-and-embedding', icon: 'i-lucide-share-2', lessons: 4 },
+  { key: 's07', slug: 'advanced', icon: 'i-lucide-sparkles', lessons: 4 }
+]

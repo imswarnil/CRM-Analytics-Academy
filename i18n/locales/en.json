@@ -895,20 +895,31 @@
   },
   "curriculumPage": {
     "seo": {
-      "title": "Curriculum",
-      "description": "The CRM Analytics Academy course: every published section and lesson, in order, as each one is recorded."
+      "title": "Start learning Salesforce CRM Analytics — the full course",
+      "description": "The CRM Analytics course in order: the Salesforce data model, GTM basics, data architecture, the dashboards revenue teams use, bindings, sharing and Einstein Discovery."
     },
     "hero": {
-      "title": "Learn CRM Analytics.",
-      "lead": "Short video lessons on real go-to-market data. New lessons arrive on YouTube first.",
-      "youtube": "Subscribe on YouTube",
-      "pricing": "See pricing"
+      "eyebrow": "The course",
+      "title": "Start here.",
+      "lead": "Seven sections, in order — from the Salesforce data model to the dashboards revenue teams open every week. Free to start; each lesson comes with a video.",
+      "first": "Start lesson 1",
+      "pricing": "See plans"
     },
-    "empty": {
-      "title": "The first lessons are being recorded.",
-      "body": "The course is being rebuilt, one lesson at a time. Follow on YouTube to get each one the day it is published — or take a test ride of the platform now."
-    },
-    "section": "Section {n}"
+    "section": "Section {n}",
+    "sidebar": "Sections",
+    "onThisPage": "On this page",
+    "lessons": "{n} lessons",
+    "published": "{n} published",
+    "coming": "Coming",
+    "progress": "Your progress",
+    "progressNone": "Sign in to track lessons you finish.",
+    "how": {
+      "title": "How each lesson works",
+      "1": "A short video, embedded at the top",
+      "2": "The lesson, with diagrams and a worked example",
+      "3": "A quiz and the interview questions",
+      "4": "Downloadable notes when the section is complete"
+    }
   },
   "lesson": {
     "authors": {
@@ -1323,7 +1334,7 @@
   "store": {
     "eyebrow": "Pricing",
     "seoTitle": "CRM Analytics Academy pricing: Free, Pro Monthly, Pro Lifetime, Teams",
-    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $15 a month or $99 once. Seats for companies and colleges.",
+    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $19 a month or $149 once. Seats for companies and colleges.",
     "title": "Learn free. Go Pro when you are ready.",
     "lead": "Every free lesson stays free. Pro unlocks the whole platform — monthly, or once for life. Companies and colleges buy seats.",
     "sentTitle": "Thanks — your request is in.",
@@ -1528,5 +1539,66 @@
     "lessons": "{n} lessons done",
     "admin": "Admin",
     "remove": "Free seat"
+  },
+  "roadmap": {
+    "s01": {
+      "title": "Salesforce Foundations",
+      "blurb": "The objects, data model and integration every dashboard depends on — plus the Apex and LWC an analyst should read.",
+      "l1": "Objects, fields and relationships",
+      "l2": "Building a small app",
+      "l3": "Integration basics",
+      "l4": "Apex and LWC for analysts"
+    },
+    "s02": {
+      "title": "GTM Basics",
+      "blurb": "How a revenue team works, so you know what the data is describing.",
+      "l1": "The funnel: lead to customer",
+      "l2": "Pipeline: stages, amounts and forecasts",
+      "l3": "Revenue metrics: ARR, churn, NRR",
+      "l4": "Who reads which dashboard"
+    },
+    "s03": {
+      "title": "Data Architecture",
+      "blurb": "Data stored in many places, brought into one model you can trust.",
+      "l1": "Where GTM data lives",
+      "l2": "Data Sync, connectors, recipes and datasets",
+      "l3": "Grain, joins and keys",
+      "l4": "Snapshots and history",
+      "l5": "Security in the data"
+    },
+    "s04": {
+      "title": "Dashboards Every GTM Team Uses",
+      "blurb": "KPI, snapshot, change, conversion and adoption dashboards — the ones that get opened every week.",
+      "l1": "KPI dashboards",
+      "l2": "Snapshot dashboards",
+      "l3": "Change analytics",
+      "l4": "Conversion and funnel dashboards",
+      "l5": "Adoption dashboards",
+      "l6": "Designing for decisions"
+    },
+    "s05": {
+      "title": "Interactions and Bindings",
+      "blurb": "Make dashboards respond: faceting, bindings and the SAQL behind a widget.",
+      "l1": "Faceting and filters",
+      "l2": "Selection and results bindings",
+      "l3": "SAQL behind a widget",
+      "l4": "Dashboard JSON"
+    },
+    "s06": {
+      "title": "Sharing, Embedding and Apps",
+      "blurb": "Get dashboards in front of the people who need them — inside Salesforce and beyond.",
+      "l1": "Apps, sharing and licences",
+      "l2": "Embedding in Lightning, Experience Cloud and Slack",
+      "l3": "Subscriptions, alerts and actions",
+      "l4": "Packaging and moving between orgs"
+    },
+    "s07": {
+      "title": "Advanced",
+      "blurb": "SAQL in depth, Einstein Discovery, the APIs and performance.",
+      "l1": "SAQL in depth",
+      "l2": "Einstein Discovery",
+      "l3": "APIs and automation",
+      "l4": "Performance and governance"
+    }
   }
 }

@@ -7,14 +7,15 @@
  *   node brand/build.mjs        writes SVGs, then PNGs with rsvg-convert
  *
  * Outputs (committed):
- *   brand/mark.svg                         the logo mark (three rising bars)
- *   brand/youtube/profile.svg|png          800×800 channel picture
- *   brand/youtube/cover.svg|png            2560×1440 channel banner
- *                                          (text inside the 1546×423 safe area)
- *   public/icon.svg, icon-192/512.png, icon-maskable-512.png, apple-touch-icon.png
+ *   brand/mark.svg                 the logo mark — three rising bars, transparent
+ *   brand/mark-on-dark.svg         the same mark for navy/dark grounds
+ *   brand/youtube/profile.svg|png  800×800 channel picture (reads at 32px)
+ *   brand/youtube/cover.svg|png    2560×1440 banner; everything that matters
+ *                                  sits inside YouTube's 1546×423 safe area
+ *   public/icon.svg, favicon via icon-*.png, apple-touch-icon.png,
+ *   icon-maskable-512.png (the only one with a background, as the spec needs)
  *
- * Needs Switzer installed for the PNGs (it is in ~/Library/Fonts); browsers
- * reading the SVGs fall back to the system sans.
+ * Needs Switzer installed for the PNGs (it is in ~/Library/Fonts).
  */
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
@@ -26,11 +27,16 @@ const C = { navy900: '#001A3E', navy800: '#032D60', brand: '#0176D3', bright: '#
 const SANS = 'Switzer, Figtree, \'Helvetica Neue\', Helvetica, Arial, sans-serif'
 const MONO = '\'SF Mono\', Menlo, Consolas, monospace'
 
-/** The mark: three rising bars (a chart), the tallest in the signal colour. */
-const bars = (x, y, s) => `
-  <rect x="${x}" y="${y + s * 0.55}" width="${s * 0.22}" height="${s * 0.45}" rx="${s * 0.03}" fill="${C.pale}"/>
-  <rect x="${x + s * 0.39}" y="${y + s * 0.28}" width="${s * 0.22}" height="${s * 0.72}" rx="${s * 0.03}" fill="${C.bright}"/>
-  <rect x="${x + s * 0.78}" y="${y}" width="${s * 0.22}" height="${s}" rx="${s * 0.03}" fill="${C.brand}"/>`
+/** Three rising bars in a square box of side s at (x, y). */
+const bars = (x, y, s, [a, b, c] = [C.light, C.bright, C.brand]) => {
+  const w = s * 0.26
+  const gap = (s - w * 3) / 2
+  const r = s * 0.05
+  return `
+  <rect x="${x}" y="${y + s * 0.58}" width="${w}" height="${s * 0.42}" rx="${r}" fill="${a}"/>
+  <rect x="${x + w + gap}" y="${y + s * 0.3}" width="${w}" height="${s * 0.7}" rx="${r}" fill="${b}"/>
+  <rect x="${x + 2 * (w + gap)}" y="${y}" width="${w}" height="${s}" rx="${r}" fill="${c}"/>`
+}
 
 const grid = (w, h, step, alpha) => `
   <defs><pattern id="g" width="${step}" height="${step}" patternUnits="userSpaceOnUse">
@@ -38,52 +44,47 @@ const grid = (w, h, step, alpha) => `
   </pattern></defs>
   <rect width="${w}" height="${h}" fill="url(#g)"/>`
 
-const markSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="72" fill="${C.navy800}"/>${bars(116, 116, 280)}
+const markSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">${bars(56, 56, 400)}
+</svg>
+`
+const markDarkSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">${bars(56, 56, 400, [C.pale, C.bright, C.white])}
 </svg>
 `
 
+// Profile: YouTube crops to a circle and shows it at 24–88px, so the mark is
+// big, high-contrast and alone. White tallest bar = the "reading" bar.
 const profileSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
-  <defs><radialGradient id="r" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="${C.navy800}"/><stop offset="1" stop-color="${C.navy900}"/></radialGradient></defs>
-  <rect width="800" height="800" fill="url(#r)"/>${grid(800, 800, 64, 0.08)}
-  <circle cx="400" cy="400" r="336" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="2"/>${bars(270, 260, 260)}
+  <defs><radialGradient id="r" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#0B3B78"/><stop offset="1" stop-color="${C.navy900}"/></radialGradient></defs>
+  <rect width="800" height="800" fill="url(#r)"/>${bars(220, 220, 360, [C.light, C.bright, C.white])}
 </svg>
 `
 
-const TOPICS = ['RECIPES', 'SAQL', 'DASHBOARDS', 'SECURITY', 'EINSTEIN DISCOVERY']
+const TOPICS = ['DATA MODEL', 'RECIPES', 'SAQL', 'DASHBOARDS', 'BINDINGS', 'EINSTEIN']
 const coverSvg = (() => {
   const W = 2560
   const H = 1440
-  // YouTube's safe area for every device: 1546×423, centred.
-  const sx = (W - 1546) / 2
   const sy = (H - 423) / 2
-  let tx = sx + 40
-  const strip = TOPICS.map((t, i) => {
-    const x = tx
-    tx += t.length * 17 + 74
-    return `${i ? `<line x1="${x - 34}" y1="${sy + 352}" x2="${x - 34}" y2="${sy + 382}" stroke="#FFFFFF" stroke-opacity=".15"/>` : ''}
-    <text x="${x}" y="${sy + 374}" font-family="${MONO}" font-size="22" font-weight="600" letter-spacing="3" fill="${C.light}">${t}</text>`
-  }).join('')
+  const cx = W / 2
+  // Topic chips, centred as a row under the title.
+  const chipW = TOPICS.map(t => t.length * 15 + 44)
+  const total = chipW.reduce((a, b) => a + b, 0) + (TOPICS.length - 1) * 14
+  let x = cx - total / 2
+  const chips = TOPICS.map((t, i) => {
+    const w = chipW[i]
+    const out = `<rect x="${x}" y="${sy + 336}" width="${w}" height="48" rx="24" fill="none" stroke="${C.light}" stroke-opacity=".45"/>
+    <text x="${x + w / 2}" y="${sy + 368}" text-anchor="middle" font-family="${MONO}" font-size="21" font-weight="700" letter-spacing="2.5" fill="${C.pale}">${t}</text>`
+    x += w + 14
+    return out
+  }).join('\n    ')
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-  <rect width="${W}" height="${H}" fill="${C.navy900}"/>${grid(W, H, 80, 0.07)}
-  <rect width="${W}" height="10" fill="${C.brand}"/>
-  <circle cx="2380" cy="760" r="430" fill="none" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
-  <circle cx="120" cy="80" r="260" fill="none" stroke="#FFFFFF" stroke-opacity=".1" stroke-width="2"/>
-  <g opacity=".08">${bars(2050, 1080, 220)}</g>
-  <text x="${sx + 1060}" y="${sy + 12}" font-family="${MONO}" font-size="20" fill="${C.light}" fill-opacity=".45">/* prep. query. show. */</text>
-  <g>${bars(sx + 40, sy + 90, 150)}</g>
-  <text font-family="${SANS}" font-weight="800" font-size="104" letter-spacing="-3" fill="#FFFFFF">
-    <tspan x="${sx + 250}" y="${sy + 150}">CRM Analytics</tspan>
-    <tspan x="${sx + 250}" y="${sy + 250}">Academy<tspan fill="${C.bright}">.</tspan></tspan>
-  </text>
-  <line x1="${sx + 1000}" y1="${sy + 90}" x2="${sx + 1000}" y2="${sy + 250}" stroke="#FFFFFF" stroke-opacity=".2" stroke-width="2"/>
-  <text font-family="${SANS}" font-size="38" fill="#FFFFFF" fill-opacity=".88">
-    <tspan x="${sx + 1040}" y="${sy + 140}">Salesforce CRM Analytics,</tspan>
-    <tspan x="${sx + 1040}" y="${sy + 188}">taught on real GTM data.</tspan>
-  </text>
-  <text x="${sx + 1040}" y="${sy + 240}" font-family="${MONO}" font-size="22" font-weight="700" letter-spacing="4" fill="${C.bright}">// NEW LESSON EVERY WEEK</text>
-  <line x1="${sx}" y1="${sy + 328}" x2="${sx + 1546}" y2="${sy + 328}" stroke="#FFFFFF" stroke-opacity=".14"/>
-  <line x1="${sx}" y1="${sy + 404}" x2="${sx + 1546}" y2="${sy + 404}" stroke="#FFFFFF" stroke-opacity=".14"/>${strip}
+  <defs><radialGradient id="r" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#0B3B78"/><stop offset="1" stop-color="${C.navy900}"/></radialGradient></defs>
+  <rect width="${W}" height="${H}" fill="url(#r)"/>${grid(W, H, 80, 0.06)}
+  <rect width="${W}" height="12" fill="${C.brand}"/>
+  <g opacity=".07">${bars(140, 860, 420)}${bars(2000, 120, 420)}</g>
+  <g>${bars(cx - 55, sy - 6, 110, [C.light, C.bright, C.white])}</g>
+  <text x="${cx}" y="${sy + 218}" text-anchor="middle" font-family="${SANS}" font-weight="800" font-size="116" letter-spacing="-3" fill="#FFFFFF" xml:space="preserve">CRM Analytics <tspan fill="${C.bright}">Academy</tspan></text>
+  <text x="${cx}" y="${sy + 290}" text-anchor="middle" font-family="${SANS}" font-size="46" font-weight="500" fill="#FFFFFF" fill-opacity=".9">Learn Salesforce CRM Analytics on real GTM data.</text>
+    ${chips}
 </svg>
 `
 })()
@@ -92,19 +93,19 @@ const out = (rel, text) => {
   const p = path.join(ROOT, rel)
   mkdirSync(path.dirname(p), { recursive: true })
   writeFileSync(p, text)
-  return p
 }
-const png = (svg, file, size) => execFileSync('rsvg-convert', ['-w', String(size[0]), '-h', String(size[1]), '-o', path.join(ROOT, file), path.join(ROOT, svg)])
+const png = (svg, file, [w, h]) => execFileSync('rsvg-convert', ['-w', String(w), '-h', String(h), '-o', path.join(ROOT, file), path.join(ROOT, svg)])
 
 out('brand/mark.svg', markSvg)
+out('brand/mark-on-dark.svg', markDarkSvg)
 out('public/icon.svg', markSvg)
 out('brand/youtube/profile.svg', profileSvg)
 out('brand/youtube/cover.svg', coverSvg)
 png('brand/youtube/profile.svg', 'brand/youtube/profile.png', [800, 800])
 png('brand/youtube/cover.svg', 'brand/youtube/cover.png', [2560, 1440])
 for (const s of [192, 512]) png('brand/mark.svg', `public/icon-${s}.png`, [s, s])
-png('brand/mark.svg', 'public/apple-touch-icon.png', [180, 180])
-// Maskable: the mark inset in a full-bleed navy square.
-out('brand/mark-maskable.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="${C.navy800}"/>${bars(156, 156, 200)}</svg>\n`)
+// Home-screen icons need a solid ground: the mark on navy.
+out('brand/mark-maskable.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="${C.navy800}"/>${bars(146, 146, 220, [C.light, C.bright, C.white])}</svg>\n`)
 png('brand/mark-maskable.svg', 'public/icon-maskable-512.png', [512, 512])
+png('brand/mark-maskable.svg', 'public/apple-touch-icon.png', [180, 180])
 console.log('brand assets written')

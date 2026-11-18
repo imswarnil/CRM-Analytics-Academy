@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://crmanalytics.imswarnil.com"><strong>Live site</strong></a> ·
-  <a href="https://crmanalytics.imswarnil.com/curriculum"><strong>Curriculum</strong></a> ·
+  <a href="https://crmanalytics.imswarnil.com/start"><strong>Start learning</strong></a> ·
   <a href="https://crmanalytics.imswarnil.com/introduction"><strong>Start lesson 1</strong></a> ·
   <a href="https://crmanalytics.imswarnil.com/llms.txt"><strong>llms.txt</strong></a> ·
   <a href="https://crmanalytics.imswarnil.com/contribute"><strong>Contribute</strong></a>

@@ -174,7 +174,7 @@ usePageSchema(() => ({
                 </p>
                 <UButton
                   v-else-if="p.id === 'free'"
-                  :to="localePath('/curriculum')"
+                  :to="localePath('/start')"
                   block
                   size="lg"
                   color="neutral"

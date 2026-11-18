@@ -361,7 +361,7 @@ const examTaken = computed(() => Object.keys(exams.value ?? {}).length)
           </div>
           <div class="mt-auto flex flex-wrap gap-2 pt-6">
             <UButton
-              :to="localePath('/curriculum')"
+              :to="localePath('/start')"
               icon="i-lucide-graduation-cap"
               color="secondary"
               size="sm"

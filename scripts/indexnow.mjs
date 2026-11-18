@@ -51,7 +51,7 @@ if (args.all) {
   const routes = new Set(changed.map(routeOf).filter(Boolean))
   // A deleted file is not a page to recrawl.
   urls = [...routes].map(url).filter(Boolean)
-  if (urls.length) urls.push(url('/'), url('/curriculum'))
+  if (urls.length) urls.push(url('/'), url('/start'))
 } else {
   console.log('[indexnow] nothing to do: pass --since=<sha> or --all')
   process.exit(0)

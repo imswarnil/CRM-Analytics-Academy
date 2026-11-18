@@ -895,20 +895,31 @@
   },
   "curriculumPage": {
     "seo": {
-      "title": "课程",
-      "description": "那个 CRM Analytics 学院课程:每个出版的章节和课目,按顺序排列,按每节录制."
+      "title": "开始学习 Salesforce CRM Analytics 整个课程",
+      "description": "那个 CRM Analytics 按顺序排列: Salesforce 数据模型、GTM基础、数据架构、仪表板收入小组使用、装订、共享和 Einstein Discovery。 。 。"
     },
     "hero": {
-      "title": "学习 CRM Analytics。 。 。",
-      "lead": "真实上市数据短视频课. 新课先上YouTube.",
-      "youtube": "在YouTube上订阅",
-      "pricing": "见定价"
+      "eyebrow": "课程",
+      "title": "从这里开始。",
+      "lead": "按顺序排列的七节——从 Salesforce 数据模型给仪表板 收入团队每周开放。 自由开始;每个课都有录像。",
+      "first": "开始上课 1",
+      "pricing": "见计划"
     },
-    "empty": {
-      "title": "初学正录.",
-      "body": "课程正在重建中,一个一个教训。 在YouTube上追踪,"
-    },
-    "section": "节次 {n}"
+    "section": "节次 {n}",
+    "sidebar": "节",
+    "onThisPage": "在本页",
+    "lessons": "{n} 经验教训",
+    "published": "{n} 已出版",
+    "coming": "来了",
+    "progress": "你的进展",
+    "progressNone": "签到跟踪你完成的课。",
+    "how": {
+      "1": "一个短视频,嵌在顶部",
+      "2": "教训、图表和实例",
+      "3": "考试和面试问题",
+      "4": "区域完成后可下载注释",
+      "title": "每门课都如何进行"
+    }
   },
   "lesson": {
     "authors": {
@@ -1323,7 +1334,7 @@
   "store": {
     "eyebrow": "定价",
     "seoTitle": "CRM Analytics 学院定价:免费、Pro月刊、Pro Lifetime、Teams",
-    "seoDesc": "学习 Salesforce CRM Analytics 免费,或为每门课获得Pro,数据集和考试审查,没有广告——每月15美元或99美元一次. 公司和学院的座位。",
+    "seoDesc": "学习 Salesforce CRM Analytics 免费的,或为每门课获得Pro,数据集和考试审查,没有广告——每月19美元或149美元一次. 公司和学院的座位。",
     "title": "学解脱. 等你准备好了再去专业学校",
     "lead": "每一次免费的课都是免费的 Pro解锁整个平台——每月,或终身一次. 公司和学院购买座位.",
     "sentTitle": "谢谢,你的请求已经受理了",
@@ -1528,5 +1539,66 @@
     "lessons": "{n} 经验教训",
     "admin": "管理员",
     "remove": "空闲座位"
+  },
+  "roadmap": {
+    "s01": {
+      "title": "Salesforce 基金会",
+      "blurb": "每个仪表板的物体、数据模型和集成都取决于——加上 Apex LWC应读作分析师。",
+      "l1": "对象、领域和关系",
+      "l2": "构建一个小应用程序",
+      "l3": "融合基础",
+      "l4": "Apex 分析员的LWC和LWC"
+    },
+    "s02": {
+      "title": "GTM 基本知识",
+      "blurb": "一个收入团队是如何运作的,所以你知道 数据是什么描述。",
+      "l1": "漏斗:引向客户",
+      "l2": "管道:阶段、数量和预测",
+      "l3": "收入衡量标准:ARR、churn、NRR",
+      "l4": "谁看哪一个仪表板"
+    },
+    "s03": {
+      "title": "数据架构",
+      "blurb": "数据存储在很多地方, 带入一个模型 你可以信任。",
+      "l1": "GTM 数据存在的地方",
+      "l2": "数据同步、连接器、食谱和数据集",
+      "l3": "谷物, 加入和密钥",
+      "l4": "截图和历史",
+      "l5": "数据安全"
+    },
+    "s04": {
+      "title": "每个 GTM 团队的应用",
+      "blurb": "KPI,快照,更改,转换和收养仪表板——每周打开的仪表板.",
+      "l1": "KPI 仪表板",
+      "l2": "快照仪表板",
+      "l3": "更改分析",
+      "l4": "转换和漏斗仪表板",
+      "l5": "收养仪表板",
+      "l6": "决定的设计"
+    },
+    "s05": {
+      "title": "相互作用和约束",
+      "blurb": "使仪表板响应:面部、装订和 SAQL 在部件后面。",
+      "l1": "面部和过滤器",
+      "l2": "选择和结果约束",
+      "l3": "SAQL 部件后面",
+      "l4": "电线板 JSON"
+    },
+    "s06": {
+      "title": "共享、嵌入和应用程序",
+      "blurb": "把仪表盘放在有需要的人面前 里面 Salesforce 和超越。",
+      "l1": "应用程序、共享和许可证",
+      "l2": "嵌在闪电中, Experience Cloud 和斯莱克",
+      "l3": "订阅、提醒和行动",
+      "l4": "包装和在兽群之间移动"
+    },
+    "s07": {
+      "title": "高级",
+      "blurb": "SAQL 深入, Einstein Discovery,APIs和性能。",
+      "l1": "SAQL 深处",
+      "l2": "Einstein Discovery",
+      "l3": "API和自动化",
+      "l4": "业绩和治理"
+    }
   }
 }

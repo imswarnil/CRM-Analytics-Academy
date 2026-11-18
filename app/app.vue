@@ -37,7 +37,7 @@ const { data: navTree, refresh: refreshNav } = await useAsyncData(
 const localePathFn = useLocalePath()
 onMounted(async () => {
   if (navTree.value?.length) return
-  const payload = await loadPayload(localePathFn('/curriculum')).catch(() => null) as { data?: Record<string, ContentNavigationItem[]> } | null
+  const payload = await loadPayload(localePathFn('/start')).catch(() => null) as { data?: Record<string, ContentNavigationItem[]> } | null
   const tree = payload?.data?.[`navigation-${locale.value}`]
   if (tree?.length) navTree.value = tree
   else refreshNav()

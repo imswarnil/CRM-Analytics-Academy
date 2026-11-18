@@ -441,7 +441,7 @@ const authorLinks = computed(() => [
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
           <UButton
-            :to="localePath('/curriculum')"
+            :to="localePath('/start')"
             size="xl"
             color="secondary"
             trailing-icon="i-lucide-arrow-right"

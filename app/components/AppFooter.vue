@@ -7,7 +7,7 @@ const columns = computed(() => [
   {
     label: t('footer.curriculum'),
     children: [
-      { label: t('nav.curriculum'), to: localePath('/curriculum') },
+      { label: t('nav.curriculum'), to: localePath('/start') },
       { label: t('nav.certification'), to: localePath('/certification') },
       { label: t('nav.interview'), to: localePath('/interview-questions') },
       { label: t('nav.resources'), to: localePath('/resources') },

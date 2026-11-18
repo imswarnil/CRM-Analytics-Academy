@@ -160,7 +160,9 @@ export const TRANSLATABLE_KEYS = [
   'options',
   'summary',
   'caption',
-  'alt'
+  'alt',
+  // A lesson hero's "in this lesson" list (::lesson-hero).
+  'points'
 ]
 
 /**

@@ -49,11 +49,11 @@ const PRIVATE_PATHS = ['/dashboard', '/account', '/team', '/submit', '/admin', '
 const RETIRED: Record<string, string> = {
   '/jobs': '/',
   '/leaderboard': '/dashboard',
-  '/ask': '/curriculum',
-  '/training': '/curriculum',
+  '/ask': '/start',
+  '/training': '/start',
   '/sales': '/about',
   '/contact': '/about',
-  '/implementation': '/curriculum',
+  '/implementation': '/start',
   '/experts': '/about',
   '/experts/join': '/about',
   // 2026-10-22: payments, teams and sponsorship removed — every lesson is free.
@@ -62,18 +62,20 @@ const RETIRED: Record<string, string> = {
   '/join': '/sign-up',
   '/nominate': '/wall-of-fame',
   // 2026-10-23: lessons published section by section; these pages retired.
-  '/showcase': '/curriculum',
-  '/showcase/**': '/curriculum',
+  '/showcase': '/start',
+  '/showcase/**': '/start',
   '/instructors': '/about',
-  '/roadmap': '/curriculum',
+  '/roadmap': '/start',
   '/changelog': '/about',
   // 2026-11-16: the platform simplified — visualisers, the course pitch page
   // and sponsors retired; the curriculum restarts from scratch.
-  '/visualiser': '/curriculum',
-  '/visualiser/**': '/curriculum',
-  '/course': '/curriculum',
-  '/introduction': '/curriculum',
-  '/introduction/**': '/curriculum',
+  '/visualiser': '/start',
+  '/visualiser/**': '/start',
+  '/course': '/start',
+  // 2026-11-18: the course page is /start.
+  '/curriculum': '/start',
+  '/introduction': '/start',
+  '/introduction/**': '/start',
   '/sponsor': '/pro',
   '/sponsor/**': '/pro'
 }
@@ -349,8 +351,13 @@ export default defineNuxtConfig({
     // each one, which on a prerendered page means a request for something
     // that is already inlined in the HTML it just loaded.
     clientBundle: {
-      scan: true,
-      sizeLimitKb: 512
+      // Data files (app/data, shared/utils, content navigation) name icons
+      // too — the roadmap, plans, admin tools — so they are scanned as well.
+      scan: {
+        globInclude: ['app/**/*.{vue,ts}', 'shared/**/*.ts', 'content/en/**/*.{md,yml}'],
+        globExclude: ['node_modules', '.nuxt', '.output', 'dist']
+      },
+      sizeLimitKb: 640
     }
   },
 

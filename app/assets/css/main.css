@@ -154,7 +154,10 @@
   --x: #4F6A96;
 }
 
+/* Readable by default: everything sized in rem grows with the root —
+   16.5px on phones, 17px from tablets up (Tailwind's text-sm becomes ~15px). */
 html {
+  font-size: 16.5px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -173,6 +176,10 @@ body {
 
 h1, h2, h3, h4 {
   text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  html { font-size: 17px; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -211,14 +218,14 @@ h1, h2, h3, h4 {
   box-shadow: 0 4px 16px -8px rgb(0 0 0 / .18);
 }
 @utility eyebrow {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: .09em;
   text-transform: uppercase;
   color: var(--signal);
 }
 @utility mono-label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: .09em;
   text-transform: uppercase;

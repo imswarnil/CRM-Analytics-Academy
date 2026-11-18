@@ -280,7 +280,7 @@ async function buildLlms() {
   const more = [
     '## More',
     '',
-    `- [Curriculum](${SITE}/curriculum): every lesson on one page, with length, kind, and Free or Pro.`,
+    `- [Curriculum](${SITE}/start): every lesson on one page, with length, kind, and Free or Pro.`,
     `- [Plans](${SITE}/pro): Free; Pro for 1,000 points per 30 days — the welcome points buy the first month; per-seat Pro for companies, teams and universities (by request).`,
     `- [Certification practice](${SITE}/certification): one timed practice exam in the format of the CRM Analytics and Einstein Discovery Consultant exam (60 questions, 105 minutes, 68% to pass).`,
     `- [Interview questions](${SITE}/interview-questions): a growing bank of CRM Analytics interview questions with model answers, by type, topic, level and company.`,

@@ -895,20 +895,31 @@
   },
   "curriculumPage": {
     "seo": {
-      "title": "Currículo",
-      "description": "A CRM Analytics Curso de Academia: cada seção publicada e aula, em ordem, conforme cada uma é registrada."
+      "title": "Começar a aprender Salesforce CRM Analytics — o curso completo",
+      "description": "A CRM Analytics curso em ordem: Salesforce modelo de dados, GTM basics, arquitetura de dados, uso de equipes de receita de painéis, vinculações, compartilhamento e Einstein Discovery."
     },
     "hero": {
-      "title": "Aprender CRM Analytics.",
-      "lead": "Curtas aulas de vídeo sobre dados reais do mercado. Novas lições chegam ao YouTube primeiro.",
-      "youtube": "Subscrever no YouTube",
-      "pricing": "Ver preços"
+      "eyebrow": "O curso",
+      "title": "Começa aqui.",
+      "lead": "Sete secções, em ordem — do Salesforce o modelo de dados para as equipes de receita de painéis abre todas as semanas. Livre para começar; cada lição vem com um vídeo.",
+      "first": "Iniciar a lição 1",
+      "pricing": "Ver os planos"
     },
-    "empty": {
-      "title": "As primeiras lições estão sendo gravadas.",
-      "body": "O curso está sendo reconstruído, uma lição de cada vez. Siga no YouTube para obter cada um no dia em que for publicado — ou faça um passeio de teste na plataforma agora."
-    },
-    "section": "Secção {n}"
+    "section": "Secção {n}",
+    "sidebar": "Secções",
+    "onThisPage": "Nesta página",
+    "lessons": "{n} lições",
+    "published": "{n} publicado",
+    "coming": "Já vou.",
+    "progress": "O seu progresso",
+    "progressNone": "Inscreva-se para seguir as lições que terminar.",
+    "how": {
+      "1": "Um vídeo curto, incorporado no topo",
+      "2": "A lição, com diagramas e um exemplo trabalhado",
+      "3": "Um questionário e as perguntas de entrevista",
+      "4": "Notas para download quando a seção estiver completa",
+      "title": "Como cada lição funciona"
+    }
   },
   "lesson": {
     "authors": {
@@ -1323,7 +1334,7 @@
   "store": {
     "eyebrow": "Preços",
     "seoTitle": "CRM Analytics Preço da Academia: Grátis, Pro Mensal, Pro Lifetime, Equipes",
-    "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $ 15 por mês ou $ 99 uma vez. Assentos para empresas e faculdades.",
+    "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $19 por mês ou $149 uma vez. Assentos para empresas e faculdades.",
     "title": "Aprendam de graça. Vá Pro quando você estiver pronto.",
     "lead": "Todas as aulas grátis permanecem livres. Pro desbloqueia toda a plataforma — mensal, ou uma vez para a vida. Empresas e faculdades compram lugares.",
     "sentTitle": "Obrigado — o seu pedido chegou.",
@@ -1528,5 +1539,66 @@
     "lessons": "{n} lições feitas",
     "admin": "Administrador",
     "remove": "Sede livre"
+  },
+  "roadmap": {
+    "s01": {
+      "title": "Salesforce Fundações",
+      "blurb": "Os objetos, o modelo de dados e a integração de cada painel dependem — além do Apex e LWC um analista deve ler.",
+      "l1": "Objetos, campos e relacionamentos",
+      "l2": "Construindo um aplicativo pequeno",
+      "l3": "Noções básicas de integração",
+      "l4": "Apex e LWC para analistas"
+    },
+    "s02": {
+      "title": "GTM Basics",
+      "blurb": "Como uma equipe de receita funciona, então você sabe o que os dados estão descrevendo.",
+      "l1": "O funil: levar ao cliente",
+      "l2": "Pipeline: fases, quantidades e previsões",
+      "l3": "métricas de receitas: ARR, churn, NRR",
+      "l4": "Quem lê qual painel"
+    },
+    "s03": {
+      "title": "Arquitetura de dados",
+      "blurb": "Dados armazenados em muitos lugares, trazidos para um modelo em que você pode confiar.",
+      "l1": "Onde vivem os dados GTM",
+      "l2": "Sincronização de dados, conectores, receitas e conjuntos de dados",
+      "l3": "Grãos, juntas e chaves",
+      "l4": "Instantâneos e histórico",
+      "l5": "Segurança nos dados"
+    },
+    "s04": {
+      "title": "Painéis Cada equipe GTM usa",
+      "blurb": "KPI, instantâneo, mudança, conversão e painéis de adoção — os que são abertos toda semana.",
+      "l1": "KPI painéis",
+      "l2": "Painéis de imagem",
+      "l3": "Alterar análise",
+      "l4": "Painéis de conversão e funil",
+      "l5": "Painéis de adopção",
+      "l6": "Concepção das decisões"
+    },
+    "s05": {
+      "title": "Interações e ligações",
+      "blurb": "Fazer os painéis responderem: facetação, encadernação e SAQL atrás de um widget.",
+      "l1": "Rosto e filtros",
+      "l2": "Selecção e ligações de resultados",
+      "l3": "SAQL atrás de um elemento",
+      "l4": "Painel JSON"
+    },
+    "s06": {
+      "title": "Partilha, Embutimento e Aplicações",
+      "blurb": "Obter painéis na frente das pessoas que precisam deles — dentro Salesforce e além.",
+      "l1": "Aplicações, partilha e licenças",
+      "l2": "Embutindo em Relâmpago, Experience Cloud e Slack",
+      "l3": "Assinaturas, indicações e acções",
+      "l4": "Embalagem e movimento entre orgs"
+    },
+    "s07": {
+      "title": "Avançado",
+      "blurb": "SAQL em profundidade, Einstein Discovery, as APIs e desempenho.",
+      "l1": "SAQL em profundidade",
+      "l2": "Einstein Discovery",
+      "l3": "APIs e automação",
+      "l4": "Desempenho e governança"
+    }
   }
 }

@@ -167,7 +167,7 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <UButton
-              :to="localePath('/curriculum')"
+              :to="localePath('/start')"
               size="xl"
               trailing-icon="i-lucide-arrow-right"
             >
@@ -225,7 +225,7 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
           </h2>
         </div>
         <UButton
-          :to="localePath('/curriculum')"
+          :to="localePath('/start')"
           color="neutral"
           variant="outline"
           trailing-icon="i-lucide-arrow-right"
@@ -317,7 +317,7 @@ const axisTicks = computed(() => Array.from({ length: axisMax.value / 15 + 1 }, 
             {{ t('nav.enrollFree') }}
           </UButton>
           <UButton
-            :to="localePath('/curriculum')"
+            :to="localePath('/start')"
             size="lg"
             color="neutral"
             variant="outline"

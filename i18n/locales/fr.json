@@ -895,20 +895,31 @@
   },
   "curriculumPage": {
     "seo": {
-      "title": "Programmes",
-      "description": "Les CRM Analytics Cours d'académie: chaque section et leçon publiée, dans l'ordre, comme chaque est enregistré."
+      "title": "Commencez à apprendre Salesforce CRM Analytics — le cours complet",
+      "description": "Les CRM Analytics cours dans l'ordre: Salesforce modèle de données, bases GTM, architecture de données, les équipes de revenus des tableaux de bord utilisent, fixations, partage et Einstein Discovery."
     },
     "hero": {
-      "title": "Apprendre CRM Analytics.",
-      "lead": "Courts cours vidéo sur les données réelles sur le marché. De nouvelles leçons arrivent d'abord sur YouTube.",
-      "youtube": "Abonnez-vous sur YouTube",
-      "pricing": "Voir prix"
+      "eyebrow": "Le cours",
+      "title": "Commencez ici.",
+      "lead": "Sept sections, dans l'ordre — du Salesforce le modèle de données aux équipes de recettes des tableaux de bord ouvre chaque semaine. Gratuit pour commencer; chaque leçon est accompagnée d'une vidéo.",
+      "first": "Début de la leçon 1",
+      "pricing": "Voir plans"
     },
-    "empty": {
-      "title": "Les premières leçons sont enregistrées.",
-      "body": "Le cours est en cours de reconstruction, une leçon à la fois. Suivez YouTube pour obtenir chacun le jour où il est publié — ou faites un tour d'essai de la plateforme maintenant."
-    },
-    "section": "Chapitre {n}"
+    "section": "Chapitre {n}",
+    "sidebar": "Sections",
+    "onThisPage": "Sur cette page",
+    "lessons": "{n} Enseignements",
+    "published": "{n} publié",
+    "coming": "À venir",
+    "progress": "Vos progrès",
+    "progressNone": "Connectez-vous pour suivre les leçons que vous terminez.",
+    "how": {
+      "1": "Une courte vidéo, intégrée en haut",
+      "2": "La leçon, avec des diagrammes et un exemple travaillé",
+      "3": "Un quiz et les questions d'entrevue",
+      "4": "Notes téléchargeables lorsque la section est terminée",
+      "title": "Comment fonctionne chaque leçon"
+    }
   },
   "lesson": {
     "authors": {
@@ -1323,7 +1334,7 @@
   "store": {
     "eyebrow": "Prix",
     "seoTitle": "CRM Analytics Prix de l'académie: Gratuit, Pro mensuel, Pro vie, équipes",
-    "seoDesc": "Apprendre Salesforce CRM Analytics gratuit, ou obtenir Pro pour chaque leçon, jeu de données et examen sans publicité — 15 $ par mois ou 99 $ une fois. Sièges pour les entreprises et les collèges.",
+    "seoDesc": "Apprendre Salesforce CRM Analytics gratuit, ou obtenir Pro pour chaque leçon, jeu de données et examen sans publicité — 19 $ par mois ou 149 $ une fois. Sièges pour les entreprises et les collèges.",
     "title": "Apprenez gratuitement. Allez Pro quand vous êtes prêt.",
     "lead": "Chaque leçon gratuite reste gratuite. Pro débloque toute la plateforme — mensuelle, ou une fois à vie. Les entreprises et les collèges achètent des sièges.",
     "sentTitle": "Merci — votre demande est acceptée.",
@@ -1528,5 +1539,66 @@
     "lessons": "{n} Enseignements tirés",
     "admin": "Administrateur",
     "remove": "Siège libre"
+  },
+  "roadmap": {
+    "s01": {
+      "title": "Salesforce Fondations",
+      "blurb": "Les objets, le modèle de données et l'intégration de chaque tableau de bord dépendent — plus Apex et LWC un analyste devrait lire.",
+      "l1": "Objets, champs et relations",
+      "l2": "Construire une petite application",
+      "l3": "Bases d'intégration",
+      "l4": "Apex et LWC pour les analystes"
+    },
+    "s02": {
+      "title": "Bases GTM",
+      "blurb": "Comment fonctionne une équipe de revenus, donc vous savez ce que les données décrivent.",
+      "l1": "L'entonnoir: conduire au client",
+      "l2": "Pipeline : étapes, montants et prévisions",
+      "l3": "Mesure des revenus: ARR, churn, NRR",
+      "l4": "Qui lit quel tableau de bord"
+    },
+    "s03": {
+      "title": "Architecture des données",
+      "blurb": "Données stockées dans de nombreux endroits, apportées dans un modèle que vous pouvez faire confiance.",
+      "l1": "Où vivent les données GTM",
+      "l2": "Synchronisation de données, connecteurs, recettes et ensembles de données",
+      "l3": "Grain, jointures et clés",
+      "l4": "Snapshots et historique",
+      "l5": "Sécurité dans les données"
+    },
+    "s04": {
+      "title": "Tableau de bord Chaque équipe GTM utilise",
+      "blurb": "KPI, snapshot, change, conversion et adoption des tableaux de bord — ceux qui s'ouvrent chaque semaine.",
+      "l1": "KPI tableaux de bord",
+      "l2": "Tableau de bord instantané",
+      "l3": "Changer l'analyse",
+      "l4": "Tableau de bord de conversion et d'entonnoir",
+      "l5": "Tableau de bord pour l'adoption",
+      "l6": "Conception des décisions"
+    },
+    "s05": {
+      "title": "Interactions et liens",
+      "blurb": "Faire répondre les tableaux de bord: facetage, fixations et le SAQL derrière un widget.",
+      "l1": "Visage et filtres",
+      "l2": "Reliures de sélection et de résultats",
+      "l3": "SAQL derrière un widget",
+      "l4": "Tableau de bord JSON"
+    },
+    "s06": {
+      "title": "Partage, intégration et applications",
+      "blurb": "Obtenez des tableaux de bord devant les gens qui en ont besoin — à l'intérieur Salesforce et au-delà.",
+      "l1": "Applications, partage et licences",
+      "l2": "Engagé dans la foudre, Experience Cloud et Slack",
+      "l3": "Abonnements, alertes et actions",
+      "l4": "Emballage et déplacement entre les orgnes"
+    },
+    "s07": {
+      "title": "Avancé",
+      "blurb": "SAQL en profondeur, Einstein Discovery, les API et les performances.",
+      "l1": "SAQL en profondeur",
+      "l2": "Einstein Discovery",
+      "l3": "API et automatisation",
+      "l4": "Rendement et gouvernance"
+    }
   }
 }
