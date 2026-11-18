@@ -72,11 +72,6 @@ usePageSchema(() => ({
           {{ t('companies.prepare') }}
         </UButton>
       </div>
-      <ShareBar
-        class="mt-6"
-        :title="t('companies.title')"
-        :text="t('companies.lead')"
-      />
     </BpPageHeader>
 
     <div class="mx-auto max-w-(--ui-container) px-4 py-12 sm:px-6 lg:px-8">
@@ -87,8 +82,8 @@ usePageSchema(() => ({
       >
         <button
           type="button"
-          class="min-h-11 border px-4 text-[15px] font-semibold"
-          :class="!kind ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--line)'"
+          class="rounded-full border px-4 py-1.5 text-sm font-semibold transition-colors"
+          :class="!kind ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) bg-(--card) text-(--ink2) hover:border-(--signal)'"
           @click="kind = ''"
         >
           {{ t('companies.all') }} <span class="font-mono text-xs opacity-60">{{ companies.length }}</span>
@@ -97,8 +92,8 @@ usePageSchema(() => ({
           v-for="k in KINDS"
           :key="k"
           type="button"
-          class="min-h-11 border px-4 text-[15px] font-semibold"
-          :class="kind === k ? 'border-(--line) bg-(--ink) text-(--paper)' : 'border-(--line) bg-(--card) hover:border-(--line)'"
+          class="rounded-full border px-4 py-1.5 text-sm font-semibold transition-colors"
+          :class="kind === k ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) bg-(--card) text-(--ink2) hover:border-(--signal)'"
           @click="kind = k"
         >
           {{ t(`companies.kinds.${k}`) }} <span class="font-mono text-xs opacity-60">{{ count(k) }}</span>
@@ -122,7 +117,7 @@ usePageSchema(() => ({
               v-for="e in c.evidence"
               :key="e.url"
             >
-              <p class="text-[15px] leading-relaxed text-(--ink2)">
+              <p class="line-clamp-2 text-[15px] leading-relaxed text-(--ink2)">
                 {{ e.note }}
               </p>
               <a
@@ -144,9 +139,6 @@ usePageSchema(() => ({
       <p class="mt-8 max-w-3xl text-sm leading-relaxed text-(--ink2)">
         {{ t('companies.disclaimer', { date: data.checked }) }}
       </p>
-    </div>
-    <div class="mx-auto max-w-(--ui-container) px-4 pb-12 sm:px-6 lg:px-8">
-      <PromoSlot unit="multiplexHorizontal" />
     </div>
   </div>
 </template>
