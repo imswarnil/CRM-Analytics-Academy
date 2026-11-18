@@ -20,7 +20,11 @@ const usd = (n: number) => new Intl.NumberFormat(locale.value, { style: 'currenc
 const busy = ref<PaidPlan | ''>('')
 const error = ref('')
 const cancelled = computed(() => route.query.checkout === 'cancelled')
-const price = (id: PlanId) => (id === 'monthly' ? usd(PRICES.monthly.usd) : id === 'lifetime' ? usd(PRICES.lifetime.usd) : id === 'free' ? usd(0) : '')
+const price = (id: PlanId) => (id === 'free' ? usd(0) : id in PRICES ? usd(PRICES[id as PaidPlan].usd) : '')
+// Yearly, put in monthly terms, and what it saves against twelve months.
+const usd2 = (n: number) => new Intl.NumberFormat(locale.value, { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n)
+const yearlyPerMonth = computed(() => usd2(PRICES.yearly.usd / 12))
+const yearlySave = Math.round((1 - PRICES.yearly.usd / (PRICES.monthly.usd * 12)) * 100)
 
 async function buy(plan: PaidPlan) {
   if (!isSignedIn.value) {
@@ -40,7 +44,7 @@ async function buy(plan: PaidPlan) {
 }
 
 /* --- Teams & institutions: a short seat request ---------------------------------- */
-const form = reactive({ orgKind: 'company' as OrgKind, company: '', seats: 25, email: '', message: '', website: '' })
+const form = reactive({ orgKind: 'company' as OrgKind, company: '', seats: 25, when: 'now' as 'now' | 'quarter' | 'exploring', email: '', message: '', website: '' })
 watch(user, u => (form.email ||= u?.email ?? ''), { immediate: true })
 const token = ref('')
 const human = ref<{ reset: () => void } | null>(null)
@@ -58,7 +62,7 @@ async function send() {
     const source = (useNuxtApp().$firstTouch as (() => string) | undefined)?.() ?? ''
     await $fetch('/api/leads', {
       method: 'POST',
-      body: { product: 'seats', company: form.company, orgKind: form.orgKind, seats: form.seats, email: form.email, message: form.message, website: form.website, token: token.value, locale: locale.value, source, landing: '/pro' }
+      body: { product: 'seats', company: form.company, orgKind: form.orgKind, seats: form.seats, email: form.email, message: [`Start: ${form.when}`, form.message.trim()].filter(Boolean).join('\n'), website: form.website, token: token.value, locale: locale.value, source, landing: '/pro' }
     })
     sent.value = true
   } catch (e) {
@@ -72,7 +76,7 @@ async function send() {
 const title = computed(() => t('store.seoTitle'))
 const description = computed(() => t('store.seoDesc'))
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
-defineOgImage('Docs', { title: t('store.title'), description: description.value, headline: t('store.eyebrow'), spec: `PRO ${usd(PRICES.monthly.usd)}/MO · LIFETIME ${usd(PRICES.lifetime.usd)}` })
+defineOgImage('Docs', { title: t('store.title'), description: description.value, headline: t('store.eyebrow'), spec: `PRO ${usd(PRICES.monthly.usd)}/MO · ${usd(PRICES.yearly.usd)}/YR · LIFETIME ${usd(PRICES.lifetime.usd)}` })
 usePageSchema(() => ({
   name: title.value,
   description: description.value,
@@ -85,6 +89,7 @@ usePageSchema(() => ({
     'brand': { '@type': 'Organization', 'name': SITE.name },
     'offers': [
       { '@type': 'Offer', 'name': 'Pro Monthly', 'price': String(PRICES.monthly.usd), 'priceCurrency': 'USD' },
+      { '@type': 'Offer', 'name': 'Pro Yearly', 'price': String(PRICES.yearly.usd), 'priceCurrency': 'USD' },
       { '@type': 'Offer', 'name': 'Pro Lifetime', 'price': String(PRICES.lifetime.usd), 'priceCurrency': 'USD' }
     ]
   }]
@@ -139,7 +144,7 @@ usePageSchema(() => ({
         <p class="mono-label mb-4">
           {{ t('plans.forYou') }}
         </p>
-        <div class="grid gap-4 md:grid-cols-3">
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <article
             v-for="p in PLANS.filter(x => x.audience === 'b2c')"
             :key="p.id"
@@ -163,6 +168,13 @@ usePageSchema(() => ({
             <p class="mt-6 flex items-baseline gap-1.5">
               <span class="text-4xl font-bold tracking-tight tabular-nums text-(--ink)">{{ price(p.id) }}</span>
               <span class="text-sm text-(--ink2)">{{ t(`plans.${p.id}.unit`) }}</span>
+            </p>
+            <p
+              v-if="p.id === 'yearly'"
+              class="mt-1.5 flex flex-wrap items-center gap-2 text-sm text-(--ink2)"
+            >
+              {{ t('plans.perMonth', { price: yearlyPerMonth }) }}
+              <span class="rounded-full bg-success/10 px-2 py-0.5 text-xs font-bold text-success">{{ t('plans.save', { pct: yearlySave }) }}</span>
             </p>
             <ul class="mt-6 flex-1 space-y-2.5">
               <li
@@ -252,15 +264,35 @@ usePageSchema(() => ({
           </div>
 
           <div class="rounded-[6px] bg-(--card) p-6 text-(--ink)">
-            <p
+            <div
               v-if="sent"
-              class="text-(--ink)"
+              class="flex flex-col items-center py-8 text-center"
             >
-              {{ t('store.sentBody') }}
-            </p>
+              <span class="flex size-14 items-center justify-center rounded-full bg-success/10">
+                <UIcon
+                  name="i-lucide-check"
+                  class="size-7 text-success"
+                />
+              </span>
+              <p class="mt-4 text-xl font-bold text-(--ink)">
+                {{ t('plans.sentTitle') }}
+              </p>
+              <p class="mt-2 max-w-sm text-(--ink2)">
+                {{ t('store.sentBody') }}
+              </p>
+              <ol class="mt-6 space-y-2 text-start text-sm text-(--ink)">
+                <li
+                  v-for="n in 3"
+                  :key="n"
+                  class="flex items-start gap-2.5"
+                >
+                  <span class="flex size-6 shrink-0 items-center justify-center rounded-full bg-(--ice) text-xs font-bold text-(--signal)">{{ n }}</span>{{ t(`plans.next.${n}`) }}
+                </li>
+              </ol>
+            </div>
             <form
               v-else
-              class="grid gap-3"
+              class="grid gap-5"
               @submit.prevent="send"
             >
               <input
@@ -271,47 +303,102 @@ usePageSchema(() => ({
                 aria-hidden="true"
                 class="absolute -left-[9999px] size-px opacity-0"
               >
-              <div class="flex flex-wrap gap-2">
-                <button
-                  v-for="k in ORG_KINDS"
-                  :key="k"
-                  type="button"
-                  class="rounded-full border px-3 py-1 text-sm font-semibold transition-colors"
-                  :class="form.orgKind === k ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) text-(--ink2) hover:border-(--signal)'"
-                  @click="form.orgKind = k"
-                >
-                  {{ t(`plans.kind.${k}`) }}
-                </button>
-              </div>
-              <div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_8rem]">
+              <UFormField :label="t('plans.f.kind')">
+                <div class="grid grid-cols-3 gap-2">
+                  <button
+                    v-for="k in ORG_KINDS"
+                    :key="k"
+                    type="button"
+                    class="flex flex-col items-center gap-1.5 rounded-[6px] border px-2 py-3 text-sm font-semibold transition-colors"
+                    :class="form.orgKind === k ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) text-(--ink2) hover:border-(--signal)'"
+                    :aria-pressed="form.orgKind === k"
+                    @click="form.orgKind = k"
+                  >
+                    <UIcon
+                      :name="{ company: 'i-lucide-building-2', college: 'i-lucide-graduation-cap', team: 'i-lucide-users' }[k]"
+                      class="size-5"
+                    />{{ t(`plans.kind.${k}`) }}
+                  </button>
+                </div>
+              </UFormField>
+              <UFormField
+                :label="form.orgKind === 'college' ? t('plans.f.college') : t('plans.f.org')"
+                required
+              >
                 <UInput
                   v-model="form.company"
                   :placeholder="t('plans.orgName')"
                   size="lg"
+                  class="w-full"
+                  autocomplete="organization"
                   required
                 />
-                <UInput
-                  v-model.number="form.seats"
-                  type="number"
-                  min="2"
-                  :placeholder="t('plans.seats')"
-                  size="lg"
-                />
-              </div>
-              <UInput
-                v-model="form.email"
-                type="email"
-                :placeholder="t('store.f.email')"
-                size="lg"
-                autocomplete="email"
+              </UFormField>
+              <UFormField
+                :label="form.orgKind === 'college' ? t('plans.f.students') : t('plans.f.seats')"
+                :help="t('plans.f.seatsHelp')"
+              >
+                <div class="flex flex-wrap items-center gap-2">
+                  <button
+                    v-for="n in [10, 25, 50, 100, 250]"
+                    :key="n"
+                    type="button"
+                    class="rounded-full border px-3 py-1 text-sm font-semibold tabular-nums transition-colors"
+                    :class="form.seats === n ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) text-(--ink2) hover:border-(--signal)'"
+                    @click="form.seats = n"
+                  >
+                    {{ n }}{{ n === 250 ? '+' : '' }}
+                  </button>
+                  <UInput
+                    v-model.number="form.seats"
+                    type="number"
+                    min="2"
+                    class="w-24"
+                    :aria-label="t('plans.seats')"
+                  />
+                </div>
+              </UFormField>
+              <UFormField :label="t('plans.f.when')">
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    v-for="w in (['now', 'quarter', 'exploring'] as const)"
+                    :key="w"
+                    type="button"
+                    class="rounded-full border px-3 py-1 text-sm font-medium transition-colors"
+                    :class="form.when === w ? 'border-(--signal) bg-(--ice) text-(--signal)' : 'border-(--line) text-(--ink2) hover:border-(--signal)'"
+                    @click="form.when = w"
+                  >
+                    {{ t(`plans.when.${w}`) }}
+                  </button>
+                </div>
+              </UFormField>
+              <UFormField
+                :label="t('plans.f.email')"
+                :help="form.orgKind === 'college' ? t('plans.f.emailCollege') : undefined"
                 required
-              />
-              <UTextarea
-                v-model="form.message"
-                :placeholder="t('plans.messagePlaceholder')"
-                :rows="2"
-                autoresize
-              />
+              >
+                <UInput
+                  v-model="form.email"
+                  type="email"
+                  :placeholder="t('store.f.email')"
+                  size="lg"
+                  class="w-full"
+                  autocomplete="email"
+                  required
+                />
+              </UFormField>
+              <UFormField
+                :label="t('plans.f.message')"
+                :hint="t('contrib.optional')"
+              >
+                <UTextarea
+                  v-model="form.message"
+                  :placeholder="t('plans.messagePlaceholder')"
+                  :rows="3"
+                  autoresize
+                  class="w-full"
+                />
+              </UFormField>
               <HumanCheck
                 ref="human"
                 v-model="token"
@@ -324,13 +411,19 @@ usePageSchema(() => ({
               />
               <UButton
                 type="submit"
-                size="lg"
+                size="xl"
                 :loading="sending"
                 icon="i-lucide-send"
-                class="justify-center"
+                block
               >
                 {{ t('plans.teams.cta') }}
               </UButton>
+              <p class="flex items-center justify-center gap-1.5 text-xs text-(--ink2)">
+                <UIcon
+                  name="i-lucide-clock"
+                  class="size-3.5"
+                />{{ t('plans.f.reply') }}
+              </p>
             </form>
           </div>
         </div>

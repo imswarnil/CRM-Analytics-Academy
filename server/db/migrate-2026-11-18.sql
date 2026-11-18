@@ -14,3 +14,9 @@ create table if not exists app.review (
   unique (product, user_id)
 );
 create index if not exists review_product_idx on app.review (product, status, created_at desc);
+
+-- Pro Yearly ($149): which renewing plan a subscription is on.
+alter table app.subscription add column if not exists plan text not null default 'monthly';
+do $$ begin
+  alter table app.subscription add constraint subscription_plan_chk check (plan in ('monthly', 'yearly'));
+exception when duplicate_object then null; end $$;

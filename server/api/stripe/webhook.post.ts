@@ -27,19 +27,20 @@ async function userById(id: string) {
 
 async function syncSubscription(sub: StripeSubscription) {
   const userId = sub.metadata?.user_id
-  if (sub.metadata?.kind !== 'monthly' || !userId) return
+  const plan = sub.metadata?.kind
+  if (!isSubscriptionPlan(plan) || !userId) return
   const end = sub.current_period_end ?? sub.items?.data[0]?.current_period_end
   const sql = useDb()
   const [before] = await sql`select status from app.subscription where user_id = ${userId}`
   await sql`
-    insert into app.subscription (user_id, stripe_customer, stripe_subscription, status, current_period_end, cancel_at_period_end, updated_at)
-    values (${userId}, ${sub.customer}, ${sub.id}, ${sub.status}, ${end ? new Date(end * 1000).toISOString() : null}, ${sub.cancel_at_period_end}, now())
-    on conflict (user_id) do update set stripe_customer = excluded.stripe_customer, stripe_subscription = excluded.stripe_subscription,
+    insert into app.subscription (user_id, plan, stripe_customer, stripe_subscription, status, current_period_end, cancel_at_period_end, updated_at)
+    values (${userId}, ${plan}, ${sub.customer}, ${sub.id}, ${sub.status}, ${end ? new Date(end * 1000).toISOString() : null}, ${sub.cancel_at_period_end}, now())
+    on conflict (user_id) do update set plan = excluded.plan, stripe_customer = excluded.stripe_customer, stripe_subscription = excluded.stripe_subscription,
       status = excluded.status, current_period_end = excluded.current_period_end,
       cancel_at_period_end = excluded.cancel_at_period_end, updated_at = now()`
   if (!before && ['active', 'trialing'].includes(sub.status)) {
     const user = await userById(userId)
-    if (user) await sendAcademyEvent('subscribe', user, { plan: 'monthly', usd: (sub.items?.data[0]?.price?.unit_amount ?? 0) / 100, seats: 1 })
+    if (user) await sendAcademyEvent('subscribe', user, { plan, usd: (sub.items?.data[0]?.price?.unit_amount ?? 0) / 100, seats: 1 })
   }
 }
 
@@ -64,7 +65,7 @@ export default defineEventHandler(async (event) => {
           on conflict (user_id) do update set product = 'lifetime', expires_at = null, note = excluded.note`
         const user = await userById(meta.user_id)
         if (user) await sendAcademyEvent('subscribe', user, { plan: 'lifetime', usd: Number(obj.amount_total ?? 0) / 100, seats: 1 })
-      } else if (meta.kind === 'monthly' && typeof obj.subscription === 'string') {
+      } else if (isSubscriptionPlan(meta.kind) && typeof obj.subscription === 'string') {
         await syncSubscription(await stripe<StripeSubscription>('GET', `subscriptions/${obj.subscription}`))
       }
     } else if (evt.type === 'customer.subscription.updated' || evt.type === 'customer.subscription.deleted') {

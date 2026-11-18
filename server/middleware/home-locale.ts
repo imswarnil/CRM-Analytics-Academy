@@ -17,7 +17,7 @@
  * and prerender there is no ASSETS binding and this does nothing.
  */
 const BOT = /bot|crawl|spider|slurp|facebookexternalhit|embedly|preview|lighthouse|pagespeed|headless/i
-const LOCALES = new Set(['es', 'de', 'pt', 'ja'])
+const LOCALES = new Set(['es', 'de', 'pt', 'fr', 'ja', 'hi'])
 const COOKIE = 'crma_locale'
 
 export default defineEventHandler(async (event) => {

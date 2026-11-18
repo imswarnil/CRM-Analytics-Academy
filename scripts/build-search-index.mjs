@@ -34,7 +34,7 @@ const ROOT = process.cwd()
 const CONTENT_ROOT = path.join(ROOT, 'content')
 const CONTENT = path.join(CONTENT_ROOT, 'en')
 const SEARCH_OUT = path.join(ROOT, 'public', 'search')
-const LOCALES = ['en', 'es', 'de', 'pt', 'ja']
+const LOCALES = ['en', 'es', 'de', 'pt', 'fr', 'ja', 'hi']
 const SECTION_CAP = 320
 const SITE = 'https://crmanalytics.imswarnil.com'
 const LLMS_BLURB = 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery. Machine-translated from English.'
@@ -250,7 +250,7 @@ async function buildLlms() {
     '- Every lesson opens with what it teaches, ends with a quiz and interview questions, and embeds its YouTube video.',
     '- Practise in a free Salesforce Developer Edition org; the datasets are at ' + SITE + '/datasets.',
     '- Each lesson link below is the raw markdown of that lesson. The rendered page is the same path without /raw and .md.',
-    `- Translations: every lesson is translated into Spanish, Portuguese, Japanese and German; each has its own index at ${SITE}/<locale>/llms.txt (es, pt, ja, de).`,
+    `- Translations: every lesson is translated into Spanish, Portuguese, German, French, Japanese and Hindi; each has its own index at ${SITE}/<locale>/llms.txt (es, pt, de, fr, ja, hi).`,
     `- MCP: ${SITE}/mcp (list_curriculum, search_lessons, get_lesson).`,
     ''
   ]

@@ -140,6 +140,12 @@ useJsonLd({
     'acceptedAnswer': { '@type': 'Answer', 'text': f.a }
   }))
 })
+const heroFacts = computed(() => [
+  { icon: 'i-lucide-layers', value: String(ROADMAP.length), label: t('home.facts.sections') },
+  { icon: 'i-lucide-timer', value: String(EXAM.questions), label: t('home.facts.exam') },
+  { icon: 'i-lucide-languages', value: '7', label: t('home.facts.languages') },
+  { icon: 'i-lucide-badge-dollar-sign', value: t('home.facts.freeValue'), label: t('home.facts.free') }
+])
 </script>
 
 <template>
@@ -152,12 +158,12 @@ useJsonLd({
         style="background-image: linear-gradient(rgb(124 190 255 / .08) 1px, transparent 1px), linear-gradient(90deg, rgb(124 190 255 / .08) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(to bottom, #000 40%, transparent)"
         aria-hidden="true"
       />
-      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.05fr_1fr] lg:px-8">
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 pt-12 pb-10 sm:px-6 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:px-8">
         <div>
           <p class="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[.09em] text-blueprint-200">
             <span class="size-1.5 rounded-full bg-blueprint-400" />{{ t('home.hero.eyebrow') }}
           </p>
-          <h1 class="mt-5 text-4xl font-bold leading-[1.06] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
+          <h1 class="mt-5 text-4xl font-bold leading-[1.06] tracking-[-0.025em] sm:text-5xl lg:text-[3.5rem]">
             {{ t('home.hero.title') }}
           </h1>
           <p class="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
@@ -211,22 +217,36 @@ useJsonLd({
               {{ t('home.hero.stack') }}
             </p>
           </div>
-          <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70">
-            <li
-              v-for="p in ['free', 'languages', 'ai']"
-              :key="p"
-              class="flex items-center gap-1.5"
-            >
-              <UIcon
-                :name="p === 'ai' ? 'i-lucide-sparkles' : 'i-lucide-check'"
-                class="size-4 text-blueprint-300"
-              />{{ t(`home.hero.proof.${p}`) }}
-            </li>
-          </ul>
         </div>
 
         <!-- The product, as a story: what you will build -->
         <HomeStory class="min-w-0" />
+      </div>
+
+      <!-- Key facts, one band -->
+      <div class="relative border-t border-white/10">
+        <dl class="mx-auto grid max-w-(--ui-container) grid-cols-2 gap-px px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
+          <div
+            v-for="f in heroFacts"
+            :key="f.label"
+            class="flex items-center gap-3 py-5"
+          >
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-[6px] bg-white/10 text-blueprint-200">
+              <UIcon
+                :name="f.icon"
+                class="size-5"
+              />
+            </span>
+            <div>
+              <dd class="text-lg font-bold leading-tight text-white">
+                {{ f.value }}
+              </dd>
+              <dt class="text-sm text-white/65">
+                {{ f.label }}
+              </dt>
+            </div>
+          </div>
+        </dl>
       </div>
     </section>
 

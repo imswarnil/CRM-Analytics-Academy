@@ -9,7 +9,7 @@ interface Billing {
   configured: boolean
   access: Access
   lifetime: { product: string, at: string, until: string | null } | null
-  subscription: { status: string, periodEnd: string | null, cancelAtPeriodEnd: boolean } | null
+  subscription: { plan: 'monthly' | 'yearly', status: string, periodEnd: string | null, cancelAtPeriodEnd: boolean } | null
   org: { name: string, kind: string, role: string } | null
 }
 
@@ -60,7 +60,7 @@ useSeoMeta({ title: () => t('account.title'), robots: 'noindex' })
       <!-- How Pro is held -->
       <div class="mt-4 space-y-2 text-sm text-(--ink2)">
         <p v-if="billing?.subscription">
-          {{ t('plans.monthly.name') }} ·
+          {{ t(`plans.${billing.subscription.plan}.name`) }} ·
           {{ billing.subscription.cancelAtPeriodEnd ? t('account.endsOn', { date: date(billing.subscription.periodEnd) }) : t('account.renewsOn', { date: date(billing.subscription.periodEnd) }) }}
         </p>
         <p v-if="billing?.lifetime">

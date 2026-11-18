@@ -28,7 +28,7 @@
     "pro": "Pricing",
     "billing": "Access",
     "main": {
-      "course": "Course",
+      "course": "Start here",
       "exam": "Practice exam",
       "interview": "Interview Q&A",
       "pricing": "Pricing",
@@ -70,11 +70,11 @@
       "eyebrow": "Salesforce CRM Analytics, taught on real GTM data",
       "title": "Become the CRM Analytics expert your team relies on.",
       "lead": "Hands-on lessons on recipes, SAQL, dashboards, security and Einstein Discovery — built on one company’s marketing, pipeline and revenue data.",
-      "start": "Start learning free",
+      "start": "Start here",
       "curriculum": "Start here",
       "proof": {
         "free": "Free, no card",
-        "languages": "5 languages",
+        "languages": "7 languages",
         "ai": "Includes AI for analytics"
       },
       "pricing": "See plans",
@@ -150,7 +150,7 @@
     "inside": {
       "lessons": {
         "title": "Short lessons, step by step",
-        "body": "Video and text, a quiz after each, in 5 languages."
+        "body": "Video and text, a quiz after each, in 7 languages."
       },
       "visualisers": {
         "title": "See it run",
@@ -266,6 +266,13 @@
     "path": {
       "title": "Seven sections, from the data model to the dashboards people open every morning.",
       "lead": "{lessons} lessons are out now. The rest arrive section by section, each with a video, a quiz and a page of notes."
+    },
+    "facts": {
+      "sections": "course sections, in order",
+      "exam": "question practice exam",
+      "languages": "languages, incl. Hindi",
+      "freeValue": "Free",
+      "free": "to start, no card"
     }
   },
   "footer": {
@@ -422,7 +429,7 @@
     "signUpLink": "Create an account",
     "asideTitle": "Learn CRM Analytics the way it is used at work.",
     "asideText": "Most lessons, every dataset and every quiz are free. Signed in, you read without ads and the site remembers your place.",
-    "asideMeta": "Free · no card · 5 languages",
+    "asideMeta": "Free · no card · 7 languages",
     "eyebrowSignIn": "Sign in",
     "eyebrowSignUp": "Enroll",
     "pageSignIn": "Sign in",
@@ -709,8 +716,8 @@
       "module": "top-level module"
     },
     "translations": {
-      "p1": "The site ships in {languages}: English (default), Spanish, Portuguese, Japanese and German — the largest Salesforce markets.",
-      "languages": "5 languages",
+      "p1": "The site ships in {languages}: English (default), Spanish, Portuguese, German, French, Japanese and Hindi.",
+      "languages": "7 languages",
       "p2": "{bold} Write the lesson in English only. On the next build, a LibreTranslate server running locally translates it and writes {path} for the four other languages. Code blocks, SAQL, links, frontmatter keys and product names are protected and come through untouched.",
       "p2Bold": "You do not translate by hand.",
       "p3": "To run it yourself: {all} (only changed files), or {subset}.",
@@ -735,7 +742,7 @@
       "nuxt": "{name} (Vue 3 + Nitro) — the framework, SSR + prerendering",
       "content": "{name} — lessons authored in Markdown, served from SQLite",
       "ui": "{ui} + {tailwind} — components and styling",
-      "i18n": "{name} — 5 languages, four of them translated from English",
+      "i18n": "{name} — 7 languages, six of them translated from English",
       "hosting": "{workers} + {actions} — prerendered pages served as static assets, a Worker for the dynamic routes, auto-deployed on push to {main}",
       "extras": "Also in the box: {og} (social cards), {llms} (machine-readable docs), and structured data for SEO.",
       "noDb": "Every lesson is prerendered at build time from Markdown, so you can write and preview lessons with {bold}. Accounts and progress run on Neon Postgres and only matter if you are working on those features — the README covers them.",
@@ -1471,7 +1478,7 @@
   "store": {
     "eyebrow": "Pricing",
     "seoTitle": "CRM Analytics Academy pricing: Free, Pro Monthly, Pro Lifetime, Teams",
-    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $19 a month or $299 once. Seats for companies and colleges.",
+    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $49 a month, $149 a year or $299 once. Seats for companies and colleges.",
     "title": "Learn free. Go Pro when you are ready.",
     "lead": "Every free lesson stays free. Pro unlocks the whole platform — monthly, or once for life. Companies and colleges buy seats.",
     "sentTitle": "Thanks — your request is in.",
@@ -1568,6 +1575,43 @@
       "f3": "Seat management and progress for admins",
       "f4": "Invoiced billing and volume pricing",
       "f5": "Onboarding help for your org"
+    },
+    "yearly": {
+      "name": "Pro Yearly",
+      "tagline": "A full year of everything, for the price of three months.",
+      "unit": "per year",
+      "cta": "Start Pro Yearly",
+      "f1": "Everything in Pro Monthly",
+      "f2": "Every dataset and downloadable dashboard",
+      "f3": "Full answer review on the practice exam",
+      "f4": "Renews yearly — cancel any time",
+      "f5": "No ads anywhere"
+    },
+    "perMonth": "About {price} a month",
+    "save": "Save {pct}%",
+    "f": {
+      "kind": "Who is it for?",
+      "org": "Organisation name",
+      "college": "College or university",
+      "seats": "How many people?",
+      "students": "How many students?",
+      "seatsHelp": "A rough number is fine — seats can change later.",
+      "when": "When do you want to start?",
+      "email": "Your work email",
+      "emailCollege": "Use your college email: students with the same domain can join automatically.",
+      "message": "Anything we should know?",
+      "reply": "A reply within two working days."
+    },
+    "when": {
+      "now": "This month",
+      "quarter": "This quarter",
+      "exploring": "Just exploring"
+    },
+    "sentTitle": "Request received",
+    "next": {
+      "1": "You get a reply with a quote and an invoice.",
+      "2": "Your organisation is set up with its seats and a join code.",
+      "3": "Your people join with the code and start learning."
     }
   },
   "studio": {
@@ -1754,7 +1798,7 @@
     "slotCta": "Become a sponsor",
     "eyebrow": "Sponsor the Academy",
     "title": "Reach the people who build Salesforce analytics.",
-    "lead": "Salesforce admins, analysts, GTM engineers and RevOps teams learn CRM Analytics here, in 5 languages. Sponsors support free lessons and appear where learners already are.",
+    "lead": "Salesforce admins, analysts, GTM engineers and RevOps teams learn CRM Analytics here, in 7 languages. Sponsors support free lessons and appear where learners already are.",
     "whereTitle": "Where sponsors appear",
     "where": {
       "lessons": {
@@ -1803,7 +1847,7 @@
       "f1": "One page per section, short and to the point",
       "f2": "Hand-drawn diagrams and charts",
       "f3": "PDF for print, Markdown for your own notes",
-      "f4": "In English, Spanish, Portuguese, German and Japanese"
+      "f4": "In seven languages, including Hindi and Japanese"
     },
     "seePreview": "See a preview",
     "status": "{ready} of {total} sections ready",

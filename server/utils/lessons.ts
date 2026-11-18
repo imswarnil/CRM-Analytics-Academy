@@ -7,7 +7,7 @@ import meta from '~~/app/data/lesson-meta.json'
  * neither earn points on the leaderboard nor fill a table with junk.
  */
 const LESSONS = meta as Record<string, { quiz?: boolean }>
-const LOCALE_PREFIX = /^\/(en|es|de|pt|ja)(?=\/|$)/
+const LOCALE_PREFIX = /^\/(en|es|de|pt|fr|ja|hi)(?=\/|$)/
 
 /** Locale-stripped, trailing-slash-free path; '' when it is not a lesson. */
 export function lessonPath(raw: unknown): string {

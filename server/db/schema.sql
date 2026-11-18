@@ -270,6 +270,7 @@ create table if not exists app.stripe_event (
 -- webhook is the only writer). Pro while status is active, trialing or past_due.
 create table if not exists app.subscription (
   user_id              text primary key,
+  plan                 text not null default 'monthly' check (plan in ('monthly', 'yearly')),
   stripe_customer      text not null,
   stripe_subscription  text not null unique,
   status               text not null,

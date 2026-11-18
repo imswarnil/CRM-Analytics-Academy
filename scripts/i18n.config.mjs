@@ -23,7 +23,9 @@ export const TARGET_LOCALES = {
   // The local Argos model is `pt`; LibreTranslate maps `pt-BR` to a separate
   // `pb` model that is not installed (scripts/libretranslate.sh).
   pt: 'pt',
-  ja: 'ja'
+  fr: 'fr',
+  ja: 'ja',
+  hi: 'hi'
 }
 
 /**
@@ -38,7 +40,26 @@ export const NATIVE_NAMES = {
   es: 'Espa\u00f1ol',
   de: 'Deutsch',
   pt: 'Portugu\u00eas',
-  ja: '\u65e5\u672c\u8a9e'
+  fr: 'Fran\u00e7ais',
+  ja: '\u65e5\u672c\u8a9e',
+  hi: '\u0939\u093f\u0928\u094d\u0926\u0940'
+}
+
+/**
+ * Short UI labels whose machine translation is wrong, by message path and
+ * locale. Like NATIVE_NAMES, these are authored, not translated: keep the list
+ * to navigation labels a native speaker would phrase differently, and add an
+ * entry only after reading the engine's output.
+ */
+export const UI_FIXED = {
+  'nav.main.course': {
+    es: 'Empieza aquí',
+    pt: 'Comece aqui',
+    de: 'Hier starten',
+    fr: 'Commencer ici',
+    ja: 'はじめに',
+    hi: 'यहाँ से शुरू करें'
+  }
 }
 
 /** Locales that read right-to-left (mirrors `dir: 'rtl'` in nuxt.config.ts). */

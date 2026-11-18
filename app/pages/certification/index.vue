@@ -131,25 +131,110 @@ usePageSchema(() => ({
             >
               <NuxtLink
                 :to="localePath(`/certification/${p.id}`)"
-                class="bp-card bp-card--hover group flex h-full flex-col p-6"
+                class="bp-card bp-card--hover group flex h-full flex-col overflow-hidden"
               >
-                <span class="flex items-center gap-3">
-                  <span class="bp-iconbox">
+                <!-- Thumbnail: an answer sheet, a timer and a score ring -->
+                <svg
+                  viewBox="0 0 320 150"
+                  class="block w-full border-b border-(--line) bg-(--ice)"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="24"
+                    y="18"
+                    width="170"
+                    height="150"
+                    rx="4"
+                    fill="var(--card)"
+                    stroke="var(--line)"
+                  />
+                  <g
+                    v-for="(q, k) in [0, 1, 2, 3]"
+                    :key="q"
+                  >
+                    <rect
+                      x="40"
+                      :y="36 + k * 28"
+                      width="70"
+                      height="6"
+                      rx="3"
+                      fill="var(--ink2)"
+                      opacity=".35"
+                    />
+                    <circle
+                      v-for="c in 4"
+                      :key="c"
+                      :cx="112 + c * 16"
+                      :cy="39 + k * 28"
+                      r="5"
+                      :fill="c === [2, 4, 1, 3][k] ? 'var(--signal)' : 'none'"
+                      stroke="var(--signal)"
+                      stroke-width="1.5"
+                    />
+                  </g>
+                  <circle
+                    cx="250"
+                    cy="66"
+                    r="34"
+                    fill="none"
+                    stroke="var(--line)"
+                    stroke-width="8"
+                  />
+                  <circle
+                    cx="250"
+                    cy="66"
+                    r="34"
+                    fill="none"
+                    stroke="var(--signal)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-dasharray="145 214"
+                    transform="rotate(-90 250 66)"
+                  />
+                  <text
+                    x="250"
+                    y="72"
+                    text-anchor="middle"
+                    font-size="17"
+                    font-weight="700"
+                    fill="var(--ink)"
+                  >{{ EXAM.passPct }}%</text>
+                  <g transform="translate(222 112)">
+                    <rect
+                      width="56"
+                      height="22"
+                      rx="11"
+                      fill="var(--navy)"
+                    />
+                    <text
+                      x="28"
+                      y="15"
+                      text-anchor="middle"
+                      font-size="11"
+                      font-weight="700"
+                      fill="#fff"
+                    >{{ p.minutes }}′</text>
+                  </g>
+                </svg>
+                <span class="flex flex-1 flex-col p-6">
+                  <span class="flex items-center gap-3">
+                    <span class="bp-iconbox">
+                      <UIcon
+                        name="i-lucide-file-check-2"
+                        class="size-5"
+                      />
+                    </span>
+                    <span class="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.09em] text-success">{{ t('pro.freeLesson') }}</span>
+                  </span>
+                  <span class="mt-4 text-lg font-bold text-(--ink) group-hover:text-(--signal)">{{ p.title }}</span>
+                  <span class="mt-1 text-sm text-(--ink2)">{{ t('cert.paperLine', { q: p.questions, m: p.minutes, p: EXAM.passPct }) }}</span>
+                  <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-(--signal)">
+                    {{ t('cert.startFirst') }}
                     <UIcon
-                      name="i-lucide-file-check-2"
-                      class="size-5"
+                      name="i-lucide-arrow-right"
+                      class="size-4"
                     />
                   </span>
-                  <span class="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.09em] text-success">{{ t('pro.freeLesson') }}</span>
-                </span>
-                <span class="mt-4 text-lg font-bold text-(--ink) group-hover:text-(--signal)">{{ p.title }}</span>
-                <span class="mt-1 text-sm text-(--ink2)">{{ t('cert.paperLine', { q: p.questions, m: p.minutes, p: EXAM.passPct }) }}</span>
-                <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-(--signal)">
-                  {{ t('cert.startFirst') }}
-                  <UIcon
-                    name="i-lucide-arrow-right"
-                    class="size-4"
-                  />
                 </span>
               </NuxtLink>
             </li>

@@ -18,6 +18,9 @@ export const COUNTRY_LOCALE: Record<string, string> = {
   DE: 'de', AT: 'de', LI: 'de', CH: 'de',
   // Portuguese
   BR: 'pt', PT: 'pt', AO: 'pt', MZ: 'pt', CV: 'pt',
+  // French
+  FR: 'fr', MC: 'fr', SN: 'fr', CI: 'fr', ML: 'fr', BF: 'fr', NE: 'fr', TG: 'fr', BJ: 'fr', GA: 'fr', CD: 'fr', CG: 'fr', HT: 'fr',
+  GN: 'fr', CM: 'fr', MG: 'fr', LU: 'fr', BE: 'fr',
   // Japanese
   JP: 'ja'
 }

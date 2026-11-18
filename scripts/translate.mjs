@@ -35,6 +35,7 @@ import {
   CONCURRENCY,
   DEFAULT_ENDPOINT,
   NATIVE_NAMES,
+  UI_FIXED,
   SOURCE_LOCALE,
   TARGET_LOCALES,
   TRANSLATABLE_KEYS
@@ -573,6 +574,23 @@ function invalidMessage(translated, source) {
   return ''
 }
 
+/**
+ * Clean-up applied to every UI string, translated now or earlier:
+ * - a fixed wording from UI_FIXED wins (short labels the engine gets wrong);
+ * - a full stop the English source does not have is removed — the engine adds
+ *   one to short labels ("Start here" → "Empieza aquí."), which reads wrong
+ *   on a button.
+ */
+function tidyUi(text, source, path, locale) {
+  const fixed = UI_FIXED[path]?.[locale]
+  if (fixed) return fixed
+  if (typeof text !== 'string' || typeof source !== 'string') return text
+  if (!/[.。।]$/.test(source.trim()) && /[.。।]$/.test(text.trim()) && !/\.\.\.$|…$/.test(text.trim())) {
+    return text.trim().replace(/[.。।]$/, '')
+  }
+  return text
+}
+
 async function translateUi(manifest) {
   const enPath = join(LOCALES_DIR, `${SOURCE_LOCALE}.json`)
   const en = JSON.parse(await readFile(enPath, 'utf8'))
@@ -616,6 +634,11 @@ async function translateUi(manifest) {
     })
 
     if (!stale.size) {
+      // Nothing to translate, but the clean-up (tidyUi) still applies to
+      // what is there — so a new UI_FIXED entry lands without a re-translation.
+      const tidied = mapMessages(en, (source, path) => tidyUi(current.get(path) ?? source, source, path, locale))
+      if (NATIVE_NAMES[locale] && typeof tidied.language === 'string') tidied.language = NATIVE_NAMES[locale]
+      if (!DRY_RUN) await write(outPath, JSON.stringify(tidied, null, 2))
       console.log(`  ui ${locale}: up to date`)
       continue
     }
@@ -637,7 +660,8 @@ async function translateUi(manifest) {
     let kept = 0
     let done = 0
 
-    const out = mapMessages(en, (source, path) => {
+    const out = mapMessages(en, (source, path) => tidyUi(pick(source, path), source, path, locale))
+    function pick(source, path) {
       if (!stale.has(path)) return current.get(path) ?? source
 
       const raw = translated.get(htmlBySource.get(source))
@@ -655,7 +679,7 @@ async function translateUi(manifest) {
       done++
       nextHashes[path] = sha(source)
       return restored
-    })
+    }
 
     // The locale's own name is authored, not translated — see NATIVE_NAMES.
     if (NATIVE_NAMES[locale] && typeof out.language === 'string') out.language = NATIVE_NAMES[locale]

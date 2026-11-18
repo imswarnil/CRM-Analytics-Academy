@@ -95,15 +95,15 @@ usePageSchema(() => ({
     <!-- Hero -->
     <section class="relative overflow-hidden border-b border-(--line) bg-(--card)">
       <BpFloatCharts />
-      <div class="relative mx-auto flex max-w-(--ui-container) flex-wrap items-end justify-between gap-6 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div class="relative mx-auto flex max-w-(--ui-container) flex-wrap items-center justify-between gap-6 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div class="max-w-2xl">
           <p class="eyebrow">
             {{ t('curriculumPage.hero.eyebrow') }}
           </p>
-          <h1 class="bp-h1 mt-3">
+          <h1 class="mt-2 text-3xl font-bold leading-tight tracking-[-0.02em] text-(--ink) sm:text-4xl">
             {{ t('curriculumPage.hero.title') }}
           </h1>
-          <p class="bp-lead mt-4">
+          <p class="mt-3 text-[1.0625rem] leading-relaxed text-(--ink2)">
             {{ t('curriculumPage.hero.lead') }}
           </p>
         </div>
@@ -111,14 +111,14 @@ usePageSchema(() => ({
           <UButton
             v-if="firstLesson"
             :to="localePath(firstLesson)"
-            size="xl"
+            size="lg"
             trailing-icon="i-lucide-arrow-right"
           >
             {{ t('curriculumPage.hero.first') }}
           </UButton>
           <UButton
             :to="localePath('/pro')"
-            size="xl"
+            size="lg"
             color="neutral"
             variant="outline"
           >

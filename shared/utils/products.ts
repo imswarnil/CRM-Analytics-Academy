@@ -3,7 +3,8 @@
  * the admin console and Salesforce).
  *
  *   B2C  free       every `access: free` lesson (the default), with ads
- *        monthly    Pro — everything, no ads — a Stripe subscription
+ *        monthly    Pro — everything, no ads — a monthly Stripe subscription
+ *        yearly     Pro for a year — a yearly Stripe subscription
  *        lifetime   Pro, forever — one Stripe payment
  *   B2B  teams      Pro for every seat of a company, college or team — a
  *                   sales conversation (POST /api/leads) → an org created in
@@ -15,7 +16,7 @@
  * gamification only.
  */
 export type Access = 'free' | 'pro'
-export type PlanId = 'free' | 'monthly' | 'lifetime' | 'teams'
+export type PlanId = 'free' | 'monthly' | 'yearly' | 'lifetime' | 'teams'
 
 export const WELCOME_POINTS = 1000
 
@@ -24,14 +25,19 @@ export interface Price {
   key: string
   /** USD, whole dollars. */
   usd: number
-  interval?: 'month'
+  interval?: 'month' | 'year'
 }
 
 export const PRICES = {
-  monthly: { key: 'crma_pro_monthly', usd: 19, interval: 'month' },
+  monthly: { key: 'crma_pro_monthly', usd: 49, interval: 'month' },
+  yearly: { key: 'crma_pro_yearly', usd: 149, interval: 'year' },
   lifetime: { key: 'crma_pro_lifetime', usd: 299 }
 } as const satisfies Record<string, Price>
 export type PaidPlan = keyof typeof PRICES
+/** The paid plans that renew (Stripe subscriptions). */
+export const SUBSCRIPTION_PLANS = ['monthly', 'yearly'] as const
+export type SubscriptionPlan = typeof SUBSCRIPTION_PLANS[number]
+export const isSubscriptionPlan = (v: unknown): v is SubscriptionPlan => v === 'monthly' || v === 'yearly'
 
 export interface Plan {
   id: PlanId
@@ -45,7 +51,8 @@ export interface Plan {
 
 export const PLANS: Plan[] = [
   { id: 'free', icon: 'i-lucide-book-open', audience: 'b2c', features: 4 },
-  { id: 'monthly', icon: 'i-lucide-calendar-sync', audience: 'b2c', features: 5, featured: true },
+  { id: 'monthly', icon: 'i-lucide-calendar-sync', audience: 'b2c', features: 5 },
+  { id: 'yearly', icon: 'i-lucide-calendar-check', audience: 'b2c', features: 5, featured: true },
   { id: 'lifetime', icon: 'i-lucide-infinity', audience: 'b2c', features: 5 },
   { id: 'teams', icon: 'i-lucide-building-2', audience: 'b2b', features: 5 }
 ]

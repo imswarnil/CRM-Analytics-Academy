@@ -127,7 +127,7 @@ flowchart LR
   subgraph Mac[Your machine]
     MD[content/en/*.md<br/>or Nuxt Studio] --> B[pnpm build]
     LT[(LibreTranslate<br/>.libretranslate/)] <--> B
-    B -->|4 locales + llms.txt| G[git push]
+    B -->|6 locales + llms.txt| G[git push]
     REC[Recorded lesson] --> YT[YouTube] -.video id.-> MD
   end
   G --> CI[GitHub Actions<br/>lint · typecheck · build]
@@ -160,7 +160,7 @@ English source of every file), stops it, and the result is committed. CI never t
 | Analytics | Cloudflare Web Analytics + Search Console; milestones in `app.event`; first-touch source into Salesforce |
 | Translation | [LibreTranslate](https://libretranslate.com), installed locally, run by `pnpm build` |
 | Video | Published on YouTube, embedded per lesson |
-| i18n | `@nuxtjs/i18n` — 5 locales (en, es, pt, de, ja) |
+| i18n | `@nuxtjs/i18n` — 7 locales (en, es, pt, de, fr, ja, hi) |
 | SEO | `@nuxtjs/sitemap`, `nuxt-og-image`, JSON-LD, hreflang, IndexNow |
 | Quality | ESLint, `vue-tsc`, GitHub Actions |
 
@@ -234,7 +234,7 @@ the source of truth; `brand/` holds the logo mark, icons and YouTube art.
 
 ```text
 app/                  pages, components (bp/ = shared primitives), composables, plugins
-content/              lessons in 5 locales, resources/, people/
+content/              lessons in 7 locales, resources/, people/
 server/api/           the routes above · server/db/schema.sql · server/routes/ (mcp, media)
 scripts/              prebuild, translate + libretranslate.sh, lesson-meta, search/llms index, indexnow
 brand/                logo mark, icons and YouTube channel art (node brand/build.mjs)

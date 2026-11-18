@@ -3,9 +3,10 @@ import { fileURLToPath } from 'node:url'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-// The 5 locales the site ships (2026-11-18: the biggest Salesforce markets
-// and the highest ad rates — English, Spanish, Portuguese, Japanese, German).
-// The seven retired locales 301 to English (DROPPED_LOCALES below). `language` is the BCP-47 tag that lands in
+// The 7 locales the site ships (2026-11-18: the biggest Salesforce markets,
+// the highest ad rates and the largest learner audiences — English, Spanish,
+// Portuguese, German, French, Japanese, Hindi). The five retired locales 301
+// to English (DROPPED_LOCALES below). `language` is the BCP-47 tag that lands in
 // <html lang> and in the hreflang alternates; `dir` drives <html dir> so Arabic
 // and Urdu lay out right-to-left.
 //
@@ -18,7 +19,9 @@ const locales = [
   { code: 'es', language: 'es-ES', name: 'Español', file: 'es.json' },
   { code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json' },
   { code: 'pt', language: 'pt-BR', name: 'Português', file: 'pt.json' },
-  { code: 'ja', language: 'ja-JP', name: '日本語', file: 'ja.json' }
+  { code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json' },
+  { code: 'ja', language: 'ja-JP', name: '日本語', file: 'ja.json' },
+  { code: 'hi', language: 'hi-IN', name: 'हिन्दी', file: 'hi.json' }
 ] as const
 
 const DEFAULT_LOCALE = 'en'
@@ -73,7 +76,7 @@ const RETIRED: Record<string, string> = {
   '/sponsor/**': '/sponsor'
 }
 
-const DROPPED_LOCALES = ['fr', 'zh', 'hi', 'ar', 'ru', 'bn', 'ur']
+const DROPPED_LOCALES = ['zh', 'ar', 'ru', 'bn', 'ur']
 const droppedRules = Object.fromEntries(DROPPED_LOCALES.flatMap(c => [
   [`/${c}`, { redirect: { to: '/', statusCode: 301 } }],
   [`/${c}/**`, { redirect: { to: '/**', statusCode: 301 } }]

@@ -28,7 +28,7 @@
     "pro": "Preços",
     "billing": "Acesso",
     "main": {
-      "course": "Curso",
+      "course": "Comece aqui",
       "exam": "Exame de prática",
       "interview": "Entrevista Q&A",
       "pricing": "Preços",
@@ -70,11 +70,11 @@
       "eyebrow": "Salesforce CRM Analytics, ensinado em dados reais GTM",
       "title": "Tornar-se o CRM Analytics Perito na qual a sua equipa depende.",
       "lead": "Aulas práticas sobre receitas, SAQL, painéis, segurança e Einstein Discovery — com base nos dados de marketing, gasoduto e receitas de uma empresa.",
-      "start": "Começar a aprender gratuitamente",
-      "curriculum": "Começa aqui.",
+      "start": "Começa aqui",
+      "curriculum": "Começa aqui",
       "proof": {
         "free": "Livre, sem cartão",
-        "languages": "5 línguas",
+        "languages": "7 línguas",
         "ai": "Inclui IA para análise"
       },
       "pricing": "Ver os planos",
@@ -150,7 +150,7 @@
     "inside": {
       "lessons": {
         "title": "Aulas curtas, passo a passo",
-        "body": "Vídeo e texto, um questionário após cada, em 5 idiomas."
+        "body": "Vídeo e texto, um questionário após cada, em 7 idiomas."
       },
       "visualisers": {
         "title": "Vê-lo correr",
@@ -246,7 +246,7 @@
       "selfPaced": "módulos automáticos",
       "academyUnit": "livre para iniciar · Pro {monthly}/mo ou uma vez para a vida",
       "source": "Preço listado",
-      "yes": "Sim.",
+      "yes": "Sim",
       "no": "Não",
       "cols": {
         "anytime": "Aprenda a qualquer hora",
@@ -266,6 +266,13 @@
     "path": {
       "title": "Sete seções, do modelo de dados aos painéis que as pessoas abrem todas as manhãs.",
       "lead": "{lessons} As aulas acabaram. O resto chega seção por seção, cada um com um vídeo, um questionário e uma página de notas."
+    },
+    "facts": {
+      "sections": "Seções de curso, em ordem",
+      "exam": "exame de prática de perguntas",
+      "languages": "línguas, incl. Hindi",
+      "freeValue": "Livre",
+      "free": "para começar, nenhuma carta"
     }
   },
   "footer": {
@@ -291,7 +298,7 @@
   },
   "course": {
     "collapseContents": "Recolher o conteúdo do curso",
-    "comingSoon": "Em breve.",
+    "comingSoon": "Em breve",
     "completed": "Concluído",
     "contents": "Conteúdo do curso",
     "contentsPct": "Conteúdo · {pct}%",
@@ -305,7 +312,7 @@
   },
   "dashboard": {
     "kicker": "Painel",
-    "welcome": "Bem-vindo de volta.",
+    "welcome": "Bem-vindo de volta",
     "welcomeNamed": "Bem-vindo de volta. {name}",
     "lead": "Continue de onde parou — uma lição por dia se soma.",
     "streakLead": "Você está em um {n}- dia de sorte. Continua hoje.",
@@ -350,7 +357,7 @@
         "desc": "Complete sua primeira lição"
       },
       "ten": {
-        "title": "Dez para baixo.",
+        "title": "Dez para baixo",
         "desc": "Completar 10 lições"
       },
       "section": {
@@ -403,7 +410,7 @@
     "practice": "Ferramentas práticas"
   },
   "auth": {
-    "signInTitle": "Bem-vindo de volta.",
+    "signInTitle": "Bem-vindo de volta",
     "signInDesc": "Continua exactamente onde paraste.",
     "signUpTitle": "Inscrição gratuita",
     "signUpDesc": "Uma conta gratuita: seu progresso, pontuação de questionário e perguntas seguem você para cada dispositivo.",
@@ -422,7 +429,7 @@
     "signUpLink": "Criar uma conta",
     "asideTitle": "Aprender CRM Analytics a forma como é utilizado no trabalho.",
     "asideText": "A maioria das lições, cada conjunto de dados e cada questionário são gratuitos. Assinado, você lê sem anúncios e o site se lembra do seu lugar.",
-    "asideMeta": "Grátis · sem cartão · 5 idiomas",
+    "asideMeta": "Livre · sem cartão · 7 idiomas",
     "eyebrowSignIn": "Iniciar sessão",
     "eyebrowSignUp": "Inscrição",
     "pageSignIn": "Iniciar sessão",
@@ -443,7 +450,7 @@
     "score": "Você marcou. {score} de {total}",
     "passed": "Passado - bom trabalho!",
     "failed": "Ainda não - reveja as lições e tente novamente.",
-    "retry": "Tenta outra vez.",
+    "retry": "Tenta outra vez",
     "signInToSave": "Inicie sessão para salvar sua pontuação e ganhar pontos.",
     "saved": "Pontuação salva - conta para seus pontos.",
     "answered": "{n} de {total} respondido"
@@ -631,7 +638,7 @@
     "stepper": "O guia, passo a passo",
     "stepLabel": "Passo {n}",
     "levels": {
-      "startHere": "Começa aqui.",
+      "startHere": "Começa aqui",
       "noCode": "Nenhum código",
       "beginner": "Iniciante",
       "intermediate": "Intermediário",
@@ -709,8 +716,8 @@
       "module": "módulo de nível superior"
     },
     "translations": {
-      "p1": "O site embarca em {languages}: Inglês (padrão), Espanhol, Português, Japonês e Alemão — o maior Salesforce mercados.",
-      "languages": "5 línguas",
+      "p1": "O site embarca em {languages}: Inglês, espanhol, português, alemão, francês, japonês e hindi.",
+      "languages": "7 línguas",
       "p2": "{bold} Escreva a lição apenas em inglês. Na compilação seguinte, um servidor LibreTranslate rodando localmente traduz e escreve {path} Para as outras quatro línguas. Blocos de código, SAQL, links, chaves de matéria frontal e nomes de produtos são protegidos e vêm através intocado.",
       "p2Bold": "Não se traduz à mão.",
       "p3": "Para o gerires tu. {all} (apenas ficheiros alterados), ou {subset}.",
@@ -735,7 +742,7 @@
       "nuxt": "{name} (Vue 3 + Nitro) — quadro, RSE + pré-renderização",
       "content": "{name} — aulas de autoria em Markdown, servidas a partir de SQLite",
       "ui": "{ui} + {tailwind} — componentes e estilo",
-      "i18n": "{name} — 5 línguas, quatro delas traduzidas do inglês",
+      "i18n": "{name} — 7 línguas, seis delas traduzidas do inglês",
       "hosting": "{workers} + {actions} — as páginas pré-renderizadas serviam de activos estáticos, um trabalhador para as rotas dinâmicas, {main}",
       "extras": "Também na caixa: {og} (cartões sociais), {llms} (docs legíveis por máquina) e dados estruturados para SEO.",
       "noDb": "Cada lição é pré-renderizada no tempo de construção de Markdown, para que você possa escrever e visualizar lições com {bold}. Contas e progresso executados em Neon Postgres e só importa se você estiver trabalhando sobre esses recursos — o README cobre-os.",
@@ -745,7 +752,7 @@
       "branch": "{bold} desligado {main}: {cmd}",
       "branchBold": "Ramo",
       "change": "{bold} e visualizá- lo com {cmd}.",
-      "changeBold": "Faz o teu troco.",
+      "changeBold": "Faz o teu troco",
       "verify": "{bold}: {lint} e {typecheck} Ambos passam.",
       "verifyBold": "Verificar",
       "commit": "{bold} com uma mensagem clara e {push} ao teu garfo.",
@@ -994,7 +1001,7 @@
     "onThisPage": "Nesta página",
     "lessons": "{n} lições",
     "published": "{n} publicado",
-    "coming": "Já vou.",
+    "coming": "Já vou",
     "progress": "O seu progresso",
     "progressNone": "Inscreva-se para seguir as lições que terminar.",
     "how": {
@@ -1071,7 +1078,7 @@
     "question": "A pergunta que responde",
     "decision": "A decisão que altera",
     "success": "Como sabemos que funcionou",
-    "notInScope": "Deliberadamente não aqui.",
+    "notInScope": "Deliberadamente não aqui",
     "builtOn": "Construído em"
   },
   "funnel": {
@@ -1083,14 +1090,14 @@
     "title": "Assista ao curso no YouTube",
     "body": "Todas as aulas têm um vídeo. Subscrever CRM Analytics A Academia e você ouvirão o momento em que uma nova seção pousar.",
     "subscribe": "Subscrever",
-    "later": "Agora não.",
+    "later": "Agora não",
     "close": "Fechar"
   },
   "wall": {
     "eyebrow": "Comunidade",
     "title": "Muro da Fama",
     "subtitle": "As pessoas que fazem o CRM Analytics comunidade o que é - os blogueiros, YouTubers, autores, palestrantes e construtores de ferramentas cujo trabalho ensinou o resto de nós.",
-    "all": "Todos.",
+    "all": "Todos",
     "types": {
       "blogger": "Blogger",
       "youtuber": "YouTuber",
@@ -1101,10 +1108,10 @@
     "visit": "Visita",
     "nominateTitle": "Conhece alguém que pertence aqui?",
     "nominateDesc": "Nomeie um blogueiro, criador ou mentor cujo trabalho tenha ajudado CRM Analytics comunidade. As nomeações aprovadas constam do quadro.",
-    "nominate": "Nomeia alguém.",
+    "nominate": "Nomeia alguém",
     "emptyPhoto": "Sua foto aqui",
     "emptyCaption": "Ser nomeado",
-    "emptyHint": "Nomeia alguém.",
+    "emptyHint": "Nomeia alguém",
     "filter": "Filtro por tipo",
     "board": "Placa",
     "whoTitle": "Quem eles são"
@@ -1256,7 +1263,7 @@
     },
     "confirmTitle": "Enviar o jornal?",
     "confirmBody": "Você tem {open} sem resposta e {flagged} Perguntas marcadas. Uma vez apresentadas, as respostas não podem ser alteradas.",
-    "keepGoing": "Continua.",
+    "keepGoing": "Continua",
     "submitNow": "Enviar agora",
     "timeUsed": "tempo utilizado {t}",
     "passed": "Passar",
@@ -1284,7 +1291,7 @@
     "earn": "Passe e ganhe seu certificado",
     "papersTitle": "Artigos de prática",
     "paperLine": "{q} perguntas · {m} minutos · {p}% a passar",
-    "morePapers": "Vêm aí mais jornais.",
+    "morePapers": "Vêm aí mais jornais",
     "morePapersBody": "Novos artigos chegam à medida que se publicam seções, cada uma com perguntas novas.",
     "paper": {
       "issuer": "CRM Analytics Academia",
@@ -1295,7 +1302,7 @@
       "score": "Pontuação",
       "date": "Data",
       "id": "ID Credencial",
-      "signer": "Swarnil Singhai, instrutor.",
+      "signer": "Swarnil Singhai, instrutor",
       "sample": "AMOSTRA",
       "note": "Concedido por CRM Analytics Academia para passar no exame de prática. Não é um Salesforce Credencial e não está afiliado a Salesforce.",
       "download": "Gravar como PDF",
@@ -1343,7 +1350,7 @@
         "hint": "Um que usa CRM Analytics ou contrata para isso — com uma fonte pública."
       },
       "nominate": {
-        "label": "Nomeia alguém.",
+        "label": "Nomeia alguém",
         "hint": "Uma pessoa que merece o Muro da Fama. Podes ser tu."
       },
       "lesson": {
@@ -1471,7 +1478,7 @@
   "store": {
     "eyebrow": "Preços",
     "seoTitle": "CRM Analytics Preço da Academia: Grátis, Pro Mensal, Pro Lifetime, Equipes",
-    "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $19 por mês ou $299 uma vez. Assentos para empresas e faculdades.",
+    "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $49 por mês, $149 por ano ou $299 uma vez. Assentos para empresas e faculdades.",
     "title": "Aprendam de graça. Vá Pro quando você estiver pronto.",
     "lead": "Todas as aulas grátis permanecem livres. Pro desbloqueia toda a plataforma — mensal, ou uma vez para a vida. Empresas e faculdades compram lugares.",
     "sentTitle": "Obrigado — o seu pedido chegou.",
@@ -1500,7 +1507,7 @@
     "startLearning": "Começar a aprender",
     "stripeNote": "Os pagamentos são geridos pela Stripe. Cancele ou mude de lugar a qualquer momento.",
     "cancelled": "A saída foi cancelada — nada foi cobrado.",
-    "requestTitle": "Fala connosco.",
+    "requestTitle": "Fala connosco",
     "requestLead": "Configuração da Ajuda CRM Analytics, consultoria, orientação ou uma grande organização — basta uma linha.",
     "messagePlaceholder": "Do que precisas? (opcional)",
     "interest": {
@@ -1568,6 +1575,43 @@
       "f3": "Gerenciamento de assentos e progresso para administradores",
       "f4": "Faturação e preços de volume",
       "f5": "Ajuda de integração para a sua org"
+    },
+    "yearly": {
+      "name": "Pro Anual",
+      "tagline": "Um ano inteiro de tudo, pelo preço de três meses.",
+      "unit": "por ano",
+      "cta": "Iniciar Pro Anualmente",
+      "f1": "Tudo em Pro Mensal",
+      "f2": "Cada conjunto de dados e painel de download",
+      "f3": "Avaliação completa da resposta no exame de prática",
+      "f4": "Renova anualmente — cancelar a qualquer momento",
+      "f5": "Sem anúncios em qualquer lugar"
+    },
+    "perMonth": "Sobre {price} um mês",
+    "save": "Gravar {pct}%",
+    "f": {
+      "kind": "Para quem é?",
+      "org": "Nome da organização",
+      "college": "Faculdade ou universidade",
+      "seats": "Quantas pessoas?",
+      "students": "Quantos alunos?",
+      "seatsHelp": "Um número áspero é bom — os assentos podem mudar mais tarde.",
+      "when": "Quando queres começar?",
+      "email": "Seu e-mail de trabalho",
+      "emailCollege": "Use o email da faculdade: os alunos com o mesmo domínio podem participar automaticamente.",
+      "message": "Alguma coisa que devamos saber?",
+      "reply": "Uma resposta dentro de dois dias úteis."
+    },
+    "when": {
+      "now": "Este mês",
+      "quarter": "Neste trimestre",
+      "exploring": "Apenas a explorar"
+    },
+    "sentTitle": "Pedido recebido",
+    "next": {
+      "1": "Você recebe uma resposta com uma citação e uma fatura.",
+      "2": "Sua organização está configurada com seus assentos e um código de adesão.",
+      "3": "O seu pessoal junta-se ao código e começa a aprender."
     }
   },
   "studio": {
@@ -1651,15 +1695,15 @@
     "missing": "Para publicar, adicione: {fields}"
   },
   "account": {
-    "title": "O teu plano.",
-    "current": "O teu plano.",
+    "title": "O teu plano",
+    "current": "O teu plano",
     "renewsOn": "Renova em {date}",
     "endsOn": "Termina em {date}",
     "boughtOn": "Pro Lifetime, comprado em {date}É teu para sempre.",
     "granted": "Pro, concedido pela Academia.",
     "seat": "Um lugar com {org}.",
     "manage": "Gerenciar faturamento",
-    "yourTeam": "A tua equipa.",
+    "yourTeam": "A tua equipa",
     "haveCode": "Tem um código de adesão?"
   },
   "team": {
@@ -1749,12 +1793,12 @@
   },
   "sponsor": {
     "slotLabel": "Patrocinador",
-    "slotTitle": "A tua marca aqui.",
+    "slotTitle": "A tua marca aqui",
     "slotBody": "Alcance Salesforce administradores, analistas e equipes RevOps enquanto aprendem.",
     "slotCta": "Torne-se um patrocinador",
     "eyebrow": "Patrocinador da Academia",
     "title": "Alcançar as pessoas que constroem Salesforce análise.",
-    "lead": "Salesforce administradores, analistas, engenheiros GTM e equipes RevOps aprendem CRM Analytics Aqui, em 5 idiomas. Os patrocinadores suportam lições gratuitas e aparecem onde os alunos já estão.",
+    "lead": "Salesforce administradores, analistas, engenheiros GTM e equipes RevOps aprendem CRM Analytics Aqui, em 7 línguas. Os patrocinadores suportam lições gratuitas e aparecem onde os alunos já estão.",
     "whereTitle": "Onde os patrocinadores aparecem",
     "where": {
       "lessons": {
@@ -1803,7 +1847,7 @@
       "f1": "Uma página por seção, curta e ao ponto",
       "f2": "Diagramas e gráficos desenhados à mão",
       "f3": "PDF para impressão, Markdown para suas próprias notas",
-      "f4": "Em inglês, espanhol, português, alemão e japonês"
+      "f4": "Em sete línguas, incluindo hindi e japonês"
     },
     "seePreview": "Veja uma antevisão",
     "status": "{ready} de {total} Seções prontas",
