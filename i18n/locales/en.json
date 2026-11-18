@@ -67,9 +67,9 @@
       }
     ],
     "hero": {
-      "eyebrow": "Salesforce CRM Analytics, taught on real GTM data",
-      "title": "Become the CRM Analytics expert your team relies on.",
-      "lead": "Hands-on lessons on recipes, SAQL, dashboards, security and Einstein Discovery — built on one company’s marketing, pipeline and revenue data.",
+      "eyebrow": "Salesforce CRM Analytics",
+      "title": "Build the dashboards your sales team opens every morning.",
+      "lead": "Learn CRM Analytics on real sales data, one short lesson at a time.",
       "start": "Start here",
       "curriculum": "Start here",
       "proof": {
@@ -237,8 +237,8 @@
     },
     "compare": {
       "eyebrow": "What it costs",
-      "title": "The same skills, for a fraction of a classroom course.",
-      "lead": "Instructor-led CRM Analytics classes cost hundreds to thousands of dollars per course. Here the first lessons are free, and everything is one subscription — or one payment.",
+      "title": "Classroom skills, without the classroom price.",
+      "lead": "Instructor-led courses cost $600 to $2,700. Here you start free.",
       "option": "Option",
       "price": "Price",
       "perDay": "for {n} day",
@@ -264,8 +264,8 @@
       "cta": "See plans"
     },
     "path": {
-      "title": "Seven sections, from the data model to the dashboards people open every morning.",
-      "lead": "{lessons} lessons out now — the rest arrive section by section."
+      "title": "Seven sections. Each one ends with something you can build.",
+      "lead": "{lessons} lessons are live — the rest arrive section by section."
     },
     "facts": {
       "sections": "course sections, in order",
@@ -281,8 +281,8 @@
       "notes": "Keep the notes"
     },
     "close": {
-      "title": "Your first dashboard starts with lesson 1.",
-      "lead": "Free to start. Ten minutes a day is enough.",
+      "title": "Build your first data model today.",
+      "lead": "Start free. Ten minutes a day is enough.",
       "author": "Taught by Swarnil Singhai, CRM Analytics consultant"
     }
   },
@@ -467,7 +467,7 @@
     "header": {
       "sheet": "Resources · {count} references",
       "title": "The best CRM Analytics resources",
-      "lead": "Docs, courses, books, blogs, tools, and communities — filter to find what you need.",
+      "lead": "Docs, courses, tools and communities worth your time.",
       "suggest": "Suggest a resource"
     },
     "filter": "Filter",
@@ -636,7 +636,7 @@
     "header": {
       "sheet": "The course warehouse",
       "title": "One company's data, every build in the course",
-      "lead": "CRM Analytics Academy's own business: learners and team plans, a pipeline of corporate deals, six classroom centers and every seat sold in them. Load it into your org once and every lesson from the first dashboard to the executive board runs on it."
+      "lead": "One company’s data for every build in the course. Load it into your org once."
     },
     "stats": {
       "files": "Files",
@@ -855,7 +855,7 @@
     "hero": {
       "eyebrow": "The course",
       "title": "Start here.",
-      "lead": "Seven sections, in order — from the Salesforce data model to the dashboards revenue teams open every week. Free to start; each lesson comes with a video.",
+      "lead": "Seven sections, in order. Finish one and you can build what it teaches.",
       "first": "Start lesson 1",
       "pricing": "See plans"
     },
@@ -869,10 +869,10 @@
     "progressNone": "Sign in to track lessons you finish.",
     "how": {
       "title": "How each lesson works",
-      "1": "A short video, embedded at the top",
-      "2": "The lesson, with diagrams and a worked example",
-      "3": "A quiz and the interview questions",
-      "4": "Downloadable notes when the section is complete"
+      "1": "Watch a short video",
+      "2": "Follow a worked example",
+      "3": "Check yourself with a quiz",
+      "4": "Keep the one-page notes"
     },
     "lessonOne": "1 lesson"
   },
@@ -899,7 +899,8 @@
     "pointsEarned": "+10 points — {n} to spend",
     "number": "Lesson {n}",
     "overview": "Overview",
-    "video": "video"
+    "video": "video",
+    "outcomes": "After this lesson you can"
   },
   "credits": {
     "title": "Credits & sources",
@@ -997,7 +998,7 @@
     "eyebrow": "Interview questions",
     "sheet": "Interview Q&A · {n} questions",
     "title": "CRM Analytics interview questions",
-    "lead": "Real questions with model answers — conceptual, technical, scenario and behavioural — by topic, level and the companies that asked them. Add the ones you were asked.",
+    "lead": "Real interview questions with model answers. Filter by topic and level.",
     "seoTitle": "CRM Analytics Interview Questions and Answers",
     "seoDesc": "{n} Salesforce CRM Analytics interview questions with model answers: SAQL, recipes, datasets, security, dashboards, bindings and Einstein Discovery, by type, level and company.",
     "submit": "Submit a question",
@@ -1070,8 +1071,8 @@
   },
   "cert": {
     "eyebrow": "Certification practice",
-    "title": "CRM Analytics & Einstein Discovery Consultant practice exams",
-    "lead": "One full practice exam in the real format — 60 questions, 105 minutes, 68% to pass. Free, scored by domain, with every answer reviewed.",
+    "title": "Pass the CRM Analytics & Einstein Discovery Consultant exam.",
+    "lead": "A full practice paper in the real format: 60 questions, 105 minutes, 68% to pass. Free.",
     "seoTitle": "CRM Analytics and Einstein Discovery Consultant Practice Exams (Free)",
     "seoDesc": "Free timed practice exams for the Salesforce CRM Analytics and Einstein Discovery Consultant certification: {q} questions, {m} minutes, {p}% to pass, scored by exam domain.",
     "paperDesc": "A timed practice paper: {q} questions in {m} minutes. Pass mark {p}%. Scored by domain, with every answer reviewed.",
@@ -1343,8 +1344,8 @@
     "eyebrow": "Pricing",
     "seoTitle": "CRM Analytics Academy pricing: Free, Pro Monthly, Pro Lifetime, Teams",
     "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $49 a month, $149 a year or $299 once. Seats for companies and colleges.",
-    "title": "Learn free. Go Pro when you are ready.",
-    "lead": "Every free lesson stays free. Pro unlocks the whole platform — monthly, or once for life. Companies and colleges buy seats.",
+    "title": "Start free. Go Pro when it pays off.",
+    "lead": "Free lessons stay free. Pro unlocks every lesson, dataset and answer review.",
     "sentTitle": "Thanks — your request is in.",
     "sentBody": "Swarnil will reply by email within two working days with the next steps.",
     "f": {
@@ -1432,7 +1433,7 @@
     },
     "teams": {
       "name": "Teams & institutions",
-      "tagline": "Pro for every seat — for companies training analysts, colleges teaching students, and teams.",
+      "tagline": "Seats for companies, colleges and teams.",
       "cta": "Request seats",
       "f1": "Pro for every member",
       "f2": "One join code; colleges can limit it to their email domain",
@@ -1597,7 +1598,7 @@
   "roadmap": {
     "s01": {
       "title": "Salesforce Foundations",
-      "blurb": "The objects, data model and integration every dashboard depends on — plus the Apex and LWC an analyst should read.",
+      "blurb": "Read any Salesforce data model and know which fields a dashboard needs.",
       "l1": "Objects, fields and relationships",
       "l2": "Building a small app",
       "l3": "Integration basics",
@@ -1605,7 +1606,7 @@
     },
     "s02": {
       "title": "GTM Basics",
-      "blurb": "How a revenue team works, so you know what the data is describing.",
+      "blurb": "Explain the funnel, pipeline and revenue numbers a sales team runs on.",
       "l1": "The funnel: lead to customer",
       "l2": "Pipeline: stages, amounts and forecasts",
       "l3": "Revenue metrics: ARR, churn, NRR",
@@ -1613,7 +1614,7 @@
     },
     "s03": {
       "title": "Data Architecture",
-      "blurb": "Data stored in many places, brought into one model you can trust.",
+      "blurb": "Bring data from several systems into one dataset you can trust.",
       "l1": "Where GTM data lives",
       "l2": "Data Sync, connectors, recipes and datasets",
       "l3": "Grain, joins and keys",
@@ -1622,7 +1623,7 @@
     },
     "s04": {
       "title": "Dashboards Every GTM Team Uses",
-      "blurb": "KPI, snapshot, change, conversion and adoption dashboards — the ones that get opened every week.",
+      "blurb": "Build the KPI, snapshot, change, conversion and adoption dashboards teams use weekly.",
       "l1": "KPI dashboards",
       "l2": "Snapshot dashboards",
       "l3": "Change analytics",
@@ -1632,7 +1633,7 @@
     },
     "s05": {
       "title": "Interactions and Bindings",
-      "blurb": "Make dashboards respond: faceting, bindings and the SAQL behind a widget.",
+      "blurb": "Make dashboards respond to every click with faceting, bindings and SAQL.",
       "l1": "Faceting and filters",
       "l2": "Selection and results bindings",
       "l3": "SAQL behind a widget",
@@ -1640,7 +1641,7 @@
     },
     "s06": {
       "title": "Sharing, Embedding and Apps",
-      "blurb": "Get dashboards in front of the people who need them — inside Salesforce and beyond.",
+      "blurb": "Put dashboards where people already work — Lightning, Slack, portals.",
       "l1": "Apps, sharing and licences",
       "l2": "Embedding in Lightning, Experience Cloud and Slack",
       "l3": "Subscriptions, alerts and actions",
@@ -1648,7 +1649,7 @@
     },
     "s07": {
       "title": "Advanced",
-      "blurb": "SAQL in depth, Einstein Discovery, the APIs and performance.",
+      "blurb": "Write SAQL, predict outcomes with Einstein Discovery and keep it all fast.",
       "l1": "SAQL in depth",
       "l2": "Einstein Discovery",
       "l3": "APIs and automation",
@@ -1698,7 +1699,7 @@
     "eyebrow": "Notes",
     "title": "Section notes",
     "suffix": "notes",
-    "lead": "Every finished section on one handwritten-style sheet, with the diagrams. Read them here, save all of them as one PDF, or download each as Markdown.",
+    "lead": "Every finished section on one page, with the diagrams. Read online or download.",
     "seoTitle": "CRM Analytics notes — downloadable study sheets",
     "pdf": "Download PDF",
     "markdown": "Download Markdown",
@@ -1735,7 +1736,7 @@
   "jobs": {
     "eyebrow": "Jobs this week",
     "title": "CRM Analytics jobs, posted this week.",
-    "lead": "Roles that ask for CRM Analytics, Tableau CRM or Einstein Analytics, collected every day from across the web — newest first, refreshed each week.",
+    "lead": "CRM Analytics roles posted this week, newest first.",
     "homeTitle": "New CRM Analytics jobs this week",
     "all": "See every job",
     "updated": "Updated {date}",

@@ -18,7 +18,8 @@ const props = withDefaults(defineProps<{
   figure?: 'data-model' | 'pipeline' | 'dashboard'
   points?: string[]
   label?: string
-}>(), { figure: 'data-model', points: () => [], label: 'In this lesson' })
+}>(), { figure: 'data-model', points: () => [], label: '' })
+const { t } = useI18n()
 
 // The data model: Lead converts into Account + Contact + Opportunity.
 const NODES = [
@@ -39,7 +40,7 @@ const EDGES = [
   <section class="not-prose my-8 grid overflow-hidden rounded-[8px] border border-(--line) bg-(--card) lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
     <div class="p-6 sm:p-8">
       <p class="eyebrow">
-        {{ props.label }}
+        {{ props.label || t('lesson.outcomes') }}
       </p>
       <ul class="mt-4 space-y-3">
         <li

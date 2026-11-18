@@ -67,9 +67,9 @@
       }
     ],
     "hero": {
-      "eyebrow": "Salesforce CRM Analytics, ensinado em dados reais GTM",
-      "title": "Tornar-se o CRM Analytics Perito na qual a sua equipa depende.",
-      "lead": "Aulas práticas sobre receitas, SAQL, painéis, segurança e Einstein Discovery — com base nos dados de marketing, gasoduto e receitas de uma empresa.",
+      "eyebrow": "Salesforce CRM Analytics",
+      "title": "Construa os painéis que sua equipe de vendas abre todas as manhãs.",
+      "lead": "Aprender CRM Analytics em dados de vendas reais, uma lição curta de cada vez.",
       "start": "Começa aqui",
       "curriculum": "Começa aqui",
       "proof": {
@@ -237,8 +237,8 @@
     },
     "compare": {
       "eyebrow": "Quanto custa",
-      "title": "As mesmas habilidades, para uma fração de um curso em sala de aula.",
-      "lead": "Liderada por instrutor CRM Analytics As aulas custam centenas a milhares de dólares por curso. Aqui as primeiras lições são gratuitas, e tudo é uma assinatura — ou um pagamento.",
+      "title": "Habilidades de sala de aula, sem o preço da sala de aula.",
+      "lead": "Cursos conduzidos por instrutores custam 600 a 2.700 dólares. Aqui você começa livre.",
       "option": "Opção",
       "price": "Preço",
       "perDay": "em vez {n} dia",
@@ -264,8 +264,8 @@
       "cta": "Ver os planos"
     },
     "path": {
-      "title": "Sete seções, do modelo de dados aos painéis que as pessoas abrem todas as manhãs.",
-      "lead": "{lessons} lições fora agora — o resto chega seção por seção."
+      "title": "Sete secções. Cada um termina com algo que você pode construir.",
+      "lead": "{lessons} As lições são ao vivo — o resto chega seção por seção."
     },
     "facts": {
       "sections": "Seções de curso, em ordem",
@@ -281,8 +281,8 @@
       "notes": "Manter as notas"
     },
     "close": {
-      "title": "Seu primeiro painel começa com a lição 1.",
-      "lead": "Livre para começar. Dez minutos por dia é o suficiente.",
+      "title": "Crie seu primeiro modelo de dados hoje.",
+      "lead": "Comecem de graça. Dez minutos por dia é o suficiente.",
       "author": "Ensinado por Swarnil Singhai, CRM Analytics consultor"
     }
   },
@@ -467,7 +467,7 @@
     "header": {
       "sheet": "Recursos · {count} referências",
       "title": "O melhor. CRM Analytics recursos",
-      "lead": "Docs, cursos, livros, blogs, ferramentas e comunidades — filtre para encontrar o que você precisa.",
+      "lead": "Médicos, cursos, ferramentas e comunidades valem seu tempo.",
       "suggest": "Sugerir um recurso"
     },
     "filter": "Filtro",
@@ -636,7 +636,7 @@
     "header": {
       "sheet": "O armazém do curso",
       "title": "Dados de uma empresa, cada construção no curso",
-      "lead": "CRM Analytics Negócios próprios da Academia: aprendizes e planos de equipe, um pipeline de negócios corporativos, seis centros de sala de aula e cada assento vendido neles. Carregue-o em sua org uma vez e todas as lições do primeiro painel para o conselho executivo é executado nele."
+      "lead": "Os dados de uma empresa para cada construção no curso. Carrega-o na tua org uma vez."
     },
     "stats": {
       "files": "Ficheiros",
@@ -855,7 +855,7 @@
     "hero": {
       "eyebrow": "O curso",
       "title": "Começa aqui.",
-      "lead": "Sete secções, em ordem — do Salesforce o modelo de dados para as equipes de receita de painéis abre todas as semanas. Livre para começar; cada lição vem com um vídeo.",
+      "lead": "Sete secções, em ordem. Termina um e podes construir o que ele ensina.",
       "first": "Iniciar a lição 1",
       "pricing": "Ver os planos"
     },
@@ -868,10 +868,10 @@
     "progress": "O seu progresso",
     "progressNone": "Inscreva-se para seguir as lições que terminar.",
     "how": {
-      "1": "Um vídeo curto, incorporado no topo",
-      "2": "A lição, com diagramas e um exemplo trabalhado",
-      "3": "Um questionário e as perguntas de entrevista",
-      "4": "Notas para download quando a seção estiver completa",
+      "1": "Assista a um vídeo curto",
+      "2": "Siga um exemplo trabalhado",
+      "3": "Verifique-se com um questionário",
+      "4": "Manter as notas de uma página",
       "title": "Como cada lição funciona"
     },
     "lessonOne": "1 lição"
@@ -899,7 +899,8 @@
     "pointsEarned": "+10 pontos — {n} para gastar",
     "number": "Lição {n}",
     "overview": "Visão geral",
-    "video": "vídeo"
+    "video": "vídeo",
+    "outcomes": "Depois desta lição você pode"
   },
   "credits": {
     "title": "Créditos & fontes",
@@ -997,7 +998,7 @@
     "eyebrow": "Perguntas de entrevista",
     "sheet": "Entrevista Q&A · {n} perguntas",
     "title": "CRM Analytics perguntas de entrevista",
-    "lead": "Perguntas reais com respostas modelo — conceptuais, técnicas, cenários e comportamentais — por tópico, nível e as empresas que lhes perguntaram. Adicione os que lhe pediram.",
+    "lead": "Perguntas reais de entrevista com respostas modelo. Filtrar por tópico e nível.",
     "seoTitle": "CRM Analytics Entrevista Perguntas e Respostas",
     "seoDesc": "{n} Salesforce CRM Analytics entrevistar perguntas com respostas modelo: SAQL, receitas, conjuntos de dados, segurança, painéis, ligações e Einstein Discovery, por tipo, nível e empresa.",
     "submit": "Enviar uma pergunta",
@@ -1070,8 +1071,8 @@
   },
   "cert": {
     "eyebrow": "Prática de certificação",
-    "title": "CRM Analytics & Einstein Discovery Exames de prática de consultores",
-    "lead": "Um exame completo de prática em formato real — 60 perguntas, 105 minutos, 68% para passar. Livre, pontuado por domínio, com todas as respostas analisadas.",
+    "title": "Passar o CRM Analytics & Einstein Discovery Exame de consulta.",
+    "lead": "Um artigo completo no formato real: 60 perguntas, 105 minutos, 68% para passar. Livre.",
     "seoTitle": "CRM Analytics e Einstein Discovery Exames de Prática de Consultores (gratuito)",
     "seoDesc": "Exames de prática de tempo livre para Salesforce CRM Analytics e Einstein Discovery Certificação do consultor: {q} perguntas, {m} minutos, {p}% para passar, pontuado pelo domínio do exame.",
     "paperDesc": "Um papel de treino cronometrado: {q} perguntas em {m} minutos. Marca de passagem {p}%. Pontuação por domínio, com cada resposta analisada.",
@@ -1343,8 +1344,8 @@
     "eyebrow": "Preços",
     "seoTitle": "CRM Analytics Preço da Academia: Grátis, Pro Mensal, Pro Lifetime, Equipes",
     "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $49 por mês, $149 por ano ou $299 uma vez. Assentos para empresas e faculdades.",
-    "title": "Aprendam de graça. Vá Pro quando você estiver pronto.",
-    "lead": "Todas as aulas grátis permanecem livres. Pro desbloqueia toda a plataforma — mensal, ou uma vez para a vida. Empresas e faculdades compram lugares.",
+    "title": "Comecem de graça. Vai pro quando valer a pena.",
+    "lead": "Aulas gratuitas ficam livres. Pro desbloqueia cada lição, conjunto de dados e revisão de respostas.",
     "sentTitle": "Obrigado — o seu pedido chegou.",
     "sentBody": "Swarnil responderá por e-mail dentro de dois dias úteis com os próximos passos.",
     "f": {
@@ -1432,7 +1433,7 @@
     },
     "teams": {
       "name": "Equipas & Instituições",
-      "tagline": "Pro para cada assento — para empresas que treinam analistas, faculdades que ensinam estudantes e equipes.",
+      "tagline": "Assentos para empresas, faculdades e equipes.",
       "cta": "Pedido de lugares",
       "f1": "Pro para cada membro",
       "f2": "Um código de junção; faculdades podem limitá-lo ao seu domínio de email",
@@ -1597,7 +1598,7 @@
   "roadmap": {
     "s01": {
       "title": "Salesforce Fundações",
-      "blurb": "Os objetos, o modelo de dados e a integração de cada painel dependem — além do Apex e LWC um analista deve ler.",
+      "blurb": "Ler qualquer Salesforce modelo de dados e saber quais campos um painel precisa.",
       "l1": "Objetos, campos e relacionamentos",
       "l2": "Construindo um aplicativo pequeno",
       "l3": "Noções básicas de integração",
@@ -1605,7 +1606,7 @@
     },
     "s02": {
       "title": "GTM Basics",
-      "blurb": "Como uma equipe de receita funciona, então você sabe o que os dados estão descrevendo.",
+      "blurb": "Explique que o funil, o oleoduto e a receita são números de uma equipe de vendas.",
       "l1": "O funil: levar ao cliente",
       "l2": "Pipeline: fases, quantidades e previsões",
       "l3": "métricas de receitas: ARR, churn, NRR",
@@ -1613,7 +1614,7 @@
     },
     "s03": {
       "title": "Arquitetura de dados",
-      "blurb": "Dados armazenados em muitos lugares, trazidos para um modelo em que você pode confiar.",
+      "blurb": "Traga dados de vários sistemas em um conjunto de dados em que você pode confiar.",
       "l1": "Onde vivem os dados GTM",
       "l2": "Sincronização de dados, conectores, receitas e conjuntos de dados",
       "l3": "Grãos, juntas e chaves",
@@ -1622,7 +1623,7 @@
     },
     "s04": {
       "title": "Painéis Cada equipe GTM usa",
-      "blurb": "KPI, instantâneo, mudança, conversão e painéis de adoção — os que são abertos toda semana.",
+      "blurb": "Construir o KPI, instantâneo, mudança, conversão e adoção de painéis as equipes usam semanalmente.",
       "l1": "KPI painéis",
       "l2": "Painéis de imagem",
       "l3": "Alterar análise",
@@ -1632,7 +1633,7 @@
     },
     "s05": {
       "title": "Interações e ligações",
-      "blurb": "Fazer os painéis responderem: facetação, encadernação e SAQL atrás de um widget.",
+      "blurb": "Fazer os painéis responder a cada clique com facetas, ligações e SAQL.",
       "l1": "Rosto e filtros",
       "l2": "Selecção e ligações de resultados",
       "l3": "SAQL atrás de um elemento",
@@ -1640,7 +1641,7 @@
     },
     "s06": {
       "title": "Partilha, Embutimento e Aplicações",
-      "blurb": "Obter painéis na frente das pessoas que precisam deles — dentro Salesforce e além.",
+      "blurb": "Coloque painéis onde as pessoas já trabalham — Lightning, Slack, portais.",
       "l1": "Aplicações, partilha e licenças",
       "l2": "Embutindo em Relâmpago, Experience Cloud e Slack",
       "l3": "Assinaturas, indicações e acções",
@@ -1648,7 +1649,7 @@
     },
     "s07": {
       "title": "Avançado",
-      "blurb": "SAQL em profundidade, Einstein Discovery, as APIs e desempenho.",
+      "blurb": "Escrever SAQL, prever resultados com Einstein Discovery e mantenha tudo rápido.",
       "l1": "SAQL em profundidade",
       "l2": "Einstein Discovery",
       "l3": "APIs e automação",
@@ -1698,7 +1699,7 @@
     "eyebrow": "Notas",
     "title": "Notas de secção",
     "suffix": "notas",
-    "lead": "Cada seção terminada em uma folha de estilo manuscrita, com os diagramas. Leia-os aqui, salve todos eles como um PDF, ou baixe cada um como Markdown.",
+    "lead": "Cada seção terminada em uma página, com os diagramas. Leia online ou baixe.",
     "seoTitle": "CRM Analytics Notas — folhas de estudo para download",
     "pdf": "Baixar PDF",
     "markdown": "Baixar Markdown",
@@ -1735,7 +1736,7 @@
   "jobs": {
     "eyebrow": "Empregos esta semana",
     "title": "CRM Analytics Empregos, esta semana.",
-    "lead": "Funções que pedem CRM Analytics, Tableau CRM ou Einstein Analytics, coletado todos os dias em toda a web — o mais novo primeiro, atualizado a cada semana.",
+    "lead": "CRM Analytics Os papéis postados esta semana, o mais novo primeiro.",
     "homeTitle": "Novo CRM Analytics trabalhos esta semana",
     "all": "Ver todos os trabalhos",
     "updated": "Atualizado {date}",
