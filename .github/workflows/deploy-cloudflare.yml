@@ -45,6 +45,9 @@ jobs:
         run: pnpm build
         env:
           NUXT_PUBLIC_SITE_URL: https://crmanalytics.imswarnil.com
+          # Public values baked into prerendered pages (repo Settings → Variables).
+          NUXT_PUBLIC_CF_BEACON_TOKEN: ${{ vars.CF_BEACON_TOKEN }}
+          NUXT_PUBLIC_GSC_VERIFICATION: ${{ vars.GSC_VERIFICATION }}
 
       - name: Verify output
         run: |
