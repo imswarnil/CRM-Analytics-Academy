@@ -7,14 +7,13 @@
  * the one field the client controls, and an unvalidated one becomes a way to
  * write arbitrary rows.
  */
-const LESSON_PATH = /^\/[a-z0-9-]+(?:\/[a-z0-9-]+)*$/
 
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
   const body = await readBody<{ lessonPath?: string, done?: boolean }>(event)
 
-  const path = String(body?.lessonPath ?? '')
-  if (!LESSON_PATH.test(path) || path.length > 200) {
+  const path = lessonPath(body?.lessonPath)
+  if (!path) {
     throw createError({ statusCode: 400, statusMessage: 'Invalid lesson path' })
   }
 

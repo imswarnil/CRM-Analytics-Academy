@@ -12,11 +12,6 @@
  * client already normalises, but the strip is repeated here so a learner who
  * POSTs a prefixed path does not split one quiz into twelve.
  */
-const LESSON_PATH = /^\/[a-z0-9-]+(?:\/[a-z0-9-]+)*$/
-
-// Must agree with the `locales` list in nuxt.config.ts.
-const LOCALE_PREFIX = /^\/(en|es|fr|de|pt|ja|zh|hi|ar|ru|bn|ur)(?=\/|$)/
-
 // Per-user, per-window. Retries are legitimate — the whole point is improving
 // a best score — but nobody honest takes a quiz twenty times an hour.
 const RATE = new Map<string, { count: number, resetAt: number }>()
@@ -45,14 +40,15 @@ export default defineEventHandler(async (event) => {
 
   const body = await readBody<{ lessonPath?: string, score?: number, total?: number }>(event)
 
-  const path = String(body?.lessonPath ?? '').replace(LOCALE_PREFIX, '') || '/'
-  if (!LESSON_PATH.test(path) || path.length > 200) {
+  // Only a real, published lesson that has a quiz can be scored.
+  const path = lessonPath(body?.lessonPath)
+  if (!path || !lessonHasQuiz(path)) {
     throw createError({ statusCode: 400, statusMessage: 'Invalid lesson path' })
   }
 
   const score = Number(body?.score)
   const total = Number(body?.total)
-  if (!Number.isInteger(total) || total < 1 || total > 50) {
+  if (!Number.isInteger(total) || total < 1 || total > 20) {
     throw createError({ statusCode: 400, statusMessage: 'Invalid quiz total' })
   }
   if (!Number.isInteger(score) || score < 0 || score > total) {

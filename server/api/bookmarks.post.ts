@@ -5,8 +5,8 @@
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
   const body = await readBody<{ path?: unknown, saved?: unknown }>(event)
-  const path = String(body?.path ?? '')
-  if (!/^\/[a-z0-9/-]{1,200}$/.test(path)) {
+  const path = lessonPath(body?.path)
+  if (!path) {
     throw createError({ statusCode: 400, statusMessage: 'Bad lesson path' })
   }
   const sql = useDb()

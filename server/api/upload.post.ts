@@ -1,7 +1,8 @@
 /**
  * Upload a dashboard screenshot to the media bucket.
  *
- * Signed-in users only, image types only, 4 MB cap — this backs the submit
+ * Signed-in users only (not the demo), 10 an hour, image types checked by
+ * their first bytes, 4 MB cap — this backs the submit
  * form's photo picker, not a general file host. Keys are namespaced under
  * submissions/<user>/ so moderation can trace every object to the account
  * that wrote it, and the filename is regenerated server-side so a client
@@ -18,8 +19,18 @@ const TYPES: Record<string, string> = {
   'image/webp': 'webp'
 }
 
+/** The file's first bytes must match its claimed type (PNG, JPEG, WebP). */
+function sniff(b: Uint8Array): string | null {
+  if (b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4E && b[3] === 0x47) return 'image/png'
+  if (b[0] === 0xFF && b[1] === 0xD8 && b[2] === 0xFF) return 'image/jpeg'
+  if (b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 && b[8] === 0x57 && b[9] === 0x45 && b[10] === 0x42 && b[11] === 0x50) return 'image/webp'
+  return null
+}
+
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
+  if (await isDemoUser(user.id)) throw createError({ statusCode: 403, statusMessage: 'The demo account cannot upload.' })
+  await rateLimit(event, 'upload', 10, 60)
 
   const bucket = cloudflareOf(event).env?.MEDIA
   if (!bucket) {
@@ -33,6 +44,10 @@ export default defineEventHandler(async (event) => {
   }
   if (file.data.length > MAX_BYTES) {
     throw createError({ statusCode: 413, statusMessage: 'Images are capped at 4 MB.' })
+  }
+  // A renamed script or HTML file claiming to be an image is refused.
+  if (sniff(new Uint8Array(file.data.buffer, file.data.byteOffset, Math.min(16, file.data.length))) !== file.type) {
+    throw createError({ statusCode: 400, statusMessage: 'That file is not the image it says it is.' })
   }
 
   const key = `submissions/${user.id}/${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${TYPES[file.type]}`

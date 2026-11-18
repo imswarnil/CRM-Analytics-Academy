@@ -188,28 +188,19 @@ h1, h2, h3, h4 {
 
 /* Graph paper: 80px major lines over a 16px minor grid. */
 @utility graph-paper {
+  /* Namaste: plain surfaces, no texture. */
   background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--rmaj) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rmaj) 1px, transparent 1px),
-    linear-gradient(var(--rmin) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
-  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
 }
 @utility graph-paper-fine {
-  background-image:
-    linear-gradient(var(--rmin) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rmin) 1px, transparent 1px);
-  background-size: 16px 16px;
+  background-image: none;
 }
 @utility graph-paper-navy {
+  /* Navy bands keep the one texture the system allows: a hairline grid. */
   background-color: var(--navy);
   background-image:
-    linear-gradient(rgba(168, 204, 242, .07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168, 204, 242, .07) 1px, transparent 1px),
-    linear-gradient(rgba(168, 204, 242, .03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168, 204, 242, .03) 1px, transparent 1px);
-  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    linear-gradient(rgb(124 190 255 / .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(124 190 255 / .07) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 @utility ink-border {
   border: 1px solid var(--line);
@@ -233,10 +224,10 @@ h1, h2, h3, h4 {
 }
 /* Diagonal hatching: Pro lessons in charts, progress fills. */
 @utility hatch {
-  background-image: repeating-linear-gradient(135deg, var(--x) 0 1px, transparent 1px 7px);
+  background-color: color-mix(in oklab, var(--x) 35%, transparent);
 }
 @utility hatch-signal {
-  background-image: repeating-linear-gradient(135deg, var(--signal) 0 6px, var(--tide) 6px 12px);
+  background-color: var(--signal);
 }
 
 /* Crop marks are retired (2026-11-17); the classes stay as harmless hooks. */
@@ -246,11 +237,8 @@ h1, h2, h3, h4 {
 
 /* Ruler strip: small ticks every 8px, tall ticks every 40px. */
 @utility ruler {
-  height: 10px;
-  background:
-    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 8px) 0 0 / auto 5px repeat-x,
-    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 40px) 0 0 / auto 10px repeat-x;
-  opacity: .6;
+  /* Retired decoration. */
+  display: none;
 }
 
 /* Type scale from the spec. */

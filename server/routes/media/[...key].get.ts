@@ -13,7 +13,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const key = getRouterParam(event, 'key')
-  if (!key || key.includes('..') || key.endsWith('.keep')) {
+  // Only uploaded submission images are public — nothing else in the bucket.
+  if (!key || !/^submissions\/[\w-]{1,64}\/\d{10,14}-[a-f0-9]{8}\.(png|jpg|webp)$/.test(key)) {
     throw createError({ statusCode: 404, statusMessage: 'Not found' })
   }
 
@@ -22,7 +23,9 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, statusMessage: 'Not found' })
   }
 
-  setHeader(event, 'content-type', object.httpMetadata?.contentType || 'application/octet-stream')
+  const type = object.httpMetadata?.contentType
+  setHeader(event, 'content-type', type && /^image\/(png|jpeg|webp)$/.test(type) ? type : 'application/octet-stream')
+  setHeader(event, 'x-content-type-options', 'nosniff')
   setHeader(event, 'cache-control', 'public, max-age=31536000, immutable')
   if (object.httpEtag) setHeader(event, 'etag', object.httpEtag)
   return object.body
