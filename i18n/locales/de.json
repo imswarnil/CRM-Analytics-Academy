@@ -294,8 +294,8 @@
     "notAffiliated": "Nicht verbunden mit Salesforce, Inc."
   },
   "seo": {
-    "homeTitle": "CRM Analytics Akademie - Lernen Salesforce CRM Analytics",
-    "homeDesc": "Ein kostenloses, Open-Source-Curriculum für das Mastering Salesforce CRM Analytics - von data prep und SAQL zu Dashboards, Bindungen, Einstein Discovery und Go-to-Market Dashboard Builds.",
+    "homeTitle": "Lernen Salesforce CRM Analytics — CRM Analytics Akademie",
+    "homeDesc": "Lernen Salesforce CRM Analytics über reale Verkaufsdaten. Kurze Videostunden, Quiz, eine Praxisprüfung und Notizen. Erstellen Sie die Dashboards, die Ihr Verkaufsteam verwendet. Frei zu starten.",
     "aboutTitle": "Über",
     "aboutDesc": "Die Geschichte dahinter CRM Analytics Academy - ein Open-Source-Curriculum für Salesforce CRM Analytics - und die Person, die es baut.",
     "resourcesTitle": "Ressourcen",
@@ -874,7 +874,16 @@
       "4": "Behalten Sie die One Page Notes",
       "title": "Wie jede Lektion funktioniert"
     },
-    "lessonOne": "1 Lektion"
+    "lessonOne": "1 Lektion",
+    "stat": {
+      "sections": "Abschnitte",
+      "lessons": "Geplante Lektionen",
+      "live": "Jetzt live"
+    },
+    "nextUp": "Nächster Schritt",
+    "firstUp": "Beginnen Sie mit",
+    "continue": "Weiterfahren",
+    "allDone": "Du hast jede veröffentlichte Lektion beendet."
   },
   "lesson": {
     "authors": {

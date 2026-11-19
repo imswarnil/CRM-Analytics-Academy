@@ -294,8 +294,8 @@
     "notAffiliated": "Não Salesforce, Inc."
   },
   "seo": {
-    "homeTitle": "CRM Analytics Academia — Aprenda Salesforce CRM Analytics",
-    "homeDesc": "Um currículo livre e de código aberto para o domínio Salesforce CRM Analytics — da preparação dos dados e SAQL a painéis, encadernação, Einstein Discovery e o painel vai para o mercado.",
+    "homeTitle": "Aprender Salesforce CRM Analytics — CRM Analytics Academia",
+    "homeDesc": "Aprender Salesforce CRM Analytics sobre dados de vendas reais. Curtas aulas de vídeo, perguntas, um exame de prática e notas. Construa os painéis que sua equipe de vendas usa. Livre para começar.",
     "aboutTitle": "Sobre",
     "aboutDesc": "A história por trás CRM Analytics Academia — um currículo de código aberto para Salesforce CRM Analytics — e a pessoa que a constrói.",
     "resourcesTitle": "Recursos",
@@ -874,7 +874,16 @@
       "4": "Manter as notas de uma página",
       "title": "Como cada lição funciona"
     },
-    "lessonOne": "1 lição"
+    "lessonOne": "1 lição",
+    "stat": {
+      "sections": "secções",
+      "lessons": "lições planeadas",
+      "live": "viver agora"
+    },
+    "nextUp": "Próximo",
+    "firstUp": "Iniciar com",
+    "continue": "Continuar",
+    "allDone": "Terminaste todas as lições publicadas."
   },
   "lesson": {
     "authors": {

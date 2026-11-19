@@ -294,8 +294,8 @@
     "notAffiliated": "संबद्ध नहीं Salesforceइंक"
   },
   "seo": {
-    "homeTitle": "CRM Analytics शिक्षा Salesforce CRM Analytics",
-    "homeDesc": "मास्टरिंग के लिए एक मुक्त, खुला स्रोत पाठ्यक्रम Salesforce CRM Analytics - डेटा प्रीप से और SAQL डैशबोर्ड, बाइंडिंग, Einstein Discovery और गो-टू-मार्केट डैशबोर्ड बनाता है।",
+    "homeTitle": "सीखिए Salesforce CRM Analytics — CRM Analytics अकादमी",
+    "homeDesc": "सीखिए Salesforce CRM Analytics वास्तविक बिक्री डेटा पर। लघु वीडियो पाठ, प्रश्नोत्तरी, एक अभ्यास परीक्षा और नोट्स। डैशबोर्ड्स को अपनी बिक्री टीम का उपयोग करता है। शुरू करने के लिए स्वतंत्र।",
     "aboutTitle": "के बारे में",
     "aboutDesc": "पीछे की कहानी CRM Analytics अकादमी - एक खुला स्रोत पाठ्यक्रम के लिए Salesforce CRM Analytics - और वह व्यक्ति जो इसे बनाता है।",
     "resourcesTitle": "संसाधन",
@@ -874,7 +874,16 @@
       "4": "एक पृष्ठ नोट रखें",
       "title": "प्रत्येक पाठ कैसे काम करता है"
     },
-    "lessonOne": "1 पाठ"
+    "lessonOne": "1 पाठ",
+    "stat": {
+      "sections": "अनुभाग",
+      "lessons": "पाठ योजनाबद्ध",
+      "live": "अब जीना"
+    },
+    "nextUp": "आगामी",
+    "firstUp": "शुरू",
+    "continue": "जारी",
+    "allDone": "आप हर प्रकाशित पाठ समाप्त हो गए।"
   },
   "lesson": {
     "authors": {

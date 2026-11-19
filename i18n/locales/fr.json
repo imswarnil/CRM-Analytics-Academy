@@ -294,8 +294,8 @@
     "notAffiliated": "Non affiliés Salesforce, Inc."
   },
   "seo": {
-    "homeTitle": "CRM Analytics Académie — Apprendre Salesforce CRM Analytics",
-    "homeDesc": "Un programme gratuit et ouvert pour la maîtrise Salesforce CRM Analytics — de la préparation et SAQL aux tableaux de bord, aux fixations, Einstein Discovery et le tableau de bord d'aller au marché construit.",
+    "homeTitle": "Apprendre Salesforce CRM Analytics — CRM Analytics Académie",
+    "homeDesc": "Apprendre Salesforce CRM Analytics sur les données de ventes réelles. Cours vidéo courts, quiz, examen pratique et notes. Construisez les tableaux de bord utilisés par votre équipe commerciale. Libre de commencer.",
     "aboutTitle": "À propos",
     "aboutDesc": "L'histoire derrière CRM Analytics L'Académie — un programme d'enseignement ouvert pour Salesforce CRM Analytics — et la personne qui la construit.",
     "resourcesTitle": "Ressources",
@@ -874,7 +874,16 @@
       "4": "Gardez les notes d'une page",
       "title": "Comment fonctionne chaque leçon"
     },
-    "lessonOne": "1 leçon"
+    "lessonOne": "1 leçon",
+    "stat": {
+      "sections": "sections",
+      "lessons": "Enseignements prévus",
+      "live": "Vivre maintenant"
+    },
+    "nextUp": "Suivant",
+    "firstUp": "Commencez par",
+    "continue": "Continuer",
+    "allDone": "Tu as fini toutes les leçons publiées."
   },
   "lesson": {
     "authors": {

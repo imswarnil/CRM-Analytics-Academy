@@ -365,7 +365,9 @@ export default defineNuxtConfig({
   },
 
   ogImage: {
-    zeroRuntime: true
+    zeroRuntime: true,
+    // 1200×630 is the size LinkedIn, Facebook, X and WhatsApp crop to.
+    defaults: { width: 1200, height: 630 }
   },
 
   // The site had no sitemap at all: hundreds of prerendered pages across the locales
@@ -379,8 +381,8 @@ export default defineNuxtConfig({
     // prerender and marked noindex, but a sitemap is a positive assertion
     // that a URL is worth indexing — listing them would contradict the meta.
     exclude: [
-      '/dashboard', '/account', '/submit', '/admin', '/_studio',
-      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio',
+      '/dashboard', '/account', '/submit', '/admin', '/_studio', '/team', '/sign-in', '/sign-up',
+      '/*/dashboard', '/*/account', '/*/submit', '/*/admin', '/*/_studio', '/*/team', '/*/sign-in', '/*/sign-up',
       // The raw-markdown surface is for LLMs and is already advertised by
       // llms.txt. In a sitemap it would be duplicate content.
       '/raw/**'

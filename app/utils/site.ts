@@ -2,7 +2,7 @@
 export const SITE = {
   url: 'https://crmanalytics.imswarnil.com',
   name: 'CRM Analytics Academy',
-  description: 'A free, open-source curriculum for mastering Salesforce CRM Analytics — data prep, SAQL, dashboards, and Einstein Discovery.',
+  description: 'Learn Salesforce CRM Analytics on real sales data: short lessons, quizzes, a practice exam and notes. Build the dashboards sales teams use.',
   author: 'Swarnil Singhai',
   github: 'https://github.com/imswarnil/CRM-Analytics-Academy',
   youtube: 'https://www.youtube.com/@crmanalyticsacademy'

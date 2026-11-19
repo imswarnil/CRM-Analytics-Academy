@@ -25,10 +25,14 @@ useSeoMeta({
   title,
   ogTitle: title,
   description,
-  ogDescription: description
+  ogDescription: description,
+  ogImageAlt: () => t('home.hero.title'),
+  twitterTitle: title,
+  twitterDescription: description
 })
 
-defineOgImage('Docs', { title: title.value, description: description.value })
+// The share card leads with the outcome, not the brand (the logo is on it).
+defineOgImage('Docs', { title: t('home.hero.title'), description: t('home.hero.lead'), headline: t('home.hero.eyebrow') })
 
 // Counted from the navigation tree rather than typed, because a hardcoded
 // lesson count is wrong within a week of anybody adding a lesson.
@@ -88,15 +92,25 @@ const homeUrl = computed(() => `${SITE.url}${localePath('/') === '/' ? '' : loca
 useJsonLd({
   '@context': 'https://schema.org',
   '@type': 'Course',
-  'name': SITE.name,
+  '@id': `${SITE.url}/#course`,
+  'name': 'Salesforce CRM Analytics',
+  'alternateName': SITE.name,
   'description': description.value,
   'url': homeUrl.value,
+  'image': `${SITE.url}/icon-512.png`,
+  'mainEntityOfPage': { '@type': 'WebPage', '@id': `${homeUrl.value}#webpage`, 'url': homeUrl.value, 'isPartOf': { '@id': WEBSITE_ID } },
   'inLanguage': bcp47.value,
   'isAccessibleForFree': true,
   'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
-  'offers': { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD' },
+  'offers': [
+    { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD', 'url': `${SITE.url}/start` },
+    { '@type': 'Offer', 'category': 'Subscription', 'name': 'Pro Monthly', 'price': String(PRICES.monthly.usd), 'priceCurrency': 'USD', 'url': `${SITE.url}/pro` },
+    { '@type': 'Offer', 'category': 'Subscription', 'name': 'Pro Yearly', 'price': String(PRICES.yearly.usd), 'priceCurrency': 'USD', 'url': `${SITE.url}/pro` },
+    { '@type': 'Offer', 'category': 'Paid', 'name': 'Pro Lifetime', 'price': String(PRICES.lifetime.usd), 'priceCurrency': 'USD', 'url': `${SITE.url}/pro` }
+  ],
   'sameAs': [SITE.youtube, SITE.github],
   'about': ['Salesforce CRM Analytics', 'Tableau CRM', 'SAQL', 'Go-to-market analytics', 'RevOps dashboards'],
+  'educationalCredentialAwarded': 'CRM Analytics Academy practice certificate',
   'teaches': ['Data preparation with recipes', 'Datasets and data modelling', 'SAQL', 'Dashboard design', 'Bindings', 'Einstein Discovery', 'Funnel, pipeline and RevOps dashboards'],
   'educationalLevel': 'Beginner to advanced',
   'coursePrerequisites': 'Basic Salesforce familiarity; a free CRM Analytics Developer Edition org',
@@ -106,7 +120,7 @@ useJsonLd({
     '@type': 'CourseInstance',
     'courseMode': 'online',
     'courseWorkload': 'PT12H',
-    'instructor': { '@type': 'Person', 'name': SITE.author }
+    'instructor': { '@type': 'Person', 'name': SITE.author, 'url': `${SITE.url}/about` }
   },
   'hasPart': modules.value.map(m => ({
     '@type': 'Course',

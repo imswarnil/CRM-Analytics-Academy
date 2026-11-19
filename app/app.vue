@@ -154,6 +154,8 @@ useJsonLd([
     'url': SITE.url,
     'description': SITE.description,
     'logo': { '@type': 'ImageObject', 'url': `${SITE.url}/icon-512.png`, 'width': 512, 'height': 512 },
+    'image': `${SITE.url}/icon-512.png`,
+    'slogan': 'Build the dashboards your sales team opens every morning.',
     'founder': { '@type': 'Person', 'name': SITE.author },
     'sameAs': [SITE.youtube, SITE.github]
   },

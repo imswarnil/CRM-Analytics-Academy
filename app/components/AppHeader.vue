@@ -63,7 +63,7 @@ const signInTo = computed(() => ({ path: localePath('/sign-in'), query: route.pa
 const { user, isSignedIn, signOut } = useAuth()
 // The admin flag arrives with progress (one request, made once a session
 // exists). The console checks it on every request; this is navigation only.
-const { admin } = useProgress()
+const { admin, pro } = useProgress()
 
 // Shown for the admin account; the console itself re-checks id + email on
 // every request, so this only decides whether the link appears.
@@ -72,12 +72,7 @@ const initials = computed(() => (user.value?.name || user.value?.email || '?').t
 const firstName = computed(() => (user.value?.name || '').trim().split(/\s+/)[0] || t('nav.account'))
 
 const accountItems = computed(() => [
-  [{
-    type: 'label' as const,
-    label: user.value?.name || user.value?.email || t('nav.account'),
-    description: user.value?.name ? user.value?.email : undefined,
-    avatar: user.value?.image ? { src: user.value.image } : undefined
-  }],
+  [{ type: 'label' as const, slot: 'profile' as const, label: user.value?.name || user.value?.email || t('nav.account') }],
   [
     { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: localePath('/dashboard') },
     { label: t('nav.billing'), icon: 'i-lucide-credit-card', to: localePath('/account') },
@@ -205,8 +200,32 @@ const localeItems = computed(() =>
             <UDropdownMenu
               v-if="isSignedIn"
               :items="accountItems"
-              :content="{ align: 'end' }"
+              :content="{ align: 'end', sideOffset: 8 }"
+              :ui="{ content: 'w-72', item: 'py-2 text-[0.9375rem]', itemLeadingIcon: 'size-5' }"
             >
+              <template #profile>
+                <div class="flex items-center gap-3 px-1 py-2">
+                  <span class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--signal) text-lg font-bold text-white">
+                    <img
+                      v-if="user?.image"
+                      :src="user.image"
+                      alt=""
+                      class="size-full object-cover"
+                    >
+                    <template v-else>{{ initials }}</template>
+                  </span>
+                  <span class="min-w-0">
+                    <span class="flex items-center gap-2 text-base font-bold normal-case tracking-normal text-(--ink)">
+                      <span class="truncate">{{ user?.name || firstName }}</span>
+                      <span
+                        v-if="pro"
+                        class="shrink-0 rounded-full bg-(--navy) px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.09em] text-white"
+                      >{{ t('pro.tag') }}</span>
+                    </span>
+                    <span class="block truncate text-sm font-normal normal-case tracking-normal text-(--ink2)">{{ user?.email }}</span>
+                  </span>
+                </div>
+              </template>
               <button
                 type="button"
                 class="flex h-9 max-w-full items-center gap-2 rounded-full ps-0.5 pe-2 text-sm font-semibold text-(--ink) hover:bg-(--paper2)"

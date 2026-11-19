@@ -294,8 +294,8 @@
     "notAffiliated": "提携していない Salesforce代表取締役社長"
   },
   "seo": {
-    "homeTitle": "CRM Analytics アカデミー — 学ぶ Salesforce CRM Analytics",
-    "homeDesc": "マスターのための自由で、オープンソースのカリキュラム Salesforce CRM Analytics — データの準備から SAQL ダッシュボード、バインディング、 Einstein Discovery 市場向けダッシュボードビルド",
+    "homeTitle": "学びます Salesforce CRM Analytics — — — CRM Analytics アカデミー",
+    "homeDesc": "学びます Salesforce CRM Analytics 実際の販売データ。 ショートビデオレッスン、クイズ、練習試験とメモ。 販売チームのダッシュボードを作成する まずは無料。",
     "aboutTitle": "お問い合わせ",
     "aboutDesc": "背後にある物語 CRM Analytics アカデミー — オープンソースのカリキュラム Salesforce CRM Analytics — ビルドする人。",
     "resourcesTitle": "リソース",
@@ -874,7 +874,16 @@
       "4": "ワンページのメモを保持する",
       "title": "各レッスンの仕組み"
     },
-    "lessonOne": "1レッスン"
+    "lessonOne": "1レッスン",
+    "stat": {
+      "sections": "セクション",
+      "lessons": "レッスン予定",
+      "live": "今すぐライブ"
+    },
+    "nextUp": "次へ",
+    "firstUp": "スタート",
+    "continue": "お問い合わせ",
+    "allDone": "公開されたすべてのレッスンを終了します。"
   },
   "lesson": {
     "authors": {
