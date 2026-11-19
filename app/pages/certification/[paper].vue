@@ -212,6 +212,12 @@ function onKey(e: KeyboardEvent) {
   e.preventDefault()
 }
 onMounted(() => window.addEventListener('keydown', onKey))
+// While the paper runs it is pinned to the viewport; the page behind it must
+// not scroll either (a trackpad flick would otherwise move the header).
+watch(phase, p => import.meta.client && (document.documentElement.style.overflow = p === 'running' ? 'hidden' : ''), { immediate: true })
+onBeforeUnmount(() => {
+  if (import.meta.client) document.documentElement.style.overflow = ''
+})
 onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 function retake() {
   try {
@@ -254,7 +260,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
     <!-- INTRO ---------------------------------------------------------- -->
     <section
       v-if="phase === 'intro'"
-      class="mx-auto max-w-2xl px-4 py-16 sm:py-24"
+      class="mx-auto flex min-h-[calc(100dvh-var(--ui-header-height))] max-w-2xl flex-col justify-center px-4 py-8"
     >
       <NuxtLink
         :to="localePath('/certification')"
@@ -265,18 +271,18 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           class="size-4"
         />{{ t('cert.eyebrow') }}
       </NuxtLink>
-      <h1 class="mt-4 text-4xl font-bold tracking-tight text-(--ink) sm:text-5xl">
+      <h1 class="mt-3 text-3xl font-bold tracking-tight text-(--ink) sm:text-4xl">
         {{ paper!.title }}
       </h1>
-      <p class="mt-3 text-lg text-(--ink2)">
+      <p class="mt-2 text-(--ink2)">
         {{ EXAM.name }}
       </p>
 
-      <dl class="mt-10 grid grid-cols-3 overflow-hidden rounded-3xl border border-(--line) bg-(--card)">
+      <dl class="mt-6 grid grid-cols-3 overflow-hidden rounded-[8px] border border-(--line) bg-(--card)">
         <div
           v-for="f in facts"
           :key="f.label"
-          class="flex flex-col items-center gap-1 border-e border-(--line) px-4 py-6 last:border-e-0"
+          class="flex flex-col items-center gap-1 border-e border-(--line) px-4 py-4 last:border-e-0"
         >
           <UIcon
             :name="f.icon"
@@ -291,7 +297,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         </div>
       </dl>
 
-      <ul class="mt-8 space-y-3">
+      <ul class="mt-6 space-y-2">
         <li
           v-for="i in 4"
           :key="i"
@@ -304,7 +310,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         </li>
       </ul>
 
-      <div class="mt-10 flex flex-wrap items-center gap-3">
+      <div class="mt-7 flex flex-wrap items-center gap-3">
         <UButton
           size="xl"
           class="px-7"
@@ -343,7 +349,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
     <!-- RUNNING -------------------------------------------------------- -->
     <div
       v-else-if="phase === 'running' && current"
-      class="flex h-[calc(100dvh-var(--ui-header-height))] flex-col overflow-hidden"
+      class="fixed inset-x-0 bottom-0 top-(--ui-header-height) z-30 flex flex-col overflow-hidden bg-(--paper)"
     >
       <!-- Top bar: progress, clock, submit, close -->
       <div class="shrink-0 border-b border-(--line) bg-(--card)/80 backdrop-blur">
@@ -389,10 +395,10 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         </div>
       </div>
 
-      <div class="mx-auto grid min-h-0 w-full max-w-5xl flex-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_15rem]">
+      <div class="mx-auto grid min-h-0 w-full max-w-5xl flex-1 gap-6 px-4 py-4 sm:px-6 sm:py-6 lg:grid-cols-[minmax(0,1fr)_15rem]">
         <!-- The question -->
-        <section class="flex min-h-0 flex-col overflow-hidden rounded-3xl border border-(--line) bg-(--card) shadow-[0_20px_60px_-40px_var(--navy)]">
-          <div class="min-h-0 flex-1 overflow-y-auto p-6 sm:p-10">
+        <section class="flex min-h-0 flex-col overflow-hidden rounded-[8px] border border-(--line) bg-(--card) shadow-[0_20px_60px_-40px_var(--navy)]">
+          <div class="min-h-0 flex-1 overflow-y-auto p-5 sm:p-8">
             <div class="flex items-center justify-between gap-3">
               <span class="rounded-full bg-(--ice) px-3 py-1 text-xs font-medium text-(--ink2)">{{ DOMAINS[current.domain].label }}</span>
               <button
@@ -412,7 +418,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
               {{ current.q }}
             </h1>
             <div
-              class="mt-8 space-y-3"
+              class="mt-6 space-y-2.5"
               role="radiogroup"
             >
               <button
@@ -421,7 +427,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
                 type="button"
                 role="radio"
                 :aria-checked="answers[index] === oi"
-                class="group flex w-full items-center gap-4 rounded-2xl border p-4 text-start transition-all duration-150"
+                class="group flex w-full items-center gap-4 rounded-[6px] border px-4 py-3 text-start transition-all duration-150"
                 :class="answers[index] === oi ? 'border-(--signal) bg-(--signal)/8 ring-1 ring-(--signal)' : 'border-(--line) hover:border-(--ink2)/40 hover:bg-(--ice)/60'"
                 @click="answers[index] = oi"
               >
@@ -473,7 +479,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
               v-for="(_, qi) in questions"
               :key="qi"
               type="button"
-              class="relative flex aspect-square items-center justify-center rounded-lg text-[11px] font-medium tabular-nums transition-colors"
+              class="relative flex aspect-square items-center justify-center rounded-[4px] text-[11px] font-medium tabular-nums transition-colors"
               :class="qi === index ? 'bg-(--ink) text-(--paper)' : answers[qi] !== null ? 'bg-(--signal)/15 text-(--signal) hover:bg-(--signal)/25' : 'bg-(--card) text-(--ink2) ring-1 ring-(--line) hover:ring-(--ink2)/40'"
               :aria-label="t('cert.goTo', { n: qi + 1 })"
               @click="index = qi"
@@ -529,7 +535,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
       v-else-if="phase === 'done'"
       class="mx-auto max-w-3xl space-y-8 px-4 py-14 sm:px-6"
     >
-      <section class="rounded-3xl border border-(--line) bg-(--card) p-8 text-center sm:p-12">
+      <section class="rounded-[8px] border border-(--line) bg-(--card) p-8 text-center sm:p-12">
         <div class="relative mx-auto size-40">
           <svg
             viewBox="0 0 120 120"
@@ -606,7 +612,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         </div>
       </section>
 
-      <section class="rounded-3xl border border-(--line) bg-(--card) p-6 sm:p-8">
+      <section class="rounded-[8px] border border-(--line) bg-(--card) p-6 sm:p-8">
         <h2 class="text-lg font-semibold text-(--ink)">
           {{ t('cert.byDomain') }}
         </h2>
@@ -654,7 +660,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           <li
             v-for="{ q, i } in reviewList"
             :key="q.id"
-            class="rounded-3xl border border-(--line) bg-(--card) p-6"
+            class="rounded-[8px] border border-(--line) bg-(--card) p-6"
           >
             <p class="flex flex-wrap items-center gap-2 text-xs font-medium text-(--ink2)">
               <span>{{ t('cert.questionOf', { n: i + 1, total: questions.length }) }}</span>

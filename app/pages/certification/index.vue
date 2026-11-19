@@ -53,22 +53,22 @@ usePageSchema(() => ({
     <!-- HERO: the exam on the left, the certificate you earn on the right -->
     <section class="relative overflow-hidden border-b border-(--line) bg-(--card)">
       <BpFloatCharts />
-      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:px-8 lg:py-20">
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:px-8">
         <div>
           <p class="eyebrow">
             {{ t('cert.eyebrow') }}
           </p>
-          <h1 class="bp-h1 mt-3">
+          <h1 class="mt-2 text-3xl font-bold leading-tight tracking-[-0.02em] text-(--ink) sm:text-4xl">
             {{ t('cert.title') }}
           </h1>
-          <p class="bp-lead mt-4 max-w-xl">
+          <p class="mt-3 max-w-xl text-[1.0625rem] leading-relaxed text-(--ink2)">
             {{ t('cert.lead') }}
           </p>
-          <dl class="mt-7 grid max-w-lg grid-cols-4 overflow-hidden rounded-[6px] border border-(--line) bg-(--paper)">
+          <dl class="mt-5 grid max-w-lg grid-cols-4 overflow-hidden rounded-[6px] border border-(--line) bg-(--paper)">
             <div
               v-for="f in facts"
               :key="f.label"
-              class="border-(--line) px-3 py-3 text-center not-last:border-e"
+              class="border-(--line) px-3 py-2.5 text-center not-last:border-e"
             >
               <dd class="text-xl font-bold tabular-nums text-(--ink)">
                 {{ f.value }}
@@ -78,10 +78,10 @@ usePageSchema(() => ({
               </dt>
             </div>
           </dl>
-          <div class="mt-8 flex flex-wrap items-center gap-3">
+          <div class="mt-6 flex flex-wrap items-center gap-3">
             <UButton
               :to="localePath(`/certification/${paper.id}`)"
-              size="xl"
+              size="lg"
               icon="i-lucide-play"
               class="px-7"
             >
@@ -99,7 +99,7 @@ usePageSchema(() => ({
           </div>
         </div>
 
-        <div class="mx-auto w-full max-w-xl">
+        <div class="mx-auto w-full max-w-md">
           <p class="mb-3 text-center text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">
             {{ t('cert.earn') }}
           </p>
@@ -108,23 +108,27 @@ usePageSchema(() => ({
               :name="user?.name || ''"
               :score="best[paper.id]?.best ?? null"
               sample
+              animate
             />
             <template #fallback>
-              <CourseCertificate sample />
+              <CourseCertificate
+                sample
+                animate
+              />
             </template>
           </ClientOnly>
         </div>
       </div>
     </section>
 
-    <div class="mx-auto grid max-w-(--ui-container) gap-6 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-8">
+    <div class="mx-auto grid max-w-(--ui-container) gap-6 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-8">
       <div class="min-w-0 space-y-6">
         <!-- The papers -->
         <section>
-          <h2 class="bp-h2">
+          <h2 class="bp-h3">
             {{ t('cert.papersTitle') }}
           </h2>
-          <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+          <ul class="mt-4 grid gap-4 sm:grid-cols-2">
             <li
               v-for="p in PAPERS"
               :key="p.id"
@@ -292,27 +296,7 @@ usePageSchema(() => ({
             </li>
           </ul>
         </section>
-        <NuxtLink
-          :to="localePath('/interview-questions')"
-          class="group block rounded-[6px] bg-(--navy) p-6 text-white"
-        >
-          <UIcon
-            name="i-lucide-messages-square"
-            class="size-5 text-(--glow)"
-          />
-          <p class="mt-3 text-lg font-semibold">{{ t('interview.ctaTitle') }}</p>
-          <p class="mt-1 text-sm text-white/70">{{ t('interview.ctaBody') }}</p>
-          <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-(--glow)">{{ t('interview.eyebrow') }}<UIcon
-            name="i-lucide-arrow-right"
-            class="size-4 transition-transform group-hover:translate-x-0.5"
-          /></span>
-        </NuxtLink>
         <PromoSlot unit="square300x250" />
-        <ShareBar
-          :title="t('cert.title')"
-          :text="t('cert.shareText')"
-          compact
-        />
       </aside>
     </div>
   </div>

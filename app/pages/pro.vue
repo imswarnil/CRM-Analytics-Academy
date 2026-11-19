@@ -25,6 +25,14 @@ const price = (id: PlanId) => (id === 'free' ? usd(0) : id in PRICES ? usd(PRICE
 const usd2 = (n: number) => new Intl.NumberFormat(locale.value, { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n)
 const yearlyPerMonth = computed(() => usd2(PRICES.yearly.usd / 12))
 const yearlySave = Math.round((1 - PRICES.yearly.usd / (PRICES.monthly.usd * 12)) * 100)
+// One Pro card, three ways to pay — the way most SaaS pricing reads.
+const billing = ref<PaidPlan>('yearly')
+const billingOptions = computed(() => (Object.keys(PRICES) as PaidPlan[]).map(id => ({ id, label: t(`plans.billing.${id}`) })))
+const trust = [
+  { icon: 'i-lucide-lock', key: 'stripe' },
+  { icon: 'i-lucide-rotate-ccw', key: 'cancel' },
+  { icon: 'i-lucide-ban', key: 'noAds' }
+]
 
 async function buy(plan: PaidPlan) {
   if (!isSignedIn.value) {
@@ -99,21 +107,17 @@ usePageSchema(() => ({
 <template>
   <div>
     <section class="border-b border-(--line) bg-(--card)">
-      <div class="mx-auto max-w-3xl px-4 py-16 text-center sm:py-20">
+      <div class="mx-auto max-w-3xl px-4 py-10 text-center sm:py-12">
         <p class="eyebrow">
           {{ t('store.eyebrow') }}
         </p>
-        <h1 class="bp-h1 mt-3">
+        <h1 class="mt-2 text-3xl font-bold leading-tight tracking-[-0.02em] text-(--ink) sm:text-4xl">
           {{ t('store.title') }}
         </h1>
-        <p class="bp-lead mx-auto mt-4 max-w-xl">
+        <p class="mx-auto mt-3 max-w-xl text-[1.0625rem] text-(--ink2)">
           {{ t('store.lead') }}
         </p>
-        <div class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold">
-          <a
-            href="#plans"
-            class="text-(--signal) hover:underline"
-          >{{ t('store.toPlans') }}</a>
+        <div class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold">
           <a
             href="#compare"
             class="inline-flex items-center gap-1 text-(--signal) hover:underline"
@@ -129,7 +133,7 @@ usePageSchema(() => ({
 
     <div
       id="plans"
-      class="mx-auto max-w-(--ui-container) scroll-mt-24 space-y-12 px-4 py-14 sm:px-6 lg:px-8"
+      class="mx-auto max-w-(--ui-container) scroll-mt-24 space-y-14 px-4 py-10 sm:px-6 lg:px-8"
     >
       <UAlert
         v-if="cancelled"
@@ -139,94 +143,187 @@ usePageSchema(() => ({
         :description="t('plans.cancelled')"
       />
 
-      <!-- For individuals -->
+      <!-- The plans: Free · Pro (three ways to pay) · Teams -->
       <section>
-        <p class="mono-label mb-4">
-          {{ t('plans.forYou') }}
-        </p>
-        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <article
-            v-for="p in PLANS.filter(x => x.audience === 'b2c')"
-            :key="p.id"
-            class="relative flex flex-col rounded-[6px] border bg-(--card) p-6"
-            :class="p.featured ? 'border-(--signal)' : 'border-(--line)'"
+        <div class="flex justify-center">
+          <div
+            class="inline-flex rounded-full border border-(--line) bg-(--card) p-1"
+            role="radiogroup"
+            :aria-label="t('plans.billing.label')"
           >
-            <span
-              v-if="p.featured"
-              class="absolute -top-2.5 left-6 rounded-full bg-(--signal) px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[.09em] text-white"
-            >{{ t('plans.best') }}</span>
-            <UIcon
-              :name="p.icon"
-              class="size-6 text-(--signal)"
-            />
-            <h2 class="mt-4 text-lg font-bold text-(--ink)">
-              {{ t(`plans.${p.id}.name`) }}
+            <button
+              v-for="b in billingOptions"
+              :key="b.id"
+              type="button"
+              role="radio"
+              :aria-checked="billing === b.id"
+              class="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold transition-colors"
+              :class="billing === b.id ? 'bg-(--navy) text-white' : 'text-(--ink2) hover:text-(--ink)'"
+              @click="billing = b.id"
+            >
+              {{ b.label }}
+              <span
+                v-if="b.id === 'yearly'"
+                class="rounded-full px-1.5 text-[10px] font-bold"
+                :class="billing === b.id ? 'bg-white/20 text-white' : 'bg-success/10 text-success'"
+              >−{{ yearlySave }}%</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mx-auto mt-8 grid max-w-5xl items-stretch gap-4 lg:grid-cols-3">
+          <!-- Free -->
+          <article class="flex flex-col rounded-[8px] border border-(--line) bg-(--card) p-7">
+            <h2 class="text-lg font-bold text-(--ink)">
+              {{ t('plans.free.name') }}
             </h2>
             <p class="mt-1 text-sm text-(--ink2)">
-              {{ t(`plans.${p.id}.tagline`) }}
+              {{ t('plans.free.tagline') }}
             </p>
             <p class="mt-6 flex items-baseline gap-1.5">
-              <span class="text-4xl font-bold tracking-tight tabular-nums text-(--ink)">{{ price(p.id) }}</span>
-              <span class="text-sm text-(--ink2)">{{ t(`plans.${p.id}.unit`) }}</span>
+              <span class="text-5xl font-bold tracking-tight tabular-nums text-(--ink)">{{ usd(0) }}</span>
+              <span class="text-sm text-(--ink2)">{{ t('plans.free.unit') }}</span>
             </p>
-            <p
-              v-if="p.id === 'yearly'"
-              class="mt-1.5 flex flex-wrap items-center gap-2 text-sm text-(--ink2)"
+            <p class="mt-2 h-5 text-sm text-(--ink2)" />
+            <UButton
+              :to="localePath('/start')"
+              block
+              size="lg"
+              color="neutral"
+              variant="outline"
+              class="mt-6"
             >
-              {{ t('plans.perMonth', { price: yearlyPerMonth }) }}
-              <span class="rounded-full bg-success/10 px-2 py-0.5 text-xs font-bold text-success">{{ t('plans.save', { pct: yearlySave }) }}</span>
-            </p>
-            <ul class="mt-6 flex-1 space-y-2.5">
+              {{ t('plans.free.cta') }}
+            </UButton>
+            <ul class="mt-7 space-y-3 border-t border-(--line) pt-6">
               <li
-                v-for="n in p.features"
+                v-for="n in 4"
                 :key="n"
-                class="flex items-start gap-2 text-sm text-(--ink)"
+                class="flex items-start gap-2.5 text-sm text-(--ink)"
               >
                 <UIcon
                   name="i-lucide-check"
-                  class="mt-0.5 size-4 shrink-0 text-(--signal)"
-                />{{ t(`plans.${p.id}.f${n}`) }}
+                  class="mt-0.5 size-4 shrink-0 text-(--ink2)"
+                />{{ t(`plans.free.f${n}`) }}
               </li>
             </ul>
-            <div class="mt-7">
-              <ClientOnly>
-                <p
-                  v-if="p.id !== 'free' && pro"
-                  class="flex h-10 items-center justify-center gap-2 rounded-[4px] bg-(--paper) text-sm font-semibold text-(--ink2)"
-                >
-                  <UIcon
-                    name="i-lucide-check"
-                    class="size-4"
-                  />{{ t('plans.current') }}
-                </p>
-                <UButton
-                  v-else-if="p.id === 'free'"
-                  :to="localePath('/start')"
-                  block
-                  size="lg"
-                  color="neutral"
-                  variant="outline"
-                >
-                  {{ t('plans.free.cta') }}
-                </UButton>
-                <UButton
-                  v-else
-                  block
-                  size="lg"
-                  :color="p.featured ? 'primary' : 'neutral'"
-                  :variant="p.featured ? 'solid' : 'outline'"
-                  :loading="busy === p.id"
-                  @click="buy(p.id as PaidPlan)"
-                >
-                  {{ t(`plans.${p.id}.cta`) }}
-                </UButton>
-              </ClientOnly>
-            </div>
+          </article>
+
+          <!-- Pro -->
+          <article class="relative flex flex-col rounded-[8px] border-2 border-(--signal) bg-(--card) p-7 shadow-[0_18px_40px_-24px_rgb(1_118_211/.55)] lg:-my-3 lg:py-10">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-(--signal) px-3 py-1 text-[10px] font-bold uppercase tracking-[.09em] whitespace-nowrap text-white">{{ t('plans.best') }}</span>
+            <h2 class="flex items-center gap-2 text-lg font-bold text-(--ink)">
+              {{ t(`plans.${billing}.name`) }}
+            </h2>
+            <p class="mt-1 text-sm text-(--ink2)">
+              {{ t(`plans.${billing}.tagline`) }}
+            </p>
+            <p class="mt-6 flex items-baseline gap-1.5">
+              <span class="text-5xl font-bold tracking-tight tabular-nums text-(--ink)">{{ price(billing) }}</span>
+              <span class="text-sm text-(--ink2)">{{ t(`plans.${billing}.unit`) }}</span>
+            </p>
+            <p class="mt-2 flex h-5 items-center gap-2 text-sm text-(--ink2)">
+              <template v-if="billing === 'yearly'">
+                {{ t('plans.perMonth', { price: yearlyPerMonth }) }}
+                <span class="rounded-full bg-success/10 px-2 py-0.5 text-xs font-bold text-success">{{ t('plans.save', { pct: yearlySave }) }}</span>
+              </template>
+              <template v-else>
+                {{ t(`plans.note.${billing}`) }}
+              </template>
+            </p>
+            <ClientOnly>
+              <p
+                v-if="pro"
+                class="mt-6 flex h-11 items-center justify-center gap-2 rounded-[4px] bg-(--paper) text-sm font-semibold text-(--ink2)"
+              >
+                <UIcon
+                  name="i-lucide-check"
+                  class="size-4"
+                />{{ t('plans.current') }}
+              </p>
+              <UButton
+                v-else
+                block
+                size="xl"
+                class="mt-6"
+                trailing-icon="i-lucide-arrow-right"
+                :loading="busy === billing"
+                @click="buy(billing)"
+              >
+                {{ t(`plans.${billing}.cta`) }}
+              </UButton>
+              <template #fallback>
+                <div class="mt-6 h-11" />
+              </template>
+            </ClientOnly>
+            <ul class="mt-7 space-y-3 border-t border-(--line) pt-6">
+              <li
+                v-for="n in 5"
+                :key="n"
+                class="flex items-start gap-2.5 text-sm text-(--ink)"
+              >
+                <UIcon
+                  name="i-lucide-circle-check"
+                  class="mt-0.5 size-4 shrink-0 text-(--signal)"
+                />{{ t(`plans.monthly.f${n}`) }}
+              </li>
+            </ul>
+          </article>
+
+          <!-- Teams -->
+          <article class="flex flex-col rounded-[8px] border border-(--line) bg-(--card) p-7">
+            <h2 class="text-lg font-bold text-(--ink)">
+              {{ t('plans.teams.name') }}
+            </h2>
+            <p class="mt-1 text-sm text-(--ink2)">
+              {{ t('plans.teams.tagline') }}
+            </p>
+            <p class="mt-6 flex items-baseline gap-1.5">
+              <span class="text-5xl font-bold tracking-tight text-(--ink)">{{ t('plans.teams.price') }}</span>
+            </p>
+            <p class="mt-2 h-5 text-sm text-(--ink2)">
+              {{ t('plans.teams.unit') }}
+            </p>
+            <UButton
+              to="#teams"
+              block
+              size="lg"
+              color="neutral"
+              variant="outline"
+              class="mt-6"
+            >
+              {{ t('plans.teams.cta') }}
+            </UButton>
+            <ul class="mt-7 space-y-3 border-t border-(--line) pt-6">
+              <li
+                v-for="n in 5"
+                :key="n"
+                class="flex items-start gap-2.5 text-sm text-(--ink)"
+              >
+                <UIcon
+                  name="i-lucide-check"
+                  class="mt-0.5 size-4 shrink-0 text-(--ink2)"
+                />{{ t(`plans.teams.f${n}`) }}
+              </li>
+            </ul>
           </article>
         </div>
+
+        <ul class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-(--ink2)">
+          <li
+            v-for="tr in trust"
+            :key="tr.key"
+            class="flex items-center gap-1.5"
+          >
+            <UIcon
+              :name="tr.icon"
+              class="size-4 text-(--signal)"
+            />{{ t(`plans.trust.${tr.key}`) }}
+          </li>
+        </ul>
         <UAlert
           v-if="error"
-          class="mt-4"
+          class="mx-auto mt-4 max-w-5xl"
           color="error"
           variant="subtle"
           :description="error"
@@ -292,7 +389,7 @@ usePageSchema(() => ({
             </div>
             <form
               v-else
-              class="grid gap-5"
+              class="grid gap-5 sm:grid-cols-2"
               @submit.prevent="send"
             >
               <input
@@ -303,7 +400,10 @@ usePageSchema(() => ({
                 aria-hidden="true"
                 class="absolute -left-[9999px] size-px opacity-0"
               >
-              <UFormField :label="t('plans.f.kind')">
+              <UFormField
+                :label="t('plans.f.kind')"
+                class="sm:col-span-2"
+              >
                 <div class="grid grid-cols-3 gap-2">
                   <button
                     v-for="k in ORG_KINDS"
@@ -337,10 +437,11 @@ usePageSchema(() => ({
               <UFormField
                 :label="form.orgKind === 'college' ? t('plans.f.students') : t('plans.f.seats')"
                 :help="t('plans.f.seatsHelp')"
+                class="sm:col-span-2"
               >
                 <div class="flex flex-wrap items-center gap-2">
                   <button
-                    v-for="n in [10, 25, 50, 100, 250]"
+                    v-for="n in [10, 25, 100, 250]"
                     :key="n"
                     type="button"
                     class="rounded-full border px-3 py-1 text-sm font-semibold tabular-nums transition-colors"
@@ -358,7 +459,10 @@ usePageSchema(() => ({
                   />
                 </div>
               </UFormField>
-              <UFormField :label="t('plans.f.when')">
+              <UFormField
+                :label="t('plans.f.when')"
+                class="sm:col-span-2"
+              >
                 <div class="flex flex-wrap gap-2">
                   <button
                     v-for="w in (['now', 'quarter', 'exploring'] as const)"
@@ -390,6 +494,7 @@ usePageSchema(() => ({
               <UFormField
                 :label="t('plans.f.message')"
                 :hint="t('contrib.optional')"
+                class="sm:col-span-2"
               >
                 <UTextarea
                   v-model="form.message"
@@ -402,12 +507,14 @@ usePageSchema(() => ({
               <HumanCheck
                 ref="human"
                 v-model="token"
+                class="sm:col-span-2"
               />
               <UAlert
                 v-if="formError"
                 color="error"
                 variant="subtle"
                 :description="formError"
+                class="sm:col-span-2"
               />
               <UButton
                 type="submit"
@@ -415,10 +522,11 @@ usePageSchema(() => ({
                 :loading="sending"
                 icon="i-lucide-send"
                 block
+                class="sm:col-span-2"
               >
                 {{ t('plans.teams.cta') }}
               </UButton>
-              <p class="flex items-center justify-center gap-1.5 text-xs text-(--ink2)">
+              <p class="flex items-center justify-center gap-1.5 text-xs text-(--ink2) sm:col-span-2">
                 <UIcon
                   name="i-lucide-clock"
                   class="size-3.5"

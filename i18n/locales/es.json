@@ -284,6 +284,22 @@
       "title": "Construya su primer modelo de datos hoy.",
       "lead": "Empieza libre. Diez minutos al día es suficiente.",
       "author": "Traido por Swarnil Singhai, CRM Analytics consultor"
+    },
+    "outcomes": {
+      "eyebrow": "Lo que construirás",
+      "title": "Tres dashboards cada equipo de ingresos pide.",
+      "pipeline": {
+        "title": "Salud de las tuberías",
+        "text": "Ofertas abiertas por escenario, propietario y edad. Encuentra lo que está atascado."
+      },
+      "funnel": {
+        "title": "embudo de plomo-deal",
+        "text": "Conversión en cada etapa, desde el primer toque a la victoria cerrada."
+      },
+      "revenue": {
+        "title": "Ingresos y pronósticos",
+        "text": "Reservas contra objetivos, y donde aterrizará el trimestre."
+      }
     }
   },
   "footer": {
@@ -1448,7 +1464,9 @@
       "f2": "Un código de unión; las universidades pueden limitarlo a su dominio de correo electrónico",
       "f3": "Gestión de asientos y progreso para los administradores",
       "f4": "Facturación facturada y precio de volumen",
-      "f5": "Ayuda a bordo para su org"
+      "f5": "Ayuda a bordo para su org",
+      "price": "Aduanas",
+      "unit": "Por asiento, facturado anualmente"
     },
     "yearly": {
       "name": "Pro Yearly",
@@ -1486,6 +1504,21 @@
       "1": "Usted obtiene una respuesta con una cita y una factura.",
       "2": "Su organización está establecida con sus asientos y un código de unión.",
       "3": "Tu gente se une al código y empieza a aprender."
+    },
+    "billing": {
+      "label": "¿Cómo quieres pagar?",
+      "monthly": "Mensual",
+      "yearly": "Año",
+      "lifetime": "Vida"
+    },
+    "note": {
+      "monthly": "Cancela cualquier momento.",
+      "lifetime": "Un pago. Sin renovaciones."
+    },
+    "trust": {
+      "stripe": "Pago seguro con Stripe",
+      "cancel": "Cancelar cualquier momento",
+      "noAds": "No ads on Pro"
     }
   },
   "studio": {

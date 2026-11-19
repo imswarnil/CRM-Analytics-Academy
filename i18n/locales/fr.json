@@ -284,6 +284,22 @@
       "title": "Construisez votre premier modèle de données aujourd'hui.",
       "lead": "Commencez gratuitement. Dix minutes par jour suffit.",
       "author": "Appris par Swarnil Singhai, CRM Analytics Consultant"
+    },
+    "outcomes": {
+      "eyebrow": "Ce que vous allez construire",
+      "title": "Trois tableaux de bord que chaque équipe demande.",
+      "pipeline": {
+        "title": "Santé des pipelines",
+        "text": "Offres ouvertes par étape, propriétaire et âge. Spot ce qui est coincé."
+      },
+      "funnel": {
+        "title": "Entonnoir plomb-déal",
+        "text": "La conversion à chaque étape, du premier contact au won fermé."
+      },
+      "revenue": {
+        "title": "Recettes et prévisions",
+        "text": "Réservations par rapport à la cible, et où le quart atterrira."
+      }
     }
   },
   "footer": {
@@ -1448,7 +1464,9 @@
       "f2": "Un code d'adhésion ; les collèges peuvent le limiter à leur domaine de messagerie",
       "f3": "Gestion des sièges et progrès pour les administrateurs",
       "f4": "Facturation facturée et tarification du volume",
-      "f5": "Aide à bord pour votre org"
+      "f5": "Aide à bord pour votre org",
+      "price": "Personnalisé",
+      "unit": "Par siège, facturé annuellement"
     },
     "yearly": {
       "name": "Pro Annuel",
@@ -1486,6 +1504,21 @@
       "1": "Vous obtenez une réponse avec un devis et une facture.",
       "2": "Votre organisation est créée avec ses sièges et un code d'adhésion.",
       "3": "Vos gens se joignent au code et commencent à apprendre."
+    },
+    "billing": {
+      "label": "Comment voulez-vous payer ?",
+      "monthly": "Mensuel",
+      "yearly": "Année",
+      "lifetime": "Durée de vie"
+    },
+    "note": {
+      "monthly": "Annule quand tu veux.",
+      "lifetime": "Un paiement. Pas de renouvellement."
+    },
+    "trust": {
+      "stripe": "Achat sécurisé avec Stripe",
+      "cancel": "Annuler à tout moment",
+      "noAds": "Pas d'annonces sur Pro"
     }
   },
   "studio": {

@@ -12,7 +12,9 @@ const props = withDefaults(defineProps<{
   date?: string | null
   credential?: string
   sample?: boolean
-}>(), { name: '', score: null, date: null, credential: '', sample: false })
+  /** Play the entrance: the sheet rises, the name writes itself, the stamp lands, a shine passes. */
+  animate?: boolean
+}>(), { name: '', score: null, date: null, credential: '', sample: false, animate: false })
 
 const { t, locale } = useI18n()
 const when = computed(() => new Date(props.date ?? Date.now()).toLocaleDateString(locale.value, { year: 'numeric', month: 'long', day: 'numeric' }))
@@ -22,6 +24,7 @@ const id = computed(() => props.credential || 'CRMA-PX1-2026-0001')
 <template>
   <figure
     class="cert relative overflow-hidden rounded-[6px] bg-white text-[#032D60]"
+    :class="{ 'cert--animate': animate }"
     :aria-label="t('cert.paper.title')"
   >
     <!-- guilloche-style double border -->
@@ -199,6 +202,11 @@ const id = computed(() => props.credential || 'CRMA-PX1-2026-0001')
     </div>
 
     <span
+      v-if="animate"
+      class="cert-shine pointer-events-none absolute inset-0"
+      aria-hidden="true"
+    />
+    <span
       v-if="sample"
       class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[18deg] text-6xl font-black tracking-[.2em] text-[#0176D3]/10 select-none sm:text-7xl"
       aria-hidden="true"
@@ -211,8 +219,30 @@ const id = computed(() => props.credential || 'CRMA-PX1-2026-0001')
 .cert-name { font-family: 'Caveat', 'Kalam', cursive; font-weight: 700; color: #032d60; }
 .cert-sign { font-family: 'Caveat', cursive; color: #0b3b78; }
 .cert-stamp { transform: rotate(-12deg); }
+.cert { box-shadow: 0 18px 40px -24px rgb(3 45 96 / .45); }
 @media (prefers-reduced-motion: no-preference) {
   .cert-stamp { animation: stamp-in .6s cubic-bezier(.3, 1.6, .5, 1) .3s both; }
+  .cert--animate { animation: cert-rise .8s cubic-bezier(.2, .8, .2, 1) both; }
+  .cert--animate .cert-name { animation: write-in 1.1s steps(28, end) .6s both; }
+  .cert--animate .cert-sign { animation: write-in .9s steps(20, end) 1.5s both; }
+  .cert--animate .cert-stamp { animation: stamp-in .55s cubic-bezier(.3, 1.6, .5, 1) 2.1s both; }
+  .cert-shine {
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / .75) 50%, transparent 65%);
+    transform: translateX(-120%);
+    animation: shine 1.4s ease-in-out 2.6s both;
+  }
+  .cert--animate:hover { transform: translateY(-3px) rotate(-.3deg); transition: transform .3s; }
+}
+@keyframes cert-rise {
+  from { opacity: 0; transform: translateY(24px) rotate(1.5deg) scale(.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes write-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes shine {
+  to { transform: translateX(120%); }
 }
 @keyframes stamp-in {
   from { opacity: 0; transform: rotate(-30deg) scale(1.6); }

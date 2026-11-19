@@ -284,6 +284,22 @@
       "title": "Erstellen Sie noch heute Ihr erstes Datenmodell.",
       "lead": "Start frei. Zehn Minuten am Tag sind genug.",
       "author": "Gelehrt von Swarnil Singhai, CRM Analytics Berater"
+    },
+    "outcomes": {
+      "eyebrow": "Was du bauen wirst",
+      "title": "Drei Dashboards, nach denen jedes Revenue-Team fragt.",
+      "pipeline": {
+        "title": "Pipeline Gesundheit",
+        "text": "Offene Angebote nach Bühne, Besitzer und Alter. Spot, was steckt."
+      },
+      "funnel": {
+        "title": "Lead-to-Deal-Trichter",
+        "text": "Umwandlung in jeder Phase, von der ersten Berührung bis zum geschlossenen Won."
+      },
+      "revenue": {
+        "title": "Einnahmen und Prognosen",
+        "text": "Buchungen gegen Ziel, und wo das Quartal landet."
+      }
     }
   },
   "footer": {
@@ -1448,7 +1464,9 @@
       "f2": "Ein Join-Code; Colleges können ihn auf ihre E-Mail-Domain beschränken",
       "f3": "Sitzplatzmanagement und Fortschritt für Admins",
       "f4": "Rechnungsstellung und Volumenpreis",
-      "f5": "Onboarding Hilfe für Ihre Org"
+      "f5": "Onboarding Hilfe für Ihre Org",
+      "price": "Zoll",
+      "unit": "Pro Sitz, jährlich in Rechnung gestellt"
     },
     "yearly": {
       "name": "Pro Jahr",
@@ -1486,6 +1504,21 @@
       "1": "Sie erhalten eine Antwort mit einem Angebot und einer Rechnung.",
       "2": "Ihre Organisation ist mit ihren Sitzen und einem Join-Code eingerichtet.",
       "3": "Ihre Leute schließen sich dem Code an und beginnen zu lernen."
+    },
+    "billing": {
+      "label": "Wie möchten Sie bezahlen?",
+      "monthly": "Monatlich",
+      "yearly": "Jährlich",
+      "lifetime": "Lebensdauer"
+    },
+    "note": {
+      "monthly": "Jederzeit absagen.",
+      "lifetime": "Eine Zahlung. Keine Verlängerungen."
+    },
+    "trust": {
+      "stripe": "Sicherer Checkout mit Stripe",
+      "cancel": "Jederzeit absagen",
+      "noAds": "Keine Werbung auf Pro"
     }
   },
   "studio": {

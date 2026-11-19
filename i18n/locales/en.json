@@ -284,6 +284,22 @@
       "title": "Build your first data model today.",
       "lead": "Start free. Ten minutes a day is enough.",
       "author": "Taught by Swarnil Singhai, CRM Analytics consultant"
+    },
+    "outcomes": {
+      "eyebrow": "What you will build",
+      "title": "Three dashboards every revenue team asks for.",
+      "pipeline": {
+        "title": "Pipeline health",
+        "text": "Open deals by stage, owner and age. Spot what is stuck."
+      },
+      "funnel": {
+        "title": "Lead-to-deal funnel",
+        "text": "Conversion at every stage, from first touch to closed won."
+      },
+      "revenue": {
+        "title": "Revenue and forecast",
+        "text": "Bookings against target, and where the quarter will land."
+      }
     }
   },
   "footer": {
@@ -1448,7 +1464,9 @@
       "f2": "One join code; colleges can limit it to their email domain",
       "f3": "Seat management and progress for admins",
       "f4": "Invoiced billing and volume pricing",
-      "f5": "Onboarding help for your org"
+      "f5": "Onboarding help for your org",
+      "price": "Custom",
+      "unit": "Per seat, invoiced yearly"
     },
     "yearly": {
       "name": "Pro Yearly",
@@ -1486,6 +1504,21 @@
       "1": "You get a reply with a quote and an invoice.",
       "2": "Your organisation is set up with its seats and a join code.",
       "3": "Your people join with the code and start learning."
+    },
+    "billing": {
+      "label": "How do you want to pay?",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "lifetime": "Lifetime"
+    },
+    "note": {
+      "monthly": "Cancel any time.",
+      "lifetime": "One payment. No renewals."
+    },
+    "trust": {
+      "stripe": "Secure checkout with Stripe",
+      "cancel": "Cancel any time",
+      "noAds": "No ads on Pro"
     }
   },
   "studio": {

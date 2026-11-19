@@ -249,6 +249,9 @@ const howSteps = [
       </div>
     </section>
 
+    <!-- WHAT YOU WILL BUILD: results first -------------------------------- -->
+    <HomeOutcomes />
+
     <!-- THE COURSE, SECTION BY SECTION (all planned; live ones link) ---- -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
       <div class="flex flex-wrap items-end justify-between gap-4">

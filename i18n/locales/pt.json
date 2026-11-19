@@ -284,6 +284,22 @@
       "title": "Crie seu primeiro modelo de dados hoje.",
       "lead": "Comecem de graça. Dez minutos por dia é o suficiente.",
       "author": "Ensinado por Swarnil Singhai, CRM Analytics consultor"
+    },
+    "outcomes": {
+      "eyebrow": "O que você vai construir",
+      "title": "Três painéis cada equipe de receita pede.",
+      "pipeline": {
+        "title": "Saúde do tubo",
+        "text": "Ofertas abertas por palco, proprietário e idade. Vê o que está preso."
+      },
+      "funnel": {
+        "title": "Funil de chumbo para tratamento",
+        "text": "Conversão em cada estágio, do primeiro toque para fechado ganhou."
+      },
+      "revenue": {
+        "title": "Receitas e previsões",
+        "text": "Reservas contra o alvo, e onde o trimestre vai pousar."
+      }
     }
   },
   "footer": {
@@ -1448,7 +1464,9 @@
       "f2": "Um código de junção; faculdades podem limitá-lo ao seu domínio de email",
       "f3": "Gerenciamento de assentos e progresso para administradores",
       "f4": "Faturação e preços de volume",
-      "f5": "Ajuda de integração para a sua org"
+      "f5": "Ajuda de integração para a sua org",
+      "price": "Personalizado",
+      "unit": "Por assento, faturado anualmente"
     },
     "yearly": {
       "name": "Pro Anual",
@@ -1486,6 +1504,21 @@
       "1": "Você recebe uma resposta com uma citação e uma fatura.",
       "2": "Sua organização está configurada com seus assentos e um código de adesão.",
       "3": "O seu pessoal junta-se ao código e começa a aprender."
+    },
+    "billing": {
+      "label": "Como queres pagar?",
+      "monthly": "Mensal",
+      "yearly": "Anual",
+      "lifetime": "Tempo de vida"
+    },
+    "note": {
+      "monthly": "Cancela quando quiseres.",
+      "lifetime": "Um pagamento. Sem renovações."
+    },
+    "trust": {
+      "stripe": "Checkout seguro com Stripe",
+      "cancel": "Cancelar a qualquer momento",
+      "noAds": "Nenhum anúncio no Pro"
     }
   },
   "studio": {
