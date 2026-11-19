@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Seat_Request_Needs_Seats</fullName>
+    <active>true</active>
+    <description>A seat request edited by hand keeps a seat count of at least 2.</description>
+    <errorDisplayField>Seats_Requested__c</errorDisplayField>
+    <errorConditionFormula>AND(NOT(ISNEW()), ISPICKVAL(Academy_Interest__c, &apos;seats&apos;), OR(ISBLANK(Seats_Requested__c), Seats_Requested__c &lt; 2))</errorConditionFormula>
+    <errorMessage>A seat request needs at least 2 seats.</errorMessage>
+</ValidationRule>

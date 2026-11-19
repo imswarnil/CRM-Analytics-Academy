@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Closed_Lost_Needs_Reason</fullName>
+    <active>true</active>
+    <description>Every lost deal records why.</description>
+    <errorDisplayField>Description</errorDisplayField>
+    <errorConditionFormula>AND(ISPICKVAL(StageName, &apos;Closed Lost&apos;), ISBLANK(Description))</errorConditionFormula>
+    <errorMessage>Say why the deal was lost in Description.</errorMessage>
+</ValidationRule>

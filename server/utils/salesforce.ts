@@ -108,7 +108,7 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
     ['lifecycle', ['subscribe', 'team', 'sponsor', 'redeem', 'pack'].includes(lead.event) ? 'customer' : lead.event === 'request' ? 'sql' : 'lead'],
     ['interest', lead.product], ['lessons', lead.lessonsDone], ['points', lead.points], ['source', lead.source],
     ['landing', lead.landing], ['firstLanding', lead.firstLanding], ['viewsBefore', lead.viewsBefore], ['locale', lead.locale],
-    ['userId', lead.userId], ['seats', lead.seats], ['orgKind', lead.orgKind]
+    ['userId', lead.userId], ['seats', lead.seats], ['orgKind', lead.orgKind === 'college' ? 'university' : lead.orgKind]
   ]
   for (const [k, v] of custom) {
     const id = LEAD_FIELDS[k]

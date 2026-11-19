@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>A new sales-led lead (seats, set-up, consulting, mentoring, sponsorship) gets a task for its owner: reply within one working day.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>DueTomorrow</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() + 1</expression>
+    </formulas>
+    <formulas>
+        <name>TaskSubject</name>
+        <dataType>String</dataType>
+        <expression>&quot;Reply: &quot; &amp; {!$Record.Company}</expression>
+    </formulas>
+    <interviewLabel>Academy - Lead follow-up {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Academy - Lead follow-up</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Follow_Up_Task</name>
+        <label>Create follow-up task</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>DueTomorrow</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>Read Traffic source and First landing page first: they say what this person was reading. Then reply.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>TaskSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Follow_Up_Task</targetReference>
+        </connector>
+        <filterFormula>AND(TEXT({!$Record.Motion__c}) = &quot;sales-led&quot;, TEXT({!$Record.Status}) &lt;&gt; &quot;Closed - Not Converted&quot;, LEFT({!$Record.OwnerId}, 3) = &quot;005&quot;)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -9,6 +9,37 @@ in this file lives in `salesforce/crm/` (metadata) and `salesforce/scripts/`
 > read query — no loops over the API, no scripted logins. If the CLI says the
 > session expired, run `sf org login web --alias crma-learning` yourself.
 
+## 2026-11-19 — what changed
+
+- **Prices** follow the site (`shared/utils/products.ts`): Pro Monthly **$49**, Pro Yearly **$149** (MRR = 149 ÷ 12 = 12.42),
+  Pro Lifetime **$299** once (revenue, **no MRR**), seats from **$99 per seat per year** (list; quoted). `AcademyLeadEvents`
+  reads the plan the site sends (`monthly` / `yearly` / `lifetime`) and names deals *Pro — monthly / yearly / lifetime*.
+  The site now sends `university` for a college (the picklist value).
+- **Validation rules** (edits only, never Web-to-Lead inserts, so no lead is ever lost): a closed lead or lost deal needs a
+  reason in Description; a hand-edited seat request needs 2+ seats; amounts and seats are never negative; seats used ≤ seats
+  purchased; a seats customer has a seat count; an active seat has a join date.
+- **Quick actions** (in the record page's action bar): Lead — *Mark contacted*, *Disqualify*; Account — *New seat deal*,
+  *Add seat*; Opportunity — *Mark won*.
+- **Flows**: *Academy - Lead follow-up* (a new sales-led lead → a high-priority task for its owner, due tomorrow),
+  *Academy - Hot lead to MQL* (score 60+ moves Lead → MQL), *Academy - Deal won makes a customer* (won deal → account
+  Customer, Customer since set once).
+- **Home page**: *Academy Pulse* (LWC + `AcademyPulse` Apex, cacheable, user mode) — MRR and ARR, customers, hot leads,
+  open seat pipeline, new leads this week; each tile opens its list view.
+- **Data**: `scripts/apex/crm-reset.apex` empties the CRM records (back up first; re-run until "0 left"), then
+  `scripts/apex/crm-seed-2026.apex` fills Academy-only data: 5 products, 4 self-serve Pro customers (monthly, yearly,
+  lifetime), Northwind (25 seats) and Pune Institute of Technology (120 student seats) with members, two open seat deals,
+  and leads at every lifecycle stage.
+
+Deploy and run, in this order (one deploy, two Apex runs):
+
+```bash
+sf org login web --alias crma-learning                      # you, once — the session has expired
+sf project deploy start --source-dir crm --target-org crma-learning --test-level RunSpecifiedTests \
+  --tests AcademyLeadEventsTest --tests AcademyPulseTest
+sf apex run --file scripts/apex/crm-reset.apex --target-org crma-learning      # only after a backup
+sf apex run --file scripts/apex/crm-seed-2026.apex --target-org crma-learning
+```
+
 ## What the org holds
 
 | Piece | What it is for |

@@ -14,7 +14,7 @@
             <value>
                 <fullName>pro</fullName>
                 <default>false</default>
-                <label>Pro (points)</label>
+                <label>Pro</label>
             </value>
             <value>
                 <fullName>seats</fullName>

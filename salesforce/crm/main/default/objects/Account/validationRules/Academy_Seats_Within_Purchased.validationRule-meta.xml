@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Seats_Within_Purchased</fullName>
+    <active>true</active>
+    <description>An organisation cannot use more seats than it bought.</description>
+    <errorDisplayField>Seats_Used__c</errorDisplayField>
+    <errorConditionFormula>AND(NOT(ISBLANK(Seats_Purchased__c)), NOT(ISBLANK(Seats_Used__c)), Seats_Used__c &gt; Seats_Purchased__c)</errorConditionFormula>
+    <errorMessage>Seats used cannot be more than seats purchased.</errorMessage>
+</ValidationRule>

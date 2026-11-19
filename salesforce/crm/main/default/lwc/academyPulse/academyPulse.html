@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="Academy pulse" icon-name="standard:dashboard">
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={loading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">The Academy numbers are not readable for this user. Assign the Academy CRM Access permission set.</p>
+            </template>
+            <div class="slds-grid slds-wrap slds-gutters_x-small">
+                <template for:each={tiles} for:item="t">
+                    <div key={t.key} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-5 slds-m-bottom_small">
+                        <button class="tile slds-box slds-box_x-small slds-text-align_left" data-key={t.key} onclick={open}>
+                            <span class="slds-grid slds-grid_vertical-align-center">
+                                <lightning-icon icon-name={t.icon} size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                <span class="slds-text-title_caps">{t.label}</span>
+                            </span>
+                            <span class="value slds-text-heading_large">{t.value}</span>
+                            <span class="slds-text-body_small slds-text-color_weak">{t.hint}</span>
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+</template>

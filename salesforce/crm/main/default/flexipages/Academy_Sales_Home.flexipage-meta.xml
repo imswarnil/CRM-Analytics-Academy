@@ -3,6 +3,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>academyPulse</componentName>
+                <identifier>academy_pulse</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>label</name>
                     <value>Lifecycle funnel</value>

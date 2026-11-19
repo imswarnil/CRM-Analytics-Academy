@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Seat_Plan_Needs_Seats</fullName>
+    <active>true</active>
+    <description>A seats customer has a seat count.</description>
+    <errorDisplayField>Seats_Purchased__c</errorDisplayField>
+    <errorConditionFormula>AND(ISPICKVAL(Academy_Plan__c, &apos;seats&apos;), ISPICKVAL(Lifecycle_Stage__c, &apos;customer&apos;), OR(ISBLANK(Seats_Purchased__c), Seats_Purchased__c &lt; 1))</errorConditionFormula>
+    <errorMessage>A seats customer needs Seats purchased.</errorMessage>
+</ValidationRule>

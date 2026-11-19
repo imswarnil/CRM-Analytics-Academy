@@ -20,7 +20,7 @@
  *              and linked by user id.
  */
 public without sharing class AcademyLeadEvents implements Queueable {
-    public static final Decimal PRO_MRR = 12;
+    public static final Decimal PRO_MRR = 49;          // Pro Monthly, USD (shared/utils/products.ts)
     public static final Integer PRO_POINTS = 1000;
     public static final Integer PRO_DAYS = 30;
     public static final Integer PACK_POINTS = 100;
@@ -63,7 +63,14 @@ public without sharing class AcademyLeadEvents implements Queueable {
             }
         }
         public Boolean paidInMoney() { return kind == 'subscribe' || kind == 'team' || kind == 'sponsor'; }
-        public Decimal mrr() { return kind == 'subscribe' ? (plan == 'proYearly' ? (usd / 12).setScale(2) : usd) : kind == 'team' ? usd : 0; }
+        public Boolean yearly() { return plan == 'yearly' || plan == 'proYearly'; }
+        public Boolean lifetime() { return plan == 'lifetime'; }
+        /** Recurring revenue only: monthly as paid, yearly over twelve months, lifetime none (one payment). */
+        public Decimal mrr() {
+            if (kind == 'team') return usd;
+            if (kind != 'subscribe' || lifetime()) return 0;
+            return yearly() ? (usd / 12).setScale(2) : usd;
+        }
     }
 
     private final Set<Id> leadIds;
@@ -216,7 +223,8 @@ public without sharing class AcademyLeadEvents implements Queueable {
         if (buy.points > 0) a.Points_Spent__c = (a.Points_Spent__c == null ? 0 : a.Points_Spent__c) + buy.points;
         if (buy.kind == 'subscribe') {
             a.Academy_Plan__c = 'pro';
-            a.MRR__c = buy.mrr();
+            // A lifetime buyer who also subscribed keeps that subscription's MRR.
+            if (!buy.lifetime() || a.MRR__c == null) a.MRR__c = buy.mrr();
         } else if (buy.kind == 'team') {
             a.Academy_Plan__c = 'seats';
             a.Org_Type__c = 'team';
@@ -236,7 +244,7 @@ public without sharing class AcademyLeadEvents implements Queueable {
 
     private static Opportunity deal(Id accountId, Purchase buy, Boolean first) {
         if (buy.paidInMoney()) {
-            String name = buy.kind == 'subscribe' ? (buy.plan == 'proYearly' ? 'Pro — yearly' : 'Pro — monthly')
+            String name = buy.kind == 'subscribe' ? (buy.lifetime() ? 'Pro — lifetime' : buy.yearly() ? 'Pro — yearly' : 'Pro — monthly')
                 : buy.kind == 'team' ? 'Team — ' + buy.seats + ' seats (monthly)' : 'Sponsorship — ' + buy.plan;
             return new Opportunity(AccountId = accountId, Name = name, StageName = 'Closed Won', CloseDate = Date.today(),
                 Amount = buy.usd, Paid_In__c = 'usd', Seats__c = buy.kind == 'team' ? buy.seats : (buy.kind == 'subscribe' ? 1 : null),

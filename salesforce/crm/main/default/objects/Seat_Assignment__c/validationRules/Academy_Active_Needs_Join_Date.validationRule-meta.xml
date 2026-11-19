@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Active_Needs_Join_Date</fullName>
+    <active>true</active>
+    <description>An active seat records when it was taken.</description>
+    <errorDisplayField>Joined_On__c</errorDisplayField>
+    <errorConditionFormula>AND(ISPICKVAL(Status__c, &apos;active&apos;), ISBLANK(Joined_On__c))</errorConditionFormula>
+    <errorMessage>Set Joined on for an active seat.</errorMessage>
+</ValidationRule>

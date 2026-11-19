@@ -26,7 +26,7 @@ private class AcademyLeadEventsTest {
         Account a = [SELECT Lifecycle_Stage__c, Motion__c, MRR__c, Academy_Plan__c FROM Account LIMIT 1];
         System.assertEquals('customer', a.Lifecycle_Stage__c);
         System.assertEquals('self-serve', a.Motion__c);
-        System.assertEquals(12, a.MRR__c);
+        System.assertEquals(AcademyLeadEvents.PRO_MRR, a.MRR__c);
         System.assertEquals(1, [SELECT COUNT() FROM Opportunity WHERE StageName = 'Closed Won']);
         System.assertEquals(0, [SELECT COUNT() FROM Lead WHERE Academy_User_Id__c = 'u-1' AND IsConverted = false]);
 
@@ -53,13 +53,13 @@ private class AcademyLeadEventsTest {
 
     @IsTest static void stripeSubscriptionAndTeamBecomeRevenue() {
         Lead pro = event('subscribe', 'u-4');
-        pro.Description = 'Purchase: proYearly · 150 USD · 1 seat(s) (subscribe).';
+        pro.Description = 'Purchase: yearly · 149 USD · 1 seat(s) (subscribe).';
         put(new List<Lead>{ pro });
         AcademyLeadEvents.run(new Set<Id>{ pro.Id });
         Account a = [SELECT Academy_Plan__c, MRR__c, Lifecycle_Stage__c FROM Account LIMIT 1];
         System.assertEquals('pro', a.Academy_Plan__c);
-        System.assertEquals(12.5, a.MRR__c);
-        System.assertEquals(150, [SELECT Amount FROM Opportunity WHERE Name = 'Pro — yearly' LIMIT 1].Amount);
+        System.assertEquals(12.42, a.MRR__c);
+        System.assertEquals(149, [SELECT Amount FROM Opportunity WHERE Name = 'Pro — yearly' LIMIT 1].Amount);
 
         Lead team = event('team', 'u-4');
         team.Description = 'Purchase: teamSeat · 50 USD · 5 seat(s) (team).';
@@ -79,5 +79,25 @@ private class AcademyLeadEventsTest {
         AcademyLeadEvents.run(new Set<Id>{ first.Id, dup.Id, ask.Id });
         System.assertEquals(2, [SELECT COUNT() FROM Lead WHERE Academy_User_Id__c = 'u-2']);
         System.assertEquals('sql', [SELECT Lifecycle_Stage__c FROM Lead WHERE Id = :ask.Id].Lifecycle_Stage__c);
+    }
+
+    @IsTest static void lifetimeIsRevenueButNotRecurring() {
+        Lead buy = event('subscribe', 'u-5');
+        buy.Description = 'Purchase: lifetime · 299 USD · 1 seat(s) (subscribe).';
+        put(new List<Lead>{ buy });
+        AcademyLeadEvents.run(new Set<Id>{ buy.Id });
+        Account a = [SELECT Academy_Plan__c, MRR__c FROM Account LIMIT 1];
+        System.assertEquals('pro', a.Academy_Plan__c);
+        System.assertEquals(0, a.MRR__c);
+        System.assertEquals(299, [SELECT Amount FROM Opportunity WHERE Name = 'Pro — lifetime' LIMIT 1].Amount);
+    }
+
+    @IsTest static void monthlyBooksItsPriceAsMrr() {
+        Lead buy = event('subscribe', 'u-6');
+        buy.Description = 'Purchase: monthly · 49 USD · 1 seat(s) (subscribe).';
+        put(new List<Lead>{ buy });
+        AcademyLeadEvents.run(new Set<Id>{ buy.Id });
+        System.assertEquals(49, [SELECT MRR__c FROM Account LIMIT 1].MRR__c);
+        System.assertEquals(1, [SELECT COUNT() FROM Opportunity WHERE Name = 'Pro — monthly']);
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Give one member of this organisation a seat.</description>
+    <fieldOverrides>
+        <field>Status__c</field>
+        <literalValue>active</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Role__c</field>
+        <literalValue>member</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Joined_On__c</field>
+        <formula>TODAY()</formula>
+    </fieldOverrides>
+    <label>Add seat</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Contact__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Role__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Status__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Joined_On__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns/>
+    </quickActionLayout>
+    <successMessage>Seat added.</successMessage>
+    <targetParentField>Account__c</targetParentField>
+    <targetObject>Seat_Assignment__c</targetObject>
+    <type>Create</type>
+</QuickAction>

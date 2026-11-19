@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Academy_Closed_Needs_Reason</fullName>
+    <active>true</active>
+    <description>A lead closed without conversion says why, so the funnel reports stay honest. Edits only: Web-to-Lead inserts are never blocked.</description>
+    <errorDisplayField>Description</errorDisplayField>
+    <errorConditionFormula>AND(NOT(ISNEW()), ISPICKVAL(Status, &apos;Closed - Not Converted&apos;), ISBLANK(Description))</errorConditionFormula>
+    <errorMessage>Add a one-line reason in Description before closing this lead.</errorMessage>
+</ValidationRule>

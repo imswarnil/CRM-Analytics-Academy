@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>A seats conversation with this organisation becomes a deal.</description>
+    <fieldOverrides>
+        <field>StageName</field>
+        <literalValue>Prospecting</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>CloseDate</field>
+        <formula>TODAY() + 30</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Paid_In__c</field>
+        <literalValue>usd</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>LeadSource</field>
+        <literalValue>Web</literalValue>
+    </fieldOverrides>
+    <label>New seat deal</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Name</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Seats__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Amount</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>StageName</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>CloseDate</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns/>
+    </quickActionLayout>
+    <successMessage>Seat deal created.</successMessage>
+    <targetParentField>AccountId</targetParentField>
+    <targetObject>Opportunity</targetObject>
+    <type>Create</type>
+</QuickAction>
