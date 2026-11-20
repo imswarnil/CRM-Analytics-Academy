@@ -28,9 +28,9 @@
     "pro": "Pricing",
     "billing": "Access",
     "main": {
-      "course": "Start here",
-      "exam": "Practice exam",
-      "interview": "Interview Q&A",
+      "course": "Course",
+      "exam": "Certification",
+      "interview": "Interview prep",
       "pricing": "Pricing",
       "jobs": "Jobs"
     },
@@ -39,7 +39,9 @@
     "sponsor": "Sponsor",
     "notes": "Notes",
     "star": "Star",
-    "jobs": "Jobs"
+    "jobs": "Jobs",
+    "examMode": "Practice exam in progress",
+    "exitExam": "Exit exam"
   },
   "home": {
     "modules": {
@@ -250,7 +252,7 @@
       "no": "No",
       "cols": {
         "anytime": "Learn any time",
-        "gtm": "Real GTM dashboards",
+        "gtm": "Real CRM Analytics builds",
         "practice": "Certification practice",
         "keep": "Keep access"
       },
@@ -327,7 +329,11 @@
       "factFree": "Free to start, no card",
       "factOrg": "Your own free org",
       "factLang": "7 languages",
-      "live": "{n} live"
+      "live": "{n} live",
+      "barDay": "Classroom, 1 day",
+      "barDays": "Classroom, 3 days",
+      "barAcademy": "CRM Analytics Academy",
+      "capstone": "Capstone and certificate"
     }
   },
   "footer": {
@@ -953,7 +959,11 @@
     "number": "Lesson {n}",
     "overview": "Overview",
     "video": "video",
-    "outcomes": "After this lesson you can"
+    "outcomes": "After this lesson you can",
+    "positionTip": "Where this lesson sits in the course",
+    "videoTip": "Video lesson length",
+    "readTip": "Reading time",
+    "quizTip": "Quiz questions at the end"
   },
   "credits": {
     "title": "Credits & sources",
@@ -1225,7 +1235,10 @@
       "note": "Awarded by CRM Analytics Academy for passing its practice exam. It is not a Salesforce credential and is not affiliated with Salesforce.",
       "download": "Save as PDF",
       "yours": "Your certificate"
-    }
+    },
+    "setsTitle": "Full exam sets",
+    "drillsTitle": "Domain drills",
+    "sealed": "Sealed"
   },
   "companies": {
     "eyebrow": "Companies",
@@ -1547,7 +1560,8 @@
       "stripe": "Secure checkout with Stripe",
       "cancel": "Cancel any time",
       "noAds": "No ads on Pro"
-    }
+    },
+    "salesLead": "Tell us your team size and timing. We reply within one working day with a quote and a free pilot."
   },
   "studio": {
     "title": "Sponsor studio",
@@ -1860,5 +1874,40 @@
     "body": "{title} is written and on its way. It lands on YouTube first, then here with the full lesson, the quiz and the notes.",
     "youtube": "Get notified on YouTube",
     "start": "See the whole course"
+  },
+  "capstone": {
+    "seoTitle": "Capstone: build it, demo it, get certified",
+    "seoDesc": "The final CRM Analytics challenge: one recipe, one secure dashboard with bindings, one prediction. Submit a short demo and earn a certificate of completion.",
+    "eyebrow": "Capstone",
+    "title": "Build it. Demo it. Get certified.",
+    "lead": "One build that uses the whole course. Record a short demo, submit it, and earn your certificate of completion.",
+    "briefTitle": "The challenge",
+    "brief": "Build a Pipeline Health app for the Academy in your own org.",
+    "r1": "A recipe that joins opportunities, accounts and products with no fan-out",
+    "r2": "A daily snapshot dataset and a trend chart on it",
+    "r3": "A dashboard with a selection binding and a results binding",
+    "r4": "Row-level security: reps see their deals, managers their team",
+    "r5": "One Einstein Discovery prediction on the opportunity page",
+    "howTitle": "How it works",
+    "h1": "Build all five in your free org",
+    "h2": "Record a 3 to 5 minute demo (YouTube unlisted or Loom)",
+    "h3": "Submit the link below",
+    "h4": "Get feedback, then your certificate",
+    "formTitle": "Submit your demo",
+    "fTitle": "Title",
+    "fTitlePh": "Pipeline Health app",
+    "fVideo": "Demo video link",
+    "fVideoPh": "https://youtu.be/…",
+    "fShot": "Screenshot link (optional)",
+    "fNotes": "How each requirement is met",
+    "fNotesPh": "1. The recipe aggregates products before the lookup…",
+    "submit": "Submit for review",
+    "signIn": "Sign in to submit",
+    "pending": "Submitted. Your demo is being reviewed.",
+    "rejected": "Changes requested",
+    "approved": "Approved. Here is your certificate.",
+    "credential": "Credential",
+    "print": "Download PDF",
+    "sent": "Thanks. We review demos within a few days."
   }
 }

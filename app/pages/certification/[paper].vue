@@ -353,7 +353,7 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
     >
       <!-- Top bar: progress, clock, submit, close -->
       <div class="shrink-0 border-b border-(--line) bg-(--card)/80 backdrop-blur">
-        <div class="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3 sm:px-6">
+        <div class="flex w-full items-center gap-3 px-4 py-3 sm:px-6 lg:px-10">
           <UButton
             icon="i-lucide-x"
             color="neutral"
@@ -395,51 +395,53 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         </div>
       </div>
 
-      <div class="mx-auto grid min-h-0 w-full max-w-5xl flex-1 gap-6 px-4 py-4 sm:px-6 sm:py-6 lg:grid-cols-[minmax(0,1fr)_15rem]">
+      <div class="grid min-h-0 w-full flex-1 gap-0 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <!-- The question -->
-        <section class="flex min-h-0 flex-col overflow-hidden rounded-[8px] border border-(--line) bg-(--card) shadow-[0_20px_60px_-40px_var(--navy)]">
-          <div class="min-h-0 flex-1 overflow-y-auto p-5 sm:p-8">
-            <div class="flex items-center justify-between gap-3">
-              <span class="rounded-full bg-(--ice) px-3 py-1 text-xs font-medium text-(--ink2)">{{ DOMAINS[current.domain].label }}</span>
-              <button
-                type="button"
-                class="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors"
-                :class="flags[index] ? 'bg-warning/15 text-warning' : 'text-(--ink2) hover:bg-(--ice) hover:text-(--ink)'"
-                :aria-pressed="flags[index]"
-                @click="flags[index] = !flags[index]"
+        <section class="flex min-h-0 flex-col overflow-hidden bg-(--card)">
+          <div class="min-h-0 flex-1 overflow-y-auto px-5 py-6 sm:px-10 lg:px-16 lg:py-10">
+            <div class="mx-auto max-w-3xl">
+              <div class="flex items-center justify-between gap-3">
+                <span class="rounded-full bg-(--ice) px-3 py-1 text-xs font-medium text-(--ink2)">{{ DOMAINS[current.domain].label }}</span>
+                <button
+                  type="button"
+                  class="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors"
+                  :class="flags[index] ? 'bg-warning/15 text-warning' : 'text-(--ink2) hover:bg-(--ice) hover:text-(--ink)'"
+                  :aria-pressed="flags[index]"
+                  @click="flags[index] = !flags[index]"
+                >
+                  <UIcon
+                    :name="flags[index] ? 'i-lucide-flag' : 'i-lucide-flag'"
+                    class="size-3.5"
+                  />{{ flags[index] ? t('cert.unflag') : t('cert.flag') }}
+                </button>
+              </div>
+              <h1 class="mt-5 text-xl font-semibold leading-snug tracking-tight text-(--ink) sm:text-2xl">
+                {{ current.q }}
+              </h1>
+              <div
+                class="mt-6 space-y-2.5"
+                role="radiogroup"
               >
-                <UIcon
-                  :name="flags[index] ? 'i-lucide-flag' : 'i-lucide-flag'"
-                  class="size-3.5"
-                />{{ flags[index] ? t('cert.unflag') : t('cert.flag') }}
-              </button>
-            </div>
-            <h1 class="mt-5 text-xl font-semibold leading-snug tracking-tight text-(--ink) sm:text-2xl">
-              {{ current.q }}
-            </h1>
-            <div
-              class="mt-6 space-y-2.5"
-              role="radiogroup"
-            >
-              <button
-                v-for="(opt, oi) in current.options"
-                :key="oi"
-                type="button"
-                role="radio"
-                :aria-checked="answers[index] === oi"
-                class="group flex w-full items-center gap-4 rounded-[6px] border px-4 py-3 text-start transition-all duration-150"
-                :class="answers[index] === oi ? 'border-(--signal) bg-(--signal)/8 ring-1 ring-(--signal)' : 'border-(--line) hover:border-(--ink2)/40 hover:bg-(--ice)/60'"
-                @click="answers[index] = oi"
-              >
-                <span
-                  class="flex size-8 flex-none items-center justify-center rounded-full text-sm font-semibold transition-colors"
-                  :class="answers[index] === oi ? 'bg-(--signal) text-white' : 'bg-(--ice) text-(--ink2) group-hover:text-(--ink)'"
-                >{{ letter(oi) }}</span>
-                <span class="text-[15px] leading-relaxed text-(--ink)">{{ opt }}</span>
-              </button>
+                <button
+                  v-for="(opt, oi) in current.options"
+                  :key="oi"
+                  type="button"
+                  role="radio"
+                  :aria-checked="answers[index] === oi"
+                  class="group flex w-full items-center gap-4 rounded-[6px] border px-4 py-3 text-start transition-all duration-150"
+                  :class="answers[index] === oi ? 'border-(--signal) bg-(--signal)/8 ring-1 ring-(--signal)' : 'border-(--line) hover:border-(--ink2)/40 hover:bg-(--ice)/60'"
+                  @click="answers[index] = oi"
+                >
+                  <span
+                    class="flex size-8 flex-none items-center justify-center rounded-full text-sm font-semibold transition-colors"
+                    :class="answers[index] === oi ? 'bg-(--signal) text-white' : 'bg-(--ice) text-(--ink2) group-hover:text-(--ink)'"
+                  >{{ letter(oi) }}</span>
+                  <span class="text-[15px] leading-relaxed text-(--ink)">{{ opt }}</span>
+                </button>
+              </div>
             </div>
           </div>
-          <footer class="flex shrink-0 items-center justify-between gap-3 border-t border-(--line) px-6 py-4">
+          <footer class="flex shrink-0 items-center justify-between gap-3 border-t border-(--line) px-5 py-3 sm:px-10 lg:px-16">
             <UButton
               icon="i-lucide-arrow-left"
               color="neutral"
@@ -470,11 +472,11 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
         </section>
 
         <!-- Navigator -->
-        <aside class="min-h-0 overflow-y-auto max-lg:hidden">
+        <aside class="min-h-0 overflow-y-auto border-s border-(--line) bg-(--paper) p-5 max-lg:hidden">
           <p class="mb-3 text-xs font-medium text-(--ink2)">
             {{ t('cert.navigator') }}
           </p>
-          <div class="grid grid-cols-6 gap-1.5">
+          <div class="grid grid-cols-8 gap-1.5">
             <button
               v-for="(_, qi) in questions"
               :key="qi"

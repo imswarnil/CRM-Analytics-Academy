@@ -45,6 +45,8 @@ const PRIVATE_PATHS = ['/dashboard', '/account', '/team', '/submit', '/admin', '
 
 /** Pages that were removed, and where their visitors now go. */
 const RETIRED: Record<string, string> = {
+  // 2026-11-20: exam papers moved to permalinks (app/utils/exam.ts PAPER_REDIRECTS).
+  '/certification/paper-1': '/certification/salesforce-crm-analytics-einstein-consultant-exam-set-1',
   '/leaderboard': '/dashboard',
   '/ask': '/start',
   '/training': '/start',

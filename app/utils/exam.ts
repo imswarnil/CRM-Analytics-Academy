@@ -45,10 +45,26 @@ export interface Paper {
   domain?: ExamDomain
 }
 
-// One set: a single full practice paper in the real exam's shape.
+// The papers, each at its own permalink. Three full sets in the real exam's
+// shape (each a different deterministic draw from the bank) and one 15-question
+// drill per domain. Ids are the URL: keep them stable once published.
+const SET = 'salesforce-crm-analytics-einstein-consultant-exam-set'
 export const PAPERS: Paper[] = [
-  { id: 'paper-1', title: 'Practice exam', kind: 'full', questions: EXAM.questions, minutes: EXAM.minutes }
+  { id: `${SET}-1`, title: 'Exam set 1', kind: 'full', questions: EXAM.questions, minutes: EXAM.minutes },
+  { id: `${SET}-2`, title: 'Exam set 2', kind: 'full', questions: EXAM.questions, minutes: EXAM.minutes },
+  { id: `${SET}-3`, title: 'Exam set 3', kind: 'full', questions: EXAM.questions, minutes: EXAM.minutes },
+  ...(Object.keys(DOMAINS) as ExamDomain[]).map(d => ({
+    id: `salesforce-crm-analytics-${d}-drill`,
+    title: `${DOMAINS[d].label} drill`,
+    kind: 'drill' as const,
+    questions: 15,
+    minutes: 25,
+    domain: d
+  }))
 ]
+
+/** Old paper ids → their permalink (redirected in nuxt.config routeRules). */
+export const PAPER_REDIRECTS: Record<string, string> = { 'paper-1': `${SET}-1` }
 
 /** A stable pseudo-random generator from a string seed (mulberry32). */
 function rng(seed: string) {

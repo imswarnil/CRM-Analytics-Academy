@@ -12,11 +12,16 @@ const route = useRoute()
 // changes shape. The account slot on the right has one fixed width in both
 // states, so the room left for the links (and whether titles fit) is too.
 const NAV = [
-  { key: 'course', icon: 'i-lucide-flag', to: '/start' },
-  { key: 'exam', icon: 'i-lucide-timer', to: '/certification' },
+  { key: 'course', icon: 'i-lucide-graduation-cap', to: '/start' },
+  { key: 'exam', icon: 'i-lucide-badge-check', to: '/certification' },
   { key: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions' },
-  { key: 'pricing', icon: 'i-lucide-sparkles', to: '/pro' }
+  { key: 'jobs', icon: 'i-lucide-briefcase-business', to: '/jobs' }
 ] as const
+// Exam mode (a running practice paper): the bar shrinks to the logo, the
+// paper's name and one way out, like a test centre's screen.
+const focusState = useState('exam-focus', () => false)
+const examMode = computed(() => Boolean(route.meta.focus) || focusState.value)
+
 const menuItems = computed(() => NAV.map(n => ({ label: t(`nav.main.${n.key}`), icon: n.icon, to: localePath(n.to) })))
 const phoneItems = menuItems
 // Icon + label, or icons alone — never a clipped label. Once mounted, a hidden
@@ -117,7 +122,18 @@ const localeItems = computed(() =>
       <!-- Nav cells, full header height, hairline-separated. -->
       <!-- The nav takes whatever width the buttons leave (a container), and
            shows labels only when they fit in it — in any language. -->
+      <p
+        v-if="examMode"
+        class="ms-4 flex min-w-0 items-center gap-2 border-s border-(--line) ps-4 text-sm font-semibold text-(--ink)"
+      >
+        <UIcon
+          name="i-lucide-badge-check"
+          class="size-4 shrink-0 text-(--signal)"
+        />
+        <span class="truncate">{{ t('nav.examMode') }}</span>
+      </p>
       <nav
+        v-show="!examMode"
         ref="navEl"
         class="relative ms-4 hidden h-16 min-w-0 flex-1 items-center overflow-hidden lg:flex"
         aria-label="Main"
@@ -160,7 +176,20 @@ const localeItems = computed(() =>
     </template>
 
     <template #right>
-      <div class="ms-auto flex shrink-0 items-center gap-1">
+      <UButton
+        v-if="examMode"
+        :to="localePath('/certification')"
+        icon="i-lucide-x"
+        color="neutral"
+        variant="outline"
+        size="sm"
+      >
+        {{ t('nav.exitExam') }}
+      </UButton>
+      <div
+        v-else
+        class="ms-auto flex shrink-0 items-center gap-1"
+      >
         <!-- Quiet tools: borderless icons, one group. -->
         <div class="flex items-center gap-0.5">
           <UContentSearchButton
@@ -186,6 +215,42 @@ const localeItems = computed(() =>
               />{{ locale }}
             </button>
           </UDropdownMenu>
+          <UTooltip :text="t('nav.youtube')">
+            <a
+              :href="SITE.youtube"
+              target="_blank"
+              rel="noopener"
+              class="nav-icon max-md:hidden"
+              :aria-label="t('nav.youtube')"
+            ><UIcon
+              name="i-simple-icons-youtube"
+              class="size-[1.125rem]"
+            /></a>
+          </UTooltip>
+          <UTooltip :text="t('nav.github')">
+            <a
+              :href="SITE.github"
+              target="_blank"
+              rel="noopener"
+              class="nav-icon max-md:hidden"
+              :aria-label="t('nav.github')"
+            ><UIcon
+              name="i-simple-icons-github"
+              class="size-[1.125rem]"
+            /></a>
+          </UTooltip>
+          <ClientOnly>
+            <UButton
+              v-if="!pro"
+              :to="localePath('/pro')"
+              size="sm"
+              variant="soft"
+              icon="i-lucide-crown"
+              class="ms-1 max-sm:hidden"
+            >
+              {{ t('pro.tag') }}
+            </UButton>
+          </ClientOnly>
         </div>
 
         <span

@@ -17,6 +17,16 @@ watch(isSignedIn, async (ok) => {
   if (ok) best.value = await $fetch<typeof best.value>('/api/exam-attempt').catch(() => ({}))
 })
 const paper = PAPERS[0]!
+const sets = PAPERS.filter(p => p.kind === 'full')
+const drills = PAPERS.filter(p => p.kind === 'drill')
+const DRILL_ICONS: Record<string, string> = {
+  'data-layer': 'i-lucide-workflow',
+  'security': 'i-lucide-shield-check',
+  'admin': 'i-lucide-settings-2',
+  'dashboard-design': 'i-lucide-layout-dashboard',
+  'dashboard-implementation': 'i-lucide-link-2',
+  'einstein-discovery': 'i-lucide-sparkles'
+}
 const domainList = Object.entries(DOMAINS).map(([key, d]) => ({ key, ...d }))
 const facts = computed(() => [
   { label: t('cert.facts.questions'), value: EXAM.questions },
@@ -53,7 +63,7 @@ usePageSchema(() => ({
     <!-- HERO: the exam on the left, the certificate you earn on the right -->
     <section class="relative overflow-hidden border-b border-(--line) bg-(--card)">
       <BpFloatCharts />
-      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:px-8">
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:px-8">
         <div>
           <p class="eyebrow">
             {{ t('cert.eyebrow') }}
@@ -99,7 +109,7 @@ usePageSchema(() => ({
           </div>
         </div>
 
-        <div class="mx-auto w-full max-w-md">
+        <div class="mx-auto w-full max-w-sm lg:max-w-none">
           <p class="mb-3 text-center text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">
             {{ t('cert.earn') }}
           </p>
@@ -123,135 +133,119 @@ usePageSchema(() => ({
 
     <div class="mx-auto grid max-w-(--ui-container) gap-6 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-8">
       <div class="min-w-0 space-y-6">
-        <!-- The papers -->
+        <!-- Full exam sets, as sealed packs -->
         <section>
           <h2 class="bp-h3">
-            {{ t('cert.papersTitle') }}
+            {{ t('cert.setsTitle') }}
           </h2>
-          <ul class="mt-4 grid gap-4 sm:grid-cols-2">
+          <ul class="mt-4 grid gap-4 sm:grid-cols-3">
             <li
-              v-for="p in PAPERS"
+              v-for="(p, i) in sets"
+              :key="p.id"
+            >
+              <UTooltip :text="t('cert.paperLine', { q: p.questions, m: p.minutes, p: EXAM.passPct })">
+                <NuxtLink
+                  :to="localePath(`/certification/${p.id}`)"
+                  class="pack group relative flex h-56 w-full flex-col justify-between overflow-hidden rounded-[10px] bg-(--navy) p-5 text-white"
+                >
+                  <span
+                    class="pack-foil"
+                    aria-hidden="true"
+                  />
+                  <span class="relative flex items-center justify-between">
+                    <span class="text-[11px] font-bold uppercase tracking-[.12em] text-blueprint-200">{{ t('cert.eyebrow') }}</span>
+                    <ClientOnly>
+                      <span
+                        v-if="best[p.id]"
+                        class="rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.08em]"
+                      >{{ t('cert.best', { pct: best[p.id]!.best }) }}</span>
+                      <span
+                        v-else
+                        class="flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.08em]"
+                      ><UIcon
+                        name="i-lucide-lock-keyhole"
+                        class="size-3"
+                      />{{ t('cert.sealed') }}</span>
+                    </ClientOnly>
+                  </span>
+                  <span class="relative">
+                    <span class="block text-5xl font-bold tracking-tight">{{ String(i + 1).padStart(2, '0') }}</span>
+                    <span class="mt-1 block font-semibold">{{ p.title }}</span>
+                  </span>
+                  <span class="relative flex items-center justify-between text-sm text-white/70">
+                    <span class="flex items-center gap-3">
+                      <span class="flex items-center gap-1"><UIcon
+                        name="i-lucide-list-checks"
+                        class="size-4"
+                      />{{ p.questions }}</span>
+                      <span class="flex items-center gap-1"><UIcon
+                        name="i-lucide-timer"
+                        class="size-4"
+                      />{{ p.minutes }}′</span>
+                    </span>
+                    <UIcon
+                      name="i-lucide-arrow-right"
+                      class="size-5 transition-transform group-hover:translate-x-1"
+                    />
+                  </span>
+                  <span
+                    class="pack-seal"
+                    aria-hidden="true"
+                  >{{ EXAM.passPct }}%</span>
+                </NuxtLink>
+              </UTooltip>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Domain drills -->
+        <section>
+          <h2 class="bp-h3">
+            {{ t('cert.drillsTitle') }}
+          </h2>
+          <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <li
+              v-for="p in drills"
               :key="p.id"
             >
               <NuxtLink
                 :to="localePath(`/certification/${p.id}`)"
-                class="bp-card bp-card--hover group flex h-full flex-col overflow-hidden"
+                class="group flex items-center gap-3 rounded-[8px] border border-(--line) bg-(--card) p-4 transition-colors hover:border-(--signal)"
               >
-                <!-- Thumbnail: an answer sheet, a timer and a score ring -->
-                <svg
-                  viewBox="0 0 320 150"
-                  class="block w-full border-b border-(--line) bg-(--ice)"
-                  aria-hidden="true"
-                >
-                  <rect
-                    x="24"
-                    y="18"
-                    width="170"
-                    height="150"
-                    rx="4"
-                    fill="var(--card)"
-                    stroke="var(--line)"
+                <span class="flex size-10 shrink-0 items-center justify-center rounded-[8px] bg-(--ice) text-(--signal) transition-colors group-hover:bg-(--signal) group-hover:text-white">
+                  <UIcon
+                    :name="DRILL_ICONS[p.domain!] ?? 'i-lucide-target'"
+                    class="size-5"
                   />
-                  <g
-                    v-for="(q, k) in [0, 1, 2, 3]"
-                    :key="q"
-                  >
-                    <rect
-                      x="40"
-                      :y="36 + k * 28"
-                      width="70"
-                      height="6"
-                      rx="3"
-                      fill="var(--ink2)"
-                      opacity=".35"
-                    />
-                    <circle
-                      v-for="c in 4"
-                      :key="c"
-                      :cx="112 + c * 16"
-                      :cy="39 + k * 28"
-                      r="5"
-                      :fill="c === [2, 4, 1, 3][k] ? 'var(--signal)' : 'none'"
-                      stroke="var(--signal)"
-                      stroke-width="1.5"
-                    />
-                  </g>
-                  <circle
-                    cx="250"
-                    cy="66"
-                    r="34"
-                    fill="none"
-                    stroke="var(--line)"
-                    stroke-width="8"
-                  />
-                  <circle
-                    cx="250"
-                    cy="66"
-                    r="34"
-                    fill="none"
-                    stroke="var(--signal)"
-                    stroke-width="8"
-                    stroke-linecap="round"
-                    stroke-dasharray="145 214"
-                    transform="rotate(-90 250 66)"
-                  />
-                  <text
-                    x="250"
-                    y="72"
-                    text-anchor="middle"
-                    font-size="17"
-                    font-weight="700"
-                    fill="var(--ink)"
-                  >{{ EXAM.passPct }}%</text>
-                  <g transform="translate(222 112)">
-                    <rect
-                      width="56"
-                      height="22"
-                      rx="11"
-                      fill="var(--navy)"
-                    />
-                    <text
-                      x="28"
-                      y="15"
-                      text-anchor="middle"
-                      font-size="11"
-                      font-weight="700"
-                      fill="#fff"
-                    >{{ p.minutes }}′</text>
-                  </g>
-                </svg>
-                <span class="flex flex-1 flex-col p-6">
-                  <span class="flex items-center gap-3">
-                    <span class="bp-iconbox">
-                      <UIcon
-                        name="i-lucide-file-check-2"
-                        class="size-5"
-                      />
-                    </span>
-                    <span class="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.09em] text-success">{{ t('pro.freeLesson') }}</span>
-                  </span>
-                  <span class="mt-4 text-lg font-bold text-(--ink) group-hover:text-(--signal)">{{ p.title }}</span>
-                  <span class="mt-1 text-sm text-(--ink2)">{{ t('cert.paperLine', { q: p.questions, m: p.minutes, p: EXAM.passPct }) }}</span>
-                  <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-(--signal)">
-                    {{ t('cert.startFirst') }}
-                    <UIcon
-                      name="i-lucide-arrow-right"
-                      class="size-4"
-                    />
-                  </span>
+                </span>
+                <span class="min-w-0 flex-1">
+                  <span class="block truncate text-sm font-semibold text-(--ink)">{{ DOMAINS[p.domain!].label }}</span>
+                  <span class="block text-xs text-(--ink2)">{{ p.questions }} Q · {{ p.minutes }} min<ClientOnly><template v-if="best[p.id]"> · {{ t('cert.best', { pct: best[p.id]!.best }) }}</template></ClientOnly></span>
                 </span>
               </NuxtLink>
             </li>
-            <li class="flex flex-col justify-center rounded-[6px] border border-dashed border-(--line) p-6 text-(--ink2)">
-              <UIcon
-                name="i-lucide-layers"
-                class="size-5 text-(--label)"
-              />
-              <span class="mt-3 font-semibold text-(--ink)">{{ t('cert.morePapers') }}</span>
-              <span class="mt-1 text-sm">{{ t('cert.morePapersBody') }}</span>
-            </li>
           </ul>
         </section>
+
+        <NuxtLink
+          :to="localePath('/capstone')"
+          class="group flex items-center gap-4 rounded-[8px] bg-(--navy) p-5 text-white"
+        >
+          <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-blueprint-200">
+            <UIcon
+              name="i-lucide-award"
+              class="size-6"
+            />
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="block font-bold">{{ t('capstone.title') }}</span>
+            <span class="block text-sm text-white/70">{{ t('capstone.lead') }}</span>
+          </span>
+          <UIcon
+            name="i-lucide-arrow-right"
+            class="size-5 transition-transform group-hover:translate-x-1"
+          />
+        </NuxtLink>
 
         <!-- How it works -->
         <section class="rounded-[6px] border border-(--line) bg-(--card) p-6 sm:p-8">
@@ -301,3 +295,25 @@ usePageSchema(() => ({
     </div>
   </div>
 </template>
+
+<style scoped>
+.pack { transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s }
+.pack:hover { transform: translateY(-4px) rotate(-.5deg); box-shadow: 0 18px 36px -18px rgb(3 45 96 / .6) }
+.pack-foil {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgb(124 190 255 / .18) 45%, rgb(255 255 255 / .08) 50%, transparent 65%);
+  background-size: 250% 100%; background-position: 100% 0;
+  transition: background-position .8s ease
+}
+.pack:hover .pack-foil { background-position: 0 0 }
+.pack::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(135deg, rgb(255 255 255 / .03) 0 2px, transparent 2px 10px) }
+.pack-seal {
+  position: absolute; right: 18px; top: 46px;
+  display: flex; width: 64px; height: 64px; align-items: center; justify-content: center;
+  border-radius: 9999px; border: 2px dashed rgb(124 190 255 / .6); color: #9fd0ff;
+  font-size: 13px; font-weight: 800; transform: rotate(-12deg);
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1)
+}
+.pack:hover .pack-seal { transform: rotate(8deg) scale(1.06) }
+@media (prefers-reduced-motion: reduce) { .pack, .pack-foil, .pack-seal { transition: none } }
+</style>

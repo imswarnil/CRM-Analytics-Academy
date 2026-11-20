@@ -10,9 +10,10 @@
 // layer, so swapping in a screenshot or your face cut-out is a drag and drop:
 // put it on the "PHOTO goes here" layer's position.
 
-(function () {
-  var file = File.openDialog('Choose the lesson\'s thumbnail.json', 'JSON:*.json')
-  if (!file) return
+// makeThumb(file, quiet): build one thumbnail from a thumbnail.json File.
+// Run this file directly to pick one; photoshop/thumbnails-all.jsx defines
+// CRMA_BATCH and calls makeThumb for every lesson without any dialogs.
+function makeThumb(file, quiet) {
   file.encoding = 'UTF-8'
   file.open('r')
   var raw = file.read()
@@ -95,5 +96,11 @@
   png.PNG8 = false
   doc.exportDocument(new File(dir + '/thumbnail.png'), ExportType.SAVEFORWEB, png)
   app.preferences.rulerUnits = prefs
-  alert('Saved thumbnail.psd and thumbnail.png in\n' + dir)
-})()
+  if (quiet) doc.close(SaveOptions.DONOTSAVECHANGES)
+  else alert('Saved thumbnail.psd and thumbnail.png in\n' + dir)
+}
+
+if (typeof CRMA_BATCH === 'undefined') {
+  var picked = File.openDialog('Choose the lesson\'s thumbnail.json', 'JSON:*.json')
+  if (picked) makeThumb(picked, false)
+}

@@ -402,7 +402,7 @@ async function buildOfflineList() {
   const lessons = (await walk(CONTENT)).sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).map(f => toRoute(f))
   const notesDir = path.join(CONTENT, 'notes')
   const notes = existsSync(notesDir) ? (await readdir(notesDir)).filter(f => f.endsWith('.md')).map(f => `/notes/${f.replace(/\.md$/, '')}`) : []
-  const pages = ['/', '/start', '/pro', '/certification', '/certification/paper-1', '/interview-questions', '/notes', ...notes, ...lessons]
+  const pages = ['/', '/start', '/pro', '/certification', '/certification/salesforce-crm-analytics-einstein-consultant-exam-set-1', '/interview-questions', '/notes', ...notes, ...lessons]
   const urls = [...pages.flatMap(p => [p, `${p === '/' ? '' : p}/_payload.json`]), '/exam/en.json', '/search/en.json']
   await writeFile(path.join(ROOT, 'public', 'offline-pages.json'), JSON.stringify({ urls }), 'utf8')
   console.log(`[offline] ${pages.length} pages -> public/offline-pages.json`)

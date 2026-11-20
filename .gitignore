@@ -105,3 +105,5 @@ studio/out/
 
 # Business plan, pricing notes and prospect lists: local only, never public.
 business/
+# Studio: the one video in progress (recordings, clips, exports)
+studio/workspace/

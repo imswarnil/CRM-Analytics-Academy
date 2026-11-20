@@ -65,13 +65,13 @@ async function lessonFiles() {
   return out
 }
 
-async function build(rel) {
-  const raw = await readFile(path.join(CONTENT, rel), 'utf8')
+export async function build(rel, opts = {}) {
+  const raw = await readFile(opts.file ?? path.join(CONTENT, rel), 'utf8')
   const fm = parse(raw.match(/^---\n([\s\S]*?)\n---/)[1])
   const shots = fm.walkthrough?.shots ?? []
   if (!shots.length) return null
   const [sec, file] = rel.split(path.sep)
-  const dir = path.join(OUT, slug(sec), slug(file))
+  const dir = opts.out ?? path.join(OUT, slug(sec), slug(file))
   await mkdir(dir, { recursive: true })
 
   let t = 0
@@ -81,7 +81,7 @@ async function build(rel) {
     return { n: i + 1, ...s, start, end: t, motion: /^MOTION:/i.test(s.edit ?? '') ? s.edit.replace(/^MOTION:\s*/i, '') : null }
   })
 
-  const sectionTitle = parse(await readFile(path.join(CONTENT, sec, '.navigation.yml'), 'utf8')).title
+  const sectionTitle = opts.section ?? parse(await readFile(path.join(CONTENT, sec, '.navigation.yml'), 'utf8')).title
   await writeFile(path.join(dir, 'teleprompter.txt'),
     `${fm.title}\n${'='.repeat(fm.title.length)}\n\n` + timed.map(s => `[${s.n}] ${s.shot.toUpperCase()}\n\n${s.say}\n`).join('\n'))
 
@@ -123,18 +123,23 @@ async function build(rel) {
   return { rel, dir: path.relative(ROOT, dir), shots: timed.length, minutes: Math.round(t / 6) / 10, motion: motion.length }
 }
 
-const arg = process.argv[2]
-if (!arg) {
-  console.log('usage: node studio/lesson-to-shots.mjs <section/lesson> | --all')
-  process.exit(1)
-}
-const all = await lessonFiles()
-const picked = arg === '--all' ? all : all.filter(r => `${slug(r.split(path.sep)[0])}/${slug(r.split(path.sep)[1])}` === arg)
-if (!picked.length) {
-  console.error(`No lesson matches "${arg}". Try one of:\n  ${all.map(r => r.split(path.sep).map(slug).join('/')).join('\n  ')}`)
-  process.exit(1)
-}
-for (const r of picked) {
-  const res = await build(r)
-  if (res) console.log(`✓ ${res.dir}  ${res.shots} shots · ${res.minutes} min · ${res.motion} motion`)
+// Imported by new-video.mjs: stop here.
+if (process.argv[1] && !process.argv[1].endsWith('lesson-to-shots.mjs')) {
+  // no CLI
+} else {
+  const arg = process.argv[2]
+  if (!arg) {
+    console.log('usage: node studio/lesson-to-shots.mjs <section/lesson> | --all')
+    process.exit(1)
+  }
+  const all = await lessonFiles()
+  const picked = arg === '--all' ? all : all.filter(r => `${slug(r.split(path.sep)[0])}/${slug(r.split(path.sep)[1])}` === arg)
+  if (!picked.length) {
+    console.error(`No lesson matches "${arg}". Try one of:\n  ${all.map(r => r.split(path.sep).map(slug).join('/')).join('\n  ')}`)
+    process.exit(1)
+  }
+  for (const r of picked) {
+    const res = await build(r)
+    if (res) console.log(`✓ ${res.dir}  ${res.shots} shots · ${res.minutes} min · ${res.motion} motion`)
+  }
 }

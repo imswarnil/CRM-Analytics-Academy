@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const total = Number(body?.total)
   const score = Number(body?.score)
   const seconds = Math.min(Math.max(Math.round(Number(body?.seconds) || 0), 0), 6 * 3600)
-  if (!/^[a-z0-9-]{2,40}$/.test(paper) || !Number.isInteger(total) || total <= 0 || total > 200 || !Number.isInteger(score) || score < 0 || score > total) {
+  if (!/^[a-z0-9-]{2,80}$/.test(paper) || !Number.isInteger(total) || total <= 0 || total > 200 || !Number.isInteger(score) || score < 0 || score > total) {
     throw createError({ statusCode: 400, statusMessage: 'Bad attempt' })
   }
   const domains = Object.fromEntries(Object.entries(body?.domains ?? {}).slice(0, 12)

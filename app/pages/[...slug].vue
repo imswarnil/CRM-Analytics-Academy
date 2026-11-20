@@ -351,9 +351,8 @@ if (interview?.length) {
 
 useJsonLd(jsonLd)
 
-// Player chrome: position in the course, prev / next, completion and the
-// course timeline (one bar per lesson, current signal, done tide, open ice).
-const { lessons: courseLessons, current, previous, next, position, total: courseTotal } = useCourse()
+// Player chrome: position in the course, prev / next, completion.
+const { current, previous, next, position, total: courseTotal } = useCourse()
 const { isDone, setDone, isSaved, setSaved } = useProgress()
 const { isSignedIn } = useAuth()
 const { of: metaOf } = useLessonMeta()
@@ -378,15 +377,6 @@ async function toggleDone() {
   }
   await setDone(route.path, !done.value)
 }
-
-const timeline = computed(() => courseLessons.value.map((l) => {
-  const m = metaOf(l.path)
-  const here = normalise(l.path) === lessonKey.value
-  const tone = here
-    ? 'signal' as const
-    : isDone(l.path) ? 'tide' as const : 'ice' as const
-  return { value: m.minutes, tone, title: l.title, to: localePath(l.path) }
-}))
 
 // Pro lessons: the prerendered page is a teaser stub (scripts/gate-content.mjs).
 // Members fetch the real body, quiz, interview, walkthrough and video.
@@ -484,12 +474,36 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
                 :name="isProLesson ? (unlocked ? 'i-lucide-lock-keyhole-open' : 'i-lucide-lock-keyhole') : 'i-lucide-gift'"
                 class="size-4"
               />{{ isProLesson ? t('pro.tag') : t('pro.freeLesson') }}</span>
-              <span class="flex items-center gap-1.5">
-                <UIcon
-                  :name="meta.type === 'video' ? 'i-lucide-circle-play' : 'i-lucide-clock'"
-                  class="size-4"
-                />{{ meta.minutes }} min
-              </span>
+              <UTooltip
+                v-if="position && !page.comingSoon"
+                :text="t('lesson.positionTip')"
+              >
+                <span class="flex items-center gap-1.5">
+                  <UIcon
+                    name="i-lucide-map-pin"
+                    class="size-4"
+                  />{{ position }} / {{ courseTotal }}
+                </span>
+              </UTooltip>
+              <UTooltip :text="meta.type === 'video' ? t('lesson.videoTip') : t('lesson.readTip')">
+                <span class="flex items-center gap-1.5">
+                  <UIcon
+                    :name="meta.type === 'video' ? 'i-lucide-circle-play' : 'i-lucide-clock'"
+                    class="size-4"
+                  />{{ meta.minutes }} min
+                </span>
+              </UTooltip>
+              <UTooltip
+                v-if="lesson.quiz?.length"
+                :text="t('lesson.quizTip')"
+              >
+                <span class="flex items-center gap-1.5">
+                  <UIcon
+                    name="i-lucide-list-checks"
+                    class="size-4"
+                  />{{ lesson.quiz.length }}
+                </span>
+              </UTooltip>
               <span
                 class="h-4 w-px bg-(--line)"
                 aria-hidden="true"
@@ -602,32 +616,6 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
           />
         </NuxtLink>
         <span v-else />
-      </div>
-
-      <!-- Course timeline -->
-      <div
-        v-if="!page.comingSoon"
-        class="mb-10 border border-(--line) bg-(--card) p-4 rounded-2xl"
-      >
-        <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <p class="mono-label">
-            Course timeline — lesson {{ position }} of {{ courseTotal }}
-          </p>
-          <div class="flex flex-wrap gap-3 font-medium text-[11px] text-(--ink2)">
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--line) bg-(--signal)" />Here</span>
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--line) bg-(--tide)" />Done</span>
-            <span class="flex items-center gap-1"><i class="inline-block size-2.5 border border-(--line) bg-(--ice)" />Open</span>
-          </div>
-        </div>
-        <ClientOnly>
-          <BpTimeline
-            :bars="timeline"
-            :height="64"
-          />
-          <template #fallback>
-            <div class="h-16" />
-          </template>
-        </ClientOnly>
       </div>
 
       <!-- The admin reading a draft: what learners see instead. -->

@@ -21,6 +21,9 @@ type Kind = typeof KINDS[number]
 // Fine-grained type → the moderation bucket it must be filed under.
 const DETAIL_TYPES: Record<string, Kind> = {
   dashboard: 'showcase',
+  // The course capstone: a demo of the final build, reviewed in /admin;
+  // approval is the learner's certificate of completion (/capstone).
+  capstone: 'showcase',
   resource: 'resource',
   company: 'resource',
   lesson: 'lesson-idea',

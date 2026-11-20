@@ -59,12 +59,6 @@ const nextUp = computed(() => {
   return null
 })
 const pct = computed(() => liveCount.value ? Math.round((doneTotal.value / liveCount.value) * 100) : 0)
-const steps = [
-  { key: 1, icon: 'i-lucide-circle-play' },
-  { key: 2, icon: 'i-lucide-book-open' },
-  { key: 3, icon: 'i-lucide-list-checks' },
-  { key: 4, icon: 'i-lucide-notebook-pen' }
-]
 
 // Scroll-spy for the sidebar.
 const active = ref('s01')
@@ -113,42 +107,53 @@ usePageSchema(() => ({
 <template>
   <div>
     <!-- Hero: what this is, and one next action -->
-    <section class="relative overflow-hidden border-b border-(--line) bg-(--card)">
-      <BpFloatCharts />
+    <section class="start-hero relative overflow-hidden bg-(--navy) text-white">
       <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:px-8">
         <div>
-          <p class="eyebrow">
+          <p class="text-[11px] font-bold uppercase tracking-[.12em] text-blueprint-200">
             {{ t('curriculumPage.hero.eyebrow') }}
           </p>
-          <h1 class="mt-2 text-3xl font-bold leading-tight tracking-[-0.02em] text-(--ink) sm:text-4xl">
+          <h1 class="mt-2 text-4xl font-bold leading-tight tracking-[-0.02em] sm:text-5xl">
             {{ t('curriculumPage.hero.title') }}
           </h1>
-          <p class="mt-3 max-w-xl text-[1.0625rem] leading-relaxed text-(--ink2)">
+          <p class="mt-3 max-w-xl text-[1.0625rem] leading-relaxed text-white/75">
             {{ t('curriculumPage.hero.lead') }}
           </p>
-          <!-- How a lesson works, as four icons -->
+          <!-- The path: seven sections, a dot travelling along them -->
           <ol
-            class="mt-6 flex flex-wrap gap-2"
-            :aria-label="t('curriculumPage.how.title')"
+            class="route mt-8 flex max-w-xl items-center justify-between"
+            :aria-label="t('curriculumPage.sidebar')"
           >
             <li
-              v-for="st in steps"
-              :key="st.key"
-              class="flex items-center gap-2 rounded-full border border-(--line) bg-(--paper) py-1.5 ps-1.5 pe-3 text-sm text-(--ink)"
+              class="route-line"
+              aria-hidden="true"
             >
-              <span class="flex size-6 items-center justify-center rounded-full bg-(--ice) text-(--signal)">
-                <UIcon
-                  :name="st.icon"
-                  class="size-3.5"
-                />
-              </span>
-              {{ t(`curriculumPage.how.${st.key}`) }}
+              <span class="route-dot" />
+            </li>
+            <li
+              v-for="sec in sections"
+              :key="sec.key"
+              class="relative z-10"
+            >
+              <UTooltip :text="`${sec.n}. ${sec.title}`">
+                <a
+                  :href="`#${sec.key}`"
+                  class="flex size-11 items-center justify-center rounded-full border transition-transform hover:scale-110"
+                  :class="sec.live ? 'border-blueprint-300 bg-(--signal) text-white' : 'border-white/25 bg-(--navy) text-blueprint-200'"
+                  :aria-label="sec.title"
+                >
+                  <UIcon
+                    :name="sec.icon"
+                    class="size-5"
+                  />
+                </a>
+              </UTooltip>
             </li>
           </ol>
         </div>
 
         <!-- Your path: continue, or begin -->
-        <div class="rounded-[8px] border border-(--line) bg-(--card) p-5 shadow-[0_4px_16px_-8px_rgb(3_45_96/.25)]">
+        <div class="rounded-[8px] border border-white/10 bg-(--card) p-5 text-(--ink) shadow-[0_20px_40px_-24px_rgb(0_0_0/.6)]">
           <ClientOnly>
             <template v-if="isSignedIn && doneTotal > 0">
               <div class="flex items-center gap-4">
@@ -471,7 +476,39 @@ usePageSchema(() => ({
             unit="responsiveLeaderboard"
           />
         </template>
+        <NuxtLink
+          :to="localePath('/capstone')"
+          class="group flex items-center gap-4 rounded-[8px] bg-(--navy) p-5 text-white"
+        >
+          <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-blueprint-200">
+            <UIcon
+              name="i-lucide-award"
+              class="size-6"
+            />
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="block font-bold">{{ t('capstone.title') }}</span>
+            <span class="block text-sm text-white/70">{{ t('capstone.lead') }}</span>
+          </span>
+          <UIcon
+            name="i-lucide-arrow-right"
+            class="size-5 transition-transform group-hover:translate-x-1"
+          />
+        </NuxtLink>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.start-hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgb(124 190 255 / .08) 1px, transparent 1px), linear-gradient(90deg, rgb(124 190 255 / .08) 1px, transparent 1px);
+  background-size: 48px 48px; mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 75%)
+}
+.route { position: relative }
+.route-line { position: absolute; left: 22px; right: 22px; top: 50%; height: 2px; background: repeating-linear-gradient(90deg, rgb(124 190 255 / .45) 0 6px, transparent 6px 12px); list-style: none }
+.route-dot { position: absolute; top: -4px; width: 10px; height: 10px; border-radius: 9999px; background: #1b96ff; box-shadow: 0 0 12px #1b96ff; animation: travel 6s ease-in-out infinite }
+@keyframes travel { 0% { left: 0 } 50% { left: calc(100% - 10px) } 100% { left: 0 } }
+@media (prefers-reduced-motion: reduce) { .route-dot { animation: none } }
+</style>

@@ -282,16 +282,23 @@ const heroFacts = computed(() => [
         <h2 class="reveal text-center text-2xl font-bold tracking-tight text-(--ink)">
           {{ t('home.v2.howTitle') }}
         </h2>
-        <ol class="mt-10 grid gap-8 sm:grid-cols-3">
+        <ol class="steps relative mt-10 grid gap-8 sm:grid-cols-3">
+          <li
+            class="steps-line max-sm:hidden"
+            aria-hidden="true"
+          >
+            <span class="steps-fill" />
+          </li>
           <li
             v-for="(st, k) in steps"
             :key="st.key"
             class="reveal flex flex-col items-center text-center"
           >
-            <span class="step-ring relative flex size-16 items-center justify-center rounded-full bg-(--navy) text-white">
+            <span class="step-ring relative z-10 flex size-16 items-center justify-center rounded-full bg-(--navy) text-white">
               <UIcon
                 :name="st.icon"
                 class="size-7"
+                :class="`anim-${st.key}`"
               />
               <span class="absolute -end-1 -top-2 flex size-6 items-center justify-center rounded-full bg-(--signal) text-xs font-bold text-white">{{ k + 1 }}</span>
             </span>
@@ -305,6 +312,9 @@ const heroFacts = computed(() => [
         </ol>
       </div>
     </section>
+
+    <!-- THE PRICE STORY: classroom vs here, to scale -->
+    <HomePriceBars />
 
     <!-- PRICE: two cards -->
     <section class="mx-auto max-w-4xl px-4 py-20 sm:px-6">
@@ -424,11 +434,20 @@ const heroFacts = computed(() => [
 .tile-icon { transition: transform .3s cubic-bezier(.2, .8, .2, 1), background-color .3s, color .3s }
 .tile:hover .tile-icon { transform: rotate(-6deg) scale(1.08); background: var(--signal); color: #fff }
 .step-ring::after { content: ''; position: absolute; inset: -6px; border-radius: 9999px; border: 2px dashed var(--line); animation: spin 18s linear infinite }
+.steps-line { position: absolute; top: 32px; left: 16.66%; right: 16.66%; height: 3px; background: var(--line); border-radius: 3px; list-style: none }
+.steps-fill { display: block; height: 100%; width: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--signal), #1b96ff); transform-origin: left; animation: fill 1.6s cubic-bezier(.2, .8, .2, 1) both; animation-timeline: view(); animation-range: entry 20% cover 50% }
+.anim-watch { animation: watch 2.4s ease-in-out infinite }
+.anim-build { transform-origin: 70% 70%; animation: build 2.4s ease-in-out infinite .4s }
+.anim-check { animation: check 2.4s ease-in-out infinite .8s }
+@keyframes fill { from { transform: scaleX(0) } }
+@keyframes watch { 0%, 100% { transform: scale(1) } 15% { transform: scale(1.18) } 30% { transform: scale(1) } }
+@keyframes build { 0%, 40%, 100% { transform: rotate(0) } 10% { transform: rotate(-24deg) } 20% { transform: rotate(8deg) } }
+@keyframes check { 0%, 50%, 100% { transform: translateY(0) } 60% { transform: translateY(-5px) } 70% { transform: translateY(0) } }
 @keyframes up { from { opacity: 0; transform: translateY(14px) } }
 @keyframes pulse { 50% { opacity: .35 } }
 @keyframes spin { to { transform: rotate(360deg) } }
 @media (prefers-reduced-motion: reduce) {
-  .hero-in > *, .live-dot, .step-ring::after { animation: none }
+  .hero-in > *, .live-dot, .step-ring::after, .steps-fill, .anim-watch, .anim-build, .anim-check { animation: none }
   .tile, .tile-icon { transition: none }
 }
 </style>
