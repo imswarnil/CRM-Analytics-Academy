@@ -189,6 +189,10 @@ export default defineContentConfig({
             say: z.string(),
             // Text overlay for this shot, if any.
             onscreen: z.string().optional(),
+            // Editing direction for the cut: what to show while the line is
+            // spoken (zoom, callout, diagram, B-roll, pace). Shown to the
+            // admin only; learners read the script without it.
+            edit: z.string().optional(),
             seconds: z.number().optional()
           })).min(1)
         }).optional(),

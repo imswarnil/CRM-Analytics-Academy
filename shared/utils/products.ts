@@ -29,9 +29,9 @@ export interface Price {
 }
 
 export const PRICES = {
-  monthly: { key: 'crma_pro_monthly', usd: 49, interval: 'month' },
-  yearly: { key: 'crma_pro_yearly', usd: 149, interval: 'year' },
-  lifetime: { key: 'crma_pro_lifetime', usd: 299 }
+  monthly: { key: 'crma_pro_monthly', usd: 19, interval: 'month' },
+  yearly: { key: 'crma_pro_yearly', usd: 119, interval: 'year' },
+  lifetime: { key: 'crma_pro_lifetime', usd: 249 }
 } as const satisfies Record<string, Price>
 export type PaidPlan = keyof typeof PRICES
 /** The paid plans that renew (Stripe subscriptions). */

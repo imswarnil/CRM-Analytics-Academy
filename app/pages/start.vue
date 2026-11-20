@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
+import { NuxtLinkLocale } from '#components'
 import { ROADMAP } from '~/data/roadmap'
 
 /**
@@ -26,30 +27,34 @@ const description = computed(() => t('curriculumPage.seo.description'))
 useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
 defineOgImage('Docs', { title: t('curriculumPage.hero.title'), description: t('curriculumPage.hero.lead'), headline: t('curriculumPage.hero.eyebrow'), spec: `${ROADMAP.length} SECTIONS · FREE TO START` })
 
-interface Row { n: number, title: string, path: string | null, minutes: number, pro: boolean, video: boolean }
+// `soon`: the lesson is written but not published — its page shows "coming
+// soon" to learners and the full draft to the admin.
+interface Row { n: number, title: string, path: string | null, minutes: number, pro: boolean, video: boolean, soon: boolean }
 
 const slugOf = (p: string) => p.replace(/\/+$/, '').split('/').pop() ?? ''
 const sections = computed(() => ROADMAP.map((sec, i) => {
   const mod = (navigation.value ?? []).find(m => slugOf(String(m.path ?? '')) === sec.slug)
-  const published = ((mod?.children ?? []) as ContentNavigationItem[])
-    .filter(c => c.path && c.path !== mod?.path && !(c as { comingSoon?: boolean }).comingSoon)
-  const rows: Row[] = Array.from({ length: Math.max(sec.lessons, published.length) }, (_, k) => {
-    const live = published[k]
-    if (!live) return { n: k + 1, title: t(`roadmap.${sec.key}.l${k + 1}`), path: null, minutes: 0, pro: false, video: false }
-    const m = metaOf(String(live.path))
-    return { n: k + 1, title: String(live.title ?? ''), path: String(live.path), minutes: m.minutes, pro: Boolean(m.pro), video: m.type === 'video' }
+  const lessons = ((mod?.children ?? []) as ContentNavigationItem[])
+    .filter(c => c.path && c.path !== mod?.path)
+  const isSoon = (c: ContentNavigationItem) => Boolean((c as { comingSoon?: boolean }).comingSoon)
+  const published = lessons.filter(c => !isSoon(c))
+  const rows: Row[] = Array.from({ length: Math.max(sec.lessons, lessons.length) }, (_, k) => {
+    const file = lessons[k]
+    if (!file) return { n: k + 1, title: t(`roadmap.${sec.key}.l${k + 1}`), path: null, minutes: 0, pro: false, video: false, soon: true }
+    const m = metaOf(String(file.path))
+    return { n: k + 1, title: String(file.title ?? ''), path: String(file.path), minutes: m.minutes, pro: Boolean(m.pro), video: m.type === 'video', soon: isSoon(file) }
   })
   return { ...sec, n: i + 1, title: t(`roadmap.${sec.key}.title`), blurb: t(`roadmap.${sec.key}.blurb`), overview: mod?.path ? String(mod.path) : null, rows, live: published.length }
 }))
 
 const liveCount = computed(() => sections.value.reduce((n, s) => n + s.live, 0))
-const doneIn = (s: { rows: Row[] }) => s.rows.filter(r => r.path && isDone(r.path)).length
+const doneIn = (s: { rows: Row[] }) => s.rows.filter(r => r.path && !r.soon && isDone(r.path)).length
 const doneTotal = computed(() => sections.value.reduce((n, s) => n + doneIn(s), 0))
 const plannedCount = computed(() => sections.value.reduce((n, s) => n + s.rows.length, 0))
 // The next lesson to open: the first published one not finished yet.
 const nextUp = computed(() => {
   for (const s of sections.value) {
-    for (const r of s.rows) if (r.path && !isDone(r.path)) return { ...r, section: s }
+    for (const r of s.rows) if (r.path && !r.soon && !isDone(r.path)) return { ...r, section: s }
   }
   return null
 })
@@ -373,7 +378,7 @@ usePageSchema(() => ({
                 :key="r.n"
               >
                 <NuxtLink
-                  v-if="r.path"
+                  v-if="r.path && !r.soon"
                   :to="localePath(r.path)"
                   class="group flex items-center gap-4 px-6 py-3.5 transition-colors hover:bg-(--ice)/50"
                 >
@@ -405,14 +410,17 @@ usePageSchema(() => ({
                     :class="r.pro ? 'bg-(--navy) text-white' : 'bg-success/10 text-success'"
                   >{{ r.pro ? t('pro.tag') : t('pro.freeLesson') }}</span>
                 </NuxtLink>
-                <div
+                <component
+                  :is="r.path ? NuxtLinkLocale : 'div'"
                   v-else
+                  :to="r.path ?? undefined"
                   class="flex items-center gap-4 px-6 py-3.5"
+                  :class="r.path ? 'hover:bg-(--paper)' : ''"
                 >
                   <span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-dashed border-(--x) text-xs font-bold tabular-nums text-(--x)">{{ s.n }}.{{ r.n }}</span>
                   <span class="min-w-0 flex-1 text-(--ink2)">{{ r.title }}</span>
                   <span class="text-[10px] font-bold uppercase tracking-[.09em] text-(--label)">{{ t('curriculumPage.coming') }}</span>
-                </div>
+                </component>
               </li>
             </ol>
           </section>
@@ -445,9 +453,15 @@ usePageSchema(() => ({
               <li
                 v-for="r in s.rows"
                 :key="r.n"
-                class="flex items-center gap-3 py-1.5 text-sm text-(--ink2)"
               >
-                <span class="w-8 shrink-0 text-xs font-bold tabular-nums text-(--x)">{{ s.n }}.{{ r.n }}</span>{{ r.title }}
+                <component
+                  :is="r.path ? NuxtLinkLocale : 'span'"
+                  :to="r.path ?? undefined"
+                  class="flex items-center gap-3 py-1.5 text-sm text-(--ink2)"
+                  :class="r.path ? 'hover:text-(--signal)' : ''"
+                >
+                  <span class="w-8 shrink-0 text-xs font-bold tabular-nums text-(--x)">{{ s.n }}.{{ r.n }}</span>{{ r.title }}
+                </component>
               </li>
             </ol>
           </details>

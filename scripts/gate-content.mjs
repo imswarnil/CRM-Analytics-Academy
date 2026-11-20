@@ -15,8 +15,14 @@
  *   .gated-files.json                           the real files content.config.ts
  *                                               excludes in favour of the stubs
  *
+ * A lesson marked `comingSoon: true` (not a section index) is gated the same
+ * way, as a DRAFT: the asset carries `draft: true`, the stub carries no
+ * teaser, and /api/lesson serves the body to the admin alone — so the full
+ * lesson and its recording script can be written, reviewed and recorded on
+ * the live site before anyone else can read a word of it.
+ *
  * The body is served by /api/lesson/<locale>/<route> to members with Pro
- * (server/utils/entitlement.ts). All three outputs are gitignored and
+ * (server/utils/entitlement.ts), or to the admin for a draft. All three outputs are gitignored and
  * rebuilt on every `pnpm build` (scripts/prebuild.mjs), in CI too.
  */
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
@@ -67,8 +73,10 @@ const locales = (await readdir(CONTENT, { withFileTypes: true }))
 const gated = []
 for (const en of await walk(path.join(CONTENT, 'en'))) {
   const rel = path.relative(path.join(CONTENT, 'en'), en)
-  const access = split(await readFile(en, 'utf8')).data.access
-  if (access !== 'pro') continue
+  const head = split(await readFile(en, 'utf8')).data
+  const draft = head.comingSoon === true && !/(^|\/)\d{2}\.index\.md$/.test(rel)
+  const access = head.access === 'pro' ? 'pro' : 'free'
+  if (access !== 'pro' && !draft) continue
   for (const locale of locales) {
     const file = path.join(CONTENT, locale, rel)
     if (!existsSync(file)) continue
@@ -77,15 +85,16 @@ for (const en of await walk(path.join(CONTENT, 'en'))) {
     const asset = path.join(ASSETS, `${route}.json`)
     await mkdir(path.dirname(asset), { recursive: true })
     const extra = Object.fromEntries(PRIVATE_FIELDS.filter(k => data[k] !== undefined).map(k => [k, data[k]]))
-    await writeFile(asset, JSON.stringify({ access, markdown: body, data: extra }))
+    await writeFile(asset, JSON.stringify({ access, ...(draft ? { draft: true } : {}), markdown: body, data: extra }))
 
-    const stub = { ...data, access }
+    const stub = { ...data, ...(access === 'pro' ? { access } : {}) }
     for (const k of PRIVATE_FIELDS) delete stub[k]
     const out = path.join(STUBS, locale, rel)
     await mkdir(path.dirname(out), { recursive: true })
-    await writeFile(out, `---\n${stringify(stub, { lineWidth: 0 }).trimEnd()}\n---\n\n${teaser(body)}\n`)
+    // A draft's stub is the title and description only: nothing of the body.
+    await writeFile(out, `---\n${stringify(stub, { lineWidth: 0 }).trimEnd()}\n---\n${draft ? '' : `\n${teaser(body)}\n`}`)
     gated.push(`${locale}/${rel}`)
   }
 }
 await writeFile(LIST, JSON.stringify(gated, null, 2))
-console.log(`[gate] ${gated.length} gated lesson file(s) gated across ${locales.length} locales`)
+console.log(`[gate] ${gated.length} lesson file(s) gated (Pro and drafts) across ${locales.length} locales`)

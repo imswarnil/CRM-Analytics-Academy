@@ -7,6 +7,8 @@ export default withNuxt(
     // LWC plugins, which are not dependencies of this site. Left in scope, the
     // root lint tries to load it and dies before checking anything. The
     // Salesforce project lints itself, from inside its own folder.
-    ignores: ['salesforce/**', 'docs/**', 'cms/**']
+    // studio/**/*.jsx is Adobe ExtendScript (ES3, globals like `app` that
+    // only exist inside After Effects, Premiere and Photoshop), not web code.
+    ignores: ['salesforce/**', 'docs/**', 'cms/**', 'studio/**/*.jsx', 'studio/out/**', 'business/**']
   }
 )

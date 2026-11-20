@@ -18,57 +18,73 @@ dashboards, and the interview walk-through — about one lesson in three.
 **Notes.** Every finished section gets a downloadable notes sheet (handwritten
 style, with the charts and diagrams from its lessons) — PDF first.
 
-## 01 · Salesforce Foundations — *in progress*
+Every lesson below exists as a file. A lesson still marked `comingSoon: true`
+is a **draft**: learners see its title and a "coming soon" card; the admin
+account sees the whole lesson and its recording script, with editing notes
+(scripts/gate-content.mjs, /api/lesson). Drafts are not translated. To publish
+one: record it, add `video: { id }`, delete `comingSoon: true` (and from the
+section's `01.index.md` when it is the section's first), then `pnpm build`.
 
-1. Objects, fields and relationships — the data model behind every dashboard *(published, free)*
-2. Building a small app — a custom object, page layout, list view and validation rule
-3. Integration basics — Data Import Wizard, Data Loader, REST/Bulk APIs, external IDs and upserts
-4. Apex and LWC for analysts — reading a trigger, an Apex class and an embedded component
+The course is **CRM Analytics only** (2026-11-20): data prep, visualization,
+SAQL, bindings, sharing and Einstein Discovery. GTM theory and Apex were cut.
+Free / Pro is marked per lesson below.
 
-## 02 · GTM Basics — how a revenue team works
+## 01 · Foundations
+1. Objects, fields and relationships *(published, free)*
+2. Your org and a small app *(free)*
+3. Getting data in: Import Wizard, Data Loader, APIs, external IDs *(free)*
 
-1. The funnel: lead → MQL → SQL → opportunity → customer
-2. Pipeline: stages, amount, close date, forecast categories
-3. Revenue metrics: bookings, ARR/MRR, churn, expansion, NRR
-4. Who reads which dashboard: marketing, sales, CS, RevOps, the board
+## 02 · Data Prep
+1. The data layer: sync, connections, recipes, datasets *(free)*
+2. Your first recipe *(free)*
+3. Joins in depth: lookup, left, right, inner, outer, multi-value, fan-out *(free)*
+4. Append and aggregate: choosing the grain *(Pro)*
+5. Formulas, buckets and dates *(free)*
+6. Transpose, flatten and split *(Pro)*
+7. Snapshots and history *(Pro)*
+8. Security in the data: predicates and sharing inheritance *(free)*
 
-## 03 · Data Architecture — data in many places, one model
+## 03 · Visualization
+1. Lenses and your first dashboard *(free)*
+2. Choosing the right chart *(free)*
+3. Numbers, tables and compare tables *(Pro)*
+4. Layout and design *(free)*
+5. Dashboard patterns: KPI, trend, funnel, list *(Pro)*
 
-1. Where GTM data lives: Salesforce, the web, marketing tools, billing, a warehouse, CSVs
-2. CRM Analytics' data layer: Data Sync, connectors, recipes, datasets
-3. Grain, joins and keys — designing a dataset that reconciles
-4. Snapshots and history: storing the past so you can measure change
-5. Security in the data: row-level predicates and sharing inheritance
-
-## 04 · Dashboards Every GTM Team Uses
-
-1. KPI dashboards — the handful of numbers and their definitions
-2. Snapshot dashboards — pipeline as of each week
-3. Change analytics — what moved, by how much, and why
-4. Conversion and funnel dashboards
-5. Adoption dashboards — are people using what we built?
-6. Designing for decisions: layout, charts, colour, mobile
+## 04 · SAQL
+1. The SAQL you need: load, filter, group, foreach, order, limit *(free)*
+2. SAQL functions: string, math, date, case, coalesce *(free)*
+3. Projection with foreach *(Pro)*
+4. Cogroup: joining in a query *(Pro)*
+5. Windowing: running totals, rank, share of total *(Pro)*
+6. Time series and fill *(Pro)*
 
 ## 05 · Interactions and Bindings
+1. Faceting and filters *(free)*
+2. Selection bindings *(free)*
+3. Results bindings *(Pro)*
+4. Serialization functions: asString, asObject, asEquality, asProjection, asGrouping *(Pro)*
+5. Dashboard JSON *(Pro)*
 
-1. Faceting and filters
-2. Selection and results bindings
-3. SAQL behind a widget, and when to write it by hand
-4. Dashboard JSON: what to edit and what to leave
+## 06 · Sharing and Embedding
+1. Apps, sharing and licences *(free)*
+2. Embedding in Lightning, Experience Cloud and Slack *(free)*
+3. Subscriptions, notifications and actions *(Pro)*
+4. Packaging, deployment and performance *(Pro)*
 
-## 06 · Sharing, Embedding and Apps
+## 07 · Einstein Discovery
+1. Your first story *(free)*
+2. Reading a model honestly *(Pro)*
+3. Predictions in Salesforce *(Pro)*
 
-1. Apps, sharing and the licence model
-2. Embedding dashboards in Lightning pages, Experience Cloud and Slack
-3. Subscriptions, alerts and actions
-4. Packaging and moving between orgs
+## How a lesson's script is written
 
-## 07 · Advanced
-
-1. SAQL in depth — cogroup, windowing, time series
-2. Einstein Discovery — stories, predictions and writing back to Salesforce
-3. APIs and automation for CRM Analytics
-4. Performance and governance
+Each lesson's `walkthrough` is the video: one shot per beat. `say` is the
+spoken line, written to be read aloud; `screen` is the click path; `onscreen`
+the text overlay; `edit` the direction for the cut (zoom, callout, diagram,
+B-roll, pace) — shown to the admin only. Every video follows the same arc:
+hook (the problem in one sentence) → the idea, drawn → the build, in the
+Academy org → the trap people fall into → recap and what is next.
 
 ## Certification
 
@@ -87,4 +103,4 @@ sections as they are published.
    lessons, the `walkthrough` script.
 3. `pnpm lesson:check` — frontmatter, numbering, links, quiz answers in range.
 4. Record the video, upload it to YouTube, add `video: { id }` to the English file.
-5. `pnpm build` translates the other 11 languages and gates Pro bodies.
+5. `pnpm build` translates the other languages and gates Pro bodies and drafts.

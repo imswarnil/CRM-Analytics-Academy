@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
 import { ROADMAP } from '~/data/roadmap'
-import { AUTHOR } from '~/data/author'
 
 /**
- * The home page, kept to what a first-time visitor needs: what the course
- * is (hero), what is in it (the curriculum, plotted, once published), a free account, the Wall of Fame, who wrote it, and the common questions. Everything is prerendered per locale;
- * nothing here fetches at runtime.
+ * The home page, five blocks and little text: the hero (one line, the course
+ * as a moving diagram), the seven sections as icon tiles, how a lesson
+ * works in three steps, the two prices, the FAQ, one closing action.
+ * Prerendered per locale; nothing here fetches at runtime.
  */
 const { t, tm, rt, locale, locales } = useI18n()
 const localePath = useLocalePath()
-const { isSignedIn } = useAuth()
 
 // The BCP-47 tag of the locale this copy of the page is prerendered for —
 // every language emits its own JSON-LD, so 'en' hardcoded here would tell
@@ -37,11 +36,6 @@ defineOgImage('Docs', { title: t('home.hero.title'), description: t('home.hero.l
 // Counted from the navigation tree rather than typed, because a hardcoded
 // lesson count is wrong within a week of anybody adding a lesson.
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
-
-// Published lessons only: a section's "coming soon" page is not a lesson.
-const lessonCount = computed(() =>
-  (navigation.value ?? []).reduce((n, m) => n + ((m.children ?? []) as { comingSoon?: boolean }[]).filter(l => !l.comingSoon).length, 0)
-)
 
 /**
  * The curriculum rows, derived from the same navigation tree the sidebar and
@@ -109,12 +103,12 @@ useJsonLd({
     { '@type': 'Offer', 'category': 'Paid', 'name': 'Pro Lifetime', 'price': String(PRICES.lifetime.usd), 'priceCurrency': 'USD', 'url': `${SITE.url}/pro` }
   ],
   'sameAs': [SITE.youtube, SITE.github],
-  'about': ['Salesforce CRM Analytics', 'Tableau CRM', 'SAQL', 'Go-to-market analytics', 'RevOps dashboards'],
+  'about': ['Salesforce CRM Analytics', 'Tableau CRM', 'SAQL', 'Data preparation', 'Einstein Discovery'],
   'educationalCredentialAwarded': 'CRM Analytics Academy practice certificate',
-  'teaches': ['Data preparation with recipes', 'Datasets and data modelling', 'SAQL', 'Dashboard design', 'Bindings', 'Einstein Discovery', 'Funnel, pipeline and RevOps dashboards'],
+  'teaches': ['Data preparation with recipes', 'Datasets and data modelling', 'SAQL', 'Dashboard design', 'Bindings', 'Einstein Discovery'],
   'educationalLevel': 'Beginner to advanced',
   'coursePrerequisites': 'Basic Salesforce familiarity; a free CRM Analytics Developer Edition org',
-  'audience': { '@type': 'Audience', 'audienceType': 'Salesforce admins, developers, analysts and GTM / RevOps teams' },
+  'audience': { '@type': 'Audience', 'audienceType': 'Salesforce admins, developers and analysts' },
   'availableLanguage': locales.value.map(l => l.language || l.code),
   'hasCourseInstance': {
     '@type': 'CourseInstance',
@@ -155,39 +149,36 @@ useJsonLd({
     'acceptedAnswer': { '@type': 'Answer', 'text': f.a }
   }))
 })
-const heroFacts = computed(() => [
-  { icon: 'i-lucide-layers', value: String(ROADMAP.length), label: t('home.facts.sections') },
-  { icon: 'i-lucide-timer', value: String(EXAM.questions), label: t('home.facts.exam') },
-  { icon: 'i-lucide-languages', value: '7', label: t('home.facts.languages') },
-  { icon: 'i-lucide-badge-dollar-sign', value: t('home.facts.freeValue'), label: t('home.facts.free') }
-])
-const howSteps = [
+const steps = [
   { key: 'watch', icon: 'i-lucide-circle-play' },
-  { key: 'read', icon: 'i-lucide-book-open' },
-  { key: 'quiz', icon: 'i-lucide-list-checks' },
-  { key: 'notes', icon: 'i-lucide-notebook-pen' }
+  { key: 'build', icon: 'i-lucide-hammer' },
+  { key: 'check', icon: 'i-lucide-list-checks' }
 ]
+const usd = (n: number) => `$${n}`
+const heroFacts = computed(() => [
+  { icon: 'i-lucide-gift', label: t('home.v2.factFree') },
+  { icon: 'i-lucide-cloud', label: t('home.v2.factOrg') },
+  { icon: 'i-lucide-languages', label: t('home.v2.factLang') }
+])
 </script>
 
 <template>
   <div>
-    <!-- HERO: the navy title band (Namaste Salesforce) ---------------------- -->
+    <!-- HERO: one line, two buttons, the whole course moving on the right -->
     <section class="relative overflow-hidden bg-(--navy) text-white">
-      <!-- hairline grid on navy, the system's one texture -->
       <div
-        class="pointer-events-none absolute inset-0 opacity-100"
-        style="background-image: linear-gradient(rgb(124 190 255 / .08) 1px, transparent 1px), linear-gradient(90deg, rgb(124 190 255 / .08) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(to bottom, #000 40%, transparent)"
+        class="hero-grid pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
-      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 pt-12 pb-10 sm:px-6 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:px-8">
-        <div>
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:px-8">
+        <div class="hero-in">
           <p class="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[.09em] text-blueprint-200">
-            <span class="size-1.5 rounded-full bg-blueprint-400" />{{ t('home.hero.eyebrow') }}
+            <span class="live-dot size-1.5 rounded-full bg-blueprint-400" />{{ t('home.hero.eyebrow') }}
           </p>
-          <h1 class="mt-5 text-4xl font-bold leading-[1.06] tracking-[-0.025em] sm:text-5xl lg:text-[3.5rem]">
+          <h1 class="mt-5 text-4xl font-bold leading-[1.04] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
             {{ t('home.hero.title') }}
           </h1>
-          <p class="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
+          <p class="mt-5 max-w-lg text-lg leading-relaxed text-white/75">
             {{ t('home.hero.lead') }}
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
@@ -199,179 +190,209 @@ const howSteps = [
               {{ t('home.hero.start') }}
             </UButton>
             <UButton
-              :to="localePath('/pro')"
+              :to="SITE.youtube"
+              target="_blank"
               size="xl"
               color="neutral"
               variant="ghost"
+              icon="i-simple-icons-youtube"
               class="text-white ring-1 ring-inset ring-white/30 hover:bg-white/10 hover:text-white"
             >
-              {{ t('home.hero.pricing') }}
+              YouTube
             </UButton>
-            <ClientOnly>
-              <TestRide
-                v-if="!isSignedIn"
-                size="xl"
-                variant="ghost"
-                class="text-blueprint-200 hover:bg-white/10 hover:text-white"
-              />
-            </ClientOnly>
           </div>
-        </div>
-
-        <!-- The product, as a story: what you will build -->
-        <HomeStory class="min-w-0" />
-      </div>
-
-      <!-- Key facts, one band -->
-      <div class="relative border-t border-white/10">
-        <dl class="mx-auto grid max-w-(--ui-container) grid-cols-2 gap-px px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
-          <div
-            v-for="f in heroFacts"
-            :key="f.label"
-            class="flex items-center gap-3 py-5"
-          >
-            <span class="flex size-10 shrink-0 items-center justify-center rounded-[6px] bg-white/10 text-blueprint-200">
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70">
+            <li
+              v-for="f in heroFacts"
+              :key="f.icon"
+              class="flex items-center gap-2"
+            >
               <UIcon
                 :name="f.icon"
-                class="size-5"
-              />
-            </span>
-            <div>
-              <dd class="text-lg font-bold leading-tight text-white">
-                {{ f.value }}
-              </dd>
-              <dt class="text-sm text-white/65">
-                {{ f.label }}
-              </dt>
-            </div>
-          </div>
-        </dl>
+                class="size-4 text-blueprint-200"
+              />{{ f.label }}
+            </li>
+          </ul>
+        </div>
+        <HomeFlowArt class="mx-auto max-w-xl" />
       </div>
     </section>
 
-    <!-- WHAT YOU WILL BUILD: results first -------------------------------- -->
-    <HomeOutcomes />
-
-    <!-- THE COURSE, SECTION BY SECTION (all planned; live ones link) ---- -->
+    <!-- THE COURSE: seven tiles, icons first -->
     <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div class="reveal">
-          <p class="eyebrow">
-            {{ t('home.plot.eyebrow') }}
-          </p>
-          <h2 class="bp-h2 mt-4 max-w-2xl">
-            {{ t('home.path.title') }}
-          </h2>
-          <p class="bp-lead mt-3 max-w-2xl">
-            {{ t('home.path.lead', { lessons: lessonCount }) }}
-          </p>
-        </div>
-        <UButton
-          :to="localePath('/start')"
-          color="neutral"
-          variant="outline"
-          trailing-icon="i-lucide-arrow-right"
-        >
-          {{ t('home.plot.full') }}
-        </UButton>
+      <div class="reveal text-center">
+        <p class="eyebrow">
+          {{ t('home.v2.learnEyebrow') }}
+        </p>
+        <h2 class="bp-h2 mt-3">
+          {{ t('home.v2.learnTitle') }}
+        </h2>
+        <p class="bp-lead mx-auto mt-3 max-w-xl">
+          {{ t('home.v2.learnLead') }}
+        </p>
       </div>
-
-      <!-- How every lesson works, as four steps -->
-      <ol class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <li
-          v-for="(st, k) in howSteps"
-          :key="st.key"
-          class="flex items-center gap-3 rounded-[6px] border border-(--line) bg-(--card) px-4 py-3"
-        >
-          <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-(--ice) text-(--signal)">
-            <UIcon
-              :name="st.icon"
-              class="size-[1.125rem]"
-            />
-          </span>
-          <span class="min-w-0">
-            <span class="block text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">{{ k + 1 }}</span>
-            <span class="block truncate text-sm font-semibold text-(--ink)">{{ t(`home.how.${st.key}`) }}</span>
-          </span>
-        </li>
-      </ol>
-
-      <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <li
           v-for="(s, i) in path"
           :key="s.key"
           class="reveal"
+          :class="i === 0 ? 'lg:col-span-2' : ''"
         >
           <NuxtLink
             :to="localePath(`/start#${s.key}`)"
-            class="bp-card bp-card--hover group flex h-full flex-col overflow-hidden"
+            class="tile group relative flex h-full flex-col rounded-[8px] border border-(--line) bg-(--card) p-6"
           >
-            <CourseSectionArt
-              :section="s.key"
-              class="w-full border-b border-(--line)"
-            />
-            <div class="flex flex-1 flex-col p-5">
-              <p class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">
+            <span class="flex items-center justify-between">
+              <span class="tile-icon flex size-12 items-center justify-center rounded-[8px] bg-(--ice) text-(--signal)">
                 <UIcon
                   :name="s.icon"
-                  class="size-4 text-(--signal)"
-                />{{ t('curriculumPage.section', { n: i + 1 }) }}
-                <span
-                  class="ms-auto rounded-full px-2 py-0.5 text-[10px]"
-                  :class="s.live ? 'bg-success/10 text-success' : 'bg-(--paper2) text-(--ink2)'"
-                >{{ s.live ? lessonsLabel(t, s.live) : t('curriculumPage.coming') }}</span>
-              </p>
-              <h3 class="mt-2 text-lg font-bold leading-snug text-(--ink) group-hover:text-(--signal)">
-                {{ t(`roadmap.${s.key}.title`) }}
-              </h3>
-              <p class="mt-1.5 text-[0.9375rem] leading-relaxed text-(--ink2)">
-                {{ t(`roadmap.${s.key}.blurb`) }}
-              </p>
-            </div>
+                  class="size-6"
+                />
+              </span>
+              <span class="text-3xl font-bold tabular-nums text-(--x)">{{ String(i + 1).padStart(2, '0') }}</span>
+            </span>
+            <h3 class="mt-5 text-lg font-bold text-(--ink) group-hover:text-(--signal)">
+              {{ t(`roadmap.${s.key}.title`) }}
+            </h3>
+            <p class="mt-1.5 flex-1 text-[0.9375rem] leading-relaxed text-(--ink2)">
+              {{ t(`roadmap.${s.key}.blurb`) }}
+            </p>
+            <p class="mt-4 flex items-center gap-1.5 text-xs font-semibold text-(--ink2)">
+              <UIcon
+                name="i-lucide-circle-play"
+                class="size-3.5 text-(--signal)"
+              />{{ t('home.v2.lessons', { n: s.lessons }) }}
+              <span
+                v-if="s.live"
+                class="ms-auto rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.06em] text-success"
+              >{{ t('home.v2.live', { n: s.live }) }}</span>
+              <span
+                v-else
+                class="ms-auto rounded-full bg-(--paper) px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.06em] text-(--label)"
+              >{{ t('curriculumPage.coming') }}</span>
+            </p>
           </NuxtLink>
         </li>
       </ol>
     </section>
 
-    <div class="mx-auto max-w-(--ui-container) px-4 sm:px-6 lg:px-8">
-      <PromoSlot unit="horizontal" />
-    </div>
+    <!-- HOW IT WORKS: three steps -->
+    <section class="border-y border-(--line) bg-(--card)">
+      <div class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 lg:px-8">
+        <h2 class="reveal text-center text-2xl font-bold tracking-tight text-(--ink)">
+          {{ t('home.v2.howTitle') }}
+        </h2>
+        <ol class="mt-10 grid gap-8 sm:grid-cols-3">
+          <li
+            v-for="(st, k) in steps"
+            :key="st.key"
+            class="reveal flex flex-col items-center text-center"
+          >
+            <span class="step-ring relative flex size-16 items-center justify-center rounded-full bg-(--navy) text-white">
+              <UIcon
+                :name="st.icon"
+                class="size-7"
+              />
+              <span class="absolute -end-1 -top-2 flex size-6 items-center justify-center rounded-full bg-(--signal) text-xs font-bold text-white">{{ k + 1 }}</span>
+            </span>
+            <h3 class="mt-4 text-lg font-bold text-(--ink)">
+              {{ t(`home.v2.${st.key}`) }}
+            </h3>
+            <p class="mt-1 max-w-[16rem] text-(--ink2)">
+              {{ t(`home.v2.${st.key}Text`) }}
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-    <!-- JOBS THIS WEEK (hidden until the feed has postings) ----------- -->
-    <HomeJobs />
+    <!-- PRICE: two cards -->
+    <section class="mx-auto max-w-4xl px-4 py-20 sm:px-6">
+      <h2 class="reveal text-center text-3xl font-bold tracking-tight text-(--ink)">
+        {{ t('home.v2.priceTitle') }}
+      </h2>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <div class="reveal rounded-[8px] border border-(--line) bg-(--card) p-6 sm:p-8">
+          <p class="flex items-center gap-2 font-bold text-(--ink)">
+            <UIcon
+              name="i-lucide-gift"
+              class="size-5 text-success"
+            />{{ t('home.v2.free') }}
+          </p>
+          <p class="mt-4 text-4xl font-bold text-(--ink)">
+            $0
+          </p>
+          <p class="mt-2 text-(--ink2)">
+            {{ t('home.v2.freeText') }}
+          </p>
+          <UButton
+            :to="localePath('/start')"
+            block
+            size="lg"
+            color="neutral"
+            variant="outline"
+            class="mt-6"
+          >
+            {{ t('home.hero.start') }}
+          </UButton>
+        </div>
+        <div class="reveal relative overflow-hidden rounded-[8px] bg-(--navy) p-6 text-white sm:p-8">
+          <p class="flex items-center gap-2 font-bold">
+            <UIcon
+              name="i-lucide-crown"
+              class="size-5 text-blueprint-200"
+            />{{ t('home.v2.pro') }}
+          </p>
+          <p class="mt-4 text-4xl font-bold">
+            {{ usd(PRICES.monthly.usd) }}<span class="text-base font-medium text-white/60"> {{ t('home.v2.perMonth') }}</span>
+          </p>
+          <p class="mt-1 text-sm text-white/60">
+            {{ t('home.v2.orYear', { price: usd(PRICES.yearly.usd) }) }} · {{ t('home.v2.orLifetime', { price: usd(PRICES.lifetime.usd) }) }}
+          </p>
+          <p class="mt-2 text-white/80">
+            {{ t('home.v2.proText') }}
+          </p>
+          <UButton
+            :to="localePath('/pro')"
+            block
+            size="lg"
+            class="mt-6"
+            trailing-icon="i-lucide-arrow-right"
+          >
+            {{ t('home.v2.compare') }}
+          </UButton>
+        </div>
+      </div>
+    </section>
 
-    <!-- WHAT IT COSTS ---------------------------------------------------- -->
-    <HomeCompare />
-    <!-- FAQ --------------------------------------------------------------- -->
+    <!-- FAQ -->
     <section
       v-if="faqItems.length"
       class="mx-auto max-w-3xl px-4 pb-20 sm:px-6"
     >
-      <div class="overflow-hidden rounded-[6px] border border-(--line) bg-(--card)">
-        <div class="flex items-center justify-between border-b border-(--line) px-5 py-4">
-          <h2 class="text-xl font-semibold text-(--ink)">
-            {{ t('home.faqTitle') }}
-          </h2>
-          <UIcon
-            name="i-lucide-message-circle-question"
-            class="size-5 text-(--signal)"
-          />
-        </div>
+      <h2 class="mb-4 text-xl font-semibold text-(--ink)">
+        {{ t('home.faqTitle') }}
+      </h2>
+      <div class="rounded-[8px] border border-(--line) bg-(--card)">
         <UAccordion
           :items="faqItems"
           :ui="{ root: 'px-5' }"
         />
       </div>
     </section>
-    <!-- ONE CLOSING ACTION -->
-    <section class="relative overflow-hidden border-t border-(--line) bg-(--card)">
-      <BpFloatCharts />
+
+    <!-- CLOSE -->
+    <section class="relative overflow-hidden bg-(--navy) text-white">
+      <div
+        class="hero-grid pointer-events-none absolute inset-0"
+        aria-hidden="true"
+      />
       <div class="relative mx-auto flex max-w-(--ui-container) flex-col items-center px-4 py-16 text-center sm:px-6 lg:px-8">
-        <h2 class="max-w-2xl text-3xl font-bold tracking-[-0.02em] text-(--ink) sm:text-4xl">
-          {{ t('home.close.title') }}
+        <h2 class="max-w-2xl text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
+          {{ t('home.v2.closeTitle') }}
         </h2>
-        <p class="mt-3 max-w-xl text-(--ink2)">
-          {{ t('home.close.lead') }}
+        <p class="mt-3 text-white/70">
+          {{ t('home.v2.closeLead') }}
         </p>
         <UButton
           :to="localePath('/start')"
@@ -381,19 +402,33 @@ const howSteps = [
         >
           {{ t('home.hero.start') }}
         </UButton>
-        <NuxtLink
-          :to="localePath('/about')"
-          class="mt-8 flex items-center gap-3 text-sm text-(--ink2) hover:text-(--signal)"
-        >
-          <img
-            :src="AUTHOR.avatar"
-            alt=""
-            class="size-8 rounded-full bg-(--ice) object-cover"
-            loading="lazy"
-          >
-          {{ t('home.close.author') }}
-        </NuxtLink>
       </div>
     </section>
   </div>
 </template>
+
+<style scoped>
+.hero-grid {
+  background-image: linear-gradient(rgb(124 190 255 / .08) 1px, transparent 1px), linear-gradient(90deg, rgb(124 190 255 / .08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 70% 40%, #000 30%, transparent 75%);
+}
+.hero-in > * { animation: up .7s cubic-bezier(.2, .8, .2, 1) both }
+.hero-in > *:nth-child(2) { animation-delay: .08s }
+.hero-in > *:nth-child(3) { animation-delay: .16s }
+.hero-in > *:nth-child(4) { animation-delay: .24s }
+.hero-in > *:nth-child(5) { animation-delay: .32s }
+.live-dot { animation: pulse 2s ease-in-out infinite }
+.tile { transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s, border-color .25s }
+.tile:hover { transform: translateY(-4px); border-color: var(--signal); box-shadow: 0 12px 28px -16px rgb(3 45 96 / .45) }
+.tile-icon { transition: transform .3s cubic-bezier(.2, .8, .2, 1), background-color .3s, color .3s }
+.tile:hover .tile-icon { transform: rotate(-6deg) scale(1.08); background: var(--signal); color: #fff }
+.step-ring::after { content: ''; position: absolute; inset: -6px; border-radius: 9999px; border: 2px dashed var(--line); animation: spin 18s linear infinite }
+@keyframes up { from { opacity: 0; transform: translateY(14px) } }
+@keyframes pulse { 50% { opacity: .35 } }
+@keyframes spin { to { transform: rotate(360deg) } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-in > *, .live-dot, .step-ring::after { animation: none }
+  .tile, .tile-icon { transition: none }
+}
+</style>

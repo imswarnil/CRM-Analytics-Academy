@@ -29,13 +29,13 @@
 
 | After | You can |
 | --- | --- |
-| **1 · Salesforce Foundations** | Read any Salesforce data model and know which fields a dashboard needs |
-| **2 · GTM Basics** | Explain the funnel, pipeline and revenue numbers a sales team runs on |
-| **3 · Data Architecture** | Bring data from several systems into one dataset you can trust |
-| **4 · Dashboards Every GTM Team Uses** | Build the KPI, snapshot, change, conversion and adoption dashboards teams use weekly |
-| **5 · Interactions and Bindings** | Make dashboards respond to every click with faceting, bindings and SAQL |
-| **6 · Sharing, Embedding and Apps** | Put dashboards where people already work: Lightning, Slack, portals |
-| **7 · Advanced** | Write SAQL, predict outcomes with Einstein Discovery and keep it all fast |
+| **1 · Foundations** | Read the Salesforce data CRM Analytics uses, and run your own free org |
+| **2 · Data Prep** | Build datasets you can trust: recipes, every join type, grain, transpose, snapshots, row-level security |
+| **3 · Visualization** | Turn a dataset into charts and dashboards people read in seconds |
+| **4 · SAQL** | Write the query language behind every widget, from load to windowing and time series |
+| **5 · Interactions and Bindings** | Make dashboards respond to every click: faceting, selection and results bindings, dashboard JSON |
+| **6 · Sharing and Embedding** | Share securely, embed in Lightning, Experience Cloud and Slack, deploy and keep it fast |
+| **7 · Einstein Discovery** | Predict outcomes, read a model honestly, and put predictions on Salesforce records |
 
 Every lesson is the same four steps: **watch** a short video, **follow** a worked example, **check** yourself
 with a quiz, **keep** the one-page notes. The course is published section by section; `/start` shows what is
@@ -59,9 +59,9 @@ Seven languages: English, Spanish, German, Portuguese, French, Japanese and Hind
 | Plan | Price | What you get |
 | --- | --- | --- |
 | Free | $0 | Every free lesson, the practice exam, interview Q&A, progress and streaks. With ads |
-| Pro Monthly | $49 / month | Every lesson and dataset, full exam review, downloads, no ads |
-| Pro Yearly | $149 / year | The same, for about $12.42 a month |
-| Pro Lifetime | $299 once | The same, forever, including future lessons |
+| Pro Monthly | $19 / month | Every lesson and dataset, full exam review, downloads, no ads |
+| Pro Yearly | $119 / year | The same, for about $9.92 a month |
+| Pro Lifetime | $249 once | The same, forever, including future lessons |
 | Teams & institutions | Custom | Pro seats for companies, colleges and teams, with a join code |
 
 Prices live in one file, [`shared/utils/products.ts`](shared/utils/products.ts); `pnpm stripe:setup` mirrors them in Stripe.

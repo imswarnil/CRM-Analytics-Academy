@@ -11,8 +11,8 @@ in this file lives in `salesforce/crm/` (metadata) and `salesforce/scripts/`
 
 ## 2026-11-19 — what changed
 
-- **Prices** follow the site (`shared/utils/products.ts`): Pro Monthly **$49**, Pro Yearly **$149** (MRR = 149 ÷ 12 = 12.42),
-  Pro Lifetime **$299** once (revenue, **no MRR**), seats from **$99 per seat per year** (list; quoted). `AcademyLeadEvents`
+- **Prices** follow the site (`shared/utils/products.ts`): Pro Monthly **$19**, Pro Yearly **$119** (MRR = 119 ÷ 12 = 9.92),
+  Pro Lifetime **$249** once (revenue, **no MRR**), seats from **$99 per seat per year** (list; quoted). `AcademyLeadEvents`
   reads the plan the site sends (`monthly` / `yearly` / `lifetime`) and names deals *Pro — monthly / yearly / lifetime*.
   The site now sends `university` for a college (the picklist value).
 - **Validation rules** (edits only, never Web-to-Lead inserts, so no lead is ever lost): a closed lead or lost deal needs a

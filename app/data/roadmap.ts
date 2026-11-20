@@ -16,11 +16,11 @@ export interface RoadmapSection {
 }
 
 export const ROADMAP: RoadmapSection[] = [
-  { key: 's01', slug: 'salesforce-foundations', icon: 'i-lucide-database', lessons: 4 },
-  { key: 's02', slug: 'gtm-basics', icon: 'i-lucide-funnel', lessons: 4 },
-  { key: 's03', slug: 'data-architecture', icon: 'i-lucide-network', lessons: 5 },
-  { key: 's04', slug: 'gtm-dashboards', icon: 'i-lucide-layout-dashboard', lessons: 6 },
-  { key: 's05', slug: 'interactions-and-bindings', icon: 'i-lucide-link-2', lessons: 4 },
+  { key: 's01', slug: 'salesforce-foundations', icon: 'i-lucide-database', lessons: 3 },
+  { key: 's02', slug: 'data-prep', icon: 'i-lucide-workflow', lessons: 8 },
+  { key: 's03', slug: 'visualization', icon: 'i-lucide-chart-column', lessons: 5 },
+  { key: 's04', slug: 'saql', icon: 'i-lucide-code-xml', lessons: 6 },
+  { key: 's05', slug: 'interactions-and-bindings', icon: 'i-lucide-link-2', lessons: 5 },
   { key: 's06', slug: 'sharing-and-embedding', icon: 'i-lucide-share-2', lessons: 4 },
-  { key: 's07', slug: 'advanced', icon: 'i-lucide-sparkles', lessons: 4 }
+  { key: 's07', slug: 'einstein-discovery', icon: 'i-lucide-sparkles', lessons: 3 }
 ]

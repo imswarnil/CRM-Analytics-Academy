@@ -68,9 +68,9 @@
     ],
     "hero": {
       "eyebrow": "Salesforce CRM Analytics",
-      "title": "Build the dashboards your sales team opens every morning.",
-      "lead": "Learn CRM Analytics on real sales data, one short lesson at a time.",
-      "start": "Start here",
+      "title": "Learn CRM Analytics by building it.",
+      "lead": "Recipes, SAQL, bindings and Einstein Discovery. Short video lessons on real data, free to start.",
+      "start": "Start free",
       "curriculum": "Start here",
       "proof": {
         "free": "Free, no card",
@@ -300,6 +300,34 @@
         "title": "Revenue and forecast",
         "text": "Bookings against target, and where the quarter will land."
       }
+    },
+    "v2": {
+      "learnEyebrow": "The course",
+      "learnTitle": "Seven sections. One path.",
+      "learnLead": "From your first dataset to predictions on Salesforce records.",
+      "lessons": "{n} lessons",
+      "howTitle": "How every lesson works",
+      "watch": "Watch",
+      "watchText": "A short video, one idea at a time.",
+      "build": "Build",
+      "buildText": "Do it in your own free org, on the Academy data.",
+      "check": "Check",
+      "checkText": "A quiz and interview questions to lock it in.",
+      "priceTitle": "Free to start. Pro when you are serious.",
+      "free": "Free",
+      "freeText": "Most lessons, quizzes and the sample data.",
+      "pro": "Pro",
+      "proText": "Every lesson, the full exam review, no ads.",
+      "perMonth": "per month",
+      "orYear": "or {price} a year",
+      "orLifetime": "or {price} once",
+      "compare": "Compare plans",
+      "closeTitle": "Your first dataset is fifteen minutes away.",
+      "closeLead": "Sign up for a free org and follow lesson one.",
+      "factFree": "Free to start, no card",
+      "factOrg": "Your own free org",
+      "factLang": "7 languages",
+      "live": "{n} live"
     }
   },
   "footer": {
@@ -884,11 +912,11 @@
     "progress": "Your progress",
     "progressNone": "Sign in to track lessons you finish.",
     "how": {
-      "title": "How each lesson works",
       "1": "Watch a short video",
       "2": "Follow a worked example",
       "3": "Check yourself with a quiz",
-      "4": "Keep the one-page notes"
+      "4": "Keep the one-page notes",
+      "title": "How each lesson works"
     },
     "lessonOne": "1 lesson",
     "stat": {
@@ -1368,7 +1396,7 @@
   "store": {
     "eyebrow": "Pricing",
     "seoTitle": "CRM Analytics Academy pricing: Free, Pro Monthly, Pro Lifetime, Teams",
-    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $49 a month, $149 a year or $299 once. Seats for companies and colleges.",
+    "seoDesc": "Learn Salesforce CRM Analytics free, or get Pro for every lesson, dataset and exam review with no ads — $19 a month, $119 a year or $249 once. Seats for companies and colleges.",
     "title": "Start free. Go Pro when it pays off.",
     "lead": "Free lessons stay free. Pro unlocks every lesson, dataset and answer review.",
     "sentTitle": "Thanks — your request is in.",
@@ -1549,7 +1577,7 @@
       "photo": "Photo",
       "tagline": "Tagline",
       "price": "Price or offer",
-      "pricePh": "From 49 USD a month",
+      "pricePh": "From 19 USD a month",
       "url": "Link",
       "website": "Website shown",
       "layout": "Layout",
@@ -1639,63 +1667,66 @@
   },
   "roadmap": {
     "s01": {
-      "title": "Salesforce Foundations",
-      "blurb": "Read any Salesforce data model and know which fields a dashboard needs.",
+      "title": "Foundations",
+      "blurb": "Know the Salesforce data CRM Analytics reads, and set up your own org.",
       "l1": "Objects, fields and relationships",
-      "l2": "Building a small app",
-      "l3": "Integration basics",
-      "l4": "Apex and LWC for analysts"
+      "l2": "Your org and a small app",
+      "l3": "Getting data in"
     },
     "s02": {
-      "title": "GTM Basics",
-      "blurb": "Explain the funnel, pipeline and revenue numbers a sales team runs on.",
-      "l1": "The funnel: lead to customer",
-      "l2": "Pipeline: stages, amounts and forecasts",
-      "l3": "Revenue metrics: ARR, churn, NRR",
-      "l4": "Who reads which dashboard"
+      "title": "Data Prep",
+      "blurb": "Build datasets you can trust with recipes, joins and snapshots.",
+      "l1": "The data layer",
+      "l2": "Your first recipe",
+      "l3": "Joins in depth",
+      "l4": "Append and aggregate",
+      "l5": "Formulas, buckets and dates",
+      "l6": "Transpose, flatten and split",
+      "l7": "Snapshots and history",
+      "l8": "Security in the data"
     },
     "s03": {
-      "title": "Data Architecture",
-      "blurb": "Bring data from several systems into one dataset you can trust.",
-      "l1": "Where GTM data lives",
-      "l2": "Data Sync, connectors, recipes and datasets",
-      "l3": "Grain, joins and keys",
-      "l4": "Snapshots and history",
-      "l5": "Security in the data"
+      "title": "Visualization",
+      "blurb": "Turn a dataset into charts and dashboards people read in seconds.",
+      "l1": "Lenses and your first dashboard",
+      "l2": "Choosing the right chart",
+      "l3": "Numbers, tables and compare tables",
+      "l4": "Layout and design",
+      "l5": "Dashboard patterns"
     },
     "s04": {
-      "title": "Dashboards Every GTM Team Uses",
-      "blurb": "Build the KPI, snapshot, change, conversion and adoption dashboards teams use weekly.",
-      "l1": "KPI dashboards",
-      "l2": "Snapshot dashboards",
-      "l3": "Change analytics",
-      "l4": "Conversion and funnel dashboards",
-      "l5": "Adoption dashboards",
-      "l6": "Designing for decisions"
+      "title": "SAQL",
+      "blurb": "Write the query language behind every widget, from load to windowing.",
+      "l1": "The SAQL you need",
+      "l2": "SAQL functions",
+      "l3": "Projection with foreach",
+      "l4": "Cogroup: joining in a query",
+      "l5": "Windowing",
+      "l6": "Time series and fill"
     },
     "s05": {
       "title": "Interactions and Bindings",
-      "blurb": "Make dashboards respond to every click with faceting, bindings and SAQL.",
+      "blurb": "Make dashboards respond to every click with faceting and bindings.",
       "l1": "Faceting and filters",
-      "l2": "Selection and results bindings",
-      "l3": "SAQL behind a widget",
-      "l4": "Dashboard JSON"
+      "l2": "Selection bindings",
+      "l3": "Results bindings",
+      "l4": "Serialization functions",
+      "l5": "Dashboard JSON"
     },
     "s06": {
-      "title": "Sharing, Embedding and Apps",
-      "blurb": "Put dashboards where people already work — Lightning, Slack, portals.",
+      "title": "Sharing and Embedding",
+      "blurb": "Put dashboards where people work, securely and fast.",
       "l1": "Apps, sharing and licences",
       "l2": "Embedding in Lightning, Experience Cloud and Slack",
-      "l3": "Subscriptions, alerts and actions",
-      "l4": "Packaging and moving between orgs"
+      "l3": "Subscriptions, notifications and actions",
+      "l4": "Packaging, deployment and performance"
     },
     "s07": {
-      "title": "Advanced",
-      "blurb": "Write SAQL, predict outcomes with Einstein Discovery and keep it all fast.",
-      "l1": "SAQL in depth",
-      "l2": "Einstein Discovery",
-      "l3": "APIs and automation",
-      "l4": "Performance and governance"
+      "title": "Einstein Discovery",
+      "blurb": "Predict outcomes and explain why, then put predictions on records.",
+      "l1": "Your first story",
+      "l2": "Reading a model honestly",
+      "l3": "Predictions in Salesforce"
     }
   },
   "sponsor": {
@@ -1822,5 +1853,12 @@
     "errStars": "Pick a star rating.",
     "errText": "Write at least a sentence.",
     "errGeneric": "Could not post that review. Try again."
+  },
+  "soon": {
+    "eyebrow": "Coming soon",
+    "title": "This lesson is being recorded.",
+    "body": "{title} is written and on its way. It lands on YouTube first, then here with the full lesson, the quiz and the notes.",
+    "youtube": "Get notified on YouTube",
+    "start": "See the whole course"
   }
 }

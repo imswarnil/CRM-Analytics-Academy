@@ -98,3 +98,10 @@ public/notes/
 CLAUDE.md
 .claude/
 active/finalcut/kit/
+
+# Studio: generated edit packages (node studio/lesson-to-shots.mjs)
+studio/out/
+*.aep
+
+# Business plan, pricing notes and prospect lists: local only, never public.
+business/

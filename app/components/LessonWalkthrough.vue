@@ -29,10 +29,13 @@ const props = defineProps<{
     screen?: string
     say: string
     onscreen?: string
+    edit?: string
     seconds?: number
   }[]
   org?: string
   hasVideo?: boolean
+  /** The admin's recording view: editing notes on, and the script open. */
+  director?: boolean
 }>()
 
 // Rounded to the nearest half minute: the sum of hand-estimated shot lengths
@@ -48,7 +51,7 @@ const runtime = computed(() => {
 <template>
   <details
     class="not-prose group mb-8 border border-(--line) bg-(--card) rounded-2xl"
-    :open="!hasVideo"
+    :open="!hasVideo || director"
   >
     <summary class="flex cursor-pointer list-none items-center gap-3 bg-(--ice) px-4 py-3 hover:bg-(--frost)/40">
       <span class="flex size-8 shrink-0 items-center justify-center border border-(--line) bg-(--card) rounded-2xl">
@@ -59,7 +62,7 @@ const runtime = computed(() => {
       </span>
       <span class="min-w-0 flex-1">
         <span class="eyebrow block">
-          Screen walkthrough
+          {{ director ? 'Recording script' : 'Screen walkthrough' }}
         </span>
         <span class="block text-xs text-(--ink2)">
           {{ hasVideo ? 'The script behind the video above' : 'Follow along in your own org — the video for this lesson is not recorded yet' }}
@@ -132,6 +135,17 @@ const runtime = computed(() => {
                 class="size-3 shrink-0"
               />
               <span>{{ s.onscreen }}</span>
+            </p>
+
+            <p
+              v-if="director && s.edit"
+              class="mt-2 flex items-start gap-1.5 rounded-[4px] bg-(--glow) px-2 py-1.5 text-xs leading-relaxed text-(--ink)"
+            >
+              <UIcon
+                name="i-lucide-clapperboard"
+                class="mt-0.5 size-3.5 shrink-0 text-(--signal)"
+              />
+              <span><span class="font-semibold">Edit:</span> {{ s.edit }}</span>
             </p>
           </div>
         </li>

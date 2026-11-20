@@ -698,6 +698,12 @@ async function translateUi(manifest) {
 // Content (content/en/** → content/<locale>/**)
 // ---------------------------------------------------------------------------
 
+/** A coming-soon lesson (never a section index, which is translated as a placeholder). */
+function isDraft(rel, raw) {
+  const m = raw.match(/^---\n([\s\S]*?)\n---/)
+  return Boolean(m && /^comingSoon:\s*true\s*$/m.test(m[1]) && !/(^|\/)\d{2}\.index\.md$/.test(rel))
+}
+
 async function translateContent(manifest) {
   const sourceDir = join(CONTENT_DIR, SOURCE_LOCALE)
   const files = (await walk(sourceDir)).filter(f => /\.(md|ya?ml)$/.test(f))
@@ -713,6 +719,12 @@ async function translateContent(manifest) {
       const rel = relative(sourceDir, file)
       const outPath = join(CONTENT_DIR, locale, rel)
       const raw = await readFile(file, 'utf8')
+      // A coming-soon lesson is a draft only the admin can open, and it will
+      // change before it is recorded: it is translated when it is published.
+      if (isDraft(rel, raw)) {
+        skipped++
+        continue
+      }
       const hash = sha(translationSource(raw))
       const key = `${locale}:${rel}`
 

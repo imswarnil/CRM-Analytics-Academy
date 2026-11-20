@@ -153,6 +153,13 @@ const sectionTitles = computed(() => {
 const crumbLabel = (seg: string) => sectionTitles.value[seg]
   ?? seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 
+// A coming-soon lesson (not a section page): its public copy is a title and a
+// description (scripts/gate-content.mjs), so there is nothing to index yet.
+const isDraft = computed(() => Boolean(page.value?.comingSoon) && !String(page.value?.stem ?? '').endsWith('index'))
+if (isDraft.value && !servedEnglish.value) {
+  useHead({ meta: [{ name: 'robots', content: 'noindex, follow' }] })
+}
+
 if (servedEnglish.value) {
   useHead({
     link: [{ rel: 'canonical', href: `${SITE.url}${contentToRoutePath(englishPath.value)}` }],
@@ -393,10 +400,12 @@ interface ProLesson {
 const needs = computed<Access>(() => accessOf(page.value?.access))
 const isProLesson = computed(() => needs.value !== 'free')
 // Pro lessons (access: pro): monthly, lifetime or a team seat gets the body.
-const { access: held, loaded: progressLoaded } = useProgress()
+const { access: held, loaded: progressLoaded, admin } = useProgress()
 const member = computed(() => canOpen(held.value, needs.value))
+// Who gets the real body: the admin for a coming-soon draft, a member for Pro.
+const fetchBody = computed(() => isDraft.value ? admin.value : isProLesson.value && member.value)
 const { data: proLesson, status: proStatus } = useLazyAsyncData(`pro-${route.path}`, () =>
-  isProLesson.value && member.value ? $fetch<ProLesson>(`/api/lesson${page.value!.path}`).catch(() => null) : Promise.resolve(null), { server: false, watch: [member] })
+  fetchBody.value ? $fetch<ProLesson>(`/api/lesson${page.value!.path}`).catch(() => null) : Promise.resolve(null), { server: false, watch: [fetchBody] })
 const unlocked = computed(() => Boolean(proLesson.value?.markdown))
 const lesson = computed(() => unlocked.value
   ? { ...page.value!, quiz: proLesson.value!.quiz ?? page.value!.quiz, interview: proLesson.value!.interview, walkthrough: proLesson.value!.walkthrough }
@@ -621,11 +630,24 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
         </ClientOnly>
       </div>
 
+      <!-- The admin reading a draft: what learners see instead. -->
+      <p
+        v-if="isDraft && unlocked"
+        class="mb-6 flex items-center gap-2 rounded-[6px] border border-(--signal) bg-(--ice) px-4 py-3 text-sm text-(--ink)"
+      >
+        <UIcon
+          name="i-lucide-eye-off"
+          class="size-4 shrink-0 text-(--signal)"
+        />
+        <span><strong>Draft — only you can see this.</strong> Learners see "Coming soon". Publish by deleting <code>comingSoon: true</code> from the English file.</span>
+      </p>
+
       <LessonWalkthrough
         v-if="lesson.walkthrough?.shots?.length"
         :shots="lesson.walkthrough.shots"
         :org="lesson.walkthrough.org"
         :has-video="Boolean(lessonVideo?.id)"
+        :director="admin"
       />
 
       <details
@@ -661,6 +683,11 @@ const hasMedia = computed(() => Boolean(lessonVideo.value?.id))
           <MDC
             v-if="unlocked"
             :value="proLesson!.markdown"
+          />
+          <CourseComingSoonCard
+            v-else-if="isDraft"
+            :title="page.title"
+            :loading="admin && proStatus === 'pending'"
           />
           <template v-else>
             <ContentRenderer

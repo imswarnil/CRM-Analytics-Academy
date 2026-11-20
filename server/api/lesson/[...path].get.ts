@@ -8,9 +8,12 @@
  * into the Worker, never into .output/public); this is the only way to read
  * one, and it checks access first. Returns the markdown (rendered with <MDC>) and
  * the quiz, interview, walkthrough and video the public stub leaves out.
+ * A coming-soon lesson (`draft`) is served to the admin only.
  */
 interface GatedLesson {
   access?: Access
+  /** A coming-soon lesson: readable by the admin alone, 404 to everyone else. */
+  draft?: boolean
   markdown: string
   data: Record<string, unknown>
 }
@@ -23,6 +26,12 @@ export default defineEventHandler(async (event) => {
   }
   const lesson = await useStorage('assets:server').getItem<GatedLesson>(`gated:${path.replace(/\//g, ':')}.json`)
   if (!lesson) throw createError({ statusCode: 404, statusMessage: 'Lesson not found' })
+
+  if (lesson.draft) {
+    await requireAdmin(event)
+    setResponseHeader(event, 'cache-control', 'private, no-store')
+    return { markdown: lesson.markdown, draft: true, ...lesson.data }
+  }
 
   const user = await requireUser(event)
   const needs = accessOf(lesson.access ?? 'pro')

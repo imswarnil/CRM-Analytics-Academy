@@ -1,0 +1,28 @@
+{
+  "name": "CRM Analytics Academy",
+  "frame": { "width": 1920, "height": 1080, "fps": 30 },
+  "thumbnail": { "width": 1280, "height": 720 },
+  "colors": {
+    "navy": "#032D60",
+    "navyDeep": "#001A3E",
+    "signal": "#0176D3",
+    "signalBright": "#1B96FF",
+    "ice": "#EAF5FE",
+    "frost": "#7CBEFF",
+    "paper": "#F4F6F8",
+    "ink": "#181818",
+    "white": "#FFFFFF",
+    "good": "#2E844A",
+    "warn": "#DD7A01",
+    "bad": "#BA0517"
+  },
+  "fonts": {
+    "bold": "Figtree-Bold",
+    "semibold": "Figtree-SemiBold",
+    "regular": "Figtree-Regular",
+    "mono": "JetBrainsMono-Regular"
+  },
+  "type": { "title": 120, "subtitle": 48, "lowerThird": 44, "label": 28, "code": 40 },
+  "motion": { "in": 0.5, "hold": 2.5, "out": 0.4, "easeInfluence": 80 },
+  "endScreenSeconds": 20
+}
