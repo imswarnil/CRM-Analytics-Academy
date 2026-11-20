@@ -98,8 +98,23 @@ async function send() {
         </div>
       </div>
 
+      <div
+        v-if="!sent"
+        class="mb-6 flex items-center gap-4 rounded-[8px] bg-(--navy) p-5 text-white"
+      >
+        <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-blueprint-200">
+          <UIcon
+            name="i-lucide-gift"
+            class="size-6"
+          />
+        </span>
+        <span>
+          <span class="block font-bold">{{ t('interview.reward.title') }}</span>
+          <span class="block text-sm text-white/75">{{ t('interview.reward.body') }}</span>
+        </span>
+      </div>
       <form
-        v-else
+        v-if="!sent"
         class="crosshair space-y-6 border border-(--line) bg-(--card) p-6 sm:p-8 rounded-2xl"
         @submit.prevent="send"
       >

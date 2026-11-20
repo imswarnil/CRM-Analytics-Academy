@@ -260,6 +260,43 @@ const heroStats = computed(() => [
 
       <!-- Questions, by section -->
       <div class="min-w-0 space-y-8">
+        <!-- Questions by company: the rooms people actually interviewed in -->
+        <section
+          v-if="facet('company').length"
+          class="rounded-[8px] border border-(--line) bg-(--card) p-4"
+        >
+          <div class="mb-3 flex items-center justify-between gap-2">
+            <p class="mono-label">
+              {{ t('interview.byCompany') }}
+            </p>
+            <NuxtLink
+              :to="localePath('/interview-questions/new')"
+              class="flex items-center gap-1 text-xs font-semibold text-(--signal) hover:underline"
+            ><UIcon
+              name="i-lucide-gift"
+              class="size-3.5"
+            />{{ t('interview.reward.short') }}</NuxtLink>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <UTooltip
+              v-for="[k, n] in facet('company')"
+              :key="k"
+              :text="t('interview.companyTip', { n, company: k })"
+            >
+              <button
+                type="button"
+                class="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors"
+                :class="company === k ? 'border-(--signal) bg-(--signal) text-white' : 'border-(--line) text-(--ink) hover:border-(--signal)'"
+                @click="company = company === k ? '' : k"
+              >
+                <UIcon
+                  name="i-lucide-building-2"
+                  class="size-3.5"
+                />{{ k }}<span class="font-mono text-xs opacity-70">{{ n }}</span>
+              </button>
+            </UTooltip>
+          </div>
+        </section>
         <p class="mono-label">
           {{ t('interview.results', { n: filtered.length }) }}
         </p>

@@ -330,10 +330,19 @@
       "factOrg": "Your own free org",
       "factLang": "7 languages",
       "live": "{n} live",
-      "barDay": "Classroom, 1 day",
-      "barDays": "Classroom, 3 days",
+      "barDay": "Salesforce instructor-led, 1 day",
+      "barDays": "Salesforce instructor-led, 3 days",
       "barAcademy": "CRM Analytics Academy",
-      "capstone": "Capstone and certificate"
+      "capstone": "Capstone and certificate",
+      "certEyebrow": "Certification",
+      "certTitle": "Practise the real exam. Prove it with a build.",
+      "certSets": "full exam sets",
+      "certDrills": "domain drills",
+      "certCapstone": "capstone certificate",
+      "certCta": "Practice exams",
+      "ivTitle": "Interview prep, company by company",
+      "ivLead": "Real CRM Analytics interview questions with model answers, grouped by the company that asked them.",
+      "ivCta": "Interview questions"
     }
   },
   "footer": {
@@ -1112,7 +1121,7 @@
       "role": "Role interviewed for",
       "send": "Submit for review",
       "sentTitle": "Thanks — it is in the review queue",
-      "sentBody": "Once approved it appears in the interview bank with your question and answer.",
+      "sentBody": "Once approved it appears in the interview bank. If you named the company, your 30 days of Pro start then.",
       "another": "Submit another",
       "errQuestion": "Write the question (at least 10 characters).",
       "errAnswer": "Write a model answer (at least 30 characters).",
@@ -1130,7 +1139,14 @@
     "answersLead": "Read how others answer it, or add your own.",
     "shareTitle": "Know someone preparing for an interview? Send them this list.",
     "statQuestions": "questions",
-    "statTopics": "topics"
+    "statTopics": "topics",
+    "reward": {
+      "title": "Asked at a company? Get one month of Pro free.",
+      "body": "Share a real CRM Analytics interview question, name the company, and when it is approved your account gets 30 days of Pro.",
+      "short": "Add yours, get 1 month Pro"
+    },
+    "byCompany": "Questions by company",
+    "companyTip": "{n} questions asked at {company}"
   },
   "cert": {
     "eyebrow": "Certification practice",

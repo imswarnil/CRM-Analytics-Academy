@@ -63,7 +63,7 @@ usePageSchema(() => ({
     <!-- HERO: the exam on the left, the certificate you earn on the right -->
     <section class="relative overflow-hidden border-b border-(--line) bg-(--card)">
       <BpFloatCharts />
-      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:px-8">
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:grid-cols-2 lg:px-8">
         <div>
           <p class="eyebrow">
             {{ t('cert.eyebrow') }}
@@ -109,7 +109,7 @@ usePageSchema(() => ({
           </div>
         </div>
 
-        <div class="mx-auto w-full max-w-sm lg:max-w-none">
+        <div class="mx-auto w-full max-w-xl">
           <p class="mb-3 text-center text-[11px] font-bold uppercase tracking-[.09em] text-(--label)">
             {{ t('cert.earn') }}
           </p>
@@ -119,11 +119,13 @@ usePageSchema(() => ({
               :score="best[paper.id]?.best ?? null"
               sample
               animate
+              wide
             />
             <template #fallback>
               <CourseCertificate
                 sample
                 animate
+                wide
               />
             </template>
           </ClientOnly>

@@ -155,6 +155,11 @@ const steps = [
   { key: 'check', icon: 'i-lucide-list-checks' }
 ]
 const usd = (n: number) => `$${n}`
+const certFacts = [
+  { key: 'certSets', icon: 'i-lucide-package-check', value: PAPERS.filter(p => p.kind === 'full').length },
+  { key: 'certDrills', icon: 'i-lucide-target', value: PAPERS.filter(p => p.kind === 'drill').length },
+  { key: 'certCapstone', icon: 'i-lucide-award', value: 1 }
+]
 const heroFacts = computed(() => [
   { icon: 'i-lucide-gift', label: t('home.v2.factFree') },
   { icon: 'i-lucide-cloud', label: t('home.v2.factOrg') },
@@ -282,34 +287,130 @@ const heroFacts = computed(() => [
         <h2 class="reveal text-center text-2xl font-bold tracking-tight text-(--ink)">
           {{ t('home.v2.howTitle') }}
         </h2>
-        <ol class="steps relative mt-10 grid gap-8 sm:grid-cols-3">
-          <li
+        <div class="relative mt-10">
+          <div
             class="steps-line max-sm:hidden"
             aria-hidden="true"
           >
             <span class="steps-fill" />
-          </li>
+          </div>
+          <ol class="relative grid gap-8 sm:grid-cols-3">
+            <li
+              v-for="(st, k) in steps"
+              :key="st.key"
+              class="reveal flex flex-col items-center text-center"
+            >
+              <span class="step-ring relative z-10 flex size-16 items-center justify-center rounded-full bg-(--navy) text-white">
+                <UIcon
+                  :name="st.icon"
+                  class="size-7"
+                  :class="`anim-${st.key}`"
+                />
+                <span class="absolute -end-1 -top-2 flex size-6 items-center justify-center rounded-full bg-(--signal) text-xs font-bold text-white">{{ k + 1 }}</span>
+              </span>
+              <h3 class="mt-4 text-lg font-bold text-(--ink)">
+                {{ t(`home.v2.${st.key}`) }}
+              </h3>
+              <p class="mt-1 max-w-[16rem] text-(--ink2)">
+                {{ t(`home.v2.${st.key}Text`) }}
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- GET CERTIFIED: exams, drills, capstone, and the certificate -->
+    <section class="mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div class="reveal">
+        <p class="eyebrow">
+          {{ t('home.v2.certEyebrow') }}
+        </p>
+        <h2 class="bp-h2 mt-3">
+          {{ t('home.v2.certTitle') }}
+        </h2>
+        <ul class="mt-8 grid gap-3 sm:grid-cols-3">
           <li
-            v-for="(st, k) in steps"
-            :key="st.key"
-            class="reveal flex flex-col items-center text-center"
+            v-for="c in certFacts"
+            :key="c.key"
+            class="rounded-[8px] border border-(--line) bg-(--card) p-4"
           >
-            <span class="step-ring relative z-10 flex size-16 items-center justify-center rounded-full bg-(--navy) text-white">
-              <UIcon
-                :name="st.icon"
-                class="size-7"
-                :class="`anim-${st.key}`"
-              />
-              <span class="absolute -end-1 -top-2 flex size-6 items-center justify-center rounded-full bg-(--signal) text-xs font-bold text-white">{{ k + 1 }}</span>
-            </span>
-            <h3 class="mt-4 text-lg font-bold text-(--ink)">
-              {{ t(`home.v2.${st.key}`) }}
-            </h3>
-            <p class="mt-1 max-w-[16rem] text-(--ink2)">
-              {{ t(`home.v2.${st.key}Text`) }}
+            <UIcon
+              :name="c.icon"
+              class="size-6 text-(--signal)"
+            />
+            <p class="mt-3 text-2xl font-bold text-(--ink)">
+              {{ c.value }}
+            </p>
+            <p class="text-sm text-(--ink2)">
+              {{ t(`home.v2.${c.key}`) }}
             </p>
           </li>
-        </ol>
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <UButton
+            :to="localePath('/certification')"
+            size="lg"
+            icon="i-lucide-badge-check"
+          >
+            {{ t('home.v2.certCta') }}
+          </UButton>
+          <UButton
+            :to="localePath('/capstone')"
+            size="lg"
+            color="neutral"
+            variant="outline"
+            icon="i-lucide-award"
+          >
+            {{ t('home.v2.capstone') }}
+          </UButton>
+        </div>
+      </div>
+      <div class="reveal">
+        <CourseCertificate
+          sample
+          animate
+          wide
+        />
+      </div>
+    </section>
+
+    <!-- INTERVIEW PREP: real questions, by company -->
+    <section class="bg-(--navy) text-white">
+      <div class="mx-auto flex max-w-(--ui-container) flex-col items-start gap-6 px-4 py-14 sm:px-6 md:flex-row md:items-center lg:px-8">
+        <span class="flex size-14 shrink-0 items-center justify-center rounded-full bg-white/10 text-blueprint-200">
+          <UIcon
+            name="i-lucide-messages-square"
+            class="size-7"
+          />
+        </span>
+        <div class="min-w-0 flex-1">
+          <h2 class="text-2xl font-bold tracking-tight">
+            {{ t('home.v2.ivTitle') }}
+          </h2>
+          <p class="mt-1 text-white/75">
+            {{ t('home.v2.ivLead') }}
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <UButton
+            :to="localePath('/interview-questions')"
+            size="lg"
+            trailing-icon="i-lucide-arrow-right"
+          >
+            {{ t('home.v2.ivCta') }}
+          </UButton>
+          <UButton
+            :to="localePath('/interview-questions/new')"
+            size="lg"
+            color="neutral"
+            variant="ghost"
+            icon="i-lucide-gift"
+            class="text-white ring-1 ring-inset ring-white/30 hover:bg-white/10 hover:text-white"
+          >
+            {{ t('interview.reward.short') }}
+          </UButton>
+        </div>
       </div>
     </section>
 

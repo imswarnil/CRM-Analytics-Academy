@@ -14,7 +14,9 @@ const props = withDefaults(defineProps<{
   sample?: boolean
   /** Play the entrance: the sheet rises, the name writes itself, the stamp lands, a shine passes. */
   animate?: boolean
-}>(), { name: '', score: null, date: null, credential: '', sample: false, animate: false })
+  /** Landscape: two columns, shorter, for heroes. */
+  wide?: boolean
+}>(), { name: '', score: null, date: null, credential: '', sample: false, animate: false, wide: false })
 
 const { t, locale } = useI18n()
 const when = computed(() => new Date(props.date ?? Date.now()).toLocaleDateString(locale.value, { year: 'numeric', month: 'long', day: 'numeric' }))
@@ -56,149 +58,165 @@ const id = computed(() => props.credential || 'CRMA-PX1-2026-0001')
       />
     </svg>
 
-    <div class="relative px-7 pt-8 pb-7 sm:px-10">
-      <div class="flex items-center gap-2.5">
-        <AppLogo compact />
-      </div>
-
-      <p class="mt-6 text-[11px] font-bold uppercase tracking-[.2em] text-[#5C5A57]">
-        {{ t('cert.paper.kicker') }}
-      </p>
-      <p class="mt-1 text-2xl font-bold leading-tight sm:text-[1.75rem]">
-        {{ t('cert.paper.title') }}
-      </p>
-
-      <p class="mt-5 text-sm text-[#5C5A57]">
-        {{ t('cert.paper.awarded') }}
-      </p>
-      <p class="cert-name mt-1 border-b border-[#032D60]/20 pb-2 text-3xl sm:text-4xl">
-        {{ name || t('cert.paper.yourName') }}
-      </p>
-
-      <dl class="mt-5 grid grid-cols-3 gap-3 text-xs">
-        <div>
-          <dt class="font-bold uppercase tracking-[.12em] text-[#5C5A57]">
-            {{ t('cert.paper.score') }}
-          </dt>
-          <dd class="mt-0.5 text-base font-bold tabular-nums">
-            {{ score != null ? `${score}%` : '—' }}
-          </dd>
-        </div>
-        <div>
-          <dt class="font-bold uppercase tracking-[.12em] text-[#5C5A57]">
-            {{ t('cert.paper.date') }}
-          </dt>
-          <dd class="mt-0.5 text-sm font-semibold">
-            {{ when }}
-          </dd>
-        </div>
-        <div>
-          <dt class="font-bold uppercase tracking-[.12em] text-[#5C5A57]">
-            {{ t('cert.paper.id') }}
-          </dt>
-          <dd class="mt-0.5 font-mono text-[11px] font-semibold">
-            {{ id }}
-          </dd>
-        </div>
-      </dl>
-
-      <div class="mt-6 flex items-end justify-between gap-4">
-        <div class="min-w-0">
-          <p class="cert-sign text-2xl leading-none">
-            Swarnil Singhai
-          </p>
-          <p class="mt-1 border-t border-[#032D60]/30 pt-1 text-[11px] text-[#5C5A57]">
-            {{ t('cert.paper.signer') }}
-          </p>
+    <div
+      class="relative"
+      :class="wide ? 'cert-wide px-7 py-6 sm:px-9' : 'px-7 pt-8 pb-7 sm:px-10'"
+    >
+      <div>
+        <div class="flex items-center gap-2.5">
+          <AppLogo compact />
         </div>
 
-        <!-- The stamp -->
-        <svg
-          viewBox="0 0 120 120"
-          class="cert-stamp size-24 shrink-0 sm:size-28"
-          aria-hidden="true"
+        <p class="mt-6 text-[11px] font-bold uppercase tracking-[.2em] text-[#5C5A57]">
+          {{ t('cert.paper.kicker') }}
+        </p>
+        <p
+          class="mt-1 font-bold leading-tight"
+          :class="wide ? 'text-xl sm:text-2xl' : 'text-2xl sm:text-[1.75rem]'"
         >
-          <defs>
-            <path
-              id="cert-ring"
-              d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"
-            />
-          </defs>
-          <circle
-            cx="60"
-            cy="60"
-            r="57"
-            fill="none"
-            stroke="#0176D3"
-            stroke-width="3"
-          />
-          <circle
-            cx="60"
-            cy="60"
-            r="52"
-            fill="none"
-            stroke="#0176D3"
-            stroke-width="1"
-            stroke-dasharray="2 3"
-          />
-          <circle
-            cx="60"
-            cy="60"
-            r="33"
-            fill="#0176D3"
-            fill-opacity=".1"
-            stroke="#0176D3"
-            stroke-width="1.5"
-          />
-          <text
-            font-size="9.5"
-            font-weight="700"
-            letter-spacing="2.2"
-            fill="#0176D3"
-          >
-            <textPath href="#cert-ring">CRM ANALYTICS ACADEMY · PRACTICE · PASSED ·</textPath>
-          </text>
-          <g transform="translate(46 44)">
-            <rect
-              x="0"
-              y="14"
-              width="7"
-              height="14"
-              rx="1.5"
-              fill="#7CBEFF"
-            />
-            <rect
-              x="10"
-              y="7"
-              width="7"
-              height="21"
-              rx="1.5"
-              fill="#1B96FF"
-            />
-            <rect
-              x="20"
-              y="0"
-              width="7"
-              height="28"
-              rx="1.5"
-              fill="#0176D3"
-            />
-          </g>
-          <text
-            x="60"
-            y="86"
-            text-anchor="middle"
-            font-size="8"
-            font-weight="700"
-            letter-spacing="1.5"
-            fill="#032D60"
-          >2026</text>
-        </svg>
-      </div>
+          {{ t('cert.paper.title') }}
+        </p>
 
-      <p class="mt-5 text-[10px] leading-snug text-[#5C5A57]">
-        {{ t('cert.paper.note') }}
-      </p>
+        <p class="mt-5 text-sm text-[#5C5A57]">
+          {{ t('cert.paper.awarded') }}
+        </p>
+        <p class="cert-name mt-1 border-b border-[#032D60]/20 pb-2 text-3xl sm:text-4xl">
+          {{ name || t('cert.paper.yourName') }}
+        </p>
+      </div>
+      <div>
+        <dl
+          class="grid grid-cols-3 gap-3 text-xs"
+          :class="wide ? 'mt-5 sm:mt-0' : 'mt-5'"
+        >
+          <div>
+            <dt class="font-bold uppercase tracking-[.12em] text-[#5C5A57]">
+              {{ t('cert.paper.score') }}
+            </dt>
+            <dd class="mt-0.5 text-base font-bold tabular-nums">
+              {{ score != null ? `${score}%` : '—' }}
+            </dd>
+          </div>
+          <div>
+            <dt class="font-bold uppercase tracking-[.12em] text-[#5C5A57]">
+              {{ t('cert.paper.date') }}
+            </dt>
+            <dd class="mt-0.5 text-sm font-semibold">
+              {{ when }}
+            </dd>
+          </div>
+          <div :class="wide ? 'col-span-2' : ''">
+            <dt class="font-bold uppercase tracking-[.12em] text-[#5C5A57]">
+              {{ t('cert.paper.id') }}
+            </dt>
+            <dd class="mt-0.5 font-mono text-[11px] font-semibold">
+              {{ id }}
+            </dd>
+          </div>
+        </dl>
+
+        <div class="mt-6 flex items-end justify-between gap-4">
+          <div class="min-w-0">
+            <p class="cert-sign text-2xl leading-none">
+              Swarnil Singhai
+            </p>
+            <p class="mt-1 border-t border-[#032D60]/30 pt-1 text-[11px] text-[#5C5A57]">
+              {{ t('cert.paper.signer') }}
+            </p>
+          </div>
+
+          <!-- The stamp -->
+          <svg
+            viewBox="0 0 120 120"
+            class="cert-stamp shrink-0"
+            :class="wide ? 'size-20' : 'size-24 sm:size-28'"
+            aria-hidden="true"
+          >
+            <defs>
+              <path
+                id="cert-ring"
+                d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"
+              />
+            </defs>
+            <circle
+              cx="60"
+              cy="60"
+              r="57"
+              fill="none"
+              stroke="#0176D3"
+              stroke-width="3"
+            />
+            <circle
+              cx="60"
+              cy="60"
+              r="52"
+              fill="none"
+              stroke="#0176D3"
+              stroke-width="1"
+              stroke-dasharray="2 3"
+            />
+            <circle
+              cx="60"
+              cy="60"
+              r="33"
+              fill="#0176D3"
+              fill-opacity=".1"
+              stroke="#0176D3"
+              stroke-width="1.5"
+            />
+            <text
+              font-size="9.5"
+              font-weight="700"
+              letter-spacing="2.2"
+              fill="#0176D3"
+            >
+              <textPath href="#cert-ring">CRM ANALYTICS ACADEMY · PRACTICE · PASSED ·</textPath>
+            </text>
+            <g transform="translate(46 44)">
+              <rect
+                x="0"
+                y="14"
+                width="7"
+                height="14"
+                rx="1.5"
+                fill="#7CBEFF"
+              />
+              <rect
+                x="10"
+                y="7"
+                width="7"
+                height="21"
+                rx="1.5"
+                fill="#1B96FF"
+              />
+              <rect
+                x="20"
+                y="0"
+                width="7"
+                height="28"
+                rx="1.5"
+                fill="#0176D3"
+              />
+            </g>
+            <text
+              x="60"
+              y="86"
+              text-anchor="middle"
+              font-size="8"
+              font-weight="700"
+              letter-spacing="1.5"
+              fill="#032D60"
+            >2026</text>
+          </svg>
+        </div>
+
+        <p
+          v-if="!wide"
+          class="mt-5 text-[10px] leading-snug text-[#5C5A57]"
+        >
+          {{ t('cert.paper.note') }}
+        </p>
+      </div>
     </div>
 
     <span
@@ -215,6 +233,9 @@ const id = computed(() => props.credential || 'CRMA-PX1-2026-0001')
 </template>
 
 <style scoped>
+@media (min-width: 640px) {
+  .cert-wide { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); column-gap: 2rem; align-items: end }
+}
 .cert { border: 1px solid #dddbda; }
 .cert-name { font-family: 'Caveat', 'Kalam', cursive; font-weight: 700; color: #032d60; }
 .cert-sign { font-family: 'Caveat', cursive; color: #0b3b78; }
