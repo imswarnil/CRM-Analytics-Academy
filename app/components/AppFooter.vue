@@ -35,7 +35,8 @@ const columns = computed(() => [
       { label: t('nav.pro'), to: localePath('/pro') },
       { label: t('nav.forTeams'), to: `${localePath('/pro')}#teams` },
       { label: t('nav.sponsor'), to: localePath('/sponsor') },
-      { label: t('nav.about'), to: localePath('/about') }
+      { label: t('nav.about'), to: localePath('/about') },
+      { label: t('nav.hire'), to: localePath('/hire') }
     ]
   }
 ])
