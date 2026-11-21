@@ -13,6 +13,18 @@
   // not at request time, so it fails the whole deploy rather than one route.
   "compatibility_flags": ["nodejs_compat"],
 
+  // Payments (not secret): Dodo Payments as merchant of record, in TEST mode.
+  // Switch DODO_ENV to "live" (and the product ids to the live ones) to take
+  // real payments. The API key and webhook secret are Worker secrets
+  // (MY_DODO_API_KEY, DODO_WEBHOOK_SECRET): `pnpm keys`.
+  "vars": {
+    "PAYMENT_PROVIDER": "dodo",
+    "DODO_ENV": "test",
+    "DODO_PRODUCT_PRO_MONTHLY": "pdt_0Nokip9dnpjLytGnzgvXo",
+    "DODO_PRODUCT_PRO_ANNUAL": "pdt_0NokipGBWRjjYVjIMBPYq",
+    "DODO_PRODUCT_PRO_LIFETIME": "pdt_0NoeJqrWy3iAfPyO3DBG7"
+  },
+
   "assets": {
     // The prerendered curriculum — every lesson, in all 12 locales, plus
     // _nuxt/. Cloudflare serves anything matching a file here directly from

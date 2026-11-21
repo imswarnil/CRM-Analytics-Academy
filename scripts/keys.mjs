@@ -14,6 +14,8 @@
  *   pnpm keys            status + fill in what is missing
  *   pnpm keys --status   status only
  *   pnpm keys --replace STRIPE_SECRET_KEY   overwrite one key
+ *   pnpm keys --sync     copy keys that are in .env but missing on the Worker
+ *                        (read from the file, sent over stdin, never shown)
  *
  * Random secrets (CAPTCHA_SECRET, NEON_AUTH_COOKIE_SECRET) can be generated
  * for you. Press Enter on any prompt to skip it.
@@ -31,18 +33,22 @@ const KEYS = [
   { name: 'DATABASE_URL', where: ['env', 'worker'], shape: /^postgres(ql)?:\/\/\S+$/, help: 'Neon → Connect → Pooled connection string.' },
   { name: 'NEON_AUTH_BASE_URL', where: ['env', 'worker'], shape: /^https:\/\/\S+$/, help: '`neonctl neon-auth status --project-id <id>`' },
   { name: 'NEON_AUTH_COOKIE_SECRET', where: ['env', 'worker'], shape: /^[a-f0-9]{64}$/, generate: true, help: 'Leave blank to generate one. Changing it signs everyone out.' },
+  { name: 'MY_DODO_API_KEY', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Dodo Payments → Developer → API keys (test mode while DODO_ENV is test).' },
+  { name: 'DODO_WEBHOOK_SECRET', where: ['env', 'worker'], shape: /^whsec_\S{20,}$/, help: 'Dodo Payments → Developer → Webhooks → the crmanalytics endpoint → Signing secret.' },
   { name: 'STUDIO_GITHUB_CLIENT_ID', where: ['worker'], shape: /^\S{10,}$/, help: 'GitHub → Settings → Developer settings → OAuth Apps.' },
   { name: 'STUDIO_GITHUB_CLIENT_SECRET', where: ['worker'], shape: /^\S{20,}$/, help: 'Same OAuth app → Generate a new client secret.' }
 ]
 
 const args = process.argv.slice(2)
 const statusOnly = args.includes('--status')
+const sync = args.includes('--sync')
 const replace = args.includes('--replace') ? args[args.indexOf('--replace') + 1] : null
 
 // ---- local .env (names only) ------------------------------------------------
 const ENV = '.env'
 const envText = () => (existsSync(ENV) ? readFileSync(ENV, 'utf8') : '')
 const envHas = name => new RegExp(`^${name}=\\S`, 'm').test(envText())
+const envGet = name => envText().match(new RegExp(`^${name}=["']?([^"'\\n]*)`, 'm'))?.[1] ?? ''
 function envSet(name, value) {
   const text = envText()
   const line = `${name}=${value}`
@@ -88,7 +94,7 @@ function askHidden(question) {
 }
 
 // ---- run ----------------------------------------------------------------------
-if (!statusOnly && !process.stdin.isTTY) {
+if (!statusOnly && !sync && !process.stdin.isTTY) {
   console.error('Run this in your own terminal (it needs hidden input): pnpm keys')
   process.exit(1)
 }
@@ -104,6 +110,21 @@ for (const k of KEYS) {
 }
 console.log('\n✓ set   · missing   (values are never shown)\n')
 if (statusOnly) process.exit(0)
+
+if (sync) {
+  if (!worker) process.exit(1)
+  for (const k of KEYS) {
+    if (!k.where.includes('worker') || worker.has(k.name) || !envHas(k.name)) continue
+    const value = envGet(k.name)
+    if (!k.shape.test(value)) {
+      console.log(`${k.name}: the .env value does not look right, not copied`)
+      continue
+    }
+    const err = await workerPut(k.name, value)
+    console.log(err ? `${k.name}: ✗ ${err}` : `${k.name}: ✓ copied to the Worker`)
+  }
+  process.exit(0)
+}
 
 for (const k of KEYS) {
   const needEnv = k.where.includes('env') && (!envHas(k.name) || replace === k.name)

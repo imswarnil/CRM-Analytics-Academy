@@ -1,5 +1,6 @@
 /**
- * Pro, self-serve: { plan: 'monthly' | 'yearly' | 'lifetime' } → a Stripe Checkout URL.
+ * Pro, self-serve: { plan: 'monthly' | 'yearly' | 'lifetime' } → a checkout URL,
+ * from Dodo Payments when PAYMENT_PROVIDER=dodo (server/utils/dodo.ts), else Stripe.
  * Monthly is a subscription, lifetime one payment. Access is granted by the
  * webhook when Stripe confirms, never here.
  */
@@ -13,6 +14,23 @@ export default defineEventHandler(async (event) => {
 
   const origin = getRequestOrigin(event)
   const meta = { kind: plan, user_id: user.id }
+
+  if (paymentProvider() === 'dodo') {
+    const productId = dodoProduct(plan)
+    if (!productId) throw createError({ statusCode: 503, statusMessage: 'This plan is not available yet.' })
+    const session = await dodoFetch<{ session_id: string, checkout_url: string }>('/checkouts', {
+      method: 'POST',
+      body: {
+        product_cart: [{ product_id: productId, quantity: 1 }],
+        customer: { email: user.email, name: user.name || user.email },
+        return_url: `${origin}/dashboard?checkout=success`,
+        metadata: meta
+      }
+    })
+    setResponseHeader(event, 'cache-control', 'no-store')
+    return { url: session.checkout_url }
+  }
+
   const session = await stripe<{ url: string }>('POST', 'checkout/sessions', {
     mode: plan === 'lifetime' ? 'payment' : 'subscription',
     customer_email: user.email,

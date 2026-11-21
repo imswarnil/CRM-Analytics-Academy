@@ -10,7 +10,8 @@ export default defineEventHandler(async (event) => {
   ])
   setResponseHeader(event, 'cache-control', 'private, no-store')
   return {
-    configured: stripeConfigured(),
+    configured: paymentProvider() === 'dodo' ? dodoConfigured() : stripeConfigured(),
+    provider: paymentProvider(),
     access,
     lifetime: ent ? { product: String(ent.product), at: ent.granted_at as string, until: (ent.expires_at as string | null) ?? null } : null,
     subscription: sub ? { plan: sub.plan === 'yearly' ? 'yearly' : 'monthly', status: String(sub.status), periodEnd: (sub.current_period_end as string | null) ?? null, cancelAtPeriodEnd: Boolean(sub.cancel_at_period_end) } : null,
