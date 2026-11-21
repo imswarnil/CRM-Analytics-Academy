@@ -17,6 +17,9 @@ export default defineEventHandler(async (event) => {
     mode: plan === 'lifetime' ? 'payment' : 'subscription',
     customer_email: user.email,
     client_reference_id: user.id,
+    // Indian Stripe accounts must collect the buyer's name and billing address
+    // on export (non-INR, cross-border) payments; harmless everywhere else.
+    billing_address_collection: 'required',
     line_items: [{ price: await priceId(plan), quantity: 1 }],
     allow_promotion_codes: true,
     metadata: meta,
