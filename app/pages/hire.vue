@@ -34,8 +34,8 @@ const steps = [
 ]
 
 // The project request.
-const form = reactive({ name: '', email: '', company: '', scope: 'implementation', message: '', website: '' })
 const scopes = ['implementation', 'dashboards', 'migration', 'audit', 'training'] as const
+const form = reactive({ name: '', email: '', company: '', scope: 'implementation' as typeof scopes[number], message: '', website: '' })
 const token = ref('')
 const human = ref<{ reset: () => void } | null>(null)
 const open = ref(false)
