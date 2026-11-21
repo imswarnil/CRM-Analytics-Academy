@@ -17,7 +17,8 @@
     "stripe:setup": "node scripts/stripe-setup.mjs",
     "new-lesson": "node scripts/new-lesson.mjs",
     "lesson:check": "node scripts/lesson-check.mjs",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "keys": "node scripts/keys.mjs"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.114",
