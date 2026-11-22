@@ -112,6 +112,7 @@ KIT.buildFilm = function (job, log) {
     // 3D transitions happen in MASTER; the scene then draws its own full background.
     props._transition = KIT.MASTER_T[s.transition] ? 'none' : (s.transition || 'reveal');
     props._credit = tl.credit;
+    props._beat = tl.beat || 0.585;
     // The scene's own voice, for lip sync: starts voStart after the scene does, 15 values a second.
     props._vo = { at: s.voStart, env: s.voEnv || [], fps: 15 };
     var sc = KIT.buildScene(s.type, props, s.duration, fScenes, (i < 9 ? '0' : '') + (i + 1) + ' ' + s.id);
@@ -124,16 +125,18 @@ KIT.buildFilm = function (job, log) {
   KIT.masterTransitions(master, layers, tl.scenes);
   // Audio: VO per scene, music with the same duck keyframes as the mix, SFX at their cues.
   for (i = 0; i < tl.scenes.length; i++) {
+    if (!tl.scenes[i].voFile) continue;
     var v = master.layers.add(KIT.importAudio(tl.scenes[i].voFile, fVo));
     v.startTime = tl.scenes[i].start + tl.scenes[i].voStart;
     v.name = 'VO ' + tl.scenes[i].id;
     v.label = 9;
   }
   var mus = master.layers.add(KIT.importAudio(tl.music.file, fAudio));
-  mus.name = 'Music (ducked)';
+  mus.name = tl.music.duck.length ? 'Music (ducked)' : 'Music';
   mus.label = 11;
   var lv = mus.property('ADBE Audio Group').property('ADBE Audio Levels');
-  lv.setValueAtTime(0, [tl.music.duck[0][1], tl.music.duck[0][1]]);
+  if (!tl.music.duck.length) lv.setValue([0, 0]);
+  else lv.setValueAtTime(0, [tl.music.duck[0][1], tl.music.duck[0][1]]);
   for (i = 0; i < tl.music.duck.length; i++) {
     var d = tl.music.duck[i];
     if (d[0] > 0) lv.setValueAtTime(d[0], [d[1], d[1]]);

@@ -41,9 +41,9 @@ export function premiereXml(tl, mp4, out) {
 <media><video><format><samplecharacteristics>${rate}<width>${tl.width}</width><height>${tl.height}</height><pixelaspectratio>square</pixelaspectratio></samplecharacteristics></format>
 ${track([clip(mp4, 0, { video: true, name: `${tl.slug} (After Effects render)` })])}</video>
 <audio>
-${track(tl.scenes.map(s => clip(s.voFile, s.start + s.voStart, { name: `VO ${s.id}` })))}
-${track([clip(tl.music.file, 0, { name: 'Music', max: tl.total, keys: [[0, music[0][1]], ...music] })])}
-${track(tl.sfx.map(c => clip(c.file, c.at, { name: `SFX ${c.name}`, keys: [[0, -8]] })))}
+${tl.scenes.some(s => s.voFile) ? track(tl.scenes.filter(s => s.voFile).map(s => clip(s.voFile, s.start + s.voStart, { name: `VO ${s.id}` }))) : ''}
+${track([clip(tl.music.file, 0, { name: 'Music', max: tl.total, keys: music.length ? [[0, music[0][1]], ...music] : undefined })])}
+${tl.sfx.length ? track(tl.sfx.map(c => clip(c.file, c.at, { name: `SFX ${c.name}`, keys: [[0, -8]] }))) : ''}
 ${track([clip(tl.mix, 0, { name: 'MIX (reference)', off: true })])}
 </audio></media></sequence></xmeml>
 `

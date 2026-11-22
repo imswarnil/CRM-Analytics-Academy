@@ -10,6 +10,7 @@
 var SCENES = SCENES || {};
 var SCENES_INFO = [
   { type: 'barsHello', label: 'The Bars say hello (opener)', props: { line1: 'CRM Analytics?', line2: 'End to end.' } },
+  { type: 'kinetic', label: 'Kinetic type (the story in words)', props: { lines: ['Learn *CRM Analytics*', 'end to end.'], bg: 'navy', mark: true } },
   { type: 'logoTitle', label: 'Logo + title', props: { title: 'CRM Analytics Academy', line: 'Learn to build it. End to end.' } },
   { type: 'titleCard', label: 'Title card (navy)', props: { title: 'Lesson title', kicker: 'LESSON 1', sub: 'One line on what you will learn' } },
   { type: 'browserShot', label: 'Site screenshot in a browser', props: { screen: 'home-tall', url: 'crmanalytics.imswarnil.com', pan: [0, 0.2], chips: [{ text: 'Free to start', icon: 'check', at: [0.2, 0.4] }] } },
@@ -61,24 +62,116 @@ var SCENES_INFO = [
   SCENES.logoTitle = function (comp, p, T, dur) {
     enter(comp, p, C.ice, T);
     KIT.blobs(comp, C.frost, 6, 9, 22);
-    var crew = KIT.crew(comp, 960, 520, 0.82, { talk: true });
-    KIT.springUp(crew, T + 0.05, 0.12);
-    KIT.talk(crew[2], p._vo, T);
-    KIT.blink(crew[1], [T + 1.8]);
-    KIT.blink(crew[2], [T + 2.6]);
-    KIT.pop(KIT.text(comp, p.title || 'CRM Analytics Academy', { size: 116, font: F.black, color: C.navy, y: 655 }), T + 0.5);
-    var l = KIT.text(comp, p.line || 'Learn to build it. End to end.', { size: 50, font: F.bold, color: C.signal, y: 770 });
-    KIT.fade(l, T + 0.9, T + 1.2, 0, 100);
-    KIT.moveFrom(l, T + 0.9, 0, 30, 0.4);
-    if (p.chip) KIT.chip(comp, p.chip, 'check', 960, 880, T + 1.6, { bg: C.good });
+    KIT.mark(comp, 960, 300, 240, T + 0.05);
+    KIT.pop(KIT.text(comp, p.title || 'CRM Analytics Academy', { size: 116, font: F.black, color: C.navy, y: 560 }), T + 0.35);
+    var l = KIT.text(comp, p.line || 'Learn to build it. End to end.', { size: 50, font: F.bold, color: C.signal, y: 670 });
+    KIT.fade(l, T + 0.7, T + 1.0, 0, 100);
+    KIT.moveFrom(l, T + 0.7, 0, 30, 0.4);
+    if (p.chip) KIT.chip(comp, p.chip, 'check', 960, 790, T + 1.2, { bg: C.good });
+  };
+
+
+  // ---- kinetic type: the story in words, on the beat ------------------------------------------------------
+  // props.lines: ["Learn *CRM Analytics*", "*end to end.*"] — words between *…* take the accent colour.
+  // props.bg: navy | navyDeep | ice | paper | white | signal ; props.mark: the logo mark above;
+  // props.icons: ["db", "out", …] float in around the words on the beat and leave before the cut;
+  // props.exit: false keeps the words up to the cut. Words land on half-beats (props._beat).
+  SCENES.kinetic = function (comp, p, T, dur) {
+    var bgName = p.bg || 'navy';
+    var dark = bgName === 'navy' || bgName === 'navyDeep' || bgName === 'signal';
+    enter(comp, p, C[bgName], T);
+    KIT.blobs(comp, dark ? C.frost : C.signal, 5, 61, dark ? 7 : 6);
+    var beat = p._beat || 0.585;
+    var lines = p.lines || ['Learn *CRM Analytics*', 'end to end.'];
+    var size = p.size || 112;
+    var lh = size * 1.18;
+    var y0 = 540 - (lines.length - 1) * lh / 2 + (p.mark ? 70 : 0);
+    if (p.mark) KIT.mark(comp, 960, y0 - lh / 2 - 130, 150, T);
+    var accent = bgName === 'signal' ? C.navyDeep : (dark ? C.frost : C.signal);
+    var base = dark ? C.white : C.navy;
+    var styles = ['rise', 'pop', 'slide', 'drop'];
+    var widest = 0;
+    var n = 0;
+    var all = [];
+    var inAccent = false;
+    for (var li = 0; li < lines.length; li++) {
+      var words = lines[li].split(' ');
+      var ly = y0 + li * lh;
+      var lay = [];
+      var total = 0;
+      var space = size * 0.27;
+      for (var wi = 0; wi < words.length; wi++) {
+        var wd = words[wi];
+        if (wd.charAt(0) === '*') inAccent = true;
+        var acc = inAccent;
+        if (/\*[.,!?]*$/.test(wd)) inAccent = false;
+        var L = KIT.text(comp, wd.replace(/\*/g, ''), { size: size, font: F.black, color: acc ? accent : base, x: 0, y: ly, align: 'left' });
+        var rr = L.sourceRectAtTime(0, false);
+        // Every word shares the line's baseline.
+        L.property('ADBE Transform Group').property('ADBE Anchor Point').setValue([rr.left, -size * 0.36]);
+        lay.push([L, rr.width]);
+        total += rr.width + (wi ? space : 0);
+      }
+      widest = Math.max(widest, total);
+      var x = 960 - total / 2;
+      for (wi = 0; wi < lay.length; wi++) {
+        var W = lay[wi][0];
+        KIT.at(W, x, ly);
+        // On the beat: one word every half-beat, the style changing line by line.
+        var t = T + n * beat / 2;
+        var st = styles[(li + (p.seed || 0)) % styles.length];
+        if (st === 'rise') KIT.moveFrom(W, t, 0, size * 0.55, beat);
+        else if (st === 'slide') KIT.moveFrom(W, t, -size * 0.8, 0, beat);
+        else if (st === 'drop') KIT.moveFrom(W, t, 0, -size * 0.6, beat);
+        else KIT.pop(W, t);
+        KIT.fade(W, t, t + beat * 0.4, 0, 100);
+        all.push(W);
+        x += lay[wi][1] + space;
+        n++;
+      }
+    }
+    var tEnd = T + dur;
+    if (p.sub) {
+      var sub = KIT.text(comp, p.sub, { size: 40, font: F.semi, color: dark ? C.frost : C.muted, y: y0 + lines.length * lh - lh / 2 + 50 });
+      var ts = T + (n + 1) * beat / 2;
+      KIT.fade(sub, ts, ts + 0.3, 0, 100);
+      KIT.moveFrom(sub, ts, 0, 20, beat);
+      all.push(sub);
+    }
+    if (p.underline !== false) {
+      var u = KIT.rect(comp, 'Underline', widest * 0.35, 12, 6, accent, 960, y0 + (lines.length - 1) * lh + size * 0.62 + (p.sub ? 90 : 0));
+      KIT.keys(u.property('ADBE Transform Group').property('ADBE Scale'), [[T + (n + 2) * beat / 2, [0, 100, 100]], [T + (n + 2) * beat / 2 + beat, [100, 100, 100]]], 85);
+    }
+    // Icons drift in around the words on the beat, and pop out before the cut.
+    var icons = p.icons || [];
+    var spots = [[300, 300], [1620, 320], [260, 800], [1660, 780], [960, 140], [960, 960]];
+    for (var ic = 0; ic < icons.length && ic < spots.length; ic++) {
+      var I = KIT.icon(comp, icons[ic], spots[ic][0], spots[ic][1], 130, dark ? C.navy : C.white, dark ? C.frost : C.signal);
+      var ti = T + (ic + 1) * beat;
+      KIT.pop(I, ti);
+      I.property('ADBE Transform Group').property('ADBE Rotate Z').expression = 'seedRandom(' + (ic + 5) + ', true); 8 * Math.sin(time * 2.2 + ' + ic + ')';
+      I.property('ADBE Transform Group').property('ADBE Position').expression = 'seedRandom(' + (ic + 9) + ', true); wiggle(0.5, 14)';
+      if (p.exit !== false) KIT.popOut(I, tEnd - beat * 1.5 + ic * 0.05);
+    }
+    // Words leave on the last beat, one after another, upwards.
+    if (p.exit !== false) {
+      for (var k = 0; k < all.length; k++) {
+        var tx = tEnd - beat + k * 0.03;
+        var pp = all[k].property('ADBE Transform Group').property('ADBE Position');
+        var v = pp.valueAtTime(tx, false);
+        pp.setValueAtTime(tx, v);
+        pp.setValueAtTime(tx + beat * 0.8, [v[0], v[1] - 80]);
+        KIT.easeAll(pp, 70);
+        KIT.keys(all[k].property('ADBE Transform Group').property('ADBE Opacity'), [[tx, 100], [tx + beat * 0.6, 0]], 50);
+      }
+    }
   };
 
   // ---- generic title card --------------------------------------------------------------------
   SCENES.titleCard = function (comp, p, T, dur) {
     enter(comp, p, C.navy, T);
     KIT.blobs(comp, C.frost, 6, 5, 8);
-    var crew = KIT.crew(comp, 960, 400, 0.5);
-    KIT.springUp(crew, T + 0.1, 0.1);
+    KIT.mark(comp, 960, 330, 130, T + 0.1);
     KIT.pop(KIT.eyebrow(comp, p.kicker || 'LESSON', 960, 470, C.frost), T + 0.45);
     var t = KIT.text(comp, p.title || 'Title', { size: 110, font: F.black, color: C.white, y: 580 });
     KIT.fade(t, T + 0.55, T + 0.9, 0, 100);
@@ -239,6 +332,10 @@ var SCENES_INFO = [
     enter(comp, p, C.navyDeep, T, 960, 1080);
     KIT.blobs(comp, C.signal, 4, 17, 10);
     KIT.pop(KIT.eyebrow(comp, p.kicker || 'SAQL', 960, 130, C.frost), T + 0.05);
+    if (p.title) {
+      var st = KIT.text(comp, p.title, { size: 56, font: F.black, color: C.white, y: 200 });
+      KIT.fade(st, T + 0.15, T + 0.45, 0, 100);
+    }
     var lines = p.lines || ['q = load "opportunities";'];
     KIT.pop(KIT.rect(comp, 'Editor', 1360, 640, 24, C.code, 960, 570), T + 0.1);
     var bar = KIT.shapeLayer(comp, 'Window dots');
@@ -315,7 +412,7 @@ var SCENES_INFO = [
       bx.push(x);
       var h = bars[i] / 100 * 380;
       var b;
-      if (i === big) {
+      if (i === big && p.talk) {
         // The tallest bar is the star: it has a face and says the line.
         b = KIT.bar(comp, x, base, { w: 120, h: h, color: 'signal', name: 'Bar ' + labels[i] + ' (talking)', mood: 'talk' });
         KIT.springUp([b], T + 0.4 + i * 0.12);
@@ -429,18 +526,11 @@ var SCENES_INFO = [
   SCENES.endCard = function (comp, p, T, dur) {
     enter(comp, p, C.navy, T);
     KIT.blobs(comp, C.frost, 6, 31, 8);
-    var crew = KIT.crew(comp, 960, 470, 0.72, { arm: true, talk: true });
-    KIT.springUp(crew, T + 0.1, 0.15);
-    KIT.talk(crew[2], p._vo, T);
-    for (var i = 0; i < 3; i++) {
-      var v = crew[i].property('ADBE Transform Group').property('ADBE Position').value;
-      KIT.hop(crew[i], T + 1.9 + i * 0.12, v[0], v[1], 70, 0.36);
-      KIT.blink(crew[i], [T + 2.8 + i * 0.3]);
-    }
-    KIT.fade(KIT.text(comp, p.title || 'CRM Analytics Academy', { size: 60, font: F.black, color: C.white, y: 545 }), T + 0.3, T + 0.6, 0, 100);
-    KIT.pop(KIT.rect(comp, 'URL pill', 1060, 124, 62, C.white, 960, 690), T + 0.5);
-    KIT.pop(KIT.text(comp, p.url || 'crmanalytics.imswarnil.com', { size: 58, font: F.bold, color: C.navy, y: 690 }), T + 0.55);
-    var btn = KIT.rect(comp, 'CTA button', 400, 104, 52, C.signal, 960, 860);
+    KIT.mark(comp, 960, 300, 200, T + 0.1);
+    KIT.fade(KIT.text(comp, p.title || 'CRM Analytics Academy', { size: 64, font: F.black, color: C.white, y: 480 }), T + 0.3, T + 0.6, 0, 100);
+    KIT.pop(KIT.rect(comp, 'URL pill', 1060, 124, 62, C.white, 960, 640), T + 0.5);
+    KIT.pop(KIT.text(comp, p.url || 'crmanalytics.imswarnil.com', { size: 58, font: F.bold, color: C.navy, y: 640 }), T + 0.55);
+    var btn = KIT.rect(comp, 'CTA button', 400, 104, 52, C.signal, 960, 820);
     KIT.pop(btn, T + 1.0);
     btn.property('ADBE Transform Group').property('ADBE Scale').expression = 'time > ' + (T + 1.7).toFixed(2) + ' ? value * (1 + 0.04 * Math.max(0, Math.sin((time - ' + (T + 1.7).toFixed(2) + ') * 4))) : value';
     KIT.pop(KIT.text(comp, (p.cta || 'Start free') + '  →', { size: 44, font: F.bold, color: C.white, y: 860 }), T + 1.05);

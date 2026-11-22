@@ -24,9 +24,12 @@ node studio/build-film.mjs intro --screens     # also capture the site screensho
 node studio/build-film.mjs kit-preview         # test reel of the other scene types
 ```
 
-A film is a JSON spec in `films/`. Each scene has the line it speaks (`vo`), a scene `type`,
+A film is a JSON spec in `films/`. Without `voice` it is **text and music only** (the intro):
+each scene lasts `bars` bars of the music (`music.bar` seconds; Dizzy is ≈103 BPM, 2.34 s a bar), so
+every cut and every kinetic word lands on the beat, and `"sfx": false` keeps sound effects out.
+With `voice`, each scene has the line it speaks (`vo`), a scene `type`,
 its `props`, how it enters (`transition`: inside the scene `reveal`, `bars`, `push`, `none`; or
-moving whole scenes in 3D `flip3d`, `zoom3d`, `swing3d`) and sound effects
+`slices`, `diag`; or moving whole scenes in 3D `flip3d`, `zoom3d`, `swing3d`) and sound effects
 (`sfx`, seconds from the scene start). The voice sets each scene's length. One run:
 
 1. **Voice-over:** macOS speech, one file per scene, levelled. Install a better voice once
@@ -65,7 +68,14 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | `dashboard3D` | A full dashboard (KPIs, leads by source, conversion funnel) assembling in 3D |
 | `securityPredicate` | One dataset, a predicate, each rep's rows flying to their own view |
 | `sharingEmbed` | The dashboard embedded on a record page, on mobile, shared with the team |
-| `platformData` | This site's own data (traffic, sign-ups, lessons, payments) flowing into Salesforce |
+| `kinetic` | The story in words: kinetic type on the beat (`*accent*` words, icons in and out) |
+| `platformData` | This site's own tables (traffic, sign-ups, lessons, payments) with their tools, into Salesforce and three datasets |
+| `filterViz` | How a filter works: matching rows tick, the rest drop out, 8 rows → 4 |
+| `functionViz` | How a function works: values fly into `sum()`, one answer comes out, plus count/avg/max |
+| `limitViz` | Order + limit: rows sort, a cut line keeps the top N |
+| `techStack` | The stack behind the project, built by Swarnil Singhai |
+| `githubStar` | Star the project on GitHub (the repo card, a click, a star) |
+| `endScreen` | YouTube end screen: a "start here" video slot, a subscribe slot, the site |
 | `salesforceModel` | Account, Contact, Opportunity and a custom object, with their relationships |
 | `aiAssist` | A prompt sketches a dashboard mockup; data-validation checks tick off |
 | `designerCanvas` | The dashboard designer: widgets dragged from a palette snap onto the grid |

@@ -4,6 +4,7 @@
 #include "kit/lib.jsx"
 #include "kit/scenes.jsx"
 #include "kit/story.jsx"
+#include "kit/concepts.jsx"
 #include "kit/film.jsx"
 
 (function () {

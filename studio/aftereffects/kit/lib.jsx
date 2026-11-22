@@ -109,8 +109,21 @@ KIT.moveFrom = function (layer, t, dx, dy, d) {
   var v = p.value;
   KIT.keys(p, [[t, [v[0] + dx, v[1] + dy]], [t + (d || 0.55), [v[0], v[1]]]], 85);
 };
+// Opacity keys that also work on a bundle: a null's opacity does not reach its
+// children, so the keys go to every layer under it instead.
+KIT.opacityKeys = function (layer, list, influence) {
+  var comp = layer.containingComp;
+  for (var i = 1; i <= comp.numLayers; i++) {
+    var L = comp.layer(i);
+    if (L.parent === layer) KIT.opacityKeys(L, list, influence);
+  }
+  if (layer.nullLayer) return;
+  var op = layer.property('ADBE Transform Group').property('ADBE Opacity');
+  for (var k = 0; k < list.length; k++) op.setValueAtTime(list[k][0], list[k][1]);
+  KIT.easeAll(op, influence || 60);
+};
 KIT.fade = function (layer, t0, t1, a, b) {
-  KIT.keys(layer.property('ADBE Transform Group').property('ADBE Opacity'), [[t0, a], [t1, b]], 60);
+  KIT.opacityKeys(layer, [[t0, a], [t1, b]], 60);
 };
 KIT.at = function (layer, x, y) {
   layer.property('ADBE Transform Group').property('ADBE Position').setValue([x, y]);
@@ -536,8 +549,42 @@ KIT.push = function (comp, color, t) {
   KIT.keys(bg.property('ADBE Transform Group').property('ADBE Position'), [[t - 0.45, [comp.width * 1.5, comp.height / 2]], [t + 0.05, [comp.width / 2, comp.height / 2]]], 90);
   return bg;
 };
+// Slices: five horizontal bands in the brand colours slide across from alternate sides.
+KIT.slices = function (comp, color, t) {
+  var bg = KIT.rect(comp, 'BG', comp.width, comp.height, 0, color, comp.width / 2, comp.height / 2);
+  KIT.fade(bg, t + 0.24, t + 0.25, 0, 100);
+  var cols = [KIT.C.navy, KIT.C.signal, KIT.C.signalBright, KIT.C.frost, KIT.C.navyDeep];
+  var h = comp.height / 5;
+  for (var i = 0; i < 5; i++) {
+    var from = i % 2 ? -comp.width : comp.width * 2;
+    var to = i % 2 ? comp.width * 2 : -comp.width;
+    var b = KIT.rect(comp, 'Sweep slice ' + (i + 1), comp.width + 8, h + 4, 0, cols[i], from, h * i + h / 2);
+    var tt = t + i * 0.035;
+    KIT.keys(b.property('ADBE Transform Group').property('ADBE Position'), [[tt - 0.2, [from, h * i + h / 2]], [tt + 0.1, [comp.width / 2, h * i + h / 2]], [tt + 0.2, [comp.width / 2, h * i + h / 2]], [tt + 0.5, [to, h * i + h / 2]]], 85);
+  }
+  return bg;
+};
+// Diagonal: a tilted panel sweeps corner to corner and leaves the new colour behind it.
+KIT.diag = function (comp, color, t) {
+  var bg = KIT.rect(comp, 'BG', comp.width, comp.height, 0, color, comp.width / 2, comp.height / 2);
+  KIT.fade(bg, t + 0.22, t + 0.23, 0, 100);
+  var b = KIT.rect(comp, 'Sweep diagonal', comp.width * 2.4, comp.height * 0.9, 0, KIT.C.signal, -comp.width, comp.height * 2);
+  b.property('ADBE Transform Group').property('ADBE Rotate Z').setValue(-28);
+  var e = KIT.rect(comp, 'Sweep diagonal edge', comp.width * 2.4, 40, 0, KIT.C.frost, -comp.width, comp.height * 2);
+  e.property('ADBE Transform Group').property('ADBE Rotate Z').setValue(-28);
+  var path = [[t - 0.25, [-comp.width * 0.9, comp.height * 2.4]], [t + 0.2, [comp.width / 2, comp.height / 2]], [t + 0.6, [comp.width * 2.4, -comp.height * 1.8]]];
+  KIT.keys(b.property('ADBE Transform Group').property('ADBE Position'), path, 80);
+  var path2 = [];
+  for (var i = 0; i < path.length; i++) path2.push([path[i][0] + 0.04, [path[i][1][0] - 260, path[i][1][1] + 470]]);
+  KIT.keys(e.property('ADBE Transform Group').property('ADBE Position'), path2, 80);
+  KIT.keys(b.property('ADBE Transform Group').property('ADBE Opacity'), [[t + 0.5, 100], [t + 0.62, 0]], 30);
+  KIT.keys(e.property('ADBE Transform Group').property('ADBE Opacity'), [[t + 0.54, 100], [t + 0.66, 0]], 30);
+  return bg;
+};
 // Pick the entrance by name (film spec `transition`).
 KIT.enter = function (comp, kind, color, T, x, y) {
+  if (kind === 'slices') return KIT.slices(comp, color, T - 0.5);
+  if (kind === 'diag') return KIT.diag(comp, color, T - 0.5);
   if (kind === 'bars') return KIT.barsWipe(comp, color, T - 0.5);
   if (kind === 'push') return KIT.push(comp, color, T);
   if (kind === 'none') return KIT.rect(comp, 'BG', comp.width, comp.height, 0, color, comp.width / 2, comp.height / 2);
@@ -633,6 +680,15 @@ KIT.icon = function (comp, name, x, y, size, color, bg) {
     var ar = KIT.group(L, 'Arrow');
     KIT.pathIn(ar, scalePts([[14, -24], [24, -14], [10, -10]]), true);
     KIT.fill(ar, c);
+  } else if (name === 'star') {
+    var sp = [];
+    for (var k = 0; k < 10; k++) {
+      var ang = -Math.PI / 2 + k * Math.PI / 5;
+      var rad = k % 2 ? 11 : 26;
+      sp.push([Math.cos(ang) * rad, Math.sin(ang) * rad + 2]);
+    }
+    P(sp, true);
+    KIT.fill(g, c);
   } else if (name === 'code') {
     P([[-8, -14], [-22, 0], [-8, 14]], false);
     KIT.stroke(g, c, w);

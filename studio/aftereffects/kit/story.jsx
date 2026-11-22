@@ -13,7 +13,6 @@ SCENES_INFO.push(
   { type: 'dashboard3D', label: 'Dashboard example: KPIs, source, funnel (3D)', props: { title: 'Academy Leads' } },
   { type: 'securityPredicate', label: 'Security predicate: each rep sees their rows (3D)', props: {} },
   { type: 'sharingEmbed', label: 'Sharing and embedding: record page, mobile (3D)', props: { record: 'Account · Acme Retail' } },
-  { type: 'platformData', label: 'Our own platform data flows into Salesforce (3D)', props: {} },
   { type: 'salesforceModel', label: 'Salesforce objects, fields, relationships (3D)', props: {} },
   { type: 'aiAssist', label: 'AI for mockups and data validation', props: { prompt: 'Mock up an adoption dashboard' } },
   { type: 'designerCanvas', label: 'Dashboard designer: widgets snap onto the grid (3D)', props: {} },
@@ -72,7 +71,7 @@ SCENES_INFO.push(
   // ---- learn Salesforce: the Lead, its fields, and convert --------------------------------------
   SCENES.learnSalesforce = function (comp, p, T, dur) {
     enter(comp, p, C.ice, T);
-    header(comp, 'LEARN SALESFORCE', 'Objects, fields and relationships', T);
+    header(comp, p.kicker || 'LEARN SALESFORCE', p.title || 'Objects, fields and relationships', T);
     var cloud = KIT.cloud(comp, 'Org cloud', 960, 640, 1500, C.white);
     KIT.fade(cloud, T, T + 0.4, 0, 70);
     var name = p.name || 'Priya Sharma';
@@ -106,7 +105,7 @@ SCENES_INFO.push(
   // ---- end to end: the camera travels along the pipeline -----------------------------------------
   SCENES.integration = function (comp, p, T, dur) {
     enter(comp, p, C.white, T, 0, 600);
-    header(comp, 'END TO END', 'From Salesforce to the dashboard', T);
+    header(comp, p.kicker || 'END TO END', p.title || 'From Salesforce to the dashboard', T);
     var st = p.stations || [
       ['Salesforce', 'cloud', 'Leads, accounts, opportunities'],
       ['Data Sync', 'sync', 'every hour'],
@@ -251,7 +250,7 @@ SCENES_INFO.push(
   // ---- security predicate: the same dataset, two reps, two views ------------------------------------
   SCENES.securityPredicate = function (comp, p, T, dur) {
     enter(comp, p, C.paper, T);
-    header(comp, 'SECURITY', 'Each rep sees only their own leads', T);
+    header(comp, p.kicker || 'SECURITY', p.title || 'Each rep sees only their own leads', T);
     var rows = p.rows || [['Priya Sharma', 'A'], ['Leo Martin', 'B'], ['Mei Chen', 'A'], ['Omar Ali', 'B'], ['Sara Kim', 'A'], ['Tom Reed', 'B']];
     var who = { A: ['AR', 'Asha Rao', C.signal], B: ['BK', 'Ben Kumar', C.warn] };
     var tl = [KIT.card(comp, 'Dataset card', 560, 560, 400, 640)];
@@ -301,7 +300,7 @@ SCENES_INFO.push(
       ct.parent = chip;
       var t0 = tGo + i * 0.16;
       KIT.keys(chip.property('ADBE Transform Group').property('ADBE Position'), [[t0, rowPos[i]], [t0 + 0.6, dest]], 85);
-      KIT.keys(chip.property('ADBE Transform Group').property('ADBE Opacity'), [[0, 0], [t0, 0], [t0 + 0.08, 100]], 30);
+      KIT.opacityKeys(chip, [[0, 0], [t0, 0], [t0 + 0.08, 100]], 30);
     }
     KIT.to3D(comp);
     KIT.setZ(pr, -120);
@@ -313,7 +312,7 @@ SCENES_INFO.push(
   // ---- sharing and embedding: where people already work -----------------------------------------------
   SCENES.sharingEmbed = function (comp, p, T, dur) {
     enter(comp, p, C.ice, T);
-    header(comp, 'SHARING AND EMBEDDING', 'Right where people already work', T);
+    header(comp, p.kicker || 'SHARING AND EMBEDDING', p.title || 'Right where people already work', T);
     // A Lead record page with the dashboard embedded in it.
     var pg = [KIT.card(comp, 'Lead page', 1080, 620, 720, 620)];
     pg.push(KIT.rect(comp, 'Lead page header', 1080, 90, 16, C.navy, 720, 355));
@@ -360,63 +359,10 @@ SCENES_INFO.push(
     KIT.front(avl);
     orbitCam(comp, T, dur, [14, 6], [-5, 2], 80);
   };
-  // ---- our own platform's data, pulled in ---------------------------------------------------------
-  SCENES.platformData = function (comp, p, T, dur) {
-    enter(comp, p, C.paper, T);
-    header(comp, p.kicker || 'REAL DATA', p.title || 'Our own platform, end to end', T);
-    var B = KIT.browser(comp, p.screen || 'home', { w: 620, h: 390, x: 380, y: 600, url: 'crmanalytics.imswarnil.com' });
-    KIT.pop(B.frame, T + 0.1);
-    var src = p.sources || [['Web traffic', '12.4K visits', 'out'], ['Sign-ups', '318 this week', 'user'], ['Lessons done', '2,140', 'check'], ['Payments', '$3.2K', 'brief']];
-    var cards = [];
-    for (var i = 0; i < src.length; i++) {
-      var y = 390 + i * 135;
-      var l = [KIT.card(comp, 'Source ' + src[i][0], 380, 110, 960, y)];
-      l.push(KIT.icon(comp, src[i][2], 820, y, 64, C.white, C.signal));
-      l.push(KIT.text(comp, src[i][0], { size: 26, font: F.bold, color: C.navy, x: 870, y: y - 16, align: 'left' }));
-      l.push(KIT.text(comp, src[i][1], { size: 24, font: F.medium, color: C.signal, x: 870, y: y + 18, align: 'left' }));
-      // A tiny live sparkline.
-      var sp = KIT.shapeLayer(comp, 'Spark ' + src[i][0]);
-      var g = KIT.group(sp, 'Line');
-      var pts = [];
-      for (var k = 0; k < 6; k++) pts.push([1050 + k * 18, y + 18 - ((k * 37 + i * 11) % 30)]);
-      KIT.pathIn(g, pts, false);
-      KIT.stroke(g, C.signalBright, 4);
-      KIT.keys(KIT.trim(g).property('ADBE Vector Trim End'), [[T + 0.6 + i * 0.15, 0], [T + 1.2 + i * 0.15, 100]], 60);
-      KIT.at(sp, 0, 0);
-      l.push(sp);
-      var b = KIT.bundle(comp, 'Source ' + src[i][0] + ' group', l, 960, y);
-      KIT.pop(b, T + 0.4 + i * 0.15);
-      cards.push(b);
-      KIT.wire(comp, 'From site ' + (i + 1), [700, 600], [760, y], C.frost, 5, T + 0.3 + i * 0.1, T + 0.7 + i * 0.1, true);
-      KIT.wire(comp, 'To org ' + (i + 1), [1160, y], [1380, 600], C.signalBright, 6, T + 1.1 + i * 0.12, T + 1.6 + i * 0.12, true);
-      for (var q = 0; q < 2; q++) {
-        var pk = KIT.circle(comp, 'Pulse ' + (i + 1) + '.' + q, 16, C.signal, 1160, y);
-        var t0 = T + 1.6 + q * 0.5 + i * 0.12;
-        var pos = pk.property('ADBE Transform Group').property('ADBE Position');
-        pos.setValueAtTime(t0, [1160, y]);
-        pos.setValueAtTime(t0 + 0.8, [1380, 600]);
-        pos.expression = 'loopOut("cycle")';
-        KIT.fade(pk, t0, t0 + 0.1, 0, 100);
-      }
-    }
-    var org = KIT.cloud(comp, 'Salesforce + CRM Analytics', 1590, 600, 460, C.signal);
-    KIT.pop(org, T + 0.9);
-    var ot = KIT.text(comp, 'Salesforce', { size: 34, font: F.black, color: C.white, x: 1590, y: 590 });
-    KIT.pop(ot, T + 1.0);
-    var ot2 = KIT.text(comp, '+ CRM Analytics', { size: 24, font: F.bold, color: C.ice, x: 1590, y: 630 });
-    KIT.pop(ot2, T + 1.05);
-    KIT.to3D(comp);
-    KIT.keys(B.frame.property('ADBE Transform Group').property('ADBE Rotate Y'), [[0, 22], [T + 1.0, 12]], 70);
-    KIT.setZ(org, -120);
-    KIT.setZ(ot, -125);
-    KIT.setZ(ot2, -125);
-    orbitCam(comp, T, dur, [-14, 6], [6, 2], 90);
-  };
-
   // ---- Salesforce: objects, fields and how records relate ---------------------------------------------
   SCENES.salesforceModel = function (comp, p, T, dur) {
     enter(comp, p, C.ice, T);
-    header(comp, 'LEARN SALESFORCE', 'Objects, fields and relationships', T);
+    header(comp, p.kicker || 'LEARN SALESFORCE', p.title || 'Objects, fields and relationships', T);
     var cloud = KIT.cloud(comp, 'Org cloud', 960, 650, 1500, C.white);
     KIT.fade(cloud, T, T + 0.4, 0, 70);
     var each = Math.max(0.5, (dur - 1.5) / 5);
@@ -443,9 +389,9 @@ SCENES_INFO.push(
   // ---- AI: mockups and data validation ----------------------------------------------------------------
   SCENES.aiAssist = function (comp, p, T, dur) {
     enter(comp, p, C.navyDeep, T);
-    var k = KIT.eyebrow(comp, 'AI, USED WELL', 960, 120, C.frost);
+    var k = KIT.eyebrow(comp, p.kicker || 'AI, USED WELL', 960, 120, C.frost);
     KIT.pop(k, T + 0.05);
-    var tt = KIT.text(comp, 'Mock up faster. Validate every number.', { size: 56, font: F.black, color: C.white, y: 192 });
+    var tt = KIT.text(comp, p.title || 'Mock up faster. Validate every number.', { size: 56, font: F.black, color: C.white, y: 192 });
     KIT.fade(tt, T + 0.15, T + 0.45, 0, 100);
     // Left: a prompt, then a wireframe draws itself.
     KIT.pop(KIT.rect(comp, 'Prompt', 760, 84, 42, C.code, 520, 330), T + 0.3);
@@ -587,7 +533,7 @@ SCENES_INFO.push(
   // ---- who sees what: owner, manager, leader -----------------------------------------------------------
   SCENES.securityRoles = function (comp, p, T, dur) {
     enter(comp, p, C.paper, T);
-    header(comp, 'SECURITY', 'Who sees what', T);
+    header(comp, p.kicker || 'SECURITY', p.title || 'Who sees what', T);
     // The role hierarchy.
     var people = [['VP', 'Leader', 960, 330, C.navy], ['MK', 'Manager', 620, 520, C.signal], ['JS', 'Manager', 1300, 520, C.signal], ['AR', 'Owner', 470, 710, C.signalBright], ['BK', 'Owner', 770, 710, C.signalBright], ['LT', 'Owner', 1150, 710, C.signalBright], ['SO', 'Owner', 1450, 710, C.signalBright]];
     var links = [[0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [2, 6]];
@@ -631,7 +577,7 @@ SCENES_INFO.push(
   // ---- GTM engineering -----------------------------------------------------------------------------------
   SCENES.gtmEngine = function (comp, p, T, dur) {
     enter(comp, p, C.navyDeep, T);
-    var k = KIT.eyebrow(comp, 'GTM ENGINEERING', 960, 120, C.frost);
+    var k = KIT.eyebrow(comp, p.kicker || 'GTM ENGINEERING', 960, 120, C.frost);
     KIT.pop(k, T + 0.05);
     var tt = KIT.text(comp, p.title || 'Turn traffic into pipeline', { size: 60, font: F.black, color: C.white, y: 192 });
     KIT.fade(tt, T + 0.15, T + 0.45, 0, 100);

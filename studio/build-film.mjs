@@ -43,13 +43,29 @@ for (const d of Object.values(dirs)) mkdirSync(d, { recursive: true })
 const run = (cmd, a, opts = {}) => execFileSync(cmd, a, { stdio: ['ignore', 'pipe', 'pipe'], ...opts }).toString()
 const duration = f => Number(run('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).trim())
 
-// ---- 1. voice ---------------------------------------------------------------------
-const installed = run('say', ['-v', '?']).split('\n').map(l => l.replace(/\s{2,}.*$/, '').trim()).filter(Boolean)
-const voice = spec.voice.prefer.find(v => installed.includes(v)) ?? 'Samantha'
-console.log(`voice: ${voice}${voice.includes('Premium') ? '' : '  (install "Ava (Premium)" for a better one; see the header)'}`)
+// ---- 1. voice (optional) and timing ------------------------------------------------
+// With `voice`, each scene lasts as long as its spoken line (+ hold). Without it the
+// film is text and music only: a scene lasts `bars` bars of the music (`music.bar`
+// seconds each, so every cut lands on the beat) or `seconds`.
+const voice = spec.voice
+  ? (() => {
+      const installed = run('say', ['-v', '?']).split('\n').map(l => l.replace(/\s{2,}.*$/, '').trim()).filter(Boolean)
+      const v = spec.voice.prefer.find(x => installed.includes(x)) ?? 'Samantha'
+      console.log(`voice: ${v}${v.includes('Premium') ? '' : '  (install "Ava (Premium)" for a better one; see the header)'}`)
+      return v
+    })()
+  : null
+if (!voice) console.log('no voice-over: text and music only')
 
 let t = 0
+const frame = x => Math.round(x * 30) / 30
 const scenes = spec.scenes.map((s, i) => {
+  if (!voice || !s.vo) {
+    const dur = frame(s.bars ? s.bars * spec.music.bar : (s.seconds ?? 5))
+    const scene = { ...s, index: i, start: frame(t), duration: dur, voStart: 0, voDuration: 0, voFile: null, voEnv: [] }
+    t += dur
+    return scene
+  }
   const n = String(i + 1).padStart(2, '0')
   const aiff = path.join(dirs.vo, `${n}-${s.id}.aiff`)
   const wav = path.join(dirs.vo, `${n}-${s.id}.wav`)
@@ -61,8 +77,8 @@ const scenes = spec.scenes.map((s, i) => {
   const rms = run('ffmpeg', ['-v', 'error', '-i', wav, '-af', 'aresample=8000,asetnsamples=n=533:p=0,astats=metadata=1:reset=1,ametadata=print:key=lavfi.astats.Overall.RMS_level:file=-', '-f', 'null', '-'])
   const voEnv = [...rms.matchAll(/RMS_level=(-?[\d.]+|-inf)/g)].map(m => (m[1] === '-inf' ? 0 : Math.max(0, Math.min(1, (Number(m[1]) + 42) / 24)))).map(v => Math.round(v * 100) / 100)
   const lead = i === 0 ? 0.6 : 0.25
-  const dur = Math.round((lead + vo + (s.hold ?? spec.pad ?? 0.5)) * 30) / 30
-  const scene = { ...s, index: i, start: Math.round(t * 30) / 30, duration: dur, voStart: lead, voDuration: vo, voFile: wav, voEnv }
+  const dur = frame(lead + vo + (s.hold ?? spec.pad ?? 0.5))
+  const scene = { ...s, index: i, start: frame(t), duration: dur, voStart: lead, voDuration: vo, voFile: wav, voEnv }
   t += dur
   return scene
 })
@@ -79,7 +95,7 @@ if (spec.music.file) {
 } else {
   run('python3', [path.join(STUDIO, 'audio', 'synth.py'), 'music', String(total + 0.5), music, String(spec.music.bpm ?? 104), String(spec.music.seed ?? 7)])
 }
-run('python3', [path.join(STUDIO, 'audio', 'synth.py'), 'sfx', dirs.sfx])
+if (spec.sfx !== false) run('python3', [path.join(STUDIO, 'audio', 'synth.py'), 'sfx', dirs.sfx])
 if (spec.screens) {
   const { captureScreens } = await import('./screens.mjs')
   captureScreens(spec.screens, { refresh: args.includes('--screens') })
@@ -89,29 +105,30 @@ if (spec.screens) {
 // short ramps. The same keyframes go to After Effects, so both mixes match.
 const ramp = 0.25
 const duck = []
-for (const s of scenes) {
+for (const s of scenes.filter(x => x.voFile)) {
   const a = s.start + s.voStart
   const b = a + s.voDuration
   duck.push([a - ramp, spec.music.gainDb], [a, spec.music.duckDb], [b, spec.music.duckDb], [b + ramp * 2, spec.music.gainDb])
 }
-const sfxCues = scenes.flatMap(s => (s.sfx ?? []).map(c => ({ at: Math.max(0, Math.round((s.start + c.at) * 1000) / 1000), name: c.name, file: path.join(dirs.sfx, `${c.name}.wav`) })))
+const sfxCues = spec.sfx === false ? [] : scenes.flatMap(s => (s.sfx ?? []).map(c => ({ at: Math.max(0, Math.round((s.start + c.at) * 1000) / 1000), name: c.name, file: path.join(dirs.sfx, `${c.name}.wav`) })))
 
 // ---- 3. the mix (for Premiere and the render) ----------------------------------------
-const inputs = ['-i', music, ...scenes.flatMap(s => ['-i', s.voFile]), ...sfxCues.flatMap(c => ['-i', c.file])]
-const nVo = scenes.length
+const voScenes = scenes.filter(s => s.voFile)
+const inputs = ['-i', music, ...voScenes.flatMap(s => ['-i', s.voFile]), ...sfxCues.flatMap(c => ['-i', c.file])]
+const nVo = voScenes.length
 const f = []
-scenes.forEach((s, i) => f.push(`[${i + 1}:a]adelay=${Math.round((s.start + s.voStart) * 1000)}:all=1,pan=stereo|c0=c0|c1=c0[v${i}]`))
-f.push(`${scenes.map((_, i) => `[v${i}]`).join('')}amix=inputs=${nVo}:normalize=0,asplit=2[vo][vosc]`)
+voScenes.forEach((s, i) => f.push(`[${i + 1}:a]adelay=${Math.round((s.start + s.voStart) * 1000)}:all=1,pan=stereo|c0=c0|c1=c0[v${i}]`))
+if (nVo) f.push(`${voScenes.map((_, i) => `[v${i}]`).join('')}amix=inputs=${nVo}:normalize=0,asplit=2[vo][vosc]`)
 // Volume envelope from the duck keyframes (linear between points, in dB).
 const env = duck.map(([tt, db], i) => {
   const [t2, db2] = duck[i + 1] ?? [total + 10, db]
   return `between(t,${tt.toFixed(3)},${t2.toFixed(3)})*(${db}+(${db2 - db})*(t-${tt.toFixed(3)})/${Math.max(0.001, t2 - tt).toFixed(3)})`
 })
 const firstDb = spec.music.gainDb
-f.push(`[0:a]volume='pow(10,(if(lt(t,${duck[0][0].toFixed(3)}),${firstDb},${env.join('+')}))/20)':eval=frame[mus]`)
+f.push(duck.length ? `[0:a]volume='pow(10,(if(lt(t,${duck[0][0].toFixed(3)}),${firstDb},${env.join('+')}))/20)':eval=frame[mus]` : `[0:a]volume=${spec.music.gainDb ?? 0}dB[mus]`)
 sfxCues.forEach((c, i) => f.push(`[${nVo + 1 + i}:a]adelay=${Math.round(c.at * 1000)}:all=1,volume=-8dB[s${i}]`))
-f.push(`[mus][vo]${sfxCues.map((_, i) => `[s${i}]`).join('')}amix=inputs=${2 + sfxCues.length}:normalize=0,alimiter=limit=0.95,atrim=0:${total},loudnorm=I=-14:TP=-1.5:LRA=11[out]`)
-f.push('[vosc]anullsink')
+f.push(`[mus]${nVo ? '[vo]' : ''}${sfxCues.map((_, i) => `[s${i}]`).join('')}amix=inputs=${1 + (nVo ? 1 : 0) + sfxCues.length}:normalize=0,alimiter=limit=0.95,atrim=0:${total},loudnorm=I=-14:TP=-1.5:LRA=11[out]`)
+if (nVo) f.push('[vosc]anullsink')
 const mix = path.join(dirs.audio, 'mix.wav')
 const r = spawnSync('ffmpeg', ['-y', '-v', 'error', ...inputs, '-filter_complex', f.join(';'), '-map', '[out]', '-ar', '48000', mix], { encoding: 'utf8' })
 if (r.status !== 0) {
@@ -121,7 +138,7 @@ if (r.status !== 0) {
 console.log(`mix: ${path.relative(process.cwd(), mix)}`)
 
 // ---- 4. timeline for After Effects -----------------------------------------------------
-const timeline = { slug, title: spec.title, credit: spec.music.credit ?? '', screens: path.join(WS, '04-clips', 'screens'), fps: brand.frame.fps, width: brand.frame.width, height: brand.frame.height, total, brand, studio: STUDIO, workspace: WS, voice, music: { file: music, duck }, mix, sfx: sfxCues, scenes }
+const timeline = { slug, title: spec.title, credit: spec.music.credit ?? '', beat: spec.music.bar ? spec.music.bar / 4 : 0.585, screens: path.join(WS, '04-clips', 'screens'), fps: brand.frame.fps, width: brand.frame.width, height: brand.frame.height, total, brand, studio: STUDIO, workspace: WS, voice, music: { file: music, duck }, mix, sfx: sfxCues, scenes }
 const tlPath = path.join(dirs.gfx, `${slug}.timeline.json`)
 writeFileSync(tlPath, JSON.stringify(timeline, null, 2))
 // A fixed path the After Effects scripts read (ExtendScript cannot take arguments).
