@@ -1,7 +1,7 @@
 {
   "title": "CRM Analytics Academy — channel trailer",
   "slug": "trailer",
-  "note": "Flat, no camera moves: the whole trailer is one CRM Analytics app (kit/platform.jsx). Scenes switch like dashboard tabs (`transition: tab`). Text and music only, plus your camera clips: `clip` names a file in workspace/01-camera/trailer/ (any of .mov .mp4 .m4v); until it exists the scene is a placeholder saying what to record (see trailer-clips.md). A clip longer than its `bars` stretches the scene to whole bars, and the music ducks under it.",
+  "note": "Kinetic type leads: `slam` words cut on the beat, each `concept` slams its name, which then becomes the heading while the concept is built (a recipe, a join, SAQL, charts, a binding, security). Flat, no camera moves. Text and music only, plus you: `aboutMe` (photo: workspace/01-camera/trailer/photo.jpg) and the closing camera clip. Fill `about` fields in the aboutMe props; empty ones show as dashed placeholders.",
   "music": {
     "file": "/Users/swarnil/Movies/YouTube/03 Assets/Music/dizzy-by-joakim-karud.mp3",
     "start": 0.1,
@@ -13,88 +13,182 @@
   "sfx": false,
   "scenes": [
     {
-      "id": "hook",
-      "type": "appHook",
+      "id": "open",
+      "type": "slam",
       "transition": "none",
-      "bars": 4,
+      "bars": 2,
       "props": {
-        "tab": 0,
-        "lines": ["Every company has *the data.*", "Few can make it *answer.*"],
-        "pill": "Someone has to build this. Why not you?"
-      }
-    },
-    {
-      "id": "hello",
-      "type": "clipSlot",
-      "transition": "slices",
-      "bars": 3,
-      "clip": "clip-01-hello",
-      "props": {
-        "n": 1,
-        "title": "Hi, I'm Swarnil",
-        "say": "Hi, I'm Swarnil. On this channel I teach CRM Analytics end to end, the way it's used at work, on real data.",
-        "notes": [
-          "6 to 8 seconds, one take, smile, then talk",
-          "Landscape 16:9, 1080p or 4K, any frame rate",
-          "Eye level, you on the left third (the name card sits bottom left)",
-          "Soft light from the front, tidy background",
-          "Clip-on or USB mic close to you, no music in the recording"
+        "words": [
+          "Data.",
+          "Dashboards.",
+          "Decisions.",
+          "*Built by you.*"
         ],
-        "lower": { "name": "Swarnil Singhai", "role": "CRM Analytics Academy" }
+        "icons": [
+          "db",
+          "out",
+          "spark",
+          "code"
+        ]
       }
     },
     {
-      "id": "why",
-      "type": "whyLearn",
-      "transition": "slices",
-      "bars": 4,
-      "props": { "tab": 0 }
-    },
-    {
-      "id": "approach",
-      "type": "approach",
-      "transition": "tab",
-      "bars": 4,
-      "props": { "tab": 1, "from": 0 }
-    },
-    {
-      "id": "data",
-      "type": "realData",
-      "transition": "tab",
-      "bars": 4,
-      "props": { "tab": 2, "from": 1 }
-    },
-    {
-      "id": "path",
-      "type": "pathList",
-      "transition": "tab",
-      "bars": 3,
-      "props": { "tab": 3, "from": 2 }
-    },
-    {
-      "id": "query",
-      "type": "queryMode",
-      "transition": "tab",
-      "bars": 3,
-      "props": { "tab": 4, "from": 3 }
-    },
-    {
-      "id": "prove",
-      "type": "proveIt",
-      "transition": "tab",
-      "bars": 3,
-      "props": { "tab": 5, "from": 4 }
-    },
-    {
-      "id": "start",
+      "id": "learn",
       "type": "kinetic",
       "transition": "slices",
       "bars": 2,
       "props": {
-        "lines": ["Start with", "*lesson one.*"],
-        "sub": "crmanalytics.imswarnil.com",
-        "bg": "navy",
-        "icons": ["play", "check", "star", "award"]
+        "lines": [
+          "Learn *CRM Analytics*",
+          "by *building it.*"
+        ],
+        "bg": "paper",
+        "icons": [
+          "db",
+          "join",
+          "code",
+          "out"
+        ]
+      }
+    },
+    {
+      "id": "about",
+      "type": "aboutMe",
+      "transition": "diag",
+      "bars": 3,
+      "photo": "photo",
+      "props": {
+        "name": "Swarnil Singhai",
+        "role": null,
+        "years": null,
+        "companies": [],
+        "workedLabel": "WORKED WITH"
+      }
+    },
+    {
+      "id": "prep",
+      "type": "concept",
+      "transition": "bars",
+      "bars": 3,
+      "props": {
+        "kind": "recipe",
+        "word": "PREP",
+        "line": "Recipes turn raw data into datasets.",
+        "n": 1,
+        "color": "navy"
+      }
+    },
+    {
+      "id": "join",
+      "type": "concept",
+      "transition": "slices",
+      "bars": 3,
+      "props": {
+        "kind": "join",
+        "word": "JOIN",
+        "line": "Match on a key. Know what you keep.",
+        "n": 2,
+        "color": "signal"
+      }
+    },
+    {
+      "id": "saql",
+      "type": "concept",
+      "transition": "push",
+      "bars": 3,
+      "props": {
+        "kind": "saql",
+        "word": "SAQL",
+        "line": "Ask your data anything.",
+        "n": 3,
+        "color": "navy"
+      }
+    },
+    {
+      "id": "real",
+      "type": "slam",
+      "transition": "none",
+      "bars": 2,
+      "props": {
+        "words": [
+          "No slides.",
+          "Real data.",
+          "Real builds.",
+          "*Real skills.*"
+        ],
+        "icons": [
+          "play",
+          "db",
+          "code",
+          "award"
+        ],
+        "colors": [
+          "paper",
+          "navy",
+          "signal",
+          "navyDeep"
+        ],
+        "seed": 1
+      }
+    },
+    {
+      "id": "chart",
+      "type": "concept",
+      "transition": "diag",
+      "bars": 3,
+      "props": {
+        "kind": "chart",
+        "word": "VISUALIZE",
+        "line": "Pick the chart that tells the truth.",
+        "n": 4,
+        "color": "signal"
+      }
+    },
+    {
+      "id": "bind",
+      "type": "concept",
+      "transition": "slices",
+      "bars": 3,
+      "props": {
+        "kind": "bind",
+        "word": "BIND",
+        "line": "Click one chart. The rest answer.",
+        "n": 5,
+        "color": "navy"
+      }
+    },
+    {
+      "id": "secure",
+      "type": "concept",
+      "transition": "bars",
+      "bars": 3,
+      "props": {
+        "kind": "secure",
+        "word": "SECURE",
+        "line": "Everyone sees only their rows.",
+        "n": 6,
+        "color": "signal"
+      }
+    },
+    {
+      "id": "own",
+      "type": "slam",
+      "transition": "none",
+      "bars": 2,
+      "props": {
+        "words": [
+          "Learn it.",
+          "Build it.",
+          "*Own it.*",
+          "Start today."
+        ],
+        "icons": [
+          "play",
+          "code",
+          "star",
+          "check"
+        ],
+        "seed": 2
       }
     },
     {
@@ -108,9 +202,8 @@
         "title": "Subscribe, then build with me",
         "say": "Subscribe, open lesson one, and build it with me. See you inside.",
         "notes": [
-          "4 to 6 seconds, same setup as clip 01",
-          "Point toward the right of the frame at 'subscribe' (the button appears there)",
-          "End on a smile and hold one second before you stop recording"
+          "4 to 6 s, landscape, eye level, mic close",
+          "Point right on 'subscribe', end on a smile"
         ]
       }
     },
@@ -119,7 +212,9 @@
       "type": "endScreen",
       "transition": "reveal",
       "bars": 4,
-      "props": { "next": "Lesson 1 · Objects, fields and relationships" }
+      "props": {
+        "next": "Lesson 1 · Objects, fields and relationships"
+      }
     }
   ]
 }

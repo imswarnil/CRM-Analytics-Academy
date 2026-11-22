@@ -257,9 +257,9 @@ KIT.text = function (comp, str, o) {
   }
   td.justification = o.align === 'left' ? ParagraphJustification.LEFT_JUSTIFY : (o.align === 'right' ? ParagraphJustification.RIGHT_JUSTIFY : ParagraphJustification.CENTER_JUSTIFY);
   st.setValue(td);
-  // Anchor at the visual centre (left edge for left-aligned), so pops scale from the middle.
+  // Anchor at the visual centre (left edge for left-aligned, right edge for right-aligned), so pops scale from the middle.
   var r = L.sourceRectAtTime(0, false);
-  var ax = o.align === 'left' ? r.left : r.left + r.width / 2;
+  var ax = o.align === 'left' ? r.left : (o.align === 'right' ? r.left + r.width : r.left + r.width / 2);
   L.property('ADBE Transform Group').property('ADBE Anchor Point').setValue([ax, r.top + r.height / 2]);
   return KIT.at(L, o.x === undefined ? comp.width / 2 : o.x, o.y === undefined ? comp.height / 2 : o.y);
 };

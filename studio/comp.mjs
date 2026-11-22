@@ -20,7 +20,7 @@ const STUDIO = path.dirname(fileURLToPath(import.meta.url))
 const args = process.argv.slice(2)
 const flag = (name, d) => (args.includes(name) ? args[args.indexOf(name) + 1] : d)
 
-const src = ['scenes.jsx', 'story.jsx', 'concepts.jsx', 'platform.jsx'].map(f => readFileSync(path.join(STUDIO, 'aftereffects', 'kit', f), 'utf8')).join('\n')
+const src = ['scenes.jsx', 'story.jsx', 'concepts.jsx', 'platform.jsx', 'kinetic.jsx'].map(f => readFileSync(path.join(STUDIO, 'aftereffects', 'kit', f), 'utf8')).join('\n')
 const types = [...src.matchAll(/\{ type: '(\w+)', label: '([^']+)', props: (.*) \}(,|\))?$/gm)].map(m => ({ type: m[1], label: m[2], props: m[3] }))
 
 if (args.includes('--list') || !args.length) {

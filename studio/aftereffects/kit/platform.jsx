@@ -744,4 +744,6 @@ SCENES_INFO.push(
       }
     }
   };
+  // The parts, for the other scene files (kinetic.jsx).
+  KIT.ui = { box: box, ring: ring, width: width, arrive: arrive, fadeAll: fadeAll, exitUp: exitUp, wrap: wrap, typeOn: typeOn, widget: widget, bars: bars, lineChart: lineChart, donut: donut, toast: toast, button: button, pill: pill };
 }());

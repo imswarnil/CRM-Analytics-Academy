@@ -6,6 +6,7 @@
 #include "kit/story.jsx"
 #include "kit/concepts.jsx"
 #include "kit/platform.jsx"
+#include "kit/kinetic.jsx"
 #include "kit/film.jsx"
 
 (function () {

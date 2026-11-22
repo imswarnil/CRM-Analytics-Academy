@@ -25,14 +25,13 @@ node studio/build-film.mjs trailer             # the channel trailer (flat, the 
 node studio/build-film.mjs kit-preview         # test reel of the other scene types
 ```
 
-**The channel trailer** (`films/trailer.json`, 1:27) has no camera moves: the whole film is one
-CRM Analytics app (`kit/platform.jsx`): an app header, a dashboard's page tabs, widgets.
-Scenes change like tabs (`transition: tab`: the underline slides, a loading line runs, the
-widgets arrive). Story: hook → you → why learn → how you learn (a recipe that runs) → real data
-(Explorer, chart types swapping) → the path → Query mode → prove it → start → you → end screen.
-**Your camera clips:** a scene with `"clip": "clip-01-hello"` plays
-`workspace/01-camera/trailer/clip-01-hello.mov` (or .mp4/.m4v) full frame, with the music ducked
-under it, and grows to fit it. Until the file exists it shows a placeholder saying what to record.
+**The channel trailer** (`films/trailer.json`, 1:24) is kinetic type first, flat, no camera moves:
+`slam` scenes cut one big word per beat pair; each `concept` slams its name (PREP, JOIN, SAQL,
+VISUALIZE, BIND, SECURE), the word shrinks into the heading as a canvas rises, and the concept is
+built on it (`kit/kinetic.jsx`). `aboutMe` is two columns: your photo, then name, role, years,
+companies. Files go in `workspace/01-camera/trailer/`: `photo.jpg` (scene `"photo": "photo"`) and
+camera clips (scene `"clip": "clip-02-subscribe"`, played full frame with the music ducked; the
+scene grows to fit). Missing ones show placeholders saying what is needed.
 `films/trailer-clips.md` is the brief.
 
 A film is a JSON spec in `films/`. Without `voice` it is **text and music only** (the intro):
@@ -110,6 +109,9 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | `pathList` | The sections as a list widget, progress filling, KPI widgets |
 | `queryMode` | SAQL typed in Query mode, Run, the results land, a toast |
 | `proveIt` | Exam score gauge, interview questions, the capstone certificate |
+| `slam` | One big word per beat pair, the colour cutting with it, icons |
+| `concept` | The concept's word slams, becomes the heading, then it is built: `kind` recipe, join, saql, chart, bind, secure |
+| `aboutMe` | Two columns: your photo, then name, role, years, companies (placeholders until filled) |
 | `clipSlot` | Your camera clip with a name card, or a placeholder until it exists |
 
 ## Install into the apps (once)

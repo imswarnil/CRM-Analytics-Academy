@@ -84,6 +84,12 @@ const scenes = spec.scenes.map((s, i) => {
         console.log(`clip: ${s.clip} (${d.toFixed(1)} s) → ${bars} bars`)
       } else console.log(`clip: ${s.clip} missing → placeholder (drop it in ${path.relative(process.cwd(), camDir)}/)`)
     }
+    if (s.photo) {
+      const img = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'].map(e => path.join(camDir, `${s.photo}.${e}`)).find(existsSync)
+      props.photo = s.photo
+      if (img) props._photo = img
+      console.log(img ? `photo: ${path.basename(img)}` : `photo: ${s.photo} missing → placeholder (drop ${s.photo}.jpg in ${path.relative(process.cwd(), camDir)}/)`)
+    }
     const dur = frame(bars ? bars * spec.music.bar : (s.seconds ?? 5))
     const scene = { ...s, props, index: i, start: frame(t), duration: dur, voStart: 0, voDuration: 0, voFile: null, voEnv: [], clipFile: clip?.file ?? null, clipDuration: clip ? Math.min(clip.duration, dur) : 0, clipAudio: !!clip?.audio }
     t += dur
