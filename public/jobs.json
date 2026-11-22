@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-22T00:03:31.946Z",
+  "updated": "2026-11-22T00:33:22.805Z",
   "week": "2026-W47",
   "jobs": [
     {
@@ -202,6 +202,91 @@
       ]
     },
     {
+      "id": "b229bf998c4297b9",
+      "title": "Systems Analyst",
+      "company": "Salesforce",
+      "location": "Ireland - Dublin",
+      "remote": false,
+      "country": "IE",
+      "level": "mid",
+      "posted": "2026-11-19",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Ireland---Dublin/Systems-Analyst_JR363731",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": [
+        "Tableau",
+        "Apex",
+        "SQL"
+      ]
+    },
+    {
+      "id": "fe7d3b61ffeb674d",
+      "title": "Salesforce System Specialist Lead",
+      "company": "Salesforce",
+      "location": "Ireland - Dublin",
+      "remote": false,
+      "country": "IE",
+      "level": "lead",
+      "posted": "2026-11-19",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Ireland---Dublin/System-Specialist-Lead_JR363733",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": [
+        "Tableau",
+        "Apex",
+        "SQL"
+      ]
+    },
+    {
+      "id": "ac8eb2b8de3dda91",
+      "title": "Legal Operations Analyst",
+      "company": "Salesforce",
+      "location": "Indiana - Indianapolis",
+      "remote": false,
+      "country": "IN",
+      "level": "mid",
+      "posted": "2026-11-11",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Indiana---Indianapolis/Legal-Operations-Analyst_JR367647-1",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": [
+        "Tableau",
+        "Sales Cloud",
+        "Service Cloud",
+        "SQL"
+      ]
+    },
+    {
+      "id": "5f66659ab7e42858",
+      "title": "Customer Success Manager, Director - Core (Sales & Service) Clouds",
+      "company": "Salesforce",
+      "location": "Illinois - Chicago",
+      "remote": false,
+      "country": "US",
+      "level": "lead",
+      "posted": "2026-11-05",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Illinois---Chicago/Customer-Success-Manager--Director---Core--Sales---Service--Clouds_JR366808",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": [
+        "Data Cloud",
+        "Tableau",
+        "Sales Cloud",
+        "Service Cloud"
+      ]
+    },
+    {
+      "id": "d8d681d6472161fc",
+      "title": "Deal Desk Senior Manager",
+      "company": "Salesforce",
+      "location": "Japan - Tokyo",
+      "remote": false,
+      "country": "JP",
+      "level": "lead",
+      "posted": "2026-11-02",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Japan---Tokyo/Deal-Desk-Manager_JR353297",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": [
+        "Tableau"
+      ]
+    },
+    {
       "id": "8527ff7a26f2f08a",
       "title": "Senior Salesforce Consultant",
       "company": "AIDA Recruitment",
@@ -249,6 +334,67 @@
         "Tableau",
         "Sales Cloud",
         "Service Cloud"
+      ]
+    },
+    {
+      "id": "512560ba15cdadc5",
+      "title": "Senior Technical Consultant — Analytics",
+      "company": "Salesforce",
+      "location": "India - Hyderabad",
+      "remote": false,
+      "country": "IN",
+      "level": "senior",
+      "posted": "2026-10-30",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/India---Hyderabad/Senior-Technical-Consultant---Analytics_JR364196",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": [
+        "Recipes",
+        "Dataflows",
+        "Einstein Discovery",
+        "Data Cloud",
+        "Tableau",
+        "Apex"
+      ]
+    },
+    {
+      "id": "21fd23164d461dbd",
+      "title": "Assessment Insights & Operations Manager",
+      "company": "Salesforce",
+      "location": "United Kingdom - London",
+      "remote": false,
+      "country": "GB",
+      "level": "lead",
+      "posted": "2026-10-29",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Assessment-Insights---Operations-Manager_JR363778",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": []
+    },
+    {
+      "id": "5dfd49c52bca0dee",
+      "title": "Life Sciences Ecosystem Lead Director",
+      "company": "Salesforce",
+      "location": "United Kingdom - London",
+      "remote": false,
+      "country": "GB",
+      "level": "lead",
+      "posted": "2026-10-29",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Life-Sciences-Ecosystem-Lead-Director_JR361664",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": []
+    },
+    {
+      "id": "52940bf5f30a1bb7",
+      "title": "Productivity Senior Director",
+      "company": "Salesforce",
+      "location": "California - San Francisco",
+      "remote": false,
+      "country": "US",
+      "level": "lead",
+      "posted": "2026-10-27",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/California---San-Francisco/Productivity-Senior-Director_JR365319",
+      "source": "salesforce.wd12.myworkdayjobs.com",
+      "skills": [
+        "Tableau"
       ]
     }
   ]
