@@ -18,7 +18,7 @@
  *     03-audio/       separate voice or room tone
  *     04-clips/       B-roll, stock, anything borrowed
  *     05-concepts/    sketches and references for the motion shots
- *     06-graphics/    the .aep from aftereffects/build-lesson.jsx, PSD thumbnail
+ *     06-graphics/    the .aep (node studio/comp.mjs --from …/comps.json), PSD thumbnail
  *     07-edit/        the Premiere project
  *     08-export/      final MP4, thumbnail PNG, captions
  *

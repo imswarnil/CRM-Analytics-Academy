@@ -125,7 +125,7 @@ pnpm dev                    # http://localhost:3000
 | `i18n/locales/en.json` | Every UI string (the other locales are generated) |
 | `scripts/` | Build steps: translation, search index, gating, Stripe setup |
 | `salesforce/` | The learning org's SFDX project and the Academy CRM (`crm/`) |
-| `active/` | Channel production: video scripts, art, Pixelmator templates, the Final Cut kit (all under **CRMA**) |
+| `studio/` | Video production: the After Effects motion kit, film builder, Premiere templates and sequences (see `studio/README.md`) |
 
 ## Publishing a lesson
 

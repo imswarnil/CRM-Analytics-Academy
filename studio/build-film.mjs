@@ -1,0 +1,146 @@
+#!/usr/bin/env node
+/**
+ * Build a motion-graphics film from a spec in studio/films/<slug>.json.
+ *
+ *   node studio/build-film.mjs intro              audio + timeline + After Effects project + render
+ *   node studio/build-film.mjs intro --audio      audio and timeline only (no After Effects)
+ *   node studio/build-film.mjs intro --no-render  build the .aep but do not render the MP4
+ *   node studio/build-film.mjs intro --screens    capture the site screenshots again
+ *
+ * Everything goes into studio/workspace/ (gitignored, one video at a time):
+ *
+ *   03-audio/<slug>/vo/NN-<scene>.wav  the voice-over, one file per scene (macOS voices)
+ *   03-audio/<slug>/music.wav          the music (spec `music.file`, or an original bed)
+ *   03-audio/sfx/*.wav                 pops, whooshes, dings…
+ *   03-audio/<slug>/mix.wav            VO + ducked music + SFX at -14 LUFS (YouTube's level)
+ *   04-clips/screens/*.png             site screenshots (studio/screens.mjs)
+ *   06-graphics/<slug>.timeline.json   scene times, VO and SFX cues: what the AE builder reads
+ *   07-edit/<slug>.xml                 a Premiere sequence: video, VO, music, SFX on their own tracks
+ *   06-graphics/<slug>.aep       the After Effects project (scene precomps + a master comp)
+ *   08-export/<slug>.mp4         the render
+ *
+ * Voice: the first voice in the spec's `voice.prefer` that is installed. For a
+ * far better voice, install a Premium one once: System Settings → Accessibility
+ * → Spoken Content → System voice → Manage Voices → English → "Ava (Premium)".
+ */
+import { execFileSync, spawnSync } from 'node:child_process'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const STUDIO = path.dirname(fileURLToPath(import.meta.url))
+const WS = path.join(STUDIO, 'workspace')
+const args = process.argv.slice(2)
+const slug = args.find(a => !a.startsWith('--')) ?? 'intro'
+const audioOnly = args.includes('--audio')
+const noRender = args.includes('--no-render')
+
+const spec = JSON.parse(readFileSync(path.join(STUDIO, 'films', `${slug}.json`), 'utf8'))
+const brand = JSON.parse(readFileSync(path.join(STUDIO, 'brand.json'), 'utf8'))
+const dirs = { audio: path.join(WS, '03-audio', slug), vo: path.join(WS, '03-audio', slug, 'vo'), sfx: path.join(WS, '03-audio', 'sfx'), gfx: path.join(WS, '06-graphics'), out: path.join(WS, '08-export') }
+for (const d of Object.values(dirs)) mkdirSync(d, { recursive: true })
+
+const run = (cmd, a, opts = {}) => execFileSync(cmd, a, { stdio: ['ignore', 'pipe', 'pipe'], ...opts }).toString()
+const duration = f => Number(run('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).trim())
+
+// ---- 1. voice ---------------------------------------------------------------------
+const installed = run('say', ['-v', '?']).split('\n').map(l => l.replace(/\s{2,}.*$/, '').trim()).filter(Boolean)
+const voice = spec.voice.prefer.find(v => installed.includes(v)) ?? 'Samantha'
+console.log(`voice: ${voice}${voice.includes('Premium') ? '' : '  (install "Ava (Premium)" for a better one; see the header)'}`)
+
+let t = 0
+const scenes = spec.scenes.map((s, i) => {
+  const n = String(i + 1).padStart(2, '0')
+  const aiff = path.join(dirs.vo, `${n}-${s.id}.aiff`)
+  const wav = path.join(dirs.vo, `${n}-${s.id}.wav`)
+  run('say', ['-v', voice, '-r', String(spec.voice.rate ?? 180), '-o', aiff, s.vo])
+  // Mono 48 kHz, trimmed of the voice's leading silence, gently levelled.
+  run('ffmpeg', ['-y', '-v', 'error', '-i', aiff, '-af', 'silenceremove=start_periods=1:start_threshold=-50dB,loudnorm=I=-16:TP=-1.5:LRA=7', '-ar', '48000', '-ac', '1', wav])
+  const vo = duration(wav)
+  const lead = i === 0 ? 0.6 : 0.25
+  const dur = Math.round((lead + vo + (s.hold ?? spec.pad ?? 0.5)) * 30) / 30
+  const scene = { ...s, index: i, start: Math.round(t * 30) / 30, duration: dur, voStart: lead, voDuration: vo, voFile: wav }
+  t += dur
+  return scene
+})
+const total = Math.round(t * 30) / 30
+console.log(`scenes: ${scenes.length}, total ${total.toFixed(1)} s`)
+for (const s of scenes) console.log(`  ${s.start.toFixed(2).padStart(6)}  ${s.duration.toFixed(2)}s  ${s.id}`)
+
+// ---- 2. music, sfx and screens ------------------------------------------------------
+// `music.file`: a track you have the rights to (trimmed, levelled, faded out at the end);
+// otherwise an original bed from studio/audio/synth.py.
+const music = path.join(dirs.audio, 'music.wav')
+if (spec.music.file) {
+  run('ffmpeg', ['-y', '-v', 'error', '-ss', String(spec.music.start ?? 0), '-i', spec.music.file, '-t', String(total + 0.5), '-af', `loudnorm=I=-16:TP=-1.5:LRA=11,afade=t=in:d=0.3,afade=t=out:st=${Math.max(0, total - 2.5)}:d=2.8`, '-ar', '48000', '-ac', '2', music])
+} else {
+  run('python3', [path.join(STUDIO, 'audio', 'synth.py'), 'music', String(total + 0.5), music, String(spec.music.bpm ?? 104), String(spec.music.seed ?? 7)])
+}
+run('python3', [path.join(STUDIO, 'audio', 'synth.py'), 'sfx', dirs.sfx])
+if (spec.screens) {
+  const { captureScreens } = await import('./screens.mjs')
+  captureScreens(spec.screens, { refresh: args.includes('--screens') })
+}
+
+// Music level: `gainDb` between lines, `duckDb` lower while anyone speaks, with
+// short ramps. The same keyframes go to After Effects, so both mixes match.
+const ramp = 0.25
+const duck = []
+for (const s of scenes) {
+  const a = s.start + s.voStart
+  const b = a + s.voDuration
+  duck.push([a - ramp, spec.music.gainDb], [a, spec.music.duckDb], [b, spec.music.duckDb], [b + ramp * 2, spec.music.gainDb])
+}
+const sfxCues = scenes.flatMap(s => (s.sfx ?? []).map(c => ({ at: Math.max(0, Math.round((s.start + c.at) * 1000) / 1000), name: c.name, file: path.join(dirs.sfx, `${c.name}.wav`) })))
+
+// ---- 3. the mix (for Premiere and the render) ----------------------------------------
+const inputs = ['-i', music, ...scenes.flatMap(s => ['-i', s.voFile]), ...sfxCues.flatMap(c => ['-i', c.file])]
+const nVo = scenes.length
+const f = []
+scenes.forEach((s, i) => f.push(`[${i + 1}:a]adelay=${Math.round((s.start + s.voStart) * 1000)}:all=1,pan=stereo|c0=c0|c1=c0[v${i}]`))
+f.push(`${scenes.map((_, i) => `[v${i}]`).join('')}amix=inputs=${nVo}:normalize=0,asplit=2[vo][vosc]`)
+// Volume envelope from the duck keyframes (linear between points, in dB).
+const env = duck.map(([tt, db], i) => {
+  const [t2, db2] = duck[i + 1] ?? [total + 10, db]
+  return `between(t,${tt.toFixed(3)},${t2.toFixed(3)})*(${db}+(${db2 - db})*(t-${tt.toFixed(3)})/${Math.max(0.001, t2 - tt).toFixed(3)})`
+})
+const firstDb = spec.music.gainDb
+f.push(`[0:a]volume='pow(10,(if(lt(t,${duck[0][0].toFixed(3)}),${firstDb},${env.join('+')}))/20)':eval=frame[mus]`)
+sfxCues.forEach((c, i) => f.push(`[${nVo + 1 + i}:a]adelay=${Math.round(c.at * 1000)}:all=1,volume=-8dB[s${i}]`))
+f.push(`[mus][vo]${sfxCues.map((_, i) => `[s${i}]`).join('')}amix=inputs=${2 + sfxCues.length}:normalize=0,alimiter=limit=0.95,atrim=0:${total},loudnorm=I=-14:TP=-1.5:LRA=11[out]`)
+f.push('[vosc]anullsink')
+const mix = path.join(dirs.audio, 'mix.wav')
+const r = spawnSync('ffmpeg', ['-y', '-v', 'error', ...inputs, '-filter_complex', f.join(';'), '-map', '[out]', '-ar', '48000', mix], { encoding: 'utf8' })
+if (r.status !== 0) {
+  console.error(r.stderr)
+  process.exit(1)
+}
+console.log(`mix: ${path.relative(process.cwd(), mix)}`)
+
+// ---- 4. timeline for After Effects -----------------------------------------------------
+const timeline = { slug, title: spec.title, credit: spec.music.credit ?? '', screens: path.join(WS, '04-clips', 'screens'), fps: brand.frame.fps, width: brand.frame.width, height: brand.frame.height, total, brand, studio: STUDIO, workspace: WS, voice, music: { file: music, duck }, mix, sfx: sfxCues, scenes }
+const tlPath = path.join(dirs.gfx, `${slug}.timeline.json`)
+writeFileSync(tlPath, JSON.stringify(timeline, null, 2))
+// A fixed path the After Effects scripts read (ExtendScript cannot take arguments).
+writeFileSync(path.join(WS, '.job.json'), JSON.stringify({ action: 'film', timeline: tlPath }, null, 2))
+console.log(`timeline: ${path.relative(process.cwd(), tlPath)}`)
+if (audioOnly) process.exit(0)
+
+// ---- 5. After Effects ---------------------------------------------------------------------
+const ae = await import('./aftereffects/ae.mjs')
+await ae.runJob()
+const aep = path.join(dirs.gfx, `${slug}.aep`)
+if (!existsSync(aep)) {
+  console.error('After Effects did not save the project. Is a dialog open in After Effects?')
+  process.exit(1)
+}
+console.log(`project: ${path.relative(process.cwd(), aep)}`)
+if (noRender) process.exit(0)
+const mp4 = await ae.render(aep, 'MASTER', path.join(dirs.out, `${slug}.mp4`), mix)
+console.log(`render: ${path.relative(process.cwd(), mp4)}`)
+
+// ---- 6. Premiere ---------------------------------------------------------------------------
+const { premiereXml } = await import('./premiere/xml.mjs')
+mkdirSync(path.join(WS, '07-edit'), { recursive: true })
+const xml = premiereXml(timeline, mp4, path.join(WS, '07-edit', `${slug}.xml`))
+console.log(`premiere: ${path.relative(process.cwd(), xml)}  (Premiere → File → Import)`)

@@ -11,11 +11,12 @@
  *   teleprompter.txt   the spoken lines, one shot per paragraph, to read aloud
  *   shots.csv          shot list with start/end timecodes (open in any sheet)
  *   markers.json       Premiere markers (premiere/import-markers.jsx)
- *   ae.json            After Effects data: title, lower thirds, end screen,
- *                      and every MOTION concept to animate (aftereffects/build-lesson.jsx)
+ *   comps.json         After Effects comps from the motion kit: title card, a lower
+ *                      third per on-screen line, one comp per MOTION shot, end card
+ *                      (node studio/comp.mjs --from <dir>/comps.json)
  *   thumbnail.json     Photoshop thumbnail text (photoshop/thumbnail.jsx)
  *   motion.md          the motion-graphics brief: each "MOTION:" edit note,
- *                      with the concept template that fits it
+ *                      with the kit scene that fits it (or "custom": ask for a new one)
  *
  * No dependencies beyond `yaml`, which the site already has. Nothing here
  * talks to the network.
@@ -30,21 +31,19 @@ const CONTENT = path.join(ROOT, 'content', 'en')
 const OUT = path.join(ROOT, 'studio', 'out')
 const brand = JSON.parse(await readFile(path.join(ROOT, 'studio', 'brand.json'), 'utf8'))
 
-// Concept templates in aftereffects/concepts.jsx, matched by keywords in a
-// MOTION note. The first match wins; anything else gets the generic one.
+// Kit scene types (studio/aftereffects/kit/scenes.jsx), matched by keywords in
+// a MOTION note. The first match wins; anything else is "custom" — a new scene
+// to ask for, built from the same kit.
 const CONCEPTS = [
-  { id: 'collapse', words: ['collapse', 'stack', 'aggregate', 'summary row'] },
-  { id: 'fanout', words: ['splits into', 'duplicat', 'fan-out', 'repeat'] },
-  { id: 'rotate', words: ['rotat', 'columns into rows', 'peel off', 'wide table'] },
-  { id: 'window', words: ['frame slid', 'window', 'running', 'previous row'] },
-  { id: 'chip', words: ['chip', 'flying', 'flies', 'selected'] },
-  { id: 'join', words: ['join', 'tables slide', 'matching', 'side by side'] },
-  { id: 'flow', words: ['flow', 'pipeline', 'pipe', 'travel', 'stream', 'conveyor'] },
-  { id: 'filter', words: ['filter', 'drop', 'fade', 'null cell', 'fill'] }
+  { id: 'joins', words: ['join', 'tables slide', 'matching', 'side by side', 'lookup', 'fan-out', 'duplicat', 'splits into'] },
+  { id: 'dataflow', words: ['flow', 'pipeline', 'pipe', 'travel', 'stream', 'conveyor', 'recipe', 'dataflow'] },
+  { id: 'saqlTyping', words: ['saql', 'query', 'typing', 'code'] },
+  { id: 'executionOrder', words: ['order', 'step by step', 'sequence'] },
+  { id: 'bindings', words: ['binding', 'click', 'selection', 'chip', 'selected', 'flies'] }
 ]
 const conceptFor = (note) => {
   const n = note.toLowerCase()
-  return (CONCEPTS.find(c => c.words.some(w => n.includes(w))) ?? { id: 'generic' }).id
+  return (CONCEPTS.find(c => c.words.some(w => n.includes(w))) ?? { id: 'custom' }).id
 }
 
 const tc = (s) => {
@@ -99,14 +98,14 @@ export async function build(rel, opts = {}) {
     color: s.motion ? 1 : s.screen ? 3 : 0
   })), null, 2))
 
-  await writeFile(path.join(dir, 'ae.json'), JSON.stringify({
-    brand,
-    lesson: { title: fm.title, section: sectionTitle, description: fm.description, runtime: t },
-    titleCard: { title: fm.navigation?.title ?? fm.title, kicker: sectionTitle },
-    lowerThirds: timed.filter(s => s.onscreen).map(s => ({ at: s.start + 1, text: s.onscreen, shot: s.n })),
-    motion: timed.filter(s => s.motion).map(s => ({ shot: s.n, name: s.shot, at: s.start, seconds: s.end - s.start, concept: conceptFor(s.motion), brief: s.motion })),
-    endScreen: { next: (timed.at(-1)?.onscreen ?? '').replace(/^Next:\s*/i, ''), seconds: brand.endScreenSeconds }
-  }, null, 2))
+  const title = fm.navigation?.title ?? fm.title
+  const comps = [
+    { type: 'titleCard', name: `${slug(file)} · title`, seconds: 5, props: { title, kicker: sectionTitle.toUpperCase(), sub: fm.description } },
+    ...timed.filter(s => s.onscreen).map(s => ({ type: 'lowerThird', name: `${slug(file)} · shot ${s.n} text`, seconds: 4, props: { name: s.onscreen, role: s.shot } })),
+    ...timed.filter(s => s.motion).map(s => ({ type: conceptFor(s.motion), name: `${slug(file)} · shot ${s.n}`, seconds: s.end - s.start, props: {}, brief: s.motion })),
+    { type: 'endCard', name: `${slug(file)} · end`, seconds: brand.endScreenSeconds, props: { url: 'crmanalytics.imswarnil.com', cta: 'Next lesson' } }
+  ]
+  await writeFile(path.join(dir, 'comps.json'), JSON.stringify({ lesson: fm.title, section: sectionTitle, comps }, null, 2))
 
   await writeFile(path.join(dir, 'thumbnail.json'), JSON.stringify({
     title: (fm.navigation?.title ?? fm.title).toUpperCase(),
@@ -117,7 +116,7 @@ export async function build(rel, opts = {}) {
 
   const motion = timed.filter(s => s.motion)
   await writeFile(path.join(dir, 'motion.md'), `# Motion brief: ${fm.title}\n\n` + (motion.length
-    ? motion.map(s => `## Shot ${s.n} · ${s.shot} (${tc(s.start)}, ${s.end - s.start}s)\n\n- Concept template: \`${conceptFor(s.motion)}\`\n- Brief: ${s.motion}\n- Narration: ${s.say}\n`).join('\n')
+    ? motion.map(s => `## Shot ${s.n} · ${s.shot} (${tc(s.start)}, ${s.end - s.start}s)\n\n- Kit scene: \`${conceptFor(s.motion)}\`\n- Brief: ${s.motion}\n- Narration: ${s.say}\n`).join('\n')
     : 'No motion-graphics shots in this lesson.\n'))
 
   return { rel, dir: path.relative(ROOT, dir), shots: timed.length, minutes: Math.round(t / 6) / 10, motion: motion.length }

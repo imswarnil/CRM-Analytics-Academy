@@ -1,0 +1,91 @@
+{
+  "title": "CRM Analytics Academy — Learn to build it, end to end",
+  "slug": "intro",
+  "note": "One-minute product promo. Each scene's `vo` is spoken and its length sets the scene's length (plus `hold`). `type` picks a builder in studio/aftereffects/kit/scenes.jsx, `props` feed it, `transition` is how it enters (reveal | bars | push). Screens are captured from the live site by studio/screens.mjs into workspace/04-clips/screens/.",
+  "voice": { "prefer": ["Ava (Premium)", "Zoe (Premium)", "Evan (Premium)", "Ava (Enhanced)", "Samantha (Enhanced)", "Samantha"], "rate": 176 },
+  "music": { "file": "/Users/swarnil/Movies/YouTube/03 Assets/Music/dizzy-by-joakim-karud.mp3", "start": 0, "gainDb": -4, "duckDb": -13, "credit": "Music: Dizzy by Joakim Karud" },
+  "screens": {
+    "home": "/", "home-tall": ["/", 1440, 3200], "start": "/start", "start-tall": ["/start", 1440, 2600],
+    "lesson": "/salesforce-foundations/objects-fields-and-relationships", "lesson-tall": ["/salesforce-foundations/objects-fields-and-relationships", 1440, 2800],
+    "cert": "/certification", "exam": "/certification/salesforce-crm-analytics-einstein-consultant-exam-set-1",
+    "interview": "/interview-questions", "jobs": "/jobs", "capstone": "/capstone", "pro": "/pro"
+  },
+  "pad": 0.5,
+  "scenes": [
+    {
+      "id": "hello", "type": "barsHello", "transition": "none",
+      "vo": "Want to learn CRM Analytics... properly? End to end?",
+      "hold": 0.6,
+      "sfx": [{ "at": 0.35, "name": "pop" }, { "at": 0.6, "name": "pop" }, { "at": 0.85, "name": "pop" }, { "at": 2.6, "name": "boing" }]
+    },
+    {
+      "id": "title", "type": "logoTitle", "transition": "bars",
+      "vo": "Meet CRM Analytics Academy. A free course where you build the whole thing yourself.",
+      "props": { "title": "CRM Analytics Academy", "line": "Learn to build it. End to end." },
+      "sfx": [{ "at": -0.4, "name": "whoosh" }, { "at": 0.9, "name": "ding" }]
+    },
+    {
+      "id": "home", "type": "browserShot", "transition": "push",
+      "vo": "Start free. No card. Just your own free Salesforce org.",
+      "props": { "screen": "home-tall", "url": "crmanalytics.imswarnil.com", "pan": [0, 0.18], "click": [0.07, 0.1], "chips": [{ "text": "Free to start", "icon": "check", "at": [0.18, 0.42] }, { "text": "Your own free org", "icon": "db", "at": [0.36, 0.62] }] },
+      "hold": 0.8,
+      "sfx": [{ "at": -0.4, "name": "whoosh" }, { "at": 2.0, "name": "click" }, { "at": 2.6, "name": "pop" }, { "at": 3.2, "name": "pop" }]
+    },
+    {
+      "id": "path", "type": "coursePath", "transition": "reveal",
+      "vo": "Seven sections. One path. Salesforce data, recipes, dashboards, SAQL, bindings, sharing, and Einstein Discovery.",
+      "props": { "sections": [
+        { "icon": "db", "label": "Foundations" }, { "icon": "broom", "label": "Data Prep" }, { "icon": "out", "label": "Visualization" },
+        { "icon": "code", "label": "SAQL" }, { "icon": "link", "label": "Bindings" }, { "icon": "share", "label": "Sharing" }, { "icon": "spark", "label": "Einstein" }
+      ] },
+      "sfx": [{ "at": 0.4, "name": "whoosh" }]
+    },
+    {
+      "id": "dataflow", "type": "dataflow", "transition": "bars",
+      "vo": "You'll build real recipes, and watch your data flow.",
+      "props": { "nodes": ["Opportunities", "Accounts", "Join", "Clean", "Output"], "label": "RECIPES", "title": "Join it. Clean it. Run it." },
+      "hold": 1.4,
+      "sfx": [{ "at": 2.2, "name": "click" }, { "at": 4.2, "name": "ding" }]
+    },
+    {
+      "id": "saql", "type": "saqlTyping", "transition": "reveal",
+      "vo": "Write SAQL, one line at a time.",
+      "props": { "lines": ["q = load \"opportunities\";", "q = filter q by 'Stage' == \"Closed Won\";", "q = group q by 'Region';", "q = foreach q generate 'Region',", "      sum('Amount') as 'Revenue';"] },
+      "hold": 2.6,
+      "sfx": [{ "at": 0.4, "name": "type" }]
+    },
+    {
+      "id": "bindings", "type": "bindings", "transition": "push",
+      "vo": "And build dashboards where every click answers the next question.",
+      "props": { "bars": [62, 88, 45, 74], "labels": ["AMER", "EMEA", "APAC", "LATAM"] },
+      "hold": 0.8,
+      "sfx": [{ "at": 2.4, "name": "click" }, { "at": 2.6, "name": "whoosh" }]
+    },
+    {
+      "id": "lesson", "type": "browserShot", "transition": "bars",
+      "vo": "Every lesson is short, with a video, a quiz, and notes.",
+      "props": { "screen": "lesson-tall", "url": "crmanalytics.imswarnil.com/salesforce-foundations", "pan": [0, 0.28], "chips": [{ "text": "Short video", "icon": "play", "at": [0.7, 0.3] }, { "text": "Quiz", "icon": "check", "at": [0.2, 0.62] }, { "text": "Notes", "icon": "chat", "at": [0.62, 0.72] }] },
+      "hold": 0.6,
+      "sfx": [{ "at": 1.2, "name": "pop" }, { "at": 1.8, "name": "pop" }, { "at": 2.4, "name": "pop" }]
+    },
+    {
+      "id": "features", "type": "screenDeck", "transition": "reveal",
+      "vo": "Practise the certification exam. Prep for interviews. Find CRM Analytics jobs. Then build your capstone, and earn your certificate.",
+      "props": { "cards": [
+        { "screen": "cert", "label": "Exam practice", "icon": "badge" },
+        { "screen": "interview", "label": "Interview prep", "icon": "chat" },
+        { "screen": "jobs", "label": "Jobs, every day", "icon": "brief" },
+        { "screen": "capstone", "label": "Capstone certificate", "icon": "award" }
+      ] },
+      "hold": 0.5,
+      "sfx": [{ "at": 0.2, "name": "whoosh" }, { "at": 2.4, "name": "whoosh" }, { "at": 4.4, "name": "whoosh" }, { "at": 6.6, "name": "whoosh" }, { "at": 8.6, "name": "ding" }]
+    },
+    {
+      "id": "end", "type": "endCard", "transition": "bars",
+      "vo": "Start building today, at crmanalytics dot imswarnil dot com.",
+      "props": { "url": "crmanalytics.imswarnil.com", "cta": "Start free" },
+      "hold": 2.6,
+      "sfx": [{ "at": 1.0, "name": "pop" }, { "at": 2.0, "name": "boing" }]
+    }
+  ]
+}

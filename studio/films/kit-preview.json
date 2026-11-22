@@ -1,0 +1,18 @@
+{
+  "title": "Kit preview — every scene type the intro does not use",
+  "slug": "kit-preview",
+  "note": "A test reel for the motion kit. Build it after changing scenes.jsx: node studio/build-film.mjs kit-preview",
+  "voice": { "prefer": ["Ava (Premium)", "Samantha"], "rate": 180 },
+  "music": { "bpm": 104, "seed": 3, "gainDb": -9, "duckDb": -16 },
+  "pad": 0.5,
+  "scenes": [
+    { "id": "title", "type": "titleCard", "transition": "none", "vo": "Lesson four. Joins, in depth.", "props": { "title": "Joins, in depth", "kicker": "LESSON 4", "sub": "Lookup, left, inner and what fans out" }, "hold": 1.5 },
+    { "id": "lookup", "type": "joins", "transition": "bars", "vo": "A lookup takes the first match for each account.", "hold": 3.2,
+      "props": { "kind": "lookup", "left": { "title": "Accounts", "cols": ["Id", "Name"], "rows": [["A1", "Acme"], ["A2", "Globex"], ["A3", "Initech"]] }, "right": { "title": "Opportunities", "cols": ["AccountId", "Amount"], "rows": [["A1", "$40K"], ["A3", "$25K"], ["A1", "$10K"]] } } },
+    { "id": "left", "type": "joins", "transition": "push", "vo": "A left join keeps every match, so Acme appears twice.", "hold": 3.2,
+      "props": { "kind": "left", "left": { "title": "Accounts", "cols": ["Id", "Name"], "rows": [["A1", "Acme"], ["A2", "Globex"], ["A3", "Initech"]] }, "right": { "title": "Opportunities", "cols": ["AccountId", "Amount"], "rows": [["A1", "$40K"], ["A3", "$25K"], ["A1", "$10K"]] } } },
+    { "id": "order", "type": "executionOrder", "transition": "reveal", "vo": "SAQL runs in this order, every time.", "hold": 3.5 },
+    { "id": "quote", "type": "quote", "transition": "bars", "vo": "Remember: joins decide your numbers.", "props": { "text": "Joins decide your numbers.", "kicker": "REMEMBER" }, "hold": 1.2 },
+    { "id": "lower", "type": "lowerThird", "transition": "none", "vo": "I'm Swarnil, and this is CRM Analytics Academy.", "props": { "name": "Swarnil Singhai", "role": "CRM Analytics Academy" }, "hold": 1.5 }
+  ]
+}
