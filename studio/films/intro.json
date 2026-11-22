@@ -1,7 +1,7 @@
 {
-  "title": "CRM Analytics Academy — Learn Salesforce and CRM Analytics, end to end",
+  "title": "CRM Analytics Academy — Salesforce, CRM Analytics and GTM engineering, end to end",
   "slug": "intro",
-  "note": "Product promo, about 80 seconds, on one real example: the Academy itself (sign-up → Lead in Salesforce → sync → recipe → dataset → SAQL → dashboard → bindings → security predicate → sharing). Each scene's `vo` is spoken and its length sets the scene's length (plus `hold`). `type` picks a builder in studio/aftereffects/kit/scenes.jsx, `props` feed it, `transition` is how it enters (reveal | bars | push inside the scene; flip3d | zoom3d | swing3d move whole scenes in 3D). Screens are captured from the live site by studio/screens.mjs into workspace/04-clips/screens/.",
+  "note": "Product promo (~2 min) built on our own platform's data: this site's web traffic, sign-ups, lessons and payments pulled into Salesforce, then prep, AI-assisted validation, SAQL, the designer, every kind of dashboard, bindings, who-sees-what security, sharing, GTM engineering and team seats. No free/paid wording. The Bars talk (lip sync) on openers, titles, the end card and as the tallest bar in the chart. `transition`: reveal | bars | push inside a scene; flip3d | zoom3d | swing3d move whole scenes in 3D.",
   "voice": {
     "prefer": [
       "Ava (Premium)",
@@ -52,12 +52,12 @@
       "id": "hello",
       "type": "barsHello",
       "transition": "none",
-      "vo": "Want to learn Salesforce, and CRM Analytics... end to end?",
+      "vo": "Want to learn Salesforce, CRM Analytics, and GTM engineering... end to end?",
       "props": {
-        "line1": "Salesforce + CRM Analytics?",
-        "line2": "End to end."
+        "line1": "Learn it end to end.",
+        "line2": "Salesforce · CRM Analytics · GTM"
       },
-      "hold": 0.6,
+      "hold": 0.5,
       "sfx": [
         {
           "at": 0.35,
@@ -81,10 +81,11 @@
       "id": "title",
       "type": "logoTitle",
       "transition": "bars",
-      "vo": "This is CRM Analytics Academy. A free course where you build the whole thing yourself, on one real example.",
+      "vo": "This is CRM Analytics Academy. You build the whole thing yourself, on real data.",
       "props": {
         "title": "CRM Analytics Academy",
-        "line": "Learn to build it. End to end."
+        "line": "Learn to build it. End to end.",
+        "chip": "Built on real data"
       },
       "sfx": [
         {
@@ -98,45 +99,43 @@
       ]
     },
     {
-      "id": "signup",
-      "type": "signupStory",
+      "id": "data",
+      "type": "platformData",
       "transition": "zoom3d",
-      "vo": "The example is the Academy itself. Someone signs up on the site...",
-      "props": {
-        "screen": "home",
-        "name": "Priya Sharma",
-        "company": "Acme Retail"
-      },
-      "hold": 0.4,
+      "vo": "And the data is ours. This very platform: its web traffic, sign-ups, lessons, and payments, pulled into Salesforce.",
+      "hold": 0.6,
       "sfx": [
         {
           "at": -0.45,
           "name": "whoosh"
         },
         {
-          "at": 1.6,
-          "name": "click"
-        },
-        {
-          "at": 2.0,
+          "at": 0.4,
           "name": "pop"
         },
         {
-          "at": 2.2,
-          "name": "ding"
+          "at": 0.55,
+          "name": "pop"
+        },
+        {
+          "at": 0.7,
+          "name": "pop"
+        },
+        {
+          "at": 0.85,
+          "name": "pop"
+        },
+        {
+          "at": 1.6,
+          "name": "whoosh"
         }
       ]
     },
     {
       "id": "salesforce",
-      "type": "learnSalesforce",
+      "type": "salesforceModel",
       "transition": "flip3d",
-      "vo": "...and lands in Salesforce as a lead. You learn the platform first: objects, fields, owners, and how a lead converts into an account, a contact, and an opportunity.",
-      "props": {
-        "name": "Priya Sharma",
-        "company": "Acme Retail",
-        "owner": "Asha Rao"
-      },
+      "vo": "You start with Salesforce: objects, fields, and how every record relates.",
       "hold": 0.8,
       "sfx": [
         {
@@ -144,64 +143,108 @@
           "name": "whoosh"
         },
         {
-          "at": 0.3,
+          "at": 0.2,
           "name": "pop"
         },
         {
-          "at": 4.95,
+          "at": 1.4,
+          "name": "pop"
+        },
+        {
+          "at": 2.6,
+          "name": "pop"
+        },
+        {
+          "at": 3.8,
+          "name": "pop"
+        }
+      ]
+    },
+    {
+      "id": "prep",
+      "type": "dataflow",
+      "transition": "reveal",
+      "vo": "Then you prepare the data. Join it, clean it, and run the recipe.",
+      "props": {
+        "nodes": [
+          "Web traffic",
+          "Salesforce",
+          "Join",
+          "Clean",
+          "academy_funnel"
+        ],
+        "label": "DATA PREP",
+        "title": "Join it. Clean it. Run it."
+      },
+      "hold": 1.4,
+      "sfx": [
+        {
+          "at": 2.2,
           "name": "click"
         },
         {
-          "at": 5.4,
-          "name": "pop"
-        },
-        {
-          "at": 5.55,
-          "name": "pop"
-        },
-        {
-          "at": 5.7,
-          "name": "pop"
-        },
-        {
-          "at": 6.3,
+          "at": 4.4,
           "name": "ding"
         }
       ]
     },
     {
-      "id": "integration",
-      "type": "integration",
-      "transition": "reveal",
-      "vo": "Then you build the pipeline end to end. Sync the data, shape it in a recipe, and land a clean dataset.",
-      "hold": 0.8,
+      "id": "ai",
+      "type": "aiAssist",
+      "transition": "zoom3d",
+      "vo": "Use AI the right way: to sketch dashboard mockups fast, and to validate every number before anyone sees it.",
+      "hold": 1.0,
       "sfx": [
         {
-          "at": 0.2,
+          "at": -0.45,
           "name": "whoosh"
+        },
+        {
+          "at": 0.5,
+          "name": "type"
+        },
+        {
+          "at": 4.0,
+          "name": "tick"
+        },
+        {
+          "at": 4.35,
+          "name": "tick"
+        },
+        {
+          "at": 4.7,
+          "name": "tick"
+        },
+        {
+          "at": 5.05,
+          "name": "pop"
         }
       ]
     },
     {
       "id": "saql",
       "type": "saqlTyping",
-      "transition": "zoom3d",
-      "vo": "Query it with SAQL.",
+      "transition": "bars",
+      "vo": "Write real SAQL. Windowing, case statements, and date functions.",
       "props": {
-        "file": "academy_leads.saql",
+        "kicker": "SAQL",
+        "file": "academy_funnel.saql",
         "lines": [
-          "q = load \"academy_leads\";",
-          "q = filter q by 'Status' != \"Disqualified\";",
-          "q = group q by 'LeadSource';",
-          "q = foreach q generate 'LeadSource',",
-          "      count() as 'Leads';"
+          "q = load \"academy_funnel\";",
+          "q = group q by ('Week', 'Source');",
+          "q = foreach q generate 'Week', 'Source',",
+          "  sum('Signups') as 'Signups',",
+          "  sum(sum('Signups')) over ([..] partition by 'Source'",
+          "    order by 'Week') as 'Running',",
+          "  case when sum('Signups') > 50 then \"Hot\" else \"Warm\" end as 'Tier';",
+          "q = order q by 'Week' asc;"
         ],
-        "result": "4 sources · 0.18 s"
+        "result": "52 weeks · 0.31 s"
       },
-      "hold": 2.8,
+      "hold": 3.6,
       "sfx": [
         {
-          "at": -0.45,
+          "at": -0.4,
           "name": "whoosh"
         },
         {
@@ -211,13 +254,43 @@
       ]
     },
     {
-      "id": "dashboard",
-      "type": "dashboard3D",
+      "id": "designer",
+      "type": "designerCanvas",
+      "transition": "push",
+      "vo": "Build in the visual designer, widget by widget.",
+      "hold": 2.4,
+      "sfx": [
+        {
+          "at": -0.4,
+          "name": "whoosh"
+        },
+        {
+          "at": 1.25,
+          "name": "pop"
+        },
+        {
+          "at": 1.95,
+          "name": "pop"
+        },
+        {
+          "at": 2.65,
+          "name": "pop"
+        },
+        {
+          "at": 3.35,
+          "name": "pop"
+        },
+        {
+          "at": 4.05,
+          "name": "pop"
+        }
+      ]
+    },
+    {
+      "id": "types",
+      "type": "dashboardTypes",
       "transition": "flip3d",
-      "vo": "Turn it into a dashboard the team actually uses. Leads by source, conversion, and pipeline.",
-      "props": {
-        "title": "Academy Leads"
-      },
+      "vo": "Every kind of dashboard: pipeline, adoption, performance, web traffic, and trends from snapshots.",
       "hold": 0.8,
       "sfx": [
         {
@@ -225,16 +298,24 @@
           "name": "whoosh"
         },
         {
-          "at": 0.3,
-          "name": "pop"
+          "at": 0.2,
+          "name": "whoosh"
         },
         {
-          "at": 0.6,
-          "name": "pop"
+          "at": 1.3,
+          "name": "whoosh"
         },
         {
-          "at": 0.9,
-          "name": "pop"
+          "at": 2.4,
+          "name": "whoosh"
+        },
+        {
+          "at": 3.5,
+          "name": "whoosh"
+        },
+        {
+          "at": 4.6,
+          "name": "whoosh"
         }
       ]
     },
@@ -244,7 +325,7 @@
       "transition": "push",
       "vo": "Wire up bindings, so every click answers the next question.",
       "props": {
-        "chartTitle": "Leads by source",
+        "chartTitle": "Sign-ups by source",
         "bars": [
           88,
           64,
@@ -253,15 +334,15 @@
         ],
         "labels": [
           "Website",
-          "LinkedIn",
           "YouTube",
+          "LinkedIn",
           "Referral"
         ],
-        "pick": 1,
-        "before": "1,284",
-        "after": "262"
+        "pick": 0,
+        "before": "318",
+        "after": "142"
       },
-      "hold": 0.9,
+      "hold": 1.0,
       "sfx": [
         {
           "at": -0.4,
@@ -279,22 +360,26 @@
     },
     {
       "id": "security",
-      "type": "securityPredicate",
+      "type": "securityRoles",
       "transition": "bars",
-      "vo": "Lock it down with a security predicate. Each rep sees only their own leads.",
-      "hold": 1.2,
+      "vo": "Then security: who sees what. Owners see their own, managers see their team, and leaders see everything.",
+      "hold": 1.0,
       "sfx": [
         {
           "at": -0.4,
           "name": "whoosh"
         },
         {
-          "at": 0.9,
+          "at": 1.4,
           "name": "click"
         },
         {
-          "at": 2.1,
-          "name": "whoosh"
+          "at": 3.2,
+          "name": "click"
+        },
+        {
+          "at": 5.0,
+          "name": "click"
         }
       ]
     },
@@ -302,7 +387,7 @@
       "id": "sharing",
       "type": "sharingEmbed",
       "transition": "zoom3d",
-      "vo": "Then share it where people already work. On the lead page, on mobile, and with the whole team.",
+      "vo": "Share it where people already work: on the record page, on mobile, and with the whole team.",
       "hold": 0.8,
       "sfx": [
         {
@@ -324,10 +409,72 @@
       ]
     },
     {
+      "id": "gtm",
+      "type": "gtmEngine",
+      "transition": "swing3d",
+      "vo": "And learn GTM engineering alongside it. Turn traffic into pipeline, with enrichment, scoring, routing, and alerts.",
+      "hold": 1.0,
+      "sfx": [
+        {
+          "at": -0.4,
+          "name": "whoosh"
+        },
+        {
+          "at": 0.3,
+          "name": "pop"
+        },
+        {
+          "at": 1.2,
+          "name": "pop"
+        },
+        {
+          "at": 2.1,
+          "name": "pop"
+        },
+        {
+          "at": 3.0,
+          "name": "pop"
+        },
+        {
+          "at": 3.9,
+          "name": "pop"
+        }
+      ]
+    },
+    {
+      "id": "teams",
+      "type": "teamSeats",
+      "transition": "flip3d",
+      "vo": "Companies can buy seats for their whole team, and watch everyone upskill.",
+      "props": {
+        "company": "Acme Retail",
+        "seats": 25
+      },
+      "hold": 1.2,
+      "sfx": [
+        {
+          "at": -0.3,
+          "name": "whoosh"
+        },
+        {
+          "at": 0.2,
+          "name": "pop"
+        },
+        {
+          "at": 1.2,
+          "name": "pop"
+        },
+        {
+          "at": 2.4,
+          "name": "ding"
+        }
+      ]
+    },
+    {
       "id": "features",
       "type": "screenDeck",
       "transition": "swing3d",
-      "vo": "Along the way: practice exams, interview prep, CRM Analytics jobs, and a capstone certificate.",
+      "vo": "Plus practice exams, interview prep, CRM Analytics jobs, and a capstone certificate.",
       "props": {
         "cards": [
           {
@@ -359,19 +506,19 @@
           "name": "whoosh"
         },
         {
-          "at": 1.7,
+          "at": 1.6,
           "name": "whoosh"
         },
         {
-          "at": 3.4,
+          "at": 3.2,
           "name": "whoosh"
         },
         {
-          "at": 5.1,
+          "at": 4.8,
           "name": "whoosh"
         },
         {
-          "at": 6.6,
+          "at": 6.2,
           "name": "ding"
         }
       ]
@@ -383,7 +530,7 @@
       "vo": "Start building today, at crmanalytics dot imswarnil dot com.",
       "props": {
         "url": "crmanalytics.imswarnil.com",
-        "cta": "Start free"
+        "cta": "Start learning"
       },
       "hold": 2.6,
       "sfx": [

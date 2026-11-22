@@ -57,9 +57,12 @@ const scenes = spec.scenes.map((s, i) => {
   // Mono 48 kHz, trimmed of the voice's leading silence, gently levelled.
   run('ffmpeg', ['-y', '-v', 'error', '-i', aiff, '-af', 'silenceremove=start_periods=1:start_threshold=-50dB,loudnorm=I=-16:TP=-1.5:LRA=7', '-ar', '48000', '-ac', '1', wav])
   const vo = duration(wav)
+  // Lip sync: how open the mouth is, 15 times a second (0 closed … 1 wide), from the voice's loudness.
+  const rms = run('ffmpeg', ['-v', 'error', '-i', wav, '-af', 'aresample=8000,asetnsamples=n=533:p=0,astats=metadata=1:reset=1,ametadata=print:key=lavfi.astats.Overall.RMS_level:file=-', '-f', 'null', '-'])
+  const voEnv = [...rms.matchAll(/RMS_level=(-?[\d.]+|-inf)/g)].map(m => (m[1] === '-inf' ? 0 : Math.max(0, Math.min(1, (Number(m[1]) + 42) / 24)))).map(v => Math.round(v * 100) / 100)
   const lead = i === 0 ? 0.6 : 0.25
   const dur = Math.round((lead + vo + (s.hold ?? spec.pad ?? 0.5)) * 30) / 30
-  const scene = { ...s, index: i, start: Math.round(t * 30) / 30, duration: dur, voStart: lead, voDuration: vo, voFile: wav }
+  const scene = { ...s, index: i, start: Math.round(t * 30) / 30, duration: dur, voStart: lead, voDuration: vo, voFile: wav, voEnv }
   t += dur
   return scene
 })

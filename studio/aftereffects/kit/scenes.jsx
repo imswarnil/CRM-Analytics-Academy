@@ -22,7 +22,7 @@ var SCENES_INFO = [
   { type: 'joins', label: 'Join two tables (lookup / left / inner)', props: { kind: 'left', left: { title: 'Accounts', cols: ['Id', 'Name'], rows: [['A1', 'Acme'], ['A2', 'Globex'], ['A3', 'Initech']] }, right: { title: 'Opportunities', cols: ['AccountId', 'Amount'], rows: [['A1', '$40K'], ['A3', '$25K'], ['A1', '$10K']] } } },
   { type: 'lowerThird', label: 'Lower third', props: { name: 'Swarnil Singhai', role: 'CRM Analytics Academy' } },
   { type: 'quote', label: 'Big statement', props: { text: 'Joins decide your numbers.', kicker: 'REMEMBER' } },
-  { type: 'endCard', label: 'End card', props: { url: 'crmanalytics.imswarnil.com', cta: 'Start free' } }
+  { type: 'endCard', label: 'End card', props: { url: 'crmanalytics.imswarnil.com', cta: 'Start learning' } }
 ];
 
 (function () {
@@ -44,8 +44,9 @@ var SCENES_INFO = [
   SCENES.barsHello = function (comp, p, T, dur) {
     enter(comp, p, C.navy, T);
     KIT.blobs(comp, C.frost, 6, 41, 8);
-    var crew = KIT.crew(comp, 960, 900, 1.15, { arm: true });
+    var crew = KIT.crew(comp, 960, 900, 1.15, { arm: true, talk: true });
     KIT.springUp(crew, T + 0.2, 0.25);
+    KIT.talk(crew[2], p._vo, T);
     KIT.blink(crew[0], [T + 1.3, T + 3.4]);
     KIT.blink(crew[1], [T + 1.6, T + 3.1]);
     KIT.blink(crew[2], [T + 1.9]);
@@ -60,15 +61,16 @@ var SCENES_INFO = [
   SCENES.logoTitle = function (comp, p, T, dur) {
     enter(comp, p, C.ice, T);
     KIT.blobs(comp, C.frost, 6, 9, 22);
-    var crew = KIT.crew(comp, 960, 520, 0.82);
+    var crew = KIT.crew(comp, 960, 520, 0.82, { talk: true });
     KIT.springUp(crew, T + 0.05, 0.12);
+    KIT.talk(crew[2], p._vo, T);
     KIT.blink(crew[1], [T + 1.8]);
     KIT.blink(crew[2], [T + 2.6]);
     KIT.pop(KIT.text(comp, p.title || 'CRM Analytics Academy', { size: 116, font: F.black, color: C.navy, y: 655 }), T + 0.5);
     var l = KIT.text(comp, p.line || 'Learn to build it. End to end.', { size: 50, font: F.bold, color: C.signal, y: 770 });
     KIT.fade(l, T + 0.9, T + 1.2, 0, 100);
     KIT.moveFrom(l, T + 0.9, 0, 30, 0.4);
-    KIT.chip(comp, 'Free course', 'check', 960, 880, T + 1.6, { bg: C.good });
+    if (p.chip) KIT.chip(comp, p.chip, 'check', 960, 880, T + 1.6, { bg: C.good });
   };
 
   // ---- generic title card --------------------------------------------------------------------
@@ -300,6 +302,8 @@ var SCENES_INFO = [
     header(comp, p.kicker || 'BINDINGS', p.title || 'Every click answers the next question', T);
     var bars = p.bars || [62, 88, 45, 74];
     var labels = p.labels || ['AMER', 'EMEA', 'APAC', 'LATAM'];
+    var big = 0;
+    for (var bi = 1; bi < bars.length; bi++) if (bars[bi] > bars[big]) big = bi;
     var pick = p.pick === undefined ? 1 : p.pick;
     KIT.pop(KIT.card(comp, 'Chart card', 840, 600, 560, 620), T + 0.1);
     KIT.fade(KIT.text(comp, p.chartTitle || 'Revenue by region', { size: 34, font: F.bold, color: C.navy, x: 190, y: 370, align: 'left' }), T + 0.3, T + 0.5, 0, 100);
@@ -310,10 +314,19 @@ var SCENES_INFO = [
       var x = 560 + (i - (bars.length - 1) / 2) * 180;
       bx.push(x);
       var h = bars[i] / 100 * 380;
-      var b = KIT.rect(comp, 'Bar ' + labels[i], 120, h, 10, i === pick ? C.signal : C.signalBright, x, base - h / 2);
-      b.property('ADBE Transform Group').property('ADBE Anchor Point').setValue([0, h / 2]);
-      KIT.at(b, x, base);
-      KIT.keys(b.property('ADBE Transform Group').property('ADBE Scale'), [[T + 0.4 + i * 0.12, [100, 0, 100]], [T + 0.75 + i * 0.12, [100, 106, 100]], [T + 0.9 + i * 0.12, [100, 100, 100]]], 70);
+      var b;
+      if (i === big) {
+        // The tallest bar is the star: it has a face and says the line.
+        b = KIT.bar(comp, x, base, { w: 120, h: h, color: 'signal', name: 'Bar ' + labels[i] + ' (talking)', mood: 'talk' });
+        KIT.springUp([b], T + 0.4 + i * 0.12);
+        KIT.talk(b, p._vo, T);
+        KIT.blink(b, [T + 1.3, T + 3.6]);
+      } else {
+        b = KIT.rect(comp, 'Bar ' + labels[i], 120, h, 10, i === pick ? C.signal : C.signalBright, x, base - h / 2);
+        b.property('ADBE Transform Group').property('ADBE Anchor Point').setValue([0, h / 2]);
+        KIT.at(b, x, base);
+        KIT.keys(b.property('ADBE Transform Group').property('ADBE Scale'), [[T + 0.4 + i * 0.12, [100, 0, 100]], [T + 0.75 + i * 0.12, [100, 106, 100]], [T + 0.9 + i * 0.12, [100, 100, 100]]], 70);
+      }
       barLayers.push(b);
       KIT.fade(KIT.text(comp, labels[i], { size: 26, font: F.bold, color: C.muted, x: x, y: base + 40 }), T + 0.5 + i * 0.12, T + 0.8 + i * 0.12, 0, 100);
     }
@@ -416,8 +429,9 @@ var SCENES_INFO = [
   SCENES.endCard = function (comp, p, T, dur) {
     enter(comp, p, C.navy, T);
     KIT.blobs(comp, C.frost, 6, 31, 8);
-    var crew = KIT.crew(comp, 960, 470, 0.72, { arm: true });
+    var crew = KIT.crew(comp, 960, 470, 0.72, { arm: true, talk: true });
     KIT.springUp(crew, T + 0.1, 0.15);
+    KIT.talk(crew[2], p._vo, T);
     for (var i = 0; i < 3; i++) {
       var v = crew[i].property('ADBE Transform Group').property('ADBE Position').value;
       KIT.hop(crew[i], T + 1.9 + i * 0.12, v[0], v[1], 70, 0.36);

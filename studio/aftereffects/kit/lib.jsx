@@ -322,7 +322,13 @@ KIT.bar = function (comp, x, y, o) {
     at.property('ADBE Vector Rotation').expression = '18 * Math.sin(time * 9)';
   }
   var mouth = KIT.group(L, 'Mouth');
-  if (o.mood === 'o') {
+  if (o.mood === 'talk') {
+    KIT.ellipseIn(mouth, w * 0.26, w * 0.2, 0, fy + w * 0.3);
+    KIT.fill(mouth, KIT.C.navyDeep);
+    var tongue = KIT.group(L, 'Tongue');
+    KIT.ellipseIn(tongue, w * 0.14, w * 0.07, 0, fy + w * 0.36);
+    KIT.fill(tongue, KIT.C.blush);
+  } else if (o.mood === 'o') {
     KIT.ellipseIn(mouth, w * 0.14, w * 0.16, 0, fy + w * 0.3);
     KIT.fill(mouth, KIT.C.navyDeep);
   } else {
@@ -363,9 +369,32 @@ KIT.crew = function (comp, x, y, scale, o) {
   var out = [];
   for (var i = 0; i < 3; i++) {
     var c = KIT.CREW[i];
-    out.push(KIT.bar(comp, x + (i - 1) * (w + gap), y, { w: w, h: 400 * s * c.h, color: c.color, name: c.name, arm: o.arm && i === 2, mood: o.mood }));
+    out.push(KIT.bar(comp, x + (i - 1) * (w + gap), y, { w: w, h: 400 * s * c.h, color: c.color, name: c.name, arm: o.arm && i === 2, mood: i === 2 && o.talk ? 'talk' : o.mood }));
   }
   return out;
+};
+// Lip sync: the mouth opens with the voice. vo = props._vo ({at, env, fps}); T = when the scene starts.
+KIT.talk = function (layer, vo, T) {
+  if (!vo || !vo.env || !vo.env.length) return;
+  var root = layer.property('ADBE Root Vectors Group');
+  var parts = ['Mouth', 'Tongue'];
+  for (var p = 0; p < parts.length; p++) {
+    var g = root.property(parts[p]);
+    if (!g) continue;
+    var tr = g.property('ADBE Vector Transform Group');
+    // Scale the mouth around its own centre.
+    var c = g.property('ADBE Vectors Group').property(1).property('ADBE Vector Ellipse Position').value;
+    tr.property('ADBE Vector Anchor').setValue(c);
+    tr.property('ADBE Vector Position').setValue(c);
+    var sc = tr.property('ADBE Vector Scale');
+    var t0 = T + vo.at;
+    sc.setValueAtTime(Math.max(0, t0 - 0.1), [100, 12]);
+    for (var i = 0; i < vo.env.length; i++) {
+      var o = vo.env[i];
+      sc.setValueAtTime(t0 + i / vo.fps, [80 + o * 30, 12 + o * 100]);
+    }
+    sc.setValueAtTime(t0 + vo.env.length / vo.fps + 0.08, [100, 12]);
+  }
 };
 // Blink at each time in `times`.
 KIT.blink = function (layer, times) {
@@ -655,7 +684,7 @@ KIT.mark = function (comp, x, y, size, t) {
 };
 
 // A mouse pointer that glides to (x, y) by t and clicks (with a ripple).
-KIT.cursor = function (comp, from, to, t, color) {
+KIT.cursor = function (comp, from, to, t, color, hide) {
   var L = KIT.shapeLayer(comp, 'Cursor');
   var g = KIT.group(L, 'Arrow');
   KIT.pathIn(g, [[0, 0], [0, 44], [12, 33], [21, 52], [29, 48], [20, 30], [36, 30]], true);
@@ -672,6 +701,8 @@ KIT.cursor = function (comp, from, to, t, color) {
   KIT.keys(r.property('ADBE Transform Group').property('ADBE Scale'), [[t, [0, 0, 100]], [t + 0.4, [300, 300, 100]]], 40);
   KIT.keys(r.property('ADBE Transform Group').property('ADBE Opacity'), [[t, 100], [t + 0.4, 0]], 40);
   r.moveAfter(L);
+  // hide: the pointer leaves after the click (for several clicks in one scene).
+  if (hide) KIT.keys(L.property('ADBE Transform Group').property('ADBE Opacity'), [[t - 0.8, 0], [t - 0.7, 100], [t + 0.3, 100], [t + 0.45, 0]], 40);
   return L;
 };
 

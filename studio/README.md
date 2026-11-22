@@ -10,7 +10,9 @@ After Effects, Premiere Pro and Photoshop, driven from this folder. Two kinds of
 Everything is in the Academy's design: navy and signal blue, Figtree, flat shapes in a real 3D
 space (a moving camera, depth, flip/zoom/swing transitions), and **the Bars**, the logo's three
 bars as characters (Frosty, Bright, Big Blue). The Bars appear on openers, titles and the end
-card only, never on screens or data.
+card, plus the tallest bar of a chart; never on screens. Big Blue and the tallest bar **lip-sync**
+to the voice-over: the builder measures each line's loudness 15 times a second (`voEnv` in the
+timeline) and `KIT.talk` keys the mouth from it.
 
 ## Films
 
@@ -62,7 +64,15 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | `integration` | Salesforce → Data Sync → Recipe → Dataset → Dashboard → Lightning page, camera tracking |
 | `dashboard3D` | A full dashboard (KPIs, leads by source, conversion funnel) assembling in 3D |
 | `securityPredicate` | One dataset, a predicate, each rep's rows flying to their own view |
-| `sharingEmbed` | The dashboard embedded on the Lead page, on mobile, shared with the team |
+| `sharingEmbed` | The dashboard embedded on a record page, on mobile, shared with the team |
+| `platformData` | This site's own data (traffic, sign-ups, lessons, payments) flowing into Salesforce |
+| `salesforceModel` | Account, Contact, Opportunity and a custom object, with their relationships |
+| `aiAssist` | A prompt sketches a dashboard mockup; data-validation checks tick off |
+| `designerCanvas` | The dashboard designer: widgets dragged from a palette snap onto the grid |
+| `dashboardTypes` | Pipeline, adoption, performance, web traffic and snapshot-trend dashboards |
+| `securityRoles` | Who sees what: owner, manager, leader on a role hierarchy, with the predicate |
+| `gtmEngine` | GTM engineering: visits → customers with conversion rates, enrich/score/route/alert |
+| `teamSeats` | A company buys seats; avatars fill them; the manager sees team progress |
 | `browserShot` | A site page in a browser window: pan, cursor click, callout chips |
 | `screenDeck` | Pages sliding in one after another, each with a big label |
 | `coursePath` | The sections as a road, a Bar hopping from stop to stop |

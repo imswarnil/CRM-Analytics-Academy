@@ -112,6 +112,8 @@ KIT.buildFilm = function (job, log) {
     // 3D transitions happen in MASTER; the scene then draws its own full background.
     props._transition = KIT.MASTER_T[s.transition] ? 'none' : (s.transition || 'reveal');
     props._credit = tl.credit;
+    // The scene's own voice, for lip sync: starts voStart after the scene does, 15 values a second.
+    props._vo = { at: s.voStart, env: s.voEnv || [], fps: 15 };
     var sc = KIT.buildScene(s.type, props, s.duration, fScenes, (i < 9 ? '0' : '') + (i + 1) + ' ' + s.id);
     var L = master.layers.add(sc);
     L.startTime = s.start - KIT.OVERLAP;
