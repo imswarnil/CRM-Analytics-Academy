@@ -17,7 +17,7 @@ var SCENES_INFO = [
   { type: 'coursePath', label: 'Course path (sections road)', props: { sections: [{ icon: 'db', label: 'Foundations' }, { icon: 'broom', label: 'Data Prep' }, { icon: 'out', label: 'Visualization' }] } },
   { type: 'dataflow', label: 'Dataflow / recipe run', props: { nodes: ['Opportunities', 'Accounts', 'Join', 'Clean', 'Output'], label: 'RECIPE RUN' } },
   { type: 'saqlTyping', label: 'SAQL typing', props: { lines: ['q = load "opportunities";', 'q = group q by \'Region\';'] } },
-  { type: 'executionOrder', label: 'Execution order (a Bar hops)', props: { steps: ['load', 'filter', 'group', 'foreach', 'order', 'limit'] } },
+  { type: 'executionOrder', label: 'Execution order (steps light up)', props: { steps: ['load', 'filter', 'group', 'foreach', 'order', 'limit'] } },
   { type: 'bindings', label: 'Dashboard + binding click', props: { bars: [62, 88, 45, 74], labels: ['AMER', 'EMEA', 'APAC', 'LATAM'] } },
   { type: 'joins', label: 'Join two tables (lookup / left / inner)', props: { kind: 'left', left: { title: 'Accounts', cols: ['Id', 'Name'], rows: [['A1', 'Acme'], ['A2', 'Globex'], ['A3', 'Initech']] }, right: { title: 'Opportunities', cols: ['AccountId', 'Amount'], rows: [['A1', '$40K'], ['A3', '$25K'], ['A1', '$10K']] } } },
   { type: 'lowerThird', label: 'Lower third', props: { name: 'Swarnil Singhai', role: 'CRM Analytics Academy' } },
@@ -40,16 +40,6 @@ var SCENES_INFO = [
   function enter(comp, p, color, T, x, y) {
     return KIT.enter(comp, p._transition || 'reveal', color, T, x, y);
   }
-  // A Bar peeking up from the bottom edge, and ducking back down at the end.
-  function peek(comp, which, x, T, dur, size) {
-    var c = KIT.CREW[which];
-    var h = 320 * (size || 0.7) * (0.5 + c.h / 2);
-    var b = KIT.bar(comp, x, comp.height + h, { w: 90 * (size || 0.7) / 0.7, h: h, color: c.color, name: c.name + ' (peek)' });
-    KIT.keys(b.property('ADBE Transform Group').property('ADBE Position'), [[T, [x, comp.height + h]], [T + 0.4, [x, comp.height + h * 0.42]], [T + dur - 0.5, [x, comp.height + h * 0.42]], [T + dur - 0.15, [x, comp.height + h]]], 75);
-    KIT.blink(b, [T + 1.0, T + 2.6]);
-    return b;
-  }
-
   // ---- opener: the Bars say hello ----------------------------------------------------
   SCENES.barsHello = function (comp, p, T, dur) {
     enter(comp, p, C.navy, T);
@@ -109,7 +99,10 @@ var SCENES_INFO = [
     for (var i = 0; i < chips.length; i++) {
       KIT.chip(comp, chips[i].text, chips[i].icon || 'check', B.x - B.w / 2 + chips[i].at[0] * B.w, B.y - B.h / 2 + chips[i].at[1] * B.h, T + (p.click ? 2.6 : 1.2) + i * 0.6);
     }
-    peek(comp, 1, 1770, T + 0.9, dur - 0.6, 0.8);
+    KIT.to3D(comp);
+    KIT.keys(B.frame.property('ADBE Transform Group').property('ADBE Rotate Y'), [[0, -20], [T + 1.0, -6]], 70);
+    KIT.keys(B.frame.property('ADBE Transform Group').property('ADBE Rotate X'), [[0, 10], [T + 1.0, 3]], 70);
+    KIT.camera(comp, [[Math.max(0, T - 0.5), KIT.orbitPos(960, 540, 10, 6), [960, 540, 0]], [T + dur, KIT.orbitPos(960, 540, -4, 2, KIT.ZOOM - 300), [960, 540, 0]]], 60);
   };
 
   // ---- a deck of screens: one feature after another ----------------------------------------------
@@ -119,19 +112,19 @@ var SCENES_INFO = [
     var cards = p.cards || [];
     var n = cards.length;
     var step = (dur - 0.6) / Math.max(1, n);
+    var swings = [];
     for (var i = 0; i < n; i++) {
       var t0 = T + i * step;
       var B = KIT.browser(comp, cards[i].screen, { w: 1240, h: 720, x: 960, y: 600, url: 'crmanalytics.imswarnil.com', pan: [0, 0.06], t0: t0, t1: t0 + step });
       var pos = B.frame.property('ADBE Transform Group').property('ADBE Position');
-      var rot = B.frame.property('ADBE Transform Group').property('ADBE Rotate Z');
       var keysP = [[t0 - 0.35, [2700, 640]], [t0 + 0.15, [960, 600]]];
-      var keysR = [[t0 - 0.35, 9], [t0 + 0.15, 0]];
+      var keysR = [[t0 - 0.35, -55], [t0 + 0.15, 0]];
       if (i < n - 1) {
         keysP.push([t0 + step - 0.35, [960, 600]], [t0 + step + 0.15, [-800, 640]]);
-        keysR.push([t0 + step - 0.35, 0], [t0 + step + 0.15, -9]);
+        keysR.push([t0 + step - 0.35, 0], [t0 + step + 0.15, 55]);
       }
       KIT.keys(pos, keysP, 85);
-      KIT.keys(rot, keysR, 85);
+      swings.push([B.frame, keysR]);
       // The feature's name, big, above the window.
       var lab = KIT.text(comp, cards[i].label, { size: 70, font: F.black, color: C.white, x: 1000, y: 140, name: 'Label ' + cards[i].label });
       var ic = KIT.icon(comp, cards[i].icon || 'check', 1000 - lab.sourceRectAtTime(0, false).width / 2 - 70, 140, 90, C.signal, C.white);
@@ -141,7 +134,13 @@ var SCENES_INFO = [
         KIT.keys(parts[k].property('ADBE Transform Group').property('ADBE Opacity'), [[0, 0], [t0, 0], [t0 + 0.2, 100], [outT, 100], [outT + 0.15, 0]], 40);
       }
     }
-    peek(comp, 0, 170, T + 0.6, dur - 0.3, 0.8);
+    // In 3D, each window swings in on its vertical axis and swings out the other way.
+    for (var lb = 1; lb <= comp.numLayers; lb++) {
+      if (/^(Label |Icon )/.test(comp.layer(lb).name)) comp.layer(lb).comment = 'keep2d';
+    }
+    KIT.to3D(comp);
+    for (i = 0; i < swings.length; i++) KIT.keys(swings[i][0].property('ADBE Transform Group').property('ADBE Rotate Y'), swings[i][1], 85);
+    KIT.camera(comp, [[0, KIT.orbitPos(960, 540, 0, 5), [960, 560, 0]]]);
   };
 
   // ---- the course as a road ------------------------------------------------------------------------
@@ -184,10 +183,10 @@ var SCENES_INFO = [
       KIT.pop(KIT.text(comp, String(i + 1), { size: 24, font: F.bold, color: C.signal, x: pts[i][0], y: pts[i][1] - 82 }), t + 0.05);
     }
     // Big Blue walks the road, one section at a time.
-    var w = KIT.bar(comp, pts[0][0] - 150, pts[0][1] - 60, { w: 70, h: 120, color: 'signal', name: 'Walker' });
+    // A "you are here" marker travels the road.
+    var w = KIT.circle(comp, 'You are here', 34, C.warn, pts[0][0] - 150, pts[0][1] - 90);
     KIT.pop(w, T + 1.0);
-    for (i = 0; i < n; i++) KIT.hop(w, first + i * each - 0.1, pts[i][0], pts[i][1] - 62, 90, 0.36);
-    KIT.blink(w, [first + n * each]);
+    for (i = 0; i < n; i++) KIT.hop(w, first + i * each - 0.1, pts[i][0], pts[i][1] - 90, 70, 0.36);
   };
 
   // ---- dataflow / recipe run ---------------------------------------------------------------------
@@ -231,9 +230,6 @@ var SCENES_INFO = [
     var tDone = tRun + 0.4 + names.length * gap;
     KIT.pop(KIT.rect(comp, 'Done chip', 420, 64, 32, C.good, 1650, 760), tDone);
     KIT.pop(KIT.text(comp, 'Succeeded · 412,880 rows', { size: 28, font: F.bold, color: C.white, x: 1650, y: 760 }), tDone + 0.05);
-    var fan = KIT.bar(comp, 1780, 1080, { w: 80, h: 150, color: 'frost', name: 'Frosty (cheers)', mood: 'o' });
-    KIT.springUp([fan], tDone - 0.1);
-    KIT.hop(fan, tDone + 0.4, 1780, 1080, 80, 0.36);
   };
 
   // ---- SAQL typing ---------------------------------------------------------------------------------
@@ -267,9 +263,6 @@ var SCENES_INFO = [
     var end = T + 0.5 + chars / cps;
     KIT.pop(KIT.rect(comp, 'Result chip', 330, 64, 32, C.good, 960, 960), end + 0.2);
     KIT.pop(KIT.text(comp, p.result || '4 rows · 0.21 s', { size: 30, font: F.bold, color: C.white, x: 960, y: 960 }), end + 0.25);
-    var coder = KIT.bar(comp, 1760, 1080, { w: 90, h: 200, color: 'signalBright', name: 'Bright (coding)' });
-    KIT.springUp([coder], T + 0.6);
-    KIT.blink(coder, [T + 1.6, end + 0.3]);
   };
 
   // ---- execution order: a Bar hops along the pipeline ------------------------------------------------
@@ -295,9 +288,9 @@ var SCENES_INFO = [
       KIT.keys(kw2.property('ADBE Transform Group').property('ADBE Opacity'), [[0, 0], [land, 0], [land + 0.08, 100]], 30);
     }
     var top = y - 75;
-    var hopper = KIT.bar(comp, xs[0] - gap, top, { w: 70, h: 120, color: 'signalBright', name: 'Bright (hopping)' });
-    KIT.pop(hopper, T + 0.1);
-    for (i = 0; i < n; i++) KIT.hop(hopper, T + 0.5 + i * each, xs[i], top, 110, 0.42);
+    var marker = KIT.circle(comp, 'Now running', 30, C.warn, xs[0] - gap, top - 20);
+    KIT.pop(marker, T + 0.1);
+    for (i = 0; i < n; i++) KIT.hop(marker, T + 0.5 + i * each, xs[i], top - 20, 80, 0.42);
     KIT.pop(KIT.text(comp, p.result || 'Right numbers, first time', { size: 48, font: F.bold, color: C.good, y: 880 }), T + 0.5 + n * each);
   };
 
@@ -317,9 +310,10 @@ var SCENES_INFO = [
       var x = 560 + (i - (bars.length - 1) / 2) * 180;
       bx.push(x);
       var h = bars[i] / 100 * 380;
-      var b = KIT.bar(comp, x, base, { w: 120, h: h, color: i === pick ? 'signal' : 'signalBright', name: 'Bar ' + labels[i] });
-      KIT.springUp([b], T + 0.4 + i * 0.12);
-      KIT.blink(b, [T + 1.4 + i * 0.3]);
+      var b = KIT.rect(comp, 'Bar ' + labels[i], 120, h, 10, i === pick ? C.signal : C.signalBright, x, base - h / 2);
+      b.property('ADBE Transform Group').property('ADBE Anchor Point').setValue([0, h / 2]);
+      KIT.at(b, x, base);
+      KIT.keys(b.property('ADBE Transform Group').property('ADBE Scale'), [[T + 0.4 + i * 0.12, [100, 0, 100]], [T + 0.75 + i * 0.12, [100, 106, 100]], [T + 0.9 + i * 0.12, [100, 100, 100]]], 70);
       barLayers.push(b);
       KIT.fade(KIT.text(comp, labels[i], { size: 26, font: F.bold, color: C.muted, x: x, y: base + 40 }), T + 0.5 + i * 0.12, T + 0.8 + i * 0.12, 0, 100);
     }
@@ -332,7 +326,7 @@ var SCENES_INFO = [
     for (i = 0; i < barLayers.length; i++) {
       if (i !== pick) KIT.keys(barLayers[i].property('ADBE Transform Group').property('ADBE Opacity'), [[tClick + 0.05, 100], [tClick + 0.3, 30]], 60);
     }
-    KIT.hop(barLayers[pick], tClick + 0.1, bx[pick], base, 40, 0.3);
+    KIT.keys(barLayers[pick].property('ADBE Transform Group').property('ADBE Scale'), [[tClick + 0.05, [100, 100, 100]], [tClick + 0.15, [108, 104, 100]], [tClick + 0.3, [100, 100, 100]]], 60);
     KIT.keys(v1.property('ADBE Transform Group').property('ADBE Opacity'), [[tClick + 0.5, 100], [tClick + 0.65, 0]], 60);
     var v2 = KIT.text(comp, p.after || '$1.6M', { size: 120, font: F.black, color: C.signal, x: 1400, y: 630, name: 'KPI after' });
     KIT.from(v2, tClick + 0.55);
@@ -416,8 +410,6 @@ var SCENES_INFO = [
     var resY = 330 + (Math.max(L.rows.length, R.rows.length) + 1) * 64 + 90;
     KIT.pop(KIT.eyebrow(comp, 'RESULT · ' + result.length + ' ROWS', 960, resY - 50, C.good), tr);
     table(comp, 'Result', cols, result, 960, resY, 210, tr + 0.1, -1, C.good);
-    var judge = KIT.bar(comp, 1790, 1080, { w: 80, h: 150, color: kind === 'left' && result.length > L.rows.length ? 'warn' : 'signalBright', name: 'Bright (watching)', mood: kind === 'left' && result.length > L.rows.length ? 'o' : undefined });
-    KIT.springUp([judge], tr + 0.4);
   };
 
   // ---- end card -------------------------------------------------------------------------------------------
@@ -459,7 +451,5 @@ var SCENES_INFO = [
     enter(comp, p, C.navy, T);
     if (p.kicker) KIT.pop(KIT.eyebrow(comp, p.kicker, 960, 400, C.frost), T + 0.1);
     KIT.pop(KIT.text(comp, p.text || 'A big statement.', { size: 96, font: F.black, color: C.white, y: 540 }), T + 0.25);
-    var b = KIT.bar(comp, 1650, 1080, { w: 100, h: 220, color: 'signalBright', name: 'Bright (nods)' });
-    KIT.springUp([b], T + 0.5);
   };
 }());

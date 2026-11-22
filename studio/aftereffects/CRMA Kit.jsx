@@ -7,6 +7,7 @@
 //   Quick   add Dot, a colour reveal, a lower third or an icon to the ACTIVE comp at the playhead
 #include "kit/lib.jsx"
 #include "kit/scenes.jsx"
+#include "kit/story.jsx"
 #include "kit/film.jsx"
 
 (function (thisObj) {

@@ -7,8 +7,10 @@ After Effects, Premiere Pro and Photoshop, driven from this folder. Two kinds of
 - **Lessons:** you record yourself and the screen; the kit makes the titles, lower thirds and
   the motion shots each lesson's script asks for.
 
-Everything is in the Academy's design: navy and signal blue, Figtree, flat 2D shapes with bouncy
-motion, and **the Bars**: the logo's three bars as characters (Frosty, Bright, Big Blue).
+Everything is in the Academy's design: navy and signal blue, Figtree, flat shapes in a real 3D
+space (a moving camera, depth, flip/zoom/swing transitions), and **the Bars**, the logo's three
+bars as characters (Frosty, Bright, Big Blue). The Bars appear on openers, titles and the end
+card only, never on screens or data.
 
 ## Films
 
@@ -21,7 +23,8 @@ node studio/build-film.mjs kit-preview         # test reel of the other scene ty
 ```
 
 A film is a JSON spec in `films/`. Each scene has the line it speaks (`vo`), a scene `type`,
-its `props`, how it enters (`transition`: `reveal`, `bars`, `push`, `none`) and sound effects
+its `props`, how it enters (`transition`: inside the scene `reveal`, `bars`, `push`, `none`; or
+moving whole scenes in 3D `flip3d`, `zoom3d`, `swing3d`) and sound effects
 (`sfx`, seconds from the scene start). The voice sets each scene's length. One run:
 
 1. **Voice-over:** macOS speech, one file per scene, levelled. Install a better voice once
@@ -32,7 +35,8 @@ its `props`, how it enters (`transition`: `reveal`, `bars`, `push`, `none`) and 
 3. **Sound effects:** pops, whooshes, dings, typing, synthesised by `audio/synth.py` (no licences).
 4. **Screens:** `screens.mjs` captures live site pages at 2× with ads blocked.
 5. **After Effects:** one precomp per scene, a MASTER comp, VO/music/SFX layers with the ducking
-   as keyframes. Saved as `workspace/06-graphics/<film>.aep`.
+   as keyframes. Saved as `workspace/06-graphics/<film>.aep`. If that project is open with unsaved
+   changes, they are kept first as `<film>-edited-<time>.aep`.
 6. **Render:** `aerender` plus the mix → `workspace/08-export/<film>.mp4`.
 7. **Premiere:** `workspace/07-edit/<film>.xml`. In Premiere, *File → Import* it: video on V1,
    VO, music (with the duck keyframes) and SFX on separate tracks, ready to re-cut.
@@ -53,6 +57,12 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | Scene type | Shows |
 |---|---|
 | `barsHello`, `logoTitle`, `titleCard`, `quote`, `endCard` | Openers, titles, statements, the end card |
+| `signupStory` | A sign-up on the site becomes a Lead (3D browser, record card flies out) |
+| `learnSalesforce` | A Lead record, its fields and owner, then Convert → Account, Contact, Opportunity |
+| `integration` | Salesforce → Data Sync → Recipe → Dataset → Dashboard → Lightning page, camera tracking |
+| `dashboard3D` | A full dashboard (KPIs, leads by source, conversion funnel) assembling in 3D |
+| `securityPredicate` | One dataset, a predicate, each rep's rows flying to their own view |
+| `sharingEmbed` | The dashboard embedded on the Lead page, on mobile, shared with the team |
 | `browserShot` | A site page in a browser window: pan, cursor click, callout chips |
 | `screenDeck` | Pages sliding in one after another, each with a big label |
 | `coursePath` | The sections as a road, a Bar hopping from stop to stop |

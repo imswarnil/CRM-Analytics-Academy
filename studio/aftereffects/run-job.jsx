@@ -3,6 +3,7 @@
 // ExtendScript cannot take command-line arguments, hence the file.
 #include "kit/lib.jsx"
 #include "kit/scenes.jsx"
+#include "kit/story.jsx"
 #include "kit/film.jsx"
 
 (function () {

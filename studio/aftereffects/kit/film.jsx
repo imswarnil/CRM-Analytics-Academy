@@ -16,6 +16,50 @@ KIT.importAudio = function (path, folder) {
   return it;
 };
 
+// Transitions between scenes that move the scenes themselves in 3D (in MASTER).
+KIT.MASTER_T = { flip3d: true, zoom3d: true, swing3d: true };
+KIT.masterTransitions = function (master, layers, scenes) {
+  var any = false;
+  var i;
+  for (i = 1; i < scenes.length; i++) if (KIT.MASTER_T[scenes[i].transition]) any = true;
+  if (!any) return;
+  for (i = 0; i < layers.length; i++) layers[i].threeDLayer = true;
+  KIT.camera(master);
+  var cx = master.width / 2;
+  var cy = master.height / 2;
+  for (i = 1; i < scenes.length; i++) {
+    var kind = scenes[i].transition;
+    if (!KIT.MASTER_T[kind]) continue;
+    var A = layers[i - 1].property('ADBE Transform Group');
+    var B = layers[i].property('ADBE Transform Group');
+    var t1 = scenes[i].start;
+    var t0 = t1 - KIT.OVERLAP;
+    var mid = t0 + KIT.OVERLAP / 2;
+    if (kind === 'zoom3d') {
+      // The old scene flies past the camera; the new one rushes up from depth.
+      KIT.keys(A.property('ADBE Position'), [[t0, [cx, cy, 0]], [t1, [cx, cy, -1500]]], 70);
+      KIT.keys(A.property('ADBE Opacity'), [[t0 + 0.1, 100], [t1, 0]], 40);
+      KIT.keys(B.property('ADBE Position'), [[t0, [cx, cy, 2600]], [t1, [cx, cy, 0]]], 85);
+      KIT.keys(B.property('ADBE Opacity'), [[t0, 0], [t0 + 0.2, 100]], 40);
+    } else if (kind === 'flip3d') {
+      // A card flip: the old scene turns away, the new one turns in.
+      KIT.keys(A.property('ADBE Rotate Y'), [[t0, 0], [mid, 90]], 80);
+      A.property('ADBE Opacity').setValueAtTime(mid, 100);
+      A.property('ADBE Opacity').setValueAtTime(mid + 0.01, 0);
+      KIT.keys(B.property('ADBE Rotate Y'), [[mid, -90], [t1, 0]], 80);
+      B.property('ADBE Opacity').setValueAtTime(mid - 0.01, 0);
+      B.property('ADBE Opacity').setValueAtTime(mid, 100);
+    } else if (kind === 'swing3d') {
+      // A door: the new scene swings in from its left edge over the old one.
+      B.property('ADBE Anchor Point').setValue([0, cy, 0]);
+      B.property('ADBE Position').setValue([0, cy, 0]);
+      // Swings toward the camera, so it passes in front of the old scene.
+      KIT.keys(B.property('ADBE Rotate Y'), [[t0, 80], [t1, 0]], 60);
+      KIT.keys(A.property('ADBE Opacity'), [[t0 + 0.2, 100], [t1, 40]], 40);
+    }
+  }
+};
+
 KIT.onlyKitItems = function () {
   for (var i = 1; i <= app.project.numItems; i++) {
     var it = app.project.item(i);
@@ -37,7 +81,15 @@ KIT.buildFilm = function (job, log) {
   var tl = KIT.readJSON(job.timeline);
   // Never throw away someone's work: only replace an empty project, a saved
   // one, or one holding nothing but what this kit made (folders named "CRMA …").
-  if (app.project.numItems > 0 && (app.project.file === null || app.project.dirty) && !KIT.onlyKitItems()) {
+  var target = new File(tl.workspace + '/06-graphics/' + tl.slug + '.aep');
+  if (app.project.dirty && app.project.file && app.project.file.fsName === target.fsName) {
+    // The film being rebuilt has unsaved changes (maybe yours): keep them as a copy.
+    var d = new Date();
+    var stamp = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '-' + ('0' + d.getHours()).slice(-2) + ('0' + d.getMinutes()).slice(-2);
+    var keep = new File(tl.workspace + '/06-graphics/' + tl.slug + '-edited-' + stamp + '.aep');
+    app.project.save(keep);
+    log.push('kept your unsaved changes as ' + keep.fsName);
+  } else if (app.project.numItems > 0 && (app.project.file === null || app.project.dirty) && !KIT.onlyKitItems()) {
     throw new Error('The open After Effects project has unsaved work. Save or close it, then run again.');
   }
   if (app.project.numItems > 0) app.project.close(CloseOptions.DO_NOT_SAVE_CHANGES);
@@ -51,19 +103,23 @@ KIT.buildFilm = function (job, log) {
   KIT.screensDir = tl.screens;
   KIT.screensFolder = KIT.folder('Screens', root);
   KIT.footage = {};
-  var master = KIT.comp('MASTER', tl.total, KIT.C.paper, root);
+  var master = KIT.comp('MASTER', tl.total, KIT.C.navyDeep, root);
   var i;
+  var layers = [];
   for (i = 0; i < tl.scenes.length; i++) {
     var s = tl.scenes[i];
     var props = s.props || {};
-    props._transition = s.transition || 'reveal';
+    // 3D transitions happen in MASTER; the scene then draws its own full background.
+    props._transition = KIT.MASTER_T[s.transition] ? 'none' : (s.transition || 'reveal');
     props._credit = tl.credit;
     var sc = KIT.buildScene(s.type, props, s.duration, fScenes, (i < 9 ? '0' : '') + (i + 1) + ' ' + s.id);
     var L = master.layers.add(sc);
     L.startTime = s.start - KIT.OVERLAP;
     L.name = sc.name;
+    layers.push(L);
     log.push('scene ' + sc.name + ' @ ' + s.start.toFixed(2));
   }
+  KIT.masterTransitions(master, layers, tl.scenes);
   // Audio: VO per scene, music with the same duck keyframes as the mix, SFX at their cues.
   for (i = 0; i < tl.scenes.length; i++) {
     var v = master.layers.add(KIT.importAudio(tl.scenes[i].voFile, fVo));

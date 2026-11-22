@@ -585,6 +585,25 @@ KIT.icon = function (comp, name, x, y, size, color, bg) {
     KIT.rectIn(bars, 6 * s, 16 * s, 0, 0, 1 * s);
     KIT.rectIn(bars, 6 * s, 22 * s, 0, 10 * s, -2 * s);
     KIT.fill(bars, c);
+  } else if (name === 'user') {
+    KIT.ellipseIn(g, 22 * s, 22 * s, 0, -10 * s);
+    KIT.pathIn(g, scalePts([[-20, 22], [-20, 16], [0, 6], [20, 16], [20, 22]]), true, scalePts([[0, 0], [0, -8], [-12, 0], [0, -8], [0, 0]]), scalePts([[0, -8], [12, 0], [0, 8], [0, 0], [0, 0]]));
+    KIT.fill(g, c);
+  } else if (name === 'lock') {
+    KIT.rectIn(g, 36 * s, 28 * s, 6 * s, 0, 8 * s);
+    KIT.fill(g, c);
+    var sh2 = KIT.group(L, 'Shackle');
+    KIT.pathIn(sh2, scalePts([[-11, -4], [-11, -14], [11, -14], [11, -4]]), false, scalePts([[0, 0], [0, 0], [0, -12], [0, 0]]), scalePts([[0, 0], [0, -12], [0, 0], [0, 0]]));
+    KIT.stroke(sh2, c, w);
+  } else if (name === 'sync') {
+    KIT.ellipseIn(g, 40 * s, 40 * s);
+    KIT.stroke(g, c, w);
+    var tr3 = KIT.trim(g);
+    tr3.property('ADBE Vector Trim Start').setValue(8);
+    tr3.property('ADBE Vector Trim End').setValue(78);
+    var ar = KIT.group(L, 'Arrow');
+    KIT.pathIn(ar, scalePts([[14, -24], [24, -14], [10, -10]]), true);
+    KIT.fill(ar, c);
   } else if (name === 'code') {
     P([[-8, -14], [-22, 0], [-8, 14]], false);
     KIT.stroke(g, c, w);
@@ -654,4 +673,165 @@ KIT.cursor = function (comp, from, to, t, color) {
   KIT.keys(r.property('ADBE Transform Group').property('ADBE Opacity'), [[t, 100], [t + 0.4, 0]], 40);
   r.moveAfter(L);
   return L;
+};
+
+// ---- 3D: camera, depth, grouping ----------------------------------------------------------------
+// Build a scene flat (2D keys are simpler), then KIT.to3D(comp) turns every
+// layer 3D except the backdrop (names starting BG / Blob / Sweep), and
+// KIT.camera adds a two-node camera that starts where a 2D view would.
+KIT.ZOOM = 2666.7;
+KIT.to3D = function (comp) {
+  var flat = [];
+  for (var i = 1; i <= comp.numLayers; i++) {
+    var L = comp.layer(i);
+    if (L instanceof CameraLayer || L instanceof LightLayer) continue;
+    if (L.comment === 'keep2d') flat.push(L);
+    if (/^(BG|Blob|Sweep)/.test(L.name) || L.comment === 'keep2d') continue;
+    try {
+      L.threeDLayer = true;
+    } catch (e) {
+      // audio and the like stay as they are
+    }
+  }
+  // Flat titles go on top of everything the camera moves.
+  for (i = flat.length - 1; i >= 0; i--) flat[i].moveToBeginning();
+};
+KIT.front = function (layers, z) {
+  for (var i = 0; i < layers.length; i++) KIT.setZ(layers[i], z === undefined ? -150 : z);
+};
+// keys: [[t, [x, y, z], [poiX, poiY, poiZ]], …]
+KIT.camera = function (comp, keys, influence) {
+  var cam = comp.layers.addCamera('Camera', [comp.width / 2, comp.height / 2]);
+  cam.property('ADBE Camera Options Group').property('ADBE Camera Zoom').setValue(KIT.ZOOM);
+  var p = cam.property('ADBE Transform Group').property('ADBE Position');
+  var poi = cam.property('ADBE Transform Group').property('ADBE Anchor Point');
+  if (!keys || !keys.length) keys = [[0, [comp.width / 2, comp.height / 2, -KIT.ZOOM], [comp.width / 2, comp.height / 2, 0]]];
+  if (keys.length === 1) {
+    p.setValue(keys[0][1]);
+    poi.setValue(keys[0][2]);
+  } else {
+    for (var i = 0; i < keys.length; i++) {
+      p.setValueAtTime(keys[i][0], keys[i][1]);
+      poi.setValueAtTime(keys[i][0], keys[i][2]);
+    }
+    KIT.easeAll(p, influence || 70);
+    KIT.easeAll(poi, influence || 70);
+  }
+  return cam;
+};
+// A camera position orbiting (cx, cy, 0) by `yaw` degrees left/right and `pitch` up/down.
+KIT.orbitPos = function (cx, cy, yaw, pitch, dist) {
+  var d = dist || KIT.ZOOM;
+  var a = yaw * Math.PI / 180;
+  var b = pitch * Math.PI / 180;
+  return [cx + Math.sin(a) * Math.cos(b) * d, cy - Math.sin(b) * d, -Math.cos(a) * Math.cos(b) * d];
+};
+// Several layers moved as one: a null at (x, y) becomes their parent.
+KIT.bundle = function (comp, name, layers, x, y) {
+  var n = comp.layers.addNull();
+  n.name = name;
+  n.enabled = false;
+  KIT.at(n, x, y);
+  for (var i = 0; i < layers.length; i++) layers[i].parent = n;
+  return n;
+};
+// After KIT.to3D: fly a 3D layer in from depth z (and a tilt) to its place.
+KIT.flyIn = function (layer, t, z, tilt, d) {
+  var p = layer.property('ADBE Transform Group').property('ADBE Position');
+  var v = p.value;
+  KIT.keys(p, [[t, [v[0], v[1], z === undefined ? 800 : z]], [t + (d || 0.7), [v[0], v[1], v[2] || 0]]], 85);
+  if (tilt) KIT.keys(layer.property('ADBE Transform Group').property('ADBE Rotate X'), [[t, tilt], [t + (d || 0.7), 0]], 85);
+  KIT.keys(layer.property('ADBE Transform Group').property('ADBE Opacity'), [[t, 0], [t + 0.2, 100]], 50);
+};
+KIT.setZ = function (layer, z) {
+  var p = layer.property('ADBE Transform Group').property('ADBE Position');
+  var v = p.value;
+  p.setValue([v[0], v[1], z]);
+};
+
+// ---- props ------------------------------------------------------------------------------------------
+// A person: coloured circle with initials.
+KIT.avatar = function (comp, initials, x, y, d, color) {
+  var c = KIT.circle(comp, 'Avatar ' + initials, d || 90, color || KIT.C.signal, x, y);
+  var t = KIT.text(comp, initials, { size: (d || 90) * 0.38, font: KIT.F.black, color: KIT.C.white, x: x, y: y });
+  t.parent = c;
+  return c;
+};
+// A soft cloud (a generic cloud, never a company's logo).
+KIT.cloud = function (comp, name, x, y, w, color) {
+  var L = KIT.shapeLayer(comp, name || 'Cloud');
+  var g = KIT.group(L, 'Cloud');
+  var s = (w || 420) / 420;
+  KIT.ellipseIn(g, 200 * s, 200 * s, -80 * s, -10 * s);
+  KIT.ellipseIn(g, 240 * s, 240 * s, 40 * s, -40 * s);
+  KIT.ellipseIn(g, 170 * s, 170 * s, 140 * s, 20 * s);
+  KIT.ellipseIn(g, 150 * s, 150 * s, -150 * s, 30 * s);
+  KIT.rectIn(g, 300 * s, 110 * s, 55 * s, 0, 50 * s);
+  var m = g.property('ADBE Vectors Group').addProperty('ADBE Vector Filter - Merge');
+  m.property('ADBE Vector Merge Type').setValue(2);
+  KIT.fill(g, color || KIT.C.white);
+  return KIT.at(L, x, y);
+};
+// A Salesforce-style record card: object label, title, field rows. Returns its bundle (null).
+KIT.record = function (comp, obj, title, fields, x, y, w, t, color) {
+  w = w || 460;
+  var rowH = 52;
+  var h = 120 + fields.length * rowH;
+  var layers = [];
+  var card = KIT.card(comp, obj + ' card', w, h, x, y);
+  layers.push(card);
+  var strip = KIT.rect(comp, obj + ' strip', w, 10, 4, color || KIT.C.signal, x, y - h / 2 + 5);
+  layers.push(strip);
+  var ic = KIT.icon(comp, obj === 'Lead' ? 'user' : obj === 'Opportunity' ? 'brief' : obj === 'Contact' ? 'user' : 'db', x - w / 2 + 50, y - h / 2 + 62, 64, KIT.C.white, color || KIT.C.signal);
+  layers.push(ic);
+  layers.push(KIT.text(comp, obj.toUpperCase(), { size: 20, font: KIT.F.bold, color: color || KIT.C.signal, tracking: 120, x: x - w / 2 + 96, y: y - h / 2 + 46, align: 'left' }));
+  layers.push(KIT.text(comp, title, { size: 32, font: KIT.F.black, color: KIT.C.navy, x: x - w / 2 + 96, y: y - h / 2 + 80, align: 'left' }));
+  for (var i = 0; i < fields.length; i++) {
+    var fy = y - h / 2 + 130 + i * rowH;
+    var k = KIT.text(comp, fields[i][0], { size: 22, font: KIT.F.medium, color: KIT.C.muted, x: x - w / 2 + 30, y: fy, align: 'left' });
+    var v = KIT.text(comp, fields[i][1], { size: 26, font: KIT.F.bold, color: KIT.C.navy, x: x + w / 2 - 30, y: fy, align: 'right' });
+    if (t !== undefined) {
+      KIT.fade(k, t + 0.3 + i * 0.12, t + 0.45 + i * 0.12, 0, 100);
+      KIT.fade(v, t + 0.35 + i * 0.12, t + 0.5 + i * 0.12, 0, 100);
+    }
+    layers.push(k, v);
+  }
+  var b = KIT.bundle(comp, obj + ': ' + title, layers, x, y);
+  if (t !== undefined) KIT.pop(b, t);
+  return b;
+};
+// A phone with a little dashboard on it. Returns its bundle.
+KIT.phone = function (comp, x, y, h, t) {
+  var w = h * 0.5;
+  var layers = [];
+  layers.push(KIT.rect(comp, 'Phone body', w, h, w * 0.16, KIT.C.navyDeep, x, y));
+  layers.push(KIT.rect(comp, 'Phone screen', w - 22, h - 22, w * 0.12, KIT.C.paper, x, y));
+  layers.push(KIT.rect(comp, 'Phone notch', w * 0.32, 18, 9, KIT.C.navyDeep, x, y - h / 2 + 22));
+  layers.push(KIT.text(comp, 'Academy Leads', { size: h * 0.04, font: KIT.F.black, color: KIT.C.navy, x: x, y: y - h * 0.36 }));
+  layers.push(KIT.text(comp, '1,284', { size: h * 0.085, font: KIT.F.black, color: KIT.C.signal, x: x, y: y - h * 0.24 }));
+  var hs = [0.5, 0.85, 0.35, 0.65];
+  for (var i = 0; i < 4; i++) {
+    var bh = h * 0.28 * hs[i];
+    var b = KIT.rect(comp, 'Phone bar ' + (i + 1), w * 0.13, bh, 6, [KIT.C.frost, KIT.C.signal, KIT.C.signalBright, KIT.C.signal][i], x - w * 0.3 + i * w * 0.2, y + h * 0.2 - bh / 2);
+    layers.push(b);
+  }
+  layers.push(KIT.rect(comp, 'Phone line', w * 0.7, 10, 5, KIT.C.line, x, y + h * 0.3));
+  layers.push(KIT.rect(comp, 'Phone line 2', w * 0.5, 10, 5, KIT.C.line, x - w * 0.1, y + h * 0.36));
+  var n = KIT.bundle(comp, 'Phone', layers, x, y);
+  if (t !== undefined) KIT.pop(n, t);
+  return n;
+};
+// A small dashboard card (for stations, embeds). Returns its bundle.
+KIT.miniDash = function (comp, name, x, y, w, h, t) {
+  var layers = [KIT.card(comp, name + ' card', w, h, x, y)];
+  layers.push(KIT.rect(comp, name + ' header', w * 0.5, 14, 7, KIT.C.navy, x - w * 0.18, y - h * 0.36));
+  layers.push(KIT.rect(comp, name + ' kpi', w * 0.26, h * 0.2, 8, KIT.C.ice, x + w * 0.3, y - h * 0.3));
+  var hs = [0.45, 0.8, 0.3, 0.62, 0.95];
+  for (var i = 0; i < 5; i++) {
+    var bh = h * 0.42 * hs[i];
+    layers.push(KIT.rect(comp, name + ' bar ' + (i + 1), w * 0.1, bh, 5, i === 4 ? KIT.C.signal : KIT.C.signalBright, x - w * 0.32 + i * w * 0.16, y + h * 0.34 - bh / 2));
+  }
+  var n = KIT.bundle(comp, name, layers, x, y);
+  if (t !== undefined) KIT.pop(n, t);
+  return n;
 };
