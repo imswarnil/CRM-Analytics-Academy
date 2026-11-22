@@ -21,8 +21,19 @@ node studio/build-film.mjs intro               # the 1-minute promo: everything,
 node studio/build-film.mjs intro --no-render   # stop after the After Effects project
 node studio/build-film.mjs intro --audio       # voice-over, music and mix only
 node studio/build-film.mjs intro --screens     # also capture the site screenshots again
+node studio/build-film.mjs trailer             # the channel trailer (flat, the CRM Analytics app itself)
 node studio/build-film.mjs kit-preview         # test reel of the other scene types
 ```
+
+**The channel trailer** (`films/trailer.json`, 1:27) has no camera moves: the whole film is one
+CRM Analytics app (`kit/platform.jsx`): an app header, a dashboard's page tabs, widgets.
+Scenes change like tabs (`transition: tab`: the underline slides, a loading line runs, the
+widgets arrive). Story: hook → you → why learn → how you learn (a recipe that runs) → real data
+(Explorer, chart types swapping) → the path → Query mode → prove it → start → you → end screen.
+**Your camera clips:** a scene with `"clip": "clip-01-hello"` plays
+`workspace/01-camera/trailer/clip-01-hello.mov` (or .mp4/.m4v) full frame, with the music ducked
+under it, and grows to fit it. Until the file exists it shows a placeholder saying what to record.
+`films/trailer-clips.md` is the brief.
 
 A film is a JSON spec in `films/`. Without `voice` it is **text and music only** (the intro):
 each scene lasts `bars` bars of the music (`music.bar` seconds; Dizzy is ≈103 BPM, 2.34 s a bar), so
@@ -92,6 +103,14 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | `joins` | Two tables, keys matching, the result building (`lookup`, `left`, `inner`) |
 | `bindings` | A chart made of Bars, a click, the KPI changing through a binding |
 | `lowerThird` | Name and role |
+| `appHook` | Trailer hook: two statements, then a dashboard builds itself on the beat |
+| `whyLearn` | Four reasons, each a widget with its own small chart |
+| `approach` | How you learn as a recipe: Watch → Build → Check → Practise → Ship, Run ticks every step |
+| `realData` | Explorer: query fields, then the chart swaps bar → donut → line |
+| `pathList` | The sections as a list widget, progress filling, KPI widgets |
+| `queryMode` | SAQL typed in Query mode, Run, the results land, a toast |
+| `proveIt` | Exam score gauge, interview questions, the capstone certificate |
+| `clipSlot` | Your camera clip with a name card, or a placeholder until it exists |
 
 ## Install into the apps (once)
 

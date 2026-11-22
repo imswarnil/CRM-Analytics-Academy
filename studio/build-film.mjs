@@ -57,12 +57,35 @@ const voice = spec.voice
   : null
 if (!voice) console.log('no voice-over: text and music only')
 
+// Camera clips (scene `clip`: a file name without extension) live in
+// workspace/01-camera/<slug>/. Missing → the scene shows a placeholder that
+// says what to record; present → the clip plays and the scene grows to whole
+// bars long enough for it, the music ducking under your voice.
+const camDir = path.join(WS, '01-camera', slug)
+mkdirSync(camDir, { recursive: true })
+const findClip = base => ['mov', 'mp4', 'm4v', 'MOV', 'MP4', 'M4V'].map(e => path.join(camDir, `${base}.${e}`)).find(existsSync)
+const hasAudio = f => run('ffprobe', ['-v', 'error', '-select_streams', 'a', '-show_entries', 'stream=index', '-of', 'csv=p=0', f]).trim() !== ''
+
 let t = 0
 const frame = x => Math.round(x * 30) / 30
 const scenes = spec.scenes.map((s, i) => {
   if (!voice || !s.vo) {
-    const dur = frame(s.bars ? s.bars * spec.music.bar : (s.seconds ?? 5))
-    const scene = { ...s, index: i, start: frame(t), duration: dur, voStart: 0, voDuration: 0, voFile: null, voEnv: [] }
+    let bars = s.bars
+    const props = { ...(s.props ?? {}) }
+    let clip = null
+    if (s.clip) {
+      const file = findClip(s.clip)
+      props.file = `${s.clip}.mov`
+      if (file) {
+        const d = duration(file)
+        bars = Math.max(bars ?? 1, Math.ceil((d + 0.3) / spec.music.bar))
+        props._clip = file
+        clip = { file, duration: d, audio: hasAudio(file) }
+        console.log(`clip: ${s.clip} (${d.toFixed(1)} s) → ${bars} bars`)
+      } else console.log(`clip: ${s.clip} missing → placeholder (drop it in ${path.relative(process.cwd(), camDir)}/)`)
+    }
+    const dur = frame(bars ? bars * spec.music.bar : (s.seconds ?? 5))
+    const scene = { ...s, props, index: i, start: frame(t), duration: dur, voStart: 0, voDuration: 0, voFile: null, voEnv: [], clipFile: clip?.file ?? null, clipDuration: clip ? Math.min(clip.duration, dur) : 0, clipAudio: !!clip?.audio }
     t += dur
     return scene
   }
@@ -110,15 +133,25 @@ for (const s of scenes.filter(x => x.voFile)) {
   const b = a + s.voDuration
   duck.push([a - ramp, spec.music.gainDb], [a, spec.music.duckDb], [b, spec.music.duckDb], [b + ramp * 2, spec.music.gainDb])
 }
+for (const s of scenes.filter(x => x.clipAudio)) {
+  const a = s.start
+  const b = a + s.clipDuration
+  duck.push([a - ramp, spec.music.gainDb], [a, spec.music.duckDb], [b, spec.music.duckDb], [b + ramp * 2, spec.music.gainDb])
+}
+duck.sort((x, y) => x[0] - y[0])
 const sfxCues = spec.sfx === false ? [] : scenes.flatMap(s => (s.sfx ?? []).map(c => ({ at: Math.max(0, Math.round((s.start + c.at) * 1000) / 1000), name: c.name, file: path.join(dirs.sfx, `${c.name}.wav`) })))
 
 // ---- 3. the mix (for Premiere and the render) ----------------------------------------
-const voScenes = scenes.filter(s => s.voFile)
-const inputs = ['-i', music, ...voScenes.flatMap(s => ['-i', s.voFile]), ...sfxCues.flatMap(c => ['-i', c.file])]
-const nVo = voScenes.length
+// Voices: the voice-over lines and the audio of your camera clips.
+const voices = [
+  ...scenes.filter(s => s.voFile).map(s => ({ file: s.voFile, at: s.start + s.voStart, af: '' })),
+  ...scenes.filter(s => s.clipAudio).map(s => ({ file: s.clipFile, at: s.start, af: `atrim=0:${s.clipDuration.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=7,` }))
+]
+const inputs = ['-i', music, ...voices.flatMap(v => ['-i', v.file]), ...sfxCues.flatMap(c => ['-i', c.file])]
+const nVo = voices.length
 const f = []
-voScenes.forEach((s, i) => f.push(`[${i + 1}:a]adelay=${Math.round((s.start + s.voStart) * 1000)}:all=1,pan=stereo|c0=c0|c1=c0[v${i}]`))
-if (nVo) f.push(`${voScenes.map((_, i) => `[v${i}]`).join('')}amix=inputs=${nVo}:normalize=0,asplit=2[vo][vosc]`)
+voices.forEach((v, i) => f.push(`[${i + 1}:a]${v.af}aformat=sample_rates=48000:channel_layouts=stereo,adelay=${Math.round(v.at * 1000)}:all=1[v${i}]`))
+if (nVo) f.push(`${voices.map((_, i) => `[v${i}]`).join('')}amix=inputs=${nVo}:normalize=0,asplit=2[vo][vosc]`)
 // Volume envelope from the duck keyframes (linear between points, in dB).
 const env = duck.map(([tt, db], i) => {
   const [t2, db2] = duck[i + 1] ?? [total + 10, db]

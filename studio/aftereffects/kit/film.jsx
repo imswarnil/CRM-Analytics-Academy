@@ -65,6 +65,8 @@ KIT.onlyKitItems = function () {
     var it = app.project.item(i);
     var top = it;
     while (top.parentFolder && top.parentFolder !== app.project.rootFolder) top = top.parentFolder;
+    // "Solids" is where After Effects files the kit's null layers.
+    if (top instanceof FolderItem && top.name === 'Solids') continue;
     if (!(top instanceof FolderItem) || top.name.indexOf('CRMA') !== 0) return false;
   }
   return true;
@@ -82,14 +84,15 @@ KIT.buildFilm = function (job, log) {
   // Never throw away someone's work: only replace an empty project, a saved
   // one, or one holding nothing but what this kit made (folders named "CRMA …").
   var target = new File(tl.workspace + '/06-graphics/' + tl.slug + '.aep');
-  if (app.project.dirty && app.project.file && app.project.file.fsName === target.fsName) {
+  var kitOnly = app.project.numItems > 0 && KIT.onlyKitItems();
+  if (app.project.dirty && app.project.file && (app.project.file.fsName === target.fsName || kitOnly)) {
     // The film being rebuilt has unsaved changes (maybe yours): keep them as a copy.
     var d = new Date();
     var stamp = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '-' + ('0' + d.getHours()).slice(-2) + ('0' + d.getMinutes()).slice(-2);
-    var keep = new File(tl.workspace + '/06-graphics/' + tl.slug + '-edited-' + stamp + '.aep');
+    var keep = new File(app.project.file.fsName.replace(/\.aep$/i, '') + '-edited-' + stamp + '.aep');
     app.project.save(keep);
     log.push('kept your unsaved changes as ' + keep.fsName);
-  } else if (app.project.numItems > 0 && (app.project.file === null || app.project.dirty) && !KIT.onlyKitItems()) {
+  } else if (app.project.numItems > 0 && (app.project.file === null || app.project.dirty) && !kitOnly) {
     throw new Error('The open After Effects project has unsaved work. Save or close it, then run again.');
   }
   if (app.project.numItems > 0) app.project.close(CloseOptions.DO_NOT_SAVE_CHANGES);
@@ -112,6 +115,7 @@ KIT.buildFilm = function (job, log) {
     // 3D transitions happen in MASTER; the scene then draws its own full background.
     props._transition = KIT.MASTER_T[s.transition] ? 'none' : (s.transition || 'reveal');
     props._credit = tl.credit;
+    props._film = tl.slug;
     props._beat = tl.beat || 0.585;
     // The scene's own voice, for lip sync: starts voStart after the scene does, 15 values a second.
     props._vo = { at: s.voStart, env: s.voEnv || [], fps: 15 };

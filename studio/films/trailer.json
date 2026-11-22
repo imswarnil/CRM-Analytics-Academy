@@ -1,0 +1,125 @@
+{
+  "title": "CRM Analytics Academy — channel trailer",
+  "slug": "trailer",
+  "note": "Flat, no camera moves: the whole trailer is one CRM Analytics app (kit/platform.jsx). Scenes switch like dashboard tabs (`transition: tab`). Text and music only, plus your camera clips: `clip` names a file in workspace/01-camera/trailer/ (any of .mov .mp4 .m4v); until it exists the scene is a placeholder saying what to record (see trailer-clips.md). A clip longer than its `bars` stretches the scene to whole bars, and the music ducks under it.",
+  "music": {
+    "file": "/Users/swarnil/Movies/YouTube/03 Assets/Music/dizzy-by-joakim-karud.mp3",
+    "start": 0.1,
+    "bar": 2.34,
+    "gainDb": 0,
+    "duckDb": -15,
+    "credit": "Music: Dizzy by Joakim Karud"
+  },
+  "sfx": false,
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "appHook",
+      "transition": "none",
+      "bars": 4,
+      "props": {
+        "tab": 0,
+        "lines": ["Every company has *the data.*", "Few can make it *answer.*"],
+        "pill": "Someone has to build this. Why not you?"
+      }
+    },
+    {
+      "id": "hello",
+      "type": "clipSlot",
+      "transition": "slices",
+      "bars": 3,
+      "clip": "clip-01-hello",
+      "props": {
+        "n": 1,
+        "title": "Hi, I'm Swarnil",
+        "say": "Hi, I'm Swarnil. On this channel I teach CRM Analytics end to end, the way it's used at work, on real data.",
+        "notes": [
+          "6 to 8 seconds, one take, smile, then talk",
+          "Landscape 16:9, 1080p or 4K, any frame rate",
+          "Eye level, you on the left third (the name card sits bottom left)",
+          "Soft light from the front, tidy background",
+          "Clip-on or USB mic close to you, no music in the recording"
+        ],
+        "lower": { "name": "Swarnil Singhai", "role": "CRM Analytics Academy" }
+      }
+    },
+    {
+      "id": "why",
+      "type": "whyLearn",
+      "transition": "slices",
+      "bars": 4,
+      "props": { "tab": 0 }
+    },
+    {
+      "id": "approach",
+      "type": "approach",
+      "transition": "tab",
+      "bars": 4,
+      "props": { "tab": 1, "from": 0 }
+    },
+    {
+      "id": "data",
+      "type": "realData",
+      "transition": "tab",
+      "bars": 4,
+      "props": { "tab": 2, "from": 1 }
+    },
+    {
+      "id": "path",
+      "type": "pathList",
+      "transition": "tab",
+      "bars": 3,
+      "props": { "tab": 3, "from": 2 }
+    },
+    {
+      "id": "query",
+      "type": "queryMode",
+      "transition": "tab",
+      "bars": 3,
+      "props": { "tab": 4, "from": 3 }
+    },
+    {
+      "id": "prove",
+      "type": "proveIt",
+      "transition": "tab",
+      "bars": 3,
+      "props": { "tab": 5, "from": 4 }
+    },
+    {
+      "id": "start",
+      "type": "kinetic",
+      "transition": "slices",
+      "bars": 2,
+      "props": {
+        "lines": ["Start with", "*lesson one.*"],
+        "sub": "crmanalytics.imswarnil.com",
+        "bg": "navy",
+        "icons": ["play", "check", "star", "award"]
+      }
+    },
+    {
+      "id": "cta",
+      "type": "clipSlot",
+      "transition": "push",
+      "bars": 3,
+      "clip": "clip-02-subscribe",
+      "props": {
+        "n": 2,
+        "title": "Subscribe, then build with me",
+        "say": "Subscribe, open lesson one, and build it with me. See you inside.",
+        "notes": [
+          "4 to 6 seconds, same setup as clip 01",
+          "Point toward the right of the frame at 'subscribe' (the button appears there)",
+          "End on a smile and hold one second before you stop recording"
+        ]
+      }
+    },
+    {
+      "id": "end",
+      "type": "endScreen",
+      "transition": "reveal",
+      "bars": 4,
+      "props": { "next": "Lesson 1 · Objects, fields and relationships" }
+    }
+  ]
+}
