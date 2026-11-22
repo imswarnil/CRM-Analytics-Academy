@@ -82,6 +82,8 @@
   // stays private.
   // NOTE: the CI deploy token needs the "Workers R2 Storage: Edit"
   // permission for this binding to pass validation in Actions.
+  // Hourly: the email journeys (server/tasks/email/journeys.ts).
+  "triggers": { "crons": ["0 * * * *"] },
   "r2_buckets": [
     { "binding": "MEDIA", "bucket_name": "crm-analytics-academy" }
   ]

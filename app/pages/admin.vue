@@ -17,7 +17,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Tab = 'overview' | 'leads' | 'teams' | 'users' | 'submissions' | 'interview' | 'comments' | 'integrations'
+type Tab = 'overview' | 'leads' | 'teams' | 'users' | 'submissions' | 'interview' | 'comments' | 'emails' | 'integrations'
 const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
   { key: 'leads', label: 'Leads', icon: 'i-lucide-handshake' },
@@ -26,6 +26,7 @@ const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
   { key: 'interview', label: 'Interview Q&A', icon: 'i-lucide-messages-square' },
   { key: 'comments', label: 'Comments', icon: 'i-lucide-message-square' },
+  { key: 'emails', label: 'Emails', icon: 'i-lucide-mail' },
   { key: 'integrations', label: 'Integrations', icon: 'i-lucide-plug' }
 ]
 const route = useRoute()
@@ -224,7 +225,7 @@ const SERVICES = [
   { label: 'Deploys', icon: 'i-simple-icons-githubactions', to: 'https://github.com/imswarnil/CRM-Analytics-Academy/actions' }
 ]
 
-// Keyboard: 1–8 switch sections (ignored while typing).
+// Keyboard: 1–9 switch sections (ignored while typing).
 function onKey(e: KeyboardEvent) {
   const el = e.target as HTMLElement | null
   if (e.metaKey || e.ctrlKey || e.altKey || el?.closest('input, textarea, select, [contenteditable]')) return
@@ -843,6 +844,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
           <!-- ============================ COMMENTS ============================ -->
           <AdminComments v-else-if="tab === 'comments'" />
           <AdminTeams v-else-if="tab === 'teams'" />
+          <AdminEmails v-else-if="tab === 'emails'" />
           <AdminIntegrations v-else-if="tab === 'integrations'" />
         </div>
       </div>

@@ -35,6 +35,7 @@ const KEYS = [
   { name: 'NEON_AUTH_COOKIE_SECRET', where: ['env', 'worker'], shape: /^[a-f0-9]{64}$/, generate: true, help: 'Leave blank to generate one. Changing it signs everyone out.' },
   { name: 'MY_DODO_API_KEY', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Dodo Payments → Developer → API keys (test mode while DODO_ENV is test).' },
   { name: 'DODO_WEBHOOK_SECRET', where: ['env', 'worker'], shape: /^whsec_\S{20,}$/, help: 'Dodo Payments → Developer → Webhooks → the crmanalytics endpoint → Signing secret.' },
+  { name: 'RESEND_API_KEY', where: ['env', 'worker'], shape: /^re_[A-Za-z0-9_]{20,}$/, help: 'Resend → API Keys → Create (Sending access). Verify your domain in Resend first.' },
   { name: 'STUDIO_GITHUB_CLIENT_ID', where: ['worker'], shape: /^\S{10,}$/, help: 'GitHub → Settings → Developer settings → OAuth Apps.' },
   { name: 'STUDIO_GITHUB_CLIENT_SECRET', where: ['worker'], shape: /^\S{20,}$/, help: 'Same OAuth app → Generate a new client secret.' }
 ]

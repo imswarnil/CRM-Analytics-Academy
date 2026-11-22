@@ -8,6 +8,11 @@ on:
     paths-ignore: ['salesforce/**', '.github/workflows/salesforce.yml']
   # Lets you re-deploy from the Actions tab without pushing a commit.
   workflow_dispatch:
+    inputs:
+      indexnow:
+        description: Submit the whole sitemap to IndexNow
+        type: boolean
+        default: true
 
 # Never let two deploys race. Queue instead of cancelling, so a push that lands
 # mid-deploy still ends up published rather than silently dropped.
@@ -68,6 +73,7 @@ jobs:
       # push changed, so they recrawl in hours. A manual run submits the whole
       # sitemap. Never fails the deploy — the site is already live by now.
       - name: Notify search engines (IndexNow)
+        if: github.event_name != 'workflow_dispatch' || inputs.indexnow
         continue-on-error: true
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then

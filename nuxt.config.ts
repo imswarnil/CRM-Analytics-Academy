@@ -258,6 +258,11 @@ export default defineNuxtConfig({
     // no static file: /api/*, /mcp and the signed-in surface.
     preset: 'cloudflare_module',
 
+    // Email journeys, hourly. The Cron Trigger itself is triggers.crons in
+    // wrangler.jsonc; Nitro runs the task whose schedule matches it.
+    experimental: { tasks: true },
+    scheduledTasks: { '0 * * * *': ['email:journeys'] },
+
     cloudflare: {
       // The Neon driver and h3 both reach for node builtins. Declared here as
       // well as in wrangler.jsonc because Nitro decides whether to ship real

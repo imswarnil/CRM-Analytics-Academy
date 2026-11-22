@@ -1,5 +1,255 @@
 {
-  "updated": null,
-  "week": null,
-  "jobs": []
+  "updated": "2026-11-22T00:03:31.946Z",
+  "week": "2026-W47",
+  "jobs": [
+    {
+      "id": "ddf8586060503220",
+      "title": "Salesforce Technical Architect",
+      "company": "NeuraFlash",
+      "location": "United States",
+      "remote": true,
+      "country": "US",
+      "level": "lead",
+      "posted": "2026-11-21",
+      "url": "https://himalayas.app/companies/neuraflash/jobs/salesforce-technical-architect-7681056953?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Dataflows",
+        "Apex",
+        "Service Cloud"
+      ]
+    },
+    {
+      "id": "26276ce6caa8d5e1",
+      "title": "Staff Engineer, CRM Salesforce (Einstein Analytics)",
+      "company": "Nagarro",
+      "location": "India",
+      "remote": true,
+      "country": "IN",
+      "level": "senior",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/nagarro/jobs/staff-engineer-crm-salesforce-einstein-analytics?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Einstein Discovery",
+        "Apex",
+        "Sales Cloud"
+      ]
+    },
+    {
+      "id": "765836bdcc279690",
+      "title": "Predictive CRM AI Analyst",
+      "company": "Pontoonglobal",
+      "location": "India, United States",
+      "remote": true,
+      "country": "US",
+      "level": "mid",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/pontoonglobal/jobs/predictive-crm-ai-analyst?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Data Cloud"
+      ]
+    },
+    {
+      "id": "9b9e97ff0ee598f8",
+      "title": "Specialist Solution Engineer - Tableau",
+      "company": "Salesforce",
+      "location": "United States",
+      "remote": true,
+      "country": "US",
+      "level": "mid",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/salesforce/jobs/specialist-solution-engineer-tableau?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Tableau",
+        "SQL"
+      ]
+    },
+    {
+      "id": "d3a4bd27eff50097",
+      "title": "Senior Salesforce Developer",
+      "company": "Coders Connect",
+      "location": "Remote · 48 countries",
+      "remote": true,
+      "level": "senior",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/coders-connect/jobs/senior-salesforce-developer?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Recipes",
+        "Dataflows",
+        "Apex",
+        "SOQL",
+        "Sales Cloud"
+      ]
+    },
+    {
+      "id": "b95c50540268d5d9",
+      "title": "Principal Consultant, Data 360 (Data Cloud)",
+      "company": "CloudMasonry",
+      "location": "United States",
+      "remote": true,
+      "country": "US",
+      "level": "lead",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/cloudmasonry/jobs/principal-consultant-data-360-data-cloud?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Data Cloud",
+        "Tableau",
+        "Sales Cloud",
+        "Service Cloud",
+        "SQL"
+      ]
+    },
+    {
+      "id": "f0bb737b65ab5507",
+      "title": "Sr. Salesforce Technical Architect",
+      "company": "NeuraFlash",
+      "location": "India",
+      "remote": true,
+      "country": "IN",
+      "level": "lead",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/neuraflash/jobs/sr-salesforce-technical-architect-4145322748?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Dataflows",
+        "Apex",
+        "Service Cloud"
+      ]
+    },
+    {
+      "id": "1ab827f4af5ac114",
+      "title": "Salesforce ServiceMax Developer",
+      "company": "DATASYS CONSULTING & SOFTWARE INC,",
+      "location": "United States",
+      "remote": true,
+      "country": "US",
+      "level": "mid",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/datasys-consulting-software-inc/jobs/salesforce-servicemax-developer?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Apex",
+        "SOQL",
+        "Service Cloud"
+      ]
+    },
+    {
+      "id": "5205e37f6d500eef",
+      "title": "Sr. Salesforce Technical Architect",
+      "company": "NeuraFlash",
+      "location": "Colombia",
+      "remote": true,
+      "level": "lead",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/neuraflash/jobs/sr-salesforce-technical-architect-7877945640?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Dataflows",
+        "Apex",
+        "Service Cloud"
+      ]
+    },
+    {
+      "id": "40cf9693d553deee",
+      "title": "Sr. Salesforce Health Cloud Developer",
+      "company": "Bickham Services Unlimited LLC",
+      "location": "United States",
+      "remote": true,
+      "country": "US",
+      "level": "senior",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/bickham-services-unlimited-llc/jobs/sr-salesforce-health-cloud-developer-1018643029?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Apex"
+      ]
+    },
+    {
+      "id": "e7b246ab3fc68c5a",
+      "title": "Salesforce Health Cloud Dev II",
+      "company": "Bickham Services Unlimited LLC",
+      "location": "United States",
+      "remote": true,
+      "country": "US",
+      "level": "mid",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/bickham-services-unlimited-llc/jobs/salesforce-health-cloud-dev-ii-2016635306?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Apex"
+      ]
+    },
+    {
+      "id": "1c225bb2ffffb12c",
+      "title": "Salesforce Solution Architect, Field Service",
+      "company": "NeuraFlash",
+      "location": "United States",
+      "remote": true,
+      "country": "US",
+      "level": "lead",
+      "posted": "2026-11-19",
+      "url": "https://himalayas.app/companies/neuraflash/jobs/salesforce-solution-architect-field-service-8533159280?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Apex",
+        "Sales Cloud",
+        "Service Cloud"
+      ]
+    },
+    {
+      "id": "8527ff7a26f2f08a",
+      "title": "Senior Salesforce Consultant",
+      "company": "AIDA Recruitment",
+      "location": "Remote · 49 countries",
+      "remote": true,
+      "level": "senior",
+      "posted": "2026-11-01",
+      "url": "https://himalayas.app/companies/aida-recruitment/jobs/senior-salesforce-consultant?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Tableau",
+        "Sales Cloud",
+        "Service Cloud"
+      ]
+    },
+    {
+      "id": "7f0bb09f91226139",
+      "title": "Senior Salesforce Technical Consultant",
+      "company": "AIDA Recruitment",
+      "location": "Remote · 49 countries",
+      "remote": true,
+      "level": "senior",
+      "posted": "2026-11-01",
+      "url": "https://himalayas.app/companies/aida-recruitment/jobs/senior-salesforce-technical-consultant?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Data Cloud",
+        "Tableau",
+        "Sales Cloud",
+        "Service Cloud"
+      ]
+    },
+    {
+      "id": "934012bf84384f29",
+      "title": "Financial Services Cloud Consultant",
+      "company": "AIDA Recruitment",
+      "location": "Ukraine",
+      "remote": true,
+      "country": "GB",
+      "level": "mid",
+      "posted": "2026-11-01",
+      "url": "https://himalayas.app/companies/aida-recruitment/jobs/financial-services-cloud-consultant?utm_source=api",
+      "source": "himalayas.app",
+      "skills": [
+        "Tableau",
+        "Sales Cloud",
+        "Service Cloud"
+      ]
+    }
+  ]
 }
