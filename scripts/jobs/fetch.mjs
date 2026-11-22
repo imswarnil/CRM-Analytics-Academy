@@ -5,6 +5,7 @@
  *
  *   node scripts/jobs/fetch.mjs            fetch, merge, write
  *   node scripts/jobs/fetch.mjs --dry      fetch and print, write nothing
+ *   node scripts/jobs/fetch.mjs --page <url>   test the JobPosting reader on one page
  *
  * Only sources with a public API or a public job-board JSON are used. LinkedIn
  * and Indeed have no public job API and their terms forbid scraping, so they
@@ -15,6 +16,11 @@
  *             scripts/jobs/boards.json (Workday, Greenhouse, Lever, Ashby)
  *   ADZUNA_APP_ID + ADZUNA_APP_KEY   Adzuna, 12 countries (free tier)
  *   JOOBLE_KEY                       Jooble, worldwide (free key on request)
+ *   SERPAPI_KEY                      the whole web: Google Jobs (which indexes
+ *                                    LinkedIn, Indeed, Naukri, Glassdoor and
+ *                                    company sites) + a web search of every
+ *                                    applicant-tracking system, read through
+ *                                    the schema.org JobPosting on each page
  *
  * A posting is kept only if its title or description names CRM Analytics (or
  * its earlier names) — "Salesforce" alone is not enough. Each job links to its
@@ -107,6 +113,60 @@ async function get(url, init = {}) {
   }
 }
 const QUERIES = ['CRM Analytics', 'Tableau CRM', 'Einstein Analytics']
+const PLACES = ['United States', 'India', 'United Kingdom', 'Remote', 'Canada', 'Australia', 'Germany', 'Singapore', 'Ireland', 'Netherlands', 'France', 'Japan']
+const ATS_SITES = ['boards.greenhouse.io', 'job-boards.greenhouse.io', 'jobs.lever.co', 'myworkdayjobs.com', 'jobs.ashbyhq.com', 'apply.workable.com', 'jobs.smartrecruiters.com', 'careers.icims.com', 'jobs.jobvite.com', 'recruitee.com', 'bamboohr.com/careers', 'oraclecloud.com', 'successfactors.com']
+
+// Today's slice of a list, so a daily run walks the whole list over days.
+function rotate(list, n) {
+  const start = (Math.floor(Date.now() / 864e5) * n) % list.length
+  return Array.from({ length: Math.min(n, list.length) }, (_, i) => list[(start + i) % list.length])
+}
+// "3 days ago" / "12 hours ago" → a date.
+function agoToDate(s) {
+  const m = String(s ?? '').match(/(\d+)\+?\s*(hour|day|week|month)/i)
+  if (!m) return undefined
+  const per = { hour: 36e5, day: 864e5, week: 6048e5, month: 2592e6 }[m[2].toLowerCase()]
+  return Date.now() - Number(m[1]) * per
+}
+// Any job page: the schema.org JobPosting it publishes for search engines.
+async function jobsFromPage(url) {
+  // Greenhouse and Workday draw their pages with JavaScript: read the posting
+  // from their public job APIs instead.
+  const u = new URL(url)
+  const gh = /greenhouse\.io$/.test(u.hostname) && u.pathname.match(/^\/([^/]+)\/jobs\/(\d+)/)
+  if (gh) {
+    const j = await get(`https://boards-api.greenhouse.io/v1/boards/${gh[1]}/jobs/${gh[2]}`)
+    return [job({ title: j.title, company: j.company_name || gh[1], location: j.location?.name, url: j.absolute_url || url, posted: j.first_published || j.updated_at, source: 'greenhouse.io', text: strip(String(j.content ?? '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')) })]
+  }
+  const wd = /myworkdayjobs\.com$/.test(u.hostname) && u.pathname.match(/^\/(?:[a-z]{2}-[A-Z]{2}\/)?([^/]+)(\/job\/.+)$/)
+  if (wd) {
+    const info = (await get(`https://${u.hostname}/wday/cxs/${u.hostname.split('.')[0]}/${wd[1]}${wd[2]}`)).jobPostingInfo
+    return info ? [job({ title: info.title, company: info.hiringOrganization?.name || u.hostname.split('.')[0], location: info.location, remote: /remote/i.test(info.remoteType ?? ''), url: info.externalUrl || url, posted: info.startDate, source: u.hostname, text: strip(info.jobDescription) })] : []
+  }
+  const res = await fetch(url, { headers: { 'user-agent': UA, 'accept': 'text/html' }, redirect: 'follow', signal: AbortSignal.timeout(15000) })
+  if (!res.ok || !/html/i.test(res.headers.get('content-type') ?? '')) return []
+  const html = (await res.text()).slice(0, 2_000_000)
+  const items = []
+  for (const m of html.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      const walk = (n) => {
+        if (Array.isArray(n)) return n.forEach(walk)
+        if (!n || typeof n !== 'object') return
+        if ([].concat(n['@type']).includes('JobPosting')) items.push(n)
+        if (n['@graph']) walk(n['@graph'])
+      }
+      walk(JSON.parse(m[1].trim()))
+    } catch {
+      // Not valid JSON-LD: skip this block.
+    }
+  }
+  return items.map((p) => {
+    const name = v => (v && typeof v === 'object' ? v.name : v)
+    const locs = [].concat(p.jobLocation ?? []).map(l => [l?.address?.addressLocality, l?.address?.addressRegion, name(l?.address?.addressCountry)].filter(x => typeof x === 'string' && x).join(', ')).filter(Boolean)
+    const org = name(p.hiringOrganization)
+    return job({ title: p.title, company: org || new URL(url).hostname, location: locs.join(' · '), remote: p.jobLocationType === 'TELECOMMUTE', url: p.url || url, posted: p.datePosted, source: new URL(url).hostname.replace(/^www\./, ''), text: strip(p.description) })
+  })
+}
 
 // ---- sources -----------------------------------------------------------------
 const sources = {
@@ -161,6 +221,52 @@ const sources = {
     }
     return out
   },
+  // Google Jobs through SerpApi: Google's own job index, which already holds
+  // LinkedIn, Indeed, Glassdoor, Naukri and company career pages worldwide.
+  // SERPAPI_DAILY searches a day (default 6), rotating query × place by date,
+  // so the free plan's monthly allowance lasts the month.
+  async googlejobs() {
+    const key = process.env.SERPAPI_KEY
+    if (!key) return 'skipped (no SERPAPI_KEY)'
+    const combos = QUERIES.flatMap(q => PLACES.map(p => [q, p]))
+    const out = []
+    for (const [q, place] of rotate(combos, Number(process.env.SERPAPI_DAILY || 6))) {
+      const params = new URLSearchParams({ engine: 'google_jobs', q: `"${q}"`, api_key: key, hl: 'en', ...(place === 'Remote' ? { ltype: '1' } : { location: place }) })
+      const d = await get(`https://serpapi.com/search.json?${params}`).catch((e) => {
+        console.log(`  google jobs ${q} / ${place}: ${e.message}`)
+        return {}
+      })
+      for (const j of d.jobs_results ?? []) {
+        const links = j.apply_options ?? []
+        // Prefer the employer's own page, then any board.
+        const best = links.find(l => !/linkedin|indeed|glassdoor|ziprecruiter|naukri|monster|simplyhired/i.test(l.link)) ?? links[0]
+        out.push(job({ title: j.title, company: j.company_name, location: j.location, remote: j.detected_extensions?.work_from_home, url: best?.link ?? j.share_link, posted: agoToDate(j.detected_extensions?.posted_at), source: best?.title ? `${best.title} via Google Jobs` : 'Google Jobs', text: j.description }))
+      }
+    }
+    return out
+  },
+
+  // The open web: search for postings on any applicant-tracking system or
+  // careers page from the last week, then read the schema.org JobPosting that
+  // job pages publish for search engines. Uses the same SERPAPI_KEY (Google
+  // web search); WEB_PAGES caps how many pages are read (default 40).
+  async web() {
+    const key = process.env.SERPAPI_KEY
+    if (!key) return 'skipped (no SERPAPI_KEY)'
+    const ats = ATS_SITES.map(s => `site:${s}`).join(' OR ')
+    const searches = [`("CRM Analytics" OR "Tableau CRM" OR "Einstein Analytics") (${ats})`, '("CRM Analytics" OR "Tableau CRM") (intitle:job OR intitle:careers OR intitle:hiring) -site:linkedin.com -site:indeed.com']
+    const urls = new Set()
+    for (const q of searches) {
+      const d = await get(`https://serpapi.com/search.json?${new URLSearchParams({ engine: 'google', q, num: '50', tbs: 'qdr:w', api_key: key })}`).catch(() => ({}))
+      for (const r of d.organic_results ?? []) if (r.link) urls.add(r.link)
+    }
+    const out = []
+    for (const url of [...urls].slice(0, Number(process.env.WEB_PAGES || 40))) {
+      await sleep(1000)
+      out.push(...await jobsFromPage(url).catch(() => []))
+    }
+    return out
+  },
   async boards() {
     const list = JSON.parse(readFileSync(new URL('./boards.json', import.meta.url), 'utf8')).boards
     const out = []
@@ -212,6 +318,15 @@ async function board(b) {
 }
 
 // ---- run -----------------------------------------------------------------------
+// `--page <url>`: show what one job page publishes (checks the JobPosting reader).
+if (process.argv.includes('--page')) {
+  const url = process.argv[process.argv.indexOf('--page') + 1]
+  const res = await fetch(url, { headers: { 'user-agent': UA } })
+  const n = ((await res.text()).match(/"JobPosting"/g) ?? []).length
+  const kept = (await jobsFromPage(url)).filter(Boolean)
+  console.log(`${n} JobPosting block(s); ${kept.length} kept as CRM Analytics jobs`, kept)
+  process.exit(0)
+}
 const fresh = []
 for (const [name, fn] of Object.entries(sources)) {
   try {

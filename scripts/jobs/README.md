@@ -13,7 +13,8 @@ from the Actions tab:
    the feed (30 days kept, duplicates dropped) and rewrites `public/jobs.json`.
 2. If the file changed, it commits it and starts the deploy.
 
-Locally: `node scripts/jobs/fetch.mjs --dry` prints what it would keep.
+Locally: `node scripts/jobs/fetch.mjs --dry` prints what it would keep;
+`--page <url>` shows what one job page yields.
 
 ## Sources
 
@@ -26,6 +27,7 @@ job API and their terms forbid scraping.
 | Company boards in `boards.json` | none | Workday, Greenhouse, Lever, Ashby; add a partner's board there |
 | Adzuna | `ADZUNA_APP_ID`, `ADZUNA_APP_KEY` | 12 countries incl. US, UK, India; free at developer.adzuna.com |
 | Jooble | `JOOBLE_KEY` | worldwide; free key at jooble.org/api/about |
+| **Google Jobs + the open web** | `SERPAPI_KEY` | the whole internet. Google Jobs already indexes LinkedIn, Indeed, Naukri, Glassdoor and company sites; a weekly web search of every applicant-tracking system (Greenhouse, Lever, Workday, Ashby, Workable, SmartRecruiters, iCIMS…) finds the rest, read through each page's schema.org `JobPosting` or the system's job API. `SERPAPI_DAILY` (Actions variable, default 6) sets Google Jobs searches a day; the web step uses 2 more. serpapi.com |
 
 Keys go in GitHub → Settings → Secrets and variables → Actions. A source
 without its key is skipped.

@@ -32,6 +32,8 @@ jobs:
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
           JOOBLE_KEY: ${{ secrets.JOOBLE_KEY }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          SERPAPI_DAILY: ${{ vars.SERPAPI_DAILY }}
       - name: Commit and deploy if the feed changed
         env:
           GH_TOKEN: ${{ github.token }}
