@@ -587,7 +587,8 @@ KIT.enter = function (comp, kind, color, T, x, y) {
   if (kind === 'diag') return KIT.diag(comp, color, T - 0.5);
   if (kind === 'bars') return KIT.barsWipe(comp, color, T - 0.5);
   if (kind === 'push') return KIT.push(comp, color, T);
-  if (kind === 'none') return KIT.rect(comp, 'BG', comp.width, comp.height, 0, color, comp.width / 2, comp.height / 2);
+  // 'canvas': the scene is a card on the film's canvas, so its background is there from the start.
+  if (kind === 'none' || kind === 'canvas') return KIT.rect(comp, 'BG', comp.width, comp.height, 0, color, comp.width / 2, comp.height / 2);
   return KIT.reveal(comp, color, T - 0.5, x, y);
 };
 // Content that should arrive with a push slides in with it.

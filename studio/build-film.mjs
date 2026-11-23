@@ -177,7 +177,7 @@ if (r.status !== 0) {
 console.log(`mix: ${path.relative(process.cwd(), mix)}`)
 
 // ---- 4. timeline for After Effects -----------------------------------------------------
-const timeline = { slug, title: spec.title, credit: spec.music.credit ?? '', beat: spec.music.bar ? spec.music.bar / 4 : 0.585, screens: path.join(WS, '04-clips', 'screens'), fps: brand.frame.fps, width: brand.frame.width, height: brand.frame.height, total, brand, studio: STUDIO, workspace: WS, voice, music: { file: music, duck }, mix, sfx: sfxCues, scenes }
+const timeline = { slug, title: spec.title, layout: spec.layout ?? 'cuts', canvas: spec.canvas ?? {}, credit: spec.music.credit ?? '', beat: spec.music.bar ? spec.music.bar / 4 : 0.585, screens: path.join(WS, '04-clips', 'screens'), fps: brand.frame.fps, width: brand.frame.width, height: brand.frame.height, total, brand, studio: STUDIO, workspace: WS, voice, music: { file: music, duck }, mix, sfx: sfxCues, scenes }
 const tlPath = path.join(dirs.gfx, `${slug}.timeline.json`)
 writeFileSync(tlPath, JSON.stringify(timeline, null, 2))
 // A fixed path the After Effects scripts read (ExtendScript cannot take arguments).

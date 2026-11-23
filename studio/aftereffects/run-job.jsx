@@ -7,6 +7,7 @@
 #include "kit/concepts.jsx"
 #include "kit/platform.jsx"
 #include "kit/kinetic.jsx"
+#include "kit/canvas.jsx"
 #include "kit/film.jsx"
 
 (function () {

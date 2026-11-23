@@ -25,17 +25,26 @@ node studio/build-film.mjs trailer             # the channel trailer (flat, the 
 node studio/build-film.mjs kit-preview         # test reel of the other scene types
 ```
 
-**The channel trailer** (`films/trailer.json`, 1:43, 44 bars of *Dizzy*) is kinetic type first, flat,
-no camera moves, music only. A `slam` hook (Data. Dashboards. Decisions.), "Learn CRM Analytics from
-the ground up", `aboutMe`, then two `chapter` cards that carry the story: **Part one, the fundamentals**
-(each `concept` slams its word, the word shrinks into the heading as a canvas rises, and the idea is
-drawn on it: JOIN, BIND, a multi-step QUERY, FUNCTIONS, EXECUTE, VISUALIZE) and **Part two, every
-dashboard a business needs** (CONVERSION, ADOPTION, SNAPSHOTS), then AI with CRM Analytics, an
-"and much more" montage one word a beat, "Start with lesson one", your subscribe clip and the end
-screen. `aboutMe` is two columns: your photo, then name, role, years, companies. Files go in
+**The channel trailer** (`films/trailer.json`, 1:10, 30 bars of *Dizzy*) sells how the course teaches,
+not what it teaches. It is laid out as **one flat canvas** (`"layout": "canvas"`): every scene is a card
+at its own `at` cell, and between two scenes a line draws from one card to the next while the view
+travels along it (2D position and scale only, landing just before the downbeat), so the cards you have
+passed stay on the canvas and lines can cross. It opens on kinetic type, one treatment per line
+(`typeLine`): *Welcome.* / *Want to learn CRM Analytics?* / *Write SAQL?* with the last word swapping on
+the beat / *Build dashboards people actually use?* / *You're in the right place.* Then `method` cards:
+a statement about the method over a board where a term turns into a drawing (LEFT JOIN, BINDING,
+RECIPE, SNAPSHOT), a widget gets built, a quiz is answered and real rows stream in. Then what you will
+build, AI, `aboutMe`, your subscribe clip, and the end screen, reached by pulling back over the whole
+canvas. `aboutMe` is two columns: your photo, then name, role, years, companies. Files go in
 `workspace/01-camera/trailer/`: `photo.jpg` (scene `"photo": "photo"`) and camera clips (scene
 `"clip": "clip-02-subscribe"`, played full frame with the music ducked; the scene grows to fit).
 Missing ones show placeholders saying what is needed.
+
+**Canvas films** (`"layout": "canvas"`, handled by `KIT.canvasMaster` in `aftereffects/kit/film.jsx`):
+`canvas.cell` (px per cell, default 2500 × 1500), `canvas.move` (beats a move takes, default 1.5),
+`canvas.grid` (dot spacing). Per scene: `at` [column, row]; `link` {`from`, `to`: top | bottom |
+left | right, `bend`: px} to route the line; `move` (beats); `overview: true` pulls back over the whole
+canvas on the way in. Other films keep cutting from scene to scene.
 `films/trailer-clips.md` is the brief.
 
 A film is a JSON spec in `films/`. Without `voice` it is **text and music only** (the intro):
@@ -116,6 +125,10 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | `slam` | One big word per beat pair (`per` beats), the colour cutting with it, icons; long words shrink to fit |
 | `chapter` | A chapter card: lines slam in on the beat over a ghost numeral, then fly off on the last half-beat (the words are the cut) |
 | `concept` | The concept's word slams (`intro` beats), becomes the heading, then it is built: `kind` recipe, join, saql (a long multi-step query too), function (rows flow into sum(), then avg/count/max), execute (load → filter → group → foreach → order → limit lit in turn, rows shrinking), chart, bind, secure, conversion (funnel with rates), adoption (active users, gauge, features), snapshot (daily recipe → history → what changed), ai (prompt → mockup, data checks, a prediction) |
+| `typeLine` | One line of kinetic type with After Effects text animators: `welcome` (characters rise, tracking opens, a line draws), `question` (type-on, wipe reveal, "?" slams on the downbeat), `swap` (the last word swaps every beat in a masked slot), `underline` (small/big contrast on a drawn line), `tracking` (tracking opens, characters fall in random order) |
+| `method` | How you learn: a caption, then glimpses on a board that slide in turn: `venn`, `binding`, `flow`, `trend`, `build`, `quiz`, `realdata` |
+| `buildMontage` | What you will build: conversion, adoption and snapshot dashboards slide in on the beat |
+| `aiFlash` | AI: a prompt types, a mockup sketches itself, the data is checked |
 | `aboutMe` | Two columns: your photo, then name, role, years, companies (placeholders until filled) |
 | `clipSlot` | Your camera clip with a name card, or a placeholder until it exists |
 

@@ -1,7 +1,7 @@
 {
   "title": "CRM Analytics Academy — channel trailer",
   "slug": "trailer",
-  "note": "Kinetic type leads, flat, no camera moves, text and music only (Dizzy), plus you. The story: a slam hook, 'Learn CRM Analytics', about you (aboutMe: workspace/01-camera/trailer/photo.jpg, fill the `about` props), then PART ONE, the fundamentals, each `concept` slamming its word before it is drawn (a join, a binding, a multi-step query, functions, how a query executes, visualise), then PART TWO, the dashboards a business needs (conversion, adoption, snapshotting), AI with CRM Analytics, a fast 'and much more' montage, 'Start with lesson one', your subscribe clip (clip-02-subscribe) and the end screen. Every scene is whole bars of the music; `chapter` cards fly off on the last half-beat so the words are the cut.",
+  "note": "Sells how the course teaches, not what it teaches. The film is ONE flat canvas (`layout: canvas`): every scene is a card at its `at` cell, a line draws from card to card and the view travels along it (2D position and scale, never 3D), so earlier cards stay on the canvas. Kinetic-type questions open it on the beat (Welcome. / Want to learn CRM Analytics? / Write SAQL? recipes? bindings? dashboards? / Build dashboards people actually use? / You're in the right place.), then `method` cards: a caption about the method and short glimpses of concepts turning into motion graphics, what you'll build, AI, then you (aboutMe: workspace/01-camera/trailer/photo.jpg, fill the `about` props), your subscribe clip (clip-02-subscribe) and the end screen, reached by pulling back over the whole canvas. Text and music only.",
   "music": {
     "file": "/Users/swarnil/Movies/YouTube/03 Assets/Music/dizzy-by-joakim-karud.mp3",
     "start": 0.1,
@@ -13,48 +13,207 @@
   "sfx": false,
   "scenes": [
     {
-      "id": "open",
-      "type": "slam",
-      "transition": "none",
-      "bars": 2,
+      "id": "welcome",
+      "type": "typeLine",
+      "bars": 1,
+      "at": [
+        0,
+        0
+      ],
       "props": {
-        "words": [
-          "Data.",
-          "Dashboards.",
-          "Decisions.",
-          "*Built by you.*"
-        ],
-        "icons": [
-          "db",
-          "out",
-          "spark",
-          "code"
-        ]
+        "style": "welcome",
+        "text": "Welcome.",
+        "bg": "navy"
       }
     },
     {
       "id": "learn",
-      "type": "kinetic",
-      "transition": "slices",
+      "type": "typeLine",
       "bars": 2,
+      "at": [
+        1,
+        0
+      ],
       "props": {
-        "lines": [
-          "Learn *CRM Analytics*",
-          "from the *ground up.*"
+        "style": "question",
+        "small": "Want to learn",
+        "big": "CRM Analytics",
+        "mark": "?",
+        "bg": "paper"
+      }
+    },
+    {
+      "id": "write",
+      "type": "typeLine",
+      "bars": 2,
+      "at": [
+        2,
+        0
+      ],
+      "props": {
+        "style": "swap",
+        "lead": "Write",
+        "words": [
+          "SAQL?",
+          "recipes?",
+          "bindings?",
+          "dashboards?",
+          "SAQL?"
         ],
-        "bg": "paper",
-        "icons": [
-          "db",
-          "join",
-          "code",
-          "out"
+        "bg": "navyDeep"
+      }
+    },
+    {
+      "id": "use",
+      "type": "typeLine",
+      "bars": 2,
+      "at": [
+        2,
+        1
+      ],
+      "props": {
+        "style": "underline",
+        "line1": "Build dashboards",
+        "small": "people",
+        "big": "actually use",
+        "mark": "?",
+        "bg": "white"
+      }
+    },
+    {
+      "id": "place",
+      "type": "typeLine",
+      "bars": 2,
+      "at": [
+        1,
+        1
+      ],
+      "props": {
+        "style": "tracking",
+        "small": "You’re in the",
+        "big": "right place.",
+        "bg": "signal"
+      }
+    },
+    {
+      "id": "drawn",
+      "type": "method",
+      "bars": 2,
+      "at": [
+        0,
+        1
+      ],
+      "props": {
+        "caption": "Every concept, drawn.",
+        "bg": "navy",
+        "glimpses": [
+          {
+            "kind": "venn",
+            "term": "LEFT JOIN"
+          },
+          {
+            "kind": "binding",
+            "term": "BINDING"
+          }
         ]
+      }
+    },
+    {
+      "id": "move",
+      "type": "method",
+      "bars": 2,
+      "at": [
+        0,
+        2
+      ],
+      "props": {
+        "caption": "Watch the data move.",
+        "bg": "paper",
+        "glimpses": [
+          {
+            "kind": "flow",
+            "term": "RECIPE"
+          },
+          {
+            "kind": "trend",
+            "term": "SNAPSHOT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yourself",
+      "type": "method",
+      "bars": 2,
+      "at": [
+        1,
+        2
+      ],
+      "props": {
+        "caption": "Then build it yourself.",
+        "bg": "navyDeep",
+        "glimpses": [
+          {
+            "kind": "build"
+          },
+          {
+            "kind": "quiz"
+          }
+        ]
+      }
+    },
+    {
+      "id": "real",
+      "type": "method",
+      "bars": 2,
+      "at": [
+        2,
+        2
+      ],
+      "props": {
+        "caption": "On real data.",
+        "bg": "signal",
+        "glimpses": [
+          {
+            "kind": "realdata"
+          }
+        ]
+      },
+      "link": {
+        "from": "top",
+        "to": "top",
+        "bend": 1500
+      }
+    },
+    {
+      "id": "build",
+      "type": "buildMontage",
+      "bars": 2,
+      "at": [
+        3,
+        2
+      ],
+      "props": {
+        "caption": "What you’ll build.",
+        "bg": "paper"
+      }
+    },
+    {
+      "id": "ai",
+      "type": "aiFlash",
+      "bars": 2,
+      "at": [
+        3,
+        1
+      ],
+      "props": {
+        "caption": "With AI at your side.",
+        "bg": "navy"
       }
     },
     {
       "id": "about",
       "type": "aboutMe",
-      "transition": "diag",
       "bars": 3,
       "photo": "photo",
       "props": {
@@ -63,273 +222,15 @@
         "years": null,
         "companies": [],
         "workedLabel": "WORKED WITH"
-      }
-    },
-    {
-      "id": "part1",
-      "type": "chapter",
-      "transition": "none",
-      "bars": 1,
-      "props": {
-        "lines": [
-          "First,",
-          "*the fundamentals.*"
-        ],
-        "n": "01",
-        "kicker": "Part one",
-        "color": "navyDeep"
-      }
-    },
-    {
-      "id": "join",
-      "type": "concept",
-      "transition": "none",
-      "bars": 3,
-      "props": {
-        "intro": 2,
-        "kind": "join",
-        "word": "JOIN",
-        "line": "Match on a key. Know what you keep.",
-        "n": 1,
-        "color": "signal"
-      }
-    },
-    {
-      "id": "bind",
-      "type": "concept",
-      "transition": "slices",
-      "bars": 2,
-      "props": {
-        "intro": 2,
-        "kind": "bind",
-        "word": "BIND",
-        "line": "Click one chart. The rest answer.",
-        "n": 2,
-        "color": "navy",
-        "click": 2
-      }
-    },
-    {
-      "id": "query",
-      "type": "concept",
-      "transition": "push",
-      "bars": 3,
-      "props": {
-        "intro": 2,
-        "kind": "saql",
-        "word": "QUERY",
-        "line": "Many steps. One clear answer.",
-        "n": 3,
-        "color": "navyDeep",
-        "editorTitle": "SAQL · sign-up rate by source",
-        "lines": [
-          "v = load \"visits\";",
-          "s = load \"signups\";",
-          "q = cogroup v by 'Source', s by 'Source';",
-          "q = foreach q generate v.'Source' as 'Source',",
-          "      sum(v.'Visits') as 'Visits', count(s) as 'Signups';",
-          "q = foreach q generate 'Source', 'Signups' / 'Visits' as 'Rate';",
-          "q = order q by 'Rate' desc;",
-          "q = limit q 3;"
-        ],
-        "editorW": 1260,
-        "codeSize": 23,
-        "lineH": 62,
-        "lineY0": 390,
-        "lineStep": 0.34,
-        "cps": 150,
-        "results": [
-          [
-            "YouTube",
-            9.8,
-            "9.8%"
-          ],
-          [
-            "Google",
-            7.9,
-            "7.9%"
-          ],
-          [
-            "LinkedIn",
-            6.1,
-            "6.1%"
-          ]
-        ],
-        "note": "Two datasets, one answer"
-      }
-    },
-    {
-      "id": "function",
-      "type": "concept",
-      "transition": "bars",
-      "bars": 3,
-      "props": {
-        "intro": 2,
-        "kind": "function",
-        "word": "FUNCTIONS",
-        "line": "Many rows in. One answer out.",
-        "n": 4,
-        "color": "signal"
-      }
-    },
-    {
-      "id": "execute",
-      "type": "concept",
-      "transition": "diag",
-      "bars": 3,
-      "props": {
-        "intro": 2,
-        "kind": "execute",
-        "word": "EXECUTE",
-        "line": "The order a query really runs in.",
-        "n": 5,
-        "color": "navy"
-      }
-    },
-    {
-      "id": "visualize",
-      "type": "concept",
-      "transition": "none",
-      "bars": 2,
-      "props": {
-        "intro": 2,
-        "kind": "chart",
-        "word": "VISUALIZE",
-        "line": "Pick the chart that tells the truth.",
-        "n": 6,
-        "color": "signal",
-        "step": 1.5
-      }
-    },
-    {
-      "id": "part2",
-      "type": "chapter",
-      "transition": "none",
-      "bars": 2,
-      "props": {
-        "lines": [
-          "Then, build",
-          "every dashboard",
-          "*a business needs.*"
-        ],
-        "n": "02",
-        "kicker": "Part two",
-        "color": "paper",
-        "per": 1.5,
-        "size": 140
-      }
-    },
-    {
-      "id": "conversion",
-      "type": "concept",
-      "transition": "none",
-      "bars": 2,
-      "props": {
-        "intro": 2,
-        "kind": "conversion",
-        "word": "CONVERSION",
-        "line": "Where people drop off, stage by stage.",
-        "kicker": "DASHBOARD 01",
-        "color": "navy"
-      }
-    },
-    {
-      "id": "adoption",
-      "type": "concept",
-      "transition": "slices",
-      "bars": 2,
-      "props": {
-        "intro": 2,
-        "kind": "adoption",
-        "word": "ADOPTION",
-        "line": "Who uses it, and what they use.",
-        "kicker": "DASHBOARD 02",
-        "color": "signal"
-      }
-    },
-    {
-      "id": "snapshot",
-      "type": "concept",
-      "transition": "bars",
-      "bars": 3,
-      "props": {
-        "intro": 2,
-        "kind": "snapshot",
-        "word": "SNAPSHOTS",
-        "line": "Capture it daily. See what changed.",
-        "kicker": "DASHBOARD 03",
-        "color": "navyDeep"
-      }
-    },
-    {
-      "id": "ai",
-      "type": "concept",
-      "transition": "diag",
-      "bars": 3,
-      "props": {
-        "intro": 2,
-        "kind": "ai",
-        "word": "AI",
-        "line": "Mock up. Validate. Explain.",
-        "kicker": "USE AI WITH CRM ANALYTICS",
-        "color": "signal"
-      }
-    },
-    {
-      "id": "more",
-      "type": "slam",
-      "transition": "none",
-      "bars": 2,
-      "props": {
-        "per": 1,
-        "size": 190,
-        "words": [
-          "*And much more.*",
-          "Recipes",
-          "Security",
-          "Embedding",
-          "Einstein Discovery",
-          "Exam practice",
-          "Interview prep",
-          "Jobs"
-        ],
-        "icons": [
-          "spark",
-          "broom",
-          "lock",
-          "share",
-          "spark",
-          "award",
-          "chat",
-          "brief"
-        ],
-        "colors": [
-          "navy",
-          "signal",
-          "paper",
-          "navyDeep"
-        ],
-        "seed": 1
-      }
-    },
-    {
-      "id": "start",
-      "type": "chapter",
-      "transition": "none",
-      "bars": 1,
-      "props": {
-        "lines": [
-          "Start with",
-          "*lesson one.*"
-        ],
-        "color": "signal",
-        "exit": false
-      }
+      },
+      "at": [
+        4,
+        1
+      ]
     },
     {
       "id": "cta",
       "type": "clipSlot",
-      "transition": "push",
       "bars": 2,
       "clip": "clip-02-subscribe",
       "props": {
@@ -340,16 +241,34 @@
           "4 to 6 s, landscape, eye level, mic close",
           "Point right on 'subscribe', end on a smile"
         ]
-      }
+      },
+      "at": [
+        4,
+        0
+      ]
     },
     {
       "id": "end",
       "type": "endScreen",
-      "transition": "reveal",
-      "bars": 3,
+      "bars": 4,
       "props": {
         "next": "Lesson 1 · Objects, fields and relationships"
-      }
+      },
+      "at": [
+        5,
+        1
+      ],
+      "overview": true,
+      "move": 4
     }
-  ]
+  ],
+  "layout": "canvas",
+  "canvas": {
+    "cell": [
+      2500,
+      1500
+    ],
+    "move": 1.5,
+    "grid": 150
+  }
 }
