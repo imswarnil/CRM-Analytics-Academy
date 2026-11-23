@@ -230,11 +230,13 @@ useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
                   class="bp-card flex flex-wrap items-center gap-4 p-5"
                   :class="jobExpired(j) ? 'opacity-60' : 'bp-card--hover'"
                 >
-                  <span class="bp-iconbox">
-                    <UIcon
-                      :name="sourceIcon(j.source)"
-                      class="size-5"
-                    />
+                  <span class="hidden sm:block">
+                    <span class="bp-iconbox">
+                      <UIcon
+                        :name="sourceIcon(j.source)"
+                        class="size-5"
+                      />
+                    </span>
                   </span>
                   <div class="min-w-0 flex-1">
                     <p
@@ -305,13 +307,13 @@ useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
                   </div>
                   <span
                     v-if="jobExpired(j)"
-                    class="flex shrink-0 items-center gap-1 rounded-[4px] bg-(--paper2) px-2.5 py-1 text-sm font-semibold text-(--ink2)"
+                    class="flex w-full shrink-0 items-center justify-center sm:w-auto gap-1 rounded-[4px] bg-(--paper2) px-2.5 py-1 text-sm font-semibold text-(--ink2)"
                   >
                     {{ t('jobs.expiredCta') }}
                   </span>
                   <span
                     v-else
-                    class="flex shrink-0 items-center gap-1 text-sm font-semibold text-(--signal)"
+                    class="flex shrink-0 items-center max-sm:basis-full gap-1 text-sm font-semibold text-(--signal)"
                   >
                     {{ t('jobs.apply') }}
                     <UIcon
