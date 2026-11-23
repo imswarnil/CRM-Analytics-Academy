@@ -17,10 +17,11 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 })
 
-type Tab = 'overview' | 'leads' | 'teams' | 'users' | 'submissions' | 'interview' | 'comments' | 'emails' | 'integrations'
+type Tab = 'overview' | 'leads' | 'prospecting' | 'teams' | 'users' | 'submissions' | 'interview' | 'comments' | 'emails' | 'integrations'
 const TABS: { key: Tab, label: string, icon: string }[] = [
   { key: 'overview', label: 'Overview', icon: 'i-lucide-gauge' },
   { key: 'leads', label: 'Leads', icon: 'i-lucide-handshake' },
+  { key: 'prospecting', label: 'Prospecting', icon: 'i-lucide-crosshair' },
   { key: 'teams', label: 'Teams', icon: 'i-lucide-building-2' },
   { key: 'users', label: 'Users', icon: 'i-lucide-users' },
   { key: 'submissions', label: 'Submissions', icon: 'i-lucide-inbox' },
@@ -845,6 +846,7 @@ const date = (d: string | null) => d ? new Date(d).toLocaleDateString([], { day:
           <AdminComments v-else-if="tab === 'comments'" />
           <AdminTeams v-else-if="tab === 'teams'" />
           <AdminEmails v-else-if="tab === 'emails'" />
+          <AdminProspecting v-else-if="tab === 'prospecting'" />
           <AdminIntegrations v-else-if="tab === 'integrations'" />
         </div>
       </div>

@@ -18,6 +18,7 @@
     "new-lesson": "node scripts/new-lesson.mjs",
     "lesson:check": "node scripts/lesson-check.mjs",
     "gtm:check": "node scripts/check-gtm.mjs",
+    "prospect:check": "node scripts/check-prospect.mjs",
     "postinstall": "nuxt prepare",
     "keys": "node scripts/keys.mjs"
   },

@@ -39,6 +39,10 @@ const KEYS = [
   { name: 'SF_INSTANCE_URL', where: ['env', 'worker'], shape: /^https:\/\/[a-z0-9.-]+\.my\.salesforce\.com\/?$/i, help: 'Optional (account sync). The org\'s My Domain URL: Setup → My Domain, e.g. https://<name>.my.salesforce.com' },
   { name: 'SF_CLIENT_ID', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Optional. External Client App → OAuth Settings → Consumer Key (salesforce/CRM-PROCESS.md → Account sync).' },
   { name: 'SF_CLIENT_SECRET', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Optional. The same app → Consumer Secret.' },
+  { name: 'APOLLO_API_KEY', where: ['env', 'worker'], shape: /^\S{16,}$/, help: 'Optional (Prospecting). Apollo.io → Settings → Integrations → API → Create new key (master key for search).' },
+  { name: 'HUNTER_API_KEY', where: ['env', 'worker'], shape: /^[a-f0-9]{30,}$/i, help: 'Optional (Prospecting). Hunter.io → API → Your API key.' },
+  { name: 'GOOGLE_CLIENT_ID', where: ['env', 'worker'], shape: /^\S+\.apps\.googleusercontent\.com$/, help: 'Optional (Prospecting Gmail). Google Cloud → Credentials → OAuth client ID (Web). docs/PROSPECTING.md' },
+  { name: 'GOOGLE_CLIENT_SECRET', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Optional. The same OAuth client → Client secret.' },
   { name: 'STUDIO_GITHUB_CLIENT_ID', where: ['worker'], shape: /^\S{10,}$/, help: 'GitHub → Settings → Developer settings → OAuth Apps.' },
   { name: 'STUDIO_GITHUB_CLIENT_SECRET', where: ['worker'], shape: /^\S{20,}$/, help: 'Same OAuth app → Generate a new client secret.' }
 ]
