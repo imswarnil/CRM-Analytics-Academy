@@ -2,7 +2,8 @@
  * Milestone events only: { v, n, p, lb } from app/plugins/analytics.client.ts.
  * No page views, no reading time, no click tracking — traffic is Cloudflare
  * Web Analytics. One insert per milestone; the first `sign_up` of an account
- * also becomes a self-serve lead in Salesforce.
+ * also becomes a self-serve lead in Salesforce, and every milestone of a
+ * signed-in person refreshes their first-party enrichment (server/utils/enrich.ts).
  *
  * No cookies are set and no IP address is stored.
  */
@@ -34,11 +35,22 @@ export default defineEventHandler(async (event) => {
     insert into app.event (visitor, user_id, name, path, label)
     values (${visitor}, ${user?.id ?? null}, ${name}, ${path}, ${clip(body.lb, 200) || null})
   `
-  // An account's first sign_up becomes a self-serve lead in Salesforce.
-  if (name === 'sign_up' && user) {
+  if (!user) return { ok: true }
+  // Every milestone of a signed-in person refreshes their enrichment after the
+  // response (enrich.ts): geo + network now, product signals, score. Sign-ups,
+  // checkouts and exams always; lessons and sign-ins at most every few hours.
+  const touch = touchFrom(event)
+  if (name === 'sign_up') {
     const [row] = await sql`select count(*)::int as n from app.event where user_id = ${user.id} and name = 'sign_up'`
     // The label of a sign_up is the visitor's first touch (utm/referrer/direct).
-    if (Number(row?.n) === 1) event.waitUntil(sendAcademyEvent('signup', user, undefined, clip(body.lb, 60).replace(/[^a-z0-9./_-]/gi, '') || 'direct'))
+    const source = clip(body.lb, 60).replace(/[^a-z0-9./_-]/gi, '') || 'direct'
+    // An account's first sign_up becomes a self-serve lead in Salesforce, enriched.
+    if (Number(row?.n) === 1) {
+      event.waitUntil(enrichUser(user.id, { touch, event: name, source }).then(en => sendAcademyEvent('signup', user, undefined, source, en)))
+    }
+  } else {
+    const throttleHours = name === 'lesson_complete' ? 6 : name === 'sign_in' ? 24 : 0
+    event.waitUntil(enrichUser(user.id, { touch, event: name, throttleHours }))
   }
   return { ok: true }
 })

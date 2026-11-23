@@ -1,7 +1,7 @@
 ---
 title: "Salesforce फाउंडेशन — नोट्स"
 description: "ऑब्जेक्ट्स, फ़ील्ड्स, रिलेशन्स और लीड कन्वर्ज़न एक पृष्ठ पर: डेटा मॉडल हर CRM Analytics डैशबोर्ड पर बनाया गया है।"
-section: "salesforce-foundations"
+section: "foundations"
 lessons: 1
 ---
 

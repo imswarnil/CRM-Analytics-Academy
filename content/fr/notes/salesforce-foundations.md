@@ -1,7 +1,7 @@
 ---
 title: "Salesforce Fondations — Notes"
 description: "Objets, champs, relations et conversion de plomb sur une page : le modèle de données chaque CRM Analytics tableau de bord est construit sur."
-section: "salesforce-foundations"
+section: "foundations"
 lessons: 1
 ---
 

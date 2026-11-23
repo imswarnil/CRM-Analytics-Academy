@@ -9,9 +9,12 @@ import meta from '~~/app/data/lesson-meta.json'
 const LESSONS = meta as Record<string, { quiz?: boolean }>
 const LOCALE_PREFIX = /^\/(en|es|de|pt|fr|ja|hi)(?=\/|$)/
 
-/** Locale-stripped, trailing-slash-free path; '' when it is not a lesson. */
+/**
+ * Locale-stripped, trailing-slash-free path; '' when it is not a lesson. A
+ * pre-2026-11-23 path (/saql/…) is accepted and returned as its /course/… form.
+ */
 export function lessonPath(raw: unknown): string {
-  const p = String(raw ?? '').replace(LOCALE_PREFIX, '').replace(/\/+$/, '')
+  const p = currentLessonPath(String(raw ?? '').replace(LOCALE_PREFIX, '').replace(/\/+$/, ''))
   return p.length <= 200 && Object.hasOwn(LESSONS, p) ? p : ''
 }
 

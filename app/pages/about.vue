@@ -168,7 +168,7 @@ const links = AUTHOR.social.filter(s => ['linkedin', 'github', 'site'].includes(
       </ul>
       <div class="mt-10">
         <UButton
-          :to="localePath('/start')"
+          :to="localePath('/course')"
           size="lg"
           trailing-icon="i-lucide-arrow-right"
         >

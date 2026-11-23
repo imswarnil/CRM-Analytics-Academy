@@ -1,7 +1,7 @@
 ---
 title: "Salesforce Foundations — notes"
 description: "Objects, fields, relationships and lead conversion on one page: the data model every CRM Analytics dashboard is built on."
-section: salesforce-foundations
+section: foundations
 lessons: 1
 ---
 

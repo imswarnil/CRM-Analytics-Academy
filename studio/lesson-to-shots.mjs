@@ -5,7 +5,7 @@
  *   node studio/lesson-to-shots.mjs data-prep/joins-in-depth
  *   node studio/lesson-to-shots.mjs --all
  *
- * Reads content/en/<NN.section>/<NN.lesson>.md (its `walkthrough`) and writes
+ * Reads content/en/course/<NN.section>/<NN.lesson>.md (its `walkthrough`) and writes
  * studio/out/<section>/<lesson>/:
  *
  *   teleprompter.txt   the spoken lines, one shot per paragraph, to read aloud
@@ -27,7 +27,7 @@ import { fileURLToPath } from 'node:url'
 import { parse } from 'yaml'
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
-const CONTENT = path.join(ROOT, 'content', 'en')
+const CONTENT = path.join(ROOT, 'content', 'en', 'course')
 const OUT = path.join(ROOT, 'studio', 'out')
 const brand = JSON.parse(await readFile(path.join(ROOT, 'studio', 'brand.json'), 'utf8'))
 
@@ -126,7 +126,8 @@ export async function build(rel, opts = {}) {
 if (process.argv[1] && !process.argv[1].endsWith('lesson-to-shots.mjs')) {
   // no CLI
 } else {
-  const arg = process.argv[2]
+  // `saql/windowing`, `course/saql/windowing` or the URL path `/course/saql/windowing`.
+  const arg = process.argv[2]?.replace(/^\/?(course\/)?/, '')
   if (!arg) {
     console.log('usage: node studio/lesson-to-shots.mjs <section/lesson> | --all')
     process.exit(1)

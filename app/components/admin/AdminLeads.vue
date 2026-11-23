@@ -4,7 +4,14 @@
  * (Salesforce set-up, consulting, mentoring). Each one is also a Lead in
  * Salesforce (the "SF" tag says whether Web-to-Lead accepted it). Move a lead
  * through new → contacted → won/lost.
+ *
+ * Every lead and every self-serve account carries its first-party enrichment
+ * (company, location, network, domain type, product signals) and its score
+ * with the reasons — <AdminEnrichment>. "Self-serve accounts" lists signed-up
+ * learners by score, with their Salesforce account-sync state.
  */
+import type { LeadEnrichment, LeadSyncState } from '~~/shared/types/gtm'
+
 interface Lead {
   id: number
   product: string
@@ -29,7 +36,22 @@ interface Lead {
   orgKind: string | null
   firstLanding: string | null
   viewsBefore: number | null
+  enrichment: LeadEnrichment | null
+  sync: LeadSyncState | null
 }
+interface Account {
+  userId: string
+  email: string
+  name: string | null
+  signedUp: string
+  enrichment: LeadEnrichment | null
+  sync: LeadSyncState | null
+}
+
+const view = ref<'requests' | 'accounts'>('requests')
+const { data: accounts, status: accountsStatus } = await useLazyAsyncData('admin-accounts', () =>
+  view.value === 'accounts' ? $fetch<{ accounts: Account[] }>('/api/admin/leads', { query: { view: 'accounts' } }) : Promise.resolve(null),
+{ server: false, watch: [view] })
 
 const STATUSES = ['new', 'contacted', 'won', 'lost'] as const
 const filter = ref<'' | typeof STATUSES[number]>('new')
@@ -74,6 +96,50 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
 
     <div class="flex flex-wrap gap-2">
       <UButton
+        v-for="v in (['requests', 'accounts'] as const)"
+        :key="v"
+        :label="v === 'requests' ? 'Requests' : 'Self-serve accounts'"
+        :color="view === v ? 'primary' : 'neutral'"
+        :variant="view === v ? 'solid' : 'outline'"
+        size="sm"
+        @click="view = v"
+      />
+    </div>
+
+    <template v-if="view === 'accounts'">
+      <p
+        v-if="accountsStatus !== 'pending' && !accounts?.accounts.length"
+        class="border border-dashed border-(--line) p-8 text-center text-(--ink2)"
+      >
+        No enriched accounts yet. Each sign-up, checkout and milestone enriches the person.
+      </p>
+      <ul class="space-y-3">
+        <li
+          v-for="a in accounts?.accounts"
+          :key="a.userId"
+          class="border border-(--line) bg-(--card) p-4 rounded-2xl"
+        >
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="font-bold text-(--ink)">{{ a.name ?? a.email.split('@')[0] }}</span>
+            <a
+              :href="`mailto:${a.email}`"
+              class="text-(--signal) hover:underline"
+            >{{ a.email }}</a>
+            <span class="ms-auto font-mono text-xs text-(--ink2)">joined {{ date(a.signedUp) }}</span>
+          </div>
+          <AdminEnrichment
+            :enrichment="a.enrichment"
+            :sync="a.sync"
+          />
+        </li>
+      </ul>
+    </template>
+
+    <div
+      v-if="view === 'requests'"
+      class="flex flex-wrap gap-2"
+    >
+      <UButton
         v-for="st in ['', ...STATUSES]"
         :key="st"
         :label="st || 'all'"
@@ -85,13 +151,16 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
     </div>
 
     <p
-      v-if="status !== 'pending' && !data?.leads.length"
+      v-if="view === 'requests' && status !== 'pending' && !data?.leads.length"
       class="border border-dashed border-(--line) p-8 text-center text-(--ink2)"
     >
       No leads here yet. They arrive from /pro.
     </p>
 
-    <ul class="space-y-3">
+    <ul
+      v-if="view === 'requests'"
+      class="space-y-3"
+    >
       <li
         v-for="l in data?.leads"
         :key="l.id"
@@ -127,6 +196,10 @@ const date = (d: string) => new Date(d).toLocaleString([], { day: 'numeric', mon
           <span v-if="l.viewsBefore">{{ l.viewsBefore }} pages read</span>
           <span :class="l.sfStatus === 'sent' ? 'text-(--signal)' : 'text-error'">SF: {{ l.sfStatus }}</span>
         </p>
+        <AdminEnrichment
+          :enrichment="l.enrichment"
+          :sync="l.userId ? l.sync : undefined"
+        />
         <div class="mt-3 flex flex-wrap gap-2">
           <UButton
             v-for="st in STATUSES"
