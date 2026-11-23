@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Plan__c</fullName>
+    <description>free, Pro monthly/yearly/lifetime, an admin grant, or a team seat.</description>
+    <externalId>false</externalId>
+    <label>Plan</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>false</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>free</fullName>
+                <default>false</default>
+                <label>Free</label>
+            </value>
+            <value>
+                <fullName>monthly</fullName>
+                <default>false</default>
+                <label>Pro monthly</label>
+            </value>
+            <value>
+                <fullName>yearly</fullName>
+                <default>false</default>
+                <label>Pro yearly</label>
+            </value>
+            <value>
+                <fullName>lifetime</fullName>
+                <default>false</default>
+                <label>Pro lifetime</label>
+            </value>
+            <value>
+                <fullName>grant</fullName>
+                <default>false</default>
+                <label>Pro grant</label>
+            </value>
+            <value>
+                <fullName>seat</fullName>
+                <default>false</default>
+                <label>Team seat</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

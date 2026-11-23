@@ -9,7 +9,9 @@ import type { H3Event } from 'h3'
  * directly broke typecheck. Absent in dev and during prerender.
  */
 export interface CloudflareContext {
-  request?: { cf?: { country?: string } }
+  // What Cloudflare derives from the client address (the address itself is
+  // never read for this): used by enrich.ts.
+  request?: { cf?: { country?: string, region?: string, city?: string, timezone?: string, asn?: number, asOrganization?: string } }
   env?: Record<string, unknown> & { MEDIA?: R2BucketLike }
   context?: { waitUntil?: (p: Promise<unknown>) => void }
 }

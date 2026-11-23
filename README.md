@@ -84,6 +84,7 @@ Nuxt 4 + Nuxt Content 3 ──► prerendered HTML per locale ──► Cloudfla
 - **Pro lessons are gated at build time.** `scripts/gate-content.mjs` moves a Pro body into the Worker bundle;
   `scripts/verify-gating.mjs` fails the build if any of it is public.
 - **No tracking cookies.** Traffic is Cloudflare Web Analytics; the app records only milestones (sign-up, lesson complete, exam finished, checkout).
+- **GTM, first-party.** Sign-ups, requests, checkouts and milestones are enriched after the response (`waitUntil`) into `app.enrichment` (geo and AS organisation from Cloudflare, never the IP; email domain kind; the company's own home page cached in `app.company_domain`; product signals) and scored 0–100 with every reason. Leads reach Salesforce by Web-to-Lead with the score; active learners, team orgs and seats are upserted hourly by external ID (`app.sf_sync` keeps a payload hash so only changes are sent; `app.sf_sync_run` logs each run). Admin: `GET /api/admin/leads?view=requests|accounts`, `GET`/`POST /api/admin/salesforce` (status / sync now). `pnpm gtm:check` tests it all against fixtures and mocked Salesforce.
 - **Security:** CSRF origin check, rate limits, a proof-of-work captcha, escaped JSON-LD, security headers in `nuxt.config.ts` and `public/_headers`.
 
 | Layer | Choice |
@@ -92,7 +93,8 @@ Nuxt 4 + Nuxt Content 3 ──► prerendered HTML per locale ──► Cloudfla
 | Hosting | Cloudflare Workers, deployed by GitHub Actions on every push to `main` |
 | Data | Neon Postgres (schema `app`, [`server/db/schema.sql`](server/db/schema.sql)), Neon Auth |
 | Payments | Stripe over `fetch` (subscriptions, one-off, customer portal, webhook) |
-| CRM | Salesforce Web-to-Lead (no API user); org metadata in [`salesforce/crm/`](salesforce/crm/) |
+| CRM | Salesforce Web-to-Lead for leads (no credentials) + an hourly account sync over the REST API (OAuth client credentials, optional); org metadata in [`salesforce/crm/`](salesforce/crm/) |
+| GTM | First-party enrichment and a transparent lead score (`server/utils/enrich.ts`, `score.ts`): Cloudflare geo + network, email domain, company home page, product signals. No IP stored, no data brokers |
 | Search, LLMs | ⌘K search index, `llms.txt`, `llms-full.txt`, raw markdown, a read-only MCP server at `/mcp` |
 
 ## Run it locally
@@ -110,6 +112,7 @@ pnpm dev                    # http://localhost:3000
 | `pnpm new-lesson` | Scaffold a lesson with full frontmatter |
 | `pnpm lesson:check` | Numbering, frontmatter, quiz answers, internal links |
 | `pnpm translate` | Translate changed English into the other six languages (`pnpm translate:setup` once) |
+| `pnpm gtm:check` | Score, enrichment parsing, Web-to-Lead and the Salesforce sync against fixtures (no network) |
 | `pnpm lint` · `pnpm typecheck` | The checks to run before every commit |
 | `pnpm build` | Translate, build the search and LLM indexes, prerender, verify gating |
 | `pnpm preview` | Run the production Worker bundle locally |

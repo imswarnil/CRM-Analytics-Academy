@@ -36,6 +36,9 @@ const KEYS = [
   { name: 'MY_DODO_API_KEY', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Dodo Payments → Developer → API keys (test mode while DODO_ENV is test).' },
   { name: 'DODO_WEBHOOK_SECRET', where: ['env', 'worker'], shape: /^whsec_\S{20,}$/, help: 'Dodo Payments → Developer → Webhooks → the crmanalytics endpoint → Signing secret.' },
   { name: 'RESEND_API_KEY', where: ['env', 'worker'], shape: /^re_[A-Za-z0-9_]{20,}$/, help: 'Resend → API Keys → Create (Sending access). Verify your domain in Resend first.' },
+  { name: 'SF_INSTANCE_URL', where: ['env', 'worker'], shape: /^https:\/\/[a-z0-9.-]+\.my\.salesforce\.com\/?$/i, help: 'Optional (account sync). The org\'s My Domain URL: Setup → My Domain, e.g. https://<name>.my.salesforce.com' },
+  { name: 'SF_CLIENT_ID', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Optional. External Client App → OAuth Settings → Consumer Key (salesforce/CRM-PROCESS.md → Account sync).' },
+  { name: 'SF_CLIENT_SECRET', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Optional. The same app → Consumer Secret.' },
   { name: 'STUDIO_GITHUB_CLIENT_ID', where: ['worker'], shape: /^\S{10,}$/, help: 'GitHub → Settings → Developer settings → OAuth Apps.' },
   { name: 'STUDIO_GITHUB_CLIENT_SECRET', where: ['worker'], shape: /^\S{20,}$/, help: 'Same OAuth app → Generate a new client secret.' }
 ]
