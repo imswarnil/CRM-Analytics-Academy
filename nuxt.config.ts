@@ -274,7 +274,7 @@ export default defineNuxtConfig({
     // Email journeys, hourly. The Cron Trigger itself is triggers.crons in
     // wrangler.jsonc; Nitro runs the task whose schedule matches it.
     experimental: { tasks: true },
-    scheduledTasks: { '0 * * * *': ['email:journeys'] },
+    scheduledTasks: { '0 * * * *': ['email:journeys', 'salesforce:sync'] },
 
     cloudflare: {
       // The Neon driver and h3 both reach for node builtins. Declared here as

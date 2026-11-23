@@ -26,7 +26,18 @@ const MAP = {
   Org_Type__c: 'orgKind',
   Academy_Event__c: 'event',
   Lifecycle_Stage__c: 'lifecycle',
-  Motion__c: 'motion'
+  Motion__c: 'motion',
+  // Enrichment (2026-11-23)
+  Site_Score__c: 'siteScore',
+  Site_Grade__c: 'siteGrade',
+  Score_Reasons__c: 'scoreReasons',
+  Email_Domain__c: 'emailDomain',
+  Domain_Type__c: 'domainType',
+  Network_Org__c: 'networkOrg',
+  Geo_Region__c: 'geoRegion',
+  Timezone__c: 'timezone',
+  Company_LinkedIn__c: 'companyLinkedIn',
+  Product_Signals__c: 'productSignals'
 }
 const q = `SELECT DeveloperName, DurableId FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = 'Lead' AND QualifiedApiName LIKE '%__c'`
 const out = JSON.parse(execFileSync('sf', ['data', 'query', '--use-tooling-api', '--json', '--query', q, ...org], { encoding: 'utf8' }))
@@ -37,5 +48,5 @@ for (const r of out.result.records) {
   if (key) ids[key] = String(r.DurableId).split('.').pop().slice(0, 15)
 }
 const missing = Object.values(MAP).filter(k => !ids[k])
-console.log(`export const LEAD_FIELDS: Partial<Record<${Object.values(MAP).map(k => `'${k}'`).join(' | ')}, string>> = ${JSON.stringify(ids, null, 2).replace(/"(\w+)":/g, '$1:').replace(/"/g, '\'')}`)
+console.log(`export const LEAD_FIELDS: Partial<Record<LeadFieldKey, string>> =${JSON.stringify(ids, null, 2).replace(/"(\w+)":/g, '$1:').replace(/"/g, '\'')}`)
 if (missing.length) console.error(`Not deployed yet: ${missing.join(', ')}`)

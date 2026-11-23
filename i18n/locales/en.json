@@ -832,6 +832,10 @@
         "body": "If you create an account we store your name, email address and password hash (through Neon Auth), and what you do here: lessons completed, quiz scores, saved lessons, comments and submissions. That is what powers your dashboard, streak and badges."
       },
       {
+        "title": "How we understand who signs up",
+        "body": "When you create an account, ask us about team seats or services, start a checkout or finish a milestone, the site notes a few facts so we can tell which people and organisations the course is useful to and reply to the right ones. From the connection, Cloudflare tells us your approximate country, region, city and time zone and the name of the network you are on (for example your internet provider or employer); your IP address itself is never stored. From your email we keep only the domain and whether it is a personal, work, school or government address; for a work domain we read that company's public home page once (its name, description, logo and LinkedIn page). We add what you did here (lessons, streak, practice exams, plan) and turn it into a simple score with the reasons written out. This is kept in our own database and sent to our own Salesforce account, where we manage enquiries and customers. It is never sold, never shared with advertisers and never bought from data brokers. Ask us to delete your account and it goes too."
+      },
+      {
         "title": "How analytics works",
         "body": "Analytics is first-party: it is collected by this site, stored in our own database and read only by the site owner. A random visitor id is kept in your browser's local storage so repeat visits are counted once; clearing site data resets it. No data is sold or shared with advertisers."
       },

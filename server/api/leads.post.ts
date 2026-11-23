@@ -52,27 +52,35 @@ export default defineEventHandler(async (event) => {
             ${user?.id ?? null}, ${locale}, ${source}, ${landing}, ${lessonsDone}, ${points}, ${seats}, ${orgKind}, ${interest})
     returning id`
 
-  const sf = await sendLeadToSalesforce({
-    event: 'request',
-    product: interest,
-    firstName,
-    lastName,
-    email,
-    company,
-    title,
-    country,
-    phone,
-    seats,
-    orgKind,
-    message,
-    lessonsDone,
-    points,
-    source,
-    landing,
-    locale,
-    userId: user?.id ?? null
-  })
-  await sql`update app.lead set sf_status = ${sf} where id = ${row!.id}`
+  // Enrich (geo + network at this moment, the email domain, product signals,
+  // the score) and send to Salesforce after the response: neither slows the form.
+  const touch = touchFrom(event)
+  const leadId = Number(row!.id)
+  event.waitUntil((async () => {
+    const enrichment = await enrichLead(leadId, { touch })
+    const sf = await sendLeadToSalesforce({
+      event: 'request',
+      product: interest,
+      firstName,
+      lastName,
+      email,
+      company,
+      title,
+      country,
+      phone,
+      seats,
+      orgKind,
+      message,
+      lessonsDone,
+      points,
+      source,
+      landing,
+      locale,
+      userId: user?.id ?? null,
+      enrichment
+    })
+    await sql`update app.lead set sf_status = ${sf} where id = ${leadId}`
+  })().catch(e => console.warn(`lead ${leadId}: ${String((e as Error).message).slice(0, 120)}`)))
 
   setResponseHeader(event, 'cache-control', 'no-store')
   return { ok: true }

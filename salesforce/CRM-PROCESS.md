@@ -40,6 +40,101 @@ sf apex run --file scripts/apex/crm-reset.apex --target-org crma-learning      #
 sf apex run --file scripts/apex/crm-seed-2026.apex --target-org crma-learning
 ```
 
+## 2026-11-23 — enrichment, scored leads and the account sync
+
+Nothing below has been deployed or called: the site was built and tested against
+mocked Salesforce responses only (`pnpm gtm:check`). Everything is one deploy and
+a few clicks, done by you.
+
+### What the site now does
+
+1. **Enrichment** (`server/utils/enrich.ts`, `score.ts`) — after a sign-up, a
+   "talk to us" request, a checkout or a milestone, in the Worker's `waitUntil`:
+   Cloudflare's geo and network for that request (country, region, city,
+   timezone, AS organisation — never the IP), the email domain (personal /
+   business / education / government / disposable), for a business domain the
+   company's own home page (name, description, logo, LinkedIn page; cached 30
+   days), product signals from Neon (plan, lessons, streak, active days, quizzes,
+   exams + best score, checkouts started, team seat) and a **site score** 0–100 =
+   fit (≤ 50) + engagement (≤ 50), Hot ≥ 60 / Warm ≥ 30 / Cold, with every reason.
+2. **Lead intake** (Web-to-Lead, unchanged path, still no credentials) — every
+   lead now also carries `Site_Score__c`, `Site_Grade__c`, `Score_Reasons__c`,
+   `Email_Domain__c`, `Domain_Type__c`, `Network_Org__c`, `Geo_Region__c`,
+   `Timezone__c`, `Company_LinkedIn__c`, `Product_Signals__c`, plus standard
+   `City` and `Website`, and the company name for business domains. Until the
+   fields are deployed and their ids are in `LEAD_FIELDS`, the same facts arrive
+   in **Description** (Web-to-Lead ignores unknown ids, so nothing breaks).
+   `Lead_Score__c` now uses `Site_Score__c` when it is set (otherwise the old
+   formula), so *Hot lead to MQL* and the grade follow the site's score.
+3. **Account sync** (`server/utils/sf-sync.ts`, hourly + /admin → Integrations →
+   *Sync now*) — upserts by external ID, only rows whose payload changed:
+
+   | Site | Salesforce | External ID |
+   | --- | --- | --- |
+   | team org (`app.org`) | **Account** (Plan *seats*, seats purchased/used, join code, term end, Customer/Churned, Sales-led, Website) | `Account.Academy_Org_Id__c` = org id |
+   | active self-serve learner | **Academy Learner** (new object: plan, Pro, lessons, streak, active days, last active, exams, checkouts, score/grade/reasons, enrichment, first touch, Organisation lookup) | `Academy_Learner__c.Academy_User_Id__c` = Neon Auth user id |
+   | seat (`app.org_member`) | **Seat Assignment** (role, status, joined on, Learner lookup); a seat that disappears is set to *freed*, never deleted | `Seat_Assignment__c.Academy_Seat_Key__c` = `orgId:userId` |
+
+   "Active" = signed up or learned in the last 90 days, ever held Pro or a seat,
+   or synced before. REST API sObject Collections upsert (`PATCH
+   /composite/sobjects/{type}/{externalIdField}`, 200 records a call,
+   `allOrNone: false`), backoff on 429/5xx, at most 400 records and 12 API calls
+   a run (`SF_SYNC_MAX_RECORDS`, `SF_SYNC_MAX_CALLS`). No Bulk API, no logins:
+   OAuth 2.0 **client credentials**. Three refused tokens in a row pause the
+   hourly run for 24 hours.
+
+### Deploy the metadata (one deploy)
+
+New: object `Academy_Learner__c` (30 fields, layout, tab, list views *All* and
+*Academy - Hot learners*), `Account.Academy_Org_Id__c`,
+`Seat_Assignment__c.Academy_Seat_Key__c` + `Learner__c`, ten Lead fields, the
+`Lead_Score__c` formula change, the `Academy_CRM_Access` additions and a new
+permission set **Academy Site Sync** (for the integration user only). No Apex.
+
+```bash
+cd salesforce
+sf org login web --alias crma-learning          # you, in the browser
+sf project deploy start --source-dir crm --target-org crma-learning --wait 10 \
+  --test-level RunSpecifiedTests --tests AcademyLeadEventsTest --tests AcademyPulseTest
+node scripts/lead-field-ids.mjs --target-org crma-learning   # paste the printed map into LEAD_FIELDS
+```
+
+Then add the *Academy Learners* tab to the Sales app's navigation (App Manager →
+Sales → Edit → Navigation Items), and for any team Account you created by hand,
+type the site's org id (/admin → Teams) into **Academy org id** — otherwise the
+first sync creates a second Account for that org.
+
+### Set up the integration user and the External Client App (clicks, once)
+
+1. **Integration user.** Setup → Users → New User. User License **Salesforce
+   Integration**, Profile **Minimum Access - API Only Integrations**, email your
+   own, username e.g. `site-sync@crmanalyticsacademy.com`. (No Salesforce
+   Integration licence in the org? Use a Salesforce licence with a profile that
+   has *API Only User* checked.)
+2. On that user: Permission Set License Assignments → **Salesforce API
+   Integration**; Permission Set Assignments → **Academy Site Sync**. Nothing else.
+3. **External Client App.** Setup → External Client App Manager → New External
+   Client App. Name *Academy Site Sync*, contact email yours, Distribution State
+   *Local*. Enable OAuth: callback `https://login.salesforce.com/services/oauth2/callback`
+   (unused), scopes **Manage user data via APIs (api)** only. Flow Enablement:
+   tick **Enable Client Credentials Flow** (accept the warning). Security: leave
+   *Require secret for Web Server Flow* on; PKCE not needed. Create.
+4. Policies tab → Edit → OAuth Policies: Permitted Users *Admin approved users
+   are pre-authorized*, add the **Academy Site Sync** permission set; **Enable
+   Client Credentials Flow** → Run As = the integration user; IP Relaxation
+   *Enforce IP restrictions* is fine (the user has none). Save.
+5. Settings tab → OAuth Settings → **Consumer Key and Secret** (it asks you to
+   verify) → copy both.
+6. Setup → My Domain → copy the URL (`https://<name>.my.salesforce.com`).
+   Client credentials only works against My Domain, not login.salesforce.com.
+7. On the site: `pnpm keys` (or `wrangler secret put`) for `SF_INSTANCE_URL`,
+   `SF_CLIENT_ID`, `SF_CLIENT_SECRET`. Open /admin → Integrations → **Sync now**
+   and read the run line. Errors show per record; nothing is retried more than
+   once an hour.
+
+To stop the sync at any time: delete `SF_CLIENT_SECRET` from the Worker, or
+deactivate the External Client App. The Web-to-Lead path does not depend on it.
+
 ## What the org holds
 
 | Piece | What it is for |
