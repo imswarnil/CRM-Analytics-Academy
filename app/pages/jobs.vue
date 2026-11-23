@@ -129,7 +129,7 @@ useSeoMeta({ title, ogTitle: title, description, ogDescription: description })
             {{ t('jobs.emptyBody') }}
           </p>
           <UButton
-            :to="localePath('/start')"
+            :to="localePath('/course')"
             class="mt-6"
             trailing-icon="i-lucide-arrow-right"
           >

@@ -97,7 +97,7 @@ useJsonLd({
   'isAccessibleForFree': true,
   'provider': { '@type': 'Organization', '@id': ORG_ID, 'name': SITE.name, 'url': SITE.url },
   'offers': [
-    { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD', 'url': `${SITE.url}/start` },
+    { '@type': 'Offer', 'category': 'Free', 'price': '0', 'priceCurrency': 'USD', 'url': `${SITE.url}/course` },
     { '@type': 'Offer', 'category': 'Subscription', 'name': 'Pro Monthly', 'price': String(PRICES.monthly.usd), 'priceCurrency': 'USD', 'url': `${SITE.url}/pro` },
     { '@type': 'Offer', 'category': 'Subscription', 'name': 'Pro Yearly', 'price': String(PRICES.yearly.usd), 'priceCurrency': 'USD', 'url': `${SITE.url}/pro` },
     { '@type': 'Offer', 'category': 'Paid', 'name': 'Pro Lifetime', 'price': String(PRICES.lifetime.usd), 'priceCurrency': 'USD', 'url': `${SITE.url}/pro` }
@@ -188,7 +188,7 @@ const heroFacts = computed(() => [
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <UButton
-              :to="localePath('/start')"
+              :to="localePath('/course')"
               size="xl"
               trailing-icon="i-lucide-arrow-right"
             >
@@ -244,7 +244,7 @@ const heroFacts = computed(() => [
           :class="i === 0 ? 'lg:col-span-2' : ''"
         >
           <NuxtLink
-            :to="localePath(`/start#${s.key}`)"
+            :to="localePath(`/course#${s.key}`)"
             class="tile group relative flex h-full flex-col rounded-[8px] border border-(--line) bg-(--card) p-6"
           >
             <span class="flex items-center justify-between">
@@ -437,7 +437,7 @@ const heroFacts = computed(() => [
             {{ t('home.v2.freeText') }}
           </p>
           <UButton
-            :to="localePath('/start')"
+            :to="localePath('/course')"
             block
             size="lg"
             color="neutral"
@@ -506,7 +506,7 @@ const heroFacts = computed(() => [
           {{ t('home.v2.closeLead') }}
         </p>
         <UButton
-          :to="localePath('/start')"
+          :to="localePath('/course')"
           size="xl"
           trailing-icon="i-lucide-arrow-right"
           class="mt-8"

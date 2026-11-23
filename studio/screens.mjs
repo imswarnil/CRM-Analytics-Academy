@@ -6,7 +6,7 @@
  *   node studio/screens.mjs intro            capture what studio/films/intro.json lists (missing only)
  *   node studio/screens.mjs intro --refresh  capture all again
  *
- * A spec's `screens` maps a name to a path ("/start") or [path, width, height]
+ * A spec's `screens` maps a name to a path ("/course") or [path, width, height]
  * (a tall height gives a long page to pan down). Files land in
  * workspace/04-clips/screens/<name>.png.
  */

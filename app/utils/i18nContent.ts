@@ -61,7 +61,7 @@ const UNLOCALIZED = /^\/(raw|api|admin|_studio|sample-data)/
 /**
  * A link written inside lesson markdown, pointed at the reader's locale.
  *
- * Lessons are authored in English with English links (`/saql/functions`), and
+ * Lessons are authored in English with English links (`/course/saql/functions`), and
  * the translator copies them verbatim, so every internal link in a German
  * lesson used to drop the reader back into English. Site-internal paths get
  * the locale prefix; external URLs, anchors, files and English-only pages

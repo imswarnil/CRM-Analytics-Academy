@@ -65,8 +65,9 @@ let res
 if (arg.endsWith('.md')) {
   res = await build('videos/x.md', { file: path.resolve(arg), out: plan, section: 'CRM Analytics Academy' })
 } else {
-  const [sec, lesson] = arg.split('/')
-  const content = path.join(ROOT, 'content', 'en')
+  // `data-prep/joins-in-depth`, or the URL path `/course/data-prep/joins-in-depth`.
+  const [sec, lesson] = arg.replace(/^\/?(course\/)?/, '').split('/')
+  const content = path.join(ROOT, 'content', 'en', 'course')
   const secDir = (await readdir(content)).find(d => d.replace(/^\d+\./, '') === sec)
   const file = secDir && (await readdir(path.join(content, secDir))).find(f => f.replace(/^\d+\./, '').replace(/\.md$/, '') === lesson)
   if (!file) {

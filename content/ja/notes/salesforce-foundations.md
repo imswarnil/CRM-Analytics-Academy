@@ -1,7 +1,7 @@
 ---
 title: "Salesforce 財団 — ノート"
 description: "1ページ上のオブジェクト、フィールド、関係およびリード変換:すべてのデータモデル CRM Analytics ダッシュボードは作成されます。"
-section: "salesforce-foundations"
+section: "foundations"
 lessons: 1
 ---
 

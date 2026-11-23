@@ -1,7 +1,7 @@
 ---
 title: "Salesforce Stiftungen — Schuldverschreibungen"
 description: "Objekte, Felder, Beziehungen und Lead-Konvertierung auf einer Seite: das Datenmodell CRM Analytics Das Dashboard ist aufgebaut."
-section: "salesforce-foundations"
+section: "foundations"
 lessons: 1
 ---
 

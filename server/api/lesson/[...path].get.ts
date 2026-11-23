@@ -2,7 +2,7 @@
  * The full body of a Pro lesson (`access: pro`) — for Pro members: monthly,
  * lifetime or a team seat (server/utils/entitlement.ts).
  *
- *   GET /api/lesson/<locale>/<route>     e.g. /api/lesson/en/introduction/set-up-your-org
+ *   GET /api/lesson/<locale>/<route>     e.g. /api/lesson/en/course/data-prep/joins-in-depth
  *
  * scripts/gate-content.mjs moves Pro bodies into server/assets/gated/ (bundled
  * into the Worker, never into .output/public); this is the only way to read

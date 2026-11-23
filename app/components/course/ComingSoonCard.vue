@@ -43,7 +43,7 @@ const localePath = useLocalePath()
           {{ t('soon.youtube') }}
         </UButton>
         <UButton
-          :to="localePath('/start')"
+          :to="localePath('/course')"
           color="neutral"
           variant="outline"
           size="lg"

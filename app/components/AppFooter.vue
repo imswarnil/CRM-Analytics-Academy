@@ -12,7 +12,7 @@ const columns = computed(() => [
   {
     label: t('footer.learn'),
     children: [
-      { label: t('nav.main.course'), to: localePath('/start') },
+      { label: t('nav.main.course'), to: localePath('/course') },
       { label: t('nav.main.exam'), to: localePath('/certification') },
       { label: t('nav.main.interview'), to: localePath('/interview-questions') },
       { label: t('nav.notes'), to: localePath('/notes') },

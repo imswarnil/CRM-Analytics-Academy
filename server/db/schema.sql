@@ -22,7 +22,7 @@
 create schema if not exists app;
 
 -- Lessons a learner has marked complete. lesson_path is locale-stripped
--- (/saql/functions), so progress follows a learner across languages.
+-- (/course/saql/functions), so progress follows a learner across languages.
 create table if not exists app.progress (
   user_id      text        not null,
   lesson_path  text        not null,

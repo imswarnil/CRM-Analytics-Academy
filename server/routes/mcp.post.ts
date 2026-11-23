@@ -155,7 +155,7 @@ const TOOLS = [
   },
   {
     name: 'get_lesson',
-    description: 'Fetch one lesson by path (as returned by list_curriculum or search_lessons), e.g. "/foundations/what-is-crm-analytics".',
+    description: 'Fetch one lesson by path (as returned by list_curriculum or search_lessons), e.g. "/course/foundations/objects-fields-and-relationships".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -168,11 +168,11 @@ const TOOLS = [
 ]
 
 function listCurriculum(docs: AskDoc[]): string {
-  // Group by top-level route segment; the module's own index page (a
-  // single-segment path) names the group.
+  // Group by section (/course/<section>/<lesson>); the section's own index
+  // page (/course/<section>) names the group.
   const modules = new Map<string, { title: string, lessons: AskDoc[] }>()
   for (const doc of docs) {
-    const segments = doc.path.split('/').filter(Boolean)
+    const segments = doc.path.split('/').filter(Boolean).slice(1)
     const key = segments[0] ?? ''
     if (!modules.has(key)) modules.set(key, { title: key, lessons: [] })
     const mod = modules.get(key)!
@@ -182,7 +182,7 @@ function listCurriculum(docs: AskDoc[]): string {
 
   const lines: string[] = [`CRM Analytics Academy curriculum (${docs.length} pages). Lessons render at ${SITE_URL}<path>; raw markdown at ${SITE_URL}/raw<path>.md`, '']
   for (const [key, mod] of modules) {
-    lines.push(`# ${mod.title} (/${key})`)
+    lines.push(`# ${mod.title} (${COURSE_BASE}/${key})`)
     for (const lesson of mod.lessons) {
       lines.push(`- ${lesson.title} — ${lesson.path}`)
     }
@@ -209,7 +209,7 @@ function searchLessons(docs: AskDoc[], query: string): string {
 }
 
 function getLesson(docs: AskDoc[], path: string): string {
-  const wanted = '/' + String(path).trim().replace(/^\/+/, '').replace(/\/+$/, '')
+  const wanted = currentLessonPath('/' + String(path).trim().replace(/^\/+/, '').replace(/\/+$/, ''))
   const doc = docs.find(d => d.path === wanted)
   if (!doc) {
     return `No lesson at "${wanted}". Use list_curriculum or search_lessons to find valid paths.`

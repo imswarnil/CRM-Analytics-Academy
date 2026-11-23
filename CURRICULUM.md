@@ -2,8 +2,10 @@
 
 The course is rebuilt from scratch (2026-11-18) and published one lesson at a
 time: each lesson is written here, recorded for YouTube, and embedded on its
-page. Lessons live in `content/en/<NN.section>/<NN.lesson>.md` (`pnpm
-new-lesson`); only English is written by hand, the build translates the rest.
+page. Lessons live in `content/en/course/<NN.section>/<NN.lesson>.md` and
+render at `/course/<section>/<lesson>` (`pnpm new-lesson`); only English is
+written by hand, the build translates the rest. The course page is `/course`
+("Start here" in the navbar).
 
 **The approach.** First understand and build on the Salesforce platform
 (objects, data model, integration, a little Apex and LWC). Then learn the GTM
