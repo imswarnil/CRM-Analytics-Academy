@@ -1,7 +1,19 @@
 {
-  "updated": "2026-11-22T00:33:22.805Z",
-  "week": "2026-W47",
+  "updated": "2026-11-23T13:29:49.142Z",
+  "week": "2026-W48",
   "jobs": [
+    {
+      "id": "9c5f2f417dad7d30",
+      "title": "Senior CRM & Lifecycle Analyst (B2C) – Marketing Automation (all genders)",
+      "company": "Foodji GmbH",
+      "location": "München, Bayern, Deutschland",
+      "remote": false,
+      "level": "senior",
+      "posted": "2026-11-23",
+      "url": "https://www.arbeitnow.com/jobs/companies/foodji-gmbh/senior-crm-lifecycle-analyst-b2c-marketing-automation-all-genders-munchen-71768",
+      "source": "arbeitnow.com",
+      "skills": []
+    },
     {
       "id": "ddf8586060503220",
       "title": "Salesforce Technical Architect",
