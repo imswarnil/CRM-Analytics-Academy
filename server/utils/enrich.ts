@@ -47,7 +47,7 @@ export function touchFrom(event: H3Event): Touch | null {
   }
 }
 
-export type Plan = 'free' | 'monthly' | 'yearly' | 'lifetime' | 'grant' | 'seat'
+export type LearnerPlan = 'free' | 'monthly' | 'yearly' | 'lifetime' | 'grant' | 'seat'
 export interface Signals {
   userId: string
   email: string
@@ -63,7 +63,7 @@ export interface Signals {
   daysSinceActive: number | null
   activeDays30: number
   streak: number
-  plan: Plan
+  plan: LearnerPlan
   pro: boolean
   org: { id: number, name: string, kind: string, role: string, active: boolean, seats: number, expiresAt: string | null, domain: string | null } | null
 }
@@ -109,7 +109,7 @@ export async function loadSignals(userIds: string[]): Promise<Map<string, Signal
     const subActive = ['active', 'trialing', 'past_due'].includes(String(r.sub_status ?? ''))
     const entActive = r.ent_product && (!r.ent_expires || new Date(r.ent_expires as string).getTime() > now)
     const orgActive = r.org_id && r.org_status === 'active' && (!r.org_expires || new Date(r.org_expires as string).getTime() > now)
-    const plan: Plan = subActive ? (r.sub_plan === 'yearly' ? 'yearly' : 'monthly') : entActive ? (r.ent_product === 'lifetime' ? 'lifetime' : 'grant') : orgActive ? 'seat' : 'free'
+    const plan: LearnerPlan = subActive ? (r.sub_plan === 'yearly' ? 'yearly' : 'monthly') : entActive ? (r.ent_product === 'lifetime' ? 'lifetime' : 'grant') : orgActive ? 'seat' : 'free'
     const lastActive = r.last_at ? new Date(r.last_at as string).toISOString() : null
     out.set(String(r.user_id), {
       userId: String(r.user_id),

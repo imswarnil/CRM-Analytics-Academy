@@ -35,6 +35,17 @@ export async function verifyUnsubscribe(userId: string, sig: string) {
   return diff === 0
 }
 
+/**
+ * Outreach (prospecting) unsubscribe: the same HMAC key, a different message
+ * prefix, so a learner link can never unsubscribe a prospect or the other way.
+ */
+export async function prospectUnsubscribeUrl(prospectId: number | string) {
+  return `${SITE}/api/prospect/unsubscribe?p=${encodeURIComponent(String(prospectId))}&s=${await hmac(`prospect:${prospectId}`)}`
+}
+export async function verifyProspectUnsubscribe(prospectId: string, sig: string) {
+  return verifyUnsubscribe(`prospect:${prospectId}`, sig)
+}
+
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 export interface Mail {

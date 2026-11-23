@@ -88,6 +88,7 @@ Nuxt 4 + Nuxt Content 3 ──► prerendered HTML per locale ──► Cloudfla
   `scripts/verify-gating.mjs` fails the build if any of it is public.
 - **No tracking cookies.** Traffic is Cloudflare Web Analytics; the app records only milestones (sign-up, lesson complete, exam finished, checkout).
 - **GTM, first-party.** Sign-ups, requests, checkouts and milestones are enriched after the response (`waitUntil`) into `app.enrichment` (geo and AS organisation from Cloudflare, never the IP; email domain kind; the company's own home page cached in `app.company_domain`; product signals) and scored 0–100 with every reason. Leads reach Salesforce by Web-to-Lead with the score; active learners, team orgs and seats are upserted hourly by external ID (`app.sf_sync` keeps a payload hash so only changes are sent; `app.sf_sync_run` logs each run). Admin: `GET /api/admin/leads?view=requests|accounts`, `GET`/`POST /api/admin/salesforce` (status / sync now). `pnpm gtm:check` tests it all against fixtures and mocked Salesforce.
+- **Prospecting (admin).** /admin → Prospecting: company and people search (Apollo), email finder and verifier (Hunter), lists with CSV import/export, sequences previewed and started by hand, sent from the owner's Gmail via OAuth (never Resend) by the hourly `prospect:send` task under a ramped daily cap and a business-hours window, with reply/bounce polling, one-click unsubscribe, a global suppression list, source + lawful basis per prospect and GDPR delete. Tables `app.prospect*`, `prospect_cache`, `provider_call`, `mail_account`; APIs under `/api/admin/prospecting/*` and the public `/api/prospect/unsubscribe`. Setup: [`docs/PROSPECTING.md`](docs/PROSPECTING.md).
 - **Security:** CSRF origin check, rate limits, a proof-of-work captcha, escaped JSON-LD, security headers in `nuxt.config.ts` and `public/_headers`.
 
 | Layer | Choice |
@@ -115,6 +116,7 @@ pnpm dev                    # http://localhost:3000
 | `pnpm new-lesson` | Scaffold a lesson with full frontmatter |
 | `pnpm lesson:check` | Numbering, frontmatter, quiz answers, internal links |
 | `pnpm translate` | Translate changed English into the other six languages (`pnpm translate:setup` once) |
+| `pnpm prospect:check` | Prospecting: Apollo/Hunter adapters, Gmail, a full send run — all mocked |
 | `pnpm gtm:check` | Score, enrichment parsing, Web-to-Lead and the Salesforce sync against fixtures (no network) |
 | `pnpm lint` · `pnpm typecheck` | The checks to run before every commit |
 | `pnpm build` | Translate, build the search and LLM indexes, prerender, verify gating |
