@@ -28,7 +28,7 @@
     "pro": "Pricing",
     "billing": "Access",
     "main": {
-      "course": "Course",
+      "course": "Start here",
       "exam": "Certification",
       "interview": "Interview prep",
       "pricing": "Pricing",
@@ -910,7 +910,7 @@
   "curriculumPage": {
     "seo": {
       "title": "Start learning Salesforce CRM Analytics — the full course",
-      "description": "The CRM Analytics course in order: the Salesforce data model, GTM basics, data architecture, the dashboards revenue teams use, bindings, sharing and Einstein Discovery."
+      "description": "The CRM Analytics course in order: the Salesforce data model, data prep, visualization, SAQL, bindings, sharing and embedding, and Einstein Discovery."
     },
     "hero": {
       "eyebrow": "The course",
@@ -938,8 +938,18 @@
     "stat": {
       "sections": "sections",
       "lessons": "lessons planned",
-      "live": "live now"
+      "live": "live now",
+      "minutes": "minutes live"
     },
+    "crumb": "Course",
+    "path": "The path",
+    "pathLead": "Seven sections, one after another. Each lesson builds on the one before it.",
+    "kind": {
+      "video": "Video",
+      "article": "Reading"
+    },
+    "quiz": "Quiz",
+    "minutes": "{n} min",
     "nextUp": "Next up",
     "firstUp": "Start with",
     "continue": "Continue",

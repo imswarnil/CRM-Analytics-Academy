@@ -133,7 +133,7 @@ const COLS = ['anytime', 'gtm', 'practice', 'keep'] as const
         {{ t('home.compare.cta') }}
       </UButton>
       <UButton
-        :to="localePath('/start')"
+        :to="localePath('/course')"
         size="lg"
         color="neutral"
         variant="outline"

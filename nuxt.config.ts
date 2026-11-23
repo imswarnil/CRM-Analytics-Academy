@@ -1,5 +1,6 @@
 import { realpathSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import { COURSE_BASE, LEGACY_SECTIONS } from './shared/utils/coursePaths'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
@@ -48,11 +49,11 @@ const RETIRED: Record<string, string> = {
   // 2026-11-20: exam papers moved to permalinks (app/utils/exam.ts PAPER_REDIRECTS).
   '/certification/paper-1': '/certification/salesforce-crm-analytics-einstein-consultant-exam-set-1',
   '/leaderboard': '/dashboard',
-  '/ask': '/start',
-  '/training': '/start',
+  '/ask': '/course',
+  '/training': '/course',
   '/sales': '/about',
   '/contact': '/about',
-  '/implementation': '/start',
+  '/implementation': '/course',
   '/experts': '/about',
   '/experts/join': '/about',
   // 2026-10-22: payments, teams and sponsorship removed — every lesson is free.
@@ -61,22 +62,33 @@ const RETIRED: Record<string, string> = {
   '/join': '/sign-up',
   '/nominate': '/wall-of-fame',
   // 2026-10-23: lessons published section by section; these pages retired.
-  '/showcase': '/start',
-  '/showcase/**': '/start',
+  '/showcase': '/course',
+  '/showcase/**': '/course',
   '/instructors': '/about',
-  '/roadmap': '/start',
+  '/roadmap': '/course',
   '/changelog': '/about',
   // 2026-11-16: the platform simplified — visualisers, the course pitch page
   // and sponsors retired; the curriculum restarts from scratch.
-  '/visualiser': '/start',
-  '/visualiser/**': '/start',
-  '/course': '/start',
-  // 2026-11-18: the course page is /start.
-  '/curriculum': '/start',
-  '/introduction': '/start',
-  '/introduction/**': '/start',
+  '/visualiser': '/course',
+  '/visualiser/**': '/course',
+  // 2026-11-18: the course page was /start; since 2026-11-23 it is /course
+  // ("Start here" in the navbar), and every lesson is under it.
+  '/start': '/course',
+  '/curriculum': '/course',
+  '/introduction': '/course',
+  '/introduction/**': '/course',
   '/sponsor/**': '/sponsor'
 }
+
+// 2026-11-23: lessons moved from /<section>/<lesson> to /course/<section>/<lesson>
+// (shared/utils/coursePaths.ts). Each old section index and everything under
+// it 301s to the new place, in every locale; lesson slugs are unchanged, so
+// the wildcard carries the rest of the path across.
+const legacyCourseRules = Object.fromEntries(Object.entries(LEGACY_SECTIONS).flatMap(([from, to]) =>
+  ['', ...locales.filter(l => l.code !== DEFAULT_LOCALE).map(l => `/${l.code}`)].flatMap(prefix => [
+    [`${prefix}/${from}`, { redirect: { to: `${prefix}${COURSE_BASE}/${to}`, statusCode: 301 } }],
+    [`${prefix}/${from}/**`, { redirect: { to: `${prefix}${COURSE_BASE}/${to}/**`, statusCode: 301 } }]
+  ])))
 
 const DROPPED_LOCALES = ['zh', 'ar', 'ru', 'bn', 'ur']
 const droppedRules = Object.fromEntries(DROPPED_LOCALES.flatMap(c => [
@@ -224,6 +236,7 @@ export default defineNuxtConfig({
 
   routeRules: {
     ...redirectRules,
+    ...legacyCourseRules,
     ...droppedRules,
     '/**': { headers: SECURITY_HEADERS }
   },
@@ -289,7 +302,7 @@ export default defineNuxtConfig({
         // one advertised hreflang alternates like /ja/ru/jobs, whose
         // alternates nested again — thousands of phantom routes until the
         // prerenderer ran out of memory.
-        ...Object.keys(redirectRules).map(path => new RegExp(`^${path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(/|$|\\?)`)),
+        ...Object.keys({ ...redirectRules, ...legacyCourseRules }).filter(path => !path.endsWith('/**')).map(path => new RegExp(`^${path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(/|$|\\?)`)),
         new RegExp(`^/(${locales.map(l => l.code).join('|')})/(${locales.map(l => l.code).join('|')})(/|$)`),
         // The editor is a signed-in surface too; a prerendered copy would be
         // a logged-out shell.

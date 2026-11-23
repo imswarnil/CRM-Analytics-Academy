@@ -112,7 +112,7 @@ export default defineContentConfig({
 
     docs: defineCollection({
       type: 'page',
-      // Content is organised per locale: content/<locale>/<module>/<lesson>.md.
+      // Content is organised per locale: content/<locale>/course/<NN.section>/<NN.lesson>.md (URL /course/<section>/<lesson>).
       // The non-localized collections above live in their own top-level folders
       // and are excluded so they aren't ingested twice.
       // Pro lessons are swapped for their public stubs (scripts/gate-content.mjs):

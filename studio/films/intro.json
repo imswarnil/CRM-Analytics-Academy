@@ -16,15 +16,15 @@
       1440,
       3200
     ],
-    "start": "/start",
+    "start": "/course",
     "start-tall": [
-      "/start",
+      "/course",
       1440,
       2600
     ],
-    "lesson": "/salesforce-foundations/objects-fields-and-relationships",
+    "lesson": "/course/foundations/objects-fields-and-relationships",
     "lesson-tall": [
-      "/salesforce-foundations/objects-fields-and-relationships",
+      "/course/foundations/objects-fields-and-relationships",
       1440,
       2800
     ],

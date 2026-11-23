@@ -20,16 +20,16 @@ const args = Object.fromEntries(process.argv.slice(2).map(a => a.replace(/^--/, 
 const url = path => `https://${HOST}${path === '/' ? '' : path}`
 const strip = s => s.replace(/^\d+\./, '').replace(/\.md$/, '')
 
-/** content/es/07.saql/03.functions.md → /es/saql/functions */
+/** content/es/course/04.saql/03.functions.md → /es/course/saql/functions */
 function routeOf(file) {
   const parts = file.split('/')
   if (parts[0] !== 'content') return null
   if (parts[1] === 'resources') return '/resources'
-  if (parts.length !== 4 || !file.endsWith('.md')) return null
-  const [, locale, section, lesson] = parts
+  if (parts.length !== 5 || parts[2] !== 'course' || !file.endsWith('.md')) return null
+  const [, locale, , section, lesson] = parts
   const prefix = locale === 'en' ? '' : `/${locale}`
   const slug = strip(lesson)
-  return `${prefix}/${strip(section)}${slug === 'index' ? '' : `/${slug}`}`
+  return `${prefix}/course/${strip(section)}${slug === 'index' ? '' : `/${slug}`}`
 }
 
 async function fromSitemap() {
@@ -51,7 +51,7 @@ if (args.all) {
   const routes = new Set(changed.map(routeOf).filter(Boolean))
   // A deleted file is not a page to recrawl.
   urls = [...routes].map(url).filter(Boolean)
-  if (urls.length) urls.push(url('/'), url('/start'))
+  if (urls.length) urls.push(url('/'), url('/course'))
 } else {
   console.log('[indexnow] nothing to do: pass --since=<sha> or --all')
   process.exit(0)

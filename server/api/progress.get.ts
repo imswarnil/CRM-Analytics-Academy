@@ -73,6 +73,12 @@ export default defineEventHandler(async (event) => {
   ])
   const pro = access === 'pro'
 
+  // Paths stored before lessons moved under /course read as their new URLs
+  // (a no-op once server/db/migrate-2026-11-23-course-urls.sql has run).
+  for (const rows of [completed, quizzes, bookmarks]) {
+    for (const r of rows) r.lesson_path = currentLessonPath(String(r.lesson_path))
+  }
+
   return {
     pro,
     access,

@@ -31,7 +31,7 @@ walkthrough:
       edit: "MOTION: the fan-out scene from joins.aep, 4 seconds, then two quick screen cuts for the other two problems."
       seconds: 14
     - shot: "What you get"
-      screen: "SCREEN: the site, /start, scroll through the seven sections"
+      screen: "SCREEN: the site, /course, scroll through the seven sections"
       say: >-
         Seven sections, one path. Data prep, visualization, SAQL, bindings, security, sharing and Einstein Discovery. Short videos, one idea each, all
         built on the same company's data in your own free org.

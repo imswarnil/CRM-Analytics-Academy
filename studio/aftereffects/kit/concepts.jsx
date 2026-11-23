@@ -54,7 +54,7 @@ SCENES_INFO.push(
     header(comp, p.kicker || 'THE PROJECT', p.title || "Built on our own platform's data", T);
     var beat = p._beat || 0.585;
     var tables = p.tables || [
-      ['web_traffic', 'Cloudflare Web Analytics', ['Day', 'Page', 'Visits'], [['Nov 21', '/start', '1,204'], ['Nov 21', '/saql', '866'], ['Nov 22', '/', '2,310']]],
+      ['web_traffic', 'Cloudflare Web Analytics', ['Day', 'Page', 'Visits'], [['Nov 21', '/course', '1,204'], ['Nov 21', '/course/saql', '866'], ['Nov 22', '/', '2,310']]],
       ['signups', 'Neon Postgres', ['Day', 'Source', 'Sign-ups'], [['Nov 22', 'YouTube', '42'], ['Nov 22', 'LinkedIn', '18'], ['Nov 22', 'Website', '61']]],
       ['lesson_progress', 'Neon Postgres', ['Learner', 'Section', 'Done'], [['Priya', 'Data Prep', '8 / 8'], ['Rahul', 'SAQL', '3 / 6'], ['Ana', 'Foundations', '3 / 3']]],
       ['payments', 'Dodo Payments', ['Day', 'Plan', 'Amount'], [['Nov 22', 'Pro yearly', '$119'], ['Nov 22', 'Teams', '$4,800'], ['Nov 21', 'Pro monthly', '$19']]]

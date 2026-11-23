@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Scaffolds a lesson in content/en/ with the right number and full frontmatter.
+ * Scaffolds a lesson in content/en/course/ with the right number and full frontmatter.
  *
  *   pnpm new-lesson                                   # asks for everything
  *   pnpm new-lesson --section 07 --title "Streams: load, filter, foreach" \
@@ -22,7 +22,7 @@ import readline from 'node:readline/promises'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
-const EN = path.join(ROOT, 'content/en')
+const EN = path.join(ROOT, 'content/en/course')
 const args = process.argv.slice(2)
 const flag = (name) => {
   const i = args.indexOf(`--${name}`)
@@ -112,5 +112,5 @@ if (flag('publish')) {
   }
 }
 
-const route = `/${folder.replace(/^\d{2}\./, '')}/${slug}`
+const route = `/course/${folder.replace(/^\d{2}\./, '')}/${slug}`
 console.log(`\nWrote ${path.relative(ROOT, file)}\nRoute: ${route}  ·  ${access.toUpperCase()}  ·  ${kind}\nNext: write it, then pnpm lesson:check`)

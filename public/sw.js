@@ -14,9 +14,10 @@
 // `activate` deletes every cache that is not the current name.
 //   v4 = Blueprint redesign; private routes excluded; offline page.
 //   v5 = Namaste design; course at /start; full offline save of the course.
-const CACHE_NAME = 'crma-v5'
+//   v6 = the course moved to /course and every lesson under /course/<section>/.
+const CACHE_NAME = 'crma-v6'
 const OFFLINE_URL = '/offline.html'
-const SHELL = [OFFLINE_URL, '/', '/start', '/icon.svg', '/manifest.webmanifest']
+const SHELL = [OFFLINE_URL, '/', '/course', '/icon.svg', '/manifest.webmanifest']
 const STATIC_ASSET_RE = /\/_nuxt\/|\.(?:png|jpg|jpeg|svg|webp|ico|woff2?)$/
 // Signed-in, per-user or rendered per request: caching any of these would hand
 // one visit's page to the next (or to another account on the same device).

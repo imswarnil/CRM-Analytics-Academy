@@ -151,6 +151,7 @@ const sectionTitles = computed(() => {
   return map
 })
 const crumbLabel = (seg: string) => sectionTitles.value[seg]
+  ?? (seg === COURSE_BASE.slice(1) ? t('curriculumPage.crumb') : undefined)
   ?? seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 
 // A coming-soon lesson (not a section page): its public copy is a title and a

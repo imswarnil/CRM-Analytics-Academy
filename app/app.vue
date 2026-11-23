@@ -37,7 +37,7 @@ const { data: navTree, refresh: refreshNav } = await useAsyncData(
 const localePathFn = useLocalePath()
 onMounted(async () => {
   if (navTree.value?.length) return
-  const payload = await loadPayload(localePathFn('/start')).catch(() => null) as { data?: Record<string, ContentNavigationItem[]> } | null
+  const payload = await loadPayload(localePathFn('/course')).catch(() => null) as { data?: Record<string, ContentNavigationItem[]> } | null
   const tree = payload?.data?.[`navigation-${locale.value}`]
   if (tree?.length) navTree.value = tree
   else refreshNav()
@@ -51,17 +51,25 @@ onMounted(() => {
   restoreSession()
 })
 watch(isSignedIn, ok => ok && loadProgress(), { immediate: true })
+// The sections sit under content/<locale>/course/ (URLs /course/<section>/…),
+// so the tree is /<locale> → /<locale>/course → sections. Everything that
+// injects `navigation` wants the sections, so the course level is unwrapped.
+const sectionsOf = (code: string) => {
+  const branch = navTree.value?.find(item => item.path === `/${code}`)
+  const course = branch?.children?.find(item => item.path === `/${code}${COURSE_BASE}`)
+  return (course?.children ?? []) as ContentNavigationItem[]
+}
 const navigation = computed<ContentNavigationItem[]>(() => {
-  const branch = navTree.value?.find(item => item.path === `/${locale.value}`)
-  if (branch?.children?.length) return localizeNavigation(branch.children)
+  const own = sectionsOf(locale.value)
+  if (own.length) return localizeNavigation(own)
 
   // A locale with no translated content yet borrows the English tree, pointed at
   // its own URLs. Without this the prerenderer never discovers those routes —
   // crawlLinks only follows links that exist — so every lesson 404s in that
   // language and the hreflang alternates advertise dead pages. The routes do
   // render: [...slug].vue already falls back to the English document.
-  const english = navTree.value?.find(item => item.path === `/${DEFAULT_LOCALE}`)
-  return english?.children ? localizeNavigation(english.children, locale.value) : []
+  const english = sectionsOf(DEFAULT_LOCALE)
+  return english.length ? localizeNavigation(english, locale.value) : []
 })
 
 // Site search. The sections come from public/search/<locale>.json, built by

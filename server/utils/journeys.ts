@@ -61,14 +61,14 @@ async function findDue(): Promise<Due[]> {
       due.push({ ...base, step: 0, mail: n => ({
         subject: 'Welcome to CRM Analytics Academy',
         lines: [`Hi ${n},`, 'Thanks for joining. The course goes from your first dataset to SAQL, bindings and Einstein Discovery, one short lesson at a time.', 'Start with lesson one. It takes about five minutes, and your progress saves as you go.'],
-        cta: { label: 'Start the course', url: `${SITE}/start` }
+        cta: { label: 'Start the course', url: `${SITE}/course` }
       }) })
     } else if (last === 0 && age >= 48) {
       due.push({ ...base, step: 1, mail: n => done === 0
         ? {
             subject: 'Your first lesson takes five minutes',
             lines: [`Hi ${n},`, 'Most people who finish this course started with one lesson on a quiet evening. The first one is how Salesforce objects, fields and relationships become the data you analyse.', 'Five minutes, one quiz, and you are on the board.'],
-            cta: { label: 'Open lesson one', url: `${SITE}/salesforce-foundations/objects-fields-and-relationships` }
+            cta: { label: 'Open lesson one', url: `${SITE}/course/foundations/objects-fields-and-relationships` }
           }
         : {
             subject: `${done} lesson${done === 1 ? '' : 's'} done. Here is your next one`,
