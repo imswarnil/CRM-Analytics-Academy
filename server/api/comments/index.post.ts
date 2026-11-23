@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
     parentId = Number(body.parentId)
     // Replies attach to a top-level comment on the same lesson — one level
     // deep, and never across lessons.
-    const parent = await sql`select id from app.comment where id = ${parentId} and lesson_path = ${path} and parent_id is null and status = 'visible'`
+    const parent = await sql`select id from app.comment where id = ${parentId} and lesson_path in (${path}, ${legacyLessonPath(path)}) and parent_id is null and status = 'visible'`
     if (!parent.length) throw createError({ statusCode: 400, statusMessage: 'That comment cannot be replied to.' })
   }
 

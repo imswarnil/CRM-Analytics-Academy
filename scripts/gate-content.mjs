@@ -8,7 +8,7 @@
  *   server/assets/gated/<locale>/<route>.json   the full markdown + the quiz,
  *                                               interview and walkthrough —
  *                                               bundled into the Worker only
- *   .gated-stubs/<locale>/<NN.module>/<NN.lesson>.md
+ *   .gated-stubs/<locale>/course/<NN.section>/<NN.lesson>.md
  *                                               a public stub: title, navigation,
  *                                               description, `access: pro` and a
  *                                               two-paragraph teaser

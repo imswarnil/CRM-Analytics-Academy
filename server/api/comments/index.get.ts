@@ -12,13 +12,16 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid lesson path' })
   }
 
+  // Comments written before lessons moved under /course still carry the old
+  // path until server/db/migrate-2026-11-23-course-urls.sql has run.
+  const legacy = legacyLessonPath(path)
   const sql = useDb()
   const rows = await sql`
       select c.id, c.parent_id, c.body, c.created_at, c.edited_at, c.user_id,
              u.name, u.image
       from app.comment c
       left join neon_auth."user" u on u.id::text = c.user_id
-      where c.lesson_path = ${path} and c.status = 'visible'
+      where c.lesson_path in (${path}, ${legacy}) and c.status = 'visible'
       order by c.created_at asc
       limit 300
     `

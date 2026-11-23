@@ -17,6 +17,7 @@
     "stripe:setup": "node scripts/stripe-setup.mjs",
     "new-lesson": "node scripts/new-lesson.mjs",
     "lesson:check": "node scripts/lesson-check.mjs",
+    "gtm:check": "node scripts/check-gtm.mjs",
     "postinstall": "nuxt prepare",
     "keys": "node scripts/keys.mjs"
   },

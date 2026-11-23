@@ -25,13 +25,17 @@ node studio/build-film.mjs trailer             # the channel trailer (flat, the 
 node studio/build-film.mjs kit-preview         # test reel of the other scene types
 ```
 
-**The channel trailer** (`films/trailer.json`, 1:24) is kinetic type first, flat, no camera moves:
-`slam` scenes cut one big word per beat pair; each `concept` slams its name (PREP, JOIN, SAQL,
-VISUALIZE, BIND, SECURE), the word shrinks into the heading as a canvas rises, and the concept is
-built on it (`kit/kinetic.jsx`). `aboutMe` is two columns: your photo, then name, role, years,
-companies. Files go in `workspace/01-camera/trailer/`: `photo.jpg` (scene `"photo": "photo"`) and
-camera clips (scene `"clip": "clip-02-subscribe"`, played full frame with the music ducked; the
-scene grows to fit). Missing ones show placeholders saying what is needed.
+**The channel trailer** (`films/trailer.json`, 1:43, 44 bars of *Dizzy*) is kinetic type first, flat,
+no camera moves, music only. A `slam` hook (Data. Dashboards. Decisions.), "Learn CRM Analytics from
+the ground up", `aboutMe`, then two `chapter` cards that carry the story: **Part one, the fundamentals**
+(each `concept` slams its word, the word shrinks into the heading as a canvas rises, and the idea is
+drawn on it: JOIN, BIND, a multi-step QUERY, FUNCTIONS, EXECUTE, VISUALIZE) and **Part two, every
+dashboard a business needs** (CONVERSION, ADOPTION, SNAPSHOTS), then AI with CRM Analytics, an
+"and much more" montage one word a beat, "Start with lesson one", your subscribe clip and the end
+screen. `aboutMe` is two columns: your photo, then name, role, years, companies. Files go in
+`workspace/01-camera/trailer/`: `photo.jpg` (scene `"photo": "photo"`) and camera clips (scene
+`"clip": "clip-02-subscribe"`, played full frame with the music ducked; the scene grows to fit).
+Missing ones show placeholders saying what is needed.
 `films/trailer-clips.md` is the brief.
 
 A film is a JSON spec in `films/`. Without `voice` it is **text and music only** (the intro):
@@ -109,8 +113,9 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | `pathList` | The sections as a list widget, progress filling, KPI widgets |
 | `queryMode` | SAQL typed in Query mode, Run, the results land, a toast |
 | `proveIt` | Exam score gauge, interview questions, the capstone certificate |
-| `slam` | One big word per beat pair, the colour cutting with it, icons |
-| `concept` | The concept's word slams, becomes the heading, then it is built: `kind` recipe, join, saql, chart, bind, secure |
+| `slam` | One big word per beat pair (`per` beats), the colour cutting with it, icons; long words shrink to fit |
+| `chapter` | A chapter card: lines slam in on the beat over a ghost numeral, then fly off on the last half-beat (the words are the cut) |
+| `concept` | The concept's word slams (`intro` beats), becomes the heading, then it is built: `kind` recipe, join, saql (a long multi-step query too), function (rows flow into sum(), then avg/count/max), execute (load → filter → group → foreach → order → limit lit in turn, rows shrinking), chart, bind, secure, conversion (funnel with rates), adoption (active users, gauge, features), snapshot (daily recipe → history → what changed), ai (prompt → mockup, data checks, a prediction) |
 | `aboutMe` | Two columns: your photo, then name, role, years, companies (placeholders until filled) |
 | `clipSlot` | Your camera clip with a name card, or a placeholder until it exists |
 

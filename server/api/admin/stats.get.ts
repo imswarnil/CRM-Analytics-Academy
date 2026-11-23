@@ -171,7 +171,7 @@ export default defineEventHandler(async (event) => {
       order by n desc, lesson_path
       limit 5
     `
-    topLessons = rows.map(r => ({ path: String(r.lesson_path), count: Number(r.n) }))
+    topLessons = rows.map(r => ({ path: currentLessonPath(String(r.lesson_path)), count: Number(r.n) }))
   } catch {
     // Leave empty.
   }

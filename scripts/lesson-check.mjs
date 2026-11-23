@@ -16,12 +16,13 @@ import { fileURLToPath } from 'node:url'
 import { parse } from 'yaml'
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
-const EN = path.join(ROOT, 'content/en')
+// Lessons live under content/en/course/ and render at /course/<section>/<lesson>.
+const EN = path.join(ROOT, 'content/en/course')
 const SKIP = new Set(['interview-questions', 'exam', 'notes'])
 const errors = []
 const warnings = []
 
-const routeOf = rel => `/${rel.replace(/\.md$/, '').split('/').map(p => p.replace(/^\d{2}\./, '')).join('/')}`.replace(/\/index$/, '')
+const routeOf = rel => `/course/${rel.replace(/\.md$/, '').split('/').map(p => p.replace(/^\d{2}\./, '')).join('/')}`.replace(/\/index$/, '')
 const lessons = []
 for (const dir of (await readdir(EN, { withFileTypes: true })).filter(d => d.isDirectory() && !SKIP.has(d.name))) {
   if (!/^\d{2}\./.test(dir.name)) errors.push(`${dir.name}: section folders need a two-digit prefix`)
@@ -64,8 +65,11 @@ for (const rel of lessons) {
   const body = src.slice(m[0].length)
   for (const [, link] of body.matchAll(/\]\((\/[a-z0-9/-]+)(?:#[^)]*)?\)/g)) {
     const first = link.split('/')[1]
+    // A section linked at the site root is the pre-2026-11-23 URL: it only
+    // works through a redirect. Course links are /course/<section>/<lesson>.
+    if ([...routes].some(r => r.split('/')[2] === first)) errors.push(`${rel}: link ${link} is an old URL — use /course${link}`)
     // Only course links are checked; pages like /pro or /visualiser are app routes.
-    if (![...routes].some(r => r.split('/')[1] === first)) continue
+    if (first !== 'course' || link.replace(/\/$/, '') === '/course') continue
     if (!routes.has(link.replace(/\/$/, ''))) errors.push(`${rel}: link ${link} points at no lesson`)
   }
 }

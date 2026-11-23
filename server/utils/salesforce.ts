@@ -1,3 +1,5 @@
+import type { EnrichmentSummary } from './enrich'
+
 /**
  * Leads into Salesforce through Web-to-Lead.
  *
@@ -18,7 +20,11 @@ const ENDPOINT = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encodin
  * salesforce/academy (README "Prospecting CRM"): `node salesforce/scripts/
  * lead-field-ids.mjs` prints this map.
  */
-export const LEAD_FIELDS: Partial<Record<'interest' | 'lessons' | 'points' | 'source' | 'landing' | 'firstLanding' | 'viewsBefore' | 'locale' | 'userId' | 'seats' | 'orgKind' | 'event' | 'lifecycle' | 'motion', string>> = {
+export type LeadFieldKey = 'interest' | 'lessons' | 'points' | 'source' | 'landing' | 'firstLanding' | 'viewsBefore' | 'locale' | 'userId' | 'seats' | 'orgKind' | 'event' | 'lifecycle' | 'motion'
+  // Enrichment (2026-11-23). Empty until salesforce/crm is deployed and
+  // lead-field-ids.mjs prints their ids; the Description carries them meanwhile.
+  | 'siteScore' | 'siteGrade' | 'scoreReasons' | 'emailDomain' | 'domainType' | 'networkOrg' | 'geoRegion' | 'timezone' | 'companyLinkedIn' | 'productSignals'
+export const LEAD_FIELDS: Partial<Record<LeadFieldKey, string>> = {
   event: '00Ng500000VROkT',
   lifecycle: '00Ng500000VROkU',
   motion: '00Ng500000VROkV',
@@ -70,6 +76,8 @@ export interface LeadForSalesforce {
   viewsBefore?: number | null
   locale?: string | null
   userId?: string | null
+  /** First-party enrichment and score (server/utils/enrich.ts), when it finished. */
+  enrichment?: EnrichmentSummary | null
 }
 
 /** Sends one lead. Resolves to 'sent' or 'failed:<reason>' — never throws. */
@@ -86,8 +94,10 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
     lead.source ? `Source: ${lead.source}` : '',
     lead.firstLanding ? `First page: ${lead.firstLanding}` : '',
     lead.landing ? `Asked from: ${lead.landing}` : '',
-    lead.viewsBefore ? `Pages read before asking: ${lead.viewsBefore}` : ''
+    lead.viewsBefore ? `Pages read before asking: ${lead.viewsBefore}` : '',
+    ...enrichmentLines(lead.enrichment)
   ].filter(Boolean).join('\n')
+  const en = lead.enrichment
 
   const form = new URLSearchParams({
     oid: SF_ORG_ID,
@@ -96,9 +106,11 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
     last_name: lead.lastName,
     email: lead.email,
     // Company is required on a Lead; individuals are filed under their name.
-    company: lead.company || `${[lead.firstName, lead.lastName].filter(Boolean).join(' ')} (${lead.event === 'request' ? 'individual' : 'self-serve'})`,
+    company: lead.company || (en?.domainKind === 'business' && en.company ? en.company : '') || `${[lead.firstName, lead.lastName].filter(Boolean).join(' ')} (${lead.event === 'request' ? 'individual' : 'self-serve'})`,
     title: lead.title ?? '',
-    country: lead.country ?? '',
+    country: lead.country ?? en?.country ?? '',
+    city: en?.city ?? '',
+    URL: en?.website ?? '',
     phone: lead.phone ?? '',
     lead_source: 'Web',
     description: description.slice(0, 32000)
@@ -108,7 +120,11 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
     ['lifecycle', ['subscribe', 'team', 'sponsor', 'redeem', 'pack'].includes(lead.event) ? 'customer' : lead.event === 'request' ? 'sql' : 'lead'],
     ['interest', lead.product], ['lessons', lead.lessonsDone], ['points', lead.points], ['source', lead.source],
     ['landing', lead.landing], ['firstLanding', lead.firstLanding], ['viewsBefore', lead.viewsBefore], ['locale', lead.locale],
-    ['userId', lead.userId], ['seats', lead.seats], ['orgKind', lead.orgKind === 'college' ? 'university' : lead.orgKind]
+    ['userId', lead.userId], ['seats', lead.seats], ['orgKind', lead.orgKind === 'college' ? 'university' : lead.orgKind],
+    ['siteScore', en?.score], ['siteGrade', en?.grade], ['scoreReasons', en ? reasonsLine(en.reasons) : null],
+    ['emailDomain', en?.emailDomain], ['domainType', en?.domainKind], ['networkOrg', en?.networkOrg],
+    ['geoRegion', en?.region], ['timezone', en?.timezone], ['companyLinkedIn', en?.linkedin],
+    ['productSignals', en ? signalsLine(en.signals) : null]
   ]
   for (const [k, v] of custom) {
     const id = LEAD_FIELDS[k]
@@ -123,13 +139,28 @@ export async function sendLeadToSalesforce(lead: LeadForSalesforce): Promise<str
   }
 }
 
+/** The enrichment as readable Description lines (always delivered, field ids or not). */
+export function enrichmentLines(en: EnrichmentSummary | null | undefined): string[] {
+  if (!en) return []
+  return [
+    `Score: ${en.score} (${en.grade}) — ${reasonsLine(en.reasons, 1000) || 'no signals yet'}`,
+    en.emailDomain ? `Email domain: ${en.emailDomain} (${en.domainKind})` : '',
+    en.company && en.domainKind === 'business' ? `Company: ${en.company}${en.website ? ` · ${en.website}` : ''}${en.linkedin ? ` · ${en.linkedin}` : ''}` : '',
+    [en.city, en.region, en.country].some(Boolean) ? `Location: ${[en.city, en.region, en.country].filter(Boolean).join(', ')}${en.timezone ? ` (${en.timezone})` : ''}` : '',
+    en.networkOrg ? `Network: ${en.networkOrg} (${en.networkKind})` : '',
+    `Product: ${signalsLine(en.signals)}`
+  ].filter(Boolean)
+}
+
 /**
- * A self-serve event (signup, redeem) for a signed-in user, with what the
- * Academy knows about them. Never throws: Salesforce being down must not
- * break a sign-up or a purchase.
+ * A self-serve event (signup, subscribe…) for a signed-in user, with what the
+ * Academy knows about them — enriched first (enrich.ts) unless the caller
+ * already did. Never throws: Salesforce being down must not break a sign-up
+ * or a purchase.
  */
-export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 'sponsor', user: { id: string, email: string, name?: string | null }, purchase?: { plan: string, usd: number, seats: number }, source?: string | null): Promise<string> {
+export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 'sponsor', user: { id: string, email: string, name?: string | null }, purchase?: { plan: string, usd: number, seats: number }, source?: string | null, enrichment?: EnrichmentSummary | null): Promise<string> {
   try {
+    const en = enrichment ?? await enrichUser(user.id, { event, source })
     const sql = useDb()
     const [stats] = await sql`select lessons_done, points from app.user_points where user_id = ${user.id}`
     const [first, ...rest] = String(user.name || user.email.split('@')[0]).trim().split(/\s+/)
@@ -145,7 +176,8 @@ export async function sendAcademyEvent(event: 'signup' | 'subscribe' | 'team' | 
       source: source ?? null,
       firstLanding: null,
       viewsBefore: null,
-      userId: user.id
+      userId: user.id,
+      enrichment: en
     })
   } catch (e) {
     return `failed:${String((e as Error).message).slice(0, 80)}`

@@ -12,7 +12,7 @@ const route = useRoute()
 // changes shape. The account slot on the right has one fixed width in both
 // states, so the room left for the links (and whether titles fit) is too.
 const NAV = [
-  { key: 'course', icon: 'i-lucide-graduation-cap', to: '/start' },
+  { key: 'course', icon: 'i-lucide-graduation-cap', to: '/course' },
   { key: 'exam', icon: 'i-lucide-badge-check', to: '/certification' },
   { key: 'interview', icon: 'i-lucide-messages-square', to: '/interview-questions' },
   { key: 'jobs', icon: 'i-lucide-briefcase-business', to: '/jobs' }

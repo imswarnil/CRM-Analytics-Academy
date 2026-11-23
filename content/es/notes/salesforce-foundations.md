@@ -1,7 +1,7 @@
 ---
 title: "Salesforce Fundaciones - notas"
 description: "Objetos, campos, relaciones y conversión de plomo en una página: el modelo de datos CRM Analytics El tablero está construido."
-section: "salesforce-foundations"
+section: "foundations"
 lessons: 1
 ---
 

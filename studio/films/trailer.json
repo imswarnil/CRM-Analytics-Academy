@@ -1,7 +1,7 @@
 {
   "title": "CRM Analytics Academy — channel trailer",
   "slug": "trailer",
-  "note": "Kinetic type leads: `slam` words cut on the beat, each `concept` slams its name, which then becomes the heading while the concept is built (a recipe, a join, SAQL, charts, a binding, security). Flat, no camera moves. Text and music only, plus you: `aboutMe` (photo: workspace/01-camera/trailer/photo.jpg) and the closing camera clip. Fill `about` fields in the aboutMe props; empty ones show as dashed placeholders.",
+  "note": "Kinetic type leads, flat, no camera moves, text and music only (Dizzy), plus you. The story: a slam hook, 'Learn CRM Analytics', about you (aboutMe: workspace/01-camera/trailer/photo.jpg, fill the `about` props), then PART ONE, the fundamentals, each `concept` slamming its word before it is drawn (a join, a binding, a multi-step query, functions, how a query executes, visualise), then PART TWO, the dashboards a business needs (conversion, adoption, snapshotting), AI with CRM Analytics, a fast 'and much more' montage, 'Start with lesson one', your subscribe clip (clip-02-subscribe) and the end screen. Every scene is whole bars of the music; `chapter` cards fly off on the last half-beat so the words are the cut.",
   "music": {
     "file": "/Users/swarnil/Movies/YouTube/03 Assets/Music/dizzy-by-joakim-karud.mp3",
     "start": 0.1,
@@ -40,7 +40,7 @@
       "props": {
         "lines": [
           "Learn *CRM Analytics*",
-          "by *building it.*"
+          "from the *ground up.*"
         ],
         "bg": "paper",
         "icons": [
@@ -66,81 +66,31 @@
       }
     },
     {
-      "id": "prep",
-      "type": "concept",
-      "transition": "bars",
-      "bars": 3,
+      "id": "part1",
+      "type": "chapter",
+      "transition": "none",
+      "bars": 1,
       "props": {
-        "kind": "recipe",
-        "word": "PREP",
-        "line": "Recipes turn raw data into datasets.",
-        "n": 1,
-        "color": "navy"
+        "lines": [
+          "First,",
+          "*the fundamentals.*"
+        ],
+        "n": "01",
+        "kicker": "Part one",
+        "color": "navyDeep"
       }
     },
     {
       "id": "join",
       "type": "concept",
-      "transition": "slices",
+      "transition": "none",
       "bars": 3,
       "props": {
+        "intro": 2,
         "kind": "join",
         "word": "JOIN",
         "line": "Match on a key. Know what you keep.",
-        "n": 2,
-        "color": "signal"
-      }
-    },
-    {
-      "id": "saql",
-      "type": "concept",
-      "transition": "push",
-      "bars": 3,
-      "props": {
-        "kind": "saql",
-        "word": "SAQL",
-        "line": "Ask your data anything.",
-        "n": 3,
-        "color": "navy"
-      }
-    },
-    {
-      "id": "real",
-      "type": "slam",
-      "transition": "none",
-      "bars": 2,
-      "props": {
-        "words": [
-          "No slides.",
-          "Real data.",
-          "Real builds.",
-          "*Real skills.*"
-        ],
-        "icons": [
-          "play",
-          "db",
-          "code",
-          "award"
-        ],
-        "colors": [
-          "paper",
-          "navy",
-          "signal",
-          "navyDeep"
-        ],
-        "seed": 1
-      }
-    },
-    {
-      "id": "chart",
-      "type": "concept",
-      "transition": "diag",
-      "bars": 3,
-      "props": {
-        "kind": "chart",
-        "word": "VISUALIZE",
-        "line": "Pick the chart that tells the truth.",
-        "n": 4,
+        "n": 1,
         "color": "signal"
       }
     },
@@ -148,54 +98,239 @@
       "id": "bind",
       "type": "concept",
       "transition": "slices",
-      "bars": 3,
+      "bars": 2,
       "props": {
+        "intro": 2,
         "kind": "bind",
         "word": "BIND",
         "line": "Click one chart. The rest answer.",
+        "n": 2,
+        "color": "navy",
+        "click": 2
+      }
+    },
+    {
+      "id": "query",
+      "type": "concept",
+      "transition": "push",
+      "bars": 3,
+      "props": {
+        "intro": 2,
+        "kind": "saql",
+        "word": "QUERY",
+        "line": "Many steps. One clear answer.",
+        "n": 3,
+        "color": "navyDeep",
+        "editorTitle": "SAQL · sign-up rate by source",
+        "lines": [
+          "v = load \"visits\";",
+          "s = load \"signups\";",
+          "q = cogroup v by 'Source', s by 'Source';",
+          "q = foreach q generate v.'Source' as 'Source',",
+          "      sum(v.'Visits') as 'Visits', count(s) as 'Signups';",
+          "q = foreach q generate 'Source', 'Signups' / 'Visits' as 'Rate';",
+          "q = order q by 'Rate' desc;",
+          "q = limit q 3;"
+        ],
+        "editorW": 1260,
+        "codeSize": 23,
+        "lineH": 62,
+        "lineY0": 390,
+        "lineStep": 0.34,
+        "cps": 150,
+        "results": [
+          [
+            "YouTube",
+            9.8,
+            "9.8%"
+          ],
+          [
+            "Google",
+            7.9,
+            "7.9%"
+          ],
+          [
+            "LinkedIn",
+            6.1,
+            "6.1%"
+          ]
+        ],
+        "note": "Two datasets, one answer"
+      }
+    },
+    {
+      "id": "function",
+      "type": "concept",
+      "transition": "bars",
+      "bars": 3,
+      "props": {
+        "intro": 2,
+        "kind": "function",
+        "word": "FUNCTIONS",
+        "line": "Many rows in. One answer out.",
+        "n": 4,
+        "color": "signal"
+      }
+    },
+    {
+      "id": "execute",
+      "type": "concept",
+      "transition": "diag",
+      "bars": 3,
+      "props": {
+        "intro": 2,
+        "kind": "execute",
+        "word": "EXECUTE",
+        "line": "The order a query really runs in.",
         "n": 5,
         "color": "navy"
       }
     },
     {
-      "id": "secure",
+      "id": "visualize",
       "type": "concept",
-      "transition": "bars",
-      "bars": 3,
+      "transition": "none",
+      "bars": 2,
       "props": {
-        "kind": "secure",
-        "word": "SECURE",
-        "line": "Everyone sees only their rows.",
+        "intro": 2,
+        "kind": "chart",
+        "word": "VISUALIZE",
+        "line": "Pick the chart that tells the truth.",
         "n": 6,
+        "color": "signal",
+        "step": 1.5
+      }
+    },
+    {
+      "id": "part2",
+      "type": "chapter",
+      "transition": "none",
+      "bars": 2,
+      "props": {
+        "lines": [
+          "Then, build",
+          "every dashboard",
+          "*a business needs.*"
+        ],
+        "n": "02",
+        "kicker": "Part two",
+        "color": "paper",
+        "per": 1.5,
+        "size": 140
+      }
+    },
+    {
+      "id": "conversion",
+      "type": "concept",
+      "transition": "none",
+      "bars": 2,
+      "props": {
+        "intro": 2,
+        "kind": "conversion",
+        "word": "CONVERSION",
+        "line": "Where people drop off, stage by stage.",
+        "kicker": "DASHBOARD 01",
+        "color": "navy"
+      }
+    },
+    {
+      "id": "adoption",
+      "type": "concept",
+      "transition": "slices",
+      "bars": 2,
+      "props": {
+        "intro": 2,
+        "kind": "adoption",
+        "word": "ADOPTION",
+        "line": "Who uses it, and what they use.",
+        "kicker": "DASHBOARD 02",
         "color": "signal"
       }
     },
     {
-      "id": "own",
+      "id": "snapshot",
+      "type": "concept",
+      "transition": "bars",
+      "bars": 3,
+      "props": {
+        "intro": 2,
+        "kind": "snapshot",
+        "word": "SNAPSHOTS",
+        "line": "Capture it daily. See what changed.",
+        "kicker": "DASHBOARD 03",
+        "color": "navyDeep"
+      }
+    },
+    {
+      "id": "ai",
+      "type": "concept",
+      "transition": "diag",
+      "bars": 3,
+      "props": {
+        "intro": 2,
+        "kind": "ai",
+        "word": "AI",
+        "line": "Mock up. Validate. Explain.",
+        "kicker": "USE AI WITH CRM ANALYTICS",
+        "color": "signal"
+      }
+    },
+    {
+      "id": "more",
       "type": "slam",
       "transition": "none",
       "bars": 2,
       "props": {
+        "per": 1,
+        "size": 190,
         "words": [
-          "Learn it.",
-          "Build it.",
-          "*Own it.*",
-          "Start today."
+          "*And much more.*",
+          "Recipes",
+          "Security",
+          "Embedding",
+          "Einstein Discovery",
+          "Exam practice",
+          "Interview prep",
+          "Jobs"
         ],
         "icons": [
-          "play",
-          "code",
-          "star",
-          "check"
+          "spark",
+          "broom",
+          "lock",
+          "share",
+          "spark",
+          "award",
+          "chat",
+          "brief"
         ],
-        "seed": 2
+        "colors": [
+          "navy",
+          "signal",
+          "paper",
+          "navyDeep"
+        ],
+        "seed": 1
+      }
+    },
+    {
+      "id": "start",
+      "type": "chapter",
+      "transition": "none",
+      "bars": 1,
+      "props": {
+        "lines": [
+          "Start with",
+          "*lesson one.*"
+        ],
+        "color": "signal",
+        "exit": false
       }
     },
     {
       "id": "cta",
       "type": "clipSlot",
       "transition": "push",
-      "bars": 3,
+      "bars": 2,
       "clip": "clip-02-subscribe",
       "props": {
         "n": 2,
@@ -211,7 +346,7 @@
       "id": "end",
       "type": "endScreen",
       "transition": "reveal",
-      "bars": 4,
+      "bars": 3,
       "props": {
         "next": "Lesson 1 · Objects, fields and relationships"
       }

@@ -1,220 +1,220 @@
 {
- "/salesforce-foundations": {
+ "/course/foundations": {
   "minutes": 3,
   "type": "article",
   "quiz": false
  },
- "/salesforce-foundations/objects-fields-and-relationships": {
+ "/course/foundations/objects-fields-and-relationships": {
   "minutes": 5,
   "type": "article",
   "quiz": true
  },
- "/salesforce-foundations/your-org-and-a-small-app": {
+ "/course/foundations/your-org-and-a-small-app": {
   "minutes": 12,
   "type": "video",
   "quiz": true
  },
- "/salesforce-foundations/getting-data-in": {
+ "/course/foundations/getting-data-in": {
   "minutes": 8,
   "type": "video",
   "quiz": true
  },
- "/data-prep": {
+ "/course/data-prep": {
   "minutes": 3,
   "type": "article",
   "quiz": false
  },
- "/data-prep/the-data-layer": {
+ "/course/data-prep/the-data-layer": {
   "minutes": 6,
   "type": "video",
   "quiz": true
  },
- "/data-prep/your-first-recipe": {
+ "/course/data-prep/your-first-recipe": {
   "minutes": 7,
   "type": "video",
   "quiz": true
  },
- "/data-prep/joins-in-depth": {
+ "/course/data-prep/joins-in-depth": {
   "minutes": 11,
   "type": "video",
   "quiz": true
  },
- "/data-prep/append-and-aggregate": {
+ "/course/data-prep/append-and-aggregate": {
   "minutes": 6,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/data-prep/formulas-buckets-and-dates": {
+ "/course/data-prep/formulas-buckets-and-dates": {
   "minutes": 6,
   "type": "video",
   "quiz": true
  },
- "/data-prep/transpose-flatten-and-split": {
+ "/course/data-prep/transpose-flatten-and-split": {
   "minutes": 6,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/data-prep/snapshots-and-history": {
+ "/course/data-prep/snapshots-and-history": {
   "minutes": 6,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/data-prep/security-in-the-data": {
+ "/course/data-prep/security-in-the-data": {
   "minutes": 6,
   "type": "video",
   "quiz": true
  },
- "/visualization": {
+ "/course/visualization": {
   "minutes": 3,
   "type": "article",
   "quiz": false
  },
- "/visualization/lenses-and-your-first-dashboard": {
+ "/course/visualization/lenses-and-your-first-dashboard": {
   "minutes": 6,
   "type": "video",
   "quiz": true
  },
- "/visualization/choosing-the-right-chart": {
+ "/course/visualization/choosing-the-right-chart": {
   "minutes": 5,
   "type": "video",
   "quiz": true
  },
- "/visualization/numbers-tables-and-compare-tables": {
+ "/course/visualization/numbers-tables-and-compare-tables": {
   "minutes": 5,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/visualization/layout-and-design": {
+ "/course/visualization/layout-and-design": {
   "minutes": 5,
   "type": "video",
   "quiz": true
  },
- "/visualization/dashboard-patterns": {
+ "/course/visualization/dashboard-patterns": {
   "minutes": 5,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/saql": {
+ "/course/saql": {
   "minutes": 3,
   "type": "article",
   "quiz": false
  },
- "/saql/the-saql-you-need": {
+ "/course/saql/the-saql-you-need": {
   "minutes": 6,
   "type": "video",
   "quiz": true
  },
- "/saql/saql-functions": {
+ "/course/saql/saql-functions": {
   "minutes": 5,
   "type": "video",
   "quiz": true
  },
- "/saql/projection-with-foreach": {
+ "/course/saql/projection-with-foreach": {
   "minutes": 5,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/saql/cogroup": {
+ "/course/saql/cogroup": {
   "minutes": 6,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/saql/windowing": {
+ "/course/saql/windowing": {
   "minutes": 6,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/saql/time-series-and-fill": {
+ "/course/saql/time-series-and-fill": {
   "minutes": 5,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/interactions-and-bindings": {
+ "/course/bindings": {
   "minutes": 3,
   "type": "article",
   "quiz": false
  },
- "/interactions-and-bindings/faceting-and-filters": {
+ "/course/bindings/faceting-and-filters": {
   "minutes": 5,
   "type": "video",
   "quiz": true
  },
- "/interactions-and-bindings/selection-bindings": {
+ "/course/bindings/selection-bindings": {
   "minutes": 6,
   "type": "video",
   "quiz": true
  },
- "/interactions-and-bindings/results-bindings": {
+ "/course/bindings/results-bindings": {
   "minutes": 5,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/interactions-and-bindings/serialization-functions": {
+ "/course/bindings/serialization-functions": {
   "minutes": 6,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/interactions-and-bindings/dashboard-json": {
+ "/course/bindings/dashboard-json": {
   "minutes": 5,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/sharing-and-embedding": {
+ "/course/sharing": {
   "minutes": 3,
   "type": "article",
   "quiz": false
  },
- "/sharing-and-embedding/apps-sharing-and-licences": {
+ "/course/sharing/apps-sharing-and-licences": {
   "minutes": 5,
   "type": "video",
   "quiz": true
  },
- "/sharing-and-embedding/embedding": {
+ "/course/sharing/embedding": {
   "minutes": 4,
   "type": "video",
   "quiz": true
  },
- "/sharing-and-embedding/subscriptions-notifications-and-actions": {
+ "/course/sharing/subscriptions-notifications-and-actions": {
   "minutes": 4,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/sharing-and-embedding/packaging-deployment-and-performance": {
+ "/course/sharing/packaging-deployment-and-performance": {
   "minutes": 5,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/einstein-discovery": {
+ "/course/einstein-discovery": {
   "minutes": 3,
   "type": "article",
   "quiz": false
  },
- "/einstein-discovery/your-first-story": {
+ "/course/einstein-discovery/your-first-story": {
   "minutes": 6,
   "type": "video",
   "quiz": true
  },
- "/einstein-discovery/reading-a-model-honestly": {
+ "/course/einstein-discovery/reading-a-model-honestly": {
   "minutes": 6,
   "type": "video",
   "quiz": true,
   "pro": true
  },
- "/einstein-discovery/predictions-in-salesforce": {
+ "/course/einstein-discovery/predictions-in-salesforce": {
   "minutes": 5,
   "type": "video",
   "quiz": true,

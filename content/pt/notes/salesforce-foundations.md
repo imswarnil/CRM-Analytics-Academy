@@ -1,7 +1,7 @@
 ---
 title: "Salesforce Fundações — notas"
 description: "Objetos, campos, relacionamentos e conversão de lead em uma página: o modelo de dados a cada CRM Analytics O painel foi construído."
-section: "salesforce-foundations"
+section: "foundations"
 lessons: 1
 ---
 

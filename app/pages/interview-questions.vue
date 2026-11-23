@@ -25,7 +25,7 @@ const openSlug = computed(() => (String(route.name ?? '').startsWith('interview-
 
 // Section order and titles from the course navigation.
 const sections = computed(() => (navigation.value ?? []).map(m => ({
-  key: String(m.path ?? '').replace(/^\/[a-z]{2}(?=\/)/, '').replace(/^\//, ''),
+  key: String(m.path ?? '').split('/').pop() ?? '',
   title: String(m.title ?? '')
 })))
 const sectionTitle = (key: string) => sections.value.find(s => s.key === key)?.title ?? key.replace(/-/g, ' ')

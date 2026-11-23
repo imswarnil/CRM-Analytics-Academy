@@ -33,6 +33,8 @@ import { parse as parseYaml } from 'yaml'
 const ROOT = process.cwd()
 const CONTENT_ROOT = path.join(ROOT, 'content')
 const CONTENT = path.join(CONTENT_ROOT, 'en')
+// The course: content/<locale>/course/<NN.section>/<NN.lesson>.md → /course/<section>/<lesson>.
+const COURSE = path.join(CONTENT, 'course')
 const SEARCH_OUT = path.join(ROOT, 'public', 'search')
 const LOCALES = ['en', 'es', 'de', 'pt', 'fr', 'ja', 'hi']
 const SECTION_CAP = 320
@@ -72,7 +74,7 @@ async function walk(dir, out = []) {
 }
 
 /**
- * content/en/1.foundations/3.saql.md -> /foundations/saql
+ * content/en/course/01.foundations/02.objects.md -> /course/foundations/objects
  * Numeric prefixes stripped, index.md collapses to the directory route —
  * matching how [...slug].vue and gate-content.mjs map content to routes.
  */
@@ -232,7 +234,7 @@ function rawMarkdown(title, description, body) {
  * full markdown, in order — one file an assistant can read to teach the course.
  */
 async function buildLlms() {
-  const sections = (await readdir(CONTENT, { withFileTypes: true }))
+  const sections = (await readdir(COURSE, { withFileTypes: true }))
     .filter(d => d.isDirectory() && !NON_LESSON.has(d.name))
     .map(d => d.name)
     .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
@@ -241,11 +243,11 @@ async function buildLlms() {
     '',
     '> A course for Salesforce CRM Analytics (formerly Tableau CRM / Einstein Analytics), taught the way go-to-market teams use it: first the Salesforce platform and its data model, then GTM basics, then data architecture across many sources, then the dashboards revenue teams use every week (KPI, snapshot, change analytics, conversion, adoption), then bindings, sharing and embedding. Every lesson has a video.',
     '',
-    `Site: ${SITE} · Course page: ${SITE}/start · Source: https://github.com/imswarnil/CRM-Analytics-Academy · License: MIT · Author: Swarnil Singhai`,
+    `Site: ${SITE} · Course page: ${SITE}/course · Source: https://github.com/imswarnil/CRM-Analytics-Academy · License: MIT · Author: Swarnil Singhai`,
     '',
     '## How to learn with this course',
     '',
-    '- The sections are numbered and build on each other; take them in order: Salesforce Foundations → GTM Basics → Data Architecture → Dashboards Every GTM Team Uses → Interactions and Bindings → Sharing, Embedding and Apps → Advanced. The course is published lesson by lesson; ' + SITE + '/start shows the whole plan and what is live.',
+    '- The sections are numbered and build on each other; take them in order: Salesforce Foundations → Data Prep → Visualization → SAQL → Interactions and Bindings → Sharing and Embedding → Einstein Discovery. Every lesson is at ' + SITE + '/course/<section>/<lesson>. The course is published lesson by lesson; ' + SITE + '/course shows the whole plan and what is live.',
     '- Free lessons are open to everyone. Pro (monthly, or one lifetime payment) unlocks every lesson, every dataset and the full exam review with no ads. Companies, colleges and teams buy seats for their people.',
     '- Every lesson opens with what it teaches, ends with a quiz and interview questions, and embeds its YouTube video.',
     '- Practise in a free Salesforce Developer Edition org; the datasets are at ' + SITE + '/datasets.',
@@ -258,10 +260,10 @@ async function buildLlms() {
   const full = []
   let n = 0
   for (const [i, dir] of sections.entries()) {
-    const files = (await walk(path.join(CONTENT, dir))).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
+    const files = (await walk(path.join(COURSE, dir))).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
     let title = dir.replace(/^\d+\./, '')
     try {
-      title = String(parseYaml(await readFile(path.join(CONTENT, dir, '.navigation.yml'), 'utf8'))?.title ?? title)
+      title = String(parseYaml(await readFile(path.join(COURSE, dir, '.navigation.yml'), 'utf8'))?.title ?? title)
     } catch { /* no .navigation.yml: keep the folder name */ }
     const lessons = []
     for (const file of files) {
@@ -281,7 +283,7 @@ async function buildLlms() {
   const more = [
     '## More',
     '',
-    `- [Start](${SITE}/start): the whole course on one page — every planned lesson, what is live, length and Free or Pro.`,
+    `- [Start here](${SITE}/course): the whole course on one page — every planned lesson, what is live, length and Free or Pro.`,
     `- [Plans](${SITE}/pro): Free; Pro Monthly; Pro Lifetime (one payment); Teams & institutions — seats for companies, colleges and teams.`,
     `- [Certification practice](${SITE}/certification): one timed practice exam in the format of the CRM Analytics and Einstein Discovery Consultant exam (60 questions, 105 minutes, 68% to pass).`,
     `- [Interview questions](${SITE}/interview-questions): a growing bank of CRM Analytics interview questions with model answers, by type, topic, level and company.`,
@@ -362,10 +364,10 @@ async function buildExamBanks() {
   for (const locale of LOCALES) {
     // Section titles in this locale, for the runner's "Study <section>" links.
     const titles = {}
-    for (const d of await readdir(path.join(CONTENT_ROOT, locale), { withFileTypes: true }).catch(() => [])) {
+    for (const d of await readdir(path.join(CONTENT_ROOT, locale, 'course'), { withFileTypes: true }).catch(() => [])) {
       const m = d.isDirectory() && d.name.match(/^\d+\.(.+)$/)
       if (!m) continue
-      const nav = await readFile(path.join(CONTENT_ROOT, locale, d.name, '.navigation.yml'), 'utf8').catch(() => '')
+      const nav = await readFile(path.join(CONTENT_ROOT, locale, 'course', d.name, '.navigation.yml'), 'utf8').catch(() => '')
       const tm = nav.match(/^title:\s*['"]?(.+?)['"]?\s*$/m)
       if (tm) titles[m[1]] = tm[1]
     }
@@ -402,7 +404,7 @@ async function buildOfflineList() {
   const lessons = (await walk(CONTENT)).sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).map(f => toRoute(f))
   const notesDir = path.join(CONTENT, 'notes')
   const notes = existsSync(notesDir) ? (await readdir(notesDir)).filter(f => f.endsWith('.md')).map(f => `/notes/${f.replace(/\.md$/, '')}`) : []
-  const pages = ['/', '/start', '/pro', '/certification', '/certification/salesforce-crm-analytics-einstein-consultant-exam-set-1', '/interview-questions', '/notes', ...notes, ...lessons]
+  const pages = ['/', '/course', '/pro', '/certification', '/certification/salesforce-crm-analytics-einstein-consultant-exam-set-1', '/interview-questions', '/notes', ...notes, ...lessons]
   // The notes PDFs (scripts/notes-pdf.mjs, committed) in English, when printed.
   const pdfs = existsSync(path.join(ROOT, 'public', 'notes', 'en')) ? (await readdir(path.join(ROOT, 'public', 'notes', 'en'))).filter(f => f.endsWith('.pdf')).map(f => `/notes/en/${f}`) : []
   const urls = [...pages.flatMap(p => [p, `${p === '/' ? '' : p}/_payload.json`]), ...pdfs, '/exam/en.json', '/search/en.json']

@@ -188,7 +188,7 @@ usePageSchema(() => ({
             </p>
             <p class="mt-2 h-5 text-sm text-(--ink2)" />
             <UButton
-              :to="localePath('/start')"
+              :to="localePath('/course')"
               block
               size="lg"
               color="neutral"
