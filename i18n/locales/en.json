@@ -1911,6 +1911,57 @@
     "emptyBody": "New CRM Analytics roles will appear here every day, with a full weekly round-up on Sundays. Meanwhile, get ready for them.",
     "emptyCta": "Start learning",
     "noMatch": "No jobs match these filters.",
+    "expiredCta": "Expired",
+    "sourceCompany": "Company site",
+    "sourceTitle": "The link goes to {source}, the employer's own posting",
+    "status": {
+      "liveCount": "{n} open",
+      "expiredCount": "{n} no longer active",
+      "checked": "Link checked {ago}",
+      "confirmed": "Last confirmed {ago}",
+      "notReached": "Site busy today, checking again tomorrow",
+      "expired": "No longer active",
+      "expiredAgo": "closed {ago}",
+      "unverified": "Couldn't verify",
+      "unverifiedTitle": "The site did not let our daily check in for several days. The job may still be open."
+    },
+    "how": {
+      "link": "How these jobs get here",
+      "eyebrow": "How it works",
+      "title": "How these jobs get here",
+      "lead": "A robot runs every morning. It only keeps jobs you can apply to at the source, and it opens every link again each day.",
+      "step": "Step {n}",
+      "steps": {
+        "find": {
+          "title": "Search",
+          "body": "Company career boards, Google Jobs and public job feeds."
+        },
+        "match": {
+          "title": "Match",
+          "body": "Only posts that name CRM Analytics, Tableau CRM or Einstein Analytics."
+        },
+        "owner": {
+          "title": "Go to the source",
+          "body": "Only the company's own careers site, its hiring system, or LinkedIn. Reposts on job boards are left out."
+        },
+        "check": {
+          "title": "Check daily",
+          "body": "Every link is opened again each day to see that the job is still open."
+        },
+        "expire": {
+          "title": "Mark and remove",
+          "body": "Closed jobs are marked no longer active, then removed after {days} days."
+        }
+      },
+      "stat": {
+        "found": "{n} found this run",
+        "dropped": "{n} reposts left out",
+        "live": "{n} open now",
+        "expired": "{n} marked closed"
+      },
+      "lastRun": "Last run {ago}.",
+      "linksGoTo": "Links go to"
+    },
     "seoTitle": "CRM Analytics jobs this week — Tableau CRM and Einstein Analytics roles",
     "seoDesc": "Salesforce CRM Analytics, Tableau CRM and Einstein Analytics jobs posted this week, newest first, refreshed daily."
   },

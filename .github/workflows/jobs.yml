@@ -1,7 +1,9 @@
 name: Jobs feed (daily)
 
-# Fetches CRM Analytics jobs from public job APIs (scripts/jobs/fetch.mjs),
-# commits public/jobs.json when it changed, then starts the deploy so the
+# Fetches CRM Analytics jobs (scripts/jobs/fetch.mjs), keeps only links to
+# the employer's own site, ATS or LinkedIn, re-checks every link in the feed,
+# commits public/jobs.json — which changes on every run, because each job's
+# status and "checked" time are rewritten — then starts the deploy so the
 # site serves the new file. A push made with GITHUB_TOKEN does not trigger
 # other workflows, so the deploy is started explicitly (workflow_dispatch is
 # the allowed exception).
@@ -9,6 +11,11 @@ on:
   schedule:
     - cron: '30 3 * * *'   # 03:30 UTC = 09:00 IST
   workflow_dispatch:
+    inputs:
+      check_only:
+        description: 'Only re-check the links already in the feed (no fetching)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -27,7 +34,7 @@ jobs:
         with:
           node-version: 22
       - name: Fetch jobs
-        run: node scripts/jobs/fetch.mjs
+        run: node scripts/jobs/fetch.mjs ${{ inputs.check_only && '--check' || '' }}
         env:
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
@@ -38,7 +45,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- public/jobs.json; then echo "No new jobs."; exit 0; fi
+          if git diff --quiet -- public/jobs.json; then echo "No change."; exit 0; fi
           git config user.name "jobs-feed"
           git config user.email "jobs-feed@users.noreply.github.com"
           git add public/jobs.json
