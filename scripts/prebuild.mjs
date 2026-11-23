@@ -8,7 +8,11 @@
  *                   the other 11 locales, stops it. Skipped in CI (the
  *                   translations are committed) and with SKIP_TRANSLATE=1.
  *   2. lesson meta — minutes / kind / quiz per lesson (app/data/lesson-meta.json)
- *   3. ask index  — public/ask-index.json for the MCP server, and the
+ *   3. notes PDFs — only on your machine: prints any notes sheet that
+ *                   changed to public/notes/<locale>/<section>.pdf with local
+ *                   headless Chrome (scripts/notes-pdf.mjs). Skipped in CI and
+ *                   with SKIP_NOTES_PDF=1 — the committed PDFs are the source.
+ *   4. ask index  — public/ask-index.json for the MCP server, and the
  *                   translated /raw/<locale>/*.md files
  *
  * So the whole publishing loop is: edit English markdown → pnpm build →
@@ -39,6 +43,15 @@ if (process.env.CI || process.env.SKIP_TRANSLATE) {
   console.log('[prebuild] LibreTranslate is not installed yet — run `pnpm translate:setup` once. Building with the committed locales.')
 } else {
   run('bash', ['scripts/libretranslate.sh', 'run', '--', 'node', 'scripts/translate.mjs'])
+}
+
+// Notes PDFs: print the sheets that changed (needs Chrome; starts its own dev
+// server only when something is stale). Never fails the build.
+if (process.env.CI || process.env.SKIP_NOTES_PDF) {
+  console.log('[prebuild] notes PDFs skipped (CI or SKIP_NOTES_PDF) — using the committed files')
+} else {
+  const r = spawnSync('node', ['scripts/notes-pdf.mjs'], { cwd: ROOT, stdio: 'inherit' })
+  if (r.status !== 0) console.warn('[prebuild] notes PDFs could not be printed — building with the committed files')
 }
 
 run('node', ['scripts/gate-content.mjs'])

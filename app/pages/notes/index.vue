@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ROADMAP } from '~/data/roadmap'
+import pdfs from '~/data/notes-pdfs.json'
 
 /**
  * /notes — every notes sheet on one page, with an index. The index lists all
@@ -22,6 +23,8 @@ const rows = computed(() => ROADMAP.map((s, i) => {
   return { n: i + 1, slug: s.slug, icon: s.icon, title: sheet?.title ?? t(`roadmap.${s.key}.title`), sheet }
 }))
 const ready = computed(() => rows.value.filter(r => r.sheet))
+// The printed PDF of a sheet (scripts/notes-pdf.mjs): this language's, else English.
+const pdfOf = (slug: string) => [`${locale.value}/${slug}`, `${DEFAULT_LOCALE}/${slug}`].find(k => (pdfs as Record<string, unknown>)[k])
 
 const print = () => {
   // Print every sheet in full, whatever is expanded on screen.
@@ -93,7 +96,7 @@ usePageSchema(() => ({
             </p>
             <div class="mt-2 flex flex-wrap gap-2">
               <span
-                v-for="f in ['PDF', 'Markdown', 'Print', 'Offline']"
+                v-for="f in ['PDF', 'Print', 'Offline']"
                 :key="f"
                 class="rounded-full border border-(--line) px-3 py-1 text-sm font-medium text-(--ink)"
               >{{ f }}</span>
@@ -200,14 +203,15 @@ usePageSchema(() => ({
                 {{ t('notes.openSingle') }} →
               </NuxtLink>
               <UButton
-                :href="`/notes/${r.sheet!.path.startsWith(`/${DEFAULT_LOCALE}/`) ? DEFAULT_LOCALE : locale}/${r.slug}.md`"
-                download
+                v-if="pdfOf(r.slug)"
+                :href="`/notes/${pdfOf(r.slug)}.pdf`"
+                :download="`crm-analytics-notes-${r.slug}.pdf`"
                 size="sm"
                 color="neutral"
                 variant="outline"
-                icon="i-lucide-file-text"
+                icon="i-lucide-download"
               >
-                {{ t('notes.markdown') }}
+                {{ t('notes.pdf') }}
               </UButton>
             </div>
             <div

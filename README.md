@@ -46,9 +46,9 @@ live and what is coming.
 | | |
 | --- | --- |
 | **Course** (`/start`) | 7 sections in order, progress for signed-in learners, one next step |
-| **Practice exam** (`/certification`) | 60 questions, 105 minutes, the real exam's domain weights, a certificate when you pass |
+| **Practice exam** (`/certification`) | 60 questions, 105 minutes, the real exam's domain weights, a certificate when you pass. While the clock runs, the paper's controls live in the site navbar (one bar) |
 | **Interview Q&A** (`/interview-questions`) | Real questions with model answers, by section, type, level and company |
-| **Notes** (`/notes`) | One handwritten-style sheet per finished section; PDF and Markdown |
+| **Notes** (`/notes`) | One handwritten-style sheet per finished section, as a real PDF (`public/notes/<locale>/<section>.pdf`, printed by `scripts/notes-pdf.mjs`): inline preview + direct download |
 | **Jobs** (`/jobs`) | New CRM Analytics roles, grouped by day |
 | **Resources, datasets, companies** | Curated links, sample datasets, companies with a public CRM Analytics source |
 

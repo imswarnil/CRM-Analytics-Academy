@@ -403,31 +403,15 @@ async function buildOfflineList() {
   const notesDir = path.join(CONTENT, 'notes')
   const notes = existsSync(notesDir) ? (await readdir(notesDir)).filter(f => f.endsWith('.md')).map(f => `/notes/${f.replace(/\.md$/, '')}`) : []
   const pages = ['/', '/start', '/pro', '/certification', '/certification/salesforce-crm-analytics-einstein-consultant-exam-set-1', '/interview-questions', '/notes', ...notes, ...lessons]
-  const urls = [...pages.flatMap(p => [p, `${p === '/' ? '' : p}/_payload.json`]), '/exam/en.json', '/search/en.json']
+  // The notes PDFs (scripts/notes-pdf.mjs, committed) in English, when printed.
+  const pdfs = existsSync(path.join(ROOT, 'public', 'notes', 'en')) ? (await readdir(path.join(ROOT, 'public', 'notes', 'en'))).filter(f => f.endsWith('.pdf')).map(f => `/notes/en/${f}`) : []
+  const urls = [...pages.flatMap(p => [p, `${p === '/' ? '' : p}/_payload.json`]), ...pdfs, '/exam/en.json', '/search/en.json']
   await writeFile(path.join(ROOT, 'public', 'offline-pages.json'), JSON.stringify({ urls }), 'utf8')
   console.log(`[offline] ${pages.length} pages -> public/offline-pages.json`)
 }
 
-/** public/notes/<locale>/<section>.md — each notes sheet as a Markdown download. */
-async function buildNotesDownloads() {
-  let n = 0
-  for (const locale of await readdir(CONTENT_ROOT)) {
-    const dir = path.join(CONTENT_ROOT, locale, 'notes')
-    if (!existsSync(dir)) continue
-    const outDir = path.join(ROOT, 'public', 'notes', locale)
-    await mkdir(outDir, { recursive: true })
-    for (const f of (await readdir(dir)).filter(f => f.endsWith('.md'))) {
-      const { data, body } = parseFrontmatter(await readFile(path.join(dir, f), 'utf8'))
-      await writeFile(path.join(outDir, f), `# ${data.title}\n\n${data.description ? `${data.description}\n\n` : ''}${body.trim()}\n\n— ${SITE}/notes/${f.replace(/\.md$/, '')}\n`, 'utf8')
-      n++
-    }
-  }
-  console.log(`[notes] ${n} sheet(s) -> public/notes/`)
-}
-
 async function main() {
   await buildSearch()
-  await buildNotesDownloads()
   await buildLlms()
   await buildExamBanks()
   await buildOfflineList()
