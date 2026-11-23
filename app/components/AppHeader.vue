@@ -21,6 +21,9 @@ const NAV = [
 // paper's name and one way out, like a test centre's screen.
 const focusState = useState('exam-focus', () => false)
 const examMode = computed(() => Boolean(route.meta.focus) || focusState.value)
+// While the clock runs the paper puts its own controls (progress, timer,
+// navigator, submit, exit) into #exam-bar, so there is one bar, not two.
+const examRunning = useState('exam-running', () => false)
 
 const menuItems = computed(() => NAV.map(n => ({ label: t(`nav.main.${n.key}`), icon: n.icon, to: localePath(n.to) })))
 const phoneItems = menuItems
@@ -108,7 +111,8 @@ const localeItems = computed(() =>
 
 <template>
   <UHeader
-    :ui="{ container: 'max-w-(--ui-container)', center: 'hidden', left: 'lg:min-w-0 lg:flex-1', right: 'lg:flex-none', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-[4px] border border-(--line) size-9 flex items-center justify-center' }"
+    :toggle="!examMode"
+    :ui="{ container: examRunning ? 'max-w-none' : 'max-w-(--ui-container)', center: 'hidden', left: examMode ? 'min-w-0 flex-1' : 'lg:min-w-0 lg:flex-1', right: examMode ? 'flex-none lg:flex-none' : 'lg:flex-none', body: 'flex flex-col h-full p-0 overflow-hidden', toggle: 'rounded-[4px] border border-(--line) size-9 flex items-center justify-center' }"
     :to="localePath('/')"
   >
     <template #left>
@@ -117,21 +121,29 @@ const localeItems = computed(() =>
         class="shrink-0"
         :aria-label="t('nav.homeAria')"
       >
-        <AppLogo compact />
+        <AppLogo
+          compact
+          :short="examRunning"
+        />
       </NuxtLink>
 
       <!-- Nav cells, full header height, hairline-separated. -->
       <!-- The nav takes whatever width the buttons leave (a container), and
            shows labels only when they fit in it — in any language. -->
-      <p
+      <div
         v-if="examMode"
+        id="exam-bar"
+        class="contents"
+      />
+      <p
+        v-if="examMode && !examRunning"
         class="ms-4 flex min-w-0 items-center gap-2 border-s border-(--line) ps-4 text-sm font-semibold text-(--ink)"
       >
         <UIcon
           name="i-lucide-badge-check"
           class="size-4 shrink-0 text-(--signal)"
         />
-        <span class="truncate">{{ t('nav.examMode') }}</span>
+        <span class="truncate max-sm:sr-only">{{ t('nav.examMode') }}</span>
       </p>
       <nav
         v-show="!examMode"
@@ -178,7 +190,7 @@ const localeItems = computed(() =>
 
     <template #right>
       <UButton
-        v-if="examMode"
+        v-if="examMode && !examRunning"
         :to="localePath('/certification')"
         icon="i-lucide-x"
         color="neutral"
@@ -188,7 +200,7 @@ const localeItems = computed(() =>
         {{ t('nav.exitExam') }}
       </UButton>
       <div
-        v-else
+        v-else-if="!examMode"
         class="ms-auto flex shrink-0 items-center gap-1"
       >
         <!-- Quiet tools: borderless icons, one group. -->

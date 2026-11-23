@@ -1,0 +1,30 @@
+{
+  "de/salesforce-foundations": {
+    "hash": "e13c8e4363b7ae27",
+    "bytes": 347779
+  },
+  "en/salesforce-foundations": {
+    "hash": "1bc2fbcdc0662423",
+    "bytes": 303663
+  },
+  "es/salesforce-foundations": {
+    "hash": "f349b4b10a58fbed",
+    "bytes": 400415
+  },
+  "fr/salesforce-foundations": {
+    "hash": "29edd9588d9d7310",
+    "bytes": 317033
+  },
+  "hi/salesforce-foundations": {
+    "hash": "932b2dd409c3451c",
+    "bytes": 293530
+  },
+  "ja/salesforce-foundations": {
+    "hash": "2aaebf42ee06c3d6",
+    "bytes": 512309
+  },
+  "pt/salesforce-foundations": {
+    "hash": "90006075e4dddeb3",
+    "bytes": 322244
+  }
+}

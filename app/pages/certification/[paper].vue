@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { createReusableTemplate } from '@vueuse/core'
+
 /**
  * The exam runner. Behaves like the real exam: a countdown that submits when
  * it hits zero, one question at a time, flag for review, a navigator, a
@@ -11,8 +13,10 @@
  * The paper stays in the site's window with the navbar, but nothing else: no
  * footer, promos or pop-ups (focus mode, the whole time the page is open), and
  * while the clock runs the paper fits the viewport — the question and the
- * navigator scroll inside it, the page never does. The ✕ goes back to the
- * exam page, asking first while the clock runs. Keyboard: A–D / 1–4, ← →, F.
+ * navigator scroll inside it, the page never does. While it runs there is ONE
+ * bar: the paper teleports its controls (name, progress, timer, navigator,
+ * submit, ✕) into the site header's #exam-bar. The ✕ goes back to the exam
+ * page, asking first while the clock runs. Keyboard: A–D / 1–4, ← →, F.
  */
 definePageMeta({ focus: true })
 
@@ -52,6 +56,21 @@ let timer: ReturnType<typeof setInterval> | undefined
 const focus = useState('exam-focus', () => false)
 focus.value = true
 const leaveOpen = ref(false)
+// The header reads this to hand its bar over to the paper (AppHeader #exam-bar).
+const running = useState('exam-running', () => false)
+// The navigator: a column beside the question on wide screens (can be hidden),
+// a slide-over on narrow ones. One template, used in both places.
+const navOpen = ref(true)
+const navSheet = ref(false)
+const [DefineNavigator, ReuseNavigator] = createReusableTemplate()
+function toggleNav() {
+  if (window.matchMedia('(min-width: 1024px)').matches) navOpen.value = !navOpen.value
+  else navSheet.value = !navSheet.value
+}
+function goTo(qi: number) {
+  index.value = qi
+  navSheet.value = false
+}
 function close(confirmed = false) {
   if (phase.value === 'running' && !confirmed) {
     leaveOpen.value = true
@@ -67,6 +86,7 @@ function guard(e: BeforeUnloadEvent) {
 onMounted(() => window.addEventListener('beforeunload', guard))
 onBeforeUnmount(() => {
   focus.value = false
+  running.value = false
   window.removeEventListener('beforeunload', guard)
 })
 
@@ -214,7 +234,10 @@ function onKey(e: KeyboardEvent) {
 onMounted(() => window.addEventListener('keydown', onKey))
 // While the paper runs it is pinned to the viewport; the page behind it must
 // not scroll either (a trackpad flick would otherwise move the header).
-watch(phase, p => import.meta.client && (document.documentElement.style.overflow = p === 'running' ? 'hidden' : ''), { immediate: true })
+watch(phase, (p) => {
+  running.value = p === 'running'
+  if (import.meta.client) document.documentElement.style.overflow = p === 'running' ? 'hidden' : ''
+}, { immediate: true })
 onBeforeUnmount(() => {
   if (import.meta.client) document.documentElement.style.overflow = ''
 })
@@ -351,24 +374,22 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
       v-else-if="phase === 'running' && current"
       class="fixed inset-x-0 bottom-0 top-(--ui-header-height) z-30 flex flex-col overflow-hidden bg-(--paper)"
     >
-      <!-- Top bar: progress, clock, submit, close -->
-      <div class="shrink-0 border-b border-(--line) bg-(--card)/80 backdrop-blur">
-        <div class="flex w-full items-center gap-3 px-4 py-3 sm:px-6 lg:px-10">
-          <UButton
-            icon="i-lucide-x"
-            color="neutral"
-            variant="ghost"
-            square
-
-            :aria-label="t('cert.close')"
-            @click="close()"
-          />
+      <!-- The bar: everything goes into the site header (one bar, not two) -->
+      <Teleport
+        to="#exam-bar"
+        defer
+      >
+        <div class="ms-3 flex min-w-0 flex-1 items-center gap-1.5 border-s border-(--line) ps-3 sm:ms-4 sm:gap-2.5 sm:ps-4">
           <div class="min-w-0 flex-1">
-            <p class="truncate text-sm font-medium text-(--ink)">
-              {{ t('cert.questionOf', { n: index + 1, total: questions.length }) }}
-              <span class="text-(--ink2)">· {{ t('cert.answeredN', { n: answered }) }}<template v-if="flagged"> · {{ t('cert.flaggedN', { n: flagged }) }}</template></span>
+            <p class="flex min-w-0 items-baseline gap-2 text-sm leading-tight">
+              <span class="truncate font-semibold text-(--ink) max-lg:hidden">{{ paper!.title }}</span>
+              <span class="shrink-0 font-medium tabular-nums text-(--ink) lg:text-(--ink2)">
+                <span class="sm:hidden">{{ index + 1 }}/{{ questions.length }}</span>
+                <span class="max-sm:hidden">{{ t('cert.questionOf', { n: index + 1, total: questions.length }) }}</span>
+              </span>
+              <span class="truncate text-(--ink2) max-md:hidden">· {{ t('cert.answeredN', { n: answered }) }}<template v-if="flagged"> · {{ t('cert.flaggedN', { n: flagged }) }}</template></span>
             </p>
-            <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-(--line)">
+            <div class="mt-1.5 h-1 overflow-hidden rounded-full bg-(--line)">
               <div
                 class="h-full rounded-full bg-(--signal) transition-[width] duration-300"
                 :style="{ width: `${(answered / questions.length) * 100}%` }"
@@ -376,26 +397,87 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
             </div>
           </div>
           <span
-            class="flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-sm font-semibold tabular-nums"
+            class="flex shrink-0 items-center gap-1.5 rounded-[4px] px-2 py-1.5 font-mono text-sm font-semibold tabular-nums sm:px-3"
             :class="remaining < 600_000 ? 'bg-error/10 text-error' : 'bg-(--ice) text-(--ink)'"
             role="timer"
             :aria-label="t('cert.timeLeft')"
           >
             <UIcon
               name="i-lucide-timer"
-              class="size-4"
+              class="size-4 max-sm:hidden"
             />{{ clock }}
           </span>
           <UButton
-            class="max-sm:hidden"
+            icon="i-lucide-layout-grid"
+            color="neutral"
+            variant="ghost"
+            square
+            :aria-label="t('cert.navigator')"
+            :aria-pressed="navOpen"
+            @click="toggleNav"
+          />
+          <UButton
+            icon="i-lucide-send"
+            :aria-label="t('cert.submit')"
             @click="confirmOpen = true"
           >
-            {{ t('cert.submit') }}
+            <span class="max-sm:hidden">{{ t('cert.submit') }}</span>
           </UButton>
+          <UButton
+            icon="i-lucide-x"
+            color="neutral"
+            variant="outline"
+            square
+            :aria-label="t('nav.exitExam')"
+            :title="t('nav.exitExam')"
+            @click="close()"
+          />
         </div>
-      </div>
+      </Teleport>
 
-      <div class="grid min-h-0 w-full flex-1 gap-0 lg:grid-cols-[minmax(0,1fr)_18rem]">
+      <DefineNavigator>
+        <p class="mb-3 text-xs max-lg:hidden font-medium text-(--ink2)">
+          {{ t('cert.navigator') }}
+        </p>
+        <div class="grid grid-cols-8 gap-1.5">
+          <button
+            v-for="(_, qi) in questions"
+            :key="qi"
+            type="button"
+            class="relative flex aspect-square items-center justify-center rounded-[4px] text-[11px] font-medium tabular-nums transition-colors"
+            :class="qi === index ? 'bg-(--ink) text-(--paper)' : answers[qi] !== null ? 'bg-(--signal)/15 text-(--signal) hover:bg-(--signal)/25' : 'bg-(--card) text-(--ink2) ring-1 ring-(--line) hover:ring-(--ink2)/40'"
+            :aria-label="t('cert.goTo', { n: qi + 1 })"
+            @click="goTo(qi)"
+          >
+            {{ qi + 1 }}
+            <span
+              v-if="flags[qi]"
+              class="absolute -end-0.5 -top-0.5 size-2 rounded-full bg-warning ring-2 ring-(--paper)"
+            />
+          </button>
+        </div>
+        <div class="mt-4 space-y-1.5 text-xs text-(--ink2)">
+          <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-sm bg-(--signal)/30" />{{ t('cert.legend.answered') }}</span>
+          <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-sm ring-1 ring-(--line)" />{{ t('cert.legend.open') }}</span>
+          <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-full bg-warning" />{{ t('cert.legend.flagged') }}</span>
+        </div>
+      </DefineNavigator>
+
+      <USlideover
+        v-model:open="navSheet"
+        :title="t('cert.navigator')"
+        :description="`${t('cert.answeredN', { n: answered })}${flagged ? ` · ${t('cert.flaggedN', { n: flagged })}` : ''}`"
+        side="right"
+      >
+        <template #body>
+          <ReuseNavigator />
+        </template>
+      </USlideover>
+
+      <div
+        class="grid min-h-0 w-full flex-1 gap-0"
+        :class="navOpen ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : ''"
+      >
         <!-- The question -->
         <section class="flex min-h-0 flex-col overflow-hidden bg-(--card)">
           <div class="min-h-0 flex-1 overflow-y-auto px-5 py-6 sm:px-10 lg:px-16 lg:py-10">
@@ -471,33 +553,12 @@ const shareText = computed(() => t('cert.shareResult', { pct: pct.value, paper: 
           </footer>
         </section>
 
-        <!-- Navigator -->
-        <aside class="min-h-0 overflow-y-auto border-s border-(--line) bg-(--paper) p-5 max-lg:hidden">
-          <p class="mb-3 text-xs font-medium text-(--ink2)">
-            {{ t('cert.navigator') }}
-          </p>
-          <div class="grid grid-cols-8 gap-1.5">
-            <button
-              v-for="(_, qi) in questions"
-              :key="qi"
-              type="button"
-              class="relative flex aspect-square items-center justify-center rounded-[4px] text-[11px] font-medium tabular-nums transition-colors"
-              :class="qi === index ? 'bg-(--ink) text-(--paper)' : answers[qi] !== null ? 'bg-(--signal)/15 text-(--signal) hover:bg-(--signal)/25' : 'bg-(--card) text-(--ink2) ring-1 ring-(--line) hover:ring-(--ink2)/40'"
-              :aria-label="t('cert.goTo', { n: qi + 1 })"
-              @click="index = qi"
-            >
-              {{ qi + 1 }}
-              <span
-                v-if="flags[qi]"
-                class="absolute -end-0.5 -top-0.5 size-2 rounded-full bg-warning ring-2 ring-(--paper)"
-              />
-            </button>
-          </div>
-          <div class="mt-4 space-y-1.5 text-xs text-(--ink2)">
-            <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-sm bg-(--signal)/30" />{{ t('cert.legend.answered') }}</span>
-            <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-sm ring-1 ring-(--line)" />{{ t('cert.legend.open') }}</span>
-            <span class="flex items-center gap-2"><i class="inline-block size-2.5 rounded-full bg-warning" />{{ t('cert.legend.flagged') }}</span>
-          </div>
+        <!-- Navigator (wide screens; the slide-over on narrow ones) -->
+        <aside
+          v-if="navOpen"
+          class="min-h-0 overflow-y-auto border-s border-(--line) bg-(--paper) p-5 max-lg:hidden"
+        >
+          <ReuseNavigator />
         </aside>
       </div>
 

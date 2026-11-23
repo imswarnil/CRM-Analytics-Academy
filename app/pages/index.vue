@@ -3,10 +3,11 @@ import type { ContentNavigationItem } from '@nuxt/content'
 import { ROADMAP } from '~/data/roadmap'
 
 /**
- * The home page, five blocks and little text: the hero (one line, the course
- * as a moving diagram), the seven sections as icon tiles, how a lesson
- * works in three steps, the two prices, the FAQ, one closing action.
- * Prerendered per locale; nothing here fetches at runtime.
+ * The home page, little text and one action: the hero (the promise, the
+ * course as a moving diagram, "Start the course" → /course), what you will
+ * build (four drawn dashboards), the seven sections as icon tiles, how a
+ * lesson works, certification, interview prep, the prices, the FAQ, one
+ * closing action. Prerendered per locale; nothing here fetches at runtime.
  */
 const { t, tm, rt, locale, locales } = useI18n()
 const localePath = useLocalePath()
@@ -175,12 +176,12 @@ const heroFacts = computed(() => [
         class="hero-grid pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
-      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:px-8">
+      <div class="relative mx-auto grid max-w-(--ui-container) items-center gap-8 px-4 pb-10 pt-12 sm:gap-10 sm:px-6 sm:py-20 lg:grid-cols-2 lg:px-8">
         <div class="hero-in">
           <p class="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[.09em] text-blueprint-200">
             <span class="live-dot size-1.5 rounded-full bg-blueprint-400" />{{ t('home.hero.eyebrow') }}
           </p>
-          <h1 class="mt-5 text-4xl font-bold leading-[1.04] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
+          <h1 class="mt-5 text-[2.5rem] font-bold leading-[1.04] tracking-[-0.03em] sm:text-5xl lg:text-[3.5rem]">
             {{ t('home.hero.title') }}
           </h1>
           <p class="mt-5 max-w-lg text-lg leading-relaxed text-white/75">
@@ -201,7 +202,7 @@ const heroFacts = computed(() => [
               color="neutral"
               variant="ghost"
               icon="i-simple-icons-youtube"
-              class="text-white ring-1 ring-inset ring-white/30 hover:bg-white/10 hover:text-white"
+              class="text-white ring-1 ring-inset ring-white/30 hover:bg-white/10 hover:text-white max-sm:hidden"
             >
               YouTube
             </UButton>
@@ -219,70 +220,96 @@ const heroFacts = computed(() => [
             </li>
           </ul>
         </div>
-        <HomeFlowArt class="mx-auto max-w-xl" />
+        <HomeFlowArt class="mx-auto max-w-md lg:max-w-xl" />
       </div>
+    </section>
+
+    <!-- WHAT YOU WILL BUILD: four dashboards, drawn -->
+    <section class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="reveal max-w-2xl">
+        <p class="eyebrow">
+          {{ t('home.v3.buildEyebrow') }}
+        </p>
+        <h2 class="bp-h2 mt-3">
+          {{ t('home.v3.buildTitle') }}
+        </h2>
+      </div>
+      <HomeOutcomes class="mt-10" />
     </section>
 
     <!-- THE COURSE: seven tiles, icons first -->
-    <section class="mx-auto max-w-(--ui-container) px-4 py-20 sm:px-6 lg:px-8">
-      <div class="reveal text-center">
-        <p class="eyebrow">
-          {{ t('home.v2.learnEyebrow') }}
-        </p>
-        <h2 class="bp-h2 mt-3">
-          {{ t('home.v2.learnTitle') }}
-        </h2>
-        <p class="bp-lead mx-auto mt-3 max-w-xl">
-          {{ t('home.v2.learnLead') }}
-        </p>
-      </div>
-      <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <li
-          v-for="(s, i) in path"
-          :key="s.key"
-          class="reveal"
-          :class="i === 0 ? 'lg:col-span-2' : ''"
-        >
-          <NuxtLink
-            :to="localePath(`/course#${s.key}`)"
-            class="tile group relative flex h-full flex-col rounded-[8px] border border-(--line) bg-(--card) p-6"
+    <section class="border-y border-(--line) bg-(--card)">
+      <div class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div class="reveal flex flex-wrap items-end justify-between gap-4">
+          <div class="max-w-2xl">
+            <p class="eyebrow">
+              {{ t('home.v2.learnEyebrow') }}
+            </p>
+            <h2 class="bp-h2 mt-3">
+              {{ t('home.v2.learnTitle') }}
+            </h2>
+            <p class="bp-lead mt-3">
+              {{ t('home.v3.pathLead') }}
+            </p>
+          </div>
+          <UButton
+            :to="localePath('/course')"
+            size="lg"
+            color="neutral"
+            variant="outline"
+            trailing-icon="i-lucide-arrow-right"
           >
-            <span class="flex items-center justify-between">
-              <span class="tile-icon flex size-12 items-center justify-center rounded-[8px] bg-(--ice) text-(--signal)">
-                <UIcon
-                  :name="s.icon"
-                  class="size-6"
-                />
+            {{ t('home.v3.seeCourse') }}
+          </UButton>
+        </div>
+        <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <li
+            v-for="(s, i) in path"
+            :key="s.key"
+            class="reveal"
+            :class="i === 0 ? 'lg:col-span-2' : ''"
+          >
+            <NuxtLink
+              :to="localePath(`/course#${s.key}`)"
+              class="tile group relative flex h-full flex-col rounded-[8px] border border-(--line) bg-(--paper) p-5 sm:p-6"
+            >
+              <span class="flex items-center justify-between">
+                <span class="tile-icon flex size-12 items-center justify-center rounded-[8px] bg-(--ice) text-(--signal)">
+                  <UIcon
+                    :name="s.icon"
+                    class="size-6"
+                  />
+                </span>
+                <span class="text-3xl font-bold tabular-nums text-(--x)">{{ String(i + 1).padStart(2, '0') }}</span>
               </span>
-              <span class="text-3xl font-bold tabular-nums text-(--x)">{{ String(i + 1).padStart(2, '0') }}</span>
-            </span>
-            <h3 class="mt-5 text-lg font-bold text-(--ink) group-hover:text-(--signal)">
-              {{ t(`roadmap.${s.key}.title`) }}
-            </h3>
-            <p class="mt-1.5 flex-1 text-[0.9375rem] leading-relaxed text-(--ink2)">
-              {{ t(`roadmap.${s.key}.blurb`) }}
-            </p>
-            <p class="mt-4 flex items-center gap-1.5 text-xs font-semibold text-(--ink2)">
-              <UIcon
-                name="i-lucide-circle-play"
-                class="size-3.5 text-(--signal)"
-              />{{ t('home.v2.lessons', { n: s.lessons }) }}
-              <span
-                v-if="s.live"
-                class="ms-auto rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.06em] text-success"
-              >{{ t('home.v2.live', { n: s.live }) }}</span>
-              <span
-                v-else
-                class="ms-auto rounded-full bg-(--paper) px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.06em] text-(--label)"
-              >{{ t('curriculumPage.coming') }}</span>
-            </p>
-          </NuxtLink>
-        </li>
-      </ol>
+              <h3 class="mt-5 text-lg font-bold text-(--ink) group-hover:text-(--signal)">
+                {{ t(`roadmap.${s.key}.title`) }}
+              </h3>
+              <p class="mt-1.5 flex-1 text-[0.9375rem] leading-relaxed text-(--ink2)">
+                {{ t(`roadmap.${s.key}.blurb`) }}
+              </p>
+              <p class="mt-4 flex items-center gap-1.5 text-xs font-semibold text-(--ink2)">
+                <UIcon
+                  name="i-lucide-circle-play"
+                  class="size-3.5 text-(--signal)"
+                />{{ t('home.v2.lessons', { n: s.lessons }) }}
+                <span
+                  v-if="s.live"
+                  class="ms-auto rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.06em] text-success"
+                >{{ t('home.v2.live', { n: s.live }) }}</span>
+                <span
+                  v-else
+                  class="ms-auto rounded-full bg-(--paper) px-2 py-0.5 text-[10px] font-bold uppercase tracking-[.06em] text-(--label)"
+                >{{ t('curriculumPage.coming') }}</span>
+              </p>
+            </NuxtLink>
+          </li>
+        </ol>
+      </div>
     </section>
 
     <!-- HOW IT WORKS: three steps -->
-    <section class="border-y border-(--line) bg-(--card)">
+    <section>
       <div class="mx-auto max-w-(--ui-container) px-4 py-16 sm:px-6 lg:px-8">
         <h2 class="reveal text-center text-2xl font-bold tracking-tight text-(--ink)">
           {{ t('home.v2.howTitle') }}
@@ -413,9 +440,6 @@ const heroFacts = computed(() => [
         </div>
       </div>
     </section>
-
-    <!-- THE PRICE STORY: classroom vs here, to scale -->
-    <HomePriceBars />
 
     <!-- PRICE: two cards -->
     <section class="mx-auto max-w-4xl px-4 py-20 sm:px-6">

@@ -71,9 +71,9 @@
     ],
     "hero": {
       "eyebrow": "Salesforce CRM Analytics",
-      "title": "Learn CRM Analytics by building it.",
-      "lead": "Recipes, SAQL, bindings and Einstein Discovery. Short video lessons on real data, free to start.",
-      "start": "Start free",
+      "title": "Learn CRM Analytics end to end, on real data.",
+      "lead": "Fundamentals first. Then every dashboard a business runs on: conversion, adoption, snapshots. Then AI with CRM Analytics.",
+      "start": "Start the course",
       "curriculum": "Start here",
       "proof": {
         "free": "Free, no card",
@@ -344,6 +344,33 @@
       "ivTitle": "Interview prep, company by company",
       "ivLead": "Real CRM Analytics interview questions with model answers, grouped by the company that asked them.",
       "ivCta": "Interview questions"
+    },
+    "v3": {
+      "buildEyebrow": "What you will build",
+      "buildTitle": "The dashboards a business actually runs on.",
+      "conversion": {
+        "tag": "Conversion",
+        "title": "Lead to deal, stage by stage",
+        "text": "See where deals drop out and why."
+      },
+      "adoption": {
+        "tag": "Adoption",
+        "title": "Who uses Salesforce, and how much",
+        "text": "Logins, records touched, teams that lag."
+      },
+      "snapshots": {
+        "tag": "Snapshots",
+        "title": "Trends from weekly snapshots",
+        "text": "Pipeline as it was, every week, side by side."
+      },
+      "ai": {
+        "tag": "AI",
+        "title": "Predictions with Einstein Discovery",
+        "text": "Scores on records, and the factors behind them.",
+        "metric": "win likelihood"
+      },
+      "pathLead": "Fundamentals first, then one dashboard after another.",
+      "seeCourse": "See the whole course"
     }
   },
   "footer": {
@@ -1820,7 +1847,8 @@
     "lead": "Every finished section on one page, with the diagrams. Read online or download.",
     "seoTitle": "CRM Analytics notes — downloadable study sheets",
     "pdf": "Download PDF",
-    "markdown": "Download Markdown",
+    "openPdf": "Open PDF",
+    "noViewer": "This browser cannot show the PDF here. Download it instead.",
     "open": "Open the notes",
     "pdfAll": "Download all as PDF",
     "index": "Index",
@@ -1829,7 +1857,7 @@
     "features": {
       "f1": "One page per section, short and to the point",
       "f2": "Hand-drawn diagrams and charts",
-      "f3": "PDF for print, Markdown for your own notes",
+      "f3": "A real PDF: preview it, download it, print it",
       "f4": "In seven languages, including Hindi and Japanese"
     },
     "seePreview": "See a preview",
@@ -1845,7 +1873,7 @@
     "gallery": {
       "label": "Notes gallery",
       "cover": "The notes",
-      "formats": "PDF and Markdown",
+      "formats": "PDF",
       "zoom": "Zoom in",
       "prev": "Previous",
       "next": "Next"

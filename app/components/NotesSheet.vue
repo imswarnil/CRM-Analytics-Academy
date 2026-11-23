@@ -105,7 +105,10 @@ const section = computed(() => ROADMAP.find(s => s.slug === props.sheet.section)
   html, body, .notes-page { background: #fff !important; }
   .notes-page { padding: 0 !important; }
   .sheet { max-width: none !important; padding: 0 !important; break-after: page; }
-  .paper { box-shadow: none !important; border: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .paper { box-shadow: none !important; border: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  /* Gradient rules come out mis-scaled in PDF viewers (Preview draws them
+     as wide bands): on paper the margin is a plain border, no ruled lines. */
+  .paper { background-image: none !important; border-left: 2px solid rgb(234 0 30 / .28) !important; padding: 8px 4px 8px 24px !important; }
   .hand-chart, table, blockquote { break-inside: avoid; }
 }
 </style>

@@ -5,7 +5,8 @@
  */
 // `compact` drops the word "Academy" on narrow screens, where the header row
 // would otherwise wrap or push the menu button off screen.
-defineProps<{ inverted?: boolean, compact?: boolean }>()
+// `short` shows the mark alone below md (the exam bar needs the room).
+defineProps<{ inverted?: boolean, compact?: boolean, short?: boolean }>()
 </script>
 
 <template>
@@ -27,7 +28,7 @@ defineProps<{ inverted?: boolean, compact?: boolean }>()
     </span>
     <span
       class="whitespace-nowrap text-[18px] font-bold leading-none tracking-[-0.02em]"
-      :class="inverted ? 'text-white' : 'text-(--ink)'"
+      :class="[inverted ? 'text-white' : 'text-(--ink)', short ? 'max-md:sr-only' : '']"
     >CRM Analytics<span
       :class="[inverted ? 'text-blueprint-300' : 'text-(--signal)', compact ? 'max-[420px]:hidden' : '']"
     > Academy</span></span>
