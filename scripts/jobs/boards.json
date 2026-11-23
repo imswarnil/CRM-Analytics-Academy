@@ -1,6 +1,8 @@
 {
   "note": "Company career boards with public JSON. Add a company: type workday {host, tenant, site} | greenhouse {token} | lever {token} | ashby {token}. Only postings that name CRM Analytics are kept.",
   "boards": [
-    { "company": "Salesforce", "type": "workday", "host": "salesforce.wd12.myworkdayjobs.com", "tenant": "salesforce", "site": "External_Career_Site" }
+    { "company": "Salesforce", "type": "workday", "host": "salesforce.wd12.myworkdayjobs.com", "tenant": "salesforce", "site": "External_Career_Site" },
+    { "company": "NeuraFlash", "type": "greenhouse", "token": "neuraflash" },
+    { "company": "Spaulding Ridge", "type": "greenhouse", "token": "spauldingridge" }
   ]
 }
