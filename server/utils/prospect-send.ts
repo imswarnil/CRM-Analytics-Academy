@@ -1,28 +1,28 @@
 import type { EmailStatus, TemplateVars } from './prospect-core'
+import type { SocketFactory } from './smtp'
 
 /**
  * The outreach run (task `prospect:send`, hourly; or /admin → Prospecting →
- * "Run now"). From the connected Gmail mailbox only — never Resend.
+ * "Run now"). Sends due steps of RUNNING sequences through the outreach
+ * transport (outreach.ts: Hostinger SMTP from the Worker, or n8n) — never
+ * Resend. At most 15 a run, under today's cap (default 30 a rolling day,
+ * ramping up from 10), Monday–Friday inside the sending window of the
+ * prospect's time zone (or the default one).
  *
- *   1. Poll up to 25 active threads: a reply stops the prospect's sequences,
- *      a bounce stops them, marks the address invalid and suppresses it.
- *   2. Send due steps of RUNNING sequences, at most 15 a run, under today's
- *      cap (default 30 a rolling day, ramping up from 10), Monday–Friday in
- *      the sending window of the prospect's time zone (or the default one).
- *      Never to an address that is not valid/risky, suppressed (unsubscribed,
- *      bounced, manual, deleted, an existing learner if chosen) or a prospect
- *      who replied, bounced, unsubscribed, converted or is do-not-contact.
+ * Never to an address that is not valid/risky, suppressed (unsubscribed,
+ * bounced, manual, deleted, an existing learner if chosen) or a prospect who
+ * replied, bounced, unsubscribed, converted or is do-not-contact. Replies and
+ * bounces arrive from n8n (prospect-inbound.ts) and stop the sequences.
  *
- * Every email: rendered template, the owner's footer, a one-click
- * unsubscribe link (List-Unsubscribe + in the body). No tracking pixel.
+ * Every email: our own Message-ID; follow-ups carry In-Reply-To + References
+ * and "Re: <first subject>"; the owner's footer; a one-click unsubscribe link
+ * (List-Unsubscribe + in the body). No tracking pixel.
  */
-type F = (url: string, init?: { method?: string, headers?: Record<string, string>, body?: string | URLSearchParams }) => Promise<{ ok: boolean, status: number, json: () => Promise<unknown> }>
+type F = (url: string, init: { method: string, headers: Record<string, string>, body: string }) => Promise<{ ok: boolean, status: number }>
 
 export interface ProspectRunReport {
-  status: 'not_configured' | 'no_mailbox' | 'ok' | 'failed'
-  polled: number
-  replies: number
-  bounces: number
+  status: 'not_configured' | 'ok' | 'failed'
+  transport: 'smtp' | 'n8n'
   sent: number
   waiting: number
   stopped: number
@@ -34,73 +34,36 @@ export interface ProspectRunReport {
 
 const STOP_STATUSES = new Set(['replied', 'bounced', 'unsubscribed', 'converted', 'do_not_contact'])
 
-export async function runProspectSend(opts: { trigger: 'cron' | 'admin', fetchImpl?: F, now?: Date } = { trigger: 'cron' }): Promise<ProspectRunReport> {
+export async function runProspectSend(opts: { trigger: 'cron' | 'admin', connect?: SocketFactory, fetchImpl?: F, now?: Date } = { trigger: 'cron' }): Promise<ProspectRunReport> {
   const now = opts.now ?? new Date()
-  const report: ProspectRunReport = { status: 'ok', polled: 0, replies: 0, bounces: 0, sent: 0, waiting: 0, stopped: 0, cap: 0, sentLastDay: 0, errors: [], at: now.toISOString() }
-  const cfg = googleConfigFromEnv()
-  if (!cfg) return { ...report, status: 'not_configured' }
-  const box = await mailbox()
-  if (!box) return { ...report, status: 'no_mailbox' }
-  const f = opts.fetchImpl ?? (fetch as unknown as F)
+  const cfg = outreachConfigFromEnv()
+  const report: ProspectRunReport = { status: 'ok', transport: cfg.transport, sent: 0, waiting: 0, stopped: 0, cap: 0, sentLastDay: 0, errors: [], at: now.toISOString() }
+  const notReady = outreachReady(cfg)
+  if (notReady) return { ...report, status: 'not_configured', errors: [notReady] }
+  const deps = { connect: opts.connect ?? workerSockets, fetch: opts.fetchImpl ?? (fetch as unknown as F) }
   const sql = useDb()
   const settings = await prospectSettings()
 
-  let token: string
-  try {
-    token = await accessToken(cfg, box.refreshToken, f)
-  } catch (e) {
-    const msg = String((e as Error).message)
-    if (msg.startsWith('invalid_grant')) await sql`update app.mail_account set status = 'revoked' where email = ${box.email}`
-    return await finish({ ...report, status: 'failed', errors: [msg] })
-  }
-
-  // ---- 1. replies and bounces ---------------------------------------------------------
-  const threads = await sql`
-    select e.id, e.prospect_id, e.thread_id, p.email from app.prospect_enrollment e join app.prospect p on p.id = e.prospect_id
-     where e.status = 'active' and e.thread_id is not null
-     order by e.last_checked_at nulls first limit 25`
-  for (const t of threads) {
-    try {
-      const state = await threadState(token, String(t.thread_id), box.email, f)
-      report.polled++
-      await sql`update app.prospect_enrollment set last_checked_at = now() where id = ${t.id}`
-      if (state === 'replied') {
-        report.replies++
-        await sql`update app.prospect_enrollment set status = 'replied' where prospect_id = ${t.prospect_id} and status = 'active'`
-        await sql`update app.prospect set status = 'replied', updated_at = now() where id = ${t.prospect_id} and status not in ('converted', 'unsubscribed')`
-        await logActivity(Number(t.prospect_id), 'replied', 'Reply seen in Gmail — sequences stopped')
-      } else if (state === 'bounced') {
-        report.bounces++
-        await sql`update app.prospect_enrollment set status = 'bounced' where prospect_id = ${t.prospect_id} and status = 'active'`
-        await sql`update app.prospect set status = 'bounced', email_status = 'invalid', updated_at = now() where id = ${t.prospect_id}`
-        if (t.email) await suppress(String(t.email), 'bounced')
-        await logActivity(Number(t.prospect_id), 'bounced', 'Bounce seen in Gmail — address suppressed')
-      }
-    } catch (e) {
-      report.errors.push(`poll ${t.id}: ${String((e as Error).message).slice(0, 120)}`)
-    }
-  }
-
-  // ---- 2. due steps --------------------------------------------------------------------
   const [first] = await sql`select min(sent_at) as first, count(*) filter (where sent_at > now() - interval '24 hours')::int as day from app.prospect_message`
   report.sentLastDay = Number(first?.day ?? 0)
   report.cap = capToday({ cap: settings.dailyCap, rampStart: settings.rampStart, rampStep: settings.rampStep, firstSendAt: first?.first ? new Date(first.first as string) : null, now })
   let room = Math.min(15, report.cap - report.sentLastDay)
+  if (room <= 0) return await finish(report)
 
-  const due = room > 0
-    ? await sql`
-        select e.id, e.sequence_id, e.prospect_id, e.step, e.thread_id, e.rfc_message_id,
-               p.first_name, p.last_name, p.title, p.email, p.email_status, p.status as prospect_status, p.timezone,
-               c.name as company, c.domain, st.subject, st.body,
-               (select m.subject from app.prospect_message m where m.enrollment_id = e.id order by m.sent_at limit 1) as first_subject
-          from app.prospect_enrollment e
-          join app.prospect_sequence q on q.id = e.sequence_id and q.status = 'running'
-          join app.prospect p on p.id = e.prospect_id
-          left join app.prospect_company c on c.id = p.company_id
-          join app.prospect_step st on st.sequence_id = e.sequence_id and st.position = e.step
-         where e.status = 'active' and e.next_at <= ${now.toISOString()}
-         order by e.next_at limit 60`
-    : []
+  const due = await sql`
+    select e.id, e.sequence_id, e.prospect_id, e.step,
+           p.first_name, p.last_name, p.title, p.email, p.email_status, p.status as prospect_status, p.timezone,
+           c.name as company, c.domain, st.subject, st.body,
+           (select m.subject from app.prospect_message m where m.enrollment_id = e.id order by m.sent_at limit 1) as first_subject,
+           (select coalesce(array_agg(m.message_id order by m.sent_at), '{}') from app.prospect_message m
+             where m.enrollment_id = e.id and m.message_id is not null) as refs
+      from app.prospect_enrollment e
+      join app.prospect_sequence q on q.id = e.sequence_id and q.status = 'running'
+      join app.prospect p on p.id = e.prospect_id
+      left join app.prospect_company c on c.id = p.company_id
+      join app.prospect_step st on st.sequence_id = e.sequence_id and st.position = e.step
+     where e.status = 'active' and e.next_at <= ${now.toISOString()}
+     order by e.next_at limit 60`
 
   for (const d of due) {
     if (room <= 0) break
@@ -132,37 +95,33 @@ export async function runProspectSend(opts: { trigger: 'cron' | 'admin', fetchIm
       firstName: d.first_name as string | null, lastName: d.last_name as string | null, company: d.company as string | null,
       title: d.title as string | null, domain: d.domain as string | null, senderName: settings.senderName
     }
-    const rendered = renderTemplate(String(d.subject), vars)
-    const subject = Number(d.step) > 0 && d.thread_id && d.first_subject ? `Re: ${String(d.first_subject).replace(/^re:\s*/i, '')}` : rendered
+    const refs = ((d.refs as string[] | null) ?? []).filter(Boolean)
+    const followUp = Number(d.step) > 0 && d.first_subject
+    const subject = followUp ? `Re: ${String(d.first_subject).replace(/^re:\s*/i, '')}` : renderTemplate(String(d.subject), vars)
+    const messageId = newMessageId(cfg.from!.address)
+    const unsubscribeUrl = await prospectUnsubscribeUrl(pid)
+    const body = renderTemplate(String(d.body), vars)
+    const inReplyTo = refs.at(-1) ?? null
+    const raw = buildMime({ from: cfg.from!.address, fromName: cfg.from!.name ?? settings.senderName, to: String(d.email), subject, body, unsubscribeUrl, footer: settings.footer, messageId, inReplyTo, references: refs, date: now })
+    const { text, html } = mailBodies({ body, footer: settings.footer, unsubscribeUrl })
     try {
-      const raw = base64url(buildMime({
-        from: box.email,
-        fromName: settings.senderName,
-        to: String(d.email),
-        subject,
-        body: renderTemplate(String(d.body), vars),
-        unsubscribeUrl: await prospectUnsubscribeUrl(pid),
-        footer: settings.footer,
-        inReplyTo: (d.rfc_message_id as string | null) ?? null
-      }))
-      const sent = await sendRaw(token, raw, (d.thread_id as string | null) ?? null, f)
+      const sent = await deliver(cfg, { to: String(d.email), subject, raw, text, html, messageId, inReplyTo, references: refs, unsubscribeUrl }, deps)
       room--
       report.sent++
-      await sql`insert into app.prospect_message (enrollment_id, prospect_id, step, gmail_id, thread_id, subject)
-                values (${d.id}, ${pid}, ${d.step}, ${sent.id}, ${sent.threadId}, ${subject})`
-      await logActivity(pid, 'sent', `Step ${Number(d.step) + 1}: ${subject}`)
+      await sql`insert into app.prospect_message (enrollment_id, prospect_id, step, message_id, transport, subject)
+                values (${d.id}, ${pid}, ${d.step}, ${messageId}, ${sent.transport}, ${subject})`
+      await logActivity(pid, 'sent', `Step ${Number(d.step) + 1}: ${subject} (${sent.transport})`)
       await sql`update app.prospect set status = 'active', updated_at = now() where id = ${pid} and status = 'new'`
       const [next] = await sql`select delay_days from app.prospect_step where sequence_id = ${d.sequence_id} and position = ${Number(d.step) + 1}`
       if (next) {
         await sql`update app.prospect_enrollment set step = step + 1, next_at = ${new Date(now.getTime() + Number(next.delay_days) * 86400000).toISOString()},
-                    thread_id = coalesce(thread_id, ${sent.threadId}), rfc_message_id = coalesce(rfc_message_id, ${sent.messageId}) where id = ${d.id}`
+                    rfc_message_id = coalesce(rfc_message_id, ${messageId}) where id = ${d.id}`
       } else {
-        await sql`update app.prospect_enrollment set status = 'finished', thread_id = coalesce(thread_id, ${sent.threadId}),
-                    rfc_message_id = coalesce(rfc_message_id, ${sent.messageId}) where id = ${d.id}`
+        await sql`update app.prospect_enrollment set status = 'finished', rfc_message_id = coalesce(rfc_message_id, ${messageId}) where id = ${d.id}`
       }
     } catch (e) {
-      report.errors.push(`send ${d.id}: ${String((e as Error).message).slice(0, 120)}`)
-      // A Gmail refusal (quota, auth) stops this run; the step stays due.
+      report.errors.push(`send ${d.id}: ${String((e as Error).message).slice(0, 160)}`)
+      // A refusal (auth, quota, network) stops this run; the step stays due.
       break
     }
   }
@@ -170,7 +129,7 @@ export async function runProspectSend(opts: { trigger: 'cron' | 'admin', fetchIm
 }
 
 async function finish(r: ProspectRunReport) {
-  if (r.errors.length && r.status === 'ok' && !r.sent && !r.polled) r.status = 'failed'
+  if (r.errors.length && !r.sent) r.status = 'failed'
   await useDb()`insert into app.prospect_setting (key, value) values ('last_run', ${JSON.stringify(r)}::jsonb)
                 on conflict (key) do update set value = excluded.value`
   return r

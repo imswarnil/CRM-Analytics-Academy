@@ -19,7 +19,7 @@
 --   business  lead · event (milestones) · enrichment · company_domain · sf_sync · sf_sync_run
 --   outbound  prospect_company · prospect · prospect_list(+_member) · prospect_sequence · prospect_step
 --             prospect_enrollment · prospect_message · prospect_activity · prospect_suppression
---             prospect_cache · provider_call · mail_account · prospect_setting
+--             prospect_cache · provider_call · prospect_setting · prospect_inbound
 --   security  rate_hit · used_challenge · demo_account
 
 create schema if not exists app;
@@ -437,7 +437,8 @@ create table if not exists app.sf_sync_run (
 );
 
 -- Prospecting (2026-11-23, migrate-2026-11-23-prospecting.sql): /admin → Prospecting,
--- B2B outreach from the owner's Gmail with source + lawful basis per prospect.
+-- B2B outreach by SMTP (Hostinger) or n8n with source + lawful basis per prospect;
+-- replies and bounces arrive from n8n (2026-11-24, migrate-2026-11-24-prospecting-smtp.sql).
 
 -- Saved companies (from a provider search or by hand). Enrichment comes from
 -- app.company_domain (the GTM cache) by domain.
@@ -524,9 +525,7 @@ create table if not exists app.prospect_enrollment (
   status          text        not null default 'active' check (status in ('active', 'finished', 'replied', 'bounced', 'unsubscribed', 'stopped')),
   step            smallint    not null default 0,
   next_at         timestamptz not null default now(),
-  thread_id       text,
   rfc_message_id  text,
-  last_checked_at timestamptz,
   created_at      timestamptz not null default now(),
   unique (sequence_id, prospect_id)
 );
@@ -537,8 +536,8 @@ create table if not exists app.prospect_message (
   enrollment_id bigint      not null references app.prospect_enrollment(id) on delete cascade,
   prospect_id   bigint      not null references app.prospect(id) on delete cascade,
   step          smallint    not null,
-  gmail_id      text,
-  thread_id     text,
+  message_id    text,
+  transport     text,
   subject       text        not null,
   sent_at       timestamptz not null default now()
 );
@@ -582,19 +581,42 @@ create table if not exists app.provider_call (
 );
 create index if not exists provider_call_idx on app.provider_call (provider, at desc);
 
--- The connected Gmail mailbox (one). refresh_enc is AES-GCM sealed under the
--- site secret (server/utils/prospect-core.ts); the plain token is never stored.
-create table if not exists app.mail_account (
-  email        text        primary key,
-  provider     text        not null default 'gmail' check (provider = 'gmail'),
-  refresh_enc  text        not null,
-  status       text        not null default 'ok',
-  connected_at timestamptz not null default now()
-);
-
 -- Settings: daily_cap, ramp_start, ramp_step, window_start, window_end,
 -- default_tz, sender_name, footer, suppress_learners.
 create table if not exists app.prospect_setting (
   key   text  primary key check (key ~ '^[a-z_]{2,30}$'),
   value jsonb not null
 );
+
+-- Prospecting off Gmail (2026-11-24). The tables above already have the final
+-- shape; these statements bring a database created by the 2026-11-23 file up to it.
+
+-- The Gmail OAuth token store is gone (no OAuth, no sealed refresh token).
+drop table if exists app.mail_account;
+
+-- Messages are matched by our own Message-ID now, not by a Gmail id/thread.
+alter table app.prospect_message add column if not exists message_id text;
+alter table app.prospect_message add column if not exists transport text;
+alter table app.prospect_message drop column if exists gmail_id;
+alter table app.prospect_message drop column if exists thread_id;
+create unique index if not exists prospect_message_mid_idx on app.prospect_message (message_id) where message_id is not null;
+
+-- No thread polling: the enrollment keeps the first Message-ID (rfc_message_id) for threading.
+alter table app.prospect_enrollment drop column if exists thread_id;
+alter table app.prospect_enrollment drop column if exists last_checked_at;
+
+-- Every signed event n8n posts (reply, bounce, unsubscribe, auto_reply).
+-- `signature` is unique, so a replayed request is refused.
+create table if not exists app.prospect_inbound (
+  id          bigint generated always as identity primary key,
+  signature   text        not null unique,
+  type        text        not null check (type in ('reply', 'bounce', 'unsubscribe', 'auto_reply')),
+  from_addr   text,
+  message_id  text,
+  in_reply_to text,
+  prospect_id bigint      references app.prospect(id) on delete cascade,
+  matched_by  text,
+  received_at timestamptz,
+  at          timestamptz not null default now()
+);
+create index if not exists prospect_inbound_at_idx on app.prospect_inbound (at desc);

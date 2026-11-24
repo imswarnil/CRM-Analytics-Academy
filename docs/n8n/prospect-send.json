@@ -1,0 +1,146 @@
+{
+  "name": "CRMA prospect send (site → SMTP), only with OUTREACH_TRANSPORT=n8n",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crma-prospect-send",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "b2f0c1e2-0001-4c11-9a01-000000000001",
+      "name": "From the site",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "crma-prospect-send",
+      "notes": "Copy this node's Production URL into the Worker secret N8N_SEND_WEBHOOK_URL."
+    },
+    {
+      "parameters": {
+        "action": "hmac",
+        "type": "SHA256",
+        "value": "={{ $json.body.ts + '.' + $json.body.payload }}",
+        "dataPropertyName": "expected",
+        "secret": "={{ $env.CRMA_WEBHOOK_SECRET }}",
+        "encoding": "hex"
+      },
+      "id": "b2f0c1e2-0002-4c11-9a01-000000000002",
+      "name": "Recompute signature",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [240, 0],
+      "notes": "Secret = the Worker's N8N_WEBHOOK_SECRET (CRMA_WEBHOOK_SECRET in n8n's environment, or paste it here)."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "typeValidation": "loose" },
+          "conditions": [
+            {
+              "id": "sig",
+              "leftValue": "={{ ('sha256=' + $json.expected) === String($json.headers['x-signature'] || '').toLowerCase() && Math.abs(Date.now() / 1000 - Number($json.body.ts)) < 300 }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b2f0c1e2-0003-4c11-9a01-000000000003",
+      "name": "Signed and fresh?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [480, 0]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// The message the site rendered: from, fromName, to, subject, text, html, messageId, inReplyTo, references, listUnsubscribe.\nconst m = JSON.parse($json.body.payload);\nreturn { json: m };"
+      },
+      "id": "b2f0c1e2-0004-4c11-9a01-000000000004",
+      "name": "Read message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, -100]
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{ $json.fromName ? $json.fromName + ' <' + $json.from + '>' : $json.from }}",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "both",
+        "text": "={{ $json.text }}",
+        "html": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "b2f0c1e2-0005-4c11-9a01-000000000005",
+      "name": "Send (Hostinger SMTP)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [960, -100],
+      "credentials": {
+        "smtp": {
+          "id": "",
+          "name": "Hostinger outreach SMTP (smtp.hostinger.com:465, SSL)"
+        }
+      },
+      "notes": "n8n's Send Email node cannot set custom headers, so Message-ID / In-Reply-To / List-Unsubscribe are not carried in this mode: replies are matched by the sender's address, and the unsubscribe link is still in the body. The smtp transport (default) sends every header."
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true }) }}",
+        "options": { "responseCode": 200 }
+      },
+      "id": "b2f0c1e2-0006-4c11-9a01-000000000006",
+      "name": "OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1200, -100]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: false, error: 'bad signature' }) }}",
+        "options": { "responseCode": 401 }
+      },
+      "id": "b2f0c1e2-0007-4c11-9a01-000000000007",
+      "name": "Refuse",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [720, 120]
+    }
+  ],
+  "connections": {
+    "From the site": {
+      "main": [[{ "node": "Recompute signature", "type": "main", "index": 0 }]]
+    },
+    "Recompute signature": {
+      "main": [[{ "node": "Signed and fresh?", "type": "main", "index": 0 }]]
+    },
+    "Signed and fresh?": {
+      "main": [
+        [{ "node": "Read message", "type": "main", "index": 0 }],
+        [{ "node": "Refuse", "type": "main", "index": 0 }]
+      ]
+    },
+    "Read message": {
+      "main": [[{ "node": "Send (Hostinger SMTP)", "type": "main", "index": 0 }]]
+    },
+    "Send (Hostinger SMTP)": {
+      "main": [[{ "node": "OK", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

@@ -1,15 +1,16 @@
 <script setup lang="ts">
 /**
  * /admin → Prospecting: find companies and people, find and verify emails,
- * lists, sequences sent from the owner's own Gmail, suppression, GDPR.
+ * lists, sequences sent from the owner's own mailbox (Hostinger SMTP or n8n),
+ * replies and bounces from n8n, suppression, GDPR.
  * Providers (Apollo, Hunter, …) are switched on by their env vars; without a
  * key the matching tools say "connect a provider". English-only, admin-only.
  */
 interface Status {
   providers: { id: string, label: string, env: string, capabilities: string[], configured: boolean, implemented: boolean, calls30d: number, cacheHits30d: number }[]
-  gmail: { configured: boolean, email: string | null, status: string | null, connectedAt: string | null, redirectUri: string }
+  outreach: { transport: string, ready: boolean, problem: string | null, from: string | null, inboundConfigured: boolean, lastInbound: { type: string, at: string } | null }
   settings: Record<string, unknown>
-  lastRun: { status: string, sent: number, polled: number, replies: number, bounces: number, waiting: number, stopped: number, cap: number, sentLastDay: number, errors: string[], at: string } | null
+  lastRun: { status: string, transport: string, sent: number, waiting: number, stopped: number, cap: number, sentLastDay: number, errors: string[], at: string } | null
   counts: { byStatus: Record<string, number>, sentLastDay: number, sentTotal: number, suppressed: number }
 }
 const { data: status, refresh, error } = await useLazyAsyncData('admin-prospecting', () => $fetch<Status>('/api/admin/prospecting/status'), { server: false })
@@ -40,8 +41,8 @@ const runResult = ref<string | null>(null)
 async function runNow() {
   running.value = true
   try {
-    const r = await $fetch<{ status: string, sent: number, polled: number, replies: number, bounces: number, waiting: number, cap: number, sentLastDay: number, errors: string[] }>('/api/admin/prospecting/run', { method: 'POST' })
-    runResult.value = `${r.status}: ${r.sent} sent (cap ${r.cap}, ${r.sentLastDay} in 24 h), ${r.polled} threads checked, ${r.replies} replies, ${r.bounces} bounces, ${r.waiting} outside the window${r.errors.length ? ` — ${r.errors[0]}` : ''}`
+    const r = await $fetch<{ status: string, transport: string, sent: number, waiting: number, stopped: number, cap: number, sentLastDay: number, errors: string[] }>('/api/admin/prospecting/run', { method: 'POST' })
+    runResult.value = `${r.status} via ${r.transport}: ${r.sent} sent (cap ${r.cap}, ${r.sentLastDay} in 24 h), ${r.waiting} outside the window, ${r.stopped} stopped${r.errors.length ? ` — ${r.errors[0]}` : ''}`
   } catch (e) {
     runResult.value = (e as { statusMessage?: string }).statusMessage ?? String(e)
   } finally {
@@ -74,9 +75,16 @@ const anyProvider = computed(() => status.value?.providers.some(p => p.configure
         </span>
         <span
           class="rounded-full border px-2.5 py-1 text-xs"
-          :class="status?.gmail.email && status.gmail.status === 'ok' ? 'border-success/40 bg-success/10 text-success' : 'border-warning/40 bg-warning/10 text-warning'"
+          :class="status?.outreach.ready ? 'border-success/40 bg-success/10 text-success' : 'border-warning/40 bg-warning/10 text-warning'"
+          :title="status?.outreach.problem ?? ''"
         >
-          Gmail · {{ status?.gmail.email ? `${status.gmail.email}${status.gmail.status !== 'ok' ? ` (${status.gmail.status})` : ''}` : 'not connected — Integrations' }}
+          Mailbox · {{ status?.outreach.ready ? `${status.outreach.from} (${status.outreach.transport})` : 'not set up — Integrations' }}
+        </span>
+        <span
+          class="rounded-full border px-2.5 py-1 text-xs"
+          :class="status?.outreach.inboundConfigured ? 'border-success/40 bg-success/10 text-success' : 'border-warning/40 bg-warning/10 text-warning'"
+        >
+          n8n inbound · {{ !status?.outreach.inboundConfigured ? 'not set up' : status.outreach.lastInbound ? `last ${status.outreach.lastInbound.type} ${new Date(status.outreach.lastInbound.at).toLocaleDateString()}` : 'no events yet' }}
         </span>
         <UButton
           size="xs"
@@ -95,7 +103,7 @@ const anyProvider = computed(() => status.value?.providers.some(p => p.configure
           size="sm"
           icon="i-lucide-play"
           :loading="running"
-          :disabled="!status?.gmail.email"
+          :disabled="!status?.outreach.ready"
           @click="runNow"
         >
           Run now
@@ -126,7 +134,7 @@ const anyProvider = computed(() => status.value?.providers.some(p => p.configure
       v-if="runResult || status?.lastRun"
       class="font-mono text-[11px] text-(--ink2)"
     >
-      {{ runResult ?? `Last run ${new Date(status!.lastRun!.at).toLocaleString()}: ${status!.lastRun!.status}, ${status!.lastRun!.sent} sent, ${status!.lastRun!.replies} replies, ${status!.lastRun!.bounces} bounces` }}
+      {{ runResult ?? `Last run ${new Date(status!.lastRun!.at).toLocaleString()}: ${status!.lastRun!.status}, ${status!.lastRun!.sent} sent, ${status!.lastRun!.waiting} waiting${status!.lastRun!.errors?.length ? ` — ${status!.lastRun!.errors[0]}` : ''}` }}
     </p>
 
     <div class="flex flex-wrap gap-2 border-b border-(--line) pb-3">

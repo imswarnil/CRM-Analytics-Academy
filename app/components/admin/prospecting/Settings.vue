@@ -117,7 +117,7 @@ async function removeSuppression(value: string) {
         <span class="text-xs text-(--ink2)">{{ message }}</span>
       </div>
       <p class="text-xs text-(--ink2)">
-        Sends go out from your connected Gmail only, never through the site's Resend account. Replies and bounces stop a prospect's sequences; open tracking is off.
+        Sends go out from your outreach mailbox (Hostinger SMTP, or n8n) only, never through the site's Resend account. Replies and bounces, reported by n8n, stop a prospect's sequences; open tracking is off.
       </p>
     </form>
 

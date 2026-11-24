@@ -1,6 +1,6 @@
 /**
  * Prospecting — the pure parts: templates, sending windows, the daily cap and
- * its ramp-up, CSV, the email message itself, the refresh-token cipher.
+ * its ramp-up, CSV, the email message itself.
  * No database, no auto-imports: scripts/check-prospect.mjs tests them directly.
  */
 
@@ -164,7 +164,6 @@ const b64 = (s: string) => {
   for (const b of bytes) bin += String.fromCharCode(b)
   return btoa(bin)
 }
-export const base64url = (s: string) => b64(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
 const header = (s: string) => (/^[\x20-\x7e]*$/.test(s) ? s : `=?UTF-8?B?${b64(s)}?=`)
 const escHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
@@ -176,26 +175,47 @@ export interface OutboundMail {
   body: string
   unsubscribeUrl: string
   footer: string
+  /** Our own Message-ID for this email, e.g. <uuid@outreach.example.com>. */
+  messageId: string
+  /** The previous email in the thread, and every earlier one (References). */
   inReplyTo?: string | null
+  references?: string[]
+  date?: Date
 }
 
-/**
- * An RFC 5322 message: plain text and a minimal HTML twin, one-click
- * List-Unsubscribe (RFC 8058), the unsubscribe link and the sender's footer
- * in every email. No tracking pixel.
- */
-export function buildMime(m: OutboundMail, boundary = `b${Math.random().toString(36).slice(2)}`): string {
+/** The plain-text and HTML bodies: the email, the footer, the unsubscribe link. No tracking pixel. */
+export function mailBodies(m: Pick<OutboundMail, 'body' | 'footer' | 'unsubscribeUrl'>) {
   const text = `${m.body.trim()}\n\n--\n${m.footer}\nUnsubscribe: ${m.unsubscribeUrl}\n`
   const html = `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#181818">${m.body.trim().split(/\n{2,}/).map(p => `<p>${escHtml(p).replace(/\n/g, '<br>')}</p>`).join('')}`
     + `<p style="font-size:12px;color:#706e6b;margin-top:24px">${escHtml(m.footer).replace(/\n/g, '<br>')}<br><a href="${escHtml(m.unsubscribeUrl)}" style="color:#706e6b">Unsubscribe</a></p></div>`
+  return { text, html }
+}
+
+/** A fresh Message-ID on the sender's own domain. */
+export function newMessageId(fromAddress: string): string {
+  const domain = fromAddress.split('@')[1]?.replace(/[^a-z0-9.-]/gi, '') || 'localhost'
+  return `<${crypto.randomUUID()}@${domain}>`
+}
+
+/**
+ * An RFC 5322 message: Date, our Message-ID, In-Reply-To + References for
+ * follow-ups, one-click List-Unsubscribe (RFC 8058), plain text and a
+ * minimal HTML twin.
+ */
+export function buildMime(m: OutboundMail, boundary = `b${Math.random().toString(36).slice(2)}`): string {
+  const { text, html } = mailBodies(m)
+  const refs = [...new Set([...(m.references ?? []), ...(m.inReplyTo ? [m.inReplyTo] : [])])].filter(r => /^<[^<>\s]+>$/.test(r))
   const lines = [
     `From: ${m.fromName ? `${header(m.fromName)} <${m.from}>` : m.from}`,
     `To: ${m.to}`,
     `Subject: ${header(m.subject)}`,
+    `Date: ${(m.date ?? new Date()).toUTCString().replace('GMT', '+0000')}`,
+    `Message-ID: ${m.messageId}`,
+    ...(m.inReplyTo ? [`In-Reply-To: ${m.inReplyTo}`] : []),
+    ...(refs.length ? [`References: ${refs.join(' ')}`] : []),
     'MIME-Version: 1.0',
     `List-Unsubscribe: <${m.unsubscribeUrl}>`,
     'List-Unsubscribe-Post: List-Unsubscribe=One-Click',
-    ...(m.inReplyTo ? [`In-Reply-To: ${m.inReplyTo}`, `References: ${m.inReplyTo}`] : []),
     `Content-Type: multipart/alternative; boundary="${boundary}"`,
     '',
     `--${boundary}`,
@@ -212,26 +232,4 @@ export function buildMime(m: OutboundMail, boundary = `b${Math.random().toString
     ''
   ]
   return lines.join('\r\n')
-}
-
-// ---- refresh-token cipher (AES-GCM, key derived from the site secret) ------------------
-
-async function aesKey(secret: string) {
-  const raw = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`mailbox-token:${secret}`))
-  return crypto.subtle.importKey('raw', raw, { name: 'AES-GCM' }, false, ['encrypt', 'decrypt'])
-}
-const toB64 = (u: Uint8Array) => btoa(String.fromCharCode(...u))
-const fromB64 = (s: string) => Uint8Array.from(atob(s), c => c.charCodeAt(0))
-
-export async function encryptSecret(plain: string, secret: string): Promise<string> {
-  const iv = crypto.getRandomValues(new Uint8Array(12))
-  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await aesKey(secret), new TextEncoder().encode(plain)))
-  return `v1.${toB64(iv)}.${toB64(ct)}`
-}
-
-export async function decryptSecret(sealed: string, secret: string): Promise<string> {
-  const [v, iv, ct] = sealed.split('.')
-  if (v !== 'v1' || !iv || !ct) throw new Error('bad sealed secret')
-  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: fromB64(iv) }, await aesKey(secret), fromB64(ct))
-  return new TextDecoder().decode(pt)
 }

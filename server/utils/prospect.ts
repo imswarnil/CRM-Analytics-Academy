@@ -2,8 +2,8 @@ import type { ProspectProvider, ProviderContext } from './prospect-providers'
 
 /**
  * Prospecting — the database side: settings, the provider call wrapper
- * (cache, rate limit, backoff, call log), suppression, the activity timeline,
- * the connected Gmail mailbox. Admin only; nothing here runs for visitors.
+ * (cache, rate limit, backoff, call log), suppression and
+ * the activity timeline. Admin only; nothing here runs for visitors.
  */
 
 export interface ProspectSettings {
@@ -120,13 +120,6 @@ export async function suppress(value: string, reason: 'unsubscribed' | 'bounced'
                 on conflict (value) do nothing`
 }
 
-/** The connected Gmail mailbox, its token unsealed, or null. */
-export async function mailbox(): Promise<{ email: string, refreshToken: string } | null> {
-  const [row] = await useDb()`select email, refresh_enc from app.mail_account where status = 'ok' order by connected_at desc limit 1`
-  if (!row) return null
-  return { email: String(row.email), refreshToken: await decryptSecret(String(row.refresh_enc), await secretKey()) }
-}
-
 export interface NewProspect {
   firstName?: unknown
   lastName?: unknown
@@ -213,21 +206,3 @@ export function pemail(v: unknown): string | null {
   const e = pclean(v, 254)?.toLowerCase() ?? null
   return e && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e) ? e : null
 }
-
-/** Signed, short-lived OAuth `state` (CSRF for the Gmail connect flow). */
-async function stateMac(ts: string) {
-  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(`gmail-state:${await secretKey()}`), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
-  return [...new Uint8Array(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(ts)))].slice(0, 16).map(b => b.toString(16).padStart(2, '0')).join('')
-}
-export async function oauthState() {
-  const ts = String(Date.now())
-  return `${ts}.${await stateMac(ts)}`
-}
-export async function verifyOauthState(state: string) {
-  const [ts, mac] = state.split('.')
-  if (!ts || !mac || Date.now() - Number(ts) > 10 * 60000) return false
-  return mac === await stateMac(ts)
-}
-
-export const SITE_ORIGIN = 'https://crmanalytics.imswarnil.com'
-export const gmailRedirectUri = () => `${process.env.NUXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || SITE_ORIGIN}/api/admin/prospecting/gmail/callback`
