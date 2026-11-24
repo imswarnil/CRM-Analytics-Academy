@@ -68,6 +68,9 @@ const hasAudio = f => run('ffprobe', ['-v', 'error', '-select_streams', 'a', '-s
 
 let t = 0
 const frame = x => Math.round(x * 30) / 30
+// A white-world canvas plays every scene but the first `canvas.lead` beats early (film.jsx KIT.leadOf).
+const world = spec.layout === 'canvas' && spec.canvas?.cards === false
+const leadOf = i => (world && i > 0 ? (spec.canvas.lead ?? 1) * (spec.music.bar / 4) : 0)
 const scenes = spec.scenes.map((s, i) => {
   if (!voice || !s.vo) {
     let bars = s.bars
@@ -78,7 +81,8 @@ const scenes = spec.scenes.map((s, i) => {
       props.file = `${s.clip}.mov`
       if (file) {
         const d = duration(file)
-        bars = Math.max(bars ?? 1, Math.ceil((d + 0.3) / spec.music.bar))
+        // `clipAt`: bars into the scene before the clip starts playing.
+        bars = Math.max(bars ?? 1, Math.ceil((d + 0.3 + (s.clipAt ?? 0) * spec.music.bar) / spec.music.bar))
         props._clip = file
         clip = { file, duration: d, audio: hasAudio(file) }
         console.log(`clip: ${s.clip} (${d.toFixed(1)} s) → ${bars} bars`)
@@ -90,9 +94,13 @@ const scenes = spec.scenes.map((s, i) => {
       if (img) props._photo = img
       console.log(img ? `photo: ${path.basename(img)}` : `photo: ${s.photo} missing → placeholder (drop ${s.photo}.jpg in ${path.relative(process.cwd(), camDir)}/)`)
     }
-    const dur = frame(bars ? bars * spec.music.bar : (s.seconds ?? 5))
-    const scene = { ...s, props, index: i, start: frame(t), duration: dur, voStart: 0, voDuration: 0, voFile: null, voEnv: [], clipFile: clip?.file ?? null, clipDuration: clip ? Math.min(clip.duration, dur) : 0, clipAudio: !!clip?.audio }
-    t += dur
+    // Exact bar time accumulates; only the start and end are rounded to frames, so
+    // every scene starts within half a frame of its bar (no drift over the film).
+    const exact = bars ? bars * spec.music.bar : (s.seconds ?? 5)
+    const dur = frame(t + exact) - frame(t)
+    const clipStart = frame(t + (s.clipAt ?? 0) * spec.music.bar - leadOf(i))
+    const scene = { ...s, props, index: i, start: frame(t), duration: dur, voStart: 0, voDuration: 0, voFile: null, voEnv: [], clipFile: clip?.file ?? null, clipStart, clipDuration: clip ? Math.min(clip.duration, dur - (s.clipAt ?? 0) * spec.music.bar) : 0, clipAudio: !!clip?.audio }
+    t += exact
     return scene
   }
   const n = String(i + 1).padStart(2, '0')
@@ -140,7 +148,7 @@ for (const s of scenes.filter(x => x.voFile)) {
   duck.push([a - ramp, spec.music.gainDb], [a, spec.music.duckDb], [b, spec.music.duckDb], [b + ramp * 2, spec.music.gainDb])
 }
 for (const s of scenes.filter(x => x.clipAudio)) {
-  const a = s.start
+  const a = s.clipStart ?? s.start
   const b = a + s.clipDuration
   duck.push([a - ramp, spec.music.gainDb], [a, spec.music.duckDb], [b, spec.music.duckDb], [b + ramp * 2, spec.music.gainDb])
 }
@@ -151,7 +159,7 @@ const sfxCues = spec.sfx === false ? [] : scenes.flatMap(s => (s.sfx ?? []).map(
 // Voices: the voice-over lines and the audio of your camera clips.
 const voices = [
   ...scenes.filter(s => s.voFile).map(s => ({ file: s.voFile, at: s.start + s.voStart, af: '' })),
-  ...scenes.filter(s => s.clipAudio).map(s => ({ file: s.clipFile, at: s.start, af: `atrim=0:${s.clipDuration.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=7,` }))
+  ...scenes.filter(s => s.clipAudio).map(s => ({ file: s.clipFile, at: s.clipStart ?? s.start, af: `atrim=0:${s.clipDuration.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=7,` }))
 ]
 const inputs = ['-i', music, ...voices.flatMap(v => ['-i', v.file]), ...sfxCues.flatMap(c => ['-i', c.file])]
 const nVo = voices.length
@@ -177,7 +185,7 @@ if (r.status !== 0) {
 console.log(`mix: ${path.relative(process.cwd(), mix)}`)
 
 // ---- 4. timeline for After Effects -----------------------------------------------------
-const timeline = { slug, title: spec.title, layout: spec.layout ?? 'cuts', canvas: spec.canvas ?? {}, credit: spec.music.credit ?? '', beat: spec.music.bar ? spec.music.bar / 4 : 0.585, screens: path.join(WS, '04-clips', 'screens'), fps: brand.frame.fps, width: brand.frame.width, height: brand.frame.height, total, brand, studio: STUDIO, workspace: WS, voice, music: { file: music, duck }, mix, sfx: sfxCues, scenes }
+const timeline = { slug, title: spec.title, layout: spec.layout ?? 'cuts', canvas: spec.canvas ?? {}, sync: !!spec.sync, credit: spec.music.credit ?? '', beat: spec.music.bar ? spec.music.bar / 4 : 0.585, screens: path.join(WS, '04-clips', 'screens'), fps: brand.frame.fps, width: brand.frame.width, height: brand.frame.height, total, brand, studio: STUDIO, workspace: WS, voice, music: { file: music, duck }, mix, sfx: sfxCues, scenes }
 const tlPath = path.join(dirs.gfx, `${slug}.timeline.json`)
 writeFileSync(tlPath, JSON.stringify(timeline, null, 2))
 // A fixed path the After Effects scripts read (ExtendScript cannot take arguments).
@@ -194,6 +202,11 @@ if (!existsSync(aep)) {
   process.exit(1)
 }
 console.log(`project: ${path.relative(process.cwd(), aep)}`)
+const beats = path.join(dirs.gfx, `${slug}.beats.json`)
+if (spec.sync && existsSync(beats)) {
+  const r = JSON.parse(readFileSync(beats, 'utf8'))
+  console.log(`beat grid: ${r.count} hits checked against the half-beat (${(r.halfBeat * 1000).toFixed(1)} ms), max deviation ${(r.maxDev * 1000).toFixed(2)} ms (${(r.maxDev * 30).toFixed(2)} frames)`)
+}
 if (noRender) process.exit(0)
 const mp4 = await ae.render(aep, 'MASTER', path.join(dirs.out, `${slug}.mp4`), mix)
 console.log(`render: ${path.relative(process.cwd(), mp4)}`)

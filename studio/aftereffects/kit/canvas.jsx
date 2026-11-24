@@ -139,9 +139,10 @@ KIT.wipeIn = function (L, t, d) {
   }
   // A punctuation mark that lands hard on a downbeat.
   function slamMark(L, t) {
-    KIT.keys(L.property('ADBE Transform Group').property('ADBE Scale'), [[t - 0.14, [320, 320, 100]], [t, [92, 92, 100]], [t + 0.12, [104, 104, 100]], [t + 0.24, [100, 100, 100]]], 70);
-    KIT.keys(L.property('ADBE Transform Group').property('ADBE Rotate Z'), [[t - 0.14, -24], [t, 4], [t + 0.24, 0]], 70);
-    KIT.opacityKeys(L, [[0, 0], [t - 0.14, 0], [t - 0.1, 100]], 30);
+    var pre = KIT.PRE;
+    KIT.keys(L.property('ADBE Transform Group').property('ADBE Scale'), [[t - pre, [320, 320, 100]], [t, [92, 92, 100]], [t + 0.12, [104, 104, 100]], [t + 0.24, [100, 100, 100]]], KIT.EASE.pop);
+    KIT.keys(L.property('ADBE Transform Group').property('ADBE Rotate Z'), [[t - pre, -24], [t, 4], [t + 0.24, 0]], KIT.EASE.pop);
+    KIT.opacityKeys(L, [[0, 0], [t - pre, 0], [t - pre + 0.04, 100]], 30);
   }
   function dark(name) {
     return name === 'navy' || name === 'navyDeep' || name === 'signal';
@@ -245,7 +246,7 @@ KIT.wipeIn = function (L, t, d) {
       KIT.charsIn(bigU, T + b * 2, 0.45, { scale: 0, pos: [0, 30] }, { spread: 30 });
       rule(comp, 'Under line', bx, 620 + bh * 0.62, bw, 16, acc, T + b * 3, 0.45);
       var q = KIT.text(comp, p.mark || '?', { size: 200, font: F.black, color: ink, x: bx + bw + 24, y: 600, align: 'left' });
-      slamMark(q, T + b * 4);
+      slamMark(q, T + b * (4 + (p._lead || 0)));
     } else {
       // tracking: a small line opens up; the big line's characters drop in, random order.
       if (p.mark !== false) KIT.mark(comp, 960, 830, 110, T + b * 4);

@@ -25,19 +25,30 @@ node studio/build-film.mjs trailer             # the channel trailer (flat, the 
 node studio/build-film.mjs kit-preview         # test reel of the other scene types
 ```
 
-**The channel trailer** (`films/trailer.json`, 1:03, 27 bars of *Dizzy*) is just a channel trailer:
-brand, feeling, the promise, you, subscribe. No lessons, no curriculum. It is set in **one open white
-world**: scenes are places in it (no lines, cards, frames or panels), and the camera glides between
-them (2D pan and zoom, plus a gentle turn from each scene's `rot`), landing on the beat. Everything
-**morphs** instead of cutting: *Welcome.* / *Want to learn CRM Analytics?* whose letters become bars,
-the "?" a donut and the underline a line chart (`morphCharts`) / *Write SAQL?* with the word swapping
-on the beat / *Build dashboards people actually use?* / *You're in the right place.* (`typeLine`); then
-"data" bursting into dots that stack into bars and say "insight." (`dataInsight`), a pen line that
-unfolds slides and becomes a road with stops (`pathRoad`), AI sketches that become widgets
-(`aiSketch`); then `aboutMe`, your subscribe clip and the end screen, on white (`light: true`).
-Files go in `workspace/01-camera/trailer/`: `photo.jpg` (scene `"photo": "photo"`) and camera clips
-(scene `"clip": "clip-02-subscribe"`, played full frame with the music ducked; the scene grows to fit).
-Missing ones show placeholders saying what is needed.
+**The channel trailer** (`films/trailer.json`, 1:05, 28 bars of *Dizzy*) is just a channel trailer:
+brand, feeling, the promise, you, subscribe. No lessons, no curriculum. It is **one continuous film in
+one open white world** with one language in every comp: the camera glides between places with the
+same move every time (1.5 beats, smoothstep, a gentle turn from each scene's `rot`), landing exactly on
+the scene's downbeat, and every scene but the first plays a beat early (`canvas.lead`), so it is
+already arriving while the camera travels: there is never an empty white frame. Everything **morphs**:
+*Welcome.* / *Want to learn CRM Analytics?* whose letters become bars, the "?" a donut and the
+underline a line chart (`morphCharts`) / *Write SAQL?* with the word swapping on the beat / *Build
+dashboards people actually use?* / *You're in the right place.* (`typeLine`); "data" bursting into
+dots that stack into bars and say "insight." (`dataInsight`); a pen line that unfolds slides and
+becomes a road with stops (`pathRoad`); AI sketches becoming widgets (`aiSketch`); a bar rounding into
+your photo circle beside your name (`aboutWorld`); the Subscribe button opening into your clip
+(`subscribeWorld`, the clip plays `clipAt` bars in); your clip's panel shrinking into the end screen's
+video slot while lines open into the subscribe slot and the site pill (`endWorld`).
+Files go in `workspace/01-camera/trailer/`: `photo.jpg` (scene `"photo": "photo"`) and
+`clip-02-subscribe.mov`; fill the `about` props. Missing ones show quiet placeholders.
+
+**On the beat** (`"sync": true`): while a scene is built, `KIT.grid` knows where the film's half-beats
+fall in that comp; `KIT.snapComp` then moves every animation so it starts on one (animations starting
+within 0.1 s of each other move together, so a stagger stays a stagger and its first element lands on
+the beat), and type-on and count-up expressions start on it too (`KIT.snapT`). Scene starts are exact
+bar times rounded once to a frame, so nothing drifts. The build prints the check and writes every hit
+with its deviation to `workspace/06-graphics/<film>.beats.json`. One motion vocabulary for the whole
+film lives in `KIT.EASE` (enter, exit, pop, morph) and `KIT.PRE` (a slam's wind-up, half a beat).
 
 **Canvas films** (`"layout": "canvas"`, `KIT.canvasMaster` in `aftereffects/kit/film.jsx`): every
 scene is placed at its `at` [column, row] in cells of `canvas.cell` px, and a VIEW null travels
@@ -135,6 +146,9 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | `dataInsight` | "data" bursts into dots, they scatter, stack into columns, fuse into bars, and the tallest says "insight." |
 | `pathRoad` | A pen line draws, slides unfold along it, then it thickens into a road with stops, running out of frame |
 | `aiSketch` | A prompt types, dashed sketches draw, each becomes a real widget |
+| `aboutWorld` | About you on white: a bar rounds into the photo circle, your name writes beside it, one quiet line for role, years, companies |
+| `subscribeWorld` | Subscribe on white: the words land, the button arrives and opens into your clip |
+| `endWorld` | End screen on white: your clip's panel shrinks into the video slot, lines open into the subscribe slot and the site pill |
 | `aboutMe` | Two columns: your photo, then name, role, years, companies (placeholders until filled); `light: true` on white |
 | `clipSlot` | Your camera clip with a name card, or a placeholder until it exists |
 

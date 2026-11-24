@@ -15,7 +15,10 @@ SCENES_INFO.push(
   { type: 'morphCharts', label: 'Morph: a word becomes charts (letters → bars, ? → donut, underline → line)', props: { small: 'Want to learn', big: 'CRM Analytics' } },
   { type: 'dataInsight', label: 'Morph: "data" → dots → columns → bars → insight', props: { word: 'data', result: 'insight.' } },
   { type: 'pathRoad', label: 'Morph: a pen line → slides → a road with stops', props: { caption: 'Your path.' } },
-  { type: 'aiSketch', label: 'Morph: AI sketches a dashboard, sketches become widgets', props: { caption: 'AI at your side.' } }
+  { type: 'aiSketch', label: 'Morph: AI sketches a dashboard, sketches become widgets', props: { caption: 'AI at your side.' } },
+  { type: 'aboutWorld', label: 'About you on white: a bar rounds into the photo circle, your name writes beside it', props: { name: 'Swarnil Singhai' } },
+  { type: 'subscribeWorld', label: 'Subscribe on white: the button opens into your clip', props: {} },
+  { type: 'endWorld', label: 'End screen on white: lines open into the YouTube slots', props: {} }
 );
 
 (function () {
@@ -71,8 +74,8 @@ SCENES_INFO.push(
   }
   // Morph a rectangle from (w0, h0) to (w1, h1), its bottom staying on the baseline.
   function grow(R, t, d, w0, h0, w1, h1) {
-    KIT.keys(R.size(), [[t, [w0, h0]], [t + d * 0.8, [w1, h1 * 1.05]], [t + d, [w1, h1]]], 70);
-    KIT.keys(R.pos(), [[t, [0, -h0 / 2]], [t + d * 0.8, [0, -h1 * 1.05 / 2]], [t + d, [0, -h1 / 2]]], 70);
+    KIT.keys(R.size(), [[t, [w0, h0]], [t + d * 0.8, [w1, h1 * 1.05]], [t + d, [w1, h1]]], KIT.EASE.morph);
+    KIT.keys(R.pos(), [[t, [0, -h0 / 2]], [t + d * 0.8, [0, -h1 * 1.05 / 2]], [t + d, [0, -h1 / 2]]], KIT.EASE.morph);
   }
   function polyShape(pts) {
     var s = new Shape();
@@ -81,9 +84,10 @@ SCENES_INFO.push(
     return s;
   }
   function slamIn(L, t) {
-    KIT.keys(prop(L, 'ADBE Scale'), [[t - 0.14, [300, 300, 100]], [t, [92, 92, 100]], [t + 0.12, [104, 104, 100]], [t + 0.24, [100, 100, 100]]], 70);
-    KIT.keys(prop(L, 'ADBE Rotate Z'), [[t - 0.14, -24], [t, 4], [t + 0.24, 0]], 70);
-    KIT.opacityKeys(L, [[0, 0], [t - 0.14, 0], [t - 0.1, 100]], 30);
+    var pre = KIT.PRE;
+    KIT.keys(prop(L, 'ADBE Scale'), [[t - pre, [300, 300, 100]], [t, [92, 92, 100]], [t + 0.12, [104, 104, 100]], [t + 0.24, [100, 100, 100]]], KIT.EASE.pop);
+    KIT.keys(prop(L, 'ADBE Rotate Z'), [[t - pre, -24], [t, 4], [t + 0.24, 0]], KIT.EASE.pop);
+    KIT.opacityKeys(L, [[0, 0], [t - pre, 0], [t - pre + 0.04, 100]], 30);
   }
   function seeded(seed) {
     var r = seed || 7;
@@ -127,7 +131,9 @@ SCENES_INFO.push(
     var qx = x0 + wordW + 28 + qw / 2;
     var qy = base + qr.top + qr.height / 2;
     KIT.at(q, qx, qy);
-    slamIn(q, T + b * 4);
+    // Downbeat hits: the scene plays from p._lead beats before the camera lands.
+    var db = p._lead || 0;
+    slamIn(q, T + b * (4 + db));
     // The line under the word: drawn, later it becomes a line chart.
     var n = W.items.length;
     var ly = base + 46;
@@ -140,7 +146,7 @@ SCENES_INFO.push(
     KIT.keys(KIT.trim(lg).property('ADBE Vector Trim End'), [[T + b * 2.5, 0], [T + b * 3.3, 100]], 80);
     KIT.at(LC, 0, 0);
     // The morph, on the third beat of the second bar.
-    var tm = T + b * 6;
+    var tm = T + b * (6 + db);
     KIT.fade(sm, tm - 0.3, tm, 100, 0);
     KIT.moveFrom(sm, tm - 0.3, 0, 0, 0.3);
     var hs = p.heights || [0.55, 0.78, 0.62, 0.95, 0.5, 0.7, 0.86, 0.6, 0.74, 0.45, 0.66, 0.9];
@@ -251,7 +257,7 @@ SCENES_INFO.push(
     var b = p._beat || 0.585;
     KIT.enter(comp, p._transition || 'world', C.white, T);
     var N = 48;
-    var xEnd = p.xEnd || 2560;
+    var xEnd = p.xEnd || 2250;
     var pts = [];
     var i;
     for (i = 0; i < N; i++) {
@@ -320,7 +326,8 @@ SCENES_INFO.push(
       var stem = KIT.rect(comp, 'Stop ' + (i + 1), 6, 50, 3, C.signal, sp[0], sp[1] + 45);
       KIT.opacityKeys(stem, [[0, 0], [tp, 0], [tp + 0.1, 100]]);
     }
-    caption(comp, p.caption || 'Your path.', tRoad);
+    // The caption arrives first, so the scene is already there while the camera travels to it.
+    caption(comp, p.caption || 'Your path.', T);
   };
 
   // ---- AI sketches, sketches become widgets ------------------------------------------------------------------
@@ -369,6 +376,164 @@ SCENES_INFO.push(
       } else {
         U.lineChart(comp, 'Widget line', bx[0] - 220, bx[1] - 100, 440, 210, [20, 32, 28, 45, 52, 61, 74], tc, { color: C.signal, dot: 14, d: 0.6 });
       }
+    }
+  };
+  // ---- the closing scenes, in the same language ----------------------------------------------------
+  // A shape whose size and roundness morph (a bar → a circle, a button → a frame, a line → a slot).
+  function morphBox(comp, name, x, y, o) {
+    var L = KIT.shapeLayer(comp, name);
+    var g = KIT.group(L, name);
+    KIT.rectIn(g, 10, 10, 0);
+    if (o.stroke) KIT.stroke(g, o.stroke, o.width || 3);
+    if (o.fill) KIT.fill(g, o.fill, o.opacity);
+    KIT.at(L, x, y);
+    function rect() {
+      return L.property('ADBE Root Vectors Group').property(1).property('ADBE Vectors Group').property('ADBE Vector Shape - Rect');
+    }
+    // keys: [[t, [w, h], roundness], …]
+    var sz = [];
+    var rd = [];
+    for (var i = 0; i < o.keys.length; i++) {
+      sz.push([o.keys[i][0], o.keys[i][1]]);
+      rd.push([o.keys[i][0], o.keys[i][2]]);
+    }
+    KIT.keys(rect().property('ADBE Vector Rect Size'), sz, KIT.EASE.morph);
+    KIT.keys(rect().property('ADBE Vector Rect Roundness'), rd, KIT.EASE.morph);
+    KIT.opacityKeys(L, [[0, 0], [o.keys[0][0], 0], [o.keys[0][0] + 0.04, 100]], 30);
+    return L;
+  }
+  function circleMask(L, cx, cy, r) {
+    var k = 0.5523 * r;
+    var sh = new Shape();
+    sh.vertices = [[cx, cy - r], [cx + r, cy], [cx, cy + r], [cx - r, cy]];
+    sh.inTangents = [[-k, 0], [0, -k], [k, 0], [0, k]];
+    sh.outTangents = [[k, 0], [0, k], [-k, 0], [0, -k]];
+    sh.closed = true;
+    L.property('ADBE Mask Parade').addProperty('ADBE Mask Atom').property('ADBE Mask Shape').setValue(sh);
+  }
+  function footage(path) {
+    KIT.footage = KIT.footage || {};
+    var it = KIT.footage[path];
+    if (!it) {
+      it = app.project.importFile(new ImportOptions(new File(path)));
+      KIT.footage[path] = it;
+    }
+    return it;
+  }
+  function line(comp, str, o, t, from) {
+    var L = KIT.text(comp, str, o);
+    KIT.charsIn(L, t, 0.4, from || { pos: [0, 60] }, { spread: 25 });
+    return L;
+  }
+
+  // About you: a bar rises and rounds into the photo circle; your name writes itself beside it.
+  SCENES.aboutWorld = function (comp, p, T, dur) {
+    var hb = (p._beat || 0.585) / 2;
+    KIT.enter(comp, p._transition || 'world', C.white, T);
+    var cx = 560;
+    var cy = 560;
+    var D = 560;
+    morphBox(comp, 'Bar → photo circle', cx, cy, { fill: C.signal, keys: [[T, [150, 160], 20], [T + hb * 2, [150, 520], 24], [T + hb * 4, [D, D], D / 2]] });
+    if (p._photo) {
+      var it = footage(p._photo);
+      var Lp = comp.layers.add(it);
+      Lp.name = 'Photo';
+      var sc = Math.max(D / it.width, D / it.height) * 100;
+      prop(Lp, 'ADBE Scale').setValue([sc, sc]);
+      KIT.at(Lp, cx, cy);
+      circleMask(Lp, it.width / 2, it.height / 2, D / 2 * 100 / sc);
+      KIT.opacityKeys(Lp, [[0, 0], [T + hb * 4, 0], [T + hb * 5, 100]], 50);
+    } else {
+      var ic = KIT.icon(comp, 'user', cx, cy - 30, 230, C.white, false);
+      KIT.pop(ic, T + hb * 5);
+      var ph = KIT.text(comp, 'your photo', { size: 30, font: F.bold, color: C.ice, x: cx, y: cy + 130 });
+      KIT.opacityKeys(ph, [[0, 0], [T + hb * 6, 0], [T + hb * 7, 100]]);
+    }
+    var x0 = 960;
+    line(comp, p.hello || 'Hi, I’m', { size: 44, font: F.bold, color: C.signal, x: x0, y: 360, align: 'left' }, T);
+    var nm = String(p.name || 'Swarnil Singhai').split(' ');
+    var nx = x0;
+    for (var i = 0; i < nm.length; i++) {
+      var w = line(comp, nm[i], { size: 128, font: F.black, color: i ? C.signal : C.navy, x: nx, y: 480, align: 'left' }, T + hb * (1 + i), { pos: [0, 90], rot: 8 });
+      nx += w.sourceRectAtTime(0, false).width + 34;
+    }
+    var rl = KIT.rect(comp, 'Name line', nx - x0 - 34, 8, 4, C.signal, x0 + (nx - x0 - 34) / 2, 570);
+    prop(rl, 'ADBE Anchor Point').setValue([-(nx - x0 - 34) / 2, 0]);
+    KIT.at(rl, x0, 570);
+    KIT.keys(prop(rl, 'ADBE Scale'), [[T + hb * 3, [0, 100, 100]], [T + hb * 4, [100, 100, 100]]], KIT.EASE.enter);
+    // Role, years, companies: one quiet line, a placeholder until they are filled in the spec.
+    var bits = [];
+    if (p.role) bits.push(p.role);
+    if (p.years) bits.push(p.years + '+ years');
+    if (p.companies && p.companies.length) bits.push(p.companies.join(' · '));
+    var real = bits.length > 0;
+    line(comp, real ? bits.join('  ·  ') : 'role  ·  years  ·  companies', { size: 40, font: F.semi, color: real ? C.navy : C.muted, x: x0, y: 650, align: 'left' }, T + hb * 4);
+  };
+
+  // Subscribe: the words land, the button arrives, and the button opens into your clip.
+  SCENES.subscribeWorld = function (comp, p, T, dur) {
+    var hb = (p._beat || 0.585) / 2;
+    KIT.enter(comp, p._transition || 'world', C.white, T);
+    var tOpen = T + hb * (p.openAt || 6);
+    var l1 = line(comp, p.line1 || 'Subscribe,', { size: 150, font: F.black, color: C.navy, y: 330 }, T, { pos: [0, 90], rot: 8 });
+    var l2 = line(comp, p.line2 || 'and build it with me.', { size: 96, font: F.black, color: C.signal, y: 470 }, T + hb * 2);
+    var fw = 1500;
+    var fh = 844;
+    var btn = morphBox(comp, 'Button → clip frame', 960, 760, { fill: C.signal, keys: [[T + hb * 3, [40, 40], 20], [T + hb * 4, [440, 116], 58], [tOpen, [440, 116], 58], [tOpen + hb * 2, [fw, fh], 36]] });
+    KIT.keys(prop(btn, 'ADBE Position'), [[tOpen, [960, 760]], [tOpen + hb * 2, [960, 540]]], KIT.EASE.morph);
+    var bl = KIT.text(comp, 'Subscribe', { size: 46, font: F.black, color: C.white, x: 960, y: 760 });
+    KIT.opacityKeys(bl, [[0, 0], [T + hb * 4, 0], [T + hb * 4 + 0.08, 100], [tOpen, 100], [tOpen + 0.1, 0]], 40);
+    var out = [l1, l2];
+    for (var i = 0; i < out.length; i++) {
+      KIT.keys(prop(out[i], 'ADBE Position'), [[tOpen, prop(out[i], 'ADBE Position').value], [tOpen + hb * 2, [960, prop(out[i], 'ADBE Position').value[1] - 500]]], KIT.EASE.exit);
+      KIT.opacityKeys(out[i], [[tOpen, 100], [tOpen + hb * 1.5, 0]], 40);
+    }
+    if (p._clip) {
+      var it = footage(p._clip);
+      var V = comp.layers.add(it);
+      V.name = 'Your clip';
+      V.startTime = tOpen + hb * 2;
+      var s = Math.max(fw / it.width, fh / it.height) * 100;
+      prop(V, 'ADBE Scale').setValue([s, s]);
+      KIT.at(V, 960, 540);
+      var m = V.property('ADBE Mask Parade').addProperty('ADBE Mask Atom');
+      var hw = fw / 2 * 100 / s;
+      var hh = fh / 2 * 100 / s;
+      var sh = new Shape();
+      sh.vertices = [[it.width / 2 - hw, it.height / 2 - hh], [it.width / 2 + hw, it.height / 2 - hh], [it.width / 2 + hw, it.height / 2 + hh], [it.width / 2 - hw, it.height / 2 + hh]];
+      sh.closed = true;
+      m.property('ADBE Mask Shape').setValue(sh);
+      KIT.opacityKeys(V, [[tOpen + hb * 2, 0], [tOpen + hb * 3, 100]], 50);
+    } else {
+      var ph = KIT.text(comp, 'your clip', { size: 56, font: F.black, color: C.white, y: 520 });
+      KIT.opacityKeys(ph, [[0, 0], [tOpen + hb * 2, 0], [tOpen + hb * 3, 100]]);
+      var fn = KIT.text(comp, 'workspace/01-camera/' + (p._film || 'trailer') + '/' + (p.file || 'clip.mov'), { size: 24, font: F.mono, color: C.ice, y: 600 });
+      KIT.opacityKeys(fn, [[0, 0], [tOpen + hb * 3, 0], [tOpen + hb * 4, 100]]);
+    }
+  };
+
+  // The end screen: lines draw and open into the slots YouTube's elements sit on.
+  SCENES.endWorld = function (comp, p, T, dur) {
+    var hb = (p._beat || 0.585) / 2;
+    KIT.enter(comp, p._transition || 'world', C.white, T);
+    KIT.mark(comp, 170, 140, 90, T);
+    line(comp, p.kicker || 'START HERE', { size: 28, font: F.bold, color: C.signal, tracking: 220, x: 600, y: 240 }, T);
+    line(comp, 'Subscribe', { size: 44, font: F.black, color: C.navy, x: 1440, y: 640 }, T + hb);
+    // The handoff: your clip's panel arrives with the camera and shrinks into the video slot.
+    var cp = morphBox(comp, 'Clip panel → video slot', 960, 540, { fill: C.signal, keys: [[T, [1500, 844], 36], [T + hb * 2, [1500, 844], 36], [T + hb * 4, [880, 495], 24]] });
+    KIT.keys(prop(cp, 'ADBE Position'), [[T + hb * 2, [960, 540]], [T + hb * 4, [600, 540]]], KIT.EASE.morph);
+    KIT.opacityKeys(cp, [[0, 0], [T, 0], [T + 0.04, 100], [T + hb * 4, 100], [T + hb * 5, 0]], 50);
+    morphBox(comp, 'Video slot (YouTube end screen)', 600, 540, { stroke: C.signal, width: 6, fill: C.ice, opacity: 60, keys: [[T + hb * 4, [880, 495], 24], [T + hb * 5, [880, 495], 24]] });
+    var pl = KIT.icon(comp, 'play', 600, 540, 110, C.signal, false);
+    KIT.pop(pl, T + hb * 4);
+    line(comp, p.next || 'Watch this next', { size: 32, font: F.bold, color: C.navy, x: 600, y: 840 }, T + hb * 5);
+    morphBox(comp, 'Subscribe slot (YouTube end screen)', 1440, 430, { stroke: C.signal, width: 6, fill: C.ice, opacity: 60, keys: [[T + hb, [0, 4], 2], [T + hb * 3, [300, 4], 2], [T + hb * 5, [300, 300], 150]] });
+    morphBox(comp, 'Site pill', 1440, 790, { fill: C.navy, keys: [[T + hb * 4, [0, 6], 3], [T + hb * 6, [640, 6], 3], [T + hb * 7, [640, 96], 48]] });
+    var url = KIT.text(comp, p.url || 'crmanalytics.imswarnil.com', { size: 34, font: F.bold, color: C.white, x: 1440, y: 790 });
+    KIT.opacityKeys(url, [[0, 0], [T + hb * 7, 0], [T + hb * 8, 100]]);
+    if (p._credit) {
+      var cr = KIT.text(comp, p._credit, { size: 22, font: F.medium, color: C.muted, y: 1035 });
+      KIT.opacityKeys(cr, [[0, 0], [T + hb * 8, 0], [T + hb * 10, 100]]);
     }
   };
 }());

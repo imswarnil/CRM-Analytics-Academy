@@ -1,7 +1,7 @@
 {
   "title": "CRM Analytics Academy — channel trailer",
   "slug": "trailer",
-  "note": "A channel trailer, nothing more: brand, feeling, the promise, you, subscribe. No lessons, no curriculum. One open WHITE world (`layout: canvas` with `canvas.cards: false`): scenes are places in it, no lines, cards, frames or panels; the camera glides between them (2D pan, zoom and a gentle turn from each scene's `rot`, landing on the beat). Everything morphs: kinetic-type questions on the beat (Welcome. / Want to learn CRM Analytics? whose letters become bars, '?' a donut, the underline a line chart / Write SAQL? recipes? bindings? dashboards? / Build dashboards people actually use? / You're in the right place.), 'data' bursting into dots that become bars and 'insight.', a pen line unfolding slides and becoming a road with stops, AI sketches becoming widgets; then you (aboutMe: workspace/01-camera/trailer/photo.jpg, fill the `about` props), your subscribe clip (clip-02-subscribe) and the end screen, all on white. Text and music only.",
+  "note": "A channel trailer, nothing more: brand, feeling, the promise, you, subscribe. One open WHITE world (`layout: canvas`, `canvas.cards: false`) and ONE language everywhere: the camera glides between places with the same move every time (1.5 beats, smoothstep, a gentle turn from each scene's `rot`), landing on the scene's downbeat, and every scene but the first plays a beat early (`canvas.lead`) so it is already arriving as the camera lands: no empty white. Everything morphs: letters → bars, ? → donut, underline → line chart; 'data' → dots → bars → 'insight.'; a pen line → slides → a road; sketches → widgets; a bar → your photo circle; the Subscribe button → your clip; lines → the end-screen slots. `sync: true` snaps every animation start to the half-beat grid of Dizzy (workspace/06-graphics/trailer.beats.json). Fill the `about` props and drop photo.jpg and clip-02-subscribe.mov in workspace/01-camera/trailer/. Text and music only.",
   "music": {
     "file": "/Users/swarnil/Movies/YouTube/03 Assets/Music/dizzy-by-joakim-karud.mp3",
     "start": 0.1,
@@ -139,16 +139,14 @@
     },
     {
       "id": "about",
-      "type": "aboutMe",
+      "type": "aboutWorld",
       "bars": 3,
       "photo": "photo",
       "props": {
         "name": "Swarnil Singhai",
         "role": null,
         "years": null,
-        "companies": [],
-        "workedLabel": "WORKED WITH",
-        "light": true
+        "companies": []
       },
       "at": [
         3,
@@ -158,32 +156,27 @@
     },
     {
       "id": "cta",
-      "type": "clipSlot",
-      "bars": 2,
+      "type": "subscribeWorld",
+      "bars": 3,
       "clip": "clip-02-subscribe",
       "props": {
-        "n": 2,
-        "title": "Subscribe, then build with me",
-        "say": "Subscribe, and let's build it together. See you inside.",
-        "notes": [
-          "4 to 6 s, landscape, eye level, mic close",
-          "Point right on 'subscribe', end on a smile"
-        ],
-        "light": true
+        "line1": "Subscribe,",
+        "line2": "and build it with me.",
+        "file": "clip-02-subscribe.mov"
       },
       "at": [
         4,
         1
       ],
-      "rot": 2
+      "rot": 2,
+      "clipAt": 1
     },
     {
       "id": "end",
-      "type": "endScreen",
+      "type": "endWorld",
       "bars": 3,
       "props": {
-        "next": "Watch this next",
-        "light": true
+        "next": "Watch this next"
       },
       "at": [
         4,
@@ -197,10 +190,12 @@
     "cards": false,
     "floor": "#FFFFFF",
     "cell": [
-      2600,
-      1600
+      2150,
+      1150
     ],
     "move": 1.5,
-    "tilt": 4
-  }
+    "tilt": 4,
+    "lead": 1
+  },
+  "sync": true
 }

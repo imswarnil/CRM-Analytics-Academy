@@ -70,6 +70,12 @@ KIT.masterTransitions = function (master, layers, scenes) {
 // the downbeat. A scene's `overview: true` pulls back to the whole canvas on
 // the way in. Cards hold their first frame before they play and their last
 // frame after, so earlier scenes stay on the canvas as you pass them.
+// How early scene i plays (seconds): `canvas.lead` beats in a white world, never the first scene.
+KIT.leadOf = function (tl, i) {
+  var cv = tl.canvas || {};
+  if (tl.layout !== 'canvas' || cv.cards !== false || i === 0) return 0;
+  return (cv.lead === undefined ? 1 : cv.lead) * (tl.beat || 0.585);
+};
 KIT.canvasMaster = function (master, tl, comps) {
   var C = KIT.C;
   var cv = tl.canvas || {};
@@ -155,7 +161,8 @@ KIT.canvasMaster = function (master, tl, comps) {
   for (i = 1; i < n; i++) {
     var sc = tl.scenes[i];
     var M = (sc.move || cv.move || 1.5) * beat;
-    var t1 = sc.start - 0.05;
+    // Every move the same length, landing exactly on the scene's start (a downbeat).
+    var t1 = sc.start;
     moves.push({ i: i, t0: t1 - M, t1: t1 });
   }
   // Connector lines (under the cards).
@@ -199,7 +206,7 @@ KIT.canvasMaster = function (master, tl, comps) {
     Lc.startTime = 0;
     Lc.timeRemapEnabled = true;
     var rm = Lc.property('ADBE Time Remapping');
-    var a0 = s.start - KIT.OVERLAP;
+    var a0 = s.start - KIT.OVERLAP - KIT.leadOf(tl, i);
     var D = comps[i].duration - dt;
     var k0 = Math.max(0, a0);
     // Ours first, then the two default keys go (removing every key would hide the property).
@@ -259,7 +266,7 @@ KIT.canvasMaster = function (master, tl, comps) {
     var over = !!tl.scenes[moves[m].i].overview;
     var dd = Math.sqrt(Math.pow(wb[0] - wa[0], 2) + Math.pow(wb[1] - wa[1], 2));
     // A world pulls back further, so the scene you leave and the one you reach share the frame longer.
-    var smin = over ? fit : (world ? 0.42 : Math.max(0.36, Math.min(0.8, 1 / (1 + 0.55 * dd / W))));
+    var smin = over ? fit : (world ? 0.5 : Math.max(0.36, Math.min(0.8, 1 / (1 + 0.55 * dd / W))));
     var ra = rotOf(moves[m].i - 1);
     var rb = rotOf(moves[m].i);
     var tilt = world ? (cv.tilt === undefined ? 4 : cv.tilt) * (m % 2 ? -1 : 1) : 0;
@@ -290,6 +297,12 @@ KIT.canvasMaster = function (master, tl, comps) {
   for (var pi = 0; pi < props3.length; pi++) {
     for (var kk = 1; kk <= props3[pi].numKeys; kk++) props3[pi].setInterpolationTypeAtKey(kk, KeyframeInterpolationType.LINEAR);
   }
+  var rep = [];
+  for (m = 0; m < moves.length; m++) {
+    rep.push({ scene: 'camera > ' + tl.scenes[moves[m].i].id + ' (start)', t: moves[m].t0 });
+    rep.push({ scene: 'camera > ' + tl.scenes[moves[m].i].id + ' (land)', t: moves[m].t1 });
+  }
+  return rep;
 };
 
 KIT.onlyKitItems = function () {
@@ -343,6 +356,7 @@ KIT.buildFilm = function (job, log) {
   var layers = [];
   var canvas = tl.layout === 'canvas';
   var comps = [];
+  var hits = [];
   for (i = 0; i < tl.scenes.length; i++) {
     var s = tl.scenes[i];
     var props = s.props || {};
@@ -354,7 +368,17 @@ KIT.buildFilm = function (job, log) {
     props._beat = tl.beat || 0.585;
     // The scene's own voice, for lip sync: starts voStart after the scene does, 15 values a second.
     props._vo = { at: s.voStart, env: s.voEnv || [], fps: 15 };
+    // In a white world each scene (but the first) plays `canvas.lead` beats early, so it is
+    // already arriving while the camera travels to it; its hits stay on the beat.
+    var lead = KIT.leadOf(tl, i);
+    props._lead = lead / (tl.beat || 0.585);
+    if (tl.sync) KIT.grid = { hb: (tl.beat || 0.585) / 2, off: s.start - KIT.OVERLAP - lead };
     var sc = KIT.buildScene(s.type, props, s.duration, fScenes, (i < 9 ? '0' : '') + (i + 1) + ' ' + s.id);
+    if (tl.sync) {
+      var heads = KIT.snapComp(sc);
+      for (var h = 0; h < heads.length; h++) hits.push({ scene: s.id, t: heads[h] + KIT.grid.off });
+      KIT.grid = null;
+    }
     comps.push(sc);
     log.push('scene ' + sc.name + ' @ ' + s.start.toFixed(2));
     if (canvas) continue;
@@ -363,8 +387,26 @@ KIT.buildFilm = function (job, log) {
     L.name = sc.name;
     layers.push(L);
   }
-  if (canvas) KIT.canvasMaster(master, tl, comps);
-  else KIT.masterTransitions(master, layers, tl.scenes);
+  var moves = canvas ? KIT.canvasMaster(master, tl, comps) : [];
+  if (tl.sync) {
+    // The beat report: every animation start and every camera move, against the half-beat grid.
+    var hb = (tl.beat || 0.585) / 2;
+    var list = [];
+    var worst = 0;
+    var all = hits.concat(moves);
+    for (var r = 0; r < all.length; r++) {
+      var dv = all[r].t - Math.round(all[r].t / hb) * hb;
+      worst = Math.max(worst, Math.abs(dv));
+      list.push('{"scene":"' + all[r].scene + '","t":' + all[r].t.toFixed(4) + ',"dev":' + dv.toFixed(5) + '}');
+    }
+    var rf = new File(tl.workspace + '/06-graphics/' + tl.slug + '.beats.json');
+    rf.encoding = 'UTF-8';
+    rf.open('w');
+    rf.write('{"halfBeat":' + hb + ',"count":' + all.length + ',"maxDev":' + worst.toFixed(5) + ',"hits":[' + list.join(',') + ']}');
+    rf.close();
+    log.push('beats: ' + all.length + ' hits, max deviation ' + (worst * 1000).toFixed(1) + ' ms');
+  }
+  if (!canvas) KIT.masterTransitions(master, layers, tl.scenes);
   // Audio: VO per scene, music with the same duck keyframes as the mix, SFX at their cues.
   for (i = 0; i < tl.scenes.length; i++) {
     if (!tl.scenes[i].voFile) continue;

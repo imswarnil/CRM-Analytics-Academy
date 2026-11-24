@@ -89,6 +89,7 @@ SCENES_INFO.push(
   }
   // Typing with a cursor only while typing (nothing before t, no cursor after).
   function typeOn(layer, t, cps) {
+    t = KIT.snapT(t);
     layer.property('ADBE Text Properties').property('ADBE Text Document').expression =
       'var n = Math.max(0, Math.floor((time - ' + t.toFixed(3) + ') * ' + (cps || 60) + '));\n' +
       'var s = String(value);\n' +

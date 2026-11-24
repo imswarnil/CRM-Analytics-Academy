@@ -44,6 +44,110 @@ KIT.C = {};
 
 KIT.F = { bold: 'Figtree-Bold', black: 'Figtree-ExtraBold', semi: 'Figtree-SemiBold', medium: 'Figtree-Medium', mono: 'GeistMono-Regular', monoBold: 'GeistMono-Medium' };
 
+// ---- one motion vocabulary ------------------------------------------------------
+// Ease influences used by every scene of a film: entrances, exits, pops, morphs.
+// Camera moves on a canvas use smoothstep (film.jsx). KIT.PRE: how long before
+// its hit a slam winds up (half a beat, so the wind-up starts on the grid too).
+KIT.EASE = { enter: 85, exit: 70, pop: 70, morph: 75 };
+KIT.PRE = 0.2925;
+
+// ---- the beat grid ----------------------------------------------------------------
+// While a scene of a synced film is built, KIT.grid = { hb: half-beat seconds,
+// off: the film time of the scene comp's time 0 }. KIT.snapT puts a comp time on
+// the nearest half-beat of the film. KIT.snapComp(comp) then moves every
+// animation in the comp so it starts on that grid: animations that start within
+// 0.1 s of each other move together (a stagger stays a stagger, its first
+// element lands on the beat). Returns the comp times of those starts.
+KIT.grid = null;
+KIT.snapT = function (t) {
+  if (!KIT.grid) return t;
+  var g = KIT.grid;
+  return Math.round((t + g.off) / g.hb) * g.hb - g.off;
+};
+KIT.snapComp = function (comp) {
+  if (!KIT.grid) return [];
+  var segs = [];
+  var props = [];
+  function isHold(pr, a, b) {
+    var v0 = pr.keyValue(a);
+    if (v0 instanceof Shape) return false;
+    for (var k = a + 1; k <= b; k++) if (String(pr.keyValue(k)) !== String(v0)) return false;
+    return true;
+  }
+  function add(pr) {
+    var n = pr.numKeys;
+    var from = 1;
+    var mine = [];
+    for (var k = 2; k <= n + 1; k++) {
+      if (k > n || pr.keyTime(k) - pr.keyTime(k - 1) > 0.5) {
+        if (k - 1 > from && !isHold(pr, from, k - 1)) {
+          // The hit is where the value starts to change, not a hold key before it.
+          var hk = from;
+          while (hk < k - 1 && !(pr.keyValue(hk) instanceof Shape) && String(pr.keyValue(hk)) === String(pr.keyValue(hk + 1))) hk++;
+          var sg = { pr: pr, from: from, to: k - 1, head: pr.keyTime(hk), delta: 0 };
+          segs.push(sg);
+          mine.push(sg);
+        }
+        from = k;
+      }
+    }
+    if (mine.length) props.push({ pr: pr, segs: mine });
+  }
+  function walk(pg) {
+    for (var i = 1; i <= pg.numProperties; i++) {
+      var pr = pg.property(i);
+      if (pr.propertyType === PropertyType.PROPERTY) {
+        var vt = pr.propertyValueType;
+        if (pr.numKeys >= 2 && vt !== PropertyValueType.TEXT_DOCUMENT && vt !== PropertyValueType.MARKER && vt !== PropertyValueType.NO_VALUE && vt !== PropertyValueType.CUSTOM_VALUE && pr.matchName !== 'ADBE Time Remapping') add(pr);
+      } else walk(pr);
+    }
+  }
+  for (var l = 1; l <= comp.numLayers; l++) walk(comp.layer(l));
+  segs.sort(function (a, b) { return a.head - b.head; });
+  var heads = [];
+  var i = 0;
+  while (i < segs.length) {
+    var j = i;
+    while (j + 1 < segs.length && segs[j + 1].head - segs[j].head < 0.1) j++;
+    var d = KIT.snapT(segs[i].head) - segs[i].head;
+    if (segs[i].head + d < 0) d = 0;
+    for (var q = i; q <= j; q++) segs[q].delta = d;
+    heads.push(segs[i].head + d);
+    i = j + 1;
+  }
+  // Move the keys: read every key, remove them, set them again at their new times.
+  for (var p = 0; p < props.length; p++) {
+    var pr = props[p].pr;
+    var any = false;
+    for (var s2 = 0; s2 < props[p].segs.length; s2++) if (Math.abs(props[p].segs[s2].delta) > 1e-6) any = true;
+    if (!any) continue;
+    var keys = [];
+    for (var k = 1; k <= pr.numKeys; k++) {
+      var dt = 0;
+      for (s2 = 0; s2 < props[p].segs.length; s2++) if (k >= props[p].segs[s2].from && k <= props[p].segs[s2].to) dt = props[p].segs[s2].delta;
+      var rec = { t: Math.max(0, pr.keyTime(k) + dt), v: pr.keyValue(k), ii: pr.keyInInterpolationType(k), oi: pr.keyOutInterpolationType(k), ie: null, oe: null };
+      try {
+        rec.ie = pr.keyInTemporalEase(k);
+        rec.oe = pr.keyOutTemporalEase(k);
+      } catch (e) {
+        // no temporal ease on this property
+      }
+      keys.push(rec);
+    }
+    for (k = pr.numKeys; k >= 1; k--) pr.removeKey(k);
+    for (k = 0; k < keys.length; k++) pr.setValueAtTime(keys[k].t, keys[k].v);
+    for (k = 0; k < keys.length; k++) {
+      try {
+        pr.setInterpolationTypeAtKey(k + 1, keys[k].ii, keys[k].oi);
+        if (keys[k].ie) pr.setTemporalEaseAtKey(k + 1, keys[k].ie, keys[k].oe);
+      } catch (e2) {
+        // keep the default
+      }
+    }
+  }
+  return heads;
+};
+
 // ---- comps ---------------------------------------------------------------------
 KIT.comp = function (name, seconds, bg, folder) {
   var b = KIT.brand.frame;
@@ -269,6 +373,7 @@ KIT.eyebrow = function (comp, str, x, y, color) {
 };
 // Typing: reveals the text a character at a time from t, `cps` characters a second, with a cursor.
 KIT.typeOn = function (layer, t, cps) {
+  t = KIT.snapT(t);
   var st = layer.property('ADBE Text Properties').property('ADBE Text Document');
   st.expression = 'var n = Math.max(0, Math.floor((time - ' + t.toFixed(3) + ') * ' + (cps || 24) + '));\n' +
     'var s = String(value);\n' +
@@ -277,6 +382,9 @@ KIT.typeOn = function (layer, t, cps) {
 };
 // A number counting up between t0 and t1 (e.g. 0 → 400,000), with thousands separators.
 KIT.countUp = function (layer, t0, t1, to, suffix) {
+  var d0 = KIT.snapT(t0) - t0;
+  t0 += d0;
+  t1 += d0;
   var st = layer.property('ADBE Text Properties').property('ADBE Text Document');
   st.expression = 'var p = Math.min(1, Math.max(0, (time - ' + t0 + ') / ' + (t1 - t0) + '));\n' +
     'p = 1 - Math.pow(1 - p, 3);\n' +
