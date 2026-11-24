@@ -1,0 +1,104 @@
+{
+  "name": "CRMA prospect inbound (replies & bounces → site)",
+  "nodes": [
+    {
+      "parameters": {
+        "mailbox": "INBOX",
+        "postProcessAction": "nothing",
+        "format": "resolved",
+        "downloadAttachments": false,
+        "options": {
+          "customEmailConfig": "[\"UNSEEN\"]",
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "a1f0c1e2-0001-4c11-9a01-000000000001",
+      "name": "Outreach inbox (IMAP)",
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "credentials": {
+        "imap": {
+          "id": "",
+          "name": "Hostinger outreach IMAP (imap.hostinger.com:993, SSL)"
+        }
+      },
+      "notes": "Credentials live in n8n only: host imap.hostinger.com, port 993, SSL/TLS on, user = the outreach address, password = its mailbox password."
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Classify one incoming email and build the signed payload the site expects.\n// type: bounce | auto_reply | unsubscribe | reply. Our own sent copies are skipped.\nconst OUR_ADDRESS = ($env.CRMA_OUTREACH_ADDRESS || '').toLowerCase();\nconst m = $json;\nconst lower = v => String(v || '').toLowerCase();\nconst firstAddress = v => {\n  if (!v) return null;\n  if (v.value && v.value[0] && v.value[0].address) return lower(v.value[0].address);\n  const x = /([^<>\\s\"]+@[^<>\\s\"]+\\.[^<>\\s\"]+)/.exec(String(v.text || v));\n  return x ? lower(x[1]) : null;\n};\nconst header = name => {\n  const h = m.headers || {};\n  const v = h[name] ?? h[name.toLowerCase()];\n  return Array.isArray(v) ? v.join(' ') : (v && v.text ? v.text : v) || '';\n};\nconst from = firstAddress(m.from);\nif (OUR_ADDRESS && from === OUR_ADDRESS) return null;\nconst text = String(m.text || '').slice(0, 20000);\nconst subject = String(m.subject || '');\nconst refs = [].concat(m.references || []).join(' ');\nlet type = 'reply';\nlet recipient = null;\nlet references = refs;\nconst isDsn = /mailer-daemon|postmaster/.test(lower(from)) || /multipart\\/report/i.test(header('content-type')) || /undeliver|delivery status notification|delivery has failed|returned mail|failure notice|mail delivery failed/i.test(subject);\nif (isDsn) {\n  type = 'bounce';\n  const r = /Final-Recipient:\\s*rfc822;\\s*<?([^\\s>]+)>?/i.exec(text) || /Original-Recipient:\\s*rfc822;\\s*<?([^\\s>]+)>?/i.exec(text) || /<([^<>\\s]+@[^<>\\s]+)>:/.exec(text);\n  recipient = r ? lower(r[1]) : null;\n  // The bounced message's own Message-ID, quoted in the DSN body, matches our sent email.\n  const orig = /^Message-ID:\\s*(<[^>\\s]+>)/im.exec(text);\n  if (orig) references = (references + ' ' + orig[1]).trim();\n} else if ((lower(header('auto-submitted')) && lower(header('auto-submitted')) !== 'no') || header('x-autoreply') || header('x-autorespond') || /auto_reply|auto-reply/i.test(header('precedence')) || /^(auto(matic)?[ -]?reply|out of (the )?office|ooo\\b|abwesenheit|absence)/i.test(subject)) {\n  type = 'auto_reply';\n} else if (/^\\s*(unsubscribe|stop|remove me|please remove|no thanks|not interested)\\b/i.test(text)) {\n  type = 'unsubscribe';\n}\nconst payload = JSON.stringify({\n  type,\n  from,\n  to: firstAddress(m.to),\n  subject: subject.slice(0, 300),\n  inReplyTo: m.inReplyTo || null,\n  messageId: m.messageId || null,\n  references,\n  recipient,\n  receivedAt: m.date ? new Date(m.date).toISOString() : new Date().toISOString(),\n  snippet: text.split(/\\n\\s*(>|On .+ wrote:)/)[0].replace(/\\s+/g, ' ').trim().slice(0, 300)\n});\nconst ts = Math.floor(Date.now() / 1000);\nreturn { json: { ts, payload, signInput: ts + '.' + payload } };"
+      },
+      "id": "a1f0c1e2-0002-4c11-9a01-000000000002",
+      "name": "Classify (reply / bounce / auto-reply / unsubscribe)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "action": "hmac",
+        "type": "SHA256",
+        "value": "={{ $json.signInput }}",
+        "dataPropertyName": "signature",
+        "secret": "={{ $env.CRMA_WEBHOOK_SECRET }}",
+        "encoding": "hex"
+      },
+      "id": "a1f0c1e2-0003-4c11-9a01-000000000003",
+      "name": "Sign (HMAC-SHA256)",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [480, 0],
+      "notes": "Secret = the Worker's N8N_WEBHOOK_SECRET. Either set CRMA_WEBHOOK_SECRET in n8n's environment or paste the secret here instead of the expression."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://crmanalytics.imswarnil.com/api/prospect/inbound",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-signature",
+              "value": "={{ 'sha256=' + $json.signature }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ts: $json.ts, payload: $json.payload }) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "a1f0c1e2-0004-4c11-9a01-000000000004",
+      "name": "POST to the site",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 0],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    }
+  ],
+  "connections": {
+    "Outreach inbox (IMAP)": {
+      "main": [[{ "node": "Classify (reply / bounce / auto-reply / unsubscribe)", "type": "main", "index": 0 }]]
+    },
+    "Classify (reply / bounce / auto-reply / unsubscribe)": {
+      "main": [[{ "node": "Sign (HMAC-SHA256)", "type": "main", "index": 0 }]]
+    },
+    "Sign (HMAC-SHA256)": {
+      "main": [[{ "node": "POST to the site", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

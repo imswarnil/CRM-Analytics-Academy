@@ -1,14 +1,15 @@
 /**
  * /admin → Prospecting: which providers are connected (by env var — keys are
- * never returned), the Gmail mailbox, settings, the last run, counts.
+ * never returned), the outreach transport (SMTP or n8n; never the password),
+ * the last event n8n posted, settings, the last run, counts.
  */
 export default defineEventHandler(async (event) => {
   await requireAdmin(event)
   setResponseHeader(event, 'cache-control', 'private, no-store')
   const sql = useDb()
-  const [settings, [account], [last], statuses, [sent], [supp], usage] = await Promise.all([
+  const [settings, [inbound], [last], statuses, [sent], [supp], usage] = await Promise.all([
     prospectSettings(),
-    sql`select email, status, connected_at from app.mail_account order by connected_at desc limit 1`,
+    sql`select type, matched_by, at, (select count(*) from app.prospect_inbound where at > now() - interval '7 days')::int as week from app.prospect_inbound order by id desc limit 1`,
     sql`select value from app.prospect_setting where key = 'last_run'`,
     sql`select status, count(*)::int as n from app.prospect group by 1`,
     sql`select count(*) filter (where sent_at > now() - interval '24 hours')::int as day, count(*)::int as total from app.prospect_message`,
@@ -28,13 +29,19 @@ export default defineEventHandler(async (event) => {
       calls30d: Number(usage.find(u => u.provider === p.id)?.paid ?? 0),
       cacheHits30d: Number(usage.find(u => u.provider === p.id)?.cached ?? 0)
     })),
-    gmail: {
-      configured: Boolean(googleConfigFromEnv()),
-      email: (account?.email as string | undefined) ?? null,
-      status: (account?.status as string | undefined) ?? null,
-      connectedAt: account?.connected_at ? String(account.connected_at) : null,
-      redirectUri: gmailRedirectUri()
-    },
+    outreach: (() => {
+      const cfg = outreachConfigFromEnv()
+      return {
+        transport: cfg.transport,
+        ready: outreachReady(cfg) === null,
+        problem: outreachReady(cfg),
+        from: cfg.from ? (cfg.from.name ? `${cfg.from.name} <${cfg.from.address}>` : cfg.from.address) : null,
+        smtp: cfg.smtp ? { host: cfg.smtp.host, port: cfg.smtp.port, user: cfg.smtp.user } : null,
+        n8nSend: Boolean(cfg.n8nSendUrl),
+        inboundConfigured: Boolean(cfg.webhookSecret),
+        lastInbound: inbound ? { type: String(inbound.type), matchedBy: (inbound.matched_by as string | null) ?? null, at: String(inbound.at), week: Number(inbound.week) } : null
+      }
+    })(),
     settings,
     lastRun: last?.value ?? null,
     counts: {

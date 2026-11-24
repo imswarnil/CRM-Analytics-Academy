@@ -122,7 +122,7 @@ const TOOLS = computed<Tool[]>(() => [
 </script>
 
 <template>
-  <AdminProspectingGmail />
+  <AdminProspectingOutreach />
   <section class="mb-6 rounded-[6px] border border-(--line) bg-(--card) p-5">
     <div class="flex flex-wrap items-center gap-3">
       <span class="flex size-9 items-center justify-center rounded-[6px] bg-(--ice) text-(--signal)">

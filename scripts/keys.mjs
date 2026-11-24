@@ -41,8 +41,10 @@ const KEYS = [
   { name: 'SF_CLIENT_SECRET', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Optional. The same app → Consumer Secret.' },
   { name: 'APOLLO_API_KEY', where: ['env', 'worker'], shape: /^\S{16,}$/, help: 'Optional (Prospecting). Apollo.io → Settings → Integrations → API → Create new key (master key for search).' },
   { name: 'HUNTER_API_KEY', where: ['env', 'worker'], shape: /^[a-f0-9]{30,}$/i, help: 'Optional (Prospecting). Hunter.io → API → Your API key.' },
-  { name: 'GOOGLE_CLIENT_ID', where: ['env', 'worker'], shape: /^\S+\.apps\.googleusercontent\.com$/, help: 'Optional (Prospecting Gmail). Google Cloud → Credentials → OAuth client ID (Web). docs/PROSPECTING.md' },
-  { name: 'GOOGLE_CLIENT_SECRET', where: ['env', 'worker'], shape: /^\S{20,}$/, help: 'Optional. The same OAuth client → Client secret.' },
+  { name: 'SMTP_USER', where: ['env', 'worker'], shape: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, help: 'Optional (Prospecting). The outreach mailbox address on Hostinger (hPanel → Emails).' },
+  { name: 'SMTP_PASS', where: ['worker'], shape: /^\S.{5,}$/, help: 'Optional. The outreach mailbox password — sent to the Worker only, never written to .env.' },
+  { name: 'OUTREACH_FROM', where: ['env', 'worker'], shape: /^.*<?[^\s@]+@[^\s@]+\.[^\s@]+>?$/, help: 'Optional. "Your Name <address>" outreach is sent as (same address as SMTP_USER).' },
+  { name: 'N8N_WEBHOOK_SECRET', where: ['env', 'worker'], shape: /^[a-f0-9]{64}$/, generate: true, help: 'Optional (n8n). Leave blank to generate; paste the same value into n8n.' },
   { name: 'STUDIO_GITHUB_CLIENT_ID', where: ['worker'], shape: /^\S{10,}$/, help: 'GitHub → Settings → Developer settings → OAuth Apps.' },
   { name: 'STUDIO_GITHUB_CLIENT_SECRET', where: ['worker'], shape: /^\S{20,}$/, help: 'Same OAuth app → Generate a new client secret.' }
 ]
