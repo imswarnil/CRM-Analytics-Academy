@@ -29,8 +29,8 @@
     "billing": "Acesso",
     "main": {
       "course": "Comece aqui",
-      "exam": "Exame de prática",
-      "interview": "Entrevista Q&A",
+      "exam": "Certificação",
+      "interview": "Preparação da entrevista",
       "pricing": "Preços",
       "jobs": "Trabalhos"
     },
@@ -39,7 +39,10 @@
     "sponsor": "Patrocinador",
     "notes": "Notas",
     "star": "Estrela",
-    "jobs": "Trabalhos"
+    "jobs": "Trabalhos",
+    "examMode": "Exame prático em curso",
+    "exitExam": "Exame de saída",
+    "hire": "Contrate-me"
   },
   "home": {
     "modules": {
@@ -68,9 +71,9 @@
     ],
     "hero": {
       "eyebrow": "Salesforce CRM Analytics",
-      "title": "Construa os painéis que sua equipe de vendas abre todas as manhãs.",
-      "lead": "Aprender CRM Analytics em dados de vendas reais, uma lição curta de cada vez.",
-      "start": "Começa aqui",
+      "title": "Aprender CRM Analytics do fim ao fim, em dados reais.",
+      "lead": "Os fundamentos primeiro. Em seguida, cada painel um negócio roda em: conversão, adoção, instantâneos. Então AI com CRM Analytics.",
+      "start": "Iniciar o curso",
       "curriculum": "Começa aqui",
       "proof": {
         "free": "Livre, sem cartão",
@@ -250,7 +253,7 @@
       "no": "Não",
       "cols": {
         "anytime": "Aprenda a qualquer hora",
-        "gtm": "Painéis GTM reais",
+        "gtm": "Real CRM Analytics compila",
         "practice": "Prática de certificação",
         "keep": "Manter o acesso"
       },
@@ -300,6 +303,74 @@
         "title": "Receitas e previsões",
         "text": "Reservas contra o alvo, e onde o trimestre vai pousar."
       }
+    },
+    "v2": {
+      "learnEyebrow": "O curso",
+      "learnTitle": "Sete secções. Um caminho.",
+      "learnLead": "Desde o seu primeiro conjunto de dados até previsões Salesforce discos.",
+      "lessons": "{n} lições",
+      "howTitle": "Como cada lição funciona",
+      "watch": "Observar",
+      "watchText": "Um vídeo curto, uma ideia de cada vez.",
+      "build": "Compilar",
+      "buildText": "Faça isso em sua própria org livre, nos dados da Academia.",
+      "check": "Verificar",
+      "checkText": "Um questionário e perguntas de entrevista para trancá-lo.",
+      "priceTitle": "Livre para começar. Pro quando você está falando sério.",
+      "free": "Livre",
+      "freeText": "A maioria das lições, questionários e os dados da amostra.",
+      "pro": "Pro",
+      "proText": "Todas as aulas, o exame completo, sem anúncios.",
+      "perMonth": "por mês",
+      "orYear": "ou {price} um ano",
+      "orLifetime": "ou {price} uma vez",
+      "compare": "Comparar os planos",
+      "closeTitle": "O seu primeiro conjunto de dados fica a 15 minutos.",
+      "closeLead": "Inscreva-se para uma org livre e siga a lição um.",
+      "factFree": "Livre para começar, sem cartão",
+      "factOrg": "Sua própria org livre",
+      "factLang": "7 línguas",
+      "live": "{n} vivo",
+      "barDay": "Salesforce instrutor-led, 1 dia",
+      "barDays": "Salesforce instrutor-led, 3 dias",
+      "barAcademy": "CRM Analytics Academia",
+      "capstone": "Capstone e certificado",
+      "certEyebrow": "Certificação",
+      "certTitle": "Pratique o verdadeiro exame. Prova-o com um corpo.",
+      "certSets": "conjuntos de exames completos",
+      "certDrills": "brocas de domínio",
+      "certCapstone": "certificado capstone",
+      "certCta": "Exames práticos",
+      "ivTitle": "Preparação de entrevista, empresa por empresa",
+      "ivLead": "Real CRM Analytics entrevistar questões com modelo de respostas, agrupadas pela empresa que lhes perguntou.",
+      "ivCta": "Perguntas de entrevista"
+    },
+    "v3": {
+      "buildEyebrow": "O que você vai construir",
+      "buildTitle": "Os painéis em que um negócio funciona.",
+      "conversion": {
+        "tag": "Conversão",
+        "title": "Levar ao negócio, fase a fase",
+        "text": "Vê onde os negócios desistem e porquê."
+      },
+      "adoption": {
+        "tag": "Adopção",
+        "title": "Quem utiliza Salesforce, e quanto",
+        "text": "Logins, discos tocados, equipas que demoram."
+      },
+      "snapshots": {
+        "tag": "Instantâneos",
+        "title": "Tendências dos instantâneos semanais",
+        "text": "Pipeline como era, todas as semanas, lado a lado."
+      },
+      "ai": {
+        "tag": "IA",
+        "title": "Predições com Einstein Discovery",
+        "text": "Pontuações nos registos, e os factores por trás deles.",
+        "metric": "ganhar probabilidade"
+      },
+      "pathLead": "Fundamentos primeiro, depois um painel atrás do outro.",
+      "seeCourse": "Veja todo o curso"
     }
   },
   "footer": {
@@ -788,6 +859,14 @@
         "body": "Se você criar uma conta armazenamos seu nome, endereço de e-mail e hash de senha (através do Neon Auth), e o que você faz aqui: lições concluídas, notas de questionário, lições salvas, comentários e submissões. Isso é o que alimenta seu painel, raias e distintivos."
       },
       {
+        "title": "Como entendemos quem se inscreve",
+        "body": "Quando você cria uma conta, nos pergunta sobre assentos ou serviços da equipe, iniciar um check-out ou terminar um marco, o site observa alguns fatos para que possamos dizer a quais pessoas e organizações o curso é útil e responder às pessoas certas. A partir da conexão, a Cloudflare nos diz seu país, região, cidade e fuso horário aproximados e o nome da rede em que você está (por exemplo, seu provedor de internet ou empregador); seu endereço IP em si nunca é armazenado. A partir do seu e-mail, mantemos apenas o domínio e se é um endereço pessoal, profissional, escolar ou governamental; para um domínio de trabalho, lemos a página inicial pública da empresa uma vez (seu nome, descrição, logotipo e página do LinkedIn). Nós adicionamos o que você fez aqui (lições, raias, exames de prática, plano) e transformá-lo em uma pontuação simples com as razões escritas. Isso é mantido em nossa própria base de dados e enviado para o nosso próprio Salesforce conta, onde gerenciamos consultas e clientes. Ele nunca é vendido, nunca compartilhado com anunciantes e nunca comprado de corretores de dados. Peça-nos para apagar a sua conta e ele vai também."
+      },
+      {
+        "title": "Se lhe enviarmos um e-mail sobre o curso para a sua equipa",
+        "body": "Às vezes escrevemos a pessoas cujo trabalho envolve Salesforce ou análise, em seu endereço de trabalho, para oferecer o curso para sua equipe. Mantemos seu nome, cargo, empresa, e-mail de trabalho, onde o encontramos (um banco de dados de negócios como Apollo ou Hunter, uma página da empresa pública, ou uma lista de eventos) e nossos e-mails para você, com base no interesse legítimo em negócios-para-business outreach. Cada e-mail tem um link de cancelamento de assinatura de um clique; depois disso, ou uma resposta dizendo não, nunca mais escrevemos e mantemos apenas seu endereço em uma lista de não-contato. Pergunte-nos e apagamos tudo o que temos sobre si."
+      },
+      {
         "title": "Como funciona a análise",
         "body": "O Analytics é de primeira: é coletado por este site, armazenado em nosso próprio banco de dados e lido apenas pelo proprietário do site. Um id de visitante aleatório é mantido no armazenamento local do seu navegador para que as visitas repetidas sejam contadas uma vez; limpar os dados do site o redefiniu. Nenhum dado é vendido ou compartilhado com anunciantes."
       },
@@ -866,7 +945,7 @@
   "curriculumPage": {
     "seo": {
       "title": "Começar a aprender Salesforce CRM Analytics — o curso completo",
-      "description": "A CRM Analytics curso em ordem: Salesforce modelo de dados, GTM basics, arquitetura de dados, uso de equipes de receita de painéis, vinculações, compartilhamento e Einstein Discovery."
+      "description": "A CRM Analytics curso em ordem: Salesforce modelo de dados, preparação de dados, visualização, SAQL, vinculações, partilha e incorporação, e Einstein Discovery."
     },
     "hero": {
       "eyebrow": "O curso",
@@ -894,8 +973,18 @@
     "stat": {
       "sections": "secções",
       "lessons": "lições planeadas",
-      "live": "viver agora"
+      "live": "viver agora",
+      "minutes": "minutos ao vivo"
     },
+    "crumb": "Curso",
+    "path": "O caminho",
+    "pathLead": "Sete secções, uma após a outra. Cada lição baseia-se na anterior.",
+    "kind": {
+      "video": "Vídeo",
+      "article": "Leitura"
+    },
+    "quiz": "Quiz",
+    "minutes": "{n} min",
     "nextUp": "Próximo",
     "firstUp": "Iniciar com",
     "continue": "Continuar",
@@ -925,7 +1014,11 @@
     "number": "Lição {n}",
     "overview": "Visão geral",
     "video": "vídeo",
-    "outcomes": "Depois desta lição você pode"
+    "outcomes": "Depois desta lição você pode",
+    "positionTip": "Onde esta lição está no curso",
+    "videoTip": "Comprimento da lição de vídeo",
+    "readTip": "Tempo de leitura",
+    "quizTip": "Perguntas de perguntas no final"
   },
   "credits": {
     "title": "Créditos & fontes",
@@ -1074,7 +1167,7 @@
       "role": "Papel entrevistado para",
       "send": "Enviar para revisão",
       "sentTitle": "Obrigado — está na fila de revisão",
-      "sentBody": "Uma vez aprovado, aparece no banco entrevista com sua pergunta e resposta.",
+      "sentBody": "Uma vez aprovado, aparece no banco de entrevistas. Se nomeaste a empresa, os teus 30 dias de Pro começam então.",
       "another": "Enviar outro",
       "errQuestion": "Escreva a pergunta (pelo menos 10 caracteres).",
       "errAnswer": "Escreva uma resposta modelo (pelo menos 30 caracteres).",
@@ -1092,7 +1185,14 @@
     "answersLead": "Leia como outros respondem ou adicione o seu.",
     "shareTitle": "Conhece alguém que se prepare para uma entrevista? Manda-lhes esta lista.",
     "statQuestions": "perguntas",
-    "statTopics": "tópicos"
+    "statTopics": "tópicos",
+    "reward": {
+      "title": "Perguntou numa empresa? Obter um mês de Pro livre.",
+      "body": "Partilhar um real CRM Analytics entrevista pergunta, nome da empresa, e quando for aprovado sua conta recebe 30 dias de Pro.",
+      "short": "Adicione o seu, obter 1 mês Pro"
+    },
+    "byCompany": "Perguntas por empresa",
+    "companyTip": "{n} perguntas feitas em {company}"
   },
   "cert": {
     "eyebrow": "Prática de certificação",
@@ -1197,7 +1297,10 @@
       "note": "Concedido por CRM Analytics Academia para passar no exame de prática. Não é um Salesforce Credencial e não está afiliado a Salesforce.",
       "download": "Gravar como PDF",
       "yours": "O seu certificado"
-    }
+    },
+    "setsTitle": "Conjuntos completos de exames",
+    "drillsTitle": "Perfurações de domínio",
+    "sealed": "Selados"
   },
   "companies": {
     "eyebrow": "Empresas",
@@ -1368,7 +1471,7 @@
   "store": {
     "eyebrow": "Preços",
     "seoTitle": "CRM Analytics Preço da Academia: Grátis, Pro Mensal, Pro Lifetime, Equipes",
-    "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $49 por mês, $149 por ano ou $299 uma vez. Assentos para empresas e faculdades.",
+    "seoDesc": "Aprender Salesforce CRM Analytics grátis, ou obter Pro para cada lição, dataset e revisão de exame sem anúncios — $19 por mês, $119 por ano ou $249 uma vez. Assentos para empresas e faculdades.",
     "title": "Comecem de graça. Vai pro quando valer a pena.",
     "lead": "Aulas gratuitas ficam livres. Pro desbloqueia cada lição, conjunto de dados e revisão de respostas.",
     "sentTitle": "Obrigado — o seu pedido chegou.",
@@ -1519,7 +1622,8 @@
       "stripe": "Checkout seguro com Stripe",
       "cancel": "Cancelar a qualquer momento",
       "noAds": "Nenhum anúncio no Pro"
-    }
+    },
+    "salesLead": "Diga-nos o tamanho e o tempo da sua equipa. Respondemos dentro de um dia de trabalho com uma citação e um piloto livre."
   },
   "studio": {
     "title": "Estúdio de patrocinadores",
@@ -1549,7 +1653,7 @@
       "photo": "Foto",
       "tagline": "Etiqueta",
       "price": "Preço ou oferta",
-      "pricePh": "A partir de 49 USD por mês",
+      "pricePh": "A partir de 19 USD por mês",
       "url": "Ligação",
       "website": "Página Web apresentada",
       "layout": "Disposição",
@@ -1639,63 +1743,66 @@
   },
   "roadmap": {
     "s01": {
-      "title": "Salesforce Fundações",
-      "blurb": "Ler qualquer Salesforce modelo de dados e saber quais campos um painel precisa.",
+      "title": "Fundações",
+      "blurb": "Conhecer Salesforce dados CRM Analytics lê e prepara a tua própria org.",
       "l1": "Objetos, campos e relacionamentos",
-      "l2": "Construindo um aplicativo pequeno",
-      "l3": "Noções básicas de integração",
-      "l4": "Apex e LWC para analistas"
+      "l2": "Sua org e um aplicativo pequeno",
+      "l3": "Obtendo dados em"
     },
     "s02": {
-      "title": "GTM Basics",
-      "blurb": "Explique que o funil, o oleoduto e a receita são números de uma equipe de vendas.",
-      "l1": "O funil: levar ao cliente",
-      "l2": "Pipeline: fases, quantidades e previsões",
-      "l3": "métricas de receitas: ARR, churn, NRR",
-      "l4": "Quem lê qual painel"
+      "title": "Data Prep",
+      "blurb": "Crie conjuntos de dados que você pode confiar com receitas, entradas e instantâneos.",
+      "l1": "A camada de dados",
+      "l2": "A sua primeira receita",
+      "l3": "Junta-se em profundidade",
+      "l4": "Anexar e agregar",
+      "l5": "Fórmulas, baldes e datas",
+      "l6": "Transpor, achatar e dividir",
+      "l7": "Instantâneos e histórico",
+      "l8": "Segurança nos dados"
     },
     "s03": {
-      "title": "Arquitetura de dados",
-      "blurb": "Traga dados de vários sistemas em um conjunto de dados em que você pode confiar.",
-      "l1": "Onde vivem os dados GTM",
-      "l2": "Sincronização de dados, conectores, receitas e conjuntos de dados",
-      "l3": "Grãos, juntas e chaves",
-      "l4": "Instantâneos e histórico",
-      "l5": "Segurança nos dados"
+      "title": "Visualização",
+      "blurb": "Transforme um conjunto de dados em gráficos e painéis que as pessoas lêem em segundos.",
+      "l1": "Lenses e seu primeiro painel",
+      "l2": "Escolher o gráfico certo",
+      "l3": "Números, tabelas e tabelas de comparação",
+      "l4": "Disposição e desenho",
+      "l5": "Padrões de painel"
     },
     "s04": {
-      "title": "Painéis Cada equipe GTM usa",
-      "blurb": "Construir o KPI, instantâneo, mudança, conversão e adoção de painéis as equipes usam semanalmente.",
-      "l1": "KPI painéis",
-      "l2": "Painéis de imagem",
-      "l3": "Alterar análise",
-      "l4": "Painéis de conversão e funil",
-      "l5": "Painéis de adopção",
-      "l6": "Concepção das decisões"
+      "title": "SAQL",
+      "blurb": "Escreva o idioma de consulta por trás de cada widget, da carga à janela.",
+      "l1": "A SAQL você precisa",
+      "l2": "SAQL funções",
+      "l3": "Projecção com cada um deles",
+      "l4": "Cogrupo: juntar- se a uma pesquisa",
+      "l5": "Janela",
+      "l6": "Séries cronológicas e preenchimento"
     },
     "s05": {
       "title": "Interações e ligações",
-      "blurb": "Fazer os painéis responder a cada clique com facetas, ligações e SAQL.",
+      "blurb": "Faça os painéis responderem a cada clique com facetas e ligações.",
       "l1": "Rosto e filtros",
-      "l2": "Selecção e ligações de resultados",
-      "l3": "SAQL atrás de um elemento",
-      "l4": "Painel JSON"
+      "l2": "Links de seleção",
+      "l3": "Ligações dos resultados",
+      "l4": "Funções de serialização",
+      "l5": "Painel JSON"
     },
     "s06": {
-      "title": "Partilha, Embutimento e Aplicações",
-      "blurb": "Coloque painéis onde as pessoas já trabalham — Lightning, Slack, portais.",
+      "title": "Partilha e Embutimento",
+      "blurb": "Coloque painéis onde as pessoas trabalham, com segurança e rapidez.",
       "l1": "Aplicações, partilha e licenças",
       "l2": "Embutindo em Relâmpago, Experience Cloud e Slack",
-      "l3": "Assinaturas, indicações e acções",
-      "l4": "Embalagem e movimento entre orgs"
+      "l3": "Assinaturas, notificações e acções",
+      "l4": "Embalagem, implantação e desempenho"
     },
     "s07": {
-      "title": "Avançado",
-      "blurb": "Escrever SAQL, prever resultados com Einstein Discovery e mantenha tudo rápido.",
-      "l1": "SAQL em profundidade",
-      "l2": "Einstein Discovery",
-      "l3": "APIs e automação",
-      "l4": "Desempenho e governança"
+      "title": "Einstein Discovery",
+      "blurb": "Prever resultados e explicar por que, em seguida, colocar previsões em registros.",
+      "l1": "A tua primeira história",
+      "l2": "Ler um modelo honestamente",
+      "l3": "Predições em Salesforce"
     }
   },
   "sponsor": {
@@ -1744,7 +1851,8 @@
     "lead": "Cada seção terminada em uma página, com os diagramas. Leia online ou baixe.",
     "seoTitle": "CRM Analytics Notas — folhas de estudo para download",
     "pdf": "Baixar PDF",
-    "markdown": "Baixar Markdown",
+    "openPdf": "Abrir PDF",
+    "noViewer": "Este navegador não pode mostrar o PDF aqui. Baixe-o em vez disso.",
     "open": "Abra as notas",
     "pdfAll": "Baixar tudo como PDF",
     "index": "Índice",
@@ -1753,7 +1861,7 @@
     "features": {
       "f1": "Uma página por seção, curta e ao ponto",
       "f2": "Diagramas e gráficos desenhados à mão",
-      "f3": "PDF para impressão, Markdown para suas próprias notas",
+      "f3": "Um PDF real: visualizá-lo, baixá-lo, imprimi-lo",
       "f4": "Em sete línguas, incluindo hindi e japonês"
     },
     "seePreview": "Veja uma antevisão",
@@ -1769,7 +1877,7 @@
     "gallery": {
       "label": "Galeria de notas",
       "cover": "As notas",
-      "formats": "PDF e Markdown",
+      "formats": "PDF",
       "zoom": "Ampliar",
       "prev": "Anterior",
       "next": "Próxima"
@@ -1803,6 +1911,57 @@
     "emptyBody": "Novo CRM Analytics Os papéis aparecerão aqui todos os dias, com uma reunião semanal completa aos domingos. Entretanto, prepara-te para eles.",
     "emptyCta": "Começar a aprender",
     "noMatch": "Nenhum trabalho corresponde a estes filtros.",
+    "expiredCta": "Expirado",
+    "sourceCompany": "Sítio da empresa",
+    "sourceTitle": "O link vai para {source}, destacamento próprio do empregador",
+    "status": {
+      "liveCount": "{n} aberto",
+      "expiredCount": "{n} não mais ativo",
+      "checked": "Ligação verificada {ago}",
+      "confirmed": "Última confirmação confirmada {ago}",
+      "notReached": "Site ocupado hoje, verificando novamente amanhã",
+      "expired": "Já não está activo",
+      "expiredAgo": "fechado {ago}",
+      "unverified": "Não foi possível verificar",
+      "unverifiedTitle": "O site não deixou nosso check-in diário por vários dias. O trabalho ainda pode estar aberto."
+    },
+    "how": {
+      "link": "Como estes trabalhos chegam aqui",
+      "eyebrow": "Como funciona",
+      "title": "Como estes trabalhos chegam aqui",
+      "lead": "Um robô corre todas as manhãs. Ele só mantém trabalhos que você pode aplicar na fonte, e abre cada link novamente a cada dia.",
+      "step": "Passo {n}",
+      "steps": {
+        "find": {
+          "title": "Procurar",
+          "body": "Conselhos de carreira da empresa, Google Jobs e feeds de emprego público."
+        },
+        "match": {
+          "title": "Corresponder",
+          "body": "Apenas postar esse nome CRM Analytics, Tableau CRM ou Einstein Analytics."
+        },
+        "owner": {
+          "title": "Ir para a fonte",
+          "body": "Apenas o próprio site de carreiras da empresa, seu sistema de contratação, ou LinkedIn. Repostos em quadros de trabalho são deixados de fora."
+        },
+        "check": {
+          "title": "Verificar diariamente",
+          "body": "Cada link é aberto novamente a cada dia para ver que o trabalho ainda está aberto."
+        },
+        "expire": {
+          "title": "Marcar e remover",
+          "body": "Trabalhos fechados são marcados não mais ativos, então removidos após {days} dias."
+        }
+      },
+      "stat": {
+        "found": "{n} encontrou esta execução",
+        "dropped": "{n} reposts deixados de fora",
+        "live": "{n} Abra agora",
+        "expired": "{n} marcado fechado"
+      },
+      "lastRun": "Última execução {ago}.",
+      "linksGoTo": "As ligações vão para"
+    },
     "seoTitle": "CRM Analytics Empregos esta semana — Tableau CRM e Einstein Analytics funções",
     "seoDesc": "Salesforce CRM Analytics, Tableau CRM e Einstein Analytics trabalhos postados esta semana, o mais novo primeiro, atualizado diariamente."
   },
@@ -1822,5 +1981,47 @@
     "errStars": "Escolhe uma classificação de estrelas.",
     "errText": "Escreva pelo menos uma frase.",
     "errGeneric": "Não foi possível publicar essa revisão. Tenta outra vez."
+  },
+  "soon": {
+    "eyebrow": "Em breve",
+    "title": "Esta lição está sendo gravada.",
+    "body": "{title} está escrito e a caminho. Ele pousa no YouTube primeiro, depois aqui com a lição completa, o questionário e as notas.",
+    "youtube": "Seja notificado no YouTube",
+    "start": "Veja todo o curso"
+  },
+  "capstone": {
+    "seoTitle": "Capstone: construí-lo, demo-lo, obter certificado",
+    "seoDesc": "Final CRM Analytics desafio: uma receita, um painel seguro com ligações, uma previsão. Envie uma demonstração curta e ganhe um certificado de conclusão.",
+    "eyebrow": "Capstone",
+    "title": "Construir. Demo-lo. Certifica-te.",
+    "lead": "Uma construção que usa todo o curso. Grave uma demonstração curta, submeta-a e ganhe seu certificado de conclusão.",
+    "briefTitle": "O desafio",
+    "brief": "Crie um aplicativo Pipeline Health para a Academia em sua própria org.",
+    "r1": "Uma receita que junta oportunidades, contas e produtos sem fãs",
+    "r2": "Um conjunto de dados de instantâneo diário e um gráfico de tendências nele",
+    "r3": "Um painel com uma ligação de selecção e uma ligação de resultados",
+    "r4": "Segurança de nível de linha: representantes veem seus negócios, gerentes sua equipe",
+    "r5": "Uma Einstein Discovery previsão na página de oportunidade",
+    "howTitle": "Como funciona",
+    "h1": "Construa todos os cinco em sua org livre",
+    "h2": "Grave uma demonstração de 3 a 5 minutos (YouTube não listado ou Loom)",
+    "h3": "Enviar o link abaixo",
+    "h4": "Obter feedback, em seguida, seu certificado",
+    "formTitle": "Enviar a sua demonstração",
+    "fTitle": "Título",
+    "fTitlePh": "Aplicativo Pipeline Health",
+    "fVideo": "Ligação de vídeo Demo",
+    "fVideoPh": "https://youtu.be/...",
+    "fShot": "Link de captura de tela (opcional)",
+    "fNotes": "Como cada requisito é cumprido",
+    "fNotesPh": "1. A receita agrega produtos antes da pesquisa...",
+    "submit": "Enviar para revisão",
+    "signIn": "Assinar para enviar",
+    "pending": "Apresentado. A tua demo está a ser revista.",
+    "rejected": "Alterações solicitadas",
+    "approved": "Aprovado. Aqui está o seu certificado.",
+    "credential": "Credencial",
+    "print": "Baixar PDF",
+    "sent": "Obrigado. Revisamos demos dentro de alguns dias."
   }
 }

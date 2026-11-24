@@ -329,10 +329,15 @@ const localeItems = computed(() =>
               <UButton
                 :to="signInTo"
                 size="md"
-                class="h-9 justify-center whitespace-nowrap px-4"
+                class="h-9 justify-center whitespace-nowrap px-4 max-sm:w-9 max-sm:px-0"
                 :aria-label="t('nav.signIn')"
               >
-                {{ t('nav.signIn') }}
+                <!-- An icon on phones, so the header row fits a 360px screen. -->
+                <UIcon
+                  name="i-lucide-log-in"
+                  class="size-[1.125rem] sm:hidden"
+                />
+                <span class="max-sm:sr-only">{{ t('nav.signIn') }}</span>
               </UButton>
             </template>
             <template #fallback>

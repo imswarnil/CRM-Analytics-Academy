@@ -49,6 +49,8 @@ const RETIRED: Record<string, string> = {
   // 2026-11-20: exam papers moved to permalinks (app/utils/exam.ts PAPER_REDIRECTS).
   '/certification/paper-1': '/certification/salesforce-crm-analytics-einstein-consultant-exam-set-1',
   '/leaderboard': '/dashboard',
+  // 2026-11-23: the notes sheet is named after its section's new slug.
+  '/notes/salesforce-foundations': '/notes/foundations',
   '/ask': '/course',
   '/training': '/course',
   '/sales': '/about',
